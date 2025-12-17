@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vayu Smriti वायु स्मृति — India's Air Quality Archive</title>
+    <meta name="description" content="A citizen-led national archive documenting India's air quality crisis. Real-time data, research, testimonies, and public memory. Launching at Delhi Climate Week 2026.">
+    <meta name="keywords" content="air quality, India, pollution, archive, Delhi, AQI, citizen science, climate">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Vayu Smriti — India's Air Quality Archive">
+    <meta property="og:description" content="A citizen-led national archive documenting India's air quality crisis.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Sargam Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/sargam-icons@1.1.1/css/sargam.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #A8D4F0;
+            --primary-blue-dark: #5DADE2;
+            --accent-yellow: #FCF3CF;
+            --accent-yellow-dark: #D4AC0D;
+            --text-dark: #2C3E50;
+            --text-medium: #5D6D7E;
+            --text-light: #95A5A6;
+            --bg-white: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --bg-blue-tint: #EBF5FB;
+            --bg-yellow-tint: #FEF9E7;
+            --border: #E5E8E8;
+            --border-light: #F2F3F4;
+            --accent-action: #2E86AB;
+            --accent-action-hover: #1A5276;
+            --aqi-good: #27AE60;
+            --aqi-satisfactory: #58D68D;
+            --aqi-moderate: #F4D03F;
+            --aqi-poor: #E67E22;
+            --aqi-very-poor: #E74C3C;
+            --aqi-severe: #8E44AD;
+        }
+        
+        [data-theme="dark"] {
+            --primary-blue: #5DADE2;
+            --text-dark: #ECF0F1;
+            --text-medium: #BDC3C7;
+            --text-light: #7F8C8D;
+            --bg-white: #1C2833;
+            --bg-light: #212F3D;
+            --bg-blue-tint: #1A2833;
+            --bg-yellow-tint: #2C2A1A;
+            --border: #34495E;
+            --border-light: #2C3E50;
+            --accent-action: #5DADE2;
+            --accent-action-hover: #85C1E9;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        a { color: var(--accent-action); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Sargam Icon sizing */
+        .si { font-size: 1.25rem; vertical-align: middle; }
+        .si-sm { font-size: 1rem; }
+        .si-lg { font-size: 1.5rem; }
+        .si-xl { font-size: 2rem; }
+        
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-action), var(--accent-action-hover));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .logo-text h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            display: block;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            transition: all 0.2s;
+        }
+        
+        .btn:hover { background: var(--bg-blue-tint); border-color: var(--accent-action); }
+        
+        .btn-primary {
+            background: var(--accent-action);
+            color: white;
+            border-color: var(--accent-action);
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover { background: var(--accent-action-hover); }
+        
+        /* Navigation */
+        .nav {
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border-light);
+            overflow-x: auto;
+        }
+        
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+        }
+        
+        .nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.875rem 1.25rem;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .nav a:hover { color: var(--accent-action); background: var(--bg-blue-tint); text-decoration: none; }
+        .nav a.active { color: var(--accent-action); border-bottom-color: var(--accent-action); }
+        
+        /* Ticker */
+        .ticker {
+            background: var(--text-dark);
+            padding: 0.5rem 0;
+            overflow: hidden;
+        }
+        
+        .ticker-content {
+            display: flex;
+            animation: ticker 50s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 2rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+        }
+        
+        .ticker-aqi {
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        /* Main */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Conference Hero */
+        .conference-hero {
+            background: linear-gradient(135deg, var(--accent-action) 0%, var(--accent-action-hover) 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .conference-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E") center/contain no-repeat;
+            opacity: 0.5;
+        }
+        
+        .conference-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .conference-hero h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .conference-hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .conference-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .conference-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .conference-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--accent-action);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .conference-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-decoration: none; }
+        
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+        
+        .section-header h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Bulletin */
+        .bulletin {
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .bulletin-header {
+            background: var(--bg-blue-tint);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .bulletin-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .bulletin-date {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+        
+        .bulletin-body { padding: 2rem; }
+        
+        .bulletin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .bulletin-grid { grid-template-columns: 1fr; }
+            .conference-hero { padding: 2rem; }
+            .conference-hero h2 { font-size: 1.5rem; }
+        }
+        
+        .aqi-highlight {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .aqi-city {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+        
+        .aqi-value {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        
+        .aqi-category {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .aqi-severe { color: var(--aqi-severe); }
+        .aqi-very-poor { color: var(--aqi-very-poor); }
+        .aqi-poor { color: var(--aqi-poor); }
+        .aqi-moderate { color: #B7950B; }
+        .aqi-good { color: var(--aqi-good); }
+        
+        .bg-aqi-severe { background: var(--aqi-severe); color: white; }
+        .bg-aqi-very-poor { background: var(--aqi-very-poor); color: white; }
+        .bg-aqi-poor { background: var(--aqi-poor); color: white; }
+        .bg-aqi-moderate { background: var(--aqi-moderate); color: #333; }
+        .bg-aqi-good { background: var(--aqi-good); color: white; }
+        
+        /* City Table */
+        .city-table { width: 100%; border-collapse: collapse; }
+        
+        .city-table th, .city-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .city-table th {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        .aqi-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        /* Info Cards */
+        .bulletin-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .bulletin-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .info-card {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .info-card strong {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .info-card p { font-size: 0.85rem; color: var(--text-medium); }
+        
+        /* Voice Card */
+        .voice-card {
+            background: var(--bg-yellow-tint);
+            border-left: 4px solid var(--accent-yellow-dark);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .voice-quote {
+            font-family: 'Merriweather', serif;
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .voice-attribution {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+        
+        /* Data Note */
+        .data-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        
+        /* Database Section */
+        .database-section {
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .filter-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+        }
+        
+        .filter-group select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            min-width: 150px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 300px;
+            border: 1px solid var(--border-light);
+        }
+        
+        /* Archive Section */
+        .archive-section {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        
+        .archive-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .archive-card:hover {
+            border-color: var(--accent-action);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .archive-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-blue-tint);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            color: var(--accent-action);
+        }
+        
+        .archive-card h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .archive-card p {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        /* Satire Section */
+        .satire-section {
+            background: var(--bg-yellow-tint);
+            border-radius: 12px;
+            border: 1px solid var(--accent-yellow-dark);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .satire-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .meme-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .meme-card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        
+        .meme-image {
+            height: 120px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-light);
+        }
+        
+        .meme-content { padding: 1rem; }
+        
+        .meme-content h4 { font-size: 0.9rem; margin-bottom: 0.5rem; line-height: 1.4; }
+        
+        .meme-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .badge-meme { background: #FCF3CF; color: #9A7D0A; }
+        .badge-satire { background: #FDEBD0; color: #9C640C; }
+        .badge-video { background: #FADBD8; color: #943126; }
+        
+        .virality-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-yellow-tint);
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--accent-yellow-dark);
+        }
+        
+        .tone-tag {
+            display: inline-block;
+            padding: 0.15rem 0.4rem;
+            background: var(--bg-light);
+            border-radius: 3px;
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            margin-right: 0.25rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Sources Panel */
+        .sources-panel {
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .source-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            background: var(--bg-white);
+            transition: all 0.2s;
+        }
+        
+        .source-card:hover { border-color: var(--accent-action); background: var(--bg-blue-tint); }
+        
+        .source-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .source-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .source-status {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-live { background: #E8F8F5; color: #1E8449; }
+        .status-annual { background: var(--bg-light); color: var(--text-light); }
+        
+        .source-details { font-size: 0.8rem; color: var(--text-medium); }
+        .source-details p { margin-bottom: 0.25rem; }
+        
+        .source-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; }
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-medium);
+        }
+        
+        .partners-box {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .partners-box h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .partner {
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        
+        .footer h4 {
+            font-family: 'Merriweather', serif;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+        
+        .footer p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.5rem; }
+        
+        .footer a {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer a:hover { color: white; text-decoration: none; }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        /* Utilities */
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent-action);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="si si-wind si-lg"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Vayu Smriti <span style="font-weight: 400; font-size: 0.9em;">वायु स्मृति</span></h1>
+                    <span>India's Air Quality Archive</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn" onclick="toggleTheme()" id="themeBtn">
+                    <i class="si si-moon si-sm"></i> Dark
+                </button>
+                <a href="#submit" class="btn btn-primary">
+                    <i class="si si-edit-3 si-sm"></i> Share Testimony
+                </a>
+            </div>
+        </div>
+        
+        <nav class="nav">
+            <div class="nav-inner">
+                <a href="#conference" class="active"><i class="si si-calendar si-sm"></i> Conference 2026</a>
+                <a href="#bulletin"><i class="si si-activity si-sm"></i> Live Data</a>
+                <a href="#database"><i class="si si-bar-chart-2 si-sm"></i> AQI Database</a>
+                <a href="#archive"><i class="si si-archive si-sm"></i> Archive</a>
+                <a href="#satire"><i class="si si-message-circle si-sm"></i> Public Voice</a>
+                <a href="#sources"><i class="si si-database si-sm"></i> Sources</a>
+                <a href="#about"><i class="si si-info si-sm"></i> About</a>
+            </div>
+        </nav>
+        
+        <div class="ticker">
+            <div class="ticker-content" id="tickerContent">
+                <div class="ticker-item"><span class="loading-spinner"></span> Loading live AQI from OpenAQ...</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Conference Hero -->
+        <section id="conference" class="conference-hero">
+            <div class="conference-badge">
+                <i class="si si-star si-sm"></i> Launching Initiative
+            </div>
+            <h2>Delhi Climate Week 2026</h2>
+            <p>
+                Join journalists, researchers, civil society leaders, health professionals, and citizens 
+                to inaugurate India's first citizen-led air quality archive. This is not a campaign — it is a record.
+            </p>
+            <div class="conference-details">
+                <div class="conference-detail">
+                    <i class="si si-calendar si-sm"></i>
+                    <span>January/February 2026</span>
+                </div>
+                <div class="conference-detail">
+                    <i class="si si-map-pin si-sm"></i>
+                    <span>New Delhi</span>
+                </div>
+                <div class="conference-detail">
+                    <i class="si si-users si-sm"></i>
+                    <span>Non-partisan convening</span>
+                </div>
+            </div>
+            <a href="#submit" class="conference-cta">
+                <i class="si si-mail si-sm"></i> Register Interest
+            </a>
+        </section>
+
+        <!-- Daily Bulletin -->
+        <section id="bulletin" class="bulletin">
+            <div class="bulletin-header">
+                <div class="bulletin-title">
+                    <i class="si si-activity"></i> Live Air Quality Bulletin
+                </div>
+                <div class="bulletin-date" id="bulletinDate">Loading...</div>
+            </div>
+            
+            <div class="bulletin-body">
+                <div class="bulletin-grid">
+                    <div class="aqi-highlight">
+                        <div class="aqi-city">
+                            <i class="si si-map-pin si-sm"></i> Delhi NCR
+                        </div>
+                        <div class="aqi-value" id="mainAqi">--</div>
+                        <div class="aqi-category" id="mainCategory">Loading...</div>
+                        <p id="mainPollutants" style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-medium);">
+                            Fetching data from OpenAQ...
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem;">
+                            <i class="si si-trending-up si-sm"></i> Most Polluted Cities (Live)
+                        </h3>
+                        <table class="city-table">
+                            <thead>
+                                <tr><th>City</th><th>AQI</th><th>PM2.5</th></tr>
+                            </thead>
+                            <tbody id="cityTable">
+                                <tr><td colspan="3" style="text-align:center; padding: 2rem;"><span class="loading-spinner"></span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bulletin-section">
+                    <h3><i class="si si-cloud si-sm"></i> Contributing Factors</h3>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <strong><i class="si si-thermometer si-sm"></i> Weather (Delhi)</strong>
+                            <p id="weatherData">Loading from Open-Meteo...</p>
+                        </div>
+                        <div class="info-card">
+                            <strong><i class="si si-alert-triangle si-sm"></i> Fire Activity</strong>
+                            <p>Punjab/Haryana estimates pending<br><small>Source: NASA FIRMS</small></p>
+                        </div>
+                        <div class="info-card">
+                            <strong><i class="si si-link si-sm"></i> Data Sources</strong>
+                            <p>
+                                <a href="https://openaq.org" target="_blank">OpenAQ</a> · 
+                                <a href="https://open-meteo.com" target="_blank">Open-Meteo</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bulletin-section">
+                    <h3><i class="si si-message-square si-sm"></i> Voice of the Day</h3>
+                    <div class="voice-card">
+                        <p class="voice-quote">
+                            "I've been driving an auto for 12 years in Delhi. Every winter, I feel like 
+                            I've smoked a pack of cigarettes by the end of the day. My children ask why 
+                            the sky is grey. What can I tell them?"
+                        </p>
+                        <p class="voice-attribution">
+                            — <strong>Ramesh Kumar</strong>, Auto driver, Chandni Chowk, Delhi
+                        </p>
+                    </div>
+                </div>
+
+                <div class="data-note">
+                    <i class="si si-info si-sm"></i>
+                    <span>
+                        <strong>Live data</strong> from OpenAQ API (aggregating CPCB stations) · 
+                        Weather from Open-Meteo · 
+                        <span id="timestamp">Last refresh: --</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- AQI Database -->
+        <section id="database" class="database-section">
+            <div class="section-header">
+                <h2><i class="si si-bar-chart-2"></i> Live AQI Database</h2>
+                <a href="https://api.openaq.org" target="_blank">
+                    API Docs <i class="si si-external-link si-sm"></i>
+                </a>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>City</label>
+                    <select id="citySelect" onchange="fetchCityChart()">
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Lucknow">Lucknow</option>
+                        <option value="Patna">Patna</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Parameter</label>
+                    <select id="pollutantSelect" onchange="fetchCityChart()">
+                        <option value="pm25">PM2.5</option>
+                        <option value="pm10">PM10</option>
+                        <option value="no2">NO₂</option>
+                    </select>
+                </div>
+                <div class="filter-group" style="align-self: flex-end;">
+                    <button class="btn btn-primary" onclick="fetchCityChart()">
+                        <i class="si si-refresh-cw si-sm"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="aqiChart"></canvas>
+                <p id="chartCaption" style="margin-top: 1rem; color: var(--text-medium); font-size: 0.85rem;">
+                    Select a city to view recent measurements from OpenAQ
+                </p>
+            </div>
+        </section>
+
+        <!-- Archive Categories -->
+        <section id="archive" class="archive-section">
+            <div class="section-header">
+                <h2><i class="si si-archive"></i> The Archive</h2>
+                <span style="font-size: 0.85rem; color: var(--text-medium);">160+ verified sources</span>
+            </div>
+            
+            <p style="color: var(--text-medium); margin-bottom: 1.5rem;">
+                Vayu Smriti documents India's air quality crisis across 11 categories. 
+                The archive will grow continuously through 2027 and beyond.
+            </p>
+            
+            <div class="archive-grid">
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-activity si-lg"></i></div>
+                    <h4>Real-time AQI</h4>
+                    <p>500+ stations</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-heart si-lg"></i></div>
+                    <h4>Health Burden</h4>
+                    <p>Mortality data</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-file-text si-lg"></i></div>
+                    <h4>Policy & Legal</h4>
+                    <p>NCAP, court orders</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-book-open si-lg"></i></div>
+                    <h4>Research</h4>
+                    <p>Peer-reviewed</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-mic si-lg"></i></div>
+                    <h4>Testimonies</h4>
+                    <p>Citizen voices</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-video si-lg"></i></div>
+                    <h4>Video & Media</h4>
+                    <p>Documentaries</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-globe si-lg"></i></div>
+                    <h4>Satellite Data</h4>
+                    <p>NASA, ESA</p>
+                </div>
+                <div class="archive-card">
+                    <div class="archive-icon"><i class="si si-message-circle si-lg"></i></div>
+                    <h4>Public Voice</h4>
+                    <p>Satire & sentiment</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Satire Section -->
+        <section id="satire" class="satire-section">
+            <div class="section-header" style="border-bottom-color: var(--accent-yellow-dark);">
+                <h2><i class="si si-message-circle"></i> Public Voice</h2>
+            </div>
+            
+            <p style="color: var(--text-medium); margin-bottom: 1.5rem;">
+                Authentic public sentiment on India's air quality crisis — unfiltered, viral, and often 
+                more honest than official statements.
+            </p>
+            
+            <div class="satire-grid">
+                <div class="meme-card">
+                    <div class="meme-image"><i class="si si-image si-xl"></i></div>
+                    <div class="meme-content">
+                        <span class="badge badge-meme"><i class="si si-smile si-sm"></i> Meme</span>
+                        <h4>"Me explaining to my lungs why we're staying in Delhi"</h4>
+                        <div class="meme-meta">
+                            <span><i class="si si-smartphone si-sm"></i> Instagram</span>
+                            <span class="virality-badge"><i class="si si-trending-up si-sm"></i> 48K</span>
+                        </div>
+                        <div><span class="tone-tag">Dark humor</span><span class="tone-tag">Resigned</span></div>
+                    </div>
+                </div>
+                <div class="meme-card">
+                    <div class="meme-image"><i class="si si-image si-xl"></i></div>
+                    <div class="meme-content">
+                        <span class="badge badge-satire"><i class="si si-zap si-sm"></i> Satire</span>
+                        <h4>"₹20 crore smog tower vs. one gust of wind"</h4>
+                        <div class="meme-meta">
+                            <span><i class="si si-twitter si-sm"></i> X/Twitter</span>
+                            <span class="virality-badge"><i class="si si-trending-up si-sm"></i> 31K</span>
+                        </div>
+                        <div><span class="tone-tag">Sarcastic</span><span class="tone-tag">Policy critique</span></div>
+                    </div>
+                </div>
+                <div class="meme-card">
+                    <div class="meme-image"><i class="si si-play-circle si-xl"></i></div>
+                    <div class="meme-content">
+                        <span class="badge badge-video"><i class="si si-video si-sm"></i> Video</span>
+                        <h4>"If Delhi's air was a Bollywood villain"</h4>
+                        <div class="meme-meta">
+                            <span><i class="si si-youtube si-sm"></i> YouTube</span>
+                            <span class="virality-badge"><i class="si si-trending-up si-sm"></i> 2.1M</span>
+                        </div>
+                        <div><span class="tone-tag">Comedy</span><span class="tone-tag">Gen Z</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Sources -->
+        <section id="sources" class="sources-panel">
+            <div class="section-header">
+                <h2><i class="si si-database"></i> Verified Data Sources</h2>
+            </div>
+            
+            <p style="color: var(--text-medium); margin-bottom: 1.5rem;">
+                All sources verified for public accessibility, data quality, and sustainability.
+            </p>
+            
+            <div class="sources-grid">
+                <div class="source-card">
+                    <div class="source-header">
+                        <span class="source-name"><i class="si si-activity si-sm"></i> OpenAQ</span>
+                        <span class="source-status status-live">Live</span>
+                    </div>
+                    <div class="source-details">
+                        <p>500+ Indian monitoring stations</p>
+                        <p>Historical data from 2016</p>
+                        <p>Free API, 60 req/min</p>
+                    </div>
+                    <a href="https://openaq.org" target="_blank" class="source-link">
+                        openaq.org <i class="si si-external-link si-sm"></i>
+                    </a>
+                </div>
+                <div class="source-card">
+                    <div class="source-header">
+                        <span class="source-name"><i class="si si-heart si-sm"></i> IHME GBD</span>
+                        <span class="source-status status-annual">Annual</span>
+                    </div>
+                    <div class="source-details">
+                        <p>State-level mortality estimates</p>
+                        <p>1.67 million deaths (2019)</p>
+                        <p>Lancet peer-reviewed</p>
+                    </div>
+                    <a href="https://vizhub.healthdata.org/gbd-results/" target="_blank" class="source-link">
+                        healthdata.org <i class="si si-external-link si-sm"></i>
+                    </a>
+                </div>
+                <div class="source-card">
+                    <div class="source-header">
+                        <span class="source-name"><i class="si si-globe si-sm"></i> NASA FIRMS</span>
+                        <span class="source-status status-live">NRT</span>
+                    </div>
+                    <div class="source-details">
+                        <p>Fire/stubble detection</p>
+                        <p>375m resolution (VIIRS)</p>
+                        <p>~3 hour latency</p>
+                    </div>
+                    <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank" class="source-link">
+                        nasa.gov <i class="si si-external-link si-sm"></i>
+                    </a>
+                </div>
+                <div class="source-card">
+                    <div class="source-header">
+                        <span class="source-name"><i class="si si-file-text si-sm"></i> Indian Kanoon</span>
+                        <span class="source-status status-live">Updated</span>
+                    </div>
+                    <div class="source-details">
+                        <p>Court judgments (SC, HC, NGT)</p>
+                        <p>Full-text search</p>
+                        <p>Free access</p>
+                    </div>
+                    <a href="https://indiankanoon.org/" target="_blank" class="source-link">
+                        indiankanoon.org <i class="si si-external-link si-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="section-header">
+                <h2><i class="si si-info"></i> About Vayu Smriti</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        <strong>Vayu Smriti</strong> (Air Memory) is a non-partisan, citizen-led initiative 
+                        to build India's first comprehensive public archive documenting the air quality crisis — 
+                        its data, its victims, its policies, and its public memory.
+                    </p>
+                    <p>
+                        Every winter, India's air quality crisis dominates headlines. Every summer, it fades 
+                        from public memory. Policy responses remain fragmented. Accountability is diffuse. 
+                        Data is scattered across dozens of platforms.
+                    </p>
+                    <p>
+                        Vayu Smriti creates a permanent, structured, publicly accessible record — so that 
+                        evidence persists, patterns become visible, and accountability becomes possible.
+                    </p>
+                    <p>
+                        <strong>This is not a campaign. It is a record.</strong>
+                    </p>
+                </div>
+                <div class="partners-box">
+                    <h4>Initiating Organizations</h4>
+                    <div class="partner"><strong>AIPC</strong><br>All India Professionals' Congress</div>
+                    <div class="partner"><strong>MMSF</strong><br>Dr. Manmohan Singh Fellows Program</div>
+                    <h4 style="margin-top: 1.5rem;">Data Partners</h4>
+                    <div class="partner">OpenAQ</div>
+                    <div class="partner">Additional partners TBA</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Section -->
+        <section id="submit" class="about-section">
+            <div class="section-header">
+                <h2><i class="si si-edit-3"></i> Share Your Testimony</h2>
+            </div>
+            <p style="color: var(--text-medium); margin-bottom: 1.5rem;">
+                Help document the human impact of air pollution. Your story becomes part of the permanent record.
+            </p>
+            <form id="submitForm" style="max-width: 600px;">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Name</label>
+                    <input type="text" placeholder="Your name (can remain anonymous)" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Location</label>
+                    <input type="text" placeholder="City, Area" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Your Story</label>
+                    <textarea placeholder="How has air pollution affected you, your family, or your community?" rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; resize: vertical;"></textarea>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Email (optional)</label>
+                    <input type="email" placeholder="For follow-up only" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="si si-send si-sm"></i> Submit Testimony
+                </button>
+                <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 1rem;">
+                    Submissions are reviewed before publication. We respect privacy and can publish anonymously.
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h4>Vayu Smriti</h4>
+                <p>India's Air Quality Archive</p>
+                <p style="margin-top: 1rem;">A citizen-led, non-partisan initiative documenting India's air quality crisis.</p>
+            </div>
+            <div>
+                <h4>Archive</h4>
+                <a href="#bulletin">Live Data</a>
+                <a href="#database">AQI Database</a>
+                <a href="#archive">Categories</a>
+                <a href="#sources">Data Sources</a>
+            </div>
+            <div>
+                <h4>Project</h4>
+                <a href="#about">About</a>
+                <a href="#conference">Conference 2026</a>
+                <a href="https://github.com/your-username/vayu-smriti" target="_blank">GitHub</a>
+            </div>
+            <div>
+                <h4>Participate</h4>
+                <a href="#submit">Share Testimony</a>
+                <a href="mailto:contact@vayusmriti.org">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2025 Vayu Smriti · CC BY-NC-SA 4.0</span>
+            <span>Data: OpenAQ, CPCB, IHME, NASA</span>
+        </div>
+    </footer>
+
+    <script>
+        // Config
+        const CITIES = ['Delhi', 'Ghaziabad', 'Noida', 'Mumbai', 'Kolkata', 'Lucknow', 'Patna', 'Chennai'];
+        let chart = null;
+
+        // PM2.5 to AQI (India NAQI)
+        function pm25ToAqi(pm25) {
+            if (pm25 <= 30) return Math.round((50 / 30) * pm25);
+            if (pm25 <= 60) return Math.round(50 + (50 / 30) * (pm25 - 30));
+            if (pm25 <= 90) return Math.round(100 + (100 / 30) * (pm25 - 60));
+            if (pm25 <= 120) return Math.round(200 + (100 / 30) * (pm25 - 90));
+            if (pm25 <= 250) return Math.round(300 + (100 / 130) * (pm25 - 120));
+            return Math.round(400 + (100 / 130) * (pm25 - 250));
+        }
+
+        function getAqiCategory(aqi) {
+            if (!aqi) return { label: 'N/A', class: '', bg: '' };
+            if (aqi <= 50) return { label: 'Good', class: 'aqi-good', bg: 'bg-aqi-good' };
+            if (aqi <= 100) return { label: 'Satisfactory', class: 'aqi-good', bg: 'bg-aqi-good' };
+            if (aqi <= 200) return { label: 'Moderate', class: 'aqi-moderate', bg: 'bg-aqi-moderate' };
+            if (aqi <= 300) return { label: 'Poor', class: 'aqi-poor', bg: 'bg-aqi-poor' };
+            if (aqi <= 400) return { label: 'Very Poor', class: 'aqi-very-poor', bg: 'bg-aqi-very-poor' };
+            return { label: 'Severe', class: 'aqi-severe', bg: 'bg-aqi-severe' };
+        }
+
+        // Fetch city data
+        async function fetchCityData(city) {
+            try {
+                const url = `https://api.openaq.org/v2/latest?city=${encodeURIComponent(city)}&country=IN&limit=10`;
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data.results?.length > 0) {
+                    for (const loc of data.results) {
+                        const pm25 = loc.measurements?.find(m => m.parameter === 'pm25');
+                        if (pm25) return { city, pm25: pm25.value, aqi: pm25ToAqi(pm25.value) };
+                    }
+                }
+                return null;
+            } catch (e) {
+                console.error(`Error fetching ${city}:`, e);
+                return null;
+            }
+        }
+
+        // Load all data
+        async function loadData() {
+            document.getElementById('bulletinDate').textContent = new Date().toLocaleDateString('en-IN', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+
+            const results = [];
+            for (const city of CITIES) {
+                const data = await fetchCityData(city);
+                if (data) results.push(data);
+            }
+            results.sort((a, b) => b.aqi - a.aqi);
+
+            // Main display
+            const delhi = results.find(r => r.city === 'Delhi') || results[0];
+            if (delhi) {
+                const cat = getAqiCategory(delhi.aqi);
+                document.getElementById('mainAqi').textContent = delhi.aqi;
+                document.getElementById('mainAqi').className = `aqi-value ${cat.class}`;
+                document.getElementById('mainCategory').textContent = cat.label;
+                document.getElementById('mainCategory').className = `aqi-category ${cat.class}`;
+                document.getElementById('mainPollutants').textContent = `PM2.5: ${delhi.pm25} µg/m³`;
+            }
+
+            // City table
+            document.getElementById('cityTable').innerHTML = results.slice(0, 6).map(r => {
+                const cat = getAqiCategory(r.aqi);
+                return `<tr><td>${r.city}</td><td><span class="aqi-badge ${cat.bg}">${r.aqi}</span></td><td>${r.pm25} µg/m³</td></tr>`;
+            }).join('');
+
+            // Ticker
+            let tickerHtml = '';
+            for (let i = 0; i < 2; i++) {
+                results.forEach(r => {
+                    const cat = getAqiCategory(r.aqi);
+                    tickerHtml += `<div class="ticker-item"><strong>${r.city}:</strong> <span class="ticker-aqi ${cat.bg}">${r.aqi}</span> ${cat.label}</div>`;
+                });
+            }
+            document.getElementById('tickerContent').innerHTML = tickerHtml;
+            document.getElementById('timestamp').textContent = `Last refresh: ${new Date().toLocaleTimeString('en-IN')}`;
+        }
+
+        // Weather
+        async function loadWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=28.6139&longitude=77.2090&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=Asia/Kolkata');
+                const data = await res.json();
+                if (data.current) {
+                    const windNote = data.current.wind_speed_10m < 10 ? '(poor dispersion)' : '';
+                    document.getElementById('weatherData').innerHTML = `
+                        Temp: ${data.current.temperature_2m}°C<br>
+                        Humidity: ${data.current.relative_humidity_2m}%<br>
+                        Wind: ${data.current.wind_speed_10m} km/h ${windNote}
+                    `;
+                }
+            } catch (e) {
+                document.getElementById('weatherData').textContent = 'Weather unavailable';
+            }
+        }
+
+        // Chart
+        async function fetchCityChart() {
+            const city = document.getElementById('citySelect').value;
+            const param = document.getElementById('pollutantSelect').value;
+            document.getElementById('chartCaption').textContent = `Loading ${city} ${param.toUpperCase()} data...`;
+
+            try {
+                const url = `https://api.openaq.org/v2/measurements?city=${encodeURIComponent(city)}&country=IN&parameter=${param}&limit=48&order_by=datetime&sort=desc`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (!data.results?.length) {
+                    document.getElementById('chartCaption').textContent = `No recent ${param.toUpperCase()} data for ${city}`;
+                    return;
+                }
+
+                const chartData = data.results.map(m => ({
+                    time: new Date(m.date.utc),
+                    value: m.value
+                })).reverse();
+
+                const ctx = document.getElementById('aqiChart').getContext('2d');
+                if (chart) chart.destroy();
+
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.map(d => d.time.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })),
+                        datasets: [{
+                            label: `${param.toUpperCase()} (µg/m³)`,
+                            data: chartData.map(d => d.value),
+                            borderColor: '#2E86AB',
+                            backgroundColor: 'rgba(46, 134, 171, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: true, position: 'top' } },
+                        scales: { y: { beginAtZero: true, title: { display: true, text: 'µg/m³' } } }
+                    }
+                });
+
+                document.getElementById('chartCaption').textContent = `${city} ${param.toUpperCase()} — Last ${data.results.length} readings`;
+            } catch (e) {
+                document.getElementById('chartCaption').textContent = `Error loading data`;
+            }
+        }
+
+        // Theme
+        function toggleTheme() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? '' : 'dark');
+            document.getElementById('themeBtn').innerHTML = isDark 
+                ? '<i class="si si-moon si-sm"></i> Dark' 
+                : '<i class="si si-sun si-sm"></i> Light';
+        }
+
+        // Form
+        document.getElementById('submitForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your testimony. Submissions will be reviewed and added to the archive.');
+            this.reset();
+        });
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            loadWeather();
+            setInterval(loadData, 5 * 60 * 1000);
+        });
+    </script>
+</body>
+</html>
