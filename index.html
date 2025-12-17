@@ -5,28 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vayu Smriti वायु स्मृति — India's Air Quality Archive</title>
     <meta name="description" content="A citizen-led national archive documenting India's air quality crisis. Real-time data, research, testimonies, and public memory. Launching at Delhi Climate Week 2026.">
-    <meta name="keywords" content="air quality, India, pollution, archive, Delhi, AQI, citizen science, climate">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="Vayu Smriti — India's Air Quality Archive">
-    <meta property="og:description" content="A citizen-led national archive documenting India's air quality crisis.">
-    <meta property="og:type" content="website">
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Sargam Icons -->
     <link rel="stylesheet" href="https://unpkg.com/sargam-icons@1.1.1/css/sargam.css">
-    
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
             --primary-blue: #A8D4F0;
-            --primary-blue-dark: #5DADE2;
             --accent-yellow: #FCF3CF;
             --accent-yellow-dark: #D4AC0D;
             --text-dark: #2C3E50;
@@ -41,7 +29,6 @@
             --accent-action: #2E86AB;
             --accent-action-hover: #1A5276;
             --aqi-good: #27AE60;
-            --aqi-satisfactory: #58D68D;
             --aqi-moderate: #F4D03F;
             --aqi-poor: #E67E22;
             --aqi-very-poor: #E74C3C;
@@ -60,7 +47,6 @@
             --border: #34495E;
             --border-light: #2C3E50;
             --accent-action: #5DADE2;
-            --accent-action-hover: #85C1E9;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -76,13 +62,11 @@
         a { color: var(--accent-action); text-decoration: none; }
         a:hover { text-decoration: underline; }
         
-        /* Sargam Icon sizing */
         .si { font-size: 1.25rem; vertical-align: middle; }
         .si-sm { font-size: 1rem; }
         .si-lg { font-size: 1.5rem; }
         .si-xl { font-size: 2rem; }
         
-        /* Header */
         .header {
             background: var(--bg-white);
             border-bottom: 1px solid var(--border);
@@ -148,6 +132,7 @@
             font-size: 0.85rem;
             color: var(--text-dark);
             transition: all 0.2s;
+            font-family: inherit;
         }
         
         .btn:hover { background: var(--bg-blue-tint); border-color: var(--accent-action); }
@@ -161,7 +146,6 @@
         
         .btn-primary:hover { background: var(--accent-action-hover); }
         
-        /* Navigation */
         .nav {
             background: var(--bg-light);
             border-bottom: 1px solid var(--border-light);
@@ -190,7 +174,6 @@
         .nav a:hover { color: var(--accent-action); background: var(--bg-blue-tint); text-decoration: none; }
         .nav a.active { color: var(--accent-action); border-bottom-color: var(--accent-action); }
         
-        /* Ticker */
         .ticker {
             background: var(--text-dark);
             padding: 0.5rem 0;
@@ -224,14 +207,12 @@
             font-size: 0.8rem;
         }
         
-        /* Main */
         .main {
             max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
         
-        /* Conference Hero */
         .conference-hero {
             background: linear-gradient(135deg, var(--accent-action) 0%, var(--accent-action-hover) 100%);
             border-radius: 16px;
@@ -240,17 +221,6 @@
             color: white;
             position: relative;
             overflow: hidden;
-        }
-        
-        .conference-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E") center/contain no-repeat;
-            opacity: 0.5;
         }
         
         .conference-badge {
@@ -269,7 +239,6 @@
             font-family: 'Merriweather', serif;
             font-size: 2rem;
             margin-bottom: 0.75rem;
-            position: relative;
         }
         
         .conference-hero p {
@@ -277,7 +246,6 @@
             opacity: 0.95;
             max-width: 700px;
             margin-bottom: 1.5rem;
-            position: relative;
         }
         
         .conference-details {
@@ -285,7 +253,6 @@
             flex-wrap: wrap;
             gap: 1.5rem;
             margin-bottom: 1.5rem;
-            position: relative;
         }
         
         .conference-detail {
@@ -305,12 +272,10 @@
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.2s;
-            position: relative;
         }
         
         .conference-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-decoration: none; }
         
-        /* Section Headers */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -328,7 +293,6 @@
             gap: 0.5rem;
         }
         
-        /* Bulletin */
         .bulletin {
             background: var(--bg-white);
             border-radius: 12px;
@@ -352,11 +316,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-        
-        .bulletin-date {
-            font-size: 0.85rem;
-            color: var(--text-medium);
         }
         
         .bulletin-body { padding: 2rem; }
@@ -418,7 +377,6 @@
         .bg-aqi-moderate { background: var(--aqi-moderate); color: #333; }
         .bg-aqi-good { background: var(--aqi-good); color: white; }
         
-        /* City Table */
         .city-table { width: 100%; border-collapse: collapse; }
         
         .city-table th, .city-table td {
@@ -443,7 +401,6 @@
             font-size: 0.85rem;
         }
         
-        /* Info Cards */
         .bulletin-section {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -482,7 +439,6 @@
         
         .info-card p { font-size: 0.85rem; color: var(--text-medium); }
         
-        /* Voice Card */
         .voice-card {
             background: var(--bg-yellow-tint);
             border-left: 4px solid var(--accent-yellow-dark);
@@ -503,7 +459,17 @@
             color: var(--text-medium);
         }
         
-        /* Data Note */
+        .status-msg {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status-info { background: var(--bg-blue-tint); color: var(--accent-action); }
+        .status-error { background: #FDEDEC; color: #C0392B; }
+        .status-success { background: #E8F8F5; color: #1E8449; }
+        
         .data-note {
             margin-top: 1.5rem;
             padding: 1rem;
@@ -516,7 +482,6 @@
             gap: 0.5rem;
         }
         
-        /* Database Section */
         .database-section {
             background: var(--bg-white);
             border-radius: 12px;
@@ -556,6 +521,7 @@
             background: var(--bg-white);
             color: var(--text-dark);
             font-size: 0.9rem;
+            font-family: inherit;
         }
         
         .chart-container {
@@ -564,9 +530,9 @@
             padding: 1.5rem;
             min-height: 300px;
             border: 1px solid var(--border-light);
+            position: relative;
         }
         
-        /* Archive Section */
         .archive-section {
             background: var(--bg-light);
             border-radius: 12px;
@@ -618,7 +584,6 @@
             color: var(--text-light);
         }
         
-        /* Satire Section */
         .satire-section {
             background: var(--bg-yellow-tint);
             border-radius: 12px;
@@ -654,7 +619,6 @@
         }
         
         .meme-content { padding: 1rem; }
-        
         .meme-content h4 { font-size: 0.9rem; margin-bottom: 0.5rem; line-height: 1.4; }
         
         .meme-meta {
@@ -703,7 +667,6 @@
             margin-top: 0.5rem;
         }
         
-        /* Sources Panel */
         .sources-panel {
             background: var(--bg-white);
             border-radius: 12px;
@@ -766,7 +729,6 @@
             font-weight: 500;
         }
         
-        /* About Section */
         .about-section {
             background: var(--bg-white);
             border-radius: 12px;
@@ -809,7 +771,6 @@
             font-size: 0.9rem;
         }
         
-        /* Footer */
         .footer {
             background: var(--text-dark);
             color: white;
@@ -860,7 +821,6 @@
             opacity: 0.7;
         }
         
-        /* Utilities */
         .loading-spinner {
             display: inline-block;
             width: 18px;
@@ -872,6 +832,8 @@
         }
         
         @keyframes spin { to { transform: rotate(360deg); } }
+        
+        input, textarea, select { font-family: inherit; }
     </style>
 </head>
 <body>
@@ -909,14 +871,11 @@
         </nav>
         
         <div class="ticker">
-            <div class="ticker-content" id="tickerContent">
-                <div class="ticker-item"><span class="loading-spinner"></span> Loading live AQI from OpenAQ...</div>
-            </div>
+            <div class="ticker-content" id="tickerContent"></div>
         </div>
     </header>
 
     <main class="main">
-        <!-- Conference Hero -->
         <section id="conference" class="conference-hero">
             <div class="conference-badge">
                 <i class="si si-star si-sm"></i> Launching Initiative
@@ -945,31 +904,32 @@
             </a>
         </section>
 
-        <!-- Daily Bulletin -->
         <section id="bulletin" class="bulletin">
             <div class="bulletin-header">
                 <div class="bulletin-title">
                     <i class="si si-activity"></i> Live Air Quality Bulletin
                 </div>
-                <div class="bulletin-date" id="bulletinDate">Loading...</div>
+                <div class="bulletin-date" id="bulletinDate"></div>
             </div>
             
             <div class="bulletin-body">
+                <div id="apiStatus"></div>
+                
                 <div class="bulletin-grid">
                     <div class="aqi-highlight">
                         <div class="aqi-city">
-                            <i class="si si-map-pin si-sm"></i> Delhi NCR
+                            <i class="si si-map-pin si-sm"></i> <span id="mainCityName">Delhi NCR</span>
                         </div>
                         <div class="aqi-value" id="mainAqi">--</div>
                         <div class="aqi-category" id="mainCategory">Loading...</div>
                         <p id="mainPollutants" style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-medium);">
-                            Fetching data from OpenAQ...
+                            Fetching data...
                         </p>
                     </div>
                     
                     <div>
                         <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem;">
-                            <i class="si si-trending-up si-sm"></i> Most Polluted Cities (Live)
+                            <i class="si si-trending-up si-sm"></i> City Air Quality
                         </h3>
                         <table class="city-table">
                             <thead>
@@ -987,16 +947,16 @@
                     <div class="info-grid">
                         <div class="info-card">
                             <strong><i class="si si-thermometer si-sm"></i> Weather (Delhi)</strong>
-                            <p id="weatherData">Loading from Open-Meteo...</p>
+                            <p id="weatherData">Loading...</p>
                         </div>
                         <div class="info-card">
                             <strong><i class="si si-alert-triangle si-sm"></i> Fire Activity</strong>
-                            <p>Punjab/Haryana estimates pending<br><small>Source: NASA FIRMS</small></p>
+                            <p>Punjab/Haryana stubble burning data<br><small>Source: NASA FIRMS</small></p>
                         </div>
                         <div class="info-card">
                             <strong><i class="si si-link si-sm"></i> Data Sources</strong>
                             <p>
-                                <a href="https://openaq.org" target="_blank">OpenAQ</a> · 
+                                <a href="https://openaq.org" target="_blank">OpenAQ</a> | 
                                 <a href="https://open-meteo.com" target="_blank">Open-Meteo</a>
                             </p>
                         </div>
@@ -1019,20 +979,15 @@
 
                 <div class="data-note">
                     <i class="si si-info si-sm"></i>
-                    <span>
-                        <strong>Live data</strong> from OpenAQ API (aggregating CPCB stations) · 
-                        Weather from Open-Meteo · 
-                        <span id="timestamp">Last refresh: --</span>
-                    </span>
+                    <span id="timestamp">Loading data...</span>
                 </div>
             </div>
         </section>
 
-        <!-- AQI Database -->
         <section id="database" class="database-section">
             <div class="section-header">
-                <h2><i class="si si-bar-chart-2"></i> Live AQI Database</h2>
-                <a href="https://api.openaq.org" target="_blank">
+                <h2><i class="si si-bar-chart-2"></i> AQI Database</h2>
+                <a href="https://docs.openaq.org" target="_blank">
                     API Docs <i class="si si-external-link si-sm"></i>
                 </a>
             </div>
@@ -1040,7 +995,7 @@
             <div class="filter-bar">
                 <div class="filter-group">
                     <label>City</label>
-                    <select id="citySelect" onchange="fetchCityChart()">
+                    <select id="citySelect">
                         <option value="Delhi">Delhi</option>
                         <option value="Mumbai">Mumbai</option>
                         <option value="Kolkata">Kolkata</option>
@@ -1052,15 +1007,15 @@
                 </div>
                 <div class="filter-group">
                     <label>Parameter</label>
-                    <select id="pollutantSelect" onchange="fetchCityChart()">
+                    <select id="pollutantSelect">
                         <option value="pm25">PM2.5</option>
                         <option value="pm10">PM10</option>
-                        <option value="no2">NO₂</option>
+                        <option value="no2">NO2</option>
                     </select>
                 </div>
                 <div class="filter-group" style="align-self: flex-end;">
                     <button class="btn btn-primary" onclick="fetchCityChart()">
-                        <i class="si si-refresh-cw si-sm"></i> Refresh
+                        <i class="si si-refresh-cw si-sm"></i> Load Chart
                     </button>
                 </div>
             </div>
@@ -1068,12 +1023,11 @@
             <div class="chart-container">
                 <canvas id="aqiChart"></canvas>
                 <p id="chartCaption" style="margin-top: 1rem; color: var(--text-medium); font-size: 0.85rem;">
-                    Select a city to view recent measurements from OpenAQ
+                    Click "Load Chart" to fetch historical data from OpenAQ
                 </p>
             </div>
         </section>
 
-        <!-- Archive Categories -->
         <section id="archive" class="archive-section">
             <div class="section-header">
                 <h2><i class="si si-archive"></i> The Archive</h2>
@@ -1129,7 +1083,6 @@
             </div>
         </section>
 
-        <!-- Satire Section -->
         <section id="satire" class="satire-section">
             <div class="section-header" style="border-bottom-color: var(--accent-yellow-dark);">
                 <h2><i class="si si-message-circle"></i> Public Voice</h2>
@@ -1147,7 +1100,7 @@
                         <span class="badge badge-meme"><i class="si si-smile si-sm"></i> Meme</span>
                         <h4>"Me explaining to my lungs why we're staying in Delhi"</h4>
                         <div class="meme-meta">
-                            <span><i class="si si-smartphone si-sm"></i> Instagram</span>
+                            <span>Instagram</span>
                             <span class="virality-badge"><i class="si si-trending-up si-sm"></i> 48K</span>
                         </div>
                         <div><span class="tone-tag">Dark humor</span><span class="tone-tag">Resigned</span></div>
@@ -1157,9 +1110,9 @@
                     <div class="meme-image"><i class="si si-image si-xl"></i></div>
                     <div class="meme-content">
                         <span class="badge badge-satire"><i class="si si-zap si-sm"></i> Satire</span>
-                        <h4>"₹20 crore smog tower vs. one gust of wind"</h4>
+                        <h4>"Rs 20 crore smog tower vs. one gust of wind"</h4>
                         <div class="meme-meta">
-                            <span><i class="si si-twitter si-sm"></i> X/Twitter</span>
+                            <span>X/Twitter</span>
                             <span class="virality-badge"><i class="si si-trending-up si-sm"></i> 31K</span>
                         </div>
                         <div><span class="tone-tag">Sarcastic</span><span class="tone-tag">Policy critique</span></div>
@@ -1171,7 +1124,7 @@
                         <span class="badge badge-video"><i class="si si-video si-sm"></i> Video</span>
                         <h4>"If Delhi's air was a Bollywood villain"</h4>
                         <div class="meme-meta">
-                            <span><i class="si si-youtube si-sm"></i> YouTube</span>
+                            <span>YouTube</span>
                             <span class="virality-badge"><i class="si si-trending-up si-sm"></i> 2.1M</span>
                         </div>
                         <div><span class="tone-tag">Comedy</span><span class="tone-tag">Gen Z</span></div>
@@ -1180,15 +1133,10 @@
             </div>
         </section>
 
-        <!-- Data Sources -->
         <section id="sources" class="sources-panel">
             <div class="section-header">
                 <h2><i class="si si-database"></i> Verified Data Sources</h2>
             </div>
-            
-            <p style="color: var(--text-medium); margin-bottom: 1.5rem;">
-                All sources verified for public accessibility, data quality, and sustainability.
-            </p>
             
             <div class="sources-grid">
                 <div class="source-card">
@@ -1199,7 +1147,6 @@
                     <div class="source-details">
                         <p>500+ Indian monitoring stations</p>
                         <p>Historical data from 2016</p>
-                        <p>Free API, 60 req/min</p>
                     </div>
                     <a href="https://openaq.org" target="_blank" class="source-link">
                         openaq.org <i class="si si-external-link si-sm"></i>
@@ -1213,7 +1160,6 @@
                     <div class="source-details">
                         <p>State-level mortality estimates</p>
                         <p>1.67 million deaths (2019)</p>
-                        <p>Lancet peer-reviewed</p>
                     </div>
                     <a href="https://vizhub.healthdata.org/gbd-results/" target="_blank" class="source-link">
                         healthdata.org <i class="si si-external-link si-sm"></i>
@@ -1227,7 +1173,6 @@
                     <div class="source-details">
                         <p>Fire/stubble detection</p>
                         <p>375m resolution (VIIRS)</p>
-                        <p>~3 hour latency</p>
                     </div>
                     <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank" class="source-link">
                         nasa.gov <i class="si si-external-link si-sm"></i>
@@ -1241,7 +1186,6 @@
                     <div class="source-details">
                         <p>Court judgments (SC, HC, NGT)</p>
                         <p>Full-text search</p>
-                        <p>Free access</p>
                     </div>
                     <a href="https://indiankanoon.org/" target="_blank" class="source-link">
                         indiankanoon.org <i class="si si-external-link si-sm"></i>
@@ -1250,7 +1194,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="section-header">
                 <h2><i class="si si-info"></i> About Vayu Smriti</h2>
@@ -1287,7 +1230,6 @@
             </div>
         </section>
 
-        <!-- Submit Section -->
         <section id="submit" class="about-section">
             <div class="section-header">
                 <h2><i class="si si-edit-3"></i> Share Your Testimony</h2>
@@ -1298,26 +1240,23 @@
             <form id="submitForm" style="max-width: 600px;">
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Name</label>
-                    <input type="text" placeholder="Your name (can remain anonymous)" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                    <input type="text" placeholder="Your name (can remain anonymous)" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: var(--bg-white); color: var(--text-dark);">
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Location</label>
-                    <input type="text" placeholder="City, Area" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                    <input type="text" placeholder="City, Area" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: var(--bg-white); color: var(--text-dark);">
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Your Story</label>
-                    <textarea placeholder="How has air pollution affected you, your family, or your community?" rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; resize: vertical;"></textarea>
+                    <textarea placeholder="How has air pollution affected you, your family, or your community?" rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; resize: vertical; background: var(--bg-white); color: var(--text-dark);"></textarea>
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Email (optional)</label>
-                    <input type="email" placeholder="For follow-up only" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem;">
+                    <input type="email" placeholder="For follow-up only" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: var(--bg-white); color: var(--text-dark);">
                 </div>
                 <button type="submit" class="btn btn-primary">
                     <i class="si si-send si-sm"></i> Submit Testimony
                 </button>
-                <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 1rem;">
-                    Submissions are reviewed before publication. We respect privacy and can publish anonymously.
-                </p>
             </form>
         </section>
     </main>
@@ -1340,7 +1279,7 @@
                 <h4>Project</h4>
                 <a href="#about">About</a>
                 <a href="#conference">Conference 2026</a>
-                <a href="https://github.com/your-username/vayu-smriti" target="_blank">GitHub</a>
+                <a href="https://github.com/vayusmriti/vayu-smriti" target="_blank">GitHub</a>
             </div>
             <div>
                 <h4>Participate</h4>
@@ -1349,18 +1288,29 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© 2025 Vayu Smriti · CC BY-NC-SA 4.0</span>
+            <span>2025 Vayu Smriti | CC BY-NC-SA 4.0</span>
             <span>Data: OpenAQ, CPCB, IHME, NASA</span>
         </div>
     </footer>
 
     <script>
-        // Config
-        const CITIES = ['Delhi', 'Ghaziabad', 'Noida', 'Mumbai', 'Kolkata', 'Lucknow', 'Patna', 'Chennai'];
-        let chart = null;
+        // Fallback data (typical winter values)
+        const FALLBACK_DATA = [
+            { city: 'Delhi', pm25: 285, aqi: 335 },
+            { city: 'Ghaziabad', pm25: 312, aqi: 362 },
+            { city: 'Noida', pm25: 278, aqi: 328 },
+            { city: 'Lucknow', pm25: 198, aqi: 248 },
+            { city: 'Patna', pm25: 245, aqi: 295 },
+            { city: 'Kolkata', pm25: 156, aqi: 206 },
+            { city: 'Mumbai', pm25: 89, aqi: 139 },
+            { city: 'Chennai', pm25: 52, aqi: 87 }
+        ];
 
-        // PM2.5 to AQI (India NAQI)
+        let chart = null;
+        let usingLiveData = false;
+
         function pm25ToAqi(pm25) {
+            if (pm25 === null || pm25 === undefined) return null;
             if (pm25 <= 30) return Math.round((50 / 30) * pm25);
             if (pm25 <= 60) return Math.round(50 + (50 / 30) * (pm25 - 30));
             if (pm25 <= 90) return Math.round(100 + (100 / 30) * (pm25 - 60));
@@ -1379,109 +1329,160 @@
             return { label: 'Severe', class: 'aqi-severe', bg: 'bg-aqi-severe' };
         }
 
-        // Fetch city data
-        async function fetchCityData(city) {
+        function showStatus(message, type = 'info') {
+            document.getElementById('apiStatus').innerHTML = `<div class="status-msg status-${type}">${message}</div>`;
+        }
+
+        async function fetchOpenAQData(city) {
             try {
                 const url = `https://api.openaq.org/v2/latest?city=${encodeURIComponent(city)}&country=IN&limit=10`;
-                const res = await fetch(url);
-                const data = await res.json();
-                if (data.results?.length > 0) {
-                    for (const loc of data.results) {
-                        const pm25 = loc.measurements?.find(m => m.parameter === 'pm25');
-                        if (pm25) return { city, pm25: pm25.value, aqi: pm25ToAqi(pm25.value) };
+                const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+                if (!response.ok) return null;
+                const data = await response.json();
+                if (data.results && data.results.length > 0) {
+                    for (const location of data.results) {
+                        const pm25Reading = location.measurements?.find(m => m.parameter === 'pm25');
+                        if (pm25Reading && pm25Reading.value) {
+                            return {
+                                city: city,
+                                pm25: Math.round(pm25Reading.value),
+                                aqi: pm25ToAqi(pm25Reading.value)
+                            };
+                        }
                     }
                 }
                 return null;
-            } catch (e) {
-                console.error(`Error fetching ${city}:`, e);
+            } catch (error) {
+                console.error(`Error fetching ${city}:`, error);
                 return null;
             }
         }
 
-        // Load all data
-        async function loadData() {
-            document.getElementById('bulletinDate').textContent = new Date().toLocaleDateString('en-IN', { 
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        async function fetchAllCityData() {
+            const cities = ['Delhi', 'Ghaziabad', 'Noida', 'Mumbai', 'Kolkata', 'Lucknow', 'Patna', 'Chennai'];
+            const results = [];
+            let successCount = 0;
+            
+            for (const city of cities) {
+                const data = await fetchOpenAQData(city);
+                if (data) {
+                    results.push(data);
+                    successCount++;
+                }
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+            
+            if (successCount >= 2) {
+                usingLiveData = true;
+                return results;
+            }
+            
+            console.log('Using fallback data');
+            usingLiveData = false;
+            return FALLBACK_DATA.map(d => ({...d}));
+        }
+
+        async function fetchWeather() {
+            try {
+                const response = await fetch(
+                    'https://api.open-meteo.com/v1/forecast?latitude=28.6139&longitude=77.2090&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=Asia/Kolkata'
+                );
+                if (!response.ok) return null;
+                return (await response.json()).current;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function updateUI(cityData, weather) {
+            // Date
+            document.getElementById('bulletinDate').textContent = new Date().toLocaleDateString('en-IN', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
             });
 
-            const results = [];
-            for (const city of CITIES) {
-                const data = await fetchCityData(city);
-                if (data) results.push(data);
-            }
-            results.sort((a, b) => b.aqi - a.aqi);
+            // Sort by AQI
+            const sorted = [...cityData].sort((a, b) => b.aqi - a.aqi);
+            const delhi = cityData.find(c => c.city === 'Delhi') || sorted[0];
 
             // Main display
-            const delhi = results.find(r => r.city === 'Delhi') || results[0];
-            if (delhi) {
-                const cat = getAqiCategory(delhi.aqi);
-                document.getElementById('mainAqi').textContent = delhi.aqi;
-                document.getElementById('mainAqi').className = `aqi-value ${cat.class}`;
-                document.getElementById('mainCategory').textContent = cat.label;
-                document.getElementById('mainCategory').className = `aqi-category ${cat.class}`;
-                document.getElementById('mainPollutants').textContent = `PM2.5: ${delhi.pm25} µg/m³`;
-            }
+            const cat = getAqiCategory(delhi.aqi);
+            document.getElementById('mainCityName').textContent = delhi.city;
+            document.getElementById('mainAqi').textContent = delhi.aqi;
+            document.getElementById('mainAqi').className = `aqi-value ${cat.class}`;
+            document.getElementById('mainCategory').textContent = cat.label;
+            document.getElementById('mainCategory').className = `aqi-category ${cat.class}`;
+            document.getElementById('mainPollutants').textContent = `PM2.5: ${delhi.pm25} µg/m³`;
 
             // City table
-            document.getElementById('cityTable').innerHTML = results.slice(0, 6).map(r => {
-                const cat = getAqiCategory(r.aqi);
-                return `<tr><td>${r.city}</td><td><span class="aqi-badge ${cat.bg}">${r.aqi}</span></td><td>${r.pm25} µg/m³</td></tr>`;
+            document.getElementById('cityTable').innerHTML = sorted.slice(0, 6).map(r => {
+                const c = getAqiCategory(r.aqi);
+                return `<tr><td>${r.city}</td><td><span class="aqi-badge ${c.bg}">${r.aqi}</span></td><td>${r.pm25} µg/m³</td></tr>`;
             }).join('');
 
             // Ticker
             let tickerHtml = '';
             for (let i = 0; i < 2; i++) {
-                results.forEach(r => {
-                    const cat = getAqiCategory(r.aqi);
-                    tickerHtml += `<div class="ticker-item"><strong>${r.city}:</strong> <span class="ticker-aqi ${cat.bg}">${r.aqi}</span> ${cat.label}</div>`;
+                sorted.forEach(r => {
+                    const c = getAqiCategory(r.aqi);
+                    tickerHtml += `<div class="ticker-item"><strong>${r.city}:</strong> <span class="ticker-aqi ${c.bg}">${r.aqi}</span> ${c.label}</div>`;
                 });
             }
             document.getElementById('tickerContent').innerHTML = tickerHtml;
-            document.getElementById('timestamp').textContent = `Last refresh: ${new Date().toLocaleTimeString('en-IN')}`;
-        }
 
-        // Weather
-        async function loadWeather() {
-            try {
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=28.6139&longitude=77.2090&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=Asia/Kolkata');
-                const data = await res.json();
-                if (data.current) {
-                    const windNote = data.current.wind_speed_10m < 10 ? '(poor dispersion)' : '';
-                    document.getElementById('weatherData').innerHTML = `
-                        Temp: ${data.current.temperature_2m}°C<br>
-                        Humidity: ${data.current.relative_humidity_2m}%<br>
-                        Wind: ${data.current.wind_speed_10m} km/h ${windNote}
-                    `;
-                }
-            } catch (e) {
-                document.getElementById('weatherData').textContent = 'Weather unavailable';
+            // Weather
+            if (weather) {
+                const windNote = weather.wind_speed_10m < 10 ? ' (poor dispersion)' : '';
+                document.getElementById('weatherData').innerHTML = `
+                    Temp: ${weather.temperature_2m}°C<br>
+                    Humidity: ${weather.relative_humidity_2m}%<br>
+                    Wind: ${weather.wind_speed_10m} km/h${windNote}
+                `;
+            } else {
+                document.getElementById('weatherData').textContent = 'Weather data unavailable';
             }
+
+            // Timestamp
+            const dataSource = usingLiveData ? 'Live data from OpenAQ' : 'Showing typical values (API unavailable)';
+            document.getElementById('timestamp').innerHTML = `<strong>Data</strong>: ${dataSource} | Weather: Open-Meteo | Updated: ${new Date().toLocaleTimeString('en-IN')}`;
+
+            // Status
+            if (usingLiveData) {
+                showStatus('Live data loaded successfully from OpenAQ', 'success');
+            } else {
+                showStatus('Showing typical winter AQI values. Live API may be rate-limited.', 'info');
+            }
+
+            setTimeout(() => { document.getElementById('apiStatus').innerHTML = ''; }, 5000);
         }
 
-        // Chart
         async function fetchCityChart() {
             const city = document.getElementById('citySelect').value;
             const param = document.getElementById('pollutantSelect').value;
-            document.getElementById('chartCaption').textContent = `Loading ${city} ${param.toUpperCase()} data...`;
-
+            const caption = document.getElementById('chartCaption');
+            
+            caption.textContent = `Loading ${city} ${param.toUpperCase()} data...`;
+            
             try {
                 const url = `https://api.openaq.org/v2/measurements?city=${encodeURIComponent(city)}&country=IN&parameter=${param}&limit=48&order_by=datetime&sort=desc`;
-                const res = await fetch(url);
-                const data = await res.json();
-
-                if (!data.results?.length) {
-                    document.getElementById('chartCaption').textContent = `No recent ${param.toUpperCase()} data for ${city}`;
+                const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+                
+                if (!response.ok) throw new Error(`API returned ${response.status}`);
+                
+                const data = await response.json();
+                
+                if (!data.results || data.results.length === 0) {
+                    caption.textContent = `No recent ${param.toUpperCase()} data for ${city}. Try another city.`;
                     return;
                 }
-
+                
                 const chartData = data.results.map(m => ({
                     time: new Date(m.date.utc),
                     value: m.value
                 })).reverse();
-
+                
                 const ctx = document.getElementById('aqiChart').getContext('2d');
                 if (chart) chart.destroy();
-
+                
                 chart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -1503,14 +1504,13 @@
                         scales: { y: { beginAtZero: true, title: { display: true, text: 'µg/m³' } } }
                     }
                 });
-
-                document.getElementById('chartCaption').textContent = `${city} ${param.toUpperCase()} — Last ${data.results.length} readings`;
-            } catch (e) {
-                document.getElementById('chartCaption').textContent = `Error loading data`;
+                
+                caption.textContent = `${city} ${param.toUpperCase()} — Last ${data.results.length} readings from OpenAQ`;
+            } catch (error) {
+                caption.textContent = `Could not load chart. Error: ${error.message}`;
             }
         }
 
-        // Theme
         function toggleTheme() {
             const isDark = document.body.getAttribute('data-theme') === 'dark';
             document.body.setAttribute('data-theme', isDark ? '' : 'dark');
@@ -1519,18 +1519,21 @@
                 : '<i class="si si-sun si-sm"></i> Light';
         }
 
-        // Form
         document.getElementById('submitForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your testimony. Submissions will be reviewed and added to the archive.');
+            alert('Thank you for sharing your testimony. Submissions will be reviewed and added to the archive.');
             this.reset();
         });
 
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            loadWeather();
-            setInterval(loadData, 5 * 60 * 1000);
+        async function init() {
+            showStatus('Fetching live air quality data...', 'info');
+            const [cityData, weather] = await Promise.all([fetchAllCityData(), fetchWeather()]);
+            updateUI(cityData, weather);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            init();
+            setInterval(init, 5 * 60 * 1000);
         });
     </script>
 </body>
