@@ -332,6 +332,261 @@
             .conference-hero h2 { font-size: 1.5rem; }
         }
         
+        @media (max-width: 768px) {
+            .header-top {
+                padding: 0.75rem 1rem;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+            
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.1rem;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .nav-inner {
+                padding: 0 0.5rem;
+            }
+            
+            .nav a {
+                padding: 0.75rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .nav a span, .nav a:not(:nth-child(-n+4)) {
+                display: none;
+            }
+            
+            .main {
+                padding: 1rem;
+            }
+            
+            .conference-hero {
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+            
+            .conference-hero h2 {
+                font-size: 1.3rem;
+            }
+            
+            .conference-hero p {
+                font-size: 0.95rem;
+            }
+            
+            .conference-details {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .conference-cta {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .bulletin-header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .bulletin-title {
+                font-size: 1.1rem;
+            }
+            
+            .bulletin-body {
+                padding: 1rem;
+            }
+            
+            .aqi-highlight {
+                padding: 1.5rem 1rem;
+            }
+            
+            .aqi-value {
+                font-size: 3rem;
+            }
+            
+            .city-table th, .city-table td {
+                padding: 0.5rem 0.5rem;
+                font-size: 0.85rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .section-header h2 {
+                font-size: 1.25rem;
+            }
+            
+            .database-section, .archive-section, .satire-section, .sources-panel, .about-section {
+                padding: 1.25rem;
+                border-radius: 10px;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .filter-group select {
+                width: 100%;
+            }
+            
+            .filter-group .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .chart-container {
+                height: 260px;
+                max-height: 260px;
+                padding: 0.75rem;
+                overflow: hidden;
+            }
+            
+            .chart-wrapper {
+                height: 180px;
+            }
+            
+            .chart-container canvas {
+                max-height: 180px !important;
+                height: 180px !important;
+            }
+            
+            .archive-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .archive-card {
+                padding: 1rem;
+            }
+            
+            .archive-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .archive-card h4 {
+                font-size: 0.8rem;
+            }
+            
+            .satire-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                padding: 2rem 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .ticker-item {
+                padding: 0 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .voice-card {
+                padding: 1rem;
+            }
+            
+            .voice-quote {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+            
+            .logo-text span {
+                font-size: 0.65rem;
+            }
+            
+            .nav a {
+                padding: 0.6rem 0.5rem;
+                font-size: 0.75rem;
+            }
+            
+            .conference-hero h2 {
+                font-size: 1.15rem;
+            }
+            
+            .aqi-value {
+                font-size: 2.5rem;
+            }
+            
+            .archive-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .meme-card .meme-content h4 {
+                font-size: 0.85rem;
+            }
+            
+            .chart-container {
+                height: 220px;
+                max-height: 220px;
+            }
+            
+            .chart-wrapper {
+                height: 150px;
+            }
+            
+            .chart-container canvas {
+                max-height: 150px !important;
+                height: 150px !important;
+            }
+            
+            .filter-group select {
+                font-size: 0.85rem;
+                padding: 0.4rem;
+            }
+        }
+        
         .aqi-highlight {
             text-align: center;
             padding: 2rem;
@@ -527,10 +782,23 @@
         .chart-container {
             background: var(--bg-light);
             border-radius: 8px;
-            padding: 1.5rem;
-            min-height: 300px;
+            padding: 1rem;
+            height: 320px;
+            max-height: 320px;
             border: 1px solid var(--border-light);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 240px;
+            width: 100%;
+        }
+        
+        .chart-container canvas {
+            max-height: 240px !important;
+            height: 240px !important;
         }
         
         .archive-section {
@@ -1021,9 +1289,11 @@
             </div>
             
             <div class="chart-container">
-                <canvas id="aqiChart"></canvas>
-                <p id="chartCaption" style="margin-top: 1rem; color: var(--text-medium); font-size: 0.85rem;">
-                    Click "Load Chart" to fetch historical data from OpenAQ
+                <div class="chart-wrapper">
+                    <canvas id="aqiChart"></canvas>
+                </div>
+                <p id="chartCaption" style="margin-top: 0.5rem; color: var(--text-medium); font-size: 0.8rem;">
+                    Click "Load Chart" to see 48-hour pollution patterns
                 </p>
             </div>
         </section>
@@ -1537,7 +1807,16 @@
             }
             
             const ctx = document.getElementById('aqiChart').getContext('2d');
-            if (chart) chart.destroy();
+            if (chart) {
+                chart.destroy();
+                chart = null;
+            }
+            
+            // Reset canvas dimensions
+            const canvas = document.getElementById('aqiChart');
+            const wrapper = canvas.parentElement;
+            canvas.style.height = wrapper.clientHeight + 'px';
+            canvas.style.width = '100%';
             
             chart = new Chart(ctx, {
                 type: 'line',
@@ -1550,16 +1829,40 @@
                         backgroundColor: 'rgba(46, 134, 171, 0.1)',
                         fill: true,
                         tension: 0.3,
-                        pointRadius: 2
+                        pointRadius: 0,
+                        pointHoverRadius: 3,
+                        borderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: true, position: 'top' } },
+                    resizeDelay: 0,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: { 
+                        legend: { display: true, position: 'top', labels: { boxWidth: 10, font: { size: 10 }, padding: 8 } }
+                    },
                     scales: { 
-                        y: { beginAtZero: true, title: { display: true, text: 'µg/m³' } },
-                        x: { title: { display: true, text: 'Time (last 48 hours)' } }
+                        y: { 
+                            beginAtZero: false,
+                            title: { display: false },
+                            ticks: { font: { size: 9 }, maxTicksLimit: 6 }
+                        },
+                        x: { 
+                            title: { display: false },
+                            ticks: { 
+                                font: { size: 8 },
+                                maxRotation: 45,
+                                minRotation: 45,
+                                maxTicksLimit: 8
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: { left: 5, right: 10, top: 5, bottom: 5 }
                     }
                 }
             });
