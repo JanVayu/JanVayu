@@ -366,6 +366,11 @@
 
         <!-- ========== DASHBOARD ========== -->
         <div class="panel active" id="panel-dashboard">
+            <div class="alert alert-info mb-2" id="live-status-bar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div id="live-status"><span class="pulse"></span> LIVE — Connecting to WAQI API...</div>
+            </div>
+
             <div class="alert alert-danger mb-2" id="grap-alert">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
@@ -661,47 +666,70 @@
         <div class="panel" id="panel-compare">
             <div class="section-intro">
                 <h2>Live City Comparison</h2>
-                <p>Compare air quality across Indian cities and with international benchmarks.</p>
+                <p>Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
+            </div>
+
+            <div class="alert alert-info mb-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <div><strong>Live Data:</strong> Fetching real-time AQI from monitoring stations. Last update: <span id="compare-update-time">--</span></div>
             </div>
 
             <div class="card mb-2">
                 <div class="card-body">
                     <div class="grid-3 mb-2">
                         <div class="form-group">
-                            <label class="form-label">City 1</label>
+                            <label class="form-label">Indian City 1</label>
                             <select class="form-select" id="compare-city1" onchange="updateComparison()">
                                 <option value="delhi">Delhi</option>
                                 <option value="mumbai">Mumbai</option>
                                 <option value="kolkata">Kolkata</option>
                                 <option value="chennai">Chennai</option>
                                 <option value="bangalore">Bengaluru</option>
+                                <option value="hyderabad">Hyderabad</option>
+                                <option value="lucknow">Lucknow</option>
+                                <option value="patna">Patna</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">City 2</label>
+                            <label class="form-label">Indian City 2</label>
                             <select class="form-select" id="compare-city2" onchange="updateComparison()">
-                                <option value="mumbai" selected>Mumbai</option>
                                 <option value="delhi">Delhi</option>
+                                <option value="mumbai" selected>Mumbai</option>
                                 <option value="kolkata">Kolkata</option>
                                 <option value="chennai">Chennai</option>
                                 <option value="bangalore">Bengaluru</option>
+                                <option value="hyderabad">Hyderabad</option>
+                                <option value="lucknow">Lucknow</option>
+                                <option value="patna">Patna</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">International</label>
+                            <label class="form-label">International Benchmark</label>
                             <select class="form-select" id="compare-city3" onchange="updateComparison()">
-                                <option value="beijing">Beijing</option>
-                                <option value="london">London</option>
+                                <option value="beijing">Beijing (China)</option>
+                                <option value="london">London (UK)</option>
                                 <option value="singapore">Singapore</option>
                             </select>
                         </div>
                     </div>
-                    <div id="comparison-result" class="grid-3"></div>
+                    <button class="btn btn-primary mb-2" onclick="updateComparison(true)">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                        Refresh Live Data
+                    </button>
+                    <div id="comparison-result" class="grid-3">
+                        <div class="card stat-card"><div class="stat-value">--</div><div class="stat-label">Loading...</div></div>
+                        <div class="card stat-card"><div class="stat-value">--</div><div class="stat-label">Loading...</div></div>
+                        <div class="card stat-card"><div class="stat-value">--</div><div class="stat-label">Loading...</div></div>
+                    </div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header"><span class="card-title">Comparison Chart</span></div>
+                <div class="card-header">
+                    <span class="card-title">Live AQI Comparison</span>
+                    <span style="font-size: 0.625rem; color: var(--text-3);">Higher = Worse Air Quality</span>
+                </div>
                 <div class="card-body"><div class="chart-container"><canvas id="compareChart"></canvas></div></div>
+                <div class="card-footer">WHO considers AQI &gt;50 unhealthy. Most Indian cities exceed this year-round.</div>
             </div>
         </div>
 
@@ -709,11 +737,16 @@
         <div class="panel" id="panel-map">
             <div class="section-intro">
                 <h2>Live Air Quality Map</h2>
-                <p>Real-time AQI for major Indian cities. Click markers for details.</p>
+                <p>Real-time AQI for major Indian cities from WAQI API. Click markers for PM2.5, station name, and update time.</p>
+            </div>
+            <div class="alert alert-info mb-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
+                <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
             </div>
             <div class="card">
                 <div class="card-body" style="padding: 0;"><div id="india-map"></div></div>
-                <div class="card-footer">Data from WAQI API. Auto-refreshes every 10 minutes.</div>
+                <div class="card-footer">Data from WAQI API (aqicn.org). Covers CPCB and SPCB monitoring stations. Click any marker for details.</div>
             </div>
         </div>
 
@@ -1109,6 +1142,72 @@ Signature: _______________</div>
                 <button class="search-btn" onclick="filterResources()">Search</button>
             </div>
 
+            <!-- VAYU SMRITI CONTRIBUTIONS -->
+            <div class="card mb-2" style="border: 2px solid var(--primary); background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(167,139,250,0.03));">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
+                    <span class="card-title" style="color: var(--primary);">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        Vayu Smriti's Unique Contributions
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem;">
+                        Vayu Smriti is not just an aggregator — it provides unique value through integration, analysis, and citizen empowerment tools not available elsewhere.
+                    </p>
+                    <div class="grid-3">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">Health Impact</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem;">
+                                <li><strong>Personal Risk Calculator</strong> — GEMM-based mortality risk by age, exposure, conditions</li>
+                                <li><strong>Safe Outdoor Hours</strong> — Activity-adjusted exposure limits</li>
+                                <li><strong>Cigarette Equivalence</strong> — Berkeley Earth methodology</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">Economic Analysis</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem;">
+                                <li><strong>Business Loss Calculator</strong> — World Bank methodology for productivity loss</li>
+                                <li><strong>City-specific Estimates</strong> — Localized economic impact by AQI</li>
+                                <li><strong>Sector Breakdown</strong> — Healthcare, agriculture, deaths cost split</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">Accountability</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem;">
+                                <li><strong>RTI Templates</strong> — Ready-to-file with addresses and instructions</li>
+                                <li><strong>Promise Tracker</strong> — Political statements vs outcomes</li>
+                                <li><strong>Policy Scorecard</strong> — Evidence-graded intervention effectiveness</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-2 mt-2">
+                        <div class="info-box" style="border-left: 3px solid #10B981;">
+                            <h4 style="color: #10B981;">Live Data Integration</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem;">
+                                <li><strong>20+ City Ticker</strong> — Real-time WAQI data, auto-refreshes every 10 min</li>
+                                <li><strong>Interactive Map</strong> — Click for PM2.5, station, timestamp</li>
+                                <li><strong>City Comparison</strong> — India vs international benchmarks (live)</li>
+                                <li><strong>Data Export</strong> — JSON/CSV download for researchers</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">Citizen Empowerment</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem;">
+                                <li><strong>Citizen Voices</strong> — Curated testimonies from affected communities</li>
+                                <li><strong>Embeddable Widgets</strong> — For schools, NGOs, blogs</li>
+                                <li><strong>Curated Resources</strong> — Verified open-access links only</li>
+                                <li><strong>Dark Mode</strong> — Accessibility for all users</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" style="background: rgba(124,58,237,0.05);">
+                    <strong>Data Sources:</strong> WAQI API (live), CPCB, WHO, Lancet GBD, IHME, World Bank, TERI, CSE, NCAP/PRANA | 
+                    <strong>Auto-updates:</strong> Every 10 minutes | 
+                    <a href="https://github.com/Varnasr/vayu-smriti" target="_blank" style="color: var(--primary);">Contribute on GitHub</a>
+                </div>
+            </div>
+
             <div id="resources-container">
                 <div class="grid-2 mb-2">
                     <!-- HEALTH STUDIES -->
@@ -1342,8 +1441,16 @@ Signature: _______________</div>
             document.querySelectorAll('.tab').forEach(t => {
                 if (t.textContent.toLowerCase().trim().startsWith(panel.substring(0, 4))) t.classList.add('active');
             });
-            if (panel === 'map' && !map) initMap();
-            if (panel === 'compare') updateComparison();
+            
+            // Trigger specific panel actions
+            if (panel === 'map') {
+                initMap();
+                if (map) setTimeout(() => map.invalidateSize(), 100);
+            }
+            if (panel === 'compare') {
+                // Always fetch fresh data when opening compare tab
+                updateComparison(true);
+            }
         }
 
         // ============================================
@@ -1393,13 +1500,32 @@ Signature: _______________</div>
 
         async function fetchAllAQI() {
             const ticker = document.getElementById('aqi-ticker');
-            ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching...</span></div>';
+            ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching live data...</span></div>';
+            
+            // Fetch all Indian cities
             const results = await Promise.all(INDIAN_CITIES.map(c => fetchAQI(c)));
             results.forEach((r, i) => { if (r) aqiData[INDIAN_CITIES[i]] = r; });
+            
+            // Update all components
             updateTicker();
             updateDashboard();
             initAllCharts();
-            document.getElementById('ticker-update').textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+            
+            // Update map if it exists
+            if (map) updateMapMarkers();
+            
+            // Update timestamp
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('ticker-update').textContent = timeStr;
+            
+            // Update live status indicator
+            const liveStatus = document.getElementById('live-status');
+            if (liveStatus) {
+                liveStatus.innerHTML = `<span class="pulse"></span> LIVE — Last refresh: ${timeStr}`;
+            }
+            
+            console.log(`[Vayu Smriti] Fetched ${Object.keys(aqiData).length} cities at ${now.toISOString()}`);
         }
 
         function updateTicker() {
@@ -1484,34 +1610,100 @@ Signature: _______________</div>
         }
 
         // ============================================
-        // COMPARISON
+        // COMPARISON - FIXED TO FETCH LIVE DATA
         // ============================================
-        async function updateComparison() {
-            const cities = [document.getElementById('compare-city1').value, document.getElementById('compare-city2').value, document.getElementById('compare-city3').value];
-            for (const c of cities) { if (!aqiData[c]) { const d = await fetchAQI(c); if (d) aqiData[c] = d; } }
+        async function updateComparison(forceRefresh = false) {
+            const cities = [
+                document.getElementById('compare-city1').value, 
+                document.getElementById('compare-city2').value, 
+                document.getElementById('compare-city3').value
+            ];
+            
+            // Show loading state
+            document.getElementById('comparison-result').innerHTML = cities.map(c => 
+                `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: var(--text-3);">...</div><div class="stat-label">Fetching live data</div></div>`
+            ).join('');
+            
+            // Always fetch fresh data for international cities, or if forceRefresh
+            for (const c of cities) {
+                if (forceRefresh || !aqiData[c] || CITIES[c]?.region === 'intl') {
+                    const d = await fetchAQI(c);
+                    if (d) aqiData[c] = d;
+                }
+            }
+            
+            // Update timestamp
+            const updateTimeEl = document.getElementById('compare-update-time');
+            if (updateTimeEl) {
+                updateTimeEl.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+            }
+            
+            // Render comparison cards with live data
             document.getElementById('comparison-result').innerHTML = cities.map(c => {
-                const data = aqiData[c] || { aqi: '--' };
-                return `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: ${getAQIColor(data.aqi)}">${data.aqi}</div><div class="stat-label">${getAQILabel(data.aqi)}</div></div>`;
+                const data = aqiData[c];
+                const aqi = data?.aqi || '--';
+                const label = data ? getAQILabel(data.aqi) : 'No data';
+                const color = data ? getAQIColor(data.aqi) : 'var(--text-3)';
+                const pm25 = data?.pm25 ? `PM2.5: ${data.pm25}` : '';
+                return `<div class="card stat-card">
+                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div>
+                    <div class="stat-value" style="color: ${color}">${aqi}</div>
+                    <div class="stat-label">${label}</div>
+                    <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.25rem;">${pm25}</div>
+                </div>`;
             }).join('');
+            
+            // Update chart with live data
             if (charts.compare) {
+                const aqiValues = cities.map(c => aqiData[c]?.aqi || 0);
+                const colors = cities.map(c => getAQIColor(aqiData[c]?.aqi || 0));
                 charts.compare.data.labels = cities.map(c => CITIES[c]?.name || c);
-                charts.compare.data.datasets[0].data = cities.map(c => aqiData[c]?.aqi || 0);
-                charts.compare.data.datasets[0].backgroundColor = cities.map(c => getAQIColor(aqiData[c]?.aqi || 0));
-                charts.compare.update();
+                charts.compare.data.datasets[0].data = aqiValues;
+                charts.compare.data.datasets[0].backgroundColor = colors;
+                charts.compare.update('none');
             }
         }
 
         // ============================================
-        // MAP
+        // MAP - NOW WITH LIVE DATA UPDATES
         // ============================================
+        let mapMarkers = [];
+        
         function initMap() {
+            if (map) return; // Don't reinitialize
             map = L.map('india-map').setView([22.5, 78.5], 5);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+                attribution: '© OpenStreetMap | AQI data from WAQI API (Live)' 
+            }).addTo(map);
+            updateMapMarkers();
+        }
+        
+        function updateMapMarkers() {
+            // Clear existing markers
+            mapMarkers.forEach(m => map.removeLayer(m));
+            mapMarkers = [];
+            
             Object.entries(CITIES).forEach(([key, city]) => {
                 if (!city.lat || city.region === 'intl') return;
                 const data = aqiData[key];
-                const aqi = data?.aqi || '?';
-                L.circleMarker([city.lat, city.lon], { radius: 12, fillColor: getAQIColor(aqi), color: '#fff', weight: 2, fillOpacity: 0.8 }).addTo(map).bindPopup(`<strong>${city.name}</strong><br>AQI: ${aqi}`);
+                const aqi = data?.aqi;
+                const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
+                const label = aqi ? getAQILabel(aqi) : 'No data';
+                const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
+                const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
+                
+                const marker = L.circleMarker([city.lat, city.lon], { 
+                    radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
+                    fillColor: color, 
+                    color: '#fff', 
+                    weight: 2, 
+                    fillOpacity: 0.85 
+                }).addTo(map).bindPopup(`
+                    <strong>${city.name}</strong><br>
+                    AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
+                    ${pm25Text}${timeText}
+                `);
+                mapMarkers.push(marker);
             });
         }
 
@@ -1551,7 +1743,32 @@ Signature: _______________</div>
 
             const compareCtx = document.getElementById('compareChart');
             if (compareCtx) {
-                charts.compare = new Chart(compareCtx, { type: 'bar', data: { labels: ['City 1', 'City 2', 'City 3'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#ccc', '#ccc', '#ccc'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 500, grid: { color: gridColor } } } } });
+                // Get selected cities for comparison
+                const c1 = document.getElementById('compare-city1')?.value || 'delhi';
+                const c2 = document.getElementById('compare-city2')?.value || 'mumbai';
+                const c3 = document.getElementById('compare-city3')?.value || 'beijing';
+                const cities = [c1, c2, c3];
+                const labels = cities.map(c => CITIES[c]?.name || c);
+                const data = cities.map(c => aqiData[c]?.aqi || 0);
+                const colors = cities.map(c => aqiData[c]?.aqi ? getAQIColor(aqiData[c].aqi) : '#ccc');
+                
+                charts.compare = new Chart(compareCtx, { 
+                    type: 'bar', 
+                    data: { 
+                        labels: labels, 
+                        datasets: [{ 
+                            label: 'Live AQI',
+                            data: data, 
+                            backgroundColor: colors 
+                        }] 
+                    }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: false } }, 
+                        scales: { y: { max: 500, grid: { color: gridColor } } } 
+                    } 
+                });
             }
 
             const historyCtx = document.getElementById('historyChart');
