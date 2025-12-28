@@ -358,6 +358,10 @@
                 <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                 Resources
             </div>
+            <div class="tab" onclick="showPanel('about')">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                About
+            </div>
         </div>
     </nav>
 
@@ -1142,72 +1146,6 @@ Signature: _______________</div>
                 <button class="search-btn" onclick="filterResources()">Search</button>
             </div>
 
-            <!-- VAYU SMRITI CONTRIBUTIONS -->
-            <div class="card mb-2" style="border: 2px solid var(--primary); background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(167,139,250,0.03));">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
-                    <span class="card-title" style="color: var(--primary);">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        Vayu Smriti's Unique Contributions
-                    </span>
-                </div>
-                <div class="card-body">
-                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem;">
-                        Vayu Smriti is not just an aggregator — it provides unique value through integration, analysis, and citizen empowerment tools not available elsewhere.
-                    </p>
-                    <div class="grid-3">
-                        <div class="info-box" style="border-left: 3px solid #EF4444;">
-                            <h4 style="color: #EF4444;">Health Impact</h4>
-                            <ul style="margin-left: 0; padding-left: 1rem;">
-                                <li><strong>Personal Risk Calculator</strong> — GEMM-based mortality risk by age, exposure, conditions</li>
-                                <li><strong>Safe Outdoor Hours</strong> — Activity-adjusted exposure limits</li>
-                                <li><strong>Cigarette Equivalence</strong> — Berkeley Earth methodology</li>
-                            </ul>
-                        </div>
-                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
-                            <h4 style="color: #F59E0B;">Economic Analysis</h4>
-                            <ul style="margin-left: 0; padding-left: 1rem;">
-                                <li><strong>Business Loss Calculator</strong> — World Bank methodology for productivity loss</li>
-                                <li><strong>City-specific Estimates</strong> — Localized economic impact by AQI</li>
-                                <li><strong>Sector Breakdown</strong> — Healthcare, agriculture, deaths cost split</li>
-                            </ul>
-                        </div>
-                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4 style="color: #3B82F6;">Accountability</h4>
-                            <ul style="margin-left: 0; padding-left: 1rem;">
-                                <li><strong>RTI Templates</strong> — Ready-to-file with addresses and instructions</li>
-                                <li><strong>Promise Tracker</strong> — Political statements vs outcomes</li>
-                                <li><strong>Policy Scorecard</strong> — Evidence-graded intervention effectiveness</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="grid-2 mt-2">
-                        <div class="info-box" style="border-left: 3px solid #10B981;">
-                            <h4 style="color: #10B981;">Live Data Integration</h4>
-                            <ul style="margin-left: 0; padding-left: 1rem;">
-                                <li><strong>20+ City Ticker</strong> — Real-time WAQI data, auto-refreshes every 10 min</li>
-                                <li><strong>Interactive Map</strong> — Click for PM2.5, station, timestamp</li>
-                                <li><strong>City Comparison</strong> — India vs international benchmarks (live)</li>
-                                <li><strong>Data Export</strong> — JSON/CSV download for researchers</li>
-                            </ul>
-                        </div>
-                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                            <h4 style="color: #7C3AED;">Citizen Empowerment</h4>
-                            <ul style="margin-left: 0; padding-left: 1rem;">
-                                <li><strong>Citizen Voices</strong> — Curated testimonies from affected communities</li>
-                                <li><strong>Embeddable Widgets</strong> — For schools, NGOs, blogs</li>
-                                <li><strong>Curated Resources</strong> — Verified open-access links only</li>
-                                <li><strong>Dark Mode</strong> — Accessibility for all users</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer" style="background: rgba(124,58,237,0.05);">
-                    <strong>Data Sources:</strong> WAQI API (live), CPCB, WHO, Lancet GBD, IHME, World Bank, TERI, CSE, NCAP/PRANA | 
-                    <strong>Auto-updates:</strong> Every 10 minutes | 
-                    <a href="https://github.com/Varnasr/vayu-smriti" target="_blank" style="color: var(--primary);">Contribute on GitHub</a>
-                </div>
-            </div>
-
             <div id="resources-container">
                 <div class="grid-2 mb-2">
                     <!-- HEALTH STUDIES -->
@@ -1382,6 +1320,161 @@ Signature: _______________</div>
                 </div>
             </div>
         </div>
+
+        <!-- ========== ABOUT ========== -->
+        <div class="panel" id="panel-about">
+            <div class="section-intro" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.05)); border-color: rgba(124,58,237,0.2);">
+                <h2 style="font-size: 1.25rem;">About Vayu Smriti वायु स्मृति</h2>
+                <p style="font-size: 0.875rem;"><strong>Vayu Smriti</strong> (Air Memory) is a citizen-led, open-source air quality archive for India. It exists because air pollution is not just an environmental issue — it is a public health emergency, an economic drain, and a failure of governance that demands transparency and accountability.</p>
+            </div>
+
+            <div class="grid-2 mb-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Why Vayu Smriti Exists</span></div>
+                    <div class="card-body" style="font-size: 0.8125rem; line-height: 1.7;">
+                        <p><strong>The Problem:</strong> India has the world's worst air quality. Delhi regularly exceeds WHO safe limits by 20-40x. Over 2 million Indians die annually from air pollution — more than malaria, TB, and HIV combined. Yet public discourse remains fragmented, data is scattered, and accountability is absent.</p>
+                        <p class="mt-2"><strong>The Gap:</strong> Official dashboards show data but don't translate it into health risks. Research papers exist but aren't accessible to citizens. Politicians make promises but no one tracks outcomes. RTI is powerful but intimidating for most citizens.</p>
+                        <p class="mt-2"><strong>Our Response:</strong> Vayu Smriti bridges these gaps by integrating live data, health science, economic analysis, and accountability tools into a single, accessible platform — designed for citizens, journalists, researchers, and advocates.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Our Principles</span></div>
+                    <div class="card-body">
+                        <div class="info-box mb-1" style="border-left: 3px solid #10B981;">
+                            <h4 style="color: #10B981;">Open & Transparent</h4>
+                            <p style="font-size: 0.75rem;">All code is open-source. All data sources are cited. All methodologies are documented. No hidden agendas.</p>
+                        </div>
+                        <div class="info-box mb-1" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">Evidence-Based</h4>
+                            <p style="font-size: 0.75rem;">We use peer-reviewed research (Lancet GBD, WHO, IHME) and established methodologies (GEMM, World Bank). No speculation.</p>
+                        </div>
+                        <div class="info-box mb-1" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">Citizen-Centered</h4>
+                            <p style="font-size: 0.75rem;">Designed for ordinary citizens, not just experts. Translates complex data into actionable insights and empowerment tools.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">Accountability-Focused</h4>
+                            <p style="font-size: 0.75rem;">We track political promises, grade policy effectiveness, and provide RTI templates because change requires pressure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIQUE CONTRIBUTIONS -->
+            <div class="card mb-2" style="border: 2px solid var(--primary);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
+                    <span class="card-title" style="color: var(--primary);">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        What Makes Vayu Smriti Unique
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem;">
+                        Vayu Smriti is not just an aggregator — it provides unique value through integration, analysis, and citizen empowerment tools not available elsewhere.
+                    </p>
+                    <div class="grid-3">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">Health Impact Tools</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem; font-size: 0.75rem;">
+                                <li><strong>Personal Risk Calculator</strong> — GEMM-based mortality risk by age, exposure, conditions</li>
+                                <li><strong>Safe Outdoor Hours</strong> — Activity-adjusted exposure limits</li>
+                                <li><strong>Cigarette Equivalence</strong> — Berkeley Earth methodology</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">Economic Analysis</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem; font-size: 0.75rem;">
+                                <li><strong>Business Loss Calculator</strong> — World Bank methodology for productivity</li>
+                                <li><strong>City-specific Estimates</strong> — Localized economic impact by AQI</li>
+                                <li><strong>Sector Breakdown</strong> — Healthcare, agriculture, deaths cost</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">Accountability</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem; font-size: 0.75rem;">
+                                <li><strong>RTI Templates</strong> — Ready-to-file with addresses</li>
+                                <li><strong>Promise Tracker</strong> — Political statements vs outcomes</li>
+                                <li><strong>Policy Scorecard</strong> — Evidence-graded effectiveness</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid-2 mt-2">
+                        <div class="info-box" style="border-left: 3px solid #10B981;">
+                            <h4 style="color: #10B981;">Live Data Integration</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem; font-size: 0.75rem;">
+                                <li><strong>20+ City Ticker</strong> — Real-time WAQI data, auto-refreshes every 10 minutes</li>
+                                <li><strong>Interactive Map</strong> — Click for PM2.5, station name, timestamp</li>
+                                <li><strong>City Comparison</strong> — India vs international benchmarks (live)</li>
+                                <li><strong>Data Export</strong> — JSON/CSV download for researchers</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">Citizen Empowerment</h4>
+                            <ul style="margin-left: 0; padding-left: 1rem; font-size: 0.75rem;">
+                                <li><strong>Citizen Voices</strong> — Curated testimonies from affected communities</li>
+                                <li><strong>Embeddable Widgets</strong> — For schools, NGOs, blogs</li>
+                                <li><strong>Curated Resources</strong> — Verified open-access links only</li>
+                                <li><strong>Dark Mode</strong> — Accessibility for all users</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2 mb-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Data Sources & Methodology</span></div>
+                    <div class="card-body" style="font-size: 0.75rem;">
+                        <div class="table-wrap">
+                            <table class="table">
+                                <thead><tr><th>Component</th><th>Source</th><th>Update Frequency</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Live AQI Data</td><td>WAQI API (aqicn.org)</td><td>Every 10 minutes</td></tr>
+                                    <tr><td>Health Risk Model</td><td>GEMM (Lancet GBD 2019)</td><td>Static methodology</td></tr>
+                                    <tr><td>Economic Loss</td><td>World Bank / OECD</td><td>Annual estimates</td></tr>
+                                    <tr><td>Mortality Data</td><td>IHME / Lancet</td><td>Annual updates</td></tr>
+                                    <tr><td>Policy Tracker</td><td>CAQM, NGT, News</td><td>Manual curation</td></tr>
+                                    <tr><td>Citizen Voices</td><td>Social media, interviews</td><td>Manual curation</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Limitations & Disclaimers</span></div>
+                    <div class="card-body" style="font-size: 0.75rem; line-height: 1.6;">
+                        <p><strong>Not Medical Advice:</strong> Health risk calculators provide estimates based on population-level research. Individual risk varies. Consult healthcare providers for personal medical decisions.</p>
+                        <p class="mt-1"><strong>Data Accuracy:</strong> Live AQI depends on WAQI API and underlying monitoring station reliability. Some stations may have gaps or calibration issues.</p>
+                        <p class="mt-1"><strong>Economic Estimates:</strong> Productivity loss calculations use simplified models. Actual business impact depends on many factors not captured here.</p>
+                        <p class="mt-1"><strong>Open Source:</strong> This is a volunteer project. We welcome corrections, contributions, and feedback via GitHub.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Get Involved</span></div>
+                <div class="card-body">
+                    <div class="grid-4">
+                        <a href="https://github.com/Varnasr/vayu-smriti" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: #1F2937;"><svg viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
+                            <div class="quick-link-content"><h4>Contribute Code</h4><p>Fork on GitHub</p></div>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text=Check%20out%20Vayu%20Smriti%20-%20India's%20citizen-led%20air%20quality%20archive&url=https://varnasr.github.io/vayu-smriti" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: #1DA1F2;"><svg viewBox="0 0 24 24" fill="white"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></div>
+                            <div class="quick-link-content"><h4>Share</h4><p>Spread the word</p></div>
+                        </a>
+                        <a href="mailto:varna.sr@gmail.com?subject=Vayu%20Smriti%20Feedback" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: var(--primary);"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                            <div class="quick-link-content"><h4>Feedback</h4><p>Report issues</p></div>
+                        </a>
+                        <a href="https://rtionline.gov.in" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: #EF4444;"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+                            <div class="quick-link-content"><h4>File RTI</h4><p>Demand accountability</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -1393,7 +1486,8 @@ Signature: _______________</div>
         // ============================================
         // CONFIGURATION
         // ============================================
-        const WAQI_TOKEN = 'demo';
+        // Using WAQI public token for live data - get your own at https://aqicn.org/data-platform/token/
+        const WAQI_TOKEN = '0e7fce65a48fe0e93d81a5cb330a15a86e06e1b0';
         
         const CITIES = {
             delhi: { name: 'Delhi', lat: 28.6139, lon: 77.2090, query: 'delhi', region: 'north' },
