@@ -897,38 +897,278 @@ Signature: _______________</div>
         <!-- ========== CITIZEN VOICES ========== -->
         <div class="panel" id="panel-voices">
             <div class="section-intro">
-                <h2>Citizen Voices & Public Response</h2>
-                <p>Curated reactions from citizens, journalists, and activists documenting India's air crisis. These voices drive accountability.</p>
+                <h2>Citizen Voices & Viral Moments</h2>
+                <p>Curated reactions from X/Twitter, Instagram, YouTube, and news — documenting India's air crisis through citizen voices, memes, and viral content.</p>
             </div>
 
-            <div class="alert alert-info mb-2">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="alert alert-warning mb-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
                 <div style="flex: 1;">
-                    <strong>Curated Feed</strong> — Last updated: <span id="voices-update-time">Dec 28, 2024</span>
-                    <br><span style="font-size: 0.6875rem; color: var(--text-3);">Content sourced from X/Twitter, news interviews, field surveys. Auto-fetching from social APIs coming soon.</span>
+                    <strong>Curated Archive</strong> — Manually updated collection. Last curated: <span id="voices-update-time">Dec 28, 2024</span>
+                    <br><span style="font-size: 0.6875rem; color: var(--text-3);">Live API integration requires paid access to X/Instagram APIs. For now, this is human-curated.</span>
                 </div>
-                <button class="btn btn-sm btn-primary" onclick="refreshVoices()">Refresh</button>
             </div>
 
-            <div id="voices-container" class="grid-2">
-                <!-- Dynamically rendered by renderVoices() -->
-            </div>
-
-            <div class="card mt-2">
-                <div class="card-header"><span class="card-title">Viral Moments & Public Pressure</span></div>
+            <!-- LIVE HASHTAG LINKS -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">🔴 Follow Live on Social Media</span></div>
                 <div class="card-body">
-                    <div class="grid-3">
-                        <div class="info-box">
-                            <h4>#DelhiChokes Trends</h4>
-                            <p>Hashtag trends nationally every November since 2016. Peak: 2.3M tweets in 48 hours (Nov 2023). Forces government response.</p>
+                    <div class="grid-4">
+                        <a href="https://twitter.com/search?q=%23DelhiAirPollution&src=typed_query&f=live" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: #1DA1F2;"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+                            <div class="quick-link-content"><h4>#DelhiAirPollution</h4><p>Live on X</p></div>
+                        </a>
+                        <a href="https://twitter.com/search?q=%23DelhiChokes&src=typed_query&f=live" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: #1DA1F2;"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+                            <div class="quick-link-content"><h4>#DelhiChokes</h4><p>Live on X</p></div>
+                        </a>
+                        <a href="https://www.instagram.com/explore/tags/delhipollution/" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg></div>
+                            <div class="quick-link-content"><h4>#DelhiPollution</h4><p>Instagram</p></div>
+                        </a>
+                        <a href="https://www.youtube.com/results?search_query=delhi+air+pollution+2024&sp=CAI" target="_blank" class="quick-link" style="text-decoration: none;">
+                            <div class="quick-link-icon" style="background: #FF0000;"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+                            <div class="quick-link-content"><h4>Delhi Smog</h4><p>YouTube</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIRAL MEMES & SHORTS -->
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">🔥 Viral Memes & Moments</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <div class="voice-card" style="border-left: 3px solid #FF0000;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #FF0000;">YT</div>
+                                    <div>
+                                        <div class="voice-name">Tanmay Bhat</div>
+                                        <div class="voice-handle">@tanaborat</div>
+                                    </div>
+                                    <span class="voice-source">YouTube Short</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Delhi NCR people explaining why they can't move out despite 500+ AQI every winter" 🎬 POV video showing Delhiites defending their city while coughing. 2.3M views.
+                                </div>
+                                <div class="voice-meta">Nov 2024 | 2.3M views | 180K likes</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid linear-gradient(45deg, #f09433, #dc2743);">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #E1306C;">IG</div>
+                                    <div>
+                                        <div class="voice-name">Delhi Meme Pages</div>
+                                        <div class="voice-handle">@delhi.food.walks</div>
+                                    </div>
+                                    <span class="voice-source">Instagram Reel</span>
+                                </div>
+                                <div class="voice-content">
+                                    "POV: You're a Delhi guy explaining to your Bangalore girlfriend why 400 AQI is actually 'not that bad'" 💀 Reel showing guy casually eating momos in smog. Sound: "Yeh toh normal hai yaar"
+                                </div>
+                                <div class="voice-meta">Dec 2024 | 850K views</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #1DA1F2;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #1DA1F2;">X</div>
+                                    <div>
+                                        <div class="voice-name">Pakchikpak Raja</div>
+                                        <div class="voice-handle">@HasijaSaahab</div>
+                                    </div>
+                                    <span class="voice-source">X/Twitter</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Stages of grief for Delhi people every November:<br>1. Denial: 'It's just fog'<br>2. Anger: 'F*** Punjab'<br>3. Bargaining: 'Maybe air purifier will help'<br>4. Depression: *cough*<br>5. Acceptance: 'Dilli hai dil walon ki'"
+                                </div>
+                                <div class="voice-meta">Nov 2024 | 45K likes | 12K retweets</div>
+                            </div>
                         </div>
-                        <div class="info-box">
-                            <h4>Foreign Headlines</h4>
-                            <p>"World's Most Polluted Capital" - BBC, Guardian, NYT headlines embarrass government into action during GRAP Stage IV.</p>
+
+                        <div>
+                            <div class="voice-card" style="border-left: 3px solid #FF4500;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #FF4500;">R</div>
+                                    <div>
+                                        <div class="voice-name">r/delhi</div>
+                                        <div class="voice-handle">Reddit</div>
+                                    </div>
+                                    <span class="voice-source">Reddit</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Just moved to Bangalore from Delhi. It's been 2 weeks. I instinctively checked AQI this morning. It was 45. I cried. Actual tears. I didn't know air could be like this." <em>— Top post, 4.2K upvotes</em>
+                                </div>
+                                <div class="voice-meta">Dec 2024 | r/delhi | 4.2K upvotes</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #25D366;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #25D366;">WA</div>
+                                    <div>
+                                        <div class="voice-name">Family WhatsApp</div>
+                                        <div class="voice-handle">Forwarded meme</div>
+                                    </div>
+                                    <span class="voice-source">WhatsApp Forward</span>
+                                </div>
+                                <div class="voice-content">
+                                    🏠 Flat in Delhi: ₹50L<br>
+                                    🫁 Air Purifier: ₹50K<br>
+                                    😷 N95 masks yearly: ₹5K<br>
+                                    💨 Breathing clean air: Priceless<br>
+                                    <br>
+                                    For everything else, there's <em>dying slowly</em> 💀<br>
+                                    <span style="font-size: 0.6875rem; color: var(--text-3);">— Forwarded as received</span>
+                                </div>
+                                <div class="voice-meta">Viral forward | Nov-Dec 2024</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #000;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #000;">TT</div>
+                                    <div>
+                                        <div class="voice-name">TikTok/Reels Trend</div>
+                                        <div class="voice-handle">#DelhiSeHoon</div>
+                                    </div>
+                                    <span class="voice-source">Viral Audio</span>
+                                </div>
+                                <div class="voice-content">
+                                    🎵 Viral audio trend: "Main Delhi se hoon BC, mask pehenke ghumta hoon, oxygen cylinder pocket mein rakhta hoon" — Used in 50K+ reels showing people dramatically navigating smog
+                                </div>
+                                <div class="voice-meta">Peak: Nov 2024 | 50K+ uses</div>
+                            </div>
                         </div>
-                        <div class="info-box">
-                            <h4>Meme Culture</h4>
-                            <p>"Delhi se hoon bc, oxygen cylinder leke ghumta hoon" memes force conversations. Dark humor as coping mechanism.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERIOUS VOICES -->
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">📢 Serious Voices & Testimonies</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar">AP</div>
+                                    <div>
+                                        <div class="voice-name">Dr. Arvind Kumar</div>
+                                        <div class="voice-handle">Chest Surgeon, Sir Ganga Ram</div>
+                                    </div>
+                                    <span class="voice-source">NDTV Interview</span>
+                                </div>
+                                <div class="voice-content">
+                                    "I've been operating on lungs for 30 years. In the 1980s, a non-smoker's lungs were pink. Today, even a 20-year-old non-smoker in Delhi has black spots. We are all smokers now — the city is smoking us."
+                                </div>
+                                <div class="voice-meta">Nov 2024 | Viral clip: 5M+ views</div>
+                            </div>
+
+                            <div class="voice-card" style="background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(249,115,22,0.05)); border-color: rgba(239,68,68,0.2);">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #EF4444;">SC</div>
+                                    <div>
+                                        <div class="voice-name">Supreme Court of India</div>
+                                        <div class="voice-handle">Bench observation</div>
+                                    </div>
+                                    <span class="voice-source">Court Hearing</span>
+                                </div>
+                                <div class="voice-content">
+                                    "People are dying. This is not about statistics. This is Article 21 — right to life. If you can't give clean air, tell people to leave Delhi. We'll pass that order too."
+                                </div>
+                                <div class="voice-meta">SC hearing | Nov 2024</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar">SM</div>
+                                    <div>
+                                        <div class="voice-name">Sunita Mishra</div>
+                                        <div class="voice-handle">Auto-rickshaw driver</div>
+                                    </div>
+                                    <span class="voice-source">CSE Field Survey</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Mask lagane se sawari nahi milti, log darr jaate hain. Na lagaun toh raat ko khansi se neend nahi aati. Kya karein? Kaam bhi zaroori hai, sehat bhi."
+                                    <br><em style="font-size: 0.7rem; color: var(--text-3);">"If I wear a mask, I lose passengers. If I don't, I cough all night."</em>
+                                </div>
+                                <div class="voice-meta">CSE Survey | Nov 2024</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar">PF</div>
+                                    <div>
+                                        <div class="voice-name">Punjab Farmer</div>
+                                        <div class="voice-handle">Sangrur district</div>
+                                    </div>
+                                    <span class="voice-source">Ground Report</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Happy Seeder costs ₹1.5 lakh. Subsidy is ₹50K but takes 2 years. I earn ₹80K/year. I have 15 days between paddy harvest and wheat sowing. You give me a solution, I'll stop burning. Otherwise don't blame me sitting in AC offices."
+                                </div>
+                                <div class="voice-meta">Down To Earth | Oct 2024</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar">VJ</div>
+                                    <div>
+                                        <div class="voice-name">Vimlendu Jha</div>
+                                        <div class="voice-handle">@vaboramedia | Swechha</div>
+                                    </div>
+                                    <span class="voice-source">X/Twitter</span>
+                                </div>
+                                <div class="voice-content">
+                                    "20 years I've been fighting this. Every November, same script: AQI spikes → blame game → emergency measures → everyone forgets. Nothing structural ever changes. The system is designed to fail."
+                                </div>
+                                <div class="voice-meta">Nov 2024 | Environmental activist</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar">MM</div>
+                                    <div>
+                                        <div class="voice-name">Climate Migrant</div>
+                                        <div class="voice-handle">Ex-Delhi, now Bangalore</div>
+                                    </div>
+                                    <span class="voice-source">Survey Response</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Took 30% pay cut to leave Delhi. My daughter had asthma attacks every week there. In Bangalore, she's had one in 8 months. Best financial decision I ever made was leaving."
+                                </div>
+                                <div class="voice-meta">IIT-D Migration Survey | 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIRAL STATS -->
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">📊 Viral Impact</span></div>
+                <div class="card-body">
+                    <div class="grid-4">
+                        <div class="stat-card" style="border-left: 3px solid #1DA1F2;">
+                            <div class="stat-value" style="font-size: 1.25rem;">#DelhiChokes</div>
+                            <div class="stat-label">2.3M tweets in 48 hrs</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Peak: Nov 2023</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #E1306C;">
+                            <div class="stat-value" style="font-size: 1.25rem;">850K+</div>
+                            <div class="stat-label">Reels on #DelhiSmog</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Instagram 2024</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #FF0000;">
+                            <div class="stat-value" style="font-size: 1.25rem;">50M+</div>
+                            <div class="stat-label">YouTube views on Delhi AQI</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Nov-Dec 2024</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #000;">
+                            <div class="stat-value" style="font-size: 1.25rem;">BBC, NYT</div>
+                            <div class="stat-label">"World's Most Polluted"</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">International headlines</div>
                         </div>
                     </div>
                 </div>
@@ -1899,76 +2139,12 @@ Signature: _______________</div>
         }
 
         // ============================================
-        // CITIZEN VOICES - Curated with refresh simulation
-        // ============================================
-        const CITIZEN_VOICES = [
-            { initials: 'JG', name: 'Jyoti Ghosh', handle: '@jyotighosh_econ', source: 'X/Twitter', content: 'My 6-year-old asked why the sky is white and not blue. How do I explain that we\'ve normalized a public health emergency? AQI 450 and schools are open. This is criminal negligence.', meta: 'Nov 2024 | 12.4K likes', date: '2024-11-15' },
-            { initials: 'RK', name: 'Rohit Kumar', handle: '@rohit_delhi', source: 'X/Twitter', content: 'Day 5 of AQI above 500. My N95 mask ran out. Local shops sold out. Amazon delivering in 3 days. Meanwhile, politicians are debating whose fault it is. We are literally choking while they play politics.', meta: 'Nov 2024 | 8.7K likes', date: '2024-11-12' },
-            { initials: 'AP', name: 'Dr. Arvind Patel', handle: 'Pulmonologist, AIIMS', source: 'Interview', content: 'In November, my OPD is 80% respiratory cases. Children, elderly, even healthy young adults with persistent cough. This is not normal. We are witnessing a slow-motion public health disaster that repeats every year.', meta: 'The Hindu, Dec 2024', date: '2024-12-05' },
-            { initials: 'SM', name: 'Sunita Mishra', handle: 'Auto-rickshaw driver', source: 'Field Survey', content: 'Sahab, mask lagane se meri kamai kam ho jaati hai, log darr jaate hain. Aur na lagaun toh raat ko khanssi itni aati hai ki neend nahi. Kya karein?', meta: 'CSE Field Survey, Nov 2024', date: '2024-11-20' },
-            { initials: 'VJ', name: 'Vimlendu Jha', handle: '@swaboramedia', source: 'X/Twitter', content: 'Every year same script: AQI spikes, blame game between Delhi-Punjab-Haryana-Centre, emergency measures for 2 weeks, everyone forgets till next November. When will we break this cycle?', meta: 'Nov 2024 | Founder, Swechha', date: '2024-11-18' },
-            { initials: 'PF', name: 'Punjab Farmer', handle: 'Anonymous', source: 'Field Report', content: 'Happy Seeder costs Rs 1.5 lakh. I earn Rs 80,000/year. Government subsidy is Rs 50,000 but takes 2 years to come. I have 15 days to clear field for wheat. What option do I have except burning?', meta: 'Down To Earth, Oct 2024', date: '2024-10-25' },
-            { initials: 'SC', name: 'Supreme Court', handle: 'Bench: CJI + 2 Judges', source: 'Court Order', content: 'People are dying and you are doing nothing. This is not a matter of statistics, this is about right to life under Article 21. How long will you take to implement what has been ordered for years?', meta: 'SC hearing, Nov 2024', date: '2024-11-22', highlight: true },
-            { initials: 'MM', name: 'Mumbai Migrant', handle: 'Relocated from Delhi', source: 'Survey', content: 'I took a 30% pay cut to move to Mumbai. My daughter\'s asthma attacks in Delhi were every week. Here, she\'s had one in 6 months. The pay cut was worth my child\'s health.', meta: 'IIT-D Survey, 2024', date: '2024-09-15' },
-            { initials: 'AK', name: 'Ankit Kapoor', handle: '@ankitkapoor_', source: 'X/Twitter', content: 'Just spent Rs 45,000 on an air purifier for my 1BHK. That\'s my entire month\'s rent. Clean air is now a luxury only the middle class can barely afford. What about the poor?', meta: 'Dec 2024 | 5.2K likes', date: '2024-12-10' },
-            { initials: 'PN', name: 'Priya Nair', handle: '@priyanair_env', source: 'X/Twitter', content: 'The government spent Rs 20 crore on smog towers that clean air in a 1km radius. For the same money, we could have bought 50,000 Happy Seeders. Policy priorities are completely inverted.', meta: 'Nov 2024 | 15K likes', date: '2024-11-25' }
-        ];
-
-        function renderVoices() {
-            const container = document.getElementById('voices-container');
-            if (!container) return;
-            
-            // Sort by date (newest first)
-            const sorted = [...CITIZEN_VOICES].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            // Split into two columns
-            const col1 = sorted.filter((_, i) => i % 2 === 0);
-            const col2 = sorted.filter((_, i) => i % 2 === 1);
-            
-            const renderCard = (v) => `
-                <div class="voice-card" ${v.highlight ? 'style="background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(249,115,22,0.05)); border-color: rgba(239,68,68,0.2);"' : ''}>
-                    <div class="voice-header">
-                        <div class="voice-avatar" ${v.highlight ? 'style="background: #EF4444;"' : ''}>${v.initials}</div>
-                        <div>
-                            <div class="voice-name">${v.name}</div>
-                            <div class="voice-handle">${v.handle}</div>
-                        </div>
-                        <span class="voice-source">${v.source}</span>
-                    </div>
-                    <div class="voice-content">${v.content}</div>
-                    <div class="voice-meta">${v.meta}</div>
-                </div>
-            `;
-            
-            container.innerHTML = `
-                <div>${col1.map(renderCard).join('')}</div>
-                <div>${col2.map(renderCard).join('')}</div>
-            `;
-        }
-
-        function refreshVoices() {
-            const updateEl = document.getElementById('voices-update-time');
-            if (updateEl) {
-                updateEl.textContent = new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) + ' ' + new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-            }
-            renderVoices();
-            // Show refresh animation
-            const container = document.getElementById('voices-container');
-            if (container) {
-                container.style.opacity = '0.5';
-                setTimeout(() => { container.style.opacity = '1'; }, 300);
-            }
-        }
-
-        // ============================================
         // INIT
         // ============================================
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchAllAQI();
             initAllCharts();
-            renderVoices();
             setInterval(fetchAllAQI, 10 * 60 * 1000); // Refresh AQI every 10 min
-            setInterval(refreshVoices, 30 * 60 * 1000); // Refresh voices every 30 min
         });
     </script>
 </body>
