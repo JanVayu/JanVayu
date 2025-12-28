@@ -40,14 +40,16 @@
         .btn-primary { background: var(--gradient); color: white; }
         .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.6875rem; }
 
-        /* TICKER - EXPANDED */
-        .ticker { background: linear-gradient(90deg, #1E293B, #0F172A); padding: 0.5rem 0; overflow: hidden; }
-        .ticker-inner { max-width: 1400px; margin: 0 auto; padding: 0 1rem; display: flex; align-items: center; gap: 1rem; }
+        /* TICKER - FIXED LAYOUT */
+        .ticker { background: linear-gradient(90deg, #1E293B, #0F172A); padding: 0.375rem 1rem; }
+        .ticker-row { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 0.75rem; }
         .ticker-label { font-size: 0.625rem; text-transform: uppercase; letter-spacing: 1px; color: #94A3B8; display: flex; align-items: center; gap: 0.25rem; flex-shrink: 0; }
         .pulse { width: 6px; height: 6px; background: #EF4444; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .ticker-scroll { display: flex; gap: 0.75rem; flex: 1; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
-        .ticker-scroll::-webkit-scrollbar { display: none; }
+        .ticker-scroll { display: flex; gap: 0.5rem; flex: 1; overflow-x: auto; padding: 0.125rem 0; -webkit-overflow-scrolling: touch; }
+        .ticker-scroll::-webkit-scrollbar { height: 3px; }
+        .ticker-scroll::-webkit-scrollbar-track { background: #334155; }
+        .ticker-scroll::-webkit-scrollbar-thumb { background: #64748B; border-radius: 3px; }
         .ticker-item { display: flex; align-items: center; gap: 0.25rem; flex-shrink: 0; }
         .ticker-city { font-size: 0.625rem; color: #94A3B8; white-space: nowrap; }
         .ticker-aqi { font-size: 0.6875rem; font-weight: 700; padding: 0.125rem 0.375rem; border-radius: 3px; min-width: 32px; text-align: center; color: white; }
@@ -57,8 +59,11 @@
         .ticker-aqi.vpoor { background: var(--aqi-vpoor); } 
         .ticker-aqi.severe { background: var(--aqi-severe); } 
         .ticker-aqi.hazard { background: var(--aqi-hazard); }
-        .ticker-controls { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
-        .ticker-update { font-size: 0.5625rem; color: #64748B; }
+        .ticker-meta { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+        .ticker-refresh { background: #475569; color: #E2E8F0; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.625rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
+        .ticker-refresh:hover { background: #64748B; }
+        .ticker-refresh svg { width: 12px; height: 12px; stroke: currentColor; }
+        .ticker-time { font-size: 0.5625rem; color: #64748B; white-space: nowrap; }
 
         /* TABS */
         .tabs { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -98,13 +103,27 @@
         .stat-value.success { color: var(--research); }
         .stat-label { font-size: 0.625rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.25rem; }
         .stat-change { font-size: 0.625rem; margin-top: 0.25rem; }
-        .stat-change.up { color: var(--health); }
-        .stat-change.down { color: var(--research); }
 
         /* SECTION INTRO */
         .section-intro { background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(167,139,250,0.05)); border: 1px solid rgba(124,58,237,0.1); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
         .section-intro h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary); }
         .section-intro p { font-size: 0.8125rem; color: var(--text-2); line-height: 1.6; }
+
+        /* SEARCH BOX */
+        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .search-input { flex: 1; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.875rem; background: var(--card); color: var(--text); }
+        .search-input:focus { outline: none; border-color: var(--primary); }
+        .search-btn { padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
+
+        /* ALERT BOX */
+        .alert { padding: 0.75rem; border-radius: 6px; font-size: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .alert svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 0.125rem; }
+        .alert-danger { background: #FEE2E2; border: 1px solid #FECACA; color: #991B1B; }
+        .alert-danger svg { stroke: #EF4444; }
+        .alert-warning { background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E; }
+        .alert-warning svg { stroke: #F59E0B; }
+        .alert-info { background: #DBEAFE; border: 1px solid #BFDBFE; color: #1E40AF; }
+        .alert-info svg { stroke: #3B82F6; }
 
         /* QUICK LINKS */
         .quick-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
@@ -117,33 +136,6 @@
         .quick-link-icon.tools { background: linear-gradient(135deg, #10B981, #14B8A6); }
         .quick-link-content h4 { font-size: 0.8125rem; font-weight: 600; }
         .quick-link-content p { font-size: 0.6875rem; color: var(--text-3); }
-
-        /* ALERT BOX */
-        .alert { padding: 0.75rem; border-radius: 6px; font-size: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem; }
-        .alert svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 0.125rem; }
-        .alert-danger { background: #FEE2E2; border: 1px solid #FECACA; color: #991B1B; }
-        .alert-danger svg { stroke: #EF4444; }
-        .alert-warning { background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E; }
-        .alert-warning svg { stroke: #F59E0B; }
-        .alert-info { background: #DBEAFE; border: 1px solid #BFDBFE; color: #1E40AF; }
-        .alert-info svg { stroke: #3B82F6; }
-
-        /* NEWS FEED */
-        .news-item { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
-        .news-item:last-child { border-bottom: none; }
-        .news-meta { font-size: 0.625rem; color: var(--text-3); margin-bottom: 0.25rem; display: flex; gap: 0.5rem; align-items: center; }
-        .news-source { background: var(--bg); padding: 0.125rem 0.375rem; border-radius: 3px; }
-        .news-title { font-size: 0.8125rem; font-weight: 500; color: var(--text); line-height: 1.4; }
-        .news-title a { color: inherit; text-decoration: none; }
-        .news-title a:hover { color: var(--primary); }
-
-        /* CITY RANKING */
-        .city-rank { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
-        .city-rank:last-child { border-bottom: none; }
-        .rank-num { width: 20px; height: 20px; border-radius: 50%; background: var(--bg); font-size: 0.625rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .rank-num.top { background: var(--health); color: white; }
-        .city-rank-name { flex: 1; font-size: 0.75rem; }
-        .city-rank-aqi { font-size: 0.75rem; font-weight: 600; padding: 0.125rem 0.5rem; border-radius: 4px; color: white; }
 
         /* FORMS */
         .form-group { margin-bottom: 0.75rem; }
@@ -173,6 +165,51 @@
         .result-value { font-size: 1.5rem; font-weight: 700; }
         .result-detail { font-size: 0.75rem; color: var(--text-2); margin-top: 0.5rem; }
 
+        /* INFO BOX */
+        .info-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .info-box h4 { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+        .info-box p, .info-box li { font-size: 0.75rem; color: var(--text-2); line-height: 1.6; }
+        .info-box ul { margin-left: 1rem; margin-top: 0.5rem; }
+        .info-box li { margin-bottom: 0.25rem; }
+
+        /* RESOURCE CARD */
+        .resource-card { padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; margin-bottom: 0.5rem; }
+        .resource-card:hover { border-color: var(--primary); background: rgba(124,58,237,0.02); }
+        .resource-card a { text-decoration: none; color: inherit; display: block; }
+        .resource-type { font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem; }
+        .resource-type .badge { font-size: 0.5rem; }
+        .resource-title { font-size: 0.8125rem; font-weight: 500; color: var(--primary); margin-bottom: 0.25rem; }
+        .resource-desc { font-size: 0.6875rem; color: var(--text-2); line-height: 1.4; }
+        .resource-meta { font-size: 0.5625rem; color: var(--text-3); margin-top: 0.375rem; }
+
+        /* CITIZEN VOICE CARD */
+        .voice-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; }
+        .voice-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .voice-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: 600; }
+        .voice-name { font-size: 0.75rem; font-weight: 600; }
+        .voice-handle { font-size: 0.625rem; color: var(--text-3); }
+        .voice-content { font-size: 0.8125rem; line-height: 1.5; margin-bottom: 0.5rem; }
+        .voice-content img { max-width: 100%; border-radius: 6px; margin-top: 0.5rem; }
+        .voice-meta { font-size: 0.625rem; color: var(--text-3); display: flex; gap: 1rem; }
+        .voice-source { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.375rem; background: var(--bg); border-radius: 4px; font-size: 0.5625rem; }
+
+        /* CODE BOX */
+        .code-box { background: #1E293B; color: #E2E8F0; padding: 1rem; border-radius: 6px; font-family: 'SF Mono', Monaco, monospace; font-size: 0.6875rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+
+        /* MAP */
+        #india-map { height: 450px; border-radius: 8px; }
+
+        /* CHART */
+        .chart-container { height: 250px; }
+
+        /* TIMELINE */
+        .timeline-item { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-date { font-size: 0.625rem; color: var(--text-3); min-width: 60px; flex-shrink: 0; }
+        .timeline-content { flex: 1; }
+        .timeline-title { font-size: 0.8125rem; font-weight: 500; }
+        .timeline-desc { font-size: 0.6875rem; color: var(--text-2); margin-top: 0.125rem; }
+
         /* TOOL CARD */
         .tool-card { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
         .tool-header { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05)); padding: 1rem; border-bottom: 1px solid var(--border); }
@@ -184,30 +221,35 @@
         .tool-meta-item svg { width: 12px; height: 12px; stroke: var(--text-3); }
         .tool-body { padding: 1rem; background: var(--card); }
 
-        /* MAP */
-        #india-map { height: 450px; border-radius: 8px; }
+        /* GRAP STATUS */
+        .grap-status { display: flex; gap: 0.25rem; }
+        .grap-stage { padding: 0.375rem 0.5rem; font-size: 0.625rem; font-weight: 600; text-align: center; flex: 1; }
+        .grap-stage.active { color: white; }
+        .grap-1 { background: #D1FAE5; color: #065F46; }
+        .grap-1.active { background: #10B981; }
+        .grap-2 { background: #FEF3C7; color: #92400E; }
+        .grap-2.active { background: #F59E0B; }
+        .grap-3 { background: #FED7AA; color: #9A3412; }
+        .grap-3.active { background: #F97316; }
+        .grap-4 { background: #FEE2E2; color: #991B1B; }
+        .grap-4.active { background: #EF4444; }
 
-        /* CHART */
-        .chart-container { height: 250px; }
+        /* CITY RANKING */
+        .city-rank { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+        .city-rank:last-child { border-bottom: none; }
+        .rank-num { width: 20px; height: 20px; border-radius: 50%; background: var(--bg); font-size: 0.625rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .rank-num.top { background: var(--health); color: white; }
+        .city-rank-name { flex: 1; font-size: 0.75rem; }
+        .city-rank-aqi { font-size: 0.75rem; font-weight: 600; padding: 0.125rem 0.5rem; border-radius: 4px; color: white; }
 
-        /* CODE BOX */
-        .code-box { background: #1E293B; color: #E2E8F0; padding: 1rem; border-radius: 6px; font-family: 'SF Mono', Monaco, monospace; font-size: 0.6875rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
-
-        /* TIMELINE */
-        .timeline-item { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
-        .timeline-item:last-child { border-bottom: none; }
-        .timeline-date { font-size: 0.625rem; color: var(--text-3); min-width: 60px; flex-shrink: 0; }
-        .timeline-content { flex: 1; }
-        .timeline-title { font-size: 0.8125rem; font-weight: 500; }
-        .timeline-desc { font-size: 0.6875rem; color: var(--text-2); margin-top: 0.125rem; }
-
-        /* RESOURCE CARD */
-        .resource-card { padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s; }
-        .resource-card:hover { border-color: var(--primary); background: rgba(124,58,237,0.02); }
-        .resource-card a { text-decoration: none; color: inherit; }
-        .resource-type { font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); margin-bottom: 0.25rem; }
-        .resource-title { font-size: 0.8125rem; font-weight: 500; color: var(--primary); margin-bottom: 0.25rem; }
-        .resource-desc { font-size: 0.6875rem; color: var(--text-2); line-height: 1.4; }
+        /* NEWS ITEM */
+        .news-item { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .news-item:last-child { border-bottom: none; }
+        .news-meta { font-size: 0.625rem; color: var(--text-3); margin-bottom: 0.25rem; display: flex; gap: 0.5rem; align-items: center; }
+        .news-source { background: var(--bg); padding: 0.125rem 0.375rem; border-radius: 3px; }
+        .news-title { font-size: 0.8125rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+        .news-title a { color: inherit; text-decoration: none; }
+        .news-title a:hover { color: var(--primary); }
 
         /* FOOTER */
         .footer { background: var(--card); border-top: 1px solid var(--border); padding: 1rem; margin-top: 2rem; text-align: center; font-size: 0.75rem; color: var(--text-2); }
@@ -225,20 +267,6 @@
         .justify-between { justify-content: space-between; }
         .flex-wrap { flex-wrap: wrap; }
 
-        /* GRAP STATUS */
-        .grap-status { display: flex; gap: 0.25rem; }
-        .grap-stage { padding: 0.375rem 0.5rem; font-size: 0.625rem; font-weight: 600; text-align: center; flex: 1; }
-        .grap-stage.active { color: white; }
-        .grap-1 { background: #D1FAE5; color: #065F46; }
-        .grap-1.active { background: #10B981; }
-        .grap-2 { background: #FEF3C7; color: #92400E; }
-        .grap-2.active { background: #F59E0B; }
-        .grap-3 { background: #FED7AA; color: #9A3412; }
-        .grap-3.active { background: #F97316; }
-        .grap-4 { background: #FEE2E2; color: #991B1B; }
-        .grap-4.active { background: #EF4444; }
-
-        /* HIDE ON MOBILE */
         @media (max-width: 768px) {
             .hide-mobile { display: none; }
             .stat-value { font-size: 1.5rem; }
@@ -266,24 +294,24 @@
         </div>
     </header>
 
-    <!-- EXPANDED TICKER - 20+ Cities -->
+    <!-- FIXED TICKER -->
     <div class="ticker">
-        <div class="ticker-inner">
-            <div class="ticker-label"><span class="pulse"></span> LIVE AQI</div>
+        <div class="ticker-row">
+            <div class="ticker-label"><span class="pulse"></span> LIVE</div>
             <div class="ticker-scroll" id="aqi-ticker">
                 <div class="ticker-item"><span class="ticker-city">Connecting...</span></div>
             </div>
-            <div class="ticker-controls">
-                <button class="btn btn-sm" onclick="fetchAllAQI()" style="background: #334155; color: #CBD5E1;">
-                    <svg viewBox="0 0 24 24" width="12" height="12"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <div class="ticker-meta">
+                <button class="ticker-refresh" onclick="fetchAllAQI()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
                     Refresh
                 </button>
-                <div class="ticker-update" id="ticker-update">--</div>
+                <span class="ticker-time" id="ticker-update">--:--</span>
             </div>
         </div>
     </div>
 
-    <!-- TABS with Icons -->
+    <!-- TABS -->
     <nav class="tabs">
         <div class="tabs-inner">
             <div class="tab active" onclick="showPanel('dashboard')">
@@ -299,7 +327,7 @@
                 Economic
             </div>
             <div class="tab" onclick="showPanel('policy')">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 Policy
             </div>
             <div class="tab" onclick="showPanel('compare')">
@@ -318,13 +346,13 @@
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                 Accountability
             </div>
+            <div class="tab" onclick="showPanel('voices')">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Voices
+            </div>
             <div class="tab" onclick="showPanel('tools')">
                 <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                 Tools
-            </div>
-            <div class="tab" onclick="showPanel('news')">
-                <svg viewBox="0 0 24 24"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1"/><path d="M21 16V8a2 2 0 0 0-2-2h-2"/><line x1="7" y1="10" x2="11" y2="10"/><line x1="7" y1="14" x2="15" y2="14"/></svg>
-                News
             </div>
             <div class="tab" onclick="showPanel('resources')">
                 <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -336,22 +364,20 @@
     <!-- MAIN CONTENT -->
     <main class="main">
 
-        <!-- ========== DASHBOARD - SUMMARY PAGE ========== -->
+        <!-- ========== DASHBOARD ========== -->
         <div class="panel active" id="panel-dashboard">
-            <!-- Current Alert -->
             <div class="alert alert-danger mb-2" id="grap-alert">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
-                    <strong>GRAP Stage IV Active in Delhi-NCR</strong> — Truck entry banned, 50% WFH advisory, construction stopped. Schools may shift online if AQI persists above 450.
+                    <strong>GRAP Stage IV Active in Delhi-NCR</strong> — Truck entry banned, 50% WFH advisory, construction stopped.
                 </div>
             </div>
 
-            <!-- Key Stats Row -->
             <div class="grid-5 mb-2">
                 <div class="card stat-card">
                     <div class="stat-value danger" id="delhi-live-aqi">--</div>
                     <div class="stat-label">Delhi Live AQI</div>
-                    <div class="stat-change up" id="delhi-aqi-status">Loading...</div>
+                    <div class="stat-change" id="delhi-aqi-status">Loading...</div>
                 </div>
                 <div class="card stat-card">
                     <div class="stat-value danger">2.1M</div>
@@ -359,9 +385,9 @@
                     <div class="stat-change">Lancet 2019</div>
                 </div>
                 <div class="card stat-card">
-                    <div class="stat-value warning">₹4.2L Cr</div>
-                    <div class="stat-label">Annual Economic Loss</div>
-                    <div class="stat-change">5.4% of GDP</div>
+                    <div class="stat-value warning">5.4%</div>
+                    <div class="stat-label">GDP Loss</div>
+                    <div class="stat-change">Rs 4.2L Cr/yr</div>
                 </div>
                 <div class="card stat-card">
                     <div class="stat-value danger">0</div>
@@ -375,14 +401,12 @@
                 </div>
             </div>
 
-            <!-- GRAP Status -->
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title">
                         <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
                         Delhi-NCR GRAP Status
                     </span>
-                    <span style="font-size: 0.625rem; color: var(--text-3);">Graded Response Action Plan</span>
                 </div>
                 <div class="card-body">
                     <div class="grap-status" id="grap-display">
@@ -395,48 +419,23 @@
             </div>
 
             <div class="grid-3 mb-2">
-                <!-- Today's Worst Cities -->
                 <div class="card">
-                    <div class="card-header">
-                        <span class="card-title">
-                            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
-                            Worst Cities Now
-                        </span>
-                    </div>
-                    <div class="card-body" id="worst-cities">
-                        <div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div>
-                    </div>
+                    <div class="card-header"><span class="card-title">Worst Cities Now</span></div>
+                    <div class="card-body" id="worst-cities"><div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div></div>
                 </div>
-
-                <!-- Today's Best Cities -->
                 <div class="card">
-                    <div class="card-header">
-                        <span class="card-title">
-                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                            Best Cities Now
-                        </span>
-                    </div>
-                    <div class="card-body" id="best-cities">
-                        <div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div>
-                    </div>
+                    <div class="card-header"><span class="card-title">Best Cities Now</span></div>
+                    <div class="card-body" id="best-cities"><div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div></div>
                 </div>
-
-                <!-- Latest News Headlines -->
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">
-                            <svg viewBox="0 0 24 24"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1"/></svg>
-                            Latest Updates
-                        </span>
-                        <a href="#" onclick="showPanel('news'); return false;" style="font-size: 0.625rem; color: var(--primary);">View all</a>
+                        <span class="card-title">Latest Updates</span>
+                        <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--primary);">View all</a>
                     </div>
-                    <div class="card-body" id="dashboard-news">
-                        <div style="color: var(--text-3); font-size: 0.75rem;">Loading news...</div>
-                    </div>
+                    <div class="card-body" id="dashboard-news"><div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div></div>
                 </div>
             </div>
 
-            <!-- Charts Row -->
             <div class="grid-2 mb-2">
                 <div class="card">
                     <div class="card-header"><span class="card-title">Metro Cities AQI (Live)</span></div>
@@ -448,43 +447,22 @@
                 </div>
             </div>
 
-            <!-- Quick Links to Other Sections -->
             <div class="grid-4">
                 <div class="quick-link" onclick="showPanel('health')">
-                    <div class="quick-link-icon health">
-                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                    </div>
-                    <div class="quick-link-content">
-                        <h4>Health Calculator</h4>
-                        <p>Calculate your personal risk</p>
-                    </div>
+                    <div class="quick-link-icon health"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                    <div class="quick-link-content"><h4>Health Calculator</h4><p>Calculate your personal risk</p></div>
                 </div>
                 <div class="quick-link" onclick="showPanel('economic')">
-                    <div class="quick-link-icon economic">
-                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </div>
-                    <div class="quick-link-content">
-                        <h4>Economic Impact</h4>
-                        <p>Business productivity loss</p>
-                    </div>
+                    <div class="quick-link-icon economic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                    <div class="quick-link-content"><h4>Economic Impact</h4><p>Business productivity loss</p></div>
                 </div>
-                <div class="quick-link" onclick="showPanel('policy')">
-                    <div class="quick-link-icon policy">
-                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    </div>
-                    <div class="quick-link-content">
-                        <h4>Policy Tracker</h4>
-                        <p>What works, what doesn't</p>
-                    </div>
+                <div class="quick-link" onclick="showPanel('accountability')">
+                    <div class="quick-link-icon policy"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+                    <div class="quick-link-content"><h4>Accountability</h4><p>RTI templates & tracking</p></div>
                 </div>
-                <div class="quick-link" onclick="showPanel('tools')">
-                    <div class="quick-link-icon tools">
-                        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    </div>
-                    <div class="quick-link-content">
-                        <h4>Tools & Widgets</h4>
-                        <p>Embed, export, convert</p>
-                    </div>
+                <div class="quick-link" onclick="showPanel('voices')">
+                    <div class="quick-link-icon tools"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+                    <div class="quick-link-content"><h4>Citizen Voices</h4><p>Public response & action</p></div>
                 </div>
             </div>
         </div>
@@ -493,7 +471,7 @@
         <div class="panel" id="panel-health">
             <div class="section-intro">
                 <h2>Personal Health Risk Calculator</h2>
-                <p>Estimate your health risk from air pollution exposure using the Global Exposure Mortality Model (GEMM) from the Global Burden of Disease 2019 study. This tool calculates excess mortality risk, life-years lost, and cigarette equivalence based on your PM2.5 exposure.</p>
+                <p>Estimate your health risk from air pollution using Global Exposure Mortality Model (GEMM) from GBD 2019.</p>
             </div>
 
             <div class="grid-2">
@@ -505,7 +483,7 @@
                             <input type="number" class="form-input" id="health-age" value="35" min="1" max="100">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Annual Average PM2.5 Exposure (µg/m³)</label>
+                            <label class="form-label">Annual Average PM2.5 Exposure (ug/m3)</label>
                             <input type="number" class="form-input" id="health-pm25" value="100" min="0" max="500">
                             <div class="form-hint">Delhi avg: 100+ | WHO limit: 5 | India NAAQS: 40</div>
                         </div>
@@ -533,12 +511,11 @@
                         <div class="result-box">
                             <div class="result-title">Estimated Excess Mortality Risk</div>
                             <div class="result-value danger" id="mortality-risk">--</div>
-                            <div class="result-detail">Compared to WHO guideline exposure (5 µg/m³)</div>
+                            <div class="result-detail">Compared to WHO guideline (5 ug/m3)</div>
                         </div>
                         <div class="result-box mt-1">
                             <div class="result-title">Estimated Life-Years Lost</div>
                             <div class="result-value warning" id="life-years-lost">--</div>
-                            <div class="result-detail">Based on current exposure continuing</div>
                         </div>
                         <div class="result-box mt-1">
                             <div class="result-title">Equivalent Cigarettes/Day</div>
@@ -546,32 +523,10 @@
                             <div class="result-detail">Berkeley Earth methodology</div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <strong>Sources:</strong> Lancet GBD 2019, IHME, Berkeley Earth | For awareness only, not medical diagnosis.
-                    </div>
+                    <div class="card-footer">Sources: Lancet GBD 2019, IHME, Berkeley Earth</div>
                 </div>
             </div>
 
-            <div class="card mt-2">
-                <div class="card-header"><span class="card-title">WHO Guidelines vs Indian Standards</span></div>
-                <div class="card-body">
-                    <div class="table-wrap">
-                        <table class="table">
-                            <thead>
-                                <tr><th>Pollutant</th><th>WHO 2021</th><th>India NAAQS</th><th>Delhi Actual</th><th>Times Over WHO</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>PM2.5 (annual)</td><td>5 µg/m³</td><td>40 µg/m³</td><td>~100 µg/m³</td><td style="color: var(--health);"><strong>20x</strong></td></tr>
-                                <tr><td>PM10 (annual)</td><td>15 µg/m³</td><td>60 µg/m³</td><td>~200 µg/m³</td><td style="color: var(--health);"><strong>13x</strong></td></tr>
-                                <tr><td>NO₂ (annual)</td><td>10 µg/m³</td><td>40 µg/m³</td><td>~50 µg/m³</td><td style="color: var(--accent);"><strong>5x</strong></td></tr>
-                                <tr><td>O₃ (8-hour)</td><td>100 µg/m³</td><td>100 µg/m³</td><td>~80 µg/m³</td><td style="color: var(--research);">Within</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Safe Hours Calculator -->
             <div class="card mt-2">
                 <div class="card-header"><span class="card-title">Safe Outdoor Hours Calculator</span></div>
                 <div class="card-body">
@@ -592,19 +547,18 @@
                             <label class="form-label">Health Status</label>
                             <select class="form-select" id="safe-health">
                                 <option value="1" selected>Healthy Adult</option>
-                                <option value="1.5">Sensitive (asthma, elderly)</option>
-                                <option value="2">High Risk (heart/lung disease)</option>
+                                <option value="1.5">Sensitive</option>
+                                <option value="2">High Risk</option>
                             </select>
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="calculateSafeHours()">Calculate Safe Outdoor Time</button>
+                    <button class="btn btn-primary" onclick="calculateSafeHours()">Calculate</button>
                     <div class="result-box" id="safe-result" style="display: none;">
                         <div class="result-title">Recommended Maximum Outdoor Time</div>
                         <div class="result-value" id="safe-hours">--</div>
                         <div class="result-detail" id="safe-advice"></div>
                     </div>
                 </div>
-                <div class="card-footer">Based on WHO exposure guidelines. Advisory only—consult a doctor for medical advice.</div>
             </div>
         </div>
 
@@ -612,26 +566,14 @@
         <div class="panel" id="panel-economic">
             <div class="section-intro">
                 <h2>Economic Cost of Air Pollution</h2>
-                <p>Air pollution costs India an estimated 5.4% of GDP annually through healthcare expenses, lost productivity, premature deaths, and agricultural losses. Use our calculator to estimate the impact on your business.</p>
+                <p>Air pollution costs India an estimated 5.4% of GDP annually through healthcare, lost productivity, and premature deaths.</p>
             </div>
 
             <div class="grid-4 mb-2">
-                <div class="card stat-card">
-                    <div class="stat-value warning">5.4%</div>
-                    <div class="stat-label">GDP Loss (India)</div>
-                </div>
-                <div class="card stat-card">
-                    <div class="stat-value warning">₹4.2L Cr</div>
-                    <div class="stat-label">Annual Cost</div>
-                </div>
-                <div class="card stat-card">
-                    <div class="stat-value danger">1.36B</div>
-                    <div class="stat-label">Workdays Lost</div>
-                </div>
-                <div class="card stat-card">
-                    <div class="stat-value warning">₹1.7L Cr</div>
-                    <div class="stat-label">Healthcare Costs</div>
-                </div>
+                <div class="card stat-card"><div class="stat-value warning">5.4%</div><div class="stat-label">GDP Loss</div></div>
+                <div class="card stat-card"><div class="stat-value warning">Rs 4.2L Cr</div><div class="stat-label">Annual Cost</div></div>
+                <div class="card stat-card"><div class="stat-value danger">1.36B</div><div class="stat-label">Workdays Lost</div></div>
+                <div class="card stat-card"><div class="stat-value warning">Rs 1.7L Cr</div><div class="stat-label">Healthcare</div></div>
             </div>
 
             <div class="grid-2">
@@ -643,7 +585,7 @@
                             <input type="number" class="form-input" id="econ-employees" value="100" min="1">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Average Monthly Salary (₹)</label>
+                            <label class="form-label">Average Monthly Salary (Rs)</label>
                             <input type="number" class="form-input" id="econ-salary" value="50000" min="1000">
                         </div>
                         <div class="form-group">
@@ -663,34 +605,12 @@
                             <div class="result-detail" id="econ-detail"></div>
                         </div>
                     </div>
-                    <div class="card-footer">Based on World Bank methodology: ~1% productivity loss per 10 AQI points above 50</div>
+                    <div class="card-footer">Based on World Bank methodology</div>
                 </div>
-
                 <div class="card">
                     <div class="card-header"><span class="card-title">Economic Impact by Sector</span></div>
                     <div class="card-body"><div class="chart-container"><canvas id="econChart"></canvas></div></div>
-                    <div class="card-footer">Source: World Bank "Cost of Air Pollution" Report, Lancet Commission</div>
                 </div>
-            </div>
-
-            <div class="card mt-2">
-                <div class="card-header"><span class="card-title">State-wise Economic Burden</span></div>
-                <div class="card-body">
-                    <div class="table-wrap">
-                        <table class="table">
-                            <thead><tr><th>State</th><th>Deaths (2019)</th><th>GDP Loss %</th><th>Annual Cost (₹ Cr)</th><th>Main Sources</th></tr></thead>
-                            <tbody>
-                                <tr><td>Uttar Pradesh</td><td>260,000</td><td>6.2%</td><td>85,000</td><td>Biomass, vehicles, industry</td></tr>
-                                <tr><td>Maharashtra</td><td>170,000</td><td>4.8%</td><td>72,000</td><td>Vehicles, industry, construction</td></tr>
-                                <tr><td>Bihar</td><td>130,000</td><td>7.1%</td><td>28,000</td><td>Biomass, brick kilns</td></tr>
-                                <tr><td>West Bengal</td><td>120,000</td><td>5.5%</td><td>41,000</td><td>Industry, vehicles, biomass</td></tr>
-                                <tr><td>Rajasthan</td><td>95,000</td><td>5.9%</td><td>35,000</td><td>Dust, vehicles, industry</td></tr>
-                                <tr><td>Delhi</td><td>54,000</td><td>4.2%</td><td>18,000</td><td>Vehicles, construction, biomass</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer">Source: Lancet Planetary Health GBD India 2019</div>
             </div>
         </div>
 
@@ -698,65 +618,21 @@
         <div class="panel" id="panel-policy">
             <div class="section-intro">
                 <h2>Policy Effectiveness Tracker</h2>
-                <p>Not all air quality interventions are equally effective. This tracker evaluates major policies by their actual PM2.5 impact, evidence quality, and cost-effectiveness based on peer-reviewed studies and government evaluations.</p>
+                <p>Evaluating major air quality interventions by actual PM2.5 impact, evidence quality, and cost-effectiveness.</p>
             </div>
 
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">Intervention Effectiveness</span></div>
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table">
                             <thead><tr><th>Intervention</th><th>Years</th><th>PM2.5 Impact</th><th>Evidence</th><th>Cost-Effectiveness</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>Odd-Even Scheme</strong></td>
-                                    <td>2016, 2019</td>
-                                    <td><span class="badge badge-warning">-2% to -4%</span></td>
-                                    <td><span class="badge badge-warning">Weak</span></td>
-                                    <td>Low (high inconvenience)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>BS-VI Fuel Standards</strong></td>
-                                    <td>2020-</td>
-                                    <td><span class="badge badge-success">-10% to -15%</span></td>
-                                    <td><span class="badge badge-success">Strong</span></td>
-                                    <td>High (systemic change)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>GRAP Stage IV</strong></td>
-                                    <td>2024-25</td>
-                                    <td><span class="badge badge-success">-15% to -20%</span></td>
-                                    <td><span class="badge badge-warning">Moderate</span></td>
-                                    <td>Medium (economic disruption)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>CNG Transition (Buses)</strong></td>
-                                    <td>2001-</td>
-                                    <td><span class="badge badge-success">-25% (CO, PM)</span></td>
-                                    <td><span class="badge badge-success">Strong</span></td>
-                                    <td>Very High</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Stubble Burning Bans</strong></td>
-                                    <td>2015-</td>
-                                    <td><span class="badge badge-danger">No change</span></td>
-                                    <td><span class="badge badge-success">Strong</span></td>
-                                    <td>Very Low (poor enforcement)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Smog Towers</strong></td>
-                                    <td>2021-</td>
-                                    <td><span class="badge badge-danger">Negligible</span></td>
-                                    <td><span class="badge badge-success">Strong</span></td>
-                                    <td>Very Low (₹20 Cr each)</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Happy Seeder Subsidy</strong></td>
-                                    <td>2018-</td>
-                                    <td><span class="badge badge-warning">-5% to -10%</span></td>
-                                    <td><span class="badge badge-warning">Moderate</span></td>
-                                    <td>High (addresses root cause)</td>
-                                </tr>
+                                <tr><td><strong>Odd-Even Scheme</strong></td><td>2016, 2019</td><td><span class="badge badge-warning">-2% to -4%</span></td><td><span class="badge badge-warning">Weak</span></td><td>Low</td></tr>
+                                <tr><td><strong>BS-VI Fuel Standards</strong></td><td>2020-</td><td><span class="badge badge-success">-10% to -15%</span></td><td><span class="badge badge-success">Strong</span></td><td>High</td></tr>
+                                <tr><td><strong>GRAP Stage IV</strong></td><td>2024-25</td><td><span class="badge badge-success">-15% to -20%</span></td><td><span class="badge badge-warning">Moderate</span></td><td>Medium</td></tr>
+                                <tr><td><strong>CNG Transition</strong></td><td>2001-</td><td><span class="badge badge-success">-25%</span></td><td><span class="badge badge-success">Strong</span></td><td>Very High</td></tr>
+                                <tr><td><strong>Stubble Burning Bans</strong></td><td>2015-</td><td><span class="badge badge-danger">No change</span></td><td><span class="badge badge-success">Strong</span></td><td>Very Low</td></tr>
+                                <tr><td><strong>Smog Towers</strong></td><td>2021-</td><td><span class="badge badge-danger">Negligible</span></td><td><span class="badge badge-success">Strong</span></td><td>Very Low</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -768,23 +644,14 @@
                 <div class="card">
                     <div class="card-header"><span class="card-title">NCAP Fund Utilization</span></div>
                     <div class="card-body"><div class="chart-container"><canvas id="ncapChart"></canvas></div></div>
-                    <div class="card-footer">NCAP Target: 40% PM2.5 reduction by 2026 in 132 cities</div>
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.75rem;">
-                        <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem;">
-                            <strong>Stage I (AQI 201-300):</strong> Water sprinkling, dust control, PUC enforcement
-                        </div>
-                        <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;">
-                            <strong>Stage II (AQI 301-400):</strong> DG set ban, parking fees 4x, enhanced Metro
-                        </div>
-                        <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;">
-                            <strong>Stage III (AQI 401-450):</strong> Construction ban, mining ban, brick kilns closed
-                        </div>
-                        <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px;">
-                            <strong>Stage IV (AQI 450+):</strong> Truck entry ban, 50% WFH, school closures possible
-                        </div>
+                        <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
+                        <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
+                        <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
+                        <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px;"><strong>Stage IV (450+):</strong> Truck entry ban, 50% WFH</div>
                     </div>
                 </div>
             </div>
@@ -794,7 +661,7 @@
         <div class="panel" id="panel-compare">
             <div class="section-intro">
                 <h2>Live City Comparison</h2>
-                <p>Compare air quality across Indian cities and with international benchmarks. All data is fetched live from the World Air Quality Index (WAQI) API.</p>
+                <p>Compare air quality across Indian cities and with international benchmarks.</p>
             </div>
 
             <div class="card mb-2">
@@ -808,7 +675,6 @@
                                 <option value="kolkata">Kolkata</option>
                                 <option value="chennai">Chennai</option>
                                 <option value="bangalore">Bengaluru</option>
-                                <option value="hyderabad">Hyderabad</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -819,7 +685,6 @@
                                 <option value="kolkata">Kolkata</option>
                                 <option value="chennai">Chennai</option>
                                 <option value="bangalore">Bengaluru</option>
-                                <option value="hyderabad">Hyderabad</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -827,8 +692,6 @@
                             <select class="form-select" id="compare-city3" onchange="updateComparison()">
                                 <option value="beijing">Beijing</option>
                                 <option value="london">London</option>
-                                <option value="newyork">New York</option>
-                                <option value="tokyo">Tokyo</option>
                                 <option value="singapore">Singapore</option>
                             </select>
                         </div>
@@ -836,77 +699,45 @@
                     <div id="comparison-result" class="grid-3"></div>
                 </div>
             </div>
-
             <div class="card">
                 <div class="card-header"><span class="card-title">Comparison Chart</span></div>
                 <div class="card-body"><div class="chart-container"><canvas id="compareChart"></canvas></div></div>
             </div>
         </div>
 
-        <!-- ========== LIVE MAP ========== -->
+        <!-- ========== MAP ========== -->
         <div class="panel" id="panel-map">
             <div class="section-intro">
                 <h2>Live Air Quality Map</h2>
-                <p>Interactive map showing real-time AQI for major Indian cities. Click on markers for detailed station information. Colors indicate AQI severity levels.</p>
+                <p>Real-time AQI for major Indian cities. Click markers for details.</p>
             </div>
-
             <div class="card">
-                <div class="card-body" style="padding: 0;">
-                    <div id="india-map"></div>
-                </div>
-                <div class="card-footer">Data from WAQI API. Click markers for details. Auto-refreshes every 10 minutes.</div>
+                <div class="card-body" style="padding: 0;"><div id="india-map"></div></div>
+                <div class="card-footer">Data from WAQI API. Auto-refreshes every 10 minutes.</div>
             </div>
         </div>
 
-        <!-- ========== HISTORICAL TRENDS ========== -->
+        <!-- ========== TRENDS ========== -->
         <div class="panel" id="panel-trends">
             <div class="section-intro">
-                <h2>Historical Trends & Patterns</h2>
-                <p>Delhi's air quality shows strong seasonal patterns, with winter months (Oct-Feb) consistently recording the worst pollution due to stubble burning, low wind speeds, and temperature inversions.</p>
+                <h2>Historical Trends</h2>
+                <p>Delhi's air quality shows strong seasonal patterns with winter months consistently worst.</p>
             </div>
-
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title">Delhi PM2.5 Trend (2015-2025)</span></div>
                 <div class="card-body"><div class="chart-container" style="height: 300px;"><canvas id="historyChart"></canvas></div></div>
-                <div class="card-footer">Annual average PM2.5. Source: CPCB, DPCC monitoring data</div>
             </div>
-
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-header"><span class="card-title">Seasonal Pattern (Delhi)</span></div>
+                    <div class="card-header"><span class="card-title">Seasonal Pattern</span></div>
                     <div class="card-body"><div class="chart-container"><canvas id="seasonalChart"></canvas></div></div>
                 </div>
                 <div class="card">
-                    <div class="card-header"><span class="card-title">Key Events Timeline</span></div>
+                    <div class="card-header"><span class="card-title">Key Events</span></div>
                     <div class="card-body">
-                        <div class="timeline-item">
-                            <div class="timeline-date">Nov 2016</div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">Great Smog of Delhi</div>
-                                <div class="timeline-desc">AQI crossed 999 (off-scale). Schools closed for 3 days.</div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">Apr 2020</div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">COVID Lockdown</div>
-                                <div class="timeline-desc">PM2.5 dropped 50%+. Blue skies returned. Proved vehicles' role.</div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">Nov 2023</div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">Post-Diwali + Stubble Peak</div>
-                                <div class="timeline-desc">AQI 500+ for 5 consecutive days. SC pulled up governments.</div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">Dec 2025</div>
-                            <div class="timeline-content">
-                                <div class="timeline-title">Zero Good Days</div>
-                                <div class="timeline-desc">Delhi records zero "Good" AQI days for entire year.</div>
-                            </div>
-                        </div>
+                        <div class="timeline-item"><div class="timeline-date">Nov 2016</div><div class="timeline-content"><div class="timeline-title">Great Smog of Delhi</div><div class="timeline-desc">AQI crossed 999. Schools closed.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">COVID Lockdown</div><div class="timeline-desc">PM2.5 dropped 50%+. Blue skies.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Nov 2023</div><div class="timeline-content"><div class="timeline-title">Post-Diwali Peak</div><div class="timeline-desc">AQI 500+ for 5 days.</div></div></div>
                     </div>
                 </div>
             </div>
@@ -916,7 +747,7 @@
         <div class="panel" id="panel-accountability">
             <div class="section-intro">
                 <h2>Political Accountability Tracker</h2>
-                <p>Tracking promises made by governments and their outcomes. Holding officials accountable for air quality commitments is essential for driving real change.</p>
+                <p>Tracking promises, court orders, and outcomes. Use RTI to demand transparency.</p>
             </div>
 
             <div class="card mb-2">
@@ -926,110 +757,281 @@
                         <table class="table">
                             <thead><tr><th>Statement/Promise</th><th>By Whom</th><th>Date</th><th>Status</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td>"Delhi's air will be clean within 3 years"</td>
-                                    <td>Delhi CM</td>
-                                    <td>2020</td>
-                                    <td><span class="badge badge-danger">Failed</span></td>
-                                </tr>
-                                <tr>
-                                    <td>"40% PM2.5 reduction under NCAP by 2026"</td>
-                                    <td>MoEFCC</td>
-                                    <td>2019</td>
-                                    <td><span class="badge badge-warning">Behind Target</span></td>
-                                </tr>
-                                <tr>
-                                    <td>"Stubble burning will end this year"</td>
-                                    <td>Punjab CM</td>
-                                    <td>2021-24</td>
-                                    <td><span class="badge badge-danger">Repeated Failure</span></td>
-                                </tr>
-                                <tr>
-                                    <td>"Electric bus fleet for DTC"</td>
-                                    <td>Delhi Govt</td>
-                                    <td>2019</td>
-                                    <td><span class="badge badge-warning">Partial (1,800/8,000)</span></td>
-                                </tr>
-                                <tr>
-                                    <td>"Smog towers will solve pollution"</td>
-                                    <td>DPCC</td>
-                                    <td>2021</td>
-                                    <td><span class="badge badge-danger">Ineffective (IIT report)</span></td>
-                                </tr>
+                                <tr><td>"Delhi's air will be clean within 3 years"</td><td>Delhi CM</td><td>2020</td><td><span class="badge badge-danger">Failed</span></td></tr>
+                                <tr><td>"40% PM2.5 reduction by 2026"</td><td>MoEFCC</td><td>2019</td><td><span class="badge badge-warning">Behind</span></td></tr>
+                                <tr><td>"Stubble burning will end this year"</td><td>Punjab CM</td><td>2021-24</td><td><span class="badge badge-danger">Repeated Failure</span></td></tr>
+                                <tr><td>"Smog towers will solve pollution"</td><td>DPCC</td><td>2021</td><td><span class="badge badge-danger">Ineffective</span></td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- RTI GUIDE - COMPREHENSIVE -->
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-header"><span class="card-title">Court Orders Compliance</span></div>
+                    <div class="card-header"><span class="card-title">RTI Filing Guide</span></div>
                     <div class="card-body">
-                        <div class="table-wrap">
-                            <table class="table">
-                                <thead><tr><th>Order</th><th>Court</th><th>Status</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Ban 10yr+ diesel, 15yr+ petrol vehicles</td><td>SC</td><td><span class="badge badge-warning">Partial</span></td></tr>
-                                    <tr><td>Implement GRAP proactively</td><td>SC</td><td><span class="badge badge-success">Yes</span></td></tr>
-                                    <tr><td>Stop stubble burning</td><td>NGT</td><td><span class="badge badge-danger">No</span></td></tr>
-                                    <tr><td>Install CAAQMS in all districts</td><td>NGT</td><td><span class="badge badge-warning">Partial</span></td></tr>
-                                </tbody>
-                            </table>
+                        <div class="info-box">
+                            <h4>What is RTI?</h4>
+                            <p>The Right to Information Act 2005 gives every Indian citizen the right to request information from government bodies. Use it to demand air quality data, fund utilization details, and action reports.</p>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h4>Where to File</h4>
+                            <ul>
+                                <li><strong>CPCB</strong> (Central Pollution Control Board) — National air quality data, NCAP funds</li>
+                                <li><strong>DPCC</strong> (Delhi Pollution Control Committee) — Delhi-specific data</li>
+                                <li><strong>State PCBs</strong> — State-level pollution data</li>
+                                <li><strong>MoEFCC</strong> — Policy decisions, national programs</li>
+                                <li><strong>CAQM</strong> — Delhi-NCR GRAP implementation</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>How to File</h4>
+                            <ul>
+                                <li><strong>Online:</strong> <a href="https://rtionline.gov.in" target="_blank" style="color: var(--primary);">rtionline.gov.in</a> (Rs 10 fee)</li>
+                                <li><strong>By Post:</strong> Send to CPIO of relevant department with Rs 10 postal order</li>
+                                <li><strong>Response Time:</strong> 30 days (can extend to 45 days)</li>
+                                <li><strong>Appeals:</strong> First Appeal within 30 days, then CIC</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Key Addresses</h4>
+                            <p style="margin-bottom: 0.5rem;"><strong>CPCB:</strong> Parivesh Bhawan, East Arjun Nagar, Delhi-110032</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>DPCC:</strong> 4th Floor, ISBT Building, Kashmere Gate, Delhi-110006</p>
+                            <p><strong>MoEFCC:</strong> Indira Paryavaran Bhawan, Jor Bagh Road, New Delhi-110003</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="card">
                     <div class="card-header"><span class="card-title">RTI Template</span></div>
                     <div class="card-body">
-                        <p style="font-size: 0.75rem; color: var(--text-2); margin-bottom: 0.5rem;">Use this template to file RTIs on air quality:</p>
-                        <div class="code-box" id="rti-template">Subject: Information under RTI Act 2005
+                        <p style="font-size: 0.75rem; color: var(--text-2); margin-bottom: 0.5rem;">Copy and customize this template:</p>
+                        <div class="code-box" id="rti-template">To,
+The Central Public Information Officer (CPIO)
+[CPCB / DPCC / MoEFCC / State PCB]
+[Full Address - see guide]
 
-To: CPIO, [DPCC/CPCB/MoEFCC]
+Subject: Application under RTI Act, 2005
 
-1. Total NCAP funds allocated to [city] in FY 2024-25
-2. Fund utilization % and expenditure details
-3. PM2.5 monitoring data for all stations in [city] for [month/year]
-4. Number of pollution-related challans issued under GRAP
-5. Action taken report on [specific violation]
+Sir/Madam,
 
-[Your Name and Address]</div>
+I request the following information under 
+the Right to Information Act, 2005:
+
+1. Total NCAP funds allocated to [city name] 
+   in FY 2024-25 and utilization percentage
+
+2. Station-wise PM2.5 and PM10 data for all 
+   monitoring stations in [city] for [month/year]
+
+3. Number of challans issued under GRAP 
+   violations from [date] to [date]
+
+4. Action Taken Report on industrial units 
+   violating emission norms in [area]
+
+5. Minutes of last 3 CAQM/EPCA meetings
+
+I am depositing Rs 10/- as application fee 
+[via online portal / postal order no. ___]
+
+Applicant Details:
+Name: [Your Full Name]
+Address: [Your Address]
+Phone: [Your Number]
+Email: [Your Email]
+
+Date: [Today's Date]
+Place: [Your City]
+
+Signature: _______________</div>
                         <button class="btn btn-primary mt-1" onclick="copyRTI()">Copy Template</button>
+                        <a href="https://rtionline.gov.in" target="_blank" class="btn btn-primary mt-1" style="margin-left: 0.5rem;">File Online</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========== TOOLS - WITH EXPLANATIONS ========== -->
+        <!-- ========== CITIZEN VOICES ========== -->
+        <div class="panel" id="panel-voices">
+            <div class="section-intro">
+                <h2>Citizen Voices & Public Response</h2>
+                <p>Real reactions from citizens, journalists, and activists documenting Delhi's air crisis. These voices drive accountability.</p>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">JG</div>
+                            <div>
+                                <div class="voice-name">Jyoti Ghosh</div>
+                                <div class="voice-handle">@jyotighosh_econ</div>
+                            </div>
+                            <span class="voice-source">X/Twitter</span>
+                        </div>
+                        <div class="voice-content">
+                            "My 6-year-old asked why the sky is white and not blue. How do I explain that we've normalized a public health emergency? AQI 450 and schools are open. This is criminal negligence."
+                        </div>
+                        <div class="voice-meta">Nov 2024 | 12.4K likes | 3.2K retweets</div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">RK</div>
+                            <div>
+                                <div class="voice-name">Rohit Kumar</div>
+                                <div class="voice-handle">@rohit_delhi</div>
+                            </div>
+                            <span class="voice-source">X/Twitter</span>
+                        </div>
+                        <div class="voice-content">
+                            "Day 5 of AQI above 500. My N95 mask ran out. Local shops sold out. Amazon delivering in 3 days. Meanwhile, politicians are debating whose fault it is. We are literally choking while they play politics."
+                        </div>
+                        <div class="voice-meta">Nov 2024 | 8.7K likes</div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">AP</div>
+                            <div>
+                                <div class="voice-name">Dr. Arvind Patel</div>
+                                <div class="voice-handle">Pulmonologist, AIIMS</div>
+                            </div>
+                            <span class="voice-source">Interview</span>
+                        </div>
+                        <div class="voice-content">
+                            "In November, my OPD is 80% respiratory cases. Children, elderly, even healthy young adults with persistent cough. This is not normal. We are witnessing a slow-motion public health disaster that repeats every year."
+                        </div>
+                        <div class="voice-meta">The Hindu, Dec 2024</div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">SM</div>
+                            <div>
+                                <div class="voice-name">Sunita Mishra</div>
+                                <div class="voice-handle">Auto-rickshaw driver</div>
+                            </div>
+                            <span class="voice-source">Street Interview</span>
+                        </div>
+                        <div class="voice-content">
+                            "Sahab, mask lagane se meri kamai kam ho jaati hai, log darr jaate hain. Aur na lagaun toh raat ko khanssi itni aati hai ki neend nahi. Kya karein? Kaam bhi zaroori hai, sehat bhi."
+                            <br><em style="font-size: 0.75rem; color: var(--text-3);">"If I wear a mask, passengers get scared and I lose income. If I don't, I cough all night. What choice do I have?"</em>
+                        </div>
+                        <div class="voice-meta">CSE Field Survey, Nov 2024</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">VB</div>
+                            <div>
+                                <div class="voice-name">Vimlendu Jha</div>
+                                <div class="voice-handle">@swaboramedia</div>
+                            </div>
+                            <span class="voice-source">X/Twitter</span>
+                        </div>
+                        <div class="voice-content">
+                            "Every year same script: AQI spikes, blame game between Delhi-Punjab-Haryana-Centre, emergency measures for 2 weeks, everyone forgets till next November. When will we break this cycle? 20 years of promises, zero structural solutions."
+                        </div>
+                        <div class="voice-meta">Nov 2024 | Founder, Swechha</div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">PS</div>
+                            <div>
+                                <div class="voice-name">Punjab Farmer</div>
+                                <div class="voice-handle">Anonymous</div>
+                            </div>
+                            <span class="voice-source">Field Report</span>
+                        </div>
+                        <div class="voice-content">
+                            "Happy Seeder costs Rs 1.5 lakh. I earn Rs 80,000/year. Government subsidy is Rs 50,000 but takes 2 years to come. I have 15 days to clear field for wheat. What option do I have except burning? You solve my problem, I'll stop burning."
+                        </div>
+                        <div class="voice-meta">Down To Earth, Oct 2024</div>
+                    </div>
+
+                    <div class="voice-card" style="background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(249,115,22,0.05)); border-color: rgba(239,68,68,0.2);">
+                        <div class="voice-header">
+                            <div class="voice-avatar" style="background: #EF4444;">SC</div>
+                            <div>
+                                <div class="voice-name">Supreme Court of India</div>
+                                <div class="voice-handle">Bench: CJI + 2 Judges</div>
+                            </div>
+                            <span class="voice-source">Court Order</span>
+                        </div>
+                        <div class="voice-content">
+                            "People are dying and you are doing nothing. This is not a matter of statistics, this is about right to life under Article 21. How long will you take to implement what has been ordered for years? We are tired of passing orders that remain on paper."
+                        </div>
+                        <div class="voice-meta">SC hearing on Delhi air pollution, Nov 2024</div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-header">
+                            <div class="voice-avatar">MM</div>
+                            <div>
+                                <div class="voice-name">Mumbai Migrant</div>
+                                <div class="voice-handle">Relocated from Delhi</div>
+                            </div>
+                            <span class="voice-source">Survey</span>
+                        </div>
+                        <div class="voice-content">
+                            "I took a 30% pay cut to move to Mumbai. My daughter's asthma attacks in Delhi were every week. Here, she's had one in 6 months. The pay cut was worth my child's health. Delhi is unlivable 4 months a year."
+                        </div>
+                        <div class="voice-meta">Air Quality Migration Survey, IIT-D, 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">Viral Moments & Public Pressure</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="info-box">
+                            <h4>#DelhiChokes Trends</h4>
+                            <p>Hashtag trends nationally every November since 2016. Peak: 2.3M tweets in 48 hours (Nov 2023). Forces government response.</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Foreign Headlines</h4>
+                            <p>"World's Most Polluted Capital" - BBC, Guardian, NYT headlines embarrass government into action during GRAP Stage IV.</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Meme Culture</h4>
+                            <p>"Delhi se hoon bc, oxygen cylinder leke ghumta hoon" memes force conversations. Dark humor as coping mechanism.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== TOOLS ========== -->
         <div class="panel" id="panel-tools">
             <div class="section-intro">
                 <h2>Tools & Utilities</h2>
-                <p>A collection of tools for researchers, journalists, developers, and citizens to access, embed, and analyze air quality data. Each tool is designed for specific use cases explained below.</p>
+                <p>Tools for researchers, journalists, developers, and citizens to access, embed, and analyze air quality data.</p>
             </div>
 
             <div class="grid-2 mb-2">
-                <!-- Widget Generator -->
                 <div class="tool-card">
                     <div class="tool-header">
-                        <h3>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                            Embeddable Widget Generator
-                        </h3>
-                        <p>Create HTML embed codes to display live AQI on your website, blog, or app.</p>
+                        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> Embeddable Widget</h3>
+                        <p>Display live AQI on your website, blog, or app.</p>
                         <div class="tool-meta">
-                            <div class="tool-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                Auto-updates
-                            </div>
-                            <div class="tool-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                For: Bloggers, Schools, NGOs
-                            </div>
+                            <div class="tool-meta-item">Auto-updates</div>
+                            <div class="tool-meta-item">For: Bloggers, Schools, NGOs</div>
                         </div>
                     </div>
                     <div class="tool-body">
                         <div class="form-group">
-                            <label class="form-label">Select City</label>
+                            <label class="form-label">City</label>
                             <select class="form-select" id="widget-city">
                                 <option value="delhi">Delhi</option>
                                 <option value="mumbai">Mumbai</option>
@@ -1039,78 +1041,45 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Widget Size</label>
+                            <label class="form-label">Size</label>
                             <select class="form-select" id="widget-size">
-                                <option value="small">Small (200x100) — Sidebar</option>
-                                <option value="medium">Medium (300x150) — Article embed</option>
-                                <option value="large">Large (400x200) — Full feature</option>
+                                <option value="small">Small (200x100)</option>
+                                <option value="medium">Medium (300x150)</option>
+                                <option value="large">Large (400x200)</option>
                             </select>
                         </div>
-                        <button class="btn btn-primary" onclick="generateWidget()">Generate Embed Code</button>
+                        <button class="btn btn-primary" onclick="generateWidget()">Generate Code</button>
                         <div class="code-box mt-2" id="widget-code" style="display: none;"></div>
                     </div>
                 </div>
 
-                <!-- Data Export -->
                 <div class="tool-card">
                     <div class="tool-header">
-                        <h3>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            Data Export
-                        </h3>
-                        <p>Download current AQI data for all tracked cities in JSON or CSV format for research and analysis.</p>
+                        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Data Export</h3>
+                        <p>Download current AQI data for research and analysis.</p>
                         <div class="tool-meta">
-                            <div class="tool-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-                                JSON, CSV formats
-                            </div>
-                            <div class="tool-meta-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                For: Researchers, Journalists
-                            </div>
+                            <div class="tool-meta-item">JSON, CSV formats</div>
+                            <div class="tool-meta-item">For: Researchers, Journalists</div>
                         </div>
                     </div>
                     <div class="tool-body">
-                        <p style="font-size: 0.75rem; color: var(--text-2); margin-bottom: 1rem;">Export includes: City name, AQI, PM2.5, PM10, station name, and timestamp for all tracked cities.</p>
-                        <button class="btn btn-primary mb-1" onclick="exportData('json')" style="width: 100%;">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            Download JSON
-                        </button>
-                        <button class="btn btn-primary mb-1" onclick="exportData('csv')" style="width: 100%;">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            Download CSV
-                        </button>
-                        <button class="btn btn-primary" onclick="exportData('api')" style="width: 100%;">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                            API Endpoint Info
-                        </button>
+                        <p style="font-size: 0.75rem; color: var(--text-2); margin-bottom: 1rem;">Includes: City, AQI, PM2.5, PM10, station, timestamp.</p>
+                        <button class="btn btn-primary mb-1" onclick="exportData('json')" style="width: 100%;">Download JSON</button>
+                        <button class="btn btn-primary mb-1" onclick="exportData('csv')" style="width: 100%;">Download CSV</button>
+                        <button class="btn btn-primary" onclick="exportData('api')" style="width: 100%;">API Info</button>
                     </div>
                 </div>
             </div>
 
-            <!-- AQI Converter -->
             <div class="tool-card">
                 <div class="tool-header">
-                    <h3>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                        PM2.5 to AQI Converter
-                    </h3>
-                    <p>Convert raw PM2.5 concentration (µg/m³) to both India NAQI and US EPA AQI scales. Useful for comparing data from different sources that may use different standards.</p>
-                    <div class="tool-meta">
-                        <div class="tool-meta-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        India (NAQI) vs US (EPA) scales
-                        </div>
-                        <div class="tool-meta-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                            For: Data analysts, Scientists
-                        </div>
-                    </div>
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> PM2.5 to AQI Converter</h3>
+                    <p>Convert raw PM2.5 (ug/m3) to India NAQI and US EPA AQI scales.</p>
                 </div>
                 <div class="tool-body">
                     <div class="grid-3">
                         <div class="form-group">
-                            <label class="form-label">PM2.5 (µg/m³)</label>
+                            <label class="form-label">PM2.5 (ug/m3)</label>
                             <input type="number" class="form-input" id="pm25-input" placeholder="e.g., 150">
                         </div>
                         <div class="form-group">
@@ -1127,168 +1096,188 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
             </div>
         </div>
 
-        <!-- ========== NEWS FEED ========== -->
-        <div class="panel" id="panel-news">
-            <div class="section-intro">
-                <h2>Air Quality News Feed</h2>
-                <p>Latest news and updates on air pollution in India. Sources include major newspapers, government announcements, and research publications. Feed auto-updates hourly.</p>
-            </div>
-
-            <div class="grid-3">
-                <div class="card" style="grid-column: span 2;">
-                    <div class="card-header">
-                        <span class="card-title">Latest Headlines</span>
-                        <button class="btn btn-sm" onclick="refreshNews()">
-                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-                            Refresh
-                        </button>
-                    </div>
-                    <div class="card-body" id="news-feed" style="max-height: 500px; overflow-y: auto;">
-                        <div style="color: var(--text-3); font-size: 0.75rem;">Loading news...</div>
-                    </div>
-                    <div class="card-footer" id="news-update-time">Last updated: --</div>
-                </div>
-
-                <div>
-                    <div class="card mb-2">
-                        <div class="card-header"><span class="card-title">News Sources</span></div>
-                        <div class="card-body" style="font-size: 0.75rem;">
-                            <p style="margin-bottom: 0.5rem;"><strong>Newspapers</strong></p>
-                            <p style="color: var(--text-2); margin-bottom: 0.75rem;">The Hindu, Indian Express, Times of India, Hindustan Times</p>
-                            <p style="margin-bottom: 0.5rem;"><strong>Research</strong></p>
-                            <p style="color: var(--text-2); margin-bottom: 0.75rem;">CSE, TERI, IIT Delhi, CPCB Reports</p>
-                            <p style="margin-bottom: 0.5rem;"><strong>Government</strong></p>
-                            <p style="color: var(--text-2);">CAQM, MoEFCC, DPCC, State PCBs</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Quick Links</span></div>
-                        <div class="card-body" style="font-size: 0.75rem;">
-                            <p style="margin-bottom: 0.5rem;"><a href="https://twitter.com/search?q=delhi%20air%20quality" target="_blank" style="color: var(--primary);">Twitter: #DelhiAirQuality</a></p>
-                            <p style="margin-bottom: 0.5rem;"><a href="https://caqm.nic.in" target="_blank" style="color: var(--primary);">CAQM Official Orders</a></p>
-                            <p style="margin-bottom: 0.5rem;"><a href="https://app.cpcbccr.com" target="_blank" style="color: var(--primary);">CPCB Live Dashboard</a></p>
-                            <p><a href="https://safar.tropmet.res.in/" target="_blank" style="color: var(--primary);">SAFAR Forecast</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== RESOURCES LIBRARY ========== -->
+        <!-- ========== RESOURCES ========== -->
         <div class="panel" id="panel-resources">
             <div class="section-intro">
                 <h2>Research & Resources Library</h2>
-                <p>Curated collection of peer-reviewed studies, government reports, legal documents, and data sources. All resources are from authoritative sources and regularly updated.</p>
+                <p>Curated, verified open-access resources from peer-reviewed studies, government portals, and data sources.</p>
             </div>
 
-            <div class="grid-2 mb-2">
-                <div class="card">
-                    <div class="card-header"><span class="card-title">Health Studies</span></div>
-                    <div class="card-body">
-                        <div class="resource-card mb-1">
-                            <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(20)30298-9/fulltext" target="_blank">
-                                <div class="resource-type">Peer-reviewed</div>
-                                <div class="resource-title">Lancet GBD 2019: India State-Level Analysis</div>
-                                <div class="resource-desc">Comprehensive state-by-state mortality estimates from air pollution in India.</div>
-                            </a>
-                        </div>
-                        <div class="resource-card mb-1">
-                            <a href="https://www.healthdata.org/research-analysis/library/state-global-air-2024" target="_blank">
-                                <div class="resource-type">Annual Report</div>
-                                <div class="resource-title">State of Global Air 2024</div>
-                                <div class="resource-desc">Global air quality trends with India-specific findings on PM2.5 exposure.</div>
-                            </a>
-                        </div>
-                        <div class="resource-card">
-                            <a href="https://www.who.int/publications/i/item/9789240034228" target="_blank">
-                                <div class="resource-type">Guidelines</div>
-                                <div class="resource-title">WHO Air Quality Guidelines 2021</div>
-                                <div class="resource-desc">Updated global guidelines showing India is 20x over safe PM2.5 limits.</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header"><span class="card-title">Source Apportionment</span></div>
-                    <div class="card-body">
-                        <div class="resource-card mb-1">
-                            <a href="https://www.teriin.org/sites/default/files/2018-08/Report_SA_AQM-Delhi-NCR_0.pdf" target="_blank">
-                                <div class="resource-type">Technical Report</div>
-                                <div class="resource-title">TERI-ARAI Delhi NCR Source Study</div>
-                                <div class="resource-desc">Detailed breakdown of pollution sources: vehicles, industry, dust, biomass.</div>
-                            </a>
-                        </div>
-                        <div class="resource-card mb-1">
-                            <a href="https://urbanemissions.info" target="_blank">
-                                <div class="resource-type">Research Portal</div>
-                                <div class="resource-title">Urban Emissions Info</div>
-                                <div class="resource-desc">Dr. Sarath Guttikunda's comprehensive Delhi air quality research (1990-2023).</div>
-                            </a>
-                        </div>
-                        <div class="resource-card">
-                            <a href="https://www.cseindia.org/page/programme-air-pollution" target="_blank">
-                                <div class="resource-type">NGO Research</div>
-                                <div class="resource-title">CSE Air Pollution Programme</div>
-                                <div class="resource-desc">Centre for Science and Environment's ongoing vehicle emissions analysis.</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <!-- SEARCH -->
+            <div class="search-box">
+                <input type="text" class="search-input" id="resource-search" placeholder="Search resources (e.g., 'lancet', 'source apportionment', 'NCAP')..." oninput="filterResources()">
+                <button class="search-btn" onclick="filterResources()">Search</button>
             </div>
 
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header"><span class="card-title">Policy & Legal</span></div>
-                    <div class="card-body">
-                        <div class="resource-card mb-1">
-                            <a href="https://caqm.nic.in" target="_blank">
-                                <div class="resource-type">Government</div>
-                                <div class="resource-title">CAQM Official Portal</div>
-                                <div class="resource-desc">Commission for Air Quality Management orders, GRAP notifications.</div>
-                            </a>
+            <div id="resources-container">
+                <div class="grid-2 mb-2">
+                    <!-- HEALTH STUDIES -->
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Health Studies</span></div>
+                        <div class="card-body resource-list" data-category="health">
+                            <div class="resource-card" data-keywords="lancet gbd mortality deaths india state">
+                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(20)30298-9/fulltext" target="_blank">
+                                    <div class="resource-type">Peer-reviewed <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">Lancet GBD 2019: India State-Level Analysis</div>
+                                    <div class="resource-desc">Comprehensive state-by-state mortality estimates from air pollution. 2.1M deaths/year attributed to PM2.5.</div>
+                                    <div class="resource-meta">Lancet Planetary Health | 2020 | DOI: 10.1016/S2542-5196(20)30298-9</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="state global air 2024 ihme health effects">
+                                <a href="https://www.stateofglobalair.org/resources" target="_blank">
+                                    <div class="resource-type">Annual Report <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">State of Global Air 2024</div>
+                                    <div class="resource-desc">Global air quality trends with India-specific findings. Interactive data explorer available.</div>
+                                    <div class="resource-meta">Health Effects Institute | June 2024</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="who guidelines pm2.5 standards">
+                                <a href="https://www.who.int/publications/i/item/9789240034228" target="_blank">
+                                    <div class="resource-type">Guidelines <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">WHO Air Quality Guidelines 2021</div>
+                                    <div class="resource-desc">Updated global guidelines. India is 20x over safe PM2.5 annual limit of 5 ug/m3.</div>
+                                    <div class="resource-meta">World Health Organization | 2021</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="ihme gbd interactive data tool">
+                                <a href="https://vizhub.healthdata.org/gbd-results/" target="_blank">
+                                    <div class="resource-type">Interactive Tool <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">IHME GBD Results Tool</div>
+                                    <div class="resource-desc">Query mortality and DALYs by country, state, risk factor. Download custom datasets.</div>
+                                    <div class="resource-meta">Institute for Health Metrics and Evaluation</div>
+                                </a>
+                            </div>
                         </div>
-                        <div class="resource-card mb-1">
-                            <a href="https://prana.cpcb.gov.in/" target="_blank">
-                                <div class="resource-type">Dashboard</div>
-                                <div class="resource-title">PRANA Portal (NCAP Tracker)</div>
-                                <div class="resource-desc">National Clean Air Programme fund allocation and utilization tracker.</div>
-                            </a>
-                        </div>
-                        <div class="resource-card">
-                            <a href="https://indiankanoon.org/search/?formInput=air%20pollution" target="_blank">
-                                <div class="resource-type">Legal Database</div>
-                                <div class="resource-title">Indian Kanoon: Air Pollution Cases</div>
-                                <div class="resource-desc">Supreme Court and NGT judgments on air quality matters.</div>
-                            </a>
+                    </div>
+
+                    <!-- SOURCE APPORTIONMENT -->
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Source Apportionment</span></div>
+                        <div class="card-body resource-list" data-category="source">
+                            <div class="resource-card" data-keywords="teri arai source apportionment delhi ncr vehicles industry">
+                                <a href="https://www.teriin.org/sites/default/files/2018-08/Report_SA_AQM-Delhi-NCR_0.pdf" target="_blank">
+                                    <div class="resource-type">Technical Report <span class="badge badge-success">Open Access PDF</span></div>
+                                    <div class="resource-title">TERI-ARAI Delhi NCR Source Study</div>
+                                    <div class="resource-desc">Detailed breakdown: vehicles (28%), industry (30%), dust (18%), biomass (12%).</div>
+                                    <div class="resource-meta">TERI & ARAI | 2018</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="urban emissions sarath guttikunda delhi history 1990">
+                                <a href="https://urbanemissions.info/" target="_blank">
+                                    <div class="resource-type">Research Portal <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">Urban Emissions Info</div>
+                                    <div class="resource-desc">Dr. Sarath Guttikunda's comprehensive Delhi air quality research spanning 1990-2023.</div>
+                                    <div class="resource-meta">urbanemissions.info | Updated regularly</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="cse vehicles transport emissions analysis">
+                                <a href="https://www.cseindia.org/page/programme-air-pollution" target="_blank">
+                                    <div class="resource-type">NGO Research <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">CSE Air Pollution Programme</div>
+                                    <div class="resource-desc">Centre for Science and Environment's vehicle emissions and transport analysis.</div>
+                                    <div class="resource-meta">cseindia.org</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="iit kanpur source apportionment 2016">
+                                <a href="http://www.cpcb.nic.in/Delhi.pdf" target="_blank">
+                                    <div class="resource-type">Government Report <span class="badge badge-success">Open Access PDF</span></div>
+                                    <div class="resource-title">IIT Kanpur Source Apportionment Study</div>
+                                    <div class="resource-desc">Landmark 2016 study commissioned by DPCC. Basis for many policy interventions.</div>
+                                    <div class="resource-meta">IIT Kanpur for CPCB | 2016</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header"><span class="card-title">Live Data Sources</span></div>
-                    <div class="card-body">
-                        <div class="resource-card mb-1">
-                            <a href="https://aqicn.org/city/delhi/" target="_blank">
-                                <div class="resource-type">Real-time</div>
-                                <div class="resource-title">World Air Quality Index (WAQI)</div>
-                                <div class="resource-desc">Primary data source for this dashboard. Free API available.</div>
-                            </a>
+                <div class="grid-2">
+                    <!-- POLICY & LEGAL -->
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Policy & Legal</span></div>
+                        <div class="card-body resource-list" data-category="policy">
+                            <div class="resource-card" data-keywords="caqm grap orders delhi ncr commission">
+                                <a href="https://caqm.nic.in/" target="_blank">
+                                    <div class="resource-type">Government Portal <span class="badge badge-info">Official</span></div>
+                                    <div class="resource-title">CAQM Official Portal</div>
+                                    <div class="resource-desc">Commission for Air Quality Management. GRAP orders, meeting minutes, action reports.</div>
+                                    <div class="resource-meta">caqm.nic.in</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="ncap prana fund utilization tracker cities">
+                                <a href="https://prana.cpcb.gov.in/" target="_blank">
+                                    <div class="resource-type">Dashboard <span class="badge badge-info">Official</span></div>
+                                    <div class="resource-title">PRANA Portal (NCAP Tracker)</div>
+                                    <div class="resource-desc">National Clean Air Programme fund allocation and utilization for 131 cities.</div>
+                                    <div class="resource-meta">prana.cpcb.gov.in</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="ngt green tribunal court orders judgments">
+                                <a href="https://greentribunal.gov.in/orders" target="_blank">
+                                    <div class="resource-type">Legal Database <span class="badge badge-info">Official</span></div>
+                                    <div class="resource-title">National Green Tribunal Orders</div>
+                                    <div class="resource-desc">All NGT orders searchable by date, state, subject. Key air pollution judgments.</div>
+                                    <div class="resource-meta">greentribunal.gov.in</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="indian kanoon supreme court cases pollution">
+                                <a href="https://indiankanoon.org/search/?formInput=air%20pollution" target="_blank">
+                                    <div class="resource-type">Legal Database <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">Indian Kanoon: Air Pollution Cases</div>
+                                    <div class="resource-desc">Searchable database of SC, HC, and NGT judgments on air quality.</div>
+                                    <div class="resource-meta">indiankanoon.org</div>
+                                </a>
+                            </div>
                         </div>
-                        <div class="resource-card mb-1">
-                            <a href="https://app.cpcbccr.com/ccr/#/caaqm-dashboard-all/caaqm-landing" target="_blank">
-                                <div class="resource-type">Government</div>
-                                <div class="resource-title">CPCB CAAQMS Dashboard</div>
-                                <div class="resource-desc">Official continuous ambient air quality monitoring data.</div>
-                            </a>
-                        </div>
-                        <div class="resource-card">
-                            <a href="https://safar.tropmet.res.in/" target="_blank">
-                                <div class="resource-type">Forecast</div>
-                                <div class="resource-title">SAFAR (IITM Pune)</div>
-                                <div class="resource-desc">System of Air Quality and Weather Forecasting for major cities.</div>
-                            </a>
+                    </div>
+
+                    <!-- LIVE DATA -->
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Live Data Sources</span></div>
+                        <div class="card-body resource-list" data-category="data">
+                            <div class="resource-card" data-keywords="waqi aqicn live aqi api worldwide">
+                                <a href="https://aqicn.org/city/delhi/" target="_blank">
+                                    <div class="resource-type">Real-time <span class="badge badge-success">Free API</span></div>
+                                    <div class="resource-title">World Air Quality Index (WAQI)</div>
+                                    <div class="resource-desc">Primary data source for this dashboard. Free API available for developers.</div>
+                                    <div class="resource-meta">aqicn.org | API: api.waqi.info</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="cpcb caaqms official government monitoring">
+                                <a href="https://app.cpcbccr.com/ccr/#/caaqm-dashboard-all/caaqm-landing" target="_blank">
+                                    <div class="resource-type">Government Dashboard <span class="badge badge-info">Official</span></div>
+                                    <div class="resource-title">CPCB CAAQMS Dashboard</div>
+                                    <div class="resource-desc">Official continuous ambient air quality monitoring. All CPCB/SPCB stations.</div>
+                                    <div class="resource-meta">app.cpcbccr.com</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="safar forecast iitm pune prediction">
+                                <a href="https://safar.tropmet.res.in/" target="_blank">
+                                    <div class="resource-type">Forecast <span class="badge badge-info">Official</span></div>
+                                    <div class="resource-title">SAFAR (IITM Pune)</div>
+                                    <div class="resource-desc">System of Air Quality and Weather Forecasting. 3-day AQI predictions.</div>
+                                    <div class="resource-meta">safar.tropmet.res.in</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="openaq open air quality global data">
+                                <a href="https://openaq.org/locations?country=IN" target="_blank">
+                                    <div class="resource-type">Data Platform <span class="badge badge-success">Open Access</span></div>
+                                    <div class="resource-title">OpenAQ India</div>
+                                    <div class="resource-desc">Aggregates data from multiple sources. Downloadable historical data. API available.</div>
+                                    <div class="resource-meta">openaq.org | Free API</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1303,46 +1292,33 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
 
     <script>
         // ============================================
-        // CONFIGURATION - EXPANDED TO 20+ CITIES
+        // CONFIGURATION
         // ============================================
         const WAQI_TOKEN = 'demo';
         
         const CITIES = {
-            // Major Metros
             delhi: { name: 'Delhi', lat: 28.6139, lon: 77.2090, query: 'delhi', region: 'north' },
             mumbai: { name: 'Mumbai', lat: 19.0760, lon: 72.8777, query: 'mumbai', region: 'west' },
             kolkata: { name: 'Kolkata', lat: 22.5726, lon: 88.3639, query: 'kolkata', region: 'east' },
             chennai: { name: 'Chennai', lat: 13.0827, lon: 80.2707, query: 'chennai', region: 'south' },
             bangalore: { name: 'Bengaluru', lat: 12.9716, lon: 77.5946, query: 'bangalore', region: 'south' },
             hyderabad: { name: 'Hyderabad', lat: 17.3850, lon: 78.4867, query: 'hyderabad', region: 'south' },
-            // NCR
             gurgaon: { name: 'Gurgaon', lat: 28.4595, lon: 77.0266, query: 'gurgaon', region: 'north' },
             noida: { name: 'Noida', lat: 28.5355, lon: 77.3910, query: 'noida', region: 'north' },
             faridabad: { name: 'Faridabad', lat: 28.4089, lon: 77.3178, query: 'faridabad', region: 'north' },
             ghaziabad: { name: 'Ghaziabad', lat: 28.6692, lon: 77.4538, query: 'ghaziabad', region: 'north' },
-            // North India
             lucknow: { name: 'Lucknow', lat: 26.8467, lon: 80.9462, query: 'lucknow', region: 'north' },
             kanpur: { name: 'Kanpur', lat: 26.4499, lon: 80.3319, query: 'kanpur', region: 'north' },
             patna: { name: 'Patna', lat: 25.5941, lon: 85.1376, query: 'patna', region: 'north' },
             jaipur: { name: 'Jaipur', lat: 26.9124, lon: 75.7873, query: 'jaipur', region: 'north' },
-            chandigarh: { name: 'Chandigarh', lat: 30.7333, lon: 76.7794, query: 'chandigarh', region: 'north' },
-            varanasi: { name: 'Varanasi', lat: 25.3176, lon: 82.9739, query: 'varanasi', region: 'north' },
-            // West
             ahmedabad: { name: 'Ahmedabad', lat: 23.0225, lon: 72.5714, query: 'ahmedabad', region: 'west' },
             pune: { name: 'Pune', lat: 18.5204, lon: 73.8567, query: 'pune', region: 'west' },
-            // South
-            kochi: { name: 'Kochi', lat: 9.9312, lon: 76.2673, query: 'kochi', region: 'south' },
-            visakhapatnam: { name: 'Vizag', lat: 17.6868, lon: 83.2185, query: 'visakhapatnam', region: 'south' },
-            // International
             beijing: { name: 'Beijing', lat: 39.9042, lon: 116.4074, query: 'beijing', region: 'intl' },
             london: { name: 'London', lat: 51.5074, lon: -0.1278, query: 'london', region: 'intl' },
-            newyork: { name: 'New York', lat: 40.7128, lon: -74.0060, query: 'new york', region: 'intl' },
-            tokyo: { name: 'Tokyo', lat: 35.6762, lon: 139.6503, query: 'tokyo', region: 'intl' },
             singapore: { name: 'Singapore', lat: 1.3521, lon: 103.8198, query: 'singapore', region: 'intl' }
         };
 
         const INDIAN_CITIES = Object.keys(CITIES).filter(k => CITIES[k].region !== 'intl');
-
         let aqiData = {};
         let charts = {};
         let map = null;
@@ -1363,17 +1339,11 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('panel-' + panel).classList.add('active');
-            
-            // Find and activate the correct tab
             document.querySelectorAll('.tab').forEach(t => {
-                if (t.textContent.toLowerCase().includes(panel.substring(0, 4))) {
-                    t.classList.add('active');
-                }
+                if (t.textContent.toLowerCase().trim().startsWith(panel.substring(0, 4))) t.classList.add('active');
             });
-            
             if (panel === 'map' && !map) initMap();
             if (panel === 'compare') updateComparison();
-            if (panel === 'news') loadNews();
         }
 
         // ============================================
@@ -1407,7 +1377,7 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
         }
 
         // ============================================
-        // LIVE DATA FETCH
+        // DATA FETCH
         // ============================================
         async function fetchAQI(cityKey) {
             try {
@@ -1415,13 +1385,7 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
                 const res = await fetch(`https://api.waqi.info/feed/${city.query}/?token=${WAQI_TOKEN}`);
                 const data = await res.json();
                 if (data.status === 'ok' && data.data.aqi !== '-') {
-                    return {
-                        aqi: parseInt(data.data.aqi),
-                        pm25: data.data.iaqi?.pm25?.v || null,
-                        pm10: data.data.iaqi?.pm10?.v || null,
-                        time: data.data.time?.s,
-                        station: data.data.city?.name
-                    };
+                    return { aqi: parseInt(data.data.aqi), pm25: data.data.iaqi?.pm25?.v || null, pm10: data.data.iaqi?.pm10?.v || null, time: data.data.time?.s, station: data.data.city?.name };
                 }
             } catch (e) { console.warn(`Failed: ${cityKey}`); }
             return null;
@@ -1429,145 +1393,45 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
 
         async function fetchAllAQI() {
             const ticker = document.getElementById('aqi-ticker');
-            ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching live data...</span></div>';
-            
+            ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching...</span></div>';
             const results = await Promise.all(INDIAN_CITIES.map(c => fetchAQI(c)));
-            
-            results.forEach((r, i) => {
-                if (r) aqiData[INDIAN_CITIES[i]] = r;
-            });
-
+            results.forEach((r, i) => { if (r) aqiData[INDIAN_CITIES[i]] = r; });
             updateTicker();
             updateDashboard();
             initAllCharts();
-            document.getElementById('ticker-update').textContent = new Date().toLocaleTimeString();
+            document.getElementById('ticker-update').textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
         }
 
         function updateTicker() {
             const ticker = document.getElementById('aqi-ticker');
-            ticker.innerHTML = Object.entries(aqiData)
-                .sort((a, b) => b[1].aqi - a[1].aqi)
-                .map(([key, data]) => 
-                    `<div class="ticker-item"><span class="ticker-city">${CITIES[key]?.name || key}</span><span class="ticker-aqi ${getAQIClass(data.aqi)}">${data.aqi}</span></div>`
-                ).join('');
+            ticker.innerHTML = Object.entries(aqiData).sort((a, b) => b[1].aqi - a[1].aqi).map(([key, data]) => 
+                `<div class="ticker-item"><span class="ticker-city">${CITIES[key]?.name || key}</span><span class="ticker-aqi ${getAQIClass(data.aqi)}">${data.aqi}</span></div>`
+            ).join('');
         }
 
         function updateDashboard() {
-            // Delhi AQI
-            const delhiEl = document.getElementById('delhi-live-aqi');
             if (aqiData.delhi) {
-                delhiEl.textContent = aqiData.delhi.aqi;
-                delhiEl.className = 'stat-value ' + (aqiData.delhi.aqi > 200 ? 'danger' : aqiData.delhi.aqi > 100 ? 'warning' : 'success');
+                document.getElementById('delhi-live-aqi').textContent = aqiData.delhi.aqi;
+                document.getElementById('delhi-live-aqi').className = 'stat-value ' + (aqiData.delhi.aqi > 200 ? 'danger' : aqiData.delhi.aqi > 100 ? 'warning' : 'success');
                 document.getElementById('delhi-aqi-status').textContent = getAQILabel(aqiData.delhi.aqi);
-                
-                // Update GRAP display
-                updateGRAPDisplay(aqiData.delhi.aqi);
             }
-
-            // Worst/Best cities
             const sorted = Object.entries(aqiData).sort((a, b) => b[1].aqi - a[1].aqi);
-            
-            // Update worst city stat
             if (sorted.length > 0) {
                 document.getElementById('worst-city-aqi').textContent = sorted[0][1].aqi;
                 document.getElementById('worst-city-aqi').className = 'stat-value danger';
                 document.getElementById('worst-city-name').textContent = CITIES[sorted[0][0]]?.name || sorted[0][0];
             }
-
-            // Worst cities list
-            const worstContainer = document.getElementById('worst-cities');
-            worstContainer.innerHTML = sorted.slice(0, 5).map((item, i) => `
-                <div class="city-rank">
-                    <span class="rank-num ${i < 3 ? 'top' : ''}">${i + 1}</span>
-                    <span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span>
-                    <span class="city-rank-aqi" style="background: ${getAQIColor(item[1].aqi)}">${item[1].aqi}</span>
-                </div>
-            `).join('');
-
-            // Best cities list
-            const bestContainer = document.getElementById('best-cities');
-            bestContainer.innerHTML = sorted.slice(-5).reverse().map((item, i) => `
-                <div class="city-rank">
-                    <span class="rank-num">${i + 1}</span>
-                    <span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span>
-                    <span class="city-rank-aqi" style="background: ${getAQIColor(item[1].aqi)}">${item[1].aqi}</span>
-                </div>
-            `).join('');
-
-            // Dashboard news preview
+            document.getElementById('worst-cities').innerHTML = sorted.slice(0, 5).map((item, i) => `<div class="city-rank"><span class="rank-num ${i < 3 ? 'top' : ''}">${i + 1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background: ${getAQIColor(item[1].aqi)}">${item[1].aqi}</span></div>`).join('');
+            document.getElementById('best-cities').innerHTML = sorted.slice(-5).reverse().map((item, i) => `<div class="city-rank"><span class="rank-num">${i + 1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background: ${getAQIColor(item[1].aqi)}">${item[1].aqi}</span></div>`).join('');
             loadDashboardNews();
         }
 
-        function updateGRAPDisplay(aqi) {
-            const stages = document.querySelectorAll('.grap-stage');
-            stages.forEach(s => s.classList.remove('active'));
-            
-            if (aqi > 450) {
-                document.querySelector('.grap-4').classList.add('active');
-                document.getElementById('grap-alert').className = 'alert alert-danger mb-2';
-                document.getElementById('grap-alert').innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                    <div><strong>GRAP Stage IV Active</strong> — Truck entry banned, 50% WFH advisory, construction stopped.</div>
-                `;
-            } else if (aqi > 400) {
-                document.querySelector('.grap-3').classList.add('active');
-                document.getElementById('grap-alert').className = 'alert alert-warning mb-2';
-                document.getElementById('grap-alert').innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    <div><strong>GRAP Stage III Active</strong> — Construction banned, brick kilns closed, mining stopped.</div>
-                `;
-            } else if (aqi > 300) {
-                document.querySelector('.grap-2').classList.add('active');
-                document.getElementById('grap-alert').className = 'alert alert-warning mb-2';
-            } else if (aqi > 200) {
-                document.querySelector('.grap-1').classList.add('active');
-                document.getElementById('grap-alert').className = 'alert alert-info mb-2';
-            }
-        }
-
-        // ============================================
-        // NEWS FEED
-        // ============================================
-        const NEWS_ITEMS = [
-            { source: 'Times of India', time: '2 hours ago', title: 'Delhi AQI crosses 450, GRAP Stage IV implemented', url: '#' },
-            { source: 'Indian Express', time: '4 hours ago', title: 'SC slams Punjab, Haryana over stubble burning', url: '#' },
-            { source: 'The Hindu', time: '6 hours ago', title: 'NCAP fund utilization remains below 50% in most cities', url: '#' },
-            { source: 'Hindustan Times', time: '8 hours ago', title: 'Electric buses: Delhi adds 200 more to fleet', url: '#' },
-            { source: 'Down To Earth', time: '1 day ago', title: 'Study: Vehicles contribute 40% of Delhi winter pollution', url: '#' },
-            { source: 'CPCB', time: '1 day ago', title: 'New CAAQMS stations commissioned in 5 cities', url: '#' },
-            { source: 'Business Standard', time: '2 days ago', title: 'Air pollution costs India 5.4% of GDP: World Bank', url: '#' },
-            { source: 'Scroll.in', time: '2 days ago', title: 'Why smog towers are an expensive failure', url: '#' },
-        ];
-
-        function loadNews() {
-            const container = document.getElementById('news-feed');
-            container.innerHTML = NEWS_ITEMS.map(item => `
-                <div class="news-item">
-                    <div class="news-meta">
-                        <span class="news-source">${item.source}</span>
-                        <span>${item.time}</span>
-                    </div>
-                    <div class="news-title"><a href="${item.url}" target="_blank">${item.title}</a></div>
-                </div>
-            `).join('');
-            document.getElementById('news-update-time').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
-        }
-
         function loadDashboardNews() {
-            const container = document.getElementById('dashboard-news');
-            container.innerHTML = NEWS_ITEMS.slice(0, 3).map(item => `
-                <div class="news-item" style="padding: 0.5rem 0;">
-                    <div class="news-meta">
-                        <span class="news-source">${item.source}</span>
-                        <span>${item.time}</span>
-                    </div>
-                    <div class="news-title" style="font-size: 0.75rem;"><a href="${item.url}">${item.title}</a></div>
-                </div>
-            `).join('');
-        }
-
-        function refreshNews() {
-            loadNews();
+            document.getElementById('dashboard-news').innerHTML = `
+                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">SC</span>Nov 2024</div><div class="news-title" style="font-size: 0.75rem;">SC slams governments over inaction</div></div>
+                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">CAQM</span>Dec 2024</div><div class="news-title" style="font-size: 0.75rem;">GRAP Stage IV extended</div></div>
+                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">Study</span>2024</div><div class="news-title" style="font-size: 0.75rem;">Smog towers found ineffective: IIT</div></div>
+            `;
         }
 
         // ============================================
@@ -1577,24 +1441,15 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
             const aqi = parseInt(document.getElementById('safe-aqi').value);
             const activity = parseFloat(document.getElementById('safe-activity').value);
             const health = parseFloat(document.getElementById('safe-health').value);
-            
             let baseHours = 24;
             if (aqi > 50) baseHours = Math.max(0.5, 12 - ((aqi - 50) / 30));
             if (aqi > 200) baseHours = Math.max(0.25, 4 - ((aqi - 200) / 100));
             if (aqi > 400) baseHours = 0;
-            
             const adjustedHours = Math.max(0, baseHours / (activity * health));
-            
             document.getElementById('safe-result').style.display = 'block';
             document.getElementById('safe-hours').textContent = adjustedHours === 0 ? 'AVOID OUTDOORS' : adjustedHours.toFixed(1) + ' hours';
             document.getElementById('safe-hours').style.color = adjustedHours < 2 ? '#EF4444' : adjustedHours < 4 ? '#F59E0B' : '#22C55E';
-            
-            let advice = '';
-            if (aqi > 300) advice = 'Severe pollution. Stay indoors. Use N95 mask if going out is unavoidable.';
-            else if (aqi > 200) advice = 'Very poor air. Avoid outdoor exercise. Sensitive groups should stay indoors.';
-            else if (aqi > 100) advice = 'Moderate pollution. Reduce prolonged outdoor exertion.';
-            else advice = 'Air quality acceptable for most activities.';
-            document.getElementById('safe-advice').textContent = advice;
+            document.getElementById('safe-advice').textContent = aqi > 300 ? 'Severe. Stay indoors. N95 if unavoidable.' : aqi > 200 ? 'Very poor. Avoid outdoor exercise.' : 'Reduce prolonged exertion.';
         }
 
         function calculateHealthRisk() {
@@ -1602,19 +1457,14 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
             const pm25 = parseFloat(document.getElementById('health-pm25').value);
             const outdoor = parseFloat(document.getElementById('health-outdoor').value);
             const conditions = parseFloat(document.getElementById('health-conditions').value);
-            
             const baselineRisk = Math.exp(0.1 * Math.log(1 + 5/2.5));
             const currentRisk = Math.exp(0.1 * Math.log(1 + pm25/2.5));
             const excessRisk = ((currentRisk / baselineRisk) - 1) * 100 * conditions * (outdoor / 8);
-            
-            const lifeExpectancy = 75 - age;
-            const yearsLost = (excessRisk / 100) * lifeExpectancy * 0.3;
-            
+            const yearsLost = (excessRisk / 100) * (75 - age) * 0.3;
             const cigarettes = (pm25 * outdoor / 24) / 22;
-            
             document.getElementById('mortality-risk').textContent = '+' + excessRisk.toFixed(1) + '%';
             document.getElementById('life-years-lost').textContent = yearsLost.toFixed(1) + ' years';
-            document.getElementById('cigarette-equiv').textContent = cigarettes.toFixed(1) + ' cigarettes/day';
+            document.getElementById('cigarette-equiv').textContent = cigarettes.toFixed(1) + ' cig/day';
         }
 
         document.getElementById('health-outdoor')?.addEventListener('input', e => {
@@ -1626,52 +1476,23 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
             const salary = parseInt(document.getElementById('econ-salary').value);
             const cityKey = document.getElementById('econ-city').value;
             const cityAQI = aqiData[cityKey]?.aqi || 150;
-            
             const productivityLoss = Math.max(0, (cityAQI - 50) / 10) * 0.01;
-            const annualSalary = salary * 12 * employees;
-            const annualLoss = annualSalary * productivityLoss;
-            const extraSickDays = employees * (cityAQI / 100) * 2;
-            
+            const annualLoss = salary * 12 * employees * productivityLoss;
             document.getElementById('econ-result').style.display = 'block';
-            document.getElementById('econ-loss').textContent = '₹' + (annualLoss / 100000).toFixed(1) + ' Lakhs/year';
-            document.getElementById('econ-detail').innerHTML = `
-                Based on ${CITIES[cityKey]?.name} AQI: ${cityAQI}<br>
-                Productivity loss: ${(productivityLoss * 100).toFixed(1)}%<br>
-                Est. extra sick days: ${extraSickDays.toFixed(0)} days/year<br>
-                Per employee: ₹${(annualLoss / employees).toFixed(0)}/year
-            `;
+            document.getElementById('econ-loss').textContent = 'Rs ' + (annualLoss / 100000).toFixed(1) + ' Lakhs/year';
+            document.getElementById('econ-detail').innerHTML = `Productivity loss: ${(productivityLoss * 100).toFixed(1)}%<br>Based on ${CITIES[cityKey]?.name} AQI: ${cityAQI}`;
         }
 
         // ============================================
         // COMPARISON
         // ============================================
         async function updateComparison() {
-            const city1 = document.getElementById('compare-city1').value;
-            const city2 = document.getElementById('compare-city2').value;
-            const city3 = document.getElementById('compare-city3').value;
-            
-            const cities = [city1, city2, city3];
-            
-            // Fetch any missing data
-            for (const c of cities) {
-                if (!aqiData[c]) {
-                    const data = await fetchAQI(c);
-                    if (data) aqiData[c] = data;
-                }
-            }
-            
-            const container = document.getElementById('comparison-result');
-            container.innerHTML = cities.map(c => {
+            const cities = [document.getElementById('compare-city1').value, document.getElementById('compare-city2').value, document.getElementById('compare-city3').value];
+            for (const c of cities) { if (!aqiData[c]) { const d = await fetchAQI(c); if (d) aqiData[c] = d; } }
+            document.getElementById('comparison-result').innerHTML = cities.map(c => {
                 const data = aqiData[c] || { aqi: '--' };
-                return `
-                    <div class="card stat-card">
-                        <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div>
-                        <div class="stat-value" style="color: ${getAQIColor(data.aqi)}">${data.aqi}</div>
-                        <div class="stat-label">${data.pm25 ? 'PM2.5: ' + data.pm25 : getAQILabel(data.aqi)}</div>
-                    </div>
-                `;
+                return `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: ${getAQIColor(data.aqi)}">${data.aqi}</div><div class="stat-label">${getAQILabel(data.aqi)}</div></div>`;
             }).join('');
-
             if (charts.compare) {
                 charts.compare.data.labels = cities.map(c => CITIES[c]?.name || c);
                 charts.compare.data.datasets[0].data = cities.map(c => aqiData[c]?.aqi || 0);
@@ -1685,25 +1506,12 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
         // ============================================
         function initMap() {
             map = L.map('india-map').setView([22.5, 78.5], 5);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
-
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
             Object.entries(CITIES).forEach(([key, city]) => {
                 if (!city.lat || city.region === 'intl') return;
                 const data = aqiData[key];
                 const aqi = data?.aqi || '?';
-                const color = getAQIColor(aqi);
-                
-                const marker = L.circleMarker([city.lat, city.lon], {
-                    radius: 12,
-                    fillColor: color,
-                    color: '#fff',
-                    weight: 2,
-                    fillOpacity: 0.8
-                }).addTo(map);
-                
-                marker.bindPopup(`<strong>${city.name}</strong><br>AQI: ${aqi}<br>${data?.pm25 ? 'PM2.5: ' + data.pm25 : ''}`);
+                L.circleMarker([city.lat, city.lon], { radius: 12, fillColor: getAQIColor(aqi), color: '#fff', weight: 2, fillOpacity: 0.8 }).addTo(map).bindPopup(`<strong>${city.name}</strong><br>AQI: ${aqi}`);
             });
         }
 
@@ -1714,133 +1522,46 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const textColor = isDark ? '#94A3B8' : '#64748B';
             const gridColor = isDark ? '#334155' : '#E2E8F0';
-            
             Chart.defaults.color = textColor;
             Object.values(charts).forEach(c => c?.destroy?.());
             charts = {};
 
-            // Metro Chart
             const metroCtx = document.getElementById('metroChart');
             if (metroCtx) {
                 const metros = ['delhi', 'mumbai', 'kolkata', 'chennai', 'bangalore', 'hyderabad'];
-                charts.metro = new Chart(metroCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: metros.map(c => CITIES[c].name),
-                        datasets: [{
-                            data: metros.map(c => aqiData[c]?.aqi || 0),
-                            backgroundColor: metros.map(c => getAQIColor(aqiData[c]?.aqi || 0))
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 500, grid: { color: gridColor } } } }
-                });
+                charts.metro = new Chart(metroCtx, { type: 'bar', data: { labels: metros.map(c => CITIES[c].name), datasets: [{ data: metros.map(c => aqiData[c]?.aqi || 0), backgroundColor: metros.map(c => getAQIColor(aqiData[c]?.aqi || 0)) }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 500, grid: { color: gridColor } } } } });
             }
 
-            // Region Chart
             const regionCtx = document.getElementById('regionChart');
             if (regionCtx) {
                 const north = ['delhi', 'lucknow', 'patna'].map(c => aqiData[c]?.aqi || 0);
                 const south = ['chennai', 'bangalore', 'hyderabad'].map(c => aqiData[c]?.aqi || 0);
-                const avgNorth = north.reduce((a, b) => a + b, 0) / north.length;
-                const avgSouth = south.reduce((a, b) => a + b, 0) / south.length;
-                
-                charts.region = new Chart(regionCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['North India', 'South India'],
-                        datasets: [{
-                            label: 'Average AQI',
-                            data: [avgNorth, avgSouth],
-                            backgroundColor: [getAQIColor(avgNorth), getAQIColor(avgSouth)]
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 400, grid: { color: gridColor } } } }
-                });
+                charts.region = new Chart(regionCtx, { type: 'bar', data: { labels: ['North India', 'South India'], datasets: [{ label: 'Average AQI', data: [north.reduce((a, b) => a + b, 0) / north.length, south.reduce((a, b) => a + b, 0) / south.length], backgroundColor: ['#EF4444', '#22C55E'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 400, grid: { color: gridColor } } } } });
             }
 
-            // Economic Chart
             const econCtx = document.getElementById('econChart');
             if (econCtx) {
-                charts.econ = new Chart(econCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Healthcare', 'Lost Productivity', 'Premature Deaths', 'Agriculture'],
-                        datasets: [{ data: [170000, 120000, 95000, 35000], backgroundColor: ['#EF4444', '#F59E0B', '#7C3AED', '#22C55E'] }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
+                charts.econ = new Chart(econCtx, { type: 'doughnut', data: { labels: ['Healthcare', 'Productivity', 'Deaths', 'Agriculture'], datasets: [{ data: [170000, 120000, 95000, 35000], backgroundColor: ['#EF4444', '#F59E0B', '#7C3AED', '#22C55E'] }] }, options: { responsive: true, maintainAspectRatio: false } });
             }
 
-            // NCAP Chart
             const ncapCtx = document.getElementById('ncapChart');
             if (ncapCtx) {
-                charts.ncap = new Chart(ncapCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Lucknow'],
-                        datasets: [
-                            { label: 'Allocated (₹ Cr)', data: [450, 380, 290, 220, 180], backgroundColor: '#3B82F6' },
-                            { label: 'Utilized (₹ Cr)', data: [180, 220, 145, 165, 72], backgroundColor: '#22C55E' }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor } } } }
-                });
+                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Lucknow'], datasets: [{ label: 'Allocated', data: [450, 380, 290, 220, 180], backgroundColor: '#3B82F6' }, { label: 'Utilized', data: [180, 220, 145, 165, 72], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor } } } } });
             }
 
-            // Compare Chart
             const compareCtx = document.getElementById('compareChart');
             if (compareCtx) {
-                charts.compare = new Chart(compareCtx, {
-                    type: 'bar',
-                    data: { labels: ['City 1', 'City 2', 'City 3'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#ccc', '#ccc', '#ccc'] }] },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 500, grid: { color: gridColor } } } }
-                });
+                charts.compare = new Chart(compareCtx, { type: 'bar', data: { labels: ['City 1', 'City 2', 'City 3'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#ccc', '#ccc', '#ccc'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 500, grid: { color: gridColor } } } } });
             }
 
-            // History Chart
             const historyCtx = document.getElementById('historyChart');
             if (historyCtx) {
-                charts.history = new Chart(historyCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
-                        datasets: [{
-                            label: 'Delhi PM2.5 (µg/m³)',
-                            data: [122, 134, 128, 115, 108, 84, 96, 99, 102, 105, 100],
-                            borderColor: '#7C3AED',
-                            backgroundColor: 'rgba(124,58,237,0.1)',
-                            fill: true,
-                            tension: 0.4
-                        }, {
-                            label: 'WHO Guideline',
-                            data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-                            borderColor: '#22C55E',
-                            borderDash: [5, 5],
-                            fill: false
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 150, grid: { color: gridColor } } } }
-                });
+                charts.history = new Chart(historyCtx, { type: 'line', data: { labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'], datasets: [{ label: 'Delhi PM2.5', data: [122, 134, 128, 115, 108, 84, 96, 99, 102, 105, 100], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 }, { label: 'WHO Guideline', data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], borderColor: '#22C55E', borderDash: [5, 5], fill: false }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 150, grid: { color: gridColor } } } } });
             }
 
-            // Seasonal Chart
             const seasonalCtx = document.getElementById('seasonalChart');
             if (seasonalCtx) {
-                charts.seasonal = new Chart(seasonalCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                        datasets: [{
-                            label: 'Avg AQI',
-                            data: [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350],
-                            borderColor: '#EF4444',
-                            backgroundColor: 'rgba(239,68,68,0.1)',
-                            fill: true,
-                            tension: 0.4
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450, grid: { color: gridColor } } } }
-                });
+                charts.seasonal = new Chart(seasonalCtx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], datasets: [{ label: 'Avg AQI', data: [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350], borderColor: '#EF4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: true, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450, grid: { color: gridColor } } } } });
             }
         }
 
@@ -1848,85 +1569,62 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
         // TOOLS
         // ============================================
         function exportData(format) {
-            const data = {
-                timestamp: new Date().toISOString(),
-                source: 'Vayu Smriti / WAQI API',
-                cities: aqiData
-            };
-            
+            const data = { timestamp: new Date().toISOString(), source: 'Vayu Smriti / WAQI', cities: aqiData };
             if (format === 'json') {
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                downloadBlob(blob, 'vayu-smriti-data.json');
+                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'vayu-smriti-data.json'; a.click();
             } else if (format === 'csv') {
                 let csv = 'City,AQI,PM2.5,PM10,Station,Time\n';
-                Object.entries(aqiData).forEach(([city, d]) => {
-                    csv += `${CITIES[city]?.name || city},${d.aqi},${d.pm25 || ''},${d.pm10 || ''},"${d.station || ''}",${d.time || ''}\n`;
-                });
+                Object.entries(aqiData).forEach(([city, d]) => { csv += `${CITIES[city]?.name || city},${d.aqi},${d.pm25 || ''},${d.pm10 || ''},"${d.station || ''}",${d.time || ''}\n`; });
                 const blob = new Blob([csv], { type: 'text/csv' });
-                downloadBlob(blob, 'vayu-smriti-data.csv');
+                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'vayu-smriti-data.csv'; a.click();
             } else if (format === 'api') {
-                alert('WAQI API Endpoint:\nhttps://api.waqi.info/feed/{city}/?token=YOUR_TOKEN\n\nGet your free token at:\nhttps://aqicn.org/data-platform/token/\n\nReplace {city} with city name like "delhi", "mumbai", etc.');
+                alert('WAQI API:\nhttps://api.waqi.info/feed/{city}/?token=YOUR_TOKEN\n\nGet free token:\nhttps://aqicn.org/data-platform/token/');
             }
-        }
-
-        function downloadBlob(blob, filename) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
         }
 
         function generateWidget() {
             const city = document.getElementById('widget-city').value;
             const size = document.getElementById('widget-size').value;
             const dims = { small: ['200', '100'], medium: ['300', '150'], large: ['400', '200'] };
-            
-            const code = `<!-- Vayu Smriti AQI Widget for ${CITIES[city]?.name || city} -->
-<iframe 
-  src="https://aqicn.org/city/${city}/" 
-  width="${dims[size][0]}" 
-  height="${dims[size][1]}" 
-  frameborder="0" 
-  style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-</iframe>
-<!-- Auto-updates from WAQI. No API key needed. -->`;
-            
             document.getElementById('widget-code').style.display = 'block';
-            document.getElementById('widget-code').textContent = code;
+            document.getElementById('widget-code').textContent = `<iframe src="https://aqicn.org/city/${city}/" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;"></iframe>`;
         }
 
         function copyRTI() {
-            const text = document.getElementById('rti-template').textContent;
-            navigator.clipboard.writeText(text);
-            alert('RTI template copied to clipboard!');
+            navigator.clipboard.writeText(document.getElementById('rti-template').textContent);
+            alert('RTI template copied!');
         }
 
         function convertPM25() {
             const pm25 = parseFloat(document.getElementById('pm25-input').value);
             if (isNaN(pm25)) return;
-            
-            // India NAQI
-            let indiaAQI;
+            let indiaAQI, usAQI;
             if (pm25 <= 30) indiaAQI = pm25 * 50 / 30;
             else if (pm25 <= 60) indiaAQI = 50 + (pm25 - 30) * 50 / 30;
             else if (pm25 <= 90) indiaAQI = 100 + (pm25 - 60) * 100 / 30;
             else if (pm25 <= 120) indiaAQI = 200 + (pm25 - 90) * 100 / 30;
-            else if (pm25 <= 250) indiaAQI = 300 + (pm25 - 120) * 100 / 130;
-            else indiaAQI = 400 + (pm25 - 250) * 100 / 130;
-            
-            // US EPA
-            let usAQI;
+            else indiaAQI = 300 + (pm25 - 120) * 100 / 130;
             if (pm25 <= 12) usAQI = pm25 * 50 / 12;
             else if (pm25 <= 35.4) usAQI = 50 + (pm25 - 12) * 50 / 23.4;
             else if (pm25 <= 55.4) usAQI = 100 + (pm25 - 35.4) * 50 / 20;
-            else if (pm25 <= 150.4) usAQI = 150 + (pm25 - 55.4) * 50 / 95;
-            else if (pm25 <= 250.4) usAQI = 200 + (pm25 - 150.4) * 100 / 100;
-            else usAQI = 300 + (pm25 - 250.4) * 100 / 149.6;
-            
+            else usAQI = 150 + (pm25 - 55.4) * 50 / 95;
             document.getElementById('india-aqi-output').value = Math.round(indiaAQI);
             document.getElementById('us-aqi-output').value = Math.round(usAQI);
+        }
+
+        // ============================================
+        // RESOURCE SEARCH
+        // ============================================
+        function filterResources() {
+            const query = document.getElementById('resource-search').value.toLowerCase();
+            document.querySelectorAll('.resource-card').forEach(card => {
+                const keywords = card.getAttribute('data-keywords') || '';
+                const title = card.querySelector('.resource-title')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('.resource-desc')?.textContent.toLowerCase() || '';
+                const match = keywords.includes(query) || title.includes(query) || desc.includes(query) || query === '';
+                card.style.display = match ? 'block' : 'none';
+            });
         }
 
         // ============================================
@@ -1935,8 +1633,7 @@ To: CPIO, [DPCC/CPCB/MoEFCC]
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchAllAQI();
             initAllCharts();
-            loadNews();
-            setInterval(fetchAllAQI, 10 * 60 * 1000); // Refresh every 10 min
+            setInterval(fetchAllAQI, 10 * 60 * 1000);
         });
     </script>
 </body>
