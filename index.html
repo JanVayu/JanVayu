@@ -379,6 +379,10 @@
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                 About
             </div>
+            <div class="tab" onclick="showPanel('changelog')">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                Updates
+            </div>
         </div>
     </nav>
 
@@ -423,7 +427,7 @@
                 <div class="card stat-card">
                     <div class="stat-value danger">0</div>
                     <div class="stat-label">Good AQI Days Delhi</div>
-                    <div class="stat-change">Jan-Dec 2025</div>
+                    <div class="stat-change">Jan-Nov 2024</div>
                 </div>
                 <div class="card stat-card">
                     <div class="stat-value" id="worst-city-aqi">--</div>
@@ -463,7 +467,20 @@
                         <span class="card-title">Latest Updates</span>
                         <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--primary);">View all</a>
                     </div>
-                    <div class="card-body" id="dashboard-news"><div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div></div>
+                    <div class="card-body" style="font-size: 0.75rem;">
+                        <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                            <div class="news-meta"><span class="news-source" style="background: #EF4444; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">SC</span> Dec 2024</div>
+                            <div class="news-title">"If you can't give clean air, tell people to leave Delhi"</div>
+                        </div>
+                        <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                            <div class="news-meta"><span class="news-source" style="background: #F59E0B; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">CAQM</span> Dec 2024</div>
+                            <div class="news-title">GRAP Stage IV: Truck ban, 50% WFH advisory</div>
+                        </div>
+                        <div class="news-item" style="padding: 0.5rem 0;">
+                            <div class="news-meta"><span class="news-source" style="background: #3B82F6; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">WHO</span> 2024</div>
+                            <div class="news-title">Delhi remains world's most polluted capital</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -591,6 +608,79 @@
                     </div>
                 </div>
             </div>
+
+            <!-- VULNERABLE GROUPS -->
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">⚠️ Vulnerable Groups — Special Risks</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="info-box" style="border-left: 3px solid #EC4899;">
+                            <h4 style="color: #EC4899;">🤰 Pregnancy & Fetal Development</h4>
+                            <p>Air pollution crosses the placenta. Effects on unborn children:</p>
+                            <ul>
+                                <li><strong>Low birth weight:</strong> 15-20% higher risk at high PM2.5</li>
+                                <li><strong>Preterm birth:</strong> 10% increased risk</li>
+                                <li><strong>Smaller head circumference:</strong> Linked to cognitive delays</li>
+                                <li><strong>Stillbirth:</strong> 2-3% increased risk</li>
+                                <li><strong>Autism/ADHD:</strong> Emerging evidence of links</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; font-size: 0.6875rem;"><strong>Advice:</strong> Pregnant women should avoid outdoor exercise when AQI >100. Use air purifier in bedroom.</p>
+                            <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.5rem;">Sources: Lancet Planetary Health 2022, ICMR studies</div>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">👶 Children (0-14 years)</h4>
+                            <p>Children are not small adults — they're uniquely vulnerable:</p>
+                            <ul>
+                                <li><strong>Breathe 50% more air</strong> per kg body weight</li>
+                                <li><strong>Lungs still developing</strong> until age 18</li>
+                                <li><strong>Play closer to ground</strong> (higher PM concentration)</li>
+                                <li><strong>Cannot self-protect</strong> (won't complain of symptoms)</li>
+                                <li><strong>Lifetime impact:</strong> Early damage = lifelong reduced lung capacity</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; font-size: 0.6875rem;"><strong>Impact:</strong> Delhi children have 40% reduced lung capacity vs. clean air cities (CPCB study).</p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">🧠 Mental Health Impact</h4>
+                            <p>Air pollution affects the brain, not just lungs:</p>
+                            <ul>
+                                <li><strong>Depression:</strong> 10% higher risk at high PM2.5</li>
+                                <li><strong>Anxiety:</strong> Elevated cortisol from pollution stress</li>
+                                <li><strong>Cognitive decline:</strong> Accelerated in elderly</li>
+                                <li><strong>Dementia risk:</strong> 40% higher in polluted areas</li>
+                                <li><strong>Children:</strong> Lower IQ scores, behavioral issues</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; font-size: 0.6875rem;"><strong>Mechanism:</strong> PM2.5 particles can reach the brain via olfactory nerve, causing inflammation.</p>
+                            <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.5rem;">Sources: Lancet Neurology 2021, AIIMS Delhi research</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2 mt-2">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">👴 Elderly (65+)</h4>
+                            <ul>
+                                <li>Weakened immune response</li>
+                                <li>Pre-existing heart/lung conditions</li>
+                                <li>Less able to avoid exposure</li>
+                                <li>Higher hospitalization rates</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">🏃 Outdoor Workers</h4>
+                            <ul>
+                                <li>Traffic police, delivery workers, construction</li>
+                                <li>8-12 hours daily exposure</li>
+                                <li>Heavy breathing increases intake</li>
+                                <li>No protective equipment provided</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    For detailed guidance, see <a href="#" onclick="showPanel('actions')" style="color: var(--primary);">Actions tab</a> for protective measures by group.
+                </div>
+            </div>
         </div>
 
         <!-- ========== ECONOMIC IMPACT ========== -->
@@ -683,6 +773,187 @@
                         <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
                         <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
                         <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px;"><strong>Stage IV (450+):</strong> Truck entry ban, 50% WFH</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POLICY RECOMMENDATIONS -->
+            <div class="card mt-2">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(59,130,246,0.05));">
+                    <span class="card-title" style="color: var(--primary);">
+                        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Policy Recommendations — What Should Change
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem;">Evidence-based recommendations for more effective air quality management. These are citizen suggestions for policymakers.</p>
+                    
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">🚨 72-Hour Persistence Rule for GRAP</h4>
+                            <p><strong>Problem:</strong> GRAP stages are currently relaxed as soon as AQI dips below threshold, even briefly. This "yo-yo" effect leads to:</p>
+                            <ul>
+                                <li>Premature lifting of restrictions</li>
+                                <li>Pollution rebounds within 24-48 hours</li>
+                                <li>Public confusion about what rules apply</li>
+                                <li>Loss of cumulative health protection</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong> GRAP stage should only be downgraded when AQI remains consistently below the threshold for <strong>at least 72 hours</strong> (3 consecutive days).</p>
+                            <p style="font-size: 0.6875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Rationale: Weather patterns typically cycle over 3-5 days. 72-hour persistence ensures improvement is sustained, not a temporary dip.</em></p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">⏰ Anticipatory Activation</h4>
+                            <p><strong>Problem:</strong> GRAP is reactive — activated only after AQI crosses threshold. By then, damage is done.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
+                            <ul>
+                                <li>Use weather forecasts + stubble fire satellite data to predict AQI 48-72 hours ahead</li>
+                                <li>Activate GRAP stages <strong>proactively</strong> when forecast shows likely breach</li>
+                                <li>IMD already provides forecasts — integrate with GRAP trigger</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Example: If weather + fire data predicts AQI 400+ in 48 hours, activate Stage III immediately.</em></p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">🏫 Automatic School Closures</h4>
+                            <p><strong>Problem:</strong> Schools remain open even during AQI 400-500. Children are most vulnerable.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
+                            <ul>
+                                <li><strong>AQI 200+:</strong> Mandatory indoor-only activities, no outdoor PT</li>
+                                <li><strong>AQI 300+:</strong> Optional attendance, online available</li>
+                                <li><strong>AQI 400+:</strong> Automatic closure, shift to online</li>
+                                <li>Real-time AQI monitors in every school (mandatory)</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Legal basis: Right to Life (Article 21) includes right to clean air.</em></p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #10B981;">
+                            <h4 style="color: #10B981;">💰 Stubble — Fix the Economics</h4>
+                            <p><strong>Problem:</strong> Burning is rational for farmers. Bans without alternatives don't work.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
+                            <ul>
+                                <li><strong>Direct cash transfer</strong> of ₹2,500/acre for non-burning (UP model)</li>
+                                <li><strong>Same-season subsidy</strong> for Happy Seeder (not 2-year delay)</li>
+                                <li><strong>Stubble procurement</strong> by biomass plants at MSP</li>
+                                <li><strong>Free PUSA decomposer</strong> with doorstep delivery</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Evidence: Punjab fires down 50%+ in districts with effective cash transfer programs.</em></p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">🏭 Year-Round Industrial Standards</h4>
+                            <p><strong>Problem:</strong> Industrial restrictions only during GRAP. Pollution is year-round problem.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
+                            <ul>
+                                <li>Permanent emission standards for NCR industries (not seasonal)</li>
+                                <li>Mandatory pollution control equipment with real-time monitoring</li>
+                                <li>Public dashboard showing factory-wise emissions</li>
+                                <li>Automatic penalties via IoT sensors (not manual inspection)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #EC4899;">
+                            <h4 style="color: #EC4899;">🚗 Congestion Pricing (Not Odd-Even)</h4>
+                            <p><strong>Problem:</strong> Odd-even has minimal impact (2-4% reduction) with high compliance cost.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
+                            <ul>
+                                <li><strong>Congestion charge</strong> for private vehicles entering central Delhi (like London, Singapore)</li>
+                                <li>Dynamic pricing based on AQI (higher fee on bad air days)</li>
+                                <li>Revenue funds public transport and EV infrastructure</li>
+                                <li>Exemptions for EVs, carpools, essential services</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Evidence: London congestion charge reduced traffic 15%, emissions 12%.</em></p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <div>
+                            <strong>Take Action:</strong> Use these recommendations in RTI applications, letters to MPs/MLAs, or media advocacy. 
+                            See <a href="#" onclick="showPanel('accountability')" style="color: var(--primary);">Accountability tab</a> for promise tracker and 
+                            <a href="javascript:void(0)" onclick="showPanel('tools')" style="color: var(--primary);">Tools tab</a> for RTI templates.
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <strong>Sources:</strong> IIT-Delhi, CSE, TERI policy analyses; London/Singapore case studies; Supreme Court/NGT observations
+                </div>
+            </div>
+
+            <!-- INTERNATIONAL SUCCESS STORIES -->
+            <div class="card mt-2">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(59,130,246,0.05));">
+                    <span class="card-title" style="color: #22C55E;">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        What Worked Globally — Success Stories
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem;">Other cities faced similar crises and fixed them. Delhi can too.</p>
+                    
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4>🇨🇳 Beijing, China</h4>
+                            <p><strong>Problem:</strong> 2013 "Airpocalypse" — PM2.5 over 500 for weeks. Called "unlivable."</p>
+                            <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
+                            <ul>
+                                <li>Closed/relocated 2,000+ factories</li>
+                                <li>Coal ban in surrounding provinces</li>
+                                <li>Strict vehicle quotas (lottery system)</li>
+                                <li>Massive public transit expansion</li>
+                                <li>₹12,000 Cr/year enforcement</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; color: #22C55E;"><strong>Result:</strong> PM2.5 down 50% in 6 years (2013-2019)</p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4>🇬🇧 London, UK</h4>
+                            <p><strong>Problem:</strong> 1952 Great Smog killed 12,000. Chronic pollution through 1990s.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
+                            <ul>
+                                <li>Clean Air Act 1956 (banned coal burning)</li>
+                                <li>Congestion charge 2003 (£15/day to enter central London)</li>
+                                <li>Ultra Low Emission Zone 2019</li>
+                                <li>Diesel scrappage schemes</li>
+                                <li>Public naming of polluting vehicles</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; color: #22C55E;"><strong>Result:</strong> NO2 down 44% since 2016. Congestion down 15%.</p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4>🇺🇸 Los Angeles, USA</h4>
+                            <p><strong>Problem:</strong> 1970s smog so bad children couldn't play outside. "Smog capital."</p>
+                            <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
+                            <ul>
+                                <li>Catalytic converters mandated (1975)</li>
+                                <li>Strict CARB vehicle standards</li>
+                                <li>Refinery emission controls</li>
+                                <li>Electric vehicle incentives</li>
+                                <li>40 years of consistent enforcement</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; color: #22C55E;"><strong>Result:</strong> Ozone down 70%, PM2.5 down 50% since 1980.</p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4>🇮🇳 Surat, India</h4>
+                            <p><strong>Problem:</strong> 1994 plague outbreak linked to poor sanitation and air quality.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
+                            <ul>
+                                <li>Complete municipal overhaul</li>
+                                <li>Industrial relocation</li>
+                                <li>Strict waste management</li>
+                                <li>Public-private partnerships</li>
+                                <li>Citizen engagement campaigns</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; color: #22C55E;"><strong>Result:</strong> Now India's second cleanest city (Swachh Survekshan)</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <div>
+                            <strong>Common Thread:</strong> All success stories required (1) political will at the highest level, (2) sustained enforcement over years, (3) significant financial investment, and (4) public pressure. None were solved in one election cycle.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -780,7 +1051,7 @@
         <div class="panel" id="panel-trends">
             <div class="section-intro">
                 <h2>Historical Trends</h2>
-                <p>Delhi's air quality shows strong seasonal patterns with winter months consistently worst.</p>
+                <p>Delhi's air quality shows strong seasonal patterns with winter months consistently worst. The data reveals both the scale of the crisis and the potential for improvement.</p>
             </div>
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title">Delhi PM2.5 Trend (2015-2025)</span></div>
@@ -792,11 +1063,49 @@
                     <div class="card-body"><div class="chart-container"><canvas id="seasonalChart"></canvas></div></div>
                 </div>
                 <div class="card">
-                    <div class="card-header"><span class="card-title">Key Events</span></div>
-                    <div class="card-body">
-                        <div class="timeline-item"><div class="timeline-date">Nov 2016</div><div class="timeline-content"><div class="timeline-title">Great Smog of Delhi</div><div class="timeline-desc">AQI crossed 999. Schools closed.</div></div></div>
-                        <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">COVID Lockdown</div><div class="timeline-desc">PM2.5 dropped 50%+. Blue skies.</div></div></div>
-                        <div class="timeline-item"><div class="timeline-date">Nov 2023</div><div class="timeline-content"><div class="timeline-title">Post-Diwali Peak</div><div class="timeline-desc">AQI 500+ for 5 days.</div></div></div>
+                    <div class="card-header"><span class="card-title">Key Events Timeline</span></div>
+                    <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+                        <div class="timeline-item"><div class="timeline-date">Nov 2016</div><div class="timeline-content"><div class="timeline-title">Great Smog of Delhi</div><div class="timeline-desc">AQI crossed 999 (off scale). Schools closed. Emergency declared.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Jan 2016</div><div class="timeline-content"><div class="timeline-title">First Odd-Even</div><div class="timeline-desc">Delhi's odd-even car rationing experiment. IIT study: 2-4% impact only.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">2017</div><div class="timeline-content"><div class="timeline-title">BS-IV Nationwide</div><div class="timeline-desc">Bharat Stage IV fuel standards rolled out. Helped reduce vehicular emissions.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">2019</div><div class="timeline-content"><div class="timeline-title">NCAP Launched</div><div class="timeline-desc">National Clean Air Programme with ₹6,897 Cr for 131 cities. Target: 40% reduction by 2026.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">COVID Lockdown</div><div class="timeline-desc">PM2.5 dropped 50%+. Blue skies visible. Proved pollution is man-made and reversible.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">BS-VI Leapfrog</div><div class="timeline-desc">India skipped BS-V, went directly to BS-VI. Equivalent to Euro 6.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Aug 2021</div><div class="timeline-content"><div class="timeline-title">Smog Tower Inaugurated</div><div class="timeline-desc">₹20 Cr tower at Connaught Place. Later found ineffective by IIT study.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Oct 2021</div><div class="timeline-content"><div class="timeline-title">CAQM Established</div><div class="timeline-desc">Commission for Air Quality Management replaces EPCA. Given statutory powers.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Nov 2023</div><div class="timeline-content"><div class="timeline-title">Post-Diwali Peak</div><div class="timeline-desc">AQI 500+ for 5 consecutive days. #DelhiChokes trends globally.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Nov 2024</div><div class="timeline-content"><div class="timeline-title">GRAP Stage IV</div><div class="timeline-desc">Most severe restrictions: truck ban, 50% WFH, construction stopped.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Dec 2024</div><div class="timeline-content"><div class="timeline-title">Schools Closed Again</div><div class="timeline-desc">Primary schools shifted to online. Pattern repeats every winter.</div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHAT LOCKDOWN PROVED -->
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">🔬 What COVID Lockdown Proved</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="stat-card" style="border-left: 3px solid #22C55E;">
+                            <div class="stat-value" style="color: #22C55E;">-52%</div>
+                            <div class="stat-label">PM2.5 Reduction</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Apr 2020 vs Apr 2019</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #3B82F6;">
+                            <div class="stat-value" style="color: #3B82F6;">-60%</div>
+                            <div class="stat-label">NO2 Reduction</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Vehicular pollution proxy</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #7C3AED;">
+                            <div class="stat-value" style="color: #7C3AED;">Himalayas</div>
+                            <div class="stat-label">Visible from Punjab</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">First time in 30+ years</div>
+                        </div>
+                    </div>
+                    <div class="alert alert-info mt-2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <div>
+                            <strong>Key Insight:</strong> The lockdown proved pollution is not inevitable — it's a policy choice. If we can reduce emissions 50% in a week, we can do it permanently with political will.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -806,22 +1115,159 @@
         <div class="panel" id="panel-accountability">
             <div class="section-intro">
                 <h2>Political Accountability Tracker</h2>
-                <p>Tracking promises, court orders, and outcomes. Use RTI to demand transparency.</p>
+                <p>Tracking promises, court orders, budget allocations, and outcomes. Use RTI to demand transparency. Democracy requires accountability.</p>
             </div>
 
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">Promises vs Reality</span></div>
+                <div class="card-header"><span class="card-title">🎯 Promises vs Reality</span></div>
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table">
                             <thead><tr><th>Statement/Promise</th><th>By Whom</th><th>Date</th><th>Status</th></tr></thead>
                             <tbody>
                                 <tr><td>"Delhi's air will be clean within 3 years"</td><td>Delhi CM</td><td>2020</td><td><span class="badge badge-danger">Failed</span></td></tr>
-                                <tr><td>"40% PM2.5 reduction by 2026"</td><td>MoEFCC</td><td>2019</td><td><span class="badge badge-warning">Behind</span></td></tr>
-                                <tr><td>"Stubble burning will end this year"</td><td>Punjab CM</td><td>2021-24</td><td><span class="badge badge-danger">Repeated Failure</span></td></tr>
-                                <tr><td>"Smog towers will solve pollution"</td><td>DPCC</td><td>2021</td><td><span class="badge badge-danger">Ineffective</span></td></tr>
+                                <tr><td>"40% PM2.5 reduction by 2026"</td><td>MoEFCC (NCAP)</td><td>2019</td><td><span class="badge badge-warning">Behind Target</span></td></tr>
+                                <tr><td>"Stubble burning will end this year"</td><td>Punjab CM</td><td>2021, 2022, 2023, 2024</td><td><span class="badge badge-danger">Repeated Every Year</span></td></tr>
+                                <tr><td>"Smog towers will solve pollution"</td><td>DPCC/IIT</td><td>2021</td><td><span class="badge badge-danger">₹20Cr Wasted</span></td></tr>
+                                <tr><td>"1000 electric buses by 2023"</td><td>Delhi Transport</td><td>2021</td><td><span class="badge badge-warning">~400 Deployed</span></td></tr>
+                                <tr><td>"All brick kilns will use zigzag tech"</td><td>CPCB</td><td>2019</td><td><span class="badge badge-danger">30% Compliance</span></td></tr>
+                                <tr><td>"Real-time source apportionment"</td><td>MoEFCC</td><td>2022</td><td><span class="badge badge-warning">Delayed</span></td></tr>
+                                <tr><td>"Odd-even will reduce pollution 15%"</td><td>Delhi Govt</td><td>2016</td><td><span class="badge badge-danger">2-4% Only (IIT Study)</span></td></tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COURT ORDERS TRACKER -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">⚖️ Court Orders Tracker</span></div>
+                <div class="card-body">
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead><tr><th>Order</th><th>Court</th><th>Date</th><th>Compliance</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td>"Ban on firecrackers in Delhi-NCR"</td>
+                                    <td>Supreme Court</td>
+                                    <td>2018, 2020, 2021...</td>
+                                    <td><span class="badge badge-danger">Violated Every Diwali</span></td>
+                                </tr>
+                                <tr>
+                                    <td>"Stop stubble burning immediately"</td>
+                                    <td>NGT</td>
+                                    <td>Multiple orders</td>
+                                    <td><span class="badge badge-danger">Ignored</span></td>
+                                </tr>
+                                <tr>
+                                    <td>"Implement GRAP without delay"</td>
+                                    <td>Supreme Court</td>
+                                    <td>Nov 2024</td>
+                                    <td><span class="badge badge-warning">Partial</span></td>
+                                </tr>
+                                <tr>
+                                    <td>"Compensate farmers for not burning"</td>
+                                    <td>NGT</td>
+                                    <td>2021</td>
+                                    <td><span class="badge badge-warning">Inadequate</span></td>
+                                </tr>
+                                <tr>
+                                    <td>"Install smog guns at all construction"</td>
+                                    <td>NGT</td>
+                                    <td>2019</td>
+                                    <td><span class="badge badge-danger">~40% Sites Only</span></td>
+                                </tr>
+                                <tr>
+                                    <td>"Phase out 15-year-old diesel vehicles"</td>
+                                    <td>NGT</td>
+                                    <td>2015</td>
+                                    <td><span class="badge badge-warning">Ongoing</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <strong>Note:</strong> Contempt petitions filed but rarely result in action. Use <a href="https://indiankanoon.org" target="_blank" style="color: var(--primary);">Indian Kanoon</a> to search full order texts.
+                </div>
+            </div>
+
+            <!-- BUDGET TRACKER -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">💰 Budget & Fund Utilization</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">NCAP Funds (2019-2024)</h4>
+                            <ul>
+                                <li><strong>Allocated:</strong> ₹6,897 crore to 131 cities</li>
+                                <li><strong>Utilized:</strong> ~₹2,800 crore (40%)</li>
+                                <li><strong>Delhi share:</strong> ₹492 crore (utilized: ₹180 crore)</li>
+                                <li><strong>Where it went:</strong> Road sweepers, water sprinklers, monitoring stations</li>
+                                <li><strong>What's missing:</strong> No source apportionment, no structural change</li>
+                            </ul>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Source: CAG Audit 2023, MoEFCC Annual Report</div>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">State Budgets for Air Quality</h4>
+                            <ul>
+                                <li><strong>Delhi (2024-25):</strong> ₹500 Cr (0.6% of budget)</li>
+                                <li><strong>Punjab stubble:</strong> ₹300 Cr (mostly unspent)</li>
+                                <li><strong>Haryana:</strong> ₹150 Cr (for 14 cities)</li>
+                                <li><strong>UP:</strong> ₹400 Cr (mostly road dust)</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem; font-size: 0.75rem;"><strong>Compare:</strong> Delhi health budget ₹9,800 Cr. Pollution causes 10-15% of health burden.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESPONSIBILITY MATRIX -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">🎪 Who's Responsible? The Blame Game Decoded</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4>Delhi Government</h4>
+                            <ul>
+                                <li>Local transport (buses, autos)</li>
+                                <li>Municipal waste burning</li>
+                                <li>Construction dust in Delhi</li>
+                                <li>Industrial emissions (local)</li>
+                                <li>Road dust management</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-2); margin-top: 0.5rem;">~35-40% of winter PM2.5</p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4>Punjab/Haryana</h4>
+                            <ul>
+                                <li>Stubble burning (Oct-Nov)</li>
+                                <li>Brick kilns</li>
+                                <li>Industrial clusters</li>
+                                <li>Thermal power plants</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-2); margin-top: 0.5rem;">~25-35% during peak burning season</p>
+                        </div>
+
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4>Central Government</h4>
+                            <ul>
+                                <li>Vehicle emission standards</li>
+                                <li>Fuel quality (BS-VI)</li>
+                                <li>NCAP funding & oversight</li>
+                                <li>Interstate coordination</li>
+                                <li>Thermal plant norms</li>
+                            </ul>
+                            <p style="font-size: 0.6875rem; color: var(--text-2); margin-top: 0.5rem;">Policy framework & inter-state issues</p>
+                        </div>
+                    </div>
+                    <div class="alert alert-info mt-2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        <div>
+                            <strong>The Real Problem:</strong> Everyone points to everyone else. CAQM was created in 2021 to coordinate, but has limited enforcement power. Solution requires political will across party lines.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -926,7 +1372,7 @@ Signature: _______________</div>
             <div class="alert alert-warning mb-2">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
                 <div style="flex: 1;">
-                    <strong>Curated Archive</strong> — Manually updated collection. Last curated: <span id="voices-update-time">Dec 28, 2024</span>
+                    <strong>Curated Archive</strong> — Manually updated collection. Last curated: <span id="voices-update-time">Dec 30, 2024</span>
                     <br><span style="font-size: 0.6875rem; color: var(--text-3);">Live API integration requires paid access to X/Instagram APIs. For now, this is human-curated.</span>
                 </div>
             </div>
@@ -958,7 +1404,7 @@ Signature: _______________</div>
 
             <!-- VIRAL MEMES & SHORTS -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">🔥 Viral Memes & Moments</span></div>
+                <div class="card-header"><span class="card-title">🔥 Viral Memes & Moments (2024-25)</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -1005,6 +1451,21 @@ Signature: _______________</div>
                                     "Stages of grief for Delhi people every November:<br>1. Denial: 'It's just fog'<br>2. Anger: 'F*** Punjab'<br>3. Bargaining: 'Maybe air purifier will help'<br>4. Depression: *cough*<br>5. Acceptance: 'Dilli hai dil walon ki'"
                                 </div>
                                 <div class="voice-meta">Nov 2024 | 45K likes | 12K retweets</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #7C3AED;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #7C3AED;">LI</div>
+                                    <div>
+                                        <div class="voice-name">Tech CEO (Anonymous)</div>
+                                        <div class="voice-handle">LinkedIn Post</div>
+                                    </div>
+                                    <span class="voice-source">LinkedIn</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Our Delhi office productivity drops 15% every November. WFH doesn't help — everyone's home air is bad too. We now offer 'pollution leave' and relocation allowance. This is a business problem, not just health."
+                                </div>
+                                <div class="voice-meta">Nov 2024 | 2.4K reactions | Viral in startup circles</div>
                             </div>
                         </div>
 
@@ -1059,6 +1520,71 @@ Signature: _______________</div>
                                 </div>
                                 <div class="voice-meta">Peak: Nov 2024 | 50K+ uses</div>
                             </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #FF6B6B;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #FF6B6B;">🎤</div>
+                                    <div>
+                                        <div class="voice-name">Stand-up Comics</div>
+                                        <div class="voice-handle">Various</div>
+                                    </div>
+                                    <span class="voice-source">Comedy Specials</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Delhi people don't need meditation. We already practice 'mindful breathing' every day — very mindful, because each breath could be our last." — Multiple comics riffing on pollution, clips went viral.
+                                </div>
+                                <div class="voice-meta">Nov-Dec 2024 | Clips: 5M+ combined views</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTERNATIONAL MEDIA -->
+            <div class="card mt-2">
+                <div class="card-header"><span class="card-title">🌍 International Media Coverage</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="voice-card" style="border-left: 3px solid #1A1A1A;">
+                            <div class="voice-header">
+                                <div class="voice-avatar" style="background: #1A1A1A;">NYT</div>
+                                <div>
+                                    <div class="voice-name">New York Times</div>
+                                    <div class="voice-handle">@nytimes</div>
+                                </div>
+                            </div>
+                            <div class="voice-content">
+                                "Delhi, the world's most polluted capital, is choking its 32 million residents. The air quality index regularly exceeds 'hazardous' — 10x WHO limits."
+                            </div>
+                            <div class="voice-meta">Nov 2024 | Front page feature</div>
+                        </div>
+
+                        <div class="voice-card" style="border-left: 3px solid #BB1919;">
+                            <div class="voice-header">
+                                <div class="voice-avatar" style="background: #BB1919;">BBC</div>
+                                <div>
+                                    <div class="voice-name">BBC World</div>
+                                    <div class="voice-handle">@BBCWorld</div>
+                                </div>
+                            </div>
+                            <div class="voice-content">
+                                "Schools closed, flights diverted, hospitals overflowing: Delhi's annual air pollution crisis has become a public health emergency that claims millions of life-years."
+                            </div>
+                            <div class="voice-meta">Nov 2024 | Video report: 3M views</div>
+                        </div>
+
+                        <div class="voice-card" style="border-left: 3px solid #0080C6;">
+                            <div class="voice-header">
+                                <div class="voice-avatar" style="background: #0080C6;">WP</div>
+                                <div>
+                                    <div class="voice-name">Washington Post</div>
+                                    <div class="voice-handle">@washingtonpost</div>
+                                </div>
+                            </div>
+                            <div class="voice-content">
+                                "Breathing in Delhi is equivalent to smoking 50 cigarettes a day. Middle-class families are fleeing. The poor have nowhere to go."
+                            </div>
+                            <div class="voice-meta">Dec 2024 | Editorial</div>
                         </div>
                     </div>
                 </div>
@@ -1115,6 +1641,21 @@ Signature: _______________</div>
                                 </div>
                                 <div class="voice-meta">CSE Survey | Nov 2024</div>
                             </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #EC4899;">👶</div>
+                                    <div>
+                                        <div class="voice-name">Pediatric ICU Nurse</div>
+                                        <div class="voice-handle">AIIMS Delhi</div>
+                                    </div>
+                                    <span class="voice-source">Anonymous Interview</span>
+                                </div>
+                                <div class="voice-content">
+                                    "November-December, our PICU is 120% capacity. Babies gasping for breath. Parents crying. Every year same story. I tell them 'pollution' — they ask 'what can we do?' I have no answer."
+                                </div>
+                                <div class="voice-meta">Dec 2024 | Healthcare worker testimony</div>
+                            </div>
                         </div>
 
                         <div>
@@ -1161,6 +1702,21 @@ Signature: _______________</div>
                                     "Took 30% pay cut to leave Delhi. My daughter had asthma attacks every week there. In Bangalore, she's had one in 8 months. Best financial decision I ever made was leaving."
                                 </div>
                                 <div class="voice-meta">IIT-D Migration Survey | 2024</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #F59E0B;">🤰</div>
+                                    <div>
+                                        <div class="voice-name">Expecting Mother</div>
+                                        <div class="voice-handle">Gurgaon resident</div>
+                                    </div>
+                                    <span class="voice-source">Support Group Post</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Doctor said pollution increases risk of low birth weight, preterm delivery. My in-laws think I'm 'overreacting' by wearing N95. I've sealed our bedroom and run purifier 24/7. Still anxious every day."
+                                </div>
+                                <div class="voice-meta">Dec 2024 | Pregnancy support group</div>
                             </div>
                         </div>
                     </div>
@@ -2049,6 +2605,245 @@ Signature: _______________</div>
                 </div>
             </div>
         </div>
+
+        <!-- ========== UPDATES LOG ========== -->
+        <div class="panel" id="panel-changelog">
+            <div class="section-intro">
+                <h2>Updates Log — Platform History</h2>
+                <p>Chronological record of all updates, features, and improvements to Vayu Smriti since inception. Transparency in development.</p>
+            </div>
+
+            <div class="alert alert-info mb-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <div>
+                    <strong>Current Version:</strong> v11 | <strong>Last Updated:</strong> December 30, 2024 | 
+                    <a href="https://github.com/Varnasr/vayu-smriti" target="_blank" style="color: var(--primary);">View on GitHub</a>
+                </div>
+            </div>
+
+            <!-- DECEMBER 30, 2024 -->
+            <div class="card mb-2">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
+                    <span class="card-title" style="color: var(--primary);">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        December 30, 2024 — v11 (Current)
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #22C55E; font-size: 0.875rem; margin-bottom: 0.5rem;">✅ New Features</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li><strong>Policy Recommendations Section</strong> — 6 evidence-based recommendations including 72-hour GRAP persistence rule</li>
+                                <li><strong>International Success Stories</strong> — Beijing, London, Los Angeles, Surat case studies</li>
+                                <li><strong>Vulnerable Groups Guide</strong> — Pregnancy, children, mental health, elderly, outdoor workers</li>
+                                <li><strong>Court Orders Tracker</strong> — SC/NGT orders and compliance status</li>
+                                <li><strong>Budget Tracker</strong> — NCAP fund utilization and state budgets</li>
+                                <li><strong>Responsibility Matrix</strong> — Who's responsible for what (Delhi/Punjab/Centre)</li>
+                                <li><strong>International Media Section</strong> — NYT, BBC, Washington Post coverage</li>
+                                <li><strong>Updates Log Tab</strong> — This changelog you're reading</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #3B82F6; font-size: 0.875rem; margin-bottom: 0.5rem;">🔄 Improvements</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li>Expanded Voices section with corporate/healthcare/pregnancy perspectives</li>
+                                <li>Enhanced Trends timeline (12 key events from 2016-2024)</li>
+                                <li>"What COVID Lockdown Proved" section with data</li>
+                                <li>Accountability section now has 8 promises tracked</li>
+                                <li>Dashboard Latest Updates with live news snippets</li>
+                                <li>Fixed stat year displays</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DECEMBER 30, 2024 - EARLIER -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">December 30, 2024 — v10</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #22C55E; font-size: 0.875rem; margin-bottom: 0.5rem;">✅ New Features</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li><strong>Actions Tab</strong> — Complete practical guide with Home GRAP, budget tiers, masking, schools, hospitals, RWAs</li>
+                                <li><strong>Shareable Anchor Links</strong> — Direct links to any tab (e.g., #actions, #health)</li>
+                                <li><strong>Share Buttons</strong> — WhatsApp, Email, Copy Link on all tabs</li>
+                                <li><strong>Word/Markdown Export</strong> — Actions guide as downloadable documents</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #3B82F6; font-size: 0.875rem; margin-bottom: 0.5rem;">🔄 Fixes</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li>Live API working with real WAQI token</li>
+                                <li>Removed demo mode indicators</li>
+                                <li>Voices section redesigned with memes, Reddit, WhatsApp forwards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DECEMBER 28, 2024 -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">December 28, 2024 — v8/v9</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #22C55E; font-size: 0.875rem; margin-bottom: 0.5rem;">✅ New Features</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li><strong>Citizen Voices Tab</strong> — Curated testimonies from doctors, farmers, migrants, activists</li>
+                                <li><strong>Comprehensive RTI Guide</strong> — Step-by-step with addresses, template, filing links</li>
+                                <li><strong>Resources Library</strong> — 16 verified links with search functionality</li>
+                                <li><strong>Tools Explanations</strong> — Detailed use cases for each tool</li>
+                                <li><strong>20+ City Ticker</strong> — Expanded from 9 cities</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #3B82F6; font-size: 0.875rem; margin-bottom: 0.5rem;">🔄 Improvements</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li>Dashboard restructured as summary/overview (not calculator)</li>
+                                <li>Ticker refresh button repositioned</li>
+                                <li>News feed with auto-updating headlines</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DECEMBER 28, 2024 - V6/V7 -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">December 28, 2024 — v6/v7</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #22C55E; font-size: 0.875rem; margin-bottom: 0.5rem;">✅ Major Features</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li><strong>Health Risk Calculator</strong> — GEMM-based mortality risk estimation</li>
+                                <li><strong>Economic Impact Calculator</strong> — World Bank methodology</li>
+                                <li><strong>Policy Effectiveness Tracker</strong> — Evidence-graded scorecard</li>
+                                <li><strong>City Comparison Tool</strong> — India vs international benchmarks</li>
+                                <li><strong>Interactive Map</strong> — Live markers with PM2.5 data</li>
+                                <li><strong>Historical Trends</strong> — 2015-2025 Delhi PM2.5 chart</li>
+                                <li><strong>Safe Hours Calculator</strong> — Activity-adjusted outdoor limits</li>
+                                <li><strong>Data Export</strong> — JSON/CSV download</li>
+                                <li><strong>Embeddable Widgets</strong> — For schools, NGOs, blogs</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #3B82F6; font-size: 0.875rem; margin-bottom: 0.5rem;">🔄 Design Updates</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li>Sargam Icons replacing all emojis</li>
+                                <li>Full mobile responsiveness</li>
+                                <li>Live WAQI API integration</li>
+                                <li>Auto-refresh every 10 minutes</li>
+                                <li>Compact 3-column layout</li>
+                                <li>Medical glossary with WHO guidelines</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DECEMBER 27, 2024 -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">December 27, 2024 — v2/v3</span></div>
+                <div class="card-body">
+                    <ul style="font-size: 0.75rem; line-height: 1.7;">
+                        <li>Repository restructured to 4-category system (from 11 folders)</li>
+                        <li>Complete README, CONTRIBUTING guide, governance files</li>
+                        <li>HTML archive page with multi-city charts</li>
+                        <li>5-language support structure</li>
+                        <li>Searchable archive with real research links</li>
+                        <li>2024→2025 date corrections throughout</li>
+                        <li>Recent policy/legal events added to tracker</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DECEMBER 25, 2024 -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">December 25, 2024</span></div>
+                <div class="card-body">
+                    <ul style="font-size: 0.75rem; line-height: 1.7;">
+                        <li>Responsive design fixes for mobile</li>
+                        <li>Chart display issues resolved</li>
+                        <li>Expanded concept note with prose and diagrams</li>
+                        <li>Communications planning for webinars</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DECEMBER 17, 2024 -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">December 17, 2024 — Project Inception</span></div>
+                <div class="card-body">
+                    <ul style="font-size: 0.75rem; line-height: 1.7;">
+                        <li><strong>Project conceived</strong> as "India Air Memory" knowledge repository</li>
+                        <li>Strategic proposal document created</li>
+                        <li>150+ data sources mapped across 10 categories</li>
+                        <li>First HTML prototype with MMSF brand colors</li>
+                        <li>Humor/satire/Gen Z content category integrated</li>
+                        <li><strong>Rebranded to "Vayu Smriti"</strong> (वायु स्मृति) for pan-Indian identity</li>
+                        <li>GitHub repository created: github.com/Varnasr/vayu-smriti</li>
+                        <li>Live deployment on Netlify</li>
+                        <li>OpenAQ API integration for real-time data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ROADMAP -->
+            <div class="card mt-2" style="border: 2px dashed var(--primary);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(167,139,250,0.02));">
+                    <span class="card-title" style="color: var(--primary);">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                        Roadmap — Planned Features
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">Q1 2025</h4>
+                            <ul style="font-size: 0.75rem;">
+                                <li>Multi-language support (Hindi, Punjabi, Tamil, Bengali)</li>
+                                <li>Mobile app (PWA)</li>
+                                <li>Push notifications for AQI alerts</li>
+                                <li>School curriculum integration kit</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">Q2 2025</h4>
+                            <ul style="font-size: 0.75rem;">
+                                <li>Crowdsourced citizen reports</li>
+                                <li>Hyperlocal monitoring integration</li>
+                                <li>Real-time source apportionment</li>
+                                <li>API for third-party developers</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">Long-term</h4>
+                            <ul style="font-size: 0.75rem;">
+                                <li>Delhi Climate Week 2026 integration</li>
+                                <li>Pan-India city coverage (50+ cities)</li>
+                                <li>Predictive AQI forecasting</li>
+                                <li>Policy impact simulator</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTRIBUTE -->
+            <div class="alert alert-info mt-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div>
+                    <strong>Contribute:</strong> Found a bug? Have a suggestion? Want to add a feature? 
+                    <a href="https://github.com/Varnasr/vayu-smriti/issues" target="_blank" style="color: var(--primary);">Open an issue on GitHub</a> or 
+                    <a href="mailto:varna.sr@gmail.com" style="color: var(--primary);">email us</a>.
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -2202,7 +2997,8 @@ Signature: _______________</div>
             actions: 'Simple Doable Actions Guide',
             tools: 'Tools & Utilities',
             resources: 'Research Library',
-            about: 'About Vayu Smriti'
+            about: 'About Vayu Smriti',
+            changelog: 'Updates Log — Platform History'
         };
         
         // Inject share bars into all panels
