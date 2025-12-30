@@ -3068,17 +3068,32 @@ Signature: _______________</div>
         
         async function fetchAQI(cityKey) {
             const city = CITIES[cityKey];
-            if (!city) return null;
+            if (!city) {
+                console.warn(`[Vayu Smriti] City not found: ${cityKey}`);
+                return null;
+            }
             
             // Fetch from live API
             try {
                 const url = `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`;
-                const res = await fetch(url);
+                console.log(`[Vayu Smriti] Fetching: ${cityKey}`);
+                
+                const res = await fetch(url, { 
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (!res.ok) {
+                    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                }
+                
                 const data = await res.json();
+                console.log(`[Vayu Smriti] Response for ${cityKey}:`, data.status, data.data?.aqi);
                 
                 if (data.status === 'ok' && data.data && data.data.aqi !== '-' && data.data.aqi !== undefined) {
                     const aqi = parseInt(data.data.aqi);
-                    if (!isNaN(aqi)) {
+                    if (!isNaN(aqi) && aqi > 0) {
                         usingLiveData = true;
                         return {
                             aqi: aqi,
@@ -3089,9 +3104,11 @@ Signature: _______________</div>
                             live: true
                         };
                     }
+                } else if (data.status === 'error') {
+                    console.warn(`[Vayu Smriti] API error for ${cityKey}:`, data.data);
                 }
             } catch (e) {
-                console.warn(`[Vayu Smriti] API error for ${cityKey}:`, e.message);
+                console.warn(`[Vayu Smriti] Fetch error for ${cityKey}:`, e.message);
             }
             
             // Fallback to demo data only if API fails
@@ -3115,38 +3132,81 @@ Signature: _______________</div>
             const ticker = document.getElementById('aqi-ticker');
             const liveStatus = document.getElementById('live-status');
             
-            ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching data...</span></div>';
-            if (liveStatus) liveStatus.innerHTML = '<span class="pulse"></span> Connecting...';
+            if (ticker) ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching live data...</span></div>';
+            if (liveStatus) liveStatus.innerHTML = '<span class="pulse"></span> Connecting to WAQI API...';
             
             usingLiveData = false;
             let successCount = 0;
             
-            // Fetch all Indian cities
-            const results = await Promise.all(INDIAN_CITIES.map(c => fetchAQI(c)));
-            results.forEach((r, i) => {
-                if (r) {
-                    aqiData[INDIAN_CITIES[i]] = r;
-                    successCount++;
-                }
-            });
+            try {
+                // Fetch all Indian cities with a timeout
+                const fetchWithTimeout = async (cityKey) => {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                    try {
+                        return await fetchAQI(cityKey, controller.signal);
+                    } finally {
+                        clearTimeout(timeout);
+                    }
+                };
+                
+                console.log(`[Vayu Smriti] Fetching ${INDIAN_CITIES.length} cities...`);
+                const results = await Promise.allSettled(INDIAN_CITIES.map(c => fetchAQI(c)));
+                
+                results.forEach((result, i) => {
+                    if (result.status === 'fulfilled' && result.value) {
+                        aqiData[INDIAN_CITIES[i]] = result.value;
+                        successCount++;
+                    }
+                });
+                
+                console.log(`[Vayu Smriti] Fetched ${successCount}/${INDIAN_CITIES.length} cities successfully`);
+            } catch (e) {
+                console.error('[Vayu Smriti] Error fetching AQI data:', e);
+            }
+            
+            // If no data fetched, use fallback for all cities
+            if (successCount === 0) {
+                console.log('[Vayu Smriti] No live data, using fallback for all cities');
+                INDIAN_CITIES.forEach(cityKey => {
+                    const demo = DEMO_DATA[cityKey];
+                    const city = CITIES[cityKey];
+                    if (demo && city) {
+                        aqiData[cityKey] = {
+                            aqi: demo.aqi,
+                            pm25: demo.pm25,
+                            pm10: demo.pm10,
+                            time: new Date().toISOString(),
+                            station: city.name + ' (Fallback)',
+                            live: false
+                        };
+                    }
+                });
+            }
             
             const now = new Date();
             const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
             
             // Update all UI components
-            updateTicker();
-            updateDashboard();
-            initAllCharts();
-            if (map) updateMapMarkers();
+            try {
+                updateTicker();
+                updateDashboard();
+                initAllCharts();
+                if (map) updateMapMarkers();
+            } catch (e) {
+                console.error('[Vayu Smriti] Error updating UI:', e);
+            }
             
             // Update status indicators
-            document.getElementById('ticker-update').textContent = timeStr;
+            const tickerUpdate = document.getElementById('ticker-update');
+            if (tickerUpdate) tickerUpdate.textContent = timeStr;
+            
             if (liveStatus) {
                 if (usingLiveData) {
                     liveStatus.innerHTML = `<span class="pulse"></span> LIVE — ${successCount} cities updated at ${timeStr}`;
                     liveStatus.parentElement.className = 'alert alert-info mb-2';
                 } else {
-                    liveStatus.innerHTML = `<span style="color: #F59E0B;">⚠</span> API issue — Showing fallback data. Check browser console for errors.`;
+                    liveStatus.innerHTML = `<span style="color: #F59E0B;">⚠</span> Showing estimated data. Open browser console (F12) for API details.`;
                     liveStatus.parentElement.className = 'alert alert-warning mb-2';
                 }
             }
@@ -3297,40 +3357,62 @@ Signature: _______________</div>
         
         function initMap() {
             if (map) return; // Don't reinitialize
-            map = L.map('india-map').setView([22.5, 78.5], 5);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                attribution: '© OpenStreetMap | AQI data from WAQI API (Live)' 
-            }).addTo(map);
-            updateMapMarkers();
+            
+            const mapContainer = document.getElementById('india-map');
+            if (!mapContainer) {
+                console.warn('[Vayu Smriti] Map container not found');
+                return;
+            }
+            
+            try {
+                map = L.map('india-map').setView([22.5, 78.5], 5);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+                    attribution: '© OpenStreetMap | AQI data from WAQI API (Live)' 
+                }).addTo(map);
+                updateMapMarkers();
+                console.log('[Vayu Smriti] Map initialized successfully');
+            } catch (e) {
+                console.error('[Vayu Smriti] Error initializing map:', e);
+            }
         }
         
         function updateMapMarkers() {
-            // Clear existing markers
-            mapMarkers.forEach(m => map.removeLayer(m));
-            mapMarkers = [];
+            if (!map) {
+                console.warn('[Vayu Smriti] Map not initialized, skipping marker update');
+                return;
+            }
             
-            Object.entries(CITIES).forEach(([key, city]) => {
-                if (!city.lat || city.region === 'intl') return;
-                const data = aqiData[key];
-                const aqi = data?.aqi;
-                const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
-                const label = aqi ? getAQILabel(aqi) : 'No data';
-                const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
-                const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
+            try {
+                // Clear existing markers
+                mapMarkers.forEach(m => map.removeLayer(m));
+                mapMarkers = [];
                 
-                const marker = L.circleMarker([city.lat, city.lon], { 
-                    radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
-                    fillColor: color, 
-                    color: '#fff', 
-                    weight: 2, 
-                    fillOpacity: 0.85 
-                }).addTo(map).bindPopup(`
-                    <strong>${city.name}</strong><br>
-                    AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
-                    ${pm25Text}${timeText}
-                `);
-                mapMarkers.push(marker);
-            });
+                Object.entries(CITIES).forEach(([key, city]) => {
+                    if (!city.lat || city.region === 'intl') return;
+                    const data = aqiData[key];
+                    const aqi = data?.aqi;
+                    const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
+                    const label = aqi ? getAQILabel(aqi) : 'No data';
+                    const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
+                    const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
+                    
+                    const marker = L.circleMarker([city.lat, city.lon], { 
+                        radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
+                        fillColor: color, 
+                        color: '#fff', 
+                        weight: 2, 
+                        fillOpacity: 0.85 
+                    }).addTo(map).bindPopup(`
+                        <strong>${city.name}</strong><br>
+                        AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
+                        ${pm25Text}${timeText}
+                    `);
+                    mapMarkers.push(marker);
+                });
+                console.log(`[Vayu Smriti] Updated ${mapMarkers.length} map markers`);
+            } catch (e) {
+                console.error('[Vayu Smriti] Error updating map markers:', e);
+            }
         }
 
         // ============================================
@@ -3474,11 +3556,48 @@ Signature: _______________</div>
         // INIT
         // ============================================
         document.addEventListener('DOMContentLoaded', async () => {
-            injectShareBars(); // Add share buttons to all panels
-            await fetchAllAQI();
-            initAllCharts();
-            handleHashNavigation(); // Handle anchor links
-            setInterval(fetchAllAQI, 10 * 60 * 1000); // Refresh AQI every 10 min
+            console.log('[Vayu Smriti] Initializing...');
+            
+            try {
+                injectShareBars(); // Add share buttons to all panels
+            } catch (e) {
+                console.error('[Vayu Smriti] Error injecting share bars:', e);
+            }
+            
+            try {
+                await fetchAllAQI();
+            } catch (e) {
+                console.error('[Vayu Smriti] Error fetching AQI:', e);
+                // Show fallback message
+                const liveStatus = document.getElementById('live-status');
+                if (liveStatus) {
+                    liveStatus.innerHTML = `<span style="color: #EF4444;">✗</span> Error loading data. Refresh the page or check your internet connection.`;
+                    liveStatus.parentElement.className = 'alert alert-danger mb-2';
+                }
+            }
+            
+            try {
+                initAllCharts();
+            } catch (e) {
+                console.error('[Vayu Smriti] Error initializing charts:', e);
+            }
+            
+            try {
+                handleHashNavigation(); // Handle anchor links
+            } catch (e) {
+                console.error('[Vayu Smriti] Error handling navigation:', e);
+            }
+            
+            // Auto-refresh every 10 minutes
+            setInterval(async () => {
+                try {
+                    await fetchAllAQI();
+                } catch (e) {
+                    console.error('[Vayu Smriti] Auto-refresh error:', e);
+                }
+            }, 10 * 60 * 1000);
+            
+            console.log('[Vayu Smriti] Initialization complete');
         });
     </script>
 </body>
