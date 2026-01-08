@@ -1,116 +1,144 @@
-# Contributing to Vayu Smriti
+# Contributing to JanVayu
 
-Thank you for your interest in contributing to India's air quality archive.
+Thank you for your interest in contributing to JanVayu! This citizen-led archive depends on community participation to document India's air quality crisis comprehensively.
 
 ## Ways to Contribute
 
-### Data & Research
+### 🔬 Researchers
+- Share datasets and papers on air pollution health impacts
+- Help verify and fact-check existing content
+- Contribute analysis and visualizations
+- Translate research summaries into Indian languages
 
-- Submit verified datasets with source documentation
-- Add academic papers with proper citations
-- Contribute analysis scripts
-- Improve data quality documentation
+### 📰 Journalists
+- Share verified investigative reports
+- Document local air quality stories
+- Help archive important media coverage
+- Contribute to the accountability tracker
 
-### Documentation
+### 💻 Developers
+- Report bugs and suggest improvements
+- Contribute code fixes and new features
+- Build data visualization tools
+- Improve accessibility and performance
 
-- Improve source documentation in `/research-repo/`
-- Add translations (Hindi, Tamil, Telugu, Bengali, Kannada, Malayalam, etc.)
-- Write guides for using the archive
-- Document local air quality contexts
-
-### Code
-
-- Bug fixes and improvements
-- New visualizations
-- Accessibility improvements
-- Performance optimization
-- API integrations
-
-### Testimonies & Local Documentation
-
-- Submit firsthand accounts (with consent)
+### 👥 Citizens
+- Share firsthand testimonies (anonymized if preferred)
 - Document local air quality conditions
-- Contribute verified photos/videos
-- Record oral histories from affected communities
+- Help translate content into regional languages
+- Spread awareness about the archive
 
-### Design & Communication
-
+### 🎨 Designers
 - Improve visual accessibility
-- Create shareable graphics
-- Design print materials for offline distribution
+- Create infographics and educational materials
+- Help with UI/UX improvements
 
 ---
 
-## Guidelines
+## How to Contribute
 
-1. **Accuracy first** — All contributions must be factually verifiable
-2. **Source everything** — No unattributed claims or data
-3. **Non-partisan** — No party political content or campaigning
-4. **Respectful** — Of affected communities, contributors, and differing perspectives
-5. **Accessible** — Consider users across languages, regions, and abilities
-6. **Privacy-conscious** — Obtain consent for personal stories; anonymize when requested
+### For Code Contributions
 
----
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/Varnasr/JanVayu.git
+   cd JanVayu
+   ```
 
-## Contribution Process
+2. **Create a branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-### For Code & Documentation
+3. **Make your changes**
+   - Follow existing code style
+   - Test your changes locally
+   - Ensure the website works on mobile devices
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/your-contribution`)
-3. Make your changes with clear commit messages
-4. Test your changes locally
-5. Submit a pull request with a clear description
+4. **Submit a Pull Request**
+   - Describe your changes clearly
+   - Reference any related issues
+   - Include screenshots if applicable
 
-### For Data & Research
+### For Content Contributions
 
-1. Check if the source is already documented in `/research-repo/`
-2. Use the metadata template in `/_templates/source_metadata.json`
-3. Verify accessibility and licensing
-4. Submit via pull request or email if you're not comfortable with Git
+1. **Open an Issue** describing what you want to contribute
+2. **Provide sources** — all content must be verifiable
+3. **Include context** — explain why this is relevant
 
-### For Testimonies
+### For Data Contributions
 
-1. Email contact@vayusmriti.org with the account
-2. Include: Location, date/time period, consent status, preferred attribution
-3. We will follow up to verify and discuss publication
-
----
-
-## What We Accept
-
-- Verified, factual information with clear sources
-- Original analysis with transparent methodology
-- Firsthand accounts with appropriate consent
-- Translations that preserve meaning accurately
-- Code that follows existing patterns and is well-documented
-
-## What We Don't Accept
-
-- Unverified claims or rumors
-- Partisan political content
-- Content that violates others' privacy without consent
-- Plagiarized or improperly attributed material
-- Promotional content for commercial products/services
+- Ensure data is from a legitimate, verifiable source
+- Provide clear attribution and licensing information
+- Include methodology documentation if applicable
 
 ---
 
-## Recognition
+## Content Guidelines
 
-Contributors are acknowledged in:
+### What We Accept
 
-- The repository's contributors list
-- Annual archive reports
-- Conference materials (with permission)
+✅ Verified data from official sources (CPCB, WHO, Lancet, etc.)
+✅ Peer-reviewed research papers
+✅ Credible journalism from established outlets
+✅ Firsthand citizen testimonies (with consent)
+✅ Official policy documents and court orders
+✅ Accurate translations
+
+### What We Don't Accept
+
+❌ Unverified claims or rumors
+❌ Partisan political content
+❌ Commercial promotions
+❌ Content that violates privacy without consent
+❌ Misinformation or pseudoscience
+
+---
+
+## Code Standards
+
+- **HTML:** Semantic, accessible markup
+- **CSS:** Use CSS variables for theming
+- **JavaScript:** Vanilla JS preferred; no unnecessary dependencies
+- **Comments:** Document complex logic
+- **Accessibility:** Follow WCAG guidelines
+
+---
+
+## Reporting Issues
+
+When reporting bugs:
+
+1. Check if the issue already exists
+2. Use the issue template
+3. Include:
+   - Browser and device information
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Screenshots if relevant
+
+---
+
+## Community Standards
+
+All contributors must follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+Key principles:
+- Be respectful and inclusive
+- Focus on facts, not opinions
+- Respect affected communities
+- Maintain non-partisan stance
 
 ---
 
 ## Questions?
 
-- **Technical issues:** Open a GitHub issue
-- **General inquiries:** contact@vayusmriti.org
-- **Sensitive contributions:** confidential@vayusmriti.org
+- **General questions:** Open a [Discussion](https://github.com/Varnasr/JanVayu/discussions)
+- **Bug reports:** Open an [Issue](https://github.com/Varnasr/JanVayu/issues)
+- **Direct contact:** [contact@janvayu.in](mailto:contact@janvayu.in)
 
 ---
 
-Thank you for helping build India's air quality memory.
+Thank you for helping document India's air quality crisis. Every contribution matters.
+
+**जनवायु — क्योंकि हवा सबकी है।**
