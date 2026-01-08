@@ -1,86 +1,104 @@
-# Vayu Smriti वायु स्मृति
+# JanVayu जनवायु
 
 **A Citizen-Led National Archive of India's Air Quality Crisis**
+
+[![Website](https://img.shields.io/badge/Website-janvayu.in-7C3AED)](https://www.janvayu.in)
+[![License: MIT](https://img.shields.io/badge/Code-MIT-green.svg)](LICENSE)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/Content-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ---
 
 ## About
 
-Vayu Smriti (Air Memory) is a non-partisan, citizen-led initiative to build India's first comprehensive public archive documenting the air quality crisis — its data, its victims, its policies, and its public memory.
+**JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative to build India's first comprehensive public archive documenting the air quality crisis — its data, its victims, its policies, and its public memory.
 
 This is not a campaign. It is a record.
 
 ### What We Archive
 
-- **Real-time AQI data** from 500+ monitoring stations (via OpenAQ/CPCB)
-- **Health burden evidence** — mortality data, epidemiological studies
-- **Policy and legal documents** — NCAP, GRAP, NGT/Supreme Court orders
-- **Citizen testimonies** — firsthand accounts from affected communities
-- **Journalism and investigations** — verified media coverage
-- **Public sentiment** — satire, memes, cultural responses
-- **Scientific research** — peer-reviewed papers, datasets
+* **Real-time AQI data** from 500+ monitoring stations (via WAQI/CPCB)
+* **Health burden evidence** — mortality data, epidemiological studies (Lancet, IHME)
+* **Policy and legal documents** — NCAP, GRAP, NGT/Supreme Court orders
+* **Citizen testimonies** — firsthand accounts from affected communities
+* **Journalism and investigations** — verified media coverage
+* **Public sentiment** — satire, memes, cultural responses
+* **Scientific research** — peer-reviewed papers, datasets
 
 ### Why This Exists
 
 Every winter, India's air quality crisis dominates headlines. Every summer, it fades from public memory. Policy responses remain fragmented. Accountability is diffuse. Data is scattered across dozens of platforms.
 
-Vayu Smriti creates a permanent, structured, publicly accessible record — so that evidence persists, patterns become visible, and accountability becomes possible.
+JanVayu creates a permanent, structured, publicly accessible record — so that evidence persists, patterns become visible, and accountability becomes possible.
 
 ---
 
-## Delhi Climate Week 2026
+## Live Website
 
-Vayu Smriti launches at a national convening during **Delhi Climate Week (January/February 2026)** — bringing together journalists, researchers, civil society leaders, health professionals, and citizens to inaugurate the archive and establish its governance.
+🌐 **[janvayu.in](https://www.janvayu.in)**
 
-The archive will continue collecting and curating materials through **2027 and beyond**.
+The website features:
+- Real-time AQI dashboard with data from 16+ Indian cities
+- Health impact research (Lancet Countdown 2025, Harvard/Karolinska studies)
+- Economic cost tracking ($339.4B / 9.5% GDP impact)
+- Policy tracker (NCAP, GRAP stages, Supreme Court orders)
+- Citizen voices archive (social media, testimonies, viral content)
+- Accountability tracker for officials and institutions
+- Interactive tools (AQI calculator, RTI templates, action guides)
 
-**This is a beginning, not an event.**
+---
+
+## Key Statistics (January 2026)
+
+| Metric | Value | Source |
+|--------|-------|--------|
+| Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
+| Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
+| India's Global Share | 70% of pollution deaths | Lancet Countdown 2025 |
+| Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2024 |
+| Most Polluted City | Byrnihat (128.2 µg/m³) | IQAir 2024 |
+
+---
+
+## Data Sources
+
+JanVayu integrates **160+ verified public data sources**, including:
+
+| Source | Type | Access |
+|--------|------|--------|
+| [WAQI](https://waqi.info) | Real-time AQI | Free API |
+| [CPCB CAAQMS](https://app.cpcbccr.com/ccr/) | Official AQI | Free |
+| [IHME GBD](https://vizhub.healthdata.org/gbd-results/) | Health burden | Free |
+| [Lancet Countdown](https://lancetcountdown.org) | Annual health reports | Open Access |
+| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Fire detection | Free |
+| [Indian Kanoon](https://indiankanoon.org/) | Legal/court orders | Free |
+| [PRANA Portal](https://prana.cpcb.gov.in/) | NCAP tracking | Free |
+| [IQAir](https://iqair.com) | World Air Quality Report | Free |
 
 ---
 
 ## Project Structure
 
 ```
-vayu-smriti/
-├── website/                    # Live website (Netlify deployment)
-│   ├── index.html
-│   ├── css/
-│   ├── js/
-│   └── assets/
-├── research-repo/              # Curated data sources & documentation
-│   ├── 01-realtime-aqi/
-│   ├── 02-health-burden/
-│   ├── 03-emissions/
-│   ├── 04-satellite/
-│   ├── 05-policy-legal/
-│   ├── 06-research/
-│   ├── 07-news-media/
-│   ├── 08-video-documentary/
-│   ├── 09-citizen-testimony/
-│   ├── 10-public-sentiment/
-│   ├── 11-meteorology/
-│   └── _templates/
-├── data/                       # Processed datasets
-├── scripts/                    # Data collection & processing scripts
-└── docs/                       # Project documentation
+JanVayu/
+├── index.html              # Main website (single-page application)
+├── README.md               # This file
+├── CONTRIBUTING.md         # Contribution guidelines
+├── CODE_OF_CONDUCT.md      # Community standards
+├── LICENSE                 # MIT (code) + CC BY-NC-SA 4.0 (content)
+├── CNAME                   # Custom domain configuration
+└── netlify.toml            # Deployment configuration
 ```
 
 ---
 
-## Data Sources
+## Technical Stack
 
-Vayu Smriti integrates **160+ verified public data sources**, including:
-
-| Source | Type | Access |
-|--------|------|--------|
-| [OpenAQ](https://openaq.org) | Real-time AQI | Free API |
-| [CPCB CAAQMS](https://app.cpcbccr.com/ccr/) | Official AQI | Free |
-| [IHME GBD](https://vizhub.healthdata.org/gbd-results/) | Health burden | Free |
-| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Fire detection | Free |
-| [Indian Kanoon](https://indiankanoon.org/) | Legal/court orders | Free |
-| [PRANA Portal](https://prana.cpcb.gov.in/) | NCAP tracking | Free |
-
-Full source documentation in `/research-repo/`.
+- **Frontend:** Vanilla HTML/CSS/JavaScript (no framework dependencies)
+- **Charts:** Chart.js
+- **Maps:** Leaflet.js with OpenStreetMap
+- **API:** World Air Quality Index (WAQI) API
+- **Hosting:** Netlify (auto-deploy from GitHub)
+- **Domain:** janvayu.in
 
 ---
 
@@ -88,11 +106,11 @@ Full source documentation in `/research-repo/`.
 
 We welcome contributions from:
 
-- **Researchers** — datasets, papers, analysis
-- **Journalists** — investigations, verified reports
-- **Developers** — code, visualizations, tools
-- **Citizens** — testimonies, local documentation, translations
-- **Designers** — accessibility, communication
+* **Researchers** — datasets, papers, analysis
+* **Journalists** — investigations, verified reports
+* **Developers** — code, visualizations, tools
+* **Citizens** — testimonies, local documentation, translations
+* **Designers** — accessibility, communication
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
@@ -100,38 +118,28 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Governance
 
-Vayu Smriti is a **non-partisan initiative**. It is not affiliated with any political party, government body, or corporate entity.
+JanVayu is a **non-partisan initiative**. It is not affiliated with any political party, government body, or corporate entity.
 
 Editorial decisions are guided by:
 
-- Factual accuracy and verification
-- Source transparency
-- Respect for affected communities
-- Accessibility across languages and regions
-
-Governance structure to be formalized at Delhi Climate Week 2026.
+* Factual accuracy and verification
+* Source transparency
+* Respect for affected communities
+* Accessibility across languages and regions
 
 ---
 
-## Partners
+## Name Change Note
 
-**Initiating Organizations:**
-
-- All India Professionals' Congress (AIPC)
-- Dr. Manmohan Singh Fellows Program (MMSF)
-
-**Data Partners:**
-
-- OpenAQ
-- Additional partners to be announced
+This project was previously known as "Vayu Smriti" (वायु स्मृति). Following community feedback and a vote, it was renamed to **JanVayu** (जनवायु) in January 2026 for better linguistic inclusivity across India's diverse language communities.
 
 ---
 
 ## License
 
-- **Code:** MIT License
-- **Content/Documentation:** CC BY-NC-SA 4.0
-- **Data:** Individual sources retain original licenses
+* **Code:** MIT License
+* **Content/Documentation:** CC BY-NC-SA 4.0
+* **Data:** Individual sources retain original licenses
 
 See [LICENSE](LICENSE) for details.
 
@@ -139,19 +147,22 @@ See [LICENSE](LICENSE) for details.
 
 ## Contact
 
-- **Email:** contact@vayusmriti.org
-- **Website:** vayusmriti.org (coming soon)
+* **Email:** [contact@janvayu.in](mailto:contact@janvayu.in)
+* **Website:** [janvayu.in](https://www.janvayu.in)
+* **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
 
 ---
 
 ## Support
 
-Vayu Smriti is a public interest project. If you wish to support:
+JanVayu is a public interest project. If you wish to support:
 
-- **Contribute data or expertise** — see Contributing above
-- **Institutional partnerships** — contact us
-- **Financial support** — details forthcoming
+* **Contribute data or expertise** — see Contributing above
+* **Report issues** — [Open an issue](https://github.com/Varnasr/JanVayu/issues)
+* **Spread awareness** — Share the website
 
 ---
 
-*Vayu Smriti is built on the principle that public memory is a prerequisite for public accountability.*
+*JanVayu is built on the principle that public memory is a prerequisite for public accountability.*
+
+**जनवायु — क्योंकि हवा सबकी है।**
