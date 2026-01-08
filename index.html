@@ -80,11 +80,13 @@
         .ticker-time { font-size: 0.75rem; color: #64748B; white-space: nowrap; }
 
         /* BREADCRUMB - Mobile navigation indicator */
-        .breadcrumb { display: none; background: var(--card); border-bottom: 1px solid var(--border); padding: 0.75rem 1rem; }
-        .breadcrumb-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 0.5rem; }
-        .breadcrumb-home { color: var(--text-3); font-size: 0.875rem; text-decoration: none; }
-        .breadcrumb-sep { color: var(--text-3); }
-        .breadcrumb-current { color: var(--primary); font-weight: 600; font-size: 1rem; }
+        .breadcrumb { display: none; background: var(--card); border-bottom: 1px solid var(--border); padding: 0.875rem 1rem; }
+        .breadcrumb-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 0.625rem; }
+        .breadcrumb-home { color: var(--text-3); font-size: 1rem; text-decoration: none; display: flex; align-items: center; padding: 0.25rem; }
+        .breadcrumb-home:hover { color: var(--primary); }
+        .breadcrumb-home svg { width: 20px; height: 20px; }
+        .breadcrumb-sep { color: var(--text-3); font-size: 1.25rem; }
+        .breadcrumb-current { color: var(--primary); font-weight: 600; font-size: 1.125rem; }
 
         /* TABS - Desktop */
         .tabs { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 1rem; }
@@ -99,8 +101,8 @@
         .tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(124,58,237,0.05); }
 
         /* MOBILE MENU OVERLAY */
-        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s; }
-        .mobile-menu.open { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s; }
+        .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; }
         .mobile-menu-content { position: absolute; top: 0; right: 0; width: 85%; max-width: 360px; height: 100%; background: var(--card); overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; }
         .mobile-menu.open .mobile-menu-content { transform: translateX(0); }
         .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); }
@@ -468,8 +470,8 @@
     <!-- MOBILE BREADCRUMB -->
     <div class="breadcrumb" id="breadcrumb">
         <div class="breadcrumb-inner">
-            <a href="#" class="breadcrumb-home" onclick="showPanel('dashboard'); return false;">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <a href="#" class="breadcrumb-home" onclick="showPanel('dashboard'); return false;" title="Home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </a>
             <span class="breadcrumb-sep">›</span>
             <span class="breadcrumb-current" id="breadcrumb-current">Dashboard</span>
