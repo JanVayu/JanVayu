@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JanVayu जनवायु | India's Air Quality Archive</title>
+    <meta name="description" content="Citizen-led air quality monitoring, health impact tracking, and accountability platform for India. Live AQI data, research archive, and tools for clean air advocacy.">
+    <meta property="og:title" content="JanVayu जनवायु | India's Air Quality Archive">
+    <meta property="og:description" content="Citizen-led air quality monitoring, health impact tracking, and accountability platform for India.">
+    <meta property="og:url" content="https://www.janvayu.in">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JanVayu जनवायु | India's Air Quality Archive">
+    <meta name="twitter:description" content="Live AQI, health research, policy tracker & citizen tools for India's air quality crisis.">
+    <link rel="canonical" href="https://www.janvayu.in">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -327,59 +337,59 @@
     <!-- TABS -->
     <nav class="tabs">
         <div class="tabs-inner">
-            <div class="tab active" onclick="showPanel('dashboard')">
+            <div class="tab active" data-panel="dashboard" onclick="showPanel('dashboard')">
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                 Dashboard
             </div>
-            <div class="tab" onclick="showPanel('health')">
+            <div class="tab" data-panel="health" onclick="showPanel('health')">
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 Health
             </div>
-            <div class="tab" onclick="showPanel('economic')">
+            <div class="tab" data-panel="economic" onclick="showPanel('economic')">
                 <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 Economic
             </div>
-            <div class="tab" onclick="showPanel('policy')">
+            <div class="tab" data-panel="policy" onclick="showPanel('policy')">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 Policy
             </div>
-            <div class="tab" onclick="showPanel('compare')">
+            <div class="tab" data-panel="compare" onclick="showPanel('compare')">
                 <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                 Compare
             </div>
-            <div class="tab" onclick="showPanel('map')">
+            <div class="tab" data-panel="map" onclick="showPanel('map')">
                 <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                 Map
             </div>
-            <div class="tab" onclick="showPanel('trends')">
+            <div class="tab" data-panel="trends" onclick="showPanel('trends')">
                 <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 Trends
             </div>
-            <div class="tab" onclick="showPanel('accountability')">
+            <div class="tab" data-panel="accountability" onclick="showPanel('accountability')">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                 Accountability
             </div>
-            <div class="tab" onclick="showPanel('voices')">
+            <div class="tab" data-panel="voices" onclick="showPanel('voices')">
                 <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 Voices
             </div>
-            <div class="tab" onclick="showPanel('actions')">
+            <div class="tab" data-panel="actions" onclick="showPanel('actions')">
                 <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 Actions
             </div>
-            <div class="tab" onclick="showPanel('tools')">
+            <div class="tab" data-panel="tools" onclick="showPanel('tools')">
                 <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                 Tools
             </div>
-            <div class="tab" onclick="showPanel('resources')">
+            <div class="tab" data-panel="resources" onclick="showPanel('resources')">
                 <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                 Resources
             </div>
-            <div class="tab" onclick="showPanel('about')">
+            <div class="tab" data-panel="about" onclick="showPanel('about')">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                 About
             </div>
-            <div class="tab" onclick="showPanel('changelog')">
+            <div class="tab" data-panel="changelog" onclick="showPanel('changelog')">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
                 Updates
             </div>
@@ -401,10 +411,10 @@
                 <div id="live-status"><span class="pulse"></span> LIVE — Connecting to WAQI API...</div>
             </div>
 
-            <div class="alert alert-danger mb-2" id="grap-alert">
+            <div class="alert alert-warning mb-2" id="grap-alert">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
-                    <strong>GRAP Stage IV Active in Delhi-NCR</strong> — Truck entry banned, 50% WFH advisory, construction stopped.
+                    <strong>Delhi 2025: Best Air in 8 Years</strong> — 79 good/satisfactory days, only 8 severe days. PM2.5 down to 96 µg/m³ (still 19x WHO limit).
                 </div>
             </div>
 
@@ -415,19 +425,19 @@
                     <div class="stat-change" id="delhi-aqi-status">Loading...</div>
                 </div>
                 <div class="card stat-card">
-                    <div class="stat-value danger">2.1M</div>
+                    <div class="stat-value danger">1.7M</div>
                     <div class="stat-label">Deaths/Year India</div>
-                    <div class="stat-change">Lancet 2019</div>
+                    <div class="stat-change">Lancet 2025</div>
                 </div>
                 <div class="card stat-card">
-                    <div class="stat-value warning">5.4%</div>
+                    <div class="stat-value warning">9.5%</div>
                     <div class="stat-label">GDP Loss</div>
-                    <div class="stat-change">Rs 4.2L Cr/yr</div>
+                    <div class="stat-change">$339B/yr (2022)</div>
                 </div>
                 <div class="card stat-card">
-                    <div class="stat-value danger">0</div>
-                    <div class="stat-label">Good AQI Days Delhi</div>
-                    <div class="stat-change">Jan-Nov 2024</div>
+                    <div class="stat-value success">79</div>
+                    <div class="stat-label">Good/Satisfactory Days</div>
+                    <div class="stat-change">Delhi 2025</div>
                 </div>
                 <div class="card stat-card">
                     <div class="stat-value" id="worst-city-aqi">--</div>
@@ -469,16 +479,16 @@
                     </div>
                     <div class="card-body" style="font-size: 0.75rem;">
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <div class="news-meta"><span class="news-source" style="background: #EF4444; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">SC</span> Dec 2024</div>
-                            <div class="news-title">"If you can't give clean air, tell people to leave Delhi"</div>
+                            <div class="news-meta"><span class="news-source" style="background: #16A34A; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">2025</span> Jan 2025</div>
+                            <div class="news-title">Delhi: Best air in 8 years — 79 good days, PM2.5 at 96µg/m³</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <div class="news-meta"><span class="news-source" style="background: #F59E0B; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">CAQM</span> Dec 2024</div>
-                            <div class="news-title">GRAP Stage IV: Truck ban, 50% WFH advisory</div>
+                            <div class="news-meta"><span class="news-source" style="background: #EF4444; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">Lancet</span> Dec 2024</div>
+                            <div class="news-title">1.5M deaths/year from PM2.5 — Harvard/Karolinska study</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0;">
-                            <div class="news-meta"><span class="news-source" style="background: #3B82F6; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">WHO</span> 2024</div>
-                            <div class="news-title">Delhi remains world's most polluted capital</div>
+                            <div class="news-meta"><span class="news-source" style="background: #3B82F6; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">IQAir</span> 2024</div>
+                            <div class="news-title">India 5th most polluted. 74 of 100 worst cities are Indian</div>
                         </div>
                     </div>
                 </div>
@@ -769,10 +779,11 @@
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.75rem;">
+                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--primary);"><strong>🆕 Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
                         <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
                         <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
                         <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
-                        <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px;"><strong>Stage IV (450+):</strong> Truck entry ban, 50% WFH</div>
+                        <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px;"><strong>Stage IV (450+):</strong> Truck entry ban, 50% WFH, school closures</div>
                     </div>
                 </div>
             </div>
@@ -1068,14 +1079,15 @@
                         <div class="timeline-item"><div class="timeline-date">Nov 2016</div><div class="timeline-content"><div class="timeline-title">Great Smog of Delhi</div><div class="timeline-desc">AQI crossed 999 (off scale). Schools closed. Emergency declared.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Jan 2016</div><div class="timeline-content"><div class="timeline-title">First Odd-Even</div><div class="timeline-desc">Delhi's odd-even car rationing experiment. IIT study: 2-4% impact only.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">2017</div><div class="timeline-content"><div class="timeline-title">BS-IV Nationwide</div><div class="timeline-desc">Bharat Stage IV fuel standards rolled out. Helped reduce vehicular emissions.</div></div></div>
-                        <div class="timeline-item"><div class="timeline-date">2019</div><div class="timeline-content"><div class="timeline-title">NCAP Launched</div><div class="timeline-desc">National Clean Air Programme with ₹6,897 Cr for 131 cities. Target: 40% reduction by 2026.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">2019</div><div class="timeline-content"><div class="timeline-title">NCAP Launched</div><div class="timeline-desc">National Clean Air Programme for 131 cities. Target: 40% PM reduction by 2025-26.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">COVID Lockdown</div><div class="timeline-desc">PM2.5 dropped 50%+. Blue skies visible. Proved pollution is man-made and reversible.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">BS-VI Leapfrog</div><div class="timeline-desc">India skipped BS-V, went directly to BS-VI. Equivalent to Euro 6.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Aug 2021</div><div class="timeline-content"><div class="timeline-title">Smog Tower Inaugurated</div><div class="timeline-desc">₹20 Cr tower at Connaught Place. Later found ineffective by IIT study.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Oct 2021</div><div class="timeline-content"><div class="timeline-title">CAQM Established</div><div class="timeline-desc">Commission for Air Quality Management replaces EPCA. Given statutory powers.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Nov 2023</div><div class="timeline-content"><div class="timeline-title">Post-Diwali Peak</div><div class="timeline-desc">AQI 500+ for 5 consecutive days. #DelhiChokes trends globally.</div></div></div>
-                        <div class="timeline-item"><div class="timeline-date">Nov 2024</div><div class="timeline-content"><div class="timeline-title">GRAP Stage IV</div><div class="timeline-desc">Most severe restrictions: truck ban, 50% WFH, construction stopped.</div></div></div>
-                        <div class="timeline-item"><div class="timeline-date">Dec 2024</div><div class="timeline-content"><div class="timeline-title">Schools Closed Again</div><div class="timeline-desc">Primary schools shifted to online. Pattern repeats every winter.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Dec 2024</div><div class="timeline-content"><div class="timeline-title">Lancet Causal Study</div><div class="timeline-desc">Harvard/Karolinska: 1.5M deaths/year from PM2.5. First causal inference for India.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Dec 2024</div><div class="timeline-content"><div class="timeline-title">GRAP Goes Predictive</div><div class="timeline-desc">New rules: 3-day advance activation based on IMD/IITM forecasts.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Jan 2025</div><div class="timeline-content"><div class="timeline-title">Delhi's Best Air in 8 Years</div><div class="timeline-desc">79 good/satisfactory days. PM2.5: 96 µg/m³ (still 19x WHO limit).</div></div></div>
                     </div>
                 </div>
             </div>
@@ -1125,14 +1137,16 @@
                         <table class="table">
                             <thead><tr><th>Statement/Promise</th><th>By Whom</th><th>Date</th><th>Status</th></tr></thead>
                             <tbody>
+                                <tr style="background: rgba(239,68,68,0.08);"><td>"No conclusive data on pollution deaths"</td><td>Union Environment Ministry</td><td>July 2024</td><td><span class="badge badge-danger">Contradicts ICMR-Lancet Studies</span></td></tr>
                                 <tr><td>"Delhi's air will be clean within 3 years"</td><td>Delhi CM</td><td>2020</td><td><span class="badge badge-danger">Failed</span></td></tr>
-                                <tr><td>"40% PM2.5 reduction by 2026"</td><td>MoEFCC (NCAP)</td><td>2019</td><td><span class="badge badge-warning">Behind Target</span></td></tr>
+                                <tr><td>"40% PM2.5 reduction by 2026"</td><td>MoEFCC (NCAP)</td><td>2019</td><td><span class="badge badge-warning">25-27% Achieved (CREA)</span></td></tr>
                                 <tr><td>"Stubble burning will end this year"</td><td>Punjab CM</td><td>2021, 2022, 2023, 2024</td><td><span class="badge badge-danger">Repeated Every Year</span></td></tr>
                                 <tr><td>"Smog towers will solve pollution"</td><td>DPCC/IIT</td><td>2021</td><td><span class="badge badge-danger">₹20Cr Wasted</span></td></tr>
                                 <tr><td>"1000 electric buses by 2023"</td><td>Delhi Transport</td><td>2021</td><td><span class="badge badge-warning">~400 Deployed</span></td></tr>
                                 <tr><td>"All brick kilns will use zigzag tech"</td><td>CPCB</td><td>2019</td><td><span class="badge badge-danger">30% Compliance</span></td></tr>
-                                <tr><td>"Real-time source apportionment"</td><td>MoEFCC</td><td>2022</td><td><span class="badge badge-warning">Delayed</span></td></tr>
+                                <tr><td>"Real-time source apportionment"</td><td>MoEFCC</td><td>2022</td><td><span class="badge badge-warning">50/130 Cities Only</span></td></tr>
                                 <tr><td>"Odd-even will reduce pollution 15%"</td><td>Delhi Govt</td><td>2016</td><td><span class="badge badge-danger">2-4% Only (IIT Study)</span></td></tr>
+                                <tr style="background: rgba(234,179,8,0.08);"><td>"NCAP funds fully utilized"</td><td>MoEFCC/States</td><td>2019-25</td><td><span class="badge badge-warning">Delhi: 17% (RTI 2025)</span></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1198,15 +1212,15 @@
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
-                            <h4 style="color: #EF4444;">NCAP Funds (2019-2024)</h4>
+                            <h4 style="color: #EF4444;">NCAP Funds (2019-2025)</h4>
                             <ul>
-                                <li><strong>Allocated:</strong> ₹6,897 crore to 131 cities</li>
-                                <li><strong>Utilized:</strong> ~₹2,800 crore (40%)</li>
-                                <li><strong>Delhi share:</strong> ₹492 crore (utilized: ₹180 crore)</li>
-                                <li><strong>Where it went:</strong> Road sweepers, water sprinklers, monitoring stations</li>
-                                <li><strong>What's missing:</strong> No source apportionment, no structural change</li>
+                                <li><strong>Allocated:</strong> ₹11,211 crore to 131 cities</li>
+                                <li><strong>Utilized:</strong> ~₹7,594 crore (68%) — CREA 2025</li>
+                                <li><strong>Delhi shame:</strong> ₹81.36 Cr allocated, only ₹14.1 Cr (17%) spent — RTI Jan 2025</li>
+                                <li><strong>Where it went:</strong> 64% on dust control (sweeping, sprinkling) — CSE</li>
+                                <li><strong>What's missing:</strong> Only 50/130 cities completed source apportionment</li>
                             </ul>
-                            <div style="font-size: 0.625rem; color: var(--text-3);">Source: CAG Audit 2023, MoEFCC Annual Report</div>
+                            <div style="font-size: 0.625rem; color: var(--text-3);">Source: RTI Jan 2025, CREA Report April 2025, CSE Assessment</div>
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #3B82F6;">
@@ -1717,6 +1731,79 @@ Signature: _______________</div>
                                     "Doctor said pollution increases risk of low birth weight, preterm delivery. My in-laws think I'm 'overreacting' by wearing N95. I've sealed our bedroom and run purifier 24/7. Still anxious every day."
                                 </div>
                                 <div class="voice-meta">Dec 2024 | Pregnancy support group</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2025 VOICES: GOVERNMENT & ACCOUNTABILITY -->
+            <div class="card mt-2">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(234,179,8,0.05));"><span class="card-title">🏛️ 2025: Government Positions & Contradictions</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <div class="voice-card" style="border-left: 3px solid #EF4444; background: rgba(239,68,68,0.03);">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #DC2626;">🏛️</div>
+                                    <div>
+                                        <div class="voice-name">Union Environment Ministry</div>
+                                        <div class="voice-handle">Rajya Sabha Reply</div>
+                                    </div>
+                                    <span class="voice-source">Parliament</span>
+                                </div>
+                                <div class="voice-content">
+                                    "There is no conclusive data available in the country to establish direct correlation of death/disease exclusively due to air pollution."
+                                    <br><em style="font-size: 0.7rem; color: #EF4444; margin-top: 0.5rem; display: block;">⚠️ This contradicts multiple ICMR-backed Lancet studies showing 1.5-1.7M annual deaths.</em>
+                                </div>
+                                <div class="voice-meta">July 2024 | Official Rajya Sabha reply</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #F59E0B;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #F59E0B;">📊</div>
+                                    <div>
+                                        <div class="voice-name">RTI Revelation</div>
+                                        <div class="voice-handle">NCAP Fund Utilization</div>
+                                    </div>
+                                    <span class="voice-source">RTI Reply</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Under NCAP, ₹81.36 crore was allocated to Delhi over five years and just 17% was spent. In FY21-22, ₹11.25 crore allocated, ₹0 spent."
+                                </div>
+                                <div class="voice-meta">January 2025 | Vimlendu Jha RTI</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="voice-card" style="border-left: 3px solid #22C55E; background: rgba(34,197,94,0.03);">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #16A34A;">📈</div>
+                                    <div>
+                                        <div class="voice-name">Delhi Environment Minister</div>
+                                        <div class="voice-handle">Manjinder Singh Sirsa</div>
+                                    </div>
+                                    <span class="voice-source">Official Statement</span>
+                                </div>
+                                <div class="voice-content">
+                                    "2025 recorded Delhi's best air quality in 8 years. PM2.5 dropped from 104 to 96 µg/m³. We had 79 good/satisfactory days and only 8 severe days."
+                                    <br><em style="font-size: 0.7rem; color: var(--text-3); margin-top: 0.5rem; display: block;">Note: 96 µg/m³ is still 19x the WHO guideline of 5 µg/m³</em>
+                                </div>
+                                <div class="voice-meta">January 2025 | Press Statement</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #3B82F6;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #2563EB;">🔬</div>
+                                    <div>
+                                        <div class="voice-name">Dr. Petter Ljungman</div>
+                                        <div class="voice-handle">Karolinska Institutet</div>
+                                    </div>
+                                    <span class="voice-source">Lancet Study Author</span>
+                                </div>
+                                <div class="voice-content">
+                                    "The results show that current guidelines in India are not sufficient to protect health. Stricter regulations and measures to reduce emissions are of utmost importance."
+                                </div>
+                                <div class="voice-meta">December 2024 | Lancet Planetary Health</div>
                             </div>
                         </div>
                     </div>
@@ -2282,6 +2369,35 @@ Signature: _______________</div>
                     <div class="card">
                         <div class="card-header"><span class="card-title">Health Studies</span></div>
                         <div class="card-body resource-list" data-category="health">
+                            
+                            <!-- NEW 2024-2025 STUDIES -->
+                            <div class="resource-card" data-keywords="lancet 2024 mortality causal inference pm2.5 karolinska harvard 1.5 million deaths">
+                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext" target="_blank">
+                                    <div class="resource-type">Peer-reviewed <span class="badge badge-danger">NEW Dec 2024</span></div>
+                                    <div class="resource-title">Lancet: 1.5 Million Annual Deaths from PM2.5 in India</div>
+                                    <div class="resource-desc">First causal inference study across 655 districts (2009-2019). Every 10 µg/m³ PM2.5 increase = 8.6% mortality rise. 16.6M excess deaths vs WHO guideline over study period.</div>
+                                    <div class="resource-meta">Lancet Planetary Health | Dec 2024 | Karolinska/Harvard | DOI: 10.1016/S2542-5196(24)00248-1</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="lancet countdown 2025 climate health 70 percent global deaths heatwave">
+                                <a href="https://www.thelancet.com/countdown-health-climate" target="_blank">
+                                    <div class="resource-type">Annual Report <span class="badge badge-danger">2025</span></div>
+                                    <div class="resource-title">Lancet Countdown 2025: India = 70% of Global Pollution Deaths</div>
+                                    <div class="resource-desc">1.72 million deaths/year from PM2.5 (38% increase since 2010). Economic cost: $339.4B (9.5% GDP). 50% more heatwave days in 2024. Record heat stress hours.</div>
+                                    <div class="resource-meta">Lancet/UCL/WHO | October 2025</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="lancet 2024 ten cities daily mortality acute effects short-term">
+                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00114-1/fulltext" target="_blank">
+                                    <div class="resource-type">Peer-reviewed <span class="badge badge-warning">2024</span></div>
+                                    <div class="resource-title">Lancet: Acute PM2.5 Effects on Daily Mortality (10 Cities)</div>
+                                    <div class="resource-desc">First multi-city study on short-term exposure using causal methods. Analyzed 2008-2019 data highlighting locally generated pollution's role.</div>
+                                    <div class="resource-meta">Lancet Planetary Health | July 2024 | DOI: 10.1016/S2542-5196(24)00114-1</div>
+                                </a>
+                            </div>
+
                             <div class="resource-card" data-keywords="lancet gbd mortality deaths india state">
                                 <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(20)30298-9/fulltext" target="_blank">
                                     <div class="resource-type">Peer-reviewed <span class="badge badge-success">Open Access</span></div>
@@ -2368,6 +2484,25 @@ Signature: _______________</div>
                     <div class="card">
                         <div class="card-header"><span class="card-title">Policy & Legal</span></div>
                         <div class="card-body resource-list" data-category="policy">
+                            
+                            <div class="resource-card" data-keywords="crea ncap 2025 progress report fund utilization source apportionment">
+                                <a href="https://energyandcleanair.org/publication/tracing-the-hazy-air-2025-progress-report-on-national-clean-air-programme-ncap/" target="_blank">
+                                    <div class="resource-type">Policy Analysis <span class="badge badge-danger">NEW 2025</span></div>
+                                    <div class="resource-title">CREA: Tracing the Hazy Air 2025 — NCAP Progress Report</div>
+                                    <div class="resource-desc">Only 68% of ₹11,211 Cr NCAP funds utilized. 29 cities saw PM10 INCREASE. Only 50/130 cities completed source apportionment. Critical gaps identified.</div>
+                                    <div class="resource-meta">Centre for Research on Energy and Clean Air | April 2025</div>
+                                </a>
+                            </div>
+
+                            <div class="resource-card" data-keywords="cse ncap assessment reform 2024">
+                                <a href="https://www.cseindia.org/is-india-s-national-clean-air-programme-ncap-achieving-its-objectives-a-new-cse-assessment-says-there-are-concerns-presents-an-agenda-for-reform-12290" target="_blank">
+                                    <div class="resource-type">Policy Analysis <span class="badge badge-warning">2024</span></div>
+                                    <div class="resource-title">CSE NCAP Assessment: Concerns & Reform Agenda</div>
+                                    <div class="resource-desc">64% of NCAP spending on dust control (sweeping, sprinkling) vs combustion sources. No clear link between action and PM10 improvement.</div>
+                                    <div class="resource-meta">Centre for Science and Environment | 2024</div>
+                                </a>
+                            </div>
+
                             <div class="resource-card" data-keywords="caqm grap orders delhi ncr commission">
                                 <a href="https://caqm.nic.in/" target="_blank">
                                     <div class="resource-type">Government Portal <span class="badge badge-info">Official</span></div>
@@ -2589,7 +2724,7 @@ Signature: _______________</div>
                             <div class="quick-link-icon" style="background: #1F2937;"><svg viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
                             <div class="quick-link-content"><h4>Contribute Code</h4><p>Fork on GitHub</p></div>
                         </a>
-                        <a href="https://twitter.com/intent/tweet?text=Check%20out%20JanVayu%20-%20India's%20citizen-led%20air%20quality%20archive&url=https://varnasr.github.io/vayu-smriti" target="_blank" class="quick-link" style="text-decoration: none;">
+                        <a href="https://twitter.com/intent/tweet?text=Check%20out%20JanVayu%20-%20India's%20citizen-led%20air%20quality%20archive&url=https://www.janvayu.in" target="_blank" class="quick-link" style="text-decoration: none;">
                             <div class="quick-link-icon" style="background: #1DA1F2;"><svg viewBox="0 0 24 24" fill="white"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></div>
                             <div class="quick-link-content"><h4>Share</h4><p>Spread the word</p></div>
                         </a>
@@ -2616,8 +2751,45 @@ Signature: _______________</div>
             <div class="alert alert-info mb-2">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 <div>
-                    <strong>Current Version:</strong> v11 | <strong>Last Updated:</strong> December 30, 2024 | 
-                    <a href="https://github.com/Varnasr/vayu-smriti" target="_blank" style="color: var(--primary);">View on GitHub</a>
+                    <strong>Current Version:</strong> v12 | <strong>Last Updated:</strong> January 8, 2025 | 
+                    <a href="https://www.janvayu.in" target="_blank" style="color: var(--primary);">janvayu.in</a> |
+                    <a href="https://github.com/Varnasr/vayu-smriti" target="_blank" style="color: var(--primary);">GitHub</a>
+                </div>
+            </div>
+
+            <!-- JANUARY 2025 -->
+            <div class="card mb-2">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(16,185,129,0.08));">
+                    <span class="card-title" style="color: #16A34A;">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        January 8, 2025 — v12 (Current) 🎉 REBRAND
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #22C55E; font-size: 0.875rem; margin-bottom: 0.5rem;">✅ Major Milestone: Rebrand to JanVayu</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li><strong>New Name: JanVayu (जनवायु)</strong> — Community vote selected "People's Air" as new identity</li>
+                                <li><strong>Custom Domain: www.janvayu.in</strong> — Professional .in domain for pan-Indian reach</li>
+                                <li><strong>Updated Statistics</strong> — Lancet 2025 data: 1.7M deaths/year, 9.5% GDP loss</li>
+                                <li><strong>New Research Added</strong> — Lancet Dec 2024 causal study, Lancet Countdown 2025, CREA NCAP report</li>
+                                <li><strong>2025 Delhi Data</strong> — Best air in 8 years: 79 good days, PM2.5 at 96 µg/m³</li>
+                                <li><strong>New Accountability Items</strong> — Govt denial of deaths, NCAP 17% fund utilization RTI</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #3B82F6; font-size: 0.875rem; margin-bottom: 0.5rem;">🔄 Why the Rebrand</h4>
+                            <ul style="font-size: 0.75rem; line-height: 1.7;">
+                                <li><strong>"Vayu" issue:</strong> Technically means wind, not air</li>
+                                <li><strong>"Smriti" issue:</strong> Unwanted associations with Manusmriti</li>
+                                <li><strong>"JanVayu" solution:</strong> Sanskrit-origin, linguistically inclusive across all Indian languages</li>
+                                <li><strong>Pan-Indian appeal:</strong> Cognates exist in Hindi, Tamil, Telugu, Kannada, Malayalam</li>
+                                <li>Updated all branding, meta tags, social sharing links</li>
+                                <li>Added Open Graph tags for better social media previews</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2626,7 +2798,7 @@ Signature: _______________</div>
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
                     <span class="card-title" style="color: var(--primary);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        December 30, 2024 — v11 (Current)
+                        December 30, 2024 — v11
                     </span>
                 </div>
                 <div class="card-body">
@@ -2785,7 +2957,7 @@ Signature: _______________</div>
                         <li>150+ data sources mapped across 10 categories</li>
                         <li>First HTML prototype with MMSF brand colors</li>
                         <li>Humor/satire/Gen Z content category integrated</li>
-                        <li><strong>Rebranded to "JanVayu"</strong> (जनवायु) for pan-Indian identity</li>
+                        <li>Named "Vayu Smriti" (वायु स्मृति) — later rebranded to JanVayu in Jan 2025</li>
                         <li>GitHub repository created: github.com/Varnasr/vayu-smriti</li>
                         <li>Live deployment on Netlify</li>
                         <li>OpenAQ API integration for real-time data</li>
@@ -2847,8 +3019,8 @@ Signature: _______________</div>
     </main>
 
     <footer class="footer">
-        <p>JanVayu — Citizen-led air quality archive | <a href="https://github.com/Varnasr/vayu-smriti" style="color: var(--primary);">GitHub</a></p>
-        <p style="font-size: 0.625rem; margin-top: 0.25rem; color: var(--text-3);">Data: WAQI, CPCB, WHO, Lancet, IHME | Not for medical diagnosis</p>
+        <p>JanVayu जनवायु — Citizen-led air quality archive | <a href="https://www.janvayu.in" style="color: var(--primary);">janvayu.in</a> | <a href="https://github.com/Varnasr/vayu-smriti" style="color: var(--primary);">GitHub</a></p>
+        <p style="font-size: 0.625rem; margin-top: 0.25rem; color: var(--text-3);">Data: WAQI, CPCB, WHO, Lancet, IHME | Not for medical diagnosis | v12 Jan 2025</p>
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -2924,7 +3096,7 @@ Signature: _______________</div>
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById('panel-' + panel).classList.add('active');
             document.querySelectorAll('.tab').forEach(t => {
-                if (t.textContent.toLowerCase().trim().startsWith(panel.substring(0, 4))) t.classList.add('active');
+                if (t.getAttribute('data-panel') === panel) t.classList.add('active');
             });
             
             // Update URL hash for shareable links
@@ -3593,4 +3765,12 @@ Signature: _______________</div>
                 try {
                     await fetchAllAQI();
                 } catch (e) {
-                    con
+                    console.error('[JanVayu] Auto-refresh error:', e);
+                }
+            }, 10 * 60 * 1000);
+            
+            console.log('[JanVayu] Initialization complete');
+        });
+    </script>
+</body>
+</html>
