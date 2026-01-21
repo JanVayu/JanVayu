@@ -736,15 +736,11 @@
                     <div class="card-body" style="font-size: 0.75rem;">
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
                             <div class="news-meta"><span class="news-source" style="background: #7C3AED; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">NEW</span> Jan 2026</div>
-                            <div class="news-title">v15: UrbanEmissions.info resources integrated — 40 by 2040 Calculator, Working Papers</div>
+                            <div class="news-title">v15: UrbanEmissions.info integration — 40 by 2040 Calculator, Working Papers</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
                             <div class="news-meta"><span class="news-source" style="background: #2563EB; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">World Bank</span> Dec 2025</div>
                             <div class="news-title">1 billion affected, 1M deaths/yr, 10% GDP loss in IGP-HF region</div>
-                        </div>
-                        <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <div class="news-meta"><span class="news-source" style="background: #059669; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">v14</span> Jan 2026</div>
-                            <div class="news-title">Clean Air Mission Tracker + World Bank Four I's integration</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0;">
                             <div class="news-meta"><span class="news-source" style="background: #EF4444; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">Lancet</span> Dec 2024</div>
@@ -3267,488 +3263,296 @@ Signature: _______________</div>
         <div class="panel" id="panel-resources">
             <div class="section-intro">
                 <h2>Research & Resources Library</h2>
-                <p>Curated, verified open-access resources from peer-reviewed studies, government portals, and data sources.</p>
+                <p>Curated, verified open-access resources from peer-reviewed studies, government portals, and research institutions.</p>
             </div>
 
-            <!-- SEARCH -->
-            <div class="search-box">
-                <input type="text" class="search-input" id="resource-search" placeholder="Search resources (e.g., 'lancet', 'source apportionment', 'NCAP')..." oninput="filterResources()">
+            <!-- SEARCH + CATEGORY FILTERS -->
+            <div class="search-box" style="margin-bottom: 1rem;">
+                <input type="text" class="search-input" id="resource-search" placeholder="Search resources (e.g., 'lancet', 'NCAP', 'source apportionment')..." oninput="filterResources()">
                 <button class="search-btn" onclick="filterResources()">Search</button>
             </div>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                <button class="btn btn-sm" style="background: var(--primary); color: white;" onclick="filterResourceCategory('all')">All</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured')">⭐ Featured</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health')">🏥 Health</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source')">🔬 Sources</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('policy')">📋 Policy</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('data')">📊 Data</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('justice')">⚖️ Justice</button>
+            </div>
 
-            <div id="resources-container">
-                <div class="grid-2 mb-2">
-                    <!-- HEALTH STUDIES -->
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Health Studies</span></div>
-                        <div class="card-body resource-list" data-category="health">
-                            
-                            <!-- NEW 2024-2025 STUDIES -->
-                            <div class="resource-card" data-keywords="lancet 2024 mortality causal inference pm2.5 karolinska harvard 1.5 million deaths">
-                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext" target="_blank">
-                                    <div class="resource-type">Peer-reviewed <span class="badge badge-danger">NEW Dec 2024</span></div>
-                                    <div class="resource-title">Lancet: 1.5 Million Annual Deaths from PM2.5 in India</div>
-                                    <div class="resource-desc">First causal inference study across 655 districts (2009-2019). Every 10 µg/m³ PM2.5 increase = 8.6% mortality rise. 16.6M excess deaths vs WHO guideline over study period.</div>
-                                    <div class="resource-meta">Lancet Planetary Health | Dec 2024 | Karolinska/Harvard | DOI: 10.1016/S2542-5196(24)00248-1</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="lancet countdown 2025 climate health 70 percent global deaths heatwave">
-                                <a href="https://www.thelancet.com/countdown-health-climate" target="_blank">
-                                    <div class="resource-type">Annual Report <span class="badge badge-danger">2025</span></div>
-                                    <div class="resource-title">Lancet Countdown 2025: India = 70% of Global Pollution Deaths</div>
-                                    <div class="resource-desc">1.72 million deaths/year from PM2.5 (38% increase since 2010). Economic cost: $339.4B (9.5% GDP). 50% more heatwave days in 2024. Record heat stress hours.</div>
-                                    <div class="resource-meta">Lancet/UCL/WHO | October 2025</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="lancet 2024 ten cities daily mortality acute effects short-term">
-                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00114-1/fulltext" target="_blank">
-                                    <div class="resource-type">Peer-reviewed <span class="badge badge-warning">2024</span></div>
-                                    <div class="resource-title">Lancet: Acute PM2.5 Effects on Daily Mortality (10 Cities)</div>
-                                    <div class="resource-desc">First multi-city study on short-term exposure using causal methods. Analyzed 2008-2019 data highlighting locally generated pollution's role.</div>
-                                    <div class="resource-meta">Lancet Planetary Health | July 2024 | DOI: 10.1016/S2542-5196(24)00114-1</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="lancet gbd mortality deaths india state">
-                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(20)30298-9/fulltext" target="_blank">
-                                    <div class="resource-type">Peer-reviewed <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">Lancet GBD 2019: India State-Level Analysis</div>
-                                    <div class="resource-desc">Comprehensive state-by-state mortality estimates from air pollution. 2.1M deaths/year attributed to PM2.5.</div>
-                                    <div class="resource-meta">Lancet Planetary Health | 2020 | DOI: 10.1016/S2542-5196(20)30298-9</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="state global air 2024 ihme health effects">
-                                <a href="https://www.stateofglobalair.org/resources" target="_blank">
-                                    <div class="resource-type">Annual Report <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">State of Global Air 2024</div>
-                                    <div class="resource-desc">Global air quality trends with India-specific findings. Interactive data explorer available.</div>
-                                    <div class="resource-meta">Health Effects Institute | June 2024</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="who guidelines pm2.5 standards">
-                                <a href="https://www.who.int/publications/i/item/9789240034228" target="_blank">
-                                    <div class="resource-type">Guidelines <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">WHO Air Quality Guidelines 2021</div>
-                                    <div class="resource-desc">Updated global guidelines. India is 20x over safe PM2.5 annual limit of 5 ug/m3.</div>
-                                    <div class="resource-meta">World Health Organization | 2021</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="ihme gbd interactive data tool">
-                                <a href="https://vizhub.healthdata.org/gbd-results/" target="_blank">
-                                    <div class="resource-type">Interactive Tool <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">IHME GBD Results Tool</div>
-                                    <div class="resource-desc">Query mortality and DALYs by country, state, risk factor. Download custom datasets.</div>
-                                    <div class="resource-meta">Institute for Health Metrics and Evaluation</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="gemm global exposure mortality model pm25 burnett">
-                                <a href="https://www.pnas.org/doi/10.1073/pnas.1803222115" target="_blank">
-                                    <div class="resource-type">Peer-Reviewed <span class="badge badge-danger">KEY METHODOLOGY</span></div>
-                                    <div class="resource-title">GEMM Model — Burnett et al. PNAS 2018</div>
-                                    <div class="resource-desc">Global Exposure Mortality Model estimates 8.9M deaths from PM2.5. Gold standard for mortality estimation using PM2.5 concentration (µg/m³), not AQI.</div>
-                                    <div class="resource-meta">PNAS 2018 | 120% higher than previous GBD estimates</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="gbd 2021 pm25 mortality global burden disease">
-                                <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(24)00933-4/fulltext" target="_blank">
-                                    <div class="resource-type">Peer-Reviewed <span class="badge badge-danger">NEW 2024</span></div>
-                                    <div class="resource-title">GBD 2021: Global burden of 88 risk factors</div>
-                                    <div class="resource-desc">PM2.5 caused 4.72M deaths globally (95% UI: 3.48-5.80M) in 2021 — 7.9% of adult natural deaths. 4th leading risk factor worldwide.</div>
-                                    <div class="resource-meta">Lancet 2024 | Global Burden of Disease Study</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="lancet delhi causal mortality pm25 india">
-                                <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00278-5/fulltext" target="_blank">
-                                    <div class="resource-type">Peer-Reviewed <span class="badge badge-danger">NEW 2024</span></div>
-                                    <div class="resource-title">Delhi Causal Mortality Study — de Bont et al.</div>
-                                    <div class="resource-desc">7.2% of daily deaths in 10 Indian cities attributable to PM2.5 exceeding WHO guidelines. Establishes causal relationship using advanced modeling.</div>
-                                    <div class="resource-meta">Lancet Planetary Health Dec 2024 | Harvard/Karolinska</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="state global air hei pm25 india trend">
-                                <a href="https://www.stateofglobalair.org/" target="_blank">
-                                    <div class="resource-type">Annual Report <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">State of Global Air 2024</div>
-                                    <div class="resource-desc">India's population-weighted PM2.5 increased from 27 µg/m³ (1998) to 44 µg/m³ (2022) — 9× WHO guideline. India: 26% of global deaths, 18% of population.</div>
-                                    <div class="resource-meta">Health Effects Institute | Annual</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="world bank breath of change igp south asia gdp economic solutions">
-                                <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank">
-                                    <div class="resource-type">Policy Report <span class="badge badge-danger">NEW Dec 2025</span></div>
-                                    <div class="resource-title">World Bank: "A Breath of Change" — IGP-HF Solutions</div>
-                                    <div class="resource-desc">~1 billion affected, 1 million deaths/year, 10% GDP loss in Indo-Gangetic Plains. Proposes "Four I's" framework: Information, Incentives, Institutions, Infrastructure. Covers Bangladesh, Bhutan, India, Nepal, Pakistan.</div>
-                                    <div class="resource-meta">World Bank | December 2025</div>
-                                </a>
-                            </div>
+            <!-- FEATURED: URBANEMISSIONS.INFO COLLABORATION -->
+            <div class="card mb-2" data-resource-category="featured" style="border: 2px solid #7C3AED;">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(167,139,250,0.06));">
+                    <span class="card-title" style="color: #7C3AED;">
+                        ⭐ Featured: UrbanEmissions.info Research Partnership
+                        <span class="badge badge-danger" style="margin-left: 0.5rem;">NEW v15.0</span>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem; padding: 0.75rem; background: rgba(124,58,237,0.05); border-radius: 6px;">
+                        <strong>Collaboration with Dr. Sarath Guttikunda:</strong> India's most comprehensive air quality research repository. All data freely available — supporting "one topic, one voice, one tone, one ask."
+                    </p>
+                    <div class="grid-3" style="gap: 0.75rem;">
+                        <div class="resource-card" data-keywords="40 by 2040 delhi target cost inaction delay calculator">
+                            <a href="https://urbanemissions.info/blog-pieces/40-by-2040-cost-of-inaction-and-delays-in-reaching-delhis-air-quality-target/" target="_blank">
+                                <div class="resource-type">Interactive Tool <span class="badge badge-danger">KEY</span></div>
+                                <div class="resource-title">40 by 2040: Cost of Inaction Calculator</div>
+                                <div class="resource-desc">Shows 12-30% additional exposure burden from delayed action. Why Delhi flatlined at ~100 µg/m³.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="what polluting delhi sources sectors">
+                            <a href="https://urbanemissions.info/blog-pieces/whats-polluting-delhis-air/" target="_blank">
+                                <div class="resource-type">Analysis <span class="badge badge-success">Open</span></div>
+                                <div class="resource-title">What's Polluting Delhi's Air?</div>
+                                <div class="resource-desc">Source apportionment with downloadable scenario calculator.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="aqi bulletins cpcb data repository">
+                            <a href="https://urbanemissionsinfo.github.io/AQI_bulletins/" target="_blank">
+                                <div class="resource-type">Data Repository <span class="badge badge-success">Interactive</span></div>
+                                <div class="resource-title">AQI Bulletins — Indian Cities</div>
+                                <div class="resource-desc">GitHub archive of CPCB data with interactive visualization.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="five reasons delhi complex">
+                            <a href="https://urbanemissions.info/wp-content/uploads/docs/SIM-61-2025.pdf" target="_blank">
+                                <div class="resource-type">Working Paper <span class="badge badge-success">PDF</span></div>
+                                <div class="resource-title">Five Reasons Delhi's Problem is Complex</div>
+                                <div class="resource-desc">Meteorology, airshed dynamics, institutional gaps explained.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="ncap review action plans 131 cities">
+                            <a href="https://urbanemissions.info/india-air-quality/india-ncap-review/" target="_blank">
+                                <div class="resource-type">Policy Review <span class="badge badge-warning">NCAP</span></div>
+                                <div class="resource-title">NCAP Action Plans Review — 131 Cities</div>
+                                <div class="resource-desc">Systematic analysis with airshed mapping.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="working papers archive sim-air">
+                            <a href="https://urbanemissions.info/publications/working-papers/" target="_blank">
+                                <div class="resource-type">Archive <span class="badge badge-success">63+ Papers</span></div>
+                                <div class="resource-title">SIM-air Working Papers (2008-2025)</div>
+                                <div class="resource-desc">Complete archive: emissions, health impacts, policy analysis.</div>
+                            </a>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- SOURCE APPORTIONMENT -->
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Source Apportionment</span></div>
-                        <div class="card-body resource-list" data-category="source">
-                            <div class="resource-card" data-keywords="teri arai source apportionment delhi ncr vehicles industry">
-                                <a href="https://www.teriin.org/sites/default/files/2018-08/Report_SA_AQM-Delhi-NCR_0.pdf" target="_blank">
-                                    <div class="resource-type">Technical Report <span class="badge badge-success">Open Access PDF</span></div>
-                                    <div class="resource-title">TERI-ARAI Delhi NCR Source Study</div>
-                                    <div class="resource-desc">Detailed breakdown: vehicles (28%), industry (30%), dust (18%), biomass (12%).</div>
-                                    <div class="resource-meta">TERI & ARAI | 2018</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="urban emissions sarath guttikunda delhi history 1990 ncap tools working papers">
-                                <a href="https://urbanemissions.info/" target="_blank">
-                                    <div class="resource-type">Research Portal <span class="badge badge-danger">KEY RESOURCE</span></div>
-                                    <div class="resource-title">UrbanEmissions.info — Dr. Sarath Guttikunda</div>
-                                    <div class="resource-desc">India's most comprehensive air quality research repository. Delhi analysis from 1990-2025, NCAP city reviews, emission inventories for 131 cities, working papers, and modeling tools. All data freely available.</div>
-                                    <div class="resource-meta">urbanemissions.info | Collaboration partner</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="cse vehicles transport emissions analysis">
-                                <a href="https://www.cseindia.org/page/programme-air-pollution" target="_blank">
-                                    <div class="resource-type">NGO Research <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">CSE Air Pollution Programme</div>
-                                    <div class="resource-desc">Centre for Science and Environment's vehicle emissions and transport analysis.</div>
-                                    <div class="resource-meta">cseindia.org</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="iit kanpur source apportionment 2016">
-                                <a href="http://www.cpcb.nic.in/Delhi.pdf" target="_blank">
-                                    <div class="resource-type">Government Report <span class="badge badge-success">Open Access PDF</span></div>
-                                    <div class="resource-title">IIT Kanpur Source Apportionment Study</div>
-                                    <div class="resource-desc">Landmark 2016 study commissioned by DPCC. Basis for many policy interventions.</div>
-                                    <div class="resource-meta">IIT Kanpur for CPCB | 2016</div>
-                                </a>
-                            </div>
+            <!-- MAIN RESOURCES GRID -->
+            <div class="grid-3" style="gap: 1rem;">
+                
+                <!-- HEALTH STUDIES -->
+                <div class="card" data-resource-category="health">
+                    <div class="card-header" style="background: rgba(239,68,68,0.08);"><span class="card-title" style="color: #EF4444;">🏥 Health Studies</span></div>
+                    <div class="card-body resource-list">
+                        <div class="resource-card" data-keywords="lancet 2024 mortality 1.5 million deaths pm2.5">
+                            <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext" target="_blank">
+                                <div class="resource-type">Peer-reviewed <span class="badge badge-danger">Dec 2024</span></div>
+                                <div class="resource-title">Lancet: 1.5M Annual Deaths from PM2.5</div>
+                                <div class="resource-desc">First causal inference study. Every 10 µg/m³ = 8.6% mortality rise.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="lancet countdown 2025 70 percent global">
+                            <a href="https://www.thelancet.com/countdown-health-climate" target="_blank">
+                                <div class="resource-type">Annual Report <span class="badge badge-danger">2025</span></div>
+                                <div class="resource-title">Lancet Countdown: India = 70% of Global Deaths</div>
+                                <div class="resource-desc">1.72M deaths/year. $339B (9.5% GDP) cost.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="world bank breath change igp 1 billion">
+                            <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank">
+                                <div class="resource-type">Policy Report <span class="badge badge-danger">Dec 2025</span></div>
+                                <div class="resource-title">World Bank: 1B Affected, 10% GDP Loss</div>
+                                <div class="resource-desc">"Four I's" framework for IGP-HF solutions.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="who guidelines pm2.5 standards 2021">
+                            <a href="https://www.who.int/publications/i/item/9789240034228" target="_blank">
+                                <div class="resource-type">Guidelines <span class="badge badge-success">Open</span></div>
+                                <div class="resource-title">WHO Air Quality Guidelines 2021</div>
+                                <div class="resource-desc">Annual PM2.5 limit: 5 µg/m³. India is 20× over.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="gemm model burnett pnas mortality">
+                            <a href="https://www.pnas.org/doi/10.1073/pnas.1803222115" target="_blank">
+                                <div class="resource-type">Methodology <span class="badge badge-warning">KEY</span></div>
+                                <div class="resource-title">GEMM Model — Burnett et al.</div>
+                                <div class="resource-desc">Gold standard for PM2.5 mortality estimation.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="state global air 2024 ihme">
+                            <a href="https://www.stateofglobalair.org/" target="_blank">
+                                <div class="resource-type">Annual Report <span class="badge badge-success">Open</span></div>
+                                <div class="resource-title">State of Global Air 2024</div>
+                                <div class="resource-desc">India: 26% of global deaths, 18% of population.</div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- ENVIRONMENTAL JUSTICE & HOUSEHOLD AIR POLLUTION -->
-                <div class="card mt-2" style="border: 2px solid #DC2626;">
-                    <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.08), rgba(236,72,153,0.05));">
-                        <span class="card-title" style="color: #DC2626;">⚖️ Environmental Justice, Household Air Pollution & Occupational Health</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="grid-2">
-                            <!-- HAP & GENDER -->
-                            <div class="resource-list" data-category="hap">
-                                <h4 style="font-size: 0.875rem; color: #EC4899; margin-bottom: 0.75rem;">🔥 Household Air Pollution & Gender</h4>
-                                
-                                <div class="resource-card" data-keywords="gbd hap household air pollution mortality women solid fuel">
-                                    <a href="https://www.stateofglobalair.org/health/hap" target="_blank">
-                                        <div class="resource-type">Data Portal <span class="badge badge-danger">KEY</span></div>
-                                        <div class="resource-title">State of Global Air: Household Air Pollution</div>
-                                        <div class="resource-desc">481,700 deaths/year in India from HAP. 60% are women. Interactive data by country, age, cause.</div>
-                                        <div class="resource-meta">Health Effects Institute | 2024</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="teri hap india rural cooking biomass chulha women">
-                                    <a href="https://www.teriin.org/project/household-air-pollution" target="_blank">
-                                        <div class="resource-type">Research Program <span class="badge badge-success">Open Access</span></div>
-                                        <div class="resource-title">TERI Household Air Pollution Research</div>
-                                        <div class="resource-desc">Field studies on cooking smoke exposure, clean cookstove interventions, and women's health in rural India.</div>
-                                        <div class="resource-meta">The Energy and Resources Institute</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="ujjwala lpg scheme refill rates women cooking fuel">
-                                    <a href="https://www.ceew.in/publications/state-clean-cooking-energy-access-india" target="_blank">
-                                        <div class="resource-type">Policy Analysis <span class="badge badge-warning">2023</span></div>
-                                        <div class="resource-title">CEEW: State of Clean Cooking Energy Access in India</div>
-                                        <div class="resource-desc">Ujjwala coverage vs actual usage. Refill rates only 3.5/year vs 6-7 needed. Price barrier forces return to biomass.</div>
-                                        <div class="resource-meta">Council on Energy, Environment and Water</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="lancet women cooking smoke pregnancy birth outcomes">
-                                    <a href="https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(17)30264-3/fulltext" target="_blank">
-                                        <div class="resource-type">Peer-Reviewed <span class="badge badge-success">Open Access</span></div>
-                                        <div class="resource-title">Cooking with solid fuels and adverse birth outcomes in India</div>
-                                        <div class="resource-desc">Women cooking with biomass have 20% higher risk of stillbirth, 27% higher risk of neonatal death.</div>
-                                        <div class="resource-meta">Lancet Global Health | 2017</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="who clean cooking guidelines iap indoor">
-                                    <a href="https://www.who.int/tools/clean-household-energy-solutions-toolkit" target="_blank">
-                                        <div class="resource-type">Guidelines <span class="badge badge-info">Official</span></div>
-                                        <div class="resource-title">WHO Clean Household Energy Solutions Toolkit</div>
-                                        <div class="resource-desc">Technical guidance on clean cooking transitions, health impacts of solid fuel combustion, intervention effectiveness.</div>
-                                        <div class="resource-meta">World Health Organization</div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!-- OCCUPATIONAL & ENVIRONMENTAL JUSTICE -->
-                            <div class="resource-list" data-category="ej">
-                                <h4 style="font-size: 0.875rem; color: #F59E0B; margin-bottom: 0.75rem;">👷 Occupational Exposure & Environmental Justice</h4>
-                                
-                                <div class="resource-card" data-keywords="informal workers pollution exposure street vendors traffic police">
-                                    <a href="https://journals.sagepub.com/doi/10.1177/0013916519873945" target="_blank">
-                                        <div class="resource-type">Peer-Reviewed <span class="badge badge-success">Open Access</span></div>
-                                        <div class="resource-title">Occupational PM2.5 Exposure Among Street Vendors</div>
-                                        <div class="resource-desc">Street vendors exposed to 3-5× higher PM2.5 than residential areas. No occupational health protections.</div>
-                                        <div class="resource-meta">Environment and Behavior | 2020</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="brick kiln workers silicosis occupational health bonded labor">
-                                    <a href="https://www.ilo.org/wcmsp5/groups/public/---asia/---ro-bangkok/---sro-new_delhi/documents/publication/wcms_546400.pdf" target="_blank">
-                                        <div class="resource-type">Research Report <span class="badge badge-success">Open Access PDF</span></div>
-                                        <div class="resource-title">ILO: Working Conditions in Brick Kilns in India</div>
-                                        <div class="resource-desc">PM levels 10-20× safe limits. Silicosis, respiratory disease endemic. Bonded labor, no PPE, no health monitoring.</div>
-                                        <div class="resource-meta">International Labour Organization | 2017</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="waste pickers health landfill dalit women informal">
-                                    <a href="https://globalrec.org/resources/" target="_blank">
-                                        <div class="resource-type">Research Database <span class="badge badge-success">Open Access</span></div>
-                                        <div class="resource-title">GlobalRec: Waste Pickers Research Resources</div>
-                                        <div class="resource-desc">Health studies on waste pickers globally. India-specific research on landfill exposure, caste dimensions, women's burden.</div>
-                                        <div class="resource-meta">Global Alliance of Waste Pickers</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="epw environmental justice caste class pollution india">
-                                    <a href="https://www.epw.in/journal/2020/24/special-articles/environmentalism-without-environmental-justice.html" target="_blank">
-                                        <div class="resource-type">Commentary <span class="badge badge-warning">Subscription</span></div>
-                                        <div class="resource-title">EPW: Environmentalism Without Environmental Justice</div>
-                                        <div class="resource-desc">Critical analysis of how Indian environmental discourse ignores caste, class, and labor dimensions of pollution.</div>
-                                        <div class="resource-meta">Economic & Political Weekly | 2020</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="safai karamchari sanitation workers dalit manual scavenging">
-                                    <a href="https://www.safaikarmachariandolan.org/" target="_blank">
-                                        <div class="resource-type">Advocacy Organization <span class="badge badge-info">NGO</span></div>
-                                        <div class="resource-title">Safai Karmachari Andolan</div>
-                                        <div class="resource-desc">Documentation of sanitation worker conditions, sewer deaths, manual scavenging. Dalit rights and occupational health intersection.</div>
-                                        <div class="resource-meta">National Campaign for Dignity</div>
-                                    </a>
-                                </div>
-
-                                <div class="resource-card" data-keywords="delhi pollution inequality spatial disparity slum">
-                                    <a href="https://www.urbanemissions.info/india-apna/delhi/" target="_blank">
-                                        <div class="resource-type">Research Portal <span class="badge badge-success">Open Access</span></div>
-                                        <div class="resource-title">Urban Emissions: Delhi Spatial Analysis</div>
-                                        <div class="resource-desc">Pollution variations within Delhi. Anand Vihar vs Lodhi Road disparity. Industrial cluster exposure mapping.</div>
-                                        <div class="resource-meta">urbanemissions.info | Dr. Sarath Guttikunda</div>
-                                    </a>
-                                </div>
-                            </div>
+                <!-- SOURCE APPORTIONMENT & DATA -->
+                <div class="card" data-resource-category="source data">
+                    <div class="card-header" style="background: rgba(16,185,129,0.08);"><span class="card-title" style="color: #10B981;">🔬 Sources & Data</span></div>
+                    <div class="card-body resource-list">
+                        <div class="resource-card" data-keywords="urban emissions sarath guttikunda portal">
+                            <a href="https://urbanemissions.info/" target="_blank">
+                                <div class="resource-type">Research Portal <span class="badge badge-danger">KEY</span></div>
+                                <div class="resource-title">UrbanEmissions.info</div>
+                                <div class="resource-desc">Dr. Guttikunda's comprehensive repository. Delhi 1990-2025.</div>
+                            </a>
                         </div>
-
-                        <div class="alert mt-2" style="background: rgba(220,38,38,0.05); border-left: 3px solid #DC2626; font-size: 0.8125rem;">
-                            <strong>Research gap:</strong> Most Indian air pollution mortality studies use city-level averages. We lack disaggregated data by income quintile, caste, occupation, and gender. This methodological gap itself perpetuates invisibility of the most affected communities.
+                        <div class="resource-card" data-keywords="teri arai source apportionment delhi">
+                            <a href="https://www.teriin.org/sites/default/files/2018-08/Report_SA_AQM-Delhi-NCR_0.pdf" target="_blank">
+                                <div class="resource-type">Technical Report <span class="badge badge-success">PDF</span></div>
+                                <div class="resource-title">TERI-ARAI Delhi NCR Source Study</div>
+                                <div class="resource-desc">Vehicles 28%, industry 30%, dust 18%, biomass 12%.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="waqi aqicn live aqi api">
+                            <a href="https://aqicn.org/city/delhi/" target="_blank">
+                                <div class="resource-type">Real-time <span class="badge badge-success">Free API</span></div>
+                                <div class="resource-title">World Air Quality Index (WAQI)</div>
+                                <div class="resource-desc">Primary JanVayu data source. Global coverage.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="cpcb caaqms official monitoring">
+                            <a href="https://app.cpcbccr.com/ccr/#/caaqm-dashboard-all/caaqm-landing" target="_blank">
+                                <div class="resource-type">Dashboard <span class="badge badge-info">Official</span></div>
+                                <div class="resource-title">CPCB CAAQMS Dashboard</div>
+                                <div class="resource-desc">Official continuous ambient monitoring.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="openaq open air quality global">
+                            <a href="https://openaq.org/locations?country=IN" target="_blank">
+                                <div class="resource-type">Data Platform <span class="badge badge-success">API</span></div>
+                                <div class="resource-title">OpenAQ India</div>
+                                <div class="resource-desc">Aggregated data. Downloadable historical archives.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="ihme gbd results tool interactive">
+                            <a href="https://vizhub.healthdata.org/gbd-results/" target="_blank">
+                                <div class="resource-type">Interactive Tool <span class="badge badge-success">Open</span></div>
+                                <div class="resource-title">IHME GBD Results Tool</div>
+                                <div class="resource-desc">Query mortality by country, state, risk factor.</div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid-2 mt-2">
-                    <!-- POLICY & LEGAL -->
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Policy & Legal</span></div>
-                        <div class="card-body resource-list" data-category="policy">
-                            
-                            <div class="resource-card" data-keywords="crea ncap 2025 progress report fund utilization source apportionment">
-                                <a href="https://energyandcleanair.org/publication/tracing-the-hazy-air-2025-progress-report-on-national-clean-air-programme-ncap/" target="_blank">
-                                    <div class="resource-type">Policy Analysis <span class="badge badge-danger">NEW 2025</span></div>
-                                    <div class="resource-title">CREA: Tracing the Hazy Air 2025 — NCAP Progress Report</div>
-                                    <div class="resource-desc">Only 68% of ₹11,211 Cr NCAP funds utilized. 29 cities saw PM10 INCREASE. Only 50/130 cities completed source apportionment. Critical gaps identified.</div>
-                                    <div class="resource-meta">Centre for Research on Energy and Clean Air | April 2025</div>
+                <!-- POLICY & LEGAL -->
+                <div class="card" data-resource-category="policy">
+                    <div class="card-header" style="background: rgba(59,130,246,0.08);"><span class="card-title" style="color: #3B82F6;">📋 Policy & Legal</span></div>
+                    <div class="card-body resource-list">
+                        <div class="resource-card" data-keywords="crea ncap 2025 progress report">
+                            <a href="https://energyandcleanair.org/publication/tracing-the-hazy-air-2025-progress-report-on-national-clean-air-programme-ncap/" target="_blank">
+                                <div class="resource-type">Policy Analysis <span class="badge badge-danger">2025</span></div>
+                                <div class="resource-title">CREA: NCAP Progress Report 2025</div>
+                                <div class="resource-desc">68% funds utilized. 29 cities saw PM10 INCREASE.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="cse ncap assessment reform">
+                            <a href="https://www.cseindia.org/is-india-s-national-clean-air-programme-ncap-achieving-its-objectives-a-new-cse-assessment-says-there-are-concerns-presents-an-agenda-for-reform-12290" target="_blank">
+                                <div class="resource-type">Policy Analysis <span class="badge badge-warning">2024</span></div>
+                                <div class="resource-title">CSE NCAP Assessment</div>
+                                <div class="resource-desc">64% spending on dust control vs combustion sources.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="caqm grap orders delhi commission">
+                            <a href="https://caqm.nic.in/" target="_blank">
+                                <div class="resource-type">Government <span class="badge badge-info">Official</span></div>
+                                <div class="resource-title">CAQM Official Portal</div>
+                                <div class="resource-desc">GRAP orders, meeting minutes, action reports.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="ncap prana fund utilization">
+                            <a href="https://prana.cpcb.gov.in/" target="_blank">
+                                <div class="resource-type">Dashboard <span class="badge badge-info">Official</span></div>
+                                <div class="resource-title">PRANA Portal (NCAP Tracker)</div>
+                                <div class="resource-desc">Fund allocation for 131 cities.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="ngt green tribunal orders">
+                            <a href="https://greentribunal.gov.in/orders" target="_blank">
+                                <div class="resource-type">Legal Database <span class="badge badge-info">Official</span></div>
+                                <div class="resource-title">National Green Tribunal Orders</div>
+                                <div class="resource-desc">Searchable air pollution judgments.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="cse air pollution programme vehicles">
+                            <a href="https://www.cseindia.org/page/programme-air-pollution" target="_blank">
+                                <div class="resource-type">NGO Research <span class="badge badge-success">Open</span></div>
+                                <div class="resource-title">CSE Air Pollution Programme</div>
+                                <div class="resource-desc">Vehicle emissions and transport analysis.</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENVIRONMENTAL JUSTICE SECTION -->
+            <div class="card mt-2" data-resource-category="justice" style="border: 2px solid #DC2626;">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.08), rgba(236,72,153,0.05));">
+                    <span class="card-title" style="color: #DC2626;">⚖️ Environmental Justice: Household Air Pollution & Occupational Health</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2" style="gap: 1rem;">
+                        <!-- HAP & GENDER -->
+                        <div>
+                            <h4 style="font-size: 0.8125rem; color: #EC4899; margin-bottom: 0.75rem;">🔥 Household Air Pollution & Gender</h4>
+                            <div class="resource-card" data-keywords="gbd hap household mortality women solid fuel">
+                                <a href="https://www.stateofglobalair.org/health/hap" target="_blank">
+                                    <div class="resource-type">Data Portal <span class="badge badge-danger">KEY</span></div>
+                                    <div class="resource-title">State of Global Air: Household Air Pollution</div>
+                                    <div class="resource-desc">481,700 deaths/year in India. 60% women. Solid fuel cooking focus.</div>
                                 </a>
                             </div>
-
-                            <div class="resource-card" data-keywords="cse ncap assessment reform 2024">
-                                <a href="https://www.cseindia.org/is-india-s-national-clean-air-programme-ncap-achieving-its-objectives-a-new-cse-assessment-says-there-are-concerns-presents-an-agenda-for-reform-12290" target="_blank">
-                                    <div class="resource-type">Policy Analysis <span class="badge badge-warning">2024</span></div>
-                                    <div class="resource-title">CSE NCAP Assessment: Concerns & Reform Agenda</div>
-                                    <div class="resource-desc">64% of NCAP spending on dust control (sweeping, sprinkling) vs combustion sources. No clear link between action and PM10 improvement.</div>
-                                    <div class="resource-meta">Centre for Science and Environment | 2024</div>
+                            <div class="resource-card" data-keywords="ujjwala lpg scheme refill women">
+                                <a href="https://www.epw.in/journal/2019/10/perspectives/women-and-pm-ujjwala-scheme.html" target="_blank">
+                                    <div class="resource-type">Analysis <span class="badge badge-success">Open</span></div>
+                                    <div class="resource-title">EPW: Women and PM Ujjwala Scheme</div>
+                                    <div class="resource-desc">Refill rates, adoption barriers, gender analysis.</div>
                                 </a>
                             </div>
-
-                            <div class="resource-card" data-keywords="caqm grap orders delhi ncr commission">
-                                <a href="https://caqm.nic.in/" target="_blank">
-                                    <div class="resource-type">Government Portal <span class="badge badge-info">Official</span></div>
-                                    <div class="resource-title">CAQM Official Portal</div>
-                                    <div class="resource-desc">Commission for Air Quality Management. GRAP orders, meeting minutes, action reports.</div>
-                                    <div class="resource-meta">caqm.nic.in</div>
+                            <div class="resource-card" data-keywords="who clean cooking guidelines indoor">
+                                <a href="https://www.who.int/tools/clean-household-energy-solutions-toolkit" target="_blank">
+                                    <div class="resource-type">Guidelines <span class="badge badge-success">Open</span></div>
+                                    <div class="resource-title">WHO Clean Cooking Guidelines</div>
+                                    <div class="resource-desc">Health-based recommendations for household energy.</div>
                                 </a>
                             </div>
-
-                            <div class="resource-card" data-keywords="ncap prana fund utilization tracker cities">
-                                <a href="https://prana.cpcb.gov.in/" target="_blank">
-                                    <div class="resource-type">Dashboard <span class="badge badge-info">Official</span></div>
-                                    <div class="resource-title">PRANA Portal (NCAP Tracker)</div>
-                                    <div class="resource-desc">National Clean Air Programme fund allocation and utilization for 131 cities.</div>
-                                    <div class="resource-meta">prana.cpcb.gov.in</div>
+                        </div>
+                        
+                        <!-- OCCUPATIONAL & CASTE -->
+                        <div>
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.75rem;">👷 Occupational Exposure & Marginalized Communities</h4>
+                            <div class="resource-card" data-keywords="informal workers pollution exposure street vendors">
+                                <a href="https://www.wiego.org/sites/default/files/publications/files/Occupational-Health-Safety-Informal-Workers-Policy-Brief.pdf" target="_blank">
+                                    <div class="resource-type">Policy Brief <span class="badge badge-success">PDF</span></div>
+                                    <div class="resource-title">WIEGO: Informal Workers & Air Pollution</div>
+                                    <div class="resource-desc">Street vendors, auto drivers, construction workers exposure.</div>
                                 </a>
                             </div>
-
-                            <div class="resource-card" data-keywords="ngt green tribunal court orders judgments">
-                                <a href="https://greentribunal.gov.in/orders" target="_blank">
-                                    <div class="resource-type">Legal Database <span class="badge badge-info">Official</span></div>
-                                    <div class="resource-title">National Green Tribunal Orders</div>
-                                    <div class="resource-desc">All NGT orders searchable by date, state, subject. Key air pollution judgments.</div>
-                                    <div class="resource-meta">greentribunal.gov.in</div>
+                            <div class="resource-card" data-keywords="brick kiln workers silicosis occupational">
+                                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5775641/" target="_blank">
+                                    <div class="resource-type">Research <span class="badge badge-success">Open</span></div>
+                                    <div class="resource-title">Brick Kiln Workers Health Study</div>
+                                    <div class="resource-desc">Silicosis, respiratory illness, bonded labor intersection.</div>
                                 </a>
                             </div>
-
-                            <div class="resource-card" data-keywords="indian kanoon supreme court cases pollution">
-                                <a href="https://indiankanoon.org/search/?formInput=air%20pollution" target="_blank">
-                                    <div class="resource-type">Legal Database <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">Indian Kanoon: Air Pollution Cases</div>
-                                    <div class="resource-desc">Searchable database of SC, HC, and NGT judgments on air quality.</div>
-                                    <div class="resource-meta">indiankanoon.org</div>
+                            <div class="resource-card" data-keywords="waste pickers health landfill dalit">
+                                <a href="https://www.chintan-india.org/publications" target="_blank">
+                                    <div class="resource-type">Reports <span class="badge badge-success">Open</span></div>
+                                    <div class="resource-title">Chintan: Waste Pickers & Health</div>
+                                    <div class="resource-desc">Landfill exposure, burning, marginalized community impacts.</div>
                                 </a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- LIVE DATA -->
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Live Data Sources</span></div>
-                        <div class="card-body resource-list" data-category="data">
-                            <div class="resource-card" data-keywords="waqi aqicn live aqi api worldwide">
-                                <a href="https://aqicn.org/city/delhi/" target="_blank">
-                                    <div class="resource-type">Real-time <span class="badge badge-success">Free API</span></div>
-                                    <div class="resource-title">World Air Quality Index (WAQI)</div>
-                                    <div class="resource-desc">Primary data source for this dashboard. Free API available for developers.</div>
-                                    <div class="resource-meta">aqicn.org | API: api.waqi.info</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="cpcb caaqms official government monitoring">
-                                <a href="https://app.cpcbccr.com/ccr/#/caaqm-dashboard-all/caaqm-landing" target="_blank">
-                                    <div class="resource-type">Government Dashboard <span class="badge badge-info">Official</span></div>
-                                    <div class="resource-title">CPCB CAAQMS Dashboard</div>
-                                    <div class="resource-desc">Official continuous ambient air quality monitoring. All CPCB/SPCB stations.</div>
-                                    <div class="resource-meta">app.cpcbccr.com</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="safar forecast iitm pune prediction">
-                                <a href="https://safar.tropmet.res.in/" target="_blank">
-                                    <div class="resource-type">Forecast <span class="badge badge-info">Official</span></div>
-                                    <div class="resource-title">SAFAR (IITM Pune)</div>
-                                    <div class="resource-desc">System of Air Quality and Weather Forecasting. 3-day AQI predictions.</div>
-                                    <div class="resource-meta">safar.tropmet.res.in</div>
-                                </a>
-                            </div>
-
-                            <div class="resource-card" data-keywords="openaq open air quality global data">
-                                <a href="https://openaq.org/locations?country=IN" target="_blank">
-                                    <div class="resource-type">Data Platform <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">OpenAQ India</div>
-                                    <div class="resource-desc">Aggregates data from multiple sources. Downloadable historical data. API available.</div>
-                                    <div class="resource-meta">openaq.org | Free API</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- URBANEMISSIONS.INFO RESEARCH & ANALYSIS TOOLS - NEW v15.0 -->
-                    <div class="card" style="border: 2px solid #7C3AED;">
-                        <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(167,139,250,0.06));">
-                            <span class="card-title" style="color: #7C3AED;">
-                                🔬 UrbanEmissions.info Research & Analysis Tools
-                                <span class="badge badge-danger" style="margin-left: 0.5rem;">NEW v15.0</span>
-                            </span>
-                        </div>
-                        <div class="card-body resource-list" data-category="urbanemissions">
-                            <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 1rem; padding: 0.75rem; background: rgba(124,58,237,0.05); border-radius: 6px;">
-                                <strong>Collaboration:</strong> Resources from Dr. Sarath Guttikunda's UrbanEmissions.info — India's most comprehensive air quality research repository. All data freely available for open use in support of "one topic, one voice, one tone, one ask."
-                            </p>
-                            
-                            <div class="resource-card" data-keywords="40 by 2040 delhi target cost inaction delay calculator scenario">
-                                <a href="https://urbanemissions.info/blog-pieces/40-by-2040-cost-of-inaction-and-delays-in-reaching-delhis-air-quality-target/" target="_blank">
-                                    <div class="resource-type">Interactive Tool <span class="badge badge-danger">KEY — ACCOUNTABILITY</span></div>
-                                    <div class="resource-title">40 by 2040: Cost of Inaction Calculator</div>
-                                    <div class="resource-desc">Scenario calculator showing cost of delay in meeting Delhi's air quality targets. Demonstrates 12-30% additional exposure burden from delayed action. Shows why Delhi has flatlined at ~100 µg/m³ since 2019 despite NCAP.</div>
-                                    <div class="resource-meta">Working Paper #SIM-63-2025 | Jan 2025</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="delhi pollution sources sectors vehicles dust industry biomass what polluting">
-                                <a href="https://urbanemissions.info/blog-pieces/whats-polluting-delhis-air/" target="_blank">
-                                    <div class="resource-type">Analysis <span class="badge badge-success">Open Access</span></div>
-                                    <div class="resource-title">What's Polluting Delhi's Air?</div>
-                                    <div class="resource-desc">Source apportionment analysis with downloadable scenario calculator for understanding sectoral contributions to Delhi's pollution.</div>
-                                    <div class="resource-meta">urbanemissions.info | Updated Nov 2025</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="five reasons delhi complex meteorology airshed institutional transport">
-                                <a href="https://urbanemissions.info/wp-content/uploads/docs/SIM-61-2025.pdf" target="_blank">
-                                    <div class="resource-type">Working Paper <span class="badge badge-success">PDF</span></div>
-                                    <div class="resource-title">Five Reasons Why Delhi's Air Pollution Problem is Complex</div>
-                                    <div class="resource-desc">Explains meteorology, airshed dynamics, multi-jurisdictional governance, sectoral complexity, and institutional gaps that make Delhi's problem intractable without systemic intervention.</div>
-                                    <div class="resource-meta">SIM-61-2025 | Jan 2025</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="aqi bulletins cpcb data repository time series indian cities historical">
-                                <a href="https://urbanemissionsinfo.github.io/AQI_bulletins/" target="_blank">
-                                    <div class="resource-type">Data Repository <span class="badge badge-success">Interactive</span></div>
-                                    <div class="resource-title">AQI Bulletins Repository — Indian Cities</div>
-                                    <div class="resource-desc">GitHub-hosted archive of official CPCB AQI data with interactive visualization. Time series for all NCAP cities. Downloadable datasets.</div>
-                                    <div class="resource-meta">GitHub | Updated daily from CPCB</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="sim air training course 101 modeling tools education">
-                                <a href="https://urbanemissions.info/tools/air-quality-tools-training-events/" target="_blank">
-                                    <div class="resource-type">Training Course <span class="badge badge-info">Educational</span></div>
-                                    <div class="resource-title">SIM-air 101: Air Quality Modeling Course</div>
-                                    <div class="resource-desc">Information awareness course on air pollution modeling. Covers fundamentals of emissions, dispersion, health impacts. Suitable for journalists, advocates, and policymakers.</div>
-                                    <div class="resource-meta">urbanemissions.info/tools</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="ncap review action plans 131 cities assessment progress">
-                                <a href="https://urbanemissions.info/india-air-quality/india-ncap-review/" target="_blank">
-                                    <div class="resource-type">Policy Review <span class="badge badge-warning">NCAP Analysis</span></div>
-                                    <div class="resource-title">NCAP Action Plans Review — 131 Cities</div>
-                                    <div class="resource-desc">Systematic analysis of city-level clean air action plans under NCAP. Airshed designations, monitoring needs, road network analysis, built-up area mapping.</div>
-                                    <div class="resource-meta">urbanemissions.info | APnA Program</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="working papers archive research emissions health policy">
-                                <a href="https://urbanemissions.info/publications/working-papers/" target="_blank">
-                                    <div class="resource-type">Paper Archive <span class="badge badge-success">63+ Papers</span></div>
-                                    <div class="resource-title">SIM-air Working Papers Archive (2008-2025)</div>
-                                    <div class="resource-desc">Complete archive of 63+ working papers spanning emissions inventories, source apportionment, health impact modeling, policy analysis, and AQI methodology.</div>
-                                    <div class="resource-meta">urbanemissions.info/publications</div>
-                                </a>
-                            </div>
-                            
-                            <div class="resource-card" data-keywords="ten research areas support funding priorities 2025">
-                                <a href="https://urbanemissions.info/wp-content/uploads/docs/SIM-62-2025.pdf" target="_blank">
-                                    <div class="resource-type">Working Paper <span class="badge badge-success">PDF</span></div>
-                                    <div class="resource-title">Ten Essential Air Quality Research Areas That Need Support</div>
-                                    <div class="resource-desc">Identifies critical research gaps including monitoring network expansion, emission factor development, health impact assessment, and institutional capacity building.</div>
-                                    <div class="resource-meta">SIM-62-2025 | Jan 2025</div>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="alert mt-2" style="background: rgba(220,38,38,0.05); border-left: 3px solid #DC2626; font-size: 0.8125rem;">
+                        <strong>Research gap:</strong> Most Indian air pollution studies use city-level averages. We lack disaggregated data by income, caste, occupation, and gender — perpetuating invisibility of the most affected.
                     </div>
                 </div>
             </div>
@@ -3939,33 +3743,21 @@ Signature: _______________</div>
                         <div>
                             <h4 style="color: #7C3AED; font-size: 0.875rem; margin-bottom: 0.5rem;">🔬 Research Partnership</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
-                                <li><strong>UrbanEmissions.info Integration</strong> — Dr. Sarath Guttikunda's comprehensive research repository now featured as key JanVayu resource</li>
-                                <li><strong>Collaboration Framework</strong> — "One topic, one voice, one tone, one ask" — unified messaging for air quality advocacy</li>
-                                <li><strong>Open Data Access</strong> — All UrbanEmissions data freely available, aligned with JanVayu's transparency principles</li>
-                                <li><strong>Mutual Linking</strong> — Cross-platform visibility for complementary resources</li>
+                                <li><strong>UrbanEmissions.info Integration</strong> — Dr. Sarath Guttikunda's research repository now featured as key JanVayu resource</li>
+                                <li><strong>Resources Section Redesign</strong> — Clean 3-column layout with category filters, featured collaboration card</li>
+                                <li><strong>Collaboration Framework</strong> — "One topic, one voice, one tone, one ask" unified messaging</li>
                             </ul>
                         </div>
                         <div>
                             <h4 style="color: #059669; font-size: 0.875rem; margin-bottom: 0.5rem;">📊 New Resources Added</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
-                                <li><strong>40 by 2040 Calculator</strong> — Interactive tool visualizing cost of delay in meeting Delhi targets; shows 12-30% additional exposure burden</li>
-                                <li><strong>What's Polluting Delhi's Air</strong> — Downloadable source apportionment scenario calculator</li>
-                                <li><strong>Five Reasons Working Paper</strong> — SIM-61-2025 on Delhi's complexity</li>
-                                <li><strong>AQI Bulletins Repository</strong> — GitHub-hosted CPCB data archive with interactive visualization</li>
-                                <li><strong>SIM-air Training Course</strong> — 101-style air quality modeling education</li>
+                                <li><strong>40 by 2040 Calculator</strong> — Interactive tool: cost of delay, 12-30% additional exposure burden</li>
+                                <li><strong>What's Polluting Delhi's Air</strong> — Source apportionment scenario calculator</li>
+                                <li><strong>AQI Bulletins Repository</strong> — GitHub-hosted CPCB data archive</li>
                                 <li><strong>NCAP Action Plans Review</strong> — 131 cities analysis with airshed mapping</li>
                                 <li><strong>63+ Working Papers Archive</strong> — Complete SIM-air series (2008-2025)</li>
                             </ul>
                         </div>
-                    </div>
-                    
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <h4 style="color: #F59E0B; font-size: 0.875rem; margin-bottom: 0.5rem;">💡 Strategic Alignment</h4>
-                        <p style="font-size: 0.8125rem; line-height: 1.7;">
-                            This integration addresses Dr. Guttikunda's observation that "there was never a clearly defined path for 2020, 2021, or 2022" — exactly what JanVayu's Clean Air Mission Tracker provides. 
-                            The 40 by 2040 Calculator's finding that Delhi has flatlined at ~100 µg/m³ since 2019 despite NCAP directly supports JanVayu's accountability tracking methodology. 
-                            Combined resources strengthen the evidence base for citizen-led verification while maintaining independence from government self-reporting.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -5236,6 +5028,31 @@ Signature: _______________</div>
                 const desc = card.querySelector('.resource-desc')?.textContent.toLowerCase() || '';
                 const match = keywords.includes(query) || title.includes(query) || desc.includes(query) || query === '';
                 card.style.display = match ? 'block' : 'none';
+            });
+        }
+
+        function filterResourceCategory(category) {
+            // Update active button
+            document.querySelectorAll('#panel-resources .btn').forEach(btn => {
+                btn.style.background = '';
+                btn.style.color = '';
+            });
+            event.target.style.background = 'var(--primary)';
+            event.target.style.color = 'white';
+            
+            // Show/hide cards based on category
+            document.querySelectorAll('#panel-resources .card[data-resource-category]').forEach(card => {
+                const categories = card.getAttribute('data-resource-category') || '';
+                if (category === 'all' || categories.includes(category)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Also show/hide individual resource cards if category matches
+            document.querySelectorAll('#panel-resources .resource-card').forEach(card => {
+                card.style.display = '';
             });
         }
 
