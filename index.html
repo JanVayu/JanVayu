@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JanVayu जनवायु | India's Air Quality Archive</title>
+    <title>JanVayu जनवायु | India's Air Quality Crisis</title>
     <meta name="description" content="Citizen-led PM2.5 air quality monitoring with WHO guideline comparison, GEMM-based health impact tracking, and accountability platform for India. Live data, research archive, and tools for clean air advocacy.">
     <meta property="og:title" content="JanVayu जनवायु | India's Air Quality Archive">
     <meta property="og:description" content="PM2.5-primary air quality monitoring with WHO 2021 guideline comparison. GEMM-based health impact calculator and citizen accountability tools.">
@@ -14,42 +14,44 @@
     <meta name="twitter:title" content="JanVayu जनवायु | India's Air Quality Archive">
     <meta name="twitter:description" content="Live PM2.5 data with WHO guideline comparison. GEMM-based health calculator & citizen accountability tools for India's air quality crisis.">
     <link rel="canonical" href="https://www.janvayu.in">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         :root {
-            --primary: #7C3AED; --primary-light: #A78BFA; --accent: #F59E0B;
-            --text: #1F2937; --text-2: #4B5563; --text-3: #9CA3AF;
-            --bg: #F8FAFC; --card: #FFFFFF; --border: #E2E8F0;
-            --health: #EF4444; --policy: #3B82F6; --research: #10B981;
-            --aqi-good: #22C55E; --aqi-mod: #EAB308; --aqi-poor: #F97316; 
-            --aqi-vpoor: #EF4444; --aqi-severe: #7C3AED; --aqi-hazard: #831843;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary: #C7402D; --primary-light: #E8735F; --accent: #D97706;
+            --text: #1A1917; --text-2: #4A4843; --text-3: #8A8880;
+            --bg: #F7F6F3; --card: #FFFFFF; --border: #E5E4E0;
+            --health: #DC2626; --policy: #2563EB; --research: #16803C;
+            --aqi-good: #16803C; --aqi-mod: #D97706; --aqi-poor: #EA580C; 
+            --aqi-vpoor: #DC2626; --aqi-severe: #7C3AED; --aqi-hazard: #831843;
+            --gradient: linear-gradient(135deg, #C7402D 0%, #991B1B 100%);
             /* WHO 2021 PM2.5 color scale */
             --who-good: #00e400; --who-it4: #92d050; --who-it3: #ffff00;
             --who-it2: #ff7e00; --who-it1: #ff0000; --who-above: #99004c; --who-severe: #7e0023;
         }
         [data-theme="dark"] {
-            --text: #F1F5F9; --text-2: #CBD5E1; --text-3: #64748B;
-            --bg: #0F172A; --card: #1E293B; --border: #334155;
+            --text: #F2F1ED; --text-2: #B5B4AE; --text-3: #6A6960;
+            --bg: #121210; --card: #1E1E1C; --border: #333330;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; }
         
         /* HEADER */
-        .header { background: var(--card); border-bottom: 1px solid var(--border); padding: 0.75rem 1rem; position: sticky; top: 0; z-index: 1000; }
+        .header { background: #1A1917; border-bottom: 3px solid var(--primary); padding: 0.75rem 1rem; position: sticky; top: 0; z-index: 1000; color: #F2F1ED; }
         .header-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
         .logo { display: flex; align-items: center; gap: 0.75rem; }
-        .logo-mark { width: 40px; height: 40px; background: var(--gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo-mark { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
         .logo-mark svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-        .logo h1 { font-size: 1.25rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .logo h1 { font-size: 1.25rem; font-weight: 700; color: #FFFFFF; font-family: 'Source Serif 4', Georgia, serif; }
         .header-actions { display: flex; gap: 0.5rem; align-items: center; }
         .btn { padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.875rem; font-weight: 500; cursor: pointer; border: none; font-family: inherit; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.375rem; }
         .btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
         .btn-icon { padding: 0.5rem; background: transparent; border: 1px solid var(--border); color: var(--text-2); }
         .btn-icon:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-icon { color: #F2F1ED; border-color: rgba(255,255,255,0.2); }
         .btn-primary { background: var(--gradient); color: white; }
         .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8125rem; }
 
@@ -115,8 +117,8 @@
         .tab-group:last-child { border-right: none; }
         .tab-group-label { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); padding: 0.5rem 0.75rem; background: var(--bg); }
         .tab { padding: 0.5rem 0.75rem; font-size: 0.8125rem; font-weight: 500; color: var(--text-2); cursor: pointer; border-radius: 6px; white-space: nowrap; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; flex-shrink: 0; margin-bottom: 0.5rem; background: var(--bg); }
-        .tab:hover { background: rgba(124,58,237,0.08); color: var(--primary); }
-        .tab.active { background: var(--primary); color: white; }
+        .tab:hover { background: rgba(199,64,45,0.08); color: var(--primary); }
+        .tab.active { background: var(--primary); color: white; font-weight: 600; }
         .tab.active svg { stroke: white; }
         .tab svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
         .tab-meta { background: transparent; border: 1px dashed var(--border); color: var(--text-3); }
@@ -137,7 +139,7 @@
         .mobile-menu-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-3); padding: 0.5rem 1rem; font-weight: 600; }
         .mobile-menu-item { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1rem; font-size: 1rem; color: var(--text); cursor: pointer; transition: all 0.2s; }
         .mobile-menu-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; color: var(--text-2); }
-        .mobile-menu-item:hover, .mobile-menu-item.active { background: rgba(124,58,237,0.1); color: var(--primary); }
+        .mobile-menu-item:hover, .mobile-menu-item.active { background: rgba(199,64,45,0.08); color: var(--primary); }
         .mobile-menu-item.active svg { color: var(--primary); }
 
         /* MAIN */
@@ -162,7 +164,7 @@
 
         /* STAT CARDS */
         .stat-card { text-align: center; padding: 1.25rem; }
-        .stat-value { font-size: 2.25rem; font-weight: 700; color: var(--primary); line-height: 1.2; }
+        .stat-value { font-size: 2.25rem; font-weight: 700; color: var(--primary); line-height: 1.2; font-family: 'JetBrains Mono', monospace; }
         .stat-value.danger { color: var(--health); }
         .stat-value.warning { color: var(--accent); }
         .stat-value.success { color: var(--research); }
@@ -170,8 +172,8 @@
         .stat-change { font-size: 0.8125rem; margin-top: 0.375rem; }
 
         /* SECTION INTRO */
-        .section-intro { background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(167,139,250,0.05)); border: 1px solid rgba(124,58,237,0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-        .section-intro h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--primary); }
+        .section-intro { background: linear-gradient(135deg, rgba(199,64,45,0.04), rgba(199,64,45,0.02)); border: 1px solid rgba(199,64,45,0.12); border-left: 4px solid var(--primary); border-radius: 0 12px 12px 0; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .section-intro h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text); font-family: 'Source Serif 4', Georgia, serif; }
         .section-intro p { font-size: 1rem; color: var(--text-2); line-height: 1.7; }
 
         /* ============ MOBILE RESPONSIVE ============ */
@@ -631,12 +633,42 @@
             <div class="alert alert-danger mb-2">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
-                    <strong>Funding Cliff Alert:</strong> ₹16,539 Cr in XV-FC grants (87% of NCAP city funding) expires March 2026. No successor mechanism announced. 
+                    <strong>Funding Cliff Alert:</strong> ₹16,539 Cr XV-FC air quality grant expires March 31, 2026. Only 67% utilized so far. Budget 2026-27 CUT pollution control by 16% (₹1,091 Cr from ₹1,300 Cr). XVI-FC report not yet tabled in Parliament. 
                     <a href="#" onclick="showPanel('budget'); return false;" style="color: #DC2626; font-weight: 600;">View Budget Tracker →</a>
                 </div>
             </div>
 
 
+
+            
+            <!-- v19.0: KEY HEADLINES JAN-FEB 2026 -->
+            <div class="card mb-2" style="border-left: 4px solid var(--primary); background: linear-gradient(135deg, rgba(199,64,45,0.04), rgba(199,64,45,0.01));">
+                <div class="card-body">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600; margin-bottom: 0.75rem;">Key Headlines: January/February 2026</div>
+                    <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 1.05rem; font-style: italic; line-height: 1.55; margin-bottom: 0.75rem; color: var(--text);">
+                        "Pollution is a challenge in India, and its impact on the Indian economy is far more consequential than any impact of any tariffs that have been put on India so far."
+                    </div>
+                    <div style="font-size: 0.82rem; color: var(--text-3); margin-bottom: 1rem;">— Gita Gopinath, former IMF Deputy MD, World Economic Forum, January 21, 2026</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem;">
+                        <div style="padding: 0.75rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: var(--health); margin-bottom: 0.25rem;">Shoppers Stop: 69% Profit Decline</div>
+                            <div style="font-size: 0.8rem; color: var(--text-2);">Explicitly cited "elevated pollution levels in northern India" reducing consumer mobility. Shares fell 12%.</div>
+                        </div>
+                        <div style="padding: 0.75rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: var(--policy); margin-bottom: 0.25rem;">Washington Post: "9 Cigarettes a Day"</div>
+                            <div style="font-size: 0.8rem; color: var(--text-2);">Data analysis found Delhi residents breathe air equivalent to smoking 9 cigarettes daily, based on government data.</div>
+                        </div>
+                        <div style="padding: 0.75rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: var(--accent); margin-bottom: 0.25rem;">Bloomberg: 88% of Days Above AQI 300</div>
+                            <div style="font-size: 0.8rem; color: var(--text-2);">Nov-Dec 2025 had the highest percentage of AQI 300+ days since at least 2017. "Air pollution" mentioned 988 times in BSE corporate filings.</div>
+                        </div>
+                        <div style="padding: 0.75rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-weight: 600; font-size: 0.85rem; color: #7C3AED; margin-bottom: 0.25rem;">Beijing Now 3–4× Cleaner Than Delhi</div>
+                            <div style="font-size: 0.8rem; color: var(--text-2);">Beijing PM2.5 hit record-low 27 µg/m³ (70% reduction since 2013). Delhi stagnates at 91.6 µg/m³. Zero Delhi days met WHO limits vs 36% in Beijing.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- WHY PM2.5 MATTERS BOX -->
             <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.04)); border-left: 4px solid var(--primary);">
@@ -649,7 +681,7 @@
             <div class="alert alert-danger mb-2" id="grap-alert" style="background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(239,68,68,0.05)); border: 1px solid rgba(220,38,38,0.3);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
-                    <strong style="color: #DC2626;">⚠️ Delhi Winter 2025-26 Crisis</strong> — Zero "Good" AQI days recorded in 2025 (first time on record). January 2026 worst in 5 years: AQI exceeded 500 on Jan 17 (PM2.5 = 73× WHO guideline). CSE analysis: local sources (vehicles 51%) now drive winter smog more than stubble burning.
+                    <strong style="color: #DC2626;">⚠️ Delhi Winter 2025-26 Crisis</strong> — December 2025 was the worst December in 7 years (AQI 351 avg, 27 of 31 days above 300). January 2026 AQI hit 500+ on Jan 17 (PM2.5 = 73× WHO guideline). GRAP imposed 17 times, with 13 of 17 activations reactive (after thresholds breached). CAQM found "serious deficiencies with shortfalls up to 99.6%" in implementation.
                 </div>
             </div>
 
@@ -669,14 +701,14 @@
                     <div class="stat-change">State of Global Air 2025</div>
                 </div>
                 <div class="card stat-card">
-                    <div class="stat-value warning">9.5%</div>
-                    <div class="stat-label">GDP Loss</div>
-                    <div class="stat-change">$339B/yr (2022)</div>
+                    <div class="stat-value warning">$260B</div>
+                    <div class="stat-label">Annual Economic Cost</div>
+                    <div class="stat-change">6% of GDP (Dalberg 2026)</div>
                 </div>
                 <div class="card stat-card">
-                    <div class="stat-value" style="color: var(--who-above);">96</div>
+                    <div class="stat-value" style="color: var(--who-above);">91.6</div>
                     <div class="stat-label">Delhi Annual PM2.5</div>
-                    <div class="stat-change">19× WHO (2025 avg)</div>
+                    <div class="stat-change">18× WHO | Most polluted capital 6th year</div>
                 </div>
                 <div class="card stat-card">
                     <div class="stat-value" id="worst-city-pm25">--</div>
@@ -820,7 +852,7 @@
                     <div class="card-body" style="font-size: 0.75rem;">
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
                             <div class="news-meta"><span class="news-source" style="background: #DC2626; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">NEW</span> Jan 2026</div>
-                            <div class="news-title">v16: State of Global Air 2025 — 2M deaths, CREA NCAP analysis, SC orders Jan 2026</div>
+                            <div class="news-title">v19: Ember redesign + Jan-Feb 2026 briefing: $260B economic cost, Delhi 3-4× worse than Beijing, Budget cuts 16%, SC raps CAQM</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
                             <div class="news-meta"><span class="news-source" style="background: #7C3AED; color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">SoGA 2025</span> Oct 2025</div>
@@ -875,6 +907,41 @@
             <!-- WHY PM2.5 NOT AQI EXPLAINER -->
             <div class="card mb-2" style="border: 2px solid var(--primary); background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(167,139,250,0.01));">
                 <div class="card-header" style="background: transparent;"><span class="card-title" style="color: var(--primary);">🔬 Why PM2.5, Not AQI?</span></div>
+
+            <!-- v19.0: LATEST HEALTH RESEARCH CONVERGENCE -->
+            <div class="card mb-2" style="border-left: 4px solid var(--health);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.06), rgba(220,38,38,0.02));">
+                    <span class="card-title" style="color: var(--health);">Health Research Convergence: 2025-2026 Studies</span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">NEW v19.0</span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.9rem; color: var(--text-2); margin-bottom: 1rem;">Multiple major reports published in late 2025 and early 2026 converge on devastating health impacts. Key findings across studies:</p>
+                    <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600;">State of Global Air 2025 (HEI)</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--health); font-family: 'JetBrains Mono', monospace; margin: 0.25rem 0;">~2M deaths</div>
+                            <div style="font-size: 0.82rem; color: var(--text-2);">43% increase from 1.4M in 2000. Death rates 10× higher than high-income countries (186 vs 17 per 100,000).</div>
+                        </div>
+                        <div style="padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600;">Lancet Countdown 2025</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--health); font-family: 'JetBrains Mono', monospace; margin: 0.25rem 0;">1,718,000+</div>
+                            <div style="font-size: 0.82rem; color: var(--text-2);">Deaths from anthropogenic PM2.5 (2022). 38% increase since 2010. Fossil fuels: 44% of deaths. Coal alone: 394,000 lives.</div>
+                        </div>
+                        <div style="padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600;">Lancet Planetary Health (Dec 2024)</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--health); font-family: 'JetBrains Mono', monospace; margin: 0.25rem 0;">8.6% per 10 µg/m³</div>
+                            <div style="font-size: 0.82rem; color: var(--text-2);">Mortality increase per unit PM2.5 rise. 3.8M deaths (2009-2019) above Indian standards; 16.6M using WHO guidelines.</div>
+                        </div>
+                        <div style="padding: 1rem; border: 1px solid var(--border); border-radius: 8px;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600;">AQLI 2025 (EPIC)</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--health); font-family: 'JetBrains Mono', monospace; margin: 0.25rem 0;">−8.2 years</div>
+                            <div style="font-size: 0.82rem; color: var(--text-2);">Life expectancy loss for Delhi-NCR residents, the highest globally. National average: 3.5 years lost to air pollution.</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-3); font-style: italic;">A Nature npj Clean Air study projects under business-as-usual, India's premature PM2.5 deaths would increase by 194.4% by 2050, with economic burden reaching 75.5 billion euros/year.</p>
+                </div>
+            </div>
+
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -1295,7 +1362,89 @@
             </div>
 
             <div class="grid-4 mb-2">
-                <div class="card stat-card"><div class="stat-value danger">$36.8B</div><div class="stat-label">Annual Cost (1.36% GDP)</div></div>
+                <div class="card stat-card"><div class="stat-value danger">$36.8B</div>
+
+            <!-- v19.0: DALBERG/CLEAN AIR FUND $260B STUDY -->
+            <div class="card mb-2" style="border-left: 4px solid var(--health); background: linear-gradient(135deg, rgba(220,38,38,0.04), rgba(220,38,38,0.01));">
+                <div class="card-header" style="border-bottom-color: rgba(220,38,38,0.15);">
+                    <span class="card-title" style="color: var(--health);">
+                        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        NEW: Dalberg/Clean Air Fund Report (January 2026)
+                    </span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">LANDMARK STUDY</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-4" style="margin-bottom: 1rem;">
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">$260B</div>
+                            <div class="stat-label">Lost Business Revenue (2024)</div>
+                            <div class="stat-change" style="color: var(--health);">173% increase from $95B in 2021</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">6%</div>
+                            <div class="stat-label">of India's GDP</div>
+                            <div class="stat-change">Largest pollution cost estimate to date</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">10%+</div>
+                            <div class="stat-label">Delhi-NCR GDP Loss</div>
+                            <div class="stat-change">PM2.5 double national average</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">988</div>
+                            <div class="stat-label">"Air Pollution" in BSE Filings</div>
+                            <div class="stat-change">Most mentions since 2021</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">Five main cost drivers: reduced worker productivity (presenteeism), premature mortality, reduced consumer footfall, absenteeism, and health expenditure. ICICI Securities now advises a "Smog Season discount" for shopping malls and retailers.</p>
+                    
+                    <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">Corporate Casualties (Q3/Q4 2025-26)</h4>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border);">
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);">Company</th>
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);">Impact</th>
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);">Attribution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem; font-weight: 600;">Shoppers Stop</td><td style="padding: 0.5rem; color: var(--health);">69% profit decline, shares -12%</td><td style="padding: 0.5rem;">Cited "elevated pollution levels" reducing footfall</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem; font-weight: 600;">Speciality Restaurants</td><td style="padding: 0.5rem; color: var(--health);">North India sales -20% YoY</td><td style="padding: 0.5rem;">While growing 7-8% elsewhere</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem; font-weight: 600;">Eternal Ltd (Zomato)</td><td style="padding: 0.5rem; color: var(--accent);">Slowed store construction</td><td style="padding: 0.5rem;">Pollution restrictions cited</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem; font-weight: 600;">DLF</td><td style="padding: 0.5rem; color: var(--accent);">30-45 lost working days/year</td><td style="padding: 0.5rem;">Four consecutive years of pollution bans</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="card-footer" style="border: none; padding: 0.5rem 0 0; font-size: 0.75rem;">Source: Dalberg Advisors / Clean Air Fund, January 28-29, 2026 | Bloomberg BSE Analysis 2025 | Company earnings filings</p>
+                </div>
+            </div>
+
+            <!-- v19.0: HEALTHCARE BURDEN -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title">Healthcare Burden: Delhi Hospitals Data (2022-2024)</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="card stat-card">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">204,758</div>
+                            <div class="stat-label">Acute Respiratory Cases</div>
+                            <div class="stat-change">6 major central hospitals, 2022-24</div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">10,819</div>
+                            <div class="stat-label">Admissions in 2024</div>
+                            <div class="stat-change">Illnesses becoming more severe</div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">₹58,895 Cr</div>
+                            <div class="stat-label">Delhi Health Cost/Year</div>
+                            <div class="stat-change">13% of city GDP (~$8B)</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-2); margin-top: 0.75rem;">Fortis Hospital Noida reported a 50% increase in OPD visits during pollution spikes. Pattern shows hospitalizations rising even as ER visits stay stable, indicating pollution is causing more severe illness.</p>
+                </div>
+            </div>
+<div class="stat-label">Annual Cost (1.36% GDP)</div></div>
                 <div class="card stat-card"><div class="stat-value danger">1.67M</div><div class="stat-label">Deaths/Year</div></div>
                 <div class="card stat-card"><div class="stat-value warning">17.8%</div><div class="stat-label">Of All Deaths</div></div>
                 <div class="card stat-card"><div class="stat-value" style="color: #7C3AED;">5.3 yrs</div><div class="stat-label">Life Expectancy Loss</div></div>
@@ -1576,6 +1725,39 @@
                 <div>
                     <strong>Funding Cliff Alert:</strong> 15th Finance Commission grants (₹16,539 Cr for 49 cities) expire March 2026 with no successor mechanism announced. This represents 87% of all NCAP city funding.
                 </div>
+
+            <!-- v19.0: BUDGET 2026-27 ANALYSIS -->
+            <div class="card mb-2" style="border-left: 4px solid var(--health);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.06), rgba(220,38,38,0.02));">
+                    <span class="card-title" style="color: var(--health);">Union Budget 2026-27: Clean Air Funding CUT Despite Record Pollution</span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">BUDGET ALERT</span>
+                </div>
+                <div class="card-body">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border);">
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">Item</th>
+                                <th style="text-align: right; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">2025-26 RE</th>
+                                <th style="text-align: right; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">2026-27 BE</th>
+                                <th style="text-align: right; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;">MoEFCC (net)</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹3,400+ Cr</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹3,759 Cr</td><td style="padding: 0.5rem; text-align: right; color: var(--research);">+8%</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border); background: rgba(220,38,38,0.04);"><td style="padding: 0.5rem; font-weight: 700; color: var(--health);">Pollution Control (NCAP, SPCBs, CPCB)</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹1,300 Cr</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--health);">₹1,091 Cr</td><td style="padding: 0.5rem; text-align: right; font-weight: 700; color: var(--health);">−₹209 Cr (−16%)</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;">CPCB</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹116.2 Cr</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹123 Cr</td><td style="padding: 0.5rem; text-align: right; color: var(--research);">+₹6.8 Cr</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.5rem;">LPG Subsidy</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">~₹12,000 Cr</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹11,085 Cr</td><td style="padding: 0.5rem; text-align: right; color: var(--health);">−₹915 Cr</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border); background: rgba(22,128,60,0.04);"><td style="padding: 0.5rem; font-weight: 600;">CCUS (New 5-Year Scheme)</td><td style="padding: 0.5rem; text-align: right;">—</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--research);">₹20,000 Cr</td><td style="padding: 0.5rem; text-align: right; color: var(--research);">New</td></tr>
+                            <tr><td style="padding: 0.5rem;">Green India Mission</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹95.7 Cr</td><td style="padding: 0.5rem; text-align: right; font-family: 'JetBrains Mono', monospace;">₹212.5 Cr</td><td style="padding: 0.5rem; text-align: right; color: var(--research);">+122%</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 0.85rem; color: var(--text-2); margin-bottom: 0.75rem;">Actual expenditure on pollution control in 2024-25 was reportedly just ₹16 crore, signaling severe chronic underspending. MoEFCC received no mention in the Finance Minister's budget speech. The Economic Survey 2025-26 was criticized for framing air pollution as a "regulatory problem, not a health emergency."</p>
+                    <div style="padding: 0.75rem; background: rgba(217,119,6,0.06); border-radius: 8px; border-left: 3px solid var(--accent); font-size: 0.85rem;">
+                        <strong style="color: var(--accent);">PM E-DRIVE Cliff:</strong> Subsidies for e-two-wheelers, e-rickshaws, and e-three-wheelers expire March 31, 2026 with no formal extension. On-road price increases of ₹6,000-₹12,000 per e-2W expected. Only e-trucks, e-buses, and charging infrastructure extended to March 2028.
+                    </div>
+                </div>
+            </div>
+
             </div>
 
             <!-- KEY STATS -->
@@ -1943,6 +2125,68 @@
             <div class="alert alert-info mb-2">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                 <div><strong>Live Data:</strong> Fetching real-time AQI from monitoring stations. Last update: <span id="compare-update-time">--</span></div>
+
+            <!-- v19.0: UPDATED DELHI vs BEIJING COMPARISON -->
+            <div class="card mb-2" style="border-left: 4px solid var(--health);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.06), rgba(220,38,38,0.02));">
+                    <span class="card-title" style="color: var(--health);">Delhi is Now 3–4× Worse Than Beijing</span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">UPDATED FEB 2026</span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">Beijing's annual PM2.5 fell to a record-low 27 µg/m³ in 2025, a roughly 70% reduction since 2013. Delhi's has stagnated around 90-100 µg/m³. China is now proposing to tighten its standard from 35 to 25 µg/m³ by 2031, while India continues with 40 µg/m³, already exceeded by 82% of the population.</p>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border);">
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3);">Metric</th>
+                                <th style="padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--health); text-align: center;">Delhi</th>
+                                <th style="padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--research); text-align: center;">Beijing</th>
+                                <th style="padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); text-align: center;">Lahore</th>
+                                <th style="padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); text-align: center;">Dhaka</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 0.5rem; font-weight: 500;">2024 Annual PM2.5</td>
+                                <td style="padding: 0.5rem; text-align: center; font-weight: 700; color: var(--health); font-family: 'JetBrains Mono', monospace;">91.6</td>
+                                <td style="padding: 0.5rem; text-align: center; font-weight: 700; color: var(--research); font-family: 'JetBrains Mono', monospace;">30.9</td>
+                                <td style="padding: 0.5rem; text-align: center; font-family: 'JetBrains Mono', monospace;">102.1</td>
+                                <td style="padding: 0.5rem; text-align: center; font-family: 'JetBrains Mono', monospace;">78</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 0.5rem; font-weight: 500;">Jan 2026 Peak AQI</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--health); font-weight: 700;">500+</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--research); font-weight: 700;">~52</td>
+                                <td style="padding: 0.5rem; text-align: center;">500+</td>
+                                <td style="padding: 0.5rem; text-align: center;">299</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 0.5rem; font-weight: 500;">2026 YTD Avg AQI</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--health); font-weight: 700;">268</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--research); font-weight: 700;">73</td>
+                                <td style="padding: 0.5rem; text-align: center;">175</td>
+                                <td style="padding: 0.5rem; text-align: center;">N/A</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 0.5rem; font-weight: 500;">Multi-Year Trend</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--health);">↑ Worsening (+61%)</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--research);">↓ Improving (-17%)</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--accent);">↑ +18%</td>
+                                <td style="padding: 0.5rem; text-align: center;">Persistently high</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; font-weight: 500;">Days Meeting WHO (2026)</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--health); font-weight: 700;">0%</td>
+                                <td style="padding: 0.5rem; text-align: center; color: var(--research); font-weight: 700;">36%</td>
+                                <td style="padding: 0.5rem; text-align: center;">0%</td>
+                                <td style="padding: 0.5rem; text-align: center;">Variable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 0.8rem; color: var(--text-2);">IQAir 2024 data: India ranked 5th most polluted country (down from 3rd). 74 of the world's 100 most polluted cities are Indian. 13 of the top 20. Only 7 countries globally met WHO's annual PM2.5 guideline. Delhi remained the most polluted capital for a sixth consecutive year.</p>
+                    <p style="font-size: 0.72rem; color: var(--text-3); margin-top: 0.5rem; font-style: italic;">Sources: IQAir World Air Quality Report 2024 (March 2025); CPCB CAAQMS; Beijing Municipal Ecology & Environment Bureau 2025</p>
+                </div>
+            </div>
+
             </div>
 
             <div class="card mb-2">
@@ -2096,6 +2340,130 @@
 
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title">🎯 Promises vs Reality</span></div>
+
+            <!-- v19.0: SUPREME COURT JAN 2026 ORDERS -->
+            <div class="card mb-2" style="border-left: 4px solid var(--policy);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(37,99,235,0.02));">
+                    <span class="card-title" style="color: var(--policy);">Supreme Court: January 2026 Orders (MC Mehta v. Union of India)</span>
+                    <span class="badge badge-info" style="background: #DBEAFE; color: #1E40AF;">NEW v19.0</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="padding: 1rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--policy); font-weight: 600;">January 6, 2026</div>
+                            <div style="font-size: 0.85rem; color: var(--text-2); margin-top: 0.5rem;">CJI Surya Kant strongly criticized CAQM for <strong>"failing in its duty"</strong> to identify pollution causes. Directed CAQM to shortlist domain experts and convene meeting within two weeks to determine principal pollution contributors.</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--policy); font-weight: 600;">January 21, 2026</div>
+                            <div style="font-size: 0.85rem; color: var(--text-2); margin-top: 0.5rem;">Directed Delhi govt, DMC, and NCR agencies to submit action taken plans on <strong>15 long-term CAQM recommendations</strong> covering vehicle phase-outs, EV policy, PUC strengthening, and metro/rail expansion. Court: "We will not hear any objections."</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(37,99,235,0.02)); border-radius: 8px; border-left: 3px solid var(--policy);">
+                        <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 0.95rem; font-style: italic; color: var(--text);">"Let us have regular monitoring... The MC Mehta case is often listed in a ceremonial way around Diwali each year, only to disappear after winter passes."</div>
+                        <div style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.25rem;">— CJI Surya Kant, January 2026</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v19.0: NGT ORDERS -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title">National Green Tribunal Orders (Jan-Feb 2026)</span>
+                    <span class="badge badge-info" style="background: #DBEAFE; color: #1E40AF;">NEW v19.0</span>
+                </div>
+                <div class="card-body" style="font-size: 0.85rem;">
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div style="padding: 0.75rem; border-bottom: 1px solid var(--border);">
+                            <strong>Jan 7: Madhya Pradesh Air Crisis</strong> — Declared air pollution in MP cities a "severe environmental and public health crisis." Formed 7-member joint committee for 8 non-attainment cities. Bhopal PM10 at 130-190 µg/m³ (limit: 60). Criticized MP for no GRAP-equivalent system.
+                        </div>
+                        <div style="padding: 0.75rem; border-bottom: 1px solid var(--border);">
+                            <strong>Jan 7: Bikaner</strong> — Suo motu cognizance of severe pollution in Khara village, Rajasthan.
+                        </div>
+                        <div style="padding: 0.75rem; border-bottom: 1px solid var(--border);">
+                            <strong>Feb 5: Lucknow</strong> — Directed joint probe into air pollution from brick kilns amid densely populated area near schools.
+                        </div>
+                        <div style="padding: 0.75rem;">
+                            <strong>Feb 10: Waste-to-Energy</strong> — Directed CPCB to reframe guidelines under new Solid Waste Management Rules, 2026 (effective April 1, 2026).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v19.0: GRAP WINTER 2025-26 FULL TIMELINE -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title">GRAP Activation Timeline: Winter 2025-26</span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">13 of 17 REACTIVE</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-3" style="margin-bottom: 1rem;">
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">17</div>
+                            <div class="stat-label">GRAP Invocations</div>
+                            <div class="stat-change">Jan 2025 to Jan 2026</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">53</div>
+                            <div class="stat-label">Days at Stage III</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">15</div>
+                            <div class="stat-label">Days at Stage IV</div>
+                        </div>
+                    </div>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid var(--border);">
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">Date</th>
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">Action</th>
+                                <th style="text-align: left; padding: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Oct 14</td><td style="padding: 0.4rem 0.5rem;">Stage I invoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI 201-300</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Oct 19</td><td style="padding: 0.4rem 0.5rem;">Stage II invoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI 301-400</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Dec 13</td><td style="padding: 0.4rem 0.5rem; color: var(--health); font-weight: 600;">Stage IV invoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI 425; lasted 11 consecutive days (Dec 13-23)</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Jan 2</td><td style="padding: 0.4rem 0.5rem;">Stage III revoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI improved to 236; strong winds</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Jan 16</td><td style="padding: 0.4rem 0.5rem;">Stage III re-invoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI 354 and rising; proactive</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Jan 17-18</td><td style="padding: 0.4rem 0.5rem; color: var(--health); font-weight: 600;">Stage IV triggered</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI breached 440-500</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Jan 20</td><td style="padding: 0.4rem 0.5rem;">Stage IV revoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI improving</td></tr>
+                            <tr style="border-bottom: 1px solid var(--border);"><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Feb 18</td><td style="padding: 0.4rem 0.5rem;">Stage II revoked</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI 214; light rain assisted</td></tr>
+                            <tr><td style="padding: 0.4rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">Feb 20</td><td style="padding: 0.4rem 0.5rem;">Only Stage I active</td><td style="padding: 0.4rem 0.5rem; color: var(--text-2);">AQI fluctuating 170-277</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 0.8rem; color: var(--text-3); margin-top: 0.75rem; font-style: italic;">CAQM internal review (Jan 19, 2026) found "serious deficiencies and wide gaps in implementation, with shortfalls ranging from 7% to 99.6%" across key mandated actions.</p>
+                </div>
+            </div>
+
+            <!-- v19.0: NCAP Progress - CREA -->
+            <div class="card mb-2">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.06), rgba(220,38,38,0.02));">
+                    <span class="card-title" style="color: var(--health);">NCAP Progress: "Tracing the Hazy Air 2026" (CREA, January 9)</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-4" style="margin-bottom: 1rem;">
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">23/100</div>
+                            <div class="stat-label">Cities Meeting 40% Target</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value warning" style="font-family: 'JetBrains Mono', monospace;">68%</div>
+                            <div class="stat-label">Funds on Road Dust</div>
+                            <div class="stat-change">&lt;1% each on industry, fuel, outreach</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">28</div>
+                            <div class="stat-label">NCAP Cities Without CAAQMS</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">40</div>
+                            <div class="stat-label">Cities Without Source Studies</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-2);">23 cities actually recorded pollution <em>increases</em>. Delhi remains the most polluted NCAP city with PM10 of 197 µg/m³ (followed by Ghaziabad 190, Greater Noida 188). CSE's analysis confirmed even with reduced farm fire contribution, air quality stayed "very poor" to "severe," exposing the dominance of local urban sources.</p>
+                </div>
+            </div>
+
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table">
@@ -2676,6 +3044,68 @@ Signature: _______________</div>
                     <strong>Curated Archive</strong> — Manually updated collection. Last curated: <span id="voices-update-time">Feb 1, 2026</span>
                     <br><span style="font-size: 0.6875rem; color: var(--text-3);">Live API integration requires paid access to X/Instagram APIs. For now, this is human-curated.</span>
                 </div>
+
+            <!-- v19.0: PROTEST CRACKDOWNS & CITIZEN VOICES JAN-FEB 2026 -->
+            <div class="card mb-2" style="border-left: 4px solid var(--health);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.06), rgba(220,38,38,0.02));">
+                    <span class="card-title" style="color: var(--health);">Citizen Protests and Government Response (Nov 2025 - Feb 2026)</span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">NEW v19.0</span>
+                </div>
+                <div class="card-body">
+                    <div style="position: relative; padding-left: 28px; margin-bottom: 1rem;">
+                        <div style="position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border);"></div>
+                        <div style="position: relative; padding-bottom: 1rem;">
+                            <div style="position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--health); border: 2px solid var(--card);"></div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3);">November 9, 2025</div>
+                            <div style="font-size: 0.875rem; color: var(--text-2);"><strong style="color: var(--text);">India Gate: "We Can't Breathe"</strong> — Hundreds gathered with placards. Police detained over 80 people, filed FIRs against 7. Follow-up protest: 17 arrested under Bharatiya Nyaya Sanhita. Nearly 100 detained total. Diaspora organizations condemned "alarming shrinking of civic space."</div>
+                        </div>
+                        <div style="position: relative; padding-bottom: 1rem;">
+                            <div style="position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--card);"></div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3);">January 5, 2026</div>
+                            <div style="font-size: 0.875rem; color: var(--text-2);"><strong style="color: var(--text);">AAP MLAs Protest</strong> — Staged protest inside Delhi Assembly premises over rising pollution levels.</div>
+                        </div>
+                        <div style="position: relative; padding-bottom: 1rem;">
+                            <div style="position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--policy); border: 2px solid var(--card);"></div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3);">February 9, 2026</div>
+                            <div style="font-size: 0.875rem; color: var(--text-2);"><strong style="color: var(--text);">NSUI Demands National Health Emergency</strong> — Protest near Parliament demanding air pollution be declared a National Health Emergency. Protesters detained.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- v19.0: SMOG REFUGEES -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title">"Smog Refugees": Pollution-Driven Migration</span>
+                    <span class="badge badge-danger" style="background: #FEE2E2; color: #991B1B;">NEW v19.0</span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-4">
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">8%</div>
+                            <div class="stat-label">Planning to Leave Delhi</div>
+                            <div class="stat-change">LocalCircles, 16,454 respondents</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">82%</div>
+                            <div class="stat-label">Know Someone Ill</div>
+                            <div class="stat-change">Severe pollution-induced condition</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">4 in 10</div>
+                            <div class="stat-label">Want to Leave Delhi</div>
+                            <div class="stat-change">Illness to Wellness Foundation, 17,000 surveyed</div>
+                        </div>
+                        <div class="card stat-card" style="border-color: rgba(220,38,38,0.2);">
+                            <div class="stat-value danger" style="font-family: 'JetBrains Mono', monospace;">1,500+</div>
+                            <div class="stat-label">Warrior Moms Members</div>
+                            <div class="stat-change">Now across 13 states</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-2); margin-top: 0.75rem;">Akums Drugs CFO Rajkumar Bafna resigned abruptly in December 2025 citing Delhi's air quality. Mongabay India (Jan 7) documented growing pollution-driven migration. Warrior Moms' Bhavreen Kandhari: "Article 21 gives me the right to life, which includes the right to clean air."</p>
+                </div>
+            </div>
+
             </div>
 
             <!-- LIVE HASHTAG LINKS -->
@@ -5201,9 +5631,63 @@ Signature: _______________</div>
             <div class="alert alert-info mb-2">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 <div>
-                    <strong>Current Version:</strong> v18.0 | <strong>Last Updated:</strong> February 1, 2026 | 
+                    <strong>Current Version:</strong> v19.0 | <strong>Last Updated:</strong> February 21, 2026 | 
                     <a href="https://www.janvayu.in" target="_blank" style="color: var(--primary);">janvayu.in</a> |
                     <a href="https://github.com/Varnasr/JanVayu" target="_blank" style="color: var(--primary);">GitHub</a>
+                </div>
+            </div>
+
+            
+            <!-- FEBRUARY 21, 2026 - v19.0 EMBER REDESIGN + JAN-FEB 2026 BRIEFING -->
+            <div class="card mb-2" style="border-left: 4px solid var(--primary);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(199,64,45,0.08), rgba(199,64,45,0.03));">
+                    <span class="card-title" style="color: var(--primary);">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        February 21, 2026 — v19.0 (Current) EMBER-INSPIRED REDESIGN + JAN-FEB 2026 COMPREHENSIVE UPDATE
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: var(--primary); font-size: 0.875rem; margin-bottom: 0.5rem; font-family: 'Source Serif 4', Georgia, serif;">[DESIGN] Ember-Inspired Design Overhaul</h4>
+                            <ul style="font-size: 0.85rem; line-height: 1.8;">
+                                <li><strong>New Color Palette</strong> — Warm editorial palette replacing purple gradient. Deep red accent (#C7402D) with warm neutral backgrounds</li>
+                                <li><strong>Typography</strong> — Source Serif 4 for headings (editorial authority), DM Sans for body, JetBrains Mono for data</li>
+                                <li><strong>Dark Header</strong> — Sticky dark header with red accent border, data-journalism aesthetic</li>
+                                <li><strong>Left-Border Section Intros</strong> — Inspired by editorial publications, replacing gradient backgrounds</li>
+                                <li><strong>Improved Data Density</strong> — Monospace numbers, cleaner stat cards, tighter data tables</li>
+                            </ul>
+                            
+                            <h4 style="color: var(--health); font-size: 0.875rem; margin-bottom: 0.5rem; margin-top: 1rem;">[DATA] Dashboard Updates</h4>
+                            <ul style="font-size: 0.85rem; line-height: 1.8;">
+                                <li><strong>Key Headlines Block</strong> — Gita Gopinath Davos quote, Shoppers Stop 69% decline, WaPo "9 cigarettes", Bloomberg analysis</li>
+                                <li><strong>Updated Stats</strong> — $260B Dalberg figure, 91.6 µg/m³ annual, "Most polluted capital 6th year"</li>
+                                <li><strong>GRAP Alert Revised</strong> — Dec 2025 worst in 7 years, 13/17 reactive activations, CAQM shortfalls up to 99.6%</li>
+                                <li><strong>Budget Cliff Alert</strong> — Updated with 16% cut, XVI-FC status</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--policy); font-size: 0.875rem; margin-bottom: 0.5rem;">[HEALTH] New Panel Content</h4>
+                            <ul style="font-size: 0.85rem; line-height: 1.8;">
+                                <li><strong>Health</strong> — 4 major study cards: SoGA 2025, Lancet Countdown, Lancet Planetary Health, AQLI 2025. Dose-response (8.6% per 10 µg/m³)</li>
+                                <li><strong>Economic</strong> — Dalberg $260B study, corporate casualties table (Shoppers Stop, Speciality Restaurants, Zomato, DLF), healthcare burden data (204,758 ARI cases)</li>
+                                <li><strong>Budget</strong> — Full Budget 2026-27 table, ₹20,000 Cr CCUS scheme, PM E-DRIVE cliff, LPG subsidy cuts</li>
+                                <li><strong>Compare</strong> — Delhi vs Beijing/Lahore/Dhaka table (Jan 2026 data), 0% vs 36% WHO days, IQAir 74/100 cities</li>
+                                <li><strong>Accountability</strong> — SC Jan 6 + Jan 21 orders, CJI "failing in duty" quote, 4 NGT orders, GRAP winter timeline (17 invocations), CREA "Tracing the Hazy Air" (23/100 cities)</li>
+                                <li><strong>Voices</strong> — Protest timeline (India Gate 80+ detained, AAP MLAs, NSUI National Health Emergency), smog refugees data (8% planning to leave, 82% know someone ill), Warrior Moms 1,500+ members</li>
+                            </ul>
+                            
+                            <h4 style="color: var(--research); font-size: 0.875rem; margin-bottom: 0.5rem; margin-top: 1rem;">[SOURCES] Data Sources Added</h4>
+                            <ul style="font-size: 0.85rem; line-height: 1.8;">
+                                <li>Dalberg/Clean Air Fund Report (Jan 28-29, 2026)</li>
+                                <li>CREA "Tracing the Hazy Air 2026" (Jan 9, 2026)</li>
+                                <li>Supreme Court orders (MC Mehta, Jan 6 + Jan 21, 2026)</li>
+                                <li>NGT orders (MP, Bikaner, Lucknow, WtE — Jan-Feb 2026)</li>
+                                <li>Bloomberg BSE analysis, IQAir 2024 Report</li>
+                                <li>LocalCircles/Mongabay India migration surveys</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -5212,7 +5696,7 @@ Signature: _______________</div>
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.08));">
                     <span class="card-title" style="color: #2563EB;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        February 1, 2026 — v18.0 (Current) 💰 BUDGET TRACKER + COMPREHENSIVE UPDATE
+                        February 1, 2026 — v18.0 (Previous) 💰 BUDGET TRACKER + COMPREHENSIVE UPDATE
                     </span>
                 </div>
                 <div class="card-body">
@@ -5808,7 +6292,7 @@ Signature: _______________</div>
 
     <footer class="footer">
         <p>JanVayu जनवायु — Citizen-led air quality archive | <a href="https://www.janvayu.in" style="color: var(--primary);">janvayu.in</a> | <a href="https://github.com/Varnasr/JanVayu" style="color: var(--primary);">GitHub</a></p>
-        <p style="font-size: 0.8125rem; margin-top: 0.375rem; color: var(--text-3);">Data: WAQI, CPCB, WHO, Lancet, IHME, World Bank, UrbanEmissions.info | Not for medical diagnosis | v18.0 Feb 2026</p>
+        <p style="font-size: 0.8125rem; margin-top: 0.375rem; color: var(--text-3);">Data: WAQI, CPCB, WHO, Lancet, IHME, World Bank, UrbanEmissions.info | Not for medical diagnosis | v19.0 Feb 2026</p>
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
