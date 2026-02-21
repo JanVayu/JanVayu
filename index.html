@@ -241,7 +241,139 @@
             .mobile-menu-btn { display: none; }
         }
 
-        /* Old tab nav CSS removed in v20.0 */
+        
+
+
+        /* ══════════════════════════════════════════════════
+           GROUPED TAB NAVIGATION
+           ══════════════════════════════════════════════════ */
+
+        /* Panel show/hide */
+        .panel { display: none; padding: var(--space-2xl) 0 var(--space-xl); }
+        .panel.active { display: block; }
+
+        /* Category bar */
+        .nav-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: var(--header-height);
+            z-index: 90;
+        }
+        .nav-categories {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+        .nav-cat {
+            position: relative;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 14px 18px;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: color 0.15s;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .nav-cat:hover { color: var(--text-primary); }
+        .nav-cat.active {
+            color: var(--accent-red);
+            border-bottom-color: var(--accent-red);
+        }
+
+        /* Sub-tabs row */
+        .nav-sub {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: calc(var(--header-height) + 47px);
+            z-index: 89;
+            min-height: 0;
+            overflow: hidden;
+            transition: min-height 0.2s;
+        }
+        .nav-sub .container {
+            display: flex;
+            gap: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .sub-group {
+            display: none;
+        }
+        .sub-group.active {
+            display: flex;
+            gap: 0;
+        }
+        .sub-tab {
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 10px 16px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .sub-tab:hover {
+            color: var(--text-primary);
+            background: rgba(27,107,74,0.04);
+        }
+        .sub-tab.active {
+            color: var(--accent-red);
+            border-bottom-color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        /* Mobile: horizontal scroll */
+        @media (max-width: 768px) {
+            .nav-categories {
+                overflow-x: auto;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-categories::-webkit-scrollbar { display: none; }
+            .nav-cat {
+                font-size: 0.68rem;
+                padding: 12px 14px;
+            }
+            .sub-group.active {
+                overflow-x: auto;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+            }
+            .sub-group::-webkit-scrollbar { display: none; }
+            .sub-tab {
+                font-size: 0.72rem;
+                padding: 8px 12px;
+            }
+        }
+
+        /* Section intro */
+        .section-intro {
+            margin-bottom: var(--space-xl);
+        }
+        .section-intro h2 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-xs);
+        }
+        .section-intro p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.6;
+        }
 
         /* ── Crisis Ticker ────────────────────────────────── */
         .ticker {
@@ -277,7 +409,7 @@
         }
 
         /* ── Content Panels ───────────────────────────────── */
-        /* Old panel show/hide removed in v20.0 - all sections always visible */
+        
         .panel-title {
             font-family: var(--font-serif);
             font-size: 2rem;
@@ -399,12 +531,7 @@
         .badge-blue { background: var(--accent-blue-light); color: var(--accent-blue); }
 
         /* ── Section Dividers ─────────────────────────────── */
-        .section-divider {
-            border: none;
-            border-top: 2px solid var(--border-strong);
-            margin: var(--space-3xl) auto var(--space-2xl);
-            max-width: 80px;
-        }
+
 
         /* ── Callout Boxes ────────────────────────────────── */
         .callout {
@@ -628,7 +755,7 @@
         }
 
         /* ── Hero Section ─────────────────────────────────── */
-/* First hero CSS block removed - using second */
+
 
         /* ── Comparison Bars ──────────────────────────────── */
         .compare-bar-container { margin: var(--space-md) 0; }
@@ -706,145 +833,22 @@
     
         /* ── Scroll Layout Overrides ────────────────────── */
 
-        /* ── Editorial Section Intros ───────────────────── */
-        .section-intro {
-            margin-bottom: var(--space-2xl);
-            padding-bottom: var(--space-xl);
-            border-bottom: 1px solid var(--border);
-        }
-        .section-intro h2 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            position: relative;
-            display: inline-block;
-        }
-        .section-intro h2::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 48px;
-            height: 3px;
-            background: var(--accent-red);
-            border-radius: 2px;
-        }
-        .section-intro p {
-            margin-top: var(--space-md);
-            color: var(--text-secondary);
-            max-width: 680px;
-            line-height: 1.65;
-        }
-
-        .section-panel {
-            display: block !important;
-            padding: var(--space-3xl) 0 var(--space-2xl);
-            scroll-margin-top: calc(var(--header-height) + 52px);
-        }
+        
 
         /* ── Anchor Navigation ─────────────────────────── */
-        .scroll-nav {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: var(--header-height);
-            z-index: 90;
-        }
-        .scroll-nav .container {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .scroll-nav .container::-webkit-scrollbar { display: none; }
-        .nav-link {
-            font-family: var(--font-sans);
-            font-size: 0.72rem;
-            font-weight: 500;
-            padding: 10px 12px;
-            color: var(--text-tertiary);
-            text-decoration: none;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-            transition: color 0.15s, border-color 0.15s;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            flex-shrink: 0;
-        }
-        .nav-link:hover {
-            color: var(--text-primary);
-            text-decoration: none;
-            background: var(--bg-secondary);
-        }
-        .nav-link.active {
-            color: var(--accent-red);
-            border-bottom-color: var(--accent-red);
-            font-weight: 600;
-        }
-        .nav-sep {
-            width: 1px;
-            background: var(--border);
-            margin: 10px 2px;
-            flex-shrink: 0;
-            align-self: stretch;
-        }
-        @media (max-width: 900px) {
-            .scroll-nav .container {
-                padding-left: var(--space-sm);
-                padding-right: var(--space-sm);
-            }
-            .nav-link {
-                font-size: 0.68rem;
-                padding: 10px 8px;
-            }
-            .nav-sep { display: none; }
+
+        
+    
+    
             .hero-headline { font-size: 1.6rem !important; }
-            .hero-section .stat-card {
-                padding: var(--space-md) !important;
-            }
+
             .stat-number { font-size: 1.6rem !important; }
         }
         @media (max-width: 480px) {
-            .nav-link {
-                font-size: 0.62rem;
-                padding: 8px 6px;
-                letter-spacing: 0;
-            }
+    
         }
 
         /* ── Section Intro Styling (v18 editorial) ──── */
-/* Duplicate section-intro removed in v20 */
-
-        /* ── Hero overrides for scroll layout ─────── */
-        .hero-section {
-            padding: var(--space-3xl) 0 var(--space-2xl);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 0;
-        }
-        .hero-headline {
-            font-family: var(--font-serif);
-            font-size: 2.6rem;
-            font-weight: 700;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            max-width: 800px;
-            margin-bottom: var(--space-lg);
-        }
-        .hero-lead {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 680px;
-            line-height: 1.65;
-        }
-        @media (max-width: 768px) {
-            .hero-headline { font-size: 1.8rem; }
-        }
 
         /* ── v19 component style overrides for v18 palette ── */
         .card {
@@ -1108,72 +1112,54 @@
         </div>
     </header>
 
-    <!-- SCROLL NAVIGATION -->
-    <nav class="scroll-nav" id="scrollNav">
+    <!-- CATEGORY NAV -->
+    <nav class="nav-bar" id="navBar">
         <div class="container">
-            <a href="#panel-dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
-            <span class="nav-sep"></span>
-            <a href="#panel-health" class="nav-link" data-section="health">Health</a>
-            <a href="#panel-economic" class="nav-link" data-section="economic">Economic</a>
-            <a href="#panel-policy" class="nav-link" data-section="policy">Policy</a>
-            <a href="#panel-budget" class="nav-link" data-section="budget">Budget</a>
-            <span class="nav-sep"></span>
-            <a href="#panel-compare" class="nav-link" data-section="compare">Compare</a>
-            <a href="#panel-map" class="nav-link" data-section="map">Map</a>
-            <a href="#panel-trends" class="nav-link" data-section="trends">Trends</a>
-            <span class="nav-sep"></span>
-            <a href="#panel-accountability" class="nav-link" data-section="accountability">Accountability</a>
-            <a href="#panel-voices" class="nav-link" data-section="voices">Voices</a>
-            <a href="#panel-actions" class="nav-link" data-section="actions">Actions</a>
-            <a href="#panel-citizen-action" class="nav-link" data-section="citizen-action">Citizen Action</a>
-            <a href="#panel-legal" class="nav-link" data-section="legal">Legal</a>
-            <span class="nav-sep"></span>
-            <a href="#panel-tools" class="nav-link" data-section="tools">Tools</a>
-            <a href="#panel-resources" class="nav-link" data-section="resources">Resources</a>
-            <a href="#panel-about" class="nav-link" data-section="about">About</a>
-            <a href="#panel-changelog" class="nav-link" data-section="changelog">Updates</a>
+            <ul class="nav-categories" id="navCats">
+                <li class="nav-cat active" data-cat="data" onclick="switchCategory('data')">Data</li>
+                <li class="nav-cat" data-cat="impact" onclick="switchCategory('impact')">Impact</li>
+                <li class="nav-cat" data-cat="policy" onclick="switchCategory('policy')">Policy</li>
+                <li class="nav-cat" data-cat="voices" onclick="switchCategory('voices')">Community</li>
+                <li class="nav-cat" data-cat="reference" onclick="switchCategory('reference')">Reference</li>
+            </ul>
         </div>
     </nav>
-
-
-    <!-- HERO SECTION - Editorial Opening -->
-    <section class="hero-section">
+    <div class="nav-sub" id="navSub">
         <div class="container">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-lg);">
-                <span class="badge badge-red">Crisis Briefing</span>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">January&ndash;February 2026</span>
+            <div class="sub-group active" data-cat="data">
+                <button class="sub-tab active" onclick="showPanel('dashboard')">Dashboard</button>
+                <button class="sub-tab" onclick="showPanel('compare')">Compare</button>
+                <button class="sub-tab" onclick="showPanel('map')">Map</button>
+                <button class="sub-tab" onclick="showPanel('trends')">Trends</button>
             </div>
-            <h1 class="hero-headline">India&rsquo;s air kills <span style="color: var(--accent-red);">2 million</span> people a year. The government just <span style="color: var(--accent-red);">cut</span> clean air funding.</h1>
-            <p class="hero-lead">Delhi endured its worst December in seven years. The Union Budget slashed pollution control by 16%. Only 23 of 100 NCAP cities met their targets. And the economic damage has reached $260 billion annually. This platform tracks it all.</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md); margin-top: var(--space-xl);">
-                <div class="stat-card" style="border-top: 3px solid var(--accent-red); text-align: left;">
-                    <div class="stat-label">Annual Deaths</div>
-                    <div class="stat-number" style="color: var(--accent-red); font-size: 1.8rem;">2 Million</div>
-                    <div class="stat-context">State of Global Air 2025</div>
-                </div>
-                <div class="stat-card" style="border-top: 3px solid var(--accent-amber); text-align: left;">
-                    <div class="stat-label">Economic Cost</div>
-                    <div class="stat-number" style="color: var(--accent-amber); font-size: 1.8rem;">$260B</div>
-                    <div class="stat-context">6% of GDP &middot; Dalberg 2026</div>
-                </div>
-                <div class="stat-card" style="border-top: 3px solid var(--accent-purple); text-align: left;">
-                    <div class="stat-label">Life Years Lost</div>
-                    <div class="stat-number" style="color: var(--accent-purple); font-size: 1.8rem;">3.5 yrs</div>
-                    <div class="stat-context">Avg Indian &middot; AQLI 2025</div>
-                </div>
-                <div class="stat-card" style="border-top: 3px solid var(--accent-blue); text-align: left;">
-                    <div class="stat-label">Budget Cut</div>
-                    <div class="stat-number" style="color: var(--accent-blue); font-size: 1.8rem;">&minus;16%</div>
-                    <div class="stat-context">Pollution control &middot; FY2027</div>
-                </div>
+            <div class="sub-group" data-cat="impact">
+                <button class="sub-tab" onclick="showPanel('health')">Health</button>
+                <button class="sub-tab" onclick="showPanel('economic')">Economic</button>
+            </div>
+            <div class="sub-group" data-cat="policy">
+                <button class="sub-tab" onclick="showPanel('policy')">Policy</button>
+                <button class="sub-tab" onclick="showPanel('budget')">Budget</button>
+                <button class="sub-tab" onclick="showPanel('accountability')">Accountability</button>
+            </div>
+            <div class="sub-group" data-cat="voices">
+                <button class="sub-tab" onclick="showPanel('voices')">Voices</button>
+                <button class="sub-tab" onclick="showPanel('actions')">Actions</button>
+                <button class="sub-tab" onclick="showPanel('citizen-action')">Citizen Action</button>
+            </div>
+            <div class="sub-group" data-cat="reference">
+                <button class="sub-tab" onclick="showPanel('legal')">Legal</button>
+                <button class="sub-tab" onclick="showPanel('tools')">Tools</button>
+                <button class="sub-tab" onclick="showPanel('resources')">Resources</button>
+                <button class="sub-tab" onclick="showPanel('about')">About</button>
+                <button class="sub-tab" onclick="showPanel('changelog')">Updates</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- MAIN CONTENT - All sections visible, scroll layout -->
+    <!-- MAIN CONTENT -->
     <main class="content-wrap">
 <!-- ========== DASHBOARD ========== -->
-        <div class="section-panel" id="panel-dashboard">
+        <div class="panel active" id="panel-dashboard">
             <div class="section-intro">
                 <h2>Live Air Quality Dashboard</h2>
                 <p>Real-time <strong>PM2.5</strong> data from 20+ Indian cities — the primary health-relevant metric. WHO 2021 guideline: 5 µg/m³ annual average.</p>
@@ -1189,17 +1175,15 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
                     <strong>Funding Cliff Alert:</strong> ₹16,539 Cr in XV-FC grants (87% of NCAP city funding) expires March 2026. No successor mechanism announced. 
-                    <a href="#" onclick="document.getElementById('panel-budget').scrollIntoView({behavior:'smooth'}); return false;" style="color: #1B6B4A; font-weight: 600;">View Budget Tracker →</a>
+                    <a href="#" onclick="showPanel('budget'); return false;" style="color: #1B6B4A; font-weight: 600;">View Budget Tracker →</a>
                 </div>
             </div>
-
-
 
             <!-- WHY PM2.5 MATTERS BOX -->
             <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.04)); border-left: 4px solid var(--primary);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                 <div style="font-size: 0.8125rem;">
-                    <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="document.getElementById('panel-health').scrollIntoView({behavior:'smooth'}); return false;" style="color: var(--primary);">Learn more →</a>
+                    <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="showPanel('health'); return false;" style="color: var(--primary);">Learn more →</a>
                 </div>
             </div>
 
@@ -1372,7 +1356,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">Latest Updates</span>
-                        <a href="#" onclick="document.getElementById('panel-voices').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 0.625rem; color: var(--primary);">View all</a>
+                        <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--primary);">View all</a>
                     </div>
                     <div class="card-body" style="font-size: 0.75rem;">
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
@@ -1403,19 +1387,19 @@
             </div>
 
             <div class="grid-4">
-                <div class="quick-link" onclick="document.getElementById(\'panel-health\').scrollIntoView({behavior:\'smooth\',block:\'start\'})">
+                <div class="quick-link" onclick="showPanel('\1')">
                     <div class="quick-link-icon health"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
                     <div class="quick-link-content"><h4>Health Calculator</h4><p>Calculate your personal risk</p></div>
                 </div>
-                <div class="quick-link" onclick="document.getElementById(\'panel-economic\').scrollIntoView({behavior:\'smooth\',block:\'start\'})">
+                <div class="quick-link" onclick="showPanel('\1')">
                     <div class="quick-link-icon economic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                     <div class="quick-link-content"><h4>Economic Impact</h4><p>Business productivity loss</p></div>
                 </div>
-                <div class="quick-link" onclick="document.getElementById(\'panel-accountability\').scrollIntoView({behavior:\'smooth\',block:\'start\'})">
+                <div class="quick-link" onclick="showPanel('\1')">
                     <div class="quick-link-icon policy"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
                     <div class="quick-link-content"><h4>Accountability</h4><p>Mission Tracker & RTI tools</p></div>
                 </div>
-                <div class="quick-link" onclick="document.getElementById(\'panel-voices\').scrollIntoView({behavior:\'smooth\',block:\'start\'})">
+                <div class="quick-link" onclick="showPanel('\1')">
                     <div class="quick-link-icon tools"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
                     <div class="quick-link-content"><h4>Citizen Voices</h4><p>Public response & action</p></div>
                 </div>
@@ -1423,10 +1407,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== HEALTH CALCULATOR ========== -->
-        <div class="section-panel" id="panel-health">
+        <div class="panel" id="panel-health">
             <div class="section-intro">
                 <h2>Personal Health Risk Calculator</h2>
                 <p>Estimate your health risk from air pollution using the <strong>Global Exposure Mortality Model (GEMM)</strong> — the gold standard for PM2.5 mortality estimation.</p>
@@ -1622,7 +1605,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    For detailed guidance, see <a href="#" onclick="document.getElementById(\'panel-actions\').scrollIntoView({behavior:\'smooth\',block:\'start\'})" style="color: var(--primary);">Actions tab</a> for protective measures by group.
+                    For detailed guidance, see <a href="#" onclick="showPanel('\1')" style="color: var(--primary);">Actions tab</a> for protective measures by group.
                 </div>
             </div>
 
@@ -1848,10 +1831,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== ECONOMIC IMPACT ========== -->
-        <div class="section-panel" id="panel-economic">
+        <div class="panel" id="panel-economic">
             <div class="section-intro">
                 <h2>Economic Cost of Air Pollution</h2>
                 <p>Air pollution costs India <strong>$36.8 billion annually</strong> (1.36% GDP) through healthcare, lost productivity, and premature deaths. At broader economic measures, costs reach $339 billion (9.5% GDP). <em>Source: Lancet Planetary Health 2021 / Lancet Countdown 2025</em></p>
@@ -1903,10 +1885,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== POLICY TRACKER ========== -->
-        <div class="section-panel" id="panel-policy">
+        <div class="panel" id="panel-policy">
             <div class="section-intro">
                 <h2>Policy Effectiveness Tracker</h2>
                 <p>Evaluating major air quality interventions by actual PM2.5 impact, evidence quality, and cost-effectiveness.</p>
@@ -2041,8 +2022,8 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                         <div>
                             <strong>Take Action:</strong> Use these recommendations in RTI applications, letters to MPs/MLAs, or media advocacy. 
-                            See <a href="#" onclick="document.getElementById(\'panel-accountability\').scrollIntoView({behavior:\'smooth\',block:\'start\'})" style="color: var(--primary);">Accountability tab</a> for promise tracker and 
-                            <a href="javascript:void(0)" onclick="document.getElementById(\'panel-tools\').scrollIntoView({behavior:\'smooth\',block:\'start\'})" style="color: var(--primary);">Tools tab</a> for RTI templates.
+                            See <a href="#" onclick="showPanel('\1')" style="color: var(--primary);">Accountability tab</a> for promise tracker and 
+                            <a href="javascript:void(0)" onclick="showPanel('\1')" style="color: var(--primary);">Tools tab</a> for RTI templates.
                         </div>
                     </div>
                 </div>
@@ -2131,10 +2112,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== BUDGET TRACKER ========== -->
-        <div class="section-panel" id="panel-budget">
+        <div class="panel" id="panel-budget">
             <div class="section-intro">
                 <h2>Clean Air Budget Tracker</h2>
                 <p>Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
@@ -2503,10 +2483,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== CITY COMPARISON ========== -->
-        <div class="section-panel" id="panel-compare">
+        <div class="panel" id="panel-compare">
             <div class="section-intro">
                 <h2>Live City Comparison</h2>
                 <p>Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
@@ -2577,10 +2556,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== MAP ========== -->
-        <div class="section-panel" id="panel-map">
+        <div class="panel" id="panel-map">
             <div class="section-intro">
                 <h2>Live Air Quality Map</h2>
                 <p>Real-time AQI for major Indian cities from WAQI API. Click markers for PM2.5, station name, and update time.</p>
@@ -2597,10 +2575,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== TRENDS ========== -->
-        <div class="section-panel" id="panel-trends">
+        <div class="panel" id="panel-trends">
             <div class="section-intro">
                 <h2>Historical Trends</h2>
                 <p>Delhi's air quality shows strong seasonal patterns with winter months consistently worst. The data reveals both the scale of the crisis and the potential for improvement.</p>
@@ -2666,10 +2643,9 @@
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== ACCOUNTABILITY ========== -->
-        <div class="section-panel" id="panel-accountability">
+        <div class="panel" id="panel-accountability">
             <div class="section-intro">
                 <h2>Political Accountability Tracker</h2>
                 <p>Tracking promises, court orders, budget allocations, and outcomes. <strong>NEW:</strong> Clean Air Mission Tracker with independent verification of NCAP interventions. Use RTI to demand transparency. Democracy requires accountability.</p>
@@ -3245,10 +3221,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== CITIZEN VOICES ========== -->
-        <div class="section-panel" id="panel-voices">
+        <div class="panel" id="panel-voices">
             <div class="section-intro">
                 <h2>Citizen Voices & Viral Moments</h2>
                 <p>Curated reactions from X/Twitter, Instagram, YouTube, and news — documenting India's air crisis through citizen voices, memes, and viral content.</p>
@@ -4168,10 +4143,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== ACTIONS ========== -->
-        <div class="section-panel" id="panel-actions">
+        <div class="panel" id="panel-actions">
             <div class="section-intro">
                 <h2>Take Action — What You Can Do</h2>
                 <p>Practical, science-backed actions at every level — from your home to your community. Organized by context and budget. Every small action compounds.</p>
@@ -4598,10 +4572,9 @@ Signature: _______________</div>
 
 
         
-        <hr class="section-divider">
 
         <!-- ========== CITIZEN ACTION ========== -->
-        <div class="section-panel" id="panel-citizen-action">
+        <div class="panel" id="panel-citizen-action">
             <div class="section-intro">
                 <h2>Citizen Action Plan</h2>
                 <p>Emergency Measures to Combat Air Pollution (EMCAP) — A comprehensive citizens' action plan for Winter 2025-26 and beyond, with legally validated policy recommendations.</p>
@@ -4854,10 +4827,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== LEGAL FRAMEWORK ========== -->
-        <div class="section-panel" id="panel-legal">
+        <div class="panel" id="panel-legal">
             <div class="section-intro">
                 <h2>Legal Framework for Clean Air</h2>
                 <p>Constitutional rights, Supreme Court mandates, and statutory powers that provide the legal basis for emergency action on air pollution.</p>
@@ -5051,10 +5023,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== TOOLS ========== -->
-        <div class="section-panel" id="panel-tools">
+        <div class="panel" id="panel-tools">
             <div class="section-intro">
                 <h2>Tools & Utilities</h2>
                 <p>Tools for researchers, journalists, developers, and citizens to access, embed, and analyze air quality data.</p>
@@ -5138,10 +5109,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== RESOURCES ========== -->
-        <div class="section-panel" id="panel-resources">
+        <div class="panel" id="panel-resources">
             <div class="section-intro">
                 <h2>Research & Resources Library</h2>
                 <p>Curated, verified open-access resources from peer-reviewed studies, government portals, and research institutions.</p>
@@ -5635,10 +5605,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== ABOUT ========== -->
-        <div class="section-panel" id="panel-about">
+        <div class="panel" id="panel-about">
             <div class="section-intro" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.05)); border-color: rgba(124,58,237,0.2);">
                 <h2 style="font-size: 1.25rem;">About JanVayu जनवायु</h2>
                 <p style="font-size: 0.875rem;"><strong>JanVayu</strong> (Air Memory) is a citizen-led, open-source air quality archive for India. It exists because air pollution is not just an environmental issue — it is a public health emergency, an economic drain, and a failure of governance that demands transparency and accountability.</p>
@@ -5794,10 +5763,9 @@ Signature: _______________</div>
         </div>
 
         
-        <hr class="section-divider">
 
         <!-- ========== UPDATES LOG ========== -->
-        <div class="section-panel" id="panel-changelog">
+        <div class="panel" id="panel-changelog">
             <div class="section-intro">
                 <h2>Updates Log — Platform History</h2>
                 <p>Chronological record of all updates, features, and improvements to JanVayu since inception. Transparency in development.</p>
@@ -6446,7 +6414,6 @@ Signature: _______________</div>
             </div>
         </div>
     </main>
-    </main>
 
     <!-- FOOTER -->
     <footer class="site-footer">
@@ -6586,24 +6553,65 @@ Signature: _______________</div>
             'changelog': 'Updates'
         };
         
-        function showPanel(panel, updateHash = true) {
-            // v20.0: Scroll to section instead of show/hide
-            const el = document.getElementById('panel-' + panel);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-            }
-            if (updateHash) {
-                history.replaceState(null, null, '#' + panel);
-            }
-            // Trigger specific panel actions
-            if (panel === 'map') {
-                initMap();
-                if (typeof map !== 'undefined' && map) setTimeout(() => map.invalidateSize(), 100);
-            }
-            if (panel === 'compare') {
-                if (typeof updateComparison === 'function') updateComparison(true);
+        
+        // Panel-to-category mapping
+        const panelCategory = {
+            'dashboard': 'data', 'compare': 'data', 'map': 'data', 'trends': 'data',
+            'health': 'impact', 'economic': 'impact',
+            'policy': 'policy', 'budget': 'policy', 'accountability': 'policy',
+            'voices': 'voices', 'actions': 'voices', 'citizen-action': 'voices',
+            'legal': 'reference', 'tools': 'reference', 'resources': 'reference',
+            'about': 'reference', 'changelog': 'reference'
+        };
+
+        function switchCategory(cat, autoShow = true) {
+            document.querySelectorAll('.nav-cat').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+            document.querySelectorAll('.sub-group').forEach(g => g.classList.toggle('active', g.dataset.cat === cat));
+            // Auto-show first panel in category
+            if (autoShow) {
+                const firstTab = document.querySelector('.sub-group[data-cat="' + cat + '"] .sub-tab');
+                if (firstTab) firstTab.click();
             }
         }
+
+        function showPanel(panel, updateHash = true) {
+            // Hide all, show target
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('panel-' + panel);
+            if (target) target.classList.add('active');
+
+            // Activate category
+            const cat = panelCategory[panel];
+            if (cat) switchCategory(cat, false);
+
+            // Activate sub-tab
+            document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            const activeGroup = document.querySelector('.sub-group[data-cat="' + cat + '"]');
+            if (activeGroup) {
+                activeGroup.querySelectorAll('.sub-tab').forEach(t => {
+                    // Match by panel name in onclick
+                    if (t.getAttribute('onclick')?.includes("'" + panel + "'")) {
+                        t.classList.add('active');
+                    }
+                });
+            }
+
+            // Hash
+            if (updateHash) history.replaceState(null, null, '#' + panel);
+
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Panel-specific triggers
+            if (panel === 'map') {
+                if (typeof initMap === 'function') initMap();
+                if (typeof map !== 'undefined' && map) setTimeout(() => map.invalidateSize(), 200);
+            }
+            if (panel === 'compare' && typeof updateComparison === 'function') {
+                updateComparison(true);
+            }
+        }
+
         
         // Mobile menu functions
         function openMobileMenu() {
@@ -6626,9 +6634,9 @@ Signature: _______________</div>
         function handleHashNavigation() {
             const hash = window.location.hash.substring(1);
             if (hash && document.getElementById('panel-' + hash)) {
-                setTimeout(() => {
-                    document.getElementById('panel-' + hash).scrollIntoView({ behavior: 'smooth' });
-                }, 300);
+                showPanel(hash, false);
+            } else {
+                showPanel('dashboard', false);
             }
         }
         
@@ -7462,71 +7470,7 @@ Signature: _______________</div>
             console.log('[JanVayu] Initialization complete');
         });
     
-        // ============================================
-        // SCROLL SPY - Highlight active nav section
-        // ============================================
-        function initScrollSpy() {
-            const sections = document.querySelectorAll('.section-panel');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const scrollNav = document.getElementById('scrollNav');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id.replace('panel-', '');
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.dataset.section === id);
-                        });
-                        // Auto-scroll nav to show active link
-                        const activeLink = document.querySelector('.nav-link.active');
-                        if (activeLink && scrollNav) {
-                            const navRect = scrollNav.getBoundingClientRect();
-                            const linkRect = activeLink.getBoundingClientRect();
-                            if (linkRect.left < navRect.left || linkRect.right > navRect.right) {
-                                activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                            }
-                        }
-                    }
-                });
-            }, {
-                rootMargin: '-20% 0px -70% 0px',
-                threshold: 0
-            });
-            
-            sections.forEach(section => observer.observe(section));
-        }
-        
-        // Smooth scroll for nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                // Close mobile nav if open
-                document.getElementById('scrollNav')?.classList.remove('mobile-open');
-            });
-        });
-        
-        // Mobile menu toggle for scroll nav
-        document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
-            document.getElementById('scrollNav')?.classList.toggle('mobile-open');
-        });
-
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-        if (scrollTopBtn) {
-            window.addEventListener('scroll', () => {
-                scrollTopBtn.classList.toggle('visible', window.scrollY > 600);
-            });
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-
-        // Initialize scroll spy
-        initScrollSpy();
+        // Scroll spy removed in v20 (tab layout)
 
     </script>
 </body>
