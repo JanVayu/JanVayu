@@ -20,27 +20,27 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         :root {
-            --primary: #C7402D; --primary-light: #E8735F; --accent: #D97706;
+            --primary: #1B6B4A; --primary-light: #40916C; --accent: #D97706;
             --text: #1A1917; --text-2: #4A4843; --text-3: #8A8880;
             --bg: #F7F6F3; --card: #FFFFFF; --border: #E5E4E0;
             --health: #DC2626; --policy: #2563EB; --research: #16803C;
             --aqi-good: #16803C; --aqi-mod: #D97706; --aqi-poor: #EA580C; 
             --aqi-vpoor: #DC2626; --aqi-severe: #7C3AED; --aqi-hazard: #831843;
-            --gradient: linear-gradient(135deg, #C7402D 0%, #991B1B 100%);
+            --gradient: linear-gradient(135deg, #1B6B4A 0%, #14532D 100%);
             /* WHO 2021 PM2.5 color scale */
             --who-good: #00e400; --who-it4: #92d050; --who-it3: #ffff00;
             --who-it2: #ff7e00; --who-it1: #ff0000; --who-above: #99004c; --who-severe: #7e0023;
         }
         [data-theme="dark"] {
             --text: #F2F1ED; --text-2: #B5B4AE; --text-3: #6A6960;
-            --bg: #121210; --card: #1E1E1C; --border: #333330;
+            --bg: #0A1410; --card: #141F19; --border: #1E3328;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; }
         h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; }
         
         /* HEADER */
-        .header { background: #1A1917; border-bottom: 3px solid var(--primary); padding: 0.75rem 1rem; position: sticky; top: 0; z-index: 1000; color: #F2F1ED; }
+        .header { background: #0D2818; border-bottom: 3px solid #40916C; padding: 0.75rem 1rem; position: sticky; top: 0; z-index: 1000; color: #F2F1ED; }
         .header-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
         .logo { display: flex; align-items: center; gap: 0.75rem; }
         .logo-mark { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
@@ -117,7 +117,7 @@
         .tab-group:last-child { border-right: none; }
         .tab-group-label { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); padding: 0.5rem 0.75rem; background: var(--bg); }
         .tab { padding: 0.5rem 0.75rem; font-size: 0.8125rem; font-weight: 500; color: var(--text-2); cursor: pointer; border-radius: 6px; white-space: nowrap; display: flex; align-items: center; gap: 0.375rem; transition: all 0.2s; flex-shrink: 0; margin-bottom: 0.5rem; background: var(--bg); }
-        .tab:hover { background: rgba(199,64,45,0.08); color: var(--primary); }
+        .tab:hover { background: rgba(27,107,74,0.08); color: var(--primary); }
         .tab.active { background: var(--primary); color: white; font-weight: 600; }
         .tab.active svg { stroke: white; }
         .tab svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
@@ -139,7 +139,7 @@
         .mobile-menu-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-3); padding: 0.5rem 1rem; font-weight: 600; }
         .mobile-menu-item { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1rem; font-size: 1rem; color: var(--text); cursor: pointer; transition: all 0.2s; }
         .mobile-menu-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; color: var(--text-2); }
-        .mobile-menu-item:hover, .mobile-menu-item.active { background: rgba(199,64,45,0.08); color: var(--primary); }
+        .mobile-menu-item:hover, .mobile-menu-item.active { background: rgba(27,107,74,0.08); color: var(--primary); }
         .mobile-menu-item.active svg { color: var(--primary); }
 
         /* MAIN */
@@ -172,7 +172,7 @@
         .stat-change { font-size: 0.8125rem; margin-top: 0.375rem; }
 
         /* SECTION INTRO */
-        .section-intro { background: linear-gradient(135deg, rgba(199,64,45,0.04), rgba(199,64,45,0.02)); border: 1px solid rgba(199,64,45,0.12); border-left: 4px solid var(--primary); border-radius: 0 12px 12px 0; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .section-intro { background: linear-gradient(135deg, rgba(27,107,74,0.04), rgba(27,107,74,0.02)); border: 1px solid rgba(27,107,74,0.15); border-left: 4px solid var(--primary); border-radius: 0 12px 12px 0; padding: 1.5rem; margin-bottom: 1.5rem; }
         .section-intro h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text); font-family: 'Source Serif 4', Georgia, serif; }
         .section-intro p { font-size: 1rem; color: var(--text-2); line-height: 1.7; }
 
@@ -642,7 +642,7 @@
 
             
             <!-- v19.0: KEY HEADLINES JAN-FEB 2026 -->
-            <div class="card mb-2" style="border-left: 4px solid var(--primary); background: linear-gradient(135deg, rgba(199,64,45,0.04), rgba(199,64,45,0.01));">
+            <div class="card mb-2" style="border-left: 4px solid var(--primary); background: linear-gradient(135deg, rgba(27,107,74,0.04), rgba(27,107,74,0.01));">
                 <div class="card-body">
                     <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); font-weight: 600; margin-bottom: 0.75rem;">Key Headlines: January/February 2026</div>
                     <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 1.05rem; font-style: italic; line-height: 1.55; margin-bottom: 0.75rem; color: var(--text);">
@@ -5640,8 +5640,8 @@ Signature: _______________</div>
             
             <!-- FEBRUARY 21, 2026 - v19.0 EMBER REDESIGN + JAN-FEB 2026 BRIEFING -->
             <div class="card mb-2" style="border-left: 4px solid var(--primary);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(199,64,45,0.08), rgba(199,64,45,0.03));">
-                    <span class="card-title" style="color: var(--primary);">
+                <div class="card-header" style="background: linear-gradient(135deg, rgba(27,107,74,0.08), rgba(27,107,74,0.03));">
+                    <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         February 21, 2026 — v19.0 (Current) EMBER-INSPIRED REDESIGN + JAN-FEB 2026 COMPREHENSIVE UPDATE
                     </span>
@@ -5651,9 +5651,9 @@ Signature: _______________</div>
                         <div>
                             <h4 style="color: var(--primary); font-size: 0.875rem; margin-bottom: 0.5rem; font-family: 'Source Serif 4', Georgia, serif;">[DESIGN] Ember-Inspired Design Overhaul</h4>
                             <ul style="font-size: 0.85rem; line-height: 1.8;">
-                                <li><strong>New Color Palette</strong> — Warm editorial palette replacing purple gradient. Deep red accent (#C7402D) with warm neutral backgrounds</li>
+                                <li><strong>New Color Palette</strong> — Warm editorial palette replacing purple gradient. Deep green accent (#1B6B4A) inspired by Ember's clean energy data aesthetic, with warm neutral backgrounds</li>
                                 <li><strong>Typography</strong> — Source Serif 4 for headings (editorial authority), DM Sans for body, JetBrains Mono for data</li>
-                                <li><strong>Dark Header</strong> — Sticky dark header with red accent border, data-journalism aesthetic</li>
+                                <li><strong>Dark Header</strong> — Dark green header with green accent border, Ember-inspired data-journalism aesthetic</li>
                                 <li><strong>Left-Border Section Intros</strong> — Inspired by editorial publications, replacing gradient backgrounds</li>
                                 <li><strong>Improved Data Density</strong> — Monospace numbers, cleaner stat cards, tighter data tables</li>
                             </ul>
