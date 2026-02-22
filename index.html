@@ -1,677 +1,290 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JanVayu | Citizen Air Quality Platform</title>
-    <meta name="description" content="Independent air quality monitoring, health impact analysis, and government accountability tracking for India. Clean air is not a privilege, it is a right.">
+    <meta name="description" content="Independent air quality monitoring, health impact analysis, and government accountability for India.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        /* ══════════════════════════════════════════════════════════
-           JANVAYU v21.0 — GREEN EMBER TABBED DESIGN
-           Clean, spacious, functional. Built for clarity.
-           ══════════════════════════════════════════════════════════ */
+:root {
+    --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --serif: 'Newsreader', Georgia, serif;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-        /* ── Design Tokens ────────────────────────────────────── */
-        :root {
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-light: #DCFCE7;
+    --green-50: #F0FDF4;
 
-            --green-700: #15573C;
-            --green-600: #1B6B4A;
-            --green-500: #22885E;
-            --green-400: #34A874;
-            --green-100: #E2F3EA;
-            --green-50: #F0F9F4;
+    --red: #DC2626; --red-light: #FEF2F2;
+    --amber: #D97706; --amber-light: #FFFBEB;
+    --blue: #2563EB; --blue-light: #EFF6FF;
+    --purple: #7C3AED;
 
-            --amber: #D97706;
-            --amber-light: #FEF3C7;
-            --red: #C0392B;
-            --red-light: #FDEAEA;
-            --blue: #2563EB;
-            --blue-light: #EFF6FF;
-            --purple: #7C3AED;
-            --purple-light: #F3EEFF;
+    --bg: #FFFFFF;
+    --bg-alt: #F9FAFB;
+    --bg-card: #FFFFFF;
+    --text: #111827;
+    --text-2: #4B5563;
+    --text-3: #9CA3AF;
+    --border: #E5E7EB;
+    --border-light: #F3F4F6;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.03);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --max-w: 1180px;
+}
 
-            --bg: #F7F9F8;
-            --bg-card: #FFFFFF;
-            --bg-muted: #F0F3F1;
-            --text: #1C2B22;
-            --text-2: #3D5347;
-            --text-3: #6B8577;
-            --border: #D6E2DC;
-            --border-light: #E8EFE9;
+[data-theme="dark"] {
+    --bg: #0F0F0F; --bg-alt: #171717; --bg-card: #1C1C1C;
+    --text: #F5F5F5; --text-2: #A3A3A3; --text-3: #666;
+    --border: #2E2E2E; --border-light: #252525;
+    --green: #4ADE80; --green-dark: #22C55E;
+    --green-light: #14532D; --green-50: #14532D;
+    --red-light: #2A1515; --amber-light: #2A2215; --blue-light: #15192A;
+    --shadow-sm: none; --shadow: 0 1px 3px rgba(0,0,0,0.3); --shadow-md: 0 4px 8px rgba(0,0,0,0.3);
+}
 
-            --shadow-sm: 0 1px 3px rgba(21,87,60,0.06);
-            --shadow-md: 0 4px 12px rgba(21,87,60,0.08);
-            --shadow-lg: 0 8px 32px rgba(21,87,60,0.10);
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); font-size: 15px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+a { color: var(--green-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+svg:not([width]):not([class]) { width: 18px; height: 18px; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .container { padding: 0 32px; } }
 
-            --radius: 10px;
-            --radius-sm: 6px;
-            --max-w: 1200px;
-            --header-h: 52px;
-            --tab-h: 44px;
-        }
+/* Ticker */
+.ticker { background: #111827; color: #9CA3AF; font-size: 0.68rem; font-family: var(--mono); height: 28px; overflow: hidden; display: flex; align-items: center; }
+[data-theme="dark"] .ticker { background: #0A0A0A; }
+.ticker-track { display: flex; white-space: nowrap; animation: scroll 100s linear infinite; }
+.ticker-item { padding: 0 24px; display: inline-flex; align-items: center; gap: 8px; }
+.ticker-dot { width: 4px; height: 4px; background: var(--green); border-radius: 50%; }
+@keyframes scroll { to { transform: translateX(-50%); } }
 
-        [data-theme="dark"] {
-            --bg: #111111;
-            --bg-card: #1A1A1A;
-            --bg-muted: #222222;
-            --text: #E8E8E8;
-            --text-2: #A0A0A0;
-            --text-3: #707070;
-            --border: #333333;
-            --border-light: #2A2A2A;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
-            --green-50: #1A2A1F;
-            --green-100: #1E3325;
-            --green-600: #3DB87A;
-            --green-700: #111111;
-            --red-light: #2D1A1A;
-            --amber-light: #2D2518;
-            --blue-light: #1A1F2D;
-            --green-100: #1A2D20;
-        }
-        [data-theme="dark"] .site-header {
-            background: #1A1A1A;
-            box-shadow: 0 1px 0 #333;
-        }
-        [data-theme="dark"] .ticker {
-            background: #151515;
-            border-bottom-color: #333;
-        }
-        [data-theme="dark"] .nav-bar {
-            background: #1A1A1A;
-            border-bottom-color: #333;
-        }
-        [data-theme="dark"] .nav-tab.active {
-            color: #3DB87A;
-            border-bottom-color: #3DB87A;
-        }
-        [data-theme="dark"] .site-footer {
-            background: #1A1A1A;
-        }
-        [data-theme="dark"] .alert-danger { background: #2D1A1A; border-left-color: #C0392B; }
-        [data-theme="dark"] .alert-warning { background: #2D2518; border-left-color: #D97706; }
-        [data-theme="dark"] .alert-info { background: #1A1F2D; border-left-color: #2563EB; }
-        [data-theme="dark"] .alert-success { background: #1A2D20; border-left-color: #3DB87A; }
-        [data-theme="dark"] .btn { background: #222; border-color: #444; color: #ddd; }
-        [data-theme="dark"] .btn-primary { background: #2A8C5E; border-color: #2A8C5E; color: white; }
-        [data-theme="dark"] .mobile-menu { background: #1A1A1A; }
+/* Header */
+.header { height: 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: var(--bg); }
+[data-theme="dark"] .header { background: #0F0F0F; }
+.header .container { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+.logo { display: flex; align-items: baseline; gap: 6px; }
+.logo-mark { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--green-dark); }
+[data-theme="dark"] .logo-mark { color: var(--green); }
+.logo-hindi { font-size: 0.9rem; color: var(--text-3); }
+.logo-sub { font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-left: 8px; }
+.header-actions { display: flex; gap: 6px; }
+.icon-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text-2); cursor: pointer; font-size: 0.9rem; transition: 0.15s; }
+.icon-btn:hover { background: var(--bg-alt); }
+[data-theme="dark"] .icon-btn { background: #1C1C1C; border-color: #333; color: #aaa; }
 
-        /* ── Reset ──────────────────────────────────────────── */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-sans);
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        a { color: var(--green-600); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        img { max-width: 100%; }
-        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+/* Tabs */
+.tab-nav { background: var(--bg); border-bottom: 1px solid var(--border); position: sticky; top: 52px; z-index: 90; height: 38px; }
+[data-theme="dark"] .tab-nav { background: #0F0F0F; }
+.tab-nav .container { display: flex; height: 100%; overflow-x: auto; scrollbar-width: none; }
+.tab-nav .container::-webkit-scrollbar { display: none; }
+.nav-tab { font-family: var(--sans); font-size: 0.67rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); padding: 0 11px; border: none; background: none; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: 0.12s; flex-shrink: 0; display: flex; align-items: center; height: 100%; }
+.nav-tab:hover { color: var(--text-2); }
+.nav-tab.active { color: var(--green-dark); border-bottom-color: var(--green); font-weight: 600; }
+[data-theme="dark"] .nav-tab.active { color: var(--green); border-bottom-color: var(--green); }
 
-        /* ── Header ─────────────────────────────────────────── */
-        .site-header {
-            background: var(--green-700);
-            color: white;
-            height: var(--header-h);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        .site-header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 100%;
-        }
-        .site-logo { display: flex; flex-direction: column; }
-        .logo-name {
-            font-family: var(--font-serif);
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-        .logo-hindi { font-weight: 400; opacity: 0.8; font-size: 0.85em; margin-left: 6px; }
-        .logo-tag { font-size: 0.65rem; opacity: 0.7; letter-spacing: 0.04em; text-transform: uppercase; }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .theme-btn {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: white;
-            width: 34px; height: 34px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-        }
-        .theme-btn:hover { background: rgba(255,255,255,0.25); }
+/* Mobile */
+.mobile-trigger { display: none; }
+.mobile-drawer { display: none; position: fixed; inset: 0; top: 52px; background: var(--bg); z-index: 200; padding: 12px; overflow-y: auto; }
+.mobile-drawer.open { display: block; }
+.mobile-drawer button { display: block; width: 100%; padding: 13px 16px; text-align: left; border: none; background: none; font-family: var(--sans); font-size: 0.88rem; color: var(--text-2); border-radius: var(--radius); cursor: pointer; }
+.mobile-drawer button:hover { background: var(--green-50); color: var(--green-dark); }
+@media (max-width: 768px) { .tab-nav { display: none; } .mobile-trigger { display: flex; } }
 
-        /* ── Ticker ──────────────────────────────────────────── */
-        .ticker {
-            background: var(--green-700);
-            color: rgba(255,255,255,0.9);
-            font-size: 0.72rem;
-            overflow: hidden;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .ticker-track {
-            display: flex;
-            white-space: nowrap;
-            animation: tickerScroll 90s linear infinite;
-        }
-        .ticker-item { padding: 0 32px; display: flex; align-items: center; gap: 8px; }
-        .ticker-dot {
-            width: 5px; height: 5px;
-            background: var(--green-400);
-            border-radius: 50%;
-            display: inline-block;
-        }
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+/* Panels */
+.panel { display: none; padding: 36px 0 40px; }
+.panel.active { display: block; animation: fadeIn 0.12s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ── Tab Navigation ──────────────────────────────────── */
-        .nav-bar {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: var(--header-h);
-            z-index: 90;
-            height: var(--tab-h);
-        }
-        .nav-bar .container {
-            display: flex;
-            align-items: stretch;
-            height: 100%;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-            gap: 0;
-            padding-top: 0; padding-bottom: 0;
-        }
-        .nav-bar .container::-webkit-scrollbar { display: none; }
-        .nav-tab {
-            font-family: var(--font-sans);
-            font-size: 0.68rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            padding: 0 10px;
-            color: var(--text-3);
-            background: none;
-            border: none;
-            border-bottom: 2px solid transparent;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: color 0.15s, border-color 0.15s;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            height: 100%;
-        }
-        .nav-bar::after {
-            content: '';
-            position: absolute;
-            right: 0; top: 0; bottom: 0;
-            width: 40px;
-            background: linear-gradient(to right, transparent, var(--bg-card));
-            pointer-events: none;
-            z-index: 1;
-        }
-        .nav-bar { position: sticky; top: var(--header-h); z-index: 90; }
-        .nav-tab:hover { color: var(--text); }
-        .nav-tab.active {
-            color: var(--green-600);
-            border-bottom-color: var(--green-600);
-            font-weight: 600;
-        }
+.section-intro { margin-bottom: 28px; }
+.section-intro h2 { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
+.section-intro p { margin-top: 6px; font-size: 0.88rem; color: var(--text-2); max-width: 600px; }
 
-        /* Mobile hamburger dropdown */
-        .mobile-nav-btn {
-            display: none;
-            background: none; border: none; color: var(--text);
-            font-size: 1.3rem; cursor: pointer; padding: 8px;
-        }
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: var(--header-h);
-            left: 0; right: 0; bottom: 0;
-            background: var(--bg-card);
-            z-index: 200;
-            overflow-y: auto;
-            padding: 16px;
-        }
-        .mobile-menu.open { display: block; }
-        .mobile-menu button {
-            display: block; width: 100%;
-            text-align: left;
-            padding: 12px 16px;
-            border: none; background: none;
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            color: var(--text-2);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-        }
-        .mobile-menu button:hover,
-        .mobile-menu button.active { background: var(--green-50); color: var(--green-600); }
+/* Cards */
+.card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+.card:hover { box-shadow: var(--shadow); }
+.card-header { padding: 12px 18px; border-bottom: 1px solid var(--border-light); background: var(--bg-alt); }
+.card-title { font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.card-body { padding: 18px; }
+.card-footer { padding: 12px 18px; border-top: 1px solid var(--border-light); font-size: 0.75rem; color: var(--text-3); background: var(--bg-alt); }
 
-        @media (max-width: 768px) {
-            .nav-bar { display: none; }
-            .mobile-nav-btn { display: flex; }
-        }
+/* Alerts */
+.alert { padding: 12px 16px; border-radius: var(--radius); font-size: 0.82rem; line-height: 1.6; border: 1px solid var(--border-light); }
+.alert-danger { background: var(--red-light); border-color: rgba(220,38,38,0.12); }
+.alert-warning { background: var(--amber-light); border-color: rgba(217,119,6,0.12); }
+.alert-info { background: var(--blue-light); border-color: rgba(37,99,235,0.12); }
+.alert-success { background: var(--green-50); border-color: rgba(22,163,74,0.12); }
 
-        /* ── Panels ──────────────────────────────────────────── */
-        .panel { display: none; padding: 40px 0 32px; }
-        .panel.active { display: block; }
-        .panel > .container > *:not(:last-child) { margin-bottom: 0; }
+/* Stats */
+.stat-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+.pm25-value, .stat-number { font-family: var(--mono); font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.stat-label { font-size: 0.65rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 6px; }
+.stat-sublabel { font-size: 0.75rem; color: var(--text-2); margin-top: 3px; }
 
-        /* ── Section Intro ───────────────────────────────────── */
-        .section-intro {
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .section-intro h2 {
-            font-family: var(--font-serif);
-            font-size: 1.65rem;
-            font-weight: 700;
-            color: var(--text);
-            letter-spacing: -0.02em;
-            line-height: 1.25;
-        }
-        .section-intro p {
-            margin-top: 8px;
-            font-size: 0.9rem;
-            color: var(--text-2);
-            max-width: 620px;
-            line-height: 1.6;
-        }
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
-        /* ── Cards ──────────────────────────────────────────── */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-        }
-        .card:hover { box-shadow: var(--shadow-md); }
-        .card-header {
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--border-light);
-            background: var(--bg-muted);
-        }
-        .card-title {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-        .card-body { padding: 22px; }
-        .card-footer {
-            padding: 14px 20px;
-            border-top: 1px solid var(--border-light);
-            font-size: 0.78rem;
-            color: var(--text-3);
-        }
+/* Tables */
+.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border-light); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.data-table th { background: var(--bg-alt); padding: 10px 14px; text-align: left; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-2); border-bottom: 1px solid var(--border); }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--green-50); }
 
-        /* ── Alerts ──────────────────────────────────────────── */
-        .alert {
-            padding: 14px 18px;
-            border-radius: var(--radius-sm);
-            font-size: 0.84rem;
-            line-height: 1.6;
-        }
-        .alert-danger { background: var(--red-light); border-left: 3px solid var(--red); }
-        .alert-warning { background: var(--amber-light); border-left: 3px solid var(--amber); }
-        .alert-info { background: var(--blue-light); border-left: 3px solid var(--blue); }
-        .alert-success { background: var(--green-100); border-left: 3px solid var(--green-600); }
+/* Buttons */
+.btn { font-family: var(--sans); font-size: 0.8rem; font-weight: 500; padding: 7px 16px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-card); color: var(--text); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.15s; text-decoration: none; }
+.btn:hover { background: var(--bg-alt); text-decoration: none; }
+.btn-sm { font-size: 0.72rem; padding: 4px 10px; }
+.btn-primary { background: var(--green-dark); color: white; border-color: var(--green-dark); }
+.btn-primary:hover { background: var(--green); }
+[data-theme="dark"] .btn { background: #222; border-color: #333; color: #ddd; }
+[data-theme="dark"] .btn-primary { background: #22C55E; color: #000; border-color: #22C55E; }
 
-        /* ── Stat Cards ──────────────────────────────────────── */
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 18px 20px;
-            text-align: center;
-        }
-        .pm25-value, .stat-number {
-            font-family: var(--font-mono);
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1.1;
-        }
-        .stat-label { font-size: 0.72rem; color: var(--text-3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .stat-sublabel { font-size: 0.75rem; color: var(--text-2); margin-top: 2px; }
+/* Quick Links */
+.quick-link { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); cursor: pointer; transition: 0.2s; }
+.quick-link:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.quick-link-icon { width: 40px; height: 40px; min-width: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.quick-link-icon.health { background: var(--red-light); }
+.quick-link-icon.economic { background: var(--amber-light); }
+.quick-link-icon.policy { background: var(--blue-light); }
+.quick-link-icon.tools { background: var(--green-50); }
+.quick-link h4 { font-size: 0.85rem; font-weight: 600; }
+.quick-link p { font-size: 0.72rem; color: var(--text-3); margin: 0; }
 
-        /* ── Grids ──────────────────────────────────────────── */
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
-        @media (max-width: 768px) {
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
+/* Misc */
+.info-box { padding: 14px 16px; background: var(--bg-alt); border-radius: var(--radius); font-size: 0.82rem; border: 1px solid var(--border-light); }
+.voice-avatar { width: 36px; height: 36px; min-width: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: white; }
+.voice-card { border-radius: var(--radius); padding: 14px; border: 1px solid var(--border-light); }
+.chart-container { position: relative; height: 260px; width: 100%; }
+.chart-container-lg { height: 350px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.pulse { display: inline-block; width: 7px; height: 7px; background: var(--green); border-radius: 50%; margin-right: 6px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.pm25-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-family: var(--mono); font-size: 0.78rem; font-weight: 600; }
+.pm25-good { color: #16A34A; } .pm25-moderate { color: #65A30D; } .pm25-sensitive { color: #CA8A04; } .pm25-unhealthy { color: #EA580C; } .pm25-very-unhealthy { color: #DC2626; } .pm25-hazardous { color: #7C3AED; }
+.aqi-city-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.aqi-city-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 14px; text-align: center; }
+.aqi-city-name { font-size: 0.75rem; font-weight: 600; margin-bottom: 4px; }
+.resource-card { padding: 16px; border: 1px solid var(--border-light); border-radius: var(--radius); background: var(--bg-card); }
+.resource-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
+.resource-desc { font-size: 0.78rem; color: var(--text-2); line-height: 1.5; }
+.news-meta { font-size: 0.68rem; color: var(--text-3); margin-bottom: 3px; }
+.news-source { font-weight: 600; }
+.news-title { font-size: 0.82rem; font-weight: 500; line-height: 1.4; }
+.share-bar { display: flex; gap: 6px; margin-top: 14px; }
+.share-btn { font-size: 0.68rem; padding: 3px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); color: var(--text-3); cursor: pointer; text-decoration: none; }
+.share-btn:hover { background: var(--bg-alt); color: var(--text); text-decoration: none; }
+.site-footer { background: #111827; color: #9CA3AF; padding: 40px 0 20px; margin-top: 48px; font-size: 0.8rem; }
+[data-theme="dark"] .site-footer { background: #0A0A0A; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
+.footer-title { font-weight: 600; margin-bottom: 10px; color: #E5E7EB; }
+.footer-link { color: #6B7280; display: block; padding: 2px 0; font-size: 0.78rem; text-decoration: none; }
+.footer-link:hover { color: #D1D5DB; }
+.footer-bottom { margin-top: 28px; padding-top: 14px; border-top: 1px solid #1F2937; font-size: 0.7rem; color: #4B5563; text-align: center; }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+.mb-1 { margin-bottom: 12px; } .mb-2 { margin-bottom: 20px; } .mt-1 { margin-top: 12px; } .mt-2 { margin-top: 20px; }
+.text-mono { font-family: var(--mono); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+@media print { .header, .tab-nav, .ticker, .mobile-trigger { display: none; } .panel { display: block !important; } }
 
-        /* ── Tables ──────────────────────────────────────────── */
-        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
-        .data-table th {
-            background: var(--bg-muted);
-            padding: 10px 14px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: var(--text-2);
-            border-bottom: 2px solid var(--border);
-        }
-        .data-table td {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border-light);
-            vertical-align: top;
-        }
-        .data-table tr:hover td { background: var(--green-50); }
-
-        /* ── Buttons ─────────────────────────────────────────── */
-        .btn {
-            font-family: var(--font-sans);
-            font-size: 0.82rem;
-            font-weight: 500;
-            padding: 8px 18px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text);
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.15s;
-        }
-        .btn:hover { background: var(--bg-muted); text-decoration: none; }
-        .btn-sm { font-size: 0.75rem; padding: 5px 12px; }
-        .btn-primary {
-            background: var(--green-600);
-            color: white;
-            border-color: var(--green-600);
-        }
-        .btn-primary:hover { background: var(--green-500); }
-
-        /* ── Info Box ─────────────────────────────────────────── */
-        .info-box {
-            padding: 14px 18px;
-            background: var(--bg-muted);
-            border-radius: var(--radius-sm);
-            font-size: 0.84rem;
-            line-height: 1.6;
-        }
-
-        /* ── Quick Links ─────────────────────────────────────── */
-        .quick-link {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: 0.15s;
-        }
-        .quick-link:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-        .quick-link-icon {
-            width: 40px; height: 40px; min-width: 40px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
-        }
-        .quick-link-icon.health { background: var(--red-light); }
-        .quick-link-icon.economic { background: var(--amber-light); }
-        .quick-link-icon.policy { background: var(--blue-light); }
-        .quick-link-icon.tools { background: var(--green-100); }
-        .quick-link h4 { font-size: 0.85rem; font-weight: 600; color: var(--text); }
-        .quick-link p { font-size: 0.75rem; color: var(--text-3); }
-
-        /* ── Voice Cards ─────────────────────────────────────── */
-        .voice-avatar {
-            width: 36px; height: 36px; min-width: 36px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem;
-            color: white;
-        }
-
-        /* ── Chart Containers ─────────────────────────────────── */
-        .chart-container { position: relative; height: 260px; width: 100%; }
-        .chart-container-lg { height: 350px; }
-
-        /* ── Badge ────────────────────────────────────────────── */
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        /* ── Pulse animation ─────────────────────────────────── */
-        .pulse {
-            display: inline-block;
-            width: 8px; height: 8px;
-            background: #22C55E;
-            border-radius: 50%;
-            margin-right: 6px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        /* ── Utility ──────────────────────────────────────────── */
-        .mb-1 { margin-bottom: 12px; }
-        .mb-2 { margin-bottom: 24px; }
-        .mt-1 { margin-top: 12px; }
-        .mt-2 { margin-top: 20px; }
-        .text-mono { font-family: var(--font-mono); }
-
-        /* ── AQI specific colors ─────────────────────────────── */
-        .pm25-good { color: #22C55E; }
-        .pm25-moderate { color: #84CC16; }
-        .pm25-sensitive { color: #EAB308; }
-        .pm25-unhealthy { color: #F97316; }
-        .pm25-very-unhealthy { color: #EF4444; }
-        .pm25-hazardous { color: #9333EA; }
-        .pm25-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* ── Resource Cards ──────────────────────────────────── */
-        .resource-card {
-            padding: 16px;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            background: var(--bg-card);
-        }
-        .resource-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
-        .resource-desc { font-size: 0.8rem; color: var(--text-2); line-height: 1.5; }
-
-        /* ── News Items ──────────────────────────────────────── */
-        .news-meta { font-size: 0.7rem; color: var(--text-3); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-        .news-source { font-weight: 600; }
-        .news-title { font-size: 0.85rem; font-weight: 500; color: var(--text); line-height: 1.4; }
-
-        /* ── AQI City Grid ───────────────────────────────────── */
-        .aqi-city-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-        .aqi-city-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            padding: 14px;
-            text-align: center;
-        }
-        .aqi-city-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 4px; }
-
-        /* ── Share Bar ────────────────────────────────────────── */
-        .share-bar { display: flex; gap: 6px; margin-top: 16px; opacity: 0.6; transition: opacity 0.2s; }
-        .share-bar:hover { opacity: 1; }
-        .share-btn {
-            font-size: 0.72rem;
-            padding: 4px 10px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            background: var(--bg-card);
-            color: var(--text-2);
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .share-btn:hover { background: var(--bg-muted); text-decoration: none; }
-
-        /* ── Footer ──────────────────────────────────────────── */
-        .site-footer {
-            background: var(--green-700);
-            color: rgba(255,255,255,0.85);
-            padding: 40px 0 24px;
-            margin-top: 48px;
-            font-size: 0.82rem;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 32px;
-        }
-        .footer-title { font-weight: 600; margin-bottom: 12px; font-size: 0.9rem; color: white; }
-        .footer-link { color: rgba(255,255,255,0.7); text-decoration: none; display: block; padding: 3px 0; font-size: 0.8rem; }
-        .footer-link:hover { color: white; }
-        .footer-bottom {
-            margin-top: 32px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            font-size: 0.72rem;
-            opacity: 0.6;
-            text-align: center;
-        }
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-        }
-
-        /* ── SVG sizing ──────────────────────────────────────── */
-        svg:not([width]):not([class]) { width: 18px; height: 18px; }
-
-        /* ── Color variable aliases (for existing content) ──── */
-        .stat-highlight { color: var(--green-600); }
-        [style*="color: var(--green-600)"] { color: var(--green-600) !important; }
-
-        /* ── Print ────────────────────────────────────────────── */
-        @media print {
-            .site-header, .nav-bar, .ticker, .mobile-nav-btn { display: none; }
-            .panel { display: block !important; page-break-inside: avoid; }
-            body { background: white; font-size: 11pt; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- TICKER -->
-    <div class="ticker" role="marquee" aria-label="Latest updates">
+    <div class="ticker">
         <div class="ticker-track" id="tickerTrack">
-            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Dec 2025: Worst December in 7 years (AQI 351 avg)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026-27: Pollution control funding CUT 16% to &#8377;1,091 Cr</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg: $260 billion annual economic damage from PM2.5 (6% of GDP)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>CREA: Only 23 of 100 NCAP cities meeting 40% reduction target</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Supreme Court: CAQM "failing in its duty" to identify pollution causes</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Beijing PM2.5 record-low 27 &#181;g/m&#179; while Delhi stagnates at 91.6</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>IQAir 2024: 74 of world's 100 most polluted cities are Indian</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Earthshot Prize 2026 to be held in Mumbai. "Clean Our Air" category</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Mumbai Climate Week: First citizen-led climate conference in South Asia</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Climate Innovation Week: Feb 20-27 across Delhi-NCR</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Dec 2025: Worst December in 7 years (AQI 351 avg)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026-27: Pollution control funding CUT 16% to &#8377;1,091 Cr</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg: $260 billion annual economic damage from PM2.5 (6% of GDP)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>CREA: Only 23 of 100 NCAP cities meeting 40% reduction target</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Dec 2025: Worst December in 7 years (AQI 351)</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026: Pollution control CUT 16%</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg: $260B annual damage from PM2.5</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>CREA: Only 23/100 NCAP cities on target</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>SC: CAQM "failing in its duty"</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Beijing PM2.5: 27 vs Delhi: 92</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>74/100 most polluted cities: Indian</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Earthshot Prize 2026 in Mumbai</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Mumbai Climate Week: Feb 17-19</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Climate Innovation Week: Feb 20-27</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Dec 2025: Worst December in 7 years (AQI 351)</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026: Pollution control CUT 16%</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg: $260B annual damage from PM2.5</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>CREA: Only 23/100 NCAP cities on target</span>
         </div>
     </div>
 
-    <!-- HEADER -->
-    <header class="site-header">
+    <header class="header">
         <div class="container">
-            <div class="site-logo">
-                <span class="logo-name">JanVayu <span class="logo-hindi">&#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</span></span>
-                <span class="logo-tag">Citizen Air Quality Platform</span>
+            <div class="logo">
+                <span class="logo-mark">JanVayu</span>
+                <span class="logo-hindi">&#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</span>
+                <span class="logo-sub">Citizen Air Quality</span>
             </div>
             <div class="header-actions">
-                <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">&#9790;</button>
-                <button class="mobile-nav-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')">&#9776;</button>
+                <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+                <button class="icon-btn mobile-trigger" onclick="document.getElementById('drawer').classList.toggle('open')" title="Menu">&#9776;</button>
             </div>
         </div>
     </header>
 
-    <!-- TAB NAV (desktop) -->
-    <nav class="nav-bar" id="navBar">
+    <nav class="tab-nav">
         <div class="container">
-                <button class="nav-tab active" data-panel="dashboard">Dashboard</button>
-                <button class="nav-tab" data-panel="health">Health</button>
-                <button class="nav-tab" data-panel="economic">Economic</button>
-                <button class="nav-tab" data-panel="policy">Policy</button>
-                <button class="nav-tab" data-panel="budget">Budget</button>
-                <button class="nav-tab" data-panel="compare">Compare</button>
-                <button class="nav-tab" data-panel="map">Map</button>
-                <button class="nav-tab" data-panel="trends">Trends</button>
-                <button class="nav-tab" data-panel="accountability">Accountability</button>
-                <button class="nav-tab" data-panel="voices">Voices</button>
-                <button class="nav-tab" data-panel="actions">Actions</button>
-                <button class="nav-tab" data-panel="citizen-action">Citizen</button>
-                <button class="nav-tab" data-panel="legal">Legal</button>
-                <button class="nav-tab" data-panel="tools">Tools</button>
-                <button class="nav-tab" data-panel="resources">Resources</button>
-                <button class="nav-tab" data-panel="about">About</button>
-                <button class="nav-tab" data-panel="changelog">Updates</button>
+            <button class="nav-tab active" data-panel="dashboard">Dashboard</button>
+            <button class="nav-tab" data-panel="health">Health</button>
+            <button class="nav-tab" data-panel="economic">Economic</button>
+            <button class="nav-tab" data-panel="policy">Policy</button>
+            <button class="nav-tab" data-panel="budget">Budget</button>
+            <button class="nav-tab" data-panel="compare">Compare</button>
+            <button class="nav-tab" data-panel="map">Map</button>
+            <button class="nav-tab" data-panel="trends">Trends</button>
+            <button class="nav-tab" data-panel="accountability">Accountability</button>
+            <button class="nav-tab" data-panel="voices">Voices</button>
+            <button class="nav-tab" data-panel="actions">Actions</button>
+            <button class="nav-tab" data-panel="citizen-action">Citizen</button>
+            <button class="nav-tab" data-panel="legal">Legal</button>
+            <button class="nav-tab" data-panel="tools">Tools</button>
+            <button class="nav-tab" data-panel="resources">Resources</button>
+            <button class="nav-tab" data-panel="about">About</button>
+            <button class="nav-tab" data-panel="changelog">Updates</button>
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button data-panel="dashboard" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Dashboard</button><button data-panel="health" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Health</button><button data-panel="economic" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Economic</button><button data-panel="policy" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Policy</button><button data-panel="budget" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Budget</button><button data-panel="compare" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Compare</button><button data-panel="map" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Map</button><button data-panel="trends" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Trends</button><button data-panel="accountability" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Accountability</button><button data-panel="voices" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Voices</button><button data-panel="actions" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Actions</button><button data-panel="citizen-action" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Citizen</button><button data-panel="legal" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Legal</button><button data-panel="tools" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Tools</button><button data-panel="resources" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Resources</button><button data-panel="about" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">About</button><button data-panel="changelog" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Updates</button>
+    <div class="mobile-drawer" id="drawer">
+        <button onclick="showPanel('dashboard');document.getElementById('drawer').classList.remove('open')">Dashboard</button>
+        <button onclick="showPanel('health');document.getElementById('drawer').classList.remove('open')">Health</button>
+        <button onclick="showPanel('economic');document.getElementById('drawer').classList.remove('open')">Economic</button>
+        <button onclick="showPanel('policy');document.getElementById('drawer').classList.remove('open')">Policy</button>
+        <button onclick="showPanel('budget');document.getElementById('drawer').classList.remove('open')">Budget</button>
+        <button onclick="showPanel('compare');document.getElementById('drawer').classList.remove('open')">Compare</button>
+        <button onclick="showPanel('map');document.getElementById('drawer').classList.remove('open')">Map</button>
+        <button onclick="showPanel('trends');document.getElementById('drawer').classList.remove('open')">Trends</button>
+        <button onclick="showPanel('accountability');document.getElementById('drawer').classList.remove('open')">Accountability</button>
+        <button onclick="showPanel('voices');document.getElementById('drawer').classList.remove('open')">Voices</button>
+        <button onclick="showPanel('actions');document.getElementById('drawer').classList.remove('open')">Actions</button>
+        <button onclick="showPanel('citizen-action');document.getElementById('drawer').classList.remove('open')">Citizen Action</button>
+        <button onclick="showPanel('legal');document.getElementById('drawer').classList.remove('open')">Legal</button>
+        <button onclick="showPanel('tools');document.getElementById('drawer').classList.remove('open')">Tools</button>
+        <button onclick="showPanel('resources');document.getElementById('drawer').classList.remove('open')">Resources</button>
+        <button onclick="showPanel('about');document.getElementById('drawer').classList.remove('open')">About</button>
+        <button onclick="showPanel('changelog');document.getElementById('drawer').classList.remove('open')">Updates</button>
     </div>
 
-    <!-- CONTENT -->
-    <main class="content-wrap">
-    <main class="content-wrap">
+    <main>
 <!-- ========== DASHBOARD ========== -->
         <div class="panel active" id="panel-dashboard">
             <div class="section-intro">
@@ -691,7 +304,7 @@
 
             <!-- WHY PM2.5 MATTERS BOX -->
             <div class="alert mb-2" style="background: var(--bg-muted); border-left: 3px solid var(--border); border-radius: var(--radius-sm);"><div style="font-size: 0.8rem; color: var(--text-2);">
-                    ℹ️ <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="showPanel('health'); return false;" style="color: var(--green-600);">Learn more →</a>
+                    ℹ️ <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="showPanel('health'); return false;" style="color: var(--green-dark);">Learn more →</a>
                 </div>
             </div>
 
@@ -801,7 +414,7 @@
             </div>
 
             <!-- FEATURED RESEARCH: STATE OF GLOBAL AIR 2025 -->
-            <div class="card mb-2" style="border-left: 3px solid var(--green-600);">
+            <div class="card mb-2" style="border-left: 3px solid var(--green-dark);">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -841,7 +454,7 @@
                                 <span style="color: var(--text-2);">Dementia added for first time in 2025 methodology — PM2.5 linked to 54,000 dementia deaths in India.</span>
                             </div>
                             <div style="margin-top: 0.75rem;">
-                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="width: 100%; background: var(--green-600); color: white;">
+                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="width: 100%; background: var(--green-dark); color: white;">
                                     Read Full Report →
                                 </a>
                             </div>
@@ -862,11 +475,11 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">Latest Updates</span>
-                        <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--green-600);">View all</a>
+                        <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--green-dark);">View all</a>
                     </div>
                     <div class="card-body" style="font-size: 0.75rem;">
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <div class="news-meta"><span class="news-source" style="background: var(--green-600); color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">NEW</span> Jan 2026</div>
+                            <div class="news-meta"><span class="news-source" style="background: var(--green-dark); color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">NEW</span> Jan 2026</div>
                             <div class="news-title">v16: State of Global Air 2025 — 2M deaths, CREA NCAP analysis, SC orders Jan 2026</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
@@ -922,8 +535,8 @@
             </div>
 
             <!-- WHY PM2.5 NOT AQI EXPLAINER -->
-            <div class="card mb-2" style="border: 2px solid var(--green-600); ">
-                <div class="card-header" style="background: var(--bg-muted);"><span class="card-title" style="color: var(--green-600);">🔬 Why PM2.5, Not AQI?</span></div>
+            <div class="card mb-2">
+                <div class="card-header" style="background: var(--bg-muted);"><span class="card-title" style="color: var(--green-dark);">🔬 Why PM2.5, Not AQI?</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -1111,12 +724,12 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    For detailed guidance, see <a href="#" onclick="showPanel('actions'); return false;" style="color: var(--green-600);">Actions tab</a> for protective measures by group.
+                    For detailed guidance, see <a href="#" onclick="showPanel('actions'); return false;" style="color: var(--green-dark);">Actions tab</a> for protective measures by group.
                 </div>
             </div>
 
             <!-- NEW v17.0: LATEST RESEARCH 2025 -->
-            <div class="card mt-2" style="border: 2px solid #7C3AED;">
+            <div class="card mt-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">
                         📊 Latest Research 2025 — Key Findings
@@ -1127,7 +740,7 @@
                     <div class="grid-2" style="gap: 1.5rem;">
                         <div>
                             <!-- STATE OF GLOBAL AIR 2025 -->
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-600); background: rgba(27,107,74,0.03);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-dark); background: rgba(27,107,74,0.03);">
                                 <h4 style="color: #1B6B4A; margin-bottom: 0.5rem;">📊 State of Global Air 2025 (HEI, October 2025)</h4>
                                 <ul style="font-size: 0.8125rem; line-height: 1.8;">
                                     <li><strong>2 million deaths in India (2023)</strong> — 43% increase since 2000</li>
@@ -1136,7 +749,7 @@
                                     <li><strong>Dementia added:</strong> First time as health outcome — 54,000 deaths in India attributed to PM2.5</li>
                                     <li><strong>Household air pollution:</strong> 480,000 deaths (mostly women/children from cooking smoke)</li>
                                 </ul>
-                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="background: var(--green-600); color: white; margin-top: 0.5rem;">Read Report →</a>
+                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="background: var(--green-dark); color: white; margin-top: 0.5rem;">Read Report →</a>
                             </div>
 
                             <!-- LANCET 10-CITY STUDY -->
@@ -1188,12 +801,12 @@
                     </div>
                 </div>
             </div>
-            <div class="card mt-2" style="border: 2px solid var(--green-600);">
+            <div class="card mt-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice — Who Bears the Burden?</span>
                 </div>
                 <div class="card-body">
-                    <div class="alert mb-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-600);">
+                    <div class="alert mb-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-dark);">
                         <div style="font-size: 0.875rem;">
                             <strong>The uncomfortable truth:</strong> Air pollution in India is not an equal-opportunity killer. The poor, informal workers, lower-caste communities, and women bear a vastly disproportionate burden — yet policy discourse centers on middle-class urban concerns like odd-even schemes and air purifiers.
                         </div>
@@ -1426,7 +1039,7 @@
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.75rem;">
-                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--green-600);"><strong>🆕 Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
+                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--green-dark);"><strong>🆕 Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
                         <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
                         <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
                         <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
@@ -1438,7 +1051,7 @@
             <!-- POLICY RECOMMENDATIONS -->
             <div class="card mt-2">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                         Policy Recommendations — What Should Change
                     </span>
@@ -1526,8 +1139,8 @@
 
                     <div class="alert alert-info mt-2"><div>
                             <strong>Take Action:</strong> Use these recommendations in RTI applications, letters to MPs/MLAs, or media advocacy. 
-                            See <a href="#" onclick="showPanel('accountability'); return false;" style="color: var(--green-600);">Accountability tab</a> for promise tracker and 
-                            <a href="javascript:void(0)" onclick="showPanel('tools'); return false;" style="color: var(--green-600);">Tools tab</a> for RTI templates.
+                            See <a href="#" onclick="showPanel('accountability'); return false;" style="color: var(--green-dark);">Accountability tab</a> for promise tracker and 
+                            <a href="javascript:void(0)" onclick="showPanel('tools'); return false;" style="color: var(--green-dark);">Tools tab</a> for RTI templates.
                         </div>
                     </div>
                 </div>
@@ -1671,7 +1284,7 @@
                             <h4 style="color: #16803C; font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Clean Air Spending (All Schemes)</h4>
                             <div style="font-size: 2.5rem; font-weight: 700; color: #16803C;">~₹15,000 Cr</div>
                             <div style="font-size: 0.875rem; color: var(--text-2);">Approximately $1.8 Billion across all schemes</div>
-                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-600);">
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-dark);">
                                 <strong style="color: #1B6B4A;">Spending = 0.5% of economic burden</strong>
                                 <p style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--text-2);">For every ₹100 lost to air pollution, India spends ₹0.50 on solutions.</p>
                             </div>
@@ -1819,7 +1432,7 @@
                                 <div style="font-size: 0.6875rem; color: var(--text-3);">2025-26 Subsidy</div>
                             </div>
                         </div>
-                        <div style="padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-600);">
+                        <div style="padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-dark);">
                             <strong style="color: #1B6B4A;">Usage Gap:</strong> Average PMUY household uses only <strong>4.47 refills/year</strong> vs 9-12 subsidized. Indicates persistent affordability barriers and "fuel stacking."
                         </div>
                         <div style="margin-top: 0.75rem;">
@@ -2172,7 +1785,7 @@
             </div>
 
             <!-- NEW: CREA JANUARY 2026 NCAP ANALYSIS -->
-            <div class="card mb-2" style="border: 2px solid #16803C;">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #16803C;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
@@ -2206,7 +1819,7 @@
                                     <span>Road dust control</span><strong style="color: #1B6B4A;">68%</strong>
                                 </div>
                                 <div style="height: 8px; background: #E5E7EB; border-radius: 4px; margin-bottom: 0.75rem;">
-                                    <div style="width: 68%; height: 100%; background: var(--green-600); border-radius: 4px;"></div>
+                                    <div style="width: 68%; height: 100%; background: var(--green-dark); border-radius: 4px;"></div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                                     <span>Transport</span><strong>14%</strong>
@@ -2232,7 +1845,7 @@
             </div>
 
             <!-- NEW: SUPREME COURT JANUARY 2026 ORDERS -->
-            <div class="card mb-2" style="border-left: 4px solid var(--green-600);">
+            <div class="card mb-2" style="border-left: 4px solid var(--green-dark);">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
                         ⚖️ Supreme Court — January 2026 Orders
@@ -2241,14 +1854,14 @@
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
-                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--green-600);">
+                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--green-dark);">
                             <div style="font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.25rem;">January 21, 2026</div>
                             <div style="font-size: 0.875rem; line-height: 1.6;">
                                 <strong>4-Week Deadline:</strong> Delhi govt and NCR agencies given strict deadline for action plans on CAQM's 15 long-term recommendations.<br>
                                 <em style="color: #1B6B4A;">"Court will NOT entertain objections"</em>
                             </div>
                         </div>
-                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--green-600);">
+                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--green-dark);">
                             <div style="font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.25rem;">January 6, 2026</div>
                             <div style="font-size: 0.875rem; line-height: 1.6;">
                                 <strong>CAQM Criticized:</strong> Bench called Commission for Air Quality Management "unserious" and "in no hurry" to address Delhi-NCR air emergency.
@@ -2287,7 +1900,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card mb-2" style="border: 2px solid #2563EB;">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #2563EB;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
@@ -2484,7 +2097,7 @@
                     <div class="card-footer" style="margin-top: 1rem; background: rgba(37,99,235,0.05);">
                         <strong>Methodology:</strong> Evidence grades based on RTI responses, CPCB/SPCB data, NASA FIRMS satellite imagery, peer-reviewed studies, and field reports. 
                         We welcome corrections and additional data. Framework adapted from World Bank "A Breath of Change" (Dec 2025).
-                        <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank" style="color: var(--green-600); margin-left: 0.5rem;">Read Full Report →</a>
+                        <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank" style="color: var(--green-dark); margin-left: 0.5rem;">Read Full Report →</a>
                     </div>
                 </div>
             </div>
@@ -2538,7 +2151,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <strong>Note:</strong> Contempt petitions filed but rarely result in action. Use <a href="https://indiankanoon.org" target="_blank" style="color: var(--green-600);">Indian Kanoon</a> to search full order texts.
+                    <strong>Note:</strong> Contempt petitions filed but rarely result in action. Use <a href="https://indiankanoon.org" target="_blank" style="color: var(--green-dark);">Indian Kanoon</a> to search full order texts.
                 </div>
             </div>
 
@@ -2644,7 +2257,7 @@
                         <div class="info-box">
                             <h4>How to File</h4>
                             <ul>
-                                <li><strong>Online:</strong> <a href="https://rtionline.gov.in" target="_blank" style="color: var(--green-600);">rtionline.gov.in</a> (Rs 10 fee)</li>
+                                <li><strong>Online:</strong> <a href="https://rtionline.gov.in" target="_blank" style="color: var(--green-dark);">rtionline.gov.in</a> (Rs 10 fee)</li>
                                 <li><strong>By Post:</strong> Send to CPIO of relevant department with Rs 10 postal order</li>
                                 <li><strong>Response Time:</strong> 30 days (can extend to 45 days)</li>
                                 <li><strong>Appeals:</strong> First Appeal within 30 days, then CIC</li>
@@ -3084,7 +2697,7 @@ Signature: _______________</div>
             <div class="card mt-2">
                 <div class="card-header" style="background: var(--bg-muted);"><span class="card-title">⚖️ Voices from the Margins — Environmental Justice</span></div>
                 <div class="card-body">
-                    <div class="alert mb-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-600); font-size: 0.8125rem;">
+                    <div class="alert mb-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-dark); font-size: 0.8125rem;">
                         These voices are often missing from mainstream air pollution discourse. The burden falls heaviest on those least responsible for it and least able to protect themselves.
                     </div>
                     <div class="grid-2">
@@ -3151,9 +2764,9 @@ Signature: _______________</div>
                         </div>
 
                         <div>
-                            <div class="voice-card" style="border-left: 3px solid var(--green-600); background: rgba(27,107,74,0.03);">
+                            <div class="voice-card" style="border-left: 3px solid var(--green-dark); background: rgba(27,107,74,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-600);">♻️</div>
+                                    <div class="voice-avatar" style="background: var(--green-dark);">♻️</div>
                                     <div>
                                         <div class="voice-name">Shanti Bai</div>
                                         <div class="voice-handle">Waste picker, Ghazipur</div>
@@ -3214,11 +2827,11 @@ Signature: _______________</div>
                     </div>
 
                     <div class="mt-2" style="background: var(--bg-muted); padding: 1rem; border-radius: 8px;">
-                        <h4 style="font-size: 0.875rem; color: var(--green-600); margin-bottom: 0.5rem;">📚 Researchers & Advocates Speaking Up</h4>
+                        <h4 style="font-size: 0.875rem; color: var(--green-dark); margin-bottom: 0.5rem;">📚 Researchers & Advocates Speaking Up</h4>
                         <div class="grid-2" style="gap: 1rem;">
-                            <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid var(--green-600);">
+                            <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid var(--green-dark);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-600);">🎓</div>
+                                    <div class="voice-avatar" style="background: var(--green-dark);">🎓</div>
                                     <div>
                                         <div class="voice-name">Dr. Bhim Rao (pseudonym)</div>
                                         <div class="voice-handle">Public Health Researcher</div>
@@ -3253,7 +2866,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #EF4444; background: rgba(239,68,68,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-600);">🏛️</div>
+                                    <div class="voice-avatar" style="background: var(--green-dark);">🏛️</div>
                                     <div>
                                         <div class="voice-name">Union Environment Ministry</div>
                                         <div class="voice-handle">Rajya Sabha Reply</div>
@@ -3345,9 +2958,9 @@ Signature: _______________</div>
                             <div class="voice-meta">Nov 2025 | Viral Post | Suggested reversing school calendar</div>
                         </div>
 
-                        <div class="voice-card" style="border-left: 3px solid var(--green-600);">
+                        <div class="voice-card" style="border-left: 3px solid var(--green-dark);">
                             <div class="voice-header">
-                                <div class="voice-avatar" style="background: var(--green-600);">WM</div>
+                                <div class="voice-avatar" style="background: var(--green-dark);">WM</div>
                                 <div>
                                     <div class="voice-name">Bhavreen Kandhari</div>
                                     <div class="voice-handle">Warrior Moms Founder</div>
@@ -3450,9 +3063,9 @@ Signature: _______________</div>
                         </div>
 
                         <div>
-                            <div class="voice-card" style="border-left: 3px solid var(--green-600); background: rgba(27,107,74,0.03);">
+                            <div class="voice-card" style="border-left: 3px solid var(--green-dark); background: rgba(27,107,74,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-600);">🔥</div>
+                                    <div class="voice-avatar" style="background: var(--green-dark);">🔥</div>
                                     <div>
                                         <div class="voice-name">Dr. Kalpana Balakrishnan</div>
                                         <div class="voice-handle">Sri Ramachandra University</div>
@@ -3535,9 +3148,9 @@ Signature: _______________</div>
                                 <div class="voice-meta">September 2021 | WHO Global Air Quality Guidelines</div>
                             </div>
 
-                            <div class="voice-card" style="border-left: 3px solid var(--green-600);">
+                            <div class="voice-card" style="border-left: 3px solid var(--green-dark);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-600);">⚠️</div>
+                                    <div class="voice-avatar" style="background: var(--green-dark);">⚠️</div>
                                     <div>
                                         <div class="voice-name">AQI Limitations</div>
                                         <div class="voice-handle">Scientific Community</div>
@@ -4069,7 +3682,7 @@ Signature: _______________</div>
             </div>
 
             <!-- EMCAP HEADER -->
-            <div class="alert mb-2" style="background: var(--bg-muted); border-left: 4px solid var(--green-600);">
+            <div class="alert mb-2" style="background: var(--bg-muted); border-left: 4px solid var(--green-dark);">
                 <div style="display: flex; align-items: center; gap: 1rem;">
                     <div style="font-size: 2rem;">⚠️</div>
                     <div>
@@ -4117,7 +3730,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="font-size: 0.875rem; color: var(--green-600); margin-bottom: 0.75rem;">Delhi's Internal Sources (Winter Months)</h4>
+                            <h4 style="font-size: 0.875rem; color: var(--green-dark); margin-bottom: 0.75rem;">Delhi's Internal Sources (Winter Months)</h4>
                             <p style="font-size: 0.8125rem; margin-bottom: 1rem;">Even when external sources (stubble burning) are at peak, <strong>half of PM2.5 comes from within Delhi itself</strong>.</p>
                             
                             <div style="margin-bottom: 0.75rem;">
@@ -4162,7 +3775,7 @@ Signature: _______________</div>
                             </div>
                         </div>
                         <div>
-                            <div class="alert" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-600);">
+                            <div class="alert" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-dark);">
                                 <strong style="color: #1B6B4A;">🚗 Vehicles = 58% of Delhi's internal PM2.5</strong>
                                 <p style="font-size: 0.8125rem; margin-top: 0.5rem;">34% from exhaust + 24% from tyre/brake wear. This is why the only realistic solution is a <strong>massive shift from private to public transport</strong>.</p>
                             </div>
@@ -4181,12 +3794,12 @@ Signature: _______________</div>
             </div>
 
             <!-- EMERGENCY MEASURES -->
-            <div class="card mb-2" style="border: 2px solid var(--green-600);">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         🚨 Emergency Measures to Combat Air Pollution (EMCAP)
                     </span>
-                    <span class="badge" style="background: var(--green-600); color: white; margin-left: 0.5rem;">Winter Action Plan</span>
+                    <span class="badge" style="background: var(--green-dark); color: white; margin-left: 0.5rem;">Winter Action Plan</span>
                 </div>
                 <div class="card-body">
                     <p style="font-size: 0.875rem; margin-bottom: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.05); border-radius: 8px;">
@@ -4243,7 +3856,7 @@ Signature: _______________</div>
             </div>
 
             <!-- URBAN TRANSPORT -->
-            <div class="card mb-2" style="border: 2px solid #3B82F6;">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #3B82F6;">
                         🚌 Transforming Urban Transport — Paris-Singapore Model
@@ -4280,7 +3893,7 @@ Signature: _______________</div>
             </div>
 
             <!-- CLASS DIVIDE -->
-            <div class="card mb-2" style="border: 2px solid #EC4899;">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #EC4899;">
                         📊 The Class Gap — Pollution Exposure by Economic Status
@@ -4289,7 +3902,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <p style="font-size: 0.8125rem; margin-bottom: 1rem;">A New York Times analysis tracked real-time PM2.5 exposure for two Delhi children on the same day.</p>
                     <div class="grid-2" style="gap: 1rem;">
-                        <div class="info-box" style="border-left: 4px solid var(--green-600); background: rgba(27,107,74,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--green-dark); background: rgba(27,107,74,0.03);">
                             <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">👦 Monu — Poor (Trans-Yamuna)</h4>
                             <ul style="font-size: 0.8125rem; line-height: 1.6;">
                                 <li>Peak exposure: <strong>~180 µg/m³</strong></li>
@@ -4324,14 +3937,14 @@ Signature: _______________</div>
             </div>
 
             <!-- CONSTITUTIONAL BASIS -->
-            <div class="card mb-2" style="border: 2px solid #7C3AED;">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">⚖️ Constitutional & Judicial Basis</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
                         <div>
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-600);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-dark);">
                                 <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">Article 21: Right to Life = Right to Clean Air</h4>
                                 <p style="font-size: 0.8125rem;"><strong>Subhash Kumar v. State of Bihar (1991):</strong> Supreme Court declared that the right to life encompasses the right to enjoy pollution-free water and air.</p>
                             </div>
@@ -4446,7 +4059,7 @@ Signature: _______________</div>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
-                        <div class="info-box" style="border-left: 3px solid var(--green-600);">
+                        <div class="info-box" style="border-left: 3px solid var(--green-dark);">
                             <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">10/15 Year Ban Rule</h4>
                             <ul style="font-size: 0.8125rem; line-height: 1.6;">
                                 <li><strong>NGT (2014-15):</strong> Diesel >10 years, petrol >15 years banned</li>
@@ -4463,7 +4076,7 @@ Signature: _______________</div>
             </div>
 
             <!-- RTI FINDINGS -->
-            <div class="card mb-2" style="border: 2px solid #F59E0B;">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #F59E0B;">
                         📋 RTI Reveals: CPCB Lacks Emission Data for Power Plants
@@ -4612,7 +4225,7 @@ Signature: _______________</div>
             </div>
             
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                <button class="btn btn-sm" style="background: var(--green-600); color: white;" onclick="filterResourceCategory('all')">All</button>
+                <button class="btn btn-sm" style="background: var(--green-dark); color: white;" onclick="filterResourceCategory('all')">All</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured')">⭐ Featured</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health')">🏥 Health</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source')">🔬 Sources</button>
@@ -4736,7 +4349,7 @@ Signature: _______________</div>
             </div>
 
             <!-- FEATURED: URBANEMISSIONS.INFO COLLABORATION -->
-            <div class="card mb-2" data-resource-category="featured" style="border: 2px solid #7C3AED;">
+            <div class="card mb-2" data-resource-category="featured">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">
                         ⭐ Featured: UrbanEmissions.info Research Partnership
@@ -4795,7 +4408,7 @@ Signature: _______________</div>
             </div>
 
             <!-- CITIZEN ACTION DOCUMENTS -->
-            <div class="card mb-2" data-resource-category="action" style="border: 2px solid var(--green-600);">
+            <div class="card mb-2" data-resource-category="action">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         🚨 Citizen Action Documents
@@ -5027,7 +4640,7 @@ Signature: _______________</div>
             </div>
 
             <!-- ENVIRONMENTAL JUSTICE SECTION -->
-            <div class="card mt-2" data-resource-category="justice" style="border: 2px solid var(--green-600);">
+            <div class="card mt-2" data-resource-category="justice">
                 <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice: Household Air Pollution & Occupational Health</span>
                 </div>
@@ -5085,7 +4698,7 @@ Signature: _______________</div>
                             </div>
                         </div>
                     </div>
-                    <div class="alert mt-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-600); font-size: 0.8125rem;">
+                    <div class="alert mt-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-dark); font-size: 0.8125rem;">
                         <strong>Research gap:</strong> Most Indian air pollution studies use city-level averages. We lack disaggregated data by income, caste, occupation, and gender — perpetuating invisibility of the most affected.
                     </div>
                 </div>
@@ -5134,9 +4747,9 @@ Signature: _______________</div>
             </div>
 
             <!-- UNIQUE CONTRIBUTIONS -->
-            <div class="card mb-2" style="border: 2px solid var(--green-600);">
+            <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         What Makes JanVayu Unique
                     </span>
@@ -5238,7 +4851,7 @@ Signature: _______________</div>
                             <div class="quick-link-content"><h4>Share</h4><p>Spread the word</p></div>
                         </a>
                         <a href="/cdn-cgi/l/email-protection#d3a5b2a1bdb2fda0a193b4beb2babffdb0bcbeeca0a6b1b9b6b0a7ee85b2aaa6f6e1e380bea1baa7baf6e1e395b6b6b7b1b2b0b8" class="quick-link" style="text-decoration: none;">
-                            <div class="quick-link-icon" style="background: var(--green-600);"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                            <div class="quick-link-icon" style="background: var(--green-dark);"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
                             <div class="quick-link-content"><h4>Feedback</h4><p>Report issues</p></div>
                         </a>
                         <a href="https://rtionline.gov.in" target="_blank" class="quick-link" style="text-decoration: none;">
@@ -5261,22 +4874,22 @@ Signature: _______________</div>
 
             <div class="alert alert-info mb-2"><div>
                     <strong>Current Version:</strong> v21.0 | <strong>Last Updated:</strong> February 22, 2026 | 
-                    <a href="https://www.janvayu.in" target="_blank" style="color: var(--green-600);">janvayu.in</a> |
-                    <a href="https://github.com/Varnasr/JanVayu" target="_blank" style="color: var(--green-600);">GitHub</a>
+                    <a href="https://www.janvayu.in" target="_blank" style="color: var(--green-dark);">janvayu.in</a> |
+                    <a href="https://github.com/Varnasr/JanVayu" target="_blank" style="color: var(--green-dark);">GitHub</a>
                 </div>
             </div>
 
             <!-- FEBRUARY 22, 2026 - v21.0 CLEAN REBUILD -->
-            <div class="card mb-2" style="border-left: 4px solid var(--green-600);">
+            <div class="card mb-2" style="border-left: 4px solid var(--green-dark);">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         February 22, 2026 — v21.0 (Current) CLEAN TABBED REBUILD
                     </span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="color: var(--green-600); font-size: 0.875rem; margin-bottom: 0.5rem;">Architecture</h4>
+                            <h4 style="color: var(--green-dark); font-size: 0.875rem; margin-bottom: 0.5rem;">Architecture</h4>
                             <ul style="font-size: 0.85rem; line-height: 1.8;">
                                 <li><strong>Flat Tab Navigation</strong> — 17 tabs in a clean horizontal scrollable bar. Replaced broken grouped category system (5 categories + sub-tabs) that never functioned.</li>
                                 <li><strong>CSS Rewrite</strong> — Complete stylesheet rebuilt from scratch. Removed 500+ lines of dead/duplicate CSS from v18-v20 iterations.</li>
@@ -5305,7 +4918,7 @@ Signature: _______________</div>
             <!-- FEBRUARY 21, 2026 - v19.0 EMBER DESIGN + JAN-FEB 2026 BRIEFING -->
             <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         February 21, 2026 — v19.0 EMBER-INSPIRED REDESIGN + JAN-FEB 2026 COMPREHENSIVE UPDATE + IMPRI INSIGHTS
                     </span>
@@ -5643,7 +5256,7 @@ Signature: _______________</div>
             <!-- JANUARY 8, 2026 - REBRAND -->
             <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 8, 2026 — v12 🎉 REBRAND
                     </span>
@@ -5679,7 +5292,7 @@ Signature: _______________</div>
             <!-- DECEMBER 30, 2024 -->
             <div class="card mb-2">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         December 30, 2024 — v11
                     </span>
@@ -5849,9 +5462,9 @@ Signature: _______________</div>
             </div>
 
             <!-- ROADMAP -->
-            <div class="card mt-2" style="border: 2px dashed var(--green-600);">
+            <div class="card mt-2" style="border: 2px dashed var(--green-dark);">
                 <div class="card-header" style="background: var(--bg-muted);">
-                    <span class="card-title" style="color: var(--green-600);">
+                    <span class="card-title" style="color: var(--green-dark);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
                         Roadmap — Planned Features
                     </span>
@@ -5892,60 +5505,43 @@ Signature: _______________</div>
             <!-- CONTRIBUTE -->
             <div class="alert alert-info mt-2"><div>
                     <strong>Contribute:</strong> Found a bug? Have a suggestion? Want to add a feature? 
-                    <a href="https://github.com/Varnasr/JanVayu/issues" target="_blank" style="color: var(--green-600);">Open an issue on GitHub</a> or 
-                    <a href="/cdn-cgi/l/email-protection#3b4d5a49555a1548497b5c565a525715585456" style="color: var(--green-600);">email us</a>.
+                    <a href="https://github.com/Varnasr/JanVayu/issues" target="_blank" style="color: var(--green-dark);">Open an issue on GitHub</a> or 
+                    <a href="/cdn-cgi/l/email-protection#3b4d5a49555a1548497b5c565a525715585456" style="color: var(--green-dark);">email us</a>.
                 </div>
             </div>
         </div>
-    </main>
-
     </main>
 
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-about">
-                    <span class="site-logo-text" style="color:#fff">JanVayu <span class="site-logo-hindi">&#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</span></span>
-                    <p>Citizen-led air quality monitoring, health impact tracking, and policy accountability platform for India. Built for the #aqiforjanhit campaign. Clean air is not a privilege, it's a right.</p>
-                    <p style="margin-top: 0.75rem; font-size: 0.75rem; opacity: 0.5;">MMSF Air Quality Initiative | Communications & Insights</p>
+                <div>
+                    <div class="footer-title">JanVayu &#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</div>
+                    <p style="font-size:0.78rem;line-height:1.6;max-width:400px;">Independent citizen-led air quality monitoring, health impact analysis, and government accountability tracking. Clean air is not a privilege, it is a right.</p>
+                    <p style="font-size:0.72rem;margin-top:10px;color:#6B7280;">An initiative of the MMSF Air Quality Initiative. With data from WAQI, CPCB, WHO, CREA, UrbanEmissions.info.</p>
                 </div>
                 <div>
-                    <div class="footer-heading">Data Sources</div>
-                    <ul class="footer-links">
-                        <li><a href="https://aqicn.org/" target="_blank">WAQI / aqicn.org</a></li>
-                        <li><a href="https://app.cpcbccr.com/" target="_blank">CPCB CAAQMS</a></li>
-                        <li><a href="https://urbanemissions.info/" target="_blank">UrbanEmissions.info</a></li>
-                        <li><a href="https://energyandcleanair.org/" target="_blank">CREA</a></li>
-                        <li><a href="https://www.stateofglobalair.org/" target="_blank">State of Global Air (HEI)</a></li>
-                    </ul>
+                    <div class="footer-title">Navigate</div>
+                    <a class="footer-link" href="#" onclick="showPanel('dashboard');return false;">Dashboard</a>
+                    <a class="footer-link" href="#" onclick="showPanel('health');return false;">Health</a>
+                    <a class="footer-link" href="#" onclick="showPanel('economic');return false;">Economic</a>
+                    <a class="footer-link" href="#" onclick="showPanel('policy');return false;">Policy</a>
+                    <a class="footer-link" href="#" onclick="showPanel('accountability');return false;">Accountability</a>
+                    <a class="footer-link" href="#" onclick="showPanel('resources');return false;">Resources</a>
                 </div>
                 <div>
-                    <div class="footer-heading">Research</div>
-                    <ul class="footer-links">
-                        <li><a href="https://www.thelancet.com/" target="_blank">Lancet Studies</a></li>
-                        <li><a href="https://aqli.epic.uchicago.edu/" target="_blank">AQLI (EPIC)</a></li>
-                        <li><a href="https://www.cseindia.org/" target="_blank">CSE</a></li>
-                        <li><a href="https://impriinsights.in/" target="_blank">IMPRI Insights</a></li>
-                        <li><a href="https://www.worldbank.org/" target="_blank">World Bank</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="footer-heading">Platform</div>
-                    <ul class="footer-links">
-                        <li><a href="https://github.com/Varnasr/JanVayu" target="_blank">GitHub</a></li>
-                        <li><a href="#panel-changelog">Changelog</a></li>
-                        <li><a href="#panel-about">About</a></li>
-                        <li><a href="#panel-resources">Resources</a></li>
-                    </ul>
+                    <div class="footer-title">Tools &amp; Action</div>
+                    <a class="footer-link" href="#" onclick="showPanel('tools');return false;">RTI Templates</a>
+                    <a class="footer-link" href="#" onclick="showPanel('citizen-action');return false;">Citizen Action</a>
+                    <a class="footer-link" href="#" onclick="showPanel('legal');return false;">Legal Framework</a>
+                    <a class="footer-link" href="#" onclick="showPanel('changelog');return false;">Updates</a>
+                    <a class="footer-link" href="#" onclick="showPanel('about');return false;">About</a>
+                    <a class="footer-link" href="https://github.com/Varnasr/JanVayu" target="_blank">GitHub</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 JanVayu | MMSF Air Quality Initiative | Not affiliated with government agencies</span>
-                <span>Data: WAQI API, CPCB, CREA, HEI, Lancet, World Bank, IMPRI | v20.0</span>
-            </div>
+            <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | Not affiliated with government agencies | #AQIForJanHit</div>
         </div>
     </footer>
-
 
     <script>
 
@@ -6851,7 +6447,7 @@ Signature: _______________</div>
                 btn.style.background = '';
                 btn.style.color = '';
             });
-            event.target.style.background = 'var(--green-600)';
+            event.target.style.background = 'var(--green-dark)';
             event.target.style.color = 'white';
             
             // Show/hide cards based on category
@@ -6927,8 +6523,7 @@ Signature: _______________</div>
     
         // Scroll spy removed in v20 (tab layout)
 
-    </script>
-</body>
 
+    </script>
 </body>
 </html>
