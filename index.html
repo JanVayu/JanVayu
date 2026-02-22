@@ -55,26 +55,57 @@
             --radius: 10px;
             --radius-sm: 6px;
             --max-w: 1200px;
-            --header-h: 56px;
+            --header-h: 52px;
             --tab-h: 44px;
         }
 
         [data-theme="dark"] {
-            --bg: #0C1610;
-            --bg-card: #15231A;
-            --bg-muted: #1A2D22;
-            --text: #E0EDE6;
-            --text-2: #9BB5A5;
-            --text-3: #6B8577;
-            --border: #243D2E;
-            --border-light: #1E3328;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
-            --green-50: #0F2218;
-            --green-100: #15301F;
-            --green-600: #2D9B6E;
+            --bg: #111111;
+            --bg-card: #1A1A1A;
+            --bg-muted: #222222;
+            --text: #E8E8E8;
+            --text-2: #A0A0A0;
+            --text-3: #707070;
+            --border: #333333;
+            --border-light: #2A2A2A;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+            --green-50: #1A2A1F;
+            --green-100: #1E3325;
+            --green-600: #3DB87A;
+            --green-700: #111111;
+            --red-light: #2D1A1A;
+            --amber-light: #2D2518;
+            --blue-light: #1A1F2D;
+            --green-100: #1A2D20;
         }
+        [data-theme="dark"] .site-header {
+            background: #1A1A1A;
+            box-shadow: 0 1px 0 #333;
+        }
+        [data-theme="dark"] .ticker {
+            background: #151515;
+            border-bottom-color: #333;
+        }
+        [data-theme="dark"] .nav-bar {
+            background: #1A1A1A;
+            border-bottom-color: #333;
+        }
+        [data-theme="dark"] .nav-tab.active {
+            color: #3DB87A;
+            border-bottom-color: #3DB87A;
+        }
+        [data-theme="dark"] .site-footer {
+            background: #1A1A1A;
+        }
+        [data-theme="dark"] .alert-danger { background: #2D1A1A; border-left-color: #C0392B; }
+        [data-theme="dark"] .alert-warning { background: #2D2518; border-left-color: #D97706; }
+        [data-theme="dark"] .alert-info { background: #1A1F2D; border-left-color: #2563EB; }
+        [data-theme="dark"] .alert-success { background: #1A2D20; border-left-color: #3DB87A; }
+        [data-theme="dark"] .btn { background: #222; border-color: #444; color: #ddd; }
+        [data-theme="dark"] .btn-primary { background: #2A8C5E; border-color: #2A8C5E; color: white; }
+        [data-theme="dark"] .mobile-menu { background: #1A1A1A; }
 
         /* ── Reset ──────────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -184,11 +215,11 @@
         .nav-bar .container::-webkit-scrollbar { display: none; }
         .nav-tab {
             font-family: var(--font-sans);
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0 14px;
+            letter-spacing: 0.04em;
+            padding: 0 10px;
             color: var(--text-3);
             background: none;
             border: none;
@@ -201,6 +232,16 @@
             align-items: center;
             height: 100%;
         }
+        .nav-bar::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 40px;
+            background: linear-gradient(to right, transparent, var(--bg-card));
+            pointer-events: none;
+            z-index: 1;
+        }
+        .nav-bar { position: sticky; top: var(--header-h); z-index: 90; }
         .nav-tab:hover { color: var(--text); }
         .nav-tab.active {
             color: var(--green-600);
@@ -245,12 +286,15 @@
         }
 
         /* ── Panels ──────────────────────────────────────────── */
-        .panel { display: none; padding: 32px 0 24px; }
+        .panel { display: none; padding: 40px 0 32px; }
         .panel.active { display: block; }
+        .panel > .container > *:not(:last-child) { margin-bottom: 0; }
 
         /* ── Section Intro ───────────────────────────────────── */
         .section-intro {
-            margin-bottom: 28px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
         }
         .section-intro h2 {
             font-family: var(--font-serif);
@@ -288,7 +332,7 @@
             font-weight: 600;
             color: var(--text);
         }
-        .card-body { padding: 20px; }
+        .card-body { padding: 22px; }
         .card-footer {
             padding: 14px 20px;
             border-top: 1px solid var(--border-light);
@@ -456,7 +500,7 @@
 
         /* ── Utility ──────────────────────────────────────────── */
         .mb-1 { margin-bottom: 12px; }
-        .mb-2 { margin-bottom: 20px; }
+        .mb-2 { margin-bottom: 24px; }
         .mt-1 { margin-top: 12px; }
         .mt-2 { margin-top: 20px; }
         .text-mono { font-family: var(--font-mono); }
@@ -504,7 +548,8 @@
         .aqi-city-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 4px; }
 
         /* ── Share Bar ────────────────────────────────────────── */
-        .share-bar { display: flex; gap: 8px; margin-top: 12px; }
+        .share-bar { display: flex; gap: 6px; margin-top: 16px; opacity: 0.6; transition: opacity 0.2s; }
+        .share-bar:hover { opacity: 1; }
         .share-btn {
             font-size: 0.72rem;
             padding: 4px 10px;
@@ -637,20 +682,20 @@
             <div class="alert alert-info mb-2" id="live-status-bar"><div id="live-status"><span class="pulse"></span> LIVE — Connecting to WAQI API...</div>
             </div>
 
-            <!-- BUDGET CLIFF ALERT v19.0 -->
-            <div class="alert alert-danger mb-2"><div>
+            <!-- BUDGET CLIFF ALERT -->
+            <div class="alert alert-warning mb-2"><div>
                     ⚠️ <strong>Funding Cliff Alert:</strong> ₹16,539 Cr in XV-FC grants (87% of NCAP city funding) expires March 2026. No successor mechanism announced. 
                     <a href="#" onclick="showPanel('budget'); return false;" style="color: #1B6B4A; font-weight: 600;">View Budget Tracker →</a>
                 </div>
             </div>
 
             <!-- WHY PM2.5 MATTERS BOX -->
-            <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.04)); border-left: 4px solid var(--green-600);"><div style="font-size: 0.8125rem;">
+            <div class="alert mb-2" style="background: var(--bg-muted); border-left: 3px solid var(--border); border-radius: var(--radius-sm);"><div style="font-size: 0.8rem; color: var(--text-2);">
                     ℹ️ <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="showPanel('health'); return false;" style="color: var(--green-600);">Learn more →</a>
                 </div>
             </div>
 
-            <div class="alert alert-danger mb-2" id="grap-alert" style="background: linear-gradient(135deg, rgba(27,107,74,0.08), rgba(27,107,74,0.03)); border: 1px solid rgba(27,107,74,0.2);"><div>
+            <div class="alert mb-2" id="grap-alert" style="background: var(--bg-muted); border-left: 3px solid var(--amber); border-radius: var(--radius-sm);"><div>
                     <strong style="color: #1B6B4A;">⚠️ Delhi Winter 2025-26 Crisis</strong> — Zero "Good" AQI days recorded in 2025 (first time on record). January 2026 worst in 5 years: AQI exceeded 500 on Jan 17 (PM2.5 = 73× WHO guideline). CSE analysis: local sources (vehicles 51%) now drive winter smog more than stubble burning.
                 </div>
             </div>
@@ -705,8 +750,8 @@
             </div>
 
             <!-- FEATURED RESEARCH: WORLD BANK -->
-            <div class="card mb-2" style="border: 2px solid #2563EB; background: linear-gradient(135deg, rgba(37,99,235,0.04), rgba(22,128,60,0.02));">
-                <div class="card-header" style="background: transparent;">
+            <div class="card mb-2" style="border-left: 3px solid #2563EB;">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #2563EB;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                         🏛️ Featured Research: World Bank (December 2025)
@@ -756,8 +801,8 @@
             </div>
 
             <!-- FEATURED RESEARCH: STATE OF GLOBAL AIR 2025 -->
-            <div class="card mb-2" style="border: 2px solid var(--green-600); background: linear-gradient(135deg, rgba(27,107,74,0.04), rgba(27,107,74,0.02));">
-                <div class="card-header" style="background: transparent;">
+            <div class="card mb-2" style="border-left: 3px solid var(--green-600);">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         📊 State of Global Air 2025 — India Data
@@ -877,8 +922,8 @@
             </div>
 
             <!-- WHY PM2.5 NOT AQI EXPLAINER -->
-            <div class="card mb-2" style="border: 2px solid var(--green-600); background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(167,139,250,0.01));">
-                <div class="card-header" style="background: transparent;"><span class="card-title" style="color: var(--green-600);">🔬 Why PM2.5, Not AQI?</span></div>
+            <div class="card mb-2" style="border: 2px solid var(--green-600); ">
+                <div class="card-header" style="background: var(--bg-muted);"><span class="card-title" style="color: var(--green-600);">🔬 Why PM2.5, Not AQI?</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -1072,7 +1117,7 @@
 
             <!-- NEW v17.0: LATEST RESEARCH 2025 -->
             <div class="card mt-2" style="border: 2px solid #7C3AED;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(22,128,60,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">
                         📊 Latest Research 2025 — Key Findings
                     </span>
@@ -1144,7 +1189,7 @@
                 </div>
             </div>
             <div class="card mt-2" style="border: 2px solid var(--green-600);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(239,68,68,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice — Who Bears the Burden?</span>
                 </div>
                 <div class="card-body">
@@ -1259,7 +1304,7 @@
                     </div>
 
                     <!-- KEY STATISTICS BOX -->
-                    <div class="mt-2" style="background: linear-gradient(135deg, rgba(27,107,74,0.05), rgba(27,107,74,0.02)); border-radius: 12px; padding: 1rem;">
+                    <div class="mt-2" style="background: var(--bg-muted); border-radius: 12px; padding: 1rem;">
                         <h4 style="color: #1B6B4A; margin-bottom: 0.75rem; font-size: 0.9375rem;">📊 The Numbers That Don't Make Headlines</h4>
                         <div class="grid-4" style="gap: 1rem;">
                             <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
@@ -1392,7 +1437,7 @@
 
             <!-- POLICY RECOMMENDATIONS -->
             <div class="card mt-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(59,130,246,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                         Policy Recommendations — What Should Change
@@ -1493,7 +1538,7 @@
 
             <!-- INTERNATIONAL SUCCESS STORIES -->
             <div class="card mt-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(59,130,246,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #22C55E;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         What Worked Globally — Success Stories
@@ -1604,7 +1649,7 @@
 
             <!-- THE GAP: BUDGET VS BURDEN -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(27,107,74,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
                         The Gap: Budget vs. Burden
@@ -1640,7 +1685,7 @@
             <div class="grid-2 mb-2">
                 <!-- NCAP FUNDING -->
                 <div class="card">
-                    <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.08));">
+                    <div class="card-header" style="background: var(--bg-muted);">
                         <span class="card-title" style="color: #2563EB;">
                             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                             NCAP Fund Flow (2019-2026)
@@ -1664,7 +1709,7 @@
 
                 <!-- SPENDING PATTERN -->
                 <div class="card">
-                    <div class="card-header" style="background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.08));">
+                    <div class="card-header" style="background: var(--bg-muted);">
                         <span class="card-title" style="color: #D97706;">
                             <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                             Where NCAP Money Goes
@@ -1757,7 +1802,7 @@
             <div class="grid-2 mb-2">
                 <!-- PM UJJWALA -->
                 <div class="card">
-                    <div class="card-header" style="background: linear-gradient(135deg, rgba(22,128,60,0.15), rgba(22,128,60,0.08));">
+                    <div class="card-header" style="background: var(--bg-muted);">
                         <span class="card-title" style="color: #16803C;">
                             <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
                             PM Ujjwala Yojana (Clean Cooking)
@@ -1786,7 +1831,7 @@
 
                 <!-- CROP RESIDUE -->
                 <div class="card">
-                    <div class="card-header" style="background: linear-gradient(135deg, rgba(234,179,8,0.15), rgba(202,138,4,0.08));">
+                    <div class="card-header" style="background: var(--bg-muted);">
                         <span class="card-title" style="color: #CA8A04;">
                             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                             Crop Residue Management (2018-2025)
@@ -1821,7 +1866,7 @@
 
             <!-- EV SCHEMES -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(167,139,250,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">
                         <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                         Electric Mobility: FAME to E-DRIVE (2015-2028)
@@ -1904,7 +1949,7 @@
 
             <!-- ACCOUNTABILITY GAPS -->
             <div class="card">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(27,107,74,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
                         Key Accountability Gaps
@@ -2128,7 +2173,7 @@
 
             <!-- NEW: CREA JANUARY 2026 NCAP ANALYSIS -->
             <div class="card mb-2" style="border: 2px solid #16803C;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(22,128,60,0.12), rgba(22,128,60,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #16803C;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
                         📊 CREA "Tracing the Hazy Air" (January 9, 2026) — NCAP Progress Report
@@ -2243,7 +2288,7 @@
                 </div>
             </div>
             <div class="card mb-2" style="border: 2px solid #2563EB;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(22,128,60,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #2563EB;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
                         📊 Clean Air Mission Tracker — Independent Verification
@@ -2258,7 +2303,7 @@
                     </div>
 
                     <!-- EVIDENCE GRADING LEGEND -->
-                    <div class="info-box mb-2" style="background: linear-gradient(135deg, rgba(37,99,235,0.05), rgba(22,128,60,0.03));">
+                    <div class="info-box mb-2" style="background: var(--bg-muted);">
                         <h4 style="color: #2563EB; margin-bottom: 0.75rem;">📏 Evidence Grading Scale (E1-E5)</h4>
                         <div class="grid-5" style="gap: 0.5rem; font-size: 0.75rem;">
                             <div style="padding: 0.5rem; background: rgba(27,107,74,0.08); border-radius: 6px; text-align: center;">
@@ -2923,7 +2968,7 @@ Signature: _______________</div>
                                 <div class="voice-meta">Nov 2024 | Viral clip: 5M+ views</div>
                             </div>
 
-                            <div class="voice-card" style="background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(249,115,22,0.05)); border-color: rgba(239,68,68,0.2);">
+                            <div class="voice-card" style=" border-color: rgba(239,68,68,0.2);">
                                 <div class="voice-header">
                                     <div class="voice-avatar" style="background: #EF4444;">SC</div>
                                     <div>
@@ -3037,7 +3082,7 @@ Signature: _______________</div>
 
             <!-- ENVIRONMENTAL JUSTICE VOICES -->
             <div class="card mt-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(245,158,11,0.05));"><span class="card-title">⚖️ Voices from the Margins — Environmental Justice</span></div>
+                <div class="card-header" style="background: var(--bg-muted);"><span class="card-title">⚖️ Voices from the Margins — Environmental Justice</span></div>
                 <div class="card-body">
                     <div class="alert mb-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-600); font-size: 0.8125rem;">
                         These voices are often missing from mainstream air pollution discourse. The burden falls heaviest on those least responsible for it and least able to protect themselves.
@@ -3168,7 +3213,7 @@ Signature: _______________</div>
                         </div>
                     </div>
 
-                    <div class="mt-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(59,130,246,0.03)); padding: 1rem; border-radius: 8px;">
+                    <div class="mt-2" style="background: var(--bg-muted); padding: 1rem; border-radius: 8px;">
                         <h4 style="font-size: 0.875rem; color: var(--green-600); margin-bottom: 0.5rem;">📚 Researchers & Advocates Speaking Up</h4>
                         <div class="grid-2" style="gap: 1rem;">
                             <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid var(--green-600);">
@@ -3202,7 +3247,7 @@ Signature: _______________</div>
 
             <!-- 2025 VOICES: GOVERNMENT & ACCOUNTABILITY -->
             <div class="card mt-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(234,179,8,0.05));"><span class="card-title">🏛️ 2025: Government Positions & Contradictions</span></div>
+                <div class="card-header" style="background: var(--bg-muted);"><span class="card-title">🏛️ 2025: Government Positions & Contradictions</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -3276,7 +3321,7 @@ Signature: _______________</div>
             
             <!-- NEW v19.0: PARENT VOICES & POLLUTION MIGRATION -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(220,38,38,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                         Parents Speak Out — 2025-26
@@ -3351,7 +3396,7 @@ Signature: _______________</div>
 
             <!-- NEW v17.0: EXPERT VOICES & ADVOCATES -->
             <div class="card mt-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(22,128,60,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">🎓 Expert Voices & Advocates</span>
                     <span class="badge" style="background: #7C3AED; color: white; margin-left: 0.5rem;">v19.0</span>
                 </div>
@@ -3456,7 +3501,7 @@ Signature: _______________</div>
 
             <!-- 2024-2026: SCIENTIFIC RESEARCH VOICES -->
             <div class="card mt-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(22,128,60,0.05));"><span class="card-title">🔬 2024-2026: Scientific Research on PM2.5</span></div>
+                <div class="card-header" style="background: var(--bg-muted);"><span class="card-title">🔬 2024-2026: Scientific Research on PM2.5</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -3596,7 +3641,7 @@ Signature: _______________</div>
 
             <!-- HOME GRAP GUIDE -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(27,107,74,0.08), rgba(249,115,22,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #EF4444;">
                         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                         Your Home GRAP — Personal Emergency Response
@@ -4024,7 +4069,7 @@ Signature: _______________</div>
             </div>
 
             <!-- EMCAP HEADER -->
-            <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06)); border-left: 4px solid var(--green-600);">
+            <div class="alert mb-2" style="background: var(--bg-muted); border-left: 4px solid var(--green-600);">
                 <div style="display: flex; align-items: center; gap: 1rem;">
                     <div style="font-size: 2rem;">⚠️</div>
                     <div>
@@ -4036,7 +4081,7 @@ Signature: _______________</div>
 
             <!-- REALITY CHECK -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(22,128,60,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title">📊 A Reality Check — Delhi's Air 2017-2023</span>
                 </div>
                 <div class="card-body">
@@ -4137,7 +4182,7 @@ Signature: _______________</div>
 
             <!-- EMERGENCY MEASURES -->
             <div class="card mb-2" style="border: 2px solid var(--green-600);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         🚨 Emergency Measures to Combat Air Pollution (EMCAP)
                     </span>
@@ -4199,7 +4244,7 @@ Signature: _______________</div>
 
             <!-- URBAN TRANSPORT -->
             <div class="card mb-2" style="border: 2px solid #3B82F6;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(37,99,235,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #3B82F6;">
                         🚌 Transforming Urban Transport — Paris-Singapore Model
                     </span>
@@ -4236,7 +4281,7 @@ Signature: _______________</div>
 
             <!-- CLASS DIVIDE -->
             <div class="card mb-2" style="border: 2px solid #EC4899;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(244,114,182,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #EC4899;">
                         📊 The Class Gap — Pollution Exposure by Economic Status
                     </span>
@@ -4280,7 +4325,7 @@ Signature: _______________</div>
 
             <!-- CONSTITUTIONAL BASIS -->
             <div class="card mb-2" style="border: 2px solid #7C3AED;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(167,139,250,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">⚖️ Constitutional & Judicial Basis</span>
                 </div>
                 <div class="card-body">
@@ -4419,7 +4464,7 @@ Signature: _______________</div>
 
             <!-- RTI FINDINGS -->
             <div class="card mb-2" style="border: 2px solid #F59E0B;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(251,191,36,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #F59E0B;">
                         📋 RTI Reveals: CPCB Lacks Emission Data for Power Plants
                     </span>
@@ -4580,7 +4625,7 @@ Signature: _______________</div>
             
             <!-- NEW v19.0: 2025-26 RESEARCH REPORTS -->
             <div class="card mb-2" data-resource-category="featured data">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(37,99,235,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #2563EB;">
                         📊 2025-26 Research Reports
                         <span class="badge" style="background: #2563EB; color: white; margin-left: 0.5rem;">v19.0</span>
@@ -4636,7 +4681,7 @@ Signature: _______________</div>
 
             <!-- NEW v19.0: EXPERT ORGANIZATIONS -->
             <div class="card mb-2" data-resource-category="featured">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(22,128,60,0.12), rgba(22,128,60,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #16803C;">
                         🏛️ Expert Organizations & Key Voices
                         <span class="badge" style="background: #16803C; color: white; margin-left: 0.5rem;">v19.0</span>
@@ -4692,7 +4737,7 @@ Signature: _______________</div>
 
             <!-- FEATURED: URBANEMISSIONS.INFO COLLABORATION -->
             <div class="card mb-2" data-resource-category="featured" style="border: 2px solid #7C3AED;">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(167,139,250,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">
                         ⭐ Featured: UrbanEmissions.info Research Partnership
                         <span class="badge badge-danger" style="margin-left: 0.5rem;">NEW v15.0</span>
@@ -4751,7 +4796,7 @@ Signature: _______________</div>
 
             <!-- CITIZEN ACTION DOCUMENTS -->
             <div class="card mb-2" data-resource-category="action" style="border: 2px solid var(--green-600);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         🚨 Citizen Action Documents
                         <span class="badge badge-danger" style="margin-left: 0.5rem;">v19.0</span>
@@ -4983,7 +5028,7 @@ Signature: _______________</div>
 
             <!-- ENVIRONMENTAL JUSTICE SECTION -->
             <div class="card mt-2" data-resource-category="justice" style="border: 2px solid var(--green-600);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(27,107,74,0.08), rgba(236,72,153,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice: Household Air Pollution & Occupational Health</span>
                 </div>
                 <div class="card-body">
@@ -5051,7 +5096,7 @@ Signature: _______________</div>
 
         <!-- ========== ABOUT ========== -->
         <div class="panel" id="panel-about">
-            <div class="section-intro" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.05)); border-color: rgba(124,58,237,0.2);">
+            <div class="section-intro" style="background: var(--bg-muted); border-color: rgba(124,58,237,0.2);">
                 <h2 style="font-size: 1.25rem;">About JanVayu जनवायु</h2>
                 <p style="font-size: 0.875rem;"><strong>JanVayu</strong> (Air Memory) is a citizen-led, open-source air quality archive for India. It exists because air pollution is not just an environmental issue — it is a public health emergency, an economic drain, and a failure of governance that demands transparency and accountability.</p>
             </div>
@@ -5090,7 +5135,7 @@ Signature: _______________</div>
 
             <!-- UNIQUE CONTRIBUTIONS -->
             <div class="card mb-2" style="border: 2px solid var(--green-600);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         What Makes JanVayu Unique
@@ -5215,30 +5260,30 @@ Signature: _______________</div>
             </div>
 
             <div class="alert alert-info mb-2"><div>
-                    <strong>Current Version:</strong> v20.0 | <strong>Last Updated:</strong> February 21, 2026 | 
+                    <strong>Current Version:</strong> v21.0 | <strong>Last Updated:</strong> February 22, 2026 | 
                     <a href="https://www.janvayu.in" target="_blank" style="color: var(--green-600);">janvayu.in</a> |
                     <a href="https://github.com/Varnasr/JanVayu" target="_blank" style="color: var(--green-600);">GitHub</a>
                 </div>
             </div>
 
-            <!-- FEBRUARY 21, 2026 - v20.0 EDITORIAL SCROLL REDESIGN -->
+            <!-- FEBRUARY 22, 2026 - v21.0 CLEAN REBUILD -->
             <div class="card mb-2" style="border-left: 4px solid var(--green-600);">
-                <div class="card-header" style="background: var(--green-100);">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        February 21, 2026 — v20.0 (Current) EDITORIAL SCROLL REDESIGN
+                        February 22, 2026 — v21.0 (Current) CLEAN TABBED REBUILD
                     </span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="color: var(--green-600); font-size: 0.875rem; margin-bottom: 0.5rem;">Fundamental Layout Change</h4>
+                            <h4 style="color: var(--green-600); font-size: 0.875rem; margin-bottom: 0.5rem;">Architecture</h4>
                             <ul style="font-size: 0.85rem; line-height: 1.8;">
-                                <li><strong>Scroll Layout</strong> — Replaced tabbed panel navigation with editorial scroll design. All 17 sections now visible on a single page with anchor navigation.</li>
-                                <li><strong>Design System</strong> — v18 Ember-inspired data journalism palette: green Ember-energy palette (#1B6B4A primary) with clean cool neutrals, Source Serif 4 + DM Sans + JetBrains Mono.</li>
-                                <li><strong>Sticky Anchor Nav</strong> — Minimal text-based navigation with scroll spy highlighting and section separators.</li>
-                                <li><strong>Section Dividers</strong> — Clean horizontal rules between sections for clear visual hierarchy.</li>
-                                <li><strong>Dark Mode</strong> — Fully integrated dark theme with warm dark tones.</li>
+                                <li><strong>Flat Tab Navigation</strong> — 17 tabs in a clean horizontal scrollable bar. Replaced broken grouped category system (5 categories + sub-tabs) that never functioned.</li>
+                                <li><strong>CSS Rewrite</strong> — Complete stylesheet rebuilt from scratch. Removed 500+ lines of dead/duplicate CSS from v18-v20 iterations.</li>
+                                <li><strong>Dark Mode Overhaul</strong> — Neutral dark backgrounds (#111/#1A1A1A) instead of dark-green-on-green. Header, nav, footer properly themed. Inline gradient styles replaced with CSS-variable-aware alternatives.</li>
+                                <li><strong>Mobile</strong> — Hamburger menu with full-screen panel selector for sub-768px screens.</li>
+                                <li><strong>JS Fixes</strong> — Removed duplicate const declarations that killed all JavaScript. Fixed broken onclick handlers (regex artifacts). Fixed ticker element ID mismatch.</li>
+                                <li><strong>Visual Cleanup</strong> — Reduced alert stacking on dashboard. Removed inline gradient backgrounds that broke in dark mode. Subdued share bars. More generous spacing throughout.</li>
                             </ul>
                         </div>
                         <div>
@@ -5259,7 +5304,7 @@ Signature: _______________</div>
 
             <!-- FEBRUARY 21, 2026 - v19.0 EMBER DESIGN + JAN-FEB 2026 BRIEFING -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(212,67,43,0.08), rgba(212,67,43,0.03));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         February 21, 2026 — v19.0 EMBER-INSPIRED REDESIGN + JAN-FEB 2026 COMPREHENSIVE UPDATE + IMPRI INSIGHTS
@@ -5324,7 +5369,7 @@ Signature: _______________</div>
 
             <!-- JANUARY 21, 2026 - v17.0 STATE OF GLOBAL AIR 2025 + CREA NCAP 2026 -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.15), rgba(239,68,68,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 21, 2026 — v17.0 (Previous) 📊 STATE OF GLOBAL AIR 2025 + 🏛️ CREA NCAP ANALYSIS
@@ -5412,7 +5457,7 @@ Signature: _______________</div>
 
             <!-- JANUARY 21, 2026 - URBANEMISSIONS.INFO INTEGRATION -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(167,139,250,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #7C3AED;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 21, 2026 — v15.0 (Previous) 🔬 URBANEMISSIONS.INFO INTEGRATION
@@ -5444,7 +5489,7 @@ Signature: _______________</div>
 
             <!-- JANUARY 18, 2026 - WORLD BANK STUDY + MISSION TRACKER -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(22,128,60,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #2563EB;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 18, 2026 — v14.0 (Previous) 🏛️ WORLD BANK STUDY + 📊 CLEAN AIR MISSION TRACKER
@@ -5487,7 +5532,7 @@ Signature: _______________</div>
 
             <!-- JANUARY 17, 2026 - SCIENTIFIC METRICS UPGRADE -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(22,128,60,0.15), rgba(34,197,94,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #16803C;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 17, 2026 — v13.0 🔬 SCIENTIFIC METRICS + ⚖️ ENVIRONMENTAL JUSTICE
@@ -5552,7 +5597,7 @@ Signature: _______________</div>
 
             <!-- JANUARY 2026 v12.1 -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(22,128,60,0.08));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: #16A34A;">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 8, 2026 — v12.1 📱 UI OVERHAUL
@@ -5597,7 +5642,7 @@ Signature: _______________</div>
 
             <!-- JANUARY 8, 2026 - REBRAND -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 8, 2026 — v12 🎉 REBRAND
@@ -5633,7 +5678,7 @@ Signature: _______________</div>
 
             <!-- DECEMBER 30, 2024 -->
             <div class="card mb-2">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         December 30, 2024 — v11
@@ -5805,7 +5850,7 @@ Signature: _______________</div>
 
             <!-- ROADMAP -->
             <div class="card mt-2" style="border: 2px dashed var(--green-600);">
-                <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(167,139,250,0.02));">
+                <div class="card-header" style="background: var(--bg-muted);">
                     <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
                         Roadmap — Planned Features
