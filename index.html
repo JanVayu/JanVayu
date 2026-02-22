@@ -1,1084 +1,584 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JanVayu &#2332;&#2344;&#2357;&#2366;&#2351;&#2369; | India's Air Quality Crisis</title>
-    <meta name="description" content="Citizen-led air quality monitoring, health impact tracking, and policy accountability platform for India. Live AQI data, research archive, and tools for clean air advocacy.">
-    <meta property="og:title" content="JanVayu &#2332;&#2344;&#2357;&#2366;&#2351;&#2369; | India's Air Quality Crisis">
-    <meta property="og:description" content="Real-time air quality data, health research, economic costs, and policy accountability for India's clean air movement.">
-    <meta property="og:url" content="https://www.janvayu.in">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>JanVayu | Citizen Air Quality Platform</title>
+    <meta name="description" content="Independent air quality monitoring, health impact analysis, and government accountability tracking for India. Clean air is not a privilege, it is a right.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
+        /* ══════════════════════════════════════════════════════════
+           JANVAYU v21.0 — GREEN EMBER TABBED DESIGN
+           Clean, spacious, functional. Built for clarity.
+           ══════════════════════════════════════════════════════════ */
 
-        /* ═══════════════════════════════════════════════════════════
-           JANVAYU v20.0 — EMBER-ENERGY EDITORIAL DESIGN
-           Clean, green, spacious. Ember-energy editorial design.
-           ═══════════════════════════════════════════════════════════ */
-
+        /* ── Design Tokens ────────────────────────────────────── */
         :root {
-            /* Core palette — warm neutrals with red-orange crisis accent */
-            --bg-primary: #FAFAFC;
-            --bg-secondary: #F0F4F2;
-            --bg-card: #FFFFFF;
-            --bg-dark: #0F1F17;
-            --bg-dark-card: #1A2F22;
-
-            --text-primary: #1A2B23;
-            --text-secondary: #3D5347;
-            --text-tertiary: #6B8577;
-            --text-inverse: #FAFAFC;
-
-            --accent-red: #1B6B4A;
-            --accent-red-light: #E8F5EE;
-            --accent-amber: #D97706;
-            --accent-amber-light: #FEF3C7;
-            --accent-green: #16803C;
-            --accent-green-light: #DCFCE7;
-            --accent-blue: #2563EB;
-            --accent-blue-light: #DBEAFE;
-            --accent-purple: #7C3AED;
-
-            --border: #D8E5DD;
-            --border-strong: #C0D4C8;
-            --shadow-sm: 0 1px 2px rgba(15,31,23,0.05);
-            --shadow-md: 0 4px 12px rgba(15,31,23,0.08);
-            --shadow-lg: 0 8px 24px rgba(15,31,23,0.12);
-
-            /* AQI color scale */
-            --aqi-good: #16803C;
-            --aqi-moderate: #D97706;
-            --aqi-unhealthy-sg: #EA580C;
-            --aqi-unhealthy: #DC2626;
-            --aqi-very-unhealthy: #7C3AED;
-            --aqi-hazardous: #831843;
-
-            /* Typography */
             --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
 
-            /* Spacing scale */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
+            --green-700: #15573C;
+            --green-600: #1B6B4A;
+            --green-500: #22885E;
+            --green-400: #34A874;
+            --green-100: #E2F3EA;
+            --green-50: #F0F9F4;
 
-            /* Layout */
-            --max-width: 1200px;
-            --header-height: 64px;
+            --amber: #D97706;
+            --amber-light: #FEF3C7;
+            --red: #C0392B;
+            --red-light: #FDEAEA;
+            --blue: #2563EB;
+            --blue-light: #EFF6FF;
+            --purple: #7C3AED;
+            --purple-light: #F3EEFF;
 
-            /* v19 → v18 variable aliases */
-            --primary: #1B6B4A;
-            --bg: #FAFAF8;
-            --text: #1A1917;
-            --who-above: #DC6B2F;
-            --who-good: #16803C;
-            --aqi-mod: #D97706;
-            --health: #C0392B;
-            --policy: #2563EB;
-            --research: #7C3AED;
-            --economic: #D97706;
+            --bg: #F7F9F8;
+            --bg-card: #FFFFFF;
+            --bg-muted: #F0F3F1;
+            --text: #1C2B22;
+            --text-2: #3D5347;
+            --text-3: #6B8577;
+            --border: #D6E2DC;
+            --border-light: #E8EFE9;
+
+            --shadow-sm: 0 1px 3px rgba(21,87,60,0.06);
+            --shadow-md: 0 4px 12px rgba(21,87,60,0.08);
+            --shadow-lg: 0 8px 32px rgba(21,87,60,0.10);
+
+            --radius: 10px;
+            --radius-sm: 6px;
+            --max-w: 1200px;
+            --header-h: 56px;
+            --tab-h: 44px;
         }
 
-        /* Dark mode */
         [data-theme="dark"] {
-            --bg-primary: #0A120E;
-            --bg-secondary: #0F1F17;
-            --bg-card: #162218;
-            --text-primary: #E8F0EC;
-            --text-secondary: #9BB5A5;
-            --text-tertiary: #6B8577;
-            --border: #1F3828;
-            --border-strong: #2A4A35;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+            --bg: #0C1610;
+            --bg-card: #15231A;
+            --bg-muted: #1A2D22;
+            --text: #E0EDE6;
+            --text-2: #9BB5A5;
+            --text-3: #6B8577;
+            --border: #243D2E;
+            --border-light: #1E3328;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
-            --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
-            --accent-red-light: #0F2E1A;
-            --accent-amber-light: #3D2E0A;
-            --accent-green-light: #0F2E1A;
-            --accent-blue-light: #1A2540;
-
-            --primary: #2D9B6E;
-            --bg: #121210;
-            --text: #F2F1ED;
-            --who-above: #E86B56;
-            --who-good: #22C55E;
-            --health: #EF4444;
-            --policy: #60A5FA;
-            --research: #A78BFA;
-            --economic: #FBBF24;
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+            --green-50: #0F2218;
+            --green-100: #15301F;
+            --green-600: #2D9B6E;
         }
 
-        /* ── Reset & Base ─────────────────────────────────── */
+        /* ── Reset ──────────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        svg:not([width]):not([class]) { width: 20px; height: 20px; }
         html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-sans);
             font-size: 15px;
-            line-height: 1.65;
-            color: var(--text-primary);
-            background: var(--bg-primary);
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; line-height: 1.25; }
-        a { color: var(--accent-blue); text-decoration: none; }
+        a { color: var(--green-600); text-decoration: none; }
         a:hover { text-decoration: underline; }
-
-        /* ── Utility Classes ──────────────────────────────── */
-        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-lg); width: 100%; }
+        img { max-width: 100%; }
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-        .text-mono { font-family: var(--font-mono); }
-        .text-serif { font-family: var(--font-serif); }
-        .text-red { color: var(--accent-red); }
-        .text-amber { color: var(--accent-amber); }
-        .text-green { color: var(--accent-green); }
-        .text-muted { color: var(--text-tertiary); }
-        .font-bold { font-weight: 700; }
 
-        /* ── Header ───────────────────────────────────────── */
+        /* ── Header ─────────────────────────────────────────── */
         .site-header {
-            height: var(--header-height);
-            background: var(--bg-dark);
-            color: var(--text-inverse);
-            display: flex;
-            align-items: center;
+            background: var(--green-700);
+            color: white;
+            height: var(--header-h);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 3px solid var(--accent-red);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         .site-header .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 100%;
+            height: 100%;
         }
-        .site-logo {
-            display: flex;
-            align-items: baseline;
-            gap: var(--space-sm);
-        }
-        .site-logo-text {
+        .site-logo { display: flex; flex-direction: column; }
+        .logo-name {
             font-family: var(--font-serif);
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: -0.02em;
-            color: #fff;
+            line-height: 1.2;
         }
-        .site-logo-hindi {
+        .logo-hindi { font-weight: 400; opacity: 0.8; font-size: 0.85em; margin-left: 6px; }
+        .logo-tag { font-size: 0.65rem; opacity: 0.7; letter-spacing: 0.04em; text-transform: uppercase; }
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+        .theme-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
             font-size: 1rem;
-            opacity: 0.6;
-            font-weight: 400;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
         }
-        .site-logo-tag {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            opacity: 0.5;
-            font-family: var(--font-sans);
-            font-weight: 500;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-        }
-        .header-aqi-badge {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: var(--font-mono);
-        }
-        .header-aqi-badge .label {
-            font-family: var(--font-sans);
-            font-weight: 400;
-            opacity: 0.8;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-        .theme-toggle {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 6px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .theme-toggle:hover { background: rgba(255,255,255,0.1); }
+        .theme-btn:hover { background: rgba(255,255,255,0.25); }
 
-        /* ── Mobile Menu ──────────────────────────────────── */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 4px;
-        }
-        @media (max-width: 900px) {
-            .mobile-menu-btn { display: none; }
-        }
-
-        
-
-
-        /* ══════════════════════════════════════════════════
-           GROUPED TAB NAVIGATION
-           ══════════════════════════════════════════════════ */
-
-        /* Panel show/hide */
-        .panel { display: none; padding: var(--space-2xl) 0 var(--space-xl); }
-        .panel.active { display: block; }
-
-        /* Category bar */
-        .nav-bar {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: var(--header-height);
-            z-index: 90;
-        }
-        .nav-categories {
-            display: flex;
-            gap: 0;
-            list-style: none;
-        }
-        .nav-cat {
-            position: relative;
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding: 14px 18px;
-            color: var(--text-tertiary);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: color 0.15s;
-            user-select: none;
-            white-space: nowrap;
-        }
-        .nav-cat:hover { color: var(--text-primary); }
-        .nav-cat.active {
-            color: var(--accent-red);
-            border-bottom-color: var(--accent-red);
-        }
-
-        /* Sub-tabs row */
-        .nav-sub {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: calc(var(--header-height) + 47px);
-            z-index: 89;
-            min-height: 0;
-            overflow: hidden;
-            transition: min-height 0.2s;
-        }
-        .nav-sub .container {
-            display: flex;
-            gap: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-        .sub-group {
-            display: none;
-        }
-        .sub-group.active {
-            display: flex;
-            gap: 0;
-        }
-        .sub-tab {
-            font-family: var(--font-sans);
-            font-size: 0.78rem;
-            font-weight: 500;
-            padding: 10px 16px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            background: none;
-            border: none;
-            border-bottom: 2px solid transparent;
-            transition: all 0.15s;
-            white-space: nowrap;
-        }
-        .sub-tab:hover {
-            color: var(--text-primary);
-            background: rgba(27,107,74,0.04);
-        }
-        .sub-tab.active {
-            color: var(--accent-red);
-            border-bottom-color: var(--accent-red);
-            font-weight: 600;
-        }
-
-        /* Mobile: horizontal scroll */
-        @media (max-width: 768px) {
-            .nav-categories {
-                overflow-x: auto;
-                scrollbar-width: none;
-                -webkit-overflow-scrolling: touch;
-            }
-            .nav-categories::-webkit-scrollbar { display: none; }
-            .nav-cat {
-                font-size: 0.68rem;
-                padding: 12px 14px;
-            }
-            .sub-group.active {
-                overflow-x: auto;
-                scrollbar-width: none;
-                -webkit-overflow-scrolling: touch;
-            }
-            .sub-group::-webkit-scrollbar { display: none; }
-            .sub-tab {
-                font-size: 0.72rem;
-                padding: 8px 12px;
-            }
-        }
-
-        /* Section intro */
-        .section-intro {
-            margin-bottom: var(--space-xl);
-        }
-        .section-intro h2 {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: var(--space-xs);
-        }
-        .section-intro p {
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-            max-width: 640px;
-            line-height: 1.6;
-        }
-
-        /* ── Crisis Ticker ────────────────────────────────── */
+        /* ── Ticker ──────────────────────────────────────────── */
         .ticker {
-            background: var(--accent-red);
-            color: #fff;
+            background: var(--green-700);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.72rem;
             overflow: hidden;
-            font-size: 0.78rem;
-            font-weight: 500;
-            height: 32px;
+            height: 28px;
             display: flex;
             align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .ticker-track {
             display: flex;
             white-space: nowrap;
-            animation: ticker-scroll 90s linear infinite;
+            animation: tickerScroll 90s linear infinite;
         }
-        .ticker-item {
-            padding: 0 var(--space-2xl);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
+        .ticker-item { padding: 0 32px; display: flex; align-items: center; gap: 8px; }
         .ticker-dot {
-            width: 4px;
-            height: 4px;
+            width: 5px; height: 5px;
+            background: var(--green-400);
             border-radius: 50%;
-            background: rgba(255,255,255,0.5);
+            display: inline-block;
         }
-        @keyframes ticker-scroll {
+        @keyframes tickerScroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
-        /* ── Content Panels ───────────────────────────────── */
-        
-        .panel-title {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: var(--space-sm);
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
+        /* ── Tab Navigation ──────────────────────────────────── */
+        .nav-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: var(--header-h);
+            z-index: 90;
+            height: var(--tab-h);
         }
-        .panel-subtitle {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--space-2xl);
-            max-width: 680px;
+        .nav-bar .container {
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            gap: 0;
+            padding-top: 0; padding-bottom: 0;
+        }
+        .nav-bar .container::-webkit-scrollbar { display: none; }
+        .nav-tab {
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0 14px;
+            color: var(--text-3);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 0.15s, border-color 0.15s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .nav-tab:hover { color: var(--text); }
+        .nav-tab.active {
+            color: var(--green-600);
+            border-bottom-color: var(--green-600);
+            font-weight: 600;
+        }
+
+        /* Mobile hamburger dropdown */
+        .mobile-nav-btn {
+            display: none;
+            background: none; border: none; color: var(--text);
+            font-size: 1.3rem; cursor: pointer; padding: 8px;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--header-h);
+            left: 0; right: 0; bottom: 0;
+            background: var(--bg-card);
+            z-index: 200;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu button {
+            display: block; width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            border: none; background: none;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--text-2);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+        .mobile-menu button:hover,
+        .mobile-menu button.active { background: var(--green-50); color: var(--green-600); }
+
+        @media (max-width: 768px) {
+            .nav-bar { display: none; }
+            .mobile-nav-btn { display: flex; }
+        }
+
+        /* ── Panels ──────────────────────────────────────────── */
+        .panel { display: none; padding: 32px 0 24px; }
+        .panel.active { display: block; }
+
+        /* ── Section Intro ───────────────────────────────────── */
+        .section-intro {
+            margin-bottom: 28px;
+        }
+        .section-intro h2 {
+            font-family: var(--font-serif);
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+        }
+        .section-intro p {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--text-2);
+            max-width: 620px;
             line-height: 1.6;
         }
 
-        /* ── Cards ────────────────────────────────────────── */
+        /* ── Cards ──────────────────────────────────────────── */
         .card {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: var(--space-xl);
-            transition: box-shadow 0.2s;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
         }
         .card:hover { box-shadow: var(--shadow-md); }
-        .card-title {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
+        .card-header {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--bg-muted);
         }
-        .card-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+        .card-title {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-tertiary);
-            margin-bottom: var(--space-xs);
+            color: var(--text);
+        }
+        .card-body { padding: 20px; }
+        .card-footer {
+            padding: 14px 20px;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.78rem;
+            color: var(--text-3);
         }
 
-        /* ── Stat Blocks ──────────────────────────────────── */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: var(--space-lg);
-            margin-bottom: var(--space-2xl);
+        /* ── Alerts ──────────────────────────────────────────── */
+        .alert {
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.84rem;
+            line-height: 1.6;
         }
+        .alert-danger { background: var(--red-light); border-left: 3px solid var(--red); }
+        .alert-warning { background: var(--amber-light); border-left: 3px solid var(--amber); }
+        .alert-info { background: var(--blue-light); border-left: 3px solid var(--blue); }
+        .alert-success { background: var(--green-100); border-left: 3px solid var(--green-600); }
+
+        /* ── Stat Cards ──────────────────────────────────────── */
         .stat-card {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: var(--space-lg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 18px 20px;
             text-align: center;
         }
-        .stat-number {
+        .pm25-value, .stat-number {
             font-family: var(--font-mono);
             font-size: 2.2rem;
             font-weight: 700;
             line-height: 1.1;
-            margin: var(--space-sm) 0;
         }
-        .stat-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-tertiary);
-            font-weight: 500;
-        }
-        .stat-context {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: var(--space-xs);
+        .stat-label { font-size: 0.72rem; color: var(--text-3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+        .stat-sublabel { font-size: 0.75rem; color: var(--text-2); margin-top: 2px; }
+
+        /* ── Grids ──────────────────────────────────────────── */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
         }
 
-        /* ── Data Tables ──────────────────────────────────── */
-        .table-wrap {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: var(--space-lg) 0;
-        }
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            min-width: 500px;
-        }
+        /* ── Tables ──────────────────────────────────────────── */
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
         .data-table th {
+            background: var(--bg-muted);
+            padding: 10px 14px;
             text-align: left;
             font-weight: 600;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-tertiary);
-            padding: var(--space-sm) var(--space-md);
-            border-bottom: 2px solid var(--border-strong);
+            letter-spacing: 0.04em;
+            color: var(--text-2);
+            border-bottom: 2px solid var(--border);
         }
         .data-table td {
-            padding: var(--space-sm) var(--space-md);
-            border-bottom: 1px solid var(--border);
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-light);
             vertical-align: top;
         }
-        .data-table tr:hover td { background: var(--bg-secondary); }
+        .data-table tr:hover td { background: var(--green-50); }
 
-        /* ── Badges & Tags ────────────────────────────────── */
-        .badge {
+        /* ── Buttons ─────────────────────────────────────────── */
+        .btn {
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            cursor: pointer;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 0.72rem;
+            gap: 6px;
+            transition: 0.15s;
+        }
+        .btn:hover { background: var(--bg-muted); text-decoration: none; }
+        .btn-sm { font-size: 0.75rem; padding: 5px 12px; }
+        .btn-primary {
+            background: var(--green-600);
+            color: white;
+            border-color: var(--green-600);
+        }
+        .btn-primary:hover { background: var(--green-500); }
+
+        /* ── Info Box ─────────────────────────────────────────── */
+        .info-box {
+            padding: 14px 18px;
+            background: var(--bg-muted);
+            border-radius: var(--radius-sm);
+            font-size: 0.84rem;
+            line-height: 1.6;
+        }
+
+        /* ── Quick Links ─────────────────────────────────────── */
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .quick-link:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+        .quick-link-icon {
+            width: 40px; height: 40px; min-width: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .quick-link-icon.health { background: var(--red-light); }
+        .quick-link-icon.economic { background: var(--amber-light); }
+        .quick-link-icon.policy { background: var(--blue-light); }
+        .quick-link-icon.tools { background: var(--green-100); }
+        .quick-link h4 { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+        .quick-link p { font-size: 0.75rem; color: var(--text-3); }
+
+        /* ── Voice Cards ─────────────────────────────────────── */
+        .voice-avatar {
+            width: 36px; height: 36px; min-width: 36px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        /* ── Chart Containers ─────────────────────────────────── */
+        .chart-container { position: relative; height: 260px; width: 100%; }
+        .chart-container-lg { height: 350px; }
+
+        /* ── Badge ────────────────────────────────────────────── */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
-        .badge-red { background: var(--accent-red-light); color: var(--accent-red); }
-        .badge-amber { background: var(--accent-amber-light); color: var(--accent-amber); }
-        .badge-green { background: var(--accent-green-light); color: var(--accent-green); }
-        .badge-blue { background: var(--accent-blue-light); color: var(--accent-blue); }
 
-        /* ── Section Dividers ─────────────────────────────── */
-
-
-        /* ── Callout Boxes ────────────────────────────────── */
-        .callout {
-            border-left: 4px solid var(--accent-red);
-            padding: var(--space-lg);
-            background: var(--accent-red-light);
-            border-radius: 0 8px 8px 0;
-            margin: var(--space-xl) 0;
-        }
-        .callout-title {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            margin-bottom: var(--space-xs);
-        }
-        .callout p { font-size: 0.9rem; color: var(--text-secondary); }
-
-        .callout-amber { border-left-color: var(--accent-amber); background: var(--accent-amber-light); }
-        .callout-green { border-left-color: var(--accent-green); background: var(--accent-green-light); }
-        .callout-blue { border-left-color: var(--accent-blue); background: var(--accent-blue-light); }
-
-        /* ── Two/Three Column Layouts ─────────────────────── */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); }
-        @media (max-width: 768px) {
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
-            .grid-4 { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* ── Quote Block ──────────────────────────────────── */
-        .quote-block {
-            border-left: 3px solid var(--accent-red);
-            padding: var(--space-lg) var(--space-xl);
-            margin: var(--space-xl) 0;
-            background: var(--bg-secondary);
-            border-radius: 0 8px 8px 0;
-        }
-        .quote-block .quote-text {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            font-style: italic;
-            line-height: 1.55;
-            color: var(--text-primary);
-        }
-        .quote-block .quote-attr {
-            margin-top: var(--space-sm);
-            font-size: 0.82rem;
-            color: var(--text-tertiary);
-            font-style: normal;
-        }
-
-        /* ── Timeline ─────────────────────────────────────── */
-        .timeline { position: relative; padding-left: 28px; }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border-strong);
-        }
-        .timeline-item {
-            position: relative;
-            padding-bottom: var(--space-lg);
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -24px;
-            top: 6px;
-            width: 10px;
-            height: 10px;
+        /* ── Pulse animation ─────────────────────────────────── */
+        .pulse {
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: #22C55E;
             border-radius: 50%;
-            background: var(--accent-red);
-            border: 2px solid var(--bg-card);
+            margin-right: 6px;
+            animation: pulse 2s infinite;
         }
-        .timeline-date {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
-            margin-bottom: 2px;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
-        .timeline-content {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-        }
-        .timeline-content strong { color: var(--text-primary); }
 
-        /* ── Changelog ────────────────────────────────────── */
-        .changelog-entry {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: var(--space-xl);
-            margin-bottom: var(--space-lg);
-        }
-        .changelog-version {
+        /* ── Utility ──────────────────────────────────────────── */
+        .mb-1 { margin-bottom: 12px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mt-1 { margin-top: 12px; }
+        .mt-2 { margin-top: 20px; }
+        .text-mono { font-family: var(--font-mono); }
+
+        /* ── AQI specific colors ─────────────────────────────── */
+        .pm25-good { color: #22C55E; }
+        .pm25-moderate { color: #84CC16; }
+        .pm25-sensitive { color: #EAB308; }
+        .pm25-unhealthy { color: #F97316; }
+        .pm25-very-unhealthy { color: #EF4444; }
+        .pm25-hazardous { color: #9333EA; }
+        .pm25-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-family: var(--font-mono);
             font-size: 0.8rem;
-            color: var(--accent-red);
             font-weight: 600;
         }
-        .changelog-date {
-            font-size: 0.8rem;
-            color: var(--text-tertiary);
-        }
-        .changelog-list {
-            margin-top: var(--space-md);
-            padding-left: var(--space-lg);
-        }
-        .changelog-list li {
-            font-size: 0.85rem;
-            margin-bottom: var(--space-xs);
-            color: var(--text-secondary);
-        }
 
-        /* ── Footer ───────────────────────────────────────── */
-        .site-footer {
-            background: var(--bg-dark);
-            color: var(--text-inverse);
-            padding: var(--space-2xl) 0;
-            margin-top: var(--space-3xl);
+        /* ── Resource Cards ──────────────────────────────────── */
+        .resource-card {
+            padding: 16px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
         }
-        .site-footer a { color: rgba(255,255,255,0.6); }
-        .site-footer a:hover { color: #fff; }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: var(--space-2xl);
-        }
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
-        }
-        .footer-about p {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            line-height: 1.6;
-            margin-top: var(--space-sm);
-        }
-        .footer-heading {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            opacity: 0.5;
-            margin-bottom: var(--space-md);
-        }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: var(--space-sm); }
-        .footer-links a { font-size: 0.85rem; }
-        .footer-bottom {
-            margin-top: var(--space-2xl);
-            padding-top: var(--space-lg);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.75rem;
-            opacity: 0.4;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: var(--space-md);
-        }
+        .resource-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
+        .resource-desc { font-size: 0.8rem; color: var(--text-2); line-height: 1.5; }
 
-        /* ── AQI Live Panel ───────────────────────────────── */
-        .aqi-live-panel {
-            background: var(--bg-dark);
-            color: var(--text-inverse);
-            border-radius: 12px;
-            padding: var(--space-2xl);
-            margin-bottom: var(--space-2xl);
-        }
-        .aqi-city-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: var(--space-md);
-            margin-top: var(--space-lg);
-        }
+        /* ── News Items ──────────────────────────────────────── */
+        .news-meta { font-size: 0.7rem; color: var(--text-3); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .news-source { font-weight: 600; }
+        .news-title { font-size: 0.85rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+
+        /* ── AQI City Grid ───────────────────────────────────── */
+        .aqi-city-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
         .aqi-city-card {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: var(--space-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 14px;
             text-align: center;
         }
-        .aqi-city-name {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            opacity: 0.6;
-            margin-bottom: 4px;
-        }
-        .aqi-city-value {
-            font-family: var(--font-mono);
-            font-size: 1.8rem;
-            font-weight: 700;
-            line-height: 1.1;
-        }
-        .aqi-city-pm25 {
-            font-size: 0.75rem;
-            opacity: 0.5;
-            margin-top: 2px;
-            font-family: var(--font-mono);
-        }
-        .aqi-city-who {
-            font-size: 0.7rem;
-            margin-top: 4px;
-            opacity: 0.7;
-        }
-        .aqi-status-dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            margin-right: 4px;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        .aqi-city-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 4px; }
 
-        /* ── Hero Section ─────────────────────────────────── */
-
-
-        /* ── Comparison Bars ──────────────────────────────── */
-        .compare-bar-container { margin: var(--space-md) 0; }
-        .compare-bar-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.82rem;
-            margin-bottom: 4px;
-        }
-        .compare-bar-track {
-            height: 24px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-        .compare-bar-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 1s ease-out;
-            display: flex;
-            align-items: center;
-            padding-left: 8px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #fff;
-            font-family: var(--font-mono);
-        }
-        .compare-bar-who {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--accent-green);
-            z-index: 2;
-        }
-
-        /* ── Source Attribution ────────────────────────────── */
-        .source-note {
-            font-size: 0.72rem;
-            color: var(--text-tertiary);
-            margin-top: var(--space-sm);
-            font-style: italic;
-        }
-
-        /* ── Scroll to top ────────────────────────────────── */
-        .scroll-top {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--accent-red);
-            color: #fff;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-md);
-        }
-        .scroll-top.visible { opacity: 1; pointer-events: auto; }
-
-        /* ── Print styles ─────────────────────────────────── */
-        @media print {
-            .site-header, .nav-bar, .ticker, .scroll-top, .theme-toggle { display: none; }
-            .panel { display: block !important; page-break-inside: avoid; }
-        }
-    
-        /* ── Scroll Layout Overrides ────────────────────── */
-
-        
-
-        /* ── Anchor Navigation ─────────────────────────── */
-
-        
-    
-    
-            .hero-headline { font-size: 1.6rem !important; }
-
-            .stat-number { font-size: 1.6rem !important; }
-        }
-        @media (max-width: 480px) {
-    
-        }
-
-        /* ── Section Intro Styling (v18 editorial) ──── */
-
-        /* ── v19 component style overrides for v18 palette ── */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            transition: box-shadow 0.2s;
-        }
-        .card:hover { box-shadow: var(--shadow-md); }
-        .card-header {
-            padding: var(--space-md) var(--space-lg);
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-secondary);
-            border-radius: 10px 10px 0 0;
-        }
-        .card-body { padding: var(--space-lg); }
-        .card-title {
-            font-family: var(--font-serif);
-            font-weight: 600;
-        }
-
-        .btn {
-            font-family: var(--font-sans);
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn:hover { box-shadow: var(--shadow-sm); }
-        .btn-primary {
-            background: var(--accent-red);
-            color: #fff;
-            border-color: var(--accent-red);
-        }
-        .btn-primary:hover {
-            background: #b9371f;
-        }
-
-        .alert {
-            border-radius: 8px;
-            padding: var(--space-md) var(--space-lg);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-        .alert-danger { background: var(--accent-red-light); border-left: 4px solid var(--accent-red); }
-        .alert-warning { background: var(--accent-amber-light); border-left: 4px solid var(--accent-amber); }
-        .alert-info { background: var(--accent-blue-light); border-left: 4px solid var(--accent-blue); }
-        .alert-success { background: var(--accent-green-light); border-left: 4px solid var(--accent-green); }
-
-        .badge { border-radius: 100px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-        .badge-danger { background: var(--accent-red-light); color: var(--accent-red); }
-        .badge-warning { background: var(--accent-amber-light); color: var(--accent-amber); }
-        .badge-success { background: var(--accent-green-light); color: var(--accent-green); }
-        .badge-info { background: var(--accent-blue-light); color: var(--accent-blue); }
-
-        /* Override v19's green primary with v18's red accent */
-        .stat-highlight, [style*="color: var(--primary)"] { color: var(--accent-red) !important; }
-        [style*="background: var(--primary)"] { background: var(--accent-red) !important; }
-        [style*="border-color: var(--primary)"] { border-color: var(--accent-red) !important; }
-        [style*="border-left: 4px solid var(--primary)"] { border-left-color: var(--accent-red) !important; }
-
-        /* Override remaining v19 color vars */
-        /* ── Info Boxes ───────────────────────────────── */
-        .info-box {
-            padding: var(--space-md) var(--space-lg);
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            margin-bottom: var(--space-md);
-        }
-        .info-box svg {
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-        }
-
-        /* ── Share Bar ────────────────────────────────── */
-        .share-bar {
-            display: flex;
-            gap: var(--space-sm);
-            margin-top: var(--space-md);
-        }
+        /* ── Share Bar ────────────────────────────────────────── */
+        .share-bar { display: flex; gap: 8px; margin-top: 12px; }
         .share-btn {
             font-size: 0.72rem;
             padding: 4px 10px;
             border: 1px solid var(--border);
             border-radius: 4px;
             background: var(--bg-card);
-            color: var(--text-secondary);
+            color: var(--text-2);
             cursor: pointer;
             text-decoration: none;
-            transition: 0.15s;
         }
-        .share-btn:hover {
-            background: var(--bg-secondary);
-            text-decoration: none;
-        }
+        .share-btn:hover { background: var(--bg-muted); text-decoration: none; }
 
-        /* ── Result/Code Boxes ────────────────────────── */
-        .result-box, .code-box {
-            padding: var(--space-md);
-            background: var(--bg-secondary);
-            border-radius: 6px;
-            font-family: var(--font-mono);
+        /* ── Footer ──────────────────────────────────────────── */
+        .site-footer {
+            background: var(--green-700);
+            color: rgba(255,255,255,0.85);
+            padding: 40px 0 24px;
+            margin-top: 48px;
             font-size: 0.82rem;
-            line-height: 1.5;
-            overflow-x: auto;
         }
-
-        /* ── Voice Cards ──────────────────────────────── */
-        .voice-avatar {
-            width: 36px;
-            height: 36px;
-            min-width: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            color: white;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 32px;
         }
-
-        .mb-1 { margin-bottom: var(--space-sm); }
-        .mb-2 { margin-bottom: var(--space-lg); }
-        .mt-1 { margin-top: var(--space-sm); }
-        .mt-2 { margin-top: var(--space-lg); }
-
-        /* Grid overrides - ensure v19 grids work */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); }
+        .footer-title { font-weight: 600; margin-bottom: 12px; font-size: 0.9rem; color: white; }
+        .footer-link { color: rgba(255,255,255,0.7); text-decoration: none; display: block; padding: 3px 0; font-size: 0.8rem; }
+        .footer-link:hover { color: white; }
+        .footer-bottom {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.72rem;
+            opacity: 0.6;
+            text-align: center;
+        }
         @media (max-width: 768px) {
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
-            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
         }
 
-        /* Search box */
-        .search-box { display: flex; gap: var(--space-sm); }
-        .search-input {
-            flex: 1;
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-        .search-input:focus { outline: 2px solid var(--accent-red); border-color: transparent; }
-        .search-btn {
-            padding: 10px 20px;
-            background: var(--accent-red);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
+        /* ── SVG sizing ──────────────────────────────────────── */
+        svg:not([width]):not([class]) { width: 18px; height: 18px; }
 
-        /* Resource cards */
-        .resource-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: var(--space-md);
-            transition: all 0.2s;
-        }
-        .resource-card:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--accent-red);
-        }
-        .resource-card a { color: inherit; text-decoration: none; }
-        .resource-type { font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
-        .resource-title { font-family: var(--font-serif); font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
-        .resource-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+        /* ── Color variable aliases (for existing content) ──── */
+        .stat-highlight { color: var(--green-600); }
+        [style*="color: var(--green-600)"] { color: var(--green-600) !important; }
 
-        /* Tabs within sections (like sub-navigation for data views) */
-        .sub-tabs { display: flex; gap: 4px; margin-bottom: var(--space-lg); flex-wrap: wrap; }
-        .sub-tab {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: transparent;
-            cursor: pointer;
-            font-family: var(--font-sans);
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: 0.15s;
+        /* ── Print ────────────────────────────────────────────── */
+        @media print {
+            .site-header, .nav-bar, .ticker, .mobile-nav-btn { display: none; }
+            .panel { display: block !important; page-break-inside: avoid; }
+            body { background: white; font-size: 11pt; }
         }
-        .sub-tab:hover { background: var(--bg-secondary); }
-        .sub-tab.active { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
-
-        /* Content containers */
-        .content-wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-lg); }
-
     </style>
 </head>
 <body>
-    <!-- CRISIS TICKER -->
-    <div class="ticker" role="marquee" aria-label="Latest air quality updates">
+
+    <!-- TICKER -->
+    <div class="ticker" role="marquee" aria-label="Latest updates">
         <div class="ticker-track" id="tickerTrack">
             <span class="ticker-item"><span class="ticker-dot"></span>Delhi Dec 2025: Worst December in 7 years (AQI 351 avg)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026-27: Pollution control funding CUT by 16% (&#8377;1,091 Cr vs &#8377;1,300 Cr)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg/Clean Air Fund: $260 billion annual economic damage from PM2.5</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026-27: Pollution control funding CUT 16% to &#8377;1,091 Cr</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg: $260 billion annual economic damage from PM2.5 (6% of GDP)</span>
             <span class="ticker-item"><span class="ticker-dot"></span>CREA: Only 23 of 100 NCAP cities meeting 40% reduction target</span>
             <span class="ticker-item"><span class="ticker-dot"></span>Supreme Court: CAQM "failing in its duty" to identify pollution causes</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Beijing PM2.5 hit record-low 27 &micro;g/m&sup3; while Delhi stagnates at 91.6 &micro;g/m&sup3;</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Beijing PM2.5 record-low 27 &#181;g/m&#179; while Delhi stagnates at 91.6</span>
             <span class="ticker-item"><span class="ticker-dot"></span>IQAir 2024: 74 of world's 100 most polluted cities are Indian</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>XV Finance Commission &#8377;16,539 Cr air quality grant expires March 31, 2026</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Kolkata AQI hit 559 (Jan 7-8) &mdash; 187% worse than previous years</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Gita Gopinath at Davos: Pollution impact "far more consequential than tariffs"</span>
-            <!-- Duplicate for seamless loop -->
+            <span class="ticker-item"><span class="ticker-dot"></span>Earthshot Prize 2026 to be held in Mumbai. "Clean Our Air" category</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Mumbai Climate Week: First citizen-led climate conference in South Asia</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Delhi Climate Innovation Week: Feb 20-27 across Delhi-NCR</span>
             <span class="ticker-item"><span class="ticker-dot"></span>Delhi Dec 2025: Worst December in 7 years (AQI 351 avg)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026-27: Pollution control funding CUT by 16% (&#8377;1,091 Cr vs &#8377;1,300 Cr)</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg/Clean Air Fund: $260 billion annual economic damage from PM2.5</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Budget 2026-27: Pollution control funding CUT 16% to &#8377;1,091 Cr</span>
+            <span class="ticker-item"><span class="ticker-dot"></span>Dalberg: $260 billion annual economic damage from PM2.5 (6% of GDP)</span>
             <span class="ticker-item"><span class="ticker-dot"></span>CREA: Only 23 of 100 NCAP cities meeting 40% reduction target</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Supreme Court: CAQM "failing in its duty" to identify pollution causes</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>Beijing PM2.5 hit record-low 27 &micro;g/m&sup3; while Delhi stagnates at 91.6 &micro;g/m&sup3;</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>IQAir 2024: 74 of world's 100 most polluted cities are Indian</span>
-            <span class="ticker-item"><span class="ticker-dot"></span>XV Finance Commission &#8377;16,539 Cr air quality grant expires March 31, 2026</span>
         </div>
     </div>
 
@@ -1086,60 +586,46 @@
     <header class="site-header">
         <div class="container">
             <div class="site-logo">
-                <span class="site-logo-text">JanVayu <span class="site-logo-hindi">&#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</span></span>
-                <span class="site-logo-tag">Citizen Air Quality Platform</span>
+                <span class="logo-name">JanVayu <span class="logo-hindi">&#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</span></span>
+                <span class="logo-tag">Citizen Air Quality Platform</span>
             </div>
-            <div class="header-right">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☽</button>
+            <div class="header-actions">
+                <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">&#9790;</button>
+                <button class="mobile-nav-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')">&#9776;</button>
             </div>
         </div>
     </header>
 
-    <!-- CATEGORY NAV -->
+    <!-- TAB NAV (desktop) -->
     <nav class="nav-bar" id="navBar">
         <div class="container">
-            <ul class="nav-categories" id="navCats">
-                <li class="nav-cat active" data-cat="data">Data</li>
-                <li class="nav-cat" data-cat="impact">Impact</li>
-                <li class="nav-cat" data-cat="policy">Policy</li>
-                <li class="nav-cat" data-cat="voices">Community</li>
-                <li class="nav-cat" data-cat="reference">Reference</li>
-            </ul>
+                <button class="nav-tab active" data-panel="dashboard">Dashboard</button>
+                <button class="nav-tab" data-panel="health">Health</button>
+                <button class="nav-tab" data-panel="economic">Economic</button>
+                <button class="nav-tab" data-panel="policy">Policy</button>
+                <button class="nav-tab" data-panel="budget">Budget</button>
+                <button class="nav-tab" data-panel="compare">Compare</button>
+                <button class="nav-tab" data-panel="map">Map</button>
+                <button class="nav-tab" data-panel="trends">Trends</button>
+                <button class="nav-tab" data-panel="accountability">Accountability</button>
+                <button class="nav-tab" data-panel="voices">Voices</button>
+                <button class="nav-tab" data-panel="actions">Actions</button>
+                <button class="nav-tab" data-panel="citizen-action">Citizen</button>
+                <button class="nav-tab" data-panel="legal">Legal</button>
+                <button class="nav-tab" data-panel="tools">Tools</button>
+                <button class="nav-tab" data-panel="resources">Resources</button>
+                <button class="nav-tab" data-panel="about">About</button>
+                <button class="nav-tab" data-panel="changelog">Updates</button>
         </div>
     </nav>
-    <div class="nav-sub" id="navSub">
-        <div class="container">
-            <div class="sub-group active" data-cat="data">
-                <button class="sub-tab active" data-panel="dashboard">Dashboard</button>
-                <button class="sub-tab" data-panel="compare">Compare</button>
-                <button class="sub-tab" data-panel="map">Map</button>
-                <button class="sub-tab" data-panel="trends">Trends</button>
-            </div>
-            <div class="sub-group" data-cat="impact">
-                <button class="sub-tab" data-panel="health">Health</button>
-                <button class="sub-tab" data-panel="economic">Economic</button>
-            </div>
-            <div class="sub-group" data-cat="policy">
-                <button class="sub-tab" data-panel="policy">Policy</button>
-                <button class="sub-tab" data-panel="budget">Budget</button>
-                <button class="sub-tab" data-panel="accountability">Accountability</button>
-            </div>
-            <div class="sub-group" data-cat="voices">
-                <button class="sub-tab" data-panel="voices">Voices</button>
-                <button class="sub-tab" data-panel="actions">Actions</button>
-                <button class="sub-tab" data-panel="citizen-action">Citizen Action</button>
-            </div>
-            <div class="sub-group" data-cat="reference">
-                <button class="sub-tab" data-panel="legal">Legal</button>
-                <button class="sub-tab" data-panel="tools">Tools</button>
-                <button class="sub-tab" data-panel="resources">Resources</button>
-                <button class="sub-tab" data-panel="about">About</button>
-                <button class="sub-tab" data-panel="changelog">Updates</button>
-            </div>
-        </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button data-panel="dashboard" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Dashboard</button><button data-panel="health" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Health</button><button data-panel="economic" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Economic</button><button data-panel="policy" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Policy</button><button data-panel="budget" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Budget</button><button data-panel="compare" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Compare</button><button data-panel="map" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Map</button><button data-panel="trends" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Trends</button><button data-panel="accountability" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Accountability</button><button data-panel="voices" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Voices</button><button data-panel="actions" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Actions</button><button data-panel="citizen-action" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Citizen</button><button data-panel="legal" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Legal</button><button data-panel="tools" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Tools</button><button data-panel="resources" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Resources</button><button data-panel="about" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">About</button><button data-panel="changelog" onclick="showPanel(chr(39)+pid+chr(39));document.getElementById(chr(39)+"mobileMenu"+chr(39)).classList.remove(chr(39)+"open"+chr(39))">Updates</button>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- CONTENT -->
+    <main class="content-wrap">
     <main class="content-wrap">
 <!-- ========== DASHBOARD ========== -->
         <div class="panel active" id="panel-dashboard">
@@ -1159,8 +645,8 @@
             </div>
 
             <!-- WHY PM2.5 MATTERS BOX -->
-            <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.04)); border-left: 4px solid var(--primary);"><div style="font-size: 0.8125rem;">
-                    ℹ️ <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="showPanel('health'); return false;" style="color: var(--primary);">Learn more →</a>
+            <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.04)); border-left: 4px solid var(--green-600);"><div style="font-size: 0.8125rem;">
+                    ℹ️ <strong>Why PM2.5, not AQI?</strong> — AQI is a composite index that can mask dangerous pollution levels. PM2.5 is the primary driver of mortality (Lancet GBD 2021: 4.7M global deaths). All health impact models (GEMM, GBD) use PM2.5 concentration, not AQI. <a href="#" onclick="showPanel('health'); return false;" style="color: var(--green-600);">Learn more →</a>
                 </div>
             </div>
 
@@ -1270,7 +756,7 @@
             </div>
 
             <!-- FEATURED RESEARCH: STATE OF GLOBAL AIR 2025 -->
-            <div class="card mb-2" style="border: 2px solid var(--accent-red); background: linear-gradient(135deg, rgba(27,107,74,0.04), rgba(27,107,74,0.02));">
+            <div class="card mb-2" style="border: 2px solid var(--green-600); background: linear-gradient(135deg, rgba(27,107,74,0.04), rgba(27,107,74,0.02));">
                 <div class="card-header" style="background: transparent;">
                     <span class="card-title" style="color: #1B6B4A;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -1310,7 +796,7 @@
                                 <span style="color: var(--text-2);">Dementia added for first time in 2025 methodology — PM2.5 linked to 54,000 dementia deaths in India.</span>
                             </div>
                             <div style="margin-top: 0.75rem;">
-                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="width: 100%; background: var(--accent-red); color: white;">
+                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="width: 100%; background: var(--green-600); color: white;">
                                     Read Full Report →
                                 </a>
                             </div>
@@ -1331,11 +817,11 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">Latest Updates</span>
-                        <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--primary);">View all</a>
+                        <a href="#" onclick="showPanel('voices'); return false;" style="font-size: 0.625rem; color: var(--green-600);">View all</a>
                     </div>
                     <div class="card-body" style="font-size: 0.75rem;">
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <div class="news-meta"><span class="news-source" style="background: var(--accent-red); color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">NEW</span> Jan 2026</div>
+                            <div class="news-meta"><span class="news-source" style="background: var(--green-600); color: white; padding: 0.125rem 0.25rem; border-radius: 2px; font-size: 0.625rem;">NEW</span> Jan 2026</div>
                             <div class="news-title">v16: State of Global Air 2025 — 2M deaths, CREA NCAP analysis, SC orders Jan 2026</div>
                         </div>
                         <div class="news-item" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
@@ -1362,19 +848,19 @@
             </div>
 
             <div class="grid-4">
-                <div class="quick-link" onclick="showPanel('\1')">
+                <div class="quick-link" onclick="showPanel('health')">
                     <div class="quick-link-icon health"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
                     <div class="quick-link-content"><h4>Health Calculator</h4><p>Calculate your personal risk</p></div>
                 </div>
-                <div class="quick-link" onclick="showPanel('\1')">
+                <div class="quick-link" onclick="showPanel('economic')">
                     <div class="quick-link-icon economic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                     <div class="quick-link-content"><h4>Economic Impact</h4><p>Business productivity loss</p></div>
                 </div>
-                <div class="quick-link" onclick="showPanel('\1')">
+                <div class="quick-link" onclick="showPanel('accountability')">
                     <div class="quick-link-icon policy"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
                     <div class="quick-link-content"><h4>Accountability</h4><p>Mission Tracker & RTI tools</p></div>
                 </div>
-                <div class="quick-link" onclick="showPanel('\1')">
+                <div class="quick-link" onclick="showPanel('voices')">
                     <div class="quick-link-icon tools"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
                     <div class="quick-link-content"><h4>Citizen Voices</h4><p>Public response & action</p></div>
                 </div>
@@ -1391,8 +877,8 @@
             </div>
 
             <!-- WHY PM2.5 NOT AQI EXPLAINER -->
-            <div class="card mb-2" style="border: 2px solid var(--primary); background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(167,139,250,0.01));">
-                <div class="card-header" style="background: transparent;"><span class="card-title" style="color: var(--primary);">🔬 Why PM2.5, Not AQI?</span></div>
+            <div class="card mb-2" style="border: 2px solid var(--green-600); background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(167,139,250,0.01));">
+                <div class="card-header" style="background: transparent;"><span class="card-title" style="color: var(--green-600);">🔬 Why PM2.5, Not AQI?</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -1580,7 +1066,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    For detailed guidance, see <a href="#" onclick="showPanel('\1')" style="color: var(--primary);">Actions tab</a> for protective measures by group.
+                    For detailed guidance, see <a href="#" onclick="showPanel('actions'); return false;" style="color: var(--green-600);">Actions tab</a> for protective measures by group.
                 </div>
             </div>
 
@@ -1596,7 +1082,7 @@
                     <div class="grid-2" style="gap: 1.5rem;">
                         <div>
                             <!-- STATE OF GLOBAL AIR 2025 -->
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent-red); background: rgba(27,107,74,0.03);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-600); background: rgba(27,107,74,0.03);">
                                 <h4 style="color: #1B6B4A; margin-bottom: 0.5rem;">📊 State of Global Air 2025 (HEI, October 2025)</h4>
                                 <ul style="font-size: 0.8125rem; line-height: 1.8;">
                                     <li><strong>2 million deaths in India (2023)</strong> — 43% increase since 2000</li>
@@ -1605,7 +1091,7 @@
                                     <li><strong>Dementia added:</strong> First time as health outcome — 54,000 deaths in India attributed to PM2.5</li>
                                     <li><strong>Household air pollution:</strong> 480,000 deaths (mostly women/children from cooking smoke)</li>
                                 </ul>
-                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="background: var(--accent-red); color: white; margin-top: 0.5rem;">Read Report →</a>
+                                <a href="https://www.stateofglobalair.org/resources/report/state-global-air-report-2025" target="_blank" class="btn btn-sm" style="background: var(--green-600); color: white; margin-top: 0.5rem;">Read Report →</a>
                             </div>
 
                             <!-- LANCET 10-CITY STUDY -->
@@ -1657,12 +1143,12 @@
                     </div>
                 </div>
             </div>
-            <div class="card mt-2" style="border: 2px solid var(--accent-red);">
+            <div class="card mt-2" style="border: 2px solid var(--green-600);">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(239,68,68,0.05));">
                     <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice — Who Bears the Burden?</span>
                 </div>
                 <div class="card-body">
-                    <div class="alert mb-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--accent-red);">
+                    <div class="alert mb-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-600);">
                         <div style="font-size: 0.875rem;">
                             <strong>The uncomfortable truth:</strong> Air pollution in India is not an equal-opportunity killer. The poor, informal workers, lower-caste communities, and women bear a vastly disproportionate burden — yet policy discourse centers on middle-class urban concerns like odd-even schemes and air purifiers.
                         </div>
@@ -1895,7 +1381,7 @@
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.75rem;">
-                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--primary);"><strong>🆕 Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
+                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--green-600);"><strong>🆕 Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
                         <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
                         <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
                         <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
@@ -1907,7 +1393,7 @@
             <!-- POLICY RECOMMENDATIONS -->
             <div class="card mt-2">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(59,130,246,0.05));">
-                    <span class="card-title" style="color: var(--primary);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                         Policy Recommendations — What Should Change
                     </span>
@@ -1995,8 +1481,8 @@
 
                     <div class="alert alert-info mt-2"><div>
                             <strong>Take Action:</strong> Use these recommendations in RTI applications, letters to MPs/MLAs, or media advocacy. 
-                            See <a href="#" onclick="showPanel('\1')" style="color: var(--primary);">Accountability tab</a> for promise tracker and 
-                            <a href="javascript:void(0)" onclick="showPanel('\1')" style="color: var(--primary);">Tools tab</a> for RTI templates.
+                            See <a href="#" onclick="showPanel('accountability'); return false;" style="color: var(--green-600);">Accountability tab</a> for promise tracker and 
+                            <a href="javascript:void(0)" onclick="showPanel('tools'); return false;" style="color: var(--green-600);">Tools tab</a> for RTI templates.
                         </div>
                     </div>
                 </div>
@@ -2140,7 +1626,7 @@
                             <h4 style="color: #16803C; font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Clean Air Spending (All Schemes)</h4>
                             <div style="font-size: 2.5rem; font-weight: 700; color: #16803C;">~₹15,000 Cr</div>
                             <div style="font-size: 0.875rem; color: var(--text-2);">Approximately $1.8 Billion across all schemes</div>
-                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--accent-red);">
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-600);">
                                 <strong style="color: #1B6B4A;">Spending = 0.5% of economic burden</strong>
                                 <p style="font-size: 0.75rem; margin-top: 0.25rem; color: var(--text-2);">For every ₹100 lost to air pollution, India spends ₹0.50 on solutions.</p>
                             </div>
@@ -2288,7 +1774,7 @@
                                 <div style="font-size: 0.6875rem; color: var(--text-3);">2025-26 Subsidy</div>
                             </div>
                         </div>
-                        <div style="padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--accent-red);">
+                        <div style="padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-600);">
                             <strong style="color: #1B6B4A;">Usage Gap:</strong> Average PMUY household uses only <strong>4.47 refills/year</strong> vs 9-12 subsidized. Indicates persistent affordability barriers and "fuel stacking."
                         </div>
                         <div style="margin-top: 0.75rem;">
@@ -2675,7 +2161,7 @@
                                     <span>Road dust control</span><strong style="color: #1B6B4A;">68%</strong>
                                 </div>
                                 <div style="height: 8px; background: #E5E7EB; border-radius: 4px; margin-bottom: 0.75rem;">
-                                    <div style="width: 68%; height: 100%; background: var(--accent-red); border-radius: 4px;"></div>
+                                    <div style="width: 68%; height: 100%; background: var(--green-600); border-radius: 4px;"></div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                                     <span>Transport</span><strong>14%</strong>
@@ -2701,7 +2187,7 @@
             </div>
 
             <!-- NEW: SUPREME COURT JANUARY 2026 ORDERS -->
-            <div class="card mb-2" style="border-left: 4px solid var(--accent-red);">
+            <div class="card mb-2" style="border-left: 4px solid var(--green-600);">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
                         ⚖️ Supreme Court — January 2026 Orders
@@ -2710,14 +2196,14 @@
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
-                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--accent-red);">
+                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--green-600);">
                             <div style="font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.25rem;">January 21, 2026</div>
                             <div style="font-size: 0.875rem; line-height: 1.6;">
                                 <strong>4-Week Deadline:</strong> Delhi govt and NCR agencies given strict deadline for action plans on CAQM's 15 long-term recommendations.<br>
                                 <em style="color: #1B6B4A;">"Court will NOT entertain objections"</em>
                             </div>
                         </div>
-                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--accent-red);">
+                        <div style="padding: 1rem; background: rgba(27,107,74,0.05); border-radius: 8px; border-left: 3px solid var(--green-600);">
                             <div style="font-size: 0.75rem; color: var(--text-3); margin-bottom: 0.25rem;">January 6, 2026</div>
                             <div style="font-size: 0.875rem; line-height: 1.6;">
                                 <strong>CAQM Criticized:</strong> Bench called Commission for Air Quality Management "unserious" and "in no hurry" to address Delhi-NCR air emergency.
@@ -2953,7 +2439,7 @@
                     <div class="card-footer" style="margin-top: 1rem; background: rgba(37,99,235,0.05);">
                         <strong>Methodology:</strong> Evidence grades based on RTI responses, CPCB/SPCB data, NASA FIRMS satellite imagery, peer-reviewed studies, and field reports. 
                         We welcome corrections and additional data. Framework adapted from World Bank "A Breath of Change" (Dec 2025).
-                        <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank" style="color: var(--primary); margin-left: 0.5rem;">Read Full Report →</a>
+                        <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank" style="color: var(--green-600); margin-left: 0.5rem;">Read Full Report →</a>
                     </div>
                 </div>
             </div>
@@ -3007,7 +2493,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <strong>Note:</strong> Contempt petitions filed but rarely result in action. Use <a href="https://indiankanoon.org" target="_blank" style="color: var(--primary);">Indian Kanoon</a> to search full order texts.
+                    <strong>Note:</strong> Contempt petitions filed but rarely result in action. Use <a href="https://indiankanoon.org" target="_blank" style="color: var(--green-600);">Indian Kanoon</a> to search full order texts.
                 </div>
             </div>
 
@@ -3113,7 +2599,7 @@
                         <div class="info-box">
                             <h4>How to File</h4>
                             <ul>
-                                <li><strong>Online:</strong> <a href="https://rtionline.gov.in" target="_blank" style="color: var(--primary);">rtionline.gov.in</a> (Rs 10 fee)</li>
+                                <li><strong>Online:</strong> <a href="https://rtionline.gov.in" target="_blank" style="color: var(--green-600);">rtionline.gov.in</a> (Rs 10 fee)</li>
                                 <li><strong>By Post:</strong> Send to CPIO of relevant department with Rs 10 postal order</li>
                                 <li><strong>Response Time:</strong> 30 days (can extend to 45 days)</li>
                                 <li><strong>Appeals:</strong> First Appeal within 30 days, then CIC</li>
@@ -3553,7 +3039,7 @@ Signature: _______________</div>
             <div class="card mt-2">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(245,158,11,0.05));"><span class="card-title">⚖️ Voices from the Margins — Environmental Justice</span></div>
                 <div class="card-body">
-                    <div class="alert mb-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--accent-red); font-size: 0.8125rem;">
+                    <div class="alert mb-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-600); font-size: 0.8125rem;">
                         These voices are often missing from mainstream air pollution discourse. The burden falls heaviest on those least responsible for it and least able to protect themselves.
                     </div>
                     <div class="grid-2">
@@ -3620,9 +3106,9 @@ Signature: _______________</div>
                         </div>
 
                         <div>
-                            <div class="voice-card" style="border-left: 3px solid var(--accent-red); background: rgba(27,107,74,0.03);">
+                            <div class="voice-card" style="border-left: 3px solid var(--green-600); background: rgba(27,107,74,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--accent-red);">♻️</div>
+                                    <div class="voice-avatar" style="background: var(--green-600);">♻️</div>
                                     <div>
                                         <div class="voice-name">Shanti Bai</div>
                                         <div class="voice-handle">Waste picker, Ghazipur</div>
@@ -3683,11 +3169,11 @@ Signature: _______________</div>
                     </div>
 
                     <div class="mt-2" style="background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(59,130,246,0.03)); padding: 1rem; border-radius: 8px;">
-                        <h4 style="font-size: 0.875rem; color: var(--primary); margin-bottom: 0.5rem;">📚 Researchers & Advocates Speaking Up</h4>
+                        <h4 style="font-size: 0.875rem; color: var(--green-600); margin-bottom: 0.5rem;">📚 Researchers & Advocates Speaking Up</h4>
                         <div class="grid-2" style="gap: 1rem;">
-                            <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid var(--primary);">
+                            <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid var(--green-600);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--primary);">🎓</div>
+                                    <div class="voice-avatar" style="background: var(--green-600);">🎓</div>
                                     <div>
                                         <div class="voice-name">Dr. Bhim Rao (pseudonym)</div>
                                         <div class="voice-handle">Public Health Researcher</div>
@@ -3722,7 +3208,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #EF4444; background: rgba(239,68,68,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--accent-red);">🏛️</div>
+                                    <div class="voice-avatar" style="background: var(--green-600);">🏛️</div>
                                     <div>
                                         <div class="voice-name">Union Environment Ministry</div>
                                         <div class="voice-handle">Rajya Sabha Reply</div>
@@ -3814,9 +3300,9 @@ Signature: _______________</div>
                             <div class="voice-meta">Nov 2025 | Viral Post | Suggested reversing school calendar</div>
                         </div>
 
-                        <div class="voice-card" style="border-left: 3px solid var(--accent-red);">
+                        <div class="voice-card" style="border-left: 3px solid var(--green-600);">
                             <div class="voice-header">
-                                <div class="voice-avatar" style="background: var(--accent-red);">WM</div>
+                                <div class="voice-avatar" style="background: var(--green-600);">WM</div>
                                 <div>
                                     <div class="voice-name">Bhavreen Kandhari</div>
                                     <div class="voice-handle">Warrior Moms Founder</div>
@@ -3919,9 +3405,9 @@ Signature: _______________</div>
                         </div>
 
                         <div>
-                            <div class="voice-card" style="border-left: 3px solid var(--accent-red); background: rgba(27,107,74,0.03);">
+                            <div class="voice-card" style="border-left: 3px solid var(--green-600); background: rgba(27,107,74,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--accent-red);">🔥</div>
+                                    <div class="voice-avatar" style="background: var(--green-600);">🔥</div>
                                     <div>
                                         <div class="voice-name">Dr. Kalpana Balakrishnan</div>
                                         <div class="voice-handle">Sri Ramachandra University</div>
@@ -4004,9 +3490,9 @@ Signature: _______________</div>
                                 <div class="voice-meta">September 2021 | WHO Global Air Quality Guidelines</div>
                             </div>
 
-                            <div class="voice-card" style="border-left: 3px solid var(--accent-red);">
+                            <div class="voice-card" style="border-left: 3px solid var(--green-600);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--accent-red);">⚠️</div>
+                                    <div class="voice-avatar" style="background: var(--green-600);">⚠️</div>
                                     <div>
                                         <div class="voice-name">AQI Limitations</div>
                                         <div class="voice-handle">Scientific Community</div>
@@ -4538,7 +4024,7 @@ Signature: _______________</div>
             </div>
 
             <!-- EMCAP HEADER -->
-            <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06)); border-left: 4px solid var(--accent-red);">
+            <div class="alert mb-2" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06)); border-left: 4px solid var(--green-600);">
                 <div style="display: flex; align-items: center; gap: 1rem;">
                     <div style="font-size: 2rem;">⚠️</div>
                     <div>
@@ -4586,7 +4072,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="font-size: 0.875rem; color: var(--primary); margin-bottom: 0.75rem;">Delhi's Internal Sources (Winter Months)</h4>
+                            <h4 style="font-size: 0.875rem; color: var(--green-600); margin-bottom: 0.75rem;">Delhi's Internal Sources (Winter Months)</h4>
                             <p style="font-size: 0.8125rem; margin-bottom: 1rem;">Even when external sources (stubble burning) are at peak, <strong>half of PM2.5 comes from within Delhi itself</strong>.</p>
                             
                             <div style="margin-bottom: 0.75rem;">
@@ -4631,7 +4117,7 @@ Signature: _______________</div>
                             </div>
                         </div>
                         <div>
-                            <div class="alert" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--accent-red);">
+                            <div class="alert" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-600);">
                                 <strong style="color: #1B6B4A;">🚗 Vehicles = 58% of Delhi's internal PM2.5</strong>
                                 <p style="font-size: 0.8125rem; margin-top: 0.5rem;">34% from exhaust + 24% from tyre/brake wear. This is why the only realistic solution is a <strong>massive shift from private to public transport</strong>.</p>
                             </div>
@@ -4650,12 +4136,12 @@ Signature: _______________</div>
             </div>
 
             <!-- EMERGENCY MEASURES -->
-            <div class="card mb-2" style="border: 2px solid var(--accent-red);">
+            <div class="card mb-2" style="border: 2px solid var(--green-600);">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06));">
                     <span class="card-title" style="color: #1B6B4A;">
                         🚨 Emergency Measures to Combat Air Pollution (EMCAP)
                     </span>
-                    <span class="badge" style="background: var(--accent-red); color: white; margin-left: 0.5rem;">Winter Action Plan</span>
+                    <span class="badge" style="background: var(--green-600); color: white; margin-left: 0.5rem;">Winter Action Plan</span>
                 </div>
                 <div class="card-body">
                     <p style="font-size: 0.875rem; margin-bottom: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.05); border-radius: 8px;">
@@ -4758,7 +4244,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <p style="font-size: 0.8125rem; margin-bottom: 1rem;">A New York Times analysis tracked real-time PM2.5 exposure for two Delhi children on the same day.</p>
                     <div class="grid-2" style="gap: 1rem;">
-                        <div class="info-box" style="border-left: 4px solid var(--accent-red); background: rgba(27,107,74,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--green-600); background: rgba(27,107,74,0.03);">
                             <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">👦 Monu — Poor (Trans-Yamuna)</h4>
                             <ul style="font-size: 0.8125rem; line-height: 1.6;">
                                 <li>Peak exposure: <strong>~180 µg/m³</strong></li>
@@ -4800,7 +4286,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
                         <div>
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent-red);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-600);">
                                 <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">Article 21: Right to Life = Right to Clean Air</h4>
                                 <p style="font-size: 0.8125rem;"><strong>Subhash Kumar v. State of Bihar (1991):</strong> Supreme Court declared that the right to life encompasses the right to enjoy pollution-free water and air.</p>
                             </div>
@@ -4915,7 +4401,7 @@ Signature: _______________</div>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
-                        <div class="info-box" style="border-left: 3px solid var(--accent-red);">
+                        <div class="info-box" style="border-left: 3px solid var(--green-600);">
                             <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">10/15 Year Ban Rule</h4>
                             <ul style="font-size: 0.8125rem; line-height: 1.6;">
                                 <li><strong>NGT (2014-15):</strong> Diesel >10 years, petrol >15 years banned</li>
@@ -5081,7 +4567,7 @@ Signature: _______________</div>
             </div>
             
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                <button class="btn btn-sm" style="background: var(--primary); color: white;" onclick="filterResourceCategory('all')">All</button>
+                <button class="btn btn-sm" style="background: var(--green-600); color: white;" onclick="filterResourceCategory('all')">All</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured')">⭐ Featured</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health')">🏥 Health</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source')">🔬 Sources</button>
@@ -5264,7 +4750,7 @@ Signature: _______________</div>
             </div>
 
             <!-- CITIZEN ACTION DOCUMENTS -->
-            <div class="card mb-2" data-resource-category="action" style="border: 2px solid var(--accent-red);">
+            <div class="card mb-2" data-resource-category="action" style="border: 2px solid var(--green-600);">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(220,38,38,0.12), rgba(239,68,68,0.06));">
                     <span class="card-title" style="color: #1B6B4A;">
                         🚨 Citizen Action Documents
@@ -5496,7 +4982,7 @@ Signature: _______________</div>
             </div>
 
             <!-- ENVIRONMENTAL JUSTICE SECTION -->
-            <div class="card mt-2" data-resource-category="justice" style="border: 2px solid var(--accent-red);">
+            <div class="card mt-2" data-resource-category="justice" style="border: 2px solid var(--green-600);">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(27,107,74,0.08), rgba(236,72,153,0.05));">
                     <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice: Household Air Pollution & Occupational Health</span>
                 </div>
@@ -5554,7 +5040,7 @@ Signature: _______________</div>
                             </div>
                         </div>
                     </div>
-                    <div class="alert mt-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--accent-red); font-size: 0.8125rem;">
+                    <div class="alert mt-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-600); font-size: 0.8125rem;">
                         <strong>Research gap:</strong> Most Indian air pollution studies use city-level averages. We lack disaggregated data by income, caste, occupation, and gender — perpetuating invisibility of the most affected.
                     </div>
                 </div>
@@ -5603,9 +5089,9 @@ Signature: _______________</div>
             </div>
 
             <!-- UNIQUE CONTRIBUTIONS -->
-            <div class="card mb-2" style="border: 2px solid var(--primary);">
+            <div class="card mb-2" style="border: 2px solid var(--green-600);">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
-                    <span class="card-title" style="color: var(--primary);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         What Makes JanVayu Unique
                     </span>
@@ -5707,7 +5193,7 @@ Signature: _______________</div>
                             <div class="quick-link-content"><h4>Share</h4><p>Spread the word</p></div>
                         </a>
                         <a href="/cdn-cgi/l/email-protection#d3a5b2a1bdb2fda0a193b4beb2babffdb0bcbeeca0a6b1b9b6b0a7ee85b2aaa6f6e1e380bea1baa7baf6e1e395b6b6b7b1b2b0b8" class="quick-link" style="text-decoration: none;">
-                            <div class="quick-link-icon" style="background: var(--primary);"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                            <div class="quick-link-icon" style="background: var(--green-600);"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
                             <div class="quick-link-content"><h4>Feedback</h4><p>Report issues</p></div>
                         </a>
                         <a href="https://rtionline.gov.in" target="_blank" class="quick-link" style="text-decoration: none;">
@@ -5730,15 +5216,15 @@ Signature: _______________</div>
 
             <div class="alert alert-info mb-2"><div>
                     <strong>Current Version:</strong> v20.0 | <strong>Last Updated:</strong> February 21, 2026 | 
-                    <a href="https://www.janvayu.in" target="_blank" style="color: var(--primary);">janvayu.in</a> |
-                    <a href="https://github.com/Varnasr/JanVayu" target="_blank" style="color: var(--primary);">GitHub</a>
+                    <a href="https://www.janvayu.in" target="_blank" style="color: var(--green-600);">janvayu.in</a> |
+                    <a href="https://github.com/Varnasr/JanVayu" target="_blank" style="color: var(--green-600);">GitHub</a>
                 </div>
             </div>
 
             <!-- FEBRUARY 21, 2026 - v20.0 EDITORIAL SCROLL REDESIGN -->
-            <div class="card mb-2" style="border-left: 4px solid var(--accent-red);">
-                <div class="card-header" style="background: var(--accent-red-light);">
-                    <span class="card-title" style="color: var(--accent-red);">
+            <div class="card mb-2" style="border-left: 4px solid var(--green-600);">
+                <div class="card-header" style="background: var(--green-100);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         February 21, 2026 — v20.0 (Current) EDITORIAL SCROLL REDESIGN
                     </span>
@@ -5746,7 +5232,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="color: var(--accent-red); font-size: 0.875rem; margin-bottom: 0.5rem;">Fundamental Layout Change</h4>
+                            <h4 style="color: var(--green-600); font-size: 0.875rem; margin-bottom: 0.5rem;">Fundamental Layout Change</h4>
                             <ul style="font-size: 0.85rem; line-height: 1.8;">
                                 <li><strong>Scroll Layout</strong> — Replaced tabbed panel navigation with editorial scroll design. All 17 sections now visible on a single page with anchor navigation.</li>
                                 <li><strong>Design System</strong> — v18 Ember-inspired data journalism palette: green Ember-energy palette (#1B6B4A primary) with clean cool neutrals, Source Serif 4 + DM Sans + JetBrains Mono.</li>
@@ -5774,7 +5260,7 @@ Signature: _______________</div>
             <!-- FEBRUARY 21, 2026 - v19.0 EMBER DESIGN + JAN-FEB 2026 BRIEFING -->
             <div class="card mb-2">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(212,67,43,0.08), rgba(212,67,43,0.03));">
-                    <span class="card-title" style="color: var(--accent-red);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         February 21, 2026 — v19.0 EMBER-INSPIRED REDESIGN + JAN-FEB 2026 COMPREHENSIVE UPDATE + IMPRI INSIGHTS
                     </span>
@@ -6112,7 +5598,7 @@ Signature: _______________</div>
             <!-- JANUARY 8, 2026 - REBRAND -->
             <div class="card mb-2">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
-                    <span class="card-title" style="color: var(--primary);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         January 8, 2026 — v12 🎉 REBRAND
                     </span>
@@ -6148,7 +5634,7 @@ Signature: _______________</div>
             <!-- DECEMBER 30, 2024 -->
             <div class="card mb-2">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));">
-                    <span class="card-title" style="color: var(--primary);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                         December 30, 2024 — v11
                     </span>
@@ -6318,9 +5804,9 @@ Signature: _______________</div>
             </div>
 
             <!-- ROADMAP -->
-            <div class="card mt-2" style="border: 2px dashed var(--primary);">
+            <div class="card mt-2" style="border: 2px dashed var(--green-600);">
                 <div class="card-header" style="background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(167,139,250,0.02));">
-                    <span class="card-title" style="color: var(--primary);">
+                    <span class="card-title" style="color: var(--green-600);">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
                         Roadmap — Planned Features
                     </span>
@@ -6361,14 +5847,15 @@ Signature: _______________</div>
             <!-- CONTRIBUTE -->
             <div class="alert alert-info mt-2"><div>
                     <strong>Contribute:</strong> Found a bug? Have a suggestion? Want to add a feature? 
-                    <a href="https://github.com/Varnasr/JanVayu/issues" target="_blank" style="color: var(--primary);">Open an issue on GitHub</a> or 
-                    <a href="/cdn-cgi/l/email-protection#3b4d5a49555a1548497b5c565a525715585456" style="color: var(--primary);">email us</a>.
+                    <a href="https://github.com/Varnasr/JanVayu/issues" target="_blank" style="color: var(--green-600);">Open an issue on GitHub</a> or 
+                    <a href="/cdn-cgi/l/email-protection#3b4d5a49555a1548497b5c565a525715585456" style="color: var(--green-600);">email us</a>.
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- FOOTER -->
+    </main>
+
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
@@ -6414,8 +5901,6 @@ Signature: _______________</div>
         </div>
     </footer>
 
-    <!-- SCROLL TO TOP -->
-    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">&#8593;</button>
 
     <script>
 
@@ -6479,11 +5964,10 @@ Signature: _______________</div>
         // ============================================
         function toggleTheme() {
             const root = document.documentElement;
-            const current = root.getAttribute('data-theme');
-            const next = current === 'dark' ? '' : 'dark';
-            root.setAttribute('data-theme', next);
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            root.setAttribute('data-theme', isDark ? '' : 'dark');
             const btn = document.getElementById('themeToggle');
-            if (btn) btn.textContent = next === 'dark' ? '☀' : '☽';
+            if (btn) btn.textContent = isDark ? '☾' : '☀';
             try { initAllCharts(); } catch(e) {}
         }
 
@@ -6511,62 +5995,27 @@ Signature: _______________</div>
         };
         
         
-        // Panel-to-category mapping
-        const panelCategory = {
-            'dashboard': 'data', 'compare': 'data', 'map': 'data', 'trends': 'data',
-            'health': 'impact', 'economic': 'impact',
-            'policy': 'policy', 'budget': 'policy', 'accountability': 'policy',
-            'voices': 'voices', 'actions': 'voices', 'citizen-action': 'voices',
-            'legal': 'reference', 'tools': 'reference', 'resources': 'reference',
-            'about': 'reference', 'changelog': 'reference'
-        };
-
-        function switchCategory(cat, autoShow = true) {
-            document.querySelectorAll('.nav-cat').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
-            document.querySelectorAll('.sub-group').forEach(g => g.classList.toggle('active', g.dataset.cat === cat));
-            // Auto-show first panel in category
-            if (autoShow) {
-                const firstTab = document.querySelector('.sub-group[data-cat="' + cat + '"] .sub-tab');
-                if (firstTab) firstTab.click();
-            }
-        }
+        // switchCategory removed in v21
 
         function showPanel(panel, updateHash = true) {
-            // Hide all, show target
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('panel-' + panel);
             if (target) target.classList.add('active');
 
-            // Activate category
-            const cat = panelCategory[panel];
-            if (cat) switchCategory(cat, false);
+            // Update tab highlight
+            document.querySelectorAll('.nav-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.panel === panel);
+            });
 
-            // Activate sub-tab
-            document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-            const activeGroup = document.querySelector('.sub-group[data-cat="' + cat + '"]');
-            if (activeGroup) {
-                activeGroup.querySelectorAll('.sub-tab').forEach(t => {
-                    // Match by panel name in onclick
-                    if (t.dataset.panel === panel) {
-                        t.classList.add('active');
-                    }
-                });
-            }
-
-            // Hash
             if (updateHash) history.replaceState(null, null, '#' + panel);
+            window.scrollTo({ top: 0 });
 
-            // Scroll to top of content
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Panel-specific triggers
+            // Panel triggers
             if (panel === 'map') {
                 if (typeof initMap === 'function') initMap();
                 if (typeof map !== 'undefined' && map) setTimeout(() => map.invalidateSize(), 200);
             }
-            if (panel === 'compare' && typeof updateComparison === 'function') {
-                updateComparison(true);
-            }
+            if (panel === 'compare' && typeof updateComparison === 'function') updateComparison(true);
         }
 
         
@@ -6826,7 +6275,7 @@ Signature: _______________</div>
         }
 
         async function fetchAllAQI() {
-            const ticker = document.getElementById('aqi-ticker');
+            const ticker = document.getElementById('tickerTrack');
             const liveStatus = document.getElementById('live-status');
             
             if (ticker) ticker.innerHTML = '<div class="ticker-item"><span class="ticker-city">Fetching live data...</span></div>';
@@ -6912,7 +6361,7 @@ Signature: _______________</div>
         }
 
         function updateTicker() {
-            const ticker = document.getElementById('aqi-ticker');
+            const ticker = document.getElementById('tickerTrack');
             // Sort by PM2.5 (primary), estimate from AQI if not available
             ticker.innerHTML = Object.entries(aqiData).sort((a, b) => {
                 const pm25A = a[1].pm25 || (a[1].aqi * 0.7);
@@ -7189,10 +6638,7 @@ Signature: _______________</div>
                 charts.region = new Chart(regionCtx, { type: 'bar', data: { labels: ['North India', 'South India'], datasets: [{ label: 'Average AQI', data: [north.reduce((a, b) => a + b, 0) / north.length, south.reduce((a, b) => a + b, 0) / south.length], backgroundColor: ['#EF4444', '#22C55E'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 400, grid: { color: gridColor } } } } });
             }
 
-            const econCtx = document.getElementById('econChart');
-            if (econCtx) {
-                charts.econ = new Chart(econCtx, { type: 'doughnut', data: { labels: ['Healthcare', 'Productivity', 'Deaths', 'Agriculture'], datasets: [{ data: [170000, 120000, 95000, 35000], backgroundColor: ['#EF4444', '#F59E0B', '#7C3AED', '#22C55E'] }] }, options: { responsive: true, maintainAspectRatio: false } });
-            }
+            // econChart created below with Dalberg data
 
             const ncapCtx = document.getElementById('ncapChart');
             if (ncapCtx) {
@@ -7280,13 +6726,13 @@ Signature: _______________</div>
                 charts.history = new Chart(historyCtx, { type: 'line', data: { labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'], datasets: [{ label: 'Delhi PM2.5', data: [122, 134, 128, 115, 108, 84, 96, 99, 102, 105, 100], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 }, { label: 'WHO Guideline', data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], borderColor: '#22C55E', borderDash: [5, 5], fill: false }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 150, grid: { color: gridColor } } } } });
             }
 
-            // Economic Impact Chart
-    const econCtx = document.getElementById('econChart');
-    if (econCtx) {
-        charts.econ = new Chart(econCtx, { type:'doughnut', data:{ labels:['Presenteeism (reduced productivity)','Premature mortality','Reduced consumer footfall','Absenteeism','Health expenditure'], datasets:[{data:[35,28,18,12,7],backgroundColor:['#EF4444','#7C3AED','#F59E0B','#3B82F6','#22C55E']}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:10}}}}}});
-    }
+            // Economic Impact Chart (Dalberg data)
+            const econCtx = document.getElementById('econChart');
+            if (econCtx) {
+                charts.econ = new Chart(econCtx, { type:'doughnut', data:{ labels:['Presenteeism (reduced productivity)','Premature mortality','Reduced consumer footfall','Absenteeism','Health expenditure'], datasets:[{data:[35,28,18,12,7],backgroundColor:['#EF4444','#7C3AED','#F59E0B','#3B82F6','#22C55E']}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:10}}}}}});
+            }
 
-    const seasonalCtx = document.getElementById('seasonalChart');
+            const seasonalCtx = document.getElementById('seasonalChart');
             if (seasonalCtx) {
                 charts.seasonal = new Chart(seasonalCtx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], datasets: [{ label: 'Avg AQI', data: [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450, grid: { color: gridColor } } } } });
             }
@@ -7360,7 +6806,7 @@ Signature: _______________</div>
                 btn.style.background = '';
                 btn.style.color = '';
             });
-            event.target.style.background = 'var(--primary)';
+            event.target.style.background = 'var(--green-600)';
             event.target.style.color = 'white';
             
             // Show/hide cards based on category
@@ -7384,17 +6830,12 @@ Signature: _______________</div>
         // ============================================
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('[JanVayu] Initializing...');
-            
-            // Theme toggle
-            document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
 
-        // Nav event listeners (more reliable than inline onclick)
-        document.querySelectorAll('.nav-cat').forEach(cat => {
-            cat.addEventListener('click', () => switchCategory(cat.dataset.cat));
-        });
-        document.querySelectorAll('.sub-tab').forEach(tab => {
-            tab.addEventListener('click', () => showPanel(tab.dataset.panel));
-        });
+            // Tab navigation
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', () => showPanel(tab.dataset.panel));
+            });
+            
 
             
             try {
@@ -7442,5 +6883,7 @@ Signature: _______________</div>
         // Scroll spy removed in v20 (tab layout)
 
     </script>
+</body>
+
 </body>
 </html>
