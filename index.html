@@ -679,7 +679,7 @@ a:hover { color: var(--accent-hover); }
     justify-content: space-between;
     height: 100%;
 }
-.logo { display: flex; align-items: baseline; gap: 8px; }
+.logo { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
 .logo-mark {
     font-family: var(--serif);
     font-size: 1.4rem;
@@ -687,7 +687,19 @@ a:hover { color: var(--accent-hover); }
     color: var(--accent);
     letter-spacing: -0.03em;
 }
-.logo-hindi { font-size: 0.95rem; color: var(--accent); opacity: 0.8; }
+.logo-scripts {
+    display: inline-flex;
+    gap: 5px;
+    align-items: baseline;
+}
+.logo-script {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.45;
+    transition: opacity 0.2s;
+}
+.logo-script.active { opacity: 0.85; }
 .logo-tag {
     font-size: 0.6rem;
     letter-spacing: 0.08em;
@@ -1722,6 +1734,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 /* ═══ Enhanced Mobile Responsiveness ═══ */
 @media (max-width: 480px) {
     .container { padding: 0 12px; }
+    .logo-mark { font-size: 1.1rem; }
+    .logo-script { font-size: 1.1rem; }
+    .logo-scripts { gap: 4px; }
     .hero { padding: 32px 0 28px; }
     .hero h1 { font-size: 1.6rem; }
     .section-intro h2 { font-size: 1.35rem !important; }
@@ -1840,7 +1855,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         <div class="container">
             <div class="logo">
                 <span class="logo-mark">JanVayu</span>
-                <span class="logo-hindi" data-i18n-titles>जनवायु</span>
+                <span class="logo-scripts">
+                    <span class="logo-script active" data-script-lang="hi">जनवायु</span>
+                    <span class="logo-script" data-script-lang="ta">ஜன்வாயு</span>
+                    <span class="logo-script" data-script-lang="bn">জনবায়ু</span>
+                </span>
                 <span class="logo-tag" data-i18n="tagline">Citizen Air Quality Platform</span>
             </div>
             <div class="header-actions">
@@ -2438,9 +2457,12 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         const active = document.querySelector(`.lang-option[data-lang="${lang}"]`);
         if (active) active.classList.add('active');
 
-        // Title script
-        const titleEl = document.querySelector('[data-i18n-titles]');
-        if (titleEl) titleEl.textContent = TITLES[lang] || TITLES.en;
+        // Title script - highlight active language
+        // Marathi uses Devanagari same as Hindi, so map to 'hi'
+        const scriptLang = (lang === 'mr') ? 'hi' : (lang === 'en') ? 'hi' : lang;
+        document.querySelectorAll('.logo-script').forEach(el => {
+            el.classList.toggle('active', el.getAttribute('data-script-lang') === scriptLang);
+        });
 
         // All data-i18n elements
         document.querySelectorAll('[data-i18n]').forEach(el => {
