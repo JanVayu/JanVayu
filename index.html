@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>JanVayu | India's Citizen Air Quality Platform</title>
     <meta name="description" content="Independent air quality monitoring, health impact analysis, policy tracking, and government accountability for India. Clean air is not a privilege, it is a right.">
     <meta name="theme-color" content="#1a3a2a">
@@ -622,6 +622,7 @@
 
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
     font-family: var(--sans);
@@ -718,8 +719,13 @@ a:hover { color: var(--accent-hover); }
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
 }
 .section-nav::-webkit-scrollbar { display: none; }
 .section-nav .container {
@@ -751,6 +757,263 @@ a:hover { color: var(--accent-hover); }
 }
 .nav-link:hover { color: var(--text-2); text-decoration: none; }
 .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+
+/* ── Icon size constraints ── */
+.card-title svg, .card-header svg {
+    width: 16px; height: 16px; min-width: 16px;
+    vertical-align: -2px; margin-right: 4px;
+    fill: none; stroke: currentColor; stroke-width: 2;
+}
+.tool-header svg { width: 18px; height: 18px; min-width: 18px; }
+.tool-header h3 svg { width: 18px; height: 18px; }
+.info-box h4 svg, .info-box h5 svg { width: 14px; height: 14px; vertical-align: -1px; }
+.section-intro svg { width: 20px; height: 20px; }
+
+
+/* ── Section layout variety ── */
+.panel.active > .card:first-of-type { border-top: 3px solid var(--accent); }
+.panel.active > .grid-2:nth-child(even) { direction: rtl; }
+.panel.active > .grid-2:nth-child(even) > * { direction: ltr; }
+
+/* Alternating info-box accent for variety */
+.grid-2 > .info-box:nth-child(even) { background: var(--warm-white); }
+
+/* Full-bleed stat rows */
+.stat-row-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 1.5rem 0;
+}
+.stat-row-full .stat-cell {
+    background: var(--bg-card);
+    padding: 1.25rem;
+    text-align: center;
+}
+.stat-row-full .stat-cell .stat-value {
+    font-family: var(--mono);
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+.stat-row-full .stat-cell .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-3);
+    margin-top: 4px;
+}
+
+/* Pull-quote for editorial variety */
+.pull-quote {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    background: var(--warm-white);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+.pull-quote cite {
+    display: block;
+    font-size: 0.85rem;
+    font-style: normal;
+    color: var(--text-3);
+    margin-top: 0.75rem;
+    font-family: var(--sans);
+}
+
+/* Sidebar layout for variety */
+.layout-sidebar {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+@media (max-width: 768px) { .layout-sidebar { grid-template-columns: 1fr; } }
+
+/* Dense grid for resource cards */
+.grid-dense {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+/* Accent strip on top of certain cards */
+.card-accent-top { border-top: 3px solid var(--accent); }
+.card-accent-purple { border-top: 3px solid #7C3AED; }
+.card-accent-blue { border-top: 3px solid #3B82F6; }
+.card-accent-amber { border-top: 3px solid #D97706; }
+.card-accent-red { border-top: 3px solid #EF4444; }
+
+
+
+
+/* ═══ Layout Variety System ═══ */
+/* Pull-quote for editorial breaks */
+.pull-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.65;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    background: var(--warm-white);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+.pull-quote cite {
+    display: block; font-size: 0.85rem; font-style: normal;
+    color: var(--text-3); margin-top: 0.75rem; font-family: var(--sans);
+}
+
+/* Full-bleed stat strip */
+.stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px; background: var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    margin: 1.5rem 0;
+}
+.stat-strip .stat-cell {
+    background: var(--bg-card); padding: 1.25rem; text-align: center;
+}
+.stat-strip .stat-cell .stat-value {
+    font-family: var(--mono); font-size: 1.5rem; font-weight: 700;
+}
+.stat-strip .stat-cell .stat-label {
+    font-size: 0.75rem; color: var(--text-3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em;
+}
+
+/* Sidebar layout for variety */
+.layout-sidebar {
+    display: grid; grid-template-columns: 5fr 2fr; gap: 1.5rem; align-items: start;
+}
+@media (max-width: 768px) { .layout-sidebar { grid-template-columns: 1fr; } }
+
+/* Card accent strips */
+.card-accent-green { border-top: 3px solid var(--accent); }
+.card-accent-purple { border-top: 3px solid #7C3AED; }
+.card-accent-blue { border-top: 3px solid #3B82F6; }
+.card-accent-amber { border-top: 3px solid #D97706; }
+.card-accent-red { border-top: 3px solid #EF4444; }
+
+/* Dense resource grid */
+.grid-dense {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+/* Alternating card backgrounds for visual rhythm */
+.card.alt-bg { background: var(--warm-white); }
+
+/* Number callout for big stats */
+.number-callout {
+    font-family: var(--mono); font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1;
+    color: var(--accent); margin-bottom: 0.5rem;
+}
+.number-callout-label {
+    font-size: 0.8125rem; color: var(--text-2);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    font-family: var(--sans);
+}
+
+/* ═══ Icon Size Constraints ═══ */
+.card-title svg, .card-header svg,
+.card-title .si, .card-header .si {
+    width: 16px; height: 16px; min-width: 16px;
+    vertical-align: -2px;
+}
+.card-title svg { fill: none; stroke: currentColor; stroke-width: 2; }
+.tool-header svg, .tool-header .si { width: 18px; height: 18px; min-width: 18px; }
+.tool-header h3 svg { width: 18px; height: 18px; }
+.info-box h4 svg, .info-box h5 svg,
+.info-box h4 .si, .info-box h5 .si { width: 14px; height: 14px; }
+h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
+
+/* ═══ Sargam Icons System ═══ */
+.si {
+    display: inline-block;
+    width: 1em; height: 1em;
+    background: currentColor;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+.si-sm { width: 14px; height: 14px; }
+.si-md { width: 18px; height: 18px; }
+.si-lg { width: 22px; height: 22px; }
+.si-hospital { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hospital.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hospital.svg); }
+.si-activity { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Activity.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Activity.svg); }
+.si-shield-health { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_health_safety.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_health_safety.svg); }
+.si-rupee { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rupee.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rupee.svg); }
+.si-bar-chart { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bar_chart.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bar_chart.svg); }
+.si-briefcase { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Briefcase.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Briefcase.svg); }
+.si-clipboard-check { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard_check.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard_check.svg); }
+.si-assignment { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Assignment.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Assignment.svg); }
+.si-ballot { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Ballot.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Ballot.svg); }
+.si-wallet { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wallet.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wallet.svg); }
+.si-credit-card { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Credit_card.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Credit_card.svg); }
+.si-shield { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield.svg); }
+.si-fact-check { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Fact_check.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Fact_check.svg); }
+.si-target { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Target.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Target.svg); }
+.si-globe { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Globe_detailed.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Globe_detailed.svg); }
+.si-insights { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Insights.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Insights.svg); }
+.si-map { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Map.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Map.svg); }
+.si-pin { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pin.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pin.svg); }
+.si-chat { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Chat.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Chat.svg); }
+.si-quote { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Quote.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Quote.svg); }
+.si-lightning { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Lightning.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Lightning.svg); }
+.si-rocket { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rocket.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rocket.svg); }
+.si-flag { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flag.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flag.svg); }
+.si-checklist { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Checklist.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Checklist.svg); }
+.si-clipboard { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard.svg); }
+.si-shield-police { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_police.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_police.svg); }
+.si-settings { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Settings.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Settings.svg); }
+.si-wrench { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wrench.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wrench.svg); }
+.si-code { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Code.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Code.svg); }
+.si-library { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Library_books.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Library_books.svg); }
+.si-book { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Book.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Book.svg); }
+.si-article { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Article.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Article.svg); }
+.si-download { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_download.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_download.svg); }
+.si-upload { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_upload.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_upload.svg); }
+.si-info { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Info.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Info.svg); }
+.si-home { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Home.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Home.svg); }
+.si-building { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Building.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Building.svg); }
+.si-bus { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bus.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bus.svg); }
+.si-train { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Train.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Train.svg); }
+.si-alert { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Alert.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Alert.svg); }
+.si-warning { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Warning.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Warning.svg); }
+.si-heart { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Heart.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Heart.svg); }
+.si-user { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_User.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_User.svg); }
+.si-search { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Search.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Search.svg); }
+.si-pie-chart { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pie_chart.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pie_chart.svg); }
+.si-clock { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clock.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clock.svg); }
+.si-eye { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Eye.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Eye.svg); }
+.si-copy { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Copy.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Copy.svg); }
+.si-link { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); }
+.si-flare { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flare.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flare.svg); }
+.si-dangerous { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dangerous.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dangerous.svg); }
+.si-dollar { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dollar.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dollar.svg); }
+.si-money { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Money.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Money.svg); }
+.si-meter { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Meter.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Meter.svg); }
+.si-spark { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Spark.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Spark.svg); }
+.si-check { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check.svg); }
+.si-check-circle { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check_circle.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check_circle.svg); }
+.si-error { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Error.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Error.svg); }
+.si-city { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_City.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_City.svg); }
+.si-umbrella { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); }
+.si-verified { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); }
 
 /* ── Hero ────────────────────────────────── */
 .hero {
@@ -1458,7 +1721,8 @@ a:hover { color: var(--accent-hover); }
             <button class="nav-link" data-panel="citizen-action">Citizen Plan</button>
             <button class="nav-link" data-panel="legal">Legal</button>
             <button class="nav-link" data-panel="tools">Tools</button>
-            <button class="nav-link" data-panel="resources">Resources</button>
+            <button class="nav-link" data-panel="resources">Library</button>
+            <button class="nav-link" data-panel="downloads">Downloads</button>
             <button class="nav-link" data-panel="about">About</button>
         </div>
     </nav>
@@ -1612,13 +1876,15 @@ a:hover { color: var(--accent-hover); }
                     <a class="footer-link" href="#" onclick="showPanel('tools');return false;">RTI Templates</a>
                     <a class="footer-link" href="#" onclick="showPanel('citizen-action');return false;">Citizen Action</a>
                     <a class="footer-link" href="#" onclick="showPanel('resources');return false;">Resources</a>
+                    <a class="footer-link" href="#" onclick="showPanel('downloads');return false;">Downloads</a>
                     <a class="footer-link" href="https://github.com/Varnasr/JanVayu" target="_blank">GitHub ↗</a>
                 </div>
             </div>
             <div class="footer-legal">
-                <p><strong>Disclaimer:</strong> JanVayu is an independent, non-partisan, citizen-led platform for educational and informational purposes. Not affiliated with any government body, political party, or commercial entity.</p>
+                <p><strong>Disclaimer:</strong> JanVayu is an independent, non-partisan, citizen-led platform for educational and informational purposes only. Not affiliated with any government body or commercial entity.</p>
                 <p><strong>Data:</strong> Air quality data sourced from WAQI API, CPCB CAAQMS, and third-party networks. Health risk estimates are population-level and should not replace medical consultation.</p>
                 <p><strong>License:</strong> Code: MIT License. Content: CC BY-NC-SA 4.0.</p>
+                <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: janvayu@mmsf.in</p>
             </div>
             <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | #AQIForJanHit</div>
         </div>
@@ -1894,14 +2160,22 @@ a:hover { color: var(--accent-hover); }
             const metroCtx = document.getElementById('metroChart');
             if (metroCtx) {
                 const metros = ['delhi', 'mumbai', 'kolkata', 'chennai', 'bangalore', 'hyderabad'];
-                charts.metro = new Chart(metroCtx, { type: 'bar', data: { labels: metros.map(c => CITIES[c].name), datasets: [{ data: metros.map(c => aqiData[c]?.aqi || 0), backgroundColor: metros.map(c => getAQIColor(aqiData[c]?.aqi || 0)) }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 500, grid: { color: gridColor } } } } });
+                // Create gradient fills
+                const metroGradient = metroCtx.createLinearGradient(0, 0, 0, 280);
+                metroGradient.addColorStop(0, 'rgba(21,128,61,0.85)');
+                metroGradient.addColorStop(1, 'rgba(21,128,61,0.15)');
+                charts.metro = new Chart(metroCtx, { type: 'bar', data: { labels: metros.map(c => CITIES[c].name), datasets: [{ data: metros.map(c => aqiData[c]?.aqi || 0), backgroundColor: metros.map(c => getAQIColor(aqiData[c]?.aqi || 0)),
+                    borderRadius: 6, borderSkipped: false, barPercentage: 0.7
+                }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => 'AQI: ' + ctx.raw } } }, scales: { x: { max: 500, grid: { color: gridColor, drawBorder: false }, ticks: { font: { family: "'JetBrains Mono', monospace", size: 10 } } }, y: { grid: { display: false }, ticks: { font: { family: "'DM Sans', sans-serif", size: 11 } } } } } });
             }
 
             const regionCtx = document.getElementById('regionChart');
             if (regionCtx) {
                 const north = ['delhi', 'lucknow', 'patna'].map(c => aqiData[c]?.aqi || 0);
                 const south = ['chennai', 'bangalore', 'hyderabad'].map(c => aqiData[c]?.aqi || 0);
-                charts.region = new Chart(regionCtx, { type: 'bar', data: { labels: ['North India', 'South India'], datasets: [{ label: 'Average AQI', data: [north.reduce((a, b) => a + b, 0) / north.length, south.reduce((a, b) => a + b, 0) / south.length], backgroundColor: ['#EF4444', '#22C55E'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 400, grid: { color: gridColor } } } } });
+                charts.region = new Chart(regionCtx, { type: 'bar', data: { labels: ['North India', 'South India'], datasets: [{ label: 'Average AQI', data: [north.reduce((a, b) => a + b, 0) / north.length, south.reduce((a, b) => a + b, 0) / south.length], backgroundColor: ['rgba(239,68,68,0.8)', 'rgba(34,197,94,0.8)'],
+                    borderRadius: 8, borderSkipped: false, barPercentage: 0.5
+                }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => 'Avg AQI: ' + Math.round(ctx.raw) } } }, scales: { x: { max: 400, grid: { color: gridColor, drawBorder: false } }, y: { grid: { display: false }, ticks: { font: { size: 12, weight: 600 } } } } } });
             }
 
             // econChart created below with Dalberg data
@@ -2305,17 +2579,17 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-health">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Personal Health Risk Calculator</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-hospital" style="color: var(--accent); margin-right: 0.4rem;"></span>Personal Health Risk Calculator</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Estimate your health risk from air pollution using the <strong>Global Exposure Mortality Model (GEMM)</strong> — the gold standard for PM2.5 mortality estimation.</p>
             </div>
 
             <!-- WHY PM2.5 NOT AQI EXPLAINER -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title" style="color: var(--green-700);">🔬 Why PM2.5, Not AQI?</span></div>
+                <div class="card-header"><span class="card-title" style="color: var(--green-700);"> Why PM2.5, Not AQI?</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="font-size: 0.875rem; color: #EF4444; margin-bottom: 0.5rem;">❌ Problems with AQI</h4>
+                            <h4 style="font-size: 0.875rem; color: #EF4444; margin-bottom: 0.5rem;"> Problems with AQI</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.7;">
                                 <li><strong>Masking effect:</strong> Reports only the worst pollutant — other dangerous levels hidden</li>
                                 <li><strong>Breakpoint misalignment:</strong> India's "satisfactory" (AQI 50-100) allows PM2.5 up to 60 µg/m³ — <em>12× WHO guideline</em></li>
@@ -2324,7 +2598,7 @@ a:hover { color: var(--accent-hover); }
                             </ul>
                         </div>
                         <div>
-                            <h4 style="font-size: 0.875rem; color: #22C55E; margin-bottom: 0.5rem;">✅ Why PM2.5 is the Standard</h4>
+                            <h4 style="font-size: 0.875rem; color: #22C55E; margin-bottom: 0.5rem;"> Why PM2.5 is the Standard</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.7;">
                                 <li><strong>Primary mortality driver:</strong> GBD 2021 attributes 4.72M global deaths to PM2.5 (7.9% of adult deaths)</li>
                                 <li><strong>Health models calibrated to PM2.5:</strong> GEMM exposure-response functions use µg/m³</li>
@@ -2432,11 +2706,11 @@ a:hover { color: var(--accent-hover); }
 
             <!-- VULNERABLE GROUPS -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">⚠️ Vulnerable Groups — Special Risks</span></div>
+                <div class="card-header"><span class="card-title"> Vulnerable Groups — Special Risks</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <div class="info-box" style="border-left: 3px solid #EC4899;">
-                            <h4 style="color: #EC4899;">🤰 Pregnancy & Fetal Development</h4>
+                            <h4 style="color: #EC4899;"> Pregnancy & Fetal Development</h4>
                             <p>Air pollution crosses the placenta. Effects on unborn children:</p>
                             <ul>
                                 <li><strong>Low birth weight:</strong> 15-20% higher risk at high PM2.5</li>
@@ -2450,7 +2724,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #F59E0B;">
-                            <h4 style="color: #F59E0B;">👶 Children (0-14 years)</h4>
+                            <h4 style="color: #F59E0B;"> Children (0-14 years)</h4>
                             <p>Children are not small adults — they're uniquely vulnerable:</p>
                             <ul>
                                 <li><strong>Breathe 50% more air</strong> per kg body weight</li>
@@ -2463,7 +2737,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                            <h4 style="color: #7C3AED;">🧠 Mental Health Impact</h4>
+                            <h4 style="color: #7C3AED;"> Mental Health Impact</h4>
                             <p>Air pollution affects the brain, not just lungs:</p>
                             <ul>
                                 <li><strong>Depression:</strong> 10% higher risk at high PM2.5</li>
@@ -2479,7 +2753,7 @@ a:hover { color: var(--accent-hover); }
 
                     <div class="grid-2 mt-2">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
-                            <h4 style="color: #EF4444;">👴 Elderly (65+)</h4>
+                            <h4 style="color: #EF4444;"> Elderly (65+)</h4>
                             <ul>
                                 <li>Weakened immune response</li>
                                 <li>Pre-existing heart/lung conditions</li>
@@ -2488,7 +2762,7 @@ a:hover { color: var(--accent-hover); }
                             </ul>
                         </div>
                         <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4 style="color: #3B82F6;">🏃 Outdoor Workers</h4>
+                            <h4 style="color: #3B82F6;"> Outdoor Workers</h4>
                             <ul>
                                 <li>Traffic police, delivery workers, construction</li>
                                 <li>8-12 hours daily exposure</li>
@@ -2507,7 +2781,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mt-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #7C3AED;">
-                        📊 Latest Research 2025 — Key Findings
+                         Latest Research 2025 — Key Findings
                     </span>
                     <span class="badge" style="background: #7C3AED; color: white; margin-left: 0.5rem;">v19.0</span>
                 </div>
@@ -2516,7 +2790,7 @@ a:hover { color: var(--accent-hover); }
                         <div>
                             <!-- STATE OF GLOBAL AIR 2025 -->
                             <div class="info-box mb-2" style="border-left: 4px solid var(--green-700); background: rgba(27,107,74,0.03);">
-                                <h4 style="color: #1B6B4A; margin-bottom: 0.5rem;">📊 State of Global Air 2025 (HEI, October 2025)</h4>
+                                <h4 style="color: #1B6B4A; margin-bottom: 0.5rem;"> State of Global Air 2025 (HEI, October 2025)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>2 million deaths in India (2023)</strong> — 43% increase since 2000</li>
                                     <li><strong>Death rate disparity:</strong> 186 per 100,000 in India vs 17 in high-income countries (10× gap)</li>
@@ -2529,7 +2803,7 @@ a:hover { color: var(--accent-hover); }
 
                             <!-- LANCET 10-CITY STUDY -->
                             <div class="info-box" style="border-left: 4px solid #2563EB; background: rgba(37,99,235,0.03);">
-                                <h4 style="color: #2563EB; margin-bottom: 0.5rem;">🔬 Lancet 10-City Causal Study (Dec 2024)</h4>
+                                <h4 style="color: #2563EB; margin-bottom: 0.5rem;"> Lancet 10-City Causal Study (Dec 2024)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>33,000 deaths</strong> directly attributable to PM2.5 across 10 Indian cities</li>
                                     <li><strong>7.2% of daily deaths</strong> in Delhi linked to PM2.5 above WHO guideline</li>
@@ -2542,7 +2816,7 @@ a:hover { color: var(--accent-hover); }
                         <div>
                             <!-- HEAT-POLLUTION INTERACTION -->
                             <div class="info-box mb-2" style="border-left: 4px solid #F59E0B; background: rgba(245,158,11,0.03);">
-                                <h4 style="color: #F59E0B; margin-bottom: 0.5rem;">🌡️ Heat-Pollution Interaction (Karolinska, 2024)</h4>
+                                <h4 style="color: #F59E0B; margin-bottom: 0.5rem;"> Heat-Pollution Interaction (Karolinska, 2024)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>4.6% mortality increase</strong> on days with both high heat AND high PM2.5</li>
                                     <li><strong>Synergistic effect:</strong> Combined risk > sum of individual risks</li>
@@ -2553,7 +2827,7 @@ a:hover { color: var(--accent-hover); }
 
                             <!-- DEMENTIA & COGNITIVE -->
                             <div class="info-box mb-2" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.03);">
-                                <h4 style="color: #7C3AED; margin-bottom: 0.5rem;">🧠 PM2.5 and Dementia (SoGA 2025 — New Finding)</h4>
+                                <h4 style="color: #7C3AED; margin-bottom: 0.5rem;"> PM2.5 and Dementia (SoGA 2025 — New Finding)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>54,000 dementia deaths</strong> attributed to PM2.5 in India (first-ever estimate)</li>
                                     <li><strong>Mechanism:</strong> Ultrafine particles cross blood-brain barrier, cause neuroinflammation</li>
@@ -2564,7 +2838,7 @@ a:hover { color: var(--accent-hover); }
 
                             <!-- SOURCE APPORTIONMENT -->
                             <div class="info-box" style="border-left: 4px solid #16803C; background: rgba(22,128,60,0.03);">
-                                <h4 style="color: #16803C; margin-bottom: 0.5rem;">🏭 Source Apportionment Update (EGUsphere, 2025)</h4>
+                                <h4 style="color: #16803C; margin-bottom: 0.5rem;"> Source Apportionment Update (EGUsphere, 2025)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>Industrial emissions:</strong> Now largest domestic source at 18% (previously underestimated)</li>
                                     <li><strong>Transport:</strong> 12% direct + secondary aerosols</li>
@@ -2578,7 +2852,7 @@ a:hover { color: var(--accent-hover); }
             </div>
             <div class="card mt-2">
                 <div class="card-header">
-                    <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice — Who Bears the Burden?</span>
+                    <span class="card-title" style="color: #1B6B4A;"> Environmental Justice — Who Bears the Burden?</span>
                 </div>
                 <div class="card-body">
                     <div class="alert mb-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-700);">
@@ -2590,7 +2864,7 @@ a:hover { color: var(--accent-hover); }
                     <div class="grid-2">
                         <!-- HOUSEHOLD AIR POLLUTION -->
                         <div class="info-box" style="border-left: 4px solid #EC4899; background: rgba(236,72,153,0.03);">
-                            <h4 style="color: #EC4899; margin-bottom: 0.75rem;">🔥 Household Air Pollution — The Invisible Epidemic</h4>
+                            <h4 style="color: #EC4899; margin-bottom: 0.75rem;"> Household Air Pollution — The Invisible Epidemic</h4>
                             <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <strong>481,700 deaths/year in India</strong> from household air pollution (HAP) — nearly 30% of India's air pollution deaths. Yet NCAP focuses almost exclusively on ambient air.
                             </p>
@@ -2609,7 +2883,7 @@ a:hover { color: var(--accent-hover); }
 
                         <!-- OCCUPATIONAL EXPOSURE -->
                         <div class="info-box" style="border-left: 4px solid #F59E0B; background: rgba(245,158,11,0.03);">
-                            <h4 style="color: #F59E0B; margin-bottom: 0.75rem;">👷 Occupational Exposure — Unprotected Workers</h4>
+                            <h4 style="color: #F59E0B; margin-bottom: 0.75rem;"> Occupational Exposure — Unprotected Workers</h4>
                             <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <strong>93% of India's workforce is informal</strong> — with no occupational health standards for ambient air exposure. The formal sector gets WFH; workers breathe poison.
                             </p>
@@ -2631,7 +2905,7 @@ a:hover { color: var(--accent-hover); }
                     <div class="grid-2 mt-2">
                         <!-- SPATIAL INJUSTICE -->
                         <div class="info-box" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.03);">
-                            <h4 style="color: #7C3AED; margin-bottom: 0.75rem;">🏘️ Spatial Injustice — Where You Live Matters</h4>
+                            <h4 style="color: #7C3AED; margin-bottom: 0.75rem;"> Spatial Injustice — Where You Live Matters</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Industrial proximity:</strong> Low-income housing systematically located near factories, refineries, power plants</li>
                                 <li><strong>Highway adjacency:</strong> Slums built along arterial roads; PM2.5 50% higher within 100m of highways</li>
@@ -2646,7 +2920,7 @@ a:hover { color: var(--accent-hover); }
 
                         <!-- CASTE & CLASS -->
                         <div class="info-box" style="border-left: 4px solid #0EA5E9; background: rgba(14,165,233,0.03);">
-                            <h4 style="color: #0EA5E9; margin-bottom: 0.75rem;">🔗 Caste, Class & Environmental Racism</h4>
+                            <h4 style="color: #0EA5E9; margin-bottom: 0.75rem;"> Caste, Class & Environmental Racism</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Manual scavenging:</strong> Still practiced despite ban; sewer deaths from toxic gases; predominantly Dalit</li>
                                 <li><strong>Sanitation workers:</strong> Burn waste, clear drains; no protective gear; municipality neglect</li>
@@ -2663,7 +2937,7 @@ a:hover { color: var(--accent-hover); }
                     <div class="grid-2 mt-2">
                         <!-- ADAPTATION INEQUALITY -->
                         <div class="info-box" style="border-left: 4px solid #16803C; background: rgba(22,128,60,0.03);">
-                            <h4 style="color: #16803C; margin-bottom: 0.75rem;">🛡️ Adaptation Inequality — Protection is a Privilege</h4>
+                            <h4 style="color: #16803C; margin-bottom: 0.75rem;"> Adaptation Inequality — Protection is a Privilege</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Air purifiers:</strong> ₹10,000-50,000 + electricity cost; inaccessible to 70%+ households</li>
                                 <li><strong>N95 masks:</strong> ₹50-200 each; informal workers can't afford daily replacement</li>
@@ -2676,7 +2950,7 @@ a:hover { color: var(--accent-hover); }
 
                         <!-- POLICY CRITIQUE -->
                         <div class="info-box" style="border-left: 4px solid #EF4444; background: rgba(239,68,68,0.03);">
-                            <h4 style="color: #EF4444; margin-bottom: 0.75rem;">📋 Policy Blind Spots — Who's Not at the Table?</h4>
+                            <h4 style="color: #EF4444; margin-bottom: 0.75rem;"> Policy Blind Spots — Who's Not at the Table?</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>NCAP:</strong> Focuses on ambient PM10/PM2.5; HAP not integrated; no equity metrics</li>
                                 <li><strong>GRAP:</strong> Construction bans hurt workers; no wage compensation; odd-even exempts two-wheelers (used by poor)</li>
@@ -2693,7 +2967,7 @@ a:hover { color: var(--accent-hover); }
 
                     <!-- KEY STATISTICS BOX -->
                     <div class="mt-2" style="background: var(--bg-muted); border-radius: 12px; padding: 1rem;">
-                        <h4 style="color: #1B6B4A; margin-bottom: 0.75rem; font-size: 0.9375rem;">📊 The Numbers That Don't Make Headlines</h4>
+                        <h4 style="color: #1B6B4A; margin-bottom: 0.75rem; font-size: 0.9375rem;"> The Numbers That Don't Make Headlines</h4>
                         <div class="grid-4" style="gap: 1rem;">
                             <div style="text-align: center; padding: 0.75rem; background: white; border-radius: 8px;">
                                 <div style="font-size: 1.75rem; font-weight: 700; color: #1B6B4A;">481,700</div>
@@ -2728,7 +3002,7 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-economic">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Economic Cost of Air Pollution</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-rupee" style="color: #D97706; margin-right: 0.4rem;"></span>Economic Cost of Air Pollution</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Air pollution costs India <strong>$36.8 billion annually</strong> (1.36% GDP) through healthcare, lost productivity, and premature deaths. At broader economic measures, costs reach $339 billion (9.5% GDP). <em>Source: Lancet Planetary Health 2021 / Lancet Countdown 2025</em></p>
             </div>
 
@@ -2781,7 +3055,7 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-policy">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Policy Effectiveness Tracker</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clipboard-check" style="color: #3B82F6; margin-right: 0.4rem;"></span>Policy Effectiveness Tracker</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Evaluating major air quality interventions by actual PM2.5 impact, evidence quality, and cost-effectiveness.</p>
             </div>
 
@@ -2812,7 +3086,7 @@ a:hover { color: var(--accent-hover); }
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.8125rem;">
-                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--green-700);"><strong>🆕 Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
+                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--green-700);"><strong> Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
                         <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
                         <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
                         <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
@@ -2825,7 +3099,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mt-2">
                 <div class="card-header">
                     <span class="card-title" style="color: var(--green-700);">
-                        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        <span class="si si-activity"></span>
                         Policy Recommendations — What Should Change
                     </span>
                 </div>
@@ -2834,7 +3108,7 @@ a:hover { color: var(--accent-hover); }
                     
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
-                            <h4 style="color: #EF4444;">🚨 72-Hour Persistence Rule for GRAP</h4>
+                            <h4 style="color: #EF4444;"> 72-Hour Persistence Rule for GRAP</h4>
                             <p><strong>Problem:</strong> GRAP stages are currently relaxed as soon as AQI dips below threshold, even briefly. This "yo-yo" effect leads to:</p>
                             <ul>
                                 <li>Premature lifting of restrictions</li>
@@ -2847,7 +3121,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #F59E0B;">
-                            <h4 style="color: #F59E0B;">⏰ Anticipatory Activation</h4>
+                            <h4 style="color: #F59E0B;"> Anticipatory Activation</h4>
                             <p><strong>Problem:</strong> GRAP is reactive — activated only after AQI crosses threshold. By then, damage is done.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2859,7 +3133,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4 style="color: #3B82F6;">🏫 Automatic School Closures</h4>
+                            <h4 style="color: #3B82F6;"> Automatic School Closures</h4>
                             <p><strong>Problem:</strong> Schools remain open even during AQI 400-500. Children are most vulnerable.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2872,7 +3146,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #16803C;">
-                            <h4 style="color: #16803C;">💰 Stubble — Fix the Economics</h4>
+                            <h4 style="color: #16803C;"> Stubble — Fix the Economics</h4>
                             <p><strong>Problem:</strong> Burning is rational for farmers. Bans without alternatives don't work.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2885,7 +3159,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                            <h4 style="color: #7C3AED;">🏭 Year-Round Industrial Standards</h4>
+                            <h4 style="color: #7C3AED;"> Year-Round Industrial Standards</h4>
                             <p><strong>Problem:</strong> Industrial restrictions only during GRAP. Pollution is year-round problem.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2897,7 +3171,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #EC4899;">
-                            <h4 style="color: #EC4899;">🚗 Congestion Pricing (Not Odd-Even)</h4>
+                            <h4 style="color: #EC4899;"> Congestion Pricing (Not Odd-Even)</h4>
                             <p><strong>Problem:</strong> Odd-even has minimal impact (2-4% reduction) with high compliance cost.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2926,7 +3200,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mt-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #22C55E;">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <span class="si si-globe"></span>
                         What Worked Globally — Success Stories
                     </span>
                 </div>
@@ -2935,7 +3209,7 @@ a:hover { color: var(--accent-hover); }
                     
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
-                            <h4>🇨🇳 Beijing, China</h4>
+                            <h4> Beijing, China</h4>
                             <p><strong>Problem:</strong> 2013 "Airpocalypse" — PM2.5 over 500 for weeks. Called "unlivable."</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
                             <ul>
@@ -2949,7 +3223,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4>🇬🇧 London, UK</h4>
+                            <h4> London, UK</h4>
                             <p><strong>Problem:</strong> 1952 Great Smog killed 12,000. Chronic pollution through 1990s.</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
                             <ul>
@@ -2963,7 +3237,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #F59E0B;">
-                            <h4>🇺🇸 Los Angeles, USA</h4>
+                            <h4> Los Angeles, USA</h4>
                             <p><strong>Problem:</strong> 1970s smog so bad children couldn't play outside. "Smog capital."</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
                             <ul>
@@ -2977,7 +3251,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
 
                         <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                            <h4>🇮🇳 Surat, India</h4>
+                            <h4> Surat, India</h4>
                             <p><strong>Problem:</strong> 1994 plague outbreak linked to poor sanitation and air quality.</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
                             <ul>
@@ -3003,30 +3277,30 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-budget">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Clean Air Budget Tracker</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wallet" style="color: #D97706; margin-right: 0.4rem;"></span>Clean Air Budget Tracker</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
             </div>
 
             <div class="alert alert-danger mb-2"><div>
-                    ⚠️ <strong>Funding Cliff Alert:</strong> 15th Finance Commission grants (₹16,539 Cr for 49 cities) expire March 2026 with no successor mechanism announced. This represents 87% of all NCAP city funding.
+                     <strong>Funding Cliff Alert:</strong> 15th Finance Commission grants (₹16,539 Cr for 49 cities) expire March 2026 with no successor mechanism announced. This represents 87% of all NCAP city funding.
                 </div>
             </div>
 
             <!-- KEY STATS -->
-            <div class="grid-4 mb-2">
-                <div class="card stat-card">
+            <div class="stat-strip mb-2">
+                <div class="stat-cell">
                     <div class="stat-value" style="color: #3B82F6;">₹13,415 Cr</div>
                     <div class="stat-label">NCAP Released (2019-26)</div>
                 </div>
-                <div class="card stat-card">
-                    <div class="stat-value warning">74%</div>
+                <div class="stat-cell">
+                    <div class="stat-value" style="color: #D97706;">74%</div>
                     <div class="stat-label">Utilization Rate</div>
                 </div>
-                <div class="card stat-card">
-                    <div class="stat-value danger">68%</div>
+                <div class="stat-cell">
+                    <div class="stat-value" style="color: #EF4444;">68%</div>
                     <div class="stat-label">Spent on Dust Control</div>
                 </div>
-                <div class="card stat-card">
+                <div class="stat-cell">
                     <div class="stat-value" style="color: #7C3AED;">&lt;1%</div>
                     <div class="stat-label">On Industry/Fuel</div>
                 </div>
@@ -3036,7 +3310,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
-                        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                        <span class="si si-alert"></span>
                         The Gap: Budget vs. Burden
                     </span>
                 </div>
@@ -3072,7 +3346,7 @@ a:hover { color: var(--accent-hover); }
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title" style="color: #2563EB;">
-                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                            <span class="si si-target"></span>
                             NCAP Fund Flow (2019-2026)
                         </span>
                     </div>
@@ -3096,7 +3370,7 @@ a:hover { color: var(--accent-hover); }
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title" style="color: #D97706;">
-                            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            <span class="si si-building"></span>
                             Where NCAP Money Goes
                         </span>
                     </div>
@@ -3114,7 +3388,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title">
-                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="si si-pin"></span>
                         City-Level Fund Utilization — Red Flags
                     </span>
                 </div>
@@ -3189,7 +3463,7 @@ a:hover { color: var(--accent-hover); }
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title" style="color: #16803C;">
-                            <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                            <span class="si si-flare"></span>
                             PM Ujjwala Yojana (Clean Cooking)
                         </span>
                     </div>
@@ -3218,7 +3492,7 @@ a:hover { color: var(--accent-hover); }
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title" style="color: #CA8A04;">
-                            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span class="si si-shield"></span>
                             Crop Residue Management (2018-2025)
                         </span>
                     </div>
@@ -3253,7 +3527,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #7C3AED;">
-                        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        <span class="si si-bus"></span>
                         Electric Mobility: FAME to E-DRIVE (2015-2028)
                     </span>
                 </div>
@@ -3319,7 +3593,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title">
-                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        <span class="si si-activity"></span>
                         MoEFCC Budget Trend (2019-2026)
                     </span>
                 </div>
@@ -3336,7 +3610,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
-                        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                        <span class="si si-alert"></span>
                         Key Accountability Gaps
                     </span>
                 </div>
@@ -3371,7 +3645,7 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-compare">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Live City Comparison</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-globe" style="color: #3B82F6; margin-right: 0.4rem;"></span>Live City Comparison</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
             </div>
 
@@ -3417,7 +3691,7 @@ a:hover { color: var(--accent-hover); }
                         </div>
                     </div>
                     <button class="btn btn-primary mb-2" onclick="updateComparison(true)">
-                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                        <span class="si si-sm" style="-webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Reorder.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Reorder.svg);"></span>
                         Refresh Live Data
                     </button>
                     <div id="comparison-result" class="grid-3">
@@ -3441,7 +3715,7 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-map">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Live Air Quality Map</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map" style="color: var(--accent); margin-right: 0.4rem;"></span>Live Air Quality Map</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Real-time AQI for major Indian cities from WAQI API. Click markers for PM2.5, station name, and update time.</p>
             </div>
             <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
@@ -3457,7 +3731,7 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-trends">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Historical Trends</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-insights" style="color: #7C3AED; margin-right: 0.4rem;"></span>Historical Trends</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Delhi's air quality shows strong seasonal patterns with winter months consistently worst. The data reveals both the scale of the crisis and the potential for improvement.</p>
             </div>
             <div class="card mb-2">
@@ -3491,7 +3765,7 @@ a:hover { color: var(--accent-hover); }
 
             <!-- WHAT LOCKDOWN PROVED -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">🔬 What COVID Lockdown Proved</span></div>
+                <div class="card-header"><span class="card-title"> What COVID Lockdown Proved</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <div class="stat-card" style="border-left: 3px solid #22C55E;">
@@ -3522,12 +3796,12 @@ a:hover { color: var(--accent-hover); }
 <template id="tmpl-accountability">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Political Accountability Tracker</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield" style="color: #EF4444; margin-right: 0.4rem;"></span>Political Accountability Tracker</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Tracking promises, court orders, budget allocations, and outcomes. <strong>NEW:</strong> Clean Air Mission Tracker with independent verification of NCAP interventions. Use RTI to demand transparency. Democracy requires accountability.</p>
             </div>
 
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🎯 Promises vs Reality</span></div>
+                <div class="card-header"><span class="card-title"> Promises vs Reality</span></div>
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table">
@@ -3556,15 +3830,15 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #16803C;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-                        📊 CREA "Tracing the Hazy Air" (January 9, 2026) — NCAP Progress Report
+                        <span class="si si-fact-check"></span>
+                         CREA "Tracing the Hazy Air" (January 9, 2026) — NCAP Progress Report
                     </span>
                     <span class="badge" style="background: #16803C; color: white; margin-left: 0.5rem;">v19.0</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1.5rem;">
                         <div>
-                            <h4 style="color: #1B6B4A; font-size: 0.875rem; margin-bottom: 0.75rem;">❌ NCAP Target Failures</h4>
+                            <h4 style="color: #1B6B4A; font-size: 0.875rem; margin-bottom: 0.75rem;"> NCAP Target Failures</h4>
                             <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
                                 <div style="text-align: center; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 8px;">
                                     <div style="font-size: 1.75rem; font-weight: 700; color: #1B6B4A;">23/100</div>
@@ -3581,7 +3855,7 @@ a:hover { color: var(--accent-hover); }
                             </ul>
                         </div>
                         <div>
-                            <h4 style="color: #CA8A04; font-size: 0.875rem; margin-bottom: 0.75rem;">⚠️ Fund Misallocation</h4>
+                            <h4 style="color: #CA8A04; font-size: 0.875rem; margin-bottom: 0.75rem;"> Fund Misallocation</h4>
                             <div style="background: var(--bg); padding: 0.75rem; border-radius: 8px; font-size: 0.875rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                                     <span>Road dust control</span><strong style="color: #1B6B4A;">68%</strong>
@@ -3616,7 +3890,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2" style="border-left: 4px solid var(--green-700);">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
-                        ⚖️ Supreme Court — January 2026 Orders
+                         Supreme Court — January 2026 Orders
                     </span>
                     
                 </div>
@@ -3643,7 +3917,7 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2" style="border-left: 4px solid #7C3AED;">
                 <div class="card-header">
                     <span class="card-title" style="color: #7C3AED;">
-                        🔍 CAG Audit (April 2025) — Monitoring Station Failures
+                         CAG Audit (April 2025) — Monitoring Station Failures
                     </span>
                     <span class="badge" style="background: #7C3AED; color: white; margin-left: 0.5rem;">v19.0</span>
                 </div>
@@ -3671,8 +3945,8 @@ a:hover { color: var(--accent-hover); }
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #2563EB;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-                        📊 Clean Air Mission Tracker — Independent Verification
+                        <span class="si si-fact-check"></span>
+                         Clean Air Mission Tracker — Independent Verification
                     </span>
                     <span class="badge badge-info" style="margin-left: 0.5rem;">NEW v14.0</span>
                 </div>
@@ -3685,7 +3959,7 @@ a:hover { color: var(--accent-hover); }
 
                     <!-- EVIDENCE GRADING LEGEND -->
                     <div class="info-box mb-2">
-                        <h4 style="color: #2563EB; margin-bottom: 0.75rem;">📏 Evidence Grading Scale (E1-E5)</h4>
+                        <h4 style="color: #2563EB; margin-bottom: 0.75rem;"> Evidence Grading Scale (E1-E5)</h4>
                         <div class="grid-5" style="gap: 0.5rem; font-size: 0.8125rem;">
                             <div style="padding: 0.5rem; background: rgba(27,107,74,0.08); border-radius: 6px; text-align: center;">
                                 <strong style="color: #1B6B4A;">E1</strong><br>
@@ -3822,13 +4096,13 @@ a:hover { color: var(--accent-hover); }
 
                     <!-- FOUR I'S FRAMEWORK -->
                     <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <h4 style="color: #2563EB; margin-bottom: 0.75rem;">🏛️ World Bank "Four I's" Framework Assessment</h4>
+                        <h4 style="color: #2563EB; margin-bottom: 0.75rem;"> World Bank "Four I's" Framework Assessment</h4>
                         <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">
                             The World Bank's December 2025 report identifies four pillars essential for clean air progress. We assess India's NCAP against this framework:
                         </p>
                         <div class="grid-4" style="gap: 0.75rem;">
                             <div class="info-box" style="border-left: 3px solid #3B82F6; padding: 0.75rem;">
-                                <h5 style="color: #3B82F6; font-size: 0.875rem;">📊 Information</h5>
+                                <h5 style="color: #3B82F6; font-size: 0.875rem;"> Information</h5>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Accessible, reliable data for planning and accountability"</em></p>
                                 <div style="font-size: 0.875rem; color: var(--text-2);">
                                     <strong>India Status:</strong> CPCB CAAQMS coverage expanding but gaps remain. Real-time source apportionment only in 50/130 cities. JanVayu fills citizen data gap.
@@ -3836,7 +4110,7 @@ a:hover { color: var(--accent-hover); }
                                 <span class="badge badge-warning mt-1" style="font-size: 0.8125rem;">PARTIAL</span>
                             </div>
                             <div class="info-box" style="border-left: 3px solid #22C55E; padding: 0.75rem;">
-                                <h5 style="color: #22C55E; font-size: 0.875rem;">💰 Incentives</h5>
+                                <h5 style="color: #22C55E; font-size: 0.875rem;"> Incentives</h5>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Encourage behavioral and investment shift"</em></p>
                                 <div style="font-size: 0.875rem; color: var(--text-2);">
                                     <strong>India Status:</strong> EV subsidies exist but reach limited. Stubble payment inadequate (₹1000/acre vs ₹5000 needed). Ujjwala refill subsidy insufficient.
@@ -3844,7 +4118,7 @@ a:hover { color: var(--accent-hover); }
                                 <span class="badge badge-warning mt-1" style="font-size: 0.8125rem;">WEAK</span>
                             </div>
                             <div class="info-box" style="border-left: 3px solid #F59E0B; padding: 0.75rem;">
-                                <h5 style="color: #F59E0B; font-size: 0.875rem;">🏛️ Institutions</h5>
+                                <h5 style="color: #F59E0B; font-size: 0.875rem;"> Institutions</h5>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Coordinate action, ensure compliance"</em></p>
                                 <div style="font-size: 0.875rem; color: var(--text-2);">
                                     <strong>India Status:</strong> CAQM created 2021 but limited enforcement. Inter-state coordination remains blame-game. NCAP city action plans inconsistent.
@@ -3852,7 +4126,7 @@ a:hover { color: var(--accent-hover); }
                                 <span class="badge badge-danger mt-1" style="font-size: 0.8125rem;">WEAK</span>
                             </div>
                             <div class="info-box" style="border-left: 3px solid #7C3AED; padding: 0.75rem;">
-                                <h5 style="color: #7C3AED; font-size: 0.875rem;">🔧 Infrastructure</h5>
+                                <h5 style="color: #7C3AED; font-size: 0.875rem;"> Infrastructure</h5>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Enable clean energy, transport, waste systems"</em></p>
                                 <div style="font-size: 0.875rem; color: var(--text-2);">
                                     <strong>India Status:</strong> Metro expansion ongoing. EV charging patchy. Waste management infrastructure decades behind need. Industrial modernization slow.
@@ -3872,7 +4146,7 @@ a:hover { color: var(--accent-hover); }
 
             <!-- COURT ORDERS TRACKER -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">⚖️ Court Orders Tracker</span></div>
+                <div class="card-header"><span class="card-title"> Court Orders Tracker</span></div>
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table">
@@ -3925,7 +4199,7 @@ a:hover { color: var(--accent-hover); }
 
             <!-- BUDGET TRACKER -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">💰 Budget & Fund Utilization</span></div>
+                <div class="card-header"><span class="card-title"> Budget & Fund Utilization</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
@@ -3956,7 +4230,7 @@ a:hover { color: var(--accent-hover); }
 
             <!-- RESPONSIBILITY MATRIX -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🎪 Who's Responsible? The Blame Game Decoded</span></div>
+                <div class="card-header"><span class="card-title"> Who's Responsible? The Blame Game Decoded</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <div class="info-box" style="border-left: 3px solid #F59E0B;">
@@ -4095,7 +4369,7 @@ Signature: _______________</div>
 <template id="tmpl-voices">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Citizen Voices & Viral Moments</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: #1D9BF0; margin-right: 0.4rem;"></span>Citizen Voices &amp; Viral Moments</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Curated reactions from X/Twitter, Instagram, YouTube, and news — documenting India's air crisis through citizen voices, memes, and viral content.</p>
             </div>
 
@@ -4107,7 +4381,7 @@ Signature: _______________</div>
 
             <!-- LIVE HASHTAG LINKS -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🔴 Follow Live on Social Media</span></div>
+                <div class="card-header"><span class="card-title"> Follow Live on Social Media</span></div>
                 <div class="card-body">
                     <div class="grid-4">
                         <a href="https://twitter.com/search?q=%23DelhiAirPollution&src=typed_query&f=live" target="_blank" class="quick-link" style="text-decoration: none;">
@@ -4132,7 +4406,7 @@ Signature: _______________</div>
 
             <!-- VIRAL MEMES & SHORTS -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">🔥 Viral Memes & Moments (2024-25)</span></div>
+                <div class="card-header"><span class="card-title"> Viral Memes & Moments (2024-25)</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -4238,7 +4512,7 @@ Signature: _______________</div>
                                     <span class="voice-source">YouTube Short</span>
                                 </div>
                                 <div class="voice-content">
-                                    "Delhi NCR people explaining why they can't move out despite 500+ AQI every winter" 🎬 POV video showing Delhiites defending their city while coughing. 2.3M views.
+                                    "Delhi NCR people explaining why they can't move out despite 500+ AQI every winter"  POV video showing Delhiites defending their city while coughing. 2.3M views.
                                 </div>
                                 <div class="voice-meta">Nov 2024 | 2.3M views | 180K likes</div>
                             </div>
@@ -4253,7 +4527,7 @@ Signature: _______________</div>
                                     <span class="voice-source">Instagram Reel</span>
                                 </div>
                                 <div class="voice-content">
-                                    "POV: You're a Delhi guy explaining to your Bangalore girlfriend why 400 AQI is actually 'not that bad'" 💀 Reel showing guy casually eating momos in smog. Sound: "Yeh toh normal hai yaar"
+                                    "POV: You're a Delhi guy explaining to your Bangalore girlfriend why 400 AQI is actually 'not that bad'"  Reel showing guy casually eating momos in smog. Sound: "Yeh toh normal hai yaar"
                                 </div>
                                 <div class="voice-meta">Dec 2024 | 850K views</div>
                             </div>
@@ -4279,7 +4553,7 @@ Signature: _______________</div>
 
             <!-- INTERNATIONAL MEDIA -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">🌍 International Media Coverage</span></div>
+                <div class="card-header"><span class="card-title"> International Media Coverage</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <div class="voice-card" style="border-left: 3px solid #1A1A1A;">
@@ -4329,7 +4603,7 @@ Signature: _______________</div>
 
             <!-- SERIOUS VOICES -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">📢 Serious Voices & Testimonies</span></div>
+                <div class="card-header"><span class="card-title"> Serious Voices & Testimonies</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -4381,7 +4655,7 @@ Signature: _______________</div>
 
                             <div class="voice-card">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #EC4899;">👶</div>
+                                    <div class="voice-avatar" style="background: #EC4899;"></div>
                                     <div>
                                         <div class="voice-name">Pediatric ICU Nurse</div>
                                         <div class="voice-handle">AIIMS Delhi</div>
@@ -4443,7 +4717,7 @@ Signature: _______________</div>
 
                             <div class="voice-card">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #F59E0B;">🤰</div>
+                                    <div class="voice-avatar" style="background: #F59E0B;"></div>
                                     <div>
                                         <div class="voice-name">Expecting Mother</div>
                                         <div class="voice-handle">Gurgaon resident</div>
@@ -4462,7 +4736,7 @@ Signature: _______________</div>
 
             <!-- ENVIRONMENTAL JUSTICE VOICES -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">⚖️ Voices from the Margins — Environmental Justice</span></div>
+                <div class="card-header"><span class="card-title"> Voices from the Margins — Environmental Justice</span></div>
                 <div class="card-body">
                     <div class="alert mb-2" style="background: rgba(27,107,74,0.05); border-left: 3px solid var(--green-700); font-size: 0.875rem;">
                         These voices are often missing from mainstream air pollution discourse. The burden falls heaviest on those least responsible for it and least able to protect themselves.
@@ -4471,7 +4745,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #EC4899; background: rgba(236,72,153,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #EC4899;">🔥</div>
+                                    <div class="voice-avatar" style="background: #EC4899;"></div>
                                     <div>
                                         <div class="voice-name">Sunita Devi</div>
                                         <div class="voice-handle">Household cook, Jharkhand</div>
@@ -4486,7 +4760,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #F59E0B;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #F59E0B;">🚗</div>
+                                    <div class="voice-avatar" style="background: #F59E0B;"></div>
                                     <div>
                                         <div class="voice-name">Mohammad Irfan</div>
                                         <div class="voice-handle">Auto-rickshaw driver, Delhi</div>
@@ -4501,7 +4775,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #7C3AED;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #7C3AED;">🏗️</div>
+                                    <div class="voice-avatar" style="background: #7C3AED;"></div>
                                     <div>
                                         <div class="voice-name">Ramesh Kumar</div>
                                         <div class="voice-handle">Construction worker, Noida</div>
@@ -4516,7 +4790,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #0EA5E9;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #0EA5E9;">🧹</div>
+                                    <div class="voice-avatar" style="background: #0EA5E9;"></div>
                                     <div>
                                         <div class="voice-name">Geeta (name changed)</div>
                                         <div class="voice-handle">Sanitation worker, MCD</div>
@@ -4533,7 +4807,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid var(--green-700); background: rgba(27,107,74,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-700);">♻️</div>
+                                    <div class="voice-avatar" style="background: var(--green-700);"></div>
                                     <div>
                                         <div class="voice-name">Shanti Bai</div>
                                         <div class="voice-handle">Waste picker, Ghazipur</div>
@@ -4548,7 +4822,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #16803C;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16803C;">🚦</div>
+                                    <div class="voice-avatar" style="background: #16803C;"></div>
                                     <div>
                                         <div class="voice-name">SI Rajesh Sharma</div>
                                         <div class="voice-handle">Traffic Police, Delhi</div>
@@ -4563,7 +4837,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #EC4899;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #EC4899;">🏠</div>
+                                    <div class="voice-avatar" style="background: #EC4899;"></div>
                                     <div>
                                         <div class="voice-name">Fatima Begum</div>
                                         <div class="voice-handle">Domestic worker, South Delhi</div>
@@ -4578,7 +4852,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #F59E0B;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #F59E0B;">🏭</div>
+                                    <div class="voice-avatar" style="background: #F59E0B;"></div>
                                     <div>
                                         <div class="voice-name">Bhim Singh</div>
                                         <div class="voice-handle">Brick kiln worker, UP</div>
@@ -4594,11 +4868,11 @@ Signature: _______________</div>
                     </div>
 
                     <div class="mt-2" style="background: var(--bg-muted); padding: 1rem; border-radius: 8px;">
-                        <h4 style="font-size: 0.875rem; color: var(--green-700); margin-bottom: 0.5rem;">📚 Researchers & Advocates Speaking Up</h4>
+                        <h4 style="font-size: 0.875rem; color: var(--green-700); margin-bottom: 0.5rem;"> Researchers & Advocates Speaking Up</h4>
                         <div class="grid-2" style="gap: 1rem;">
                             <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid var(--green-700);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-700);">🎓</div>
+                                    <div class="voice-avatar" style="background: var(--green-700);"></div>
                                     <div>
                                         <div class="voice-name">Dr. Bhim Rao (pseudonym)</div>
                                         <div class="voice-handle">Public Health Researcher</div>
@@ -4610,7 +4884,7 @@ Signature: _______________</div>
                             </div>
                             <div class="voice-card" style="margin-bottom: 0; border-left: 3px solid #16803C;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16803C;">📊</div>
+                                    <div class="voice-avatar" style="background: #16803C;"></div>
                                     <div>
                                         <div class="voice-name">Environmental Justice Scholar</div>
                                         <div class="voice-handle">EPW Commentary</div>
@@ -4627,13 +4901,13 @@ Signature: _______________</div>
 
             <!-- 2025 VOICES: GOVERNMENT & ACCOUNTABILITY -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">🏛️ 2025: Government Positions & Contradictions</span></div>
+                <div class="card-header"><span class="card-title"> 2025: Government Positions & Contradictions</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #EF4444; background: rgba(239,68,68,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-700);">🏛️</div>
+                                    <div class="voice-avatar" style="background: var(--green-700);"></div>
                                     <div>
                                         <div class="voice-name">Union Environment Ministry</div>
                                         <div class="voice-handle">Rajya Sabha Reply</div>
@@ -4642,14 +4916,14 @@ Signature: _______________</div>
                                 </div>
                                 <div class="voice-content">
                                     "There is no conclusive data available in the country to establish direct correlation of death/disease exclusively due to air pollution."
-                                    <br><em style="font-size: 0.7rem; color: #EF4444; margin-top: 0.5rem; display: block;">⚠️ This contradicts GBD 2021 data showing 4.72M global deaths from PM2.5, and Lancet studies showing 1.7M annual deaths in India alone.</em>
+                                    <br><em style="font-size: 0.7rem; color: #EF4444; margin-top: 0.5rem; display: block;"> This contradicts GBD 2021 data showing 4.72M global deaths from PM2.5, and Lancet studies showing 1.7M annual deaths in India alone.</em>
                                 </div>
                                 <div class="voice-meta">July 2024 | Official Rajya Sabha reply</div>
                             </div>
 
                             <div class="voice-card" style="border-left: 3px solid #F59E0B;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #F59E0B;">📊</div>
+                                    <div class="voice-avatar" style="background: #F59E0B;"></div>
                                     <div>
                                         <div class="voice-name">RTI Revelation</div>
                                         <div class="voice-handle">NCAP Fund Utilization</div>
@@ -4665,7 +4939,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #22C55E; background: rgba(34,197,94,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16A34A;">📈</div>
+                                    <div class="voice-avatar" style="background: #16A34A;"></div>
                                     <div>
                                         <div class="voice-name">Delhi Environment Minister</div>
                                         <div class="voice-handle">Manjinder Singh Sirsa</div>
@@ -4681,7 +4955,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #3B82F6;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #2563EB;">🔬</div>
+                                    <div class="voice-avatar" style="background: #2563EB;"></div>
                                     <div>
                                         <div class="voice-name">Dr. Petter Ljungman</div>
                                         <div class="voice-handle">Karolinska Institutet</div>
@@ -4703,7 +4977,7 @@ Signature: _______________</div>
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
-                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span class="si si-user"></span>
                         Parents Speak Out — 2025-26
                         
                     </span>
@@ -4777,7 +5051,7 @@ Signature: _______________</div>
             <!-- NEW v17.0: EXPERT VOICES & ADVOCATES -->
             <div class="card mt-2">
                 <div class="card-header">
-                    <span class="card-title" style="color: #7C3AED;">🎓 Expert Voices & Advocates</span>
+                    <span class="card-title" style="color: #7C3AED;"> Expert Voices & Advocates</span>
                     <span class="badge" style="background: #7C3AED; color: white; margin-left: 0.5rem;">v19.0</span>
                 </div>
                 <div class="card-body">
@@ -4785,7 +5059,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #16803C; background: rgba(22,128,60,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16803C;">🔬</div>
+                                    <div class="voice-avatar" style="background: #16803C;"></div>
                                     <div>
                                         <div class="voice-name">Dr. Sarath Guttikunda</div>
                                         <div class="voice-handle">UrbanEmissions.info</div>
@@ -4800,7 +5074,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #EC4899;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #EC4899;">👩</div>
+                                    <div class="voice-avatar" style="background: #EC4899;"></div>
                                     <div>
                                         <div class="voice-name">Bhavreen Kandhari</div>
                                         <div class="voice-handle">Warrior Moms India</div>
@@ -4815,7 +5089,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #2563EB;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #2563EB;">📊</div>
+                                    <div class="voice-avatar" style="background: #2563EB;"></div>
                                     <div>
                                         <div class="voice-name">Sunil Dahiya</div>
                                         <div class="voice-handle">CREA (Centre for Research on Energy and Clean Air)</div>
@@ -4832,7 +5106,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid var(--green-700); background: rgba(27,107,74,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-700);">🔥</div>
+                                    <div class="voice-avatar" style="background: var(--green-700);"></div>
                                     <div>
                                         <div class="voice-name">Dr. Kalpana Balakrishnan</div>
                                         <div class="voice-handle">Sri Ramachandra University</div>
@@ -4847,7 +5121,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #F59E0B;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #F59E0B;">✊</div>
+                                    <div class="voice-avatar" style="background: #F59E0B;"></div>
                                     <div>
                                         <div class="voice-name">Safai Karmachari Andolan</div>
                                         <div class="voice-handle">@safaboraaikar</div>
@@ -4862,7 +5136,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #16803C;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16803C;">🚛</div>
+                                    <div class="voice-avatar" style="background: #16803C;"></div>
                                     <div>
                                         <div class="voice-name">TGPWU Representative</div>
                                         <div class="voice-handle">Telangana Gig & Platform Workers Union</div>
@@ -4881,13 +5155,13 @@ Signature: _______________</div>
 
             <!-- 2024-2026: SCIENTIFIC RESEARCH VOICES -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">🔬 2024-2026: Scientific Research on PM2.5</span></div>
+                <div class="card-header"><span class="card-title"> 2024-2026: Scientific Research on PM2.5</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #16803C; background: rgba(22,128,60,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16803C;">📊</div>
+                                    <div class="voice-avatar" style="background: #16803C;"></div>
                                     <div>
                                         <div class="voice-name">GBD 2021 Study</div>
                                         <div class="voice-handle">Lancet / IHME</div>
@@ -4902,7 +5176,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #7C3AED;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #7C3AED;">🎯</div>
+                                    <div class="voice-avatar" style="background: #7C3AED;"></div>
                                     <div>
                                         <div class="voice-name">WHO 2021 Guidelines</div>
                                         <div class="voice-handle">Air Quality Guidelines</div>
@@ -4917,7 +5191,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid var(--green-700);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: var(--green-700);">⚠️</div>
+                                    <div class="voice-avatar" style="background: var(--green-700);"></div>
                                     <div>
                                         <div class="voice-name">AQI Limitations</div>
                                         <div class="voice-handle">Scientific Community</div>
@@ -4933,7 +5207,7 @@ Signature: _______________</div>
                         <div>
                             <div class="voice-card" style="border-left: 3px solid #0EA5E9; background: rgba(14,165,233,0.03);">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #0EA5E9;">🇮🇳</div>
+                                    <div class="voice-avatar" style="background: #0EA5E9;"></div>
                                     <div>
                                         <div class="voice-name">Delhi Causal Study</div>
                                         <div class="voice-handle">Lancet Planetary Health</div>
@@ -4948,7 +5222,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #F59E0B;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #F59E0B;">📈</div>
+                                    <div class="voice-avatar" style="background: #F59E0B;"></div>
                                     <div>
                                         <div class="voice-name">GEMM Model</div>
                                         <div class="voice-handle">Burnett et al.</div>
@@ -4963,7 +5237,7 @@ Signature: _______________</div>
 
                             <div class="voice-card" style="border-left: 3px solid #16803C;">
                                 <div class="voice-header">
-                                    <div class="voice-avatar" style="background: #16803C;">🌍</div>
+                                    <div class="voice-avatar" style="background: #16803C;"></div>
                                     <div>
                                         <div class="voice-name">India PM2.5 Trend</div>
                                         <div class="voice-handle">State of Global Air</div>
@@ -4982,7 +5256,7 @@ Signature: _______________</div>
 
             <!-- VIRAL STATS -->
             <div class="card mt-2">
-                <div class="card-header"><span class="card-title">📊 Viral Impact</span></div>
+                <div class="card-header"><span class="card-title"> Viral Impact</span></div>
                 <div class="card-body">
                     <div class="grid-4">
                         <div class="stat-card" style="border-left: 3px solid #1DA1F2;">
@@ -5014,7 +5288,7 @@ Signature: _______________</div>
 <template id="tmpl-actions">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Take Action — What You Can Do</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-lightning" style="color: #F59E0B; margin-right: 0.4rem;"></span>Take Action — What You Can Do</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Practical, science-backed actions at every level — from your home to your community. Organized by context and budget. Every small action compounds.</p>
             </div>
 
@@ -5022,7 +5296,7 @@ Signature: _______________</div>
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #EF4444;">
-                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span class="si si-home"></span>
                         Your Home GRAP — Personal Emergency Response
                     </span>
                 </div>
@@ -5043,37 +5317,37 @@ Signature: _______________</div>
                                     <td><strong style="color: #22C55E;">0-50 Good</strong></td>
                                     <td>Normal activities. Open windows for ventilation.</td>
                                     <td>All activities normal</td>
-                                    <td>✅ All outdoor activities</td>
+                                    <td> All outdoor activities</td>
                                 </tr>
                                 <tr style="background: rgba(234,179,8,0.1);">
                                     <td><strong style="color: #EAB308;">51-100 Moderate</strong></td>
                                     <td>Sensitive individuals limit prolonged outdoor exertion</td>
                                     <td>Reduce intense outdoor play</td>
-                                    <td>⚠️ Limit strenuous exercise</td>
+                                    <td> Limit strenuous exercise</td>
                                 </tr>
                                 <tr style="background: rgba(249,115,22,0.1);">
                                     <td><strong style="color: #F97316;">101-200 Poor</strong></td>
                                     <td>Keep windows closed. Run air purifier if available.</td>
                                     <td>Indoor play preferred</td>
-                                    <td>🚫 No jogging/cycling outdoors</td>
+                                    <td> No jogging/cycling outdoors</td>
                                 </tr>
                                 <tr style="background: rgba(27,107,74,0.08);">
                                     <td><strong style="color: #EF4444;">201-300 Very Poor</strong></td>
                                     <td>Seal windows. Wet mop floors. N95 if going out.</td>
                                     <td>Stay indoors. No school commute if possible.</td>
-                                    <td>🚫 Essential trips only with N95</td>
+                                    <td> Essential trips only with N95</td>
                                 </tr>
                                 <tr style="background: rgba(127,29,29,0.15);">
                                     <td><strong style="color: #991B1B;">301-400 Severe</strong></td>
                                     <td>DIY air filter running. Damp towels on gaps. Mask indoors if no purifier.</td>
                                     <td>Consider staying with relatives in cleaner area</td>
-                                    <td>🚫 Stay home. Work from home if possible.</td>
+                                    <td> Stay home. Work from home if possible.</td>
                                 </tr>
                                 <tr style="background: rgba(127,29,29,0.25);">
                                     <td><strong style="color: #7F1D1D;">400+ Hazardous</strong></td>
                                     <td>Emergency mode. Multiple purifiers. Consider temporary relocation.</td>
                                     <td>Relocate if child/elderly has respiratory condition</td>
-                                    <td>🚫 Complete lockdown. Emergency only.</td>
+                                    <td> Complete lockdown. Emergency only.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -5083,7 +5357,7 @@ Signature: _______________</div>
 
             <!-- INDIVIDUAL ACTIONS BY BUDGET -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🏠 Household Actions — By Budget</span></div>
+                <div class="card-header"><span class="card-title"> Household Actions — By Budget</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <!-- ZERO COST -->
@@ -5137,12 +5411,12 @@ Signature: _______________</div>
 
             <!-- KIDS INDOOR ALTERNATIVES -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">👶 Kids — Indoor Activity Alternatives</span></div>
+                <div class="card-header"><span class="card-title"> Kids — Indoor Activity Alternatives</span></div>
                 <div class="card-body">
                     <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">When AQI >200, outdoor play is harmful. Children breathe faster and inhale more pollutants per kg body weight. Here are energy-burning indoor alternatives:</p>
                     <div class="grid-4">
                         <div class="info-box">
-                            <h4>🏃 Physical Activity</h4>
+                            <h4> Physical Activity</h4>
                             <ul>
                                 <li>Indoor obstacle course</li>
                                 <li>Dance/Zumba videos</li>
@@ -5153,7 +5427,7 @@ Signature: _______________</div>
                             </ul>
                         </div>
                         <div class="info-box">
-                            <h4>🎨 Creative Play</h4>
+                            <h4> Creative Play</h4>
                             <ul>
                                 <li>Arts & crafts</li>
                                 <li>Building blocks/Lego</li>
@@ -5164,7 +5438,7 @@ Signature: _______________</div>
                             </ul>
                         </div>
                         <div class="info-box">
-                            <h4>🧠 Learning Games</h4>
+                            <h4> Learning Games</h4>
                             <ul>
                                 <li>Board games</li>
                                 <li>Puzzles</li>
@@ -5175,7 +5449,7 @@ Signature: _______________</div>
                             </ul>
                         </div>
                         <div class="info-box">
-                            <h4>⏰ Timing Tips</h4>
+                            <h4> Timing Tips</h4>
                             <ul>
                                 <li>Best outdoor window: 12-4 PM (usually lowest AQI)</li>
                                 <li>Avoid: 6-10 AM, 6-10 PM (peak hours)</li>
@@ -5189,7 +5463,7 @@ Signature: _______________</div>
 
             <!-- MASKING GUIDE -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">😷 Masking Guide — What Actually Works</span></div>
+                <div class="card-header"><span class="card-title"> Masking Guide — What Actually Works</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
@@ -5197,11 +5471,11 @@ Signature: _______________</div>
                                 <table class="table">
                                     <thead><tr><th>Mask Type</th><th>PM2.5 Filtration</th><th>Cost</th><th>Verdict</th></tr></thead>
                                     <tbody>
-                                        <tr><td>Cloth/Cotton</td><td>10-30%</td><td>₹20-50</td><td style="color: #EF4444;">❌ Useless for PM2.5</td></tr>
-                                        <tr><td>Surgical mask</td><td>30-50%</td><td>₹5-10</td><td style="color: #F59E0B;">⚠️ Better than nothing</td></tr>
-                                        <tr><td>N95 (no valve)</td><td>95%</td><td>₹50-150</td><td style="color: #22C55E;">✅ Recommended</td></tr>
-                                        <tr><td>N99</td><td>99%</td><td>₹150-300</td><td style="color: #22C55E;">✅ Best protection</td></tr>
-                                        <tr><td>N95 with valve</td><td>95% (inhale only)</td><td>₹100-200</td><td style="color: #3B82F6;">✅ Easier breathing</td></tr>
+                                        <tr><td>Cloth/Cotton</td><td>10-30%</td><td>₹20-50</td><td style="color: #EF4444;"> Useless for PM2.5</td></tr>
+                                        <tr><td>Surgical mask</td><td>30-50%</td><td>₹5-10</td><td style="color: #F59E0B;"> Better than nothing</td></tr>
+                                        <tr><td>N95 (no valve)</td><td>95%</td><td>₹50-150</td><td style="color: #22C55E;"> Recommended</td></tr>
+                                        <tr><td>N99</td><td>99%</td><td>₹150-300</td><td style="color: #22C55E;"> Best protection</td></tr>
+                                        <tr><td>N95 with valve</td><td>95% (inhale only)</td><td>₹100-200</td><td style="color: #3B82F6;"> Easier breathing</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -5226,7 +5500,7 @@ Signature: _______________</div>
 
             <!-- SCHOOLS -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🏫 For Schools — Admin & Parents</span></div>
+                <div class="card-header"><span class="card-title"> For Schools — Admin & Parents</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #3B82F6;">
@@ -5260,7 +5534,7 @@ Signature: _______________</div>
 
             <!-- HOSPITALS -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🏥 For Hospitals & Clinics</span></div>
+                <div class="card-header"><span class="card-title"> For Hospitals & Clinics</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
@@ -5291,7 +5565,7 @@ Signature: _______________</div>
 
             <!-- RWAs -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🏘️ For RWAs & Housing Societies</span></div>
+                <div class="card-header"><span class="card-title"> For RWAs & Housing Societies</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #F59E0B;">
@@ -5324,11 +5598,11 @@ Signature: _______________</div>
 
             <!-- RURAL vs URBAN -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">🌾 Rural vs 🏙️ Urban — Context-Specific Actions</span></div>
+                <div class="card-header"><span class="card-title"> Rural vs  Urban — Context-Specific Actions</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box" style="border-left: 3px solid #22C55E;">
-                            <h4 style="color: #22C55E;">🌾 Rural Areas</h4>
+                            <h4 style="color: #22C55E;"> Rural Areas</h4>
                             <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Main sources:</strong> Crop burning, biomass cooking, dust roads, brick kilns</p>
                             <ul>
                                 <li><strong>Stubble alternatives:</strong>
@@ -5346,7 +5620,7 @@ Signature: _______________</div>
                             <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Subsidy: Contact District Agriculture Officer for Happy Seeder</div>
                         </div>
                         <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4 style="color: #3B82F6;">🏙️ Urban Areas</h4>
+                            <h4 style="color: #3B82F6;"> Urban Areas</h4>
                             <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Main sources:</strong> Vehicles, construction, industry, road dust, waste burning</p>
                             <ul>
                                 <li><strong>Transport:</strong>
@@ -5371,7 +5645,7 @@ Signature: _______________</div>
 
             <!-- ADVOCACY ACTIONS -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">📢 Beyond Your Home — Advocacy Actions</span></div>
+                <div class="card-header"><span class="card-title"> Beyond Your Home — Advocacy Actions</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <div class="info-box" style="border-left: 3px solid #EF4444;">
@@ -5410,7 +5684,7 @@ Signature: _______________</div>
 
             <!-- QUICK REFERENCE -->
             <div class="card">
-                <div class="card-header"><span class="card-title">📋 Quick Reference — Emergency Numbers & Apps</span></div>
+                <div class="card-header"><span class="card-title"> Quick Reference — Emergency Numbers & Apps</span></div>
                 <div class="card-body">
                     <div class="grid-4">
                         <div class="stat-card" style="border-left: 3px solid #EF4444;">
@@ -5441,14 +5715,14 @@ Signature: _______________</div>
 <template id="tmpl-citizen-action">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Citizen Action Plan</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-dangerous" style="color: #EF4444; margin-right: 0.4rem;"></span>Citizen Action Plan</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Emergency Measures to Combat Air Pollution (EMCAP) — A comprehensive citizens' action plan for Winter 2025-26 and beyond, with legally validated policy recommendations.</p>
             </div>
 
             <!-- EMCAP HEADER -->
             <div class="alert mb-2" style="background: var(--bg-muted); border-left: 4px solid var(--green-700);">
                 <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="font-size: 2rem;">⚠️</div>
+                    
                     <div>
                         <strong style="color: #1B6B4A; font-size: 1.125rem;">Delhi/NCR pollution is not a knowledge, behaviour, or technology problem</strong>
                         <div style="font-size: 0.875rem; margin-top: 0.25rem;">It is an <strong>enforcement and political will</strong> problem. Awareness alone fails; real solutions require strict enforcement that causes short-term inconvenience but delivers results.</div>
@@ -5459,7 +5733,7 @@ Signature: _______________</div>
             <!-- REALITY CHECK -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title">📊 A Reality Check — Delhi's Air 2017-2023</span>
+                    <span class="card-title"> A Reality Check — Delhi's Air 2017-2023</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-3" style="text-align: center; margin-bottom: 1rem;">
@@ -5489,7 +5763,7 @@ Signature: _______________</div>
             <!-- SOURCE APPORTIONMENT -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title">🔬 What Causes Delhi's Pollution? — Source Apportionment</span>
+                    <span class="card-title"> What Causes Delhi's Pollution? — Source Apportionment</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2">
@@ -5499,7 +5773,7 @@ Signature: _______________</div>
                             
                             <div style="margin-bottom: 0.75rem;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
-                                    <span>🚗 Vehicles (exhaust)</span><span style="font-weight: 600;">34%</span>
+                                    <span> Vehicles (exhaust)</span><span style="font-weight: 600;">34%</span>
                                 </div>
                                 <div style="background: var(--bg); border-radius: 4px; height: 16px; overflow: hidden;">
                                     <div style="width: 34%; height: 100%; background: #3B82F6;"></div>
@@ -5507,7 +5781,7 @@ Signature: _______________</div>
                             </div>
                             <div style="margin-bottom: 0.75rem;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
-                                    <span>🛞 Tyre/brake wear</span><span style="font-weight: 600;">24%</span>
+                                    <span> Tyre/brake wear</span><span style="font-weight: 600;">24%</span>
                                 </div>
                                 <div style="background: var(--bg); border-radius: 4px; height: 16px; overflow: hidden;">
                                     <div style="width: 24%; height: 100%; background: #6366F1;"></div>
@@ -5515,7 +5789,7 @@ Signature: _______________</div>
                             </div>
                             <div style="margin-bottom: 0.75rem;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
-                                    <span>🔥 Coal & fly ash</span><span style="font-weight: 600;">14%</span>
+                                    <span> Coal & fly ash</span><span style="font-weight: 600;">14%</span>
                                 </div>
                                 <div style="background: var(--bg); border-radius: 4px; height: 16px; overflow: hidden;">
                                     <div style="width: 14%; height: 100%; background: #8B5CF6;"></div>
@@ -5523,7 +5797,7 @@ Signature: _______________</div>
                             </div>
                             <div style="margin-bottom: 0.75rem;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
-                                    <span>🏭 Secondary Inorganic Aerosols</span><span style="font-weight: 600;">11%</span>
+                                    <span> Secondary Inorganic Aerosols</span><span style="font-weight: 600;">11%</span>
                                 </div>
                                 <div style="background: var(--bg); border-radius: 4px; height: 16px; overflow: hidden;">
                                     <div style="width: 11%; height: 100%; background: #A78BFA;"></div>
@@ -5531,7 +5805,7 @@ Signature: _______________</div>
                             </div>
                             <div style="margin-bottom: 0.75rem;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
-                                    <span>🔥 LPG use + MSW + Dust</span><span style="font-weight: 600;">16%</span>
+                                    <span> LPG use + MSW + Dust</span><span style="font-weight: 600;">16%</span>
                                 </div>
                                 <div style="background: var(--bg); border-radius: 4px; height: 16px; overflow: hidden;">
                                     <div style="width: 16%; height: 100%; background: #C4B5FD;"></div>
@@ -5540,12 +5814,12 @@ Signature: _______________</div>
                         </div>
                         <div>
                             <div class="alert" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-700);">
-                                <strong style="color: #1B6B4A;">🚗 Vehicles = 58% of Delhi's internal PM2.5</strong>
+                                <strong style="color: #1B6B4A;"> Vehicles = 58% of Delhi's internal PM2.5</strong>
                                 <p style="font-size: 0.875rem; margin-top: 0.5rem;">34% from exhaust + 24% from tyre/brake wear. This is why the only realistic solution is a <strong>massive shift from private to public transport</strong>.</p>
                             </div>
                             
                             <div class="info-box mt-2" style="border-left: 3px solid #F59E0B;">
-                                <h4 style="color: #F59E0B; margin-bottom: 0.5rem;">⚠️ The Stubble Burning Myth</h4>
+                                <h4 style="color: #F59E0B; margin-bottom: 0.5rem;"> The Stubble Burning Myth</h4>
                                 <p style="font-size: 0.875rem;">Even at its peak (Oct 15 - Nov 15), stubble burning contributes 15-35% of PM2.5. Even with <strong>zero stubble burning</strong>, Delhi's AQI would still be "Very Poor" (>300). Blaming Punjab is a red herring.</p>
                             </div>
                             
@@ -5561,7 +5835,7 @@ Signature: _______________</div>
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
-                        🚨 Emergency Measures to Combat Air Pollution (EMCAP)
+                         Emergency Measures to Combat Air Pollution (EMCAP)
                     </span>
                     <span class="badge" style="background: var(--green-700); color: white; margin-left: 0.5rem;">Winter Action Plan</span>
                 </div>
@@ -5572,7 +5846,7 @@ Signature: _______________</div>
 
                     <!-- TRANSPORT -->
                     <div class="info-box mb-2" style="border-left: 4px solid #3B82F6; background: rgba(59,130,246,0.03);">
-                        <h4 style="color: #3B82F6; margin-bottom: 0.5rem;">🚗 Transport Measures</h4>
+                        <h4 style="color: #3B82F6; margin-bottom: 0.5rem;"> Transport Measures</h4>
                         <ul style="font-size: 0.875rem; line-height: 1.7; columns: 2; column-gap: 2rem;">
                             <li><strong>Car-Pooling:</strong> Min 3 occupants; dedicated carpool lanes with heavy fines</li>
                             <li><strong>Odd-Even:</strong> Include two-wheelers; no exemptions</li>
@@ -5585,7 +5859,7 @@ Signature: _______________</div>
 
                     <!-- CONSTRUCTION -->
                     <div class="info-box mb-2" style="border-left: 4px solid #F59E0B; background: rgba(245,158,11,0.03);">
-                        <h4 style="color: #F59E0B; margin-bottom: 0.5rem;">🏗️ Construction & Industry</h4>
+                        <h4 style="color: #F59E0B; margin-bottom: 0.5rem;"> Construction & Industry</h4>
                         <ul style="font-size: 0.875rem; line-height: 1.7;">
                             <li><strong>Construction Holiday:</strong> Shutdown non-essential construction Oct-Feb</li>
                             <li><strong>Industrial Compliance:</strong> Immediate shutdown of violators—no compromises</li>
@@ -5596,7 +5870,7 @@ Signature: _______________</div>
 
                     <!-- BURNING -->
                     <div class="info-box mb-2" style="border-left: 4px solid #EF4444; background: rgba(239,68,68,0.03);">
-                        <h4 style="color: #EF4444; margin-bottom: 0.5rem;">🔥 Open & Waste Burning</h4>
+                        <h4 style="color: #EF4444; margin-bottom: 0.5rem;"> Open & Waste Burning</h4>
                         <ul style="font-size: 0.875rem; line-height: 1.7;">
                             <li><strong>Zero Tolerance:</strong> No wood/coal/waste burning, including Lohri</li>
                             <li><strong>Fireworks:</strong> Nationwide ban (weddings/Diwali); heavy purchase tax</li>
@@ -5606,7 +5880,7 @@ Signature: _______________</div>
 
                     <!-- GOVERNANCE -->
                     <div class="info-box" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.03);">
-                        <h4 style="color: #7C3AED; margin-bottom: 0.5rem;">🏛️ Enforcement & Governance</h4>
+                        <h4 style="color: #7C3AED; margin-bottom: 0.5rem;"> Enforcement & Governance</h4>
                         <ul style="font-size: 0.875rem; line-height: 1.7;">
                             <li><strong>High-Level Oversight:</strong> Monthly PM-CM-Chief Secretary reviews with public dashboards</li>
                             <li><strong>PUC Compliance:</strong> Quarterly mandatory; deny fuel to dirty vehicles</li>
@@ -5615,7 +5889,7 @@ Signature: _______________</div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="downloads/EMCAP-Emergency-Measures-NCR.pdf" target="_blank" class="btn btn-primary btn-sm">📥 Download Full EMCAP Document</a>
+                    <a href="downloads/EMCAP-Emergency-Measures-NCR.pdf" target="_blank" class="btn btn-primary btn-sm"> Download Full EMCAP Document</a>
                 </div>
             </div>
 
@@ -5623,7 +5897,7 @@ Signature: _______________</div>
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #3B82F6;">
-                        🚌 Transforming Urban Transport — Paris-Singapore Model
+                         Transforming Urban Transport — Paris-Singapore Model
                     </span>
                 </div>
                 <div class="card-body">
@@ -5632,7 +5906,7 @@ Signature: _______________</div>
                     </div>
                     <div class="grid-2" style="gap: 1rem;">
                         <div>
-                            <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">❌ Why Flyovers Fail</h4>
+                            <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;"> Why Flyovers Fail</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.7;">
                                 <li>Shift congestion downstream</li>
                                 <li>Encourage longer car trips (induced demand)</li>
@@ -5641,7 +5915,7 @@ Signature: _______________</div>
                             </ul>
                         </div>
                         <div>
-                            <h4 style="color: #22C55E; margin-bottom: 0.5rem; font-size: 0.875rem;">✅ What Works</h4>
+                            <h4 style="color: #22C55E; margin-bottom: 0.5rem; font-size: 0.875rem;"> What Works</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.7;">
                                 <li>Rail-first: Metro + suburban rail + bus integration</li>
                                 <li>Walking infrastructure: Continuous footpaths</li>
@@ -5652,7 +5926,7 @@ Signature: _______________</div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="downloads/Urban-Transport-Transformation-Delhi.pdf" target="_blank" class="btn btn-primary btn-sm">📥 Download Transport Policy Memo</a>
+                    <a href="downloads/Urban-Transport-Transformation-Delhi.pdf" target="_blank" class="btn btn-primary btn-sm"> Download Transport Policy Memo</a>
                 </div>
             </div>
 
@@ -5660,14 +5934,14 @@ Signature: _______________</div>
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #EC4899;">
-                        📊 The Class Gap — Pollution Exposure by Economic Status
+                         The Class Gap — Pollution Exposure by Economic Status
                     </span>
                 </div>
                 <div class="card-body">
                     <p style="font-size: 0.875rem; margin-bottom: 1rem;">A New York Times analysis tracked real-time PM2.5 exposure for two Delhi children on the same day.</p>
                     <div class="grid-2" style="gap: 1rem;">
                         <div class="info-box" style="border-left: 4px solid var(--green-700); background: rgba(27,107,74,0.03);">
-                            <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;">👦 Monu — Poor (Trans-Yamuna)</h4>
+                            <h4 style="color: #1B6B4A; margin-bottom: 0.5rem; font-size: 0.875rem;"> Monu — Poor (Trans-Yamuna)</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.6;">
                                 <li>Peak exposure: <strong>~180 µg/m³</strong></li>
                                 <li>No air purifier, limited ability to stay indoors</li>
@@ -5675,7 +5949,7 @@ Signature: _______________</div>
                             </ul>
                         </div>
                         <div class="info-box" style="border-left: 4px solid #22C55E; background: rgba(34,197,94,0.03);">
-                            <h4 style="color: #22C55E; margin-bottom: 0.5rem; font-size: 0.875rem;">👧 Aamya — Affluent (Greater Kailash)</h4>
+                            <h4 style="color: #22C55E; margin-bottom: 0.5rem; font-size: 0.875rem;"> Aamya — Affluent (Greater Kailash)</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.6;">
                                 <li>Peak exposure: <strong>~80 µg/m³</strong></li>
                                 <li>Air purifier, AC, can limit outdoor time</li>
@@ -5695,14 +5969,14 @@ Signature: _______________</div>
 <template id="tmpl-legal">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Legal Framework for Clean Air</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield-police" style="color: #1B6B4A; margin-right: 0.4rem;"></span>Legal Framework for Clean Air</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Constitutional rights, Supreme Court mandates, and statutory powers that provide the legal basis for emergency action on air pollution.</p>
             </div>
 
             <!-- CONSTITUTIONAL BASIS -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title" style="color: #7C3AED;">⚖️ Constitutional & Judicial Basis</span>
+                    <span class="card-title" style="color: #7C3AED;"> Constitutional & Judicial Basis</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
@@ -5733,7 +6007,7 @@ Signature: _______________</div>
             <!-- STATUTORY FRAMEWORK -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title">📜 Statutory Framework — Key Acts & Powers</span>
+                    <span class="card-title"> Statutory Framework — Key Acts & Powers</span>
                 </div>
                 <div class="card-body">
                     <div class="table-wrap">
@@ -5776,7 +6050,7 @@ Signature: _______________</div>
             <!-- GRAP -->
             <div class="card mb-2">
                 <div class="card-header" style="background: rgba(27,107,74,0.08);">
-                    <span class="card-title" style="color: #1B6B4A;">🚨 GRAP — Judicially Mandated Emergency Response</span>
+                    <span class="card-title" style="color: #1B6B4A;"> GRAP — Judicially Mandated Emergency Response</span>
                 </div>
                 <div class="card-body">
                     <p style="font-size: 0.875rem; margin-bottom: 1rem;">GRAP is a <strong>judicially approved mandate</strong>, approved by Supreme Court in 2016 in M.C. Mehta v. UOI (WP 13029/1985). CAQM implements it across NCR since 2021.</p>
@@ -5818,7 +6092,7 @@ Signature: _______________</div>
             <!-- VEHICLE BAN -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title">🚗 Vehicle Age Restrictions — Legal Basis</span>
+                    <span class="card-title"> Vehicle Age Restrictions — Legal Basis</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
@@ -5842,7 +6116,7 @@ Signature: _______________</div>
             <div class="card mb-2">
                 <div class="card-header">
                     <span class="card-title" style="color: #F59E0B;">
-                        📋 RTI Reveals: CPCB Lacks Emission Data for Power Plants
+                         RTI Reveals: CPCB Lacks Emission Data for Power Plants
                     </span>
                     <span class="badge" style="background: #F59E0B; color: white; margin-left: 0.5rem;">Dec 2025</span>
                 </div>
@@ -5878,7 +6152,7 @@ Signature: _______________</div>
             <!-- DOWNLOAD -->
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">📥 Download Legal Framework Documents</span>
+                    <span class="card-title"> Download Legal Framework Documents</span>
                 </div>
                 <div class="card-body">
                     <a href="downloads/Legal-Precedents-Research.docx" target="_blank" class="btn btn-primary">Download Full Legal Precedents Research (DOCX)</a>
@@ -5890,14 +6164,14 @@ Signature: _______________</div>
 <template id="tmpl-tools">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Tools & Utilities</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wrench" style="color: var(--accent); margin-right: 0.4rem;"></span>Tools &amp; Utilities</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Tools for researchers, journalists, developers, and citizens to access, embed, and analyze air quality data.</p>
             </div>
 
             <div class="grid-2 mb-2">
                 <div class="tool-card">
                     <div class="tool-header">
-                        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> Embeddable Widget</h3>
+                        <h3><span class="si si-md si-code"></span> Embeddable Widget</h3>
                         <p>Display live AQI on your website, blog, or app.</p>
                         <div class="tool-meta">
                             <div class="tool-meta-item">Auto-updates</div>
@@ -5930,7 +6204,7 @@ Signature: _______________</div>
 
                 <div class="tool-card">
                     <div class="tool-header">
-                        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Data Export</h3>
+                        <h3><span class="si si-md si-download"></span> Data Export</h3>
                         <p>Download current AQI data for research and analysis.</p>
                         <div class="tool-meta">
                             <div class="tool-meta-item">JSON, CSV formats</div>
@@ -5948,7 +6222,7 @@ Signature: _______________</div>
 
             <div class="tool-card">
                 <div class="tool-header">
-                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> PM2.5 to AQI Converter</h3>
+                    <h3><span class="si si-meter"></span> PM2.5 to AQI Converter</h3>
                     <p>Convert raw PM2.5 (ug/m3) to India NAQI and US EPA AQI scales.</p>
                 </div>
                 <div class="tool-body">
@@ -5975,7 +6249,7 @@ Signature: _______________</div>
 <template id="tmpl-resources">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">Research & Resources Library</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-library" style="color: var(--accent); margin-right: 0.4rem;"></span>Research Library &amp; Repository</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Curated, verified open-access resources from peer-reviewed studies, government portals, and research institutions.</p>
             </div>
 
@@ -5987,13 +6261,13 @@ Signature: _______________</div>
             
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
                 <button class="btn btn-sm" style="background: var(--green-700); color: white;" onclick="filterResourceCategory('all')">All</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured')">⭐ Featured</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health')">🏥 Health</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source')">🔬 Sources</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('policy')">📋 Policy</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('data')">📊 Data</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('justice')">⚖️ Justice</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('action')">🚨 Action</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured')"> Featured</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health')"> Health</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source')"> Sources</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('policy')"> Policy</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('data')"> Data</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('justice')"> Justice</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('action')"> Action</button>
             </div>
 
             
@@ -6001,7 +6275,7 @@ Signature: _______________</div>
             <div class="card mb-2" data-resource-category="featured data">
                 <div class="card-header">
                     <span class="card-title" style="color: #2563EB;">
-                        📊 2025-26 Research Reports
+                         2025-26 Research Reports
                         <span class="badge" style="background: #2563EB; color: white; margin-left: 0.5rem;">v19.0</span>
                     </span>
                 </div>
@@ -6057,7 +6331,7 @@ Signature: _______________</div>
             <div class="card mb-2" data-resource-category="featured">
                 <div class="card-header">
                     <span class="card-title" style="color: #16803C;">
-                        🏛️ Expert Organizations & Key Voices
+                         Expert Organizations & Key Voices
                         <span class="badge" style="background: #16803C; color: white; margin-left: 0.5rem;">v19.0</span>
                     </span>
                 </div>
@@ -6113,7 +6387,7 @@ Signature: _______________</div>
             <div class="card mb-2" data-resource-category="featured">
                 <div class="card-header">
                     <span class="card-title" style="color: #7C3AED;">
-                        ⭐ Featured: UrbanEmissions.info Research Partnership
+                         Featured: UrbanEmissions.info Research Partnership
                         <span class="badge badge-danger" style="margin-left: 0.5rem;">NEW v15.0</span>
                     </span>
                 </div>
@@ -6172,7 +6446,7 @@ Signature: _______________</div>
             <div class="card mb-2" data-resource-category="action">
                 <div class="card-header">
                     <span class="card-title" style="color: #1B6B4A;">
-                        🚨 Citizen Action Documents
+                         Citizen Action Documents
                         <span class="badge badge-danger" style="margin-left: 0.5rem;">v19.0</span>
                     </span>
                 </div>
@@ -6240,7 +6514,7 @@ Signature: _______________</div>
                 
                 <!-- HEALTH STUDIES -->
                 <div class="card" data-resource-category="health">
-                    <div class="card-header" style="background: rgba(239,68,68,0.08);"><span class="card-title" style="color: #EF4444;">🏥 Health Studies</span></div>
+                    <div class="card-header" style="background: rgba(239,68,68,0.08);"><span class="card-title" style="color: #EF4444;"> Health Studies</span></div>
                     <div class="card-body resource-list">
                         <div class="resource-card" data-keywords="lancet 2024 mortality 1.5 million deaths pm2.5">
                             <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext" target="_blank">
@@ -6303,7 +6577,7 @@ Signature: _______________</div>
 
                 <!-- SOURCE APPORTIONMENT & DATA -->
                 <div class="card" data-resource-category="source data">
-                    <div class="card-header" style="background: rgba(22,128,60,0.08);"><span class="card-title" style="color: #16803C;">🔬 Sources & Data</span></div>
+                    <div class="card-header" style="background: rgba(22,128,60,0.08);"><span class="card-title" style="color: #16803C;"> Sources & Data</span></div>
                     <div class="card-body resource-list">
                         <div class="resource-card" data-keywords="urban emissions sarath guttikunda portal">
                             <a href="https://urbanemissions.info/" target="_blank">
@@ -6352,7 +6626,7 @@ Signature: _______________</div>
 
                 <!-- POLICY & LEGAL -->
                 <div class="card" data-resource-category="policy">
-                    <div class="card-header" style="background: rgba(59,130,246,0.08);"><span class="card-title" style="color: #3B82F6;">📋 Policy & Legal</span></div>
+                    <div class="card-header" style="background: rgba(59,130,246,0.08);"><span class="card-title" style="color: #3B82F6;"> Policy & Legal</span></div>
                     <div class="card-body resource-list">
                         <div class="resource-card" data-keywords="crea ncap 2025 progress report">
                             <a href="https://energyandcleanair.org/publication/tracing-the-hazy-air-2025-progress-report-on-national-clean-air-programme-ncap/" target="_blank">
@@ -6403,13 +6677,13 @@ Signature: _______________</div>
             <!-- ENVIRONMENTAL JUSTICE SECTION -->
             <div class="card mt-2" data-resource-category="justice">
                 <div class="card-header">
-                    <span class="card-title" style="color: #1B6B4A;">⚖️ Environmental Justice: Household Air Pollution & Occupational Health</span>
+                    <span class="card-title" style="color: #1B6B4A;"> Environmental Justice: Household Air Pollution & Occupational Health</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2" style="gap: 1rem;">
                         <!-- HAP & GENDER -->
                         <div>
-                            <h4 style="font-size: 0.875rem; color: #EC4899; margin-bottom: 0.75rem;">🔥 Household Air Pollution & Gender</h4>
+                            <h4 style="font-size: 0.875rem; color: #EC4899; margin-bottom: 0.75rem;"> Household Air Pollution & Gender</h4>
                             <div class="resource-card" data-keywords="gbd hap household mortality women solid fuel">
                                 <a href="https://www.stateofglobalair.org/health/hap" target="_blank">
                                     <div class="resource-type">Data Portal <span class="badge badge-danger">KEY</span></div>
@@ -6435,7 +6709,7 @@ Signature: _______________</div>
                         
                         <!-- OCCUPATIONAL & CASTE -->
                         <div>
-                            <h4 style="font-size: 0.875rem; color: #F59E0B; margin-bottom: 0.75rem;">👷 Occupational Exposure & Marginalized Communities</h4>
+                            <h4 style="font-size: 0.875rem; color: #F59E0B; margin-bottom: 0.75rem;"> Occupational Exposure & Marginalized Communities</h4>
                             <div class="resource-card" data-keywords="informal workers pollution exposure street vendors">
                                 <a href="https://www.wiego.org/sites/default/files/publications/files/Occupational-Health-Safety-Informal-Workers-Policy-Brief.pdf" target="_blank">
                                     <div class="resource-type">Policy Brief <span class="badge badge-success">PDF</span></div>
@@ -6469,7 +6743,7 @@ Signature: _______________</div>
 
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">About JanVayu</h2>
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -6518,6 +6792,79 @@ Signature: _______________</div>
                     <h4 style="color: #3B82F6;">Independent Verification</h4>
                     <p>Government self-reporting is insufficient. We correlate promises with measurable outcomes using RTI, satellite data, and academic research.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+
+
+<template id="tmpl-downloads">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-download" style="color: var(--accent); margin-right: 0.4rem;"></span>Downloads &amp; Documents</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Downloadable reports, legal documents, RTI templates, and research briefs for offline use, advocacy, and filing.</p>
+    </div>
+    
+    <div class="grid-3" style="gap: 1.25rem; margin-bottom: 2rem;">
+        <div class="card card-accent-green">
+            <div class="card-body" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <span class="si si-lg si-article" style="color: var(--accent);"></span>
+                    <h3 style="font-size: 1rem; font-weight: 600;">Legal Precedents Research</h3>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Constitutional basis, Supreme Court mandates, and statutory powers for clean air action. 15 landmark cases compiled.</p>
+                <a href="downloads/Legal-Precedents-Research.docx" target="_blank" class="btn btn-primary" style="width: 100%;">Download DOCX</a>
+            </div>
+        </div>
+        
+        <div class="card card-accent-purple">
+            <div class="card-body" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <span class="si si-lg si-checklist" style="color: #7C3AED;"></span>
+                    <h3 style="font-size: 1rem; font-weight: 600;">EMCAP Emergency Measures</h3>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Emergency Measures to Combat Air Pollution for NCR. Complete winter action plan with legal citations and timelines.</p>
+                <a href="downloads/EMCAP-Emergency-Measures-NCR.pdf" target="_blank" class="btn btn-primary" style="width: 100%;">Download PDF</a>
+            </div>
+        </div>
+
+        <div class="card card-accent-blue">
+            <div class="card-body" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <span class="si si-lg si-clipboard" style="color: #3B82F6;"></span>
+                    <h3 style="font-size: 1rem; font-weight: 600;">RTI Template Pack</h3>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Pre-formatted RTI applications for CPCB, DPCC, MoEFCC, and CAQM. Print-ready with filing instructions.</p>
+                <button class="btn btn-primary" style="width: 100%;" onclick="showPanel('accountability')">View RTI Templates</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem; margin-bottom: 2rem;">
+        <div class="card card-accent-amber">
+            <div class="card-body" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <span class="si si-lg si-bar-chart" style="color: #D97706;"></span>
+                    <h3 style="font-size: 1rem; font-weight: 600;">Data Exports</h3>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Download current live AQI data for all monitored cities. Includes city, AQI, PM2.5, PM10, station name, and timestamp.</p>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="exportData('json')">JSON</button>
+                    <button class="btn btn-primary" onclick="exportData('csv')">CSV</button>
+                    <button class="btn btn-primary" onclick="exportData('api')" style="background: var(--green-900);">API Docs</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-accent-red">
+            <div class="card-body" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <span class="si si-lg si-book" style="color: #EF4444;"></span>
+                    <h3 style="font-size: 1rem; font-weight: 600;">India Air Quality Crisis Briefing</h3>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Comprehensive briefing document covering health data, policy analysis, economic costs, and legal framework. 50+ pages.</p>
+                <a href="downloads/India-Air-Quality-Crisis-Briefing-2026.pdf" target="_blank" class="btn btn-primary" style="width: 100%;">Download PDF</a>
             </div>
         </div>
     </div>
