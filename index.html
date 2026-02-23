@@ -687,7 +687,7 @@ a:hover { color: var(--accent-hover); }
     color: var(--accent);
     letter-spacing: -0.03em;
 }
-.logo-hindi { font-size: 0.95rem; color: var(--text-3); }
+.logo-hindi { font-size: 0.95rem; color: var(--accent); opacity: 0.8; }
 .logo-tag {
     font-size: 0.6rem;
     letter-spacing: 0.08em;
@@ -1762,7 +1762,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 /* ═══ Mobile Hamburger Menu ═══ */
 .mobile-menu-btn { display: none; }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .mobile-menu-btn { display: flex; }
     .section-nav { display: none; }
     .section-nav.show-desktop { display: block; }
@@ -1799,6 +1799,28 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .mobile-nav-item:hover, .mobile-nav-item:active { background: var(--green-50); color: var(--accent); }
 .mobile-nav-item.active { color: var(--accent); font-weight: 600; background: var(--green-50); }
 
+
+/* ═══ Language Switcher ═══ */
+.lang-switcher { position: relative; }
+.lang-dropdown {
+    display: none; position: absolute; top: calc(100% + 4px); right: 0;
+    min-width: 150px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 8px; box-shadow: var(--shadow-md); padding: 4px 0; z-index: 200;
+}
+.lang-dropdown.open { display: block; }
+.lang-option {
+    display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
+    padding: 8px 14px; font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+    color: var(--text-2); background: none; border: none; cursor: pointer; transition: all 0.1s;
+}
+.lang-option:hover { background: var(--green-50); color: var(--accent); }
+.lang-option.active { color: var(--accent); font-weight: 600; }
+.lang-code {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;
+    background: var(--green-50); color: var(--accent);
+}
+
 @media print {
     .ticker, .header, .section-nav, .site-footer { display: none; }
     .page-section { break-inside: avoid; }
@@ -1818,13 +1840,35 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         <div class="container">
             <div class="logo">
                 <span class="logo-mark">JanVayu</span>
-                <span class="logo-hindi">जनवायु</span>
-                <span class="logo-tag">Citizen Air Quality Platform</span>
+                <span class="logo-hindi" data-i18n-titles>जनवायु</span>
+                <span class="logo-tag" data-i18n="tagline">Citizen Air Quality Platform</span>
             </div>
             <div class="header-actions">
                 <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" title="Menu" aria-label="Open navigation menu">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </button>
+                <div class="lang-switcher" style="position: relative;">
+                    <button class="icon-btn" id="langBtn" onclick="toggleLangMenu()" title="Language" aria-label="Switch language" style="font-size: 0.65rem; font-weight: 700; font-family: var(--sans); width: auto; padding: 0 8px; letter-spacing: 0.02em;">
+                        <span id="langBtnLabel">EN</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option active" data-lang="en" onclick="setLanguage('en')">
+                            <span class="lang-code">EN</span> English
+                        </button>
+                        <button class="lang-option" data-lang="hi" onclick="setLanguage('hi')">
+                            <span class="lang-code">हि</span> हिन्दी
+                        </button>
+                        <button class="lang-option" data-lang="ta" onclick="setLanguage('ta')">
+                            <span class="lang-code">த</span> தமிழ்
+                        </button>
+                        <button class="lang-option" data-lang="mr" onclick="setLanguage('mr')">
+                            <span class="lang-code">म</span> मराठी
+                        </button>
+                        <button class="lang-option" data-lang="bn" onclick="setLanguage('bn')">
+                            <span class="lang-code">ব</span> বাংলা
+                        </button>
+                    </div>
+                </div>
                 <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">☾</button>
                 <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="GitHub">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -1865,6 +1909,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="mobile-nav-item" data-panel="accountability">Political</button>
                 <button class="mobile-nav-item" data-panel="corporate">Industrial Sources</button>
                 <button class="mobile-nav-item" data-panel="mission-tracker">Mission Tracker</button>
+                <button class="mobile-nav-item" data-panel="progress">Clean Air Wins</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label">Action &amp; Community</div>
@@ -1891,7 +1936,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="nav-link active" data-panel="dashboard">Dashboard</button>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="health">Data &amp; Health <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="health" data-i18n="nav_data">Data &amp; Health <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="health">Health Impact</button>
                     <button class="nav-dropdown-link" data-panel="economic">Economic Cost</button>
@@ -1901,7 +1946,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="compare">Monitoring <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="compare" data-i18n="nav_monitor">Monitoring <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="compare">City Comparison</button>
                     <button class="nav-dropdown-link" data-panel="map">Live Map</button>
@@ -1909,17 +1954,18 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="policy">Accountability <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="policy" data-i18n="nav_account">Accountability <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="policy">Policy Effectiveness</button>
                     <button class="nav-dropdown-link" data-panel="budget">Budget Tracker</button>
                     <button class="nav-dropdown-link" data-panel="accountability">Political</button>
                     <button class="nav-dropdown-link" data-panel="corporate">Industrial Sources</button>
                     <button class="nav-dropdown-link" data-panel="mission-tracker">Mission Tracker</button>
+                    <button class="nav-dropdown-link" data-panel="progress">Clean Air Wins</button>
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="actions">Action <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="actions" data-i18n="nav_action">Action <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="actions">Take Action</button>
                     <button class="nav-dropdown-link" data-panel="citizen-action">Citizen Plan</button>
@@ -1929,7 +1975,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="resources">Resources <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="resources" data-i18n="nav_resources">Resources <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="tools">Tools</button>
                     <button class="nav-dropdown-link" data-panel="resources">Research Library</button>
@@ -1946,8 +1992,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             <div class="container">
                 <div class="hero-grid">
                     <div>
-                        <h1 class="hero-headline">India's air is killing <em>2 million people</em> every year</h1>
-                        <p class="hero-sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
+                        <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>2 million people</em> every year</h1>
+                        <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
                         <div class="hero-live-alert">
                             <strong>Delhi Winter 2025-26:</strong> Zero "Good" AQI days in 2025. January 2026 worst in 5 years: AQI crossed 500 on Jan 17 (PM2.5 = 73x WHO guideline). CSE analysis: local sources (vehicles 51%) now drive winter smog more than stubble burning.
                         </div>
@@ -2235,6 +2281,257 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     let mapMarkers = [];
     let usingLiveData = false;
 
+
+
+    // ── Language / i18n System ──
+    const TITLES = {
+        en: 'जनवायु', hi: 'जनवायु', mr: 'जनवायू', ta: 'ஜன்வாயு', bn: 'জনবায়ু'
+    };
+
+    const I18N = {
+        en: {
+            hero_title: "India's air is killing <em>2 million people</em> every year",
+            hero_sub: "JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.",
+            tagline: "Citizen Air Quality Platform",
+            nav_data: "Data & Health",
+            nav_monitor: "Monitoring",
+            nav_account: "Accountability",
+            nav_action: "Action",
+            nav_resources: "Resources",
+            // Dropdown items
+            dd_health: "Health Impact", dd_economic: "Economic Cost", dd_children: "Children's Health",
+            dd_indoor: "Indoor Air", dd_trends: "Historical Trends",
+            dd_compare: "City Comparison", dd_map: "Live Map", dd_forecast: "AQI Forecast",
+            dd_policy: "Policy Effectiveness", dd_budget: "Budget Tracker", dd_accountability: "Political",
+            dd_corporate: "Industrial Sources", dd_mission: "Mission Tracker", dd_progress: "Clean Air Wins",
+            dd_actions: "Take Action", dd_citizen: "Citizen Plan", dd_legal: "Legal Framework",
+            dd_voices: "Citizen Voices", dd_migration: "Migration",
+            dd_tools: "Tools", dd_resources: "Research Library", dd_downloads: "Downloads", dd_about: "About & Changelog",
+            // Mobile nav groups
+            mg_data: "Data & Analysis", mg_monitor: "Monitoring", mg_account: "Accountability",
+            mg_action: "Action & Community", mg_resources: "Resources",
+            // Stats
+            deaths_year: "Deaths/Year", annual_cost: "Annual Cost", delhi_pm25: "Delhi Annual PM2.5",
+            right_now: "Right now",
+            // Footer
+            lang_note: ""
+        },
+        hi: {
+            hero_title: "भारत की हवा हर साल <em>20 लाख लोगों</em> की जान ले रही है",
+            hero_sub: "जनवायु भारत का स्वतंत्र, नागरिक-संचालित वायु गुणवत्ता मंच है। हम प्रदूषण के आंकड़े, स्वास्थ्य प्रभाव, बजट का हिसाब और सरकारी जवाबदेही पर नज़र रखते हैं। क्योंकि स्वच्छ हवा विशेषाधिकार नहीं, अधिकार है।",
+            tagline: "नागरिक वायु गुणवत्ता मंच",
+            nav_data: "डेटा और स्वास्थ्य",
+            nav_monitor: "निगरानी",
+            nav_account: "जवाबदेही",
+            nav_action: "कार्रवाई",
+            nav_resources: "संसाधन",
+            dd_health: "स्वास्थ्य प्रभाव", dd_economic: "आर्थिक लागत", dd_children: "बाल स्वास्थ्य",
+            dd_indoor: "घरेलू वायु", dd_trends: "ऐतिहासिक रुझान",
+            dd_compare: "शहर तुलना", dd_map: "लाइव मानचित्र", dd_forecast: "AQI पूर्वानुमान",
+            dd_policy: "नीति प्रभावशीलता", dd_budget: "बजट ट्रैकर", dd_accountability: "राजनीतिक",
+            dd_corporate: "औद्योगिक स्रोत", dd_mission: "मिशन ट्रैकर", dd_progress: "स्वच्छ हवा जीत",
+            dd_actions: "कार्रवाई करें", dd_citizen: "नागरिक योजना", dd_legal: "कानूनी ढांचा",
+            dd_voices: "नागरिक आवाज़ें", dd_migration: "पलायन",
+            dd_tools: "उपकरण", dd_resources: "शोध पुस्तकालय", dd_downloads: "डाउनलोड", dd_about: "परिचय",
+            mg_data: "डेटा और विश्लेषण", mg_monitor: "निगरानी", mg_account: "जवाबदेही",
+            mg_action: "कार्रवाई और समुदाय", mg_resources: "संसाधन",
+            deaths_year: "मौतें/वर्ष", annual_cost: "वार्षिक लागत", delhi_pm25: "दिल्ली वार्षिक PM2.5",
+            right_now: "अभी",
+            lang_note: "विस्तृत विश्लेषण अंग्रेज़ी में उपलब्ध है। हिन्दी अनुवाद चरणबद्ध रूप से जोड़ा जा रहा है।"
+        },
+        ta: {
+            hero_title: "இந்தியாவின் காற்று ஆண்டுதோறும் <em>20 லட்சம் பேரைக்</em> கொல்கிறது",
+            hero_sub: "ஜன்வாயு இந்தியாவின் சுயாதீன, குடிமக்கள் வழிநடத்தும் காற்றுத் தர தளமாகும். நாங்கள் மாசு தரவுகள், சுகாதார பாதிப்புகள், பட்ஜெட் கணக்கு மற்றும் அரசின் பொறுப்புணர்வை கண்காணிக்கிறோம். ஏனெனில் சுத்தமான காற்று சலுகை அல்ல, அது உரிமை.",
+            tagline: "குடிமக்கள் காற்றுத் தர தளம்",
+            nav_data: "தரவு & சுகாதாரம்",
+            nav_monitor: "கண்காணிப்பு",
+            nav_account: "பொறுப்புணர்வு",
+            nav_action: "நடவடிக்கை",
+            nav_resources: "வளங்கள்",
+            dd_health: "சுகாதார பாதிப்பு", dd_economic: "பொருளாதார செலவு", dd_children: "குழந்தை சுகாதாரம்",
+            dd_indoor: "உட்புற காற்று", dd_trends: "வரலாற்று போக்கு",
+            dd_compare: "நகர ஒப்பீடு", dd_map: "நேரடி வரைபடம்", dd_forecast: "AQI கணிப்பு",
+            dd_policy: "கொள்கை செயல்திறன்", dd_budget: "பட்ஜெட் கண்காணிப்பான்", dd_accountability: "அரசியல்",
+            dd_corporate: "தொழிற்சாலை ஆதாரங்கள்", dd_mission: "மிஷன் கண்காணிப்பான்", dd_progress: "சுத்தக்காற்று வெற்றிகள்",
+            dd_actions: "நடவடிக்கை எடுங்கள்", dd_citizen: "குடிமக்கள் திட்டம்", dd_legal: "சட்ட கட்டமைப்பு",
+            dd_voices: "குடிமக்கள் குரல்கள்", dd_migration: "இடப்பெயர்வு",
+            dd_tools: "கருவிகள்", dd_resources: "ஆராய்ச்சி நூலகம்", dd_downloads: "பதிவிறக்கங்கள்", dd_about: "பற்றி",
+            mg_data: "தரவு & பகுப்பாய்வு", mg_monitor: "கண்காணிப்பு", mg_account: "பொறுப்புணர்வு",
+            mg_action: "நடவடிக்கை & சமூகம்", mg_resources: "வளங்கள்",
+            deaths_year: "இறப்புகள்/ஆண்டு", annual_cost: "ஆண்டு செலவு", delhi_pm25: "டெல்லி ஆண்டு PM2.5",
+            right_now: "இப்போது",
+            lang_note: "விரிவான பகுப்பாய்வு ஆங்கிலத்தில் உள்ளது. தமிழ் மொழிபெயர்ப்பு படிப்படியாக சேர்க்கப்படுகிறது."
+        },
+        mr: {
+            hero_title: "भारतातील हवा दरवर्षी <em>20 लाख लोकांचा</em> बळी घेत आहे",
+            hero_sub: "जनवायू हे भारताचे स्वतंत्र, नागरिक-संचालित हवा गुणवत्ता व्यासपीठ आहे. आम्ही प्रदूषणाचे आकडे, आरोग्यावरील परिणाम, बजेटचा मागोवा आणि सरकारी जबाबदारी यांवर लक्ष ठेवतो. कारण स्वच्छ हवा ही सवलत नाही, ती हक्क आहे.",
+            tagline: "नागरिक हवा गुणवत्ता व्यासपीठ",
+            nav_data: "डेटा आणि आरोग्य",
+            nav_monitor: "देखरेख",
+            nav_account: "जबाबदारी",
+            nav_action: "कृती",
+            nav_resources: "संसाधने",
+            dd_health: "आरोग्य प्रभाव", dd_economic: "आर्थिक खर्च", dd_children: "बाल आरोग्य",
+            dd_indoor: "घरातील हवा", dd_trends: "ऐतिहासिक कल",
+            dd_compare: "शहर तुलना", dd_map: "थेट नकाशा", dd_forecast: "AQI अंदाज",
+            dd_policy: "धोरण परिणामकारकता", dd_budget: "बजेट ट्रॅकर", dd_accountability: "राजकीय",
+            dd_corporate: "औद्योगिक स्रोत", dd_mission: "मिशन ट्रॅकर", dd_progress: "स्वच्छ हवा यश",
+            dd_actions: "कृती करा", dd_citizen: "नागरिक योजना", dd_legal: "कायदेशीर चौकट",
+            dd_voices: "नागरिक आवाज", dd_migration: "स्थलांतर",
+            dd_tools: "साधने", dd_resources: "संशोधन ग्रंथालय", dd_downloads: "डाउनलोड", dd_about: "माहिती",
+            mg_data: "डेटा आणि विश्लेषण", mg_monitor: "देखरेख", mg_account: "जबाबदारी",
+            mg_action: "कृती आणि समुदाय", mg_resources: "संसाधने",
+            deaths_year: "मृत्यू/वर्ष", annual_cost: "वार्षिक खर्च", delhi_pm25: "दिल्ली वार्षिक PM2.5",
+            right_now: "आत्ता",
+            lang_note: "तपशीलवार विश्लेषण इंग्रजीत उपलब्ध आहे. मराठी भाषांतर टप्प्याटप्प्याने जोडले जात आहे."
+        },
+        bn: {
+            hero_title: "ভারতের বায়ু প্রতি বছর <em>২০ লক্ষ মানুষের</em> প্রাণ কেড়ে নিচ্ছে",
+            hero_sub: "জনবায়ু ভারতের স্বাধীন, নাগরিক-পরিচালিত বায়ু মান প্ল্যাটফর্ম। আমরা দূষণের তথ্য, স্বাস্থ্যের প্রভাব, বাজেটের হিসাব এবং সরকারি জবাবদিহিতা পর্যবেক্ষণ করি। কারণ বিশুদ্ধ বাতাস বিশেষাধিকার নয়, এটি অধিকার।",
+            tagline: "নাগরিক বায়ু মান প্ল্যাটফর্ম",
+            nav_data: "তথ্য ও স্বাস্থ্য",
+            nav_monitor: "পর্যবেক্ষণ",
+            nav_account: "জবাবদিহিতা",
+            nav_action: "পদক্ষেপ",
+            nav_resources: "সম্পদ",
+            dd_health: "স্বাস্থ্য প্রভাব", dd_economic: "অর্থনৈতিক ব্যয়", dd_children: "শিশু স্বাস্থ্য",
+            dd_indoor: "অন্দরের বায়ু", dd_trends: "ঐতিহাসিক প্রবণতা",
+            dd_compare: "শহর তুলনা", dd_map: "সরাসরি মানচিত্র", dd_forecast: "AQI পূর্বাভাস",
+            dd_policy: "নীতি কার্যকারিতা", dd_budget: "বাজেট ট্র্যাকার", dd_accountability: "রাজনৈতিক",
+            dd_corporate: "শিল্প উৎস", dd_mission: "মিশন ট্র্যাকার", dd_progress: "বিশুদ্ধ বায়ু সাফল্য",
+            dd_actions: "পদক্ষেপ নিন", dd_citizen: "নাগরিক পরিকল্পনা", dd_legal: "আইনি কাঠামো",
+            dd_voices: "নাগরিক কণ্ঠস্বর", dd_migration: "অভিবাসন",
+            dd_tools: "সরঞ্জাম", dd_resources: "গবেষণা গ্রন্থাগার", dd_downloads: "ডাউনলোড", dd_about: "সম্পর্কে",
+            mg_data: "তথ্য ও বিশ্লেষণ", mg_monitor: "পর্যবেক্ষণ", mg_account: "জবাবদিহিতা",
+            mg_action: "পদক্ষেপ ও সম্প্রদায়", mg_resources: "সম্পদ",
+            deaths_year: "মৃত্যু/বছর", annual_cost: "বার্ষিক ব্যয়", delhi_pm25: "দিল্লি বার্ষিক PM2.5",
+            right_now: "এখন",
+            lang_note: "বিস্তারিত বিশ্লেষণ ইংরেজিতে পাওয়া যায়। বাংলা অনুবাদ ধাপে ধাপে যোগ করা হচ্ছে।"
+        }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLangMenu() {
+        document.getElementById('langDropdown').classList.toggle('open');
+    }
+
+    // Close lang menu on outside click
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.lang-switcher')) {
+            const dd = document.getElementById('langDropdown');
+            if (dd) dd.classList.remove('open');
+        }
+    });
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const t = I18N[lang];
+        if (!t) return;
+
+        // Update button label
+        const labels = { en: 'EN', hi: 'हि', ta: 'த', mr: 'म', bn: 'ব' };
+        document.getElementById('langBtnLabel').textContent = labels[lang] || lang.toUpperCase();
+
+        // Update active state
+        document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+        const active = document.querySelector(`.lang-option[data-lang="${lang}"]`);
+        if (active) active.classList.add('active');
+
+        // Title script
+        const titleEl = document.querySelector('[data-i18n-titles]');
+        if (titleEl) titleEl.textContent = TITLES[lang] || TITLES.en;
+
+        // All data-i18n elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = t[key];
+                } else {
+                    el.innerHTML = t[key];
+                    // Re-add caret for nav items
+                    if (key.startsWith('nav_') && !el.querySelector('.nav-caret')) {
+                        el.innerHTML = t[key] + ' <span class="nav-caret"></span>';
+                    }
+                }
+            }
+        });
+
+        // Desktop dropdown items
+        const ddMap = {
+            health: 'dd_health', economic: 'dd_economic', children: 'dd_children',
+            indoor: 'dd_indoor', trends: 'dd_trends',
+            compare: 'dd_compare', map: 'dd_map', forecast: 'dd_forecast',
+            policy: 'dd_policy', budget: 'dd_budget', accountability: 'dd_accountability',
+            corporate: 'dd_corporate', 'mission-tracker': 'dd_mission', progress: 'dd_progress',
+            actions: 'dd_actions', 'citizen-action': 'dd_citizen', legal: 'dd_legal',
+            voices: 'dd_voices', migration: 'dd_migration',
+            tools: 'dd_tools', resources: 'dd_resources', downloads: 'dd_downloads', about: 'dd_about'
+        };
+        document.querySelectorAll('.nav-dropdown-link').forEach(el => {
+            const panel = el.getAttribute('data-panel');
+            const key = ddMap[panel];
+            if (key && t[key]) el.textContent = t[key];
+        });
+
+        // Mobile nav items
+        const mobileMap = {
+            dashboard: 'Dashboard', health: 'dd_health', economic: 'dd_economic',
+            children: 'dd_children', indoor: 'dd_indoor', trends: 'dd_trends',
+            compare: 'dd_compare', map: 'dd_map', forecast: 'dd_forecast',
+            policy: 'dd_policy', budget: 'dd_budget', accountability: 'dd_accountability',
+            corporate: 'dd_corporate', 'mission-tracker': 'dd_mission', progress: 'dd_progress',
+            actions: 'dd_actions', 'citizen-action': 'dd_citizen', legal: 'dd_legal',
+            voices: 'dd_voices', migration: 'dd_migration',
+            tools: 'dd_tools', resources: 'dd_resources', downloads: 'dd_downloads', about: 'dd_about'
+        };
+        document.querySelectorAll('.mobile-nav-item').forEach(el => {
+            const panel = el.getAttribute('data-panel');
+            if (panel === 'dashboard') {
+                el.textContent = lang === 'en' ? 'Dashboard' : (lang === 'hi' ? 'डैशबोर्ड' : lang === 'ta' ? 'முகப்புப்பலகை' : lang === 'mr' ? 'डॅशबोर्ड' : 'ড্যাশবোর্ড');
+            } else {
+                const key = mobileMap[panel];
+                if (key && t[key]) el.textContent = t[key];
+            }
+        });
+
+        // Mobile nav group labels
+        const groupLabels = document.querySelectorAll('.mobile-nav-group-label');
+        const mgKeys = ['mg_data', 'mg_monitor', 'mg_account', 'mg_action', 'mg_resources'];
+        groupLabels.forEach((el, i) => {
+            if (mgKeys[i] && t[mgKeys[i]]) el.textContent = t[mgKeys[i]];
+        });
+
+        // Stat labels on hero
+        document.querySelectorAll('.hero-stat-label').forEach(el => {
+            if (el.textContent.includes('Deaths')) el.textContent = t.deaths_year || 'Deaths/Year';
+            if (el.textContent.includes('Annual Cost') || el.textContent.includes('वार्षिक') || el.textContent.includes('ஆண்டு செலவு') || el.textContent.includes('বার্ষিক')) el.textContent = t.annual_cost || 'Annual Cost';
+            if (el.textContent.includes('Delhi Annual') || el.textContent.includes('दिल्ली वार्षिक') || el.textContent.includes('டெல்லி') || el.textContent.includes('দিল্লি')) el.textContent = t.delhi_pm25 || 'Delhi Annual PM2.5';
+        });
+        document.querySelectorAll('.hero-stat-note').forEach(el => {
+            if (el.textContent.includes('Right now') || el.textContent.includes('अभी') || el.textContent.includes('இப்போது') || el.textContent.includes('আত্ত') || el.textContent.includes('এখন')) el.textContent = t.right_now || 'Right now';
+        });
+
+        // Language note banner
+        let banner = document.getElementById('lang-note-banner');
+        if (t.lang_note) {
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'lang-note-banner';
+                banner.style.cssText = 'background: var(--green-50); border-bottom: 1px solid var(--border); padding: 8px 16px; text-align: center; font-family: var(--sans); font-size: 0.8rem; color: var(--text-2);';
+                const main = document.querySelector('main');
+                if (main) main.parentNode.insertBefore(banner, main);
+            }
+            banner.textContent = t.lang_note;
+            banner.style.display = 'block';
+        } else if (banner) {
+            banner.style.display = 'none';
+        }
+
+        // Close dropdown
+        document.getElementById('langDropdown').classList.remove('open');
+    }
 
     // ── Hero City Selector ──
     function updateHeroCity(cityKey) {
@@ -7682,7 +7979,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v22.0 | Updated 23 Feb 2026 | Mobile hamburger nav, city selector (30+ cities), 6 new sections (Indoor Air, Children's Health, Industrial Accountability, AQI Forecast, Mission Tracker, Migration), NCAP Tier 1/2 cities, download links verified, social media voices updated (Rekha Gupta gaffe, oxygen mask reel, Yogi gas chamber remark), nav overflow fix</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v24.0 | Updated 23 Feb 2026 | Clean Air Wins section, multilingual (EN/HI/TA/MR/BN), dropdown navigation, 30+ cities, 23 sections, anchor links</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -7740,6 +8037,30 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v24.0 &mdash; 23 Feb 2026</div>
+                    <strong>Clean Air Wins section</strong><br>
+                    &bull; New "Clean Air Wins" panel tracking genuine progress: cities improving, e-bus deployment, policy wins, citizen victories<br>
+                    &bull; Delhi e-bus fleet (4,286, largest in India), PM-eBus Sewa (10,000 across 169 cities), CAQM 27th meeting findings<br>
+                    &bull; City progress cards: Varanasi (76.4%), Bareilly (70%+), Moradabad (58%) PM10 reductions<br>
+                    &bull; Year-round CAQM action plans, public participation precedent, industrial compliance models<br>
+                    &bull; BS-VI leapfrog, "Double the Bus" citizen campaigns, Warrior Moms/Clean Air Fund<br>
+                    &bull; Honest caveats: PM10 vs PM2.5 distinction, monitoring gaps, mixed national picture<br>
+                    &bull; Total: 23 content sections
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v23.0 &mdash; 23 Feb 2026</div>
+                    <strong>Multilingual support, mobile nav fix, title localisation</strong><br>
+                    &bull; Language switcher: EN, Hindi (हिन्दी), Tamil (தமிழ்), Marathi (मराठी), Bengali (বাংলা)<br>
+                    &bull; All navigation, hero text, stat labels, and mobile menu translated in all 5 languages<br>
+                    &bull; Title localised: जनवायु (HI), ஜன்வாயு (TA), जनवायू (MR), জনবায়ু (BN)<br>
+                    &bull; Hindi title colour fixed to match green accent (was grey)<br>
+                    &bull; Mobile hamburger breakpoint raised from 768px to 1024px (tablets now get hamburger)<br>
+                    &bull; Non-English languages show info banner noting detailed analysis is in English<br>
+                    &bull; Anchor link routing via URL hash for all 22 sections
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v22.0 &mdash; 23 Feb 2026</div>
@@ -7921,6 +8242,194 @@ Signature: _______________</div>
                 </div>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">2024 global rankings. India 5th most polluted, avg PM2.5 of 50.6 ug/m3. 6 of 10 worst cities in India. Full methodology and city data.</p>
                 <a href="https://www.iqair.com/world-air-quality-report" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">View Report (IQAir)</a>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="tmpl-progress">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-sm si-checkmark" style="color: var(--accent); margin-right: 0.4rem;"></span>Clean Air Wins</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Accountability means tracking what works, not just what fails. This section documents genuine progress, successful interventions, citizen victories, and policy moves worth watching. Verified against independent data.</p>
+    </div>
+
+    <!-- HEADLINE WINS -->
+    <div class="stat-strip" style="margin-bottom: 2rem;">
+        <div class="stat-item"><div class="stat-value" style="color: var(--accent);">4,286</div><div class="stat-label">E-buses in Delhi (largest fleet in India, Feb 2026)</div></div>
+        <div class="stat-item"><div class="stat-value" style="color: var(--accent);">26.8%</div><div class="stat-label">Nationwide PM reduction 2019-2024 (NCAP aggregate)</div></div>
+        <div class="stat-item"><div class="stat-value" style="color: var(--accent);">62,219</div><div class="stat-label">Excess deaths avoided in 20 cities (IIT Kharagpur, 2018-2022)</div></div>
+        <div class="stat-item"><div class="stat-value" style="color: var(--accent);">10,000</div><div class="stat-label">E-buses planned across 169 cities (PM-eBus Sewa, by 2026)</div></div>
+    </div>
+
+    <!-- CITIES THAT ARE ACTUALLY IMPROVING -->
+    <div class="card mb-2">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-location" style="color: var(--accent);"></span> Cities Showing Real Progress</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem;">While 23 of 100 NCAP cities meeting the 40% target may seem low, some individual city trajectories are genuinely encouraging. These reductions have been verified against CPCB CAAQMS data, not just government claims.</p>
+
+            <div class="grid-3" style="gap: 1rem; margin-bottom: 1.5rem;">
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="color: var(--accent); font-size: 0.875rem;">Varanasi</h4>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">76.4%</div>
+                    <div style="font-size: 0.75rem; color: var(--text-3);">PM10 reduction (NCAP top performer)</div>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">84% of particulate pollution here is dust. Massive road paving, mechanised sweeping, and construction site controls have worked. Caveat: PM2.5 from combustion sources remains stubbornly high.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="color: var(--accent); font-size: 0.875rem;">Bareilly</h4>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">70%+</div>
+                    <div style="font-size: 0.75rem; color: var(--text-3);">PM10 reduction (predicted, Lancet SEA 2024)</div>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">Prophet model forecasting confirms trajectory. Among the strongest performers in UP's non-attainment cities, alongside Raebareli (58%).</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="color: var(--accent); font-size: 0.875rem;">Moradabad</h4>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">58%</div>
+                    <div style="font-size: 0.75rem; color: var(--text-3);">PM10 reduction</div>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">Brass industry hub that has made real progress. Industrial fuel switching and road improvements contributed. Kanpur (51.2%) and Kolkata (21.5%) also improving.</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="background: rgba(27,107,74,0.06); border: 1px solid rgba(27,107,74,0.15); padding: 1rem;">
+                <h4 style="color: var(--accent); font-size: 0.875rem; margin-bottom: 0.5rem;">Honest caveat</h4>
+                <p style="font-size: 0.8125rem; color: var(--text-2); line-height: 1.7;">NCAP measures PM10, not PM2.5. The deadlier fine particles from combustion (vehicles, industry, cooking) are harder to reduce than coarse dust. Guttikunda et al. (2024) found "no change in fraction of cities above 150 µg/m³" for PM10 between 2019-2023 nationally, and TROPOMI satellite data shows SO2 and NO2 actually increased. Cities like Surat won national awards but their monitoring stations don't work (The Plank, 2025). Progress is real in some places, but the national picture remains mixed.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSPORT ELECTRIFICATION -->
+    <div class="card mb-2">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-lightning" style="color: #3B82F6;"></span> Electric Mobility: India's Strongest Clean Air Story</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1.25rem;">This is where the most tangible, independently verifiable progress is happening. Delhi's e-bus fleet has grown from zero to over 4,000 in under three years. The PM-eBus Sewa scheme could transform public transport in 169 cities.</p>
+
+            <div class="grid-2" style="gap: 1.25rem; margin-bottom: 1.25rem;">
+                <div>
+                    <h4 style="color: #3B82F6; font-size: 0.9375rem; margin-bottom: 0.75rem;">Delhi: Largest E-Bus Fleet in India</h4>
+                    <div style="font-size: 0.875rem; line-height: 1.8; color: var(--text-2);">
+                        <p><strong>4,286 e-buses</strong> operational as of Feb 9, 2026 (overtaking Maharashtra's 4,001). CM Rekha Gupta flagged off 500 new buses at Ramlila Maidan.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Targets:</strong> 7,500 by end 2026, 14,000 by 2028. Delhi-Panipat interstate e-bus route launched.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Impact math:</strong> Each diesel bus replaced eliminates ~25 tonnes CO2/year plus PM, NOx, SO2. At 4,286 e-buses, that's ~107,000 tonnes CO2 avoided annually.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Infrastructure:</strong> 8,849 EV charging stations (Dec 2025), 7,000 more planned for 2026. EV Policy 2.0 expected by March 2026.</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: #3B82F6; font-size: 0.9375rem; margin-bottom: 0.75rem;">National E-Bus Landscape</h4>
+                    <div style="font-size: 0.875rem; line-height: 1.8; color: var(--text-2);">
+                        <p><strong>PM-eBus Sewa:</strong> $2.4 billion scheme for 10,000 e-buses across 169 cities by 2026 (WRI India). Half of eligible cities currently lack any organised bus transport.</p>
+                        <p style="margin-top: 0.5rem;"><strong>State leaderboard:</strong> Delhi (4,286), Maharashtra (4,001), Karnataka (1,989), Gujarat (1,041), Telangana (875), UP (874).</p>
+                        <p style="margin-top: 0.5rem;"><strong>Surat:</strong> Phasing out all diesel buses by 2026, targeting 1,300 e-buses by 2030 through BRTS corridors.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Guwahati:</strong> Planning to become India's first city with a fully green public transport system. 271 e-buses operational.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                <h4 style="color: #3B82F6; font-size: 0.8125rem;">Citizen-led "Double the Bus" campaigns</h4>
+                <p style="font-size: 0.8125rem; color: var(--text-2);">In Mumbai, Pune, and Nagpur, citizen groups have pressured municipal budgets to prioritise bus fleet expansion over new flyovers. This grassroots advocacy, documented by Policy Circle (Sep 2025), shows how informed citizens can redirect infrastructure spending toward public health outcomes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POLICY WINS WORTH WATCHING -->
+    <div class="card mb-2">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-document" style="color: #7C3AED;"></span> Policy Moves Worth Watching</span></div>
+        <div class="card-body">
+
+            <div class="grid-2" style="gap: 1.25rem; margin-bottom: 1.5rem;">
+                <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                    <h4 style="color: #7C3AED; font-size: 0.875rem;">CAQM 27th Full Commission Meeting</h4>
+                    <div style="font-size: 0.75rem; color: var(--text-3);">Feb 20, 2026 (PIB)</div>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                        33 domain experts submitted a meta-analysis of source apportionment studies (2015-2025) to the Supreme Court. Key finding: PM2.5 identified as the dominant pollutant in Delhi's AQI, with secondary particulates (27%), transport (23%), and biomass burning (20%) as top contributors. This is significant because it shifts official focus from PM10 (easier to show improvement) toward PM2.5 (what actually kills people).
+                    </p>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                        Also: Direction No. 96 mandates coordinated state action plans to eliminate wheat stubble burning in 2026. CAQM is pushing barrier-free Multi-Lane Free Flow (MLFF) systems at MCD toll plazas to reduce vehicular congestion and idling emissions.
+                    </p>
+                </div>
+
+                <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                    <h4 style="color: #7C3AED; font-size: 0.875rem;">Year-Round Action Plans (2026)</h4>
+                    <div style="font-size: 0.75rem; color: var(--text-3);">CAQM / DPCC, Feb 2026</div>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                        For the first time, CAQM and DPCC have shifted from winter-emergency-only response to a year-round pollution mitigation framework. Twelve NCR cities submitted detailed action plans in Feb 2026. Delhi targets a 15% AQI reduction and PM2.5 reduction from 99 to 96 µg/m³.
+                    </p>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                        Legacy waste deadlines: Okhla by July 2026, Bhalswa by Dec 2026, Ghazipur by Dec 2027. CAQM will periodically assess progress. The shift from reactive to continuous planning is structurally important, even if targets remain modest.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 1.25rem; margin-bottom: 1.5rem;">
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="color: var(--accent); font-size: 0.875rem;">Public Participation Precedent</h4>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                        A PMC study (2023) confirmed that CAQM's Supreme Court-mandated open public comment process actually influenced policy. 115 public and expert comments were compiled via RTI. Recurring themes (green transport, cycling, alternative fuels, crop burning) were incorporated into CAQM policy. This sets a precedent: democratic, stakeholder-driven air quality governance works when mandated.
+                    </p>
+                </div>
+
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="color: var(--accent); font-size: 0.875rem;">Industrial Compliance Wins</h4>
+                    <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                        Gujarat's common boiler policy and Odisha's investment in Continuous Emission Monitoring Systems (CEMS) are cited by CSE as models for state-level industrial emission control. Indore achieved zero-landfill status. Pune integrated informal waste workers into collection systems. Hyderabad's decentralised C&amp;D waste management through PPP plants is being studied for replication.
+                    </p>
+                </div>
+            </div>
+
+            <div class="info-box" style="border-left: 3px solid var(--accent);">
+                <h4 style="color: var(--accent); font-size: 0.875rem;">BS-VI: The Quiet Revolution</h4>
+                <p style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                    India skipped BS-V and leapfrogged directly to BS-VI emission standards in April 2020, equivalent to Euro 6. This was one of the most ambitious vehicle emission standard upgrades globally. Combined with Delhi's "No PUC, No Fuel" policy (PUC issuance jumped 46% in a single day when real-time checks began) and fuel denial for diesel vehicles over 10 years and petrol vehicles over 15 years (from July 2025), transport emissions per vehicle are declining even as the fleet grows.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CITIZEN POWER -->
+    <div class="card mb-2">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-people" style="color: #F59E0B;"></span> Citizen Power: What Communities Are Winning</span></div>
+        <div class="card-body">
+            <div class="grid-2" style="gap: 1.25rem;">
+                <div>
+                    <h4 style="color: #F59E0B; font-size: 0.9375rem; margin-bottom: 0.75rem;">Warrior Moms / Clean Air Fund</h4>
+                    <p style="font-size: 0.875rem; line-height: 1.8; color: var(--text-2);">
+                        The "Mera Planet Mera Ghar" campaign trained 1,600 children in Delhi to voice environmental concerns, reaching 6 million citizens. Warrior Moms has become one of India's most effective air quality advocacy networks, successfully pushing for school air purifier commitments in Delhi and air quality audits in schools.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color: #F59E0B; font-size: 0.9375rem; margin-bottom: 0.75rem;">RTI as Accountability Tool</h4>
+                    <p style="font-size: 0.875rem; line-height: 1.8; color: var(--text-2);">
+                        Citizen RTI applications have forced disclosure of NCAP fund utilisation data, CAQM inspection records, and public comment responses. The PMC study confirming CAQM incorporated public feedback was itself enabled by an RTI application. This right is arguably the single most powerful tool citizens have for clean air accountability.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border);">
+                <h4 style="color: #F59E0B; font-size: 0.9375rem; margin-bottom: 0.75rem;">COVID Lockdown: The Accidental Proof</h4>
+                <p style="font-size: 0.875rem; line-height: 1.8; color: var(--text-2);">
+                    April 2020 remains the most powerful data point in India's clean air story. PM2.5 dropped by over 50%. Blue skies were visible in Delhi for weeks. The Himalayas became visible from Punjab plains for the first time in decades. This was not a policy achievement, but it proved something essential: India's air pollution is entirely man-made and entirely reversible. That knowledge fuels every citizen campaign, every RTI filing, every "Double the Bus" rally. The question was never whether clean air is possible. It is whether there is political will.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW TO USE THIS SECTION -->
+    <div class="card">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-bulb" style="color: var(--accent);"></span> How to Use These Wins</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem;">
+                Progress is not a reason to relax. It is evidence that action works and that inaction is a choice. When a government says clean air is "too complex" or "too expensive," point them to these numbers. Every city that improved did so because people demanded it and institutions responded.
+            </p>
+            <div class="grid-3" style="gap: 1rem;">
+                <div class="info-box" style="border-left: 3px solid var(--accent); padding: 0.75rem;">
+                    <h5 style="color: var(--accent); font-size: 0.8125rem;">For advocacy</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-2);">Use Varanasi and Bareilly as proof that NCAP targets are achievable. Ask your city why it hasn't matched them.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #3B82F6; padding: 0.75rem;">
+                    <h5 style="color: #3B82F6; font-size: 0.8125rem;">For policy</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-2);">Cite the CAQM public participation precedent in your submissions. File RTIs on your city's NCAP fund utilisation.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #7C3AED; padding: 0.75rem;">
+                    <h5 style="color: #7C3AED; font-size: 0.8125rem;">For journalism</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-2);">Compare e-bus deployment pace across states. Ask why some cities achieve 70% reductions while others worsen.</p>
+                </div>
             </div>
         </div>
     </div>
