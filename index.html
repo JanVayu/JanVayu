@@ -566,7 +566,7 @@
     --ink: #1a1a18;
     --ink-secondary: #4a4a46;
     --ink-tertiary: #7a7a74;
-    --ink-faint: #b0b0a8;
+    --ink-faint: #6b6b65;
 
     --red: #c0392b;
     --amber: #d4850a;
@@ -756,7 +756,7 @@ a:hover { color: var(--accent-hover); }
     border-right: none;
 }
 .nav-link:hover { color: var(--text-2); text-decoration: none; }
-.nav-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.nav-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
 
 
 /* ── Icon size constraints ── */
@@ -1673,6 +1673,49 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 @keyframes panelIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── Print ─────────────────────────────── */
+
+/* ═══ Enhanced Mobile Responsiveness ═══ */
+@media (max-width: 480px) {
+    .container { padding: 0 12px; }
+    .hero { padding: 32px 0 28px; }
+    .hero h1 { font-size: 1.6rem; }
+    .section-intro h2 { font-size: 1.35rem !important; }
+    .section-intro p { font-size: 0.9375rem !important; }
+    .nav-link { padding: 0 10px; font-size: 0.65rem; }
+    .section-nav .container { height: 38px; }
+    .card-body { padding: 1rem; }
+    .card-header { padding: 0.75rem 1rem; }
+    .stat-value { font-size: 1.5rem; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table { min-width: 500px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 16px; }
+    .pull-quote { font-size: 1rem; padding: 1rem; }
+    .tool-card { margin-bottom: 1rem; }
+    .info-box { padding: 1rem; }
+    .result-value { font-size: 1.5rem; }
+    .alert { padding: 0.75rem; font-size: 0.8125rem; }
+    .code-box { font-size: 0.7rem; }
+    .pm25-hero { padding: 1.5rem; }
+    .pm25-value { font-size: 1.75rem; }
+}
+
+@media (max-width: 768px) {
+    .chart-container { height: 220px !important; min-height: 200px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .hero .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .section-intro { margin-bottom: 1.5rem !important; padding-bottom: 1rem !important; }
+    .card { margin-bottom: 0.75rem; }
+    #india-map { height: 350px !important; }
+    .voice-card { padding: 1rem; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media print {
     .ticker, .header, .section-nav, .site-footer { display: none; }
     .page-section { break-inside: avoid; }
@@ -2160,10 +2203,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             const metroCtx = document.getElementById('metroChart');
             if (metroCtx) {
                 const metros = ['delhi', 'mumbai', 'kolkata', 'chennai', 'bangalore', 'hyderabad'];
-                // Create gradient fills
-                const metroGradient = metroCtx.createLinearGradient(0, 0, 0, 280);
-                metroGradient.addColorStop(0, 'rgba(21,128,61,0.85)');
-                metroGradient.addColorStop(1, 'rgba(21,128,61,0.15)');
                 charts.metro = new Chart(metroCtx, { type: 'bar', data: { labels: metros.map(c => CITIES[c].name), datasets: [{ data: metros.map(c => aqiData[c]?.aqi || 0), backgroundColor: metros.map(c => getAQIColor(aqiData[c]?.aqi || 0)),
                     borderRadius: 6, borderSkipped: false, barPercentage: 0.7
                 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => 'AQI: ' + ctx.raw } } }, scales: { x: { max: 500, grid: { color: gridColor, drawBorder: false }, ticks: { font: { family: "'JetBrains Mono', monospace", size: 10 } } }, y: { grid: { display: false }, ticks: { font: { family: "'DM Sans', sans-serif", size: 11 } } } } } });
@@ -4371,7 +4410,72 @@ Signature: _______________</div>
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: #1D9BF0; margin-right: 0.4rem;"></span>Citizen Voices &amp; Viral Moments</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Curated reactions from X/Twitter, Instagram, YouTube, and news — documenting India's air crisis through citizen voices, memes, and viral content.</p>
-            </div>
+            
+                            <!-- Jan-Feb 2026 Updates -->
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Reddit r/india</div>
+                                        <div class="voice-handle">Viral Post</div>
+                                    </div>
+                                </div>
+                                <div class="voice-body">
+                                    "Delhi-NCR is ruined, there is no point in defending it anymore." A detailed post comparing life in Delhi-NCR to other Indian cities went viral in December 2025. With AQI exceeding 700 in some neighbourhoods, the author wrote: "Leaders sit in cabins equipped with air purifiers and say this year the pollution is comparatively less. Soon the deaths from air pollution will exceed other causes, but no politician is willing to take responsibility." Hundreds of comments debated leaving versus staying.
+                                </div>
+                                <div class="voice-meta">Dec 2025 | Viral on Reddit, picked up by India.com, Zee News</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Bloomberg Longform</div>
+                                        <div class="voice-handle">Feb 13, 2026</div>
+                                    </div>
+                                </div>
+                                <div class="voice-body">
+                                    Bloomberg published a major longform feature on India Gate protests, documenting how the November 2025 demonstrations were broken up by police, with people pinned to the ground and bundled into vans. The piece describes how "for the next four months, more than 30 million people quietly endure sore throats, headaches and respiratory problems." Widely shared as evidence of international attention on the crisis.
+                                </div>
+                                <div class="voice-meta">Feb 2026 | Bloomberg | International coverage of protest crackdown</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Washington Post Analysis</div>
+                                        <div class="voice-handle">Jan 25, 2026</div>
+                                    </div>
+                                </div>
+                                <div class="voice-body">
+                                    WaPo published a data-driven analysis showing Delhi residents breathe air equivalent to smoking roughly nine cigarettes a day. Using 2.5 months of government data, the piece calculated that residents are losing an average of eight years of life expectancy. The "9 cigarettes/day" framing went viral across Indian social media, cited by citizen groups and opposition politicians.
+                                </div>
+                                <div class="voice-meta">Jan 2026 | Washington Post | Data analysis of Delhi PM2.5 exposure</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">BusinessToday Viral Debate</div>
+                                        <div class="voice-handle">Feb 22, 2026</div>
+                                    </div>
+                                </div>
+                                <div class="voice-body">
+                                    A startup founder's comparison of Delhi's smog to 1850s Manchester sparked fierce debate. Comments argued India has access to green technologies that earlier industrialisers lacked, and "the global climate crisis means we no longer have the luxury of pollute now, clean later." Others noted Delhi's pollution is not primarily from industrialisation at all, but from transport and biomass, making the comparison misleading.
+                                </div>
+                                <div class="voice-meta">Feb 2026 | BusinessToday | Social media debate on pollution and growth</div>
+                            </div>
+
+                            <div class="voice-card">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Mumbai Climate Week</div>
+                                        <div class="voice-handle">Feb 17-19, 2026</div>
+                                    </div>
+                                </div>
+                                <div class="voice-body">
+                                    India's first city-led climate conference at Jio World Centre, Mumbai. Dr. Soumya Swaminathan (ex-WHO Chief Scientist) highlighted that days with both high heat and high air pollution see mortality three times higher than either alone. The event centred outdoor workers (231.5 million in India, 62% of female workers in agriculture) and launched Maharashtra's 'Be Cool' initiative. Air pollution and heatwave interaction emerged as the defining narrative.
+                                </div>
+                                <div class="voice-meta">Feb 2026 | Mumbai Climate Week | Health Policy Watch, UNICEF partnership</div>
+                            </div></div>
 
             <div class="alert alert-warning mb-2"><div style="flex: 1;">
                     <strong>Curated Archive</strong> — Manually updated collection. Last curated: <span id="voices-update-time">Feb 1, 2026</span>
@@ -5811,6 +5915,30 @@ Signature: _______________</div>
                                     <div style="width: 16%; height: 100%; background: #C4B5FD;"></div>
                                 </div>
                             </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Jan 2026</div>
+                                    <div class="timeline-content">
+                                        <strong>Delhi AQI hits 500+ on Jan 17</strong> — Ranked world's most polluted city. PM2.5 at 73x WHO guideline. Anti-smog guns deployed (200 units, Rs 58 Cr) but reduce AQI by only 5-10 points.
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Jan 2026</div>
+                                    <div class="timeline-content">
+                                        <strong>Washington Post: "9 cigarettes/day"</strong> — Data analysis shows Delhi PM2.5 exposure equivalent to smoking half a pack daily. Average 8 years life expectancy lost. Viral framing adopted by citizen groups.
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Feb 2026</div>
+                                    <div class="timeline-content">
+                                        <strong>Mumbai Climate Week</strong> — India's first city-led climate conference. Dr. Soumya Swaminathan highlights 3x mortality on combined high-heat + high-pollution days. UNICEF youth engagement. Maharashtra launches 'Be Cool' initiative.
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-date">Feb 2026</div>
+                                    <div class="timeline-content">
+                                        <strong>CREA Jan 2026 Snapshot</strong> — Monthly ambient air quality data confirms continued poor readings across major cities. NCAP March 2026 funding cliff approaches with no successor mechanism.
+                                    </div>
+                                </div>
                         </div>
                         <div>
                             <div class="alert" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-700);">
@@ -6738,12 +6866,78 @@ Signature: _______________</div>
                     </div>
                 </div>
             </div>
+
+            <!-- IMPRI, MCW, ICW & LATEST UPDATES -->
+            <div class="card mb-2 card-accent-blue" data-resource-category="policy action">
+                <div class="card-header" style="background: rgba(59,130,246,0.06);"><span class="card-title" style="color: #2563EB;"> Policy Research &amp; Climate Events (2025-26)</span></div>
+                <div class="card-body resource-list">
+                    <div class="grid-3" style="gap: 0.75rem;">
+                        <div class="resource-card" data-keywords="impri ncap clean air programme policy enforcement">
+                            <a href="https://www.impriindia.com/insights/policy-update/national-clear-air-programme/" target="_blank">
+                                <div class="resource-type">Policy Analysis <span class="badge badge-info">IMPRI</span></div>
+                                <div class="resource-title">IMPRI: Clearing The Air: India's NCAP and the Path Forward</div>
+                                <div class="resource-desc">NCAP progress, enforcement gaps, 40% PM10 reduction target for 2026. Green cover loss analysis.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="impri air pollution urbanization cities breathe">
+                            <a href="https://www.impriindia.com/insights/air-pollution-and-urbanization/" target="_blank">
+                                <div class="resource-type">Research <span class="badge badge-info">IMPRI</span></div>
+                                <div class="resource-title">IMPRI: Air Pollution &amp; Urbanization: Can Cities Breathe Easy?</div>
+                                <div class="resource-desc">Why policies fail in practice. Compares India with Beijing (-35% PM2.5) and London ULEZ.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="mumbai climate week mcw air pollution heat mortality">
+                            <a href="https://www.mumbaiclimateweek.com/" target="_blank">
+                                <div class="resource-type">Event <span class="badge badge-danger">NEW</span></div>
+                                <div class="resource-title">Mumbai Climate Week 2026 (Feb 17-19)</div>
+                                <div class="resource-desc">India's first city-led climate conf. Heat + pollution = 3x mortality. UNICEF youth partnership.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="india climate week icw bharat mandapam net zero march">
+                            <a href="https://cma-india.in/upcoming-events" target="_blank">
+                                <div class="resource-type">Upcoming <span class="badge badge-success">MAR 2026</span></div>
+                                <div class="resource-title">India Climate Week 2026: Gateway to Net Zero</div>
+                                <div class="resource-desc">March 12-17, Bharat Mandapam, Delhi. Cleantech, climate finance, emissions reduction.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="crea january 2026 monthly snapshot air quality">
+                            <a href="https://energyandcleanair.org/india-monthly-ambient-air-quality-snapshot-january-2026/" target="_blank">
+                                <div class="resource-type">Data <span class="badge badge-danger">JAN 2026</span></div>
+                                <div class="resource-title">CREA: India Air Quality Snapshot, January 2026</div>
+                                <div class="resource-desc">Monthly CAAQMS ambient data from CPCB Central Control Room.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="iqair india february 2026 pm2.5 kolkata delhi">
+                            <a href="https://www.iqair.com/in-en/newsroom/india-air-quality-alert" target="_blank">
+                                <div class="resource-type">Alert <span class="badge badge-danger">FEB 2026</span></div>
+                                <div class="resource-title">IQAir India Alert: Feb 2026</div>
+                                <div class="resource-desc">India avg PM2.5 50.6 ug/m3 (11x WHO). 5th globally. New studies: coal-crop impact, PM2.5 hotspots.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="guttikunda ncap 2019 2023 assessment sciencedirect">
+                            <a href="https://www.sciencedirect.com/science/article/abs/pii/S1352231024006496" target="_blank">
+                                <div class="resource-type">Peer Review <span class="badge badge-success">2024</span></div>
+                                <div class="resource-title">Assessing Air Quality During NCAP: 2019-2023</div>
+                                <div class="resource-desc">By Guttikunda et al. PM10 showed no change in fraction of cities above 150 ug/m3. PM2.5 &gt;120 dropped 30% to 20%.</div>
+                            </a>
+                        </div>
+                        <div class="resource-card" data-keywords="digital activism delhiairpollution twitter netnographic">
+                            <a href="https://journals.gulfuniversity.org/index.php/ijmmc/article/view/295" target="_blank">
+                                <div class="resource-type">Research <span class="badge badge-info">2026</span></div>
+                                <div class="resource-title">Digital Activism &amp; #DelhiAirPollution on Twitter (X)</div>
+                                <div class="resource-desc">Netnographic analysis of campaign tweets Oct 2023-Mar 2024. Impact on government responses.</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
 </template>
 
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v21.0 | Updated 23 Feb 2026 | Editorial redesign with Sargam Icons, enhanced mobile responsiveness, MCW/ICW coverage</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
