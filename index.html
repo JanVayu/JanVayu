@@ -718,21 +718,26 @@ a:hover { color: var(--accent-hover); }
     z-index: 90;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+.section-nav .nav-scroll {
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    width: 100%;
-    max-width: 100vw;
-    left: 0;
-    right: 0;
+    mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 40px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 40px), transparent 100%);
 }
-.section-nav::-webkit-scrollbar { display: none; }
+.section-nav .nav-scroll::-webkit-scrollbar { display: none; }
 .section-nav .container {
     display: flex;
     gap: 0;
     height: 42px;
     min-width: max-content;
+    padding-right: 24px;
 }
 .nav-link {
     font-family: var(--sans);
@@ -1682,7 +1687,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .section-intro h2 { font-size: 1.35rem !important; }
     .section-intro p { font-size: 0.9375rem !important; }
     .nav-link { padding: 0 10px; font-size: 0.65rem; }
-    .section-nav .container { height: 38px; }
+    .section-nav .nav-scroll { mask-image: linear-gradient(to right, transparent 0, black 12px, black calc(100% - 24px), transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0, black 12px, black calc(100% - 24px), transparent 100%); }
+    .section-nav .container { height: 38px; padding-right: 16px; }
     .card-body { padding: 1rem; }
     .card-header { padding: 0.75rem 1rem; }
     .stat-value { font-size: 1.5rem; }
@@ -1843,6 +1849,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
     <!-- SECTION NAV -->
     <nav class="section-nav">
+        <div class="nav-scroll">
         <div class="container">
             <button class="nav-link active" data-panel="dashboard">Dashboard</button>
             <button class="nav-link" data-panel="health">Health</button>
@@ -1867,6 +1874,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             <button class="nav-link" data-panel="mission-tracker">Mission</button>
             <button class="nav-link" data-panel="migration">Migration</button>
             <button class="nav-link" data-panel="about">About</button>
+        </div>
         </div>
     </nav>
 
@@ -2228,7 +2236,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         // Update nav
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         const activeNav = document.querySelector(`.nav-link[data-panel="${panelId}"]`);
-        if (activeNav) activeNav.classList.add('active');
+        if (activeNav) { activeNav.classList.add('active'); activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
 
         // Dashboard is special (always visible as hero)
         if (panelId === 'dashboard') {
@@ -7576,7 +7584,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v21.0 | Updated 23 Feb 2026 | Editorial redesign with Sargam Icons, enhanced mobile responsiveness, MCW/ICW coverage</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v22.0 | Updated 23 Feb 2026 | Mobile hamburger nav, city selector (30+ cities), 6 new sections (Indoor Air, Children's Health, Industrial Accountability, AQI Forecast, Mission Tracker, Migration), NCAP Tier 1/2 cities, download links verified, social media voices updated (Rekha Gupta gaffe, oxygen mask reel, Yogi gas chamber remark), nav overflow fix</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
