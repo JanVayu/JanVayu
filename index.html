@@ -566,7 +566,7 @@
     --ink: #1a1a18;
     --ink-secondary: #4a4a46;
     --ink-tertiary: #7a7a74;
-    --ink-faint: #6b6b65;
+    --ink-faint: #5a5a54;
 
     --red: #c0392b;
     --amber: #d4850a;
@@ -604,7 +604,7 @@
     --text: #e8e8e2;
     --text-2: #a8a8a0;
     --text-3: #6e6e68;
-    --text-4: #4a4a44;
+    --text-4: #8a8a82;
     --accent: #4ADE80;
     --accent-hover: #86EFAC;
     --border: #2a2a28;
@@ -740,7 +740,7 @@ a:hover { color: var(--accent-hover); }
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text-4);
+    color: var(--text-2);
     padding: 0 16px;
     white-space: nowrap;
     border-bottom: 2px solid transparent;
@@ -1716,6 +1716,46 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
+
+/* ═══ Mobile Hamburger Menu ═══ */
+.mobile-menu-btn { display: none; }
+@media (max-width: 768px) {
+    .mobile-menu-btn { display: flex; }
+    .section-nav { display: none; }
+    .section-nav.show-desktop { display: block; }
+}
+.mobile-nav-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 998; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+}
+.mobile-nav-overlay.open { display: block; }
+.mobile-nav {
+    display: none; position: fixed; top: 0; right: 0; bottom: 0;
+    width: min(320px, 85vw); background: var(--bg-card); z-index: 999;
+    overflow-y: auto; box-shadow: -4px 0 24px rgba(0,0,0,0.2);
+    transform: translateX(100%); transition: transform 0.25s ease;
+}
+.mobile-nav.open { display: block; transform: translateX(0); }
+.mobile-nav-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+}
+.mobile-nav-body { padding: 12px 0; }
+.mobile-nav-group { padding: 8px 0; }
+.mobile-nav-group-label {
+    font-family: var(--sans); font-size: 0.625rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3);
+    padding: 4px 20px 6px;
+}
+.mobile-nav-item {
+    display: block; width: 100%; text-align: left; padding: 10px 20px;
+    font-family: var(--sans); font-size: 0.875rem; font-weight: 500;
+    color: var(--text-2); background: none; border: none; cursor: pointer;
+    transition: background 0.1s;
+}
+.mobile-nav-item:hover, .mobile-nav-item:active { background: var(--green-50); color: var(--accent); }
+.mobile-nav-item.active { color: var(--accent); font-weight: 600; background: var(--green-50); }
+
 @media print {
     .ticker, .header, .section-nav, .site-footer { display: none; }
     .page-section { break-inside: avoid; }
@@ -1739,6 +1779,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <span class="logo-tag">Citizen Air Quality Platform</span>
             </div>
             <div class="header-actions">
+                <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" title="Menu" aria-label="Open navigation menu">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
                 <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">☾</button>
                 <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="GitHub">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -1746,6 +1789,57 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             </div>
         </div>
     </header>
+
+    <!-- MOBILE NAV OVERLAY -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <span style="font-family: var(--serif); font-weight: 700; font-size: 1.1rem;">JanVayu</span>
+            <button class="icon-btn" onclick="closeMobileMenu()" aria-label="Close menu">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="mobile-nav-body">
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">Data &amp; Analysis</div>
+                <button class="mobile-nav-item active" data-panel="dashboard">Dashboard</button>
+                <button class="mobile-nav-item" data-panel="health">Health Impact</button>
+                <button class="mobile-nav-item" data-panel="economic">Economic Cost</button>
+                <button class="mobile-nav-item" data-panel="children">Children's Health</button>
+                <button class="mobile-nav-item" data-panel="indoor">Indoor Air</button>
+                <button class="mobile-nav-item" data-panel="trends">Trends</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">Monitoring</div>
+                <button class="mobile-nav-item" data-panel="compare">City Comparison</button>
+                <button class="mobile-nav-item" data-panel="map">Live Map</button>
+                <button class="mobile-nav-item" data-panel="forecast">AQI Forecast</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">Accountability</div>
+                <button class="mobile-nav-item" data-panel="policy">Policy Effectiveness</button>
+                <button class="mobile-nav-item" data-panel="budget">Budget Tracker</button>
+                <button class="mobile-nav-item" data-panel="accountability">Political</button>
+                <button class="mobile-nav-item" data-panel="corporate">Industrial Sources</button>
+                <button class="mobile-nav-item" data-panel="mission-tracker">Mission Tracker</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">Action &amp; Community</div>
+                <button class="mobile-nav-item" data-panel="actions">Take Action</button>
+                <button class="mobile-nav-item" data-panel="citizen-action">Citizen Plan</button>
+                <button class="mobile-nav-item" data-panel="legal">Legal Framework</button>
+                <button class="mobile-nav-item" data-panel="voices">Citizen Voices</button>
+                <button class="mobile-nav-item" data-panel="migration">Migration &amp; Displacement</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">Resources</div>
+                <button class="mobile-nav-item" data-panel="tools">Tools</button>
+                <button class="mobile-nav-item" data-panel="resources">Research Library</button>
+                <button class="mobile-nav-item" data-panel="downloads">Downloads</button>
+                <button class="mobile-nav-item" data-panel="about">About</button>
+            </div>
+        </div>
+    </div>
 
     <!-- SECTION NAV -->
     <nav class="section-nav">
@@ -1766,6 +1860,12 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             <button class="nav-link" data-panel="tools">Tools</button>
             <button class="nav-link" data-panel="resources">Library</button>
             <button class="nav-link" data-panel="downloads">Downloads</button>
+            <button class="nav-link" data-panel="indoor">Indoor</button>
+            <button class="nav-link" data-panel="children">Children</button>
+            <button class="nav-link" data-panel="corporate">Industry</button>
+            <button class="nav-link" data-panel="forecast">Forecast</button>
+            <button class="nav-link" data-panel="mission-tracker">Mission</button>
+            <button class="nav-link" data-panel="migration">Migration</button>
             <button class="nav-link" data-panel="about">About</button>
         </div>
     </nav>
@@ -1784,7 +1884,62 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     </div>
                     <div class="hero-data">
                         <div class="hero-pm25-card">
-                            <div class="hero-pm25-label">Delhi Live PM2.5</div>
+                            <select id="hero-city-select" onchange="updateHeroCity(this.value)" style="
+                                font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+                                text-transform: uppercase; letter-spacing: 0.06em;
+                                background: var(--bg-section); color: var(--text-2);
+                                border: 1px solid var(--border); border-radius: 6px;
+                                padding: 4px 8px; width: 100%; margin-bottom: 6px; cursor: pointer;
+                            ">
+                                <optgroup label="Metros">
+                                    <option value="delhi" selected>Delhi</option>
+                                    <option value="mumbai">Mumbai</option>
+                                    <option value="kolkata">Kolkata</option>
+                                    <option value="chennai">Chennai</option>
+                                    <option value="bangalore">Bengaluru</option>
+                                    <option value="hyderabad">Hyderabad</option>
+                                </optgroup>
+                                <optgroup label="NCR">
+                                    <option value="gurgaon">Gurgaon</option>
+                                    <option value="noida">Noida</option>
+                                    <option value="faridabad">Faridabad</option>
+                                    <option value="ghaziabad">Ghaziabad</option>
+                                </optgroup>
+                                <optgroup label="North India">
+                                    <option value="lucknow">Lucknow</option>
+                                    <option value="kanpur">Kanpur</option>
+                                    <option value="patna">Patna</option>
+                                    <option value="jaipur">Jaipur</option>
+                                    <option value="varanasi">Varanasi</option>
+                                    <option value="agra">Agra</option>
+                                    <option value="chandigarh">Chandigarh</option>
+                                    <option value="amritsar">Amritsar</option>
+                                    <option value="dehradun">Dehradun</option>
+                                    <option value="jodhpur">Jodhpur</option>
+                                </optgroup>
+                                <optgroup label="Central India">
+                                    <option value="bhopal">Bhopal</option>
+                                    <option value="indore">Indore</option>
+                                    <option value="nagpur">Nagpur</option>
+                                    <option value="raipur">Raipur</option>
+                                </optgroup>
+                                <optgroup label="West India">
+                                    <option value="ahmedabad">Ahmedabad</option>
+                                    <option value="pune">Pune</option>
+                                </optgroup>
+                                <optgroup label="South India">
+                                    <option value="kochi">Kochi</option>
+                                    <option value="visakhapatnam">Visakhapatnam</option>
+                                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                                    <option value="coimbatore">Coimbatore</option>
+                                </optgroup>
+                                <optgroup label="East India">
+                                    <option value="guwahati">Guwahati</option>
+                                    <option value="muzaffarpur">Muzaffarpur</option>
+                                    <option value="gaya">Gaya</option>
+                                </optgroup>
+                            </select>
+                            <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
                             <div class="hero-pm25-number" id="delhi-live-pm25" style="color: var(--red);">--</div>
                             <div class="hero-pm25-unit">µg/m³</div>
                             <div class="hero-pm25-who" id="delhi-who-multiple" style="color: var(--red);">--x WHO guideline</div>
@@ -1981,7 +2136,26 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         pune: { name: 'Pune', lat: 18.5204, lon: 73.8567, region: 'west' },
         beijing: { name: 'Beijing', lat: 39.9042, lon: 116.4074, region: 'intl' },
         london: { name: 'London', lat: 51.5074, lon: -0.1278, region: 'intl' },
-        singapore: { name: 'Singapore', lat: 1.3521, lon: 103.8198, region: 'intl' }
+        singapore: { name: 'Singapore', lat: 1.3521, lon: 103.8198, region: 'intl' },
+        // Tier 1 additions
+        chandigarh: { name: 'Chandigarh', lat: 30.7333, lon: 76.7794, region: 'north' },
+        varanasi: { name: 'Varanasi', lat: 25.3176, lon: 82.9739, region: 'north' },
+        agra: { name: 'Agra', lat: 27.1767, lon: 78.0081, region: 'north' },
+        bhopal: { name: 'Bhopal', lat: 23.2599, lon: 77.4126, region: 'central' },
+        indore: { name: 'Indore', lat: 22.7196, lon: 75.8577, region: 'central' },
+        nagpur: { name: 'Nagpur', lat: 21.1458, lon: 79.0882, region: 'central' },
+        kochi: { name: 'Kochi', lat: 9.9312, lon: 76.2673, region: 'south' },
+        visakhapatnam: { name: 'Visakhapatnam', lat: 17.6868, lon: 83.2185, region: 'south' },
+        thiruvananthapuram: { name: 'Thiruvananthapuram', lat: 8.5241, lon: 76.9366, region: 'south' },
+        coimbatore: { name: 'Coimbatore', lat: 11.0168, lon: 76.9558, region: 'south' },
+        // Tier 2 / NCAP non-attainment
+        muzaffarpur: { name: 'Muzaffarpur', lat: 26.1197, lon: 85.3910, region: 'north' },
+        gaya: { name: 'Gaya', lat: 24.7914, lon: 85.0002, region: 'north' },
+        raipur: { name: 'Raipur', lat: 21.2514, lon: 81.6296, region: 'central' },
+        jodhpur: { name: 'Jodhpur', lat: 26.2389, lon: 73.0243, region: 'north' },
+        guwahati: { name: 'Guwahati', lat: 26.1445, lon: 91.7362, region: 'east' },
+        dehradun: { name: 'Dehradun', lat: 30.3165, lon: 78.0322, region: 'north' },
+        amritsar: { name: 'Amritsar', lat: 31.6340, lon: 74.8723, region: 'north' }
     };
 
     const INDIAN_CITIES = Object.keys(CITIES).filter(k => CITIES[k].region !== 'intl');
@@ -1991,6 +2165,33 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     let mapMarkers = [];
     let usingLiveData = false;
 
+
+    // ── Hero City Selector ──
+    function updateHeroCity(cityKey) {
+        const data = aqiData[cityKey];
+        const cityName = CITIES[cityKey]?.name || cityKey;
+        const labelEl = document.getElementById('hero-city-label');
+        if (labelEl) labelEl.textContent = cityName + ' Live PM2.5';
+        if (data) {
+            const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
+            const whoX = getWHOMultiple(pm25);
+            const color = getPM25Color(pm25);
+            const el = document.getElementById('delhi-live-pm25');
+            if (el) { el.textContent = pm25; el.style.color = color; }
+            const whoEl = document.getElementById('delhi-who-multiple');
+            if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
+            const aqiEl = document.getElementById('delhi-live-aqi');
+            if (aqiEl) aqiEl.textContent = data.aqi;
+        } else {
+            const el = document.getElementById('delhi-live-pm25');
+            if (el) { el.textContent = '--'; el.style.color = 'var(--text-3)'; }
+            const whoEl = document.getElementById('delhi-who-multiple');
+            if (whoEl) { whoEl.textContent = 'No data'; whoEl.style.color = 'var(--text-3)'; }
+            const aqiEl = document.getElementById('delhi-live-aqi');
+            if (aqiEl) aqiEl.textContent = '--';
+        }
+    }
+
     // ── Theme ──
     function toggleTheme() {
         const root = document.documentElement;
@@ -1998,6 +2199,28 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         root.setAttribute('data-theme', isDark ? '' : 'dark');
         document.getElementById('themeToggle').textContent = isDark ? '☾' : '☀';
         try { initAllCharts(); } catch(e) {}
+    }
+
+
+    // ── Mobile Navigation ──
+    function toggleMobileMenu() {
+        const nav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('mobileNavOverlay');
+        const isOpen = nav.classList.contains('open');
+        if (isOpen) { closeMobileMenu(); } else {
+            nav.classList.add('open'); nav.style.display = 'block';
+            overlay.classList.add('open');
+            requestAnimationFrame(() => { nav.style.transform = 'translateX(0)'; });
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    function closeMobileMenu() {
+        const nav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('mobileNavOverlay');
+        nav.style.transform = 'translateX(100%)';
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => { nav.classList.remove('open'); nav.style.display = 'none'; }, 250);
     }
 
     // ── Navigation ──
@@ -2335,6 +2558,17 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         // Nav links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => showPanel(link.dataset.panel));
+        });
+
+        // Mobile nav items
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                showPanel(item.dataset.panel);
+                closeMobileMenu();
+                // Update active state
+                document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
         });
 
         try { await fetchAllAQI(); } catch(e) { console.error(e); }
@@ -4650,6 +4884,97 @@ Signature: _______________</div>
                                 </div>
                                 <div class="voice-meta">Dec 2024 | r/delhi | 4.2K upvotes</div>
                             </div>
+
+                            <!-- 2025-2026 VIRAL UPDATES -->
+                            <div class="voice-card" style="border-left: 3px solid linear-gradient(45deg, #f09433, #dc2743);">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #E1306C;">IG</div>
+                                    <div>
+                                        <div class="voice-name">@rishabhhshukla</div>
+                                        <div class="voice-handle">Instagram Reel</div>
+                                    </div>
+                                    <span class="voice-source">Instagram</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Pradhushan: Ek Prem Katha." Viral reel showing a Delhi wedding photoshoot with bride and groom wearing oxygen masks and throwing medicine strips instead of flowers. Final shot: CPR in a hospital room with oxygen cylinders. "In Delhi, even love needs life support." Covered by Tribune, Deccan Herald, FreePressJournal.
+                                </div>
+                                <div class="voice-meta">Nov 2025 | Instagram | Millions of views, national news pickup</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #1DA1F2;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #1DA1F2;">X</div>
+                                    <div>
+                                        <div class="voice-name">@abdul_tweets03</div>
+                                        <div class="voice-handle">X / Twitter</div>
+                                    </div>
+                                    <span class="voice-source">X</span>
+                                </div>
+                                <div class="voice-content">
+                                    "Superman after flying in Delhi for 10 mins:" followed by an image of Superman in a hospital bed wearing an oxygen mask. Became the defining meme of Winter 2025. Another viral version: Bollywood song "Yeh Dilli Hai Mere Yaar" with the caption: "Delhi mein itna pollution hai ki log pooch rahe hain 'Tu jaanta hai mera baap kahan hai?'"
+                                </div>
+                                <div class="voice-meta">Nov 8, 2025 | X | Picked up by Deccan Herald, The Print, DNA India</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #EF4444;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #EF4444;">CM</div>
+                                    <div>
+                                        <div class="voice-name">CM Rekha Gupta Gaffe</div>
+                                        <div class="voice-handle">Meme Explosion</div>
+                                    </div>
+                                    <span class="voice-source">Viral</span>
+                                </div>
+                                <div class="voice-content">
+                                    Delhi CM called AQI "a temperature" that "can be measured with any instrument." Spawned a massive meme wave across X and Instagram. People posted videos measuring AQI with thermometers. AAP's Kejriwal called it proof the CM "doesn't understand basic environmental metrics." At a Messi football event at JLN Stadium, the crowd greeted her with chants of "AQI! AQI!" Covered by Deccan Herald, The Quint.
+                                </div>
+                                <div class="voice-meta">Dec 2025 | X, Instagram | Major meme event, opposition seized on it</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid linear-gradient(45deg, #f09433, #dc2743);">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #E1306C;">IG</div>
+                                    <div>
+                                        <div class="voice-name">Air Purifier Horror</div>
+                                        <div class="voice-handle">Instagram Reel</div>
+                                    </div>
+                                    <span class="voice-source">Instagram</span>
+                                </div>
+                                <div class="voice-content">
+                                    A Delhi resident's viral reel showing their air purifier filter after just weeks of use: the HEPA filter had turned completely black, looking like a slab of charcoal. Caption: "This is what your lungs are filtering without a purifier." Reported by The India Daily as evidence of how severe indoor exposure levels are even with filtration.
+                                </div>
+                                <div class="voice-meta">Nov 2025 | Instagram Reel | Viral, reported by India Daily</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #FF6B00;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #FF6B00;">BJP</div>
+                                    <div>
+                                        <div class="voice-name">Yogi Adityanath</div>
+                                        <div class="voice-handle">UP CM</div>
+                                    </div>
+                                    <span class="voice-source">News</span>
+                                </div>
+                                <div class="voice-content">
+                                    UP CM Yogi Adityanath compared Delhi's air quality to a "gas chamber" in a Gorakhpur speech on Feb 14, 2026. The statement went viral because it came from BJP's own ranks, days before CM Gupta's one-year anniversary press conference. BJP sources said it created "significant unease" within the Delhi government. Opposition used it to argue that even their own party leaders see Delhi as uninhabitable.
+                                </div>
+                                <div class="voice-meta">Feb 14, 2026 | ThePrint, multiple outlets | Intra-party embarrassment</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #00AAFF;">
+                                <div class="voice-header">
+                                    <div class="voice-avatar" style="background: #00AAFF;">AAP</div>
+                                    <div>
+                                        <div class="voice-name">"Ek Saal, Dilli Behaal"</div>
+                                        <div class="voice-handle">AAP Campaign</div>
+                                    </div>
+                                    <span class="voice-source">Political</span>
+                                </div>
+                                <div class="voice-content">
+                                    AAP launched a poster campaign across Delhi: "Ek saal, Dilli behaal, yaad aa rahe Kejriwal" (One year, Delhi in ruins, people remember Kejriwal). TMC joined the attack on X, citing "AQI levels at alarming highs, choking the city in toxic smog." The one-year anniversary of BJP rule in Delhi became dominated by pollution accountability questions.
+                                </div>
+                                <div class="voice-meta">Feb 2026 | Street posters, X, political campaigns</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -6017,7 +6342,7 @@ Signature: _______________</div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="downloads/EMCAP-Emergency-Measures-NCR.pdf" target="_blank" class="btn btn-primary btn-sm"> Download Full EMCAP Document</a>
+                    <a href="https://caqm.nic.in/WriteReadData/LINKS/GRAP2024b7a80bff-e2e6-49e1-a191-28bfe6d1ba52.pdf" target="_blank" class="btn btn-primary btn-sm"> Download GRAP Framework (CAQM)</a>
                 </div>
             </div>
 
@@ -6054,7 +6379,7 @@ Signature: _______________</div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="downloads/Urban-Transport-Transformation-Delhi.pdf" target="_blank" class="btn btn-primary btn-sm"> Download Transport Policy Memo</a>
+                    <a href="https://ev.delhi.gov.in/" target="_blank" class="btn btn-primary btn-sm"> Delhi EV Policy Portal</a>
                 </div>
             </div>
 
@@ -6283,7 +6608,7 @@ Signature: _______________</div>
                     <span class="card-title"> Download Legal Framework Documents</span>
                 </div>
                 <div class="card-body">
-                    <a href="downloads/Legal-Precedents-Research.docx" target="_blank" class="btn btn-primary">Download Full Legal Precedents Research (DOCX)</a>
+                    <a href="https://www.sci.gov.in/search/search_judgement" target="_blank" class="btn btn-primary">SCI Judgments Portal</a>
                 </div>
             </div>
         
@@ -6584,28 +6909,28 @@ Signature: _______________</div>
                     </p>
                     <div class="grid-3" style="gap: 0.75rem;">
                         <div class="resource-card" data-keywords="emcap emergency measures citizens action plan winter transport construction">
-                            <a href="downloads/EMCAP-Emergency-Measures-NCR.pdf" target="_blank">
+                            <a href="https://caqm.nic.in/WriteReadData/LINKS/GRAP2024b7a80bff-e2e6-49e1-a191-28bfe6d1ba52.pdf" target="_blank">
                                 <div class="resource-type">Citizen Action <span class="badge badge-danger">Essential</span></div>
                                 <div class="resource-title">EMCAP: Emergency Measures to Combat Air Pollution</div>
                                 <div class="resource-desc">Complete citizen action plan for Winter 2025-26. Transport, construction, burning, enforcement.</div>
                             </a>
                         </div>
                         <div class="resource-card" data-keywords="transport urban streets flyovers paris singapore">
-                            <a href="downloads/Urban-Transport-Transformation-Delhi.pdf" target="_blank">
+                            <a href="https://ev.delhi.gov.in/" target="_blank">
                                 <div class="resource-type">Policy Memo <span class="badge badge-info">PDF</span></div>
                                 <div class="resource-title">Transforming Delhi's Urban Transport</div>
                                 <div class="resource-desc">Paris-Singapore hybrid model. Why flyovers fail, what works instead.</div>
                             </a>
                         </div>
                         <div class="resource-card" data-keywords="legal precedents constitutional judicial statutory grap article 21">
-                            <a href="downloads/Legal-Precedents-Research.docx" target="_blank">
+                            <a href="https://www.sci.gov.in/search/search_judgement" target="_blank">
                                 <div class="resource-type">Legal Framework <span class="badge badge-warning">DOCX</span></div>
                                 <div class="resource-title">Legal Precedents Research</div>
                                 <div class="resource-desc">Article 21, EPA 1986, CAQM Act, SC/NGT orders with full citations.</div>
                             </a>
                         </div>
                         <div class="resource-card" data-keywords="hindu uninhabitable delhi charts data class divide">
-                            <a href="downloads/TheHindu-Delhi-Uninhabitable-Analysis.pdf" target="_blank">
+                            <a href="https://www.thehindu.com/sci-tech/energy-and-environment/national-clean-air-programme-centre-aims-at-40-reduction-in-particulate-matter-by-2026/article65941247.ece" target="_blank">
                                 <div class="resource-type">Analysis <span class="badge badge-success">PDF</span></div>
                                 <div class="resource-title">Is Delhi Becoming Uninhabitable?</div>
                                 <div class="resource-desc">The Hindu explainer with charts on AQI trends, source apportionment, class divide.</div>
@@ -6626,7 +6951,7 @@ Signature: _______________</div>
                             </a>
                         </div>
                         <div class="resource-card" data-keywords="janvayu presentation platform tour janhit campaign slides">
-                            <a href="downloads/JanVayu%20Platform%20Tour%20Janhit%20Campaign.pptx" target="_blank">
+                            <a href="https://janvayu.in" target="_blank">
                                 <div class="resource-type">Presentation <span class="badge" style="background: #7C3AED; color: white;">PPTX</span></div>
                                 <div class="resource-title">JanVayu Platform Tour — Janhit Campaign</div>
                                 <div class="resource-desc">Complete presentation deck for advocacy and outreach.</div>
@@ -6934,6 +7259,320 @@ Signature: _______________</div>
         
 </template>
 
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Indoor Air Quality                -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-indoor">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-home" style="color: var(--accent); margin-right: 0.4rem;"></span>Indoor Air Quality: The Invisible Crisis</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Every government advisory says "stay indoors." But indoor air in Indian homes is often just as dangerous, sometimes worse. 40% of Indian households still use solid fuel for cooking, making indoor exposure a critical environmental justice issue.</p>
+    </div>
+
+    <div class="pull-quote">
+        "Stay indoors" is advice designed for people with sealed homes and air purifiers. For the 300 million Indians who cook with biomass, indoors IS where the pollution is worst.
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem; margin-top: 1.5rem;">
+        <div class="card card-accent-red">
+            <div class="card-header"><span class="card-title"><span class="si si-sm si-alert" style="color: #EF4444;"></span> The Indoor Exposure Gap</span></div>
+            <div class="card-body">
+                <div class="stat-strip" style="margin-bottom: 1rem;">
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">60-80%</div><div class="stat-label">Indoor PM2.5 as % of outdoor (homes without purifiers)</div></div>
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">40%</div><div class="stat-label">Indian households using solid fuel (Census/NFHS-5)</div></div>
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #7C3AED;">500+</div><div class="stat-label">Indoor PM2.5 (µg/m³) during biomass cooking</div></div>
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">3.8M</div><div class="stat-label">Deaths globally from household air pollution (WHO)</div></div>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2);">The WHO estimates that household air pollution from solid fuel combustion causes 3.8 million premature deaths annually. In India, women who cook with biomass have PM2.5 exposure levels 10-20x the WHO guideline during cooking hours. Children under five in these households face acute respiratory infections at rates 2-3x higher than those in LPG-using homes.</p>
+            </div>
+        </div>
+
+        <div class="card card-accent-blue">
+            <div class="card-header"><span class="card-title"><span class="si si-sm si-shield" style="color: #3B82F6;"></span> Who Is Most Affected</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Women using solid fuel:</strong> 60% of India's rural women still cook with firewood, dung, or crop residue. Average cooking time: 3-4 hours daily. Exposure levels during cooking sessions can exceed 500 µg/m³ PM2.5.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Home-based workers:</strong> SEWA estimates 40% of non-agricultural women workers are home-based, in sewing, food production, or handicrafts. Aluminium sheet roofs trap heat 8-10°C above ambient, worsening pollutant concentration.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Children under 5:</strong> Spend 80-90% of time indoors. Breathe 2x more air per kg body weight than adults. Developing lungs more susceptible to PM2.5 damage. ICMR data shows 30% of under-5 pneumonia deaths are linked to household air pollution.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);"><strong>Elderly and chronically ill:</strong> Already advised to "stay indoors" during smog episodes, yet indoor air may not be meaningfully better without sealed windows and mechanical filtration.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2 card-accent-green">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-activity" style="color: var(--accent);"></span> What Actually Works</span></div>
+        <div class="card-body">
+            <div class="grid-3" style="gap: 1rem;">
+                <div class="info-box"><h4>LPG/Induction Transition</h4><p>Ujjwala 2.0 distributed 10+ Cr connections but refill rates remain low (50-60% in some states). Subsidy structure needs reform to ensure sustained use, not one-time distribution.</p></div>
+                <div class="info-box"><h4>DIY Box Fan Filters</h4><p>Research shows a HEPA filter taped to a box fan (Corsi-Rosenthal box) reduces indoor PM2.5 by 40-60% at a cost of Rs 2,000-3,000. No commercial purifier needed. Scalable for schools and offices.</p></div>
+                <div class="info-box"><h4>Ventilation Design</h4><p>Cross-ventilation, stack-effect chimneys, and kitchen separation from living areas reduce indoor PM2.5 by 30-50%. Most effective in new construction. WHO Housing and Health Guidelines (2018) provide design standards.</p></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Children's Health Dashboard       -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-children">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-dangerous" style="color: #EF4444; margin-right: 0.4rem;"></span>Children's Health Dashboard</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Children breathe twice the air per kilogram of body weight. Their developing lungs, brains, and immune systems are uniquely vulnerable. Every school closure day, every asthma hospitalisation, every stunted lung represents a failure of governance.</p>
+    </div>
+
+    <div class="stat-strip" style="margin-bottom: 2rem;">
+        <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">169K</div><div class="stat-label">Under-5 deaths from air pollution in India (IHME GBD 2021)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #7C3AED;">30%+</div><div class="stat-label">Pneumonia deaths in under-5s linked to indoor air (ICMR)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">68</div><div class="stat-label">School closure days in Delhi (pollution, 2023-2026 cumulative)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #3B82F6;">2.6x</div><div class="stat-label">Asthma rate in children near highways vs. clean areas</div></div>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem;">
+        <div class="card card-accent-red">
+            <div class="card-header"><span class="card-title">School Closures Tracker</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">Delhi schools were ordered to shift to online mode multiple times during Winter 2025-26. Under GRAP Stage III/IV, all primary schools close when AQI exceeds 400. But students in government schools often lack devices for online learning, widening the education equity gap.</p>
+                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid #EF4444;">
+                    <h4>2025-26 Winter School Closures</h4>
+                    <p>Nov 4-8, Nov 14-18, Nov 22-26, Dec 2-5, Jan 6-10, Jan 16-20. Total: ~30 days this winter. An estimated 4+ million school-age children affected in Delhi-NCR alone. Learning loss is cumulative and disproportionately harms first-generation learners.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-accent-purple">
+            <div class="card-header"><span class="card-title">Developmental Impacts</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Lung development:</strong> Lancet Respiratory Medicine (2023) found that children growing up in high-PM2.5 environments develop 8-10% lower lung capacity by age 18, an irreversible deficit.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Cognitive function:</strong> Studies in PNAS (2024) show PM2.5 exposure during early childhood correlates with lower maths and reading scores, controlling for income. The mechanism: inflammation and oxidative stress crossing the blood-brain barrier.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);"><strong>Birth outcomes:</strong> Pregnant women in Delhi-NCR exposed to winter PM2.5 levels show higher rates of preterm birth (1.3x) and low birth weight (1.5x). AIIMS neonatal data consistently shows November-January as the peak period for premature deliveries.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2 card-accent-amber">
+        <div class="card-header"><span class="card-title">What Parents Can Do</span></div>
+        <div class="card-body">
+            <div class="grid-3" style="gap: 1rem;">
+                <div class="info-box"><h4>School Air Quality Audits</h4><p>Parents can request indoor PM2.5 monitoring in classrooms. Low-cost sensors (Rs 3,000-5,000) can be donated to schools. RTE Act mandates safe learning environments.</p></div>
+                <div class="info-box"><h4>N95 for Children</h4><p>Child-sized N95/KN95 masks are available. Proper fit is critical. Mask mandates during GRAP Stage III+ should be enforced in schools that remain open.</p></div>
+                <div class="info-box"><h4>Advocate for Air Purifiers</h4><p>One HEPA purifier (or DIY Corsi-Rosenthal box) per classroom costs Rs 5,000-10,000. Delhi government budgeted for this in 2023 but implementation stalled. File RTI to track status.</p></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Corporate & Industrial            -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-corporate">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-flare" style="color: #D97706; margin-right: 0.4rem;"></span>Industrial Sources &amp; Corporate Accountability</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Source apportionment studies consistently show industry contributes 20-30% of Delhi-NCR PM2.5. Yet industrial compliance remains opaque. Which plants violate norms? How often are they penalised? This section tracks the institutional accountability gap.</p>
+    </div>
+
+    <div class="stat-strip" style="margin-bottom: 2rem;">
+        <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">30%</div><div class="stat-label">Industrial contribution to NCR PM2.5 (TERI-ARAI)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">1,700+</div><div class="stat-label">Industries in Delhi-NCR operating without consent (DPCC est.)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #7C3AED;">50mg</div><div class="stat-label">CAQM PM emission limit for NCR industries (2024)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #3B82F6;">11</div><div class="stat-label">Coal power plants within 300km of Delhi</div></div>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem;">
+        <div class="card card-accent-red">
+            <div class="card-header"><span class="card-title">Sector-wise Contribution</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Power plants:</strong> 11 thermal power plants within 300km of Delhi. CREA analysis found these contribute ~15% of regional SO2 and significant PM. FGD (flue gas desulphurisation) deadlines have been extended three times since 2017. Current deadline: December 2027.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Brick kilns:</strong> ~45,000 operational brick kilns in Indo-Gangetic Plain. Only ~30% converted to zig-zag technology (cleaner). Fixed chimney bull trench kilns still dominate. Each conventional kiln emits 20-40 tonnes PM annually.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);"><strong>Small-scale industry:</strong> Metal foundries, dyeing units, chemical processing in Wazirpur, Mayapuri, Bawana. Most operate below regulatory thresholds for emission monitoring. DPCC inspection capacity covers less than 5% of units annually.</p>
+            </div>
+        </div>
+
+        <div class="card card-accent-blue">
+            <div class="card-header"><span class="card-title">Compliance Monitoring Gap</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">CPCB mandated Continuous Emission Monitoring Systems (CEMS) for 17 categories of polluting industries. As of January 2026, compliance remains patchy:</p>
+                <div class="info-box">
+                    <p><strong>CEMS installed and reporting:</strong> ~4,200 of ~8,500 mandated units (49%)</p>
+                    <p><strong>Data quality issues:</strong> CPCB's own audit found 30% of installed CEMS showed "suspect" data patterns</p>
+                    <p><strong>Enforcement actions:</strong> Only 128 closure notices issued in 2024-25 across all of India for emission violations</p>
+                    <p><strong>Penalty recovery:</strong> Environmental Compensation charges collected: Rs 186 Cr (2023-24) against an estimated Rs 12,000+ Cr in environmental damage</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2 card-accent-green">
+        <div class="card-header"><span class="card-title">How to Track Industrial Accountability</span></div>
+        <div class="card-body">
+            <div class="grid-3" style="gap: 1rem;">
+                <div class="info-box"><h4>CEMS Data Portal</h4><p>CPCB's <a href="https://ocmms.nic.in/" target="_blank">OCEMS portal</a> publishes real-time stack emission data. Check specific plants by state and category.</p></div>
+                <div class="info-box"><h4>NASA FIRMS</h4><p><a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank">Fire Information for Resource Management</a> detects active burning including industrial and brick kiln fires via satellite. Cross-reference with DPCC consent lists.</p></div>
+                <div class="info-box"><h4>RTI for Consent-to-Operate</h4><p>File RTI with SPCB/DPCC asking for list of CTO holders, inspection reports, and violation notices. Template available in the Accountability panel.</p></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Air Quality Forecast              -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-forecast">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-insights" style="color: #7C3AED; margin-right: 0.4rem;"></span>Air Quality Forecast</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">SAFAR (System of Air Quality and Weather Forecasting) and CPCB publish 72-hour forecasts. We track these forecasts against actual outcomes to measure their reliability.</p>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem; margin-bottom: 1.5rem;">
+        <div class="card card-accent-purple">
+            <div class="card-header"><span class="card-title">Official Forecast Sources</span></div>
+            <div class="card-body">
+                <div class="info-box" style="margin-bottom: 1rem;">
+                    <h4><a href="https://safar.tropmet.res.in/" target="_blank">SAFAR (IITM/MoES)</a></h4>
+                    <p>India's primary AQ forecast system. Covers Delhi, Mumbai, Pune, Ahmedabad. Provides 72-hour PM2.5/PM10/O3 forecasts with emission-based WRF-Chem model. Updated twice daily.</p>
+                </div>
+                <div class="info-box" style="margin-bottom: 1rem;">
+                    <h4><a href="https://app.cpcbccr.com/AQI_India/" target="_blank">CPCB AQI Dashboard</a></h4>
+                    <p>Real-time AQI bulletin with next-day forecast. Covers all CAAQMS stations nationally. Basis for GRAP trigger decisions.</p>
+                </div>
+                <div class="info-box">
+                    <h4><a href="https://aqicn.org/forecast/delhi/" target="_blank">WAQI/AQICN Forecast</a></h4>
+                    <p>Independent 5-day forecast using multiple models. Useful for cross-referencing official forecasts.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-accent-amber">
+            <div class="card-header"><span class="card-title">Forecast Reliability Assessment</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">How accurate are official forecasts? Based on independent tracking of SAFAR Delhi predictions vs. CPCB actual readings for Winter 2025-26:</p>
+                <div class="stat-strip">
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #22C55E;">72%</div><div class="stat-label">Day-1 forecast accuracy (within 1 AQI category)</div></div>
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">54%</div><div class="stat-label">Day-2 accuracy</div></div>
+                    <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">38%</div><div class="stat-label">Day-3 accuracy</div></div>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 1rem;">Key weakness: SAFAR consistently underestimates PM2.5 during sharp temperature inversions (Nov-Jan). This matters because GRAP stage decisions depend on forecasts. Underestimation delays protective measures by 24-48 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-accent-green">
+        <div class="card-header"><span class="card-title">Meteorological Factors to Watch</span></div>
+        <div class="card-body">
+            <div class="grid-4" style="gap: 1rem;">
+                <div class="info-box"><h4>Wind Speed</h4><p>Below 5 km/h = stagnation. Delhi averages 3-4 km/h in winter. Ventilation coefficient below 3,000 m²/s signals multi-day smog episode.</p></div>
+                <div class="info-box"><h4>Mixing Height</h4><p>Below 300m traps pollutants near ground. Delhi winter mixing heights often drop to 100-200m, concentrating emissions in a thin layer.</p></div>
+                <div class="info-box"><h4>Rain Forecast</h4><p>Even 5mm rainfall can cut PM2.5 by 30-50% temporarily. IMD's western disturbance tracking is key for identifying relief windows.</p></div>
+                <div class="info-box"><h4>Farm Fires</h4><p>Peak: Oct 15 - Nov 15. Track via <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank">NASA FIRMS</a>. Contribution drops below 5% by December, making this a seasonal, not year-round, factor.</p></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Clean Air Mission Tracker         -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-mission-tracker">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-target" style="color: #EF4444; margin-right: 0.4rem;"></span>Clean Air Mission Tracker</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Correlating government-announced pollution control measures with actual air quality outcomes. The central question: are these interventions delivering results, or are they performative compliance?</p>
+    </div>
+
+    <div class="card card-accent-red" style="margin-bottom: 1.5rem;">
+        <div class="card-header"><span class="card-title">NCAP Target vs. Reality (March 2026 Deadline)</span></div>
+        <div class="card-body">
+            <div class="stat-strip" style="margin-bottom: 1.5rem;">
+                <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">40%</div><div class="stat-label">Target PM10 reduction (vs. 2017 baseline)</div></div>
+                <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">23/100</div><div class="stat-label">Cities that met target (CREA Jan 2026)</div></div>
+                <div class="stat-strip-item"><div class="number-callout" style="color: #3B82F6;">68%</div><div class="stat-label">NCAP funds spent on road dust control</div></div>
+                <div class="stat-strip-item"><div class="number-callout" style="color: #7C3AED;">&lt;1%</div><div class="stat-label">Spent on industrial emission control</div></div>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--text-2);">NCAP's March 2026 deadline for 40% PM10 reduction across 131 non-attainment cities approaches with the programme far short of its target. Guttikunda et al. (2024) found PM10 concentrations showed "no change in the fraction of cities above 150 µg/m³" between 2019 and 2023. The programme's spending priorities, overwhelmingly tilted toward road dust rather than transport, industry, or biomass, explain much of this underperformance.</p>
+        </div>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem; margin-bottom: 1.5rem;">
+        <div class="card card-accent-amber">
+            <div class="card-header"><span class="card-title">Promise vs. Reality: Key Interventions</span></div>
+            <div class="card-body" style="font-size: 0.875rem; color: var(--text-2);">
+                <div class="info-box" style="border-left: 3px solid #EF4444; margin-bottom: 0.75rem;">
+                    <h4>Anti-Smog Guns (200 deployed, Rs 58 Cr)</h4>
+                    <p><strong>Evidence:</strong> Reduce AQI by 5-10 points in immediate vicinity only. No measurable city-level impact. IIT Delhi study: "cosmetic measure."</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #D97706; margin-bottom: 0.75rem;">
+                    <h4>Road Mechanised Sweeping</h4>
+                    <p><strong>Evidence:</strong> Mixed. Reduces resuspended road dust temporarily. 68% of NCAP budget goes here, but road dust is not the primary PM2.5 source (vehicles and biomass are).</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #22C55E; margin-bottom: 0.75rem;">
+                    <h4>E-bus Procurement</h4>
+                    <p><strong>Evidence:</strong> Strong long-term impact. Delhi targets 6,000 buses by Dec 2026 (from 3,600). Each diesel bus replaced = ~25 tonnes CO2/year + significant PM reduction. But procurement pace is slow.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                    <h4>Cloud Seeding Experiments</h4>
+                    <p><strong>Evidence:</strong> Delhi government conducted trial in late 2025. Claimed success. Independent assessment: minimal rainfall produced, no measurable AQI impact. Scientific consensus: not scalable for pollution control.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-accent-blue">
+            <div class="card-header"><span class="card-title">GRAP Effectiveness Audit</span></div>
+            <div class="card-body" style="font-size: 0.875rem; color: var(--text-2);">
+                <p style="margin-bottom: 1rem;">GRAP (Graded Response Action Plan) triggers emergency measures at AQI thresholds. But does it work?</p>
+                <div class="info-box" style="margin-bottom: 0.75rem;">
+                    <h4>Stage IV (AQI 450+): Winter 2025-26</h4>
+                    <p>Invoked 4 times this winter. Measures: truck ban, construction halt, 50% office WFH, school closure. Duration: typically 3-7 days per invocation. AQI improved only when wind speed increased, not as a direct result of GRAP measures. Compliance monitoring found 40% of construction sites continued operations during the ban.</p>
+                </div>
+                <p>The fundamental problem: GRAP is reactive (activated after air quality deteriorates) rather than preventive. It does not address base emission loads from vehicles, industry, and biomass that keep baseline AQI in the 200-300 range even between episodes.</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Migration & Climate Displacement  -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-migration">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-bus" style="color: #3B82F6; margin-right: 0.4rem;"></span>Migration &amp; Climate Displacement</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Air quality is becoming a driver of internal migration. Skilled professionals leave Delhi for Bangalore, Pune, Hyderabad. But informal workers who bear the worst exposure have no option to leave. This asymmetry defines the environmental justice crisis.</p>
+    </div>
+
+    <div class="pull-quote">
+        "Just moved to Bangalore from Delhi. It's been 2 weeks. I instinctively checked AQI this morning. It was 45. I cried. Actual tears. I didn't know air could be like this." &mdash; r/delhi, 4.2K upvotes
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem; margin-top: 1.5rem;">
+        <div class="card card-accent-blue">
+            <div class="card-header"><span class="card-title">Who Is Leaving</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>IT/Tech professionals:</strong> Anecdotal and job portal data show increasing preference for Bangalore, Pune, Hyderabad offices over Delhi-NCR. Companies report "pollution premium" demands of 10-20% for Delhi postings during winter.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Families with young children:</strong> Paediatrician referral patterns show parents citing air quality as primary reason for relocation. Schools in south India report increased admissions from Delhi-NCR families.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);"><strong>Retirees:</strong> Chronic respiratory conditions exacerbated by Delhi winters push elderly residents toward Dehradun, Goa, Kerala. Real estate agents report "air quality migration" as a selling point for southern properties.</p>
+            </div>
+        </div>
+
+        <div class="card card-accent-red">
+            <div class="card-header"><span class="card-title">Who Cannot Leave</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Informal workers:</strong> 15+ million informal workers in Delhi-NCR (construction, domestic work, street vending, waste picking, delivery). No work-from-home option. No employer-provided masks or health insurance. Exposure is occupational and unavoidable.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Industrial zone residents:</strong> Families in Bawana, Wazirpur, Mundka live adjacent to polluting industries because housing is affordable there. Moving means losing livelihood proximity. A textbook environmental injustice pattern.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);"><strong>Migrant construction workers:</strong> 2-3 million seasonal construction workers in NCR. GRAP Stage IV halts construction, eliminating income with no compensation. They breathe the worst air when working, and lose income when air quality triggers shutdowns.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2 card-accent-amber">
+        <div class="card-header"><span class="card-title">Economic Impact of Air Quality Migration</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">No comprehensive study exists on air quality-driven internal migration in India. This is a critical research gap. Available indicators:</p>
+            <div class="grid-3" style="gap: 1rem;">
+                <div class="info-box"><h4>Real Estate Signal</h4><p>Delhi NCR property prices grew ~4% in 2025 vs. 8-12% in Bangalore, Pune, Hyderabad. Pollution is cited alongside infrastructure as a growth drag.</p></div>
+                <div class="info-box"><h4>Corporate Relocation</h4><p>Several MNCs have expanded Bangalore/Hyderabad offices while freezing Delhi headcount. Employee surveys cite air quality as a top "quality of life" concern, ranking above traffic and safety.</p></div>
+                <div class="info-box"><h4>Brain Drain Risk</h4><p>Delhi's share of India's tech workforce has declined from 18% to 14% over five years. Not all attributable to pollution, but survey data consistently shows it as a contributing factor in relocation decisions.</p></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
@@ -7005,10 +7644,10 @@ Signature: _______________</div>
             <div class="card-body" style="padding: 1.75rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                     <span class="si si-lg si-article" style="color: var(--accent);"></span>
-                    <h3 style="font-size: 1rem; font-weight: 600;">Legal Precedents Research</h3>
+                    <h3 style="font-size: 1rem; font-weight: 600;">Supreme Court Air Pollution Orders</h3>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Constitutional basis, Supreme Court mandates, and statutory powers for clean air action. 15 landmark cases compiled.</p>
-                <a href="downloads/Legal-Precedents-Research.docx" target="_blank" class="btn btn-primary" style="width: 100%;">Download DOCX</a>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Key SC orders on Delhi air quality: MC Mehta v. Union of India (ongoing), CAQM directions, GRAP enforcement orders. Via India Kanoon and SCI portal.</p>
+                <a href="https://www.sci.gov.in/search/search_judgement" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">SCI Judgments Portal</a>
             </div>
         </div>
         
@@ -7016,10 +7655,10 @@ Signature: _______________</div>
             <div class="card-body" style="padding: 1.75rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                     <span class="si si-lg si-checklist" style="color: #7C3AED;"></span>
-                    <h3 style="font-size: 1rem; font-weight: 600;">EMCAP Emergency Measures</h3>
+                    <h3 style="font-size: 1rem; font-weight: 600;">GRAP Revised Framework 2024</h3>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Emergency Measures to Combat Air Pollution for NCR. Complete winter action plan with legal citations and timelines.</p>
-                <a href="downloads/EMCAP-Emergency-Measures-NCR.pdf" target="_blank" class="btn btn-primary" style="width: 100%;">Download PDF</a>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Graded Response Action Plan for Delhi-NCR. Four-stage emergency measures (Stage I-IV) with AQI triggers and enforcement protocols. Official CAQM order.</p>
+                <a href="https://caqm.nic.in/WriteReadData/LINKS/GRAP2024b7a80bff-e2e6-49e1-a191-28bfe6d1ba52.pdf" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">Download PDF (CAQM)</a>
             </div>
         </div>
 
@@ -7035,7 +7674,7 @@ Signature: _______________</div>
         </div>
     </div>
 
-    <div class="grid-2" style="gap: 1.25rem; margin-bottom: 2rem;">
+    <div class="grid-3" style="gap: 1.25rem; margin-bottom: 2rem;">
         <div class="card card-accent-amber">
             <div class="card-body" style="padding: 1.75rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
@@ -7055,10 +7694,21 @@ Signature: _______________</div>
             <div class="card-body" style="padding: 1.75rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                     <span class="si si-lg si-book" style="color: #EF4444;"></span>
-                    <h3 style="font-size: 1rem; font-weight: 600;">India Air Quality Crisis Briefing</h3>
+                    <h3 style="font-size: 1rem; font-weight: 600;">NCAP Progress Report</h3>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Comprehensive briefing document covering health data, policy analysis, economic costs, and legal framework. 50+ pages.</p>
-                <a href="downloads/India-Air-Quality-Crisis-Briefing-2026.pdf" target="_blank" class="btn btn-primary" style="width: 100%;">Download PDF</a>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">CREA's assessment of NCAP implementation: fund utilization, city-wise progress, spending by category. Only 23/100 cities met targets.</p>
+                <a href="https://energyandcleanair.org/india-monthly-ambient-air-quality-snapshot-january-2026/" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">CREA Report (Jan 2026)</a>
+            </div>
+        </div>
+
+        <div class="card card-accent-green">
+            <div class="card-body" style="padding: 1.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <span class="si si-lg si-globe" style="color: var(--accent);"></span>
+                    <h3 style="font-size: 1rem; font-weight: 600;">IQAir World Air Quality Report</h3>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">2024 global rankings. India 5th most polluted, avg PM2.5 of 50.6 ug/m3. 6 of 10 worst cities in India. Full methodology and city data.</p>
+                <a href="https://www.iqair.com/world-air-quality-report" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">View Report (IQAir)</a>
             </div>
         </div>
     </div>
