@@ -711,33 +711,27 @@ a:hover { color: var(--accent-hover); }
 }
 .icon-btn:hover { background: var(--bg-section); color: var(--text); }
 
-/* ── Section Nav (horizontal scroll) ─── */
+/* ── Section Nav (dropdown groups) ─── */
 .section-nav {
     position: sticky;
     top: var(--header-h);
     z-index: 90;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
-    overflow: hidden;
     width: 100%;
-    max-width: 100vw;
-    box-sizing: border-box;
 }
-.section-nav .nav-scroll {
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 40px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 40px), transparent 100%);
-}
-.section-nav .nav-scroll::-webkit-scrollbar { display: none; }
 .section-nav .container {
     display: flex;
     gap: 0;
     height: 42px;
-    min-width: max-content;
-    padding-right: 24px;
+    align-items: stretch;
+    justify-content: center;
+}
+.nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 .nav-link {
     font-family: var(--sans);
@@ -746,11 +740,12 @@ a:hover { color: var(--accent-hover); }
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-2);
-    padding: 0 16px;
+    padding: 0 14px;
     white-space: nowrap;
     border-bottom: 2px solid transparent;
     display: flex;
     align-items: center;
+    gap: 4px;
     height: 100%;
     transition: all 0.15s;
     cursor: pointer;
@@ -760,7 +755,52 @@ a:hover { color: var(--accent-hover); }
     border-left: none;
     border-right: none;
 }
-.nav-link:hover { color: var(--text-2); text-decoration: none; }
+.nav-link:hover { color: var(--accent); text-decoration: none; }
+.nav-link.active, .nav-item.has-active > .nav-link { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
+.nav-caret {
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
+    border-top: 4px solid currentColor;
+    margin-left: 2px;
+    opacity: 0.5;
+    transition: transform 0.15s;
+}
+.nav-item:hover .nav-caret { transform: rotate(180deg); opacity: 1; }
+.nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 180px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    padding: 6px 0;
+    z-index: 100;
+}
+.nav-item:hover .nav-dropdown { display: block; }
+.nav-dropdown-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 16px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s;
+    white-space: nowrap;
+}
+.nav-dropdown-link:hover { background: var(--green-50); color: var(--accent); }
+.nav-dropdown-link.active { color: var(--accent); font-weight: 600; }
+.nav-link:hover { color: var(--accent); text-decoration: none; }
 .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
 
 
@@ -1686,9 +1726,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .hero h1 { font-size: 1.6rem; }
     .section-intro h2 { font-size: 1.35rem !important; }
     .section-intro p { font-size: 0.9375rem !important; }
-    .nav-link { padding: 0 10px; font-size: 0.65rem; }
-    .section-nav .nav-scroll { mask-image: linear-gradient(to right, transparent 0, black 12px, black calc(100% - 24px), transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0, black 12px, black calc(100% - 24px), transparent 100%); }
-    .section-nav .container { height: 38px; padding-right: 16px; }
     .card-body { padding: 1rem; }
     .card-header { padding: 0.75rem 1rem; }
     .stat-value { font-size: 1.5rem; }
@@ -1848,33 +1885,58 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     </div>
 
     <!-- SECTION NAV -->
-    <nav class="section-nav">
-        <div class="nav-scroll">
+    <nav class="section-nav" id="sectionNav">
         <div class="container">
-            <button class="nav-link active" data-panel="dashboard">Dashboard</button>
-            <button class="nav-link" data-panel="health">Health</button>
-            <button class="nav-link" data-panel="economic">Economic</button>
-            <button class="nav-link" data-panel="policy">Policy</button>
-            <button class="nav-link" data-panel="budget">Budget</button>
-            <button class="nav-link" data-panel="accountability">Accountability</button>
-            <button class="nav-link" data-panel="compare">Compare</button>
-            <button class="nav-link" data-panel="map">Map</button>
-            <button class="nav-link" data-panel="trends">Trends</button>
-            <button class="nav-link" data-panel="voices">Voices</button>
-            <button class="nav-link" data-panel="actions">Actions</button>
-            <button class="nav-link" data-panel="citizen-action">Citizen Plan</button>
-            <button class="nav-link" data-panel="legal">Legal</button>
-            <button class="nav-link" data-panel="tools">Tools</button>
-            <button class="nav-link" data-panel="resources">Library</button>
-            <button class="nav-link" data-panel="downloads">Downloads</button>
-            <button class="nav-link" data-panel="indoor">Indoor</button>
-            <button class="nav-link" data-panel="children">Children</button>
-            <button class="nav-link" data-panel="corporate">Industry</button>
-            <button class="nav-link" data-panel="forecast">Forecast</button>
-            <button class="nav-link" data-panel="mission-tracker">Mission</button>
-            <button class="nav-link" data-panel="migration">Migration</button>
-            <button class="nav-link" data-panel="about">About</button>
-        </div>
+            <div class="nav-item">
+                <button class="nav-link active" data-panel="dashboard">Dashboard</button>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="health">Data &amp; Health <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="health">Health Impact</button>
+                    <button class="nav-dropdown-link" data-panel="economic">Economic Cost</button>
+                    <button class="nav-dropdown-link" data-panel="children">Children's Health</button>
+                    <button class="nav-dropdown-link" data-panel="indoor">Indoor Air</button>
+                    <button class="nav-dropdown-link" data-panel="trends">Historical Trends</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="compare">Monitoring <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="compare">City Comparison</button>
+                    <button class="nav-dropdown-link" data-panel="map">Live Map</button>
+                    <button class="nav-dropdown-link" data-panel="forecast">AQI Forecast</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="policy">Accountability <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="policy">Policy Effectiveness</button>
+                    <button class="nav-dropdown-link" data-panel="budget">Budget Tracker</button>
+                    <button class="nav-dropdown-link" data-panel="accountability">Political</button>
+                    <button class="nav-dropdown-link" data-panel="corporate">Industrial Sources</button>
+                    <button class="nav-dropdown-link" data-panel="mission-tracker">Mission Tracker</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="actions">Action <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="actions">Take Action</button>
+                    <button class="nav-dropdown-link" data-panel="citizen-action">Citizen Plan</button>
+                    <button class="nav-dropdown-link" data-panel="legal">Legal Framework</button>
+                    <button class="nav-dropdown-link" data-panel="voices">Citizen Voices</button>
+                    <button class="nav-dropdown-link" data-panel="migration">Migration</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="resources">Resources <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="tools">Tools</button>
+                    <button class="nav-dropdown-link" data-panel="resources">Research Library</button>
+                    <button class="nav-dropdown-link" data-panel="downloads">Downloads</button>
+                    <button class="nav-dropdown-link" data-panel="about">About &amp; Changelog</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -2233,10 +2295,24 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
     // ── Navigation ──
     function showPanel(panelId) {
-        // Update nav
+        // Update top-level nav active states
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        const activeNav = document.querySelector(`.nav-link[data-panel="${panelId}"]`);
-        if (activeNav) { activeNav.classList.add('active'); activeNav.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('has-active'));
+        document.querySelectorAll('.nav-dropdown-link').forEach(l => l.classList.remove('active'));
+
+        // Mark the dropdown link active
+        const dropLink = document.querySelector(`.nav-dropdown-link[data-panel="${panelId}"]`);
+        if (dropLink) {
+            dropLink.classList.add('active');
+            const parentItem = dropLink.closest('.nav-item');
+            if (parentItem) parentItem.classList.add('has-active');
+        }
+
+        // Also check top-level direct links (Dashboard)
+        const directLink = document.querySelector(`.nav-item > .nav-link[data-panel="${panelId}"]`);
+        if (directLink && !directLink.querySelector('.nav-caret')) {
+            directLink.classList.add('active');
+        }
 
         // Dashboard is special (always visible as hero)
         if (panelId === 'dashboard') {
@@ -2252,6 +2328,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         
         // Scroll to panel
         document.getElementById('panel-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Update mobile nav active state
+        document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+        const mobileItem = document.querySelector(`.mobile-nav-item[data-panel="${panelId}"]`);
+        if (mobileItem) mobileItem.classList.add('active');
     }
 
     function loadPanel(panelId) {
@@ -2564,7 +2645,16 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         console.log('[JanVayu] Initializing redesigned version...');
 
         // Nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
+        // Desktop nav: top-level links (direct, like Dashboard)
+        document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // If this link has a dropdown, clicking it goes to its default panel
+                showPanel(link.dataset.panel);
+            });
+        });
+
+        // Desktop nav: dropdown links
+        document.querySelectorAll('.nav-dropdown-link').forEach(link => {
             link.addEventListener('click', () => showPanel(link.dataset.panel));
         });
 
@@ -2573,11 +2663,19 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             item.addEventListener('click', () => {
                 showPanel(item.dataset.panel);
                 closeMobileMenu();
-                // Update active state
-                document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
             });
         });
+
+        // Anchor link routing: load panel from URL hash
+        function handleHash() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && hash !== 'dashboard') {
+                const tmpl = document.getElementById('tmpl-' + hash);
+                if (tmpl) { showPanel(hash); }
+            }
+        }
+        handleHash();
+        window.addEventListener('hashchange', handleHash);
 
         try { await fetchAllAQI(); } catch(e) { console.error(e); }
         try { initAllCharts(); } catch(e) { console.error(e); }
@@ -7636,11 +7734,117 @@ Signature: _______________</div>
             </div>
         </div>
     </div>
+
+    <!-- FULL CHANGELOG -->
+    <div class="card mt-2">
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
+        <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+            <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v22.0 &mdash; 23 Feb 2026</div>
+                    <strong>Navigation overhaul, city selector, 6 new sections</strong><br>
+                    &bull; Replaced horizontal scrolling nav with dropdown-grouped navigation (7 top-level items)<br>
+                    &bull; Added hamburger slide-out menu for mobile (grouped into 5 categories)<br>
+                    &bull; Anchor link support: all sections now shareable via URL hash (e.g. #health, #forecast)<br>
+                    &bull; Hero PM2.5 card: city dropdown selector with 30+ cities (metros, NCR, tier 1, tier 2)<br>
+                    &bull; Added 14 new cities: Chandigarh, Varanasi, Agra, Bhopal, Indore, Nagpur, Kochi, Visakhapatnam, Thiruvananthapuram, Coimbatore, Muzaffarpur, Gaya, Raipur, Jodhpur, Guwahati, Dehradun, Amritsar<br>
+                    &bull; 6 new sections: Indoor Air Quality, Children's Health Dashboard, Industrial Sources &amp; Corporate Accountability, AQI Forecast, Clean Air Mission Tracker, Migration &amp; Climate Displacement<br>
+                    &bull; Full version history changelog added to About section<br>
+                    &bull; Total: 22 content sections, 30+ monitored cities
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v21.0 &mdash; 23 Feb 2026</div>
+                    <strong>Content updates, download fixes, nav visibility</strong><br>
+                    &bull; Fixed nav bar visibility: ink-faint colour darkened for both light and dark modes<br>
+                    &bull; Dark mode --text-4 changed from #4a4a44 to #8a8a82 for legibility<br>
+                    &bull; 6 new social media voice-cards: @rishabhhshukla oxygen mask reel, Superman meme, Rekha Gupta AQI gaffe, air purifier charcoal reel, Yogi Adityanath "gas chamber" remark, AAP "Ek Saal Dilli Behaal" campaign<br>
+                    &bull; All fake download links replaced with real external sources (SCI portal, CAQM GRAP PDF, CREA report, IQAir report, Delhi EV Policy portal)<br>
+                    &bull; Zero remaining broken download links
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v20.0 &mdash; 23 Feb 2026</div>
+                    <strong>Chart bug fix, mobile responsiveness, latest content</strong><br>
+                    &bull; Fixed Chart.js TypeError: metroCtx.createLinearGradient called on canvas element instead of 2D context. All 10 Chart.js instances now functional<br>
+                    &bull; Comprehensive mobile breakpoints at 480px, 768px, 769-1024px<br>
+                    &bull; 5 new voice-cards: Reddit r/india viral post, Bloomberg India Gate longform, Washington Post "9 cigarettes/day" analysis, BusinessToday industrialisation debate, Mumbai Climate Week coverage<br>
+                    &bull; 8 new Research Library entries: IMPRI seminars, MCW/ICW coverage, CREA Jan 2026 snapshot, IQAir Feb 2026 alert, Guttikunda et al. NCAP assessment, digital activism study<br>
+                    &bull; 4 new timeline entries for Jan-Feb 2026
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v19.0 &mdash; 22 Feb 2026</div>
+                    <strong>Editorial redesign with Sargam Icons</strong><br>
+                    &bull; Complete visual overhaul: tab-based layout replaced with editorial scroll format<br>
+                    &bull; Typography: Newsreader serif, DM Sans, JetBrains Mono<br>
+                    &bull; Sargam Icons v1.6.7 integrated via CSS mask-image (40+ icons), all emoji removed<br>
+                    &bull; Layout variety system: pull-quote, stat-strip, card-accent, number-callout variants<br>
+                    &bull; Two main bar charts upgraded to horizontal bars with rounded corners<br>
+                    &bull; Downloads section added (5 cards), Research Library renamed, footer updated with IT Act compliance
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v18.0 &mdash; 22 Feb 2026</div>
+                    <strong>Icon system and UI polish</strong><br>
+                    &bull; Sargam Icons integrated, icon size constraints applied globally<br>
+                    &bull; Viewport fixes for overflow issues<br>
+                    &bull; Card styling refinements, dark mode improvements
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v15.0-17.0 &mdash; Feb 2026</div>
+                    <strong>15-panel extraction and editorial framework</strong><br>
+                    &bull; Extracted 15 content panels from monolithic page into template-based system<br>
+                    &bull; Section navigation with panel switching<br>
+                    &bull; Environmental justice content: impacts on Dalit communities, women using solid fuel, informal workers<br>
+                    &bull; PM2.5-primary reporting methodology aligned with WHO 2021 guidelines<br>
+                    &bull; GEMM model health calculator integration
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v10.0-14.0 &mdash; Feb 2026</div>
+                    <strong>Core platform features</strong><br>
+                    &bull; Live AQI data integration via WAQI API for 16 Indian cities + 3 international<br>
+                    &bull; Health impact calculator with GEMM exposure-response functions<br>
+                    &bull; Economic cost analysis (Lancet Commission, World Bank methodology)<br>
+                    &bull; NCAP budget tracker with fund utilisation analysis<br>
+                    &bull; Political accountability: MoEFCC spending, CAQM compliance, RTI templates<br>
+                    &bull; Global comparison panel (Beijing, London, Singapore benchmarks)<br>
+                    &bull; Interactive Leaflet.js map with live station markers<br>
+                    &bull; Dark mode with comprehensive colour system
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v5.0-9.0 &mdash; Jan-Feb 2026</div>
+                    <strong>Research integration and content depth</strong><br>
+                    &bull; Comprehensive briefing document: 50+ pages covering health data, policy analysis, economic costs, legal framework<br>
+                    &bull; Partnership with UrbanEmissions.info (Dr. Sarath Guttikunda)<br>
+                    &bull; Historical trends panel with timeline from 1981 Air Act to present<br>
+                    &bull; Legal framework: Supreme Court orders, NGT rulings, Article 21 right to clean air<br>
+                    &bull; Citizen action planning tools and advocacy guides
+                </div>
+
+                <div>
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v1.0-4.0 &mdash; Jan 2026</div>
+                    <strong>Platform foundation</strong><br>
+                    &bull; Initial JanVayu (Vayu Smriti) concept and architecture<br>
+                    &bull; Single-page HTML application with vanilla JavaScript<br>
+                    &bull; Chart.js integration for data visualisation<br>
+                    &bull; WAQI API integration for live air quality data<br>
+                    &bull; Basic dashboard with Delhi-focused AQI monitoring<br>
+                    &bull; GitHub repository setup and deployment
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
 </template>
-
-
-
-
 <template id="tmpl-downloads">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-download" style="color: var(--accent); margin-right: 0.4rem;"></span>Downloads &amp; Documents</h2>
