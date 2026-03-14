@@ -3037,18 +3037,66 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             posts = posts.concat(SOCIAL_CACHE.reddit);
         }
 
-        // Add curated X/Twitter embeds (free via intent links and oEmbed-style cards)
+        // Fetch Twitter/X via Netlify Function (Nitter RSS proxy), fallback to curated links
         if (filter === 'all' || filter === 'twitter') {
-            posts = posts.concat(getCuratedTwitterPosts());
+            try {
+                const tRes = await fetch('/.netlify/functions/twitter-feed');
+                if (tRes.ok) {
+                    const tData = await tRes.json();
+                    if (tData.posts && tData.posts.length > 0) {
+                        posts = posts.concat(tData.posts.map(p => ({
+                            platform: 'twitter', title: p.text, url: p.link,
+                            created: new Date(p.date), author: p.author, text: p.description?.substring(0, 200) || ''
+                        })));
+                    } else {
+                        posts = posts.concat(getCuratedTwitterPosts());
+                    }
+                } else {
+                    posts = posts.concat(getCuratedTwitterPosts());
+                }
+            } catch(e) {
+                posts = posts.concat(getCuratedTwitterPosts());
+            }
         }
 
-        // Add curated Instagram references
+        // Fetch Instagram via Netlify Function (RSS Bridge proxy), fallback to curated links
         if (filter === 'all' || filter === 'instagram') {
-            posts = posts.concat(getCuratedInstagramPosts());
+            try {
+                const iRes = await fetch('/.netlify/functions/instagram-feed');
+                if (iRes.ok) {
+                    const iData = await iRes.json();
+                    if (iData.posts && iData.posts.length > 0) {
+                        posts = posts.concat(iData.posts.map(p => ({
+                            platform: 'instagram', title: p.title || p.content?.substring(0, 80),
+                            url: p.link, created: new Date(p.date), author: p.author,
+                            text: p.content?.substring(0, 200) || '', thumbnail: p.image || null
+                        })));
+                    } else {
+                        posts = posts.concat(getCuratedInstagramPosts());
+                    }
+                } else {
+                    posts = posts.concat(getCuratedInstagramPosts());
+                }
+            } catch(e) {
+                posts = posts.concat(getCuratedInstagramPosts());
+            }
         }
 
-        // News from Reddit
+        // News from Netlify Function (Google News RSS proxy), fallback to Reddit
         if (filter === 'all' || filter === 'news') {
+            try {
+                const nRes = await fetch('/.netlify/functions/news-proxy');
+                if (nRes.ok) {
+                    const nData = await nRes.json();
+                    if (nData.articles && nData.articles.length > 0) {
+                        posts = posts.concat(nData.articles.slice(0, 10).map(a => ({
+                            platform: 'news', title: a.title, url: a.link,
+                            created: new Date(a.date), author: a.source, text: a.snippet || ''
+                        })));
+                    }
+                }
+            } catch(e) {}
+            // Also add Reddit news as supplementary
             try {
                 const newsResults = await fetchRedditPosts('worldnews', 'India air pollution', 5);
                 posts = posts.concat(newsResults);
@@ -3142,12 +3190,26 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
         const now = Date.now();
         if (!newsCache.articles || now - newsCache.lastFetch > 30 * 60 * 1000) {
+            // Try Google News via Netlify proxy first, fallback to Reddit
+            let proxyArticles = [];
+            try {
+                const nRes = await fetch('/.netlify/functions/news-proxy' + (filter !== 'all' ? `?category=${filter}` : ''));
+                if (nRes.ok) {
+                    const nData = await nRes.json();
+                    proxyArticles = (nData.articles || []).map(a => ({
+                        platform: 'news', title: a.title, url: a.link,
+                        created: new Date(a.date), author: a.source, text: a.snippet || '',
+                        sub: a.category, score: 0, comments: 0
+                    }));
+                }
+            } catch(e) {}
+            // Also fetch from Reddit as supplementary
             const allNews = await Promise.all([
                 fetchRedditPosts('india', 'air pollution OR AQI OR smog OR NCAP OR CPCB', 15),
                 fetchRedditPosts('indianews', 'pollution OR air quality OR PM2.5', 10),
                 fetchRedditPosts('environment', 'India air pollution', 5)
             ]);
-            newsCache.articles = allNews.flat().map(p => ({ ...p, platform: 'news' }));
+            newsCache.articles = [...proxyArticles, ...allNews.flat().map(p => ({ ...p, platform: 'news' }))];
             newsCache.lastFetch = now;
         }
 
