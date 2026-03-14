@@ -1706,7 +1706,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <div class="mobile-nav-group-label">Monitoring</div>
                 <button class="mobile-nav-item" data-panel="compare">City Comparison</button>
                 <button class="mobile-nav-item" data-panel="map">Live Map</button>
+                <button class="mobile-nav-item" data-panel="hyperlocal">Hyperlocal</button>
                 <button class="mobile-nav-item" data-panel="forecast">AQI Forecast</button>
+                <button class="mobile-nav-item" data-panel="correlations">Correlations</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label">Accountability</div>
@@ -1715,6 +1717,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="mobile-nav-item" data-panel="accountability">Political</button>
                 <button class="mobile-nav-item" data-panel="corporate">Industrial Sources</button>
                 <button class="mobile-nav-item" data-panel="mission-tracker">Mission Tracker</button>
+                <button class="mobile-nav-item" data-panel="scorecards">Scorecards</button>
                 <button class="mobile-nav-item" data-panel="progress">Clean Air Wins</button>
             </div>
             <div class="mobile-nav-group">
@@ -1723,7 +1726,21 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="mobile-nav-item" data-panel="citizen-action">Citizen Plan</button>
                 <button class="mobile-nav-item" data-panel="legal">Legal Framework</button>
                 <button class="mobile-nav-item" data-panel="voices">Citizen Voices</button>
+                <button class="mobile-nav-item" data-panel="social-feed">Social Media Feed</button>
+                <button class="mobile-nav-item" data-panel="live-news">Live News</button>
                 <button class="mobile-nav-item" data-panel="migration">Migration &amp; Displacement</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">Tools</div>
+                <button class="mobile-nav-item" data-panel="go-outside">Should I Go Outside?</button>
+                <button class="mobile-nav-item" data-panel="aqi-alerts">AQI Alerts</button>
+                <button class="mobile-nav-item" data-panel="school-closure">School Closures</button>
+                <button class="mobile-nav-item" data-panel="exposure-report">Exposure Report</button>
+                <button class="mobile-nav-item" data-panel="purifier-calc">Purifier Calculator</button>
+                <button class="mobile-nav-item" data-panel="migration-calc">Migration Calculator</button>
+                <button class="mobile-nav-item" data-panel="rti-assistant">RTI Assistant</button>
+                <button class="mobile-nav-item" data-panel="pollution-calendar">Pollution Calendar</button>
+                <button class="mobile-nav-item" data-panel="data-archive">Data Archive</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label">Resources</div>
@@ -2043,7 +2060,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <p><strong>Disclaimer:</strong> JanVayu is an independent, non-partisan, citizen-led platform for educational and informational purposes only. Not affiliated with any government body or commercial entity.</p>
                 <p><strong>Data:</strong> Air quality data sourced from WAQI API, CPCB CAAQMS, and third-party networks. Health risk estimates are population-level and should not replace medical consultation.</p>
                 <p><strong>License:</strong> Code: MIT License. Content: CC BY-NC-SA 4.0.</p>
-                <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: janvayu@mmsf.in</p>
+                <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: talktous@janvayu.in</p>
             </div>
             <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | #AQIForJanHit</div>
         </div>
@@ -2988,9 +3005,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         }
 
     function copyRTI() {
-            navigator.clipboard.writeText(document.getElementById('rti-template').textContent);
-            alert('RTI template copied!');
-        }
+        const el = document.getElementById('rti-template');
+        if (el) { navigator.clipboard.writeText(el.textContent).then(() => alert('RTI template copied!')); }
+    }
 
     // ── Social Media Feed (Free APIs) ──
     const SOCIAL_CACHE = { reddit: null, lastFetch: 0 };
@@ -3032,11 +3049,22 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         const now = Date.now();
         let posts = [];
 
-        // Fetch Reddit (free, no auth required)
+        // Fetch Reddit via Netlify proxy (avoids 429 rate limiting), fallback to direct
         if (filter === 'all' || filter === 'reddit') {
             if (!SOCIAL_CACHE.reddit || now - SOCIAL_CACHE.lastFetch > 15 * 60 * 1000) {
-                const allPosts = await Promise.all(REDDIT_SUBS.map(s => fetchRedditPosts(s.sub, s.query)));
-                SOCIAL_CACHE.reddit = allPosts.flat();
+                try {
+                    const rRes = await fetch('/.netlify/functions/reddit-feed');
+                    if (rRes.ok) {
+                        const rData = await rRes.json();
+                        SOCIAL_CACHE.reddit = (rData.posts || []).map(p => ({
+                            ...p, created: new Date(p.created)
+                        }));
+                    } else { throw new Error('proxy failed'); }
+                } catch(e) {
+                    // Fallback to direct Reddit (may 429)
+                    const allPosts = await Promise.all(REDDIT_SUBS.map(s => fetchRedditPosts(s.sub, s.query)));
+                    SOCIAL_CACHE.reddit = allPosts.flat();
+                }
                 SOCIAL_CACHE.lastFetch = now;
             }
             posts = posts.concat(SOCIAL_CACHE.reddit);
@@ -3101,11 +3129,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     }
                 }
             } catch(e) {}
-            // Also add Reddit news as supplementary
-            try {
-                const newsResults = await fetchRedditPosts('worldnews', 'India air pollution', 5);
-                posts = posts.concat(newsResults);
-            } catch(e) {}
+            // Reddit news already included via proxy above
         }
 
         // Sort by date, deduplicate
@@ -3208,13 +3232,26 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     }));
                 }
             } catch(e) {}
-            // Also fetch from Reddit as supplementary
-            const allNews = await Promise.all([
-                fetchRedditPosts('india', 'air pollution OR AQI OR smog OR NCAP OR CPCB', 15),
-                fetchRedditPosts('indianews', 'pollution OR air quality OR PM2.5', 10),
-                fetchRedditPosts('environment', 'India air pollution', 5)
-            ]);
-            newsCache.articles = [...proxyArticles, ...allNews.flat().map(p => ({ ...p, platform: 'news' }))];
+            // Also fetch from Reddit proxy as supplementary
+            let redditNews = [];
+            try {
+                const rRes = await fetch('/.netlify/functions/reddit-feed?filter=all');
+                if (rRes.ok) {
+                    const rData = await rRes.json();
+                    redditNews = (rData.posts || []).map(p => ({
+                        ...p, platform: 'news', created: new Date(p.created)
+                    }));
+                } else { throw new Error('proxy'); }
+            } catch(e) {
+                // Fallback to direct Reddit
+                const allNews = await Promise.all([
+                    fetchRedditPosts('india', 'air pollution OR AQI OR smog OR NCAP OR CPCB', 15),
+                    fetchRedditPosts('indianews', 'pollution OR air quality OR PM2.5', 10),
+                    fetchRedditPosts('environment', 'India air pollution', 5)
+                ]);
+                redditNews = allNews.flat().map(p => ({ ...p, platform: 'news' }));
+            }
+            newsCache.articles = [...proxyArticles, ...redditNews];
             newsCache.lastFetch = now;
         }
 
@@ -3239,7 +3276,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                         <span style="font-size: 0.7rem; color: var(--text-3); margin-left: 1rem; white-space: nowrap;">${timeAgo}</span>
                     </div>
                     ${a.text ? `<p style="font-size: 0.75rem; color: var(--text-2); margin: 0.25rem 0 0;">${escapeHtml(a.text.substring(0, 120))}${a.text.length > 120 ? '...' : ''}</p>` : ''}
-                    <div style="font-size: 0.7rem; color: var(--text-3); margin-top: 0.25rem;">r/${a.sub} · ▲ ${a.score || 0} · ${a.comments || 0} comments</div>
+                    <div style="font-size: 0.7rem; color: var(--text-3); margin-top: 0.25rem;">${a.author ? a.author : (a.sub ? 'r/' + a.sub : 'News')}${a.score ? ' · ▲ ' + a.score : ''}${a.comments ? ' · ' + a.comments + ' comments' : ''}</div>
                 </div>
             </div>`;
         }).join('') + '</div>';
@@ -4029,7 +4066,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         dropdowns.forEach(id => {
             const el = document.getElementById(id);
             if (!el || el.options.length > 1) return;
-            Object.entries(CITIES).filter(([k, v]) => v.region !== 'intl').forEach(([key, city]) => {
+            // Add default selected option
+            if (el.options.length === 0) {
+                const def = document.createElement('option');
+                def.value = 'delhi'; def.textContent = 'Delhi'; def.selected = true;
+                el.appendChild(def);
+            }
+            Object.entries(CITIES).filter(([k, v]) => v.region !== 'intl' && k !== 'delhi').forEach(([key, city]) => {
                 const opt = document.createElement('option');
                 opt.value = key; opt.textContent = city.name;
                 el.appendChild(opt);
@@ -4060,6 +4103,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             if (panelId === 'exposure-report') generateExposureReport();
             if (panelId === 'rti-assistant') generateRTI();
             if (panelId === 'purifier-calc') calcPurifier();
+            if (panelId === 'hyperlocal') loadHyperlocal();
             if (panelId === 'pollution-calendar') renderPollutionCalendar();
             if (panelId === 'migration-calc') calcMigration();
             if (panelId === 'scorecards') generateScorecard();
@@ -8225,9 +8269,9 @@ Signature: _______________</div>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health', event)"> Health</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source', event)"> Sources</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('policy', event)"> Policy</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('data')"> Data</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('justice')"> Justice</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('action')"> Action</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('data', event)"> Data</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('justice', event)"> Justice</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('action', event)"> Action</button>
             </div>
 
             
