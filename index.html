@@ -9034,6 +9034,29 @@ Signature: _______________</div>
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.0 &mdash; 14 Mar 2026</div>
+                    <strong>Code optimisation, 14 new interactive tools, live social media feeds, favicon</strong><br>
+                    &bull; <strong>Code optimisation:</strong> Removed ~600 lines of dead/duplicate code, fixed broken &lt;script&gt; tags, parallelised API fetches with Promise.allSettled, fixed memory leak in exportData<br>
+                    &bull; <strong>Social Media Feed:</strong> Live Reddit posts from r/india, r/delhi, r/environment; Twitter/X via Nitter RSS proxy (Netlify Function); Instagram via RSS Bridge proxy; curated links fallback<br>
+                    &bull; <strong>Live News:</strong> Google News RSS proxy (5 categories: Delhi AQ, India Pollution, CPCB, Stubble Burning, Clean Air India) with Reddit supplementary<br>
+                    &bull; <strong>AQI Alerts:</strong> Browser push notifications when any city crosses your threshold (uses Notification API + localStorage)<br>
+                    &bull; <strong>"Should I Go Outside?":</strong> Real-time decision engine based on current AQI, activity type, and vulnerable group status<br>
+                    &bull; <strong>School Closure Predictor:</strong> GRAP stage analysis with PM2.5 threshold tracking for school closure likelihood<br>
+                    &bull; <strong>Personal Exposure Report:</strong> Annual PM2.5 exposure calculation using GEMM model with equivalent cigarettes and life-years-lost estimates<br>
+                    &bull; <strong>RTI Filing Assistant:</strong> Auto-generates RTI applications for CPCB, DPCC, MoEFCC, CAQM, Municipal Corps with pre-built question templates<br>
+                    &bull; <strong>Air Purifier Calculator:</strong> Room-size based CADR recommendation with cost estimates<br>
+                    &bull; <strong>Hyperlocal Comparison:</strong> WAQI bounds API integration showing all monitoring stations in a city<br>
+                    &bull; <strong>Pollution Calendar:</strong> Month-by-month seasonal pollution source breakdown (stubble, Diwali, inversion, dust storms)<br>
+                    &bull; <strong>Migration Calculator:</strong> Compare PM2.5 exposure, health impact, and life expectancy across cities<br>
+                    &bull; <strong>Accountability Scorecards:</strong> NCAP target vs actual performance for major cities with budget utilisation<br>
+                    &bull; <strong>Data Archive:</strong> Persistent localStorage-based AQI data accumulation with CSV export<br>
+                    &bull; <strong>Correlation Explorer:</strong> Temperature, wind speed, humidity vs PM2.5 correlation data for cities<br>
+                    &bull; <strong>Netlify Functions:</strong> 3 serverless proxies (twitter-feed.js, news-proxy.js, instagram-feed.js) for CORS-free social media fetching<br>
+                    &bull; <strong>Favicon:</strong> SVG wind-leaf motif in JanVayu green theme<br>
+                    &bull; Total: 36+ content sections, 14 new interactive tools
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v24.0 &mdash; 23 Feb 2026</div>
                     <strong>Clean Air Wins section</strong><br>
                     &bull; New "Clean Air Wins" panel tracking genuine progress: cities improving, e-bus deployment, policy wins, citizen victories<br>
