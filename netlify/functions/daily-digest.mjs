@@ -161,7 +161,7 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
       <p style="color: #9ca3af; font-size: 11px; margin: 0; text-align: center;">
         You're receiving this because you subscribed to JanVayu AQI alerts for ${subscriber.cities.map(k => CITIES[k]?.name || k).join(", ")}.<br>
         <a href="https://janvayu.in" style="color: #16a34a;">Visit JanVayu</a> ·
-        <a href="mailto:talktous@janvayu.in" style="color: #16a34a;">Contact Us</a> ·
+        <a href="mailto:contribute@janvayu.in" style="color: #16a34a;">Contact Us</a> ·
         To unsubscribe, visit the Alerts page on janvayu.in
       </p>
     </div>
