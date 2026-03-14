@@ -17,9 +17,10 @@ exports.handler = async function (event) {
 
   try {
     const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
-    const [lastTime, log] = await Promise.all([
+    const [lastTime, log, emailLog] = await Promise.all([
       store.get("last-fetch-time").catch(() => null),
       store.get("last-fetch-log", { type: "json" }).catch(() => null),
+      store.get("last-email-log", { type: "json" }).catch(() => null),
     ]);
 
     return {
@@ -27,8 +28,9 @@ exports.handler = async function (event) {
       headers,
       body: JSON.stringify({
         last_updated: lastTime || null,
-        schedule: 'Every 4 hours',
+        schedule: 'Feeds every 4 hours, email digest daily at 8 AM IST',
         log: log || null,
+        email_log: emailLog || null,
         server_time: new Date().toISOString(),
       }),
     };
