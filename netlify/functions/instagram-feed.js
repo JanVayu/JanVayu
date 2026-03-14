@@ -1,5 +1,8 @@
 // Netlify Function: Instagram feed proxy via RSS Bridge instances
-// Fetches Instagram posts for air quality hashtags without needing Instagram API
+// Serves pre-fetched data from Blobs (updated every 4h by scheduled-fetch)
+// Falls back to live RSS Bridge fetch if Blobs empty
+
+const { getStore } = require('@netlify/blobs');
 
 const RSSBRIDGE_INSTANCES = [
   'rss-bridge.org/bridge01',
@@ -69,6 +72,21 @@ exports.handler = async function (event) {
     return { statusCode: 204, headers, body: '' };
   }
 
+  // Try Blobs cache first
+  try {
+    const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+    const cached = await store.get("instagram", { type: "json" });
+    if (cached && cached.posts && cached.posts.length > 0) {
+      return {
+        statusCode: 200, headers,
+        body: JSON.stringify({ ...cached, served_from: 'cache' }),
+      };
+    }
+  } catch (e) {
+    console.log('Blob read failed, falling back to live fetch:', e.message);
+  }
+
+  // Fallback: live RSS Bridge fetch
   const allItems = [];
   const errors = [];
 
@@ -159,7 +177,8 @@ exports.handler = async function (event) {
       posts: unique.slice(0, 30),
       count: unique.length,
       source: 'rss-bridge',
-      cached_until: new Date(Date.now() + 1800000).toISOString(),
+      served_from: 'live',
+      fetched_at: new Date().toISOString(),
     }),
   };
 };
