@@ -143,190 +143,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,0,600;6..72,0,700;6..72,1,400;6..72,1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js">
-
-    // ── Functions imported from original ──
-    function calculateSafeHours() {
-            const aqi = parseInt(document.getElementById('safe-aqi').value);
-            const activity = parseFloat(document.getElementById('safe-activity').value);
-            const health = parseFloat(document.getElementById('safe-health').value);
-            let baseHours = 24;
-            if (aqi > 50) baseHours = Math.max(0.5, 12 - ((aqi - 50) / 30));
-            if (aqi > 200) baseHours = Math.max(0.25, 4 - ((aqi - 200) / 100));
-            if (aqi > 400) baseHours = 0;
-            const adjustedHours = Math.max(0, baseHours / (activity * health));
-            document.getElementById('safe-result').style.display = 'block';
-            document.getElementById('safe-hours').textContent = adjustedHours === 0 ? 'AVOID OUTDOORS' : adjustedHours.toFixed(1) + ' hours';
-            document.getElementById('safe-hours').style.color = adjustedHours < 2 ? '#EF4444' : adjustedHours < 4 ? '#F59E0B' : '#22C55E';
-            document.getElementById('safe-advice').textContent = aqi > 300 ? 'Severe. Stay indoors. N95 if unavoidable.' : aqi > 200 ? 'Very poor. Avoid outdoor exercise.' : 'Reduce prolonged exertion.';
-        }
-
-    function calculateHealthRisk() {
-            const age = parseInt(document.getElementById('health-age').value);
-            const pm25 = parseFloat(document.getElementById('health-pm25').value);
-            const outdoor = parseFloat(document.getElementById('health-outdoor').value);
-            const conditions = parseFloat(document.getElementById('health-conditions').value);
-            const baselineRisk = Math.exp(0.1 * Math.log(1 + 5/2.5));
-            const currentRisk = Math.exp(0.1 * Math.log(1 + pm25/2.5));
-            const excessRisk = ((currentRisk / baselineRisk) - 1) * 100 * conditions * (outdoor / 8);
-            const yearsLost = (excessRisk / 100) * (75 - age) * 0.3;
-            const cigarettes = (pm25 * outdoor / 24) / 22;
-            document.getElementById('mortality-risk').textContent = '+' + excessRisk.toFixed(1) + '%';
-            document.getElementById('life-years-lost').textContent = yearsLost.toFixed(1) + ' years';
-            document.getElementById('cigarette-equiv').textContent = cigarettes.toFixed(1) + ' cig/day';
-        }
-
-    function calculateEconomicLoss() {
-            const employees = parseInt(document.getElementById('econ-employees').value);
-            const salary = parseInt(document.getElementById('econ-salary').value);
-            const cityKey = document.getElementById('econ-city').value;
-            const cityAQI = aqiData[cityKey]?.aqi || 150;
-            const productivityLoss = Math.max(0, (cityAQI - 50) / 10) * 0.01;
-            const annualLoss = salary * 12 * employees * productivityLoss;
-            document.getElementById('econ-result').style.display = 'block';
-            document.getElementById('econ-loss').textContent = 'Rs ' + (annualLoss / 100000).toFixed(1) + ' Lakhs/year';
-            document.getElementById('econ-detail').innerHTML = `Productivity loss: ${(productivityLoss * 100).toFixed(1)}%<br>Based on ${CITIES[cityKey]?.name} AQI: ${cityAQI}`;
-        }
-
-    async function updateComparison(forceRefresh = false) {
-            const cities = [
-                document.getElementById('compare-city1').value, 
-                document.getElementById('compare-city2').value, 
-                document.getElementById('compare-city3').value
-            ];
-            
-            // Show loading state
-            document.getElementById('comparison-result').innerHTML = cities.map(c => 
-                `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: var(--text-3);">...</div><div class="stat-label">Fetching live data</div></div>`
-            ).join('');
-            
-            // Always fetch fresh data for international cities, or if forceRefresh
-            for (const c of cities) {
-                if (forceRefresh || !aqiData[c] || CITIES[c]?.region === 'intl') {
-                    const d = await fetchAQI(c);
-                    if (d) aqiData[c] = d;
-                }
-            }
-            
-            // Update timestamp
-            const updateTimeEl = document.getElementById('compare-update-time');
-            if (updateTimeEl) {
-                updateTimeEl.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-            }
-            
-            // Render comparison cards with live data
-            document.getElementById('comparison-result').innerHTML = cities.map(c => {
-                const data = aqiData[c];
-                const aqi = data?.aqi || '--';
-                const label = data ? getAQILabel(data.aqi) : 'No data';
-                const color = data ? getAQIColor(data.aqi) : 'var(--text-3)';
-                const pm25 = data?.pm25 ? `PM2.5: ${data.pm25}` : '';
-                return `<div class="card stat-card">
-                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div>
-                    <div class="stat-value" style="color: ${color}">${aqi}</div>
-                    <div class="stat-label">${label}</div>
-                    <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.25rem;">${pm25}</div>
-                </div>`;
-            }).join('');
-            
-            // Update chart with live data
-            if (charts.compare) {
-                const aqiValues = cities.map(c => aqiData[c]?.aqi || 0);
-                const colors = cities.map(c => getAQIColor(aqiData[c]?.aqi || 0));
-                charts.compare.data.labels = cities.map(c => CITIES[c]?.name || c);
-                charts.compare.data.datasets[0].data = aqiValues;
-                charts.compare.data.datasets[0].backgroundColor = colors;
-                charts.compare.update('none');
-            }
-        }
-
-    function initMap() {
-            if (map) return; // Don't reinitialize
-            
-            const mapContainer = document.getElementById('india-map');
-            if (!mapContainer) {
-                console.warn('[JanVayu] Map container not found');
-                return;
-            }
-            
-            try {
-                map = L.map('india-map').setView([22.5, 78.5], 5);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                    attribution: '© OpenStreetMap | AQI data from WAQI API (Live)' 
-                }).addTo(map);
-                updateMapMarkers();
-                console.log('[JanVayu] Map initialized successfully');
-            } catch (e) {
-                console.error('[JanVayu] Error initializing map:', e);
-            }
-        }
-
-    function updateMapMarkers() {
-            if (!map) {
-                console.warn('[JanVayu] Map not initialized, skipping marker update');
-                return;
-            }
-            
-            try {
-                // Clear existing markers
-                mapMarkers.forEach(m => map.removeLayer(m));
-                mapMarkers = [];
-                
-                Object.entries(CITIES).forEach(([key, city]) => {
-                    if (!city.lat || city.region === 'intl') return;
-                    const data = aqiData[key];
-                    const aqi = data?.aqi;
-                    const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
-                    const label = aqi ? getAQILabel(aqi) : 'No data';
-                    const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
-                    const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
-                    
-                    const marker = L.circleMarker([city.lat, city.lon], { 
-                        radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
-                        fillColor: color, 
-                        color: '#fff', 
-                        weight: 2, 
-                        fillOpacity: 0.85 
-                    }).addTo(map).bindPopup(`
-                        <strong>${city.name}</strong><br>
-                        AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
-                        ${pm25Text}${timeText}
-                    `);
-                    mapMarkers.push(marker);
-                });
-                console.log(`[JanVayu] Updated ${mapMarkers.length} map markers`);
-            } catch (e) {
-                console.error('[JanVayu] Error updating map markers:', e);
-            }
-        }
-
-    function exportData(format) {
-            const data = { timestamp: new Date().toISOString(), source: 'JanVayu / WAQI', cities: aqiData };
-            if (format === 'json') {
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janvayu-data.json'; a.click();
-            } else if (format === 'csv') {
-                let csv = 'City,AQI,PM2.5,PM10,Station,Time\n';
-                Object.entries(aqiData).forEach(([city, d]) => { csv += `${CITIES[city]?.name || city},${d.aqi},${d.pm25 || ''},${d.pm10 || ''},"${d.station || ''}",${d.time || ''}\n`; });
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janvayu-data.csv'; a.click();
-            } else if (format === 'api') {
-                alert('WAQI API:\nhttps://api.waqi.info/feed/{city}/?token=YOUR_TOKEN\n\nGet free token:\nhttps://aqicn.org/data-platform/token/');
-            }
-        }
-
-    function generateWidget() {
-            const city = document.getElementById('widget-city').value;
-            const size = document.getElementById('widget-size').value;
-            const dims = { small: ['200', '100'], medium: ['300', '150'], large: ['400', '200'] };
-            document.getElementById('widget-code').style.display = 'block';
-            document.getElementById('widget-code').textContent = `<iframe src="https://aqicn.org/city/${city}/" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;"></iframe>`;
-        }
-
-    function copyRTI() {
-            navigator.clipboard.writeText(document.getElementById('rti-template').textContent);
-            alert('RTI template copied!');
-        }
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
 
     function convertPM25() {
             const pm25 = parseFloat(document.getElementById('pm25-input').value);
@@ -356,14 +174,17 @@
             });
         }
 
-    function filterResourceCategory(category) {
+    function filterResourceCategory(category, evt) {
             // Update active button
             document.querySelectorAll('#panel-resources .btn').forEach(btn => {
                 btn.style.background = '';
                 btn.style.color = '';
             });
-            event.target.style.background = 'var(--green-600)';
-            event.target.style.color = 'white';
+            const target = (evt && evt.target) || (typeof event !== 'undefined' && event.target);
+            if (target) {
+                target.style.background = 'var(--green-600)';
+                target.style.color = 'white';
+            }
             
             // Show/hide cards based on category
             document.querySelectorAll('#panel-resources .card[data-resource-category]').forEach(card => {
@@ -408,271 +229,7 @@
         }
 
     </script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-
-    // ── Functions imported from original ──
-    function calculateSafeHours() {
-            const aqi = parseInt(document.getElementById('safe-aqi').value);
-            const activity = parseFloat(document.getElementById('safe-activity').value);
-            const health = parseFloat(document.getElementById('safe-health').value);
-            let baseHours = 24;
-            if (aqi > 50) baseHours = Math.max(0.5, 12 - ((aqi - 50) / 30));
-            if (aqi > 200) baseHours = Math.max(0.25, 4 - ((aqi - 200) / 100));
-            if (aqi > 400) baseHours = 0;
-            const adjustedHours = Math.max(0, baseHours / (activity * health));
-            document.getElementById('safe-result').style.display = 'block';
-            document.getElementById('safe-hours').textContent = adjustedHours === 0 ? 'AVOID OUTDOORS' : adjustedHours.toFixed(1) + ' hours';
-            document.getElementById('safe-hours').style.color = adjustedHours < 2 ? '#EF4444' : adjustedHours < 4 ? '#F59E0B' : '#22C55E';
-            document.getElementById('safe-advice').textContent = aqi > 300 ? 'Severe. Stay indoors. N95 if unavoidable.' : aqi > 200 ? 'Very poor. Avoid outdoor exercise.' : 'Reduce prolonged exertion.';
-        }
-
-    function calculateHealthRisk() {
-            const age = parseInt(document.getElementById('health-age').value);
-            const pm25 = parseFloat(document.getElementById('health-pm25').value);
-            const outdoor = parseFloat(document.getElementById('health-outdoor').value);
-            const conditions = parseFloat(document.getElementById('health-conditions').value);
-            const baselineRisk = Math.exp(0.1 * Math.log(1 + 5/2.5));
-            const currentRisk = Math.exp(0.1 * Math.log(1 + pm25/2.5));
-            const excessRisk = ((currentRisk / baselineRisk) - 1) * 100 * conditions * (outdoor / 8);
-            const yearsLost = (excessRisk / 100) * (75 - age) * 0.3;
-            const cigarettes = (pm25 * outdoor / 24) / 22;
-            document.getElementById('mortality-risk').textContent = '+' + excessRisk.toFixed(1) + '%';
-            document.getElementById('life-years-lost').textContent = yearsLost.toFixed(1) + ' years';
-            document.getElementById('cigarette-equiv').textContent = cigarettes.toFixed(1) + ' cig/day';
-        }
-
-    function calculateEconomicLoss() {
-            const employees = parseInt(document.getElementById('econ-employees').value);
-            const salary = parseInt(document.getElementById('econ-salary').value);
-            const cityKey = document.getElementById('econ-city').value;
-            const cityAQI = aqiData[cityKey]?.aqi || 150;
-            const productivityLoss = Math.max(0, (cityAQI - 50) / 10) * 0.01;
-            const annualLoss = salary * 12 * employees * productivityLoss;
-            document.getElementById('econ-result').style.display = 'block';
-            document.getElementById('econ-loss').textContent = 'Rs ' + (annualLoss / 100000).toFixed(1) + ' Lakhs/year';
-            document.getElementById('econ-detail').innerHTML = `Productivity loss: ${(productivityLoss * 100).toFixed(1)}%<br>Based on ${CITIES[cityKey]?.name} AQI: ${cityAQI}`;
-        }
-
-    async function updateComparison(forceRefresh = false) {
-            const cities = [
-                document.getElementById('compare-city1').value, 
-                document.getElementById('compare-city2').value, 
-                document.getElementById('compare-city3').value
-            ];
-            
-            // Show loading state
-            document.getElementById('comparison-result').innerHTML = cities.map(c => 
-                `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: var(--text-3);">...</div><div class="stat-label">Fetching live data</div></div>`
-            ).join('');
-            
-            // Always fetch fresh data for international cities, or if forceRefresh
-            for (const c of cities) {
-                if (forceRefresh || !aqiData[c] || CITIES[c]?.region === 'intl') {
-                    const d = await fetchAQI(c);
-                    if (d) aqiData[c] = d;
-                }
-            }
-            
-            // Update timestamp
-            const updateTimeEl = document.getElementById('compare-update-time');
-            if (updateTimeEl) {
-                updateTimeEl.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-            }
-            
-            // Render comparison cards with live data
-            document.getElementById('comparison-result').innerHTML = cities.map(c => {
-                const data = aqiData[c];
-                const aqi = data?.aqi || '--';
-                const label = data ? getAQILabel(data.aqi) : 'No data';
-                const color = data ? getAQIColor(data.aqi) : 'var(--text-3)';
-                const pm25 = data?.pm25 ? `PM2.5: ${data.pm25}` : '';
-                return `<div class="card stat-card">
-                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div>
-                    <div class="stat-value" style="color: ${color}">${aqi}</div>
-                    <div class="stat-label">${label}</div>
-                    <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.25rem;">${pm25}</div>
-                </div>`;
-            }).join('');
-            
-            // Update chart with live data
-            if (charts.compare) {
-                const aqiValues = cities.map(c => aqiData[c]?.aqi || 0);
-                const colors = cities.map(c => getAQIColor(aqiData[c]?.aqi || 0));
-                charts.compare.data.labels = cities.map(c => CITIES[c]?.name || c);
-                charts.compare.data.datasets[0].data = aqiValues;
-                charts.compare.data.datasets[0].backgroundColor = colors;
-                charts.compare.update('none');
-            }
-        }
-
-    function initMap() {
-            if (map) return; // Don't reinitialize
-            
-            const mapContainer = document.getElementById('india-map');
-            if (!mapContainer) {
-                console.warn('[JanVayu] Map container not found');
-                return;
-            }
-            
-            try {
-                map = L.map('india-map').setView([22.5, 78.5], 5);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                    attribution: '© OpenStreetMap | AQI data from WAQI API (Live)' 
-                }).addTo(map);
-                updateMapMarkers();
-                console.log('[JanVayu] Map initialized successfully');
-            } catch (e) {
-                console.error('[JanVayu] Error initializing map:', e);
-            }
-        }
-
-    function updateMapMarkers() {
-            if (!map) {
-                console.warn('[JanVayu] Map not initialized, skipping marker update');
-                return;
-            }
-            
-            try {
-                // Clear existing markers
-                mapMarkers.forEach(m => map.removeLayer(m));
-                mapMarkers = [];
-                
-                Object.entries(CITIES).forEach(([key, city]) => {
-                    if (!city.lat || city.region === 'intl') return;
-                    const data = aqiData[key];
-                    const aqi = data?.aqi;
-                    const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
-                    const label = aqi ? getAQILabel(aqi) : 'No data';
-                    const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
-                    const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
-                    
-                    const marker = L.circleMarker([city.lat, city.lon], { 
-                        radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
-                        fillColor: color, 
-                        color: '#fff', 
-                        weight: 2, 
-                        fillOpacity: 0.85 
-                    }).addTo(map).bindPopup(`
-                        <strong>${city.name}</strong><br>
-                        AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
-                        ${pm25Text}${timeText}
-                    `);
-                    mapMarkers.push(marker);
-                });
-                console.log(`[JanVayu] Updated ${mapMarkers.length} map markers`);
-            } catch (e) {
-                console.error('[JanVayu] Error updating map markers:', e);
-            }
-        }
-
-    function exportData(format) {
-            const data = { timestamp: new Date().toISOString(), source: 'JanVayu / WAQI', cities: aqiData };
-            if (format === 'json') {
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janvayu-data.json'; a.click();
-            } else if (format === 'csv') {
-                let csv = 'City,AQI,PM2.5,PM10,Station,Time\n';
-                Object.entries(aqiData).forEach(([city, d]) => { csv += `${CITIES[city]?.name || city},${d.aqi},${d.pm25 || ''},${d.pm10 || ''},"${d.station || ''}",${d.time || ''}\n`; });
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janvayu-data.csv'; a.click();
-            } else if (format === 'api') {
-                alert('WAQI API:\nhttps://api.waqi.info/feed/{city}/?token=YOUR_TOKEN\n\nGet free token:\nhttps://aqicn.org/data-platform/token/');
-            }
-        }
-
-    function generateWidget() {
-            const city = document.getElementById('widget-city').value;
-            const size = document.getElementById('widget-size').value;
-            const dims = { small: ['200', '100'], medium: ['300', '150'], large: ['400', '200'] };
-            document.getElementById('widget-code').style.display = 'block';
-            document.getElementById('widget-code').textContent = `<iframe src="https://aqicn.org/city/${city}/" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;"></iframe>`;
-        }
-
-    function copyRTI() {
-            navigator.clipboard.writeText(document.getElementById('rti-template').textContent);
-            alert('RTI template copied!');
-        }
-
-    function convertPM25() {
-            const pm25 = parseFloat(document.getElementById('pm25-input').value);
-            if (isNaN(pm25)) return;
-            let indiaAQI, usAQI;
-            if (pm25 <= 30) indiaAQI = pm25 * 50 / 30;
-            else if (pm25 <= 60) indiaAQI = 50 + (pm25 - 30) * 50 / 30;
-            else if (pm25 <= 90) indiaAQI = 100 + (pm25 - 60) * 100 / 30;
-            else if (pm25 <= 120) indiaAQI = 200 + (pm25 - 90) * 100 / 30;
-            else indiaAQI = 300 + (pm25 - 120) * 100 / 130;
-            if (pm25 <= 12) usAQI = pm25 * 50 / 12;
-            else if (pm25 <= 35.4) usAQI = 50 + (pm25 - 12) * 50 / 23.4;
-            else if (pm25 <= 55.4) usAQI = 100 + (pm25 - 35.4) * 50 / 20;
-            else usAQI = 150 + (pm25 - 55.4) * 50 / 95;
-            document.getElementById('india-aqi-output').value = Math.round(indiaAQI);
-            document.getElementById('us-aqi-output').value = Math.round(usAQI);
-        }
-
-    function filterResources() {
-            const query = document.getElementById('resource-search').value.toLowerCase();
-            document.querySelectorAll('.resource-card').forEach(card => {
-                const keywords = card.getAttribute('data-keywords') || '';
-                const title = card.querySelector('.resource-title')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('.resource-desc')?.textContent.toLowerCase() || '';
-                const match = keywords.includes(query) || title.includes(query) || desc.includes(query) || query === '';
-                card.style.display = match ? 'block' : 'none';
-            });
-        }
-
-    function filterResourceCategory(category) {
-            // Update active button
-            document.querySelectorAll('#panel-resources .btn').forEach(btn => {
-                btn.style.background = '';
-                btn.style.color = '';
-            });
-            event.target.style.background = 'var(--green-600)';
-            event.target.style.color = 'white';
-            
-            // Show/hide cards based on category
-            document.querySelectorAll('#panel-resources .card[data-resource-category]').forEach(card => {
-                const categories = card.getAttribute('data-resource-category') || '';
-                if (category === 'all' || categories.includes(category)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            // Also show/hide individual resource cards if category matches
-            document.querySelectorAll('#panel-resources .resource-card').forEach(card => {
-                card.style.display = '';
-            });
-        }
-
-    function loadDashboardNews() {
-            document.getElementById('dashboard-news').innerHTML = `
-                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">Lancet</span>Dec 2024</div><div class="news-title" style="font-size: 0.75rem;">7.2% of Delhi daily deaths attributable to PM2.5 above WHO</div></div>
-                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">GBD</span>2021</div><div class="news-title" style="font-size: 0.75rem;">4.72M global deaths from PM2.5 — 7.9% of adult mortality</div></div>
-                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">WHO</span>2021</div><div class="news-title" style="font-size: 0.75rem;">PM2.5 guideline halved: 5 µg/m³ annual (from 10)</div></div>
-            `;
-        }
-
-    function getAQIClass(aqi) {
-            if (aqi <= 50) return 'good';
-            if (aqi <= 100) return 'mod';
-            if (aqi <= 200) return 'poor';
-            if (aqi <= 300) return 'vpoor';
-            if (aqi <= 400) return 'severe';
-            return 'hazard';
-        }
-
-    function getWHOInterimTarget(pm25) {
-            if (pm25 <= 5) return 'AQG';
-            if (pm25 <= 10) return 'IT-4';
-            if (pm25 <= 15) return 'IT-3';
-            if (pm25 <= 25) return 'IT-2';
-            if (pm25 <= 35) return 'IT-1';
-            return 'Above IT-1';
-        }
-
-    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
 /* ═══════════════════════════════════════════════════════════
    JANVAYU REDESIGN — EDITORIAL SCROLL LAYOUT
@@ -2889,20 +2446,13 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         const template = document.getElementById('tmpl-' + panelId);
         if (template) {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;">' + template.innerHTML + '</div>';
-            // Re-init any charts in this panel
-            setTimeout(() => initAllCharts(), 150);
-            try { initAllCharts(); } catch(e) {}
-            // Re-init map if needed
-            if (panelId === 'map') { setTimeout(() => initMap(), 100); }
+            // Re-init charts/map after DOM update
+            setTimeout(() => {
+                try { initAllCharts(); } catch(e) {}
+                if (panelId === 'map') initMap();
+            }, 150);
         } else {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
-        }
-    }
-
-    function handleHashNavigation() {
-        const hash = window.location.hash.replace('#', '');
-        if (hash && hash !== 'dashboard') {
-            showPanel(hash);
         }
     }
 
@@ -3013,17 +2563,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     }
 
     function updateDashboard() {
-        if (aqiData.delhi) {
-            const pm25 = aqiData.delhi.pm25 || Math.round(aqiData.delhi.aqi * 0.7);
-            const whoX = getWHOMultiple(pm25);
-            const color = getPM25Color(pm25);
-            const el = document.getElementById('delhi-live-pm25');
-            if (el) { el.textContent = pm25; el.style.color = color; }
-            const whoEl = document.getElementById('delhi-who-multiple');
-            if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
-            const aqiEl = document.getElementById('delhi-live-aqi');
-            if (aqiEl) aqiEl.textContent = aqiData.delhi.aqi;
-        }
+        updateHeroCity('delhi');
 
         const sorted = Object.entries(aqiData).sort((a, b) => (b[1].pm25 || b[1].aqi*0.7) - (a[1].pm25 || a[1].aqi*0.7));
         if (sorted.length > 0) {
@@ -3227,7 +2767,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
         try { await fetchAllAQI(); } catch(e) { console.error(e); }
         try { initAllCharts(); } catch(e) { console.error(e); }
-        try { handleHashNavigation(); } catch(e) { console.error(e); }
 
         // Auto-refresh
         setInterval(async () => {
@@ -3238,7 +2777,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     });
     
 
-    // ── Functions imported from original ──
+    // ── Calculator & Tool Functions ──
     function calculateSafeHours() {
             const aqi = parseInt(document.getElementById('safe-aqi').value);
             const activity = parseFloat(document.getElementById('safe-activity').value);
@@ -3283,30 +2822,31 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
     async function updateComparison(forceRefresh = false) {
             const cities = [
-                document.getElementById('compare-city1').value, 
-                document.getElementById('compare-city2').value, 
+                document.getElementById('compare-city1').value,
+                document.getElementById('compare-city2').value,
                 document.getElementById('compare-city3').value
             ];
-            
+
             // Show loading state
-            document.getElementById('comparison-result').innerHTML = cities.map(c => 
+            document.getElementById('comparison-result').innerHTML = cities.map(c =>
                 `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: var(--text-3);">...</div><div class="stat-label">Fetching live data</div></div>`
             ).join('');
-            
-            // Always fetch fresh data for international cities, or if forceRefresh
-            for (const c of cities) {
-                if (forceRefresh || !aqiData[c] || CITIES[c]?.region === 'intl') {
-                    const d = await fetchAQI(c);
-                    if (d) aqiData[c] = d;
+
+            // Fetch data in parallel instead of sequentially
+            const citiesToFetch = cities.filter(c => forceRefresh || !aqiData[c] || CITIES[c]?.region === 'intl');
+            const results = await Promise.allSettled(citiesToFetch.map(c => fetchAQI(c)));
+            results.forEach((result, i) => {
+                if (result.status === 'fulfilled' && result.value) {
+                    aqiData[citiesToFetch[i]] = result.value;
                 }
-            }
-            
+            });
+
             // Update timestamp
             const updateTimeEl = document.getElementById('compare-update-time');
             if (updateTimeEl) {
                 updateTimeEl.textContent = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
             }
-            
+
             // Render comparison cards with live data
             document.getElementById('comparison-result').innerHTML = cities.map(c => {
                 const data = aqiData[c];
@@ -3321,7 +2861,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.25rem;">${pm25}</div>
                 </div>`;
             }).join('');
-            
+
             // Update chart with live data
             if (charts.compare) {
                 const aqiValues = cities.map(c => aqiData[c]?.aqi || 0);
@@ -3334,37 +2874,28 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         }
 
     function initMap() {
-            if (map) return; // Don't reinitialize
-            
+            if (map) return;
             const mapContainer = document.getElementById('india-map');
             if (!mapContainer) {
                 console.warn('[JanVayu] Map container not found');
                 return;
             }
-            
             try {
                 map = L.map('india-map').setView([22.5, 78.5], 5);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                    attribution: '© OpenStreetMap | AQI data from WAQI API (Live)' 
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap | AQI data from WAQI API (Live)'
                 }).addTo(map);
                 updateMapMarkers();
-                console.log('[JanVayu] Map initialized successfully');
             } catch (e) {
                 console.error('[JanVayu] Error initializing map:', e);
             }
         }
 
     function updateMapMarkers() {
-            if (!map) {
-                console.warn('[JanVayu] Map not initialized, skipping marker update');
-                return;
-            }
-            
+            if (!map) return;
             try {
-                // Clear existing markers
                 mapMarkers.forEach(m => map.removeLayer(m));
                 mapMarkers = [];
-                
                 Object.entries(CITIES).forEach(([key, city]) => {
                     if (!city.lat || city.region === 'intl') return;
                     const data = aqiData[key];
@@ -3373,13 +2904,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     const label = aqi ? getAQILabel(aqi) : 'No data';
                     const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
                     const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
-                    
-                    const marker = L.circleMarker([city.lat, city.lon], { 
+                    const marker = L.circleMarker([city.lat, city.lon], {
                         radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
-                        fillColor: color, 
-                        color: '#fff', 
-                        weight: 2, 
-                        fillOpacity: 0.85 
+                        fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
                     }).addTo(map).bindPopup(`
                         <strong>${city.name}</strong><br>
                         AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
@@ -3387,7 +2914,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     `);
                     mapMarkers.push(marker);
                 });
-                console.log(`[JanVayu] Updated ${mapMarkers.length} map markers`);
             } catch (e) {
                 console.error('[JanVayu] Error updating map markers:', e);
             }
@@ -3395,14 +2921,19 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
     function exportData(format) {
             const data = { timestamp: new Date().toISOString(), source: 'JanVayu / WAQI', cities: aqiData };
+            let blob, url;
             if (format === 'json') {
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janvayu-data.json'; a.click();
+                blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'janvayu-data.json'; a.click();
+                URL.revokeObjectURL(url);
             } else if (format === 'csv') {
                 let csv = 'City,AQI,PM2.5,PM10,Station,Time\n';
                 Object.entries(aqiData).forEach(([city, d]) => { csv += `${CITIES[city]?.name || city},${d.aqi},${d.pm25 || ''},${d.pm10 || ''},"${d.station || ''}",${d.time || ''}\n`; });
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janvayu-data.csv'; a.click();
+                blob = new Blob([csv], { type: 'text/csv' });
+                url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'janvayu-data.csv'; a.click();
+                URL.revokeObjectURL(url);
             } else if (format === 'api') {
                 alert('WAQI API:\nhttps://api.waqi.info/feed/{city}/?token=YOUR_TOKEN\n\nGet free token:\nhttps://aqicn.org/data-platform/token/');
             }
@@ -3420,86 +2951,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             navigator.clipboard.writeText(document.getElementById('rti-template').textContent);
             alert('RTI template copied!');
         }
-
-    function convertPM25() {
-            const pm25 = parseFloat(document.getElementById('pm25-input').value);
-            if (isNaN(pm25)) return;
-            let indiaAQI, usAQI;
-            if (pm25 <= 30) indiaAQI = pm25 * 50 / 30;
-            else if (pm25 <= 60) indiaAQI = 50 + (pm25 - 30) * 50 / 30;
-            else if (pm25 <= 90) indiaAQI = 100 + (pm25 - 60) * 100 / 30;
-            else if (pm25 <= 120) indiaAQI = 200 + (pm25 - 90) * 100 / 30;
-            else indiaAQI = 300 + (pm25 - 120) * 100 / 130;
-            if (pm25 <= 12) usAQI = pm25 * 50 / 12;
-            else if (pm25 <= 35.4) usAQI = 50 + (pm25 - 12) * 50 / 23.4;
-            else if (pm25 <= 55.4) usAQI = 100 + (pm25 - 35.4) * 50 / 20;
-            else usAQI = 150 + (pm25 - 55.4) * 50 / 95;
-            document.getElementById('india-aqi-output').value = Math.round(indiaAQI);
-            document.getElementById('us-aqi-output').value = Math.round(usAQI);
-        }
-
-    function filterResources() {
-            const query = document.getElementById('resource-search').value.toLowerCase();
-            document.querySelectorAll('.resource-card').forEach(card => {
-                const keywords = card.getAttribute('data-keywords') || '';
-                const title = card.querySelector('.resource-title')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('.resource-desc')?.textContent.toLowerCase() || '';
-                const match = keywords.includes(query) || title.includes(query) || desc.includes(query) || query === '';
-                card.style.display = match ? 'block' : 'none';
-            });
-        }
-
-    function filterResourceCategory(category) {
-            // Update active button
-            document.querySelectorAll('#panel-resources .btn').forEach(btn => {
-                btn.style.background = '';
-                btn.style.color = '';
-            });
-            event.target.style.background = 'var(--green-600)';
-            event.target.style.color = 'white';
-            
-            // Show/hide cards based on category
-            document.querySelectorAll('#panel-resources .card[data-resource-category]').forEach(card => {
-                const categories = card.getAttribute('data-resource-category') || '';
-                if (category === 'all' || categories.includes(category)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            // Also show/hide individual resource cards if category matches
-            document.querySelectorAll('#panel-resources .resource-card').forEach(card => {
-                card.style.display = '';
-            });
-        }
-
-    function loadDashboardNews() {
-            document.getElementById('dashboard-news').innerHTML = `
-                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">Lancet</span>Dec 2024</div><div class="news-title" style="font-size: 0.75rem;">7.2% of Delhi daily deaths attributable to PM2.5 above WHO</div></div>
-                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">GBD</span>2021</div><div class="news-title" style="font-size: 0.75rem;">4.72M global deaths from PM2.5 — 7.9% of adult mortality</div></div>
-                <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">WHO</span>2021</div><div class="news-title" style="font-size: 0.75rem;">PM2.5 guideline halved: 5 µg/m³ annual (from 10)</div></div>
-            `;
-        }
-
-    function getAQIClass(aqi) {
-            if (aqi <= 50) return 'good';
-            if (aqi <= 100) return 'mod';
-            if (aqi <= 200) return 'poor';
-            if (aqi <= 300) return 'vpoor';
-            if (aqi <= 400) return 'severe';
-            return 'hazard';
-        }
-
-    function getWHOInterimTarget(pm25) {
-            if (pm25 <= 5) return 'AQG';
-            if (pm25 <= 10) return 'IT-4';
-            if (pm25 <= 15) return 'IT-3';
-            if (pm25 <= 25) return 'IT-2';
-            if (pm25 <= 35) return 'IT-1';
-            return 'Above IT-1';
-        }
-
 
     // ── Floating Search & Feedback Widget ──
     const SECTION_INDEX = [
@@ -7534,11 +6985,11 @@ Signature: _______________</div>
             </div>
             
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-                <button class="btn btn-sm" style="background: var(--green-700); color: white;" onclick="filterResourceCategory('all')">All</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured')"> Featured</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health')"> Health</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source')"> Sources</button>
-                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('policy')"> Policy</button>
+                <button class="btn btn-sm" style="background: var(--green-700); color: white;" onclick="filterResourceCategory('all', event)">All</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('featured', event)"> Featured</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('health', event)"> Health</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('source', event)"> Sources</button>
+                <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('policy', event)"> Policy</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('data')"> Data</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('justice')"> Justice</button>
                 <button class="btn btn-sm btn-icon" onclick="filterResourceCategory('action')"> Action</button>
