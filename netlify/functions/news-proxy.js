@@ -2,7 +2,7 @@
 // Serves pre-fetched data from Blobs (updated every 4h by scheduled-fetch)
 // Falls back to live fetch if Blobs empty
 
-const { getStore } = require('@netlify/blobs');
+const { getBlobStore } = require('./blob-store');
 
 const NEWS_FEEDS = [
   {
@@ -71,7 +71,7 @@ exports.handler = async function (event) {
 
   // Try Blobs cache first
   try {
-    const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+    const store = getBlobStore("janvayu-feeds");
     const cached = await store.get("news", { type: "json" });
     if (cached && cached.articles && cached.articles.length > 0) {
       const params = event.queryStringParameters || {};

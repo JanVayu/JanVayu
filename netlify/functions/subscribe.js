@@ -1,7 +1,7 @@
 // Netlify Function: Email subscription management
 // Stores subscriber emails in Netlify Blobs for AQI alert digests
 
-const { getStore } = require('@netlify/blobs');
+const { getBlobStore } = require('./blob-store');
 
 exports.handler = async function (event) {
   const headers = {
@@ -26,7 +26,7 @@ exports.handler = async function (event) {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Valid email required' }) };
     }
 
-    const store = getStore({ name: "janvayu-subscribers", consistency: "strong" });
+    const store = getBlobStore("janvayu-subscribers");
     const key = email.toLowerCase().replace(/[^a-z0-9@._-]/g, '');
 
     if (action === 'unsubscribe') {

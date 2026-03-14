@@ -2,6 +2,13 @@
 // Stores results in Netlify Blobs so API functions serve cached data instantly
 import { getStore } from "@netlify/blobs";
 
+function getBlobStore(name) {
+  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+  const token = process.env.BLOB_TOKEN;
+  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
+  return getStore({ name, consistency: "strong" });
+}
+
 // ── Reddit config ──
 const SUBREDDITS = [
   { sub: 'india', query: 'air pollution OR AQI OR smog OR PM2.5' },
@@ -288,7 +295,7 @@ async function fetchInstagram() {
 
 // ── Main scheduled handler ──
 export default async (req) => {
-  const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+  const store = getBlobStore("janvayu-feeds");
   const timestamp = new Date().toISOString();
   const log = { started: timestamp, results: {} };
 

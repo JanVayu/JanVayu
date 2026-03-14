@@ -1,7 +1,7 @@
 // Netlify Function: Returns feed status and last update timestamps
 // Used by client to show "Data last updated: X" with server-side truth
 
-const { getStore } = require('@netlify/blobs');
+const { getBlobStore } = require('./blob-store');
 
 exports.handler = async function (event) {
   const headers = {
@@ -16,7 +16,7 @@ exports.handler = async function (event) {
   }
 
   try {
-    const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+    const store = getBlobStore("janvayu-feeds");
     const [lastTime, log, emailLog] = await Promise.all([
       store.get("last-fetch-time").catch(() => null),
       store.get("last-fetch-log", { type: "json" }).catch(() => null),
