@@ -3049,96 +3049,85 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     async function loadSocialFeed(filter = 'all') {
         const container = document.getElementById('social-feed-container');
         if (!container) return;
-        container.innerHTML = '<div style="color: var(--text-3); font-size: 0.85rem; grid-column: 1/-1; text-align: center; padding: 2rem;">Fetching live posts...</div>';
+
+        // Immediately show curated content, then try to enhance with live data
+        let posts = [];
+        if (filter === 'all' || filter === 'twitter') posts = posts.concat(getCuratedTwitterPosts());
+        if (filter === 'all' || filter === 'instagram') posts = posts.concat(getCuratedInstagramPosts());
+
+        // Show curated content immediately so users see something
+        if (posts.length > 0) {
+            container.innerHTML = posts.map(p => renderSocialCard(p)).join('') +
+                '<div style="color: var(--text-3); font-size: 0.75rem; grid-column: 1/-1; text-align: center; padding: 0.5rem;">Loading live posts from Reddit...</div>';
+        } else {
+            container.innerHTML = '<div style="color: var(--text-3); font-size: 0.85rem; grid-column: 1/-1; text-align: center; padding: 2rem;">Fetching live posts...</div>';
+        }
 
         const now = Date.now();
-        let posts = [];
 
-        // Fetch Reddit via Netlify proxy (avoids 429 rate limiting), fallback to direct
-        if (filter === 'all' || filter === 'reddit') {
+        // Fetch Reddit (proxy first, then direct fallback) — in background
+        if (filter === 'all' || filter === 'reddit' || filter === 'news') {
             if (!SOCIAL_CACHE.reddit || now - SOCIAL_CACHE.lastFetch > 15 * 60 * 1000) {
+                let redditPosts = [];
+                // Try proxy
                 try {
-                    const rRes = await fetch('/.netlify/functions/reddit-feed');
-                    if (rRes.ok) {
-                        const rData = await rRes.json();
-                        SOCIAL_CACHE.reddit = (rData.posts || []).map(p => ({
-                            ...p, created: new Date(p.created)
-                        }));
-                    } else { throw new Error('proxy failed'); }
-                } catch(e) {
-                    // Fallback to direct Reddit (may 429)
-                    const allPosts = await Promise.all(REDDIT_SUBS.map(s => fetchRedditPosts(s.sub, s.query)));
-                    SOCIAL_CACHE.reddit = allPosts.flat();
+                    const controller = new AbortController();
+                    setTimeout(() => controller.abort(), 5000);
+                    const rRes = await fetch('/.netlify/functions/reddit-feed', { signal: controller.signal });
+                    const rText = await rRes.text();
+                    if (rText.startsWith('{') || rText.startsWith('[')) {
+                        const rData = JSON.parse(rText);
+                        redditPosts = (rData.posts || []).map(p => ({ ...p, created: new Date(p.created) }));
+                    }
+                } catch(e) {}
+                // If proxy failed, try direct Reddit
+                if (redditPosts.length === 0) {
+                    try {
+                        const results = await Promise.allSettled(REDDIT_SUBS.map(s => fetchRedditPosts(s.sub, s.query)));
+                        redditPosts = results.filter(r => r.status === 'fulfilled').flatMap(r => r.value);
+                    } catch(e) {}
                 }
+                SOCIAL_CACHE.reddit = redditPosts;
                 SOCIAL_CACHE.lastFetch = now;
             }
             posts = posts.concat(SOCIAL_CACHE.reddit);
         }
 
-        // Fetch Twitter/X via Netlify Function (Nitter RSS proxy), fallback to curated links
+        // Try Netlify Functions for Twitter/Instagram/News (with timeout, non-blocking)
+        const proxyFetches = [];
         if (filter === 'all' || filter === 'twitter') {
-            try {
-                const tRes = await fetch('/.netlify/functions/twitter-feed');
-                if (tRes.ok) {
-                    const tData = await tRes.json();
-                    if (tData.posts && tData.posts.length > 0) {
-                        posts = posts.concat(tData.posts.map(p => ({
-                            platform: 'twitter', title: p.text, url: p.link,
-                            created: new Date(p.date), author: p.author, text: p.description?.substring(0, 200) || ''
-                        })));
-                    } else {
-                        posts = posts.concat(getCuratedTwitterPosts());
-                    }
-                } else {
-                    posts = posts.concat(getCuratedTwitterPosts());
-                }
-            } catch(e) {
-                posts = posts.concat(getCuratedTwitterPosts());
-            }
+            proxyFetches.push(
+                fetch('/.netlify/functions/twitter-feed', { signal: AbortSignal.timeout(4000) })
+                    .then(r => r.text())
+                    .then(t => { if (t.startsWith('{')) { const d = JSON.parse(t); return (d.posts||[]).map(p => ({ platform:'twitter', title:p.text, url:p.link, created:new Date(p.date), author:p.author, text:p.description?.substring(0,200)||'' })); } return []; })
+                    .catch(() => [])
+            );
         }
-
-        // Fetch Instagram via Netlify Function (RSS Bridge proxy), fallback to curated links
         if (filter === 'all' || filter === 'instagram') {
-            try {
-                const iRes = await fetch('/.netlify/functions/instagram-feed');
-                if (iRes.ok) {
-                    const iData = await iRes.json();
-                    if (iData.posts && iData.posts.length > 0) {
-                        posts = posts.concat(iData.posts.map(p => ({
-                            platform: 'instagram', title: p.title || p.content?.substring(0, 80),
-                            url: p.link, created: new Date(p.date), author: p.author,
-                            text: p.content?.substring(0, 200) || '', thumbnail: p.image || null
-                        })));
-                    } else {
-                        posts = posts.concat(getCuratedInstagramPosts());
-                    }
-                } else {
-                    posts = posts.concat(getCuratedInstagramPosts());
-                }
-            } catch(e) {
-                posts = posts.concat(getCuratedInstagramPosts());
-            }
+            proxyFetches.push(
+                fetch('/.netlify/functions/instagram-feed', { signal: AbortSignal.timeout(4000) })
+                    .then(r => r.text())
+                    .then(t => { if (t.startsWith('{')) { const d = JSON.parse(t); return (d.posts||[]).map(p => ({ platform:'instagram', title:p.title||p.content?.substring(0,80), url:p.link, created:new Date(p.date), author:p.author, text:p.content?.substring(0,200)||'' })); } return []; })
+                    .catch(() => [])
+            );
+        }
+        if (filter === 'all' || filter === 'news') {
+            proxyFetches.push(
+                fetch('/.netlify/functions/news-proxy', { signal: AbortSignal.timeout(4000) })
+                    .then(r => r.text())
+                    .then(t => { if (t.startsWith('{')) { const d = JSON.parse(t); return (d.articles||[]).slice(0,10).map(a => ({ platform:'news', title:a.title, url:a.link, created:new Date(a.date), author:a.source, text:a.snippet||'' })); } return []; })
+                    .catch(() => [])
+            );
         }
 
-        // News from Netlify Function (Google News RSS proxy), fallback to Reddit
-        if (filter === 'all' || filter === 'news') {
-            try {
-                const nRes = await fetch('/.netlify/functions/news-proxy');
-                if (nRes.ok) {
-                    const nData = await nRes.json();
-                    if (nData.articles && nData.articles.length > 0) {
-                        posts = posts.concat(nData.articles.slice(0, 10).map(a => ({
-                            platform: 'news', title: a.title, url: a.link,
-                            created: new Date(a.date), author: a.source, text: a.snippet || ''
-                        })));
-                    }
-                }
-            } catch(e) {}
-            // Reddit news already included via proxy above
+        // Wait for all proxy fetches (max 4s)
+        if (proxyFetches.length > 0) {
+            const results = await Promise.allSettled(proxyFetches);
+            results.forEach(r => { if (r.status === 'fulfilled' && r.value.length > 0) posts = posts.concat(r.value); });
         }
 
         // Sort by date, deduplicate
-        posts.sort((a, b) => b.created - a.created);
+        posts.sort((a, b) => (b.created || 0) - (a.created || 0));
         const seen = new Set();
         posts = posts.filter(p => {
             const key = p.title?.substring(0, 50) || p.url;
@@ -3147,9 +3136,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             return true;
         });
 
-        // Render
+        // Render final results
         if (posts.length === 0) {
-            container.innerHTML = '<div style="color: var(--text-3); font-size: 0.85rem; grid-column: 1/-1; text-align: center; padding: 2rem;">No posts found. Reddit API may be rate-limited. Try again in a few minutes.</div>';
+            container.innerHTML = '<div style="color: var(--text-3); font-size: 0.85rem; grid-column: 1/-1; text-align: center; padding: 2rem;">No posts found. APIs may be temporarily unavailable. Try refreshing in a few minutes.</div>';
             return;
         }
 
@@ -6140,6 +6129,91 @@ Signature: _______________</div>
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: #1D9BF0; margin-right: 0.4rem;"></span>Citizen Voices &amp; Viral Moments</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Curated reactions from X/Twitter, Instagram, YouTube, and news — documenting India's air crisis through citizen voices, memes, and viral content.</p>
             
+                            <!-- March 2026 Updates -->
+                            <div class="voice-card" style="border-left: 3px solid #DC2626;">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">DAHRD Coalition</div>
+                                        <div class="voice-handle">Diaspora in Action for Human Rights</div>
+                                    </div>
+                                    <span class="voice-source">Activism</span>
+                                </div>
+                                <div class="voice-body">
+                                    "As the Air Thickens, Democracy Thins: Climate Protest Under Siege in India" — A global endorsement call documenting how Delhi's 2025-26 winter protests were met with state suppression. Over 80 detained on Nov 9. Journalists intimidated. FIRs against students. The coalition argues clean air activism is being treated as sedition.
+                                </div>
+                                <div class="voice-meta">Feb 2026 | Global endorsement call | dahrd.org</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #7C3AED;">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Newslaundry Ground Report</div>
+                                        <div class="voice-handle">AQI Monitoring Exposé</div>
+                                    </div>
+                                    <span class="voice-source">Investigation</span>
+                                </div>
+                                <div class="voice-body">
+                                    Portable monitors placed near Safdarjung Hospital recorded AQI 400+ (severe). The nearest CPCB station showed 249 (poor). On Mar 11, Delhi govt monitor showed 196 (moderate) — independent device read 300 (poor). PWD tankers spotted spraying water near monitoring stations. 65% of Delhi excluded from reliable AQI coverage.
+                                </div>
+                                <div class="voice-meta">March 11-12, 2026 | Newslaundry series | Ground-level verification</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #EA580C;">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Harjeet Singh</div>
+                                        <div class="voice-handle">Climate Activist</div>
+                                    </div>
+                                    <span class="voice-source">Commentary</span>
+                                </div>
+                                <div class="voice-body">
+                                    "A political failure. People are choking on the lip service of leaders who treat their outcries as a seasonal headline, not a public health emergency." — On why winter 2025-26 saw the worst pollution in a decade but zero structural policy response.
+                                </div>
+                                <div class="voice-meta">Jan-Feb 2026 | Bloomberg, Japan Times, multiple outlets</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #2563EB;">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Rahul Gandhi</div>
+                                        <div class="voice-handle">Congress Leader</div>
+                                    </div>
+                                    <span class="voice-source">Political</span>
+                                </div>
+                                <div class="voice-body">
+                                    "The right to clean air is a basic human right. The right to peaceful protest is guaranteed by our Constitution. Why are citizens who have been peacefully demanding clean air being treated like criminals?" — After 80+ protesters detained at India Gate on Nov 9.
+                                </div>
+                                <div class="voice-meta">Nov 2025 | Widely shared | Business Standard, The Quint</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #059669;">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Japan Times / Bloomberg</div>
+                                        <div class="voice-handle">International Coverage</div>
+                                    </div>
+                                    <span class="voice-source">Media</span>
+                                </div>
+                                <div class="voice-body">
+                                    "Delhi's worst air in years fuels anger in test for Modi's party." AQI above 300 on 88% of days in Nov-Dec 2025 — highest since 2017. Delhi spent only 43% of pollution budget. Wedding-with-oxygen-masks video went mega-viral. Citizens increasingly questioning why annual crisis yields zero structural change.
+                                </div>
+                                <div class="voice-meta">Jan 2, 2026 | Japan Times | Mar 2026 updated</div>
+                            </div>
+
+                            <div class="voice-card" style="border-left: 3px solid #F59E0B;">
+                                <div class="voice-header">
+                                    <div>
+                                        <div class="voice-name">Oxygen Mask Wedding</div>
+                                        <div class="voice-handle">Viral Video</div>
+                                    </div>
+                                    <span class="voice-source">Viral</span>
+                                </div>
+                                <div class="voice-body">
+                                    A bride and groom performing wedding rituals while wearing oxygen masks — blending romance with Delhi's grim pollution reality. The video, shared millions of times, became the defining visual of Winter 2025-26, alongside the returning Superman-in-hospital-bed meme and a new trend: "Going for a morning jog… staying in bed with the air purifier on full blast."
+                                </div>
+                                <div class="voice-meta">Winter 2025-26 | Viral on X, Instagram, YouTube | Deccan Herald, Tribune</div>
+                            </div>
+
                             <!-- Jan-Feb 2026 Updates -->
                             <div class="voice-card">
                                 <div class="voice-header">
