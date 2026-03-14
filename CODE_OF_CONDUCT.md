@@ -49,7 +49,7 @@ This Code of Conduct applies within all project spaces, including:
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at:
 
-📧 **[contact@janvayu.in](mailto:contact@janvayu.in)**
+📧 **[contribute@janvayu.in](mailto:contribute@janvayu.in)**
 
 All complaints will be reviewed and investigated promptly and fairly. The project team is obligated to maintain confidentiality with regard to the reporter of an incident.
 
@@ -93,14 +93,16 @@ JanVayu is deliberately non-partisan. While we document government policies and 
 - We welcome contributors across the political spectrum
 - We do not allow the project to be used for electoral purposes
 
-### Accuracy and Verification
+### Evidence-Based Contributions
 
-All contributors must:
+JanVayu is committed to evidence-based discourse. All contributors must:
 
+- Base claims on peer-reviewed research, official data, or verified reporting
 - Verify information before sharing
-- Cite credible sources
+- Cite credible sources (CPCB, WHO, Lancet, peer-reviewed journals, etc.)
 - Correct errors promptly when identified
-- Not spread unverified claims
+- Not spread unverified claims or pseudoscientific assertions
+- Distinguish clearly between established findings and preliminary data
 
 ## Attribution
 

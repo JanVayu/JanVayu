@@ -2,9 +2,12 @@
 
 **A Citizen-Led National Archive of India's Air Quality Crisis**
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/85a162b6-dd49-45e3-8605-6cc4c815cab8/deploy-status)](https://www.janvayu.in)
 [![Website](https://img.shields.io/badge/Website-janvayu.in-7C3AED)](https://www.janvayu.in)
 [![License: MIT](https://img.shields.io/badge/Code-MIT-green.svg)](LICENSE)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/Content-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![GitHub Issues](https://img.shields.io/github/issues/Varnasr/JanVayu)](https://github.com/Varnasr/JanVayu/issues)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/Varnasr/JanVayu)](https://github.com/Varnasr/JanVayu/commits/main)
 
 ---
 
@@ -14,40 +17,32 @@
 
 This is not a campaign. It is a record.
 
-### What We Archive
-
-* **Real-time AQI data** from 500+ monitoring stations (via WAQI/CPCB)
-* **Health burden evidence** — mortality data, epidemiological studies (Lancet, IHME)
-* **Policy and legal documents** — NCAP, GRAP, NGT/Supreme Court orders
-* **Citizen testimonies** — firsthand accounts from affected communities
-* **Journalism and investigations** — verified media coverage
-* **Public sentiment** — satire, memes, cultural responses
-* **Scientific research** — peer-reviewed papers, datasets
-
-### Why This Exists
-
-Every winter, India's air quality crisis dominates headlines. Every summer, it fades from public memory. Policy responses remain fragmented. Accountability is diffuse. Data is scattered across dozens of platforms.
-
-JanVayu creates a permanent, structured, publicly accessible record — so that evidence persists, patterns become visible, and accountability becomes possible.
+**Live at [https://www.janvayu.in](https://www.janvayu.in)**
 
 ---
 
-## Live Website
+## Features
 
-🌐 **[janvayu.in](https://www.janvayu.in)**
-
-The website features:
-- Real-time AQI dashboard with data from 16+ Indian cities
-- Health impact research (Lancet Countdown 2025, Harvard/Karolinska studies)
-- Economic cost tracking ($339.4B / 9.5% GDP impact)
-- Policy tracker (NCAP, GRAP stages, Supreme Court orders)
-- Citizen voices archive (social media, testimonies, viral content)
-- Accountability tracker for officials and institutions
-- Interactive tools (AQI calculator, RTI templates, action guides)
+| # | Feature | Description |
+|---|---------|-------------|
+| 1 | **Real-Time AQI Dashboard** | Live air quality data from 16+ Indian cities via WAQI/CPCB, auto-refreshing every 10 minutes |
+| 2 | **Interactive AQI Map** | Leaflet.js-powered map with station-level AQI markers across India |
+| 3 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, Karolinska, and IHME studies |
+| 4 | **Economic Cost Tracker** | Quantified GDP and productivity losses ($339.4B / 9.5% GDP) |
+| 5 | **Policy Tracker** | NCAP progress, GRAP stage history, Supreme Court and NGT orders |
+| 6 | **Citizen Voices Archive** | Social media posts, testimonies, viral content from affected communities |
+| 7 | **Accountability Tracker** | Institutional and official responses to pollution episodes |
+| 8 | **Social Media Feeds** | Aggregated Reddit, Twitter/X, Instagram, and news coverage on air quality |
+| 9 | **Daily Email Digest** | Subscribers receive a daily AQI summary for their city at 8:00 AM IST |
+| 10 | **AQI Calculator** | Interactive tool for citizens to understand AQI breakpoints and health advice |
+| 11 | **RTI Templates** | Ready-to-use Right to Information templates for pollution accountability |
+| 12 | **Action Guides** | Practical guides for citizen action, mask selection, and indoor air quality |
+| 13 | **Downloadable Reports** | Curated research papers and datasets for offline reference |
+| 14 | **Cultural Archive** | Satire, memes, art, and cultural responses to the pollution crisis |
 
 ---
 
-## Key Statistics (January 2026)
+## Key Statistics (March 2026)
 
 | Metric | Value | Source |
 |--------|-------|--------|
@@ -56,6 +51,171 @@ The website features:
 | India's Global Share | 70% of pollution deaths | Lancet Countdown 2025 |
 | Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2024 |
 | Most Polluted City | Byrnihat (128.2 µg/m³) | IQAir 2024 |
+
+---
+
+## Architecture
+
+JanVayu is designed as a lightweight, zero-framework architecture with server-side feed aggregation:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     Client (Browser)                    │
+│  Single-page HTML app · Chart.js · Leaflet.js · WAQI   │
+└──────────────────────────┬──────────────────────────────┘
+                           │
+              HTTPS (Netlify CDN)
+                           │
+┌──────────────────────────▼──────────────────────────────┐
+│                   Netlify Functions                      │
+│                                                          │
+│  Scheduled (cron)              On-demand (API)           │
+│  ┌──────────────────┐   ┌───────────────────────────┐   │
+│  │ scheduled-fetch   │   │ reddit-feed.js            │   │
+│  │ (every 4 hours)   │   │ twitter-feed.js           │   │
+│  │                   │   │ news-proxy.js             │   │
+│  │ daily-digest      │   │ instagram-feed.js         │   │
+│  │ (8 AM IST daily)  │   │ feed-status.js            │   │
+│  └────────┬──────────┘   │ subscribe.js              │   │
+│           │              └─────────────┬─────────────┘   │
+│           │                            │                  │
+│           ▼                            ▼                  │
+│  ┌─────────────────────────────────────────────┐         │
+│  │           Netlify Blobs (Cache)              │         │
+│  │  Feeds cached as JSON · Strong consistency   │         │
+│  └─────────────────────────────────────────────┘         │
+│                                                          │
+│  ┌─────────────────────────────────────────────┐         │
+│  │         Resend (Email Delivery)              │         │
+│  │  Daily AQI digest to subscribers             │         │
+│  └─────────────────────────────────────────────┘         │
+└──────────────────────────────────────────────────────────┘
+```
+
+**Key design decisions:**
+
+- **Single HTML file** — the entire front-end is one `index.html` with inline CSS and JS. No build step, no bundler, no framework.
+- **Server-side proxying** — social media and news APIs are fetched via Netlify Functions to avoid CORS issues and protect API keys.
+- **Blob caching** — the scheduled function pre-fetches all feeds every 4 hours and writes results to Netlify Blobs. On-demand API functions read from the blob cache, resulting in instant responses.
+- **Client-side AQI** — the WAQI API is called directly from the browser every 10 minutes (the token is a free-tier public key).
+- **Email digests** — a scheduled function runs daily at 8:00 AM IST (2:30 AM UTC), reads subscribers from Blobs, fetches current AQI, and sends personalized HTML emails via Resend.
+
+---
+
+## Auto-Updating Schedule
+
+| Task | Frequency | Mechanism |
+|------|-----------|-----------|
+| Social/news feed refresh | Every 4 hours | `scheduled-fetch.mjs` (Netlify Scheduled Function) |
+| Daily AQI email digest | Daily at 8:00 AM IST | `daily-digest.mjs` (Netlify Scheduled Function) |
+| Live AQI dashboard refresh | Every 10 minutes | Client-side JavaScript (WAQI API) |
+
+---
+
+## Project Structure
+
+```
+JanVayu/
+├── index.html                          # Main website (single-page application)
+├── favicon.svg                         # Site favicon
+├── package.json                        # Node.js dependencies (Netlify Blobs, Resend)
+├── netlify.toml                        # Netlify build & deploy configuration
+├── .gitignore                          # Ignored files (node_modules/, .netlify/)
+├── CNAME                               # Custom domain configuration
+├── README.md                           # This file
+├── CONTRIBUTING.md                     # Contribution guidelines
+├── CODE_OF_CONDUCT.md                  # Community standards
+├── LICENSE                             # MIT (code) + CC BY-NC-SA 4.0 (content)
+├── downloads/                          # Downloadable reports and datasets
+├── netlify/
+│   └── functions/                      # Netlify serverless functions
+│       ├── scheduled-fetch.mjs         # Cron: fetches all feeds every 4 hours
+│       ├── daily-digest.mjs            # Cron: sends daily AQI email digest
+│       ├── reddit-feed.js              # API: serves cached Reddit posts
+│       ├── twitter-feed.js             # API: serves cached Twitter/X posts
+│       ├── news-proxy.js               # API: serves cached news articles
+│       ├── instagram-feed.js           # API: serves cached Instagram posts
+│       ├── feed-status.js              # API: reports feed freshness and health
+│       ├── subscribe.js                # API: manages email subscriptions
+│       └── blob-store.js              # Shared: Netlify Blobs store helper
+└── node_modules/                       # Dependencies (git-ignored)
+```
+
+---
+
+## Technical Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| Frontend | Vanilla HTML / CSS / JavaScript | Zero-dependency single-page application |
+| Charts | Chart.js | AQI trends and health data visualizations |
+| Maps | Leaflet.js + OpenStreetMap | Interactive AQI station maps |
+| AQI Data | WAQI API | Real-time air quality from 500+ stations |
+| Serverless | Netlify Functions | Server-side API proxying and scheduled tasks |
+| Caching | Netlify Blobs | Persistent JSON cache with strong consistency |
+| Email | Resend | Transactional email delivery for daily digests |
+| Hosting | Netlify (auto-deploy from GitHub) | CDN, edge functions, scheduled functions |
+| Domain | janvayu.in | Custom domain via Netlify DNS |
+
+---
+
+## Environment Variables
+
+The following environment variables must be configured in the Netlify dashboard for full functionality:
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `RESEND_API_KEY` | Yes | API key from [Resend](https://resend.com) for sending email digests |
+| `RESEND_FROM` | Yes | Verified sender email address (e.g., `digest@janvayu.in`) |
+| `BLOB_TOKEN` | Yes | Netlify personal access token for Blob store access |
+| `NETLIFY_SITE_ID` | Yes | Netlify site identifier (used by Blob store and scheduled functions) |
+
+> **Note:** The WAQI API token (`1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3`) is a free-tier public key embedded in the client-side code. It is rate-limited by WAQI and does not require server-side protection.
+
+---
+
+## Self-Hosting / Local Development
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 18+
+- [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`)
+- A [Resend](https://resend.com) account (for email digest functionality)
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Varnasr/JanVayu.git
+cd JanVayu
+
+# Install dependencies
+npm install
+
+# Set environment variables (create a .env file or configure in Netlify CLI)
+export RESEND_API_KEY="your_resend_api_key"
+export RESEND_FROM="your_verified_sender@example.com"
+export BLOB_TOKEN="your_netlify_personal_access_token"
+export NETLIFY_SITE_ID="your_netlify_site_id"
+
+# Start local development server with Netlify Functions support
+netlify dev
+```
+
+The site will be available at `http://localhost:8888`. Netlify Dev emulates the serverless functions locally so you can test the full stack.
+
+### Without Netlify Functions
+
+If you only need the front-end (no social feeds or email digests):
+
+```bash
+# Serve index.html with any static file server
+npx serve .
+# or
+python3 -m http.server 8000
+```
+
+The AQI dashboard will work without any server-side setup since it calls the WAQI API directly from the browser.
 
 ---
 
@@ -73,32 +233,6 @@ JanVayu integrates **160+ verified public data sources**, including:
 | [Indian Kanoon](https://indiankanoon.org/) | Legal/court orders | Free |
 | [PRANA Portal](https://prana.cpcb.gov.in/) | NCAP tracking | Free |
 | [IQAir](https://iqair.com) | World Air Quality Report | Free |
-
----
-
-## Project Structure
-
-```
-JanVayu/
-├── index.html              # Main website (single-page application)
-├── README.md               # This file
-├── CONTRIBUTING.md         # Contribution guidelines
-├── CODE_OF_CONDUCT.md      # Community standards
-├── LICENSE                 # MIT (code) + CC BY-NC-SA 4.0 (content)
-├── CNAME                   # Custom domain configuration
-└── netlify.toml            # Deployment configuration
-```
-
----
-
-## Technical Stack
-
-- **Frontend:** Vanilla HTML/CSS/JavaScript (no framework dependencies)
-- **Charts:** Chart.js
-- **Maps:** Leaflet.js with OpenStreetMap
-- **API:** World Air Quality Index (WAQI) API
-- **Hosting:** Netlify (auto-deploy from GitHub)
-- **Domain:** janvayu.in
 
 ---
 
@@ -147,8 +281,8 @@ See [LICENSE](LICENSE) for details.
 
 ## Contact
 
-* **Email:** [contact@janvayu.in](mailto:contact@janvayu.in)
-* **Website:** [janvayu.in](https://www.janvayu.in)
+* **Email:** [contribute@janvayu.in](mailto:contribute@janvayu.in)
+* **Website:** [https://www.janvayu.in](https://www.janvayu.in)
 * **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
 
 ---

@@ -1,0 +1,56 @@
+name: Data/Content Contribution
+description: Contribute research, data, testimonies, or other content to JanVayu
+title: "[Contribution]: "
+labels: ["contribution", "content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing to JanVayu! Please provide details about the data or content you'd like to add.
+
+  - type: dropdown
+    id: type-of-contribution
+    attributes:
+      label: Type of Contribution
+      description: What type of content are you contributing?
+      options:
+        - Research Paper
+        - News Article
+        - Citizen Testimony
+        - Dataset
+        - Policy Document
+        - Translation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the content you are contributing.
+      placeholder: Provide a summary of the content, its relevance, and any key details.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source-attribution
+    attributes:
+      label: Source/Attribution
+      description: Where does this content come from? Provide proper attribution.
+      placeholder: |
+        - Author(s):
+        - Organization:
+        - URL/DOI:
+        - Date published:
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification
+      description: How can this content be verified for accuracy and authenticity?
+      placeholder: Describe how reviewers can verify the accuracy of this contribution.
+    validations:
+      required: false
