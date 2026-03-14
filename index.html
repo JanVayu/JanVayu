@@ -1953,22 +1953,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                             <span style="font-size: 0.65rem; color: var(--text-3); cursor: pointer;" onclick="showPanel('live-news')">View all →</span>
                         </div>
                         <div class="card-body" id="dashboard-live-news" style="font-size: 0.82rem;">
-                            <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);">
-                                <span class="badge badge-danger">Mar 2026</span>
-                                <span style="margin-left: 6px;">0% of Delhi's 68 days in 2026 met WHO safe air limits; AQI avg 244</span>
-                            </div>
-                            <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);">
-                                <span class="badge badge-warning">Mar 2026</span>
-                                <span style="margin-left: 6px;">CREA: 204/238 cities exceed NAAQS for PM2.5; Congress demands NAAQS review</span>
-                            </div>
-                            <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);">
-                                <span class="badge badge-info">Mar 2026</span>
-                                <span style="margin-left: 6px;">Delhi spent only 43% of ₹300 Cr pollution budget — all on short-term measures</span>
-                            </div>
-                            <div style="padding: 6px 0;">
-                                <span class="badge badge-danger">Mar 2026</span>
-                                <span style="margin-left: 6px;">GRAP imposed 17 times since Jan 2025; Stage IV for 15 days in Delhi</span>
-                            </div>
+                            <div style="color: var(--text-3); font-size: 0.75rem; padding: 0.5rem 0;">Loading latest news...</div>
                         </div>
                     </div>
                 </div>
@@ -2062,7 +2047,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <p><strong>License:</strong> Code: MIT License. Content: CC BY-NC-SA 4.0.</p>
                 <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: talktous@janvayu.in</p>
             </div>
-            <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | #AQIForJanHit</div>
+            <div id="global-last-updated" style="font-size: 0.7rem; color: var(--text-3); margin-bottom: 0.25rem;">Data last refreshed: loading...</div>
+            <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | #AQIForJanHit | Auto-updates: AQI every 10 min, news &amp; social every 15 min</div>
         </div>
     </footer>
 
@@ -2599,7 +2585,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         }
 
         const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-        try { updateTicker(); updateDashboard(); initAllCharts(); checkAlerts(); initArchiveData(); } catch(e) { console.error(e); }
+        try { updateTicker(); updateDashboard(); initAllCharts(); checkAlerts(); initArchiveData(); loadDashboardLiveNews(); updateGlobalTimestamp(); } catch(e) { console.error(e); }
 
         if (liveStatus) {
             liveStatus.innerHTML = usingLiveData
@@ -2825,12 +2811,30 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         try { await fetchAllAQI(); } catch(e) { console.error(e); }
         try { initAllCharts(); } catch(e) { console.error(e); }
 
-        // Auto-refresh
+        // Auto-refresh AQI + news every 10 minutes, social feeds every 15 minutes
         setInterval(async () => {
             try { await fetchAllAQI(); } catch(e) {}
         }, 10 * 60 * 1000);
 
-        console.log('[JanVayu] Ready');
+        setInterval(() => {
+            // Refresh social cache so next panel visit gets fresh data
+            SOCIAL_CACHE.lastFetch = 0;
+            newsCache.lastFetch = 0;
+            // If voices panel is active, refresh it
+            const voicesFeed = document.getElementById('voices-live-feed');
+            if (voicesFeed) loadVoicesLive();
+            // If social feed panel is active, refresh it
+            const socialFeed = document.getElementById('social-feed-container');
+            if (socialFeed) loadSocialFeed();
+            // If news panel is active, refresh it
+            const newsFeed = document.getElementById('news-feed-container');
+            if (newsFeed) loadNewsFilter();
+        }, 15 * 60 * 1000);
+
+        // Update global timestamp
+        updateGlobalTimestamp();
+
+        console.log('[JanVayu] Ready — auto-refresh: AQI every 10m, feeds every 15m');
     });
     
 
@@ -3013,6 +3017,199 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         const el = document.getElementById('rti-template');
         if (el) { navigator.clipboard.writeText(el.textContent).then(() => alert('RTI template copied!')); }
     }
+
+    // ── Global Timestamp ──
+    function updateGlobalTimestamp() {
+        const now = new Date();
+        const timeStr = now.toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        const el = document.getElementById('global-last-updated');
+        if (el) el.textContent = 'Data last refreshed: ' + timeStr;
+        // Also update version line if visible
+        const versionEl = document.querySelector('[data-auto-timestamp]');
+        if (versionEl) versionEl.textContent = 'Last auto-refresh: ' + timeStr;
+    }
+
+    // ── Dashboard Live News (auto-updating) ──
+    async function loadDashboardLiveNews() {
+        const container = document.getElementById('dashboard-live-news');
+        if (!container) return;
+
+        let articles = [];
+
+        // Try news proxy first
+        try {
+            const controller = new AbortController();
+            setTimeout(() => controller.abort(), 5000);
+            const res = await fetch('/.netlify/functions/news-proxy', { signal: controller.signal });
+            const text = await res.text();
+            if (text.startsWith('{')) {
+                const data = JSON.parse(text);
+                articles = (data.articles || []).slice(0, 6).map(a => ({
+                    title: a.title, url: a.link, date: new Date(a.date), source: a.source || 'News'
+                }));
+            }
+        } catch(e) {}
+
+        // Supplement with Reddit
+        try {
+            const controller = new AbortController();
+            setTimeout(() => controller.abort(), 5000);
+            const res = await fetch('/.netlify/functions/reddit-feed', { signal: controller.signal });
+            const text = await res.text();
+            if (text.startsWith('{')) {
+                const data = JSON.parse(text);
+                articles = articles.concat((data.posts || []).slice(0, 4).map(p => ({
+                    title: p.title, url: p.url, date: new Date(p.created), source: 'r/' + p.sub
+                })));
+            }
+        } catch(e) {}
+
+        // Direct Reddit fallback
+        if (articles.length === 0) {
+            try {
+                const posts = await fetchRedditPosts('india', 'air pollution OR AQI', 5);
+                articles = posts.map(p => ({ title: p.title, url: p.url, date: p.created, source: 'r/' + p.sub }));
+            } catch(e) {}
+        }
+
+        // Sort by date
+        articles.sort((a, b) => (b.date || 0) - (a.date || 0));
+
+        // Deduplicate
+        const seen = new Set();
+        articles = articles.filter(a => {
+            const key = (a.title || '').substring(0, 40).toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+
+        if (articles.length === 0) {
+            // Hardcoded fallback
+            container.innerHTML = `
+                <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);"><span class="badge badge-danger">2026</span><span style="margin-left: 6px;">0% of Delhi's days met WHO safe air limits</span></div>
+                <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);"><span class="badge badge-warning">2026</span><span style="margin-left: 6px;">CREA: 204/238 cities exceed NAAQS for PM2.5</span></div>
+                <div style="padding: 6px 0;"><span class="badge badge-info">2026</span><span style="margin-left: 6px;">Delhi spent only 43% of ₹300 Cr pollution budget</span></div>`;
+            return;
+        }
+
+        container.innerHTML = articles.slice(0, 5).map((a, i) => {
+            const timeAgo = getTimeAgo(a.date);
+            const badges = ['badge-danger', 'badge-warning', 'badge-info', 'badge-success'];
+            return `<div style="padding: 6px 0;${i < articles.length - 1 ? ' border-bottom: 1px solid var(--border-light);' : ''}">
+                <a href="${a.url}" target="_blank" rel="noopener" style="color: var(--text); text-decoration: none; font-size: 0.8rem; font-weight: 500;">${escapeHtml((a.title || '').substring(0, 80))}${(a.title||'').length > 80 ? '...' : ''}</a>
+                <div style="font-size: 0.65rem; color: var(--text-3); margin-top: 2px;">${escapeHtml(a.source || '')} · ${timeAgo}</div>
+            </div>`;
+        }).join('');
+    }
+
+    // ── Voices Live Feed (auto-updating citizen voices) ──
+    async function loadVoicesLive(filter = 'all') {
+        const container = document.getElementById('voices-live-feed');
+        const timeEl = document.getElementById('voices-live-time');
+        if (!container) return;
+
+        let posts = [];
+
+        // Fetch Reddit via proxy (with fallback)
+        if (filter === 'all' || filter === 'reddit') {
+            try {
+                const controller = new AbortController();
+                setTimeout(() => controller.abort(), 5000);
+                const res = await fetch('/.netlify/functions/reddit-feed', { signal: controller.signal });
+                const text = await res.text();
+                if (text.startsWith('{')) {
+                    const data = JSON.parse(text);
+                    posts = posts.concat((data.posts || []).map(p => ({
+                        platform: 'reddit', title: p.title, url: p.url, author: p.author,
+                        created: new Date(p.created), text: p.text || '', score: p.score,
+                        comments: p.comments, sub: p.sub
+                    })));
+                }
+            } catch(e) {}
+            // Direct Reddit fallback
+            if (posts.length === 0) {
+                try {
+                    const results = await Promise.allSettled(REDDIT_SUBS.map(s => fetchRedditPosts(s.sub, s.query, 8)));
+                    posts = posts.concat(results.filter(r => r.status === 'fulfilled').flatMap(r => r.value));
+                } catch(e) {}
+            }
+        }
+
+        // Twitter via proxy
+        if (filter === 'all' || filter === 'twitter') {
+            try {
+                const controller = new AbortController();
+                setTimeout(() => controller.abort(), 4000);
+                const res = await fetch('/.netlify/functions/twitter-feed', { signal: controller.signal });
+                const text = await res.text();
+                if (text.startsWith('{')) {
+                    const data = JSON.parse(text);
+                    posts = posts.concat((data.posts || []).map(p => ({
+                        platform: 'twitter', title: p.text, url: p.link,
+                        created: new Date(p.date), author: p.author, text: p.description?.substring(0, 200) || ''
+                    })));
+                }
+            } catch(e) {}
+            // Always add curated links as fallback
+            if (!posts.some(p => p.platform === 'twitter')) {
+                posts = posts.concat(getCuratedTwitterPosts());
+            }
+        }
+
+        // News via proxy
+        if (filter === 'all' || filter === 'news') {
+            try {
+                const controller = new AbortController();
+                setTimeout(() => controller.abort(), 4000);
+                const res = await fetch('/.netlify/functions/news-proxy', { signal: controller.signal });
+                const text = await res.text();
+                if (text.startsWith('{')) {
+                    const data = JSON.parse(text);
+                    posts = posts.concat((data.articles || []).slice(0, 10).map(a => ({
+                        platform: 'news', title: a.title, url: a.link,
+                        created: new Date(a.date), author: a.source, text: a.snippet || ''
+                    })));
+                }
+            } catch(e) {}
+        }
+
+        // Sort and deduplicate
+        posts.sort((a, b) => (b.created || 0) - (a.created || 0));
+        const seen = new Set();
+        posts = posts.filter(p => {
+            const key = (p.title || '').substring(0, 50);
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+
+        if (posts.length === 0) {
+            container.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: var(--text-3); font-size: 0.85rem;">No live posts available right now. Curated highlights are shown below.</div>';
+        } else {
+            const platformColors = { reddit: '#FF4500', twitter: '#1D9BF0', instagram: '#E4405F', news: '#16A34A' };
+            const platformLabels = { reddit: 'Reddit', twitter: 'X / Twitter', instagram: 'Instagram', news: 'News' };
+            container.innerHTML = posts.slice(0, 20).map(p => {
+                const color = platformColors[p.platform] || '#666';
+                const timeAgo = getTimeAgo(p.created);
+                return `<div style="padding: 0.75rem; border-bottom: 1px solid var(--border-light); display: flex; gap: 0.75rem;">
+                    <div style="flex-shrink: 0;">
+                        <span style="display: inline-block; background: ${color}; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: 600;">${platformLabels[p.platform] || p.platform}</span>
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <a href="${p.url}" target="_blank" rel="noopener" style="font-size: 0.85rem; font-weight: 600; color: var(--text); text-decoration: none; display: block; margin-bottom: 0.15rem;">${escapeHtml(p.title || '')}</a>
+                        ${p.text ? `<div style="font-size: 0.75rem; color: var(--text-2); margin-bottom: 0.15rem;">${escapeHtml((p.text || '').substring(0, 120))}${(p.text||'').length > 120 ? '...' : ''}</div>` : ''}
+                        <div style="font-size: 0.65rem; color: var(--text-3);">${p.author ? 'by ' + escapeHtml(p.author) + ' · ' : ''}${timeAgo}${p.score ? ' · ▲' + p.score : ''}${p.comments ? ' · ' + p.comments + ' comments' : ''}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        if (timeEl) timeEl.textContent = 'Updated: ' + new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Auto-refresh voices live feed every 15 minutes
+    let voicesRefreshInterval = null;
 
     // ── Social Media Feed (Free APIs) ──
     const SOCIAL_CACHE = { reddit: null, lastFetch: 0 };
@@ -4090,6 +4287,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             populateCityDropdowns();
             if (panelId === 'social-feed') loadSocialFeed();
             if (panelId === 'live-news') loadNewsFilter();
+            if (panelId === 'voices') {
+                loadVoicesLive();
+                if (voicesRefreshInterval) clearInterval(voicesRefreshInterval);
+                voicesRefreshInterval = setInterval(() => loadVoicesLive(), 15 * 60 * 1000);
+            }
             if (panelId === 'aqi-alerts') { renderActiveAlerts(); renderAlertCityStatus(); }
             if (panelId === 'go-outside') checkGoOutside();
             if (panelId === 'school-closure') updateSchoolPrediction();
@@ -6127,8 +6329,28 @@ Signature: _______________</div>
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: #1D9BF0; margin-right: 0.4rem;"></span>Citizen Voices &amp; Viral Moments</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Curated reactions from X/Twitter, Instagram, YouTube, and news — documenting India's air crisis through citizen voices, memes, and viral content.</p>
-            
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Live from social media + curated highlights. Auto-updates from Reddit, X/Twitter, and news sources.</p>
+
+            <!-- LIVE AUTO-UPDATING SECTION -->
+            <div class="card mb-3" style="border-left: 4px solid #1D9BF0;">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="card-title" style="color: #1D9BF0;">Live from Social Media</span>
+                    <span style="font-size: 0.7rem; color: var(--text-3);" id="voices-live-time">Loading...</span>
+                </div>
+                <div class="card-body" id="voices-live-feed" style="max-height: 600px; overflow-y: auto;">
+                    <div style="text-align: center; padding: 1.5rem; color: var(--text-3); font-size: 0.85rem;">Fetching live posts about air quality...</div>
+                </div>
+                <div class="card-footer" style="font-size: 0.75rem; color: var(--text-3); display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-sm" style="background: #FF4500; color: white; font-size: 0.7rem;" onclick="loadVoicesLive('reddit')">Reddit</button>
+                    <button class="btn btn-sm" style="background: #1D9BF0; color: white; font-size: 0.7rem;" onclick="loadVoicesLive('twitter')">X / Twitter</button>
+                    <button class="btn btn-sm" style="background: var(--green-700); color: white; font-size: 0.7rem;" onclick="loadVoicesLive('news')">News</button>
+                    <button class="btn btn-sm" style="font-size: 0.7rem;" onclick="loadVoicesLive('all')">All</button>
+                    <span style="margin-left: auto; align-self: center;">Auto-refreshes every 15 min</span>
+                </div>
+            </div>
+
+            <h3 style="font-family: var(--serif); font-size: 1.25rem; margin-bottom: 1rem; color: var(--ink);">Curated Highlights &amp; Key Moments</h3>
+
                             <!-- March 2026 Updates -->
                             <div class="voice-card" style="border-left: 3px solid #DC2626;">
                                 <div class="voice-header">
