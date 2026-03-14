@@ -2931,7 +2931,12 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         }
 
     function initMap() {
-            if (map) return;
+            // Destroy old map instance if DOM was replaced (panel navigation)
+            if (map) {
+                try { map.remove(); } catch(e) {}
+                map = null;
+                mapMarkers = [];
+            }
             const mapContainer = document.getElementById('india-map');
             if (!mapContainer) {
                 console.warn('[JanVayu] Map container not found');
@@ -3222,7 +3227,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             // Try Google News via Netlify proxy first, fallback to Reddit
             let proxyArticles = [];
             try {
-                const nRes = await fetch('/.netlify/functions/news-proxy' + (filter !== 'all' ? `?category=${filter}` : ''));
+                const nRes = await fetch('/.netlify/functions/news-proxy');
                 if (nRes.ok) {
                     const nData = await nRes.json();
                     proxyArticles = (nData.articles || []).map(a => ({
@@ -3256,7 +3261,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         }
 
         let articles = [...newsCache.articles];
-        if (filter === 'delhi') articles = articles.filter(a => /delhi|ncr|gurgaon|noida|faridabad|ghaziabad/i.test(a.title + a.text));
+        if (filter === 'india') articles = articles.filter(a => /india|indian|mumbai|kolkata|chennai|bangalore|hyderabad|lucknow|patna|national|cpcb/i.test(a.title + a.text));
+        else if (filter === 'delhi') articles = articles.filter(a => /delhi|ncr|gurgaon|noida|faridabad|ghaziabad/i.test(a.title + a.text));
         else if (filter === 'policy') articles = articles.filter(a => /ncap|policy|government|cpcb|caqm|grap|regulation|law|court|ngt/i.test(a.title + a.text));
         else if (filter === 'health') articles = articles.filter(a => /health|death|hospital|lung|asthma|cancer|children|disease/i.test(a.title + a.text));
 
@@ -4063,18 +4069,16 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     // ── Populate city dropdowns for new features ──
     function populateCityDropdowns() {
         const dropdowns = ['outside-city', 'exposure-city', 'purifier-city', 'hyperlocal-city', 'migrate-from', 'migrate-to', 'scorecard-city'];
+        const defaults = { 'migrate-to': 'bangalore' }; // Different default for migration destination
         dropdowns.forEach(id => {
             const el = document.getElementById(id);
             if (!el || el.options.length > 1) return;
-            // Add default selected option
-            if (el.options.length === 0) {
-                const def = document.createElement('option');
-                def.value = 'delhi'; def.textContent = 'Delhi'; def.selected = true;
-                el.appendChild(def);
-            }
-            Object.entries(CITIES).filter(([k, v]) => v.region !== 'intl' && k !== 'delhi').forEach(([key, city]) => {
+            const defaultCity = defaults[id] || 'delhi';
+            const indianCities = Object.entries(CITIES).filter(([k, v]) => v.region !== 'intl');
+            indianCities.forEach(([key, city]) => {
                 const opt = document.createElement('option');
                 opt.value = key; opt.textContent = city.name;
+                if (key === defaultCity) opt.selected = true;
                 el.appendChild(opt);
             });
         });
