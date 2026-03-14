@@ -5,6 +5,13 @@
 import { getStore } from "@netlify/blobs";
 import { Resend } from "resend";
 
+function getBlobStore(name) {
+  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+  const token = process.env.BLOB_TOKEN;
+  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
+  return getStore({ name, consistency: "strong" });
+}
+
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
 const CITIES = {
@@ -171,8 +178,8 @@ export default async (req) => {
   }
 
   const resend = new Resend(RESEND_API_KEY);
-  const subStore = getStore({ name: "janvayu-subscribers", consistency: "strong" });
-  const logStore = getStore({ name: "janvayu-feeds", consistency: "strong" });
+  const subStore = getBlobStore("janvayu-subscribers");
+  const logStore = getBlobStore("janvayu-feeds");
 
   // Get all subscribers
   const { blobs } = await subStore.list();

@@ -2,7 +2,7 @@
 // Serves pre-fetched data from Blobs (updated every 4h by scheduled-fetch)
 // Falls back to live RSS Bridge fetch if Blobs empty
 
-const { getStore } = require('@netlify/blobs');
+const { getBlobStore } = require('./blob-store');
 
 const RSSBRIDGE_INSTANCES = [
   'rss-bridge.org/bridge01',
@@ -74,7 +74,7 @@ exports.handler = async function (event) {
 
   // Try Blobs cache first
   try {
-    const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+    const store = getBlobStore("janvayu-feeds");
     const cached = await store.get("instagram", { type: "json" });
     if (cached && cached.posts && cached.posts.length > 0) {
       return {
