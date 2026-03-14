@@ -2048,7 +2048,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: talktous@janvayu.in</p>
             </div>
             <div id="global-last-updated" style="font-size: 0.7rem; color: var(--text-3); margin-bottom: 0.25rem;">Data last refreshed: loading...</div>
-            <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | #AQIForJanHit | Auto-updates: AQI every 10 min, news &amp; social every 15 min</div>
+            <div class="footer-bottom">&copy; 2026 JanVayu | MMSF Air Quality Initiative | #AQIForJanHit | Auto-updates: AQI every 10 min | Feeds auto-fetched server-side every 4 hours</div>
         </div>
     </footer>
 
@@ -3018,14 +3018,28 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         if (el) { navigator.clipboard.writeText(el.textContent).then(() => alert('RTI template copied!')); }
     }
 
-    // ── Global Timestamp ──
-    function updateGlobalTimestamp() {
+    // ── Global Timestamp (uses server-side feed-status for truth) ──
+    async function updateGlobalTimestamp() {
+        const el = document.getElementById('global-last-updated');
+        const versionEl = document.querySelector('[data-auto-timestamp]');
+        try {
+            const res = await fetch('/.netlify/functions/feed-status', { signal: AbortSignal.timeout(4000) });
+            const text = await res.text();
+            if (text.startsWith('{')) {
+                const data = JSON.parse(text);
+                if (data.last_updated) {
+                    const d = new Date(data.last_updated);
+                    const timeStr = d.toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                    if (el) el.textContent = 'Feeds last updated: ' + timeStr + ' (auto-updates every 4h)';
+                    if (versionEl) versionEl.textContent = 'Server auto-refresh: ' + timeStr;
+                    return;
+                }
+            }
+        } catch (e) { /* fall through to client timestamp */ }
+        // Fallback to client-side timestamp
         const now = new Date();
         const timeStr = now.toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-        const el = document.getElementById('global-last-updated');
         if (el) el.textContent = 'Data last refreshed: ' + timeStr;
-        // Also update version line if visible
-        const versionEl = document.querySelector('[data-auto-timestamp]');
         if (versionEl) versionEl.textContent = 'Last auto-refresh: ' + timeStr;
     }
 
@@ -3526,6 +3540,67 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         alertConfig.splice(index, 1);
         localStorage.setItem('janvayu_alerts', JSON.stringify(alertConfig));
         renderActiveAlerts();
+    }
+
+    // ── Email Subscription ──
+    async function subscribeEmail() {
+        const email = document.getElementById('subscribe-email')?.value?.trim();
+        const statusEl = document.getElementById('subscribe-status');
+        if (!email || !email.includes('@')) {
+            if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Please enter a valid email.</span>';
+            return;
+        }
+        const checkboxes = document.querySelectorAll('#subscribe-cities input[type="checkbox"]:checked');
+        const cities = Array.from(checkboxes).map(cb => cb.value);
+        if (cities.length === 0) {
+            if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Select at least one city.</span>';
+            return;
+        }
+        const threshold = parseInt(document.getElementById('subscribe-threshold')?.value || '200');
+        if (statusEl) statusEl.innerHTML = '<span style="color: var(--text-3);">Subscribing...</span>';
+        try {
+            const res = await fetch('/.netlify/functions/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, cities, threshold }),
+            });
+            const text = await res.text();
+            if (text.startsWith('{')) {
+                const data = JSON.parse(text);
+                if (data.ok) {
+                    statusEl.innerHTML = '<span style="color: var(--green-600);">' + data.message + '</span>';
+                } else {
+                    statusEl.innerHTML = '<span style="color: var(--red);">' + (data.error || 'Failed') + '</span>';
+                }
+            } else {
+                statusEl.innerHTML = '<span style="color: var(--red);">Service unavailable. Try again later.</span>';
+            }
+        } catch (e) {
+            if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Network error. Try again later.</span>';
+        }
+    }
+
+    async function unsubscribeEmail() {
+        const email = document.getElementById('unsubscribe-email')?.value?.trim();
+        const statusEl = document.getElementById('unsubscribe-status');
+        if (!email || !email.includes('@')) {
+            if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Please enter your email.</span>';
+            return;
+        }
+        try {
+            const res = await fetch('/.netlify/functions/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, action: 'unsubscribe' }),
+            });
+            const text = await res.text();
+            if (text.startsWith('{')) {
+                const data = JSON.parse(text);
+                if (statusEl) statusEl.innerHTML = '<span style="color: var(--green-600);">' + (data.message || 'Unsubscribed') + '</span>';
+            }
+        } catch (e) {
+            if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Network error.</span>';
+        }
     }
 
     function checkAlerts() {
@@ -9986,11 +10061,11 @@ Signature: _______________</div>
 <template id="tmpl-aqi-alerts">
     <div class="container">
         <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">AQI Alert System</h2>
-        <p style="color: var(--text-2); margin-bottom: 1.5rem;">Get browser notifications when air quality crosses dangerous thresholds in your city.</p>
+        <p style="color: var(--text-2); margin-bottom: 1.5rem;">Get notified when air quality crosses dangerous thresholds. Choose browser notifications (instant) or daily email digests.</p>
 
         <div class="grid-2" style="gap: 1.5rem;">
             <div class="card">
-                <div class="card-header"><span class="card-title">Set Up Alerts</span></div>
+                <div class="card-header"><span class="card-title">Browser Notifications (Instant)</span></div>
                 <div class="card-body">
                     <label class="form-label">Your City</label>
                     <select class="form-select mb-2" id="alert-city">
@@ -10014,19 +10089,58 @@ Signature: _______________</div>
                         <option value="400">400 (Severe)</option>
                     </select>
 
-                    <button class="btn btn-primary mt-2" onclick="setupAQIAlerts()" style="width: 100%;">Enable Notifications</button>
+                    <button class="btn btn-primary mt-2" onclick="setupAQIAlerts()" style="width: 100%;">Enable Browser Notifications</button>
                     <div id="alert-status" style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-3);"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header"><span class="card-title">Active Alerts</span></div>
+                <div class="card-header"><span class="card-title">Email Digest (Daily)</span></div>
+                <div class="card-body">
+                    <p style="font-size: 0.8rem; color: var(--text-2); margin-bottom: 0.75rem;">Get a daily AQI summary for your cities. No account needed.</p>
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-select mb-2" id="subscribe-email" placeholder="you@example.com" style="font-size: 0.85rem;">
+
+                    <label class="form-label">Cities to monitor</label>
+                    <div id="subscribe-cities" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="delhi" checked> Delhi</label>
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="mumbai"> Mumbai</label>
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="kolkata"> Kolkata</label>
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="bangalore"> Bengaluru</label>
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="lucknow"> Lucknow</label>
+                        <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="patna"> Patna</label>
+                    </div>
+
+                    <label class="form-label">Alert threshold</label>
+                    <select class="form-select mb-2" id="subscribe-threshold">
+                        <option value="100">AQI > 100 (Moderate)</option>
+                        <option value="200" selected>AQI > 200 (Poor)</option>
+                        <option value="300">AQI > 300 (Very Poor)</option>
+                    </select>
+
+                    <button class="btn btn-primary mt-2" onclick="subscribeEmail()" style="width: 100%;">Subscribe to Daily Digest</button>
+                    <div id="subscribe-status" style="margin-top: 0.75rem; font-size: 0.8rem;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2 mt-3" style="gap: 1.5rem;">
+            <div class="card">
+                <div class="card-header"><span class="card-title">Active Browser Alerts</span></div>
                 <div class="card-body">
                     <div id="active-alerts" style="font-size: 0.85rem;">
-                        <p style="color: var(--text-3);">No alerts configured yet. Set up alerts on the left to receive browser notifications.</p>
+                        <p style="color: var(--text-3);">No alerts configured yet. Set up alerts above to receive browser notifications.</p>
                     </div>
                     <div class="alert alert-info mt-2" style="font-size: 0.75rem;">
-                        Alerts check every 10 minutes using live WAQI data. Works as long as this tab is open. For persistent alerts, bookmark this page and keep it in a pinned tab.
+                        Browser alerts check every 10 minutes using live WAQI data. Works while this tab is open. Email digests are sent daily regardless.
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header"><span class="card-title">Unsubscribe from Email</span></div>
+                <div class="card-body">
+                    <input type="email" class="form-select mb-2" id="unsubscribe-email" placeholder="you@example.com" style="font-size: 0.85rem;">
+                    <button class="btn mt-1" onclick="unsubscribeEmail()" style="width: 100%; font-size: 0.8rem;">Unsubscribe</button>
+                    <div id="unsubscribe-status" style="margin-top: 0.5rem; font-size: 0.8rem;"></div>
                 </div>
             </div>
         </div>

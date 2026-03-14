@@ -1,5 +1,8 @@
 // Netlify Function: Google News RSS proxy for air quality news
-// Google News RSS doesn't support CORS, so we proxy it here
+// Serves pre-fetched data from Blobs (updated every 4h by scheduled-fetch)
+// Falls back to live fetch if Blobs empty
+
+const { getStore } = require('@netlify/blobs');
 
 const NEWS_FEEDS = [
   {
@@ -66,6 +69,27 @@ exports.handler = async function (event) {
     return { statusCode: 204, headers, body: '' };
   }
 
+  // Try Blobs cache first
+  try {
+    const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+    const cached = await store.get("news", { type: "json" });
+    if (cached && cached.articles && cached.articles.length > 0) {
+      const params = event.queryStringParameters || {};
+      const category = params.category || 'all';
+      let articles = cached.articles;
+      if (category !== 'all') {
+        articles = articles.filter(a => a.category && a.category.toLowerCase().includes(category.toLowerCase()));
+      }
+      return {
+        statusCode: 200, headers,
+        body: JSON.stringify({ ...cached, articles, count: articles.length, served_from: 'cache' }),
+      };
+    }
+  } catch (e) {
+    console.log('Blob read failed, falling back to live fetch:', e.message);
+  }
+
+  // Fallback: live fetch
   // Allow filtering by category via query param
   const params = event.queryStringParameters || {};
   const category = params.category || 'all';
@@ -128,7 +152,8 @@ exports.handler = async function (event) {
       count: unique.length,
       categories: NEWS_FEEDS.map(f => f.name),
       errors: errors.length > 0 ? errors : undefined,
-      cached_until: new Date(Date.now() + 900000).toISOString(),
+      served_from: 'live',
+      fetched_at: new Date().toISOString(),
     }),
   };
 };

@@ -1,0 +1,9 @@
+{
+  "name": "janvayu",
+  "version": "25.0.0",
+  "description": "JanVayu - India Air Quality Monitor",
+  "private": true,
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

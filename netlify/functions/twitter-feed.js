@@ -1,5 +1,8 @@
 // Netlify Function: Twitter/X feed proxy via Nitter RSS instances
-// Fetches tweets for air quality hashtags without needing Twitter API keys
+// Serves pre-fetched data from Blobs (updated every 4h by scheduled-fetch)
+// Falls back to live Nitter fetch if Blobs empty
+
+const { getStore } = require('@netlify/blobs');
 
 const NITTER_INSTANCES = [
   'nitter.privacydev.net',
@@ -84,6 +87,21 @@ exports.handler = async function (event) {
     return { statusCode: 204, headers, body: '' };
   }
 
+  // Try Blobs cache first
+  try {
+    const store = getStore({ name: "janvayu-feeds", consistency: "strong" });
+    const cached = await store.get("twitter", { type: "json" });
+    if (cached && cached.posts && cached.posts.length > 0) {
+      return {
+        statusCode: 200, headers,
+        body: JSON.stringify({ ...cached, served_from: 'cache' }),
+      };
+    }
+  } catch (e) {
+    console.log('Blob read failed, falling back to live fetch:', e.message);
+  }
+
+  // Fallback: live Nitter fetch
   const allItems = [];
   const errors = [];
 
@@ -142,7 +160,8 @@ exports.handler = async function (event) {
       count: unique.length,
       source: 'nitter-rss',
       errors: errors.length > 0 ? errors.slice(0, 5) : undefined,
-      cached_until: new Date(Date.now() + 600000).toISOString(),
+      served_from: 'live',
+      fetched_at: new Date().toISOString(),
     }),
   };
 };
