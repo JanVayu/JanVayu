@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./rootstack.db:/app/rootstack.db
+    environment:
+      - BRIDGE_DATABASE_URL=sqlite:///./rootstack.db
+      - BRIDGE_DEBUG=false
