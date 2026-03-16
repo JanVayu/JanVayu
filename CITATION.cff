@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this project in your research, please cite it as below."
+type: software
+title: "JanVayu: Citizen Air Quality Monitoring Platform for India"
+authors:
+  - family-names: Raman
+    given-names: Varna Sri
+url: "https://github.com/Varnasr/JanVayu"
+repository-code: "https://github.com/Varnasr/JanVayu"
+license: MIT
+keywords:
+  - air-quality
+  - india
+  - citizen-science
+  - environment
+  - health
+  - open-data
+
+date-released: "2025-01-01"
