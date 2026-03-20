@@ -1,0 +1,7 @@
+# JanVayu - India's Citizen Air Quality Platform
+# https://www.janvayu.in
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.janvayu.in/sitemap.xml

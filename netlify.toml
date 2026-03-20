@@ -12,6 +12,25 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Redirect non-www to www (canonical domain)
+[[redirects]]
+  from = "https://janvayu.in/*"
+  to = "https://www.janvayu.in/:splat"
+  status = 301
+  force = true
+
+# Ensure robots.txt and sitemap.xml are served directly (not caught by SPA fallback)
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
+# SPA fallback — must come AFTER specific file rules
 [[redirects]]
   from = "/*"
   to = "/index.html"
