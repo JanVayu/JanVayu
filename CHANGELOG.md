@@ -7,25 +7,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v25.1.0] - 2026-03-23
 
-### Added
-- **Ask JanVayu (AI)**: Natural language Q&A interface powered by Google Gemini 2.5 Flash — ask air quality questions in English or Hindi, grounded in live WAQI data
-- **AI Health Advisory**: Personalised health advisories based on age, health conditions, hours outdoors, and live PM2.5 data — colour-coded by risk level (low/moderate/high/severe)
-- **Ward-Level Accountability Brief (AI)**: Generates structured briefs for ward councillors, journalists, and resident groups with seasonal baselines, anomaly detection, and actionable recommendations — downloadable as .txt
-- **Anomaly Detection Banner**: Automatic PM2.5 spike detection across 5 metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) on page load and every 30 minutes, with one-sentence AI explanations
+### Added — AI-Powered Features (Google Gemini 2.5 Flash)
+
+- **Ask JanVayu (AI)**: Natural language Q&A interface grounded in live WAQI data
+  - Supports questions in English and Hindi; responds in the user's language
+  - Covers 40+ Indian cities with real-time AQI data
+  - Concise, data-grounded responses (under 150 words)
+  - Endpoint: `POST /.netlify/functions/air-query`
+
+- **AI Health Advisory**: Personalised health guidance based on user profile and live PM2.5 levels
+  - Considers age, pre-existing health conditions, and daily hours spent outdoors
+  - Colour-coded risk levels: low / moderate / high / severe
+  - Evaluates against WHO guideline (5 µg/m³) and user-specific risk factors
+  - Provides concrete, actionable recommendations (e.g., "stay indoors until 2 pm")
+  - Endpoint: `POST /.netlify/functions/health-advisory`
+
+- **Ward-Level Accountability Brief (AI)**: Structured briefs for local governance and civic action
+  - Target audiences: ward councillors, journalists, and resident welfare associations
+  - Includes seasonal baselines from CREA/IQAir data with anomaly detection (1.5× threshold)
+  - References GRAP stages, RTI powers, and MCD complaint lines for actionable next steps
+  - Downloadable as `.txt` files for offline sharing
+  - Endpoint: `POST /.netlify/functions/accountability-brief`
+
+- **Anomaly Detection Banner**: Automatic PM2.5 spike monitoring across 5 major metros
+  - Monitors Delhi, Mumbai, Kolkata, Chennai, and Bengaluru
+  - Runs on page load and refreshes every 30 minutes
+  - Triggers at 2× seasonal baseline with one-sentence, month-aware AI explanations (e.g., stubble burning context in Oct–Mar)
+  - Dismissible, expandable banner UI for multiple simultaneous alerts
+  - 10-minute response caching for performance
+  - Endpoint: `GET /.netlify/functions/anomaly-check`
+
+### Added — Infrastructure
+
 - **Demo Day mode**: `?demo=true` URL parameter pre-populates all AI features with Delhi/Anand Vihar defaults and shows a "DEMO MODE" badge
 - 4 new Netlify Functions: `air-query.mjs`, `health-advisory.mjs`, `accountability-brief.mjs`, `anomaly-check.mjs`
-- `.env.example` file with all required environment variables
-- `GEMINI_API_KEY` environment variable documented in README
+- `.env.example` file with all required environment variables including `GEMINI_API_KEY`
 
 ### Changed
-- Added `@google/generative-ai` SDK dependency
+- Added `@google/generative-ai` SDK dependency (`^0.24.1`)
 - Updated navigation: "Ask JanVayu (AI)" under Tools, "Accountability Brief (AI)" under Accountability
 - Health Impact panel now includes AI Health Advisory subsection
 
 ### Technical Notes
-- All Gemini API calls route through Netlify Functions (never client-side)
-- Free tier: 250 requests/day, 10/minute — rate limit fallback always shows raw PM2.5 data
-- Seasonal baselines from CREA/IQAir data for anomaly detection (1.5x threshold for briefs, 2x for banner)
+- All Gemini API calls route through Netlify Functions — API keys are never exposed client-side
+- Free tier rate limits: 250 requests/day, 10 requests/minute — fallback always returns raw PM2.5 data so users are never left without information
+- Seasonal baselines sourced from CREA/IQAir data (1.5× threshold triggers accountability briefs, 2× triggers anomaly banner)
+- Maximum output tokens capped at 400 for accountability briefs to keep responses focused
 
 ## [v25.0.0] - 2026-03-14
 
