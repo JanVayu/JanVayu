@@ -10090,6 +10090,19 @@ Signature: _______________</div>
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.1 &mdash; 23 Mar 2026</div>
+                    <strong>Gemini AI layer: 4 new AI-powered features</strong><br>
+                    &bull; <strong>Ask JanVayu (AI):</strong> Natural language Q&amp;A grounded in live WAQI data &mdash; supports English and Hindi, covers 40+ cities, concise responses under 150 words<br>
+                    &bull; <strong>AI Health Advisory:</strong> Personalised health guidance based on age, health conditions, hours outdoors, and live PM2.5 &mdash; colour-coded risk levels (low/moderate/high/severe), evaluates against WHO guideline (5 &micro;g/m&sup3;)<br>
+                    &bull; <strong>Ward-Level Accountability Brief (AI):</strong> Structured briefs for ward councillors, journalists, and RWAs with seasonal baselines from CREA/IQAir, anomaly detection (1.5&times; threshold), references GRAP stages, RTI powers, MCD complaint lines &mdash; downloadable as .txt<br>
+                    &bull; <strong>Anomaly Detection Banner:</strong> Automatic PM2.5 spike monitoring across Delhi, Mumbai, Kolkata, Chennai, Bengaluru &mdash; runs on page load and every 30 min, triggers at 2&times; seasonal baseline with month-aware AI explanations<br>
+                    &bull; <strong>Demo Day mode:</strong> <code>?demo=true</code> pre-populates all AI features with Delhi/Anand Vihar defaults<br>
+                    &bull; 4 new Netlify Functions: air-query, health-advisory, accountability-brief, anomaly-check<br>
+                    &bull; All Gemini API calls server-side only (never client-side); rate limit fallback always shows raw PM2.5 data<br>
+                    &bull; Model: Google Gemini 2.5 Flash via @google/generative-ai SDK
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.0 &mdash; 14 Mar 2026</div>
                     <strong>Code optimisation, 14 new interactive tools, live social media feeds, favicon</strong><br>
                     &bull; <strong>Code optimisation:</strong> Removed ~600 lines of dead/duplicate code, fixed broken &lt;script&gt; tags, parallelised API fetches with Promise.allSettled, fixed memory leak in exportData<br>
