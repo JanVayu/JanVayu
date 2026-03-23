@@ -1,7 +1,5 @@
 // Netlify Function: Anomaly Detection
-// Checks major cities for PM2.5 spikes, optionally explains via Gemini
-
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Checks major cities for PM2.5 spikes, optionally explains via Groq (Llama)
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
@@ -52,6 +50,28 @@ async function fetchCityAQI(cityKey) {
   return null;
 }
 
+async function callGroq(prompt) {
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        { role: "user", content: prompt },
+      ],
+      max_tokens: 100,
+      temperature: 0.7,
+    }),
+    signal: AbortSignal.timeout(15000),
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.choices[0].message.content;
+}
+
 export default async function handler(req) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -83,21 +103,18 @@ export default async function handler(req) {
     }
   });
 
-  // If spikes found, try to explain via Gemini
+  // If spikes found, try to explain via Groq
   if (spikes.length > 0) {
     const now = new Date();
     const month = now.toLocaleString("en-IN", { month: "long", timeZone: "Asia/Kolkata" });
     const hour = now.toLocaleString("en-IN", { hour: "numeric", hour12: true, timeZone: "Asia/Kolkata" });
 
     try {
-      const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
       const explanations = await Promise.allSettled(
         spikeData.map(async s => {
           const prompt = `In one sentence, explain why PM2.5 in ${s.city} might be ${s.pm25} µg/m³ right now — ${month}, ${hour}. Give the most likely cause. Be specific to the Indian context.`;
-          const result = await model.generateContent(prompt);
-          return { city: s.city, explanation: result.response.text() };
+          const text = await callGroq(prompt);
+          return { city: s.city, explanation: text };
         })
       );
 
@@ -108,7 +125,7 @@ export default async function handler(req) {
         }
       });
     } catch (e) {
-      console.log("Gemini error:", e.message);
+      console.log("Groq error:", e.message);
     }
   }
 
