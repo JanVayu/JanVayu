@@ -775,6 +775,120 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .si-umbrella { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); }
 .si-verified { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); }
 
+/* ── AI Features ────────────────────────── */
+.ai-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px;
+    background: rgba(74,222,128,0.1); color: var(--accent);
+}
+.ai-response-area {
+    min-height: 60px; padding: 16px 20px;
+    background: var(--bg-section); border: 1px solid var(--border-light);
+    border-radius: var(--radius); font-size: 0.9rem; line-height: 1.7;
+    color: var(--text); white-space: pre-wrap;
+}
+.ai-response-area:empty::before {
+    content: 'Response will appear here...';
+    color: var(--text-3); font-style: italic;
+}
+.ai-response-area.loading {
+    background: linear-gradient(90deg, var(--bg-section) 25%, var(--border-light) 50%, var(--bg-section) 75%);
+    background-size: 200% 100%;
+    animation: aiShimmer 1.5s infinite;
+}
+@keyframes aiShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.ai-data-used {
+    margin-top: 10px; padding: 10px 14px;
+    background: var(--bg-section); border: 1px solid var(--border-light);
+    border-radius: var(--radius); font-size: 0.78rem; color: var(--text-3);
+    font-family: var(--mono);
+}
+.advisory-card {
+    padding: 20px; border-radius: var(--radius-lg);
+    border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.7;
+}
+.advisory-card.risk-low { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.2); }
+.advisory-card.risk-moderate { background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.2); }
+.advisory-card.risk-high { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.2); }
+.advisory-card.risk-severe { background: rgba(127,29,29,0.08); border-color: rgba(127,29,29,0.25); }
+.risk-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; margin-bottom: 10px;
+}
+.risk-badge.risk-low { background: #22C55E; color: white; }
+.risk-badge.risk-moderate { background: #F59E0B; color: white; }
+.risk-badge.risk-high { background: #EF4444; color: white; }
+.risk-badge.risk-severe { background: #7F1D1D; color: white; }
+.brief-output {
+    padding: 24px; background: var(--bg-section);
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    font-family: var(--mono); font-size: 0.82rem; line-height: 1.8;
+    white-space: pre-wrap; color: var(--text);
+}
+.brief-output:empty::before {
+    content: 'Your accountability brief will appear here...';
+    color: var(--text-3); font-style: italic; font-family: var(--sans);
+}
+.anomaly-banner-container {
+    display: none; margin-bottom: 0;
+}
+.anomaly-banner-container.visible { display: block; }
+.anomaly-banner {
+    padding: 12px 20px;
+    background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25);
+    border-radius: var(--radius); font-size: 0.88rem; line-height: 1.6;
+    display: flex; align-items: flex-start; gap: 10px;
+    color: var(--text);
+}
+.anomaly-banner .anomaly-dismiss {
+    margin-left: auto; background: none; border: none;
+    color: var(--text-3); cursor: pointer; font-size: 1.1rem;
+    padding: 0 4px; flex-shrink: 0;
+}
+.anomaly-banner .anomaly-dismiss:hover { color: var(--text); }
+.anomaly-expand-link {
+    color: var(--accent); cursor: pointer; font-size: 0.82rem;
+    font-weight: 500; text-decoration: underline;
+    background: none; border: none; font-family: var(--sans);
+}
+.brief-actions {
+    display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+}
+.checkbox-group {
+    display: flex; flex-wrap: wrap; gap: 8px;
+}
+.checkbox-group label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.85rem; color: var(--text-2); cursor: pointer;
+    padding: 6px 12px; border: 1px solid var(--border);
+    border-radius: var(--radius); background: var(--bg);
+    transition: all 0.15s;
+}
+.checkbox-group label:hover { border-color: var(--accent); }
+.checkbox-group input[type="checkbox"]:checked + span {
+    color: var(--accent); font-weight: 600;
+}
+.slider-group {
+    display: flex; align-items: center; gap: 12px;
+}
+.slider-group input[type="range"] {
+    flex: 1; accent-color: var(--accent);
+}
+.slider-group .slider-value {
+    font-family: var(--mono); font-size: 0.88rem; font-weight: 600;
+    min-width: 28px; text-align: center; color: var(--accent);
+}
+.demo-badge {
+    display: none; position: fixed; top: 8px; right: 8px; z-index: 999;
+    padding: 4px 12px; background: var(--amber);
+    color: white; font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    border-radius: 4px; font-family: var(--mono);
+}
+.demo-badge.visible { display: block; }
+
 /* ── Hero ────────────────────────────────── */
 .hero {
     padding: 56px 0 48px;
@@ -1636,6 +1750,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     </style>
 </head>
 <body>
+    <div class="demo-badge" id="demoBadge">DEMO MODE</div>
     <!-- TICKER -->
     <div class="ticker">
         <div class="ticker-track" id="tickerTrack">
@@ -1724,6 +1839,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="mobile-nav-item" data-panel="corporate">Industrial Sources</button>
                 <button class="mobile-nav-item" data-panel="mission-tracker">Mission Tracker</button>
                 <button class="mobile-nav-item" data-panel="scorecards">Scorecards</button>
+                <button class="mobile-nav-item" data-panel="accountability-brief">Accountability Brief (AI)</button>
                 <button class="mobile-nav-item" data-panel="progress">Clean Air Wins</button>
             </div>
             <div class="mobile-nav-group">
@@ -1738,6 +1854,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label">Tools</div>
+                <button class="mobile-nav-item" data-panel="ask-janvayu">Ask JanVayu (AI)</button>
                 <button class="mobile-nav-item" data-panel="go-outside">Should I Go Outside?</button>
                 <button class="mobile-nav-item" data-panel="aqi-alerts">AQI Alerts</button>
                 <button class="mobile-nav-item" data-panel="school-closure">School Closures</button>
@@ -1794,6 +1911,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     <button class="nav-dropdown-link" data-panel="corporate">Industrial Sources</button>
                     <button class="nav-dropdown-link" data-panel="mission-tracker">Mission Tracker</button>
                     <button class="nav-dropdown-link" data-panel="scorecards">Scorecards</button>
+                    <button class="nav-dropdown-link" data-panel="accountability-brief">Accountability Brief (AI)</button>
                     <button class="nav-dropdown-link" data-panel="progress">Clean Air Wins</button>
                 </div>
             </div>
@@ -1811,6 +1929,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="nav-link" data-panel="resources" data-i18n="nav_resources">Resources <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="tools">Tools</button>
+                    <button class="nav-dropdown-link" data-panel="ask-janvayu">Ask JanVayu (AI)</button>
                     <button class="nav-dropdown-link" data-panel="go-outside">Should I Go Outside?</button>
                     <button class="nav-dropdown-link" data-panel="school-closure">School Closures</button>
                     <button class="nav-dropdown-link" data-panel="exposure-report">Exposure Report</button>
@@ -2014,6 +2133,17 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 </div>
             </div>
         </section>
+
+        <!-- ANOMALY DETECTION BANNER -->
+        <div class="container" style="padding-top: 16px;">
+            <div class="anomaly-banner-container" id="anomalyBannerContainer">
+                <div class="anomaly-banner" id="anomalyBanner">
+                    <span style="font-size: 1.1rem; flex-shrink: 0;">&#9888;</span>
+                    <div id="anomalyBannerText">Checking for anomalies...</div>
+                    <button class="anomaly-dismiss" onclick="dismissAnomalyBanner()" title="Dismiss">&times;</button>
+                </div>
+            </div>
+        </div>
 
         <!-- All remaining panels will be loaded here -->
         <div id="panel-container" class="container" style="padding-top: 20px; padding-bottom: 40px;">
@@ -4411,6 +4541,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'voices', title: 'Citizen Voices', desc: 'Social media, viral posts, public discourse', keywords: 'voices social media twitter reddit viral meme citizen opinion' },
         { id: 'migration', title: 'Migration & Displacement', desc: 'Climate migration, pollution refugees', keywords: 'migration displacement climate refugee leaving delhi' },
         { id: 'tools', title: 'Tools & Calculators', desc: 'Personal exposure, health risk, comparison', keywords: 'tools calculator exposure risk cigarette equivalent' },
+        { id: 'ask-janvayu', title: 'Ask JanVayu (AI)', desc: 'Ask questions about air quality in plain language', keywords: 'ask ai gemini question natural language hindi query' },
+        { id: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Ward-level briefs for councillors and journalists', keywords: 'brief accountability ward councillor journalist ai gemini report' },
         { id: 'resources', title: 'Research Library', desc: 'Reports, studies, expert organizations', keywords: 'resources library research report study paper crea cse iqair lancet' },
         { id: 'downloads', title: 'Downloads', desc: 'PDFs, legal docs, data exports', keywords: 'download pdf export data document template rti' },
         { id: 'social-feed', title: 'Social Media Feed', desc: 'Live posts from Reddit, X, Instagram about air pollution', keywords: 'social media twitter x reddit instagram feed live posts' },
@@ -4526,6 +4658,271 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         document.getElementById('feedbackCity').value = '';
         document.getElementById('feedbackForm').style.display = 'flex';
         document.getElementById('feedbackSuccess').style.display = 'none';
+    }
+
+
+    // ══════════════════════════════════════════
+    // ── AI FEATURES (Gemini Integration) ─────
+    // ══════════════════════════════════════════
+
+    // ── Feature 1: Ask JanVayu ──
+    async function submitAirQuery() {
+        const city = document.getElementById('ask-city')?.value;
+        const question = document.getElementById('ask-question')?.value?.trim();
+        const responseEl = document.getElementById('ask-response');
+        const dataEl = document.getElementById('ask-data-used');
+        const btn = document.getElementById('ask-submit');
+
+        if (!question) { responseEl.textContent = 'Please enter a question.'; return; }
+
+        btn.disabled = true; btn.textContent = 'Asking...';
+        responseEl.textContent = ''; responseEl.classList.add('loading');
+        dataEl.style.display = 'none';
+
+        try {
+            if (!navigator.onLine) throw new Error('offline');
+            const res = await fetch('/.netlify/functions/air-query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, city }),
+            });
+            const data = await res.json();
+            responseEl.classList.remove('loading');
+            responseEl.textContent = data.answer || 'No response received.';
+            if (data.dataUsed) {
+                dataEl.style.display = 'block';
+                dataEl.innerHTML = `<strong>Data used:</strong> ${data.dataUsed.city} — AQI: ${data.dataUsed.aqi}, PM2.5: ${data.dataUsed.pm25 ?? 'N/A'} µg/m³, Station: ${data.dataUsed.station}, Updated: ${data.dataUsed.time}`;
+            }
+        } catch (e) {
+            responseEl.classList.remove('loading');
+            if (e.message === 'offline') {
+                responseEl.textContent = 'You appear to be offline. Some features require an internet connection.';
+            } else {
+                responseEl.textContent = 'Something went wrong. Please try again.';
+            }
+        } finally {
+            btn.disabled = false; btn.textContent = 'Ask JanVayu';
+        }
+    }
+
+    // ── Feature 2: AI Health Advisory ──
+    async function submitHealthAdvisory() {
+        const city = document.getElementById('advisory-city')?.value;
+        const age = parseInt(document.getElementById('advisory-age')?.value) || 30;
+        const hours = parseInt(document.getElementById('advisory-hours')?.value) || 0;
+        const conditionEls = document.querySelectorAll('#advisory-conditions input[type="checkbox"]:checked');
+        const conditions = Array.from(conditionEls).map(el => el.value).filter(v => v);
+        const btn = document.getElementById('advisory-submit');
+        const card = document.getElementById('advisory-card');
+        const placeholder = document.getElementById('advisory-placeholder');
+        const textEl = document.getElementById('advisory-text');
+        const badgeEl = document.getElementById('advisory-risk-badge');
+        const metaEl = document.getElementById('advisory-meta');
+
+        // Handle "None" checkbox logic
+        if (conditions.includes('none') && conditions.length > 1) {
+            conditions.splice(conditions.indexOf('none'), 1);
+        }
+        if (conditions.length === 0) conditions.push('none');
+
+        btn.disabled = true; btn.textContent = 'Getting advisory...';
+        card.style.display = 'none';
+        placeholder.style.display = 'block';
+        placeholder.textContent = ''; placeholder.classList.add('loading');
+
+        try {
+            if (!navigator.onLine) throw new Error('offline');
+            const res = await fetch('/.netlify/functions/health-advisory', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ city, age, conditions, hoursOutdoor: hours }),
+            });
+            const data = await res.json();
+            placeholder.classList.remove('loading');
+            placeholder.style.display = 'none';
+            card.style.display = 'block';
+            card.className = 'advisory-card risk-' + (data.riskLevel || 'moderate');
+            badgeEl.className = 'risk-badge risk-' + (data.riskLevel || 'moderate');
+            badgeEl.textContent = (data.riskLevel || 'moderate').toUpperCase() + ' RISK';
+            textEl.textContent = data.advisory || 'No advisory received.';
+            if (data.pm25 != null) {
+                metaEl.textContent = `PM2.5: ${data.pm25} µg/m³ | AQI: ${data.aqiRaw} | ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+            }
+        } catch (e) {
+            placeholder.classList.remove('loading');
+            if (e.message === 'offline') {
+                placeholder.textContent = 'You appear to be offline. Some features require an internet connection.';
+            } else {
+                placeholder.textContent = 'Something went wrong. Please try again.';
+            }
+        } finally {
+            btn.disabled = false; btn.textContent = 'Get Advisory';
+        }
+    }
+
+    // ── Feature 3: Accountability Brief ──
+    let lastBriefText = '';
+    let lastBriefArea = '';
+
+    async function submitAccountabilityBrief() {
+        const city = document.getElementById('brief-city')?.value;
+        const area = document.getElementById('brief-area')?.value?.trim();
+        const period = document.getElementById('brief-period')?.value;
+        const outputEl = document.getElementById('brief-output');
+        const anomalyEl = document.getElementById('brief-anomaly-banner');
+        const actionsEl = document.getElementById('brief-actions');
+        const btn = document.getElementById('brief-submit');
+
+        if (!area) { outputEl.textContent = 'Please enter an area or ward name.'; return; }
+
+        btn.disabled = true; btn.textContent = 'Generating...';
+        outputEl.textContent = ''; outputEl.classList.add('loading');
+        anomalyEl.style.display = 'none';
+        actionsEl.style.display = 'none';
+
+        try {
+            if (!navigator.onLine) throw new Error('offline');
+            const res = await fetch('/.netlify/functions/accountability-brief', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ city, area, period }),
+            });
+            const data = await res.json();
+            outputEl.classList.remove('loading');
+            outputEl.textContent = data.brief || 'No brief generated.';
+            lastBriefText = data.brief || '';
+            lastBriefArea = area;
+            actionsEl.style.display = 'flex';
+
+            if (data.anomalyDetected) {
+                const ratio = data.pm25 && data.baseline ? (data.pm25 / data.baseline).toFixed(1) : '?';
+                anomalyEl.style.display = 'block';
+                anomalyEl.innerHTML = `&#9888; Anomalous reading — PM2.5 is ${ratio}x above seasonal baseline (${data.baseline} µg/m³)`;
+            }
+        } catch (e) {
+            outputEl.classList.remove('loading');
+            if (e.message === 'offline') {
+                outputEl.textContent = 'You appear to be offline. Some features require an internet connection.';
+            } else {
+                outputEl.textContent = 'Something went wrong. Please try again.';
+            }
+        } finally {
+            btn.disabled = false; btn.textContent = 'Generate Brief';
+        }
+    }
+
+    function downloadBrief() {
+        if (!lastBriefText) return;
+        const date = new Date().toISOString().split('T')[0];
+        const safeArea = lastBriefArea.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').toLowerCase();
+        const filename = `janvayu-brief-${safeArea}-${date}.txt`;
+        const blob = new Blob([lastBriefText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = filename; a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function copyBrief() {
+        if (!lastBriefText) return;
+        navigator.clipboard.writeText(lastBriefText).then(() => {
+            const btn = document.querySelector('#brief-actions .btn:last-child');
+            if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.innerHTML = '<span class="si si-sm si-copy"></span> Copy Brief'; }, 2000); }
+        });
+    }
+
+    // ── Feature 4: Anomaly Detection ──
+    let anomalyDismissed = false;
+
+    async function checkAnomalies() {
+        if (anomalyDismissed) return;
+        try {
+            const res = await fetch('/.netlify/functions/anomaly-check');
+            const data = await res.json();
+            const container = document.getElementById('anomalyBannerContainer');
+            const textEl = document.getElementById('anomalyBannerText');
+            if (!container || !textEl) return;
+
+            if (data.spikes && data.spikes.length > 0) {
+                const worst = data.spikes.reduce((a, b) => (a.ratio > b.ratio ? a : b));
+                let html = `<strong>Unusual PM2.5 spike in ${worst.city}: ${worst.pm25} µg/m³</strong> — ${worst.explanation}`;
+                if (data.spikes.length > 1) {
+                    const others = data.spikes.filter(s => s.city !== worst.city);
+                    html += ` <button class="anomaly-expand-link" onclick="expandAnomalies()">+${others.length} more ${others.length === 1 ? 'city' : 'cities'}</button>`;
+                    html += `<div id="anomalyExpanded" style="display:none; margin-top: 8px;">`;
+                    others.forEach(s => {
+                        html += `<div style="margin-top: 4px;"><strong>${s.city}: ${s.pm25} µg/m³</strong> — ${s.explanation}</div>`;
+                    });
+                    html += `</div>`;
+                }
+                textEl.innerHTML = html;
+                container.classList.add('visible');
+            } else {
+                container.classList.remove('visible');
+            }
+        } catch (e) {
+            console.log('Anomaly check failed:', e.message);
+        }
+    }
+
+    function expandAnomalies() {
+        const el = document.getElementById('anomalyExpanded');
+        if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function dismissAnomalyBanner() {
+        anomalyDismissed = true;
+        const container = document.getElementById('anomalyBannerContainer');
+        if (container) container.classList.remove('visible');
+    }
+
+    // Run anomaly check on load and every 30 minutes
+    checkAnomalies();
+    setInterval(checkAnomalies, 30 * 60 * 1000);
+
+    // ── Demo Day Mode ──
+    (function initDemoMode() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('demo') !== 'true') return;
+
+        // Show demo badge
+        const badge = document.getElementById('demoBadge');
+        if (badge) badge.classList.add('visible');
+
+        // Wait for panels to be available, then pre-populate on panel load
+        const origLoadPanel = loadPanel;
+        loadPanel = function(panelId) {
+            origLoadPanel(panelId);
+            setTimeout(() => applyDemoDefaults(panelId), 200);
+        };
+    })();
+
+    function applyDemoDefaults(panelId) {
+        if (panelId === 'ask-janvayu') {
+            const q = document.getElementById('ask-question');
+            const c = document.getElementById('ask-city');
+            if (q) q.value = 'Is it safe for my 8-year-old to go to school today in Delhi?';
+            if (c) c.value = 'delhi';
+        }
+        if (panelId === 'health') {
+            const age = document.getElementById('advisory-age');
+            const city = document.getElementById('advisory-city');
+            const hours = document.getElementById('advisory-hours');
+            const hoursVal = document.getElementById('advisory-hours-val');
+            if (age) age.value = 8;
+            if (city) city.value = 'delhi';
+            if (hours) { hours.value = 3; if (hoursVal) hoursVal.textContent = '3'; }
+            // Uncheck all, check "none"
+            document.querySelectorAll('#advisory-conditions input').forEach(cb => { cb.checked = cb.value === 'none'; });
+        }
+        if (panelId === 'accountability-brief') {
+            const city = document.getElementById('brief-city');
+            const area = document.getElementById('brief-area');
+            const period = document.getElementById('brief-period');
+            if (city) city.value = 'delhi';
+            if (area) area.value = 'Anand Vihar';
+            if (period) period.value = 'today';
+        }
     }
 
 
@@ -4991,7 +5388,104 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     Sources: GBD 2021 (HAP mortality), Census 2021 (fuel use), NSO 2022 (informal employment), TERI/CSE (occupational exposure studies), EPW environmental justice scholarship
                 </div>
             </div>
-        
+
+            <!-- AI HEALTH ADVISORY SUBSECTION -->
+            <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 2px solid var(--border);">
+                <div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
+                    <h2 style="font-family: var(--serif); font-size: clamp(1.25rem, 2.5vw, 1.75rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield-health" style="color: var(--accent); margin-right: 0.4rem;"></span>AI Health Advisory <span class="ai-badge">AI Powered</span></h2>
+                    <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Get a personalised health advisory based on your profile and live air quality data.</p>
+                </div>
+                <div class="grid-2 mb-2">
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Your Profile</span></div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-input" id="advisory-age" value="30" min="1" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Health Conditions</label>
+                                <div class="checkbox-group" id="advisory-conditions">
+                                    <label><input type="checkbox" value="asthma"><span>Asthma</span></label>
+                                    <label><input type="checkbox" value="copd"><span>COPD</span></label>
+                                    <label><input type="checkbox" value="cardiovascular"><span>Cardiovascular</span></label>
+                                    <label><input type="checkbox" value="pregnant"><span>Pregnant</span></label>
+                                    <label><input type="checkbox" value="none" checked><span>None</span></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Hours Outdoors Daily</label>
+                                <div class="slider-group">
+                                    <input type="range" id="advisory-hours" min="0" max="12" value="3" oninput="document.getElementById('advisory-hours-val').textContent=this.value">
+                                    <span class="slider-value" id="advisory-hours-val">3</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <select class="form-select" id="advisory-city">
+                                    <optgroup label="Metros">
+                                        <option value="delhi" selected>Delhi</option>
+                                        <option value="mumbai">Mumbai</option>
+                                        <option value="kolkata">Kolkata</option>
+                                        <option value="chennai">Chennai</option>
+                                        <option value="bangalore">Bengaluru</option>
+                                        <option value="hyderabad">Hyderabad</option>
+                                    </optgroup>
+                                    <optgroup label="NCR">
+                                        <option value="gurgaon">Gurgaon</option>
+                                        <option value="noida">Noida</option>
+                                        <option value="faridabad">Faridabad</option>
+                                        <option value="ghaziabad">Ghaziabad</option>
+                                    </optgroup>
+                                    <optgroup label="North India">
+                                        <option value="lucknow">Lucknow</option>
+                                        <option value="kanpur">Kanpur</option>
+                                        <option value="patna">Patna</option>
+                                        <option value="jaipur">Jaipur</option>
+                                        <option value="varanasi">Varanasi</option>
+                                        <option value="agra">Agra</option>
+                                        <option value="chandigarh">Chandigarh</option>
+                                        <option value="amritsar">Amritsar</option>
+                                        <option value="dehradun">Dehradun</option>
+                                        <option value="jodhpur">Jodhpur</option>
+                                    </optgroup>
+                                    <optgroup label="Central India">
+                                        <option value="bhopal">Bhopal</option>
+                                        <option value="indore">Indore</option>
+                                        <option value="nagpur">Nagpur</option>
+                                        <option value="raipur">Raipur</option>
+                                    </optgroup>
+                                    <optgroup label="West India">
+                                        <option value="ahmedabad">Ahmedabad</option>
+                                        <option value="pune">Pune</option>
+                                    </optgroup>
+                                    <optgroup label="South India">
+                                        <option value="kochi">Kochi</option>
+                                        <option value="visakhapatnam">Visakhapatnam</option>
+                                        <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                                        <option value="coimbatore">Coimbatore</option>
+                                    </optgroup>
+                                    <optgroup label="East India">
+                                        <option value="guwahati">Guwahati</option>
+                                        <option value="muzaffarpur">Muzaffarpur</option>
+                                        <option value="gaya">Gaya</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="advisory-submit" onclick="submitHealthAdvisory()">Get Advisory</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="advisory-card" id="advisory-card" style="display: none;">
+                            <div class="risk-badge" id="advisory-risk-badge"></div>
+                            <div id="advisory-text"></div>
+                            <div style="margin-top: 12px; font-size: 0.75rem; color: var(--text-3); font-family: var(--mono);" id="advisory-meta"></div>
+                        </div>
+                        <div class="ai-response-area" id="advisory-placeholder">Submit your profile to receive a personalised advisory based on live air quality data.</div>
+                    </div>
+                </div>
+            </div>
+
 </template>
 
 <template id="tmpl-economic">
@@ -10605,6 +11099,180 @@ Signature: _______________</div>
             <div class="card-body"><div class="chart-container" style="height: 400px;"><canvas id="correlationChart"></canvas></div></div>
         </div>
     </div>
+</template>
+
+<!-- ═══ AI FEATURE TEMPLATES ═══ -->
+
+<template id="tmpl-ask-janvayu">
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: var(--accent); margin-right: 0.4rem;"></span>Ask JanVayu <span class="ai-badge">AI Powered</span></h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Ask any question about air quality in your city. Get answers grounded in live data, in English or Hindi.</p>
+            </div>
+
+            <div class="grid-2 mb-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Your Question</span></div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <select class="form-select" id="ask-city">
+                                <optgroup label="Metros">
+                                    <option value="delhi" selected>Delhi</option>
+                                    <option value="mumbai">Mumbai</option>
+                                    <option value="kolkata">Kolkata</option>
+                                    <option value="chennai">Chennai</option>
+                                    <option value="bangalore">Bengaluru</option>
+                                    <option value="hyderabad">Hyderabad</option>
+                                </optgroup>
+                                <optgroup label="NCR">
+                                    <option value="gurgaon">Gurgaon</option>
+                                    <option value="noida">Noida</option>
+                                    <option value="faridabad">Faridabad</option>
+                                    <option value="ghaziabad">Ghaziabad</option>
+                                </optgroup>
+                                <optgroup label="North India">
+                                    <option value="lucknow">Lucknow</option>
+                                    <option value="kanpur">Kanpur</option>
+                                    <option value="patna">Patna</option>
+                                    <option value="jaipur">Jaipur</option>
+                                    <option value="varanasi">Varanasi</option>
+                                    <option value="agra">Agra</option>
+                                    <option value="chandigarh">Chandigarh</option>
+                                    <option value="amritsar">Amritsar</option>
+                                    <option value="dehradun">Dehradun</option>
+                                    <option value="jodhpur">Jodhpur</option>
+                                </optgroup>
+                                <optgroup label="Central India">
+                                    <option value="bhopal">Bhopal</option>
+                                    <option value="indore">Indore</option>
+                                    <option value="nagpur">Nagpur</option>
+                                    <option value="raipur">Raipur</option>
+                                </optgroup>
+                                <optgroup label="West India">
+                                    <option value="ahmedabad">Ahmedabad</option>
+                                    <option value="pune">Pune</option>
+                                </optgroup>
+                                <optgroup label="South India">
+                                    <option value="kochi">Kochi</option>
+                                    <option value="visakhapatnam">Visakhapatnam</option>
+                                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                                    <option value="coimbatore">Coimbatore</option>
+                                </optgroup>
+                                <optgroup label="East India">
+                                    <option value="guwahati">Guwahati</option>
+                                    <option value="muzaffarpur">Muzaffarpur</option>
+                                    <option value="gaya">Gaya</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Question</label>
+                            <input type="text" class="form-input" id="ask-question" placeholder="Delhi mein aaj bahar jaana safe hai? / Is it safe to go outside in Delhi today?">
+                        </div>
+                        <button class="btn btn-primary" id="ask-submit" onclick="submitAirQuery()">Ask JanVayu</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Answer</span></div>
+                    <div class="card-body">
+                        <div class="ai-response-area" id="ask-response"></div>
+                        <div class="ai-data-used" id="ask-data-used" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>How it works</h4>
+                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses Google Gemini AI to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in the language you use. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
+            </div>
+</template>
+
+<template id="tmpl-accountability-brief">
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clipboard-check" style="color: var(--accent); margin-right: 0.4rem;"></span>Generate a Ward-Level Accountability Brief <span class="ai-badge">AI Powered</span></h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">For ward councillors, journalists, and resident groups. AI-generated briefs grounded in live data with seasonal baselines and actionable recommendations.</p>
+            </div>
+
+            <div class="grid-2 mb-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Brief Parameters</span></div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <select class="form-select" id="brief-city">
+                                <optgroup label="Metros">
+                                    <option value="delhi" selected>Delhi</option>
+                                    <option value="mumbai">Mumbai</option>
+                                    <option value="kolkata">Kolkata</option>
+                                    <option value="chennai">Chennai</option>
+                                    <option value="bangalore">Bengaluru</option>
+                                    <option value="hyderabad">Hyderabad</option>
+                                </optgroup>
+                                <optgroup label="NCR">
+                                    <option value="gurgaon">Gurgaon</option>
+                                    <option value="noida">Noida</option>
+                                    <option value="faridabad">Faridabad</option>
+                                    <option value="ghaziabad">Ghaziabad</option>
+                                </optgroup>
+                                <optgroup label="North India">
+                                    <option value="lucknow">Lucknow</option>
+                                    <option value="kanpur">Kanpur</option>
+                                    <option value="patna">Patna</option>
+                                    <option value="jaipur">Jaipur</option>
+                                    <option value="varanasi">Varanasi</option>
+                                    <option value="agra">Agra</option>
+                                    <option value="chandigarh">Chandigarh</option>
+                                    <option value="amritsar">Amritsar</option>
+                                    <option value="dehradun">Dehradun</option>
+                                    <option value="jodhpur">Jodhpur</option>
+                                </optgroup>
+                                <optgroup label="Central India">
+                                    <option value="bhopal">Bhopal</option>
+                                    <option value="indore">Indore</option>
+                                    <option value="nagpur">Nagpur</option>
+                                    <option value="raipur">Raipur</option>
+                                </optgroup>
+                                <optgroup label="West India">
+                                    <option value="ahmedabad">Ahmedabad</option>
+                                    <option value="pune">Pune</option>
+                                </optgroup>
+                                <optgroup label="South India">
+                                    <option value="kochi">Kochi</option>
+                                    <option value="visakhapatnam">Visakhapatnam</option>
+                                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                                    <option value="coimbatore">Coimbatore</option>
+                                </optgroup>
+                                <optgroup label="East India">
+                                    <option value="guwahati">Guwahati</option>
+                                    <option value="muzaffarpur">Muzaffarpur</option>
+                                    <option value="gaya">Gaya</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Area / Ward</label>
+                            <input type="text" class="form-input" id="brief-area" placeholder="e.g. Anand Vihar, Rohini, Dharavi">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Period</label>
+                            <select class="form-select" id="brief-period">
+                                <option value="today">Today</option>
+                                <option value="this-week">This Week</option>
+                                <option value="this-month">This Month</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="brief-submit" onclick="submitAccountabilityBrief()">Generate Brief</button>
+                    </div>
+                </div>
+                <div>
+                    <div id="brief-anomaly-banner" style="display: none; padding: 10px 16px; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); border-radius: var(--radius); margin-bottom: 12px; font-size: 0.88rem; color: var(--red); font-weight: 600;"></div>
+                    <div class="brief-output" id="brief-output"></div>
+                    <div class="brief-actions" id="brief-actions" style="display: none;">
+                        <button class="btn btn-sm" onclick="downloadBrief()"><span class="si si-sm si-download"></span> Download .txt</button>
+                        <button class="btn btn-sm" onclick="copyBrief()"><span class="si si-sm si-copy"></span> Copy Brief</button>
+                    </div>
+                </div>
+            </div>
 </template>
 
 <!-- Floating Search & Feedback Widget -->
