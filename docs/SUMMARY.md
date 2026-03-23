@@ -38,6 +38,17 @@
 * [Code Standards](contributing/code-standards.md)
 * [Translations](contributing/translations.md)
 
+## Skills & AI Prompts
+
+* [Overview](skills/README.md)
+* [Air Quality Assistant](skills/air-quality-assistant.md)
+* [Public Health Advisor](skills/health-advisory.md)
+* [Accountability Brief Writer](skills/accountability-brief.md)
+* [Anomaly Explainer](skills/anomaly-explainer.md)
+* [Coding Practices](skills/coding-practices.md)
+* [Visual Design](skills/visual-design.md)
+* [Automation](skills/automation.md)
+
 ## About
 
 * [Project Background](about/background.md)
