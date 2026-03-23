@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v25.1.0] - 2026-03-23
+
+### Added
+- **Ask JanVayu (AI)**: Natural language Q&A interface powered by Google Gemini 2.5 Flash — ask air quality questions in English or Hindi, grounded in live WAQI data
+- **AI Health Advisory**: Personalised health advisories based on age, health conditions, hours outdoors, and live PM2.5 data — colour-coded by risk level (low/moderate/high/severe)
+- **Ward-Level Accountability Brief (AI)**: Generates structured briefs for ward councillors, journalists, and resident groups with seasonal baselines, anomaly detection, and actionable recommendations — downloadable as .txt
+- **Anomaly Detection Banner**: Automatic PM2.5 spike detection across 5 metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) on page load and every 30 minutes, with one-sentence AI explanations
+- **Demo Day mode**: `?demo=true` URL parameter pre-populates all AI features with Delhi/Anand Vihar defaults and shows a "DEMO MODE" badge
+- 4 new Netlify Functions: `air-query.mjs`, `health-advisory.mjs`, `accountability-brief.mjs`, `anomaly-check.mjs`
+- `.env.example` file with all required environment variables
+- `GEMINI_API_KEY` environment variable documented in README
+
+### Changed
+- Added `@google/generative-ai` SDK dependency
+- Updated navigation: "Ask JanVayu (AI)" under Tools, "Accountability Brief (AI)" under Accountability
+- Health Impact panel now includes AI Health Advisory subsection
+
+### Technical Notes
+- All Gemini API calls route through Netlify Functions (never client-side)
+- Free tier: 250 requests/day, 10/minute — rate limit fallback always shows raw PM2.5 data
+- Seasonal baselines from CREA/IQAir data for anomaly detection (1.5x threshold for briefs, 2x for banner)
+
 ## [v25.0.0] - 2026-03-14
 
 ### Added
@@ -53,5 +75,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - N/A (initial release)
 
+[v25.1.0]: https://github.com/Varnasr/JanVayu/compare/v25.0.0...v25.1.0
 [v25.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v25.0.0
 [v24.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v24.0.0
