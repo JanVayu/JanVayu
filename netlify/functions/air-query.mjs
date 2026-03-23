@@ -129,7 +129,7 @@ export default async function handler(req) {
 
   try {
     const text = await callGroq(
-      "You are JanVayu's air quality assistant for India. Answer questions in plain, direct language. Use the actual numbers provided — do not give generic advice. If the question is about health, be honest about risk without causing panic. Always cite the data you are using. Respond in the same language the question is asked in — if Hindi, respond in Hindi using Devanagari script. Keep responses under 150 words.",
+      "You are JanVayu's air quality assistant for India. Answer questions in plain, direct language. Use the actual numbers provided — do not give generic advice. If the question is about health, be honest about risk without causing panic. Always cite the data you are using. Always respond in English, even if the question is in Hindi or another language. Keep responses under 150 words.",
       `${dataContext}\n\nQuestion: ${question}`
     );
     return new Response(JSON.stringify({ answer: text, dataUsed: aqiResult }), { status: 200, headers });

@@ -4889,12 +4889,16 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         const badge = document.getElementById('demoBadge');
         if (badge) badge.classList.add('visible');
 
-        // Wait for panels to be available, then pre-populate on panel load
+        // Wrap loadPanel so future panel switches get demo defaults
         const origLoadPanel = loadPanel;
         loadPanel = function(panelId) {
             origLoadPanel(panelId);
             setTimeout(() => applyDemoDefaults(panelId), 200);
         };
+
+        // Apply demo defaults to any panel already loaded (handles initial hash navigation)
+        const hash = window.location.hash.replace('#', '');
+        if (hash) setTimeout(() => applyDemoDefaults(hash), 300);
     })();
 
     function applyDemoDefaults(panelId) {
@@ -11183,7 +11187,7 @@ Signature: _______________</div>
 
             <div class="info-box">
                 <h4>How it works</h4>
-                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses Google Gemini AI to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in the language you use. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
+                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses AI (Llama 3.3) to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in English with real data. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
             </div>
 </template>
 
