@@ -20,7 +20,7 @@
 * [Overview](tech-stack/overview.md)
 * [Frontend (HTML/CSS/JS, Chart.js, Leaflet)](tech-stack/frontend.md)
 * [Backend (Netlify Functions, Blobs, Resend)](tech-stack/backend.md)
-* [AI Layer (Gemini 2.5 Flash)](tech-stack/ai-layer.md)
+* [AI Layer (Llama 3.3 70B via Groq)](tech-stack/ai-layer.md)
 * [Infrastructure (Netlify, GitHub, DNS)](tech-stack/infrastructure.md)
 * [Development Tooling](tech-stack/dev-tooling.md)
 
@@ -42,7 +42,7 @@
 * [Local Development](technical/local-development.md)
 * [Environment Variables](technical/environment-variables.md)
 * [Netlify Functions](technical/netlify-functions.md)
-* [AI Features (Gemini)](technical/ai-features.md)
+* [AI Features (Groq / Llama)](technical/ai-features.md)
 * [Deployment](technical/deployment.md)
 
 ## Data Sources
