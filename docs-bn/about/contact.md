@@ -1,0 +1,26 @@
+# যোগাযোগ
+
+---
+
+## GitHub
+- **রিপোজিটরি:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+- **Issues:** [github.com/Varnasr/JanVayu/issues](https://github.com/Varnasr/JanVayu/issues)
+- **Discussions:** GitHub Discussions
+
+---
+
+## অবদান
+- বাগ রিপোর্ট: GitHub Issues
+- ফিচার অনুরোধ: GitHub Issues
+- কোড অবদান: Pull Request
+
+---
+
+## প্ল্যাটফর্ম
+- **ওয়েবসাইট:** [www.janvayu.in](https://www.janvayu.in)
+
+---
+
+## লাইসেন্স
+- কোড: MIT
+- কন্টেন্ট: CC BY-NC-SA 4.0
