@@ -35,6 +35,13 @@
 * [Changelog](reference/changelog.md)
 * [Glossary](reference/glossary.md)
 
+## Translations
+
+* [हिन्दी (Hindi)](../docs-impactmojo-hi/README.md)
+* [বাংলা (Bengali)](../docs-impactmojo-bn/README.md)
+* [मराठी (Marathi)](../docs-impactmojo-mr/README.md)
+* [தமிழ் (Tamil)](../docs-impactmojo-ta/README.md)
+
 ## About
 
 * [Project Background](about/background.md)
