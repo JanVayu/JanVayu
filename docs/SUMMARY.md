@@ -31,6 +31,11 @@
 * [Development Workflow](claude-code/workflow.md)
 * [Sharing & Replicating](claude-code/sharing.md)
 
+## API Reference
+
+* [Overview](api/README.md)
+* [OpenAPI Spec](api/openapi.yaml)
+
 ## Technical Reference
 
 * [Architecture](technical/architecture.md)
