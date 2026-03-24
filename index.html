@@ -2940,7 +2940,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
         // Role dashboard: show the curated role view
         if (panelId === 'my-dashboard') {
-            const savedRole = localStorage.getItem('janvayu-role');
+            const savedRole = sessionStorage.getItem('janvayu-role');
             if (savedRole && savedRole !== 'skip' && typeof showRoleDashboard === 'function') {
                 showRoleDashboard(savedRole);
             }
@@ -11966,13 +11966,13 @@ const ROLE_CONFIG = {
 function selectRole(role) {
     const overlay = document.getElementById('roleOverlay');
     if (role === 'skip') {
-        localStorage.setItem('janvayu-role', 'skip');
+        sessionStorage.setItem('janvayu-role', 'skip');
         overlay.classList.add('hiding');
         setTimeout(() => { overlay.style.display = 'none'; }, 400);
         updateRoleSwitcher('skip');
         return;
     }
-    localStorage.setItem('janvayu-role', role);
+    sessionStorage.setItem('janvayu-role', role);
     overlay.classList.add('hiding');
     setTimeout(() => {
         overlay.style.display = 'none';
@@ -12089,11 +12089,11 @@ function switchRole(role) {
     document.removeEventListener('click', closeRoleSwitcherOnOutsideClick);
 
     if (role === 'skip') {
-        localStorage.setItem('janvayu-role', 'skip');
+        sessionStorage.setItem('janvayu-role', 'skip');
         updateRoleSwitcher('skip');
         dismissRoleDashboard();
     } else {
-        localStorage.setItem('janvayu-role', role);
+        sessionStorage.setItem('janvayu-role', role);
         updateRoleSwitcher(role);
         showRoleDashboard(role);
     }
@@ -12101,7 +12101,7 @@ function switchRole(role) {
 
 // ── Init: Check for saved role on page load ──
 (function initRoleExperience() {
-    const savedRole = localStorage.getItem('janvayu-role');
+    const savedRole = sessionStorage.getItem('janvayu-role');
     const hash = window.location.hash.replace('#', '');
 
     // If there's a specific panel hash (not dashboard, not my-dashboard), go directly there
