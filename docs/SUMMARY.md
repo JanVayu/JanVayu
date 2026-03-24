@@ -7,6 +7,7 @@
 ## User Guide
 
 * [Platform Overview](user-guide/overview.md)
+* [Role-Based Landing Experience](user-guide/role-selector.md)
 * [AQI Dashboard](user-guide/aqi-dashboard.md)
 * [Health Impact Calculator](user-guide/health-calculator.md)
 * [Economic Cost Analysis](user-guide/economic-cost.md)
