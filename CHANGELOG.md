@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v25.2.0] - 2026-03-24
+
+### Added — Documentation & Translations
+
+- **GitBook Documentation**: Complete documentation site with user guides, tech stack reference, contributing guidelines, data source documentation, and AI skills reference
+- **Multilingual GitBook Translations**: Full documentation translated into Hindi (`docs-hi/`), Tamil (`docs-ta/`), Marathi (`docs-mr/`), and Bengali (`docs-bn/`)
+- **OpenAPI Specification**: API reference docs for all Netlify Function endpoints
+- **Interactive Demo Placeholders**: Embedded demo sections in user guide pages (AQI dashboard, health calculator, city comparison, citizen action, policy tracker)
+- **Translation CI Workflow**: Automated GitHub Actions workflow for translation coverage tracking and staleness detection
+- **Contributing Guide for Translations**: Dedicated documentation for translation contributors
+- **Dev Tooling Documentation**: Tech stack and developer tooling reference pages
+
+### Changed
+
+- Improved Bengali translation quality across all documentation sections
+- Updated docs README with translation status and GitBook integration details
+- Reorganized Claude Code sharing documentation
+
 ## [v25.1.0] - 2026-03-23
 
 ### Added — AI-Powered Features (Google Gemini 2.5 Flash)
@@ -102,6 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - N/A (initial release)
 
+[v25.2.0]: https://github.com/Varnasr/JanVayu/compare/v25.1.0...v25.2.0
 [v25.1.0]: https://github.com/Varnasr/JanVayu/compare/v25.0.0...v25.1.0
 [v25.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v25.0.0
 [v24.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v24.0.0
