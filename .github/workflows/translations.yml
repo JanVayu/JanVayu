@@ -1,0 +1,147 @@
+name: Translation Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'docs-hi/**'
+      - 'docs-bn/**'
+      - 'docs-mr/**'
+      - 'docs-ta/**'
+
+jobs:
+  check-translation-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check translation file coverage
+        run: |
+          echo "## Translation Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          LANGS="hi bn mr ta"
+          LANG_NAMES="Hindi Bengali Marathi Tamil"
+          MISSING=0
+
+          # Get English source files (excluding api/openapi.yaml)
+          EN_FILES=$(find docs -name '*.md' | sed 's|^docs/||' | sort)
+          EN_COUNT=$(echo "$EN_FILES" | wc -l)
+
+          echo "| Language | Files | Missing | Coverage |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|---------|----------|" >> $GITHUB_STEP_SUMMARY
+
+          i=0
+          for lang in $LANGS; do
+            name=$(echo $LANG_NAMES | cut -d' ' -f$((i+1)))
+            LANG_COUNT=0
+            LANG_MISSING=""
+
+            while IFS= read -r file; do
+              if [ -f "docs-$lang/$file" ]; then
+                LANG_COUNT=$((LANG_COUNT + 1))
+              else
+                LANG_MISSING="$LANG_MISSING\n- \`$file\`"
+                MISSING=$((MISSING + 1))
+              fi
+            done <<< "$EN_FILES"
+
+            PCT=$((LANG_COUNT * 100 / EN_COUNT))
+            echo "| $name (\`$lang\`) | $LANG_COUNT/$EN_COUNT | $((EN_COUNT - LANG_COUNT)) | ${PCT}% |" >> $GITHUB_STEP_SUMMARY
+
+            if [ -n "$LANG_MISSING" ]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "<details><summary>Missing in $name</summary>" >> $GITHUB_STEP_SUMMARY
+              echo -e "$LANG_MISSING" >> $GITHUB_STEP_SUMMARY
+              echo "</details>" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            i=$((i + 1))
+          done
+
+          if [ $MISSING -gt 0 ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "> **$MISSING** translation files missing across all languages." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "> All translations are complete." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check SUMMARY.md structure parity
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## SUMMARY.md Structure Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Count links in each SUMMARY.md
+          EN_LINKS=$(grep -c '\[.*\](.*\.md)' docs/SUMMARY.md || true)
+          echo "| Language | SUMMARY.md links | Match |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-----------------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| English | $EN_LINKS | - |" >> $GITHUB_STEP_SUMMARY
+
+          for lang in hi bn mr ta; do
+            if [ -f "docs-$lang/SUMMARY.md" ]; then
+              COUNT=$(grep -c '\[.*\](.*\.md)' "docs-$lang/SUMMARY.md" || true)
+              if [ "$COUNT" -eq "$EN_LINKS" ]; then
+                MATCH="yes"
+              else
+                MATCH="**no** ($COUNT)"
+              fi
+            else
+              COUNT=0
+              MATCH="**missing**"
+            fi
+            echo "| \`$lang\` | $COUNT | $MATCH |" >> $GITHUB_STEP_SUMMARY
+          done
+
+  detect-stale-translations:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Flag English docs changed without translation updates
+        run: |
+          echo "## Stale Translation Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Get English docs changed in this push
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'docs/*.md' 'docs/**/*.md' 2>/dev/null || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "No English docs changed in this push." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+
+          STALE=0
+          echo "| Changed English File | hi | bn | mr | ta |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------------------|----|----|----|----|" >> $GITHUB_STEP_SUMMARY
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            REL=${file#docs/}
+            ROW="| \`$REL\` |"
+
+            for lang in hi bn mr ta; do
+              TRANS="docs-$lang/$REL"
+              if git diff --name-only HEAD~1 HEAD -- "$TRANS" | grep -q .; then
+                ROW="$ROW updated |"
+              elif [ -f "$TRANS" ]; then
+                ROW="$ROW **stale** |"
+                STALE=$((STALE + 1))
+              else
+                ROW="$ROW missing |"
+                STALE=$((STALE + 1))
+              fi
+            done
+
+            echo "$ROW" >> $GITHUB_STEP_SUMMARY
+          done <<< "$CHANGED"
+
+          if [ $STALE -gt 0 ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "> **$STALE** translations may need updating." >> $GITHUB_STEP_SUMMARY
+          fi

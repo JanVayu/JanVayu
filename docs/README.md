@@ -29,6 +29,20 @@ JanVayu is not a campaign. It is a record — a permanent public archive documen
 
 ---
 
+## Read in Your Language
+
+These docs are available in 5 languages:
+
+| Language | Link |
+|----------|------|
+| English | [janvayu.gitbook.io/janvayu](https://janvayu.gitbook.io/janvayu/) |
+| हिन्दी (Hindi) | [janvayu.gitbook.io/janvayu/hi](https://janvayu.gitbook.io/janvayu/hi/) |
+| বাংলা (Bengali) | [janvayu.gitbook.io/janvayu/bn](https://janvayu.gitbook.io/janvayu/bn/) |
+| मराठी (Marathi) | [janvayu.gitbook.io/janvayu/mr](https://janvayu.gitbook.io/janvayu/mr/) |
+| தமிழ் (Tamil) | [janvayu.gitbook.io/janvayu/ta](https://janvayu.gitbook.io/janvayu/ta/) |
+
+---
+
 ## Guiding Principles
 
 - **Non-partisan** — not affiliated with any political party, government body, or corporate entity

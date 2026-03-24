@@ -114,47 +114,42 @@ Since JanVayu uses GitBook Ultimate, here are configurations to maximise the pla
 
 ### Git Sync
 
-Already configured in `.gitbook.yaml`:
-```yaml
-root: ./docs
-structure:
-  readme: README.md
-  summary: SUMMARY.md
-```
+Configured in `.gitbook.yaml` and via the GitHub integration API. Each language syncs from a separate directory:
 
-This syncs the `docs/` directory bi-directionally with GitBook.
+| Space | Source Directory | Branch |
+|-------|----------------|--------|
+| English (default) | `docs/` | `main` |
+| Hindi | `docs-hi/` | `main` |
+| Bengali | `docs-bn/` | `main` |
+| Marathi | `docs-mr/` | `main` |
+| Tamil | `docs-ta/` | `main` |
 
-### Recommended Ultimate Features
+All spaces auto-sync when changes are pushed to `main`.
+
+### Installed Integrations
+
+| Integration | Purpose | Notes |
+|-------------|---------|-------|
+| **GitHub Sync** | Bi-directional repo ↔ GitBook sync | Configured per-space for each language directory |
+| **Formspree** | Collect signups and feedback in docs | Configure form ID in integration settings |
+| **Arcade** | Interactive product demos embedded in docs | Free tier: ~3 published demos, unlimited views. Use Arcade Chrome extension to record, embed with `/arcade` block |
+| **PlantUML** | Render architecture diagrams from code | Use `plantuml` fenced code blocks in any page |
+| **Plausible** | Privacy-friendly analytics (no cookies) | Configure your Plausible domain in site settings |
+| **GitHub Files** | Embed live code from the repo | Reference files using GitHub permalink syntax |
+
+### Recommended Features
 
 | Feature | How to Use |
 |---------|-----------|
 | **Custom domain** | Settings → Custom domain → point `docs.janvayu.in` |
-| **Visitor authentication** | Settings → Publishing → Require sign-in (for internal docs) |
-| **AI search** | Enabled by default on Ultimate — lets visitors ask questions |
+| **AI search** | Enabled by default — lets visitors ask questions about the docs |
 | **PDF export** | Available per-page or full-space export |
 | **Insights** | Track which pages are most visited |
-| **Integrations** | Connect Slack, Linear, or GitHub for notifications |
 | **Custom branding** | Settings → Customization → Logo, colours, favicon |
 | **Broken link detection** | Automatic — flags internal broken links |
 | **OpenAPI spec** | Import API specs to auto-generate endpoint docs |
-| **Snippet blocks** | Reusable content blocks across multiple pages |
 | **Page ratings** | Visitors can rate page helpfulness |
 | **Change requests** | Team members propose edits via GitBook UI |
-
-### Recommended Space Structure
-
-```
-JanVayu Docs (public)
-├── Getting Started
-├── User Guide
-├── Tech Stack        ← NEW
-├── Claude Code       ← NEW
-├── Technical Reference
-├── Data Sources
-├── Skills & AI Prompts
-├── Contributing
-└── About
-```
 
 ### Custom Domain Setup
 

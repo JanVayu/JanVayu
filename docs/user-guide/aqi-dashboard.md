@@ -55,6 +55,14 @@ The live map uses Leaflet.js with OpenStreetMap tiles and displays CPCB monitori
 
 ---
 
+## Interactive Demo
+
+> **Upcoming** — An interactive demo of the AQI Dashboard will be embedded here, showing live city readings, the colour-coded map, and real-time data refresh in action.
+
+<!-- Replace this section with an Arcade embed once recorded -->
+
+---
+
 ## Data Limitations
 
 - Some cities have only one or two official monitoring stations; readings may not represent the entire city
