@@ -1,0 +1,653 @@
+openapi: 3.1.0
+info:
+  title: JanVayu API
+  description: |
+    JanVayu's serverless API — 10 Netlify Functions powering real-time AQI data,
+    AI-assisted analysis, social feed aggregation, and email subscriptions.
+
+    **Base URL:** `https://www.janvayu.in/.netlify/functions`
+
+    All endpoints return JSON and support CORS (`Access-Control-Allow-Origin: *`).
+  version: 25.1.0
+  contact:
+    name: JanVayu
+    url: https://github.com/Varnasr/JanVayu
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://www.janvayu.in/.netlify/functions
+    description: Production
+  - url: http://localhost:8888/.netlify/functions
+    description: Local development (netlify dev)
+
+tags:
+  - name: AI Features
+    description: Gemini-powered analysis endpoints (v25.1)
+  - name: Social Feeds
+    description: Cached social media and news feeds
+  - name: Platform
+    description: Subscriptions and health monitoring
+
+paths:
+  /air-query:
+    post:
+      operationId: askAirQuality
+      summary: Ask a natural language question about air quality
+      description: |
+        Accepts a city name and free-text question, fetches live AQI from WAQI,
+        and returns a Gemini-generated answer grounded in real data.
+        Supports English and Hindi.
+      tags: [AI Features]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [question, city]
+              properties:
+                question:
+                  type: string
+                  description: Natural language question about air quality
+                  example: "Is it safe to go for a run in Delhi today?"
+                city:
+                  type: string
+                  description: Indian city name
+                  example: "delhi"
+      responses:
+        "200":
+          description: AI-generated answer (or raw data fallback if rate-limited)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: AI-generated response (< 150 words)
+                  dataUsed:
+                    type: object
+                    properties:
+                      city:
+                        type: string
+                      aqi:
+                        type: integer
+                      pm25:
+                        type: number
+                        nullable: true
+                      pm10:
+                        type: number
+                        nullable: true
+                      station:
+                        type: string
+                      time:
+                        type: string
+                        format: date-time
+                      dominentpol:
+                        type: string
+                        nullable: true
+        "400":
+          description: Missing required fields (question or city)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "405":
+          description: Method not allowed (use POST)
+
+  /health-advisory:
+    post:
+      operationId: getHealthAdvisory
+      summary: Get personalised health advisory based on AQI
+      description: |
+        Generates a tailored health recommendation based on the user's profile
+        (age, conditions, outdoor hours) and their city's current AQI.
+        Returns a colour-coded risk level and concrete recommendations.
+      tags: [AI Features]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [city, age]
+              properties:
+                city:
+                  type: string
+                  example: "mumbai"
+                age:
+                  type: integer
+                  description: User's age in years
+                  example: 35
+                conditions:
+                  type: array
+                  items:
+                    type: string
+                    enum: [asthma, copd, heart_disease, diabetes, pregnancy]
+                  description: Pre-existing health conditions
+                  example: ["asthma"]
+                hoursOutdoor:
+                  type: number
+                  description: Hours spent outdoors per day
+                  example: 3
+      responses:
+        "200":
+          description: Personalised health advisory
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  advisory:
+                    type: string
+                    description: AI-generated health advisory text
+                  riskLevel:
+                    type: string
+                    enum: [low, moderate, high, severe]
+                  pm25:
+                    type: number
+                    nullable: true
+                  aqiRaw:
+                    type: integer
+                    nullable: true
+        "400":
+          description: Missing required fields (city or age)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /accountability-brief:
+    post:
+      operationId: generateAccountabilityBrief
+      summary: Generate a ward-level accountability brief
+      description: |
+        Produces a structured brief for ward councillors, journalists, or RWAs.
+        Includes current AQI, NCAP targets, local pollution sources, and
+        5 accountability questions for elected officials.
+      tags: [AI Features]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [city, area]
+              properties:
+                city:
+                  type: string
+                  example: "delhi"
+                area:
+                  type: string
+                  description: Ward or area name
+                  example: "Dwarka"
+                period:
+                  type: string
+                  description: Time period for the brief
+                  default: "today"
+                  example: "this week"
+      responses:
+        "200":
+          description: Structured accountability brief
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  brief:
+                    type: string
+                    description: Formatted multi-line accountability brief (max 400 tokens)
+                  anomalyDetected:
+                    type: boolean
+                  pm25:
+                    type: number
+                    nullable: true
+                  baseline:
+                    type: number
+                    nullable: true
+                    description: Seasonal PM2.5 baseline for the city
+                  stationName:
+                    type: string
+                    nullable: true
+        "400":
+          description: Missing required fields (city or area)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /anomaly-check:
+    get:
+      operationId: checkAnomalies
+      summary: Check PM2.5 anomalies across major Indian cities
+      description: |
+        Monitors 5 major metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru)
+        against seasonal baselines. Returns anomalies where PM2.5 exceeds
+        2x the seasonal baseline, with AI-generated explanations.
+        Response is cached for 10 minutes.
+      tags: [AI Features]
+      responses:
+        "200":
+          description: Anomaly check results
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=600"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  spikes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        city:
+                          type: string
+                          example: "Delhi"
+                        pm25:
+                          type: number
+                          example: 210
+                        baseline:
+                          type: number
+                          example: 95
+                        ratio:
+                          type: number
+                          example: 2.21
+                        explanation:
+                          type: string
+                          description: AI-generated one-sentence explanation
+                  checkedAt:
+                    type: string
+                    format: date-time
+
+  /reddit-feed:
+    get:
+      operationId: getRedditFeed
+      summary: Get cached Reddit air quality posts
+      description: |
+        Returns cached posts from air quality-related subreddits.
+        Pre-fetched every 4 hours by the scheduled function.
+      tags: [Social Feeds]
+      parameters:
+        - name: filter
+          in: query
+          description: Filter by subreddit
+          schema:
+            type: string
+            enum: [all, india, delhi, indianews, environment, worldnews]
+            default: all
+      responses:
+        "200":
+          description: Reddit posts
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=600"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/RedditPost"
+                  count:
+                    type: integer
+                  source:
+                    type: string
+                    example: "reddit-proxy"
+                  served_from:
+                    type: string
+                    enum: [cache, live]
+                  fetched_at:
+                    type: string
+                    format: date-time
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  /twitter-feed:
+    get:
+      operationId: getTwitterFeed
+      summary: Get cached Twitter/X air quality posts
+      description: |
+        Returns cached tweets from air quality accounts and hashtags.
+        Uses Nitter RSS instances as a privacy-friendly proxy.
+      tags: [Social Feeds]
+      responses:
+        "200":
+          description: Twitter/X posts
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=600"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TwitterPost"
+                  count:
+                    type: integer
+                  source:
+                    type: string
+                    example: "nitter-rss"
+                  served_from:
+                    type: string
+                    enum: [cache, live]
+                  fetched_at:
+                    type: string
+                    format: date-time
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  /news-proxy:
+    get:
+      operationId: getNewsFeed
+      summary: Get cached air quality news articles
+      description: |
+        Aggregates news from Google News RSS feeds across multiple
+        air quality categories. Cached for 15 minutes.
+      tags: [Social Feeds]
+      parameters:
+        - name: category
+          in: query
+          description: Filter by news category
+          schema:
+            type: string
+            enum: [all, "Delhi Air Quality", "India Pollution", "CPCB Air Quality", "Stubble Burning", "Clean Air India"]
+            default: all
+      responses:
+        "200":
+          description: News articles
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=900"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/NewsArticle"
+                  count:
+                    type: integer
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                  served_from:
+                    type: string
+                    enum: [cache, live]
+                  fetched_at:
+                    type: string
+                    format: date-time
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  /instagram-feed:
+    get:
+      operationId: getInstagramFeed
+      summary: Get cached Instagram air quality posts
+      description: |
+        Fetches Instagram posts via RSS Bridge instances.
+        Falls back to curated hashtag links if no RSS results.
+        Cached for 30 minutes.
+      tags: [Social Feeds]
+      responses:
+        "200":
+          description: Instagram posts
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=1800"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/InstagramPost"
+                  count:
+                    type: integer
+                  source:
+                    type: string
+                    example: "rss-bridge"
+                  served_from:
+                    type: string
+                    enum: [cache, live]
+                  fetched_at:
+                    type: string
+                    format: date-time
+                  fallback:
+                    type: boolean
+                    description: True if serving curated links instead of live data
+                  curated_links:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        hashtag:
+                          type: string
+                        url:
+                          type: string
+                          format: uri
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  /subscribe:
+    post:
+      operationId: manageSubscription
+      summary: Subscribe or unsubscribe from daily AQI digest
+      description: |
+        Manages email subscriptions for the daily AQI digest.
+        Stores subscriptions in Netlify Blobs.
+      tags: [Platform]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "user@example.com"
+                cities:
+                  type: array
+                  items:
+                    type: string
+                  default: ["delhi"]
+                  example: ["delhi", "mumbai"]
+                threshold:
+                  type: integer
+                  description: AQI threshold for alerts
+                  default: 200
+                  example: 150
+                action:
+                  type: string
+                  enum: [subscribe, unsubscribe]
+                  description: Omit or use "subscribe" to subscribe; "unsubscribe" to remove
+      responses:
+        "200":
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  message:
+                    type: string
+        "400":
+          description: Invalid email address
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /feed-status:
+    get:
+      operationId: getFeedStatus
+      summary: Check feed health and update status
+      description: |
+        Returns metadata about feed update schedules, last update times,
+        and feed freshness. Useful for monitoring.
+      tags: [Platform]
+      responses:
+        "200":
+          description: Feed health status
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: "public, max-age=60"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  last_updated:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  schedule:
+                    type: string
+                    description: Cron schedule description
+                  log:
+                    type: object
+                    nullable: true
+                    description: Last fetch log
+                  email_log:
+                    type: object
+                    nullable: true
+                    description: Last email digest log
+                  server_time:
+                    type: string
+                    format: date-time
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+
+    RedditPost:
+      type: object
+      properties:
+        platform:
+          type: string
+          example: "reddit"
+        sub:
+          type: string
+          description: Subreddit name
+        title:
+          type: string
+        author:
+          type: string
+        url:
+          type: string
+          format: uri
+        score:
+          type: integer
+        comments:
+          type: integer
+        created:
+          type: integer
+          description: Timestamp in milliseconds
+        text:
+          type: string
+          description: First 200 characters of post body
+        thumbnail:
+          type: string
+          format: uri
+          nullable: true
+
+    TwitterPost:
+      type: object
+      properties:
+        text:
+          type: string
+        description:
+          type: string
+        link:
+          type: string
+          format: uri
+        date:
+          type: string
+        author:
+          type: string
+        source:
+          type: string
+          example: "twitter"
+
+    NewsArticle:
+      type: object
+      properties:
+        title:
+          type: string
+        link:
+          type: string
+          format: uri
+        date:
+          type: string
+        source:
+          type: string
+        snippet:
+          type: string
+          description: First 200 characters
+        category:
+          type: string
+
+    InstagramPost:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+          description: First 300 characters
+        link:
+          type: string
+          format: uri
+        date:
+          type: string
+        author:
+          type: string
+        image:
+          type: string
+          format: uri
+        source:
+          type: string
+          example: "instagram"
