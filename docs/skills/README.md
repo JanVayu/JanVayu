@@ -16,7 +16,7 @@ A skill file is a structured system prompt that tells an AI model how to behave 
 - The **constraints** on tone, length, and claims
 - The **failure modes** to avoid
 
-JanVayu uses skill files for all four Gemini-powered features.
+JanVayu uses skill files for all four Groq-powered features (using the open-source Llama 3.3 70B model).
 
 ---
 

@@ -1,7 +1,5 @@
 // Netlify Function: Personalised Health Advisory
-// Accepts user profile + city, fetches live AQI, sends to Gemini for advisory
-
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Accepts user profile + city, fetches live AQI, sends to Groq for advisory
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
@@ -121,13 +119,21 @@ export default async function handler(req) {
   const profileContext = `Person: age ${age}, conditions: ${safeConditions.join(", ")}, hours outdoors daily: ${hoursOutdoor || 0}. City: ${aqiResult.city}, AQI: ${aqiResult.aqi}, PM2.5: ${pm25} µg/m³, PM10: ${aqiResult.pm10 ?? "N/A"} µg/m³, Station: ${aqiResult.station}, Updated: ${aqiResult.time}. WHO PM2.5 guideline: 5 µg/m³.`;
 
   try {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-    const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: profileContext }] }],
-      systemInstruction: "You are a public health advisor specialising in air pollution exposure in India. Given a person's profile and current air quality data, generate a specific, actionable advisory. Be concrete: say 'stay indoors until 2pm' not 'limit outdoor exposure'. Reference the actual PM2.5 value. If the person has a health condition, address it directly. Do not hedge — give a clear recommendation. 3-4 sentences maximum. Respond in English.",
+    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${process.env.GROQ_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: "You are a public health advisor specialising in air pollution exposure in India. Given a person's profile and current air quality data, generate a specific, actionable advisory. Be concrete: say 'stay indoors until 2pm' not 'limit outdoor exposure'. Reference the actual PM2.5 value. If the person has a health condition, address it directly. Do not hedge — give a clear recommendation. 3-4 sentences maximum. Respond in English." },
+          { role: "user", content: profileContext }
+        ],
+        max_tokens: 300,
+      }),
+      signal: AbortSignal.timeout(15000),
     });
-    const text = result.response.text();
+    const groqData = await groqRes.json();
+    const text = groqData.choices?.[0]?.message?.content || "No response generated.";
     return new Response(JSON.stringify({
       advisory: text,
       riskLevel,
@@ -135,7 +141,7 @@ export default async function handler(req) {
       aqiRaw: aqiResult.aqi,
     }), { status: 200, headers });
   } catch (e) {
-    console.log("Gemini error:", e.message);
+    console.log("Groq error:", e.message);
     const fallback = `AI analysis unavailable. Raw data: ${pm25} µg/m³ PM2.5 (AQI ${aqiResult.aqi}).`;
     return new Response(JSON.stringify({
       advisory: fallback,

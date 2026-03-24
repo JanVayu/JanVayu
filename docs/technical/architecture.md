@@ -41,7 +41,7 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
                            │
           ┌────────────────┼────────────────┐
           ▼                ▼                ▼
-    WAQI API          Google Gemini    External Feeds
+    WAQI API           Groq API       External Feeds
   (Real-time AQI)    (AI features)  (Reddit, News, X)
 ```
 
@@ -83,7 +83,7 @@ There is no `npm run build`, no Webpack, no React. The deploy artefact is the re
 JanVayu/
 ├── index.html                    # Entire front-end (SPA)
 ├── favicon.svg
-├── package.json                  # Node.js deps (Netlify Blobs, Resend, Gemini)
+├── package.json                  # Node.js deps (Netlify Blobs, Resend)
 ├── netlify.toml                  # Build & deploy config
 ├── CNAME                         # Custom domain
 ├── docs/                         # This documentation (GitBook)

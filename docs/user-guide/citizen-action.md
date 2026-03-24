@@ -33,7 +33,7 @@ Step-by-step guides covering:
 
 ## Ward-Level Accountability Brief
 
-The platform's AI-assisted brief generator (powered by Google Gemini) creates a customised accountability brief for any city, tailored for ward councillors, resident welfare associations, or journalists. It includes:
+The platform's AI-assisted brief generator (powered by Llama 3.3 70B via Groq, an open-source LLM) creates a customised accountability brief for any city, tailored for ward councillors, resident welfare associations, or journalists. It includes:
 
 - Current AQI readings for the city
 - Comparison against NCAP targets

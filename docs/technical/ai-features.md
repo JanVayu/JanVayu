@@ -1,6 +1,6 @@
-# AI Features (Gemini)
+# AI Features (Groq / Llama 3.3 70B)
 
-JanVayu uses the **Google Gemini API** to power four AI-assisted features. All AI calls are server-side (Netlify Functions) and require the `GEMINI_API_KEY` environment variable.
+JanVayu uses **Llama 3.3 70B**, an open-source LLM served via the **Groq API**, to power four AI-assisted features. All AI calls are server-side (Netlify Functions) and require the `GROQ_API_KEY` environment variable.
 
 ---
 
@@ -13,8 +13,8 @@ Ask a plain-language question about a city's air quality and receive a contextua
 **How it works:**
 1. User submits a city and a question
 2. The function fetches live AQI and PM2.5 from WAQI for that city
-3. Both the live data and the question are sent to Gemini as a prompt
-4. Gemini generates a response grounded in the actual reading
+3. Both the live data and the question are sent to Llama 3.3 70B via Groq as a prompt
+4. The model generates a response grounded in the actual reading
 
 **Example inputs:**
 - "Is it safe to go for a run in Delhi today?"
@@ -53,7 +53,7 @@ Generates a structured brief for local accountability — designed to be used by
 
 ### 4. Anomaly Detection (`anomaly-check.mjs`)
 
-Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) against seasonal baselines derived from CREA/IQAir data. When a significant spike is detected, Gemini explains the likely causes.
+Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) against seasonal baselines derived from CREA/IQAir data. When a significant spike is detected, Llama 3.3 70B via Groq explains the likely causes.
 
 **Seasonal baselines used:**
 
@@ -71,8 +71,8 @@ A reading more than 50% above the seasonal baseline triggers an anomaly alert.
 
 ## API Key Setup
 
-The free tier of the Gemini API (available at [aistudio.google.com](https://aistudio.google.com)) is sufficient for all JanVayu AI features. Rate limits on the free tier are generous for the expected usage patterns of a public interest platform.
+The free tier of the Groq API (available at [console.groq.com](https://console.groq.com)) is sufficient for all JanVayu AI features. Rate limits on the free tier are generous for the expected usage patterns of a public interest platform.
 
-Set the key as `GEMINI_API_KEY` in:
+Set the key as `GROQ_API_KEY` in:
 - Your `.env` file for local development
 - The Netlify dashboard (Site Settings → Environment Variables) for production

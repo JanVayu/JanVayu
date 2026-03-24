@@ -1,7 +1,5 @@
 // Netlify Function: Natural Language Query Interface for JanVayu
-// Accepts a question + city, fetches live AQI, sends to Gemini for analysis
-
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Accepts a question + city, fetches live AQI, sends to Groq for analysis
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
@@ -107,17 +105,25 @@ export default async function handler(req) {
   const dataContext = `City: ${aqiResult.city}, AQI: ${aqiResult.aqi}, PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10: ${aqiResult.pm10 ?? "N/A"} µg/m³, Station: ${aqiResult.station}, Updated: ${aqiResult.time}, WHO PM2.5 guideline: 5 µg/m³.`;
 
   try {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-    const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: `${dataContext}\n\nQuestion: ${question}` }] }],
-      systemInstruction: "You are JanVayu's air quality assistant for India. Answer questions in plain, direct language. Use the actual numbers provided — do not give generic advice. If the question is about health, be honest about risk without causing panic. Always cite the data you are using. Respond in the same language the question is asked in — if Hindi, respond in Hindi using Devanagari script. Keep responses under 150 words.",
+    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${process.env.GROQ_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: "You are JanVayu's air quality assistant for India. Answer questions in plain, direct language. Use the actual numbers provided — do not give generic advice. If the question is about health, be honest about risk without causing panic. Always cite the data you are using. Respond in the same language the question is asked in — if Hindi, respond in Hindi using Devanagari script. Keep responses under 150 words." },
+          { role: "user", content: `${dataContext}\n\nQuestion: ${question}` }
+        ],
+        max_tokens: 300,
+      }),
+      signal: AbortSignal.timeout(15000),
     });
-    const text = result.response.text();
+    const groqData = await groqRes.json();
+    const text = groqData.choices?.[0]?.message?.content || "No response generated.";
     return new Response(JSON.stringify({ answer: text, dataUsed: aqiResult }), { status: 200, headers });
   } catch (e) {
-    console.log("Gemini error:", e.message);
-    const fallback = `AI analysis unavailable right now (rate limit). Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³.`;
+    console.log("Groq error:", e.message);
+    const fallback = `AI analysis unavailable right now. Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³.`;
     return new Response(JSON.stringify({ answer: fallback, dataUsed: aqiResult }), { status: 200, headers });
   }
 }

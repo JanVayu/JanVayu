@@ -43,7 +43,7 @@ Must start with: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, M
 - Graceful fallback if external API fails
 
 ## AI Features
-- Model: Google Gemini 2.5 Flash
+- Model: Llama 3.3 70B via Groq (open-source)
 - All AI calls server-side (Netlify Functions)
 - Every AI feature has a non-AI fallback
 - Output token limits: 150-400 per response
@@ -60,10 +60,10 @@ Must start with: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, M
 
 ## Skill Files
 
-Skill files are structured system prompts that define how AI models behave. JanVayu uses them for Gemini features, but the same concept applies to Claude Code workflows.
+Skill files are structured system prompts that define how AI models behave. JanVayu uses them for Groq/Llama features, but the same concept applies to Claude Code workflows.
 
 The skill files documented in the [Skills section](../skills/README.md) serve as:
-1. **Gemini system prompts** — embedded in Netlify Functions
+1. **Groq/Llama system prompts** — embedded in Netlify Functions
 2. **Development reference** — guiding Claude Code when modifying AI features
 3. **Reusable templates** — for anyone forking JanVayu for other domains
 
@@ -171,7 +171,7 @@ Claude Code inherits the shell environment. For JanVayu:
 
 ```bash
 # Required
-export GEMINI_API_KEY=your_key
+export GROQ_API_KEY=your_key
 export RESEND_API_KEY=your_key
 export NETLIFY_SITE_ID=your_site_id
 

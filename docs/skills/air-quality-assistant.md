@@ -1,7 +1,7 @@
 # Skill: Air Quality Assistant
 
 **Used in:** `netlify/functions/air-query.mjs`  
-**Model:** Gemini 2.5 Flash  
+**Model:** Llama 3.3 70B via Groq  
 **Trigger:** User submits a plain-language question + a city name
 
 ---
@@ -56,7 +56,7 @@ It normalises the raw PM2.5 value into something meaningful for a non-specialist
 
 ## Fallback Behaviour
 
-If the Gemini API call fails (rate limit, network error), the function returns:
+If the Groq API call fails (rate limit, network error), the function returns:
 
 ```
 AI analysis unavailable right now (rate limit). Raw PM2.5: {pm25} µg/m³.
