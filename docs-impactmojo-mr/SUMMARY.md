@@ -37,10 +37,10 @@
 
 ## इतर भाषा
 
-* [English](../docs-impactmojo/README.md)
-* [हिन्दी (Hindi)](../docs-impactmojo-hi/README.md)
-* [বাংলা (Bengali)](../docs-impactmojo-bn/README.md)
-* [தமிழ் (Tamil)](../docs-impactmojo-ta/README.md)
+* [English](https://impactmojo.gitbook.io/impactmojo/)
+* [हिन्दी (Hindi)](https://impactmojo.gitbook.io/impactmojo/hi/)
+* [বাংলা (Bengali)](https://impactmojo.gitbook.io/impactmojo/bn/)
+* [தமிழ் (Tamil)](https://impactmojo.gitbook.io/impactmojo/ta/)
 
 ## विषयी
 
