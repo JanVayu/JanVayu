@@ -55,15 +55,15 @@ The unique ID of your Netlify site.
 
 ---
 
-### `GEMINI_API_KEY`
+### `GROQ_API_KEY`
 **Used by:** `air-query.mjs`, `health-advisory.mjs`, `accountability-brief.mjs`, `anomaly-check.mjs`
 
-Google Gemini API key for AI-powered features.
+Groq API key for AI-powered features (uses Llama 3.3 70B, an open-source LLM).
 
 **How to get it:**
-1. Go to [aistudio.google.com](https://aistudio.google.com)
-2. Click "Get API Key"
-3. Create a key in a new or existing project
+1. Go to [console.groq.com](https://console.groq.com)
+2. Sign up or log in
+3. Go to API Keys and create a new key
 
 The free tier is sufficient for the AI features in JanVayu.
 
@@ -89,6 +89,6 @@ RESEND_FROM=digest@janvayu.in
 BLOB_TOKEN=nfp_xxxxxxxxxxxxxxxxxxxx
 NETLIFY_SITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-# AI features (Google Gemini)
-GEMINI_API_KEY=AIzaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# AI features (Groq — Llama 3.3 70B)
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```

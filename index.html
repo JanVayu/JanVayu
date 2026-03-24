@@ -774,6 +774,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .si-city { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_City.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_City.svg); }
 .si-umbrella { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); }
 .si-verified { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); }
+.si-ai { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_AI.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_AI.svg); }
+.si-notifications { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Notifications.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Notifications.svg); }
+.si-hammer { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hammer.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hammer.svg); }
 
 /* ── AI Features ────────────────────────── */
 .ai-badge {
@@ -1802,7 +1805,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .role-card:active { transform: translateY(0); }
 .role-card-icon {
     font-size: 2rem; margin-bottom: 0.5rem; display: block;
-    line-height: 1;
+    line-height: 1; color: var(--accent);
 }
 .role-card-title {
     font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
@@ -1993,7 +1996,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         gap: 8px;
     }
     .role-card { padding: 1rem 0.75rem; }
-    .role-card-icon { font-size: 1.5rem; }
+    .role-card-icon { font-size: 1.5rem; color: var(--accent); }
     .role-overlay h2 { font-size: 1.3rem; }
     .role-action-cards { grid-template-columns: 1fr; }
     .role-panel-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2010,52 +2013,52 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             <p class="role-subtitle" data-i18n="role_subtitle">Select your role and we'll show you the most relevant data, tools, and actions.</p>
             <div class="role-grid">
                 <div class="role-card" onclick="selectRole('parent')">
-                    <span class="role-card-icon">👨‍👩‍👧</span>
+                    <span class="role-card-icon"><span class="si si-home"></span></span>
                     <div class="role-card-title" data-i18n="role_parent">Parent / Family</div>
                     <div class="role-card-desc">Is it safe for my child today?</div>
                 </div>
                 <div class="role-card" onclick="selectRole('student')">
-                    <span class="role-card-icon">📚</span>
+                    <span class="role-card-icon"><span class="si si-book"></span></span>
                     <div class="role-card-title" data-i18n="role_student">Student</div>
                     <div class="role-card-desc">Learn, explore data, do projects</div>
                 </div>
                 <div class="role-card" onclick="selectRole('researcher')">
-                    <span class="role-card-icon">🔬</span>
+                    <span class="role-card-icon"><span class="si si-insights"></span></span>
                     <div class="role-card-title" data-i18n="role_researcher">Researcher</div>
                     <div class="role-card-desc">Access datasets & analysis</div>
                 </div>
                 <div class="role-card" onclick="selectRole('policymaker')">
-                    <span class="role-card-icon">🏛️</span>
+                    <span class="role-card-icon"><span class="si si-building"></span></span>
                     <div class="role-card-title" data-i18n="role_policymaker">Policymaker</div>
                     <div class="role-card-desc">Track NCAP, budgets, outcomes</div>
                 </div>
                 <div class="role-card" onclick="selectRole('journalist')">
-                    <span class="role-card-icon">📰</span>
+                    <span class="role-card-icon"><span class="si si-article"></span></span>
                     <div class="role-card-title" data-i18n="role_journalist">Journalist</div>
                     <div class="role-card-desc">Get story leads & data briefs</div>
                 </div>
                 <div class="role-card" onclick="selectRole('activist')">
-                    <span class="role-card-icon">✊</span>
+                    <span class="role-card-icon"><span class="si si-flag"></span></span>
                     <div class="role-card-title" data-i18n="role_activist">Citizen / Activist</div>
                     <div class="role-card-desc">Take action, file RTIs, advocate</div>
                 </div>
                 <div class="role-card" onclick="selectRole('doctor')">
-                    <span class="role-card-icon">⚕️</span>
+                    <span class="role-card-icon"><span class="si si-hospital"></span></span>
                     <div class="role-card-title" data-i18n="role_doctor">Doctor / Health Worker</div>
                     <div class="role-card-desc">Patient advisories & health data</div>
                 </div>
                 <div class="role-card" onclick="selectRole('teacher')">
-                    <span class="role-card-icon">🏫</span>
+                    <span class="role-card-icon"><span class="si si-library"></span></span>
                     <div class="role-card-title" data-i18n="role_teacher">Teacher</div>
                     <div class="role-card-desc">School safety & teaching resources</div>
                 </div>
                 <div class="role-card" onclick="selectRole('ngo')">
-                    <span class="role-card-icon">🌱</span>
+                    <span class="role-card-icon"><span class="si si-globe"></span></span>
                     <div class="role-card-title" data-i18n="role_ngo">NGO / CSO</div>
                     <div class="role-card-desc">Advocacy data & accountability tools</div>
                 </div>
                 <div class="role-card" onclick="selectRole('business')">
-                    <span class="role-card-icon">🏢</span>
+                    <span class="role-card-icon"><span class="si si-briefcase"></span></span>
                     <div class="role-card-title" data-i18n="role_business">Business Owner</div>
                     <div class="role-card-desc">Workforce health & economic impact</div>
                 </div>
@@ -2088,6 +2091,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                 <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" title="Menu" aria-label="Open navigation menu">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </button>
+                <a class="icon-btn" href="https://janvayu.gitbook.io/janvayu/" target="_blank" rel="noopener" title="Documentation" aria-label="Open GitBook documentation" style="font-size: 1rem; width: auto; padding: 0 8px; text-decoration: none;">
+                    <span class="si si-book" style="width:18px; height:18px;"></span>
+                </a>
                 <div class="lang-switcher" style="position: relative;">
                     <button class="icon-btn" id="langBtn" onclick="toggleLangMenu()" title="Language" aria-label="Switch language" style="font-size: 0.65rem; font-weight: 700; font-family: var(--sans); width: auto; padding: 0 8px; letter-spacing: 0.02em;">
                         <span id="langBtnLabel">EN</span>
@@ -4876,8 +4882,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'voices', title: 'Citizen Voices', desc: 'Social media, viral posts, public discourse', keywords: 'voices social media twitter reddit viral meme citizen opinion' },
         { id: 'migration', title: 'Migration & Displacement', desc: 'Climate migration, pollution refugees', keywords: 'migration displacement climate refugee leaving delhi' },
         { id: 'tools', title: 'Tools & Calculators', desc: 'Personal exposure, health risk, comparison', keywords: 'tools calculator exposure risk cigarette equivalent' },
-        { id: 'ask-janvayu', title: 'Ask JanVayu (AI)', desc: 'Ask questions about air quality in plain language', keywords: 'ask ai gemini question natural language hindi query' },
-        { id: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Ward-level briefs for councillors and journalists', keywords: 'brief accountability ward councillor journalist ai gemini report' },
+        { id: 'ask-janvayu', title: 'Ask JanVayu (AI)', desc: 'Ask questions about air quality in plain language', keywords: 'ask ai llama question natural language hindi query' },
+        { id: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Ward-level briefs for councillors and journalists', keywords: 'brief accountability ward councillor journalist ai llama report' },
         { id: 'resources', title: 'Research Library', desc: 'Reports, studies, expert organizations', keywords: 'resources library research report study paper crea cse iqair lancet' },
         { id: 'downloads', title: 'Downloads', desc: 'PDFs, legal docs, data exports', keywords: 'download pdf export data document template rti' },
         { id: 'social-feed', title: 'Social Media Feed', desc: 'Live posts from Reddit, X, Instagram about air pollution', keywords: 'social media twitter x reddit instagram feed live posts' },
@@ -4997,7 +5003,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
 
     // ══════════════════════════════════════════
-    // ── AI FEATURES (Gemini Integration) ─────
+    // ── AI FEATURES (Groq / Llama Integration) ─────
     // ══════════════════════════════════════════
 
     // ── Feature 1: Ask JanVayu ──
@@ -10397,7 +10403,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v25.1 | Updated 23 Mar 2026 | 4 new AI-powered features: Ask JanVayu (AI) &mdash; natural language Q&amp;A in English/Hindi, AI Health Advisory &mdash; personalised guidance with colour-coded risk levels, Ward-Level Accountability Brief (AI) &mdash; structured briefs for councillors/journalists/RWAs, Anomaly Detection Banner &mdash; automatic PM2.5 spike monitoring across 5 metros. All powered by Google Gemini 2.5 Flash.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v25.1 | Updated 23 Mar 2026 | 4 new AI-powered features: Ask JanVayu (AI) &mdash; natural language Q&amp;A in English/Hindi, AI Health Advisory &mdash; personalised guidance with colour-coded risk levels, Ward-Level Accountability Brief (AI) &mdash; structured briefs for councillors/journalists/RWAs, Anomaly Detection Banner &mdash; automatic PM2.5 spike monitoring across 5 metros. All powered by Llama 3.3 70B (open-source) via Groq.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -10458,15 +10464,15 @@ Signature: _______________</div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.1 &mdash; 23 Mar 2026</div>
-                    <strong>Gemini AI layer: 4 new AI-powered features</strong><br>
+                    <strong>AI layer (Llama 3.3 70B via Groq): 4 AI-powered features</strong><br>
                     &bull; <strong>Ask JanVayu (AI):</strong> Natural language Q&amp;A grounded in live WAQI data &mdash; supports English and Hindi, covers 40+ cities, concise responses under 150 words<br>
                     &bull; <strong>AI Health Advisory:</strong> Personalised health guidance based on age, health conditions, hours outdoors, and live PM2.5 &mdash; colour-coded risk levels (low/moderate/high/severe), evaluates against WHO guideline (5 &micro;g/m&sup3;)<br>
                     &bull; <strong>Ward-Level Accountability Brief (AI):</strong> Structured briefs for ward councillors, journalists, and RWAs with seasonal baselines from CREA/IQAir, anomaly detection (1.5&times; threshold), references GRAP stages, RTI powers, MCD complaint lines &mdash; downloadable as .txt<br>
                     &bull; <strong>Anomaly Detection Banner:</strong> Automatic PM2.5 spike monitoring across Delhi, Mumbai, Kolkata, Chennai, Bengaluru &mdash; runs on page load and every 30 min, triggers at 2&times; seasonal baseline with month-aware AI explanations<br>
                     &bull; <strong>Demo Day mode:</strong> <code>?demo=true</code> pre-populates all AI features with Delhi/Anand Vihar defaults<br>
                     &bull; 4 new Netlify Functions: air-query, health-advisory, accountability-brief, anomaly-check<br>
-                    &bull; All Gemini API calls server-side only (never client-side); rate limit fallback always shows raw PM2.5 data<br>
-                    &bull; Model: Google Gemini 2.5 Flash via @google/generative-ai SDK
+                    &bull; All AI API calls server-side only (never client-side); rate limit fallback always shows raw PM2.5 data<br>
+                    &bull; Model: Llama 3.3 70B (open-source) via Groq free tier for low-latency inference
                 </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
@@ -11575,7 +11581,7 @@ Signature: _______________</div>
 
             <div class="info-box">
                 <h4>How it works</h4>
-                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses Google Gemini AI to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in the language you use. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
+                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses an open-source LLM (Llama 3.3 70B via Groq) to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in the language you use. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
             </div>
 </template>
 
@@ -11775,13 +11781,13 @@ Signature: _______________</div>
 
 const ROLE_CONFIG = {
     parent: {
-        icon: '👨‍👩‍👧', label: 'Parent / Family',
+        icon: '<span class="si si-home"></span>', label: 'Parent / Family',
         heading: 'Protect your family from air pollution',
         description: 'Real-time safety checks, school closure info, and health guidance for your children.',
         actions: [
-            { icon: '🌤️', panel: 'go-outside', title: 'Should my child go outside?', desc: 'Get a real-time recommendation based on current AQI in your city.', cta: 'Check now →' },
-            { icon: '🏫', panel: 'school-closure', title: 'Should schools close today?', desc: 'See if AQI levels warrant keeping kids home.', cta: 'Check status →' },
-            { icon: '🫁', panel: 'health', title: 'Calculate your family\'s health risk', desc: 'Enter your details to see personal PM2.5 exposure risk.', cta: 'Calculate risk →' }
+            { icon: '<span class="si si-flare"></span>', panel: 'go-outside', title: 'Should my child go outside?', desc: 'Get a real-time recommendation based on current AQI in your city.', cta: 'Check now →' },
+            { icon: '<span class="si si-library"></span>', panel: 'school-closure', title: 'Should schools close today?', desc: 'See if AQI levels warrant keeping kids home.', cta: 'Check status →' },
+            { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Calculate your family\'s health risk', desc: 'Enter your details to see personal PM2.5 exposure risk.', cta: 'Calculate risk →' }
         ],
         panels: [
             { panel: 'children', title: "Children's Health", desc: 'Lung development, cognitive impact' },
@@ -11793,13 +11799,13 @@ const ROLE_CONFIG = {
         ]
     },
     student: {
-        icon: '📚', label: 'Student',
+        icon: '<span class="si si-book"></span>', label: 'Student',
         heading: 'Explore India\'s air quality crisis',
         description: 'Data, research, and tools for projects, assignments, and learning about environmental science.',
         actions: [
-            { icon: '📊', panel: 'trends', title: 'Explore historical AQI trends', desc: 'See how air quality has changed over the years across Indian cities.', cta: 'View trends →' },
-            { icon: '🔢', panel: 'health', title: 'Calculate health impact', desc: 'Use the GEMM model to estimate mortality and disease burden from PM2.5.', cta: 'Try calculator →' },
-            { icon: '🤖', panel: 'ask-janvayu', title: 'Ask JanVayu AI', desc: 'Ask questions about air quality in natural language and get data-backed answers.', cta: 'Ask a question →' }
+            { icon: '<span class="si si-bar-chart"></span>', panel: 'trends', title: 'Explore historical AQI trends', desc: 'See how air quality has changed over the years across Indian cities.', cta: 'View trends →' },
+            { icon: '<span class="si si-insights"></span>', panel: 'health', title: 'Calculate health impact', desc: 'Use the GEMM model to estimate mortality and disease burden from PM2.5.', cta: 'Try calculator →' },
+            { icon: '<span class="si si-spark"></span>', panel: 'ask-janvayu', title: 'Ask JanVayu AI', desc: 'Ask questions about air quality in natural language and get data-backed answers.', cta: 'Ask a question →' }
         ],
         panels: [
             { panel: 'compare', title: 'City Comparison', desc: 'Compare AQI across 30+ cities' },
@@ -11811,13 +11817,13 @@ const ROLE_CONFIG = {
         ]
     },
     researcher: {
-        icon: '🔬', label: 'Researcher',
+        icon: '<span class="si si-insights"></span>', label: 'Researcher',
         heading: 'Access air quality data & analysis',
         description: 'Datasets, source attribution, health models, and economic analysis for your research.',
         actions: [
-            { icon: '📁', panel: 'data-archive', title: 'Access the data archive', desc: 'Download raw AQI data, mortality estimates, and economic datasets.', cta: 'Browse data →' },
-            { icon: '📈', panel: 'correlations', title: 'Explore data correlations', desc: 'Analyze relationships between PM2.5, mortality, economic output, and policy spend.', cta: 'Explore →' },
-            { icon: '📚', panel: 'resources', title: 'Research library', desc: '160+ peer-reviewed sources from Lancet, GBD, AQLI, CREA, and more.', cta: 'Browse sources →' }
+            { icon: '<span class="si si-download"></span>', panel: 'data-archive', title: 'Access the data archive', desc: 'Download raw AQI data, mortality estimates, and economic datasets.', cta: 'Browse data →' },
+            { icon: '<span class="si si-insights"></span>', panel: 'correlations', title: 'Explore data correlations', desc: 'Analyze relationships between PM2.5, mortality, economic output, and policy spend.', cta: 'Explore →' },
+            { icon: '<span class="si si-library"></span>', panel: 'resources', title: 'Research library', desc: '160+ peer-reviewed sources from Lancet, GBD, AQLI, CREA, and more.', cta: 'Browse sources →' }
         ],
         panels: [
             { panel: 'trends', title: 'Historical Trends', desc: 'Multi-year PM2.5 patterns' },
@@ -11829,13 +11835,13 @@ const ROLE_CONFIG = {
         ]
     },
     policymaker: {
-        icon: '🏛️', label: 'Policymaker',
+        icon: '<span class="si si-building"></span>', label: 'Policymaker',
         heading: 'Track clean air progress & policy outcomes',
         description: 'NCAP budgets, mission targets, city scorecards, and evidence for policy decisions.',
         actions: [
-            { icon: '🎯', panel: 'mission-tracker', title: 'Track NCAP mission targets', desc: 'Are cities on track? See target vs actual PM reduction for 131 NCAP cities.', cta: 'View tracker →' },
-            { icon: '💰', panel: 'budget', title: 'See budget utilization', desc: '₹11,200 Cr released — but how much was actually spent, and on what?', cta: 'Track spending →' },
-            { icon: '📋', panel: 'scorecards', title: 'City scorecards', desc: 'Compare city-level clean air performance with composite scores.', cta: 'View scorecards →' }
+            { icon: '<span class="si si-target"></span>', panel: 'mission-tracker', title: 'Track NCAP mission targets', desc: 'Are cities on track? See target vs actual PM reduction for 131 NCAP cities.', cta: 'View tracker →' },
+            { icon: '<span class="si si-rupee"></span>', panel: 'budget', title: 'See budget utilization', desc: '₹11,200 Cr released — but how much was actually spent, and on what?', cta: 'Track spending →' },
+            { icon: '<span class="si si-clipboard"></span>', panel: 'scorecards', title: 'City scorecards', desc: 'Compare city-level clean air performance with composite scores.', cta: 'View scorecards →' }
         ],
         panels: [
             { panel: 'policy', title: 'Policy Effectiveness', desc: 'NCAP outcomes & analysis' },
@@ -11847,13 +11853,13 @@ const ROLE_CONFIG = {
         ]
     },
     journalist: {
-        icon: '📰', label: 'Journalist',
+        icon: '<span class="si si-article"></span>', label: 'Journalist',
         heading: 'Get the story on India\'s air crisis',
         description: 'AI-powered briefs, accountability data, social media tracking, and verified sources.',
         actions: [
-            { icon: '📝', panel: 'accountability-brief', title: 'Generate an accountability brief', desc: 'AI-generated ward-level brief with live data, sources, and suggested questions.', cta: 'Generate brief →' },
-            { icon: '🔍', panel: 'accountability', title: 'Track political accountability', desc: 'Who promised what, and what actually happened? Track government commitments.', cta: 'View tracker →' },
-            { icon: '📡', panel: 'live-news', title: 'Live news & social pulse', desc: 'Aggregated air quality news and trending social media discussions.', cta: 'See latest →' }
+            { icon: '<span class="si si-assignment"></span>', panel: 'accountability-brief', title: 'Generate an accountability brief', desc: 'AI-generated ward-level brief with live data, sources, and suggested questions.', cta: 'Generate brief →' },
+            { icon: '<span class="si si-search"></span>', panel: 'accountability', title: 'Track political accountability', desc: 'Who promised what, and what actually happened? Track government commitments.', cta: 'View tracker →' },
+            { icon: '<span class="si si-notifications"></span>', panel: 'live-news', title: 'Live news & social pulse', desc: 'Aggregated air quality news and trending social media discussions.', cta: 'See latest →' }
         ],
         panels: [
             { panel: 'budget', title: 'Budget Tracker', desc: 'Follow the money — NCAP spending' },
@@ -11865,13 +11871,13 @@ const ROLE_CONFIG = {
         ]
     },
     activist: {
-        icon: '✊', label: 'Citizen / Activist',
+        icon: '<span class="si si-flag"></span>', label: 'Citizen / Activist',
         heading: 'Take action for clean air',
         description: 'RTI templates, advocacy tools, legal frameworks, and everything you need to demand accountability.',
         actions: [
-            { icon: '📜', panel: 'rti-assistant', title: 'File an RTI request', desc: 'Ready-to-use RTI templates for NCAP funds, GRAP compliance, and emission data.', cta: 'Generate RTI →' },
-            { icon: '✊', panel: 'citizen-action', title: 'Get your action plan', desc: 'Step-by-step guide: masks, advocacy, school petitions, councillor engagement.', cta: 'See plan →' },
-            { icon: '⚖️', panel: 'legal', title: 'Know your legal rights', desc: 'Article 21, Supreme Court orders, NGT rulings — clean air is a fundamental right.', cta: 'Read more →' }
+            { icon: '<span class="si si-clipboard-check"></span>', panel: 'rti-assistant', title: 'File an RTI request', desc: 'Ready-to-use RTI templates for NCAP funds, GRAP compliance, and emission data.', cta: 'Generate RTI →' },
+            { icon: '<span class="si si-checklist"></span>', panel: 'citizen-action', title: 'Get your action plan', desc: 'Step-by-step guide: masks, advocacy, school petitions, councillor engagement.', cta: 'See plan →' },
+            { icon: '<span class="si si-hammer"></span>', panel: 'legal', title: 'Know your legal rights', desc: 'Article 21, Supreme Court orders, NGT rulings — clean air is a fundamental right.', cta: 'Read more →' }
         ],
         panels: [
             { panel: 'actions', title: 'Take Action', desc: 'Concrete steps you can take today' },
@@ -11883,13 +11889,13 @@ const ROLE_CONFIG = {
         ]
     },
     doctor: {
-        icon: '⚕️', label: 'Doctor / Health Worker',
+        icon: '<span class="si si-hospital"></span>', label: 'Doctor / Health Worker',
         heading: 'Air quality health intelligence',
         description: 'Patient advisory tools, health risk models, and epidemiological data for clinical decisions.',
         actions: [
-            { icon: '🫁', panel: 'health', title: 'Health risk calculator', desc: 'GEMM-based mortality/morbidity estimates by age, conditions, and exposure.', cta: 'Calculate →' },
-            { icon: '🌤️', panel: 'go-outside', title: 'Patient outdoor advisory', desc: 'Should patients with respiratory/cardiac conditions go outside today?', cta: 'Check now →' },
-            { icon: '👶', panel: 'children', title: "Children's health impact", desc: 'Lung development, stunting, and cognitive impact data for pediatric guidance.', cta: 'View data →' }
+            { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Health risk calculator', desc: 'GEMM-based mortality/morbidity estimates by age, conditions, and exposure.', cta: 'Calculate →' },
+            { icon: '<span class="si si-flare"></span>', panel: 'go-outside', title: 'Patient outdoor advisory', desc: 'Should patients with respiratory/cardiac conditions go outside today?', cta: 'Check now →' },
+            { icon: '<span class="si si-heart"></span>', panel: 'children', title: "Children's health impact", desc: 'Lung development, stunting, and cognitive impact data for pediatric guidance.', cta: 'View data →' }
         ],
         panels: [
             { panel: 'indoor', title: 'Indoor Air Quality', desc: 'Household pollution & ventilation' },
@@ -11901,13 +11907,13 @@ const ROLE_CONFIG = {
         ]
     },
     teacher: {
-        icon: '🏫', label: 'Teacher',
+        icon: '<span class="si si-library"></span>', label: 'Teacher',
         heading: 'Keep students safe & informed',
         description: 'School closure guidance, teaching resources, and child health data.',
         actions: [
-            { icon: '🏫', panel: 'school-closure', title: 'Should school close today?', desc: 'Real-time AQI check against school closure thresholds for your city.', cta: 'Check now →' },
-            { icon: '🌤️', panel: 'go-outside', title: 'Is outdoor activity safe?', desc: 'Should students have outdoor PE, recess, or sports today?', cta: 'Check now →' },
-            { icon: '👶', panel: 'children', title: 'How pollution affects students', desc: 'Data on lung development, cognitive impact, and learning outcomes.', cta: 'View research →' }
+            { icon: '<span class="si si-library"></span>', panel: 'school-closure', title: 'Should school close today?', desc: 'Real-time AQI check against school closure thresholds for your city.', cta: 'Check now →' },
+            { icon: '<span class="si si-flare"></span>', panel: 'go-outside', title: 'Is outdoor activity safe?', desc: 'Should students have outdoor PE, recess, or sports today?', cta: 'Check now →' },
+            { icon: '<span class="si si-heart"></span>', panel: 'children', title: 'How pollution affects students', desc: 'Data on lung development, cognitive impact, and learning outcomes.', cta: 'View research →' }
         ],
         panels: [
             { panel: 'health', title: 'Health Calculator', desc: 'Model student health risk' },
@@ -11919,13 +11925,13 @@ const ROLE_CONFIG = {
         ]
     },
     ngo: {
-        icon: '🌱', label: 'NGO / CSO',
+        icon: '<span class="si si-globe"></span>', label: 'NGO / CSO',
         heading: 'Data-driven advocacy for clean air',
         description: 'Accountability tools, budget tracking, legal frameworks, and campaign resources.',
         actions: [
-            { icon: '📝', panel: 'accountability-brief', title: 'Generate an advocacy brief', desc: 'AI-generated ward-level brief with data, sources, and action recommendations.', cta: 'Generate brief →' },
-            { icon: '💰', panel: 'budget', title: 'Track NCAP budget spending', desc: 'Which cities are spending their clean air funds? Which are not?', cta: 'View data →' },
-            { icon: '📜', panel: 'rti-assistant', title: 'File RTI requests at scale', desc: 'Templates for NCAP funds, GRAP compliance, industrial emissions.', cta: 'Generate RTIs →' }
+            { icon: '<span class="si si-assignment"></span>', panel: 'accountability-brief', title: 'Generate an advocacy brief', desc: 'AI-generated ward-level brief with data, sources, and action recommendations.', cta: 'Generate brief →' },
+            { icon: '<span class="si si-rupee"></span>', panel: 'budget', title: 'Track NCAP budget spending', desc: 'Which cities are spending their clean air funds? Which are not?', cta: 'View data →' },
+            { icon: '<span class="si si-clipboard-check"></span>', panel: 'rti-assistant', title: 'File RTI requests at scale', desc: 'Templates for NCAP funds, GRAP compliance, industrial emissions.', cta: 'Generate RTIs →' }
         ],
         panels: [
             { panel: 'policy', title: 'Policy Effectiveness', desc: 'NCAP outcomes analysis' },
@@ -11937,13 +11943,13 @@ const ROLE_CONFIG = {
         ]
     },
     business: {
-        icon: '🏢', label: 'Business Owner',
+        icon: '<span class="si si-briefcase"></span>', label: 'Business Owner',
         heading: 'Understand air pollution\'s impact on your business',
         description: 'Economic costs, workforce health, indoor air quality, and compliance guidance.',
         actions: [
-            { icon: '💰', panel: 'economic', title: 'See the economic impact', desc: '$260B annual cost to India. How does pollution affect productivity and healthcare?', cta: 'View analysis →' },
-            { icon: '🏢', panel: 'indoor', title: 'Indoor air quality for workplaces', desc: 'Protect your workforce with proper ventilation, purifiers, and monitoring.', cta: 'Get guidance →' },
-            { icon: '🔧', panel: 'purifier-calc', title: 'Air purifier calculator', desc: 'Find the right purifier CADR for your office or factory floor.', cta: 'Calculate →' }
+            { icon: '<span class="si si-rupee"></span>', panel: 'economic', title: 'See the economic impact', desc: '$260B annual cost to India. How does pollution affect productivity and healthcare?', cta: 'View analysis →' },
+            { icon: '<span class="si si-building"></span>', panel: 'indoor', title: 'Indoor air quality for workplaces', desc: 'Protect your workforce with proper ventilation, purifiers, and monitoring.', cta: 'Get guidance →' },
+            { icon: '<span class="si si-wrench"></span>', panel: 'purifier-calc', title: 'Air purifier calculator', desc: 'Find the right purifier CADR for your office or factory floor.', cta: 'Calculate →' }
         ],
         panels: [
             { panel: 'health', title: 'Health Risk Calculator', desc: 'Workforce health modeling' },
@@ -12040,12 +12046,12 @@ function updateRoleSwitcher(role) {
     const dropdown = document.getElementById('roleSwitcherDropdown');
 
     if (role === 'skip') {
-        iconEl.textContent = '☰';
+        iconEl.innerHTML = '☰';
         labelEl.textContent = 'All';
     } else {
         const config = ROLE_CONFIG[role];
         if (!config) return;
-        iconEl.textContent = config.icon;
+        iconEl.innerHTML = config.icon;
         labelEl.textContent = config.label.split('/')[0].trim();
     }
     switcher.style.display = 'inline-flex';

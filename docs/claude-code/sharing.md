@@ -39,7 +39,7 @@ The most transferable lesson from JanVayu is **constraint-first prompting**. Bef
 
 ### Step 2: Create Skill Files
 
-If your project uses AI features (any model — Gemini, OpenAI, Claude API), document each AI interaction as a skill file:
+If your project uses AI features (any model — Groq, OpenAI, Claude API), document each AI interaction as a skill file:
 
 ```markdown
 # Skill: [Feature Name]
@@ -83,7 +83,7 @@ JanVayu is MIT-licensed. To fork it for another city or country:
 4. **Update WAQI station IDs** for your region
 5. **Translate** strings for local languages
 6. **Set up your own Netlify site** with environment variables
-7. **Optional:** Replace Gemini with another model (the skill files are model-agnostic)
+7. **Optional:** Replace the Groq/Llama model with another model (the skill files are model-agnostic)
 
 Claude Code can help with all of these steps.
 

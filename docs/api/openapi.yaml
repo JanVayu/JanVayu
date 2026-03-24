@@ -24,7 +24,7 @@ servers:
 
 tags:
   - name: AI Features
-    description: Gemini-powered analysis endpoints (v25.1)
+    description: Groq/Llama-powered analysis endpoints (v25.1)
   - name: Social Feeds
     description: Cached social media and news feeds
   - name: Platform
@@ -37,7 +37,7 @@ paths:
       summary: Ask a natural language question about air quality
       description: |
         Accepts a city name and free-text question, fetches live AQI from WAQI,
-        and returns a Gemini-generated answer grounded in real data.
+        and returns an AI-generated answer (Llama 3.3 70B via Groq) grounded in real data.
         Supports English and Hindi.
       tags: [AI Features]
       requestBody:
@@ -58,7 +58,7 @@ paths:
                   example: "delhi"
       responses:
         "200":
-          description: AI-generated answer (or raw data fallback if rate-limited)
+          description: AI-generated answer (or raw data fallback if Groq is rate-limited)
           content:
             application/json:
               schema:
@@ -225,7 +225,7 @@ paths:
       description: |
         Monitors 5 major metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru)
         against seasonal baselines. Returns anomalies where PM2.5 exceeds
-        2x the seasonal baseline, with AI-generated explanations.
+        2x the seasonal baseline, with AI-generated explanations (Llama 3.3 70B via Groq).
         Response is cached for 10 minutes.
       tags: [AI Features]
       responses:

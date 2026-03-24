@@ -103,13 +103,13 @@ Falls back to a live Reddit fetch if the cache is empty.
 
 ---
 
-### AI Functions (Gemini-Powered)
+### AI Functions (Groq-Powered)
 
-All AI functions use Google Gemini via `@google/generative-ai`. They require `GEMINI_API_KEY`.
+All AI functions use Llama 3.3 70B (an open-source LLM) via the Groq REST API (OpenAI-compatible). They require `GROQ_API_KEY`.
 
 #### `air-query.mjs`
 **Endpoint:** `GET /.netlify/functions/air-query?city={cityKey}&question={question}`  
-**Purpose:** Accepts a natural language question about a city's air quality, fetches live AQI from WAQI, and sends both to Gemini for an informed response.
+**Purpose:** Accepts a natural language question about a city's air quality, fetches live AQI from WAQI, and sends both to Llama 3.3 70B via Groq for an informed response.
 
 **Example:** `?city=delhi&question=Is it safe to take my child to the park today?`
 
@@ -138,7 +138,7 @@ All AI functions use Google Gemini via `@google/generative-ai`. They require `GE
 
 #### `anomaly-check.mjs`
 **Endpoint:** `GET /.netlify/functions/anomaly-check`  
-**Purpose:** Checks AQI for major cities against seasonal baselines and flags significant spikes. Optionally uses Gemini to explain the likely cause of the anomaly.
+**Purpose:** Checks AQI for major cities against seasonal baselines and flags significant spikes. Optionally uses Llama 3.3 70B via Groq to explain the likely cause of the anomaly.
 
 ---
 

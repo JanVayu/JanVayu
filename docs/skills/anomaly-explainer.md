@@ -1,14 +1,14 @@
 # Skill: Anomaly Explainer
 
 **Used in:** `netlify/functions/anomaly-check.mjs`  
-**Model:** Gemini 2.5 Flash  
+**Model:** Llama 3.3 70B via Groq  
 **Trigger:** Invoked on-demand; checks five major cities against seasonal baselines
 
 ---
 
 ## What This Skill Does
 
-Detects PM2.5 spikes across five major cities by comparing live readings against hardcoded seasonal baselines. When a spike is detected (reading > 2× the baseline), it asks Gemini to explain the most likely cause in a single, India-specific sentence.
+Detects PM2.5 spikes across five major cities by comparing live readings against hardcoded seasonal baselines. When a spike is detected (reading > 2× the baseline), it asks Llama 3.3 70B via Groq to explain the most likely cause in a single, India-specific sentence.
 
 This is the most constrained of the four skill files — one sentence, one cause, maximum specificity.
 
@@ -30,7 +30,7 @@ Note: this is sent as a **user message**, not a system instruction. Because the 
 ```javascript
 const ratio = d.pm25 / baseline;
 if (ratio > 2) {
-  // flag as spike, then explain via Gemini
+  // flag as spike, then explain via Groq
 }
 ```
 
@@ -66,7 +66,7 @@ The model needs this temporal context to give a useful explanation rather than a
 **Why hardcode baselines rather than computing them from historical data?**
 Simplicity and reliability. The seasonal baselines are stable year-on-year within ±15%. Computing a rolling baseline would require a persistent time-series database — unnecessary infrastructure for the marginal accuracy gain. The hardcoded values are sourced from CREA and IQAir annual reports and are updated manually when major new data is available.
 
-**Why run the Gemini calls in parallel (`Promise.allSettled`)?**
+**Why run the Groq API calls in parallel (`Promise.allSettled`)?**
 The anomaly check may find spikes in multiple cities simultaneously. Running sequentially would take 3–5× longer. `Promise.allSettled` (not `Promise.all`) means a failure for one city's explanation does not cancel the others.
 
 ---
@@ -79,4 +79,4 @@ if (!s.explanation) {
 }
 ```
 
-If Gemini is unavailable, the response still includes the spike data and ratio — just without the AI-generated cause sentence.
+If the Groq API is unavailable, the response still includes the spike data and ratio — just without the AI-generated cause sentence.

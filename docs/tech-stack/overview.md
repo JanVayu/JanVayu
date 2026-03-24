@@ -14,7 +14,7 @@ JanVayu is built on a deliberately minimal stack — zero frontend frameworks, t
 | **Backend** | Netlify Functions (Node.js 18) | Serverless API endpoints |
 | **Cache** | Netlify Blobs | Persistent JSON cache (strong consistency) |
 | **Email** | Resend API | Daily AQI digest delivery |
-| **AI** | Google Gemini 2.5 Flash | NL queries, health advice, anomaly detection |
+| **AI** | Llama 3.3 70B via Groq | NL queries, health advice, anomaly detection |
 | **Hosting** | Netlify CDN | Auto-deploy from GitHub `main` |
 | **CI** | GitHub Actions | Link checking, translation coverage, Dependabot |
 | **Domain** | Netlify DNS | janvayu.in custom domain |
@@ -39,13 +39,12 @@ JanVayu's audience includes people on 2G connections and low-end Android devices
 
 ```json
 {
-  "@google/generative-ai": "^0.24.1",
   "@netlify/blobs": "^8.1.0",
   "resend": "^6.9.3"
 }
 ```
 
-All three are server-side only (used by Netlify Functions). The client has zero npm dependencies — Chart.js and Leaflet.js load from CDN.
+Both are server-side only (used by Netlify Functions). AI features use the Groq REST API (OpenAI-compatible) directly via `fetch` — no SDK needed. The client has zero npm dependencies — Chart.js and Leaflet.js load from CDN.
 
 ### Serverless Over Server
 
@@ -63,6 +62,6 @@ Netlify Functions eliminate the need for a persistent server. Benefits:
 |---------|------|
 | Frontend (HTML/CSS/JS, Chart.js, Leaflet) | [Frontend Stack](frontend.md) |
 | Backend (Netlify Functions, Blobs, Resend) | [Backend Stack](backend.md) |
-| AI Layer (Gemini 2.5 Flash) | [AI Stack](ai-layer.md) |
+| AI Layer (Llama 3.3 70B via Groq) | [AI Stack](ai-layer.md) |
 | Infrastructure (Netlify, GitHub, DNS) | [Infrastructure](infrastructure.md) |
 | Development Tools (Claude Code, Git hooks) | [Dev Tooling](dev-tooling.md) |

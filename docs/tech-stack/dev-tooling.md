@@ -10,7 +10,7 @@ JanVayu was developed with significant assistance from **Claude Code**, Anthropi
 
 - Writing all 13 Netlify Functions
 - Building the entire frontend in `index.html`
-- Crafting Gemini prompt engineering (skill files)
+- Crafting Llama 3.3 70B prompt engineering (skill files)
 - Creating this GitBook documentation
 - Managing Git workflow (commits, PRs, changelogs)
 - Debugging serverless function issues
@@ -121,7 +121,7 @@ In any GitBook page, add a `plantuml` code block:
 Client -> "Netlify CDN" : HTTPS
 "Netlify CDN" -> "Netlify Functions" : API calls
 "Netlify Functions" -> "WAQI API" : AQI data
-"Netlify Functions" -> "Gemini API" : AI features
+"Netlify Functions" -> "Groq API" : AI features
 "Netlify Functions" -> "Netlify Blobs" : Cache
 @enduml
 ```

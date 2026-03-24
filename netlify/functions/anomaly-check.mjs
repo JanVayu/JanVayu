@@ -1,7 +1,5 @@
 // Netlify Function: Anomaly Detection
-// Checks major cities for PM2.5 spikes, optionally explains via Gemini
-
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Checks major cities for PM2.5 spikes, optionally explains via Groq
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
@@ -90,25 +88,33 @@ export default async function handler(req) {
     const hour = now.toLocaleString("en-IN", { hour: "numeric", hour12: true, timeZone: "Asia/Kolkata" });
 
     try {
-      const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
       const explanations = await Promise.allSettled(
         spikeData.map(async s => {
-          const prompt = `In one sentence, explain why PM2.5 in ${s.city} might be ${s.pm25} µg/m³ right now — ${month}, ${hour}. Give the most likely cause. Be specific to the Indian context.`;
-          const result = await model.generateContent(prompt);
-          return { city: s.city, explanation: result.response.text() };
+          const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${process.env.GROQ_API_KEY}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: "llama-3.3-70b-versatile",
+              messages: [
+                { role: "user", content: `In one sentence, explain why PM2.5 in ${s.city} might be ${s.pm25} µg/m³ right now — ${month}, ${hour}. Give the most likely cause. Be specific to the Indian context.` }
+              ],
+              max_tokens: 100,
+            }),
+            signal: AbortSignal.timeout(10000),
+          });
+          const groqData = await groqRes.json();
+          return { city: s.city, explanation: groqData.choices?.[0]?.message?.content || "" };
         })
       );
 
       explanations.forEach(r => {
         if (r.status === "fulfilled") {
           const match = spikeData.find(s => s.city === r.value.city);
-          if (match) match.explanation = r.value.explanation;
+          if (match && r.value.explanation) match.explanation = r.value.explanation;
         }
       });
     } catch (e) {
-      console.log("Gemini error:", e.message);
+      console.log("Groq error:", e.message);
     }
   }
 

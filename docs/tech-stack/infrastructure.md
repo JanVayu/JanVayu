@@ -98,7 +98,7 @@ JanVayu runs at **zero cost**:
 | Netlify (hosting + functions) | Free | $0 |
 | GitHub | Free | $0 |
 | WAQI API | Free (public token) | $0 |
-| Gemini API | Free (AI Studio) | $0 |
+| Groq API | Free tier | $0 |
 | Resend | Free tier | $0 |
 | Domain (janvayu.in) | Annual renewal | ~$10/year |
 

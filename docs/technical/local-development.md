@@ -5,7 +5,7 @@
 - [Node.js](https://nodejs.org/) 18 or higher
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`)
 - A [Resend](https://resend.com) account — only needed if you are working on email digest features
-- A [Google AI Studio](https://aistudio.google.com) account — only needed for AI features
+- A [Groq Console](https://console.groq.com) account — only needed for AI features
 
 ---
 
@@ -47,7 +47,7 @@ BLOB_TOKEN=your_netlify_personal_access_token
 NETLIFY_SITE_ID=your_netlify_site_id
 
 # Required for AI features
-GEMINI_API_KEY=your_google_gemini_api_key
+GROQ_API_KEY=your_groq_api_key
 ```
 
 See [Environment Variables](environment-variables.md) for full details on how to obtain each value.

@@ -1,7 +1,7 @@
 # Skill: Public Health Advisor
 
 **Used in:** `netlify/functions/health-advisory.mjs`  
-**Model:** Gemini 2.5 Flash  
+**Model:** Llama 3.3 70B via Groq  
 **Trigger:** User submits a profile (age, health conditions, hours outdoors) + a city
 
 ---
@@ -37,7 +37,7 @@ Station: {station}, Updated: {time}. WHO PM2.5 guideline: 5 µg/m³.
 
 ## Pre-AI Risk Calculation
 
-Before the Gemini call, the function computes a `riskLevel` in plain JavaScript — this is always returned alongside the AI advisory, so the UI can colour-code the response without waiting for the AI:
+Before the Groq API call, the function computes a `riskLevel` in plain JavaScript — this is always returned alongside the AI advisory, so the UI can colour-code the response without waiting for the AI:
 
 ```javascript
 function getRiskLevel(pm25, conditions) {

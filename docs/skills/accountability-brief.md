@@ -1,7 +1,7 @@
 # Skill: Accountability Brief Writer
 
 **Used in:** `netlify/functions/accountability-brief.mjs`  
-**Model:** Gemini 2.5 Flash  
+**Model:** Llama 3.3 70B via Groq  
 **Trigger:** User submits a city + area (ward/neighbourhood) + period
 
 ---
@@ -63,7 +63,7 @@ Timestamp: {IST timestamp}
 
 ## Pre-AI Anomaly Detection
 
-Before the Gemini call, the function computes whether the current reading is anomalous:
+Before the Groq API call, the function computes whether the current reading is anomalous:
 
 ```javascript
 const baseline = getSeasonalBaseline(cityKey); // from CREA/IQAir seasonal data

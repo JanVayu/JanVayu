@@ -33,10 +33,10 @@ The core platform (`index.html`, all Netlify Functions, infrastructure configs) 
 
 ### v25.1 AI Features
 
-All four Gemini-powered features (Ask JanVayu, Health Advisory, Accountability Brief, Anomaly Detection) were built in Claude Code sessions:
+All four Groq/Llama-powered features (Ask JanVayu, Health Advisory, Accountability Brief, Anomaly Detection) were built in Claude Code sessions:
 
 - Claude wrote the Netlify Functions (`.mjs` files)
-- Claude crafted the Gemini system prompts
+- Claude crafted the Llama 3.3 70B system prompts
 - Claude added the frontend UI sections in `index.html`
 - Claude created the CHANGELOG entries
 - Claude managed the PRs and merges
@@ -114,7 +114,7 @@ For transparency, here's what required human intervention:
 | Task | Why |
 |------|-----|
 | Netlify dashboard configuration | Environment variables, domain setup, build settings |
-| API key generation | Google AI Studio, Resend, WAQI accounts |
+| API key generation | Groq Console, Resend, WAQI accounts |
 | Design decisions | Which features to build, priority order |
 | Content review | Verifying data source accuracy, policy correctness |
 | Deployment verification | Checking live site after deploy |

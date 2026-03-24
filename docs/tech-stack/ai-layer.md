@@ -1,22 +1,23 @@
-# AI Layer — Google Gemini 2.5 Flash
+# AI Layer — Llama 3.3 70B via Groq
 
-JanVayu's AI features are powered by the **Google Gemini 2.5 Flash** model, accessed via the `@google/generative-ai` npm package from Netlify Functions.
+JanVayu's AI features are powered by **Llama 3.3 70B**, an open-source LLM served via the **Groq API** (OpenAI-compatible REST API) from Netlify Functions.
 
 ---
 
-## Why Gemini 2.5 Flash?
+## Why Llama 3.3 70B via Groq?
 
 | Criterion | Choice |
 |-----------|--------|
-| **Cost** | Free tier (Google AI Studio) — no billing required |
-| **Speed** | Flash variant optimised for low-latency responses |
-| **Rate limits** | 250 requests/day, 10/minute — sufficient for a public interest platform |
+| **Cost** | Free tier (Groq Console) — no billing required |
+| **Speed** | Groq's LPU inference engine delivers ultra-low-latency responses |
+| **Rate limits** | Generous free tier — sufficient for a public interest platform |
 | **Multilingual** | Strong Hindi support (critical for JanVayu's audience) |
 | **Quality** | Adequate for data-grounded factual responses (not creative writing) |
+| **Open source** | Llama 3.3 70B is an open-source model (Meta), ensuring transparency and reproducibility |
 
 ### Trade-offs Accepted
 
-- **Not GPT-4 / Claude** — Gemini's free tier is the differentiator. JanVayu runs on zero budget.
+- **Not GPT-4 / Claude** — Groq's free tier with an open-source model is the differentiator. JanVayu runs on zero budget.
 - **Output token cap** — All prompts limit output to 150-400 tokens. This is a feature: concise responses are more useful for civic data.
 - **No fine-tuning** — Prompt engineering only. Every skill is a system prompt, not a fine-tuned model.
 
@@ -38,21 +39,21 @@ Netlify Function (server-side)
     │ 1. Parse user input
     │ 2. Fetch live AQI data from WAQI
     │ 3. Construct prompt with real data
-    │ 4. Call Gemini API
+    │ 4. Call Groq API
     │ 5. Return response (or fallback to raw data)
     │
     ▼
-Google Gemini API
+Groq API
     │
-    │ gemini-2.5-flash model
-    │ maxOutputTokens: 150-400
+    │ llama-3.3-70b-versatile model
+    │ max_tokens: 150-400
     │ temperature: 0.3-0.7
     │
     ▼
 Structured response → Browser
 ```
 
-**Key security principle:** The `GEMINI_API_KEY` never touches the client. All AI calls are server-side via Netlify Functions.
+**Key security principle:** The `GROQ_API_KEY` never touches the client. All AI calls are server-side via Netlify Functions.
 
 ---
 
@@ -63,7 +64,7 @@ Structured response → Browser
 - **Context injected:** Live PM2.5 and AQI from WAQI
 - **Output:** < 150 words, grounded in actual reading
 - **Languages:** English and Hindi
-- **Fallback:** Returns raw AQI data if rate-limited
+- **Fallback:** Returns raw AQI data if Groq is rate-limited
 
 ### 2. Health Advisory (`health-advisory.mjs`)
 - **Input:** City + age + health conditions + outdoor hours
@@ -89,13 +90,13 @@ Structured response → Browser
 
 ## Rate Limiting Strategy
 
-Free-tier Gemini limits:
+Free-tier Groq limits (subject to change — check [console.groq.com](https://console.groq.com) for current values):
 
 | Limit | Value |
 |-------|-------|
-| Requests per day | 250 |
-| Requests per minute | 10 |
-| Tokens per minute | 1,000,000 |
+| Requests per minute | 30 |
+| Tokens per minute | 15,000 |
+| Tokens per day | 500,000 |
 
 JanVayu distributes this budget across features:
 - Anomaly check: ~144/day (cached, fires on page load)
@@ -109,7 +110,7 @@ If limits are hit, every function gracefully falls back to raw data. The user al
 
 ## Prompt Engineering
 
-All Gemini prompts follow these principles:
+All prompts follow these principles:
 
 1. **Always inject real data** — the model never generates from memory
 2. **Specify exact output format** — especially for structured briefs

@@ -45,7 +45,7 @@ The full OpenAPI 3.1 spec is available at [`openapi.yaml`](openapi.yaml). Import
 
 No authentication required. All endpoints are public.
 
-- **AI endpoints** are rate-limited by the Gemini free tier (250 requests/day)
+- **AI endpoints** are rate-limited by the Groq free tier
 - **Feed endpoints** serve from cache (pre-fetched every 4 hours)
 - **CORS:** `Access-Control-Allow-Origin: *` on all responses
 
@@ -57,7 +57,7 @@ No authentication required. All endpoints are public.
 All endpoints return HTTP 200, even on partial failures. Check the response body for error details.
 
 ### Fallback
-AI endpoints return raw data (without AI analysis) if Gemini is rate-limited. Feed endpoints return stale cache if live fetches fail.
+AI endpoints return raw data (without AI analysis) if Groq is rate-limited. Feed endpoints return stale cache if live fetches fail.
 
 ### CORS Preflight
 All POST endpoints handle OPTIONS requests with 204 No Content.
