@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v25.3.0] - 2026-03-24
+
+### Added — Role-Based Landing Page & UX Improvements
+
+- **Role-based landing page**: Personalized entry point with 10 audience roles — parent, student, researcher, policymaker, journalist, activist, doctor, teacher, NGO, and business owner
+- **Simple language mode**: Site-wide plain language toggle in the header that switches all content to simple language, with sessionStorage persistence across page navigation
+- **Glossary overlay**: Searchable glossary of air quality terms accessible via **Ctrl+K** keyboard shortcut
+- **Intro tour**: Guided walkthrough for first-time visitors highlighting key sections and features
+- **Role switcher in header navigation**: Allows users to change their selected role at any time from the header
+- **Tooltips on all navigation icons**: Descriptive tooltips on hover for all nav icons
+
+### Changed
+
+- All navigation icons now have proper `aria-label` attributes for improved screen reader accessibility
+
 ## [v25.2.0] - 2026-03-24
 
 ### Added — Documentation & Translations
@@ -120,6 +135,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - N/A (initial release)
 
+[v25.3.0]: https://github.com/Varnasr/JanVayu/compare/v25.2.0...v25.3.0
 [v25.2.0]: https://github.com/Varnasr/JanVayu/compare/v25.1.0...v25.2.0
 [v25.1.0]: https://github.com/Varnasr/JanVayu/compare/v25.0.0...v25.1.0
 [v25.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v25.0.0
