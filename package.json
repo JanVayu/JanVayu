@@ -4,7 +4,6 @@
   "description": "JanVayu - India Air Quality Monitor",
   "private": true,
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "@netlify/blobs": "^8.1.0",
     "resend": "^6.9.3"
   },

@@ -4882,8 +4882,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'voices', title: 'Citizen Voices', desc: 'Social media, viral posts, public discourse', keywords: 'voices social media twitter reddit viral meme citizen opinion' },
         { id: 'migration', title: 'Migration & Displacement', desc: 'Climate migration, pollution refugees', keywords: 'migration displacement climate refugee leaving delhi' },
         { id: 'tools', title: 'Tools & Calculators', desc: 'Personal exposure, health risk, comparison', keywords: 'tools calculator exposure risk cigarette equivalent' },
-        { id: 'ask-janvayu', title: 'Ask JanVayu (AI)', desc: 'Ask questions about air quality in plain language', keywords: 'ask ai gemini question natural language hindi query' },
-        { id: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Ward-level briefs for councillors and journalists', keywords: 'brief accountability ward councillor journalist ai gemini report' },
+        { id: 'ask-janvayu', title: 'Ask JanVayu (AI)', desc: 'Ask questions about air quality in plain language', keywords: 'ask ai llama question natural language hindi query' },
+        { id: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Ward-level briefs for councillors and journalists', keywords: 'brief accountability ward councillor journalist ai llama report' },
         { id: 'resources', title: 'Research Library', desc: 'Reports, studies, expert organizations', keywords: 'resources library research report study paper crea cse iqair lancet' },
         { id: 'downloads', title: 'Downloads', desc: 'PDFs, legal docs, data exports', keywords: 'download pdf export data document template rti' },
         { id: 'social-feed', title: 'Social Media Feed', desc: 'Live posts from Reddit, X, Instagram about air pollution', keywords: 'social media twitter x reddit instagram feed live posts' },
@@ -5003,7 +5003,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
 
     // ══════════════════════════════════════════
-    // ── AI FEATURES (Gemini Integration) ─────
+    // ── AI FEATURES (Groq / Llama Integration) ─────
     // ══════════════════════════════════════════
 
     // ── Feature 1: Ask JanVayu ──
@@ -10403,7 +10403,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v25.1 | Updated 23 Mar 2026 | 4 new AI-powered features: Ask JanVayu (AI) &mdash; natural language Q&amp;A in English/Hindi, AI Health Advisory &mdash; personalised guidance with colour-coded risk levels, Ward-Level Accountability Brief (AI) &mdash; structured briefs for councillors/journalists/RWAs, Anomaly Detection Banner &mdash; automatic PM2.5 spike monitoring across 5 metros. All powered by Google Gemini 2.5 Flash.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v25.1 | Updated 23 Mar 2026 | 4 new AI-powered features: Ask JanVayu (AI) &mdash; natural language Q&amp;A in English/Hindi, AI Health Advisory &mdash; personalised guidance with colour-coded risk levels, Ward-Level Accountability Brief (AI) &mdash; structured briefs for councillors/journalists/RWAs, Anomaly Detection Banner &mdash; automatic PM2.5 spike monitoring across 5 metros. All powered by Llama 3.3 70B (open-source) via Groq.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -10464,15 +10464,15 @@ Signature: _______________</div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.1 &mdash; 23 Mar 2026</div>
-                    <strong>Gemini AI layer: 4 new AI-powered features</strong><br>
+                    <strong>AI layer (Llama 3.3 70B via Groq): 4 AI-powered features</strong><br>
                     &bull; <strong>Ask JanVayu (AI):</strong> Natural language Q&amp;A grounded in live WAQI data &mdash; supports English and Hindi, covers 40+ cities, concise responses under 150 words<br>
                     &bull; <strong>AI Health Advisory:</strong> Personalised health guidance based on age, health conditions, hours outdoors, and live PM2.5 &mdash; colour-coded risk levels (low/moderate/high/severe), evaluates against WHO guideline (5 &micro;g/m&sup3;)<br>
                     &bull; <strong>Ward-Level Accountability Brief (AI):</strong> Structured briefs for ward councillors, journalists, and RWAs with seasonal baselines from CREA/IQAir, anomaly detection (1.5&times; threshold), references GRAP stages, RTI powers, MCD complaint lines &mdash; downloadable as .txt<br>
                     &bull; <strong>Anomaly Detection Banner:</strong> Automatic PM2.5 spike monitoring across Delhi, Mumbai, Kolkata, Chennai, Bengaluru &mdash; runs on page load and every 30 min, triggers at 2&times; seasonal baseline with month-aware AI explanations<br>
                     &bull; <strong>Demo Day mode:</strong> <code>?demo=true</code> pre-populates all AI features with Delhi/Anand Vihar defaults<br>
                     &bull; 4 new Netlify Functions: air-query, health-advisory, accountability-brief, anomaly-check<br>
-                    &bull; All Gemini API calls server-side only (never client-side); rate limit fallback always shows raw PM2.5 data<br>
-                    &bull; Model: Google Gemini 2.5 Flash via @google/generative-ai SDK
+                    &bull; All AI API calls server-side only (never client-side); rate limit fallback always shows raw PM2.5 data<br>
+                    &bull; Model: Llama 3.3 70B (open-source) via Groq free tier for low-latency inference
                 </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
@@ -11581,7 +11581,7 @@ Signature: _______________</div>
 
             <div class="info-box">
                 <h4>How it works</h4>
-                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses Google Gemini AI to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in the language you use. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
+                <p>Ask JanVayu fetches <strong>live AQI data</strong> from the WAQI API for your selected city, then uses an open-source LLM (Llama 3.3 70B via Groq) to answer your question grounded in actual numbers. Ask in English or Hindi — the AI responds in the language you use. All AI calls go through our server; your question never leaves JanVayu's infrastructure.</p>
             </div>
 </template>
 
