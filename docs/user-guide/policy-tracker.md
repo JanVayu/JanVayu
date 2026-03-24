@@ -72,3 +72,11 @@ The platform provides pre-drafted Right to Information (RTI) templates for:
 - Requesting industrial emission monitoring data from state PCBs
 
 Templates are available in English and Hindi, formatted for submission under the RTI Act 2005.
+
+---
+
+## Interactive Demo
+
+> **Upcoming** — An interactive demo will be embedded here showing the NCAP budget tracker, GRAP stage history, and how to navigate the legal framework section.
+
+<!-- Replace this section with an Arcade embed once recorded -->
