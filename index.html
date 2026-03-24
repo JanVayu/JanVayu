@@ -2221,6 +2221,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label">Resources</div>
                 <button class="mobile-nav-item" data-panel="tools">Tools</button>
+                <button class="mobile-nav-item" data-panel="glossary">Glossary</button>
                 <button class="mobile-nav-item" data-panel="resources">Research Library</button>
                 <button class="mobile-nav-item" data-panel="downloads">Downloads</button>
                 <button class="mobile-nav-item" data-panel="about">About</button>
@@ -2293,6 +2294,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     <button class="nav-dropdown-link" data-panel="aqi-alerts">AQI Alerts</button>
                     <button class="nav-dropdown-link" data-panel="data-archive">Data Archive</button>
                     <button class="nav-dropdown-link" data-panel="correlations">Correlations</button>
+                    <button class="nav-dropdown-link" data-panel="glossary">Glossary</button>
                     <button class="nav-dropdown-link" data-panel="resources">Research Library</button>
                     <button class="nav-dropdown-link" data-panel="downloads">Downloads</button>
                     <button class="nav-dropdown-link" data-panel="about">About &amp; Changelog</button>
@@ -2378,12 +2380,12 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                         </div>
                         <div class="hero-stat">
                             <div class="hero-stat-value danger">2.0M</div>
-                            <div class="hero-stat-label">Deaths/Year</div>
+                            <div class="hero-stat-label">Deaths/Year (India)</div>
                             <div class="hero-stat-note">State of Global Air 2025</div>
                         </div>
                         <div class="hero-stat">
                             <div class="hero-stat-value warning">$260B</div>
-                            <div class="hero-stat-label">Annual Cost</div>
+                            <div class="hero-stat-label">Annual Cost (India)</div>
                             <div class="hero-stat-note">9.5% GDP (Lancet)</div>
                         </div>
                         <div class="hero-stat">
@@ -2897,6 +2899,28 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             const aqiEl = document.getElementById('delhi-live-aqi');
             if (aqiEl) aqiEl.textContent = '--';
         }
+    }
+
+    // ── Simple Language Toggle ──
+    let simpleMode = false;
+    function toggleSimpleLanguage() {
+        simpleMode = !simpleMode;
+        const btn = document.getElementById('glossarySimpleToggle');
+        if (btn) btn.innerHTML = simpleMode
+            ? '<span class="si si-eye" style="margin-right:4px;"></span> Switch to technical language'
+            : '<span class="si si-eye" style="margin-right:4px;"></span> Switch to simpler language';
+        document.querySelectorAll('dd[data-simple]').forEach(dd => {
+            if (simpleMode) {
+                if (!dd.dataset.technical) dd.dataset.technical = dd.textContent;
+                dd.textContent = dd.dataset.simple;
+                dd.style.color = 'var(--ink)';
+                dd.style.fontWeight = '500';
+            } else {
+                if (dd.dataset.technical) dd.textContent = dd.dataset.technical;
+                dd.style.color = '';
+                dd.style.fontWeight = '';
+            }
+        });
     }
 
     // ── Theme ──
@@ -4924,7 +4948,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'migration-calc', title: 'Migration Calculator', desc: 'Health benefit of relocating to cleaner city', keywords: 'migration calculator relocate move city health benefit' },
         { id: 'scorecards', title: 'Scorecards', desc: 'City accountability report cards', keywords: 'scorecard accountability grade report card ncap target' },
         { id: 'data-archive', title: 'Data Archive', desc: 'Download historical air quality datasets', keywords: 'data archive download historical dataset csv json research' },
-        { id: 'correlations', title: 'Correlations', desc: 'Explore pollution vs health/economic data', keywords: 'correlation scatter plot health deaths economic relationship' }
+        { id: 'correlations', title: 'Correlations', desc: 'Explore pollution vs health/economic data', keywords: 'correlation scatter plot health deaths economic relationship' },
+        { id: 'glossary', title: 'Glossary', desc: 'Air quality terms and acronyms explained', keywords: 'glossary terms definitions acronym explanation pm25 aqi grap ncap who meaning' }
     ];
 
     function toggleWidget() {
@@ -11811,6 +11836,110 @@ Signature: _______________</div>
         <div class="role-explore-all">
             <button onclick="dismissRoleDashboard()">Explore everything on JanVayu</button>
         </div>
+    </div>
+</template>
+
+<template id="tmpl-glossary">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-book" style="color: var(--accent); margin-right: 0.4rem;"></span>Glossary</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Key air quality terms, acronyms, and measurements explained in plain language.</p>
+        <div style="margin-top: 1rem;">
+            <button class="btn-toggle-lang" id="glossarySimpleToggle" onclick="toggleSimpleLanguage()" style="font-family: var(--sans); font-size: 0.75rem; padding: 4px 12px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2); cursor: pointer;">
+                <span class="si si-eye" style="margin-right: 4px;"></span> Switch to simpler language
+            </button>
+        </div>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem;">
+
+        <div class="card">
+            <div class="card-header"><span class="card-title">Measurements</span></div>
+            <div class="card-body" style="font-size: 0.9rem; line-height: 1.8;">
+                <dl style="margin: 0;">
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">AQI (Air Quality Index)</dt>
+                    <dd data-simple="A number from 0-500 that tells you how clean or dirty the air is. Under 50 is good, over 200 is very unhealthy.">A standardised scale (0-500) that converts pollutant concentrations into a single number. Based on the US EPA breakpoint system. Below 50 is "Good", above 200 is "Very Unhealthy".</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">PM2.5 (Fine Particulate Matter)</dt>
+                    <dd data-simple="Tiny invisible particles in the air smaller than a grain of sand. They get deep into your lungs and blood. The WHO says safe is 5 or less. Delhi averages 96.">Airborne particles smaller than 2.5 micrometres (1/30th the width of a human hair). Small enough to penetrate deep into the lungs and enter the bloodstream. WHO 2021 guideline: 5 &micro;g/m&sup3; annual mean.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">PM10 (Coarse Particulate Matter)</dt>
+                    <dd data-simple="Larger dust particles in the air, like from roads or construction. They irritate your nose and throat but don't go as deep as PM2.5.">Particles smaller than 10 micrometres. Includes dust, pollen, and construction debris. WHO guideline: 15 &micro;g/m&sup3; annual mean. Generally less harmful than PM2.5 as they don't penetrate as deeply.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">&micro;g/m&sup3; (Micrograms per cubic metre)</dt>
+                    <dd data-simple="The unit used to measure how much pollution is in the air. Think of it as 'parts of pollution per breath'. Lower is better.">The standard unit for measuring airborne particle concentration. One microgram is one-millionth of a gram. Used globally for PM2.5 and PM10 reporting.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">GEMM (Global Exposure Mortality Model)</dt>
+                    <dd data-simple="A scientific formula that estimates how many people die from air pollution based on PM2.5 levels. Used by WHO and researchers worldwide.">A dose-response model developed by Burnett et al. (2018) that estimates excess mortality attributable to PM2.5 exposure. Used in GBD studies and JanVayu's Health Calculator.</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><span class="card-title">Policies &amp; Institutions</span></div>
+            <div class="card-body" style="font-size: 0.9rem; line-height: 1.8;">
+                <dl style="margin: 0;">
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">NCAP (National Clean Air Programme)</dt>
+                    <dd data-simple="India's government plan to reduce air pollution in 131 cities by 40% by 2026. &dollar;1.4 billion budget, but spending and results vary widely.">India's flagship programme launched in 2019 targeting 20-30% PM reduction (revised to 40% by 2025-26) across 131 non-attainment cities. Total allocation: &sim;&dollar;1.4B. Results are mixed.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">GRAP (Graded Response Action Plan)</dt>
+                    <dd data-simple="Emergency rules for Delhi-NCR that kick in when pollution gets bad. Stages I-IV: from banning firecrackers to closing schools and stopping trucks.">Emergency pollution control framework for Delhi-NCR activated at escalating AQI thresholds. Stage I (Poor, 201-300) to Stage IV (Severe+, >450). Enforced by CAQM.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">CPCB (Central Pollution Control Board)</dt>
+                    <dd data-simple="India's main government body that monitors air and water pollution. They run the official air quality monitoring stations.">India's apex environmental monitoring body under MoEFCC. Operates the CAAQMS (Continuous Ambient Air Quality Monitoring System) network.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">CAQM (Commission for Air Quality Management)</dt>
+                    <dd data-simple="A special commission for Delhi-NCR that has legal power to enforce pollution rules, shut down polluting factories, and activate GRAP stages.">Statutory body for Delhi-NCR air quality with quasi-judicial powers. Can issue binding directions, override state agencies, and impose penalties.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">RTI (Right to Information)</dt>
+                    <dd data-simple="Your legal right to ask the government questions and get answers within 30 days. JanVayu helps you file RTIs about pollution data and spending.">A citizen's legal right under the RTI Act 2005 to request information from public authorities. Response mandated within 30 days. Powerful tool for environmental accountability.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">WHO (World Health Organization)</dt>
+                    <dd data-simple="The global health body that sets safe limits for air pollution. Their 2021 guideline says PM2.5 should be below 5 &mdash; most Indian cities are 10-20x over.">The UN's international public health agency. Their 2021 Air Quality Guidelines set PM2.5 at 5 &micro;g/m&sup3; (annual) and PM10 at 15 &micro;g/m&sup3;, significantly stricter than India's NAAQS.</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><span class="card-title">Health Terms</span></div>
+            <div class="card-body" style="font-size: 0.9rem; line-height: 1.8;">
+                <dl style="margin: 0;">
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">COPD (Chronic Obstructive Pulmonary Disease)</dt>
+                    <dd data-simple="A lung disease that makes it hard to breathe. Long-term air pollution is a major cause, especially for people who cook with wood or dung.">A group of progressive lung diseases (emphysema, chronic bronchitis) that obstruct airflow. PM2.5 exposure is a leading risk factor, especially with household air pollution from solid fuel use.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">IHD (Ischaemic Heart Disease)</dt>
+                    <dd data-simple="Heart disease caused by reduced blood flow. Air pollution increases heart attack risk, even in young people.">Reduced blood supply to the heart muscle, leading to angina and heart attacks. PM2.5 exposure increases IHD risk through systemic inflammation and oxidative stress.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">ALRI (Acute Lower Respiratory Infection)</dt>
+                    <dd data-simple="Serious lung infections like pneumonia, especially dangerous for children under 5. Air pollution makes children more likely to get sick.">Infections of the lower respiratory tract (pneumonia, bronchiolitis). Leading cause of death in children under 5 in India. PM2.5 exposure significantly increases incidence.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">GBD (Global Burden of Disease)</dt>
+                    <dd data-simple="The world's largest health study, tracking causes of death in every country. It says air pollution kills 2 million Indians per year.">A comprehensive global study by IHME quantifying health loss from diseases, injuries, and risk factors. The GBD 2021 attributes &sim;2 million deaths/year in India to air pollution.</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><span class="card-title">Sources &amp; Monitoring</span></div>
+            <div class="card-body" style="font-size: 0.9rem; line-height: 1.8;">
+                <dl style="margin: 0;">
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">CAAQMS (Continuous Ambient Air Quality Monitoring System)</dt>
+                    <dd data-simple="Automatic air quality stations that measure pollution 24/7 and report data online. India has 400+ stations but many cities have none.">Automated monitoring stations that measure PM2.5, PM10, SO2, NO2, O3, CO in real-time. India has 400+ CAAQMS stations, though coverage is uneven.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">WAQI (World Air Quality Index)</dt>
+                    <dd data-simple="A global project that collects air quality data from thousands of stations and makes it available for free. JanVayu uses WAQI for live data.">A non-profit project aggregating real-time air quality data from 30,000+ monitoring stations worldwide. JanVayu uses WAQI's API for live AQI data.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">Stubble Burning</dt>
+                    <dd data-simple="When farmers burn leftover crop stalks after harvest. This causes massive pollution spikes in North India every October-November.">The practice of burning crop residue (primarily rice paddy straw) after harvest in Punjab and Haryana. A major contributor to Delhi-NCR's winter pollution crisis (Oct-Nov).</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">Temperature Inversion</dt>
+                    <dd data-simple="When cold air gets trapped under warm air, acting like a lid that prevents pollution from rising and dispersing. Common in Delhi winters.">A meteorological condition where a warm air layer sits atop cooler surface air, trapping pollutants near ground level. Common in Indo-Gangetic Plain winters, exacerbating PM2.5 accumulation.</dd>
+
+                    <dt style="font-weight: 700; color: var(--accent); margin-top: 0.75rem;">NAAQS (National Ambient Air Quality Standards)</dt>
+                    <dd data-simple="India's official air quality limits. Set by CPCB, they are less strict than WHO guidelines &mdash; India allows 40 &micro;g/m&sup3; PM2.5 vs WHO's 5.">India's regulatory air quality limits set by CPCB. PM2.5 annual standard: 40 &micro;g/m&sup3; (8x the WHO guideline of 5). Many advocates push for alignment with WHO standards.</dd>
+                </dl>
+            </div>
+        </div>
+
     </div>
 </template>
 
