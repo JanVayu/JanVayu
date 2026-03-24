@@ -36,6 +36,14 @@ The live map displays all CPCB and WAQI monitoring stations across India, with m
 
 ---
 
+## Interactive Demo
+
+> **Upcoming** — An interactive demo will be embedded here showing city rankings, the live map with clickable station markers, and the seasonal comparison view.
+
+<!-- Replace this section with an Arcade embed once recorded -->
+
+---
+
 ## Station Coverage Limitations
 
 India has approximately 800 CAAQMS (Continuous Ambient Air Quality Monitoring Stations) as of 2025. However:

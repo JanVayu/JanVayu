@@ -34,6 +34,14 @@ JanVayu is a single-page web application with 23 sections covering every dimensi
 
 ---
 
+## Interactive Demo
+
+> **Upcoming** — An interactive walkthrough of the full JanVayu platform will be embedded here. You'll be able to click through the dashboard, explore the map, and try the health calculator without leaving the docs.
+
+<!-- Replace this section with an Arcade embed once recorded -->
+
+---
+
 ## Languages Supported
 
 The platform is available in:
