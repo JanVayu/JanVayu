@@ -15,6 +15,22 @@
 * [Daily Email Digest](user-guide/email-digest.md)
 * [Citizen Action Tools](user-guide/citizen-action.md)
 
+## Tech Stack
+
+* [Overview](tech-stack/overview.md)
+* [Frontend (HTML/CSS/JS, Chart.js, Leaflet)](tech-stack/frontend.md)
+* [Backend (Netlify Functions, Blobs, Resend)](tech-stack/backend.md)
+* [AI Layer (Gemini 2.5 Flash)](tech-stack/ai-layer.md)
+* [Infrastructure (Netlify, GitHub, DNS)](tech-stack/infrastructure.md)
+* [Development Tooling](tech-stack/dev-tooling.md)
+
+## Claude Code
+
+* [How JanVayu Was Built](claude-code/overview.md)
+* [Setup & Configuration](claude-code/setup.md)
+* [Development Workflow](claude-code/workflow.md)
+* [Sharing & Replicating](claude-code/sharing.md)
+
 ## Technical Reference
 
 * [Architecture](technical/architecture.md)
