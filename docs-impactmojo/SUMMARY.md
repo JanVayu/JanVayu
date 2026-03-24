@@ -42,6 +42,11 @@
 * [मराठी (Marathi)](https://impactmojo.gitbook.io/impactmojo/mr/)
 * [தமிழ் (Tamil)](https://impactmojo.gitbook.io/impactmojo/ta/)
 
+## Claude Code
+
+* [Full Capabilities Reference](claude-code/capabilities.md)
+* [Global Skills Reference](claude-code/skills.md)
+
 ## About
 
 * [Project Background](about/background.md)
