@@ -57,6 +57,57 @@ If you notice an inaccurate or awkward translation:
 
 ---
 
+## Live Translated Documentation
+
+Each language has its own GitBook space, synced from the corresponding `docs-{lang}/` directory in the repo:
+
+| Language | GitBook URL | Source Directory |
+|----------|-------------|------------------|
+| English | [janvayu.gitbook.io/janvayu](https://janvayu.gitbook.io/janvayu/) | `docs/` |
+| Hindi | [janvayu.gitbook.io/janvayu/hi](https://janvayu.gitbook.io/janvayu/hi/) | `docs-hi/` |
+| Bengali | [janvayu.gitbook.io/janvayu/bn](https://janvayu.gitbook.io/janvayu/bn/) | `docs-bn/` |
+| Marathi | [janvayu.gitbook.io/janvayu/mr](https://janvayu.gitbook.io/janvayu/mr/) | `docs-mr/` |
+| Tamil | [janvayu.gitbook.io/janvayu/ta](https://janvayu.gitbook.io/janvayu/ta/) | `docs-ta/` |
+
+All spaces sync automatically via GitHub integration when changes are pushed to `main`.
+
+---
+
+## CI: Translation Coverage
+
+A GitHub Actions workflow (`.github/workflows/translations.yml`) runs on every push to `main` that touches docs. It checks:
+
+- **File coverage** — are all English docs mirrored in each language?
+- **SUMMARY.md parity** — do all languages have the same page count?
+- **Stale detection** — when an English doc changes, which translations weren't updated?
+
+Results appear in the GitHub Actions **Job Summary** tab for each run.
+
+---
+
+## Directory Structure
+
+Each translation directory mirrors the English `docs/` structure exactly:
+
+```
+docs-{lang}/
+├── README.md
+├── SUMMARY.md
+├── about/
+├── api/
+├── claude-code/
+├── contributing/
+├── data-sources/
+├── skills/
+├── tech-stack/
+├── technical/
+└── user-guide/
+```
+
+When adding a new English doc, create the corresponding file in all translation directories (even if initially in English — it can be translated later).
+
+---
+
 ## Contact
 
 For translation contributions, email [contribute@janvayu.in](mailto:contribute@janvayu.in) with the subject line "Translation Contribution: [Language]".

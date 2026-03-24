@@ -89,6 +89,57 @@ No other setup required. No Docker, no database, no build step.
 
 ---
 
+## GitBook Integrations
+
+The documentation site uses these GitBook integrations:
+
+| Integration | What It Does |
+|-------------|-------------|
+| **GitHub Sync** | Bi-directional sync between `docs/` (and `docs-{lang}/`) and GitBook spaces |
+| **Formspree** | Embeds signup/feedback forms directly in published docs |
+| **Arcade** | Embeds interactive product demos — record browser walkthroughs, embed with `/arcade` block |
+| **PlantUML** | Renders architecture diagrams from `plantuml` code blocks |
+| **Plausible** | Privacy-friendly, cookie-free analytics for the docs site |
+| **GitHub Files** | Embeds live code snippets from the repo using GitHub permalinks |
+
+### Using Arcade for Interactive Demos
+
+1. Install the [Arcade Chrome extension](https://www.arcade.software/)
+2. Record a walkthrough of a JanVayu feature (AQI dashboard, health calculator, etc.)
+3. Copy the embed URL from Arcade
+4. In GitBook, use the `/arcade` integration block and paste the URL
+
+Free tier includes ~3 published demos with unlimited views.
+
+### Using PlantUML for Diagrams
+
+In any GitBook page, add a `plantuml` code block:
+
+````
+```plantuml
+@startuml
+Client -> "Netlify CDN" : HTTPS
+"Netlify CDN" -> "Netlify Functions" : API calls
+"Netlify Functions" -> "WAQI API" : AQI data
+"Netlify Functions" -> "Gemini API" : AI features
+"Netlify Functions" -> "Netlify Blobs" : Cache
+@enduml
+```
+````
+
+The diagram renders automatically in the published docs.
+
+---
+
+## CI Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| **Link Checker** (`.github/workflows/ci.yml`) | Push/PR to `main` | Validates all markdown and HTML links with Lychee |
+| **Translation Sync** (`.github/workflows/translations.yml`) | Push to `main` (docs paths) | Checks translation coverage, SUMMARY.md parity, and stale translations |
+
+---
+
 ## Dependency Management
 
 - **Dependabot** checks for npm and GitHub Actions updates monthly
