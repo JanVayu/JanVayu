@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: ImpactMojo API
+  version: 10.8.5
+  description: |
+    API reference for ImpactMojo — a free learning platform for development economics and policy education.
+
+    **Supabase Edge Functions URL:** `https://<project>.supabase.co/functions/v1`
+
+    ImpactMojo uses Supabase Auth for authentication and a custom Edge Function for premium resource token minting.
+  contact:
+    email: hello@impactmojo.in
+    url: https://www.impactmojo.in
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://{project}.supabase.co/functions/v1
+    description: Supabase Edge Functions (Production)
+    variables:
+      project:
+        default: your-project-id
+        description: Supabase project ID
+  - url: http://localhost:54321/functions/v1
+    description: Local Supabase development
+
+paths:
+  /mint-resource-token:
+    post:
+      summary: Mint a premium resource access token
+      description: |
+        Generates a short-lived JWT (5-minute expiry) for accessing a premium tool site.
+        Requires a valid Supabase access token and checks the user's subscription tier.
+      operationId: mintResourceToken
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resource_id
+              properties:
+                resource_id:
+                  type: string
+                  description: Identifier for the premium resource
+                  enum:
+                    - rq-builder
+                    - code-convert
+                    - qual-insights
+                    - vaniscribe
+                    - devdata
+                    - viz-cookbook
+                    - devecon-toolkit
+                  example: rq-builder
+      responses:
+        '200':
+          description: Token minted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT access token (5-minute expiry)
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  url:
+                    type: string
+                    format: uri
+                    description: Redirect URL with embedded token
+                    example: https://rq-builder.impactmojo.in/?token=eyJ...
+        '401':
+          description: Missing or invalid Supabase access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Subscription tier does not include this resource
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Your subscription tier does not include this resource
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase access token from authentication
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: User ID (matches Supabase auth user)
+        email:
+          type: string
+          format: email
+        full_name:
+          type: string
+        subscription_tier:
+          type: string
+          enum:
+            - explorer
+            - practitioner
+            - professional
+            - organization
+        subscription_status:
+          type: string
+          enum:
+            - active
+            - expired
+            - cancelled
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        admin_id:
+          type: string
+          format: uuid
+        max_seats:
+          type: integer
+
+    ResourceToken:
+      type: object
+      description: JWT claims in the minted resource token
+      properties:
+        sub:
+          type: string
+          format: uuid
+          description: User ID
+        resource:
+          type: string
+          description: Resource identifier
+        tier:
+          type: string
+          description: User's subscription tier
+        exp:
+          type: integer
+          description: Token expiration (Unix timestamp, 5 minutes from issue)
