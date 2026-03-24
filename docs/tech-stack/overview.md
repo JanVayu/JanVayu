@@ -16,8 +16,10 @@ JanVayu is built on a deliberately minimal stack — zero frontend frameworks, t
 | **Email** | Resend API | Daily AQI digest delivery |
 | **AI** | Google Gemini 2.5 Flash | NL queries, health advice, anomaly detection |
 | **Hosting** | Netlify CDN | Auto-deploy from GitHub `main` |
-| **CI** | GitHub Actions | Link checking, Dependabot |
+| **CI** | GitHub Actions | Link checking, translation coverage, Dependabot |
 | **Domain** | Netlify DNS | janvayu.in custom domain |
+| **Docs** | GitBook (5 languages) | Auto-synced from `docs/` and `docs-{lang}/` directories |
+| **Docs Integrations** | Arcade, PlantUML, Formspree, Plausible | Interactive demos, diagrams, forms, analytics |
 | **Development** | Claude Code (Anthropic) | AI-assisted development workflow |
 
 ---
