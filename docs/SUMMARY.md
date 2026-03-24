@@ -31,6 +31,7 @@
 * [Setup & Configuration](claude-code/setup.md)
 * [Development Workflow](claude-code/workflow.md)
 * [Sharing & Replicating](claude-code/sharing.md)
+* [Full Capabilities Reference](claude-code/capabilities.md)
 
 ## API Reference
 
