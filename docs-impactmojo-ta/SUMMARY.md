@@ -35,6 +35,13 @@
 * [மாற்றப்பதிவு](reference/changelog.md)
 * [சொற்களஞ்சியம்](reference/glossary.md)
 
+## பிற மொழிகள்
+
+* [English](../docs-impactmojo/README.md)
+* [हिन्दी (Hindi)](../docs-impactmojo-hi/README.md)
+* [বাংলা (Bengali)](../docs-impactmojo-bn/README.md)
+* [मराठी (Marathi)](../docs-impactmojo-mr/README.md)
+
 ## பற்றி
 
 * [திட்ட பின்னணி](about/background.md)
