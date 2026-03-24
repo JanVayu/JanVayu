@@ -1931,6 +1931,24 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 #simpleModeToggle.active { color: var(--accent); background: var(--green-50); }
 
+/* Simple language mode indicator */
+body.simple-language [data-simple] {
+    position: relative;
+}
+body.simple-language .section-intro [data-simple]::after {
+    content: '✓ Simple language';
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--green-50);
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.03em;
+}
+
 /* ═══ Glossary Overlay (Cmd+K) ═══ */
 .glossary-overlay {
     display: none; position: fixed; inset: 0; z-index: 2000;
@@ -2196,23 +2214,23 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                         </button>
                     </div>
                 </div>
-                <div class="role-switcher" id="roleSwitcher">
-                    <button class="icon-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Change your role" aria-label="Change role">
-                        <span id="roleSwitcherIcon"><span class="si si-user" style="width:18px;height:18px;"></span></span>
-                    </button>
-                    <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
-                    <div class="role-hint" id="roleHint">Change your role anytime here</div>
-                </div>
                 <button class="icon-btn" id="glossaryToggle" onclick="toggleGlossaryOverlay()" title="Glossary / Terminology (Ctrl+K)" aria-label="Open glossary">
                     <span class="si si-library" style="width:18px;height:18px;"></span>
                 </button>
                 <button class="icon-btn" id="simpleModeToggle" onclick="toggleSimpleMode()" title="Simple language mode" aria-label="Toggle simple language">
                     <span class="si si-eye" style="width:18px;height:18px;"></span>
                 </button>
-                <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">☾</button>
-                <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="GitHub">
+                <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle dark mode">☾</button>
+                <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="View source on GitHub" aria-label="GitHub repository">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
+                <div class="role-switcher" id="roleSwitcher">
+                    <button class="icon-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Switch your role" aria-label="Change role">
+                        <span id="roleSwitcherIcon"><span class="si si-user" style="width:18px;height:18px;"></span></span>
+                    </button>
+                    <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
+                    <div class="role-hint" id="roleHint">Change your role anytime here</div>
+                </div>
             </div>
         </div>
     </header>
@@ -3087,6 +3105,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     let simpleMode = false;
     function toggleSimpleMode() {
         simpleMode = !simpleMode;
+        document.body.classList.toggle('simple-language', simpleMode);
         // Update header icon
         const headerBtn = document.getElementById('simpleModeToggle');
         if (headerBtn) headerBtn.classList.toggle('active', simpleMode);
@@ -3096,17 +3115,19 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         if (glossaryBtn) glossaryBtn.innerHTML = simpleMode
             ? '<span class="si si-eye" style="margin-right:4px;"></span> Switch to technical language'
             : '<span class="si si-eye" style="margin-right:4px;"></span> Switch to simpler language';
-        // Swap all data-simple definitions
-        document.querySelectorAll('dd[data-simple]').forEach(dd => {
+        // Swap ALL elements with data-simple attribute (glossary dds, panel text, headings, etc.)
+        document.querySelectorAll('[data-simple]').forEach(el => {
             if (simpleMode) {
-                if (!dd.dataset.technical) dd.dataset.technical = dd.textContent;
-                dd.textContent = dd.dataset.simple;
-                dd.style.color = 'var(--ink)';
-                dd.style.fontWeight = '500';
+                if (!el.dataset.technical) el.dataset.technical = el.innerHTML;
+                el.innerHTML = el.dataset.simple;
+                if (el.tagName === 'DD') {
+                    el.style.color = 'var(--ink)';
+                    el.style.fontWeight = '500';
+                }
             } else {
-                if (dd.dataset.technical) dd.textContent = dd.dataset.technical;
-                dd.style.color = '';
-                dd.style.fontWeight = '';
+                if (el.dataset.technical) el.innerHTML = el.dataset.technical;
+                el.style.color = '';
+                el.style.fontWeight = '';
             }
         });
     }
@@ -5554,14 +5575,14 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             <div class="panel-action-box">
                 <div class="panel-action-box-text">
                     <strong>Your action: Calculate your personal health risk</strong>
-                    <span>Enter your age, city, and health conditions below to see your estimated mortality risk from PM2.5 exposure.</span>
+                    <span data-simple="Enter your age, city, and any health issues to see how air pollution affects you personally.">Enter your age, city, and health conditions below to see your estimated mortality risk from PM2.5 exposure.</span>
                 </div>
                 <button class="action-btn" onclick="document.getElementById('health-age')?.scrollIntoView({behavior:'smooth',block:'center'})">Start calculator ↓</button>
             </div>
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-hospital" style="color: var(--accent); margin-right: 0.4rem;"></span>Personal Health Risk Calculator</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Estimate your health risk from air pollution using the <strong>Global Exposure Mortality Model (GEMM)</strong> — the gold standard for PM2.5 mortality estimation.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Find out how dangerous the air in your city is for your health. Enter your age and city to get a personal risk score.">Estimate your health risk from air pollution using the <strong>Global Exposure Mortality Model (GEMM)</strong> — the gold standard for PM2.5 mortality estimation.</p>
             </div>
 
             <!-- WHY PM2.5 NOT AQI EXPLAINER -->
@@ -5589,7 +5610,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </div>
                     </div>
                     <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(239,68,68,0.08); border-radius: 8px; font-size: 0.875rem;">
-                        <strong>Key insight:</strong> Delhi's AQI might show "moderate" (100) while PM2.5 is 60 µg/m³ — that's still <strong>12× the WHO guideline</strong> and associated with significant excess mortality risk.
+                        <span data-simple="&lt;strong&gt;What this means:&lt;/strong&gt; Even when Delhi's air quality number says &quot;moderate&quot;, the actual pollution level can be 12 times higher than what the WHO says is safe. This still causes serious health harm."><strong>Key insight:</strong> Delhi's AQI might show "moderate" (100) while PM2.5 is 60 µg/m³ — that's still <strong>12× the WHO guideline</strong> and associated with significant excess mortality risk.</span>
                     </div>
                 </div>
             </div>
@@ -6089,7 +6110,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-rupee" style="color: #D97706; margin-right: 0.4rem;"></span>Economic Cost of Air Pollution</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Air pollution costs India <strong>$36.8 billion annually</strong> (1.36% GDP) through healthcare, lost productivity, and premature deaths. At broader economic measures, costs reach $339 billion (9.5% GDP). <em>Source: Lancet Planetary Health 2021 / Lancet Countdown 2025</em></p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Dirty air costs India &lt;strong&gt;$36.8 billion every year&lt;/strong&gt; — through hospital bills, people being too sick to work, and early deaths. That&rsquo;s money that could have gone to schools, roads, and better lives.">Air pollution costs India <strong>$36.8 billion annually</strong> (1.36% GDP) through healthcare, lost productivity, and premature deaths. At broader economic measures, costs reach $339 billion (9.5% GDP). <em>Source: Lancet Planetary Health 2021 / Lancet Countdown 2025</em></p>
             </div>
 
             <div class="grid-4 mb-2">
@@ -6142,7 +6163,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clipboard-check" style="color: #3B82F6; margin-right: 0.4rem;"></span>Policy Effectiveness Tracker</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Evaluating major air quality interventions by actual PM2.5 impact, evidence quality, and cost-effectiveness.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Which government actions actually cleaned the air, and which ones were a waste of money? Here&rsquo;s the evidence.">Evaluating major air quality interventions by actual PM2.5 impact, evidence quality, and cost-effectiveness.</p>
             </div>
 
             <div class="card mb-2">
@@ -6891,7 +6912,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield" style="color: #EF4444; margin-right: 0.4rem;"></span>Political Accountability Tracker</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Tracking promises, court orders, budget allocations, and outcomes. <strong>NEW:</strong> Clean Air Mission Tracker with independent verification of NCAP interventions. Use RTI to demand transparency. Democracy requires accountability.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Did the government keep its promises on clean air? Here we track what politicians said, how much money was spent, and what actually happened. You can use RTI (Right to Information) to ask the government tough questions.">Tracking promises, court orders, budget allocations, and outcomes. <strong>NEW:</strong> Clean Air Mission Tracker with independent verification of NCAP interventions. Use RTI to demand transparency. Democracy requires accountability.</p>
             </div>
 
             <div class="card mb-2">
@@ -8757,7 +8778,7 @@ Signature: _______________</div>
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-lightning" style="color: #F59E0B; margin-right: 0.4rem;"></span>Take Action — What You Can Do</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Practical, science-backed actions at every level — from your home to your community. Organized by context and budget. Every small action compounds.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Here are real things you can do about air pollution &mdash; at home, at school, or in your neighbourhood. Some cost nothing. Pick one and start today.">Practical, science-backed actions at every level — from your home to your community. Organized by context and budget. Every small action compounds.</p>
             </div>
 
             <!-- HOME GRAP GUIDE -->
@@ -9462,7 +9483,7 @@ Signature: _______________</div>
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield-police" style="color: #1B6B4A; margin-right: 0.4rem;"></span>Legal Framework for Clean Air</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Constitutional rights, Supreme Court mandates, and statutory powers that provide the legal basis for emergency action on air pollution.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Clean air is your legal right. The Constitution, the Supreme Court, and multiple laws say so. Here&rsquo;s what the law says and how you can use it.">Constitutional rights, Supreme Court mandates, and statutory powers that provide the legal basis for emergency action on air pollution.</p>
             </div>
 
             <!-- CONSTITUTIONAL BASIS -->
@@ -10333,7 +10354,7 @@ Signature: _______________</div>
 <template id="tmpl-indoor">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-home" style="color: var(--accent); margin-right: 0.4rem;"></span>Indoor Air Quality: The Invisible Crisis</h2>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Every government advisory says "stay indoors." But indoor air in Indian homes is often just as dangerous, sometimes worse. 40% of Indian households still use solid fuel for cooking, making indoor exposure a critical environmental justice issue.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="The government says &ldquo;stay indoors&rdquo; when pollution is bad. But for nearly half of Indian families who cook with wood or dung, the air inside the home can be even worse than outside.">Every government advisory says "stay indoors." But indoor air in Indian homes is often just as dangerous, sometimes worse. 40% of Indian households still use solid fuel for cooking, making indoor exposure a critical environmental justice issue.</p>
     </div>
 
     <div class="pull-quote">
@@ -10350,7 +10371,7 @@ Signature: _______________</div>
                     <div class="stat-strip-item"><div class="number-callout" style="color: #7C3AED;">500+</div><div class="stat-label">Indoor PM2.5 (µg/m³) during biomass cooking</div></div>
                     <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">3.8M</div><div class="stat-label">Deaths globally from household air pollution (WHO)</div></div>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2);">The WHO estimates that household air pollution from solid fuel combustion causes 3.8 million premature deaths annually. In India, women who cook with biomass have PM2.5 exposure levels 10-20x the WHO guideline during cooking hours. Children under five in these households face acute respiratory infections at rates 2-3x higher than those in LPG-using homes.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="Cooking with wood, cow dung, or coal kills 3.8 million people every year worldwide (WHO). In India, women cooking with these fuels breathe in 10-20 times more pollution than the safe limit. Small children in these homes get lung infections 2-3 times more often than children in homes using gas stoves.">The WHO estimates that household air pollution from solid fuel combustion causes 3.8 million premature deaths annually. In India, women who cook with biomass have PM2.5 exposure levels 10-20x the WHO guideline during cooking hours. Children under five in these households face acute respiratory infections at rates 2-3x higher than those in LPG-using homes.</p>
             </div>
         </div>
 
@@ -10383,7 +10404,7 @@ Signature: _______________</div>
 <template id="tmpl-children">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-dangerous" style="color: #EF4444; margin-right: 0.4rem;"></span>Children's Health Dashboard</h2>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Children breathe twice the air per kilogram of body weight. Their developing lungs, brains, and immune systems are uniquely vulnerable. Every school closure day, every asthma hospitalisation, every stunted lung represents a failure of governance.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Children breathe in more air for their body size than adults. Their lungs and brains are still growing, so pollution hits them much harder. Dirty air means more asthma, more sick days, and kids losing months of school.">Children breathe twice the air per kilogram of body weight. Their developing lungs, brains, and immune systems are uniquely vulnerable. Every school closure day, every asthma hospitalisation, every stunted lung represents a failure of governance.</p>
     </div>
 
     <div class="stat-strip" style="margin-bottom: 2rem;">
@@ -10397,7 +10418,7 @@ Signature: _______________</div>
         <div class="card card-accent-red">
             <div class="card-header"><span class="card-title">School Closures Tracker</span></div>
             <div class="card-body">
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">Delhi schools were ordered to shift to online mode multiple times during Winter 2025-26. Under GRAP Stage III/IV, all primary schools close when AQI exceeds 400. But students in government schools often lack devices for online learning, widening the education equity gap.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Delhi had to close schools many times during winter 2025-26 because the air was too dirty. When pollution gets really bad (AQI above 400), all primary schools must close. But many students in government schools don&rsquo;t have laptops or internet for online classes, so they simply miss out on learning.">Delhi schools were ordered to shift to online mode multiple times during Winter 2025-26. Under GRAP Stage III/IV, all primary schools close when AQI exceeds 400. But students in government schools often lack devices for online learning, widening the education equity gap.</p>
                 <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid #EF4444;">
                     <h4>2025-26 Winter School Closures</h4>
                     <p>Nov 4-8, Nov 14-18, Nov 22-26, Dec 2-5, Jan 6-10, Jan 16-20. Total: ~30 days this winter. An estimated 4+ million school-age children affected in Delhi-NCR alone. Learning loss is cumulative and disproportionately harms first-generation learners.</p>
@@ -12032,7 +12053,7 @@ Signature: _______________</div>
 <template id="tmpl-glossary">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-book" style="color: var(--accent); margin-right: 0.4rem;"></span>Glossary</h2>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Key air quality terms, acronyms, and measurements explained in plain language.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A simple dictionary of air pollution words and abbreviations. What do all these letters and numbers actually mean?">Key air quality terms, acronyms, and measurements explained in plain language.</p>
         <div style="margin-top: 1rem;">
             <button class="btn-toggle-lang" id="glossarySimpleToggle" onclick="toggleSimpleLanguage()" style="font-family: var(--sans); font-size: 0.75rem; padding: 4px 12px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2); cursor: pointer;">
                 <span class="si si-eye" style="margin-right: 4px;"></span> Switch to simpler language
