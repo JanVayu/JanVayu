@@ -35,6 +35,13 @@
 * [পরিবর্তন লগ](reference/changelog.md)
 * [শব্দকোষ](reference/glossary.md)
 
+## অন্যান্য ভাষা
+
+* [English](../docs-impactmojo/README.md)
+* [हिन्दी (Hindi)](../docs-impactmojo-hi/README.md)
+* [मराठी (Marathi)](../docs-impactmojo-mr/README.md)
+* [தமிழ் (Tamil)](../docs-impactmojo-ta/README.md)
+
 ## সম্পর্কে
 
 * [প্রকল্পের পটভূমি](about/background.md)
