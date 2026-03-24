@@ -412,7 +412,7 @@ a:hover { color: var(--accent-hover); }
 }
 @media (min-width: 640px) { .logo-tag { display: inline; } }
 
-.header-actions { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+.header-actions { display: flex; gap: 3px; align-items: center; flex-shrink: 1; min-width: 0; }
 .icon-btn {
     width: 34px; height: 34px;
     display: flex; align-items: center; justify-content: center;
@@ -1921,17 +1921,18 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     position: relative; display: inline-flex;
 }
 .role-switcher-btn {
-    font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.04em;
+    font-family: var(--sans); font-size: 0.6rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.03em;
     background: var(--green-50); color: var(--accent);
     border: 1px solid var(--border); border-radius: 6px;
-    padding: 4px 8px; cursor: pointer; white-space: nowrap;
-    display: flex; align-items: center; gap: 3px;
-    transition: all 0.15s ease;
+    padding: 3px 6px; cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 2px;
+    transition: all 0.15s ease; max-width: 100px; overflow: hidden;
 }
-@media (max-width: 480px) {
+#roleSwitcherLabel { overflow: hidden; text-overflow: ellipsis; max-width: 50px; }
+@media (max-width: 640px) {
     #roleSwitcherLabel { display: none; }
-    .role-switcher-btn { padding: 4px 6px; }
+    .role-switcher-btn { padding: 3px 5px; max-width: 34px; }
 }
 [data-theme="dark"] .role-switcher-btn {
     background: rgba(22, 163, 74, 0.1);
