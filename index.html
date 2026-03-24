@@ -1935,6 +1935,26 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .role-switcher-btn:hover {
     border-color: var(--accent); box-shadow: var(--shadow-sm);
 }
+@keyframes role-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
+}
+.role-switcher-btn.pulse {
+    animation: role-pulse 0.6s ease 2;
+}
+.role-hint {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    background: var(--ink); color: var(--bg); font-size: 0.7rem;
+    padding: 6px 10px; border-radius: 6px; white-space: nowrap;
+    pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    z-index: 1001;
+}
+.role-hint::before {
+    content: ''; position: absolute; top: -4px; right: 12px;
+    border-left: 5px solid transparent; border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--ink);
+}
+.role-hint.show { opacity: 1; }
 .role-switcher-dropdown {
     position: absolute; top: calc(100% + 6px); right: 0;
     background: var(--bg-card); border: 1px solid var(--border);
@@ -2116,13 +2136,14 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                         </button>
                     </div>
                 </div>
-                <div class="role-switcher" id="roleSwitcher" style="display:none;">
+                <div class="role-switcher" id="roleSwitcher">
                     <button class="role-switcher-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Change your role">
-                        <span id="roleSwitcherIcon"></span>
-                        <span id="roleSwitcherLabel"></span>
+                        <span id="roleSwitcherIcon"><span class="si si-user"></span></span>
+                        <span id="roleSwitcherLabel">Role</span>
                         <svg viewBox="0 0 12 12" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
                     </button>
                     <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
+                    <div class="role-hint" id="roleHint">Change your role anytime here</div>
                 </div>
                 <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">☾</button>
                 <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="GitHub">
@@ -12054,7 +12075,20 @@ function updateRoleSwitcher(role) {
         iconEl.innerHTML = config.icon;
         labelEl.textContent = config.label.split('/')[0].trim();
     }
-    switcher.style.display = 'inline-flex';
+
+    // Pulse the button to draw attention
+    const btn = document.getElementById('roleSwitcherBtn');
+    btn.classList.remove('pulse');
+    void btn.offsetWidth; // force reflow
+    btn.classList.add('pulse');
+
+    // Show hint briefly on first role selection
+    const hint = document.getElementById('roleHint');
+    if (hint && !sessionStorage.getItem('janvayu-role-hint-shown')) {
+        sessionStorage.setItem('janvayu-role-hint-shown', '1');
+        setTimeout(() => { hint.classList.add('show'); }, 500);
+        setTimeout(() => { hint.classList.remove('show'); }, 4000);
+    }
 
     // Populate dropdown
     let html = '';
@@ -12112,6 +12146,15 @@ function switchRole(role) {
         }
         return;
     }
+
+    // Always populate the role switcher dropdown so it works before a role is selected
+    const dropdown = document.getElementById('roleSwitcherDropdown');
+    let html = '';
+    for (const [key, cfg] of Object.entries(ROLE_CONFIG)) {
+        html += `<button class="role-switcher-option" onclick="switchRole('${key}')">${cfg.icon} ${cfg.label}</button>`;
+    }
+    html += `<button class="role-switcher-option" onclick="switchRole('skip')">☰ Show Everything</button>`;
+    dropdown.innerHTML = html;
 
     if (!savedRole) {
         // First visit — show the role selector overlay
