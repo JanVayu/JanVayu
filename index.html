@@ -1920,33 +1920,16 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .role-switcher {
     position: relative; display: inline-flex;
 }
-.role-switcher-btn {
-    font-family: var(--sans); font-size: 0.6rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.03em;
-    background: var(--green-50); color: var(--accent);
-    border: 1px solid var(--border); border-radius: 6px;
-    padding: 3px 6px; cursor: pointer; white-space: nowrap;
-    display: flex; align-items: center; gap: 2px;
-    transition: all 0.15s ease; max-width: 100px; overflow: hidden;
-}
-#roleSwitcherLabel { overflow: hidden; text-overflow: ellipsis; max-width: 50px; }
-@media (max-width: 640px) {
-    #roleSwitcherLabel { display: none; }
-    .role-switcher-btn { padding: 3px 5px; max-width: 34px; }
-}
-[data-theme="dark"] .role-switcher-btn {
-    background: rgba(22, 163, 74, 0.1);
-}
-.role-switcher-btn:hover {
-    border-color: var(--accent); box-shadow: var(--shadow-sm);
-}
+#roleSwitcherBtn .si { background: currentColor; }
+#roleSwitcherBtn[data-active] { color: var(--accent); }
 @keyframes role-pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
     50% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
 }
-.role-switcher-btn.pulse {
+#roleSwitcherBtn.pulse {
     animation: role-pulse 0.6s ease 2;
 }
+#simpleModeToggle.active { color: var(--accent); background: var(--green-50); }
 .role-hint {
     position: absolute; top: calc(100% + 8px); right: 0;
     background: var(--ink); color: var(--bg); font-size: 0.7rem;
@@ -2142,14 +2125,15 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                     </div>
                 </div>
                 <div class="role-switcher" id="roleSwitcher">
-                    <button class="role-switcher-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Change your role">
-                        <span id="roleSwitcherIcon"><span class="si si-user"></span></span>
-                        <span id="roleSwitcherLabel">Role</span>
-                        <svg viewBox="0 0 12 12" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+                    <button class="icon-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Change your role" aria-label="Change role">
+                        <span id="roleSwitcherIcon"><span class="si si-user" style="width:18px;height:18px;"></span></span>
                     </button>
                     <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
                     <div class="role-hint" id="roleHint">Change your role anytime here</div>
                 </div>
+                <button class="icon-btn" id="simpleModeToggle" onclick="toggleSimpleMode()" title="Simple language mode" aria-label="Toggle simple language">
+                    <span class="si si-eye" style="width:18px;height:18px;"></span>
+                </button>
                 <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">☾</button>
                 <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="GitHub">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -2902,14 +2886,20 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
         }
     }
 
-    // ── Simple Language Toggle ──
+    // ── Simple Language Toggle (site-wide) ──
     let simpleMode = false;
-    function toggleSimpleLanguage() {
+    function toggleSimpleMode() {
         simpleMode = !simpleMode;
-        const btn = document.getElementById('glossarySimpleToggle');
-        if (btn) btn.innerHTML = simpleMode
+        // Update header icon
+        const headerBtn = document.getElementById('simpleModeToggle');
+        if (headerBtn) headerBtn.classList.toggle('active', simpleMode);
+        headerBtn.title = simpleMode ? 'Technical language mode' : 'Simple language mode';
+        // Update glossary button if visible
+        const glossaryBtn = document.getElementById('glossarySimpleToggle');
+        if (glossaryBtn) glossaryBtn.innerHTML = simpleMode
             ? '<span class="si si-eye" style="margin-right:4px;"></span> Switch to technical language'
             : '<span class="si si-eye" style="margin-right:4px;"></span> Switch to simpler language';
+        // Swap all data-simple definitions
         document.querySelectorAll('dd[data-simple]').forEach(dd => {
             if (simpleMode) {
                 if (!dd.dataset.technical) dd.dataset.technical = dd.textContent;
@@ -2923,6 +2913,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             }
         });
     }
+    // Alias for glossary button
+    function toggleSimpleLanguage() { toggleSimpleMode(); }
 
     // ── Theme ──
     function toggleTheme() {
@@ -12212,21 +12204,23 @@ function dismissRoleDashboard() {
 function updateRoleSwitcher(role) {
     const switcher = document.getElementById('roleSwitcher');
     const iconEl = document.getElementById('roleSwitcherIcon');
-    const labelEl = document.getElementById('roleSwitcherLabel');
     const dropdown = document.getElementById('roleSwitcherDropdown');
+    const btn = document.getElementById('roleSwitcherBtn');
 
     if (role === 'skip') {
-        iconEl.innerHTML = '☰';
-        labelEl.textContent = 'All';
+        iconEl.innerHTML = '<span class="si si-user" style="width:18px;height:18px;"></span>';
+        btn.removeAttribute('data-active');
     } else {
         const config = ROLE_CONFIG[role];
         if (!config) return;
         iconEl.innerHTML = config.icon;
-        labelEl.textContent = config.label.split('/')[0].trim();
+        btn.setAttribute('data-active', '');
+        // Resize the icon inside the button
+        const si = iconEl.querySelector('.si');
+        if (si) { si.style.width = '18px'; si.style.height = '18px'; }
     }
 
     // Pulse the button to draw attention
-    const btn = document.getElementById('roleSwitcherBtn');
     btn.classList.remove('pulse');
     void btn.offsetWidth; // force reflow
     btn.classList.add('pulse');
