@@ -3102,32 +3102,29 @@ body.simple-language .section-intro [data-simple]::after {
     const origSelectRole = window.selectRole;
 
     // ── Simple Language Toggle (site-wide) ──
-    let simpleMode = false;
+    let simpleMode = sessionStorage.getItem('janvayu-simple-mode') === 'true';
     function toggleSimpleMode() {
         simpleMode = !simpleMode;
+        sessionStorage.setItem('janvayu-simple-mode', simpleMode);
+        applySimpleMode();
+    }
+    function applySimpleMode() {
         document.body.classList.toggle('simple-language', simpleMode);
-        // Update header icon
         const headerBtn = document.getElementById('simpleModeToggle');
         if (headerBtn) headerBtn.classList.toggle('active', simpleMode);
-        headerBtn.title = simpleMode ? 'Technical language mode' : 'Simple language mode';
-        // Update glossary button if visible
+        if (headerBtn) headerBtn.title = simpleMode ? 'Technical language mode' : 'Simple language mode';
         const glossaryBtn = document.getElementById('glossarySimpleToggle');
         if (glossaryBtn) glossaryBtn.innerHTML = simpleMode
             ? '<span class="si si-eye" style="margin-right:4px;"></span> Switch to technical language'
             : '<span class="si si-eye" style="margin-right:4px;"></span> Switch to simpler language';
-        // Swap ALL elements with data-simple attribute (glossary dds, panel text, headings, etc.)
         document.querySelectorAll('[data-simple]').forEach(el => {
             if (simpleMode) {
                 if (!el.dataset.technical) el.dataset.technical = el.innerHTML;
                 el.innerHTML = el.dataset.simple;
-                if (el.tagName === 'DD') {
-                    el.style.color = 'var(--ink)';
-                    el.style.fontWeight = '500';
-                }
+                if (el.tagName === 'DD') { el.style.color = 'var(--ink)'; el.style.fontWeight = '500'; }
             } else {
                 if (el.dataset.technical) el.innerHTML = el.dataset.technical;
-                el.style.color = '';
-                el.style.fontWeight = '';
+                el.style.color = ''; el.style.fontWeight = '';
             }
         });
     }
@@ -3570,6 +3567,9 @@ body.simple-language .section-intro [data-simple]::after {
 
         // Update global timestamp
         updateGlobalTimestamp();
+
+        // Restore simple-language mode from session
+        if (simpleMode) applySimpleMode();
 
         console.log('[JanVayu] Ready — auto-refresh: AQI every 10m, feeds every 15m');
     });
@@ -6393,10 +6393,10 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wallet" style="color: #D97706; margin-right: 0.4rem;"></span>Clean Air Budget Tracker</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Where does the government spend money on cleaning the air? We follow the money across different schemes and check if it is actually being used. Most of the information comes from official budget papers and RTI requests.">Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
             </div>
 
-            <div class="alert alert-danger mb-2"><div>
+            <div class="alert alert-danger mb-2"><div data-simple="&lt;strong&gt;Big problem:&lt;/strong&gt; Most of the money for cleaning air in 49 cities runs out in March 2026. The government has not said what comes next. Without new money, cities will stop their clean air work.">
                      <strong>Funding Cliff Alert:</strong> 15th Finance Commission grants (₹16,539 Cr for 49 cities) expire March 2026 with no successor mechanism announced. This represents 87% of all NCAP city funding.
                 </div>
             </div>
@@ -6761,7 +6761,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-globe" style="color: #3B82F6; margin-right: 0.4rem;"></span>Live City Comparison</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="See how dirty the air is in different Indian cities, and compare with cities in other countries. The numbers update every 10 minutes.">Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
             </div>
 
             <div class="alert alert-info mb-2"><div><strong>Live Data:</strong> Fetching real-time AQI from monitoring stations. Last update: <span id="compare-update-time">--</span></div>
@@ -6831,7 +6831,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map" style="color: var(--accent); margin-right: 0.4rem;"></span>Live Air Quality Map</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Real-time AQI for major Indian cities from WAQI API. Click markers for PM2.5, station name, and update time.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A live map showing how polluted the air is right now in cities across India. Click on any dot to see details. Updates every 10 minutes.">Real-time AQI for major Indian cities from WAQI API. Click markers for PM2.5, station name, and update time.</p>
             </div>
             <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
@@ -6847,7 +6847,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-insights" style="color: #7C3AED; margin-right: 0.4rem;"></span>Historical Trends</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Delhi's air quality shows strong seasonal patterns with winter months consistently worst. The data reveals both the scale of the crisis and the potential for improvement.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Delhi&rsquo;s air gets much worse every winter and better during the monsoon rains. Looking at past years helps us understand the patterns and see if things are getting better or worse.">Delhi's air quality shows strong seasonal patterns with winter months consistently worst. The data reveals both the scale of the crisis and the potential for improvement.</p>
             </div>
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title">Delhi PM2.5 Trend (2015-2025)</span></div>

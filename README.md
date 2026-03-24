@@ -25,20 +25,24 @@ This is not a campaign. It is a record.
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | **Real-Time AQI Dashboard** | Live air quality data from 16+ Indian cities via WAQI/CPCB, auto-refreshing every 10 minutes |
-| 2 | **Interactive AQI Map** | Leaflet.js-powered map with station-level AQI markers across India |
-| 3 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, Karolinska, and IHME studies |
-| 4 | **Economic Cost Tracker** | Quantified GDP and productivity losses ($339.4B / 9.5% GDP) |
-| 5 | **Policy Tracker** | NCAP progress, GRAP stage history, Supreme Court and NGT orders |
-| 6 | **Citizen Voices Archive** | Social media posts, testimonies, viral content from affected communities |
-| 7 | **Accountability Tracker** | Institutional and official responses to pollution episodes |
-| 8 | **Social Media Feeds** | Aggregated Reddit, Twitter/X, Instagram, and news coverage on air quality |
-| 9 | **Daily Email Digest** | Subscribers receive a daily AQI summary for their city at 8:00 AM IST |
-| 10 | **AQI Calculator** | Interactive tool for citizens to understand AQI breakpoints and health advice |
-| 11 | **RTI Templates** | Ready-to-use Right to Information templates for pollution accountability |
-| 12 | **Action Guides** | Practical guides for citizen action, mask selection, and indoor air quality |
-| 13 | **Downloadable Reports** | Curated research papers and datasets for offline reference |
-| 14 | **Cultural Archive** | Satire, memes, art, and cultural responses to the pollution crisis |
+| 1 | **Role-Based Landing Page** | Personalized entry point for 10 audience roles: parent, student, researcher, policymaker, journalist, activist, doctor, teacher, NGO, and business owner |
+| 2 | **Simple Language Mode** | Site-wide plain language toggle in the header that switches all content to simple language (persisted via sessionStorage) |
+| 3 | **Glossary (Ctrl+K)** | Searchable glossary overlay for air quality terms, accessible via Ctrl+K keyboard shortcut |
+| 4 | **Intro Tour** | Guided walkthrough for first-time visitors highlighting key sections and features |
+| 5 | **Real-Time AQI Dashboard** | Live air quality data from 16+ Indian cities via WAQI/CPCB, auto-refreshing every 10 minutes |
+| 6 | **Interactive AQI Map** | Leaflet.js-powered map with station-level AQI markers across India |
+| 7 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, Karolinska, and IHME studies |
+| 8 | **Economic Cost Tracker** | Quantified GDP and productivity losses ($339.4B / 9.5% GDP) |
+| 9 | **Policy Tracker** | NCAP progress, GRAP stage history, Supreme Court and NGT orders |
+| 10 | **Citizen Voices Archive** | Social media posts, testimonies, viral content from affected communities |
+| 11 | **Accountability Tracker** | Institutional and official responses to pollution episodes |
+| 12 | **Social Media Feeds** | Aggregated Reddit, Twitter/X, Instagram, and news coverage on air quality |
+| 13 | **Daily Email Digest** | Subscribers receive a daily AQI summary for their city at 8:00 AM IST |
+| 14 | **AQI Calculator** | Interactive tool for citizens to understand AQI breakpoints and health advice |
+| 15 | **RTI Templates** | Ready-to-use Right to Information templates for pollution accountability |
+| 16 | **Action Guides** | Practical guides for citizen action, mask selection, and indoor air quality |
+| 17 | **Downloadable Reports** | Curated research papers and datasets for offline reference |
+| 18 | **Cultural Archive** | Satire, memes, art, and cultural responses to the pollution crisis |
 
 ---
 
