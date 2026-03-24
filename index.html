@@ -1747,9 +1747,323 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .ticker, .header, .section-nav, .site-footer { display: none; }
     .page-section { break-inside: avoid; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ROLE-BASED LANDING — Overlay, Cards, Dashboard, Switcher
+   ═══════════════════════════════════════════════════════════ */
+
+.role-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 1; transition: opacity 0.4s ease, transform 0.4s ease;
+    overflow-y: auto; padding: 2rem 1rem;
+}
+.role-overlay.hiding {
+    opacity: 0; transform: scale(1.02);
+    pointer-events: none;
+}
+.role-overlay-inner {
+    max-width: 900px; width: 100%; text-align: center;
+}
+.role-overlay-logo {
+    font-family: var(--serif); font-size: 1.8rem; font-weight: 700;
+    color: var(--accent); margin-bottom: 0.25rem;
+}
+.role-overlay-logo-sub {
+    font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
+    color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+}
+.role-overlay h2 {
+    font-family: var(--serif); font-size: 1.6rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.5rem; line-height: 1.3;
+}
+.role-overlay .role-subtitle {
+    font-size: 0.95rem; color: var(--text-2); margin-bottom: 2rem;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+}
+
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px; margin-bottom: 2rem;
+}
+.role-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.25rem 1rem;
+    cursor: pointer; transition: all 0.2s ease;
+    text-align: center; position: relative;
+}
+.role-card:hover {
+    border-color: var(--accent); box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+.role-card:active { transform: translateY(0); }
+.role-card-icon {
+    font-size: 2rem; margin-bottom: 0.5rem; display: block;
+    line-height: 1;
+}
+.role-card-title {
+    font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.25rem;
+}
+.role-card-desc {
+    font-size: 0.72rem; color: var(--text-3); line-height: 1.4;
+}
+.role-skip {
+    font-size: 0.85rem; color: var(--text-3);
+    cursor: pointer; text-decoration: underline;
+    text-underline-offset: 3px; background: none; border: none;
+    font-family: var(--sans); padding: 0.5rem;
+}
+.role-skip:hover { color: var(--accent); }
+
+/* Role Dashboard */
+.role-dashboard-hero {
+    text-align: center; padding: 1.5rem 0 1rem; margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+.role-dashboard-hero h2 {
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.5rem;
+}
+.role-dashboard-hero p {
+    font-size: 0.9rem; color: var(--text-2); max-width: 600px;
+    margin: 0 auto;
+}
+
+.role-action-section {
+    margin-bottom: 2rem;
+}
+.role-action-section h3 {
+    font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-3); margin-bottom: 1rem;
+}
+
+.role-action-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+}
+.role-action-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.25rem;
+    cursor: pointer; transition: all 0.2s ease;
+    display: flex; align-items: flex-start; gap: 1rem;
+    text-align: left;
+}
+.role-action-card:hover {
+    border-color: var(--accent); box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+.role-action-card-icon {
+    font-size: 1.5rem; flex-shrink: 0; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--green-50); border-radius: 10px;
+}
+[data-theme="dark"] .role-action-card-icon {
+    background: rgba(22, 163, 74, 0.12);
+}
+.role-action-card h4 {
+    font-family: var(--sans); font-size: 0.9rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.25rem;
+}
+.role-action-card p {
+    font-size: 0.78rem; color: var(--text-2); line-height: 1.4; margin: 0;
+}
+.role-action-card .action-cta {
+    font-size: 0.72rem; font-weight: 600; color: var(--accent);
+    margin-top: 0.5rem; display: inline-block;
+}
+
+.role-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+.role-panel-link {
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    border-radius: var(--radius); padding: 1rem;
+    cursor: pointer; transition: all 0.15s ease;
+    text-align: left;
+}
+.role-panel-link:hover {
+    border-color: var(--accent); background: var(--bg-section);
+}
+.role-panel-link h4 {
+    font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem;
+}
+.role-panel-link p {
+    font-size: 0.72rem; color: var(--text-3); margin: 0; line-height: 1.4;
+}
+
+.role-explore-all {
+    text-align: center; margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+.role-explore-all button {
+    font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+    color: var(--text-2); background: none; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 0.6rem 1.5rem; cursor: pointer;
+    transition: all 0.15s ease;
+}
+.role-explore-all button:hover {
+    border-color: var(--accent); color: var(--accent);
+}
+
+/* Role Switcher in Header */
+.role-switcher {
+    position: relative; display: inline-flex;
+}
+.role-switcher-btn {
+    font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    background: var(--green-50); color: var(--accent);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 10px; cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 4px;
+    transition: all 0.15s ease;
+}
+[data-theme="dark"] .role-switcher-btn {
+    background: rgba(22, 163, 74, 0.1);
+}
+.role-switcher-btn:hover {
+    border-color: var(--accent); box-shadow: var(--shadow-sm);
+}
+.role-switcher-dropdown {
+    position: absolute; top: calc(100% + 6px); right: 0;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    min-width: 180px; z-index: 1000;
+    display: none; overflow: hidden;
+}
+.role-switcher-dropdown.open { display: block; }
+.role-switcher-option {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; padding: 8px 12px; border: none;
+    background: none; cursor: pointer; font-family: var(--sans);
+    font-size: 0.78rem; color: var(--text); text-align: left;
+    transition: background 0.1s ease;
+}
+.role-switcher-option:hover {
+    background: var(--bg-section);
+}
+.role-switcher-option.active {
+    color: var(--accent); font-weight: 600;
+}
+
+/* Action Box for panels */
+.panel-action-box {
+    background: var(--green-50); border: 1px solid var(--green-100);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem; display: flex; align-items: center;
+    gap: 1rem; flex-wrap: wrap;
+}
+[data-theme="dark"] .panel-action-box {
+    background: rgba(22, 163, 74, 0.06);
+    border-color: rgba(22, 163, 74, 0.15);
+    border-left-color: var(--accent);
+}
+.panel-action-box-text {
+    flex: 1; min-width: 200px;
+}
+.panel-action-box-text strong {
+    font-size: 0.85rem; color: var(--text); display: block;
+    margin-bottom: 0.2rem;
+}
+.panel-action-box-text span {
+    font-size: 0.78rem; color: var(--text-2);
+}
+.panel-action-box .action-btn {
+    font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
+    background: var(--accent); color: white; border: none;
+    border-radius: 6px; padding: 0.5rem 1.25rem; cursor: pointer;
+    white-space: nowrap; transition: background 0.15s ease;
+}
+.panel-action-box .action-btn:hover {
+    background: var(--accent-hover);
+}
+
+@media (max-width: 640px) {
+    .role-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .role-card { padding: 1rem 0.75rem; }
+    .role-card-icon { font-size: 1.5rem; }
+    .role-overlay h2 { font-size: 1.3rem; }
+    .role-action-cards { grid-template-columns: 1fr; }
+    .role-panel-grid { grid-template-columns: repeat(2, 1fr); }
+}
     </style>
 </head>
 <body>
+    <!-- ═══ ROLE SELECTOR OVERLAY ═══ -->
+    <div class="role-overlay" id="roleOverlay" style="display:none;">
+        <div class="role-overlay-inner">
+            <div class="role-overlay-logo">JanVayu</div>
+            <div class="role-overlay-logo-sub" data-i18n="tagline">Citizen Air Quality Platform</div>
+            <h2 data-i18n="role_heading">India's air crisis affects everyone differently.<br>How can we help you?</h2>
+            <p class="role-subtitle" data-i18n="role_subtitle">Select your role and we'll show you the most relevant data, tools, and actions.</p>
+            <div class="role-grid">
+                <div class="role-card" onclick="selectRole('parent')">
+                    <span class="role-card-icon">👨‍👩‍👧</span>
+                    <div class="role-card-title" data-i18n="role_parent">Parent / Family</div>
+                    <div class="role-card-desc">Is it safe for my child today?</div>
+                </div>
+                <div class="role-card" onclick="selectRole('student')">
+                    <span class="role-card-icon">📚</span>
+                    <div class="role-card-title" data-i18n="role_student">Student</div>
+                    <div class="role-card-desc">Learn, explore data, do projects</div>
+                </div>
+                <div class="role-card" onclick="selectRole('researcher')">
+                    <span class="role-card-icon">🔬</span>
+                    <div class="role-card-title" data-i18n="role_researcher">Researcher</div>
+                    <div class="role-card-desc">Access datasets & analysis</div>
+                </div>
+                <div class="role-card" onclick="selectRole('policymaker')">
+                    <span class="role-card-icon">🏛️</span>
+                    <div class="role-card-title" data-i18n="role_policymaker">Policymaker</div>
+                    <div class="role-card-desc">Track NCAP, budgets, outcomes</div>
+                </div>
+                <div class="role-card" onclick="selectRole('journalist')">
+                    <span class="role-card-icon">📰</span>
+                    <div class="role-card-title" data-i18n="role_journalist">Journalist</div>
+                    <div class="role-card-desc">Get story leads & data briefs</div>
+                </div>
+                <div class="role-card" onclick="selectRole('activist')">
+                    <span class="role-card-icon">✊</span>
+                    <div class="role-card-title" data-i18n="role_activist">Citizen / Activist</div>
+                    <div class="role-card-desc">Take action, file RTIs, advocate</div>
+                </div>
+                <div class="role-card" onclick="selectRole('doctor')">
+                    <span class="role-card-icon">⚕️</span>
+                    <div class="role-card-title" data-i18n="role_doctor">Doctor / Health Worker</div>
+                    <div class="role-card-desc">Patient advisories & health data</div>
+                </div>
+                <div class="role-card" onclick="selectRole('teacher')">
+                    <span class="role-card-icon">🏫</span>
+                    <div class="role-card-title" data-i18n="role_teacher">Teacher</div>
+                    <div class="role-card-desc">School safety & teaching resources</div>
+                </div>
+                <div class="role-card" onclick="selectRole('ngo')">
+                    <span class="role-card-icon">🌱</span>
+                    <div class="role-card-title" data-i18n="role_ngo">NGO / CSO</div>
+                    <div class="role-card-desc">Advocacy data & accountability tools</div>
+                </div>
+                <div class="role-card" onclick="selectRole('business')">
+                    <span class="role-card-icon">🏢</span>
+                    <div class="role-card-title" data-i18n="role_business">Business Owner</div>
+                    <div class="role-card-desc">Workforce health & economic impact</div>
+                </div>
+            </div>
+            <button class="role-skip" onclick="selectRole('skip')" data-i18n="role_skip">Skip — show me everything</button>
+        </div>
+    </div>
+
     <div class="demo-badge" id="demoBadge">DEMO MODE</div>
     <!-- TICKER -->
     <div class="ticker">
@@ -1795,6 +2109,14 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
                             <span class="lang-code">ব</span> বাংলা
                         </button>
                     </div>
+                </div>
+                <div class="role-switcher" id="roleSwitcher" style="display:none;">
+                    <button class="role-switcher-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Change your role">
+                        <span id="roleSwitcherIcon"></span>
+                        <span id="roleSwitcherLabel"></span>
+                        <svg viewBox="0 0 12 12" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+                    </button>
+                    <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
                 </div>
                 <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">☾</button>
                 <a class="icon-btn" href="https://github.com/Varnasr/JanVayu" target="_blank" title="GitHub">
@@ -2598,11 +2920,24 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
             directLink.classList.add('active');
         }
 
+        // Ensure hero section is visible when navigating to any panel
+        const hero = document.getElementById('section-dashboard');
+        if (hero) hero.style.display = '';
+
         // Dashboard is special (always visible as hero)
         if (panelId === 'dashboard') {
             document.getElementById('panel-container').innerHTML = '';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             window.history.replaceState(null, '', '#dashboard');
+            return;
+        }
+
+        // Role dashboard: show the curated role view
+        if (panelId === 'my-dashboard') {
+            const savedRole = localStorage.getItem('janvayu-role');
+            if (savedRole && savedRole !== 'skip' && typeof showRoleDashboard === 'function') {
+                showRoleDashboard(savedRole);
+            }
             return;
         }
 
@@ -4970,6 +5305,14 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 <!-- ═══ PANEL TEMPLATES ═══ -->
 <template id="tmpl-health">
 
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Calculate your personal health risk</strong>
+                    <span>Enter your age, city, and health conditions below to see your estimated mortality risk from PM2.5 exposure.</span>
+                </div>
+                <button class="action-btn" onclick="document.getElementById('health-age')?.scrollIntoView({behavior:'smooth',block:'center'})">Start calculator ↓</button>
+            </div>
+
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-hospital" style="color: var(--accent); margin-right: 0.4rem;"></span>Personal Health Risk Calculator</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Estimate your health risk from air pollution using the <strong>Global Exposure Mortality Model (GEMM)</strong> — the gold standard for PM2.5 mortality estimation.</p>
@@ -5490,6 +5833,14 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
 <template id="tmpl-economic">
 
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Calculate pollution's cost to your business</strong>
+                    <span>Use the workplace cost estimator below to see productivity losses for your team size and city.</span>
+                </div>
+                <button class="action-btn" onclick="document.getElementById('econ-employees')?.scrollIntoView({behavior:'smooth',block:'center'})">Estimate costs ↓</button>
+            </div>
+
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-rupee" style="color: #D97706; margin-right: 0.4rem;"></span>Economic Cost of Air Pollution</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">Air pollution costs India <strong>$36.8 billion annually</strong> (1.36% GDP) through healthcare, lost productivity, and premature deaths. At broader economic measures, costs reach $339 billion (9.5% GDP). <em>Source: Lancet Planetary Health 2021 / Lancet Countdown 2025</em></p>
@@ -5764,6 +6115,14 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 </template>
 
 <template id="tmpl-budget">
+
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Check if your city is spending its clean air budget</strong>
+                    <span>See NCAP fund utilization rates by city and state. File an RTI if your city is underperforming.</span>
+                </div>
+                <button class="action-btn" onclick="showPanel('rti-assistant')">File an RTI →</button>
+            </div>
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wallet" style="color: #D97706; margin-right: 0.4rem;"></span>Clean Air Budget Tracker</h2>
@@ -8141,6 +8500,14 @@ Signature: _______________</div>
 </template>
 
 <template id="tmpl-actions">
+
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Pick one thing and do it today</strong>
+                    <span>File an RTI, write to your councillor, get an air purifier, or share data with your community.</span>
+                </div>
+                <button class="action-btn" onclick="showPanel('rti-assistant')">Generate RTI →</button>
+            </div>
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-lightning" style="color: #F59E0B; margin-right: 0.4rem;"></span>Take Action — What You Can Do</h2>
@@ -10670,6 +11037,12 @@ Signature: _______________</div>
 <!-- ═══ SHOULD I GO OUTSIDE? ═══ -->
 <template id="tmpl-go-outside">
     <div class="container">
+        <div class="panel-action-box">
+            <div class="panel-action-box-text">
+                <strong>Your action: Check if it's safe to go outside right now</strong>
+                <span>Select your city and activity below for a personalized recommendation based on live AQI.</span>
+            </div>
+        </div>
         <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">Should I Go Outside?</h2>
         <p style="color: var(--text-2); margin-bottom: 1.5rem;">Real-time decision engine based on live air quality data, your activity, and health profile.</p>
 
@@ -10814,6 +11187,12 @@ Signature: _______________</div>
 <!-- ═══ RTI FILING ASSISTANT ═══ -->
 <template id="tmpl-rti-assistant">
     <div class="container">
+        <div class="panel-action-box">
+            <div class="panel-action-box-text">
+                <strong>Your action: Generate an RTI letter you can file today</strong>
+                <span>Select a topic and your state — get a ready-to-file RTI application in English or Hindi.</span>
+            </div>
+        </div>
         <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">RTI Filing Assistant</h2>
         <p style="color: var(--text-2); margin-bottom: 1.5rem;">Generate ready-to-file RTI applications for air quality information from your state and district.</p>
 
@@ -11201,6 +11580,13 @@ Signature: _______________</div>
 </template>
 
 <template id="tmpl-accountability-brief">
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Generate a data-backed brief for your ward</strong>
+                    <span>Enter your city and area below. Share the AI-generated brief with your councillor or media.</span>
+                </div>
+            </div>
+
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clipboard-check" style="color: var(--accent); margin-right: 0.4rem;"></span>Generate a Ward-Level Accountability Brief <span class="ai-badge">AI Powered</span></h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;">For ward councillors, journalists, and resident groups. AI-generated briefs grounded in live data with seasonal baselines and actionable recommendations.</p>
@@ -11360,6 +11746,386 @@ Signature: _______________</div>
         </div>
     </div>
 </div>
+
+<!-- ═══ ROLE DASHBOARD TEMPLATE ═══ -->
+<template id="tmpl-role-dashboard">
+    <div class="container">
+        <div class="role-dashboard-hero">
+            <h2 id="role-dash-heading"></h2>
+            <p id="role-dash-description"></p>
+        </div>
+        <div class="role-action-section">
+            <h3>What you can do right now</h3>
+            <div class="role-action-cards" id="role-dash-actions"></div>
+        </div>
+        <div class="role-action-section">
+            <h3>Recommended for you</h3>
+            <div class="role-panel-grid" id="role-dash-panels"></div>
+        </div>
+        <div class="role-explore-all">
+            <button onclick="dismissRoleDashboard()">Explore everything on JanVayu</button>
+        </div>
+    </div>
+</template>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// ROLE-BASED EXPERIENCE — Configuration & Logic
+// ═══════════════════════════════════════════════════════════
+
+const ROLE_CONFIG = {
+    parent: {
+        icon: '👨‍👩‍👧', label: 'Parent / Family',
+        heading: 'Protect your family from air pollution',
+        description: 'Real-time safety checks, school closure info, and health guidance for your children.',
+        actions: [
+            { icon: '🌤️', panel: 'go-outside', title: 'Should my child go outside?', desc: 'Get a real-time recommendation based on current AQI in your city.', cta: 'Check now →' },
+            { icon: '🏫', panel: 'school-closure', title: 'Should schools close today?', desc: 'See if AQI levels warrant keeping kids home.', cta: 'Check status →' },
+            { icon: '🫁', panel: 'health', title: 'Calculate your family\'s health risk', desc: 'Enter your details to see personal PM2.5 exposure risk.', cta: 'Calculate risk →' }
+        ],
+        panels: [
+            { panel: 'children', title: "Children's Health", desc: 'Lung development, cognitive impact' },
+            { panel: 'indoor', title: 'Indoor Air Quality', desc: 'Purifiers, cooking fuels, ventilation' },
+            { panel: 'purifier-calc', title: 'Purifier Calculator', desc: 'Find the right air purifier' },
+            { panel: 'aqi-alerts', title: 'AQI Alerts', desc: 'Get daily email digests' },
+            { panel: 'exposure-report', title: 'Exposure Report', desc: 'Your personal PM2.5 exposure' },
+            { panel: 'citizen-action', title: 'Citizen Action Plan', desc: 'Masks, advocacy, school petitions' }
+        ]
+    },
+    student: {
+        icon: '📚', label: 'Student',
+        heading: 'Explore India\'s air quality crisis',
+        description: 'Data, research, and tools for projects, assignments, and learning about environmental science.',
+        actions: [
+            { icon: '📊', panel: 'trends', title: 'Explore historical AQI trends', desc: 'See how air quality has changed over the years across Indian cities.', cta: 'View trends →' },
+            { icon: '🔢', panel: 'health', title: 'Calculate health impact', desc: 'Use the GEMM model to estimate mortality and disease burden from PM2.5.', cta: 'Try calculator →' },
+            { icon: '🤖', panel: 'ask-janvayu', title: 'Ask JanVayu AI', desc: 'Ask questions about air quality in natural language and get data-backed answers.', cta: 'Ask a question →' }
+        ],
+        panels: [
+            { panel: 'compare', title: 'City Comparison', desc: 'Compare AQI across 30+ cities' },
+            { panel: 'economic', title: 'Economic Cost', desc: '$260B annual impact analysis' },
+            { panel: 'map', title: 'Live Air Quality Map', desc: 'Interactive map of monitoring stations' },
+            { panel: 'resources', title: 'Research Library', desc: '160+ verified sources & papers' },
+            { panel: 'correlations', title: 'Data Correlations', desc: 'Explore relationships in the data' },
+            { panel: 'data-archive', title: 'Data Archive', desc: 'Download datasets for projects' }
+        ]
+    },
+    researcher: {
+        icon: '🔬', label: 'Researcher',
+        heading: 'Access air quality data & analysis',
+        description: 'Datasets, source attribution, health models, and economic analysis for your research.',
+        actions: [
+            { icon: '📁', panel: 'data-archive', title: 'Access the data archive', desc: 'Download raw AQI data, mortality estimates, and economic datasets.', cta: 'Browse data →' },
+            { icon: '📈', panel: 'correlations', title: 'Explore data correlations', desc: 'Analyze relationships between PM2.5, mortality, economic output, and policy spend.', cta: 'Explore →' },
+            { icon: '📚', panel: 'resources', title: 'Research library', desc: '160+ peer-reviewed sources from Lancet, GBD, AQLI, CREA, and more.', cta: 'Browse sources →' }
+        ],
+        panels: [
+            { panel: 'trends', title: 'Historical Trends', desc: 'Multi-year PM2.5 patterns' },
+            { panel: 'health', title: 'GEMM Health Calculator', desc: 'Mortality & morbidity modeling' },
+            { panel: 'economic', title: 'Economic Cost Analysis', desc: 'GDP loss, healthcare costs' },
+            { panel: 'hyperlocal', title: 'Hyperlocal Analysis', desc: 'Station-level data exploration' },
+            { panel: 'downloads', title: 'Downloads', desc: 'Reports, presentations, PDFs' },
+            { panel: 'corporate', title: 'Industrial Sources', desc: 'Pollution source mapping' }
+        ]
+    },
+    policymaker: {
+        icon: '🏛️', label: 'Policymaker',
+        heading: 'Track clean air progress & policy outcomes',
+        description: 'NCAP budgets, mission targets, city scorecards, and evidence for policy decisions.',
+        actions: [
+            { icon: '🎯', panel: 'mission-tracker', title: 'Track NCAP mission targets', desc: 'Are cities on track? See target vs actual PM reduction for 131 NCAP cities.', cta: 'View tracker →' },
+            { icon: '💰', panel: 'budget', title: 'See budget utilization', desc: '₹11,200 Cr released — but how much was actually spent, and on what?', cta: 'Track spending →' },
+            { icon: '📋', panel: 'scorecards', title: 'City scorecards', desc: 'Compare city-level clean air performance with composite scores.', cta: 'View scorecards →' }
+        ],
+        panels: [
+            { panel: 'policy', title: 'Policy Effectiveness', desc: 'NCAP outcomes & analysis' },
+            { panel: 'accountability', title: 'Political Accountability', desc: 'Government response tracking' },
+            { panel: 'economic', title: 'Economic Impact', desc: '$260B annual cost to India' },
+            { panel: 'progress', title: 'Clean Air Wins', desc: 'What is actually working' },
+            { panel: 'corporate', title: 'Industrial Sources', desc: 'Top polluting sectors' },
+            { panel: 'legal', title: 'Legal Framework', desc: 'SC orders, NGT rulings' }
+        ]
+    },
+    journalist: {
+        icon: '📰', label: 'Journalist',
+        heading: 'Get the story on India\'s air crisis',
+        description: 'AI-powered briefs, accountability data, social media tracking, and verified sources.',
+        actions: [
+            { icon: '📝', panel: 'accountability-brief', title: 'Generate an accountability brief', desc: 'AI-generated ward-level brief with live data, sources, and suggested questions.', cta: 'Generate brief →' },
+            { icon: '🔍', panel: 'accountability', title: 'Track political accountability', desc: 'Who promised what, and what actually happened? Track government commitments.', cta: 'View tracker →' },
+            { icon: '📡', panel: 'live-news', title: 'Live news & social pulse', desc: 'Aggregated air quality news and trending social media discussions.', cta: 'See latest →' }
+        ],
+        panels: [
+            { panel: 'budget', title: 'Budget Tracker', desc: 'Follow the money — NCAP spending' },
+            { panel: 'corporate', title: 'Industrial Sources', desc: 'Who is polluting and how much' },
+            { panel: 'voices', title: 'Citizen Voices', desc: 'Social media sentiment archive' },
+            { panel: 'downloads', title: 'Downloads', desc: 'Reports & presentations' },
+            { panel: 'resources', title: 'Research Library', desc: 'Verified data sources' },
+            { panel: 'social-feed', title: 'Social Media Feed', desc: 'Reddit, Twitter, Instagram' }
+        ]
+    },
+    activist: {
+        icon: '✊', label: 'Citizen / Activist',
+        heading: 'Take action for clean air',
+        description: 'RTI templates, advocacy tools, legal frameworks, and everything you need to demand accountability.',
+        actions: [
+            { icon: '📜', panel: 'rti-assistant', title: 'File an RTI request', desc: 'Ready-to-use RTI templates for NCAP funds, GRAP compliance, and emission data.', cta: 'Generate RTI →' },
+            { icon: '✊', panel: 'citizen-action', title: 'Get your action plan', desc: 'Step-by-step guide: masks, advocacy, school petitions, councillor engagement.', cta: 'See plan →' },
+            { icon: '⚖️', panel: 'legal', title: 'Know your legal rights', desc: 'Article 21, Supreme Court orders, NGT rulings — clean air is a fundamental right.', cta: 'Read more →' }
+        ],
+        panels: [
+            { panel: 'actions', title: 'Take Action', desc: 'Concrete steps you can take today' },
+            { panel: 'accountability', title: 'Political Accountability', desc: 'Hold leaders to their promises' },
+            { panel: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Brief your ward councillor' },
+            { panel: 'voices', title: 'Citizen Voices', desc: 'Join the movement' },
+            { panel: 'budget', title: 'Budget Tracker', desc: 'Is your city spending its funds?' },
+            { panel: 'migration', title: 'Migration Guide', desc: 'Climate displacement data' }
+        ]
+    },
+    doctor: {
+        icon: '⚕️', label: 'Doctor / Health Worker',
+        heading: 'Air quality health intelligence',
+        description: 'Patient advisory tools, health risk models, and epidemiological data for clinical decisions.',
+        actions: [
+            { icon: '🫁', panel: 'health', title: 'Health risk calculator', desc: 'GEMM-based mortality/morbidity estimates by age, conditions, and exposure.', cta: 'Calculate →' },
+            { icon: '🌤️', panel: 'go-outside', title: 'Patient outdoor advisory', desc: 'Should patients with respiratory/cardiac conditions go outside today?', cta: 'Check now →' },
+            { icon: '👶', panel: 'children', title: "Children's health impact", desc: 'Lung development, stunting, and cognitive impact data for pediatric guidance.', cta: 'View data →' }
+        ],
+        panels: [
+            { panel: 'indoor', title: 'Indoor Air Quality', desc: 'Household pollution & ventilation' },
+            { panel: 'exposure-report', title: 'Exposure Report', desc: 'Personal PM2.5 exposure analysis' },
+            { panel: 'economic', title: 'Economic/Health Cost', desc: 'Healthcare expenditure data' },
+            { panel: 'trends', title: 'Historical Trends', desc: 'Seasonal AQI patterns' },
+            { panel: 'aqi-alerts', title: 'AQI Alerts', desc: 'Daily digests for your city' },
+            { panel: 'resources', title: 'Research Library', desc: 'Lancet, GBD, AQLI sources' }
+        ]
+    },
+    teacher: {
+        icon: '🏫', label: 'Teacher',
+        heading: 'Keep students safe & informed',
+        description: 'School closure guidance, teaching resources, and child health data.',
+        actions: [
+            { icon: '🏫', panel: 'school-closure', title: 'Should school close today?', desc: 'Real-time AQI check against school closure thresholds for your city.', cta: 'Check now →' },
+            { icon: '🌤️', panel: 'go-outside', title: 'Is outdoor activity safe?', desc: 'Should students have outdoor PE, recess, or sports today?', cta: 'Check now →' },
+            { icon: '👶', panel: 'children', title: 'How pollution affects students', desc: 'Data on lung development, cognitive impact, and learning outcomes.', cta: 'View research →' }
+        ],
+        panels: [
+            { panel: 'health', title: 'Health Calculator', desc: 'Model student health risk' },
+            { panel: 'indoor', title: 'Indoor Air Quality', desc: 'Classroom air quality guidance' },
+            { panel: 'trends', title: 'Historical Trends', desc: 'When is pollution worst?' },
+            { panel: 'pollution-calendar', title: 'Pollution Calendar', desc: 'Seasonal patterns explained' },
+            { panel: 'aqi-alerts', title: 'AQI Alerts', desc: 'Daily email digest' },
+            { panel: 'resources', title: 'Research Library', desc: 'Educational sources' }
+        ]
+    },
+    ngo: {
+        icon: '🌱', label: 'NGO / CSO',
+        heading: 'Data-driven advocacy for clean air',
+        description: 'Accountability tools, budget tracking, legal frameworks, and campaign resources.',
+        actions: [
+            { icon: '📝', panel: 'accountability-brief', title: 'Generate an advocacy brief', desc: 'AI-generated ward-level brief with data, sources, and action recommendations.', cta: 'Generate brief →' },
+            { icon: '💰', panel: 'budget', title: 'Track NCAP budget spending', desc: 'Which cities are spending their clean air funds? Which are not?', cta: 'View data →' },
+            { icon: '📜', panel: 'rti-assistant', title: 'File RTI requests at scale', desc: 'Templates for NCAP funds, GRAP compliance, industrial emissions.', cta: 'Generate RTIs →' }
+        ],
+        panels: [
+            { panel: 'policy', title: 'Policy Effectiveness', desc: 'NCAP outcomes analysis' },
+            { panel: 'mission-tracker', title: 'Mission Tracker', desc: 'City-level target tracking' },
+            { panel: 'scorecards', title: 'City Scorecards', desc: 'Comparative performance' },
+            { panel: 'corporate', title: 'Industrial Sources', desc: 'Polluter identification' },
+            { panel: 'legal', title: 'Legal Framework', desc: 'SC/NGT orders for advocacy' },
+            { panel: 'downloads', title: 'Downloads', desc: 'Reports for campaigns' }
+        ]
+    },
+    business: {
+        icon: '🏢', label: 'Business Owner',
+        heading: 'Understand air pollution\'s impact on your business',
+        description: 'Economic costs, workforce health, indoor air quality, and compliance guidance.',
+        actions: [
+            { icon: '💰', panel: 'economic', title: 'See the economic impact', desc: '$260B annual cost to India. How does pollution affect productivity and healthcare?', cta: 'View analysis →' },
+            { icon: '🏢', panel: 'indoor', title: 'Indoor air quality for workplaces', desc: 'Protect your workforce with proper ventilation, purifiers, and monitoring.', cta: 'Get guidance →' },
+            { icon: '🔧', panel: 'purifier-calc', title: 'Air purifier calculator', desc: 'Find the right purifier CADR for your office or factory floor.', cta: 'Calculate →' }
+        ],
+        panels: [
+            { panel: 'health', title: 'Health Risk Calculator', desc: 'Workforce health modeling' },
+            { panel: 'go-outside', title: 'Outdoor Work Advisory', desc: 'Is it safe for outdoor workers?' },
+            { panel: 'aqi-alerts', title: 'AQI Alerts', desc: 'Daily digest for your city' },
+            { panel: 'corporate', title: 'Industrial Sources', desc: 'Compliance & emission data' },
+            { panel: 'forecast', title: 'AQI Forecast', desc: 'Plan ahead with predictions' },
+            { panel: 'trends', title: 'Historical Trends', desc: 'Seasonal patterns for planning' }
+        ]
+    }
+};
+
+// ── Role Selection ──
+function selectRole(role) {
+    const overlay = document.getElementById('roleOverlay');
+    if (role === 'skip') {
+        localStorage.setItem('janvayu-role', 'skip');
+        overlay.classList.add('hiding');
+        setTimeout(() => { overlay.style.display = 'none'; }, 400);
+        updateRoleSwitcher('skip');
+        return;
+    }
+    localStorage.setItem('janvayu-role', role);
+    overlay.classList.add('hiding');
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        showRoleDashboard(role);
+    }, 400);
+    updateRoleSwitcher(role);
+}
+
+function showRoleDashboard(role) {
+    const config = ROLE_CONFIG[role];
+    if (!config) return;
+
+    // Load the role dashboard template into the panel container
+    const container = document.getElementById('panel-container');
+    const template = document.getElementById('tmpl-role-dashboard');
+    if (!template || !container) return;
+
+    container.innerHTML = '<div class="panel active" style="padding:40px 0;">' + template.innerHTML + '</div>';
+
+    // Populate heading & description
+    document.getElementById('role-dash-heading').textContent = config.heading;
+    document.getElementById('role-dash-description').textContent = config.description;
+
+    // Populate action cards
+    const actionsContainer = document.getElementById('role-dash-actions');
+    actionsContainer.innerHTML = config.actions.map(a => `
+        <div class="role-action-card" onclick="showPanel('${a.panel}')">
+            <div class="role-action-card-icon">${a.icon}</div>
+            <div>
+                <h4>${a.title}</h4>
+                <p>${a.desc}</p>
+                <span class="action-cta">${a.cta}</span>
+            </div>
+        </div>
+    `).join('');
+
+    // Populate recommended panels
+    const panelsContainer = document.getElementById('role-dash-panels');
+    panelsContainer.innerHTML = config.panels.map(p => `
+        <div class="role-panel-link" onclick="showPanel('${p.panel}')">
+            <h4>${p.title}</h4>
+            <p>${p.desc}</p>
+        </div>
+    `).join('');
+
+    // Hide the hero section to avoid visual overload
+    const hero = document.getElementById('section-dashboard');
+    if (hero) hero.style.display = 'none';
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Update URL
+    window.history.replaceState(null, '', '#my-dashboard');
+}
+
+function dismissRoleDashboard() {
+    // Show the main dashboard hero again
+    const hero = document.getElementById('section-dashboard');
+    if (hero) hero.style.display = '';
+    document.getElementById('panel-container').innerHTML = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.history.replaceState(null, '', '#dashboard');
+}
+
+// ── Role Switcher ──
+function updateRoleSwitcher(role) {
+    const switcher = document.getElementById('roleSwitcher');
+    const iconEl = document.getElementById('roleSwitcherIcon');
+    const labelEl = document.getElementById('roleSwitcherLabel');
+    const dropdown = document.getElementById('roleSwitcherDropdown');
+
+    if (role === 'skip') {
+        iconEl.textContent = '☰';
+        labelEl.textContent = 'All';
+    } else {
+        const config = ROLE_CONFIG[role];
+        if (!config) return;
+        iconEl.textContent = config.icon;
+        labelEl.textContent = config.label.split('/')[0].trim();
+    }
+    switcher.style.display = 'inline-flex';
+
+    // Populate dropdown
+    let html = '';
+    for (const [key, cfg] of Object.entries(ROLE_CONFIG)) {
+        html += `<button class="role-switcher-option${key === role ? ' active' : ''}" onclick="switchRole('${key}')">${cfg.icon} ${cfg.label}</button>`;
+    }
+    html += `<button class="role-switcher-option${role === 'skip' ? ' active' : ''}" onclick="switchRole('skip')">☰ Show Everything</button>`;
+    dropdown.innerHTML = html;
+}
+
+function toggleRoleSwitcher() {
+    const dropdown = document.getElementById('roleSwitcherDropdown');
+    dropdown.classList.toggle('open');
+    // Close on outside click
+    if (dropdown.classList.contains('open')) {
+        setTimeout(() => {
+            document.addEventListener('click', closeRoleSwitcherOnOutsideClick);
+        }, 10);
+    }
+}
+
+function closeRoleSwitcherOnOutsideClick(e) {
+    const switcher = document.getElementById('roleSwitcher');
+    if (!switcher.contains(e.target)) {
+        document.getElementById('roleSwitcherDropdown').classList.remove('open');
+        document.removeEventListener('click', closeRoleSwitcherOnOutsideClick);
+    }
+}
+
+function switchRole(role) {
+    document.getElementById('roleSwitcherDropdown').classList.remove('open');
+    document.removeEventListener('click', closeRoleSwitcherOnOutsideClick);
+
+    if (role === 'skip') {
+        localStorage.setItem('janvayu-role', 'skip');
+        updateRoleSwitcher('skip');
+        dismissRoleDashboard();
+    } else {
+        localStorage.setItem('janvayu-role', role);
+        updateRoleSwitcher(role);
+        showRoleDashboard(role);
+    }
+}
+
+// ── Init: Check for saved role on page load ──
+(function initRoleExperience() {
+    const savedRole = localStorage.getItem('janvayu-role');
+    const hash = window.location.hash.replace('#', '');
+
+    // If there's a specific panel hash (not dashboard, not my-dashboard), go directly there
+    if (hash && hash !== 'dashboard' && hash !== 'my-dashboard' && hash !== '') {
+        // Don't show overlay or role dashboard — let the existing hash handler navigate
+        if (savedRole && savedRole !== 'skip') {
+            updateRoleSwitcher(savedRole);
+        }
+        return;
+    }
+
+    if (!savedRole) {
+        // First visit — show the role selector overlay
+        document.getElementById('roleOverlay').style.display = 'flex';
+    } else if (savedRole === 'skip') {
+        // User chose to see everything
+        updateRoleSwitcher('skip');
+    } else {
+        // Returning user with a saved role — show their dashboard
+        updateRoleSwitcher(savedRole);
+        // Wait for DOM to be ready, then show role dashboard
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => showRoleDashboard(savedRole));
+        } else {
+            // Small delay to let the main init finish
+            setTimeout(() => showRoleDashboard(savedRole), 200);
+        }
+    }
+})();
+</script>
 
 </body>
 </html>
