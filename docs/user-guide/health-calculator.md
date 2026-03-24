@@ -62,6 +62,14 @@ Given a city's annual PM2.5 level and population, the calculator estimates:
 
 ---
 
+## Interactive Demo
+
+> **Upcoming** — An interactive demo will be embedded here showing how to select a city, adjust population and PM2.5 values, and interpret the GEMM health burden estimates.
+
+<!-- Replace this section with an Arcade embed once recorded -->
+
+---
+
 ## Sources
 
 - Burnett et al. (2018), *PNAS* — GEMM methodology

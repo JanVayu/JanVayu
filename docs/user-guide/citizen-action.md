@@ -58,6 +58,14 @@ A practical guide on choosing the right mask for different AQI levels:
 
 ---
 
+## Interactive Demo
+
+> **Upcoming** — An interactive demo will be embedded here walking through how to generate an AI accountability brief for your city and download an RTI template.
+
+<!-- Replace this section with an Arcade embed once recorded -->
+
+---
+
 ## Indoor Air Quality
 
 The Indoor Air Quality section covers:
