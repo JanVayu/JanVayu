@@ -376,7 +376,9 @@ a:hover { color: var(--accent-hover); }
     justify-content: space-between;
     height: 100%;
 }
-.logo { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.logo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.logo-icon { display: flex; align-items: center; flex-shrink: 0; }
+.logo-icon svg { border-radius: 6px; }
 .logo-mark {
     font-family: var(--serif);
     font-size: 1.4rem;
@@ -1769,6 +1771,10 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .role-overlay-inner {
     max-width: 900px; width: 100%; text-align: center;
 }
+.role-overlay-logo-icon {
+    margin-bottom: 0.75rem;
+}
+.role-overlay-logo-icon svg { border-radius: 16px; filter: drop-shadow(0 4px 12px rgba(22,163,74,0.3)); }
 .role-overlay-logo {
     font-family: var(--serif); font-size: 1.8rem; font-weight: 700;
     color: var(--accent); margin-bottom: 0.25rem;
@@ -2105,6 +2111,31 @@ body.simple-language .section-intro [data-simple]::after {
     <!-- ═══ ROLE SELECTOR OVERLAY ═══ -->
     <div class="role-overlay" id="roleOverlay" style="display:none;">
         <div class="role-overlay-inner">
+            <div class="role-overlay-logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="72" height="72">
+                    <defs>
+                        <linearGradient id="rl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1a3a2a"/>
+                            <stop offset="100%" style="stop-color:#16A34A"/>
+                        </linearGradient>
+                        <linearGradient id="rl-leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#22C55E"/>
+                            <stop offset="100%" style="stop-color:#86EFAC"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="2" y="2" width="60" height="60" rx="14" ry="14" fill="url(#rl-bg)"/>
+                    <g stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6">
+                        <path d="M12 22 Q28 18 36 22 Q42 25 38 28"/>
+                        <path d="M10 32 Q26 28 38 32 Q46 35 42 38"/>
+                        <path d="M14 42 Q30 38 40 42 Q44 44 42 46"/>
+                    </g>
+                    <path d="M32 12 Q44 24 44 36 Q44 48 32 52 Q20 48 20 36 Q20 24 32 12Z" fill="url(#rl-leaf)" opacity="0.85"/>
+                    <line x1="32" y1="16" x2="32" y2="48" stroke="#1a3a2a" stroke-width="1.5" opacity="0.4"/>
+                    <path d="M32 26 Q26 30 24 34" stroke="#1a3a2a" stroke-width="1" fill="none" opacity="0.3"/>
+                    <path d="M32 30 Q38 34 40 38" stroke="#1a3a2a" stroke-width="1" fill="none" opacity="0.3"/>
+                    <text x="32" y="39" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="14" fill="#1a3a2a" opacity="0.7">JV</text>
+                </svg>
+            </div>
             <div class="role-overlay-logo">JanVayu</div>
             <div class="role-overlay-logo-sub" data-i18n="tagline">Citizen Air Quality Platform</div>
             <h2 data-i18n="role_heading">India's air crisis affects everyone differently.<br>How can we help you?</h2>
@@ -2177,6 +2208,31 @@ body.simple-language .section-intro [data-simple]::after {
     <header class="header">
         <div class="container">
             <div class="logo">
+                <span class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28">
+                        <defs>
+                            <linearGradient id="hd-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1a3a2a"/>
+                                <stop offset="100%" style="stop-color:#16A34A"/>
+                            </linearGradient>
+                            <linearGradient id="hd-leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#22C55E"/>
+                                <stop offset="100%" style="stop-color:#86EFAC"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="2" y="2" width="60" height="60" rx="14" ry="14" fill="url(#hd-bg)"/>
+                        <g stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6">
+                            <path d="M12 22 Q28 18 36 22 Q42 25 38 28"/>
+                            <path d="M10 32 Q26 28 38 32 Q46 35 42 38"/>
+                            <path d="M14 42 Q30 38 40 42 Q44 44 42 46"/>
+                        </g>
+                        <path d="M32 12 Q44 24 44 36 Q44 48 32 52 Q20 48 20 36 Q20 24 32 12Z" fill="url(#hd-leaf)" opacity="0.85"/>
+                        <line x1="32" y1="16" x2="32" y2="48" stroke="#1a3a2a" stroke-width="1.5" opacity="0.4"/>
+                        <path d="M32 26 Q26 30 24 34" stroke="#1a3a2a" stroke-width="1" fill="none" opacity="0.3"/>
+                        <path d="M32 30 Q38 34 40 38" stroke="#1a3a2a" stroke-width="1" fill="none" opacity="0.3"/>
+                        <text x="32" y="39" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="14" fill="#1a3a2a" opacity="0.7">JV</text>
+                    </svg>
+                </span>
                 <span class="logo-mark">JanVayu</span>
                 <span class="logo-scripts">
                     <span class="logo-script active" data-script-lang="hi">जनवायु</span>
