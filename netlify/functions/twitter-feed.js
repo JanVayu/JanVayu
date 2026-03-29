@@ -87,14 +87,45 @@ exports.handler = async function (event) {
     return { statusCode: 204, headers, body: '' };
   }
 
-  // Try Blobs cache first
+  // Try Blobs cache first — merge Nitter + Agent-Reach sources
   try {
     const store = getBlobStore("janvayu-feeds");
-    const cached = await store.get("twitter", { type: "json" });
-    if (cached && cached.posts && cached.posts.length > 0) {
+    const [cached, agentCached] = await Promise.all([
+      store.get("twitter", { type: "json" }).catch(() => null),
+      store.get("twitter-agent", { type: "json" }).catch(() => null),
+    ]);
+
+    const nitterPosts = (cached && cached.posts) ? cached.posts : [];
+    const agentPosts = (agentCached && agentCached.posts) ? agentCached.posts : [];
+
+    if (nitterPosts.length > 0 || agentPosts.length > 0) {
+      // Merge and deduplicate both sources
+      const seen = new Set();
+      const merged = [];
+      for (const post of [...agentPosts, ...nitterPosts]) {
+        const key = post.link || (post.text || '').substring(0, 80);
+        if (key && !seen.has(key)) {
+          seen.add(key);
+          merged.push(post);
+        }
+      }
+      merged.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+      const sources = [];
+      if (nitterPosts.length > 0) sources.push('nitter-rss');
+      if (agentPosts.length > 0) sources.push('agent-reach-bird');
+
       return {
         statusCode: 200, headers,
-        body: JSON.stringify({ ...cached, served_from: 'cache' }),
+        body: JSON.stringify({
+          posts: merged.slice(0, 50),
+          count: merged.length,
+          source: sources.join('+'),
+          served_from: 'cache',
+          nitter_count: nitterPosts.length,
+          agent_reach_count: agentPosts.length,
+          fetched_at: cached?.fetched_at || agentCached?.fetched_at,
+        }),
       };
     }
   } catch (e) {

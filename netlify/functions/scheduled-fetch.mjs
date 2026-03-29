@@ -293,6 +293,29 @@ async function fetchInstagram() {
   return { posts: unique.slice(0, 30), count: unique.length, errors };
 }
 
+// ── Jina Reader news enrichment ──
+async function enrichNewsWithJina(articles) {
+  if (!articles || articles.length === 0) return articles;
+  const JINA_BASE = 'https://r.jina.ai/';
+  // Enrich top 5 articles with full-text snippets
+  const enriched = await Promise.allSettled(
+    articles.slice(0, 5).map(async (article) => {
+      if (!article.link) return article;
+      try {
+        const res = await fetchWithTimeout(`${JINA_BASE}${article.link}`, {
+          headers: { 'Accept': 'text/plain', 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+        }, 8000);
+        const text = await res.text();
+        return { ...article, snippet_enhanced: text.slice(0, 500).trim(), enhanced: true };
+      } catch (e) {
+        return article;
+      }
+    })
+  );
+  const top = enriched.map(r => r.status === 'fulfilled' ? r.value : articles[0]);
+  return [...top, ...articles.slice(5)];
+}
+
 // ── Main scheduled handler ──
 export default async (req) => {
   const store = getBlobStore("janvayu-feeds");
@@ -325,6 +348,19 @@ export default async (req) => {
   if (news.status === 'fulfilled') {
     await store.setJSON("news", { ...news.value, fetched_at: timestamp, source: 'google-news-rss' });
     log.results.news = { ok: true, count: news.value.count };
+    // Enrich top articles with Jina Reader for better snippets
+    try {
+      const enrichedArticles = await enrichNewsWithJina(news.value.articles);
+      await store.setJSON("news-enhanced", {
+        articles: enrichedArticles,
+        count: enrichedArticles.length,
+        fetched_at: timestamp,
+        source: 'google-news-rss+jina-reader',
+      });
+      log.results.news_enhanced = { ok: true, count: enrichedArticles.length };
+    } catch (e) {
+      log.results.news_enhanced = { ok: false, error: e.message };
+    }
   } else {
     log.results.news = { ok: false, error: news.reason?.message };
   }

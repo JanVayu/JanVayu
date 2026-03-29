@@ -17,10 +17,13 @@ exports.handler = async function (event) {
 
   try {
     const store = getBlobStore("janvayu-feeds");
-    const [lastTime, log, emailLog] = await Promise.all([
+    const [lastTime, log, emailLog, agentReachLog, twitterAgent, youtube] = await Promise.all([
       store.get("last-fetch-time").catch(() => null),
       store.get("last-fetch-log", { type: "json" }).catch(() => null),
       store.get("last-email-log", { type: "json" }).catch(() => null),
+      store.get("last-agent-reach-ingest", { type: "json" }).catch(() => null),
+      store.get("twitter-agent", { type: "json" }).catch(() => null),
+      store.get("youtube", { type: "json" }).catch(() => null),
     ]);
 
     return {
@@ -28,9 +31,14 @@ exports.handler = async function (event) {
       headers,
       body: JSON.stringify({
         last_updated: lastTime || null,
-        schedule: 'Feeds every 4 hours, email digest daily at 8 AM IST',
+        schedule: 'Netlify feeds every 4 hours, Agent-Reach every 2 hours, email digest daily at 8 AM IST',
         log: log || null,
         email_log: emailLog || null,
+        agent_reach: {
+          last_ingest: agentReachLog || null,
+          twitter_agent: twitterAgent ? { count: twitterAgent.count, fetched_at: twitterAgent.fetched_at } : null,
+          youtube: youtube ? { count: youtube.count, fetched_at: youtube.fetched_at } : null,
+        },
         server_time: new Date().toISOString(),
       }),
     };
