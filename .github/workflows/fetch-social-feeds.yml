@@ -1,0 +1,95 @@
+name: Fetch AQI Social Media Feeds (Agent-Reach)
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'  # Every 2 hours
+  workflow_dispatch:        # Manual trigger
+
+jobs:
+  fetch-feeds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Agent-Reach and tools
+        run: |
+          pip install agent-reach
+          # Install yt-dlp (YouTube extraction)
+          pip install yt-dlp
+          # agent-reach installs bird CLI and other tools
+          agent-reach install --env=auto --safe || true
+          # Verify available tools
+          echo "=== Tool availability ==="
+          which bird && echo "bird: OK" || echo "bird: not found"
+          which yt-dlp && echo "yt-dlp: OK" || echo "yt-dlp: not found"
+
+      - name: Configure Twitter credentials
+        if: env.TWITTER_AUTH_TOKEN != ''
+        env:
+          TWITTER_AUTH_TOKEN: ${{ secrets.TWITTER_AUTH_TOKEN }}
+          TWITTER_CT0: ${{ secrets.TWITTER_CT0 }}
+        run: |
+          mkdir -p ~/.agent-reach
+          # bird CLI uses AUTH_TOKEN and CT0 env vars
+          echo "Twitter credentials configured"
+
+      - name: Run AQI social media fetch
+        env:
+          AUTH_TOKEN: ${{ secrets.TWITTER_AUTH_TOKEN }}
+          CT0: ${{ secrets.TWITTER_CT0 }}
+        run: |
+          python scripts/agent-reach-fetch.py > /tmp/feed-results.json 2> /tmp/fetch-log.txt
+          cat /tmp/fetch-log.txt
+          echo "=== Results summary ==="
+          python -c "
+          import json
+          with open('/tmp/feed-results.json') as f:
+              data = json.load(f)
+          for key in ['twitter', 'youtube', 'news_enhanced']:
+              if key in data:
+                  count = data[key].get('count', 0)
+                  print(f'{key}: {count} items')
+          "
+
+      - name: Push results to Netlify feed-ingest
+        if: success()
+        env:
+          FEED_INGEST_KEY: ${{ secrets.FEED_INGEST_KEY }}
+          NETLIFY_SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}
+        run: |
+          SITE_URL="${NETLIFY_SITE_URL:-https://janvayu.in}"
+          INGEST_URL="${SITE_URL}/.netlify/functions/feed-ingest"
+
+          HTTP_CODE=$(curl -s -o /tmp/ingest-response.txt -w "%{http_code}" \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: ${FEED_INGEST_KEY}" \
+            -d @/tmp/feed-results.json \
+            "${INGEST_URL}")
+
+          echo "HTTP response code: ${HTTP_CODE}"
+          cat /tmp/ingest-response.txt
+          echo ""
+
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "Warning: Feed ingest returned non-2xx status"
+            exit 1
+          fi
+
+      - name: Upload fetch log as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetch-log-${{ github.run_id }}
+          path: |
+            /tmp/fetch-log.txt
+            /tmp/feed-results.json
+          retention-days: 7
