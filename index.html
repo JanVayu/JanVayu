@@ -12965,12 +12965,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const panelHost = document.getElementById('panel-host');
     if (panelHost) observer.observe(panelHost, { childList: true, subtree: true });
 
-    // Initial enhancement after a brief delay for content to load
-    setTimeout(() => {
+    // Wait for web fonts + initial content, then enhance
+    const enhance = () => {
         pretextEnhanceVoices();
         pretextEnhanceSocialCards();
         renderEditorialStory();
-    }, 1500);
+    };
+    // Ensure web fonts are loaded for accurate Canvas measurement
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => setTimeout(enhance, 500));
+    } else {
+        setTimeout(enhance, 1500);
+    }
 });
 
 // Re-enhance on language change
