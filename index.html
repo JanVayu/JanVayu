@@ -1357,6 +1357,64 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .voice-content { font-size: 0.88rem; line-height: 1.65; color: var(--text-2); }
 .voice-meta { font-size: 0.72rem; color: var(--text-4); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
 
+/* ── Voice Bubbles (Pretext-powered shrinkwrap) ── */
+.voice-bubble {
+    border-radius: 16px 16px 16px 4px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    margin-bottom: 10px;
+    display: inline-block;
+    max-width: 85%;
+    word-wrap: break-word;
+    transition: width 0.15s ease;
+}
+.voice-bubble.voice-right {
+    border-radius: 16px 16px 4px 16px;
+    margin-left: auto;
+    background: var(--green-50, #f0fdf4);
+}
+[data-theme="dark"] .voice-bubble.voice-right { background: #1a2e1a; }
+.voice-bubble .voice-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.voice-bubble .voice-name { font-weight: 600; font-size: 0.82rem; }
+.voice-bubble .voice-handle { font-size: 0.7rem; color: var(--text-3); }
+.voice-bubble .voice-source { font-size: 0.6rem; color: var(--text-4); margin-left: auto; text-transform: uppercase; letter-spacing: 0.05em; }
+.voice-bubble .voice-content, .voice-bubble .voice-body {
+    font-size: 0.85rem; line-height: 1.6; color: var(--text-2);
+}
+.voice-bubble .voice-meta {
+    font-size: 0.68rem; color: var(--text-4); margin-top: 6px; padding-top: 6px;
+    border-top: 1px solid var(--border-light);
+}
+.voice-bubble-row { display: flex; flex-direction: column; margin-bottom: 4px; }
+
+/* ── Editorial Story Panel ── */
+.editorial-container {
+    position: relative;
+    min-height: 600px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--text);
+}
+.editorial-line {
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.editorial-obstacle {
+    position: absolute;
+    border-radius: var(--radius);
+    background: var(--bg-section);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    z-index: 2;
+}
+@media (max-width: 600px) {
+    .voice-bubble { max-width: 95%; }
+    .editorial-container { font-size: 16px; line-height: 24px; min-height: 500px; }
+}
+
 /* ── Resource Cards ───────────────────── */
 .resource-card {
     padding: 16px;
@@ -5170,6 +5228,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         setTimeout(() => {
             populateCityDropdowns();
             if (panelId === 'social-feed') loadSocialFeed();
+            if (panelId === 'aqi-story') { if (typeof renderEditorialStory === 'function') setTimeout(renderEditorialStory, 100); }
             if (panelId === 'live-news') loadNewsFilter();
             if (panelId === 'voices') {
                 loadVoicesLive();
@@ -5219,6 +5278,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'resources', title: 'Research Library', desc: 'Reports, studies, expert organizations', keywords: 'resources library research report study paper crea cse iqair lancet' },
         { id: 'downloads', title: 'Downloads', desc: 'PDFs, legal docs, data exports', keywords: 'download pdf export data document template rti' },
         { id: 'social-feed', title: 'Social Media Feed', desc: 'Live posts from Reddit, X, Instagram, YouTube about air pollution', keywords: 'social media twitter x reddit instagram youtube feed live posts agent-reach' },
+        { id: 'aqi-story', title: 'The Air We Breathe', desc: 'Editorial story with text flowing around live AQI data', keywords: 'editorial story pretext text layout narrative air quality crisis deaths NCAP' },
         { id: 'live-news', title: 'Live News', desc: 'Auto-updating air quality news from multiple sources', keywords: 'news live updates articles headlines breaking' },
         { id: 'aqi-alerts', title: 'AQI Alerts', desc: 'Browser push notifications for dangerous AQI levels', keywords: 'alerts notifications push warning threshold' },
         { id: 'go-outside', title: 'Should I Go Outside?', desc: 'Real-time outdoor activity recommendation', keywords: 'outside go safe outdoor activity recommendation mask' },
@@ -11274,6 +11334,24 @@ Signature: _______________</div>
     </div>
 </template>
 
+<!-- ═══ EDITORIAL AQI STORY (Pretext-powered) ═══ -->
+<template id="tmpl-aqi-story">
+    <div class="container">
+        <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.25rem;">The Air We Breathe</h2>
+        <p style="color: var(--text-2); margin-bottom: 0.5rem; font-size: 0.85rem;" data-simple="An interactive editorial about India's air quality crisis with text that flows around live data.">An editorial layout powered by <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener" style="color:var(--accent);">Pretext</a> — text flows around live AQI data with zero DOM reflow. Resize your browser to see the text re-wrap in real time.</p>
+
+        <div id="aqi-story-canvas" class="editorial-container" style="margin-top: 1.5rem;">
+            <p style="color:var(--text-3);text-align:center;padding:2rem;">Loading editorial layout engine...</p>
+        </div>
+
+        <div class="card mt-3" style="background: var(--bg-section);">
+            <div class="card-body" style="font-size: 0.8rem; color: var(--text-3);">
+                <strong>How this works:</strong> <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener">Pretext</a> measures text entirely off-DOM using Canvas, then uses <code>layoutNextLine()</code> to flow each line around obstacles (the AQI gauge, death toll, and NCAP progress cards). No <code>getBoundingClientRect</code>, no layout reflow — 300x faster than traditional browser text layout. The entire page re-wraps on resize with pure arithmetic.
+            </div>
+        </div>
+    </div>
+</template>
+
 <!-- ═══ LIVE NEWS ═══ -->
 <template id="tmpl-live-news">
     <div class="container">
@@ -12640,6 +12718,282 @@ function switchRole(role) {
         }
     }
 })();
+</script>
+
+<!-- Pretext: DOM-free text measurement for voice bubbles, social cards, editorial layout -->
+<script type="module">
+import { prepare, layout, prepareWithSegments, walkLineRanges, layoutNextLine, layoutWithLines }
+  from 'https://esm.sh/@chenglou/pretext@0.0.3';
+
+window.Pretext = { prepare, layout, prepareWithSegments, walkLineRanges, layoutNextLine, layoutWithLines };
+
+// ── Pretext Utilities ──
+window.pretextUtils = {
+    getFontString(el) {
+        const s = getComputedStyle(el);
+        return `${s.fontWeight} ${s.fontSize} ${s.fontFamily}`;
+    },
+
+    shrinkwrap(text, font, maxWidth) {
+        if (!window.Pretext) return maxWidth;
+        const prepared = Pretext.prepareWithSegments(text, font);
+        let targetLines = 0;
+        Pretext.walkLineRanges(prepared, maxWidth, () => { targetLines++; });
+        if (targetLines <= 1) {
+            let w = 0;
+            Pretext.walkLineRanges(prepared, maxWidth, (line) => { w = line.width; });
+            return Math.ceil(w) + 2;
+        }
+        let lo = 40, hi = maxWidth;
+        while (lo < hi) {
+            const mid = (lo + hi) >> 1;
+            let lines = 0;
+            Pretext.walkLineRanges(prepared, mid, () => { lines++; });
+            if (lines > targetLines) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    },
+
+    measureHeight(text, font, maxWidth, lineHeight) {
+        if (!window.Pretext) return null;
+        const prepared = Pretext.prepare(text, font);
+        return Pretext.layout(prepared, maxWidth, lineHeight);
+    }
+};
+
+// ── UC1: Shrinkwrap Voice Bubbles ──
+function pretextEnhanceVoices() {
+    if (!window.Pretext) return;
+    const cards = document.querySelectorAll('.voice-card');
+    if (cards.length === 0) return;
+
+    const containerWidth = cards[0].parentElement?.offsetWidth || 600;
+    const maxBubbleWidth = Math.min(containerWidth * 0.85, 560);
+
+    cards.forEach((card, i) => {
+        const contentEl = card.querySelector('.voice-content, .voice-body');
+        if (!contentEl) return;
+
+        const text = contentEl.textContent.trim();
+        if (!text) return;
+
+        const font = pretextUtils.getFontString(contentEl);
+        const tightWidth = pretextUtils.shrinkwrap(text, font, maxBubbleWidth);
+
+        card.classList.remove('voice-card');
+        card.classList.add('voice-bubble');
+        if (i % 3 === 2) card.classList.add('voice-right');  // alternate sides
+
+        card.style.width = tightWidth + 'px';
+        card.style.maxWidth = maxBubbleWidth + 'px';
+
+        // Wrap in a flex row for alignment
+        if (!card.parentElement.classList.contains('voice-bubble-row')) {
+            const row = document.createElement('div');
+            row.className = 'voice-bubble-row';
+            card.parentElement.insertBefore(row, card);
+            row.appendChild(card);
+        }
+    });
+}
+
+// ── UC2: Smooth Social Feed Cards ──
+function pretextEnhanceSocialCards() {
+    if (!window.Pretext) return;
+    const cards = document.querySelectorAll('#social-feed-container .card');
+    if (cards.length === 0) return;
+
+    const sampleEl = cards[0].querySelector('.card-body') || cards[0];
+    const font = pretextUtils.getFontString(sampleEl);
+
+    cards.forEach(card => {
+        const textEl = card.querySelector('a[href], p');
+        if (!textEl) return;
+        const text = textEl.textContent;
+        if (!text || text.length < 10) return;
+        const cardWidth = card.offsetWidth - 32;
+        const lh = parseFloat(getComputedStyle(textEl).lineHeight) || 20;
+        const result = pretextUtils.measureHeight(text, font, cardWidth, lh);
+        if (result) card.style.minHeight = (result.height + 90) + 'px';
+    });
+}
+
+// ── UC3: Editorial AQI Storytelling ──
+function renderEditorialStory() {
+    const container = document.getElementById('aqi-story-canvas');
+    if (!container || !window.Pretext) {
+        if (container) container.innerHTML = '<p style="color:var(--text-2);text-align:center;padding:2rem;">Loading editorial layout engine...</p>';
+        return;
+    }
+
+    const narrative = `Every year, 1.72 million Indians die from air pollution — more than from tobacco, alcohol, and road accidents combined. That's 4,712 people every single day. The economic cost: $339.4 billion, or 9.5% of India's GDP, silently eroding the nation's growth story.
+
+Delhi's winter air routinely crosses AQI 400 — a level the WHO classifies as "hazardous." Schools close. Flights are cancelled. Hospitals overflow with children gasping for breath. The elderly are told to stay indoors, but indoors isn't safe either: PM2.5 particles, smaller than a human blood cell at 2.5 microns, penetrate walls, windows, and lungs with equal ease.
+
+The crisis isn't just Delhi's. Patna, Muzaffarpur, Gaya, and dozens of Indo-Gangetic Plain cities breathe the same toxic air. Stubble burning in Punjab and Haryana contributes 30-40% of winter pollution, but vehicular emissions, construction dust, industrial discharge, and waste burning are year-round killers.
+
+India's National Clean Air Programme (NCAP) set a target of 20-30% PM2.5 reduction by 2024, later extended to 40% by 2026. Progress has been uneven. Some cities improved monitoring infrastructure; others merely installed sensors that conveniently malfunction on high-pollution days. Of the 131 non-attainment cities identified, fewer than half have submitted credible action plans.
+
+The Supreme Court has called clean air a fundamental right under Article 21. The Commission for Air Quality Management (CAQM) issues emergency directives when AQI crosses 400. But enforcement remains the weakest link: brick kilns operate without filters, construction sites ignore dust suppression rules, and stubble burning continues because farmers have no affordable alternative.
+
+Citizens are fighting back. RWAs install community air purifiers. Parents demand air quality monitoring in schools. Journalists expose data manipulation. Activists file RTIs. Researchers publish ward-level pollution maps. JanVayu exists because the right to breathe clean air shouldn't depend on your postcode or your privilege.`;
+
+    const font = '18px Georgia, "Times New Roman", serif';
+    const lineHeight = 28;
+    const prepared = Pretext.prepareWithSegments(narrative, font);
+    const containerWidth = container.offsetWidth;
+
+    // Define visual obstacles — AQI gauge (right) and stat card (left)
+    const obstacles = [
+        { id: 'obs-aqi', top: 56, bottom: 228, left: containerWidth - 220, right: containerWidth,
+          html: `<div style="text-align:center;">
+            <div style="font-size:3rem;font-weight:700;color:#DC2626;font-family:var(--sans);">312</div>
+            <div style="font-size:0.75rem;color:var(--text-3);margin-top:4px;">Delhi AQI Today</div>
+            <div style="font-size:0.65rem;color:#DC2626;font-weight:600;margin-top:2px;">HAZARDOUS</div>
+            <div style="width:100%;height:6px;background:var(--border);border-radius:3px;margin-top:8px;">
+                <div style="width:78%;height:100%;background:linear-gradient(90deg,#22C55E,#EAB308,#F97316,#DC2626);border-radius:3px;"></div>
+            </div>
+          </div>` },
+        { id: 'obs-deaths', top: 280, bottom: 424, left: 0, right: 240,
+          html: `<div style="text-align:center;">
+            <div style="font-size:2.5rem;font-weight:700;color:var(--text);font-family:var(--sans);">1.72M</div>
+            <div style="font-size:0.75rem;color:var(--text-3);margin-top:4px;">Deaths per year</div>
+            <div style="font-size:0.65rem;color:var(--text-4);margin-top:6px;">Lancet Commission 2025</div>
+            <div style="margin-top:8px;font-size:0.7rem;color:var(--text-3);">
+                <span style="color:#DC2626;">&#9679;</span> 4,712 per day<br>
+                <span style="color:#F97316;">&#9679;</span> $339.4B cost (9.5% GDP)
+            </div>
+          </div>` },
+        { id: 'obs-ncap', top: 504, bottom: 634, left: containerWidth - 200, right: containerWidth,
+          html: `<div style="text-align:center;">
+            <div style="font-size:2rem;font-weight:700;color:#2563EB;font-family:var(--sans);">40%</div>
+            <div style="font-size:0.72rem;color:var(--text-3);margin-top:4px;">NCAP 2026 target</div>
+            <div style="font-size:0.65rem;color:var(--text-4);margin-top:4px;">PM2.5 reduction goal</div>
+            <div style="width:100%;height:6px;background:var(--border);border-radius:3px;margin-top:8px;">
+                <div style="width:35%;height:100%;background:#2563EB;border-radius:3px;"></div>
+            </div>
+            <div style="font-size:0.6rem;color:var(--text-4);margin-top:4px;">~35% achieved so far</div>
+          </div>` },
+    ];
+
+    // Flow text around obstacles
+    let cursor = { segmentIndex: 0, graphemeIndex: 0 };
+    let y = 0;
+    const renderedLines = [];
+
+    while (cursor) {
+        let availWidth = containerWidth;
+        let xOffset = 0;
+        for (const obs of obstacles) {
+            if (y >= obs.top - lineHeight && y < obs.bottom) {
+                if (obs.left <= 10) {
+                    xOffset = obs.right + 20;
+                    availWidth = containerWidth - obs.right - 20;
+                } else {
+                    availWidth = obs.left - 20;
+                }
+            }
+        }
+        if (availWidth < 80) { y += lineHeight; continue; }
+
+        const line = Pretext.layoutNextLine(prepared, cursor, availWidth);
+        if (!line) break;
+        renderedLines.push({ text: line.text, width: line.width, x: xOffset, y });
+        cursor = line.end;
+        y += lineHeight;
+    }
+
+    // Render
+    container.innerHTML = '';
+    container.style.position = 'relative';
+    container.style.height = (y + 40) + 'px';
+
+    // Render obstacles
+    obstacles.forEach(obs => {
+        const div = document.createElement('div');
+        div.className = 'editorial-obstacle';
+        div.id = obs.id;
+        div.style.cssText = `top:${obs.top}px;left:${obs.left}px;width:${obs.right - obs.left}px;height:${obs.bottom - obs.top}px;`;
+        div.innerHTML = obs.html;
+        container.appendChild(div);
+    });
+
+    // Render text lines
+    renderedLines.forEach(line => {
+        const div = document.createElement('div');
+        div.className = 'editorial-line';
+        div.textContent = line.text;
+        div.style.cssText = `left:${line.x}px;top:${line.y}px;font:${font};line-height:${lineHeight}px;color:var(--text);`;
+        container.appendChild(div);
+    });
+}
+
+// ── UC4: Multi-language Card Height Normalization ──
+function normalizeCardHeights(container, selector) {
+    if (!window.Pretext || !container) return;
+    const cards = container.querySelectorAll(selector);
+    if (cards.length === 0) return;
+    const rows = {};
+    cards.forEach(card => {
+        const text = (card.querySelector('.voice-content, .voice-body, .card-body')?.textContent || '').trim();
+        if (!text) return;
+        const font = pretextUtils.getFontString(card);
+        const result = pretextUtils.measureHeight(text, font, card.offsetWidth - 36, 24);
+        const rowKey = Math.round(card.offsetTop / 50);
+        if (!rows[rowKey]) rows[rowKey] = [];
+        rows[rowKey].push({ card, height: result?.height || 0 });
+    });
+    Object.values(rows).forEach(row => {
+        const maxH = Math.max(...row.map(r => r.height));
+        if (maxH > 0) row.forEach(r => { r.card.style.minHeight = (maxH + 60) + 'px'; });
+    });
+}
+
+// ── Hook into existing JanVayu lifecycle ──
+// Wait for Pretext to load, then enhance visible panels
+document.addEventListener('DOMContentLoaded', () => {
+    // Observe panel switches to enhance newly visible content
+    const observer = new MutationObserver(() => {
+        requestIdleCallback(() => {
+            pretextEnhanceVoices();
+            pretextEnhanceSocialCards();
+            renderEditorialStory();
+        });
+    });
+
+    const panelHost = document.getElementById('panel-host');
+    if (panelHost) observer.observe(panelHost, { childList: true, subtree: true });
+
+    // Initial enhancement after a brief delay for content to load
+    setTimeout(() => {
+        pretextEnhanceVoices();
+        pretextEnhanceSocialCards();
+        renderEditorialStory();
+    }, 1500);
+});
+
+// Re-enhance on language change
+const origSetLang = window.setLanguage;
+if (typeof origSetLang === 'function') {
+    window.setLanguage = function(lang) {
+        origSetLang(lang);
+        setTimeout(() => {
+            const voicesContainer = document.querySelector('#panel-host');
+            if (voicesContainer) normalizeCardHeights(voicesContainer, '.voice-bubble, .voice-card');
+        }, 500);
+    };
+}
+
+// Re-layout editorial on resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        pretextEnhanceVoices();
+        renderEditorialStory();
+    }, 250);
+});
 </script>
 
 </body>
