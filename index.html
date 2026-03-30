@@ -12763,40 +12763,47 @@ window.pretextUtils = {
 };
 
 // ── UC1: Shrinkwrap Voice Bubbles ──
+function isInsideGrid(el) {
+    let node = el.parentElement;
+    while (node && node !== document.body) {
+        const d = getComputedStyle(node).display;
+        if (d === 'grid' || d === 'inline-grid') return true;
+        node = node.parentElement;
+    }
+    return false;
+}
+
 function pretextEnhanceVoices() {
     if (!window.Pretext) return;
+    // Only target the curated highlights section — stacked voice cards not inside grids
     const cards = document.querySelectorAll('.voice-card');
     if (cards.length === 0) return;
 
     let bubbleIndex = 0;
     cards.forEach(card => {
-        // Skip cards inside grid layouts — shrinkwrap breaks grid columns
-        const parent = card.parentElement;
-        if (!parent) return;
-        const parentDisplay = getComputedStyle(parent).display;
-        if (parentDisplay === 'grid' || parentDisplay === 'inline-grid') return;
+        // Skip cards inside any grid ancestor (viral memes, expert voices, international media, etc.)
+        if (isInsideGrid(card)) return;
 
         const contentEl = card.querySelector('.voice-content, .voice-body');
         if (!contentEl) return;
 
         const text = contentEl.textContent.trim();
-        if (!text || text.length < 20) return;
+        if (!text || text.length < 30) return;
 
-        // Skip on mobile — full-width is fine
-        const containerWidth = parent.offsetWidth || 600;
+        // Skip on mobile — full-width cards are fine
+        const containerWidth = card.parentElement?.offsetWidth || 600;
         if (containerWidth < 500) return;
 
         const maxBubbleWidth = Math.min(containerWidth * 0.85, 560);
         const font = pretextUtils.getFontString(contentEl);
         const tightWidth = pretextUtils.shrinkwrap(text, font, maxBubbleWidth);
 
-        // Apply bubble styling without removing voice-card class (keep original styles as base)
+        // Add bubble styling on top of existing voice-card styles
         card.classList.add('voice-bubble');
         if (bubbleIndex % 3 === 2) card.classList.add('voice-right');
 
-        card.style.width = Math.max(tightWidth, 200) + 'px';
+        card.style.width = Math.max(tightWidth, 220) + 'px';
         card.style.maxWidth = maxBubbleWidth + 'px';
-        card.style.display = 'block'; // keep block, not inline-block, to preserve stacking
         bubbleIndex++;
     });
 }
