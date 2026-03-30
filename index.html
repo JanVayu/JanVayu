@@ -12768,33 +12768,36 @@ function pretextEnhanceVoices() {
     const cards = document.querySelectorAll('.voice-card');
     if (cards.length === 0) return;
 
-    const containerWidth = cards[0].parentElement?.offsetWidth || 600;
-    const maxBubbleWidth = Math.min(containerWidth * 0.85, 560);
+    let bubbleIndex = 0;
+    cards.forEach(card => {
+        // Skip cards inside grid layouts — shrinkwrap breaks grid columns
+        const parent = card.parentElement;
+        if (!parent) return;
+        const parentDisplay = getComputedStyle(parent).display;
+        if (parentDisplay === 'grid' || parentDisplay === 'inline-grid') return;
 
-    cards.forEach((card, i) => {
         const contentEl = card.querySelector('.voice-content, .voice-body');
         if (!contentEl) return;
 
         const text = contentEl.textContent.trim();
-        if (!text) return;
+        if (!text || text.length < 20) return;
 
+        // Skip on mobile — full-width is fine
+        const containerWidth = parent.offsetWidth || 600;
+        if (containerWidth < 500) return;
+
+        const maxBubbleWidth = Math.min(containerWidth * 0.85, 560);
         const font = pretextUtils.getFontString(contentEl);
         const tightWidth = pretextUtils.shrinkwrap(text, font, maxBubbleWidth);
 
-        card.classList.remove('voice-card');
+        // Apply bubble styling without removing voice-card class (keep original styles as base)
         card.classList.add('voice-bubble');
-        if (i % 3 === 2) card.classList.add('voice-right');  // alternate sides
+        if (bubbleIndex % 3 === 2) card.classList.add('voice-right');
 
-        card.style.width = tightWidth + 'px';
+        card.style.width = Math.max(tightWidth, 200) + 'px';
         card.style.maxWidth = maxBubbleWidth + 'px';
-
-        // Wrap in a flex row for alignment
-        if (!card.parentElement.classList.contains('voice-bubble-row')) {
-            const row = document.createElement('div');
-            row.className = 'voice-bubble-row';
-            card.parentElement.insertBefore(row, card);
-            row.appendChild(card);
-        }
+        card.style.display = 'block'; // keep block, not inline-block, to preserve stacking
+        bubbleIndex++;
     });
 }
 
