@@ -3,7 +3,7 @@
 **JanVayu** (জনবায়ু — "জনগণের বায়ু") হল ভারতের স্বাধীন, নাগরিক-নেতৃত্বাধীন বায়ুমান জবাবদিহিতা প্ল্যাটফর্ম। এটি 30+ শহরের সরাসরি দূষণ তথ্য ট্র্যাক করে, স্বাস্থ্যের প্রভাব পরিমাপ করে, NCAP বাজেট ব্যয় পর্যবেক্ষণ করে, এবং সরকারের কাছে জবাবদিহিতা দাবি করে।
 
 > **লাইভ প্ল্যাটফর্ম:** [www.janvayu.in](https://www.janvayu.in)
-> **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+> **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 
