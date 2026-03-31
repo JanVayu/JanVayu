@@ -3,8 +3,8 @@
 ---
 
 ## GitHub
-- **রিপোজিটরি:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
-- **Issues:** [github.com/Varnasr/JanVayu/issues](https://github.com/Varnasr/JanVayu/issues)
+- **রিপোজিটরি:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
+- **Issues:** [github.com/JanVayu/JanVayu/issues](https://github.com/JanVayu/JanVayu/issues)
 - **Discussions:** GitHub Discussions
 
 ---
