@@ -15,7 +15,7 @@ This documentation is hosted on GitBook and is publicly shareable. Send the GitB
 
 ### Onboard a New Contributor
 
-1. **Clone the repo** — `git clone https://github.com/Varnasr/JanVayu.git`
+1. **Clone the repo** — `git clone https://github.com/JanVayu/JanVayu.git`
 2. **Read the docs** — start with this GitBook, especially:
    - [Tech Stack Overview](../tech-stack/overview.md)
    - [Architecture](../technical/architecture.md)
@@ -140,7 +140,7 @@ All spaces auto-sync when changes are pushed to `main`.
 ### Recommended Features
 
 | Feature | How to Use |
-|---------|-----------|
+|---------|------------|
 | **Custom domain** | Settings → Custom domain → point `docs.janvayu.in` |
 | **AI search** | Enabled by default — lets visitors ask questions about the docs |
 | **PDF export** | Available per-page or full-space export |

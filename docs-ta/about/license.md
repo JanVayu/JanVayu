@@ -15,7 +15,7 @@ JanVayu அதன் குறியீடு மற்றும் உள்ள
 
 ஒரே தேவை copyright notice-ஐ தக்கவைப்பது.
 
-**முழு உரை:** Repository root-ல் [LICENSE](https://github.com/Varnasr/JanVayu/blob/main/LICENSE) கோப்பு.
+**முழு உரை:** Repository root-ல் [LICENSE](https://github.com/JanVayu/JanVayu/blob/main/LICENSE) கோப்பு.
 
 ---
 

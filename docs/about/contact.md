@@ -3,24 +3,24 @@
 ## General Contact
 
 | Purpose | Contact |
-|---------|---------|
+|---------|--------|
 | Content contributions | [contribute@janvayu.in](mailto:contribute@janvayu.in) |
-| Bug reports | [GitHub Issues](https://github.com/Varnasr/JanVayu/issues) |
-| Questions and discussion | [GitHub Discussions](https://github.com/Varnasr/JanVayu/discussions) |
-| Security vulnerabilities | See [SECURITY.md](https://github.com/Varnasr/JanVayu/blob/main/SECURITY.md) |
+| Bug reports | [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) |
+| Questions and discussion | [GitHub Discussions](https://github.com/JanVayu/JanVayu/discussions) |
+| Security vulnerabilities | See [SECURITY.md](https://github.com/JanVayu/JanVayu/blob/main/SECURITY.md) |
 
 ---
 
 ## Platform
 
 - **Website:** [www.janvayu.in](https://www.janvayu.in)
-- **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+- **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 
 ## Reporting a Security Issue
 
-If you have found a security vulnerability, **do not open a public GitHub Issue**. Instead, follow the responsible disclosure process described in [SECURITY.md](https://github.com/Varnasr/JanVayu/blob/main/SECURITY.md).
+If you have found a security vulnerability, **do not open a public GitHub Issue**. Instead, follow the responsible disclosure process described in [SECURITY.md](https://github.com/JanVayu/JanVayu/blob/main/SECURITY.md).
 
 ---
 

@@ -5,8 +5,8 @@ title: "JanVayu: Citizen Air Quality Monitoring Platform for India"
 authors:
   - family-names: Raman
     given-names: Varna Sri
-url: "https://github.com/Varnasr/JanVayu"
-repository-code: "https://github.com/Varnasr/JanVayu"
+url: "https://github.com/JanVayu/JanVayu"
+repository-code: "https://github.com/JanVayu/JanVayu"
 license: MIT
 keywords:
   - air-quality

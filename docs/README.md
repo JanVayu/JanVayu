@@ -3,7 +3,7 @@
 **JanVayu** (जनवायु — "People's Air") is India's independent, citizen-led air quality accountability platform. It tracks live pollution data for 30+ cities, measures health impacts, follows NCAP budget spending, and holds governments accountable.
 
 > **Live platform:** [www.janvayu.in](https://www.janvayu.in)
-> **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+> **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 

@@ -13,7 +13,7 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Varnasr/JanVayu.git
+git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
 # 2. Install dependencies
@@ -109,7 +109,7 @@ docs(readme): update setup instructions
 ## Branch Strategy
 
 | Branch | Purpose |
-|--------|---------|
+|--------|--------|
 | `main` | Production — auto-deploys to [www.janvayu.in](https://www.janvayu.in) |
 | `feature/*` | New features or content additions |
 | `fix/*` | Bug fixes |

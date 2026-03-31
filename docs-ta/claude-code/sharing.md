@@ -15,7 +15,7 @@
 
 ### புதிய பங்களிப்பாளரை சேர்த்தல்
 
-1. **Repo-ஐ clone செய்யுங்கள்** — `git clone https://github.com/Varnasr/JanVayu.git`
+1. **Repo-ஐ clone செய்யுங்கள்** — `git clone https://github.com/JanVayu/JanVayu.git`
 2. **Docs படியுங்கள்** — இந்த GitBook-உடன் தொடங்குங்கள், குறிப்பாக:
    - [தொழில்நுட்ப அடுக்கு கண்ணோட்டம்](../tech-stack/overview.md)
    - [கட்டமைப்பு](../technical/architecture.md)

@@ -15,7 +15,7 @@ This means you are free to:
 
 The only requirement is to retain the copyright notice.
 
-**Full text:** [LICENSE](https://github.com/Varnasr/JanVayu/blob/main/LICENSE) file in the repository root.
+**Full text:** [LICENSE](https://github.com/JanVayu/JanVayu/blob/main/LICENSE) file in the repository root.
 
 ---
 
