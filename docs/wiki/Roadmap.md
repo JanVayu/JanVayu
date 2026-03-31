@@ -1,6 +1,6 @@
 # JanVayu Roadmap
 
-Track progress on [GitHub Issues](https://github.com/Varnasr/JanVayu/issues) and the [Roadmap Issue (#34)](https://github.com/Varnasr/JanVayu/issues/34).
+Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and the [Roadmap Issue (#34)](https://github.com/JanVayu/JanVayu/issues/34).
 
 ---
 
@@ -69,7 +69,7 @@ Track progress on [GitHub Issues](https://github.com/Varnasr/JanVayu/issues) and
 
 ## Phase 6: Mobile & Performance (🔄 Q2 2026)
 
-**Issues:** [#33](https://github.com/Varnasr/JanVayu/issues/33), [#3](https://github.com/Varnasr/JanVayu/issues/3)
+**Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3)
 
 - [ ] Full mobile responsiveness audit and fixes
 - [ ] Touch-friendly interactions (44px+ targets)
@@ -81,7 +81,7 @@ Track progress on [GitHub Issues](https://github.com/Varnasr/JanVayu/issues) and
 
 ## Phase 7: Accessibility & i18n (Q2-Q3 2026)
 
-**Issues:** [#4](https://github.com/Varnasr/JanVayu/issues/4), [#1](https://github.com/Varnasr/JanVayu/issues/1)
+**Issues:** [#4](https://github.com/JanVayu/JanVayu/issues/4), [#1](https://github.com/JanVayu/JanVayu/issues/1)
 
 - [ ] WCAG 2.1 AA compliance
 - [ ] Complete data-i18n coverage
@@ -91,7 +91,7 @@ Track progress on [GitHub Issues](https://github.com/Varnasr/JanVayu/issues) and
 
 ## Phase 8: Data Expansion & CI (Q3 2026)
 
-**Issues:** [#2](https://github.com/Varnasr/JanVayu/issues/2), [#5](https://github.com/Varnasr/JanVayu/issues/5)
+**Issues:** [#2](https://github.com/JanVayu/JanVayu/issues/2), [#5](https://github.com/JanVayu/JanVayu/issues/5)
 
 - [ ] Expand to 100+ CPCB cities
 - [ ] Lighthouse CI on PRs
