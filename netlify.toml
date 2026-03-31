@@ -30,7 +30,17 @@
   to = "/sitemap.xml"
   status = 200
 
-# Serve Docsify docs site directly (not caught by SPA fallback)
+# Serve Docsify docs site — explicit /docs and /docs/ rules
+[[redirects]]
+  from = "/docs"
+  to = "/docs/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/docs/"
+  to = "/docs/index.html"
+  status = 200
+
 [[redirects]]
   from = "/docs/*"
   to = "/docs/:splat"
