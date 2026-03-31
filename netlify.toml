@@ -30,21 +30,24 @@
   to = "/sitemap.xml"
   status = 200
 
-# Serve Docsify docs site — explicit /docs and /docs/ rules
+# Serve Docsify docs site (force = true to override SPA fallback)
 [[redirects]]
   from = "/docs"
   to = "/docs/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/docs/"
   to = "/docs/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/docs/*"
   to = "/docs/:splat"
   status = 200
+  force = true
 
 # SPA fallback — must come AFTER specific file rules
 [[redirects]]
