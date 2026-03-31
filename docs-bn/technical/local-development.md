@@ -13,7 +13,7 @@
 
 ```bash
 # 1. রিপোজিটরি ক্লোন করুন
-git clone https://github.com/Varnasr/JanVayu.git
+git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
 # 2. ডিপেন্ডেন্সি ইনস্টল করুন
@@ -109,7 +109,7 @@ docs(readme): update setup instructions
 ## ব্রাঞ্চ কৌশল
 
 | ব্রাঞ্চ | উদ্দেশ্য |
-|--------|---------|
+|--------|----------|
 | `main` | প্রোডাকশন — [www.janvayu.in](https://www.janvayu.in)-এ স্বয়ংক্রিয়ভাবে ডিপ্লয় |
 | `feature/*` | নতুন ফিচার বা বিষয়বস্তু সংযোজন |
 | `fix/*` | বাগ ফিক্স |
