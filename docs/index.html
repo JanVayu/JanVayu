@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JanVayu Documentation</title>
+  <meta name="description" content="JanVayu - India's Citizen Air Quality Platform. Documentation for developers, contributors, and users.">
+  <meta property="og:title" content="JanVayu Documentation">
+  <meta property="og:description" content="Documentation for India's citizen-led air quality accountability platform.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="https://www.janvayu.in/favicon.svg" type="image/svg+xml">
+
+  <!-- Docsify Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.min.css">
+
+  <!-- Custom Styles -->
+  <style>
+    :root {
+      /* Brand colors matching janvayu.in */
+      --theme-color: #16A34A;
+      --theme-color-secondary: #22C55E;
+
+      /* Sidebar */
+      --sidebar-width: 280px;
+      --sidebar-background: #fafbfc;
+      --sidebar-border-color: #e8ecf0;
+      --sidebar-name-color: #1a3a2a;
+      --sidebar-name-font-size: 1.35rem;
+      --sidebar-name-font-weight: 700;
+      --sidebar-nav-link-color: #364153;
+      --sidebar-nav-link-color--active: #16A34A;
+      --sidebar-nav-link-font-weight--active: 600;
+      --sidebar-nav-strong-color: #1a3a2a;
+      --sidebar-nav-strong-font-size: 0.85rem;
+      --sidebar-nav-strong-font-weight: 700;
+      --sidebar-nav-strong-margin: 1.5em 0 0.5em 0;
+      --sidebar-nav-strong-text-transform: uppercase;
+
+      /* Content */
+      --content-max-width: 860px;
+      --base-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --base-font-size: 16px;
+      --base-line-height: 1.7;
+      --base-color: #1a1a2e;
+      --heading-color: #1a3a2a;
+
+      /* Links */
+      --link-color: #16A34A;
+      --link-color--hover: #15803d;
+
+      /* Code */
+      --code-font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      --code-inline-background: #f0fdf4;
+      --code-inline-color: #166534;
+      --code-block-border-radius: 8px;
+
+      /* Cover */
+      --cover-background-color: linear-gradient(135deg, #1a3a2a 0%, #16A34A 100%);
+      --cover-color: #fff;
+
+      /* Blockquote */
+      --blockquote-border-color: #16A34A;
+      --blockquote-background: #f0fdf4;
+
+      /* Notice / Tip / Warning */
+      --notice-tip-border-color: #16A34A;
+
+      /* Search */
+      --search-background: #fff;
+      --search-input-border-color: #e8ecf0;
+      --search-result-keyword-color: #16A34A;
+    }
+
+    /* Dark mode */
+    body[data-theme="dark"] {
+      --sidebar-background: #0f1419;
+      --sidebar-border-color: #2d3748;
+      --sidebar-name-color: #86EFAC;
+      --sidebar-nav-link-color: #d1d5db;
+      --sidebar-nav-link-color--active: #86EFAC;
+      --sidebar-nav-strong-color: #86EFAC;
+      --base-color: #e2e8f0;
+      --heading-color: #86EFAC;
+      --code-inline-background: #1a2e23;
+      --code-inline-color: #86EFAC;
+      --blockquote-background: #1a2e23;
+      --content-max-width: 860px;
+    }
+
+    /* App name styling */
+    .app-name-link img {
+      max-width: 36px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    /* Language selector */
+    .lang-selector {
+      padding: 8px 16px;
+      border-top: 1px solid var(--sidebar-border-color);
+      margin-top: auto;
+      font-size: 0.85rem;
+    }
+
+    .lang-selector a {
+      display: inline-block;
+      padding: 3px 8px;
+      margin: 2px;
+      border-radius: 4px;
+      color: var(--sidebar-nav-link-color);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .lang-selector a:hover,
+    .lang-selector a.active {
+      background: var(--theme-color);
+      color: #fff;
+    }
+
+    /* Footer in sidebar */
+    .sidebar-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--sidebar-border-color);
+      font-size: 0.75rem;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    .sidebar-footer a {
+      color: var(--theme-color);
+      text-decoration: none;
+    }
+
+    /* Better table styling */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+    }
+
+    table th {
+      background: #f0fdf4;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid #e5e7eb;
+    }
+
+    table td {
+      padding: 10px 14px;
+      border: 1px solid #e5e7eb;
+    }
+
+    table tr:nth-child(even) {
+      background: #fafbfc;
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Better code blocks */
+    .markdown-section pre {
+      border-radius: 8px;
+      padding: 1em;
+    }
+
+    /* Badge-like tags */
+    .markdown-section code {
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    /* Cover page tweaks */
+    section.cover {
+      background: linear-gradient(135deg, #1a3a2a 0%, #16A34A 100%) !important;
+    }
+
+    section.cover .cover-main > p:last-child a {
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-weight: 600;
+    }
+
+    /* Dark mode toggle button */
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    body[data-theme="dark"] .dark-mode-toggle {
+      background: #1a2e23;
+      border-color: #2d3748;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">Loading...</div>
+
+  <!-- Dark mode toggle -->
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+    <span id="dark-mode-icon">🌙</span>
+  </button>
+
+  <script>
+    // Dark mode
+    function toggleDarkMode() {
+      const body = document.body;
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      body.setAttribute('data-theme', isDark ? '' : 'dark');
+      document.getElementById('dark-mode-icon').textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('docsify-dark-mode', isDark ? 'light' : 'dark');
+    }
+
+    // Restore preference
+    if (localStorage.getItem('docsify-dark-mode') === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+      document.addEventListener('DOMContentLoaded', () => {
+        const icon = document.getElementById('dark-mode-icon');
+        if (icon) icon.textContent = '☀️';
+      });
+    }
+  </script>
+
+  <script>
+    window.$docsify = {
+      name: '<img src="https://www.janvayu.in/favicon.svg" alt="JanVayu"> JanVayu',
+      nameLink: '/',
+      repo: 'JanVayu/JanVayu',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      search: {
+        placeholder: 'Search docs...',
+        noData: 'No results found.',
+        depth: 4,
+        pathNamespaces: ['/hi', '/bn', '/mr', '/ta']
+      },
+      alias: {
+        // Language routing — map /hi/*, /bn/*, etc. to language directories
+        '/hi/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/$1',
+        '/hi/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/README.md',
+        '/hi/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/_sidebar.md',
+        '/bn/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/$1',
+        '/bn/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/README.md',
+        '/bn/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/_sidebar.md',
+        '/mr/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/$1',
+        '/mr/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/README.md',
+        '/mr/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/_sidebar.md',
+        '/ta/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/$1',
+        '/ta/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/README.md',
+        '/ta/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/_sidebar.md'
+      },
+      pagination: {
+        previousText: 'Previous',
+        nextText: 'Next',
+        crossChapter: true
+      },
+      copyCode: {
+        buttonText: 'Copy',
+        successText: 'Copied'
+      },
+      tabs: {
+        persist: true,
+        sync: true
+      },
+      footer: {
+        copy: '<span>JanVayu &copy; 2026 | <a href="https://www.janvayu.in" target="_blank">janvayu.in</a> | MIT + CC BY-NC-SA 4.0</span>',
+        pre: '<hr>',
+        style: 'text-align: center; font-size: 0.8rem; color: #9ca3af; padding: 1em 0;'
+      }
+    };
+  </script>
+
+  <!-- Docsify core -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+  <!-- Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+
+  <!-- Syntax highlighting -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-toml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+
+  <!-- Footer plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-footer-enh@1/dist/docsify-footer-enh.min.js"></script>
+</body>
+</html>
