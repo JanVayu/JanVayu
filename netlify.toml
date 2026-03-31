@@ -30,6 +30,12 @@
   to = "/sitemap.xml"
   status = 200
 
+# Serve Docsify docs site directly (not caught by SPA fallback)
+[[redirects]]
+  from = "/docs/*"
+  to = "/docs/:splat"
+  status = 200
+
 # SPA fallback — must come AFTER specific file rules
 [[redirects]]
   from = "/*"
