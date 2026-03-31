@@ -135,8 +135,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - N/A (initial release)
 
-[v25.3.0]: https://github.com/Varnasr/JanVayu/compare/v25.2.0...v25.3.0
-[v25.2.0]: https://github.com/Varnasr/JanVayu/compare/v25.1.0...v25.2.0
-[v25.1.0]: https://github.com/Varnasr/JanVayu/compare/v25.0.0...v25.1.0
-[v25.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v25.0.0
-[v24.0.0]: https://github.com/Varnasr/JanVayu/releases/tag/v24.0.0
+[v25.3.0]: https://github.com/JanVayu/JanVayu/compare/v25.2.0...v25.3.0
+[v25.2.0]: https://github.com/JanVayu/JanVayu/compare/v25.1.0...v25.2.0
+[v25.1.0]: https://github.com/JanVayu/JanVayu/compare/v25.0.0...v25.1.0
+[v25.0.0]: https://github.com/JanVayu/JanVayu/releases/tag/v25.0.0
+[v24.0.0]: https://github.com/JanVayu/JanVayu/releases/tag/v24.0.0
