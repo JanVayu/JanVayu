@@ -30,7 +30,7 @@ JanVayu runs entirely on Netlify's platform with GitHub as the source of truth. 
 Applied to all responses:
 
 | Header | Value | Purpose |
-|--------|-------|---------|
+|--------|-------|--------|
 | `X-Frame-Options` | `DENY` | Prevents clickjacking |
 | `X-Content-Type-Options` | `nosniff` | Prevents MIME sniffing |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Limits referrer data |
@@ -47,7 +47,7 @@ Applied to all responses:
 
 ### Repository
 
-- **Repo:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+- **Repo:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 - **Default branch:** `main`
 - **Branch protection:** Auto-deploy on merge
 
@@ -59,7 +59,7 @@ Applied to all responses:
 ### Git Hooks (`.githooks/`)
 
 | Hook | Purpose |
-|------|---------|
+|------|--------|
 | `pre-commit` | Blocks `.env` files, checks for `console.log` debug statements, detects merge conflict markers, warns on files > 500 KB |
 | `commit-msg` | Enforces commit message prefixes: `Add`, `Fix`, `Update`, `Translate`, `Docs`, `Refactor`, `Test`, `CI`, `Chore`, `Merge` |
 

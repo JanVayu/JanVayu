@@ -58,7 +58,7 @@ git commit -m "feat(dashboard): add PM10 toggle to city cards"
 git push origin feature/your-feature-name
 ```
 
-Open your PR against the `main` branch on [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu).
+Open your PR against the `main` branch on [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu).
 
 ---
 
@@ -95,6 +95,6 @@ Before submitting a PR, verify:
 
 ## Questions?
 
-- **Bugs:** [Open an Issue](https://github.com/Varnasr/JanVayu/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/Varnasr/JanVayu/discussions)
+- **Bugs:** [Open an Issue](https://github.com/JanVayu/JanVayu/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/JanVayu/JanVayu/discussions)
 - **Email:** [contribute@janvayu.in](mailto:contribute@janvayu.in)

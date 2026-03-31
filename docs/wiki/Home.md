@@ -2,7 +2,7 @@
 
 Welcome to the JanVayu technical wiki — the comprehensive documentation for India's citizen-led air quality monitoring platform.
 
-**Website:** [janvayu.in](https://www.janvayu.in) · **Repository:** [GitHub](https://github.com/Varnasr/JanVayu) · **Contact:** contribute@janvayu.in
+**Website:** [janvayu.in](https://www.janvayu.in) · **Repository:** [GitHub](https://github.com/JanVayu/JanVayu) · **Contact:** contribute@janvayu.in
 
 ---
 
