@@ -109,7 +109,7 @@ docs(readme): update setup instructions
 ## शाखा धोरण
 
 | शाखा | उद्देश |
-|--------|--------|
+|--------|----------|
 | `main` | उत्पादन — [www.janvayu.in](https://www.janvayu.in) वर ऑटो-डिप्लॉय |
 | `feature/*` | नवीन वैशिष्ट्ये किंवा सामग्री भर |
 | `fix/*` | बग फिक्सेस |
