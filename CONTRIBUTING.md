@@ -41,7 +41,7 @@ Thank you for your interest in contributing to JanVayu! This citizen-led archive
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/Varnasr/JanVayu.git
+   git clone https://github.com/JanVayu/JanVayu.git
    cd JanVayu
    ```
 
@@ -198,8 +198,8 @@ Key principles:
 
 ## Questions?
 
-- **General questions:** Open a [Discussion](https://github.com/Varnasr/JanVayu/discussions)
-- **Bug reports:** Open an [Issue](https://github.com/Varnasr/JanVayu/issues)
+- **General questions:** Open a [Discussion](https://github.com/JanVayu/JanVayu/discussions)
+- **Bug reports:** Open an [Issue](https://github.com/JanVayu/JanVayu/issues)
 - **Direct contact:** [contribute@janvayu.in](mailto:contribute@janvayu.in)
 
 ---
