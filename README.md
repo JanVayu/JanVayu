@@ -6,8 +6,8 @@
 [![Website](https://img.shields.io/badge/Website-janvayu.in-7C3AED)](https://www.janvayu.in)
 [![License: MIT](https://img.shields.io/badge/Code-MIT-green.svg)](LICENSE)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/Content-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![GitHub Issues](https://img.shields.io/github/issues/Varnasr/JanVayu)](https://github.com/Varnasr/JanVayu/issues)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/Varnasr/JanVayu)](https://github.com/Varnasr/JanVayu/commits/main)
+[![GitHub Issues](https://img.shields.io/github/issues/JanVayu/JanVayu)](https://github.com/JanVayu/JanVayu/issues)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/JanVayu/JanVayu)](https://github.com/JanVayu/JanVayu/commits/main)
 
 ---
 
@@ -109,7 +109,7 @@ JanVayu is designed as a lightweight, zero-framework architecture with server-si
 ## Auto-Updating Schedule
 
 | Task | Frequency | Mechanism |
-|------|-----------|-----------|
+|------|-----------|----------|
 | Social/news feed refresh | Every 4 hours | `scheduled-fetch.mjs` (Netlify Scheduled Function) |
 | Daily AQI email digest | Daily at 8:00 AM IST | `daily-digest.mjs` (Netlify Scheduled Function) |
 | Live AQI dashboard refresh | Every 10 minutes | Client-side JavaScript (WAQI API) |
@@ -150,7 +150,7 @@ JanVayu/
 ## Technical Stack
 
 | Layer | Technology | Purpose |
-|-------|-----------|---------|
+|-------|-----------|--------|
 | Frontend | Vanilla HTML / CSS / JavaScript | Zero-dependency single-page application |
 | Charts | Chart.js | AQI trends and health data visualizations |
 | Maps | Leaflet.js + OpenStreetMap | Interactive AQI station maps |
@@ -191,7 +191,7 @@ The following environment variables must be configured in the Netlify dashboard 
 
 ```bash
 # Clone the repository
-git clone https://github.com/Varnasr/JanVayu.git
+git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
 # Install dependencies
@@ -288,7 +288,7 @@ See [LICENSE](LICENSE) for details.
 
 * **Email:** [contribute@janvayu.in](mailto:contribute@janvayu.in)
 * **Website:** [https://www.janvayu.in](https://www.janvayu.in)
-* **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+* **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 
@@ -297,7 +297,7 @@ See [LICENSE](LICENSE) for details.
 JanVayu is a public interest project. If you wish to support:
 
 * **Contribute data or expertise** — see Contributing above
-* **Report issues** — [Open an issue](https://github.com/Varnasr/JanVayu/issues)
+* **Report issues** — [Open an issue](https://github.com/JanVayu/JanVayu/issues)
 * **Spread awareness** — Share the website
 
 ---
