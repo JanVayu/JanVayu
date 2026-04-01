@@ -3,7 +3,7 @@
 **JanVayu** (जनवायु — "लोकांची हवा") हे भारताचे स्वतंत्र, नागरिकांनी चालवलेले हवा गुणवत्ता उत्तरदायित्व व्यासपीठ आहे. हे 30+ शहरांचा प्रदूषण डेटा रिअल-टाइम ट्रॅक करते, आरोग्यावरील परिणाम मोजते, NCAP बजेट खर्चावर लक्ष ठेवते आणि सरकारला जबाबदार धरते.
 
 > **लाइव्ह व्यासपीठ:** [www.janvayu.in](https://www.janvayu.in)
-> **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+> **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 
