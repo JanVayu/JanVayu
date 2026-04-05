@@ -7,6 +7,21 @@ on:
     branches: [main]
 
 jobs:
+  # Guard against accidental deletion/emptying of the main app file
+  guard-index-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify index.html is not empty or gutted
+        run: |
+          LINES=$(wc -l < index.html)
+          echo "index.html has $LINES lines"
+          if [ "$LINES" -lt 100 ]; then
+            echo "::error::index.html has only $LINES lines (expected ~13,000). This would take down www.janvayu.in!"
+            exit 1
+          fi
+
   check-links:
     runs-on: ubuntu-latest
     steps:
