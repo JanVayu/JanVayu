@@ -51,7 +51,20 @@ if [ -n "$STAGED_FILES" ]; then
   done <<< "$STAGED_FILES"
 fi
 
-# 4. Warn on large files (> 500KB)
+# 4. Block commits that empty or gut index.html (the entire app)
+if echo "$STAGED_FILES" | grep -q '^index\.html$'; then
+  if [ -f "index.html" ]; then
+    LINES=$(git diff --cached --diff-filter=ACMR -- index.html | grep -c '^\-' || true)
+    REMAINING=$(git show :index.html | wc -l)
+    if [ "$REMAINING" -lt 100 ]; then
+      echo -e "${RED}BLOCKED:${NC} index.html has been reduced to $REMAINING lines (the full app is ~13,000 lines)."
+      echo "This would take down www.janvayu.in. If intentional, use: git commit --no-verify"
+      exit 1
+    fi
+  fi
+fi
+
+# 5. Warn on large files (> 500KB)
 while IFS= read -r file; do
   if [ -f "$file" ]; then
     SIZE=$(wc -c < "$file")
