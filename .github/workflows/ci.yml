@@ -11,7 +11,7 @@ jobs:
   guard-index-html:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Verify index.html is not empty or gutted
         run: |
@@ -25,7 +25,7 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Check links
         uses: lycheeverse/lychee-action@v2
