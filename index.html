@@ -1801,6 +1801,17 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     transition: opacity 0.15s; align-self: flex-start;
 }
 .widget-submit-btn:hover { opacity: 0.9; }
+/* Ask AI tab */
+.widget-ai { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.widget-ai-city { padding: 8px 10px; font-family: var(--sans); font-size: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body); color: var(--ink); }
+.widget-ai-input { width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 0.875rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body); color: var(--ink); outline: none; resize: none; min-height: 60px; }
+.widget-ai-input:focus { border-color: var(--accent); }
+.widget-ai-input::placeholder { color: var(--text-4); }
+.widget-ai-response { flex: 1; overflow-y: auto; font-family: var(--sans); font-size: 0.85rem; line-height: 1.6; color: var(--text-2); padding: 10px; background: var(--bg-body); border-radius: 8px; border: 1px solid var(--border-light); min-height: 80px; }
+.widget-ai-response.loading { color: var(--text-4); }
+.widget-ai-meta { font-size: 0.7rem; color: var(--text-4); }
+.widget-ai-actions { display: flex; gap: 8px; align-items: center; }
+
 .widget-success {
     display: none; padding: 24px 16px; text-align: center;
     font-family: var(--sans); font-size: 0.9375rem; color: var(--accent);
@@ -2123,13 +2134,35 @@ body.simple-language .section-intro [data-simple]::after {
         right: 0;
         min-width: 100%;
         border-radius: 16px 16px 0 0;
-        max-height: 60vh;
+        max-height: 70vh;
         overflow-y: auto;
         z-index: 10001;
+        padding: 8px 0 env(safe-area-inset-bottom, 16px);
+        box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
+    }
+    .role-switcher-dropdown::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        margin: 4px auto 8px;
     }
     .role-switcher-dropdown.open ~ .role-hint { display: none; }
-    .role-switcher-option { padding: 12px 16px; font-size: 0.88rem; }
+    .role-switcher-option { padding: 14px 20px; font-size: 0.9rem; }
 }
+/* Backdrop for mobile role switcher */
+.role-switcher-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 10000;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+.role-switcher-backdrop.open { display: block; }
 .role-switcher-option {
     display: flex; align-items: center; gap: 8px;
     width: 100%; padding: 8px 12px; border: none;
@@ -2506,6 +2539,7 @@ body {
             </div>
         </div>
     </header>
+    <div class="role-switcher-backdrop" id="roleSwitcherBackdrop" onclick="closeRoleSwitcher()"></div>
 
     <!-- GLOSSARY OVERLAY (Cmd+K) -->
     <div class="glossary-overlay" id="glossaryOverlay" onclick="if(event.target===this)closeGlossaryOverlay()">
@@ -5488,12 +5522,46 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     });
 
     function switchWidgetTab(tab) {
+        const tabs = ['search', 'askai', 'feedback'];
         document.querySelectorAll('.widget-tab').forEach((t, i) => {
-            t.classList.toggle('active', (tab === 'search' && i === 0) || (tab === 'feedback' && i === 1));
+            t.classList.toggle('active', tab === tabs[i]);
         });
-        document.getElementById('widgetSearch').classList.toggle('active', tab === 'search');
-        document.getElementById('widgetFeedback').classList.toggle('active', tab === 'feedback');
+        tabs.forEach(t => {
+            const panel = document.getElementById('widget' + t.charAt(0).toUpperCase() + t.slice(1));
+            if (panel) panel.classList.toggle('active', tab === t);
+        });
         if (tab === 'search') setTimeout(() => document.getElementById('widgetSearchInput').focus(), 50);
+        if (tab === 'askai') setTimeout(() => document.getElementById('widgetAiQuestion').focus(), 50);
+    }
+
+    async function widgetAskAI() {
+        const city = document.getElementById('widgetAiCity').value;
+        const question = document.getElementById('widgetAiQuestion').value.trim();
+        const responseEl = document.getElementById('widgetAiResponse');
+        const metaEl = document.getElementById('widgetAiMeta');
+        const btn = document.getElementById('widgetAiBtn');
+        if (!question) { responseEl.textContent = 'Please type a question.'; return; }
+        btn.disabled = true; btn.textContent = '...';
+        responseEl.textContent = 'Thinking...'; responseEl.classList.add('loading');
+        metaEl.textContent = '';
+        try {
+            const res = await fetch('/.netlify/functions/air-query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, city }),
+            });
+            const data = await res.json();
+            responseEl.classList.remove('loading');
+            responseEl.textContent = data.answer || 'No response received.';
+            if (data.dataUsed) {
+                metaEl.textContent = data.dataUsed.city + ' — AQI: ' + data.dataUsed.aqi + ', PM2.5: ' + (data.dataUsed.pm25 ?? 'N/A') + ' µg/m³';
+            }
+        } catch (e) {
+            responseEl.classList.remove('loading');
+            responseEl.textContent = 'Something went wrong. Please try again.';
+        } finally {
+            btn.disabled = false; btn.textContent = 'Ask';
+        }
     }
 
     function handleWidgetSearch(query) {
@@ -11038,7 +11106,9 @@ Signature: _______________</div>
                     &bull; <strong>Wiki &amp; Discussions:</strong> 7 wiki pages published, 6 seed discussions created, issue #35 closed<br>
                     &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer<br>
                     &bull; <strong>Mobile header decluttered:</strong> GitHub, Docs, Simple mode icons hidden on mobile (accessible via hamburger menu); language button changed from text to globe icon<br>
-                    &bull; <strong>Hero updated:</strong> Featured alert now shows April 2026 IQAir data instead of March
+                    &bull; <strong>Hero updated:</strong> Featured alert now shows April 2026 IQAir data instead of March<br>
+                    &bull; <strong>Ask AI in FAB:</strong> Ask JanVayu AI integrated into the green floating action button as a third tab (Search / Ask AI / Feedback); Enter key submits<br>
+                    &bull; <strong>Role switcher mobile:</strong> Opens as proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
                 </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
@@ -12313,6 +12383,7 @@ Signature: _______________</div>
 <div class="widget-modal" id="widgetModal">
     <div class="widget-tabs">
         <button class="widget-tab active" onclick="switchWidgetTab('search')">Search</button>
+        <button class="widget-tab" onclick="switchWidgetTab('askai')">Ask AI</button>
         <button class="widget-tab" onclick="switchWidgetTab('feedback')">Feedback</button>
     </div>
 
@@ -12337,6 +12408,32 @@ Signature: _______________</div>
                     <button class="widget-result" onclick="widgetNav('resources')" style="flex: 0 0 auto; padding: 6px 12px; font-size: 0.75rem;">Library</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ASK AI PANEL -->
+    <div class="widget-panel" id="widgetAskai">
+        <div class="widget-ai">
+            <div class="widget-ai-actions">
+                <select class="widget-ai-city" id="widgetAiCity">
+                    <option value="delhi">Delhi</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="kolkata">Kolkata</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="bangalore">Bengaluru</option>
+                    <option value="hyderabad">Hyderabad</option>
+                    <option value="lucknow">Lucknow</option>
+                    <option value="patna">Patna</option>
+                    <option value="jaipur">Jaipur</option>
+                    <option value="pune">Pune</option>
+                </select>
+                <button class="widget-submit-btn" onclick="widgetAskAI()" id="widgetAiBtn" style="flex-shrink:0;">Ask</button>
+            </div>
+            <textarea class="widget-ai-input" id="widgetAiQuestion" placeholder="Ask about air quality... e.g. &quot;Is it safe to go outside in Delhi today?&quot;" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();widgetAskAI();}"></textarea>
+            <div class="widget-ai-response" id="widgetAiResponse">
+                <div style="color: var(--text-4); font-size: 0.8rem;">Ask any question about air quality in your city. Answers are grounded in live AQI data.</div>
+            </div>
+            <div class="widget-ai-meta" id="widgetAiMeta"></div>
         </div>
     </div>
 
@@ -12839,26 +12936,32 @@ function updateRoleSwitcher(role) {
 
 function toggleRoleSwitcher() {
     const dropdown = document.getElementById('roleSwitcherDropdown');
-    dropdown.classList.toggle('open');
-    // Close on outside click
-    if (dropdown.classList.contains('open')) {
+    const backdrop = document.getElementById('roleSwitcherBackdrop');
+    const isOpen = dropdown.classList.toggle('open');
+    if (backdrop) backdrop.classList.toggle('open', isOpen);
+    if (isOpen) {
         setTimeout(() => {
             document.addEventListener('click', closeRoleSwitcherOnOutsideClick);
         }, 10);
     }
 }
 
+function closeRoleSwitcher() {
+    document.getElementById('roleSwitcherDropdown').classList.remove('open');
+    const backdrop = document.getElementById('roleSwitcherBackdrop');
+    if (backdrop) backdrop.classList.remove('open');
+    document.removeEventListener('click', closeRoleSwitcherOnOutsideClick);
+}
+
 function closeRoleSwitcherOnOutsideClick(e) {
     const switcher = document.getElementById('roleSwitcher');
     if (!switcher.contains(e.target)) {
-        document.getElementById('roleSwitcherDropdown').classList.remove('open');
-        document.removeEventListener('click', closeRoleSwitcherOnOutsideClick);
+        closeRoleSwitcher();
     }
 }
 
 function switchRole(role) {
-    document.getElementById('roleSwitcherDropdown').classList.remove('open');
-    document.removeEventListener('click', closeRoleSwitcherOnOutsideClick);
+    closeRoleSwitcher();
 
     if (role === 'skip') {
         sessionStorage.setItem('janvayu-role', 'skip');
