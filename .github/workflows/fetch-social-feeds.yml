@@ -1,12 +1,9 @@
 name: Fetch AQI Social Media Feeds (Agent-Reach)
 
 on:
-  # PAUSED: Schedule disabled to stop burning Netlify credits.
-  # This workflow was running every 2 hours (12x/day), consuming
-  # build minutes and function invocations. See issue for details.
-  # schedule:
-  #   - cron: '0 */2 * * *'  # Every 2 hours
-  workflow_dispatch:        # Manual trigger only
+  schedule:
+    - cron: '0 6,14,22 * * *'  # 3x/day (6am, 2pm, 10pm UTC) — reduced from 12x/day
+  workflow_dispatch:            # Manual trigger also available
 
 jobs:
   fetch-feeds:
