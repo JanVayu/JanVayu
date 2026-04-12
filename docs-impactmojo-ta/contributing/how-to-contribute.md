@@ -8,8 +8,8 @@ ImpactMojo திறந்த மூலமாகும். குறியீட
 
 | வகை | எப்படி |
 |------|-----|
-| **பிழை புகாரளிப்பு** | [GitHub Issue](https://github.com/Varnasr/ImpactMojo/issues) திறக்கவும் |
-| **அம்ச கோரிக்கைகள்** | [GitHub Discussion](https://github.com/Varnasr/ImpactMojo/discussions) தொடங்கவும் |
+| **பிழை புகாரளிப்பு** | [GitHub Issue](https://github.com/JanVayu/ImpactMojo/issues) திறக்கவும் |
+| **அம்ச கோரிக்கைகள்** | [GitHub Discussion](https://github.com/JanVayu/ImpactMojo/discussions) தொடங்கவும் |
 | **குறியீடு பங்களிப்புகள்** | Fork → branch → PR (கீழே உள்ள பணிப்போக்கைப் பார்க்கவும்) |
 | **உள்ளடக்க பங்களிப்புகள்** | பாடநெறிகள், வழக்கு ஆய்வுகள், கையேடுகள், DevDiscourses |
 | **மொழிபெயர்ப்புகள்** | [மொழிபெயர்ப்புகள்](translations.md) பார்க்கவும் |
@@ -91,5 +91,5 @@ git push origin feature/your-feature-name
 
 ## தொடர்பு
 
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **மின்னஞ்சல்:** [hello@impactmojo.in](mailto:hello@impactmojo.in)

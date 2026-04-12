@@ -3,8 +3,8 @@
 | Purpose | Contact |
 |---------|---------|
 | General enquiries | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
-| Bug reports | [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) |
-| Feature requests | [GitHub Discussions](https://github.com/Varnasr/ImpactMojo/discussions) |
+| Bug reports | [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) |
+| Feature requests | [GitHub Discussions](https://github.com/JanVayu/ImpactMojo/discussions) |
 | Translation contributions | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 | Security vulnerabilities | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 
@@ -13,7 +13,7 @@
 ## Links
 
 - **Website:** [www.impactmojo.in](https://www.impactmojo.in)
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **GitBook Docs:** [impactmojo.gitbook.io/impactmojo](https://impactmojo.gitbook.io/impactmojo/)
 - **WhatsApp PLC:** Available to registered users
 

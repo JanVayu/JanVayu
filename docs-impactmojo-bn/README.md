@@ -3,7 +3,7 @@
 **ImpactMojo** হল দক্ষিণ এশিয়ায় আন্তর্জাতিক উন্নয়ন, সামাজিক প্রভাব এবং জননীতি নিয়ে কাজ করা মানুষদের জন্য একটি বিনামূল্যের শিক্ষা প্ল্যাটফর্ম। এটি কোর্স, গেম, ল্যাব, হ্যান্ডআউট, কেস স্টাডি এবং ডেটা টুল সরবরাহ করে — সব কিছু পেওয়াল বা লগইন প্রয়োজনীয়তা ছাড়াই।
 
 > **লাইভ প্ল্যাটফর্ম:** [www.impactmojo.in](https://www.impactmojo.in)
-> **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+> **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 
 ---
 

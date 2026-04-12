@@ -3,7 +3,7 @@
 **ImpactMojo** என்பது தென்னாசியா முழுவதும் சர்வதேச வளர்ச்சி, சமூக தாக்கம் மற்றும் பொதுக் கொள்கை துறைகளில் பணிபுரிபவர்களுக்கான இலவச கற்றல் தளமாகும். இது பாடநெறிகள், விளையாட்டுகள், ஆய்வகங்கள், கையேடுகள், வழக்கு ஆய்வுகள் மற்றும் தரவு கருவிகள் — அனைத்தையும் பணச்சுவர் அல்லது உள்நுழைவு தேவையின்றி வழங்குகிறது.
 
 > **நேரடி தளம்:** [www.impactmojo.in](https://www.impactmojo.in)
-> **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+> **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 
 ---
 

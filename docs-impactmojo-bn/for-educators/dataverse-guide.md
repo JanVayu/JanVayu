@@ -74,4 +74,4 @@ Dataverse অনুশীলনকারী, গবেষক এবং ছাত
 
 ## ডেটা অবদান
 
-আপনি যদি Dataverse-এ তালিকাভুক্ত নয় এমন কোনো উন্নয়ন ডেটাসেট রক্ষণাবেক্ষণ করেন বা জানেন, [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) বা ইমেইল [hello@impactmojo.in](mailto:hello@impactmojo.in)-এর মাধ্যমে জমা দিন।
+আপনি যদি Dataverse-এ তালিকাভুক্ত নয় এমন কোনো উন্নয়ন ডেটাসেট রক্ষণাবেক্ষণ করেন বা জানেন, [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) বা ইমেইল [hello@impactmojo.in](mailto:hello@impactmojo.in)-এর মাধ্যমে জমা দিন।

@@ -8,8 +8,8 @@ ImpactMojo ओपन सोर्स है। हम कोड, सामग्
 
 | प्रकार | कैसे |
 |------|-----|
-| **बग रिपोर्ट** | [GitHub Issue](https://github.com/Varnasr/ImpactMojo/issues) खोलें |
-| **फ़ीचर अनुरोध** | [GitHub Discussion](https://github.com/Varnasr/ImpactMojo/discussions) शुरू करें |
+| **बग रिपोर्ट** | [GitHub Issue](https://github.com/JanVayu/ImpactMojo/issues) खोलें |
+| **फ़ीचर अनुरोध** | [GitHub Discussion](https://github.com/JanVayu/ImpactMojo/discussions) शुरू करें |
 | **कोड योगदान** | Fork → branch → PR (नीचे कार्यप्रवाह देखें) |
 | **सामग्री योगदान** | पाठ्यक्रम, केस स्टडी, हैंडआउट, DevDiscourses |
 | **अनुवाद** | [अनुवाद](translations.md) देखें |
@@ -91,5 +91,5 @@ git push origin feature/your-feature-name
 
 ## संपर्क
 
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **ईमेल:** [hello@impactmojo.in](mailto:hello@impactmojo.in)

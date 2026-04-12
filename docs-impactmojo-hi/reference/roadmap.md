@@ -85,7 +85,7 @@ Resend के माध्यम से इन-ऐप अलर्ट और ई
 
 ## फ़ीचर सुझाव
 
-- [GitHub Discussion](https://github.com/Varnasr/ImpactMojo/discussions) खोलें
+- [GitHub Discussion](https://github.com/JanVayu/ImpactMojo/discussions) खोलें
 - [hello@impactmojo.in](mailto:hello@impactmojo.in) पर ईमेल करें
 
 फ़ीचर सुझाव देते समय, किसी विशिष्ट समाधान के बजाय **जिस समस्या को आप हल करना चाहते हैं उसका वर्णन करें**।

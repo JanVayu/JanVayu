@@ -3,7 +3,7 @@ name: Feature Request
 about: Suggest a new feature
 title: "[FEATURE] "
 labels: enhancement
-assignees: Varnasr, JanVayu
+assignees: ''
 ---
 
 ## Description

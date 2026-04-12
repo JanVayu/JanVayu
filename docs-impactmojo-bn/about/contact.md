@@ -3,8 +3,8 @@
 | উদ্দেশ্য | যোগাযোগ |
 |---------|---------|
 | সাধারণ জিজ্ঞাসা | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
-| বাগ রিপোর্ট | [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) |
-| ফিচার অনুরোধ | [GitHub Discussions](https://github.com/Varnasr/ImpactMojo/discussions) |
+| বাগ রিপোর্ট | [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) |
+| ফিচার অনুরোধ | [GitHub Discussions](https://github.com/JanVayu/ImpactMojo/discussions) |
 | অনুবাদ অবদান | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 | নিরাপত্তা দুর্বলতা | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 
@@ -13,7 +13,7 @@
 ## লিংক
 
 - **ওয়েবসাইট:** [www.impactmojo.in](https://www.impactmojo.in)
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **GitBook ডকুমেন্টেশন:** [impactmojo.gitbook.io/impactmojo](https://impactmojo.gitbook.io/impactmojo/)
 - **WhatsApp PLC:** নিবন্ধিত ব্যবহারকারীদের জন্য উপলব্ধ
 

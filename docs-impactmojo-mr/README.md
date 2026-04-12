@@ -3,7 +3,7 @@
 **ImpactMojo** ही दक्षिण आशियातील आंतरराष्ट्रीय विकास, सामाजिक प्रभाव आणि सार्वजनिक धोरण क्षेत्रात काम करणाऱ्या लोकांसाठी एक मोफत शिक्षण व्यासपीठ आहे. यामध्ये अभ्यासक्रम, खेळ, प्रयोगशाळा, हँडआउट्स, केस स्टडीज आणि डेटा साधने उपलब्ध आहेत — कोणताही पेवॉल किंवा लॉगिन आवश्यकता नाही.
 
 > **लाइव्ह व्यासपीठ:** [www.impactmojo.in](https://www.impactmojo.in)
-> **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+> **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 
 ---
 

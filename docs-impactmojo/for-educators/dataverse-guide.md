@@ -74,4 +74,4 @@ Select datasets are available as MCP (Model Context Protocol) servers for integr
 
 ## Contributing Data
 
-If you maintain or know of a development dataset not listed in the Dataverse, submit it via [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) or email [hello@impactmojo.in](mailto:hello@impactmojo.in).
+If you maintain or know of a development dataset not listed in the Dataverse, submit it via [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) or email [hello@impactmojo.in](mailto:hello@impactmojo.in).

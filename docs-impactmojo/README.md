@@ -3,7 +3,7 @@
 **ImpactMojo** is a free learning platform for people working in international development, social impact, and public policy across South Asia. It provides courses, games, labs, handouts, case studies, and data tools — all without paywalls or login requirements.
 
 > **Live platform:** [www.impactmojo.in](https://www.impactmojo.in)
-> **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+> **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 
 ---
 
