@@ -64,6 +64,20 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 
 ---
 
+## Zotero Research Library
+
+JanVayu maintains a public Zotero group library for collaborative bibliography management:
+
+**[zotero.org/groups/6508140/janvayu/library](https://www.zotero.org/groups/6508140/janvayu/library)**
+
+The library contains peer-reviewed papers, reports, and datasets referenced across the platform. Researchers and contributors can use it to:
+
+- Browse all cited sources in one place
+- Export citations in any format (BibTeX, APA, Chicago, etc.)
+- Suggest new papers for inclusion
+
+---
+
 ## Citation and Attribution
 
 JanVayu always links to primary sources. When reproducing data from JanVayu:
