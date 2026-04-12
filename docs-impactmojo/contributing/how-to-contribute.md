@@ -8,8 +8,8 @@ ImpactMojo is open source. We welcome contributions of code, content, translatio
 
 | Type | How |
 |------|-----|
-| **Bug reports** | Open a [GitHub Issue](https://github.com/Varnasr/ImpactMojo/issues) |
-| **Feature requests** | Start a [GitHub Discussion](https://github.com/Varnasr/ImpactMojo/discussions) |
+| **Bug reports** | Open a [GitHub Issue](https://github.com/JanVayu/ImpactMojo/issues) |
+| **Feature requests** | Start a [GitHub Discussion](https://github.com/JanVayu/ImpactMojo/discussions) |
 | **Code contributions** | Fork → branch → PR (see workflow below) |
 | **Content contributions** | Courses, case studies, handouts, DevDiscourses |
 | **Translations** | See [Translations](translations.md) |
@@ -91,5 +91,5 @@ By contributing, you agree that:
 
 ## Contact
 
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **Email:** [hello@impactmojo.in](mailto:hello@impactmojo.in)

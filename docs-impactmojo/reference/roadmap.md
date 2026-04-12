@@ -85,7 +85,7 @@ See [Changelog](changelog.md) for detailed release notes.
 
 ## Suggest a Feature
 
-- Open a [GitHub Discussion](https://github.com/Varnasr/ImpactMojo/discussions)
+- Open a [GitHub Discussion](https://github.com/JanVayu/ImpactMojo/discussions)
 - Email [hello@impactmojo.in](mailto:hello@impactmojo.in)
 
 When suggesting features, describe the **problem you're trying to solve** rather than a specific solution.

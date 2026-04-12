@@ -85,7 +85,7 @@ Resend-এর মাধ্যমে ইন-অ্যাপ সতর্কতা
 
 ## একটি ফিচার প্রস্তাব করুন
 
-- একটি [GitHub Discussion](https://github.com/Varnasr/ImpactMojo/discussions) খুলুন
+- একটি [GitHub Discussion](https://github.com/JanVayu/ImpactMojo/discussions) খুলুন
 - [hello@impactmojo.in](mailto:hello@impactmojo.in)-এ ইমেইল করুন
 
 ফিচার প্রস্তাব করার সময়, নির্দিষ্ট সমাধানের বদলে **আপনি যে সমস্যা সমাধান করতে চাইছেন** তা বর্ণনা করুন।

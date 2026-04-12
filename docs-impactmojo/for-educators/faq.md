@@ -77,7 +77,7 @@ Yes. Code is MIT-licensed. Educational content is CC BY-NC-ND 4.0. See [License]
 See [How to Contribute](../contributing/how-to-contribute.md). You can submit code, content, translations, or ideas via GitHub.
 
 **Where do I report bugs?**
-Open an issue on [GitHub](https://github.com/Varnasr/ImpactMojo/issues) or email [hello@impactmojo.in](mailto:hello@impactmojo.in).
+Open an issue on [GitHub](https://github.com/JanVayu/ImpactMojo/issues) or email [hello@impactmojo.in](mailto:hello@impactmojo.in).
 
 ---
 

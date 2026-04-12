@@ -74,4 +74,4 @@ Dataverse व्यावसायिक, संशोधक आणि विद
 
 ## डेटा योगदान
 
-तुम्ही Dataverse मध्ये सूचीबद्ध नसलेला विकास डेटासेट राखत असाल किंवा तुम्हाला त्याबद्दल माहीत असेल, तर तो [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) द्वारे किंवा [hello@impactmojo.in](mailto:hello@impactmojo.in) वर ईमेल करून सादर करा.
+तुम्ही Dataverse मध्ये सूचीबद्ध नसलेला विकास डेटासेट राखत असाल किंवा तुम्हाला त्याबद्दल माहीत असेल, तर तो [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) द्वारे किंवा [hello@impactmojo.in](mailto:hello@impactmojo.in) वर ईमेल करून सादर करा.

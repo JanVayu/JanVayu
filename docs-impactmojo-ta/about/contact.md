@@ -3,8 +3,8 @@
 | நோக்கம் | தொடர்பு |
 |---------|---------|
 | பொது விசாரணைகள் | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
-| பிழை புகாரளிப்பு | [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) |
-| அம்ச கோரிக்கைகள் | [GitHub Discussions](https://github.com/Varnasr/ImpactMojo/discussions) |
+| பிழை புகாரளிப்பு | [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) |
+| அம்ச கோரிக்கைகள் | [GitHub Discussions](https://github.com/JanVayu/ImpactMojo/discussions) |
 | மொழிபெயர்ப்பு பங்களிப்புகள் | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 | பாதுகாப்பு பாதிப்புகள் | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 
@@ -13,7 +13,7 @@
 ## இணைப்புகள்
 
 - **இணையதளம்:** [www.impactmojo.in](https://www.impactmojo.in)
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **GitBook ஆவணங்கள்:** [impactmojo.gitbook.io/impactmojo](https://impactmojo.gitbook.io/impactmojo/)
 - **WhatsApp PLC:** பதிவு செய்த பயனர்களுக்குக் கிடைக்கும்
 

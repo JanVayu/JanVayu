@@ -3,8 +3,8 @@
 | उद्देश | संपर्क |
 |---------|---------|
 | सामान्य चौकशी | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
-| बग अहवाल | [GitHub Issues](https://github.com/Varnasr/ImpactMojo/issues) |
-| वैशिष्ट्य विनंत्या | [GitHub Discussions](https://github.com/Varnasr/ImpactMojo/discussions) |
+| बग अहवाल | [GitHub Issues](https://github.com/JanVayu/ImpactMojo/issues) |
+| वैशिष्ट्य विनंत्या | [GitHub Discussions](https://github.com/JanVayu/ImpactMojo/discussions) |
 | भाषांतर योगदान | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 | सुरक्षा भेद्यता | [hello@impactmojo.in](mailto:hello@impactmojo.in) |
 
@@ -13,7 +13,7 @@
 ## दुवे
 
 - **वेबसाइट:** [www.impactmojo.in](https://www.impactmojo.in)
-- **GitHub:** [github.com/Varnasr/ImpactMojo](https://github.com/Varnasr/ImpactMojo)
+- **GitHub:** [github.com/JanVayu/ImpactMojo](https://github.com/JanVayu/ImpactMojo)
 - **GitBook दस्तऐवज:** [impactmojo.gitbook.io/impactmojo](https://impactmojo.gitbook.io/impactmojo/)
 - **WhatsApp PLC:** नोंदणीकृत वापरकर्त्यांसाठी उपलब्ध
 
