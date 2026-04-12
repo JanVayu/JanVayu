@@ -47,15 +47,46 @@ AQLI converts PM2.5 exposure into life expectancy terms — how many years of li
 
 ---
 
-## IQAir World Air Quality Report 2024
+## IQAir World Air Quality Report 2025
 
-**Source:** IQAir  
-**URL:** [iqair.com/world-most-polluted-countries](https://www.iqair.com/world-most-polluted-countries)
+**Source:** IQAir (released March 24, 2026)  
+**URL:** [iqair.com/world-air-quality-report](https://www.iqair.com/world-air-quality-report)
+
+The 8th annual report analysed 9,446 cities across 143 countries. Key findings for India:
+
+- **Loni, India** is the most polluted city globally (112.5 µg/m³ — up 23% from 2024, 22× the WHO guideline)
+- Only **14% of global cities** met the WHO annual PM2.5 guideline of 5 µg/m³ (down from 17%)
+- India's average PM2.5: **48.9 µg/m³** (~10× WHO limit)
+- Loss of US State Department embassy monitoring (March 2025) left millions without independent air quality data
 
 Used for:
 - Global city and country rankings
 - Delhi's position as most polluted capital city
-- Byrnihat's position as most polluted city globally
+- Loni's position as most polluted city globally
+
+---
+
+## Lancet Planetary Health — PM2.5 Mortality Studies (2024–2025)
+
+**Source:** The Lancet Planetary Health  
+
+Two landmark studies published in late 2024:
+
+1. **"Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"** — First causal estimate of long-term PM2.5 mortality in India; found 1.5 million additional deaths per year compared to WHO-guideline conditions.  
+   [DOI: 10.1016/S2542-5196(24)00248-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext)
+
+2. **"Ambient air pollution and daily mortality in ten cities of India: a causal modelling study"** — First multi-city study examining short-term PM2.5 exposure and daily mortality using causal methods.  
+   [DOI: 10.1016/S2542-5196(24)00114-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00114-1/fulltext)
+
+---
+
+## Science Advances — PM2.5 Inequality in India (2025)
+
+**Source:** Science Advances  
+**Title:** "Improved daily PM2.5 estimates in India reveal inequalities in recent enhancement of air quality"  
+**URL:** [doi.org/10.1126/sciadv.adq1071](https://www.science.org/doi/10.1126/sciadv.adq1071)
+
+Demonstrates that air quality improvements in India have been unequal — wealthier urban areas have seen gains while poorer regions remain heavily polluted. Emphasises the need for equitable air quality control policies.
 
 ---
 

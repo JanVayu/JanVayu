@@ -49,6 +49,25 @@
   status = 200
   force = true
 
+# Serve Docsify blog site (force = true to override SPA fallback)
+[[redirects]]
+  from = "/blog"
+  to = "/blog/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/"
+  to = "/blog/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/:splat"
+  status = 200
+  force = true
+
 # SPA fallback — must come AFTER specific file rules
 [[redirects]]
   from = "/*"

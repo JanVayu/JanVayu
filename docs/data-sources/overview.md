@@ -25,6 +25,8 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 | [Harvard T.H. Chan School](https://www.hsph.harvard.edu) | Academic | Children's health, cognitive impacts |
 | [WHO Air Quality Guidelines 2021](https://www.who.int/publications/i/item/9789240034228) | Guideline | PM2.5 and PM10 standards |
 | [AQLI (EPIC)](https://aqli.epic.uchicago.edu) | Research | Life expectancy estimates |
+| [Lancet Planetary Health — PM2.5 Mortality (2024)](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext) | Peer-reviewed | Causal PM2.5 mortality estimates for India |
+| [Science Advances — PM2.5 Inequality (2025)](https://www.science.org/doi/10.1126/sciadv.adq1071) | Peer-reviewed | Unequal air quality improvements across India |
 
 ---
 
@@ -57,7 +59,7 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 |--------|---------|
 | [CREA — Tracing the Hazy Air](https://energyandcleanair.org) | City-level source analysis |
 | [CSE — Centre for Science and Environment](https://www.cseindia.org) | Policy analysis, GRAP evaluation |
-| [IQAir World Air Quality Report 2024](https://www.iqair.com/world-most-polluted-countries) | City rankings |
+| [IQAir World Air Quality Report 2025](https://www.iqair.com/world-air-quality-report) | City rankings, global compliance data |
 | [UrbanEmissions.info](https://www.urbanemissions.info) | Emissions inventories (Dr. Sarath Guttikunda) |
 
 ---

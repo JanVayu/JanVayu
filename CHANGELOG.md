@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v25.4.0] - 2026-04-12
+
+### Added — Blog & Research Updates
+
+- **Blog**: New Docsify-powered blog at `/blog/` for data analysis, platform updates, and reflections on India's air quality crisis
+  - Inaugural post: "IQAir 2025: India's Air Got Worse" — analysis of the 8th annual World Air Quality Report
+  - Markdown-based posts, same Docsify theme as docs, dark mode support
+  - Netlify redirects configured for `/blog/` routes
+
+### Changed — Data & Statistics
+
+- **Key Statistics updated to April 2026**: Most polluted city updated from Byrnihat (IQAir 2024) to Loni, India (112.5 ug/m3, IQAir 2025); added global WHO compliance rate (14%), India average PM2.5 (48.9 ug/m3), and life expectancy loss (3.5 years, AQLI 2025)
+- **IQAir 2024 references upgraded to IQAir 2025** across data sources documentation
+- **New research papers added** to data sources:
+  - Lancet Planetary Health — two causal PM2.5 mortality studies for India (difference-in-differences and multi-city causal modelling)
+  - Science Advances — PM2.5 inequality study showing unequal air quality improvements across India
+
+### Fixed
+
+- Updated CITATION.cff date-released to 2026-04-12
+- Synced package.json version to 25.4.0
+- Updated sitemap.xml lastmod date and added `/blog/` URL
+
 ## [v25.3.0] - 2026-03-24
 
 ### Added — Role-Based Landing Page & UX Improvements

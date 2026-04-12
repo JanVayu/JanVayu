@@ -63,6 +63,9 @@
   - [Visual Design](skills/visual-design.md)
   - [Automation](skills/automation.md)
 
+- **Blog**
+  - [JanVayu Blog](/blog/)
+
 - **About**
   - [Project Background](about/background.md)
   - [License](about/license.md)
