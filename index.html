@@ -1823,7 +1823,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .role-overlay {
     position: fixed; inset: 0; z-index: 10000;
     background: var(--bg);
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: flex-start; justify-content: center;
     opacity: 1; transition: opacity 0.4s ease, transform 0.4s ease;
     overflow-y: auto; padding: 2rem 1rem;
 }
@@ -2162,15 +2162,30 @@ body.simple-language .section-intro [data-simple]::after {
 }
 
 @media (max-width: 640px) {
+    .role-overlay { padding: 1rem 0.75rem; align-items: flex-start; }
+    .role-overlay-inner { padding-top: 0.5rem; }
+    .role-overlay-logo-icon svg { width: 56px; height: 56px; }
+    .role-overlay-logo { font-size: 1.4rem; margin-bottom: 0.15rem; }
+    .role-overlay-logo-sub { font-size: 0.65rem; margin-bottom: 0.75rem; }
+    .role-overlay h2 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+    .role-overlay .role-subtitle { font-size: 0.82rem; margin-bottom: 1rem; }
     .role-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
-    .role-card { padding: 1rem 0.75rem; }
-    .role-card-icon { font-size: 1.5rem; color: var(--accent); }
-    .role-overlay h2 { font-size: 1.3rem; }
+    .role-card { padding: 0.75rem 0.5rem; }
+    .role-card-icon { font-size: 1.25rem; color: var(--accent); }
+    .role-card-title { font-size: 0.78rem; }
+    .role-card-desc { font-size: 0.68rem; }
     .role-action-cards { grid-template-columns: 1fr; }
     .role-panel-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 375px) {
+    .role-overlay-logo-icon svg { width: 44px; height: 44px; }
+    .role-overlay-logo { font-size: 1.2rem; }
+    .role-overlay h2 { font-size: 1.05rem; }
+    .role-grid { gap: 6px; }
+    .role-card { padding: 0.6rem 0.4rem; }
 }
 
 /* ═══ ACCESSIBILITY: Skip link ═══ */
@@ -2558,6 +2573,14 @@ body {
                 <button class="mobile-nav-item" data-panel="resources">Research Library</button>
                 <button class="mobile-nav-item" data-panel="downloads">Downloads</button>
                 <button class="mobile-nav-item" data-panel="about">About</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label">External</div>
+                <a class="mobile-nav-item" href="/blog/" style="text-decoration:none; color:inherit; display:block;">Blog</a>
+                <a class="mobile-nav-item" href="/docs/" style="text-decoration:none; color:inherit; display:block;">Documentation</a>
+                <a class="mobile-nav-item" href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank" style="text-decoration:none; color:inherit; display:block;">Zotero Research Library</a>
+                <a class="mobile-nav-item" href="https://github.com/JanVayu/JanVayu/wiki" target="_blank" style="text-decoration:none; color:inherit; display:block;">Wiki</a>
+                <a class="mobile-nav-item" href="https://github.com/JanVayu/JanVayu/discussions" target="_blank" style="text-decoration:none; color:inherit; display:block;">Discussions</a>
             </div>
         </div>
     </div>
@@ -10924,7 +10947,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v25.2 | Updated 24 Mar 2026 | Role-based landing page with 10 personas, Sargam Icons, GitBook docs link, AI switched to Llama 3.3 70B via Groq.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v25.4 | Updated 12 Apr 2026 | Blog, Zotero research library, IQAir 2025 data, mobile &amp; accessibility fixes, social feeds re-enabled.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -10982,6 +11005,33 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.4 &mdash; 12 Apr 2026</div>
+                    <strong>Blog, Zotero Research Library, IQAir 2025 data, mobile &amp; accessibility</strong><br>
+                    &bull; <strong>Blog:</strong> New Docsify-powered blog at <a href="/blog/">/blog/</a> with inaugural post &ldquo;IQAir 2025: India&rsquo;s Air Got Worse&rdquo;<br>
+                    &bull; <strong>Zotero Research Library:</strong> Public bibliography at <a href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank">zotero.org/groups/janvayu</a><br>
+                    &bull; <strong>IQAir 2025 data:</strong> Most polluted city updated to Loni, India (112.5 &micro;g/m&sup3;, up 23% from 2024). Only 14% of global cities meet WHO guideline. India average PM2.5: 48.9 &micro;g/m&sup3; (~10&times; WHO limit)<br>
+                    &bull; <strong>3 new research papers:</strong> Lancet Planetary Health causal PM2.5 mortality studies (1.5M additional deaths/year vs WHO conditions), Science Advances PM2.5 inequality study<br>
+                    &bull; <strong>Mobile responsiveness:</strong> 44px touch targets, comprehensive phone layout (768px + 375px breakpoints), role overlay mobile fix<br>
+                    &bull; <strong>Accessibility:</strong> Skip-to-content link, :focus-visible outlines, prefers-reduced-motion support<br>
+                    &bull; <strong>Performance:</strong> Chart.js and Leaflet.js deferred (were render-blocking)<br>
+                    &bull; <strong>Social feeds re-enabled:</strong> 3&times;/day (was 12&times;/day), 75% reduction in Netlify credits<br>
+                    &bull; <strong>Varnasr &rarr; JanVayu:</strong> All references to old personal account removed across entire repo (60+ files)<br>
+                    &bull; <strong>Wiki &amp; Discussions:</strong> 7 wiki pages published, 6 seed discussions created, issue #35 closed<br>
+                    &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.3 &mdash; 24 Mar 2026</div>
+                    <strong>Role-based landing page, simple language mode, glossary, intro tour</strong><br>
+                    &bull; <strong>Role-based landing page:</strong> 10 audience roles (parent, student, researcher, policymaker, journalist, activist, doctor, teacher, NGO, business) with personalized dashboards<br>
+                    &bull; <strong>Simple language mode:</strong> Site-wide plain language toggle with sessionStorage persistence<br>
+                    &bull; <strong>Glossary overlay:</strong> Ctrl+K shortcut with 22+ air quality terms, technical/simple toggle<br>
+                    &bull; <strong>Intro tour:</strong> Guided walkthrough for first-time visitors<br>
+                    &bull; <strong>Role switcher:</strong> Header icon lets users change role anytime<br>
+                    &bull; ARIA labels on all navigation icons for screen reader accessibility
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.2 &mdash; 24 Mar 2026</div>

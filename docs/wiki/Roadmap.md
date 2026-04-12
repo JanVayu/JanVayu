@@ -82,8 +82,10 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 **Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3)
 
-- [ ] Full mobile responsiveness audit and fixes
-- [ ] Touch-friendly interactions (44px+ targets)
+- [x] Touch-friendly interactions (44px+ targets)
+- [x] Comprehensive mobile CSS (768px + 375px breakpoints)
+- [x] Role overlay mobile fix (logo/content no longer cut off)
+- [x] Chart.js and Leaflet.js deferred (were render-blocking)
 - [ ] Lazy-load panel templates
 - [ ] Code-split JavaScript
 - [ ] Lighthouse mobile score > 80
@@ -94,7 +96,8 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 **Issues:** [#4](https://github.com/JanVayu/JanVayu/issues/4), [#1](https://github.com/JanVayu/JanVayu/issues/1)
 
-- [ ] WCAG 2.1 AA compliance
+- [x] Skip-to-content link, :focus-visible, prefers-reduced-motion
+- [ ] Full WCAG 2.1 AA compliance (heading audit, contrast, screen reader)
 - [ ] Complete data-i18n coverage
 - [ ] Translate all 40 panel templates
 
