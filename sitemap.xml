@@ -14,6 +14,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.janvayu.in/" />
   </url>
   <url>
+    <loc>https://www.janvayu.in/ask/</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.janvayu.in/blog/</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
