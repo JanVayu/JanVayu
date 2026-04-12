@@ -3,7 +3,7 @@
 **JanVayu** (जनवायु — "மக்களின் காற்று") என்பது இந்தியாவின் சுதந்திரமான, குடிமக்கள் தலைமையிலான காற்று தர பொறுப்புணர்வு தளமாகும். இது 30+ நகரங்களின் நேரடி மாசு தரவுகளை கண்காணிக்கிறது, சுகாதார தாக்கங்களை அளவிடுகிறது, NCAP பட்ஜெட் செலவுகளை பின்தொடர்கிறது, மேலும் அரசாங்கங்களை பொறுப்பேற்கச் செய்கிறது.
 
 > **நேரடி தளம்:** [www.janvayu.in](https://www.janvayu.in)
-> **GitHub:** [github.com/Varnasr/JanVayu](https://github.com/Varnasr/JanVayu)
+> **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 

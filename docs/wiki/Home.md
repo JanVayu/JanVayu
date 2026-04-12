@@ -29,11 +29,18 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
-### What's New (v25.3.0 — March 2026)
+### What's New (v25.4.0 — April 2026)
 
-- **Role-based landing page** — 10 audience roles (parent, student, researcher, policymaker, journalist, activist, doctor, teacher, NGO, business) with personalized dashboards
-- **Simple language mode** — Toggle all content to plain, jargon-free language (persists via sessionStorage)
-- **Glossary overlay** — Ctrl+K shortcut with 22+ terms, technical/simple toggle
+- **Blog** — New Docsify-powered blog at [janvayu.in/blog](https://www.janvayu.in/blog) for data analysis and platform updates
+- **Zotero Research Library** — Public bibliography at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library)
+- **IQAir 2025 data** — Updated statistics: Loni is now the most polluted city globally (112.5 µg/m³), only 14% of cities meet WHO guideline
+- **New research** — Lancet Planetary Health causal PM2.5 mortality studies and Science Advances inequality study added
+
+### Previous (v25.3.0 — March 2026)
+
+- **Role-based landing page** — 10 audience roles with personalized dashboards
+- **Simple language mode** — Toggle all content to plain, jargon-free language
+- **Glossary overlay** — Ctrl+K shortcut with 22+ terms
 - **Intro tour** — Guided walkthrough for first-time visitors
 - **40 content panels** — Health calculator, policy tracker, budget tracker, legal framework, citizen action plans, and more
 
