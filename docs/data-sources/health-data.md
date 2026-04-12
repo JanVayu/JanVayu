@@ -108,3 +108,11 @@ Demonstrates that air quality improvements in India have been unequal — wealth
 | 500,000+ annual deaths from household cooking | WHO Global Burden of Disease |
 | Ujjwala scheme coverage | Petroleum Ministry official data |
 | Solid fuel usage rates | NFHS-5 (National Family Health Survey) |
+
+---
+
+## Full Bibliography
+
+All sources cited across JanVayu are catalogued in our public Zotero library:
+
+**[zotero.org/groups/6508140/janvayu/library](https://www.zotero.org/groups/6508140/janvayu/library)**
