@@ -23,11 +23,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Lancet Planetary Health — two causal PM2.5 mortality studies for India (difference-in-differences and multi-city causal modelling)
   - Science Advances — PM2.5 inequality study showing unequal air quality improvements across India
 
+### Changed — Mobile & Accessibility
+
+- **Mobile responsiveness**: 44px touch targets, comprehensive phone layout (768px + 375px breakpoints)
+- **Role overlay mobile fix**: Logo shrinks to 56px/44px, content starts from top instead of center (no more cut-off)
+- **Mobile header decluttered**: Reduced from 9 to 5 buttons; GitHub, Docs, Simple mode hidden (accessible via hamburger)
+- **Language button**: Text labels (EN/हि) replaced with globe icon to prevent wrapping
+- **Mobile hamburger menu**: Added Blog, Docs, Zotero, Wiki, Discussions links
+- **Accessibility**: Skip-to-content link, `:focus-visible` outlines, `prefers-reduced-motion: reduce`
+- **Performance**: Chart.js and Leaflet.js load deferred (were render-blocking)
+- **Social feeds (#52)**: Re-enabled at 3x/day (was 12x/day), 75% Netlify credit reduction
+- **Hero alert**: Updated from March 2026 to April 2026 with IQAir 2025 data
+- **Varnasr purge**: All references to old personal account removed (60+ files)
+- **Wiki**: 7 pages pushed to GitHub Wiki
+- **Discussions**: 6 seed discussions created; issue #35 closed
+- **Blog, Docs, Research Library** links added to site header, footer, and mobile nav
+- **v25.4 changelog** added to About & Changelog panel on the website
+
 ### Fixed
 
 - Updated CITATION.cff date-released to 2026-04-12
 - Synced package.json version to 25.4.0
 - Updated sitemap.xml lastmod date and added `/blog/` URL
+- Docs link fixed: gitbook.io → local `/docs/`
 
 ## [v25.3.0] - 2026-03-24
 

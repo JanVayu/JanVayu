@@ -2114,6 +2114,22 @@ body.simple-language .section-intro [data-simple]::after {
     display: none; overflow: hidden;
 }
 .role-switcher-dropdown.open { display: block; }
+@media (max-width: 768px) {
+    .role-switcher-dropdown {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        min-width: 100%;
+        border-radius: 16px 16px 0 0;
+        max-height: 60vh;
+        overflow-y: auto;
+        z-index: 10001;
+    }
+    .role-switcher-dropdown.open ~ .role-hint { display: none; }
+    .role-switcher-option { padding: 12px 16px; font-size: 0.88rem; }
+}
 .role-switcher-option {
     display: flex; align-items: center; gap: 8px;
     width: 100%; padding: 8px 12px; border: none;
@@ -2669,7 +2685,7 @@ body {
                         <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>2 million people</em> every year</h1>
                         <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
                         <div class="hero-live-alert">
-                            <strong>March 2026:</strong> Zero days in 2026 have met WHO safe air limits in Delhi (0 of 68 days). Annual AQI average: 244 — 46.8% worse than 2020. CREA analysis: 204 of 238 Indian cities exceed national PM2.5 standards. Delhi has spent only 43% of its ₹300 Cr pollution budget, all on short-term fixes. NCAP's 2026 deadline approaches with most cities far from targets.
+                            <strong>April 2026:</strong> IQAir 2025 Report confirms Loni, India as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline). Only 14% of global cities meet safe air standards. India&rsquo;s average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit. New Lancet research establishes 1.5 million additional deaths per year from PM2.5 exposure. NCAP&rsquo;s 2026 deadline has arrived with most cities far from targets.
                         </div>
                     </div>
                     <div class="hero-data">
@@ -11020,7 +11036,9 @@ Signature: _______________</div>
                     &bull; <strong>Social feeds re-enabled:</strong> 3&times;/day (was 12&times;/day), 75% reduction in Netlify credits<br>
                     &bull; <strong>Varnasr &rarr; JanVayu:</strong> All references to old personal account removed across entire repo (60+ files)<br>
                     &bull; <strong>Wiki &amp; Discussions:</strong> 7 wiki pages published, 6 seed discussions created, issue #35 closed<br>
-                    &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer
+                    &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer<br>
+                    &bull; <strong>Mobile header decluttered:</strong> GitHub, Docs, Simple mode icons hidden on mobile (accessible via hamburger menu); language button changed from text to globe icon<br>
+                    &bull; <strong>Hero updated:</strong> Featured alert now shows April 2026 IQAir data instead of March
                 </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
