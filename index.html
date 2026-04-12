@@ -2210,6 +2210,79 @@ body {
     overflow-wrap: break-word;
     word-break: break-word;
 }
+
+/* ═══ MOBILE: Comprehensive phone layout fixes ═══ */
+@media (max-width: 768px) {
+    /* Header: shrink buttons to fit */
+    .header-actions { gap: 2px; }
+    .header-actions .icon-btn {
+        width: 38px; height: 38px;
+        font-size: 0.85rem;
+        border-radius: 6px;
+    }
+    /* Hide Blog text button on mobile — accessible via footer & hamburger */
+    .header-actions > a[href="/blog/"] { display: none; }
+
+    /* More breathing room for content */
+    .container { padding: 0 16px; }
+
+    /* Hero section: less cramped */
+    .hero { padding: 28px 0 24px; }
+    .hero-headline { font-size: clamp(1.5rem, 5vw, 2rem); line-height: 1.2; }
+    .hero-sub { font-size: 0.9rem; line-height: 1.6; }
+
+    /* Stat strips: readable on narrow screens */
+    .stat-strip { gap: 8px; }
+    .stat-strip-item { padding: 12px 8px; }
+    .number-callout { font-size: clamp(1.5rem, 4vw, 2rem); }
+
+    /* Cards: reduce padding for more content room */
+    .card { border-radius: 10px; }
+    .card-body { padding: 12px; }
+    .card-header { padding: 10px 12px; }
+    .card-footer { padding: 8px 12px; font-size: 0.7rem; }
+
+    /* Info boxes: tighter */
+    .info-box { padding: 12px; font-size: 0.875rem; }
+
+    /* Tables: scrollable with full-bleed */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; }
+    table { font-size: 0.8rem; }
+    table th, table td { padding: 8px 10px; }
+
+    /* Collapsibles: more compact */
+    .collapsible-toggle { padding: 12px 14px; font-size: 0.95rem; }
+
+    /* Forms: full width inputs */
+    .form-input, .form-select, .form-textarea { width: 100%; box-sizing: border-box; }
+
+    /* Footer: single column */
+    .footer { padding: 24px 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 16px; }
+    .footer-link { padding: 6px 0; font-size: 0.8rem; }
+
+    /* Section intros: readable */
+    .section-intro { padding-bottom: 1rem; }
+    .section-intro h2 { font-size: 1.3rem !important; }
+    .section-intro p { font-size: 0.9rem !important; line-height: 1.6; }
+
+    /* Pull quotes */
+    .pull-quote { font-size: 0.95rem; padding: 12px 16px; }
+
+    /* Buttons: 44px min touch targets */
+    .btn { padding: 10px 18px; font-size: 0.85rem; }
+    .btn-sm { padding: 8px 14px; font-size: 0.8rem; min-height: 44px; }
+}
+
+@media (max-width: 375px) {
+    /* iPhone SE and very small phones */
+    .container { padding: 0 12px; }
+    .header-actions .icon-btn { width: 34px; height: 34px; }
+    .hero-headline { font-size: 1.35rem; }
+    .number-callout { font-size: 1.3rem; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .grid-5 { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -2353,8 +2426,11 @@ body {
                 <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" title="Menu" aria-label="Open navigation menu">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </button>
-                <a class="icon-btn" href="https://janvayu.gitbook.io/janvayu/" target="_blank" rel="noopener" title="Documentation" aria-label="Open GitBook documentation" style="font-size: 1rem; width: auto; padding: 0 8px; text-decoration: none;">
+                <a class="icon-btn" href="/docs/" title="Documentation" aria-label="Open documentation" style="font-size: 1rem; width: auto; padding: 0 8px; text-decoration: none;">
                     <span class="si si-book" style="width:18px; height:18px;"></span>
+                </a>
+                <a class="icon-btn" href="/blog/" title="Blog" aria-label="Open blog" style="font-size: 0.75rem; font-weight: 600; font-family: var(--sans); width: auto; padding: 0 8px; text-decoration: none; letter-spacing: 0.02em;">
+                    Blog
                 </a>
                 <div class="lang-switcher" style="position: relative;">
                     <button class="icon-btn" id="langBtn" onclick="toggleLangMenu()" title="Language" aria-label="Switch language" style="font-size: 0.65rem; font-weight: 700; font-family: var(--sans); width: auto; padding: 0 8px; letter-spacing: 0.02em;">
@@ -2786,6 +2862,9 @@ body {
                     <a class="footer-link" href="#" onclick="showPanel('citizen-action');return false;">Citizen Action</a>
                     <a class="footer-link" href="#" onclick="showPanel('resources');return false;">Resources</a>
                     <a class="footer-link" href="#" onclick="showPanel('downloads');return false;">Downloads</a>
+                    <a class="footer-link" href="/blog/">Blog</a>
+                    <a class="footer-link" href="/docs/">Docs</a>
+                    <a class="footer-link" href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank">Research Library ↗</a>
                     <a class="footer-link" href="https://github.com/JanVayu/JanVayu" target="_blank">GitHub ↗</a>
                 </div>
             </div>
