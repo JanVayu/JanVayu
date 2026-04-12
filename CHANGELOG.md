@@ -33,8 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Accessibility**: Skip-to-content link, `:focus-visible` outlines, `prefers-reduced-motion: reduce`
 - **Performance**: Chart.js and Leaflet.js load deferred (were render-blocking)
 - **Social feeds (#52)**: Re-enabled at 3x/day (was 12x/day), 75% Netlify credit reduction
-- **Ask AI in FAB widget**: Ask JanVayu AI integrated into the green floating button as a third tab (Search / Ask AI / Feedback); city selector, Enter-to-submit, live AQI data grounding
-- **Role switcher mobile**: Opens as proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
+- **Ask JanVayu in FAB widget**: Ask JanVayu AI integrated into the green floating button as a third tab (Search / Ask JanVayu / Feedback); city selector, Enter-to-submit, live AQI data grounding
+- **Role switcher mobile**: Dropdown moved outside header DOM; renders as proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
 - **Hero alert**: Updated from March 2026 to April 2026 with IQAir 2025 data
 - **Varnasr purge**: All references to old personal account removed (60+ files)
 - **Wiki**: 7 pages pushed to GitHub Wiki

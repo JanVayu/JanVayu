@@ -2118,39 +2118,47 @@ body.simple-language .section-intro [data-simple]::after {
 }
 .role-hint.show { opacity: 1; }
 .role-switcher-dropdown {
-    position: absolute; top: calc(100% + 6px); right: 0;
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--radius); box-shadow: var(--shadow-lg);
-    min-width: 180px; z-index: 1000;
-    display: none; overflow: hidden;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
+    min-width: 100%;
+    max-height: 70vh;
+    overflow-y: auto;
+    z-index: 10001;
+    display: none;
+    padding: 8px 0 env(safe-area-inset-bottom, 16px);
+}
+.role-switcher-dropdown::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 4px auto 8px;
 }
 .role-switcher-dropdown.open { display: block; }
-@media (max-width: 768px) {
+@media (min-width: 769px) {
     .role-switcher-dropdown {
         position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        min-width: 100%;
-        border-radius: 16px 16px 0 0;
-        max-height: 70vh;
-        overflow-y: auto;
-        z-index: 10001;
-        padding: 8px 0 env(safe-area-inset-bottom, 16px);
-        box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
+        top: 56px;
+        bottom: auto;
+        left: auto;
+        right: 24px;
+        min-width: 200px;
+        max-width: 240px;
+        max-height: 80vh;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-lg);
+        padding: 4px 0;
     }
-    .role-switcher-dropdown::before {
-        content: '';
-        display: block;
-        width: 36px;
-        height: 4px;
-        background: var(--border);
-        border-radius: 2px;
-        margin: 4px auto 8px;
-    }
-    .role-switcher-dropdown.open ~ .role-hint { display: none; }
-    .role-switcher-option { padding: 14px 20px; font-size: 0.9rem; }
+    .role-switcher-dropdown::before { display: none; }
 }
 /* Backdrop for mobile role switcher */
 .role-switcher-backdrop {
@@ -2164,11 +2172,14 @@ body.simple-language .section-intro [data-simple]::after {
 }
 .role-switcher-backdrop.open { display: block; }
 .role-switcher-option {
-    display: flex; align-items: center; gap: 8px;
-    width: 100%; padding: 8px 12px; border: none;
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 14px 20px; border: none;
     background: none; cursor: pointer; font-family: var(--sans);
-    font-size: 0.78rem; color: var(--text); text-align: left;
+    font-size: 0.9rem; color: var(--text); text-align: left;
     transition: background 0.1s ease;
+}
+@media (min-width: 769px) {
+    .role-switcher-option { padding: 8px 12px; font-size: 0.78rem; gap: 8px; }
 }
 .role-switcher-option:hover {
     background: var(--bg-section);
@@ -2533,13 +2544,13 @@ body {
                     <button class="icon-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Switch your role" aria-label="Change role">
                         <span id="roleSwitcherIcon"><span class="si si-user" style="width:18px;height:18px;"></span></span>
                     </button>
-                    <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
                     <div class="role-hint" id="roleHint">Change your role anytime here</div>
                 </div>
             </div>
         </div>
     </header>
     <div class="role-switcher-backdrop" id="roleSwitcherBackdrop" onclick="closeRoleSwitcher()"></div>
+    <div class="role-switcher-dropdown" id="roleSwitcherDropdown"></div>
 
     <!-- GLOSSARY OVERLAY (Cmd+K) -->
     <div class="glossary-overlay" id="glossaryOverlay" onclick="if(event.target===this)closeGlossaryOverlay()">
@@ -11107,8 +11118,8 @@ Signature: _______________</div>
                     &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer<br>
                     &bull; <strong>Mobile header decluttered:</strong> GitHub, Docs, Simple mode icons hidden on mobile (accessible via hamburger menu); language button changed from text to globe icon<br>
                     &bull; <strong>Hero updated:</strong> Featured alert now shows April 2026 IQAir data instead of March<br>
-                    &bull; <strong>Ask AI in FAB:</strong> Ask JanVayu AI integrated into the green floating action button as a third tab (Search / Ask AI / Feedback); Enter key submits<br>
-                    &bull; <strong>Role switcher mobile:</strong> Opens as proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
+                    &bull; <strong>Ask JanVayu in FAB:</strong> Ask JanVayu AI integrated into the green floating action button as a third tab (Search / Ask JanVayu / Feedback); Enter key submits<br>
+                    &bull; <strong>Role switcher mobile:</strong> Dropdown moved outside header DOM so it renders as a proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
                 </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
@@ -12383,7 +12394,7 @@ Signature: _______________</div>
 <div class="widget-modal" id="widgetModal">
     <div class="widget-tabs">
         <button class="widget-tab active" onclick="switchWidgetTab('search')">Search</button>
-        <button class="widget-tab" onclick="switchWidgetTab('askai')">Ask AI</button>
+        <button class="widget-tab" onclick="switchWidgetTab('askai')">Ask JanVayu</button>
         <button class="widget-tab" onclick="switchWidgetTab('feedback')">Feedback</button>
     </div>
 
@@ -12955,7 +12966,8 @@ function closeRoleSwitcher() {
 
 function closeRoleSwitcherOnOutsideClick(e) {
     const switcher = document.getElementById('roleSwitcher');
-    if (!switcher.contains(e.target)) {
+    const dropdown = document.getElementById('roleSwitcherDropdown');
+    if (!switcher.contains(e.target) && !dropdown.contains(e.target)) {
         closeRoleSwitcher();
     }
 }
