@@ -67,6 +67,17 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.5: Content & Research Update (✅ Completed — v25.4)
+
+- [x] Docsify-powered blog at /blog/ with inaugural post
+- [x] Zotero research library integration ([zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library))
+- [x] IQAir 2025 World Air Quality Report data (Loni, 112.5 µg/m³)
+- [x] New Lancet Planetary Health PM2.5 mortality studies
+- [x] Science Advances PM2.5 inequality study
+- [x] Remaining Varnasr → JanVayu URL migration (index.html, docs-ta)
+
+---
+
 ## Phase 6: Mobile & Performance (🔄 Q2 2026)
 
 **Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3)

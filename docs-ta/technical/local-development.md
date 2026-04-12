@@ -13,7 +13,7 @@
 
 ```bash
 # 1. Repository-ஐ clone செய்யுங்கள்
-git clone https://github.com/Varnasr/JanVayu.git
+git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
 # 2. Dependencies-ஐ நிறுவுங்கள்

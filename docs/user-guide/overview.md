@@ -60,6 +60,6 @@ The platform is available in:
 | Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
 | Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
 | India's Global Share | 70% of pollution deaths | Lancet Countdown 2025 |
-| Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2024 |
-| Most Polluted City | Byrnihat (128.2 µg/m³) | IQAir 2024 |
+| Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2025 |
+| Most Polluted City | Loni, India (112.5 µg/m³) | IQAir 2025 |
 | Life Expectancy Reduction | 3.5 years | AQLI 2025 |
