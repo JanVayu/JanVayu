@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ask JanVayu</title>
+  <meta name="description" content="Ask any question about air quality in India. Live AQI data, health advice, and accountability.">
+  <meta name="theme-color" content="#16A34A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ask JanVayu">
+  <link rel="manifest" href="/ask/manifest.json">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #16A34A;
+      --accent-hover: #15803d;
+      --bg: #FFFEF9;
+      --bg-card: #fff;
+      --text: #1a1a18;
+      --text-2: #4a4a46;
+      --text-3: #7a7a74;
+      --text-4: #a0a09a;
+      --border: #e5e5df;
+      --border-light: #f0f0ea;
+      --radius: 12px;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e0e0c;
+        --bg-card: #1a1a18;
+        --text: #e8e8e2;
+        --text-2: #b0b0a8;
+        --text-3: #6e6e68;
+        --text-4: #4a4a46;
+        --border: #2a2a28;
+        --border-light: #1e1e1c;
+      }
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+    .app-logo {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, #1a3a2a, #16A34A);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 0.9rem;
+    }
+    .app-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--accent);
+      flex: 1;
+    }
+    .app-subtitle {
+      font-size: 0.65rem; color: var(--text-3); text-transform: uppercase;
+      letter-spacing: 0.06em; font-weight: 500;
+    }
+    .app-header a {
+      color: var(--text-3); text-decoration: none; font-size: 0.75rem;
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px;
+    }
+
+    /* City selector */
+    .city-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--border-light);
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+    .city-chip {
+      padding: 6px 14px; border-radius: 20px;
+      border: 1px solid var(--border);
+      background: none; color: var(--text-2);
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; white-space: nowrap; transition: all 0.15s;
+    }
+    .city-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .city-chip:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+
+    /* Chat area */
+    .chat-area {
+      flex: 1; overflow-y: auto; padding: 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .msg {
+      max-width: 88%; padding: 12px 16px;
+      border-radius: 16px; font-size: 0.9rem; line-height: 1.6;
+      animation: msgIn 0.2s ease;
+    }
+    @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .msg-user {
+      align-self: flex-end;
+      background: var(--accent); color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-ai {
+      align-self: flex-start;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .msg-meta {
+      font-size: 0.68rem; color: var(--text-4); margin-top: 4px;
+    }
+    .msg-ai .msg-meta { color: var(--text-3); }
+    .msg-typing {
+      align-self: flex-start;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 12px 20px;
+      border-bottom-left-radius: 4px;
+    }
+    .typing-dots { display: flex; gap: 4px; }
+    .typing-dots span {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--text-4);
+      animation: dot 1.2s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dot { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+
+    /* Welcome state */
+    .welcome {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 24px; gap: 16px;
+    }
+    .welcome h2 { font-size: 1.2rem; color: var(--text); }
+    .welcome p { font-size: 0.85rem; color: var(--text-2); max-width: 320px; line-height: 1.6; }
+    .suggestions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 360px; }
+    .suggestion {
+      padding: 8px 14px; border-radius: 20px;
+      border: 1px solid var(--border); background: none;
+      font-family: var(--sans); font-size: 0.78rem; color: var(--text-2);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .suggestion:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Input bar */
+    .input-bar {
+      display: flex; align-items: flex-end; gap: 8px;
+      padding: 12px 16px;
+      padding-bottom: calc(12px + var(--safe-bottom));
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+    .input-bar textarea {
+      flex: 1; padding: 10px 14px;
+      border: 1px solid var(--border); border-radius: 20px;
+      background: var(--bg-card); color: var(--text);
+      font-family: var(--sans); font-size: 0.9rem;
+      resize: none; outline: none; min-height: 42px; max-height: 120px;
+      line-height: 1.4;
+    }
+    .input-bar textarea:focus { border-color: var(--accent); }
+    .input-bar textarea::placeholder { color: var(--text-4); }
+    .send-btn {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: none; background: var(--accent); color: #fff;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: opacity 0.15s;
+    }
+    .send-btn:disabled { opacity: 0.4; cursor: default; }
+    .send-btn:hover:not(:disabled) { background: var(--accent-hover); }
+
+    /* Install banner */
+    .install-banner {
+      display: none; padding: 10px 16px;
+      background: var(--bg-card); border-top: 1px solid var(--border);
+      font-size: 0.78rem; color: var(--text-2);
+      align-items: center; gap: 10px; flex-shrink: 0;
+    }
+    .install-banner button {
+      padding: 6px 14px; border-radius: 8px;
+      border: 1px solid var(--accent); background: none;
+      color: var(--accent); font-family: var(--sans);
+      font-size: 0.75rem; font-weight: 600; cursor: pointer;
+    }
+    .install-banner .dismiss {
+      border: none; color: var(--text-4); margin-left: auto;
+      background: none; cursor: pointer; font-size: 1.1rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-header">
+    <div class="app-logo">J</div>
+    <div>
+      <div class="app-title">Ask JanVayu</div>
+      <div class="app-subtitle">AI-powered air quality Q&A</div>
+    </div>
+    <a href="https://www.janvayu.in">janvayu.in</a>
+  </div>
+
+  <div class="city-bar" id="cityBar">
+    <button class="city-chip active" data-city="delhi">Delhi</button>
+    <button class="city-chip" data-city="mumbai">Mumbai</button>
+    <button class="city-chip" data-city="kolkata">Kolkata</button>
+    <button class="city-chip" data-city="chennai">Chennai</button>
+    <button class="city-chip" data-city="bangalore">Bengaluru</button>
+    <button class="city-chip" data-city="hyderabad">Hyderabad</button>
+    <button class="city-chip" data-city="lucknow">Lucknow</button>
+    <button class="city-chip" data-city="patna">Patna</button>
+    <button class="city-chip" data-city="pune">Pune</button>
+    <button class="city-chip" data-city="jaipur">Jaipur</button>
+  </div>
+
+  <div class="chat-area" id="chatArea">
+    <div class="welcome" id="welcome">
+      <h2>What would you like to know?</h2>
+      <p>Ask about air quality, health risks, pollution sources, or government action in any Indian city.</p>
+      <div class="suggestions">
+        <button class="suggestion" onclick="askSuggestion(this)">Is it safe to go outside today?</button>
+        <button class="suggestion" onclick="askSuggestion(this)">Why is pollution so bad this week?</button>
+        <button class="suggestion" onclick="askSuggestion(this)">Health risks for children?</button>
+        <button class="suggestion" onclick="askSuggestion(this)">Compare Delhi vs Mumbai AQI</button>
+        <button class="suggestion" onclick="askSuggestion(this)">What is the government doing?</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="install-banner" id="installBanner">
+    <span>Install Ask JanVayu for quick access</span>
+    <button onclick="installPWA()">Install</button>
+    <button class="dismiss" onclick="this.parentElement.style.display='none'">&times;</button>
+  </div>
+
+  <div class="input-bar">
+    <textarea id="questionInput" placeholder="Ask about air quality..." rows="1"
+      oninput="autoResize(this)"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendQuestion();}"></textarea>
+    <button class="send-btn" id="sendBtn" onclick="sendQuestion()">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+
+  <script>
+    let selectedCity = 'delhi';
+    let deferredPrompt = null;
+
+    // City selector
+    document.getElementById('cityBar').addEventListener('click', e => {
+      const chip = e.target.closest('.city-chip');
+      if (!chip) return;
+      document.querySelectorAll('.city-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedCity = chip.dataset.city;
+    });
+
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    }
+
+    function askSuggestion(btn) {
+      document.getElementById('questionInput').value = btn.textContent;
+      sendQuestion();
+    }
+
+    async function sendQuestion() {
+      const input = document.getElementById('questionInput');
+      const question = input.value.trim();
+      if (!question) return;
+
+      // Hide welcome
+      const welcome = document.getElementById('welcome');
+      if (welcome) welcome.remove();
+
+      // Add user message
+      addMessage(question, 'user');
+      input.value = '';
+      input.style.height = 'auto';
+
+      // Show typing indicator
+      const typing = addTyping();
+
+      try {
+        const res = await fetch('/.netlify/functions/air-query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question, city: selectedCity }),
+        });
+        const data = await res.json();
+        typing.remove();
+
+        let meta = '';
+        if (data.dataUsed) {
+          meta = data.dataUsed.city + ' \u2014 AQI: ' + data.dataUsed.aqi +
+            ', PM2.5: ' + (data.dataUsed.pm25 ?? 'N/A') + ' \u00b5g/m\u00b3';
+        }
+        addMessage(data.answer || 'No response received.', 'ai', meta);
+      } catch (e) {
+        typing.remove();
+        addMessage('Something went wrong. Please check your connection and try again.', 'ai');
+      }
+    }
+
+    function addMessage(text, type, meta) {
+      const chat = document.getElementById('chatArea');
+      const div = document.createElement('div');
+      div.className = 'msg msg-' + type;
+      div.textContent = text;
+      if (meta) {
+        const m = document.createElement('div');
+        m.className = 'msg-meta';
+        m.textContent = meta;
+        div.appendChild(m);
+      }
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function addTyping() {
+      const chat = document.getElementById('chatArea');
+      const div = document.createElement('div');
+      div.className = 'msg-typing';
+      div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+      return div;
+    }
+
+    // PWA install
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installBanner').style.display = 'flex';
+    });
+
+    function installPWA() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(result => {
+        deferredPrompt = null;
+        document.getElementById('installBanner').style.display = 'none';
+      });
+    }
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/ask/sw.js');
+    }
+  </script>
+</body>
+</html>

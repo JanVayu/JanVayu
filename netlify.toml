@@ -68,6 +68,25 @@
   status = 200
   force = true
 
+# Serve Ask JanVayu PWA (force = true to override SPA fallback)
+[[redirects]]
+  from = "/ask"
+  to = "/ask/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/ask/"
+  to = "/ask/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/ask/*"
+  to = "/ask/:splat"
+  status = 200
+  force = true
+
 # SPA fallback — must come AFTER specific file rules
 [[redirects]]
   from = "/*"
