@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.janvayu.in/</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-04-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.janvayu.in/" />
@@ -12,5 +12,11 @@
     <xhtml:link rel="alternate" hreflang="mr" href="https://www.janvayu.in/?lang=mr" />
     <xhtml:link rel="alternate" hreflang="bn" href="https://www.janvayu.in/?lang=bn" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.janvayu.in/" />
+  </url>
+  <url>
+    <loc>https://www.janvayu.in/blog/</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

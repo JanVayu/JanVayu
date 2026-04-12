@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JanVayu Blog</title>
+  <meta name="description" content="JanVayu Blog - Updates, analysis, and reflections on India's air quality crisis.">
+  <meta property="og:title" content="JanVayu Blog">
+  <meta property="og:description" content="Updates, analysis, and reflections from India's citizen-led air quality archive.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="https://www.janvayu.in/favicon.svg" type="image/svg+xml">
+
+  <!-- Docsify Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.min.css">
+
+  <!-- Custom Styles (same as docs) -->
+  <style>
+    :root {
+      --theme-color: #16A34A;
+      --theme-color-secondary: #22C55E;
+      --sidebar-width: 260px;
+      --sidebar-background: #fafbfc;
+      --sidebar-border-color: #e8ecf0;
+      --sidebar-name-color: #1a3a2a;
+      --sidebar-name-font-size: 1.35rem;
+      --sidebar-name-font-weight: 700;
+      --sidebar-nav-link-color: #364153;
+      --sidebar-nav-link-color--active: #16A34A;
+      --sidebar-nav-link-font-weight--active: 600;
+      --sidebar-nav-strong-color: #1a3a2a;
+      --sidebar-nav-strong-font-size: 0.85rem;
+      --sidebar-nav-strong-font-weight: 700;
+      --sidebar-nav-strong-margin: 1.5em 0 0.5em 0;
+      --sidebar-nav-strong-text-transform: uppercase;
+      --content-max-width: 740px;
+      --base-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --base-font-size: 16px;
+      --base-line-height: 1.8;
+      --base-color: #1a1a2e;
+      --heading-color: #1a3a2a;
+      --link-color: #16A34A;
+      --link-color--hover: #15803d;
+      --code-font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      --code-inline-background: #f0fdf4;
+      --code-inline-color: #166534;
+      --code-block-border-radius: 8px;
+      --blockquote-border-color: #16A34A;
+      --blockquote-background: #f0fdf4;
+    }
+
+    body[data-theme="dark"] {
+      --sidebar-background: #0f1419;
+      --sidebar-border-color: #2d3748;
+      --sidebar-name-color: #86EFAC;
+      --sidebar-nav-link-color: #d1d5db;
+      --sidebar-nav-link-color--active: #86EFAC;
+      --sidebar-nav-strong-color: #86EFAC;
+      --base-color: #e2e8f0;
+      --heading-color: #86EFAC;
+      --code-inline-background: #1a2e23;
+      --code-inline-color: #86EFAC;
+      --blockquote-background: #1a2e23;
+    }
+
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    table th { background: #f0fdf4; font-weight: 600; text-align: left; padding: 10px 14px; border: 1px solid #e5e7eb; }
+    table td { padding: 10px 14px; border: 1px solid #e5e7eb; }
+    table tr:nth-child(even) { background: #fafbfc; }
+    html { scroll-behavior: smooth; }
+    .markdown-section pre { border-radius: 8px; padding: 1em; }
+    .markdown-section code { border-radius: 4px; padding: 2px 6px; }
+
+    .dark-mode-toggle {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid #e5e7eb; background: #fff;
+      cursor: pointer; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    .dark-mode-toggle:hover { transform: scale(1.1); }
+    body[data-theme="dark"] .dark-mode-toggle { background: #1a2e23; border-color: #2d3748; }
+  </style>
+</head>
+<body>
+  <div id="app">Loading...</div>
+
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+    <span id="dark-mode-icon">&#127769;</span>
+  </button>
+
+  <script>
+    function toggleDarkMode() {
+      const body = document.body;
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      body.setAttribute('data-theme', isDark ? '' : 'dark');
+      document.getElementById('dark-mode-icon').textContent = isDark ? '\u{1F319}' : '\u{2600}\u{FE0F}';
+      localStorage.setItem('docsify-dark-mode', isDark ? 'light' : 'dark');
+    }
+    if (localStorage.getItem('docsify-dark-mode') === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+      document.addEventListener('DOMContentLoaded', () => {
+        const icon = document.getElementById('dark-mode-icon');
+        if (icon) icon.textContent = '\u{2600}\u{FE0F}';
+      });
+    }
+  </script>
+
+  <script>
+    window.$docsify = {
+      name: '<img src="https://www.janvayu.in/favicon.svg" alt="JanVayu"> JanVayu Blog',
+      nameLink: '/',
+      repo: 'JanVayu/JanVayu',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      auto2top: true,
+      search: {
+        placeholder: 'Search blog...',
+        noData: 'No results found.',
+        depth: 3
+      },
+      pagination: {
+        previousText: 'Previous',
+        nextText: 'Next',
+        crossChapter: true
+      },
+      copyCode: {
+        buttonText: 'Copy',
+        successText: 'Copied'
+      },
+      footer: {
+        copy: '<span>JanVayu &copy; 2026 | <a href="https://www.janvayu.in" target="_blank">janvayu.in</a> | <a href="https://github.com/JanVayu/JanVayu/tree/main/docs" target="_blank">Docs</a></span>',
+        pre: '<hr>',
+        style: 'text-align: center; font-size: 0.8rem; color: #9ca3af; padding: 1em 0;'
+      }
+    };
+  </script>
+
+  <!-- Docsify core -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+  <!-- Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
+  <!-- Footer plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-footer-enh@1/dist/docsify-footer-enh.min.js"></script>
+</body>
+</html>

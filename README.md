@@ -43,18 +43,22 @@ This is not a campaign. It is a record.
 | 16 | **Action Guides** | Practical guides for citizen action, mask selection, and indoor air quality |
 | 17 | **Downloadable Reports** | Curated research papers and datasets for offline reference |
 | 18 | **Cultural Archive** | Satire, memes, art, and cultural responses to the pollution crisis |
+| 19 | **Blog** | Updates, data analysis, and reflections on India's air quality crisis at [janvayu.in/blog](https://www.janvayu.in/blog) |
 
 ---
 
-## Key Statistics (March 2026)
+## Key Statistics (April 2026)
 
 | Metric | Value | Source |
 |--------|-------|--------|
 | Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
 | Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
 | India's Global Share | 70% of pollution deaths | Lancet Countdown 2025 |
-| Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2024 |
-| Most Polluted City | Byrnihat (128.2 µg/m³) | IQAir 2024 |
+| Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2025 |
+| Most Polluted City | Loni, India (112.5 µg/m³) | IQAir 2025 |
+| Cities Meeting WHO Guideline | Only 14% globally | IQAir 2025 |
+| India Average PM2.5 | 48.9 µg/m³ (~10× WHO limit) | IQAir 2025 |
+| Life Expectancy Loss (India) | 3.5 years | AQLI 2025 |
 
 ---
 
@@ -130,6 +134,11 @@ JanVayu/
 ├── CONTRIBUTING.md                     # Contribution guidelines
 ├── CODE_OF_CONDUCT.md                  # Community standards
 ├── LICENSE                             # MIT (code) + CC BY-NC-SA 4.0 (content)
+├── blog/                               # Blog (Docsify-powered, Markdown posts)
+│   ├── index.html                      # Docsify blog config
+│   ├── _sidebar.md                     # Blog navigation
+│   ├── README.md                       # Blog home page
+│   └── posts/                          # Blog posts (YYYY-MM-DD-slug.md)
 ├── downloads/                          # Downloadable reports and datasets
 ├── netlify/
 │   └── functions/                      # Netlify serverless functions
