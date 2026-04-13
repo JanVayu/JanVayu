@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added — Blog & Research Updates
 
+- **Blog redesign**: Editorial typography with Newsreader serif headings, DM Sans body, proper post metadata styling, mobile-responsive layout, branded sidebar
+- **6 blog posts** (~750 words each, by Team JanVayu):
+  - IQAir 2025 analysis, Lancet causal mortality evidence, NCAP deadline assessment, children's health impact, stubble burning satellite evasion, economic cost of pollution
 - **Ask JanVayu PWA**: Standalone installable AI chat app at `/ask/` — chat-style interface, city chip selector, typing indicators, offline fallback, service worker caching. Installable on Android/iOS/desktop home screens via browser "Install" prompt.
 - **Blog**: New Docsify-powered blog at `/blog/` for data analysis, platform updates, and reflections on India's air quality crisis
   - Inaugural post: "IQAir 2025: India's Air Got Worse" — analysis of the 8th annual World Air Quality Report

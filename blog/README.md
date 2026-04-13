@@ -1,28 +1,39 @@
 # JanVayu Blog
 
-Updates, analysis, and reflections from the JanVayu project — India's citizen-led air quality archive.
+**Evidence-based analysis of India's air quality crisis.**
+
+Data, research, policy accountability, and what the numbers mean for 1.4 billion people.
 
 ---
 
-## Latest Posts
+## Latest
 
-| Date | Title |
-|------|-------|
-| 2026-04-12 | [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md) |
+| Date | Post | Topic |
+|------|------|-------|
+| 12 Apr 2026 | [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md) | Data |
+| 8 Apr 2026 | [The Lancet's Verdict: 1.5 Million Deaths a Year](posts/2026-04-08-lancet-causal-evidence.md) | Research |
+| 5 Apr 2026 | [NCAP at the Finish Line: Has India's Clean Air Programme Worked?](posts/2026-04-05-ncap-deadline.md) | Policy |
+| 1 Apr 2026 | [India's Children Are Paying the Price](posts/2026-04-01-children-air-pollution.md) | Health |
+| 28 Mar 2026 | [How Farmers Outsmart Satellites: The Stubble Burning Shell Game](posts/2026-03-28-stubble-burning-satellites.md) | Investigation |
+| 25 Mar 2026 | [The $339 Billion Question: What Pollution Costs India](posts/2026-03-25-economic-cost.md) | Economics |
 
 ---
 
 ## About This Blog
 
-This blog accompanies the [JanVayu platform](https://www.janvayu.in) — a non-partisan, citizen-led initiative to build India's first comprehensive public archive documenting the air quality crisis.
+This blog accompanies [JanVayu](https://www.janvayu.in) — a non-partisan, citizen-led initiative documenting India's air quality crisis.
 
-We write about:
+Every post is grounded in peer-reviewed research, government data, and verified reporting. We cite primary sources so you can verify every claim.
 
-- **Data updates** — new research, report releases, methodology changes
-- **Platform updates** — new features, design decisions, technical notes
-- **Analysis** — what the numbers mean for Indian citizens
-- **Community** — contributions, translations, civic action
+**We write about:**
+- **Data** — new reports, AQI trends, methodology
+- **Research** — peer-reviewed findings, health studies
+- **Policy** — NCAP, GRAP, budgets, accountability
+- **Health** — mortality, children, vulnerable populations
+- **Economics** — GDP loss, productivity, migration
+
+*All posts by Team JanVayu.*
 
 ---
 
-Want to contribute a post? See our [Contributing Guide](https://github.com/JanVayu/JanVayu/blob/main/CONTRIBUTING.md).
+[janvayu.in](https://www.janvayu.in) | [Ask JanVayu](https://www.janvayu.in/ask/) | [Zotero Library](https://www.zotero.org/groups/6508140/janvayu/library) | [GitHub](https://github.com/JanVayu/JanVayu)
