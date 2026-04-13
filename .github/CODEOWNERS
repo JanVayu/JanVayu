@@ -1,1 +1,12 @@
-* @JanVayu
+# CODEOWNERS — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# These owners will be automatically requested for review on PRs.
+
+# Default: all files require review from the maintainer
+* @Varnasr
+
+# Critical files: require explicit maintainer approval
+index.html @Varnasr
+netlify.toml @Varnasr
+netlify/functions/** @Varnasr
+.github/** @Varnasr
+package.json @Varnasr

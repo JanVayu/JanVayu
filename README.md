@@ -286,13 +286,23 @@ This project was previously known as "Vayu Smriti" (वायु स्मृत
 
 ---
 
+## Forking & Reuse
+
+JanVayu is designed to be forked for other cities, regions, or countries. Total cost to run a fork: **$0/month** on free tiers (WAQI, Groq, Resend, Netlify).
+
+See **[FORKING.md](FORKING.md)** for a complete guide — what to change, API keys needed, and attribution requirements.
+
+If you create a fork, let us know — we'll list it in the README.
+
+---
+
 ## License
 
-* **Code:** MIT License
-* **Content/Documentation:** CC BY-NC-SA 4.0
+* **Code:** MIT License — use freely, modify, redistribute
+* **Content/Documentation:** CC BY-NC-SA 4.0 — share with attribution, non-commercial, same license
 * **Data:** Individual sources retain original licenses
 
-See [LICENSE](LICENSE) for details.
+See [LICENSE](LICENSE) for details. If you fork this project, please credit JanVayu as the upstream source.
 
 ---
 
