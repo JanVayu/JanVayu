@@ -65,6 +65,89 @@ async function fetchCityAQI(cityKey) {
   return null;
 }
 
+function getSeasonalContext() {
+  const now = new Date();
+  const month = now.getMonth(); // 0-indexed
+  const day = now.getDate();
+  const dateStr = now.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+
+  let season = "";
+  if (month >= 9 && month <= 11) {
+    season = "STUBBLE BURNING SEASON (Oct-Nov): Crop residue fires in Punjab/Haryana contribute 25-40% of Delhi-NCR PM2.5 during peak weeks. GRAP restrictions likely active in NCR.";
+  } else if (month === 0 || month === 11) {
+    season = "WINTER INVERSION PERIOD (Dec-Jan): Cold temperatures trap pollutants near ground level. This is typically the worst air quality period across north India. Fog + smog combination common.";
+  } else if (month >= 1 && month <= 2) {
+    season = "LATE WINTER (Feb-Mar): Air quality gradually improving in north India but still elevated. Dust storms possible in Rajasthan/western India.";
+  } else if (month >= 6 && month <= 8) {
+    season = "MONSOON SEASON (Jul-Sep): Rainfall washes out particulates. This is typically the BEST air quality period. PM2.5 levels may be 50-70% lower than winter peaks.";
+  } else if (month >= 3 && month <= 5) {
+    season = "PRE-MONSOON/SUMMER (Apr-Jun): Dust storms in north/west India. Construction activity high. Heat increases ozone formation. Moderate pollution levels.";
+  }
+
+  const diwaliMonth = 10; // Nov approx
+  let diwaliNote = "";
+  if (month === 10 && day >= 1 && day <= 15) {
+    diwaliNote = " DIWALI PERIOD: Firecracker emissions cause extreme PM2.5 spikes (often 500+ µg/m³ in Delhi) lasting 2-3 days.";
+  }
+
+  return { dateStr, season: season + diwaliNote };
+}
+
+const NCAP_CITY_DATA = {
+  delhi: { ncapTarget: "40% PM10 reduction by 2026", budget: "₹300 Cr pollution budget (43% utilised)", note: "Most polluted capital globally. 0 days met WHO limit in 2026." },
+  mumbai: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "PM2.5 increased 38% since 2019 despite NCAP." },
+  kolkata: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Winter inversions + vehicle emissions. Limited monitoring coverage." },
+  lucknow: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Indo-Gangetic plain — trapped pollutants. Brick kilns major source." },
+  patna: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Among worst PM2.5 in India. Limited enforcement capacity." },
+  varanasi: { ncapTarget: "40% PM10 reduction", budget: "NCAP success story", note: "PM2.5 fell 72% in 5 years — best NCAP performer." },
+  jaipur: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Desert dust + vehicle emissions. Seasonal variation high." },
+  pune: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Relatively better air quality than Delhi/Mumbai. Growing vehicle fleet a concern." },
+  chennai: { ncapTarget: "Not in original NCAP 131", budget: "N/A", note: "Coastal city — sea breeze helps dispersion. Industrial corridor a concern." },
+  bangalore: { ncapTarget: "Not in original NCAP 131", budget: "N/A", note: "Generally better air quality. Vehicle growth and construction are rising concerns." },
+};
+
+const ACTIVITY_THRESHOLDS = `
+WHO activity guidance by PM2.5 level:
+- 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
+- 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
+- 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
+- 55-150 µg/m³ (Unhealthy): Everyone should reduce prolonged outdoor exertion. No jogging/cycling. Children should play indoors. N95 mask recommended outdoors.
+- 150-250 µg/m³ (Very Unhealthy): Avoid all outdoor physical activity. Keep windows closed. Run air purifier indoors if available. N95 mask essential outdoors.
+- 250+ µg/m³ (Hazardous/Severe): Stay indoors. Schools should close. No outdoor work without protection. Medical emergency risk for vulnerable populations.
+
+Transport exposure multipliers (vs ambient): Walking 1.0x, Cycling 2-3x (heavy breathing), Auto-rickshaw 1.5x (open vehicle), Car (AC, windows up) 0.3-0.5x, Metro 0.2-0.4x, Bus 0.8-1.0x.
+`;
+
+function buildSystemPrompt(seasonal) {
+  return `You are JanVayu, India's citizen-led air quality assistant. You are NOT a generic chatbot — you have access to LIVE pollution data and deep knowledge of India's air quality context.
+
+TODAY: ${seasonal.dateStr}
+SEASONAL CONTEXT: ${seasonal.season}
+
+${ACTIVITY_THRESHOLDS}
+
+KEY REFERENCE DATA:
+- WHO annual PM2.5 guideline: 5 µg/m³. India's NAAQS: 40 µg/m³.
+- India average PM2.5 (2025): 48.9 µg/m³ (~10x WHO limit)
+- 1.72 million Indians die annually from air pollution (Lancet Countdown 2025)
+- Economic cost: $339.4 billion/year (9.5% GDP)
+- NCAP target: 40% PM10 reduction across 131 cities by 2025-26. Only 23 cities met this.
+- Average Indian loses 3.5 years of life expectancy to pollution (AQLI)
+- 1 SD increase in PM2.5 → 5 percentage point increase in child stunting
+
+INSTRUCTIONS:
+1. Use the ACTUAL live data numbers provided — never give generic advice.
+2. For "Should I..." questions: give a direct YES/NO first, then explain using the activity thresholds and the person's specific situation.
+3. For health questions: be honest about risk using the data. Mention vulnerable groups (children <5, elderly >65, pregnant women, asthmatics).
+4. For city comparisons: compare the actual current readings, explain the structural reasons for differences.
+5. For policy/accountability questions: use NCAP data if available for the city.
+6. For exposure estimates: use transport multipliers and the current PM2.5 level.
+7. Include the seasonal context when it's relevant (e.g. stubble burning, monsoon).
+8. If asked to draft an RTI: generate a proper RTI application format with department, subject, and specific questions.
+9. Respond in the same language the question is asked in — Hindi in Devanagari, Tamil in Tamil script, etc.
+10. Keep responses under 200 words. Be direct, specific, and actionable.`;
+}
+
 export default async function handler(req) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -102,7 +185,29 @@ export default async function handler(req) {
     }), { status: 200, headers });
   }
 
-  const dataContext = `City: ${aqiResult.city}, AQI: ${aqiResult.aqi}, PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10: ${aqiResult.pm10 ?? "N/A"} µg/m³, Station: ${aqiResult.station}, Updated: ${aqiResult.time}, WHO PM2.5 guideline: 5 µg/m³.`;
+  // Detect comparison queries and fetch second city if needed
+  const compareMatch = question.match(/(?:compare|vs|versus|or)\s+(\w+)/i);
+  let compareResult = null;
+  if (compareMatch) {
+    const secondCity = compareMatch[1].toLowerCase();
+    if (CITIES[secondCity]) {
+      compareResult = await fetchCityAQI(secondCity);
+    }
+  }
+
+  let dataContext = `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Station: ${aqiResult.station}, Updated: ${aqiResult.time}.`;
+
+  if (compareResult) {
+    dataContext += `\nCOMPARISON CITY — ${compareResult.city}: AQI ${compareResult.aqi}, PM2.5 ${compareResult.pm25 ?? "N/A"} µg/m³, PM10 ${compareResult.pm10 ?? "N/A"} µg/m³, Station: ${compareResult.station}.`;
+  }
+
+  // Add NCAP city data if available
+  const ncap = NCAP_CITY_DATA[cityKey];
+  if (ncap) {
+    dataContext += `\nNCAP DATA — ${ncap.ncapTarget}. Budget: ${ncap.budget}. Note: ${ncap.note}`;
+  }
+
+  const seasonal = getSeasonalContext();
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -111,10 +216,10 @@ export default async function handler(req) {
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: [
-          { role: "system", content: "You are JanVayu's air quality assistant for India. Answer questions in plain, direct language. Use the actual numbers provided — do not give generic advice. If the question is about health, be honest about risk without causing panic. Always cite the data you are using. Respond in the same language the question is asked in — if Hindi, respond in Hindi using Devanagari script. Keep responses under 150 words." },
+          { role: "system", content: buildSystemPrompt(seasonal) },
           { role: "user", content: `${dataContext}\n\nQuestion: ${question}` }
         ],
-        max_tokens: 300,
+        max_tokens: 450,
       }),
       signal: AbortSignal.timeout(15000),
     });
@@ -123,7 +228,7 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ answer: text, dataUsed: aqiResult }), { status: 200, headers });
   } catch (e) {
     console.log("Groq error:", e.message);
-    const fallback = `AI analysis unavailable right now. Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³.`;
+    const fallback = `AI analysis unavailable right now. Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³ (${aqiResult.pm25 ? Math.round(aqiResult.pm25 / 5) + "x WHO guideline" : ""}).`;
     return new Response(JSON.stringify({ answer: fallback, dataUsed: aqiResult }), { status: 200, headers });
   }
 }
