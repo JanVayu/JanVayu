@@ -20,7 +20,7 @@
     :root {
       --theme-color: #16A34A;
       --theme-color-secondary: #22C55E;
-      --sidebar-width: 240px;
+      --sidebar-width: 280px;
       --sidebar-background: #fafbfc;
       --sidebar-border-color: #e8ecf0;
       --sidebar-name-color: #1a3a2a;
@@ -175,8 +175,15 @@
       padding: 16px 16px 8px;
     }
 
-    .sidebar-nav > ul > li > a {
-      font-size: 0.85rem;
+    .sidebar-nav > ul > li > a,
+    .sidebar-nav > ul > li > ul > li > a {
+      font-size: 0.82rem;
+      white-space: normal;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+      display: block;
+      padding: 4px 0;
     }
 
     /* Dark mode toggle */
