@@ -3,49 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JanVayu Blog</title>
-  <meta name="description" content="JanVayu Blog - Updates, analysis, and reflections on India's air quality crisis.">
+  <title>JanVayu Blog — Air Quality Analysis & Updates</title>
+  <meta name="description" content="Evidence-based analysis of India's air quality crisis. Data, research, policy, and accountability.">
   <meta property="og:title" content="JanVayu Blog">
-  <meta property="og:description" content="Updates, analysis, and reflections from India's citizen-led air quality archive.">
+  <meta property="og:description" content="Evidence-based analysis of India's air quality crisis from the citizen-led air quality archive.">
   <meta property="og:type" content="website">
   <link rel="icon" href="https://www.janvayu.in/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,0,600;6..72,0,700;6..72,1,400&display=swap" rel="stylesheet">
 
-  <!-- Docsify Theme -->
+  <!-- Docsify Theme (base) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.min.css">
 
-  <!-- Custom Styles (same as docs) -->
   <style>
     :root {
       --theme-color: #16A34A;
       --theme-color-secondary: #22C55E;
-      --sidebar-width: 260px;
+      --sidebar-width: 240px;
       --sidebar-background: #fafbfc;
       --sidebar-border-color: #e8ecf0;
       --sidebar-name-color: #1a3a2a;
-      --sidebar-name-font-size: 1.35rem;
+      --sidebar-name-font-size: 1.1rem;
       --sidebar-name-font-weight: 700;
       --sidebar-nav-link-color: #364153;
       --sidebar-nav-link-color--active: #16A34A;
       --sidebar-nav-link-font-weight--active: 600;
       --sidebar-nav-strong-color: #1a3a2a;
-      --sidebar-nav-strong-font-size: 0.85rem;
+      --sidebar-nav-strong-font-size: 0.7rem;
       --sidebar-nav-strong-font-weight: 700;
       --sidebar-nav-strong-margin: 1.5em 0 0.5em 0;
       --sidebar-nav-strong-text-transform: uppercase;
-      --content-max-width: 740px;
-      --base-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --sidebar-nav-strong-letter-spacing: 0.08em;
+      --content-max-width: 720px;
+      --base-font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --base-font-size: 16px;
-      --base-line-height: 1.8;
-      --base-color: #1a1a2e;
+      --base-line-height: 1.85;
+      --base-color: #1a1a18;
       --heading-color: #1a3a2a;
+      --heading-font-family: 'Newsreader', Georgia, serif;
+      --heading-font-weight: 600;
       --link-color: #16A34A;
       --link-color--hover: #15803d;
-      --code-font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-      --code-inline-background: #f0fdf4;
-      --code-inline-color: #166534;
-      --code-block-border-radius: 8px;
       --blockquote-border-color: #16A34A;
       --blockquote-background: #f0fdf4;
+      --blockquote-border-width: 3px;
+      --notice-tip-border-color: #16A34A;
+      --search-background: #fff;
+      --search-input-border-color: #e8ecf0;
+      --search-result-keyword-color: #16A34A;
     }
 
     body[data-theme="dark"] {
@@ -57,19 +63,123 @@
       --sidebar-nav-strong-color: #86EFAC;
       --base-color: #e2e8f0;
       --heading-color: #86EFAC;
-      --code-inline-background: #1a2e23;
-      --code-inline-color: #86EFAC;
       --blockquote-background: #1a2e23;
+      --search-background: #1a1a18;
     }
 
-    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-    table th { background: #f0fdf4; font-weight: 600; text-align: left; padding: 10px 14px; border: 1px solid #e5e7eb; }
-    table td { padding: 10px 14px; border: 1px solid #e5e7eb; }
-    table tr:nth-child(even) { background: #fafbfc; }
-    html { scroll-behavior: smooth; }
-    .markdown-section pre { border-radius: 8px; padding: 1em; }
-    .markdown-section code { border-radius: 4px; padding: 2px 6px; }
+    /* Typography */
+    .markdown-section h1 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
 
+    .markdown-section h2 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.35rem;
+      margin-top: 2.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--sidebar-border-color);
+    }
+
+    .markdown-section h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--theme-color);
+      margin-top: 2rem;
+    }
+
+    .markdown-section p {
+      font-size: 1.0125rem;
+      line-height: 1.85;
+      margin: 1.25em 0;
+    }
+
+    .markdown-section strong {
+      color: var(--heading-color);
+    }
+
+    .markdown-section em {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+    }
+
+    .markdown-section hr {
+      border: none;
+      border-top: 1px solid var(--sidebar-border-color);
+      margin: 2rem 0;
+    }
+
+    /* Post metadata (bold line after title) */
+    .markdown-section h1 + p strong {
+      color: var(--theme-color);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Blockquotes as callouts */
+    .markdown-section blockquote {
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .markdown-section blockquote p {
+      font-size: 0.95rem;
+      margin: 0.5em 0;
+    }
+
+    /* Lists */
+    .markdown-section ul, .markdown-section ol {
+      padding-left: 1.5rem;
+    }
+
+    .markdown-section li {
+      margin-bottom: 0.4em;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* Tables */
+    table { border-collapse: collapse; width: 100%; margin: 1.5em 0; border-radius: 8px; overflow: hidden; }
+    table th { background: #f0fdf4; font-weight: 600; text-align: left; padding: 10px 14px; border: 1px solid #e5e7eb; font-size: 0.85rem; }
+    table td { padding: 10px 14px; border: 1px solid #e5e7eb; font-size: 0.9rem; }
+    table tr:nth-child(even) { background: #fafbfc; }
+    body[data-theme="dark"] table th { background: #1a2e23; border-color: #2d3748; }
+    body[data-theme="dark"] table td { border-color: #2d3748; }
+    body[data-theme="dark"] table tr:nth-child(even) { background: #141414; }
+
+    /* Sources section at end of posts */
+    .markdown-section h2:last-of-type {
+      font-size: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--theme-color);
+      border-bottom: none;
+      margin-top: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Sidebar tweaks */
+    .sidebar .app-name {
+      padding: 16px 16px 8px;
+    }
+
+    .sidebar-nav > ul > li > a {
+      font-size: 0.85rem;
+    }
+
+    /* Dark mode toggle */
     .dark-mode-toggle {
       position: fixed; bottom: 20px; right: 20px;
       width: 40px; height: 40px; border-radius: 50%;
@@ -81,6 +191,33 @@
     }
     .dark-mode-toggle:hover { transform: scale(1.1); }
     body[data-theme="dark"] .dark-mode-toggle { background: #1a2e23; border-color: #2d3748; }
+
+    /* Back to site link */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--theme-color); text-decoration: none;
+      padding: 8px 0; margin-bottom: 0;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Better code blocks */
+    .markdown-section pre { border-radius: 8px; padding: 1em; }
+    .markdown-section code { border-radius: 4px; padding: 2px 6px; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .markdown-section h1 { font-size: 1.5rem; }
+      .markdown-section p { font-size: 0.95rem; }
+      .markdown-section { padding: 0 16px; }
+    }
+
+    /* Cover page tweaks */
+    section.cover { background: linear-gradient(135deg, #1a3a2a 0%, #16A34A 100%) !important; }
   </style>
 </head>
 <body>
@@ -109,30 +246,26 @@
 
   <script>
     window.$docsify = {
-      name: '<img src="https://www.janvayu.in/favicon.svg" alt="JanVayu"> JanVayu Blog',
-      nameLink: '/',
-      repo: 'JanVayu/JanVayu',
+      name: 'JanVayu Blog',
+      nameLink: '/blog/',
+      repo: false,
       loadSidebar: true,
       subMaxLevel: 2,
       auto2top: true,
       search: {
-        placeholder: 'Search blog...',
+        placeholder: 'Search posts...',
         noData: 'No results found.',
         depth: 3
       },
       pagination: {
-        previousText: 'Previous',
-        nextText: 'Next',
+        previousText: 'Previous Post',
+        nextText: 'Next Post',
         crossChapter: true
       },
-      copyCode: {
-        buttonText: 'Copy',
-        successText: 'Copied'
-      },
       footer: {
-        copy: '<span>JanVayu &copy; 2026 | <a href="https://www.janvayu.in" target="_blank">janvayu.in</a> | <a href="https://github.com/JanVayu/JanVayu/tree/main/docs" target="_blank">Docs</a></span>',
+        copy: '<span>JanVayu &copy; 2026 | <a href="https://www.janvayu.in" target="_blank">janvayu.in</a> | <a href="/docs/">Docs</a> | <a href="/ask/">Ask JanVayu</a></span>',
         pre: '<hr>',
-        style: 'text-align: center; font-size: 0.8rem; color: #9ca3af; padding: 1em 0;'
+        style: 'text-align: center; font-size: 0.75rem; color: #9ca3af; padding: 1em 0;'
       }
     };
   </script>
@@ -142,7 +275,6 @@
 
   <!-- Plugins -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
 
