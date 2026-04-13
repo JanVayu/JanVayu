@@ -27,6 +27,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Lancet Planetary Health — two causal PM2.5 mortality studies for India (difference-in-differences and multi-city causal modelling)
   - Science Advances — PM2.5 inequality study showing unequal air quality improvements across India
 
+### Repository & Governance
+
+- **Branch protection tightened**: PRs now require 1 approval, code owner review, dismiss stale reviews, conversation resolution
+- **CODEOWNERS**: `@Varnasr` as maintainer; critical files (index.html, netlify.toml, functions, .github) require explicit approval
+- **PR template**: Strengthened checklist (no secrets, source citations, mobile testing, no unapproved deps)
+- **FORKING.md**: Complete guide for forking — what to change, API keys, attribution requirements, $0/month hosting
+- **README**: Added Forking & Reuse section with attribution guidance
+
 ### Changed — Mobile & Accessibility
 
 - **Mobile responsiveness**: 44px touch targets, comprehensive phone layout (768px + 375px breakpoints)

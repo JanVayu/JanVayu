@@ -13,8 +13,12 @@
 ## Checklist
 
 - [ ] I have tested this locally and it works as expected
-- [ ] The changes are mobile-responsive
+- [ ] The changes are mobile-responsive (tested at 375px and 768px)
 - [ ] There are no console errors
+- [ ] I have not introduced new external dependencies without discussion
+- [ ] I have not modified `netlify.toml` or Netlify functions without maintainer approval
+- [ ] No API keys, tokens, or secrets are included
+- [ ] All data claims cite a primary source (Lancet, CPCB, etc.)
 - [ ] I have updated documentation if needed
 
 ## Screenshots
