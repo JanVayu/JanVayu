@@ -11120,7 +11120,8 @@ Signature: _______________</div>
                     &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer<br>
                     &bull; <strong>Mobile header decluttered:</strong> GitHub, Docs, Simple mode icons hidden on mobile (accessible via hamburger menu); language button changed from text to globe icon<br>
                     &bull; <strong>Hero updated:</strong> Featured alert now shows April 2026 IQAir data instead of March<br>
-                    &bull; <strong>Ask JanVayu in FAB:</strong> Ask JanVayu AI integrated into the green floating action button as a third tab (Search / Ask JanVayu / Feedback); Enter key submits<br>
+                    &bull; <strong>Ask JanVayu AI upgraded:</strong> Seasonal awareness (stubble burning, monsoon, Diwali), WHO activity thresholds, transport exposure multipliers, NCAP city data, cross-city comparisons, RTI draft generation. Not a generic chatbot.<br>
+                    &bull; <strong>Ask JanVayu in FAB:</strong> Integrated into green floating button as third tab (Search / Ask JanVayu / Feedback)<br>
                     &bull; <strong>Ask JanVayu PWA:</strong> Standalone installable AI chat app at <a href="/ask/">/ask/</a> &mdash; chat-style interface, city chip selector, typing indicators, offline fallback. Install to home screen on Android/iOS/desktop.<br>
                     &bull; <strong>Role switcher mobile:</strong> Dropdown moved outside header DOM so it renders as a proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
                 </div>
@@ -12443,9 +12444,9 @@ Signature: _______________</div>
                 </select>
                 <button class="widget-submit-btn" onclick="widgetAskAI()" id="widgetAiBtn" style="flex-shrink:0;">Ask</button>
             </div>
-            <textarea class="widget-ai-input" id="widgetAiQuestion" placeholder="Ask about air quality... e.g. &quot;Is it safe to go outside in Delhi today?&quot;" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();widgetAskAI();}"></textarea>
+            <textarea class="widget-ai-input" id="widgetAiQuestion" placeholder="e.g. &quot;Should I go jogging?&quot; or &quot;Draft an RTI for my ward&quot;" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();widgetAskAI();}"></textarea>
             <div class="widget-ai-response" id="widgetAiResponse">
-                <div style="color: var(--text-4); font-size: 0.8rem;">Ask any question about air quality in your city. Answers are grounded in live AQI data.</div>
+                <div style="color: var(--text-4); font-size: 0.8rem;">Live AQI data + seasonal context + health thresholds. Not a generic chatbot — try: <em>"Is it safe for my child to play outside?"</em> or <em>"Compare Delhi vs Pune"</em></div>
             </div>
             <div class="widget-ai-meta" id="widgetAiMeta"></div>
         </div>
