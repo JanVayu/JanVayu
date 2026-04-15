@@ -263,7 +263,7 @@ We welcome contributions from:
 * **Citizens** — testimonies, local documentation, translations
 * **Designers** — accessibility, communication
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and the [Collaborator Statement of Work](docs/contributing/collaborators.md) for detailed workstream descriptions.
 
 ---
 
