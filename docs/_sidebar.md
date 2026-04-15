@@ -49,6 +49,7 @@
 
 - **Contributing**
   - [How to Contribute](contributing/how-to-contribute.md)
+  - [Collaborator Statement of Work](contributing/collaborators.md)
   - [Content Standards](contributing/content-standards.md)
   - [Code Standards](contributing/code-standards.md)
   - [Translations](contributing/translations.md)
