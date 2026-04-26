@@ -11,7 +11,7 @@ JanVayu **Claude Code**, Anthropic-ன் software engineering-க்கான C
 - அனைத்து 13 Netlify Functions-ஐ எழுதுதல்
 - `index.html`-ல் முழு frontend-ஐ உருவாக்குதல்
 - Gemini prompt engineering (skill files) வடிவமைத்தல்
-- இந்த GitBook ஆவணங்களை உருவாக்குதல்
+- இந்த Docsify ஆவணங்களை உருவாக்குதல்
 - Git workflow நிர்வகித்தல் (commits, PRs, changelogs)
 - Serverless function சிக்கல்களை debug செய்தல்
 - Code review மற்றும் refactoring

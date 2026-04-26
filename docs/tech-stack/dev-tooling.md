@@ -11,7 +11,7 @@ JanVayu was developed with significant assistance from **Claude Code**, Anthropi
 - Writing all 13 Netlify Functions
 - Building the entire frontend in `index.html`
 - Crafting Llama 3.3 70B prompt engineering (skill files)
-- Creating this GitBook documentation
+- Creating this Docsify documentation
 - Managing Git workflow (commits, PRs, changelogs)
 - Debugging serverless function issues
 - Code review and refactoring
@@ -89,31 +89,22 @@ No other setup required. No Docker, no database, no build step.
 
 ---
 
-## GitBook Integrations
+## Docs Stack
 
-The documentation site uses these GitBook integrations:
+The documentation site is a single-page Docsify shell at `/docs/` that loads markdown directly from the `docs/` directory. Translated languages live in `docs-{lang}/` and are routed via Docsify hash routes (e.g. `/docs/#/hi/`).
 
-| Integration | What It Does |
-|-------------|-------------|
-| **GitHub Sync** | Bi-directional sync between `docs/` (and `docs-{lang}/`) and GitBook spaces |
-| **Formspree** | Embeds signup/feedback forms directly in published docs |
-| **Arcade** | Embeds interactive product demos — record browser walkthroughs, embed with `/arcade` block |
-| **PlantUML** | Renders architecture diagrams from `plantuml` code blocks |
+| Component | What It Does |
+|-----------|-------------|
+| **Docsify** | Renders markdown to HTML in the browser; no build step |
+| **docsify-themeable** | Brand-coloured theme (JanVayu green) with dark mode |
+| **docsify-pagination** | Previous/Next navigation between pages |
+| **docsify-copy-code** | Copy button on every code block |
+| **Prism.js** | Syntax highlighting for bash, JS, JSON, YAML, TOML, Markdown |
 | **Plausible** | Privacy-friendly, cookie-free analytics for the docs site |
-| **GitHub Files** | Embeds live code snippets from the repo using GitHub permalinks |
-
-### Using Arcade for Interactive Demos
-
-1. Install the [Arcade Chrome extension](https://www.arcade.software/)
-2. Record a walkthrough of a JanVayu feature (AQI dashboard, health calculator, etc.)
-3. Copy the embed URL from Arcade
-4. In GitBook, use the `/arcade` integration block and paste the URL
-
-Free tier includes ~3 published demos with unlimited views.
 
 ### Using PlantUML for Diagrams
 
-In any GitBook page, add a `plantuml` code block:
+Docsify itself doesn't render PlantUML server-side. If you need a diagram in a doc page, generate the PNG/SVG locally with the PlantUML CLI (or a hosted PlantUML server) and commit the image into `docs/`. Then embed it as a regular markdown image. Example PlantUML source:
 
 ````
 ```plantuml

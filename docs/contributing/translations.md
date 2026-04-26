@@ -59,15 +59,15 @@ If you notice an inaccurate or awkward translation:
 
 ## Live Translated Documentation
 
-Each language has its own GitBook space, synced from the corresponding `docs-{lang}/` directory in the repo:
+Each language lives in a `docs-{lang}/` directory in the repo and is served by a single Docsify shell at `/docs/`, which routes language-specific content via hash routes.
 
-| Language | GitBook URL | Source Directory |
-|----------|-------------|------------------|
-| English | [janvayu.gitbook.io/janvayu](https://janvayu.gitbook.io/janvayu/) | `docs/` |
-| Hindi | [janvayu.gitbook.io/janvayu/hi](https://janvayu.gitbook.io/janvayu/hi/) | `docs-hi/` |
-| Bengali | [janvayu.gitbook.io/janvayu/bn](https://janvayu.gitbook.io/janvayu/bn/) | `docs-bn/` |
-| Marathi | [janvayu.gitbook.io/janvayu/mr](https://janvayu.gitbook.io/janvayu/mr/) | `docs-mr/` |
-| Tamil | [janvayu.gitbook.io/janvayu/ta](https://janvayu.gitbook.io/janvayu/ta/) | `docs-ta/` |
+| Language | Live URL | Source Directory |
+|----------|----------|------------------|
+| English | [/docs/](/docs/) | `docs/` |
+| Hindi | [/docs/#/hi/](/docs/#/hi/) | `docs-hi/` |
+| Bengali | [/docs/#/bn/](/docs/#/bn/) | `docs-bn/` |
+| Marathi | [/docs/#/mr/](/docs/#/mr/) | `docs-mr/` |
+| Tamil | [/docs/#/ta/](/docs/#/ta/) | `docs-ta/` |
 
 All spaces sync automatically via GitHub integration when changes are pushed to `main`.
 

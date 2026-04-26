@@ -37,7 +37,7 @@ JanVayu exposes 10 serverless API endpoints via Netlify Functions. All endpoints
 
 ## OpenAPI Specification
 
-The full OpenAPI 3.1 spec is available at [`openapi.yaml`](openapi.yaml). Import it into GitBook, Swagger UI, Postman, or any OpenAPI-compatible tool.
+The full OpenAPI 3.1 spec is available at [`openapi.yaml`](openapi.yaml). Import it into Swagger UI, Postman, Insomnia, or any OpenAPI-compatible tool.
 
 ---
 

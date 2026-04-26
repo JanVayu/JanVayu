@@ -8,7 +8,7 @@ JanVayu-র Claude Code ওয়ার্কফ্লো কীভাবে শ
 
 ### নতুন অবদানকারীকে যুক্ত করুন
 1. রিপো ক্লোন করুন
-2. এই GitBook ডকুমেন্টেশন পড়ুন
+2. এই Docsify ডকুমেন্টেশন পড়ুন
 3. Claude Code ইনস্টল করুন: `npm install -g @anthropic-ai/claude-code`
 4. সেশন শুরু করুন: `cd JanVayu && claude`
 

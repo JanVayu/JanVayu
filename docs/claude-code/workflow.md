@@ -75,7 +75,7 @@ Claude Code:
 ## Documentation Workflow
 
 ```
-> Create GitBook documentation for JanVayu covering the tech stack,
+> Create Docsify documentation for JanVayu covering the tech stack,
 > Claude Code setup, and AI features. Include a SUMMARY.md.
 ```
 
@@ -83,7 +83,7 @@ Claude Code:
 1. Reads all existing docs, configs, and source code
 2. Creates the directory structure
 3. Writes each page with accurate, code-referenced content
-4. Updates `SUMMARY.md` and `.gitbook.yaml`
+4. Updates `SUMMARY.md` and the Docsify `_sidebar.md` for each language
 
 ---
 
