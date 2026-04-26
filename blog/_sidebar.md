@@ -3,6 +3,7 @@
 - [**JanVayu Blog**](README.md)
 
 - **April 2026**
+  - [What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops](posts/2026-04-26-shipped-this-week.md)
   - [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md)
   - [The Lancet's Verdict: 1.5 Million Deaths](posts/2026-04-08-lancet-causal-evidence.md)
   - [NCAP at the Finish Line](posts/2026-04-05-ncap-deadline.md)
