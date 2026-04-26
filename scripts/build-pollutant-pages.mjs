@@ -193,7 +193,8 @@ ${POLLUTANTS.filter(q => q.slug !== p.slug).map(q => `    <a href="/${q.slug}/">
   </div>
 </div>
 <footer>
-  <div>JanVayu is an independent, citizen-led air quality accountability platform for India. Data from <a href="https://aqicn.org">WAQI / aqicn.org</a>, <a href="https://cpcb.nic.in">CPCB</a>, and <a href="https://sensor.community">Sensor.Community</a>.</div>
+  <div>JanVayu is an independent, citizen-led air quality accountability platform for India. Part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>.</div>
+  <div style="margin-top: 6px;">Data from <a href="https://aqicn.org">WAQI / aqicn.org</a>, <a href="https://cpcb.nic.in">CPCB</a>, and <a href="https://sensor.community">Sensor.Community</a>.</div>
   <div style="margin-top: 8px;">© ${new Date().getFullYear()} JanVayu · <a href="/">Dashboard</a> · <a href="/blog/">Blog</a> · <a href="/about">About</a></div>
 </footer>
 <script>
