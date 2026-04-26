@@ -1,0 +1,26 @@
+{
+  "name": "JanVayu — India's Air Quality Accountability Platform",
+  "short_name": "JanVayu",
+  "description": "Live AQI for Indian cities, health impact, NCAP accountability, RTI tools, and citizen voices. Independent and citizen-led.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f2b1c",
+  "theme_color": "#1B6B4A",
+  "categories": ["health", "news", "weather", "education"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Live Map", "url": "/#map" },
+    { "name": "City Rankings", "url": "/#rankings" },
+    { "name": "Should I go outside?", "url": "/#go-outside" }
+  ]
+}
