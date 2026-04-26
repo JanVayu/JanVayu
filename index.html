@@ -3007,6 +3007,28 @@ body {
                 .pwa-install-banner .pwa-title { font-size: 0.85rem; }
                 .pwa-install-banner .pwa-cta { padding: 6px 12px; font-size: 0.8rem; }
             }
+
+            /* Map layer toggle buttons (Stations / Heatmap pill group) */
+            .map-layer-btn {
+                font-family: var(--sans, system-ui);
+                font-size: 0.78rem;
+                font-weight: 600;
+                padding: 7px 14px;
+                border: 0;
+                border-radius: 7px;
+                background: transparent;
+                color: var(--text-2, #475569);
+                cursor: pointer;
+                transition: background 0.15s, color 0.15s, transform 0.05s;
+            }
+            .map-layer-btn:hover { background: var(--bg, #F8FAFC); color: var(--ink, #0F172A); }
+            .map-layer-btn:active { transform: scale(0.97); }
+            .map-layer-btn.active {
+                background: var(--accent, #1B6B4A);
+                color: #fff;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            }
+            .map-layer-btn.active:hover { background: var(--accent, #1B6B4A); color: #fff; }
         </style>
         <div id="pwa-install-banner" class="pwa-install-banner" role="dialog" aria-label="Install JanVayu">
             <div class="pwa-text">
@@ -4380,9 +4402,9 @@ body {
                 }).addTo(map);
                 mapMarkerLayer = L.layerGroup().addTo(map);
                 updateMapMarkers();
-                // Restore heatmap state if user had it on
-                const heatToggle = document.getElementById('map-toggle-heatmap');
-                if (heatToggle && heatToggle.checked) toggleMapLayer('heatmap', true);
+                // Restore heatmap state if user had it on (button-toggle .active class)
+                const heatBtn = document.getElementById('map-toggle-heatmap-btn');
+                if (heatBtn && heatBtn.classList.contains('active')) toggleMapLayer('heatmap', true);
             } catch (e) {
                 console.error('[JanVayu] Error initializing map:', e);
             }
@@ -4436,8 +4458,10 @@ body {
                 if (!city.lat || city.region === 'intl') return;
                 const aqi = aqiData[key]?.aqi;
                 if (!aqi) return;
-                // Intensity 0–1, scaled so AQI 500 ≈ full intensity
-                points.push([city.lat, city.lon, Math.min(1, aqi / 500)]);
+                // Intensity scaled so AQI 200 already gets meaningful weight at India-wide
+                // zoom — the previous 0..1/500 scale washed out everything below "Severe".
+                const intensity = Math.min(1, Math.max(0.25, aqi / 250));
+                points.push([city.lat, city.lon, intensity]);
             });
             return points;
         }
@@ -4445,9 +4469,19 @@ body {
     function rebuildHeatLayer() {
             if (!map) return;
             if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
-            if (typeof L.heatLayer !== 'function') return;
+            if (typeof L.heatLayer !== 'function') {
+                console.warn('[JanVayu] leaflet.heat plugin not loaded yet — retrying in 400ms');
+                setTimeout(rebuildHeatLayer, 400);
+                return;
+            }
+            // Heat blobs need to be large at India-wide zoom or they disappear into
+            // single pixels per city. Tuned for default zoom 5; the maxZoom bump keeps
+            // them visible when the user zooms in.
             mapHeatLayer = L.heatLayer(buildHeatPoints(), {
-                radius: 35, blur: 25, maxZoom: 8,
+                radius: 55,
+                blur: 40,
+                maxZoom: 9,
+                minOpacity: 0.45,
                 gradient: { 0.0: '#22C55E', 0.2: '#EAB308', 0.4: '#F97316', 0.6: '#EF4444', 0.8: '#7C3AED', 1.0: '#831843' }
             }).addTo(map);
         }
@@ -4461,6 +4495,15 @@ body {
                 if (on) { rebuildHeatLayer(); }
                 else if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
             }
+        }
+
+    // Button-toggle wrapper: flips the .active style and aria-pressed,
+    // then delegates to toggleMapLayer with the resulting on/off state.
+    function toggleMapLayerBtn(btn, name) {
+            const willBeOn = !btn.classList.contains('active');
+            btn.classList.toggle('active', willBeOn);
+            btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
+            toggleMapLayer(name, willBeOn);
         }
 
     function exportData(format) {
@@ -4705,6 +4748,21 @@ body {
 
     // ── Social Media Feed (Free APIs) ──
     const SOCIAL_CACHE = { reddit: null, lastFetch: 0 };
+
+    // Force-refresh: bust the client cache, also clear the news cache, and
+    // re-pull from the server-side feed proxies.
+    async function refreshSocialFeed() {
+        const btns = document.querySelectorAll('#social-feed-container').length
+            ? document.querySelectorAll('button.btn-sm') : [];
+        const time = document.getElementById('social-feed-time');
+        if (time) time.textContent = 'Refreshing…';
+        SOCIAL_CACHE.reddit = null;
+        SOCIAL_CACHE.lastFetch = 0;
+        try { newsCache.lastFetch = 0; } catch (e) {}
+        await loadSocialFeed('all');
+        // also refresh the dashboard's "Latest Updates" panel
+        try { loadDashboardLiveNews(); } catch (e) {}
+    }
     const REDDIT_SUBS = [
         { sub: 'india', query: 'air pollution OR AQI OR smog OR PM2.5' },
         { sub: 'delhi', query: 'pollution OR AQI OR smog OR air quality' },
@@ -8011,9 +8069,9 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             </div>
             <div class="card">
                 <div class="card-body" style="padding: 0; position: relative;">
-                    <div id="map-layer-controls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; background: var(--bg-section); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; display: flex; gap: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-                        <label style="font-size: 0.75rem; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" id="map-toggle-markers" checked onchange="toggleMapLayer('markers', this.checked)"> Stations</label>
-                        <label style="font-size: 0.75rem; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" id="map-toggle-heatmap" onchange="toggleMapLayer('heatmap', this.checked)"> Heatmap</label>
+                    <div id="map-layer-controls" style="position: absolute; top: 12px; right: 12px; z-index: 1000; background: var(--bg-section); border: 1px solid var(--border); border-radius: 10px; padding: 4px; display: inline-flex; gap: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                        <button type="button" id="map-toggle-markers-btn" class="map-layer-btn active" onclick="toggleMapLayerBtn(this, 'markers')" aria-pressed="true">Stations</button>
+                        <button type="button" id="map-toggle-heatmap-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'heatmap')" aria-pressed="false">Heatmap</button>
                     </div>
                     <div id="india-map"></div>
                 </div>
@@ -12118,6 +12176,28 @@ Signature: _______________</div>
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.4 &mdash; 26 Apr 2026</div>
+                    <strong>Competitor gap closure, Workshops, Ask JanVayu i18n, AIPC attribution</strong><br>
+                    &bull; <strong>Cigarette equivalence:</strong> Live PM2.5 to "&approx; X cigarettes/day" using the Berkeley Earth coefficient (1 cig &approx; 22 &micro;g/m&sup3;&middot;day) on the dashboard<br>
+                    &bull; <strong>Disease-risk badges:</strong> asthma, heart attack/stroke, allergies, respiratory infection, vulnerable groups &mdash; colour-coded by AQI band<br>
+                    &bull; <strong>Solution-recommendation card:</strong> AQI-gated guidance on N95, purifier, exercise, school closure, with cross-links to Purifier Calculator and "Should I go outside?"<br>
+                    &bull; <strong>"Near Me" geolocation:</strong> nearest WAQI station via the browser geolocation API<br>
+                    &bull; <strong>City Rankings panel</strong> (`/#rankings`) under Monitoring: Live / Past 7 days / Past 30 days, sortable, searchable. Backed by `rankings.mjs` with daily snapshots in Netlify Blobs<br>
+                    &bull; <strong>Hourly 24-hr scrubbable PM2.5 chart</strong> in the Trends panel<br>
+                    &bull; <strong>Year-over-year city comparison</strong> in the Compare panel: 2024/2025/2026 monthly averages with delta percentages. Backed by `historical-aqi.mjs` climatology baseline<br>
+                    &bull; <strong>Per-pollutant SEO pages</strong> at <a href="/pm25/">/pm25</a>, <a href="/pm10/">/pm10</a>, <a href="/co/">/co</a>, <a href="/no2/">/no2</a>, <a href="/so2/">/so2</a>, <a href="/o3/">/o3</a> with schema.org JSON-LD and live top-10 readings<br>
+                    &bull; <strong>Leaflet.heat heatmap layer</strong> on the Live Map with a toggle. Marker popups show cigarette equivalence and a "View on dashboard" jump<br>
+                    &bull; <strong>Embeddable widgets</strong> at `/embed/aqi/?city=...` and `/embed/rankings/?n=10`<br>
+                    &bull; <strong>Root PWA:</strong> manifest.json + sw.js (offline shell + last-known AQI cache). Install banner with persistent dismissal in localStorage<br>
+                    &bull; <strong>Sensor.Community community sensors</strong> integrated into the Hyperlocal panel via `community-sensors.mjs`. CC0, free, badged COMMUNITY vs CPCB/WAQI<br>
+                    &bull; <strong>Workshops panel</strong> under Action: workshop request with Sharath / UrbanEmissions (incl. Air Quality Jeopardy) and 1-hour JanVayu walkthrough booking. Submissions emailed to contribute@janvayu.in via Resend (`workshop-submit.mjs`); durable copy in Netlify Blobs<br>
+                    &bull; <strong>Ask JanVayu i18n:</strong> language picker (EN, हि, த, বা, म) on /ask/. Full UI translation; backend pins Llama response language<br>
+                    &bull; <strong>Programme attribution updated</strong> to "AirQuality for Janhit by MMSF Fellows, AIPC" everywhere &mdash; meta, JSON-LD, footer, About panel, citation, pollutant pages<br>
+                    &bull; <strong>No-emoji style enforced:</strong> emojis introduced this cycle replaced with `si-*` SVG icons, coloured borders, dot bullets<br>
+                    &bull; <strong>Mobile fix:</strong> PWA install banner refactored so the "Install" button no longer wraps letter-per-line on narrow viewports
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v25.4 &mdash; 12 Apr 2026</div>
                     <strong>Blog, Zotero Research Library, IQAir 2025 data, mobile &amp; accessibility</strong><br>
                     &bull; <strong>Blog:</strong> New Docsify-powered blog at <a href="/blog/">/blog/</a> with inaugural post &ldquo;IQAir 2025: India&rsquo;s Air Got Worse&rdquo;<br>
@@ -12611,7 +12691,8 @@ Signature: _______________</div>
             <button class="btn btn-sm" onclick="loadSocialFeed('instagram')">Instagram</button>
             <button class="btn btn-sm" onclick="loadSocialFeed('youtube')">YouTube</button>
             <button class="btn btn-sm" onclick="loadSocialFeed('news')">News</button>
-            <span style="margin-left: auto; font-size: 0.75rem; color: var(--text-3); align-self: center;" id="social-feed-time"></span>
+            <button class="btn btn-sm" onclick="refreshSocialFeed()" title="Force a fresh fetch from all sources" style="margin-left: auto;">Refresh</button>
+            <span style="font-size: 0.75rem; color: var(--text-3); align-self: center;" id="social-feed-time"></span>
         </div>
 
         <div id="social-feed-container" class="grid-2" style="gap: 1rem;">
