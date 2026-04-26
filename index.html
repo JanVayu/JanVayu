@@ -2615,6 +2615,7 @@ body {
                 <button class="mobile-nav-item" data-panel="citizen-action">Citizen Plan</button>
                 <button class="mobile-nav-item" data-panel="legal">Legal Framework</button>
                 <button class="mobile-nav-item" data-panel="voices">Citizen Voices</button>
+                <button class="mobile-nav-item" data-panel="workshops">Workshops</button>
                 <button class="mobile-nav-item" data-panel="social-feed">Social Media Feed</button>
                 <button class="mobile-nav-item" data-panel="live-news">Live News</button>
                 <button class="mobile-nav-item" data-panel="migration">Migration &amp; Displacement</button>
@@ -2700,6 +2701,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="citizen-action">Citizen Plan</button>
                     <button class="nav-dropdown-link" data-panel="legal">Legal Framework</button>
                     <button class="nav-dropdown-link" data-panel="voices">Citizen Voices</button>
+                    <button class="nav-dropdown-link" data-panel="workshops">Workshops</button>
                     <button class="nav-dropdown-link" data-panel="migration">Migration</button>
                 </div>
             </div>
@@ -2964,14 +2966,55 @@ body {
         </div>
 
         <!-- PWA INSTALL BANNER -->
-        <div id="pwa-install-banner" style="display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 999; background: var(--bg-section, #fff); border: 1px solid var(--border, #E2E8F0); border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); padding: 12px 16px; gap: 12px; align-items: center; max-width: 92vw;">
-            <span style="font-size: 1.4rem;">📲</span>
-            <div style="flex: 1; min-width: 200px;">
-                <div style="font-weight: 600; font-size: 0.9rem;">Install JanVayu</div>
-                <div style="font-size: 0.75rem; color: var(--text-3, #94A3B8);">Get live AQI + offline access on your home screen.</div>
+        <style>
+            .pwa-install-banner {
+                display: none;
+                position: fixed;
+                left: 50%;
+                bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+                transform: translateX(-50%);
+                z-index: 999;
+                background: var(--bg-section, #fff);
+                border: 1px solid var(--border, #E2E8F0);
+                border-radius: 12px;
+                box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+                padding: 10px 12px;
+                gap: 10px;
+                align-items: center;
+                max-width: min(92vw, 480px);
+                width: max-content;
+            }
+            .pwa-install-banner.show { display: flex; }
+            .pwa-install-banner .pwa-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1; }
+            .pwa-install-banner .pwa-text { flex: 1 1 auto; min-width: 0; }
+            .pwa-install-banner .pwa-title { font-weight: 600; font-size: 0.9rem; line-height: 1.2; }
+            .pwa-install-banner .pwa-sub { font-size: 0.75rem; color: var(--text-3, #94A3B8); line-height: 1.3; margin-top: 2px; }
+            .pwa-install-banner .pwa-cta {
+                flex-shrink: 0; white-space: nowrap;
+                padding: 7px 14px; background: var(--accent, #1B6B4A); color: #fff;
+                border: 0; border-radius: 6px; font-size: 0.82rem;
+                cursor: pointer; font-weight: 600;
+            }
+            .pwa-install-banner .pwa-dismiss {
+                flex-shrink: 0; background: transparent; border: 0;
+                color: var(--text-3, #94A3B8); font-size: 1.2rem;
+                cursor: pointer; padding: 4px 6px; line-height: 1;
+            }
+            @media (max-width: 480px) {
+                .pwa-install-banner { left: 8px; right: 8px; transform: none; max-width: none; width: auto; padding: 10px; gap: 8px; }
+                .pwa-install-banner .pwa-sub { display: none; }
+                .pwa-install-banner .pwa-title { font-size: 0.85rem; }
+                .pwa-install-banner .pwa-cta { padding: 6px 12px; font-size: 0.8rem; }
+            }
+        </style>
+        <div id="pwa-install-banner" class="pwa-install-banner" role="dialog" aria-label="Install JanVayu">
+            <span class="pwa-icon" aria-hidden="true">📲</span>
+            <div class="pwa-text">
+                <div class="pwa-title">Install JanVayu</div>
+                <div class="pwa-sub">Live AQI + offline access on your home screen.</div>
             </div>
-            <button onclick="installJanVayuPWA()" style="padding: 6px 12px; background: var(--accent, #1B6B4A); color: #fff; border: 0; border-radius: 6px; font-size: 0.8rem; cursor: pointer; font-weight: 600;">Install</button>
-            <button onclick="dismissPWABanner()" aria-label="Dismiss" style="background: transparent; border: 0; color: var(--text-3, #94A3B8); font-size: 1.2rem; cursor: pointer; padding: 4px 8px;">×</button>
+            <button class="pwa-cta" onclick="installJanVayuPWA()">Install</button>
+            <button class="pwa-dismiss" onclick="dismissPWABanner()" aria-label="Dismiss">×</button>
         </div>
 
         <!-- All remaining panels will be loaded here -->
@@ -4127,11 +4170,15 @@ body {
 
         // ── PWA: capture install prompt and surface a discreet banner ──
         let deferredInstallPrompt = null;
+        const pwaDismissed = (function () {
+            try { return localStorage.getItem('janvayu-pwa-dismissed') === '1'; } catch (e) { return false; }
+        })();
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredInstallPrompt = e;
+            if (pwaDismissed) return;
             const banner = document.getElementById('pwa-install-banner');
-            if (banner) banner.style.display = 'flex';
+            if (banner) banner.classList.add('show');
         });
         window.installJanVayuPWA = async function () {
             if (!deferredInstallPrompt) return;
@@ -4139,11 +4186,11 @@ body {
             try { await deferredInstallPrompt.userChoice; } catch (e) {}
             deferredInstallPrompt = null;
             const banner = document.getElementById('pwa-install-banner');
-            if (banner) banner.style.display = 'none';
+            if (banner) banner.classList.remove('show');
         };
         window.dismissPWABanner = function () {
             const banner = document.getElementById('pwa-install-banner');
-            if (banner) banner.style.display = 'none';
+            if (banner) banner.classList.remove('show');
             try { localStorage.setItem('janvayu-pwa-dismissed', '1'); } catch (e) {}
         };
 
@@ -10826,7 +10873,176 @@ Signature: _______________</div>
                     <a href="https://www.sci.gov.in/search/search_judgement" target="_blank" class="btn btn-primary">SCI Judgments Portal</a>
                 </div>
             </div>
-        
+
+</template>
+
+<template id="tmpl-workshops">
+
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-library" style="color: #7C3AED; margin-right: 0.4rem;"></span>Workshops</h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Want to learn more about air pollution? Book an air quality workshop — either a fun Jeopardy-style game with Sharath from UrbanEmissions, or a 1-hour walkthrough of JanVayu with our team.">Air pollution is easier to act on once you understand it. Two ways to learn: an interactive Air Quality Jeopardy game with Dr. Sarath Guttikunda (UrbanEmissions), or a hands-on JanVayu walkthrough with our team. Both free.</p>
+            </div>
+
+            <div class="grid-2" style="gap: 1.5rem; align-items: stretch;">
+
+                <!-- ── Card A: Workshop with Sharath ── -->
+                <div class="card" style="display: flex; flex-direction: column;">
+                    <div class="card-header">
+                        <span class="card-title">Air Quality workshop with UrbanEmissions</span>
+                        <span style="font-size: 0.65rem; color: var(--text-3);">External facilitator</span>
+                    </div>
+                    <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
+                            <div style="font-size: 1.6rem; flex-shrink: 0;">🎲</div>
+                            <div>
+                                <strong style="display: block; font-size: 0.95rem;">Air Quality Jeopardy &amp; more</strong>
+                                <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Dr. Sarath Guttikunda of <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.Info</a> runs interactive sessions on air quality science, sources, and policy &mdash; including a Jeopardy-format game tested with school and adult cohorts. Choose Class 9+ students, college, or adult learners.</p>
+                            </div>
+                        </div>
+
+                        <div id="workshop-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.88rem; margin-bottom: 12px;">
+                            ✓ Request received. We'll email you within 3 working days to coordinate dates with Sharath.
+                        </div>
+
+                        <form name="workshop-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return handleWorkshopSubmit(event, 'workshop')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                            <input type="hidden" name="form-name" value="workshop-request">
+                            <p style="display: none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Your name *
+                                    <input type="text" name="name" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Email *
+                                    <input type="email" name="email" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                            </div>
+
+                            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Organisation / school
+                                <input type="text" name="organisation" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                            </label>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Audience
+                                    <select name="audience" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                        <option value="class-9-12">Class 9 to 12 students</option>
+                                        <option value="college">College / university</option>
+                                        <option value="adult-cohort">Adult cohort (RWA, NGO, professionals)</option>
+                                        <option value="educators">Educators / teachers</option>
+                                        <option value="mixed">Mixed</option>
+                                    </select>
+                                </label>
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Group size
+                                    <input type="text" name="group-size" placeholder="e.g. 30 students" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                            </div>
+
+                            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Preferred format
+                                <select name="format" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                    <option value="jeopardy">Air Quality Jeopardy game</option>
+                                    <option value="lecture">Lecture / interactive talk</option>
+                                    <option value="hands-on">Hands-on with JanVayu data</option>
+                                    <option value="open">Open to Sharath's recommendation</option>
+                                </select>
+                            </label>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">City
+                                    <input type="text" name="city" placeholder="e.g. Delhi" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Preferred dates
+                                    <input type="text" name="preferred-dates" placeholder="e.g. last week of May" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                            </div>
+
+                            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Anything else
+                                <textarea name="notes" rows="3" placeholder="Specific learning goals, accessibility needs, budget constraints, etc." style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem; resize: vertical;"></textarea>
+                            </label>
+
+                            <button type="submit" class="btn btn-primary" style="margin-top: 6px; align-self: flex-start;">Request a workshop</button>
+                            <div style="font-size: 0.7rem; color: var(--text-3); margin-top: 4px;">We triage requests within 3 working days and forward to Sharath. Typical turnaround: 2&ndash;3 weeks.</div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ── Card B: JanVayu walkthrough ── -->
+                <div class="card" style="display: flex; flex-direction: column;">
+                    <div class="card-header">
+                        <span class="card-title">1-hour JanVayu walkthrough</span>
+                        <span style="font-size: 0.65rem; color: var(--text-3);">JanVayu team</span>
+                    </div>
+                    <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
+                        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
+                            <div style="font-size: 1.6rem; flex-shrink: 0;">🧭</div>
+                            <div>
+                                <strong style="display: block; font-size: 0.95rem;">Hands-on session</strong>
+                                <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Live walkthrough of the dashboard. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and find the right purifier for your room. Free, online, English/Hindi. Up to 25 participants.</p>
+                            </div>
+                        </div>
+
+                        <div id="walkthrough-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.88rem; margin-bottom: 12px;">
+                            ✓ Request received. We'll email you within 2 working days to confirm a slot.
+                        </div>
+
+                        <form name="walkthrough-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return handleWorkshopSubmit(event, 'walkthrough')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                            <input type="hidden" name="form-name" value="walkthrough-booking">
+                            <p style="display: none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Your name *
+                                    <input type="text" name="name" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Email *
+                                    <input type="email" name="email" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Group context
+                                    <select name="group-context" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                        <option value="solo">Just me</option>
+                                        <option value="rwa">RWA / society</option>
+                                        <option value="school">School</option>
+                                        <option value="ngo">NGO / collective</option>
+                                        <option value="newsroom">Newsroom</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </label>
+                                <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Approx. attendees
+                                    <input type="text" name="attendees" placeholder="e.g. 15" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                </label>
+                            </div>
+
+                            <fieldset style="border: 1px dashed var(--border); border-radius: 8px; padding: 10px 12px; margin: 0;">
+                                <legend style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); padding: 0 6px;">Your 3 preferred slots (IST)</legend>
+                                <p style="font-size: 0.72rem; color: var(--text-3); margin: 0 0 8px;">Pick three options &mdash; we'll confirm one of them. Format: "Tue 6 May, 7&ndash;8 PM".</p>
+                                <input type="text" name="slot-1" required placeholder="1st preference" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem; margin-bottom: 6px;">
+                                <input type="text" name="slot-2" required placeholder="2nd preference" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem; margin-bottom: 6px;">
+                                <input type="text" name="slot-3" required placeholder="3rd preference" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                            </fieldset>
+
+                            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Language preference
+                                <select name="language" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                    <option value="english">English</option>
+                                    <option value="hindi">Hindi</option>
+                                    <option value="bilingual">Bilingual (English + Hindi)</option>
+                                </select>
+                            </label>
+
+                            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">What do you most want to learn?
+                                <textarea name="goals" rows="3" placeholder="e.g. how to file an RTI on NCAP fund utilisation in my city" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem; resize: vertical;"></textarea>
+                            </label>
+
+                            <button type="submit" class="btn btn-primary" style="margin-top: 6px; align-self: flex-start;">Request a slot</button>
+                            <div style="font-size: 0.7rem; color: var(--text-3); margin-top: 4px;">We confirm within 2 working days and send a Google Meet link.</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3"><div data-simple="If you run a school, college, RWA, or media outlet, we'd love to host you. We do not charge. We don't share your data with anyone except the workshop facilitator.">
+                <strong>Note:</strong> Workshops are free. We don't share your contact details with anyone other than the facilitator. If you'd like to host us at a larger event or sponsor a workshop series, write to us via the <a href="#about" onclick="showPanel('about'); return false;">About page</a>.
+            </div></div>
+
 </template>
 
 <template id="tmpl-tools">
@@ -14126,7 +14342,55 @@ window.addEventListener('resize', () => {
         renderEditorialStory();
     }, 250);
 });
+
+// ── Workshops form submit handler (Netlify Forms) ──
+window.handleWorkshopSubmit = async function (event, kind) {
+    event.preventDefault();
+    const form = event.target;
+    const successId = kind === 'workshop' ? 'workshop-form-success' : 'walkthrough-form-success';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+    try {
+        const data = new FormData(form);
+        await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data).toString()
+        });
+        const ok = document.getElementById(successId);
+        if (ok) ok.style.display = 'block';
+        form.style.display = 'none';
+    } catch (e) {
+        alert('Could not submit just now. Please email us at hello@janvayu.in instead.');
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = kind === 'workshop' ? 'Request a workshop' : 'Request a slot'; }
+    }
+    return false;
+};
 </script>
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     Netlify Forms detection stubs.
+     These hidden forms are crawled at deploy time so Netlify Forms picks
+     up the field schemas. The visible/styled forms inside <template> tags
+     are not crawled, so we mirror them here. Submissions to either form
+     end up in the Netlify dashboard under the matching form-name.
+     ───────────────────────────────────────────────────────────────────── -->
+<form name="workshop-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="workshop-request">
+  <input name="bot-field"><input name="name"><input name="email"><input name="organisation">
+  <select name="audience"><option></option></select>
+  <input name="group-size"><select name="format"><option></option></select>
+  <input name="city"><input name="preferred-dates"><textarea name="notes"></textarea>
+</form>
+<form name="walkthrough-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="walkthrough-booking">
+  <input name="bot-field"><input name="name"><input name="email">
+  <select name="group-context"><option></option></select>
+  <input name="attendees">
+  <input name="slot-1"><input name="slot-2"><input name="slot-3">
+  <select name="language"><option></option></select>
+  <textarea name="goals"></textarea>
+</form>
 
 </body>
 </html>
