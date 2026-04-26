@@ -10901,7 +10901,7 @@ Signature: _______________</div>
                             <strong>Request received.</strong> We'll email you within 3 working days to coordinate dates with Sharath.
                         </div>
 
-                        <form name="workshop-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return handleWorkshopSubmit(event, 'workshop')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                        <form name="workshop-request" method="POST" onsubmit="return handleWorkshopSubmit(event, 'workshop')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
                             <input type="hidden" name="form-name" value="workshop-request">
                             <p style="display: none;"><label>Don't fill this out: <input name="bot-field"></label></p>
 
@@ -10977,7 +10977,7 @@ Signature: _______________</div>
                             <strong>Request received.</strong> We'll email you within 2 working days to confirm a slot.
                         </div>
 
-                        <form name="walkthrough-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return handleWorkshopSubmit(event, 'walkthrough')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                        <form name="walkthrough-booking" method="POST" onsubmit="return handleWorkshopSubmit(event, 'walkthrough')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
                             <input type="hidden" name="form-name" value="walkthrough-booking">
                             <p style="display: none;"><label>Don't fill this out: <input name="bot-field"></label></p>
 
@@ -14337,7 +14337,7 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// ── Workshops form submit handler (Netlify Forms) ──
+// ── Workshops form submit handler — posts JSON to workshop-submit Netlify Function ──
 window.handleWorkshopSubmit = async function (event, kind) {
     event.preventDefault();
     const form = event.target;
@@ -14345,46 +14345,25 @@ window.handleWorkshopSubmit = async function (event, kind) {
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
     try {
-        const data = new FormData(form);
-        await fetch('/', {
+        const fd = new FormData(form);
+        const payload = {};
+        for (const [k, v] of fd.entries()) payload[k] = v;
+        const res = await fetch('/.netlify/functions/workshop-submit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(data).toString()
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         const ok = document.getElementById(successId);
         if (ok) ok.style.display = 'block';
         form.style.display = 'none';
     } catch (e) {
-        alert('Could not submit just now. Please email us at hello@janvayu.in instead.');
+        alert('Could not submit just now. Please email us at contribute@janvayu.in instead.');
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = kind === 'workshop' ? 'Request a workshop' : 'Request a slot'; }
     }
     return false;
 };
 </script>
-
-<!-- ─────────────────────────────────────────────────────────────────────
-     Netlify Forms detection stubs.
-     These hidden forms are crawled at deploy time so Netlify Forms picks
-     up the field schemas. The visible/styled forms inside <template> tags
-     are not crawled, so we mirror them here. Submissions to either form
-     end up in the Netlify dashboard under the matching form-name.
-     ───────────────────────────────────────────────────────────────────── -->
-<form name="workshop-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="workshop-request">
-  <input name="bot-field"><input name="name"><input name="email"><input name="organisation">
-  <select name="audience"><option></option></select>
-  <input name="group-size"><select name="format"><option></option></select>
-  <input name="city"><input name="preferred-dates"><textarea name="notes"></textarea>
-</form>
-<form name="walkthrough-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="walkthrough-booking">
-  <input name="bot-field"><input name="name"><input name="email">
-  <select name="group-context"><option></option></select>
-  <input name="attendees">
-  <input name="slot-1"><input name="slot-2"><input name="slot-3">
-  <select name="language"><option></option></select>
-  <textarea name="goals"></textarea>
-</form>
 
 </body>
 </html>

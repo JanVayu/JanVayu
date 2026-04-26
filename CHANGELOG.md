@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.4.2] - 2026-04-26
+
+### Changed — Workshop forms now use Resend instead of Netlify Forms
+
+- New Netlify Function `workshop-submit.mjs` handles both `workshop-request` and `walkthrough-booking` POSTs. Emails the submission to `contribute@janvayu.in` (overridable via `WORKSHOP_INBOX_EMAIL` env) using the existing Resend integration (`RESEND_API_KEY`, `RESEND_FROM`). Reply-to is set to the submitter's email so the team can reply directly.
+- Submissions are also written to Netlify Blobs (`janvayu-feeds` store under `workshops/<form-name>/<timestamp>-<email>.json`) for a durable record.
+- Honeypot anti-spam preserved — `bot-field` submissions are silently accepted and discarded.
+- Removed the Netlify Forms detection stubs and `data-netlify="true"` attributes since Netlify Forms is disabled at the project level (`processing_settings.ignore_html_forms: true`). The forms now POST directly to the function.
+- Fixed a stale `hello@janvayu.in` reference in the submit-error fallback to use the documented `contribute@janvayu.in`.
+
 ## [v26.4.1] - 2026-04-26
 
 ### Added — Workshops, Roadmap docs, Programme attribution
