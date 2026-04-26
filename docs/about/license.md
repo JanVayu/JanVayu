@@ -47,6 +47,6 @@ Data integrated into JanVayu from external sources retains the original licence 
 To cite JanVayu in academic or policy work:
 
 ```
-JanVayu. (2026). India's Citizen Air Quality Platform. MMSF Air Quality Initiative. 
+JanVayu. (2026). India's Citizen Air Quality Platform. AirQuality for Janhit by MMSF Fellows, AIPC.
 Retrieved from https://www.janvayu.in
 ```

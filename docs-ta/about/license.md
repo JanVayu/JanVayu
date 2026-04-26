@@ -47,6 +47,6 @@ JanVayu அதன் குறியீடு மற்றும் உள்ள
 கல்வி அல்லது கொள்கை வேலையில் JanVayu-ஐ மேற்கோள் காட்ட:
 
 ```
-JanVayu. (2026). India's Citizen Air Quality Platform. MMSF Air Quality Initiative.
+JanVayu. (2026). India's Citizen Air Quality Platform. AirQuality for Janhit by MMSF Fellows, AIPC.
 Retrieved from https://www.janvayu.in
 ```
