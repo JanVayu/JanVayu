@@ -6,9 +6,9 @@ This page explains how to share JanVayu's Claude Code workflow with your team or
 
 ## For Your Team
 
-### Share the GitBook
+### Share the Docs
 
-This documentation is hosted on GitBook and is publicly shareable. Send the GitBook URL to anyone who needs to understand:
+This documentation is hosted on JanVayu's own site at [`/docs/`](/docs/) — a single-page Docsify shell that reads the markdown directly from the repo. Send the URL to anyone who needs to understand:
 - How JanVayu is built
 - How to contribute using Claude Code
 - How to fork JanVayu for another city or domain
@@ -16,7 +16,7 @@ This documentation is hosted on GitBook and is publicly shareable. Send the GitB
 ### Onboard a New Contributor
 
 1. **Clone the repo** — `git clone https://github.com/JanVayu/JanVayu.git`
-2. **Read the docs** — start with this GitBook, especially:
+2. **Read the docs** — start at [`/docs/`](/docs/), especially:
    - [Tech Stack Overview](../tech-stack/overview.md)
    - [Architecture](../technical/architecture.md)
    - [Local Development](../technical/local-development.md)
@@ -69,7 +69,7 @@ Copy JanVayu's git hooks (`.githooks/`) to enforce:
 
 ### Step 4: Document as You Build
 
-Create GitBook docs alongside your code. Claude Code can generate documentation from your codebase — use it.
+Create Docsify (or any markdown-based) docs alongside your code. Claude Code can generate documentation from your codebase — use it.
 
 ---
 
@@ -91,74 +91,57 @@ Claude Code can help with all of these steps.
 
 ## Exporting This Documentation
 
-### As a GitBook Space
+### As a Standalone Site
 
-This documentation syncs from the `docs/` directory in the GitHub repo. Any changes pushed to `main` automatically update the GitBook.
-
-### As a PDF
-
-GitBook Ultimate plan supports PDF export:
-1. Open the GitBook space
-2. Click the **...** menu → **Export as PDF**
-3. Share the PDF
+The docs already are a standalone site. Point any reader at [`https://www.janvayu.in/docs/`](https://www.janvayu.in/docs/).
 
 ### As Markdown
 
-The raw Markdown files are in `docs/` in the repo — share them directly or host them anywhere that renders Markdown (GitHub, Notion, HackMD).
+The raw Markdown files are in `docs/` (English) and `docs-{lang}/` (Hindi, Bengali, Marathi, Tamil) in the repo. Share them directly or host them anywhere that renders Markdown — GitHub, Notion, HackMD, your own Docsify or MkDocs site.
+
+### As a PDF
+
+Docsify itself doesn't have a built-in PDF export. To turn the live docs into a PDF, use `wkhtmltopdf` or a headless-Chrome tool like Puppeteer to render `https://www.janvayu.in/docs/` to PDF.
 
 ---
 
-## GitBook Configuration Tips (Ultimate Plan)
+## Docs Stack
 
-Since JanVayu uses GitBook Ultimate, here are configurations to maximise the platform:
+JanVayu's docs run on Docsify — chosen because there is no build step, no server, and no third-party hosting bill.
 
-### Git Sync
+### How the multilingual setup works
 
-Configured in `.gitbook.yaml` and via the GitHub integration API. Each language syncs from a separate directory:
+The English markdown lives in `docs/`. Each translated language lives in `docs-{lang}/`. A single Docsify shell at `/docs/index.html` declares an alias map that routes hash paths to the right directory, so visitors can reach:
 
-| Space | Source Directory | Branch |
-|-------|----------------|--------|
-| English (default) | `docs/` | `main` |
-| Hindi | `docs-hi/` | `main` |
-| Bengali | `docs-bn/` | `main` |
-| Marathi | `docs-mr/` | `main` |
-| Tamil | `docs-ta/` | `main` |
+| Language | URL | Source Directory |
+|----------|-----|------------------|
+| English (default) | [`/docs/`](/docs/) | `docs/` |
+| Hindi | [`/docs/#/hi/`](/docs/#/hi/) | `docs-hi/` |
+| Bengali | [`/docs/#/bn/`](/docs/#/bn/) | `docs-bn/` |
+| Marathi | [`/docs/#/mr/`](/docs/#/mr/) | `docs-mr/` |
+| Tamil | [`/docs/#/ta/`](/docs/#/ta/) | `docs-ta/` |
 
-All spaces auto-sync when changes are pushed to `main`.
+All five language trees auto-update whenever changes are pushed to `main` and Netlify redeploys (no separate sync step).
 
-### Installed Integrations
+### Plugins
 
-| Integration | Purpose | Notes |
-|-------------|---------|-------|
-| **GitHub Sync** | Bi-directional repo ↔ GitBook sync | Configured per-space for each language directory |
-| **Formspree** | Collect signups and feedback in docs | Configure form ID in integration settings |
-| **Arcade** | Interactive product demos embedded in docs | Free tier: ~3 published demos, unlimited views. Use Arcade Chrome extension to record, embed with `/arcade` block |
-| **PlantUML** | Render architecture diagrams from code | Use `plantuml` fenced code blocks in any page |
-| **Plausible** | Privacy-friendly analytics (no cookies) | Configure your Plausible domain in site settings |
-| **GitHub Files** | Embed live code from the repo | Reference files using GitHub permalink syntax |
+| Plugin | Purpose |
+|--------|---------|
+| `docsify-themeable` | Brand-coloured theme (JanVayu green) with dark mode toggle |
+| `docsify-pagination` | Previous/Next navigation between pages |
+| `docsify-copy-code` | One-click copy button on every code block |
+| `docsify-footer-enh` | Footer line with copyright and license |
+| `docsify` search | Built-in client-side search across all 5 language trees |
+| Prism.js | Syntax highlighting for bash, JS, JSON, YAML, TOML, Markdown |
+| Plausible | Privacy-friendly, cookie-free analytics |
 
-### Recommended Features
+### Custom domain
 
-| Feature | How to Use |
-|---------|------------|
-| **Custom domain** | Settings → Custom domain → point `docs.janvayu.in` |
-| **AI search** | Enabled by default — lets visitors ask questions about the docs |
-| **PDF export** | Available per-page or full-space export |
-| **Insights** | Track which pages are most visited |
-| **Custom branding** | Settings → Customization → Logo, colours, favicon |
-| **Broken link detection** | Automatic — flags internal broken links |
-| **OpenAPI spec** | Import API specs to auto-generate endpoint docs |
-| **Page ratings** | Visitors can rate page helpfulness |
-| **Change requests** | Team members propose edits via GitBook UI |
-
-### Custom Domain Setup
-
-1. In GitBook: Settings → Custom domain → `docs.janvayu.in`
-2. In DNS: Add CNAME record `docs` → `hosting.gitbook.io`
-3. Wait for SSL provisioning (automatic)
+The docs are served from `https://www.janvayu.in/docs/` (a path on the main JanVayu site, not a subdomain) — no separate DNS or SSL config is needed.
 
 ### Branding
 
-- Upload JanVayu logo (favicon.svg from repo)
-- Set primary colour to `#2563eb` (matches CSS `--primary`)
-- Enable dark mode toggle (matches the platform's dark mode)
+The theme variables sit in `docs/index.html` inside the `<style>` block:
+- Primary colour: `#16A34A` (matches the platform's brand green)
+- Sidebar accent: `#1a3a2a`
+- Dark mode: triggered by a button bottom-right; preference saved in `localStorage`

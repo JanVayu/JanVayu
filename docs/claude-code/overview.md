@@ -43,7 +43,7 @@ All four Groq/Llama-powered features (Ask JanVayu, Health Advisory, Accountabili
 
 ### Documentation
 
-This entire GitBook documentation was created by Claude Code — including the page you're reading now.
+This entire Docsify documentation was created by Claude Code — including the page you're reading now.
 
 ---
 
@@ -118,4 +118,3 @@ For transparency, here's what required human intervention:
 | Design decisions | Which features to build, priority order |
 | Content review | Verifying data source accuracy, policy correctness |
 | Deployment verification | Checking live site after deploy |
-| GitBook account setup | Creating the GitBook space, connecting the repo |

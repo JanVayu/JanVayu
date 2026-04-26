@@ -35,11 +35,11 @@ These docs are available in 5 languages:
 
 | Language | Link |
 |----------|------|
-| English | [janvayu.gitbook.io/janvayu](https://janvayu.gitbook.io/janvayu/) |
-| हिन्दी (Hindi) | [janvayu.gitbook.io/janvayu/hi](https://janvayu.gitbook.io/janvayu/hi/) |
-| বাংলা (Bengali) | [janvayu.gitbook.io/janvayu/bn](https://janvayu.gitbook.io/janvayu/bn/) |
-| मराठी (Marathi) | [janvayu.gitbook.io/janvayu/mr](https://janvayu.gitbook.io/janvayu/mr/) |
-| தமிழ் (Tamil) | [janvayu.gitbook.io/janvayu/ta](https://janvayu.gitbook.io/janvayu/ta/) |
+| English | [/docs/](/docs/) |
+| हिन्दी (Hindi) | [/docs/#/hi/](/docs/#/hi/) |
+| বাংলা (Bengali) | [/docs/#/bn/](/docs/#/bn/) |
+| मराठी (Marathi) | [/docs/#/mr/](/docs/#/mr/) |
+| தமிழ் (Tamil) | [/docs/#/ta/](/docs/#/ta/) |
 
 ---
 
