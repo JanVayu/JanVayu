@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.4.1] - 2026-04-26
+
+### Added — Workshops, Roadmap docs, Programme attribution
+
+- **Workshops panel** at `/#workshops` (under the Action nav). Two side-by-side cards:
+  - "Air Quality workshop with UrbanEmissions" — request form for Dr. Sarath Guttikunda's interactive sessions, including the Air Quality Jeopardy game. Captures audience (Class 9+, college, adult cohort, educators), group size, format, city, preferred dates, notes.
+  - "1-hour JanVayu walkthrough" — booking form that collects three preferred IST slots, group context, attendees, language preference, learning goals.
+  - Both forms run on Netlify Forms (`data-netlify="true"`) with detection stubs and honeypot anti-spam. Inline success message replaces the form on submit.
+- **Programme attribution updated**: every reference to "MMSF Air Quality Initiative" replaced with the official programme name **AirQuality for Janhit by MMSF Fellows, AIPC** in the meta tag, two schema.org JSON-LD blocks, footer credits, footer bottom strip, About panel, citation in `docs/about/license.md` and `docs-ta/about/license.md`, and the per-pollutant SEO page footer.
+- **No-emoji style enforced**: removed decorative emojis introduced this cycle from the dashboard (Near Me button, PWA install banner, solution-recommendation card list, Workshops cards, success messages). Replaced with text labels, dot bullets, or existing `si-*` SVG icons.
+
+## [v26.4.0] - 2026-04-26
+
+### Added — Competitor gap closure (vs. aqi.in / oaq.notf.in)
+
+- **Cigarette-equivalence card** on the dashboard: live PM2.5 → "≈ X cigarettes/day" using the Berkeley Earth coefficient (1 cig ≈ 22 µg/m³·day).
+- **Disease-risk badges** tied to live AQI: asthma flare-up, heart attack/stroke, allergies, respiratory infection, vulnerable groups — colour-coded by AQI band.
+- **Solution-recommendation card**: AQI-gated guidance on N95, purifier, exercise, school closure, and cardiac/lung patient precautions, with cross-links to Purifier Calculator and "Should I go outside?".
+- **"Near Me" geolocation** in the hero: nearest WAQI station via `navigator.geolocation` → `https://api.waqi.info/feed/geo:.../`. Result is injected as a synthetic city option so all dashboard cards reuse the same flow.
+- **City Rankings panel** (`/#rankings`) under the Monitoring nav: Live / Past 7 days / Past 30 days tabs, search, and worst-first/best-first sort. Live tab uses the current WAQI cache; aggregated tabs use accumulating Netlify Blobs snapshots.
+- **Hourly 24-hr scrubbable PM2.5 chart** in the Trends panel: drag the slider to inspect any hour; readout shows µg/m³ + WHO multiple at that time.
+- **Year-over-year city comparison** in the Compare panel: pick a city + month, see 2024/2025/2026 PM2.5 monthly averages with delta percentages.
+- **Per-pollutant SEO pages** at `/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3` with schema.org JSON-LD, sitemap entries, and live top-10 readings. Built via `scripts/build-pollutant-pages.mjs`.
+- **Leaflet.heat heatmap layer** on the Live Map with a toggle. Marker popups upgraded with cigarette equivalence and a "View on dashboard" jump.
+- **Embeddable widgets** at `/embed/aqi/?city=...&theme=light|dark` and `/embed/rankings/?n=10&order=worst|best` with iframe-friendly headers.
+- **Root PWA**: `manifest.json` + `sw.js` (offline shell + last-known AQI cache). `beforeinstallprompt`-driven install banner with persistent dismissal in `localStorage`.
+- **Sensor.Community integration**: free CC0 community sensors blended into the Hyperlocal panel with a `COMMUNITY` vs `CPCB/WAQI` source badge. Replaces the proposed hardware program.
+
+### Added — Backend functions
+
+- `netlify/functions/rankings.mjs` — live + accumulated daily snapshots in `janvayu-rankings` blob store.
+- `netlify/functions/historical-aqi.mjs` — monthly PM2.5 climatology baseline (CPCB / IQAir 2024 sourced) enriched with snapshot data.
+- `netlify/functions/community-sensors.mjs` — 10-min-cached Sensor.Community pull with EPA breakpoint PM2.5 → AQI conversion.
+
+### Changed
+
+- `generateWidget()` now emits a JanVayu `/embed/aqi` iframe instead of the previous aqicn.org one.
+- `netlify.toml` — `X-Frame-Options: ALLOWALL` for `/embed/*`, `Service-Worker-Allowed: /` header on `/sw.js`, redirects for the six pollutant pages and the two embed widgets.
+- `sitemap.xml` — added the six pollutant page URLs.
+
+### Mobile
+
+- PWA install banner refactored from inline styles to a CSS class set with `flex-shrink: 0` and `white-space: nowrap` on the CTA, plus `@media (max-width: 480px)` layout that respects `env(safe-area-inset-bottom)`. Fixes the "I-n-s-t-a-l-l" letter-per-line wrap reported on Android Chrome.
+
 ## [v25.4.0] - 2026-04-12
 
 ### Added — Blog & Research Updates

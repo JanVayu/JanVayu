@@ -2805,7 +2805,8 @@ body {
                                 background: var(--accent, #1B6B4A); color: #fff;
                                 border: 1px solid var(--accent, #1B6B4A); border-radius: 6px;
                                 padding: 4px 10px; cursor: pointer; white-space: nowrap;
-                            ">📍 Near Me</button>
+                                display: inline-flex; align-items: center; gap: 4px;
+                            "><span class="si si-pin" style="width:12px;height:12px;"></span>Near Me</button>
                             </div>
                             <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
                             <div class="hero-pm25-number" id="delhi-live-pm25" style="color: var(--red);">--</div>
@@ -3008,7 +3009,6 @@ body {
             }
         </style>
         <div id="pwa-install-banner" class="pwa-install-banner" role="dialog" aria-label="Install JanVayu">
-            <span class="pwa-icon" aria-hidden="true">📲</span>
             <div class="pwa-text">
                 <div class="pwa-title">Install JanVayu</div>
                 <div class="pwa-sub">Live AQI + offline access on your home screen.</div>
@@ -3474,7 +3474,7 @@ body {
                     <strong style="color: ${sol.color};">${sol.headline}</strong>
                 </div>
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px;">
-                    ${sol.actions.map(a => `<li style="display: flex; gap: 6px;"><span>${a.icon}</span><span>${a.text}</span></li>`).join('')}
+                    ${sol.actions.map(a => `<li style="display: flex; gap: 8px; padding: 3px 0;"><span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: ${sol.color}; margin-top: 8px; flex-shrink: 0;"></span><span>${a}</span></li>`).join('')}
                 </ul>
                 <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
                     <button class="btn btn-sm" style="font-size: 0.7rem;" onclick="showPanel('purifier-calc')">Purifier sizing</button>
@@ -3511,9 +3511,9 @@ body {
                 label: 'Good', color: '#22C55E',
                 headline: 'Air is clean. Enjoy outdoors.',
                 actions: [
-                    { icon: '🏃', text: 'Outdoor exercise is safe for everyone.' },
-                    { icon: '🪟', text: 'Open windows to ventilate indoor spaces.' },
-                    { icon: '🧒', text: 'Kids and elderly: no restrictions.' },
+                    'Outdoor exercise is safe for everyone.',
+                    'Open windows to ventilate indoor spaces.',
+                    'Kids and elderly: no restrictions.',
                 ]
             };
         }
@@ -3522,9 +3522,9 @@ body {
                 label: 'Moderate', color: '#EAB308',
                 headline: 'Mostly fine. Sensitive groups should watch.',
                 actions: [
-                    { icon: '🏃', text: 'Outdoor exercise OK for most. Reduce intensity if asthmatic.' },
-                    { icon: '🪟', text: 'Windows OK; close during traffic peaks.' },
-                    { icon: '😷', text: 'Mask not needed unless you have a lung condition.' },
+                    'Outdoor exercise OK for most. Reduce intensity if asthmatic.',
+                    'Windows OK; close during traffic peaks.',
+                    'Mask not needed unless you have a lung condition.',
                 ]
             };
         }
@@ -3533,10 +3533,10 @@ body {
                 label: 'Poor', color: '#F97316',
                 headline: 'Limit prolonged outdoor exertion.',
                 actions: [
-                    { icon: '😷', text: 'Wear a well-fitted N95 outdoors for >30 min.' },
-                    { icon: '🏃', text: 'Move workouts indoors; avoid roadside running.' },
-                    { icon: '🪟', text: 'Close windows; run an air purifier in bedrooms.' },
-                    { icon: '🧒', text: 'Kids: shorten outdoor recess. Asthmatics: keep inhaler ready.' },
+                    'Wear a well-fitted N95 outdoors for over 30 minutes.',
+                    'Move workouts indoors; avoid roadside running.',
+                    'Close windows; run an air purifier in bedrooms.',
+                    'Kids: shorten outdoor recess. Asthmatics: keep inhaler ready.',
                 ]
             };
         }
@@ -3545,10 +3545,10 @@ body {
                 label: 'Very Poor', color: '#EF4444',
                 headline: 'Stay indoors. Run a HEPA purifier.',
                 actions: [
-                    { icon: '😷', text: 'N95 mandatory outdoors — even brief exposure matters.' },
-                    { icon: '🌬️', text: 'Run HEPA purifier 24/7; size for room volume.' },
-                    { icon: '🚫', text: 'No outdoor exercise. Reschedule sports.' },
-                    { icon: '🏫', text: 'Schools: consider hybrid or holiday for primary classes.' },
+                    'N95 mandatory outdoors — even brief exposure matters.',
+                    'Run HEPA purifier 24/7; size for room volume.',
+                    'No outdoor exercise. Reschedule sports.',
+                    'Schools: consider hybrid or holiday for primary classes.',
                 ]
             };
         }
@@ -3557,10 +3557,10 @@ body {
                 label: 'Severe', color: '#7C3AED',
                 headline: 'Health emergency. Avoid all outdoor exposure.',
                 actions: [
-                    { icon: '🏠', text: 'Stay indoors. Seal gaps under doors and windows.' },
-                    { icon: '🌬️', text: 'Multiple HEPA purifiers; create a "clean room" if needed.' },
-                    { icon: '🏥', text: 'Cardiac/lung patients: keep meds and emergency contacts close.' },
-                    { icon: '🚸', text: 'Schools should close. Outdoor work should pause.' },
+                    'Stay indoors. Seal gaps under doors and windows.',
+                    'Multiple HEPA purifiers; create a "clean room" if needed.',
+                    'Cardiac and lung patients: keep meds and emergency contacts close.',
+                    'Schools should close. Outdoor work should pause.',
                 ]
             };
         }
@@ -3568,10 +3568,10 @@ body {
             label: 'Hazardous', color: '#831843',
             headline: 'Emergency. Treat outdoor air as toxic.',
             actions: [
-                { icon: '🚨', text: 'Government should activate GRAP Stage IV / emergency protocols.' },
-                { icon: '🏠', text: 'Do not go outside without N95 + eye protection.' },
-                { icon: '🏥', text: 'ER visits spike. Seek help immediately for chest pain or breathing trouble.' },
-                { icon: '🛫', text: 'If feasible, consider temporary relocation for vulnerable family members.' },
+                'Government should activate GRAP Stage IV / emergency protocols.',
+                'Do not go outside without N95 plus eye protection.',
+                'ER visits spike. Seek help immediately for chest pain or breathing trouble.',
+                'If feasible, consider temporary relocation for vulnerable family members.',
             ]
         };
     }
@@ -3614,7 +3614,7 @@ body {
                     opt.value = '__nearme';
                     sel.insertBefore(opt, sel.firstChild);
                 }
-                opt.textContent = '📍 ' + stationName;
+                opt.textContent = 'Near me — ' + stationName;
                 sel.value = '__nearme';
             }
             updateHeroCity('__nearme');
@@ -10892,16 +10892,13 @@ Signature: _______________</div>
                         <span style="font-size: 0.65rem; color: var(--text-3);">External facilitator</span>
                     </div>
                     <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
-                            <div style="font-size: 1.6rem; flex-shrink: 0;">🎲</div>
-                            <div>
-                                <strong style="display: block; font-size: 0.95rem;">Air Quality Jeopardy &amp; more</strong>
-                                <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Dr. Sarath Guttikunda of <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.Info</a> runs interactive sessions on air quality science, sources, and policy &mdash; including a Jeopardy-format game tested with school and adult cohorts. Choose Class 9+ students, college, or adult learners.</p>
-                            </div>
+                        <div style="border-left: 3px solid #7C3AED; padding: 4px 0 4px 12px; margin-bottom: 14px;">
+                            <strong style="display: block; font-size: 0.95rem;">Air Quality Jeopardy and more</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Dr. Sarath Guttikunda of <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.Info</a> runs interactive sessions on air quality science, sources, and policy &mdash; including a Jeopardy-format game tested with school and adult cohorts. Choose Class 9+ students, college, or adult learners.</p>
                         </div>
 
                         <div id="workshop-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.88rem; margin-bottom: 12px;">
-                            ✓ Request received. We'll email you within 3 working days to coordinate dates with Sharath.
+                            <strong>Request received.</strong> We'll email you within 3 working days to coordinate dates with Sharath.
                         </div>
 
                         <form name="workshop-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return handleWorkshopSubmit(event, 'workshop')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
@@ -10971,16 +10968,13 @@ Signature: _______________</div>
                         <span style="font-size: 0.65rem; color: var(--text-3);">JanVayu team</span>
                     </div>
                     <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                        <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start;">
-                            <div style="font-size: 1.6rem; flex-shrink: 0;">🧭</div>
-                            <div>
-                                <strong style="display: block; font-size: 0.95rem;">Hands-on session</strong>
-                                <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Live walkthrough of the dashboard. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and find the right purifier for your room. Free, online, English/Hindi. Up to 25 participants.</p>
-                            </div>
+                        <div style="border-left: 3px solid #1B6B4A; padding: 4px 0 4px 12px; margin-bottom: 14px;">
+                            <strong style="display: block; font-size: 0.95rem;">Hands-on session</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Live walkthrough of the dashboard. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and find the right purifier for your room. Free, online, English/Hindi. Up to 25 participants.</p>
                         </div>
 
                         <div id="walkthrough-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.88rem; margin-bottom: 12px;">
-                            ✓ Request received. We'll email you within 2 working days to confirm a slot.
+                            <strong>Request received.</strong> We'll email you within 2 working days to confirm a slot.
                         </div>
 
                         <form name="walkthrough-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="return handleWorkshopSubmit(event, 'walkthrough')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">

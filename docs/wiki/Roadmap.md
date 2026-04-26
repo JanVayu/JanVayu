@@ -78,6 +78,27 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.6: Competitor Gap Closure (✅ Completed — v26.4)
+
+Closes specific UX/data gaps against aqi.in (consumer-polished AQI portal) and oaq.notf.in (open hyperlocal sensor platform), without disturbing the accountability-first positioning.
+
+- [x] Cigarette-equivalence card (Berkeley Earth: 1 cig ≈ 22 µg/m³·day)
+- [x] Disease-risk badges tied to live AQI (asthma, heart, allergies, respiratory, vulnerable)
+- [x] Solution-recommendation card (N95, purifier, exercise, school closure)
+- [x] "Near Me" geolocation → nearest WAQI station
+- [x] City Rankings panel (Live / 7d / 30d) with `rankings.mjs` Netlify function
+- [x] Per-pollutant SEO pages (`/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3`) with schema.org JSON-LD
+- [x] Hourly 24-hr scrubbable PM2.5 chart in the Trends panel
+- [x] Year-over-year city comparison + `historical-aqi.mjs` climatology baseline
+- [x] Leaflet.heat heatmap toggle + richer station popups on the Live Map
+- [x] Embeddable widgets at `/embed/aqi/` and `/embed/rankings/`
+- [x] Root PWA (`manifest.json` + `sw.js` + install banner) with offline shell and last-known AQI cache
+- [x] Sensor.Community community-sensor integration via `community-sensors.mjs` (replaces hardware "Host a Monitor" plan)
+- [x] Workshops panel with Sharath / UrbanEmissions request form and JanVayu walkthrough booking (Netlify Forms)
+- [x] Programme attribution updated to "AirQuality for Janhit by MMSF Fellows, AIPC" everywhere
+
+---
+
 ## Phase 6: Mobile & Performance (🔄 Q2 2026)
 
 **Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3)
@@ -115,8 +136,22 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ## Phase 9: Community & Scale (2027)
 
-- [ ] PWA with offline support
+- [x] PWA with offline support — shipped in v26.4
 - [ ] WhatsApp bot integration
-- [ ] ML-based AQI forecast
+- [ ] ML-based AQI forecast (extend the existing forecast panel beyond WAQI's 3-day window)
 - [ ] South Asian expansion
-- [ ] Open data API
+- [ ] Open data API (currently we have read-only function endpoints for rankings + community sensors; needs versioning, docs, rate limits)
+
+---
+
+## Phase 10: Next batch — competing with peer accountability platforms (Q3 2026)
+
+Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate Trends + Respirer Living Sciences), CREA, UrbanEmissions, IQAir, and aqi.in.
+
+- [ ] **NCAP city scorecard upgrade** — match/exceed NCAP Tracker. Per-city met/missed flag, station-level fund utilization, PM2.5 vs target chart, with one-click pre-filled RTI to the responsible CPCB officer.
+- [ ] **Stubble-burning live tracker** — NASA FIRMS API + Punjab/Haryana focus during Oct–Nov; overlay on the Live Map.
+- [ ] **Source apportionment ring** — per-city %-from transport / industry / biomass / construction / dust, sourced from CREA + UrbanEmissions inventories. Interactive city picker.
+- [ ] **AQI forecast 24–72hr** — extend the existing forecast panel with WAQI's daily forecast arrays, render as a 3-day horizon chart with confidence bands.
+- [ ] **Push notifications** — browser push via the new service worker, gated on user-picked AQI thresholds. Complement to email digest.
+- [ ] **In-browser AQ literacy quiz** — companion to Sharath's Jeopardy game; runs on the Workshops page.
+- [ ] **Story-of-the-week rotation** — surface a blog post on the dashboard hero each week.

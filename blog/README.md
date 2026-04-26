@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 26 Apr 2026 | [What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops](posts/2026-04-26-shipped-this-week.md) | Platform |
 | 12 Apr 2026 | [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md) | Data |
 | 8 Apr 2026 | [The Lancet's Verdict: 1.5 Million Deaths a Year](posts/2026-04-08-lancet-causal-evidence.md) | Research |
 | 5 Apr 2026 | [NCAP at the Finish Line: Has India's Clean Air Programme Worked?](posts/2026-04-05-ncap-deadline.md) | Policy |
