@@ -221,10 +221,17 @@
 
   <div class="app-header">
     <div class="app-logo">J</div>
-    <div>
-      <div class="app-title">Ask JanVayu</div>
-      <div class="app-subtitle">AI-powered air quality Q&A</div>
+    <div style="flex: 1; min-width: 0;">
+      <div class="app-title" data-i18n="title">Ask JanVayu</div>
+      <div class="app-subtitle" data-i18n="subtitle">AI-powered air quality Q&amp;A</div>
     </div>
+    <select id="langPicker" aria-label="Language" onchange="setLanguage(this.value)" style="padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); font-family: var(--sans); font-size: 0.78rem; cursor: pointer;">
+      <option value="en">EN</option>
+      <option value="hi">हि</option>
+      <option value="ta">த</option>
+      <option value="bn">বা</option>
+      <option value="mr">म</option>
+    </select>
     <a href="https://www.janvayu.in">janvayu.in</a>
   </div>
 
@@ -243,31 +250,23 @@
 
   <div class="chat-area" id="chatArea">
     <div class="welcome" id="welcome">
-      <h2>What would you like to know?</h2>
-      <p>Ask about air quality, health risks, pollution sources, or government action in any Indian city.</p>
-      <div class="suggestions">
-        <button class="suggestion" onclick="askSuggestion(this)">Should I go jogging today?</button>
-        <button class="suggestion" onclick="askSuggestion(this)">Is it safe for my 3-year-old to play outside?</button>
-        <button class="suggestion" onclick="askSuggestion(this)">I commute 2 hours by auto — what's my PM2.5 exposure?</button>
-        <button class="suggestion" onclick="askSuggestion(this)">Compare Delhi vs Bangalore air quality</button>
-        <button class="suggestion" onclick="askSuggestion(this)">What has my city done about pollution under NCAP?</button>
-        <button class="suggestion" onclick="askSuggestion(this)">Why is the air bad right now? Is it stubble burning?</button>
-        <button class="suggestion" onclick="askSuggestion(this)">Draft an RTI about pollution monitoring in my area</button>
-      </div>
+      <h2 data-i18n="welcomeHeading">What would you like to know?</h2>
+      <p data-i18n="welcomeSub">Ask about air quality, health risks, pollution sources, or government action in any Indian city.</p>
+      <div class="suggestions" id="suggestionsList"></div>
     </div>
   </div>
 
   <div class="install-banner" id="installBanner">
-    <span>Install Ask JanVayu for quick access</span>
-    <button onclick="installPWA()">Install</button>
-    <button class="dismiss" onclick="this.parentElement.style.display='none'">&times;</button>
+    <span data-i18n="installPrompt">Install Ask JanVayu for quick access</span>
+    <button onclick="installPWA()" data-i18n="installBtn">Install</button>
+    <button class="dismiss" onclick="this.parentElement.style.display='none'" aria-label="Dismiss">&times;</button>
   </div>
 
   <div class="input-bar">
     <textarea id="questionInput" placeholder="Ask about air quality..." rows="1"
       oninput="autoResize(this)"
       onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendQuestion();}"></textarea>
-    <button class="send-btn" id="sendBtn" onclick="sendQuestion()">
+    <button class="send-btn" id="sendBtn" onclick="sendQuestion()" aria-label="Send">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
@@ -275,6 +274,164 @@
   <script>
     let selectedCity = 'delhi';
     let deferredPrompt = null;
+    let currentLang = 'en';
+
+    // ── i18n strings ──
+    const I18N = {
+      en: {
+        title: 'Ask JanVayu',
+        subtitle: 'AI-powered air quality Q&A',
+        welcomeHeading: 'What would you like to know?',
+        welcomeSub: 'Ask about air quality, health risks, pollution sources, or government action in any Indian city.',
+        suggestions: [
+          'Should I go jogging today?',
+          'Is it safe for my 3-year-old to play outside?',
+          "I commute 2 hours by auto — what's my PM2.5 exposure?",
+          'Compare Delhi vs Bangalore air quality',
+          'What has my city done about pollution under NCAP?',
+          'Why is the air bad right now? Is it stubble burning?',
+          'Draft an RTI about pollution monitoring in my area'
+        ],
+        inputPlaceholder: 'Ask about air quality...',
+        installPrompt: 'Install Ask JanVayu for quick access',
+        installBtn: 'Install',
+        errorMsg: 'Something went wrong. Please check your connection and try again.',
+        noResponse: 'No response received.',
+        htmlLang: 'en'
+      },
+      hi: {
+        title: 'जनवायु से पूछें',
+        subtitle: 'AI-संचालित वायु गुणवत्ता प्रश्नोत्तर',
+        welcomeHeading: 'आप क्या जानना चाहते हैं?',
+        welcomeSub: 'किसी भी भारतीय शहर में हवा की गुणवत्ता, स्वास्थ्य जोखिम, प्रदूषण के स्रोत, या सरकारी कार्रवाई के बारे में पूछें।',
+        suggestions: [
+          'क्या मुझे आज जॉगिंग करनी चाहिए?',
+          'क्या मेरे 3 साल के बच्चे का बाहर खेलना सुरक्षित है?',
+          'मैं 2 घंटे ऑटो से सफर करता हूँ — मेरा PM2.5 एक्सपोज़र कितना है?',
+          'दिल्ली बनाम बेंगलुरु की हवा की तुलना करें',
+          'NCAP के तहत मेरे शहर ने प्रदूषण पर क्या किया है?',
+          'अभी हवा खराब क्यों है? क्या यह पराली जलाने से है?',
+          'मेरे क्षेत्र में प्रदूषण निगरानी के बारे में RTI तैयार करें'
+        ],
+        inputPlaceholder: 'वायु गुणवत्ता के बारे में पूछें...',
+        installPrompt: 'त्वरित पहुंच के लिए Ask JanVayu इंस्टॉल करें',
+        installBtn: 'इंस्टॉल करें',
+        errorMsg: 'कुछ गड़बड़ हुई। अपना कनेक्शन जाँचें और फिर कोशिश करें।',
+        noResponse: 'कोई जवाब नहीं मिला।',
+        htmlLang: 'hi'
+      },
+      ta: {
+        title: 'JanVayu-விடம் கேளுங்கள்',
+        subtitle: 'AI-இயக்கும் காற்றின் தர கேள்வி-பதில்',
+        welcomeHeading: 'நீங்கள் என்ன அறிய விரும்புகிறீர்கள்?',
+        welcomeSub: 'எந்த இந்திய நகரத்திலும் காற்றின் தரம், உடல்நல அபாயங்கள், மாசுபாட்டின் ஆதாரங்கள் அல்லது அரசு நடவடிக்கை குறித்து கேளுங்கள்.',
+        suggestions: [
+          'இன்று நான் ஓட்டப்பயிற்சி செய்யலாமா?',
+          'என் 3 வயது குழந்தை வெளியில் விளையாடுவது பாதுகாப்பானதா?',
+          'நான் 2 மணி நேரம் ஆட்டோவில் பயணிக்கிறேன் — என் PM2.5 வெளிப்பாடு என்ன?',
+          'டெல்லி எதிராக பெங்களூரு காற்றின் தரத்தை ஒப்பிடுங்கள்',
+          'NCAP-இன் கீழ் என் நகரம் மாசுபாடு குறித்து என்ன செய்துள்ளது?',
+          'இப்போது காற்று ஏன் மோசமாக உள்ளது? இது வைக்கோல் எரிப்பா?',
+          'என் பகுதியில் மாசு கண்காணிப்பு பற்றி RTI வரைய உதவுக'
+        ],
+        inputPlaceholder: 'காற்றின் தரம் பற்றி கேளுங்கள்...',
+        installPrompt: 'விரைவு அணுகலுக்கு Ask JanVayu-ஐ நிறுவுங்கள்',
+        installBtn: 'நிறுவு',
+        errorMsg: 'ஏதோ தவறு நடந்தது. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.',
+        noResponse: 'பதில் கிடைக்கவில்லை.',
+        htmlLang: 'ta'
+      },
+      bn: {
+        title: 'JanVayu-কে জিজ্ঞাসা করুন',
+        subtitle: 'AI-চালিত বায়ুর গুণমান প্রশ্নোত্তর',
+        welcomeHeading: 'আপনি কী জানতে চান?',
+        welcomeSub: 'যেকোনো ভারতীয় শহরে বায়ুর গুণমান, স্বাস্থ্য ঝুঁকি, দূষণের উৎস, বা সরকারি পদক্ষেপ সম্পর্কে জিজ্ঞাসা করুন।',
+        suggestions: [
+          'আজ কি আমার জগিং করা উচিত?',
+          'আমার ৩ বছর বয়সী বাচ্চার বাইরে খেলা কি নিরাপদ?',
+          'আমি ২ ঘণ্টা অটোতে যাতায়াত করি — আমার PM2.5 এক্সপোজার কত?',
+          'দিল্লি ও বেঙ্গালুরুর বায়ুর গুণমান তুলনা করুন',
+          'NCAP-এর অধীনে আমার শহর দূষণ নিয়ে কী করেছে?',
+          'এখন বাতাস কেন খারাপ? এটা কি খড় পোড়ানো?',
+          'আমার এলাকায় দূষণ পর্যবেক্ষণ সম্পর্কে একটি RTI খসড়া করুন'
+        ],
+        inputPlaceholder: 'বায়ুর গুণমান সম্পর্কে জিজ্ঞাসা করুন...',
+        installPrompt: 'দ্রুত অ্যাক্সেসের জন্য Ask JanVayu ইনস্টল করুন',
+        installBtn: 'ইনস্টল',
+        errorMsg: 'কিছু ভুল হয়েছে। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।',
+        noResponse: 'কোনো উত্তর পাওয়া যায়নি।',
+        htmlLang: 'bn'
+      },
+      mr: {
+        title: 'JanVayu ला विचारा',
+        subtitle: 'AI-संचालित हवेच्या गुणवत्तेचे प्रश्नोत्तर',
+        welcomeHeading: 'तुम्हाला काय जाणून घ्यायचं आहे?',
+        welcomeSub: 'कोणत्याही भारतीय शहरातील हवेची गुणवत्ता, आरोग्य धोके, प्रदूषणाचे स्रोत किंवा सरकारी कारवाईबद्दल विचारा.',
+        suggestions: [
+          'आज मी जॉगिंग करावी का?',
+          'माझ्या 3 वर्षांच्या मुलाने बाहेर खेळणे सुरक्षित आहे का?',
+          'मी 2 तास ऑटोने प्रवास करतो — माझे PM2.5 एक्सपोजर किती आहे?',
+          'दिल्ली विरुद्ध बेंगळुरूच्या हवेच्या गुणवत्तेची तुलना करा',
+          'NCAP अंतर्गत माझ्या शहराने प्रदूषणाबाबत काय केले आहे?',
+          'आत्ता हवा का खराब आहे? हे पराळी जाळणे आहे का?',
+          'माझ्या भागातील प्रदूषण निरीक्षणाबाबत RTI तयार करा'
+        ],
+        inputPlaceholder: 'हवेच्या गुणवत्तेबद्दल विचारा...',
+        installPrompt: 'त्वरित प्रवेशासाठी Ask JanVayu इन्स्टॉल करा',
+        installBtn: 'इन्स्टॉल करा',
+        errorMsg: 'काहीतरी चुकलं. तुमचे कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.',
+        noResponse: 'उत्तर मिळालं नाही.',
+        htmlLang: 'mr'
+      }
+    };
+
+    function applyI18n() {
+      const t = I18N[currentLang] || I18N.en;
+      document.documentElement.lang = t.htmlLang;
+      document.title = t.title;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) el.textContent = t[key];
+      });
+      const placeholderEl = document.getElementById('questionInput');
+      if (placeholderEl) placeholderEl.placeholder = t.inputPlaceholder;
+      // Rebuild suggestions in the active language
+      const sugList = document.getElementById('suggestionsList');
+      if (sugList) {
+        sugList.innerHTML = '';
+        t.suggestions.forEach(s => {
+          const btn = document.createElement('button');
+          btn.className = 'suggestion';
+          btn.textContent = s;
+          btn.addEventListener('click', () => askSuggestion(btn));
+          sugList.appendChild(btn);
+        });
+      }
+    }
+
+    function setLanguage(code) {
+      if (!I18N[code]) return;
+      currentLang = code;
+      try { localStorage.setItem('janvayu-ask-lang', code); } catch (e) {}
+      const picker = document.getElementById('langPicker');
+      if (picker) picker.value = code;
+      applyI18n();
+    }
+
+    // Initialise from localStorage or browser language
+    (function initLang() {
+      let saved = null;
+      try { saved = localStorage.getItem('janvayu-ask-lang'); } catch (e) {}
+      if (saved && I18N[saved]) {
+        currentLang = saved;
+      } else {
+        const browser = (navigator.language || '').slice(0, 2);
+        if (I18N[browser]) currentLang = browser;
+      }
+      const picker = document.getElementById('langPicker');
+      if (picker) picker.value = currentLang;
+      applyI18n();
+    })();
 
     // City selector
     document.getElementById('cityBar').addEventListener('click', e => {
@@ -316,7 +473,7 @@
         const res = await fetch('/.netlify/functions/air-query', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question, city: selectedCity }),
+          body: JSON.stringify({ question, city: selectedCity, lang: currentLang }),
         });
         const data = await res.json();
         typing.remove();
@@ -326,10 +483,12 @@
           meta = data.dataUsed.city + ' \u2014 AQI: ' + data.dataUsed.aqi +
             ', PM2.5: ' + (data.dataUsed.pm25 ?? 'N/A') + ' \u00b5g/m\u00b3';
         }
-        addMessage(data.answer || 'No response received.', 'ai', meta);
+        const t = I18N[currentLang] || I18N.en;
+        addMessage(data.answer || t.noResponse, 'ai', meta);
       } catch (e) {
         typing.remove();
-        addMessage('Something went wrong. Please check your connection and try again.', 'ai');
+        const t = I18N[currentLang] || I18N.en;
+        addMessage(t.errorMsg, 'ai');
       }
     }
 
