@@ -8,7 +8,7 @@ JanVayu चा Claude Code कार्यप्रवाह कसा शेअ
 
 ### नवीन योगदानकर्त्याला सामील करा
 1. Repo clone करा
-2. हे GitBook दस्तऐवज वाचा
+2. हे Docsify दस्तऐवज वाचा
 3. Claude Code install करा: `npm install -g @anthropic-ai/claude-code`
 4. Session सुरू करा: `cd JanVayu && claude`
 

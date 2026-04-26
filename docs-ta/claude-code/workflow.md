@@ -76,14 +76,14 @@ Claude Code:
 
 ```
 > தொழில்நுட்ப அடுக்கு, Claude Code setup மற்றும் AI அம்சங்களை உள்ளடக்கிய
-> JanVayu-க்கான GitBook ஆவணங்களை உருவாக்கவும். SUMMARY.md-ஐ சேர்க்கவும்.
+> JanVayu-க்கான Docsify ஆவணங்களை உருவாக்கவும். SUMMARY.md-ஐ சேர்க்கவும்.
 ```
 
 Claude Code:
 1. ஏற்கனவே உள்ள docs, configs மற்றும் source code-ஐ படிக்கிறது
 2. Directory structure-ஐ உருவாக்குகிறது
 3. துல்லியமான, code-referenced உள்ளடக்கத்துடன் ஒவ்வொரு பக்கத்தையும் எழுதுகிறது
-4. `SUMMARY.md` மற்றும் `.gitbook.yaml`-ஐ புதுப்பிக்கிறது
+4. `SUMMARY.md` மற்றும் `.docsify.yaml`-ஐ புதுப்பிக்கிறது
 
 ---
 

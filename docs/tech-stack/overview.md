@@ -18,8 +18,8 @@ JanVayu is built on a deliberately minimal stack — zero frontend frameworks, t
 | **Hosting** | Netlify CDN | Auto-deploy from GitHub `main` |
 | **CI** | GitHub Actions | Link checking, translation coverage, Dependabot |
 | **Domain** | Netlify DNS | janvayu.in custom domain |
-| **Docs** | GitBook (5 languages) | Auto-synced from `docs/` and `docs-{lang}/` directories |
-| **Docs Integrations** | Arcade, PlantUML, Formspree, Plausible | Interactive demos, diagrams, forms, analytics |
+| **Docs** | Docsify (5 languages) | Single shell at `/docs/`; language hash routes (`/docs/#/hi/` etc.) load `docs-{lang}/` markdown |
+| **Docs Integrations** | Plausible | Privacy-first analytics |
 | **Development** | Claude Code (Anthropic) | AI-assisted development workflow |
 
 ---

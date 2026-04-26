@@ -86,7 +86,7 @@ JanVayu/
 ├── package.json                  # Node.js deps (Netlify Blobs, Resend)
 ├── netlify.toml                  # Build & deploy config
 ├── CNAME                         # Custom domain
-├── docs/                         # This documentation (GitBook)
+├── docs/                         # This documentation (Docsify)
 ├── downloads/                    # Downloadable reports (PDF, PPTX, DOCX)
 └── netlify/
     └── functions/

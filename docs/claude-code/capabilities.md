@@ -250,13 +250,13 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 ## 8. Documentation Capabilities
 
 ### Multilingual Documentation (5 Languages)
-| Language | Directory | Sync Target |
-|----------|-----------|-------------|
-| English | `docs/` | GitBook (primary space) |
-| Hindi | `docs-hi/` | GitBook (Hindi space) |
-| Bengali | `docs-bn/` | GitBook (Bengali space) |
-| Marathi | `docs-mr/` | GitBook (Marathi space) |
-| Tamil | `docs-ta/` | GitBook (Tamil space) |
+| Language | Directory | Live Path |
+|----------|-----------|-----------|
+| English | `docs/` | `/docs/` |
+| Hindi | `docs-hi/` | `/docs/#/hi/` |
+| Bengali | `docs-bn/` | `/docs/#/bn/` |
+| Marathi | `docs-mr/` | `/docs/#/mr/` |
+| Tamil | `docs-ta/` | `/docs/#/ta/` |
 
 ### Documentation Sections (54 files)
 - **Claude Code guides** — overview, setup, workflow, sharing, capabilities
@@ -266,12 +266,12 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 - **Contributing** — contribution guidelines
 - **Wiki** — translation guide, role-based landing page, adding a new panel
 
-### GitBook Integration
-- Bi-directional sync via `.gitbook.yaml` and GitHub integration
-- Auto-updates on push to `main`
-- Installed integrations: Formspree (feedback forms), Arcade (interactive demos), PlantUML (architecture diagrams), Plausible (privacy-friendly analytics), GitHub Files (live code embeds)
-- AI-powered search for visitors
-- Custom domain support (`docs.janvayu.in`)
+### Docsify Setup
+- Single-page Docsify shell at `/docs/` renders markdown directly from the `docs/` directory in the browser
+- Translated languages routed via Docsify hash routes (`/docs/#/hi/`, `/docs/#/bn/`, `/docs/#/mr/`, `/docs/#/ta/`)
+- No build step, no server, no DB — Netlify just serves the static files
+- Plugins: docsify-themeable (brand theme + dark mode), docsify-pagination (Prev/Next), docsify-copy-code (code-block copy), Prism.js (syntax highlighting), Plausible (privacy-friendly analytics)
+- Built-in Docsify search (client-side, indexes all 5 languages)
 
 ---
 
@@ -305,7 +305,7 @@ Only 3 npm packages in `package.json`:
 - All 13 Netlify Functions (serverless backend)
 - The entire 12,633-line `index.html` single-page application
 - All AI skill prompts and prompt engineering
-- Complete multilingual GitBook documentation (54 files, 5 languages)
+- Complete multilingual Docsify documentation (54 files, 5 languages)
 - Git hooks for commit enforcement
 - GitHub Actions workflows
 - CHANGELOG entries and version management
@@ -321,7 +321,6 @@ Only 3 npm packages in `package.json`:
 | Design decisions | Feature priority, data source selection, UX direction |
 | Content review | Data accuracy, policy correctness, legal compliance |
 | Deployment verification | Checking live site behaviour after deploy |
-| GitBook account setup | Creating spaces, connecting repo, custom domain DNS |
 | DNS configuration | Domain registrar changes for custom domains |
 
 ---
@@ -335,9 +334,9 @@ Only 3 npm packages in `package.json`:
 | Resend email | Free tier (100 emails/day) |
 | WAQI API | Free tier |
 | GitHub Actions | Free tier |
-| GitBook | Ultimate plan (for multilingual + integrations) |
+| Docsify (docs) | Free (open source, served from Netlify) |
 | Domain (`janvayu.in`) | ~$10/year |
-| **Total** | **~$10/year + GitBook plan** |
+| **Total** | **~$10/year** |
 
 ---
 
@@ -347,7 +346,7 @@ This Claude Code setup provides a complete development environment for a product
 - **13 serverless functions** (4 AI-powered, 5 data feeds, 2 scheduled, 1 email, 1 health check)
 - **Automated code quality** via git hooks (secret blocking, commit conventions, debug detection)
 - **CI/CD pipelines** for link checking, translation coverage, and dependency updates
-- **Multilingual documentation** auto-synced to GitBook in 5 languages
+- **Multilingual Docsify documentation** in 5 languages, served from a single shell at `/docs/`
 - **Zero-framework architecture** enforced by convention and documentation
 - **MCP integrations** for GitHub, Notion, Gmail, Figma, Calendar, and Excalidraw
 - **Minimal cost** — nearly everything runs on free tiers

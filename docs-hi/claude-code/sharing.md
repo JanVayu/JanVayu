@@ -8,7 +8,7 @@ JanVayu का Claude Code वर्कफ़्लो कैसे साझा
 
 ### नए योगदानकर्ता को शामिल करें
 1. रिपो क्लोन करें
-2. यह GitBook प्रलेखन पढ़ें
+2. यह Docsify प्रलेखन पढ़ें
 3. Claude Code इंस्टॉल करें: `npm install -g @anthropic-ai/claude-code`
 4. सत्र शुरू करें: `cd JanVayu && claude`
 
