@@ -118,7 +118,27 @@ WHO activity guidance by PM2.5 level:
 Transport exposure multipliers (vs ambient): Walking 1.0x, Cycling 2-3x (heavy breathing), Auto-rickshaw 1.5x (open vehicle), Car (AC, windows up) 0.3-0.5x, Metro 0.2-0.4x, Bus 0.8-1.0x.
 `;
 
-function buildSystemPrompt(seasonal) {
+const LANG_NAMES = {
+  en: "English",
+  hi: "Hindi (Devanagari script)",
+  ta: "Tamil (Tamil script)",
+  bn: "Bengali (Bengali script)",
+  mr: "Marathi (Devanagari script)",
+};
+
+function buildSystemPrompt(seasonal, lang) {
+  const langName = LANG_NAMES[lang] || null;
+  // If the UI passes a language code, hard-force the response language above
+  // the numbered instructions. If no code, instruction 9 keeps the older
+  // "match the user's question language" behaviour.
+  const langOverride = langName
+    ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
+    : "";
+
+  const instruction9 = langName
+    ? `9. Respond entirely in ${langName} (see CRITICAL note above).`
+    : `9. Respond in the same language the question is asked in — Hindi in Devanagari, Tamil in Tamil script, Bengali in Bengali script, Marathi in Devanagari script.`;
+
   return `You are JanVayu, India's citizen-led air quality assistant. You are NOT a generic chatbot — you have access to LIVE pollution data and deep knowledge of India's air quality context.
 
 TODAY: ${seasonal.dateStr}
@@ -134,7 +154,7 @@ KEY REFERENCE DATA:
 - NCAP target: 40% PM10 reduction across 131 cities by 2025-26. Only 23 cities met this.
 - Average Indian loses 3.5 years of life expectancy to pollution (AQLI)
 - 1 SD increase in PM2.5 → 5 percentage point increase in child stunting
-
+${langOverride}
 INSTRUCTIONS:
 1. Use the ACTUAL live data numbers provided — never give generic advice.
 2. For "Should I..." questions: give a direct YES/NO first, then explain using the activity thresholds and the person's specific situation.
@@ -144,7 +164,7 @@ INSTRUCTIONS:
 6. For exposure estimates: use transport multipliers and the current PM2.5 level.
 7. Include the seasonal context when it's relevant (e.g. stubble burning, monsoon).
 8. If asked to draft an RTI: generate a proper RTI application format with department, subject, and specific questions.
-9. Respond in the same language the question is asked in — Hindi in Devanagari, Tamil in Tamil script, etc.
+${instruction9}
 10. Keep responses under 200 words. Be direct, specific, and actionable.`;
 }
 
@@ -170,10 +190,11 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ error: "Invalid JSON" }), { status: 400, headers });
   }
 
-  const { question, city } = body;
+  const { question, city, lang } = body;
   if (!question || !city) {
     return new Response(JSON.stringify({ error: "question and city are required" }), { status: 400, headers });
   }
+  const requestedLang = LANG_NAMES[lang] ? lang : null;
 
   const cityKey = city.toLowerCase().replace(/\s+/g, "");
   const aqiResult = await fetchCityAQI(cityKey);
@@ -216,7 +237,7 @@ export default async function handler(req) {
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: [
-          { role: "system", content: buildSystemPrompt(seasonal) },
+          { role: "system", content: buildSystemPrompt(seasonal, requestedLang) },
           { role: "user", content: `${dataContext}\n\nQuestion: ${question}` }
         ],
         max_tokens: 450,
