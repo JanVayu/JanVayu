@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JanVayu AQI Widget</title>
+<style>
+  :root { --good: #22C55E; --moderate: #EAB308; --poor: #F97316; --vpoor: #EF4444; --severe: #7C3AED; --hazard: #831843; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 12px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  body.theme-light { background: #fff; color: #0F172A; }
+  body.theme-dark  { background: #0B1426; color: #F1F5F9; }
+  .widget { display: flex; flex-direction: column; gap: 4px; }
+  .city { font-size: 0.78rem; font-weight: 600; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.04em; }
+  .row { display: flex; align-items: baseline; gap: 8px; }
+  .aqi { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+  .label { font-size: 0.95rem; font-weight: 600; }
+  .pm { font-size: 0.78rem; opacity: 0.7; margin-top: 2px; }
+  .footer { font-size: 0.65rem; opacity: 0.6; margin-top: 6px; }
+  .footer a { color: inherit; text-decoration: none; border-bottom: 1px dotted; }
+  .err { font-size: 0.85rem; opacity: 0.7; }
+</style>
+</head>
+<body>
+<div class="widget" id="w">
+  <div class="err">Loading…</div>
+</div>
+<script>
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const city = (params.get('city') || 'delhi').toLowerCase();
+  const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+  document.body.classList.add('theme-' + theme);
+
+  const el = document.getElementById('w');
+  const WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
+
+  function color(aqi) {
+    if (aqi <= 50) return 'var(--good)';
+    if (aqi <= 100) return 'var(--moderate)';
+    if (aqi <= 200) return 'var(--poor)';
+    if (aqi <= 300) return 'var(--vpoor)';
+    if (aqi <= 400) return 'var(--severe)';
+    return 'var(--hazard)';
+  }
+  function label(aqi) {
+    if (aqi <= 50) return 'Good';
+    if (aqi <= 100) return 'Moderate';
+    if (aqi <= 200) return 'Poor';
+    if (aqi <= 300) return 'Very Poor';
+    if (aqi <= 400) return 'Severe';
+    return 'Hazardous';
+  }
+
+  try {
+    const res = await fetch('https://api.waqi.info/feed/' + encodeURIComponent(city) + '/?token=' + WAQI_TOKEN);
+    const json = await res.json();
+    if (json.status !== 'ok' || !json.data || json.data.aqi === '-') throw new Error('no data');
+    const aqi = parseInt(json.data.aqi);
+    const pm25 = json.data.iaqi?.pm25?.v;
+    const cityName = json.data.city?.name || city;
+    el.innerHTML = `
+      <div class="city">${cityName}</div>
+      <div class="row">
+        <span class="aqi" style="color:${color(aqi)};">${aqi}</span>
+        <span class="label" style="color:${color(aqi)};">${label(aqi)}</span>
+      </div>
+      ${pm25 ? `<div class="pm">PM2.5: <strong>${pm25}</strong> µg/m³</div>` : ''}
+      <div class="footer">Live AQI · <a href="https://www.janvayu.in/" target="_blank" rel="noopener">JanVayu</a></div>
+    `;
+  } catch (e) {
+    el.innerHTML = '<div class="err">Live AQI unavailable. <a href="https://www.janvayu.in/" target="_blank" rel="noopener">JanVayu →</a></div>';
+  }
+
+  // Auto-refresh every 10 minutes
+  setTimeout(() => location.reload(), 10 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
