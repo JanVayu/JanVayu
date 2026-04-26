@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JanVayu Rankings Widget</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 12px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; font-size: 0.85rem; }
+  body.theme-light { background: #fff; color: #0F172A; }
+  body.theme-dark  { background: #0B1426; color: #F1F5F9; }
+  h3 { font-size: 0.78rem; margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.7; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 4px 6px; }
+  .rank { width: 24px; opacity: 0.6; text-align: right; }
+  .pm { font-weight: 700; padding: 2px 7px; border-radius: 4px; color: #fff; font-size: 0.78rem; }
+  .footer { font-size: 0.65rem; opacity: 0.6; margin-top: 8px; text-align: right; }
+  .footer a { color: inherit; text-decoration: none; border-bottom: 1px dotted; }
+  .err { opacity: 0.7; }
+</style>
+</head>
+<body>
+<h3 id="title">Most polluted cities now</h3>
+<div id="w"><div class="err">Loading…</div></div>
+<div class="footer">Live · <a href="https://www.janvayu.in/" target="_blank" rel="noopener">JanVayu</a></div>
+<script>
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const n = Math.max(3, Math.min(20, parseInt(params.get('n') || '10')));
+  const order = params.get('order') === 'best' ? 'best' : 'worst';
+  const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+  document.body.classList.add('theme-' + theme);
+  document.getElementById('title').textContent = order === 'best' ? 'Cleanest cities now' : 'Most polluted cities now';
+
+  function pmColor(pm25) {
+    if (pm25 <= 5) return '#22C55E';
+    if (pm25 <= 15) return '#EAB308';
+    if (pm25 <= 35) return '#F97316';
+    if (pm25 <= 55) return '#EF4444';
+    if (pm25 <= 150) return '#7C3AED';
+    return '#831843';
+  }
+
+  const el = document.getElementById('w');
+  try {
+    const res = await fetch('https://www.janvayu.in/.netlify/functions/rankings?range=live');
+    const json = await res.json();
+    if (!Array.isArray(json.cities)) throw new Error('no data');
+    const sorted = [...json.cities].sort((a, b) => order === 'worst' ? b.pm25 - a.pm25 : a.pm25 - b.pm25);
+    const rows = sorted.slice(0, n).map((c, i) => `
+      <tr>
+        <td class="rank">${i + 1}</td>
+        <td>${c.name}</td>
+        <td style="text-align:right;"><span class="pm" style="background:${pmColor(c.pm25)};">${c.pm25}</span></td>
+      </tr>
+    `).join('');
+    el.innerHTML = '<table>' + rows + '</table>';
+  } catch (e) {
+    el.innerHTML = '<div class="err">Live data unavailable.</div>';
+  }
+  setTimeout(() => location.reload(), 10 * 60 * 1000);
+})();
+</script>
+</body>
+</html>

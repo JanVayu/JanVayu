@@ -12,6 +12,21 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Embeddable widgets — allow iframing from any origin, deliberately.
+[[headers]]
+  for = "/embed/*"
+  [headers.values]
+    X-Frame-Options = "ALLOWALL"
+    Content-Security-Policy = "frame-ancestors *"
+    Access-Control-Allow-Origin = "*"
+
+# Service worker must serve from root scope with correct content-type
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
 # Redirect non-www to www (canonical domain)
 [[redirects]]
   from = "https://janvayu.in/*"
@@ -65,6 +80,63 @@
 [[redirects]]
   from = "/blog/*"
   to = "/blog/:splat"
+  status = 200
+  force = true
+
+# Serve embed widgets (force = true to override SPA fallback)
+[[redirects]]
+  from = "/embed/aqi"
+  to = "/embed/aqi/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/embed/aqi/"
+  to = "/embed/aqi/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/embed/rankings"
+  to = "/embed/rankings/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/embed/rankings/"
+  to = "/embed/rankings/index.html"
+  status = 200
+  force = true
+
+# Per-pollutant SEO pages
+[[redirects]]
+  from = "/pm25"
+  to = "/pm25/index.html"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/pm10"
+  to = "/pm10/index.html"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/co"
+  to = "/co/index.html"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/no2"
+  to = "/no2/index.html"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/so2"
+  to = "/so2/index.html"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/o3"
+  to = "/o3/index.html"
   status = 200
   force = true
 

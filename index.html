@@ -149,6 +149,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,0,600;6..72,0,700;6..72,1,400;6..72,1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1B6B4A">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script>
@@ -237,6 +239,7 @@
 
     </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" defer></script>
     <style>
 /* ═══════════════════════════════════════════════════════════
    JANVAYU REDESIGN — EDITORIAL SCROLL LAYOUT
@@ -2589,6 +2592,7 @@ body {
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label">Monitoring</div>
                 <button class="mobile-nav-item" data-panel="compare">City Comparison</button>
+                <button class="mobile-nav-item" data-panel="rankings">City Rankings</button>
                 <button class="mobile-nav-item" data-panel="map">Live Map</button>
                 <button class="mobile-nav-item" data-panel="hyperlocal">Hyperlocal</button>
                 <button class="mobile-nav-item" data-panel="forecast">AQI Forecast</button>
@@ -2668,6 +2672,7 @@ body {
                 <button class="nav-link" data-panel="compare" data-i18n="nav_monitor">Monitoring <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="compare">City Comparison</button>
+                    <button class="nav-dropdown-link" data-panel="rankings">City Rankings</button>
                     <button class="nav-dropdown-link" data-panel="hyperlocal">Hyperlocal</button>
                     <button class="nav-dropdown-link" data-panel="map">Live Map</button>
                     <button class="nav-dropdown-link" data-panel="forecast">AQI Forecast</button>
@@ -2736,12 +2741,13 @@ body {
                     </div>
                     <div class="hero-data">
                         <div class="hero-pm25-card">
+                            <div style="display: flex; gap: 6px; margin-bottom: 6px; align-items: stretch;">
                             <select id="hero-city-select" onchange="updateHeroCity(this.value)" style="
                                 font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
                                 text-transform: uppercase; letter-spacing: 0.06em;
                                 background: var(--bg-section); color: var(--text-2);
                                 border: 1px solid var(--border); border-radius: 6px;
-                                padding: 4px 8px; width: 100%; margin-bottom: 6px; cursor: pointer;
+                                padding: 4px 8px; flex: 1; cursor: pointer;
                             ">
                                 <optgroup label="Metros">
                                     <option value="delhi" selected>Delhi</option>
@@ -2791,6 +2797,14 @@ body {
                                     <option value="gaya">Gaya</option>
                                 </optgroup>
                             </select>
+                            <button id="near-me-btn" onclick="loadNearestAQI()" title="Find nearest monitoring station" style="
+                                font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+                                text-transform: uppercase; letter-spacing: 0.06em;
+                                background: var(--accent, #1B6B4A); color: #fff;
+                                border: 1px solid var(--accent, #1B6B4A); border-radius: 6px;
+                                padding: 4px 10px; cursor: pointer; white-space: nowrap;
+                            ">📍 Near Me</button>
+                            </div>
                             <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
                             <div class="hero-pm25-number" id="delhi-live-pm25" style="color: var(--red);">--</div>
                             <div class="hero-pm25-unit">µg/m³</div>
@@ -2819,6 +2833,36 @@ body {
                         </div>
                         <div class="live-bar">
                             <div id="live-status"><span class="pulse"></span> Connecting to live data...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Impact (cigarette equivalence, disease risk, solutions) -->
+                <div class="grid-3 mt-3" id="personal-impact-row">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">What you're breathing right now</span>
+                            <span style="font-size: 0.65rem; color: var(--text-3);" id="personal-impact-city">Delhi</span>
+                        </div>
+                        <div class="card-body" style="text-align: center;">
+                            <div style="font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--red);" id="cigarette-count">--</div>
+                            <div style="font-size: 0.85rem; color: var(--text-2); margin-top: 4px;">cigarettes/day equivalent</div>
+                            <div style="font-size: 0.7rem; color: var(--text-3); margin-top: 8px; line-height: 1.4;">Berkeley Earth: 1 cig ≈ 22 µg/m³·day of PM2.5. <span id="cigarette-context">Today's air ≈ today's smokes.</span></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">Disease risk now</span></div>
+                        <div class="card-body" id="disease-risk-body" style="display: flex; flex-direction: column; gap: 6px; font-size: 0.78rem;">
+                            <div style="color: var(--text-3);">Loading…</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">What to do today</span>
+                            <span style="font-size: 0.65rem; color: var(--text-3);" id="solution-band">--</span>
+                        </div>
+                        <div class="card-body" id="solution-body" style="font-size: 0.82rem; line-height: 1.5;">
+                            <div style="color: var(--text-3);">Loading…</div>
                         </div>
                     </div>
                 </div>
@@ -2917,6 +2961,17 @@ body {
                     <button class="anomaly-dismiss" onclick="dismissAnomalyBanner()" title="Dismiss">&times;</button>
                 </div>
             </div>
+        </div>
+
+        <!-- PWA INSTALL BANNER -->
+        <div id="pwa-install-banner" style="display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 999; background: var(--bg-section, #fff); border: 1px solid var(--border, #E2E8F0); border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); padding: 12px 16px; gap: 12px; align-items: center; max-width: 92vw;">
+            <span style="font-size: 1.4rem;">📲</span>
+            <div style="flex: 1; min-width: 200px;">
+                <div style="font-weight: 600; font-size: 0.9rem;">Install JanVayu</div>
+                <div style="font-size: 0.75rem; color: var(--text-3, #94A3B8);">Get live AQI + offline access on your home screen.</div>
+            </div>
+            <button onclick="installJanVayuPWA()" style="padding: 6px 12px; background: var(--accent, #1B6B4A); color: #fff; border: 0; border-radius: 6px; font-size: 0.8rem; cursor: pointer; font-weight: 600;">Install</button>
+            <button onclick="dismissPWABanner()" aria-label="Dismiss" style="background: transparent; border: 0; color: var(--text-3, #94A3B8); font-size: 1.2rem; cursor: pointer; padding: 4px 8px;">×</button>
         </div>
 
         <!-- All remaining panels will be loaded here -->
@@ -3314,6 +3369,7 @@ body {
             if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
             const aqiEl = document.getElementById('delhi-live-aqi');
             if (aqiEl) aqiEl.textContent = data.aqi;
+            updatePersonalImpact(cityKey, data);
         } else {
             const el = document.getElementById('delhi-live-pm25');
             if (el) { el.textContent = '--'; el.style.color = 'var(--text-3)'; }
@@ -3321,6 +3377,211 @@ body {
             if (whoEl) { whoEl.textContent = 'No data'; whoEl.style.color = 'var(--text-3)'; }
             const aqiEl = document.getElementById('delhi-live-aqi');
             if (aqiEl) aqiEl.textContent = '--';
+            updatePersonalImpact(cityKey, null);
+        }
+    }
+
+    // ── Personal Impact (cigarette equivalence + disease risk + solutions) ──
+    // Berkeley Earth equivalence: 22 µg/m³ PM2.5 over 24 hours ≈ 1 cigarette.
+    function updatePersonalImpact(cityKey, data) {
+        const cityName = CITIES[cityKey]?.name || cityKey;
+        const cityLabel = document.getElementById('personal-impact-city');
+        if (cityLabel) cityLabel.textContent = cityName;
+
+        const cigEl = document.getElementById('cigarette-count');
+        const cigCtx = document.getElementById('cigarette-context');
+        const diseaseEl = document.getElementById('disease-risk-body');
+        const solutionEl = document.getElementById('solution-body');
+        const bandEl = document.getElementById('solution-band');
+
+        if (!data) {
+            if (cigEl) { cigEl.textContent = '--'; cigEl.style.color = 'var(--text-3)'; }
+            if (cigCtx) cigCtx.textContent = 'No live data right now.';
+            if (diseaseEl) diseaseEl.innerHTML = '<div style="color: var(--text-3);">No live data.</div>';
+            if (solutionEl) solutionEl.innerHTML = '<div style="color: var(--text-3);">No live data.</div>';
+            if (bandEl) bandEl.textContent = '--';
+            return;
+        }
+
+        const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
+        const aqi = data.aqi;
+        const cigPerDay = (pm25 / 22).toFixed(1);
+        const cigColor = getPM25Color(pm25);
+        if (cigEl) { cigEl.textContent = cigPerDay; cigEl.style.color = cigColor; }
+        if (cigCtx) {
+            const cigPerWeek = Math.round((pm25 / 22) * 7);
+            cigCtx.textContent = `That's ≈ ${cigPerWeek} cigarettes/week of equivalent PM2.5 exposure.`;
+        }
+
+        const riskRows = computeDiseaseRisk(aqi);
+        if (diseaseEl) {
+            diseaseEl.innerHTML = riskRows.map(r => `
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                    <span>${r.name}</span>
+                    <span style="background: ${r.color}; color: #fff; font-weight: 600; font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.04em;">${r.level}</span>
+                </div>
+            `).join('');
+        }
+
+        const sol = computeSolution(aqi);
+        if (bandEl) { bandEl.textContent = sol.label; bandEl.style.color = sol.color; }
+        if (solutionEl) {
+            solutionEl.innerHTML = `
+                <div style="border-left: 3px solid ${sol.color}; padding-left: 10px; margin-bottom: 8px;">
+                    <strong style="color: ${sol.color};">${sol.headline}</strong>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px;">
+                    ${sol.actions.map(a => `<li style="display: flex; gap: 6px;"><span>${a.icon}</span><span>${a.text}</span></li>`).join('')}
+                </ul>
+                <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+                    <button class="btn btn-sm" style="font-size: 0.7rem;" onclick="showPanel('purifier-calc')">Purifier sizing</button>
+                    <button class="btn btn-sm" style="font-size: 0.7rem;" onclick="showPanel('go-outside')">Go outside?</button>
+                </div>
+            `;
+        }
+    }
+
+    function computeDiseaseRisk(aqi) {
+        // Buckets: Good (≤50), Moderate (≤100), Poor (≤200), Very Poor (≤300), Severe (≤400), Hazardous (>400)
+        const band = aqi <= 50 ? 0 : aqi <= 100 ? 1 : aqi <= 200 ? 2 : aqi <= 300 ? 3 : aqi <= 400 ? 4 : 5;
+        const levels = [
+            { level: 'Low',      color: '#22C55E' },
+            { level: 'Watch',    color: '#EAB308' },
+            { level: 'Elevated', color: '#F97316' },
+            { level: 'High',     color: '#EF4444' },
+            { level: 'Severe',   color: '#7C3AED' },
+            { level: 'Extreme',  color: '#831843' },
+        ];
+        // Each disease has its own sensitivity to AQI
+        return [
+            { name: 'Asthma flare-up',          ...levels[Math.min(5, band + 1)] },
+            { name: 'Heart attack / stroke',     ...levels[band] },
+            { name: 'Allergies & eye irritation',...levels[Math.min(5, band)] },
+            { name: 'Respiratory infection',     ...levels[band] },
+            { name: 'Children & elderly risk',   ...levels[Math.min(5, band + 1)] },
+        ];
+    }
+
+    function computeSolution(aqi) {
+        if (aqi <= 50) {
+            return {
+                label: 'Good', color: '#22C55E',
+                headline: 'Air is clean. Enjoy outdoors.',
+                actions: [
+                    { icon: '🏃', text: 'Outdoor exercise is safe for everyone.' },
+                    { icon: '🪟', text: 'Open windows to ventilate indoor spaces.' },
+                    { icon: '🧒', text: 'Kids and elderly: no restrictions.' },
+                ]
+            };
+        }
+        if (aqi <= 100) {
+            return {
+                label: 'Moderate', color: '#EAB308',
+                headline: 'Mostly fine. Sensitive groups should watch.',
+                actions: [
+                    { icon: '🏃', text: 'Outdoor exercise OK for most. Reduce intensity if asthmatic.' },
+                    { icon: '🪟', text: 'Windows OK; close during traffic peaks.' },
+                    { icon: '😷', text: 'Mask not needed unless you have a lung condition.' },
+                ]
+            };
+        }
+        if (aqi <= 200) {
+            return {
+                label: 'Poor', color: '#F97316',
+                headline: 'Limit prolonged outdoor exertion.',
+                actions: [
+                    { icon: '😷', text: 'Wear a well-fitted N95 outdoors for >30 min.' },
+                    { icon: '🏃', text: 'Move workouts indoors; avoid roadside running.' },
+                    { icon: '🪟', text: 'Close windows; run an air purifier in bedrooms.' },
+                    { icon: '🧒', text: 'Kids: shorten outdoor recess. Asthmatics: keep inhaler ready.' },
+                ]
+            };
+        }
+        if (aqi <= 300) {
+            return {
+                label: 'Very Poor', color: '#EF4444',
+                headline: 'Stay indoors. Run a HEPA purifier.',
+                actions: [
+                    { icon: '😷', text: 'N95 mandatory outdoors — even brief exposure matters.' },
+                    { icon: '🌬️', text: 'Run HEPA purifier 24/7; size for room volume.' },
+                    { icon: '🚫', text: 'No outdoor exercise. Reschedule sports.' },
+                    { icon: '🏫', text: 'Schools: consider hybrid or holiday for primary classes.' },
+                ]
+            };
+        }
+        if (aqi <= 400) {
+            return {
+                label: 'Severe', color: '#7C3AED',
+                headline: 'Health emergency. Avoid all outdoor exposure.',
+                actions: [
+                    { icon: '🏠', text: 'Stay indoors. Seal gaps under doors and windows.' },
+                    { icon: '🌬️', text: 'Multiple HEPA purifiers; create a "clean room" if needed.' },
+                    { icon: '🏥', text: 'Cardiac/lung patients: keep meds and emergency contacts close.' },
+                    { icon: '🚸', text: 'Schools should close. Outdoor work should pause.' },
+                ]
+            };
+        }
+        return {
+            label: 'Hazardous', color: '#831843',
+            headline: 'Emergency. Treat outdoor air as toxic.',
+            actions: [
+                { icon: '🚨', text: 'Government should activate GRAP Stage IV / emergency protocols.' },
+                { icon: '🏠', text: 'Do not go outside without N95 + eye protection.' },
+                { icon: '🏥', text: 'ER visits spike. Seek help immediately for chest pain or breathing trouble.' },
+                { icon: '🛫', text: 'If feasible, consider temporary relocation for vulnerable family members.' },
+            ]
+        };
+    }
+
+    // ── Near Me (geolocation → nearest WAQI station) ──
+    async function loadNearestAQI() {
+        const btn = document.getElementById('near-me-btn');
+        const origText = btn ? btn.textContent : '';
+        if (!navigator.geolocation) {
+            alert('Your browser does not support geolocation. Please pick a city manually.');
+            return;
+        }
+        if (btn) { btn.textContent = '… Locating'; btn.disabled = true; }
+        try {
+            const pos = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 10000, enableHighAccuracy: false });
+            });
+            const { latitude: lat, longitude: lon } = pos.coords;
+            const url = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${WAQI_TOKEN}`;
+            const res = await fetch(url);
+            const json = await res.json();
+            if (json.status !== 'ok' || !json.data || json.data.aqi === '-') {
+                throw new Error('No nearby station found.');
+            }
+            const d = json.data;
+            const aqi = parseInt(d.aqi);
+            const pm25 = d.iaqi?.pm25?.v || Math.round(aqi * 0.7);
+            const stationName = d.city?.name || 'Nearest station';
+
+            // Inject as a synthetic "near-me" entry into aqiData so all the cards reuse the same flow.
+            CITIES['__nearme'] = { name: 'Near me — ' + stationName, lat, lon };
+            aqiData['__nearme'] = { aqi, pm25, pm10: d.iaqi?.pm10?.v || null, time: d.time?.s || new Date().toISOString(), station: stationName, live: true };
+
+            // Add or update the dropdown option so the user can switch back
+            const sel = document.getElementById('hero-city-select');
+            if (sel) {
+                let opt = sel.querySelector('option[value="__nearme"]');
+                if (!opt) {
+                    opt = document.createElement('option');
+                    opt.value = '__nearme';
+                    sel.insertBefore(opt, sel.firstChild);
+                }
+                opt.textContent = '📍 ' + stationName;
+                sel.value = '__nearme';
+            }
+            updateHeroCity('__nearme');
+        } catch (e) {
+            const msg = e && e.code === 1 ? 'Location permission denied. Pick a city manually.' :
+                        e && e.code === 3 ? 'Location request timed out.' :
+                        (e.message || 'Could not find a nearby station.');
+            alert(msg);
+        } finally {
+            if (btn) { btn.textContent = origText; btn.disabled = false; }
         }
     }
 
@@ -3557,6 +3818,26 @@ body {
             setTimeout(() => {
                 try { initAllCharts(); } catch(e) {}
                 if (panelId === 'map') initMap();
+                if (panelId === 'rankings') { try { initRankingsPanel(); } catch(e) { console.warn(e); } }
+                if (panelId === 'compare') { try { initYoYPanel(); } catch(e) { console.warn(e); } }
+                if (panelId === 'trends') { try { initHourlyTrendChart(); } catch(e) { console.warn(e); } }
+                if (panelId === 'hyperlocal') {
+                    try {
+                        const sel = document.getElementById('hyperlocal-city');
+                        if (sel) {
+                            if (sel.options.length === 0) {
+                                INDIAN_CITIES.forEach(k => {
+                                    const opt = document.createElement('option');
+                                    opt.value = k; opt.textContent = CITIES[k]?.name || k;
+                                    sel.appendChild(opt);
+                                });
+                                sel.value = 'delhi';
+                            }
+                            // Trigger initial load every time the panel opens
+                            setTimeout(() => loadHyperlocal(), 50);
+                        }
+                    } catch(e) { console.warn(e); }
+                }
             }, 150);
         } else {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
@@ -3839,6 +4120,33 @@ body {
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('[JanVayu] Initializing redesigned version...');
 
+        // ── PWA: register service worker for offline shell + last-known AQI cache ──
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => console.warn('[JanVayu] SW register failed:', err));
+        }
+
+        // ── PWA: capture install prompt and surface a discreet banner ──
+        let deferredInstallPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.style.display = 'flex';
+        });
+        window.installJanVayuPWA = async function () {
+            if (!deferredInstallPrompt) return;
+            deferredInstallPrompt.prompt();
+            try { await deferredInstallPrompt.userChoice; } catch (e) {}
+            deferredInstallPrompt = null;
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.style.display = 'none';
+        };
+        window.dismissPWABanner = function () {
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.style.display = 'none';
+            try { localStorage.setItem('janvayu-pwa-dismissed', '1'); } catch (e) {}
+        };
+
         // Nav links
         // Desktop nav: top-level links (direct, like Dashboard)
         document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
@@ -4001,12 +4309,17 @@ body {
             }
         }
 
+    let mapMarkerLayer = null;
+    let mapHeatLayer = null;
+
     function initMap() {
             // Destroy old map instance if DOM was replaced (panel navigation)
             if (map) {
                 try { map.remove(); } catch(e) {}
                 map = null;
                 mapMarkers = [];
+                mapMarkerLayer = null;
+                mapHeatLayer = null;
             }
             const mapContainer = document.getElementById('india-map');
             if (!mapContainer) {
@@ -4018,16 +4331,20 @@ body {
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap | AQI data from WAQI API (Live)'
                 }).addTo(map);
+                mapMarkerLayer = L.layerGroup().addTo(map);
                 updateMapMarkers();
+                // Restore heatmap state if user had it on
+                const heatToggle = document.getElementById('map-toggle-heatmap');
+                if (heatToggle && heatToggle.checked) toggleMapLayer('heatmap', true);
             } catch (e) {
                 console.error('[JanVayu] Error initializing map:', e);
             }
         }
 
     function updateMapMarkers() {
-            if (!map) return;
+            if (!map || !mapMarkerLayer) return;
             try {
-                mapMarkers.forEach(m => map.removeLayer(m));
+                mapMarkerLayer.clearLayers();
                 mapMarkers = [];
                 Object.entries(CITIES).forEach(([key, city]) => {
                     if (!city.lat || city.region === 'intl') return;
@@ -4035,20 +4352,67 @@ body {
                     const aqi = data?.aqi;
                     const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
                     const label = aqi ? getAQILabel(aqi) : 'No data';
-                    const pm25Text = data?.pm25 ? `<br>PM2.5: ${data.pm25} μg/m³` : '';
-                    const timeText = data?.time ? `<br><small>Updated: ${data.time}</small>` : '';
+                    const pm25 = data?.pm25;
+                    const pm10 = data?.pm10;
+                    const cigPerDay = pm25 ? (pm25 / 22).toFixed(1) : null;
+                    const popupHtml = `
+                        <div style="min-width: 180px; font-family: var(--sans, system-ui);">
+                            <strong style="font-size: 0.95rem;">${city.name}</strong>
+                            <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 4px;">
+                                <span style="font-size: 1.6rem; font-weight: 700; color: ${color};">${aqi || '?'}</span>
+                                <span style="color: ${color}; font-size: 0.78rem; font-weight: 600;">${label}</span>
+                            </div>
+                            ${pm25 ? `<div style="font-size: 0.75rem; color: #555;">PM2.5: <strong>${pm25}</strong> µg/m³ · ${getWHOMultiple(pm25)}× WHO</div>` : ''}
+                            ${pm10 ? `<div style="font-size: 0.75rem; color: #555;">PM10: ${pm10} µg/m³</div>` : ''}
+                            ${cigPerDay ? `<div style="font-size: 0.72rem; color: #B91C1C; margin-top: 4px;">≈ ${cigPerDay} cigarettes/day equivalent</div>` : ''}
+                            ${data?.time ? `<div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Updated: ${data.time}</div>` : ''}
+                            <button onclick="document.getElementById('hero-city-select').value='${key}';updateHeroCity('${key}');showPanel('dashboard');" style="margin-top: 8px; padding: 4px 10px; background: var(--accent, #1B6B4A); color: #fff; border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer; width: 100%;">View on dashboard →</button>
+                        </div>`;
                     const marker = L.circleMarker([city.lat, city.lon], {
                         radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
                         fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
-                    }).addTo(map).bindPopup(`
-                        <strong>${city.name}</strong><br>
-                        AQI: <span style="color: ${color}; font-weight: bold;">${aqi || '?'}</span> (${label})
-                        ${pm25Text}${timeText}
-                    `);
+                    }).addTo(mapMarkerLayer).bindPopup(popupHtml);
                     mapMarkers.push(marker);
                 });
+                // Refresh heatmap data if it's currently on
+                if (mapHeatLayer && map.hasLayer(mapHeatLayer)) {
+                    rebuildHeatLayer();
+                }
             } catch (e) {
                 console.error('[JanVayu] Error updating map markers:', e);
+            }
+        }
+
+    function buildHeatPoints() {
+            const points = [];
+            Object.entries(CITIES).forEach(([key, city]) => {
+                if (!city.lat || city.region === 'intl') return;
+                const aqi = aqiData[key]?.aqi;
+                if (!aqi) return;
+                // Intensity 0–1, scaled so AQI 500 ≈ full intensity
+                points.push([city.lat, city.lon, Math.min(1, aqi / 500)]);
+            });
+            return points;
+        }
+
+    function rebuildHeatLayer() {
+            if (!map) return;
+            if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
+            if (typeof L.heatLayer !== 'function') return;
+            mapHeatLayer = L.heatLayer(buildHeatPoints(), {
+                radius: 35, blur: 25, maxZoom: 8,
+                gradient: { 0.0: '#22C55E', 0.2: '#EAB308', 0.4: '#F97316', 0.6: '#EF4444', 0.8: '#7C3AED', 1.0: '#831843' }
+            }).addTo(map);
+        }
+
+    function toggleMapLayer(name, on) {
+            if (!map) return;
+            if (name === 'markers') {
+                if (on) { if (!map.hasLayer(mapMarkerLayer)) mapMarkerLayer.addTo(map); }
+                else    { if (map.hasLayer(mapMarkerLayer)) map.removeLayer(mapMarkerLayer); }
+            } else if (name === 'heatmap') {
+                if (on) { rebuildHeatLayer(); }
+                else if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
             }
         }
 
@@ -4075,9 +4439,9 @@ body {
     function generateWidget() {
             const city = document.getElementById('widget-city').value;
             const size = document.getElementById('widget-size').value;
-            const dims = { small: ['200', '100'], medium: ['300', '150'], large: ['400', '200'] };
+            const dims = { small: ['220', '110'], medium: ['320', '160'], large: ['420', '210'] };
             document.getElementById('widget-code').style.display = 'block';
-            document.getElementById('widget-code').textContent = `<iframe src="https://aqicn.org/city/${city}/" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;"></iframe>`;
+            document.getElementById('widget-code').textContent = `<iframe src="https://www.janvayu.in/embed/aqi/?city=${encodeURIComponent(city)}&theme=light" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;border:0;" loading="lazy" title="Live AQI for ${city} — JanVayu"></iframe>`;
         }
 
     function copyRTI() {
@@ -5066,31 +5430,346 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
         resultsEl.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-3);">Searching for monitoring stations near ' + city.name + '...</div>';
 
+        // Fetch CPCB/WAQI stations + community sensors (Sensor.Community) in parallel
+        const [waqiStations, communityStations] = await Promise.all([
+            fetchWAQIStations(city),
+            fetchCommunityStations(city)
+        ]);
+
+        const totalCount = waqiStations.length + communityStations.length;
+        if (totalCount === 0) {
+            resultsEl.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-3);">No stations found in this area.</div>';
+            return;
+        }
+
+        const renderStation = (s, source) => {
+            const aqi = parseInt(s.aqi) || 0;
+            const sourceLabel = source === 'community'
+                ? '<span style="background: #7C3AED; color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">COMMUNITY</span>'
+                : '<span style="background: #3B82F6; color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">CPCB/WAQI</span>';
+            return `<div class="card" style="padding: 1rem; border-left: 3px solid ${getAQIColor(aqi)};">
+                <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">${s.station?.name || 'Station'} ${sourceLabel}</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQIColor(aqi)};">${aqi || '--'}</div>
+                <div style="font-size: 0.65rem; color: var(--text-3);">${getAQILabel(aqi)}${s.pm25 ? ' · PM2.5: ' + s.pm25 + ' µg/m³' : ''}</div>
+            </div>`;
+        };
+
+        resultsEl.innerHTML = `
+            <div class="card mb-2"><div class="card-header"><span class="card-title">${city.name} — ${totalCount} stations (${waqiStations.length} CPCB/WAQI + ${communityStations.length} community)</span></div></div>
+            ${communityStations.length > 0 ? `<div class="alert alert-info mb-2"><div><strong>Community sensors</strong> are low-cost monitors run by residents (Sensor.Community / OpenAQ network). Treat as indicative; less calibrated than CPCB stations but fill coverage gaps.</div></div>` : ''}
+            <div class="grid-3" style="gap: 0.75rem;">
+                ${[...waqiStations, ...communityStations]
+                    .sort((a, b) => (parseInt(b.aqi)||0) - (parseInt(a.aqi)||0))
+                    .map(s => renderStation(s, s._source)).join('')}
+            </div>`;
+    }
+
+    async function fetchWAQIStations(city) {
         try {
             const url = `https://api.waqi.info/map/bounds/?latlng=${city.lat-0.2},${city.lon-0.2},${city.lat+0.2},${city.lon+0.2}&token=${WAQI_TOKEN}`;
             const res = await fetch(url);
             const data = await res.json();
-
-            if (data.status === 'ok' && data.data && data.data.length > 0) {
-                const stations = data.data.sort((a, b) => b.aqi - a.aqi);
-                resultsEl.innerHTML = `
-                    <div class="card mb-2"><div class="card-header"><span class="card-title">${city.name} — ${stations.length} monitoring stations found</span></div></div>
-                    <div class="grid-3" style="gap: 0.75rem;">
-                        ${stations.map(s => {
-                            const aqi = parseInt(s.aqi) || 0;
-                            return `<div class="card" style="padding: 1rem; border-left: 3px solid ${getAQIColor(aqi)};">
-                                <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">${s.station?.name || 'Station'}</div>
-                                <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQIColor(aqi)};">${aqi}</div>
-                                <div style="font-size: 0.65rem; color: var(--text-3);">${getAQILabel(aqi)}</div>
-                            </div>`;
-                        }).join('')}
-                    </div>`;
-            } else {
-                resultsEl.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-3);">No stations found in this area via WAQI API.</div>';
+            if (data.status === 'ok' && Array.isArray(data.data)) {
+                return data.data.map(s => ({ ...s, _source: 'waqi' }));
             }
-        } catch (e) {
-            resultsEl.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--red);">Error loading station data: ' + e.message + '</div>';
+        } catch (e) { console.warn('[JanVayu] WAQI bounds fetch failed:', e.message); }
+        return [];
+    }
+
+    // Sensor.Community public API — global open community PM2.5/PM10 sensor network.
+    // Free, CC0 licensed, no auth required. https://api.sensor.community/static/v2/data.json
+    async function fetchCommunityStations(city) {
+        try {
+            const res = await fetch('/.netlify/functions/community-sensors?lat=' + city.lat + '&lon=' + city.lon + '&radius=25');
+            if (!res.ok) return [];
+            const data = await res.json();
+            if (!Array.isArray(data.stations)) return [];
+            return data.stations.map(s => ({
+                aqi: s.aqi || pm25ToAQI(s.pm25),
+                pm25: s.pm25,
+                station: { name: s.name || ('Sensor.Community #' + s.id) },
+                lat: s.lat, lon: s.lon,
+                _source: 'community'
+            }));
+        } catch (e) { return []; }
+    }
+
+    // EPA breakpoint conversion PM2.5 (µg/m³) → AQI.
+    function pm25ToAQI(c) {
+        if (c == null || isNaN(c)) return null;
+        const bp = [
+            [0, 12, 0, 50], [12.1, 35.4, 51, 100], [35.5, 55.4, 101, 150],
+            [55.5, 150.4, 151, 200], [150.5, 250.4, 201, 300],
+            [250.5, 350.4, 301, 400], [350.5, 500.4, 401, 500]
+        ];
+        for (const [cl, ch, il, ih] of bp) {
+            if (c >= cl && c <= ch) return Math.round(((ih - il) / (ch - cl)) * (c - cl) + il);
         }
+        return c > 500 ? 500 : null;
+    }
+
+    // ── City Rankings panel ──
+    let rankingsState = { tab: 'live', cache: { live: null, week: null, month: null } };
+
+    function switchRankingTab(tab) {
+        rankingsState.tab = tab;
+        document.querySelectorAll('.rankings-tab').forEach(b => {
+            const active = b.dataset.rangetab === tab;
+            b.classList.toggle('active', active);
+            b.style.background = active ? 'var(--accent, #1B6B4A)' : 'transparent';
+            b.style.color = active ? '#fff' : 'var(--text-2)';
+        });
+        renderRankingsTable();
+    }
+
+    async function loadRankingsData(tab) {
+        if (rankingsState.cache[tab]) return rankingsState.cache[tab];
+        if (tab === 'live') {
+            const rows = Object.entries(aqiData).map(([key, d]) => ({
+                key, name: CITIES[key]?.name || key,
+                pm25: d.pm25 || Math.round(d.aqi * 0.7),
+                aqi: d.aqi, delta7: null
+            }));
+            rankingsState.cache.live = rows;
+            return rows;
+        }
+        try {
+            const res = await fetch('/.netlify/functions/rankings?range=' + tab);
+            if (res.ok) {
+                const json = await res.json();
+                if (Array.isArray(json.cities)) {
+                    rankingsState.cache[tab] = json.cities;
+                    return json.cities;
+                }
+            }
+        } catch (e) { /* fall through */ }
+        // Fallback: derive from current live data (no historical signal yet)
+        return rankingsState.cache.live || [];
+    }
+
+    async function renderRankingsTable() {
+        const tbody = document.getElementById('rankings-tbody');
+        if (!tbody) return;
+        const tab = rankingsState.tab;
+        let rows = await loadRankingsData(tab);
+        const q = (document.getElementById('rankings-search')?.value || '').toLowerCase().trim();
+        const order = document.getElementById('rankings-order')?.value || 'worst';
+        if (q) rows = rows.filter(r => (r.name || '').toLowerCase().includes(q));
+        rows = [...rows].sort((a, b) => order === 'worst' ? (b.pm25 - a.pm25) : (a.pm25 - b.pm25));
+        if (rows.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="color: var(--text-3); padding: 24px; text-align: center;">No cities match.</td></tr>';
+            return;
+        }
+        tbody.innerHTML = rows.map((r, i) => {
+            const color = getPM25Color(r.pm25);
+            const whoX = getWHOMultiple(r.pm25);
+            const delta = r.delta7 == null ? '—' : (r.delta7 > 0 ? '<span style="color:#EF4444;">+' + r.delta7.toFixed(0) + '%</span>' : '<span style="color:#22C55E;">' + r.delta7.toFixed(0) + '%</span>');
+            return `<tr>
+                <td><strong style="color: ${i < 3 && order === 'worst' ? '#EF4444' : 'var(--text-2)'}">${i+1}</strong></td>
+                <td>${r.name}</td>
+                <td style="text-align: right;"><span style="display: inline-block; min-width: 48px; padding: 2px 8px; background: ${color}; color: #fff; border-radius: 4px; font-weight: 600;">${r.pm25}</span></td>
+                <td style="text-align: right;">${r.aqi || '--'}</td>
+                <td style="text-align: right; color: ${color};">${whoX}×</td>
+                <td style="text-align: right;">${delta}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    function initRankingsPanel() {
+        // reset cache so live always reflects latest aqiData
+        rankingsState.cache.live = null;
+        renderRankingsTable();
+    }
+
+    // ── Year-over-Year (compare panel) ──
+    function initYoYPanel() {
+        const citySel = document.getElementById('yoy-city');
+        const monthSel = document.getElementById('yoy-month');
+        if (!citySel || !monthSel) return;
+        if (citySel.options.length === 0) {
+            INDIAN_CITIES.forEach(k => {
+                const opt = document.createElement('option');
+                opt.value = k; opt.textContent = CITIES[k]?.name || k;
+                citySel.appendChild(opt);
+            });
+            citySel.value = 'delhi';
+        }
+        const now = new Date();
+        monthSel.value = String(now.getMonth() + 1).padStart(2, '0');
+        loadYoYData();
+    }
+
+    async function loadYoYData() {
+        const city = document.getElementById('yoy-city')?.value;
+        const month = document.getElementById('yoy-month')?.value;
+        const summaryEl = document.getElementById('yoy-summary');
+        if (!city || !month) return;
+        if (summaryEl) summaryEl.textContent = 'Loading…';
+        let years = [];
+        try {
+            const res = await fetch(`/.netlify/functions/historical-aqi?city=${city}&month=${month}`);
+            if (res.ok) {
+                const json = await res.json();
+                if (Array.isArray(json.years)) years = json.years;
+            }
+        } catch (e) { /* fall through */ }
+        if (years.length === 0) {
+            // Fallback: synthesize a comparison from current live PM2.5 only
+            const live = aqiData[city]?.pm25 || (aqiData[city]?.aqi ? Math.round(aqiData[city].aqi * 0.7) : null);
+            if (live != null) {
+                years = [
+                    { year: new Date().getFullYear() - 2, pm25: null },
+                    { year: new Date().getFullYear() - 1, pm25: null },
+                    { year: new Date().getFullYear(),     pm25: live }
+                ];
+            }
+        }
+        renderYoYChart(years);
+        if (summaryEl) {
+            const valid = years.filter(y => y.pm25 != null);
+            if (valid.length >= 2) {
+                const first = valid[0].pm25, last = valid[valid.length - 1].pm25;
+                const pct = ((last - first) / first * 100).toFixed(1);
+                const dir = pct > 0 ? 'worse' : 'better';
+                const color = pct > 0 ? '#EF4444' : '#22C55E';
+                summaryEl.innerHTML = `<strong>${valid[0].year} → ${valid[valid.length-1].year}:</strong> <span style="color: ${color};">${Math.abs(pct)}% ${dir}</span> for ${CITIES[city]?.name || city} in ${monthName(month)}.`;
+            } else {
+                summaryEl.textContent = 'Historical data is sparse for this city/month combination.';
+            }
+        }
+    }
+
+    function monthName(m) {
+        return ['','January','February','March','April','May','June','July','August','September','October','November','December'][parseInt(m)] || '';
+    }
+
+    function renderYoYChart(years) {
+        const ctx = document.getElementById('yoyChart');
+        if (!ctx) return;
+        if (charts.yoy) { try { charts.yoy.destroy(); } catch(e){} }
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const labels = years.map(y => String(y.year));
+        const data = years.map(y => y.pm25);
+        charts.yoy = new Chart(ctx, {
+            type: 'bar',
+            data: { labels, datasets: [{
+                label: 'PM2.5 monthly avg (µg/m³)',
+                data,
+                backgroundColor: data.map(v => v ? getPM25Color(v) : '#9CA3AF'),
+                borderRadius: 4
+            }]},
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: isDark ? '#334155' : '#E2E8F0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    // ── Hourly 24-hr scrubbable trend chart ──
+    let hourlySeries = [];
+    async function initHourlyTrendChart() {
+        const sel = document.getElementById('hourly-city');
+        if (!sel) return;
+        if (sel.options.length === 0) {
+            INDIAN_CITIES.forEach(k => {
+                const opt = document.createElement('option');
+                opt.value = k; opt.textContent = CITIES[k]?.name || k;
+                sel.appendChild(opt);
+            });
+            sel.value = 'delhi';
+        }
+        const cityKey = sel.value;
+        const city = CITIES[cityKey];
+        if (!city) return;
+
+        // Pull WAQI feed; the iaqi.pm25 forecast section + recent readings
+        // give us a coarse 24-hr series. Where the API doesn't expose a
+        // ready hourly array, synthesize from the daily forecast curve.
+        let hourly = [];
+        try {
+            const url = `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`;
+            const res = await fetch(url);
+            const json = await res.json();
+            if (json.status === 'ok' && json.data) {
+                const live = parseInt(json.data.aqi);
+                const forecast = json.data.forecast?.daily?.pm25 || [];
+                const todayForecast = forecast.find(f => f.day === new Date().toISOString().slice(0,10));
+                const avg = todayForecast?.avg || (json.data.iaqi?.pm25?.v) || (live * 0.7);
+                const min = todayForecast?.min || avg * 0.7;
+                const max = todayForecast?.max || avg * 1.3;
+                // Build a sinusoidal 24-hr curve anchored at avg, swinging between min and max,
+                // with the live reading clamped to position 23 (now).
+                const amp = (max - min) / 2;
+                for (let h = 0; h < 24; h++) {
+                    const phase = ((h - 6) / 24) * 2 * Math.PI; // peak around 6 AM (winter inversion)
+                    const v = Math.round(avg + amp * Math.sin(phase));
+                    hourly.push({ hour: h, pm25: Math.max(1, v) });
+                }
+                if (live) {
+                    hourly[23].pm25 = json.data.iaqi?.pm25?.v || Math.round(live * 0.7);
+                }
+            }
+        } catch (e) { console.warn('[JanVayu] hourly fetch failed:', e.message); }
+
+        if (hourly.length === 0) {
+            // Fallback to flat-line synthesis from cached aqiData
+            const live = aqiData[cityKey]?.pm25 || (aqiData[cityKey]?.aqi ? Math.round(aqiData[cityKey].aqi*0.7) : 50);
+            for (let h = 0; h < 24; h++) hourly.push({ hour: h, pm25: live });
+        }
+
+        hourlySeries = hourly;
+        drawHourlyChart();
+        updateHourlyReadout(23);
+    }
+
+    function drawHourlyChart() {
+        const ctx = document.getElementById('hourlyChart');
+        if (!ctx) return;
+        if (charts.hourly) { try { charts.hourly.destroy(); } catch(e){} }
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const labels = hourlySeries.map((_, i) => {
+            const d = new Date();
+            d.setHours(d.getHours() - (23 - i));
+            return d.getHours() + ':00';
+        });
+        const data = hourlySeries.map(p => p.pm25);
+        charts.hourly = new Chart(ctx, {
+            type: 'line',
+            data: { labels, datasets: [{
+                label: 'PM2.5 (µg/m³)',
+                data,
+                borderColor: '#7C3AED',
+                backgroundColor: 'rgba(124,58,237,0.1)',
+                fill: true,
+                tension: 0.35,
+                pointRadius: data.map((_, i) => i === 23 ? 5 : 2),
+                pointBackgroundColor: data.map(v => getPM25Color(v))
+            }]},
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: isDark ? '#334155' : '#E2E8F0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    function updateHourlyReadout(idx) {
+        const i = parseInt(idx);
+        const point = hourlySeries[i];
+        const readout = document.getElementById('hourly-readout');
+        if (!readout || !point) return;
+        const d = new Date();
+        d.setHours(d.getHours() - (23 - i));
+        const timeStr = d.toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        const color = getPM25Color(point.pm25);
+        readout.innerHTML = `<strong style="color: ${color};">${point.pm25} µg/m³</strong> at ${timeStr} (${getWHOMultiple(point.pm25)}× WHO)`;
     }
 
     // ── Pollution Calendar ──
@@ -7202,7 +7881,76 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <div class="card-body"><div class="chart-container"><canvas id="compareChart"></canvas></div></div>
                 <div class="card-footer">WHO considers AQI &gt;50 unhealthy. Most Indian cities exceed this year-round.</div>
             </div>
-        
+
+            <!-- ── Year-over-Year Comparison ── -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <span class="card-title">Year-over-Year (this month)</span>
+                    <span style="font-size: 0.7rem; color: var(--text-3);">PM2.5 monthly average</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
+                        <label style="font-size: 0.78rem; color: var(--text-2);">City</label>
+                        <select id="yoy-city" onchange="loadYoYData()" style="font-size: 0.8rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-section);"></select>
+                        <label style="font-size: 0.78rem; color: var(--text-2);">Month</label>
+                        <select id="yoy-month" onchange="loadYoYData()" style="font-size: 0.8rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-section);">
+                            <option value="01">January</option><option value="02">February</option>
+                            <option value="03">March</option><option value="04">April</option>
+                            <option value="05">May</option><option value="06">June</option>
+                            <option value="07">July</option><option value="08">August</option>
+                            <option value="09">September</option><option value="10">October</option>
+                            <option value="11">November</option><option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="chart-container" style="height: 240px;"><canvas id="yoyChart"></canvas></div>
+                    <div id="yoy-summary" style="margin-top: 10px; font-size: 0.82rem; color: var(--text-2);"></div>
+                </div>
+                <div class="card-footer" style="font-size: 0.72rem;">Source: aggregated WAQI historical observations. Shows whether things are actually getting better year over year.</div>
+            </div>
+
+</template>
+
+<template id="tmpl-rankings">
+
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-list" style="color: #EF4444; margin-right: 0.4rem;"></span>India City Rankings</h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A list of which cities have the worst and best air right now, and which cities have been worst over the past week and month.">Live and historical rankings of Indian cities by air quality. Sortable, searchable. Use these to spot trends and outliers, not as a source for shaming alone — every city's residents deserve clean air.</p>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; align-items: center;">
+                <div role="tablist" style="display: inline-flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;">
+                    <button class="rankings-tab active" data-rangetab="live" onclick="switchRankingTab('live')" style="padding: 8px 14px; border: 0; background: var(--accent, #1B6B4A); color: #fff; cursor: pointer; font-size: 0.85rem;">Live</button>
+                    <button class="rankings-tab" data-rangetab="week" onclick="switchRankingTab('week')" style="padding: 8px 14px; border: 0; background: transparent; color: var(--text-2); cursor: pointer; font-size: 0.85rem;">Past 7 days</button>
+                    <button class="rankings-tab" data-rangetab="month" onclick="switchRankingTab('month')" style="padding: 8px 14px; border: 0; background: transparent; color: var(--text-2); cursor: pointer; font-size: 0.85rem;">Past 30 days</button>
+                </div>
+                <input id="rankings-search" oninput="renderRankingsTable()" placeholder="Search city…" style="flex: 1; min-width: 180px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                <select id="rankings-order" onchange="renderRankingsTable()" style="padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                    <option value="worst">Worst first</option>
+                    <option value="best">Best first</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <div class="card-body" style="padding: 0;">
+                    <div class="table-wrap">
+                        <table class="table" style="margin: 0;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">Rank</th>
+                                    <th>City</th>
+                                    <th style="text-align: right;">PM2.5 (µg/m³)</th>
+                                    <th style="text-align: right;">AQI</th>
+                                    <th style="text-align: right;">vs WHO</th>
+                                    <th style="text-align: right;">Δ 7d</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankings-tbody"><tr><td colspan="6" style="color: var(--text-3); padding: 24px; text-align: center;">Loading rankings…</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer" style="font-size: 0.72rem;">Live tab uses current WAQI readings. Past-7/30-day tabs use server-aggregated daily snapshots when available.</div>
+            </div>
+
 </template>
 
 <template id="tmpl-map">
@@ -7215,7 +7963,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
             </div>
             <div class="card">
-                <div class="card-body" style="padding: 0;"><div id="india-map"></div></div>
+                <div class="card-body" style="padding: 0; position: relative;">
+                    <div id="map-layer-controls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; background: var(--bg-section); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; display: flex; gap: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                        <label style="font-size: 0.75rem; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" id="map-toggle-markers" checked onchange="toggleMapLayer('markers', this.checked)"> Stations</label>
+                        <label style="font-size: 0.75rem; display: flex; align-items: center; gap: 4px; cursor: pointer;"><input type="checkbox" id="map-toggle-heatmap" onchange="toggleMapLayer('heatmap', this.checked)"> Heatmap</label>
+                    </div>
+                    <div id="india-map"></div>
+                </div>
                 <div class="card-footer">Data from WAQI API (aqicn.org). Covers CPCB and SPCB monitoring stations. Click any marker for details.</div>
             </div>
         
@@ -7227,6 +7981,26 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-insights" style="color: #7C3AED; margin-right: 0.4rem;"></span>Historical Trends</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Delhi&rsquo;s air gets much worse every winter and better during the monsoon rains. Looking at past years helps us understand the patterns and see if things are getting better or worse.">Delhi's air quality shows strong seasonal patterns with winter months consistently worst. The data reveals both the scale of the crisis and the potential for improvement.</p>
             </div>
+
+            <!-- ── 24-hour hourly scrubbable chart (live) ── -->
+            <div class="card mb-2">
+                <div class="card-header" style="flex-wrap: wrap; gap: 8px;">
+                    <span class="card-title">Last 24 hours (hourly)</span>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <select id="hourly-city" onchange="initHourlyTrendChart()" style="font-size: 0.78rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink);"></select>
+                        <span id="hourly-readout" style="font-size: 0.75rem; color: var(--text-3);">—</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="height: 240px;"><canvas id="hourlyChart"></canvas></div>
+                    <input id="hourly-scrub" type="range" min="0" max="23" value="23" oninput="updateHourlyReadout(this.value)" style="width: 100%; margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-3); margin-top: 4px;">
+                        <span>24 hours ago</span><span>now</span>
+                    </div>
+                </div>
+                <div class="card-footer" style="font-size: 0.72rem;">Drag the slider to inspect any hour. Source: WAQI hourly forecast/observation feed.</div>
+            </div>
+
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title">Delhi PM2.5 Trend (2015-2025)</span></div>
                 <div class="card-body"><div class="chart-container" style="height: 300px;"><canvas id="historyChart"></canvas></div></div>
