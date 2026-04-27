@@ -31,7 +31,7 @@ JanVayu is **national in scope** — it covers 30+ cities across all major regio
 
 JanVayu is:
 
-- **Non-partisan** — not affiliated with any political party, government body, or corporate entity
+- **Non-partisan** — air quality affects every Indian regardless of political affiliation, and our data, analysis, and accountability work serves everyone
 - **Independently maintained** — decisions are guided by editorial principles, not donor requirements
 - **Open source** — code is MIT-licensed; content is CC BY-NC-SA 4.0
 
