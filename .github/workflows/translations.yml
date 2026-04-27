@@ -9,6 +9,13 @@ on:
       - 'docs-bn/**'
       - 'docs-mr/**'
       - 'docs-ta/**'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'sync (changed-since-last-push) | backfill (every stale or missing file)'
+        type: choice
+        options: [sync, backfill]
+        default: sync
 
 jobs:
   check-translation-coverage:
@@ -145,3 +152,60 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "> **$STALE** translations may need updating." >> $GITHUB_STEP_SUMMARY
           fi
+
+  auto-translate:
+    needs: [check-translation-coverage]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bail if Anthropic key is not configured
+        id: gate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::warning::ANTHROPIC_API_KEY secret is not set — skipping auto-translation. Add it in repo Settings → Secrets to enable."
+            echo "skip=1" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python
+        if: steps.gate.outputs.skip != '1'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Anthropic SDK
+        if: steps.gate.outputs.skip != '1'
+        run: pip install --quiet 'anthropic>=0.40,<1.0'
+
+      - name: Translate stale and missing files
+        if: steps.gate.outputs.skip != '1'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODE: ${{ github.event.inputs.mode || 'sync' }}
+          EVENT: ${{ github.event_name }}
+        run: python3 scripts/translate-docs.py
+
+      - name: Commit translations
+        if: steps.gate.outputs.skip != '1'
+        run: |
+          if git diff --quiet docs-hi/ docs-bn/ docs-mr/ docs-ta/; then
+            echo "No translation changes."
+            exit 0
+          fi
+          git config user.name "janvayu-translation-bot"
+          git config user.email "translation-bot@janvayu.in"
+          git add docs-hi/ docs-bn/ docs-mr/ docs-ta/
+          git commit -m "Auto-translate docs (Claude) [skip ci]"
+          # Retry push up to 4 times with backoff in case main moved underneath us
+          for delay in 0 4 8 16; do
+            if [ $delay -gt 0 ]; then sleep $delay; git pull --rebase origin main || true; fi
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
