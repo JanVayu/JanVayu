@@ -257,23 +257,24 @@
         pathNamespaces: ['/hi', '/bn', '/mr', '/ta']
       },
       alias: {
-        // Language routing — map /hi/*, /bn/*, etc. to language directories.
-        // Regex uses (.+) so it only matches non-empty subpaths; the bare
-        // '/hi/' route is handled by the literal alias, which points at
-        // README.md. With (.*) the regex would also match '/hi/' (capture
-        // empty) and rewrite to a directory URL → 404.
-        '/hi/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/$1',
-        '/hi/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/README.md',
-        '/hi/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/_sidebar.md',
-        '/bn/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/$1',
-        '/bn/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/README.md',
-        '/bn/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/_sidebar.md',
-        '/mr/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/$1',
-        '/mr/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/README.md',
-        '/mr/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/_sidebar.md',
-        '/ta/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/$1',
-        '/ta/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/README.md',
-        '/ta/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/_sidebar.md'
+        // Language routing — map /hi/*, /bn/*, etc. to language directories
+        // served from this same Netlify deploy. Same-origin keeps it simple:
+        // no CORS, no cross-origin Docsify quirks, files always match the
+        // current commit. Regex uses (.+) so the bare '/hi/' route falls
+        // through to the literal alias which points at README.md; '(.*)'
+        // would swallow '/hi/' with empty capture and produce a directory URL.
+        '/hi/(.+)': 'https://www.janvayu.in/docs-hi/$1',
+        '/hi/': 'https://www.janvayu.in/docs-hi/README.md',
+        '/hi/_sidebar.md': 'https://www.janvayu.in/docs-hi/_sidebar.md',
+        '/bn/(.+)': 'https://www.janvayu.in/docs-bn/$1',
+        '/bn/': 'https://www.janvayu.in/docs-bn/README.md',
+        '/bn/_sidebar.md': 'https://www.janvayu.in/docs-bn/_sidebar.md',
+        '/mr/(.+)': 'https://www.janvayu.in/docs-mr/$1',
+        '/mr/': 'https://www.janvayu.in/docs-mr/README.md',
+        '/mr/_sidebar.md': 'https://www.janvayu.in/docs-mr/_sidebar.md',
+        '/ta/(.+)': 'https://www.janvayu.in/docs-ta/$1',
+        '/ta/': 'https://www.janvayu.in/docs-ta/README.md',
+        '/ta/_sidebar.md': 'https://www.janvayu.in/docs-ta/_sidebar.md'
       },
       pagination: {
         previousText: 'Previous',
