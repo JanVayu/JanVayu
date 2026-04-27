@@ -7,7 +7,7 @@
 //   the cached shell. WAQI / Netlify Function responses are also cached so
 //   the user sees the last-known AQI when offline.
 
-const CACHE_VERSION = 'janvayu-v1';
+const CACHE_VERSION = 'janvayu-v2';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -40,12 +40,13 @@ self.addEventListener('fetch', (event) => {
   const isWaqi = url.hostname.endsWith('waqi.info');
   const isNetlifyFn = url.pathname.startsWith('/.netlify/functions/');
   const isShellNav = req.mode === 'navigate' || req.destination === 'document';
+  const isMarkdown = url.pathname.endsWith('.md');
 
   if (isShellNav) {
     event.respondWith(networkFirst(req));
     return;
   }
-  if (isWaqi || isNetlifyFn) {
+  if (isWaqi || isNetlifyFn || isMarkdown) {
     event.respondWith(networkFirst(req));
     return;
   }
