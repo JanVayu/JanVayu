@@ -164,13 +164,13 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bail if Anthropic key is not configured
+      - name: Bail if Sarvam key is not configured
         id: gate
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SARVAM_API_KEY: ${{ secrets.SARVAM_API_KEY }}
         run: |
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
-            echo "::warning::ANTHROPIC_API_KEY secret is not set — skipping auto-translation. Add it in repo Settings → Secrets to enable."
+          if [ -z "$SARVAM_API_KEY" ]; then
+            echo "::warning::SARVAM_API_KEY secret is not set — skipping auto-translation. Add it in repo Settings → Secrets to enable."
             echo "skip=1" >> $GITHUB_OUTPUT
           fi
 
@@ -180,14 +180,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Anthropic SDK
-        if: steps.gate.outputs.skip != '1'
-        run: pip install --quiet 'anthropic>=0.40,<1.0'
-
       - name: Translate stale and missing files
         if: steps.gate.outputs.skip != '1'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SARVAM_API_KEY: ${{ secrets.SARVAM_API_KEY }}
           MODE: ${{ github.event.inputs.mode || 'sync' }}
           EVENT: ${{ github.event_name }}
         run: python3 scripts/translate-docs.py
@@ -202,7 +198,7 @@ jobs:
           git config user.name "janvayu-translation-bot"
           git config user.email "translation-bot@janvayu.in"
           git add docs-hi/ docs-bn/ docs-mr/ docs-ta/
-          git commit -m "Auto-translate docs (Claude) [skip ci]"
+          git commit -m "Auto-translate docs (Sarvam) [skip ci]"
           # Retry push up to 4 times with backoff in case main moved underneath us
           for delay in 0 4 8 16; do
             if [ $delay -gt 0 ]; then sleep $delay; git pull --rebase origin main || true; fi
