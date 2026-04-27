@@ -257,17 +257,21 @@
         pathNamespaces: ['/hi', '/bn', '/mr', '/ta']
       },
       alias: {
-        // Language routing — map /hi/*, /bn/*, etc. to language directories
-        '/hi/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/$1',
+        // Language routing — map /hi/*, /bn/*, etc. to language directories.
+        // Regex uses (.+) so it only matches non-empty subpaths; the bare
+        // '/hi/' route is handled by the literal alias, which points at
+        // README.md. With (.*) the regex would also match '/hi/' (capture
+        // empty) and rewrite to a directory URL → 404.
+        '/hi/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/$1',
         '/hi/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/README.md',
         '/hi/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-hi/_sidebar.md',
-        '/bn/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/$1',
+        '/bn/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/$1',
         '/bn/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/README.md',
         '/bn/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-bn/_sidebar.md',
-        '/mr/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/$1',
+        '/mr/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/$1',
         '/mr/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/README.md',
         '/mr/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-mr/_sidebar.md',
-        '/ta/(.*)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/$1',
+        '/ta/(.+)': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/$1',
         '/ta/': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/README.md',
         '/ta/_sidebar.md': 'https://raw.githubusercontent.com/JanVayu/JanVayu/main/docs-ta/_sidebar.md'
       },
