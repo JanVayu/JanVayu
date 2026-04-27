@@ -36,8 +36,8 @@ LANGS = {
 TRANSLATE_EXTENSIONS = {".md"}
 
 API_URL = "https://api.sarvam.ai/v1/chat/completions"
-MODEL = "sarvam-m"
-MAX_TOKENS = 8192
+MODEL = "sarvam-30b"
+MAX_TOKENS = 4096
 TEMPERATURE = 0.2
 
 PROMPT_TEMPLATE = """You are translating JanVayu's air quality accountability documentation from English into {lang_name}. JanVayu is India's independent, citizen-led air quality platform.
