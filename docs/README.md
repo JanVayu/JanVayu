@@ -45,7 +45,7 @@ These docs are available in 5 languages:
 
 ## Guiding Principles
 
-- **Non-partisan** — not affiliated with any political party, government body, or corporate entity
+- **Non-partisan** — air quality affects every Indian regardless of political affiliation, and our data, analysis, and accountability work serves everyone
 - **Verifiable** — every data point links to a primary source
 - **Accessible** — available in English, Hindi, Tamil, Marathi, and Bengali
 - **Open** — code is MIT-licensed; content is CC BY-NC-SA 4.0
