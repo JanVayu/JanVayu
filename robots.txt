@@ -4,5 +4,6 @@
 User-agent: *
 Allow: /
 Disallow: /collab/
+Disallow: /TerraStudioCollab/
 
 Sitemap: https://www.janvayu.in/sitemap.xml

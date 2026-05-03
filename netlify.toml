@@ -159,6 +159,36 @@
   status = 200
   force = true
 
+# Serve Terra.Do collab workspace (force = true to override SPA fallback)
+[[redirects]]
+  from = "/TerraStudioCollab"
+  to = "/TerraStudioCollab/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/TerraStudioCollab/"
+  to = "/TerraStudioCollab/index.html"
+  status = 200
+  force = true
+
+# Old /collab/ URL (briefly shared earlier) — permanent redirect to the new path.
+[[redirects]]
+  from = "/collab"
+  to = "/TerraStudioCollab/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/collab/"
+  to = "/TerraStudioCollab/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/collab/*"
+  to = "/TerraStudioCollab/"
+  status = 301
+  force = true
+
 # SPA fallback — must come AFTER specific file rules
 [[redirects]]
   from = "/*"
