@@ -29,22 +29,22 @@ const FROM_EMAIL = process.env.RESEND_FROM || "JanVayu <alerts@janvayu.in>";
 
 // 8 weeks × 2 SOWs = 16 trackable cells. Labels mirror the Gantt on the page.
 const TASKS = {
-  s1w1: { sow: 1, week: 1, label: "Audit current /ask flow" },
-  s1w2: { sow: 1, week: 2, label: "Failure-mode set + baseline scoring" },
-  s1w3: { sow: 1, week: 3, label: "Corpus inventory" },
-  s1w4: { sow: 1, week: 4, label: "Retrieval architecture doc" },
-  s1w5: { sow: 1, week: 5, label: "Medical & political gates" },
-  s1w6: { sow: 1, week: 6, label: "Numeric & framing gates + impl" },
-  s1w7: { sow: 1, week: 7, label: "Eval + regression suite" },
-  s1w8: { sow: 1, week: 8, label: "Blog post + handoff" },
-  s2w1: { sow: 2, week: 1, label: "Ward boundaries + station mapping" },
-  s2w2: { sow: 2, week: 2, label: "Coverage atlas + scope spec" },
-  s2w3: { sow: 2, week: 3, label: "Spatial inference (IDW)" },
-  s2w4: { sow: 2, week: 4, label: "Kriging + leave-one-out validation" },
-  s2w5: { sow: 2, week: 5, label: "Generation module skeleton" },
-  s2w6: { sow: 2, week: 6, label: "Ethical gates + 5 sample reports" },
-  s2w7: { sow: 2, week: 7, label: "Pilot pages live + blind review" },
-  s2w8: { sow: 2, week: 8, label: "Blog post + handoff" },
+  s1w1: { sow: 1, week: 1, label: "Try it, find where it breaks" },
+  s1w2: { sow: 1, week: 2, label: "Pick test questions" },
+  s1w3: { sow: 1, week: 3, label: "List sources to look up" },
+  s1w4: { sow: 1, week: 4, label: "Sketch how it should look things up" },
+  s1w5: { sow: 1, week: 5, label: "Refusals: medical & political" },
+  s1w6: { sow: 1, week: 6, label: "Refusals: numbers & framing" },
+  s1w7: { sow: 1, week: 7, label: "Re-test" },
+  s1w8: { sow: 1, week: 8, label: "Blog post" },
+  s2w1: { sow: 2, week: 1, label: "Get ward maps + station list" },
+  s2w2: { sow: 2, week: 2, label: "Map gaps in coverage" },
+  s2w3: { sow: 2, week: 3, label: "Fill gaps (simple way)" },
+  s2w4: { sow: 2, week: 4, label: "Fill gaps (better way) + sanity check" },
+  s2w5: { sow: 2, week: 5, label: "Write the report template" },
+  s2w6: { sow: 2, week: 6, label: "First 5 sample reports" },
+  s2w7: { sow: 2, week: 7, label: "Publish 8-10 wards" },
+  s2w8: { sow: 2, week: 8, label: "Blog post" },
 };
 const STATUSES = new Set(["todo", "wip", "done"]);
 
