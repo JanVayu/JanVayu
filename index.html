@@ -3620,12 +3620,12 @@ body {
             }
             const d = json.data;
             const aqi = parseInt(d.aqi);
-            const pm25 = d.iaqi?.pm25?.v || Math.round(aqi * 0.7);
+            const pm25 = iaqiToPM25(d.iaqi?.pm25?.v) || Math.round(aqi * 0.7);
             const stationName = d.city?.name || 'Nearest station';
 
             // Inject as a synthetic "near-me" entry into aqiData so all the cards reuse the same flow.
             CITIES['__nearme'] = { name: 'Near me — ' + stationName, lat, lon };
-            aqiData['__nearme'] = { aqi, pm25, pm10: d.iaqi?.pm10?.v || null, time: d.time?.s || new Date().toISOString(), station: stationName, live: true };
+            aqiData['__nearme'] = { aqi, pm25, pm10: iaqiToPM10(d.iaqi?.pm10?.v), time: d.time?.s || new Date().toISOString(), station: stationName, live: true };
 
             // Add or update the dropdown option so the user can switch back
             const sel = document.getElementById('hero-city-select');
@@ -3948,6 +3948,41 @@ body {
     }
     function getWHOMultiple(pm25) { return (pm25 / WHO_PM25_GUIDELINE).toFixed(1); }
 
+    // WAQI returns iaqi.{pm25,pm10}.v as US-EPA sub-index values (unitless), not µg/m³.
+    // Convert back to concentration using the standard EPA breakpoint table so downstream
+    // displays (PM2.5/PM10 popup rows, WHO multiple, cigarette equivalence) are real µg/m³.
+    const PM25_BREAKPOINTS = [
+        [0,     12.0,    0,  50],
+        [12.1,  35.4,   51, 100],
+        [35.5,  55.4,  101, 150],
+        [55.5, 150.4,  151, 200],
+        [150.5,250.4,  201, 300],
+        [250.5,350.4,  301, 400],
+        [350.5,500.4,  401, 500]
+    ];
+    const PM10_BREAKPOINTS = [
+        [0,    54,    0,  50],
+        [55,  154,   51, 100],
+        [155, 254,  101, 150],
+        [255, 354,  151, 200],
+        [355, 424,  201, 300],
+        [425, 504,  301, 400],
+        [505, 604,  401, 500]
+    ];
+    function iaqiToConcentration(iaqi, table) {
+        if (iaqi == null || iaqi === '' || isNaN(iaqi)) return null;
+        const v = Number(iaqi);
+        for (const [bpLo, bpHi, iLo, iHi] of table) {
+            if (v >= iLo && v <= iHi) {
+                return Math.round(((v - iLo) / (iHi - iLo)) * (bpHi - bpLo) + bpLo);
+            }
+        }
+        if (v > 500) return Math.round(table[table.length - 1][1]); // off-scale: cap at top breakpoint
+        return null;
+    }
+    function iaqiToPM25(v) { return iaqiToConcentration(v, PM25_BREAKPOINTS); }
+    function iaqiToPM10(v) { return iaqiToConcentration(v, PM10_BREAKPOINTS); }
+
     // ── Data Fetch ──
     async function fetchAQI(cityKey) {
         const city = CITIES[cityKey];
@@ -3961,7 +3996,7 @@ body {
                 const aqi = parseInt(data.data.aqi);
                 if (!isNaN(aqi) && aqi > 0) {
                     usingLiveData = true;
-                    return { aqi, pm25: data.data.iaqi?.pm25?.v || null, pm10: data.data.iaqi?.pm10?.v || null, time: data.data.time?.s || new Date().toISOString(), station: data.data.city?.name || city.name, live: true };
+                    return { aqi, pm25: iaqiToPM25(data.data.iaqi?.pm25?.v), pm10: iaqiToPM10(data.data.iaqi?.pm10?.v), time: data.data.time?.s || new Date().toISOString(), station: data.data.city?.name || city.name, live: true };
                 }
             }
         } catch (e) { console.warn(`[JanVayu] ${cityKey}:`, e.message); }
@@ -5803,7 +5838,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 const live = parseInt(json.data.aqi);
                 const forecast = json.data.forecast?.daily?.pm25 || [];
                 const todayForecast = forecast.find(f => f.day === new Date().toISOString().slice(0,10));
-                const avg = todayForecast?.avg || (json.data.iaqi?.pm25?.v) || (live * 0.7);
+                const avg = todayForecast?.avg || iaqiToPM25(json.data.iaqi?.pm25?.v) || (live * 0.7);
                 const min = todayForecast?.min || avg * 0.7;
                 const max = todayForecast?.max || avg * 1.3;
                 // Build a sinusoidal 24-hr curve anchored at avg, swinging between min and max,
@@ -5815,7 +5850,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     hourly.push({ hour: h, pm25: Math.max(1, v) });
                 }
                 if (live) {
-                    hourly[23].pm25 = json.data.iaqi?.pm25?.v || Math.round(live * 0.7);
+                    hourly[23].pm25 = iaqiToPM25(json.data.iaqi?.pm25?.v) || Math.round(live * 0.7);
                 }
             }
         } catch (e) { console.warn('[JanVayu] hourly fetch failed:', e.message); }
@@ -8062,7 +8097,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map" style="color: var(--accent); margin-right: 0.4rem;"></span>Live Air Quality Map</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A live map showing how polluted the air is right now in cities across India. Click on any dot to see details. Updates every 10 minutes.">Real-time AQI for major Indian cities from WAQI API. Click markers for PM2.5, station name, and update time.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A live map showing how polluted the air is right now in cities across India. Click on any dot to see details. Updates every 10 minutes.">Real-time AQI for major Indian cities from WAQI API. Marker numbers are AQI (US EPA scale, unitless); popups also show PM2.5 and PM10 concentrations in µg/m³, station name, and update time.</p>
             </div>
             <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
