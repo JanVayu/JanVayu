@@ -3,5 +3,6 @@
 
 User-agent: *
 Allow: /
+Disallow: /collab/
 
 Sitemap: https://www.janvayu.in/sitemap.xml
