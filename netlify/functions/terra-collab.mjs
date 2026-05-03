@@ -37,7 +37,7 @@ const TASKS = {
   s1w6: { sow: 1, week: 6, label: "Refusals: numbers & framing" },
   s1w7: { sow: 1, week: 7, label: "Re-test" },
   s1w8: { sow: 1, week: 8, label: "Blog post" },
-  s2w1: { sow: 2, week: 1, label: "Get ward maps + station list" },
+  s2w1: { sow: 2, week: 1, label: "Get ward maps + monitor list" },
   s2w2: { sow: 2, week: 2, label: "Map gaps in coverage" },
   s2w3: { sow: 2, week: 3, label: "Fill gaps (simple way)" },
   s2w4: { sow: 2, week: 4, label: "Fill gaps (better way) + sanity check" },
