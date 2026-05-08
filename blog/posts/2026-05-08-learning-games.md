@@ -1,10 +1,10 @@
-# Four Learning Games: Jeopardy, a Ten-Question Quiz, a Source Matcher, and a Clean Air Snakes & Ladders
+# Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, and Air Tambola
 
-**Published:** 8 May 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
+**Published:** 8 May 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 
 ---
 
-We have shipped a self-paced **Learning Games** panel — four short games, all original, designed for classrooms, RWA meetings, and idle ten-minute browsing on a phone. Open it at [janvayu.in/#games](https://www.janvayu.in/#games) or via the **Action → Learning Games** menu.
+We have shipped a self-paced **Learning Games** panel — six short games, all original, designed for classrooms, RWA meetings, family movie nights, and idle ten-minute browsing on a phone. Open it at [janvayu.in/#games](https://www.janvayu.in/#games) or via the **Action → Learning Games** menu.
 
 ## Why games
 
@@ -47,15 +47,37 @@ Each special square pops up a one-line learning fact, so you pick up scientific 
 
 This game is built to teach two things at once: that clean air is built up by small, repeated citizen actions; and that single events — fireworks, missed deadlines, stubble-burn windows — can erase a lot of cumulative gain in one move. Both are true. Both belong on the same board.
 
+### 5. Jodi Match (memory cards)
+
+Twelve cards, six pairs (*jodis*). Tap any two; if they form a matching pair — like a pollutant and its main source, or an Indian acronym and what it stands for — both stay face-up and you score the pair. If not, both flip back. Goal: clear all six pairs in as few moves as possible. Perfect run = six moves.
+
+The pairings are set up to teach core associations every Indian newsroom and RWA conversation should be able to make automatically: *PM2.5 ↔ chulha smoke*, *NCAP ↔ National Clean Air Programme*, *GRAP-IV ↔ AQI > 450*, *CAQM ↔ NCR statutory air-quality body (2021 Act)*, *WHO PM2.5 ↔ 5 µg/m³ annual guideline*, *N95 ↔ ≥95% PM2.5 filtration when fitted*. After two or three rounds the connections stick, even for a casual player.
+
+The format is the household memory-card game every Indian grew up with — Pelmanism, sometimes called "Concentration" abroad. Same rules; we just put pollutants on the cards instead of identical pictures.
+
+### 6. Air Tambola (Indian housie)
+
+The most distinctly Indian game on the panel. A standard tambola ticket has 3 rows × 9 columns with five filled cells per row — but instead of numbers 1–90, our ticket has 15 air-quality terms drawn from a 27-item pool (PM2.5, GRAP-IV, NCAP, CAAQMS, Loni, Stubble, FGD, N95, HEPA, BS-VI, AQLI, Lancet 1.72M, RTI, Black Carbon, Brick Kiln, and so on).
+
+Press **Call next**: a one-line clue is read out. *Example: "India's continuous air quality monitoring station network — six-letter acronym."* If the answer is on your ticket, tap it to mark it. We auto-detect the four classic Indian housie wins:
+
+- **Top Line** — all five cells in row 1 marked.
+- **Middle Line** — all five cells in row 2 marked.
+- **Bottom Line** — all five cells in row 3 marked.
+- **Full House** — every cell on the ticket marked.
+
+A cold ticket finishes inside 27 calls, usually fewer if you mark fast. We picked tambola specifically because the call-and-mark rhythm is already familiar to anyone who has spent a long-distance train journey or a wedding pre-function in India — that familiarity is the point. The first time someone realises *"oh, I am playing housie with pollution terms"* is exactly the moment air quality stops feeling like dry science and starts feeling like a household word.
+
 ## Where we want this to go
 
 A few obvious extensions sit in the queue and we are open to feedback at [contribute@janvayu.in](mailto:contribute@janvayu.in):
 
-- A Hindi-language translation of all four games, then Tamil, Bengali, and Marathi.
-- A "host this game" PDF facilitator pack for teachers — questions, answer key, projector slides, S&L printable board — under CC BY-NC-SA 4.0.
+- A Hindi-language translation of all six games, then Tamil, Bengali, and Marathi.
+- A "host this game" PDF facilitator pack for teachers — questions, answer key, projector slides, S&L printable board, tambola ticket sheet — under CC BY-NC-SA 4.0.
 - A monthly rotating clue set on the Jeopardy board so repeat players see fresh content.
 - A variant **Moksha Patam** with state-specific snakes and ladders (Delhi, Mumbai, Chennai, Bengaluru) tied to the live AQI in each city.
-- An **Antakshari**-style word-chain game where each air-quality term must start with the last letter of the previous one. This was the most-requested follow-up at our last workshop.
+- An **Antakshari**-style word-chain game where each air-quality term must start with the last letter of the previous one.
+- A multi-player **tambola** mode where the JanVayu team hosts a public Sunday-evening housie session with a real prize for the first Full House.
 
 If you run a school, an RWA, or a newsroom and want any of the above sooner, write in. The games are MIT-licensed code, CC BY-NC-SA on content — fork freely.
 
