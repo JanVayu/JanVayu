@@ -94,12 +94,33 @@ Closes specific UX/data gaps against aqi.in (consumer-polished AQI portal) and o
 - [x] Embeddable widgets at `/embed/aqi/` and `/embed/rankings/`
 - [x] Root PWA (`manifest.json` + `sw.js` + install banner) with offline shell and last-known AQI cache
 - [x] Sensor.Community community-sensor integration via `community-sensors.mjs` (replaces hardware "Host a Monitor" plan)
-- [x] Workshops panel with Sharath / UrbanEmissions request form and JanVayu walkthrough booking (Netlify Forms)
+- [x] Workshops panel with Sarath / UrbanEmissions request form and JanVayu walkthrough booking (Netlify Forms)
 - [x] Programme attribution updated to "AirQuality for Janhit by MMSF Fellows, AIPC" everywhere
 
 ---
 
-## Phase 6: Mobile & Performance (🔄 Q2 2026)
+## Phase 5.7: Learning, Engagement & May 2026 Refresh (✅ Completed — v26.5)
+
+Self-paced learning surfaces, fresh data points, and a sweep of stale labels. The bet: people learn air quality faster through games than through dashboards alone, and the front-of-site numbers must be visibly current.
+
+- [x] **Learning Games panel** at `/#games` with **six games**, all original content:
+  - Air Quality Jeopardy (5 categories × 5 clues, **₹1,000–₹5,000** INR tiles, max ₹75,000)
+  - PM Quick-Quiz (10 multiple-choice questions, ~3 min)
+  - Source Matcher (7 dominant Indian PM2.5 sources)
+  - Clean Air Snakes & Ladders — 6×6 board, inspired by *Moksha Patam*; 5 ladders (citizen actions) + 5 snakes (pollution events)
+  - Jodi Match — 12-card memory game (Pelmanism) teaching key acronym/source pairs
+  - Air Tambola — Indian housie ticket with 27-clue caller, auto-detects Top/Middle/Bottom Line and Full House
+- [x] **"Did You Know"** dashboard strip — six India-specific sourced fact cards under the anomaly banner.
+- [x] **Hero alert refreshed** for May 2026 with the canonical Lancet Countdown 2025 1.72M figure.
+- [x] **April–May 2026 Voices block** at `/#voices` with six fresh curated cards.
+- [x] **April–May 2026 Research Updates** featured card group at `/#resources` (Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024, CEEW 2024).
+- [x] **Two new blog posts**: launch post for the games panel and a May data refresh.
+- [x] **Games rendering fix** — moved games JS out of a `<script type="module">` so inline `onclick` handlers can find global functions.
+- [x] **Tier-1 freshness sweep** — version markers, sitemap lastmod, CITATION date, footer version line, dashboard quick-link text, pollutant page schema dateModified, blog sidebar Lancet causal-study context.
+
+---
+
+## Phase 6: Mobile & Performance (🔄 Q2-Q3 2026)
 
 **Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3)
 
