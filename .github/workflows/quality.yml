@@ -1,0 +1,118 @@
+name: Code Quality (HTML + JS)
+
+# Advisory HTML validation and JS linting on every PR. Surfaces issues
+# in the step summary; never gates the build. Once the report is clean
+# (or has a documented ignore list), promote individual checks to gating.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  html-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run html-validate
+        id: htmlv
+        continue-on-error: true
+        run: |
+          npx --yes html-validate@9 \
+            --formatter "stylish" \
+            --config .htmlvalidate.json \
+            "index.html" "blog/**/*.html" "ask/**/*.html" "embed/**/*.html" "downloads/**/*.html" "pm25/**/*.html" "pm10/**/*.html" "co/**/*.html" "no2/**/*.html" "so2/**/*.html" "o3/**/*.html" \
+            > html-validate.log 2>&1 || true
+          tail -200 html-validate.log
+
+      - name: Surface in PR summary
+        if: always()
+        run: |
+          echo "## HTML validation (advisory)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -s html-validate.log ]; then
+            ERRS=$(grep -cE "^.*(error|warning)" html-validate.log || echo "0")
+            echo "**${ERRS}** issues found across HTML files." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "<details><summary>Last 100 lines of html-validate output</summary>" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -100 html-validate.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "</details>" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No HTML output captured." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload html-validate log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-validate
+          path: html-validate.log
+          retention-days: 30
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run ESLint (advisory)
+        id: eslint
+        continue-on-error: true
+        run: |
+          npx --yes eslint@9 \
+            --no-eslintrc \
+            --rule "no-unused-vars: warn" \
+            --rule "no-undef: off" \
+            --rule "no-unreachable: warn" \
+            --rule "no-dupe-keys: warn" \
+            --rule "no-dupe-args: warn" \
+            --rule "no-irregular-whitespace: warn" \
+            --rule "no-misleading-character-class: warn" \
+            --rule "no-self-assign: warn" \
+            --rule "no-unsafe-finally: warn" \
+            --rule "no-with: warn" \
+            --rule "use-isnan: warn" \
+            --parser-options=ecmaVersion:2022,sourceType:module \
+            "netlify/functions/**/*.mjs" "netlify/functions/**/*.js" "scripts/**/*.mjs" "ask/**/*.js" "sw.js" \
+            --format stylish > eslint.log 2>&1 || true
+          tail -200 eslint.log
+
+      - name: Surface in PR summary
+        if: always()
+        run: |
+          echo "## ESLint (advisory)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -s eslint.log ]; then
+            PROBLEMS=$(grep -E "^[0-9]+ problems" eslint.log | tail -1 || echo "no summary line")
+            echo "**${PROBLEMS}**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "<details><summary>Last 100 lines of eslint output</summary>" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -100 eslint.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "</details>" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No ESLint output captured." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload eslint log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eslint
+          path: eslint.log
+          retention-days: 30
