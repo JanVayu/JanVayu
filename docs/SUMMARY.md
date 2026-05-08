@@ -15,6 +15,7 @@
 * [City Comparison & Map](user-guide/city-comparison.md)
 * [Daily Email Digest](user-guide/email-digest.md)
 * [Citizen Action Tools](user-guide/citizen-action.md)
+* [Learning Games](user-guide/learning-games.md)
 
 ## Tech Stack
 

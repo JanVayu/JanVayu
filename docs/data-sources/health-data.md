@@ -66,17 +66,30 @@ Used for:
 
 ---
 
-## Lancet Planetary Health — PM2.5 Mortality Studies (2024–2025)
+## Lancet Countdown 2025 — Headline Mortality Figure
+
+**Source:** The Lancet Countdown on Health and Climate Change (2025 report, India chapter)  
+**URL:** [thelancet.com/countdown-health-climate](https://www.thelancet.com/countdown-health-climate)
+
+The annual *Lancet Countdown* synthesises the latest exposure-response functions, demographic data, and PM2.5 exposure surfaces into a single attributable-mortality estimate. The 2025 report places annual ambient PM2.5 mortality in India at **1.72 million** &mdash; up from 1.5 million in earlier syntheses. The increase comes from re-attribution of household biomass deaths and a tighter exposure-response at the high end of the PM2.5 distribution. India's share of the global PM2.5 mortality burden remains ~70%.
+
+This is the **canonical headline figure** used throughout JanVayu &mdash; on the dashboard, in the Health Impact panel, and in the README's *Key Statistics* table.
+
+---
+
+## Lancet Planetary Health — PM2.5 Mortality Studies (2024)
 
 **Source:** The Lancet Planetary Health  
 
-Two landmark studies published in late 2024:
+Two peer-reviewed studies, distinct from the Lancet Countdown synthesis above, published in late 2024:
 
-1. **"Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"** — First causal estimate of long-term PM2.5 mortality in India; found 1.5 million additional deaths per year compared to WHO-guideline conditions.  
+1. **Krishna et al. — "Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"** &mdash; India's **first causal-inference estimate** from domestic cohort data. Tracked seven districts over a decade and produced a dose-response of approximately **8.6% increase in all-cause mortality per +10 µg/m³** in long-term PM2.5. When applied to India's PM2.5 exposure surface, the model attributed approximately **1.5 million** additional deaths per year compared to WHO-guideline conditions. This 1.5M figure is study-specific and pre-dates the Lancet Countdown 2025 synthesis (1.72M).  
    [DOI: 10.1016/S2542-5196(24)00248-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext)
 
-2. **"Ambient air pollution and daily mortality in ten cities of India: a causal modelling study"** — First multi-city study examining short-term PM2.5 exposure and daily mortality using causal methods.  
+2. **"Ambient air pollution and daily mortality in ten cities of India: a causal modelling study"** &mdash; First multi-city study examining short-term PM2.5 exposure and daily mortality using causal methods.  
    [DOI: 10.1016/S2542-5196(24)00114-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00114-1/fulltext)
+
+> **Note on the two figures.** The 1.5 million (Krishna et al.) and 1.72 million (Lancet Countdown 2025) numbers are **both legitimate and both cited** on JanVayu &mdash; they come from different methods (causal cohort vs. annual synthesis) and we keep both in the Research Library so readers can see them side by side. The dashboard hero uses 1.72 million, the more recent and commonly-cited figure.
 
 ---
 

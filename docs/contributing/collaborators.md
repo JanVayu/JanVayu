@@ -113,4 +113,4 @@ To keep the platform focused: JanVayu does not need general data visualizations 
 
 ---
 
-*Last updated: April 2026. Contact: [contribute@janvayu.in](mailto:contribute@janvayu.in)*
+*Last updated: May 2026. Contact: [contribute@janvayu.in](mailto:contribute@janvayu.in)*
