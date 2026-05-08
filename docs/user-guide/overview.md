@@ -39,6 +39,11 @@ JanVayu is a single-page web application with 30+ sections covering every dimens
 | 29 | **Per-pollutant SEO pages** | Standalone pages at `/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3` with sources, health effects, and live top-10 city readings |
 | 30 | **Embeddable widgets** | `/embed/aqi/?city=...` (live AQI badge) and `/embed/rankings/?n=10` for any external website |
 | 31 | **PWA install** | Installable on Android, iOS, and desktop with offline shell + last-known AQI cache |
+| 32 | **"Did You Know" facts strip** | Six India-specific sourced fact cards on the dashboard under the anomaly banner — PM2.5 mortality, life-expectancy loss, NCAP fund split, NAAQS-vs-WHO gap, dose-response, Loni headline |
+| 33 | **Learning Games** | `/#games` — six self-paced games: Air Quality Jeopardy (₹1,000–₹5,000 INR tiles, ₹75,000 max), 10-question PM Quick-Quiz, Source Matcher, Clean Air Snakes & Ladders (inspired by *Moksha Patam*), Jodi Match (memory cards), Air Tambola (Indian housie). All original India-context content sourced from Lancet Countdown 2025, IQAir 2025, CEEW 2024, NCAP records |
+| 34 | **Ask JanVayu PWA** | Standalone installable AI chat at `/ask/` — chat-style interface, city chip selector, offline fallback. Available in English, Hindi, Tamil, Bengali, Marathi |
+| 35 | **April–May 2026 Voices** | Curated Lancet Countdown launch reactions, Loni-residents ground report, Soumya Swaminathan at the "Be Cool" launch, Supreme Court four-week deadline, Warrior Moms commentary, CSE NCAP review |
+| 36 | **April–May 2026 Research Updates** | Featured card group at the top of the Research Library — Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024 Lancet Planetary Health, CEEW 2024 source apportionment |
 
 ---
 
@@ -61,7 +66,7 @@ The platform is available in:
 
 ---
 
-## Key Statistics (March 2026)
+## Key Statistics (May 2026)
 
 | Metric | Value | Source |
 |--------|-------|--------|

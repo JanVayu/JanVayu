@@ -4,12 +4,12 @@
 
 - **May 2026**
   - [Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes &amp; Ladders, Jodi Match, Tambola](posts/2026-05-08-learning-games.md)
-  - [Data Refresh, May 2026: Two Corrections, One New Number](posts/2026-05-06-data-corrections-may.md)
+  - [Data Refresh, May 2026: Latest Numbers, Updated Hero](posts/2026-05-06-data-corrections-may.md)
 
 - **April 2026**
   - [What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops](posts/2026-04-26-shipped-this-week.md)
   - [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md)
-  - [The Lancet's Verdict: 1.5 Million Deaths](posts/2026-04-08-lancet-causal-evidence.md)
+  - [The Lancet's Causal Evidence: 1.5 Million Deaths (Krishna et al. 2024)](posts/2026-04-08-lancet-causal-evidence.md)
   - [NCAP at the Finish Line](posts/2026-04-05-ncap-deadline.md)
   - [India's Children Are Paying the Price](posts/2026-04-01-children-air-pollution.md)
 
