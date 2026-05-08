@@ -3,7 +3,7 @@
 - [**JanVayu Blog**](README.md)
 
 - **May 2026**
-  - [Four Learning Games: Jeopardy, Quiz, Source Matcher, Snakes &amp; Ladders](posts/2026-05-08-learning-games.md)
+  - [Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes &amp; Ladders, Jodi Match, Tambola](posts/2026-05-08-learning-games.md)
   - [Data Refresh, May 2026: Two Corrections, One New Number](posts/2026-05-06-data-corrections-may.md)
 
 - **April 2026**
