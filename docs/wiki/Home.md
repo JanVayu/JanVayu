@@ -31,11 +31,26 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### What's New (v26.5.x — May 2026)
 
+**v26.5.6 — Performance + accessibility hardening**
+- **Lazy-loaded Chart.js + Leaflet** behind `window.ensureChartJs()` and `window.ensureLeaflet()` — ~120 KB off first paint for sessions that don't open Trends/Map; dashboard mini-charts pre-warmed in `requestIdleCallback`.
+- **Chart canvas accessibility** — every `<canvas>` now has `role="img"` and a meaningful `aria-label` so screen readers can describe each chart.
+- **Subresource Integrity (SRI)** hashes pinned for the three lazy-loaded CDN scripts so a CDN compromise can't inject untrusted code.
+
+**v26.5.4–5 — CI quality + mobile first pass**
+- **CI now reports on every PR**: Lighthouse, axe-core (WCAG 2 AA), html-validate, ESLint, lychee broken-link audit, i18n coverage % — all advisory, all in the PR step summary.
+- **Strict weekly link audit** opens a tracking issue if anything dies.
+- **Agent-Reach scheduled fetch** — every 2 hours, gracefully skips when secrets are absent (issue #45).
+- **Mobile responsiveness first pass** — `.btn` ≥44 px on small screens (WCAG 2.5.5), long URLs wrap with `overflow-wrap: anywhere`, Air Tambola ticket horizontal-scrolls cleanly on 360 px Galaxy.
+- **Performance roadmap** documented at `docs/technical/performance-roadmap.md`.
+
+**v26.5.0–3 — Learning Games + freshness sweep**
 - **Six-game Learning Games panel** at `/#games` — India-context Air Quality Jeopardy with INR ₹1,000–₹5,000 tiles, PM Quick-Quiz (10 Q), Source Matcher, Clean Air Snakes & Ladders (inspired by Moksha Patam), Jodi Match (memory cards), and Air Tambola (Indian housie). All original questions sourced from Lancet Countdown 2025, IQAir 2025, CEEW 2024, NCAP records, and Indian Supreme Court orders.
 - **"Did You Know" facts strip** on the dashboard — six India-specific sourced fact cards directly under the anomaly banner.
 - **April–May 2026 Voices block** at `/#voices` — six fresh curated cards (Lancet Countdown launch, Loni residents post-IQAir, Soumya Swaminathan at Be Cool, Supreme Court four-week deadline, Bhavreen Kandhari / Warrior Moms, CSE NCAP review).
 - **April–May 2026 Research Updates** featured card group at `/#resources`.
 - **Hero refresh** — May 2026 alert with the canonical Lancet Countdown 2025 1.72M figure.
+- **Multilingual docs** — Hindi, Bengali, Marathi `data-sources/health-data.md` brought to full parity with English.
+- **Embed widget hardening** — WAQI token moved to a Netlify Function proxy.
 
 ### Previous (v26.4.x — April 2026)
 
