@@ -151,8 +151,12 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,0,600;6..72,0,700;6..72,1,400;6..72,1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#1B6B4A">
+    <!-- Leaflet CSS is small and used cheaply; keep eager.
+         Leaflet JS + heatmap plugin and Chart.js are loaded lazily
+         via window.ensureLeaflet() / window.ensureChartJs() — see below. -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <script>
 
     function convertPM25() {
@@ -238,8 +242,63 @@
         }
 
     </script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" defer></script>
+    <!-- Lazy loaders for Chart.js and Leaflet. Both libraries are now fetched
+         on demand via window.ensureChartJs() / window.ensureLeaflet(). The
+         dashboard kicks off Chart.js fetch in requestIdleCallback so its
+         small charts still appear quickly without blocking first paint. -->
+    <script>
+      (function () {
+        let _chartJsPromise = null;
+        window.ensureChartJs = function () {
+          if (typeof window.Chart !== 'undefined') return Promise.resolve();
+          if (!_chartJsPromise) {
+            _chartJsPromise = new Promise((resolve, reject) => {
+              const s = document.createElement('script');
+              s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
+              s.async = true;
+              s.crossOrigin = 'anonymous';
+              s.onload = () => resolve();
+              s.onerror = (e) => { _chartJsPromise = null; reject(e); };
+              document.head.appendChild(s);
+            });
+          }
+          return _chartJsPromise;
+        };
+
+        let _leafletPromise = null;
+        window.ensureLeaflet = function () {
+          if (typeof window.L !== 'undefined' && typeof window.L.heatLayer === 'function') {
+            return Promise.resolve();
+          }
+          if (!_leafletPromise) {
+            const loadScript = (src) => new Promise((resolve, reject) => {
+              const s = document.createElement('script');
+              s.src = src;
+              s.async = true;
+              s.crossOrigin = 'anonymous';
+              s.onload = () => resolve();
+              s.onerror = reject;
+              document.head.appendChild(s);
+            });
+            _leafletPromise = (async () => {
+              await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
+              await loadScript('https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js');
+            })().catch((e) => { _leafletPromise = null; throw e; });
+          }
+          return _leafletPromise;
+        };
+
+        // Pre-warm Chart.js after first paint so the dashboard mini-charts
+        // still appear quickly. Falls back to setTimeout for browsers
+        // without requestIdleCallback (notably Safari).
+        const prewarm = () => { window.ensureChartJs().catch(() => {}); };
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(prewarm, { timeout: 2000 });
+        } else {
+          setTimeout(prewarm, 1500);
+        }
+      })();
+    </script>
     <style>
 /* ═══════════════════════════════════════════════════════════
    JANVAYU REDESIGN — EDITORIAL SCROLL LAYOUT
@@ -1645,7 +1704,22 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .code-box { font-size: 0.7rem; }
     .pm25-hero { padding: 1.5rem; }
     .pm25-value { font-size: 1.75rem; }
+
+    /* Mobile tap-target floor: any clickable .btn / .quick-link / .voice-card
+       hits ≥44px high so it meets WCAG 2.5.5 / Android touch-target guidance. */
+    .btn { min-height: 44px; padding-block: 10px; }
+    .btn-sm { min-height: 40px; padding-block: 8px; }
+    .quick-link { min-height: 64px; }
+    a.footer-link { padding-block: 8px; }
+
+    /* Long URLs / unhyphenated tokens (CAAQMS-IDs, IDoc-style refs) should
+       break instead of forcing horizontal scroll. */
+    p, li, dd, .voice-body, .resource-desc { overflow-wrap: anywhere; }
 }
+
+/* Reduce huge inline word-tokens at all widths — defensive wrap for the few
+   places we render long URLs or column-data without spaces. */
+.code-box, code { overflow-wrap: anywhere; }
 
 @media (max-width: 768px) {
     .chart-container { height: 220px !important; min-height: 200px; }
@@ -4091,7 +4165,7 @@ body {
         }
 
         const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-        try { updateTicker(); updateDashboard(); initAllCharts(); checkAlerts(); initArchiveData(); loadDashboardLiveNews(); updateGlobalTimestamp(); } catch(e) { console.error(e); }
+        try { updateTicker(); updateDashboard(); initAllCharts().catch(e => console.error('initAllCharts:', e)); checkAlerts(); initArchiveData(); loadDashboardLiveNews(); updateGlobalTimestamp(); } catch(e) { console.error(e); }
 
         if (liveStatus) {
             liveStatus.innerHTML = usingLiveData
@@ -4141,7 +4215,8 @@ body {
     }
 
     // ── Charts ──
-    function initAllCharts() {
+    async function initAllCharts() {
+            await ensureChartJs();
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const textColor = isDark ? '#94A3B8' : '#64748B';
             const gridColor = isDark ? '#334155' : '#E2E8F0';
@@ -4477,7 +4552,8 @@ body {
     let mapMarkerLayer = null;
     let mapHeatLayer = null;
 
-    function initMap() {
+    async function initMap() {
+            await ensureLeaflet();
             // Destroy old map instance if DOM was replaced (panel navigation)
             if (map) {
                 try { map.remove(); } catch(e) {}
@@ -5384,7 +5460,8 @@ body {
         jodhpur: 70, guwahati: 55, dehradun: 48, amritsar: 75
     };
 
-    function generateExposureReport() {
+    async function generateExposureReport() {
+        await ensureChartJs();
         const cityKey = document.getElementById('exposure-city')?.value;
         if (!cityKey) return;
         const age = parseInt(document.getElementById('exposure-age')?.value || 30);
@@ -5844,7 +5921,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         return ['','January','February','March','April','May','June','July','August','September','October','November','December'][parseInt(m)] || '';
     }
 
-    function renderYoYChart(years) {
+    async function renderYoYChart(years) {
+        await ensureChartJs();
         const ctx = document.getElementById('yoyChart');
         if (!ctx) return;
         if (charts.yoy) { try { charts.yoy.destroy(); } catch(e){} }
@@ -5927,7 +6005,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         updateHourlyReadout(23);
     }
 
-    function drawHourlyChart() {
+    async function drawHourlyChart() {
+        await ensureChartJs();
         const ctx = document.getElementById('hourlyChart');
         if (!ctx) return;
         if (charts.hourly) { try { charts.hourly.destroy(); } catch(e){} }
@@ -5974,7 +6053,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
     // ── Pollution Calendar ──
-    function renderPollutionCalendar() {
+    async function renderPollutionCalendar() {
+        await ensureChartJs();
         const grid = document.getElementById('pollution-calendar-grid');
         if (!grid) return;
 
@@ -6248,7 +6328,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         ahmedabad: { pm25: 58, aqi: 140, population: 8, deaths: 10500, life_years: 2.0, economic_cost: 3.0, hospital: 50 }
     };
 
-    function updateCorrelation() {
+    async function updateCorrelation() {
+        await ensureChartJs();
         const xAxis = document.getElementById('corr-x')?.value || 'pm25';
         const yAxis = document.getElementById('corr-y')?.value || 'deaths';
 
@@ -14133,7 +14214,9 @@ Signature: _______________</div>
                 </div>
             </div>
             <div id="tambola-clue" style="margin-bottom: 12px; padding: 12px 14px; background: linear-gradient(135deg, rgba(27,107,74,0.08), rgba(124,58,237,0.06)); border-radius: 8px; border-left: 4px solid var(--accent); font-size: 0.95rem; line-height: 1.5; color: var(--ink); min-height: 44px;">Press <strong>Call next</strong> to begin. The first clue will appear here.</div>
-            <div id="tambola-ticket" style="display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; max-width: 720px; margin-bottom: 12px;"></div>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 12px;">
+              <div id="tambola-ticket" style="display: grid; grid-template-columns: repeat(9, minmax(56px, 1fr)); gap: 4px; min-width: 540px; max-width: 720px;"></div>
+            </div>
             <div id="tambola-wins" style="margin-top: 8px; display: flex; gap: 12px; flex-wrap: wrap;">
                 <span class="tambola-win-badge" data-win="top" style="font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: var(--bg-section); color: var(--text-3); border: 1px solid var(--border);">Top Line</span>
                 <span class="tambola-win-badge" data-win="middle" style="font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: var(--bg-section); color: var(--text-3); border: 1px solid var(--border);">Middle Line</span>

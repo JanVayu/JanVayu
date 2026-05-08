@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.5] - 2026-05-08
+
+### Performance — Lazy-load Chart.js + Leaflet
+
+- **Chart.js** (~70 KB gzipped) and **Leaflet + leaflet.heat** (~50 KB gzipped) are no longer loaded eagerly on every page-load. Replaced the `<script defer>` tags with `window.ensureChartJs()` and `window.ensureLeaflet()` lazy-loaders that fetch on first use and resolve on subsequent calls. Combined first-paint saving for sessions that never open the Trends, Map, or chart-heavy panels: **~120 KB**.
+- The dashboard's small mini-charts still appear quickly because `ensureChartJs()` is pre-warmed inside `requestIdleCallback` (with a `setTimeout` fallback for Safari) — fetched after first paint, rendered when ready.
+- All chart-rendering functions (`initAllCharts`, `generateExposureReport`, `renderYoYChart`, `drawHourlyChart`, `renderPollutionCalendar`, `updateCorrelation`) and the map (`initMap`) are now `async` and `await` their respective ensure-helper before touching the global `Chart` / `L` objects. Existing fire-and-forget callers (`loadPanel`, page-load init) work unchanged.
+- Added `<link rel="preconnect">` for `cdn.jsdelivr.net` and `unpkg.com` so the lazy fetch starts as fast as possible when triggered.
+- Tracked in [issue #3](https://github.com/JanVayu/JanVayu/issues/3); next step is the CSS split documented in `docs/technical/performance-roadmap.md`.
+
+### Added — HTML validate + ESLint advisory CI
+
+- New `.github/workflows/quality.yml` runs `html-validate@9` against `index.html`, blog, ask, embed, downloads, and all six pollutant pages; runs ESLint v9 against the Netlify Functions, scripts, the Ask PWA, and root `sw.js`.
+- Both jobs are advisory (`continue-on-error: true`) and surface a problem count + last-100-lines log in the PR step summary. Full logs uploaded as 30-day artifacts.
+- New `.htmlvalidate.json` config — extends `html-validate:recommended`; relaxes `no-inline-style` and `no-trailing-whitespace` for now, keeps `no-dup-id`, `no-dup-attr`, `no-unknown-elements`, `void-content` as gating-track errors.
+
+### Mobile responsiveness — first pass (issue #33)
+
+- **Tap targets**: every `.btn` is now ≥44px high on screens ≤480px (WCAG 2.5.5 / Android guidance); `.btn-sm` ≥40px. `.quick-link` cards and footer links pad to comfortable touch heights.
+- **Long-token wrapping**: `overflow-wrap: anywhere` added to body text (`p, li, dd, .voice-body, .resource-desc`) and to `code` / `.code-box` at all widths so long URLs and acronym strings break instead of forcing horizontal scroll.
+- **Air Tambola ticket**: 3×9 grid wrapped in a horizontal-scroll container with `min-width: 540px` and `minmax(56px, 1fr)` columns so cells stay readable on 360 px Galaxy displays.
+- Existing `.icon-btn` (44×44), grid-2/3/4 single-column collapse at 600 px, table horizontal scroll at 480 px, and PWA install banner safe-area handling were already in place — verified.
+
 ## [v26.5.4] - 2026-05-08
 
 ### Added — CI / quality scaffolding
