@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.4] - 2026-05-08
+
+### Added — CI / quality scaffolding
+
+A pass through the deferred items from the v26.5.3 audit. None of these change user-visible behaviour; they install measurement and reporting so the quality gaps tracked in issues #1, #3, #4, #5, #45 become visible on every PR.
+
+- **Lychee link audit (strict, weekly).** New `.github/workflows/link-audit.yml` runs every Monday with `fail: true` and opens a tracking issue if anything breaks. The PR-time lychee in `ci.yml` stays advisory but now surfaces a broken-link count and full report in the PR step summary. New `.lycheeignore` at the repo root with a documented add-an-entry workflow.
+- **i18n coverage audit script.** New `scripts/check-i18n-coverage.py` parses `index.html`, identifies every visible English string, and reports the percentage whose immediate parent carries a `data-i18n` attribute. Wired into `.github/workflows/translations.yml` as an advisory step that posts coverage to the GitHub Step Summary. Pass `--min-coverage <pct>` to gate CI; for now no floor is set (current coverage is ~0.7%).
+- **Accessibility CI (axe-core).** New `.github/workflows/accessibility.yml` runs `@axe-core/cli` against the four highest-traffic URLs (`/`, `/ask/`, `/blog/`, `/downloads/`) tagged `wcag2a,wcag2aa`. Surfaces a per-page violation count and top three rule IDs in the PR step summary; full JSON reports uploaded as artifacts (30-day retention). Advisory only (`continue-on-error: true`); flip the assertion mode once the count is at zero.
+- **Lighthouse CI.** New `.github/workflows/lighthouse.yml` and `.lighthouserc.json`. Runs three iterations against four URLs and uploads to `temporary-public-storage`. Budget assertions (Performance ≥ 0.60, Accessibility ≥ 0.85, FCP ≤ 3,000 ms, LCP ≤ 4,500 ms, TBT ≤ 600 ms, CLS ≤ 0.15) are `warn`-level — flip key assertions to `error` once three green runs land on `main`.
+- **Agent-Reach scheduled fetch.** New `.github/workflows/agent-reach-fetch.yml` runs `scripts/agent-reach-fetch.py` every 2 hours. Gracefully skips with a clear log message and step-summary note if any of the four required secrets (`TWITTER_AUTH_TOKEN`, `TWITTER_CT0`, `FEED_INGEST_KEY`, `NETLIFY_SITE_URL`) are absent. Activation is one set-secrets pass — see [issue #45](https://github.com/JanVayu/JanVayu/issues/45) and `scripts/README.md`.
+- **`docs/technical/performance-roadmap.md`** documents the full lazy-load plan for Chart.js + Leaflet (the biggest single FCP win), CSS split, Brotli verification, and the order-of-attack for the next dedicated performance cycle. Added to `_sidebar.md` and `SUMMARY.md`.
+- **`scripts/README.md`** updated to list the new `check-i18n-coverage.py` and reflect the now-wired `agent-reach-fetch.py` workflow.
+- **GitHub housekeeping**: status comments posted on the long-open issues #1, #3, #4, #5, #33, #45 documenting what has shipped vs what remains, plus a substantive Q2 2026 status update on the roadmap issue #34.
+
 ## [v26.5.3] - 2026-05-08
 
 ### Changed — May 2026 freshness sweep across the whole repo
