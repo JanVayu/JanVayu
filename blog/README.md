@@ -11,10 +11,10 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 | Date | Post | Topic |
 |------|------|-------|
 | 8 May 2026 | [Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, Tambola](posts/2026-05-08-learning-games.md) | Platform |
-| 6 May 2026 | [Data Refresh, May 2026: Two Corrections, One New Number](posts/2026-05-06-data-corrections-may.md) | Data |
+| 6 May 2026 | [Data Refresh, May 2026: Latest Numbers, Updated Hero](posts/2026-05-06-data-corrections-may.md) | Data |
 | 26 Apr 2026 | [What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops](posts/2026-04-26-shipped-this-week.md) | Platform |
 | 12 Apr 2026 | [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md) | Data |
-| 8 Apr 2026 | [The Lancet's Verdict: 1.5 Million Deaths a Year](posts/2026-04-08-lancet-causal-evidence.md) | Research |
+| 8 Apr 2026 | [The Lancet's Causal Evidence: 1.5 Million Deaths (Krishna et al. 2024)](posts/2026-04-08-lancet-causal-evidence.md) | Research |
 | 5 Apr 2026 | [NCAP at the Finish Line: Has India's Clean Air Programme Worked?](posts/2026-04-05-ncap-deadline.md) | Policy |
 | 1 Apr 2026 | [India's Children Are Paying the Price](posts/2026-04-01-children-air-pollution.md) | Health |
 | 28 Mar 2026 | [How Farmers Outsmart Satellites: The Stubble Burning Shell Game](posts/2026-03-28-stubble-burning-satellites.md) | Investigation |
