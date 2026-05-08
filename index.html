@@ -19,10 +19,11 @@
     <meta property="og:url" content="https://www.janvayu.in/">
     <meta property="og:title" content="JanVayu | India's Citizen Air Quality Platform">
     <meta property="og:description" content="Live PM2.5 data, health impact analysis, NCAP budget tracking, and government accountability for 30+ Indian cities. Clean air is not a privilege, it is a right.">
-    <meta property="og:image" content="https://www.janvayu.in/og-image.png">
+    <meta property="og:image" content="https://www.janvayu.in/og-image.png?v=20260508">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="JanVayu - India's Citizen Air Quality Platform showing live PM2.5 data for 30+ cities">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="JanVayu — India's air is killing 1.72 million people every year. Loni 112.5 µg/m³ (most polluted city, IQAir 2025); 3.5 years life-expectancy loss (AQLI 2025); ~70% of global PM2.5 deaths (Lancet Countdown 2025); India NAAQS 8× the WHO 5 µg/m³ guideline.">
     <meta property="og:site_name" content="JanVayu">
     <meta property="og:locale" content="en_IN">
     <meta property="og:locale:alternate" content="hi_IN">
@@ -34,8 +35,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="JanVayu | India's Citizen Air Quality Platform">
     <meta name="twitter:description" content="Live PM2.5 data, health impact analysis, NCAP budget tracking, and government accountability. 2 million deaths/year demand transparency.">
-    <meta name="twitter:image" content="https://www.janvayu.in/og-image.png">
-    <meta name="twitter:image:alt" content="JanVayu - India's Citizen Air Quality Platform showing live PM2.5 data for 30+ cities">
+    <meta name="twitter:image" content="https://www.janvayu.in/og-image.png?v=20260508">
+    <meta name="twitter:image:alt" content="JanVayu — India's air is killing 1.72 million people every year. Loni 112.5 µg/m³ (most polluted city, IQAir 2025); 3.5 years life-expectancy loss; ~70% of global PM2.5 deaths.">
     <meta name="twitter:site" content="@JanVayu">
 
     <!-- Hreflang for multilingual -->
@@ -4231,8 +4232,32 @@ body {
     }
 
     // ── Charts ──
+    // Friendly fallback when a third-party library fails to load (blocked CDN,
+    // offline, network error). Renders a single in-panel message instead of
+    // letting the chart-using surface stay silently empty.
+    function renderLibraryFallback(scope, libName) {
+        // `scope` may be a CSS selector (string) or a DOM node.
+        const root = (typeof scope === 'string') ? document.querySelector(scope) : scope;
+        if (!root) return;
+        // If a fallback is already rendered, leave it alone.
+        if (root.querySelector('.lib-fallback')) return;
+        const div = document.createElement('div');
+        div.className = 'lib-fallback';
+        div.style.cssText = 'margin: 14px 0; padding: 14px 16px; border-radius: 10px; background: var(--bg-section); border-left: 3px solid var(--accent); font-size: 0.88rem; line-height: 1.5; color: var(--ink);';
+        div.innerHTML = '<strong>' + libName + ' could not be loaded.</strong> ' +
+            'This is usually a corporate-network or regional CDN block. ' +
+            'Try opening JanVayu on a different network, or <a href="#dashboard" onclick="showPanel(\'dashboard\'); return false;" style="color: var(--accent); text-decoration: underline;">return to the dashboard</a>. ' +
+            'All other panels still work normally.';
+        root.appendChild(div);
+    }
+
     async function initAllCharts() {
-            await ensureChartJs();
+            try { await ensureChartJs(); }
+            catch (e) {
+                console.warn('[JanVayu] Chart.js failed to load:', e);
+                renderLibraryFallback('#panel-container .panel.active', 'Chart.js');
+                return;
+            }
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const textColor = isDark ? '#94A3B8' : '#64748B';
             const gridColor = isDark ? '#334155' : '#E2E8F0';
@@ -4569,7 +4594,13 @@ body {
     let mapHeatLayer = null;
 
     async function initMap() {
-            await ensureLeaflet();
+            try { await ensureLeaflet(); }
+            catch (e) {
+                console.warn('[JanVayu] Leaflet failed to load:', e);
+                const mapPanel = document.querySelector('#panel-container .panel.active') || document.getElementById('india-map');
+                renderLibraryFallback(mapPanel, 'Leaflet (map library)');
+                return;
+            }
             // Destroy old map instance if DOM was replaced (panel navigation)
             if (map) {
                 try { map.remove(); } catch(e) {}
@@ -4908,6 +4939,10 @@ body {
         });
 
         if (posts.length === 0) {
+            // No live or curated content available — hide the card entirely
+            // so users go straight to the curated highlights below.
+            const card = document.getElementById('voices-live-card');
+            if (card) { card.style.display = 'none'; return; }
             container.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: var(--text-3); font-size: 0.85rem;">No live posts available right now. Curated highlights are shown below.</div>';
         } else {
             const platformColors = { reddit: '#FF4500', twitter: '#1D9BF0', instagram: '#E4405F', news: '#16A34A' };
@@ -5477,7 +5512,7 @@ body {
     };
 
     async function generateExposureReport() {
-        await ensureChartJs();
+        try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
         const cityKey = document.getElementById('exposure-city')?.value;
         if (!cityKey) return;
         const age = parseInt(document.getElementById('exposure-age')?.value || 30);
@@ -5938,7 +5973,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
     async function renderYoYChart(years) {
-        await ensureChartJs();
+        try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
         const ctx = document.getElementById('yoyChart');
         if (!ctx) return;
         if (charts.yoy) { try { charts.yoy.destroy(); } catch(e){} }
@@ -6022,7 +6057,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
     async function drawHourlyChart() {
-        await ensureChartJs();
+        try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
         const ctx = document.getElementById('hourlyChart');
         if (!ctx) return;
         if (charts.hourly) { try { charts.hourly.destroy(); } catch(e){} }
@@ -6070,7 +6105,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
     // ── Pollution Calendar ──
     async function renderPollutionCalendar() {
-        await ensureChartJs();
+        try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
         const grid = document.getElementById('pollution-calendar-grid');
         if (!grid) return;
 
@@ -6345,7 +6380,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     };
 
     async function updateCorrelation() {
-        await ensureChartJs();
+        try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
         const xAxis = document.getElementById('corr-x')?.value || 'pm25';
         const yAxis = document.getElementById('corr-y')?.value || 'deaths';
 
@@ -8982,14 +9017,14 @@ Signature: _______________</div>
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: #1D9BF0; margin-right: 0.4rem;"></span>Citizen Voices &amp; Viral Moments</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="What are real people saying about air pollution online? Live posts from Reddit, Twitter, and news, plus hand-picked highlights and important moments.">Live from social media + curated highlights. Auto-updates from Reddit, X/Twitter, and news sources.</p>
 
-            <!-- LIVE AUTO-UPDATING SECTION -->
-            <div class="card mb-3" style="border-left: 4px solid #1D9BF0;">
+            <!-- LIVE AUTO-UPDATING SECTION (auto-hidden if zero posts after load) -->
+            <div class="card mb-3" id="voices-live-card" style="border-left: 4px solid #1D9BF0;">
                 <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span class="card-title" style="color: #1D9BF0;">Live from Social Media</span>
+                    <span class="card-title" style="color: #1D9BF0;">Latest Social Media Coverage</span>
                     <span style="font-size: 0.7rem; color: var(--text-3);" id="voices-live-time">Loading...</span>
                 </div>
                 <div class="card-body" id="voices-live-feed" style="max-height: 600px; overflow-y: auto;">
-                    <div style="text-align: center; padding: 1.5rem; color: var(--text-3); font-size: 0.85rem;">Fetching live posts about air quality...</div>
+                    <div style="text-align: center; padding: 1.5rem; color: var(--text-3); font-size: 0.85rem;">Loading recent social-media coverage of Indian air quality&hellip;</div>
                 </div>
                 <div class="card-footer" style="font-size: 0.75rem; color: var(--text-3); display: flex; gap: 0.5rem; flex-wrap: wrap;">
                     <button class="btn btn-sm" style="background: #FF4500; color: white; font-size: 0.7rem;" onclick="loadVoicesLive('reddit')">Reddit</button>
