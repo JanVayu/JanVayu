@@ -17,6 +17,14 @@
   .footer { font-size: 0.65rem; opacity: 0.6; margin-top: 8px; text-align: right; }
   .footer a { color: inherit; text-decoration: none; border-bottom: 1px dotted; }
   .err { opacity: 0.7; }
+  .fallback {
+    border-left: 3px solid #1B6B4A; padding: 6px 0 6px 10px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .fallback .title { font-size: 0.95rem; font-weight: 700; color: #1B6B4A; }
+  .fallback .msg { font-size: 0.78rem; opacity: 0.75; }
+  .fallback .cta { font-size: 0.7rem; opacity: 0.6; }
+  .fallback .cta a { color: inherit; border-bottom: 1px dotted; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -42,22 +50,45 @@
   }
 
   const el = document.getElementById('w');
-  try {
-    const res = await fetch('https://www.janvayu.in/.netlify/functions/rankings?range=live');
-    const json = await res.json();
-    if (!Array.isArray(json.cities)) throw new Error('no data');
-    const sorted = [...json.cities].sort((a, b) => order === 'worst' ? b.pm25 - a.pm25 : a.pm25 - b.pm25);
-    const rows = sorted.slice(0, n).map((c, i) => `
-      <tr>
-        <td class="rank">${i + 1}</td>
-        <td>${c.name}</td>
-        <td style="text-align:right;"><span class="pm" style="background:${pmColor(c.pm25)};">${c.pm25}</span></td>
-      </tr>
-    `).join('');
-    el.innerHTML = '<table>' + rows + '</table>';
-  } catch (e) {
-    el.innerHTML = '<div class="err">Live data unavailable.</div>';
+
+  function renderFallback() {
+    el.innerHTML = `
+      <div class="fallback">
+        <div class="title">JanVayu City Rankings</div>
+        <div class="msg">Live rankings temporarily unavailable.</div>
+        <div class="cta"><a href="https://www.janvayu.in/#rankings" target="_blank" rel="noopener">Open dashboard ↗</a></div>
+      </div>`;
   }
+
+  let attempt = 0;
+  async function tryFetch() {
+    attempt++;
+    try {
+      const ctrl = new AbortController();
+      const timeout = setTimeout(() => ctrl.abort(), 8000);
+      const res = await fetch('/.netlify/functions/rankings?range=live', { signal: ctrl.signal });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error('rankings ' + res.status);
+      const json = await res.json();
+      if (!Array.isArray(json.cities) || json.cities.length === 0) throw new Error('no data');
+      const sorted = [...json.cities].sort((a, b) => order === 'worst' ? b.pm25 - a.pm25 : a.pm25 - b.pm25);
+      const rows = sorted.slice(0, n).map((c, i) => `
+        <tr>
+          <td class="rank">${i + 1}</td>
+          <td>${c.name}</td>
+          <td style="text-align:right;"><span class="pm" style="background:${pmColor(c.pm25)};">${c.pm25}</span></td>
+        </tr>
+      `).join('');
+      el.innerHTML = '<table>' + rows + '</table>';
+    } catch (e) {
+      if (attempt < 2) {
+        setTimeout(tryFetch, 1500);
+      } else {
+        renderFallback();
+      }
+    }
+  }
+  tryFetch();
   setTimeout(() => location.reload(), 10 * 60 * 1000);
 })();
 </script>
