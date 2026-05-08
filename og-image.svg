@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="ogTitle ogDesc">
+  <title id="ogTitle">JanVayu — India's air is killing 1.72 million people every year</title>
+  <desc id="ogDesc">Independent citizen-led air quality platform for India. Live data, health impact, accountability, action.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1B6B4A"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFD86B"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feFlood flood-color="#000" flood-opacity="0.35"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative leaf-mark on the right -->
+  <g transform="translate(900, 90)" opacity="0.18">
+    <path d="M 100 0 C 180 50 200 150 150 250 C 100 350 0 380 -50 320 C -100 260 -50 150 30 80 C 60 50 80 20 100 0 Z" fill="url(#leaf)"/>
+    <path d="M 100 0 L 80 320" stroke="#FFD86B" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Brand mark -->
+  <g transform="translate(60, 70)">
+    <text x="0" y="40" font-family="'Newsreader', Georgia, serif" font-size="44" font-weight="700" fill="#FFFFFF" letter-spacing="0.02em">JanVayu</text>
+    <text x="195" y="40" font-family="sans-serif" font-size="38" font-weight="600" fill="#FFD86B" letter-spacing="0.02em">जनवायु</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="60" y="135" font-family="'DM Sans', sans-serif" font-size="20" font-weight="500" fill="#94A3B8" letter-spacing="0.1em" text-transform="uppercase">A CITIZEN-LED ARCHIVE OF INDIA'S AIR QUALITY CRISIS</text>
+
+  <!-- Headline -->
+  <g transform="translate(60, 220)" filter="url(#softShadow)">
+    <text x="0" y="0" font-family="'Newsreader', Georgia, serif" font-size="58" font-weight="700" fill="#FFFFFF">India's air is killing</text>
+    <text x="0" y="78" font-family="'Newsreader', Georgia, serif" font-size="84" font-weight="700" fill="#FFD86B" font-style="italic">1.72 million people</text>
+    <text x="0" y="138" font-family="'Newsreader', Georgia, serif" font-size="58" font-weight="700" fill="#FFFFFF">every year.</text>
+  </g>
+
+  <!-- Stats strip -->
+  <g transform="translate(60, 460)">
+    <rect x="-10" y="-20" width="1080" height="100" rx="12" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+    <g transform="translate(20, 0)">
+      <text x="0" y="20" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="700" fill="#FFD86B">112.5</text>
+      <text x="0" y="42" font-family="sans-serif" font-size="14" fill="#94A3B8">µg/m³ &#8212; Loni, India</text>
+      <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#64748B" letter-spacing="0.05em" text-transform="uppercase">WORLD'S MOST POLLUTED CITY · IQAir 2025</text>
+    </g>
+
+    <g transform="translate(310, 0)">
+      <text x="0" y="20" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="700" fill="#FFD86B">3.5 yrs</text>
+      <text x="0" y="42" font-family="sans-serif" font-size="14" fill="#94A3B8">life expectancy lost</text>
+      <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#64748B" letter-spacing="0.05em" text-transform="uppercase">7-8 YRS IN INDO-GANGETIC PLAIN · AQLI 2025</text>
+    </g>
+
+    <g transform="translate(620, 0)">
+      <text x="0" y="20" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="700" fill="#FFD86B">~70%</text>
+      <text x="0" y="42" font-family="sans-serif" font-size="14" fill="#94A3B8">of global PM2.5 deaths</text>
+      <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#64748B" letter-spacing="0.05em" text-transform="uppercase">INDIA'S SHARE · LANCET COUNTDOWN 2025</text>
+    </g>
+
+    <g transform="translate(900, 0)">
+      <text x="0" y="20" font-family="'JetBrains Mono', monospace" font-size="32" font-weight="700" fill="#FFD86B">8×</text>
+      <text x="0" y="42" font-family="sans-serif" font-size="14" fill="#94A3B8">India NAAQS vs WHO</text>
+      <text x="0" y="60" font-family="sans-serif" font-size="11" fill="#64748B" letter-spacing="0.05em" text-transform="uppercase">40 vs 5 µg/m³ · 2009 standard</text>
+    </g>
+  </g>
+
+  <!-- URL strip at bottom -->
+  <g transform="translate(60, 590)">
+    <text x="0" y="0" font-family="sans-serif" font-size="16" font-weight="600" fill="#FFFFFF">www.janvayu.in</text>
+    <text x="170" y="0" font-family="sans-serif" font-size="14" fill="#64748B">· Independent · Open Source · CC BY-NC-SA 4.0</text>
+    <text x="1080" y="0" font-family="sans-serif" font-size="14" fill="#64748B" text-anchor="end">May 2026</text>
+  </g>
+</svg>
