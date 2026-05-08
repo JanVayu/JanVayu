@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.0] - 2026-05-08
+
+### Added — Learning Games panel + two new blog posts
+
+- **New `/#games` panel** (Action → Learning Games) with three self-paced games built from original India-context content:
+  - **Air Quality Jeopardy** — 5 categories (Sources, Health, Policy, Cities, Action) × 5 clues each. Click a tile, read the clue in Jeopardy "answer" form, reveal, mark whether you got it. Each clue ships with a one-paragraph explainer pulling from CEEW 2024, IIT-Delhi DSS apportionment, NCAP records, IQAir 2025, and the Lancet Countdown 2025. Score is local-only. Inspired by, not copied from, the long-running Dr. Sarath Guttikunda / UrbanEmissions.info classroom Jeopardy.
+  - **PM Quick-Quiz** — 10 multiple-choice questions, ~3 minutes, with per-question factual notes explaining the right answer and why distractors are wrong. Topics: PM2.5 basics, WHO 5 µg/m³ guideline, Lancet 1.72M figure, GRAP stage thresholds, Berkeley Earth cigarette equivalence, IQAir 2025 city rankings, NAAQS gap.
+  - **Source Matcher** — tap-to-match seven dominant Indian PM2.5 source categories to one-line descriptions (stubble, residential biomass, coal thermal, road dust + non-exhaust, brick kilns, diesel gensets, open waste burning).
+- **Dashboard quick-link** "Learning Games" added to the dashboard quick-links grid; cross-link from Workshops panel; footer "Tools & Action" link added; mobile nav and "Action" dropdown both expose the new panel.
+- **Blog post**: `2026-05-08-learning-games.md` — launch post for the new games panel, with rationale, examples, and roadmap (Hindi/Tamil/Bengali/Marathi translations, facilitator pack PDF, monthly clue rotation).
+- **Blog post**: `2026-05-06-data-corrections-may.md` — May data refresh covering Lancet Countdown 2025 (1.72M figure), IQAir 2025 city rankings, AQLI 2025 life-expectancy loss, and the distinction between two coexisting Indian PM2.5 mortality figures (1.5M from Krishna et al. 2024 vs 1.72M from Lancet Countdown 2025).
+
+### Changed — Hero alert updated for May 2026
+
+- Dashboard hero alert refreshed: month label "April 2026" → "May 2026", and the embedded mortality figure switched from "1.5 million additional deaths" (Lancet causal study) to **1.72 million** (Lancet Countdown 2025 — the figure already used in the README's *Key Statistics* table). Adds a one-line CTA to the new Learning Games panel.
+
 ## [v26.4.2] - 2026-04-26
 
 ### Changed — Workshop forms now use Resend instead of Netlify Forms
