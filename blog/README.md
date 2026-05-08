@@ -10,7 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
-| 8 May 2026 | [Four Learning Games: Jeopardy, Quiz, Source Matcher, Snakes & Ladders](posts/2026-05-08-learning-games.md) | Platform |
+| 8 May 2026 | [Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, Tambola](posts/2026-05-08-learning-games.md) | Platform |
 | 6 May 2026 | [Data Refresh, May 2026: Two Corrections, One New Number](posts/2026-05-06-data-corrections-may.md) | Data |
 | 26 Apr 2026 | [What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops](posts/2026-04-26-shipped-this-week.md) | Platform |
 | 12 Apr 2026 | [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md) | Data |

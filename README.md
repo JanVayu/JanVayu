@@ -47,7 +47,7 @@ This is not a campaign. It is a record.
 | 19 | **Blog** | Updates, data analysis, and reflections on India's air quality crisis at [janvayu.in/blog](https://www.janvayu.in/blog) |
 | 20 | **Zotero Research Library** | Public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
 | 21 | **Ask JanVayu PWA** | Installable standalone AI chat app for air quality Q&A at [janvayu.in/ask](https://www.janvayu.in/ask) — works on Android, iOS, desktop |
-| 22 | **Learning Games** | Four self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games) — India-context Air Quality Jeopardy (5 categories × 5 clues, ₹1,000–₹5,000 tiles), 10-question PM Quick-Quiz, a 7-source matcher, and a Clean Air Snakes & Ladders board inspired by Moksha Patam |
+| 22 | **Learning Games** | Six self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games) — India-context Air Quality Jeopardy (5×5 board, ₹1k–₹5k tiles), 10-question PM Quick-Quiz, 7-source matcher, Clean Air Snakes & Ladders inspired by Moksha Patam, Jodi Match memory cards, and Air Tambola (Indian housie) |
 
 ---
 

@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.2] - 2026-05-08
+
+### Fixed — Games panel rendering
+
+- **Games panel was not rendering**: the Learning Games JavaScript had been appended to a `<script type="module">` block, which scopes its functions to the module rather than to `window`. Inline `onclick="switchGame(...)"` and `onclick="rollSnakesLadders()"` handlers in the panel template could not find module-scoped names and silently failed. Fix: closed the module script and reopened a plain `<script>` immediately before the games code so all game functions are global. All six games now render and the tab buttons work as expected.
+
+### Added — Two more Indian games (now six total)
+
+- **Jodi Match** &mdash; a 12-card memory game (six pairs / *jodis*). Tap any two; matching pairs stay face-up. Pairings teach the core associations every Indian newsroom and RWA conversation should make automatically: *PM2.5 ↔ chulha smoke*, *NCAP ↔ National Clean Air Programme*, *GRAP-IV ↔ AQI > 450*, *CAQM ↔ NCR statutory body (2021 Act)*, *WHO PM2.5 ↔ 5 µg/m³*, *N95 ↔ ≥95% PM2.5 filtration when fitted*. Format is the household memory-card game (Pelmanism) every Indian grew up with.
+- **Air Tambola** &mdash; classic 3×9 Indian housie ticket with 15 air-quality terms drawn from a 27-item pool (PM2.5, GRAP-IV, NCAP, CAAQMS, Loni, Stubble, FGD, N95, HEPA, BS-VI, AQLI, Lancet 1.72M, RTI, Black Carbon, Brick Kiln, ozone, NOx, SO₂, etc.). Press **Call next** to hear a one-line clue; tap the matching cell to mark it. Auto-detects all four classic Indian wins: Top Line, Middle Line, Bottom Line, Full House.
+
+### Added — Research, voices, and dashboard facts refreshed
+
+- **Research Library** &mdash; new "April–May 2026 Updates" featured card group at the top of `/#resources` with six current items: **Lancet Countdown 2025** (1.72M Indian PM2.5 deaths/year), **AQLI 2025** (3.5-year national life-expectancy loss; 7-8 years in IGP), **IQAir 2025** (Loni #1 most polluted city), **CSE NCAP Five-Year Review** (37/131 cities at target; 64% of NCAP funds went to dust suppression), **Krishna et al. 2024 *Lancet Planetary Health*** (India's first causal dose-response: +10 µg/m³ → 8.6% all-cause mortality), and **CEEW 2024 source apportionment** synthesis.
+- **Citizen Voices** &mdash; new "April–May 2026 Updates" block at the top of `/#voices` with six fresh curated cards: Lancet Countdown 2025 launch (1.72M figure), Loni residents post-IQAir 2025 (Down To Earth ground report), Dr. Soumya Swaminathan at the Maharashtra "Be Cool" launch, Supreme Court four-week deadline on CAQM long-term recommendations, Bhavreen Kandhari (Warrior Moms) on the delayed NAAQS revision, and the CSE NCAP five-year review.
+- **Dashboard "Did You Know"** strip &mdash; six India-specific, sourced fact cards directly under the anomaly banner: 1.72M deaths, 112.5 µg/m³ Loni, 3.5 years life-expectancy loss, 64% NCAP dust spend, 8× NAAQS-vs-WHO gap, 8.6% mortality rise per +10 µg/m³.
+
+### Updated — Blog post and feature table
+
+- Launch blog post `2026-05-08-learning-games.md` rewritten to "Six Learning Games" with full sections on Jodi Match and Air Tambola; reading time updated 5 → 6 min.
+- README feature row 22 reworded for six games; blog sidebar / index titles updated.
+
 ## [v26.5.1] - 2026-05-08
 
 ### Added — Snakes & Ladders game; INR values; clearer game explainer
