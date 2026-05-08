@@ -1382,6 +1382,13 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
+/* Stronger focus ring on dark backgrounds (game tiles, accent buttons)
+   so the green outline never gets lost against deep-green or near-black. */
+.btn-primary:focus-visible,
+[data-theme="dark"] :focus-visible {
+    outline: 3px solid #FFD86B;
+    outline-offset: 3px;
+}
 
 /* ── Alerts ─────────────────────────────── */
 .alert {
@@ -2449,7 +2456,7 @@ body {
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link" data-i18n="skip_to_main">Skip to main content</a>
 
     <!-- ═══ ROLE SELECTOR OVERLAY ═══ -->
     <div class="role-overlay" id="roleOverlay" style="display:none;">
@@ -2487,59 +2494,59 @@ body {
                 <div class="role-card" onclick="selectRole('parent')">
                     <span class="role-card-icon"><span class="si si-home"></span></span>
                     <div class="role-card-title" data-i18n="role_parent">Parent / Family</div>
-                    <div class="role-card-desc">Is it safe for my child today?</div>
+                    <div class="role-card-desc" data-i18n="role_parent_desc">Is it safe for my child today?</div>
                 </div>
                 <div class="role-card" onclick="selectRole('student')">
                     <span class="role-card-icon"><span class="si si-book"></span></span>
                     <div class="role-card-title" data-i18n="role_student">Student</div>
-                    <div class="role-card-desc">Learn, explore data, do projects</div>
+                    <div class="role-card-desc" data-i18n="role_student_desc">Learn, explore data, do projects</div>
                 </div>
                 <div class="role-card" onclick="selectRole('researcher')">
                     <span class="role-card-icon"><span class="si si-insights"></span></span>
                     <div class="role-card-title" data-i18n="role_researcher">Researcher</div>
-                    <div class="role-card-desc">Access datasets & analysis</div>
+                    <div class="role-card-desc" data-i18n="role_researcher_desc">Access datasets & analysis</div>
                 </div>
                 <div class="role-card" onclick="selectRole('policymaker')">
                     <span class="role-card-icon"><span class="si si-building"></span></span>
                     <div class="role-card-title" data-i18n="role_policymaker">Policymaker</div>
-                    <div class="role-card-desc">Track NCAP, budgets, outcomes</div>
+                    <div class="role-card-desc" data-i18n="role_policy_desc">Track NCAP, budgets, outcomes</div>
                 </div>
                 <div class="role-card" onclick="selectRole('journalist')">
                     <span class="role-card-icon"><span class="si si-article"></span></span>
                     <div class="role-card-title" data-i18n="role_journalist">Journalist</div>
-                    <div class="role-card-desc">Get story leads & data briefs</div>
+                    <div class="role-card-desc" data-i18n="role_journalist_desc">Get story leads & data briefs</div>
                 </div>
                 <div class="role-card" onclick="selectRole('activist')">
                     <span class="role-card-icon"><span class="si si-flag"></span></span>
                     <div class="role-card-title" data-i18n="role_activist">Citizen / Activist</div>
-                    <div class="role-card-desc">Take action, file RTIs, advocate</div>
+                    <div class="role-card-desc" data-i18n="role_activist_desc">Take action, file RTIs, advocate</div>
                 </div>
                 <div class="role-card" onclick="selectRole('doctor')">
                     <span class="role-card-icon"><span class="si si-hospital"></span></span>
                     <div class="role-card-title" data-i18n="role_doctor">Doctor / Health Worker</div>
-                    <div class="role-card-desc">Patient advisories & health data</div>
+                    <div class="role-card-desc" data-i18n="role_doctor_desc">Patient advisories & health data</div>
                 </div>
                 <div class="role-card" onclick="selectRole('teacher')">
                     <span class="role-card-icon"><span class="si si-library"></span></span>
                     <div class="role-card-title" data-i18n="role_teacher">Teacher</div>
-                    <div class="role-card-desc">School safety & teaching resources</div>
+                    <div class="role-card-desc" data-i18n="role_teacher_desc">School safety & teaching resources</div>
                 </div>
                 <div class="role-card" onclick="selectRole('ngo')">
                     <span class="role-card-icon"><span class="si si-globe"></span></span>
                     <div class="role-card-title" data-i18n="role_ngo">NGO / CSO</div>
-                    <div class="role-card-desc">Advocacy data & accountability tools</div>
+                    <div class="role-card-desc" data-i18n="role_ngo_desc">Advocacy data & accountability tools</div>
                 </div>
                 <div class="role-card" onclick="selectRole('business')">
                     <span class="role-card-icon"><span class="si si-briefcase"></span></span>
                     <div class="role-card-title" data-i18n="role_business">Business Owner</div>
-                    <div class="role-card-desc">Workforce health & economic impact</div>
+                    <div class="role-card-desc" data-i18n="role_business_desc">Workforce health & economic impact</div>
                 </div>
             </div>
             <button class="role-skip" onclick="selectRole('skip')" data-i18n="role_skip">Skip — show me everything</button>
         </div>
     </div>
 
-    <div class="demo-badge" id="demoBadge">DEMO MODE</div>
+    <div class="demo-badge" id="demoBadge" data-i18n="demo_mode">DEMO MODE</div>
     <!-- TICKER -->
     <div class="ticker">
         <div class="ticker-track" id="tickerTrack">
@@ -2630,7 +2637,7 @@ body {
                     <button class="icon-btn" onclick="toggleRoleSwitcher()" id="roleSwitcherBtn" title="Switch your role" aria-label="Change role">
                         <span id="roleSwitcherIcon"><span class="si si-user" style="width:18px;height:18px;"></span></span>
                     </button>
-                    <div class="role-hint" id="roleHint">Change your role anytime here</div>
+                    <div class="role-hint" id="roleHint" data-i18n="role_hint">Change your role anytime here</div>
                 </div>
             </div>
         </div>
@@ -2643,7 +2650,7 @@ body {
         <div class="glossary-box">
             <div class="glossary-search">
                 <span class="si si-search" style="width:16px;height:16px;color:var(--text-3);"></span>
-                <input type="text" id="glossarySearchInput" placeholder="Search terms... (e.g. PM2.5, NCAP, GRAP)" oninput="filterGlossary(this.value)" autocomplete="off">
+                <input type="text" id="glossarySearchInput" placeholder="Search terms... (e.g. PM2.5, NCAP, GRAP)" oninput="filterGlossary(this.value)" autocomplete="off" aria-label="Search glossary terms">
                 <kbd>ESC</kbd>
             </div>
             <div class="glossary-results" id="glossaryResults"></div>
@@ -2664,72 +2671,72 @@ body {
         </div>
         <div class="mobile-nav-body">
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">Data &amp; Analysis</div>
-                <button class="mobile-nav-item active" data-panel="dashboard">Dashboard</button>
-                <button class="mobile-nav-item" data-panel="health">Health Impact</button>
-                <button class="mobile-nav-item" data-panel="economic">Economic Cost</button>
-                <button class="mobile-nav-item" data-panel="children">Children's Health</button>
-                <button class="mobile-nav-item" data-panel="indoor">Indoor Air</button>
-                <button class="mobile-nav-item" data-panel="trends">Trends</button>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_data">Data &amp; Analysis</div>
+                <button class="mobile-nav-item active" data-panel="dashboard" data-i18n="nav_dashboard">Dashboard</button>
+                <button class="mobile-nav-item" data-panel="health" data-i18n="nav_health">Health Impact</button>
+                <button class="mobile-nav-item" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
+                <button class="mobile-nav-item" data-panel="children" data-i18n="nav_children">Children's Health</button>
+                <button class="mobile-nav-item" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
+                <button class="mobile-nav-item" data-panel="trends" data-i18n="nav_trends">Trends</button>
             </div>
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">Monitoring</div>
-                <button class="mobile-nav-item" data-panel="compare">City Comparison</button>
-                <button class="mobile-nav-item" data-panel="rankings">City Rankings</button>
-                <button class="mobile-nav-item" data-panel="map">Live Map</button>
-                <button class="mobile-nav-item" data-panel="hyperlocal">Hyperlocal</button>
-                <button class="mobile-nav-item" data-panel="forecast">AQI Forecast</button>
-                <button class="mobile-nav-item" data-panel="correlations">Correlations</button>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_monitoring">Monitoring</div>
+                <button class="mobile-nav-item" data-panel="compare" data-i18n="nav_compare">City Comparison</button>
+                <button class="mobile-nav-item" data-panel="rankings" data-i18n="nav_rankings">City Rankings</button>
+                <button class="mobile-nav-item" data-panel="map" data-i18n="nav_map">Live Map</button>
+                <button class="mobile-nav-item" data-panel="hyperlocal" data-i18n="nav_hyperlocal">Hyperlocal</button>
+                <button class="mobile-nav-item" data-panel="forecast" data-i18n="nav_forecast">AQI Forecast</button>
+                <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Correlations</button>
             </div>
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">Accountability</div>
-                <button class="mobile-nav-item" data-panel="policy">Policy Effectiveness</button>
-                <button class="mobile-nav-item" data-panel="budget">Budget Tracker</button>
-                <button class="mobile-nav-item" data-panel="accountability">Political</button>
-                <button class="mobile-nav-item" data-panel="corporate">Industrial Sources</button>
-                <button class="mobile-nav-item" data-panel="mission-tracker">Mission Tracker</button>
-                <button class="mobile-nav-item" data-panel="scorecards">Scorecards</button>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_accountability">Accountability</div>
+                <button class="mobile-nav-item" data-panel="policy" data-i18n="nav_policy">Policy Effectiveness</button>
+                <button class="mobile-nav-item" data-panel="budget" data-i18n="nav_budget">Budget Tracker</button>
+                <button class="mobile-nav-item" data-panel="accountability" data-i18n="nav_accountability">Political</button>
+                <button class="mobile-nav-item" data-panel="corporate" data-i18n="nav_corporate">Industrial Sources</button>
+                <button class="mobile-nav-item" data-panel="mission-tracker" data-i18n="nav_mission">Mission Tracker</button>
+                <button class="mobile-nav-item" data-panel="scorecards" data-i18n="nav_scorecards">Scorecards</button>
                 <button class="mobile-nav-item" data-panel="accountability-brief">Accountability Brief (AI)</button>
-                <button class="mobile-nav-item" data-panel="progress">Clean Air Wins</button>
+                <button class="mobile-nav-item" data-panel="progress" data-i18n="nav_progress">Clean Air Wins</button>
             </div>
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">Action &amp; Community</div>
-                <button class="mobile-nav-item" data-panel="actions">Take Action</button>
-                <button class="mobile-nav-item" data-panel="citizen-action">Citizen Plan</button>
-                <button class="mobile-nav-item" data-panel="legal">Legal Framework</button>
-                <button class="mobile-nav-item" data-panel="voices">Citizen Voices</button>
-                <button class="mobile-nav-item" data-panel="workshops">Workshops</button>
-                <button class="mobile-nav-item" data-panel="games">Learning Games</button>
-                <button class="mobile-nav-item" data-panel="social-feed">Social Media Feed</button>
-                <button class="mobile-nav-item" data-panel="live-news">Live News</button>
-                <button class="mobile-nav-item" data-panel="migration">Migration &amp; Displacement</button>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_action">Action &amp; Community</div>
+                <button class="mobile-nav-item" data-panel="actions" data-i18n="nav_actions">Take Action</button>
+                <button class="mobile-nav-item" data-panel="citizen-action" data-i18n="nav_citizen_action">Citizen Plan</button>
+                <button class="mobile-nav-item" data-panel="legal" data-i18n="nav_legal">Legal Framework</button>
+                <button class="mobile-nav-item" data-panel="voices" data-i18n="nav_voices">Citizen Voices</button>
+                <button class="mobile-nav-item" data-panel="workshops" data-i18n="nav_workshops">Workshops</button>
+                <button class="mobile-nav-item" data-panel="games" data-i18n="nav_games">Learning Games</button>
+                <button class="mobile-nav-item" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
+                <button class="mobile-nav-item" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
+                <button class="mobile-nav-item" data-panel="migration" data-i18n="nav_migration">Migration &amp; Displacement</button>
             </div>
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">Tools</div>
-                <button class="mobile-nav-item" data-panel="ask-janvayu">Ask JanVayu (AI)</button>
-                <button class="mobile-nav-item" data-panel="go-outside">Should I Go Outside?</button>
-                <button class="mobile-nav-item" data-panel="aqi-alerts">AQI Alerts</button>
-                <button class="mobile-nav-item" data-panel="school-closure">School Closures</button>
-                <button class="mobile-nav-item" data-panel="exposure-report">Exposure Report</button>
-                <button class="mobile-nav-item" data-panel="purifier-calc">Purifier Calculator</button>
-                <button class="mobile-nav-item" data-panel="migration-calc">Migration Calculator</button>
-                <button class="mobile-nav-item" data-panel="rti-assistant">RTI Assistant</button>
-                <button class="mobile-nav-item" data-panel="pollution-calendar">Pollution Calendar</button>
-                <button class="mobile-nav-item" data-panel="data-archive">Data Archive</button>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_tools">Tools</div>
+                <button class="mobile-nav-item" data-panel="ask-janvayu" data-i18n="nav_ask_janvayu">Ask JanVayu (AI)</button>
+                <button class="mobile-nav-item" data-panel="go-outside" data-i18n="nav_go_outside">Should I Go Outside?</button>
+                <button class="mobile-nav-item" data-panel="aqi-alerts" data-i18n="nav_aqi_alerts">AQI Alerts</button>
+                <button class="mobile-nav-item" data-panel="school-closure" data-i18n="nav_school_closure">School Closures</button>
+                <button class="mobile-nav-item" data-panel="exposure-report" data-i18n="nav_exposure_report">Exposure Report</button>
+                <button class="mobile-nav-item" data-panel="purifier-calc" data-i18n="nav_purifier_calc">Purifier Calculator</button>
+                <button class="mobile-nav-item" data-panel="migration-calc" data-i18n="nav_migration_calc">Migration Calculator</button>
+                <button class="mobile-nav-item" data-panel="rti-assistant" data-i18n="nav_rti_assistant">RTI Assistant</button>
+                <button class="mobile-nav-item" data-panel="pollution-calendar" data-i18n="nav_pollution_calendar">Pollution Calendar</button>
+                <button class="mobile-nav-item" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
             </div>
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">Resources</div>
-                <button class="mobile-nav-item" data-panel="tools">Tools</button>
-                <button class="mobile-nav-item" data-panel="glossary">Glossary</button>
-                <button class="mobile-nav-item" data-panel="resources">Research Library</button>
-                <button class="mobile-nav-item" data-panel="downloads">Downloads</button>
-                <button class="mobile-nav-item" data-panel="about">About</button>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_resources">Resources</div>
+                <button class="mobile-nav-item" data-panel="tools" data-i18n="nav_tools">Tools</button>
+                <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
+                <button class="mobile-nav-item" data-panel="resources" data-i18n="nav_resources">Research Library</button>
+                <button class="mobile-nav-item" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
+                <button class="mobile-nav-item" data-panel="about" data-i18n="nav_about">About</button>
             </div>
             <div class="mobile-nav-group">
-                <div class="mobile-nav-group-label">External</div>
-                <a class="mobile-nav-item" href="/ask/" style="text-decoration:none; color:inherit; display:block;">Ask JanVayu (AI)</a>
-                <a class="mobile-nav-item" href="/blog/" style="text-decoration:none; color:inherit; display:block;">Blog</a>
-                <a class="mobile-nav-item" href="/docs/" style="text-decoration:none; color:inherit; display:block;">Documentation</a>
+                <div class="mobile-nav-group-label" data-i18n="navgroup_external">External</div>
+                <a class="mobile-nav-item" href="/ask/" style="text-decoration:none; color:inherit; display:block;" data-i18n="nav_ask_janvayu">Ask JanVayu (AI)</a>
+                <a class="mobile-nav-item" href="/blog/" style="text-decoration:none; color:inherit; display:block;" data-i18n="nav_blog">Blog</a>
+                <a class="mobile-nav-item" href="/docs/" style="text-decoration:none; color:inherit; display:block;" data-i18n="nav_documentation">Documentation</a>
                 <a class="mobile-nav-item" href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank" style="text-decoration:none; color:inherit; display:block;">Zotero Research Library</a>
                 <a class="mobile-nav-item" href="https://github.com/JanVayu/JanVayu/wiki" target="_blank" style="text-decoration:none; color:inherit; display:block;">Wiki</a>
                 <a class="mobile-nav-item" href="https://github.com/JanVayu/JanVayu/discussions" target="_blank" style="text-decoration:none; color:inherit; display:block;">Discussions</a>
@@ -2746,68 +2753,68 @@ body {
             <div class="nav-item">
                 <button class="nav-link" data-panel="health" data-i18n="nav_data">Data &amp; Health <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-link" data-panel="health">Health Impact</button>
-                    <button class="nav-dropdown-link" data-panel="economic">Economic Cost</button>
-                    <button class="nav-dropdown-link" data-panel="children">Children's Health</button>
-                    <button class="nav-dropdown-link" data-panel="indoor">Indoor Air</button>
-                    <button class="nav-dropdown-link" data-panel="trends">Historical Trends</button>
+                    <button class="nav-dropdown-link" data-panel="health" data-i18n="nav_health">Health Impact</button>
+                    <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
+                    <button class="nav-dropdown-link" data-panel="children" data-i18n="nav_children">Children's Health</button>
+                    <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
+                    <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
                 </div>
             </div>
             <div class="nav-item">
                 <button class="nav-link" data-panel="compare" data-i18n="nav_monitor">Monitoring <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-link" data-panel="compare">City Comparison</button>
-                    <button class="nav-dropdown-link" data-panel="rankings">City Rankings</button>
-                    <button class="nav-dropdown-link" data-panel="hyperlocal">Hyperlocal</button>
-                    <button class="nav-dropdown-link" data-panel="map">Live Map</button>
-                    <button class="nav-dropdown-link" data-panel="forecast">AQI Forecast</button>
-                    <button class="nav-dropdown-link" data-panel="social-feed">Social Media Feed</button>
-                    <button class="nav-dropdown-link" data-panel="live-news">Live News</button>
+                    <button class="nav-dropdown-link" data-panel="compare" data-i18n="nav_compare">City Comparison</button>
+                    <button class="nav-dropdown-link" data-panel="rankings" data-i18n="nav_rankings">City Rankings</button>
+                    <button class="nav-dropdown-link" data-panel="hyperlocal" data-i18n="nav_hyperlocal">Hyperlocal</button>
+                    <button class="nav-dropdown-link" data-panel="map" data-i18n="nav_map">Live Map</button>
+                    <button class="nav-dropdown-link" data-panel="forecast" data-i18n="nav_forecast">AQI Forecast</button>
+                    <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
+                    <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
                 </div>
             </div>
             <div class="nav-item">
                 <button class="nav-link" data-panel="policy" data-i18n="nav_account">Accountability <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-link" data-panel="policy">Policy Effectiveness</button>
-                    <button class="nav-dropdown-link" data-panel="budget">Budget Tracker</button>
-                    <button class="nav-dropdown-link" data-panel="accountability">Political</button>
-                    <button class="nav-dropdown-link" data-panel="corporate">Industrial Sources</button>
-                    <button class="nav-dropdown-link" data-panel="mission-tracker">Mission Tracker</button>
-                    <button class="nav-dropdown-link" data-panel="scorecards">Scorecards</button>
-                    <button class="nav-dropdown-link" data-panel="accountability-brief">Accountability Brief (AI)</button>
-                    <button class="nav-dropdown-link" data-panel="progress">Clean Air Wins</button>
+                    <button class="nav-dropdown-link" data-panel="policy" data-i18n="nav_policy">Policy Effectiveness</button>
+                    <button class="nav-dropdown-link" data-panel="budget" data-i18n="nav_budget">Budget Tracker</button>
+                    <button class="nav-dropdown-link" data-panel="accountability" data-i18n="nav_accountability">Political</button>
+                    <button class="nav-dropdown-link" data-panel="corporate" data-i18n="nav_corporate">Industrial Sources</button>
+                    <button class="nav-dropdown-link" data-panel="mission-tracker" data-i18n="nav_mission">Mission Tracker</button>
+                    <button class="nav-dropdown-link" data-panel="scorecards" data-i18n="nav_scorecards">Scorecards</button>
+                    <button class="nav-dropdown-link" data-panel="accountability-brief" data-i18n="nav_accountability_brief">Accountability Brief (AI)</button>
+                    <button class="nav-dropdown-link" data-panel="progress" data-i18n="nav_progress">Clean Air Wins</button>
                 </div>
             </div>
             <div class="nav-item">
                 <button class="nav-link" data-panel="actions" data-i18n="nav_action">Action <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-link" data-panel="actions">Take Action</button>
-                    <button class="nav-dropdown-link" data-panel="citizen-action">Citizen Plan</button>
-                    <button class="nav-dropdown-link" data-panel="legal">Legal Framework</button>
-                    <button class="nav-dropdown-link" data-panel="voices">Citizen Voices</button>
-                    <button class="nav-dropdown-link" data-panel="workshops">Workshops</button>
-                    <button class="nav-dropdown-link" data-panel="games">Learning Games</button>
-                    <button class="nav-dropdown-link" data-panel="migration">Migration</button>
+                    <button class="nav-dropdown-link" data-panel="actions" data-i18n="nav_actions">Take Action</button>
+                    <button class="nav-dropdown-link" data-panel="citizen-action" data-i18n="nav_citizen_action">Citizen Plan</button>
+                    <button class="nav-dropdown-link" data-panel="legal" data-i18n="nav_legal">Legal Framework</button>
+                    <button class="nav-dropdown-link" data-panel="voices" data-i18n="nav_voices">Citizen Voices</button>
+                    <button class="nav-dropdown-link" data-panel="workshops" data-i18n="nav_workshops">Workshops</button>
+                    <button class="nav-dropdown-link" data-panel="games" data-i18n="nav_games">Learning Games</button>
+                    <button class="nav-dropdown-link" data-panel="migration" data-i18n="nav_migration_short">Migration</button>
                 </div>
             </div>
             <div class="nav-item">
                 <button class="nav-link" data-panel="resources" data-i18n="nav_resources">Resources <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-link" data-panel="tools">Tools</button>
-                    <button class="nav-dropdown-link" data-panel="ask-janvayu">Ask JanVayu (AI)</button>
-                    <button class="nav-dropdown-link" data-panel="go-outside">Should I Go Outside?</button>
-                    <button class="nav-dropdown-link" data-panel="school-closure">School Closures</button>
-                    <button class="nav-dropdown-link" data-panel="exposure-report">Exposure Report</button>
-                    <button class="nav-dropdown-link" data-panel="purifier-calc">Purifier Calculator</button>
-                    <button class="nav-dropdown-link" data-panel="migration-calc">Migration Calculator</button>
-                    <button class="nav-dropdown-link" data-panel="rti-assistant">RTI Assistant</button>
-                    <button class="nav-dropdown-link" data-panel="pollution-calendar">Pollution Calendar</button>
-                    <button class="nav-dropdown-link" data-panel="aqi-alerts">AQI Alerts</button>
-                    <button class="nav-dropdown-link" data-panel="data-archive">Data Archive</button>
-                    <button class="nav-dropdown-link" data-panel="correlations">Correlations</button>
-                    <button class="nav-dropdown-link" data-panel="glossary">Glossary</button>
-                    <button class="nav-dropdown-link" data-panel="resources">Research Library</button>
-                    <button class="nav-dropdown-link" data-panel="downloads">Downloads</button>
+                    <button class="nav-dropdown-link" data-panel="tools" data-i18n="nav_tools">Tools</button>
+                    <button class="nav-dropdown-link" data-panel="ask-janvayu" data-i18n="nav_ask_janvayu">Ask JanVayu (AI)</button>
+                    <button class="nav-dropdown-link" data-panel="go-outside" data-i18n="nav_go_outside">Should I Go Outside?</button>
+                    <button class="nav-dropdown-link" data-panel="school-closure" data-i18n="nav_school_closure">School Closures</button>
+                    <button class="nav-dropdown-link" data-panel="exposure-report" data-i18n="nav_exposure_report">Exposure Report</button>
+                    <button class="nav-dropdown-link" data-panel="purifier-calc" data-i18n="nav_purifier_calc">Purifier Calculator</button>
+                    <button class="nav-dropdown-link" data-panel="migration-calc" data-i18n="nav_migration_calc">Migration Calculator</button>
+                    <button class="nav-dropdown-link" data-panel="rti-assistant" data-i18n="nav_rti_assistant">RTI Assistant</button>
+                    <button class="nav-dropdown-link" data-panel="pollution-calendar" data-i18n="nav_pollution_calendar">Pollution Calendar</button>
+                    <button class="nav-dropdown-link" data-panel="aqi-alerts" data-i18n="nav_aqi_alerts">AQI Alerts</button>
+                    <button class="nav-dropdown-link" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
+                    <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Correlations</button>
+                    <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
+                    <button class="nav-dropdown-link" data-panel="resources" data-i18n="nav_resources">Research Library</button>
+                    <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                     <button class="nav-dropdown-link" data-panel="about">About &amp; Changelog</button>
                 </div>
             </div>
@@ -2920,7 +2927,7 @@ body {
                             <div class="hero-stat-note">Right now</div>
                         </div>
                         <div class="live-bar">
-                            <div id="live-status"><span class="pulse"></span> Connecting to live data...</div>
+                            <div id="live-status"><span class="pulse"></span> <span data-i18n="connecting_live">Connecting to live data...</span></div>
                         </div>
                     </div>
                 </div>
@@ -3004,43 +3011,43 @@ body {
                 <div class="grid-4 mt-3">
                     <div class="quick-link" onclick="showPanel('health')">
                         <div class="quick-link-icon health"><span class="si si-hospital" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Health Calculator</h4><p>Your personal risk</p></div>
+                        <div><h4 data-i18n="ql_health_title">Health Calculator</h4><p data-i18n="ql_health_desc">Your personal risk</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('economic')">
                         <div class="quick-link-icon economic"><span class="si si-rupee" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Economic Impact</h4><p>Productivity loss</p></div>
+                        <div><h4 data-i18n="ql_economic_title">Economic Impact</h4><p data-i18n="ql_economic_desc">Productivity loss</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('accountability')">
                         <div class="quick-link-icon policy"><span class="si si-shield" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Accountability</h4><p>Mission Tracker & RTI</p></div>
+                        <div><h4 data-i18n="ql_accountability_t">Accountability</h4><p data-i18n="ql_accountability_d">Mission Tracker & RTI</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('voices')">
                         <div class="quick-link-icon tools"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Citizen Voices</h4><p>Public response</p></div>
+                        <div><h4 data-i18n="ql_voices_t">Citizen Voices</h4><p data-i18n="ql_voices_d">Public response</p></div>
                     </div>
                 </div>
                 <div class="grid-4 mt-2">
                     <div class="quick-link" onclick="showPanel('go-outside')">
                         <div class="quick-link-icon" style="background: #EFF6FF; color: #3B82F6;"><span class="si si-flare" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Go Outside?</h4><p>Real-time advice</p></div>
+                        <div><h4 data-i18n="ql_outside_t">Go Outside?</h4><p data-i18n="ql_outside_d">Real-time advice</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('social-feed')">
                         <div class="quick-link-icon" style="background: #FFF7ED; color: #F97316;"><span class="si si-article" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Social Feed</h4><p>Live from Reddit &amp; X</p></div>
+                        <div><h4 data-i18n="ql_social_t">Social Feed</h4><p data-i18n="ql_social_d">Live from Reddit &amp; X</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('aqi-alerts')">
                         <div class="quick-link-icon" style="background: #FEF2F2; color: #EF4444;"><span class="si si-notifications" style="width:20px;height:20px;"></span></div>
-                        <div><h4>AQI Alerts</h4><p>Get notified</p></div>
+                        <div><h4 data-i18n="ql_alerts_t">AQI Alerts</h4><p data-i18n="ql_alerts_d">Get notified</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('school-closure')">
                         <div class="quick-link-icon" style="background: #F5F3FF; color: #7C3AED;"><span class="si si-library" style="width:20px;height:20px;"></span></div>
-                        <div><h4>School Status</h4><p>GRAP predictor</p></div>
+                        <div><h4 data-i18n="ql_school_t">School Status</h4><p data-i18n="ql_school_d">GRAP predictor</p></div>
                     </div>
                 </div>
                 <div class="grid-4 mt-2">
                     <div class="quick-link" onclick="showPanel('games')">
                         <div class="quick-link-icon" style="background: #ECFDF5; color: #1B6B4A;"><span class="si si-library" style="width:20px;height:20px;"></span></div>
-                        <div><h4>Learning Games</h4><p>Six games: Jeopardy, quiz &amp; more</p></div>
+                        <div><h4 data-i18n="ql_games_t">Learning Games</h4><p data-i18n="ql_games_d">Six games: Jeopardy, quiz &amp; more</p></div>
                     </div>
                 </div>
             </div>
@@ -3060,49 +3067,49 @@ body {
         <!-- DID YOU KNOW — surprising, citable, India-specific facts -->
         <div class="container" style="padding-top: 18px;">
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-                <h3 style="font-family: var(--serif); font-size: 1.15rem; margin: 0; color: var(--ink);">Did You Know</h3>
+                <h3 style="font-family: var(--serif); font-size: 1.15rem; margin: 0; color: var(--ink);" data-i18n="dyk_heading">Did You Know</h3>
                 <span style="font-size: 0.7rem; color: var(--text-3);">Six India-specific facts updated for May 2026 &middot; sourced</span>
             </div>
             <div class="grid-3" style="gap: 12px;">
                 <div class="card" style="border-left: 3px solid #1B6B4A;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: #1B6B4A; line-height: 1;">1.72M</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;">Indian PM2.5 deaths a year</div>
+                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_deaths_title">Indian PM2.5 deaths a year</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">Lancet Countdown 2025. Up from 1.5M last cycle &mdash; ~70% of the global PM2.5 mortality burden is India.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #B91C1C;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: #B91C1C; line-height: 1;">112.5 µg/m&sup3;</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;">Loni, India &mdash; the world&rsquo;s most polluted city</div>
+                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_loni_title">Loni, India &mdash; the world&rsquo;s most polluted city</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">IQAir 2025. Loni in Ghaziabad district, UP, dethroned Byrnihat. The annual average is 22&times; the WHO guideline.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #2563EB;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: #2563EB; line-height: 1;">3.5 yrs</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;">Life expectancy lost on average</div>
+                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_le_title">Life expectancy lost on average</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">AQLI 2025 (UChicago EPIC). Indo-Gangetic Plain residents lose 7-8 years &mdash; the highest in any region globally.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #F59E0B;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: #F59E0B; line-height: 1;">64%</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;">of NCAP funds spent on dust suppression</div>
+                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_ncap_title">of NCAP funds spent on dust suppression</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">CSE 2026 NCAP review. Mostly mechanical sweeping &amp; water-spraying &mdash; not the combustion sources that drive most PM2.5.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #7C3AED;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: #7C3AED; line-height: 1;">8&times;</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;">India&rsquo;s NAAQS vs WHO guideline</div>
+                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_naaqs_title">India&rsquo;s NAAQS vs WHO guideline</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">India NAAQS = 40 µg/m&sup3; annual PM2.5; WHO 2021 guideline = 5. Indian standard last revised in 2009.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #16A34A;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: #16A34A; line-height: 1;">8.6%</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;">Mortality rise per +10 µg/m&sup3; PM2.5</div>
+                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_doseresp_title">Mortality rise per +10 µg/m&sup3; PM2.5</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">Krishna et al. 2024, <em>Lancet Planetary Health</em>. India&rsquo;s first causal dose-response from a domestic 7-district cohort.</div>
                     </div>
                 </div>
@@ -3198,7 +3205,7 @@ body {
                     <p class="footer-credits">Part of <strong style="color:rgba(255,255,255,0.7)">AirQuality for Janhit</strong> by <a href="#" style="color:rgba(255,255,255,0.5)">MMSF Fellows, AIPC</a>. Data from WAQI, CPCB, WHO, CREA, and <a href="https://urbanemissions.info" target="_blank" style="color:rgba(255,255,255,0.5)">UrbanEmissions.info</a>.</p>
                 </div>
                 <div>
-                    <div class="footer-title">Navigate</div>
+                    <div class="footer-title" data-i18n="footer_navigate">Navigate</div>
                     <a class="footer-link" href="#" onclick="showPanel('dashboard');return false;">Dashboard</a>
                     <a class="footer-link" href="#" onclick="showPanel('health');return false;">Health Impact</a>
                     <a class="footer-link" href="#" onclick="showPanel('economic');return false;">Economic Cost</a>
@@ -3206,15 +3213,15 @@ body {
                     <a class="footer-link" href="#" onclick="showPanel('accountability');return false;">Accountability</a>
                 </div>
                 <div>
-                    <div class="footer-title">Tools & Action</div>
+                    <div class="footer-title" data-i18n="footer_tools_action">Tools & Action</div>
                     <a class="footer-link" href="#" onclick="showPanel('tools');return false;">RTI Templates</a>
                     <a class="footer-link" href="#" onclick="showPanel('citizen-action');return false;">Citizen Action</a>
                     <a class="footer-link" href="#" onclick="showPanel('resources');return false;">Resources</a>
                     <a class="footer-link" href="#" onclick="showPanel('downloads');return false;">Downloads</a>
                     <a class="footer-link" href="#" onclick="showPanel('games');return false;">Learning Games</a>
-                    <a class="footer-link" href="/ask/">Ask JanVayu (AI)</a>
-                    <a class="footer-link" href="/blog/">Blog</a>
-                    <a class="footer-link" href="/docs/">Docs</a>
+                    <a class="footer-link" href="/ask/" data-i18n="footer_ask">Ask JanVayu (AI)</a>
+                    <a class="footer-link" href="/blog/" data-i18n="footer_blog">Blog</a>
+                    <a class="footer-link" href="/docs/" data-i18n="footer_docs">Docs</a>
                     <a class="footer-link" href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank">Research Library ↗</a>
                     <a class="footer-link" href="https://github.com/JanVayu/JanVayu" target="_blank">GitHub ↗</a>
                 </div>
@@ -11462,7 +11469,7 @@ Signature: _______________</div>
 
             <!-- SEARCH + CATEGORY FILTERS -->
             <div class="search-box" style="margin-bottom: 1rem;">
-                <input type="text" class="search-input" id="resource-search" placeholder="Search resources (e.g., 'lancet', 'NCAP', 'source apportionment')..." oninput="filterResources()">
+                <input type="text" class="search-input" id="resource-search" placeholder="Search resources (e.g., 'lancet', 'NCAP', 'source apportionment')..." oninput="filterResources()" aria-label="Search the research library">
                 <button class="search-btn" onclick="filterResources()">Search</button>
             </div>
             
@@ -13116,7 +13123,7 @@ Signature: _______________</div>
                 <div class="card-body">
                     <p style="font-size: 0.8rem; color: var(--text-2); margin-bottom: 0.75rem;">Get a daily AQI summary for your cities. No account needed.</p>
                     <label class="form-label">Email Address</label>
-                    <input type="email" class="form-select mb-2" id="subscribe-email" placeholder="you@example.com" style="font-size: 0.85rem;">
+                    <input type="email" class="form-select mb-2" id="subscribe-email" placeholder="you@example.com" style="font-size: 0.85rem;" aria-label="Email address for daily AQI digest subscription">
 
                     <label class="form-label">Cities to monitor</label>
                     <div id="subscribe-cities" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
@@ -13156,7 +13163,7 @@ Signature: _______________</div>
             <div class="card">
                 <div class="card-header"><span class="card-title">Unsubscribe from Email</span></div>
                 <div class="card-body">
-                    <input type="email" class="form-select mb-2" id="unsubscribe-email" placeholder="you@example.com" style="font-size: 0.85rem;">
+                    <input type="email" class="form-select mb-2" id="unsubscribe-email" placeholder="you@example.com" style="font-size: 0.85rem;" aria-label="Email address to unsubscribe from daily AQI digest">
                     <button class="btn mt-1" onclick="unsubscribeEmail()" style="width: 100%; font-size: 0.8rem;">Unsubscribe</button>
                     <div id="unsubscribe-status" style="margin-top: 0.5rem; font-size: 0.8rem;"></div>
                 </div>
@@ -14204,7 +14211,7 @@ Signature: _______________</div>
                     </div>
                 </div>
             </div>
-            <div id="jodi-board" style="display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px;"></div>
+            <div id="jodi-board" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;"></div>
             <div id="jodi-result" style="margin-top: 12px; padding: 12px; background: var(--bg-section); border-radius: 8px; border-left: 3px solid var(--accent); font-size: 0.88rem; line-height: 1.55; color: var(--ink); display: none;"></div>
         </div>
 
