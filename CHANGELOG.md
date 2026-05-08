@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.8] - 2026-05-08
+
+### Fixed — UX-protection batch (the four real-user-pain items)
+
+A focused pass on the items the v26.5.x audit flagged as actually degrading user experience, as opposed to engineering hygiene.
+
+#### 1. Embed widget hardening (`/embed/aqi/`, `/embed/rankings/`)
+
+The two iframable widgets are live on third-party sites; if the new `waqi-proxy` Netlify function ever fails (CDN blip, proxy bug, rate-limit), every embed in the wild used to silently render an unstyled error string. Both widgets now:
+
+- Validate `?city=` server-side on the proxy and client-side via `SAFE_CITY = city.replace(/[^a-zA-Z0-9\-_]/g, '').slice(0, 60)` (defence in depth).
+- Wrap the fetch in an 8-second `AbortController` timeout.
+- Retry once on first failure (1.5 s delay) before falling back.
+- On final failure render a polished JanVayu-branded "Live reading temporarily unavailable" card with a clickable link to the dashboard, instead of a bare error line.
+
+#### 2. Lazy-load fallback for blocked CDNs
+
+If a viewer is on a corporate network that blocks `cdn.jsdelivr.net` or `unpkg.com`, the lazy-loaded Chart.js / Leaflet would silently fail and the panel would render nothing. Now `initAllCharts`, `initMap`, `generateExposureReport`, `renderYoYChart`, `drawHourlyChart`, `renderPollutionCalendar`, `updateCorrelation` each `try/catch` the ensure-helper and call a new `renderLibraryFallback()` that injects an explanation: *"&lt;Library&gt; could not be loaded. This is usually a corporate-network or regional CDN block. Try a different network, or return to the dashboard. All other panels still work normally."* with a link back to the dashboard.
+
+#### 4. Honest "Latest Social Media Coverage" card
+
+Previously the Voices panel showed a card titled "Live from Social Media" that often displayed only curated content (a polite fiction since Agent-Reach is currently inactive — see issue #45). Two changes:
+
+- Card title renamed to **"Latest Social Media Coverage"** — accurate even when curated content is the source.
+- If the loader returns zero posts (live or curated), the entire `voices-live-card` is hidden via `display: none` so users go straight to the curated highlights below; the dead-loading-spinner state is gone.
+
+#### 5. `og-image.png` refreshed for May 2026
+
+Every share of `janvayu.in` on WhatsApp, X, LinkedIn, Slack, Facebook used to preview a stale image with v25 numbers (Byrnihat as most-polluted city, 1.5M deaths). Now:
+
+- New `og-image.svg` source-of-truth at the repo root with current numbers: **Loni 112.5 µg/m³** (most polluted, IQAir 2025), **3.5 yrs life-expectancy lost** (AQLI 2025), **~70% of global PM2.5 deaths** (Lancet Countdown 2025), **8× NAAQS-vs-WHO gap**. Yellow accent on the headline `1.72 million` figure with the `JanVayu / जनवायु` brand mark and a leaf motif.
+- `og-image.png` regenerated from the SVG via `cairosvg` (1200×630, 131 KB).
+- New `scripts/build-og-image.py` so future updates are one command: edit SVG → run script → commit both → bump cache-buster.
+- `og:image` and `twitter:image` URLs gain `?v=20260508` query string so platforms re-fetch instead of serving the cached stale PNG.
+- `og:image:alt` and `twitter:image:alt` rewritten to reflect the new content.
+
 ## [v26.5.7] - 2026-05-08
 
 ### Improved — i18n coverage push, axe-friendly form labels, mobile polish
