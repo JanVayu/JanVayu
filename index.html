@@ -2616,6 +2616,7 @@ body {
                 <button class="mobile-nav-item" data-panel="legal">Legal Framework</button>
                 <button class="mobile-nav-item" data-panel="voices">Citizen Voices</button>
                 <button class="mobile-nav-item" data-panel="workshops">Workshops</button>
+                <button class="mobile-nav-item" data-panel="games">Learning Games</button>
                 <button class="mobile-nav-item" data-panel="social-feed">Social Media Feed</button>
                 <button class="mobile-nav-item" data-panel="live-news">Live News</button>
                 <button class="mobile-nav-item" data-panel="migration">Migration &amp; Displacement</button>
@@ -2702,6 +2703,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="legal">Legal Framework</button>
                     <button class="nav-dropdown-link" data-panel="voices">Citizen Voices</button>
                     <button class="nav-dropdown-link" data-panel="workshops">Workshops</button>
+                    <button class="nav-dropdown-link" data-panel="games">Learning Games</button>
                     <button class="nav-dropdown-link" data-panel="migration">Migration</button>
                 </div>
             </div>
@@ -2738,7 +2740,7 @@ body {
                         <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>2 million people</em> every year</h1>
                         <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
                         <div class="hero-live-alert">
-                            <strong>April 2026:</strong> IQAir 2025 Report confirms Loni, India as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline). Only 14% of global cities meet safe air standards. India&rsquo;s average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit. New Lancet research establishes 1.5 million additional deaths per year from PM2.5 exposure. NCAP&rsquo;s 2026 deadline has arrived with most cities far from targets.
+                            <strong>May 2026:</strong> IQAir 2025 confirms Loni, India as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline). Only 14% of global cities meet safe air standards. India&rsquo;s average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit. The Lancet Countdown 2025 attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5 &mdash; ~70% of the global burden. NCAP&rsquo;s 2026 deadline has arrived with most cities far from targets. New: <a href="#games" onclick="showPanel('games'); return false;" style="color: inherit; text-decoration: underline;">Learning Games</a> panel ships this week.
                         </div>
                     </div>
                     <div class="hero-data">
@@ -2952,6 +2954,12 @@ body {
                         <div><h4>School Status</h4><p>GRAP predictor</p></div>
                     </div>
                 </div>
+                <div class="grid-4 mt-2">
+                    <div class="quick-link" onclick="showPanel('games')">
+                        <div class="quick-link-icon" style="background: #ECFDF5; color: #1B6B4A;"><span class="si si-library" style="width:20px;height:20px;"></span></div>
+                        <div><h4>Learning Games</h4><p>Jeopardy, quiz, matcher</p></div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -3068,6 +3076,7 @@ body {
                     <a class="footer-link" href="#" onclick="showPanel('citizen-action');return false;">Citizen Action</a>
                     <a class="footer-link" href="#" onclick="showPanel('resources');return false;">Resources</a>
                     <a class="footer-link" href="#" onclick="showPanel('downloads');return false;">Downloads</a>
+                    <a class="footer-link" href="#" onclick="showPanel('games');return false;">Learning Games</a>
                     <a class="footer-link" href="/ask/">Ask JanVayu (AI)</a>
                     <a class="footer-link" href="/blog/">Blog</a>
                     <a class="footer-link" href="/docs/">Docs</a>
@@ -10987,7 +10996,7 @@ Signature: _______________</div>
                     <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
                         <div style="border-left: 3px solid #7C3AED; padding: 4px 0 4px 12px; margin-bottom: 14px;">
                             <strong style="display: block; font-size: 0.95rem;">Air Quality Jeopardy and more</strong>
-                            <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Dr. Sarath Guttikunda of <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.Info</a> runs interactive sessions on air quality science, sources, and policy &mdash; including a Jeopardy-format game tested with school and adult cohorts. Choose Class 9+ students, college, or adult learners. <strong>Pricing and scheduling are set directly by Dr. Guttikunda</strong>; we relay your request and he'll respond with terms.</p>
+                            <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Dr. Sarath Guttikunda of <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.Info</a> runs interactive sessions on air quality science, sources, and policy &mdash; including a Jeopardy-format game tested with school and adult cohorts. Choose Class 9+ students, college, or adult learners. <strong>Pricing and scheduling are set directly by Dr. Guttikunda</strong>; we relay your request and he'll respond with terms. <em>If you'd like a self-paced taste of the format first, try the <a href="#games" onclick="showPanel('games'); return false;">Learning Games</a> panel.</em></p>
                         </div>
 
                         <div id="workshop-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.88rem; margin-bottom: 12px;">
@@ -13768,6 +13777,114 @@ Signature: _______________</div>
     </div>
 </template>
 
+<!-- ═══ LEARN: GAMES PANEL ═══ -->
+<template id="tmpl-games">
+    <div class="container">
+
+        <div class="section-intro" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+            <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-library" style="color: var(--accent); margin-right: 0.4rem;"></span>Learning Games</h2>
+            <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Play three quick games to learn about India's air pollution: a Jeopardy-style trivia board, a 10-question quiz, and a source-matcher card game.">Three short games &mdash; an India-context Jeopardy board, a ten-question PM quiz, and a source-matcher &mdash; built with original questions for self-study, classrooms, and family screen time. Inspired by, but not copied from, the long-running <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.info</a> classroom Jeopardy that Dr. Sarath Guttikunda runs live; for the live, facilitator-led version see <a href="#workshops" onclick="showPanel('workshops'); return false;">Workshops</a>.</p>
+        </div>
+
+        <!-- Game switcher -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <button class="btn btn-primary game-tab-btn" data-game="jeopardy" onclick="switchGame('jeopardy')">Air Quality Jeopardy</button>
+            <button class="btn game-tab-btn" data-game="quiz" onclick="switchGame('quiz')" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">PM Quick-Quiz (10 Q)</button>
+            <button class="btn game-tab-btn" data-game="matcher" onclick="switchGame('matcher')" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Source Matcher</button>
+        </div>
+
+        <!-- ── 1. JEOPARDY ── -->
+        <div id="game-jeopardy" class="game-pane">
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">Air Quality Jeopardy &mdash; India edition</span><span style="font-size: 0.7rem; color: var(--text-3);">5 categories &middot; 25 clues</span></div>
+                <div class="card-body" style="font-size: 0.85rem; line-height: 1.55; color: var(--text-2);">
+                    Click any tile. Read the clue. Think of the answer in the form of a question (Jeopardy style). Reveal, then mark whether you got it. Score is local-only.
+                    <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
+                        <div style="font-size: 0.95rem; font-weight: 700;">Score: <span id="jeo-score" style="color: var(--accent);">0</span></div>
+                        <div style="font-size: 0.78rem; color: var(--text-3);">Solved: <span id="jeo-solved">0</span>/25</div>
+                        <button class="btn btn-sm" onclick="resetJeopardy()" style="font-size: 0.72rem;">Reset board</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="jeo-board-wrap" style="overflow-x: auto;">
+                <div id="jeo-board" style="display: grid; grid-template-columns: repeat(5, minmax(140px, 1fr)); gap: 6px; min-width: 720px;"></div>
+            </div>
+
+            <!-- Clue overlay -->
+            <div id="jeo-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 9000; align-items: center; justify-content: center; padding: 16px;" onclick="if(event.target===this)closeJeopardyClue()">
+                <div style="background: var(--bg-card); color: var(--ink); border-radius: 14px; max-width: 600px; width: 100%; padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); border: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+                        <div id="jeo-clue-meta" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3);"></div>
+                        <button onclick="closeJeopardyClue()" style="background: transparent; border: none; color: var(--text-3); font-size: 1.4rem; cursor: pointer;">&times;</button>
+                    </div>
+                    <div id="jeo-clue-text" style="font-family: var(--serif); font-size: 1.4rem; line-height: 1.45; color: var(--ink); margin-bottom: 18px;"></div>
+                    <div id="jeo-answer-block" style="display: none;">
+                        <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-3); letter-spacing: 0.06em; margin-bottom: 4px;">In the form of a question:</div>
+                        <div id="jeo-answer-text" style="font-size: 1.05rem; color: var(--green-700, #166534); font-weight: 600; margin-bottom: 8px;"></div>
+                        <div id="jeo-explainer" style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55; padding: 10px; background: var(--bg-section); border-radius: 8px; border-left: 3px solid var(--accent);"></div>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap;">
+                        <button id="jeo-reveal-btn" class="btn btn-primary" onclick="revealJeopardyAnswer()">Reveal answer</button>
+                        <button id="jeo-got-btn" class="btn" onclick="scoreJeopardy(true)" style="background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; display: none;">I got it</button>
+                        <button id="jeo-missed-btn" class="btn" onclick="scoreJeopardy(false)" style="background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; display: none;">Missed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 2. QUIZ ── -->
+        <div id="game-quiz" class="game-pane" style="display: none;">
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">PM Quick-Quiz</span><span style="font-size: 0.7rem; color: var(--text-3);">10 questions &middot; ~3 minutes</span></div>
+                <div class="card-body" style="font-size: 0.85rem; line-height: 1.55; color: var(--text-2);">
+                    Ten multiple-choice questions on Indian air quality, drawn from CPCB, IQAir 2025, the Lancet Countdown 2025, and Supreme Court orders. Pick an answer; we'll mark it and explain.
+                </div>
+            </div>
+            <div id="quiz-progress" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.8rem; color: var(--text-2);">
+                <span>Question <span id="quiz-q-num">1</span> of <span id="quiz-q-total">10</span></span>
+                <span>Score: <span id="quiz-score" style="font-weight: 700; color: var(--accent);">0</span></span>
+            </div>
+            <div id="quiz-card" class="card">
+                <div class="card-body" id="quiz-card-body">
+                    <p style="color: var(--text-3); font-size: 0.85rem;">Click "Start quiz" to begin.</p>
+                    <button class="btn btn-primary mt-2" onclick="startQuiz()">Start quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 3. SOURCE MATCHER ── -->
+        <div id="game-matcher" class="game-pane" style="display: none;">
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">Source Matcher</span><span style="font-size: 0.7rem; color: var(--text-3);">Drag-free &middot; tap to match</span></div>
+                <div class="card-body" style="font-size: 0.85rem; line-height: 1.55; color: var(--text-2);">
+                    Tap a source on the left, then tap the description on the right that matches. Built around the dominant Indian PM2.5 sources documented in the CEEW 2024 source apportionment review.
+                </div>
+            </div>
+            <div class="grid-2" style="gap: 14px;">
+                <div>
+                    <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin-bottom: 8px;">Source</div>
+                    <div id="match-sources" style="display: flex; flex-direction: column; gap: 6px;"></div>
+                </div>
+                <div>
+                    <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin-bottom: 8px;">Description</div>
+                    <div id="match-descs" style="display: flex; flex-direction: column; gap: 6px;"></div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; margin-top: 14px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="checkMatcher()">Check matches</button>
+                <button class="btn" onclick="resetMatcher()" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Shuffle &amp; reset</button>
+                <span id="match-result" style="font-size: 0.85rem; color: var(--text-2);"></span>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-3"><div data-simple="These games are for fun and learning. Want a real classroom session? Book a workshop with the JanVayu team or Dr. Sarath Guttikunda.">
+            <strong>Want this in a classroom?</strong> These are self-paced. For a live, facilitated session &mdash; including Dr. Sarath Guttikunda's longer-form Jeopardy run with audience teams &mdash; head to <a href="#workshops" onclick="showPanel('workshops'); return false;">Workshops</a>.
+        </div></div>
+
+    </div>
+</template>
+
 <script>
 // ═══════════════════════════════════════════════════════════
 // ROLE-BASED EXPERIENCE — Configuration & Logic
@@ -14479,6 +14596,375 @@ window.handleWorkshopSubmit = async function (event, kind) {
     }
     return false;
 };
+
+// ═══════════════════════════════════════════════════════════
+// LEARNING GAMES — Jeopardy, Quiz, Source Matcher
+// Original questions written for JanVayu. Inspired by, not
+// copied from, the UrbanEmissions.info classroom Jeopardy.
+// ═══════════════════════════════════════════════════════════
+
+// ── 1. JEOPARDY DATA ──
+// 5 categories x 5 difficulty rows. Values 100/200/300/400/500.
+// Clue is the "answer" shown to the player; `q` is the response
+// in Jeopardy form ("What is...?"). `why` is the educational note.
+const JEO_DATA = {
+    'SOURCES': [
+        { v: 100, clue: "This source contributes the largest share of household PM2.5 in rural India, despite the LPG push under PMUY.", q: "What is solid biomass cooking (chulha / firewood / dung)?", why: "CEEW 2024: residential biomass cooking is still the single largest PM2.5 source category nationally. PMUY raised LPG access but refill rates lag." },
+        { v: 200, clue: "Punjab and Haryana farmers burn this between October and November because the kharif harvest leaves a 2-3 week window before the rabi sowing.", q: "What is paddy stubble (rice straw)?", why: "The MSW-Hortic field-fire window peaks late Oct to mid-Nov, contributing 25-40% of Delhi PM2.5 on bad days per SAFAR." },
+        { v: 300, clue: "Around half of India's coal-fired thermal capacity still misses this 2015 emission norm originally given a 2017 deadline.", q: "What are FGD (flue-gas desulphurisation) units?", why: "MoEFCC has extended the FGD deadline four times. As of 2025, only ~22 GW of ~210 GW had FGDs installed; SO2 from coal plants oxidises into secondary sulphate PM2.5." },
+        { v: 400, clue: "This often-overlooked transport source &mdash; tyres, brakes and resuspended road dust &mdash; can match or exceed tailpipe PM2.5 in dense Indian cities.", q: "What are non-exhaust emissions?", why: "TERI 2023 source apportionment for Delhi found road dust + non-exhaust contributing 30-40% of urban PM2.5, often more than tailpipes. EVs do not solve this." },
+        { v: 500, clue: "This invisible gas, emitted heavily by power plants and industry, reacts in the atmosphere with ammonia from agriculture to form a major chunk of winter PM2.5.", q: "What is sulphur dioxide (SO2) &mdash; forming secondary sulphate aerosol?", why: "Secondary inorganic aerosol (sulphate + nitrate + ammonium) accounts for 25-40% of wintertime PM2.5 in the Indo-Gangetic Plain. Cutting it requires SO2/NOx controls plus ammonia controls in agriculture." }
+    ],
+    'HEALTH': [
+        { v: 100, clue: "At Delhi's typical winter PM2.5 of around 100 ug/m3, this is roughly how many of these per day a non-smoker is passively inhaling.", q: "What is about 4-5 cigarettes a day?", why: "Berkeley Earth coefficient: 1 cigarette ~ 22 ug/m3 of PM2.5 over 24 hours. JanVayu's dashboard shows this live." },
+        { v: 200, clue: "The 2025 Lancet Countdown attributes this many Indian deaths per year to ambient PM2.5 exposure.", q: "What is approximately 1.7 million?", why: "Lancet Countdown 2025: India accounts for ~70% of the global PM2.5 mortality burden. The number was 1.5M in 2024 and rose with re-attribution." },
+        { v: 300, clue: "AQLI 2025 says the average Indian loses this many years of life expectancy due to particulate pollution exceeding WHO guidelines.", q: "What is 3.5 years?", why: "Indo-Gangetic Plain residents lose 7-8 years; nationally the average is 3.5 years. AQLI uses the Pope-Ebenstein-Greenstone causal exposure-response function." },
+        { v: 400, clue: "These ultrafine particles, smaller than the diameter of a single PM2.5, can cross the blood-brain barrier and have been linked to dementia and stroke.", q: "What is PM0.1 / ultrafine particulate matter?", why: "UFPs (<100 nm) are not regulated by NAAQS or even WHO yet, but Karolinska 2024 and Harvard MAPLE-MIA studies show neuro and cardiovascular pathways." },
+        { v: 500, clue: "A landmark 2024 Indian cohort study found that for every 10 ug/m3 increase in long-term PM2.5, all-cause mortality rose by approximately this much &mdash; the first causal estimate from Indian data.", q: "What is about 8.6%?", why: "Lancet Planetary Health 2024 (Krishna et al.) tracked 7 districts over a decade and produced India's first dose-response. Earlier estimates relied on extrapolated Western cohorts." }
+    ],
+    'POLICY': [
+        { v: 100, clue: "Launched in 2019, this national programme set a 20-30% PM reduction target by 2024, then revised it to 40% by 2025-26.", q: "What is the National Clean Air Programme (NCAP)?", why: "NCAP covers 131 non-attainment cities. As of 2025, only ~37 cities had achieved the original 20% target, prompting a finish-line slip and a target revision." },
+        { v: 200, clue: "Delhi's stage-based emergency action plan, with bans on construction, BS-III/IV vehicles and diesel gensets at successive stages.", q: "What is GRAP (Graded Response Action Plan)?", why: "GRAP has 4 stages keyed to AQI 201, 301, 401, 451. CAQM operationalises it. Critics note the reactive, not preventive, nature." },
+        { v: 300, clue: "Created by an act of Parliament in 2021, this body replaced EPCA and has statutory power across the entire NCR.", q: "What is the Commission for Air Quality Management (CAQM)?", why: "CAQM in NCR and Adjoining Areas Act 2021. Its directions on stubble, vehicles, industry are legally binding; non-compliance can attract penalties under section 14." },
+        { v: 400, clue: "In M. C. Mehta v. Union of India (1985, ongoing), the Supreme Court ordered Delhi to switch this fleet to a cleaner fuel by 2002.", q: "What is the public bus and auto-rickshaw fleet (to CNG)?", why: "The CNG conversion remains India's most cited air-pollution litigation success. PM2.5 fell measurably until growth in private vehicles overwhelmed gains." },
+        { v: 500, clue: "India's PM2.5 annual standard is 40 ug/m3 &mdash; this many times the current WHO guideline.", q: "What is 8 times (the WHO guideline of 5 ug/m3)?", why: "WHO tightened from 10 to 5 ug/m3 in 2021. India's CPCB has not revised NAAQS since 2009. Civil society petitions to the NGT seek alignment." }
+    ],
+    'CITIES': [
+        { v: 100, clue: "Per IQAir 2025, this Indian city was named the most polluted capital in the world.", q: "What is New Delhi?", why: "IQAir World Air Quality Report 2025 (covering calendar 2024): New Delhi annual PM2.5 of 91.6 ug/m3. Eighth straight year as the worst capital." },
+        { v: 200, clue: "This Uttar Pradesh town topped the IQAir 2025 list of the world's most polluted cities, edging out Byrnihat.", q: "What is Loni?", why: "Loni (Ghaziabad district) recorded 112.5 ug/m3 in 2024. It dethroned Byrnihat, Meghalaya, which had held the title in IQAir 2024." },
+        { v: 300, clue: "The 2024 IIT-Delhi DSS source apportionment found this state contributed nearly half of Delhi's PM2.5 on bad days, even before stubble burns started.", q: "What are the surrounding NCR districts of Haryana and UP?", why: "Trans-boundary transport from a 100-300 km radius accounts for 35-50% of Delhi PM2.5 even outside the stubble window. Local sources alone cannot fix the basin." },
+        { v: 400, clue: "Bengaluru's PM2.5 is far below Delhi's, but this fast-growing pollutant from its IT-fuelled construction boom has been rising sharply.", q: "What is PM10 (and dust from construction)?", why: "Bengaluru BBMP construction permits doubled 2018-2024. CPCB data shows PM10 violations of NAAQS on >40% of days, even as PM2.5 stays moderate." },
+        { v: 500, clue: "Located on the Brahmaputra plain, this northeastern hub has held the title of most-polluted city in the world in 2 of the last 3 IQAir reports despite its sparse industry.", q: "What is Byrnihat (on the Assam-Meghalaya border)?", why: "Byrnihat's spike is driven by ferroalloy smelters in a narrow valley with poor dispersion. Demonstrates that local-scale industrial sources can outpace mega-city averages." }
+    ],
+    'ACTION': [
+        { v: 100, clue: "This three-letter Indian legal instrument, costing Rs 10 to file, lets any citizen demand pollution data from a public authority within 30 days.", q: "What is RTI (Right to Information)?", why: "RTI Act 2005. JanVayu's RTI Assistant generates ready-to-file templates targeting NCAP fund utilisation, GRAP compliance, and CAAQMS station downtime." },
+        { v: 200, clue: "The minimum mask grade that filters out at least 95% of PM2.5 when fitted properly.", q: "What is N95 (or FFP2/KN95 equivalents)?", why: "Cloth and surgical masks block 20-40% of PM2.5. N95/FFP2 fit-tested filtration is >95%. P100/N99 reach 99%+ but are over-spec for most outdoor exposure." },
+        { v: 300, clue: "For a 200 sq ft Indian living room, you need a HEPA purifier with at least roughly this CADR to hit AQI 50 indoors when outdoor AQI is 250.", q: "What is around 200-250 m3/h CADR?", why: "Rule of thumb: CADR (m3/h) >= room area (sq ft) x ceiling (ft) / 2. JanVayu's Purifier Calculator does the live computation per city AQI." },
+        { v: 400, clue: "Filed by a citizen in 2017, this Supreme Court PIL led to the firecracker ban during Diwali in NCR.", q: "What is Arjun Gopal v. Union of India?", why: "WP(C) 728/2015 / IA 277477/2017. The court banned barium-based crackers and capped Diwali sales hours; enforcement remains patchy." },
+        { v: 500, clue: "This is the single most under-used citizen action documented by JanVayu &mdash; only ~3% of Indian municipal NCAP plans had a citizen comment on file as of 2025.", q: "What is filing public comments on draft City Action Plans?", why: "NCAP requires public consultation but most cities upload PDFs after the consultation window closes. JanVayu's Citizen Action panel provides templates and the SPCB email list." }
+    ]
+};
+const JEO_CATS = Object.keys(JEO_DATA);
+let jeoState = { score: 0, solved: 0, current: null, used: {} };
+
+function renderJeopardyBoard() {
+    const board = document.getElementById('jeo-board');
+    if (!board) return;
+    board.innerHTML = '';
+    // Header row
+    JEO_CATS.forEach(cat => {
+        const h = document.createElement('div');
+        h.style.cssText = 'background: var(--accent); color: white; font-weight: 700; padding: 14px 8px; text-align: center; border-radius: 8px; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase;';
+        h.textContent = cat;
+        board.appendChild(h);
+    });
+    // 5 rows of 5 cells
+    for (let row = 0; row < 5; row++) {
+        JEO_CATS.forEach(cat => {
+            const cell = JEO_DATA[cat][row];
+            const key = cat + '-' + cell.v;
+            const used = jeoState.used[key];
+            const div = document.createElement('div');
+            div.style.cssText = 'background: ' + (used ? 'var(--bg-section)' : 'linear-gradient(135deg, #1B6B4A, #134E33)') + '; color: ' + (used ? 'var(--text-3)' : '#FFD86B') + '; font-family: var(--serif); font-weight: 700; font-size: 1.5rem; padding: 22px 8px; text-align: center; border-radius: 8px; cursor: ' + (used ? 'default' : 'pointer') + '; user-select: none; min-height: 60px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s;';
+            div.textContent = used ? '✓' : ('$' + cell.v);
+            if (!used) {
+                div.onmouseover = () => { div.style.transform = 'scale(1.04)'; };
+                div.onmouseout = () => { div.style.transform = 'scale(1)'; };
+                div.onclick = () => openJeopardyClue(cat, row);
+            }
+            board.appendChild(div);
+        });
+    }
+    document.getElementById('jeo-score').textContent = jeoState.score;
+    document.getElementById('jeo-solved').textContent = jeoState.solved;
+}
+function openJeopardyClue(cat, row) {
+    const cell = JEO_DATA[cat][row];
+    jeoState.current = { cat, row, key: cat + '-' + cell.v };
+    document.getElementById('jeo-clue-meta').textContent = cat + '  —  $' + cell.v;
+    document.getElementById('jeo-clue-text').textContent = cell.clue;
+    document.getElementById('jeo-answer-text').textContent = cell.q;
+    document.getElementById('jeo-explainer').textContent = cell.why;
+    document.getElementById('jeo-answer-block').style.display = 'none';
+    document.getElementById('jeo-reveal-btn').style.display = '';
+    document.getElementById('jeo-got-btn').style.display = 'none';
+    document.getElementById('jeo-missed-btn').style.display = 'none';
+    document.getElementById('jeo-overlay').style.display = 'flex';
+}
+function closeJeopardyClue() {
+    document.getElementById('jeo-overlay').style.display = 'none';
+}
+function revealJeopardyAnswer() {
+    document.getElementById('jeo-answer-block').style.display = 'block';
+    document.getElementById('jeo-reveal-btn').style.display = 'none';
+    document.getElementById('jeo-got-btn').style.display = '';
+    document.getElementById('jeo-missed-btn').style.display = '';
+}
+function scoreJeopardy(got) {
+    if (!jeoState.current) return;
+    const { cat, row, key } = jeoState.current;
+    const cell = JEO_DATA[cat][row];
+    if (got) jeoState.score += cell.v;
+    jeoState.used[key] = true;
+    jeoState.solved += 1;
+    closeJeopardyClue();
+    renderJeopardyBoard();
+    if (jeoState.solved === 25) {
+        setTimeout(() => alert('Board cleared! Final score: $' + jeoState.score + ' out of $7,500. Try the PM Quick-Quiz next.'), 220);
+    }
+}
+function resetJeopardy() {
+    jeoState = { score: 0, solved: 0, current: null, used: {} };
+    renderJeopardyBoard();
+}
+
+// ── 2. QUIZ DATA ──
+const QUIZ_QUESTIONS = [
+    {
+        q: "What does PM2.5 actually mean?",
+        opts: [
+            "Particulate matter that weighs 2.5 grams",
+            "Particulate matter with diameter under 2.5 micrometres",
+            "The 2.5 most polluting industries",
+            "A pollution index between 0 and 2.5"
+        ],
+        ans: 1,
+        why: "PM2.5 = particulate matter ≤ 2.5 µm diameter, about 1/30th the width of a human hair. Small enough to enter alveoli and bloodstream."
+    },
+    {
+        q: "WHO's 2021 annual PM2.5 guideline (the safe limit) is:",
+        opts: ["40 ug/m3", "25 ug/m3", "10 ug/m3", "5 ug/m3"],
+        ans: 3,
+        why: "WHO halved its guideline from 10 to 5 ug/m3 in 2021. India's NAAQS (40) is 8x more permissive."
+    },
+    {
+        q: "Per Lancet Countdown 2025, India's annual PM2.5 mortality is approximately:",
+        opts: ["170,000", "700,000", "1.7 million", "5 million"],
+        ans: 2,
+        why: "About 1.72 million Indian deaths per year are attributable to ambient PM2.5 — ~70% of the global total."
+    },
+    {
+        q: "Which season typically has the worst PM2.5 in north India?",
+        opts: ["Summer (April-June)", "Monsoon (July-September)", "Winter (Nov-Feb)", "Pre-monsoon (March)"],
+        ans: 2,
+        why: "Winter inversions trap pollutants near the surface. Monsoon rains scavenge particles and bring the cleanest air."
+    },
+    {
+        q: "GRAP Stage IV in Delhi-NCR is triggered at AQI:",
+        opts: ["201", "301", "401", "451"],
+        ans: 3,
+        why: "Stage IV = 'Severe-plus', AQI > 450. Triggers a construction halt, BS-III/IV diesel ban, and possible school closure."
+    },
+    {
+        q: "What does NCAP stand for?",
+        opts: [
+            "National Carbon Action Programme",
+            "National Clean Air Programme",
+            "Northern Cities Air Project",
+            "National Coal Adjustment Plan"
+        ],
+        ans: 1,
+        why: "NCAP launched 2019. Targets 131 non-attainment cities with funds tied to PM reduction milestones."
+    },
+    {
+        q: "Berkeley Earth's cigarette equivalence is roughly 1 cigarette per:",
+        opts: ["1 ug/m3 PM2.5/day", "5 ug/m3 PM2.5/day", "22 ug/m3 PM2.5/day", "100 ug/m3 PM2.5/day"],
+        ans: 2,
+        why: "1 cigarette ~ 22 ug/m3 PM2.5 over 24 hours. At Delhi's 100 ug/m3 winter PM2.5 = ~4.5 cigarettes/day passively."
+    },
+    {
+        q: "Which agency physically operates India's CAAQMS (continuous monitoring) stations?",
+        opts: ["WHO", "MoEFCC directly", "CPCB and State Pollution Control Boards", "IQAir"],
+        ans: 2,
+        why: "CPCB sets standards; State PCBs operate most CAAQMS sites. WAQI/IQAir aggregate from these official feeds."
+    },
+    {
+        q: "Per the IQAir 2025 report, the most polluted city in the world (calendar 2024) was:",
+        opts: ["New Delhi, India", "Lahore, Pakistan", "Loni, India", "Byrnihat, India"],
+        ans: 2,
+        why: "Loni (Ghaziabad, UP): 112.5 ug/m3 annual PM2.5. Byrnihat dropped to #2 from #1 in IQAir 2024."
+    },
+    {
+        q: "Which is NOT a major source of PM2.5 in Indian winter?",
+        opts: [
+            "Stubble burning in Punjab/Haryana",
+            "Coal-fired power plants",
+            "Solar PV manufacturing",
+            "Residential biomass cooking"
+        ],
+        ans: 2,
+        why: "Solar PV manufacturing has localised emissions but is not a top-10 PM2.5 source nationally. The other three are routinely in the top 5."
+    }
+];
+let quizState = { i: 0, score: 0, answered: false };
+function startQuiz() {
+    quizState = { i: 0, score: 0, answered: false };
+    document.getElementById('quiz-q-total').textContent = QUIZ_QUESTIONS.length;
+    renderQuizQuestion();
+}
+function renderQuizQuestion() {
+    const body = document.getElementById('quiz-card-body');
+    if (quizState.i >= QUIZ_QUESTIONS.length) {
+        const pct = Math.round(quizState.score / QUIZ_QUESTIONS.length * 100);
+        let verdict = pct >= 90 ? 'Air-quality nerd. Genuinely.' : pct >= 70 ? 'Solid. You can hold a panel discussion.' : pct >= 50 ? 'Useful baseline. Keep reading the blog.' : 'Worth a workshop.';
+        body.innerHTML = '<h3 style="font-family: var(--serif); margin: 0 0 8px;">Quiz complete</h3>' +
+            '<div style="font-size: 1.4rem; font-weight: 700; color: var(--accent); margin-bottom: 6px;">' + quizState.score + ' / ' + QUIZ_QUESTIONS.length + '  (' + pct + '%)</div>' +
+            '<div style="font-size: 0.9rem; color: var(--text-2); margin-bottom: 14px;">' + verdict + '</div>' +
+            '<button class="btn btn-primary" onclick="startQuiz()">Restart</button>';
+        document.getElementById('quiz-q-num').textContent = QUIZ_QUESTIONS.length;
+        return;
+    }
+    const Q = QUIZ_QUESTIONS[quizState.i];
+    document.getElementById('quiz-q-num').textContent = quizState.i + 1;
+    document.getElementById('quiz-score').textContent = quizState.score;
+    quizState.answered = false;
+    let html = '<div style="font-family: var(--serif); font-size: 1.15rem; line-height: 1.4; margin-bottom: 14px;">' + Q.q + '</div>';
+    html += '<div style="display: flex; flex-direction: column; gap: 8px;">';
+    Q.opts.forEach((opt, i) => {
+        html += '<button class="quiz-opt-btn" onclick="answerQuiz(' + i + ')" data-i="' + i + '" style="text-align: left; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.9rem; cursor: pointer; transition: background 0.1s;">' + String.fromCharCode(65 + i) + '. ' + opt + '</button>';
+    });
+    html += '</div><div id="quiz-feedback" style="margin-top: 14px;"></div>';
+    body.innerHTML = html;
+}
+function answerQuiz(i) {
+    if (quizState.answered) return;
+    quizState.answered = true;
+    const Q = QUIZ_QUESTIONS[quizState.i];
+    const correct = i === Q.ans;
+    if (correct) quizState.score += 1;
+    document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+        const idx = parseInt(btn.getAttribute('data-i'));
+        btn.style.cursor = 'default';
+        if (idx === Q.ans) {
+            btn.style.background = '#DCFCE7'; btn.style.borderColor = '#86EFAC'; btn.style.color = '#166534'; btn.style.fontWeight = '700';
+        } else if (idx === i) {
+            btn.style.background = '#FEE2E2'; btn.style.borderColor = '#FCA5A5'; btn.style.color = '#991B1B';
+        } else {
+            btn.style.opacity = '0.6';
+        }
+    });
+    const fb = document.getElementById('quiz-feedback');
+    fb.innerHTML = '<div style="padding: 12px; border-radius: 8px; background: var(--bg-section); border-left: 3px solid ' + (correct ? '#22C55E' : '#EF4444') + ';">' +
+        '<div style="font-weight: 700; margin-bottom: 6px; color: ' + (correct ? '#166534' : '#991B1B') + ';">' + (correct ? 'Correct.' : 'Not quite.') + '</div>' +
+        '<div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">' + Q.why + '</div>' +
+        '<button class="btn btn-primary mt-2" onclick="nextQuiz()">' + (quizState.i + 1 === QUIZ_QUESTIONS.length ? 'See results' : 'Next question') + '</button></div>';
+    document.getElementById('quiz-score').textContent = quizState.score;
+}
+function nextQuiz() {
+    quizState.i += 1;
+    renderQuizQuestion();
+}
+
+// ── 3. SOURCE MATCHER DATA ──
+const MATCH_PAIRS = [
+    { src: 'Stubble burning', desc: 'Punjab + Haryana paddy residue, peaks Oct-Nov, 2-3 week tight window before rabi sowing.' },
+    { src: 'Residential biomass', desc: 'Cooking on chulhas with firewood / dung; still the largest household PM2.5 source despite PMUY.' },
+    { src: 'Coal thermal power', desc: 'SO2 and NOx that oxidise into secondary sulphate / nitrate aerosol; ~half of capacity still without FGD in 2025.' },
+    { src: 'Road dust + non-exhaust', desc: 'Tyre and brake wear plus resuspended dust; can match tailpipe PM2.5 in dense Indian cities.' },
+    { src: 'Brick kilns', desc: 'Seasonal December-May firing across Indo-Gangetic Plain; converting to zigzag tech cuts PM by ~60%.' },
+    { src: 'Diesel gensets', desc: 'Backup power in commercial buildings and apartments during outages; banned at GRAP stages II-IV.' },
+    { src: 'Open waste burning', desc: 'Municipal solid waste lit at night at landfills and street corners; under-reported in official inventories.' }
+];
+let matchState = { selected: null, matches: {} };
+function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+}
+function renderMatcher() {
+    const sources = MATCH_PAIRS.map((p, i) => ({ id: 's' + i, label: p.src, srcIdx: i }));
+    const descs = shuffle(MATCH_PAIRS.map((p, i) => ({ id: 'd' + i, label: p.desc, srcIdx: i })));
+    const sBox = document.getElementById('match-sources');
+    const dBox = document.getElementById('match-descs');
+    sBox.innerHTML = ''; dBox.innerHTML = '';
+    sources.forEach(s => {
+        const el = document.createElement('button');
+        el.className = 'match-src-btn';
+        el.dataset.id = s.id; el.dataset.srcIdx = s.srcIdx;
+        el.style.cssText = 'text-align: left; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem; cursor: pointer; font-weight: 600;';
+        el.textContent = s.label;
+        el.onclick = () => selectMatchSrc(el);
+        sBox.appendChild(el);
+    });
+    descs.forEach(d => {
+        const el = document.createElement('button');
+        el.className = 'match-desc-btn';
+        el.dataset.id = d.id; el.dataset.srcIdx = d.srcIdx;
+        el.style.cssText = 'text-align: left; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.82rem; cursor: pointer; line-height: 1.45;';
+        el.textContent = d.label;
+        el.onclick = () => selectMatchDesc(el);
+        dBox.appendChild(el);
+    });
+    matchState = { selected: null, matches: {} };
+    document.getElementById('match-result').textContent = '';
+}
+function selectMatchSrc(el) {
+    document.querySelectorAll('.match-src-btn').forEach(b => { b.style.borderColor = 'var(--border)'; b.style.borderWidth = '1px'; });
+    el.style.borderColor = 'var(--accent)'; el.style.borderWidth = '2px';
+    matchState.selected = el.dataset.srcIdx;
+}
+function selectMatchDesc(el) {
+    if (matchState.selected === null) { document.getElementById('match-result').textContent = 'Pick a source on the left first.'; return; }
+    const srcIdx = matchState.selected;
+    matchState.matches[srcIdx] = el.dataset.srcIdx;
+    el.style.borderColor = 'var(--accent)'; el.style.borderWidth = '2px';
+    el.textContent = '→ ' + MATCH_PAIRS[srcIdx].src + ': ' + el.textContent.replace(/^→ [^:]+: /, '');
+    el.disabled = true; el.style.opacity = '0.95';
+    document.querySelectorAll('.match-src-btn').forEach(b => {
+        if (b.dataset.srcIdx === srcIdx) {
+            b.disabled = true; b.style.opacity = '0.6'; b.style.borderColor = 'var(--border)'; b.style.borderWidth = '1px';
+        }
+    });
+    matchState.selected = null;
+    document.getElementById('match-result').textContent = '';
+}
+function checkMatcher() {
+    let correct = 0;
+    Object.keys(matchState.matches).forEach(srcIdx => {
+        if (matchState.matches[srcIdx] === srcIdx) correct += 1;
+    });
+    const total = MATCH_PAIRS.length;
+    const r = document.getElementById('match-result');
+    r.textContent = correct + ' / ' + total + ' correct.' + (correct === total ? '  ✓ Perfect.' : '  Try shuffle to retry.');
+    r.style.color = correct === total ? '#166534' : 'var(--text-2)';
+}
+function resetMatcher() { renderMatcher(); }
+
+// ── Game switcher / panel hookup ──
+function switchGame(name) {
+    document.querySelectorAll('.game-pane').forEach(p => p.style.display = 'none');
+    const target = document.getElementById('game-' + name);
+    if (target) target.style.display = 'block';
+    document.querySelectorAll('.game-tab-btn').forEach(b => {
+        const isActive = b.getAttribute('data-game') === name;
+        if (isActive) {
+            b.classList.add('btn-primary');
+            b.style.cssText = '';
+        } else {
+            b.classList.remove('btn-primary');
+            b.style.cssText = 'background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);';
+        }
+    });
+    if (name === 'jeopardy') renderJeopardyBoard();
+    if (name === 'matcher') renderMatcher();
+    if (name === 'quiz') {
+        // First-load message stays until user clicks Start; do nothing
+    }
+}
+// Auto-init when the games panel mounts
+(function hookGamesPanelInit() {
+    if (window.__janvayuGamesHooked) return;
+    window.__janvayuGamesHooked = true;
+    const origLoad = window.loadPanel;
+    if (typeof origLoad === 'function') {
+        window.loadPanel = function(panelId) {
+            origLoad.apply(this, arguments);
+            if (panelId === 'games') {
+                setTimeout(() => { try { switchGame('jeopardy'); } catch(e) { console.warn(e); } }, 200);
+            }
+        };
+    }
+})();
 </script>
 
 </body>

@@ -47,10 +47,11 @@ This is not a campaign. It is a record.
 | 19 | **Blog** | Updates, data analysis, and reflections on India's air quality crisis at [janvayu.in/blog](https://www.janvayu.in/blog) |
 | 20 | **Zotero Research Library** | Public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
 | 21 | **Ask JanVayu PWA** | Installable standalone AI chat app for air quality Q&A at [janvayu.in/ask](https://www.janvayu.in/ask) — works on Android, iOS, desktop |
+| 22 | **Learning Games** | Three self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games) — India-context Air Quality Jeopardy (5 categories × 5 clues), 10-question PM Quick-Quiz, and a 7-source matcher |
 
 ---
 
-## Key Statistics (April 2026)
+## Key Statistics (May 2026)
 
 | Metric | Value | Source |
 |--------|-------|--------|

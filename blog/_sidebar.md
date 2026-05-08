@@ -2,6 +2,10 @@
 
 - [**JanVayu Blog**](README.md)
 
+- **May 2026**
+  - [Three Learning Games: Jeopardy, Quiz, Source Matcher](posts/2026-05-08-learning-games.md)
+  - [Data Refresh, May 2026: Two Corrections, One New Number](posts/2026-05-06-data-corrections-may.md)
+
 - **April 2026**
   - [What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops](posts/2026-04-26-shipped-this-week.md)
   - [IQAir 2025: India's Air Got Worse](posts/2026-04-12-iqair-2025-india.md)
