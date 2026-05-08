@@ -27,8 +27,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check links
+      # On PR: don't fail the build — just surface the count in the PR check
+      # summary so reviewers see drift. The strict, fail-on-broken pass runs
+      # weekly via .github/workflows/link-audit.yml and reports via issue.
+      - name: Check links (advisory, PR-time)
+        id: lychee
         uses: lycheeverse/lychee-action@v2
         with:
           args: --accept 200,204,301,302,403,429 --exclude-mail --exclude "localhost|127.0.0.1|example.com|twitter.com|x.com|linkedin.com|facebook.com|instagram.com|t.me|wa.me|play.google.com|apps.apple.com" --timeout 30 --max-retries 2 "**/*.html" "**/*.md"
           fail: false
+
+      - name: Surface broken-link count in PR summary
+        if: always()
+        run: |
+          if [ -f lychee/out.md ]; then
+            BROKEN=$(grep -c "✗" lychee/out.md || echo "0")
+            echo "## Broken-link audit" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**${BROKEN}** potentially-broken links found across HTML + Markdown." >> $GITHUB_STEP_SUMMARY
+            if [ "$BROKEN" -gt 0 ]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "<details><summary>See full report</summary>" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              cat lychee/out.md >> $GITHUB_STEP_SUMMARY
+              echo "</details>" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+

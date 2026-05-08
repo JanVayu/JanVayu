@@ -1,0 +1,41 @@
+name: Lighthouse CI
+
+# Runs Lighthouse against the four most-visited URLs and uploads the report
+# as a temporary-public-storage link. Advisory only — assertions in
+# `.lighthouserc.json` are set to `warn`, not `error`. Once the budget
+# is met consistently, flip key assertions to `error` to make this gating.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+        continue-on-error: true
+
+      - name: Surface Lighthouse links in PR summary
+        if: always()
+        run: |
+          echo "## Lighthouse CI" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Reports are uploaded to temporary public storage by lighthouse-ci-action." >> $GITHUB_STEP_SUMMARY
+          echo "Look for the \`Run Lighthouse CI\` step output above for clickable URLs." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Budgets in \`.lighthouserc.json\` are advisory (\`warn\`); once consistently met, flip the key assertions to \`error\`." >> $GITHUB_STEP_SUMMARY
