@@ -102,6 +102,10 @@ jobs:
             echo "| \`$lang\` | $COUNT | $MATCH |" >> $GITHUB_STEP_SUMMARY
           done
 
+      - name: i18n coverage of index.html
+        run: |
+          python3 scripts/check-i18n-coverage.py --github-summary || true
+
   detect-stale-translations:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'

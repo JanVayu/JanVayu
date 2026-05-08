@@ -41,6 +41,7 @@
   - [Netlify Functions](technical/netlify-functions.md)
   - [AI Features](technical/ai-features.md)
   - [Deployment](technical/deployment.md)
+  - [Performance Roadmap](technical/performance-roadmap.md)
 
 - **Data Sources**
   - [Overview](data-sources/overview.md)

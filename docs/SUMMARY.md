@@ -47,6 +47,7 @@
 * [Netlify Functions](technical/netlify-functions.md)
 * [AI Features (Groq / Llama)](technical/ai-features.md)
 * [Deployment](technical/deployment.md)
+* [Performance Roadmap](technical/performance-roadmap.md)
 
 ## Data Sources
 

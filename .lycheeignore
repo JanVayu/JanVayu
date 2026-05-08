@@ -1,0 +1,18 @@
+# Lychee ignore list — known false-positives or transient issues.
+#
+# Format: one URL pattern (regex) per line. See https://lychee.cli.rs/usage/config/
+#
+# Process for adding entries:
+# 1. Run weekly link-audit workflow manually: gh workflow run link-audit.yml
+# 2. Inspect the resulting issue; for each genuine false-positive (paywalls,
+#    rate-limited but live, ephemeral 5xx) add a comment-justified entry below.
+# 3. For genuine dead links, fix the source instead of suppressing here.
+
+# --- Examples (delete these once a real entry replaces them) ---
+# # Paywalled article that lychee can't authenticate
+# # ^https://www\.thehindu\.com/.*$
+#
+# # Frequently rate-limited (429) but always live
+# # ^https://www\.thelancet\.com/.*$
+
+# --- Real entries below ---

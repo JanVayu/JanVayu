@@ -1,0 +1,86 @@
+name: Fetch AQI Social Media Feeds
+
+# Runs the Agent-Reach fetcher every two hours and POSTs results to the
+# `feed-ingest` Netlify function. Gracefully skips with a clear log
+# message if any of the required secrets are missing — set them to
+# activate (see issue #45 for the full list).
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'   # every 2 hours
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-and-ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required secrets are present
+        id: gate
+        env:
+          TWITTER_AUTH_TOKEN: ${{ secrets.TWITTER_AUTH_TOKEN }}
+          TWITTER_CT0: ${{ secrets.TWITTER_CT0 }}
+          FEED_INGEST_KEY: ${{ secrets.FEED_INGEST_KEY }}
+          NETLIFY_SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}
+        run: |
+          MISSING=()
+          [ -z "$TWITTER_AUTH_TOKEN" ] && MISSING+=("TWITTER_AUTH_TOKEN")
+          [ -z "$TWITTER_CT0" ] && MISSING+=("TWITTER_CT0")
+          [ -z "$FEED_INGEST_KEY" ] && MISSING+=("FEED_INGEST_KEY")
+          [ -z "$NETLIFY_SITE_URL" ] && MISSING+=("NETLIFY_SITE_URL")
+          if [ ${#MISSING[@]} -gt 0 ]; then
+            echo "::warning::Agent-Reach skipped — missing secret(s): ${MISSING[*]}. See issue #45 for the activation guide."
+            echo "skip=1" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python
+        if: steps.gate.outputs.skip != '1'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install bird (Twitter scraper) and yt-dlp
+        if: steps.gate.outputs.skip != '1'
+        run: |
+          pip install --upgrade pip
+          pip install yt-dlp
+          # bird is a third-party CLI — install via pipx or fall back to a noop
+          pip install pipx || true
+          pipx install bird-tool || pip install bird-tool || echo "::warning::bird install failed; Twitter feed will be empty"
+
+      - name: Run agent-reach fetcher and POST to feed-ingest
+        if: steps.gate.outputs.skip != '1'
+        env:
+          TWITTER_AUTH_TOKEN: ${{ secrets.TWITTER_AUTH_TOKEN }}
+          TWITTER_CT0: ${{ secrets.TWITTER_CT0 }}
+          FEED_INGEST_KEY: ${{ secrets.FEED_INGEST_KEY }}
+          NETLIFY_SITE_URL: ${{ secrets.NETLIFY_SITE_URL }}
+        run: |
+          set -e
+          python3 scripts/agent-reach-fetch.py > /tmp/agent-reach.json
+          echo "Fetched $(wc -c < /tmp/agent-reach.json) bytes of feed data"
+          curl -sSf \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${FEED_INGEST_KEY}" \
+            --data-binary @/tmp/agent-reach.json \
+            "${NETLIFY_SITE_URL}/.netlify/functions/feed-ingest"
+          echo "Ingest accepted"
+
+      - name: Summarise outcome
+        if: always()
+        run: |
+          if [ "${{ steps.gate.outputs.skip }}" = "1" ]; then
+            echo "## Agent-Reach status" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Skipped — secrets not configured. See [issue #45](https://github.com/JanVayu/JanVayu/issues/45)." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## Agent-Reach status" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "✓ Fetched and ingested at $(date -u +'%Y-%m-%d %H:%M UTC')." >> $GITHUB_STEP_SUMMARY
+          fi

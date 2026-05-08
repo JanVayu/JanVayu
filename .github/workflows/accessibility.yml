@@ -1,0 +1,81 @@
+name: Accessibility Audit (axe)
+
+# Runs axe-core against the static site on every push and PR.
+# Advisory only — surfaces violations in the PR step summary so reviewers
+# see drift without breaking the build. Once the violation count is at zero
+# (or knowingly ignored via .axerc), flip `--exit` to make this gating.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  axe-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install axe-core/cli + http-server
+        run: |
+          npm install -g @axe-core/cli@4.10.1 http-server@14.1.1
+
+      - name: Serve static site on port 8888
+        run: |
+          http-server . -p 8888 --silent &
+          sleep 2
+          curl -sf http://127.0.0.1:8888/ > /dev/null && echo "Server up" || (echo "Server failed to start" && exit 1)
+
+      - name: Run axe against key URLs
+        id: axe
+        continue-on-error: true
+        run: |
+          mkdir -p axe-results
+          set +e
+          # The four most-visited surfaces. Add more as needed.
+          for path in "" "ask/" "blog/" "downloads/"; do
+            url="http://127.0.0.1:8888/${path}"
+            slug=${path:-root}
+            slug=${slug%/}
+            echo "::group::axe ${slug}"
+            axe "$url" \
+              --tags wcag2a,wcag2aa \
+              --save "axe-results/${slug}.json" \
+              --exit || true
+            echo "::endgroup::"
+          done
+
+      - name: Summarise violations in PR step summary
+        if: always()
+        run: |
+          echo "## Accessibility audit (axe-core, WCAG 2.1 AA)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Page | Violations | Top rule(s) |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-----------:|-------------|" >> $GITHUB_STEP_SUMMARY
+          TOTAL=0
+          for f in axe-results/*.json; do
+            [ -f "$f" ] || continue
+            slug=$(basename "$f" .json)
+            count=$(jq '[.[].violations[]] | length' "$f" 2>/dev/null || echo "0")
+            top=$(jq -r '[.[].violations[] | .id] | group_by(.) | map({rule: .[0], n: length}) | sort_by(-.n) | .[0:3] | map("\(.rule) (×\(.n))") | join(", ")' "$f" 2>/dev/null || echo "—")
+            echo "| \`/$slug/\` | $count | $top |" >> $GITHUB_STEP_SUMMARY
+            TOTAL=$((TOTAL + count))
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Total:** $TOTAL violations across audited pages." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Full JSON reports are uploaded as a build artifact below." >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload full axe reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: axe-reports
+          path: axe-results/
+          retention-days: 30
