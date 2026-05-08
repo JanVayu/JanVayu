@@ -33,7 +33,9 @@
   document.body.classList.add('theme-' + theme);
 
   const el = document.getElementById('w');
-  const WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
+  // WAQI is fetched via the JanVayu proxy so the API token stays server-side.
+  // See netlify/functions/waqi-proxy.mjs.
+  const PROXY = '/.netlify/functions/waqi-proxy';
 
   function color(aqi) {
     if (aqi <= 50) return 'var(--good)';
@@ -53,7 +55,7 @@
   }
 
   try {
-    const res = await fetch('https://api.waqi.info/feed/' + encodeURIComponent(city) + '/?token=' + WAQI_TOKEN);
+    const res = await fetch(PROXY + '?city=' + encodeURIComponent(city));
     const json = await res.json();
     if (json.status !== 'ok' || !json.data || json.data.aqi === '-') throw new Error('no data');
     const aqi = parseInt(json.data.aqi);
