@@ -5,12 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.1] - 2026-05-08
+
+### Added — Snakes & Ladders game; INR values; clearer game explainer
+
+- **New game: Clean Air Snakes & Ladders** (4th game on the `/#games` panel) — a 6×6 board, 36 squares, classic serpentine path inspired by *Moksha Patam*, the original Indian Snakes & Ladders. Press **Roll dice** to move 1–6 squares. Five **ladders** represent positive citizen actions (LPG switch from chulha, fit-tested N95, RTI on NCAP funds, public comment on draft City Action Plan, joining RWA pollution committee); five **snakes** represent pollution events or policy slips (Diwali fireworks, missed FGD deadlines, stubble-burn peak, GRAP-IV trigger, NCAP deadline slip). Each special square pops up a one-line learning fact. Goal: reach square 36 — *"India meets the WHO 5 µg/m³ guideline."* Fewer rolls = better.
+- **Jeopardy values converted to INR**: tiles are now **₹1,000 / ₹2,000 / ₹3,000 / ₹4,000 / ₹5,000** (was $100–$500). Top score is **₹75,000**. Numbers are formatted with Indian-style grouping via `toLocaleString('en-IN')`.
+
+### Changed — Clearer Jeopardy explainer; positive framing throughout
+
+- The Jeopardy panel now opens with an explicit "How it works" block: tile shows a *statement* (the answer), player thinks of the *question* it answers, with a worked example (statement: *"This Indian city was named the most polluted capital in the world in IQAir 2025"* → matching question: *"What is New Delhi?"*). The earlier "Jeopardy style" shorthand was replaced with this plain-language walkthrough.
+- The clue-overlay prompt was changed from "In the form of a question:" to "The matching question:" for accessibility.
+- The panel intro now says "Inspired by the long-running classroom Air Quality Jeopardy that Dr. Sarath Guttikunda runs live at UrbanEmissions.info, and by Moksha Patam — the original Indian Snakes & Ladders." The earlier "inspired by, but not copied from" phrasing is gone in favour of positive attribution.
+
 ## [v26.5.0] - 2026-05-08
 
 ### Added — Learning Games panel + two new blog posts
 
-- **New `/#games` panel** (Action → Learning Games) with three self-paced games built from original India-context content:
-  - **Air Quality Jeopardy** — 5 categories (Sources, Health, Policy, Cities, Action) × 5 clues each. Click a tile, read the clue in Jeopardy "answer" form, reveal, mark whether you got it. Each clue ships with a one-paragraph explainer pulling from CEEW 2024, IIT-Delhi DSS apportionment, NCAP records, IQAir 2025, and the Lancet Countdown 2025. Score is local-only. Inspired by, not copied from, the long-running Dr. Sarath Guttikunda / UrbanEmissions.info classroom Jeopardy.
+- **New `/#games` panel** (Action → Learning Games) with self-paced games built from original India-context content. Initial release: Air Quality Jeopardy, PM Quick-Quiz, Source Matcher (Snakes & Ladders added in v26.5.1).
+  - **Air Quality Jeopardy** — 5 categories (Sources, Health, Policy, Cities, Action) × 5 clues each. Each clue ships with a one-paragraph explainer pulling from CEEW 2024, IIT-Delhi DSS apportionment, NCAP records, IQAir 2025, and the Lancet Countdown 2025. Score saved locally only. Inspired by Dr. Sarath Guttikunda's classroom Jeopardy at UrbanEmissions.info.
   - **PM Quick-Quiz** — 10 multiple-choice questions, ~3 minutes, with per-question factual notes explaining the right answer and why distractors are wrong. Topics: PM2.5 basics, WHO 5 µg/m³ guideline, Lancet 1.72M figure, GRAP stage thresholds, Berkeley Earth cigarette equivalence, IQAir 2025 city rankings, NAAQS gap.
   - **Source Matcher** — tap-to-match seven dominant Indian PM2.5 source categories to one-line descriptions (stubble, residential biomass, coal thermal, road dust + non-exhaust, brick kilns, diesel gensets, open waste burning).
 - **Dashboard quick-link** "Learning Games" added to the dashboard quick-links grid; cross-link from Workshops panel; footer "Tools & Action" link added; mobile nav and "Action" dropdown both expose the new panel.
