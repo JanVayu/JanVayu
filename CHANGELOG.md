@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.3] - 2026-05-08
+
+### Changed — May 2026 freshness sweep across the whole repo
+
+A systematic audit-and-fix pass across the main app, English docs, multilingual docs, blog/ask/embed/pollutant pages, build scripts, and Netlify config. No new user-facing features — just consistency, currency, and one operational hardening.
+
+- **Version markers and dates aligned to v26.5.3 / 8 May 2026**: `package.json` (was 25.4.0), `CITATION.cff` (gained an explicit `version` field), `sitemap.xml` (lastmod for `/`, `/ask/`, `/blog/`, all six pollutant pages), `index.html` footer ribbon, all six pollutant page JSON-LD `dateModified`.
+- **Hero rewrites**: dashboard headline went from "2 million people" to "**1.72 million people**" (matching the Lancet Countdown 2025 figure already used elsewhere). The same fix applied to the `i18n` `hero_title` fallback string. Hero alert "ships this week" CTA replaced with "now live". About-page schema `text` and `description` updated to lead with the canonical 1.72M figure plus a Krishna et al. + GBD bracket.
+- **Dashboard quick-link** updated from "Jeopardy, quiz, matcher" to "Six games: Jeopardy, quiz & more".
+- **Blog sidebar / index** Lancet post title gained a "(Krishna et al. 2024)" qualifier so the 1.5M causal-study figure is no longer confused with the 1.72M Lancet Countdown headline; data-corrections post title corrected.
+- **English docs refresh**:
+  - `docs/data-sources/health-data.md` led with the Lancet Countdown 2025 1.72M figure; Krishna et al. 1.5M kept side by side with a clear methodological note.
+  - `docs/wiki/Home.md` "What's New" expanded to a five-tier history (v26.5 → v26.4 → v25.4 → v25.3); "Key Stats" date and content refreshed to May 2026 with AQLI, NAAQS gap, CSE NCAP findings, Krishna et al. dose-response, and Sensor.Community sensors.
+  - `docs/wiki/Roadmap.md` added Phase 5.7 "Learning, Engagement & May 2026 Refresh" documenting the v26.5 ship list; fixed "Sharath" typo to "Sarath"; Phase 6 retitled Q2-Q3 2026.
+  - `docs/user-guide/overview.md` Key Statistics header bumped to May 2026; six new rows added for Did You Know, Learning Games, Ask JanVayu PWA, April-May Voices, April-May Research Updates, and Workshops cross-link.
+  - **New page**: `docs/user-guide/learning-games.md` documents all six games with worked examples, scoring rules, and pairing tables. Added to `_sidebar.md` and `SUMMARY.md`.
+- **Multilingual docs refresh** (May 2026 parity for the most-cited page):
+  - `docs-hi/data-sources/health-data.md` rewritten from a 31-line stub to full parity with the English version: leads with Lancet Countdown 2025 (17.2 लाख / वर्ष), preserves Krishna et al. 2024 (15 लाख) as a separate citation with a methodology note, adds AQLI 2025, IQAir 2025, the WHO 2021 update, and a NAAQS-vs-WHO comparison table.
+  - `docs-bn/data-sources/health-data.md` — same rewrite (১৭.২ লক্ষ + Krishna et al. ১৫ লক্ষ).
+  - `docs-mr/data-sources/health-data.md` — same rewrite (17.2 लाख + Krishna et al. 15 लाख).
+  - `docs-ta/data-sources/health-data.md` — already cited 1.72 million; left as-is (verified).
+  - `docs-bn/`, `docs-mr/`, `docs-ta/user-guide/overview.md` — Key Statistics header bumped from March 2026 to May 2026.
+- **Pollutant pages**: all six page JSON-LD `dateModified` updated from 2026-04-26 to 2026-05-08.
+- **Embed widgets — operational hardening**: WAQI API token previously hardcoded in `/embed/aqi/index.html` is now fetched server-side via a new Netlify Function `netlify/functions/waqi-proxy.mjs`. The function reads from `WAQI_API_TOKEN` (with a fallback for backwards compatibility), validates `?city=` / `?geo=` inputs strictly, and CDN-caches responses for 5 minutes. If the token is ever rate-limited or revoked, only one place needs updating instead of every widget instance live on third-party sites.
+- **Service workers bumped**: `sw.js` (root) `'janvayu-v3'` → `'janvayu-20260508'`; `ask/sw.js` `'ask-janvayu-v1'` → `'ask-janvayu-20260508'`. Installed PWAs will pick up the latest manifest and shell on next visit.
+- **Netlify build runtime**: `NODE_VERSION` bumped from 18 (EOL since April 2024) to 20 LTS.
+- **`scripts/README.md`** added — clarifies the purpose, runtime, and wiring of the three scripts (`build-pollutant-pages.mjs`, `translate-docs.py`, `agent-reach-fetch.py`); explicitly notes the pending agent-reach secrets activation issue.
+- **`/downloads/index.html`** added — previously the `/downloads/` directory exposed five raw binary files via direct URL with no index. The new index lists each file with a short description, metadata pill (PDF/PPTX/DOCX), size, and last-updated note.
+- **`blog/index.html`** Docsify CDN deps pinned to `docsify@4.13.1` and `docsify-themeable@0.9.0` (was `@4` and `@0` floating tags) so a CDN-side major bump cannot break the blog.
+
 ## [v26.5.2] - 2026-05-08
 
 ### Fixed — Games panel rendering
