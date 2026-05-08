@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.7] - 2026-05-08
+
+### Improved — i18n coverage push, axe-friendly form labels, mobile polish
+
+A focused pass through the deferred Q3 work that's tractable without waiting on real CI runs.
+
+#### i18n coverage 0.7% → 4.8% (a 7× improvement)
+
+Added `data-i18n` attributes to ~140 of the highest-traffic strings: every mobile and desktop nav button, mobile-nav group labels, role-card descriptions, the dashboard quick-link card titles + descriptions, the new "Did You Know" cards, footer titles + key links, the demo badge, the connecting-live status, the Skip-to-content link, and the role hint. Validated with `scripts/check-i18n-coverage.py`. The numbers are visible in CI now and ratchet upward; the next push (target 30%+) needs the panel-template content covered.
+
+#### Pre-emptive axe accessibility fixes
+
+- `aria-label` added to four search/email inputs that had only `placeholder` (glossary search, research-library search, daily-digest subscribe, unsubscribe). Pre-empts the "label" axe rule.
+- Stronger focus ring on dark backgrounds (`#FFD86B` 3px outline on `.btn-primary` and inside `[data-theme="dark"]`) so the focus indicator never gets lost against deep-green or near-black surfaces.
+- Existing `:focus-visible`, skip-link, `prefers-reduced-motion`, and the canvas `aria-label`/`role="img"` work from v26.5.6 already cover the remaining big-ticket axe rules.
+
+#### Mobile polish
+
+- **Jodi Match board** changed from `repeat(4, minmax(120px, 1fr))` (which forces horizontal scroll on 360 px Galaxy) to `repeat(auto-fit, minmax(140px, 1fr))` — naturally collapses to 2 columns on mobile, 3 on tablet, 4 on desktop.
+- Existing flex-wrap tab strip on the games panel already wraps to multiple lines on mobile — verified.
+
 ## [v26.5.6] - 2026-05-08
 
 ### Added — Chart accessibility, SRI, Q3 priorities
