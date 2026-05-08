@@ -3,6 +3,7 @@
 - [**JanVayu Blog**](README.md)
 
 - **May 2026**
+  - [Quality You Can Measure: Lighthouse, axe, Lazy-Loading, Mobile](posts/2026-05-08-quality-and-performance.md)
   - [Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes &amp; Ladders, Jodi Match, Tambola](posts/2026-05-08-learning-games.md)
   - [Data Refresh, May 2026: Latest Numbers, Updated Hero](posts/2026-05-06-data-corrections-may.md)
 

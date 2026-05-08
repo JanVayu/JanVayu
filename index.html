@@ -248,19 +248,37 @@
          small charts still appear quickly without blocking first paint. -->
     <script>
       (function () {
+        // Subresource Integrity hashes — pin third-party scripts so a CDN
+        // compromise or surprise content swap cannot inject untrusted code.
+        // Verified at v26.5.6; recompute when bumping versions:
+        //   curl -sLo file.js <url> && openssl dgst -sha384 -binary file.js | openssl base64 -A
+        const SRI = {
+          chartjs:     'sha384-vsrfeLOOY6KuIYKDlmVH5UiBmgIdB1oEf7p01YgWHuqmOHfZr374+odEv96n9tNC',
+          leaflet:     'sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH',
+          leafletHeat: 'sha384-mFKkGiGvT5vo1fEyGCD3hshDdKmW3wzXW/x+fWriYJArD0R3gawT6lMvLboM22c0'
+        };
+
+        function loadScript(src, integrity) {
+          return new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.async = true;
+            s.crossOrigin = 'anonymous';
+            if (integrity) s.integrity = integrity;
+            s.onload = () => resolve();
+            s.onerror = (e) => reject(e);
+            document.head.appendChild(s);
+          });
+        }
+
         let _chartJsPromise = null;
         window.ensureChartJs = function () {
           if (typeof window.Chart !== 'undefined') return Promise.resolve();
           if (!_chartJsPromise) {
-            _chartJsPromise = new Promise((resolve, reject) => {
-              const s = document.createElement('script');
-              s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
-              s.async = true;
-              s.crossOrigin = 'anonymous';
-              s.onload = () => resolve();
-              s.onerror = (e) => { _chartJsPromise = null; reject(e); };
-              document.head.appendChild(s);
-            });
+            _chartJsPromise = loadScript(
+              'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js',
+              SRI.chartjs
+            ).catch((e) => { _chartJsPromise = null; throw e; });
           }
           return _chartJsPromise;
         };
@@ -271,18 +289,9 @@
             return Promise.resolve();
           }
           if (!_leafletPromise) {
-            const loadScript = (src) => new Promise((resolve, reject) => {
-              const s = document.createElement('script');
-              s.src = src;
-              s.async = true;
-              s.crossOrigin = 'anonymous';
-              s.onload = () => resolve();
-              s.onerror = reject;
-              document.head.appendChild(s);
-            });
             _leafletPromise = (async () => {
-              await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js');
-              await loadScript('https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js');
+              await loadScript('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', SRI.leaflet);
+              await loadScript('https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js', SRI.leafletHeat);
             })().catch((e) => { _leafletPromise = null; throw e; });
           }
           return _leafletPromise;
@@ -2983,11 +2992,11 @@ body {
                 <div class="grid-2 mt-2">
                     <div class="card">
                         <div class="card-header"><span class="card-title">Metro Cities AQI (Live)</span></div>
-                        <div class="card-body"><div class="chart-container"><canvas id="metroChart"></canvas></div></div>
+                        <div class="card-body"><div class="chart-container"><canvas id="metroChart" role="img" aria-label="Bar chart comparing live AQI across the six largest Indian metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad)."></canvas></div></div>
                     </div>
                     <div class="card">
                         <div class="card-header"><span class="card-title">North vs South India</span></div>
-                        <div class="card-body"><div class="chart-container"><canvas id="regionChart"></canvas></div></div>
+                        <div class="card-body"><div class="chart-container"><canvas id="regionChart" role="img" aria-label="Bar chart comparing average AQI between North India and South India."></canvas></div></div>
                     </div>
                 </div>
 
@@ -7492,7 +7501,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">Economic Impact by Sector</span></div>
-                    <div class="card-body"><div class="chart-container"><canvas id="econChart"></canvas></div></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="econChart" role="img" aria-label="Doughnut chart showing the breakdown of pollution-related economic costs in India: presenteeism, premature mortality, reduced consumer footfall, absenteeism, and health expenditure."></canvas></div></div>
                 </div>
             </div>
         
@@ -7527,7 +7536,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             <div class="grid-2">
                 <div class="card">
                     <div class="card-header"><span class="card-title">NCAP Fund Utilization</span></div>
-                    <div class="card-body"><div class="chart-container"><canvas id="ncapChart"></canvas></div></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="ncapChart" role="img" aria-label="Bar chart of NCAP funds allocated versus utilised for six Indian cities (Delhi, Mumbai, Noida, Ghaziabad, Lucknow, Patna)."></canvas></div></div>
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
@@ -7805,7 +7814,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </span>
                     </div>
                     <div class="card-body">
-                        <div class="chart-container"><canvas id="budgetNcapChart"></canvas></div>
+                        <div class="chart-container"><canvas id="budgetNcapChart" role="img" aria-label="Bar chart of NCAP allocation versus utilisation by financial year."></canvas></div>
                         <div style="margin-top: 1rem; font-size: 0.8125rem;">
                             <div class="grid-2" style="gap: 0.5rem;">
                                 <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px;">
@@ -7829,7 +7838,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </span>
                     </div>
                     <div class="card-body">
-                        <div class="chart-container"><canvas id="budgetSpendingChart"></canvas></div>
+                        <div class="chart-container"><canvas id="budgetSpendingChart" role="img" aria-label="Pie chart showing the breakdown of NCAP spending categories."></canvas></div>
                         <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.8125rem;">
                             <strong style="color: #1B6B4A;">Critical Mismatch:</strong> Source apportionment shows vehicles (38%) and industry (18%) are top contributors, but they receive &lt;1% of NCAP funds combined.
                         </div>
@@ -8052,7 +8061,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     </span>
                 </div>
                 <div class="card-body">
-                    <div class="chart-container"><canvas id="budgetMoefccChart"></canvas></div>
+                    <div class="chart-container"><canvas id="budgetMoefccChart" role="img" aria-label="Bar chart of MoEFCC budget allocation versus actual expenditure."></canvas></div>
                     <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.875rem;">
                         <strong style="color: #1B6B4A;">Stagnant at 0.07% of Union Budget:</strong> Despite air pollution emerging as India's leading environmental health crisis, MoEFCC allocation has remained flat for a decade. The 2025-26 allocation of ₹3,413 Cr represents less than 0.08% of total government spending.
                     </div>
@@ -8160,7 +8169,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     <span class="card-title">Live AQI Comparison</span>
                     <span style="font-size: 0.8125rem; color: var(--text-3);">Higher = Worse Air Quality</span>
                 </div>
-                <div class="card-body"><div class="chart-container"><canvas id="compareChart"></canvas></div></div>
+                <div class="card-body"><div class="chart-container"><canvas id="compareChart" role="img" aria-label="Bar chart comparing live AQI across user-selected Indian cities."></canvas></div></div>
                 <div class="card-footer">WHO considers AQI &gt;50 unhealthy. Most Indian cities exceed this year-round.</div>
             </div>
 
@@ -8184,7 +8193,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <option value="11">November</option><option value="12">December</option>
                         </select>
                     </div>
-                    <div class="chart-container" style="height: 240px;"><canvas id="yoyChart"></canvas></div>
+                    <div class="chart-container" style="height: 240px;"><canvas id="yoyChart" role="img" aria-label="Line chart comparing month-by-month PM2.5 averages for a chosen Indian city across 2024, 2025, and 2026."></canvas></div>
                     <div id="yoy-summary" style="margin-top: 10px; font-size: 0.82rem; color: var(--text-2);"></div>
                 </div>
                 <div class="card-footer" style="font-size: 0.72rem;">Source: aggregated WAQI historical observations. Shows whether things are actually getting better year over year.</div>
@@ -8274,7 +8283,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="chart-container" style="height: 240px;"><canvas id="hourlyChart"></canvas></div>
+                    <div class="chart-container" style="height: 240px;"><canvas id="hourlyChart" role="img" aria-label="Line chart of hourly PM2.5 readings across the last 24 hours, scrubbable by hour."></canvas></div>
                     <input id="hourly-scrub" type="range" min="0" max="23" value="23" oninput="updateHourlyReadout(this.value)" style="width: 100%; margin-top: 12px;">
                     <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-3); margin-top: 4px;">
                         <span>24 hours ago</span><span>now</span>
@@ -8285,12 +8294,12 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title">Delhi PM2.5 Trend (2015-2025)</span></div>
-                <div class="card-body"><div class="chart-container" style="height: 300px;"><canvas id="historyChart"></canvas></div></div>
+                <div class="card-body"><div class="chart-container" style="height: 300px;"><canvas id="historyChart" role="img" aria-label="Multi-year line chart of Delhi annual average PM2.5 from 2015 to 2025, with the WHO 5 µg/m³ guideline overlay."></canvas></div></div>
             </div>
             <div class="grid-2">
                 <div class="card">
                     <div class="card-header"><span class="card-title">Seasonal Pattern</span></div>
-                    <div class="card-body"><div class="chart-container"><canvas id="seasonalChart"></canvas></div></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="seasonalChart" role="img" aria-label="Line chart showing average AQI across each month of the year — illustrates the November–February pollution peak."></canvas></div></div>
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">Key Events Timeline</span></div>
@@ -12407,7 +12416,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.5.3 | Updated 8 May 2026 | Six-game Learning Games panel (Jeopardy in INR, PM Quiz, Source Matcher, Snakes &amp; Ladders, Jodi Match, Air Tambola), dashboard "Did You Know" strip, April&ndash;May 2026 voices &amp; research cards, hero refresh.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.5.6 | Updated 8 May 2026 | Lazy-loaded Chart.js + Leaflet (~120 KB off first paint), chart canvases now have aria-label / role=img, SRI hashes for third-party scripts, Lighthouse + axe + html-validate + ESLint + i18n-coverage CI all advisory-on-PR, mobile tap targets ≥44 px, six learning games, "Did You Know" strip, April&ndash;May 2026 voices &amp; research cards.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -13302,7 +13311,7 @@ Signature: _______________</div>
             <div class="grid-2" style="gap: 1.5rem;">
                 <div class="card">
                     <div class="card-header"><span class="card-title">Monthly Breakdown</span></div>
-                    <div class="card-body"><div class="chart-container"><canvas id="exposureChart"></canvas></div></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="exposureChart" role="img" aria-label="Personal exposure chart showing your hourly PM2.5 dose across a typical day."></canvas></div></div>
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">What This Means</span></div>
@@ -13480,7 +13489,7 @@ Signature: _______________</div>
             </div>
             <div class="card">
                 <div class="card-header"><span class="card-title">Seasonal AQI Pattern</span></div>
-                <div class="card-body"><div class="chart-container"><canvas id="calendarChart"></canvas></div></div>
+                <div class="card-body"><div class="chart-container"><canvas id="calendarChart" role="img" aria-label="Annual pollution calendar showing daily AQI bands across the past year."></canvas></div></div>
             </div>
         </div>
     </div>
@@ -13617,7 +13626,7 @@ Signature: _______________</div>
 
         <div class="card">
             <div class="card-header"><span class="card-title">Scatter Plot</span></div>
-            <div class="card-body"><div class="chart-container" style="height: 400px;"><canvas id="correlationChart"></canvas></div></div>
+            <div class="card-body"><div class="chart-container" style="height: 400px;"><canvas id="correlationChart" role="img" aria-label="Scatter or line chart showing the correlation between two selected pollutants or between AQI and a selected meteorological variable."></canvas></div></div>
         </div>
     </div>
 </template>

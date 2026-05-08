@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.5.6] - 2026-05-08
+
+### Added — Chart accessibility, SRI, Q3 priorities
+
+- **Chart canvas accessibility**: every `<canvas>` element on the platform now has `role="img"` and a meaningful `aria-label` describing the chart in plain English. Fifteen canvases updated (metro/region bar charts, ncap allocation chart, budget breakdowns, year-over-year compare, hourly scrub, Delhi history, seasonal pattern, exposure report, pollution calendar, correlation scatter). Preempts the largest single category of axe-core violations that the new `accessibility.yml` workflow would flag.
+- **Subresource Integrity (SRI)** hashes pinned for the three lazy-loaded CDN scripts (`chart.js@4.4.7`, `leaflet@1.9.4`, `leaflet.heat@0.2.0`). Hashes computed via `sha384`, embedded in the `ensureChartJs()` / `ensureLeaflet()` helpers; if the CDN ever serves modified bytes under the same URL, the browser rejects the script rather than executing it.
+- **`docs/wiki/Roadmap.md`** — added Phase 5.8 "CI / Quality / Mobile / Performance" capturing the v26.5.4–6 ship list, and a new Phase 6 "Q3 2026 Priorities" with concrete next moves: CSS split, axe-to-zero, per-panel mobile sweep, i18n coverage push, city expansion, Agent-Reach activation.
+- **`docs/wiki/Home.md`** — "What's New" expanded to a three-tier history (v26.5.6 → v26.5.4–5 → v26.5.0–3) with bullet-by-bullet ship lists.
+- **Blog post** `2026-05-08-quality-and-performance.md` — narrative tying together the lazy-load, SRI, chart accessibility, mobile work, and the five new advisory CI pipelines. Frames the order-of-operations choice: ship value first, instrument second.
+
+### Changed — Version markers
+
+- `package.json` 26.5.3 → **26.5.6**
+- `CITATION.cff` `version` 26.5.3 → **26.5.6**
+- `index.html` footer ribbon line refreshed for v26.5.6 with the full ship list
+
 ## [v26.5.5] - 2026-05-08
 
 ### Performance — Lazy-load Chart.js + Leaflet

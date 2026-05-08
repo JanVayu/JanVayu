@@ -99,6 +99,67 @@ Closes specific UX/data gaps against aqi.in (consumer-polished AQI portal) and o
 
 ---
 
+## Phase 5.8: CI / Quality / Mobile / Performance (✅ Completed — v26.5.4–6)
+
+Installs measurement everywhere and lands the highest-leverage safe wins. Every quality dimension tracked in issues #1, #3, #4, #5, #33, #45 now reports on every PR.
+
+- [x] **Lighthouse CI** — `.lighthouserc.json` + `.github/workflows/lighthouse.yml` (advisory; warn-only on Performance ≥ 0.60, FCP ≤ 3 s, LCP ≤ 4.5 s, TBT ≤ 600 ms, CLS ≤ 0.15)
+- [x] **axe-core CI** — `.github/workflows/accessibility.yml` runs against `/`, `/ask/`, `/blog/`, `/downloads/` tagged WCAG 2 AA
+- [x] **HTML validate + ESLint CI** — `.github/workflows/quality.yml`; `.htmlvalidate.json` config
+- [x] **Strict weekly lychee link audit** — `.github/workflows/link-audit.yml` opens tracking issue on failure; PR-time lychee stays advisory
+- [x] **`scripts/check-i18n-coverage.py`** — measurable i18n coverage % surfaced in PR step summary
+- [x] **Lazy-loaded Chart.js + Leaflet** with SRI — ~120 KB off first paint
+- [x] **Pre-warmed Chart.js** via `requestIdleCallback` so dashboard mini-charts stay snappy
+- [x] **Chart canvas a11y** — `aria-label` + `role="img"` on every `<canvas>`
+- [x] **Mobile tap targets** ≥44 px on `.btn`; `overflow-wrap: anywhere` for long-token wrap
+- [x] **Air Tambola ticket** horizontal-scrolls on 360 px Galaxy
+- [x] **Agent-Reach scheduled fetch workflow** — gracefully skips without secrets
+- [x] **Performance roadmap** docs/technical/performance-roadmap.md
+
+---
+
+## Phase 6: Q3 2026 Priorities
+
+Now that quality is **measurable** on every PR, Q3 is where we drive the numbers down by acting on the data:
+
+### Performance (issue #3)
+
+- [ ] CSS split — extract panel-specific styles to a deferred external file (~200 ms additional FCP per the roadmap doc)
+- [ ] Inline only critical-path CSS (hero, header, dashboard quick-link grid)
+- [ ] Hit Lighthouse Performance ≥ 0.80 mobile; flip the `.lighthouserc.json` assertion from `warn` to `error`
+
+### Accessibility (issue #4)
+
+- [ ] Drive axe-core violation count to zero on `/`, `/ask/`, `/blog/`, `/downloads/`
+- [ ] Add `/#health`, `/#policy`, `/#workshops`, `/#games` to the audited URL set
+- [ ] Heading hierarchy audit (h1 → h6, no skipping)
+- [ ] Color-contrast pass on stat-card pills, badges, chart legends
+
+### Mobile (issue #33)
+
+- [ ] Per-panel sweep across iPhone SE / 14, Galaxy, iPad Mini using Chrome DevTools device emulation
+- [ ] Convert any tables that currently rely on horizontal scroll to a card layout on small screens
+- [ ] Touch testing on the Workshops and Games panels
+
+### Translation (issue #1)
+
+- [ ] Audit which `data-i18n` strings are most user-visible (hero, top nav, role overlay, intro tour) and complete coverage there first
+- [ ] Set a measurable target — e.g. 60% by end of Q3 — and enforce via `--min-coverage` in CI
+- [ ] Decide explicitly whether the wiki / API content is in scope for Hindi/Bn/Mr/Ta translation
+
+### City coverage (issue #2)
+
+- [ ] Replace the static 16-city array in `index.html` with a build-time CPCB station fetch
+- [ ] Searchable combobox replaces the city `<select>`
+- [ ] Lazy-fetch all but visible + favourites to stay inside WAQI free-tier
+
+### Operational (issue #45)
+
+- [ ] Activate Agent-Reach secrets (or replace with the official Twitter API v2 Basic tier)
+- [ ] Rotate cookie-based scrapers on schedule once active
+
+---
+
 ## Phase 5.7: Learning, Engagement & May 2026 Refresh (✅ Completed — v26.5)
 
 Self-paced learning surfaces, fresh data points, and a sweep of stale labels. The bet: people learn air quality faster through games than through dashboards alone, and the front-of-site numbers must be visibly current.
