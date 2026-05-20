@@ -72,7 +72,7 @@ A cold ticket finishes inside 27 calls, usually fewer if you mark fast. We picke
 
 A few obvious extensions sit in the queue and we are open to feedback at [contribute@janvayu.in](mailto:contribute@janvayu.in):
 
-- A Hindi-language translation of all six games, then Tamil, Bengali, and Marathi.
+- A Hindi-language translation of all six games (now seven, since Vayu Junction shipped on 20 May 2026), then Tamil, Bengali, and Marathi.
 - A "host this game" PDF facilitator pack for teachers — questions, answer key, projector slides, S&L printable board, tambola ticket sheet — under CC BY-NC-SA 4.0.
 - A monthly rotating clue set on the Jeopardy board so repeat players see fresh content.
 - A variant **Moksha Patam** with state-specific snakes and ladders (Delhi, Mumbai, Chennai, Bengaluru) tied to the live AQI in each city.
