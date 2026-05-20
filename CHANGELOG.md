@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.5] - 2026-05-20
+
+### Changed — Complete panel content freshness sweep (every remaining section)
+
+User feedback: *"Please DO ALL"*. The v26.6.4 release covered the top-five highest-staleness-risk panels (Clean Air Wins, Budget, Mission Tracker, Children, Political Accountability). This release sweeps every remaining panel, even those that were merely "fine" — bringing each into explicit May-2026 framing where applicable, and adding the April–May 2026 court/regulator action to every panel where it belongs.
+
+A read-only Explore-agent audit of 30+ remaining templates (`tmpl-voices`, `tmpl-policy`, `tmpl-scorecards`, `tmpl-corporate`, `tmpl-legal`, `tmpl-workshops`, `tmpl-forecast`, `tmpl-indoor`, `tmpl-compare`, `tmpl-trends`, `tmpl-actions`, `tmpl-citizen-action`, `tmpl-migration`, `tmpl-go-outside`, `tmpl-aqi-alerts`, `tmpl-school-closure`, `tmpl-exposure-report`, `tmpl-purifier-calc`, `tmpl-migration-calc`, `tmpl-rti-assistant`, `tmpl-pollution-calendar`, `tmpl-data-archive`, `tmpl-tools`, `tmpl-glossary`, `tmpl-economic`, `tmpl-rankings`, `tmpl-map`, `tmpl-hyperlocal`, `tmpl-correlations`, `tmpl-accountability-brief`, `tmpl-social-feed`, `tmpl-live-news`, `tmpl-ask-janvayu`, `tmpl-downloads`, `tmpl-about`) confirmed that 30+ panels are either evergreen content or live-data tools and were already current.
+
+The remaining six panels gained targeted refreshes:
+
+#### `tmpl-trends` (Historical Trends)
+
+- Chart title: "Delhi PM2.5 Trend (2015&ndash;2025)" → "**Delhi PM2.5 Trend (2015&ndash;present)**", with matching aria-label update
+- Timeline gains **three new May 2026-relevant entries**: NCAP deadline elapsed (31 Mar 2026, with CREA + CSE outcomes), NGT South-India PM order (Apr 2026), and CAQM's first off-season GRAP Stage-I (19 May 2026)
+
+#### `tmpl-forecast` (AQI Forecast)
+
+- "SAFAR Delhi predictions vs. CPCB actual readings for Winter 2025-26" reframed: "Winter 2025-26 (the most recent pollution season). Live accuracy assessment for the upcoming Winter 2026-27 season will resume in October."
+
+#### `tmpl-legal` (Legal Framework)
+
+- New card **"Recent Court &amp; Regulator Action (Apr&ndash;May 2026)"** added immediately below the GRAP/Worker-Compensation section. Four info-boxes side-by-side: NGT south-India PM roadmap order (Apr), NGT diesel-generator retrofit notices (9 Apr), CAQM off-season GRAP Stage-I (19 May), NCAP deadline elapsed (31 Mar). Each links to a primary source (DTE court digest, CAQM order index).
+
+#### `tmpl-policy` (Policy Effectiveness)
+
+- GRAP Stages card gains a second timeline note: "**19 May 2026:** CAQM invokes Stage-I at AQI 208 — first-ever off-season activation. GRAP is no longer winter-only." Sits next to the Dec 2024 predictive-activation note.
+
+#### `tmpl-voices` (Citizen Voices)
+
+- New top voice-card added: **"CAQM — First Off-Season GRAP Invocation"** dated 19 May 2026, framing the regulator's quiet but consequential signal that GRAP enforcement is no longer Oct–Mar only.
+
+#### `tmpl-corporate` (Industrial Sources)
+
+- "As of January 2026, compliance remains patchy:" → "**Last verified Jan 2026, no public update since**" — honest framing of data vintage
+- New post-card alert: **"9 April 2026 update — NGT escalation"** noting the nationwide SPCB/PCC notices on DG-set retrofit non-compliance. First nationwide accountability move beyond NCR.
+
+#### `tmpl-citizen-action` (Citizen Action Plan / EMCAP)
+
+- Section intro updated: "comprehensive citizens' action plan for Winter 2025-26 and beyond" → "**Updated for the post-Winter 2025-26 cycle: now framed for year-round action following CAQM's first off-season GRAP invocation (19 May 2026) and the NGT's south-India PM roadmap order (Apr 2026) which together signal a structural shift from winter-only crisis response.**"
+
+#### `tmpl-migration` (Climate Displacement)
+
+- Reddit testimonial gains a small vintage tag: "(late 2025; the cleaner-air-elsewhere story has only intensified through 2026)" — so the timeless quote reads as documented testimony rather than ambient noise
+
+### Verified clean — no updates needed
+
+The audit confirmed that the following 30+ panels are either tool-only (live data, calculators, forms) or carry evergreen content that doesn't suffer from May-vs-March framing: `tmpl-economic`, `tmpl-scorecards`, `tmpl-workshops`, `tmpl-indoor`, `tmpl-rankings`, `tmpl-map`, `tmpl-hyperlocal`, `tmpl-compare`, `tmpl-actions`, `tmpl-go-outside`, `tmpl-aqi-alerts`, `tmpl-school-closure`, `tmpl-exposure-report`, `tmpl-purifier-calc`, `tmpl-rti-assistant`, `tmpl-pollution-calendar`, `tmpl-migration-calc`, `tmpl-data-archive`, `tmpl-tools`, `tmpl-correlations`, `tmpl-accountability-brief`, `tmpl-social-feed`, `tmpl-live-news`, `tmpl-ask-janvayu`, `tmpl-downloads`, `tmpl-about`, `tmpl-glossary`.
+
+### Changed — Version markers
+
+- `package.json` 26.6.4 → **26.6.5**
+- `CITATION.cff` 26.6.4 → **26.6.5**
+- `index.html` About-panel footer ribbon and on-page version-history card refreshed
+
 ## [v26.6.4] - 2026-05-20
 
 ### Changed — Panel content freshness sweep
