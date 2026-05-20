@@ -12640,7 +12640,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.6 | Updated 20 May 2026 | <strong>Secondary surface sweep</strong> &mdash; six per-pollutant pages regenerated (dateModified 2026-05-20; <code>scripts/build-pollutant-pages.mjs</code> datePublished bug fixed). Root service worker cache bumped to <code>janvayu-20260520</code> so returning visitors pick up v26.6.0&ndash;v26.6.5. Four blog posts realigned to canonical 1.72M / $339.4B figures (lancet-causal-evidence, iqair-2025-india, learning-games "six games" &rarr; "now seven", economic-cost World Bank framing). Embed widgets and daily email digest confirmed clean. Built on v26.6.5 (all panels refreshed), v26.6.4 (top-5 panels), v26.6.3 (back-home visibility), v26.6.2 (resources sweep + stale stats), v26.6.1 (back-home button), v26.6.0 (Vayu Junction game).</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.7 | Updated 20 May 2026 | <strong>Deep sweep &mdash; remaining Netlify Functions + docs sub-pages</strong>. Five more Netlify Functions had their User-Agent strings bumped to v26.6 (scheduled-fetch.mjs &times;6, instagram-feed.js, news-proxy.js, community-sensors.mjs, waqi-proxy.mjs) &mdash; <em>every outbound HTTP request from JanVayu's serverless tier now reports v26.6</em>. Two English docs files (<code>aqi-dashboard.md</code>, <code>health-calculator.md</code>) + three translated copies (Bengali, Marathi, Tamil) had Delhi PM2.5 "~100 µg/m³" aligned to the canonical IQAir 2025 figure of <strong>91.6 µg/m³</strong>. Roadmap Phase 5.7 clarified to reference both six (v26.5) and seven (v26.6.0 Vayu Junction) games. Audit confirmed 12 other Netlify Functions, all other docs sub-pages, and ImpactMojo (a separate project) are clean.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -12727,6 +12727,16 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.7 &mdash; 20 May 2026</div>
+                    <strong>Deep sweep &mdash; remaining Netlify Functions + docs sub-pages</strong><br>
+                    &bull; <strong>5 more Netlify Functions</strong> had User-Agent strings bumped to v26.6 &mdash; <code>scheduled-fetch.mjs</code> (6 sites), <code>instagram-feed.js</code>, <code>news-proxy.js</code>, <code>community-sensors.mjs</code>, <code>waqi-proxy.mjs</code> (26.5 &rarr; v26.6). Combined with v26.6.0 and v26.6.4 bumps on reddit-feed and twitter-feed, <em>every outbound HTTP request from JanVayu's serverless tier now reports v26.6 as its identity</em>.<br>
+                    &bull; <strong>English docs</strong>: <code>aqi-dashboard.md</code> + <code>health-calculator.md</code> &mdash; Delhi PM2.5 "~100 µg/m³ (2024)" &rarr; <strong>91.6 µg/m³ (IQAir 2025)</strong>, consistent with <code>docs/README.md</code> which we bumped in v26.6.2.<br>
+                    &bull; <strong>Translated docs</strong>: same Delhi figure aligned in Bengali, Marathi, Tamil copies of aqi-dashboard.md (Hindi version uses a different layout, no equivalent figure to update).<br>
+                    &bull; <strong>Roadmap</strong>: Phase 5.7 "six original games" clarified to reference both six (v26.5) and seven (Vayu Junction in v26.6.0, Phase 5.9).<br>
+                    &bull; <strong>Verified clean</strong>: 12 other Netlify Functions, ImpactMojo docs (separate project — development education, not AQ), every other docs/ subdirectory.
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.6 &mdash; 20 May 2026</div>

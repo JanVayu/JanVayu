@@ -5,6 +5,63 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.7] - 2026-05-20
+
+### Changed — Deep sweep: remaining Netlify Functions, docs sub-pages, translated docs
+
+User feedback: *"Yes please FULL"* — the last meaningful surfaces still uninspected from the v26.6.5 stocktake. Three parallel read-only Explore audits ran against the 17 unchecked Netlify Functions, 50+ English `docs/` sub-pages, and the translated/ImpactMojo doc sets. All actionable findings applied below. Both changelogs updated (CHANGELOG.md + on-page Version History).
+
+#### Netlify Functions — User-Agent strings bumped to v26.6
+
+Five additional functions still carried `JanVayu/1.0` or `JanVayu/26.5` user-agent headers. These are the strings shown in Reddit/Nitter/Sensor.Community server logs and matter for analytics attribution and for the small number of upstream services that whitelist by UA:
+
+| File | Was | Now |
+|------|-----|-----|
+| `scheduled-fetch.mjs` | `JanVayu/1.0 AirQualityMonitor` (5 sites) + `JanVayu:AirQualityMonitor:v25.0 (by /u/janvayu)` | **`JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)`** + matching v26.6 Reddit-style |
+| `instagram-feed.js` | `JanVayu/1.0 AirQualityMonitor` | **`JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)`** |
+| `news-proxy.js` | `JanVayu/1.0 AirQualityMonitor` | **`JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)`** |
+| `community-sensors.mjs` | `JanVayu/1.0 (https://janvayu.in)` | **`JanVayu/v26.6 (+https://janvayu.in)`** |
+| `waqi-proxy.mjs` | `JanVayu/26.5 (+https://www.janvayu.in)` | **`JanVayu/v26.6 (+https://www.janvayu.in)`** |
+
+Combined with the v26.6.0 and v26.6.4 bumps on `reddit-feed.js` and `twitter-feed.js`, **every outbound HTTP request from JanVayu's serverless tier now reports v26.6** as its identity.
+
+#### English docs sub-pages — Delhi annual PM2.5 figure aligned
+
+Two docs files still cited Delhi's annual PM2.5 as `~100 µg/m³` (a 2024 figure). Both now use the IQAir 2025 figure of **91.6 µg/m³**, consistent with what `docs/README.md` was bumped to in v26.6.2:
+
+- `docs/user-guide/aqi-dashboard.md` line 26: "Delhi (actual, 2024) | ~100 µg/m³" → **"Delhi (actual, IQAir 2025) | 91.6 µg/m³"**
+- `docs/user-guide/health-calculator.md` line 56: "Delhi | ~100 | 20×" → **"Delhi | 91.6 | 18× (IQAir 2025)"**
+
+#### Translated docs (Bengali, Marathi, Tamil) — same Delhi figure aligned
+
+The English `aqi-dashboard.md` fix was replicated in three translated copies (the Hindi version of this file uses a different layout and has no equivalent figure):
+
+- `docs-bn/user-guide/aqi-dashboard.md` — "দিল্লি (প্রকৃত, 2024) | ~100 µg/m³" → "**দিল্লি (প্রকৃত, IQAir 2025) | 91.6 µg/m³**"
+- `docs-mr/user-guide/aqi-dashboard.md` — "दिल्ली (वास्तविक, 2024) | ~100 µg/m³" → "**दिल्ली (वास्तविक, IQAir 2025) | 91.6 µg/m³**"
+- `docs-ta/user-guide/aqi-dashboard.md` — "டெல்லி (உண்மையான, 2024) | ~100 µg/m³" → "**டெல்லி (உண்மையான, IQAir 2025) | 91.6 µg/m³**"
+
+#### Roadmap historical note clarified
+
+`docs/wiki/Roadmap.md` Phase 5.7 listed "**six original games**" at v26.5 launch — historically accurate but ambiguous as of v26.6 when Vayu Junction shipped as a seventh. Now reads: "*six original games at v26.5 launch […]. A **seventh game, Vayu Junction**, was added in v26.6.0 — see Phase 5.9.*"
+
+### Verified clean — no edits needed
+
+- **All other docs sub-directories** (`docs/tech-stack/`, `docs/api/`, `docs/technical/`, `docs/contributing/`, `docs/data-sources/`, the rest of `docs/user-guide/`, `docs/skills/`, `docs/about/`)
+- **ImpactMojo docs** (`docs-impactmojo/` + 4 language variants) — confirmed a separate project's documentation (development education, not air quality). No JanVayu-relevant content, no stale stats.
+- **All other translated docs files** in `docs-hi/`, `docs-bn/`, `docs-mr/`, `docs-ta/`
+- **The other 12 Netlify Functions** (subscribe.js, blob-store.js, feed-status.js, feed-ingest.mjs, accountability-brief.mjs, air-query.mjs, anomaly-check.mjs, health-advisory.mjs, historical-aqi.mjs, rankings.mjs, terra-collab.mjs, workshop-submit.mjs) — no stale UAs, no hardcoded outdated stats, no broken endpoints
+- **Daily email digest** content — fully live-data, no embedded figures
+
+### Still uninspected (smaller surface remaining)
+
+Wiki pages other than Roadmap (`docs/wiki/Home.md`), GitHub Discussions seed text, the `downloads/` directory contents, and the `TerraStudioCollab/` directory.
+
+### Changed — Version markers
+
+- `package.json` 26.6.6 → **26.6.7**
+- `CITATION.cff` 26.6.6 → **26.6.7**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.6] - 2026-05-20
 
 ### Changed — Secondary surface sweep: pollutant pages, service worker, blog posts

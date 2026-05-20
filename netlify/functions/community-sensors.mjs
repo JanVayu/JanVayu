@@ -56,7 +56,7 @@ async function getSnapshot() {
     }
   } catch (e) { /* ignore */ }
 
-  const res = await fetch(SC_URL, { headers: { "User-Agent": "JanVayu/1.0 (https://janvayu.in)" } });
+  const res = await fetch(SC_URL, { headers: { "User-Agent": "JanVayu/v26.6 (+https://janvayu.in)" } });
   if (!res.ok) throw new Error("Sensor.Community fetch failed: " + res.status);
   const data = await res.json();
 
