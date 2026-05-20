@@ -12,6 +12,7 @@
   - [শহর তুলনা ও মানচিত্র](user-guide/city-comparison.md)
   - [দৈনিক ইমেল ডাইজেস্ট](user-guide/email-digest.md)
   - [নাগরিক পদক্ষেপ সরঞ্জাম](user-guide/citizen-action.md)
+  - [শেখার খেলা](user-guide/learning-games.md) <small>NEW</small>
 
 - **টেক স্ট্যাক**
   - [পরিচিতি](tech-stack/overview.md)

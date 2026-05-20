@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.0] - 2026-05-20
+
+### Added — Vayu Junction (7th learning game)
+
+A new word-grouping puzzle in the [Learning Games](https://www.janvayu.in/#games) panel, inspired by BBC's *Only Connect*, the NYT *Connections* daily, and the [*Torchlight*](https://timesofclimatechange.com/torchlight/) climate puzzle at Times of Climate Change — but built around India's air-quality vocabulary.
+
+**Mechanic.** Sixteen tiles laid out on a 4×4 grid. The player taps four tiles they believe share a hidden connection, then hits Submit. A correct guess locks the four in colour-coded with the connection's theme revealed; a wrong guess costs a strike. The game auto-detects "one-off" near-misses ("three of your four belong together — swap one") so the player gets calibrated feedback. Four strikes and the puzzle reveals itself.
+
+**Ships with four original India-AQ puzzles**, each at a different difficulty:
+
+- **Basics (Easy)** — particulate fractions (PM1 / PM2.5 / PM10 / TSP), criteria gases (NO2 / SO2 / CO / O3), CPCB AQI bands (Good / Satisfactory / Moderate / Poor), Indian regulators (CPCB / CAQM / MoEFCC / DPCC).
+- **Sources, seasons & protection (Medium)** — combustion sources, smog-season months in N India, Delhi GRAP stages, mask & filter terms (N95 / FFP2 / HEPA / CADR).
+- **Names & numbers (Hard)** — worst-polluted Indian cities from IQAir 2025 (Loni / Byrnihat / Begusarai / Hajipur), NCAP top-performing cities, AQ research bodies & reports (CREA / AQLI / IQAir / Lancet), citizen-action tools (Petition / RTI / Audit / Survey).
+- **Devious** — Misdirect-prone categories: types of "___ carbon" (Black / Brown / Blue / Green), Indian vehicle emission standards (BS-II / III / IV / VI), citizen acronyms (PIL / RTI / FIR / NOC), PM-precursor gases (NOx / SOx / VOC / NH3).
+
+Players can switch puzzles freely, shuffle the grid, deselect, or give up to reveal. Solved groups stack vertically above the live grid in their theme colour. All logic is client-side; no analytics.
+
+The game shares vocabulary with the dashboard, Jeopardy, and Tambola, so it doubles as flash-card practice for the wider site.
+
+### Verified — Ask JanVayu
+
+End-to-end verification of the [Ask JanVayu](https://www.janvayu.in/ask/) PWA in all five UI languages (EN/HI/TA/BN/MR). City chip → /.netlify/functions/air-query → Groq Llama 3.3 70B response with seasonal context, NCAP city data, and language-pinned output. Welcome heading, suggestion chips, input placeholder, install banner, and error messages all internationalised via the `I18N` table. PWA installable manifest verified.
+
+### Changed — Documentation & version markers
+
+- `package.json` 26.5.6 → **26.6.0**
+- `CITATION.cff` `version` 26.5.6 → **26.6.0**; `date-released` → 2026-05-20
+- `README.md` feature list: "Six learning games" → **"Seven learning games"** (Vayu Junction added)
+- `sitemap.xml` lastmod refreshed to 2026-05-20
+- `index.html` footer ribbon (About panel) refreshed for v26.6.0
+- Reddit-feed and YouTube-feed User-Agent strings bumped from `JanVayu/v25.0` / `JanVayu/1.0` to `JanVayu/v26.6 (+https://janvayu.in)` so server-side analytics attribute current-version traffic correctly.
+
+### Changed — Roadmap
+
+`docs/wiki/Roadmap.md` restructured:
+
+- **Phase 5.7 (Learning, Engagement & May 2026 Refresh)** moved to numeric order (it was previously listed after Phase 5.8 even though it shipped earlier).
+- **Duplicate Phase 6 heading** at the bottom of the file (Mobile & Performance) renamed to **Phase 6.5** to avoid confusion with the "Q3 2026 Priorities" Phase 6 at the top.
+- New **Phase 5.9 (May 20 Polish)** captures today's ship list: Vayu Junction, Ask JanVayu verification, social-feed UA bump, doc refresh.
+
+### Changed — Translated docs
+
+A v26.6 stub added at the top of `docs-hi/CHANGELOG.md`, `docs-bn/CHANGELOG.md`, `docs-mr/CHANGELOG.md`, `docs-ta/CHANGELOG.md` so readers in those languages see the latest ship list. Full per-language translations to follow.
+
+### Added — Blog post
+
+New blog post `blog/posts/2026-05-20-vayu-junction.md` — *"Vayu Junction: connecting the dots on India's air-quality vocabulary"*. Walks through the four puzzle sets, the design choices, and the homage to *Only Connect* and *Torchlight*.
+
 ## [v26.5.8] - 2026-05-08
 
 ### Fixed — UX-protection batch (the four real-user-pain items)

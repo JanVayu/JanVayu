@@ -12,6 +12,7 @@
   - [शहर तुलना एवं मानचित्र](user-guide/city-comparison.md)
   - [दैनिक ईमेल डाइजेस्ट](user-guide/email-digest.md)
   - [नागरिक कार्रवाई उपकरण](user-guide/citizen-action.md)
+  - [सीखने के खेल](user-guide/learning-games.md) <small>NEW</small>
 
 - **तकनीकी स्टैक**
   - [अवलोकन](tech-stack/overview.md)
