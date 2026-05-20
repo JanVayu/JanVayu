@@ -53,7 +53,7 @@ Given a city's annual PM2.5 level and population, the calculator estimates:
 
 | City | Annual PM2.5 (µg/m³) | WHO Multiple |
 |------|---------------------|-------------|
-| Delhi | ~100 | 20× |
+| Delhi | 91.6 | 18× (IQAir 2025) |
 | Kolkata | ~65 | 13× |
 | Mumbai | ~45 | 9× |
 | Chennai | ~30 | 6× |

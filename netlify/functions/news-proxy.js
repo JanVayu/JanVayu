@@ -108,7 +108,7 @@ exports.handler = async function (event) {
       try {
         const res = await fetch(feed.url, {
           signal: controller.signal,
-          headers: { 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+          headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
         });
         clearTimeout(timeout);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
