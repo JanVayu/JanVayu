@@ -186,6 +186,7 @@ Adds a seventh learning game inspired by *Only Connect* / NYT *Connections* / *T
 - [x] **Documentation refresh**: `README.md` "six games" → **"seven games"**; `package.json` 26.5.6 → **26.6.0**; `CITATION.cff` version + date-released; `sitemap.xml` lastmod; `index.html` About-panel footer ribbon.
 - [x] **Translated changelogs**: v26.6 stub added to `docs-hi/CHANGELOG.md`, `docs-bn/CHANGELOG.md`, `docs-mr/CHANGELOG.md`, `docs-ta/CHANGELOG.md`.
 - [x] **New blog post** `2026-05-20-vayu-junction.md` — walks through the four puzzle sets and the design choices.
+- [x] **`/walkthrough/` guided-tour page** (v26.6.11) — public page at `janvayu.in/walkthrough/` embedding the 64-slide MMSF Fellows deck via Google Slides iframe, with PPTX (24 MB) and PDF (13 MB) as direct downloads, footer link under Tools & Action, and a NEW-badged dashboard quick-link card.
 
 ---
 
