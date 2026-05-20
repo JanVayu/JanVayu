@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.11] - 2026-05-20
+
+### Added — Feature the new /walkthrough/ page on the dashboard
+
+The `/walkthrough/` page shipped in the previous (unversioned) commit, surfaced only via a footer link. This release features it prominently on the dashboard and updates the hero alert + Roadmap + wiki Home to reference it.
+
+#### Dashboard quick-link card
+
+A new **"Walkthrough"** quick-link card has been added to the dashboard's `.grid-4` quick-links row, sitting next to "Learning Games":
+
+- Amber accent (`#FEF3C7` / `#B45309`) to differentiate from the green Learning Games card and the existing red/blue/green role-specific cards
+- **NEW badge** in the heading
+- Description: "64-slide guided tour (MMSF Fellows deck)"
+- Links to `/walkthrough/` (target is a separate static page; opens in same tab, with a Back-to-JanVayu link at the top of the walkthrough page itself)
+
+#### Hero alert addition
+
+The "May 2026:" hero alert previously closed with the games-panel mention. Now extends to: "*…and a 64-slide guided walkthrough of the whole platform built for the MMSF Fellows cohort.*" — so first-time visitors see the walkthrough exists.
+
+#### Roadmap update
+
+`docs/wiki/Roadmap.md` gets a new bullet under Phase 5.9 (May 20 Polish) listing the walkthrough page.
+
+#### Wiki Home update
+
+`docs/wiki/Home.md` "What's New (v26.6.x)" section gets a v26.6.10 → v26.6.11 entry noting the walkthrough.
+
+### Changed — Version markers
+
+- `package.json` 26.6.10 → **26.6.11**
+- `CITATION.cff` 26.6.10 → **26.6.11**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.10] - 2026-05-20
 
 ### Fixed — Temporal-framing mismatches (same class of bug as v26.6.9)

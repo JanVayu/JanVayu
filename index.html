@@ -2861,7 +2861,7 @@ body {
                         <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>1.72 million people</em> every year</h1>
                         <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
                         <div class="hero-live-alert">
-                            <strong>May 2026:</strong> India's air remains in crisis. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2025 covering 2024 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit; only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (launched May 2026) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5 &mdash; ~70% of the global burden. NCAP's 31 March 2026 deadline has elapsed: only 23 of 100 cities with sufficient data hit the target (CREA Jan 2026); CSE's April 2026 five-year review counts 37 of 131. CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, signalling year-round enforcement. New: a <a href="#games" onclick="showPanel('games'); return false;" style="color: inherit; text-decoration: underline;">seven-game Learning Games</a> panel is now live &mdash; including the new <em>Vayu Junction</em> word-grouping puzzle.
+                            <strong>May 2026:</strong> India's air remains in crisis. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2025 covering 2024 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit; only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (launched May 2026) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5 &mdash; ~70% of the global burden. NCAP's 31 March 2026 deadline has elapsed: only 23 of 100 cities with sufficient data hit the target (CREA Jan 2026); CSE's April 2026 five-year review counts 37 of 131. CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, signalling year-round enforcement. New: a <a href="#games" onclick="showPanel('games'); return false;" style="color: inherit; text-decoration: underline;">seven-game Learning Games</a> panel is now live &mdash; including the new <em>Vayu Junction</em> word-grouping puzzle &mdash; and a 64-slide <a href="/walkthrough/" style="color: inherit; text-decoration: underline;">guided walkthrough</a> of the whole platform built for the MMSF Fellows cohort.
                         </div>
                     </div>
                     <div class="hero-data">
@@ -3080,6 +3080,10 @@ body {
                         <div class="quick-link-icon" style="background: #ECFDF5; color: #1B6B4A;"><span class="si si-library" style="width:20px;height:20px;"></span></div>
                         <div><h4 data-i18n="ql_games_t">Learning Games</h4><p data-i18n="ql_games_d">Seven games: Jeopardy, Vayu Junction &amp; more</p></div>
                     </div>
+                    <a class="quick-link" href="/walkthrough/" style="text-decoration: none; color: inherit;">
+                        <div class="quick-link-icon" style="background: #FEF3C7; color: #B45309;"><span class="si si-presentation" style="width:20px;height:20px;"></span></div>
+                        <div><h4 data-i18n="ql_walk_t">Walkthrough <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: #fff; vertical-align: middle; margin-left: 4px;">NEW</span></h4><p data-i18n="ql_walk_d">64-slide guided tour (MMSF Fellows deck)</p></div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -12641,7 +12645,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.10 | Updated 20 May 2026 | <strong>Temporal-framing fixes</strong> &mdash; same class of bug as v26.6.9 IQAir, found in 8 more sentences. Phrases like <em>"PNAS (2024) shows…"</em> or <em>"Lancet Respiratory Medicine (2023) found…"</em> implied recent discovery but the cited papers are 5&ndash;29 months old. Switched to "A 2023 study in X documented…" / "Research published in X in 2024…" framing so publication vintage is explicit. Fixed 7 sentences in <code>index.html</code> (Children's Health, Mission Tracker, Clean Air Wins, Policy Effectiveness, Jeopardy clues) and 2 in <code>blog/posts/2026-04-01-children-air-pollution.md</code> (IEG working paper, Vital Strategies). Plus added a vintage hint to the GBD India estimate.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.11 | Updated 20 May 2026 | <strong>Walkthrough page featured</strong> &mdash; the new <code>/walkthrough/</code> guided-tour page (64-slide MMSF Fellows deck embedded via Google Slides iframe + PPTX + PDF downloads) now appears as a dashboard quick-link card with a NEW badge, and is mentioned at the end of the hero alert. Roadmap and wiki Home updated.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -12728,6 +12732,15 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.11 &mdash; 20 May 2026</div>
+                    <strong>Walkthrough page featured on the dashboard</strong><br>
+                    &bull; New <code>/walkthrough/</code> guided-tour page (64-slide MMSF Fellows deck embedded via Google Slides iframe + PPTX 24 MB + PDF 13 MB downloads) shipped earlier today. This release features it prominently rather than burying it in the footer.<br>
+                    &bull; <strong>Dashboard quick-link card</strong> added next to Learning Games &mdash; amber accent, NEW badge, links to <code>/walkthrough/</code>.<br>
+                    &bull; <strong>Hero alert</strong> extended: <em>"&hellip;and a 64-slide guided walkthrough of the whole platform built for the MMSF Fellows cohort"</em> &mdash; first-time visitors now see it exists.<br>
+                    &bull; <strong>Roadmap</strong> updated (Phase 5.9 bullet) and <strong>wiki Home</strong> "What's New (v26.6.x)" gets a v26.6.11 entry.
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.10 &mdash; 20 May 2026</div>
