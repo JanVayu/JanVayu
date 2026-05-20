@@ -12,6 +12,7 @@
   - [நகர ஒப்பீடு & வரைபடம்](user-guide/city-comparison.md)
   - [தினசரி மின்னஞ்சல் சுருக்கம்](user-guide/email-digest.md)
   - [குடிமக்கள் செயல் கருவிகள்](user-guide/citizen-action.md)
+  - [கற்றல் விளையாட்டுகள்](user-guide/learning-games.md) <small>NEW</small>
 
 - **தொழில்நுட்ப அடுக்கு**
   - [கண்ணோட்டம்](tech-stack/overview.md)
