@@ -50,7 +50,7 @@ export default async (req) => {
   const upstream = `https://api.waqi.info/${waqiPath}?token=${token}`;
 
   try {
-    const res = await fetch(upstream, { headers: { 'User-Agent': 'JanVayu/26.5 (+https://www.janvayu.in)' } });
+    const res = await fetch(upstream, { headers: { 'User-Agent': 'JanVayu/v26.6 (+https://www.janvayu.in)' } });
     const json = await res.json();
     return new Response(JSON.stringify(json), {
       status: res.ok ? 200 : 502,

@@ -103,7 +103,7 @@ Closes specific UX/data gaps against aqi.in (consumer-polished AQI portal) and o
 
 Self-paced learning surfaces, fresh data points, and a sweep of stale labels. The bet: people learn air quality faster through games than through dashboards alone, and the front-of-site numbers must be visibly current.
 
-- [x] **Learning Games panel** at `/#games` with **six original games** (Air Quality Jeopardy 5×5 board with ₹1k–₹5k tiles; 10-question PM Quick-Quiz; 7-source Source Matcher; Clean Air Snakes & Ladders inspired by *Moksha Patam*; Jodi Match memory cards; Air Tambola Indian-housie ticket).
+- [x] **Learning Games panel** at `/#games` with **six original games** at v26.5 launch (Air Quality Jeopardy 5×5 board with ₹1k–₹5k tiles; 10-question PM Quick-Quiz; 7-source Source Matcher; Clean Air Snakes & Ladders inspired by *Moksha Patam*; Jodi Match memory cards; Air Tambola Indian-housie ticket). A **seventh game, Vayu Junction**, was added in v26.6.0 — see Phase 5.9.
 - [x] **"Did You Know"** dashboard strip — six India-specific sourced fact cards under the anomaly banner.
 - [x] **Hero alert refreshed** for May 2026 with the canonical Lancet Countdown 2025 1.72M figure.
 - [x] **April–May 2026 Voices block** at `/#voices` with six fresh curated cards.

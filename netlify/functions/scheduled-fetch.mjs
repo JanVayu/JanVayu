@@ -76,7 +76,7 @@ async function fetchReddit() {
       const url = `https://www.reddit.com/r/${sub}/search.json?q=${encodeURIComponent(query)}&sort=new&restrict_sr=on&limit=10&t=month`;
       const res = await fetchWithTimeout(url, {
         headers: {
-          'User-Agent': 'JanVayu:AirQualityMonitor:v25.0 (by /u/janvayu)',
+          'User-Agent': 'JanVayu:AirQualityMonitor:v26.6 (+https://janvayu.in)',
           'Accept': 'application/json',
         },
       });
@@ -139,7 +139,7 @@ async function fetchTwitter() {
       if (allItems.length >= 15) break;
       try {
         const res = await fetchWithTimeout(`https://${instance}/search/rss?f=tweets&q=%23${tag}`, {
-          headers: { 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+          headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
         }, 5000);
         const xml = await res.text();
         const items = parseRSSItems(xml);
@@ -153,7 +153,7 @@ async function fetchTwitter() {
       for (const tag of HASHTAGS.slice(3)) {
         try {
           const res = await fetchWithTimeout(`https://${instance}/search/rss?f=tweets&q=%23${tag}`, {
-            headers: { 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+            headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
           }, 5000);
           allItems.push(...parseRSSItems(await res.text()));
         } catch (e) { /* skip */ }
@@ -161,7 +161,7 @@ async function fetchTwitter() {
       for (const q of SEARCH_QUERIES) {
         try {
           const res = await fetchWithTimeout(`https://${instance}/search/rss?f=tweets&q=${q}`, {
-            headers: { 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+            headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
           }, 5000);
           allItems.push(...parseRSSItems(await res.text()));
         } catch (e) { /* skip */ }
@@ -207,7 +207,7 @@ async function fetchNews() {
   const results = await Promise.allSettled(
     NEWS_FEEDS.map(async (feed) => {
       const res = await fetchWithTimeout(feed.url, {
-        headers: { 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+        headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
       });
       return { feed: feed.name, items: parseNewsRSS(await res.text()) };
     })
@@ -303,7 +303,7 @@ async function enrichNewsWithJina(articles) {
       if (!article.link) return article;
       try {
         const res = await fetchWithTimeout(`${JINA_BASE}${article.link}`, {
-          headers: { 'Accept': 'text/plain', 'User-Agent': 'JanVayu/1.0 AirQualityMonitor' },
+          headers: { 'Accept': 'text/plain', 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
         }, 8000);
         const text = await res.text();
         return { ...article, snippet_enhanced: text.slice(0, 500).trim(), enhanced: true };
