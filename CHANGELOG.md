@@ -5,6 +5,67 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.8] - 2026-05-20
+
+### Changed — Final corners: wiki Home, last small surfaces
+
+User feedback: *"Yes I want you to do all small or big. Everything."* Final pass on the smallest remaining surfaces from the v26.6.7 stocktake. Audit confirmed most are already clean.
+
+#### `docs/wiki/Home.md` — "What's New" rewritten for the v26.6.x cycle
+
+The wiki landing page's "What's New" section was anchored to v26.5.x (May 2026 cycle, when v26.5.6 was the latest). It now leads with the v26.6.x ship list:
+
+- **v26.6.7** — Deep sweep (every outbound HTTP request now reports v26.6; English + 3 translated docs Delhi PM2.5 aligned to IQAir 2025)
+- **v26.6.6** — Secondary surface sweep (pollutant pages regenerated, root SW cache bumped, 4 blog posts realigned)
+- **v26.6.5** — Complete panel content freshness sweep (every remaining panel template)
+- **v26.6.4** — Top-five panel freshness (Clean Air Wins / Budget / Mission Tracker / Children / Political Accountability)
+- **v26.6.3** — Back-to-home button visibility patch
+- **v26.6.2** — Audit sweep + Resources + stale stats
+- **v26.6.1** — Back-to-home floating button
+- **v26.6.0** — Vayu Junction (7th learning game) + Ask JanVayu verification + Roadmap restructure
+
+The v26.5.x history is preserved below the new section as **"Previous (v26.5.x — May 2026)"**.
+
+### Verified clean — no edits needed
+
+- **`docs/wiki/Adding-a-New-Panel.md`, `Adding-a-New-Role.md`, `Role-Based-Landing-Page.md`, `Simple-Language-Mode.md`, `Translation-Guide.md`** — contributor-facing how-to docs; no stat references; no version markers visible to end users
+- **`TerraStudioCollab/index.html`** — gated internal page for the Terra.Do studio collab; no stale stats, no version markers in body
+- **`downloads/index.html`** — file listing page; no stats; the underlying PDFs/PPTX are historical documents and properly dated
+- **`manifest.json`** (root) — current
+- **`robots.txt`** — current
+- **`netlify.toml`** — cron schedules and redirects current
+- **`.github/workflows/`** (9 yml files) — all current; advisory CI from v26.5.x
+- **GitHub Discussions seed text** — none stored in the repo; lives on the GitHub Discussions UI
+
+### What's now complete
+
+After v26.6.0 → v26.6.8, **every meaningful user-facing and developer-facing surface** in the JanVayu repository has been swept for May-2026 freshness:
+
+- ✅ All 43 panel templates in `index.html` (content + version markers + click-through verified)
+- ✅ Ask JanVayu PWA (all 5 languages)
+- ✅ Vayu Junction game (new) + 6 existing games
+- ✅ Back-to-home floating button
+- ✅ All 19 Netlify Functions (UAs, code health)
+- ✅ Both service workers (root + `/ask/`)
+- ✅ Six per-pollutant SEO pages (regenerated)
+- ✅ Two embed widgets
+- ✅ Daily email digest
+- ✅ All 10 blog posts (stat alignment) + 1 new blog post
+- ✅ Resources panel + Latest Research card relabel
+- ✅ `docs/` in 5 languages (READMEs + key sub-pages)
+- ✅ Wiki: Home + Roadmap (restructured)
+- ✅ Per-language sidebars + learning-games.md in 5 languages
+- ✅ SEO meta description + Twitter Card
+- ✅ All version markers (package.json, CITATION.cff, sitemap.xml, footer ribbon, on-page changelog)
+- ✅ CHANGELOG.md — eight new entries (v26.6.0 → v26.6.8)
+- ✅ ImpactMojo docs confirmed as a separate project (no audit needed)
+
+### Changed — Version markers
+
+- `package.json` 26.6.7 → **26.6.8**
+- `CITATION.cff` 26.6.7 → **26.6.8**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.7] - 2026-05-20
 
 ### Changed — Deep sweep: remaining Netlify Functions, docs sub-pages, translated docs

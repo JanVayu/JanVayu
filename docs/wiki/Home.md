@@ -29,7 +29,52 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
-### What's New (v26.5.x — May 2026)
+### What's New (v26.6.x — 20 May 2026)
+
+**v26.6.7 — Deep sweep**
+- Every outbound HTTP request from JanVayu's serverless tier (all 19 Netlify Functions) now reports v26.6 as its User-Agent — combined `scheduled-fetch.mjs`, `instagram-feed.js`, `news-proxy.js`, `community-sensors.mjs`, `waqi-proxy.mjs`, `reddit-feed.js`, `twitter-feed.js` bumps.
+- English `docs/user-guide/aqi-dashboard.md` + `health-calculator.md` and three translated copies (Bengali, Marathi, Tamil) updated to **Delhi 91.6 µg/m³ (IQAir 2025)** from `~100 µg/m³`.
+- ImpactMojo docs confirmed as a separate project (development education, not air quality).
+
+**v26.6.6 — Secondary surface sweep**
+- Six per-pollutant SEO pages regenerated; **build-script bug fixed** (`datePublished` was being reset to today's date on every regeneration — now pinned to 2026-04-26 with `dateModified` updating to current date).
+- Root service worker cache bumped `janvayu-20260508` → `janvayu-20260520` so returning visitors pick up everything from v26.6.0–v26.6.5.
+- Four blog posts realigned to canonical 1.72M / $339.4B figures (lancet-causal-evidence, iqair-2025-india, learning-games "six → now seven", economic-cost World Bank framing clarified).
+
+**v26.6.5 — Complete panel content freshness sweep**
+- Every remaining panel template (30+) audited and either refreshed or confirmed evergreen.
+- Historical Trends timeline gains 3 May 2026 entries (NCAP deadline elapsed, NGT south-India order, off-season GRAP).
+- Legal Framework gains a new "Recent Court & Regulator Action (Apr–May 2026)" card.
+- Policy GRAP Stages, Citizen Voices, Industrial Sources, Citizen Action Plan, AQI Forecast, Climate Displacement all gained May-2026 framing.
+
+**v26.6.4 — Top-five panel freshness**
+- **Clean Air Wins** gains an "Update — May 2026" card (CAQM off-season GRAP, NGT south-India order, SPCB diesel-generator notices).
+- **Budget Tracker** Funding Cliff Alert reframed: 15th FC grants *expired* 31 Mar 2026; 16th FC report expected Oct 2026.
+- **Mission Tracker** NCAP card retitled "Deadline Missed" with CREA 23/100 + CSE Apr 2026 37/131 outcomes.
+- **Children's Health**, **Political Accountability** also refreshed.
+
+**v26.6.3 — Back-to-home button visibility patch**
+- Solid accent-green background + white house icon (was light-on-accent and easy to miss). 52 px desktop, 48 px mobile. One-time gentle pulse on appearance.
+
+**v26.6.2 — Audit sweep: Resources + stale stats**
+- Five fresh May 2026 items in Resources (CREA April snapshot, two NGT orders, CAQM off-season GRAP, DTE/AAD 2026 briefing).
+- SEO meta + Twitter Card: "2 million" → "1.72 million (Lancet Countdown 2025)".
+- `docs/README.md` in all five languages updated to canonical 1.72M / $339.4B / 91.6 µg/m³ figures.
+- "Latest Research 2025" card relabelled "Recent Peer-Reviewed Findings (2024–2025)".
+- Headless click-through of all 43 panels — zero uncaught JS exceptions.
+
+**v26.6.1 — Back-to-home floating button**
+- Small arrow button bottom-left (mirror of the search FAB) — returns to dashboard hero from any panel.
+- `data-i18n-attr` extension to `setLanguage()` so icon-only buttons can be translated without touching innerHTML.
+
+**v26.6.0 — Vayu Junction (7th learning game)**
+- Word-grouping puzzle inspired by BBC's *Only Connect*, NYT *Connections*, and the *Torchlight* climate puzzle at Times of Climate Change.
+- Four original India-AQ puzzles ship at launch: Basics, Sources/Seasons/Protection, Names & Numbers, Devious.
+- 16 tiles on a 4×4 grid, four hidden groups of four, four strikes, auto-detects "one-off" near-misses.
+- Ask JanVayu verified end-to-end in all five UI languages (EN/HI/TA/BN/MR).
+- Roadmap restructured: Phase 5.7 returned to numeric order; duplicate Phase 6 renamed; new Phase 5.9.
+
+### Previous (v26.5.x — May 2026)
 
 **v26.5.6 — Performance + accessibility hardening**
 - **Lazy-loaded Chart.js + Leaflet** behind `window.ensureChartJs()` and `window.ensureLeaflet()` — ~120 KB off first paint for sessions that don't open Trends/Map; dashboard mini-charts pre-warmed in `requestIdleCallback`.
