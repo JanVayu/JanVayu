@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walkthrough — JanVayu</title>
+<meta name="description" content="A walkthrough of JanVayu — a 64-slide guided tour built for the MMSF Fellows cohort. Embedded Google Slides deck plus PPTX and PDF downloads.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.janvayu.in/walkthrough/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.janvayu.in/walkthrough/">
+<meta property="og:title" content="Walkthrough — JanVayu">
+<meta property="og:description" content="A walkthrough of JanVayu — a 64-slide guided tour of the platform built for the MMSF Fellows cohort.">
+<meta property="og:image" content="https://www.janvayu.in/og-image.png">
+
+<style>
+  :root {
+    --ink: #0F172A; --text-2: #475569; --text-3: #94A3B8;
+    --accent: #1B6B4A; --accent-hover: #15803D;
+    --bg: #FAFAF7; --bg-card: #FFFFFF; --border: #E2E8F0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 16px 64px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.55;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  h1 {
+    font-family: "Newsreader", Georgia, serif;
+    font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 8px;
+  }
+  .lede { color: var(--text-2); font-size: 1.05rem; max-width: 64ch; margin: 0 0 28px; }
+  .nav { font-size: 0.85rem; margin-bottom: 24px; }
+  .nav a { color: var(--accent); text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+
+  /* Slide embed */
+  .slide-frame {
+    position: relative;
+    width: 100%;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    aspect-ratio: 16 / 9;
+    margin-bottom: 24px;
+  }
+  .slide-frame iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+
+  /* Action buttons */
+  .actions {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin: 0 0 32px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.92rem; font-weight: 600;
+    border: 1px solid var(--accent);
+    transition: background 0.12s, color 0.12s, transform 0.12s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--bg-card); color: var(--accent);
+  }
+  .btn-secondary:hover { background: rgba(27,107,74,0.08); transform: translateY(-1px); }
+  .btn .file-meta {
+    font-size: 0.72rem; font-weight: 500; opacity: 0.75;
+    margin-left: 4px;
+  }
+
+  /* Body sections */
+  h2 {
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 1.4rem; margin: 32px 0 12px;
+  }
+  .what-you-see {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .what-you-see ul { margin: 8px 0 0; padding-left: 22px; }
+  .what-you-see li { margin-bottom: 6px; color: var(--text-2); font-size: 0.95rem; }
+
+  footer {
+    margin-top: 40px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--text-3);
+  }
+  footer a { color: var(--text-2); }
+
+  @media (max-width: 540px) {
+    .actions { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="nav"><a href="/">&larr; Back to JanVayu</a></div>
+
+  <h1>Walkthrough</h1>
+  <p class="lede">A walkthrough of JanVayu &mdash; a 64-slide guided tour through the platform built for the MMSF Fellows cohort under the <strong>AirQuality for Janhit</strong> programme (AIPC). Use the embedded deck below, or download the source files to present offline.</p>
+
+  <div class="slide-frame">
+    <iframe
+      src="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/embed?start=false&loop=false&delayms=3000"
+      title="JanVayu MMSF Walkthrough &mdash; Google Slides embed"
+      frameborder="0"
+      allowfullscreen="true"
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"></iframe>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn-primary"
+       href="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/edit?usp=sharing"
+       target="_blank" rel="noopener">
+       Open in Google Slides <span class="file-meta">(view-only)</span>
+    </a>
+    <a class="btn btn-secondary"
+       href="JanVayu_MMSF_Walkthrough.pdf"
+       download>
+       Download PDF <span class="file-meta">(13 MB)</span>
+    </a>
+    <a class="btn btn-secondary"
+       href="JanVayu_MMSF_Walkthrough.pptx"
+       download>
+       Download PPTX <span class="file-meta">(24 MB &middot; editable)</span>
+    </a>
+  </div>
+
+  <div class="what-you-see">
+    <h2 style="margin-top: 0;">What this walkthrough covers</h2>
+    <ul>
+      <li>How JanVayu is structured &mdash; the dashboard, the 40+ panels, the role-based landing experience</li>
+      <li>Live AQI data sources (WAQI, CPCB CAAQMS, Sensor.Community) and how they flow through the Netlify Functions tier</li>
+      <li>The accountability layer &mdash; NCAP budget tracker, mission tracker, political accountability, RTI templates</li>
+      <li>The seven learning games, including the new <em>Vayu Junction</em> word-grouping puzzle</li>
+      <li>How to fork JanVayu for a new city or country &mdash; cost, setup, attribution</li>
+    </ul>
+  </div>
+
+  <p style="font-size: 0.85rem; color: var(--text-3);">The PDF and PPTX above are exported directly from the live Google Slides deck and may lag the linked version by a few minutes. For the absolute latest, use <em>Open in Google Slides</em>. To run the deck offline, download the PDF (presentation-only) or the PPTX (editable in PowerPoint, Keynote, or LibreOffice Impress).</p>
+
+  <footer>
+    <p>Part of <strong>AirQuality for Janhit</strong> by MMSF Fellows, AIPC &middot; <a href="/">JanVayu home</a> &middot; <a href="https://github.com/JanVayu/JanVayu">GitHub</a></p>
+    <p>Code: MIT &middot; Content: CC BY-NC-SA 4.0</p>
+  </footer>
+
+</div>
+</body>
+</html>
