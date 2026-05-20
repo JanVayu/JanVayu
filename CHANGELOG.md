@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.1] - 2026-05-20
+
+### Added — Back-to-home floating button
+
+A small floating arrow button (bottom-left, mirror of the existing search FAB at bottom-right) that returns the user to the dashboard hero. The previous flow used the main dropdown nav to *enter* a section but offered no obvious one-tap way back to the top — users had to either scroll all the way up or hunt for "Dashboard" in the nav.
+
+**Behaviour:**
+
+- Appears whenever **any panel is loaded** via the dropdown nav (i.e. `#panel-container` has content), or once the user has scrolled **more than 320 px** past the top.
+- Clicking it calls `showPanel('dashboard')`, which clears the panel container and smooth-scrolls to top — same code path as clicking "Dashboard" in the nav.
+- Smooth fade-in + 8 px upward slide; immediately hides itself when clicked, then re-appears the next time the user scrolls or navigates into a panel.
+
+**Accessibility:**
+
+- Tab-focusable button with a 3 px focus ring (matches the v26.5.7 dark-mode focus indicator).
+- `aria-label` and `title` translated in EN/HI/TA/MR/BN via a new `data-i18n-attr` extension to the `setLanguage()` loop, so attribute-only translations can be added without touching `innerHTML`. This is useful for any icon-only button where the SVG must stay intact.
+- Up-arrow + house SVG icon, no emoji, follows the existing JanVayu visual style.
+
+**Mobile sizing:**
+
+- 46 px diameter on desktop (slightly smaller than the FAB's 52 px so the FAB stays the primary action).
+- 42 px on screens ≤480 px, with the same 16 px gutter as the FAB at the same breakpoint, so the two buttons sit symmetrically in the bottom corners.
+
+### Changed — Version markers
+
+- `package.json` 26.6.0 → **26.6.1**
+- `CITATION.cff` `version` 26.6.0 → **26.6.1**
+- `index.html` footer ribbon (About panel) refreshed for v26.6.1
+
 ## [v26.6.0] - 2026-05-20
 
 ### Added — Vayu Junction (7th learning game)

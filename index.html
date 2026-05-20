@@ -1828,6 +1828,22 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .fab-btn.open svg.icon-open { display: none; }
 .fab-btn:not(.open) svg.icon-close { display: none; }
 
+/* ═══ Back-to-home button (returns to dashboard hero & scrolls to top) ═══ */
+.back-home-btn {
+    position: fixed; bottom: 24px; left: 24px; z-index: 500;
+    width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--border);
+    background: var(--bg-card); color: var(--accent); cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s, box-shadow 0.2s;
+}
+.back-home-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.back-home-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.back-home-btn:focus-visible { outline: 3px solid #FFD86B; outline-offset: 2px; }
+.back-home-btn svg { width: 20px; height: 20px; }
+
 .widget-modal {
     display: none; position: fixed; bottom: 88px; right: 24px; z-index: 499;
     width: min(400px, calc(100vw - 32px)); max-height: min(520px, calc(100vh - 120px));
@@ -1913,6 +1929,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 @media (max-width: 480px) {
     .fab-btn { bottom: 16px; right: 16px; width: 48px; height: 48px; }
+    .back-home-btn { bottom: 16px; left: 16px; width: 42px; height: 42px; }
+    .back-home-btn svg { width: 18px; height: 18px; }
     .widget-modal { bottom: 76px; right: 12px; left: 12px; width: auto; max-height: calc(100vh - 100px); }
 }
 
@@ -3347,6 +3365,8 @@ body {
             // Stats
             deaths_year: "Deaths/Year", annual_cost: "Annual Cost", delhi_pm25: "Delhi Annual PM2.5",
             right_now: "Right now",
+            // UI
+            back_home: "Back to home",
             // Footer
             lang_note: ""
         },
@@ -3371,6 +3391,7 @@ body {
             mg_action: "कार्रवाई और समुदाय", mg_resources: "संसाधन",
             deaths_year: "मौतें/वर्ष", annual_cost: "वार्षिक लागत", delhi_pm25: "दिल्ली वार्षिक PM2.5",
             right_now: "अभी",
+            back_home: "मुख्य पृष्ठ पर वापस",
             lang_note: "विस्तृत विश्लेषण अंग्रेज़ी में उपलब्ध है। हिन्दी अनुवाद चरणबद्ध रूप से जोड़ा जा रहा है।"
         },
         ta: {
@@ -3394,6 +3415,7 @@ body {
             mg_action: "நடவடிக்கை & சமூகம்", mg_resources: "வளங்கள்",
             deaths_year: "இறப்புகள்/ஆண்டு", annual_cost: "ஆண்டு செலவு", delhi_pm25: "டெல்லி ஆண்டு PM2.5",
             right_now: "இப்போது",
+            back_home: "முகப்புக்குத் திரும்பு",
             lang_note: "விரிவான பகுப்பாய்வு ஆங்கிலத்தில் உள்ளது. தமிழ் மொழிபெயர்ப்பு படிப்படியாக சேர்க்கப்படுகிறது."
         },
         mr: {
@@ -3417,6 +3439,7 @@ body {
             mg_action: "कृती आणि समुदाय", mg_resources: "संसाधने",
             deaths_year: "मृत्यू/वर्ष", annual_cost: "वार्षिक खर्च", delhi_pm25: "दिल्ली वार्षिक PM2.5",
             right_now: "आत्ता",
+            back_home: "मुख्यपृष्ठावर परत",
             lang_note: "तपशीलवार विश्लेषण इंग्रजीत उपलब्ध आहे. मराठी भाषांतर टप्प्याटप्प्याने जोडले जात आहे."
         },
         bn: {
@@ -3440,6 +3463,7 @@ body {
             mg_action: "পদক্ষেপ ও সম্প্রদায়", mg_resources: "সম্পদ",
             deaths_year: "মৃত্যু/বছর", annual_cost: "বার্ষিক ব্যয়", delhi_pm25: "দিল্লি বার্ষিক PM2.5",
             right_now: "এখন",
+            back_home: "মূল পাতায় ফিরুন",
             lang_note: "বিস্তারিত বিশ্লেষণ ইংরেজিতে পাওয়া যায়। বাংলা অনুবাদ ধাপে ধাপে যোগ করা হচ্ছে।"
         }
     };
@@ -3493,6 +3517,16 @@ body {
                     }
                 }
             }
+        });
+
+        // data-i18n-attr: "aria-label:key,title:key" — translates attributes without touching innerHTML.
+        // Used by icon-only buttons (e.g. back-to-home) where the SVG must stay intact.
+        document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+            const spec = el.getAttribute('data-i18n-attr') || '';
+            spec.split(',').forEach(pair => {
+                const [attr, key] = pair.split(':').map(s => (s || '').trim());
+                if (attr && key && t[key]) el.setAttribute(attr, t[key]);
+            });
         });
 
         // Desktop dropdown items
@@ -4024,6 +4058,49 @@ body {
         const mobileItem = document.querySelector(`.mobile-nav-item[data-panel="${panelId}"]`);
         if (mobileItem) mobileItem.classList.add('active');
     }
+
+    // Back-to-home: return to dashboard hero and scroll to top.
+    // Wired to the floating arrow button (bottom-left), visible after the user
+    // has scrolled past the hero or has opened a panel via the dropdown nav.
+    function backToHome() {
+        try { showPanel('dashboard'); } catch (e) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        const btn = document.getElementById('backHomeBtn');
+        if (btn) btn.classList.remove('visible');
+    }
+    window.backToHome = backToHome;
+
+    // Show the back-to-home button once the user has scrolled past the hero,
+    // or any time a non-dashboard panel is currently loaded.
+    (function initBackHomeButton() {
+        function shouldShow() {
+            const panelContainer = document.getElementById('panel-container');
+            // .children only counts element nodes — ignores the placeholder HTML comment
+            const hasOpenPanel = !!(panelContainer && panelContainer.children.length > 0);
+            return hasOpenPanel || window.scrollY > 320;
+        }
+        function update() {
+            const btn = document.getElementById('backHomeBtn');
+            if (!btn) return;
+            btn.classList.toggle('visible', shouldShow());
+        }
+        // Debounce via rAF
+        let raf = 0;
+        window.addEventListener('scroll', () => {
+            if (raf) return;
+            raf = requestAnimationFrame(() => { raf = 0; update(); });
+        }, { passive: true });
+        // Also update right after a panel loads — wrap showPanel once available
+        document.addEventListener('DOMContentLoaded', update);
+        // Hook into showPanel so the button appears immediately on dropdown click
+        const origShowPanel = window.showPanel;
+        if (typeof origShowPanel === 'function') {
+            window.showPanel = function(panelId) {
+                const r = origShowPanel.apply(this, arguments);
+                setTimeout(update, 50);
+                return r;
+            };
+        }
+    })();
 
     function loadPanel(panelId) {
         const container = document.getElementById('panel-container');
@@ -12458,7 +12535,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.0 | Updated 20 May 2026 | <strong>Vayu Junction</strong> &mdash; 7th learning game (Only-Connect / NYT-Connections-style word grouper with four India-AQ puzzles), Ask JanVayu end-to-end verified in EN/HI/TA/BN/MR, Reddit-feed User-Agent bumped from v25 to v26.6, Roadmap restructured with Phase 5.9 (20 May ship list), docs/changelog/footer/CITATION refreshed. Built on top of v26.5.x: lazy-loaded Chart.js + Leaflet (~120 KB off first paint), chart-canvas a11y, SRI hashes, Lighthouse + axe + html-validate + ESLint + i18n-coverage CI all advisory-on-PR, six earlier learning games.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.1 | Updated 20 May 2026 | <strong>Back-to-home button</strong> &mdash; small floating arrow (bottom-left) that returns to the dashboard hero whenever a panel is loaded or the user has scrolled past the hero. Mirrors the existing FAB. Translated aria-label in EN/HI/TA/MR/BN. Built on v26.6.0: <strong>Vayu Junction</strong> &mdash; 7th learning game (Only-Connect / NYT-Connections-style word grouper with four India-AQ puzzles), Ask JanVayu end-to-end verified in EN/HI/TA/BN/MR, Reddit-feed User-Agent bumped from v25 to v26.6, Roadmap restructured with Phase 5.9. Built on top of v26.5.x: lazy-loaded Chart.js + Leaflet (~120 KB off first paint), chart-canvas a11y, SRI hashes, advisory CI pipelines, six earlier learning games.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -12545,6 +12622,15 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.1 &mdash; 20 May 2026</div>
+                    <strong>Back-to-home floating button</strong><br>
+                    &bull; Small floating arrow (bottom-left, mirror of the existing search FAB at bottom-right) that returns the user to the dashboard hero. Appears whenever any panel is loaded via the dropdown nav, or once the user has scrolled more than 320 px past the top. Clicking it calls <code>showPanel('dashboard')</code> which clears the panel container and smooth-scrolls to top.<br>
+                    &bull; <strong>Keyboard-accessible</strong>: tab-focusable, 3 px focus ring (matches the v26.5.7 dark-mode focus indicator).<br>
+                    &bull; <strong>Internationalised</strong>: `aria-label` and `title` translated in EN/HI/TA/MR/BN via a new <code>data-i18n-attr</code> extension to the <code>setLanguage()</code> loop, so attribute-only translations can be added without touching `innerHTML`.<br>
+                    &bull; <strong>Mobile-sized</strong>: 42 px diameter on screens ≤480 px, aligned with the FAB's 48 px at the same breakpoint.
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.0 &mdash; 20 May 2026</div>
@@ -13893,6 +13979,15 @@ Signature: _______________</div>
                 </div>
             </div>
 </template>
+
+<!-- Back-to-home: shown when user is scrolled past hero or has a panel open; returns to dashboard hero -->
+<button class="back-home-btn" id="backHomeBtn" type="button" onclick="backToHome()"
+        aria-label="Back to home" title="Back to home" data-i18n-attr="aria-label:back_home,title:back_home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 11.5 12 4l9 7.5"/>
+        <path d="M5 10.5V20h5v-6h4v6h5v-9.5"/>
+    </svg>
+</button>
 
 <!-- Floating Search & Feedback Widget -->
 <button class="fab-btn" id="fabBtn" onclick="toggleWidget()" aria-label="Search & Feedback">
