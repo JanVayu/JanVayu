@@ -5,6 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.4] - 2026-05-20
+
+### Changed — Panel content freshness sweep
+
+User feedback: *"Did you update ALL sections — what about Clean Air Wins, etc.?"* Honest answer was no — the v26.6.2 audit covered stats consistency and the Resources panel only. This release sweeps the highest-staleness-risk panels and brings their date-stamped content into the present.
+
+#### Clean Air Wins (`tmpl-progress`) — Severity 5 fix
+
+The headline stat strip and Delhi e-bus card were anchored to **February 9, 2026** data with no acknowledgement that it's now May. Fixed:
+
+- New **"Update — May 2026"** card at the top of the panel, surfacing the three policy/enforcement wins from the last six weeks: CAQM's first-ever **off-season GRAP Stage-I invocation** (19 May 2026), NGT's **six-state south-India PM roadmap order** (Apr 2026), and NGT's **nationwide SPCB diesel-generator retrofit notices** (9 Apr 2026). All three link to the Resources panel for full citations.
+- Headline stat-strip's fourth tile changed from "10,000 e-buses planned (PM-eBus Sewa, by 2026)" — which is verbatim from the original brochure but reads as a future target despite the deadline being now — to "**6 South-Indian states ordered to file sector-wise PM roadmaps (NGT, Apr 2026)**", a fresh, verified, May-2026-vintage data point.
+- Delhi e-bus card reframed: "operational as of Feb 9, 2026" → "operational (**last verified count, 9 Feb 2026**)" with an explicit "*next public count expected Q2/Q3 2026*" note. EV Policy 2.0 line: "expected by March 2026" → "**draft still awaited as of mid-May 2026**".
+
+#### Budget Tracker (`tmpl-budget`) — Severity 4 fix
+
+The "Funding Cliff Alert" still said the 15th Finance Commission grants **"expire March 2026"** — but March is now seven weeks behind us. Reframed retrospectively:
+
+- "expire March 2026 with no successor mechanism announced" → "**expired 31 March 2026. As of mid-May 2026, no successor mechanism has been formally announced — cities are operating on residual previously-released allocations. The 16th Finance Commission's recommendations are expected by Oct 2026 for the FY27 cycle starting Apr 2027 — leaving a potential 12-month gap.**"
+- Structural-issues bullet updated to match.
+
+#### Mission Tracker (`tmpl-mission-tracker`) — Severity 4 fix
+
+The "NCAP Target vs. Reality (March 2026 Deadline)" card was forward-looking despite the deadline having elapsed. Reframed:
+
+- Card title → "NCAP Target vs. Reality — **Deadline Missed**"; sub-title gains the CSE Apr 2026 review reference.
+- New banner explicitly says the deadline has passed with the verified 23/100 (CREA) and 37/131 (CSE Apr 2026) outcomes side-by-side. Links to the CSE Five-Year Review in the Resources panel.
+- "Cloud Seeding" evidence box updated to reflect both the late-2025 AND early-2026 trial rounds (both independent assessments: no measurable AQI impact).
+
+#### Children's Health (`tmpl-children`) — Severity 3 fix
+
+"~30 days this winter" school-closure language was confusing in May (we're past winter). Reframed as:
+
+- "**Winter 2025-26 closures (most recent pollution season)**" — explicit framing that this is historical.
+- Added a forward-looking sentence: *"The next closure window opens with the post-monsoon pollution season — typically late October 2026."*
+
+#### Political Accountability (`tmpl-accountability`) — Severity 4 fix
+
+Card titles for the CREA NCAP report and the CAG audit carried internal version badges (**"v19.0"**) that meant nothing to users and made the cards look dated. Replaced with content-vintage badges:
+
+- "CREA Tracing the Hazy Air (January 9, 2026) — v19.0" → "**CREA · 9 Jan 2026**"
+- "CAG Audit (April 2025) — v19.0" → "**CAG · April 2025**"
+
+Same fix applied to four more v19.0 badges in the Resources / Citizen Action card group, including a "State of Global Air 2025" tile (now correctly labelled "HEI · Oct 2025").
+
+### Changed — Version markers
+
+- `package.json` 26.6.3 → **26.6.4**
+- `CITATION.cff` 26.6.3 → **26.6.4**
+- `index.html` About-panel footer ribbon and on-page version-history card refreshed
+
 ## [v26.6.3] - 2026-05-20
 
 ### Changed — Back-to-home button visibility
