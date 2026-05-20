@@ -113,7 +113,7 @@ const SHARED_HEAD = (p) => `<!DOCTYPE html>
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "${p.fullName}: sources, health effects, and India levels",
-  "datePublished": "${new Date().toISOString().slice(0,10)}",
+  "datePublished": "2026-04-26",
   "dateModified": "${new Date().toISOString().slice(0,10)}",
   "author": { "@type": "Organization", "name": "JanVayu" },
   "publisher": { "@type": "Organization", "name": "JanVayu", "logo": { "@type": "ImageObject", "url": "https://www.janvayu.in/og-image.png" } },

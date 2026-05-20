@@ -10,7 +10,7 @@ Two studies published in The Lancet Planetary Health in late 2024 have closed th
 
 ## The Difference-in-Differences Study
 
-The first study, led by researchers using India's district-level mortality data, applied a difference-in-differences approach — a method widely used in economics to isolate cause from confounders. By comparing districts that experienced pollution changes with those that did not, while controlling for economic conditions, weather, and demographic trends, the authors estimated that long-term PM2.5 exposure causes approximately 1.5 million additional deaths per year in India compared to a scenario where the country met the WHO annual guideline of 5 micrograms per cubic metre.
+The first study (Krishna et al. 2024, *Lancet Planetary Health*), led by researchers using India's district-level mortality data, applied a difference-in-differences approach — a method widely used in economics to isolate cause from confounders. By comparing districts that experienced pollution changes with those that did not, while controlling for economic conditions, weather, and demographic trends, the authors estimated that long-term PM2.5 exposure causes approximately **1.5 million additional deaths per year** in India compared to a scenario where the country met the WHO annual guideline of 5 micrograms per cubic metre. *(Update May 2026: the Lancet Countdown 2025 has since revised the headline India figure to 1.72 million through a tighter high-end exposure-response and re-attribution of household biomass deaths. The 1.5M figure here is the original Krishna et al. causal estimate, retained as the causal-study reference.)*
 
 This figure is not a projection or a model estimate. It is derived from observed mortality differences between comparable populations exposed to different pollution levels. The method controls for precisely the confounding factors that previously allowed governments to dismiss health burden estimates as speculative.
 
@@ -26,7 +26,7 @@ The distinction between correlational and causal evidence is not academic. It ha
 
 When evidence is correlational, policymakers can argue that reducing pollution might not reduce deaths — that other interventions (better hospitals, more doctors) could be more effective. Causal evidence eliminates this escape route. It demonstrates that cleaning the air will, directly and measurably, save lives.
 
-The 1.5 million figure also dwarfs India's official acknowledgement of air pollution as a health crisis. Government statements typically cite much lower figures or focus on respiratory disease alone, ignoring the cardiovascular, neurological, and developmental impacts that the Global Burden of Disease framework has documented for over a decade.
+The 1.5 million figure (now revised upward to 1.72 million by the Lancet Countdown 2025) also dwarfs India's official acknowledgement of air pollution as a health crisis. Government statements typically cite much lower figures or focus on respiratory disease alone, ignoring the cardiovascular, neurological, and developmental impacts that the Global Burden of Disease framework has documented for over a decade.
 
 ## The Inequality Dimension
 
