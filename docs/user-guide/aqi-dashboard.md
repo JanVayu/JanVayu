@@ -23,7 +23,7 @@ The AQI Dashboard provides live air quality readings for 30+ Indian cities, upda
 |----------|---------------|-----------------|
 | WHO Guideline (2021) | 5 µg/m³ | 15 µg/m³ |
 | India NAAQS | 40 µg/m³ | 60 µg/m³ |
-| Delhi (actual, 2024) | ~100 µg/m³ | — |
+| Delhi (actual, IQAir 2025) | 91.6 µg/m³ | — |
 
 ---
 
