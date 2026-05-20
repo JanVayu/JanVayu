@@ -5,6 +5,52 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.2] - 2026-05-20
+
+### Full-site audit sweep
+
+A targeted audit triggered by the question *"did you update the list of resources / papers / reports?"*. The honest answer was no — last refresh was v26.5.2 in April. This release does the refresh plus a sweep for stale numbers across the site.
+
+### Added — Five fresh May 2026 items in the Resources panel
+
+The "April–May 2026 Updates" card is renamed to **"May 2026 Updates"** and gains a separate **"Added this cycle"** sub-section above the six anchor reports. Each of these was published between 1 April and 20 May 2026:
+
+| # | Title | Org | Date | Why it matters |
+|---|-------|-----|------|----|
+| 1 | India Monthly Ambient Air Quality Snapshot — April 2026 | CREA | 8 May 2026 | Khora (UP) ranked #1 most polluted by CAAQMS data; granular city-level breakdown |
+| 2 | GRAP Stage-I Re-invocation (off-season) | CAQM | 19 May 2026 | First-ever off-season GRAP toggle in Delhi-NCR — year-round AQ enforcement |
+| 3 | South-India PM Reduction Suo Motu Order | NGT | Apr 2026 | Direction to TN/KL/KA/AP/TS/PY for sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets |
+| 4 | Diesel-Generator Retrofit Non-Compliance Notices | NGT | 9 Apr 2026 | Notices to all SPCBs/PCCs for failing CPCB/CAQM directions on DG-set emissions |
+| 5 | "16× COVID-Era Annual Deaths" (Bagai, AAD 2026) | Down to Earth / CSE | Apr 2026 | Clinician-led paediatric/cardiac mortality reframing distinct from Lancet's 1.72M |
+
+### Changed — Stale-stat sweep
+
+Brought outdated statistics into alignment with the canonical v26.5 figures (1.72M deaths, $339.4B, 91.6 µg/m³ Delhi annual PM2.5):
+
+- **SEO meta description** (`<meta name="description">`) — "2 million deaths/year" → **"1.72 million deaths/year (Lancet Countdown 2025)"**
+- **Twitter Card description** — same fix
+- **Hero alert** in `#section-dashboard` — "six-game Learning Games" → **"seven-game Learning Games"** with explicit mention of Vayu Junction
+- **Dashboard quick-link card** for Games — "Six games: Jeopardy, quiz & more" → **"Seven games: Jeopardy, Vayu Junction & more"**
+- **`docs/README.md`** — Stats overhauled: 1.7–2 million → 1.72M; Delhi ~100 µg/m³ → 91.6 µg/m³; $150 billion → $339.4 billion (~9.5% GDP). Added AQLI 2025 IGP detail (7–8 years).
+- **`docs-hi/README.md`, `docs-bn/README.md`, `docs-mr/README.md`, `docs-ta/README.md`** — Same overhaul, four languages.
+
+### Changed — "Latest Research 2025" card relabelled
+
+The card under the Health panel was titled *"Latest Research 2025 — Key Findings"* with a v19.0 badge. The content (SoGA 2025, Lancet 10-city Dec 2024, Karolinska 2024) is still useful but no longer "latest" — May 2026 has fresher items in the Resources panel. Renamed to **"Recent Peer-Reviewed Findings (2024–2025)"** with a neutral *background* badge. The freshest items now live in one place, the Resources panel "May 2026 Updates" card.
+
+### Verified — End-to-end click-through of all 43 panels
+
+Headless Chromium sweep clicked every panel-bearing nav item (`data-panel="..."` attributes — 43 panels total: health, economic, children, indoor, trends, compare, rankings, map, hyperlocal, forecast, correlations, policy, budget, accountability, corporate, mission-tracker, scorecards, accountability-brief, progress, actions, citizen-action, legal, voices, workshops, games, social-feed, live-news, migration, ask-janvayu, go-outside, aqi-alerts, school-closure, exposure-report, purifier-calc, migration-calc, rti-assistant, pollution-calendar, data-archive, tools, glossary, resources, downloads, about).
+
+**Result: zero uncaught JS exceptions on any panel.** Only "errors" are localhost 404s for Netlify Functions endpoints (production-only) and CDN cert noise from the sandbox — both expected, neither affects production.
+
+### Changed — Version markers
+
+- `package.json` 26.6.1 → **26.6.2**
+- `CITATION.cff` 26.6.1 → **26.6.2**
+- `index.html` About-panel footer ribbon refreshed
+- `index.html` Version History card gains v26.6.2 entry at top
+
 ## [v26.6.1] - 2026-05-20
 
 ### Added — Back-to-home floating button
