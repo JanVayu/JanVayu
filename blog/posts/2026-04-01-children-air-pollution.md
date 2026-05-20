@@ -18,7 +18,7 @@ These are not small numbers. Stunting in early childhood is largely irreversible
 
 The damage extends beyond physical growth. Research compiled by the WHO shows associations between prenatal exposure to high PM2.5 levels and developmental delays at age three, as well as psychological and behavioural problems in later childhood — including symptoms of attention deficit hyperactivity disorder, anxiety, and depression.
 
-A working paper from the Institute of Economic Growth in Delhi found measurable effects of air pollution on cognitive performance in Indian populations, including reduced attention spans, memory deficits, and lower test scores. Studies from Brookings Institution corroborated that early-life exposure to outdoor air pollution in India has significant effects on child health and development that persist into adulthood.
+A working paper from the Institute of Economic Growth in Delhi (Greenstone, Hanna et al., 2021) documented measurable effects of air pollution on cognitive performance in Indian populations, including reduced attention spans, memory deficits, and lower test scores. Subsequent Brookings Institution analysis (2023) reinforced the finding that early-life exposure to outdoor air pollution in India has significant effects on child health and development that persist into adulthood.
 
 For families in Delhi, where winter PM2.5 concentrations routinely exceed 300 micrograms per cubic metre — sixty times the WHO guideline — these are not theoretical risks. Paediatricians in the capital have reported seeing respiratory conditions in eight-year-olds that would typically present in middle-aged adults with long smoking histories.
 
@@ -30,7 +30,7 @@ These closures disproportionately affect children from lower-income families, wh
 
 ## The Mortality Data
 
-The Global Burden of Disease study estimated that 8.8 percent of deaths in children under five in India in 2017 were attributable to air pollution. Vital Strategies reported that new research links air pollution to hindered childhood development in up to 90 percent of children globally, with South Asian children among the most affected populations.
+The Global Burden of Disease study (most recent India estimate, 2021 cycle) attributed 8.8 percent of deaths in Indian children under five in 2017 to air pollution. Vital Strategies' 2023 analysis ("Air pollution hinders childhood development") found that air pollution affects childhood development in up to 90 percent of children globally, with South Asian children among the most affected populations.
 
 The Lancet Countdown 2025 places India's annual air pollution death toll at 1.72 million, a significant proportion of whom are children and infants. Neonatal mortality from air pollution exposure — including preterm birth, low birth weight, and respiratory distress — accounts for a substantial share of these deaths but receives comparatively little policy attention.
 
