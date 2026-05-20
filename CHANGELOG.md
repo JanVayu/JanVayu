@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.3] - 2026-05-20
+
+### Changed — Back-to-home button visibility
+
+User feedback: *"I can't see the button you added to return home"*. Confirmed via headless Chromium against the live site that the button was correctly rendering and getting the `.visible` class — but visually too quiet to draw the eye. The original styling (light card background, accent-coloured stroke) blended into the page's cream background.
+
+**Now louder:**
+
+- **Solid accent-green background** (`#16A34A`) with a **white house icon** and a 2 px white border ring — the same visual weight as the search FAB on the bottom-right, but in the mirror corner
+- **Larger**: 52 px desktop (was 46), 48 px mobile (was 42) — matches the FAB exactly so the two sit as a symmetric pair
+- **Stronger shadow**: `0 6px 20px rgba(0,0,0,0.25)` (was `0 4px 14px rgba(0,0,0,0.12)`)
+- **One-time gentle pulse** when the button first becomes visible (1.4 s, single iteration, ring expands from 0 to 16 px and fades) — draws the eye without nagging. Respects `prefers-reduced-motion`.
+- **Hover state**: button shifts to a deeper green (`#15803d`) and scales up by 8% — feels tactile
+- **Z-index bumped** from 500 to 600 so it sits above the FAB layer (still well below the role-overlay's 2999, which is correct — the role overlay should remain exclusive)
+- **Slide-in animation** updated to a `translateY + scale` combo, giving the button a subtle pop when it appears
+
+### Changed — Version markers
+
+- `package.json` 26.6.2 → **26.6.3**
+- `CITATION.cff` 26.6.2 → **26.6.3**
+- `index.html` About-panel footer ribbon refreshed
+
 ## [v26.6.2] - 2026-05-20
 
 ### Full-site audit sweep
