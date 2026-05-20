@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.6] - 2026-05-20
+
+### Changed — Secondary surface sweep: pollutant pages, service worker, blog posts
+
+User feedback (after the v26.6.5 stocktake): *"What have we not checked?"* The honest list included per-pollutant SEO pages, the root service worker, and the 10 existing blog posts. This release addresses all three. Both this file and the on-page Version History card in the About panel get the entry.
+
+#### Per-pollutant SEO pages (`/pm25/`, `/pm10/`, `/co/`, `/no2/`, `/so2/`, `/o3/`)
+
+Regenerated all six pages via `scripts/build-pollutant-pages.mjs`. The JSON-LD `dateModified` is now **2026-05-20** across all six pages (was 2026-05-08).
+
+**Bug fix in the build script.** Previously `datePublished` was being reset to the current date on every regeneration — losing the original publish history. Fixed: `datePublished` is now pinned to **2026-04-26** (the original release of the per-pollutant pages); only `dateModified` updates on each rebuild.
+
+#### Root service worker (`/sw.js`)
+
+Cache version bumped: `janvayu-20260508` → **`janvayu-20260520`**. Returning users will now bypass the stale offline-shell cache and pick up everything from v26.6.0–v26.6.5 (Vayu Junction, back-to-home button, May 2026 panel content, etc.). The `/ask/sw.js` cache name was already bumped in v26.6.0.
+
+#### Blog post stat alignment (audit identified 4 posts with stale figures)
+
+- **`blog/posts/2026-04-08-lancet-causal-evidence.md`** — Two mentions of "1.5 million" now correctly attributed to Krishna et al. 2024 (causal-inference study) with an inline May-2026 note pointing readers to the revised Lancet Countdown 2025 headline of **1.72 million**.
+- **`blog/posts/2026-04-12-iqair-2025-india.md`** — Same fix: "1.5 million" now attributed to Krishna et al. 2024, with an inline note about the Lancet Countdown 2025 revision to 1.72M.
+- **`blog/posts/2026-05-08-learning-games.md`** — "A Hindi translation of all six games" → "all six games (now seven, since Vayu Junction shipped on 20 May 2026)".
+- **`blog/posts/2026-03-25-economic-cost.md`** — World Bank "$150 billion" framing reworded so readers understand it is the older figure now superseded by Lancet Countdown 2025's $339.4 billion / 9.5% GDP.
+
+The earlier "**Data Corrections, May 2026**" post (`2026-05-06`) already explained the 1.5M-vs-1.72M distinction at length; these edits make individual posts consistent with that canonical correction so a reader landing on any single post doesn't see contradictory numbers.
+
+### Verified clean — no edits needed
+
+- **Embed widgets** (`/embed/aqi/`, `/embed/rankings/`) — no stale stats; no version markers
+- **Daily email digest** (`netlify/functions/daily-digest.mjs`) — fully live-data; no embedded figures
+- **`/blog/posts/2026-05-06-data-corrections-may.md`** — already canonically frames 1.5M (Krishna et al.) vs 1.72M (Lancet Countdown 2025)
+- **`/blog/posts/2026-04-05-ncap-deadline.md`** — correctly frames the deadline as past tense
+- **Other blog posts** (`2026-03-28-stubble-burning-satellites.md`, `2026-04-01-children-air-pollution.md`, `2026-04-26-shipped-this-week.md`, `2026-05-08-quality-and-performance.md`, `2026-05-20-vayu-junction.md`) — all already current
+
+### Still uninspected (next-pass candidates)
+
+For full transparency, the following secondary-surface items remain unaudited this session: the 17 other Netlify Functions beyond Reddit/Twitter (instagram-feed, youtube-feed, news-proxy, etc.); 50+ documentation sub-pages under `docs/user-guide`, `docs/technical`, `docs/api`, `docs/skills`, `docs/contributing`, `docs/about`, `docs/tech-stack`, `docs/claude-code`, `docs/data-sources`, and their translated equivalents in `docs-hi/`, `docs-bn/`, `docs-mr/`, `docs-ta/`; the ImpactMojo docs (`docs-impactmojo*`); the GitHub Discussions seeds; the wiki pages other than Roadmap.
+
+### Changed — Version markers
+
+- `package.json` 26.6.5 → **26.6.6**
+- `CITATION.cff` 26.6.5 → **26.6.6**
+- `scripts/build-pollutant-pages.mjs` — `datePublished` bug fixed
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.5] - 2026-05-20
 
 ### Changed — Complete panel content freshness sweep (every remaining section)

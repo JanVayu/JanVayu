@@ -7,7 +7,7 @@
 //   the cached shell. WAQI / Netlify Function responses are also cached so
 //   the user sees the last-known AQI when offline.
 
-const CACHE_VERSION = 'janvayu-20260508';
+const CACHE_VERSION = 'janvayu-20260520';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
