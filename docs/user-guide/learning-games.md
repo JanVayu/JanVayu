@@ -1,6 +1,6 @@
 # Learning Games
 
-JanVayu's `/#games` panel hosts **six self-paced educational games** — all written with original India-context content. Open them via **Action → Learning Games** in the navigation, or directly at [janvayu.in/#games](https://www.janvayu.in/#games).
+JanVayu's `/#games` panel hosts **seven self-paced educational games** — all written with original India-context content. Open them via **Action → Learning Games** in the navigation, or directly at [janvayu.in/#games](https://www.janvayu.in/#games).
 
 For a live, facilitator-led session — including Dr. Sarath Guttikunda's longer-form Jeopardy run with audience teams — request a [Workshops](aqi-dashboard.md) booking.
 
@@ -86,6 +86,23 @@ A classic 3-row × 9-column tambola ticket with **15 air-quality terms** instead
 - **Full House** — every cell on the ticket marked
 
 A cold ticket finishes inside 27 calls.
+
+## 7. Vayu Junction (NEW — v26.6.0)
+
+A word-grouping puzzle inspired by BBC's *Only Connect*, the NYT *Connections* daily, and the [*Torchlight*](https://timesofclimatechange.com/torchlight/) climate puzzle at Times of Climate Change — but built around India's air-quality vocabulary.
+
+**How it works.** Sixteen tiles on a 4×4 grid. Four hidden groups of four. Tap four tiles you think share a hidden connection and hit **Submit**. Correct → the four lock in colour-coded with the theme revealed. Wrong → costs a strike. Four strikes and the puzzle reveals itself. The game auto-detects "one-off" near-misses ("three of your four belong together — swap one") so feedback is calibrated.
+
+**Four original puzzle sets ship at launch:**
+
+| # | Title | Difficulty | Sample groups |
+|---|-------|-----------|---------------|
+| 1 | Basics | Easy | Particulate fractions · Criteria gases · CPCB AQI bands · Indian regulators |
+| 2 | Sources, seasons & protection | Medium | Combustion sources · Smog-season months · GRAP stages · Mask & filter terms |
+| 3 | Names & numbers | Hard | Worst-polluted Indian cities · NCAP top performers · AQ research bodies · Citizen-action tools |
+| 4 | Devious | Devious | Types of "___ carbon" · BS emission standards · Citizen acronyms · PM-precursor gases |
+
+Solved groups stack vertically above the live grid in their theme colour. Score is not saved or transmitted; no leaderboard. New puzzles are added every few weeks.
 
 ---
 

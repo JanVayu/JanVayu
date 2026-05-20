@@ -20,7 +20,7 @@ async function fetchSubreddit(sub, query, limit = 10) {
     const res = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'JanVayu:AirQualityMonitor:v25.0 (by /u/janvayu)',
+        'User-Agent': 'JanVayu:AirQualityMonitor:v26.6 (+https://janvayu.in)',
         'Accept': 'application/json',
       },
     });

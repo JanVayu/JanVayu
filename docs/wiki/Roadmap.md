@@ -99,6 +99,21 @@ Closes specific UX/data gaps against aqi.in (consumer-polished AQI portal) and o
 
 ---
 
+## Phase 5.7: Learning, Engagement & May 2026 Refresh (✅ Completed — v26.5)
+
+Self-paced learning surfaces, fresh data points, and a sweep of stale labels. The bet: people learn air quality faster through games than through dashboards alone, and the front-of-site numbers must be visibly current.
+
+- [x] **Learning Games panel** at `/#games` with **six original games** (Air Quality Jeopardy 5×5 board with ₹1k–₹5k tiles; 10-question PM Quick-Quiz; 7-source Source Matcher; Clean Air Snakes & Ladders inspired by *Moksha Patam*; Jodi Match memory cards; Air Tambola Indian-housie ticket).
+- [x] **"Did You Know"** dashboard strip — six India-specific sourced fact cards under the anomaly banner.
+- [x] **Hero alert refreshed** for May 2026 with the canonical Lancet Countdown 2025 1.72M figure.
+- [x] **April–May 2026 Voices block** at `/#voices` with six fresh curated cards.
+- [x] **April–May 2026 Research Updates** featured card group at `/#resources` (Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024, CEEW 2024).
+- [x] **Two new blog posts**: launch post for the games panel and a May data refresh.
+- [x] **Games rendering fix** — moved games JS out of a `<script type="module">` so inline `onclick` handlers can find global functions.
+- [x] **Tier-1 freshness sweep** — version markers, sitemap lastmod, CITATION date, footer version line, dashboard quick-link text, pollutant page schema dateModified, blog sidebar Lancet causal-study context.
+
+---
+
 ## Phase 5.8: CI / Quality / Mobile / Performance (✅ Completed — v26.5.4–6)
 
 Installs measurement everywhere and lands the highest-leverage safe wins. Every quality dimension tracked in issues #1, #3, #4, #5, #33, #45 now reports on every PR.
@@ -160,30 +175,23 @@ Now that quality is **measurable** on every PR, Q3 is where we drive the numbers
 
 ---
 
-## Phase 5.7: Learning, Engagement & May 2026 Refresh (✅ Completed — v26.5)
+## Phase 5.9: Vayu Junction & May 20 Polish (✅ Completed — v26.6.0)
 
-Self-paced learning surfaces, fresh data points, and a sweep of stale labels. The bet: people learn air quality faster through games than through dashboards alone, and the front-of-site numbers must be visibly current.
+Adds a seventh learning game inspired by *Only Connect* / NYT *Connections* / *Torchlight* climate puzzle, verifies Ask JanVayu end-to-end in all five UI languages, and refreshes documentation and version markers.
 
-- [x] **Learning Games panel** at `/#games` with **six games**, all original content:
-  - Air Quality Jeopardy (5 categories × 5 clues, **₹1,000–₹5,000** INR tiles, max ₹75,000)
-  - PM Quick-Quiz (10 multiple-choice questions, ~3 min)
-  - Source Matcher (7 dominant Indian PM2.5 sources)
-  - Clean Air Snakes & Ladders — 6×6 board, inspired by *Moksha Patam*; 5 ladders (citizen actions) + 5 snakes (pollution events)
-  - Jodi Match — 12-card memory game (Pelmanism) teaching key acronym/source pairs
-  - Air Tambola — Indian housie ticket with 27-clue caller, auto-detects Top/Middle/Bottom Line and Full House
-- [x] **"Did You Know"** dashboard strip — six India-specific sourced fact cards under the anomaly banner.
-- [x] **Hero alert refreshed** for May 2026 with the canonical Lancet Countdown 2025 1.72M figure.
-- [x] **April–May 2026 Voices block** at `/#voices` with six fresh curated cards.
-- [x] **April–May 2026 Research Updates** featured card group at `/#resources` (Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024, CEEW 2024).
-- [x] **Two new blog posts**: launch post for the games panel and a May data refresh.
-- [x] **Games rendering fix** — moved games JS out of a `<script type="module">` so inline `onclick` handlers can find global functions.
-- [x] **Tier-1 freshness sweep** — version markers, sitemap lastmod, CITATION date, footer version line, dashboard quick-link text, pollutant page schema dateModified, blog sidebar Lancet causal-study context.
+- [x] **Vayu Junction** (7th learning game): 4×4 grid, sixteen tiles, four hidden groups of four, four strikes allowed. Auto-detects "one-off" near-misses. Ships with four original India-AQ puzzle sets: Basics, Sources/Seasons/Protection, Names & Numbers, Devious.
+- [x] **Ask JanVayu verification** in EN/HI/TA/BN/MR: city chip → `air-query.mjs` → Groq Llama 3.3 70B with seasonal context, NCAP city data, and language-pinned output. Welcome heading, suggestions, input placeholder, install banner, and error messages all internationalised. PWA installable manifest verified.
+- [x] **Reddit-feed and Twitter-feed User-Agent** bumped from `JanVayu/v25` / `JanVayu/1.0` to `JanVayu/v26.6 (+https://janvayu.in)` so server-side analytics attribute current-version traffic correctly.
+- [x] **Roadmap restructured**: Phase 5.7 moved back into numeric order (it was previously listed after Phase 5.8 despite shipping earlier); the duplicate "Phase 6" heading at the bottom of the file renamed to **Phase 6.5: Legacy mobile & performance tracking** to avoid clashing with Phase 6 "Q3 2026 Priorities".
+- [x] **Documentation refresh**: `README.md` "six games" → **"seven games"**; `package.json` 26.5.6 → **26.6.0**; `CITATION.cff` version + date-released; `sitemap.xml` lastmod; `index.html` About-panel footer ribbon.
+- [x] **Translated changelogs**: v26.6 stub added to `docs-hi/CHANGELOG.md`, `docs-bn/CHANGELOG.md`, `docs-mr/CHANGELOG.md`, `docs-ta/CHANGELOG.md`.
+- [x] **New blog post** `2026-05-20-vayu-junction.md` — walks through the four puzzle sets and the design choices.
 
 ---
 
-## Phase 6: Mobile & Performance (🔄 Q2-Q3 2026)
+## Phase 6.5: Legacy mobile & performance tracking (🔄 partially superseded by Phase 5.8 / 6)
 
-**Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3)
+**Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3). The items here are tracked individually now in Phase 5.8 (shipped) and Phase 6 (Q3 priorities).
 
 - [x] Touch-friendly interactions (44px+ targets)
 - [x] Comprehensive mobile CSS (768px + 375px breakpoints)

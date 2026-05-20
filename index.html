@@ -12458,7 +12458,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.5.6 | Updated 8 May 2026 | Lazy-loaded Chart.js + Leaflet (~120 KB off first paint), chart canvases now have aria-label / role=img, SRI hashes for third-party scripts, Lighthouse + axe + html-validate + ESLint + i18n-coverage CI all advisory-on-PR, mobile tap targets ≥44 px, six learning games, "Did You Know" strip, April&ndash;May 2026 voices &amp; research cards.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.0 | Updated 20 May 2026 | <strong>Vayu Junction</strong> &mdash; 7th learning game (Only-Connect / NYT-Connections-style word grouper with four India-AQ puzzles), Ask JanVayu end-to-end verified in EN/HI/TA/BN/MR, Reddit-feed User-Agent bumped from v25 to v26.6, Roadmap restructured with Phase 5.9 (20 May ship list), docs/changelog/footer/CITATION refreshed. Built on top of v26.5.x: lazy-loaded Chart.js + Leaflet (~120 KB off first paint), chart-canvas a11y, SRI hashes, Lighthouse + axe + html-validate + ESLint + i18n-coverage CI all advisory-on-PR, six earlier learning games.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -12545,6 +12545,46 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.0 &mdash; 20 May 2026</div>
+                    <strong>Vayu Junction (7th game), Ask JanVayu verification, docs &amp; roadmap refresh</strong><br>
+                    &bull; <strong>Vayu Junction</strong> &mdash; new word-grouping puzzle in the <a href="#games" onclick="showPanel('games'); return false;">Learning Games</a> panel. Inspired by <em>Only Connect</em>, NYT <em>Connections</em>, and the <a href="https://timesofclimatechange.com/torchlight/" target="_blank" rel="noopener"><em>Torchlight</em></a> climate puzzle at Times of Climate Change. Sixteen tiles, four hidden groups of four, four strikes allowed; auto-detects "one off" near-misses. Ships with four original India-AQ puzzles: Basics, Sources/Seasons/Protection, Names &amp; Numbers, Devious.<br>
+                    &bull; <strong>Ask JanVayu end-to-end verified</strong>: city chip selector &rarr; /.netlify/functions/air-query &rarr; Groq Llama 3.3 70B with seasonal context, NCAP city data, and language-pinned output. Welcome text, suggestion chips, and error messages all internationalised in EN/HI/TA/BN/MR. PWA installable manifest confirmed.<br>
+                    &bull; <strong>Reddit-feed User-Agent</strong> bumped from `JanVayu/v25.0` to `JanVayu/v26.6` so Reddit-side analytics attribute current traffic correctly. Same for YouTube-feed.<br>
+                    &bull; <strong>Roadmap restructure</strong>: Phase 5.7 moved back into numeric order (was listed after 5.8), the duplicate Phase 6 heading at the bottom renamed to Phase 6.5 to avoid confusion. New Phase 5.9 covers today's ship list.<br>
+                    &bull; <strong>Documentation refresh</strong>: README.md feature count bumped from 6 to 7 games, package.json + CITATION.cff bumped to 26.6.0, sitemap lastmod refreshed.<br>
+                    &bull; <strong>Translated changelogs</strong>: a v26.6 stub added to docs-hi, docs-bn, docs-mr, docs-ta so non-English readers see the ship list at the top of their local CHANGELOG.<br>
+                    &bull; <strong>New blog post</strong>: <em>"Vayu Junction: connecting the dots on India's air-quality vocabulary"</em>.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.5.8 &mdash; 8 May 2026</div>
+                    <strong>UX-protection batch: embed widget hardening, CDN fallback, honest social card, og-image refresh</strong><br>
+                    &bull; <strong>Embed widgets hardened</strong> (`/embed/aqi/`, `/embed/rankings/`): server- and client-side city sanitisation, 8-second AbortController timeout, single retry, JanVayu-branded fallback card on final failure.<br>
+                    &bull; <strong>Lazy-load fallback for blocked CDNs</strong>: if `cdn.jsdelivr.net` or `unpkg.com` is blocked, every chart/map panel now renders an explainer card with a link back to the dashboard instead of failing silently.<br>
+                    &bull; <strong>Honest "Latest Social Media Coverage" card</strong>: card title renamed from "Live from Social Media" (live + curated mix is what we actually serve), and the dead spinner state is hidden when zero posts return.<br>
+                    &bull; <strong>og-image refreshed</strong> for May 2026 with Loni 112.5 µg/m³, 1.72M deaths (Lancet 2025), 3.5 yrs life-expectancy lost (AQLI 2025). New `scripts/build-og-image.py` so future refreshes are one command.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.5.4&ndash;7 &mdash; 8 May 2026</div>
+                    <strong>CI / Quality / Performance / Mobile / i18n</strong><br>
+                    &bull; <strong>Lazy-loaded Chart.js + Leaflet</strong> with SRI hashes &mdash; ~120 KB off first paint. Pre-warmed via `requestIdleCallback` so dashboard mini-charts stay snappy.<br>
+                    &bull; <strong>Chart-canvas accessibility</strong>: `role="img"` + `aria-label` on every `<canvas>` (15 canvases).<br>
+                    &bull; <strong>Five CI workflows landed</strong>: Lighthouse (perf), axe-core (WCAG 2 AA), html-validate, ESLint, weekly lychee link audit. All advisory at first &mdash; PR step summaries surface counts.<br>
+                    &bull; <strong>i18n coverage</strong> 0.7% &rarr; 4.8% via ~140 highest-traffic strings tagged with `data-i18n`; tracked in `scripts/check-i18n-coverage.py`.<br>
+                    &bull; <strong>Mobile polish</strong>: 44 px tap targets, `overflow-wrap: anywhere` on body/code, Jodi board collapses to 2 columns on Galaxy.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.5 &mdash; 8 May 2026</div>
+                    <strong>Six learning games, Did-You-Know dashboard strip, May 2026 data refresh</strong><br>
+                    &bull; <strong>Learning Games panel</strong> at <a href="#games" onclick="showPanel('games'); return false;">/#games</a> with six original India-AQ games: Air Quality Jeopardy (5&times;5 board, ₹1k&ndash;₹5k tiles), PM Quick-Quiz (10 Q), Source Matcher (7 sources), Clean Air Snakes &amp; Ladders inspired by <em>Moksha Patam</em>, Jodi Match memory cards, Air Tambola (Indian housie).<br>
+                    &bull; <strong>"Did You Know"</strong> dashboard strip &mdash; six India-specific sourced fact cards.<br>
+                    &bull; <strong>Hero refreshed</strong> for May 2026 with the canonical Lancet Countdown 2025 1.72M figure.<br>
+                    &bull; <strong>Two new blog posts</strong>: games launch + May data refresh.
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.4 &mdash; 26 Apr 2026</div>
@@ -14110,7 +14150,7 @@ Signature: _______________</div>
 
         <div class="section-intro" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
             <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-library" style="color: var(--accent); margin-right: 0.4rem;"></span>Learning Games</h2>
-            <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Play six short games to learn about India's air pollution: an India-edition Jeopardy board, a 10-question quiz, a source-matching card game, a Clean Air Snakes &amp; Ladders, a memory-card 'Jodi Match', and an Air Tambola/Housie ticket.">Six short games for self-study, classrooms, and family screen time, all written with original India-context content. Inspired by the long-running classroom Air Quality Jeopardy that Dr. Sarath Guttikunda runs live at <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.info</a>, by <em>Moksha Patam</em> &mdash; the original Indian Snakes &amp; Ladders &mdash; and by household games every Indian grew up with: memory-card <em>Jodi</em> and <em>Tambola/Housie</em>. For a live, facilitator-led version with audience teams see <a href="#workshops" onclick="showPanel('workshops'); return false;">Workshops</a>.</p>
+            <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Play seven short games to learn about India's air pollution: an India-edition Jeopardy board, a 10-question quiz, a source-matching card game, a Clean Air Snakes &amp; Ladders, a memory-card 'Jodi Match', an Air Tambola/Housie ticket, and a new word-grouping puzzle called Vayu Junction.">Seven short games for self-study, classrooms, and family screen time, all written with original India-context content. Inspired by the long-running classroom Air Quality Jeopardy that Dr. Sarath Guttikunda runs live at <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.info</a>, by <em>Moksha Patam</em> &mdash; the original Indian Snakes &amp; Ladders &mdash; by the household games every Indian grew up with (memory-card <em>Jodi</em> and <em>Tambola/Housie</em>), and now by <em>Only Connect</em>-style word-grouping puzzles via the new <strong>Vayu Junction</strong>. For a live, facilitator-led version with audience teams see <a href="#workshops" onclick="showPanel('workshops'); return false;">Workshops</a>.</p>
         </div>
 
         <!-- Game switcher -->
@@ -14121,6 +14161,7 @@ Signature: _______________</div>
             <button class="btn game-tab-btn" data-game="snakes" onclick="switchGame('snakes')" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Snakes &amp; Ladders</button>
             <button class="btn game-tab-btn" data-game="jodi" onclick="switchGame('jodi')" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Jodi Match (cards)</button>
             <button class="btn game-tab-btn" data-game="tambola" onclick="switchGame('tambola')" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Air Tambola</button>
+            <button class="btn game-tab-btn" data-game="junction" onclick="switchGame('junction')" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Vayu Junction <span style="font-size:0.62rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: #fff; margin-left: 4px; vertical-align: middle;">NEW</span></button>
         </div>
 
         <!-- ── 1. JEOPARDY ── -->
@@ -14274,6 +14315,41 @@ Signature: _______________</div>
                 <span class="tambola-win-badge" data-win="bottom" style="font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: var(--bg-section); color: var(--text-3); border: 1px solid var(--border);">Bottom Line</span>
                 <span class="tambola-win-badge" data-win="full" style="font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: var(--bg-section); color: var(--text-3); border: 1px solid var(--border);">Full House</span>
             </div>
+        </div>
+
+        <!-- ── 7. VAYU JUNCTION (Only-Connect / NYT-Connections style) ── -->
+        <div id="game-junction" class="game-pane" style="display: none;">
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title">Vayu Junction <span style="font-size: 0.6rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: #fff; margin-left: 4px; vertical-align: middle;">NEW</span></span><span style="font-size: 0.7rem; color: var(--text-3);">4 puzzles &middot; 16 tiles &middot; 4 strikes</span></div>
+                <div class="card-body" style="font-size: 0.85rem; line-height: 1.55; color: var(--text-2);">
+                    <strong>How it works.</strong> Sixteen tiles. Four hidden groups of four. Tap four tiles you think share a hidden connection, then hit <strong>Submit</strong>. Get it right and the group locks in colour-coded with its theme revealed; get it wrong and you lose a strike. Four strikes and the puzzle reveals itself. Inspired by BBC's <em>Only Connect</em>, the NYT's <em>Connections</em>, and the <a href="https://timesofclimatechange.com/torchlight/" target="_blank" rel="noopener"><em>Torchlight</em></a> climate puzzle at Times of Climate Change &mdash; with every group built around India's air-quality vocabulary. <strong>One off, one easy difficulty</strong> per puzzle: green (straightforward), yellow (medium), red (hard), purple (devious misdirects).
+                    <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
+                        <div style="font-size: 0.78rem; color: var(--text-3);">Puzzle: <span id="junction-puzzle-title" style="font-weight: 700; color: var(--ink);">&mdash;</span></div>
+                        <div style="font-size: 0.78rem; color: var(--text-3);">Strikes: <span id="junction-strikes" style="font-weight: 700; color: var(--ink);">0</span>/4</div>
+                        <div style="font-size: 0.78rem; color: var(--text-3);">Solved: <span id="junction-solved" style="font-weight: 700; color: var(--accent);">0</span>/4</div>
+                        <button class="btn btn-sm" onclick="resetJunction()" style="font-size: 0.72rem;">Reset</button>
+                        <button class="btn btn-sm" onclick="nextJunctionPuzzle()" style="font-size: 0.72rem;">Next puzzle</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Picker for which puzzle -->
+            <div id="junction-picker" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;"></div>
+
+            <!-- Solved groups stack on top -->
+            <div id="junction-solved-stack" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px;"></div>
+
+            <!-- Board grid 4x4 -->
+            <div id="junction-board" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-bottom: 12px;"></div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <button class="btn btn-primary" id="junction-submit-btn" onclick="submitJunctionGuess()" disabled>Submit (0/4)</button>
+                <button class="btn" onclick="deselectJunction()" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Deselect all</button>
+                <button class="btn" onclick="shuffleJunction()" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">Shuffle</button>
+                <button class="btn btn-sm" onclick="revealJunction()" style="background: var(--bg-section); color: var(--text-3); border: 1px dashed var(--border); font-size: 0.72rem;">Give up &amp; reveal</button>
+            </div>
+
+            <div id="junction-message" style="margin-top: 12px; padding: 12px; background: var(--bg-section); border-radius: 8px; border-left: 3px solid var(--accent); font-size: 0.88rem; line-height: 1.55; color: var(--ink); min-height: 44px;">Tap four tiles that share a hidden connection. The connections are all India air-quality vocabulary.</div>
         </div>
 
         <div class="alert alert-info mt-3"><div data-simple="These games are for fun and learning. Want a real classroom session? Book a workshop with the JanVayu team or Dr. Sarath Guttikunda.">
@@ -15684,6 +15760,254 @@ function resetTambola() {
     renderTambolaTicket();
 }
 
+// ══════════════════════════════════════════════════════════
+// VAYU JUNCTION — Only-Connect / NYT-Connections style word grouper.
+// 16 tiles, 4 hidden groups of 4. 4 strikes. Inspired by Torchlight
+// at timesofclimatechange.com and built around India AQ vocabulary.
+// ══════════════════════════════════════════════════════════
+const JUNCTION_PUZZLES = [
+    {
+        id: 'basics', title: 'Basics', difficulty: 'Easy',
+        groups: [
+            { theme: 'Particulate fractions', color: '#16A34A', items: ['PM1', 'PM2.5', 'PM10', 'TSP'] },
+            { theme: 'Criteria gases (NAAQS)', color: '#3B82F6', items: ['NO2', 'SO2', 'CO', 'O3'] },
+            { theme: 'CPCB AQI bands (lower half)', color: '#F59E0B', items: ['Good', 'Satisfactory', 'Moderate', 'Poor'] },
+            { theme: 'Indian air-quality regulators', color: '#7C3AED', items: ['CPCB', 'CAQM', 'MoEFCC', 'DPCC'] }
+        ]
+    },
+    {
+        id: 'sources', title: 'Sources, seasons & protection', difficulty: 'Medium',
+        groups: [
+            { theme: 'PM2.5 combustion sources in India', color: '#16A34A', items: ['Diesel', 'Coal', 'Biomass', 'Crackers'] },
+            { theme: 'Smog-season months in N India', color: '#3B82F6', items: ['November', 'December', 'January', 'Diwali'] },
+            { theme: 'Delhi GRAP stages', color: '#F59E0B', items: ['GRAP-I', 'GRAP-II', 'GRAP-III', 'GRAP-IV'] },
+            { theme: 'Mask & filter terms', color: '#7C3AED', items: ['N95', 'FFP2', 'HEPA', 'CADR'] }
+        ]
+    },
+    {
+        id: 'names', title: 'Names & numbers', difficulty: 'Hard',
+        groups: [
+            { theme: 'Worst-polluted Indian cities (IQAir 2025)', color: '#16A34A', items: ['Loni', 'Byrnihat', 'Begusarai', 'Hajipur'] },
+            { theme: 'NCAP top-performing cities', color: '#3B82F6', items: ['Varanasi', 'Bareilly', 'Moradabad', 'Kanpur'] },
+            { theme: 'Air-quality research bodies & reports', color: '#F59E0B', items: ['CREA', 'AQLI', 'IQAir', 'Lancet'] },
+            { theme: 'Citizen accountability tools', color: '#7C3AED', items: ['Petition', 'RTI', 'Audit', 'Survey'] }
+        ]
+    },
+    {
+        id: 'devious', title: 'Devious', difficulty: 'Devious',
+        groups: [
+            { theme: 'Types of "___ carbon"', color: '#16A34A', items: ['Black', 'Brown', 'Blue', 'Green'] },
+            { theme: 'Indian vehicle emission standards', color: '#3B82F6', items: ['BS-II', 'BS-III', 'BS-IV', 'BS-VI'] },
+            { theme: 'Citizen-action acronyms', color: '#F59E0B', items: ['PIL', 'RTI', 'FIR', 'NOC'] },
+            { theme: 'PM-precursor gases', color: '#7C3AED', items: ['NOx', 'SOx', 'VOC', 'NH3'] }
+        ]
+    }
+];
+
+let junctionState = {
+    puzzleIdx: 0,
+    selected: [],
+    strikes: 0,
+    solvedGroups: [],
+    items: [],
+    won: false,
+    lost: false,
+};
+
+function junctionShuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function loadJunctionPuzzle(idx) {
+    junctionState.puzzleIdx = idx;
+    junctionState.selected = [];
+    junctionState.strikes = 0;
+    junctionState.solvedGroups = [];
+    junctionState.won = false;
+    junctionState.lost = false;
+    const puzzle = JUNCTION_PUZZLES[idx];
+    const allItems = puzzle.groups.flatMap(g => g.items);
+    junctionState.items = junctionShuffle(allItems);
+    renderJunctionPicker();
+    renderJunctionBoard();
+    document.getElementById('junction-puzzle-title').textContent = puzzle.title + ' · ' + puzzle.difficulty;
+    document.getElementById('junction-message').innerHTML = 'Tap four tiles that share a hidden connection. The connections are all India air-quality vocabulary.';
+}
+
+function renderJunctionPicker() {
+    const wrap = document.getElementById('junction-picker');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    JUNCTION_PUZZLES.forEach((p, i) => {
+        const b = document.createElement('button');
+        const isActive = i === junctionState.puzzleIdx;
+        b.className = 'btn btn-sm';
+        b.style.fontSize = '0.72rem';
+        if (isActive) {
+            b.style.background = 'var(--accent)';
+            b.style.color = '#fff';
+            b.style.border = '1px solid var(--accent)';
+        } else {
+            b.style.background = 'var(--bg-section)';
+            b.style.color = 'var(--ink)';
+            b.style.border = '1px solid var(--border)';
+        }
+        b.textContent = (i + 1) + '. ' + p.title;
+        b.onclick = () => loadJunctionPuzzle(i);
+        wrap.appendChild(b);
+    });
+}
+
+function renderJunctionBoard() {
+    const board = document.getElementById('junction-board');
+    const solvedStack = document.getElementById('junction-solved-stack');
+    const submitBtn = document.getElementById('junction-submit-btn');
+    if (!board) return;
+
+    // Solved stack
+    solvedStack.innerHTML = '';
+    junctionState.solvedGroups.forEach(g => {
+        const row = document.createElement('div');
+        row.style.cssText = 'padding: 10px 14px; border-radius: 8px; background: ' + g.color + '; color: #fff; font-weight: 600; font-size: 0.85rem; line-height: 1.4;';
+        row.innerHTML = '<div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; opacity:0.85; margin-bottom:2px;">' + g.theme + '</div><div>' + g.items.join(' · ') + '</div>';
+        solvedStack.appendChild(row);
+    });
+
+    // Board: only unsolved items
+    const solvedItems = new Set(junctionState.solvedGroups.flatMap(g => g.items));
+    const remaining = junctionState.items.filter(it => !solvedItems.has(it));
+    board.innerHTML = '';
+    remaining.forEach(it => {
+        const tile = document.createElement('button');
+        const isSelected = junctionState.selected.includes(it);
+        tile.textContent = it;
+        tile.dataset.item = it;
+        tile.style.cssText = [
+            'padding: 14px 6px',
+            'min-height: 58px',
+            'border-radius: 8px',
+            'font-family: var(--sans)',
+            'font-size: 0.85rem',
+            'font-weight: 600',
+            'cursor: pointer',
+            'transition: transform 0.1s, background 0.15s',
+            'text-align: center',
+            'word-break: break-word',
+            'line-height: 1.2',
+            isSelected
+                ? 'background: var(--ink); color: var(--bg-card); border: 2px solid var(--ink);'
+                : 'background: var(--bg-section); color: var(--ink); border: 2px solid var(--border);',
+        ].join(';');
+        tile.onclick = () => toggleJunctionTile(it);
+        if (junctionState.lost || junctionState.won) tile.disabled = true;
+        board.appendChild(tile);
+    });
+
+    // Counter pills
+    document.getElementById('junction-strikes').textContent = junctionState.strikes;
+    document.getElementById('junction-solved').textContent = junctionState.solvedGroups.length;
+    if (submitBtn) {
+        submitBtn.textContent = 'Submit (' + junctionState.selected.length + '/4)';
+        submitBtn.disabled = junctionState.selected.length !== 4 || junctionState.won || junctionState.lost;
+    }
+}
+
+function toggleJunctionTile(item) {
+    if (junctionState.won || junctionState.lost) return;
+    const i = junctionState.selected.indexOf(item);
+    if (i >= 0) {
+        junctionState.selected.splice(i, 1);
+    } else if (junctionState.selected.length < 4) {
+        junctionState.selected.push(item);
+    }
+    renderJunctionBoard();
+}
+
+function deselectJunction() {
+    junctionState.selected = [];
+    renderJunctionBoard();
+}
+
+function shuffleJunction() {
+    junctionState.items = junctionShuffle(junctionState.items);
+    renderJunctionBoard();
+}
+
+function submitJunctionGuess() {
+    if (junctionState.selected.length !== 4) return;
+    const puzzle = JUNCTION_PUZZLES[junctionState.puzzleIdx];
+    const guess = new Set(junctionState.selected);
+    // Find the group that exactly matches the 4 selected
+    let matched = null;
+    let bestOverlap = 0;
+    for (const g of puzzle.groups) {
+        if (junctionState.solvedGroups.find(sg => sg.theme === g.theme)) continue;
+        const overlap = g.items.filter(it => guess.has(it)).length;
+        if (overlap === 4) { matched = g; break; }
+        if (overlap > bestOverlap) bestOverlap = overlap;
+    }
+    const msg = document.getElementById('junction-message');
+    if (matched) {
+        junctionState.solvedGroups.push(matched);
+        junctionState.selected = [];
+        if (junctionState.solvedGroups.length === 4) {
+            junctionState.won = true;
+            msg.style.borderLeftColor = 'var(--accent)';
+            msg.innerHTML = '<strong>You connected all four.</strong> Strikes used: ' + junctionState.strikes + '/4. Try the next puzzle, or pick a harder difficulty above.';
+        } else {
+            msg.style.borderLeftColor = matched.color;
+            msg.innerHTML = '<strong>Locked in:</strong> ' + matched.theme + '. ' + (4 - junctionState.solvedGroups.length) + ' group(s) left.';
+        }
+    } else {
+        junctionState.strikes += 1;
+        if (bestOverlap === 3) {
+            msg.style.borderLeftColor = '#F59E0B';
+            msg.innerHTML = '<strong>So close &mdash; one off.</strong> Three of your four belong together. Swap one. <span style="color:var(--text-3); font-size: 0.78rem;">Strike ' + junctionState.strikes + '/4.</span>';
+        } else {
+            msg.style.borderLeftColor = '#DC2626';
+            msg.innerHTML = '<strong>Not a group.</strong> Try a different angle. <span style="color:var(--text-3); font-size: 0.78rem;">Strike ' + junctionState.strikes + '/4.</span>';
+        }
+        if (junctionState.strikes >= 4) {
+            junctionState.lost = true;
+            // Auto-reveal remaining groups
+            for (const g of puzzle.groups) {
+                if (!junctionState.solvedGroups.find(sg => sg.theme === g.theme)) {
+                    junctionState.solvedGroups.push(g);
+                }
+            }
+            msg.style.borderLeftColor = '#DC2626';
+            msg.innerHTML = '<strong>Four strikes &mdash; puzzle revealed.</strong> Take a look at the groups above, then hit <em>Next puzzle</em> or pick another difficulty.';
+        }
+    }
+    renderJunctionBoard();
+}
+
+function resetJunction() {
+    loadJunctionPuzzle(junctionState.puzzleIdx);
+}
+
+function nextJunctionPuzzle() {
+    const next = (junctionState.puzzleIdx + 1) % JUNCTION_PUZZLES.length;
+    loadJunctionPuzzle(next);
+}
+
+function revealJunction() {
+    const puzzle = JUNCTION_PUZZLES[junctionState.puzzleIdx];
+    for (const g of puzzle.groups) {
+        if (!junctionState.solvedGroups.find(sg => sg.theme === g.theme)) {
+            junctionState.solvedGroups.push(g);
+        }
+    }
+    junctionState.lost = true;
+    document.getElementById('junction-message').innerHTML = '<strong>Revealed.</strong> All four groups are shown above. Hit <em>Next puzzle</em> when ready.';
+    renderJunctionBoard();
+}
+
 // ── Game switcher / panel hookup ──
 function switchGame(name) {
     document.querySelectorAll('.game-pane').forEach(p => p.style.display = 'none');
@@ -15704,6 +16028,7 @@ function switchGame(name) {
     if (name === 'snakes') renderSnakesLadders();
     if (name === 'jodi') { if (jodiState.cards.length === 0) resetJodi(); else renderJodi(); }
     if (name === 'tambola') { if (tambolaState.ticket.length === 0) resetTambola(); else renderTambolaTicket(); }
+    if (name === 'junction') { if (junctionState.items.length === 0) loadJunctionPuzzle(0); else renderJunctionBoard(); }
     if (name === 'quiz') {
         // First-load message stays until user clicks Start; do nothing
     }
