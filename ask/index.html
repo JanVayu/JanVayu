@@ -248,7 +248,7 @@
     <button class="city-chip" data-city="jaipur">Jaipur</button>
   </div>
 
-  <div class="chat-area" id="chatArea">
+  <div class="chat-area" id="chatArea" role="log" aria-live="polite" aria-atomic="false" aria-label="Ask JanVayu conversation">
     <div class="welcome" id="welcome">
       <h2 data-i18n="welcomeHeading">What would you like to know?</h2>
       <p data-i18n="welcomeSub">Ask about air quality, health risks, pollution sources, or government action in any Indian city.</p>
@@ -489,6 +489,9 @@
         typing.remove();
         const t = I18N[currentLang] || I18N.en;
         addMessage(t.errorMsg, 'ai');
+        if (typeof console !== 'undefined' && console.error) {
+          console.error('Ask JanVayu fetch failed:', e && e.message ? e.message : e);
+        }
       }
     }
 
