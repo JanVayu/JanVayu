@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.9] - 2026-05-20
+
+### Fixed — Hero alert IQAir 2025 framing was confusing
+
+User feedback: *"May 2026: IQAir 2025 confirms... — This is the box. It quotes IQAIR 2025?!"*
+
+The hero alert read **"May 2026: IQAir 2025 confirms Loni..."** which was genuinely confusing — it implied that IQAir 2025 had just been published, when in reality the IQAir World Air Quality Report 2025 was published in March 2025 and covers calendar-year 2024 data. By 20 May 2026 that report is ~14 months old, and the next edition (IQAir 2026, covering 2025 data) was not yet available at the time of this commit.
+
+#### Hero alert (`#section-dashboard`)
+
+Reframed to be honest about data vintage AND to surface the most-current items first:
+
+| | Before | After |
+|---|---|---|
+| **Opener** | "**May 2026:** IQAir 2025 confirms Loni..." | "**May 2026:** India's air remains in crisis. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2025 covering 2024 data) ranks **Loni, India** as the most polluted city on Earth..." |
+| **Lancet attribution** | "The Lancet Countdown 2025 attributes 1.72 million..." | "The Lancet Countdown 2025 (**launched May 2026**) attributes 1.72 million..." |
+| **NCAP deadline** | "NCAP's 2026 deadline has arrived with most cities far from targets" | "NCAP's 31 March 2026 deadline **has elapsed**: only 23 of 100 cities with sufficient data hit the target (CREA Jan 2026); CSE's April 2026 five-year review counts 37 of 131" |
+| **New addition** | (none) | "CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, signalling year-round enforcement" |
+
+Now the user can see at a glance which numbers are recent (Lancet Countdown launched this month; CAQM order from yesterday) versus which are last year's (IQAir 2025) — and exactly *why*.
+
+#### "Did You Know" dashboard strip
+
+Two related fixes:
+
+- **Strip header** — "Six India-specific facts updated for May 2026 · sourced" implied the underlying *figures* were updated for May 2026. Reworded: "Six sourced India-specific facts · figures are the most recent published values from each source (Lancet Countdown 2025, IQAir 2025, AQLI 2025, CSE 2026, Krishna et al. 2024)" — the framing now matches the reality (we surface the freshest values from each canonical source).
+- **Loni card source citation** — "IQAir 2025." → "IQAir World Air Quality Report 2025 (covering 2024 data; the most recent annual)." Same fix as the hero, applied to the standalone card.
+
+### Changed — Version markers
+
+- `package.json` 26.6.8 → **26.6.9**
+- `CITATION.cff` 26.6.8 → **26.6.9**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.8] - 2026-05-20
 
 ### Changed — Final corners: wiki Home, last small surfaces
