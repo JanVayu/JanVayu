@@ -9,7 +9,7 @@
 
 ## What is JanVayu?
 
-Air pollution kills between 1.7 and 2 million people in India every year. PM2.5 exposure reduces average Indian life expectancy by 3.5 years. Delhi's annual PM2.5 of ~100 µg/m³ is 20 times the WHO guideline. The economic cost exceeds $150 billion annually.
+Air pollution kills an estimated 1.72 million people in India every year (Lancet Countdown 2025) — about 70% of the global PM2.5 mortality burden. PM2.5 exposure reduces average Indian life expectancy by 3.5 years (AQLI 2025); residents of the Indo-Gangetic Plain lose 7–8 years. Delhi's annual PM2.5 of 91.6 µg/m³ is roughly 18× the WHO guideline (IQAir 2025). The economic cost is $339.4 billion per year — ~9.5% of GDP (Lancet Countdown 2025).
 
 JanVayu is not a campaign. It is a record — a permanent public archive documenting the air quality crisis, its data, its victims, its policies, and its public memory.
 
