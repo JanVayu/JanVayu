@@ -1830,19 +1830,31 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 /* ═══ Back-to-home button (returns to dashboard hero & scrolls to top) ═══ */
 .back-home-btn {
-    position: fixed; bottom: 24px; left: 24px; z-index: 500;
-    width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--border);
-    background: var(--bg-card); color: var(--accent); cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    position: fixed; bottom: 24px; left: 24px; z-index: 600;
+    width: 52px; height: 52px; border-radius: 50%; border: 2px solid #fff;
+    background: var(--accent); color: #fff; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
-    transform: translateY(8px);
+    transform: translateY(8px) scale(0.92);
     transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s, box-shadow 0.2s;
 }
-.back-home-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.back-home-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.back-home-btn.visible {
+    opacity: 1; pointer-events: auto; transform: translateY(0) scale(1);
+    animation: backHomePulse 1.4s ease-out 0.1s 1;
+}
+.back-home-btn:hover { background: #15803d; transform: translateY(0) scale(1.08); box-shadow: 0 8px 26px rgba(0,0,0,0.3); }
 .back-home-btn:focus-visible { outline: 3px solid #FFD86B; outline-offset: 2px; }
-.back-home-btn svg { width: 20px; height: 20px; }
+.back-home-btn svg { width: 22px; height: 22px; }
+/* One-time gentle pulse to draw attention when the button first appears */
+@keyframes backHomePulse {
+    0%   { box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 0 0 0    rgba(22,163,74,0.55); }
+    60%  { box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 0 0 16px rgba(22,163,74,0);    }
+    100% { box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 0 0 0    rgba(22,163,74,0);    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .back-home-btn.visible { animation: none; }
+}
 
 .widget-modal {
     display: none; position: fixed; bottom: 88px; right: 24px; z-index: 499;
@@ -1929,8 +1941,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 @media (max-width: 480px) {
     .fab-btn { bottom: 16px; right: 16px; width: 48px; height: 48px; }
-    .back-home-btn { bottom: 16px; left: 16px; width: 42px; height: 42px; }
-    .back-home-btn svg { width: 18px; height: 18px; }
+    .back-home-btn { bottom: 16px; left: 16px; width: 48px; height: 48px; }
+    .back-home-btn svg { width: 20px; height: 20px; }
     .widget-modal { bottom: 76px; right: 12px; left: 12px; width: auto; max-height: calc(100vh - 100px); }
 }
 
@@ -12579,7 +12591,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.2 | Updated 20 May 2026 | <strong>Full-site audit sweep</strong> &mdash; five fresh May 2026 items in the Resources panel (CREA April snapshot, two NGT orders, CAQM off-season GRAP toggle, DTE/AAD 2026); stale "2 million" stat fixed in SEO meta + Twitter Card; hero alert and dashboard quick-link bumped from "six-game" to "seven-game"; <code>docs/README.md</code> in five languages refreshed to canonical 1.72M / $339.4B / 91.6 µg/m³ figures; "Latest Research 2025" card renamed to "Recent Peer-Reviewed Findings (2024&ndash;2025)"; headless click-through of all 43 panels &mdash; zero uncaught JS exceptions. Built on v26.6.1 back-to-home button, v26.6.0 Vayu Junction.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.3 | Updated 20 May 2026 | <strong>Back-to-home button visibility</strong> &mdash; solid accent-green background with white house icon (was light-on-accent and easy to miss), 52 px desktop / 48 px mobile to match the FAB as a symmetric pair, one-time gentle pulse animation on appearance, stronger shadow, z-index bumped to 600. Built on v26.6.2 audit sweep (five fresh May 2026 items in Resources, stale stats fixed in SEO meta and five-language docs, 43-panel click-through clean), v26.6.1 back-to-home button, v26.6.0 Vayu Junction.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -12666,6 +12678,15 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.3 &mdash; 20 May 2026</div>
+                    <strong>Back-to-home button &mdash; visibility patch</strong><br>
+                    &bull; User feedback: <em>"I can't see the button you added to return home."</em> Confirmed via headless Chromium against the live site that the button was rendering and getting the <code>.visible</code> class &mdash; but the original styling (light card background, accent-coloured stroke) blended into the page's cream background.<br>
+                    &bull; <strong>Now louder</strong>: solid accent-green background with white house icon and a 2 px white border ring &mdash; same visual weight as the search FAB on the bottom-right, in the mirror corner. <strong>52 px desktop</strong> (was 46) and <strong>48 px mobile</strong> (was 42) so the pair is symmetric.<br>
+                    &bull; <strong>One-time gentle pulse</strong> when the button first appears &mdash; 1.4 s, single iteration, ring expands from 0 to 16 px and fades. Respects <code>prefers-reduced-motion</code>.<br>
+                    &bull; <strong>Hover</strong>: deeper green + 8% scale-up. <strong>Z-index</strong> 500 &rarr; 600 so it sits above the FAB layer.
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.2 &mdash; 20 May 2026</div>
