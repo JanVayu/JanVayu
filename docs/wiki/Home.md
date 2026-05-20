@@ -31,6 +31,20 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### What's New (v26.6.x — 20 May 2026)
 
+**v26.6.11 — `/walkthrough/` guided-tour page featured**
+- New public page at [janvayu.in/walkthrough/](https://www.janvayu.in/walkthrough/) embedding the 64-slide JanVayu MMSF Fellows deck via Google Slides iframe.
+- PPTX (24 MB) and PDF (13 MB) downloads pulled directly from the live deck.
+- Dashboard quick-link card with NEW badge; hero alert extended; footer link under Tools & Action.
+
+**v26.6.10 — Temporal-framing fixes**
+- 8 more sentences with the same class of bug as v26.6.9 (action verbs like *"shows"* / *"found"* paired with year-only citations from 2023–2024 papers that are now 5–29 months old). Reframed to "*A 2023 study in X documented…*" so publication vintage is explicit.
+
+**v26.6.9 — Hero alert IQAir 2025 framing fix**
+- Hero said *"May 2026: IQAir 2025 confirms Loni…"* — confusing because IQAir 2025 was actually published March 2025 (covering 2024 data), ~14 months old. Reframed to lead with the freshest items (Lancet Countdown launched May 2026, CAQM off-season GRAP 19 May) and explicitly label IQAir's vintage.
+
+**v26.6.8 — Final corners**
+- `docs/wiki/Home.md` "What's New" rewritten to lead with the v26.6.x ship list; v26.5.x history preserved as "Previous".
+
 **v26.6.7 — Deep sweep**
 - Every outbound HTTP request from JanVayu's serverless tier (all 19 Netlify Functions) now reports v26.6 as its User-Agent — combined `scheduled-fetch.mjs`, `instagram-feed.js`, `news-proxy.js`, `community-sensors.mjs`, `waqi-proxy.mjs`, `reddit-feed.js`, `twitter-feed.js` bumps.
 - English `docs/user-guide/aqi-dashboard.md` + `health-calculator.md` and three translated copies (Bengali, Marathi, Tamil) updated to **Delhi 91.6 µg/m³ (IQAir 2025)** from `~100 µg/m³`.
