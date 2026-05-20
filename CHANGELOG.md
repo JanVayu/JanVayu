@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.10] - 2026-05-20
+
+### Fixed — Temporal-framing mismatches (same class of bug as v26.6.9)
+
+User feedback after the v26.6.9 IQAir-framing fix: *"Go through and look for instances like this"*. A focused Explore-agent audit found **8 more sentences** with the same problem — action verbs implying recent discovery paired with year-only citations whose source dates are months/years old. All fixed below.
+
+The pattern: phrases like *"PNAS (2024) **shows**…"* or *"Lancet Respiratory Medicine (2023) **found**…"* read as if the discovery is current — but a paper that appeared anywhere in calendar-year 2024 is now 5–17 months old, and a 2023 paper is 17–29 months old. Fixed by switching to "*A 2023 study in X documented…*" or "*Research published in X in 2024…*" framing that makes the publication vintage explicit.
+
+#### `index.html` — seven fixes
+
+| Where | Before | After |
+|-------|--------|-------|
+| Children's Health (line 12402) | "Lancet Respiratory Medicine (2023) **found** that children…" | "A 2023 study in *Lancet Respiratory Medicine* **documented** that children…" |
+| Children's Health (line 12403) | "Studies in PNAS (2024) **show** PM2.5 exposure…" | "Research published in *PNAS* in 2024 **documented** that PM2.5 exposure…" |
+| Mission Tracker (line 12552) | "Guttikunda et al. (2024) **found** PM10 concentrations showed 'no change in the fraction…'" | "Guttikunda et al.'s 2024 analysis (examining 2019–2023 data) **documented** 'no change in the fraction…'" |
+| Clean Air Wins honest caveat (line 13235) | "Guttikunda et al. (2024) **found** 'no change…' … Cities like Surat **won** national awards but their monitoring stations **don't work** (The Plank, 2025)" | "Guttikunda et al.'s 2024 analysis of 2019–2023 data documented 'no change…' … The Plank **reported in 2025** that cities like Surat won national clean-air awards while their monitoring stations were non-functional" |
+| Clean Air Wins citizen advocacy (line 13269) | "This grassroots advocacy, **documented by** Policy Circle (Sep 2025), **shows** how…" | "Policy Circle documented the campaign in September 2025: **an example of how** informed citizens can redirect infrastructure spending…" |
+| Policy Effectiveness public comment study (line 13307) | "A PMC study (2023) **confirmed** that CAQM's Supreme Court-mandated open public comment process actually influenced policy" | "A 2023 study published in PMC **analysed** CAQM's Supreme Court-mandated open public comment process **and documented that it actually influenced policy**" |
+| Jeopardy (line 15395) | "TERI 2023 source apportionment for Delhi **found** road dust + non-exhaust contributing 30-40%…" | "TERI's 2023 source apportionment study for Delhi **quantified** road dust and non-exhaust contributions at 30-40%…" |
+| Jeopardy (line 15402) | "Karolinska 2024 and Harvard MAPLE-MIA studies **show** neuro and cardiovascular pathways" | "**2024 research from Karolinska and Harvard's MAPLE-MIA studies has documented** neuro and cardiovascular pathways" |
+
+#### `blog/posts/2026-04-01-children-air-pollution.md` — two fixes
+
+| Where | Before | After |
+|-------|--------|-------|
+| Line 21 | "A working paper from the Institute of Economic Growth in Delhi **found** measurable effects…" | "A working paper from the Institute of Economic Growth in Delhi **(Greenstone, Hanna et al., 2021) documented** measurable effects…" — adds the missing publication year |
+| Line 33 | "Vital Strategies **reported** that **new research** links air pollution…" | "**Vital Strategies' 2023 analysis** (\"Air pollution hinders childhood development\") **found** that air pollution affects childhood development…" — replaces vague "new research" with the actual 2023 publication date |
+
+The Global Burden of Disease line on the same blog post also gained a vintage hint: "**most recent India estimate, 2021 cycle**" so readers don't read the 2017 mortality figure as fresh.
+
+### Why this matters
+
+The JanVayu positioning is **archive and accountability** — a "permanent public record". The site has to be honest about *when* each finding entered the record, not just *what* the finding is. The previous phrasing made every cited study feel like it had just landed, which weakens the reader's trust in everything else on the page.
+
+### Changed — Version markers
+
+- `package.json` 26.6.9 → **26.6.10**
+- `CITATION.cff` 26.6.9 → **26.6.10**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.9] - 2026-05-20
 
 ### Fixed — Hero alert IQAir 2025 framing was confusing
