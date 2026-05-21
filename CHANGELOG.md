@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.12] - 2026-05-20
+
+### Fixed — Ask JanVayu: three real bugs from user testing
+
+User feedback after using `/ask/` in production:
+
+> *"Chatbot — does not give number of station data correctly, no sources are mentioned in some answers (low cost sensors, EVs), for most questions I just got Delhi based information (mandir marg data)."*
+
+All three issues were genuine bugs in `netlify/functions/air-query.mjs`. Fixed below.
+
+#### Bug 1 — Station-count questions returned guesses
+
+The function only fetched a **single station** for the user's city via the WAQI `geo:` endpoint (which returns the nearest station to the city centroid). When asked "how many CAAQMS stations does Delhi have?", the Llama model had no station-count data in its context and made up an answer.
+
+**Fix.** New `fetchCityStations(cityKey)` helper hits the WAQI `map/bounds/` endpoint with a ~0.5° box (~50 km wide) around the city centroid and returns the indexed-station list. Triggered when `isStationCountQuery(question)` matches phrases like *"how many stations"*, *"number of monitoring stations"*, *"station count"*, *"how many sensors/monitors"*. The fetched count and a sample of station names are injected into the `dataContext` block sent to Groq. A national reference is also added: *"CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community runs ~3,000+ low-cost community sensors nationwide."*
+
+#### Bug 2 — No sources cited in topical answers
+
+The system prompt mentioned canonical reference data (Lancet Countdown, IQAir, CREA) but never **required** the model to cite the source of any number it gave. Topical answers about low-cost sensors, EVs, BS-VI etc. came out as generic prose with no provenance.
+
+**Fix.** Two changes to `buildSystemPrompt()`:
+
+1. New **`TOPICAL_REFERENCE`** block injected into every system prompt — covers the monitoring network (CPCB CAAQMS ~533 stations, WAQI subset, Sensor.Community ~3,000+ low-cost sensors, CAG April 2025 audit finding 88% had data-quality issues), low-cost sensors (Sensor.Community CC0, IQAir commercial, OpenAQ aggregators), EVs & transport (BS-VI from Apr 2020, PM-eBus Sewa ₹20,000 Cr / 10,000 buses by 2026, FAME-II→E-DRIVE, Delhi 4,286 e-buses Feb 2026, 8,849 charging stations Dec 2025), and recent Apr–May 2026 policy moves (CAQM off-season GRAP, NGT south-India order, NGT SPCB diesel-genset notices, NCAP deadline elapsed, 15th FC cliff).
+2. New **Instruction #11**: *"ALWAYS cite the source for any specific number or claim. Use the formats: 'per CREA Jan 2026', 'IQAir 2025', 'Lancet Countdown 2025', 'CPCB CAAQMS', 'Sensor.Community', 'CAG April 2025 audit', 'CSE April 2026', 'NGT order Apr 2026', etc. **If you cite a number without a source, you have failed.**"*
+
+#### Bug 3 — Delhi / Mandir Marg dominance on topical questions
+
+Mandir Marg is the CPCB station nearest to Delhi's centroid (28.6139, 77.2090); the WAQI `geo:` endpoint always returned it for Delhi. The system prompt also led with Delhi-specific reference text ("Most polluted capital globally", "₹300 Cr pollution budget"). When users asked **national topical questions** (EVs, low-cost sensors, NCAP), the model fell back to Delhi context because that was the heaviest signal in the prompt.
+
+**Fix.** Two changes:
+
+1. New **`isNationalQuery(question)`** detector matches phrases like *"India(n)"*, *"nationwide"*, *"across cities"*, *"BS-VI"*, *"e-bus / electric vehicle"*, *"low-cost sensor"*, *"community sensor"*, *"FAME"*, *"PM-eBus"*, *"CAAQMS"*, *"CPCB"*, *"how many stations/sensors/monitors"*. When matched, the system prompt gains a hard instruction: *"IMPORTANT — NATIONAL/TOPICAL QUERY: The user's question is about an India-wide topic… Frame your answer for India broadly. Do NOT default to Delhi-specific or single-station (e.g. Mandir Marg) context."*
+2. **KEY REFERENCE DATA block** restructured to lead with India-wide figures (NAAQS, India average PM2.5, Lancet Countdown national death toll, NCAP national outcome, AQLI national life-expectancy loss, Loni #1) rather than Delhi-first framing. Delhi is now just one example, not the anchor.
+3. The single-station context now reads "**Nearest WAQI station**: …" (was "Station: …") so it's clear to the model that the value is one station, not "the city's data".
+
+### Verified
+
+- `node --check netlify/functions/air-query.mjs` → Syntax OK
+- New `fetchCityStations()` uses the same WAQI token and timeout pattern as the existing `fetchCityAQI()` — no new auth surface
+- `isStationCountQuery()` and `isNationalQuery()` regexes tested against the canonical bug examples (low-cost sensors / EVs / monitoring stations) — all match correctly
+- `TOPICAL_REFERENCE` block is ~300 words; well within Groq's context window even with the existing prompt and live data context
+
+### Changed — Version markers
+
+- `package.json` 26.6.11 → **26.6.12**
+- `CITATION.cff` 26.6.11 → **26.6.12**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.11] - 2026-05-20
 
 ### Added — Feature the new /walkthrough/ page on the dashboard
