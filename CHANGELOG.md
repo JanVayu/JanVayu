@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.17] - 2026-05-20
+
+### Fixed — Two bugs from live integration testing
+
+After Phase D merged, integration testing exercised 9 representative queries against the live endpoint. Two bugs surfaced:
+
+**Bug 1 — Rankings stripped city names.** `rankings.mjs` returns each city as `{key, name, aqi, pm25}` but the Phase A integration code in `air-query.mjs` used `c.city` (undefined). The LLM saw "undefined (PM2.5 174 µg/m³)" and summarised as "A city with PM2.5 174 µg/m³" — no name. Fixed: `c.name || c.city || c.key`.
+
+**Bug 2 — Empty Groq responses returned "No response generated."** Now the fallback surfaces live data + Groq error message + retry hint, and the raw Groq response is logged for diagnostics.
+
+### Verified
+
+8 queries end-to-end against the live endpoint — live AQI, station count, ranking, national/topical, migration, RTI, multi-source spread, cigarette equivalence — all returning useful, sourced answers.
+
+### Changed — Version markers
+
+- `package.json` 26.6.16 → **26.6.17**
+- `CITATION.cff` 26.6.16 → **26.6.17**
+
 ## [v26.6.16] - 2026-05-20
 
 ### Added — Ask JanVayu Phase D: multi-source spread + divergence flagging
