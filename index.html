@@ -12645,7 +12645,7 @@ Signature: _______________</div>
 <template id="tmpl-about">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-info" style="color: var(--accent); margin-right: 0.4rem;"></span>About JanVayu</h2>
-        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.11 | Updated 20 May 2026 | <strong>Walkthrough page featured</strong> &mdash; the new <code>/walkthrough/</code> guided-tour page (64-slide MMSF Fellows deck embedded via Google Slides iframe + PPTX + PDF downloads) now appears as a dashboard quick-link card with a NEW badge, and is mentioned at the end of the hero alert. Roadmap and wiki Home updated.</div>
+        <div style="font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); margin-bottom: 1rem;">v26.6.12 | Updated 20 May 2026 | <strong>Ask JanVayu &mdash; three bugs fixed from user testing</strong>. (1) <em>Station-count queries</em>: new WAQI bounds-endpoint fetch returns a real station list + count for the user's city plus the CPCB national ~533 figure. (2) <em>Sources required</em>: new <code>TOPICAL_REFERENCE</code> prompt block (monitoring network, low-cost sensors, EVs, transport, recent court orders) + hard instruction "if you cite a number without a source, you have failed". (3) <em>Delhi/Mandir-Marg bias</em>: new <code>isNationalQuery()</code> detector triggers India-wide framing for topical questions; reference data restructured to lead with national figures, not Delhi.</div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="JanVayu is a free website built by citizens, not the government. We track air pollution across India and hold leaders accountable for keeping the air clean.">An independent, citizen-led air quality monitoring and accountability platform for India.</p>
     </div>
     <div class="card mb-2">
@@ -12732,6 +12732,15 @@ Signature: _______________</div>
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.12 &mdash; 20 May 2026</div>
+                    <strong>Ask JanVayu &mdash; three bugs fixed from user testing</strong><br>
+                    &bull; User feedback: <em>"Chatbot &mdash; does not give number of station data correctly, no sources are mentioned in some answers (low-cost sensors, EVs), for most questions I just got Delhi-based information (Mandir Marg data)."</em><br>
+                    &bull; <strong>Station-count fix</strong>: new <code>fetchCityStations()</code> calls the WAQI <code>map/bounds/</code> endpoint with a ~50 km box around the city centroid when the question matches <code>isStationCountQuery()</code>. Real count + sample station names injected into the data context, plus the CPCB national reference (~533 CAAQMS stations across ~250 cities; Sensor.Community ~3,000+ low-cost sensors).<br>
+                    &bull; <strong>Sources fix</strong>: new <code>TOPICAL_REFERENCE</code> block in the system prompt covers monitoring network, low-cost sensors, EVs / BS-VI / PM-eBus Sewa, and the Apr-May 2026 court orders. New Instruction #11: <em>"If you cite a number without a source, you have failed."</em><br>
+                    &bull; <strong>Delhi/Mandir-Marg bias fix</strong>: new <code>isNationalQuery()</code> detects India-wide topical questions and tells the model: <em>"Do NOT default to Delhi-specific or single-station context."</em> KEY REFERENCE DATA restructured to lead with India-wide figures, not Delhi-first. Single-station context now labelled "Nearest WAQI station" so the model knows it's one station, not "the city's data".
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.11 &mdash; 20 May 2026</div>
