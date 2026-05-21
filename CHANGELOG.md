@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.14] - 2026-05-20
+
+### Added — Ask JanVayu Phase B: calculators the bot actually runs
+
+Seven deterministic calculators wired in. Each runs when the question implies it, returns its result tagged `(computed)` with a primary-source citation, and Instruction #14 tells the LLM to use those numbers verbatim.
+
+| Calculator | Trigger | Formula | Source |
+|------------|---------|---------|--------|
+| Cigarette equivalence | cigarette / smoke / cig | `cigs/day = PM2.5 / 22` | Berkeley Earth |
+| Mortality risk | mortality / risk / hazard | `(PM2.5−5)/10 × 8.6%` | Krishna et al. 2024, Lancet Planetary Health |
+| Life-expectancy loss | life expectancy / AQLI / years lost | `(PM2.5−5)/10 × 0.98 yr` | AQLI 2025 |
+| Migration benefit | should I move / moving from X to Y | Δ LE + Δ cigarette-days using LIVE PM2.5 of both cities | AQLI + Berkeley Earth |
+| Transport exposure | by auto/cab/cycle/metro + N hours | `local PM2.5 = ambient × mode mult` + cig-equivalent for window | WHO/CPCB exposure |
+| Purifier CADR | purifier + N sqft | `CADR (CFM) = sqft × 9 × 5 / 60` | AHAM CADR formula |
+| School closure | school closure / will schools close | GRAP III @ 401, IV @ 451 | CAQM GRAP framework |
+
+Input extraction: transport mode + hours from "2 hours by auto-rickshaw"; room sqft from "300 sqft"; destination city matched against CITIES dictionary + bengaluru alias.
+
+### Changed — Version markers
+
+- `package.json` 26.6.13 → **26.6.14**
+- `CITATION.cff` 26.6.13 → **26.6.14**
+- `index.html` About-panel footer ribbon + on-page Version History card refreshed
+
 ## [v26.6.13] - 2026-05-20
 
 ### Added — Ask JanVayu Phase A: tool wiring + methodology calibration

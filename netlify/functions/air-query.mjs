@@ -303,6 +303,229 @@ async function fetchCommunitySensors(lat, lon, radiusKm = 25) {
   }
 }
 
+// ════════════════════════════════════════════════════════════════════════
+// v26.6.14 — Phase B deterministic calculators
+// The chatbot now EXECUTES these (returns real numbers) instead of
+// describing the formula and letting the LLM guess. Every calculator
+// has a fixed primary-source citation that goes back to the LLM with
+// the result so the answer can quote it.
+// ════════════════════════════════════════════════════════════════════════
+
+// Berkeley Earth: 22 µg/m³·day of PM2.5 ≈ 1 cigarette.
+function calcCigarettes(pm25) {
+  if (!pm25 || pm25 <= 0) return null;
+  const perDay = pm25 / 22;
+  return {
+    perDay: +perDay.toFixed(1),
+    perWeek: +(perDay * 7).toFixed(0),
+    perYear: +(perDay * 365).toFixed(0),
+    source: "Berkeley Earth (22 µg/m³·day ≈ 1 cigarette)",
+  };
+}
+
+// Krishna et al. 2024, Lancet Planetary Health — India-specific causal
+// dose-response: every +10 µg/m³ PM2.5 → +8.6% all-cause mortality.
+function calcMortalityRisk(pm25) {
+  if (!pm25 || pm25 <= 0) return null;
+  const aboveWHO = Math.max(0, pm25 - 5);
+  const excessPct = (aboveWHO / 10) * 8.6;
+  return {
+    excessMortalityPct: +excessPct.toFixed(1),
+    aboveWHO: +aboveWHO.toFixed(1),
+    source: "Krishna et al. 2024, Lancet Planetary Health (India causal dose-response)",
+  };
+}
+
+// AQLI 2025 — each +10 µg/m³ above WHO 5 µg/m³ ≈ -0.98 years life expectancy.
+function calcLifeExpectancyLoss(pm25) {
+  if (!pm25 || pm25 <= 0) return null;
+  const aboveWHO = Math.max(0, pm25 - 5);
+  const yearsLost = (aboveWHO / 10) * 0.98;
+  return {
+    yearsLost: +yearsLost.toFixed(1),
+    aboveWHO: +aboveWHO.toFixed(1),
+    source: "AQLI 2025 (UChicago EPIC — 10 µg/m³ above WHO = -0.98 years)",
+  };
+}
+
+// Migration: compare current city's live PM2.5 vs destination city's live PM2.5.
+function calcMigrationBenefit(currentPm25, destPm25) {
+  if (!currentPm25 || !destPm25 || currentPm25 <= 0 || destPm25 <= 0) return null;
+  const curLE = calcLifeExpectancyLoss(currentPm25);
+  const destLE = calcLifeExpectancyLoss(destPm25);
+  const yearsGained = +(curLE.yearsLost - destLE.yearsLost).toFixed(1);
+  const cigsSavedPerYear = Math.round(((currentPm25 - destPm25) / 22) * 365);
+  return { yearsGained, cigsSavedPerYear, currentLossYears: curLE.yearsLost, destLossYears: destLE.yearsLost };
+}
+
+// Transport exposure — multiply ambient PM2.5 by mode/duration.
+// Multipliers from WHO/CPCB exposure literature, already in the prompt.
+const TRANSPORT_MULTIPLIERS = {
+  walk: 1.0, walking: 1.0,
+  cycle: 2.5, cycling: 2.5, bicycle: 2.5, bike: 2.5,
+  auto: 1.5, "auto-rickshaw": 1.5, rickshaw: 1.5, tuktuk: 1.5,
+  car: 0.4, taxi: 0.4, cab: 0.4, uber: 0.4, ola: 0.4,
+  metro: 0.3, subway: 0.3, train: 0.5,
+  bus: 0.9,
+  motorcycle: 1.4, bike2: 1.4, scooter: 1.4, scooty: 1.4,
+};
+
+function extractTransportFromQuestion(question) {
+  // e.g. "I commute 2 hours by auto-rickshaw" → { mode: 'auto-rickshaw', hours: 2 }
+  const q = question.toLowerCase();
+  const hoursMatch = q.match(/(\d+(?:\.\d+)?)\s*(?:hours?|hrs?|h\b)/);
+  const hours = hoursMatch ? parseFloat(hoursMatch[1]) : null;
+  let mode = null;
+  for (const m of Object.keys(TRANSPORT_MULTIPLIERS)) {
+    if (new RegExp(`\\b${m.replace(/[-]/g, "[- ]")}\\b`).test(q)) { mode = m; break; }
+  }
+  return mode && hours ? { mode, hours } : null;
+}
+
+function calcTransportExposure(pm25, mode, hours) {
+  if (!pm25 || !mode || !hours) return null;
+  const mult = TRANSPORT_MULTIPLIERS[mode] || 1.0;
+  const localPm25 = pm25 * mult;
+  const fractionOfDay = hours / 24;
+  // Inhaled dose (relative): mult × hours, vs a sealed indoor reference of 1.0×24
+  const equivCigs = (localPm25 * hours) / (22 * 24);
+  return {
+    mode,
+    hours,
+    multiplier: mult,
+    localPm25: +localPm25.toFixed(1),
+    pctOfDailyDose: +(mult * fractionOfDay * 100).toFixed(0),
+    equivCigsForCommute: +equivCigs.toFixed(2),
+    source: "WHO/CPCB transport exposure multipliers; cigarette equivalence per Berkeley Earth",
+  };
+}
+
+// Purifier CADR — for a given room size + target air changes per hour.
+// CADR (m³/hr) = volume × ACH. Rule of thumb for polluted areas: ACH 5.
+function calcPurifierCADR(roomSqft, ceilingFt = 9, targetACH = 5) {
+  if (!roomSqft || roomSqft <= 0) return null;
+  const volumeCft = roomSqft * ceilingFt;
+  const cadrCfm = (volumeCft * targetACH) / 60;
+  const cadrM3h = Math.round(cadrCfm * 1.699);
+  return {
+    roomSqft,
+    targetACH,
+    cadrCfm: Math.round(cadrCfm),
+    cadrM3h,
+    source: "AHAM CADR formula (Association of Home Appliance Manufacturers); 5 ACH target for Indian winter PM2.5 typical",
+  };
+}
+
+function extractRoomSizeFromQuestion(question) {
+  const m = question.match(/(\d{2,4})\s*(?:sq\s*ft|sqft|square ?feet|square ?foot)/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+// School closure risk — driven by CAQM GRAP thresholds.
+function calcSchoolClosureRisk(aqi, month) {
+  if (!aqi) return null;
+  let risk = "low";
+  let trigger = "No GRAP school-closure trigger at this AQI";
+  if (aqi >= 451) { risk = "imminent"; trigger = "GRAP Stage IV (AQI ≥ 451): primary school closure mandated; physical classes suspended"; }
+  else if (aqi >= 401) { risk = "high"; trigger = "GRAP Stage III (AQI 401-450): primary schools likely closed; hybrid mode for higher grades"; }
+  else if (aqi >= 301) {
+    if (month >= 10 || month <= 2) { risk = "moderate"; trigger = "GRAP Stage II + winter pollution season: schools alert to monitor next 72 hr forecast"; }
+    else { risk = "moderate"; trigger = "GRAP Stage II: dust control + parking fee hikes; no school closure yet"; }
+  }
+  return {
+    risk, trigger, aqi, month,
+    source: "CAQM GRAP framework (revised 2024); Delhi-NCR mandate; other cities follow advisory pattern",
+  };
+}
+
+// Detector for any "execute a calculator" intent.
+function detectCalculatorIntent(question) {
+  const q = question.toLowerCase();
+  return {
+    cigarettes: /\b(cigarette|smoke|smoking|cig\b|berkeley)\b/.test(q),
+    mortality: /\b(mortality|risk|death|chance of dying|annual risk|relative risk|hazard)\b/.test(q),
+    lifeExpectancy: /\b(life expectancy|aqli|years (of life|lost|gained)|how (much|many) years)\b/.test(q),
+    migration: /\b(should i move|moving (from|to)|relocate|switch (city|cities)|migrate|migration)\b/.test(q),
+    transport: /\b(commute|by (auto|car|cab|taxi|metro|bus|cycle|bicycle|scooter|motorcycle)|ride (a |an |the )?(auto|bus|metro|cycle)|how much do i breathe in)\b/.test(q) && /\d+\s*(?:hours?|hrs?|h\b)/.test(q),
+    purifier: /\b(purifier|cadr|air cleaner|hepa|filter for room)\b/.test(q),
+    schoolClosure: /\b(school closure|will schools? close|schools closed|grap.*school|child.*school)\b/.test(q),
+  };
+}
+
+function extractCityFromQuestion(question, fallbackKey) {
+  // Match any CITIES key (or known alias like "bangalore"/"bengaluru")
+  const q = question.toLowerCase();
+  for (const k of Object.keys(CITIES)) {
+    if (new RegExp(`\\b${k}\\b`).test(q)) return k;
+  }
+  // Bengaluru alias
+  if (/\bbengaluru\b/.test(q)) return "bangalore";
+  return fallbackKey;
+}
+
+// Run every applicable calculator. Returns a formatted block to inject.
+async function runCalculators(question, aqiResult, cityKey) {
+  const intent = detectCalculatorIntent(question);
+  const out = [];
+  const pm25 = aqiResult.pm25;
+  const aqi = aqiResult.aqi;
+  const month = new Date().getMonth() + 1;
+
+  if (intent.cigarettes && pm25) {
+    const c = calcCigarettes(pm25);
+    out.push(`CIGARETTE EQUIVALENCE (computed): At ${aqiResult.city}'s live PM2.5 of ${pm25} µg/m³, today's air ≈ ${c.perDay} cigarettes/day, ${c.perWeek}/week, ${c.perYear}/year. Source: ${c.source}.`);
+  }
+  if (intent.mortality && pm25) {
+    const m = calcMortalityRisk(pm25);
+    out.push(`MORTALITY RISK (computed): Live PM2.5 ${pm25} µg/m³ is ${m.aboveWHO} µg/m³ above the WHO 5 µg/m³ guideline → +${m.excessMortalityPct}% all-cause mortality risk vs WHO-compliance scenario. Source: ${m.source}.`);
+  }
+  if (intent.lifeExpectancy && pm25) {
+    const l = calcLifeExpectancyLoss(pm25);
+    out.push(`LIFE-EXPECTANCY LOSS (computed): At PM2.5 ${pm25} µg/m³ sustained annually, a resident loses ≈ ${l.yearsLost} years of life expectancy (vs WHO 5 µg/m³). Source: ${l.source}.`);
+  }
+  if (intent.migration) {
+    // Extract destination city from question (current city = aqiResult)
+    const destKey = extractCityFromQuestion(question, null);
+    if (destKey && destKey !== cityKey) {
+      const destAqi = await fetchCityAQI(destKey);
+      if (destAqi && destAqi.pm25 && pm25) {
+        const mig = calcMigrationBenefit(pm25, destAqi.pm25);
+        if (mig) {
+          out.push(`MIGRATION CALCULATION (computed): Moving from ${aqiResult.city} (live PM2.5 ${pm25} µg/m³) to ${destAqi.city} (live PM2.5 ${destAqi.pm25} µg/m³) → +${mig.yearsGained} years life expectancy (AQLI 2025), ${mig.cigsSavedPerYear > 0 ? "−" : "+"}${Math.abs(mig.cigsSavedPerYear)} cigarette-day equivalents per year. NOTE: this uses TODAY's snapshot, not annual averages; check IQAir 2025 annual figures for the two cities for a more robust comparison.`);
+        }
+      } else {
+        out.push(`MIGRATION CALCULATION: Could not fetch live PM2.5 for destination ${destKey}; unable to compute.`);
+      }
+    }
+  }
+  if (intent.transport && pm25) {
+    const tr = extractTransportFromQuestion(question);
+    if (tr) {
+      const t = calcTransportExposure(pm25, tr.mode, tr.hours);
+      if (t) {
+        out.push(`TRANSPORT EXPOSURE (computed): ${t.hours} hr/day of ${t.mode} at ambient PM2.5 ${pm25} µg/m³ → effective in-mode PM2.5 ${t.localPm25} µg/m³ (×${t.multiplier} ambient), which is ${t.pctOfDailyDose}% of a full 24-hour ambient dose. Cigarette equivalent of just this commute window: ${t.equivCigsForCommute} cigs/day. Source: ${t.source}.`);
+      }
+    }
+  }
+  if (intent.purifier) {
+    const sqft = extractRoomSizeFromQuestion(question);
+    if (sqft) {
+      const p = calcPurifierCADR(sqft);
+      out.push(`PURIFIER CADR (computed): For a ${sqft} sqft room with 9 ft ceiling at ${p.targetACH} air changes/hour, you need a purifier with CADR ≥ ${p.cadrCfm} CFM (${p.cadrM3h} m³/h). Indian winter PM2.5 typically needs ACH 5+. Source: ${p.source}.`);
+    } else {
+      out.push(`PURIFIER CADR: User asked about purifier sizing but did not specify room size. Ask them for room square footage (e.g. "300 sqft") then re-query; rule of thumb at 9 ft ceiling: CADR (CFM) ≈ room-sqft × 9 × 5 / 60 = sqft × 0.75.`);
+    }
+  }
+  if (intent.schoolClosure) {
+    const s = calcSchoolClosureRisk(aqi, month);
+    if (s) {
+      out.push(`SCHOOL CLOSURE FORECAST (computed): Live AQI ${aqi}, month ${month}. Risk: ${s.risk}. Trigger: ${s.trigger}. Source: ${s.source}.`);
+    }
+  }
+
+  return out.length > 0 ? "\n\n" + out.join("\n") : "";
+}
+
 function buildSystemPrompt(seasonal, lang, nationalQuery) {
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
@@ -351,7 +574,8 @@ ${instruction9}
 10. Keep responses under 200 words. Be direct, specific, and actionable.
 11. ALWAYS cite the source for any specific number or claim. Use the formats: "per CREA Jan 2026", "IQAir 2025", "Lancet Countdown 2025", "CPCB CAAQMS", "Sensor.Community", "CAG April 2025 audit", "CSE April 2026", "NGT order Apr 2026", etc. If you cite a number without a source, you have failed.
 12. For NATIONAL/TOPICAL questions (EVs, low-cost sensors, BS-VI, monitoring network, court orders, NCAP): use the TOPICAL REFERENCE block. Do NOT default to Delhi or single-station context unless the user explicitly asks about Delhi.
-13. For station-count questions: cite both the CPCB national figure (~533 CAAQMS) and the live count for the user's city if provided in the DATA CONTEXT.`;
+13. For station-count questions: cite both the CPCB national figure (~533 CAAQMS) and the live count for the user's city if provided in the DATA CONTEXT.
+14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast). Use those numbers verbatim. Do NOT recompute or round them differently. Always carry the cited source.`;
 }
 
 export default async function handler(req) {
@@ -482,6 +706,12 @@ Top 5 worst: ${top5}
   if (ncap) {
     dataContext += `\nNCAP DATA — ${ncap.ncapTarget}. Budget: ${ncap.budget}. Note: ${ncap.note}`;
   }
+
+  // v26.6.14 Phase B — Run deterministic calculators when the question
+  // implies a number-needing question. Results get injected into the
+  // dataContext so the LLM packages real numbers, not guesses.
+  const calcBlock = await runCalculators(question, aqiResult, cityKey);
+  if (calcBlock) dataContext += calcBlock;
 
   const seasonal = getSeasonalContext();
   const nationalQuery = isNationalQuery(question);
