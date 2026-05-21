@@ -526,6 +526,292 @@ async function runCalculators(question, aqiResult, cityKey) {
   return out.length > 0 ? "\n\n" + out.join("\n") : "";
 }
 
+// ════════════════════════════════════════════════════════════════════════
+// v26.6.15 — Phase C: source apportionment + RTI templates
+// ════════════════════════════════════════════════════════════════════════
+
+// Source apportionment from CEEW 2024 national synthesis +
+// TERI/ARAI/IIT-Delhi DSS city-level studies. Percentages are
+// annual averages; winter often shifts more heavily to combustion
+// (residential + stubble) and dust drops as a share.
+// Each entry includes a citation that goes back to the LLM.
+const APPORTIONMENT = {
+  delhi: {
+    sources: [
+      { name: "Vehicles (exhaust + non-exhaust)", pct: 25, note: "Diesel-heavy + tyre/brake wear; non-exhaust often matches tailpipe" },
+      { name: "Industries + coal thermal power (300-km radius)", pct: 22 },
+      { name: "Residential biomass + LPG-poor cooking", pct: 13 },
+      { name: "Road dust + construction", pct: 18 },
+      { name: "Open waste burning", pct: 8 },
+      { name: "Stubble burning (Oct–Nov peak)", pct: 14, note: "Up to 40% during 2–3 peak winter weeks" },
+    ],
+    citation: "CAQM 27th Meeting (Feb 2026); IIT-Delhi DSS 2024; CEEW 2024",
+    seasonal: "Winter inversion concentrates combustion sources. Summer: dust dominates PM10.",
+  },
+  mumbai: {
+    sources: [
+      { name: "Vehicles (incl. fleet diesel)", pct: 28, note: "Highest in metros after Delhi-NCR" },
+      { name: "Industries (Mahul-Trombay cluster, refineries)", pct: 19 },
+      { name: "Road & construction dust", pct: 15 },
+      { name: "Residential cooking", pct: 11 },
+      { name: "Open waste + landfill burning (Deonar, Mulund)", pct: 9 },
+      { name: "Sea-salt + secondary aerosols", pct: 18 },
+    ],
+    citation: "TERI-Mumbai source apportionment 2021; CSIR-NEERI 2023",
+    seasonal: "Better dispersion year-round; PM2.5 spikes during post-monsoon (Oct–Dec) inversion.",
+  },
+  bangalore: {
+    sources: [
+      { name: "Vehicles (worst growing source)", pct: 35, note: "Bengaluru's fleet doubled 2010-2023" },
+      { name: "Industries (Peenya, electronics city)", pct: 14 },
+      { name: "Construction dust", pct: 22, note: "Construction permits doubled 2018-2024" },
+      { name: "Residential", pct: 9 },
+      { name: "Lake-bed + waste burning", pct: 8 },
+      { name: "Secondary aerosols + biomass", pct: 12 },
+    ],
+    citation: "CSIR-NEERI 2023; KSPCB studies 2022",
+    seasonal: "Generally favourable meteorology; pre-monsoon (Apr–May) sees dust spikes.",
+  },
+  kolkata: {
+    sources: [
+      { name: "Vehicles (heavy commercial + auto)", pct: 26 },
+      { name: "Coal/diesel small industries", pct: 23 },
+      { name: "Residential biomass cooking", pct: 15 },
+      { name: "Road dust", pct: 14 },
+      { name: "Open burning + waste", pct: 11 },
+      { name: "Brick kilns (peri-urban)", pct: 11 },
+    ],
+    citation: "Bose Institute 2022; Jadavpur Univ. source apportionment",
+    seasonal: "Winter inversions + Gangetic delta humidity → severe PM2.5 episodes Dec–Jan.",
+  },
+  chennai: {
+    sources: [
+      { name: "Industries (Manali, Ennore — coal + petrochem)", pct: 28 },
+      { name: "Vehicles", pct: 22 },
+      { name: "Sea-salt + secondary aerosols", pct: 20 },
+      { name: "Road dust + construction", pct: 14 },
+      { name: "Residential biomass", pct: 8 },
+      { name: "Open waste burning", pct: 8 },
+    ],
+    citation: "CPCB-Chennai 2023; IIT-Madras air quality studies",
+    seasonal: "Sea breeze helps disperse; northeast monsoon (Oct–Dec) sees occasional inversion.",
+  },
+  lucknow: {
+    sources: [
+      { name: "Vehicles", pct: 24 },
+      { name: "Brick kilns (UP-major)", pct: 21 },
+      { name: "Residential biomass", pct: 18 },
+      { name: "Road dust", pct: 16 },
+      { name: "Industries", pct: 12 },
+      { name: "Open burning", pct: 9 },
+    ],
+    citation: "TERI 2022; UP PCB studies",
+    seasonal: "Indo-Gangetic Plain trapping; winter combustion peaks.",
+  },
+  patna: {
+    sources: [
+      { name: "Residential biomass + chulha", pct: 26, note: "Highest residential share among metros" },
+      { name: "Vehicles + diesel gensets", pct: 21 },
+      { name: "Brick kilns (Bihar cluster)", pct: 17 },
+      { name: "Road dust", pct: 15 },
+      { name: "Open burning", pct: 12 },
+      { name: "Stubble (Punjab+Bihar)", pct: 9 },
+    ],
+    citation: "ICAR-RCER 2023; Bihar PCB studies; CEEW 2024",
+    seasonal: "Trapped IGP geography → among India's worst annual PM2.5; biomass-heavy winter.",
+  },
+  pune: {
+    sources: [
+      { name: "Vehicles", pct: 30 },
+      { name: "Construction + road dust", pct: 22 },
+      { name: "Industries (Pimpri-Chinchwad)", pct: 18 },
+      { name: "Residential", pct: 10 },
+      { name: "Open burning + secondary", pct: 20 },
+    ],
+    citation: "IITM-Pune; CSIR-NEERI 2022",
+    seasonal: "Hill-shielded relief; pre-monsoon (Apr–May) sees brief PM10 spikes.",
+  },
+  varanasi: {
+    sources: [
+      { name: "Road dust (NCAP-top performer reduced this 76%)", pct: 35 },
+      { name: "Brick kilns + small industries", pct: 19 },
+      { name: "Vehicles", pct: 16 },
+      { name: "Residential biomass", pct: 14 },
+      { name: "Open burning + stubble", pct: 16 },
+    ],
+    citation: "NCAP CREA 2024; BHU studies",
+    seasonal: "Dust-dominated; combustion sources persist year-round.",
+  },
+  ahmedabad: {
+    sources: [
+      { name: "Industries (Naroda, Vatva)", pct: 25 },
+      { name: "Vehicles", pct: 22 },
+      { name: "Road & construction dust", pct: 20 },
+      { name: "Brick kilns", pct: 13 },
+      { name: "Residential biomass", pct: 11 },
+      { name: "Open burning + secondary", pct: 9 },
+    ],
+    citation: "GPCB studies; IIT-Gandhinagar source apportionment",
+    seasonal: "Dust storms in pre-monsoon; mild winter.",
+  },
+};
+
+const NATIONAL_APPORTIONMENT = {
+  sources: [
+    { name: "Residential biomass cooking (LPG-poor households)", pct: 30, note: "Largest single contributor nationally — disproportionately women + children" },
+    { name: "Industries (incl. brick kilns, small-scale)", pct: 25 },
+    { name: "Vehicles (exhaust + non-exhaust)", pct: 18 },
+    { name: "Road dust + construction", pct: 12 },
+    { name: "Open waste + crop burning", pct: 10 },
+    { name: "Power plants (esp. coal TPPs)", pct: 5 },
+  ],
+  citation: "CEEW 2024 'Source Apportionment of PM2.5 in India' — national synthesis",
+  note: "These percentages vary substantially by city; see city-specific blocks for local breakdowns.",
+};
+
+function getApportionment(cityKey) {
+  return APPORTIONMENT[cityKey] || null;
+}
+
+function isApportionmentQuery(question) {
+  const q = question.toLowerCase();
+  return /\b(source(s)? of pollution|where does (the )?(pollution|pm) come from|apportionment|what causes|main (source|contributor)|source mix|breakdown of (sources|emissions)|dominant source|biomass|stubble share|how much (is|from) (vehicles|industry|industries|biomass|dust|construction))\b/i.test(q);
+}
+
+// ── RTI template helper ────────────────────────────────────────────────
+// JanVayu's existing RTI Assistant panel covers ~6 use-cases. The bot
+// can now draft one inline. Each template comes with the correct
+// department per CPCB-Act / EPA / RTI Act 2005.
+
+const RTI_TEMPLATES = {
+  station_data: {
+    title: "Air quality monitoring station data",
+    department: "Central Pollution Control Board (CPCB) Public Information Officer",
+    address: "Parivesh Bhawan, East Arjun Nagar, Delhi 110032",
+    questions: [
+      "How many CAAQMS (Continuous Ambient Air Quality Monitoring Stations) are currently operational in [CITY]?",
+      "What is the hourly PM2.5 and PM10 data for the past 90 days from each station, in CSV or PDF format?",
+      "What is the data-uptime percentage for each station during the past 12 months?",
+      "What is the calibration schedule for the PM2.5/PM10 analysers at each station?",
+      "Provide copies of any data-quality audit reports for these stations.",
+    ],
+    statutory: "Right to Information Act, 2005 — Section 6(1)",
+  },
+  ncap_funds: {
+    title: "NCAP fund utilisation",
+    department: "Public Information Officer, [STATE] Pollution Control Board (cc: CPCB)",
+    address: "(use the city-specific SPCB address)",
+    questions: [
+      "What is the total NCAP allocation released to [CITY] for FY 2024-25 and FY 2025-26, broken down by financial-year tranches?",
+      "Provide a category-wise breakdown of NCAP funds utilised (road dust suppression, industrial control, transport, public awareness, etc.).",
+      "What is the unutilised balance as of 31 March 2026 (the NCAP deadline)?",
+      "Provide copies of all utilisation certificates (UCs) submitted to MoEFCC for these tranches.",
+      "List the tenders awarded under NCAP for [CITY] with vendor names, amounts, and outcomes.",
+    ],
+    statutory: "Right to Information Act, 2005 — Section 6(1); National Clean Air Programme (2019)",
+  },
+  industry_compliance: {
+    title: "Industry / brick-kiln / power-plant compliance",
+    department: "Public Information Officer, [STATE] Pollution Control Board",
+    address: "(use SPCB Regional Office for [DISTRICT])",
+    questions: [
+      "Provide a list of industries / brick kilns within [PINCODE] / [WARD] operating with valid Consent to Operate (CTO) and those operating without consent.",
+      "Provide copies of the last 12 months of self-monitoring (CEMS) data submitted by these units, if any.",
+      "What enforcement actions (closure notices, environmental compensation, criminal complaints) have been taken in this area in the past 24 months?",
+      "Has any unit in this area been audited under the CPCB-mandated stack-emission protocol in the past 12 months? Provide reports.",
+      "Provide a copy of the FGD (flue-gas desulphurisation) compliance status report for any coal thermal power plant within 100 km.",
+    ],
+    statutory: "Right to Information Act, 2005; Air (Prevention and Control of Pollution) Act, 1981; Environment (Protection) Act, 1986",
+  },
+  grap_enforcement: {
+    title: "GRAP enforcement in Delhi-NCR",
+    department: "Public Information Officer, Commission for Air Quality Management (CAQM)",
+    address: "Vayu Bhawan, Plot No.4, Sector-21, Dwarka, Delhi 110077",
+    questions: [
+      "For each GRAP stage invocation in the period Oct 2025 – Mar 2026, provide the AQI trigger date, time of invocation, and the source of the AQI reading.",
+      "Provide a list of construction sites in [CITY] that were issued show-cause notices during GRAP Stage III or IV.",
+      "How many vehicles were impounded under the BS-III petrol / BS-IV diesel ban during GRAP Stage IV in this period?",
+      "Provide a copy of the CAQM compliance audit for the [DATE] off-season GRAP invocation.",
+      "What action has been taken against agencies that failed to implement GRAP measures within the prescribed 24-hour window?",
+    ],
+    statutory: "Right to Information Act, 2005; CAQM Act 2021; Air Act 1981",
+  },
+  school_closure: {
+    title: "School closure records",
+    department: "Public Information Officer, Directorate of Education, Government of [STATE]",
+    address: "(state-specific)",
+    questions: [
+      "Provide the official school-closure order(s) issued during Winter 2025-26 (Nov 2025 – Feb 2026) by date and applicability.",
+      "How many school days were lost in government schools in [CITY] due to GRAP-related closures during this period?",
+      "What alternative arrangements (online classes, equipment distribution) were made for government-school students during these closures?",
+      "Provide the gender-disaggregated enrolment-drop data for the affected period.",
+      "What budget allocation has been made for the Winter 2026-27 pollution-season contingency?",
+    ],
+    statutory: "Right to Information Act, 2005; Right of Children to Free and Compulsory Education Act, 2009",
+  },
+  health_burden: {
+    title: "Public-health burden from air pollution in [CITY]",
+    department: "Public Information Officer, Department of Health & Family Welfare, Government of [STATE]",
+    address: "(state-specific)",
+    questions: [
+      "Provide the year-wise (2019–2025) hospital admission counts for respiratory and cardiovascular conditions for [CITY], from district-level health surveillance.",
+      "Provide the same data disaggregated by age group (under-5, 5-18, 18-60, 60+) and gender.",
+      "What is the documented correlation analysis (if any) between PM2.5 levels and these admissions performed by the state health department?",
+      "What public-health advisories were issued during GRAP Stage III/IV events in Winter 2025-26?",
+      "What screening / N95 mask distribution programmes were implemented during this period?",
+    ],
+    statutory: "Right to Information Act, 2005",
+  },
+};
+
+function detectRTIIntent(question) {
+  const q = question.toLowerCase();
+  // Explicit RTI trigger phrases
+  if (!/\b(rti|right to information|draft (a |an )?(rti|application)|file (an? )?rti|request information|public information officer)\b/.test(q)) {
+    return null;
+  }
+  if (/\b(station|monitor|caaqms|data|sensor)/.test(q)) return "station_data";
+  if (/\b(ncap|fund|budget|utili[zs]ation|tender)/.test(q)) return "ncap_funds";
+  if (/\b(industry|industries|brick kiln|kiln|factor(y|ies)|power plant|tpp|cems|fgd|consent)/.test(q)) return "industry_compliance";
+  if (/\b(grap|caqm|enforcement|construction ban|vehicle impound)/.test(q)) return "grap_enforcement";
+  if (/\b(school|closure|education|class)/.test(q)) return "school_closure";
+  if (/\b(health|hospital|admission|patient|respiratory|cardiac|mortality)/.test(q)) return "health_burden";
+  // Generic RTI ask — return station_data as the most common
+  return "station_data";
+}
+
+function formatRTI(templateKey, cityName, today) {
+  const t = RTI_TEMPLATES[templateKey];
+  if (!t) return null;
+  const dateStr = today.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+  const cityUpper = (cityName || "[CITY]").toUpperCase();
+  const questions = t.questions.map((q, i) => `${i + 1}. ${q.replace(/\[CITY\]/g, cityName || "[CITY]")}`).join("\n");
+  return `RTI APPLICATION TEMPLATE (computed)
+
+Subject: ${t.title} — ${cityUpper}
+To: ${t.department.replace(/\[STATE\]/g, "[STATE]")}
+Address: ${t.address}
+Date: ${dateStr}
+
+Sir/Madam,
+
+Under Section 6 of the Right to Information Act, 2005, I request the following information:
+
+${questions}
+
+Method of obtaining information: Soft copy via email, or physical copy by post.
+Fee: ₹10 application fee (cash / postal order / IPO / DD) — exempted for BPL applicants.
+
+Statutory anchors: ${t.statutory}
+
+Yours sincerely,
+[Applicant name]
+[Address]
+[Email, phone]
+
+NOTE: This is a deterministic JanVayu RTI template (key: "${templateKey}"). Replace bracketed fields with applicant details. CPCB / SPCB / CAQM are required to respond within 30 days. Appeal lies with the First Appellate Authority of the addressed department, then the Central / State Information Commission.`;
+}
+
 function buildSystemPrompt(seasonal, lang, nationalQuery) {
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
@@ -575,7 +861,8 @@ ${instruction9}
 11. ALWAYS cite the source for any specific number or claim. Use the formats: "per CREA Jan 2026", "IQAir 2025", "Lancet Countdown 2025", "CPCB CAAQMS", "Sensor.Community", "CAG April 2025 audit", "CSE April 2026", "NGT order Apr 2026", etc. If you cite a number without a source, you have failed.
 12. For NATIONAL/TOPICAL questions (EVs, low-cost sensors, BS-VI, monitoring network, court orders, NCAP): use the TOPICAL REFERENCE block. Do NOT default to Delhi or single-station context unless the user explicitly asks about Delhi.
 13. For station-count questions: cite both the CPCB national figure (~533 CAAQMS) and the live count for the user's city if provided in the DATA CONTEXT.
-14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast). Use those numbers verbatim. Do NOT recompute or round them differently. Always carry the cited source.`;
+14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.
+15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.`;
 }
 
 export default async function handler(req) {
@@ -712,6 +999,27 @@ Top 5 worst: ${top5}
   // dataContext so the LLM packages real numbers, not guesses.
   const calcBlock = await runCalculators(question, aqiResult, cityKey);
   if (calcBlock) dataContext += calcBlock;
+
+  // v26.6.15 Phase C — Apportionment block when the user asks about
+  // sources of pollution / what causes it / dominant contributor.
+  if (isApportionmentQuery(question)) {
+    const ap = getApportionment(cityKey);
+    if (ap) {
+      const mix = ap.sources.map(s => `  • ${s.name}: ${s.pct}%${s.note ? " — " + s.note : ""}`).join("\n");
+      dataContext += `\n\nSOURCE APPORTIONMENT FOR ${aqiResult.city.toUpperCase()} (computed from JanVayu apportionment dataset):\n${mix}\nCitation: ${ap.citation}\nSeasonal note: ${ap.seasonal}`;
+    } else {
+      const nat = NATIONAL_APPORTIONMENT;
+      const mix = nat.sources.map(s => `  • ${s.name}: ${s.pct}%${s.note ? " — " + s.note : ""}`).join("\n");
+      dataContext += `\n\nNATIONAL SOURCE APPORTIONMENT (no city-specific study indexed for ${aqiResult.city}; using national synthesis):\n${mix}\nCitation: ${nat.citation}\nNote: ${nat.note}`;
+    }
+  }
+
+  // v26.6.15 Phase C — RTI drafting when the user asks for one.
+  const rtiKey = detectRTIIntent(question);
+  if (rtiKey) {
+    const rti = formatRTI(rtiKey, aqiResult.city, new Date());
+    if (rti) dataContext += "\n\n" + rti;
+  }
 
   const seasonal = getSeasonalContext();
   const nationalQuery = isNationalQuery(question);
