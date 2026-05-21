@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.16] - 2026-05-20
+
+### Added — Ask JanVayu Phase D: multi-source spread + divergence flagging
+
+**Final phase** of the Ask JanVayu upgrade. Cross-references four sources (WAQI nearest, WAQI bounds-network, Sensor.Community, IQAir 2025 cached annual) and surfaces three diagnostics:
+
+- Intra-city spatial spread (>2× station-AQI range flagged WIDE)
+- Snapshot agreement between WAQI and community sensors (>50% diff flagged WIDE)
+- Today-vs-baseline anomaly (live PM2.5 vs IQAir 2025 annual; >1.5× or <0.5× flagged)
+
+`IQAIR_2025_ANNUAL` cached for 37 Indian cities. Always-on anomaly note injected on any query when today's live PM2.5 is notably off baseline.
+
+### Cumulative across Phases A → D
+
+- 4 internal tools wired (rankings, historical, sensors, station-bounds)
+- 7 deterministic calculators (cigarette, mortality, life-expectancy, migration, transport, purifier, school-closure)
+- 10 cities' source apportionment with primary-source citations
+- 6 RTI templates with correct PIO + statutory anchors
+- 4-source cross-reference + divergence flagging
+- Source citation required on every number
+
+### Changed — Version markers
+
+- `package.json` 26.6.15 → **26.6.16**
+- `CITATION.cff` 26.6.15 → **26.6.16**
+- `index.html` About-panel footer ribbon + on-page Version History card refreshed
+
 ## [v26.6.15] - 2026-05-20
 
 ### Added — Ask JanVayu Phase C: source apportionment + RTI drafting
