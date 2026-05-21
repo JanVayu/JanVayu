@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.13] - 2026-05-20
+
+### Added — Ask JanVayu Phase A: tool wiring + methodology calibration
+
+User direction after v26.6.12: *"What other broad queries can make the chatbot useful? It should surface and use all of the JanVayu tools. Responses must be calibrated across multiple sources and be better than the average chatbot."*
+
+This release is **Phase A** of a four-phase upgrade. Three new internal tool calls wired in (each behind a query detector, all running in parallel) plus a methodology block in every system prompt so the LLM can explain why CPCB ≠ WAQI ≠ IQAir.
+
+#### Wired in: three tool calls
+
+| Detector | Trigger phrases | Tool | Injects into LLM context |
+|----------|-----------------|------|--------------------------|
+| `isRankingQuery` | top N worst, cleanest, most polluted, leaderboard, which city is worst/best | `rankings.mjs?range=live\|7d\|30d` | Top 5 worst + 5 cleanest cities with live PM2.5/AQI |
+| `isTrendQuery` | trend, history, over time, past year, since 20XX, getting better/worse, YoY | `historical-aqi.mjs?city=&month=` | Year-by-year PM2.5 series for user's city + current month |
+| `isHyperlocalQuery` | my area/colony/ward, near me, hyperlocal, community sensor, street level | `community-sensors.mjs?lat=&lon=&radius=25` | Up to 5 nearest Sensor.Community sensors |
+
+All three run via `Promise.all` after the WAQI live fetch with 6 s timeouts. Failures are graceful.
+
+#### `METHODOLOGY_REFERENCE` block
+
+Covers five "why do two sources disagree?" cases: CPCB Indian AQI vs US EPA AQI (same µg/m³, different scale); WAQI single-station vs CPCB CAAQMS network; CPCB annual vs IQAir World AQ Report; Krishna 1.5M causal vs Lancet Countdown 1.72M synthesis; low-cost vs regulatory-grade trade-offs.
+
+#### Coming
+
+- **Phase B**: GEMM exposure calculator, migration calculator, school-closure predictor, cigarette-equivalence — bot *executes* these.
+- **Phase C**: New `apportionment.mjs` (CEEW 2024); RTI Assistant as a callable tool.
+- **Phase D**: Multi-source spread — WAQI + community-sensors + IQAir-cached + CPCB-direct cross-fetch with divergence flagging.
+
+### Changed — Version markers
+
+- `package.json` 26.6.12 → **26.6.13**
+- `CITATION.cff` 26.6.12 → **26.6.13**
+- `index.html` About-panel footer ribbon and on-page Version History card refreshed
+
 ## [v26.6.12] - 2026-05-20
 
 ### Fixed — Ask JanVayu: three real bugs from user testing
