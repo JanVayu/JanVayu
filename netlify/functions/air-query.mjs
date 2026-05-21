@@ -832,7 +832,7 @@ const IQAIR_2025_ANNUAL = {
 
 function isMultiSourceQuery(question) {
   const q = question.toLowerCase();
-  return /\b(how reliable|reliable\??|which source|sources? (differ|disagree|agree|conflict)|cross.?check|cross.?reference|spread|spatial variation|stations differ|reading vs (reading|annual)|today vs (annual|baseline|usual)|is (this|today's) (high|low|normal|unusual)|episode|anomaly|baseline|trustworthy|confidence|accuracy|how accurate|calibrat|methodology|data quality)\b/i.test(q);
+  return /\b(how reliable|reliable\??|which source|sources? (differ|disagree|agree|conflict)|cross.?check|cross.?reference|spread|spatial variation|stations differ|reading vs (reading|annual)|today vs (annual|baseline|usual)|is (this|today'?s?|the reading) (high|low|normal|unusual)|episode|anomaly|baseline|trustworthy|confidence|accuracy|how accurate|calibrat|methodology|data quality)\b/i.test(q);
 }
 
 function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorList) {
@@ -1062,8 +1062,8 @@ export default async function handler(req) {
     if (t.kind === "rankings") {
       const cities = t.data.cities || [];
       if (cities.length > 0) {
-        const top5 = cities.slice(0, 5).map(c => `${c.city} (PM2.5 ${c.pm25 ?? "—"} µg/m³, AQI ${c.aqi ?? "—"})`).join("; ");
-        const bottom5 = cities.slice(-5).reverse().map(c => `${c.city} (PM2.5 ${c.pm25 ?? "—"} µg/m³)`).join("; ");
+        const top5 = cities.slice(0, 5).map(c => `${c.name || c.city || c.key} (PM2.5 ${c.pm25 ?? "—"} µg/m³, AQI ${c.aqi ?? "—"})`).join("; ");
+        const bottom5 = cities.slice(-5).reverse().map(c => `${c.name || c.city || c.key} (PM2.5 ${c.pm25 ?? "—"} µg/m³)`).join("; ");
         const label = t.range === "live" ? "LIVE" : t.range === "7d" ? "7-DAY AVERAGE" : "30-DAY AVERAGE";
         dataContext += `\n\n${label} CITY RANKINGS (JanVayu rankings.mjs, ${cities.length} cities ranked by PM2.5, worst first):
 Top 5 worst: ${top5}
@@ -1157,11 +1157,19 @@ Top 5 worst: ${top5}
       signal: AbortSignal.timeout(15000),
     });
     const groqData = await groqRes.json();
-    const text = groqData.choices?.[0]?.message?.content || "No response generated.";
+    let text = groqData.choices?.[0]?.message?.content;
+    if (!text || text.trim().length === 0) {
+      // v26.6.17 — when Groq returns empty (rate limit, transient error,
+      // content-filter), surface the calculator + live-data context so
+      // the user still gets useful information rather than a blank line.
+      console.log("Groq returned empty content. Raw response:", JSON.stringify(groqData).slice(0, 400));
+      const errMsg = groqData.error?.message || "AI response unavailable";
+      text = `[AI temporarily unavailable: ${errMsg}.] Here is the live data for ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³ (${aqiResult.pm25 ? Math.round(aqiResult.pm25 / 5) + "× WHO guideline" : ""}), nearest station ${aqiResult.station}. Try the question again in a few seconds, or rephrase it.`;
+    }
     return new Response(JSON.stringify({ answer: text, dataUsed: aqiResult }), { status: 200, headers });
   } catch (e) {
     console.log("Groq error:", e.message);
-    const fallback = `AI analysis unavailable right now. Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³ (${aqiResult.pm25 ? Math.round(aqiResult.pm25 / 5) + "x WHO guideline" : ""}).`;
+    const fallback = `AI analysis unavailable right now (${e.message}). Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³ (${aqiResult.pm25 ? Math.round(aqiResult.pm25 / 5) + "× WHO guideline" : ""}).`;
     return new Response(JSON.stringify({ answer: fallback, dataUsed: aqiResult }), { status: 200, headers });
   }
 }
