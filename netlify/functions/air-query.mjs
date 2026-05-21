@@ -812,6 +812,86 @@ Yours sincerely,
 NOTE: This is a deterministic JanVayu RTI template (key: "${templateKey}"). Replace bracketed fields with applicant details. CPCB / SPCB / CAQM are required to respond within 30 days. Appeal lies with the First Appellate Authority of the addressed department, then the Central / State Information Commission.`;
 }
 
+// ════════════════════════════════════════════════════════════════════════
+// v26.6.16 — Phase D: multi-source spread + divergence flagging
+// ════════════════════════════════════════════════════════════════════════
+
+const IQAIR_2025_ANNUAL = {
+  loni: 112.5, byrnihat: 99.3, begusarai: 95.0, hajipur: 95.0,
+  delhi: 91.6, ghaziabad: 92.1, noida: 80.4, faridabad: 79.2, gurgaon: 80.6,
+  patna: 96.8, muzaffarpur: 88.0, gaya: 78.5,
+  lucknow: 76.5, kanpur: 71.2, varanasi: 78.4, agra: 60.3,
+  jaipur: 56.1, jodhpur: 53.4, amritsar: 55.7,
+  ahmedabad: 49.2, bhopal: 47.5, indore: 47.1, raipur: 50.9,
+  kolkata: 50.2, guwahati: 56.2, dehradun: 49.6, chandigarh: 42.3,
+  pune: 35.8, hyderabad: 33.5, bangalore: 27.6, nagpur: 35.4, mumbai: 41.4,
+  visakhapatnam: 30.1, chennai: 18.1, kochi: 16.7,
+  coimbatore: 19.5, thiruvananthapuram: 16.2,
+  __india_avg: 48.9,
+};
+
+function isMultiSourceQuery(question) {
+  const q = question.toLowerCase();
+  return /\b(how reliable|reliable\??|which source|sources? (differ|disagree|agree|conflict)|cross.?check|cross.?reference|spread|spatial variation|stations differ|reading vs (reading|annual)|today vs (annual|baseline|usual)|is (this|today's) (high|low|normal|unusual)|episode|anomaly|baseline|trustworthy|confidence|accuracy|how accurate|calibrat|methodology|data quality)\b/i.test(q);
+}
+
+function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorList) {
+  const annualRef = IQAIR_2025_ANNUAL[cityKey];
+  const items = [];
+  const snapshotPm25Values = [];
+  if (waqiPm25 != null) snapshotPm25Values.push({ source: "WAQI nearest station", value: waqiPm25 });
+
+  if (Array.isArray(stationList) && stationList.length >= 2) {
+    const aqis = stationList.map(s => s.aqi).filter(v => typeof v === "number" && v > 0);
+    if (aqis.length >= 2) {
+      const min = Math.min(...aqis);
+      const max = Math.max(...aqis);
+      const ratio = max / min;
+      items.push(`  • Intra-city WAQI station spread: ${stationList.length} stations, AQI ${min}-${max} (${ratio.toFixed(1)}× range). ${ratio > 2 ? "WIDE — significant spatial gradient; single-station readings are NOT representative of the city average." : "Moderate — typical Indian city variance."}`);
+    }
+  }
+
+  if (Array.isArray(sensorList) && sensorList.length > 0) {
+    const valid = sensorList.map(s => s.pm25).filter(v => typeof v === "number" && v > 0);
+    if (valid.length > 0) {
+      const avg = valid.reduce((a, b) => a + b, 0) / valid.length;
+      snapshotPm25Values.push({ source: `Community sensors (Sensor.Community, avg of ${valid.length} within 25 km)`, value: +avg.toFixed(1) });
+    }
+  }
+
+  if (annualRef != null) {
+    items.push(`  • IQAir 2025 annual reference: ${annualRef} µg/m³ (the 2025 edition published March 2025, covering 2024 data — JanVayu cached). This is the "is today normal?" baseline.`);
+  }
+
+  if (snapshotPm25Values.length >= 2) {
+    const a = snapshotPm25Values[0].value;
+    const b = snapshotPm25Values[1].value;
+    const ratio = Math.max(a, b) / Math.min(a, b);
+    const diffPct = Math.round(Math.abs(a - b) / ((a + b) / 2) * 100);
+    items.push(`  • Snapshot agreement: ${snapshotPm25Values.map(x => `${x.source} ${x.value} µg/m³`).join(" vs ")} — ${diffPct}% difference. ${
+      ratio > 1.5
+        ? "⚠ WIDE SPREAD — sources disagree substantially. Low-cost community sensors are ±20-50% accuracy; difference may reflect calibration drift, micro-location effects, or genuine spatial gradient."
+        : "Sources agree within methodology error (low-cost ±20-50%, regulatory ±5-10%). High-confidence snapshot."
+    }`);
+  } else if (snapshotPm25Values.length === 1) {
+    items.push(`  • Snapshot: ${snapshotPm25Values[0].source} reports ${snapshotPm25Values[0].value} µg/m³ (only one source live this hour; cannot cross-check).`);
+  }
+
+  if (annualRef != null && waqiPm25 != null) {
+    const ratio = waqiPm25 / annualRef;
+    if (ratio > 1.5) {
+      items.push(`  • ⚠ ANOMALY: today's live PM2.5 (${waqiPm25} µg/m³) is ${ratio.toFixed(1)}× the IQAir 2025 annual baseline (${annualRef} µg/m³). Above-average day — likely meteorology (inversion, low wind), seasonal event (Diwali, stubble burning), or specific source spike.`);
+    } else if (ratio < 0.5) {
+      items.push(`  • Today's live PM2.5 (${waqiPm25} µg/m³) is well BELOW the IQAir 2025 annual baseline (${annualRef} µg/m³) — likely monsoon washout or favourable dispersion meteorology.`);
+    } else {
+      items.push(`  • Today's reading is consistent with annual baseline (${(ratio * 100).toFixed(0)}% of IQAir 2025 annual). Typical day.`);
+    }
+  }
+
+  if (items.length === 0) return "";
+  return `\n\nMULTI-SOURCE SPREAD ANALYSIS for ${cityName.toUpperCase()} (computed):\n${items.join("\n")}\nCitation reminder: WAQI = aqicn.org; community sensors = Sensor.Community (CC0, ±20-50% accuracy); IQAir 2025 = the 2025 edition, March 2025, covering 2024 data; CPCB CAAQMS = official Indian regulatory (~533 stations, ±5-10% accuracy).`;
+}
+
 function buildSystemPrompt(seasonal, lang, nationalQuery) {
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
@@ -922,25 +1002,44 @@ export default async function handler(req) {
 
   // v26.6.13 Phase A — Three new tool calls, all run in parallel so the
   // chatbot's response time isn't bottlenecked when multiple apply.
+  // v26.6.16 Phase D — Add multi-source spread fetch when the question
+  // implies it (or when intra-city station spread is needed).
   const toolPromises = [];
   if (isRankingQuery(question)) {
-    // Default to live; "7 day"/"30 day" wording bumps to that range.
     const range = /\b(30 ?day|month|monthly)\b/i.test(question) ? "30d"
                 : /\b(7 ?day|week|weekly)\b/i.test(question) ? "7d"
                 : "live";
     toolPromises.push(fetchRankings(range).then(r => ({ kind: "rankings", data: r, range })));
   }
   if (isTrendQuery(question)) {
-    const month = new Date().getMonth() + 1; // 1-12
+    const month = new Date().getMonth() + 1;
     toolPromises.push(fetchHistoricalTrend(cityKey, month).then(r => ({ kind: "trend", data: r, month })));
   }
-  if (isHyperlocalQuery(question)) {
+
+  // Sensors fetch: needed for both hyperlocal queries AND multi-source spread.
+  const multiSource = isMultiSourceQuery(question);
+  if (isHyperlocalQuery(question) || multiSource) {
     const cityCoords = CITIES[cityKey];
     if (cityCoords) {
       toolPromises.push(fetchCommunitySensors(cityCoords.lat, cityCoords.lon, 25).then(r => ({ kind: "hyperlocal", data: r })));
     }
   }
+
+  // Station-list fetch: needed for both station-count AND multi-source spread.
+  if (!stationList && multiSource) {
+    stationList = await fetchCityStations(cityKey);
+  }
+
   const toolResults = await Promise.all(toolPromises);
+
+  // Extract sensor list for spread analysis if multi-source asked
+  let sensorListForSpread = null;
+  if (multiSource) {
+    const hyperResult = toolResults.find(t => t.kind === "hyperlocal");
+    if (hyperResult && hyperResult.data && Array.isArray(hyperResult.data.stations)) {
+      sensorListForSpread = hyperResult.data.stations;
+    }
+  }
 
   let dataContext = `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Nearest WAQI station: ${aqiResult.station}, Updated: ${aqiResult.time}.`;
 
@@ -1019,6 +1118,25 @@ Top 5 worst: ${top5}
   if (rtiKey) {
     const rti = formatRTI(rtiKey, aqiResult.city, new Date());
     if (rti) dataContext += "\n\n" + rti;
+  }
+
+  // v26.6.16 Phase D — Multi-source spread analysis when the question
+  // implies it. Cross-references WAQI live + community sensors + WAQI
+  // station bounds + cached IQAir 2025 annual; flags divergence > 50%
+  // and anomalies > 1.5× annual baseline.
+  if (multiSource) {
+    const spread = buildSpreadAnalysis(cityKey, aqiResult.city, aqiResult.pm25, stationList, sensorListForSpread);
+    if (spread) dataContext += spread;
+  } else if (IQAIR_2025_ANNUAL[cityKey] != null && aqiResult.pm25 != null) {
+    // Even on non-multi-source questions, surface the IQAir annual baseline
+    // when the user's live reading is very anomalous (1.5x+ or 0.5x-).
+    const annualRef = IQAIR_2025_ANNUAL[cityKey];
+    const ratio = aqiResult.pm25 / annualRef;
+    if (ratio > 1.5) {
+      dataContext += `\n\nANOMALY NOTE: ${aqiResult.city}'s live PM2.5 (${aqiResult.pm25} µg/m³) is ${ratio.toFixed(1)}× the IQAir 2025 annual baseline (${annualRef} µg/m³). Today is above-average — flag this in any health/activity advice.`;
+    } else if (ratio < 0.5) {
+      dataContext += `\n\nNOTE: ${aqiResult.city}'s live PM2.5 (${aqiResult.pm25} µg/m³) is well below the IQAir 2025 annual baseline (${annualRef} µg/m³). Better-than-typical day.`;
+    }
   }
 
   const seasonal = getSeasonalContext();
