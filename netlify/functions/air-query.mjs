@@ -897,7 +897,13 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
   return `\n\nMULTI-SOURCE SPREAD ANALYSIS for ${cityName.toUpperCase()} (computed):\n${items.join("\n")}\nCitation reminder: WAQI = aqicn.org; community sensors = Sensor.Community (CC0, ±20-50% accuracy); IQAir 2025 = the 2025 edition, March 2025, covering 2024 data; CPCB CAAQMS = official Indian regulatory (~533 stations, ±5-10% accuracy).`;
 }
 
-function buildSystemPrompt(seasonal, lang, nationalQuery) {
+// v26.6.20 — Prompt-trim optimisation
+// METHODOLOGY_REFERENCE and TOPICAL_REFERENCE are only included when a
+// detector flags them as relevant. Saves ~1,500 tokens per request on
+// the common case (~30% input-cost reduction) and helps the free tier
+// fit more requests inside the 12,000 TPM rate limit.
+function buildSystemPrompt(seasonal, lang, opts = {}) {
+  const { nationalQuery = false, multiSource = false, topical = false, methodologyNeeded = false } = opts;
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
     ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
@@ -911,17 +917,23 @@ function buildSystemPrompt(seasonal, lang, nationalQuery) {
     ? `\nIMPORTANT — NATIONAL/TOPICAL QUERY: The user's question is about an India-wide topic (monitoring network, low-cost sensors, EVs, BS-VI, NCAP, court orders, etc.) and NOT about their selected city's live air quality. Frame your answer for India broadly. Do NOT default to Delhi-specific or single-station (e.g. Mandir Marg) context. Use the TOPICAL REFERENCE block below for concrete facts.\n`
     : "";
 
+  // Heavy blocks gated by relevance.
+  // - METHODOLOGY_REFERENCE (~1000 tokens): only when the user is asking
+  //   about data reliability / source disagreement / anomaly. Detected
+  //   by isMultiSourceQuery upstream.
+  // - TOPICAL_REFERENCE (~600 tokens): only when the user is asking
+  //   about national/topical things (EVs, sensors, NCAP, BS-VI, etc.).
+  //   Detected by isNationalQuery OR isStationCountQuery OR isApportionmentQuery.
+  const methodologyBlock = (multiSource || methodologyNeeded) ? `\n${METHODOLOGY_REFERENCE}\n` : "";
+  const topicalBlock = (nationalQuery || topical) ? `\n${TOPICAL_REFERENCE}\n` : "";
+
   return `You are JanVayu, India's citizen-led air quality assistant. You are NOT a generic chatbot — you have access to LIVE pollution data and deep knowledge of India's air quality context.
 
 TODAY: ${seasonal.dateStr}
 SEASONAL CONTEXT: ${seasonal.season}
 
 ${ACTIVITY_THRESHOLDS}
-
-${METHODOLOGY_REFERENCE}
-
-${TOPICAL_REFERENCE}
-
+${methodologyBlock}${topicalBlock}
 KEY REFERENCE DATA (India-wide, not Delhi-specific):
 - WHO annual PM2.5 guideline: 5 µg/m³. India's NAAQS: 40 µg/m³ (8× WHO).
 - India average PM2.5: 48.9 µg/m³ (~10× WHO limit) — IQAir 2025.
@@ -944,7 +956,7 @@ INSTRUCTIONS:
 ${instruction9}
 10. Keep responses under 200 words. Be direct, specific, and actionable.
 11. ALWAYS cite the source for any specific number or claim. Use the formats: "per CREA Jan 2026", "IQAir 2025", "Lancet Countdown 2025", "CPCB CAAQMS", "Sensor.Community", "CAG April 2025 audit", "CSE April 2026", "NGT order Apr 2026", etc. If you cite a number without a source, you have failed.
-12. For NATIONAL/TOPICAL questions (EVs, low-cost sensors, BS-VI, monitoring network, court orders, NCAP): use the TOPICAL REFERENCE block. Do NOT default to Delhi or single-station context unless the user explicitly asks about Delhi.
+12. For NATIONAL/TOPICAL questions (EVs, low-cost sensors, BS-VI, monitoring network, court orders, NCAP): use the TOPICAL REFERENCE block when provided. Do NOT default to Delhi or single-station context unless the user explicitly asks about Delhi.
 13. For station-count questions: cite both the CPCB national figure (~533 CAAQMS) and the live count for the user's city if provided in the DATA CONTEXT.
 14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.
 15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.`;
@@ -1146,6 +1158,10 @@ Top 5 worst: ${top5}
 
   const seasonal = getSeasonalContext();
   const nationalQuery = isNationalQuery(question);
+  // v26.6.20 — conditionally include heavy reference blocks to trim
+  // prompt tokens by ~1500/request when not needed for the answer.
+  const topical = nationalQuery || isStationCountQuery(question) || isApportionmentQuery(question) || isRankingQuery(question);
+  const methodologyNeeded = multiSource || isMultiSourceQuery(question);
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -1154,7 +1170,7 @@ Top 5 worst: ${top5}
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: [
-          { role: "system", content: buildSystemPrompt(seasonal, requestedLang, nationalQuery) },
+          { role: "system", content: buildSystemPrompt(seasonal, requestedLang, { nationalQuery, multiSource, topical, methodologyNeeded }) },
           { role: "user", content: `${dataContext}\n\nQuestion: ${question}` }
         ],
         max_tokens: 450,

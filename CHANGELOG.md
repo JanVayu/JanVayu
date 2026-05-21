@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.20] - 2026-05-21
+
+### Changed — Ask JanVayu prompt-trim cost optimisation
+
+The system prompt that goes to Groq Llama 3.3 70B on every Ask JanVayu request was carrying two heavy reference blocks unconditionally:
+
+- `METHODOLOGY_REFERENCE` (~1000 tokens) — only useful when the user is asking about data reliability, source disagreement, or anomaly handling.
+- `TOPICAL_REFERENCE` (~600 tokens) — only useful when the user is asking about national/topical things (EVs, low-cost sensors, NCAP, BS-VI, monitoring network, court orders, apportionment).
+
+The vast majority of queries (jogging today? cigarette equivalents? compare two cities? RTI for my city?) don't need either block. They were free-riding ~1,500 input tokens per request.
+
+#### Fix
+
+`buildSystemPrompt` now takes an options bag `{ nationalQuery, multiSource, topical, methodologyNeeded }` and gates the two heavy blocks on those flags. The call site computes:
+
+- `multiSource` from the existing `isMultiSourceQuery` detector (data-reliability questions).
+- `topical` from `isNationalQuery || isStationCountQuery || isApportionmentQuery || isRankingQuery` (anything that needs India-wide context, not Delhi-specific).
+- `methodologyNeeded` = `multiSource` (only methodology consumers today).
+
+#### Expected impact
+
+- **~30% input-token reduction** on the common-case query (everything except multi-source and topical).
+- At Groq paid pricing ($0.59/M input + $0.79/M output), the average query drops from ~$0.003 to ~$0.0021 — roughly **30% lower per-query cost**.
+- Free-tier 12,000 TPM ceiling: more requests fit inside the window, fewer rate-limit fallbacks during burst traffic.
+
+#### Not changed
+
+- Output quality on multi-source and national/topical questions is unchanged — both blocks are still injected when the detectors fire.
+- The 4 other Groq-using functions (`anomaly`, `accountability-brief`, `health-advisory`, `pollution-narrative`) are out of scope for this PR — they have their own static system prompts. Future PR can audit those too.
+
+### Changed — Version markers
+
+`package.json`, `CITATION.cff`, on-page Version History card, and footer ribbon all bumped to v26.6.20.
+
 ## [v26.6.19] - 2026-05-20
 
 ### Fixed — In-page Ask JanVayu widget (separate from /ask/ PWA) was unchanged
