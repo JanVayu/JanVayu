@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.19] - 2026-05-20
+
+### Fixed — In-page Ask JanVayu widget (separate from /ask/ PWA) was unchanged
+
+User pointed to a screenshot showing the **in-page Ask JanVayu panel** at `tmpl-ask-janvayu` (accessible via the dashboard nav) still displaying the pre-v26.6.x text: *"Ask any question about air quality in your city. Get answers grounded in live data, in English or Hindi."*
+
+v26.6.18 had updated the standalone `/ask/` PWA but the in-page widget inside `index.html` is a **separate UI surface** that I missed. Both share the name but they're distinct templates. Fixed now.
+
+#### In-page widget rewritten
+
+- **Section intro paragraph**: from "Ask any question..." to the full v26.6.x capability statement (live AQI, calculators, rankings, trends, apportionment, RTI drafts, multi-source reliability, source citation on every number).
+- **Language list** explicitly named (English, हिन्दी, தமிழ், বাংলা, मराठी, తెలుగు, ગુજરાતી, ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ) — was "English or Hindi" before.
+- **10 example chips** added in a green-accent info-box: tap any chip to load the question into the input. Same chip list as the `/ask/` PWA (jogging, top-5 worst, transport exposure, apportionment, RTI, reliability, cigarettes, trend, migration, comparison).
+- **New language dropdown** in the question form so users can pick the response language explicitly. Defaults to English. All 10 languages selectable.
+- **"How it works" rewritten** to describe what the bot actually does — 4 data fetches (WAQI live + WAQI bounds + community sensors + IQAir cached annual), 7 calculators, 6 RTI templates, source citation requirement, national framing for topical queries. Plus a pointer to `/ask/` for the full chat experience with history + PWA install.
+- **Placeholder text** updated from the Delhi-specific phrasing to a generic capability hint.
+
+#### Wiring
+
+- `submitAirQuery()` now reads the new `#ask-lang` dropdown and passes `lang` to the function call, so the existing 10-language Groq pinning works.
+- New `loadAskChip(text)` helper (exposed on `window`) fills the input when a chip is tapped, then focuses — does NOT auto-submit so the user can change city/language first.
+
+### Changed — Version markers
+
+- `package.json` 26.6.18 → **26.6.19**
+- `CITATION.cff` 26.6.18 → **26.6.19**
+
 ## [v26.6.18] - 2026-05-20
 
 ### Changed — Ask JanVayu onboarding refresh + 5 new languages
