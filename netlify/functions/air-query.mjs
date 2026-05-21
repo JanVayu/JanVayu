@@ -221,6 +221,11 @@ const LANG_NAMES = {
   ta: "Tamil (Tamil script)",
   bn: "Bengali (Bengali script)",
   mr: "Marathi (Devanagari script)",
+  te: "Telugu (Telugu script)",
+  gu: "Gujarati (Gujarati script)",
+  kn: "Kannada (Kannada script)",
+  ml: "Malayalam (Malayalam script)",
+  pa: "Punjabi (Gurmukhi script)",
 };
 
 // v26.6.12 — Detect when the user is asking a NATIONAL/TOPICAL question

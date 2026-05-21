@@ -5,6 +5,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.18] - 2026-05-20
+
+### Changed — Ask JanVayu onboarding refresh + 5 new languages
+
+User feedback after testing the live chatbot:
+> *"I am not seeing any overlap or instruction on Ask JanVayu section with types of questions to ask. Also I see the explanation for what Ask JanVayu does is the same. Also why don't we support more languages — why only English and Hindi?"*
+
+All three fixed.
+
+#### Welcome subtitle rewritten — surfaces what the bot can actually do
+
+Was generic across all 5 languages: *"Ask about air quality, health risks, pollution sources, or government action in any Indian city."*
+
+Now reflects the v26.6.x Phase A–D capabilities, in EN:
+> "Live AQI · health & exposure calculators · city rankings & trends · source apportionment · RTI drafts · multi-source reliability checks. Every answer cites a primary source (CPCB, IQAir, Lancet Countdown, AQLI, CREA, Sensor.Community)."
+
+Mirrored across all 10 supported languages.
+
+#### Suggestion chips refreshed — 10 instead of 7, showcasing new capabilities
+
+The chip list previously showed 7 city-specific health/lifestyle examples that didn't hint at rankings, RTI drafting, apportionment, trend, multi-source, or migration. New chip list covers the breadth:
+
+1. "Should I go jogging today?" — health
+2. **"Top 5 worst Indian cities right now"** — Phase A ranking
+3. "I commute 2 hours by auto — what's my PM2.5 exposure?" — Phase B transport calculator
+4. "Compare Delhi vs Bangalore air quality" — multi-city
+5. **"Where does the pollution in Patna come from?"** — Phase C apportionment
+6. **"Draft an RTI about brick kilns near my school"** — Phase C RTI template
+7. **"How reliable is today's AQI reading?"** — Phase D multi-source spread
+8. **"How many cigarettes equivalent am I smoking today?"** — Phase B cigarette calculator
+9. **"Has Mumbai air gotten worse since 2019?"** — Phase A trend
+10. **"Should I move from Delhi to Bangalore?"** — Phase B migration calculator
+
+The 6 bolded chips are new — they exercise capabilities the chatbot shipped between v26.6.12 and v26.6.17.
+
+#### Five new languages added — total now 10
+
+The language picker had EN/HI/TA/BN/MR (English, Hindi, Tamil, Bengali, Marathi). User asked *"why not more?"* — fair point. Added:
+
+| Code | Language | Script | Speakers |
+|------|----------|--------|----------|
+| `te` | Telugu | తె (Telugu script) | ~83M (4th most-spoken in India) |
+| `gu` | Gujarati | ગુ (Gujarati script) | ~56M |
+| `kn` | Kannada | ಕ (Kannada script) | ~44M |
+| `ml` | Malayalam | മ (Malayalam script) | ~35M |
+| `pa` | Punjabi | ਪੰ (Gurmukhi script) | ~33M |
+
+Each language gets the full I18N entry: title, subtitle, welcome heading, welcome subtitle, 10 suggestion chips, input placeholder, install prompts, error messages.
+
+Backend (`netlify/functions/air-query.mjs`) `LANG_NAMES` map extended with the 5 new entries so the Groq Llama 3.3 70B response-language pinning (the "CRITICAL — RESPONSE LANGUAGE" instruction in the system prompt) works for all 10.
+
+Combined with the existing 5, this covers **the 10 most-spoken languages of India** by mother-tongue speaker count — together ~95% of the population's mother tongues.
+
+#### Service worker cache bumped
+
+`ask-janvayu-20260520` → `ask-janvayu-20260520-v3` so returning visitors pick up the new welcome text + suggestion chips + language options rather than getting the cached v26.6.0 shell.
+
+### Verified
+
+- `node --check air-query.mjs` passes
+- All 10 I18N entries present with all required fields
+- 10 lang picker options
+
+### Changed — Version markers
+
+- `package.json` 26.6.17 → **26.6.18**
+- `CITATION.cff` 26.6.17 → **26.6.18**
+
 ## [v26.6.17] - 2026-05-20
 
 ### Fixed — Two bugs from live integration testing
