@@ -155,6 +155,39 @@ Transport exposure multipliers (vs ambient): Walking 1.0x, Cycling 2-3x (heavy b
 // v26.6.12 — Topical reference cards. Added to system prompt so the LLM
 // has concrete, sourced facts for common non-AQI-data questions instead
 // of falling back to generic Delhi-tinted training-data answers.
+// v26.6.13 — Methodology calibration block. The number-one differentiator
+// from a generic chatbot is correctly explaining when two sources disagree
+// (CPCB vs WAQI vs IQAir) and which to trust for what.
+const METHODOLOGY_REFERENCE = `
+METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
+
+1) CPCB Indian AQI vs US EPA AQI (used by WAQI / aqicn.org)
+   - Same underlying PM2.5 µg/m³ — different scale/breakpoints/colours.
+   - At PM2.5 = 60 µg/m³: CPCB AQI ≈ 150 (Moderate); US EPA AQI ≈ 154 (Unhealthy for sensitive groups). Close, but the COLOUR/CATEGORY differs.
+   - At PM2.5 = 100 µg/m³: CPCB AQI ≈ 174 (Moderate); US EPA AQI ≈ 174 (Unhealthy). The Indian "Moderate" hides what US EPA flags as Unhealthy.
+   - For health framing, ALWAYS lead with raw µg/m³ and the WHO 5 µg/m³ annual guideline. Quote AQI only with explicit scale name.
+
+2) WAQI single station vs CPCB CAAQMS network
+   - WAQI 'geo:' returns the nearest single station to a centroid. NOT the city average. NOT all stations.
+   - CPCB CAAQMS has ~533 stations across ~250 cities; a city often has 5-20 stations with substantial variance (e.g. Delhi: Anand Vihar can be 200 µg/m³ while Lodhi Road is 90 µg/m³ on the same day).
+   - When user asks "what is Delhi AQI", clarify: live readings shown are the NEAREST station, not a city average.
+
+3) CPCB annual vs IQAir World Air Quality Report
+   - CPCB uses its own CAAQMS network; IQAir aggregates CPCB + commercial sensors + satellite. Methodologies differ.
+   - IQAir 2025 ranked Loni at 112.5 µg/m³ annual (the 2025 edition was published March 2025 covering 2024 calendar-year data). CPCB's own Loni annual may be 5-15% different — both are valid; IQAir is more widely cited in international press, CPCB is the official Indian regulatory figure.
+   - CAG April 2025 audit: 88% of CPCB monitoring stations had at least one data-quality issue in 2023-24. Treat any single-source claim with appropriate scepticism.
+
+4) Mortality: Krishna et al. (1.5M, causal) vs Lancet Countdown 2025 (1.72M, synthesis)
+   - 1.5M is from Krishna et al. 2024 (Lancet Planetary Health) — first India-specific causal dose-response. Compares to WHO 5 µg/m³ scenario.
+   - 1.72M is from Lancet Countdown 2025 (launched May 2026) — synthesis figure with revised exposure-response and household biomass re-attribution.
+   - Both are valid. The 1.72M figure is the CURRENT canonical headline; the 1.5M is the original causal evidence base.
+
+5) Low-cost sensors (Sensor.Community, IQAir AirVisual, Aerogram) vs regulatory-grade (CPCB CAAQMS)
+   - Low-cost: ~20-50% accuracy degradation, but excellent spatial density (~3,000+ CC0 sensors). Best for HYPERLOCAL variation.
+   - Regulatory: 5-10% accuracy, but sparse coverage (~2-3 stations per non-NCR city). Best for CITY-LEVEL averages and trend.
+   - Surface BOTH when relevant; explain that disagreement is expected at small spatial scales.
+`;
+
 const TOPICAL_REFERENCE = `
 MONITORING NETWORK (national):
 - CPCB CAAQMS (Continuous Ambient Air Quality Monitoring Stations): ~533 stations across ~250 Indian cities as of 2025 (CPCB Annual Report).
@@ -203,6 +236,73 @@ function isStationCountQuery(question) {
   return /\b(how many (caaqms|monitoring |air quality |cpcb |waqi )?stations?|number of (monitoring |caaqms |cpcb )?stations?|number of caaqms|how many caaqms|station count|how many sensors|how many monitors|station list)\b/i.test(question);
 }
 
+// v26.6.13 — Phase A query-routing detectors. The LLM gets data
+// from these endpoints when the user's question fits the pattern.
+function isRankingQuery(question) {
+  return /\b(rank(ing)?s?|top \d+|worst \d+|cleanest|most polluted|dirtiest|best (air|aqi)|leaderboard|which (cit(y|ies)|are) (most|worst|best|cleanest|dirtiest|polluted)|where is (the )?(worst|cleanest|best|dirtiest))\b/i.test(question);
+}
+
+function isTrendQuery(question) {
+  return /\b(trend|history|historical|over time|past (year|month|5 year|decade)|since 20\d\d|getting (better|worse|cleaner|dirtier)|year ?over ?year|yoy|2019 vs|compared to (previous|last) year|annual average)\b/i.test(question);
+}
+
+function isHyperlocalQuery(question) {
+  return /\b(my (area|locality|neighbourhood|neighborhood|colony|ward|society)|near (my|me)|hyperlocal|sensor near|community sensor|street level|within \d+ ?km|local (sensor|monitor)|sensor\.community)\b/i.test(question);
+}
+
+// v26.6.13 — Base URL for HTTP-to-self calls to other Netlify Functions.
+// In production, process.env.URL is the canonical site URL. Locally
+// (netlify dev) it falls back to localhost. We tolerate failures —
+// if a tool call fails the LLM still has the live AQI + topical refs.
+const SELF_BASE_URL = process.env.URL || process.env.DEPLOY_URL || "https://www.janvayu.in";
+
+async function fetchRankings(range = "live") {
+  try {
+    const res = await fetch(`${SELF_BASE_URL}/.netlify/functions/rankings?range=${encodeURIComponent(range)}`, {
+      signal: AbortSignal.timeout(6000)
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data.cities)) return null;
+    return data; // {range, cities: [{city, key, aqi, pm25, ...}], generated}
+  } catch (e) {
+    console.log(`fetchRankings(${range}) failed:`, e.message);
+    return null;
+  }
+}
+
+async function fetchHistoricalTrend(cityKey, month) {
+  try {
+    const res = await fetch(
+      `${SELF_BASE_URL}/.netlify/functions/historical-aqi?city=${encodeURIComponent(cityKey)}&month=${encodeURIComponent(month)}`,
+      { signal: AbortSignal.timeout(6000) }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data.years) || data.years.length === 0) return null;
+    return data; // {city, month, years: [{year, pm25}], source}
+  } catch (e) {
+    console.log(`fetchHistoricalTrend(${cityKey},${month}) failed:`, e.message);
+    return null;
+  }
+}
+
+async function fetchCommunitySensors(lat, lon, radiusKm = 25) {
+  try {
+    const res = await fetch(
+      `${SELF_BASE_URL}/.netlify/functions/community-sensors?lat=${lat}&lon=${lon}&radius=${radiusKm}`,
+      { signal: AbortSignal.timeout(6000) }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data.stations)) return null;
+    return data; // {stations: [...]}
+  } catch (e) {
+    console.log(`fetchCommunitySensors failed:`, e.message);
+    return null;
+  }
+}
+
 function buildSystemPrompt(seasonal, lang, nationalQuery) {
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
@@ -223,6 +323,8 @@ TODAY: ${seasonal.dateStr}
 SEASONAL CONTEXT: ${seasonal.season}
 
 ${ACTIVITY_THRESHOLDS}
+
+${METHODOLOGY_REFERENCE}
 
 ${TOPICAL_REFERENCE}
 
@@ -307,6 +409,28 @@ export default async function handler(req) {
     }
   }
 
+  // v26.6.13 Phase A — Three new tool calls, all run in parallel so the
+  // chatbot's response time isn't bottlenecked when multiple apply.
+  const toolPromises = [];
+  if (isRankingQuery(question)) {
+    // Default to live; "7 day"/"30 day" wording bumps to that range.
+    const range = /\b(30 ?day|month|monthly)\b/i.test(question) ? "30d"
+                : /\b(7 ?day|week|weekly)\b/i.test(question) ? "7d"
+                : "live";
+    toolPromises.push(fetchRankings(range).then(r => ({ kind: "rankings", data: r, range })));
+  }
+  if (isTrendQuery(question)) {
+    const month = new Date().getMonth() + 1; // 1-12
+    toolPromises.push(fetchHistoricalTrend(cityKey, month).then(r => ({ kind: "trend", data: r, month })));
+  }
+  if (isHyperlocalQuery(question)) {
+    const cityCoords = CITIES[cityKey];
+    if (cityCoords) {
+      toolPromises.push(fetchCommunitySensors(cityCoords.lat, cityCoords.lon, 25).then(r => ({ kind: "hyperlocal", data: r })));
+    }
+  }
+  const toolResults = await Promise.all(toolPromises);
+
   let dataContext = `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Nearest WAQI station: ${aqiResult.station}, Updated: ${aqiResult.time}.`;
 
   if (compareResult) {
@@ -319,6 +443,38 @@ export default async function handler(req) {
     dataContext += `\nNOTE: This is the WAQI-indexed subset only. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
   } else if (isStationCountQuery(question)) {
     dataContext += `\nSTATION COUNT NOTE: WAQI bounds query returned no list for ${aqiResult.city}. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community runs ~3,000+ low-cost community sensors nationwide.`;
+  }
+
+  // v26.6.13 Phase A — Inject results from rankings / trend / hyperlocal
+  // tool calls into the data context the LLM sees.
+  for (const t of toolResults) {
+    if (!t || !t.data) continue;
+    if (t.kind === "rankings") {
+      const cities = t.data.cities || [];
+      if (cities.length > 0) {
+        const top5 = cities.slice(0, 5).map(c => `${c.city} (PM2.5 ${c.pm25 ?? "—"} µg/m³, AQI ${c.aqi ?? "—"})`).join("; ");
+        const bottom5 = cities.slice(-5).reverse().map(c => `${c.city} (PM2.5 ${c.pm25 ?? "—"} µg/m³)`).join("; ");
+        const label = t.range === "live" ? "LIVE" : t.range === "7d" ? "7-DAY AVERAGE" : "30-DAY AVERAGE";
+        dataContext += `\n\n${label} CITY RANKINGS (JanVayu rankings.mjs, ${cities.length} cities ranked by PM2.5, worst first):
+Top 5 worst: ${top5}
+5 cleanest: ${bottom5}`;
+      }
+    } else if (t.kind === "trend") {
+      const years = t.data.years || [];
+      if (years.length > 0) {
+        const monthName = new Date(2026, t.month - 1, 1).toLocaleString("en-IN", { month: "long" });
+        const series = years.map(y => `${y.year}: ${y.pm25} µg/m³`).join("; ");
+        dataContext += `\n\n${aqiResult.city.toUpperCase()} ${monthName} PM2.5 BY YEAR (JanVayu historical-aqi.mjs climatology + snapshots): ${series}. Source: ${t.data.source}.`;
+      }
+    } else if (t.kind === "hyperlocal") {
+      const stations = t.data.stations || [];
+      if (stations.length > 0) {
+        const sample = stations.slice(0, 5).map(s => `${s.name || "anonymous"} (PM2.5 ${s.pm25 ?? "—"} µg/m³, ${s.distance_km?.toFixed(1) ?? "?"} km away)`).join("; ");
+        dataContext += `\n\nCOMMUNITY SENSORS WITHIN 25 km of ${aqiResult.city} (JanVayu community-sensors.mjs / Sensor.Community CC0, ${stations.length} sensor(s)): ${sample}. Note: low-cost sensor accuracy is ±20-50% vs CPCB-grade; use for HYPERLOCAL spatial variation rather than absolute levels.`;
+      } else {
+        dataContext += `\n\nCOMMUNITY SENSORS: no Sensor.Community sensors indexed within 25 km of ${aqiResult.city} centroid right now.`;
+      }
+    }
   }
 
   // Add NCAP city data if available
