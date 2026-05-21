@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.15] - 2026-05-20
+
+### Added — Ask JanVayu Phase C: source apportionment + RTI drafting
+
+**Apportionment.** New `APPORTIONMENT` dataset covers 10 cities (Delhi, Mumbai, Bengaluru, Kolkata, Chennai, Lucknow, Patna, Pune, Varanasi, Ahmedabad) with PM2.5 source-mix percentages, each carrying a primary-source citation (CEEW 2024, TERI/ARAI/IIT-Delhi DSS, CSIR-NEERI, Bose Institute, etc.) and a seasonal note. National fallback for un-indexed cities (CEEW 2024 synthesis).
+
+Triggered by `isApportionmentQuery()`: *"sources of pollution"*, *"where does the pollution come from"*, *"main source"*, *"source mix"*, *"breakdown"*, *"dominant source"*, *"how much is from vehicles/industry/biomass"*.
+
+**RTI drafting.** Six properly-formatted templates the bot renders inline:
+
+| Key | Topic | Department |
+|-----|-------|------------|
+| `station_data` | Monitoring stations / sensors | CPCB PIO, Parivesh Bhawan |
+| `ncap_funds` | NCAP utilisation / tenders | State PCB |
+| `industry_compliance` | Brick kilns / industries / CEMS / FGD | State PCB Regional |
+| `grap_enforcement` | GRAP / construction ban / vehicle impound | CAQM PIO |
+| `school_closure` | School-closure records | State Dept of Education |
+| `health_burden` | Hospital admissions / surveillance | State Dept of Health |
+
+Each template has 5 pre-formatted questions + statutory anchors + 30-day response window note. Instruction #15 tells the LLM to present AS-IS without paraphrasing.
+
+### Changed — Version markers
+
+- `package.json` 26.6.14 → **26.6.15**
+- `CITATION.cff` 26.6.14 → **26.6.15**
+- `index.html` About-panel footer ribbon + on-page Version History card refreshed
+
 ## [v26.6.14] - 2026-05-20
 
 ### Added — Ask JanVayu Phase B: calculators the bot actually runs
