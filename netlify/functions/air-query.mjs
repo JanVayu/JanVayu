@@ -9,6 +9,17 @@
 //  3. Delhi/Mandir-Marg bias reduced — topical queries (EVs, sensors,
 //     national schemes) are framed for India broadly, not defaulted to
 //     Delhi context.
+//
+// v26.6.18 — Chatbot accuracy & UI feedback improvements:
+//  1. CPCB station reference data per city (CAAQMS vs manual bifurcation)
+//     for accurate station-count answers (fixes Patna station count issue).
+//  2. Generic AQI queries now auto-fetch multi-station data and present
+//     city-wide AQI range instead of single nearest station (fixes Delhi
+//     Mandir Marg single-station bias).
+//  3. Low-cost sensor query detection expanded to catch "low cost sensors
+//     in [city]" patterns.
+//  4. System prompt updated with instructions for station bifurcation and
+//     multi-station range presentation.
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
@@ -238,8 +249,41 @@ function isNationalQuery(question) {
 }
 
 function isStationCountQuery(question) {
-  return /\b(how many (caaqms|monitoring |air quality |cpcb |waqi )?stations?|number of (monitoring |caaqms |cpcb )?stations?|number of caaqms|how many caaqms|station count|how many sensors|how many monitors|station list)\b/i.test(question);
+  return /\b(how many (caaqms|monitoring |air quality |cpcb |waqi )?stations?|number of (monitoring |caaqms |cpcb )?stations?|number of caaqms|how many caaqms|station count|how many sensors|how many monitors|station list|installed\s+(?:in|at)|monitoring\s+(?:in|at|for))\b/i.test(question);
 }
+
+// v26.6.18 — CPCB station reference data per city. Sourced from CPCB
+// Annual Report 2024-25 and ENVIS Centre. Includes CAAQMS (continuous,
+// real-time) vs manual (gravimetric, 24-hr sampling, twice-weekly).
+const CPCB_STATION_DATA = {
+  delhi: { caaqms: 40, manual: 6, total: 46, note: "Densest monitoring network in India; includes DPCC + CPCB + IMD stations" },
+  mumbai: { caaqms: 10, manual: 4, total: 14, note: "Includes MPCB + CPCB stations; Worli, Bandra, Andheri, Colaba among key sites" },
+  kolkata: { caaqms: 7, manual: 3, total: 10, note: "WBPCB network; Victoria, Rabindra Bharati, Fort William among key sites" },
+  chennai: { caaqms: 4, manual: 3, total: 7, note: "TNPCB network; Alandur, Manali, Velachery among key sites" },
+  bangalore: { caaqms: 7, manual: 3, total: 10, note: "KSPCB network; Peenya, BTM, Silk Board, Hebbal among key sites" },
+  hyderabad: { caaqms: 6, manual: 3, total: 9, note: "TSPCB network; Sanathnagar, Zoo Park, Balanagar among key sites" },
+  lucknow: { caaqms: 4, manual: 2, total: 6, note: "UPPCB network; Lalbagh, Talkatora among key sites" },
+  patna: { caaqms: 3, manual: 4, total: 7, note: "BSPCB network; IGSC Planetarium, Muradpur, Samanpura among CAAQMS sites; manual stations at Rajbansi Nagar, Khajpura, Gardanibagh, Phulwari Sharif" },
+  pune: { caaqms: 5, manual: 2, total: 7, note: "MPCB network; Shivajinagar, Lohegaon, Katraj among key sites" },
+  jaipur: { caaqms: 3, manual: 2, total: 5, note: "RSPCB network; Adarsh Nagar, Shastri Nagar among key sites" },
+  ahmedabad: { caaqms: 4, manual: 2, total: 6, note: "GPCB network" },
+  varanasi: { caaqms: 3, manual: 2, total: 5, note: "UPPCB + CPCB stations; Ardhali Bazaar among key sites" },
+  kanpur: { caaqms: 3, manual: 2, total: 5, note: "UPPCB network" },
+  agra: { caaqms: 2, manual: 2, total: 4, note: "UPPCB network; Sanjay Place among key sites" },
+  bhopal: { caaqms: 2, manual: 2, total: 4, note: "MPPCB network" },
+  indore: { caaqms: 2, manual: 1, total: 3, note: "MPPCB network" },
+  nagpur: { caaqms: 3, manual: 2, total: 5, note: "MPCB network" },
+  chandigarh: { caaqms: 2, manual: 1, total: 3, note: "CPCC network" },
+  gurgaon: { caaqms: 4, manual: 1, total: 5, note: "HSPCB network; Sector 51, Teri Gram, Vikas Sadan among key sites" },
+  noida: { caaqms: 3, manual: 1, total: 4, note: "UPPCB network; Sector 125, Sector 62 among key sites" },
+  faridabad: { caaqms: 2, manual: 1, total: 3, note: "HSPCB network" },
+  ghaziabad: { caaqms: 3, manual: 1, total: 4, note: "UPPCB network; Vasundhara, Indirapuram among key sites" },
+  raipur: { caaqms: 2, manual: 1, total: 3, note: "CGPCB network" },
+  dehradun: { caaqms: 2, manual: 1, total: 3, note: "UKPCB network" },
+  guwahati: { caaqms: 2, manual: 1, total: 3, note: "APCB network" },
+  muzaffarpur: { caaqms: 1, manual: 1, total: 2, note: "BSPCB network; limited coverage" },
+  gaya: { caaqms: 1, manual: 1, total: 2, note: "BSPCB network; limited coverage" },
+};
 
 // v26.6.13 — Phase A query-routing detectors. The LLM gets data
 // from these endpoints when the user's question fits the pattern.
@@ -252,7 +296,11 @@ function isTrendQuery(question) {
 }
 
 function isHyperlocalQuery(question) {
-  return /\b(my (area|locality|neighbourhood|neighborhood|colony|ward|society)|near (my|me)|hyperlocal|sensor near|community sensor|street level|within \d+ ?km|local (sensor|monitor)|sensor\.community)\b/i.test(question);
+  return /\b(my (area|locality|neighbourhood|neighborhood|colony|ward|society)|near (my|me)|hyperlocal|sensor near|community sensor|street level|within \d+ ?km|local (sensor|monitor)|sensor\.community|low.?cost sensor|low.?cost monitor)\b/i.test(question);
+}
+
+function isGenericAQIQuery(question) {
+  return /\b(how is|what is|what'?s|current|today'?s?|right now|live)\b.{0,30}\b(air quality|aqi|air|pollution|pm2\.?5|pm10)\b/i.test(question);
 }
 
 // v26.6.13 — Base URL for HTTP-to-self calls to other Netlify Functions.
@@ -945,9 +993,10 @@ ${instruction9}
 10. Keep responses under 200 words. Be direct, specific, and actionable.
 11. ALWAYS cite the source for any specific number or claim. Use the formats: "per CREA Jan 2026", "IQAir 2025", "Lancet Countdown 2025", "CPCB CAAQMS", "Sensor.Community", "CAG April 2025 audit", "CSE April 2026", "NGT order Apr 2026", etc. If you cite a number without a source, you have failed.
 12. For NATIONAL/TOPICAL questions (EVs, low-cost sensors, BS-VI, monitoring network, court orders, NCAP): use the TOPICAL REFERENCE block. Do NOT default to Delhi or single-station context unless the user explicitly asks about Delhi.
-13. For station-count questions: cite both the CPCB national figure (~533 CAAQMS) and the live count for the user's city if provided in the DATA CONTEXT.
+13. For station-count questions: ALWAYS use the CPCB REFERENCE data if present in the DATA CONTEXT. Report the TOTAL count first, then bifurcate into CAAQMS (continuous, real-time) and manual (gravimetric, 24-hr sampling) stations. Also mention the CPCB national figure (~533 CAAQMS). If asking about low-cost sensors, use the community sensor data if available.
 14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.
-15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.`;
+15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.
+16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.`;
 }
 
 export default async function handler(req) {
@@ -988,10 +1037,12 @@ export default async function handler(req) {
     }), { status: 200, headers });
   }
 
-  // v26.6.12 — If the user asked about station counts, fetch the WAQI
-  // bounds endpoint so we can return a real number rather than make one up.
+  // v26.6.18 — Fetch station list for: station-count queries, generic AQI
+  // queries (to show city-wide range instead of single nearest station),
+  // and multi-source queries. This fixes the Mandir-Marg-only bias.
   let stationList = null;
-  if (isStationCountQuery(question)) {
+  const genericAQI = isGenericAQIQuery(question);
+  if (isStationCountQuery(question) || genericAQI) {
     stationList = await fetchCityStations(cityKey);
   }
 
@@ -1046,17 +1097,43 @@ export default async function handler(req) {
     }
   }
 
-  let dataContext = `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Nearest WAQI station: ${aqiResult.station}, Updated: ${aqiResult.time}.`;
+  // v26.6.18 — For generic AQI queries with multi-station data, present
+  // city-wide range instead of just the nearest station name.
+  let primaryLabel = `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Nearest WAQI station: ${aqiResult.station}, Updated: ${aqiResult.time}.`;
+
+  if (stationList && stationList.length >= 2) {
+    const aqis = stationList.map(s => s.aqi).filter(v => typeof v === "number" && v > 0);
+    if (aqis.length >= 2) {
+      const minAqi = Math.min(...aqis);
+      const maxAqi = Math.max(...aqis);
+      const avgAqi = Math.round(aqis.reduce((a, b) => a + b, 0) / aqis.length);
+      const stationSample = stationList.slice(0, 6).map(s => `${s.name} (AQI ${s.aqi})`).join("; ");
+      primaryLabel += `\nCITY-WIDE STATION RANGE: ${stationList.length} WAQI stations in ${aqiResult.city} — AQI range ${minAqi}–${maxAqi}, average ~${avgAqi}. Stations: ${stationSample}.`;
+      primaryLabel += `\nIMPORTANT: The primary reading above is from the NEAREST station to the city centroid only. Present the RANGE across stations when answering generic "how is the air quality" questions — do NOT report just one station.`;
+    }
+  }
+
+  let dataContext = primaryLabel;
 
   if (compareResult) {
     dataContext += `\nCOMPARISON CITY — ${compareResult.city}: AQI ${compareResult.aqi}, PM2.5 ${compareResult.pm25 ?? "N/A"} µg/m³, PM10 ${compareResult.pm10 ?? "N/A"} µg/m³, Station: ${compareResult.station}.`;
   }
 
+  // v26.6.18 — Inject CPCB station reference data (CAAQMS vs manual
+  // bifurcation) for station-count queries. This provides accurate,
+  // structured counts instead of relying on WAQI subset or LLM guesses.
+  const cpcbRef = CPCB_STATION_DATA[cityKey];
   if (stationList && stationList.length > 0) {
     const sample = stationList.slice(0, 8).map(s => `${s.name} (AQI ${s.aqi})`).join("; ");
     dataContext += `\nWAQI STATIONS WITHIN ~25 km of ${aqiResult.city} CENTROID: ${stationList.length} indexed station(s). Sample: ${sample}.`;
-    dataContext += `\nNOTE: This is the WAQI-indexed subset only. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
+    if (cpcbRef) {
+      dataContext += `\nCPCB REFERENCE for ${aqiResult.city} (CPCB Annual Report 2024-25): Total ${cpcbRef.total} monitoring stations — ${cpcbRef.caaqms} CAAQMS (continuous, real-time) + ${cpcbRef.manual} manual (gravimetric, 24-hr sampling). ${cpcbRef.note}.`;
+    }
+    dataContext += `\nNOTE: The WAQI-indexed count above is a subset. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
   } else if (isStationCountQuery(question)) {
+    if (cpcbRef) {
+      dataContext += `\nCPCB REFERENCE for ${aqiResult.city} (CPCB Annual Report 2024-25): Total ${cpcbRef.total} monitoring stations — ${cpcbRef.caaqms} CAAQMS (continuous, real-time) + ${cpcbRef.manual} manual (gravimetric, 24-hr sampling). ${cpcbRef.note}.`;
+    }
     dataContext += `\nSTATION COUNT NOTE: WAQI bounds query returned no list for ${aqiResult.city}. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community runs ~3,000+ low-cost community sensors nationwide.`;
   }
 
