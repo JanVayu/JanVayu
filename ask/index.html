@@ -131,6 +131,22 @@
       font-size: 0.68rem; color: var(--text-4); margin-top: 4px;
     }
     .msg-ai .msg-meta { color: var(--text-3); }
+    .msg-feedback {
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 8px; padding-top: 6px;
+      border-top: 1px solid var(--border-light);
+    }
+    .msg-feedback span { font-size: 0.68rem; color: var(--text-4); }
+    .feedback-btn {
+      background: none; border: 1px solid var(--border); border-radius: 6px;
+      padding: 3px 8px; cursor: pointer; font-size: 0.75rem;
+      color: var(--text-3); display: flex; align-items: center; gap: 3px;
+      transition: all 0.15s;
+    }
+    .feedback-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .feedback-btn.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .feedback-btn:disabled { opacity: 0.5; cursor: default; }
+    .feedback-thanked { font-size: 0.7rem; color: var(--accent); font-weight: 500; }
     .msg-typing {
       align-self: flex-start;
       background: var(--bg-card); border: 1px solid var(--border);
@@ -624,7 +640,7 @@
             ', PM2.5: ' + (data.dataUsed.pm25 ?? 'N/A') + ' \u00b5g/m\u00b3';
         }
         const t = I18N[currentLang] || I18N.en;
-        addMessage(data.answer || t.noResponse, 'ai', meta);
+        addMessage(data.answer || t.noResponse, 'ai', meta, question);
       } catch (e) {
         typing.remove();
         const t = I18N[currentLang] || I18N.en;
@@ -635,7 +651,7 @@
       }
     }
 
-    function addMessage(text, type, meta) {
+    function addMessage(text, type, meta, question) {
       const chat = document.getElementById('chatArea');
       const div = document.createElement('div');
       div.className = 'msg msg-' + type;
@@ -645,6 +661,40 @@
         m.className = 'msg-meta';
         m.textContent = meta;
         div.appendChild(m);
+      }
+      if (type === 'ai' && text && !text.startsWith('Something went wrong')) {
+        const fb = document.createElement('div');
+        fb.className = 'msg-feedback';
+        fb.innerHTML = '<span>Was this helpful?</span>';
+        const thumbUp = document.createElement('button');
+        thumbUp.className = 'feedback-btn';
+        thumbUp.innerHTML = '<svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M8.834.066C7.494-.087 6.5 1.048 6.5 2.25v.5c0 1.329-.647 2.424-1.261 3.178-.397.488-.866.89-1.344 1.193A.75.75 0 003 7.75v5.5a.75.75 0 00.75.75h6.5a.75.75 0 00.696-.471l2.5-6.25A.75.75 0 0013 6.5H9.366a.75.75 0 01-.74-.868l.416-2.5A1.75 1.75 0 007.309.14L8.834.066zM2.5 8a.5.5 0 00-1 0v5.5a.5.5 0 001 0V8z"/></svg> Yes';
+        const thumbDown = document.createElement('button');
+        thumbDown.className = 'feedback-btn';
+        thumbDown.innerHTML = '<svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M7.166 15.934C8.506 16.087 9.5 14.952 9.5 13.75v-.5c0-1.329.647-2.424 1.261-3.178.397-.488.866-.89 1.344-1.193A.75.75 0 0013 8.25v-5.5a.75.75 0 00-.75-.75h-6.5a.75.75 0 00-.696.471l-2.5 6.25A.75.75 0 003 9.5h3.634a.75.75 0 01.74.868l-.416 2.5a1.75 1.75 0 001.733 1.926l1.475.14zM13.5 8a.5.5 0 001 0V2.5a.5.5 0 00-1 0V8z"/></svg> No';
+        function handleFeedback(isPositive) {
+          thumbUp.disabled = true;
+          thumbDown.disabled = true;
+          if (isPositive) { thumbUp.classList.add('selected'); } else { thumbDown.classList.add('selected'); }
+          const thanked = document.createElement('span');
+          thanked.className = 'feedback-thanked';
+          thanked.textContent = isPositive ? 'Thanks!' : 'Thanks for the feedback';
+          fb.appendChild(thanked);
+          try {
+            const stored = JSON.parse(localStorage.getItem('janvayu-feedback') || '[]');
+            stored.push({
+              ts: Date.now(), city: selectedCity, q: question || '',
+              positive: isPositive, answer: text.slice(0, 200)
+            });
+            if (stored.length > 100) stored.splice(0, stored.length - 100);
+            localStorage.setItem('janvayu-feedback', JSON.stringify(stored));
+          } catch (e) {}
+        }
+        thumbUp.addEventListener('click', () => handleFeedback(true));
+        thumbDown.addEventListener('click', () => handleFeedback(false));
+        fb.appendChild(thumbUp);
+        fb.appendChild(thumbDown);
+        div.appendChild(fb);
       }
       chat.appendChild(div);
       chat.scrollTop = chat.scrollHeight;
