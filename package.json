@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@netlify/blobs": "^8.1.0",
-    "resend": "^6.9.3"
+    "resend": "^6.12.4"
   },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks",
