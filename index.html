@@ -6319,11 +6319,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             const whoX = getWHOMultiple(r.pm25);
             const delta = r.delta7 == null ? '—' : (r.delta7 > 0 ? '<span style="color:#EF4444;">+' + r.delta7.toFixed(0) + '%</span>' : '<span style="color:#22C55E;">' + r.delta7.toFixed(0) + '%</span>');
             return `<tr>
-                <td><strong style="color: ${i < 3 && order === 'worst' ? '#EF4444' : 'var(--text-2)'}">${i+1}</strong></td>
-                <td>${r.name}</td>
-                <td style="text-align: right;"><span style="display: inline-block; min-width: 48px; padding: 2px 8px; background: ${color}; color: #fff; border-radius: 4px; font-weight: 600;">${r.pm25}</span></td>
-                <td style="text-align: right;">${r.aqi || '--'}</td>
-                <td style="text-align: right; color: ${color};">${whoX}×</td>
+                <td style="text-align: center; font-weight: 600; color: ${i < 3 && order === 'worst' ? '#EF4444' : 'var(--text-2)'}">${i+1}</td>
+                <td style="font-weight: 500;">${r.name}</td>
+                <td style="text-align: right;"><span style="display: inline-block; min-width: 52px; padding: 3px 10px; background: ${color}; color: #fff; border-radius: 6px; font-weight: 600; font-size: 0.82rem;">${r.pm25}</span></td>
+                <td style="text-align: right; color: var(--text-2);">${r.aqi || '--'}</td>
+                <td style="text-align: right; font-weight: 600; color: ${color};">${whoX}×</td>
                 <td style="text-align: right;">${delta}</td>
             </tr>`;
         }).join('');
@@ -8707,15 +8707,15 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             <div class="card">
                 <div class="card-body" style="padding: 0;">
                     <div class="table-wrap">
-                        <table class="table" style="margin: 0;">
+                        <table class="data-table" style="margin: 0;">
                             <thead>
                                 <tr>
-                                    <th style="width: 60px;">Rank</th>
-                                    <th>City</th>
-                                    <th style="text-align: right;">PM2.5 (µg/m³)</th>
-                                    <th style="text-align: right;">AQI</th>
-                                    <th style="text-align: right;">vs WHO</th>
-                                    <th style="text-align: right;">Δ 7d</th>
+                                    <th style="width: 50px; text-align: center;">#</th>
+                                    <th style="min-width: 140px;">City</th>
+                                    <th style="text-align: right; min-width: 100px;">PM2.5 (µg/m³)</th>
+                                    <th style="text-align: right; min-width: 60px;">AQI</th>
+                                    <th style="text-align: right; min-width: 70px;">vs WHO</th>
+                                    <th style="text-align: right; min-width: 60px;">Δ 7d</th>
                                 </tr>
                             </thead>
                             <tbody id="rankings-tbody"><tr><td colspan="6" style="color: var(--text-3); padding: 24px; text-align: center;">Loading rankings…</td></tr></tbody>
