@@ -1,3 +1,10 @@
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const REF_DATA = JSON.parse(readFileSync(join(__dirname, 'data', 'reference-data.json'), 'utf8'));
+
 // Netlify Function: Natural Language Query Interface for JanVayu
 // Accepts a question + city, fetches live AQI, sends to Groq for analysis.
 //
@@ -138,18 +145,8 @@ function getSeasonalContext() {
   return { dateStr, season: season + diwaliNote };
 }
 
-const NCAP_CITY_DATA = {
-  delhi: { ncapTarget: "40% PM10 reduction by 2026", budget: "₹300 Cr pollution budget (43% utilised)", note: "Most polluted capital globally (IQAir 2025). 0 days met WHO limit in 2026." },
-  mumbai: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "PM2.5 increased 38% since 2019 despite NCAP." },
-  kolkata: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Winter inversions + vehicle emissions. Limited monitoring coverage." },
-  lucknow: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Indo-Gangetic plain — trapped pollutants. Brick kilns major source." },
-  patna: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Among worst PM2.5 in India. Limited enforcement capacity." },
-  varanasi: { ncapTarget: "40% PM10 reduction", budget: "NCAP success story", note: "PM2.5 fell 72% in 5 years — best NCAP performer." },
-  jaipur: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Desert dust + vehicle emissions. Seasonal variation high." },
-  pune: { ncapTarget: "40% PM10 reduction", budget: "NCAP city", note: "Relatively better air quality than Delhi/Mumbai. Growing vehicle fleet a concern." },
-  chennai: { ncapTarget: "Not in original NCAP 131", budget: "N/A", note: "Coastal city — sea breeze helps dispersion. Industrial corridor a concern." },
-  bangalore: { ncapTarget: "Not in original NCAP 131", budget: "N/A", note: "Generally better air quality. Vehicle growth and construction are rising concerns." },
-};
+// NCAP city data — loaded from data/reference-data.json
+const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
 WHO activity guidance by PM2.5 level:
@@ -255,35 +252,8 @@ function isStationCountQuery(question) {
 // v26.6.18 — CPCB station reference data per city. Sourced from CPCB
 // Annual Report 2024-25 and ENVIS Centre. Includes CAAQMS (continuous,
 // real-time) vs manual (gravimetric, 24-hr sampling, twice-weekly).
-const CPCB_STATION_DATA = {
-  delhi: { caaqms: 40, manual: 6, total: 46, note: "Densest monitoring network in India; includes DPCC + CPCB + IMD stations" },
-  mumbai: { caaqms: 10, manual: 4, total: 14, note: "Includes MPCB + CPCB stations; Worli, Bandra, Andheri, Colaba among key sites" },
-  kolkata: { caaqms: 7, manual: 3, total: 10, note: "WBPCB network; Victoria, Rabindra Bharati, Fort William among key sites" },
-  chennai: { caaqms: 4, manual: 3, total: 7, note: "TNPCB network; Alandur, Manali, Velachery among key sites" },
-  bangalore: { caaqms: 7, manual: 3, total: 10, note: "KSPCB network; Peenya, BTM, Silk Board, Hebbal among key sites" },
-  hyderabad: { caaqms: 6, manual: 3, total: 9, note: "TSPCB network; Sanathnagar, Zoo Park, Balanagar among key sites" },
-  lucknow: { caaqms: 4, manual: 2, total: 6, note: "UPPCB network; Lalbagh, Talkatora among key sites" },
-  patna: { caaqms: 3, manual: 4, total: 7, note: "BSPCB network; IGSC Planetarium, Muradpur, Samanpura among CAAQMS sites; manual stations at Rajbansi Nagar, Khajpura, Gardanibagh, Phulwari Sharif" },
-  pune: { caaqms: 5, manual: 2, total: 7, note: "MPCB network; Shivajinagar, Lohegaon, Katraj among key sites" },
-  jaipur: { caaqms: 3, manual: 2, total: 5, note: "RSPCB network; Adarsh Nagar, Shastri Nagar among key sites" },
-  ahmedabad: { caaqms: 4, manual: 2, total: 6, note: "GPCB network" },
-  varanasi: { caaqms: 3, manual: 2, total: 5, note: "UPPCB + CPCB stations; Ardhali Bazaar among key sites" },
-  kanpur: { caaqms: 3, manual: 2, total: 5, note: "UPPCB network" },
-  agra: { caaqms: 2, manual: 2, total: 4, note: "UPPCB network; Sanjay Place among key sites" },
-  bhopal: { caaqms: 2, manual: 2, total: 4, note: "MPPCB network" },
-  indore: { caaqms: 2, manual: 1, total: 3, note: "MPPCB network" },
-  nagpur: { caaqms: 3, manual: 2, total: 5, note: "MPCB network" },
-  chandigarh: { caaqms: 2, manual: 1, total: 3, note: "CPCC network" },
-  gurgaon: { caaqms: 4, manual: 1, total: 5, note: "HSPCB network; Sector 51, Teri Gram, Vikas Sadan among key sites" },
-  noida: { caaqms: 3, manual: 1, total: 4, note: "UPPCB network; Sector 125, Sector 62 among key sites" },
-  faridabad: { caaqms: 2, manual: 1, total: 3, note: "HSPCB network" },
-  ghaziabad: { caaqms: 3, manual: 1, total: 4, note: "UPPCB network; Vasundhara, Indirapuram among key sites" },
-  raipur: { caaqms: 2, manual: 1, total: 3, note: "CGPCB network" },
-  dehradun: { caaqms: 2, manual: 1, total: 3, note: "UKPCB network" },
-  guwahati: { caaqms: 2, manual: 1, total: 3, note: "APCB network" },
-  muzaffarpur: { caaqms: 1, manual: 1, total: 2, note: "BSPCB network; limited coverage" },
-  gaya: { caaqms: 1, manual: 1, total: 2, note: "BSPCB network; limited coverage" },
-};
+// Loaded from data/reference-data.json
+const CPCB_STATION_DATA = REF_DATA.cpcb_stations;
 
 // v26.6.13 — Phase A query-routing detectors. The LLM gets data
 // from these endpoints when the user's question fits the pattern.
