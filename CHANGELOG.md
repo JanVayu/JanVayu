@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.21] - 2026-05-26
+
+### Added — Auto-update infrastructure (7 systems)
+
+- **Version single-source script** (`scripts/bump-version.mjs`): Reads version from `package.json` and patches `CITATION.cff`, both service workers' cache names. Optional CLI arg to bump version. Runs automatically on every Netlify deploy via `netlify.toml` build command.
+- **Sitemap auto-generation** (`scripts/build-sitemap.mjs`): Generates `sitemap.xml` with real lastmod dates from git history. Run via `npm run sitemap`.
+- **Feed health monitoring** (`netlify/functions/feed-health.mjs`): Daily scheduled function that checks all 5 feed endpoints (Reddit, Twitter, Instagram, YouTube, News). Reports healthy/stale/broken feeds.
+- **Translation key sync** (`scripts/translations.json` + `scripts/check-translations.mjs`): JSON map of UI terms across hi/bn/mr/ta. Checker script greps translated docs for stale English terms. Run via `npm run check:translations`.
+- **Data-stat system** (`scripts/stats.json` + `data-stat` attributes in `index.html`): Canonical stats JSON as single source of truth for key dashboard numbers (1.72M deaths, $339.4B cost, etc.). Dashboard elements tagged with `data-stat` attributes, auto-patched on page load.
+- **Reference data endpoint** (`netlify/functions/reference-data.mjs` + `netlify/functions/data/reference-data.json`): CPCB station counts, NCAP data, IQAir annual figures extracted to editable JSON. Serves via `/.netlify/functions/reference-data` with caching.
+- **Zotero → Reading List** (`netlify/functions/zotero-library.mjs`): Fetches from public Zotero API, caches in Netlify Blobs (6hr TTL). Returns simplified card format for the Reading List panel.
+
+### Changed — Version markers
+
+- `package.json` 26.6.20 → **26.6.21**
+- `CITATION.cff` 26.6.20 → **26.6.21**
+- Service worker cache names auto-synced via bump-version.mjs
+
 ## [v26.6.20] - 2026-05-26
 
 ### Fixed — Chatbot accuracy (user feedback from Komal)
