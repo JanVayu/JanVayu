@@ -12767,6 +12767,18 @@ Signature: _______________</div>
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.21 &mdash; 26 May 2026</div>
+                    <strong>Auto-update infrastructure &mdash; 7 systems for freshness automation</strong><br>
+                    &bull; <strong>Version single-source</strong>: <code>scripts/bump-version.mjs</code> reads <code>package.json</code> version and patches CITATION.cff + both service worker cache names. Runs on every Netlify deploy.<br>
+                    &bull; <strong>Sitemap auto-gen</strong>: <code>scripts/build-sitemap.mjs</code> generates <code>sitemap.xml</code> with real lastmod dates from git history.<br>
+                    &bull; <strong>Feed health</strong>: <code>netlify/functions/feed-health.mjs</code> &mdash; daily scheduled check of all 5 feed endpoints, reports healthy/stale/broken.<br>
+                    &bull; <strong>Translation sync</strong>: <code>scripts/translations.json</code> + <code>check-translations.mjs</code> &mdash; detect stale English terms in translated docs.<br>
+                    &bull; <strong>Data-stat system</strong>: <code>scripts/stats.json</code> as single source of truth for key dashboard numbers (1.72M deaths, $339.4B cost, etc.). Elements tagged with <code>data-stat</code> attributes, auto-patched on page load.<br>
+                    &bull; <strong>Reference data endpoint</strong>: CPCB stations, NCAP data, IQAir annual figures extracted to editable JSON at <code>netlify/functions/data/reference-data.json</code>. Served via API.<br>
+                    &bull; <strong>Zotero &rarr; Reading List</strong>: <code>netlify/functions/zotero-library.mjs</code> fetches from public Zotero API, caches in Netlify Blobs (6hr TTL).
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.20 &mdash; 26 May 2026</div>
                     <strong>Chatbot accuracy fixes, intent-based nav, feedback UI, 33-city bar</strong><br>
                     &bull; User feedback (Komal): <em>"The number of monitoring stations in Patna was incorrect. Delhi defaulted to Mandir Marg. Low-cost sensor queries for Patna returned nothing. Tabs are confusing for a layperson."</em><br>

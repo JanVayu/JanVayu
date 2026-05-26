@@ -133,6 +133,20 @@ Installs measurement everywhere and lands the highest-leverage safe wins. Every 
 
 ---
 
+## Phase 5.11: Auto-Update Infrastructure (✅ Completed — v26.6.21)
+
+Seven systems to keep the platform fresh without manual edits on every release.
+
+- [x] **Version single-source** (`scripts/bump-version.mjs`): reads package.json, patches CITATION.cff + both service worker cache names. Runs on every Netlify deploy.
+- [x] **Sitemap auto-gen** (`scripts/build-sitemap.mjs`): generates sitemap.xml with real lastmod dates from git history.
+- [x] **Feed health monitoring** (`netlify/functions/feed-health.mjs`): daily scheduled check of all 5 feed endpoints; reports healthy/stale/broken.
+- [x] **Translation key sync** (`scripts/translations.json` + `check-translations.mjs`): detects stale English terms in translated docs.
+- [x] **Data-stat system** (`scripts/stats.json` + `data-stat` attributes): single source of truth for key dashboard numbers; auto-patched on page load.
+- [x] **Reference data endpoint** (`netlify/functions/reference-data.mjs`): CPCB stations, NCAP data, IQAir annual figures in editable JSON, served via API.
+- [x] **Zotero → Reading List** (`netlify/functions/zotero-library.mjs`): public Zotero API → Netlify Blobs cache (6hr TTL) → card-format JSON.
+
+---
+
 ## Phase 6: Q3 2026 Priorities
 
 Now that quality is **measurable** on every PR, Q3 is where we drive the numbers down by acting on the data:
