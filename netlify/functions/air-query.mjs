@@ -839,19 +839,8 @@ NOTE: This is a deterministic JanVayu RTI template (key: "${templateKey}"). Repl
 // v26.6.16 — Phase D: multi-source spread + divergence flagging
 // ════════════════════════════════════════════════════════════════════════
 
-const IQAIR_2025_ANNUAL = {
-  loni: 112.5, byrnihat: 99.3, begusarai: 95.0, hajipur: 95.0,
-  delhi: 91.6, ghaziabad: 92.1, noida: 80.4, faridabad: 79.2, gurgaon: 80.6,
-  patna: 96.8, muzaffarpur: 88.0, gaya: 78.5,
-  lucknow: 76.5, kanpur: 71.2, varanasi: 78.4, agra: 60.3,
-  jaipur: 56.1, jodhpur: 53.4, amritsar: 55.7,
-  ahmedabad: 49.2, bhopal: 47.5, indore: 47.1, raipur: 50.9,
-  kolkata: 50.2, guwahati: 56.2, dehradun: 49.6, chandigarh: 42.3,
-  pune: 35.8, hyderabad: 33.5, bangalore: 27.6, nagpur: 35.4, mumbai: 41.4,
-  visakhapatnam: 30.1, chennai: 18.1, kochi: 16.7,
-  coimbatore: 19.5, thiruvananthapuram: 16.2,
-  __india_avg: 48.9,
-};
+// IQAir 2025 annual PM2.5 data — loaded from data/reference-data.json
+const IQAIR_2025_ANNUAL = REF_DATA.iqair_annual;
 
 function isMultiSourceQuery(question) {
   const q = question.toLowerCase();
