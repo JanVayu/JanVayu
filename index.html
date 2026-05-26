@@ -12767,6 +12767,21 @@ Signature: _______________</div>
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.20 &mdash; 26 May 2026</div>
+                    <strong>Chatbot accuracy fixes, intent-based nav, feedback UI, 33-city bar</strong><br>
+                    &bull; User feedback (Komal): <em>"The number of monitoring stations in Patna was incorrect. Delhi defaulted to Mandir Marg. Low-cost sensor queries for Patna returned nothing. Tabs are confusing for a layperson."</em><br>
+                    &bull; <strong>Station count accuracy</strong>: new <code>CPCB_STATION_DATA</code> for 27 cities with CAAQMS vs manual bifurcation (e.g. Patna: 7 total = 3 CAAQMS + 4 manual, with named stations). System prompt instruction #13 rewritten to require bifurcated reporting.<br>
+                    &bull; <strong>Multi-station AQI range</strong>: generic &ldquo;how is the air quality&rdquo; queries now auto-fetch all WAQI stations and present a city-wide AQI range instead of just the nearest station. Fixes the Mandir Marg single-station bias.<br>
+                    &bull; <strong>Low-cost sensor detection</strong>: <code>isHyperlocalQuery()</code> regex expanded to match &ldquo;low cost sensors in [city]&rdquo; patterns.<br>
+                    &bull; <strong>Navigation reorganized</strong> from data-type to intent-based grouping. Old: Data &amp; Health (5) | Monitoring (7) | Accountability (8) | Action (7) | Resources (16). New: <strong>My Air (7)</strong> | City Data (6) | Health &amp; Trends (6) | Accountability (8) | Take Action (8) | Resources (8). &ldquo;My Air&rdquo; surfaces personal tools first (Ask AI, Should I Go Outside, Alerts, School Closures, calculators). All 43 panels preserved.<br>
+                    &bull; <strong>Renamed</strong>: Hyperlocal &rarr; My Neighbourhood, Policy Effectiveness &rarr; Policy Tracker, Research Library &rarr; Reading List, Zotero link &rarr; Full Bibliography (Zotero).<br>
+                    &bull; <strong>Feedback UI</strong>: thumbs up/down buttons on every chatbot AI response, stored in localStorage for accuracy tracking.<br>
+                    &bull; <strong>City bar expanded</strong>: 10 &rarr; 33 cities (all backend-supported cities now shown as scrollable chips).<br>
+                    &bull; <strong>Service worker cache</strong> bumped <code>ask-janvayu-20260520-v3</code> &rarr; <code>ask-janvayu-20260526-v4</code> so returning visitors see feedback buttons.<br>
+                    &bull; i18n updated for en, hi, ta, mr, bn across all nav labels and group names.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.19 &mdash; 20 May 2026</div>
                     <strong>In-page Ask JanVayu widget refreshed</strong><br>
                     &bull; User pointed to a screenshot showing the in-page Ask JanVayu panel at <code>tmpl-ask-janvayu</code> still saying "in English or Hindi" with no example questions. v26.6.18 updated only the standalone <code>/ask/</code> PWA &mdash; the in-page widget is a separate UI surface that was missed.<br>
