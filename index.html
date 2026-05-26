@@ -1706,6 +1706,43 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 /* ── Map ───────────────────────────────── */
 #india-map { height: 450px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
 
+/* ── Historical Time-Slider ────────────── */
+#map-time-slider-bar {
+    position: absolute; bottom: 12px; left: 12px; right: 12px; z-index: 1000;
+    background: var(--bg-section, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-radius: 10px; padding: 8px 14px; display: none; align-items: center; gap: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: var(--sans, system-ui);
+}
+#map-time-slider-bar.visible { display: flex; }
+#map-time-slider-bar .ts-label {
+    font-size: 0.82rem; font-weight: 700; color: var(--ink, #0F172A);
+    min-width: 90px; text-align: center; white-space: nowrap;
+}
+#map-time-slider-bar input[type="range"] {
+    flex: 1; min-width: 0; accent-color: var(--accent, #1B6B4A); cursor: pointer;
+}
+#map-time-slider-bar .ts-live-btn {
+    font-family: var(--sans, system-ui); font-size: 0.75rem; font-weight: 600;
+    padding: 5px 12px; border: 0; border-radius: 7px; cursor: pointer;
+    background: var(--accent, #1B6B4A); color: #fff; white-space: nowrap;
+    transition: background 0.15s, transform 0.05s;
+}
+#map-time-slider-bar .ts-live-btn:hover { filter: brightness(1.1); }
+#map-time-slider-bar .ts-live-btn:active { transform: scale(0.97); }
+#map-time-slider-bar .ts-live-btn.active {
+    background: #22C55E; box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
+}
+#map-time-slider-loading {
+    position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); z-index: 1001;
+    background: var(--bg-section, #fff); border: 1px solid var(--border); border-radius: 8px;
+    padding: 6px 16px; font-size: 0.78rem; color: var(--text-2); display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+@media (max-width: 600px) {
+    #map-time-slider-bar { flex-wrap: wrap; gap: 6px; padding: 6px 10px; }
+    #map-time-slider-bar .ts-label { min-width: 80px; font-size: 0.75rem; }
+}
+
 /* ── Footer ────────────────────────────── */
 .site-footer {
     background: var(--green-900);
@@ -2591,6 +2628,11 @@ body {
                     <span class="role-card-icon"><span class="si si-home"></span></span>
                     <div class="role-card-title" data-i18n="role_parent">Parent / Family</div>
                     <div class="role-card-desc" data-i18n="role_parent_desc">Is it safe for my child today?</div>
+                </div>
+                <div class="role-card" onclick="selectRole('woman')">
+                    <span class="role-card-icon"><span class="si si-people"></span></span>
+                    <div class="role-card-title" data-i18n="role_woman">Woman / Caregiver</div>
+                    <div class="role-card-desc" data-i18n="role_woman_desc">Indoor air, maternal health, cooking fuels</div>
                 </div>
                 <div class="role-card" onclick="selectRole('student')">
                     <span class="role-card-icon"><span class="si si-book"></span></span>
@@ -4790,6 +4832,8 @@ body {
                 mapMarkers = [];
                 mapMarkerLayer = null;
                 mapHeatLayer = null;
+                histMarkerLayer = null;
+                histSliderActive = false;
             }
             const mapContainer = document.getElementById('india-map');
             if (!mapContainer) {
@@ -4906,6 +4950,198 @@ body {
             btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
             toggleMapLayer(name, willBeOn);
         }
+
+    // ── Historical Time-Slider Overlay ──────────────────────────────
+    // Cities that have historical-aqi climatology data (subset of CITIES)
+    const HIST_CITIES = ['delhi','mumbai','kolkata','chennai','bangalore','hyderabad',
+                         'lucknow','kanpur','patna','jaipur','pune','ahmedabad'];
+    // Cache: histCache[city][month] = { city, month, years: [{ year, pm25 }] }
+    const histCache = {};
+    let histMarkerLayer = null;
+    let histSliderActive = false;
+
+    // Build month steps: Jan 2024 .. current month
+    function buildHistMonthSteps() {
+        const steps = [];
+        const now = new Date();
+        const endYear = now.getFullYear();
+        const endMonth = now.getMonth() + 1; // 1-indexed
+        for (let y = 2024; y <= endYear; y++) {
+            const mEnd = (y === endYear) ? endMonth : 12;
+            for (let m = 1; m <= mEnd; m++) {
+                steps.push({ year: y, month: m });
+            }
+        }
+        return steps;
+    }
+
+    const HIST_MONTH_STEPS = buildHistMonthSteps();
+    const MONTH_NAMES = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    function initTimeSlider() {
+        const slider = document.getElementById('map-time-slider');
+        if (!slider || HIST_MONTH_STEPS.length === 0) return;
+        slider.max = HIST_MONTH_STEPS.length - 1;
+        slider.value = HIST_MONTH_STEPS.length - 1;
+        updateSliderLabel(HIST_MONTH_STEPS.length - 1);
+    }
+
+    function updateSliderLabel(idx) {
+        const label = document.getElementById('map-ts-label');
+        if (!label) return;
+        const step = HIST_MONTH_STEPS[idx];
+        if (step) label.textContent = MONTH_NAMES[step.month] + ' ' + step.year;
+    }
+
+    function toggleHistoricalSlider() {
+        const btn = document.getElementById('map-toggle-history-btn');
+        const bar = document.getElementById('map-time-slider-bar');
+        if (!btn || !bar) return;
+        const willBeOn = !btn.classList.contains('active');
+        btn.classList.toggle('active', willBeOn);
+        btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
+        if (willBeOn) {
+            bar.classList.add('visible');
+            initTimeSlider();
+            // Trigger load for current slider position
+            const slider = document.getElementById('map-time-slider');
+            if (slider) onTimeSliderChange(slider.value);
+        } else {
+            bar.classList.remove('visible');
+            restoreLiveMapMarkers();
+        }
+    }
+
+    function pm25Color(pm25) {
+        if (pm25 == null) return '#9CA3AF';
+        if (pm25 < 30) return '#22C55E';
+        if (pm25 < 60) return '#EAB308';
+        if (pm25 < 90) return '#F97316';
+        if (pm25 < 150) return '#EF4444';
+        return '#7C3AED';
+    }
+
+    function pm25Label(pm25) {
+        if (pm25 == null) return 'No data';
+        if (pm25 < 30) return 'Good';
+        if (pm25 < 60) return 'Moderate';
+        if (pm25 < 90) return 'Unhealthy (SG)';
+        if (pm25 < 150) return 'Unhealthy';
+        return 'Very Unhealthy';
+    }
+
+    async function fetchHistMonth(month) {
+        // Fetch data for all HIST_CITIES for a given month (1-12), using cache
+        const toFetch = [];
+        for (const city of HIST_CITIES) {
+            if (!histCache[city]) histCache[city] = {};
+            if (!histCache[city][month]) toFetch.push(city);
+        }
+        if (toFetch.length > 0) {
+            const results = await Promise.allSettled(
+                toFetch.map(city =>
+                    fetch(`/.netlify/functions/historical-aqi?city=${city}&month=${month}`)
+                        .then(r => r.json())
+                        .then(data => { histCache[city][month] = data; })
+                )
+            );
+        }
+    }
+
+    async function onTimeSliderChange(idx) {
+        idx = parseInt(idx);
+        const step = HIST_MONTH_STEPS[idx];
+        if (!step) return;
+        updateSliderLabel(idx);
+
+        // Mark live button as inactive
+        const liveBtn = document.getElementById('map-ts-live-btn');
+        if (liveBtn) liveBtn.classList.remove('active');
+        histSliderActive = true;
+
+        const loadingEl = document.getElementById('map-time-slider-loading');
+        // Show loading only if we need to fetch
+        let needsFetch = false;
+        for (const city of HIST_CITIES) {
+            if (!histCache[city] || !histCache[city][step.month]) { needsFetch = true; break; }
+        }
+        if (needsFetch && loadingEl) loadingEl.style.display = 'block';
+
+        await fetchHistMonth(step.month);
+        if (loadingEl) loadingEl.style.display = 'none';
+
+        renderHistoricalMarkers(step.year, step.month);
+    }
+
+    function renderHistoricalMarkers(year, month) {
+        if (!map) return;
+        // Hide live markers and heatmap
+        if (mapMarkerLayer && map.hasLayer(mapMarkerLayer)) map.removeLayer(mapMarkerLayer);
+        if (mapHeatLayer && map.hasLayer(mapHeatLayer)) {
+            try { map.removeLayer(mapHeatLayer); } catch(e) {}
+            mapHeatLayer = null;
+        }
+        // Deactivate heatmap button visually
+        const heatBtn = document.getElementById('map-toggle-heatmap-btn');
+        if (heatBtn) { heatBtn.classList.remove('active'); heatBtn.setAttribute('aria-pressed','false'); }
+        const markBtn = document.getElementById('map-toggle-markers-btn');
+        if (markBtn) { markBtn.classList.remove('active'); markBtn.setAttribute('aria-pressed','false'); }
+
+        // Create or clear historical layer
+        if (!histMarkerLayer) histMarkerLayer = L.layerGroup();
+        histMarkerLayer.clearLayers();
+        histMarkerLayer.addTo(map);
+
+        for (const cityKey of HIST_CITIES) {
+            const city = CITIES[cityKey];
+            if (!city || !city.lat) continue;
+            const data = histCache[cityKey]?.[month];
+            if (!data || !data.years) continue;
+            const entry = data.years.find(y => y.year === year);
+            const pm25 = entry?.pm25 ?? null;
+            const color = pm25Color(pm25);
+            const label = pm25Label(pm25);
+            const whoX = pm25 ? (pm25 / 5).toFixed(0) : null;
+            const popupHtml = `
+                <div style="min-width: 170px; font-family: var(--sans, system-ui);">
+                    <strong style="font-size: 0.95rem;">${city.name}</strong>
+                    <div style="font-size: 0.72rem; color: #888; margin-bottom: 4px;">${MONTH_NAMES[month]} ${year} (historical)</div>
+                    <div style="display: flex; align-items: baseline; gap: 6px;">
+                        <span style="font-size: 1.6rem; font-weight: 700; color: ${color};">${pm25 != null ? pm25 : '?'}</span>
+                        <span style="font-size: 0.78rem; color: ${color}; font-weight: 600;">PM2.5 &micro;g/m&sup3;</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: #555;">${label}${whoX ? ' &middot; ' + whoX + '&times; WHO guideline' : ''}</div>
+                    <div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Source: CPCB/IQAir climatology</div>
+                </div>`;
+            const radius = pm25 != null ? Math.min(20, 8 + pm25 / 30) : 8;
+            const marker = L.circleMarker([city.lat, city.lon], {
+                radius: radius,
+                fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
+            }).addTo(histMarkerLayer).bindPopup(popupHtml);
+            if (pm25 != null) {
+                marker.bindTooltip(String(pm25), {
+                    permanent: false, direction: 'top'
+                });
+            }
+        }
+    }
+
+    function restoreLiveMapMarkers() {
+        histSliderActive = false;
+        const liveBtn = document.getElementById('map-ts-live-btn');
+        if (liveBtn) liveBtn.classList.add('active');
+
+        // Remove historical layer
+        if (histMarkerLayer && map) {
+            try { map.removeLayer(histMarkerLayer); } catch(e) {}
+            histMarkerLayer.clearLayers();
+        }
+
+        // Restore live markers
+        if (mapMarkerLayer && map && !map.hasLayer(mapMarkerLayer)) mapMarkerLayer.addTo(map);
+        const markBtn = document.getElementById('map-toggle-markers-btn');
+        if (markBtn) { markBtn.classList.add('active'); markBtn.setAttribute('aria-pressed','true'); }
+    }
 
     function exportData(format) {
             const data = { timestamp: new Date().toISOString(), source: 'JanVayu / WAQI', cities: aqiData };
@@ -8495,12 +8731,19 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     <div id="map-layer-controls" style="position: absolute; top: 12px; right: 12px; z-index: 1000; background: var(--bg-section); border: 1px solid var(--border); border-radius: 10px; padding: 4px; display: inline-flex; gap: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                         <button type="button" id="map-toggle-markers-btn" class="map-layer-btn active" onclick="toggleMapLayerBtn(this, 'markers')" aria-pressed="true">Stations</button>
                         <button type="button" id="map-toggle-heatmap-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'heatmap')" aria-pressed="false">Heatmap</button>
+                        <button type="button" id="map-toggle-history-btn" class="map-layer-btn" onclick="toggleHistoricalSlider()" aria-pressed="false">History</button>
                     </div>
                     <div id="india-map"></div>
+                    <div id="map-time-slider-loading">Loading historical data&hellip;</div>
+                    <div id="map-time-slider-bar">
+                        <button class="ts-live-btn active" id="map-ts-live-btn" onclick="restoreLiveMapMarkers()">&#9679; Live</button>
+                        <input type="range" id="map-time-slider" min="0" max="0" value="0" oninput="onTimeSliderChange(this.value)">
+                        <span class="ts-label" id="map-ts-label">Jan 2024</span>
+                    </div>
                 </div>
-                <div class="card-footer">Data from WAQI API (aqicn.org). Covers CPCB and SPCB monitoring stations. Click any marker for details.</div>
+                <div class="card-footer">Live data from WAQI API (aqicn.org). Historical PM2.5 from CPCB/IQAir climatology (2024&ndash;present). Click any marker for details.</div>
             </div>
-        
+
 </template>
 
 <template id="tmpl-trends">
