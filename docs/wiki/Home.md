@@ -29,7 +29,16 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
-### What's New (v26.6.x — 20 May 2026)
+### What's New (v26.6.x)
+
+**v26.6.20 — Chatbot accuracy + intent-based nav + feedback UI (26 May 2026)**
+- Chatbot station-count accuracy: CPCB reference data for 27 cities with CAAQMS vs manual bifurcation.
+- Multi-station AQI range for generic queries (fixes Delhi/Mandir Marg single-station bias).
+- Navigation reorganized from data-type to intent-based: new "My Air" tab surfaces personal tools first. Resources cut from 16 → 8 items. All 43 panels preserved.
+- Renamed: Hyperlocal → My Neighbourhood, Research Library → Reading List, Policy Effectiveness → Policy Tracker.
+- Thumbs up/down feedback buttons on chatbot responses.
+- City bar expanded from 10 → 33 cities.
+- Service worker cache bumped so returning visitors see new features.
 
 **v26.6.11 — `/walkthrough/` guided-tour page featured**
 - New public page at [janvayu.in/walkthrough/](https://www.janvayu.in/walkthrough/) embedding the 64-slide JanVayu MMSF Fellows deck via Google Slides iframe.
