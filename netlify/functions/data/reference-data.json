@@ -1,0 +1,62 @@
+{
+  "cpcb_stations": {
+    "delhi": { "caaqms": 40, "manual": 6, "total": 46, "note": "Densest monitoring network in India; includes DPCC + CPCB + IMD stations" },
+    "mumbai": { "caaqms": 10, "manual": 4, "total": 14, "note": "Includes MPCB + CPCB stations; Worli, Bandra, Andheri, Colaba among key sites" },
+    "kolkata": { "caaqms": 7, "manual": 3, "total": 10, "note": "WBPCB network; Victoria, Rabindra Bharati, Fort William among key sites" },
+    "chennai": { "caaqms": 4, "manual": 3, "total": 7, "note": "TNPCB network; Alandur, Manali, Velachery among key sites" },
+    "bangalore": { "caaqms": 7, "manual": 3, "total": 10, "note": "KSPCB network; Peenya, BTM, Silk Board, Hebbal among key sites" },
+    "hyderabad": { "caaqms": 6, "manual": 3, "total": 9, "note": "TSPCB network; Sanathnagar, Zoo Park, Balanagar among key sites" },
+    "lucknow": { "caaqms": 4, "manual": 2, "total": 6, "note": "UPPCB network; Lalbagh, Talkatora among key sites" },
+    "patna": { "caaqms": 3, "manual": 4, "total": 7, "note": "BSPCB network; IGSC Planetarium, Muradpur, Samanpura among CAAQMS sites; manual stations at Rajbansi Nagar, Khajpura, Gardanibagh, Phulwari Sharif" },
+    "pune": { "caaqms": 5, "manual": 2, "total": 7, "note": "MPCB network; Shivajinagar, Lohegaon, Katraj among key sites" },
+    "jaipur": { "caaqms": 3, "manual": 2, "total": 5, "note": "RSPCB network; Adarsh Nagar, Shastri Nagar among key sites" },
+    "ahmedabad": { "caaqms": 4, "manual": 2, "total": 6, "note": "GPCB network" },
+    "varanasi": { "caaqms": 3, "manual": 2, "total": 5, "note": "UPPCB + CPCB stations; Ardhali Bazaar among key sites" },
+    "kanpur": { "caaqms": 3, "manual": 2, "total": 5, "note": "UPPCB network" },
+    "agra": { "caaqms": 2, "manual": 2, "total": 4, "note": "UPPCB network; Sanjay Place among key sites" },
+    "bhopal": { "caaqms": 2, "manual": 2, "total": 4, "note": "MPPCB network" },
+    "indore": { "caaqms": 2, "manual": 1, "total": 3, "note": "MPPCB network" },
+    "nagpur": { "caaqms": 3, "manual": 2, "total": 5, "note": "MPCB network" },
+    "chandigarh": { "caaqms": 2, "manual": 1, "total": 3, "note": "CPCC network" },
+    "gurgaon": { "caaqms": 4, "manual": 1, "total": 5, "note": "HSPCB network; Sector 51, Teri Gram, Vikas Sadan among key sites" },
+    "noida": { "caaqms": 3, "manual": 1, "total": 4, "note": "UPPCB network; Sector 125, Sector 62 among key sites" },
+    "faridabad": { "caaqms": 2, "manual": 1, "total": 3, "note": "HSPCB network" },
+    "ghaziabad": { "caaqms": 3, "manual": 1, "total": 4, "note": "UPPCB network; Vasundhara, Indirapuram among key sites" },
+    "raipur": { "caaqms": 2, "manual": 1, "total": 3, "note": "CGPCB network" },
+    "dehradun": { "caaqms": 2, "manual": 1, "total": 3, "note": "UKPCB network" },
+    "guwahati": { "caaqms": 2, "manual": 1, "total": 3, "note": "APCB network" },
+    "muzaffarpur": { "caaqms": 1, "manual": 1, "total": 2, "note": "BSPCB network; limited coverage" },
+    "gaya": { "caaqms": 1, "manual": 1, "total": 2, "note": "BSPCB network; limited coverage" }
+  },
+  "ncap_cities": {
+    "delhi": { "ncapTarget": "40% PM10 reduction by 2026", "budget": "₹300 Cr pollution budget (43% utilised)", "note": "Most polluted capital globally (IQAir 2025). 0 days met WHO limit in 2026." },
+    "mumbai": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP city", "note": "PM2.5 increased 38% since 2019 despite NCAP." },
+    "kolkata": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP city", "note": "Winter inversions + vehicle emissions. Limited monitoring coverage." },
+    "lucknow": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP city", "note": "Indo-Gangetic plain — trapped pollutants. Brick kilns major source." },
+    "patna": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP city", "note": "Among worst PM2.5 in India. Limited enforcement capacity." },
+    "varanasi": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP success story", "note": "PM2.5 fell 72% in 5 years — best NCAP performer." },
+    "jaipur": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP city", "note": "Desert dust + vehicle emissions. Seasonal variation high." },
+    "pune": { "ncapTarget": "40% PM10 reduction", "budget": "NCAP city", "note": "Relatively better air quality than Delhi/Mumbai. Growing vehicle fleet a concern." },
+    "chennai": { "ncapTarget": "Not in original NCAP 131", "budget": "N/A", "note": "Coastal city — sea breeze helps dispersion. Industrial corridor a concern." },
+    "bangalore": { "ncapTarget": "Not in original NCAP 131", "budget": "N/A", "note": "Generally better air quality. Vehicle growth and construction are rising concerns." }
+  },
+  "iqair_annual": {
+    "loni": 112.5, "byrnihat": 99.3, "begusarai": 95.0, "hajipur": 95.0,
+    "delhi": 91.6, "ghaziabad": 92.1, "noida": 80.4, "faridabad": 79.2, "gurgaon": 80.6,
+    "patna": 96.8, "muzaffarpur": 88.0, "gaya": 78.5,
+    "lucknow": 76.5, "kanpur": 71.2, "varanasi": 78.4, "agra": 60.3,
+    "jaipur": 56.1, "jodhpur": 53.4, "amritsar": 55.7,
+    "ahmedabad": 49.2, "bhopal": 47.5, "indore": 47.1, "raipur": 50.9,
+    "kolkata": 50.2, "guwahati": 56.2, "dehradun": 49.6, "chandigarh": 42.3,
+    "pune": 35.8, "hyderabad": 33.5, "bangalore": 27.6, "nagpur": 35.4, "mumbai": 41.4,
+    "visakhapatnam": 30.1, "chennai": 18.1, "kochi": 16.7,
+    "coimbatore": 19.5, "thiruvananthapuram": 16.2,
+    "__india_avg": 48.9
+  },
+  "last_updated": "2026-05-26",
+  "sources": {
+    "cpcb_stations": "CPCB Annual Report 2024-25",
+    "ncap_cities": "NCAP / MoEFCC",
+    "iqair_annual": "IQAir World Air Quality Report 2025 (March 2025, covering 2024 data)"
+  }
+}
