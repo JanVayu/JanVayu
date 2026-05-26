@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.22] - 2026-05-26
+
+### Added — Women & Air Quality panel
+
+New `tmpl-gender` panel under Health & Trends covering the gendered burden of air pollution:
+- **Indoor cooking exposure**: 70% of rural Indian women still cook with solid fuels (NFHS-5). 3-5 hours/day near chulha, PM2.5 levels 20-40× WHO guideline.
+- **Maternal health**: Every +10 µg/m³ PM2.5 → 3-5% increase in preterm birth, 6-9% increase in low birth weight (Lancet Planetary Health 2023).
+- **Mortality**: ~500,000 Indian women die annually from household air pollution; women represent ~60% of global HAP deaths (GBD 2021).
+- **Occupational exposure**: Women in construction, brick kilns, street vending face sustained exposure without protection.
+- **Gender data gap**: No CPCB indoor monitoring, health studies rarely disaggregate by gender.
+- **Action items**: Complete LPG transition, workplace standards, gender-disaggregated surveillance.
+- New "Woman / Caregiver" role in role selector with curated dashboard.
+- Added to Health & Trends nav (desktop + mobile) and search index.
+
+### Added — Historical data time-slider on map
+
+- "History" toggle in map layer controls with month/year range slider (Jan 2024 → present).
+- Fetches from `historical-aqi` function for 12 cities in parallel.
+- Color-coded circle markers by PM2.5 level (green < 30 → purple 150+).
+- In-memory cache, "Live" button to restore real-time, mobile-responsive.
+
+### Changed — Version markers
+
+- `package.json` 26.6.21 → **26.6.22**
+- `CITATION.cff` 26.6.21 → **26.6.22**
+
 ## [v26.6.21] - 2026-05-26
 
 ### Added — Auto-update infrastructure (7 systems)
