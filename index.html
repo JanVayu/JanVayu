@@ -217,11 +217,17 @@
         }
 
     function loadZoteroItems() {
-        const section = document.getElementById('zotero-section');
-        const loading = document.getElementById('zotero-loading');
-        const container = document.getElementById('zotero-items');
-        const countBadge = document.getElementById('zotero-count');
+        var section = document.getElementById('zotero-section');
+        var loading = document.getElementById('zotero-loading');
+        var container = document.getElementById('zotero-items');
+        var countBadge = document.getElementById('zotero-count');
         if (!section || !loading || !container) return;
+
+        function esc(str) {
+            var d = document.createElement('div');
+            d.textContent = str || '';
+            return d.innerHTML;
+        }
 
         // Show loading spinner
         loading.style.display = '';
@@ -242,23 +248,23 @@
                     var tagsHtml = '';
                     if (item.tags && item.tags.length > 0) {
                         item.tags.slice(0, 2).forEach(function(tag) {
-                            tagsHtml += '<span class="badge badge-info" style="margin-right: 4px; margin-top: 4px;">' + escapeHTML(tag) + '</span>';
+                            tagsHtml += '<span class="badge badge-info" style="margin-right: 4px; margin-top: 4px;">' + esc(tag) + '</span>';
                         });
                     }
                     var typeBadge = item.type
-                        ? '<span class="badge badge-success" style="margin-right: 4px;">' + escapeHTML(item.type) + '</span>'
+                        ? '<span class="badge badge-success" style="margin-right: 4px;">' + esc(item.type) + '</span>'
                         : '';
-                    var yearStr = item.year ? ' (' + escapeHTML(item.year) + ')' : '';
-                    var authorsStr = item.authors ? '<div class="resource-desc" style="margin-bottom: 2px; font-style: italic;">' + escapeHTML(item.authors) + yearStr + '</div>' : '';
+                    var yearStr = item.year ? ' (' + esc(String(item.year)) + ')' : '';
+                    var authorsStr = item.authors ? '<div class="resource-desc" style="margin-bottom: 2px; font-style: italic;">' + esc(item.authors) + yearStr + '</div>' : '';
                     var titleLink = item.url
-                        ? '<a href="' + escapeHTML(item.url) + '" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;"><div class="resource-title">' + escapeHTML(item.title) + '</div></a>'
-                        : '<div class="resource-title">' + escapeHTML(item.title) + '</div>';
+                        ? '<a href="' + esc(item.url) + '" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;"><div class="resource-title">' + esc(item.title) + '</div></a>'
+                        : '<div class="resource-title">' + esc(item.title) + '</div>';
 
-                    html += '<div class="resource-card" data-keywords="zotero ' + escapeHTML((item.title || '') + ' ' + (item.authors || '')).toLowerCase() + '">'
+                    html += '<div class="resource-card" data-keywords="zotero ' + esc((item.title || '') + ' ' + (item.authors || '')).toLowerCase() + '">'
                         + '<div class="resource-type">' + typeBadge + 'Zotero</div>'
                         + titleLink
                         + authorsStr
-                        + (item.abstract ? '<div class="resource-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">' + escapeHTML(item.abstract) + '</div>' : '')
+                        + (item.abstract ? '<div class="resource-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">' + esc(item.abstract) + '</div>' : '')
                         + '<div style="margin-top: 6px;">' + tagsHtml + '</div>'
                         + '</div>';
                 });
@@ -4230,6 +4236,7 @@ body {
                         }
                     } catch(e) { console.warn(e); }
                 }
+                if (panelId === 'resources') { try { loadZoteroItems(); } catch(e) { console.warn(e); } }
             }, 150);
         } else {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
