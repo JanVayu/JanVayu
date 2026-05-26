@@ -49,7 +49,7 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 - [x] Clean Air Mission Tracker
 - [x] Historical trends with seasonal patterns
 - [x] City comparison with international benchmarks
-- [x] 43 content panels across 7 intent-based navigation categories (reorganized v26.6.20)
+- [x] 44 content panels across 7 intent-based navigation categories (reorganized v26.6.20, gender panel added v26.6.22)
 
 ---
 
@@ -130,6 +130,15 @@ Installs measurement everywhere and lands the highest-leverage safe wins. Every 
 - [x] **Air Tambola ticket** horizontal-scrolls on 360 px Galaxy
 - [x] **Agent-Reach scheduled fetch workflow** — gracefully skips without secrets
 - [x] **Performance roadmap** docs/technical/performance-roadmap.md
+
+---
+
+## Phase 5.12: Gender Panel & Historical Map (✅ Completed — v26.6.22)
+
+- [x] **Women & Air Quality panel** (`tmpl-gender`): indoor cooking (NFHS-5), maternal health (Lancet), mortality (~500K HAP deaths/year), occupational exposure, gender data gap, and action items.
+- [x] **"Woman / Caregiver" role** in role selector with curated dashboard.
+- [x] **Historical map time-slider**: month/year range slider (Jan 2024 → present), fetches from `historical-aqi` function for 12 cities, color-coded PM2.5 circle markers, in-memory cache.
+- [x] Added to Health & Trends nav, search index, and `data-simple` plain language mode.
 
 ---
 
