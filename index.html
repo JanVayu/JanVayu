@@ -2834,6 +2834,7 @@ body {
                 <div class="mobile-nav-group-label" data-i18n="navgroup_health">Health &amp; Trends</div>
                 <button class="mobile-nav-item" data-panel="health" data-i18n="nav_health">Health Impact</button>
                 <button class="mobile-nav-item" data-panel="children" data-i18n="nav_children">Children's Health</button>
+                <button class="mobile-nav-item" data-panel="gender" data-i18n="nav_gender">Women &amp; Air Quality</button>
                 <button class="mobile-nav-item" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                 <button class="mobile-nav-item" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                 <button class="mobile-nav-item" data-panel="trends" data-i18n="nav_trends">Historical Trends</button>
@@ -2918,6 +2919,7 @@ body {
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="health" data-i18n="nav_health">Health Impact</button>
                     <button class="nav-dropdown-link" data-panel="children" data-i18n="nav_children">Children's Health</button>
+                    <button class="nav-dropdown-link" data-panel="gender" data-i18n="nav_gender">Women &amp; Air Quality</button>
                     <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                     <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                     <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
@@ -6898,6 +6900,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'health', title: 'Health Impact', desc: 'Deaths, disease burden, GEMM calculator', keywords: 'health deaths mortality disease burden copd asthma cancer gemm who' },
         { id: 'economic', title: 'Economic Cost', desc: 'GDP loss, productivity, healthcare spending', keywords: 'economic cost gdp money billion dollars productivity lancet world bank' },
         { id: 'children', title: "Children's Health", desc: 'Lung development, school closures, stunting', keywords: 'children kids school stunting lung development pediatric' },
+        { id: 'gender', title: "Women & Air Quality", desc: 'Indoor cooking, maternal health, occupational exposure, gender data gap', keywords: 'women gender female maternal pregnancy cooking chulha biomass indoor ujjwala lpg caregiver' },
         { id: 'indoor', title: 'Indoor Air Quality', desc: 'Household pollution, cooking fuel, chulha', keywords: 'indoor household cooking chulha solid fuel lpg ujjwala women' },
         { id: 'trends', title: 'Historical Trends', desc: 'Timeline 1981 to present, key milestones', keywords: 'history timeline trends historical air act 1981 ncap' },
         { id: 'compare', title: 'City Comparison', desc: 'Metro AQI rankings, live data table', keywords: 'city cities comparison metro delhi mumbai kolkata bangalore chennai' },
@@ -12780,6 +12783,108 @@ Signature: _______________</div>
 </template>
 
 <!-- ═══════════════════════════════════════════════ -->
+<!-- NEW SECTION: Women & Air Quality               -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-gender">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-heart" style="color: #EC4899; margin-right: 0.4rem;"></span>Women &amp; Air Quality</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Women and girls are hurt more by India's air pollution. They cook with dirty fuels, work in polluted places, and face higher health risks during pregnancy. But we barely track the problem because most air monitors are not where women spend their time.">Women and girls bear a disproportionate burden of India&rsquo;s air pollution crisis. From indoor cooking smoke to occupational exposure, from maternal health risks to the near-total absence of gender-disaggregated monitoring, the intersection of gender and air quality is one of India&rsquo;s most under-examined public health failures.</p>
+    </div>
+
+    <div class="stat-strip" style="margin-bottom: 2rem;">
+        <div class="stat-strip-item"><div class="number-callout" style="color: #EC4899;">~70%</div><div class="stat-label">Rural Indian women still cook with solid fuels (NFHS-5, 2019-21)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #7C3AED;">3&ndash;5%</div><div class="stat-label">Increase in preterm birth risk per +10 &micro;g/m&sup3; PM2.5 (Lancet Planetary Health 2023)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #EF4444;">~500K</div><div class="stat-label">Indian women die annually from household air pollution (GBD 2021)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: #D97706;">60%</div><div class="stat-label">Of global HAP deaths are women (Lancet Countdown 2025)</div></div>
+    </div>
+
+    <div class="grid-3" style="gap: 1.25rem; margin-bottom: 1.25rem;">
+        <div class="card" style="border-left: 4px solid #EC4899;">
+            <div class="card-header"><span class="card-title">Indoor Cooking Exposure</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="About 70% of rural Indian women still cook with wood, dung, or crop waste. They stand near the chulha for 3 to 5 hours every day, breathing in pollution levels 20 to 40 times higher than what the WHO says is safe.">Approximately 70% of rural Indian women still cook with solid fuels &mdash; wood, dung cake, and crop residue (NFHS-5, 2019-21). Women spend 3&ndash;5 hours per day near the chulha, inhaling PM2.5 concentrations 20&ndash;40&times; the WHO annual guideline of 5 &micro;g/m&sup3;.</p>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: WHO Household Air Pollution factsheet, 2024</em></p>
+            </div>
+        </div>
+        <div class="card card-accent-purple">
+            <div class="card-header"><span class="card-title">Maternal Health Impact</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="When PM2.5 goes up by just 10 units, the chance of a baby being born too early rises by 3 to 5%, and the chance of low birth weight rises by 6 to 9%. Air pollution during pregnancy is a serious risk for mothers and babies.">Every +10 &micro;g/m&sup3; increase in PM2.5 exposure is associated with a 3&ndash;5% increase in preterm birth risk and a 6&ndash;9% increase in low birth weight. A 2023 systematic review in <em>Lancet Planetary Health</em> confirmed these dose-response relationships across 27 cohort studies.</p>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: Lancet Planetary Health, 2023 systematic review</em></p>
+            </div>
+        </div>
+        <div class="card card-accent-red">
+            <div class="card-header"><span class="card-title">Mortality Burden</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="Around 5 lakh Indian women die every year because of indoor air pollution from cooking. Women make up about 60% of all deaths from household air pollution worldwide.">An estimated ~500,000 Indian women die annually from diseases attributable to household air pollution (HAP), including COPD, lung cancer, stroke, and ischaemic heart disease. Globally, women represent approximately 60% of all HAP-related deaths.</p>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: GBD 2021; Lancet Countdown on Health and Climate Change, 2025</em></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="gap: 1.25rem;">
+        <div class="card card-accent-amber">
+            <div class="card-header"><span class="card-title">The Indoor Cooking Crisis</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Cooking with wood, dung, and crop waste exposes women to pollution levels 10 to 40 times higher than outdoor air. The government's Ujjwala scheme gave out 10 crore LPG connections, but many women can't afford refills. They use only about 3.5 cylinders per year instead of the 6-7 needed. Many go back to using firewood because LPG is too expensive.">Solid fuel cooking &mdash; wood, dung, and crop residue &mdash; exposes women to PM2.5 concentrations 10&ndash;40&times; ambient levels. The Pradhan Mantri Ujjwala Yojana (PMUY) distributed over 10 Cr LPG connections since 2016, but sustained use remains a challenge. Refill rates have dropped to approximately 3.5 cylinders per year in many states, far below the 6&ndash;7 cylinders needed for a full cooking fuel transition. Cost remains the primary barrier: many beneficiaries revert to biomass fuels when subsidies are delayed or insufficient.</p>
+                <div class="info-box" style="background: rgba(217,119,6,0.06); border-left: 3px solid #D97706;">
+                    <h4>Ujjwala: Connection vs. Transition</h4>
+                    <p>A 2024 CEEW evaluation found that only 38% of Ujjwala beneficiaries use LPG as their primary cooking fuel. The remaining 62% practice fuel stacking &mdash; using LPG for quick meals and biomass for roti-making and extended cooking. The scheme succeeded in access but has not yet achieved a clean cooking transition.</p>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: CEEW 2024, PMUY evaluation studies</em></p>
+            </div>
+        </div>
+
+        <div class="card card-accent-blue">
+            <div class="card-header"><span class="card-title">Occupational Exposure</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Women who work in construction, brick kilns, street vending, and farming breathe dirty air all day without protection. About 30% of construction workers are women, but they are rarely given N95 masks or any safety gear.">Women in construction, brick kilns, street vending, and agriculture face sustained outdoor PM2.5 exposure without respiratory protection. Female construction workers comprise approximately 30% of the workforce but are rarely provided N95 masks or occupational health screening. Brick kiln workers &mdash; many of them women from migrant families &mdash; are exposed to PM levels of 500&ndash;1,000 &micro;g/m&sup3; during firing cycles.</p>
+                <div class="info-box" style="background: rgba(59,130,246,0.06); border-left: 3px solid #3B82F6;">
+                    <h4>The Informal Sector Gap</h4>
+                    <p>India&rsquo;s Factories Act and Building &amp; Other Construction Workers Act mandate protective equipment, but enforcement in the informal sector &mdash; where most women work &mdash; is nearly non-existent. No national data exists on occupational respiratory disease among female informal workers.</p>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: ILO India, 2023</em></p>
+            </div>
+        </div>
+
+        <div class="card card-accent-purple">
+            <div class="card-header"><span class="card-title">Reproductive &amp; Child Health</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Tiny pollution particles can cross from a mother's blood into her unborn baby. This is linked to babies born too early, low birth weight, diabetes during pregnancy, and dangerous high blood pressure. Children of mothers exposed to high pollution have weaker lungs by age 5.">PM2.5 crosses the placental barrier, directly exposing the developing foetus. Epidemiological evidence links maternal PM2.5 exposure to preterm birth, low birth weight, gestational diabetes, pre-eclampsia, and reduced fertility in both men and women. A 2024 cohort study (Krishna et al.) found that children of mothers with high gestational PM2.5 exposure showed 6&ndash;8% lower lung function (FEV1) at age 5 compared to children of less-exposed mothers.</p>
+                <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="Air pollution also makes it harder for both men and women to have children. Studies show it can reduce sperm quality and disrupt women's menstrual cycles.">Emerging evidence also links chronic PM2.5 exposure to diminished ovarian reserve and disrupted menstrual cycles, with implications for India&rsquo;s rising infertility rates in polluted cities.</p>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: Krishna et al. 2024; Lancet Respiratory Medicine</em></p>
+            </div>
+        </div>
+
+        <div class="card card-accent-red">
+            <div class="card-header"><span class="card-title">The Gender Data Gap</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Most air quality sensors are placed in commercial and industrial areas, not in homes and kitchens where women spend most of their time. India has zero official indoor air monitoring stations. Health studies rarely separate data by gender, so we don't fully know how much worse pollution is for women.">Most air quality monitoring stations (CAAQMS) are sited in commercial, industrial, and traffic zones &mdash; not in residential areas where women spend the majority of their time. CPCB&rsquo;s monitoring network includes zero indoor monitoring stations. Health impact studies rarely disaggregate outcomes by gender, making it impossible to precisely quantify the differential burden on women.</p>
+                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid #EF4444;">
+                    <h4>CAG Audit Finding (April 2025)</h4>
+                    <p>The Comptroller and Auditor General&rsquo;s April 2025 audit of India&rsquo;s air quality monitoring infrastructure found that station siting criteria systematically excluded residential and peri-urban areas. The audit recommended gender-sensitive monitoring protocols and indoor air quality stations in at least 50 cities by 2028.</p>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><em>Source: CAG Performance Audit, April 2025</em></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2" style="border-left: 4px solid #10B981;">
+        <div class="card-header"><span class="card-title">What Needs to Change</span></div>
+        <div class="card-body">
+            <div class="grid-3" style="gap: 1rem;">
+                <div class="info-box"><h4>Complete LPG Transition</h4><p data-simple="Don't just give LPG connections — make refills affordable. Increase the subsidy so families don't go back to burning wood and dung.">Move beyond connection targets to sustained use. Ensure affordable LPG refills through enhanced subsidies, not just one-time connections. Target: every Ujjwala household using 6+ cylinders/year.</p></div>
+                <div class="info-box"><h4>Workplace Exposure Standards</h4><p data-simple="Create rules to protect women working in construction, brick kilns, and street vending. Give them masks and health check-ups.">Mandate respiratory protection and periodic health screening for informal sector workers, especially in construction, brick kilns, and street vending. Enforce existing labour safety laws.</p></div>
+                <div class="info-box"><h4>Gender-Disaggregated Surveillance</h4><p data-simple="When collecting health data, always record whether the patient is male or female. This will help us understand how pollution affects women differently.">All air pollution health surveillance (ICMR, NCDC, state health departments) must record and report outcomes disaggregated by sex. Current systems make women&rsquo;s burden invisible.</p></div>
+                <div class="info-box"><h4>Indoor Monitoring</h4><p data-simple="Put air quality sensors inside homes in at least 50 cities. Focus on kitchens and living areas where women and children spend time.">Deploy indoor air quality monitoring in residential zones across at least 50 NCAP cities. Prioritise kitchens, living areas, and anganwadi centres where women and children congregate.</p></div>
+                <div class="info-box"><h4>Women in NCAP Decision-Making</h4><p data-simple="Include women in clean air planning committees. Right now, almost no women are involved in deciding air pollution policies.">Ensure women&rsquo;s representation in NCAP city-level committees, CAQM working groups, and state pollution control boards. Currently, women constitute less than 5% of CPCB/SPCB board members.</p></div>
+                <div class="info-box"><h4>Research Funding</h4><p data-simple="Fund more studies that look specifically at how air pollution affects women's health, pregnancy, and children.">Direct ICMR and DST funding toward gender-specific air pollution health research: maternal outcomes, occupational exposure in informal sector, and long-term reproductive health impacts.</p></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
 <!-- NEW SECTION: Corporate & Industrial            -->
 <!-- ═══════════════════════════════════════════════ -->
 <template id="tmpl-corporate">
@@ -15196,6 +15301,24 @@ const ROLE_CONFIG = {
             { panel: 'aqi-alerts', title: 'AQI Alerts', desc: 'Get daily email digests' },
             { panel: 'exposure-report', title: 'Exposure Report', desc: 'Your personal PM2.5 exposure' },
             { panel: 'citizen-action', title: 'Citizen Action Plan', desc: 'Masks, advocacy, school petitions' }
+        ]
+    },
+    woman: {
+        icon: '<span class="si si-people"></span>', label: 'Woman / Caregiver',
+        heading: 'Air pollution affects women and families disproportionately',
+        description: 'Indoor cooking exposure, maternal health risks, workplace safety, and what you can do.',
+        actions: [
+            { icon: '<span class="si si-flare"></span>', panel: 'gender', title: 'Women & air pollution', desc: 'How cooking fuels, occupation, and pregnancy are affected.', cta: 'Read more →' },
+            { icon: '<span class="si si-home"></span>', panel: 'indoor', title: 'Indoor air quality', desc: 'Cooking fuels, ventilation, and purifier guidance.', cta: 'Check now →' },
+            { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Health risk calculator', desc: 'Calculate your personal PM2.5 exposure risk.', cta: 'Calculate →' }
+        ],
+        panels: [
+            { panel: 'children', title: "Children's Health", desc: 'Impact on your children' },
+            { panel: 'gender', title: 'Women & Air Quality', desc: 'The full gender analysis' },
+            { panel: 'purifier-calc', title: 'Purifier Calculator', desc: 'Right purifier for your home' },
+            { panel: 'exposure-report', title: 'Exposure Report', desc: 'Your personal exposure' },
+            { panel: 'citizen-action', title: 'Citizen Action Plan', desc: 'Advocacy and community action' },
+            { panel: 'go-outside', title: 'Should I Go Outside?', desc: 'Real-time safety check' }
         ]
     },
     student: {
