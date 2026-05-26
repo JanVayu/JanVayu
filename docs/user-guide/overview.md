@@ -1,6 +1,6 @@
 # Platform Overview
 
-JanVayu is a single-page web application with 43 panels across 7 intent-based navigation categories (My Air, City Data, Health & Trends, Accountability, Take Action, Resources) covering every dimension of India's air quality crisis — from live data to legal accountability.
+JanVayu is a single-page web application with 44 panels across 7 intent-based navigation categories (My Air, City Data, Health & Trends, Accountability, Take Action, Resources) covering every dimension of India's air quality crisis — from live data to legal accountability.
 
 ---
 
@@ -10,7 +10,7 @@ JanVayu is a single-page web application with 43 panels across 7 intent-based na
 |---|---------|---------------|
 | 1 | **Real-Time AQI Dashboard** | Live PM2.5 and AQI for 30+ cities, auto-refreshed every 10 minutes via WAQI/CPCB. Includes cigarette-equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges, and an AQI-band solution-recommendation card |
 | 2 | **"Near Me" geolocation** | One-tap nearest-station lookup via the browser's geolocation API |
-| 3 | **Interactive AQI Map** | Leaflet.js map with station-level markers, a heatmap-layer toggle, and station popups |
+| 3 | **Interactive AQI Map** | Leaflet.js map with station-level markers, a heatmap-layer toggle, station popups, and a historical time-slider showing monthly PM2.5 from Jan 2024 to present |
 | 4 | **City Rankings** | Live / Past 7 days / Past 30 days rankings of Indian cities, sortable and searchable |
 | 5 | **My Neighbourhood** | CPCB/WAQI stations blended with free Sensor.Community community sensors, badged by source |
 | 6 | **Health Impact Calculator** | GEMM model estimates of mortality, disease burden, and life years lost |
@@ -44,6 +44,7 @@ JanVayu is a single-page web application with 43 panels across 7 intent-based na
 | 34 | **Ask JanVayu PWA** | Standalone installable AI chat at `/ask/` — chat-style interface, 33-city chip selector, thumbs up/down feedback, offline fallback. Available in 10 languages |
 | 35 | **April–May 2026 Voices** | Curated Lancet Countdown launch reactions, Loni-residents ground report, Soumya Swaminathan at the "Be Cool" launch, Supreme Court four-week deadline, Warrior Moms commentary, CSE NCAP review |
 | 36 | **April–May 2026 Research Updates** | Featured card group at the top of the Reading List — Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024 Lancet Planetary Health, CEEW 2024 source apportionment |
+| 37 | **Women & Air Quality** | Indoor cooking exposure, maternal health, occupational risks, gender data gap, Ujjwala scheme evaluation |
 
 ---
 
