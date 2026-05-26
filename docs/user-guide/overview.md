@@ -1,6 +1,6 @@
 # Platform Overview
 
-JanVayu is a single-page web application with 30+ sections covering every dimension of India's air quality crisis — from live data to legal accountability.
+JanVayu is a single-page web application with 43 panels across 7 intent-based navigation categories (My Air, City Data, Health & Trends, Accountability, Take Action, Resources) covering every dimension of India's air quality crisis — from live data to legal accountability.
 
 ---
 
@@ -12,14 +12,14 @@ JanVayu is a single-page web application with 30+ sections covering every dimens
 | 2 | **"Near Me" geolocation** | One-tap nearest-station lookup via the browser's geolocation API |
 | 3 | **Interactive AQI Map** | Leaflet.js map with station-level markers, a heatmap-layer toggle, and station popups |
 | 4 | **City Rankings** | Live / Past 7 days / Past 30 days rankings of Indian cities, sortable and searchable |
-| 5 | **Hyperlocal panel** | CPCB/WAQI stations blended with free Sensor.Community community sensors, badged by source |
+| 5 | **My Neighbourhood** | CPCB/WAQI stations blended with free Sensor.Community community sensors, badged by source |
 | 6 | **Health Impact Calculator** | GEMM model estimates of mortality, disease burden, and life years lost |
 | 7 | **Economic Cost Analysis** | GDP loss, healthcare spending, productivity impact (Lancet 2025, World Bank) |
 | 8 | **Children's Health** | Lung development impacts, school closures, stunting data |
 | 9 | **Indoor Air Quality** | Household pollution from solid fuel cooking, Ujjwala scheme tracking |
 | 10 | **City Comparison** | Real-time AQI comparison plus a year-over-year tab (2024/2025/2026 monthly averages) |
 | 11 | **Historical Trends** | Hourly 24-hr scrubbable PM2.5 chart, annual trend line, seasonal pattern, key-events timeline |
-| 12 | **Policy Effectiveness** | NCAP targets vs actual outcomes, GRAP stage history |
+| 12 | **Policy Tracker** | NCAP targets vs actual outcomes, GRAP stage history |
 | 13 | **Budget Tracker** | NCAP and 15th Finance Commission fund utilisation rates |
 | 14 | **Political Accountability** | MoEFCC spending, state compliance, RTI templates |
 | 15 | **Industrial Sources** | Factory emissions, thermal power plants, brick kilns |
@@ -28,7 +28,7 @@ JanVayu is a single-page web application with 30+ sections covering every dimens
 | 18 | **Legal Framework** | Supreme Court orders, NGT rulings, Article 21 right to clean air |
 | 19 | **Take Action** | Advocacy guides, citizen tools, campaign resources |
 | 20 | **Workshops** | Request an Air Quality workshop with Dr. Sarath Guttikunda (UrbanEmissions) — including the Air Quality Jeopardy game — or book a 1-hour JanVayu walkthrough |
-| 21 | **Research Library** | Curated reports from CREA, CSE, IQAir, Lancet, World Bank |
+| 21 | **Reading List** | Curated reports from CREA, CSE, IQAir, Lancet, World Bank |
 | 22 | **Citizen Voices Archive** | Social media posts, testimonies, viral content from affected communities |
 | 23 | **Accountability Tracker** | Institutional and official responses to pollution episodes |
 | 24 | **Social Media Feeds** | Aggregated Reddit, Twitter/X, Instagram, and news coverage |
@@ -41,9 +41,9 @@ JanVayu is a single-page web application with 30+ sections covering every dimens
 | 31 | **PWA install** | Installable on Android, iOS, and desktop with offline shell + last-known AQI cache |
 | 32 | **"Did You Know" facts strip** | Six India-specific sourced fact cards on the dashboard under the anomaly banner — PM2.5 mortality, life-expectancy loss, NCAP fund split, NAAQS-vs-WHO gap, dose-response, Loni headline |
 | 33 | **Learning Games** | `/#games` — six self-paced games: Air Quality Jeopardy (₹1,000–₹5,000 INR tiles, ₹75,000 max), 10-question PM Quick-Quiz, Source Matcher, Clean Air Snakes & Ladders (inspired by *Moksha Patam*), Jodi Match (memory cards), Air Tambola (Indian housie). All original India-context content sourced from Lancet Countdown 2025, IQAir 2025, CEEW 2024, NCAP records |
-| 34 | **Ask JanVayu PWA** | Standalone installable AI chat at `/ask/` — chat-style interface, city chip selector, offline fallback. Available in English, Hindi, Tamil, Bengali, Marathi |
+| 34 | **Ask JanVayu PWA** | Standalone installable AI chat at `/ask/` — chat-style interface, 33-city chip selector, thumbs up/down feedback, offline fallback. Available in 10 languages |
 | 35 | **April–May 2026 Voices** | Curated Lancet Countdown launch reactions, Loni-residents ground report, Soumya Swaminathan at the "Be Cool" launch, Supreme Court four-week deadline, Warrior Moms commentary, CSE NCAP review |
-| 36 | **April–May 2026 Research Updates** | Featured card group at the top of the Research Library — Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024 Lancet Planetary Health, CEEW 2024 source apportionment |
+| 36 | **April–May 2026 Research Updates** | Featured card group at the top of the Reading List — Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024 Lancet Planetary Health, CEEW 2024 source apportionment |
 
 ---
 
