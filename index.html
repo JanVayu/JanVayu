@@ -216,6 +216,64 @@
             });
         }
 
+    function loadZoteroItems() {
+        const section = document.getElementById('zotero-section');
+        const loading = document.getElementById('zotero-loading');
+        const container = document.getElementById('zotero-items');
+        const countBadge = document.getElementById('zotero-count');
+        if (!section || !loading || !container) return;
+
+        // Show loading spinner
+        loading.style.display = '';
+        section.style.display = 'none';
+
+        fetch('/.netlify/functions/zotero-library')
+            .then(function(res) {
+                if (!res.ok) throw new Error('Zotero API returned ' + res.status);
+                return res.json();
+            })
+            .then(function(data) {
+                loading.style.display = 'none';
+                if (!data.items || data.items.length === 0) return;
+
+                var items = data.items.slice(0, 10);
+                var html = '';
+                items.forEach(function(item) {
+                    var tagsHtml = '';
+                    if (item.tags && item.tags.length > 0) {
+                        item.tags.slice(0, 2).forEach(function(tag) {
+                            tagsHtml += '<span class="badge badge-info" style="margin-right: 4px; margin-top: 4px;">' + escapeHTML(tag) + '</span>';
+                        });
+                    }
+                    var typeBadge = item.type
+                        ? '<span class="badge badge-success" style="margin-right: 4px;">' + escapeHTML(item.type) + '</span>'
+                        : '';
+                    var yearStr = item.year ? ' (' + escapeHTML(item.year) + ')' : '';
+                    var authorsStr = item.authors ? '<div class="resource-desc" style="margin-bottom: 2px; font-style: italic;">' + escapeHTML(item.authors) + yearStr + '</div>' : '';
+                    var titleLink = item.url
+                        ? '<a href="' + escapeHTML(item.url) + '" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;"><div class="resource-title">' + escapeHTML(item.title) + '</div></a>'
+                        : '<div class="resource-title">' + escapeHTML(item.title) + '</div>';
+
+                    html += '<div class="resource-card" data-keywords="zotero ' + escapeHTML((item.title || '') + ' ' + (item.authors || '')).toLowerCase() + '">'
+                        + '<div class="resource-type">' + typeBadge + 'Zotero</div>'
+                        + titleLink
+                        + authorsStr
+                        + (item.abstract ? '<div class="resource-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">' + escapeHTML(item.abstract) + '</div>' : '')
+                        + '<div style="margin-top: 6px;">' + tagsHtml + '</div>'
+                        + '</div>';
+                });
+
+                container.innerHTML = html;
+                if (countBadge) countBadge.textContent = data.count ? data.count + ' items in library' : items.length + ' items';
+                section.style.display = '';
+            })
+            .catch(function(err) {
+                console.warn('Zotero fetch failed:', err);
+                loading.style.display = 'none';
+                section.style.display = 'none';
+            });
+    }
+
     function loadDashboardNews() {
             document.getElementById('dashboard-news').innerHTML = `
                 <div class="news-item" style="padding: 0.5rem 0;"><div class="news-meta"><span class="news-source">Lancet</span>Dec 2024</div><div class="news-title" style="font-size: 0.75rem;">7.2% of Delhi daily deaths attributable to PM2.5 above WHO</div></div>
@@ -1123,6 +1181,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     animation: pulse 2s infinite;
 }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── Sections ──────────────────────────── */
 .page-section {
@@ -11674,6 +11733,20 @@ Signature: _______________</div>
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-library" style="color: var(--accent); margin-right: 0.4rem;"></span>Reading List</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A collection of trustworthy reports, studies, and data sources about air pollution in India. All free to access. Great for school projects, journalism, or just learning more.">Curated, verified open-access resources from peer-reviewed studies, government portals, and research institutions.</p>
+            </div>
+
+            <!-- ZOTERO LATEST (loaded dynamically) -->
+            <div id="zotero-section" style="display: none; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="si si-library" style="color: var(--accent);"></span>
+                    <h3 style="font-family: var(--serif); font-size: 1.25rem; margin: 0; color: var(--ink);">Latest from Zotero</h3>
+                    <span id="zotero-count" class="badge badge-info" style="margin-left: 0.25rem;"></span>
+                </div>
+                <div id="zotero-items" class="grid-3" style="gap: 0.75rem;"></div>
+            </div>
+            <div id="zotero-loading" style="display: none; text-align: center; padding: 1.5rem; margin-bottom: 2rem;">
+                <div style="display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+                <p style="font-size: 0.85rem; color: var(--text-3); margin-top: 0.5rem;">Loading Zotero library&hellip;</p>
             </div>
 
             <!-- SEARCH + CATEGORY FILTERS -->
