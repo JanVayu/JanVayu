@@ -49,7 +49,7 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 - [x] Clean Air Mission Tracker
 - [x] Historical trends with seasonal patterns
 - [x] City comparison with international benchmarks
-- [x] 40 content panels across 6 navigation categories
+- [x] 43 content panels across 7 intent-based navigation categories (reorganized v26.6.20)
 
 ---
 
@@ -187,6 +187,22 @@ Adds a seventh learning game inspired by *Only Connect* / NYT *Connections* / *T
 - [x] **Translated changelogs**: v26.6 stub added to `docs-hi/CHANGELOG.md`, `docs-bn/CHANGELOG.md`, `docs-mr/CHANGELOG.md`, `docs-ta/CHANGELOG.md`.
 - [x] **New blog post** `2026-05-20-vayu-junction.md` — walks through the four puzzle sets and the design choices.
 - [x] **`/walkthrough/` guided-tour page** (v26.6.11) — public page at `janvayu.in/walkthrough/` embedding the 64-slide MMSF Fellows deck via Google Slides iframe, with PPTX (24 MB) and PDF (13 MB) as direct downloads, footer link under Tools & Action, and a NEW-badged dashboard quick-link card.
+
+---
+
+## Phase 5.10: Chatbot Accuracy & UX Feedback (✅ Completed — v26.6.20)
+
+Addresses detailed user-testing feedback from a domain expert (Komal) who verified chatbot answers against ground truth.
+
+- [x] **CPCB station reference data** for 27 cities with CAAQMS vs manual bifurcation — chatbot now reports exact station counts and types instead of relying on WAQI subset.
+- [x] **Multi-station AQI range** for generic air quality queries — fixes the single-station (Mandir Marg) bias by fetching and presenting all stations in the city.
+- [x] **Low-cost sensor detection** expanded to catch "low cost sensors in [city]" queries.
+- [x] **Intent-based navigation** reorganization: 6 data-type tabs → 7 intent-based tabs. New "My Air" tab for personal tools. Resources cut from 16 → 8 items. All 43 panels preserved.
+- [x] **Clarity renames**: Hyperlocal → My Neighbourhood, Policy Effectiveness → Policy Tracker, Research Library → Reading List.
+- [x] **Feedback UI**: thumbs up/down on chatbot responses for accuracy tracking.
+- [x] **City bar**: 10 → 33 cities in the `/ask/` quick-select chip bar.
+- [x] **Service worker cache** bumped to force-refresh for returning visitors.
+- [x] i18n updated for en, hi, ta, mr, bn across all nav labels and group names.
 
 ---
 

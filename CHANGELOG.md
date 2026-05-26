@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.20] - 2026-05-26
+
+### Fixed — Chatbot accuracy (user feedback from Komal)
+
+- **Patna station count**: Added `CPCB_STATION_DATA` with per-city CAAQMS vs manual bifurcation for 27 cities. Patna now correctly reports 7 total = 3 CAAQMS (IGSC Planetarium, Muradpur, Samanpura) + 4 manual. System prompt instruction #13 rewritten to require bifurcated reporting.
+- **Delhi Mandir Marg bias**: Generic "how is the air quality" queries now auto-fetch all WAQI stations via `fetchCityStations()` and present a city-wide AQI range (min–max + average) instead of just the nearest station to centroid.
+- **Low-cost sensor detection**: `isHyperlocalQuery()` regex expanded to match "low cost sensors in [city]" patterns that were previously missed.
+- **Service worker cache**: Bumped `ask-janvayu-20260520-v3` → `ask-janvayu-20260526-v4` so returning visitors pick up the new HTML with feedback buttons.
+
+### Changed — Navigation reorganized (intent-based)
+
+Old structure (data-type grouping, Resources had 16 items):
+- Dashboard | Data & Health (5) | Monitoring (7) | Accountability (8) | Action (7) | Resources (16)
+
+New structure (intent-based, max 8 per group):
+- Dashboard | **My Air (7)** | City Data (6) | Health & Trends (6) | Accountability (8) | Take Action (8) | Resources (8)
+
+Key moves:
+- New "My Air" tab surfaces personal tools first (Ask JanVayu AI, Should I Go Outside, AQI Alerts, Exposure Report, School Closures, Purifier Calculator, Migration Calculator).
+- RTI Assistant: Resources → Take Action (it's an action, not reference).
+- Correlations: Monitoring → Health & Trends (analytical context).
+- Pollution Calendar: Resources → City Data (city-specific).
+- Social Media Feed + Live News: Monitoring → Resources (reference material).
+- All 43 panels preserved — zero functionality removed.
+
+### Changed — Renames for clarity
+
+- "Hyperlocal" → **My Neighbourhood**
+- "Policy Effectiveness" → **Policy Tracker**
+- "Research Library" → **Reading List** (in-app curated panel)
+- "Zotero Research Library" → **Full Bibliography (Zotero)** (external academic citation)
+
+### Added — Feedback UI on chatbot
+
+- Thumbs up/down buttons on every AI response in `/ask/` PWA.
+- Feedback stored in localStorage (question, city, timestamp, vote) for accuracy tracking.
+
+### Added — City bar expanded
+
+- City chip selector expanded from 10 to all 33 backend-supported cities.
+- Bar is horizontally scrollable — no extra vertical space taken.
+
+### Changed — Version markers
+
+- `package.json` 26.6.19 → **26.6.20**
+- `CITATION.cff` 26.6.19 → **26.6.20**
+- i18n updated for en, hi, ta, mr, bn across all nav labels and group names.
+
 ## [v26.6.19] - 2026-05-20
 
 ### Fixed — In-page Ask JanVayu widget (separate from /ask/ PWA) was unchanged
