@@ -31,6 +31,10 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### What's New (v26.6.x)
 
+**v26.6.21 — Auto-update infrastructure (26 May 2026)**
+- 7 systems for freshness automation: version single-source script, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system for dashboard numbers, reference data endpoint, Zotero → Reading List function.
+- Version bump now runs on every Netlify deploy. Service worker caches auto-sync. Key stats auto-patch from `stats.json`.
+
 **v26.6.20 — Chatbot accuracy + intent-based nav + feedback UI (26 May 2026)**
 - Chatbot station-count accuracy: CPCB reference data for 27 cities with CAAQMS vs manual bifurcation.
 - Multi-station AQI range for generic queries (fixes Delhi/Mandir Marg single-station bias).

@@ -2945,17 +2945,17 @@ body {
                             <div class="hero-pm25-aqi">AQI: <span id="delhi-live-aqi">--</span></div>
                         </div>
                         <div class="hero-stat">
-                            <div class="hero-stat-value danger">2.0M</div>
+                            <div class="hero-stat-value danger" data-stat="deaths_annual">2.0M</div>
                             <div class="hero-stat-label">Deaths/Year (India)</div>
                             <div class="hero-stat-note">State of Global Air 2025</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="hero-stat-value warning">$260B</div>
+                            <div class="hero-stat-value warning" data-stat="economic_cost">$260B</div>
                             <div class="hero-stat-label">Annual Cost (India)</div>
-                            <div class="hero-stat-note">9.5% GDP (Lancet)</div>
+                            <div class="hero-stat-note" data-stat="economic_pct_gdp">9.5% GDP (Lancet)</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="hero-stat-value" style="color: var(--purple);">96</div>
+                            <div class="hero-stat-value" style="color: var(--purple);" data-stat="delhi_annual_pm25">96</div>
                             <div class="hero-stat-label">Delhi Annual PM2.5</div>
                             <div class="hero-stat-note">19x WHO (2025 avg)</div>
                         </div>
@@ -3115,21 +3115,21 @@ body {
             <div class="grid-3" style="gap: 12px;">
                 <div class="card" style="border-left: 3px solid #1B6B4A;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: #1B6B4A; line-height: 1;">1.72M</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #1B6B4A; line-height: 1;" data-stat="deaths_annual">1.72M</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_deaths_title">Indian PM2.5 deaths a year</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">Lancet Countdown 2025. Up from 1.5M last cycle &mdash; ~70% of the global PM2.5 mortality burden is India.</div>
+                        <div style="color: var(--text-2); font-size: 0.8rem;" data-stat="global_share_deaths">Lancet Countdown 2025. Up from 1.5M last cycle &mdash; ~70% of the global PM2.5 mortality burden is India.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #B91C1C;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: #B91C1C; line-height: 1;">112.5 µg/m&sup3;</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #B91C1C; line-height: 1;" data-stat="most_polluted_city">112.5 µg/m&sup3;</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_loni_title">Loni, India &mdash; the world&rsquo;s most polluted city</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">IQAir World Air Quality Report 2025 (covering 2024 data; the most recent annual). Loni in Ghaziabad district, UP, dethroned Byrnihat. The annual average is 22&times; the WHO guideline.</div>
                     </div>
                 </div>
                 <div class="card" style="border-left: 3px solid #2563EB;">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: #2563EB; line-height: 1;">3.5 yrs</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #2563EB; line-height: 1;" data-stat="life_expectancy_loss">3.5 yrs</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_le_title">Life expectancy lost on average</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">AQLI 2025 (UChicago EPIC). Indo-Gangetic Plain residents lose 7-8 years &mdash; the highest in any region globally.</div>
                     </div>
@@ -12767,6 +12767,18 @@ Signature: _______________</div>
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.21 &mdash; 26 May 2026</div>
+                    <strong>Auto-update infrastructure &mdash; 7 systems for freshness automation</strong><br>
+                    &bull; <strong>Version single-source</strong>: <code>scripts/bump-version.mjs</code> reads <code>package.json</code> version and patches CITATION.cff + both service worker cache names. Runs on every Netlify deploy.<br>
+                    &bull; <strong>Sitemap auto-gen</strong>: <code>scripts/build-sitemap.mjs</code> generates <code>sitemap.xml</code> with real lastmod dates from git history.<br>
+                    &bull; <strong>Feed health</strong>: <code>netlify/functions/feed-health.mjs</code> &mdash; daily scheduled check of all 5 feed endpoints, reports healthy/stale/broken.<br>
+                    &bull; <strong>Translation sync</strong>: <code>scripts/translations.json</code> + <code>check-translations.mjs</code> &mdash; detect stale English terms in translated docs.<br>
+                    &bull; <strong>Data-stat system</strong>: <code>scripts/stats.json</code> as single source of truth for key dashboard numbers (1.72M deaths, $339.4B cost, etc.). Elements tagged with <code>data-stat</code> attributes, auto-patched on page load.<br>
+                    &bull; <strong>Reference data endpoint</strong>: CPCB stations, NCAP data, IQAir annual figures extracted to editable JSON at <code>netlify/functions/data/reference-data.json</code>. Served via API.<br>
+                    &bull; <strong>Zotero &rarr; Reading List</strong>: <code>netlify/functions/zotero-library.mjs</code> fetches from public Zotero API, caches in Netlify Blobs (6hr TTL).
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.20 &mdash; 26 May 2026</div>
                     <strong>Chatbot accuracy fixes, intent-based nav, feedback UI, 33-city bar</strong><br>
                     &bull; User feedback (Komal): <em>"The number of monitoring stations in Patna was incorrect. Delhi defaulted to Mandir Marg. Low-cost sensor queries for Patna returned nothing. Tabs are confusing for a layperson."</em><br>
@@ -16526,6 +16538,27 @@ function switchGame(name) {
             }
         };
     }
+})();
+</script>
+
+<!-- Auto-update data-stat elements from stats.json -->
+<script>
+(function() {
+    fetch('/scripts/stats.json')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(stats) {
+            if (!stats) return;
+            document.querySelectorAll('[data-stat]').forEach(function(el) {
+                var key = el.getAttribute('data-stat');
+                var entry = stats[key];
+                if (!entry) return;
+                // Build display value: value + optional unit
+                var display = entry.value;
+                if (entry.unit) display += ' ' + entry.unit;
+                el.innerHTML = display;
+            });
+        })
+        .catch(function() { /* stats.json unavailable — keep existing values */ });
 })();
 </script>
 
