@@ -1,4 +1,5 @@
 [build]
+  command = "node scripts/bump-version.mjs"
   publish = "."
   functions = "netlify/functions"
 

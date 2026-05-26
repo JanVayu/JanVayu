@@ -8,6 +8,9 @@
     "resend": "^6.9.3"
   },
   "scripts": {
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git config core.hooksPath .githooks",
+    "version:sync": "node scripts/bump-version.mjs",
+    "sitemap": "node scripts/build-sitemap.mjs",
+    "check:translations": "node scripts/check-translations.mjs"
   }
 }
