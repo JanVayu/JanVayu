@@ -31,6 +31,10 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### What's New (v26.6.x)
 
+**v26.6.22 — Women & Air Quality panel + historical map overlay (26 May 2026)**
+- New "Women & Air Quality" panel: indoor cooking exposure, maternal health, occupational exposure, gender data gap, action items. New "Woman / Caregiver" role.
+- Historical data time-slider on map: month/year slider (Jan 2024 → present), color-coded PM2.5 markers for 12 cities.
+
 **v26.6.21 — Auto-update infrastructure (26 May 2026)**
 - 7 systems for freshness automation: version single-source script, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system for dashboard numbers, reference data endpoint, Zotero → Reading List function.
 - Version bump now runs on every Netlify deploy. Service worker caches auto-sync. Key stats auto-patch from `stats.json`.
