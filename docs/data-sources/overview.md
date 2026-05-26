@@ -64,7 +64,7 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 
 ---
 
-## Zotero Research Library
+## Zotero Bibliography
 
 JanVayu maintains a public Zotero group library for collaborative bibliography management:
 
