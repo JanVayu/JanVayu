@@ -48,6 +48,9 @@ This is not a campaign. It is a record.
 | 20 | **Zotero Bibliography** | Public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
 | 21 | **Ask JanVayu PWA** | Installable standalone AI chat app for air quality Q&A at [janvayu.in/ask](https://www.janvayu.in/ask) — 33 cities, 10 languages, thumbs up/down feedback, works on Android, iOS, desktop |
 | 22 | **Learning Games** | Seven self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games) — India-context Air Quality Jeopardy (5×5 board, ₹1k–₹5k tiles), 10-question PM Quick-Quiz, 7-source matcher, Clean Air Snakes & Ladders inspired by Moksha Patam, Jodi Match memory cards, Air Tambola (Indian housie), and **Vayu Junction** — an *Only Connect* / NYT-*Connections* / *Torchlight*-inspired word-grouping puzzle with four India-AQ puzzle sets |
+| 23 | **Women & Air Quality** | Gender-specific air pollution analysis — indoor cooking exposure, maternal health, occupational risks, gender data gap. New "Woman / Caregiver" role |
+| 24 | **Historical Map Overlay** | Time-slider on the live map showing monthly PM2.5 data from Jan 2024 to present, color-coded by pollution level |
+| 25 | **Auto-Update Infrastructure** | Version sync, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system, reference data API, Zotero integration |
 
 ---
 
