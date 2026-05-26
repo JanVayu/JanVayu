@@ -89,7 +89,7 @@ Two peer-reviewed studies, distinct from the Lancet Countdown synthesis above, p
 2. **"Ambient air pollution and daily mortality in ten cities of India: a causal modelling study"** &mdash; First multi-city study examining short-term PM2.5 exposure and daily mortality using causal methods.  
    [DOI: 10.1016/S2542-5196(24)00114-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00114-1/fulltext)
 
-> **Note on the two figures.** The 1.5 million (Krishna et al.) and 1.72 million (Lancet Countdown 2025) numbers are **both legitimate and both cited** on JanVayu &mdash; they come from different methods (causal cohort vs. annual synthesis) and we keep both in the Research Library so readers can see them side by side. The dashboard hero uses 1.72 million, the more recent and commonly-cited figure.
+> **Note on the two figures.** The 1.5 million (Krishna et al.) and 1.72 million (Lancet Countdown 2025) numbers are **both legitimate and both cited** on JanVayu &mdash; they come from different methods (causal cohort vs. annual synthesis) and we keep both in the Reading List so readers can see them side by side. The dashboard hero uses 1.72 million, the more recent and commonly-cited figure.
 
 ---
 

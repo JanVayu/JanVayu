@@ -45,8 +45,8 @@ This is not a campaign. It is a record.
 | 17 | **Downloadable Reports** | Curated research papers and datasets for offline reference |
 | 18 | **Cultural Archive** | Satire, memes, art, and cultural responses to the pollution crisis |
 | 19 | **Blog** | Updates, data analysis, and reflections on India's air quality crisis at [janvayu.in/blog](https://www.janvayu.in/blog) |
-| 20 | **Zotero Research Library** | Public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
-| 21 | **Ask JanVayu PWA** | Installable standalone AI chat app for air quality Q&A at [janvayu.in/ask](https://www.janvayu.in/ask) — works on Android, iOS, desktop |
+| 20 | **Zotero Bibliography** | Public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
+| 21 | **Ask JanVayu PWA** | Installable standalone AI chat app for air quality Q&A at [janvayu.in/ask](https://www.janvayu.in/ask) — 33 cities, 10 languages, thumbs up/down feedback, works on Android, iOS, desktop |
 | 22 | **Learning Games** | Seven self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games) — India-context Air Quality Jeopardy (5×5 board, ₹1k–₹5k tiles), 10-question PM Quick-Quiz, 7-source matcher, Clean Air Snakes & Ladders inspired by Moksha Patam, Jodi Match memory cards, Air Tambola (Indian housie), and **Vayu Junction** — an *Only Connect* / NYT-*Connections* / *Torchlight*-inspired word-grouping puzzle with four India-AQ puzzle sets |
 
 ---

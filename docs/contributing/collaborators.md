@@ -1,6 +1,6 @@
 # JanVayu — Statement of Work for Research Collaborators
 
-**Platform:** [janvayu.in](https://www.janvayu.in) | **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu) | **Research Library:** [Zotero](https://www.zotero.org/groups/6508140/janvayu/library)
+**Platform:** [janvayu.in](https://www.janvayu.in) | **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu) | **Bibliography:** [Zotero](https://www.zotero.org/groups/6508140/janvayu/library)
 
 **About JanVayu:** India's independent, citizen-led air quality platform — combining live data, health impact analysis, budget tracking, and government accountability. Non-partisan, CC BY-NC-SA 4.0.
 

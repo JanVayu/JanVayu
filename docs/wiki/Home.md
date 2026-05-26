@@ -136,7 +136,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 ### Earlier (v25.4.0 — April 2026)
 
 - **Blog** — Docsify-powered blog at [janvayu.in/blog](https://www.janvayu.in/blog).
-- **Zotero Research Library** — Public bibliography at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library).
+- **Full Bibliography (Zotero)** — Public bibliography at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library).
 - **IQAir 2025 data** rolled in (Loni #1 globally; only 14% of cities meet WHO guideline).
 - **Lancet Planetary Health** causal PM2.5 mortality studies and **Science Advances** inequality study added to the library.
 
