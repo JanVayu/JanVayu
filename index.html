@@ -2654,10 +2654,15 @@ body {
                     <div class="role-card-title" data-i18n="role_journalist">Journalist</div>
                     <div class="role-card-desc" data-i18n="role_journalist_desc">Get story leads & data briefs</div>
                 </div>
+                <div class="role-card" onclick="selectRole('citizen')">
+                    <span class="role-card-icon"><span class="si si-home"></span></span>
+                    <div class="role-card-title" data-i18n="role_citizen">Citizen</div>
+                    <div class="role-card-desc" data-i18n="role_citizen_desc">Is it safe? Masks, purifiers, alerts</div>
+                </div>
                 <div class="role-card" onclick="selectRole('activist')">
                     <span class="role-card-icon"><span class="si si-flag"></span></span>
-                    <div class="role-card-title" data-i18n="role_activist">Citizen / Activist</div>
-                    <div class="role-card-desc" data-i18n="role_activist_desc">Take action, file RTIs, advocate</div>
+                    <div class="role-card-title" data-i18n="role_activist">Activist</div>
+                    <div class="role-card-desc" data-i18n="role_activist_desc">RTIs, legal rights, advocacy</div>
                 </div>
                 <div class="role-card" onclick="selectRole('doctor')">
                     <span class="role-card-icon"><span class="si si-hospital"></span></span>
@@ -2834,7 +2839,7 @@ body {
                 <div class="mobile-nav-group-label" data-i18n="navgroup_health">Health &amp; Trends</div>
                 <button class="mobile-nav-item" data-panel="health" data-i18n="nav_health">Health Impact</button>
                 <button class="mobile-nav-item" data-panel="children" data-i18n="nav_children">Children's Health</button>
-                <button class="mobile-nav-item" data-panel="gender" data-i18n="nav_gender">Women &amp; Air Quality</button>
+                <button class="mobile-nav-item" data-panel="gender" data-i18n="nav_gender">Women's Health</button>
                 <button class="mobile-nav-item" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                 <button class="mobile-nav-item" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                 <button class="mobile-nav-item" data-panel="trends" data-i18n="nav_trends">Historical Trends</button>
@@ -2919,7 +2924,7 @@ body {
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="health" data-i18n="nav_health">Health Impact</button>
                     <button class="nav-dropdown-link" data-panel="children" data-i18n="nav_children">Children's Health</button>
-                    <button class="nav-dropdown-link" data-panel="gender" data-i18n="nav_gender">Women &amp; Air Quality</button>
+                    <button class="nav-dropdown-link" data-panel="gender" data-i18n="nav_gender">Women's Health</button>
                     <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                     <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                     <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
@@ -6902,7 +6907,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'health', title: 'Health Impact', desc: 'Deaths, disease burden, GEMM calculator', keywords: 'health deaths mortality disease burden copd asthma cancer gemm who' },
         { id: 'economic', title: 'Economic Cost', desc: 'GDP loss, productivity, healthcare spending', keywords: 'economic cost gdp money billion dollars productivity lancet world bank' },
         { id: 'children', title: "Children's Health", desc: 'Lung development, school closures, stunting', keywords: 'children kids school stunting lung development pediatric' },
-        { id: 'gender', title: "Women & Air Quality", desc: 'Indoor cooking, maternal health, occupational exposure, gender data gap', keywords: 'women gender female maternal pregnancy cooking chulha biomass indoor ujjwala lpg caregiver' },
+        { id: 'gender', title: "Women's Health", desc: 'Indoor cooking, maternal health, occupational exposure, gender data gap', keywords: 'women gender female maternal pregnancy cooking chulha biomass indoor ujjwala lpg caregiver health' },
         { id: 'indoor', title: 'Indoor Air Quality', desc: 'Household pollution, cooking fuel, chulha', keywords: 'indoor household cooking chulha solid fuel lpg ujjwala women' },
         { id: 'trends', title: 'Historical Trends', desc: 'Timeline 1981 to present, key milestones', keywords: 'history timeline trends historical air act 1981 ncap' },
         { id: 'compare', title: 'City Comparison', desc: 'Metro AQI rankings, live data table', keywords: 'city cities comparison metro delhi mumbai kolkata bangalore chennai' },
@@ -12789,7 +12794,7 @@ Signature: _______________</div>
 <!-- ═══════════════════════════════════════════════ -->
 <template id="tmpl-gender">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-heart" style="color: #EC4899; margin-right: 0.4rem;"></span>Women &amp; Air Quality</h2>
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-heart" style="color: #EC4899; margin-right: 0.4rem;"></span>Women's Health &amp; Air Quality</h2>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Women and girls are hurt more by India's air pollution. They cook with dirty fuels, work in polluted places, and face higher health risks during pregnancy. But we barely track the problem because most air monitors are not where women spend their time.">Women and girls bear a disproportionate burden of India&rsquo;s air pollution crisis. From indoor cooking smoke to occupational exposure, from maternal health risks to the near-total absence of gender-disaggregated monitoring, the intersection of gender and air quality is one of India&rsquo;s most under-examined public health failures.</p>
     </div>
 
@@ -15320,13 +15325,13 @@ const ROLE_CONFIG = {
         heading: 'Air pollution affects women and families disproportionately',
         description: 'Indoor cooking exposure, maternal health risks, workplace safety, and what you can do.',
         actions: [
-            { icon: '<span class="si si-flare"></span>', panel: 'gender', title: 'Women & air pollution', desc: 'How cooking fuels, occupation, and pregnancy are affected.', cta: 'Read more →' },
+            { icon: '<span class="si si-flare"></span>', panel: 'gender', title: "Women's health & air pollution", desc: 'How cooking fuels, occupation, and pregnancy are affected.', cta: 'Read more →' },
             { icon: '<span class="si si-home"></span>', panel: 'indoor', title: 'Indoor air quality', desc: 'Cooking fuels, ventilation, and purifier guidance.', cta: 'Check now →' },
             { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Health risk calculator', desc: 'Calculate your personal PM2.5 exposure risk.', cta: 'Calculate →' }
         ],
         panels: [
             { panel: 'children', title: "Children's Health", desc: 'Impact on your children' },
-            { panel: 'gender', title: 'Women & Air Quality', desc: 'The full gender analysis' },
+            { panel: 'gender', title: "Women's Health", desc: 'The full gender analysis' },
             { panel: 'purifier-calc', title: 'Purifier Calculator', desc: 'Right purifier for your home' },
             { panel: 'exposure-report', title: 'Exposure Report', desc: 'Your personal exposure' },
             { panel: 'citizen-action', title: 'Citizen Action Plan', desc: 'Advocacy and community action' },
@@ -15405,22 +15410,40 @@ const ROLE_CONFIG = {
             { panel: 'social-feed', title: 'Social Media Feed', desc: 'Reddit, Twitter, Instagram, YouTube' }
         ]
     },
-    activist: {
-        icon: '<span class="si si-flag"></span>', label: 'Citizen / Activist',
-        heading: 'Take action for clean air',
-        description: 'RTI templates, advocacy tools, legal frameworks, and everything you need to demand accountability.',
+    citizen: {
+        icon: '<span class="si si-home"></span>', label: 'Citizen',
+        heading: 'Protect yourself and your family',
+        description: 'Real-time safety checks, mask guidance, purifier sizing, exposure tracking, and daily alerts.',
         actions: [
-            { icon: '<span class="si si-clipboard-check"></span>', panel: 'rti-assistant', title: 'File an RTI request', desc: 'Ready-to-use RTI templates for NCAP funds, GRAP compliance, and emission data.', cta: 'Generate RTI →' },
-            { icon: '<span class="si si-checklist"></span>', panel: 'citizen-action', title: 'Get your action plan', desc: 'Step-by-step guide: masks, advocacy, school petitions, councillor engagement.', cta: 'See plan →' },
-            { icon: '<span class="si si-hammer"></span>', panel: 'legal', title: 'Know your legal rights', desc: 'Article 21, Supreme Court orders, NGT rulings — clean air is a fundamental right.', cta: 'Read more →' }
+            { icon: '<span class="si si-flare"></span>', panel: 'go-outside', title: 'Should I go outside?', desc: 'Real-time recommendation based on current AQI in your city.', cta: 'Check now →' },
+            { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Calculate your health risk', desc: 'Personal PM2.5 exposure risk based on your age, conditions, and city.', cta: 'Calculate →' },
+            { icon: '<span class="si si-checklist"></span>', panel: 'citizen-action', title: 'Get your action plan', desc: 'Masks, purifiers, ventilation, school petitions — practical steps.', cta: 'See plan →' }
+        ],
+        panels: [
+            { panel: 'aqi-alerts', title: 'AQI Alerts', desc: 'Daily email digests for your city' },
+            { panel: 'exposure-report', title: 'Exposure Report', desc: 'Your annual PM2.5 exposure' },
+            { panel: 'purifier-calc', title: 'Purifier Calculator', desc: 'Right purifier for your room' },
+            { panel: 'school-closure', title: 'School Closures', desc: 'GRAP-based closure forecast' },
+            { panel: 'indoor', title: 'Indoor Air Quality', desc: 'Cooking fuels, ventilation tips' },
+            { panel: 'ask-janvayu', title: 'Ask JanVayu AI', desc: 'Ask anything about air quality' }
+        ]
+    },
+    activist: {
+        icon: '<span class="si si-flag"></span>', label: 'Activist',
+        heading: 'Demand accountability for clean air',
+        description: 'RTI templates, legal frameworks, budget tracking, and tools to hold governments accountable.',
+        actions: [
+            { icon: '<span class="si si-clipboard-check"></span>', panel: 'rti-assistant', title: 'File an RTI request', desc: 'Ready-to-use templates for NCAP funds, GRAP compliance, and emission data.', cta: 'Generate RTI →' },
+            { icon: '<span class="si si-hammer"></span>', panel: 'legal', title: 'Know your legal rights', desc: 'Article 21, Supreme Court orders, NGT rulings — clean air is a fundamental right.', cta: 'Read more →' },
+            { icon: '<span class="si si-shield"></span>', panel: 'accountability', title: 'Track political promises', desc: 'Who promised what, and did they deliver?', cta: 'View tracker →' }
         ],
         panels: [
             { panel: 'actions', title: 'Take Action', desc: 'Concrete steps you can take today' },
-            { panel: 'accountability', title: 'Political Accountability', desc: 'Hold leaders to their promises' },
             { panel: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Brief your ward councillor' },
-            { panel: 'voices', title: 'Citizen Voices', desc: 'Join the movement' },
             { panel: 'budget', title: 'Budget Tracker', desc: 'Is your city spending its funds?' },
-            { panel: 'migration', title: 'Migration Guide', desc: 'Climate displacement data' }
+            { panel: 'voices', title: 'Citizen Voices', desc: 'Join the movement' },
+            { panel: 'policy', title: 'Policy Tracker', desc: 'NCAP targets vs reality' },
+            { panel: 'migration', title: 'Migration & Displacement', desc: 'Climate displacement data' }
         ]
     },
     doctor: {
