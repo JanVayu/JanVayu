@@ -6329,9 +6329,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         }).join('');
     }
 
-    function initRankingsPanel() {
-        // reset cache so live always reflects latest aqiData
+    async function initRankingsPanel() {
         rankingsState.cache.live = null;
+        if (Object.keys(aqiData).length === 0) {
+            const tbody = document.getElementById('rankings-tbody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="6" style="color: var(--text-3); padding: 24px; text-align: center;">Fetching live data…</td></tr>';
+            try { await fetchAllAQI(); } catch(e) {}
+        }
         renderRankingsTable();
     }
 
