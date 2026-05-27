@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.23] - 2026-05-27
+
+### Added — New panels (Batch 1)
+
+- **Understanding AQI** (`tmpl-aqi-explainer`): interactive breakdown of 6 criteria pollutants (PM2.5, PM10, NO2, SO2, O3, CO) with individual cards, CPCB vs US EPA AQI scale comparison table, and "Why PM2.5 isn't the whole story" section.
+- **Shareable AQI Cards**: canvas-based PNG generator (1080x1080 Instagram, 1200x630 WhatsApp), color-coded by severity. Share buttons on dashboard, rankings, map popups, comparison cards. Web Share API on mobile.
+- **Exposure Diary** (`tmpl-exposure-diary`): log daily routine (16 activities with calibrated PM2.5 multipliers), weighted daily exposure, cigarette equivalence, life-expectancy impact, stacked bar chart, personalized reduction tips, localStorage history.
+- **Migration Comparison** (enhanced `tmpl-migration-calc`): replaced simple calculator with full side-by-side comparison — live AQI for both cities, 7-row table, source apportionment bar charts, verdict with life-years gained.
+
+### Added — New panels + enhancements (Batch 2)
+
+- **Data Source Selector** (`tmpl-source-selector`): educational panel on CPCB/WAQI/IQAir/Sensor.Community. Toggle switches, instrument/accuracy/coverage details, Source Impact Simulator.
+- **City Policy Tracker** (`tmpl-city-policy`): 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback section, governance questions.
+- **Enhanced Legal Framework**: state-wise court rulings (8 regions), Key Legal Rights summary (5 laws), "What Can I Do from Home?" 5-step citizen recourse guide with template letter.
+
+### Changed — Role & navigation updates
+
+- Split Citizen/Activist into two separate roles (now 12 roles total).
+- Women & Air Quality renamed to **Women's Health** in nav.
+- Nav label audit: 17 fixes (RTI footer link, cryptic labels, mismatches).
+
+### Fixed
+
+- Site-wide formatting sweep: 8 grid fixes + 2 table wraps.
+- City Rankings table formatting fix.
+- Rankings loading fix: fetch data if not ready on panel open.
+- 9 broken Sargam icons replaced with working alternatives.
+
+### Added — Content & docs
+
+- Blog post: "The May 26 Overhaul: 21 Fixes in One Day".
+- Updated walkthrough deck (65 slides, new PDF/PPTX/index.html).
+
+### Changed — Version markers
+
+- `package.json` 26.6.22 → **26.6.23**
+- `CITATION.cff` 26.6.22 → **26.6.23**
+
 ## [v26.6.22] - 2026-05-26
 
 ### Added — Women & Air Quality panel
