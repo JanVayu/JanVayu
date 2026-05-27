@@ -160,6 +160,15 @@ Seven systems to keep the platform fresh without manual edits on every release.
 
 Now that quality is **measurable** on every PR, Q3 is where we drive the numbers down by acting on the data:
 
+### Awaiting input (owner: Varna)
+
+These features are ready to build but need specific content/decisions:
+
+- [ ] **Janhit Partners page** — partner organization logos, names, work areas, and links. Need: list of partner orgs, logos, and descriptions.
+- [ ] **Workshop/training calendar** — upcoming events, dates, registration links. Need: event schedule or a Google Calendar to embed.
+- [ ] **Donate section** — donation mechanism for the platform. Need: payment platform (Razorpay/UPI) and legal structure for receiving donations.
+- [ ] **Social media integration** — link JanVayu content to social accounts. Need: which accounts exist (Twitter/X, Instagram, LinkedIn, YouTube handles).
+
 ### Performance (issue #3)
 
 - [ ] CSS split — extract panel-specific styles to a deferred external file (~200 ms additional FCP per the roadmap doc)
