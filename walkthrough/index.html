@@ -3,170 +3,547 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Walkthrough — JanVayu</title>
-<meta name="description" content="A walkthrough of JanVayu — a 64-slide guided tour built for the MMSF Fellows cohort. Embedded Google Slides deck plus PPTX and PDF downloads.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.janvayu.in/walkthrough/">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>JanVayu Walkthrough | A guided tour of the platform</title>
+<meta name="description" content="A 45-minute deep walkthrough of janvayu.in: every panel, every dataset, and how researchers, journalists, and advocates can use the platform in research, writing, and advocacy.">
+<meta name="theme-color" content="#15803D">
 
 <!-- Open Graph -->
+<meta property="og:title" content="JanVayu Walkthrough">
+<meta property="og:description" content="A guided tour of India's citizen air quality accountability platform. 64 slides, 45 minutes, speaker notes included.">
+<meta property="og:url" content="https://janvayu.in/walkthrough/">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://www.janvayu.in/walkthrough/">
-<meta property="og:title" content="Walkthrough — JanVayu">
-<meta property="og:description" content="A walkthrough of JanVayu — a 64-slide guided tour of the platform built for the MMSF Fellows cohort.">
-<meta property="og:image" content="https://www.janvayu.in/og-image.png">
+
+<link rel="canonical" href="https://janvayu.in/walkthrough/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-  :root {
-    --ink: #0F172A; --text-2: #475569; --text-3: #94A3B8;
-    --accent: #1B6B4A; --accent-hover: #15803D;
-    --bg: #FAFAF7; --bg-card: #FFFFFF; --border: #E2E8F0;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; padding: 32px 16px 64px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    background: var(--bg); color: var(--ink); line-height: 1.55;
-  }
-  .wrap { max-width: 980px; margin: 0 auto; }
-  h1 {
-    font-family: "Newsreader", Georgia, serif;
-    font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 8px;
-  }
-  .lede { color: var(--text-2); font-size: 1.05rem; max-width: 64ch; margin: 0 0 28px; }
-  .nav { font-size: 0.85rem; margin-bottom: 24px; }
-  .nav a { color: var(--accent); text-decoration: none; }
-  .nav a:hover { text-decoration: underline; }
+:root {
+    --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --serif: 'Newsreader', 'Georgia', serif;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Slide embed */
-  .slide-frame {
+    --green-50:  #F0FDF4;
+    --green-100: #DCFCE7;
+    --green-200: #BBF7D0;
+    --green-600: #16A34A;
+    --green-700: #15803D;
+    --green-800: #166534;
+    --green-900: #14532D;
+
+    --white:   #FFFFFF;
+    --gray-50: #FAFAFA;
+    --gray-100:#F4F4F5;
+    --gray-200:#E4E4E7;
+    --gray-400:#A1A1AA;
+    --gray-500:#71717A;
+    --gray-600:#52525B;
+    --gray-700:#3F3F46;
+    --gray-900:#18181B;
+
+    --bg: var(--white);
+    --bg-sunken: var(--gray-50);
+    --text-1: var(--gray-900);
+    --text-2: var(--gray-600);
+    --text-3: var(--gray-400);
+    --accent: var(--green-700);
+    --accent-hover: var(--green-600);
+    --border: var(--gray-200);
+    --border-subtle: var(--gray-100);
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+
+    --radius: 10px;
+    --radius-lg: 14px;
+    --max-w: 1100px;
+}
+
+@media (prefers-color-scheme: dark) {
+:root {
+    --bg: #0C0C0C;
+    --bg-sunken: #111111;
+    --text-1: #F4F4F5;
+    --text-2: #A1A1AA;
+    --text-3: #52525B;
+    --accent: #4ADE80;
+    --accent-hover: #86EFAC;
+    --border: #2A2A2A;
+    --border-subtle: #1F1F1F;
+}
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-1);
+    background: var(--bg);
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+.wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Top bar */
+.topbar {
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 0;
+    background: var(--bg);
+}
+.topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+.brand-script {
+    font-family: var(--serif);
+    color: var(--green-600);
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+.brand-tag {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    color: var(--text-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-left: 1px solid var(--border);
+    padding-left: 0.7rem;
+    margin-left: 0.3rem;
+    align-self: center;
+}
+.topbar nav a {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    margin-left: 1.25rem;
+}
+
+/* Hero */
+.hero { padding: 3.5rem 0 1.5rem; }
+.hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+.hero h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    color: var(--text-1);
+    margin: 0 0 1rem;
+}
+.hero .lede {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 60ch;
+}
+.hero-meta {
+    margin-top: 1.4rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-3);
+}
+.hero-meta strong {
+    color: var(--text-1);
+    font-weight: 500;
+}
+
+/* Deck embed */
+.deck {
+    margin: 2rem 0 2.5rem;
+}
+.deck-frame {
     position: relative;
     width: 100%;
-    background: #111;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-    aspect-ratio: 16 / 9;
-    margin-bottom: 24px;
-  }
-  .slide-frame iframe {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    border: 0;
-  }
-
-  /* Action buttons */
-  .actions {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    margin: 0 0 32px;
-  }
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.92rem; font-weight: 600;
-    border: 1px solid var(--accent);
-    transition: background 0.12s, color 0.12s, transform 0.12s;
-  }
-  .btn-primary {
-    background: var(--accent); color: #fff;
-  }
-  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-  .btn-secondary {
-    background: var(--bg-card); color: var(--accent);
-  }
-  .btn-secondary:hover { background: rgba(27,107,74,0.08); transform: translateY(-1px); }
-  .btn .file-meta {
-    font-size: 0.72rem; font-weight: 500; opacity: 0.75;
-    margin-left: 4px;
-  }
-
-  /* Body sections */
-  h2 {
-    font-family: "Newsreader", Georgia, serif;
-    font-size: 1.4rem; margin: 32px 0 12px;
-  }
-  .what-you-see {
-    background: var(--bg-card);
+    padding-top: 56.25%; /* 16:9 */
+    background: var(--bg-sunken);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-  }
-  .what-you-see ul { margin: 8px 0 0; padding-left: 22px; }
-  .what-you-see li { margin-bottom: 6px; color: var(--text-2); font-size: 0.95rem; }
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+.deck-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.deck-hint {
+    margin-top: 0.7rem;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.5;
+}
+.deck-hint code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: var(--bg-sunken);
+    border: 1px solid var(--border-subtle);
+    padding: 0.05rem 0.4rem;
+    border-radius: 4px;
+    color: var(--text-1);
+}
 
-  footer {
-    margin-top: 40px; padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-size: 0.78rem; color: var(--text-3);
-  }
-  footer a { color: var(--text-2); }
+/* Action row */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin: 1.5rem 0 0;
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: var(--radius);
+    font-family: var(--sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-1);
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s, transform 0.05s;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+.btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: var(--white);
+}
+@media (prefers-color-scheme: dark) {
+    .btn-primary { color: #0C0C0C; }
+    .btn-primary:hover { color: #0C0C0C; }
+}
+.btn small {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-3);
+    font-weight: 400;
+}
 
-  @media (max-width: 540px) {
-    .actions { flex-direction: column; align-items: stretch; }
-    .btn { justify-content: center; }
-  }
+/* Chapters */
+.chapters {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border-subtle);
+}
+.section-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.chapters h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.75rem;
+    color: var(--text-1);
+    margin: 0 0 1.5rem;
+}
+.chapter-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+}
+.chapter-list li {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+.chapter-list li:last-child { border-bottom: 0; }
+.chapter-num {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.chapter-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-1);
+    margin-bottom: 0.15rem;
+}
+.chapter-desc {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    line-height: 1.5;
+}
+
+/* Notes panel */
+details.notes {
+    margin-top: 3rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-sunken);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+}
+details.notes summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 500;
+    color: var(--text-1);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+details.notes summary::-webkit-details-marker { display: none; }
+details.notes summary::after {
+    content: "↓";
+    color: var(--text-3);
+    transition: transform 0.2s;
+}
+details.notes[open] summary::after { transform: rotate(180deg); }
+details.notes p {
+    margin: 1rem 0 0;
+    color: var(--text-2);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    margin-top: 5rem;
+    padding: 2.5rem 0;
+    background: var(--green-900);
+    color: #D4D4D8;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+@media (prefers-color-scheme: dark) {
+    footer { background: #0A1F12; }
+}
+footer .wrap { display: grid; gap: 1.5rem; }
+footer p { margin: 0; }
+footer strong { color: var(--white); font-weight: 600; }
+footer a { color: var(--green-200); }
+footer .legal { font-size: 0.78rem; color: #A1A1AA; }
+
+/* Mobile niceties */
+@media (max-width: 640px) {
+    .hero { padding: 2rem 0 1rem; }
+    .hero-meta { gap: 0.9rem; }
+    .topbar nav a { margin-left: 0; margin-right: 1rem; }
+    .topbar nav { width: 100%; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="nav"><a href="/">&larr; Back to JanVayu</a></div>
+<header class="topbar">
+    <div class="wrap">
+        <div>
+            <a href="/" class="brand">JanVayu <span class="brand-script">जनवायु</span></a>
+            <span class="brand-tag">Citizen Air Quality Platform</span>
+        </div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/#dashboard">Dashboard</a>
+            <a href="/#about">About</a>
+            <a href="https://github.com/janvayu" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
 
-  <h1>Walkthrough</h1>
-  <p class="lede">A walkthrough of JanVayu &mdash; a 64-slide guided tour through the platform built for the MMSF Fellows cohort under the <strong>AirQuality for Janhit</strong> programme (AIPC). Use the embedded deck below, or download the source files to present offline.</p>
+<main class="wrap">
 
-  <div class="slide-frame">
-    <iframe
-      src="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/embed?start=false&loop=false&delayms=3000"
-      title="JanVayu MMSF Walkthrough &mdash; Google Slides embed"
-      frameborder="0"
-      allowfullscreen="true"
-      mozallowfullscreen="true"
-      webkitallowfullscreen="true"></iframe>
-  </div>
+    <section class="hero">
+        <div class="hero-eyebrow">Guided tour</div>
+        <h1>A walkthrough of JanVayu</h1>
+        <p class="lede">A 45-minute deep tour of every section of <a href="/">janvayu.in</a>: live data and forecasts, health and exposure tools, the budget tracker, accountability dashboards, citizen tools, and the underlying data and design. First released May 2026.</p>
 
-  <div class="actions">
-    <a class="btn btn-primary"
-       href="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/edit?usp=sharing"
-       target="_blank" rel="noopener">
-       Open in Google Slides <span class="file-meta">(view-only)</span>
-    </a>
-    <a class="btn btn-secondary"
-       href="JanVayu_MMSF_Walkthrough.pdf"
-       download>
-       Download PDF <span class="file-meta">(13 MB)</span>
-    </a>
-    <a class="btn btn-secondary"
-       href="JanVayu_MMSF_Walkthrough.pptx"
-       download>
-       Download PPTX <span class="file-meta">(24 MB &middot; editable)</span>
-    </a>
-  </div>
+        <div class="hero-meta">
+            <span><strong>65 slides</strong> · 9 chapters · ~45 min</strong></span>
+            <span>Speaker notes included</span>
+            <span>Refreshed 27 May 2026</span>
+            <span>v26.6.22</span>
+        </div>
+    </section>
 
-  <div class="what-you-see">
-    <h2 style="margin-top: 0;">What this walkthrough covers</h2>
-    <ul>
-      <li>How JanVayu is structured &mdash; the intent-based navigation (My Air, City Data, Health &amp; Trends, Accountability, Take Action, Resources), the 40+ panels, and the role-based landing experience</li>
-      <li>Live AQI data for 33 cities via WAQI, CPCB CAAQMS, and Sensor.Community &mdash; and how they flow through the Netlify Functions tier</li>
-      <li>The Accountability section &mdash; NCAP budget tracker, mission tracker, political accountability, RTI templates</li>
-      <li>The seven learning games, including the <em>Vayu Junction</em> word-grouping puzzle</li>
-      <li>The Reading List (curated research and resources for air-quality advocates)</li>
-      <li>How to fork JanVayu for a new city or country &mdash; cost, setup, attribution</li>
-    </ul>
-  </div>
+    <section class="deck">
+        <div class="deck-frame">
+            <!--
+              Embed source. Two options:
+              (1) Source-doc embed (works once share is set to Anyone-with-link Viewer):
+              https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/embed?start=false&loop=false&delayms=3000
+              (2) Published-to-web embed (use after File > Share > Publish to web):
+              https://docs.google.com/presentation/d/e/PUB_ID/embed?start=false&loop=false&delayms=3000
+            -->
+            <iframe
+                src="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/embed?start=false&loop=false&delayms=3000"
+                allowfullscreen
+                mozallowfullscreen
+                webkitallowfullscreen
+                title="JanVayu Walkthrough"
+                loading="lazy"></iframe>
+        </div>
+        <p class="deck-hint">
+            Use <code>F</code> for fullscreen and <code>S</code> to toggle speaker notes. Each slide carries explanatory notes intended for spoken delivery; click the gear icon in the player and pick <em>Open speaker notes</em> to see them in a side panel.
+        </p>
 
-  <p style="font-size: 0.85rem; color: var(--text-2); background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 20px;"><strong>Note:</strong> The embedded slides reflect the platform&rsquo;s navigation as of May&nbsp;20,&nbsp;2026. Since then, the navigation has been reorganised into intent-based groupings (My&nbsp;Air, City&nbsp;Data, Health&nbsp;&amp;&nbsp;Trends, Accountability, Take&nbsp;Action, Resources) and several features have been added including chatbot feedback, 33-city support, and auto-update infrastructure.</p>
+        <div class="actions">
+            <a class="btn btn-primary" href="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/edit?usp=sharing" target="_blank" rel="noopener">
+                Open in Google Slides
+            </a>
+            <a class="btn" href="JanVayu_Walkthrough.pptx" download>
+                Download PowerPoint <small>.pptx · 14 MB</small>
+            </a>
+            <a class="btn" href="JanVayu_Walkthrough.pdf" target="_blank" rel="noopener">
+                Open PDF <small>64 pages</small>
+            </a>
+            <a class="btn" href="JanVayu_Walkthrough_with_notes.pdf" target="_blank" rel="noopener">
+                PDF with speaker notes
+            </a>
+        </div>
+    </section>
 
-  <p style="font-size: 0.85rem; color: var(--text-3);">The PDF and PPTX above are exported directly from the live Google Slides deck and may lag the linked version by a few minutes. For the absolute latest, use <em>Open in Google Slides</em>. To run the deck offline, download the PDF (presentation-only) or the PPTX (editable in PowerPoint, Keynote, or LibreOffice Impress).</p>
+    <section class="chapters" aria-labelledby="chapters-h">
+        <div class="section-eyebrow">Contents</div>
+        <h2 id="chapters-h">Nine chapters</h2>
+        <ol class="chapter-list">
+            <li>
+                <span class="chapter-num">1</span>
+                <div>
+                    <div class="chapter-title">Frame &amp; entry</div>
+                    <div class="chapter-desc">Why JanVayu exists, the role-selector splash, and how the site organises itself.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">2</span>
+                <div>
+                    <div class="chapter-title">The live picture</div>
+                    <div class="chapter-desc">Dashboard, live map, rankings, comparison, trends, forecast, My Neighbourhood, Pollution Correlations, alerts, pollution calendar.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">3</span>
+                <div>
+                    <div class="chapter-title">Health &amp; exposure</div>
+                    <div class="chapter-desc">Health Impact (GEMM), Children's Health, Women's Health, Indoor Air, Exposure Report, Should I Go Outside, Purifier, School Closures.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">4</span>
+                <div>
+                    <div class="chapter-title">Economic cost &amp; migration</div>
+                    <div class="chapter-desc">Economic Cost calculator, Migration &amp; Displacement, Migration Calculator.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">5</span>
+                <div>
+                    <div class="chapter-title">Policy &amp; accountability</div>
+                    <div class="chapter-desc">Policy Tracker, Budget Tracker, Political Accountability, Industrial Sources, Mission Tracker (E1–E5), Scorecards, Accountability Brief, Clean Air Wins, Legal Framework, RTI Assistant.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">6</span>
+                <div>
+                    <div class="chapter-title">Citizen action</div>
+                    <div class="chapter-desc">Take Action, Citizen Plan, Voices, Workshops, Learning Games, Social Feed, Live News.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">7</span>
+                <div>
+                    <div class="chapter-title">Tools &amp; knowledge</div>
+                    <div class="chapter-desc">Ask JanVayu (AI), Tools, Glossary, Reading List, Downloads, Data Archive.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">8</span>
+                <div>
+                    <div class="chapter-title">About, footer, compliance</div>
+                    <div class="chapter-desc">Provenance, licensing, disclaimers, IT Act compliance.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">9</span>
+                <div>
+                    <div class="chapter-title">Using JanVayu in your work</div>
+                    <div class="chapter-desc">How researchers, journalists, and advocates can pull data, embed widgets, file RTIs, and integrate findings.</div>
+                </div>
+            </li>
+        </ol>
 
-  <footer>
-    <p>Part of <strong>AirQuality for Janhit</strong> by MMSF Fellows, AIPC &middot; <a href="/">JanVayu home</a> &middot; <a href="https://github.com/JanVayu/JanVayu">GitHub</a></p>
-    <p>Code: MIT &middot; Content: CC BY-NC-SA 4.0</p>
-  </footer>
+        <details class="notes">
+            <summary>About this walkthrough</summary>
+            <p>
+                The deck is a one-pass tour of the platform as it stands in May 2026 (v26.6.22). It is built as a teaching reference: every panel is shown with a live screenshot, four short bullets that name the panel's purpose and choices, and spoken-delivery notes that explain why each panel exists and how someone might use it in research, writing, or advocacy. The deck is licensed under CC BY-NC-SA 4.0 like the rest of JanVayu content; the underlying PowerPoint is available above for adaptation and re-presentation under that licence.
+            </p>
+            <p>
+                For the most up-to-date version of any panel, click through to the live site rather than relying on the screenshot. Live data, rankings, and budget figures update in real time on janvayu.in; the deck captures the state at the time of recording. Specific dated claims (NCAP deadline elapsed 31 March 2026, CSE Five-Year Review April 2026, IQAir 2025 release, CAQM first off-season GRAP-I on 19 May 2026) are anchored to dated primary sources in the Research Library.
+            </p>
+        </details>
+    </section>
 
-</div>
+</main>
+
+<footer>
+    <div class="wrap">
+        <p>
+            <strong>JanVayu जनवायु</strong> · India's independent, citizen-led air quality monitoring, health impact analysis, and government accountability platform. Clean air is not a privilege, it is a right.
+        </p>
+        <p>
+            Data from WAQI, CPCB CAAQMS, WHO, CREA, and UrbanEmissions.info.
+        </p>
+        <p class="legal">
+            <strong>Licence.</strong> Code under MIT. Content under CC BY-NC-SA 4.0.
+            <strong>Compliance.</strong> Published in accordance with the Information Technology Act, 2000 and the IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact <a href="mailto:contribute@janvayu.in">contribute@janvayu.in</a>.
+        </p>
+    </div>
+</footer>
+
 </body>
 </html>
