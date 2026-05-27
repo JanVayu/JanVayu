@@ -915,6 +915,35 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .si-ai { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_AI.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_AI.svg); }
 .si-notifications { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Notifications.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Notifications.svg); }
 .si-hammer { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hammer.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hammer.svg); }
+.si-share { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Share.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Share.svg); }
+.si-image { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Image.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Image.svg); }
+
+/* ── Share AQI Card ────────────────────── */
+.share-aqi-btn {
+    width: 24px; height: 24px; min-width: 24px;
+    border: none; border-radius: 50%; cursor: pointer;
+    background: var(--bg-section); color: var(--text-3);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s; padding: 0; flex-shrink: 0;
+}
+.share-aqi-btn:hover { background: var(--accent); color: #fff; }
+.share-aqi-btn .si { width: 12px; height: 12px; }
+.share-card-section {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px; text-align: center;
+}
+.share-card-section select {
+    font-family: var(--sans); font-size: 0.8rem; padding: 6px 10px;
+    border: 1px solid var(--border); border-radius: 6px;
+    background: var(--bg-section); color: var(--text); cursor: pointer;
+}
+.share-card-preview {
+    margin: 16px auto; max-width: 400px;
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+.share-card-preview img { width: 100%; display: block; }
+.share-card-actions { display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
 
 /* ── AI Features ────────────────────────── */
 .ai-badge {
@@ -2825,7 +2854,7 @@ body {
                 <button class="mobile-nav-item" data-panel="exposure-diary">Exposure Diary</button>
                 <button class="mobile-nav-item" data-panel="school-closure" data-i18n="nav_school_closure">School Closures</button>
                 <button class="mobile-nav-item" data-panel="purifier-calc" data-i18n="nav_purifier_calc">Purifier Calculator</button>
-                <button class="mobile-nav-item" data-panel="migration-calc" data-i18n="nav_migration_calc">Migration Calculator</button>
+                <button class="mobile-nav-item" data-panel="migration-calc" data-i18n="nav_migration_calc">Migration Comparison</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_citydata">City Data</div>
@@ -2908,7 +2937,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="exposure-diary">Exposure Diary</button>
                     <button class="nav-dropdown-link" data-panel="school-closure" data-i18n="nav_school_closure">School Closures</button>
                     <button class="nav-dropdown-link" data-panel="purifier-calc" data-i18n="nav_purifier_calc">Purifier Calculator</button>
-                    <button class="nav-dropdown-link" data-panel="migration-calc" data-i18n="nav_migration_calc">Migration Calculator</button>
+                    <button class="nav-dropdown-link" data-panel="migration-calc" data-i18n="nav_migration_calc">Migration Comparison</button>
                 </div>
             </div>
             <div class="nav-item">
@@ -3061,6 +3090,14 @@ body {
                             <div class="hero-pm25-unit">µg/m³</div>
                             <div class="hero-pm25-who" id="delhi-who-multiple" style="color: var(--red);">--x WHO guideline</div>
                             <div class="hero-pm25-aqi">AQI: <span id="delhi-live-aqi">--</span></div>
+                            <button onclick="generateAQICard(document.getElementById('hero-city-select').value)" title="Download shareable AQI card" style="
+                                margin-top: 8px; padding: 4px 14px; font-size: 0.7rem; font-weight: 600;
+                                font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.05em;
+                                background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+                                border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+                                cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+                                transition: all 0.15s;
+                            " onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><span class="si si-share" style="width:12px;height:12px;"></span>Share AQI Card</button>
                         </div>
                         <div class="hero-stat">
                             <div class="hero-stat-value danger" data-stat="deaths_annual">2.0M</div>
@@ -3160,6 +3197,86 @@ body {
                     <div class="card">
                         <div class="card-header"><span class="card-title">North vs South India</span></div>
                         <div class="card-body"><div class="chart-container"><canvas id="regionChart" role="img" aria-label="Bar chart comparing average AQI between North India and South India."></canvas></div></div>
+                    </div>
+                </div>
+
+                <!-- Share AQI Card -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <span class="card-title"><span class="si si-sm si-share" style="margin-right: 4px;"></span> Share AQI Card</span>
+                        <span style="font-size: 0.65rem; color: var(--text-3);">Download a branded image for WhatsApp / Instagram</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 220px;">
+                                <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                                    <select id="share-card-city" onchange="updateShareCardPreview()" style="font-family: var(--sans); font-size: 0.8rem; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-section); color: var(--text); flex: 1; min-width: 140px;">
+                                        <optgroup label="Metros">
+                                            <option value="delhi" selected>Delhi</option>
+                                            <option value="mumbai">Mumbai</option>
+                                            <option value="kolkata">Kolkata</option>
+                                            <option value="chennai">Chennai</option>
+                                            <option value="bangalore">Bengaluru</option>
+                                            <option value="hyderabad">Hyderabad</option>
+                                        </optgroup>
+                                        <optgroup label="NCR">
+                                            <option value="gurgaon">Gurgaon</option>
+                                            <option value="noida">Noida</option>
+                                            <option value="faridabad">Faridabad</option>
+                                            <option value="ghaziabad">Ghaziabad</option>
+                                        </optgroup>
+                                        <optgroup label="North India">
+                                            <option value="lucknow">Lucknow</option>
+                                            <option value="kanpur">Kanpur</option>
+                                            <option value="patna">Patna</option>
+                                            <option value="jaipur">Jaipur</option>
+                                            <option value="varanasi">Varanasi</option>
+                                            <option value="agra">Agra</option>
+                                            <option value="chandigarh">Chandigarh</option>
+                                            <option value="amritsar">Amritsar</option>
+                                            <option value="dehradun">Dehradun</option>
+                                            <option value="jodhpur">Jodhpur</option>
+                                        </optgroup>
+                                        <optgroup label="Central India">
+                                            <option value="bhopal">Bhopal</option>
+                                            <option value="indore">Indore</option>
+                                            <option value="nagpur">Nagpur</option>
+                                            <option value="raipur">Raipur</option>
+                                        </optgroup>
+                                        <optgroup label="West India">
+                                            <option value="ahmedabad">Ahmedabad</option>
+                                            <option value="pune">Pune</option>
+                                        </optgroup>
+                                        <optgroup label="South India">
+                                            <option value="kochi">Kochi</option>
+                                            <option value="visakhapatnam">Visakhapatnam</option>
+                                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                                            <option value="coimbatore">Coimbatore</option>
+                                        </optgroup>
+                                        <optgroup label="East India">
+                                            <option value="guwahati">Guwahati</option>
+                                            <option value="muzaffarpur">Muzaffarpur</option>
+                                            <option value="gaya">Gaya</option>
+                                        </optgroup>
+                                    </select>
+                                    <select id="share-card-format" onchange="updateShareCardPreview()" style="font-family: var(--sans); font-size: 0.8rem; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-section); color: var(--text); min-width: 120px;">
+                                        <option value="square">1080x1080 (Instagram)</option>
+                                        <option value="landscape">1200x630 (WhatsApp)</option>
+                                    </select>
+                                </div>
+                                <div id="share-card-preview" class="share-card-preview">
+                                    <p style="color: var(--text-3); padding: 2rem;">Loading preview...</p>
+                                </div>
+                                <div class="share-card-actions">
+                                    <button class="btn btn-primary btn-sm" onclick="generateAQICard(document.getElementById('share-card-city').value, {format: document.getElementById('share-card-format').value})">
+                                        <span class="si si-sm si-download"></span> Download PNG
+                                    </button>
+                                    <button class="btn btn-sm" onclick="generateAQICard(document.getElementById('share-card-city').value, {format: document.getElementById('share-card-format').value, share: true})">
+                                        <span class="si si-sm si-share"></span> Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -4453,7 +4570,7 @@ body {
         if (worstEl) {
             worstEl.innerHTML = sorted.slice(0, 5).map((item, i) => {
                 const pm25 = item[1].pm25 || Math.round(item[1].aqi * 0.7);
-                return `<div class="city-rank"><span class="rank-num ${i < 3 ? 'top' : ''}">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span></div>`;
+                return `<div class="city-rank"><span class="rank-num ${i < 3 ? 'top' : ''}">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
             }).join('');
         }
 
@@ -4461,9 +4578,12 @@ body {
         if (bestEl) {
             bestEl.innerHTML = sorted.slice(-5).reverse().map((item, i) => {
                 const pm25 = item[1].pm25 || Math.round(item[1].aqi * 0.7);
-                return `<div class="city-rank"><span class="rank-num">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span></div>`;
+                return `<div class="city-rank"><span class="rank-num">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
             }).join('');
         }
+
+        // Update share card preview if visible
+        if (document.getElementById('share-card-preview')) updateShareCardPreview();
     }
 
     // ── Charts ──
@@ -4625,6 +4745,214 @@ body {
         } else {
             navigator.clipboard.writeText(url);
             alert('Link copied to clipboard');
+        }
+    }
+
+    // ── Share AQI Card (Canvas-based image generator) ──
+    function getAQICardGradient(ctx, aqi, w, h) {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        if (aqi <= 50)       { g.addColorStop(0, '#064E3B'); g.addColorStop(1, '#0D9488'); }
+        else if (aqi <= 100) { g.addColorStop(0, '#713F12'); g.addColorStop(1, '#A16207'); }
+        else if (aqi <= 200) { g.addColorStop(0, '#7C2D12'); g.addColorStop(1, '#C2410C'); }
+        else if (aqi <= 300) { g.addColorStop(0, '#7F1D1D'); g.addColorStop(1, '#DC2626'); }
+        else if (aqi <= 400) { g.addColorStop(0, '#3B0764'); g.addColorStop(1, '#7C3AED'); }
+        else                 { g.addColorStop(0, '#4A0420'); g.addColorStop(1, '#831843'); }
+        return g;
+    }
+
+    async function generateAQICard(cityKey, opts) {
+        const data = aqiData[cityKey];
+        if (!data) { alert('No AQI data available for this city yet. Please wait for data to load.'); return; }
+        const city = CITIES[cityKey];
+        if (!city) return;
+
+        const format = (opts && opts.format) || 'square';
+        const W = format === 'landscape' ? 1200 : 1080;
+        const H = format === 'landscape' ? 630 : 1080;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = W;
+        canvas.height = H;
+        const ctx = canvas.getContext('2d');
+
+        const aqi = data.aqi || 0;
+        const pm25 = data.pm25 || Math.round(aqi * 0.7);
+        const whoX = getWHOMultiple(pm25);
+        const cigPerDay = (pm25 / 22).toFixed(1);
+        const label = getAQILabel(aqi);
+        const color = getAQIColor(aqi);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+        const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+        // Background gradient
+        ctx.fillStyle = getAQICardGradient(ctx, aqi, W, H);
+        ctx.fillRect(0, 0, W, H);
+
+        // Subtle pattern overlay
+        ctx.fillStyle = 'rgba(255,255,255,0.03)';
+        for (let i = 0; i < H; i += 4) { ctx.fillRect(0, i, W, 2); }
+
+        // Card inner area (semi-transparent dark panel)
+        const mx = W * 0.08;
+        const my = H * 0.06;
+        const cw = W - mx * 2;
+        const ch = H - my * 2;
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.beginPath();
+        const cr = 32;
+        ctx.moveTo(mx + cr, my);
+        ctx.arcTo(mx + cw, my, mx + cw, my + ch, cr);
+        ctx.arcTo(mx + cw, my + ch, mx, my + ch, cr);
+        ctx.arcTo(mx, my + ch, mx, my, cr);
+        ctx.arcTo(mx, my, mx + cw, my, cr);
+        ctx.closePath();
+        ctx.fill();
+
+        // ── Header: JanVayu branding ──
+        const headerY = my + (format === 'landscape' ? 40 : 60);
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.font = 'bold ' + (format === 'landscape' ? '28px' : '36px') + ' system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('JanVayu', W / 2, headerY);
+        ctx.font = (format === 'landscape' ? '14px' : '16px') + ' system-ui, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.fillText('India Air Quality Dashboard', W / 2, headerY + (format === 'landscape' ? 24 : 30));
+
+        // Divider line
+        const divY = headerY + (format === 'landscape' ? 40 : 52);
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(mx + 40, divY);
+        ctx.lineTo(mx + cw - 40, divY);
+        ctx.stroke();
+
+        // ── City name ──
+        const cityY = divY + (format === 'landscape' ? 45 : 70);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold ' + (format === 'landscape' ? '38px' : '52px') + ' system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(city.name, W / 2, cityY);
+
+        // ── AQI number (huge) ──
+        const aqiNumY = cityY + (format === 'landscape' ? 90 : 140);
+        ctx.font = 'bold ' + (format === 'landscape' ? '100px' : '160px') + ' system-ui, -apple-system, sans-serif';
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 40;
+        ctx.fillText(aqi, W / 2, aqiNumY);
+        ctx.shadowBlur = 0;
+        // AQI label
+        ctx.font = 'bold ' + (format === 'landscape' ? '22px' : '28px') + ' system-ui, sans-serif';
+        ctx.fillStyle = color;
+        ctx.fillText('AQI — ' + label, W / 2, aqiNumY + (format === 'landscape' ? 30 : 45));
+
+        // ── Stats grid ──
+        const statsY = aqiNumY + (format === 'landscape' ? 65 : 110);
+        const statsFont = (format === 'landscape' ? '16px' : '20px') + ' system-ui, sans-serif';
+        const statsValFont = 'bold ' + (format === 'landscape' ? '26px' : '34px') + ' system-ui, sans-serif';
+        const colW = cw / 3;
+
+        // PM2.5
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.font = statsFont;
+        ctx.fillText('PM2.5', mx + colW * 0.5, statsY);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = statsValFont;
+        ctx.fillText(pm25 + ' µg/m³', mx + colW * 0.5, statsY + (format === 'landscape' ? 30 : 38));
+
+        // WHO multiple
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.font = statsFont;
+        ctx.fillText('WHO Guideline', mx + colW * 1.5, statsY);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = statsValFont;
+        ctx.fillText(whoX + '×', mx + colW * 1.5, statsY + (format === 'landscape' ? 30 : 38));
+
+        // Cigarette equivalence
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.font = statsFont;
+        ctx.fillText('Cigarettes/Day', mx + colW * 2.5, statsY);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = statsValFont;
+        ctx.fillText(cigPerDay, mx + colW * 2.5, statsY + (format === 'landscape' ? 30 : 38));
+
+        // ── Date & time ──
+        const footerY = H - my - (format === 'landscape' ? 32 : 60);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.font = (format === 'landscape' ? '13px' : '16px') + ' system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(dateStr + '  ·  ' + timeStr, W / 2, footerY);
+
+        // ── URL footer ──
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold ' + (format === 'landscape' ? '15px' : '18px') + ' system-ui, sans-serif';
+        ctx.fillText('janvayu.in', W / 2, footerY + (format === 'landscape' ? 22 : 30));
+
+        // ── Download or share ──
+        canvas.toBlob(function(blob) {
+            if (!blob) return;
+            var citySlug = city.name.toLowerCase().replace(/\s+/g, '-');
+            var dateSlug = now.toISOString().slice(0, 10);
+            var filename = 'janvayu-' + citySlug + '-' + dateSlug + '.png';
+
+            // Try Web Share API with file (mobile)
+            if (opts && opts.share && navigator.canShare) {
+                var file = new File([blob], filename, { type: 'image/png' });
+                var shareData = {
+                    title: city.name + ' AQI: ' + aqi + ' - JanVayu',
+                    text: city.name + ' AQI is ' + aqi + ' (' + label + '). PM2.5: ' + pm25 + ' µg/m³ (' + whoX + '× WHO). Check janvayu.in for live data.',
+                    files: [file]
+                };
+                if (navigator.canShare(shareData)) {
+                    navigator.share(shareData).catch(function() {});
+                    return;
+                }
+            }
+
+            // Fallback: download
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
+        }, 'image/png');
+    }
+
+    function updateShareCardPreview() {
+        var cityKey = document.getElementById('share-card-city') ? document.getElementById('share-card-city').value : null;
+        var format = document.getElementById('share-card-format') ? document.getElementById('share-card-format').value : 'square';
+        if (!cityKey || !aqiData[cityKey]) {
+            var preview = document.getElementById('share-card-preview');
+            if (preview) preview.innerHTML = '<p style="color: var(--text-3); padding: 2rem;">Select a city with available data to preview.</p>';
+            return;
+        }
+        var data = aqiData[cityKey];
+        var city = CITIES[cityKey];
+        var aqi = data.aqi || 0;
+        var pm25 = data.pm25 || Math.round(aqi * 0.7);
+        var whoX = getWHOMultiple(pm25);
+        var cigPerDay = (pm25 / 22).toFixed(1);
+        var label = getAQILabel(aqi);
+        var color = getAQIColor(aqi);
+
+        var preview = document.getElementById('share-card-preview');
+        if (preview) {
+            preview.innerHTML = '<div style="background: linear-gradient(135deg, ' + color + '22, ' + color + '44); border-radius: 12px; padding: 24px; text-align: center;">'
+                + '<div style="font-weight: 700; font-size: 0.75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em;">JanVayu</div>'
+                + '<div style="font-size: 1.1rem; font-weight: 700; margin: 8px 0 4px;">' + city.name + '</div>'
+                + '<div style="font-size: 2.5rem; font-weight: 800; color: ' + color + ';">' + aqi + '</div>'
+                + '<div style="font-size: 0.8rem; font-weight: 600; color: ' + color + ';">AQI — ' + label + '</div>'
+                + '<div style="display: flex; justify-content: center; gap: 16px; margin-top: 12px; font-size: 0.75rem; color: var(--text-2);">'
+                + '<span>PM2.5: ' + pm25 + '</span>'
+                + '<span>' + whoX + '× WHO</span>'
+                + '<span>' + cigPerDay + ' cig/day</span>'
+                + '</div></div>';
         }
     }
 
@@ -4806,7 +5134,8 @@ body {
                 const label = data ? getAQILabel(data.aqi) : 'No data';
                 const color = data ? getAQIColor(data.aqi) : 'var(--text-3)';
                 const pm25 = data?.pm25 ? `PM2.5: ${data.pm25}` : '';
-                return `<div class="card stat-card">
+                return `<div class="card stat-card" style="position: relative;">
+                    <button class="share-aqi-btn" onclick="generateAQICard('${c}')" title="Download AQI card" style="position: absolute; top: 8px; right: 8px;"><span class="si si-share"></span></button>
                     <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div>
                     <div class="stat-value" style="color: ${color}">${aqi}</div>
                     <div class="stat-label">${label}</div>
@@ -4891,7 +5220,10 @@ body {
                             ${pm10 ? `<div style="font-size: 0.75rem; color: #555;">PM10: ${pm10} µg/m³</div>` : ''}
                             ${cigPerDay ? `<div style="font-size: 0.72rem; color: #B91C1C; margin-top: 4px;">≈ ${cigPerDay} cigarettes/day equivalent</div>` : ''}
                             ${data?.time ? `<div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Updated: ${data.time}</div>` : ''}
-                            <button onclick="document.getElementById('hero-city-select').value='${key}';updateHeroCity('${key}');showPanel('dashboard');" style="margin-top: 8px; padding: 4px 10px; background: var(--accent, #1B6B4A); color: #fff; border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer; width: 100%;">View on dashboard →</button>
+                            <div style="display: flex; gap: 6px; margin-top: 8px;">
+                                <button onclick="document.getElementById('hero-city-select').value='${key}';updateHeroCity('${key}');showPanel('dashboard');" style="flex: 1; padding: 4px 10px; background: var(--accent, #1B6B4A); color: #fff; border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">View on dashboard</button>
+                                <button onclick="generateAQICard('${key}')" style="padding: 4px 10px; background: #374151; color: #fff; border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer;" title="Download shareable AQI card">Share</button>
+                            </div>
                         </div>`;
                     const marker = L.circleMarker([city.lat, city.lon], {
                         radius: aqi ? Math.min(20, 8 + aqi/50) : 8,
@@ -6587,58 +6919,354 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         }, 200);
     }
 
-    // ── Migration Calculator ──
-    function calcMigration() {
+    // ── Migration Comparison (enhanced) ──
+    // Client-side source apportionment data (mirrored from backend air-query.mjs)
+    const MIGRATION_APPORTIONMENT = {
+        delhi: {
+            sources: [
+                { name: "Vehicles", pct: 25 },
+                { name: "Industries + coal TPPs", pct: 22 },
+                { name: "Road dust + construction", pct: 18 },
+                { name: "Stubble burning (Oct-Nov)", pct: 14 },
+                { name: "Residential biomass", pct: 13 },
+                { name: "Open waste burning", pct: 8 }
+            ],
+            citation: "CAQM 2026; IIT-Delhi DSS 2024; CEEW 2024"
+        },
+        mumbai: {
+            sources: [
+                { name: "Vehicles", pct: 28 },
+                { name: "Industries (Mahul-Trombay)", pct: 19 },
+                { name: "Sea-salt + secondary", pct: 18 },
+                { name: "Road + construction dust", pct: 15 },
+                { name: "Residential cooking", pct: 11 },
+                { name: "Waste + landfill burning", pct: 9 }
+            ],
+            citation: "TERI-Mumbai 2021; CSIR-NEERI 2023"
+        },
+        bangalore: {
+            sources: [
+                { name: "Vehicles", pct: 35 },
+                { name: "Construction dust", pct: 22 },
+                { name: "Industries", pct: 14 },
+                { name: "Secondary aerosols", pct: 12 },
+                { name: "Residential", pct: 9 },
+                { name: "Lake-bed + waste burning", pct: 8 }
+            ],
+            citation: "CSIR-NEERI 2023; KSPCB 2022"
+        },
+        kolkata: {
+            sources: [
+                { name: "Vehicles", pct: 26 },
+                { name: "Coal/diesel industries", pct: 23 },
+                { name: "Residential biomass", pct: 15 },
+                { name: "Road dust", pct: 14 },
+                { name: "Open burning + waste", pct: 11 },
+                { name: "Brick kilns", pct: 11 }
+            ],
+            citation: "Bose Institute 2022; Jadavpur Univ."
+        },
+        chennai: {
+            sources: [
+                { name: "Industries (Manali, Ennore)", pct: 28 },
+                { name: "Vehicles", pct: 22 },
+                { name: "Sea-salt + secondary", pct: 20 },
+                { name: "Road + construction dust", pct: 14 },
+                { name: "Residential biomass", pct: 8 },
+                { name: "Open waste burning", pct: 8 }
+            ],
+            citation: "CPCB-Chennai 2023; IIT-Madras"
+        },
+        lucknow: {
+            sources: [
+                { name: "Vehicles", pct: 24 },
+                { name: "Brick kilns", pct: 21 },
+                { name: "Residential biomass", pct: 18 },
+                { name: "Road dust", pct: 16 },
+                { name: "Industries", pct: 12 },
+                { name: "Open burning", pct: 9 }
+            ],
+            citation: "TERI 2022; UP PCB"
+        },
+        patna: {
+            sources: [
+                { name: "Residential biomass", pct: 26 },
+                { name: "Vehicles + diesel gensets", pct: 21 },
+                { name: "Brick kilns", pct: 17 },
+                { name: "Road dust", pct: 15 },
+                { name: "Open burning", pct: 12 },
+                { name: "Stubble (Punjab+Bihar)", pct: 9 }
+            ],
+            citation: "ICAR-RCER 2023; Bihar PCB; CEEW 2024"
+        },
+        pune: {
+            sources: [
+                { name: "Vehicles", pct: 30 },
+                { name: "Construction + road dust", pct: 22 },
+                { name: "Open burning + secondary", pct: 20 },
+                { name: "Industries", pct: 18 },
+                { name: "Residential", pct: 10 }
+            ],
+            citation: "IITM-Pune; CSIR-NEERI 2022"
+        },
+        varanasi: {
+            sources: [
+                { name: "Road dust", pct: 35 },
+                { name: "Brick kilns + industries", pct: 19 },
+                { name: "Open burning + stubble", pct: 16 },
+                { name: "Vehicles", pct: 16 },
+                { name: "Residential biomass", pct: 14 }
+            ],
+            citation: "NCAP CREA 2024; BHU"
+        },
+        ahmedabad: {
+            sources: [
+                { name: "Industries (Naroda, Vatva)", pct: 25 },
+                { name: "Vehicles", pct: 22 },
+                { name: "Road + construction dust", pct: 20 },
+                { name: "Brick kilns", pct: 13 },
+                { name: "Residential biomass", pct: 11 },
+                { name: "Open burning + secondary", pct: 9 }
+            ],
+            citation: "GPCB; IIT-Gandhinagar"
+        },
+        hyderabad: {
+            sources: [
+                { name: "Vehicles", pct: 30 },
+                { name: "Industries", pct: 20 },
+                { name: "Construction + road dust", pct: 20 },
+                { name: "Residential", pct: 12 },
+                { name: "Open burning + secondary", pct: 18 }
+            ],
+            citation: "TSPCB 2023; CSIR-IICT studies"
+        }
+    };
+
+    // NCAP non-attainment cities (131 total, these are the ones in our CITIES object)
+    const NCAP_NONATTAINMENT = new Set([
+        'delhi','mumbai','kolkata','chennai','bangalore','hyderabad',
+        'gurgaon','noida','faridabad','ghaziabad','lucknow','kanpur',
+        'patna','jaipur','ahmedabad','pune','chandigarh','varanasi',
+        'agra','bhopal','indore','nagpur','visakhapatnam',
+        'muzaffarpur','gaya','raipur','jodhpur','guwahati','dehradun','amritsar'
+    ]);
+
+    async function calcMigration() {
         const fromKey = document.getElementById('migrate-from')?.value;
         const toKey = document.getElementById('migrate-to')?.value;
         if (!fromKey || !toKey) return;
         const age = parseInt(document.getElementById('migrate-age')?.value || 30);
         const family = parseInt(document.getElementById('migrate-family')?.value || 4);
         const resultEl = document.getElementById('migration-result');
+        const loadingEl = document.getElementById('migration-loading');
 
-        const fromPM25 = CITY_ANNUAL_PM25[fromKey] || 50;
-        const toPM25 = CITY_ANNUAL_PM25[toKey] || 50;
         const fromName = CITIES[fromKey]?.name || fromKey;
         const toName = CITIES[toKey]?.name || toKey;
 
-        const fromLifeLoss = (fromPM25 - 5) * 0.018;
-        const toLifeLoss = (toPM25 - 5) * 0.018;
-        const lifeGain = (fromLifeLoss - toLifeLoss).toFixed(1);
+        // Show loading
+        if (loadingEl) loadingEl.style.display = 'block';
+        resultEl.innerHTML = '';
 
-        const fromCigs = (fromPM25 / 22).toFixed(1);
-        const toCigs = (toPM25 / 22).toFixed(1);
-        const cigReduction = ((fromPM25 - toPM25) / 22).toFixed(1);
+        // Fetch live AQI for both cities in parallel
+        let fromLive = null, toLive = null;
+        try {
+            [fromLive, toLive] = await Promise.all([fetchAQI(fromKey), fetchAQI(toKey)]);
+        } catch (e) {
+            console.warn('[Migration] Live fetch failed:', e.message);
+        }
+
+        if (loadingEl) loadingEl.style.display = 'none';
+
+        // Live values
+        const fromLiveAQI = fromLive?.aqi || null;
+        const toLiveAQI = toLive?.aqi || null;
+        const fromLivePM25 = fromLive?.pm25 || null;
+        const toLivePM25 = toLive?.pm25 || null;
+
+        // Annual values (IQAir 2025 cached)
+        const fromAnnualPM25 = CITY_ANNUAL_PM25[fromKey] || null;
+        const toAnnualPM25 = CITY_ANNUAL_PM25[toKey] || null;
+
+        // Use annual for health calcs (more robust than single snapshot)
+        const fromPM25 = fromAnnualPM25 || fromLivePM25 || 50;
+        const toPM25 = toAnnualPM25 || toLivePM25 || 50;
+
+        // AQLI formula: life-expectancy loss = (PM2.5 - WHO guideline) / 10 * 0.98
+        // Simplified: each 10 ug/m3 above WHO guideline of 5 = 0.98 years lost
+        const fromLifeLoss = Math.max(0, (fromPM25 - 5)) / 10 * 0.98;
+        const toLifeLoss = Math.max(0, (toPM25 - 5)) / 10 * 0.98;
+        const lifeGain = fromLifeLoss - toLifeLoss;
+
+        // Cigarette equivalence (Berkeley Earth: 1 cig ~ 22 ug/m3 daily exposure)
+        const fromCigs = fromPM25 / 22;
+        const toCigs = toPM25 / 22;
+        const cigsSavedPerDay = fromCigs - toCigs;
+        const cigsSavedPerYear = cigsSavedPerDay * 365;
 
         const pmReduction = fromPM25 - toPM25;
-        const percentBetter = ((pmReduction / fromPM25) * 100).toFixed(0);
-
         const isImprovement = pmReduction > 0;
 
-        resultEl.innerHTML = `
-            <div style="text-align: center; margin-bottom: 1.5rem;">
-                <div style="font-size: 2rem; font-weight: 700; color: ${isImprovement ? 'var(--green-600)' : 'var(--red)'};">
-                    ${isImprovement ? `+${lifeGain} years` : `${lifeGain} years`}
+        // WHO multiples
+        const fromWHO = getWHOMultiple(fromPM25);
+        const toWHO = getWHOMultiple(toPM25);
+
+        // NCAP target city?
+        const fromNCAP = NCAP_NONATTAINMENT.has(fromKey);
+        const toNCAP = NCAP_NONATTAINMENT.has(toKey);
+
+        // Apportionment data
+        const fromApport = MIGRATION_APPORTIONMENT[fromKey] || null;
+        const toApport = MIGRATION_APPORTIONMENT[toKey] || null;
+
+        // Helper to format AQI with color
+        function aqiBadge(aqi) {
+            if (!aqi) return '<span style="color: var(--text-3);">N/A</span>';
+            return `<span style="color: ${getAQIColor(aqi)}; font-weight: 700;">${aqi}</span> <small style="color: var(--text-3);">(${getAQILabel(aqi)})</small>`;
+        }
+
+        function pm25Badge(pm25) {
+            if (!pm25) return '<span style="color: var(--text-3);">N/A</span>';
+            return `<span style="color: ${getPM25Color(pm25)}; font-weight: 700;">${pm25}</span>`;
+        }
+
+        // Build the comparison HTML
+        let html = '';
+
+        // ── Verdict hero ──
+        html += `
+        <div class="card mb-3" style="border-left: 4px solid ${isImprovement ? 'var(--green-600)' : 'var(--red)'};">
+            <div class="card-body" style="text-align: center; padding: 2rem;">
+                <div style="font-size: 2.5rem; font-weight: 800; color: ${isImprovement ? 'var(--green-600)' : 'var(--red)'};">
+                    ${isImprovement ? '+' : ''}${lifeGain.toFixed(1)} years
                 </div>
-                <div style="font-size: 0.85rem; color: var(--text-2);">
-                    ${isImprovement ? 'Life expectancy gain per person' : 'Life expectancy would DECREASE'}
+                <div style="font-size: 1rem; color: var(--text-2); margin-bottom: 1rem;">
+                    ${isImprovement ? 'Life expectancy GAINED per person by moving' : 'Life expectancy would DECREASE by moving'}
+                </div>
+                <div style="font-size: 0.95rem; color: var(--text-1); max-width: 36rem; margin: 0 auto; line-height: 1.6;">
+                    ${isImprovement
+                        ? `Moving from <strong>${fromName}</strong> to <strong>${toName}</strong> would add ~<strong>${lifeGain.toFixed(1)} years</strong> of life expectancy based on current air quality (AQLI 2025). Your family of ${family} would collectively gain <strong>${(lifeGain * family).toFixed(1)} life-years</strong>.`
+                        : `Moving from <strong>${fromName}</strong> to <strong>${toName}</strong> would reduce life expectancy by ~<strong>${Math.abs(lifeGain).toFixed(1)} years</strong>. Consider cities with lower PM2.5 levels.`}
+                </div>
+                ${isImprovement ? `
+                <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--green-600);">${Math.round(cigsSavedPerYear)}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-3);">cigarettes saved/year</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--green-600);">${(lifeGain * family).toFixed(1)}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-3);">family life-years gained</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--green-600);">${Math.abs(pmReduction)}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-3);">PM2.5 reduction (ug/m3)</div>
+                    </div>
+                </div>` : ''}
+            </div>
+        </div>`;
+
+        // ── Side-by-side comparison table ──
+        html += `
+        <div class="card mb-3">
+            <div class="card-header"><span class="card-title">Side-by-Side Comparison</span></div>
+            <div class="card-body" style="padding: 0;">
+                <div class="table-wrap">
+                <table class="data-table" style="font-size: 0.8125rem; margin: 0;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 160px;">Metric</th>
+                            <th style="text-align: center;">${fromName}</th>
+                            <th style="text-align: center;">${toName}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Live AQI</strong></td>
+                            <td style="text-align: center;">${aqiBadge(fromLiveAQI)}</td>
+                            <td style="text-align: center;">${aqiBadge(toLiveAQI)}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Live PM2.5</strong> (ug/m3)</td>
+                            <td style="text-align: center;">${pm25Badge(fromLivePM25)}</td>
+                            <td style="text-align: center;">${pm25Badge(toLivePM25)}</td>
+                        </tr>
+                        <tr style="background: var(--bg-2, #f9fafb);">
+                            <td><strong>Annual PM2.5</strong> (IQAir 2025)</td>
+                            <td style="text-align: center;">${fromAnnualPM25 ? pm25Badge(fromAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
+                            <td style="text-align: center;">${toAnnualPM25 ? pm25Badge(toAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WHO multiple</strong></td>
+                            <td style="text-align: center; font-weight: 700; color: ${getPM25Color(fromPM25)};">${fromWHO}x</td>
+                            <td style="text-align: center; font-weight: 700; color: ${getPM25Color(toPM25)};">${toWHO}x</td>
+                        </tr>
+                        <tr style="background: var(--bg-2, #f9fafb);">
+                            <td><strong>Cigarettes/day</strong> equiv.</td>
+                            <td style="text-align: center;">${fromCigs.toFixed(1)}/day</td>
+                            <td style="text-align: center;">${toCigs.toFixed(1)}/day</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Life-expectancy loss</strong> (AQLI)</td>
+                            <td style="text-align: center; color: ${getPM25Color(fromPM25)};">${fromLifeLoss.toFixed(1)} years</td>
+                            <td style="text-align: center; color: ${getPM25Color(toPM25)};">${toLifeLoss.toFixed(1)} years</td>
+                        </tr>
+                        <tr style="background: var(--bg-2, #f9fafb);">
+                            <td><strong>NCAP target city?</strong></td>
+                            <td style="text-align: center;">${fromNCAP ? '<span style="color: var(--amber); font-weight: 700;">Yes</span>' : '<span style="color: var(--green-600);">No</span>'}</td>
+                            <td style="text-align: center;">${toNCAP ? '<span style="color: var(--amber); font-weight: 700;">Yes</span>' : '<span style="color: var(--green-600);">No</span>'}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
-            <div class="table-wrap">
-            <table class="data-table" style="font-size: 0.8rem;">
-                <thead><tr><th></th><th>${fromName}</th><th>${toName}</th><th>Difference</th></tr></thead>
-                <tbody>
-                    <tr><td>Annual PM2.5</td><td style="color: ${getPM25Color(fromPM25)};">${fromPM25} µg/m³</td><td style="color: ${getPM25Color(toPM25)};">${toPM25} µg/m³</td><td style="color: ${isImprovement ? 'var(--green-600)' : 'var(--red)'};">${isImprovement ? '-' : '+'}${Math.abs(pmReduction)} (${percentBetter}%)</td></tr>
-                    <tr><td>WHO Multiple</td><td>${getWHOMultiple(fromPM25)}x</td><td>${getWHOMultiple(toPM25)}x</td><td>${isImprovement ? '↓' : '↑'}</td></tr>
-                    <tr><td>Cigarette Equiv.</td><td>${fromCigs}/day</td><td>${toCigs}/day</td><td>${isImprovement ? '-' : '+'}${Math.abs(parseFloat(cigReduction)).toFixed(1)}/day</td></tr>
-                    <tr><td>Family Impact (${family} people)</td><td colspan="2"></td><td style="font-weight: 700; color: ${isImprovement ? 'var(--green-600)' : 'var(--red)'};">${isImprovement ? '+' : ''}${(lifeGain * family).toFixed(1)} life-years</td></tr>
-                </tbody>
-            </table>
-            </div>
-            <div class="alert ${isImprovement ? 'alert-success' : 'alert-danger'} mt-2" style="font-size: 0.8rem;">
-                ${isImprovement
-                    ? `Moving from ${fromName} to ${toName} would reduce your family's PM2.5 exposure by ${percentBetter}%, equivalent to gaining ${(lifeGain * family).toFixed(1)} life-years collectively.`
-                    : `Moving to ${toName} would increase your pollution exposure. Consider other cities with lower PM2.5.`}
+        </div>`;
+
+        // ── Source apportionment comparison ──
+        if (fromApport || toApport) {
+            html += `
+            <div class="card mb-3">
+                <div class="card-header"><span class="card-title">Pollution Source Breakdown</span></div>
+                <div class="card-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">`;
+
+            // Source bars helper
+            function renderSourceBars(apport, cityName) {
+                if (!apport) return `<div><h4 style="font-size: 0.875rem; margin-bottom: 0.75rem;">${cityName}</h4><p style="font-size: 0.8rem; color: var(--text-3);">No source apportionment data available for this city.</p></div>`;
+                const barColors = ['#3B82F6', '#EF4444', '#F59E0B', '#10B981', '#8B5CF6', '#EC4899', '#6366F1'];
+                let barsHtml = `<div><h4 style="font-size: 0.875rem; margin-bottom: 0.75rem;">${cityName}</h4>`;
+                apport.sources.forEach((s, i) => {
+                    const color = barColors[i % barColors.length];
+                    barsHtml += `
+                        <div style="margin-bottom: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 2px;">
+                                <span>${s.name}</span><span style="font-weight: 700;">${s.pct}%</span>
+                            </div>
+                            <div style="height: 8px; background: var(--bg-3, #e5e7eb); border-radius: 4px; overflow: hidden;">
+                                <div style="height: 100%; width: ${s.pct}%; background: ${color}; border-radius: 4px;"></div>
+                            </div>
+                        </div>`;
+                });
+                barsHtml += `<div style="font-size: 0.65rem; color: var(--text-3); margin-top: 0.5rem;">Source: ${apport.citation}</div></div>`;
+                return barsHtml;
+            }
+
+            html += renderSourceBars(fromApport, fromName);
+            html += renderSourceBars(toApport, toName);
+
+            html += `
+                    </div>
+                </div>
             </div>`;
+        }
+
+        // ── Caveat ──
+        html += `
+        <div class="alert alert-info" style="font-size: 0.8rem;">
+            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5 values from IQAir World Air Quality Report 2025. Live AQI from WAQI (single nearest station &mdash; snapshot, not annual average). Source apportionment from CEEW 2024, TERI, IIT-Delhi DSS, CSIR-NEERI, and city-specific studies.<br>
+            <strong>Caveat:</strong> Live values are today's snapshot. The health calculations use annual averages for a more robust comparison. Actual benefit depends on duration of residence, indoor air quality, and individual health factors.
+        </div>`;
+
+        resultEl.innerHTML = html;
     }
 
     // ── Accountability Scorecards ──
@@ -6950,7 +7578,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'purifier-calc', title: 'Purifier Calculator', desc: 'Find the right air purifier for your room', keywords: 'purifier calculator cadr room filter air cleaner' },
         { id: 'hyperlocal', title: 'My Neighbourhood', desc: 'Station-level air quality within your city', keywords: 'hyperlocal station neighborhood local area monitoring' },
         { id: 'pollution-calendar', title: 'Pollution Calendar', desc: 'Seasonal pollution sources and patterns', keywords: 'calendar seasonal stubble burning diwali monsoon winter inversion' },
-        { id: 'migration-calc', title: 'Migration Calculator', desc: 'Health benefit of relocating to cleaner city', keywords: 'migration calculator relocate move city health benefit' },
+        { id: 'migration-calc', title: 'Migration Comparison', desc: 'Side-by-side city comparison for relocation — live AQI, health impact, source apportionment', keywords: 'migration comparison calculator relocate move city health benefit compare side by side apportionment source pollution' },
         { id: 'scorecards', title: 'City Scorecards', desc: 'City accountability report cards', keywords: 'scorecard accountability grade report card ncap target' },
         { id: 'data-archive', title: 'Data Archive', desc: 'Download historical air quality datasets', keywords: 'data archive download historical dataset csv json research' },
         { id: 'correlations', title: 'Pollution Correlations', desc: 'Explore pollution vs health/economic data', keywords: 'correlation scatter plot health deaths economic relationship' },
@@ -14523,6 +15151,73 @@ Signature: _______________</div>
     </div>
 </template>
 
+<!-- ═══ EXPOSURE DIARY ═══ -->
+<template id="tmpl-exposure-diary">
+    <div class="container">
+        <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">Exposure Diary</h2>
+        <p style="color: var(--text-2); margin-bottom: 1.5rem;" data-simple="Your real pollution exposure depends on where you spend your time, not just your city's air quality number. Log what you do each day to see your actual exposure.">
+            Your PM2.5 exposure depends on <strong>WHERE</strong> you spend your time, not just your city's AQI. Log your typical day and see your real exposure.
+        </p>
+
+        <!-- Daily Routine Form -->
+        <div class="card mb-3">
+            <div class="card-header"><span class="card-title">Your Daily Routine</span></div>
+            <div class="card-body">
+                <div id="diary-blocks"></div>
+                <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 0.75rem; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="addDiaryBlock()" style="font-size: 0.8rem;">+ Add Activity</button>
+                    <span id="diary-hours-total" style="font-size: 0.8rem; color: var(--text-3);"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- City selector -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div style="display: flex; gap: 1rem; align-items: end; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label class="form-label">Your City</label>
+                        <select class="form-select" id="diary-city"></select>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" onclick="calculateExposureDiary()" style="white-space: nowrap;">Calculate My Exposure</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="diary-results" style="display: none;">
+            <!-- Big number cards -->
+            <div class="grid-4 mb-3" style="gap: 1rem;" id="diary-stats"></div>
+
+            <!-- Stacked bar + recommendations -->
+            <div class="grid-2 mb-3" style="gap: 1.5rem;">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Exposure Breakdown by Activity</span></div>
+                    <div class="card-body">
+                        <div id="diary-bar-chart" style="margin-bottom: 1rem;"></div>
+                        <div id="diary-bar-legend" style="font-size: 0.75rem; color: var(--text-3);"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Personalized Recommendations</span></div>
+                    <div class="card-body" id="diary-recommendations" style="font-size: 0.85rem;"></div>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <span class="card-title">Your Exposure History</span>
+                    <button class="btn btn-secondary" onclick="clearDiaryHistory()" style="font-size: 0.7rem; padding: 2px 8px;">Clear History</button>
+                </div>
+                <div class="card-body" id="diary-history"></div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <!-- ═══ RTI FILING ASSISTANT ═══ -->
 <template id="tmpl-rti-assistant">
     <div class="container">
@@ -14696,36 +15391,50 @@ Signature: _______________</div>
     </div>
 </template>
 
-<!-- ═══ MIGRATION CALCULATOR ═══ -->
+<!-- ═══ MIGRATION COMPARISON ═══ -->
 <template id="tmpl-migration-calc">
     <div class="container">
-        <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">Migration Cost-Benefit Calculator</h2>
-        <p style="color: var(--text-2); margin-bottom: 1.5rem;">Thinking of moving for cleaner air? Compare the health-adjusted benefit of relocating.</p>
+        <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">Migration Comparison</h2>
+        <p style="color: var(--text-2); margin-bottom: 1.5rem;">Thinking of moving for cleaner air? Compare two cities side-by-side with live air quality data, health impact estimates, and pollution source breakdowns.</p>
 
-        <div class="grid-2" style="gap: 1.5rem;">
-            <div class="card">
-                <div class="card-header"><span class="card-title">Compare Cities</span></div>
-                <div class="card-body">
-                    <label class="form-label">Current City</label>
-                    <select class="form-select mb-2" id="migrate-from" onchange="calcMigration()"></select>
-
-                    <label class="form-label">Considering Moving To</label>
-                    <select class="form-select mb-2" id="migrate-to" onchange="calcMigration()"></select>
-
-                    <label class="form-label">Your Age</label>
-                    <input type="number" class="form-input mb-2" id="migrate-age" value="30" min="1" max="80" onchange="calcMigration()">
-
-                    <label class="form-label">Family Size</label>
-                    <input type="number" class="form-input mb-2" id="migrate-family" value="4" min="1" max="10" onchange="calcMigration()">
+        <!-- City Selector -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: end;">
+                    <div>
+                        <label class="form-label">Current City</label>
+                        <select class="form-select" id="migrate-from"></select>
+                    </div>
+                    <div style="padding-bottom: 0.5rem; font-size: 1.5rem; color: var(--text-3); text-align: center;">&#8644;</div>
+                    <div>
+                        <label class="form-label">Considering Moving To</label>
+                        <select class="form-select" id="migrate-to"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header"><span class="card-title">Health Impact Comparison</span></div>
-                <div class="card-body" id="migration-result">
-                    <p style="color: var(--text-3);">Select two cities to compare.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end; margin-top: 1rem;">
+                    <div>
+                        <label class="form-label">Your Age</label>
+                        <input type="number" class="form-input" id="migrate-age" value="30" min="1" max="80">
+                    </div>
+                    <div>
+                        <label class="form-label">Family Size</label>
+                        <input type="number" class="form-input" id="migrate-family" value="4" min="1" max="10">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" onclick="calcMigration()" style="white-space: nowrap;">Compare Cities</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Loading indicator -->
+        <div id="migration-loading" style="display: none; text-align: center; padding: 2rem;">
+            <div style="display: inline-block; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; margin-right: 0.5rem; animation: pulse 1.5s infinite;"></div>
+            <span style="color: var(--text-2);">Fetching live AQI data from WAQI...</span>
+        </div>
+
+        <!-- Results container (populated by JS) -->
+        <div id="migration-result"></div>
     </div>
 </template>
 
