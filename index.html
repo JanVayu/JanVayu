@@ -13043,13 +13043,361 @@ Signature: _______________</div>
                 <div class="card-footer">Source: Tribune News Service, Dec 12, 2025 — RTI by Amit Gupta</div>
             </div>
 
+            <!-- STATE-WISE COURT RULINGS -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title" style="color: #7C3AED;"><span class="si si-sm si-hammer" style="margin-right: 0.3rem;"></span> State-wise Court Rulings &amp; Orders</span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Courts across India have ordered governments to clean up the air. Pick your state or region below to see the orders that apply to you.">Key judicial and tribunal orders by state/region. Select a region to see orders relevant to your area.</p>
+
+                    <select class="form-select mb-2" id="legal-state-selector" onchange="document.querySelectorAll('.legal-state-block').forEach(function(b){b.style.display='none'}); var v=this.value; if(v) document.getElementById('legal-state-'+v).style.display='block';" style="max-width: 22rem;">
+                        <option value="">-- Select State / Region --</option>
+                        <option value="delhi-ncr">Delhi-NCR</option>
+                        <option value="south">South India (TN / KL / KA / AP / TS / PY)</option>
+                        <option value="bihar">Bihar (Patna)</option>
+                        <option value="maharashtra">Maharashtra (Mumbai / Pune)</option>
+                        <option value="up">Uttar Pradesh (Lucknow / Kanpur / Varanasi)</option>
+                        <option value="wb">West Bengal (Kolkata / Howrah)</option>
+                        <option value="punjab">Punjab &amp; Haryana</option>
+                        <option value="mp">Madhya Pradesh &amp; Chhattisgarh</option>
+                    </select>
+
+                    <!-- Delhi-NCR -->
+                    <div id="legal-state-delhi-ncr" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Delhi-NCR</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">Supreme Court: Clean Air as Fundamental Right</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Supreme Court said breathing clean air is your basic right under the Constitution."><strong>MC Mehta v Union of India (1986&ndash;ongoing):</strong> Clean air is a fundamental right under Article 21. This landmark WP (No. 13029/1985) has generated dozens of follow-up orders, including the basis for GRAP.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">NGT: 24/7 CAAQMS Operation</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Green Tribunal ordered that all government air monitors must run 24 hours a day, 7 days a week."><strong>2024:</strong> Directed CPCB to ensure 24/7 operation of all Continuous Ambient Air Quality Monitoring Stations. Many stations were running at &lt;70% data availability.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">CAQM: First Off-Season GRAP Stage-I</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="For the first time, Delhi's emergency pollution rules were turned on in summer, not just winter."><strong>19 May 2026:</strong> First-ever off-season GRAP Stage-I activation at AQI 208. Signals year-round enforcement, breaking the October&ndash;March-only pattern.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #16803C;">
+                            <h4 style="font-size: 0.8125rem; color: #16803C; margin-bottom: 0.25rem;">SC: Four-Week Deadline on Stubble Burning</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Supreme Court told state governments they have 4 weeks to make a plan to stop farmers burning crop waste."><strong>2025:</strong> Supreme Court directed Punjab, Haryana, UP, and Rajasthan to submit stubble-burning action plans within four weeks. Linked non-compliance to contempt proceedings.</p>
+                        </div>
+                    </div>
+
+                    <!-- South India -->
+                    <div id="legal-state-south" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">South India (TN / KL / KA / AP / TS / PY)</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">NGT: Sector-wise PM Reduction Roadmaps</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Green Tribunal told all 6 southern states to make a plan showing exactly how they will reduce dust and soot pollution, with money set aside for it."><strong>April 2026:</strong> NGT Principal Bench directed all six south-Indian states to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets. First order shifting the policy frame beyond the Indo-Gangetic Plain.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">Madras HC: Industrial Emissions in Ennore-Manali Belt</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Madras High Court ordered a check on factories in Chennai's heavily polluted Ennore-Manali area."><strong>2024:</strong> Directed TNPCB to conduct comprehensive stack-emission audits of all industries in the Ennore-Manali industrial belt and report within 90 days.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">Karnataka SPCB: Bengaluru Construction Dust Norms</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="Bengaluru's pollution board now requires big construction projects to use water sprinklers and cover sites to control dust."><strong>2025:</strong> Mandatory dust-suppression measures for all construction sites &gt;500 sq.m. following NGT direction. Penalties up to ₹5 lakh for non-compliance.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #16803C;">
+                            <h4 style="font-size: 0.8125rem; color: #16803C; margin-bottom: 0.25rem;">Kerala HC: Waste-Burning Ban Enforcement</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2025:</strong> Directed all local bodies in Kerala to strictly enforce the open-burning ban under SWM Rules 2016. Fines for non-compliant panchayats.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bihar -->
+                    <div id="legal-state-bihar" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Bihar (Patna)</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">NGT: 10 Additional CAAQMS</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Green Tribunal told Bihar to install 10 more air quality monitors by December 2026 because the state has too few."><strong>2025:</strong> Directed Bihar SPCB to install 10 additional Continuous Ambient Air Quality Monitoring Stations by December 2026. Patna had only 2 CAAQMS for a city of 2.5 million.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">Patna HC: Brick Kiln Compliance Audit</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Patna High Court ordered a check on all brick kilns within 60 days to see if they follow pollution rules."><strong>2025:</strong> Ordered Bihar SPCB to complete a compliance audit of all brick kilns in Patna, Gaya, and Muzaffarpur districts within 60 days. Kilns not converted to zigzag technology to be shut.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">NGT: Patna Waste-Burning Penalty</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2024:</strong> Imposed environmental compensation of ₹25 lakh on Patna Municipal Corporation for failing to prevent open waste burning along the Ganga ghats despite repeated directions.</p>
+                        </div>
+                    </div>
+
+                    <!-- Maharashtra -->
+                    <div id="legal-state-maharashtra" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Maharashtra (Mumbai / Pune)</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">Bombay HC: BMC Air Quality Action Plan</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Bombay High Court told Mumbai's corporation to make a proper plan to reduce air pollution."><strong>2025:</strong> Directed BMC to submit a comprehensive air quality action plan within 12 weeks, covering construction dust, vehicular emissions, and industrial pollution in the Mumbai Metropolitan Region.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">NGT: Construction Dust Norms for Mumbai Metro</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Green Tribunal set strict dust-control rules for Mumbai Metro construction sites after local complaints."><strong>2024:</strong> Directed Mumbai Metro Rail Corporation to install anti-smog guns, wheel-washing systems, and wind barriers at all active construction sites. Environmental compensation of ₹10 lakh imposed for previous violations.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">MPCB: Pune Industrial Zone Crackdown</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2025:</strong> Maharashtra Pollution Control Board issued closure notices to 14 units in Chakan-Ranjangaon industrial belt for exceeding PM emission norms. Follow-up to NGT direction.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #16803C;">
+                            <h4 style="font-size: 0.8125rem; color: #16803C; margin-bottom: 0.25rem;">NGT: Navi Mumbai Waste Burning</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2024:</strong> Imposed ₹15 lakh penalty on Navi Mumbai Municipal Corporation for persistent open-waste burning in Turbhe and Airoli zones despite SWM Rules.</p>
+                        </div>
+                    </div>
+
+                    <!-- Uttar Pradesh -->
+                    <div id="legal-state-up" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Uttar Pradesh (Lucknow / Kanpur / Varanasi)</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">Allahabad HC: Revive Manual Monitoring Stations</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Allahabad High Court told UP's pollution board to restart manual air monitoring stations that had stopped working."><strong>2025:</strong> Directed UPPCB to revive all non-functional manual air-monitoring stations across the state within 6 months. Out of 72 stations, 28 were found non-operational.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">NGT: Brick Kiln Compliance for UP Cluster</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Green Tribunal set a deadline for brick kilns in UP to switch to cleaner technology or shut down."><strong>2024:</strong> Set a hard deadline for all brick kilns in the Lucknow-Kanpur-Agra cluster to convert to zigzag or vertical shaft technology. Estimated 4,000+ kilns affected.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">NGT: Varanasi Ghat Cremation Emissions</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2024:</strong> Directed Varanasi Municipal Corporation and UPPCB to submit a plan for reducing emissions from traditional cremation at Manikarnika and Harishchandra ghats, including promotion of electric cremation facilities.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #16803C;">
+                            <h4 style="font-size: 0.8125rem; color: #16803C; margin-bottom: 0.25rem;">SC: Kanpur Tannery Pollution</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>Ongoing:</strong> Follow-up orders on MC Mehta v Union of India (tanneries case). Kanpur tanneries directed to install CETP upgrades. Impacts both water and air (VOC/H₂S emissions).</p>
+                        </div>
+                    </div>
+
+                    <!-- West Bengal -->
+                    <div id="legal-state-wb" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">West Bengal (Kolkata / Howrah)</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">Calcutta HC: Vehicular Emission Checks</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Calcutta High Court ordered stricter vehicle pollution checks in Kolkata."><strong>2025:</strong> Directed Transport Department to set up 50 additional PUC-checking stations across Kolkata and strengthen impounding of vehicles without valid PUC certificates.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">NGT: East Kolkata Industrial Emissions</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2024:</strong> Directed WBPCB to conduct emission audits of all industries in the East Kolkata industrial belt (Bantala-Kasba) and submit compliance reports within 90 days.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">NGT: Howrah Foundry Cluster</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2025:</strong> Imposed ₹50 lakh environmental compensation on the Howrah foundry cluster for PM10 exceedances. Directed conversion to induction furnaces within 18 months.</p>
+                        </div>
+                    </div>
+
+                    <!-- Punjab & Haryana -->
+                    <div id="legal-state-punjab" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Punjab &amp; Haryana</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">SC: Stubble-Burning Contempt Warning</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Supreme Court warned Punjab and Haryana that they could face contempt charges if they don't stop farmers from burning crop stubble."><strong>2025:</strong> Supreme Court warned Punjab and Haryana of contempt proceedings for failing to curb paddy-stubble burning. Directed ₹2,500/acre incentive for in-situ management be disbursed before kharif season.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">NGT: Ludhiana Industrial Cluster</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2024:</strong> Directed PPCB to submit comprehensive action plan for Ludhiana's dyeing and electroplating units. Over 3,000 small-scale units contributing to both air and water pollution.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">Punjab &amp; Haryana HC: Crop Residue Management</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2025:</strong> Directed state governments to ensure CRM machinery (Happy Seeders, Super SMS) reaches small and marginal farmers. Observed that machines were concentrated with large landholders.</p>
+                        </div>
+                    </div>
+
+                    <!-- MP & Chhattisgarh -->
+                    <div id="legal-state-mp" class="legal-state-block" style="display:none;">
+                        <h4 style="font-size: 0.9375rem; color: #1B6B4A; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Madhya Pradesh &amp; Chhattisgarh</h4>
+                        <div class="info-box mb-2" style="border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.8125rem; color: var(--accent); margin-bottom: 0.25rem;">NGT: Singrauli Super-Thermal Power Cluster</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The Green Tribunal told power plants in Singrauli to install pollution-control equipment and pay fines for the damage they've already caused."><strong>2024:</strong> Directed all thermal power plants in the Singrauli-Sonbhadra cluster to comply with revised emission norms (SO₂, NOx, PM) by March 2026. Cumulative capacity &gt;20 GW makes this one of India's most polluted zones.</p>
+                        </div>
+                        <div class="info-box mb-2" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">MP HC: Bhopal Construction-Dust Controls</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2025:</strong> Directed Bhopal Municipal Corporation and MPPCB to enforce mandatory dust-suppression measures at all construction sites &gt;500 sq.m, following a citizens' PIL.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="font-size: 0.8125rem; color: #F59E0B; margin-bottom: 0.25rem;">NGT: Korba Industrial Pollution</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);"><strong>2025:</strong> Directed Chhattisgarh SPCB to conduct health-impact assessment around the Korba coal-mining and thermal-power cluster. Residents reported PM10 levels 4&ndash;5&times; NAAQS during winter months.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KEY LEGAL RIGHTS SUMMARY -->
+            <div class="card mb-2" style="border: 2px solid var(--accent); background: rgba(27,107,74,0.03);">
+                <div class="card-header" style="background: rgba(27,107,74,0.08);">
+                    <span class="card-title" style="color: #1B6B4A;"><span class="si si-sm si-shield-police" style="margin-right: 0.3rem;"></span> Your Legal Rights &mdash; At a Glance</span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="You have at least five strong laws protecting your right to clean air. Here they are.">Five pillars of law that protect your right to breathe clean air. Know them &mdash; cite them in your complaints.</p>
+                    <div class="grid-2" style="gap: 0.75rem;">
+                        <div class="info-box" style="border-left: 4px solid #1B6B4A; background: rgba(27,107,74,0.04);">
+                            <h4 style="font-size: 0.8125rem; color: #1B6B4A; margin-bottom: 0.25rem;">Article 21 &mdash; Constitution of India</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="The right to life includes the right to breathe clean air. The Supreme Court has said so repeatedly.">Right to life includes the right to clean air. <em>MC Mehta v UoI (1986), Subhash Kumar v State of Bihar (1991).</em></p>
+                        </div>
+                        <div class="info-box" style="border-left: 4px solid #3B82F6; background: rgba(59,130,246,0.04);">
+                            <h4 style="font-size: 0.8125rem; color: #3B82F6; margin-bottom: 0.25rem;">Air (Prevention &amp; Control of Pollution) Act, 1981</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="This law created CPCB and state pollution boards. Their job is to prevent and control air pollution.">Established CPCB and State Pollution Control Boards (SPCBs). Mandates them to prevent, control, and abate air pollution. <em>Section 31A:</em> binding closure/direction orders.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.04);">
+                            <h4 style="font-size: 0.8125rem; color: #7C3AED; margin-bottom: 0.25rem;">Environment (Protection) Act, 1986</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="This law lets the central government shut down any polluting factory and set rules for emissions.">Umbrella legislation. Central government can take measures for environmental protection, set emission standards, and order closure of polluting units. <em>Sections 3 &amp; 5.</em></p>
+                        </div>
+                        <div class="info-box" style="border-left: 4px solid #D97706; background: rgba(217,119,6,0.04);">
+                            <h4 style="font-size: 0.8125rem; color: #D97706; margin-bottom: 0.25rem;">National Green Tribunal Act, 2010</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="India has a special environmental court (NGT) where any person can file a case. No lawyer needed for individual applications. Filing fee is just 1,000 rupees.">Created a dedicated tribunal for environmental disputes. Any person can file an application. Filing fee: ₹1,000 (waived for BPL). No lawyer required for individual applications.</p>
+                        </div>
+                        <div class="info-box" style="border-left: 4px solid #EF4444; background: rgba(239,68,68,0.04);">
+                            <h4 style="font-size: 0.8125rem; color: #EF4444; margin-bottom: 0.25rem;">Right to Information Act, 2005</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2);" data-simple="You have the right to ask the government for any information about pollution data, funds spent, and enforcement actions &mdash; and they must reply within 30 days.">Right to access government data on pollution monitoring, NCAP funds, enforcement actions. Free for BPL; ₹10 otherwise. 30-day response mandate. <a href="#" onclick="showPanel('rti-assistant'); return false;" style="color: #EF4444; font-weight: 600;">Use the RTI Assistant &rarr;</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHAT CAN I DO FROM HOME? — CITIZEN RECOURSE -->
+            <div class="card mb-2" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.03);">
+                <div class="card-header" style="background: rgba(124,58,237,0.08);">
+                    <span class="card-title" style="color: #7C3AED;"><span class="si si-sm si-chat-help" style="margin-right: 0.3rem;"></span> What Can I Do from Home? &mdash; Step-by-Step Citizen Recourse</span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="You don't need to be a lawyer or go to court. Here are 5 things you can do from your phone or computer to demand clean air.">You do not need to be a lawyer, activist, or expert. Here are five concrete steps any citizen can take from home to demand clean air. Each step is progressively more powerful.</p>
+
+                    <!-- Step 1: RTI -->
+                    <div class="info-box mb-2" style="border-left: 4px solid #22C55E; padding: 1rem;">
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="background: #22C55E; color: white; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">STEP 1</span>
+                            <h4 style="font-size: 0.9375rem; color: #166534; margin: 0;">File an RTI &mdash; Free, 30-day response guaranteed</h4>
+                        </div>
+                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Send a letter asking for information. It's free for BPL families, ₹10 for others. The government MUST reply within 30 days.">The simplest and most powerful tool. Any citizen can demand pollution data, budget utilisation details, or enforcement records.</p>
+                        <div style="background: var(--bg-section); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; margin-bottom: 0.5rem;">
+                            <strong style="color: var(--ink);">Who to write to:</strong>
+                            <ul style="margin: 0.25rem 0 0 1rem; line-height: 1.7; color: var(--text-2);">
+                                <li><strong>CPCB PIO</strong> &mdash; for national monitoring data, emission norms, station uptime</li>
+                                <li><strong>Your State PCB PIO</strong> &mdash; for local station data, industry compliance, NCAP city plans</li>
+                                <li><strong>CAQM PIO</strong> &mdash; for GRAP enforcement records (NCR only)</li>
+                            </ul>
+                        </div>
+                        <div style="background: var(--bg-section); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; margin-bottom: 0.5rem;">
+                            <strong style="color: var(--ink);">What to ask:</strong>
+                            <ul style="margin: 0.25rem 0 0 1rem; line-height: 1.7; color: var(--text-2);">
+                                <li>CAAQMS data-availability percentage for your city, last 12 months</li>
+                                <li>NCAP funds received vs. utilised by your city, FY 2023&ndash;2026</li>
+                                <li>Number of industrial inspections and closure orders issued, last 1 year</li>
+                                <li>GRAP enforcement: fines levied, vehicles impounded, sites shut (NCR)</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary" onclick="showPanel('rti-assistant')" style="font-size: 0.8125rem; padding: 0.5rem 1rem;">Generate an RTI Letter Now &rarr;</button>
+                    </div>
+
+                    <!-- Step 2: CPCB Complaint -->
+                    <div class="info-box mb-2" style="border-left: 4px solid #3B82F6; padding: 1rem;">
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="background: #3B82F6; color: white; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">STEP 2</span>
+                            <h4 style="font-size: 0.9375rem; color: #1E40AF; margin: 0;">File a Complaint with CPCB</h4>
+                        </div>
+                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="If you see a factory polluting, waste being burned, or construction dust everywhere, you can complain to CPCB online. Include photos if you can.">Report specific violations &mdash; illegal burning, industrial emissions, construction dust &mdash; directly to CPCB online.</p>
+                        <div style="background: var(--bg-section); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; margin-bottom: 0.5rem;">
+                            <strong style="color: var(--ink);">How to file:</strong>
+                            <ul style="margin: 0.25rem 0 0 1rem; line-height: 1.7; color: var(--text-2);">
+                                <li>Go to <a href="https://cpcb.nic.in/" target="_blank" rel="noopener" style="color: #3B82F6;">cpcb.nic.in</a> &rarr; Grievance / Complaint section</li>
+                                <li>Include: <strong>exact location</strong>, type of violation, date &amp; time, photos/videos if possible</li>
+                                <li>You can also file via the <strong>SAMEER app</strong> (CPCB's official app on Play Store)</li>
+                                <li>Expected response time: <strong>15&ndash;30 days</strong></li>
+                            </ul>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-3); font-style: italic;">Tip: File with both CPCB and your State PCB simultaneously. It doubles the accountability.</p>
+                    </div>
+
+                    <!-- Step 3: Write to MP/MLA -->
+                    <div class="info-box mb-2" style="border-left: 4px solid #F59E0B; padding: 1rem;">
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="background: #F59E0B; color: white; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">STEP 3</span>
+                            <h4 style="font-size: 0.9375rem; color: #92400E; margin: 0;">Write to Your MP / MLA</h4>
+                        </div>
+                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Write a letter to your local elected representative. Elected officials care about complaints from voters. Use the template below.">Elected representatives respond to constituent pressure. A well-written letter citing local data is surprisingly effective.</p>
+                        <div style="background: var(--bg-section); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; margin-bottom: 0.5rem;">
+                            <strong style="color: var(--ink);">Template letter (copy and customise):</strong>
+                            <div style="margin-top: 0.5rem; padding: 0.75rem; background: var(--bg); border: 1px dashed var(--border); border-radius: 6px; font-size: 0.8125rem; line-height: 1.7; color: var(--text-2); white-space: pre-line;">Respected Shri/Smt [Name],
+
+I am a resident of [your locality], in [your constituency]. I am writing to draw your urgent attention to the air pollution crisis in our area.
+
+According to CPCB data, our city's annual average PM2.5 is [X] &micro;g/m&sup3; &mdash; that is [Y] times the WHO guideline of 5 &micro;g/m&sup3;. This causes an estimated [Z] premature deaths annually in our district (Lancet Countdown 2025).
+
+I request you to:
+1. Raise this issue in Parliament / State Assembly during the next session
+2. Write to the Environment Minister seeking an NCAP review for our city
+3. Ensure NCAP funds allocated to our city are fully utilised (as of March 2026, only [%] was spent)
+
+I am happy to share the full data report from JanVayu (janvayu.org) which sources all numbers from CPCB, NCAP, and peer-reviewed studies.
+
+Yours faithfully,
+[Your Name], [Your Address]</div>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"><strong>Find your representative:</strong> <a href="https://eci.gov.in/" target="_blank" rel="noopener" style="color: #F59E0B;">Election Commission of India</a> &nbsp;|&nbsp; <a href="https://sansad.in/ls/members" target="_blank" rel="noopener" style="color: #F59E0B;">Lok Sabha Members Directory</a></p>
+                    </div>
+
+                    <!-- Step 4: Approach NGT -->
+                    <div class="info-box mb-2" style="border-left: 4px solid #7C3AED; padding: 1rem;">
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="background: #7C3AED; color: white; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">STEP 4</span>
+                            <h4 style="font-size: 0.9375rem; color: #5B21B6; margin: 0;">Approach the National Green Tribunal (NGT)</h4>
+                        </div>
+                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Any person can go to the NGT &mdash; India's special environment court. No lawyer needed. It costs just 1,000 rupees (free if you're BPL).">The NGT is a dedicated environmental court. Any individual can file an application &mdash; no lawyer is needed for individual applications.</p>
+                        <div style="background: var(--bg-section); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; margin-bottom: 0.5rem;">
+                            <strong style="color: var(--ink);">Key facts:</strong>
+                            <ul style="margin: 0.25rem 0 0 1rem; line-height: 1.7; color: var(--text-2);">
+                                <li><strong>Filing fee:</strong> ₹1,000 for individuals (waived for BPL applicants)</li>
+                                <li><strong>Jurisdiction:</strong> Environmental damage, non-compliance with pollution norms, failure to implement court orders</li>
+                                <li><strong>Benches:</strong> Principal Bench (Delhi) + 4 zonal benches (Pune, Bhopal, Chennai, Kolkata)</li>
+                                <li><strong>Timeline:</strong> NGT is mandated to dispose cases within 6 months</li>
+                                <li><strong>Filing:</strong> Can file online at <a href="https://greentribunal.gov.in/" target="_blank" rel="noopener" style="color: #7C3AED;">greentribunal.gov.in</a></li>
+                            </ul>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--text-3); font-style: italic;">Note: For complex cases or those involving multiple states/industries, engaging an environmental lawyer is recommended. Many NGOs offer pro-bono legal support.</p>
+                    </div>
+
+                    <!-- Step 5: PIL -->
+                    <div class="info-box" style="border-left: 4px solid #EF4444; padding: 1rem;">
+                        <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <span style="background: #EF4444; color: white; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">STEP 5</span>
+                            <h4 style="font-size: 0.9375rem; color: #991B1B; margin: 0;">File a PIL (Public Interest Litigation)</h4>
+                        </div>
+                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="If the problem is big and affects your whole community, you can file a Public Interest Litigation in the High Court or Supreme Court. Any citizen can file one.">For systemic failures affecting a community. Filed in the High Court or Supreme Court. Any citizen can file &mdash; no special locus standi required.</p>
+                        <div style="background: var(--bg-section); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; margin-bottom: 0.5rem;">
+                            <strong style="color: var(--ink);">How PIL works:</strong>
+                            <ul style="margin: 0.25rem 0 0 1rem; line-height: 1.7; color: var(--text-2);">
+                                <li><strong>Who can file:</strong> Any citizen, on behalf of the public. No need to be personally affected.</li>
+                                <li><strong>Where:</strong> High Court of your state (Article 226) or Supreme Court (Article 32)</li>
+                                <li><strong>Requires:</strong> A lawyer, but many environmental lawyers work pro bono. Some HC registries accept a letter addressed to the Chief Justice.</li>
+                                <li><strong>Cost:</strong> Court fees vary by state; some HCs waive fees for PILs. SC filing fee is nominal (₹50).</li>
+                                <li><strong>Timeline:</strong> Can lead to interim orders within weeks if urgency is demonstrated</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(239,68,68,0.06); padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem;">
+                            <strong style="color: #991B1B;">Landmark PILs that changed India's air:</strong>
+                            <ul style="margin: 0.25rem 0 0 1rem; line-height: 1.7; color: var(--text-2);">
+                                <li><strong>MC Mehta v Union of India (1986):</strong> Led to CNG mandate in Delhi, vehicle-age limits, GRAP framework</li>
+                                <li><strong>Vellore Citizens v Union of India (1996):</strong> Established Polluter Pays and Precautionary Principles</li>
+                                <li><strong>Subhash Kumar v State of Bihar (1991):</strong> Right to clean air = Right to life under Article 21</li>
+                                <li><strong>M.K. Ranjitsinh v Union of India (2024):</strong> Right against climate degradation as a fundamental right</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Encouragement note -->
+                    <div class="alert mt-2" style="background: rgba(34,197,94,0.08); border-left: 4px solid #22C55E; font-size: 0.875rem;">
+                        <strong style="color: #166534;">You have more power than you think.</strong> An RTI application costs ₹10 and 15 minutes. A complaint to CPCB costs nothing. A letter to your MP costs a stamp. Start with Step 1 today &mdash; the law is on your side.
+                    </div>
+                </div>
+            </div>
+
             <!-- DOWNLOAD -->
             <div class="card">
                 <div class="card-header">
                     <span class="card-title"> Download Legal Framework Documents</span>
                 </div>
                 <div class="card-body">
-                    <a href="https://www.sci.gov.in/search/search_judgement" target="_blank" class="btn btn-primary">SCI Judgments Portal</a>
+                    <div class="grid-2" style="gap: 1rem;">
+                        <a href="https://www.sci.gov.in/search/search_judgement" target="_blank" class="btn btn-primary">SCI Judgments Portal</a>
+                        <a href="https://greentribunal.gov.in/orders-702" target="_blank" class="btn" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">NGT Orders Database</a>
+                        <a href="https://cpcb.nic.in/" target="_blank" class="btn" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">CPCB Portal</a>
+                        <a href="https://caqm.nic.in/" target="_blank" class="btn" style="background: var(--bg-section); color: var(--ink); border: 1px solid var(--border);">CAQM Portal</a>
+                    </div>
                 </div>
             </div>
 
