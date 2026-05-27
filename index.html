@@ -4805,6 +4805,20 @@ body {
         return g;
     }
 
+    // Polyfill for CanvasRenderingContext2D.roundRect (Safari < 16, older browsers)
+    if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
+        CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+            if (typeof r === 'number') r = [r];
+            var rad = r[0] || 0;
+            this.moveTo(x + rad, y);
+            this.arcTo(x + w, y, x + w, y + h, rad);
+            this.arcTo(x + w, y + h, x, y + h, rad);
+            this.arcTo(x, y + h, x, y, rad);
+            this.arcTo(x, y, x + w, y, rad);
+            this.closePath();
+        };
+    }
+
     async function generateAQICard(cityKey, opts) {
         const data = aqiData[cityKey];
         if (!data) { alert('No AQI data available for this city yet. Please wait for data to load.'); return; }
@@ -4814,6 +4828,8 @@ body {
         const format = (opts && opts.format) || 'square';
         const W = format === 'landscape' ? 1200 : 1080;
         const H = format === 'landscape' ? 630 : 1080;
+        const isLand = format === 'landscape';
+        const S = isLand ? 0.58 : 1; // scale factor for landscape
 
         const canvas = document.createElement('canvas');
         canvas.width = W;
@@ -4828,24 +4844,64 @@ body {
         const color = getAQIColor(aqi);
         const now = new Date();
         const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-        const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+        const cityAnnualPM25 = CITY_ANNUAL_PM25[cityKey] || null;
 
-        // Background gradient
+        // ── Background gradient ──
         ctx.fillStyle = getAQICardGradient(ctx, aqi, W, H);
         ctx.fillRect(0, 0, W, H);
 
-        // Subtle pattern overlay
-        ctx.fillStyle = 'rgba(255,255,255,0.03)';
-        for (let i = 0; i < H; i += 4) { ctx.fillRect(0, i, W, 2); }
+        // ── Geometric pattern overlay: topographic contour lines ──
+        ctx.save();
+        ctx.globalAlpha = 0.06;
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 1.5;
+        // Draw concentric irregular contour rings
+        var cx1 = W * 0.3, cy1 = H * 0.25;
+        var cx2 = W * 0.7, cy2 = H * 0.75;
+        for (var r = 40; r < Math.max(W, H) * 0.8; r += (isLand ? 38 : 50)) {
+            ctx.beginPath();
+            for (var angle = 0; angle <= Math.PI * 2; angle += 0.05) {
+                var wobble = Math.sin(angle * 3) * r * 0.08 + Math.cos(angle * 5) * r * 0.04;
+                var px = cx1 + (r + wobble) * Math.cos(angle);
+                var py = cy1 + (r + wobble) * Math.sin(angle) * 0.7;
+                if (angle === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+        }
+        for (var r = 30; r < Math.max(W, H) * 0.6; r += (isLand ? 42 : 55)) {
+            ctx.beginPath();
+            for (var angle = 0; angle <= Math.PI * 2; angle += 0.05) {
+                var wobble = Math.cos(angle * 4) * r * 0.1 + Math.sin(angle * 2) * r * 0.05;
+                var px = cx2 + (r + wobble) * Math.cos(angle);
+                var py = cy2 + (r + wobble) * Math.sin(angle) * 0.65;
+                if (angle === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+        }
+        // Add subtle diagonal hash lines
+        ctx.globalAlpha = 0.025;
+        ctx.lineWidth = 1;
+        for (var d = -H; d < W + H; d += (isLand ? 24 : 32)) {
+            ctx.beginPath();
+            ctx.moveTo(d, 0);
+            ctx.lineTo(d + H, H);
+            ctx.stroke();
+        }
+        ctx.restore();
 
-        // Card inner area (semi-transparent dark panel)
-        const mx = W * 0.08;
-        const my = H * 0.06;
+        // ── Card inner area (frosted dark panel) ──
+        const mx = W * 0.06;
+        const my = H * 0.05;
         const cw = W - mx * 2;
         const ch = H - my * 2;
-        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        const cr = 28;
+        // Outer glow
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 40;
+        ctx.fillStyle = 'rgba(0,0,0,0.32)';
         ctx.beginPath();
-        const cr = 32;
         ctx.moveTo(mx + cr, my);
         ctx.arcTo(mx + cw, my, mx + cw, my + ch, cr);
         ctx.arcTo(mx + cw, my + ch, mx, my + ch, cr);
@@ -4853,88 +4909,251 @@ body {
         ctx.arcTo(mx, my, mx + cw, my, cr);
         ctx.closePath();
         ctx.fill();
+        ctx.restore();
 
-        // ── Header: JanVayu branding ──
-        const headerY = my + (format === 'landscape' ? 40 : 60);
-        ctx.fillStyle = 'rgba(255,255,255,0.9)';
-        ctx.font = 'bold ' + (format === 'landscape' ? '28px' : '36px') + ' system-ui, -apple-system, sans-serif';
+        // Inner border glow
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(mx + cr, my);
+        ctx.arcTo(mx + cw, my, mx + cw, my + ch, cr);
+        ctx.arcTo(mx + cw, my + ch, mx, my + ch, cr);
+        ctx.arcTo(mx, my + ch, mx, my, cr);
+        ctx.arcTo(mx, my, mx + cw, my, cr);
+        ctx.closePath();
+        ctx.stroke();
+
+        // ── Header: JanVayu branding with shadow ──
+        const headerY = my + Math.round(48 * S);
         ctx.textAlign = 'center';
-        ctx.fillText('JanVayu', W / 2, headerY);
-        ctx.font = (format === 'landscape' ? '14px' : '16px') + ' system-ui, sans-serif';
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.fillText('India Air Quality Dashboard', W / 2, headerY + (format === 'landscape' ? 24 : 30));
+        // Text shadow
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 8;
+        ctx.shadowOffsetY = 2;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold ' + Math.round(40 * S) + 'px system-ui, -apple-system, sans-serif';
+        ctx.fillText('JanVayu', W / 2 - Math.round(30 * S), headerY);
+        ctx.font = Math.round(32 * S) + 'px system-ui, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText('जनवायु', W / 2 + Math.round(80 * S), headerY);
+        ctx.restore();
 
-        // Divider line
-        const divY = headerY + (format === 'landscape' ? 40 : 52);
-        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        // Subtitle
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.font = Math.round(16 * S) + 'px system-ui, sans-serif';
+        ctx.fillText('India Air Quality Dashboard', W / 2, headerY + Math.round(26 * S));
+
+        // Thin divider
+        const divY = headerY + Math.round(44 * S);
+        var divGrad = ctx.createLinearGradient(mx + 40, 0, mx + cw - 40, 0);
+        divGrad.addColorStop(0, 'rgba(255,255,255,0)');
+        divGrad.addColorStop(0.3, 'rgba(255,255,255,0.2)');
+        divGrad.addColorStop(0.7, 'rgba(255,255,255,0.2)');
+        divGrad.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = divGrad;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(mx + 40, divY);
         ctx.lineTo(mx + cw - 40, divY);
         ctx.stroke();
 
-        // ── City name ──
-        const cityY = divY + (format === 'landscape' ? 45 : 70);
+        // ── City name (large, bold, with shadow) ──
+        const cityY = divY + Math.round(55 * S);
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,0.6)';
+        ctx.shadowBlur = 12;
+        ctx.shadowOffsetY = 3;
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold ' + (format === 'landscape' ? '38px' : '52px') + ' system-ui, -apple-system, sans-serif';
+        ctx.font = 'bold ' + Math.round(56 * S) + 'px system-ui, -apple-system, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(city.name, W / 2, cityY);
+        ctx.restore();
 
-        // ── AQI number (huge) ──
-        const aqiNumY = cityY + (format === 'landscape' ? 90 : 140);
-        ctx.font = 'bold ' + (format === 'landscape' ? '100px' : '160px') + ' system-ui, -apple-system, sans-serif';
-        ctx.fillStyle = color;
+        // ── Date stamp below city ──
+        const dateY = cityY + Math.round(28 * S);
+        ctx.fillStyle = 'rgba(255,255,255,0.45)';
+        ctx.font = Math.round(16 * S) + 'px system-ui, sans-serif';
+        ctx.fillText(dateStr + ', ' + timeStr + ' IST', W / 2, dateY);
+
+        // ── AQI number (HUGE, with glow effect) ──
+        const aqiNumY = dateY + Math.round(130 * S);
+        const aqiFontSize = Math.round(180 * S);
+        ctx.save();
+        // Outer glow
+        ctx.font = 'bold ' + aqiFontSize + 'px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
         ctx.shadowColor = color;
-        ctx.shadowBlur = 40;
+        ctx.shadowBlur = 60;
+        ctx.fillStyle = color;
+        ctx.fillText(aqi, W / 2, aqiNumY);
+        // Second layer for stronger glow
+        ctx.shadowBlur = 30;
         ctx.fillText(aqi, W / 2, aqiNumY);
         ctx.shadowBlur = 0;
-        // AQI label
-        ctx.font = 'bold ' + (format === 'landscape' ? '22px' : '28px') + ' system-ui, sans-serif';
-        ctx.fillStyle = color;
-        ctx.fillText('AQI — ' + label, W / 2, aqiNumY + (format === 'landscape' ? 30 : 45));
+        // Bright white center text
+        ctx.fillStyle = '#FFFFFF';
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = 0.3;
+        ctx.fillText(aqi, W / 2, aqiNumY);
+        ctx.restore();
+
+        // AQI label pill
+        const labelY = aqiNumY + Math.round(20 * S);
+        const labelText = 'AQI — ' + label;
+        ctx.font = 'bold ' + Math.round(26 * S) + 'px system-ui, sans-serif';
+        const labelW = ctx.measureText(labelText).width + 40;
+        // Pill background
+        ctx.fillStyle = color + '55';
+        ctx.beginPath();
+        var pillR = Math.round(16 * S);
+        var pillX = W / 2 - labelW / 2;
+        var pillH = Math.round(36 * S);
+        ctx.moveTo(pillX + pillR, labelY);
+        ctx.arcTo(pillX + labelW, labelY, pillX + labelW, labelY + pillH, pillR);
+        ctx.arcTo(pillX + labelW, labelY + pillH, pillX, labelY + pillH, pillR);
+        ctx.arcTo(pillX, labelY + pillH, pillX, labelY, pillR);
+        ctx.arcTo(pillX, labelY, pillX + labelW, labelY, pillR);
+        ctx.closePath();
+        ctx.fill();
+        // Pill text
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold ' + Math.round(22 * S) + 'px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(labelText, W / 2, labelY + Math.round(25 * S));
+
+        // ── Compelling factoid ──
+        const factoidY = labelY + pillH + Math.round(32 * S);
+        var factoid = '';
+        if (aqi <= 50) factoid = 'Cleaner than 85% of Indian cities today';
+        else if (aqi <= 100) factoid = 'You are breathing ' + cigPerDay + ' cigarettes worth of pollution today';
+        else if (aqi <= 200) factoid = 'This air is ' + whoX + '× above what WHO says is safe';
+        else if (aqi <= 300) factoid = 'At this level, children should not play outdoors';
+        else if (aqi <= 400) factoid = 'Equivalent to smoking ' + cigPerDay + ' cigarettes today';
+        else factoid = 'Emergency level — stay indoors, seal windows';
+
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        ctx.font = 'italic ' + Math.round(20 * S) + 'px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('“' + factoid + '”', W / 2, factoidY);
+        ctx.restore();
 
         // ── Stats grid ──
-        const statsY = aqiNumY + (format === 'landscape' ? 65 : 110);
-        const statsFont = (format === 'landscape' ? '16px' : '20px') + ' system-ui, sans-serif';
-        const statsValFont = 'bold ' + (format === 'landscape' ? '26px' : '34px') + ' system-ui, sans-serif';
+        const statsY = factoidY + Math.round(48 * S);
         const colW = cw / 3;
 
-        // PM2.5
+        function drawStat(x, labelTxt, valueTxt, unitTxt) {
+            // Subtle column separator
+            ctx.fillStyle = 'rgba(255,255,255,0.45)';
+            ctx.font = Math.round(15 * S) + 'px system-ui, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(labelTxt, x, statsY);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold ' + Math.round(36 * S) + 'px system-ui, sans-serif';
+            ctx.fillText(valueTxt, x, statsY + Math.round(40 * S));
+            if (unitTxt) {
+                ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                ctx.font = Math.round(13 * S) + 'px system-ui, sans-serif';
+                ctx.fillText(unitTxt, x, statsY + Math.round(58 * S));
+            }
+        }
+
+        drawStat(mx + colW * 0.5, 'PM2.5', pm25 + '', 'µg/m³');
+        drawStat(mx + colW * 1.5, 'WHO GUIDELINE', whoX + '×', 'above safe limit');
+        drawStat(mx + colW * 2.5, 'CIGARETTES/DAY', cigPerDay, 'Berkeley Earth equiv.');
+
+        // Vertical separators between stat columns
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 1;
+        for (var si = 1; si < 3; si++) {
+            ctx.beginPath();
+            ctx.moveTo(mx + colW * si, statsY - Math.round(10 * S));
+            ctx.lineTo(mx + colW * si, statsY + Math.round(62 * S));
+            ctx.stroke();
+        }
+
+        // ── Historical context bar ──
+        const barY = statsY + Math.round(90 * S);
+        const barX = mx + Math.round(40 * S);
+        const barW = cw - Math.round(80 * S);
+        const barH = Math.round(14 * S);
+
+        // Label
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.font = Math.round(13 * S) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.font = statsFont;
-        ctx.fillText('PM2.5', mx + colW * 0.5, statsY);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = statsValFont;
-        ctx.fillText(pm25 + ' µg/m³', mx + colW * 0.5, statsY + (format === 'landscape' ? 30 : 38));
+        ctx.fillText('PM2.5 CONTEXT', W / 2, barY - Math.round(10 * S));
 
-        // WHO multiple
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.font = statsFont;
-        ctx.fillText('WHO Guideline', mx + colW * 1.5, statsY);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = statsValFont;
-        ctx.fillText(whoX + '×', mx + colW * 1.5, statsY + (format === 'landscape' ? 30 : 38));
+        // Determine scale: max of pm25, cityAvg, 100
+        var cityAvg = cityAnnualPM25 || pm25;
+        var scaleMax = Math.max(pm25, cityAvg, 100) * 1.2;
 
-        // Cigarette equivalence
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.font = statsFont;
-        ctx.fillText('Cigarettes/Day', mx + colW * 2.5, statsY);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = statsValFont;
-        ctx.fillText(cigPerDay, mx + colW * 2.5, statsY + (format === 'landscape' ? 30 : 38));
+        // Bar background
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.beginPath();
+        ctx.roundRect(barX, barY, barW, barH, barH / 2);
+        ctx.fill();
 
-        // ── Date & time ──
-        const footerY = H - my - (format === 'landscape' ? 32 : 60);
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.font = (format === 'landscape' ? '13px' : '16px') + ' system-ui, sans-serif';
+        // Gradient fill up to current PM2.5
+        var currentPos = Math.min(pm25 / scaleMax, 1) * barW;
+        var barGrad = ctx.createLinearGradient(barX, 0, barX + currentPos, 0);
+        barGrad.addColorStop(0, '#22C55E');
+        barGrad.addColorStop(0.5, '#EAB308');
+        barGrad.addColorStop(1, color);
+        ctx.fillStyle = barGrad;
+        ctx.beginPath();
+        ctx.roundRect(barX, barY, currentPos, barH, barH / 2);
+        ctx.fill();
+
+        // WHO marker (5 ug/m3)
+        var whoPos = barX + (5 / scaleMax) * barW;
+        ctx.strokeStyle = '#22C55E';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(whoPos, barY - 4);
+        ctx.lineTo(whoPos, barY + barH + 4);
+        ctx.stroke();
+        ctx.fillStyle = '#22C55E';
+        ctx.font = 'bold ' + Math.round(11 * S) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(dateStr + '  ·  ' + timeStr, W / 2, footerY);
+        ctx.fillText('WHO 5', whoPos, barY + barH + Math.round(16 * S));
 
-        // ── URL footer ──
+        // City avg marker
+        if (cityAnnualPM25) {
+            var avgPos = barX + (cityAnnualPM25 / scaleMax) * barW;
+            ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(avgPos, barY - 4);
+            ctx.lineTo(avgPos, barY + barH + 4);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.font = Math.round(11 * S) + 'px system-ui, sans-serif';
+            ctx.fillText('Avg ' + cityAnnualPM25, avgPos, barY + barH + Math.round(16 * S));
+        }
+
+        // Today marker (triangle)
+        var todayPos = barX + Math.min(pm25 / scaleMax, 1) * barW;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.moveTo(todayPos, barY - 6);
+        ctx.lineTo(todayPos - 5, barY - 14);
+        ctx.lineTo(todayPos + 5, barY - 14);
+        ctx.closePath();
+        ctx.fill();
+        ctx.font = 'bold ' + Math.round(11 * S) + 'px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Today ' + pm25, todayPos, barY - Math.round(18 * S));
+
+        // ── Footer: URL ──
+        const footerY = H - my - Math.round(20 * S);
         ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.font = 'bold ' + (format === 'landscape' ? '15px' : '18px') + ' system-ui, sans-serif';
-        ctx.fillText('janvayu.in', W / 2, footerY + (format === 'landscape' ? 22 : 30));
+        ctx.font = 'bold ' + Math.round(20 * S) + 'px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('janvayu.in', W / 2, footerY);
 
         // ── Download or share ──
         canvas.toBlob(function(blob) {
@@ -4986,6 +5205,85 @@ body {
             + '\n\nCheck live data: janvayu.in';
         var url = 'https://wa.me/?text=' + encodeURIComponent(text);
         window.open(url, '_blank');
+    }
+
+    function shareHealthResultWhatsApp() {
+        var pm25 = parseFloat(document.getElementById('health-pm25')?.value || 0);
+        var mortalityEl = document.getElementById('mortality-risk');
+        var lifeEl = document.getElementById('life-years-lost');
+        var mortality = mortalityEl ? mortalityEl.textContent : '--';
+        var lifeYears = lifeEl ? lifeEl.textContent : '--';
+        var whoX = getWHOMultiple(pm25);
+        if (mortality === '--') { alert('Calculate your health risk first.'); return; }
+        var text = '🏥 My air pollution health risk:'
+            + '\n\nPM2.5: ' + pm25 + ' µg/m³ (' + whoX + '× WHO guideline)'
+            + '\nExcess mortality risk: ' + mortality
+            + '\nLife expectancy lost: ' + lifeYears
+            + '\n\nCheck yours: janvayu.in/#health';
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    function shareExposureDiaryWhatsApp() {
+        var statsEl = document.getElementById('diary-stats');
+        if (!statsEl || !statsEl.innerHTML || statsEl.innerHTML.indexOf('--') >= 0) { alert('Calculate your exposure first.'); return; }
+        var cards = statsEl.querySelectorAll('.card');
+        var weighted = '', cigs = '', worst = '';
+        if (cards[0]) { var v = cards[0].querySelector('[style*="1.75rem"]'); if (v) weighted = v.textContent.trim(); }
+        if (cards[1]) { var v = cards[1].querySelector('[style*="1.75rem"]'); if (v) cigs = v.textContent.trim(); }
+        if (cards[3]) { var v = cards[3].querySelector('[style*="1.1rem"]'); if (v) worst = v.textContent.trim(); }
+        var text = '📊 My daily PM2.5 exposure:'
+            + '\n\nWeighted exposure: ' + weighted + ' µg/m³'
+            + '\n= ' + cigs + ' cigarettes/day'
+            + '\nWorst window: ' + worst
+            + '\n\nCheck yours: janvayu.in/#exposure-diary';
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    function shareMigrationResultWhatsApp() {
+        var resultEl = document.getElementById('migration-result');
+        if (!resultEl || !resultEl.innerHTML.trim()) { alert('Compare cities first.'); return; }
+        var fromName = document.getElementById('migrate-from')?.selectedOptions[0]?.text || '';
+        var toName = document.getElementById('migrate-to')?.selectedOptions[0]?.text || '';
+        var verdictEl = resultEl.querySelector('[style*="2.5rem"]');
+        var years = verdictEl ? verdictEl.textContent.trim() : '';
+        var cigCards = resultEl.querySelectorAll('[style*="1.5rem"][style*="font-weight"]');
+        var cigsSaved = cigCards.length > 0 ? cigCards[0].textContent.trim() : '';
+        var text = '🏙️ Air quality migration comparison:'
+            + '\n\nMoving from ' + fromName + ' to ' + toName
+            + ' = ' + years + ' life expectancy'
+            + (cigsSaved ? '\n' + cigsSaved + ' fewer cigarettes/year' : '')
+            + '\n\nCompare cities: janvayu.in/#migration-calc';
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    function shareSchoolClosureWhatsApp() {
+        var grapEl = document.getElementById('grap-status');
+        var predEl = document.getElementById('school-prediction');
+        if (!grapEl || !predEl) { alert('School closure data not loaded yet.'); return; }
+        var aqiEl = grapEl.querySelector('[style*="2.5rem"]');
+        var stageEl = grapEl.querySelector('[style*="1.25rem"]');
+        var statusEl = predEl.querySelector('[style*="1.5rem"]');
+        var aqi = aqiEl ? aqiEl.textContent.trim() : '?';
+        var stage = stageEl ? stageEl.textContent.trim() : '?';
+        var status = statusEl ? statusEl.textContent.trim() : '?';
+        var text = '🏫 NCR School Closure Status:'
+            + '\n\n' + status
+            + '\nNCR Average AQI: ' + aqi
+            + '\nGRAP Status: ' + stage
+            + '\n\nCheck live: janvayu.in/#school-closure';
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    function sharePurifierResultWhatsApp() {
+        var resultEl = document.getElementById('purifier-result');
+        if (!resultEl || resultEl.textContent.indexOf('Enter room') >= 0) { alert('Calculate purifier sizing first.'); return; }
+        var area = document.getElementById('purifier-area')?.value || '?';
+        var cadrEl = resultEl.querySelector('[style*="2rem"]');
+        var cadr = cadrEl ? cadrEl.textContent.trim() : '?';
+        var text = '💨 My air purifier calculation:'
+            + '\n\nFor my ' + area + ' sq ft room, I need a purifier with CADR >= ' + cadr
+            + '\n\nCalculate yours: janvayu.in/#purifier-calc';
+        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
     }
 
     function updateShareCardPreview() {
@@ -6698,6 +6996,12 @@ body {
             'Cigarette equivalence: Berkeley Earth (22 µg/m³/day). Life-expectancy loss: AQLI methodology.' +
             '</p>';
 
+        // WhatsApp share button
+        document.getElementById('diary-recommendations').innerHTML += '<div style="text-align: center; margin-top: 1rem;">' +
+            '<button onclick="shareExposureDiaryWhatsApp()" style="background: #25D366; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.584-1.476A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.818-6.296-2.187l-.44-.362-3.26 1.05 1.07-3.188-.394-.46A9.95 9.95 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>' +
+            'Share on WhatsApp</button></div>';
+
         // Save to localStorage
         saveDiaryResult(cityKey, weightedPM25, cigsPerDay, lifeYearsLost, worstActivity.label);
         renderDiaryHistory();
@@ -6966,6 +7270,12 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             </div>
             <div class="alert alert-info mt-2" style="font-size: 0.75rem;">
                 Tip: Seal windows and doors for best results. Run purifier 30 minutes before entering room. Replace filters on schedule — a clogged filter is worse than no purifier.
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button onclick="sharePurifierResultWhatsApp()" style="background: #25D366; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.584-1.476A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.818-6.296-2.187l-.44-.362-3.26 1.05 1.07-3.188-.394-.46A9.95 9.95 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                    Share on WhatsApp
+                </button>
             </div>`;
     }
 
@@ -7723,6 +8033,12 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         <div class="alert alert-info" style="font-size: 0.8rem;">
             <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5 values from IQAir World Air Quality Report 2025. Live AQI from WAQI (single nearest station &mdash; snapshot, not annual average). Source apportionment from CEEW 2024, TERI, IIT-Delhi DSS, CSIR-NEERI, and city-specific studies.<br>
             <strong>Caveat:</strong> Live values are today's snapshot. The health calculations use annual averages for a more robust comparison. Actual benefit depends on duration of residence, indoor air quality, and individual health factors.
+        </div>
+        <div style="text-align: center; margin-top: 1rem;">
+            <button onclick="shareMigrationResultWhatsApp()" style="background: #25D366; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.584-1.476A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.818-6.296-2.187l-.44-.362-3.26 1.05 1.07-3.188-.394-.46A9.95 9.95 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                Share on WhatsApp
+            </button>
         </div>`;
 
         resultEl.innerHTML = html;
@@ -8870,7 +9186,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <div class="result-detail">Berkeley Earth methodology</div>
                         </div>
                     </div>
-                    <div class="card-footer">Sources: Lancet GBD 2019, IHME, Berkeley Earth</div>
+                    <div class="card-footer" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+                        <span>Sources: Lancet GBD 2019, IHME, Berkeley Earth</span>
+                        <button onclick="shareHealthResultWhatsApp()" style="background: #25D366; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.584-1.476A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.818-6.296-2.187l-.44-.362-3.26 1.05 1.07-3.188-.394-.46A9.95 9.95 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                            Share on WhatsApp
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -16860,6 +17182,13 @@ Yours faithfully,
                     <div style="color: var(--text-3);">Loading...</div>
                 </div>
             </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem;">
+            <button onclick="shareSchoolClosureWhatsApp()" style="background: #25D366; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.616l4.584-1.476A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.37 0-4.567-.818-6.296-2.187l-.44-.362-3.26 1.05 1.07-3.188-.394-.46A9.95 9.95 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                Share on WhatsApp
+            </button>
         </div>
 
         <div class="card mt-3">
