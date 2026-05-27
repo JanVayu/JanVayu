@@ -2882,6 +2882,7 @@ body {
                 <button class="mobile-nav-item" data-panel="policy" data-i18n="nav_policy">Policy Tracker</button>
                 <button class="mobile-nav-item" data-panel="budget" data-i18n="nav_budget">Budget Tracker</button>
                 <button class="mobile-nav-item" data-panel="mission-tracker" data-i18n="nav_mission">Mission Tracker</button>
+                <button class="mobile-nav-item" data-panel="city-policy" data-i18n="nav_city_policy">City Policy Tracker</button>
                 <button class="mobile-nav-item" data-panel="scorecards" data-i18n="nav_scorecards">City Scorecards</button>
                 <button class="mobile-nav-item" data-panel="corporate" data-i18n="nav_corporate">Industrial Sources</button>
                 <button class="mobile-nav-item" data-panel="accountability" data-i18n="nav_accountability">Political Accountability</button>
@@ -2972,6 +2973,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="policy" data-i18n="nav_policy">Policy Tracker</button>
                     <button class="nav-dropdown-link" data-panel="budget" data-i18n="nav_budget">Budget Tracker</button>
                     <button class="nav-dropdown-link" data-panel="mission-tracker" data-i18n="nav_mission">Mission Tracker</button>
+                    <button class="nav-dropdown-link" data-panel="city-policy" data-i18n="nav_city_policy">City Policy Tracker</button>
                     <button class="nav-dropdown-link" data-panel="scorecards" data-i18n="nav_scorecards">City Scorecards</button>
                     <button class="nav-dropdown-link" data-panel="corporate" data-i18n="nav_corporate">Industrial Sources</button>
                     <button class="nav-dropdown-link" data-panel="accountability" data-i18n="nav_accountability">Political Accountability</button>
@@ -3489,6 +3491,7 @@ body {
                     <a class="footer-link" href="#" onclick="showPanel('health');return false;">Health Impact</a>
                     <a class="footer-link" href="#" onclick="showPanel('economic');return false;">Economic Cost</a>
                     <a class="footer-link" href="#" onclick="showPanel('policy');return false;">Policy</a>
+                    <a class="footer-link" href="#" onclick="showPanel('city-policy');return false;">City Policy Tracker</a>
                     <a class="footer-link" href="#" onclick="showPanel('accountability');return false;">Accountability</a>
                 </div>
                 <div>
@@ -4409,6 +4412,7 @@ body {
                     } catch(e) { console.warn(e); }
                 }
                 if (panelId === 'resources') { try { loadZoteroItems(); } catch(e) { console.warn(e); } }
+                if (panelId === 'city-policy') { try { initCityPolicyTracker(); } catch(e) { console.warn('City policy init:', e); } }
             }, 150);
         } else {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
@@ -7952,6 +7956,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'accountability', title: 'Political Accountability', desc: 'MoEFCC, state compliance, RTI', keywords: 'political accountability moefcc minister state compliance rti parliament' },
         { id: 'corporate', title: 'Industrial Sources', desc: 'Factory emissions, corporate responsibility', keywords: 'industry industrial factory corporate emissions thermal power plant brick kiln' },
         { id: 'mission-tracker', title: 'Clean Air Mission Tracker', desc: 'Government promises vs outcomes', keywords: 'mission tracker promise outcome target achievement' },
+        { id: 'city-policy', title: 'City Policy Tracker', desc: 'City-wise NCAP targets, expenditure, government actions', keywords: 'city policy tracker ncap target expenditure spending action government accountability budget utilisation delhi mumbai patna lucknow' },
         { id: 'progress', title: 'Clean Air Wins', desc: 'Positive progress, e-buses, city improvements', keywords: 'progress wins good news positive ebus electric bus varanasi success' },
         { id: 'actions', title: 'Take Action', desc: 'What you can do, advocacy guides', keywords: 'action advocacy citizen guide protest campaign demand' },
         { id: 'citizen-action', title: 'Citizen Plan', desc: 'Personal action planning tools', keywords: 'citizen plan personal steps protection mask purifier' },
@@ -8391,6 +8396,279 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             if (area) area.value = 'Anand Vihar';
             if (period) period.value = 'today';
         }
+    }
+
+    // ── City Policy Tracker ──
+    const CITY_POLICY_DATA = {
+        delhi: {
+            name: 'Delhi',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Additional: CAQM year-round GRAP enforcement from May 2026',
+            currentPM25: 91.6,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: 'Only 17% NCAP fund utilisation. 0 days met WHO guideline in 2024.',
+            expenditure: [
+                { year: '2019-20', allocated: 10.00, utilised: 2.00 },
+                { year: '2020-21', allocated: 12.00, utilised: 3.50 },
+                { year: '2021-22', allocated: 15.00, utilised: 4.10 },
+                { year: '2022-23', allocated: 18.00, utilised: 2.50 },
+                { year: '2023-24', allocated: 14.36, utilised: 1.00 },
+                { year: '2024-25', allocated: 12.00, utilised: 1.00 },
+                { year: '2025-26', allocated: null, utilised: null }
+            ],
+            totalAllocated: 81.36,
+            totalUtilised: 14.10,
+            utilisationPct: 17
+        },
+        mumbai: {
+            name: 'Mumbai',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'BEST e-bus fleet target: 2,100 by 2026',
+            currentPM25: 41.4,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: 'PM2.5 increased 38% since 2019 despite NCAP. 58% fund utilisation.',
+            expenditure: [
+                { year: '2019-20', allocated: 30.00, utilised: 10.00 },
+                { year: '2020-21', allocated: 45.00, utilised: 22.00 },
+                { year: '2021-22', allocated: 55.00, utilised: 32.00 },
+                { year: '2022-23', allocated: 70.00, utilised: 45.00 },
+                { year: '2023-24', allocated: 80.00, utilised: 51.00 },
+                { year: '2024-25', allocated: 60.00, utilised: 35.00 },
+                { year: '2025-26', allocated: 40.00, utilised: 25.00 }
+            ],
+            totalAllocated: 380.00,
+            totalUtilised: 220.00,
+            utilisationPct: 58
+        },
+        patna: {
+            name: 'Patna',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Brick kiln zigzag conversion within 50 km radius',
+            currentPM25: 96.8,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: 'Best utilisation rate (70%) among major cities but PM2.5 remains 19x WHO guideline.',
+            expenditure: [
+                { year: '2019-20', allocated: 8.00, utilised: 5.00 },
+                { year: '2020-21', allocated: 12.00, utilised: 8.00 },
+                { year: '2021-22', allocated: 18.00, utilised: 13.00 },
+                { year: '2022-23', allocated: 22.00, utilised: 16.00 },
+                { year: '2023-24', allocated: 25.00, utilised: 18.00 },
+                { year: '2024-25', allocated: 20.00, utilised: 14.00 },
+                { year: '2025-26', allocated: 15.00, utilised: 10.00 }
+            ],
+            totalAllocated: 120.00,
+            totalUtilised: 84.00,
+            utilisationPct: 70
+        },
+        lucknow: {
+            name: 'Lucknow',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Anti-smog gun deployment + mechanised sweeping 200 km/day',
+            currentPM25: 76.5,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: '40% utilisation — below 75% threshold, risks losing next allocation.',
+            expenditure: [
+                { year: '2019-20', allocated: 15.00, utilised: 5.00 },
+                { year: '2020-21', allocated: 20.00, utilised: 8.00 },
+                { year: '2021-22', allocated: 25.00, utilised: 10.00 },
+                { year: '2022-23', allocated: 30.00, utilised: 12.00 },
+                { year: '2023-24', allocated: 35.00, utilised: 15.00 },
+                { year: '2024-25', allocated: 30.00, utilised: 12.00 },
+                { year: '2025-26', allocated: 25.00, utilised: 10.00 }
+            ],
+            totalAllocated: 180.00,
+            totalUtilised: 72.00,
+            utilisationPct: 40
+        },
+        noida: {
+            name: 'Noida',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Part of NCR — subject to CAQM GRAP enforcement',
+            currentPM25: 80.4,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: 'Critical underutilisation at 13%. One of the worst performing NCAP cities.',
+            expenditure: [
+                { year: '2019-20', allocated: 5.00, utilised: 0.50 },
+                { year: '2020-21', allocated: 8.00, utilised: 1.00 },
+                { year: '2021-22', allocated: 10.00, utilised: 1.50 },
+                { year: '2022-23', allocated: 10.70, utilised: 1.50 },
+                { year: '2023-24', allocated: 10.00, utilised: 1.07 },
+                { year: '2024-25', allocated: 7.00, utilised: 1.00 },
+                { year: '2025-26', allocated: 5.00, utilised: 0.50 }
+            ],
+            totalAllocated: 55.70,
+            totalUtilised: 7.07,
+            utilisationPct: 13
+        },
+        ghaziabad: {
+            name: 'Ghaziabad',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Part of NCR — subject to CAQM GRAP enforcement',
+            currentPM25: 92.1,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: '26% utilisation — below threshold.',
+            expenditure: [
+                { year: '2019-20', allocated: 4.00, utilised: 1.00 },
+                { year: '2020-21', allocated: 6.00, utilised: 1.50 },
+                { year: '2021-22', allocated: 8.00, utilised: 2.00 },
+                { year: '2022-23', allocated: 8.50, utilised: 2.10 },
+                { year: '2023-24', allocated: 9.00, utilised: 2.50 },
+                { year: '2024-25', allocated: 7.00, utilised: 2.00 },
+                { year: '2025-26', allocated: 6.00, utilised: 1.50 }
+            ],
+            totalAllocated: 48.50,
+            totalUtilised: 12.60,
+            utilisationPct: 26
+        },
+        varanasi: {
+            name: 'Varanasi',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Showcased as NCAP success story — PM2.5 fell 72% in 5 years',
+            currentPM25: 78.4,
+            status: 'met',
+            statusLabel: 'Met',
+            statusNote: 'Best NCAP performer nationally. PM2.5 down 72% in 5 years — but still 15x WHO guideline.',
+            expenditure: [
+                { year: '2019-20', allocated: 8.00, utilised: 6.00 },
+                { year: '2020-21', allocated: 10.00, utilised: 8.00 },
+                { year: '2021-22', allocated: 12.00, utilised: 10.00 },
+                { year: '2022-23', allocated: 15.00, utilised: 13.00 },
+                { year: '2023-24', allocated: 15.00, utilised: 12.00 },
+                { year: '2024-25', allocated: 12.00, utilised: 10.00 },
+                { year: '2025-26', allocated: 10.00, utilised: 8.00 }
+            ],
+            totalAllocated: 82.00,
+            totalUtilised: 67.00,
+            utilisationPct: 82
+        },
+        kolkata: {
+            name: 'Kolkata',
+            ncapTarget: '40% PM10 reduction by March 2026',
+            cityTarget: 'Focus on vehicle emissions and winter inversions',
+            currentPM25: 50.2,
+            status: 'not-met',
+            statusLabel: 'Not Met',
+            statusNote: 'Limited monitoring coverage (7 CAAQMS). Winter inversions + vehicle emissions.',
+            expenditure: [
+                { year: '2019-20', allocated: 10.00, utilised: 4.00 },
+                { year: '2020-21', allocated: 15.00, utilised: 7.00 },
+                { year: '2021-22', allocated: 18.00, utilised: 9.00 },
+                { year: '2022-23', allocated: 20.00, utilised: 10.00 },
+                { year: '2023-24', allocated: 18.00, utilised: 8.00 },
+                { year: '2024-25', allocated: 15.00, utilised: 7.00 },
+                { year: '2025-26', allocated: 12.00, utilised: 5.00 }
+            ],
+            totalAllocated: 108.00,
+            totalUtilised: 50.00,
+            utilisationPct: 46
+        }
+    };
+
+    function initCityPolicyTracker() {
+        const sel = document.getElementById('cityPolicySelector');
+        if (!sel) return;
+        sel.addEventListener('change', function() { renderCityPolicyData(this.value); });
+        renderCityPolicyData(sel.value);
+        loadCityPolicyFeedback();
+    }
+
+    function renderCityPolicyData(cityKey) {
+        const d = CITY_POLICY_DATA[cityKey];
+        if (!d) return;
+
+        // Render target area
+        const targetArea = document.getElementById('cityPolicyTargetArea');
+        if (targetArea) {
+            const statusColor = d.status === 'met' ? '#16803C' : d.status === 'on-track' ? '#D97706' : '#EF4444';
+            const statusBadge = d.status === 'met' ? 'badge-success' : d.status === 'on-track' ? 'badge-warning' : 'badge-danger';
+            const whoMultiple = (d.currentPM25 / 5).toFixed(0);
+            targetArea.innerHTML =
+                '<div class="grid-2" style="gap: 1rem; margin-bottom: 1rem;">' +
+                    '<div class="info-box" style="border-left: 3px solid #3B82F6;">' +
+                        '<h4 style="font-size: 0.875rem; color: #3B82F6;">Announced Targets</h4>' +
+                        '<p style="margin-top: 0.5rem;"><strong>NCAP national target:</strong> ' + d.ncapTarget + '</p>' +
+                        '<p><strong>City-specific:</strong> ' + d.cityTarget + '</p>' +
+                        '<p style="margin-top: 0.5rem;"><strong>Current PM2.5:</strong> ' + d.currentPM25 + ' &micro;g/m&sup3; (' + whoMultiple + '&times; WHO guideline)</p>' +
+                    '</div>' +
+                    '<div class="info-box" style="border-left: 3px solid ' + statusColor + ';">' +
+                        '<h4 style="font-size: 0.875rem; color: ' + statusColor + ';">Target Status</h4>' +
+                        '<div style="margin-top: 0.5rem;"><span class="badge ' + statusBadge + '" style="font-size: 1rem; padding: 0.25rem 0.75rem;">' + d.statusLabel + '</span></div>' +
+                        '<p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-2);">' + d.statusNote + '</p>' +
+                        '<div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg); border-radius: 4px; font-size: 0.8125rem;">' +
+                            '<strong>Total allocated:</strong> &rupee;' + d.totalAllocated.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
+                            '<strong>Total utilised:</strong> &rupee;' + d.totalUtilised.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
+                            '<strong>Utilisation:</strong> <span style="color: ' + statusColor + '; font-weight: 700;">' + d.utilisationPct + '%</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        // Render expenditure table
+        const tbody = document.getElementById('cityPolicyExpBody');
+        if (tbody) {
+            tbody.innerHTML = d.expenditure.map(function(row) {
+                const alloc = row.allocated !== null ? row.allocated.toFixed(2) : '&mdash;';
+                const util = row.utilised !== null ? row.utilised.toFixed(2) : '&mdash;';
+                let pct = '&mdash;';
+                let pctBadge = '';
+                if (row.allocated !== null && row.utilised !== null && row.allocated > 0) {
+                    const p = Math.round((row.utilised / row.allocated) * 100);
+                    const bc = p >= 60 ? 'badge-success' : p >= 30 ? 'badge-warning' : 'badge-danger';
+                    pct = '<span class="badge ' + bc + '">' + p + '%</span>';
+                }
+                return '<tr><td>' + row.year + '</td><td>' + alloc + '</td><td>' + util + '</td><td>' + pct + '</td></tr>';
+            }).join('');
+        }
+    }
+
+    // ── City Policy Feedback (localStorage) ──
+    const CP_FEEDBACK_KEY = 'janvayu-city-policy-feedback';
+
+    function submitCityPolicyFeedback() {
+        const input = document.getElementById('cpFeedbackInput');
+        const citySelect = document.getElementById('cpFeedbackCity');
+        if (!input || !input.value.trim()) return;
+
+        const feedback = JSON.parse(localStorage.getItem(CP_FEEDBACK_KEY) || '[]');
+        feedback.unshift({
+            city: citySelect ? citySelect.value : 'Unknown',
+            text: input.value.trim().substring(0, 500),
+            date: new Date().toISOString().split('T')[0]
+        });
+        // Keep last 50
+        if (feedback.length > 50) feedback.length = 50;
+        localStorage.setItem(CP_FEEDBACK_KEY, JSON.stringify(feedback));
+        input.value = '';
+        loadCityPolicyFeedback();
+    }
+
+    function loadCityPolicyFeedback() {
+        const list = document.getElementById('cpFeedbackList');
+        const empty = document.getElementById('cpFeedbackEmpty');
+        if (!list) return;
+
+        const feedback = JSON.parse(localStorage.getItem(CP_FEEDBACK_KEY) || '[]');
+        if (feedback.length === 0) {
+            list.innerHTML = '';
+            if (empty) empty.style.display = '';
+            return;
+        }
+        if (empty) empty.style.display = 'none';
+        list.innerHTML = feedback.map(function(f) {
+            return '<div style="padding: 0.75rem; margin-bottom: 0.5rem; background: var(--bg); border-radius: 6px; border-left: 3px solid var(--accent);">' +
+                '<div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">' +
+                    '<span style="font-weight: 600; font-size: 0.8125rem; color: var(--accent);">' + (f.city || 'Unknown') + '</span>' +
+                    '<span style="font-size: 0.75rem; color: var(--text-3);">' + (f.date || '') + '</span>' +
+                '</div>' +
+                '<p style="font-size: 0.875rem; color: var(--text-2); margin: 0;">' + f.text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>' +
+            '</div>';
+        }).join('');
     }
 
 
@@ -14316,6 +14594,348 @@ Signature: _______________</div>
 </template>
 
 <!-- ═══════════════════════════════════════════════ -->
+<!-- City Policy Tracker — city-wise NCAP targets,  -->
+<!-- expenditure, government actions, public feedback -->
+<!-- ═══════════════════════════════════════════════ -->
+<template id="tmpl-city-policy">
+    <div class="panel-action-box">
+        <div class="panel-action-box-text">
+            <strong>Your action: Check if your city met its NCAP target</strong>
+            <span>See announced targets, actual spending, and government actions city by city. Hold your local government accountable.</span>
+        </div>
+        <button class="action-btn" onclick="showPanel('rti-assistant')">File an RTI &rarr;</button>
+    </div>
+
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);">
+            <span class="si si-pin" style="color: #7C3AED; margin-right: 0.4rem;"></span>City Policy Tracker
+        </h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Governments announce targets for cleaning the air. Did they actually spend the money? Did they meet the targets? Pick your city and find out. This page tracks what was promised, what was spent, and what actually happened.">
+            Tracking publicly announced air quality targets, expenditure, and government actions at the city level. Select a city to see whether announced commitments were met &mdash; and where the money went.
+        </p>
+    </div>
+
+    <!-- ── SECTION 1: City-wise Target Dashboard ── -->
+    <div class="card mb-2">
+        <div class="card-header">
+            <span class="card-title" style="color: #7C3AED;">
+                <span class="si si-target"></span>
+                City-wise NCAP Target Dashboard
+            </span>
+        </div>
+        <div class="card-body">
+            <div style="margin-bottom: 1.25rem;">
+                <label for="cityPolicySelector" style="font-weight: 600; font-size: 0.875rem; margin-right: 0.5rem;">Select city:</label>
+                <select id="cityPolicySelector" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.875rem; background: var(--bg); color: var(--ink); min-width: 200px;">
+                    <option value="delhi">Delhi</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="patna">Patna</option>
+                    <option value="lucknow">Lucknow</option>
+                    <option value="noida">Noida</option>
+                    <option value="ghaziabad">Ghaziabad</option>
+                    <option value="varanasi">Varanasi</option>
+                    <option value="kolkata">Kolkata</option>
+                </select>
+            </div>
+
+            <!-- City target display area -->
+            <div id="cityPolicyTargetArea">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Expenditure table -->
+            <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 0.9375rem; color: var(--ink);">
+                <span class="si si-wallet" style="color: #D97706;"></span> NCAP Expenditure Tracker
+            </h4>
+            <div class="table-wrap">
+                <table class="table" id="cityPolicyExpTable">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Allocated (&rupee; Cr)</th>
+                            <th>Utilised (&rupee; Cr)</th>
+                            <th>Utilisation %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cityPolicyExpBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 0.75rem; font-size: 0.8125rem; color: var(--text-3);">
+                Sources: CREA &ldquo;Tracing the Hazy Air 2026&rdquo; (Jan 2026), CSE Five-Year NCAP Review (Apr 2026), RTI responses, Union Budget documents. &ldquo;&mdash;&rdquo; indicates data not yet available via public sources.
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 2: Action Tracker ── -->
+    <div class="card mb-2">
+        <div class="card-header">
+            <span class="card-title" style="color: #1B6B4A;">
+                <span class="si si-clipboard-check"></span>
+                Government Action Tracker
+            </span>
+        </div>
+        <div class="card-body">
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Below are real government actions with dates and sources. Check the status column: was it actually implemented, or just announced?">
+                Concrete government actions affecting air quality, tracked with dates, sources, and implementation status. Verifiable via RTI or official records.
+            </p>
+
+            <!-- Delhi Actions -->
+            <div class="city-action-block" data-city-actions="delhi" style="margin-bottom: 1.5rem;">
+                <h4 style="font-size: 0.9375rem; color: var(--ink); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
+                    Delhi &amp; NCR
+                </h4>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead><tr><th style="width:110px;">Date</th><th>Action</th><th style="width:130px;">Source</th><th style="width:110px;">Status</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>19 May 2026</td>
+                                <td>CAQM invokes off-season GRAP Stage-I at AQI 208 &mdash; first-ever summer activation</td>
+                                <td>CAQM order</td>
+                                <td><span class="badge badge-success">Implemented</span></td>
+                            </tr>
+                            <tr>
+                                <td>Apr 2026</td>
+                                <td>NGT directs 6 south-Indian states to file PM reduction roadmaps within 3 months</td>
+                                <td>NGT order</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>31 Mar 2026</td>
+                                <td>NCAP deadline elapsed &mdash; 23 of 100 cities met 40% PM10 target (CREA count). CSE review: 37 of 131 met original 20% target.</td>
+                                <td>CREA Jan 2026; CSE Apr 2026</td>
+                                <td><span class="badge badge-danger">Deadline passed</span></td>
+                            </tr>
+                            <tr>
+                                <td>31 Mar 2026</td>
+                                <td>15th Finance Commission clean air grants (&rupee;16,539 Cr for 49 cities) expired. No successor announced.</td>
+                                <td>15th FC report</td>
+                                <td><span class="badge badge-danger">Expired</span></td>
+                            </tr>
+                            <tr>
+                                <td>Sep 2025</td>
+                                <td>75% utilisation rule: cities must achieve 75% fund utilisation to access 2025-26 NCAP allocation</td>
+                                <td>MoEFCC notification</td>
+                                <td><span class="badge badge-success">Implemented</span></td>
+                            </tr>
+                            <tr>
+                                <td>Winter 2025-26</td>
+                                <td>GRAP Stage IV invoked 4 times. 40% of construction sites continued operations during ban.</td>
+                                <td>CAQM, media reports</td>
+                                <td><span class="badge badge-warning">Partial</span></td>
+                            </tr>
+                            <tr>
+                                <td>Dec 2024</td>
+                                <td>GRAP shifts to predictive activation (3-day IMD/IITM forecast) instead of reactive triggers</td>
+                                <td>CAQM notification</td>
+                                <td><span class="badge badge-success">Implemented</span></td>
+                            </tr>
+                            <tr>
+                                <td>2020</td>
+                                <td>BS-VI fuel standards enforced nationally</td>
+                                <td>MoPNG gazette</td>
+                                <td><span class="badge badge-success">Implemented</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mumbai Actions -->
+            <div class="city-action-block" data-city-actions="mumbai" style="margin-bottom: 1.5rem;">
+                <h4 style="font-size: 0.9375rem; color: var(--ink); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
+                    Mumbai
+                </h4>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead><tr><th style="width:110px;">Date</th><th>Action</th><th style="width:130px;">Source</th><th style="width:110px;">Status</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>2025-26</td>
+                                <td>NCAP allocation &rupee;380 Cr; &rupee;220 Cr utilised (58%). Bulk spent on road sweeping and dust suppression.</td>
+                                <td>CREA NCAP Analysis</td>
+                                <td><span class="badge badge-warning">Moderate</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024</td>
+                                <td>PM2.5 increased 38% since 2019 despite NCAP interventions</td>
+                                <td>MPCB annual report</td>
+                                <td><span class="badge badge-danger">Worsening</span></td>
+                            </tr>
+                            <tr>
+                                <td>2023</td>
+                                <td>BEST e-bus fleet expansion to 400 vehicles; target 2,100 by 2026</td>
+                                <td>BEST press release</td>
+                                <td><span class="badge badge-success">On track</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Patna Actions -->
+            <div class="city-action-block" data-city-actions="patna" style="margin-bottom: 1.5rem;">
+                <h4 style="font-size: 0.9375rem; color: var(--ink); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
+                    Patna
+                </h4>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead><tr><th style="width:110px;">Date</th><th>Action</th><th style="width:130px;">Source</th><th style="width:110px;">Status</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>2025-26</td>
+                                <td>NCAP allocation &rupee;120 Cr; &rupee;84 Cr utilised (70%). Best utilisation rate among major cities.</td>
+                                <td>CREA NCAP Analysis</td>
+                                <td><span class="badge badge-success">On track</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024</td>
+                                <td>3 CAAQMS stations operational; 4 manual stations. PM2.5 annual avg ~96.8 &micro;g/m&sup3; (19&times; WHO).</td>
+                                <td>BSPCB, IQAir 2025</td>
+                                <td><span class="badge badge-danger">Severe</span></td>
+                            </tr>
+                            <tr>
+                                <td>2023</td>
+                                <td>Brick kiln conversion programme initiated &mdash; zigzag technology mandate for kilns within 50 km</td>
+                                <td>BSPCB order</td>
+                                <td><span class="badge badge-warning">Partial</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Lucknow Actions -->
+            <div class="city-action-block" data-city-actions="lucknow">
+                <h4 style="font-size: 0.9375rem; color: var(--ink); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">
+                    Lucknow
+                </h4>
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead><tr><th style="width:110px;">Date</th><th>Action</th><th style="width:130px;">Source</th><th style="width:110px;">Status</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>2025-26</td>
+                                <td>NCAP allocation &rupee;180 Cr; &rupee;72 Cr utilised (40%). Below 75% threshold &mdash; risks losing next-year funding.</td>
+                                <td>CREA NCAP Analysis</td>
+                                <td><span class="badge badge-danger">Below threshold</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024</td>
+                                <td>PM2.5 annual avg ~76.5 &micro;g/m&sup3; (15&times; WHO). Indo-Gangetic plain trapping.</td>
+                                <td>IQAir 2025</td>
+                                <td><span class="badge badge-danger">Severe</span></td>
+                            </tr>
+                            <tr>
+                                <td>2023</td>
+                                <td>Anti-smog gun deployment (12 units) across major intersections</td>
+                                <td>LMC press release</td>
+                                <td><span class="badge badge-warning">Cosmetic</span></td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td>Mechanised road sweeping expanded to 200 km of roads daily</td>
+                                <td>UPPCB report</td>
+                                <td><span class="badge badge-success">Implemented</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">Sources: CAQM orders, CREA analysis, CSE Five-Year Review (Apr 2026), NGT orders, state PCB reports, RTI responses, media reports</div>
+    </div>
+
+    <!-- ── SECTION 3: Public Feedback ── -->
+    <div class="card mb-2">
+        <div class="card-header">
+            <span class="card-title" style="color: #3B82F6;">
+                <span class="si si-chat"></span>
+                Citizen Observations
+            </span>
+        </div>
+        <div class="card-body">
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Is the government's clean air plan working in your city? Tell us what you see on the ground. Your observations are saved on your device and shown below.">
+                Is any of this working in your city? Share what you observe on the ground. Observations are stored locally on your device.
+            </p>
+            <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                <select id="cpFeedbackCity" style="padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.875rem; background: var(--bg); color: var(--ink);">
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Patna">Patna</option>
+                    <option value="Lucknow">Lucknow</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Varanasi">Varanasi</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="text" id="cpFeedbackInput" placeholder="e.g. Road sweeping stopped after elections. Dust is back." style="flex: 1; min-width: 200px; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.875rem; background: var(--bg); color: var(--ink);" maxlength="500">
+                <button class="btn btn-sm" onclick="submitCityPolicyFeedback()" style="white-space: nowrap;">Submit</button>
+            </div>
+            <div id="cpFeedbackList" style="max-height: 300px; overflow-y: auto;">
+                <!-- Populated by JS -->
+            </div>
+            <div id="cpFeedbackEmpty" style="padding: 1rem; text-align: center; color: var(--text-3); font-size: 0.8125rem;">
+                No observations yet. Be the first to share what you see.
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 4: Key Governance Questions ── -->
+    <div class="card mb-2">
+        <div class="card-header">
+            <span class="card-title" style="color: #EF4444;">
+                <span class="si si-alert"></span>
+                Questions Your Government Should Answer
+            </span>
+        </div>
+        <div class="card-body">
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="These are real questions that citizens, journalists, and councillors should be asking their local government. Use them in RTI requests, public meetings, or media interviews.">
+                These are the questions that citizens, journalists, and ward councillors should be putting to their municipal corporations and state pollution control boards. Use these in RTI applications, public hearings, or media advocacy.
+            </p>
+            <div class="grid-2" style="gap: 1rem;">
+                <div class="info-box" style="border-left: 3px solid #EF4444;">
+                    <h4 style="color: #EF4444; font-size: 0.875rem;">On spending priorities</h4>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;How much of the NCAP budget was spent on road dust suppression vs actual emission reduction (vehicles, industry, biomass)?&rdquo;</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: 68% of NCAP funds nationally went to dust control. Vehicles (38%) and industry (18%) &mdash; the top PM2.5 sources &mdash; received &lt;1% combined.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #D97706;">
+                    <h4 style="color: #D97706; font-size: 0.875rem;">On CAQM functioning</h4>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;How many CAQM meetings were held in the past 6 months? What was decided? Are minutes publicly available?&rdquo;</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: CAQM is the apex body for NCR air quality. Meeting frequency and decisions should be public. File RTI under CAQM, MoEFCC.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                    <h4 style="color: #3B82F6; font-size: 0.875rem;">On monitoring gaps</h4>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;Has your city&rsquo;s monitoring station count increased since NCAP started? Are all stations reporting data continuously?&rdquo;</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: Many cities have 2-3 stations for millions of people. Data gaps (&gt;25% downtime) are common. Without measurement, there is no accountability.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                    <h4 style="color: #7C3AED; font-size: 0.875rem;">On the funding cliff</h4>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;What happened to the 15th Finance Commission clean air grants (&rupee;16,539 Cr for 49 cities) that expired 31 March 2026?&rdquo;</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: This bucket was 87% of all NCAP city funding. 16th FC recommendations expected Oct 2026 for FY27 (Apr 2027) &mdash; leaving a potential 12-month gap with no new allocation.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #16803C;">
+                    <h4 style="color: #16803C; font-size: 0.875rem;">On target accountability</h4>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;NCAP targeted 40% PM10 reduction by March 2026. Only 23 of 100 cities met it. What is the revised plan?&rdquo;</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: As of mid-May 2026, no revised NCAP programme has been announced. Guttikunda et al. (2024) found &ldquo;no change in the fraction of cities above 150 &micro;g/m&sup3;&rdquo; for PM10.</p>
+                </div>
+                <div class="info-box" style="border-left: 3px solid #EC4899;">
+                    <h4 style="color: #EC4899; font-size: 0.875rem;">On compliance enforcement</h4>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;During the last GRAP Stage IV, how many construction sites were inspected? How many penalties were issued?&rdquo;</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: Compliance monitoring during winter 2025-26 found 40% of construction sites continued operations during the ban. Enforcement is the weakest link.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-2"><div>
+                <strong>Take action:</strong> Copy any question above into an <a href="#" onclick="showPanel('rti-assistant'); return false;" style="color: var(--green-700);">RTI application</a>.
+                Use the <a href="#" onclick="showPanel('accountability-brief'); return false;" style="color: var(--green-700);">Accountability Brief</a> tool to generate a ward-level report for your councillor.
+            </div></div>
+        </div>
+    </div>
+</template>
+
+<!-- ═══════════════════════════════════════════════ -->
 <!-- NEW SECTION: Migration & Climate Displacement  -->
 <!-- ═══════════════════════════════════════════════ -->
 <template id="tmpl-migration">
@@ -16718,6 +17338,7 @@ const ROLE_CONFIG = {
         ],
         panels: [
             { panel: 'policy', title: 'Policy Effectiveness', desc: 'NCAP outcomes & analysis' },
+            { panel: 'city-policy', title: 'City Policy Tracker', desc: 'City-wise targets & spending' },
             { panel: 'accountability', title: 'Political Accountability', desc: 'Government response tracking' },
             { panel: 'economic', title: 'Economic Impact', desc: '$260B annual cost to India' },
             { panel: 'progress', title: 'Clean Air Wins', desc: 'What is actually working' },
@@ -16774,6 +17395,7 @@ const ROLE_CONFIG = {
             { panel: 'actions', title: 'Take Action', desc: 'Concrete steps you can take today' },
             { panel: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Brief your ward councillor' },
             { panel: 'budget', title: 'Budget Tracker', desc: 'Is your city spending its funds?' },
+            { panel: 'city-policy', title: 'City Policy Tracker', desc: 'City-wise targets & actions' },
             { panel: 'voices', title: 'Citizen Voices', desc: 'Join the movement' },
             { panel: 'policy', title: 'Policy Tracker', desc: 'NCAP targets vs reality' },
             { panel: 'migration', title: 'Migration & Displacement', desc: 'Climate displacement data' }
