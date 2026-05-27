@@ -194,6 +194,14 @@ These features are ready to build but need specific content/decisions:
 - [ ] **Donate section** — donation mechanism for the platform. Need: payment platform (Razorpay/UPI) and legal structure for receiving donations.
 - [ ] **Social media integration** — link JanVayu content to social accounts. Need: which accounts exist (Twitter/X, Instagram, LinkedIn, YouTube handles).
 
+### Awaiting external setup
+
+These need external accounts/API keys before the code can be built:
+
+- [ ] **WhatsApp bot** — daily AQI alerts + chatbot Q&A via WhatsApp. The backend (`air-query.mjs`) already exists. Need: Meta Business account, WhatsApp Business API verification, API key. Bot code wraps the existing chatbot endpoint.
+- [ ] **Telegram bot** — same as WhatsApp but simpler API (no business verification needed). Need: Telegram Bot token from @BotFather.
+- [ ] **Push notifications** — browser push for AQI alerts. Need: Firebase Cloud Messaging (FCM) setup or web-push VAPID keys.
+
 ### Performance (issue #3)
 
 - [ ] CSS split — extract panel-specific styles to a deferred external file (~200 ms additional FCP per the roadmap doc)

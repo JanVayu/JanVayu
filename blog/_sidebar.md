@@ -3,6 +3,8 @@
 - [**JanVayu Blog**](README.md)
 
 - **May 2026**
+  - [The Number Everyone Quotes but Nobody Understands: What AQI Actually Is](posts/2026-05-27-understanding-aqi.md)
+  - [When a Politician Says 'AQI Improved 20%', Ask: Which Monitor?](posts/2026-05-27-data-source-selector.md)
   - [The May 26 Overhaul: 21 Fixes in One Day](posts/2026-05-26-v26.6.20-platform-overhaul.md)
   - [Vayu Junction: Connecting the Dots on India's Air-Quality Vocabulary](posts/2026-05-20-vayu-junction.md)
   - [Quality You Can Measure: Lighthouse, axe, Lazy-Loading, Mobile](posts/2026-05-08-quality-and-performance.md)
