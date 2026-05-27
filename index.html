@@ -4795,13 +4795,35 @@ body {
 
     // ── Share AQI Card (Canvas-based image generator) ──
     function getAQICardGradient(ctx, aqi, w, h) {
-        const g = ctx.createLinearGradient(0, 0, 0, h);
-        if (aqi <= 50)       { g.addColorStop(0, '#064E3B'); g.addColorStop(1, '#0D9488'); }
-        else if (aqi <= 100) { g.addColorStop(0, '#713F12'); g.addColorStop(1, '#A16207'); }
-        else if (aqi <= 200) { g.addColorStop(0, '#7C2D12'); g.addColorStop(1, '#C2410C'); }
-        else if (aqi <= 300) { g.addColorStop(0, '#7F1D1D'); g.addColorStop(1, '#DC2626'); }
-        else if (aqi <= 400) { g.addColorStop(0, '#3B0764'); g.addColorStop(1, '#7C3AED'); }
-        else                 { g.addColorStop(0, '#4A0420'); g.addColorStop(1, '#831843'); }
+        // Bold radial gradient: brighter center, darker edges
+        var cx = w / 2, cy = h * 0.4;
+        var outerR = Math.max(w, h) * 0.9;
+        var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, outerR);
+        if (aqi <= 50) {
+            g.addColorStop(0, '#10B981'); // emerald center
+            g.addColorStop(0.5, '#047857');
+            g.addColorStop(1, '#022C22'); // deep teal edge
+        } else if (aqi <= 100) {
+            g.addColorStop(0, '#F59E0B'); // golden center
+            g.addColorStop(0.5, '#B45309');
+            g.addColorStop(1, '#451A03'); // rich amber edge
+        } else if (aqi <= 200) {
+            g.addColorStop(0, '#F97316'); // coral center
+            g.addColorStop(0.5, '#C2410C');
+            g.addColorStop(1, '#431407'); // deep orange edge
+        } else if (aqi <= 300) {
+            g.addColorStop(0, '#EF4444'); // crimson center
+            g.addColorStop(0.5, '#B91C1C');
+            g.addColorStop(1, '#450A0A'); // dark red edge
+        } else if (aqi <= 400) {
+            g.addColorStop(0, '#A78BFA'); // violet center
+            g.addColorStop(0.5, '#6D28D9');
+            g.addColorStop(1, '#1E1B4B'); // deep purple edge
+        } else {
+            g.addColorStop(0, '#9F1239'); // dark maroon center
+            g.addColorStop(0.5, '#4C0519');
+            g.addColorStop(1, '#0C0A09'); // near-black edge
+        }
         return g;
     }
 
@@ -4847,311 +4869,342 @@ body {
         const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
         const cityAnnualPM25 = CITY_ANNUAL_PM25[cityKey] || null;
 
-        // ── Background gradient ──
+        // ── Background: radial gradient ──
         ctx.fillStyle = getAQICardGradient(ctx, aqi, W, H);
         ctx.fillRect(0, 0, W, H);
 
-        // ── Geometric pattern overlay: topographic contour lines ──
+        // ── Bokeh / particle pattern overlay ──
         ctx.save();
-        ctx.globalAlpha = 0.06;
-        ctx.strokeStyle = '#FFFFFF';
-        ctx.lineWidth = 1.5;
-        // Draw concentric irregular contour rings
-        var cx1 = W * 0.3, cy1 = H * 0.25;
-        var cx2 = W * 0.7, cy2 = H * 0.75;
-        for (var r = 40; r < Math.max(W, H) * 0.8; r += (isLand ? 38 : 50)) {
+        // Seeded random for deterministic pattern per city
+        var seed = 0;
+        for (var ci = 0; ci < cityKey.length; ci++) seed += cityKey.charCodeAt(ci);
+        function seededRand() { seed = (seed * 16807 + 0) % 2147483647; return (seed & 0x7FFFFFFF) / 2147483647; }
+        // Scattered circles of varying sizes at 8-10% opacity
+        var numParticles = isLand ? 60 : 90;
+        for (var pi = 0; pi < numParticles; pi++) {
+            var px = seededRand() * W;
+            var py = seededRand() * H;
+            var pr = seededRand() * (isLand ? 40 : 60) + 4;
+            var pAlpha = 0.03 + seededRand() * 0.07; // 3%-10%
             ctx.beginPath();
-            for (var angle = 0; angle <= Math.PI * 2; angle += 0.05) {
-                var wobble = Math.sin(angle * 3) * r * 0.08 + Math.cos(angle * 5) * r * 0.04;
-                var px = cx1 + (r + wobble) * Math.cos(angle);
-                var py = cy1 + (r + wobble) * Math.sin(angle) * 0.7;
-                if (angle === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-            }
-            ctx.stroke();
+            ctx.arc(px, py, pr, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,' + pAlpha.toFixed(3) + ')';
+            ctx.fill();
         }
-        for (var r = 30; r < Math.max(W, H) * 0.6; r += (isLand ? 42 : 55)) {
+        // Second pass: tiny dots for texture
+        for (var pi2 = 0; pi2 < numParticles * 2; pi2++) {
+            var dx = seededRand() * W;
+            var dy = seededRand() * H;
+            var dr = seededRand() * 3 + 1;
             ctx.beginPath();
-            for (var angle = 0; angle <= Math.PI * 2; angle += 0.05) {
-                var wobble = Math.cos(angle * 4) * r * 0.1 + Math.sin(angle * 2) * r * 0.05;
-                var px = cx2 + (r + wobble) * Math.cos(angle);
-                var py = cy2 + (r + wobble) * Math.sin(angle) * 0.65;
-                if (angle === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-            }
-            ctx.stroke();
-        }
-        // Add subtle diagonal hash lines
-        ctx.globalAlpha = 0.025;
-        ctx.lineWidth = 1;
-        for (var d = -H; d < W + H; d += (isLand ? 24 : 32)) {
-            ctx.beginPath();
-            ctx.moveTo(d, 0);
-            ctx.lineTo(d + H, H);
-            ctx.stroke();
+            ctx.arc(dx, dy, dr, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,' + (0.04 + seededRand() * 0.06).toFixed(3) + ')';
+            ctx.fill();
         }
         ctx.restore();
 
-        // ── Card inner area (frosted dark panel) ──
-        const mx = W * 0.06;
-        const my = H * 0.05;
-        const cw = W - mx * 2;
-        const ch = H - my * 2;
-        const cr = 28;
-        // Outer glow
+        // ── Noise texture: many tiny semi-transparent dots ──
         ctx.save();
-        ctx.shadowColor = 'rgba(0,0,0,0.3)';
-        ctx.shadowBlur = 40;
-        ctx.fillStyle = 'rgba(0,0,0,0.32)';
-        ctx.beginPath();
-        ctx.moveTo(mx + cr, my);
-        ctx.arcTo(mx + cw, my, mx + cw, my + ch, cr);
-        ctx.arcTo(mx + cw, my + ch, mx, my + ch, cr);
-        ctx.arcTo(mx, my + ch, mx, my, cr);
-        ctx.arcTo(mx, my, mx + cw, my, cr);
-        ctx.closePath();
-        ctx.fill();
+        for (var ni = 0; ni < 800; ni++) {
+            var nx = seededRand() * W;
+            var ny = seededRand() * H;
+            ctx.beginPath();
+            ctx.arc(nx, ny, 0.8, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,' + (0.02 + seededRand() * 0.04).toFixed(3) + ')';
+            ctx.fill();
+        }
         ctx.restore();
 
-        // Inner border glow
-        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(mx + cr, my);
-        ctx.arcTo(mx + cw, my, mx + cw, my + ch, cr);
-        ctx.arcTo(mx + cw, my + ch, mx, my + ch, cr);
-        ctx.arcTo(mx, my + ch, mx, my, cr);
-        ctx.arcTo(mx, my, mx + cw, my, cr);
-        ctx.closePath();
-        ctx.stroke();
+        // ── Layout spacing ──
+        var padX = Math.round(60 * S);
+        var padY = Math.round(50 * S);
 
-        // ── Header: JanVayu branding with shadow ──
-        const headerY = my + Math.round(48 * S);
-        ctx.textAlign = 'center';
-        // Text shadow
+        // ── Brand: top-left, small ──
+        var brandY = padY + Math.round(24 * S);
         ctx.save();
+        ctx.textAlign = 'left';
         ctx.shadowColor = 'rgba(0,0,0,0.5)';
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 6;
         ctx.shadowOffsetY = 2;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold ' + Math.round(40 * S) + 'px system-ui, -apple-system, sans-serif';
-        ctx.fillText('JanVayu', W / 2 - Math.round(30 * S), headerY);
-        ctx.font = Math.round(32 * S) + 'px system-ui, sans-serif';
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.fillText('जनवायु', W / 2 + Math.round(80 * S), headerY);
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.font = 'bold ' + Math.round(20 * S) + 'px system-ui, -apple-system, sans-serif';
+        ctx.fillText('JanVayu जनवायु', padX, brandY);
         ctx.restore();
 
-        // Subtitle
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.font = Math.round(16 * S) + 'px system-ui, sans-serif';
-        ctx.fillText('India Air Quality Dashboard', W / 2, headerY + Math.round(26 * S));
-
-        // Thin divider
-        const divY = headerY + Math.round(44 * S);
-        var divGrad = ctx.createLinearGradient(mx + 40, 0, mx + cw - 40, 0);
-        divGrad.addColorStop(0, 'rgba(255,255,255,0)');
-        divGrad.addColorStop(0.3, 'rgba(255,255,255,0.2)');
-        divGrad.addColorStop(0.7, 'rgba(255,255,255,0.2)');
-        divGrad.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.strokeStyle = divGrad;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(mx + 40, divY);
-        ctx.lineTo(mx + cw - 40, divY);
-        ctx.stroke();
-
-        // ── City name (large, bold, with shadow) ──
-        const cityY = divY + Math.round(55 * S);
+        // ── City name: large, centered ──
+        var cityNameY = brandY + Math.round(isLand ? 60 : 80) * S;
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.6)';
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 16;
         ctx.shadowOffsetY = 3;
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold ' + Math.round(56 * S) + 'px system-ui, -apple-system, sans-serif';
+        ctx.font = 'bold ' + Math.round(52 * S) + 'px system-ui, -apple-system, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(city.name, W / 2, cityY);
+        ctx.fillText(city.name.toUpperCase(), W / 2, cityNameY);
         ctx.restore();
 
-        // ── Date stamp below city ──
-        const dateY = cityY + Math.round(28 * S);
-        ctx.fillStyle = 'rgba(255,255,255,0.45)';
+        // ── Date: small, muted, centered below city ──
+        var dateTextY = cityNameY + Math.round(32 * S);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
         ctx.font = Math.round(16 * S) + 'px system-ui, sans-serif';
-        ctx.fillText(dateStr + ', ' + timeStr + ' IST', W / 2, dateY);
+        ctx.textAlign = 'center';
+        ctx.fillText(dateStr + ', ' + timeStr, W / 2, dateTextY);
 
-        // ── AQI number (HUGE, with glow effect) ──
-        const aqiNumY = dateY + Math.round(130 * S);
-        const aqiFontSize = Math.round(180 * S);
+        // ── AQI Number: HERO element, massive ──
+        var aqiFontSize = Math.round(isLand ? 130 : 220) * S;
+        var aqiNumY = dateTextY + Math.round(isLand ? 110 : 180) * S;
         ctx.save();
-        // Outer glow
         ctx.font = 'bold ' + aqiFontSize + 'px system-ui, -apple-system, sans-serif';
         ctx.textAlign = 'center';
+        // Pass 1: colored shadow / outer glow (large blur)
         ctx.shadowColor = color;
-        ctx.shadowBlur = 60;
+        ctx.shadowBlur = 80;
         ctx.fillStyle = color;
+        ctx.globalAlpha = 0.6;
         ctx.fillText(aqi, W / 2, aqiNumY);
-        // Second layer for stronger glow
-        ctx.shadowBlur = 30;
-        ctx.fillText(aqi, W / 2, aqiNumY);
+        ctx.fillText(aqi, W / 2, aqiNumY); // double for stronger glow
+        ctx.globalAlpha = 1.0;
         ctx.shadowBlur = 0;
-        // Bright white center text
+        ctx.shadowColor = 'transparent';
+        // Pass 2: white text with slight dark shadow for legibility
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 12;
+        ctx.shadowOffsetY = 4;
         ctx.fillStyle = '#FFFFFF';
-        ctx.globalCompositeOperation = 'lighter';
-        ctx.globalAlpha = 0.3;
+        ctx.fillText(aqi, W / 2, aqiNumY);
+        // Pass 3: no composite mode, just clean white on top
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+        ctx.fillStyle = '#FFFFFF';
         ctx.fillText(aqi, W / 2, aqiNumY);
         ctx.restore();
 
-        // AQI label pill
-        const labelY = aqiNumY + Math.round(20 * S);
-        const labelText = 'AQI — ' + label;
-        ctx.font = 'bold ' + Math.round(26 * S) + 'px system-ui, sans-serif';
-        const labelW = ctx.measureText(labelText).width + 40;
-        // Pill background
-        ctx.fillStyle = color + '55';
+        // ── Category pill/badge ──
+        var pillTextSize = Math.round(24 * S);
+        var pillY = aqiNumY + Math.round(isLand ? 16 : 24) * S;
+        var pillLabel = '——  ' + label.toUpperCase() + '  ——';
+        ctx.font = 'bold ' + pillTextSize + 'px system-ui, sans-serif';
+        var pillTextW = ctx.measureText(pillLabel).width + Math.round(48 * S);
+        var pillH = Math.round(42 * S);
+        var pillR = pillH / 2;
+        var pillX = W / 2 - pillTextW / 2;
+        // Pill background with category color
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.globalAlpha = 0.35;
         ctx.beginPath();
-        var pillR = Math.round(16 * S);
-        var pillX = W / 2 - labelW / 2;
-        var pillH = Math.round(36 * S);
-        ctx.moveTo(pillX + pillR, labelY);
-        ctx.arcTo(pillX + labelW, labelY, pillX + labelW, labelY + pillH, pillR);
-        ctx.arcTo(pillX + labelW, labelY + pillH, pillX, labelY + pillH, pillR);
-        ctx.arcTo(pillX, labelY + pillH, pillX, labelY, pillR);
-        ctx.arcTo(pillX, labelY, pillX + labelW, labelY, pillR);
+        ctx.moveTo(pillX + pillR, pillY);
+        ctx.arcTo(pillX + pillTextW, pillY, pillX + pillTextW, pillY + pillH, pillR);
+        ctx.arcTo(pillX + pillTextW, pillY + pillH, pillX, pillY + pillH, pillR);
+        ctx.arcTo(pillX, pillY + pillH, pillX, pillY, pillR);
+        ctx.arcTo(pillX, pillY, pillX + pillTextW, pillY, pillR);
         ctx.closePath();
         ctx.fill();
+        ctx.globalAlpha = 1.0;
+        // Pill border
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pillX + pillR, pillY);
+        ctx.arcTo(pillX + pillTextW, pillY, pillX + pillTextW, pillY + pillH, pillR);
+        ctx.arcTo(pillX + pillTextW, pillY + pillH, pillX, pillY + pillH, pillR);
+        ctx.arcTo(pillX, pillY + pillH, pillX, pillY, pillR);
+        ctx.arcTo(pillX, pillY, pillX + pillTextW, pillY, pillR);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
         // Pill text
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold ' + Math.round(22 * S) + 'px system-ui, sans-serif';
+        ctx.font = 'bold ' + pillTextSize + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(labelText, W / 2, labelY + Math.round(25 * S));
+        ctx.fillText(pillLabel, W / 2, pillY + pillH - Math.round(12 * S));
 
-        // ── Compelling factoid ──
-        const factoidY = labelY + pillH + Math.round(32 * S);
+        // ── Stats glass card ──
+        var statsCardY = pillY + pillH + Math.round(isLand ? 24 : 40) * S;
+        var statsCardX = padX + Math.round(20 * S);
+        var statsCardW = W - (statsCardX * 2);
+        var statsCardH = Math.round(isLand ? 90 : 120) * S;
+        var statsCardR = Math.round(16 * S);
+        // Frosted glass background
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,255,255,0.1)';
+        ctx.beginPath();
+        ctx.roundRect(statsCardX, statsCardY, statsCardW, statsCardH, statsCardR);
+        ctx.fill();
+        // Glass border
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.roundRect(statsCardX, statsCardY, statsCardW, statsCardH, statsCardR);
+        ctx.stroke();
+        ctx.restore();
+
+        // Stats columns inside the glass card
+        var statColW = statsCardW / 3;
+        var statNumSize = Math.round(44 * S);
+        var statLabelSize = Math.round(14 * S);
+        var statNumY = statsCardY + Math.round(isLand ? 42 : 55) * S;
+        var statLabelY = statNumY + Math.round(isLand ? 20 : 24) * S;
+        var statTitleY = statsCardY + Math.round(isLand ? 18 : 22) * S;
+
+        function drawStatCol(colIdx, title, value, unit) {
+            var cx = statsCardX + statColW * colIdx + statColW / 2;
+            // Title label (small, muted)
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.font = statLabelSize + 'px system-ui, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(title, cx, statTitleY);
+            // Big number
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold ' + statNumSize + 'px system-ui, -apple-system, sans-serif';
+            ctx.fillText(value, cx, statNumY);
+            // Unit label below
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.font = statLabelSize + 'px system-ui, sans-serif';
+            ctx.fillText(unit, cx, statLabelY);
+        }
+
+        drawStatCol(0, 'PM2.5', '' + pm25, 'µg/m³');
+        drawStatCol(1, 'WHO', whoX + '×', 'limit');
+        drawStatCol(2, 'CIGS', cigPerDay, '/day');
+
+        // Vertical separators inside glass card
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.lineWidth = 1;
+        for (var vi = 1; vi < 3; vi++) {
+            var vx = statsCardX + statColW * vi;
+            ctx.beginPath();
+            ctx.moveTo(vx, statsCardY + Math.round(10 * S));
+            ctx.lineTo(vx, statsCardY + statsCardH - Math.round(10 * S));
+            ctx.stroke();
+        }
+
+        // ── Factoid: punchy, italic, in curly quotes ──
+        var factoidY = statsCardY + statsCardH + Math.round(isLand ? 32 : 48) * S;
         var factoid = '';
         if (aqi <= 50) factoid = 'Cleaner than 85% of Indian cities today';
-        else if (aqi <= 100) factoid = 'You are breathing ' + cigPerDay + ' cigarettes worth of pollution today';
+        else if (aqi <= 100) factoid = 'You’re breathing ' + cigPerDay + ' cigarettes worth of air';
         else if (aqi <= 200) factoid = 'This air is ' + whoX + '× above what WHO says is safe';
         else if (aqi <= 300) factoid = 'At this level, children should not play outdoors';
         else if (aqi <= 400) factoid = 'Equivalent to smoking ' + cigPerDay + ' cigarettes today';
         else factoid = 'Emergency level — stay indoors, seal windows';
 
         ctx.save();
-        ctx.fillStyle = 'rgba(255,255,255,0.75)';
-        ctx.font = 'italic ' + Math.round(20 * S) + 'px system-ui, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.font = 'italic ' + Math.round(22 * S) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('“' + factoid + '”', W / 2, factoidY);
+        // Wrap long factoids onto two lines if needed
+        var factoidLine = '“' + factoid + '”';
+        var maxFactoidW = W - padX * 2 - Math.round(40 * S);
+        var factoidMeasured = ctx.measureText(factoidLine).width;
+        if (factoidMeasured > maxFactoidW) {
+            // Simple word-wrap into two lines
+            var words = factoidLine.split(' ');
+            var line1 = '', line2 = '';
+            for (var wi = 0; wi < words.length; wi++) {
+                var test = line1 ? line1 + ' ' + words[wi] : words[wi];
+                if (ctx.measureText(test).width <= maxFactoidW) {
+                    line1 = test;
+                } else {
+                    line2 = words.slice(wi).join(' ');
+                    break;
+                }
+            }
+            ctx.fillText(line1, W / 2, factoidY);
+            if (line2) ctx.fillText(line2, W / 2, factoidY + Math.round(28 * S));
+        } else {
+            ctx.fillText(factoidLine, W / 2, factoidY);
+        }
         ctx.restore();
 
-        // ── Stats grid ──
-        const statsY = factoidY + Math.round(48 * S);
-        const colW = cw / 3;
+        // ── Context bar: thick, multi-color gradient ──
+        var barYStart = factoidY + Math.round(isLand ? 38 : 54) * S;
+        // If factoid wrapped, push bar down further
+        if (factoidMeasured > maxFactoidW) barYStart += Math.round(28 * S);
+        var barX = padX + Math.round(20 * S);
+        var barW = W - barX * 2;
+        var barH = Math.round(20 * S);
+        var barR = barH / 2;
 
-        function drawStat(x, labelTxt, valueTxt, unitTxt) {
-            // Subtle column separator
-            ctx.fillStyle = 'rgba(255,255,255,0.45)';
-            ctx.font = Math.round(15 * S) + 'px system-ui, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(labelTxt, x, statsY);
-            ctx.fillStyle = '#FFFFFF';
-            ctx.font = 'bold ' + Math.round(36 * S) + 'px system-ui, sans-serif';
-            ctx.fillText(valueTxt, x, statsY + Math.round(40 * S));
-            if (unitTxt) {
-                ctx.fillStyle = 'rgba(255,255,255,0.4)';
-                ctx.font = Math.round(13 * S) + 'px system-ui, sans-serif';
-                ctx.fillText(unitTxt, x, statsY + Math.round(58 * S));
-            }
-        }
-
-        drawStat(mx + colW * 0.5, 'PM2.5', pm25 + '', 'µg/m³');
-        drawStat(mx + colW * 1.5, 'WHO GUIDELINE', whoX + '×', 'above safe limit');
-        drawStat(mx + colW * 2.5, 'CIGARETTES/DAY', cigPerDay, 'Berkeley Earth equiv.');
-
-        // Vertical separators between stat columns
-        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-        ctx.lineWidth = 1;
-        for (var si = 1; si < 3; si++) {
-            ctx.beginPath();
-            ctx.moveTo(mx + colW * si, statsY - Math.round(10 * S));
-            ctx.lineTo(mx + colW * si, statsY + Math.round(62 * S));
-            ctx.stroke();
-        }
-
-        // ── Historical context bar ──
-        const barY = statsY + Math.round(90 * S);
-        const barX = mx + Math.round(40 * S);
-        const barW = cw - Math.round(80 * S);
-        const barH = Math.round(14 * S);
-
-        // Label
-        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        // Bar label
+        ctx.fillStyle = 'rgba(255,255,255,0.45)';
         ctx.font = Math.round(13 * S) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('PM2.5 CONTEXT', W / 2, barY - Math.round(10 * S));
+        ctx.fillText('PM2.5 CONTEXT', W / 2, barYStart - Math.round(8 * S));
 
-        // Determine scale: max of pm25, cityAvg, 100
+        // Scale: max of pm25, cityAvg, 100
         var cityAvg = cityAnnualPM25 || pm25;
         var scaleMax = Math.max(pm25, cityAvg, 100) * 1.2;
 
-        // Bar background
-        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        // Full-length gradient bar (green -> yellow -> orange -> red -> purple)
+        var fullBarGrad = ctx.createLinearGradient(barX, 0, barX + barW, 0);
+        fullBarGrad.addColorStop(0, '#22C55E');
+        fullBarGrad.addColorStop(0.25, '#EAB308');
+        fullBarGrad.addColorStop(0.5, '#F97316');
+        fullBarGrad.addColorStop(0.75, '#EF4444');
+        fullBarGrad.addColorStop(1, '#7C3AED');
+        ctx.fillStyle = fullBarGrad;
         ctx.beginPath();
-        ctx.roundRect(barX, barY, barW, barH, barH / 2);
+        ctx.roundRect(barX, barYStart, barW, barH, barR);
         ctx.fill();
-
-        // Gradient fill up to current PM2.5
-        var currentPos = Math.min(pm25 / scaleMax, 1) * barW;
-        var barGrad = ctx.createLinearGradient(barX, 0, barX + currentPos, 0);
-        barGrad.addColorStop(0, '#22C55E');
-        barGrad.addColorStop(0.5, '#EAB308');
-        barGrad.addColorStop(1, color);
-        ctx.fillStyle = barGrad;
-        ctx.beginPath();
-        ctx.roundRect(barX, barY, currentPos, barH, barH / 2);
-        ctx.fill();
-
-        // WHO marker (5 ug/m3)
-        var whoPos = barX + (5 / scaleMax) * barW;
-        ctx.strokeStyle = '#22C55E';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(whoPos, barY - 4);
-        ctx.lineTo(whoPos, barY + barH + 4);
-        ctx.stroke();
-        ctx.fillStyle = '#22C55E';
-        ctx.font = 'bold ' + Math.round(11 * S) + 'px system-ui, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('WHO 5', whoPos, barY + barH + Math.round(16 * S));
-
-        // City avg marker
-        if (cityAnnualPM25) {
-            var avgPos = barX + (cityAnnualPM25 / scaleMax) * barW;
-            ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-            ctx.lineWidth = 2;
-            ctx.setLineDash([3, 3]);
+        // Dim overlay on unfilled portion
+        var filledW = Math.min(pm25 / scaleMax, 1) * barW;
+        if (filledW < barW) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(0,0,0,0.55)';
+            // clip to only the unfilled area
             ctx.beginPath();
-            ctx.moveTo(avgPos, barY - 4);
-            ctx.lineTo(avgPos, barY + barH + 4);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            ctx.fillStyle = 'rgba(255,255,255,0.6)';
-            ctx.font = Math.round(11 * S) + 'px system-ui, sans-serif';
-            ctx.fillText('Avg ' + cityAnnualPM25, avgPos, barY + barH + Math.round(16 * S));
+            ctx.rect(barX + filledW, barYStart, barW - filledW, barH);
+            ctx.fill();
+            ctx.restore();
         }
 
-        // Today marker (triangle)
-        var todayPos = barX + Math.min(pm25 / scaleMax, 1) * barW;
+        // WHO marker (5 ug/m3) - solid green line
+        var whoBarPos = barX + (5 / scaleMax) * barW;
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(whoBarPos, barYStart - 4);
+        ctx.lineTo(whoBarPos, barYStart + barH + 4);
+        ctx.stroke();
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold ' + Math.round(12 * S) + 'px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('WHO 5', whoBarPos, barYStart + barH + Math.round(18 * S));
+
+        // City annual avg marker - dashed line
+        if (cityAnnualPM25) {
+            var avgBarPos = barX + Math.min(cityAnnualPM25 / scaleMax, 1) * barW;
+            ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(avgBarPos, barYStart - 4);
+            ctx.lineTo(avgBarPos, barYStart + barH + 4);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = 'rgba(255,255,255,0.7)';
+            ctx.font = Math.round(12 * S) + 'px system-ui, sans-serif';
+            ctx.fillText('Avg ' + cityAnnualPM25, avgBarPos, barYStart + barH + Math.round(18 * S));
+        }
+
+        // Today's value marker - white triangle pointing down
+        var todayBarPos = barX + Math.min(pm25 / scaleMax, 1) * barW;
         ctx.fillStyle = '#FFFFFF';
         ctx.beginPath();
-        ctx.moveTo(todayPos, barY - 6);
-        ctx.lineTo(todayPos - 5, barY - 14);
-        ctx.lineTo(todayPos + 5, barY - 14);
+        ctx.moveTo(todayBarPos, barYStart - 6);
+        ctx.lineTo(todayBarPos - 7, barYStart - 18);
+        ctx.lineTo(todayBarPos + 7, barYStart - 18);
         ctx.closePath();
         ctx.fill();
-        ctx.font = 'bold ' + Math.round(11 * S) + 'px system-ui, sans-serif';
+        ctx.font = 'bold ' + Math.round(13 * S) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('Today ' + pm25, todayPos, barY - Math.round(18 * S));
+        ctx.fillText('▲ ' + pm25, todayBarPos, barYStart - Math.round(22 * S));
 
-        // ── Footer: URL ──
-        const footerY = H - my - Math.round(20 * S);
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.font = 'bold ' + Math.round(20 * S) + 'px system-ui, sans-serif';
+        // ── Footer: URL, small, bottom-center ──
+        var footerY = H - Math.round(30 * S);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.font = Math.round(16 * S) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText('janvayu.in', W / 2, footerY);
 
