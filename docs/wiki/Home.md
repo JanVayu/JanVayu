@@ -15,7 +15,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 | [Data Sources](Data-Sources) | All 160+ integrated data sources with access details |
 | [API Reference](API-Reference) | Endpoint documentation for all Netlify Functions |
 | [Deployment Guide](Deployment-Guide) | How to deploy, configure, and maintain JanVayu |
-| [Role-Based Landing Page](Role-Based-Landing-Page) | 10-role audience system with personalized dashboards |
+| [Role-Based Landing Page](Role-Based-Landing-Page) | 12-role audience system with personalized dashboards |
 | [Simple Language Mode](Simple-Language-Mode) | Site-wide plain language toggle system |
 | [Adding a New Panel](Adding-a-New-Panel) | Step-by-step guide for contributors |
 | [Adding a New Role](Adding-a-New-Role) | How to add roles to the role selector |
@@ -30,6 +30,12 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 **JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
 ### What's New (v26.6.x)
+
+**v26.6.23 — 7 new panels, shareable AQI cards, 12 roles, nav audit (27 May 2026)**
+- 4 new panels: Understanding AQI (pollutant breakdown + CPCB vs EPA scales), Shareable AQI Cards (canvas PNG for Instagram/WhatsApp), Exposure Diary (16-activity weighted exposure with cigarette equivalence), enhanced Migration Comparison (side-by-side live AQI + life-years verdict).
+- 3 more panels: Data Source Selector (CPCB/WAQI/IQAir/Sensor.Community education + Source Impact Simulator), City Policy Tracker (8-city NCAP dashboard), enhanced Legal Framework (8-region court rulings + citizen recourse guide).
+- Citizen/Activist split into two roles (now 12). Women & Air Quality renamed to Women's Health. 17 nav label fixes. 8 grid fixes, 2 table wraps, Rankings table + loading fix, 9 broken Sargam icons replaced.
+- Blog post: "The May 26 Overhaul: 21 Fixes in One Day". Updated walkthrough deck (65 slides).
 
 **v26.6.22 — Women & Air Quality panel + historical map overlay (26 May 2026)**
 - New "Women & Air Quality" panel: indoor cooking exposure, maternal health, occupational exposure, gender data gap, action items. New "Woman / Caregiver" role.
@@ -175,7 +181,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **8.6%** all-cause mortality rise per +10 µg/m³ — Krishna et al. 2024, India's first causal dose-response
 - 16+ cities monitored in real-time + ~200 Sensor.Community community sensors
 - 160+ verified data sources integrated
-- 40+ content panels across 6 navigation categories
+- 51 content panels across 7 navigation categories
 - 5 languages (EN, HI, TA, MR, BN)
 
 ---
