@@ -6347,6 +6347,401 @@ body {
         }, 200);
     }
 
+
+    // ── Exposure Diary ──
+    const DIARY_ACTIVITIES = {
+        sleeping_indoor:  { label: 'Sleeping (indoors)',            multiplier: 0.3  },
+        office_ac:        { label: 'Working (office/AC)',           multiplier: 0.3  },
+        office_outdoor:   { label: 'Working (outdoor)',             multiplier: 1.0  },
+        cooking_solid:    { label: 'Cooking (solid fuel)',          multiplier: 15.0 },
+        cooking_lpg:      { label: 'Cooking (LPG/electric)',       multiplier: 0.5  },
+        auto_rickshaw:    { label: 'Commuting (auto-rickshaw)',    multiplier: 1.5  },
+        car_ac:           { label: 'Commuting (car AC)',           multiplier: 0.4  },
+        bus:              { label: 'Commuting (bus)',               multiplier: 0.9  },
+        metro:            { label: 'Commuting (metro)',             multiplier: 0.3  },
+        cycling:          { label: 'Commuting (cycling)',           multiplier: 2.5  },
+        walking:          { label: 'Commuting (walking)',           multiplier: 1.0  },
+        motorcycle:       { label: 'Commuting (motorcycle)',       multiplier: 1.4  },
+        exercise_outdoor: { label: 'Exercising (outdoor)',         multiplier: 2.5  },
+        school:           { label: 'School/College',               multiplier: 0.5  },
+        market:           { label: 'Shopping/Market',              multiplier: 1.2  },
+        other_indoor:     { label: 'Other (indoors)',              multiplier: 0.3  }
+    };
+
+    const DIARY_DEFAULTS = [
+        { activity: 'sleeping_indoor', hours: 8 },
+        { activity: 'office_ac', hours: 8 },
+        { activity: 'auto_rickshaw', hours: 2 },
+        { activity: 'walking', hours: 1 },
+        { activity: 'cooking_lpg', hours: 1 },
+        { activity: 'other_indoor', hours: 4 }
+    ];
+
+    const DIARY_COLORS = [
+        '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899',
+        '#14B8A6', '#F97316', '#6366F1', '#84CC16', '#06B6D4', '#E11D48',
+        '#A855F7', '#22D3EE', '#FB923C', '#4ADE80'
+    ];
+
+    const DIARY_RECOMMENDATIONS_DB = {
+        cooking_solid: [
+            { text: 'Switch from chulha/biomass to LPG: this single change can reduce your cooking exposure by 97%.', saving: 14.5 },
+            { text: 'If LPG is not available, use an improved cookstove with a chimney to cut smoke exposure by 50-60%.', saving: 8.0 },
+            { text: 'Cook outdoors or in a well-ventilated separate kitchen to reduce indoor smoke accumulation.', saving: 5.0 }
+        ],
+        auto_rickshaw: [
+            { text: 'Switch from auto-rickshaw to metro: saves significant PM2.5 exposure due to filtered underground air.', saving: 1.2 },
+            { text: 'If auto-rickshaw is your only option, use a well-fitting N95 mask during commute.', saving: 0.6 },
+            { text: 'Shift commute timing to early morning (before 8 AM) when traffic emissions are lower.', saving: 0.3 }
+        ],
+        cycling: [
+            { text: 'Cycle on less-trafficked routes or greenway paths to reduce direct exhaust exposure.', saving: 0.5 },
+            { text: 'Wear a pollution mask (N95/N99) while cycling to filter 90%+ of PM2.5.', saving: 1.5 },
+            { text: 'Shift cycling to early morning (5-7 AM) when vehicular emissions are lowest.', saving: 0.5 }
+        ],
+        exercise_outdoor: [
+            { text: 'Check AQI before exercising outdoors. Skip outdoor workouts when AQI exceeds 150.', saving: 0.8 },
+            { text: 'Exercise in parks or green spaces away from roads to reduce exposure by 30-50%.', saving: 0.7 },
+            { text: 'Shift outdoor exercise to early morning (5-7 AM) for lower pollution levels.', saving: 0.5 }
+        ],
+        motorcycle: [
+            { text: 'Use a full-face helmet with visor closed to reduce particulate inhalation.', saving: 0.3 },
+            { text: 'Switch to metro or car AC for heavily polluted routes.', saving: 1.0 },
+            { text: 'Wear a pollution mask under your helmet on high-AQI days.', saving: 0.5 }
+        ],
+        walking: [
+            { text: 'Walk on inner lanes or park paths away from main roads to cut exposure by 30%.', saving: 0.3 },
+            { text: 'Wear a well-fitting N95 mask while walking in polluted areas.', saving: 0.6 },
+            { text: 'Avoid walking during rush hours (8-10 AM, 5-8 PM) when traffic emissions peak.', saving: 0.2 }
+        ],
+        market: [
+            { text: 'Visit markets during off-peak hours to avoid traffic-related pollution spikes.', saving: 0.2 },
+            { text: 'Choose indoor malls or shops with AC filtration over open-air markets when AQI is high.', saving: 0.5 },
+            { text: 'Wear an N95 mask in crowded outdoor market areas.', saving: 0.4 }
+        ],
+        bus: [
+            { text: 'Choose AC buses over non-AC ones: closed windows with AC filtration reduce exposure.', saving: 0.3 },
+            { text: 'Sit away from windows and doors on non-AC buses to reduce direct exhaust intake.', saving: 0.1 },
+            { text: 'Switch to metro where available for the lowest commute exposure.', saving: 0.6 }
+        ],
+        office_outdoor: [
+            { text: 'Wear an N95 mask during outdoor work shifts, especially near roads or construction.', saving: 0.6 },
+            { text: 'Take indoor breaks every hour to lower cumulative exposure.', saving: 0.2 },
+            { text: 'Request employer to provide portable air filtration for outdoor work stations.', saving: 0.3 }
+        ]
+    };
+
+    function buildDiaryBlockHTML(activity, hours, index) {
+        var optionsHTML = Object.entries(DIARY_ACTIVITIES).map(function(pair) {
+            return '<option value="' + pair[0] + '"' + (pair[0] === activity ? ' selected' : '') + '>' + pair[1].label + '</option>';
+        }).join('');
+        return '<div class="diary-block" data-index="' + index + '" style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;flex-wrap:wrap;">' +
+            '<select class="form-select" onchange="updateDiaryHours()" style="flex:2;min-width:180px;font-size:0.85rem;">' + optionsHTML + '</select>' +
+            '<input type="number" class="form-input" value="' + hours + '" min="0.5" max="12" step="0.5" onchange="updateDiaryHours()" style="width:70px;font-size:0.85rem;text-align:center;">' +
+            '<span style="font-size:0.75rem;color:var(--text-3);min-width:24px;">hrs</span>' +
+            '<button onclick="removeDiaryBlock(' + index + ')" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:2px 6px;" title="Remove">&times;</button>' +
+            '</div>';
+    }
+
+    function initExposureDiary() {
+        var container = document.getElementById('diary-blocks');
+        if (!container) return;
+        container.innerHTML = '';
+        DIARY_DEFAULTS.forEach(function(d, i) {
+            container.innerHTML += buildDiaryBlockHTML(d.activity, d.hours, i);
+        });
+        updateDiaryHours();
+        renderDiaryHistory();
+    }
+
+    function addDiaryBlock() {
+        var container = document.getElementById('diary-blocks');
+        if (!container) return;
+        var blocks = container.querySelectorAll('.diary-block');
+        var nextIndex = blocks.length;
+        var div = document.createElement('div');
+        div.innerHTML = buildDiaryBlockHTML('other_indoor', 1, nextIndex);
+        container.appendChild(div.firstChild);
+        updateDiaryHours();
+    }
+
+    function removeDiaryBlock(index) {
+        var container = document.getElementById('diary-blocks');
+        if (!container) return;
+        var blocks = container.querySelectorAll('.diary-block');
+        if (blocks.length <= 1) return;
+        var block = container.querySelector('.diary-block[data-index="' + index + '"]');
+        if (block) block.remove();
+        container.querySelectorAll('.diary-block').forEach(function(b, i) {
+            b.dataset.index = i;
+            var btn = b.querySelector('button');
+            if (btn) btn.setAttribute('onclick', 'removeDiaryBlock(' + i + ')');
+        });
+        updateDiaryHours();
+    }
+
+    function getDiaryEntries() {
+        var container = document.getElementById('diary-blocks');
+        if (!container) return [];
+        var entries = [];
+        container.querySelectorAll('.diary-block').forEach(function(block) {
+            var sel = block.querySelector('select');
+            var inp = block.querySelector('input');
+            if (sel && inp) {
+                entries.push({ activity: sel.value, hours: parseFloat(inp.value) || 0 });
+            }
+        });
+        return entries;
+    }
+
+    function updateDiaryHours() {
+        var entries = getDiaryEntries();
+        var total = entries.reduce(function(s, e) { return s + e.hours; }, 0);
+        var el = document.getElementById('diary-hours-total');
+        if (el) {
+            var diff = 24 - total;
+            if (Math.abs(diff) < 0.01) {
+                el.innerHTML = '<span style="color:var(--green);">Total: 24 hrs (complete day)</span>';
+            } else if (diff > 0) {
+                el.innerHTML = '<span style="color:var(--amber);">Total: ' + total.toFixed(1) + ' hrs (' + diff.toFixed(1) + ' hrs unaccounted)</span>';
+            } else {
+                el.innerHTML = '<span style="color:var(--red);">Total: ' + total.toFixed(1) + ' hrs (exceeds 24 hrs by ' + Math.abs(diff).toFixed(1) + ')</span>';
+            }
+        }
+    }
+
+    function calculateExposureDiary() {
+        var entries = getDiaryEntries();
+        var totalHours = entries.reduce(function(s, e) { return s + e.hours; }, 0);
+
+        if (totalHours < 1) {
+            alert('Please add at least one activity to your daily routine.');
+            return;
+        }
+
+        var cityKey = document.getElementById('diary-city') ? document.getElementById('diary-city').value : '';
+        if (!cityKey) return;
+        var cityName = (CITIES[cityKey] && CITIES[cityKey].name) || cityKey;
+
+        // Get ambient PM2.5: prefer live data, fall back to annual average
+        var livePM25 = aqiData[cityKey] ? aqiData[cityKey].pm25 : null;
+        var ambientPM25 = livePM25 || CITY_ANNUAL_PM25[cityKey] || 50;
+        var dataSource = livePM25 ? 'live' : 'annual average';
+
+        // Calculate per-activity exposure
+        var breakdown = entries.map(function(e, i) {
+            var act = DIARY_ACTIVITIES[e.activity];
+            var effectivePM25 = ambientPM25 * act.multiplier;
+            var exposureContrib = e.hours * effectivePM25;
+            return {
+                activity: e.activity,
+                label: act.label,
+                hours: e.hours,
+                multiplier: act.multiplier,
+                effectivePM25: effectivePM25,
+                exposureContrib: exposureContrib,
+                color: DIARY_COLORS[i % DIARY_COLORS.length]
+            };
+        });
+
+        // Weighted daily exposure = sum(hours * multiplier * ambient) / totalHours
+        var totalExposureHours = breakdown.reduce(function(s, b) { return s + b.exposureContrib; }, 0);
+        var weightedPM25 = totalExposureHours / (totalHours || 24);
+
+        // Cigarette equivalence (Berkeley Earth: 22 ug/m3 per day = 1 cigarette)
+        var cigsPerDay = weightedPM25 / 22;
+        var cigsPerYear = cigsPerDay * 365;
+
+        // Life-expectancy loss (AQLI formula)
+        var lifeYearsLost = Math.max(0, (weightedPM25 - 5) / 10 * 0.98);
+
+        // Worst exposure window
+        var worstActivity = breakdown.reduce(function(max, b) {
+            return b.effectivePM25 > max.effectivePM25 ? b : max;
+        }, breakdown[0]);
+
+        // Show results
+        var resultsDiv = document.getElementById('diary-results');
+        if (resultsDiv) resultsDiv.style.display = 'block';
+
+        // Stats cards
+        var pm25Color = getPM25Color(weightedPM25);
+        document.getElementById('diary-stats').innerHTML =
+            '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid ' + pm25Color + ';">' +
+                '<div style="font-size:0.7rem;color:var(--text-3);">Daily Weighted PM2.5</div>' +
+                '<div style="font-size:1.75rem;font-weight:700;color:' + pm25Color + ';">' + weightedPM25.toFixed(1) + '</div>' +
+                '<div style="font-size:0.65rem;color:var(--text-3);">µg/m³ (' + getWHOMultiple(weightedPM25) + 'x WHO)</div>' +
+            '</div>' +
+            '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid var(--amber);">' +
+                '<div style="font-size:0.7rem;color:var(--text-3);">Cigarette Equivalent</div>' +
+                '<div style="font-size:1.75rem;font-weight:700;">' + cigsPerDay.toFixed(1) + '</div>' +
+                '<div style="font-size:0.65rem;color:var(--text-3);">/day (' + cigsPerYear.toFixed(0) + '/year)</div>' +
+            '</div>' +
+            '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid var(--purple);">' +
+                '<div style="font-size:0.7rem;color:var(--text-3);">Life-Expectancy Loss</div>' +
+                '<div style="font-size:1.75rem;font-weight:700;">' + lifeYearsLost.toFixed(1) + '</div>' +
+                '<div style="font-size:0.65rem;color:var(--text-3);">years (AQLI estimate)</div>' +
+            '</div>' +
+            '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid var(--red);">' +
+                '<div style="font-size:0.7rem;color:var(--text-3);">Worst Exposure</div>' +
+                '<div style="font-size:1.1rem;font-weight:700;color:var(--red);">' + worstActivity.label + '</div>' +
+                '<div style="font-size:0.65rem;color:var(--text-3);">' + worstActivity.effectivePM25.toFixed(0) + ' µg/m³ effective</div>' +
+            '</div>';
+
+        // Stacked horizontal bar chart
+        var totalContrib = breakdown.reduce(function(s, b) { return s + b.exposureContrib; }, 0);
+        var barHTML = '<div style="display:flex;height:32px;border-radius:6px;overflow:hidden;border:1px solid var(--border);">';
+        var legendHTML = '<div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">';
+
+        var sorted = breakdown.slice().sort(function(a, b) { return b.exposureContrib - a.exposureContrib; });
+        sorted.forEach(function(b) {
+            var pct = totalContrib > 0 ? (b.exposureContrib / totalContrib * 100) : 0;
+            if (pct > 0.5) {
+                barHTML += '<div style="width:' + pct.toFixed(1) + '%;background:' + b.color + ';display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#fff;font-weight:600;min-width:2px;" title="' + b.label + ': ' + pct.toFixed(1) + '%">' +
+                    (pct > 8 ? pct.toFixed(0) + '%' : '') + '</div>';
+            }
+            legendHTML += '<span style="display:inline-flex;align-items:center;gap:3px;">' +
+                '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + b.color + ';"></span>' +
+                b.label + ' (' + pct.toFixed(1) + '%, ' + b.hours + 'h)</span>';
+        });
+        barHTML += '</div>';
+        legendHTML += '</div>';
+
+        // Details table
+        barHTML += '<div style="margin-top:1rem;overflow-x:auto;"><table style="width:100%;font-size:0.78rem;border-collapse:collapse;">' +
+            '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:4px 6px;">Activity</th><th style="text-align:right;padding:4px 6px;">Hours</th><th style="text-align:right;padding:4px 6px;">Multiplier</th><th style="text-align:right;padding:4px 6px;">Effective PM2.5</th><th style="text-align:right;padding:4px 6px;">% of Exposure</th></tr>';
+        sorted.forEach(function(b) {
+            var pct = totalContrib > 0 ? (b.exposureContrib / totalContrib * 100) : 0;
+            barHTML += '<tr style="border-bottom:1px solid var(--border);">' +
+                '<td style="padding:4px 6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + b.color + ';margin-right:4px;"></span>' + b.label + '</td>' +
+                '<td style="text-align:right;padding:4px 6px;">' + b.hours + '</td>' +
+                '<td style="text-align:right;padding:4px 6px;">' + b.multiplier + 'x</td>' +
+                '<td style="text-align:right;padding:4px 6px;color:' + getPM25Color(b.effectivePM25) + ';">' + b.effectivePM25.toFixed(0) + '</td>' +
+                '<td style="text-align:right;padding:4px 6px;">' + pct.toFixed(1) + '%</td></tr>';
+        });
+        barHTML += '</table></div>';
+
+        document.getElementById('diary-bar-chart').innerHTML = barHTML;
+        document.getElementById('diary-bar-legend').innerHTML = legendHTML;
+
+        // Recommendations
+        var recs = generateDiaryRecommendations(sorted, ambientPM25, weightedPM25);
+        document.getElementById('diary-recommendations').innerHTML = recs;
+
+        // Data source note
+        document.getElementById('diary-recommendations').innerHTML += '<p style="margin-top:1rem;font-size:0.75rem;color:var(--text-3);border-top:1px solid var(--border);padding-top:0.75rem;">' +
+            '<strong>' + cityName + '</strong> ambient PM2.5: <strong>' + ambientPM25.toFixed(0) + ' µg/m³</strong> (' + dataSource + ').<br>' +
+            'Cigarette equivalence: Berkeley Earth (22 µg/m³/day). Life-expectancy loss: AQLI methodology.' +
+            '</p>';
+
+        // Save to localStorage
+        saveDiaryResult(cityKey, weightedPM25, cigsPerDay, lifeYearsLost, worstActivity.label);
+        renderDiaryHistory();
+
+        // Scroll to results
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function generateDiaryRecommendations(sortedBreakdown, ambientPM25, weightedPM25) {
+        var html = '';
+        var recCount = 0;
+
+        for (var idx = 0; idx < sortedBreakdown.length; idx++) {
+            if (recCount >= 3) break;
+            var item = sortedBreakdown[idx];
+            var recs = DIARY_RECOMMENDATIONS_DB[item.activity];
+            if (recs && recs.length > 0) {
+                var rec = recs[0];
+                var savedPM25 = (rec.saving * ambientPM25 * item.hours / 24).toFixed(1);
+                html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;border-left:3px solid ' + item.color + ';">' +
+                    '<div style="font-weight:600;font-size:0.85rem;margin-bottom:4px;">' + item.label + '</div>' +
+                    '<p style="margin:0;font-size:0.8rem;">' + rec.text + '</p>' +
+                    '<p style="margin:4px 0 0;font-size:0.75rem;color:var(--green);">Potential saving: ~' + savedPM25 + ' µg/m³ from daily weighted average</p>' +
+                    '</div>';
+                recCount++;
+            }
+        }
+
+        if (recCount === 0) {
+            html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;">' +
+                '<p style="margin:0;font-size:0.85rem;">Your routine is relatively low-exposure. Keep windows closed during high-AQI periods and use an air purifier indoors for additional protection.</p></div>';
+            html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;">' +
+                '<p style="margin:0;font-size:0.85rem;">Check AQI before outdoor activities and consider wearing an N95 mask when PM2.5 exceeds 60 µg/m³.</p></div>';
+            html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;">' +
+                '<p style="margin:0;font-size:0.85rem;">Consider indoor plants and HEPA filtration to further reduce your baseline indoor exposure.</p></div>';
+        }
+
+        return html;
+    }
+
+    function saveDiaryResult(cityKey, weightedPM25, cigsPerDay, lifeYearsLost, worstActivity) {
+        try {
+            var key = 'janvayu-diary-history';
+            var history = JSON.parse(localStorage.getItem(key) || '[]');
+            history.push({
+                date: new Date().toISOString().split('T')[0],
+                city: (CITIES[cityKey] && CITIES[cityKey].name) || cityKey,
+                cityKey: cityKey,
+                weightedPM25: Math.round(weightedPM25 * 10) / 10,
+                cigsPerDay: Math.round(cigsPerDay * 10) / 10,
+                lifeYearsLost: Math.round(lifeYearsLost * 10) / 10,
+                worstActivity: worstActivity
+            });
+            while (history.length > 52) history.shift();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch(e) {}
+    }
+
+    function renderDiaryHistory() {
+        var el = document.getElementById('diary-history');
+        if (!el) return;
+        try {
+            var history = JSON.parse(localStorage.getItem('janvayu-diary-history') || '[]');
+            if (history.length === 0) {
+                el.innerHTML = '<p style="color:var(--text-3);font-size:0.85rem;">No previous entries. Calculate your exposure to start tracking week-over-week.</p>';
+                return;
+            }
+
+            var html = '<div style="overflow-x:auto;"><table style="width:100%;font-size:0.8rem;border-collapse:collapse;">' +
+                '<tr style="border-bottom:2px solid var(--border);font-weight:600;"><td style="padding:6px;">Date</td><td style="padding:6px;">City</td><td style="padding:6px;text-align:right;">PM2.5</td><td style="padding:6px;text-align:right;">Cigs/Day</td><td style="padding:6px;text-align:right;">Life-Yrs Lost</td><td style="padding:6px;">Worst</td></tr>';
+
+            var reversed = history.slice().reverse();
+            reversed.forEach(function(entry, i) {
+                var bgColor = i === 0 ? 'var(--bg-2)' : 'transparent';
+                html += '<tr style="border-bottom:1px solid var(--border);background:' + bgColor + ';">' +
+                    '<td style="padding:6px;">' + entry.date + '</td>' +
+                    '<td style="padding:6px;">' + entry.city + '</td>' +
+                    '<td style="padding:6px;text-align:right;color:' + getPM25Color(entry.weightedPM25) + ';font-weight:600;">' + entry.weightedPM25 + '</td>' +
+                    '<td style="padding:6px;text-align:right;">' + entry.cigsPerDay + '</td>' +
+                    '<td style="padding:6px;text-align:right;">' + entry.lifeYearsLost + '</td>' +
+                    '<td style="padding:6px;font-size:0.75rem;">' + entry.worstActivity + '</td></tr>';
+            });
+            html += '</table></div>';
+
+            if (history.length >= 2) {
+                var latest = history[history.length - 1].weightedPM25;
+                var previous = history[history.length - 2].weightedPM25;
+                var diff = latest - previous;
+                var arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
+                var color = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--green)' : 'var(--text-3)';
+                var label = diff > 0 ? 'Exposure increased' : diff < 0 ? 'Exposure decreased' : 'No change';
+                html = '<div style="margin-bottom:0.75rem;padding:0.5rem 0.75rem;background:var(--bg-2);border-radius:6px;display:inline-flex;align-items:center;gap:0.5rem;font-size:0.85rem;">' +
+                    '<span style="font-size:1.2rem;color:' + color + ';">' + arrow + '</span>' +
+                    '<span><strong>' + label + '</strong> since last entry (' + Math.abs(diff).toFixed(1) + ' µg/m³)</span></div>' + html;
+            }
+
+            el.innerHTML = html;
+        } catch(e) {
+            el.innerHTML = '<p style="color:var(--text-3);font-size:0.85rem;">Unable to load history.</p>';
+        }
+    }
+
+    function clearDiaryHistory() {
+        if (!confirm('Clear all saved exposure diary entries?')) return;
+        try { localStorage.removeItem('janvayu-diary-history'); } catch(e) {}
+        renderDiaryHistory();
+    }
+
     // ── RTI Filing Assistant ──
     const RTI_AUTHORITIES = {
         delhi: { name: 'Delhi Pollution Control Committee', address: '4th Floor, ISBT Building, Kashmere Gate, Delhi-110006', pio: 'Public Information Officer, DPCC' },
