@@ -49,7 +49,7 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 - [x] Clean Air Mission Tracker
 - [x] Historical trends with seasonal patterns
 - [x] City comparison with international benchmarks
-- [x] 44 content panels across 7 intent-based navigation categories (reorganized v26.6.20, gender panel added v26.6.22)
+- [x] 51 content panels across 7 intent-based navigation categories (reorganized v26.6.20, gender panel added v26.6.22, 7 new panels v26.6.23)
 
 ---
 
@@ -130,6 +130,31 @@ Installs measurement everywhere and lands the highest-leverage safe wins. Every 
 - [x] **Air Tambola ticket** horizontal-scrolls on 360 px Galaxy
 - [x] **Agent-Reach scheduled fetch workflow** — gracefully skips without secrets
 - [x] **Performance roadmap** docs/technical/performance-roadmap.md
+
+---
+
+## Phase 5.13: New Panels, Shareable Cards & Platform Polish (✅ Completed — v26.6.23)
+
+Two batches of new panels plus a site-wide quality sweep.
+
+**Batch 1 — New panels:**
+- [x] **Understanding AQI** (`tmpl-aqi-explainer`): interactive breakdown of 6 criteria pollutants, CPCB vs US EPA AQI scale comparison table, "Why PM2.5 isn't the whole story" section.
+- [x] **Shareable AQI Cards**: canvas-based PNG generator (1080x1080 Instagram, 1200x630 WhatsApp), color-coded by severity. Share buttons on dashboard, rankings, map popups, comparison cards. Web Share API on mobile.
+- [x] **Exposure Diary** (`tmpl-exposure-diary`): 16 activities with calibrated PM2.5 multipliers, weighted daily exposure, cigarette equivalence, life-expectancy impact, stacked bar chart, personalized reduction tips, localStorage history.
+- [x] **Migration Comparison** (enhanced `tmpl-migration-calc`): full side-by-side comparison — live AQI for both cities, 7-row table, source apportionment bar charts, verdict with life-years gained.
+
+**Batch 2 — New panels + enhancements:**
+- [x] **Data Source Selector** (`tmpl-source-selector`): educational panel on CPCB/WAQI/IQAir/Sensor.Community. Toggle switches, instrument/accuracy/coverage details, Source Impact Simulator.
+- [x] **City Policy Tracker** (`tmpl-city-policy`): 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback section, governance questions.
+- [x] **Enhanced Legal Framework**: state-wise court rulings (8 regions), Key Legal Rights summary (5 laws), "What Can I Do from Home?" 5-step citizen recourse guide with template letter.
+
+**Other changes:**
+- [x] Citizen/Activist split into two separate roles (now 12 roles total).
+- [x] Women & Air Quality renamed to **Women's Health** in nav.
+- [x] Nav label audit: 17 fixes (RTI footer link, cryptic labels, mismatches).
+- [x] Site-wide formatting sweep: 8 grid fixes + 2 table wraps. Rankings table formatting + loading fix. 9 broken Sargam icons replaced.
+- [x] Blog post: "The May 26 Overhaul: 21 Fixes in One Day".
+- [x] Updated walkthrough deck (65 slides, new PDF/PPTX/index.html).
 
 ---
 

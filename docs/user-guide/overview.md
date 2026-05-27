@@ -1,6 +1,6 @@
 # Platform Overview
 
-JanVayu is a single-page web application with 44 panels across 7 intent-based navigation categories (My Air, City Data, Health & Trends, Accountability, Take Action, Resources) covering every dimension of India's air quality crisis — from live data to legal accountability.
+JanVayu is a single-page web application with 51 panels across 7 intent-based navigation categories (My Air, City Data, Health & Trends, Accountability, Take Action, Resources) covering every dimension of India's air quality crisis — from live data to legal accountability.
 
 ---
 
@@ -44,7 +44,13 @@ JanVayu is a single-page web application with 44 panels across 7 intent-based na
 | 34 | **Ask JanVayu PWA** | Standalone installable AI chat at `/ask/` — chat-style interface, 33-city chip selector, thumbs up/down feedback, offline fallback. Available in 10 languages |
 | 35 | **April–May 2026 Voices** | Curated Lancet Countdown launch reactions, Loni-residents ground report, Soumya Swaminathan at the "Be Cool" launch, Supreme Court four-week deadline, Warrior Moms commentary, CSE NCAP review |
 | 36 | **April–May 2026 Research Updates** | Featured card group at the top of the Reading List — Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024 Lancet Planetary Health, CEEW 2024 source apportionment |
-| 37 | **Women & Air Quality** | Indoor cooking exposure, maternal health, occupational risks, gender data gap, Ujjwala scheme evaluation |
+| 37 | **Women's Health** | Indoor cooking exposure, maternal health, occupational risks, gender data gap, Ujjwala scheme evaluation |
+| 38 | **Understanding AQI** | Interactive breakdown of 6 criteria pollutants (PM2.5, PM10, NO2, SO2, O3, CO), CPCB vs US EPA AQI scale comparison, "Why PM2.5 isn't the whole story" |
+| 39 | **Shareable AQI Cards** | Canvas-based PNG generator (1080x1080 Instagram, 1200x630 WhatsApp), color-coded by severity. Share buttons on dashboard, rankings, map, comparisons. Web Share API on mobile |
+| 40 | **Exposure Diary** | Log daily routine (16 activities with calibrated PM2.5 multipliers), weighted daily exposure, cigarette equivalence, life-expectancy impact, stacked bar chart, personalized tips |
+| 41 | **Migration Comparison** | Side-by-side city comparison — live AQI for both cities, 7-row table, source apportionment bar charts, verdict with life-years gained |
+| 42 | **Data Source Selector** | Educational panel on CPCB/WAQI/IQAir/Sensor.Community with toggle switches, instrument/accuracy/coverage details, Source Impact Simulator |
+| 43 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback section, governance questions |
 
 ---
 

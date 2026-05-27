@@ -26,7 +26,7 @@ This is not a campaign. It is a record.
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | **Role-Based Landing Page** | Personalized entry point for 10 audience roles: parent, student, researcher, policymaker, journalist, activist, doctor, teacher, NGO, and business owner |
+| 1 | **Role-Based Landing Page** | Personalized entry point for 12 audience roles: parent, student, researcher, policymaker, journalist, citizen, activist, doctor, teacher, NGO, business owner, and woman/caregiver |
 | 2 | **Simple Language Mode** | Site-wide plain language toggle in the header that switches all content to simple language (persisted via sessionStorage) |
 | 3 | **Glossary (Ctrl+K)** | Searchable glossary overlay for air quality terms, accessible via Ctrl+K keyboard shortcut |
 | 4 | **Intro Tour** | Guided walkthrough for first-time visitors highlighting key sections and features |
@@ -48,9 +48,15 @@ This is not a campaign. It is a record.
 | 20 | **Zotero Bibliography** | Public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
 | 21 | **Ask JanVayu PWA** | Installable standalone AI chat app for air quality Q&A at [janvayu.in/ask](https://www.janvayu.in/ask) — 33 cities, 10 languages, thumbs up/down feedback, works on Android, iOS, desktop |
 | 22 | **Learning Games** | Seven self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games) — India-context Air Quality Jeopardy (5×5 board, ₹1k–₹5k tiles), 10-question PM Quick-Quiz, 7-source matcher, Clean Air Snakes & Ladders inspired by Moksha Patam, Jodi Match memory cards, Air Tambola (Indian housie), and **Vayu Junction** — an *Only Connect* / NYT-*Connections* / *Torchlight*-inspired word-grouping puzzle with four India-AQ puzzle sets |
-| 23 | **Women & Air Quality** | Gender-specific air pollution analysis — indoor cooking exposure, maternal health, occupational risks, gender data gap. New "Woman / Caregiver" role |
+| 23 | **Women's Health** | Gender-specific air pollution analysis — indoor cooking exposure, maternal health, occupational risks, gender data gap. "Woman / Caregiver" role |
 | 24 | **Historical Map Overlay** | Time-slider on the live map showing monthly PM2.5 data from Jan 2024 to present, color-coded by pollution level |
 | 25 | **Auto-Update Infrastructure** | Version sync, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system, reference data API, Zotero integration |
+| 26 | **Understanding AQI** | Interactive breakdown of 6 criteria pollutants, CPCB vs US EPA AQI scale comparison, "Why PM2.5 isn't the whole story" |
+| 27 | **Shareable AQI Cards** | Canvas-based PNG generator (Instagram/WhatsApp sizes), color-coded by severity, Web Share API on mobile |
+| 28 | **Exposure Diary** | Log 16 daily activities with PM2.5 multipliers, get weighted exposure, cigarette equivalence, life-expectancy impact |
+| 29 | **Migration Comparison** | Side-by-side city comparison with live AQI, source apportionment charts, life-years gained verdict |
+| 30 | **Data Source Selector** | Educational panel on CPCB/WAQI/IQAir/Sensor.Community with Source Impact Simulator |
+| 31 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback |
 
 ---
 
