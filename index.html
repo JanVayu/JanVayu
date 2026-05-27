@@ -2873,9 +2873,13 @@ body {
                 <button class="mobile-nav-item" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                 <button class="mobile-nav-item" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                 <button class="mobile-nav-item" data-panel="trends" data-i18n="nav_trends">Historical Trends</button>
-                <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label" data-i18n="navgroup_learn">Learn</div>
                 <button class="mobile-nav-item" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
                 <button class="mobile-nav-item" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
+                <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
+                <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_accountability">Accountability</div>
@@ -2905,7 +2909,6 @@ body {
                 <button class="mobile-nav-item" data-panel="resources" data-i18n="nav_resources">Reading List</button>
                 <button class="mobile-nav-item" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
                 <button class="mobile-nav-item" data-panel="tools" data-i18n="nav_tools">Tools</button>
-                <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                 <button class="mobile-nav-item" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                 <button class="mobile-nav-item" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                 <button class="mobile-nav-item" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
@@ -2962,9 +2965,15 @@ body {
                     <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                     <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                     <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
-                    <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="aqi-explainer" data-i18n="nav_learn">Learn <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
                     <button class="nav-dropdown-link" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
+                    <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
+                    <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                 </div>
             </div>
             <div class="nav-item">
@@ -3000,7 +3009,6 @@ body {
                     <button class="nav-dropdown-link" data-panel="resources" data-i18n="nav_resources">Reading List</button>
                     <button class="nav-dropdown-link" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
                     <button class="nav-dropdown-link" data-panel="tools" data-i18n="nav_tools">Tools</button>
-                    <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                     <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                     <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                     <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
@@ -3102,6 +3110,14 @@ body {
                                 cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
                                 transition: all 0.15s;
                             " onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><span class="si si-share" style="width:12px;height:12px;"></span>Share AQI Card</button>
+                            <button onclick="shareOnWhatsApp(document.getElementById('hero-city-select').value)" title="Share on WhatsApp" style="
+                                margin-top: 8px; margin-left: 6px; padding: 4px 14px; font-size: 0.7rem; font-weight: 600;
+                                font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.05em;
+                                background: #25D366; color: #fff;
+                                border: 1px solid #25D366; border-radius: 6px;
+                                cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+                                transition: all 0.15s;
+                            " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</button>
                         </div>
                         <div class="hero-stat">
                             <div class="hero-stat-value danger" data-stat="deaths_annual">2.0M</div>
@@ -3278,6 +3294,9 @@ body {
                                     <button class="btn btn-sm" onclick="generateAQICard(document.getElementById('share-card-city').value, {format: document.getElementById('share-card-format').value, share: true})">
                                         <span class="si si-sm si-share"></span> Share
                                     </button>
+                                    <button class="btn btn-sm" onclick="shareOnWhatsApp(document.getElementById('share-card-city').value)" style="background: #25D366; color: #fff; border-color: #25D366;">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align: middle; margin-right: 4px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -3294,6 +3313,16 @@ body {
                         <div class="quick-link-icon economic"><span class="si si-rupee" style="width:20px;height:20px;"></span></div>
                         <div><h4 data-i18n="ql_economic_title">Economic Impact</h4><p data-i18n="ql_economic_desc">Productivity loss</p></div>
                     </div>
+                    <div class="quick-link" onclick="showPanel('aqi-explainer')">
+                        <div class="quick-link-icon" style="background: #EFF6FF; color: #2563EB;"><span class="si si-info" style="width:20px;height:20px;"></span></div>
+                        <div><h4>What is AQI?</h4><p>The number explained — all 6 pollutants, two scales, what they hide</p></div>
+                    </div>
+                    <div class="quick-link" onclick="showPanel('source-selector')">
+                        <div class="quick-link-icon" style="background: #FEF3C7; color: #D97706;"><span class="si si-eye" style="width:20px;height:20px;"></span></div>
+                        <div><h4>Trust the Data?</h4><p>Choose your sources — CPCB, WAQI, IQAir, community sensors</p></div>
+                    </div>
+                </div>
+                <div class="grid-4 mt-2">
                     <div class="quick-link" onclick="showPanel('accountability')">
                         <div class="quick-link-icon policy"><span class="si si-shield" style="width:20px;height:20px;"></span></div>
                         <div><h4 data-i18n="ql_accountability_t">Accountability</h4><p data-i18n="ql_accountability_d">Mission Tracker & RTI</p></div>
@@ -3615,6 +3644,7 @@ body {
             nav_monitor: "Monitoring",
             nav_account: "Accountability",
             nav_action: "Take Action",
+            nav_learn: "Learn",
             nav_resources: "Resources",
             // Dropdown items
             dd_health: "Health Impact", dd_economic: "Economic Cost", dd_children: "Children's Health",
@@ -3627,6 +3657,7 @@ body {
             dd_tools: "Tools", dd_resources: "Reading List", dd_downloads: "Downloads", dd_about: "About",
             // Mobile nav groups
             navgroup_myair: "My Air", navgroup_citydata: "City Data", navgroup_health: "Health & Trends",
+            navgroup_learn: "Learn",
             mg_data: "Data & Analysis", mg_monitor: "Monitoring", mg_account: "Accountability",
             mg_action: "Take Action", mg_resources: "Resources",
             // Stats
@@ -3647,6 +3678,7 @@ body {
             nav_monitor: "निगरानी",
             nav_account: "जवाबदेही",
             nav_action: "कार्रवाई करें",
+            nav_learn: "जानें",
             nav_resources: "संसाधन",
             dd_health: "स्वास्थ्य प्रभाव", dd_economic: "आर्थिक लागत", dd_children: "बाल स्वास्थ्य",
             dd_indoor: "घरेलू वायु", dd_trends: "ऐतिहासिक रुझान",
@@ -3657,6 +3689,7 @@ body {
             dd_voices: "नागरिक आवाज़ें", dd_migration: "पलायन",
             dd_tools: "उपकरण", dd_resources: "पठन सूची", dd_downloads: "डाउनलोड", dd_about: "परिचय",
             navgroup_myair: "मेरी हवा", navgroup_citydata: "शहर डेटा", navgroup_health: "स्वास्थ्य और रुझान",
+            navgroup_learn: "जानें",
             mg_data: "डेटा और विश्लेषण", mg_monitor: "निगरानी", mg_account: "जवाबदेही",
             mg_action: "कार्रवाई करें", mg_resources: "संसाधन",
             deaths_year: "मौतें/वर्ष", annual_cost: "वार्षिक लागत", delhi_pm25: "दिल्ली वार्षिक PM2.5",
@@ -3674,6 +3707,7 @@ body {
             nav_monitor: "கண்காணிப்பு",
             nav_account: "பொறுப்புணர்வு",
             nav_action: "நடவடிக்கை எடுங்கள்",
+            nav_learn: "கற்றுக்கொள்",
             nav_resources: "வளங்கள்",
             dd_health: "சுகாதார பாதிப்பு", dd_economic: "பொருளாதார செலவு", dd_children: "குழந்தை சுகாதாரம்",
             dd_indoor: "உட்புற காற்று", dd_trends: "வரலாற்று போக்கு",
@@ -3684,6 +3718,7 @@ body {
             dd_voices: "குடிமக்கள் குரல்கள்", dd_migration: "இடப்பெயர்வு",
             dd_tools: "கருவிகள்", dd_resources: "வாசிப்புப் பட்டியல்", dd_downloads: "பதிவிறக்கங்கள்", dd_about: "பற்றி",
             navgroup_myair: "என் காற்று", navgroup_citydata: "நகர தரவு", navgroup_health: "சுகாதாரம் & போக்கு",
+            navgroup_learn: "கற்றுக்கொள்",
             mg_data: "தரவு & பகுப்பாய்வு", mg_monitor: "கண்காணிப்பு", mg_account: "பொறுப்புணர்வு",
             mg_action: "நடவடிக்கை எடுங்கள்", mg_resources: "வளங்கள்",
             deaths_year: "இறப்புகள்/ஆண்டு", annual_cost: "ஆண்டு செலவு", delhi_pm25: "டெல்லி ஆண்டு PM2.5",
@@ -3701,6 +3736,7 @@ body {
             nav_monitor: "देखरेख",
             nav_account: "जबाबदारी",
             nav_action: "कृती करा",
+            nav_learn: "शिका",
             nav_resources: "संसाधने",
             dd_health: "आरोग्य प्रभाव", dd_economic: "आर्थिक खर्च", dd_children: "बाल आरोग्य",
             dd_indoor: "घरातील हवा", dd_trends: "ऐतिहासिक कल",
@@ -3711,6 +3747,7 @@ body {
             dd_voices: "नागरिक आवाज", dd_migration: "स्थलांतर",
             dd_tools: "साधने", dd_resources: "वाचन सूची", dd_downloads: "डाउनलोड", dd_about: "माहिती",
             navgroup_myair: "माझी हवा", navgroup_citydata: "शहर डेटा", navgroup_health: "आरोग्य आणि कल",
+            navgroup_learn: "शिका",
             mg_data: "डेटा आणि विश्लेषण", mg_monitor: "देखरेख", mg_account: "जबाबदारी",
             mg_action: "कृती करा", mg_resources: "संसाधने",
             deaths_year: "मृत्यू/वर्ष", annual_cost: "वार्षिक खर्च", delhi_pm25: "दिल्ली वार्षिक PM2.5",
@@ -3728,6 +3765,7 @@ body {
             nav_monitor: "পর্যবেক্ষণ",
             nav_account: "জবাবদিহিতা",
             nav_action: "পদক্ষেপ নিন",
+            nav_learn: "শিখুন",
             nav_resources: "সম্পদ",
             dd_health: "স্বাস্থ্য প্রভাব", dd_economic: "অর্থনৈতিক ব্যয়", dd_children: "শিশু স্বাস্থ্য",
             dd_indoor: "অন্দরের বায়ু", dd_trends: "ঐতিহাসিক প্রবণতা",
@@ -3738,6 +3776,7 @@ body {
             dd_voices: "নাগরিক কণ্ঠস্বর", dd_migration: "অভিবাসন",
             dd_tools: "সরঞ্জাম", dd_resources: "পড়ার তালিকা", dd_downloads: "ডাউনলোড", dd_about: "সম্পর্কে",
             navgroup_myair: "আমার বায়ু", navgroup_citydata: "শহর তথ্য", navgroup_health: "স্বাস্থ্য ও প্রবণতা",
+            navgroup_learn: "শিখুন",
             mg_data: "তথ্য ও বিশ্লেষণ", mg_monitor: "পর্যবেক্ষণ", mg_account: "জবাবদিহিতা",
             mg_action: "পদক্ষেপ নিন", mg_resources: "সম্পদ",
             deaths_year: "মৃত্যু/বছর", annual_cost: "বার্ষিক ব্যয়", delhi_pm25: "দিল্লি বার্ষিক PM2.5",
@@ -4928,6 +4967,25 @@ body {
             document.body.removeChild(a);
             setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
         }, 'image/png');
+    }
+
+    function shareOnWhatsApp(cityKey) {
+        var data = aqiData[cityKey];
+        if (!data) { alert('No AQI data available for this city yet.'); return; }
+        var city = CITIES[cityKey];
+        if (!city) return;
+        var aqi = data.aqi || 0;
+        var pm25 = data.pm25 || Math.round(aqi * 0.7);
+        var whoX = getWHOMultiple(pm25);
+        var cigPerDay = (pm25 / 22).toFixed(1);
+        var label = getAQILabel(aqi);
+        var text = '🌫️ ' + city.name + ' Air Quality Right Now'
+            + '\n\nAQI: ' + aqi + ' (' + label + ')'
+            + '\nPM2.5: ' + pm25 + ' µg/m³ (' + whoX + '× WHO limit)'
+            + '\n≈ ' + cigPerDay + ' cigarettes/day'
+            + '\n\nCheck live data: janvayu.in';
+        var url = 'https://wa.me/?text=' + encodeURIComponent(text);
+        window.open(url, '_blank');
     }
 
     function updateShareCardPreview() {
