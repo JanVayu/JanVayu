@@ -4807,9 +4807,9 @@ body {
 
     async function generateAQICard(cityKey, opts) {
         const data = aqiData[cityKey];
-        if (!data) { alert('No AQI data available for this city yet. Please wait for data to load.'); return; }
+        if (!data) { if (!(opts && opts.preview)) alert('No AQI data available for this city yet. Please wait for data to load.'); return null; }
         const city = CITIES[cityKey];
-        if (!city) return;
+        if (!city) return null;
 
         const format = (opts && opts.format) || 'square';
         const W = format === 'landscape' ? 1200 : 1080;
@@ -4936,6 +4936,9 @@ body {
         ctx.font = 'bold ' + (format === 'landscape' ? '15px' : '18px') + ' system-ui, sans-serif';
         ctx.fillText('janvayu.in', W / 2, footerY + (format === 'landscape' ? 22 : 30));
 
+        // Preview mode: return the canvas, skip download/share
+        if (opts && opts.preview) return canvas;
+
         // ── Download or share ──
         canvas.toBlob(function(blob) {
             if (!blob) return;
@@ -4991,32 +4994,28 @@ body {
     function updateShareCardPreview() {
         var cityKey = document.getElementById('share-card-city') ? document.getElementById('share-card-city').value : null;
         var format = document.getElementById('share-card-format') ? document.getElementById('share-card-format').value : 'square';
+        var preview = document.getElementById('share-card-preview');
+        if (!preview) return;
         if (!cityKey || !aqiData[cityKey]) {
-            var preview = document.getElementById('share-card-preview');
-            if (preview) preview.innerHTML = '<p style="color: var(--text-3); padding: 2rem;">Select a city with available data to preview.</p>';
+            preview.innerHTML = '<p style="color: var(--text-3); padding: 2rem;">Select a city with available data to preview.</p>';
             return;
         }
-        var data = aqiData[cityKey];
-        var city = CITIES[cityKey];
-        var aqi = data.aqi || 0;
-        var pm25 = data.pm25 || Math.round(aqi * 0.7);
-        var whoX = getWHOMultiple(pm25);
-        var cigPerDay = (pm25 / 22).toFixed(1);
-        var label = getAQILabel(aqi);
-        var color = getAQIColor(aqi);
-
-        var preview = document.getElementById('share-card-preview');
-        if (preview) {
-            preview.innerHTML = '<div style="background: linear-gradient(135deg, ' + color + '22, ' + color + '44); border-radius: 12px; padding: 24px; text-align: center;">'
-                + '<div style="font-weight: 700; font-size: 0.75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em;">JanVayu</div>'
-                + '<div style="font-size: 1.1rem; font-weight: 700; margin: 8px 0 4px;">' + city.name + '</div>'
-                + '<div style="font-size: 2.5rem; font-weight: 800; color: ' + color + ';">' + aqi + '</div>'
-                + '<div style="font-size: 0.8rem; font-weight: 600; color: ' + color + ';">AQI — ' + label + '</div>'
-                + '<div style="display: flex; justify-content: center; gap: 16px; margin-top: 12px; font-size: 0.75rem; color: var(--text-2);">'
-                + '<span>PM2.5: ' + pm25 + '</span>'
-                + '<span>' + whoX + '× WHO</span>'
-                + '<span>' + cigPerDay + ' cig/day</span>'
-                + '</div></div>';
+        // Render the actual canvas card and embed it as an image in the preview
+        try {
+            Promise.resolve(generateAQICard(cityKey, { format: format, preview: true })).then(function(canvas) {
+                if (!canvas) return;
+                preview.innerHTML = '';
+                var img = document.createElement('img');
+                img.src = canvas.toDataURL('image/png');
+                img.style.cssText = 'width: 100%; height: auto; display: block; border-radius: 12px;';
+                img.alt = 'AQI card preview';
+                preview.appendChild(img);
+            }).catch(function(e) {
+                console.warn('[JanVayu] Preview render failed:', e);
+                preview.innerHTML = '<p style="color: var(--text-3); padding: 2rem;">Preview unavailable. Click Download to generate the card.</p>';
+            });
+        } catch (e) {
+            console.warn('[JanVayu] Preview error:', e);
         }
     }
 
