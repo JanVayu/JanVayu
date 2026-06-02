@@ -36,7 +36,7 @@ jobs:
 
       - name: Open / refresh tracking issue on failure
         if: failure() && steps.lychee.outcome == 'failure'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "Weekly link audit — broken links detected"
           content-filepath: ./lychee/out.md
