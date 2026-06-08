@@ -53,7 +53,6 @@ jobs:
             --force 2>/dev/null || true
 
       - name: Sync tracking issue
-        id: sync
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -68,10 +67,6 @@ jobs:
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           printf '\n\n[Workflow run](%s)\n' "$RUN_URL" >> "$BODY_FILE"
 
-          # transition: "down" = just went down, "recovered" = just came back,
-          # "" = no state change. Email is sent only on a transition, so a
-          # prolonged outage triggers exactly one alert, not one every 15 min.
-          transition=""
           if [ "$DOWN" != "0" ]; then
             if [ -n "$EXISTING" ]; then
               echo "Outage ongoing — commenting on issue #$EXISTING"
@@ -82,7 +77,6 @@ jobs:
                 --title "🔴 Live function outage detected" \
                 --label "$OUTAGE_LABEL" \
                 --body-file "$BODY_FILE"
-              transition="down"
             fi
           else
             if [ -n "$EXISTING" ]; then
@@ -96,63 +90,9 @@ jobs:
               } > recovered.md
               gh issue comment "$EXISTING" --body-file recovered.md
               gh issue close "$EXISTING" --reason completed
-              transition="recovered"
             else
               echo "All healthy — nothing to do."
             fi
-          fi
-          echo "transition=$transition" >> "$GITHUB_OUTPUT"
-
-      # Immediate email alert on a state change, via Resend (the same provider
-      # the daily digest uses). Sends one email when an outage starts and one
-      # when it recovers. No-ops silently if RESEND_API_KEY isn't configured as
-      # a repository secret.
-      - name: Email alert on state change
-        if: steps.sync.outputs.transition != ''
-        env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          # Comma-separated list of recipients.
-          ALERT_EMAIL: ${{ vars.ALERT_EMAIL || 'contribute@janvayu.in,varna.sr@gmail.com' }}
-          RESEND_FROM: ${{ vars.RESEND_FROM || 'JanVayu Status <alerts@janvayu.in>' }}
-          TRANSITION: ${{ steps.sync.outputs.transition }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          set -euo pipefail
-          if [ -z "${RESEND_API_KEY:-}" ]; then
-            echo "RESEND_API_KEY not set — skipping email alert."
-            exit 0
-          fi
-
-          if [ "$TRANSITION" = "down" ]; then
-            SUBJECT="🔴 JanVayu: a live service is DOWN"
-          else
-            SUBJECT="✅ JanVayu: all services recovered"
-          fi
-
-          # Build an HTML body from the latest probe report.
-          REPORT_HTML=$(sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' report.md)
-          HTML="<h2>${SUBJECT}</h2><p>Status page: <a href=\"https://www.janvayu.in/status\">janvayu.in/status</a> · <a href=\"${RUN_URL}\">workflow run</a></p><pre style=\"font-family:monospace;font-size:13px\">${REPORT_HTML}</pre>"
-
-          # Compose JSON safely with jq. ALERT_EMAIL is a comma-separated list,
-          # split into a trimmed array of recipients.
-          jq -n \
-            --arg from "$RESEND_FROM" \
-            --arg to "$ALERT_EMAIL" \
-            --arg subject "$SUBJECT" \
-            --arg html "$HTML" \
-            '{from:$from,
-              to:($to | split(",") | map(gsub("^\\s+|\\s+$";"")) | map(select(length>0))),
-              subject:$subject, html:$html}' > payload.json
-
-          CODE=$(curl -s -o resp.json -w "%{http_code}" -X POST https://api.resend.com/emails \
-                   -H "Authorization: Bearer ${RESEND_API_KEY}" \
-                   -H "Content-Type: application/json" \
-                   --data @payload.json)
-          echo "Resend responded HTTP $CODE"
-          if [ "$CODE" -ge 300 ]; then
-            echo "::warning::Alert email failed (HTTP $CODE): $(cat resp.json)"
-          else
-            echo "Alert email sent to $ALERT_EMAIL"
           fi
 
       - name: Fail the job when endpoints are down
