@@ -245,9 +245,9 @@
     runAll();
     setInterval(runAll, 60000);
 
-    // Optional historical uptime strip — rendered only if a history.json
-    // (published by the Function Health Monitor workflow) is present.
-    fetch("./history.json", { cache: "no-store" })
+    // Historical uptime strip — 90-day status from the status-history function
+    // (recorded by the Netlify health monitor in Blobs). Hidden if unavailable.
+    fetch(API + "/.netlify/functions/status-history", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((h) => {
         if (!h || !Array.isArray(h.days) || !h.days.length) return;
