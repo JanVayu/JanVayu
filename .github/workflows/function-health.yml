@@ -1,0 +1,102 @@
+name: Function Health Monitor
+
+# Probes the live site + serverless functions every 15 minutes and keeps a
+# single tracking issue in sync with reality:
+#   - opens / comments on a "status: outage" issue when a function is DOWN
+#     (HTTP 5xx or unreachable — e.g. the air-query chatbot 502 of May 2026)
+#   - closes the issue automatically once everything recovers
+#
+# Probe details live in scripts/health-check.sh. POST probes use an empty body
+# so functions hit their own validation and spend no Groq tokens.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # every 15 minutes
+  workflow_dispatch:          # manual trigger
+    inputs:
+      base_url:
+        description: 'Base URL to probe (defaults to production)'
+        required: false
+        default: 'https://www.janvayu.in'
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: function-health
+  cancel-in-progress: false
+
+env:
+  OUTAGE_LABEL: 'status: outage'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run health check
+        id: check
+        run: |
+          BASE_URL="${{ github.event.inputs.base_url || 'https://www.janvayu.in' }}" \
+            bash scripts/health-check.sh report.md
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Ensure outage label exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create "$OUTAGE_LABEL" --color B60205 \
+            --description "An automated health check found a live endpoint down" \
+            --force 2>/dev/null || true
+
+      - name: Sync tracking issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          DOWN="${{ steps.check.outputs.exit_code }}"
+
+          # Find an already-open outage issue, if any.
+          EXISTING=$(gh issue list --label "$OUTAGE_LABEL" --state open \
+                       --json number --jq '.[0].number // empty')
+
+          BODY_FILE=report.md
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          printf '\n\n[Workflow run](%s)\n' "$RUN_URL" >> "$BODY_FILE"
+
+          if [ "$DOWN" != "0" ]; then
+            if [ -n "$EXISTING" ]; then
+              echo "Outage ongoing — commenting on issue #$EXISTING"
+              gh issue comment "$EXISTING" --body-file "$BODY_FILE"
+            else
+              echo "New outage — opening tracking issue"
+              gh issue create \
+                --title "🔴 Live function outage detected" \
+                --label "$OUTAGE_LABEL" \
+                --body-file "$BODY_FILE"
+            fi
+          else
+            if [ -n "$EXISTING" ]; then
+              echo "Recovered — closing issue #$EXISTING"
+              {
+                echo "## ✅ Recovered"
+                echo ""
+                echo "All monitored endpoints are healthy again. Closing automatically."
+                echo ""
+                cat "$BODY_FILE"
+              } > recovered.md
+              gh issue comment "$EXISTING" --body-file recovered.md
+              gh issue close "$EXISTING" --reason completed
+            else
+              echo "All healthy — nothing to do."
+            fi
+          fi
+
+      - name: Fail the job when endpoints are down
+        if: steps.check.outputs.exit_code != '0'
+        run: |
+          echo "::error::One or more live endpoints are DOWN — see the tracking issue."
+          exit 1

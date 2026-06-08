@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask JanVayu — System Status</title>
+  <meta name="description" content="Live operational status of the Ask JanVayu chatbot, live AQI data, and serverless functions.">
+  <meta name="robots" content="all">
+  <link rel="icon" href="https://www.janvayu.in/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Ask JanVayu — System Status">
+  <meta property="og:description" content="Live operational status of the Ask JanVayu chatbot and air-quality services.">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --card-border: #242935;
+      --text: #e6e8ec;
+      --muted: #9aa3b2;
+      --up: #16A34A;
+      --up-dim: rgba(22,163,74,.15);
+      --down: #DC2626;
+      --down-dim: rgba(220,38,38,.13);
+      --degraded: #D97706;
+      --degraded-dim: rgba(217,119,6,.14);
+      --accent: #7C3AED;
+      --radius: 14px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7f9; --card: #ffffff; --card-border: #e6e8ec;
+        --text: #1a1d24; --muted: #5b6472;
+        --up-dim: rgba(22,163,74,.10); --down-dim: rgba(220,38,38,.08);
+        --degraded-dim: rgba(217,119,6,.10);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+    header .brand { font-weight: 800; font-size: 1.15rem; letter-spacing: -.01em; }
+    header .brand span { color: var(--accent); }
+    header .tag { margin-left: auto; font-size: .8rem; color: var(--muted); }
+
+    .banner {
+      border-radius: var(--radius); padding: 22px 24px; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 16px; border: 1px solid var(--card-border);
+      background: var(--card);
+    }
+    .banner .dot { width: 16px; height: 16px; border-radius: 50%; flex: none; }
+    .banner h1 { margin: 0; font-size: 1.35rem; letter-spacing: -.02em; }
+    .banner p { margin: 2px 0 0; color: var(--muted); font-size: .9rem; }
+    .banner.up    { border-color: rgba(22,163,74,.4);  background: var(--up-dim); }
+    .banner.up .dot { background: var(--up); box-shadow: 0 0 0 4px var(--up-dim); }
+    .banner.down  { border-color: rgba(220,38,38,.45); background: var(--down-dim); }
+    .banner.down .dot { background: var(--down); box-shadow: 0 0 0 4px var(--down-dim); }
+    .banner.degraded { border-color: rgba(217,119,6,.45); background: var(--degraded-dim); }
+    .banner.degraded .dot { background: var(--degraded); box-shadow: 0 0 0 4px var(--degraded-dim); }
+
+    .meta { display: flex; justify-content: space-between; align-items: center;
+            font-size: .8rem; color: var(--muted); margin: 14px 2px 22px; flex-wrap: wrap; gap: 8px; }
+    .meta button {
+      background: none; border: 1px solid var(--card-border); color: var(--muted);
+      border-radius: 8px; padding: 5px 12px; font-size: .8rem; cursor: pointer; font: inherit;
+    }
+    .meta button:hover { color: var(--text); border-color: var(--muted); }
+
+    .components { border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; background: var(--card); }
+    .row { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-top: 1px solid var(--card-border); }
+    .row:first-child { border-top: none; }
+    .row .info { min-width: 0; }
+    .row .name { font-weight: 600; font-size: .98rem; }
+    .row .desc { color: var(--muted); font-size: .8rem; margin-top: 1px; }
+    .row .right { margin-left: auto; display: flex; align-items: center; gap: 12px; flex: none; }
+    .row .latency { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; min-width: 52px; text-align: right; }
+    .pill { font-size: .74rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+    .pill.up { color: var(--up); background: var(--up-dim); }
+    .pill.down { color: var(--down); background: var(--down-dim); }
+    .pill.degraded { color: var(--degraded); background: var(--degraded-dim); }
+    .pill.checking { color: var(--muted); background: rgba(154,163,178,.12); }
+    .sdot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--muted); }
+    .sdot.up { background: var(--up); } .sdot.down { background: var(--down); } .sdot.degraded { background: var(--degraded); }
+
+    .uptime { margin-top: 26px; }
+    .uptime h2 { font-size: .9rem; color: var(--muted); font-weight: 600; margin: 0 2px 10px; }
+    .bars { display: flex; gap: 2px; }
+    .bars i { flex: 1; height: 30px; border-radius: 2px; background: var(--card-border); }
+    .bars i.up { background: var(--up); } .bars i.down { background: var(--down); } .bars i.degraded { background: var(--degraded); }
+
+    footer { margin-top: 38px; text-align: center; color: var(--muted); font-size: .8rem; }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .spin { animation: sp 1s linear infinite; display: inline-block; }
+    @keyframes sp { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">Ask <span>JanVayu</span></div>
+      <div class="tag">System Status</div>
+    </header>
+
+    <div id="banner" class="banner degraded">
+      <div class="dot"></div>
+      <div>
+        <h1 id="banner-title">Checking systems…</h1>
+        <p id="banner-sub">Running live health checks.</p>
+      </div>
+    </div>
+
+    <div class="meta">
+      <span id="last-checked">Last checked: —</span>
+      <button id="refresh" type="button">↻ Refresh now</button>
+    </div>
+
+    <div class="components" id="components"></div>
+
+    <div class="uptime" id="uptime" hidden>
+      <h2 id="uptime-title">90-day uptime</h2>
+      <div class="bars" id="bars"></div>
+    </div>
+
+    <footer>
+      Probed live from your browser · auto-refreshes every 60s<br>
+      <a href="https://www.janvayu.in">janvayu.in</a> ·
+      <a href="https://www.janvayu.in/ask/">Ask JanVayu</a> ·
+      <a href="https://github.com/JanVayu/JanVayu">GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    // Probe production functions directly. Functions send
+    // Access-Control-Allow-Origin: * so this works from any host
+    // (e.g. status.askjanvayu.in). POST probes send an empty body so each
+    // function hits its own validation (4xx) without spending Groq tokens.
+    const API = "https://www.janvayu.in";
+    const TIMEOUT_MS = 12000;
+
+    const COMPONENTS = [
+      { name: "Website", desc: "janvayu.in — main site & CDN", type: "site", url: API + "/" },
+      { name: "Ask JanVayu chatbot", desc: "AI air-quality assistant (air-query)", type: "fn", url: API + "/.netlify/functions/air-query" },
+      { name: "Live AQI rankings", desc: "City rankings feed (rankings)", type: "fn", url: API + "/.netlify/functions/rankings" },
+      { name: "Historical AQI", desc: "Monthly PM2.5 history (historical-aqi)", type: "fn", url: API + "/.netlify/functions/historical-aqi" },
+      { name: "Reference data", desc: "CPCB / NCAP reference (reference-data)", type: "fn", url: API + "/.netlify/functions/reference-data" },
+      { name: "Health advisory", desc: "Personalised advice (health-advisory)", type: "fn", url: API + "/.netlify/functions/health-advisory" },
+      { name: "Accountability brief", desc: "Institutional response brief", type: "fn", url: API + "/.netlify/functions/accountability-brief" },
+      { name: "Anomaly check", desc: "Data anomaly detection", type: "fn", url: API + "/.netlify/functions/anomaly-check" },
+    ];
+
+    const elComponents = document.getElementById("components");
+    const elBanner = document.getElementById("banner");
+    const rows = COMPONENTS.map((c) => {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML =
+        '<div class="sdot"></div>' +
+        '<div class="info"><div class="name"></div><div class="desc"></div></div>' +
+        '<div class="right"><span class="latency"></span><span class="pill checking">Checking…</span></div>';
+      row.querySelector(".name").textContent = c.name;
+      row.querySelector(".desc").textContent = c.desc;
+      elComponents.appendChild(row);
+      return row;
+    });
+
+    function setRow(i, state, latency) {
+      const row = rows[i];
+      const dot = row.querySelector(".sdot");
+      const pill = row.querySelector(".pill");
+      const lat = row.querySelector(".latency");
+      dot.className = "sdot " + state;
+      pill.className = "pill " + state;
+      pill.textContent = state === "up" ? "Operational" : state === "down" ? "Down" : "Degraded";
+      lat.textContent = latency != null ? latency + " ms" : "";
+    }
+
+    async function probe(c) {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+      const started = performance.now();
+      try {
+        let down;
+        if (c.type === "site") {
+          // Cross-origin HTML has no CORS header; use no-cors to test reachability.
+          await fetch(c.url, { method: "GET", mode: "no-cors", cache: "no-store", signal: ctrl.signal });
+          down = false; // resolved without throwing = reachable
+        } else {
+          const res = await fetch(c.url, {
+            method: "POST", mode: "cors", cache: "no-store",
+            headers: { "Content-Type": "application/json" },
+            body: "{}", signal: ctrl.signal,
+          });
+          down = res.status >= 500; // 4xx = alive (validation); 5xx = crashed
+        }
+        return { state: down ? "down" : "up", latency: Math.round(performance.now() - started) };
+      } catch (e) {
+        return { state: "down", latency: null };
+      } finally {
+        clearTimeout(t);
+      }
+    }
+
+    let busy = false;
+    async function runAll() {
+      if (busy) return;
+      busy = true;
+      const btn = document.getElementById("refresh");
+      btn.innerHTML = '<span class="spin">↻</span> Checking…';
+      rows.forEach((r) => {
+        r.querySelector(".pill").className = "pill checking";
+        r.querySelector(".pill").textContent = "Checking…";
+        r.querySelector(".sdot").className = "sdot";
+      });
+
+      const results = await Promise.all(COMPONENTS.map(probe));
+      results.forEach((r, i) => setRow(i, r.state, r.latency));
+
+      const down = results.filter((r) => r.state === "down").length;
+      const total = results.length;
+      let cls, title, sub;
+      if (down === 0) {
+        cls = "up"; title = "All Systems Operational";
+        sub = total + " of " + total + " services healthy.";
+      } else if (down >= total) {
+        cls = "down"; title = "Major Outage";
+        sub = "All monitored services are unreachable.";
+      } else {
+        cls = "degraded"; title = down === 1 ? "Partial Outage — 1 service down" : "Partial Outage — " + down + " services down";
+        sub = (total - down) + " of " + total + " services healthy.";
+      }
+      elBanner.className = "banner " + cls;
+      document.getElementById("banner-title").textContent = title;
+      document.getElementById("banner-sub").textContent = sub;
+      document.getElementById("last-checked").textContent =
+        "Last checked: " + new Date().toLocaleString();
+      btn.innerHTML = "↻ Refresh now";
+      busy = false;
+    }
+
+    document.getElementById("refresh").addEventListener("click", runAll);
+    runAll();
+    setInterval(runAll, 60000);
+
+    // Optional historical uptime strip — rendered only if a history.json
+    // (published by the Function Health Monitor workflow) is present.
+    fetch("./history.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((h) => {
+        if (!h || !Array.isArray(h.days) || !h.days.length) return;
+        const bars = document.getElementById("bars");
+        document.getElementById("uptime-title").textContent =
+          (h.days.length) + "-day uptime";
+        h.days.forEach((d) => {
+          const i = document.createElement("i");
+          i.className = d.status || "up";
+          i.title = d.date + (d.note ? " — " + d.note : "");
+          bars.appendChild(i);
+        });
+        document.getElementById("uptime").hidden = false;
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>

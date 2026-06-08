@@ -10,11 +10,10 @@
 // having them hardcoded in air-query.mjs.
 
 import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Do NOT declare `__dirname`/`__filename`: Netlify's esbuild bundler injects
+// its own shims for these, so redeclaring them throws "Identifier already
+// declared" at load time (502). Resolve the data file via import.meta.url.
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -28,8 +27,10 @@ let cachedData = null;
 
 async function loadData() {
   if (cachedData) return cachedData;
-  const filePath = join(__dirname, "data", "reference-data.json");
-  const raw = await readFile(filePath, "utf-8");
+  const raw = await readFile(
+    new URL("./data/reference-data.json", import.meta.url),
+    "utf-8"
+  );
   cachedData = JSON.parse(raw);
   return cachedData;
 }
