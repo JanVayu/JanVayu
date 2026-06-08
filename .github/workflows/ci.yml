@@ -22,6 +22,39 @@ jobs:
             exit 1
           fi
 
+  # Guard against the class of bug that took the chatbot (air-query) down for
+  # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
+  # of a Netlify function. Netlify's esbuild bundler injects its own shims for
+  # those identifiers, so a manual `const __dirname = ...` is a redeclaration
+  # that throws "Identifier already declared" at load time → every request 502s.
+  guard-netlify-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Reject top-level __dirname / __filename redeclarations
+        run: |
+          MATCHES=$(grep -rnE '^[[:space:]]*(const|let|var)[[:space:]]+(__dirname|__filename)[[:space:]]*=' \
+                      netlify/functions || true)
+          if [ -n "$MATCHES" ]; then
+            echo "::error::A Netlify function redeclares __dirname/__filename. This collides with the esbuild shim and 502s at load. Use new URL('./data/file.json', import.meta.url) instead."
+            echo "$MATCHES"
+            exit 1
+          fi
+          echo "OK — no __dirname/__filename redeclarations in netlify/functions"
+
+      - name: Syntax-check all functions
+        run: |
+          shopt -s nullglob
+          fail=0
+          for f in netlify/functions/*.mjs netlify/functions/*.js; do
+            if ! node --check "$f"; then
+              echo "::error file=$f::Syntax error"
+              fail=1
+            fi
+          done
+          exit $fail
+
   check-links:
     runs-on: ubuntu-latest
     steps:
