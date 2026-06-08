@@ -190,6 +190,40 @@
   status = 301
   force = true
 
+# Status page (force = true to override SPA fallback)
+[[redirects]]
+  from = "/status"
+  to = "/status/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/status/"
+  to = "/status/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/status/*"
+  to = "/status/:splat"
+  status = 200
+  force = true
+
+# Host-based routing for the status subdomain. Requires status.askjanvayu.in
+# to be added as a domain alias on the Netlify site with DNS pointing at it
+# (same mechanism as the janvayu.in -> www.janvayu.in redirect above).
+[[redirects]]
+  from = "https://status.askjanvayu.in/"
+  to = "/status/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://status.askjanvayu.in/*"
+  to = "/status/:splat"
+  status = 200
+  force = true
+
 # SPA fallback — must come AFTER specific file rules
 [[redirects]]
   from = "/*"
