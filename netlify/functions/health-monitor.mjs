@@ -160,6 +160,30 @@ export default async () => {
     lastTransition: transition || (prev && prev.lastTransition) || null,
   });
 
+  // Record the day's worst status into a 90-day rolling history (served by
+  // status-history.mjs and rendered as the uptime strip on /status).
+  try {
+    const today = now.slice(0, 10); // YYYY-MM-DD (UTC)
+    const dayStatus = healthy
+      ? "up"
+      : downServices.length >= CHECKS.length
+        ? "down"
+        : "degraded";
+    const rank = { up: 0, degraded: 1, down: 2 };
+    const hist = (await store.get("status-history", { type: "json" })) || {};
+    if (!hist[today] || rank[dayStatus] > rank[hist[today]]) {
+      hist[today] = dayStatus; // keep the worst status seen during the day
+    }
+    // Prune anything older than ~95 days.
+    const cutoff = new Date(Date.now() - 95 * 864e5).toISOString().slice(0, 10);
+    for (const k of Object.keys(hist)) {
+      if (k < cutoff) delete hist[k];
+    }
+    await store.setJSON("status-history", hist);
+  } catch (e) {
+    console.log(`history update failed: ${e.message}`);
+  }
+
   console.log(
     `health-monitor: ${healthy ? "all healthy" : "DOWN: " + downServices.join(", ")}` +
       (transition ? ` (transition: ${transition}, emailed ${RECIPIENTS.join(", ")})` : "")
