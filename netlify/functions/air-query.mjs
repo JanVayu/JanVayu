@@ -1,9 +1,12 @@
 import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const REF_DATA = JSON.parse(readFileSync(join(__dirname, 'data', 'reference-data.json'), 'utf8'));
+// Resolve the bundled data file relative to this module. We intentionally do
+// NOT declare `__dirname`/`__filename` here: Netlify's esbuild bundler injects
+// its own shims for those identifiers, and redeclaring them throws
+// "Identifier '__dirname' has already been declared" at load time (502).
+const REF_DATA = JSON.parse(
+  readFileSync(new URL('./data/reference-data.json', import.meta.url), 'utf8')
+);
 
 // Netlify Function: Natural Language Query Interface for JanVayu
 // Accepts a question + city, fetches live AQI, sends to Groq for analysis.
