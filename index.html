@@ -2863,6 +2863,7 @@ body {
                 <button class="mobile-nav-item" data-panel="rankings" data-i18n="nav_rankings">City Rankings</button>
                 <button class="mobile-nav-item" data-panel="compare" data-i18n="nav_compare">City Comparison</button>
                 <button class="mobile-nav-item" data-panel="hyperlocal" data-i18n="nav_hyperlocal">My Neighbourhood</button>
+                <button class="mobile-nav-item" data-panel="ward-map" data-i18n="nav_ward_map">How Polluted Is Your Ward?</button>
                 <button class="mobile-nav-item" data-panel="forecast" data-i18n="nav_forecast">Air Quality Forecast</button>
                 <button class="mobile-nav-item" data-panel="pollution-calendar" data-i18n="nav_pollution_calendar">Pollution Calendar</button>
             </div>
@@ -2955,6 +2956,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="rankings" data-i18n="nav_rankings">City Rankings</button>
                     <button class="nav-dropdown-link" data-panel="compare" data-i18n="nav_compare">City Comparison</button>
                     <button class="nav-dropdown-link" data-panel="hyperlocal" data-i18n="nav_hyperlocal">My Neighbourhood</button>
+                    <button class="nav-dropdown-link" data-panel="ward-map" data-i18n="nav_ward_map">How Polluted Is Your Ward?</button>
                     <button class="nav-dropdown-link" data-panel="forecast" data-i18n="nav_forecast">Air Quality Forecast</button>
                     <button class="nav-dropdown-link" data-panel="pollution-calendar" data-i18n="nav_pollution_calendar">Pollution Calendar</button>
                 </div>
@@ -4461,6 +4463,7 @@ body {
                     try { window.updateHeatEstimate && window.updateHeatEstimate(); } catch(e) { console.warn('Urban heat init:', e); }
                     try { window.initUrbanHeatChart && window.initUrbanHeatChart(); } catch(e) { console.warn('Urban heat chart init:', e); }
                 }
+                if (panelId === 'ward-map') { try { window.initWardMap && window.initWardMap(); } catch(e) { console.warn('Ward map init:', e); } }
             }, 150);
         } else {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
@@ -4620,6 +4623,157 @@ body {
             const nowT = nowIdx >= 0 ? Math.round(series.temp[nowIdx]) : null;
             status.textContent = `${city.name} today: ozone peaks around ${peakHour}, riding the afternoon heat`
                 + (nowO3 != null ? ` — right now it's ${nowT}°C with ozone near ${nowO3} µg/m³.` : '.');
+        }
+    };
+
+    // ── Ward-level air-quality choropleth ("How polluted is your ward?") ──
+    // Delhi has ~40 live CPCB/WAQI monitors. We interpolate each of the 290
+    // municipal wards' PM2.5 from the nearest stations (inverse-distance
+    // weighted, power 2) — an honest citywide SPREAD, not a per-street reading.
+    // Satellite-derived per-ward PM2.5 (true coverage) is the planned upgrade.
+    let wardMap = null, wardLayer = null, wardCurrentLayer = 'pm25';
+    const wardGeoCache = {}, wardLiveCache = {};
+    const WARD_FILES = { delhi: '/data/wards/delhi.json' };
+
+    function wardPM25Color(v) {
+        if (v == null || isNaN(v)) return '#cfcfcf';
+        if (v <= 30) return '#55a84f';
+        if (v <= 60) return '#a3c853';
+        if (v <= 90) return '#e6c93b';
+        if (v <= 120) return '#f29c33';
+        if (v <= 250) return '#e93f33';
+        return '#af2d24';
+    }
+    function wardPM25Label(v) {
+        if (v == null || isNaN(v)) return 'No estimate';
+        if (v <= 30) return 'Good'; if (v <= 60) return 'Satisfactory';
+        if (v <= 90) return 'Moderate'; if (v <= 120) return 'Poor';
+        if (v <= 250) return 'Very Poor'; return 'Severe';
+    }
+    async function wardFetchStations(city) {
+        try {
+            const url = `https://api.waqi.info/map/bounds/?latlng=${city.lat-0.4},${city.lon-0.5},${city.lat+0.4},${city.lon+0.5}&token=${WAQI_TOKEN}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            if (data.status === 'ok' && Array.isArray(data.data)) {
+                return data.data.map(s => {
+                    const aqi = parseInt(s.aqi);
+                    // WAQI bounds returns US-EPA AQI (PM2.5-dominated in Delhi); convert to µg/m³.
+                    const pm = isNaN(aqi) ? null : iaqiToPM25(aqi);
+                    return { lat: +s.lat, lon: +s.lon, pm: pm };
+                }).filter(s => s.pm != null && s.lat && s.lon);
+            }
+        } catch (e) { console.warn('[JanVayu] ward stations:', e.message); }
+        return [];
+    }
+    function wardIDW(cx, cy, stations) {
+        let num = 0, den = 0, nearest = Infinity;
+        for (const s of stations) {
+            const dx = cx - s.lon, dy = cy - s.lat;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < nearest) nearest = d2;
+            const w = 1 / (d2 + 1e-6);
+            num += w * s.pm; den += w;
+        }
+        if (!den) return null;
+        return { pm: Math.round(num / den), distKm: Math.round(Math.sqrt(nearest) * 111) };
+    }
+
+    window.setWardLayer = function setWardLayer(layer) {
+        if (layer !== 'pm25') return; // others are phase-2 (satellite) and disabled in UI
+        wardCurrentLayer = layer;
+    };
+
+    window.initWardMap = async function initWardMap(force) {
+        const host = document.getElementById('ward-map-canvas');
+        const statusEl = document.getElementById('ward-map-status');
+        const statsEl = document.getElementById('ward-stats');
+        if (!host) return;
+        const cityKey = document.getElementById('ward-map-city')?.value || 'delhi';
+        const city = CITIES[cityKey];
+        try { await ensureLeaflet(); }
+        catch (e) { if (statusEl) statusEl.textContent = 'Map library could not load.'; return; }
+
+        // Load ward geometry (cached)
+        let geo = wardGeoCache[cityKey];
+        if (!geo) {
+            try {
+                const r = await fetch(WARD_FILES[cityKey]);
+                geo = await r.json();
+                wardGeoCache[cityKey] = geo;
+            } catch (e) { if (statusEl) statusEl.textContent = 'Could not load ward boundaries.'; return; }
+        }
+
+        // Live stations (cached 10 min unless forced)
+        let stations = wardLiveCache[cityKey];
+        if (force || !stations || (Date.now() - stations.ts > 10 * 60 * 1000)) {
+            if (statsEl) statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings…</div>';
+            const pts = await wardFetchStations(city);
+            stations = { ts: Date.now(), pts };
+            wardLiveCache[cityKey] = stations;
+        }
+
+        // Compute per-ward PM2.5 by IDW
+        const vals = [];
+        geo.features.forEach(f => {
+            const p = f.properties;
+            const r = stations.pts.length ? wardIDW(p.cx, p.cy, stations.pts) : null;
+            p._pm = r ? r.pm : null;
+            if (r) vals.push({ name: p.name, pm: r.pm });
+        });
+
+        // (Re)create the map
+        if (wardMap) { try { wardMap.remove(); } catch (e) {} wardMap = null; wardLayer = null; }
+        wardMap = L.map(host, { scrollWheelZoom: false, attributionControl: true });
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap, © CARTO | live AQI via WAQI', subdomains: 'abcd', maxZoom: 18
+        }).addTo(wardMap);
+
+        wardLayer = L.geoJSON(geo, {
+            style: f => ({
+                fillColor: wardPM25Color(f.properties._pm),
+                weight: 0.5, color: '#ffffff', fillOpacity: 0.78
+            }),
+            onEachFeature: (f, lyr) => {
+                const p = f.properties;
+                lyr.bindTooltip(
+                    `<strong>${p.name}</strong><br>${p._pm != null ? 'Est. PM2.5: ' + p._pm + ' µg/m³ (' + wardPM25Label(p._pm) + ')' : 'No estimate'}`,
+                    { sticky: true }
+                );
+                lyr.on({
+                    mouseover: e => e.target.setStyle({ weight: 2, color: '#1f2937', fillOpacity: 0.9 }),
+                    mouseout: e => wardLayer.resetStyle(e.target)
+                });
+            }
+        }).addTo(wardMap);
+        try { wardMap.fitBounds(wardLayer.getBounds(), { padding: [12, 12] }); } catch (e) {}
+        setTimeout(() => { try { wardMap.invalidateSize(); } catch (e) {} }, 200);
+
+        // "But…" live stats
+        if (statsEl) {
+            if (!vals.length) {
+                statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;">No live stations reporting for this city right now. Try Refresh shortly.</div>';
+            } else {
+                vals.sort((a, b) => b.pm - a.pm);
+                const worst = vals[0], best = vals[vals.length - 1];
+                const n = vals.length;
+                const above90 = vals.filter(v => v.pm > 90).length;   // worse than CPCB 'Moderate'
+                const above250 = vals.filter(v => v.pm > 250).length; // 'Severe'
+                const whoX = Math.round(worst.pm / WHO_PM25_GUIDELINE);
+                const row = (txt) => `<li style="margin-bottom:0.4rem;">${txt}</li>`;
+                statsEl.innerHTML = `<ul style="margin:0; padding-left:1.1rem; font-size:0.86rem; color:var(--text-2); line-height:1.5;">
+                    ${row(`<strong>${above90}/${n}</strong> wards are in <strong>Poor or worse</strong> air (PM2.5 &gt; 90 µg/m³) right now.`)}
+                    ${above250 ? row(`<strong>${above250}</strong> ward(s) are in the <strong>Severe</strong> band (&gt; 250 µg/m³).`) : ''}
+                    ${row(`Dirtiest: <strong>${worst.name}</strong> &mdash; ~${worst.pm} µg/m³ (<strong>${whoX}× the WHO limit</strong>).`)}
+                    ${row(`Cleanest: <strong>${best.name}</strong> &mdash; ~${best.pm} µg/m³.`)}
+                    ${row(`Spread across wards: <strong>${best.pm}–${worst.pm} µg/m³</strong> in one city, same hour.`)}
+                </ul>`;
+            }
+        }
+        if (statusEl) {
+            statusEl.textContent = stations.pts.length
+                ? `${geo.features.length} wards · estimated from ${stations.pts.length} live monitors · ${new Date(stations.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. Estimate of citywide spread, not a calibrated per-ward reading.`
+                : 'No live monitors are reporting right now.';
         }
     };
 
@@ -17809,6 +17963,62 @@ Yours faithfully,
             <div style="color: var(--text-3); font-size: 0.85rem; text-align: center; padding: 2rem;">Select a city to load station-level data from WAQI.</div>
         </div>
     </div>
+</template>
+
+<!-- ═══ WARD-LEVEL AIR QUALITY CHOROPLETH ═══ -->
+<template id="tmpl-ward-map">
+    <div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; margin-bottom: 0.6rem; color: var(--ink);">How polluted is your ward?</h2>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward by how dirty its air is right now, so you can see that two wards in the same city can breathe very different air. We start with Delhi (290 wards) and will add more cities.">A city is not a single AQI number. This map colours <strong>every municipal ward</strong> by its air right now &mdash; so you can see that two wards in the same city often breathe very different air. We start with <strong>Delhi (290 wards)</strong>; more cities are being added.</p>
+    </div>
+
+    <div class="card mb-2">
+        <div class="card-body" style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <label class="form-label" style="margin:0;">City</label>
+                <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:220px;">
+                    <option value="delhi">Delhi — 290 wards</option>
+                </select>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
+                <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;">Layer</span>
+                <button type="button" class="ward-layer-btn active" data-layer="pm25" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25')" style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer;">Air quality (PM2.5)</button>
+                <button type="button" class="ward-layer-btn" data-layer="heat" title="Coming soon — needs satellite land-surface-temperature data" disabled style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-4); cursor:not-allowed;">Heat · soon</button>
+                <button type="button" class="ward-layer-btn" data-layer="green" title="Coming soon — needs satellite green-cover data" disabled style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-4); cursor:not-allowed;">Green · soon</button>
+                <button type="button" class="ward-layer-btn" data-layer="builtup" title="Coming soon — needs satellite built-up data" disabled style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-4); cursor:not-allowed;">Built-up · soon</button>
+                <button type="button" onclick="window.initWardMap &amp;&amp; window.initWardMap(true)" style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--green-50); color:var(--accent); cursor:pointer;"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="gap:1rem; align-items:start; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);">
+        <div class="card" style="overflow:hidden;">
+            <div id="ward-map-canvas" style="height:520px; width:100%; background:var(--warm-white);"></div>
+            <div style="padding:0.6rem 0.9rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; border-top:1px solid var(--border);">
+                <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3);">PM2.5 µg/m³</span>
+                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#55a84f;vertical-align:middle;margin-right:3px;"></span>0–30</span>
+                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#a3c853;vertical-align:middle;margin-right:3px;"></span>31–60</span>
+                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#e6c93b;vertical-align:middle;margin-right:3px;"></span>61–90</span>
+                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#f29c33;vertical-align:middle;margin-right:3px;"></span>91–120</span>
+                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#e93f33;vertical-align:middle;margin-right:3px;"></span>121–250</span>
+                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#af2d24;vertical-align:middle;margin-right:3px;"></span>250+</span>
+            </div>
+        </div>
+
+        <div>
+            <div class="card mb-2" style="border-left:4px solid #DC2626;">
+                <div class="card-header"><span class="card-title">But&hellip;</span></div>
+                <div class="card-body" id="ward-stats">
+                    <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
+                </div>
+            </div>
+            <div class="alert alert-info" style="margin:0;"><div data-simple="How this works: Delhi has about 40 live government monitors. We estimate each ward's PM2.5 from the nearest monitors (closer monitors count more). It is an estimate to show the spread across the city, not an exact reading for every street. Real per-ward satellite air-quality data is the next upgrade.">
+                <strong>How this is built:</strong> Delhi has ~40 live CPCB/WAQI monitors. Each ward&rsquo;s value is <strong>interpolated</strong> from the nearest stations (inverse-distance weighted). It reveals the citywide <em>spread</em> &mdash; not a calibrated per-street reading. Satellite-derived per-ward PM2.5 is the planned upgrade.
+            </div></div>
+        </div>
+    </div>
+
+    <p id="ward-map-status" style="font-size:0.78rem; color:var(--text-3); margin-top:0.9rem; text-align:center;"></p>
 </template>
 
 <!-- ═══ POLLUTION SOURCE CALENDAR ═══ -->
