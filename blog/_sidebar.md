@@ -2,6 +2,9 @@
 
 - [**JanVayu Blog**](README.md)
 
+- **June 2026**
+  - [The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story](posts/2026-06-10-urban-heat-island.md)
+
 - **May 2026**
   - [The Number Everyone Quotes but Nobody Understands: What AQI Actually Is](posts/2026-05-27-understanding-aqi.md)
   - [When a Politician Says 'AQI Improved 20%', Ask: Which Monitor?](posts/2026-05-27-data-source-selector.md)
