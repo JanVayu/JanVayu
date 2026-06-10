@@ -4633,7 +4633,7 @@ body {
     // Satellite-derived per-ward PM2.5 (true coverage) is the planned upgrade.
     let wardMap = null, wardLayer = null, wardCurrentLayer = 'pm25';
     const wardGeoCache = {}, wardLiveCache = {};
-    const WARD_FILES = { delhi: '/data/wards/delhi.json' };
+    const WARD_FILES = { delhi: '/data/wards/delhi.json', bangalore: '/data/wards/bangalore.json', jaipur: '/data/wards/jaipur.json' };
 
     function wardPM25Color(v) {
         if (v == null || isNaN(v)) return '#cfcfcf';
@@ -17969,15 +17969,17 @@ Yours faithfully,
 <template id="tmpl-ward-map">
     <div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; margin-bottom: 0.6rem; color: var(--ink);">How polluted is your ward?</h2>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward by how dirty its air is right now, so you can see that two wards in the same city can breathe very different air. We start with Delhi (290 wards) and will add more cities.">A city is not a single AQI number. This map colours <strong>every municipal ward</strong> by its air right now &mdash; so you can see that two wards in the same city often breathe very different air. We start with <strong>Delhi (290 wards)</strong>; more cities are being added.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward by how dirty its air is right now, so you can see that two wards in the same city can breathe very different air. Pick Delhi, Bengaluru or Jaipur — more cities are being added.">A city is not a single AQI number. This map colours <strong>every municipal ward</strong> by its air right now &mdash; so you can see that two wards in the same city often breathe very different air. Choose a city below &mdash; <strong>Delhi, Bengaluru and Jaipur</strong> are live, more are being added.</p>
     </div>
 
     <div class="card mb-2">
         <div class="card-body" style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
             <div style="display:flex; align-items:center; gap:0.5rem;">
                 <label class="form-label" style="margin:0;">City</label>
-                <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:220px;">
+                <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px;">
                     <option value="delhi">Delhi — 290 wards</option>
+                    <option value="bangalore">Bengaluru — 243 wards</option>
+                    <option value="jaipur">Jaipur — 77 wards</option>
                 </select>
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
@@ -18012,8 +18014,8 @@ Yours faithfully,
                     <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
                 </div>
             </div>
-            <div class="alert alert-info" style="margin:0;"><div data-simple="How this works: Delhi has about 40 live government monitors. We estimate each ward's PM2.5 from the nearest monitors (closer monitors count more). It is an estimate to show the spread across the city, not an exact reading for every street. Real per-ward satellite air-quality data is the next upgrade.">
-                <strong>How this is built:</strong> Delhi has ~40 live CPCB/WAQI monitors. Each ward&rsquo;s value is <strong>interpolated</strong> from the nearest stations (inverse-distance weighted). It reveals the citywide <em>spread</em> &mdash; not a calibrated per-street reading. Satellite-derived per-ward PM2.5 is the planned upgrade.
+            <div class="alert alert-info" style="margin:0;"><div data-simple="How this works: we estimate each ward's PM2.5 from the city's nearest live government monitors (closer monitors count more). It is an estimate to show the spread across the city, not an exact reading for every street. Cities with more monitors (like Delhi) give a sharper picture. Real per-ward satellite air-quality data is the next upgrade.">
+                <strong>How this is built:</strong> each ward&rsquo;s value is <strong>interpolated</strong> from the city&rsquo;s live CPCB/WAQI monitors (inverse-distance weighted). It reveals the citywide <em>spread</em> &mdash; not a calibrated per-street reading, and it&rsquo;s sharper where there are more monitors (Delhi has ~40). Satellite-derived per-ward PM2.5 is the planned upgrade.
             </div></div>
         </div>
     </div>
