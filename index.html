@@ -4498,114 +4498,128 @@ body {
         }
     };
 
-    // ── Urban Heat: live ozone-vs-temperature scatter ──
-    // Demonstrates the "climate penalty" (Bloomer 2009) with live station data:
-    // for each Indian city we pull the current O3 sub-index and air temperature
-    // from WAQI and plot O3 (y) against temperature (x). A positive fit slope
-    // means hotter cities are carrying more ozone right now.
+    // ── Urban Heat: today's hourly ozone vs temperature for one city ──
+    // Demonstrates the "climate penalty" (Bloomer 2009) at the scale of a single
+    // day: ground-level ozone is photochemical, so it builds up as sunlight and
+    // heat peak in the afternoon and falls overnight. We pull hourly surface
+    // ozone (CAMS) and 2 m air temperature for today from the free, key-less
+    // Open-Meteo API and draw both curves on a dual axis.
     let uhChart = null;
-    let uhChartCache = null; // { ts, points }
-    async function fetchOzoneTemp(cityKey) {
-        const city = CITIES[cityKey];
-        if (!city) return null;
-        try {
-            const url = `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`;
-            const res = await fetch(url, { method: 'GET', mode: 'cors' });
-            if (!res.ok) return null;
-            const data = await res.json();
-            if (data.status !== 'ok' || !data.data || !data.data.iaqi) return null;
-            const o3 = Number(data.data.iaqi.o3?.v);
-            const t = Number(data.data.iaqi.t?.v);
-            if (isNaN(o3) || isNaN(t) || o3 <= 0) return null;
-            return { city: city.name, x: Math.round(t * 10) / 10, y: Math.round(o3) };
-        } catch (e) { return null; }
+    const uhChartCache = {}; // cityKey -> { ts, hours, ozone, temp }
+    async function fetchOzoneHours(city) {
+        const aqUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${city.lat}&longitude=${city.lon}&hourly=ozone&timezone=auto&forecast_days=1`;
+        const wxUrl = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&hourly=temperature_2m&timezone=auto&forecast_days=1`;
+        const [aqRes, wxRes] = await Promise.all([fetch(aqUrl), fetch(wxUrl)]);
+        if (!aqRes.ok || !wxRes.ok) throw new Error('Open-Meteo request failed');
+        const aq = await aqRes.json();
+        const wx = await wxRes.json();
+        const times = aq?.hourly?.time || [];
+        const ozone = aq?.hourly?.ozone || [];
+        const temp = wx?.hourly?.temperature_2m || [];
+        if (!times.length || !ozone.length || !temp.length) throw new Error('No hourly data');
+        const hours = times.map(t => t.slice(11, 16)); // "HH:MM"
+        return { hours, ozone, temp };
     }
     window.initUrbanHeatChart = async function initUrbanHeatChart(force) {
-        const canvas = document.getElementById('uhOzoneTempChart');
+        const canvas = document.getElementById('uhOzoneHourChart');
         const status = document.getElementById('uh-chart-status');
+        const sel = document.getElementById('uh-chart-city');
         if (!canvas) return;
+        // Populate the city selector once
+        if (sel && sel.options.length === 0) {
+            INDIAN_CITIES.forEach(k => {
+                const opt = document.createElement('option');
+                opt.value = k; opt.textContent = CITIES[k]?.name || k;
+                sel.appendChild(opt);
+            });
+            sel.value = 'delhi';
+        }
+        const cityKey = (sel && sel.value) || 'delhi';
+        const city = CITIES[cityKey];
         try { await ensureChartJs(); }
         catch (e) { if (status) status.textContent = 'Chart library could not load.'; return; }
 
-        let points;
-        if (!force && uhChartCache && (Date.now() - uhChartCache.ts < 10 * 60 * 1000)) {
-            points = uhChartCache.points;
+        let series;
+        const cached = uhChartCache[cityKey];
+        if (!force && cached && (Date.now() - cached.ts < 30 * 60 * 1000)) {
+            series = cached;
         } else {
-            if (status) status.innerHTML = '<span class="pulse"></span> Loading live station readings…';
-            const results = await Promise.allSettled(INDIAN_CITIES.map(fetchOzoneTemp));
-            points = results.filter(r => r.status === 'fulfilled' && r.value).map(r => r.value);
-            // De-dupe by city, keep a clean spread
-            const seen = new Set();
-            points = points.filter(p => (seen.has(p.city) ? false : (seen.add(p.city), true)));
-            uhChartCache = { ts: Date.now(), points };
+            if (status) status.innerHTML = '<span class="pulse"></span> Loading today&rsquo;s hourly readings…';
+            try {
+                series = await fetchOzoneHours(city);
+                series.ts = Date.now();
+                uhChartCache[cityKey] = series;
+            } catch (e) {
+                if (uhChart) { try { uhChart.destroy(); } catch (err) {} uhChart = null; }
+                if (status) status.textContent = 'Could not load hourly data right now. Try the Refresh button in a moment.';
+                return;
+            }
         }
-
-        if (!points || points.length < 4) {
-            if (uhChart) { try { uhChart.destroy(); } catch (e) {} uhChart = null; }
-            if (status) status.textContent = points && points.length
-                ? `Only ${points.length} station(s) are reporting both ozone and temperature right now — not enough for a trend. Try again later in the day.`
-                : 'No stations are reporting both ozone and temperature right now. Try the Refresh button later in the day.';
-            return;
-        }
-
-        // Least-squares fit for the trend line
-        const n = points.length;
-        const mx = points.reduce((s, p) => s + p.x, 0) / n;
-        const my = points.reduce((s, p) => s + p.y, 0) / n;
-        let num = 0, den = 0;
-        points.forEach(p => { num += (p.x - mx) * (p.y - my); den += (p.x - mx) * (p.x - mx); });
-        const slope = den ? num / den : 0;
-        const intercept = my - slope * mx;
-        const xs = points.map(p => p.x);
-        const minX = Math.min(...xs), maxX = Math.max(...xs);
-        const trend = [{ x: minX, y: slope * minX + intercept }, { x: maxX, y: slope * maxX + intercept }];
 
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const gridColor = isDark ? '#334155' : '#E2E8F0';
+        // Mark the current hour so people can read "where we are now"
+        const nowHH = new Date().getHours();
+        const nowIdx = series.hours.findIndex(h => parseInt(h, 10) === nowHH);
+
         if (uhChart) { try { uhChart.destroy(); } catch (e) {} uhChart = null; }
         uhChart = new Chart(canvas, {
-            type: 'scatter',
+            type: 'line',
             data: {
+                labels: series.hours,
                 datasets: [
                     {
-                        label: 'Cities (now)',
-                        data: points,
-                        pointRadius: 6, pointHoverRadius: 8,
-                        backgroundColor: points.map(p => getAQIColor(p.y)),
-                        borderColor: '#fff', borderWidth: 1
+                        label: 'Ozone (µg/m³)', yAxisID: 'yOzone',
+                        data: series.ozone,
+                        borderColor: '#EA580C', backgroundColor: 'rgba(234,88,12,0.12)',
+                        borderWidth: 2.5, pointRadius: 0, tension: 0.35, fill: true
                     },
                     {
-                        type: 'line', label: 'Trend',
-                        data: trend, parsing: false,
-                        borderColor: slope >= 0 ? '#DC2626' : '#16A34A',
-                        borderWidth: 2, borderDash: [6, 4],
-                        pointRadius: 0, fill: false, tension: 0
+                        label: 'Air temperature (°C)', yAxisID: 'yTemp',
+                        data: series.temp,
+                        borderColor: '#DC2626', backgroundColor: 'transparent',
+                        borderWidth: 2, borderDash: [5, 4], pointRadius: 0, tension: 0.35, fill: false
                     }
                 ]
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
                 plugins: {
-                    legend: { display: false },
-                    tooltip: { callbacks: { label: (ctx) => ctx.raw.city
-                        ? `${ctx.raw.city}: ${ctx.raw.x}°C, ozone ${ctx.raw.y}`
-                        : `${Math.round(ctx.raw.y)} at ${Math.round(ctx.raw.x)}°C` } }
+                    legend: { display: true, labels: { boxWidth: 14, font: { size: 11 } } },
+                    tooltip: { callbacks: { title: (items) => items.length ? `${items[0].label} today` : '' } }
                 },
                 scales: {
-                    x: { title: { display: true, text: 'Air temperature (°C)' }, grid: { color: gridColor } },
-                    y: { title: { display: true, text: 'Ozone (AQI sub-index)' }, grid: { color: gridColor }, beginAtZero: true }
+                    x: {
+                        grid: { display: false },
+                        ticks: { maxTicksLimit: 12, font: { size: 10 } },
+                        title: { display: true, text: 'Hour of day (local time)' }
+                    },
+                    yOzone: {
+                        position: 'left', beginAtZero: true,
+                        grid: { color: gridColor },
+                        title: { display: true, text: 'Ozone (µg/m³)', color: '#EA580C' },
+                        ticks: { color: '#EA580C' }
+                    },
+                    yTemp: {
+                        position: 'right',
+                        grid: { drawOnChartArea: false },
+                        title: { display: true, text: 'Temperature (°C)', color: '#DC2626' },
+                        ticks: { color: '#DC2626' }
+                    }
                 }
             }
         });
 
         if (status) {
-            const dir = slope > 0.05 ? 'up' : (slope < -0.05 ? 'down' : 'flat');
-            const msg = dir === 'up'
-                ? `Across ${n} cities reporting now, ozone rises about ${slope.toFixed(1)} index points per °C — hotter air, more ozone.`
-                : dir === 'down'
-                ? `Across ${n} cities reporting now, the live slope is slightly negative — a snapshot can run against the long-run trend (cleaner-but-hotter cities, time-of-day effects).`
-                : `Across ${n} cities reporting now, the live slope is roughly flat.`;
-            status.textContent = msg;
+            // Find the afternoon ozone peak to narrate the relationship
+            let peakI = 0;
+            for (let i = 1; i < series.ozone.length; i++) if (series.ozone[i] > series.ozone[peakI]) peakI = i;
+            const peakHour = series.hours[peakI];
+            const nowO3 = nowIdx >= 0 ? Math.round(series.ozone[nowIdx]) : null;
+            const nowT = nowIdx >= 0 ? Math.round(series.temp[nowIdx]) : null;
+            status.textContent = `${city.name} today: ozone peaks around ${peakHour}, riding the afternoon heat`
+                + (nowO3 != null ? ` — right now it's ${nowT}°C with ozone near ${nowO3} µg/m³.` : '.');
         }
     };
 
@@ -10746,7 +10760,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-sun" style="color: #EA580C; margin-right: 0.4rem;"></span>Urban Heat Island &mdash; The Temperature Divide</h2>
         <p style="font-size: 1.125rem; font-family: var(--serif); font-style: italic; color: var(--text-2); margin-bottom: 0.75rem;">The same sun. The same city. Dozens of different temperatures.</p>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="On the same hot day, one part of Delhi can be 18&deg;C hotter than another. The difference is not the sun &mdash; it is what is on the ground. Concrete, tin roofs and bare land trap heat. Trees, parks and water keep an area cool. This is called the urban heat island effect, and it sits right next to the air you breathe.">On a single summer afternoon, neighbourhoods just kilometres apart in Delhi can differ by nearly <strong>18&deg;C</strong>. The sun is the same everywhere &mdash; what changes is the <strong>ground</strong>. Concrete, asphalt, tin roofs and bare land absorb and radiate heat; tree canopy, parks and water bodies cool the air around them. This is the <strong>urban heat island effect</strong>, and it is the close cousin of the air quality crisis: the same dense, green-starved colonies that trap heat also trap pollution.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="On the same hot day, one part of Delhi can be 18&deg;C hotter than another. The difference is not the sun &mdash; it is what is on the ground. Concrete, tin roofs and bare land trap heat. Trees, parks and water keep an area cool. This is called the urban heat island effect, and it sits right next to the air you breathe.">On a single summer afternoon, neighbourhoods just kilometres apart in Delhi can differ by nearly <strong>18&deg;C</strong>. The sun is the same everywhere &mdash; what changes is the <strong>ground</strong>. Concrete, asphalt, tin roofs and bare land absorb and radiate heat; tree canopy, parks and water bodies cool the air around them. This is the <strong>urban heat island effect</strong>, and it is the close cousin of the air quality crisis: the same dense, green-starved colonies that trap heat also trap pollution. <strong>Delhi is the worked example below</strong> because it has the most detailed neighbourhood-level data &mdash; but the same physics plays out in Mumbai, Hyderabad, Ahmedabad, Lucknow and every fast-building Indian city. The live chart further down lets you check any of them.</p>
     </div>
 
     <!-- ═══ Section 1: The Delhi heat map ═══ -->
@@ -10850,15 +10864,18 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
     <!-- ═══ Section 5: Live evidence chart ═══ -->
     <div class="card mb-3" style="border-left: 4px solid #EA580C;">
-        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem;">
-            <span class="card-title">Live evidence: ozone climbs with temperature</span>
-            <button type="button" onclick="window.initUrbanHeatChart &amp;&amp; window.initUrbanHeatChart(true)" style="font-size:0.75rem; font-weight:600; color:var(--accent); background:var(--green-50); border:1px solid var(--border); border-radius:6px; padding:0.3rem 0.7rem; cursor:pointer;"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <span class="card-title">Live evidence: ozone tracks the day&rsquo;s heat</span>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <select id="uh-chart-city" onchange="window.initUrbanHeatChart &amp;&amp; window.initUrbanHeatChart(true)" aria-label="Choose a city" style="font-size:0.8125rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:6px; background:var(--bg-card); color:var(--text-2);"></select>
+                <button type="button" onclick="window.initUrbanHeatChart &amp;&amp; window.initUrbanHeatChart(true)" style="font-size:0.75rem; font-weight:600; color:var(--accent); background:var(--green-50); border:1px solid var(--border); border-radius:6px; padding:0.3rem 0.7rem; cursor:pointer;"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
+            </div>
         </div>
         <div class="card-body">
-            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Each dot is an Indian city right now. Across to the right is hotter air; up is more ozone. The dots tend to climb from bottom-left to top-right &mdash; hotter cities are carrying more ozone, live, today. This is the 'heat cooks ozone' link happening in real time.">Each dot is an Indian city, refreshed live from monitoring stations. Hotter air is to the right; more ozone is up. Watch the cloud tilt upward to the right &mdash; that climb <em>is</em> the &lsquo;heat cooks ozone&rsquo; relationship, happening today across the country.</p>
-            <div style="position:relative; height:340px; width:100%;"><canvas id="uhOzoneTempChart"></canvas></div>
-            <div id="uh-chart-status" style="text-align:center; font-size:0.8125rem; color:var(--text-3); margin-top:0.6rem;"><span class="pulse"></span> Loading live station readings&hellip;</div>
-            <p style="font-size: 0.75rem; color: var(--text-3); margin:0.75rem 0 0;"><em>Live data from WAQI / AQICN station feeds. Ozone is shown as the US-EPA AQI sub-index; temperature is from the same station. A city appears only when its station is currently reporting both values, so the set of dots changes through the day. The line is a least-squares fit &mdash; a positive slope is the &lsquo;climate penalty&rsquo;<sup>3</sup> in action. A single live snapshot mixes many local factors, so treat the trend as illustrative, not a controlled measurement.</em></p>
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Pick any Indian city. The orange line is ozone hour by hour today; the red dashed line is the air temperature. Both climb through the morning and peak together in the afternoon &mdash; ground-level ozone is literally cooked by the day's heat and sunlight, then fades overnight. This pattern shows up in city after city, not just Delhi.">Pick any Indian city. The orange line is ozone, hour by hour today; the red dashed line is air temperature. Both climb through the morning and <strong>peak together in the afternoon</strong> &mdash; ground-level ozone is literally cooked by the day&rsquo;s heat and sunlight, then fades overnight. The same shape appears city after city, nationwide.</p>
+            <div style="position:relative; height:340px; width:100%;"><canvas id="uhOzoneHourChart"></canvas></div>
+            <div id="uh-chart-status" style="text-align:center; font-size:0.8125rem; color:var(--text-3); margin-top:0.6rem;"><span class="pulse"></span> Loading today&rsquo;s hourly readings&hellip;</div>
+            <p style="font-size: 0.75rem; color: var(--text-3); margin:0.75rem 0 0;"><em>Hourly surface ozone (CAMS) and 2&thinsp;m air temperature for today, from the free <a href="https://open-meteo.com/" target="_blank" rel="noopener" style="color:var(--accent);">Open-Meteo</a> API. The afternoon ozone peak riding on the temperature peak is the &lsquo;climate penalty&rsquo;<sup>3</sup> at the scale of a single day. Ozone here is a modelled hourly estimate, not a ground-station reading.</em></p>
         </div>
     </div>
 
