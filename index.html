@@ -901,6 +901,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .si-copy { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Copy.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Copy.svg); }
 .si-link { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); }
 .si-flare { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flare.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flare.svg); }
+.si-sun { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Sun.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Sun.svg); }
 .si-dangerous { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dangerous.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dangerous.svg); }
 .si-dollar { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dollar.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dollar.svg); }
 .si-money { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Money.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Money.svg); }
@@ -2873,6 +2874,7 @@ body {
                 <button class="mobile-nav-item" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                 <button class="mobile-nav-item" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                 <button class="mobile-nav-item" data-panel="trends" data-i18n="nav_trends">Historical Trends</button>
+                <button class="mobile-nav-item" data-panel="urban-heat" data-i18n="nav_urban_heat">Urban Heat Island</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_learn">Learn</div>
@@ -2966,6 +2968,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
                     <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
                     <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
+                    <button class="nav-dropdown-link" data-panel="urban-heat" data-i18n="nav_urban_heat">Urban Heat Island</button>
                 </div>
             </div>
             <div class="nav-item">
@@ -4454,11 +4457,157 @@ body {
                 }
                 if (panelId === 'resources') { try { loadZoteroItems(); } catch(e) { console.warn(e); } }
                 if (panelId === 'city-policy') { try { initCityPolicyTracker(); } catch(e) { console.warn('City policy init:', e); } }
+                if (panelId === 'urban-heat') {
+                    try { window.updateHeatEstimate && window.updateHeatEstimate(); } catch(e) { console.warn('Urban heat init:', e); }
+                    try { window.initUrbanHeatChart && window.initUrbanHeatChart(); } catch(e) { console.warn('Urban heat chart init:', e); }
+                }
             }, 150);
         } else {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
         }
     }
+
+    // ── Urban Heat Island estimator ──
+    // Coefficients from the Artha Global Delhi white paper:
+    //   built-up area 25%→55% (Δ30pts) ⇒ +0.6°C  ⇒ +0.020°C per 1% built-up
+    //   tree cover    3%→11%  (Δ8pts)  ⇒ −1.0°C  ⇒ −0.125°C per 1% tree cover
+    // Delta is reported relative to a reference neighbourhood: 40% built-up, 7% tree cover.
+    window.updateHeatEstimate = function updateHeatEstimate() {
+        const buEl = document.getElementById('uh-builtup');
+        const trEl = document.getElementById('uh-tree');
+        const deltaEl = document.getElementById('uh-delta');
+        if (!buEl || !trEl || !deltaEl) return;
+        const builtup = Number(buEl.value);
+        const tree = Number(trEl.value);
+        document.getElementById('uh-builtup-val').textContent = builtup + '%';
+        document.getElementById('uh-tree-val').textContent = tree + '%';
+
+        const REF_BUILTUP = 40, REF_TREE = 7;
+        const delta = 0.020 * (builtup - REF_BUILTUP) - 0.125 * (tree - REF_TREE);
+        const rounded = Math.round(delta * 10) / 10;
+        const sign = rounded > 0 ? '+' : (rounded < 0 ? '−' : '');
+        const color = rounded > 0.05 ? '#DC2626' : (rounded < -0.05 ? '#16A34A' : '#A16207');
+        deltaEl.textContent = sign + Math.abs(rounded).toFixed(1) + '°C';
+        deltaEl.style.color = color;
+
+        const verdict = document.getElementById('uh-verdict');
+        if (verdict) {
+            if (rounded > 0.05) verdict.innerHTML = 'This neighbourhood runs <strong style="color:#DC2626;">hotter</strong> &mdash; concrete is winning over canopy.';
+            else if (rounded < -0.05) verdict.innerHTML = 'This neighbourhood runs <strong style="color:#16A34A;">cooler</strong> &mdash; tree cover is doing the work.';
+            else verdict.innerHTML = 'About average for Delhi &mdash; concrete and canopy roughly balance.';
+        }
+    };
+
+    // ── Urban Heat: live ozone-vs-temperature scatter ──
+    // Demonstrates the "climate penalty" (Bloomer 2009) with live station data:
+    // for each Indian city we pull the current O3 sub-index and air temperature
+    // from WAQI and plot O3 (y) against temperature (x). A positive fit slope
+    // means hotter cities are carrying more ozone right now.
+    let uhChart = null;
+    let uhChartCache = null; // { ts, points }
+    async function fetchOzoneTemp(cityKey) {
+        const city = CITIES[cityKey];
+        if (!city) return null;
+        try {
+            const url = `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`;
+            const res = await fetch(url, { method: 'GET', mode: 'cors' });
+            if (!res.ok) return null;
+            const data = await res.json();
+            if (data.status !== 'ok' || !data.data || !data.data.iaqi) return null;
+            const o3 = Number(data.data.iaqi.o3?.v);
+            const t = Number(data.data.iaqi.t?.v);
+            if (isNaN(o3) || isNaN(t) || o3 <= 0) return null;
+            return { city: city.name, x: Math.round(t * 10) / 10, y: Math.round(o3) };
+        } catch (e) { return null; }
+    }
+    window.initUrbanHeatChart = async function initUrbanHeatChart(force) {
+        const canvas = document.getElementById('uhOzoneTempChart');
+        const status = document.getElementById('uh-chart-status');
+        if (!canvas) return;
+        try { await ensureChartJs(); }
+        catch (e) { if (status) status.textContent = 'Chart library could not load.'; return; }
+
+        let points;
+        if (!force && uhChartCache && (Date.now() - uhChartCache.ts < 10 * 60 * 1000)) {
+            points = uhChartCache.points;
+        } else {
+            if (status) status.innerHTML = '<span class="pulse"></span> Loading live station readings…';
+            const results = await Promise.allSettled(INDIAN_CITIES.map(fetchOzoneTemp));
+            points = results.filter(r => r.status === 'fulfilled' && r.value).map(r => r.value);
+            // De-dupe by city, keep a clean spread
+            const seen = new Set();
+            points = points.filter(p => (seen.has(p.city) ? false : (seen.add(p.city), true)));
+            uhChartCache = { ts: Date.now(), points };
+        }
+
+        if (!points || points.length < 4) {
+            if (uhChart) { try { uhChart.destroy(); } catch (e) {} uhChart = null; }
+            if (status) status.textContent = points && points.length
+                ? `Only ${points.length} station(s) are reporting both ozone and temperature right now — not enough for a trend. Try again later in the day.`
+                : 'No stations are reporting both ozone and temperature right now. Try the Refresh button later in the day.';
+            return;
+        }
+
+        // Least-squares fit for the trend line
+        const n = points.length;
+        const mx = points.reduce((s, p) => s + p.x, 0) / n;
+        const my = points.reduce((s, p) => s + p.y, 0) / n;
+        let num = 0, den = 0;
+        points.forEach(p => { num += (p.x - mx) * (p.y - my); den += (p.x - mx) * (p.x - mx); });
+        const slope = den ? num / den : 0;
+        const intercept = my - slope * mx;
+        const xs = points.map(p => p.x);
+        const minX = Math.min(...xs), maxX = Math.max(...xs);
+        const trend = [{ x: minX, y: slope * minX + intercept }, { x: maxX, y: slope * maxX + intercept }];
+
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const gridColor = isDark ? '#334155' : '#E2E8F0';
+        if (uhChart) { try { uhChart.destroy(); } catch (e) {} uhChart = null; }
+        uhChart = new Chart(canvas, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Cities (now)',
+                        data: points,
+                        pointRadius: 6, pointHoverRadius: 8,
+                        backgroundColor: points.map(p => getAQIColor(p.y)),
+                        borderColor: '#fff', borderWidth: 1
+                    },
+                    {
+                        type: 'line', label: 'Trend',
+                        data: trend, parsing: false,
+                        borderColor: slope >= 0 ? '#DC2626' : '#16A34A',
+                        borderWidth: 2, borderDash: [6, 4],
+                        pointRadius: 0, fill: false, tension: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (ctx) => ctx.raw.city
+                        ? `${ctx.raw.city}: ${ctx.raw.x}°C, ozone ${ctx.raw.y}`
+                        : `${Math.round(ctx.raw.y)} at ${Math.round(ctx.raw.x)}°C` } }
+                },
+                scales: {
+                    x: { title: { display: true, text: 'Air temperature (°C)' }, grid: { color: gridColor } },
+                    y: { title: { display: true, text: 'Ozone (AQI sub-index)' }, grid: { color: gridColor }, beginAtZero: true }
+                }
+            }
+        });
+
+        if (status) {
+            const dir = slope > 0.05 ? 'up' : (slope < -0.05 ? 'down' : 'flat');
+            const msg = dir === 'up'
+                ? `Across ${n} cities reporting now, ozone rises about ${slope.toFixed(1)} index points per °C — hotter air, more ozone.`
+                : dir === 'down'
+                ? `Across ${n} cities reporting now, the live slope is slightly negative — a snapshot can run against the long-run trend (cleaner-but-hotter cities, time-of-day effects).`
+                : `Across ${n} cities reporting now, the live slope is roughly flat.`;
+            status.textContent = msg;
+        }
+    };
 
     // ── PM2.5/AQI Utilities ──
     const WHO_PM25_GUIDELINE = 5;
@@ -10590,7 +10739,145 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     </div>
                 </div>
             </div>
-        
+
+</template>
+
+<template id="tmpl-urban-heat">
+    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-sun" style="color: #EA580C; margin-right: 0.4rem;"></span>Urban Heat Island &mdash; The Temperature Divide</h2>
+        <p style="font-size: 1.125rem; font-family: var(--serif); font-style: italic; color: var(--text-2); margin-bottom: 0.75rem;">The same sun. The same city. Dozens of different temperatures.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="On the same hot day, one part of Delhi can be 18&deg;C hotter than another. The difference is not the sun &mdash; it is what is on the ground. Concrete, tin roofs and bare land trap heat. Trees, parks and water keep an area cool. This is called the urban heat island effect, and it sits right next to the air you breathe.">On a single summer afternoon, neighbourhoods just kilometres apart in Delhi can differ by nearly <strong>18&deg;C</strong>. The sun is the same everywhere &mdash; what changes is the <strong>ground</strong>. Concrete, asphalt, tin roofs and bare land absorb and radiate heat; tree canopy, parks and water bodies cool the air around them. This is the <strong>urban heat island effect</strong>, and it is the close cousin of the air quality crisis: the same dense, green-starved colonies that trap heat also trap pollution.</p>
+    </div>
+
+    <!-- ═══ Section 1: The Delhi heat map ═══ -->
+    <div class="card mb-3" style="border-left: 4px solid #DC2626;">
+        <div class="card-header"><span class="card-title">One city, measured neighbourhood by neighbourhood</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="A thermal map of Delhi found surface temperatures ranging from 34&deg;C in green Mehrauli to 52&deg;C in built-up Mubarakpur on the same day. Greener areas were cooler; concrete-heavy areas were hotter.">A thermal survey of Delhi captured surface temperatures on a single day. The greenest pockets &mdash; the Ridge, Mehrauli, the wooded south &mdash; stayed near <strong>34&ndash;35&deg;C</strong>. The densest, most built-up colonies of the north and west crossed <strong>50&deg;C</strong>. Same sun, same hour &mdash; up to 18&deg;C apart.</p>
+
+            <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;">
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Mubarakpur</span><span style="height:18px; border-radius:9px; background:#991B1B; width:100%;"></span><strong style="font-size:0.8125rem; color:#991B1B; text-align:right;">52&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Bawana</span><span style="height:18px; border-radius:9px; background:#DC2626; width:88%;"></span><strong style="font-size:0.8125rem; color:#DC2626; text-align:right;">48&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Dhansa</span><span style="height:18px; border-radius:9px; background:#EA580C; width:72%;"></span><strong style="font-size:0.8125rem; color:#EA580C; text-align:right;">45&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Nazafgarh</span><span style="height:18px; border-radius:9px; background:#EA580C; width:72%;"></span><strong style="font-size:0.8125rem; color:#EA580C; text-align:right;">45&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Mahipalpur</span><span style="height:18px; border-radius:9px; background:#F97316; width:66%;"></span><strong style="font-size:0.8125rem; color:#F97316; text-align:right;">44&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">GK-1</span><span style="height:18px; border-radius:9px; background:#CA8A04; width:48%;"></span><strong style="font-size:0.8125rem; color:#CA8A04; text-align:right;">38&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Vasant Kunj</span><span style="height:18px; border-radius:9px; background:#A3A100; width:42%;"></span><strong style="font-size:0.8125rem; color:#84860A; text-align:right;">37&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Siri Fort</span><span style="height:18px; border-radius:9px; background:#65A30D; width:36%;"></span><strong style="font-size:0.8125rem; color:#4D7C0F; text-align:right;">36&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Azad Nagar</span><span style="height:18px; border-radius:9px; background:#4D9C0F; width:30%;"></span><strong style="font-size:0.8125rem; color:#3F7A0C; text-align:right;">35&deg;</strong></div>
+                <div class="uh-row" style="display:grid; grid-template-columns: 9.5rem 1fr 3rem; align-items:center; gap:0.6rem;"><span style="font-size:0.8125rem; color:var(--text-2); font-weight:600;">Mehrauli</span><span style="height:18px; border-radius:9px; background:#16A34A; width:24%;"></span><strong style="font-size:0.8125rem; color:#16A34A; text-align:right;">34&deg;</strong></div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-3); margin:0;"><em>Surface temperatures from a single-day thermal survey of Delhi. Source: India Today.<sup>2</sup></em></p>
+        </div>
+    </div>
+
+    <!-- ═══ Section 2: The science ═══ -->
+    <div class="card mb-3" style="border-left: 4px solid #15803D;">
+        <div class="card-header"><span class="card-title">The science behind the divide</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="A study by Artha Global looked at 2,368 homes across all 70 assembly seats of Delhi. It found a clear, measurable link between how a neighbourhood is built and how hot it actually feels.">A white paper by <strong>Artha Global</strong> studied <strong>2,368 households</strong> across all <strong>70 assembly constituencies</strong> of Delhi and found a precise, measurable relationship between urban form and experienced heat.</p>
+            <div class="grid-2" style="gap:1rem; margin-bottom:1rem;">
+                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid #DC2626;">
+                    <h4 style="color:#B91C1C;">Concrete heats</h4>
+                    <p data-simple="When the built-up area of a neighbourhood rises from 25% to 55%, the temperature people actually feel goes up by 0.6&deg;C.">Increasing built-up area from <strong>25% to 55%</strong> raises experienced temperature by <strong>+0.6&deg;C</strong>.</p>
+                </div>
+                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid #15803D;">
+                    <h4 style="color:#15803D;">Trees cool</h4>
+                    <p data-simple="When tree cover rises from just 3% to 11%, the heat people feel drops by a full 1&deg;C.">Increasing tree cover from just <strong>3% to 11%</strong> lowers experienced heat by <strong>&minus;1&deg;C</strong>.</p>
+                </div>
+            </div>
+            <div class="alert alert-info" style="margin-bottom:0;"><div data-simple="The big finding: trees cool more powerfully than concrete heats. Green cover is not decoration &mdash; it is the most effective cooling infrastructure a neighbourhood can have, and it cannot be added back easily once a colony is built. Concrete jungles make the neighbourhood permanently warmer.">
+                <strong>The conclusion is significant: trees cool more powerfully than concrete heats.</strong> Green cover is not aesthetic &mdash; it is the most effective thermal infrastructure a neighbourhood can have, and <strong>it cannot be retrofitted once a colony is built</strong>. Concrete jungles make the neighbourhood warmer for good.
+            </div></div>
+            <p style="font-size: 0.75rem; color: var(--text-3); margin:0.75rem 0 0;"><em>Source: Sircar et al. (2026), <a href="https://artha.global/working-paper/survey-mapping-heat-inequality-across-neighbourhoods-in-delhi/" target="_blank" rel="noopener" style="color:var(--accent);">Mapping Heat Inequality Across Neighbourhoods in Delhi</a>, Artha Global.<sup>1</sup></em></p>
+        </div>
+    </div>
+
+    <!-- ═══ Section 3: Interactive estimator ═══ -->
+    <div class="card mb-3" style="border-left: 4px solid #EA580C;">
+        <div class="card-header"><span class="card-title">Estimate your neighbourhood&rsquo;s heat</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="Move the sliders to match your area &mdash; how much is built-up (concrete) and how much has tree cover. See how much hotter or cooler it runs compared with a typical Delhi neighbourhood, using the white paper's own numbers.">Move the sliders to match your locality and see how much hotter or cooler it runs versus a typical Delhi neighbourhood &mdash; using the Artha Global coefficients (+0.02&deg;C per 1% built-up, &minus;0.125&deg;C per 1% tree cover).</p>
+
+            <div style="margin-bottom:1.25rem;">
+                <label style="display:flex; justify-content:space-between; font-size:0.8125rem; font-weight:600; color:var(--text-2); margin-bottom:0.4rem;"><span>Built-up area (concrete, roads, roofs)</span><span id="uh-builtup-val" style="color:#B91C1C;">45%</span></label>
+                <input id="uh-builtup" type="range" min="0" max="100" value="45" step="1" style="width:100%; accent-color:#DC2626;" oninput="window.updateHeatEstimate&amp;&amp;window.updateHeatEstimate()">
+            </div>
+            <div style="margin-bottom:1.5rem;">
+                <label style="display:flex; justify-content:space-between; font-size:0.8125rem; font-weight:600; color:var(--text-2); margin-bottom:0.4rem;"><span>Tree &amp; green cover</span><span id="uh-tree-val" style="color:#15803D;">5%</span></label>
+                <input id="uh-tree" type="range" min="0" max="100" value="5" step="1" style="width:100%; accent-color:#16A34A;" oninput="window.updateHeatEstimate&amp;&amp;window.updateHeatEstimate()">
+            </div>
+
+            <div id="uh-result" style="text-align:center; border-radius:10px; padding:1.25rem; background:var(--warm-white);">
+                <div style="font-size:0.75rem; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Versus a typical Delhi neighbourhood</div>
+                <div id="uh-delta" style="font-size:2.25rem; font-weight:800; line-height:1;">&mdash;</div>
+                <div id="uh-verdict" style="font-size:0.9375rem; color:var(--text-2); margin-top:0.5rem;"></div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-3); margin:0.75rem 0 0;"><em>An illustrative estimate based on the published coefficients, relative to a reference of 40% built-up and 7% tree cover. Local microclimate, water bodies and building materials also matter.</em></p>
+        </div>
+    </div>
+
+    <!-- ═══ Section 4: How heat and air pollution are connected ═══ -->
+    <div class="card mb-3" style="border-left: 4px solid #6366F1;">
+        <div class="card-header"><span class="card-title">How heat and air pollution are connected</span></div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="Heat and dirty air are not two separate problems sitting side by side. They share the same chemistry, the same weather, the same causes and the same victims. Here is how they feed each other.">Heat and dirty air are not two separate problems sitting side by side &mdash; they share chemistry, weather, causes and victims. Here is how they feed each other, which is why this sits inside an air quality archive.</p>
+
+            <div class="grid-2" style="gap:1rem; margin-bottom:1rem;">
+                <div class="info-box" style="background: rgba(234,88,12,0.06); border-left: 3px solid #EA580C;">
+                    <h4 style="color:#C2410C;">Heat cooks ozone</h4>
+                    <p data-simple="Ground-level ozone is not emitted by anything &mdash; it is formed when vehicle and factory gases react in sunlight, and that reaction runs faster as the air gets hotter. A 50&deg;C street makes more ozone than a 35&deg;C one from the same traffic.">Ground-level ozone isn&rsquo;t emitted &mdash; it&rsquo;s formed when NOx and VOCs react in sunlight, and the reaction runs <strong>faster as temperature rises</strong>. A 50&deg;C street makes more ozone than a 35&deg;C one from the same traffic.<sup>3,4</sup></p>
+                </div>
+                <div class="info-box" style="background: rgba(100,116,139,0.06); border-left: 3px solid #64748B;">
+                    <h4 style="color:#475569;">Hot days are still days</h4>
+                    <p data-simple="Heatwaves usually arrive with stagnant, high-pressure weather. The same still air that traps heat also fails to blow away smoke, dust and exhaust &mdash; so pollution piles up instead of dispersing.">Heatwaves ride in on stagnant high-pressure systems. The same still air that won&rsquo;t carry heat away <strong>won&rsquo;t disperse smoke, dust and exhaust either</strong> &mdash; so pollution accumulates.<sup>4</sup></p>
+                </div>
+                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid #DC2626;">
+                    <h4 style="color:#B91C1C;">The cooling spiral</h4>
+                    <p data-simple="Hotter colonies run more air conditioners. That pulls more electricity from a coal-heavy grid, releasing more PM2.5 and SO2 &mdash; and every AC dumps its waste heat onto the street, making it hotter still. Heat makes pollution makes heat.">Hotter colonies run more ACs &rarr; more power from a coal-heavy grid &rarr; more PM2.5 and SO2 &mdash; and every AC dumps waste heat onto the street. <strong>Heat makes pollution makes heat.</strong><sup>7</sup></p>
+                </div>
+                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid #15803D;">
+                    <h4 style="color:#15803D;">One canopy, two jobs</h4>
+                    <p data-simple="Tree cover lowers the temperature and also traps particle pollution on its leaves. Removing the green takes away both the shade and the filter at the same time.">Tree cover lowers temperature <em>and</em> deposits particulate matter on its leaves. Strip the green and you remove <strong>the shade and the filter at once</strong> &mdash; which is why &lsquo;trees cool more than concrete heats&rsquo; is also an air-quality statement.<sup>8</sup></p>
+                </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-bottom:0;"><div data-simple="On a hot, polluted day, heat and dirty air attack the heart and lungs through the same pathways, so the combined harm is worse than either one alone. And the densest, least-green, lowest-income colonies carry the most of both &mdash; while being least able to afford an air conditioner or an air purifier. Cooling a neighbourhood and cleaning its air are, increasingly, the same project.">
+                <strong>Same victims.</strong> On a hot, polluted day, heat and dirty air hit the heart and lungs through overlapping pathways &mdash; the combined toll is <strong>worse than either alone</strong>.<sup>5,6</sup> And the densest, least-green, lowest-income colonies carry the most of both, while being least able to afford an AC or a purifier. Cooling a neighbourhood and cleaning its air are increasingly <strong>the same project</strong>.
+            </div></div>
+        </div>
+    </div>
+
+    <!-- ═══ Section 5: Live evidence chart ═══ -->
+    <div class="card mb-3" style="border-left: 4px solid #EA580C;">
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem;">
+            <span class="card-title">Live evidence: ozone climbs with temperature</span>
+            <button type="button" onclick="window.initUrbanHeatChart &amp;&amp; window.initUrbanHeatChart(true)" style="font-size:0.75rem; font-weight:600; color:var(--accent); background:var(--green-50); border:1px solid var(--border); border-radius:6px; padding:0.3rem 0.7rem; cursor:pointer;"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
+        </div>
+        <div class="card-body">
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Each dot is an Indian city right now. Across to the right is hotter air; up is more ozone. The dots tend to climb from bottom-left to top-right &mdash; hotter cities are carrying more ozone, live, today. This is the 'heat cooks ozone' link happening in real time.">Each dot is an Indian city, refreshed live from monitoring stations. Hotter air is to the right; more ozone is up. Watch the cloud tilt upward to the right &mdash; that climb <em>is</em> the &lsquo;heat cooks ozone&rsquo; relationship, happening today across the country.</p>
+            <div style="position:relative; height:340px; width:100%;"><canvas id="uhOzoneTempChart"></canvas></div>
+            <div id="uh-chart-status" style="text-align:center; font-size:0.8125rem; color:var(--text-3); margin-top:0.6rem;"><span class="pulse"></span> Loading live station readings&hellip;</div>
+            <p style="font-size: 0.75rem; color: var(--text-3); margin:0.75rem 0 0;"><em>Live data from WAQI / AQICN station feeds. Ozone is shown as the US-EPA AQI sub-index; temperature is from the same station. A city appears only when its station is currently reporting both values, so the set of dots changes through the day. The line is a least-squares fit &mdash; a positive slope is the &lsquo;climate penalty&rsquo;<sup>3</sup> in action. A single live snapshot mixes many local factors, so treat the trend as illustrative, not a controlled measurement.</em></p>
+        </div>
+    </div>
+
+    <!-- ═══ Section 6: Sources &amp; further reading ═══ -->
+    <div class="card mb-3" id="uh-sources" style="border-left: 4px solid #64748B;">
+        <div class="card-header"><span class="card-title">Sources &amp; further reading</span></div>
+        <div class="card-body">
+            <ol style="margin:0; padding-left:1.25rem; color:var(--text-2); font-size:0.8125rem; line-height:1.7;">
+                <li>Sircar, N., Vedavalli, P., Deshpande, I. &amp; Khanna, N. (2026). <em>Mapping Heat Inequality Across Neighbourhoods in Delhi.</em> Artha Global. <a href="https://artha.global/working-paper/survey-mapping-heat-inequality-across-neighbourhoods-in-delhi/" target="_blank" rel="noopener" style="color:var(--accent);">artha.global</a> &mdash; the 2,368-household survey across 70 constituencies and the built-up / tree-cover heat coefficients.</li>
+                <li>India Today. <em>Delhi neighbourhood surface-temperature map.</em> &mdash; the locality temperatures (Mubarakpur 52&deg;C &hellip; Mehrauli 34&deg;C) shown above.</li>
+                <li>Bloomer, B. J., Stehr, J. W., Piety, C. A., Salawitch, R. J. &amp; Dickerson, R. R. (2009). Observed relationships of ozone air pollution with temperature and emissions. <em>Geophysical Research Letters</em> 36, L09803. <a href="https://doi.org/10.1029/2009GL037308" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1029/2009GL037308</a> &mdash; the ozone &ldquo;climate penalty&rdquo;: ozone rose ~3 ppb per &deg;C of warming.</li>
+                <li>Jacob, D. J. &amp; Winner, D. A. (2009). Effect of climate change on air quality. <em>Atmospheric Environment</em> 43(1), 51&ndash;63. <a href="https://doi.org/10.1016/j.atmosenv.2008.09.051" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1016/j.atmosenv.2008.09.051</a> &mdash; warming raises surface ozone in polluted regions; a warmer climate is also more stagnant.</li>
+                <li>Analitis, A., Michelozzi, P., D&rsquo;Ippoliti, D. <em>et al.</em> (2014). Effects of heat waves on mortality: effect modification and confounding by air pollutants. <em>Epidemiology</em> 25(1), 15&ndash;22. <a href="https://doi.org/10.1097/EDE.0b013e31828ac01b" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1097/EDE.0b013e31828ac01b</a> &mdash; heat-wave deaths were 54% higher on high-ozone days (ages 75&ndash;84).</li>
+                <li>Stafoggia, M., Michelozzi, P., Schneider, A. <em>et al.</em> (2023). Joint effect of heat and air pollution on mortality in 620 cities of 36 countries. <em>Environment International</em> 181, 108258. <a href="https://doi.org/10.1016/j.envint.2023.108258" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1016/j.envint.2023.108258</a> &mdash; global evidence that heat and pollution compound mortality.</li>
+                <li>Salamanca, F., Georgescu, M., Mahalov, A., Moustaoui, M. &amp; Wang, M. (2014). Anthropogenic heating of the urban environment due to air conditioning. <em>J. Geophysical Research: Atmospheres</em> 119, 5949&ndash;5965. <a href="https://doi.org/10.1002/2013JD021225" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1002/2013JD021225</a> &mdash; AC waste heat raised night-time street temperature by &gt;1&deg;C.</li>
+                <li>Nowak, D. J., Hirabayashi, S., Bodine, A. &amp; Greenfield, E. (2014). Tree and forest effects on air quality and human health in the United States. <em>Environmental Pollution</em> 193, 119&ndash;129. <a href="https://doi.org/10.1016/j.envpol.2014.05.028" target="_blank" rel="noopener" style="color:var(--accent);">doi:10.1016/j.envpol.2014.05.028</a> &mdash; tree canopy removes particulate and gaseous pollutants.</li>
+            </ol>
+        </div>
+    </div>
 </template>
 
 <template id="tmpl-accountability">
