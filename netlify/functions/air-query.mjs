@@ -224,6 +224,15 @@ RECENT POLICY/COURT ACTIONS (Apr-May 2026):
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; next hearing 21 Jul 2026).
 - NCAP March 2026 deadline elapsed: 23/100 cities (CREA Jan 2026) or 37/131 (CSE Apr 2026 5-year review) met the target.
 - 15th Finance Commission grants (₹16,539 Cr for 49 cities) expired 31 March 2026; 16th FC report expected Oct 2026.
+
+URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just the data-rich example):
+- Heat and air pollution are linked, not separate problems. On one summer day a thermal survey of Delhi recorded 52°C (Mubarakpur, dense/built-up) vs 34°C (Mehrauli, green) — up to 18°C apart under the same sun (India Today map).
+- Artha Global white paper "Mapping Heat Inequality Across Neighbourhoods in Delhi" (Sircar et al., Jan 2026; survey of 2,368 households across all 70 Delhi assembly constituencies): raising built-up area 25%→55% adds +0.6°C experienced heat; raising tree cover 3%→11% removes −1°C. Conclusion: "trees cool more than concrete heats"; green cover is thermal infrastructure that CANNOT be retrofitted once a colony is built.
+- Heat cooks ozone ("climate penalty"): ground-level ozone is photochemical (NOx + VOCs in sunlight) and forms faster as temperature rises — about +3 ppb O3 per °C (Bloomer et al. 2009, Geophysical Research Letters). Jacob & Winner 2009 (Atmospheric Environment): warming raises ozone, and a warmer climate is also more STAGNANT (traps pollutants on hot, still days).
+- Cooling spiral: hotter areas run more AC → more coal-grid power (PM2.5/SO2), and AC waste heat itself raises night-time street temperature by >1°C (Salamanca et al. 2014, JGR-Atmospheres).
+- Trees do double duty: canopy lowers temperature AND removes particulate + gaseous pollution (Nowak et al. 2014, Environmental Pollution).
+- Co-exposure compounds harm: heat-wave deaths were 54% higher on high-ozone days (Analitis et al. 2014, Epidemiology); confirmed across 620 cities in 36 countries (Stafoggia et al. 2023, Environment International).
+- JanVayu's "Urban Heat Island" panel (janvayu.in/#urban-heat) has the neighbourhood heat map, an interactive built-up-vs-tree-cover heat estimator, and a LIVE hourly ozone-vs-temperature chart for any Indian city (Open-Meteo/CAMS).
 `;
 
 const LANG_NAMES = {
@@ -245,7 +254,7 @@ const LANG_NAMES = {
 function isNationalQuery(question) {
   const q = question.toLowerCase();
   // Topical keywords that imply India-wide framing
-  return /\b(india(n)?|nationwide|national|across cities|across india|bs-?vi|bs vi|e-?buses?|electric (bus|vehicle|car)|ev policy|charging station|sensor|low.?cost|community sensor|fame|pm-?ebus|caaqms|cpcb|stations? in india|monitoring (network|stations? )?|how many (stations|sensors|monitors|e-?buses?)|number of (stations|sensors|monitors|e-?buses?))\b/i.test(q);
+  return /\b(india(n)?|nationwide|national|across cities|across india|bs-?vi|bs vi|e-?buses?|electric (bus|vehicle|car)|ev policy|charging station|sensor|low.?cost|community sensor|fame|pm-?ebus|caaqms|cpcb|stations? in india|monitoring (network|stations? )?|how many (stations|sensors|monitors|e-?buses?)|number of (stations|sensors|monitors|e-?buses?)|urban heat|heat island|heatwave|heat wave|tree cover|green cover|canopy|concrete (jungle|heat)|how does heat|ozone (and|vs) (heat|temperature)|hotter (neighbourhood|neighborhood|colony|area))\b/i.test(q);
 }
 
 function isStationCountQuery(question) {
