@@ -280,7 +280,7 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
   - [x] **Air quality** — per-ward PM2.5, inverse-distance-weighted from the city's live CPCB/WAQI monitors.
   - [x] **Heat** — Landsat 8/9 land-surface temperature (~30 m), per-city clear-sky summer scene via Microsoft Planetary Computer.
   - [x] **Green cover** + **Built-up** — vegetation and impervious-surface share per ward from ESA WorldCover 2021 (10 m).
-- [x] **9 of the top-10 cities**: Delhi (290), Mumbai (227), Bengaluru (243), Chennai (201), Hyderabad (145), Kolkata (141), Jaipur (77), Pune (58), Ahmedabad (48).
+- [x] **10 cities**: Delhi (290), Mumbai (227), Bengaluru (243), Chennai (201), Hyderabad (145), Kolkata (141), Jaipur (77), Pune (58), Ahmedabad (48), Chandigarh (28).
 - [x] Per-layer legend, tooltips, methodology note, and live "But…" stats. The Heat layer surfaces the heat-island link (hottest vs coolest fifth of wards by built-up + green) from each city's own data.
 - [x] Offline zonal-statistics pipelines: rasterio over **remote cloud-optimized GeoTIFFs** (windowed reads, no bulk downloads) — ESA WorldCover (S3) + Landsat C2 L2 (Planetary Computer). Per-ward values baked into `/data/wards/*.json`.
 - [x] Responsive mobile layout for the ward map; blog: "A City Is Not One Number".
@@ -348,10 +348,13 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 
 ## Phase 11: Ward-Level Atlas — next (planned)
 
-Building on the Phase 5.14 ward atlas. Tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues): [#149](https://github.com/JanVayu/JanVayu/issues/149), [#150](https://github.com/JanVayu/JanVayu/issues/150), [#151](https://github.com/JanVayu/JanVayu/issues/151).
+Building on the Phase 5.14 ward atlas. Tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
-- [ ] **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149)) — replace the interpolated air layer with modelled satellite PM2.5 (aerosol optical depth, ~1 km) aggregated to wards, giving the air layer the same full coverage the heat/green/built-up layers already have.
-- [ ] **Surat (10th metro)** ([#150](https://github.com/JanVayu/JanVayu/issues/150)) — no open, curl-verifiable ward-polygon file exists yet; add once a source is found or digitised from the SMC GIS portal.
-- [ ] **Tier-1 / tier-2 cities** — extend the atlas city-by-city as ward boundaries are sourced (Lucknow, Kanpur, Nagpur, Indore, Bhopal, Patna, …).
 - [~] **Ward Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ✅ ward search / locate-me, ✅ two-finger pan on touch, ✅ correlation view (active layer vs built-up / green, with Pearson *r*); ⏳ time-aware (seasonal-median) heat still to do.
+- [ ] **Tier-1 / tier-2 cities** — extend the atlas city-by-city as open ward boundaries are sourced (Lucknow, Kanpur, Nagpur, Indore, Bhopal, Patna, …).
 - [ ] **Per-ward share cards** — extend the Shareable AQI Cards generator to ward snapshots ("My ward vs the city").
+
+**Dropped (not feasible on open data):**
+
+- ~~Satellite-derived per-ward PM2.5~~ ([#149](https://github.com/JanVayu/JanVayu/issues/149), closed) — no openly-fetchable ~1 km PM2.5 raster (ACAG is portal-gated; Planetary Computer hosts only Sentinel-3 aerosol optical depth, not a calibrated PM2.5 product). The air layer stays live-interpolated.
+- ~~Surat ward map~~ ([#150](https://github.com/JanVayu/JanVayu/issues/150), closed) — no open ward-boundary file exists. **Chandigarh** was added as the 10th city instead.

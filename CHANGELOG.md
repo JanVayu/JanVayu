@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.26] - 2026-06-11
+
+### Added — Ward Atlas: 10th city (Chandigarh)
+
+- **Chandigarh** (28 wards) added to the Ward-Level Atlas, bringing it to **10 cities**, each with all four layers. It is the greenest city in the atlas (median ward ~49% vegetation) — a contrast to the dense metros — and its live air layer draws on the wider tricity (Chandigarh / Mohali / Panchkula) monitors.
+
+### Removed — roadmap items dropped (not feasible on open data)
+
+- **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149), closed not-planned): no openly-fetchable ~1 km PM2.5 raster exists (ACAG is portal-gated; Planetary Computer hosts only Sentinel-3 aerosol optical depth, not a calibrated PM2.5 product). The air layer remains live-interpolated.
+- **Surat ward map** ([#150](https://github.com/JanVayu/JanVayu/issues/150), closed not-planned): no open ward-boundary file exists. Chandigarh was added as the 10th city in its place.
+
 ## [v26.6.25] - 2026-06-11
 
 ### Added — Ward Atlas polish ([#151](https://github.com/JanVayu/JanVayu/issues/151))
