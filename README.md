@@ -57,6 +57,7 @@ This is not a campaign. It is a record.
 | 29 | **Migration Comparison** | Side-by-side city comparison with live AQI, source apportionment charts, life-years gained verdict |
 | 30 | **Data Source Selector** | Educational panel on CPCB/WAQI/IQAir/Sensor.Community with Source Impact Simulator |
 | 31 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback |
+| 32 | **Ward-Level Atlas** | "How Polluted Is Your Ward?" — Leaflet choropleth of every municipal ward across 9 of India's top-10 cities, with a four-layer toggle: live PM2.5 (interpolated), heat (Landsat surface temperature), green cover and built-up (ESA WorldCover). Per-layer legend, tooltips and live stats; surfaces the urban heat-island link from each city's own data |
 
 ---
 
@@ -260,6 +261,24 @@ JanVayu integrates **160+ verified public data sources**, including:
 | [Indian Kanoon](https://indiankanoon.org/) | Legal/court orders | Free |
 | [PRANA Portal](https://prana.cpcb.gov.in/) | NCAP tracking | Free |
 | [IQAir](https://iqair.com) | World Air Quality Report | Free |
+| [ESA WorldCover](https://esa-worldcover.org/) | 10 m land cover (green / built-up) | Open (CC BY) |
+| [USGS/NASA Landsat](https://www.usgs.gov/landsat-missions) | Land-surface temperature | Free (via [Planetary Computer](https://planetarycomputer.microsoft.com/)) |
+| [DataMeet](https://github.com/datameet/Municipal_Spatial_Data) | Municipal ward boundaries | Open (CC BY) |
+
+---
+
+## Roadmap
+
+Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
+
+**Recently shipped (v26.6.24):** the **Ward-Level Atlas** — every municipal ward across 9 of the top-10 cities, with four switchable layers (live PM2.5, satellite heat, green cover, built-up), plus an Urban Heat Island panel.
+
+**Next up:**
+
+- **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149)) — give the air layer the same full satellite coverage the heat/green/built-up layers already have.
+- **Surat + tier-1/2 cities** ([#150](https://github.com/JanVayu/JanVayu/issues/150)) — extend the atlas as ward boundaries are sourced (Surat is the missing 10th metro; no open boundary file exists yet).
+- **Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ward search / locate-me, seasonal-median heat, and a correlation view (PM2.5 vs built-up / green / heat).
+- Platform-wide: 100+ CPCB cities, full WCAG 2.1 AA, AQI forecast horizon, push notifications.
 
 ---
 
