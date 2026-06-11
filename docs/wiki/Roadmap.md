@@ -353,5 +353,5 @@ Building on the Phase 5.14 ward atlas. Tracked on [GitHub Issues](https://github
 - [ ] **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149)) — replace the interpolated air layer with modelled satellite PM2.5 (aerosol optical depth, ~1 km) aggregated to wards, giving the air layer the same full coverage the heat/green/built-up layers already have.
 - [ ] **Surat (10th metro)** ([#150](https://github.com/JanVayu/JanVayu/issues/150)) — no open, curl-verifiable ward-polygon file exists yet; add once a source is found or digitised from the SMC GIS portal.
 - [ ] **Tier-1 / tier-2 cities** — extend the atlas city-by-city as ward boundaries are sourced (Lucknow, Kanpur, Nagpur, Indore, Bhopal, Patna, …).
-- [ ] **Ward Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ward search / locate-me, two-finger pan on touch, a correlation view (PM2.5 vs built-up / green / heat), and time-aware (seasonal-median) heat.
+- [~] **Ward Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ✅ ward search / locate-me, ✅ two-finger pan on touch, ✅ correlation view (active layer vs built-up / green, with Pearson *r*); ⏳ time-aware (seasonal-median) heat still to do.
 - [ ] **Per-ward share cards** — extend the Shareable AQI Cards generator to ward snapshots ("My ward vs the city").
