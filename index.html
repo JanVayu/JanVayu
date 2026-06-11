@@ -1330,6 +1330,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .ward-grid { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
 .ward-canvas { height: 520px; width: 100%; background: var(--warm-white); }
 .ward-toolbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+.ward-layer-btn { font-size: 0.78rem; font-weight: 600; padding: 0.32rem 0.72rem; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2); cursor: pointer; transition: all .12s; }
+.ward-layer-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+.ward-layer-btn.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+.ward-legend-item { font-size: 0.72rem; color: var(--text-2); display: inline-flex; align-items: center; }
+.ward-legend-sw { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
 @media (max-width: 860px) {
     .ward-grid { grid-template-columns: 1fr; }
     .ward-canvas { height: 62vh; min-height: 320px; max-height: 460px; }
@@ -4689,10 +4694,177 @@ body {
         return { pm: Math.round(num / den), distKm: Math.round(Math.sqrt(nearest) * 111) };
     }
 
-    window.setWardLayer = function setWardLayer(layer) {
-        if (layer !== 'pm25') return; // others are phase-2 (satellite) and disabled in UI
-        wardCurrentLayer = layer;
+    // Layer registry: PM2.5 is live-interpolated; heat/green/built-up are satellite, baked into the GeoJSON.
+    const WARD_LAYERS = {
+        pm25:  { label: 'Air quality', prop: '_pm', unit: ' µg/m³', live: true },
+        lst:   { label: 'Heat',        prop: 'lst', unit: '°C', relative: true },
+        green: { label: 'Green cover', prop: 'green', unit: '%' },
+        built: { label: 'Built-up',    prop: 'built', unit: '%' },
     };
+    let wardState = { cityKey: null, geo: null, stations: null };
+
+    function wardLerp(a, b, t) { return Math.round(a + (b - a) * t); }
+    function wardRamp(stops, t) {
+        t = Math.max(0, Math.min(1, t));
+        const seg = (stops.length - 1) * t, i = Math.floor(seg), f = seg - i;
+        if (i >= stops.length - 1) return `rgb(${stops[stops.length - 1].join(',')})`;
+        const a = stops[i], b = stops[i + 1];
+        return `rgb(${wardLerp(a[0],b[0],f)},${wardLerp(a[1],b[1],f)},${wardLerp(a[2],b[2],f)})`;
+    }
+    const WARD_HEAT_STOPS = [[44,123,182],[171,217,233],[255,255,191],[253,174,97],[215,25,28]];
+    const WARD_GREEN_STOPS = [[247,247,247],[217,240,211],[166,219,160],[90,174,97],[27,120,55]];
+    const WARD_BUILT_STOPS = [[247,247,247],[204,204,204],[150,150,150],[99,99,99],[37,37,37]];
+
+    function wardFillColor(layer, v, dom) {
+        if (v == null || isNaN(v)) return '#d7d7d7';
+        if (layer === 'pm25') return wardPM25Color(v);
+        if (layer === 'lst')  return wardRamp(WARD_HEAT_STOPS, dom.max > dom.min ? (v - dom.min) / (dom.max - dom.min) : 0.5);
+        if (layer === 'green') return wardRamp(WARD_GREEN_STOPS, Math.min(v, 60) / 60);
+        if (layer === 'built') return wardRamp(WARD_BUILT_STOPS, Math.min(v, 100) / 100);
+        return '#d7d7d7';
+    }
+    function wardTipText(layer, p) {
+        const v = p[WARD_LAYERS[layer].prop];
+        if (v == null) return '<em>No data</em>';
+        if (layer === 'pm25') return `Est. PM2.5: <strong>${v} µg/m³</strong> (${wardPM25Label(v)})`;
+        if (layer === 'lst')  return `Surface temp: <strong>${v}°C</strong>`;
+        if (layer === 'green') return `Green cover: <strong>${v}%</strong>`;
+        if (layer === 'built') return `Built-up: <strong>${v}%</strong>`;
+        return '';
+    }
+    function wardSwatch(color, label) {
+        return `<span class="ward-legend-item"><span class="ward-legend-sw" style="background:${color};"></span>${label}</span>`;
+    }
+    function wardGradientBar(stops, leftLabel, midLabel, rightLabel) {
+        const css = stops.map(s => `rgb(${s.join(',')})`).join(',');
+        return `<div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.7rem;color:var(--text-3);">${leftLabel}</span>
+            <span style="display:inline-block;height:12px;width:160px;border-radius:3px;background:linear-gradient(90deg,${css});"></span>
+            <span style="font-size:0.7rem;color:var(--text-3);">${rightLabel}</span>
+            ${midLabel ? `<span style="font-size:0.7rem;color:var(--text-4);">${midLabel}</span>` : ''}</div>`;
+    }
+
+    window.setWardLayer = function setWardLayer(layer) {
+        if (!WARD_LAYERS[layer]) return;
+        wardCurrentLayer = layer;
+        if (wardState.geo && wardLayer) wardRenderLayer();
+    };
+
+    function wardRenderLayer() {
+        const layer = wardCurrentLayer, cfg = WARD_LAYERS[layer], geo = wardState.geo;
+        if (!geo || !wardLayer) return;
+        const prop = cfg.prop;
+        // Active toggle button
+        document.querySelectorAll('#ward-layer-toggle .ward-layer-btn').forEach(b =>
+            b.classList.toggle('active', b.dataset.layer === layer));
+        // Collect values
+        const vals = [];
+        geo.features.forEach(f => { const v = f.properties[prop]; if (v != null && !isNaN(v)) vals.push({ name: f.properties.name, v: +v, p: f.properties }); });
+        const dom = vals.length ? { min: Math.min(...vals.map(x => x.v)), max: Math.max(...vals.map(x => x.v)) } : { min: 0, max: 1 };
+        // Restyle + retip
+        wardLayer.setStyle(f => ({ fillColor: wardFillColor(layer, f.properties[prop], dom), weight: 0.5, color: '#ffffff', fillOpacity: 0.8 }));
+        wardLayer.eachLayer(l => { if (l.setTooltipContent) l.setTooltipContent(`<strong>${l.feature.properties.name}</strong><br>${wardTipText(layer, l.feature.properties)}`); });
+        wardRenderLegend(layer, dom);
+        wardRenderStats(layer, vals, dom);
+        wardRenderMethod(layer);
+        wardRenderStatus(layer);
+    }
+
+    function wardRenderLegend(layer, dom) {
+        const el = document.getElementById('ward-legend'); if (!el) return;
+        if (layer === 'pm25') {
+            const bands = [['0–30','#55a84f'],['31–60','#a3c853'],['61–90','#e6c93b'],['91–120','#f29c33'],['121–250','#e93f33'],['250+','#af2d24']];
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">PM2.5 µg/m³</span>` + bands.map(b => wardSwatch(b[1], b[0])).join('');
+        } else if (layer === 'lst') {
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">Surface temp</span>` +
+                wardGradientBar(WARD_HEAT_STOPS, `${dom.min.toFixed(0)}°C`, '(cooler → hotter, this city)', `${dom.max.toFixed(0)}°C`);
+        } else if (layer === 'green') {
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">Green cover</span>` +
+                wardGradientBar(WARD_GREEN_STOPS, '0%', '(more vegetation →)', '60%+');
+        } else if (layer === 'built') {
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">Built-up</span>` +
+                wardGradientBar(WARD_BUILT_STOPS, '0%', '(more concrete →)', '100%');
+        }
+    }
+
+    function wardRenderStats(layer, vals, dom) {
+        const el = document.getElementById('ward-stats'); if (!el) return;
+        const row = t => `<li style="margin-bottom:0.4rem;">${t}</li>`;
+        const wrap = items => `<ul style="margin:0;padding-left:1.1rem;font-size:0.86rem;color:var(--text-2);line-height:1.5;">${items.join('')}</ul>`;
+        if (!vals.length) { el.innerHTML = `<div style="color:var(--text-3);font-size:0.85rem;">No data for this layer ${layer === 'pm25' ? '— no live stations reporting right now.' : 'yet.'}</div>`; return; }
+        const n = vals.length;
+        if (layer === 'pm25') {
+            const s = [...vals].sort((a, b) => b.v - a.v), worst = s[0], best = s[n - 1];
+            const above90 = vals.filter(v => v.v > 90).length, above250 = vals.filter(v => v.v > 250).length;
+            el.innerHTML = wrap([
+                row(`<strong>${above90}/${n}</strong> wards are in <strong>Poor or worse</strong> air (PM2.5 &gt; 90 µg/m³) right now.`),
+                above250 ? row(`<strong>${above250}</strong> ward(s) are in the <strong>Severe</strong> band (&gt; 250).`) : '',
+                row(`Dirtiest: <strong>${worst.name}</strong> &mdash; ~${worst.v} µg/m³ (<strong>${Math.round(worst.v/WHO_PM25_GUIDELINE)}× the WHO limit</strong>).`),
+                row(`Cleanest: <strong>${best.name}</strong> &mdash; ~${best.v} µg/m³.`),
+                row(`Spread: <strong>${best.v}–${worst.v} µg/m³</strong> in one city, same hour.`)
+            ]);
+        } else if (layer === 'lst') {
+            const s = [...vals].sort((a, b) => b.v - a.v), hot = s[0], cool = s[n - 1];
+            const k = Math.max(1, Math.round(n * 0.2));
+            const hotG = s.slice(0, k), coolG = s.slice(-k);
+            const avg = (arr, key) => Math.round(arr.reduce((t, x) => t + (x.p[key] || 0), 0) / arr.length);
+            el.innerHTML = wrap([
+                row(`Hottest: <strong>${hot.name}</strong> &mdash; <strong>${hot.v}°C</strong> surface temp.`),
+                row(`Coolest: <strong>${cool.name}</strong> &mdash; ${cool.v}°C.`),
+                row(`That's a <strong>${(hot.v - cool.v).toFixed(1)}°C gap</strong> across wards on the same afternoon.`),
+                row(`The hottest fifth of wards average <strong>${avg(hotG,'built')}% built / ${avg(hotG,'green')}% green</strong>; the coolest fifth <strong>${avg(coolG,'built')}% built / ${avg(coolG,'green')}% green</strong> &mdash; the heat-island effect, in your city's own data.`)
+            ]);
+        } else if (layer === 'green' || layer === 'built') {
+            const s = [...vals].sort((a, b) => b.v - a.v), most = s[0], least = s[n - 1];
+            const med = [...vals].map(x => x.v).sort((a, b) => a - b)[Math.floor(n / 2)];
+            if (layer === 'green') {
+                const bare = vals.filter(v => v.v < 10).length;
+                el.innerHTML = wrap([
+                    row(`Greenest: <strong>${most.name}</strong> &mdash; <strong>${most.v}%</strong> vegetation.`),
+                    row(`Least green: <strong>${least.name}</strong> &mdash; ${least.v}%.`),
+                    row(`<strong>${bare}/${n}</strong> wards have under <strong>10%</strong> green cover.`),
+                    row(`Median ward: <strong>${med}%</strong> green.`)
+                ]);
+            } else {
+                const dense = vals.filter(v => v.v > 80).length;
+                el.innerHTML = wrap([
+                    row(`Most built-up: <strong>${most.name}</strong> &mdash; <strong>${most.v}%</strong> concrete.`),
+                    row(`Least built-up: <strong>${least.name}</strong> &mdash; ${least.v}%.`),
+                    row(`<strong>${dense}/${n}</strong> wards are over <strong>80%</strong> built-up.`),
+                    row(`Median ward: <strong>${med}%</strong> built-up.`)
+                ]);
+            }
+        }
+    }
+
+    function wardRenderMethod(layer) {
+        const el = document.getElementById('ward-method'); if (!el) return;
+        const date = wardState.geo && wardState.geo.lst_date;
+        if (layer === 'pm25') {
+            el.innerHTML = `<strong>How this is built:</strong> each ward&rsquo;s value is <strong>interpolated</strong> from the city&rsquo;s live CPCB/WAQI monitors (inverse-distance weighted) &mdash; the citywide <em>spread</em>, not a calibrated per-street reading, and sharper where there are more monitors. The heat / green / built-up layers, by contrast, are measured directly by satellite.`;
+        } else if (layer === 'lst') {
+            el.innerHTML = `<strong>Heat layer:</strong> land-surface temperature from <strong>Landsat 8/9</strong> (~30&nbsp;m)${date ? `, a clear-sky scene on <strong>${date}</strong>` : ''}. This is the temperature of the <em>ground</em> on one hot-season afternoon &mdash; hotter than air temperature, and a snapshot, not an annual average. Colours are scaled within each city.`;
+        } else if (layer === 'green') {
+            el.innerHTML = `<strong>Green layer:</strong> vegetation cover from <strong>ESA WorldCover 2021</strong> (10&nbsp;m satellite land cover) &mdash; tree, shrub, grass, cropland and wetland classes as a share of each ward&rsquo;s area.`;
+        } else if (layer === 'built') {
+            el.innerHTML = `<strong>Built-up layer:</strong> built / impervious surface from <strong>ESA WorldCover 2021</strong> (10&nbsp;m satellite land cover) as a share of each ward&rsquo;s area.`;
+        }
+    }
+
+    function wardRenderStatus(layer) {
+        const el = document.getElementById('ward-map-status'); if (!el) return;
+        const n = wardState.geo ? wardState.geo.features.length : 0;
+        if (layer === 'pm25') {
+            const st = wardState.stations;
+            el.textContent = (st && st.pts.length)
+                ? `${n} wards · estimated from ${st.pts.length} live monitors · ${new Date(st.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. Estimate of citywide spread, not a calibrated per-ward reading.`
+                : 'No live monitors are reporting right now.';
+        } else if (layer === 'lst') {
+            el.textContent = `${n} wards · Landsat 8/9 surface temperature${wardState.geo.lst_date ? ' · ' + wardState.geo.lst_date : ''} · ~30 m.`;
+        } else {
+            el.textContent = `${n} wards · ESA WorldCover 2021 · 10 m satellite land cover.`;
+        }
+    }
 
     window.initWardMap = async function initWardMap(force) {
         const host = document.getElementById('ward-map-canvas');
@@ -4707,51 +4879,38 @@ body {
         // Load ward geometry (cached)
         let geo = wardGeoCache[cityKey];
         if (!geo) {
-            try {
-                const r = await fetch(WARD_FILES[cityKey]);
-                geo = await r.json();
-                wardGeoCache[cityKey] = geo;
-            } catch (e) { if (statusEl) statusEl.textContent = 'Could not load ward boundaries.'; return; }
+            if (statsEl) statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading wards…</div>';
+            try { geo = await (await fetch(WARD_FILES[cityKey])).json(); wardGeoCache[cityKey] = geo; }
+            catch (e) { if (statusEl) statusEl.textContent = 'Could not load ward boundaries.'; return; }
         }
 
-        // Live stations (cached 10 min unless forced)
+        // Live stations for the PM2.5 layer (cached 10 min unless forced)
         let stations = wardLiveCache[cityKey];
         if (force || !stations || (Date.now() - stations.ts > 10 * 60 * 1000)) {
-            if (statsEl) statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings…</div>';
             const pts = await wardFetchStations(city);
             stations = { ts: Date.now(), pts };
             wardLiveCache[cityKey] = stations;
         }
-
-        // Compute per-ward PM2.5 by IDW
-        const vals = [];
         geo.features.forEach(f => {
             const p = f.properties;
             const r = stations.pts.length ? wardIDW(p.cx, p.cy, stations.pts) : null;
             p._pm = r ? r.pm : null;
-            if (r) vals.push({ name: p.name, pm: r.pm });
         });
+
+        wardState = { cityKey, geo, stations };
 
         // (Re)create the map
         if (wardMap) { try { wardMap.remove(); } catch (e) {} wardMap = null; wardLayer = null; }
         wardMap = L.map(host, { scrollWheelZoom: false, attributionControl: true });
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap, © CARTO | live AQI via WAQI', subdomains: 'abcd', maxZoom: 18
+            attribution: '© OpenStreetMap, © CARTO | AQI: WAQI · land cover: ESA WorldCover · heat: USGS Landsat', subdomains: 'abcd', maxZoom: 18
         }).addTo(wardMap);
-
         wardLayer = L.geoJSON(geo, {
-            style: f => ({
-                fillColor: wardPM25Color(f.properties._pm),
-                weight: 0.5, color: '#ffffff', fillOpacity: 0.78
-            }),
+            style: { weight: 0.5, color: '#ffffff', fillOpacity: 0.8 },
             onEachFeature: (f, lyr) => {
-                const p = f.properties;
-                lyr.bindTooltip(
-                    `<strong>${p.name}</strong><br>${p._pm != null ? 'Est. PM2.5: ' + p._pm + ' µg/m³ (' + wardPM25Label(p._pm) + ')' : 'No estimate'}`,
-                    { sticky: true }
-                );
+                lyr.bindTooltip('', { sticky: true });
                 lyr.on({
-                    mouseover: e => e.target.setStyle({ weight: 2, color: '#1f2937', fillOpacity: 0.9 }),
+                    mouseover: e => e.target.setStyle({ weight: 2, color: '#1f2937', fillOpacity: 0.92 }),
                     mouseout: e => wardLayer.resetStyle(e.target)
                 });
             }
@@ -4759,32 +4918,7 @@ body {
         try { wardMap.fitBounds(wardLayer.getBounds(), { padding: [12, 12] }); } catch (e) {}
         setTimeout(() => { try { wardMap.invalidateSize(); } catch (e) {} }, 200);
 
-        // "But…" live stats
-        if (statsEl) {
-            if (!vals.length) {
-                statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;">No live stations reporting for this city right now. Try Refresh shortly.</div>';
-            } else {
-                vals.sort((a, b) => b.pm - a.pm);
-                const worst = vals[0], best = vals[vals.length - 1];
-                const n = vals.length;
-                const above90 = vals.filter(v => v.pm > 90).length;   // worse than CPCB 'Moderate'
-                const above250 = vals.filter(v => v.pm > 250).length; // 'Severe'
-                const whoX = Math.round(worst.pm / WHO_PM25_GUIDELINE);
-                const row = (txt) => `<li style="margin-bottom:0.4rem;">${txt}</li>`;
-                statsEl.innerHTML = `<ul style="margin:0; padding-left:1.1rem; font-size:0.86rem; color:var(--text-2); line-height:1.5;">
-                    ${row(`<strong>${above90}/${n}</strong> wards are in <strong>Poor or worse</strong> air (PM2.5 &gt; 90 µg/m³) right now.`)}
-                    ${above250 ? row(`<strong>${above250}</strong> ward(s) are in the <strong>Severe</strong> band (&gt; 250 µg/m³).`) : ''}
-                    ${row(`Dirtiest: <strong>${worst.name}</strong> &mdash; ~${worst.pm} µg/m³ (<strong>${whoX}× the WHO limit</strong>).`)}
-                    ${row(`Cleanest: <strong>${best.name}</strong> &mdash; ~${best.pm} µg/m³.`)}
-                    ${row(`Spread across wards: <strong>${best.pm}–${worst.pm} µg/m³</strong> in one city, same hour.`)}
-                </ul>`;
-            }
-        }
-        if (statusEl) {
-            statusEl.textContent = stations.pts.length
-                ? `${geo.features.length} wards · estimated from ${stations.pts.length} live monitors · ${new Date(stations.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. Estimate of citywide spread, not a calibrated per-ward reading.`
-                : 'No live monitors are reporting right now.';
-        }
+        wardRenderLayer();
     };
 
     // ── PM2.5/AQI Utilities ──
@@ -17979,7 +18113,7 @@ Yours faithfully,
 <template id="tmpl-ward-map">
     <div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; margin-bottom: 0.6rem; color: var(--ink);">How polluted is your ward?</h2>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward by how dirty its air is right now, so you can see that two wards in the same city can breathe very different air. Pick Delhi, Bengaluru or Jaipur — more cities are being added.">A city is not a single AQI number. This map colours <strong>every municipal ward</strong> by its air right now &mdash; so you can see that two wards in the same city often breathe very different air. Choose a city below &mdash; <strong>Delhi, Bengaluru and Jaipur</strong> are live, more are being added.</p>
+        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward four ways: air pollution right now, summer heat, green cover, and how built-up it is. Switch layers to see how concrete and missing greenery line up with heat. Pick a city — more are being added.">A city is not a single number. This map colours <strong>every municipal ward</strong> four ways &mdash; <strong>air pollution</strong> (live), <strong>summer heat</strong>, <strong>green cover</strong> and <strong>built-up area</strong> (satellite). Switch layers and watch how concrete and missing greenery line up with heat. Choose a city below &mdash; more are being added.</p>
     </div>
 
     <div class="card mb-2">
@@ -17994,11 +18128,11 @@ Yours faithfully,
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
                 <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;">Layer</span>
-                <button type="button" class="ward-layer-btn active" data-layer="pm25" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25')" style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer;">Air quality (PM2.5)</button>
-                <button type="button" class="ward-layer-btn" data-layer="heat" title="Coming soon — needs satellite land-surface-temperature data" disabled style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-4); cursor:not-allowed;">Heat · soon</button>
-                <button type="button" class="ward-layer-btn" data-layer="green" title="Coming soon — needs satellite green-cover data" disabled style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-4); cursor:not-allowed;">Green · soon</button>
-                <button type="button" class="ward-layer-btn" data-layer="builtup" title="Coming soon — needs satellite built-up data" disabled style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-4); cursor:not-allowed;">Built-up · soon</button>
-                <button type="button" onclick="window.initWardMap &amp;&amp; window.initWardMap(true)" style="font-size:0.78rem; font-weight:600; padding:0.3rem 0.7rem; border-radius:14px; border:1px solid var(--border); background:var(--green-50); color:var(--accent); cursor:pointer;"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
+                <button type="button" class="ward-layer-btn active" data-layer="pm25" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25')">Air quality</button>
+                <button type="button" class="ward-layer-btn" data-layer="lst" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('lst')">Heat</button>
+                <button type="button" class="ward-layer-btn" data-layer="green" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('green')">Green cover</button>
+                <button type="button" class="ward-layer-btn" data-layer="built" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('built')">Built-up</button>
+                <button type="button" onclick="window.initWardMap &amp;&amp; window.initWardMap(true)" style="font-size:0.78rem; font-weight:600; padding:0.32rem 0.72rem; border-radius:14px; border:1px solid var(--border); background:var(--green-50); color:var(--accent); cursor:pointer;" title="Refresh live air-quality readings"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
             </div>
         </div>
     </div>
@@ -18006,15 +18140,7 @@ Yours faithfully,
     <div class="ward-grid">
         <div class="card" style="overflow:hidden;">
             <div id="ward-map-canvas" class="ward-canvas"></div>
-            <div style="padding:0.6rem 0.9rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; border-top:1px solid var(--border);">
-                <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3);">PM2.5 µg/m³</span>
-                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#55a84f;vertical-align:middle;margin-right:3px;"></span>0–30</span>
-                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#a3c853;vertical-align:middle;margin-right:3px;"></span>31–60</span>
-                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#e6c93b;vertical-align:middle;margin-right:3px;"></span>61–90</span>
-                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#f29c33;vertical-align:middle;margin-right:3px;"></span>91–120</span>
-                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#e93f33;vertical-align:middle;margin-right:3px;"></span>121–250</span>
-                <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#af2d24;vertical-align:middle;margin-right:3px;"></span>250+</span>
-            </div>
+            <div id="ward-legend" style="padding:0.6rem 0.9rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; border-top:1px solid var(--border);"></div>
         </div>
 
         <div>
@@ -18024,9 +18150,7 @@ Yours faithfully,
                     <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
                 </div>
             </div>
-            <div class="alert alert-info" style="margin:0;"><div data-simple="How this works: we estimate each ward's PM2.5 from the city's nearest live government monitors (closer monitors count more). It is an estimate to show the spread across the city, not an exact reading for every street. Cities with more monitors (like Delhi) give a sharper picture. Real per-ward satellite air-quality data is the next upgrade.">
-                <strong>How this is built:</strong> each ward&rsquo;s value is <strong>interpolated</strong> from the city&rsquo;s live CPCB/WAQI monitors (inverse-distance weighted). It reveals the citywide <em>spread</em> &mdash; not a calibrated per-street reading, and it&rsquo;s sharper where there are more monitors (Delhi has ~40). Satellite-derived per-ward PM2.5 is the planned upgrade.
-            </div></div>
+            <div class="alert alert-info" style="margin:0;"><div id="ward-method"></div></div>
         </div>
     </div>
 
