@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149), closed not-planned): no openly-fetchable ~1 km PM2.5 raster exists (ACAG is portal-gated; Planetary Computer hosts only Sentinel-3 aerosol optical depth, not a calibrated PM2.5 product). The air layer remains live-interpolated.
 - **Surat ward map** ([#150](https://github.com/JanVayu/JanVayu/issues/150), closed not-planned): no open ward-boundary file exists. Chandigarh was added as the 10th city in its place.
 
+### Fixed
+
+- Ward map: the "How this is built" explanation could be blank on first paint of the default Air-quality layer if a non-critical UI step (touch-pan / search datalist) threw before the layer rendered. The layer now renders first and those enhancements run after, guarded; the air-layer explanation is also seeded into the template so it shows even before JS runs. Service-worker cache bumped to refresh returning visitors.
+
 ## [v26.6.25] - 2026-06-11
 
 ### Added — Ward Atlas polish ([#151](https://github.com/JanVayu/JanVayu/issues/151))

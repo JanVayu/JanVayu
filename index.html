@@ -4966,23 +4966,27 @@ body {
         try { wardMap.fitBounds(wardLayer.getBounds(), { padding: [12, 12] }); } catch (e) {}
         setTimeout(() => { try { wardMap.invalidateSize(); } catch (e) {} }, 200);
 
-        // Two-finger pan on touch: one finger scrolls the page, two fingers move the map
-        if (L.Browser && L.Browser.touch) {
-            wardMap.dragging.disable();
-            const c = wardMap.getContainer();
-            c.addEventListener('touchstart', e => { e.touches.length >= 2 ? wardMap.dragging.enable() : wardMap.dragging.disable(); }, { passive: true });
-            c.addEventListener('touchend', e => { if (e.touches.length < 2) wardMap.dragging.disable(); }, { passive: true });
-            const hint = L.control({ position: 'bottomleft' });
-            hint.onAdd = function () { const d = L.DomUtil.create('div'); d.style.cssText = 'background:rgba(0,0,0,0.55);color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:4px;'; d.textContent = 'Use two fingers to move the map'; return d; };
-            hint.addTo(wardMap);
-        }
-
-        // Populate ward search datalist
-        const dl = document.getElementById('ward-search-list');
-        if (dl) dl.innerHTML = geo.features.map(f => `<option value="${(f.properties.name || '').replace(/"/g, '&quot;')}">`).join('');
-        const si = document.getElementById('ward-search'); if (si) si.value = '';
-
+        // Render the active layer FIRST (colours, legend, stats, explanation, correlation)
+        // so nothing below can ever block it.
         wardRenderLayer();
+
+        // Non-critical UI enhancements — guarded so a failure here can't blank the panel.
+        try {
+            // Two-finger pan on touch: one finger scrolls the page, two fingers move the map
+            if (L.Browser && L.Browser.touch) {
+                wardMap.dragging.disable();
+                const c = wardMap.getContainer();
+                c.addEventListener('touchstart', e => { e.touches.length >= 2 ? wardMap.dragging.enable() : wardMap.dragging.disable(); }, { passive: true });
+                c.addEventListener('touchend', e => { if (e.touches.length < 2) wardMap.dragging.disable(); }, { passive: true });
+                const hint = L.control({ position: 'bottomleft' });
+                hint.onAdd = function () { const d = L.DomUtil.create('div'); d.style.cssText = 'background:rgba(0,0,0,0.55);color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:4px;'; d.textContent = 'Use two fingers to move the map'; return d; };
+                hint.addTo(wardMap);
+            }
+            // Populate ward search datalist
+            const dl = document.getElementById('ward-search-list');
+            if (dl) dl.innerHTML = geo.features.map(f => `<option value="${(f.properties.name || '').replace(/"/g, '&quot;')}">`).join('');
+            const si = document.getElementById('ward-search'); if (si) si.value = '';
+        } catch (e) { console.warn('[JanVayu] ward UI enhancement:', e); }
     };
 
     // Zoom to a ward by name; highlight + open its tooltip
@@ -18288,7 +18292,7 @@ Yours faithfully,
                     <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
                 </div>
             </div>
-            <div class="alert alert-info" style="margin:0;"><div id="ward-method"></div></div>
+            <div class="alert alert-info" style="margin:0;"><div id="ward-method"><strong>How this is built:</strong> on the <em>Air quality</em> layer, each ward&rsquo;s value is <strong>interpolated</strong> from the city&rsquo;s live CPCB/WAQI monitors (inverse-distance weighted) &mdash; the citywide <em>spread</em>, not a calibrated per-street reading, and sharper where there are more monitors. The heat / green / built-up layers, by contrast, are measured directly by satellite.</div></div>
             <div class="card mt-2" id="ward-corr-card" style="display:none;">
                 <div class="card-header"><span class="card-title" id="ward-corr-title" style="font-size:0.85rem;">Relationship</span></div>
                 <div class="card-body" style="padding:0.6rem;">
