@@ -4648,7 +4648,11 @@ body {
     // Satellite-derived per-ward PM2.5 (true coverage) is the planned upgrade.
     let wardMap = null, wardLayer = null, wardCurrentLayer = 'pm25';
     const wardGeoCache = {}, wardLiveCache = {};
-    const WARD_FILES = { delhi: '/data/wards/delhi.json', bangalore: '/data/wards/bangalore.json', jaipur: '/data/wards/jaipur.json' };
+    const WARD_FILES = {
+        delhi: '/data/wards/delhi.json', mumbai: '/data/wards/mumbai.json', bangalore: '/data/wards/bangalore.json',
+        hyderabad: '/data/wards/hyderabad.json', ahmedabad: '/data/wards/ahmedabad.json', chennai: '/data/wards/chennai.json',
+        kolkata: '/data/wards/kolkata.json', pune: '/data/wards/pune.json', jaipur: '/data/wards/jaipur.json'
+    };
 
     function wardPM25Color(v) {
         if (v == null || isNaN(v)) return '#cfcfcf';
@@ -18122,7 +18126,13 @@ Yours faithfully,
                 <label class="form-label" style="margin:0;">City</label>
                 <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px;">
                     <option value="delhi">Delhi — 290 wards</option>
+                    <option value="mumbai">Mumbai — 227 wards</option>
                     <option value="bangalore">Bengaluru — 243 wards</option>
+                    <option value="hyderabad">Hyderabad — 145 wards</option>
+                    <option value="ahmedabad">Ahmedabad — 48 wards</option>
+                    <option value="chennai">Chennai — 201 wards</option>
+                    <option value="kolkata">Kolkata — 141 wards</option>
+                    <option value="pune">Pune — 58 wards</option>
                     <option value="jaipur">Jaipur — 77 wards</option>
                 </select>
             </div>
