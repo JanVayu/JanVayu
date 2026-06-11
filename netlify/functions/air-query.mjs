@@ -8,6 +8,14 @@ const REF_DATA = JSON.parse(
   readFileSync(new URL('./data/reference-data.json', import.meta.url), 'utf8')
 );
 
+// v26.6.27 — Ward Atlas data (10 cities, satellite-derived per-ward heat /
+// green cover / built-up). Lets the chatbot answer "hottest/greenest/most
+// built-up ward in <city>" and per-ward lookups. Per-ward AIR quality is
+// live-interpolated on the map only, so it is intentionally NOT in here.
+const WARD_DATA = JSON.parse(
+  readFileSync(new URL('./data/ward-stats.json', import.meta.url), 'utf8')
+);
+
 // Netlify Function: Natural Language Query Interface for JanVayu
 // Accepts a question + city, fetches live AQI, sends to Groq for analysis.
 //
@@ -967,7 +975,40 @@ ${instruction9}
 13. For station-count questions: ALWAYS use the CPCB REFERENCE data if present in the DATA CONTEXT. Report the TOTAL count first, then bifurcate into CAAQMS (continuous, real-time) and manual (gravimetric, 24-hr sampling) stations. Also mention the CPCB national figure (~533 CAAQMS). If asking about low-cost sensors, use the community sensor data if available.
 14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.
 15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.
-16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.`;
+16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.
+17. For ward / neighbourhood-level questions (hottest, coolest, greenest, least-green, most/least built-up ward — or a named ward's heat/green/built-up): if a WARD ATLAS DATA block is present, use its numbers verbatim and cite "JanVayu Ward Atlas". These are satellite-measured per-ward values (Landsat surface temperature, ESA WorldCover green/built-up) for 10 cities. For per-ward AIR quality specifically, tell the user that PM2.5 is interpolated live on the map and point them to janvayu.in/#ward-map.`;
+}
+
+// v26.6.27 — Ward-level intent + context builder for the Ward Atlas.
+function isWardQuery(question) {
+  const q = question.toLowerCase();
+  if (/\b(ward|wards)\b/.test(q)) return true;
+  const metric = /\b(green(est|ery)?|vegetation|tree cover|built[- ]?up|concrete|impervious|hottest|coolest|surface temp|land[- ]surface temp|heat island)\b/.test(q);
+  const locator = /\b(which|where|area|areas|part|parts|neighbourhood|neighborhood|locality|localities|map|atlas)\b/.test(q);
+  return metric && locator;
+}
+
+function buildWardContext(question, fallbackKey) {
+  const key = extractCityFromQuestion(question, fallbackKey);
+  const city = WARD_DATA[key];
+  if (!city) {
+    const list = Object.values(WARD_DATA).map(c => c.name).join(", ");
+    return `\n\nWARD ATLAS NOTE: JanVayu's ward-level atlas covers ${list}. The city asked about isn't in the atlas yet — point the user to the Ward Atlas map at janvayu.in/#ward-map.`;
+  }
+  const wards = city.wards;
+  const maxBy = (arr, k) => arr.reduce((a, b) => (b[k] > a[k] ? b : a));
+  const minBy = (arr, k) => arr.reduce((a, b) => (b[k] < a[k] ? b : a));
+  const T = wards.filter(w => w.t != null), G = wards.filter(w => w.g != null), B = wards.filter(w => w.b != null);
+  let block = `\n\nWARD ATLAS DATA for ${city.name} (JanVayu Ward Atlas — ${wards.length} municipal wards, satellite-derived):`;
+  if (T.length) { const h = maxBy(T, "t"), c = minBy(T, "t"); block += `\n• Heat (Landsat land-surface temp${city.lst_date ? ", " + city.lst_date : ""}): hottest ward ${h.n} (${h.t}°C), coolest ${c.n} (${c.t}°C).`; }
+  if (G.length) { const g = maxBy(G, "g"), l = minBy(G, "g"); block += `\n• Green cover (ESA WorldCover 2021): greenest ward ${g.n} (${g.g}%), least green ${l.n} (${l.g}%).`; }
+  if (B.length) { const b = maxBy(B, "b"), l = minBy(B, "b"); block += `\n• Built-up: most built-up ward ${b.n} (${b.b}%), least built-up ${l.n} (${l.b}%).`; }
+  // Optional: a specific ward named in the question
+  const q = question.toLowerCase();
+  const named = wards.find(w => w.n && w.n.length > 3 && q.includes(w.n.toLowerCase()));
+  if (named) block += `\n• Named ward "${named.n}": ${named.t != null ? named.t + "°C surface temp, " : ""}${named.g != null ? named.g + "% green, " : ""}${named.b != null ? named.b + "% built-up" : ""}.`;
+  block += `\nNOTE: per-ward AIR QUALITY (PM2.5) is interpolated live on the map (janvayu.in/#ward-map), not in this dataset — for ward air quality, direct the user to the map. The heat/green/built-up figures above are satellite-measured.`;
+  return block;
 }
 
 export default async function handler(req) {
@@ -1164,6 +1205,13 @@ Top 5 worst: ${top5}
       const mix = nat.sources.map(s => `  • ${s.name}: ${s.pct}%${s.note ? " — " + s.note : ""}`).join("\n");
       dataContext += `\n\nNATIONAL SOURCE APPORTIONMENT (no city-specific study indexed for ${aqiResult.city}; using national synthesis):\n${mix}\nCitation: ${nat.citation}\nNote: ${nat.note}`;
     }
+  }
+
+  // v26.6.27 — Ward Atlas block when the user asks about wards / neighbourhood-
+  // level heat, green cover or built-up.
+  if (isWardQuery(question)) {
+    const wardBlock = buildWardContext(question, cityKey);
+    if (wardBlock) dataContext += wardBlock;
   }
 
   // v26.6.15 Phase C — RTI drafting when the user asks for one.

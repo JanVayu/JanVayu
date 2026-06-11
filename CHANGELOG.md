@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.27] - 2026-06-11
+
+### Added — Ward Atlas data wired into Ask JanVayu
+
+- The chatbot (`air-query.mjs`) can now answer **ward / neighbourhood-level** questions from the Ward Atlas: "which ward in Delhi is hottest / coolest / greenest / most built-up", and per-ward lookups ("how green is Ward 13 in Chandigarh"). A compact, geometry-free `ward-stats.json` (10 cities, 1,458 wards: heat, green %, built-up %) is bundled with the function; a `isWardQuery` detector + `buildWardContext` builder inject real per-ward numbers into the prompt, and a new system instruction (#17) tells the model to cite "JanVayu Ward Atlas".
+- Per-ward **air quality** is intentionally not in the dataset (it's interpolated live on the map) — the bot points users to janvayu.in/#ward-map for ward air quality.
+- Discoverability: a "Which Delhi ward is hottest?" example chip added to the in-page Ask panel and the `/ask/` PWA.
+
+### Fixed
+
+- Delhi ward data: one boundary feature had no name/number in the source (DataMeet) and displayed as "Ward None" on the map and in chatbot answers; relabelled to "Unnamed Ward".
+
 ## [v26.6.26] - 2026-06-11
 
 ### Added — Ward Atlas: 10th city (Chandigarh)
