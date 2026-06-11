@@ -976,19 +976,59 @@ ${instruction9}
 14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.
 15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.
 16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.
-17. For ward / neighbourhood-level questions (hottest, coolest, greenest, least-green, most/least built-up ward — or a named ward's heat/green/built-up): if a WARD ATLAS DATA block is present, use its numbers verbatim and cite "JanVayu Ward Atlas". These are satellite-measured per-ward values (Landsat surface temperature, ESA WorldCover green/built-up) for 10 cities. For per-ward AIR quality specifically, tell the user that PM2.5 is interpolated live on the map and point them to janvayu.in/#ward-map.`;
+17. For ward / neighbourhood-level questions, JanVayu is an AIR-QUALITY assistant — so LEAD WITH AIR. If a WARD-LEVEL DATA block is present: open with the per-ward PM2.5 answer (worst-air / cleanest-air ward, the citywide spread, or the named ward's air), state the band (Good/Moderate/Poor/etc.), and note it's a live interpolated estimate. THEN make the answer wholesome by reading that ward's OWN structural drivers and explaining honestly: if the dirtiest-air ward really is densely built-up and low-green, explain that built-up areas trap pollution and radiate heat while greenery scrubs and cools — so it compounds. BUT if the numbers don't fit (e.g. the dirtiest ward today is a leafy fringe), SAY SO plainly — "today's reading there is likely from a nearby source or weather, not urban form" — and note the built-up link is a typical/annual tendency, not a rule for any single hour. Never force a narrative the data contradicts, and never present greenest/most-built-up/hottest as standalone trivia — always tie back to the air people breathe and their health. Cite "interpolated from CPCB/WAQI" for the air and "JanVayu Ward Atlas / ESA WorldCover / Landsat" for the drivers. Point to janvayu.in/#ward-map. Keep the warmth: this is someone asking about their own neighbourhood.`;
 }
 
-// v26.6.27 — Ward-level intent + context builder for the Ward Atlas.
+// v26.6.28 — Ward-level intent + AIR-FIRST context builder for the Ward Atlas.
+// JanVayu is an air-quality platform: the chatbot leads with per-ward AIR
+// quality (live PM2.5, interpolated from CPCB/WAQI monitors to each ward
+// centroid). Heat / green cover / built-up are surfaced only as the WHY —
+// the drivers that explain why a ward's air is dirtier or cleaner.
 function isWardQuery(question) {
   const q = question.toLowerCase();
   if (/\b(ward|wards)\b/.test(q)) return true;
-  const metric = /\b(green(est|ery)?|vegetation|tree cover|built[- ]?up|concrete|impervious|hottest|coolest|surface temp|land[- ]surface temp|heat island)\b/.test(q);
-  const locator = /\b(which|where|area|areas|part|parts|neighbourhood|neighborhood|locality|localities|map|atlas)\b/.test(q);
+  const metric = /\b(air|pollut|pm2\.?5|aqi|green(est|ery)?|vegetation|tree cover|built[- ]?up|concrete|impervious|hottest|coolest|surface temp|heat island)\b/.test(q);
+  const locator = /\b(which|where|area|areas|part|parts|neighbourhood|neighborhood|locality|localities)\b/.test(q);
   return metric && locator;
 }
 
-function buildWardContext(question, fallbackKey) {
+// US-EPA AQI (PM2.5 sub-index) → µg/m³, matching the map's conversion.
+function aqiToPm25(aqi) {
+  const bp = [[0,12,0,50],[12.1,35.4,51,100],[35.5,55.4,101,150],[55.5,150.4,151,200],[150.5,250.4,201,300],[250.5,350.4,301,400],[350.5,500.4,401,500]];
+  for (const [cl,ch,il,ih] of bp) { if (aqi >= il && aqi <= ih) return Math.round((aqi-il)/(ih-il)*(ch-cl)+cl); }
+  return aqi > 500 ? 500 : null;
+}
+
+// Live stations (with coordinates) for per-ward interpolation.
+async function fetchWardStations(cityKey) {
+  const city = CITIES[cityKey];
+  if (!city) return [];
+  const bounds = `${city.lat - 0.4},${city.lon - 0.5},${city.lat + 0.4},${city.lon + 0.5}`;
+  try {
+    const res = await fetch(`https://api.waqi.info/map/bounds/?latlng=${bounds}&token=${WAQI_TOKEN}`, { signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+    if (data.status === "ok" && Array.isArray(data.data)) {
+      return data.data.map(s => {
+        const aqi = parseInt(s.aqi);
+        return { lat: +s.lat, lon: +s.lon, pm: isNaN(aqi) ? null : aqiToPm25(aqi) };
+      }).filter(s => s.pm != null && s.lat && s.lon);
+    }
+  } catch (e) { console.log(`ward stations ${cityKey}:`, e.message); }
+  return [];
+}
+
+function idwPm(cx, cy, stations) {
+  let num = 0, den = 0;
+  for (const s of stations) { const w = 1 / ((cx - s.lon) ** 2 + (cy - s.lat) ** 2 + 1e-6); num += w * s.pm; den += w; }
+  return den ? Math.round(num / den) : null;
+}
+function pm25Band(v) {
+  if (v == null) return "no estimate";
+  if (v <= 30) return "Good"; if (v <= 60) return "Satisfactory"; if (v <= 90) return "Moderate";
+  if (v <= 120) return "Poor"; if (v <= 250) return "Very Poor"; return "Severe";
+}
+
+async function buildWardContext(question, fallbackKey) {
   const key = extractCityFromQuestion(question, fallbackKey);
   const city = WARD_DATA[key];
   if (!city) {
@@ -996,18 +1036,38 @@ function buildWardContext(question, fallbackKey) {
     return `\n\nWARD ATLAS NOTE: JanVayu's ward-level atlas covers ${list}. The city asked about isn't in the atlas yet — point the user to the Ward Atlas map at janvayu.in/#ward-map.`;
   }
   const wards = city.wards;
+  // AIR FIRST — interpolate live PM2.5 to each ward centroid.
+  const stations = await fetchWardStations(key);
+  const air = stations.length ? wards.map(w => ({ ...w, pm: idwPm(w.x, w.y, stations) })).filter(w => w.pm != null) : [];
   const maxBy = (arr, k) => arr.reduce((a, b) => (b[k] > a[k] ? b : a));
   const minBy = (arr, k) => arr.reduce((a, b) => (b[k] < a[k] ? b : a));
+  const ctx = w => [w.b != null ? `${w.b}% built-up` : null, w.g != null ? `${w.g}% green` : null, w.t != null ? `${w.t}°C surface temp` : null].filter(Boolean).join(", ");
+
+  let block = `\n\nWARD-LEVEL DATA for ${city.name} (JanVayu Ward Atlas, ${wards.length} municipal wards):`;
+  if (air.length) {
+    const worst = maxBy(air, "pm"), best = minBy(air, "pm");
+    const pmv = air.map(w => w.pm);
+    block += `\n• AIR QUALITY (primary — PM2.5 interpolated from ${stations.length} live CPCB/WAQI monitors right now, an estimate of the citywide spread):`;
+    block += `\n   - Worst-air ward: ${worst.n} ~${worst.pm} µg/m³ (${pm25Band(worst.pm)}). Context that helps explain it: ${ctx(worst) || "n/a"}.`;
+    block += `\n   - Cleanest-air ward: ${best.n} ~${best.pm} µg/m³ (${pm25Band(best.pm)}). Context: ${ctx(best) || "n/a"}.`;
+    block += `\n   - Spread across wards: ${Math.min(...pmv)}–${Math.max(...pmv)} µg/m³ in one city, same hour.`;
+  } else {
+    block += `\n• AIR QUALITY: no live monitors reporting for ${city.name} right now, so per-ward PM2.5 can't be estimated this moment. The live map at janvayu.in/#ward-map updates through the day.`;
+  }
+  // Drivers — structural context for the air, never the headline.
   const T = wards.filter(w => w.t != null), G = wards.filter(w => w.g != null), B = wards.filter(w => w.b != null);
-  let block = `\n\nWARD ATLAS DATA for ${city.name} (JanVayu Ward Atlas — ${wards.length} municipal wards, satellite-derived):`;
-  if (T.length) { const h = maxBy(T, "t"), c = minBy(T, "t"); block += `\n• Heat (Landsat land-surface temp${city.lst_date ? ", " + city.lst_date : ""}): hottest ward ${h.n} (${h.t}°C), coolest ${c.n} (${c.t}°C).`; }
-  if (G.length) { const g = maxBy(G, "g"), l = minBy(G, "g"); block += `\n• Green cover (ESA WorldCover 2021): greenest ward ${g.n} (${g.g}%), least green ${l.n} (${l.g}%).`; }
-  if (B.length) { const b = maxBy(B, "b"), l = minBy(B, "b"); block += `\n• Built-up: most built-up ward ${b.n} (${b.b}%), least built-up ${l.n} (${l.b}%).`; }
-  // Optional: a specific ward named in the question
+  block += `\n• STRUCTURAL DRIVERS (annual satellite values — they shape TYPICAL air, but today's live reading can be driven by weather, a nearby source or monitor placement; only invoke a driver if the worst/cleanest ward's OWN numbers above actually support it):`;
+  if (B.length) { const b = maxBy(B, "b"), l = minBy(B, "b"); block += `\n   - Built-up (traps pollution + radiates heat): most ${b.n} (${b.b}%), least ${l.n} (${l.b}%).`; }
+  if (G.length) { const g = maxBy(G, "g"), l = minBy(G, "g"); block += `\n   - Green cover (scrubs particulates + cools): greenest ${g.n} (${g.g}%), least ${l.n} (${l.g}%).`; }
+  if (T.length) { const h = maxBy(T, "t"), c = minBy(T, "t"); block += `\n   - Surface heat (drives ozone, worsens health impact): hottest ${h.n} (${h.t}°C), coolest ${c.n} (${c.t}°C).`; }
+  // Specific named ward — air first, drivers as context.
   const q = question.toLowerCase();
   const named = wards.find(w => w.n && w.n.length > 3 && q.includes(w.n.toLowerCase()));
-  if (named) block += `\n• Named ward "${named.n}": ${named.t != null ? named.t + "°C surface temp, " : ""}${named.g != null ? named.g + "% green, " : ""}${named.b != null ? named.b + "% built-up" : ""}.`;
-  block += `\nNOTE: per-ward AIR QUALITY (PM2.5) is interpolated live on the map (janvayu.in/#ward-map), not in this dataset — for ward air quality, direct the user to the map. The heat/green/built-up figures above are satellite-measured.`;
+  if (named) {
+    const np = stations.length ? idwPm(named.x, named.y, stations) : null;
+    block += `\n• NAMED WARD "${named.n}": ${np != null ? `air ~${np} µg/m³ PM2.5 (${pm25Band(np)}) right now; ` : ""}${ctx(named) || ""}.`;
+  }
+  block += `\nNOTE: per-ward air is an interpolated estimate of the spread (not a calibrated per-street reading); the interactive map is at janvayu.in/#ward-map. BE HONEST: if the dirtiest-air ward today is actually leafy / low built-up (e.g. a rural fringe, or simply a clean day), say so — do NOT force the "built-up = dirty" story when the numbers don't fit. The built-up/green/heat link is a TYPICAL/annual tendency, not a guarantee for any single hour.`;
   return block;
 }
 
@@ -1210,7 +1270,7 @@ Top 5 worst: ${top5}
   // v26.6.27 — Ward Atlas block when the user asks about wards / neighbourhood-
   // level heat, green cover or built-up.
   if (isWardQuery(question)) {
-    const wardBlock = buildWardContext(question, cityKey);
+    const wardBlock = await buildWardContext(question, cityKey);
     if (wardBlock) dataContext += wardBlock;
   }
 
