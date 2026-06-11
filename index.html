@@ -1326,6 +1326,16 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 @media (max-width: 600px) {
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 }
+/* Ward air-quality map layout */
+.ward-grid { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.ward-canvas { height: 520px; width: 100%; background: var(--warm-white); }
+.ward-toolbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+@media (max-width: 860px) {
+    .ward-grid { grid-template-columns: 1fr; }
+    .ward-canvas { height: 62vh; min-height: 320px; max-height: 460px; }
+    .ward-toolbar { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .ward-toolbar #ward-layer-toggle { justify-content: flex-start; }
+}
 
 /* Stat cards */
 .stat-card {
@@ -17973,7 +17983,7 @@ Yours faithfully,
     </div>
 
     <div class="card mb-2">
-        <div class="card-body" style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
+        <div class="card-body ward-toolbar">
             <div style="display:flex; align-items:center; gap:0.5rem;">
                 <label class="form-label" style="margin:0;">City</label>
                 <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px;">
@@ -17993,9 +18003,9 @@ Yours faithfully,
         </div>
     </div>
 
-    <div class="grid-2" style="gap:1rem; align-items:start; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);">
+    <div class="ward-grid">
         <div class="card" style="overflow:hidden;">
-            <div id="ward-map-canvas" style="height:520px; width:100%; background:var(--warm-white);"></div>
+            <div id="ward-map-canvas" class="ward-canvas"></div>
             <div style="padding:0.6rem 0.9rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; border-top:1px solid var(--border);">
                 <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3);">PM2.5 µg/m³</span>
                 <span style="font-size:0.72rem; color:var(--text-2);"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#55a84f;vertical-align:middle;margin-right:3px;"></span>0–30</span>
