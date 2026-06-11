@@ -271,6 +271,22 @@ Addresses detailed user-testing feedback from a domain expert (Komal) who verifi
 
 ---
 
+## Phase 5.14: Urban Heat & Ward-Level Atlas (✅ Completed — v26.6.24)
+
+Moves JanVayu from city-level to **ward-level** resolution and adds an urban-heat lens — inspired by Vaishnavi Iyer / Unmapped's "How hot is your ward?" Bengaluru maps.
+
+- [x] **Urban Heat Island panel** (`tmpl-urban-heat`) with Chart.js visual, wired into Ask JanVayu's knowledge + starter questions. Blog: "The Same Sun, a Different City".
+- [x] **Ward-Level Atlas** (`tmpl-ward-map`) — "How Polluted Is Your Ward?" under City Data. Leaflet choropleth colouring every municipal ward, with a **four-layer toggle**:
+  - [x] **Air quality** — per-ward PM2.5, inverse-distance-weighted from the city's live CPCB/WAQI monitors.
+  - [x] **Heat** — Landsat 8/9 land-surface temperature (~30 m), per-city clear-sky summer scene via Microsoft Planetary Computer.
+  - [x] **Green cover** + **Built-up** — vegetation and impervious-surface share per ward from ESA WorldCover 2021 (10 m).
+- [x] **9 of the top-10 cities**: Delhi (290), Mumbai (227), Bengaluru (243), Chennai (201), Hyderabad (145), Kolkata (141), Jaipur (77), Pune (58), Ahmedabad (48).
+- [x] Per-layer legend, tooltips, methodology note, and live "But…" stats. The Heat layer surfaces the heat-island link (hottest vs coolest fifth of wards by built-up + green) from each city's own data.
+- [x] Offline zonal-statistics pipelines: rasterio over **remote cloud-optimized GeoTIFFs** (windowed reads, no bulk downloads) — ESA WorldCover (S3) + Landsat C2 L2 (Planetary Computer). Per-ward values baked into `/data/wards/*.json`.
+- [x] Responsive mobile layout for the ward map; blog: "A City Is Not One Number".
+
+---
+
 ## Phase 6.5: Legacy mobile & performance tracking (🔄 partially superseded by Phase 5.8 / 6)
 
 **Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3). The items here are tracked individually now in Phase 5.8 (shipped) and Phase 6 (Q3 priorities).
@@ -327,3 +343,15 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 - [ ] **Push notifications** — browser push via the new service worker, gated on user-picked AQI thresholds. Complement to email digest.
 - [ ] **In-browser AQ literacy quiz** — companion to Sharath's Jeopardy game; runs on the Workshops page.
 - [ ] **Story-of-the-week rotation** — surface a blog post on the dashboard hero each week.
+
+---
+
+## Phase 11: Ward-Level Atlas — next (planned)
+
+Building on the Phase 5.14 ward atlas. Tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues): [#149](https://github.com/JanVayu/JanVayu/issues/149), [#150](https://github.com/JanVayu/JanVayu/issues/150), [#151](https://github.com/JanVayu/JanVayu/issues/151).
+
+- [ ] **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149)) — replace the interpolated air layer with modelled satellite PM2.5 (aerosol optical depth, ~1 km) aggregated to wards, giving the air layer the same full coverage the heat/green/built-up layers already have.
+- [ ] **Surat (10th metro)** ([#150](https://github.com/JanVayu/JanVayu/issues/150)) — no open, curl-verifiable ward-polygon file exists yet; add once a source is found or digitised from the SMC GIS portal.
+- [ ] **Tier-1 / tier-2 cities** — extend the atlas city-by-city as ward boundaries are sourced (Lucknow, Kanpur, Nagpur, Indore, Bhopal, Patna, …).
+- [ ] **Ward Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ward search / locate-me, two-finger pan on touch, a correlation view (PM2.5 vs built-up / green / heat), and time-aware (seasonal-median) heat.
+- [ ] **Per-ward share cards** — extend the Shareable AQI Cards generator to ward snapshots ("My ward vs the city").

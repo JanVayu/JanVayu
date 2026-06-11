@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.24] - 2026-06-11
+
+### Added — Ward-Level Atlas ("How Polluted Is Your Ward?")
+
+- **`tmpl-ward-map`** panel (City Data → "How Polluted Is Your Ward?"): a Leaflet choropleth colouring every municipal ward of a city, with a **four-layer toggle**:
+  - **Air quality** — per-ward PM2.5 interpolated (inverse-distance weighted) from the city's live CPCB/WAQI monitors.
+  - **Heat** — land-surface temperature from Landsat 8/9 (~30 m), a per-city clear-sky summer scene (via Microsoft Planetary Computer).
+  - **Green cover** & **Built-up** — vegetation and impervious-surface share per ward from ESA WorldCover 2021 (10 m).
+- **9 of India's top-10 cities**: Delhi (290 wards), Mumbai (227), Bengaluru (243), Chennai (201), Hyderabad (145), Kolkata (141), Jaipur (77), Pune (58), Ahmedabad (48). Ward boundaries simplified (shapely) and centroid-tagged; per-ward satellite values baked into bundled GeoJSON at `/data/wards/*.json`.
+- Per-layer legend, tooltips, methodology note, and live "But…" statistics. The Heat layer surfaces the urban heat-island link — hottest vs coolest fifth of wards compared by built-up and green cover.
+- Blog post: "A City Is Not One Number: Mapping India's Air Ward by Ward".
+
+### Added — Urban Heat Island panel
+
+- **`tmpl-urban-heat`** panel with Chart.js visual, integrated into Ask JanVayu's knowledge base and starter questions. Blog post: "The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story".
+
+### Fixed
+
+- Ward map mobile layout: responsive `.ward-grid` / `.ward-canvas` / `.ward-toolbar` classes replacing an inline grid that broke (squished 2-column) on phones.
+
+### Data pipelines
+
+- Offline zonal statistics via **rasterio over remote cloud-optimized GeoTIFFs** (windowed reads only — no bulk downloads): ESA WorldCover (AWS S3) for green/built-up, USGS/NASA Landsat C2 L2 (Microsoft Planetary Computer, anonymous signing) for surface temperature.
+
+### Changed — Documentation
+
+- New roadmap phases (5.14 shipped, 11 planned) in `docs/wiki/Roadmap.md`; `README.md` feature table + Roadmap section; new `docs/data-sources/ward-map.md` (linked in `docs/SUMMARY.md`); About-panel roadmap card + data-source list refresh; roadmap issues [#149](https://github.com/JanVayu/JanVayu/issues/149)–[#151](https://github.com/JanVayu/JanVayu/issues/151).
+
 ## [v26.6.23] - 2026-05-27
 
 ### Added — New panels (Batch 1)
