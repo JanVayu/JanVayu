@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.28] - 2026-06-11
+
+### Changed — Ward Atlas made air-first (bot + panel)
+
+JanVayu is an air-quality platform, so the Ward Atlas now leads with **air** everywhere; heat / green cover / built-up are framed as the *drivers* that explain a ward's air, never as standalone facts.
+
+- **Ask JanVayu**: ward answers now lead with **per-ward PM2.5**, interpolated server-side from live CPCB/WAQI monitors to each ward centroid (worst-air / cleanest-air ward, citywide spread, named-ward air). Heat/green/built-up are woven in only as the "why". Crucially, the model is instructed to be **honest when the data doesn't fit** the textbook story — e.g. if the dirtiest-air ward today is a leafy fringe (driven by weather or a nearby source), say so rather than forcing the "built-up = dirty" narrative. Bundled `ward-stats.json` now carries ward centroids for the interpolation. Example chips reworded to air ("Which Delhi ward has the worst air?").
+- **Ward Atlas panel**: intro reframed — air quality is the headline, the other three layers "shape that air". Each driver layer's explanation now states *why it's here* (heat → ozone + worse health hit; green → filters particulates + cools; built-up → traps pollutants + radiates heat), with the honest caveat that it's a typical/annual tendency, not a per-hour rule.
+
 ## [v26.6.27] - 2026-06-11
 
 ### Added — Ward Atlas data wired into Ask JanVayu
