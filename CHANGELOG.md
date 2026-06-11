@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.29] - 2026-06-11
+
+### Changed — Ward Atlas: honest timescale separation (live air vs annual drivers)
+
+Tightens a methodological mismatch: per-ward PM2.5 is a **live snapshot** (this hour, interpolated from sparse monitors + weather), while built-up / green / heat are **annual / structural**. Relating them causally on a per-hour basis isn't sound — a single hour's interpolated air is not driven by stable urban form.
+
+- **Ask JanVayu**: instruction #17 now enforces a timescale rule — the model must NOT claim a ward's annual structure *causes* its live reading (no "88% built-up, so today's air is bad"). It keeps the two separate ("right now it's ~X µg/m³; structurally it's a dense, low-green ward that *tends* to have worse air over the year, though today's reading is driven by current conditions"), and notes the proper partner for annual structure — annual per-ward PM2.5 — is the data JanVayu doesn't have. The context block labels driver values as "annual structure (context only, not the cause of this hour's reading)".
+- **Ward Atlas panel**: the air layer's explanation now carries a timescale note — the air is a live snapshot, the drivers are annual/structural, so the drivers explain a ward's *typical* air, not the exact hour.
+
 ## [v26.6.28] - 2026-06-11
 
 ### Changed — Ward Atlas made air-first (bot + panel)
