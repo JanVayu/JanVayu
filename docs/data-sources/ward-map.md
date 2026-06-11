@@ -8,7 +8,7 @@ The atlas moves JanVayu from **city-level** to **ward-level** resolution — mak
 
 ## Cities & ward boundaries
 
-9 of India's top-10 cities are live (Surat is pending an open boundary file):
+10 Indian cities are live:
 
 | City | Wards | Boundary source |
 |------|-------|-----------------|
@@ -21,6 +21,7 @@ The atlas moves JanVayu from **city-level** to **ward-level** resolution — mak
 | Jaipur | 77 | DataMeet |
 | Pune | 58 | DataMeet (electoral wards 2022) |
 | Ahmedabad | 48 | DataMeet (AMC) |
+| Chandigarh | 28 | DataMeet |
 
 Boundaries are simplified with shapely (topology-preserving, ~35 m tolerance), coordinate precision rounded, and an inside-polygon representative point baked in for label/interpolation use. Each city's processed file lives at `/data/wards/<city>.json` and is lazy-loaded only when the panel opens.
 
@@ -55,7 +56,7 @@ The **air-quality** layer is *not* baked in — it is interpolated live in the b
 
 ## Honesty notes
 
-- **Air quality is interpolated, not measured per ward.** India has no ward-dense ground network; the layer reveals the spread, not a per-street value. This is labelled on the panel. Satellite-derived per-ward PM2.5 is the planned upgrade (see the [Roadmap](../wiki/Roadmap.md), Phase 11).
+- **Air quality is interpolated, not measured per ward.** India has no ward-dense ground network; the layer reveals the spread, not a per-street value. This is labelled on the panel. (A satellite-derived per-ward PM2.5 upgrade was investigated but dropped — no openly-fetchable ~1 km PM2.5 raster exists; see the [Roadmap](../wiki/Roadmap.md).)
 - **Heat is a single hot-season day**, not an annual average — a snapshot of surface temperature, useful for relative comparison between wards within a city.
 - **Green/built-up are 2021 annual** land cover and may lag very recent construction.
 

@@ -1,6 +1,6 @@
 {
   "name": "janvayu",
-  "version": "26.6.25",
+  "version": "26.6.26",
   "description": "JanVayu - India Air Quality Monitor",
   "private": true,
   "dependencies": {
