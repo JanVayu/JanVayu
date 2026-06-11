@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Ward map: the "How this is built" explanation could be blank on first paint of the default Air-quality layer if a non-critical UI step (touch-pan / search datalist) threw before the layer rendered. The layer now renders first and those enhancements run after, guarded; the air-layer explanation is also seeded into the template so it shows even before JS runs. Service-worker cache bumped to refresh returning visitors.
+- Ward map mobile toolbar: the City label and "My ward" button collapsed into one-character-wide vertical columns on narrow screens. The toolbar row now wraps and the labels/buttons no longer shrink, so the controls lay out cleanly on phones.
 
 ## [v26.6.25] - 2026-06-11
 

@@ -18250,9 +18250,9 @@ Yours faithfully,
 
     <div class="card mb-2">
         <div class="card-body ward-toolbar">
-            <div style="display:flex; align-items:center; gap:0.5rem;">
-                <label class="form-label" style="margin:0;">City</label>
-                <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px;">
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                <label class="form-label" style="margin:0; white-space:nowrap; flex-shrink:0;">City</label>
+                <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px; flex-shrink:0;">
                     <option value="delhi">Delhi — 290 wards</option>
                     <option value="mumbai">Mumbai — 227 wards</option>
                     <option value="bangalore">Bengaluru — 243 wards</option>
@@ -18264,9 +18264,9 @@ Yours faithfully,
                     <option value="jaipur">Jaipur — 77 wards</option>
                     <option value="chandigarh">Chandigarh — 28 wards</option>
                 </select>
-                <input list="ward-search-list" id="ward-search" placeholder="Find a ward…" onchange="window.wardSearch &amp;&amp; window.wardSearch()" style="max-width:170px; font-size:0.82rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:8px;">
+                <input list="ward-search-list" id="ward-search" placeholder="Find a ward…" onchange="window.wardSearch &amp;&amp; window.wardSearch()" style="flex:1 1 140px; min-width:120px; max-width:240px; font-size:0.82rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:8px;">
                 <datalist id="ward-search-list"></datalist>
-                <button type="button" onclick="window.wardLocateMe &amp;&amp; window.wardLocateMe()" title="Find my ward" style="font-size:0.78rem; font-weight:600; padding:0.32rem 0.6rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-2); cursor:pointer;"><span class="si si-sm si-map" style="margin-right:3px;"></span>My ward</button>
+                <button type="button" onclick="window.wardLocateMe &amp;&amp; window.wardLocateMe()" title="Find my ward" style="white-space:nowrap; flex-shrink:0; font-size:0.78rem; font-weight:600; padding:0.32rem 0.6rem; border-radius:14px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-2); cursor:pointer;"><span class="si si-sm si-map" style="margin-right:3px;"></span>My ward</button>
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
                 <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;">Layer</span>
