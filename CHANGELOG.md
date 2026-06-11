@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.25] - 2026-06-11
+
+### Added — Ward Atlas polish ([#151](https://github.com/JanVayu/JanVayu/issues/151))
+
+- **Ward search + "My ward"**: type-ahead search (datalist of every ward name) zooms to and highlights the chosen ward; a geolocation button finds the nearest ward to the user.
+- **Correlation view**: a per-ward scatter (Chart.js) of the active layer's metric vs how built-up the ward is (green uses built; built uses green), with the Pearson *r* and a plain-language read-out. Surfaces the heat-island relationship quantitatively — e.g. Delhi built-up vs surface temp *r* ≈ +0.69, green vs temp *r* ≈ −0.70 — and honestly reports weak/no correlation where it exists (e.g. Bengaluru ≈ 0).
+- **Two-finger pan on touch**: the tall mobile ward map no longer traps page scroll — one finger scrolls the page, two fingers move the map, with an on-map hint.
+
+### Notes — roadmap items still blocked on data
+
+- **Satellite-derived per-ward PM2.5** ([#149](https://github.com/JanVayu/JanVayu/issues/149)) remains open: no openly-fetchable ~1 km PM2.5 raster (ACAG is behind a portal; Planetary Computer hosts only Sentinel-3 aerosol optical depth, not a calibrated PM2.5 product).
+- **Surat** ([#150](https://github.com/JanVayu/JanVayu/issues/150)) remains open: no open ward-boundary file found.
+
 ## [v26.6.24] - 2026-06-11
 
 ### Added — Ward-Level Atlas ("How Polluted Is Your Ward?")
