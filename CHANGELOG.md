@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.30] - 2026-06-18
+
+### Added — Citizen Testimony: a multilingual wall of on-the-ground voices
+
+A new **Citizen Testimony** panel (under *Take Action*) that puts lived experience of the air crisis front and centre, in the languages people actually speak.
+
+- **100+ first-person testimonies** (108 at launch) across **86 cities** and **13 languages** — Hindi, English, Bengali, Tamil, Marathi, Telugu, Kannada, Gujarati, Punjabi, Malayalam, Odia, Urdu and Assamese — each non-English entry carrying an English translation so every voice is legible to every reader.
+- **Language-filter chips** (with per-language counts), **free-text search** across city / state / name / quote, a live summary line (testimonies · cities · languages), and **RTL rendering** for Urdu.
+- A clear **submission CTA** invites people to add their own testimony in any Indian language via `contribute@janvayu.in` to grow the archive.
+- Wired through the full app: desktop + mobile nav, dashboard quick-link, in-app search index, and `data-i18n` nav labels (EN/HI/TA/MR/BN). Renders client-side from a bundled data array — zero new network calls.
+
 ## [v26.6.29] - 2026-06-11
 
 ### Changed — Ward Atlas: honest timescale separation (live air vs annual drivers)

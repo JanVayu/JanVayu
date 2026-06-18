@@ -58,6 +58,7 @@ This is not a campaign. It is a record.
 | 30 | **Data Source Selector** | Educational panel on CPCB/WAQI/IQAir/Sensor.Community with Source Impact Simulator |
 | 31 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback |
 | 32 | **Ward-Level Atlas** | "How Polluted Is Your Ward?" — Leaflet choropleth of every municipal ward across 10 major Indian cities, with a four-layer toggle: live PM2.5 (interpolated), heat (Landsat surface temperature), green cover and built-up (ESA WorldCover). Per-layer legend, tooltips and live stats; surfaces the urban heat-island link from each city's own data |
+| 33 | **Citizen Testimony** | A multilingual wall of 100+ on-the-ground, first-person testimonies on how bad the air is, across 86 cities — in Hindi, English and 11 other Indian languages (Bengali, Tamil, Marathi, Telugu, Kannada, Gujarati, Punjabi, Malayalam, Odia, Urdu, Assamese), each with an English translation. Language-filter chips, free-text search, RTL rendering for Urdu, and a submission CTA to add your testimony via contribute@janvayu.in |
 
 ---
 
