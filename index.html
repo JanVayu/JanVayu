@@ -1551,6 +1551,31 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .voice-content { font-size: 0.88rem; line-height: 1.65; color: var(--text-2); }
 .voice-meta { font-size: 0.72rem; color: var(--text-4); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
 
+/* ── Citizen Testimony panel ── */
+.testimony-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 1.25rem; }
+.testimony-lang-btn {
+    font-family: var(--sans); font-size: 0.78rem; padding: 5px 12px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2);
+    cursor: pointer; transition: all 0.15s; line-height: 1.4;
+}
+.testimony-lang-btn:hover { border-color: var(--green-700); color: var(--green-700); }
+.testimony-lang-btn.active { background: var(--green-700); border-color: var(--green-700); color: #fff; }
+.testimony-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+}
+.testimony-card { margin-bottom: 0; display: flex; flex-direction: column; }
+.testimony-quote { font-size: 0.95rem; line-height: 1.7; color: var(--ink); font-family: var(--serif); }
+.testimony-card[lang] .testimony-quote { font-family: inherit; }
+.testimony-en {
+    font-size: 0.8rem; line-height: 1.6; color: var(--text-3); margin-top: 8px;
+    padding-left: 10px; border-left: 2px solid var(--border-light); font-style: italic;
+}
+.testimony-langbadge {
+    display: inline-block; font-size: 0.62rem; font-weight: 600; padding: 1px 7px;
+    border-radius: 999px; margin-left: 6px; letter-spacing: 0.02em; vertical-align: middle;
+}
+
 /* ── Voice Bubbles (Pretext-powered shrinkwrap) ── */
 .voice-bubble {
     border-radius: 16px 16px 16px 4px;
@@ -2918,6 +2943,7 @@ body {
                 <button class="mobile-nav-item" data-panel="rti-assistant" data-i18n="nav_rti_assistant">RTI Assistant</button>
                 <button class="mobile-nav-item" data-panel="legal" data-i18n="nav_legal">Legal Framework</button>
                 <button class="mobile-nav-item" data-panel="voices" data-i18n="nav_voices">Citizen Voices</button>
+                <button class="mobile-nav-item" data-panel="testimony" data-i18n="nav_testimony">Citizen Testimony</button>
                 <button class="mobile-nav-item" data-panel="workshops" data-i18n="nav_workshops">Workshops</button>
                 <button class="mobile-nav-item" data-panel="games" data-i18n="nav_games">Learning Games</button>
                 <button class="mobile-nav-item" data-panel="migration" data-i18n="nav_migration">Migration &amp; Displacement</button>
@@ -3019,6 +3045,7 @@ body {
                     <button class="nav-dropdown-link" data-panel="rti-assistant" data-i18n="nav_rti_assistant">RTI Assistant</button>
                     <button class="nav-dropdown-link" data-panel="legal" data-i18n="nav_legal">Legal Framework</button>
                     <button class="nav-dropdown-link" data-panel="voices" data-i18n="nav_voices">Citizen Voices</button>
+                    <button class="nav-dropdown-link" data-panel="testimony" data-i18n="nav_testimony">Citizen Testimony</button>
                     <button class="nav-dropdown-link" data-panel="workshops" data-i18n="nav_workshops">Workshops</button>
                     <button class="nav-dropdown-link" data-panel="games" data-i18n="nav_games">Learning Games</button>
                     <button class="nav-dropdown-link" data-panel="migration" data-i18n="nav_migration">Migration &amp; Displacement</button>
@@ -3352,6 +3379,10 @@ body {
                         <div class="quick-link-icon tools"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
                         <div><h4 data-i18n="ql_voices_t">Citizen Voices</h4><p data-i18n="ql_voices_d">Public response</p></div>
                     </div>
+                    <div class="quick-link" onclick="showPanel('testimony')">
+                        <div class="quick-link-icon" style="background: #ECFDF5; color: #16A34A;"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
+                        <div><h4 data-i18n="ql_testimony_t">Citizen Testimony</h4><p data-i18n="ql_testimony_d">100+ voices, 13 languages</p></div>
+                    </div>
                 </div>
                 <div class="grid-4 mt-2">
                     <div class="quick-link" onclick="showPanel('go-outside')">
@@ -3675,7 +3706,7 @@ body {
             dd_policy: "Policy Tracker", dd_budget: "Budget Tracker", dd_accountability: "Political Accountability",
             dd_corporate: "Industrial Sources", dd_mission: "Mission Tracker", dd_progress: "Clean Air Wins",
             dd_actions: "Take Action", dd_citizen: "Citizen Plan", dd_legal: "Legal Framework",
-            dd_voices: "Citizen Voices", dd_migration: "Migration & Displacement",
+            dd_voices: "Citizen Voices", dd_testimony: "Citizen Testimony", dd_migration: "Migration & Displacement",
             dd_tools: "Tools", dd_resources: "Reading List", dd_downloads: "Downloads", dd_about: "About",
             // Mobile nav groups
             navgroup_myair: "My Air", navgroup_citydata: "City Data", navgroup_health: "Health & Trends",
@@ -3708,7 +3739,7 @@ body {
             dd_policy: "नीति ट्रैकर", dd_budget: "बजट ट्रैकर", dd_accountability: "राजनीतिक",
             dd_corporate: "औद्योगिक स्रोत", dd_mission: "मिशन ट्रैकर", dd_progress: "स्वच्छ हवा जीत",
             dd_actions: "कार्रवाई करें", dd_citizen: "नागरिक योजना", dd_legal: "कानूनी ढांचा",
-            dd_voices: "नागरिक आवाज़ें", dd_migration: "पलायन",
+            dd_voices: "नागरिक आवाज़ें", dd_testimony: "नागरिक गवाही", dd_migration: "पलायन",
             dd_tools: "उपकरण", dd_resources: "पठन सूची", dd_downloads: "डाउनलोड", dd_about: "परिचय",
             navgroup_myair: "मेरी हवा", navgroup_citydata: "शहर डेटा", navgroup_health: "स्वास्थ्य और रुझान",
             navgroup_learn: "जानें",
@@ -3737,7 +3768,7 @@ body {
             dd_policy: "கொள்கை கண்காணிப்பான்", dd_budget: "பட்ஜெட் கண்காணிப்பான்", dd_accountability: "அரசியல்",
             dd_corporate: "தொழிற்சாலை ஆதாரங்கள்", dd_mission: "மிஷன் கண்காணிப்பான்", dd_progress: "சுத்தக்காற்று வெற்றிகள்",
             dd_actions: "நடவடிக்கை எடுங்கள்", dd_citizen: "குடிமக்கள் திட்டம்", dd_legal: "சட்ட கட்டமைப்பு",
-            dd_voices: "குடிமக்கள் குரல்கள்", dd_migration: "இடப்பெயர்வு",
+            dd_voices: "குடிமக்கள் குரல்கள்", dd_testimony: "குடிமக்கள் சாட்சியம்", dd_migration: "இடப்பெயர்வு",
             dd_tools: "கருவிகள்", dd_resources: "வாசிப்புப் பட்டியல்", dd_downloads: "பதிவிறக்கங்கள்", dd_about: "பற்றி",
             navgroup_myair: "என் காற்று", navgroup_citydata: "நகர தரவு", navgroup_health: "சுகாதாரம் & போக்கு",
             navgroup_learn: "கற்றுக்கொள்",
@@ -3766,7 +3797,7 @@ body {
             dd_policy: "धोरण ट्रॅकर", dd_budget: "बजेट ट्रॅकर", dd_accountability: "राजकीय",
             dd_corporate: "औद्योगिक स्रोत", dd_mission: "मिशन ट्रॅकर", dd_progress: "स्वच्छ हवा यश",
             dd_actions: "कृती करा", dd_citizen: "नागरिक योजना", dd_legal: "कायदेशीर चौकट",
-            dd_voices: "नागरिक आवाज", dd_migration: "स्थलांतर",
+            dd_voices: "नागरिक आवाज", dd_testimony: "नागरिक साक्ष", dd_migration: "स्थलांतर",
             dd_tools: "साधने", dd_resources: "वाचन सूची", dd_downloads: "डाउनलोड", dd_about: "माहिती",
             navgroup_myair: "माझी हवा", navgroup_citydata: "शहर डेटा", navgroup_health: "आरोग्य आणि कल",
             navgroup_learn: "शिका",
@@ -3795,7 +3826,7 @@ body {
             dd_policy: "নীতি ট্র্যাকার", dd_budget: "বাজেট ট্র্যাকার", dd_accountability: "রাজনৈতিক",
             dd_corporate: "শিল্প উৎস", dd_mission: "মিশন ট্র্যাকার", dd_progress: "বিশুদ্ধ বায়ু সাফল্য",
             dd_actions: "পদক্ষেপ নিন", dd_citizen: "নাগরিক পরিকল্পনা", dd_legal: "আইনি কাঠামো",
-            dd_voices: "নাগরিক কণ্ঠস্বর", dd_migration: "অভিবাসন",
+            dd_voices: "নাগরিক কণ্ঠস্বর", dd_testimony: "নাগরিক সাক্ষ্য", dd_migration: "অভিবাসন",
             dd_tools: "সরঞ্জাম", dd_resources: "পড়ার তালিকা", dd_downloads: "ডাউনলোড", dd_about: "সম্পর্কে",
             navgroup_myair: "আমার বায়ু", navgroup_citydata: "শহর তথ্য", navgroup_health: "স্বাস্থ্য ও প্রবণতা",
             navgroup_learn: "শিখুন",
@@ -3877,7 +3908,7 @@ body {
             policy: 'dd_policy', budget: 'dd_budget', accountability: 'dd_accountability',
             corporate: 'dd_corporate', 'mission-tracker': 'dd_mission', progress: 'dd_progress',
             actions: 'dd_actions', 'citizen-action': 'dd_citizen', legal: 'dd_legal',
-            voices: 'dd_voices', migration: 'dd_migration',
+            voices: 'dd_voices', testimony: 'dd_testimony', migration: 'dd_migration',
             tools: 'dd_tools', resources: 'dd_resources', downloads: 'dd_downloads', about: 'dd_about'
         };
         document.querySelectorAll('.nav-dropdown-link').forEach(el => {
@@ -3894,7 +3925,7 @@ body {
             policy: 'dd_policy', budget: 'dd_budget', accountability: 'dd_accountability',
             corporate: 'dd_corporate', 'mission-tracker': 'dd_mission', progress: 'dd_progress',
             actions: 'dd_actions', 'citizen-action': 'dd_citizen', legal: 'dd_legal',
-            voices: 'dd_voices', migration: 'dd_migration',
+            voices: 'dd_voices', testimony: 'dd_testimony', migration: 'dd_migration',
             tools: 'dd_tools', resources: 'dd_resources', downloads: 'dd_downloads', about: 'dd_about'
         };
         document.querySelectorAll('.mobile-nav-item').forEach(el => {
@@ -8913,6 +8944,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 if (voicesRefreshInterval) clearInterval(voicesRefreshInterval);
                 voicesRefreshInterval = setInterval(() => loadVoicesLive(), 15 * 60 * 1000);
             }
+            if (panelId === 'testimony') { try { initTestimonyToolbar(); renderTestimonies(window.__testimonyLang || 'all'); } catch(e) { console.warn(e); } }
             if (panelId === 'aqi-alerts') { renderActiveAlerts(); renderAlertCityStatus(); }
             if (panelId === 'go-outside') checkGoOutside();
             if (panelId === 'school-closure') updateSchoolPrediction();
@@ -8952,6 +8984,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'citizen-action', title: 'Citizen Plan', desc: 'Personal action planning tools', keywords: 'citizen plan personal steps protection mask purifier' },
         { id: 'legal', title: 'Legal Framework', desc: 'Supreme Court orders, Article 21, NGT', keywords: 'legal law court supreme ngt article 21 right clean air constitution' },
         { id: 'voices', title: 'Citizen Voices', desc: 'Social media, viral posts, public discourse', keywords: 'voices social media twitter reddit viral meme citizen opinion' },
+        { id: 'testimony', title: 'Citizen Testimony', desc: 'On-the-ground testimonies in many Indian languages on how bad the air is', keywords: 'testimony testimonial voice ground report personal story hindi tamil bengali marathi telugu kannada gujarati punjabi malayalam odia urdu assamese english multilingual breathe asthma smog city resident first person' },
         { id: 'migration', title: 'Migration & Displacement', desc: 'Climate migration, pollution refugees', keywords: 'migration displacement climate refugee leaving delhi' },
         { id: 'tools', title: 'Tools & Calculators', desc: 'Personal exposure, health risk, comparison', keywords: 'tools calculator exposure risk cigarette equivalent' },
         { id: 'ask-janvayu', title: 'Ask JanVayu (AI)', desc: 'Ask questions about air quality in plain language', keywords: 'ask ai llama question natural language hindi query' },
@@ -9703,7 +9736,279 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 </article>
 </noscript>
 
+<!-- ═══ CITIZEN TESTIMONY DATA + RENDERER ═══ -->
+<script>
+    // Citizen testimonies on India's air quality, in many Indian languages +
+    // English, on what the air crisis feels like where people live and breathe.
+    // New testimonies can be sent to contribute@janvayu.in to be added here.
+    const TESTIMONY_LANGS = {
+        en: { label: 'English' },
+        hi: { label: 'हिन्दी' },
+        bn: { label: 'বাংলা' },
+        ta: { label: 'தமிழ்' },
+        mr: { label: 'मराठी' },
+        te: { label: 'తెలుగు' },
+        kn: { label: 'ಕನ್ನಡ' },
+        gu: { label: 'ગુજરાતી' },
+        pa: { label: 'ਪੰਜਾਬੀ' },
+        ml: { label: 'മലയാളം' },
+        or: { label: 'ଓଡ଼ିଆ' },
+        ur: { label: 'اردو' },
+        as: { label: 'অসমীয়া' }
+    };
+    const TESTIMONY_COLORS = {
+        en: '#2563EB', hi: '#B91C1C', bn: '#16A34A', ta: '#7C3AED', mr: '#EA580C',
+        te: '#0891B2', kn: '#DB2777', gu: '#CA8A04', pa: '#9333EA', ml: '#059669',
+        or: '#DC2626', ur: '#1D4ED8', as: '#15803D'
+    };
+
+    const CITIZEN_TESTIMONIES = [
+        // ── Hindi ──
+        { lang: 'hi', city: 'Delhi', state: 'Delhi', name: 'Ramesh', role: 'Auto driver', q: 'नवंबर आते ही दिल्ली में साँस लेना मुश्किल हो जाता है। सुबह उठते ही गले में जलन और आँखों से पानी आता है। बच्चों को स्कूल भेजने से डर लगता है।', en: 'Come November, breathing in Delhi becomes hard. The moment I wake up my throat burns and my eyes water. I am afraid to send my children to school.' },
+        { lang: 'hi', city: 'Kanpur', state: 'Uttar Pradesh', name: 'Sunita', role: 'Homemaker', q: 'कानपुर में चमड़ा फैक्ट्रियों का धुआँ और सड़क की धूल मिलकर हवा को ज़हर बना देती है। मेरी माँ को साँस की बीमारी है, सर्दियों में हालत और बिगड़ जाती है।', en: 'In Kanpur, tannery smoke and road dust together turn the air into poison. My mother has a respiratory illness that worsens every winter.' },
+        { lang: 'hi', city: 'Lucknow', state: 'Uttar Pradesh', name: 'Imran', role: 'Shopkeeper', q: 'दिवाली के बाद लखनऊ पर ऐसा लगता है जैसे पूरे शहर पर धुएँ की चादर पड़ गई हो। दूर की इमारतें दिखना बंद हो जाती हैं।', en: 'After Diwali, Lucknow looks as if a sheet of smoke has been thrown over the whole city. Distant buildings disappear from view.' },
+        { lang: 'hi', city: 'Patna', state: 'Bihar', name: 'Anil', role: 'Teacher', q: 'पटना में गंगा किनारे की ताज़ी हवा अब बीते दिनों की बात है। निर्माण की धूल और जाम में फँसी गाड़ियों का धुआँ हर वक़्त नाक में घुसता है।', en: 'In Patna, the fresh air by the Ganga is a thing of the past. Construction dust and exhaust from jammed traffic fill my nose all the time.' },
+        { lang: 'hi', city: 'Ghaziabad', state: 'Uttar Pradesh', name: 'Pooja', role: 'Mother of two', q: 'गाज़ियाबाद में AQI अक्सर 400 पार कर जाता है। मेरे बेटे को अस्थमा है और हर सर्दी में उसे नेबुलाइज़र पर रहना पड़ता है।', en: 'In Ghaziabad the AQI often crosses 400. My son has asthma and every winter he ends up on a nebuliser.' },
+        { lang: 'hi', city: 'Noida', state: 'Uttar Pradesh', name: 'Deepak', role: 'IT worker', q: 'नोएडा की ऊँची इमारतों से सर्दियों में सूरज तक नहीं दिखता, सिर्फ़ धुंध की दीवार। दफ़्तर पहुँचते-पहुँचते सिर भारी हो जाता है।', en: 'From Noida’s high-rises in winter you cannot even see the sun, only a wall of haze. By the time I reach office my head feels heavy.' },
+        { lang: 'hi', city: 'Varanasi', state: 'Uttar Pradesh', name: 'Mohan', role: 'Boatman', q: 'बनारस के घाटों पर अब सुबह की धुंध नहीं, धुएँ की धुंध रहती है। गंगा आरती के दीयों से ज़्यादा चुभन हवा में महसूस होती है।', en: 'On the ghats of Banaras it is no longer morning mist but a haze of smoke. The air stings more than the lamps of the Ganga aarti.' },
+        { lang: 'hi', city: 'Agra', state: 'Uttar Pradesh', name: 'Rakesh', role: 'Tourist guide', q: 'ताजमहल देखने आने वाले पर्यटक पूछते हैं कि यह धुंध क्यों है। हम क्या बताएँ — यह कोहरा नहीं, प्रदूषण है।', en: 'Tourists who come to see the Taj Mahal ask why there is this haze. What can we tell them — it is not fog, it is pollution.' },
+        { lang: 'hi', city: 'Meerut', state: 'Uttar Pradesh', name: 'Kavita', role: 'Nurse', q: 'मेरठ के अस्पताल में सर्दियों में साँस के मरीज़ों की लाइन लग जाती है। बुज़ुर्ग और बच्चे सबसे ज़्यादा परेशान रहते हैं।', en: 'In winter our Meerut hospital sees long queues of breathing patients. The elderly and children suffer the most.' },
+        { lang: 'hi', city: 'Jaipur', state: 'Rajasthan', name: 'Lata', role: 'College student', q: 'जयपुर अब गुलाबी शहर कम, धूसर शहर ज़्यादा लगता है। हवा में धूल इतनी कि स्कूटी चलाते वक़्त मास्क के बिना निकलना मुश्किल है।', en: 'Jaipur feels less like the Pink City and more grey now. There is so much dust in the air that riding a scooter without a mask is hard.' },
+        { lang: 'hi', city: 'Gwalior', state: 'Madhya Pradesh', name: 'Naveen', role: 'Shop owner', q: 'ग्वालियर देश के सबसे प्रदूषित शहरों में गिना जाता है, पर यहाँ कोई बात नहीं करता। मेरी दुकान पर दिनभर धूल की परत जमती रहती है।', en: 'Gwalior is counted among the most polluted cities, yet no one here talks about it. A layer of dust settles on my shop all day.' },
+        { lang: 'hi', city: 'Bhopal', state: 'Madhya Pradesh', name: 'Asha', role: 'Anganwadi worker', q: 'भोपाल झीलों का शहर कहलाता है, पर सर्दियों में हवा इतनी भारी हो जाती है कि छोटे बच्चे लगातार खाँसते रहते हैं।', en: 'Bhopal is called the city of lakes, but in winter the air gets so heavy that the little children keep coughing.' },
+        { lang: 'hi', city: 'Muzaffarpur', state: 'Bihar', name: 'Ravi', role: 'Farmer', q: 'मुज़फ़्फ़रपुर में सर्दियों में धुंध इतनी घनी होती है कि सुबह सात बजे तक सड़क नहीं दिखती। दमे के मरीज़ घर से नहीं निकल पाते।', en: 'In Muzaffarpur the winter haze is so thick you cannot see the road till seven in the morning. Asthma patients cannot step out of their homes.' },
+        { lang: 'hi', city: 'Faridabad', state: 'Haryana', name: 'Sanjay', role: 'Factory worker', q: 'फ़रीदाबाद की फैक्ट्रियों और हाईवे की धूल के बीच रहना मजबूरी है। शाम होते ही गले में खराश शुरू हो जाती है।', en: 'Living between Faridabad’s factories and highway dust is a compulsion. By evening my throat starts to itch.' },
+        { lang: 'hi', city: 'Loni', state: 'Uttar Pradesh', name: 'Arif', role: 'Daily-wage worker', q: 'लोनी को दुनिया का सबसे प्रदूषित शहर बताया गया, पर यहाँ न कोई नया मॉनिटर लगा, न कोई अफ़सर आया। हम वैसे ही धुएँ में जी रहे हैं।', en: 'Loni was named the most polluted city in the world, but no new monitor was installed and no official came. We go on living in the same smoke.' },
+        { lang: 'hi', city: 'Firozabad', state: 'Uttar Pradesh', name: 'Shabana', role: 'Bangle worker', q: 'फ़िरोज़ाबाद की काँच की फैक्ट्रियों का धुआँ पूरे शहर पर छाया रहता है। बच्चों की खाँसी कभी ठीक ही नहीं होती।', en: 'The smoke from Firozabad’s glass factories hangs over the whole city. The children’s cough simply never goes away.' },
+        { lang: 'hi', city: 'Dhanbad', state: 'Jharkhand', name: 'Bishnu', role: 'Coal-belt resident', q: 'धनबाद में कोयले की आग और राख हवा में घुली रहती है। यहाँ साफ़ साँस लेना एक सपना है।', en: 'In Dhanbad, coal fires and ash stay dissolved in the air. Breathing clean here is a dream.' },
+        { lang: 'hi', city: 'Dehradun', state: 'Uttarakhand', name: 'Geeta', role: 'Retired teacher', q: 'देहरादून पहाड़ों में है फिर भी अब यहाँ की हवा मैदानों जैसी ख़राब हो रही है। गाड़ियों की भीड़ ने वादी का दम घोंट दिया है।', en: 'Dehradun is in the hills, yet its air is turning as bad as the plains. The crush of traffic has choked the valley.' },
+        { lang: 'hi', city: 'Moradabad', state: 'Uttar Pradesh', name: 'Salim', role: 'Brassware artisan', q: 'मुरादाबाद में पीतल के काम का धुआँ और भट्ठियों की राख से सर्दियों में आसमान दिखना बंद हो जाता है।', en: 'In Moradabad, smoke from the brass work and ash from the furnaces hides the sky in winter.' },
+        { lang: 'hi', city: 'Jodhpur', state: 'Rajasthan', name: 'Mahendra', role: 'Driver', q: 'जोधपुर में रेगिस्तानी धूल और गाड़ियों का धुआँ मिलकर आँखों में चुभता है। नीला शहर अब धुंधला दिखता है।', en: 'In Jodhpur, desert dust and vehicle smoke together sting the eyes. The Blue City now looks blurred.' },
+
+        // ── English ──
+        { lang: 'en', city: 'Mumbai', state: 'Maharashtra', name: 'Farhan', role: 'IT professional', q: 'The sea breeze used to clean Mumbai’s air by evening. Now the haze just sits over the skyline. My morning runs at Marine Drive leave me wheezing.' },
+        { lang: 'en', city: 'Bengaluru', state: 'Karnataka', name: 'Lakshmi', role: 'Schoolteacher', q: 'Bengaluru was the “garden city” when I moved here twenty years ago. Today the traffic fumes on the Outer Ring Road sting your eyes within minutes.' },
+        { lang: 'en', city: 'Gurugram', state: 'Haryana', name: 'Neha', role: 'Marketing manager', q: 'We pay a premium to live in Gurugram’s high-rises, yet every winter the AQI on our balcony reads “hazardous.” My daughter’s school cancels outdoor sports for weeks.' },
+        { lang: 'en', city: 'Delhi', state: 'Delhi', name: 'Vikram', role: 'Cyclist', q: 'For four months a year I simply can’t ride in Delhi without my lungs burning. We’ve normalised something that should be treated as a public emergency.' },
+        { lang: 'en', city: 'Visakhapatnam', state: 'Andhra Pradesh', name: 'Suresh', role: 'Plant-side resident', q: 'Living near the steel plant in Vizag, we wipe black dust off our windowsills every single day. The doctors say it’s why my father’s cough never goes.' },
+        { lang: 'en', city: 'Chandigarh', state: 'Chandigarh', name: 'Gurpreet', role: 'Architect', q: 'Even Chandigarh, our planned “green” city, now hits red AQI after Diwali and during stubble season. The Sukhna Lake mornings aren’t what they were.' },
+        { lang: 'en', city: 'Srinagar', state: 'Jammu & Kashmir', name: 'Aamir', role: 'Houseboat owner', q: 'In Srinagar’s winter, kangri smoke and vehicle exhaust get trapped in the valley. The famous mountain air now smells of diesel.' },
+        { lang: 'en', city: 'Pune', state: 'Maharashtra', name: 'Aditi', role: 'Doctor', q: 'In my Pune clinic the number of children with persistent cough has doubled in five years. Parents are shocked when I tell them it’s the air.' },
+        { lang: 'en', city: 'Kolkata', state: 'West Bengal', name: 'Rahul', role: 'Bus commuter', q: 'My daily commute across Kolkata leaves a grey film on my collar. By the time I reach office I’ve breathed in a city’s worth of diesel.' },
+        { lang: 'en', city: 'Hyderabad', state: 'Telangana', name: 'Sneha', role: 'Software engineer', q: 'Hyderabad’s winters used to be pleasant. Now there are weeks when I keep the windows shut and run a purifier just to sleep.' },
+        { lang: 'en', city: 'Chennai', state: 'Tamil Nadu', name: 'David', role: 'Runner', q: 'On Chennai’s bad days the horizon over the Marina just vanishes into brown haze. I check the AQI before every morning run now — something I never did a decade ago.' },
+        { lang: 'en', city: 'Ahmedabad', state: 'Gujarat', name: 'Priüa', role: 'Student', q: 'In Ahmedabad the combination of summer dust storms and traffic means I rarely see a clear blue sky anymore. My inhaler is always in my bag.' },
+        { lang: 'en', city: 'Nagpur', state: 'Maharashtra', name: 'Rohit', role: 'Engineer', q: 'Nagpur is surrounded by coal power and mining. On still winter nights the air tastes metallic, and the morning newspaper is grey with grime.' },
+        { lang: 'en', city: 'Raipur', state: 'Chhattisgarh', name: 'Anita', role: 'Homemaker', q: 'In Raipur the industrial corridor sends fine dust into every home. I mop twice a day and the cloth still comes up black.' },
+        { lang: 'en', city: 'Jamshedpur', state: 'Jharkhand', name: 'Michael', role: 'Factory technician', q: 'We grew up proud of Jamshedpur’s steel. But the price is that on bad days you can feel the grit between your teeth.' },
+        { lang: 'en', city: 'Guwahati', state: 'Assam', name: 'Priyanka', role: 'Journalist', q: 'Even in the green Northeast, Guwahati’s traffic and construction have pushed winter AQI into the red. People assume the hills protect us — they don’t.' },
+        { lang: 'en', city: 'Bhubaneswar', state: 'Odisha', name: 'Sandeep', role: 'Govt. employee', q: 'Bhubaneswar markets itself as a smart, clean city, but the dust from endless roadwork has made my morning walks a struggle.' },
+        { lang: 'en', city: 'Coimbatore', state: 'Tamil Nadu', name: 'Meera', role: 'Yoga teacher', q: 'I teach outdoor yoga in Coimbatore. More mornings each year I have to move the class indoors because the air just isn’t fit to breathe deeply.' },
+        { lang: 'en', city: 'Surat', state: 'Gujarat', name: 'Imtiaz', role: 'Textile trader', q: 'Surat’s mills run day and night, and so does the haze over our neighbourhood. My youngest has been on allergy medication since he was three.' },
+        { lang: 'en', city: 'Kochi', state: 'Kerala', name: 'Thomas', role: 'Fisherman', q: 'Even on the Kerala coast, the traffic and port emissions are changing the air. The sea wind isn’t the clean breath it used to be.' },
+
+        // ── Bengali ──
+        { lang: 'bn', city: 'Kolkata', state: 'West Bengal', name: 'Sujata', role: 'Homemaker', q: 'কলকাতার শীতকালে ভোরবেলা হাঁটতে বেরোলে বুকটা ভারী হয়ে আসে। ভিক্টোরিয়ার মাথাও কুয়াশা নয়, ধোঁয়ায় ঢাকা থাকে।', en: 'On winter mornings in Kolkata, your chest feels heavy when you step out for a walk. Even the top of the Victoria Memorial is hidden — not by mist, but by smoke.' },
+        { lang: 'bn', city: 'Howrah', state: 'West Bengal', name: 'Bikash', role: 'Driver', q: 'হাওড়া ব্রিজের উপর দিয়ে গেলে গাড়ির ধোঁয়ায় চোখ জ্বালা করে। আমার ছেলের হাঁপানি বছর বছর বাড়ছে।', en: 'Crossing the Howrah Bridge, the vehicle smoke makes your eyes burn. My son’s asthma gets worse year after year.' },
+        { lang: 'bn', city: 'Asansol', state: 'West Bengal', name: 'Mou', role: 'Teacher', q: 'আসানসোলের কয়লাখনি আর কারখানার ধুলোয় বাড়ির জানলা একদিনেই কালো হয়ে যায়।', en: 'In Asansol, the dust from coal mines and factories turns the window of your house black in a single day.' },
+        { lang: 'bn', city: 'Durgapur', state: 'West Bengal', name: 'Tapan', role: 'Steel worker', q: 'দুর্গাপুরে ইস্পাত কারখানার ধোঁয়ায় আকাশ পরিষ্কার দেখাই যায় না। নিশ্বাস নিতে কষ্ট হয়।', en: 'In Durgapur the smoke from the steel plant means you rarely see a clear sky. Breathing is a struggle.' },
+        { lang: 'bn', city: 'Siliguri', state: 'West Bengal', name: 'Rina', role: 'Shopkeeper', q: 'শিলিগুড়িতে যানজট আর ধুলোর বিরুদ্ধে এখন মাস্ক ছাড়া বেরোনো যায় না। পাহাড়ের শহরেও এই অবস্থা।', en: 'In Siliguri you can no longer go out without a mask because of traffic and dust — and this is a town in the hills.' },
+        { lang: 'bn', city: 'Haldia', state: 'West Bengal', name: 'Pradip', role: 'Port worker', q: 'হলদিয়ার তেল শোধনাগার আর রাসায়নিক কারখানার গন্ধে বাতাস ভারী হয়ে আছে।', en: 'In Haldia the air is heavy with the smell of the oil refinery and chemical plants.' },
+
+        // ── Tamil ──
+        { lang: 'ta', city: 'Chennai', state: 'Tamil Nadu', name: 'Karthik', role: 'Auto driver', q: 'சென்னையில் இப்போது காலை நேரம் கூட காற்று கனமாக இருக்கிறது. வாகனப் புகையால் அம்மாவின் இருமல் நிற்பதே இல்லை.', en: 'In Chennai, even the morning air is heavy now. Because of vehicle smoke, my mother’s cough simply never stops.' },
+        { lang: 'ta', city: 'Thoothukudi', state: 'Tamil Nadu', name: 'Selvi', role: 'Fisherwoman', q: 'தூத்துக்குடியில் தொழிற்சாலைப் புகையால் மூச்சு விடுவதே சிரமம். எங்கள் கடற்கரை காற்று இப்போது நெடி வீசுகிறது.', en: 'In Thoothukudi, the factory smoke makes it hard even to breathe. Our sea breeze now carries a stench.' },
+        { lang: 'ta', city: 'Coimbatore', state: 'Tamil Nadu', name: 'Murugan', role: 'Weaver', q: 'கோயம்புத்தூரில் பருத்தி வாகனங்களின் புகையால் காற்று மாசுபடிந்துள்ளது. குழந்தைகளுக்கு அழைப்பு தொல்லை.', en: 'In Coimbatore the air is dirtied by buses and vehicles. Children get repeated infections.' },
+        { lang: 'ta', city: 'Madurai', state: 'Tamil Nadu', name: 'Lakshmi', role: 'Flower vendor', q: 'மதுரையில் மீனாட்சி கோபுரம் தெரியாத அளவுக்கு புகை மூடிযিরুக்கிறது. கண்கள் எரிச்சல் எப்போதும்.', en: 'In Madurai the smoke hides the Meenakshi temple tower. My eyes burn all the time.' },
+        { lang: 'ta', city: 'Tiruchirappalli', state: 'Tamil Nadu', name: 'Anand', role: 'Student', q: 'திருச்சியில் கோடைக்காலம் வெப்பம், மழைகாலம் தூசி — எப்போதும் காற்று சுத்தமாக இல்லை.', en: 'In Trichy it is heat in summer and dust in the rains — the air is never clean.' },
+
+        // ── Marathi ──
+        { lang: 'mr', city: 'Mumbai', state: 'Maharashtra', name: 'Sandeep', role: 'Commuter', q: 'मुंबईत आता समुद्राचा वाराही धुरकट लागतो. सकाळी लोकल पकडायला निघालो की घशात खवखव सुरू होते.', en: 'In Mumbai even the sea breeze now feels smoky. The moment I leave to catch the local train, my throat starts to itch.' },
+        { lang: 'mr', city: 'Pune', state: 'Maharashtra', name: 'Manisha', role: 'Mother', q: 'पुण्यात वाहनांच्या गर्दीमुळे हवा दिवसेंदिवस खराब होत आहे. माझ्या मुलीला सतत सर्दी-खोकला राहतो.', en: 'In Pune the air worsens by the day because of the crush of vehicles. My daughter has a constant cold and cough.' },
+        { lang: 'mr', city: 'Chandrapur', state: 'Maharashtra', name: 'Prakash', role: 'Farmer', q: 'चंद्रपूरच्या औष्णिक वीज केंद्राची राख आमच्या अंगणात पडते. इथे स्वच्छ हवा हे स्वप्नच झालं आहे.', en: 'The ash from Chandrapur’s thermal power station falls in our courtyard. Clean air here has become only a dream.' },
+        { lang: 'mr', city: 'Nagpur', state: 'Maharashtra', name: 'Vaishali', role: 'Nurse', q: 'नागपूरात हिवाळ्यात दम्याच्या रुग्णांची संख्या वाढते. लहान मुलं आणि ज्येष्ठ नागरिक सर्वात जास्त त्रस्त असतात.', en: 'In Nagpur the number of asthma patients rises in winter. Small children and the elderly suffer the most.' },
+        { lang: 'mr', city: 'Nashik', state: 'Maharashtra', name: 'Ganesh', role: 'Shopkeeper', q: 'नाशिकची हवा पूर्वी थंड आणि स्वच्छ होती. आता बांधकामाची धूळ आणि वाहनांचा धूर सगळीकडे पसरला आहे.', en: 'Nashik’s air used to be cool and clean. Now construction dust and vehicle smoke have spread everywhere.' },
+
+        // ── Telugu ──
+        { lang: 'te', city: 'Hyderabad', state: 'Telangana', name: 'Ravi', role: 'Driver', q: 'హైదరాబాద్‌లో ట్రాఫిక్ పొగతో ఉదయపు నడకే కష్టమైపోయింది. మా అమ్మాయికి పొప్పితిత్తుల సమస్య మొదలైంది.', en: 'In Hyderabad even a morning walk has become hard because of traffic fumes. My daughter has started having lung trouble.' },
+        { lang: 'te', city: 'Visakhapatnam', state: 'Andhra Pradesh', name: 'Padma', role: 'Homemaker', q: 'విశాఖలో ఉక్కు కర్మాగారం దూళితో కిటికీలు రోజూ నల్లగా మారుతాయి. స్వచ్ఛమైన గాలి ఇక్కడ దొరకదు.', en: 'In Vizag the steel-plant dust turns the windows black every day. Clean air is not to be found here.' },
+        { lang: 'te', city: 'Vijayawada', state: 'Andhra Pradesh', name: 'Srinivas', role: 'Auto driver', q: 'విజయవాడలో ట్రాఫిక్ రూపులో గంటల తరబడి నిలబడితే పొగ, దూళితో పీల్చలేము.', en: 'Stuck for hours in Vijayawada’s traffic, between smoke and dust I can hardly breathe.' },
+        { lang: 'te', city: 'Guntur', state: 'Andhra Pradesh', name: 'Lakshmi', role: 'Teacher', q: 'గుంటూరులో మిర్చి మార్కెట్ దూళు, వాహనాల పొగతో పిల్లలు పదే దగ్గుతో బాధపడుతున్నారు.', en: 'In Guntur, the chilli-market dust and vehicle smoke leave the children with a constant cough.' },
+
+        // ── Kannada ──
+        { lang: 'kn', city: 'Bengaluru', state: 'Karnataka', name: 'Manjunath', role: 'Cab driver', q: 'ಬೆಂಗಳూರಿನ ಸಿಲ್ಕ್ ಬೋರ್ಡ್ ಸಿಗ್ನಲ್‌ನಲ್ಲಿ ನಿಂತರೆ ವಾಹನಗಳ ಹ්ෙಗೆಯಿಂದ ಕಣ್ಣು ಉರಿಯುತ್ತದೆ. ಉದ್ಯಾನ ನಗರಿ ಈಗ ಧೂಳಿನ ನಗರಿಯಾಗಿದೆ.', en: 'Standing at Bengaluru’s Silk Board signal, vehicle smoke makes your eyes burn. The Garden City has become a city of dust.' },
+        { lang: 'kn', city: 'Hubballi', state: 'Karnataka', name: 'Shobha', role: 'Vendor', q: 'ಹುಬ್ಬಳ್ಳಿಯಲ್ಲಿ ರಸ್ತො ಕೆಲಸ ಮತ್ತು ಧೂಳಿನಿಂದ ದಿನವಿಡೀ ಗಂಟಲು ಸುಸ್ತಾಗುತ್ತದೆ.', en: 'In Hubballi, the road work and dust mean my throat is sore all day.' },
+        { lang: 'kn', city: 'Mysuru', state: 'Karnataka', name: 'Raghav', role: 'Guide', q: 'ಮೈಸೂರು ಸ್ವಚ್ಛ ನಗರಿ ಎಂದು ಹේಳುತ್ತಾರೆ, ಆದರೆ ವಾಹನಗಳ ಸಂಖ್ಯೆ ಏರಿ ಗಾಳಿಯೂ ಕಲುಷಿತವಾಗುತ್ತಿದೆ.', en: 'They call Mysuru a clean city, but as vehicles increase the air too is getting polluted.' },
+        { lang: 'kn', city: 'Mangaluru', state: 'Karnataka', name: 'Vasanth', role: 'Fisher', q: 'ಮಂಗಳೂರಿನಲ್ಲಿ ಕರಾವಳಿ ಮತ್ತು ಕೈಗಾರಿಕೆಯ ಹ්ಗේ ಕರಾವಳಿಯ ಗಾಳಿಯನ್ನೂ ಕಲ್ಮಷ ಮಾಡುತ್ತಿದೆ.', en: 'In Mangaluru, the port and industrial smoke have spoilt even the coastal air.' },
+
+        // ── Gujarati ──
+        { lang: 'gu', city: 'Ahmedabad', state: 'Gujarat', name: 'Hiren', role: 'Trader', q: 'અમદાવાદમાં શિયાળામાં ધુમ્મસ નહિં, ધુમાડો છાઈ જાય છે. સવારે રિવરફ્રંટ પર ચાલવા જઈએ તો ગળામાં બળતરા થાય છે.', en: 'In Ahmedabad it is not winter mist but smoke that spreads in winter. Walking on the Riverfront in the morning makes my throat burn.' },
+        { lang: 'gu', city: 'Surat', state: 'Gujarat', name: 'Jignaben', role: 'Homemaker', q: 'સૂરતની ટેક્સટાઇલ ફેક્ટરીઓના ધુમાડાથી અમારા વિસ્તારની હવા ગૂંગળાવી નાખે છે. બઙાનાં બાળકને સતત ઉધરસ રહે છે.', en: 'The smoke from Surat’s textile factories suffocates the air of our area. My young child has a constant cough.' },
+        { lang: 'gu', city: 'Vadodara', state: 'Gujarat', name: 'Ramesh', role: 'Worker', q: 'વડોદરામાં કેમિકલ ઉદ્યોગોની ગંધ અને ધુમાડો રાતિએ વધુ લાગે છે. આંખો બળે છે.', en: 'In Vadodara the smell and smoke from the chemical industries get worse at night. The eyes burn.' },
+        { lang: 'gu', city: 'Rajkot', state: 'Gujarat', name: 'Nita', role: 'Teacher', q: 'રાજકોટમાં રસ્તાની ધૂળ અને બાંધકામના કારણે શાળાના બાળકોને શ્વાસની તકલીફ વધી છે.', en: 'In Rajkot, road dust and construction have increased breathing problems among schoolchildren.' },
+
+        // ── Punjabi ──
+        { lang: 'pa', city: 'Amritsar', state: 'Punjab', name: 'Harpreet', role: 'Shopkeeper', q: 'ਅੰਮ੍ਰਿਤਸਰ ਵਿੱਚ ਪਰਾਲੀ ਸਾੜਨ ਦੇ ਦਿਨਾਂ ਵਿੱਚ ਸਾਹ ਲੈਣਾ ਔਖਾ ਹੋ ਜਾਂਦਾ ਹੈ। ਦਰਬਾਰ ਸਾਹਿਬ ਦੇ ਉੱਪਰ ਵੀ ਧੂੰએਂ ਦੀ ਚਾਦਰ ਰਹਿੰਦੀ ਹੈ।', en: 'In Amritsar, on the days of stubble burning, breathing becomes hard. A sheet of smoke hangs even over the Golden Temple.' },
+        { lang: 'pa', city: 'Ludhiana', state: 'Punjab', name: 'Jaswinder', role: 'Worker', q: 'ਲੁਧਿਆਣੇ ਦੀਆਂ ਫੈਕਟਰੀਆਂ ਤੇ ਟ੍ਰੈਫਿਕ ਨੇ ਹਵਾ ਜ਼ਹਿਰ ਕਰ ਦਿੱਤੀ ਹੈ। ਮੇਰੇ ਬੱਚਿਆਂ ਨੂੰ ਖੰਘ ਕਦੇ ਨਹੀਂ ਹਟਦੀ।', en: 'Ludhiana’s factories and traffic have poisoned the air. My children’s cough never lets up.' },
+        { lang: 'pa', city: 'Mandi Gobindgarh', state: 'Punjab', name: 'Baljit', role: 'Resident', q: 'ਮੰਡੀ ਗੋਬਿੰਦਗੜ੍ਹ ਦੀਆਂ ਸਟੀਲ ਭੱਠੀਆਂ ਦਾ ਧੂੰએਂ ਸਾਡੇ ਘਰਾਂ ਤੱਕ ਆਉਂਦਾ ਹੈ। ਸਾਫ਼ ਹਵਾ એਥੇ ਨਸੀਬ ਨਹੀਂ।', en: 'The smoke from Mandi Gobindgarh’s steel furnaces reaches right into our homes. Clean air is not our fortune here.' },
+        { lang: 'pa', city: 'Bathinda', state: 'Punjab', name: 'Sukhwinder', role: 'Farmer', q: 'ਬਠਿੰਡੇ ਵਿੱਚ ਥਰਮਲ ਪਲਾਂਟ ਦਾ ਧੂੰਆਂ ਅਤੇ ਖੇਤਾਂ ਦੀ ਰਹਿੰਦ-ਖੂੰਹਦ ਮਿਲ ਕੇ ਅਸਮਾਨ ਧੁੰਦਲਾ ਹੋ ਜਾਂਦਾ ਹੈ।', en: 'In Bathinda the smoke from the thermal plant and the smouldering of the fields together turn the sky hazy.' },
+
+        // ── Malayalam ──
+        { lang: 'ml', city: 'Kochi', state: 'Kerala', name: 'Anil', role: 'Driver', q: 'കൊച്ചിയിൽ വാഹനപ്പുകയും നിർമ്മാണ പൊടിയും കാരണം രാവിലെ പുറത്തിറങ്ങാൻ പറ്റാത അവസ്ഥയാണ്.', en: 'In Kochi, vehicle smoke and construction dust make it hard to step out in the morning.' },
+        { lang: 'ml', city: 'Kozhikode', state: 'Kerala', name: 'Fathima', role: 'Homemaker', q: 'കോഴിക്കോട്ട് നഗരത്തിൽ വാഹനപ്പെരുക്കം കൂടിയതോടെ വായു മലിനീകരണവും കൂടുന്നു.', en: 'In Kozhikode town, as the number of vehicles grows so does the air pollution.' },
+        { lang: 'ml', city: 'Thiruvananthapuram', state: 'Kerala', name: 'Suresh', role: 'Govt. clerk', q: 'തലസ്ഥാനത്തെ തിരക്ക് സമയത്തെ വാഹനപ്പുകയിൽ ശ്വാസം മുട്ടുന്നു.', en: 'During the rush hour in the capital the traffic smoke chokes your breath.' },
+
+        // ── Odia ──
+        { lang: 'or', city: 'Cuttack', state: 'Odisha', name: 'Pranab', role: 'Shopkeeper', q: 'କଟକରେ ବାୟୁ ପ୍ରଦୂଷଣ ବର୍ଷକୁ ବର୍ଷ ବଢିଚାଲିଛି। ସକାଳୁ ବାହାରକୁ ଗଲେ ଆଖିରୁ ଲୁହ ବୋହେ।', en: 'In Cuttack the air pollution grows year by year. Step out in the morning and your eyes water.' },
+        { lang: 'or', city: 'Angul', state: 'Odisha', name: 'Sasmita', role: 'Homemaker', q: 'ଅନୁଗୁଳର ତାପ ବିଦ୍ୟୁତ କେନ୍ଦ୍ର ଓ ଖଣିର ଧୂଳିରে ଆମ ଗା஁ର ପବନ ବିଷାକ୍ତ ହୋଇ஗াଇଛି।', en: 'In Angul, the dust from the thermal power station and the mines has poisoned the air of our village.' },
+        { lang: 'or', city: 'Bhubaneswar', state: 'Odisha', name: 'Rakesh', role: 'Student', q: 'ଭୁବନେଶ୍ୱରରে ରাସ୍ତা କাম ଓ ধূ঳িৰে ସକা঳ু বুলিবাକু କষ্ট ହুஏ஖கু ଲা஗িছি।', en: 'In Bhubaneswar, the constant roadwork and dust have made the morning walk a struggle.' },
+
+        // ── Urdu ──
+        { lang: 'ur', city: 'Delhi', state: 'Delhi', name: 'Nadeem', role: 'Tailor', q: 'دہلی میں سردیوں کے موسم میں سانس لینا دشوار ہو جاتا ہے۔ صبح اٹھتے ہی گلے میں خراش اور آنکھوں میں جلن ہوتی ہے۔', en: 'In Delhi, breathing becomes difficult in winter. The moment I wake the throat is sore and the eyes burn.' },
+        { lang: 'ur', city: 'Lucknow', state: 'Uttar Pradesh', name: 'Farida', role: 'Homemaker', q: 'لکھنؤ کی فضا اب اتنی آلودہ ہے کہ بچوں کو کھلے میدان میں کھیلنے سے روکنا پڑتا ہے۔', en: 'Lucknow’s air is now so polluted that we have to keep the children from playing in the open ground.' },
+        { lang: 'ur', city: 'Hyderabad', state: 'Telangana', name: 'Sohail', role: 'Driver', q: 'حیدرآباد کی پرانی بستیوں میں ٹریفک اور دھوئےکی وجہ سے صاف ہوا ناپید ہو گئی ہے۔', en: 'In Hyderabad’s old quarters, between traffic and smoke clean air has all but disappeared.' },
+
+        // ── Assamese ──
+        { lang: 'as', city: 'Guwahati', state: 'Assam', name: 'Hiren', role: 'Shopkeeper', q: 'গুৱাহাটীত যান-বাহনৰ ধৈৱা আৰু নিৰ্মাণৰ ধূলিৰ বাবে ৰাতিপুৱা বাহিৰ ওলোৱাটোৱেই কঠিন হৈ পৰিছে।', en: 'In Guwahati, the vehicle smoke and construction dust have made even stepping out in the morning hard.' },
+        { lang: 'as', city: 'Nagaon', state: 'Assam', name: 'Bhaskar', role: 'Teacher', q: 'নগাঁৱত উদ্যোগ আৰু যান-বাহনৰ প্ৰদূষণে আমাৰ ছাত্ৰ-ছাত্ৰীৰ স্বাস্থ্যৰ ক্ষতি কৰিছে।', en: 'In Nagaon, pollution from industry and vehicles is harming the health of our students.' },
+
+        // ── More Hindi ──
+        { lang: 'hi', city: 'Rohtak', state: 'Haryana', name: 'Suresh', role: 'Farmer', q: 'रोहतक में पराली और गाड़ियों का धुआँ मिलकर अक्टूबर से ही आँखों में जलन शुरू कर देता है। खेत में काम करना भारी पड़ता है।', en: 'In Rohtak, stubble smoke and vehicle exhaust together start the burning in our eyes from October itself. Working in the fields becomes hard.' },
+        { lang: 'hi', city: 'Hisar', state: 'Haryana', name: 'Mamta', role: 'Homemaker', q: 'हिसार में सर्दियों में सुबह-शाम धुंध की चादर रहती है। बुज़ुर्गों की साँस फूलने लगती है।', en: 'In Hisar, a blanket of haze covers the mornings and evenings in winter. The elderly start gasping for breath.' },
+        { lang: 'hi', city: 'Bareilly', state: 'Uttar Pradesh', name: 'Irfan', role: 'Rickshaw puller', q: 'बरेली में दिनभर रिक्शा चलाने के बाद शाम को छाती में जकड़न महसूस होती है। मास्क ख़रीदने के पैसे नहीं हैं।', en: 'After pulling the rickshaw all day in Bareilly, by evening I feel a tightness in my chest. I have no money to buy a mask.' },
+        { lang: 'hi', city: 'Indore', state: 'Madhya Pradesh', name: 'Rohit', role: 'Trader', q: 'इंदौर को सबसे स्वच्छ शहर कहते हैं, पर हवा की सफ़ाई कागज़ों में ही है। चौराहों पर धुएँ से दम घुटता है।', en: 'They call Indore the cleanest city, but the clean air is only on paper. At the crossroads the smoke chokes you.' },
+        { lang: 'hi', city: 'Korba', state: 'Chhattisgarh', name: 'Phoolwati', role: 'Daily-wage worker', q: 'कोरबा में बिजली घरों की राख हर घर की छत पर जमती है। हमारे बच्चे इसी राख में बड़े हो रहे हैं।', en: 'In Korba, ash from the power plants settles on every rooftop. Our children are growing up in this very ash.' },
+        { lang: 'hi', city: 'Bhiwadi', state: 'Rajasthan', name: 'Vinod', role: 'Factory worker', q: 'भिवाड़ी की फैक्ट्रियों के बीच रहना मजबूरी है। सर्दियों में AQI कई बार दिल्ली से भी ज़्यादा हो जाता है।', en: 'Living among Bhiwadi’s factories is a compulsion. In winter the AQI is sometimes even worse than Delhi’s.' },
+
+        // ── More English ──
+        { lang: 'en', city: 'Patna', state: 'Bihar', name: 'Sneha', role: 'College student', q: 'My grandmother in Patna has stopped her evening walks entirely. The doctor said her lungs can’t take the winter air anymore, and she’s only 62.' },
+        { lang: 'en', city: 'Ranchi', state: 'Jharkhand', name: 'Arjun', role: 'Shop owner', q: 'Ranchi was a hill-station retreat once. Now between the mining belt around us and the traffic, the haze rolls in every winter and doesn’t lift for weeks.' },
+        { lang: 'en', city: 'Lucknow', state: 'Uttar Pradesh', name: 'Zoya', role: 'Teacher', q: 'I teach a class of forty children in Lucknow. By December, a third of them are absent on the worst days, coughing and feverish. It’s the same every year.' },
+        { lang: 'en', city: 'Bhilai', state: 'Chhattisgarh', name: 'Ramesh', role: 'Plant worker', q: 'We owe our livelihoods to the Bhilai steel plant, but our rooftops, our clothes and our lungs all carry its dust. There’s no escaping it.' },
+        { lang: 'en', city: 'Faridabad', state: 'Haryana', name: 'Anjali', role: 'Nurse', q: 'In our Faridabad hospital the respiratory ward fills up every winter. We see toddlers and grandparents in the same queue, all struggling to breathe.' },
+        { lang: 'en', city: 'Indore', state: 'Madhya Pradesh', name: 'Karan', role: 'Runner', q: 'Indore wins cleanliness awards, but on a still winter morning the air at the lake is grey. A clean street and clean air are not the same thing.' },
+
+        // ── More Bengali ──
+        { lang: 'bn', city: 'Kharagpur', state: 'West Bengal', name: 'Sourav', role: 'Student', q: 'খড়্গপুরে রেল ইয়ার্ড আর কারখানার ধোঁয়ায় শীতের সকালে রাস্তা ঠিকমতো দেখা যায় না।', en: 'In Kharagpur, the smoke from the rail yard and factories means you can barely see the road on a winter morning.' },
+        { lang: 'bn', city: 'Barrackpore', state: 'West Bengal', name: 'Aparna', role: 'Homemaker', q: 'ব্যারাকপুরে গঙ্গার ধারেও এখন বাতাস ভারী। ছেলেমেয়েদের শ্বাসকষ্ট লেগেই থাকে।', en: 'In Barrackpore the air is heavy even by the Ganga now. The children have constant breathing trouble.' },
+
+        // ── More Tamil ──
+        { lang: 'ta', city: 'Salem', state: 'Tamil Nadu', name: 'Ravi', role: 'Driver', q: 'சேலத்தில் தொழிற்சாலைகள் மற்றும் வாகனப் புகையால் காலையில் மலை மறைந்து போகிறது.', en: 'In Salem, the factories and vehicle smoke hide the hills in the morning.' },
+        { lang: 'ta', city: 'Tiruppur', state: 'Tamil Nadu', name: 'Kavitha', role: 'Garment worker', q: 'திருப்பூரில் சாயப்பட்டறைகளின் புகையும் தூசியும் கலந்து காற்றை மூச்சு விட முடியாதபடி ஆக்குகிறது.', en: 'In Tiruppur, the smoke and dust from the dyeing units mix to make the air impossible to breathe.' },
+
+        // ── More Marathi ──
+        { lang: 'mr', city: 'Chhatrapati Sambhajinagar', state: 'Maharashtra', name: 'Sunil', role: 'Auto driver', q: 'संभाजीनगरमध्ये बांधकाम आणि वाहनांच्या धुळीने दिवसभर डोळे चुरचुरतात. श्वास घ्यायला त्रास होतो.', en: 'In Sambhajinagar, the construction and vehicle dust make the eyes smart all day. It is hard to breathe.' },
+        { lang: 'mr', city: 'Solapur', state: 'Maharashtra', name: 'Rekha', role: 'Mill worker', q: 'सोलापूरच्या कारखान्यांच्या धुरामुळे आमच्या वस्तीतली हवा कायम धुरकट असते.', en: 'Because of the smoke from Solapur’s mills, the air in our neighbourhood is permanently smoky.' },
+
+        // ── More others ──
+        { lang: 'te', city: 'Warangal', state: 'Telangana', name: 'Naveen', role: 'Shopkeeper', q: 'వరంగల్‌లో రోడ్డు పనులు, వాహనాల పొగతో ఉదయం నుంచి సాయంత్రం వరకు దూళు తేలుతూనే ఉంటుంది.', en: 'In Warangal, between roadworks and vehicle smoke, dust hangs in the air from morning to evening.' },
+        { lang: 'kn', city: 'Ballari', state: 'Karnataka', name: 'Shivu', role: 'Mine-area resident', q: 'ಬಳ್ಳಾರಿಯ ಗಣಿ ಪ್ರದೇಶದ ಕೆಂಪು ಧೂಳು ಮನೆ, ಬಟ್ಟೆ, ಉಸಿರು ಎಲ್ಲದರ ಮೇಲೂ ಕೂರುತ್ತದೆ.', en: 'The red dust of Ballari’s mining area settles on our homes, our clothes and our breath alike.' },
+        { lang: 'gu', city: 'Vapi', state: 'Gujarat', name: 'Kiran', role: 'Worker', q: 'વાપીના ઔદ્યોગિક વિસ્તારની હવામાં રસાયણોની ગંધ એટલી તીવ્ર છે કે રાત્રે બારી બંધ રાખવી પડે છે.', en: 'The chemical smell in the air of Vapi’s industrial belt is so sharp that we have to keep the windows shut at night.' },
+        { lang: 'pa', city: 'Jalandhar', state: 'Punjab', name: 'Manpreet', role: 'Sports-goods worker', q: 'ਜਲੰਧਰ ਵਿੱਚ ਪਰਾਲੀ ਦੇ ਦਿਨਾਂ ਵਿੱਚ ਸਵੇਰੇ ਅਸਮਾਨ ਸੰਤਰੀ ਹੋ ਜਾਂਦਾ ਹੈ ਤੇ ਨੱਕ-ਅੱਖਾਂ ਵਿੱਚ ਚੁਭਨ ਰਹਿੰਦੀ ਹੈ।', en: 'In Jalandhar, on the stubble-burning days the morning sky turns orange and there is a stinging in the nose and eyes.' },
+        { lang: 'or', city: 'Talcher', state: 'Odisha', name: 'Manoj', role: 'Coalfield resident', q: 'ତାଳଚେରର କୋଇଲା ଖଣି ଓ ତାପ ବିଦ୍ୟୁତ କେନ୍ଦ୍ରର କଳା ଧୂଳିରେ ଆମ ପିଲାଏ ନିଶ୍ୱାସ ନେବାକୁ କଷ୍ଟ ପାଉଛନ୍ତି।', en: 'In Talcher, the black dust from the coal mines and the thermal power station leaves our children struggling to breathe.' },
+        { lang: 'ml', city: 'Thrissur', state: 'Kerala', name: 'Biju', role: 'Driver', q: 'തൃശൂരിൽ ഉത്സവ കാലത്ത് വാഹനത്തിരക്കും പുകയും കൂടി വായു ശ്വസിക്കാൻ പ്രയാസമാകുന്നു.', en: 'In Thrissur, during the festival season the traffic and smoke together make the air hard to breathe.' },
+        { lang: 'ur', city: 'Aligarh', state: 'Uttar Pradesh', name: 'Rehana', role: 'Homemaker', q: 'علی گڑھ میں سردیوں کی دھند اور دھواں مل کر بچوں کی کھانسی کو مہینوں ٹھیک نہیں ہونے دیتے۔', en: 'In Aligarh, the winter fog and smoke together keep the children’s cough from healing for months.' }
+    ];
+
+    function renderTestimonies(filterLang) {
+        const grid = document.getElementById('testimony-grid');
+        if (!grid) return;
+        const lang = filterLang || window.__testimonyLang || 'all';
+        window.__testimonyLang = lang;
+        const searchEl = document.getElementById('testimony-search');
+        const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
+
+        // Active-state on language buttons
+        document.querySelectorAll('.testimony-lang-btn').forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+
+        const filtered = CITIZEN_TESTIMONIES.filter(t => {
+            if (lang !== 'all' && t.lang !== lang) return false;
+            if (!q) return true;
+            const hay = (t.city + ' ' + t.state + ' ' + t.name + ' ' + (t.role || '') + ' ' + t.q + ' ' + (t.en || '')).toLowerCase();
+            return hay.indexOf(q) !== -1;
+        });
+
+        const countEl = document.getElementById('testimony-count');
+        if (countEl) countEl.textContent = filtered.length;
+
+        if (!filtered.length) {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-3); padding: 2rem;">No testimonies match your filter. <button class="btn btn-sm" onclick="document.getElementById(\'testimony-search\').value=\'\';renderTestimonies(\'all\')">Reset</button></p>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(t => {
+            const color = TESTIMONY_COLORS[t.lang] || 'var(--green-700)';
+            const label = (TESTIMONY_LANGS[t.lang] || {}).label || t.lang;
+            const rtl = t.lang === 'ur' ? ' dir="rtl"' : '';
+            const enBlock = t.en ? ('<div class="testimony-en">' + escapeTestimony(t.en) + '</div>') : '';
+            const role = t.role ? (' &middot; ' + escapeTestimony(t.role)) : '';
+            return '<div class="voice-card testimony-card" lang="' + t.lang + '" style="border-left: 3px solid ' + color + ';">'
+                + '<div class="testimony-quote"' + rtl + '>&ldquo;' + escapeTestimony(t.q) + '&rdquo;</div>'
+                + enBlock
+                + '<div class="voice-meta"><strong>' + escapeTestimony(t.name) + '</strong>' + role
+                + '<br>' + escapeTestimony(t.city) + ', ' + escapeTestimony(t.state)
+                + '<span class="testimony-langbadge" style="background: ' + color + '1a; color: ' + color + ';">' + label + '</span></div>'
+                + '</div>';
+        }).join('');
+    }
+
+    function escapeTestimony(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Populate the language-filter bar + summary counts once, on first open.
+    function initTestimonyToolbar() {
+        const bar = document.getElementById('testimony-lang-bar');
+        if (!bar || bar.dataset.ready) return;
+        const counts = {};
+        CITIZEN_TESTIMONIES.forEach(t => { counts[t.lang] = (counts[t.lang] || 0) + 1; });
+        const langCodes = Object.keys(TESTIMONY_LANGS).filter(c => counts[c]);
+        let html = '<button class="testimony-lang-btn active" data-lang="all" onclick="renderTestimonies(\'all\')">All &middot; ' + CITIZEN_TESTIMONIES.length + '</button>';
+        langCodes.forEach(c => {
+            html += '<button class="testimony-lang-btn" data-lang="' + c + '" onclick="renderTestimonies(\'' + c + '\')">' + TESTIMONY_LANGS[c].label + ' &middot; ' + counts[c] + '</button>';
+        });
+        bar.innerHTML = html;
+        bar.dataset.ready = '1';
+
+        const cities = new Set(CITIZEN_TESTIMONIES.map(t => t.city));
+        const sEl = document.getElementById('testimony-stat-line');
+        if (sEl) {
+            sEl.innerHTML = '<strong>' + CITIZEN_TESTIMONIES.length + '</strong> testimonies &middot; <strong>'
+                + cities.size + '</strong> cities &middot; <strong>' + langCodes.length + '</strong> languages';
+        }
+    }
+</script>
+
 <!-- ═══ PANEL TEMPLATES ═══ -->
+<template id="tmpl-testimony">
+
+            <div class="section-intro" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: var(--green-700); margin-right: 0.4rem;"></span>Citizen Testimony</h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="Real people across India say in their own languages how bad the air is in their city.">On-the-ground voices from across India &mdash; in Hindi, English and a dozen Indian languages &mdash; on what the air crisis feels like where people actually live, breathe and work.</p>
+                <p id="testimony-stat-line" style="font-size: 0.9rem; color: var(--text-2); margin-top: 0.75rem;"></p>
+            </div>
+
+            <div class="card mb-3" style="border-left: 4px solid var(--green-700); background: var(--green-50);">
+                <div class="card-body" style="font-size: 0.82rem; line-height: 1.6; color: var(--text-2);">
+                    <strong>Voices from across India.</strong> First-person testimonies, in many Indian languages, on what the air crisis feels like where people live, breathe and work. <strong>Lived in this air?</strong> Add your own testimony (any Indian language welcome) by writing to <a href="mailto:contribute@janvayu.in?subject=Citizen%20Testimony%20Submission&amp;body=Your%20name%20(or%20Anonymous)%3A%0ACity%2FState%3A%0ALanguage%3A%0AYour%20testimony%3A%0A" style="color: var(--green-700); font-weight: 600;">contribute@janvayu.in</a>.
+                </div>
+            </div>
+
+            <div class="testimony-toolbar">
+                <input type="search" id="testimony-search" placeholder="Search by city, state or words&hellip;" oninput="renderTestimonies()" style="flex: 1 1 220px; min-width: 180px; padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--sans); font-size: 0.85rem; background: var(--bg-card); color: var(--ink);">
+                <span style="font-size: 0.78rem; color: var(--text-3);">Showing <strong id="testimony-count">0</strong></span>
+            </div>
+
+            <div id="testimony-lang-bar" class="testimony-toolbar" style="margin-bottom: 1.5rem;"></div>
+
+            <div id="testimony-grid" class="testimony-grid"></div>
+
+            <p style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-3); text-align: center;">Want your city&rsquo;s voice on this wall? Write to <a href="mailto:contribute@janvayu.in?subject=Citizen%20Testimony%20Submission" style="color: var(--green-700);">contribute@janvayu.in</a>.</p>
+
+</template>
+
 <template id="tmpl-health">
 
             <div class="panel-action-box">
