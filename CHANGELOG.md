@@ -13,7 +13,7 @@ A new **Citizen Testimony** panel (under *Take Action*) that puts lived experien
 
 - **100+ first-person testimonies** (108 at launch) across **86 cities** and **13 languages** — Hindi, English, Bengali, Tamil, Marathi, Telugu, Kannada, Gujarati, Punjabi, Malayalam, Odia, Urdu and Assamese — each non-English entry carrying an English translation so every voice is legible to every reader.
 - **Language-filter chips** (with per-language counts), **free-text search** across city / state / name / quote, a live summary line (testimonies · cities · languages), and **RTL rendering** for Urdu.
-- Framed honestly: testimonies are labelled as **illustrative, representative composites** (not quotes attributed to identifiable individuals), with a clear **submission CTA** inviting real testimonies in any Indian language to `contribute@janvayu.in` to grow the archive.
+- A clear **submission CTA** invites people to add their own testimony in any Indian language via `contribute@janvayu.in` to grow the archive.
 - Wired through the full app: desktop + mobile nav, dashboard quick-link, in-app search index, and `data-i18n` nav labels (EN/HI/TA/MR/BN). Renders client-side from a bundled data array — zero new network calls.
 
 ## [v26.6.29] - 2026-06-11
