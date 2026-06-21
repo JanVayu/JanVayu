@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 11 Jun 2026 | [Live vs Annual: The Honest Version of "How Polluted Is Your Ward?"](posts/2026-06-11-live-vs-annual-honest-ward-data.md) | Data |
 | 10 Jun 2026 | [A City Is Not One Number: Mapping India's Air Ward by Ward](posts/2026-06-10-how-polluted-is-your-ward.md) | Data |
 | 10 Jun 2026 | [The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story](posts/2026-06-10-urban-heat-island.md) | Health |
 | 8 May 2026 | [Quality You Can Measure: Lighthouse, axe, Lazy-Loading, Mobile](posts/2026-05-08-quality-and-performance.md) | Platform |

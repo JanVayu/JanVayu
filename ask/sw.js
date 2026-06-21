@@ -1,4 +1,8 @@
-const CACHE_NAME = 'ask-janvayu-20260630-v26';
+<<<<<<< Updated upstream
+const CACHE_NAME = 'ask-janvayu-20260631-v31';
+=======
+const CACHE_NAME = 'ask-janvayu-20260631-v31';
+>>>>>>> Stashed changes
 const STATIC_ASSETS = [
   '/ask/',
   '/ask/index.html',
