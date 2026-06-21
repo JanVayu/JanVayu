@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.31] - 2026-06-11
+
+### Added — Per-ward share cards + a methodology blog post
+
+- **Share a ward**: tap any ward on the Ward Atlas map (or search / locate one) and a "Share ward" button generates a 1080×1080 PNG card — air-first (the ward's live PM2.5 estimate as the headline, heat / green / built-up as supporting context), with JanVayu branding and the map link. Uses the Web Share API on mobile, downloads on desktop.
+- **Blog post**: "Live vs Annual: The Honest Version of How Polluted Is Your Ward?" — explains the live-snapshot-vs-annual-structure decision and the dropped seasonal-median experiment.
+- Ask JanVayu: small refinement so "my ward" (without a named ward) returns the city's worst/cleanest-air wards and invites the user to name their ward or use the map's locate button.
+
+### Tested and dropped — seasonal-median heat
+
+- Evaluated replacing each city's single-day Landsat heat layer with a multi-scene summer **median** to cut noise. It did **not** improve the weak-signal city (Bengaluru's heat-vs-built-up correlation stayed ~0) and it **reduced ward coverage** (persistent cloud/edge gaps across all scenes left some wards blank). Kept the cleaner, full-coverage single-scene version. Documented as a negative result rather than shipping a regression.
+
 ## [v26.6.30] - 2026-06-18
 
 ### Added — Citizen Testimony: a multilingual wall of on-the-ground voices

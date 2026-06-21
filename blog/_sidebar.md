@@ -3,6 +3,7 @@
 - [**JanVayu Blog**](README.md)
 
 - **June 2026**
+  - [Live vs Annual: The Honest Version of "How Polluted Is Your Ward?"](posts/2026-06-11-live-vs-annual-honest-ward-data.md)
   - [A City Is Not One Number: Mapping India's Air Ward by Ward](posts/2026-06-10-how-polluted-is-your-ward.md)
   - [The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story](posts/2026-06-10-urban-heat-island.md)
 
