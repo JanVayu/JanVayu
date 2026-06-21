@@ -280,7 +280,7 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
   - [x] **Air quality** — per-ward PM2.5, inverse-distance-weighted from the city's live CPCB/WAQI monitors.
   - [x] **Heat** — Landsat 8/9 land-surface temperature (~30 m), per-city clear-sky summer scene via Microsoft Planetary Computer.
   - [x] **Green cover** + **Built-up** — vegetation and impervious-surface share per ward from ESA WorldCover 2021 (10 m).
-- [x] **10 cities**: Delhi (290), Mumbai (227), Bengaluru (243), Chennai (201), Hyderabad (145), Kolkata (141), Jaipur (77), Pune (58), Ahmedabad (48), Chandigarh (28).
+- [x] **14 cities**: Delhi (290), Mumbai (227), Bengaluru (243), Chennai (201), Hyderabad (145), Varanasi (99), Bhopal (86), Jaipur (77), Kanpur (58), Pune (58), Kolkata (141), Ahmedabad (48), Faridabad (40), Chandigarh (28).
 - [x] Per-layer legend, tooltips, methodology note, and live "But…" stats. The Heat layer surfaces the heat-island link (hottest vs coolest fifth of wards by built-up + green) from each city's own data.
 - [x] Offline zonal-statistics pipelines: rasterio over **remote cloud-optimized GeoTIFFs** (windowed reads, no bulk downloads) — ESA WorldCover (S3) + Landsat C2 L2 (Planetary Computer). Per-ward values baked into `/data/wards/*.json`.
 - [x] Responsive mobile layout for the ward map; blog: "A City Is Not One Number".
@@ -351,7 +351,7 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 Building on the Phase 5.14 ward atlas. Tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
 - [~] **Ward Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ✅ ward search / locate-me, ✅ two-finger pan on touch, ✅ correlation view (active layer vs built-up / green, with Pearson *r*); ⏳ time-aware (seasonal-median) heat still to do.
-- [ ] **Tier-1 / tier-2 cities** — extend the atlas city-by-city as open ward boundaries are sourced (Lucknow, Kanpur, Nagpur, Indore, Bhopal, Patna, …).
+- [~] **Tier-1 / tier-2 cities** — added Kanpur, Varanasi, Bhopal, Faridabad (14 cities total). Still sourcing: Agra, Lucknow, Patna, Nagpur, Indore (no open, curl-verifiable ward-polygon files found yet).
 - [ ] **Per-ward share cards** — extend the Shareable AQI Cards generator to ward snapshots ("My ward vs the city").
 
 **Dropped (not feasible on open data):**

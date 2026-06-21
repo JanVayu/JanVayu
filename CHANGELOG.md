@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.32] - 2026-06-11
+
+### Added — Ward Atlas: 4 more cities (now 14)
+
+- Added **Kanpur (58 wards), Varanasi (99), Bhopal (86), Faridabad (40)** — bringing the atlas to **14 cities**, each with all four layers, and pulling it into the polluted Gangetic belt. All wired into the map dropdown and Ask JanVayu (`ward-stats.json`, 1,741 wards).
+- Sources: DataMeet (Kanpur/Bhopal/Faridabad) and the official Varanasi Smart City ArcGIS server. Notes: Kanpur's file was in Web Mercator and was reprojected to EPSG:4326; Bhopal's ward names are the official Hindi names; Bhopal's heat layer covers 57/86 wards (it straddles a Landsat scene edge — air/green/built-up are full).
+- Agra, Lucknow, Patna, Nagpur, Indore remain unavailable — no open, curl-verifiable ward-polygon files found.
+
 ## [v26.6.31] - 2026-06-11
 
 ### Added — Per-ward share cards + a methodology blog post
