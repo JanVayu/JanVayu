@@ -8,7 +8,7 @@ The atlas moves JanVayu from **city-level** to **ward-level** resolution — mak
 
 ## Cities & ward boundaries
 
-10 Indian cities are live:
+14 Indian cities are live:
 
 | City | Wards | Boundary source |
 |------|-------|-----------------|
@@ -19,8 +19,12 @@ The atlas moves JanVayu from **city-level** to **ward-level** resolution — mak
 | Hyderabad | 145 | DataMeet (GHMC) |
 | Kolkata | 141 | DataMeet (KMC) |
 | Jaipur | 77 | DataMeet |
+| Varanasi | 99 | Varanasi Smart City ArcGIS (official) |
+| Bhopal | 86 | DataMeet (ward names in Hindi) |
 | Pune | 58 | DataMeet (electoral wards 2022) |
+| Kanpur | 58 | DataMeet (reprojected from Web Mercator) |
 | Ahmedabad | 48 | DataMeet (AMC) |
+| Faridabad | 40 | DataMeet |
 | Chandigarh | 28 | DataMeet |
 
 Boundaries are simplified with shapely (topology-preserving, ~35 m tolerance), coordinate precision rounded, and an inside-polygon representative point baked in for label/interpolation use. Each city's processed file lives at `/data/wards/<city>.json` and is lazy-loaded only when the panel opens.
