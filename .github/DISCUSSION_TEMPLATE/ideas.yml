@@ -1,0 +1,26 @@
+title: "[Idea] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping shape JanVayu — a citizen-led archive of India's air quality crisis.
+        Use this to propose a feature, a dataset, or a city you'd like added. For bugs, please open an **Issue** instead.
+  - type: textarea
+    id: idea
+    attributes:
+      label: What's the idea?
+      description: What should JanVayu do, and who does it help?
+      placeholder: e.g. Add a ward-level air map for <city>, or a school-closure alert for parents...
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it matter?
+      description: The air-quality or accountability problem this addresses.
+  - type: input
+    id: sources
+    attributes:
+      label: Data sources (if any)
+      description: Links to open data, papers, or boundary files that would make it possible.
