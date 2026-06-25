@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.34] - 2026-06-25
+
+### Fixed — broken weekly link-audit workflow (false "broken links" issues)
+
+- The weekly link audit had been failing on every run because lychee v0.23 removed the `--exclude-mail` flag — the job errored *before checking any links*, then auto-filed a "broken links detected" issue. Removed the flag (mail is excluded by default) in both `link-audit.yml` and `ci.yml`, so link checking actually runs again. The ~7 existing audit issues were false alarms, not real broken links.
+
+### Changed — backend maintenance
+
+- **Node 20 → 22** (Node 20 reached end-of-life) across `netlify.toml` and all CI workflows; added an `engines.node >= 22` field.
+- `resend` bumped to `^6.14.0`. `@netlify/blobs` (v8, two majors behind) left as tracked tech-debt for a deliberate, tested upgrade — it's the caching backbone, so not bumped blind.
+- Bumped deprecated `actions/checkout@v4 → v6` in the link-audit workflow.
+
+### Added
+
+- Blog post: "Ask JanVayu Can Now Answer About Your Ward."
+
 ## [v26.6.33] - 2026-06-25
 
 ### Changed — Ask JanVayu model migration (Groq retirement)
