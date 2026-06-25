@@ -16,9 +16,5 @@ keywords:
   - health
   - open-data
 
-<<<<<<< Updated upstream
-date-released: "2026-06-30"
-=======
-date-released: "2026-06-11"
->>>>>>> Stashed changes
-version: "26.6.32"
+date-released: "2026-06-25"
+version: "26.6.33"

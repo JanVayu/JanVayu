@@ -1,10 +1,10 @@
-# AI Layer — Llama 3.3 70B via Groq
+# AI Layer — OpenAI gpt-oss-120B via Groq
 
-JanVayu's AI features are powered by **Llama 3.3 70B**, an open-source LLM served via the **Groq API** (OpenAI-compatible REST API) from Netlify Functions.
+JanVayu's AI features are powered by **OpenAI gpt-oss-120B**, an open-source LLM served via the **Groq API** (OpenAI-compatible REST API) from Netlify Functions.
 
 ---
 
-## Why Llama 3.3 70B via Groq?
+## Why OpenAI gpt-oss-120B via Groq?
 
 | Criterion | Choice |
 |-----------|--------|
@@ -13,7 +13,7 @@ JanVayu's AI features are powered by **Llama 3.3 70B**, an open-source LLM serve
 | **Rate limits** | Generous free tier — sufficient for a public interest platform |
 | **Multilingual** | Strong Hindi support (critical for JanVayu's audience) |
 | **Quality** | Adequate for data-grounded factual responses (not creative writing) |
-| **Open source** | Llama 3.3 70B is an open-source model (Meta), ensuring transparency and reproducibility |
+| **Open source** | OpenAI gpt-oss-120B is an open model (OpenAI), ensuring transparency and reproducibility |
 
 ### Trade-offs Accepted
 
@@ -45,7 +45,7 @@ Netlify Function (server-side)
     ▼
 Groq API
     │
-    │ llama-3.3-70b-versatile model
+    │ openai/gpt-oss-120b model
     │ max_tokens: 150-400
     │ temperature: 0.3-0.7
     │

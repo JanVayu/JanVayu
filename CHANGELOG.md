@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.33] - 2026-06-25
+
+### Changed — Ask JanVayu model migration (Groq retirement)
+
+- Groq is **retiring `llama-3.3-70b-versatile` on 16 Aug 2026**. Migrated all four AI functions (`air-query`, `health-advisory`, `accountability-brief`, `anomaly-check`) to the production replacement **`openai/gpt-oss-120b`**, now read from a `GROQ_MODEL` env var (default to the new model) so future swaps need no code change.
+- Tuned for the reasoning model: `reasoning_effort: "low"`, higher `max_tokens` (it spends some budget thinking), longer timeouts, and a `message.reasoning` fallback when `content` is empty. The `GROQ_API_KEY` / WAQI tokens were verified working — this is purely the model retirement.
+- Docs/UI updated to name the new model (README env-var table, docs AI-layer page + SUMMARY, in-app "what this bot can do"). Historical release-notes entries left as-is.
+
+### Fixed — shipped merge-conflict markers
+
+- Removed unresolved Git conflict markers that had been committed to `CITATION.cff` and **`ask/sw.js`** in an earlier rebase. The `ask/sw.js` markers were a real bug — they would break the Ask JanVayu PWA service worker on parse.
+
 ## [v26.6.32] - 2026-06-11
 
 ### Added — Ward Atlas: 4 more cities (now 14)
