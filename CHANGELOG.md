@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.35] - 2026-06-25
+
+### Changed — Urban Heat Island panel reframed (air-first, national)
+
+- The panel now **leads with the air↔heat connection** — opening with "why does an air-quality platform map heat?" — instead of opening on Delhi temperatures. Fitting for JanVayu: heat and dirty air are framed as two sides of one problem from the first line.
+- Reframed as a **national** problem (Mumbai, Hyderabad, Ahmedabad, Lucknow, Kanpur and every fast-building city); **Delhi is now explicitly the "worked example,"** not the headline.
+- Moved the "How heat and air pollution are connected" card to be the **first** section (before the Delhi map), so the connection surfaces first structurally, not just in the intro.
+
 ## [v26.6.34] - 2026-06-25
 
 ### Fixed — broken weekly link-audit workflow (false "broken links" issues)
