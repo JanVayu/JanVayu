@@ -22,7 +22,7 @@
 * [Overview](tech-stack/overview.md)
 * [Frontend (HTML/CSS/JS, Chart.js, Leaflet)](tech-stack/frontend.md)
 * [Backend (Netlify Functions, Blobs, Resend)](tech-stack/backend.md)
-* [AI Layer (Llama 3.3 70B via Groq)](tech-stack/ai-layer.md)
+* [AI Layer (OpenAI gpt-oss-120B via Groq)](tech-stack/ai-layer.md)
 * [Infrastructure (Netlify, GitHub, DNS)](tech-stack/infrastructure.md)
 * [Development Tooling](tech-stack/dev-tooling.md)
 

@@ -2,6 +2,9 @@
 // Accepts user profile + city, fetches live AQI, sends to Groq for advisory
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
+// Groq model, env-overridable. llama-3.3-70b-versatile retires 16 Aug 2026.
+const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+const GROQ_IS_REASONING = /gpt-oss|deepseek|qwen/.test(GROQ_MODEL);
 
 const CITIES = {
   delhi: { name: "Delhi", lat: 28.6139, lon: 77.2090 },
@@ -123,17 +126,18 @@ export default async function handler(req) {
       method: "POST",
       headers: { "Authorization": `Bearer ${process.env.GROQ_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: GROQ_MODEL,
         messages: [
           { role: "system", content: "You are a public health advisor specialising in air pollution exposure in India. Given a person's profile and current air quality data, generate a specific, actionable advisory. Be concrete: say 'stay indoors until 2pm' not 'limit outdoor exposure'. Reference the actual PM2.5 value. If the person has a health condition, address it directly. Do not hedge — give a clear recommendation. 3-4 sentences maximum. Respond in English." },
           { role: "user", content: profileContext }
         ],
-        max_tokens: 300,
+        max_tokens: 768,
+        ...(GROQ_IS_REASONING ? { reasoning_effort: "low" } : {}),
       }),
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(25000),
     });
     const groqData = await groqRes.json();
-    const text = groqData.choices?.[0]?.message?.content || "No response generated.";
+    const text = groqData.choices?.[0]?.message?.content || groqData.choices?.[0]?.message?.reasoning || "No response generated.";
     return new Response(JSON.stringify({
       advisory: text,
       riskLevel,

@@ -41,6 +41,12 @@ const WARD_DATA = JSON.parse(
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
+// v26.6.33 — Groq model, env-overridable. llama-3.3-70b-versatile retires on
+// Groq 16 Aug 2026; default to the production replacement openai/gpt-oss-120b.
+// Override via GROQ_MODEL env var without a code change.
+const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+const GROQ_IS_REASONING = /gpt-oss|deepseek|qwen/.test(GROQ_MODEL);
+
 const CITIES = {
   delhi: { name: "Delhi", lat: 28.6139, lon: 77.2090 },
   mumbai: { name: "Mumbai", lat: 19.0760, lon: 72.8777 },
@@ -1308,17 +1314,18 @@ Top 5 worst: ${top5}
       method: "POST",
       headers: { "Authorization": `Bearer ${process.env.GROQ_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: GROQ_MODEL,
         messages: [
           { role: "system", content: buildSystemPrompt(seasonal, requestedLang, nationalQuery) },
           { role: "user", content: `${dataContext}\n\nQuestion: ${question}` }
         ],
-        max_tokens: 450,
+        max_tokens: 1024,
+        ...(GROQ_IS_REASONING ? { reasoning_effort: "low" } : {}),
       }),
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(25000),
     });
     const groqData = await groqRes.json();
-    let text = groqData.choices?.[0]?.message?.content;
+    let text = groqData.choices?.[0]?.message?.content || groqData.choices?.[0]?.message?.reasoning;
     if (!text || text.trim().length === 0) {
       // v26.6.17 — when Groq returns empty (rate limit, transient error,
       // content-filter), surface the calculator + live-data context so

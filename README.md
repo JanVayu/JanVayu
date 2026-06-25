@@ -197,7 +197,7 @@ The following environment variables must be configured in the Netlify dashboard 
 | `RESEND_FROM` | Yes | Verified sender email address (e.g., `digest@janvayu.in`) |
 | `BLOB_TOKEN` | Yes | Netlify personal access token for Blob store access |
 | `NETLIFY_SITE_ID` | Yes | Netlify site identifier (used by Blob store and scheduled functions) |
-| `GROQ_API_KEY` | Yes | Groq API key for AI features — runs Llama 3.3 70B open-source LLM (free at [console.groq.com](https://console.groq.com)) |
+| `GROQ_API_KEY` | Yes | Groq API key for AI features — runs the `openai/gpt-oss-120b` open model (free at [console.groq.com](https://console.groq.com)). Optional `GROQ_MODEL` overrides the model without a code change. |
 
 > **Note:** The WAQI API token (`1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3`) is a free-tier public key embedded in the client-side code. It is rate-limited by WAQI and does not require server-side protection.
 
