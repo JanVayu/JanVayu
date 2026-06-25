@@ -287,6 +287,16 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
 
 ---
 
+## Phase 5.15: Ward Atlas in the chatbot + platform maintenance (✅ Completed — v26.6.27–v26.6.34)
+
+- [x] **Ward Atlas wired into Ask JanVayu** — air-first per-ward answers (live PM2.5 interpolated server-side; heat/green/built-up as drivers), with explicit live-snapshot-vs-annual-structure honesty.
+- [x] **Per-ward share cards** + a "Live vs Annual" data-honesty blog post.
+- [x] **Groq model migration** — `llama-3.3-70b-versatile` retires 16 Aug 2026; moved all four AI functions to `openai/gpt-oss-120b` behind a `GROQ_MODEL` env var.
+- [x] **Maintenance**: Node 20 (EOL) → 22 across Netlify + CI; `resend` bumped; fixed the broken weekly link-audit workflow (lychee dropped `--exclude-mail`, which was silently failing the job and filing false "broken links" issues); removed stray merge-conflict markers shipped to `ask/sw.js` + `CITATION.cff`.
+- [ ] **Open tech debt**: `@netlify/blobs` v8 → v10 (a tested upgrade; the caching backbone, so deliberately not bumped blind).
+
+---
+
 ## Phase 6.5: Legacy mobile & performance tracking (🔄 partially superseded by Phase 5.8 / 6)
 
 **Issues:** [#33](https://github.com/JanVayu/JanVayu/issues/33), [#3](https://github.com/JanVayu/JanVayu/issues/3). The items here are tracked individually now in Phase 5.8 (shipped) and Phase 6 (Q3 priorities).

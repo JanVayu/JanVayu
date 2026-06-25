@@ -1,11 +1,14 @@
 {
   "name": "janvayu",
-  "version": "26.6.33",
+  "version": "26.6.34",
   "description": "JanVayu - India Air Quality Monitor",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "@netlify/blobs": "^8.1.0",
-    "resend": "^6.9.3"
+    "resend": "^6.14.0"
   },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks",
