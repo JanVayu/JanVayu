@@ -18,7 +18,7 @@ jobs:
   strict-link-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Run lychee in strict mode
         id: lychee

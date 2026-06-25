@@ -11,7 +11,7 @@ jobs:
   guard-index-html:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Verify index.html is not empty or gutted
         run: |
@@ -30,7 +30,7 @@ jobs:
   guard-netlify-functions:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Reject top-level __dirname / __filename redeclarations
         run: |
@@ -58,7 +58,7 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       # On PR: don't fail the build — just surface the count in the PR check
       # summary so reviewers see drift. The strict, fail-on-broken pass runs
