@@ -1,0 +1,19 @@
+title: "[Question] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask anything about JanVayu — the data, the methodology, or how a particular number was calculated.
+        Tip: the in-app assistant at [janvayu.in/ask](https://www.janvayu.in/ask) answers most live-data and ward-level questions instantly.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: input
+    id: city
+    attributes:
+      label: City / ward (if relevant)
+      placeholder: e.g. Delhi — Ballimaran ward
