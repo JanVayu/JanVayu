@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.38] - 2026-06-30
+
+### Fixed — dead citation links replaced with working URLs
+
+Replaced the eight rotted external citations (previously suppressed in `.lycheeignore`) with verified live URLs: The Hindu → its NCAP topic page; EPW → epw.in; CSE → cseindia.org/air-pollution; Chintan → chintan-india.org; WIEGO → wiego.org/publications; OpenAQ → explore.openaq.org; CREA “Tracing the Hazy Air” → energyandcleanair.org/publications; NGT orders → greentribunal.gov.in. (Deep links to the exact moved articles/PDFs are gone, so these point to the closest live page on the same source.) Re-verified with lychee 0.23 — 0 errors with these no longer ignored. The `.lycheeignore` now holds only official government sites that load for users but block the automated checker.
+
 ## [v26.6.37] - 2026-06-30
 
 ### Fixed — link audit goes green (verified locally with lychee 0.23)
