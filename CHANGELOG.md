@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.36] - 2026-06-30
+
+### Fixed — link audit now passes (real broken links + lychee config)
+
+The weekly link audit, fixed in v26.6.34, started actually running and then failed — surfacing genuine issues plus a config gap:
+
+- **Real broken links fixed**: the per-pollutant SEO pages (`/pm25`, `/so2`, `/no2`, `/co`, `/o3`, `/pm10`) linked `/about` in their footers, but About is a SPA route — corrected to `/#about`. The `/walkthrough/` page linked a `JanVayu_Walkthrough_with_notes.pdf` that isn't in the repo — repointed to the committed `JanVayu_MMSF_Walkthrough.pdf`.
+- **lychee config**: added `--root-dir` so valid root-relative links (`/`, `/blog/`, `/pm25/`, `/favicon.svg`…) resolve to files instead of erroring, and excluded `cpcb.nic.in` (a government site that reliably times out / blocks crawlers). Applied to both `link-audit.yml` and the advisory `ci.yml` pass.
+
 ## [v26.6.35] - 2026-06-25
 
 ### Changed — Urban Heat Island panel reframed (air-first, national)
