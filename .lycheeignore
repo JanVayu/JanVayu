@@ -17,15 +17,6 @@ safar\.tropmet\.res\.in
 main\.sci\.gov\.in
 cpcb\.nic\.in
 
-# --- Dead / moved external citations. TODO: replace with current or web.archive.org URLs. ---
-energyandcleanair\.org/publication/tracing-the-hazy-air-2026
-greentribunal\.gov\.in/orders
-openaq\.org/locations
-chintan-india\.org/publications
-cseindia\.org/page/programme-air-pollution
-epw\.in/journal/2019/10/perspectives/women-and-pm-ujjwala-scheme
-thehindu\.com/.*article65941247
-wiego\.org/.*Occupational-Health-Safety-Informal-Workers
 
 # --- CHANGELOG compare/release links for early versions never tagged on GitHub (v24/v25). ---
 github\.com/JanVayu/JanVayu/(compare|releases/tag)/v2[45]\.
