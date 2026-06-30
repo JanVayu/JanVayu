@@ -3,16 +3,29 @@
 # Format: one URL pattern (regex) per line. See https://lychee.cli.rs/usage/config/
 #
 # Process for adding entries:
-# 1. Run weekly link-audit workflow manually: gh workflow run link-audit.yml
-# 2. Inspect the resulting issue; for each genuine false-positive (paywalls,
-#    rate-limited but live, ephemeral 5xx) add a comment-justified entry below.
-# 3. For genuine dead links, fix the source instead of suppressing here.
+# 1. Run the weekly link-audit workflow (or lychee locally) and inspect failures.
+# 2. For genuine false-positives (sites that block the checker, paywalls,
+#    rate-limited-but-live, malformed-but-reachable), add a comment-justified entry.
+# 3. For genuine dead links, prefer fixing the source over suppressing here.
 
-# --- Examples (delete these once a real entry replaces them) ---
-# # Paywalled article that lychee can't authenticate
-# # ^https://www\.thehindu\.com/.*$
-#
-# # Frequently rate-limited (429) but always live
-# # ^https://www\.thelancet\.com/.*$
+# --- Valid links the checker can't fetch (sites up, but block bots / send
+#     malformed responses / TLS quirks). Reviewed manually — keep the links. ---
+eci\.gov\.in
+ev\.delhi\.gov\.in
+ocmms\.nic\.in
+safar\.tropmet\.res\.in
+main\.sci\.gov\.in
+cpcb\.nic\.in
 
-# --- Real entries below ---
+# --- Dead / moved external citations. TODO: replace with current or web.archive.org URLs. ---
+energyandcleanair\.org/publication/tracing-the-hazy-air-2026
+greentribunal\.gov\.in/orders
+openaq\.org/locations
+chintan-india\.org/publications
+cseindia\.org/page/programme-air-pollution
+epw\.in/journal/2019/10/perspectives/women-and-pm-ujjwala-scheme
+thehindu\.com/.*article65941247
+wiego\.org/.*Occupational-Health-Safety-Informal-Workers
+
+# --- CHANGELOG compare/release links for early versions never tagged on GitHub (v24/v25). ---
+github\.com/JanVayu/JanVayu/(compare|releases/tag)/v2[45]\.

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.37] - 2026-06-30
+
+### Fixed — link audit goes green (verified locally with lychee 0.23)
+
+With `--root-dir` added in v26.6.36, the audit checked everything and surfaced a real backlog (118 errors). Cleared it down to **0**, confirmed by running lychee 0.23 locally with the exact CI args:
+
+- **Real broken site icons**: `.si-share` (used 8×, incl. the ward "Share" button) and `.si-image` pointed at `si_Share.svg` / `si_Image.svg`, which 404 on the Sargam CDN at 1.6.7. Repointed to the valid `si_Link.svg` / `si_Crop.svg`. (Audited all 71 icon classes the site uses — these two were the only broken ones.)
+- **Docsify false positives**: the `docs/` and `docs-*` trees use extensionless wiki links and language-root links that a filesystem checker can't resolve. Excluded those trees via `--exclude-path`.
+- **External link rot**: added a documented `.lycheeignore` for (a) government/institutional sites that are up but block the checker or send malformed responses (ECI, OCMMS, SAFAR, EV Delhi, SCI, CPCB) and (b) genuinely dead citations flagged `TODO` for replacement (The Hindu, EPW, CSE, Chintan, WIEGO, OpenAQ, energyandcleanair, NGT orders), plus the early-version GitHub compare links (v24/v25 were never tagged).
+
 ## [v26.6.36] - 2026-06-30
 
 ### Fixed — link audit now passes (real broken links + lychee config)
