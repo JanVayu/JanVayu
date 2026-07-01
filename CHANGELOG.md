@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.39] - 2026-06-30
+
+### Added — 21 peer-reviewed papers in the Reading List
+
+New "Peer-Reviewed Research" section in the Reading List (Resources panel) with 21 studies on India's air quality — health effects, source apportionment, exposure inequality, low-cost sensing — each linked to its DOI (resolved via Crossref; Rautela & Goyal links to the Zotero library, no registered DOI found). Verified with lychee: all links resolve. The reports the request listed (IQAir 2025, CSE NCAP, Lancet Countdown, AQLI, CEEW, CREA snapshot, CAQM, NGT orders, DTE/AAD) were already present; June 2026 had no new items.
+
+Note: the paper listed as *Jaganathan et al. (2024)* (DOI …00248-1) is the same one the site already features as an anchor card labelled "Krishna et al." — the existing card links Jaganathan's difference-in-differences paper but describes a cohort study; flagged for reconciliation.
+
 ## [v26.6.38] - 2026-06-30
 
 ### Fixed — dead citation links replaced with working URLs
