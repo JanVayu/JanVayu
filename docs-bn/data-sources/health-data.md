@@ -30,13 +30,13 @@ JanVayu বায়ু দূষণের স্বাস্থ্য প্র
 
 এটি **JanVayu-তে প্রামাণিক মূল সংখ্যা** — ড্যাশবোর্ডে, স্বাস্থ্য প্রভাব প্যানেলে এবং README-র *Key Statistics* টেবিলে।
 
-### Lancet Planetary Health — Krishna et al. (2024) কারণ-বিশ্লেষণ অধ্যয়ন
+### Lancet Planetary Health — Jaganathan et al. (2024) কারণ-বিশ্লেষণ অধ্যয়ন
 
 [DOI: 10.1016/S2542-5196(24)00248-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext)
 
 ভারতীয় cohort ডেটা থেকে প্রথম causal-inference অনুমান। সাতটি জেলা এক দশক ধরে অনুসরণ করে **প্রতি +10 µg/m³ দীর্ঘমেয়াদী PM2.5 বৃদ্ধির জন্য ~8.6% সর্ব-কারণ মৃত্যু বৃদ্ধি** চিহ্নিত করা হয়েছে। যখন এই coefficient ভারতের PM2.5 exposure surface-এ প্রয়োগ করা হয়, মডেল WHO-নির্দেশিকা শর্তের তুলনায় **প্রায় ১৫ লক্ষ** অতিরিক্ত বার্ষিক মৃত্যু attribute করে।
 
-> **দুই সংখ্যার বিষয়ে নোট।** ১৫ লক্ষ (Krishna et al.) ও ১৭.২ লক্ষ (Lancet Countdown 2025) — **দুটোই বৈধ ও দুটোই JanVayu-তে cited**। তারা ভিন্ন method-এর ফল (causal cohort vs. annual synthesis)। ড্যাশবোর্ড hero ১৭.২ লক্ষ ব্যবহার করে, যা অধিক সাম্প্রতিক ও সাধারণভাবে উদ্ধৃত সংখ্যা।
+> **দুই সংখ্যার বিষয়ে নোট।** ১৫ লক্ষ (Jaganathan et al.) ও ১৭.২ লক্ষ (Lancet Countdown 2025) — **দুটোই বৈধ ও দুটোই JanVayu-তে cited**। তারা ভিন্ন method-এর ফল (nationwide difference-in-differences vs. annual synthesis)। ড্যাশবোর্ড hero ১৭.২ লক্ষ ব্যবহার করে, যা অধিক সাম্প্রতিক ও সাধারণভাবে উদ্ধৃত সংখ্যা।
 
 ### IHME Global Burden of Disease
 

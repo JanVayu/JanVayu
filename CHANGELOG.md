@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.40] - 2026-07-01
+
+### Fixed — citation correction: "Krishna et al." was actually Jaganathan et al. (2024)
+
+The India-first causal PM2.5–mortality study cited site-wide (every +10 µg/m³ → 8.6% all-cause mortality, *Lancet Planetary Health* 2024, DOI 10.1016/S2542-5196(24)00248-1) was attributed to a non-existent "Krishna et al." Verified against Crossref, PubMed and the Lancet: the paper is **Jaganathan et al. (2024)**, *"Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"* — a nationwide design across **655 districts, 2009–2019**, not a "7-district cohort." No real "Krishna 2024" paper exists; the site's own anchor card already linked Jaganathan's DOI under the wrong name (and the request's own Reports list carried the same "Krishna" label, so the error was upstream).
+
+Renamed and re-described across all current-facing content:
+
+- **index.html** — FAQ schema (`text`), "Did You Know" strip + card, Reading List anchor card (title + description), the "May 2026 Updates" intro, the "What this bot can do" info box, and the Jeopardy quiz `why`. The "7-district cohort" descriptor is now "655 districts, difference-in-differences."
+- **netlify/functions/air-query.mjs** (live chatbot) — `METHODOLOGY_REFERENCE` block, the `calcMortalityRisk` comment and its `source` string.
+- **Blog** — `2026-04-08-lancet-causal-evidence.md`, `2026-04-12-iqair-2025-india.md`, `2026-05-06-data-corrections-may.md` (+ `README.md`, `_sidebar.md` titles); "seven districts / domestic cohort" corrected to "655 districts, difference-in-differences."
+- **Docs** — `docs/data-sources/health-data.md`, `docs/wiki/Home.md`, `docs/wiki/Roadmap.md`, `docs/user-guide/overview.md`, and the Hindi/Bengali/Marathi `health-data.md` translations.
+
+### Removed — two unrelated claims wrongly attributed to "Krishna 2024"
+
+Investigation surfaced two *different* claims pinned to the same non-existent citation (not the mortality paper, which does not study either): a child-lung-function/ovarian-reserve line in the Reproductive & Child Health card (cited "Lancet Respiratory Medicine") and a child-stunting fact in the chatbot's national reference block. The underlying claims are real but the source was fabricated, so the specific attribution was removed — the reproductive card now credits WHO/peer-reviewed maternal-exposure cohort evidence; the stunting line was dropped from the bot reference.
+
+### Verified — reports cross-check
+
+The request's "Key Reports & Resources" list (April/May 2026) was checked against the Reading List: all eleven items are already present (IQAir 2025, CSE NCAP, Lancet Countdown, AQLI, CEEW, Jaganathan 2024, both NGT orders, CREA snapshot, CAQM GRAP toggle, DTE/AAD "16× COVID" Bagai). June 2026 had no new items. No additions needed.
+
+Historical version-log and CHANGELOG entries that mention "Krishna" are left intact as dated records.
+
 ## [v26.6.39] - 2026-06-30
 
 ### Added — 21 peer-reviewed papers in the Reading List

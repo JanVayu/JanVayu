@@ -178,7 +178,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **Loni, India** is the world's most polluted city at 112.5 µg/m³ (IQAir 2025)
 - **48.9 µg/m³** India average PM2.5 — about 10× the WHO 2021 guideline of 5 µg/m³
 - **64%** of NCAP funds spent on dust suppression (CSE 2026 review); 37/131 cities hit the original 20% target
-- **8.6%** all-cause mortality rise per +10 µg/m³ — Krishna et al. 2024, India's first causal dose-response
+- **8.6%** all-cause mortality rise per +10 µg/m³ — Jaganathan et al. 2024, India's first causal dose-response
 - 16+ cities monitored in real-time + ~200 Sensor.Community community sensors
 - 160+ verified data sources integrated
 - 51 content panels across 7 navigation categories
