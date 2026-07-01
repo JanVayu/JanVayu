@@ -107,7 +107,7 @@ Self-paced learning surfaces, fresh data points, and a sweep of stale labels. Th
 - [x] **"Did You Know"** dashboard strip — six India-specific sourced fact cards under the anomaly banner.
 - [x] **Hero alert refreshed** for May 2026 with the canonical Lancet Countdown 2025 1.72M figure.
 - [x] **April–May 2026 Voices block** at `/#voices` with six fresh curated cards.
-- [x] **April–May 2026 Research Updates** featured card group at `/#resources` (Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Krishna et al. 2024, CEEW 2024).
+- [x] **April–May 2026 Research Updates** featured card group at `/#resources` (Lancet Countdown 2025, AQLI 2025, IQAir 2025, CSE NCAP review, Jaganathan et al. 2024, CEEW 2024).
 - [x] **Two new blog posts**: launch post for the games panel and a May data refresh.
 - [x] **Games rendering fix** — moved games JS out of a `<script type="module">` so inline `onclick` handlers can find global functions.
 - [x] **Tier-1 freshness sweep** — version markers, sitemap lastmod, CITATION date, footer version line, dashboard quick-link text, pollutant page schema dateModified, blog sidebar Lancet causal-study context.

@@ -83,13 +83,13 @@ This is the **canonical headline figure** used throughout JanVayu &mdash; on the
 
 Two peer-reviewed studies, distinct from the Lancet Countdown synthesis above, published in late 2024:
 
-1. **Krishna et al. — "Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"** &mdash; India's **first causal-inference estimate** from domestic cohort data. Tracked seven districts over a decade and produced a dose-response of approximately **8.6% increase in all-cause mortality per +10 µg/m³** in long-term PM2.5. When applied to India's PM2.5 exposure surface, the model attributed approximately **1.5 million** additional deaths per year compared to WHO-guideline conditions. This 1.5M figure is study-specific and pre-dates the Lancet Countdown 2025 synthesis (1.72M).  
+1. **Jaganathan et al. — "Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"** &mdash; India's **first nationwide causal-inference estimate**, applying a difference-in-differences design across 655 districts (2009–2019) and producing a dose-response of approximately **8.6% increase in all-cause mortality per +10 µg/m³** in long-term PM2.5. When applied to India's PM2.5 exposure surface, the model attributed approximately **1.5 million** additional deaths per year compared to WHO-guideline conditions. This 1.5M figure is study-specific and pre-dates the Lancet Countdown 2025 synthesis (1.72M).  
    [DOI: 10.1016/S2542-5196(24)00248-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext)
 
 2. **"Ambient air pollution and daily mortality in ten cities of India: a causal modelling study"** &mdash; First multi-city study examining short-term PM2.5 exposure and daily mortality using causal methods.  
    [DOI: 10.1016/S2542-5196(24)00114-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00114-1/fulltext)
 
-> **Note on the two figures.** The 1.5 million (Krishna et al.) and 1.72 million (Lancet Countdown 2025) numbers are **both legitimate and both cited** on JanVayu &mdash; they come from different methods (causal cohort vs. annual synthesis) and we keep both in the Reading List so readers can see them side by side. The dashboard hero uses 1.72 million, the more recent and commonly-cited figure.
+> **Note on the two figures.** The 1.5 million (Jaganathan et al.) and 1.72 million (Lancet Countdown 2025) numbers are **both legitimate and both cited** on JanVayu &mdash; they come from different methods (nationwide difference-in-differences vs. annual synthesis) and we keep both in the Reading List so readers can see them side by side. The dashboard hero uses 1.72 million, the more recent and commonly-cited figure.
 
 ---
 
