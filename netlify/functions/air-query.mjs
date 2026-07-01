@@ -202,8 +202,8 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
    - IQAir 2025 ranked Loni at 112.5 µg/m³ annual (the 2025 edition was published March 2025 covering 2024 calendar-year data). CPCB's own Loni annual may be 5-15% different — both are valid; IQAir is more widely cited in international press, CPCB is the official Indian regulatory figure.
    - CAG April 2025 audit: 88% of CPCB monitoring stations had at least one data-quality issue in 2023-24. Treat any single-source claim with appropriate scepticism.
 
-4) Mortality: Krishna et al. (1.5M, causal) vs Lancet Countdown 2025 (1.72M, synthesis)
-   - 1.5M is from Krishna et al. 2024 (Lancet Planetary Health) — first India-specific causal dose-response. Compares to WHO 5 µg/m³ scenario.
+4) Mortality: Jaganathan et al. (1.5M, causal) vs Lancet Countdown 2025 (1.72M, synthesis)
+   - 1.5M is from Jaganathan et al. 2024 (Lancet Planetary Health) — first India-wide causal estimate, a difference-in-differences design across 655 districts. Compares to WHO 5 µg/m³ scenario.
    - 1.72M is from Lancet Countdown 2025 (launched May 2026) — synthesis figure with revised exposure-response and household biomass re-attribution.
    - Both are valid. The 1.72M figure is the CURRENT canonical headline; the 1.5M is the original causal evidence base.
 
@@ -372,7 +372,7 @@ function calcCigarettes(pm25) {
   };
 }
 
-// Krishna et al. 2024, Lancet Planetary Health — India-specific causal
+// Jaganathan et al. 2024, Lancet Planetary Health — India-wide causal
 // dose-response: every +10 µg/m³ PM2.5 → +8.6% all-cause mortality.
 function calcMortalityRisk(pm25) {
   if (!pm25 || pm25 <= 0) return null;
@@ -381,7 +381,7 @@ function calcMortalityRisk(pm25) {
   return {
     excessMortalityPct: +excessPct.toFixed(1),
     aboveWHO: +aboveWHO.toFixed(1),
-    source: "Krishna et al. 2024, Lancet Planetary Health (India causal dose-response)",
+    source: "Jaganathan et al. 2024, Lancet Planetary Health (India causal dose-response)",
   };
 }
 
@@ -962,7 +962,6 @@ KEY REFERENCE DATA (India-wide, not Delhi-specific):
 - Economic cost: $339.4 billion/year, ~9.5% of GDP — Lancet Countdown 2025.
 - NCAP target: 40% PM10 reduction across 131 non-attainment cities by 31 March 2026. Deadline elapsed: 23/100 cities (CREA) or 37/131 (CSE Apr 2026) met target.
 - Average Indian loses 3.5 years of life expectancy to pollution — AQLI 2025. Indo-Gangetic Plain residents lose 7-8 years.
-- 1 SD increase in PM2.5 → 5 percentage point increase in child stunting (Krishna et al. 2024).
 - Most polluted city globally: Loni, India (112.5 µg/m³ annual) — IQAir 2025, the 2025 edition covering 2024 data.
 ${langOverride}${nationalFraming}
 INSTRUCTIONS:

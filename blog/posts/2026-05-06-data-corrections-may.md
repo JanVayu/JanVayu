@@ -21,7 +21,7 @@ These were already in the README's *Key Statistics* table. The dashboard hero no
 
 We are sometimes asked why the resource library still cites "1.5M deaths" in one row and "1.72M deaths" in another. The answer is: they are two different studies.
 
-- **1.5M** comes from Krishna et al. 2024 in *Lancet Planetary Health* — India's first **causal inference** dose-response study from domestic cohort data. It established that every 10 µg/m³ rise in long-term PM2.5 raises all-cause mortality by ~8.6%. The 1.5M figure is what that coefficient produced when applied to India's population in 2024.
+- **1.5M** comes from Jaganathan et al. 2024 in *Lancet Planetary Health* — India's first nationwide **causal inference** estimate, applying a difference-in-differences design across 655 districts (2009–2019). It established that every 10 µg/m³ rise in long-term PM2.5 raises all-cause mortality by ~8.6%. The 1.5M figure is roughly what that coefficient produces against a WHO-guideline (5 µg/m³) scenario for India's population.
 - **1.72M** comes from the *Lancet Countdown 2025* — an annual synthesis estimate that combines newer exposure-response functions with updated demographic and exposure data. It is the figure currently used by most agencies for India's PM2.5 mortality burden.
 
 Both are legitimate. We cite both, separately, in the Health Studies section of the [Research Library](https://www.janvayu.in/#resources). The headline number on the dashboard is now the Lancet Countdown 2025 figure of 1.72M.
@@ -32,7 +32,7 @@ Both are legitimate. We cite both, separately, in the Health Studies section of 
 
 ## What we are still chasing
 
-**A second post-2024 Indian dose-response coefficient.** Krishna et al. 2024 produced India's first causal estimate from Indian cohort data: ~8.6% all-cause mortality rise per 10 µg/m³. That is what we cite, and it is what the new PM Quick-Quiz uses. But it is one paper, with seven districts. A second cohort estimate — ideally from a different research group, with a different set of districts — would let us anchor the dose-response with more confidence. We are tracking pre-prints; if you spot one that fits, [drop us a line](mailto:contribute@janvayu.in).
+**A second post-2024 Indian dose-response coefficient.** Jaganathan et al. 2024 produced India's first nationwide causal estimate from Indian data: ~8.6% all-cause mortality rise per 10 µg/m³, across 655 districts. That is what we cite, and it is what the new PM Quick-Quiz uses. But it is one paper, with one design. A second estimate — ideally from a different research group, with a different method or cohort — would let us anchor the dose-response with more confidence. We are tracking pre-prints; if you spot one that fits, [drop us a line](mailto:contribute@janvayu.in).
 
 **A clean rural exposure dataset.** Most CPCB CAAQMS sites are urban. Rural PM2.5 in the IGP is being inferred from satellite retrievals, which have a known bias around biomass-burn aerosols. The new Sensor.Community integration is helping fill the gap but is uneven by state.
 
@@ -49,7 +49,7 @@ Recent things that informed the numbers above and may interest you:
 - **Lancet Countdown 2025** (full report, India chapter): the source of the 1.72M number.
 - **IQAir 2025 World Air Quality Report** (covering 2024): the source of every city ranking we cite.
 - **CEEW 2024 source apportionment review**: the most current synthesis of where Indian PM2.5 actually comes from. The new Source Matcher game pulls heavily from this.
-- **Krishna et al. 2024 *Lancet Planetary Health***: India's first all-cause mortality dose-response from domestic cohorts.
+- **Jaganathan et al. 2024 *Lancet Planetary Health***: India's first all-cause mortality dose-response from domestic cohorts.
 
 If you find anything we have got wrong, file a [GitHub issue](https://github.com/JanVayu/JanVayu/issues) or write to [contribute@janvayu.in](mailto:contribute@janvayu.in). The whole point of this archive is that it is correctable in public.
 

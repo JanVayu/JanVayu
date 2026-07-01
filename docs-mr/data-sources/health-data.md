@@ -30,13 +30,13 @@ JanVayu वायू प्रदूषणाचे आरोग्यावर�
 
 हा **JanVayu वर मानक मुख्य आकडा** आहे — डॅशबोर्डवर, आरोग्य प्रभाव पॅनेलमध्ये आणि README च्या *Key Statistics* तक्त्यात.
 
-### Lancet Planetary Health — Krishna et al. (2024) कारण-संबंधित अभ्यास
+### Lancet Planetary Health — Jaganathan et al. (2024) कारण-संबंधित अभ्यास
 
 [DOI: 10.1016/S2542-5196(24)00248-1](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext)
 
 भारतीय cohort डेटा वरून प्रथम causal-inference अंदाज. सात जिल्हे एका दशकात track केले आणि **दर +10 µg/m³ दीर्घकालीन PM2.5 साठी ~8.6% सर्व-कारण मृत्यू वाढ** ची dose-response अंदाज लावली. जेव्हा हा coefficient भारताच्या PM2.5 exposure surface वर लागू केला जातो, मॉडेल WHO-मार्गदर्शक स्थितीच्या तुलनेत **सुमारे 15 लाख** अतिरिक्त वार्षिक मृत्यू attribute करतो.
 
-> **दोन आकड्यांबद्दल टीप.** 15 लाख (Krishna et al.) आणि 17.2 लाख (Lancet Countdown 2025) — **दोन्ही वैध आहेत आणि दोन्ही JanVayu वर cited आहेत**. ते वेगवेगळ्या methods मधून येतात (causal cohort vs. annual synthesis). डॅशबोर्ड hero 17.2 लाख वापरतो, जो अधिक अलीकडचा आणि सामान्यतः उद्धृत आकडा आहे.
+> **दोन आकड्यांबद्दल टीप.** 15 लाख (Jaganathan et al.) आणि 17.2 लाख (Lancet Countdown 2025) — **दोन्ही वैध आहेत आणि दोन्ही JanVayu वर cited आहेत**. ते वेगवेगळ्या methods मधून येतात (nationwide difference-in-differences vs. annual synthesis). डॅशबोर्ड hero 17.2 लाख वापरतो, जो अधिक अलीकडचा आणि सामान्यतः उद्धृत आकडा आहे.
 
 ### IHME Global Burden of Disease
 
