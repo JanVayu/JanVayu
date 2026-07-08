@@ -2,6 +2,10 @@
 
 - [**JanVayu Blog**](README.md)
 
+- **July 2026**
+  - [The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky](posts/2026-07-08-secondary-pm25.md)
+  - [The Citation That Didn't Exist: How We Found "Krishna et al." Was Really Jaganathan](posts/2026-07-02-citation-integrity.md)
+
 - **June 2026**
   - [Ask JanVayu Can Now Answer About Your Ward](posts/2026-06-25-ask-janvayu-knows-your-ward.md)
   - [Live vs Annual: The Honest Version of "How Polluted Is Your Ward?"](posts/2026-06-11-live-vs-annual-honest-ward-data.md)
