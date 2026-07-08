@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`@netlify/blobs` v8 → v10** (`package.json` + `package-lock.json`, resolves to 10.7.9). The caching backbone for `rankings`, `historical-aqi`, `daily-digest`, `feed-ingest`, `community-sensors`, `health-monitor` and `blob-store`. The API surface we use (`getStore({ name, siteID, token, consistency })`, `.get`, `.set`, `.setJSON`, `.list`, `.delete`) is unchanged across the two majors; all blob-consuming functions pass `node --check`. Needs a Netlify preview to confirm the runtime auth path. Closes the roadmap "open tech debt" item and the direction of #167.
 - **GitHub Actions bumped**: `actions/checkout` → v7 (was a v4/v6 mix), `peter-evans/create-issue-from-file` → v6. Folds in stale Dependabot PRs #132 and #133; #102 (resend/uuid) is superseded by the lockfile refresh.
+- **Ask JanVayu prompt-trim** (ports the never-merged PR #98 onto the current `air-query.mjs`): `buildSystemPrompt` now injects the heavy `METHODOLOGY_REFERENCE` (~1000 tok) and `TOPICAL_REFERENCE` (~600 tok) blocks only when a query detector flags them relevant. Common-case queries ("jogging today?", "compare cities") drop ~37% of the system-prompt size — verified end-to-end against the real handler with stubbed I/O (common gets neither block; multi-source gets methodology; national gets topical). Works with the current `GROQ_MODEL` (gpt-oss-120b), which the original PR predated.
 
 ### Fixed — weekly link audit false positives (#176)
 
