@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.41] - 2026-07-08
+
+### Changed — backend & CI maintenance
+
+- **`@netlify/blobs` v8 → v10** (`package.json` + `package-lock.json`, resolves to 10.7.9). The caching backbone for `rankings`, `historical-aqi`, `daily-digest`, `feed-ingest`, `community-sensors`, `health-monitor` and `blob-store`. The API surface we use (`getStore({ name, siteID, token, consistency })`, `.get`, `.set`, `.setJSON`, `.list`, `.delete`) is unchanged across the two majors; all blob-consuming functions pass `node --check`. Needs a Netlify preview to confirm the runtime auth path. Closes the roadmap "open tech debt" item and the direction of #167.
+- **GitHub Actions bumped**: `actions/checkout` → v7 (was a v4/v6 mix), `peter-evans/create-issue-from-file` → v6. Folds in stale Dependabot PRs #132 and #133; #102 (resend/uuid) is superseded by the lockfile refresh.
+- **Ask JanVayu prompt-trim** (ports the never-merged PR #98 onto the current `air-query.mjs`): `buildSystemPrompt` now injects the heavy `METHODOLOGY_REFERENCE` (~1000 tok) and `TOPICAL_REFERENCE` (~600 tok) blocks only when a query detector flags them relevant. Common-case queries ("jogging today?", "compare cities") drop ~37% of the system-prompt size — verified end-to-end against the real handler with stubbed I/O (common gets neither block; multi-source gets methodology; national gets topical). Works with the current `GROQ_MODEL` (gpt-oss-120b), which the original PR predated.
+
+### Fixed — weekly link audit false positives (#176)
+
+The strict weekly audit had been failing on 16 "errors" that were almost all `400 Bad Request` / `415 Unsupported Media Type` — publisher, news and data portals (ScienceDirect, Science, Springer, Business Standard, Down To Earth, TERI, ILO, MoSPI, WebIndia123…) rejecting the checker's request over Accept-header negotiation / bot detection, **not** real dead links.
+
+- Root-cause fix: lychee now sends a browser `--user-agent` and a browser `Accept` `--header`, which resolves 415/400 media-type rejections.
+- The handful of domains that hard-block automated checkers even with a browser UA are documented in `.lycheeignore` with justification (each verified reachable manually).
+
+### Added — CREA 2026 secondary-PM2.5 analysis in the Reading List
+
+New Reading List card: **up to 42% of India's PM2.5 is secondary** — chemically formed in the atmosphere rather than directly emitted (CREA, MERRA-2, 2024). SO₂ is the dominant precursor (India is the world's largest SO₂ emitter; coal power ≈ 60% of it), forming ammonium sulphate — ~⅓ of Delhi's PM2.5, up to 49% post-monsoon — while ~78% of coal plants still lack FGD.
+
+### Added — two blog posts
+
+- `2026-07-02-citation-integrity.md` — "The Citation That Didn't Exist: How We Found 'Krishna et al.' Was Really Jaganathan."
+- `2026-07-08-secondary-pm25.md` — "The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky."
+
+### Changed — July freshness sweep
+
+README "Key Statistics" heading June → July 2026; `scripts/stats.json` Lancet Countdown figures re-verified (`updated: 2026-07`); About-panel version log + `CITATION.cff` bumped to v26.6.41.
+
 ## [v26.6.40] - 2026-07-01
 
 ### Fixed — citation correction: "Krishna et al." was actually Jaganathan et al. (2024)

@@ -62,7 +62,7 @@ This is not a campaign. It is a record.
 
 ---
 
-## Key Statistics (June 2026)
+## Key Statistics (July 2026)
 
 | Metric | Value | Source |
 |--------|-------|--------|
