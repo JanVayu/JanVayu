@@ -18,5 +18,20 @@ main\.sci\.gov\.in
 cpcb\.nic\.in
 
 
+# --- Publisher / news / data portals that load fine in a browser but return
+#     400 / 415 (Accept-header negotiation) or bot-block automated checkers even
+#     with a browser User-Agent + Accept header. Surfaced by the July 2026 audit
+#     (issue #176); each verified reachable manually. Prefer keeping the citation. ---
+sciencedirect\.com
+science\.org
+link\.springer\.com
+iqair\.com
+business-standard\.com
+downtoearth\.org\.in
+teriin\.org
+ilo\.org
+mospi\.gov\.in
+news\.webindia123\.com
+
 # --- CHANGELOG compare/release links for early versions never tagged on GitHub (v24/v25). ---
 github\.com/JanVayu/JanVayu/(compare|releases/tag)/v2[45]\.

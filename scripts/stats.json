@@ -1,7 +1,7 @@
 {
-  "deaths_annual": { "value": "1.72 million", "source": "Lancet Countdown 2025", "updated": "2026-05" },
-  "economic_cost": { "value": "$339.4 billion", "source": "Lancet Countdown 2025", "updated": "2026-05" },
-  "economic_pct_gdp": { "value": "9.5%", "source": "Lancet Countdown 2025", "updated": "2026-05" },
+  "deaths_annual": { "value": "1.72 million", "source": "Lancet Countdown 2025", "updated": "2026-07" },
+  "economic_cost": { "value": "$339.4 billion", "source": "Lancet Countdown 2025", "updated": "2026-07" },
+  "economic_pct_gdp": { "value": "9.5%", "source": "Lancet Countdown 2025", "updated": "2026-07" },
   "india_avg_pm25": { "value": "48.9", "unit": "µg/m³", "source": "IQAir 2025", "updated": "2025-03" },
   "life_expectancy_loss": { "value": "3.5", "unit": "years", "source": "AQLI 2025", "updated": "2025" },
   "who_guideline": { "value": "5", "unit": "µg/m³" },
