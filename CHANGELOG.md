@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.42] - 2026-07-08
+
+### Maintenance — full feature audit
+
+Audited endpoints, the seven Ask JanVayu calculators, the chatbot, and the Ward Atlas — all healthy. The 16 Aug 2026 Groq model retirement is already mitigated (`GROQ_MODEL` → `gpt-oss-120b`). Fixes applied:
+
+- **Hero refreshed for July** — leads with the monsoon respite vs the year-round crisis; updated the GRAP line (Stage-I revoked 29 May 2026 as the monsoon set in).
+- **IQAir edition straggler** — `<noscript>` data-sources block said "IQAir World Air Quality Report 2024"; aligned to 2025.
+- **`historical-aqi.mjs`** — now defaults to the current month instead of January when the `month` param is omitted.
+
+Flagged (needs owner action): the live Reddit/X feed + Agent-Reach pipeline return zero items pending credentials (#45); `community-sensors` returns no Indian stations upstream. The curated Voices highlights below keep that panel current regardless.
+
+### Added — 3 peer-reviewed papers (Reading List now 24)
+
+- Indian perspective of PM2.5-attributed human health hazards, 2010–2025 (*Air Quality, Atmosphere & Health*, DOI 10.1007/s11869-025-01793-6).
+- Respiratory deposition of PM in Delhi: a five-year assessment, 2019–2023 (*Scientific Reports*, DOI 10.1038/s41598-025-26663-0).
+- Cumulative effect of PM2.5 components exceeds PM2.5 mass on child health in India (*Nature Communications*, DOI 10.1038/s41467-023-42709-1).
+
+### Added — June–July 2026 curated Voices highlights
+
+Three sourced cards: CAQM revoking GRAP Stage-I as the monsoon nears (29 May 2026); a monsoon-respite reality check (Delhi still 119–155 US AQI in early July); and CREA's secondary-PM2.5 finding (up to 42% chemically formed).
+
+### Added — 34 new citizen testimonies
+
+The Citizen Testimony wall grows from 108 to **142** first-person voices across 13 languages, adding polluted tier-2 towns (Rohtak, Panipat, Bareilly, Bhiwadi, Asansol, Durgapur, Ankleshwar, Surat, Ludhiana, Bathinda, Amritsar, Nashik, Chandrapur, Madurai, Vijayawada, Hubballi, Kochi, Rourkela, Dibrugarh and more). Under-represented languages (Assamese, Odia, Malayalam, Telugu, Kannada, Punjabi, Gujarati, Urdu) boosted. Native-language entries welcome proofreading via contribute@janvayu.in.
+
 ## [v26.6.41] - 2026-07-08
 
 ### Changed — backend & CI maintenance

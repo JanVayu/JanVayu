@@ -64,7 +64,7 @@ const CLIMATOLOGY = {
 export default async (req) => {
   const url = new URL(req.url);
   const city = (url.searchParams.get("city") || "delhi").toLowerCase();
-  const month = parseInt(url.searchParams.get("month") || "1");
+  const month = parseInt(url.searchParams.get("month") || String(new Date().getMonth() + 1));
   const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
