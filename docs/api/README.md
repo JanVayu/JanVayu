@@ -33,6 +33,35 @@ JanVayu exposes 10 serverless API endpoints via Netlify Functions. All endpoints
 | [`/subscribe`](#subscribe) | POST | Email subscription management |
 | [`/feed-status`](#feed-status) | GET | Feed health monitoring |
 
+### Open Data
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| [`/api`](#open-data-api) | GET | Versioned data manifest + CSV export |
+
+---
+
+## Open Data API
+
+A single, discoverable entry point over the datasets JanVayu publishes — built for journalists, researchers and forks. Read-only, CORS-open, free to use with attribution.
+
+**Manifest (lists every dataset, its parameters, licence and citation):**
+
+```bash
+curl https://www.janvayu.in/api
+```
+
+**CSV export of the live city rankings:**
+
+```bash
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv"          # live
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=7d" # 7-day average
+```
+
+The manifest points at the underlying JSON endpoints — `rankings`, `reference-data` (CPCB stations / NCAP cities / IQAir annual), `historical-aqi`, `community-sensors`, and `status-history` — which remain individually callable.
+
+**Licence:** data content is CC BY-NC-SA 4.0; code is MIT. Please cite as shown in the manifest's `citation` field.
+
 ---
 
 ## OpenAPI Specification
