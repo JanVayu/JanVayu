@@ -123,10 +123,20 @@ async function getOpenAQStations(lat, lon, radiusKm) {
     if (!res.ok) return null;
     const j = await res.json();
     let pm25 = null, pm10 = null;
+    // Freshness guard: OpenAQ returns a station's LAST value even if it is years
+    // old (dead/zombie stations report e.g. a 2018 reading). Surfacing that as
+    // "live hyperlocal" air would violate JanVayu's data-honesty principle, so
+    // we drop any reading older than MAX_AGE_MS.
+    const MAX_AGE_MS = 6 * 60 * 60 * 1000; // 6 hours
     for (const r of (Array.isArray(j.results) ? j.results : [])) {
       const param = sensorMap[r.sensorsId];
       const val = parseFloat(r.value);
       if (isNaN(val)) continue;
+      const ts = r.datetime?.utc || r.datetime;
+      if (ts) {
+        const age = Date.now() - new Date(ts).getTime();
+        if (!isNaN(age) && age > MAX_AGE_MS) continue; // skip stale readings
+      }
       if (param === "pm25") pm25 = val;
       else if (param === "pm10") pm10 = val;
     }
