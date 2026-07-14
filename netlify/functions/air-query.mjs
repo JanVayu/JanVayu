@@ -295,6 +295,12 @@ function isHyperlocalQuery(question) {
   return /\b(my (area|locality|neighbourhood|neighborhood|colony|ward|society)|near (my|me)|hyperlocal|sensor near|community sensor|street level|within \d+ ?km|local (sensor|monitor)|sensor\.community|low.?cost sensor|low.?cost monitor)\b/i.test(question);
 }
 
+// v26.6.44 — Forecast intent. Matches "will it be bad tomorrow", "forecast",
+// "next few days", "this weekend", etc.
+function isForecastQuery(question) {
+  return /\b(forecast|tomorrow|day after|next (few )?days?|coming days?|this (weekend|week)|next week|later (today|this week)|outlook|predict(ed|ion)?|expected|going to (be|get)|will .*(be|get) (bad|worse|better|clear|clean|safe))\b/i.test(question);
+}
+
 function isGenericAQIQuery(question) {
   return /\b(how is|what is|what'?s|current|today'?s?|right now|live)\b.{0,30}\b(air quality|aqi|air|pollution|pm2\.?5|pm10)\b/i.test(question);
 }
@@ -332,6 +338,39 @@ async function fetchHistoricalTrend(cityKey, month) {
     return data; // {city, month, years: [{year, pm25}], source}
   } catch (e) {
     console.log(`fetchHistoricalTrend(${cityKey},${month}) failed:`, e.message);
+    return null;
+  }
+}
+
+// v26.6.44 — 5-day PM2.5/PM10 forecast from the free, key-less Open-Meteo
+// Air Quality API (CAMS-based global model). Returns daily mean/peak PM2.5.
+// Independent of the live WAQI reading, so the bot can answer "will it be bad
+// tomorrow" with a model forecast rather than guessing from today's number.
+async function fetchForecast(lat, lon) {
+  try {
+    const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&hourly=pm2_5,pm10&timezone=auto&forecast_days=5`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const times = data?.hourly?.time || [];
+    const pm25 = data?.hourly?.pm2_5 || [];
+    if (!times.length || !pm25.length) return null;
+    const byDay = {};
+    for (let i = 0; i < times.length; i++) {
+      const day = times[i].slice(0, 10);
+      if (!byDay[day]) byDay[day] = [];
+      if (pm25[i] != null && !isNaN(pm25[i])) byDay[day].push(pm25[i]);
+    }
+    const days = Object.keys(byDay).sort().slice(0, 5).map(day => {
+      const v = byDay[day];
+      const mean = v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : null;
+      const max = v.length ? Math.round(Math.max(...v)) : null;
+      return { date: day, pm25_mean: mean, pm25_max: max };
+    }).filter(d => d.pm25_mean != null);
+    if (!days.length) return null;
+    return { days, source: "Open-Meteo Air Quality API (CAMS-based, 5-day forecast)" };
+  } catch (e) {
+    console.log(`fetchForecast(${lat},${lon}) failed:`, e.message);
     return null;
   }
 }
@@ -1153,6 +1192,10 @@ export default async function handler(req) {
     const month = new Date().getMonth() + 1;
     toolPromises.push(fetchHistoricalTrend(cityKey, month).then(r => ({ kind: "trend", data: r, month })));
   }
+  if (isForecastQuery(question)) {
+    const fc = CITIES[cityKey];
+    if (fc) toolPromises.push(fetchForecast(fc.lat, fc.lon).then(r => ({ kind: "forecast", data: r })));
+  }
 
   // Sensors fetch: needed for both hyperlocal queries AND multi-source spread.
   const multiSource = isMultiSourceQuery(question);
@@ -1239,6 +1282,12 @@ Top 5 worst: ${top5}
         const monthName = new Date(2026, t.month - 1, 1).toLocaleString("en-IN", { month: "long" });
         const series = years.map(y => `${y.year}: ${y.pm25} µg/m³`).join("; ");
         dataContext += `\n\n${aqiResult.city.toUpperCase()} ${monthName} PM2.5 BY YEAR (JanVayu historical-aqi.mjs climatology + snapshots): ${series}. Source: ${t.data.source}.`;
+      }
+    } else if (t.kind === "forecast") {
+      const days = t.data.days || [];
+      if (days.length > 0) {
+        const series = days.map(d => `${d.date}: mean ${d.pm25_mean} / peak ${d.pm25_max} µg/m³`).join("; ");
+        dataContext += `\n\n${aqiResult.city.toUpperCase()} 5-DAY PM2.5 FORECAST (${t.data.source}): ${series}. This is a model forecast (CAMS), independent of today's live reading — treat day-3+ as lower-confidence, and note it may diverge from official SAFAR/CPCB forecasts. WHO 24-hour guideline is 15 µg/m³; India's NAAQS 24-hr standard is 60 µg/m³.`;
       }
     } else if (t.kind === "hyperlocal") {
       const stations = t.data.stations || [];

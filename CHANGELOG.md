@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.44] - 2026-07-14
+
+### Added — live 5-day PM2.5 forecast (Forecast panel + chatbot)
+
+- **Forecast panel** now leads with a **live 5-day PM2.5 forecast** card powered by the free, key-less Open-Meteo Air Quality API (CAMS global model): daily mean + peak, a CPCB-band-coloured day-by-day summary, a Chart.js trend, and a city selector. Shown *alongside* (not replacing) the existing SAFAR/CPCB forecast-reliability tracking, so users can cross-check the official forecast. Frontend-only — no new Netlify Function — matching the $0/month, forkable design and mirroring the existing key-less Open-Meteo use in the Urban Heat panel.
+- **Ask JanVayu** now answers forecast questions ("will it be bad tomorrow in Delhi?"): a new `isForecastQuery` detector + a server-side Open-Meteo `fetchForecast` inject a cited 5-day outlook into the chatbot's data context, flagged as a model forecast independent of the live reading.
+
+### Added — Occupational Exposure panel (Health & Trends)
+
+New cited section on the exposure-equity gap — who breathes the worst air *by occupation*: street vendors, traffic police, gig/delivery riders, construction, waste pickers, sanitation and kerbside workers. Anchored on the 2026 Chennai street-vendor study (*BMC Public Health*, DOI 10.1186/s12889-026-28270-8) and linked to the Reading List and RTI Assistant. Registered in the desktop + mobile nav and the Ctrl+K search index. Non-partisan framing throughout.
+
+### Changed — community-sensors primary source → OpenAQ v3
+
+`community-sensors.mjs` now uses **OpenAQ v3** (CPCB CAAQMS + community/low-cost networks, with dense India coverage) as its primary source when `OPENAQ_API_KEY` is set — resolving the long-standing "no Indian stations" gap that left the My Neighbourhood panel and the chatbot's community-sensor blend empty. It **falls back to Sensor.Community automatically** when the key is absent, so the endpoint keeps working with zero configuration. New env var documented in `.env.example`.
+
+### Fixed
+
+- **`scripts/bump-version.mjs`**: the third version component is a *patch* number, not a calendar day, so deriving a date from it produced invalid `date-released` values (e.g. `2026-06-43`) once patches passed 31. The human release date now comes from the real clock; the version yields only the opaque, monotonic cache-busting stamp. The `ask/sw.js` cache suffix now tracks the patch (`-v44`), matching the established convention.
+- **`anomaly-check.mjs`**: corrected a stale "explain via Gemini" comment — the code calls Groq.
+
+## [v26.6.43] - 2026-07-13
+
+### Added — 5 peer-reviewed papers (Reading List now 29)
+
+Five India-focused studies published in the 3–8 July 2026 window, each linked to its DOI:
+
+- Forecasting ambient PM2.5 and PM10 in Hisar City through machine learning — Kumar, Sihag & Vambol (*Scientific Reports*, DOI 10.1038/s41598-026-60752-y, 7 Jul 2026). ML forecasting for an NCR tier-2 city with sparse monitoring.
+- Evaluation of low-cost sensors for size-resolved indoor particle monitoring — Ali, Sameer & Izhar, IIT (ISM) Dhanbad (*Scientific Reports*, DOI 10.1038/s41598-026-61453-2, 8 Jul 2026). Benchmarks affordable PM2.5 / PM10 sensors for Indian indoor environments.
+- A BiLSTM-driven framework for operational PM2.5 forecasting integrating meteorological kinematics — Gupta et al. (*Frontiers in Climate*, DOI 10.3389/fclim.2026.1855755, 7 Jul 2026). India-led BiLSTM network, R² 0.81, beating statistical and deep-learning baselines.
+- Long-term exposure to ambient PM2.5 and kidney function in urban Indian adults — Mandal et al. (*Kidney International Reports*, DOI 10.1016/j.ekir.2026.106693, 8 Jul 2026). 12,271-adult Chennai–Delhi cohort; +5 µg/m³ annual PM2.5 tracks declining eGFR, extending PM2.5 harm to renal health.
+- Occupational exposure to air pollution and respiratory health among urban street vendors in South India — Muruganantham et al. (*BMC Public Health*, DOI 10.1186/s12889-026-28270-8, 3 Jul 2026). 298 Chennai street vendors; cumulative exposure tracks reduced peak expiratory flow — occupation-specific environmental-justice evidence.
+
+### Changed — July freshness sweep
+
+About-panel version log and `CITATION.cff` bumped to v26.6.43.
+
 ## [v26.6.42] - 2026-07-08
 
 ### Maintenance — full feature audit

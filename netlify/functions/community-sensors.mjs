@@ -9,8 +9,17 @@
 // Why: aqi.in / oaq.notf.in show hyperlocal community sensors that JanVayu
 // previously did not. Sensor.Community gives us those without us building a
 // hardware program.
+//
+// v26.6.44 — PRIMARY source is now OpenAQ v3 when an OPENAQ_API_KEY is set.
+// Sensor.Community has essentially no live Indian coverage (the long-standing
+// "no Indian stations" gap), whereas OpenAQ v3 aggregates CPCB's own CAAQMS
+// feeds plus community/low-cost networks and has dense India coverage. We fall
+// back to Sensor.Community automatically when the key is absent or OpenAQ
+// returns nothing, so the endpoint keeps working with zero configuration.
 
 import { getStore } from "@netlify/blobs";
+
+const OPENAQ_KEY = process.env.OPENAQ_API_KEY || "";
 
 function getBlobStore(name) {
   const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
@@ -68,6 +77,85 @@ async function getSnapshot() {
   return data;
 }
 
+// ── OpenAQ v3 (primary when OPENAQ_API_KEY is set) ──────────────────────────
+// Fetches monitoring locations within the radius, then the latest value per
+// location, and returns them in the same shape as the Sensor.Community path.
+async function getOpenAQStations(lat, lon, radiusKm) {
+  const radiusM = Math.min(25000, Math.round(radiusKm * 1000)); // OpenAQ caps radius at 25 km
+  const cacheKey = `openaq-${lat.toFixed(2)}-${lon.toFixed(2)}-${radiusM}`;
+
+  try {
+    const store = getBlobStore("janvayu-feeds");
+    const cached = await store.get(cacheKey, { type: "json" });
+    if (cached && cached.fetched_at && (Date.now() - cached.fetched_at) < 10 * 60 * 1000) {
+      return cached.stations;
+    }
+  } catch (e) { /* ignore cache miss */ }
+
+  const headers = { "X-API-Key": OPENAQ_KEY, "User-Agent": "JanVayu/v26.6 (+https://janvayu.in)" };
+  const locRes = await fetch(
+    `https://api.openaq.org/v3/locations?coordinates=${lat},${lon}&radius=${radiusM}&limit=100`,
+    { headers, signal: AbortSignal.timeout(6000) }
+  );
+  if (!locRes.ok) throw new Error("OpenAQ locations fetch failed: " + locRes.status);
+  const locJson = await locRes.json();
+  const locations = Array.isArray(locJson.results) ? locJson.results : [];
+  if (!locations.length) return [];
+
+  // Sort by distance and cap the fan-out so we stay within OpenAQ's rate limits.
+  const withDist = locations
+    .map(l => {
+      const sLat = l.coordinates?.latitude, sLon = l.coordinates?.longitude;
+      if (sLat == null || sLon == null) return null;
+      return { loc: l, dist: haversineKm(lat, lon, sLat, sLon) };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.dist - b.dist)
+    .slice(0, 30);
+
+  const settled = await Promise.allSettled(withDist.map(async ({ loc, dist }) => {
+    // sensorsId → parameter name (pm25 / pm10) from the location metadata
+    const sensorMap = {};
+    for (const s of (loc.sensors || [])) {
+      if (s?.id != null && s.parameter?.name) sensorMap[s.id] = s.parameter.name;
+    }
+    const res = await fetch(`https://api.openaq.org/v3/locations/${loc.id}/latest`, { headers, signal: AbortSignal.timeout(5000) });
+    if (!res.ok) return null;
+    const j = await res.json();
+    let pm25 = null, pm10 = null;
+    for (const r of (Array.isArray(j.results) ? j.results : [])) {
+      const param = sensorMap[r.sensorsId];
+      const val = parseFloat(r.value);
+      if (isNaN(val)) continue;
+      if (param === "pm25") pm25 = val;
+      else if (param === "pm10") pm10 = val;
+    }
+    if (pm25 == null && pm10 == null) return null;
+    return {
+      id: loc.id,
+      lat: loc.coordinates.latitude,
+      lon: loc.coordinates.longitude,
+      pm25, pm10,
+      name: loc.name || ("OpenAQ #" + loc.id),
+      distance_km: Math.round(dist * 10) / 10,
+      aqi: pm25ToAQI(pm25),
+    };
+  }));
+
+  const stations = settled
+    .filter(s => s.status === "fulfilled" && s.value && s.value.pm25 != null)
+    .map(s => s.value)
+    .sort((a, b) => (b.pm25 || 0) - (a.pm25 || 0))
+    .slice(0, 60);
+
+  try {
+    const store = getBlobStore("janvayu-feeds");
+    await store.setJSON(cacheKey, { stations, fetched_at: Date.now() });
+  } catch (e) { /* ignore cache write failure */ }
+
+  return stations;
+}
+
 export default async (req) => {
   const url = new URL(req.url);
   const lat = parseFloat(url.searchParams.get("lat") || "0");
@@ -83,6 +171,24 @@ export default async (req) => {
     return new Response(JSON.stringify({ stations: [], error: "lat and lon are required" }), { status: 400, headers });
   }
 
+  // PRIMARY: OpenAQ v3 (CPCB CAAQMS + community networks) when a key is set.
+  if (OPENAQ_KEY) {
+    try {
+      const stations = await getOpenAQStations(lat, lon, radiusKm);
+      if (stations.length > 0) {
+        return new Response(JSON.stringify({
+          stations,
+          source: "OpenAQ v3 (CPCB CAAQMS + community/low-cost networks)",
+          generated: new Date().toISOString()
+        }), { headers });
+      }
+      // else fall through to Sensor.Community
+    } catch (e) {
+      console.log("OpenAQ path failed, falling back to Sensor.Community:", e.message);
+    }
+  }
+
+  // FALLBACK: Sensor.Community (open CC0 network; sparse in India).
   try {
     const data = await getSnapshot();
     if (!Array.isArray(data)) {
