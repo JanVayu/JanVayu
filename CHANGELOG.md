@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.45] - 2026-07-14
+
+### Added — Beyond the Lungs health section (Health & Trends)
+
+New cited panel documenting PM2.5 harm across organ systems, not just respiratory: kidneys (anchored on the 2026 Chennai–Delhi eGFR cohort, *Kidney International Reports*, DOI 10.1016/j.ekir.2026.106693), cardiovascular (the largest share of PM2.5 deaths per GBD), brain (cognition, dementia, child learning), and metabolism/pregnancy (type-2 diabetes, preterm birth, low birth weight). Argues for health-complete alert and advocacy messaging. Wired into desktop + mobile nav and Ctrl+K search. Non-partisan framing.
+
+### Added — low-cost indoor sensor buying guide (Indoor Air panel)
+
+New card in the Indoor Air panel on choosing a reliable low-cost PM sensor (insist on optical/laser PM modules, correct for humidity/drift, use for trends not verdicts), anchored on the 2026 IIT (ISM) Dhanbad benchmark (*Scientific Reports*, DOI 10.1038/s41598-026-61453-2).
+
+### Added — one-click RTI from City Scorecards
+
+City Accountability Scorecards now have a **File an RTI →** button that opens the RTI Assistant pre-filled with the city's state pollution board and the Clean Air Action Plan implementation topic — turning a missed-target scorecard directly into a ready-to-file RTI. City→state mapping is best-effort and left blank when unknown (never prefills a wrong state).
+
+### Fixed — OpenAQ freshness guard
+
+`community-sensors.mjs` OpenAQ path now drops readings older than 6 hours. OpenAQ returns a station's *last* value even when it is years stale (dead/zombie stations report e.g. a 2018 reading); surfacing that as "live hyperlocal" air would violate the data-honesty principle. Verified against the live API: 16 fresh Delhi stations kept, 12 zombie/stale stations dropped.
+
 ## [v26.6.44] - 2026-07-14
 
 ### Added — live 5-day PM2.5 forecast (Forecast panel + chatbot)
