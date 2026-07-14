@@ -109,6 +109,19 @@
   status = 200
   force = true
 
+# Open Data API — clean public path for the versioned data endpoint (manifest
+# at /api; query params select datasets, e.g. /api?dataset=rankings&format=csv)
+[[redirects]]
+  from = "/api"
+  to = "/.netlify/functions/data-api"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/data-api"
+  status = 200
+  force = true
+
 # Per-pollutant SEO pages
 [[redirects]]
   from = "/pm25"

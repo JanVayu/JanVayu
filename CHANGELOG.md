@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.46] - 2026-07-14
+
+### Added — versioned Open Data API
+
+New `data-api.mjs` serves a single, discoverable, CORS-open entry point over the datasets JanVayu already publishes — for journalists, researchers and forks to consume and cite. Available at a clean `/api` path (Netlify redirect):
+
+- `GET /api` — JSON manifest listing every dataset (rankings, CPCB stations / NCAP cities / IQAir annual, year-over-year PM2.5, hyperlocal sensors, uptime history) with parameters, licence (CC BY-NC-SA 4.0 data / MIT code) and a citation string.
+- `GET /api?dataset=rankings&format=csv[&range=live|7d|30d]` — CSV export of the city rankings.
+
+Surfaced via a new "Open Data API" card in the Data Archive panel and documented in `docs/api/README.md`. Directly serves the platform's "national public archive" mission.
+
+### Added — calculator test harness
+
+The seven deterministic calculators (cigarettes, mortality, life-expectancy, migration, transport, purifier CADR, school-closure) — whose numbers are surfaced to users as health guidance — are now the single source of truth in `netlify/functions/lib/calc.mjs`, imported by `air-query.mjs` (removing the inline duplicates) and covered by `test/calc.test.mjs` (12 tests, `npm test` via `node --test`). Protects the health-claim math against silent regressions.
+
 ## [v26.6.45] - 2026-07-14
 
 ### Added — Beyond the Lungs health section (Health & Trends)
