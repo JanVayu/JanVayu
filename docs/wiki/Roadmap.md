@@ -4,6 +4,24 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.16: Forecast, Fire Tracker, Health-Complete & Open Data (✅ Completed — v26.6.43–47)
+
+A July 2026 feature drop that shipped several long-standing Phase 9 and Phase 10 items (see those phases below, now ticked).
+
+- [x] **Live 5-day PM2.5 forecast** (`#forecast`) — free, key-less Open-Meteo (CAMS) model: daily mean + peak, band-coloured summary, trend chart, 33-city selector. Shown alongside the existing SAFAR/CPCB forecast-reliability tracking. Ask JanVayu now answers "will it be bad tomorrow?" via a server-side `fetchForecast`. *(Delivers the Phase 10 "AQI forecast 24–72hr" item.)*
+- [x] **Farm Fire Tracker** (`#fire-tracker`) — `netlify/functions/fire-tracker.mjs` proxies NASA FIRMS active-fire detections (VIIRS/NOAA-20 NRT), plotted on a Leaflet map with region + time-window toggles and honest seasonal framing (peak mid-Oct to late-Nov). Reads `FIRMS_MAP_KEY`. *(Delivers the Phase 10 "Stubble-burning live tracker" item.)*
+- [x] **Hyperlocal via OpenAQ v3** — `community-sensors.mjs` now uses OpenAQ (CPCB CAAQMS + community networks) as its primary source when `OPENAQ_API_KEY` is set, fixing the empty "My Neighbourhood" panel; Sensor.Community fallback. Added a 6-hour freshness guard so dead/zombie stations can't surface years-old readings as "live".
+- [x] **Beyond the Lungs** (`#beyond-lungs`) — cited section on PM2.5's whole-body toll (kidneys, heart, brain, metabolism, pregnancy), anchored on the 2026 Chennai–Delhi eGFR cohort.
+- [x] **Occupational Exposure** (`#occupational`) — exposure-equity by occupation (street vendors, traffic police, gig riders, construction, waste workers), anchored on the 2026 Chennai street-vendor study.
+- [x] **Low-cost indoor sensor buying guide** — added to the Indoor Air panel (2026 IIT-Dhanbad benchmark).
+- [x] **One-click RTI from City Scorecards** — "File an RTI" opens the RTI Assistant pre-filled with the city's state board + Clean Air Action Plan topic. *(Delivers the "one-click pre-filled RTI" part of the Phase 10 NCAP scorecard item.)*
+- [x] **Open Data API** (`/api`) — `netlify/functions/data-api.mjs`: CORS-open JSON manifest of every dataset + CSV export of rankings, licence + citation. Surfaced in the Data Archive panel; documented in `docs/api/`. *(Delivers the Phase 9 "Open data API" item.)*
+- [x] **Calculator test harness** — the 7 deterministic calculators extracted to `netlify/functions/lib/calc.mjs` (single source of truth), covered by `test/calc.test.mjs` (12 tests, `npm test`).
+- [x] **Reading List → 29 papers** — 5 new India-focused July-2026 studies (Hisar ML forecasting, BiLSTM PM2.5, low-cost indoor sensors, PM2.5–kidney cohort, street-vendor respiratory).
+- [x] **`bump-version.mjs` date fix** — no longer derives invalid `date-released` values from patch numbers > 31.
+
+---
+
 ## Phase 1: Foundation (✅ Completed)
 
 - [x] Single-page real-time AQI dashboard
@@ -338,7 +356,7 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
 - [ ] WhatsApp bot integration
 - [ ] ML-based AQI forecast (extend the existing forecast panel beyond WAQI's 3-day window)
 - [ ] South Asian expansion
-- [ ] Open data API (currently we have read-only function endpoints for rankings + community sensors; needs versioning, docs, rate limits)
+- [x] Open data API — ✅ shipped v26.6.46 (see Phase 5.16): versioned `/api` manifest + CSV export, documented in `docs/api/`
 
 ---
 
@@ -346,10 +364,10 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
 
 Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate Trends + Respirer Living Sciences), CREA, UrbanEmissions, IQAir, and aqi.in.
 
-- [ ] **NCAP city scorecard upgrade** — match/exceed NCAP Tracker. Per-city met/missed flag, station-level fund utilization, PM2.5 vs target chart, with one-click pre-filled RTI to the responsible CPCB officer.
-- [ ] **Stubble-burning live tracker** — NASA FIRMS API + Punjab/Haryana focus during Oct–Nov; overlay on the Live Map.
+- [~] **NCAP city scorecard upgrade** — ✅ one-click pre-filled RTI to the state board shipped v26.6.45 (see Phase 5.16); ⏳ station-level fund utilization + PM2.5-vs-target chart still to do.
+- [x] **Stubble-burning live tracker** — ✅ shipped v26.6.47 as the [Farm Fire Tracker](#fire-tracker) panel (NASA FIRMS, VIIRS/NOAA-20). See Phase 5.16.
 - [ ] **Source apportionment ring** — per-city %-from transport / industry / biomass / construction / dust, sourced from CREA + UrbanEmissions inventories. Interactive city picker.
-- [ ] **AQI forecast 24–72hr** — extend the existing forecast panel with WAQI's daily forecast arrays, render as a 3-day horizon chart with confidence bands.
+- [x] **AQI forecast 24–72hr** — ✅ shipped v26.6.44 as a live 5-day Open-Meteo/CAMS forecast (mean + peak, day-by-day). See Phase 5.16.
 - [ ] **Push notifications** — browser push via the new service worker, gated on user-picked AQI thresholds. Complement to email digest.
 - [ ] **In-browser AQ literacy quiz** — companion to Sharath's Jeopardy game; runs on the Workshops page.
 - [ ] **Story-of-the-week rotation** — surface a blog post on the dashboard hero each week.
