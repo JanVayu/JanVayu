@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.47] - 2026-07-14
+
+### Added — Farm Fire Tracker (NASA FIRMS)
+
+New live stubble-burning / farm-fire tracker under City Data — the seasonal driver of Delhi-NCR's winter smog, now visible from space.
+
+- `netlify/functions/fire-tracker.mjs` proxies NASA FIRMS active-fire detections (VIIRS / NOAA-20 near-real-time; SNPP was returning empty at build time), cached 30 min in Blobs, reads `FIRMS_MAP_KEY` from env, returns an empty set (not an error) when the key is absent.
+- New "Farm Fire Tracker" panel with a Leaflet map plotting each detection (coloured by confidence), a live count, region toggle (NW-India stubble belt / all-India) and time window (24 h / 3 d / 7 d). Honest seasonal framing: counts are naturally near-zero outside the mid-October to late-November peak. Nav (desktop + mobile) + Ctrl+K search wired. Non-partisan framing.
+- Verified end-to-end against the live FIRMS API: parser handles real VIIRS rows (confidence l/n/h, FRP); NW-India returned 0 in monsoon July (expected), all-India 3-day returned ~487 detections.
+
 ## [v26.6.46] - 2026-07-14
 
 ### Added — versioned Open Data API
