@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.48] - 2026-07-14
+
+### Added / Changed — documentation & announcement of the v26.6.43–47 feature drop
+
+- **New blog post**: `2026-07-14-forecast-fire-and-beyond-the-lungs.md` — "What Shipped This Week: Forecasts, Fire Maps, and Pollution Beyond the Lungs", walking through the live forecast, Farm Fire Tracker, OpenAQ hyperlocal, Beyond the Lungs / Occupational Exposure, the sensor guide, one-click RTI, the Open Data API, and the 5 new papers. Added to `blog/_sidebar.md`.
+- **Roadmap** (`docs/wiki/Roadmap.md`): new completed **Phase 5.16** summarising the drop; ticked the now-shipped Phase 9 (Open data API) and Phase 10 (Stubble-burning tracker, AQI forecast, one-click RTI) items.
+- **README**: Features table extended to 38 (Live 5-Day Forecast, Farm Fire Tracker, Beyond the Lungs, Occupational Exposure, Open Data API); Data Sources table adds OpenAQ, Open-Meteo, and clarifies NASA FIRMS usage.
+- **Docs site** (`docs/data-sources/overview.md`): added OpenAQ, Open-Meteo, NASA FIRMS (Farm Fire Tracker) and Sensor.Community to the real-time sources table.
+
 ## [v26.6.47] - 2026-07-14
 
 ### Added — Farm Fire Tracker (NASA FIRMS)

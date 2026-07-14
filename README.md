@@ -59,6 +59,11 @@ This is not a campaign. It is a record.
 | 31 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback |
 | 32 | **Ward-Level Atlas** | "How Polluted Is Your Ward?" — Leaflet choropleth of every municipal ward across 14 major Indian cities, with a four-layer toggle: live PM2.5 (interpolated), heat (Landsat surface temperature), green cover and built-up (ESA WorldCover). Per-layer legend, tooltips and live stats; surfaces the urban heat-island link from each city's own data |
 | 33 | **Citizen Testimony** | A multilingual wall of 100+ on-the-ground, first-person testimonies on how bad the air is, across 86 cities — in Hindi, English and 11 other Indian languages (Bengali, Tamil, Marathi, Telugu, Kannada, Gujarati, Punjabi, Malayalam, Odia, Urdu, Assamese), each with an English translation. Language-filter chips, free-text search, RTL rendering for Urdu, and a submission CTA to add your testimony via contribute@janvayu.in |
+| 34 | **Live 5-Day Forecast** | Independent PM2.5 forecast (Open-Meteo / CAMS, key-less) in the Forecast panel — daily mean + peak, band-coloured summary, trend chart, 33-city selector — shown alongside SAFAR/CPCB reliability tracking. Ask JanVayu answers "will it be bad tomorrow?" |
+| 35 | **Farm Fire Tracker** | Live stubble-burning / farm-fire map (NASA FIRMS, VIIRS/NOAA-20) across the Punjab–Haryana–NCR belt, with region + time-window toggles and honest seasonal framing (peak mid-Oct to late-Nov) |
+| 36 | **Beyond the Lungs** | PM2.5's whole-body toll — kidneys (2026 Chennai–Delhi eGFR cohort), cardiovascular, brain, metabolism, pregnancy — arguing for health-complete alerts |
+| 37 | **Occupational Exposure** | Exposure-equity by occupation: street vendors, traffic police, gig riders, construction and waste workers, anchored on a 2026 Chennai street-vendor study |
+| 38 | **Open Data API** | Versioned, CORS-open public data API at [janvayu.in/api](https://www.janvayu.in/api) — JSON manifest of every dataset + CSV export of rankings; free to use with attribution (CC BY-NC-SA 4.0) |
 
 ---
 
@@ -256,9 +261,11 @@ JanVayu integrates **160+ verified public data sources**, including:
 |--------|------|--------|
 | [WAQI](https://waqi.info) | Real-time AQI | Free API |
 | [CPCB CAAQMS](https://app.cpcbccr.com/ccr/) | Official AQI | Free |
+| [OpenAQ](https://openaq.org) | Hyperlocal CPCB + community stations (My Neighbourhood) | Free API key |
+| [Open-Meteo](https://open-meteo.com/) | 5-day PM2.5 forecast (CAMS) — Forecast panel | Free, key-less |
 | [IHME GBD](https://vizhub.healthdata.org/gbd-results/) | Health burden | Free |
 | [Lancet Countdown](https://lancetcountdown.org) | Annual health reports | Open Access |
-| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Fire detection | Free |
+| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Active-fire detection — Farm Fire Tracker (VIIRS/NOAA-20) | Free API key |
 | [Indian Kanoon](https://indiankanoon.org/) | Legal/court orders | Free |
 | [PRANA Portal](https://prana.cpcb.gov.in/) | NCAP tracking | Free |
 | [IQAir](https://iqair.com) | World Air Quality Report | Free |
