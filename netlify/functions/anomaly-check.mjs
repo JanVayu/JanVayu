@@ -84,7 +84,7 @@ export default async function handler(req) {
     }
   });
 
-  // If spikes found, try to explain via Gemini
+  // If spikes found, try to explain via Groq
   if (spikes.length > 0) {
     const now = new Date();
     const month = now.toLocaleString("en-IN", { month: "long", timeZone: "Asia/Kolkata" });

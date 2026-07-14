@@ -38,18 +38,26 @@ if (newVersion) {
 
 const version = pkg.version;
 
-// Parse version parts: "26.6.20" -> year=26, month=6, day=20
+// Parse version parts: "26.6.43" -> year=26, month=6, patch=43.
+// NOTE: the third component is a PATCH number, NOT a calendar day — it can
+// exceed 31 (e.g. 26.6.43). So we do NOT build a calendar date from it (that
+// produced invalid dates like "2026-06-43"). Instead the version yields only an
+// opaque, monotonic cache-busting stamp; the human-readable release date comes
+// from the real clock.
 const vParts = version.split('.');
 const major = vParts[0];
 const month = vParts[1];
-const day = vParts[2];
+const patch = vParts[2];
 
-// Build YYYYMMDD date string: version "26.6.20" -> "20260620"
+// Opaque cache-buster (monotonic across releases): version "26.6.43" -> "20260643".
 const yyyy = `20${major}`;
 const mm = month.padStart(2, '0');
-const dd = day.padStart(2, '0');
-const dateStamp = `${yyyy}${mm}${dd}`;
-const isoDate = `${yyyy}-${mm}-${dd}`;
+const pp = patch.padStart(2, '0');
+const dateStamp = `${yyyy}${mm}${pp}`;
+
+// Real release date for CITATION.cff — a valid ISO date, unlike dateStamp.
+const _now = new Date();
+const isoDate = `${_now.getFullYear()}-${String(_now.getMonth() + 1).padStart(2, '0')}-${String(_now.getDate()).padStart(2, '0')}`;
 
 console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
 
@@ -88,12 +96,12 @@ console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
 
   const updated = content.replace(
     /const CACHE_NAME\s*=\s*'ask-janvayu-[^']*'/,
-    `const CACHE_NAME = 'ask-janvayu-${dateStamp}-v${major}'`
+    `const CACHE_NAME = 'ask-janvayu-${dateStamp}-v${patch}'`
   );
 
   if (updated !== content) {
     writeFile(file, updated);
-    console.log(`${file}: CACHE_NAME = 'ask-janvayu-${dateStamp}-v${major}'`);
+    console.log(`${file}: CACHE_NAME = 'ask-janvayu-${dateStamp}-v${patch}'`);
   } else {
     console.log(`${file}: already up to date`);
   }
