@@ -3,6 +3,7 @@
 - [**JanVayu Blog**](README.md)
 
 - **July 2026**
+  - [What Shipped This Week: Forecasts, Fire Maps, and Pollution Beyond the Lungs](posts/2026-07-14-forecast-fire-and-beyond-the-lungs.md)
   - [The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky](posts/2026-07-08-secondary-pm25.md)
   - [The Citation That Didn't Exist: How We Found "Krishna et al." Was Really Jaganathan](posts/2026-07-02-citation-integrity.md)
 

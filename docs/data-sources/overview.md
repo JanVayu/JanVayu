@@ -10,7 +10,10 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 |--------|------|--------|---------|
 | [WAQI](https://waqi.info) | Real-time AQI | Free API | Dashboard, map, all city data |
 | [CPCB CAAQMS](https://app.cpcbccr.com/ccr/) | Official AQI | Free web | Verification, official readings |
-| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Fire/stubble detection | Free API | Stubble burning tracker |
+| [OpenAQ](https://openaq.org) | Hyperlocal CPCB + community stations | Free API key | My Neighbourhood panel, chatbot hyperlocal (primary; Sensor.Community fallback) |
+| [Open-Meteo](https://open-meteo.com/) | PM2.5/PM10 forecast (CAMS) | Free, key-less | Live 5-day Forecast panel, chatbot "will it be bad tomorrow?" |
+| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Active-fire detection (VIIRS/NOAA-20 NRT) | Free API key | Farm Fire Tracker (stubble burning) |
+| [Sensor.Community](https://sensor.community/) | Low-cost community sensors (CC0) | Free | Hyperlocal fallback |
 | [IMD](https://mausam.imd.gov.in) | Meteorological | Free | Wind, temperature, weather context |
 
 ---
