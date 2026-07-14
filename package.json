@@ -1,6 +1,6 @@
 {
   "name": "janvayu",
-  "version": "26.6.45",
+  "version": "26.6.46",
   "description": "JanVayu - India Air Quality Monitor",
   "private": true,
   "engines": {
@@ -12,6 +12,7 @@
   },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks",
+    "test": "node --test",
     "version:sync": "node scripts/bump-version.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
     "check:translations": "node scripts/check-translations.mjs"
