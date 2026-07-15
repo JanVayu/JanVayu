@@ -2,15 +2,9 @@
 // Runs every day at 8:00 AM IST (2:30 AM UTC)
 // Reads subscribers from Blobs, fetches current AQI, sends personalized emails
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 import { Resend } from "resend";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 

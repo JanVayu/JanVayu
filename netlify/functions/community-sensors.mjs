@@ -17,16 +17,10 @@
 // back to Sensor.Community automatically when the key is absent or OpenAQ
 // returns nothing, so the endpoint keeps working with zero configuration.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
 const OPENAQ_KEY = process.env.OPENAQ_API_KEY || "";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 const SC_URL = "https://data.sensor.community/static/v2/data.json"; // ~5 MB, refreshed every 5 min
 

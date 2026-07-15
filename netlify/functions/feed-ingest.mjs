@@ -2,14 +2,8 @@
 // Accepts POST with JSON body, validates API key, stores in Netlify Blobs
 // Keys: twitter-agent, youtube, news-enhanced (separate from existing feed keys)
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 function deduplicateByKey(existing, incoming, keyFn) {
   const seen = new Set();

@@ -8,14 +8,8 @@
 //   accumulated daily snapshots in the "janvayu-rankings" Netlify Blobs store.
 //   Each call also writes today's snapshot, so the dataset grows over time.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 const WAQI_TOKEN = process.env.WAQI_TOKEN || "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 
