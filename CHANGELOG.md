@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.54] - 2026-07-15
+
+### Added — real partner logos in the Janhit Partners section
+
+Replaced the monogram placeholders with each organisation's own logo, self-hosted under `/partners/` (no hotlinking): `aipc.png`, `urbanemissions.png`, `terra.webp`, and `terra-mark.svg`. AIPC, UrbanEmissions.info and Terra.do now show their wordmarks/seals, and Terra.do Studio uses the Terra circular mark with a "Studio" label, all in a uniform white logo plate. MMSF and Delhi SSANS keep monogram tiles — neither has a separate public logo. Logos are used nominatively to identify partners.
+
 ## [v26.6.53] - 2026-07-15
 
 ### Fixed — Ask JanVayu chatbot: language, length, format, non-partisan, no-fabrication
