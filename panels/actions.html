@@ -1,0 +1,436 @@
+
+
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Pick one thing and do it today</strong>
+                    <span>File an RTI, write to your councillor, get an air purifier, or share data with your community.</span>
+                </div>
+                <button class="action-btn" onclick="showPanel('rti-assistant')">Generate RTI →</button>
+            </div>
+
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-lightning" style="color: #F59E0B; margin-right: 0.4rem;"></span>Take Action — What You Can Do</h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Here are real things you can do about air pollution &mdash; at home, at school, or in your neighbourhood. Some cost nothing. Pick one and start today.">Practical, science-backed actions at every level — from your home to your community. Organized by context and budget. Every small action compounds.</p>
+            </div>
+
+            <!-- HOME GRAP GUIDE -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title" style="color: #EF4444;">
+                        <span class="si si-home"></span>
+                        Your Home GRAP — Personal Emergency Response
+                    </span>
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Just like the city has emergency pollution rules (GRAP), you can make your own family plan. When pollution gets worse, you take more steps to protect yourself.">Just like the city has GRAP stages, create your own household response plan based on AQI levels.</p>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>AQI Level</th>
+                                    <th>Your Home Response</th>
+                                    <th>Kids & Elderly</th>
+                                    <th>Outdoor Activity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: rgba(34,197,94,0.1);">
+                                    <td><strong style="color: #22C55E;">0-50 Good</strong></td>
+                                    <td>Normal activities. Open windows for ventilation.</td>
+                                    <td>All activities normal</td>
+                                    <td> All outdoor activities</td>
+                                </tr>
+                                <tr style="background: rgba(234,179,8,0.1);">
+                                    <td><strong style="color: #EAB308;">51-100 Moderate</strong></td>
+                                    <td>Sensitive individuals limit prolonged outdoor exertion</td>
+                                    <td>Reduce intense outdoor play</td>
+                                    <td> Limit strenuous exercise</td>
+                                </tr>
+                                <tr style="background: rgba(249,115,22,0.1);">
+                                    <td><strong style="color: #F97316;">101-200 Poor</strong></td>
+                                    <td>Keep windows closed. Run air purifier if available.</td>
+                                    <td>Indoor play preferred</td>
+                                    <td> No jogging/cycling outdoors</td>
+                                </tr>
+                                <tr style="background: rgba(27,107,74,0.08);">
+                                    <td><strong style="color: #EF4444;">201-300 Very Poor</strong></td>
+                                    <td>Seal windows. Wet mop floors. N95 if going out.</td>
+                                    <td>Stay indoors. No school commute if possible.</td>
+                                    <td> Essential trips only with N95</td>
+                                </tr>
+                                <tr style="background: rgba(127,29,29,0.15);">
+                                    <td><strong style="color: #991B1B;">301-400 Severe</strong></td>
+                                    <td>DIY air filter running. Damp towels on gaps. Mask indoors if no purifier.</td>
+                                    <td>Consider staying with relatives in cleaner area</td>
+                                    <td> Stay home. Work from home if possible.</td>
+                                </tr>
+                                <tr style="background: rgba(127,29,29,0.25);">
+                                    <td><strong style="color: #7F1D1D;">400+ Hazardous</strong></td>
+                                    <td>Emergency mode. Multiple purifiers. Consider temporary relocation.</td>
+                                    <td>Relocate if child/elderly has respiratory condition</td>
+                                    <td> Complete lockdown. Emergency only.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INDIVIDUAL ACTIONS BY BUDGET -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> Household Actions — By Budget</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <!-- ZERO COST -->
+                        <div class="info-box" style="border-left: 3px solid #22C55E;">
+                            <h4 style="color: #22C55E;">₹0 — Zero Cost Actions</h4>
+                            <p data-simple="Things you can do right now that cost nothing: wet mop your floors, seal window gaps with wet towels, don&rsquo;t burn incense on bad air days, and rinse your nose with salt water after going outside."></p>
+                            <ul>
+                                <li><strong>Wet mopping</strong> — Mop floors 2x daily to trap settled PM2.5 (study: reduces indoor PM by 20-30%)</li>
+                                <li><strong>Spray plants</strong> — Mist indoor/balcony plants 2x daily; leaves trap particulates</li>
+                                <li><strong>Seal gaps</strong> — Use wet towels/cloth to seal door & window gaps</li>
+                                <li><strong>Cook timing</strong> — Avoid frying during peak pollution hours (6-10 AM)</li>
+                                <li><strong>No agarbatti/dhoop</strong> — Incense adds PM2.5; skip during high AQI days</li>
+                                <li><strong>No dry sweeping</strong> — Resuspends dust; always wet mop instead</li>
+                                <li><strong>Nasal rinse</strong> — Saline water gargle & nose cleaning after outdoor exposure</li>
+                                <li><strong>Kitchen exhaust</strong> — Always use chimney/exhaust while cooking</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Source: CPCB guidelines, IIT-Delhi indoor air studies</div>
+                        </div>
+
+                        <!-- LOW COST -->
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">₹500-2000 — Low Cost</h4>
+                            <p data-simple="For a small budget: buy N95 masks (₹50-150), make a DIY air purifier with a box fan and filter for ₹1200, or get indoor plants like money plant and snake plant."></p>
+                            <ul>
+                                <li><strong>N95/N99 masks</strong> — ₹50-150 each. Only N95+ blocks PM2.5. Cloth masks don't work.</li>
+                                <li><strong>DIY air purifier</strong> — Box fan (₹800) + HEPA filter (₹400) = 80% as effective as branded purifiers</li>
+                                <li><strong>Indoor plants</strong> — Money plant, snake plant, areca palm (₹100-300 each). NASA study: 3-4 plants per room helps.</li>
+                                <li><strong>Door draft stoppers</strong> — ₹200-400. Seal the gap under doors.</li>
+                                <li><strong>Cling wrap windows</strong> — Temporary seal for severe days (₹100)</li>
+                                <li><strong>Steam inhalation</strong> — Daily 10 min steam helps clear airways</li>
+                                <li><strong>Compost bin</strong> — ₹500-1000. Reduce burning waste.</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">DIY purifier: Search "Smartair India" for instructions</div>
+                        </div>
+
+                        <!-- INVESTMENT -->
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">₹5000+ — Investment Solutions</h4>
+                            <p data-simple="If you can spend more: get a HEPA air purifier (₹8,000+), buy an air quality monitor (₹3,000+), upgrade your car&rsquo;s cabin filter, or get your windows professionally sealed."></p>
+                            <ul>
+                                <li><strong>HEPA air purifier</strong> — ₹8,000-50,000. Get CADR rating for your room size. Run 24/7 during bad days.</li>
+                                <li><strong>AQI monitor</strong> — ₹3,000-8,000. Know your indoor vs outdoor levels.</li>
+                                <li><strong>Car cabin filter</strong> — ₹1,500-3,000. Replace with HEPA filter for commute protection.</li>
+                                <li><strong>Central AC filter upgrade</strong> — MERV-13 filters for ducted AC</li>
+                                <li><strong>Window sealing</strong> — Professional weather stripping ₹5,000-15,000</li>
+                                <li><strong>Multiple purifiers</strong> — One per bedroom + living area for severe season</li>
+                                <li><strong>Electric cooking</strong> — Induction > LPG for indoor air quality</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Purifier sizing: CADR ≥ 2/3 of room volume (m³)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KIDS INDOOR ALTERNATIVES -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> Kids — Indoor Activity Alternatives</span></div>
+                <div class="card-body">
+                    <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">When AQI >200, outdoor play is harmful. Children breathe faster and inhale more pollutants per kg body weight. Here are energy-burning indoor alternatives:</p>
+                    <div class="grid-4">
+                        <div class="info-box">
+                            <h4> Physical Activity</h4>
+                            <ul>
+                                <li>Indoor obstacle course</li>
+                                <li>Dance/Zumba videos</li>
+                                <li>Balloon volleyball</li>
+                                <li>Yoga for kids</li>
+                                <li>Hide and seek</li>
+                                <li>Indoor bowling (bottles)</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h4> Creative Play</h4>
+                            <ul>
+                                <li>Arts & crafts</li>
+                                <li>Building blocks/Lego</li>
+                                <li>Playdough/clay</li>
+                                <li>Indoor gardening</li>
+                                <li>Science experiments</li>
+                                <li>Cooking together</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h4> Learning Games</h4>
+                            <ul>
+                                <li>Board games</li>
+                                <li>Puzzles</li>
+                                <li>Reading time</li>
+                                <li>Educational apps (limited)</li>
+                                <li>Music/instruments</li>
+                                <li>Storytelling</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h4> Timing Tips</h4>
+                            <ul>
+                                <li>Best outdoor window: 12-4 PM (usually lowest AQI)</li>
+                                <li>Avoid: 6-10 AM, 6-10 PM (peak hours)</li>
+                                <li>Check hourly AQI before deciding</li>
+                                <li>Short bursts better than long exposure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MASKING GUIDE -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> Masking Guide — What Actually Works</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <div class="table-wrap">
+                                <table class="table">
+                                    <thead><tr><th>Mask Type</th><th>PM2.5 Filtration</th><th>Cost</th><th>Verdict</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Cloth/Cotton</td><td>10-30%</td><td>₹20-50</td><td style="color: #EF4444;"> Useless for PM2.5</td></tr>
+                                        <tr><td>Surgical mask</td><td>30-50%</td><td>₹5-10</td><td style="color: #F59E0B;"> Better than nothing</td></tr>
+                                        <tr><td>N95 (no valve)</td><td>95%</td><td>₹50-150</td><td style="color: #22C55E;"> Recommended</td></tr>
+                                        <tr><td>N99</td><td>99%</td><td>₹150-300</td><td style="color: #22C55E;"> Best protection</td></tr>
+                                        <tr><td>N95 with valve</td><td>95% (inhale only)</td><td>₹100-200</td><td style="color: #3B82F6;"> Easier breathing</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="font-size: 0.8125rem; color: var(--text-2); margin-top: 0.5rem;">
+                                <strong>Key:</strong> Look for BIS certification (IS 9473). "N95" without certification may be fake.
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <h4>Proper Mask Usage</h4>
+                            <ul>
+                                <li><strong>Fit test:</strong> No gaps around nose/chin. Glasses fogging = bad seal.</li>
+                                <li><strong>Replace:</strong> Every 3-5 days of regular use, or when breathing becomes difficult</li>
+                                <li><strong>Kids:</strong> Need kid-sized N95. Adult masks don't seal properly.</li>
+                                <li><strong>Beard:</strong> Facial hair breaks seal. Clean-shaven for best protection.</li>
+                                <li><strong>Two-strap:</strong> Better seal than ear-loop style</li>
+                                <li><strong>Don't touch:</strong> Avoid touching mask surface; contaminants transfer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCHOOLS -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> For Schools — Admin & Parents</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">What Schools Should Do</h4>
+                            <ul>
+                                <li><strong>AQI-based schedule</strong> — No outdoor PT/games when AQI >200</li>
+                                <li><strong>Indoor assembly</strong> — Shift morning assembly indoors during bad days</li>
+                                <li><strong>Air purifiers</strong> — At minimum in nursery/KG classrooms</li>
+                                <li><strong>Seal classrooms</strong> — Weather stripping on windows, door draft stoppers</li>
+                                <li><strong>Green buffer</strong> — Plant trees on roadside boundary</li>
+                                <li><strong>Bus route timing</strong> — Avoid peak traffic hours if possible</li>
+                                <li><strong>Online option</strong> — Hybrid mode during severe pollution (AQI >400)</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Reference: CPCB School Guidelines 2023</div>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #22C55E;">
+                            <h4 style="color: #22C55E;">What Parents Can Demand (Legal Basis)</h4>
+                            <ul>
+                                <li><strong>CAQM Direction 2024:</strong> Schools must suspend outdoor activities when AQI >400</li>
+                                <li><strong>Right to Education:</strong> Schools must provide safe environment</li>
+                                <li><strong>NGT Orders:</strong> Multiple orders mandate AQI monitoring in schools</li>
+                                <li><strong>Form a group:</strong> Parent WhatsApp group to coordinate pressure</li>
+                                <li><strong>Write to DEO:</strong> District Education Officer can issue directives</li>
+                                <li><strong>RTI:</strong> Ask school for air quality management plan</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Template letter available in RTI tab</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HOSPITALS -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> For Hospitals & Clinics</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">Clinical Preparedness</h4>
+                            <ul>
+                                <li><strong>Stock up:</strong> Nebulizers, bronchodilators, steroids for Nov-Dec surge</li>
+                                <li><strong>Triage protocol:</strong> Respiratory distress fast-track during severe AQI days</li>
+                                <li><strong>OPD extension:</strong> Consider extended hours during pollution season</li>
+                                <li><strong>Staff protection:</strong> N95 for staff, especially in emergency</li>
+                                <li><strong>Patient education:</strong> Printed handouts on home management</li>
+                                <li><strong>Oxygen readiness:</strong> Check O2 supply and concentrator availability</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                            <h4 style="color: #7C3AED;">Infrastructure</h4>
+                            <ul>
+                                <li><strong>HEPA in ICU/NICU:</strong> Critical care units need filtered air</li>
+                                <li><strong>Positive pressure:</strong> OTs should have positive pressure ventilation</li>
+                                <li><strong>Waiting area:</strong> Air purifiers in crowded OPD waiting areas</li>
+                                <li><strong>Ambulance:</strong> Cabin air filters for patient transport</li>
+                                <li><strong>AQI display:</strong> Real-time AQI in lobby for patient awareness</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">NABH accreditation includes air quality standards</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RWAs -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> For RWAs & Housing Societies</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                            <h4 style="color: #F59E0B;">Immediate Actions</h4>
+                            <ul>
+                                <li><strong>Ban leaf burning:</strong> Compost pit instead. Fine violators.</li>
+                                <li><strong>No open waste burning:</strong> Report to MCD if staff burns</li>
+                                <li><strong>DG set timing:</strong> Limit diesel generator use; switch to gas/solar</li>
+                                <li><strong>Water sprinkling:</strong> Spray common areas 2x daily to suppress dust</li>
+                                <li><strong>Construction rules:</strong> Mandate dust screens, water spraying at sites</li>
+                                <li><strong>Carpooling:</strong> Incentivize shared transport</li>
+                                <li><strong>EV charging:</strong> Install points to encourage electric vehicles</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #16803C;">
+                            <h4 style="color: #16803C;">Legal Powers & Long-term</h4>
+                            <ul>
+                                <li><strong>MC Act:</strong> RWAs can frame bylaws on burning, DG use</li>
+                                <li><strong>Green cover:</strong> Plant pollution-resistant trees (Neem, Peepal, Ashoka)</li>
+                                <li><strong>Community AQI monitor:</strong> ₹8,000-15,000 shared investment</li>
+                                <li><strong>Bulk mask purchase:</strong> Negotiate N95 bulk rates for residents</li>
+                                <li><strong>Pollution emergency fund:</strong> For vulnerable families' purifiers</li>
+                                <li><strong>Lobby MLA/Councillor:</strong> Collective voice for local road paving, tree planting</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">NGT Order 2018: RWAs responsible for preventing local burning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RURAL vs URBAN -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> Rural vs  Urban — Context-Specific Actions</span></div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div class="info-box" style="border-left: 3px solid #22C55E;">
+                            <h4 style="color: #22C55E;"> Rural Areas</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Main sources:</strong> Crop burning, biomass cooking, dust roads, brick kilns</p>
+                            <ul>
+                                <li><strong>Stubble alternatives:</strong>
+                                    <ul style="margin-top: 0.25rem; font-size: 0.875rem;">
+                                        <li>Happy Seeder (₹1.5L, subsidy available)</li>
+                                        <li>Sell to biomass plants (₹1000-1500/tonne)</li>
+                                        <li>In-situ decomposition with PUSA bio-decomposer (free from govt)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Cooking:</strong> LPG > biomass chulha. PM2.5 from chulha = smoking 400 cigarettes/day</li>
+                                <li><strong>Brick kilns:</strong> Report illegal kilns to SPCB. Zigzag technology mandate.</li>
+                                <li><strong>Road dust:</strong> Demand paving from Gram Panchayat. MGNREGA funds available.</li>
+                                <li><strong>Timing:</strong> Avoid working in fields early morning (mist traps pollution)</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Subsidy: Contact District Agriculture Officer for Happy Seeder</div>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;"> Urban Areas</h4>
+                            <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Main sources:</strong> Vehicles, construction, industry, road dust, waste burning</p>
+                            <ul>
+                                <li><strong>Transport:</strong>
+                                    <ul style="margin-top: 0.25rem; font-size: 0.875rem;">
+                                        <li>Metro/public transport when possible</li>
+                                        <li>Carpool apps (Quick Ride, etc.)</li>
+                                        <li>WFH during severe pollution</li>
+                                        <li>EV for next vehicle purchase</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Construction:</strong> Report sites without dust screens to MCD (toll-free 1800)</li>
+                                <li><strong>Waste burning:</strong> Report via Sameer app or MCD helpline</li>
+                                <li><strong>Location choice:</strong> Avoid living near highways, industrial areas if possible</li>
+                                <li><strong>Indoor plants:</strong> More effective in sealed urban apartments</li>
+                                <li><strong>Commute:</strong> Car windows up + AC on recirculate mode</li>
+                            </ul>
+                            <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">App: "Sameer" for reporting pollution violations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADVOCACY ACTIONS -->
+            <div class="card mb-2">
+                <div class="card-header"><span class="card-title"> Beyond Your Home — Advocacy Actions</span></div>
+                <div class="card-body">
+                    <div class="grid-3">
+                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                            <h4 style="color: #EF4444;">Report Violations</h4>
+                            <ul>
+                                <li><strong>Sameer App</strong> — CPCB app to report pollution sources</li>
+                                <li><strong>Green Delhi App</strong> — For Delhi-specific complaints</li>
+                                <li><strong>MCD Helpline</strong> — 1800-111-6397 for burning, construction dust</li>
+                                <li><strong>DPCC</strong> — dpcc.delhigovt.nic.in for industrial violations</li>
+                                <li><strong>Traffic Police</strong> — Report visibly polluting vehicles</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                            <h4 style="color: #3B82F6;">Demand Action</h4>
+                            <ul>
+                                <li><strong>File RTI</strong> — Templates in RTI tab</li>
+                                <li><strong>Write to MLA/MP</strong> — Elected representatives respond to volume</li>
+                                <li><strong>Attend Ward meetings</strong> — Raise air quality in local forums</li>
+                                <li><strong>Media tip</strong> — Share violations with journalists</li>
+                                <li><strong>PIL support</strong> — Support existing public interest litigations</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left: 3px solid #22C55E;">
+                            <h4 style="color: #22C55E;">Community Building</h4>
+                            <ul>
+                                <li><strong>WhatsApp groups</strong> — Coordinate local clean air initiatives</li>
+                                <li><strong>Tree plantation</strong> — Organize drives with RWA/school</li>
+                                <li><strong>Awareness</strong> — Share AQI info with neighbors, domestic help</li>
+                                <li><strong>Carpool network</strong> — Build local rideshare community</li>
+                                <li><strong>Support vendors</strong> — Help street food sellers get LPG</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUICK REFERENCE -->
+            <div class="card">
+                <div class="card-header"><span class="card-title"> Quick Reference — Emergency Numbers & Apps</span></div>
+                <div class="card-body">
+                    <div class="grid-4">
+                        <div class="stat-card" style="border-left: 3px solid #EF4444;">
+                            <div class="stat-value" style="font-size: 1rem;">1800-111-6397</div>
+                            <div class="stat-label">MCD Helpline (Delhi)</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #3B82F6;">
+                            <div class="stat-value" style="font-size: 1rem;">Sameer App</div>
+                            <div class="stat-label">CPCB Complaint App</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #22C55E;">
+                            <div class="stat-value" style="font-size: 1rem;">Green Delhi</div>
+                            <div class="stat-label">Delhi Govt App</div>
+                        </div>
+                        <div class="stat-card" style="border-left: 3px solid #7C3AED;">
+                            <div class="stat-value" style="font-size: 1rem;">112</div>
+                            <div class="stat-label">Emergency (Medical)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <strong>Remember:</strong> Individual actions matter, but systemic change requires collective pressure. Use the RTI tab and Accountability tab to demand government action.
+                </div>
+            </div>
+        

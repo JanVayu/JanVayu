@@ -1,0 +1,374 @@
+
+
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Check if your city is spending its clean air budget</strong>
+                    <span>See NCAP fund utilization rates by city and state. File an RTI if your city is underperforming.</span>
+                </div>
+                <button class="action-btn" onclick="showPanel('rti-assistant')">File an RTI →</button>
+            </div>
+
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wallet" style="color: #D97706; margin-right: 0.4rem;"></span>Clean Air Budget Tracker</h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Where does the government spend money on cleaning the air? We follow the money across different schemes and check if it is actually being used. Most of the information comes from official budget papers and RTI requests.">Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
+            </div>
+
+            <div class="alert alert-danger mb-2"><div data-simple="&lt;strong&gt;Big problem:&lt;/strong&gt; The money for cleaning air in 49 cities ran out at the end of March 2026. The government has still not said what comes next. Cities are running on leftover allocations.">
+                     <strong>Funding Cliff:</strong> 15th Finance Commission grants (₹16,539 Cr for 49 cities) <strong>expired 31 March 2026</strong>. <em>As of mid-May 2026, no successor mechanism has been formally announced</em> &mdash; cities are operating on residual previously-released allocations. This bucket represented 87% of all NCAP city funding. The 16th Finance Commission's recommendations are expected by Oct 2026 for the FY27 cycle starting Apr 2027 &mdash; leaving a potential 12-month gap. Watch this space.
+                </div>
+            </div>
+
+            <!-- KEY STATS -->
+            <div class="stat-strip mb-2">
+                <div class="stat-cell">
+                    <div class="stat-value" style="color: #3B82F6;">₹13,415 Cr</div>
+                    <div class="stat-label">NCAP Released (2019-26)</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value" style="color: #D97706;">74%</div>
+                    <div class="stat-label">Utilization Rate</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value" style="color: #EF4444;">68%</div>
+                    <div class="stat-label">Spent on Dust Control</div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-value" style="color: #7C3AED;">&lt;1%</div>
+                    <div class="stat-label">On Industry/Fuel</div>
+                </div>
+            </div>
+
+            <!-- THE GAP: BUDGET VS BURDEN -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title" style="color: #1B6B4A;">
+                        <span class="si si-alert"></span>
+                        The Gap: Budget vs. Burden
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #1B6B4A; font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Economic Cost of Air Pollution</h4>
+                            <div style="font-size: 2.5rem; font-weight: 700; color: #1B6B4A;">$36.8 Billion</div>
+                            <div style="font-size: 0.875rem; color: var(--text-2);">1.36% of GDP (Lancet 2021) / $339 Billion at 9.5% GDP (Lancet Countdown 2025)</div>
+                            <ul style="font-size: 0.875rem; margin-top: 1rem; line-height: 1.8;">
+                                <li><strong>1.67 million deaths</strong> annually (17.8% of all deaths)</li>
+                                <li><strong>$28.8 billion</strong> from premature mortality</li>
+                                <li><strong>$8.0 billion</strong> from morbidity costs</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #16803C; font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Clean Air Spending (All Schemes)</h4>
+                            <div style="font-size: 2.5rem; font-weight: 700; color: #16803C;">~₹15,000 Cr</div>
+                            <div style="font-size: 0.875rem; color: var(--text-2);">Approximately $1.8 Billion across all schemes</div>
+                            <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-700);">
+                                <strong style="color: #1B6B4A;">Spending = 0.5% of economic burden</strong>
+                                <p style="font-size: 0.8125rem; margin-top: 0.25rem; color: var(--text-2);">For every ₹100 lost to air pollution, India spends ₹0.50 on solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">Sources: Lancet Planetary Health 2021 (GBD 2019), Lancet Countdown 2025, Union Budget 2025-26</div>
+            </div>
+
+            <!-- SCHEME-WISE BREAKDOWN -->
+            <div class="grid-2 mb-2">
+                <!-- NCAP FUNDING -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title" style="color: #2563EB;">
+                            <span class="si si-target"></span>
+                            NCAP Fund Flow (2019-2026)
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="budgetNcapChart" role="img" aria-label="Bar chart of NCAP allocation versus utilisation by financial year."></canvas></div>
+                        <div style="margin-top: 1rem; font-size: 0.8125rem;">
+                            <div class="grid-2" style="gap: 0.5rem;">
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px;">
+                                    <strong>MoEFCC Direct:</strong> ₹1,615 Cr released, 63% utilized
+                                </div>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px;">
+                                    <strong>XV-FC Grants:</strong> ₹11,800 Cr released, 76% utilized
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">Source: CREA "Tracing the Hazy Air 2026" (January 2026)</div>
+                </div>
+
+                <!-- SPENDING PATTERN -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title" style="color: #D97706;">
+                            <span class="si si-building"></span>
+                            Where NCAP Money Goes
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container"><canvas id="budgetSpendingChart" role="img" aria-label="Pie chart showing the breakdown of NCAP spending categories."></canvas></div>
+                        <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.8125rem;">
+                            <strong style="color: #1B6B4A;">Critical Mismatch:</strong> Source apportionment shows vehicles (38%) and industry (18%) are top contributors, but they receive &lt;1% of NCAP funds combined.
+                        </div>
+                    </div>
+                    <div class="card-footer">Source: CREA NCAP Analysis, CSE Reports</div>
+                </div>
+            </div>
+
+            <!-- CITY-LEVEL UTILIZATION -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title">
+                        <span class="si si-pin"></span>
+                        City-Level Fund Utilization — Red Flags
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>City</th>
+                                    <th>Allocated (₹ Cr)</th>
+                                    <th>Utilized (₹ Cr)</th>
+                                    <th>Utilization %</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Delhi</strong></td>
+                                    <td>81.36</td>
+                                    <td>14.10</td>
+                                    <td><span class="badge badge-danger">17%</span></td>
+                                    <td style="color: #1B6B4A;">Critical underutilization</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Noida</strong></td>
+                                    <td>55.70</td>
+                                    <td>7.07</td>
+                                    <td><span class="badge badge-danger">13%</span></td>
+                                    <td style="color: #1B6B4A;">Critical underutilization</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ghaziabad</strong></td>
+                                    <td>48.50</td>
+                                    <td>12.60</td>
+                                    <td><span class="badge badge-danger">26%</span></td>
+                                    <td style="color: #F59E0B;">Below threshold</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lucknow</strong></td>
+                                    <td>180.00</td>
+                                    <td>72.00</td>
+                                    <td><span class="badge badge-warning">40%</span></td>
+                                    <td style="color: #F59E0B;">Below threshold</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Patna</strong></td>
+                                    <td>120.00</td>
+                                    <td>84.00</td>
+                                    <td><span class="badge badge-success">70%</span></td>
+                                    <td style="color: #16803C;">On track</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mumbai</strong></td>
+                                    <td>380.00</td>
+                                    <td>220.00</td>
+                                    <td><span class="badge badge-success">58%</span></td>
+                                    <td style="color: #16803C;">Moderate</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(124,58,237,0.1); border-radius: 6px; font-size: 0.875rem;">
+                        <strong>75% Rule (Sep 2025):</strong> Cities must now achieve 75% utilization to access 2025-26 NCAP allocation. Delhi, Noida, and several other NCR cities risk losing their allocations.
+                    </div>
+                </div>
+                <div class="card-footer">Sources: Outlook Business (Sep 2025), CREA NCAP Analysis</div>
+            </div>
+
+            <!-- OTHER SCHEMES -->
+            <div class="grid-2 mb-2">
+                <!-- PM UJJWALA -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title" style="color: #16803C;">
+                            <span class="si si-flare"></span>
+                            PM Ujjwala Yojana (Clean Cooking)
+                        </span>
+                    </div>
+                    <div class="card-body" style="font-size: 0.875rem;">
+                        <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
+                            <div style="text-align: center; padding: 0.75rem; background: var(--bg); border-radius: 6px;">
+                                <div style="font-size: 1.75rem; font-weight: 700; color: #16803C;">10.33 Cr</div>
+                                <div style="font-size: 0.875rem; color: var(--text-3);">Connections (Jul 2025)</div>
+                            </div>
+                            <div style="text-align: center; padding: 0.75rem; background: var(--bg); border-radius: 6px;">
+                                <div style="font-size: 1.75rem; font-weight: 700; color: #3B82F6;">₹12,000 Cr</div>
+                                <div style="font-size: 0.875rem; color: var(--text-3);">2025-26 Subsidy</div>
+                            </div>
+                        </div>
+                        <div style="padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-700);">
+                            <strong style="color: #1B6B4A;">Usage Gap:</strong> Average PMUY household uses only <strong>4.47 refills/year</strong> vs 9-12 subsidized. Indicates persistent affordability barriers and "fuel stacking."
+                        </div>
+                        <div style="margin-top: 0.75rem;">
+                            <strong>Health Impact:</strong> Household air pollution causes 0.61 million deaths annually (60% women).
+                        </div>
+                    </div>
+                    <div class="card-footer">Source: PIB August 2025, IBEF</div>
+                </div>
+
+                <!-- CROP RESIDUE -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title" style="color: #CA8A04;">
+                            <span class="si si-shield"></span>
+                            Crop Residue Management (2018-2025)
+                        </span>
+                    </div>
+                    <div class="card-body" style="font-size: 0.875rem;">
+                        <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
+                            <div style="text-align: center; padding: 0.75rem; background: var(--bg); border-radius: 6px;">
+                                <div style="font-size: 1.75rem; font-weight: 700; color: #CA8A04;">₹3,623 Cr</div>
+                                <div style="font-size: 0.875rem; color: var(--text-3);">Total Released</div>
+                            </div>
+                            <div style="text-align: center; padding: 0.75rem; background: var(--bg); border-radius: 6px;">
+                                <div style="font-size: 1.75rem; font-weight: 700; color: #16803C;">-79%</div>
+                                <div style="font-size: 0.875rem; color: var(--text-3);">Fire Reduction</div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 0.75rem;">
+                            <strong>State-wise Release:</strong>
+                            <ul style="margin-top: 0.25rem;">
+                                <li>Punjab: ₹1,681 Cr (46%)</li>
+                                <li>Haryana: ₹1,082 Cr (30%)</li>
+                                <li>Uttar Pradesh: ₹764 Cr (21%)</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 0.75rem; background: rgba(22,128,60,0.1); border-radius: 6px; border-left: 3px solid #16803C;">
+                            <strong style="color: #16803C;">Success Story:</strong> Fire incidents dropped from 82,533 (2021) to 18,457 (2024). 3 lakh+ machines distributed.
+                        </div>
+                    </div>
+                    <div class="card-footer">Source: Business Standard (Nov 2024), ETV Bharat (Feb 2025)</div>
+                </div>
+            </div>
+
+            <!-- EV SCHEMES -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title" style="color: #7C3AED;">
+                        <span class="si si-bus"></span>
+                        Electric Mobility: FAME to E-DRIVE (2015-2028)
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Scheme</th>
+                                    <th>Period</th>
+                                    <th>Outlay (₹ Cr)</th>
+                                    <th>Key Focus</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>FAME I</strong></td>
+                                    <td>2015-2019</td>
+                                    <td>895</td>
+                                    <td>Hybrid & EV adoption</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>FAME II</strong></td>
+                                    <td>2019-2024</td>
+                                    <td>11,500</td>
+                                    <td>E-2W, E-3W, E-buses, Charging</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PM E-DRIVE</strong></td>
+                                    <td>2024-2028</td>
+                                    <td>10,900</td>
+                                    <td>Mass mobility, 72,300 chargers</td>
+                                    <td><span class="badge badge-info">Active</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid-3 mt-2" style="font-size: 0.8125rem;">
+                        <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px; text-align: center;">
+                            <strong style="color: #7C3AED;">₹23,295 Cr</strong><br>
+                            <span style="color: var(--text-3);">Total EV Investment</span>
+                        </div>
+                        <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px; text-align: center;">
+                            <strong style="color: #16803C;">28+ Lakh</strong><br>
+                            <span style="color: var(--text-3);">Vehicles Supported</span>
+                        </div>
+                        <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px; text-align: center;">
+                            <strong style="color: #3B82F6;">72,300</strong><br>
+                            <span style="color: var(--text-3);">Chargers Planned</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(245,158,11,0.1); border-radius: 6px; font-size: 0.875rem;">
+                        <strong style="color: #D97706;">Subsidy Tapering:</strong> E-2W subsidy reduced from ₹5,000/kWh (FY25) to ₹2,500/kWh (FY26). Industry seeks extension beyond March 2026.
+                    </div>
+                </div>
+                <div class="card-footer">Sources: DD News, ICCT Report, Business Standard</div>
+            </div>
+
+            <!-- MoEFCC BUDGET TREND -->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-title">
+                        <span class="si si-activity"></span>
+                        MoEFCC Budget Trend (2019-2026)
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container"><canvas id="budgetMoefccChart" role="img" aria-label="Bar chart of MoEFCC budget allocation versus actual expenditure."></canvas></div>
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.875rem;">
+                        <strong style="color: #1B6B4A;">Stagnant at 0.07% of Union Budget:</strong> Despite air pollution emerging as India's leading environmental health crisis, MoEFCC allocation has remained flat for a decade. The 2025-26 allocation of ₹3,413 Cr represents less than 0.08% of total government spending.
+                    </div>
+                </div>
+                <div class="card-footer">Source: PRS Legislative Research, Demand for Grants 2025-26</div>
+            </div>
+
+            <!-- ACCOUNTABILITY GAPS -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title" style="color: #1B6B4A;">
+                        <span class="si si-alert"></span>
+                        Key Accountability Gaps
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: #1B6B4A; font-size: 0.875rem; margin-bottom: 0.5rem;">Structural Issues</h4>
+                            <ul style="font-size: 0.875rem; line-height: 1.8;">
+                                <li><strong>No legally binding targets:</strong> NCAP targets are aspirational with no penalties</li>
+                                <li><strong>XV-FC cliff:</strong> ₹16,539 Cr <strong>expired 31 Mar 2026</strong>; successor mechanism still not announced as of mid-May 2026 &mdash; 16th Finance Commission report expected Oct 2026</li>
+                                <li><strong>Focus mismatch:</strong> 68% on dust vs &lt;1% on industry/domestic fuel</li>
+                                <li><strong>Missing studies:</strong> 40 of 131 cities lack source apportionment</li>
+                                <li><strong>Monitoring gaps:</strong> 28 cities still without CAAQMS after 7 years</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #F59E0B; font-size: 0.875rem; margin-bottom: 0.5rem;">Hidden Funds</h4>
+                            <ul style="font-size: 0.875rem; line-height: 1.8;">
+                                <li><strong>Environmental Cess:</strong> ₹45.8 Cr collected over 8 years, &lt;1% spent on pollution control (RTI)</li>
+                                <li><strong>CAMPA Funds:</strong> ₹94,844 Cr collected, only ₹26,002 Cr utilized (2019-24)</li>
+                                <li><strong>State Boards:</strong> Many SPCBs under-resourced despite fee collections</li>
+                                <li><strong>Health Budget:</strong> No dedicated respiratory health allocation linked to AQ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">Sources: RTI responses, CAG Reports, Parliamentary Questions</div>
+            </div>
+        
