@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.68] - 2026-07-15
+
+### Accessibility — critical form labels, prose-link underlines, chart alt-text (#4)
+
+Evidence-driven WCAG 2.1 AA fixes, verified by running axe-core against the rendered panels (the same engine the `accessibility.yml` CI uses):
+
+- **Form labels (critical — `label` + `select-name`, 12 controls):** added `aria-label` to the health-calculator and urban-heat inputs/selects/ranges that had adjacent but unassociated `<label>` text (`#health-age`, `#health-pm25`, `#health-outdoor`, `#health-conditions`, `#safe-aqi`, `#safe-activity`, `#safe-health`, `#advisory-age`, `#advisory-hours`, `#advisory-city`, `#uh-builtup`, `#uh-tree`).
+- **Link-in-text-block (serious, 12):** inline links inside prose were distinguished by colour alone; added `p a, li a, dd a { text-decoration: underline }`. Button/nav/card link classes keep their own no-underline styling via higher specificity (verified: 9/9 prose links underlined, 0 buttons affected).
+- **Chart alt-text:** the one remaining unlabeled `<canvas>` (`#uhOzoneHourChart`) got a descriptive `role="img"` + `aria-label`, matching the other 13 charts.
+
+After these, axe reports **zero** `label`, `select-name`, `link-in-text-block`, or chart-labelling violations across the audited panels. (Note: axe does **not** flag heading-order in the rendered DOM — the raw h4 count was a linear-scan artefact, not a real skipped-level problem.) The remaining `color-contrast` findings are tracked for a dedicated theme-aware palette pass.
+
 ## [v26.6.67] - 2026-07-15
 
 ### Refactor — shared CORS/HTTP helper for Netlify Functions
