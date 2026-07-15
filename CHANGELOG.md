@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.53] - 2026-07-15
+
+### Fixed — Ask JanVayu chatbot: language, length, format, non-partisan, no-fabrication
+
+From tester feedback (Komal): the chatbot was answering some English questions in Hindi, running long, and showing raw markdown. Tightened the `air-query.mjs` system prompt:
+
+- **Language** — now defaults firmly to **English**; only uses another Indian language when the user's question is itself written in that language. Never switches based on topic, city, tone, or an assumption about the user (the old "respond in the same language as the question" rule was too loose and the model was freelancing into Hindi for personal/emotional questions).
+- **Length** — hard ~120-word limit, lead with the direct answer (was a weak, ignored "under 200 words").
+- **Format** — instructed plain text (no `**bold**`, `###` headings, or `|` tables). Belt-and-suspenders: both the in-page widget and the `/ask` PWA now run answers through a `cleanChatText()` stripper, so stray markdown never renders as literal characters.
+- **Non-partisan** — added a firm rule: never say who to vote for or declare one party/government "better"; present documented actions and shortfalls on all sides neutrally (a test question had drawn a partisan "AAP looks stronger" answer).
+- **No fabrication** — added a rule against inventing city-level death tolls, city-specific source-apportionment percentages, or future-date predictions (a test had produced a made-up "~45,000 Kanpur deaths" attributed to Lancet Countdown).
+
+Sourcing behaviour (which testers liked) is unchanged, as is correct refusal of genuinely unanswerable questions.
+
 ## [v26.6.52] - 2026-07-15
 
 ### Changed — CSS code-split (external, cacheable stylesheet)
