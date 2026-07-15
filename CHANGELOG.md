@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.69] - 2026-07-15
+
+### Accessibility — badge colour-contrast (WCAG 1.4.3, #4 part 2)
+
+Fixed the single largest colour-contrast offender — status badges — which alone accounted for ~106 of the ~210 light-theme `color-contrast` violations axe reported:
+
+- **`.badge-*` variant classes** made theme-aware: darker text (`#166534`/`#92400E`/`#991B1B`/`#1E40AF`) on the pale tint in light theme, brighter text on a stronger tint in dark theme (dark-on-dark would otherwise fail).
+- **Inline solid-background badges** (source-category chips with white text — Transport, Agricultural, Dust, Waste, etc.) had their backgrounds darkened to the next accessible shade (`#22C55E`→`#15803D`, `#3B82F6`→`#1D4ED8`, `#EF4444`→`#B91C1C`, `#F97316`→`#C2410C`, `#7C3AED`→`#6D28D9`), preserving the colour-coding while meeting 4.5:1 with white text. Only the `background+color:white` pairing was changed, so other uses of those hues are untouched.
+
+Verified with axe-core in **both light and dark themes**: badge contrast violations drop to **zero**, and light-theme total falls from ~210 to ~67. The remaining contrast findings (inline-styled prose colours, the deliberately-dimmed `.grap-stage` indicators, the WCAG-exempt multilingual logotype, and the dark theme's broader systemic gaps) are tracked on #4 as a dedicated design-system pass.
+
 ## [v26.6.68] - 2026-07-15
 
 ### Accessibility — critical form labels, prose-link underlines, chart alt-text (#4)

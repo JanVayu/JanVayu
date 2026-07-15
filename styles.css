@@ -1093,10 +1093,16 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     display: inline-block; padding: 2px 8px; border-radius: 4px;
     font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
 }
-.badge-success { background: rgba(22,163,74,0.1); color: #16A34A; }
-.badge-warning { background: rgba(245,158,11,0.1); color: #D97706; }
-.badge-danger { background: rgba(192,57,43,0.1); color: var(--red); }
-.badge-info { background: rgba(37,99,235,0.1); color: var(--blue); }
+/* Badge text darkened to meet WCAG AA 4.5:1 against the pale tint background
+   in light theme; brightened for dark theme (dark-on-dark would fail). */
+.badge-success { background: rgba(22,163,74,0.12); color: #166534; }
+.badge-warning { background: rgba(245,158,11,0.12); color: #92400E; }
+.badge-danger { background: rgba(192,57,43,0.12); color: #991B1B; }
+.badge-info { background: rgba(37,99,235,0.12); color: #1E40AF; }
+[data-theme="dark"] .badge-success { background: rgba(22,163,74,0.18); color: #6EE7B7; }
+[data-theme="dark"] .badge-warning { background: rgba(245,158,11,0.18); color: #FCD34D; }
+[data-theme="dark"] .badge-danger { background: rgba(220,80,60,0.20); color: #FCA5A5; }
+[data-theme="dark"] .badge-info { background: rgba(59,130,246,0.20); color: #93C5FD; }
 
 /* ── Forms ──────────────────────────────── */
 .form-group { margin-bottom: 14px; }
