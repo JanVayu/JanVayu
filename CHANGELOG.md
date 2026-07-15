@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.58] - 2026-07-15
+
+### Performance — testimonies externalized (streamlining, batch 1)
+
+The 142-entry `CITIZEN_TESTIMONIES` array (~58 KB) moved out of `index.html` into `/data/testimonies.json`, fetched lazily on first open of the Citizen Testimony panel via a new `ensureTestimonies()` loader. The `renderTestimonies()` / `initTestimonyToolbar()` render path is unchanged. Initial HTML is ~42 KB smaller; verified end-to-end against a local server (142 cards, 14 language filters render). First of several streamlining passes to defer inline data/markup that isn't needed on load.
+
 ## [v26.6.57] - 2026-07-15
 
 ### Changed — About panel tidy-up
