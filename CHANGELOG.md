@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.70] - 2026-07-15
+
+### Data — rankings backend expanded 27 → 88 cities (#2)
+
+The live city-rankings function (`netlify/functions/rankings.mjs`) ranked only 27 hardcoded cities, so it lagged the front-end's ~117-city coverage. Expanded its `CITIES` map to **88 cities** — the front-end's core set plus a curated national selection of state capitals and NCAP non-attainment cities — with coordinates sourced directly from the front-end `CITIES` object to keep them consistent. The fetch logic is unchanged (WAQI geo lookups, 5-minute cache, daily blob snapshots); cities with no nearby station simply filter out, so no error path changes.
+
+Note on the rest of #2: the dashboard city picker already lists all 117 cities (the hardcoded metros/NCR options plus every extended city appended at load by `populateExtendedCitySelectors()`), and a native `<select>` already supports type-to-search — so "more cities in the picker" is effectively covered. A full autocomplete-combobox and growing the catalogue past 200 cities remain as future enhancements tracked on #2.
+
 ## [v26.6.69] - 2026-07-15
 
 ### Accessibility — badge colour-contrast (WCAG 1.4.3, #4 part 2)
