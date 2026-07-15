@@ -30,7 +30,7 @@ This is not a campaign. It is a record.
 | 2 | **Simple Language Mode** | Site-wide plain language toggle in the header that switches all content to simple language (persisted via sessionStorage) |
 | 3 | **Glossary (Ctrl+K)** | Searchable glossary overlay for air quality terms, accessible via Ctrl+K keyboard shortcut |
 | 4 | **Intro Tour** | Guided walkthrough for first-time visitors highlighting key sections and features |
-| 5 | **Real-Time AQI Dashboard** | Live air quality data from 16+ Indian cities via WAQI/CPCB, auto-refreshing every 10 minutes |
+| 5 | **Real-Time AQI Dashboard** | Live air quality across 115+ Indian cities via WAQI/CPCB — the core ~33 auto-refresh every 10 minutes, the rest are fetched on demand when selected |
 | 6 | **Interactive AQI Map** | Leaflet.js-powered map with station-level AQI markers across India |
 | 7 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, Karolinska, and IHME studies |
 | 8 | **Economic Cost Tracker** | Quantified GDP and productivity losses ($339.4B / 9.5% GDP) |
