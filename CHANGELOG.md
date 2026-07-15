@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.61] - 2026-07-15
+
+### Performance — MMSF partner logo shrunk (streamlining, batch 4)
+
+The Dr. Manmohan Singh Fellows Programme logo in the Janhit Partners section was a 62 KB Illustrator SVG that still carried the hidden (viewBox-clipped) wordmark paths. Replaced with a 16 KB WebP of the medallion — visually identical in the tile, ~47 KB lighter — and removed `partners/mmsf.svg`.
+
 ## [v26.6.60] - 2026-07-15
 
 ### Performance — Leaflet CSS off the critical path (streamlining, batch 3)
