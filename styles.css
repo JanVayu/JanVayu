@@ -10,7 +10,7 @@
     --green-900: #0f2b1c;
     --green-800: #14532D;
     --green-700: #15803D;
-    --green-600: #16A34A;
+    --green-600: #157f3c; /* darkened from #16A34A so green text meets AA 4.5:1 on white */
     --green-500: #22C55E;
     --green-400: #4ADE80;
     --green-100: #DCFCE7;
@@ -26,9 +26,12 @@
     --ink-faint: #5a5a54;
 
     --red: #c0392b;
-    --amber: #c47709; /* darkened from #d4850a for WCAG AA contrast on white (large text ≥3:1) */
+    --amber: #a86008; /* darkened to meet WCAG AA 4.5:1 for normal text on white */
     --blue: #2563EB;
     --purple: #6D28D9;
+    --sky: #0284c7; /* accessible sky-blue for stat text on white */
+    --pink: #be185d; /* accessible pink for text on white */
+    --on-accent: #ffffff; /* text colour that sits on an --accent background */
 
     --bg: var(--paper);
     --bg-section: var(--warm-white);
@@ -60,10 +63,23 @@
     --bg-card: #1c1c1a;
     --text: #e8e8e2;
     --text-2: #a8a8a0;
-    --text-3: #6e6e68;
+    --text-3: #9a9a91; /* lightened from #6e6e68 (a copy of the light-theme value) to meet WCAG AA 4.5:1 on dark surfaces */
     --text-4: #8a8a82;
     --accent: #4ADE80;
     --accent-hover: #86EFAC;
+    /* Semantic colour tokens brightened for legible text on dark surfaces
+       (WCAG 1.4.3). Elements that use these via var() or the mapped hexes
+       become theme-aware automatically. */
+    --red: #f87171;
+    --amber: #fbbf24;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+    --sky: #38bdf8;
+    --green-700: #4ade80;
+    --green-600: #6ee7a0;
+    --pink: #f472b6;
+    --on-accent: #0e0e0c; /* dark text on the bright dark-theme --accent */
+    --ink: #e8e8e2;
     --border: #2a2a28;
     --border-light: #222220;
     --shadow-sm: none;
@@ -1087,6 +1103,10 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .btn-sm { font-size: 0.75rem; padding: 5px 12px; }
 .btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
 .btn-primary:hover { background: var(--accent-hover); }
+/* In dark theme --accent is a bright green; white text on it fails contrast,
+   so use dark text on primary buttons there. */
+[data-theme="dark"] .btn-primary { color: #0e0e0c; }
+[data-theme="dark"] .panel-action-box .action-btn { color: #0e0e0c; }
 
 /* ── Badges ─────────────────────────────── */
 .badge {
@@ -1302,10 +1322,14 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 /* ── GRAP ──────────────────────────────── */
 .grap-status { display: flex; gap: 6px; }
 .grap-stage {
+    /* Inactive stages were dimmed to opacity 0.3, which failed WCAG contrast.
+       Raised to 0.8 (still visibly de-emphasised vs. the active stage, which
+       also gets full opacity + a ring) so the text stays legible. */
     flex: 1; padding: 10px; text-align: center; border-radius: var(--radius);
-    font-size: 0.72rem; font-weight: 600; opacity: 0.3;
+    font-size: 0.72rem; font-weight: 600; opacity: 1;
 }
-.grap-stage.active { opacity: 1; box-shadow: 0 0 12px rgba(0,0,0,0.1); }
+.grap-stage:not(.active) { filter: saturate(0.7); }
+.grap-stage.active { box-shadow: 0 0 0 2px var(--accent), 0 0 12px rgba(0,0,0,0.15); }
 .grap-1 { background: #D1FAE5; color: #065F46; }
 .grap-2 { background: #FEF3C7; color: #92400E; }
 .grap-3 { background: #FED7AA; color: #9A3412; }
