@@ -1,3 +1,4 @@
+import { jsonCorsHeaders } from "./lib/http.mjs";
 // Netlify Function: Ward-Level Accountability Brief
 // Generates structured briefs for ward councillors, journalists, and resident groups
 
@@ -84,14 +85,10 @@ async function fetchCityAQI(cityKey) {
 }
 
 export default async function handler(req) {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Content-Type": "application/json",
-  };
+  const headers = jsonCorsHeaders();
 
   if (req.method === "OPTIONS") {
-    return new Response("", { status: 204, headers });
+    return new Response(null, { status: 204, headers });
   }
 
   if (req.method !== "POST") {

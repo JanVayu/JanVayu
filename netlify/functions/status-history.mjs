@@ -12,12 +12,9 @@
 // the strip becomes fully real as the monitor accrues history.
 
 import { getBlobStore } from "./lib/blob.mjs";
+import { corsHeaders, preflight } from "./lib/http.mjs";
 
-const CORS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+const CORS = corsHeaders("GET, OPTIONS");
 
 const DAYS = 90;
 
@@ -29,9 +26,7 @@ const SEED_DEGRADED_END = "2026-06-07";
 const ymd = (d) => d.toISOString().slice(0, 10);
 
 export default async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response("", { status: 204, headers: CORS });
-  }
+  const __pf = preflight(req, "GET, OPTIONS"); if (__pf) return __pf;
 
   let recorded = {};
   try {
