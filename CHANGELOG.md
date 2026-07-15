@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.57] - 2026-07-15
+
+### Changed — About panel tidy-up
+
+Removed the long inline mono version-log that sat at the top of the About panel (above the Janhit Partners section) and replaced it with a concise description of what JanVayu is. The scrollable "Version History" card below — which had drifted to May (v26.6.23) — is now the single on-site changelog and has been brought current through v26.6.56 (Ward Atlas, the July feature drop, and the partner-logo work).
+
 ## [v26.6.56] - 2026-07-15
 
 ### Added — Dr. Manmohan Singh Fellows Programme logo (MMSF partner card)
