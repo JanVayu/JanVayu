@@ -1,3 +1,4 @@
+import { jsonCorsHeaders } from "./lib/http.mjs";
 // Netlify Function: Anomaly Detection
 // Checks major cities for PM2.5 spikes, optionally explains via Groq
 
@@ -54,15 +55,10 @@ async function fetchCityAQI(cityKey) {
 }
 
 export default async function handler(req) {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Content-Type": "application/json",
-    "Cache-Control": "public, max-age=600",
-  };
+  const headers = jsonCorsHeaders({ extra: { "Cache-Control": "public, max-age=600" } });
 
   if (req.method === "OPTIONS") {
-    return new Response("", { status: 204, headers });
+    return new Response(null, { status: 204, headers });
   }
 
   const results = await Promise.allSettled(

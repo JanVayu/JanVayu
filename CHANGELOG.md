@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.67] - 2026-07-15
+
+### Refactor — shared CORS/HTTP helper for Netlify Functions
+
+Introduced `netlify/functions/lib/http.mjs` as the single source of truth for the CORS headers and OPTIONS preflight handling that was copy-pasted across the serverless functions (joining the existing shared `lib/blob.mjs` and `lib/calc.mjs`). Nine functions were migrated:
+
+- `reference-data`, `zotero-library`, `status-history` — the standard 3-key CORS block → `corsHeaders()` + `preflight()`.
+- `accountability-brief`, `anomaly-check`, `feed-ingest`, `health-advisory`, `terra-collab`, `workshop-submit` — the JSON-response header shape (custom `Access-Control-Allow-Headers`, no `Allow-Methods`) → a dedicated `jsonCorsHeaders()` helper that reproduces each function's headers exactly, so behaviour is unchanged.
+
+Also normalised the six JSON functions' 204 preflight bodies from `""` to `null` (WHATWG-correct; identical on the wire since a 204 carries no body). Functions with idiosyncratic header shapes (`data-api`, `push-subscribe`, `air-query`, …) were deliberately left untouched to avoid changing live-endpoint behaviour.
+
+Verified in Node: `node --check` on every changed file passes; a harness invoking each migrated handler with an `OPTIONS` request confirms byte-identical preflight status + headers for all nine; a real `GET` on `reference-data` returns 200 with the correct CORS headers and body; and the full `node --test` suite (12 tests) passes.
+
 ## [v26.6.66] - 2026-07-15
 
 ### Performance — eight content panels lazy-loaded; index.html now under 1 MB

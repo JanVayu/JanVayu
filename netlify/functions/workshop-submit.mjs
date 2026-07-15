@@ -13,6 +13,7 @@
 
 import { Resend } from "resend";
 import { getBlobStore } from "./lib/blob.mjs";
+import { jsonCorsHeaders } from "./lib/http.mjs";
 
 const TO_EMAIL = process.env.WORKSHOP_INBOX_EMAIL || "contribute@janvayu.in";
 const FROM_EMAIL = process.env.RESEND_FROM || "JanVayu <alerts@janvayu.in>";
@@ -112,13 +113,9 @@ async function parseBody(req) {
 }
 
 export default async function handler(req) {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Content-Type": "application/json",
-  };
+  const headers = jsonCorsHeaders();
 
-  if (req.method === "OPTIONS") return new Response("", { status: 204, headers });
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers });
   if (req.method !== "POST") return new Response(JSON.stringify({ error: "POST required" }), { status: 405, headers });
 
   const fields = await parseBody(req);
