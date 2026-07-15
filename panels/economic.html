@@ -1,0 +1,59 @@
+
+
+            <div class="panel-action-box">
+                <div class="panel-action-box-text">
+                    <strong>Your action: Calculate pollution's cost to your business</strong>
+                    <span>Use the workplace cost estimator below to see productivity losses for your team size and city.</span>
+                </div>
+                <button class="action-btn" onclick="document.getElementById('econ-employees')?.scrollIntoView({behavior:'smooth',block:'center'})">Estimate costs ↓</button>
+            </div>
+
+            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-rupee" style="color: #D97706; margin-right: 0.4rem;"></span>Economic Cost of Air Pollution</h2>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Dirty air costs India &lt;strong&gt;$36.8 billion every year&lt;/strong&gt; — through hospital bills, people being too sick to work, and early deaths. That&rsquo;s money that could have gone to schools, roads, and better lives.">Air pollution costs India <strong>$36.8 billion annually</strong> (1.36% GDP) through healthcare, lost productivity, and premature deaths. At broader economic measures, costs reach $339 billion (9.5% GDP). <em>Source: Lancet Planetary Health 2021 / Lancet Countdown 2025</em></p>
+            </div>
+
+            <div class="grid-4 mb-2">
+                <div class="card stat-card"><div class="stat-value danger">$36.8B</div><div class="stat-label">Annual Cost (1.36% GDP)</div></div>
+                <div class="card stat-card"><div class="stat-value danger">1.67M</div><div class="stat-label">Deaths/Year</div></div>
+                <div class="card stat-card"><div class="stat-value warning">17.8%</div><div class="stat-label">Of All Deaths</div></div>
+                <div class="card stat-card"><div class="stat-value" style="color: #7C3AED;">5.3 yrs</div><div class="stat-label">Life Expectancy Loss</div></div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Business Productivity Loss Calculator</span></div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">Number of Employees</label>
+                            <input type="number" class="form-input" id="econ-employees" value="100" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Average Monthly Salary (Rs)</label>
+                            <input type="number" class="form-input" id="econ-salary" value="50000" min="1000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <select class="form-select" id="econ-city">
+                                <option value="delhi">Delhi</option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="kolkata">Kolkata</option>
+                                <option value="chennai">Chennai</option>
+                                <option value="bangalore">Bengaluru</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="calculateEconomicLoss()">Calculate Annual Loss</button>
+                        <div class="result-box mt-2" id="econ-result" style="display: none;">
+                            <div class="result-title">Estimated Annual Productivity Loss</div>
+                            <div class="result-value warning" id="econ-loss">--</div>
+                            <div class="result-detail" id="econ-detail"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer">Based on World Bank methodology</div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Economic Impact by Sector</span></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="econChart" role="img" aria-label="Doughnut chart showing the breakdown of pollution-related economic costs in India: presenteeism, premature mortality, reduced consumer footfall, absenteeism, and health expenditure."></canvas></div></div>
+                </div>
+            </div>
+        

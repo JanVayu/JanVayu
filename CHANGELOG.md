@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.66] - 2026-07-15
+
+### Performance — eight content panels lazy-loaded; index.html now under 1 MB
+
+Extended the lazy-panel mechanism to the remaining large, init-free content panels: **Accountability** (~44 KB), **Actions** (~32 KB), **Source Selector** (~32 KB), **AQI Explainer** (~26 KB), **Budget** (~24 KB), **Progress** (~22 KB), **Citizen Action** (~22 KB) and **Economic** (~5 KB) — extracted into per-panel fragments under `/panels/`, fetched on first open and cached. Empty `tmpl-*` templates are retained for hash-routing. None of these panels has a JS init, so the change is low-risk.
+
+`index.html` drops a further ~207 KB (1127 → **920 KB**), crossing back under 1 MB — down from ~1.59 MB at the start of the streamlining pass (a ~42% reduction in the main document).
+
+Verified with headless Chromium: all eight panels fetch their fragments and render at full size, and two inline panels (Children, and the special-cased Dashboard home view) behave unchanged — no console or page errors beyond the expected offline external-API 404s.
+
 ## [v26.6.65] - 2026-07-15
 
 ### Performance — About panel lazy-loaded (streamlining)
