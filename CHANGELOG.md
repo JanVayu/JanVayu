@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.59] - 2026-07-15
+
+### Performance — Learning Games script deferred (streamlining, batch 2)
+
+The self-contained Learning Games `<script>` (engine + all game data — Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, Tambola, Vayu Junction — ~58 KB) moved verbatim out of `index.html` into an external `games.js` loaded with `defer`. It's off the initial HTML parse and cached across visits, and — because it's a verbatim move — every internal reference (including the load-time `JEO_CATS = Object.keys(JEO_DATA)`) stays intact. All seven games verified working end-to-end against a local server (board renders, all game tabs switch, no console errors). `index.html` is ~58 KB smaller.
+
 ## [v26.6.58] - 2026-07-15
 
 ### Performance — testimonies externalized (streamlining, batch 1)
