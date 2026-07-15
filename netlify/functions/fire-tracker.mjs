@@ -10,14 +10,8 @@
 // Source note: VIIRS_SNPP_NRT was returning no data at build time, so we use
 // VIIRS_NOAA20_NRT which has full current coverage.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 const MAP_KEY = process.env.FIRMS_MAP_KEY || "";
 const SOURCE = "VIIRS_NOAA20_NRT";

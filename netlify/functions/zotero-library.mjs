@@ -6,7 +6,7 @@
 // them in a simplified card format. Results are cached in Netlify Blobs
 // for 6 hours to avoid hitting the Zotero API on every request.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
 const ZOTERO_GROUP_ID = "6508140";
 const ZOTERO_API_URL = `https://api.zotero.org/groups/${ZOTERO_GROUP_ID}/items?format=json&limit=50&sort=dateModified&direction=desc`;
@@ -21,12 +21,6 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 /**
  * Transform a raw Zotero API item into a simplified card object.

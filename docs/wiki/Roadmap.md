@@ -216,8 +216,8 @@ These features are ready to build but need specific content/decisions:
 
 These need external accounts/API keys before the code can be built:
 
-- [ ] **WhatsApp bot** — daily AQI alerts + chatbot Q&A via WhatsApp. The backend (`air-query.mjs`) already exists. Need: Meta Business account, WhatsApp Business API verification, API key. Bot code wraps the existing chatbot endpoint.
-- [ ] **Telegram bot** — same as WhatsApp but simpler API (no business verification needed). Need: Telegram Bot token from @BotFather.
+- ~~**WhatsApp bot**~~ — **won't do**: the existing WhatsApp share button plus [Ask JanVayu](https://www.janvayu.in/ask) already cover the WhatsApp/chat need; a full Business-API bot isn't worth the Meta verification overhead.
+- ~~**Telegram bot**~~ — **won't do** (same rationale as WhatsApp).
 - [x] **Push notifications** — ✅ shipped v26.6.49: real Web Push (VAPID) via `push-subscribe.mjs` / `push-send.mjs` + service-worker handlers; scheduled threshold alerts that arrive even when the site is closed, with a "Send test" button. See Phase 5.16.
 
 ### Performance (issue #3)
@@ -353,7 +353,7 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
 ## Phase 9: Community & Scale (2027)
 
 - [x] PWA with offline support — shipped in v26.4
-- [ ] WhatsApp bot integration
+- ~~WhatsApp bot integration~~ — won't do (covered by the existing WhatsApp share button + Ask JanVayu)
 - [ ] ML-based AQI forecast (extend the existing forecast panel beyond WAQI's 3-day window)
 - [ ] South Asian expansion
 - [x] Open data API — ✅ shipped v26.6.46 (see Phase 5.16): versioned `/api` manifest + CSV export, documented in `docs/api/`

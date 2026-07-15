@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.50] - 2026-07-15
+
+### Fixed — accessibility (WCAG 2.1 AA) pass
+
+Ran axe-core against the main page and cleared every actionable violation (86 → 0 actionable nodes):
+
+- **`select-name` (critical)** — added `aria-label` to the three unlabelled selects (`#hero-city-select`, `#share-card-city`, `#share-card-format`).
+- **`link-in-text-block`** — footer-credit links are now underlined, so they're distinguishable without colour.
+- **`color-contrast`** — darkened `--ink-tertiary` (#7a7a74 → #6f6f68) and `--amber` (#d4850a → #c47709) to meet 4.5:1 / 3:1, and lifted the footer link/credit opacities. This cleared ~68 nodes across muted body text, role-overlay copy, the footer and warning values.
+
+The 11 remaining axe contrast nodes are inactive-state elements (the dimmed cycling logo scripts and inactive GRAP-stage chips), which WCAG 1.4.3 explicitly exempts.
+
+### Changed — internal cleanup & roadmap
+
+- **De-duplicated `getBlobStore()`** — the copy-pasted blob-store factory now lives in `netlify/functions/lib/blob.mjs`, imported by 13 functions (single source of truth; `terra-collab.mjs` keeps its specialised no-arg variant).
+- **Roadmap** — marked the WhatsApp and Telegram bots as **won't-do** (the existing WhatsApp share button + Ask JanVayu already cover that need).
+
 ## [v26.6.49] - 2026-07-15
 
 ### Added — Web Push notifications (real server-sent AQI alerts)

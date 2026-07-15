@@ -10,14 +10,8 @@
 // users a realistic year-over-year picture even before the snapshot store has
 // matured.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 // PM2.5 monthly averages (µg/m³) — sourced from CPCB CAAQMS aggregations and
 // IQAir 2024 World Air Quality Report. 2026 values are partial year-to-date.

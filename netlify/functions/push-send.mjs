@@ -8,17 +8,11 @@
 // Also callable directly (GET/POST) for ops. Expired subscriptions (404/410)
 // are pruned. Requires VAPID_* env vars.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 import webpush from "web-push";
 
 export const config = { schedule: "0 */3 * * *" };
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 const WAQI_TOKEN = process.env.WAQI_TOKEN || process.env.WAQI_API_TOKEN || "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
 const COOLDOWN_MS = 6 * 60 * 60 * 1000; // don't push the same person more than once per 6 h
