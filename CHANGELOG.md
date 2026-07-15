@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.74] - 2026-07-15
+
+### Accessibility — dark-theme colour-contrast pass (WCAG 1.4.3, #213)
+
+Fixed the dark theme's systemic colour-contrast problem. An axe-core sweep in dark mode had surfaced ~790 `color-contrast` nodes; this brings that down to a handful.
+
+- **Root cause:** the dark theme's `--text-3` was a copy of the light-theme value (`#6e6e68`), unreadable on dark surfaces — a single fix cleared ~555 nodes. Lightened to `#9a9a91`.
+- **Theme-aware colour tokens:** `--red`, `--amber`, `--blue`, `--purple`, `--green-600`, `--green-700`, `--ink`, plus new `--sky`, `--pink` and `--on-accent`, now have brightened dark-theme values. The ~380 inline `color:` hex literals scattered through the panels were repointed at these tokens, so stat numbers and headings adapt to the theme instead of staying dark-on-dark.
+- **GRAP stage strip:** inactive stages were dimmed to `opacity: 0.3` (a contrast failure); replaced with a subtle desaturation and an accent ring on the active stage.
+- **Buttons:** primary/action buttons and the "NEW" pills now use dark text on the bright dark-theme accent (via `--on-accent`); the WhatsApp share button uses an accessible teal.
+- **Light theme too:** darkened `--green-600` and `--amber` so green/amber text meets 4.5:1 on white.
+
+Verified with axe-core in both themes: dark-theme `color-contrast` nodes drop from ~790 to ~13, light also improves, and no page errors across panels. The small remainder is the WCAG-exempt multilingual logotype plus a few borderline (~4.3:1) coloured labels on decorative tinted pills.
+
 ## [v26.6.73] - 2026-07-15
 
 ### Removed — Agent-Reach social pipeline & the WhatsApp/Telegram bot ideas
