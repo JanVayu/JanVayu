@@ -4,6 +4,17 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.17: Multilingual fix, accessibility & a lighter site (✅ Completed — v26.6.58–71)
+
+A mid-July 2026 platform-quality drop — mostly plumbing, and one significant bug fix.
+
+- [x] **Multilingual UI restored** — `setLanguage()` was throwing on a missing button-label element *before* applying any translations, so the entire 5-language switcher (Hindi, Tamil, Marathi, Bengali) was silently dead. Guarded it; nav/hero/menus now translate. Lazy panels re-apply the active language on open, and the About panel is fully translated in all five languages as a template. (#1, #212)
+- [x] **Accessibility sweep (WCAG 2.1 AA)** — audited with axe-core against the live panels: 12 form controls labelled, inline prose links underlined (WCAG 1.4.1), the last chart labelled, and status-badge colours made theme-aware to meet 4.5:1 in both themes. Dark-theme contrast pass tracked in #213. (#4, #209, #210)
+- [x] **Rankings backend 27 → 88 cities** — the live rankings now reflect a national set (core cities + state capitals + NCAP cities) rather than a metro subset. (#2, #211)
+- [x] **`index.html` ~1.59 MB → ~0.92 MB (~42%)** — 12 heavy panels moved to external fragments loaded on demand and cached; Games engine + testimonies data externalised; Leaflet CSS off the critical path. (#3)
+- [x] **Backend CORS/HTTP helper** — the preflight/CORS boilerplate copy-pasted across serverless functions consolidated into one shared module. (#208)
+- [x] **Housekeeping** — closed stale/duplicate issues (#5 CI/CD, #33 mobile, #167 blobs-v10, #183 link audit) after verifying each was already satisfied.
+
 ## Phase 5.16: Forecast, Fire Tracker, Health-Complete & Open Data (✅ Completed — v26.6.43–47)
 
 A July 2026 feature drop that shipped several long-standing Phase 9 and Phase 10 items (see those phases below, now ticked).

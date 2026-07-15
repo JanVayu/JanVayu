@@ -10,6 +10,8 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 15 Jul 2026 | [A Working Language Switcher, an Accessibility Sweep, and a Much Lighter Site](posts/2026-07-15-multilingual-accessibility-lighter.md) | Platform |
+| 14 Jul 2026 | [What Shipped This Week: Forecasts, Fire Maps, and Pollution Beyond the Lungs](posts/2026-07-14-forecast-fire-and-beyond-the-lungs.md) | Product |
 | 8 Jul 2026 | [The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky](posts/2026-07-08-secondary-pm25.md) | Data |
 | 2 Jul 2026 | [The Citation That Didn't Exist: How We Found "Krishna et al." Was Really Jaganathan](posts/2026-07-02-citation-integrity.md) | Research |
 | 25 Jun 2026 | [Ask JanVayu Can Now Answer About Your Ward](posts/2026-06-25-ask-janvayu-knows-your-ward.md) | Product |

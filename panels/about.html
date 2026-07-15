@@ -179,6 +179,36 @@
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.71 &mdash; 15 July 2026</div>
+                    <strong>Fix: the multilingual UI works again</strong><br>
+                    &bull; <code>setLanguage()</code> was throwing on a missing button-label element <em>before</em> applying any translations &mdash; so the whole 5-language switcher (Hindi, Tamil, Marathi, Bengali) was silently dead. Guarded it: nav, hero and menus now translate. Lazy panels also re-apply the active language on open, and the About panel is fully translated in all five languages as a template.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.70 &mdash; 15 July 2026</div>
+                    <strong>City rankings expanded 27 &rarr; 88 cities</strong><br>
+                    &bull; The live rankings backend ranked only 27 hardcoded cities; it now covers 88 &mdash; the core set plus state capitals and NCAP non-attainment cities &mdash; so the national picture is no longer metro-only. Stationless cities simply drop out.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.68&ndash;69 &mdash; 15 July 2026</div>
+                    <strong>Accessibility sweep (WCAG 2.1 AA)</strong><br>
+                    &bull; Audited with axe-core against the live panels: labelled 12 form controls, underlined inline prose links (colour-blind support), labelled the last chart, and made status-badge colours theme-aware to meet contrast in both light and dark mode. A dark-theme contrast pass is tracked separately.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.67 &mdash; 15 July 2026</div>
+                    <strong>Backend: shared CORS/HTTP helper</strong><br>
+                    &bull; The CORS and preflight handling copy-pasted across the serverless functions is now a single shared module &mdash; one place to change how the API responds, no user-visible change.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.64&ndash;66 &mdash; 15 July 2026</div>
+                    <strong>Performance: index.html now under 1 MB</strong><br>
+                    &bull; The Resources, Legal, About and eight more content panels moved into external fragments that load on demand and cache after first open. Combined with the earlier passes, <code>index.html</code> dropped from ~1.59 MB to ~0.92 MB (~42%) &mdash; a big win for first load on slow mobile connections.
+                </div>
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.63 &mdash; 15 July 2026</div>
                     <strong>Performance: Voices panel lazy-loaded</strong><br>
                     &bull; The Citizen Voices panel (~107 KB of curated cards + live feed) now loads its markup from an external <code>/panels/voices.html</code> fragment only when you open it, via a small generic lazy-panel mechanism. It's off the initial parse and cached after first open. All cards, filters and the live feed verified working.
