@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.51] - 2026-07-15
+
+### Added — 115+ cities (was ~33)
+
+Expanded the city list from ~33 to **117 Indian cities**, covering the major NCAP non-attainment towns (Ludhiana, Surat, Kota, Bareilly, Ranchi, Vijayawada, Madurai, Kozhikode, and dozens more). They're selectable across the dashboard hero, city comparison, AQI alerts, forecast, and the calculators.
+
+Done without increasing per-visit WAQI load: the new cities are marked `ext: true` and **lazy-fetched on demand** when a user selects one. Only the core ~33 (`CORE_CITIES`) are fetched eagerly on load, exactly as before. The interactive map stays on the core set. Verified: page still fires 33 WAQI calls on load (not 117); selecting an extended city triggers a single on-demand fetch; zero JS boot errors.
+
+Advances issue #2 (city coverage) — remaining: a searchable combobox and a build-time CPCB fetch to auto-maintain the list.
+
 ## [v26.6.50] - 2026-07-15
 
 ### Fixed — accessibility (WCAG 2.1 AA) pass
