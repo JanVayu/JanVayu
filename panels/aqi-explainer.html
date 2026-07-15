@@ -18,11 +18,11 @@
             <div style="background: var(--warm-white); border-radius: 8px; padding: 1.25rem; text-align: center; margin-bottom: 1rem;">
                 <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">How AQI is calculated</div>
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 0.75rem;">
-                    <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(239,68,68,0.1); color: #DC2626; border: 1px solid rgba(239,68,68,0.2);">PM2.5</span>
+                    <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2);">PM2.5</span>
                     <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(217,119,6,0.1); color: #B45309; border: 1px solid rgba(217,119,6,0.2);">PM10</span>
-                    <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(124,58,237,0.1); color: #7C3AED; border: 1px solid rgba(124,58,237,0.2);">NO2</span>
+                    <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(124,58,237,0.1); color: var(--purple); border: 1px solid rgba(124,58,237,0.2);">NO2</span>
                     <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(234,179,8,0.1); color: #A16207; border: 1px solid rgba(234,179,8,0.2);">SO2</span>
-                    <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(34,197,94,0.1); color: #15803D; border: 1px solid rgba(34,197,94,0.2);">O3</span>
+                    <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(34,197,94,0.1); color: var(--green-700); border: 1px solid rgba(34,197,94,0.2);">O3</span>
                     <span style="display: inline-block; padding: 0.375rem 0.75rem; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; background: rgba(100,116,139,0.1); color: #475569; border: 1px solid rgba(100,116,139,0.2);">CO</span>
                 </div>
                 <div style="font-size: 1.25rem; color: var(--text-3); margin-bottom: 0.5rem;">&darr;&darr;&darr;</div>
@@ -41,14 +41,14 @@
     <div class="grid-2" style="gap: 1.25rem; margin-bottom: 1.25rem;">
         <!-- PM2.5 Card -->
         <div class="card" style="border-left: 4px solid #EF4444;">
-            <div class="card-header"><span class="card-title" style="color: #DC2626;">PM2.5 &mdash; Fine Particulate Matter (&lt;2.5&micro;m)</span></div>
+            <div class="card-header"><span class="card-title" style="color: var(--red);">PM2.5 &mdash; Fine Particulate Matter (&lt;2.5&micro;m)</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="PM2.5 particles are so tiny they get into your lungs and blood. They come from cars, cooking, burning waste, and factories. They kill 17.2 lakh Indians every year."><strong>What:</strong> Tiny particles less than 2.5 micrometres in diameter &mdash; small enough to penetrate deep into lungs and cross into the bloodstream.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Sources:</strong> Vehicles, cooking with solid fuels, crop burning, construction dust, industrial emissions, power plants.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Why it matters:</strong> The #1 air pollution killer &mdash; responsible for an estimated <strong>1.72 million Indian deaths per year</strong> (Lancet Countdown 2025). Causes heart disease, stroke, lung cancer, COPD, and reduced life expectancy.</p>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(239,68,68,0.08); color: #DC2626; font-weight: 600;">NAAQS: 40 &micro;g/m&sup3; annual</span>
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: #2563EB; font-weight: 600;">WHO: 5 &micro;g/m&sup3; annual</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(239,68,68,0.08); color: var(--red); font-weight: 600;">NAAQS: 40 &micro;g/m&sup3; annual</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: var(--blue); font-weight: 600;">WHO: 5 &micro;g/m&sup3; annual</span>
                 </div>
             </div>
         </div>
@@ -62,21 +62,21 @@
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Why it matters:</strong> Causes respiratory inflammation, aggravates asthma and bronchitis. Often <strong>dominates AQI in dust-prone cities</strong> across Rajasthan, Gujarat, and western UP &mdash; but gets less media attention than PM2.5.</p>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
                     <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(217,119,6,0.08); color: #B45309; font-weight: 600;">NAAQS: 60 &micro;g/m&sup3; annual</span>
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: #2563EB; font-weight: 600;">WHO: 15 &micro;g/m&sup3; annual</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: var(--blue); font-weight: 600;">WHO: 15 &micro;g/m&sup3; annual</span>
                 </div>
             </div>
         </div>
 
         <!-- NO2 Card -->
         <div class="card" style="border-left: 4px solid #7C3AED;">
-            <div class="card-header"><span class="card-title" style="color: #7C3AED;">NO2 &mdash; Nitrogen Dioxide</span></div>
+            <div class="card-header"><span class="card-title" style="color: var(--purple);">NO2 &mdash; Nitrogen Dioxide</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="NO2 is a reddish-brown gas that comes mostly from diesel vehicles and power plants. It inflames your airways and triggers asthma attacks. It also helps form ground-level ozone. NO2 is rising fast in big Indian cities."><strong>What:</strong> A reddish-brown gas produced by high-temperature combustion. Gives smoggy air its brownish tint.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Sources:</strong> Vehicle exhaust (especially diesel), power plants, industrial boilers.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Why it matters:</strong> Causes airway inflammation, increases frequency and severity of asthma attacks. A key <strong>precursor to ground-level ozone</strong>. NO2 is <strong>rising rapidly in Indian metro cities</strong> due to growing diesel vehicle fleets &mdash; a silent crisis.</p>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: #7C3AED; font-weight: 600;">NAAQS: 40 &micro;g/m&sup3; annual</span>
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: #2563EB; font-weight: 600;">WHO: 10 &micro;g/m&sup3; annual</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">NAAQS: 40 &micro;g/m&sup3; annual</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: var(--blue); font-weight: 600;">WHO: 10 &micro;g/m&sup3; annual</span>
                 </div>
             </div>
         </div>
@@ -90,21 +90,21 @@
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Why it matters:</strong> Causes acid rain, respiratory irritation, bronchoconstriction, and worsens cardiovascular disease. Even short-term spikes can trigger hospital admissions in people with asthma or heart conditions.</p>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
                     <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(234,179,8,0.08); color: #A16207; font-weight: 600;">NAAQS: 50 &micro;g/m&sup3; annual</span>
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: #2563EB; font-weight: 600;">WHO: 40 &micro;g/m&sup3; (24hr)</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: var(--blue); font-weight: 600;">WHO: 40 &micro;g/m&sup3; (24hr)</span>
                 </div>
             </div>
         </div>
 
         <!-- O3 Card -->
         <div class="card" style="border-left: 4px solid #22C55E;">
-            <div class="card-header"><span class="card-title" style="color: #15803D;">O3 &mdash; Ground-level Ozone</span></div>
+            <div class="card-header"><span class="card-title" style="color: var(--green-700);">O3 &mdash; Ground-level Ozone</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="This is NOT the good ozone layer up in the sky. Ground-level ozone is a toxic gas formed when vehicle and factory pollution reacts with sunlight. It is worst on hot, sunny afternoons. It triggers asthma and damages crops. It is rising fast in Indian cities."><strong>What:</strong> NOT the protective ozone layer &mdash; this is <strong>toxic ozone at ground level</strong>, formed by photochemical reactions.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Sources:</strong> Formed when NOx + VOCs react in sunlight. Not emitted directly. <strong>Worst on hot, sunny afternoons</strong> &mdash; peaks in summer, not winter.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Why it matters:</strong> Triggers asthma attacks, reduces lung function, damages agricultural crops. <strong>Rising in Indian cities</strong> but barely discussed because India&rsquo;s pollution narrative focuses on winter PM2.5. O3 is the pollutant most people have never heard of.</p>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(34,197,94,0.08); color: #15803D; font-weight: 600;">NAAQS: 100 &micro;g/m&sup3; (8hr)</span>
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: #2563EB; font-weight: 600;">WHO: 60 &micro;g/m&sup3; (peak season)</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(34,197,94,0.08); color: var(--green-700); font-weight: 600;">NAAQS: 100 &micro;g/m&sup3; (8hr)</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: var(--blue); font-weight: 600;">WHO: 60 &micro;g/m&sup3; (peak season)</span>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Why it matters:</strong> Binds to haemoglobin 200&times; more strongly than oxygen, reducing the blood&rsquo;s oxygen-carrying capacity. <strong>Fatal in enclosed spaces</strong> &mdash; every winter, families die from angithi CO poisoning in northern India.</p>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem;">
                     <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(100,116,139,0.08); color: #475569; font-weight: 600;">NAAQS: 2 mg/m&sup3; (8hr)</span>
-                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: #2563EB; font-weight: 600;">WHO: 4 mg/m&sup3; (24hr)</span>
+                    <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 4px; background: rgba(59,130,246,0.08); color: var(--blue); font-weight: 600;">WHO: 4 mg/m&sup3; (24hr)</span>
                 </div>
             </div>
         </div>
@@ -174,7 +174,7 @@
                         <tr>
                             <td><strong>30</strong></td>
                             <td>100</td>
-                            <td><span style="color: #22C55E; font-weight: 600;">Satisfactory</span></td>
+                            <td><span style="color: var(--green-600); font-weight: 600;">Satisfactory</span></td>
                             <td>88</td>
                             <td><span style="color: #EAB308; font-weight: 600;">Moderate</span></td>
                         </tr>
@@ -190,12 +190,12 @@
                             <td>174</td>
                             <td><span style="color: #EAB308; font-weight: 600;">Moderate</span></td>
                             <td>174</td>
-                            <td><span style="color: #EF4444; font-weight: 600;">Unhealthy</span></td>
+                            <td><span style="color: var(--red); font-weight: 600;">Unhealthy</span></td>
                         </tr>
                         <tr>
                             <td><strong>250</strong></td>
                             <td>300</td>
-                            <td><span style="color: #7C3AED; font-weight: 600;">Very Poor</span></td>
+                            <td><span style="color: var(--purple); font-weight: 600;">Very Poor</span></td>
                             <td>300</td>
                             <td><span style="color: #991B1B; font-weight: 600;">Hazardous</span></td>
                         </tr>
