@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.62] - 2026-07-15
+
+### Performance — UrbanEmissions logo to WebP (streamlining, batch 4b)
+
+`partners/urbanemissions.png` (45 KB) → `urbanemissions.webp` (10 KB) in the Janhit Partners section; removed the PNG. (og-image.png is deliberately left as PNG — social crawlers render WebP OG images unreliably.)
+
 ## [v26.6.61] - 2026-07-15
 
 ### Performance — MMSF partner logo shrunk (streamlining, batch 4)
