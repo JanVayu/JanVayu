@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.60] - 2026-07-15
+
+### Performance — Leaflet CSS off the critical path (streamlining, batch 3)
+
+The Leaflet stylesheet was loaded render-blocking in `<head>` even though Leaflet's JS was already lazy-loaded via `ensureLeaflet()`. The CSS is now injected on demand inside `ensureLeaflet()` when a map first opens (Live Map, Ward Atlas, Farm Fire Tracker — all go through it), removing a blocking cross-origin request from every page load. Verified: the stylesheet is absent from `<head>` on load and injected on map open, no errors.
+
 ## [v26.6.59] - 2026-07-15
 
 ### Performance — Learning Games script deferred (streamlining, batch 2)
