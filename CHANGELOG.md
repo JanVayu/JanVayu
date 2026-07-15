@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.49] - 2026-07-15
+
+### Added — Web Push notifications (real server-sent AQI alerts)
+
+The AQI Alerts panel's "Browser Notifications" were local-only (in-tab). They're now **true Web Push**: alerts arrive even when JanVayu is closed.
+
+- **`netlify/functions/push-subscribe.mjs`** — stores each browser's anonymous `PushSubscription` + chosen city + AQI threshold in the `janvayu-push-subs` blob store (subscribe / unsubscribe / send-test actions). No account, no email.
+- **`netlify/functions/push-send.mjs`** — scheduled every 3 h: checks each subscriber's city AQI (WAQI) and pushes a notification when it exceeds their threshold, with a 6-hour per-subscriber cooldown; prunes expired subscriptions. Also callable manually.
+- **`sw.js`** — added `push` and `notificationclick` handlers.
+- **Frontend** — the panel now does a real `pushManager.subscribe` against the VAPID public key, with **Enable / Send test / Turn off** controls. The "Send test" button delivers an immediate push so users can confirm it works.
+- Added the `web-push` dependency; VAPID keypair generated and stored server-side (`VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_SUBJECT` in Netlify env; public key embedded client-side).
+
+Verified: `web-push` accepts the generated VAPID keys; a fully encrypted `aes128gcm` push request with valid VAPID signing builds against a synthetic subscription; SPA boots with zero fatal JS errors; all functions pass `node --check`; calculator tests still 12/12. (End-to-end delivery through a live push service is confirmable via the in-app "Send test" button.)
+
 ## [v26.6.48] - 2026-07-14
 
 ### Added / Changed — documentation & announcement of the v26.6.43–47 feature drop

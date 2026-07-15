@@ -218,7 +218,7 @@ These need external accounts/API keys before the code can be built:
 
 - [ ] **WhatsApp bot** — daily AQI alerts + chatbot Q&A via WhatsApp. The backend (`air-query.mjs`) already exists. Need: Meta Business account, WhatsApp Business API verification, API key. Bot code wraps the existing chatbot endpoint.
 - [ ] **Telegram bot** — same as WhatsApp but simpler API (no business verification needed). Need: Telegram Bot token from @BotFather.
-- [ ] **Push notifications** — browser push for AQI alerts. Need: Firebase Cloud Messaging (FCM) setup or web-push VAPID keys.
+- [x] **Push notifications** — ✅ shipped v26.6.49: real Web Push (VAPID) via `push-subscribe.mjs` / `push-send.mjs` + service-worker handlers; scheduled threshold alerts that arrive even when the site is closed, with a "Send test" button. See Phase 5.16.
 
 ### Performance (issue #3)
 
@@ -368,7 +368,7 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 - [x] **Stubble-burning live tracker** — ✅ shipped v26.6.47 as the [Farm Fire Tracker](#fire-tracker) panel (NASA FIRMS, VIIRS/NOAA-20). See Phase 5.16.
 - [ ] **Source apportionment ring** — per-city %-from transport / industry / biomass / construction / dust, sourced from CREA + UrbanEmissions inventories. Interactive city picker.
 - [x] **AQI forecast 24–72hr** — ✅ shipped v26.6.44 as a live 5-day Open-Meteo/CAMS forecast (mean + peak, day-by-day). See Phase 5.16.
-- [ ] **Push notifications** — browser push via the new service worker, gated on user-picked AQI thresholds. Complement to email digest.
+- [x] **Push notifications** — ✅ shipped v26.6.49: real Web Push (VAPID), gated on user-picked AQI thresholds, delivered even when the site is closed. Complement to email digest.
 - [ ] **In-browser AQ literacy quiz** — companion to Sharath's Jeopardy game; runs on the Workshops page.
 - [ ] **Story-of-the-week rotation** — surface a blog post on the dashboard hero each week.
 
