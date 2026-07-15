@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.56] - 2026-07-15
+
+### Added — Dr. Manmohan Singh Fellows Programme logo (MMSF partner card)
+
+Replaced the "MMSF" monogram with the programme's own official logo — the circular Dr. Manmohan Singh portrait medallion from its site, `manmohansinghfellows.com`. Self-hosted at `/partners/mmsf.svg` (the official logo SVG, viewBox-cropped to the medallion) and the card now links to the programme's dedicated site. Five of the six Janhit Partners now show real logos; only Delhi SSANS keeps a monogram (no public logo).
+
 ## [v26.6.55] - 2026-07-15
 
 ### Fixed — Terra.do Studio partner logo
