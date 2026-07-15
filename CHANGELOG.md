@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.55] - 2026-07-15
+
+### Fixed — Terra.do Studio partner logo
+
+The Terra.do Studio brand tile crammed the Terra circular mark next to a "Studio" label and looked squashed. Now it shows just the Terra mark, centered and contained in the white plate (the card title already reads "Terra.do Studio").
+
 ## [v26.6.54] - 2026-07-15
 
 ### Added — real partner logos in the Janhit Partners section
