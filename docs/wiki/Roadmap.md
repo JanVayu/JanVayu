@@ -157,7 +157,6 @@ Installs measurement everywhere and lands the highest-leverage safe wins. Every 
 - [x] **Chart canvas a11y** — `aria-label` + `role="img"` on every `<canvas>`
 - [x] **Mobile tap targets** ≥44 px on `.btn`; `overflow-wrap: anywhere` for long-token wrap
 - [x] **Air Tambola ticket** horizontal-scrolls on 360 px Galaxy
-- [x] **Agent-Reach scheduled fetch workflow** — gracefully skips without secrets
 - [x] **Performance roadmap** docs/technical/performance-roadmap.md
 
 ---
@@ -225,10 +224,6 @@ These features are ready to build but need specific content/decisions:
 
 ### Awaiting external setup
 
-These need external accounts/API keys before the code can be built:
-
-- ~~**WhatsApp bot**~~ — **won't do**: the existing WhatsApp share button plus [Ask JanVayu](https://www.janvayu.in/ask) already cover the WhatsApp/chat need; a full Business-API bot isn't worth the Meta verification overhead.
-- ~~**Telegram bot**~~ — **won't do** (same rationale as WhatsApp).
 - [x] **Push notifications** — ✅ shipped v26.6.49: real Web Push (VAPID) via `push-subscribe.mjs` / `push-send.mjs` + service-worker handlers; scheduled threshold alerts that arrive even when the site is closed, with a "Send test" button. See Phase 5.16.
 
 ### Performance (issue #3)
@@ -263,11 +258,6 @@ These need external accounts/API keys before the code can be built:
 - [x] **Lazy-fetch to stay inside the WAQI free-tier** — only the core ~33 are fetched live on load; the extended cities are fetched on demand when a user selects them, so per-visit WAQI load is unchanged.
 - [ ] Searchable combobox replaces the city `<select>` (currently a long grouped dropdown)
 - [ ] Build-time CPCB station fetch to auto-maintain the list (vs the curated static array)
-
-### Operational (issue #45)
-
-- [ ] Activate Agent-Reach secrets (or replace with the official Twitter API v2 Basic tier)
-- [ ] Rotate cookie-based scrapers on schedule once active
 
 ---
 
@@ -366,7 +356,6 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
 ## Phase 9: Community & Scale (2027)
 
 - [x] PWA with offline support — shipped in v26.4
-- ~~WhatsApp bot integration~~ — won't do (covered by the existing WhatsApp share button + Ask JanVayu)
 - [ ] ML-based AQI forecast (extend the existing forecast panel beyond WAQI's 3-day window)
 - [ ] South Asian expansion
 - [x] Open data API — ✅ shipped v26.6.46 (see Phase 5.16): versioned `/api` manifest + CSV export, documented in `docs/api/`

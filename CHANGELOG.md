@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.73] - 2026-07-15
+
+### Removed — Agent-Reach social pipeline & the WhatsApp/Telegram bot ideas
+
+Deleted the dormant **Agent-Reach** pipeline — the X/Twitter cookie-scraper that was never activated and required manually-provisioned secrets (issue #45, now closed):
+
+- Removed `.github/workflows/agent-reach-fetch.yml`, `scripts/agent-reach-fetch.py`, and the `feed-ingest` Netlify function it POSTed to.
+- Trimmed `feed-status.js` of its Agent-Reach blob reads and schedule text.
+- Removed the user-facing "Powered by Agent-Reach" line and the `agent-reach` search keyword from the Social Media Feed panel, and the Agent-Reach entries from `docs/wiki/Roadmap.md`, `docs/wiki/Home.md` and `scripts/README.md`.
+
+The Social Media Feed panel is unaffected — it runs on curated content plus live Reddit (with a Nitter fallback for X), none of which depended on Agent-Reach.
+
+Also dropped the **WhatsApp bot** and **Telegram bot** ideas from the roadmap entirely (the WhatsApp *share* button and Ask JanVayu already cover that need). The WhatsApp share button itself is unchanged.
+
 ## [v26.6.72] - 2026-07-15
 
 ### Docs — July platform-quality write-up across blog, wiki, README & in-app history
@@ -210,7 +224,6 @@ The 11 remaining axe contrast nodes are inactive-state elements (the dimmed cycl
 ### Changed — internal cleanup & roadmap
 
 - **De-duplicated `getBlobStore()`** — the copy-pasted blob-store factory now lives in `netlify/functions/lib/blob.mjs`, imported by 13 functions (single source of truth; `terra-collab.mjs` keeps its specialised no-arg variant).
-- **Roadmap** — marked the WhatsApp and Telegram bots as **won't-do** (the existing WhatsApp share button + Ask JanVayu already cover that need).
 
 ## [v26.6.49] - 2026-07-15
 

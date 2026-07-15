@@ -130,7 +130,6 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 **v26.5.4–5 — CI quality + mobile first pass**
 - **CI now reports on every PR**: Lighthouse, axe-core (WCAG 2 AA), html-validate, ESLint, lychee broken-link audit, i18n coverage % — all advisory, all in the PR step summary.
 - **Strict weekly link audit** opens a tracking issue if anything dies.
-- **Agent-Reach scheduled fetch** — every 2 hours, gracefully skips when secrets are absent (issue #45).
 - **Mobile responsiveness first pass** — `.btn` ≥44 px on small screens (WCAG 2.5.5), long URLs wrap with `overflow-wrap: anywhere`, Air Tambola ticket horizontal-scrolls cleanly on 360 px Galaxy.
 - **Performance roadmap** documented at `docs/technical/performance-roadmap.md`.
 
