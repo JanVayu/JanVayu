@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.64] - 2026-07-15
+
+### Performance — Resources & Legal panels lazy-loaded (streamlining)
+
+Extended the generic lazy-panel mechanism (introduced in v26.6.63) to the two next-largest inline blocks: the Resources / Reading List panel (~87 KB) and the Legal / policy panel (~59 KB). Both were extracted from `index.html` into external fragments (`/panels/resources.html`, `/panels/legal.html`), fetched on first open and cached, with their empty `tmpl-*` templates retained so hash-routing still resolves. Together with Voices, `index.html` drops a further ~146 KB (1338 → 1227 KB).
+
+Verified end-to-end against a local server + headless Chromium: opening Resources fetches its fragment and runs `loadZoteroItems()`, Legal renders its full policy content, Voices still works, and a normal inline panel (Health) renders unchanged — no console errors beyond the expected external-API 404s in the offline sandbox.
+
 ## [v26.6.63] - 2026-07-15
 
 ### Performance — Voices panel lazy-loaded (streamlining, batch 5)
