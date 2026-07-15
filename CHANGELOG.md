@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.65] - 2026-07-15
+
+### Performance — About panel lazy-loaded (streamlining)
+
+Extended the lazy-panel mechanism to the largest remaining inline block: the About / Janhit Partners / Version History panel (~100 KB), extracted from `index.html` into `/panels/about.html`, fetched on first open and cached. The About panel has no JS init and is not the landing view, so the change is low-risk; its empty `tmpl-about` template is retained for hash-routing. `index.html` drops a further ~100 KB (1214 → 1127 KB) — down from ~1.59 MB at the start of the streamlining pass.
+
+Verified with headless Chromium: opening About fetches the fragment and renders the full partners grid and Version History card; a normal inline panel (Economic) renders unchanged — no console errors beyond the expected offline external-API 404s.
+
 ## [v26.6.64] - 2026-07-15
 
 ### Performance — Resources & Legal panels lazy-loaded (streamlining)
