@@ -247,9 +247,10 @@ These need external accounts/API keys before the code can be built:
 
 ### City coverage (issue #2)
 
-- [ ] Replace the static 16-city array in `index.html` with a build-time CPCB station fetch
-- [ ] Searchable combobox replaces the city `<select>`
-- [ ] Lazy-fetch all but visible + favourites to stay inside WAQI free-tier
+- [x] **Expanded to 115+ Indian cities** (v26.6.51) — grew the static list from ~33 to 117, covering the major NCAP non-attainment towns. Selectable across the dashboard, comparison, alerts, forecast and calculators.
+- [x] **Lazy-fetch to stay inside the WAQI free-tier** — only the core ~33 are fetched live on load; the extended cities are fetched on demand when a user selects them, so per-visit WAQI load is unchanged.
+- [ ] Searchable combobox replaces the city `<select>` (currently a long grouped dropdown)
+- [ ] Build-time CPCB station fetch to auto-maintain the list (vs the curated static array)
 
 ### Operational (issue #45)
 
@@ -344,7 +345,7 @@ Moves JanVayu from city-level to **ward-level** resolution and adds an urban-hea
 
 **Issues:** [#2](https://github.com/JanVayu/JanVayu/issues/2), [#5](https://github.com/JanVayu/JanVayu/issues/5)
 
-- [ ] Expand to 100+ CPCB cities
+- [x] Expand to 100+ cities — ✅ 115+ (v26.6.51); see City coverage (issue #2)
 - [ ] Lighthouse CI on PRs
 - [ ] axe-core accessibility testing
 
