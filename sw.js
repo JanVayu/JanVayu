@@ -7,7 +7,7 @@
 //   the cached shell. WAQI / Netlify Function responses are also cached so
 //   the user sees the last-known AQI when offline.
 
-const CACHE_VERSION = 'janvayu-20260648';
+const CACHE_VERSION = 'janvayu-20260649';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -27,6 +27,38 @@ self.addEventListener('activate', (event) => {
     caches.keys().then(keys => Promise.all(
       keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k))
     )).then(() => self.clients.claim())
+  );
+});
+
+// ── Web Push (v26.6.49) ──────────────────────────────────────────────────
+// Push payloads are sent by netlify/functions/push-send.mjs (threshold alerts)
+// and push-subscribe.mjs (test). Show the notification even when the site is
+// closed; focus/open JanVayu when it's clicked.
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch (e) { data = { title: 'JanVayu', body: event.data ? event.data.text() : '' }; }
+  const title = data.title || 'JanVayu air-quality alert';
+  const options = {
+    body: data.body || '',
+    icon: '/favicon.svg',
+    badge: '/favicon.svg',
+    tag: 'janvayu-aqi',
+    renotify: true,
+    data: { url: data.url || 'https://www.janvayu.in/#aqi-alerts' },
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const target = (event.notification.data && event.notification.data.url) || 'https://www.janvayu.in/#aqi-alerts';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+      for (const c of clients) {
+        if ('focus' in c) { c.navigate(target); return c.focus(); }
+      }
+      if (self.clients.openWindow) return self.clients.openWindow(target);
+    })
   );
 });
 
