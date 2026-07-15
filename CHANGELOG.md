@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.63] - 2026-07-15
+
+### Performance — Voices panel lazy-loaded (streamlining, batch 5)
+
+The Citizen Voices panel — the single biggest inline block (~107 KB of curated highlight cards + the live-feed scaffold) — moved out of `index.html` into an external `/panels/voices.html` fragment, fetched on first open via a new generic lazy-panel mechanism (`LAZY_PANELS` registry + `fetchPanelFragment()`; `loadPanel` now returns a promise the wrapper awaits before running the panel's inits). The empty `tmpl-voices` template is retained so hash-routing to `#voices` still resolves. `index.html` is ~107 KB smaller (1443 → 1338 KB).
+
+Verified end-to-end against a local server: `loadPanel` returns a promise, a normal (inline) panel still renders unchanged (no regression), and opening Voices fetches the fragment, renders all 81 cards + curated highlights, and initialises the live feed — no console errors. The mechanism generalises to other heavy panels (Resources, Legal) as future passes.
+
 ## [v26.6.62] - 2026-07-15
 
 ### Performance — UrbanEmissions logo to WebP (streamlining, batch 4b)
