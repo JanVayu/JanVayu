@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.52] - 2026-07-15
+
+### Changed — CSS code-split (external, cacheable stylesheet)
+
+Extracted the ~2,280-line inline `<style>` block (~94 KB) out of `index.html` into an external `styles.css`, linked from `<head>` and precached by the service worker (added to `SHELL_ASSETS`, cache-first). This shrinks the HTML document and lets the stylesheet be cached across visits instead of re-downloading with the 1.6 MB HTML every time.
+
+All 134 `url()` references in the stylesheet are absolute/data URIs, so nothing broke by moving it. Verified over a real HTTP server (not file://): `styles.css` returns 200, the app font (DM Sans) and `--accent` variable resolve, a panel `.card` renders with its 12 px radius, nav is flex-styled, and there are zero JS errors.
+
+The larger inline app script is intentionally left inline for now — extracting it from this single-file SPA (interspersed `<script>` blocks sharing global scope, inline handlers depending on load order) is higher-risk and Lighthouse already passes, so it's deferred to a dedicated pass with a preview deploy.
+
 ## [v26.6.51] - 2026-07-15
 
 ### Added — 115+ cities (was ~33)
