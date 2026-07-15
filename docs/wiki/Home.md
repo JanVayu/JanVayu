@@ -31,6 +31,15 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### What's New (v26.6.x)
 
+**v26.6.58–71 — Multilingual fix, accessibility & a 42%-lighter site (15 Jul 2026)**
+- Fixed a crash that had silently disabled the entire 5-language switcher — Hindi, Tamil, Marathi and Bengali now actually apply across the UI. Lazy panels translate on open; the About panel is fully translated as a template.
+- Accessibility sweep (WCAG 2.1 AA, axe-verified): form-control labels, underlined prose links, chart alt-text, and theme-aware badge contrast.
+- Live rankings expanded 27 → 88 cities. Backend CORS handling consolidated into a shared helper.
+- `index.html` shrank from ~1.59 MB to ~0.92 MB by lazy-loading 12 heavy panels and externalising the Games engine and testimony data.
+
+**v26.6.43–47 — Forecast, Fire Tracker, Beyond the Lungs, Open Data API (14 Jul 2026)**
+- 5-day PM2.5 forecast (Open-Meteo/CAMS), NASA-FIRMS farm-fire tracker, OpenAQ hyperlocal data, whole-body health section, and a CORS-open public Open Data API at `/api`.
+
 **v26.6.23 — 7 new panels, shareable AQI cards, 12 roles, nav audit (27 May 2026)**
 - 4 new panels: Understanding AQI (pollutant breakdown + CPCB vs EPA scales), Shareable AQI Cards (canvas PNG for Instagram/WhatsApp), Exposure Diary (16-activity weighted exposure with cigarette equivalence), enhanced Migration Comparison (side-by-side live AQI + life-years verdict).
 - 3 more panels: Data Source Selector (CPCB/WAQI/IQAir/Sensor.Community education + Source Impact Simulator), City Policy Tracker (8-city NCAP dashboard), enhanced Legal Framework (8-region court rulings + citizen recourse guide).

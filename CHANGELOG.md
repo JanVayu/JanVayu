@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.72] - 2026-07-15
+
+### Docs — July platform-quality write-up across blog, wiki, README & in-app history
+
+Documentation and history refresh for the v26.6.58–71 work (multilingual fix, accessibility sweep, rankings expansion, streamlining, backend dedup):
+
+- **Blog:** new post *"A Working Language Switcher, an Accessibility Sweep, and a Much Lighter Site"* (`blog/posts/2026-07-15-multilingual-accessibility-lighter.md`), registered in the blog sidebar and the README "Latest" table (also backfilled the 14 Jul entry).
+- **In-app Version History** (About panel) brought current through v26.6.71 with entries for the multilingual fix, rankings 27→88, the accessibility sweep, the shared CORS helper, and the sub-1 MB `index.html`.
+- **Docs wiki:** added *Phase 5.17* to `docs/wiki/Roadmap.md` and a current *What's New* entry to `docs/wiki/Home.md`.
+- **README:** refreshed the "Recently shipped" callout to v26.6.71.
+- **Roadmap issue #34** updated to check off completed Q2 items; closed the resolved issues (#1, #2, #3, #4, #5, #33, #74, #167, #183) with evidence and split the dark-theme contrast work into #213.
+
 ## [v26.6.71] - 2026-07-15
 
 ### Fix — restore the multilingual UI (setLanguage crash) + panel i18n (#1)

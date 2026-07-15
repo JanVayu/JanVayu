@@ -279,7 +279,7 @@ JanVayu integrates **160+ verified public data sources**, including:
 
 Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
-**Recently shipped (v26.6.25):** the **Ward-Level Atlas** — every municipal ward across **10 major cities**, with four switchable layers (live PM2.5, satellite heat, green cover, built-up), ward search / locate-me, and a per-ward correlation view, plus an Urban Heat Island panel.
+**Recently shipped (v26.6.71):** the **5-language switcher works again** (a crash had silently disabled Hindi/Tamil/Marathi/Bengali across the UI), a **WCAG 2.1 AA accessibility sweep** (axe-verified form labels, prose-link underlines, chart alt-text, theme-aware badge contrast), **live rankings expanded 27 → 88 cities**, and a **42%-lighter first load** (`index.html` ~1.59 MB → ~0.92 MB by lazy-loading 12 heavy panels). Earlier in July: 5-day forecast, farm-fire tracker, OpenAQ hyperlocal data, and a CORS-open Open Data API.
 
 **Next up:**
 
