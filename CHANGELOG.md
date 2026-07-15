@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.71] - 2026-07-15
+
+### Fix — restore the multilingual UI (setLanguage crash) + panel i18n (#1)
+
+**Critical bug fix:** `setLanguage()` referenced `document.getElementById('langBtnLabel')`, but the language switcher is an icon-only button with no such element — so the function threw on its second line **before applying any translations**. The entire 5-language feature (Hindi, Tamil, Marathi, Bengali) was silently dead: clicking a language did nothing. Guarded the missing element, which restores the whole system — verified live that nav, hero and dropdowns now translate (e.g. "Reading List" → "पठन सूची").
+
+**Panel i18n wiring:** panels load lazily, after `setLanguage()` has run, so their markup wasn't being translated on open. `loadPanelInits()` now re-applies the active language to each freshly-injected panel.
+
+**About panel translated (staged template):** scaffolded the About panel's descriptive prose (heading, intro, mission, data-sources & partners headings) with `data-i18n` keys and added full **en/hi/ta/mr/bn** translations to the `I18N` dictionary — a proven, low-risk template. Health/legal/policy panels are deliberately left for a reviewed translation pass (auto-translating public health guidance without review would be irresponsible).
+
+Verified end-to-end with headless Chromium: switching to each of the four Indian languages and opening About renders the panel fully translated, and switching back to English restores it — no page errors.
+
 ## [v26.6.70] - 2026-07-15
 
 ### Data — rankings backend expanded 27 → 88 cities (#2)
