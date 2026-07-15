@@ -11,7 +11,7 @@
 // complements the GitHub Actions monitor (which keeps a tracking issue in
 // sync) and the public status page at /status.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 import { Resend } from "resend";
 
 const BASE_URL = process.env.URL || "https://www.janvayu.in";
@@ -39,14 +39,6 @@ const CHECKS = [
   { name: "anomaly-check", method: "POST", url: `${BASE_URL}/.netlify/functions/anomaly-check` },
 ];
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) {
-    return getStore({ name, siteID, token, consistency: "strong" });
-  }
-  return getStore({ name, consistency: "strong" });
-}
 
 async function probe(check) {
   const ctrl = new AbortController();

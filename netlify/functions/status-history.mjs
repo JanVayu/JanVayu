@@ -11,7 +11,7 @@
 // 2026-06-07, everything else "up". Recorded data always takes precedence, so
 // the strip becomes fully real as the monitor accrues history.
 
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -25,14 +25,6 @@ const DAYS = 90;
 const SEED_DEGRADED_START = "2026-05-26";
 const SEED_DEGRADED_END = "2026-06-07";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) {
-    return getStore({ name, siteID, token, consistency: "strong" });
-  }
-  return getStore({ name, consistency: "strong" });
-}
 
 const ymd = (d) => d.toISOString().slice(0, 10);
 

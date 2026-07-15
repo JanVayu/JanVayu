@@ -12,17 +12,11 @@
 // not used; the form submits to /.netlify/functions/workshop-submit.
 
 import { Resend } from "resend";
-import { getStore } from "@netlify/blobs";
+import { getBlobStore } from "./lib/blob.mjs";
 
 const TO_EMAIL = process.env.WORKSHOP_INBOX_EMAIL || "contribute@janvayu.in";
 const FROM_EMAIL = process.env.RESEND_FROM || "JanVayu <alerts@janvayu.in>";
 
-function getBlobStore(name) {
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.BLOB_TOKEN;
-  if (siteID && token) return getStore({ name, siteID, token, consistency: "strong" });
-  return getStore({ name, consistency: "strong" });
-}
 
 const FIELD_LABELS = {
   // workshop-request fields
