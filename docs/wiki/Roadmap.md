@@ -222,8 +222,9 @@ These need external accounts/API keys before the code can be built:
 
 ### Performance (issue #3)
 
-- [ ] CSS split — extract panel-specific styles to a deferred external file (~200 ms additional FCP per the roadmap doc)
+- [x] **CSS split** (v26.6.52) — the ~2,280-line inline stylesheet is now an external, cacheable `styles.css` (`<link>` in `<head>`, precached by the service worker). Shrinks `index.html` by ~94 KB and lets the CSS be cached across visits instead of re-downloading with the HTML each time.
 - [ ] Inline only critical-path CSS (hero, header, dashboard quick-link grid)
+- [ ] JS split — extract the main inline app script to an external cached file (higher-risk on this single-file SPA; deferred to a dedicated pass with a preview deploy)
 - [ ] Hit Lighthouse Performance ≥ 0.80 mobile; flip the `.lighthouserc.json` assertion from `warn` to `error`
 
 ### Accessibility (issue #4)
