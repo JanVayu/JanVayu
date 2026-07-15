@@ -3,6 +3,7 @@
 // Keys: twitter-agent, youtube, news-enhanced (separate from existing feed keys)
 
 import { getBlobStore } from "./lib/blob.mjs";
+import { jsonCorsHeaders } from "./lib/http.mjs";
 
 
 function deduplicateByKey(existing, incoming, keyFn) {
@@ -28,14 +29,10 @@ function deduplicateByKey(existing, incoming, keyFn) {
 }
 
 export default async (req) => {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, x-api-key",
-    "Content-Type": "application/json",
-  };
+  const headers = jsonCorsHeaders({ allowHeaders: "Content-Type, x-api-key" });
 
   if (req.method === "OPTIONS") {
-    return new Response("", { status: 204, headers });
+    return new Response(null, { status: 204, headers });
   }
 
   if (req.method !== "POST") {

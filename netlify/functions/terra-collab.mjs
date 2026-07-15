@@ -20,6 +20,7 @@
 
 import { Resend } from "resend";
 import { getStore } from "@netlify/blobs";
+import { jsonCorsHeaders } from "./lib/http.mjs";
 
 const SECRET = process.env.TERRA_COLLAB_SECRET || "";
 const STORE_NAME = "janvayu-feeds";
@@ -116,12 +117,8 @@ https://www.janvayu.in/TerraStudioCollab/`;
 }
 
 export default async function handler(req) {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, X-Collab-Secret",
-    "Content-Type": "application/json",
-  };
-  if (req.method === "OPTIONS") return new Response("", { status: 204, headers });
+  const headers = jsonCorsHeaders({ allowHeaders: "Content-Type, X-Collab-Secret" });
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers });
 
   if (!SECRET) {
     return new Response(JSON.stringify({

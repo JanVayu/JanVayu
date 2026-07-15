@@ -7,6 +7,7 @@
 // for 6 hours to avoid hitting the Zotero API on every request.
 
 import { getBlobStore } from "./lib/blob.mjs";
+import { corsHeaders, preflight } from "./lib/http.mjs";
 
 const ZOTERO_GROUP_ID = "6508140";
 const ZOTERO_API_URL = `https://api.zotero.org/groups/${ZOTERO_GROUP_ID}/items?format=json&limit=50&sort=dateModified&direction=desc`;
@@ -15,11 +16,7 @@ const BLOB_STORE_NAME = "janvayu-cache";
 const CACHE_KEY = "zotero-library";
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+const CORS_HEADERS = corsHeaders("GET, OPTIONS");
 
 
 /**
@@ -95,9 +92,7 @@ async function fetchFromZotero() {
 
 export default async function handler(request) {
   // Handle CORS preflight
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: CORS_HEADERS });
-  }
+  const __pf = preflight(request, "GET, OPTIONS"); if (__pf) return __pf;
 
   try {
     const store = getBlobStore(BLOB_STORE_NAME);

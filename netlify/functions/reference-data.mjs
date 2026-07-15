@@ -10,16 +10,13 @@
 // having them hardcoded in air-query.mjs.
 
 import { readFile } from "node:fs/promises";
+import { corsHeaders, preflight } from "./lib/http.mjs";
 
 // Do NOT declare `__dirname`/`__filename`: Netlify's esbuild bundler injects
 // its own shims for these, so redeclaring them throws "Identifier already
 // declared" at load time (502). Resolve the data file via import.meta.url.
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+const CORS_HEADERS = corsHeaders("GET, OPTIONS");
 
 const VALID_DATASETS = ["cpcb_stations", "ncap_cities", "iqair_annual"];
 
@@ -37,9 +34,7 @@ async function loadData() {
 
 export default async function handler(request) {
   // Handle CORS preflight
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: CORS_HEADERS });
-  }
+  const __pf = preflight(request, "GET, OPTIONS"); if (__pf) return __pf;
 
   try {
     const url = new URL(request.url);
