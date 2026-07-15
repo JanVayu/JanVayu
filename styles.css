@@ -92,6 +92,11 @@ body {
 }
 a { color: var(--accent); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--accent-hover); }
+/* WCAG 1.4.1 (link-in-text-block): inline links inside prose must be
+   distinguishable by more than colour, so underline links within paragraphs,
+   list items and definitions. Button/nav/card link classes (.btn, .footer-link,
+   etc.) have higher specificity and keep their own no-underline styling. */
+p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 @media (min-width: 768px) { .container { padding: 0 40px; } }

@@ -8228,11 +8228,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Your Age</label>
-                            <input type="number" class="form-input" id="health-age" value="35" min="1" max="100">
+                            <input type="number" class="form-input" id="health-age" aria-label="Your age" value="35" min="1" max="100">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Annual Average PM2.5 Exposure (µg/m³)</label>
-                            <input type="number" class="form-input" id="health-pm25" value="100" min="0" max="500">
+                            <input type="number" class="form-input" id="health-pm25" aria-label="Annual average PM2.5 exposure in micrograms per cubic metre" value="100" min="0" max="500">
                             <div class="form-hint">
                                 <span style="color: var(--who-good);">●</span> WHO guideline: 5 | 
                                 <span style="color: var(--who-it1);">●</span> Delhi avg: 96 | 
@@ -8241,11 +8241,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </div>
                         <div class="form-group">
                             <label class="form-label">Hours Outdoors Daily: <span id="outdoor-display">4</span></label>
-                            <input type="range" class="form-range" id="health-outdoor" min="0" max="12" value="4">
+                            <input type="range" class="form-range" id="health-outdoor" aria-label="Hours outdoors daily" min="0" max="12" value="4">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Pre-existing Conditions</label>
-                            <select class="form-select" id="health-conditions">
+                            <select class="form-select" id="health-conditions" aria-label="Pre-existing conditions">
                                 <option value="1">None</option>
                                 <option value="1.3">Asthma</option>
                                 <option value="1.5">COPD</option>
@@ -8291,11 +8291,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     <div class="grid-3">
                         <div class="form-group">
                             <label class="form-label">Current AQI</label>
-                            <input type="number" class="form-input" id="safe-aqi" value="285" min="0" max="999">
+                            <input type="number" class="form-input" id="safe-aqi" aria-label="Current AQI" value="285" min="0" max="999">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Activity Level</label>
-                            <select class="form-select" id="safe-activity">
+                            <select class="form-select" id="safe-activity" aria-label="Activity level">
                                 <option value="1">Light (walking)</option>
                                 <option value="2" selected>Moderate (cycling)</option>
                                 <option value="3">Heavy (running)</option>
@@ -8303,7 +8303,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </div>
                         <div class="form-group">
                             <label class="form-label">Health Status</label>
-                            <select class="form-select" id="safe-health">
+                            <select class="form-select" id="safe-health" aria-label="Health status">
                                 <option value="1" selected>Healthy Adult</option>
                                 <option value="1.5">Sensitive</option>
                                 <option value="2">High Risk</option>
@@ -8625,7 +8625,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         <div class="card-body">
                             <div class="form-group">
                                 <label class="form-label">Age</label>
-                                <input type="number" class="form-input" id="advisory-age" value="30" min="1" max="100">
+                                <input type="number" class="form-input" id="advisory-age" aria-label="Age" value="30" min="1" max="100">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Health Conditions</label>
@@ -8640,13 +8640,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <div class="form-group">
                                 <label class="form-label">Hours Outdoors Daily</label>
                                 <div class="slider-group">
-                                    <input type="range" id="advisory-hours" min="0" max="12" value="3" oninput="document.getElementById('advisory-hours-val').textContent=this.value">
+                                    <input type="range" id="advisory-hours" aria-label="Hours outdoors daily" min="0" max="12" value="3" oninput="document.getElementById('advisory-hours-val').textContent=this.value">
                                     <span class="slider-value" id="advisory-hours-val">3</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">City</label>
-                                <select class="form-select" id="advisory-city">
+                                <select class="form-select" id="advisory-city" aria-label="City">
                                     <optgroup label="Metros">
                                         <option value="delhi" selected>Delhi</option>
                                         <option value="mumbai">Mumbai</option>
@@ -9286,11 +9286,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             <div style="margin-bottom:1.25rem;">
                 <label style="display:flex; justify-content:space-between; font-size:0.8125rem; font-weight:600; color:var(--text-2); margin-bottom:0.4rem;"><span>Built-up area (concrete, roads, roofs)</span><span id="uh-builtup-val" style="color:#B91C1C;">45%</span></label>
-                <input id="uh-builtup" type="range" min="0" max="100" value="45" step="1" style="width:100%; accent-color:#DC2626;" oninput="window.updateHeatEstimate&amp;&amp;window.updateHeatEstimate()">
+                <input id="uh-builtup" aria-label="Built-up area percentage" type="range" min="0" max="100" value="45" step="1" style="width:100%; accent-color:#DC2626;" oninput="window.updateHeatEstimate&amp;&amp;window.updateHeatEstimate()">
             </div>
             <div style="margin-bottom:1.5rem;">
                 <label style="display:flex; justify-content:space-between; font-size:0.8125rem; font-weight:600; color:var(--text-2); margin-bottom:0.4rem;"><span>Tree &amp; green cover</span><span id="uh-tree-val" style="color:#15803D;">5%</span></label>
-                <input id="uh-tree" type="range" min="0" max="100" value="5" step="1" style="width:100%; accent-color:#16A34A;" oninput="window.updateHeatEstimate&amp;&amp;window.updateHeatEstimate()">
+                <input id="uh-tree" aria-label="Tree and green cover percentage" type="range" min="0" max="100" value="5" step="1" style="width:100%; accent-color:#16A34A;" oninput="window.updateHeatEstimate&amp;&amp;window.updateHeatEstimate()">
             </div>
 
             <div id="uh-result" style="text-align:center; border-radius:10px; padding:1.25rem; background:var(--warm-white);">
@@ -9313,7 +9313,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         </div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Pick any Indian city. The orange line is ozone hour by hour today; the red dashed line is the air temperature. Both climb through the morning and peak together in the afternoon &mdash; ground-level ozone is literally cooked by the day's heat and sunlight, then fades overnight. This pattern shows up in city after city, not just Delhi.">Pick any Indian city. The orange line is ozone, hour by hour today; the red dashed line is air temperature. Both climb through the morning and <strong>peak together in the afternoon</strong> &mdash; ground-level ozone is literally cooked by the day&rsquo;s heat and sunlight, then fades overnight. The same shape appears city after city, nationwide.</p>
-            <div style="position:relative; height:340px; width:100%;"><canvas id="uhOzoneHourChart"></canvas></div>
+            <div style="position:relative; height:340px; width:100%;"><canvas id="uhOzoneHourChart" role="img" aria-label="Line chart of today's hourly surface ozone and 2-metre air temperature for the selected city, showing both climbing through the morning and peaking together in the afternoon."></canvas></div>
             <div id="uh-chart-status" style="text-align:center; font-size:0.8125rem; color:var(--text-3); margin-top:0.6rem;"><span class="pulse"></span> Loading today&rsquo;s hourly readings&hellip;</div>
             <p style="font-size: 0.75rem; color: var(--text-3); margin:0.75rem 0 0;"><em>Hourly surface ozone (CAMS) and 2&thinsp;m air temperature for today, from the free <a href="https://open-meteo.com/" target="_blank" rel="noopener" style="color:var(--accent);">Open-Meteo</a> API. The afternoon ozone peak riding on the temperature peak is the &lsquo;climate penalty&rsquo;<sup>3</sup> at the scale of a single day. Ozone here is a modelled hourly estimate, not a ground-station reading.</em></p>
         </div>
