@@ -1901,6 +1901,17 @@ html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
     .hero-headline, .hero-sub, .hero-data, .hero-live-alert, .hero-live-toggle { animation: none; }
     html.reveal-on [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* Panel-switch fade: each navigation injects a fresh .panel node into
+   #panel-container, so this entrance animation replays on every switch —
+   no JS needed. Disabled for reduced motion. */
+#panel-container .panel {
+    animation: panelFadeIn 0.34s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+    #panel-container .panel { animation: none; }
+}
 .role-card-icon {
     font-size: 2rem; margin-bottom: 0.5rem; display: block;
     line-height: 1; color: var(--accent);
