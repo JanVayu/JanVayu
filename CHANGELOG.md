@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.89] - 2026-07-16
+
+### Design — quick-nav completeness + nav dedup
+
+- **Filled the empty quick-nav slot with "Research & Reading"** — a homepage entry into the 29 India-focused peer-reviewed studies (Reading List), so the tool's evidence base is one tap from the dashboard.
+- **Removed the duplicate "Ask JanVayu" button from the top-right nav** — it is already featured as a hero call-to-action; the persistent search icon stays. (Ask JanVayu remains reachable from the My Air nav menu and `/ask/`.)
+
+## [v26.6.88] - 2026-07-16
+
+### Design — homepage section headers, mobile diagram, no duplicate tiles
+
+- **The homepage now reads as an ordered outline, not one long scroll.** Added a reusable labelled section header (accent eyebrow + Fraunces serif title + one-line intro) between the major dashboard blocks, each separated by a hairline rule: *For you* (what today's air means for you) → *Under the hood* (where every number comes from) → *The bigger picture* (GRAP + national rankings) → *Explore every tool* → *The evidence* (Did You Know).
+- **The "How JanVayu works" diagram is now mobile-friendly.** The wide horizontal flow forced a squished horizontal scroll on phones; added a **portrait, top-to-bottom hand-drawn (`rough.js`, Kalam font) variant** shown below 680px, with the wide version on desktop. Same Excalidraw charm, legible in portrait.
+- **No duplicate tiles.** Walkthrough and Ask JanVayu are now featured in the hero, so their duplicate quick-nav tiles were removed; **Photo Gallery** takes a slot in the grid (it was reachable only from the nav/footer before).
+
+Verified in Chromium over HTTP at 1280px and 390px: section headers render with dividers/eyebrows/serif titles; the diagram toggles horizontal↔vertical at the 680px breakpoint; the mobile vertical diagram is fully legible.
+
 ## [v26.6.87] - 2026-07-16
 
 ### Design — hand-drawn diagram, photo gallery, Share-AQI cleanup
