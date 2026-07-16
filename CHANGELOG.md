@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.80] - 2026-07-16
+
+### UX — panel-switch fade
+
+Navigating to a section now eases the new panel in (fade + slight rise) instead of a hard swap. Because `loadPanel` injects a fresh `.panel` node into `#panel-container` on every switch, the entrance is pure CSS — no JS — and it's disabled under `prefers-reduced-motion`.
+
+Verified in Chromium on both an inline-template panel and a lazy-loaded fragment panel: the panel is mid-fade right after the switch and settles to full opacity with its content intact; zero page errors.
+
 ## [v26.6.79] - 2026-07-16
 
 ### UX — role grid fills evenly + classy motion
