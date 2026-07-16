@@ -725,7 +725,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
-    align-items: center;
+    align-items: start;
 }
 @media (max-width: 768px) {
     .hero-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -937,7 +937,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     gap: 8px;
     color: var(--text);
 }
-.card-body { padding: 20px; font-size: 0.9rem; line-height: 1.7; }
+.card-body { padding: 20px; font-size: 0.95rem; line-height: 1.7; }
 .card-footer {
     padding: 12px 20px;
     border-top: 1px solid var(--border-light);

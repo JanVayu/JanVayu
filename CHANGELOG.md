@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.85] - 2026-07-16
+
+### Design — hero gap fix, diagram moved up, larger card text
+
+- **Fixed the large gap under the nav.** The hero grid was `align-items: center`, which vertically centred the short headline column against the tall live-data column and pushed the headline ~150px down. Switched to `align-items: start` so the Fraunces headline sits directly under the nav (gap now just the intended 56px hero padding).
+- **Moved the "How JanVayu works" diagram up** to immediately after the hero, so the platform's shape reads before the detailed cards.
+- Bumped `.card-body` text 0.9rem → 0.95rem for readability (matters when projected).
+
 ## [v26.6.84] - 2026-07-16
 
 ### Design — colour discipline across all content panels (conference-ready)
