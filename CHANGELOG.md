@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.79] - 2026-07-16
+
+### UX — role grid fills evenly + classy motion
+
+- **Role selector no longer leaves awkward gaps.** Twelve roles in a 5-column `auto-fill` grid rendered as 5 + 5 + 2, leaving three empty slots. Pinned the columns to divisors of 12 — **4 (desktop) / 3 (tablet) / 2 (mobile)** — so every row is full at every breakpoint. Cards now animate in with a soft staggered "tile" entrance and a lift-on-hover.
+- **Gentle entrance + scroll-reveal.** The hero headline, subhead and live-data card fade up on load; dashboard cards ease into view as they scroll in. Implemented as progressive enhancement (a `.reveal-on` class is only added by JS, with a failsafe that reveals any straggler) and fully disabled under `prefers-reduced-motion`, so content can never end up hidden.
+
+Verified in Chromium: role grid renders 4×3 with zero trailing gap; after scroll + failsafe, 0 of the dashboard cards remain hidden; zero page errors; 12/12 calculator unit tests pass.
+
 ## [v26.6.78] - 2026-07-16
 
 ### UX — visual decluttering (lead with data)

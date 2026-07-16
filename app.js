@@ -13,6 +13,29 @@
     }
     window.toggleHeroAlert = toggleHeroAlert;
 
+    // ── Classy motion: reveal dashboard cards as they scroll into view ──
+    // Scoped to the always-visible dashboard section (never a hidden panel),
+    // progressive-enhancement only, with a failsafe so nothing stays hidden.
+    (function classyReveal() {
+        try {
+            if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (!('IntersectionObserver' in window)) return;
+            const run = () => {
+                const dash = document.getElementById('section-dashboard');
+                if (!dash) return;
+                document.documentElement.classList.add('reveal-on');
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+                }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+                dash.querySelectorAll('.card').forEach(el => { el.setAttribute('data-reveal', ''); io.observe(el); });
+                // Failsafe: never leave content hidden if the observer misfires.
+                setTimeout(() => dash.querySelectorAll('[data-reveal]:not(.is-in)').forEach(el => el.classList.add('is-in')), 2600);
+            };
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+            else run();
+        } catch (e) { /* motion is optional — never block the app */ }
+    })();
+
     // ── Configuration ──
     const WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
     const DEMO_DATA = {
