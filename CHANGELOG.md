@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.83] - 2026-07-16
+
+### Design — "How JanVayu works" system diagram (conference-ready pass 3/4)
+
+Added a signature visual anchor to the dashboard: a three-stage flow that shows JanVayu as infrastructure, not a hobby project.
+
+- **Live data sources** (CPCB CAAQMS, WAQI, OpenAQ · Sensor.Community, NASA FIRMS, Open-Meteo · CAMS) → **JanVayu engine** (verify · compute · contextualize) → **Citizen tools** (live AQI, Ask JanVayu, forecast, fire tracker, RTI, alerts, open API).
+- Built as responsive, theme-aware HTML/CSS in JanVayu's own palette and Fraunces headline — the engine stage emphasised in green, connectors between stages, stacking vertically on mobile. Doubles as a slide for the talk.
+
+Verified in Chromium desktop + mobile: three stages, connectors, thirteen nodes; engine nodes vertically centred; zero page errors.
+
 ## [v26.6.82] - 2026-07-16
 
 ### Design — colour discipline on the dashboard (conference-ready pass 2/4)
