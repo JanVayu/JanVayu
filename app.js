@@ -2801,16 +2801,17 @@
             e.preventDefault();
             deferredInstallPrompt = e;
             if (pwaDismissed) return;
-            const banner = document.getElementById('pwa-install-banner');
-            if (banner) banner.classList.add('show');
+            // Reveal the "Install app" button in the section-nav (no floating banner).
+            const navBtn = document.getElementById('navInstallBtn');
+            if (navBtn) navBtn.style.display = '';
         });
         window.installJanVayuPWA = async function () {
             if (!deferredInstallPrompt) return;
             deferredInstallPrompt.prompt();
             try { await deferredInstallPrompt.userChoice; } catch (e) {}
             deferredInstallPrompt = null;
-            const banner = document.getElementById('pwa-install-banner');
-            if (banner) banner.classList.remove('show');
+            const navBtn = document.getElementById('navInstallBtn');
+            if (navBtn) navBtn.style.display = 'none';
         };
         window.dismissPWABanner = function () {
             const banner = document.getElementById('pwa-install-banner');
@@ -6051,19 +6052,27 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'glossary', title: 'Glossary', desc: 'Air quality terms and acronyms explained', keywords: 'glossary terms definitions acronym explanation pm25 aqi grap ncap who meaning' }
     ];
 
+    // Search / Ask JanVayu / Feedback widget — triggered from the section-nav
+    // (the floating button was removed because it blocked content).
+    function openWidget(tab) {
+        const modal = document.getElementById('widgetModal');
+        if (!modal) return;
+        if (tab && typeof switchWidgetTab === 'function') switchWidgetTab(tab);
+        modal.classList.add('open');
+        if (tab === 'search') setTimeout(() => { const s = document.getElementById('widgetSearchInput'); if (s) s.focus(); }, 120);
+    }
+    function closeWidget() {
+        const modal = document.getElementById('widgetModal');
+        if (modal) modal.classList.remove('open');
+    }
     function toggleWidget() {
         const modal = document.getElementById('widgetModal');
-        const btn = document.getElementById('fabBtn');
-        const isOpen = modal.classList.contains('open');
-        if (isOpen) {
-            modal.classList.remove('open');
-            btn.classList.remove('open');
-        } else {
-            modal.classList.add('open');
-            btn.classList.add('open');
-            setTimeout(() => document.getElementById('widgetSearchInput').focus(), 100);
-        }
+        if (!modal) return;
+        if (modal.classList.contains('open')) closeWidget();
+        else openWidget('search');
     }
+    window.openWidget = openWidget;
+    window.closeWidget = closeWidget;
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.86] - 2026-07-16
+
+### UX — floating buttons moved into the navigation
+
+The floating "Search & Feedback" button and the "Install JanVayu" banner overlapped content. Both are gone; their actions now live in the section-nav's right corner:
+
+- **Ask JanVayu** (opens the assistant tab) and a **search** icon (opens search) sit at the right of the section nav; the widget opens as a panel and closes with its new × / Escape / the nav toggle.
+- **Install app** appears in the same spot only when the browser offers install (`beforeinstallprompt`) — no floating banner.
+- The section nav is now left-aligned with the actions right-aligned (a standard, calmer layout).
+
+Verified in Chromium: floating button + banner removed, nav actions present, widget opens/closes from the nav, zero page errors.
+
 ## [v26.6.85] - 2026-07-16
 
 ### Design — hero gap fix, diagram moved up, larger card text
