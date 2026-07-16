@@ -4,6 +4,18 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.18: Conference-ready visual refresh (✅ Completed — v26.6.84–88)
+
+A mid-July 2026 design pass to make the platform read as a credible, considered
+tool rather than a hobby project — ahead of a conference presentation slot.
+
+- [x] **Colour discipline** — swept decorative heading/rail/number colours across the dashboard and every panel to a restrained ink + single-accent palette, so data (not chrome) carries the colour. (v26.6.84)
+- [x] **Typography** — self-hosted **Fraunces** as the headline serif (with Kalam for hand-drawn labels); larger, balanced headings and a tightened type scale. Motion: hero rise, scroll-reveal, and panel fades, all `prefers-reduced-motion`-guarded.
+- [x] **Hand-drawn system diagram** — "How JanVayu works" is a genuine Excalidraw-style `rough.js` sketch on its own light "paper", now with a **desktop horizontal** and a **mobile portrait** variant so it stays legible on phones. (v26.6.87–88)
+- [x] **Photo gallery** — "The air, in pictures": 24 openly-licensed documentary photographs (Wikimedia Commons) in a masonry grid + full-screen lightbox with per-image credit and source. (v26.6.87)
+- [x] **Decluttering** — floating Install / Search / Ask buttons moved into the section-nav; the Share-AQI card removed from prime dashboard space. (v26.6.86–87)
+- [x] **Layout & ordering** — a feature walkthrough + Ask CTA fill the hero; the footer rebalanced to three even columns; the dashboard reordered top-to-bottom; **labelled section headers** (eyebrow + serif title) break the homepage into an ordered outline; duplicate quick-nav tiles removed. (v26.6.88)
+
 ## Phase 5.17: Multilingual fix, accessibility & a lighter site (✅ Completed — v26.6.58–71)
 
 A mid-July 2026 platform-quality drop — mostly plumbing, and one significant bug fix.
