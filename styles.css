@@ -1857,6 +1857,21 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     font-family: var(--sans); padding: 0.5rem;
 }
 .role-skip:hover { color: var(--accent); }
+/* Prominent "lead with data" skip, placed above the role grid so the live air
+   quality is one click away without scrolling past all twelve role cards. */
+.role-skip-top {
+    display: inline-block;
+    margin: 0.25rem auto 1.5rem;
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.6rem 1.4rem;
+    transition: background 0.15s, color 0.15s;
+}
+.role-skip-top:hover {
+    background: var(--accent); color: var(--on-accent, #fff);
+}
 
 /* Role Dashboard */
 .role-dashboard-hero {

@@ -419,6 +419,7 @@
             <div class="role-overlay-logo-sub" data-i18n="tagline">Citizen Air Quality Platform</div>
             <h2 data-i18n="role_heading">India's air crisis affects everyone differently.<br>How can we help you?</h2>
             <p class="role-subtitle" data-i18n="role_subtitle">Select your role and we'll show you the most relevant data, tools, and actions.</p>
+            <button class="role-skip role-skip-top" onclick="selectRole('skip')" data-i18n="role_skip">Skip &mdash; just show me the air quality &rarr;</button>
             <div class="role-grid">
                 <div class="role-card" onclick="selectRole('parent')">
                     <span class="role-card-icon"><span class="si si-home"></span></span>
@@ -481,7 +482,6 @@
                     <div class="role-card-desc" data-i18n="role_business_desc">Workforce health & economic impact</div>
                 </div>
             </div>
-            <button class="role-skip" onclick="selectRole('skip')" data-i18n="role_skip">Skip — show me everything</button>
         </div>
     </div>
 
@@ -5710,7 +5710,7 @@ const ROLE_CONFIG = {
 function selectRole(role) {
     const overlay = document.getElementById('roleOverlay');
     if (role === 'skip') {
-        sessionStorage.setItem('janvayu-role', 'skip');
+        localStorage.setItem('janvayu-role', 'skip');
         overlay.classList.add('hiding');
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -5719,7 +5719,7 @@ function selectRole(role) {
         updateRoleSwitcher('skip');
         return;
     }
-    sessionStorage.setItem('janvayu-role', role);
+    localStorage.setItem('janvayu-role', role);
     overlay.classList.add('hiding');
     setTimeout(() => {
         overlay.style.display = 'none';
@@ -5859,11 +5859,11 @@ function switchRole(role) {
     closeRoleSwitcher();
 
     if (role === 'skip') {
-        sessionStorage.setItem('janvayu-role', 'skip');
+        localStorage.setItem('janvayu-role', 'skip');
         updateRoleSwitcher('skip');
         dismissRoleDashboard();
     } else {
-        sessionStorage.setItem('janvayu-role', role);
+        localStorage.setItem('janvayu-role', role);
         updateRoleSwitcher(role);
         showRoleDashboard(role);
     }
@@ -5871,7 +5871,9 @@ function switchRole(role) {
 
 // ── Init: Check for saved role on page load ──
 (function initRoleExperience() {
-    const savedRole = sessionStorage.getItem('janvayu-role');
+    // Persisted across sessions (localStorage) so returning visitors land on
+    // data, not the role gate. Migrate any older sessionStorage value once.
+    const savedRole = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role');
     const hash = window.location.hash.replace('#', '');
 
     // If there's a specific panel hash (not dashboard, not my-dashboard), go directly there
