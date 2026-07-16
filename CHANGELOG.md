@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.90] - 2026-07-16
+
+### Fixes — mobile layout + gallery anchor + clearer naming
+
+- **Photo Gallery anchor now works.** `#gallery` (and every other lazy-loaded panel's hash) opened nothing because the hash router only recognised inline `tmpl-*` templates; it now also opens any registered lazy panel.
+- **Mobile quick-nav cards** — top-aligned the icon so it no longer floats in the middle of a tall card, and stopped headings breaking mid-word ("Accounta​bility"): the global `body { word-break: break-word }` was splitting labels, now overridden to wrap between words.
+- **Mobile footer** — the link lists were stacking into one very long single column; they now sit two-up with the brand/intro spanning the full width, and the back-to-home button hides once you reach the footer so it never covers a link.
+- **"Citizen Voices" vs "Citizen Testimony"** — renamed to **"Voices Online"** (a curated social-media archive of public reaction) and **"Field Testimony"** (first-person accounts recorded on the ground — 100+ people, 13 languages), so the two are no longer easy to confuse.
+
 ## [v26.6.89] - 2026-07-16
 
 ### Design — quick-nav completeness + nav dedup
