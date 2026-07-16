@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.91] - 2026-07-16
+
+### Design — five more hand-drawn diagrams (panels + blog)
+
+Extended the Excalidraw-style (rough.js + Kalam) diagram system beyond the homepage, each with a wide desktop variant and a portrait phone variant (the body diagram is one centred portrait at all widths):
+
+- **"How the AQI number is built"** — AQI explainer panel: six pollutant sub-indices → the index reports only the worst, so the label hides which pollutant is driving it.
+- **"How PM2.5 travels through your body"** — Beyond the Lungs panel: fine particles cross from the lungs into the blood and reach the brain, heart, kidneys, bloodstream and pregnancy.
+- **"How dirty air drains the economy"** — Economic Cost panel: premature deaths + illness + healthcare → $36.8 bn/yr (1.36% of GDP), up to $339 bn (9.5%) on broader measures (Lancet Planetary Health).
+- **"How farmers dodge the fire satellites"** — hero on the stubble-burning blog post: peak burn time shifted 1:30 PM → 5 PM (2020–2024) to slip past the polar-orbiting overpass.
+- **"Why children breathe more pollution"** — hero on the children's-health blog post: ~2× the air per kg, faces at exhaust height, still-developing lungs and brains.
+
+Generic `.jv-dgm` wrapper added to `styles.css` and the blog stylesheet (with the Kalam web-font); source SVGs saved under `assets/diagrams/`.
+
 ## [v26.6.90] - 2026-07-16
 
 ### Fixes — mobile layout + gallery anchor + clearer naming
