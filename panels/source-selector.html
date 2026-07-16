@@ -11,7 +11,7 @@
     <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem;">
 
         <!-- CPCB CAAQMS Card -->
-        <div class="card" id="source-card-cpcb" style="border-left: 4px solid #059669; transition: opacity 0.3s;">
+        <div class="card" id="source-card-cpcb" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <span class="card-title" style="color: var(--green-600);">CPCB CAAQMS</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
@@ -48,9 +48,9 @@
         </div>
 
         <!-- WAQI / aqicn.org Card -->
-        <div class="card" id="source-card-waqi" style="border-left: 4px solid #2563EB; transition: opacity 0.3s;">
+        <div class="card" id="source-card-waqi" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-title" style="color: var(--blue);">WAQI / aqicn.org</span>
+                <span class="card-title" style="color: var(--ink);">WAQI / aqicn.org</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-3);">Include</span>
                     <span style="position: relative; display: inline-block; width: 44px; height: 24px;">
@@ -65,15 +65,15 @@
             </div>
             <div class="card-body">
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
-                    <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--blue); font-weight: 600;">Aggregator</span>
-                    <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--blue); font-weight: 600;">Hourly</span>
-                    <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--blue); font-weight: 600;">Depends on upstream</span>
+                    <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--ink); font-weight: 600;">Aggregator</span>
+                    <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--ink); font-weight: 600;">Hourly</span>
+                    <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--ink); font-weight: 600;">Depends on upstream</span>
                 </div>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="WAQI collects air quality data from government monitors and community sensors around the world. It gives you one API for global data. But it only shows the nearest station, not a city average, and can lag behind CPCB by 1-2 hours."><strong>Instruments:</strong> Surfaces CPCB data + community sensors. Accuracy depends entirely on the upstream source.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Coverage:</strong> Global &mdash; ~12,000 stations worldwide.</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem;">
                     <div style="padding: 0.625rem; background: rgba(37,99,235,0.04); border-radius: 6px; border: 1px solid rgba(37,99,235,0.1);">
-                        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--blue); margin-bottom: 0.25rem;">STRENGTHS</div>
+                        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--ink); margin-bottom: 0.25rem;">STRENGTHS</div>
                         <p style="font-size: 0.8125rem; color: var(--text-2); margin: 0;">Single API for global comparison. JanVayu&rsquo;s primary data source for live AQI.</p>
                     </div>
                     <div style="padding: 0.625rem; background: rgba(239,68,68,0.04); border-radius: 6px; border: 1px solid rgba(239,68,68,0.1);">
@@ -85,7 +85,7 @@
         </div>
 
         <!-- IQAir Card -->
-        <div class="card" id="source-card-iqair" style="border-left: 4px solid #9333EA; transition: opacity 0.3s;">
+        <div class="card" id="source-card-iqair" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <span class="card-title" style="color: var(--purple);">IQAir</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
@@ -122,7 +122,7 @@
         </div>
 
         <!-- Sensor.Community Card -->
-        <div class="card" id="source-card-sensor" style="border-left: 4px solid #D97706; transition: opacity 0.3s;">
+        <div class="card" id="source-card-sensor" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <span class="card-title" style="color: var(--amber);">Sensor.Community</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
@@ -162,14 +162,14 @@
     <!-- ═══ Source Impact Simulator ═══ -->
     <h3 style="font-family: var(--serif); font-size: 1.375rem; margin-bottom: 1rem; color: var(--ink);">See How Sources Affect Your AQI</h3>
 
-    <div class="card mb-3" style="border-left: 4px solid #8B5CF6;">
+    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">Source Impact Simulator</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Click the button to see how the AQI changes when you turn sources on or off. This shows you why the same city can have different AQI numbers on different websites.">Toggle the sources above, then click Compute to see how different source combinations affect the reported AQI for your city. This demonstrates why the same city can show different numbers on CPCB, WAQI, and IQAir.</p>
 
             <div id="source-selection-summary" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
                 <span class="source-badge" data-badge="cpcb" style="font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 99px; background: rgba(5,150,105,0.1); color: var(--green-600); font-weight: 600; border: 1px solid rgba(5,150,105,0.2); transition: all 0.2s;">CPCB &#10003;</span>
-                <span class="source-badge" data-badge="waqi" style="font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 99px; background: rgba(37,99,235,0.1); color: var(--blue); font-weight: 600; border: 1px solid rgba(37,99,235,0.2); transition: all 0.2s;">WAQI &#10003;</span>
+                <span class="source-badge" data-badge="waqi" style="font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 99px; background: rgba(37,99,235,0.1); color: var(--ink); font-weight: 600; border: 1px solid rgba(37,99,235,0.2); transition: all 0.2s;">WAQI &#10003;</span>
                 <span class="source-badge" data-badge="iqair" style="font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 99px; background: rgba(147,51,234,0.1); color: var(--purple); font-weight: 600; border: 1px solid rgba(147,51,234,0.2); transition: all 0.2s;">IQAir &#10003;</span>
                 <span class="source-badge" data-badge="sensor" style="font-size: 0.75rem; padding: 0.25rem 0.625rem; border-radius: 99px; background: rgba(217,119,6,0.1); color: var(--amber); font-weight: 600; border: 1px solid rgba(217,119,6,0.2); transition: all 0.2s;">Sensor.Community &#10003;</span>
             </div>
@@ -191,14 +191,14 @@
                         <div style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.25rem;">AQI</div>
                     </div>
                 </div>
-                <div id="source-comparison-explanation" class="info-box" style="background: rgba(139,92,246,0.06); border-left: 3px solid #8B5CF6;">
+                <div id="source-comparison-explanation" class="info-box" style="background: rgba(139,92,246,0.06); border-left: 3px solid var(--accent);">
                 </div>
             </div>
         </div>
     </div>
 
     <!-- ═══ Implications Callout ═══ -->
-    <div class="card" style="border-left: 4px solid #EF4444; background: rgba(239,68,68,0.02);">
+    <div class="card" style="border-left: 4px solid var(--accent); background: rgba(239,68,68,0.02);">
         <div class="card-header"><span class="card-title" style="color: var(--red);">Why Source Transparency Matters</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); line-height: 1.7;" data-simple="When a politician says pollution went down 20%, ask: which monitors said that? Which stations? Over what time? If the station near the highway shows improvement but the station near the school was shut down, the 20% number is meaningless. Always ask which data source is being cited.">This is why source transparency matters. When a politician says &ldquo;AQI improved 20%,&rdquo; ask: which monitors? Which stations? Over what period? A 20% improvement measured by one station near a highway is meaningless if the station near the school was decommissioned.</p>
