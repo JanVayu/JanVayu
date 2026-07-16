@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.87] - 2026-07-16
+
+### Design — hand-drawn diagram, photo gallery, Share-AQI cleanup
+
+- **"How JanVayu works" is now a genuine hand-drawn (Excalidraw-style) diagram.** Replaced the CSS boxes with a `rough.js`-generated sketch (self-hosted Kalam hand font), on its own light "paper" so it reads the same in light and dark themes. Sits right after the hero.
+- **New "The air, in pictures" photo gallery** — 24 openly-licensed (Creative Commons / public-domain) documentary photographs from Wikimedia Commons: city smog, stubble fires, kilns, traffic, burning waste, satellite views. Masonry grid + full-screen lightbox with per-image credit and source link. Reachable from Learn → Photo Gallery.
+- **Removed the Share AQI Card from the dashboard** (83 lines of prime space); the hero's own "Share AQI Card" button keeps the feature.
+
+Verified in Chromium: hand-drawn SVG renders with the Kalam font; gallery grid + lightbox work; zero page errors.
+
 ## [v26.6.86] - 2026-07-16
 
 ### UX — floating buttons moved into the navigation

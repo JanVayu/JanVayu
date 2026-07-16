@@ -13,6 +13,46 @@
     }
     window.toggleHeroAlert = toggleHeroAlert;
 
+    // ── Photo gallery lightbox ──
+    let _galItems = [], _galIdx = 0;
+    function _galShow() {
+        const el = _galItems[_galIdx]; if (!el) return;
+        const img = document.getElementById('galLbImg');
+        const cap = document.getElementById('galLbCap');
+        if (img) { img.src = el.dataset.full; img.alt = el.dataset.alt || ''; }
+        if (cap) {
+            const credit = el.dataset.credit || 'Unknown', lic = el.dataset.license || '', src = el.dataset.source || '';
+            cap.innerHTML = '<span class="gal-cap-text">' + (el.dataset.alt || '') + '</span>' +
+                '<span class="gal-cap-credit">Photo: ' + credit + (lic ? ' &middot; ' + lic : '') +
+                (src ? ' &middot; <a href="' + src + '" target="_blank" rel="noopener">Wikimedia Commons</a>' : '') + '</span>';
+        }
+    }
+    function galOpen(el) {
+        _galItems = Array.from(document.querySelectorAll('.gal-item'));
+        _galIdx = Math.max(0, _galItems.indexOf(el));
+        _galShow();
+        const lb = document.getElementById('galLightbox');
+        if (lb) { lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+    }
+    function galNav(dir) {
+        if (!_galItems.length) return;
+        _galIdx = (_galIdx + dir + _galItems.length) % _galItems.length;
+        _galShow();
+    }
+    function galClose() {
+        const lb = document.getElementById('galLightbox');
+        if (lb) { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); }
+        document.body.style.overflow = '';
+    }
+    window.galOpen = galOpen; window.galNav = galNav; window.galClose = galClose;
+    document.addEventListener('keydown', (e) => {
+        const lb = document.getElementById('galLightbox');
+        if (!lb || !lb.classList.contains('open')) return;
+        if (e.key === 'Escape') galClose();
+        else if (e.key === 'ArrowRight') galNav(1);
+        else if (e.key === 'ArrowLeft') galNav(-1);
+    });
+
     // ── Classy motion: reveal dashboard cards as they scroll into view ──
     // Scoped to the always-visible dashboard section (never a hidden panel),
     // progressive-enhancement only, with a failsafe so nothing stays hidden.
@@ -1050,7 +1090,7 @@
 
     // Panels whose (large) markup lives in an external fragment, fetched on first
     // open instead of being inlined + parsed on every page load. Cached after first use.
-    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html' };
+    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html' };
     const __panelFragmentCache = {};
     function fetchPanelFragment(panelId) {
         if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
