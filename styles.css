@@ -2,9 +2,16 @@
    JANVAYU REDESIGN — EDITORIAL SCROLL LAYOUT
    ═══════════════════════════════════════════════════════════ */
 
+/* Headline face — Fraunces, self-hosted (latin subset) so it loads fast with
+   no third-party dependency. Non-latin headlines fall through to Newsreader /
+   the system serif automatically. */
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/fraunces-400.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/fraunces-600.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/fraunces-700.woff2') format('woff2'); }
+
 :root {
     --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
-    --serif: 'Newsreader', 'Georgia', serif;
+    --serif: 'Fraunces', 'Newsreader', 'Georgia', serif;
     --mono: 'JetBrains Mono', 'Fira Code', monospace;
 
     --green-900: #0f2b1c;
@@ -726,11 +733,12 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .hero-headline {
     font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
     font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -0.03em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: var(--text);
+    text-wrap: balance;
 }
 .hero-headline em {
     color: var(--accent);
