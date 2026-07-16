@@ -653,6 +653,7 @@
                 <button class="mobile-nav-item" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
                 <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                 <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
+                <button class="mobile-nav-item" data-panel="gallery">Photo Gallery</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_accountability">Accountability</div>
@@ -754,6 +755,7 @@
                     <button class="nav-dropdown-link" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
                     <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                     <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
+                    <button class="nav-dropdown-link" data-panel="gallery">Photo Gallery</button>
                 </div>
             </div>
             <div class="nav-item">
@@ -5060,6 +5062,14 @@
 
 <!-- Floating Search & Feedback Widget -->
 <!-- Search & Ask JanVayu now live in the section-nav (right corner), not a floating button. -->
+
+<!-- Photo-gallery lightbox (top-level so position:fixed covers the viewport) -->
+<div class="gal-lightbox" id="galLightbox" onclick="if(event.target===this)galClose()" aria-hidden="true">
+    <button class="gal-lb-btn gal-lb-close" onclick="galClose()" aria-label="Close" title="Close (Esc)">&times;</button>
+    <button class="gal-lb-btn gal-lb-prev" onclick="galNav(-1)" aria-label="Previous" title="Previous">&#8249;</button>
+    <figure class="gal-lb-figure"><img id="galLbImg" src="" alt=""><figcaption id="galLbCap"></figcaption></figure>
+    <button class="gal-lb-btn gal-lb-next" onclick="galNav(1)" aria-label="Next" title="Next">&#8250;</button>
+</div>
 
 
 <div class="widget-modal" id="widgetModal">
