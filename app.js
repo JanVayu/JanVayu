@@ -2,6 +2,17 @@
        JANVAYU CORE JAVASCRIPT — ALL FUNCTIONALITY PRESERVED
        ═══════════════════════════════════════════════════════════ */
 
+    // ── Dashboard: expand/collapse the "what's happening now" blurb ──
+    function toggleHeroAlert() {
+        const box = document.getElementById('heroLiveAlert');
+        const btn = document.getElementById('heroLiveToggle');
+        if (!box || !btn) return;
+        const clamped = box.classList.toggle('clamped');
+        btn.setAttribute('aria-expanded', String(!clamped));
+        btn.innerHTML = clamped ? 'Read more &#9662;' : 'Show less &#9652;';
+    }
+    window.toggleHeroAlert = toggleHeroAlert;
+
     // ── Configuration ──
     const WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
     const DEMO_DATA = {
