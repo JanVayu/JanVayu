@@ -1424,6 +1424,14 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .quick-link-icon.tools { background: var(--green-50); }
 .quick-link h4 { font-size: 0.88rem; font-weight: 600; color: var(--text); }
 .quick-link p { font-size: 0.75rem; color: var(--text-3); margin: 0; }
+/* Mobile: in the 2-up tablet/large-phone range the cards get narrow. Top-align
+   the icon (so it doesn't float in the vertical centre of a tall card) and let
+   the heading wrap between words rather than break mid-word — the global
+   body{word-break:break-word} was splitting labels like "Accountability". */
+@media (max-width: 1024px) {
+    .quick-link { align-items: flex-start; gap: 12px; }
+    .quick-link h4, .quick-link p { word-break: normal; overflow-wrap: break-word; hyphens: none; }
+}
 
 /* Result boxes */
 .result-box {
@@ -1550,7 +1558,12 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     gap: 40px;
 }
 @media (max-width: 1000px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
+/* Keep the footer link lists two-up on phones (they were stacking into one
+   very long single column). The brand/intro cell spans the full width above. */
+@media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 22px 20px; }
+    .footer-brand { grid-column: 1 / -1; }
+}
 .footer-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 14px; color: rgba(255,255,255,0.8); }
 .footer-link { color: rgba(255,255,255,0.62); display: block; padding: 3px 0; font-size: 0.82rem; text-decoration: none; transition: color 0.12s; }
 .footer-link:hover { color: rgba(255,255,255,0.85); text-decoration: none; }
@@ -1610,7 +1623,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .stat-strip { grid-template-columns: repeat(2, 1fr); }
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .table { min-width: 500px; }
-    .footer-grid { grid-template-columns: 1fr; gap: 16px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
     .pull-quote { font-size: 1rem; padding: 1rem; }
     .tool-card { margin-bottom: 1rem; }
     .info-box { padding: 1rem; }
@@ -2582,7 +2595,7 @@ body {
 
     /* Footer: single column */
     .footer { padding: 24px 0; }
-    .footer-grid { grid-template-columns: 1fr; gap: 16px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
     .footer-link { padding: 6px 0; font-size: 0.8rem; }
 
     /* Section intros: readable */

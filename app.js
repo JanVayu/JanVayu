@@ -1062,6 +1062,10 @@
             const panelContainer = document.getElementById('panel-container');
             // .children only counts element nodes — ignores the placeholder HTML comment
             const hasOpenPanel = !!(panelContainer && panelContainer.children.length > 0);
+            // Hide once the footer is reached so the button never sits on top of
+            // (and blocks taps on) the footer links on mobile.
+            const nearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 140);
+            if (nearBottom) return false;
             return hasOpenPanel || window.scrollY > 320;
         }
         function update() {
@@ -2886,7 +2890,11 @@
             const hash = window.location.hash.replace('#', '');
             if (hash && hash !== 'dashboard') {
                 const tmpl = document.getElementById('tmpl-' + hash);
-                if (tmpl) { showPanel(hash); }
+                // Lazy panels (gallery, voices, resources, …) have no inline
+                // tmpl-* template — they load from an external fragment — so
+                // also accept any registered LAZY_PANELS id here, otherwise a
+                // #gallery-style anchor link silently does nothing.
+                if (tmpl || LAZY_PANELS[hash]) { showPanel(hash); }
             }
         }
         handleHash();
