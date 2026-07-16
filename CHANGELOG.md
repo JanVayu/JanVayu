@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.81] - 2026-07-16
+
+### Design — Fraunces headline typeface (conference-ready pass 1/4)
+
+First step of a visual-maturity pass: a more distinctive, premium headline face.
+
+- Headlines now use **Fraunces** — a high-contrast modern serif — in place of Newsreader. Set as `--serif`, so every hero and section heading picks it up in one change; non-latin headlines fall through to Newsreader / the system serif automatically.
+- **Self-hosted** (latin subset, weights 400/600/700, ~105 KB total) rather than hot-linked from a font CDN — faster, no third-party dependency, privacy-friendlier. Precached in the service worker and preloaded (700) to avoid a flash on the hero.
+- Tightened the hero headline scale (slightly larger, `-0.02em` tracking, `text-wrap: balance`) so it reads as a confident thesis.
+
+Verified in Chromium: Fraunces 700 loads and applies to `.hero-headline`; zero page errors.
+
 ## [v26.6.80] - 2026-07-16
 
 ### UX — panel-switch fade
