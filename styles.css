@@ -754,6 +754,16 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     color: var(--text-2);
 }
 .hero-live-alert strong { color: var(--red); }
+/* Collapse the dense "what's happening now" blurb to a short excerpt on load
+   so the landing leads with the live data, not a wall of context text. */
+.hero-live-alert.clamped { max-height: 7.2em; overflow: hidden; }
+.hero-live-toggle {
+    margin-top: 8px; padding: 4px 0;
+    background: none; border: none; cursor: pointer;
+    color: var(--red); font-family: var(--sans);
+    font-size: 0.82rem; font-weight: 600;
+}
+.hero-live-toggle:hover { text-decoration: underline; }
 
 /* Hero data panel */
 .hero-data {
