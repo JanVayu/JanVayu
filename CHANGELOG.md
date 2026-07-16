@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.89] - 2026-07-16
+
+### Design — quick-nav completeness + nav dedup
+
+- **Filled the empty quick-nav slot with "Research & Reading"** — a homepage entry into the 29 India-focused peer-reviewed studies (Reading List), so the tool's evidence base is one tap from the dashboard.
+- **Removed the duplicate "Ask JanVayu" button from the top-right nav** — it is already featured as a hero call-to-action; the persistent search icon stays. (Ask JanVayu remains reachable from the My Air nav menu and `/ask/`.)
+
 ## [v26.6.88] - 2026-07-16
 
 ### Design — homepage section headers, mobile diagram, no duplicate tiles
