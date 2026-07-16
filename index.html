@@ -796,6 +796,11 @@
                     <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About</button>
                 </div>
             </div>
+            <div class="nav-actions-right">
+                <button class="nav-cta-btn" onclick="openWidget('askai')">Ask JanVayu</button>
+                <button class="nav-icon-btn" onclick="openWidget('search')" title="Search JanVayu (Ctrl+K)" aria-label="Search JanVayu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                <button class="nav-cta-btn nav-install-btn" id="navInstallBtn" onclick="installJanVayuPWA()" style="display:none;">Install app</button>
+            </div>
         </div>
     </nav>
 
@@ -1330,14 +1335,8 @@
             }
             .map-layer-btn.active:hover { background: var(--accent, #1B6B4A); color: #fff; }
         </style>
-        <div id="pwa-install-banner" class="pwa-install-banner" role="dialog" aria-label="Install JanVayu">
-            <div class="pwa-text">
-                <div class="pwa-title">Install JanVayu</div>
-                <div class="pwa-sub">Live AQI + offline access on your home screen.</div>
-            </div>
-            <button class="pwa-cta" onclick="installJanVayuPWA()">Install</button>
-            <button class="pwa-dismiss" onclick="dismissPWABanner()" aria-label="Dismiss">×</button>
-        </div>
+        <!-- Install moved to the section-nav "Install app" button (shown when installable). -->
+
 
         <!-- All remaining panels will be loaded here -->
         <div id="panel-container" class="container" style="padding-top: 20px; padding-bottom: 40px;">
@@ -5060,16 +5059,15 @@
 </button>
 
 <!-- Floating Search & Feedback Widget -->
-<button class="fab-btn" id="fabBtn" onclick="toggleWidget()" aria-label="Search & Feedback">
-    <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-</button>
+<!-- Search & Ask JanVayu now live in the section-nav (right corner), not a floating button. -->
+
 
 <div class="widget-modal" id="widgetModal">
     <div class="widget-tabs">
         <button class="widget-tab active" onclick="switchWidgetTab('search')">Search</button>
         <button class="widget-tab" onclick="switchWidgetTab('askai')">Ask JanVayu</button>
         <button class="widget-tab" onclick="switchWidgetTab('feedback')">Feedback</button>
+        <button class="widget-close" onclick="closeWidget()" aria-label="Close" title="Close">&times;</button>
     </div>
 
     <!-- SEARCH PANEL -->
