@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.77] - 2026-07-16
+
+### Copy — About-panel mission consistency + wording
+
+- Updated the stale mission copy in the lazy-loaded `panels/about.html` fragment to match the reworded `about_mission_p1` string (it still carries `data-i18n`, so the runtime already showed the new text — this aligns the source fallback).
+- `panels/aqi-explainer.html`: "highest-leverage interventions" → "highest-impact interventions".
+
+## [v26.6.76] - 2026-07-16
+
+### Refactor — externalize the 396 KB core app script to `/app.js`
+
+The earlier refactors moved panels, testimonies and the games engine out of `index.html`, but the main application script — every calculator, panel controller, city loader, chart and the Ask JanVayu client — was still a 396 KB inline `<script>`.
+
+- Moved it verbatim to `/app.js`, loaded as a same-position blocking script so execution order and global/script scope are byte-for-byte identical to the inline version.
+- `index.html` drops ~400 KB (922 KB → 526 KB; 12,963 → 6,260 lines). The core JS is now a separately cacheable, independently editable file.
+- Added `/app.js` to the service-worker shell precache.
+- Verified in Chromium: zero page errors, `showPanel` plus eight content panels switch cleanly, core globals defined; 12/12 calculator unit tests pass.
+
+## [v26.6.75] - 2026-07-16
+
+### Copy — reword the mission statement to drop NGO-speak
+
+The "Our Mission" paragraph leaned on a "bridge the gap … through independent verification, citizen empowerment, and data-driven accountability" abstraction pile. Replaced it with concrete nouns — independent data, peer-reviewed research and RTI responses anyone can check — keeping the same meaning and `#AQIForJanHit` framing. Hindi updated to match.
+
 ## [v26.6.74] - 2026-07-15
 
 ### Accessibility — dark-theme colour-contrast pass (WCAG 1.4.3, #213)
