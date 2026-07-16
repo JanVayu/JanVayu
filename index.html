@@ -928,6 +928,47 @@
                 </div>
 
                 <!-- Personal Impact (cigarette equivalence, disease risk, solutions) -->
+                <!-- How JanVayu works — system diagram -->
+                <section class="how-flow mt-3" aria-labelledby="how-flow-title">
+                    <div class="how-flow-head">
+                        <h2 id="how-flow-title" class="how-flow-title">How JanVayu works</h2>
+                        <p class="how-flow-sub">Independent monitoring, verified and turned into something people can act on &mdash; from raw sensors to accountability.</p>
+                    </div>
+                    <div class="how-flow-grid">
+                        <div class="how-stage">
+                            <div class="how-stage-label">Live data sources</div>
+                            <ul class="how-nodes">
+                                <li>CPCB CAAQMS <span>official government monitors</span></li>
+                                <li>WAQI <span>real-time AQI feed</span></li>
+                                <li>OpenAQ &middot; Sensor.Community <span>low-cost sensors</span></li>
+                                <li>NASA FIRMS <span>satellite farm-fire detections</span></li>
+                                <li>Open-Meteo &middot; CAMS <span>forecast &amp; weather</span></li>
+                            </ul>
+                        </div>
+                        <div class="how-arrow" aria-hidden="true">&rarr;</div>
+                        <div class="how-stage how-engine">
+                            <div class="how-stage-label">JanVayu engine</div>
+                            <ul class="how-nodes">
+                                <li>Verify <span>freshness &amp; cross-source checks</span></li>
+                                <li>Compute <span>health &amp; exposure models</span></li>
+                                <li>Contextualize <span>AQI bands &middot; WHO limits &middot; NCAP</span></li>
+                            </ul>
+                        </div>
+                        <div class="how-arrow" aria-hidden="true">&rarr;</div>
+                        <div class="how-stage">
+                            <div class="how-stage-label">Citizen tools</div>
+                            <ul class="how-nodes">
+                                <li>Live AQI <span>117 cities + ward atlas</span></li>
+                                <li>Ask JanVayu <span>AI air-quality assistant</span></li>
+                                <li>Forecast &middot; Farm-fire tracker</li>
+                                <li>RTI Assistant <span>government accountability</span></li>
+                                <li>Alerts &middot; Open Data API</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="how-flow-foot">Every figure sourced and open &middot; no ads &middot; no login &middot; free forever.</p>
+                </section>
+
                 <div class="grid-3 mt-3" id="personal-impact-row">
                     <div class="card">
                         <div class="card-header">
@@ -970,46 +1011,6 @@
                     </div>
                 </div>
 
-                <!-- How JanVayu works — system diagram -->
-                <section class="how-flow mt-3" aria-labelledby="how-flow-title">
-                    <div class="how-flow-head">
-                        <h2 id="how-flow-title" class="how-flow-title">How JanVayu works</h2>
-                        <p class="how-flow-sub">Independent monitoring, verified and turned into something people can act on &mdash; from raw sensors to accountability.</p>
-                    </div>
-                    <div class="how-flow-grid">
-                        <div class="how-stage">
-                            <div class="how-stage-label">Live data sources</div>
-                            <ul class="how-nodes">
-                                <li>CPCB CAAQMS <span>official government monitors</span></li>
-                                <li>WAQI <span>real-time AQI feed</span></li>
-                                <li>OpenAQ &middot; Sensor.Community <span>low-cost sensors</span></li>
-                                <li>NASA FIRMS <span>satellite farm-fire detections</span></li>
-                                <li>Open-Meteo &middot; CAMS <span>forecast &amp; weather</span></li>
-                            </ul>
-                        </div>
-                        <div class="how-arrow" aria-hidden="true">&rarr;</div>
-                        <div class="how-stage how-engine">
-                            <div class="how-stage-label">JanVayu engine</div>
-                            <ul class="how-nodes">
-                                <li>Verify <span>freshness &amp; cross-source checks</span></li>
-                                <li>Compute <span>health &amp; exposure models</span></li>
-                                <li>Contextualize <span>AQI bands &middot; WHO limits &middot; NCAP</span></li>
-                            </ul>
-                        </div>
-                        <div class="how-arrow" aria-hidden="true">&rarr;</div>
-                        <div class="how-stage">
-                            <div class="how-stage-label">Citizen tools</div>
-                            <ul class="how-nodes">
-                                <li>Live AQI <span>117 cities + ward atlas</span></li>
-                                <li>Ask JanVayu <span>AI air-quality assistant</span></li>
-                                <li>Forecast &middot; Farm-fire tracker</li>
-                                <li>RTI Assistant <span>government accountability</span></li>
-                                <li>Alerts &middot; Open Data API</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p class="how-flow-foot">Every figure sourced and open &middot; no ads &middot; no login &middot; free forever.</p>
-                </section>
 
                 <!-- City Rankings + Charts -->
                 <div class="grid-3 mt-3">
@@ -1137,7 +1138,7 @@
                         <div><h4 data-i18n="ql_economic_title">Economic Impact</h4><p data-i18n="ql_economic_desc">Productivity loss</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('aqi-explainer')">
-                        <div class="quick-link-icon" style="background: #EFF6FF; color: var(--blue);"><span class="si si-info" style="width:20px;height:20px;"></span></div>
+                        <div class="quick-link-icon" style="background: #EFF6FF; color: var(--ink);"><span class="si si-info" style="width:20px;height:20px;"></span></div>
                         <div><h4>What is AQI?</h4><p>The number explained — all 6 pollutants, two scales, what they hide</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('source-selector')">
@@ -1165,7 +1166,7 @@
                 </div>
                 <div class="grid-4 mt-2">
                     <div class="quick-link" onclick="showPanel('go-outside')">
-                        <div class="quick-link-icon" style="background: #EFF6FF; color: var(--blue);"><span class="si si-flare" style="width:20px;height:20px;"></span></div>
+                        <div class="quick-link-icon" style="background: #EFF6FF; color: var(--ink);"><span class="si si-flare" style="width:20px;height:20px;"></span></div>
                         <div><h4 data-i18n="ql_outside_t">Go Outside?</h4><p data-i18n="ql_outside_d">Real-time advice</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('social-feed')">
@@ -1220,44 +1221,44 @@
                 <span style="font-size: 0.7rem; color: var(--text-3);">Six sourced India-specific facts &middot; figures are the most recent published values from each source (Lancet Countdown 2025, IQAir 2025, AQLI 2025, CSE 2026, Jaganathan et al. 2024)</span>
             </div>
             <div class="grid-3" style="gap: 12px;">
-                <div class="card" style="border-left: 3px solid #1B6B4A;">
+                <div class="card" style="border-left: 3px solid var(--accent);">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--green-700); line-height: 1;" data-stat="deaths_annual">1.72M</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;" data-stat="deaths_annual">1.72M</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_deaths_title">Indian PM2.5 deaths a year</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;" data-stat="global_share_deaths">Lancet Countdown 2025. Up from 1.5M last cycle &mdash; ~70% of the global PM2.5 mortality burden is India.</div>
                     </div>
                 </div>
-                <div class="card" style="border-left: 3px solid #B91C1C;">
+                <div class="card" style="border-left: 3px solid var(--accent);">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--red); line-height: 1;" data-stat="most_polluted_city">112.5 µg/m&sup3;</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;" data-stat="most_polluted_city">112.5 µg/m&sup3;</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_loni_title">Loni, India &mdash; the world&rsquo;s most polluted city</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">IQAir World Air Quality Report 2025 (covering 2024 data; the most recent annual). Loni in Ghaziabad district, UP, dethroned Byrnihat. The annual average is 22&times; the WHO guideline.</div>
                     </div>
                 </div>
-                <div class="card" style="border-left: 3px solid #2563EB;">
+                <div class="card" style="border-left: 3px solid var(--accent);">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--blue); line-height: 1;" data-stat="life_expectancy_loss">3.5 yrs</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;" data-stat="life_expectancy_loss">3.5 yrs</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_le_title">Life expectancy lost on average</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">AQLI 2025 (UChicago EPIC). Indo-Gangetic Plain residents lose 7-8 years &mdash; the highest in any region globally.</div>
                     </div>
                 </div>
-                <div class="card" style="border-left: 3px solid #F59E0B;">
+                <div class="card" style="border-left: 3px solid var(--accent);">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--amber); line-height: 1;">64%</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;">64%</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_ncap_title">of NCAP funds spent on dust suppression</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">CSE 2026 NCAP review. Mostly mechanical sweeping &amp; water-spraying &mdash; not the combustion sources that drive most PM2.5.</div>
                     </div>
                 </div>
-                <div class="card" style="border-left: 3px solid #7C3AED;">
+                <div class="card" style="border-left: 3px solid var(--accent);">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--purple); line-height: 1;">8&times;</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;">8&times;</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_naaqs_title">India&rsquo;s NAAQS vs WHO guideline</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">India NAAQS = 40 µg/m&sup3; annual PM2.5; WHO 2021 guideline = 5. Indian standard last revised in 2009.</div>
                     </div>
                 </div>
-                <div class="card" style="border-left: 3px solid #16A34A;">
+                <div class="card" style="border-left: 3px solid var(--accent);">
                     <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--green-600); line-height: 1;">8.6%</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;">8.6%</div>
                         <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_doseresp_title">Mortality rise per +10 µg/m&sup3; PM2.5</div>
                         <div style="color: var(--text-2); font-size: 0.8rem;">Jaganathan et al. 2024, <em>Lancet Planetary Health</em>. India&rsquo;s first nationwide causal estimate &mdash; a difference-in-differences design across 655 districts.</div>
                     </div>
@@ -1715,8 +1716,8 @@
                 <div class="card-header"><span class="card-title"> Vulnerable Groups — Special Risks</span></div>
                 <div class="card-body">
                     <div class="grid-3">
-                        <div class="info-box" style="border-left: 3px solid #EC4899;">
-                            <h4 style="color: var(--pink);"> Pregnancy & Fetal Development</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Pregnancy & Fetal Development</h4>
                             <p data-simple="Pollution passes from mother to unborn baby through the placenta. It can cause low birth weight, premature birth, and even affect the baby&rsquo;s brain development before they are born.">Air pollution crosses the placenta. Effects on unborn children:</p>
                             <ul>
                                 <li><strong>Low birth weight:</strong> 15-20% higher risk at high PM2.5</li>
@@ -1729,8 +1730,8 @@
                             <div style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Sources: Lancet Planetary Health 2022, ICMR studies</div>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
-                            <h4 style="color: var(--amber);"> Children (0-14 years)</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Children (0-14 years)</h4>
                             <p>Children are not small adults — they're uniquely vulnerable:</p>
                             <ul>
                                 <li><strong>Breathe 50% more air</strong> per kg body weight</li>
@@ -1742,8 +1743,8 @@
                             <p style="margin-top: 0.5rem; font-size: 0.875rem;"><strong>Impact:</strong> Delhi children have 40% reduced lung capacity vs. clean air cities (CPCB study).</p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                            <h4 style="color: var(--purple);"> Mental Health Impact</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Mental Health Impact</h4>
                             <p data-simple="Pollution does not just hurt your lungs &mdash; it harms your brain too. It increases depression, anxiety, and memory loss. In children, it can lower IQ and cause behavior problems.">Air pollution affects the brain, not just lungs:</p>
                             <ul>
                                 <li><strong>Depression:</strong> 10% higher risk at high PM2.5</li>
@@ -1758,7 +1759,7 @@
                     </div>
 
                     <div class="grid-2 mt-2">
-                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4 style="color: var(--red);"> Elderly (65+)</h4>
                             <ul>
                                 <li>Weakened immune response</li>
@@ -1767,8 +1768,8 @@
                                 <li>Higher hospitalization rates</li>
                             </ul>
                         </div>
-                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4 style="color: var(--blue);"> Outdoor Workers</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Outdoor Workers</h4>
                             <ul>
                                 <li>Traffic police, delivery workers, construction</li>
                                 <li>8-12 hours daily exposure</li>
@@ -1809,8 +1810,8 @@
                             </div>
 
                             <!-- LANCET 10-CITY STUDY -->
-                            <div class="info-box" style="border-left: 4px solid #2563EB; background: rgba(37,99,235,0.03);">
-                                <h4 style="color: var(--blue); margin-bottom: 0.5rem;"> Lancet 10-City Causal Study (Dec 2024)</h4>
+                            <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(37,99,235,0.03);">
+                                <h4 style="margin-bottom: 0.5rem"> Lancet 10-City Causal Study (Dec 2024)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>33,000 deaths</strong> directly attributable to PM2.5 across 10 Indian cities</li>
                                     <li><strong>7.2% of daily deaths</strong> in Delhi linked to PM2.5 above WHO guideline</li>
@@ -1822,8 +1823,8 @@
 
                         <div>
                             <!-- HEAT-POLLUTION INTERACTION -->
-                            <div class="info-box mb-2" style="border-left: 4px solid #F59E0B; background: rgba(245,158,11,0.03);">
-                                <h4 style="color: var(--amber); margin-bottom: 0.5rem;"> Heat-Pollution Interaction (Karolinska, 2024)</h4>
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent); background: rgba(245,158,11,0.03);">
+                                <h4 style="margin-bottom: 0.5rem"> Heat-Pollution Interaction (Karolinska, 2024)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>4.6% mortality increase</strong> on days with both high heat AND high PM2.5</li>
                                     <li><strong>Synergistic effect:</strong> Combined risk > sum of individual risks</li>
@@ -1833,8 +1834,8 @@
                             </div>
 
                             <!-- DEMENTIA & COGNITIVE -->
-                            <div class="info-box mb-2" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.03);">
-                                <h4 style="color: var(--purple); margin-bottom: 0.5rem;"> PM2.5 and Dementia (SoGA 2025 — New Finding)</h4>
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent); background: rgba(124,58,237,0.03);">
+                                <h4 style="margin-bottom: 0.5rem"> PM2.5 and Dementia (SoGA 2025 — New Finding)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>54,000 dementia deaths</strong> attributed to PM2.5 in India (first-ever estimate)</li>
                                     <li><strong>Mechanism:</strong> Ultrafine particles cross blood-brain barrier, cause neuroinflammation</li>
@@ -1844,7 +1845,7 @@
                             </div>
 
                             <!-- SOURCE APPORTIONMENT -->
-                            <div class="info-box" style="border-left: 4px solid #16803C; background: rgba(22,128,60,0.03);">
+                            <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(22,128,60,0.03);">
                                 <h4 style="color: var(--green-700); margin-bottom: 0.5rem;"> Source Apportionment Update (EGUsphere, 2025)</h4>
                                 <ul style="font-size: 0.875rem; line-height: 1.8;">
                                     <li><strong>Industrial emissions:</strong> Now largest domestic source at 18% (previously underestimated)</li>
@@ -1870,8 +1871,8 @@
 
                     <div class="grid-2">
                         <!-- HOUSEHOLD AIR POLLUTION -->
-                        <div class="info-box" style="border-left: 4px solid #EC4899; background: rgba(236,72,153,0.03);">
-                            <h4 style="color: var(--pink); margin-bottom: 0.75rem;"> Household Air Pollution — The Invisible Epidemic</h4>
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(236,72,153,0.03);">
+                            <h4 style="margin-bottom: 0.75rem"> Household Air Pollution — The Invisible Epidemic</h4>
                             <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <strong>481,700 deaths/year in India</strong> from household air pollution (HAP) — nearly 30% of India's air pollution deaths. Yet NCAP focuses almost exclusively on ambient air.
                             </p>
@@ -1889,8 +1890,8 @@
                         </div>
 
                         <!-- OCCUPATIONAL EXPOSURE -->
-                        <div class="info-box" style="border-left: 4px solid #F59E0B; background: rgba(245,158,11,0.03);">
-                            <h4 style="color: var(--amber); margin-bottom: 0.75rem;"> Occupational Exposure — Unprotected Workers</h4>
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(245,158,11,0.03);">
+                            <h4 style="margin-bottom: 0.75rem"> Occupational Exposure — Unprotected Workers</h4>
                             <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <strong>93% of India's workforce is informal</strong> — with no occupational health standards for ambient air exposure. The formal sector gets WFH; workers breathe poison.
                             </p>
@@ -1911,8 +1912,8 @@
 
                     <div class="grid-2 mt-2">
                         <!-- SPATIAL INJUSTICE -->
-                        <div class="info-box" style="border-left: 4px solid #7C3AED; background: rgba(124,58,237,0.03);">
-                            <h4 style="color: var(--purple); margin-bottom: 0.75rem;"> Spatial Injustice — Where You Live Matters</h4>
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(124,58,237,0.03);">
+                            <h4 style="margin-bottom: 0.75rem"> Spatial Injustice — Where You Live Matters</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Industrial proximity:</strong> Low-income housing systematically located near factories, refineries, power plants</li>
                                 <li><strong>Highway adjacency:</strong> Slums built along arterial roads; PM2.5 50% higher within 100m of highways</li>
@@ -1926,8 +1927,8 @@
                         </div>
 
                         <!-- CASTE & CLASS -->
-                        <div class="info-box" style="border-left: 4px solid #0EA5E9; background: rgba(14,165,233,0.03);">
-                            <h4 style="color: var(--sky); margin-bottom: 0.75rem;"> Caste, Class & Environmental Racism</h4>
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(14,165,233,0.03);">
+                            <h4 style="margin-bottom: 0.75rem"> Caste, Class & Environmental Racism</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Manual scavenging:</strong> Still practiced despite ban; sewer deaths from toxic gases; predominantly Dalit</li>
                                 <li><strong>Sanitation workers:</strong> Burn waste, clear drains; no protective gear; municipality neglect</li>
@@ -1943,7 +1944,7 @@
 
                     <div class="grid-2 mt-2">
                         <!-- ADAPTATION INEQUALITY -->
-                        <div class="info-box" style="border-left: 4px solid #16803C; background: rgba(22,128,60,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(22,128,60,0.03);">
                             <h4 style="color: var(--green-700); margin-bottom: 0.75rem;"> Adaptation Inequality — Protection is a Privilege</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Air purifiers:</strong> ₹10,000-50,000 + electricity cost; inaccessible to 70%+ households</li>
@@ -1956,7 +1957,7 @@
                         </div>
 
                         <!-- POLICY CRITIQUE -->
-                        <div class="info-box" style="border-left: 4px solid #EF4444; background: rgba(239,68,68,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(239,68,68,0.03);">
                             <h4 style="color: var(--red); margin-bottom: 0.75rem;"> Policy Blind Spots — Who's Not at the Table?</h4>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>NCAP:</strong> Focuses on ambient PM10/PM2.5; HAP not integrated; no equity metrics</li>
@@ -1992,7 +1993,7 @@
                                 <div style="font-size: 0.8125rem; color: var(--text-3);">No air quality protections</div>
                             </div>
                             <div style="text-align: center; padding: 0.75rem; background: var(--bg-card); border-radius: 8px;">
-                                <div style="font-size: 1.75rem; font-weight: 700; color: var(--sky);">3-5×</div>
+                                <div style="font-size: 1.75rem; font-weight: 700; color: var(--ink);">3-5×</div>
                                 <div style="font-size: 0.8125rem; color: var(--text-2);">Higher exposure</div>
                                 <div style="font-size: 0.8125rem; color: var(--text-3);">Street vendors vs residents</div>
                             </div>
@@ -2108,7 +2109,7 @@
 <template id="tmpl-policy">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clipboard-check" style="color: var(--blue); margin-right: 0.4rem;"></span>Policy Effectiveness Tracker</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clipboard-check" style="color: var(--ink); margin-right: 0.4rem;"></span>Policy Effectiveness Tracker</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Which government actions actually cleaned the air, and which ones were a waste of money? Here&rsquo;s the evidence.">Evaluating major air quality interventions by actual PM2.5 impact, evidence quality, and cost-effectiveness.</p>
             </div>
 
@@ -2161,7 +2162,7 @@
                     <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">Evidence-based recommendations for more effective air quality management. These are citizen suggestions for policymakers.</p>
                     
                     <div class="grid-2">
-                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4 style="color: var(--red);"> 72-Hour Persistence Rule for GRAP</h4>
                             <p><strong>Problem:</strong> GRAP stages are currently relaxed as soon as AQI dips below threshold, even briefly. This "yo-yo" effect leads to:</p>
                             <ul>
@@ -2174,8 +2175,8 @@
                             <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Rationale: Weather patterns typically cycle over 3-5 days. 72-hour persistence ensures improvement is sustained, not a temporary dip.</em></p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
-                            <h4 style="color: var(--amber);"> Anticipatory Activation</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Anticipatory Activation</h4>
                             <p><strong>Problem:</strong> GRAP is reactive — activated only after AQI crosses threshold. By then, damage is done.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2186,8 +2187,8 @@
                             <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Example: If weather + fire data predicts AQI 400+ in 48 hours, activate Stage III immediately.</em></p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                            <h4 style="color: var(--blue);"> Automatic School Closures</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Automatic School Closures</h4>
                             <p><strong>Problem:</strong> Schools remain open even during AQI 400-500. Children are most vulnerable.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2199,7 +2200,7 @@
                             <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Legal basis: Right to Life (Article 21) includes right to clean air.</em></p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #16803C;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4 style="color: var(--green-700);"> Stubble — Fix the Economics</h4>
                             <p><strong>Problem:</strong> Burning is rational for farmers. Bans without alternatives don't work.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
@@ -2212,8 +2213,8 @@
                             <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Evidence: Punjab fires down 50%+ in districts with effective cash transfer programs.</em></p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                            <h4 style="color: var(--purple);"> Year-Round Industrial Standards</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Year-Round Industrial Standards</h4>
                             <p><strong>Problem:</strong> Industrial restrictions only during GRAP. Pollution is year-round problem.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2224,8 +2225,8 @@
                             </ul>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #EC4899;">
-                            <h4 style="color: var(--pink);"> Congestion Pricing (Not Odd-Even)</h4>
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
+                            <h4> Congestion Pricing (Not Odd-Even)</h4>
                             <p><strong>Problem:</strong> Odd-even has minimal impact (2-4% reduction) with high compliance cost.</p>
                             <p style="margin-top: 0.5rem;"><strong>Recommendation:</strong></p>
                             <ul>
@@ -2262,7 +2263,7 @@
                     <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;">Other cities faced similar crises and fixed them. Delhi can too.</p>
                     
                     <div class="grid-2">
-                        <div class="info-box" style="border-left: 3px solid #EF4444;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4> Beijing, China</h4>
                             <p><strong>Problem:</strong> 2013 "Airpocalypse" — PM2.5 over 500 for weeks. Called "unlivable."</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
@@ -2276,7 +2277,7 @@
                             <p style="margin-top: 0.5rem; color: var(--green-600);"><strong>Result:</strong> PM2.5 down 50% in 6 years (2013-2019)</p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4> London, UK</h4>
                             <p><strong>Problem:</strong> 1952 Great Smog killed 12,000. Chronic pollution through 1990s.</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
@@ -2290,7 +2291,7 @@
                             <p style="margin-top: 0.5rem; color: var(--green-600);"><strong>Result:</strong> NO2 down 44% since 2016. Congestion down 15%.</p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #F59E0B;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4> Los Angeles, USA</h4>
                             <p><strong>Problem:</strong> 1970s smog so bad children couldn't play outside. "Smog capital."</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
@@ -2304,7 +2305,7 @@
                             <p style="margin-top: 0.5rem; color: var(--green-600);"><strong>Result:</strong> Ozone down 70%, PM2.5 down 50% since 1980.</p>
                         </div>
 
-                        <div class="info-box" style="border-left: 3px solid #7C3AED;">
+                        <div class="info-box" style="border-left: 3px solid var(--accent);">
                             <h4> Surat, India</h4>
                             <p><strong>Problem:</strong> 1994 plague outbreak linked to poor sanitation and air quality.</p>
                             <p style="margin-top: 0.5rem;"><strong>Solution:</strong></p>
@@ -2333,7 +2334,7 @@
 <template id="tmpl-compare">
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-globe" style="color: var(--blue); margin-right: 0.4rem;"></span>Live City Comparison</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-globe" style="color: var(--ink); margin-right: 0.4rem;"></span>Live City Comparison</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="See how dirty the air is in different Indian cities, and compare with cities in other countries. The numbers update every 10 minutes.">Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
             </div>
 
@@ -2561,17 +2562,17 @@
                 <div class="card-header"><span class="card-title"> What COVID Lockdown Proved</span></div>
                 <div class="card-body">
                     <div class="grid-3">
-                        <div class="stat-card" style="border-left: 3px solid #22C55E;">
+                        <div class="stat-card" style="border-left: 3px solid var(--accent);">
                             <div class="stat-value" style="color: var(--green-600);">-52%</div>
                             <div class="stat-label">PM2.5 Reduction</div>
                             <div style="font-size: 0.8125rem; color: var(--text-3);">Apr 2020 vs Apr 2019</div>
                         </div>
-                        <div class="stat-card" style="border-left: 3px solid #3B82F6;">
-                            <div class="stat-value" style="color: var(--blue);">-60%</div>
+                        <div class="stat-card" style="border-left: 3px solid var(--accent);">
+                            <div class="stat-value" style="color: var(--ink);">-60%</div>
                             <div class="stat-label">NO2 Reduction</div>
                             <div style="font-size: 0.8125rem; color: var(--text-3);">Vehicular pollution proxy</div>
                         </div>
-                        <div class="stat-card" style="border-left: 3px solid #7C3AED;">
+                        <div class="stat-card" style="border-left: 3px solid var(--accent);">
                             <div class="stat-value" style="color: var(--purple);">Himalayas</div>
                             <div class="stat-label">Visible from Punjab</div>
                             <div style="font-size: 0.8125rem; color: var(--text-3);">First time in 30+ years</div>
@@ -2595,25 +2596,25 @@
     </div>
 
     <!-- ═══ Section 4: How heat and air pollution are connected ═══ -->
-    <div class="card mb-3" style="border-left: 4px solid #6366F1;">
+    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">How heat and air pollution are connected</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="Heat and dirty air are not two separate problems sitting side by side. They share the same chemistry, the same weather, the same causes and the same victims. Here is how they feed each other.">Heat and dirty air are not two separate problems sitting side by side &mdash; they share chemistry, weather, causes and victims. Here is how they feed each other, which is why this sits inside an air quality archive.</p>
 
             <div class="grid-2" style="gap:1rem; margin-bottom:1rem;">
-                <div class="info-box" style="background: rgba(234,88,12,0.06); border-left: 3px solid #EA580C;">
+                <div class="info-box" style="background: rgba(234,88,12,0.06); border-left: 3px solid var(--accent);">
                     <h4 style="color:#C2410C;">Heat cooks ozone</h4>
                     <p data-simple="Ground-level ozone is not emitted by anything &mdash; it is formed when vehicle and factory gases react in sunlight, and that reaction runs faster as the air gets hotter. A 50&deg;C street makes more ozone than a 35&deg;C one from the same traffic.">Ground-level ozone isn&rsquo;t emitted &mdash; it&rsquo;s formed when NOx and VOCs react in sunlight, and the reaction runs <strong>faster as temperature rises</strong>. A 50&deg;C street makes more ozone than a 35&deg;C one from the same traffic.<sup>3,4</sup></p>
                 </div>
-                <div class="info-box" style="background: rgba(100,116,139,0.06); border-left: 3px solid #64748B;">
+                <div class="info-box" style="background: rgba(100,116,139,0.06); border-left: 3px solid var(--accent);">
                     <h4 style="color:#475569;">Hot days are still days</h4>
                     <p data-simple="Heatwaves usually arrive with stagnant, high-pressure weather. The same still air that traps heat also fails to blow away smoke, dust and exhaust &mdash; so pollution piles up instead of dispersing.">Heatwaves ride in on stagnant high-pressure systems. The same still air that won&rsquo;t carry heat away <strong>won&rsquo;t disperse smoke, dust and exhaust either</strong> &mdash; so pollution accumulates.<sup>4</sup></p>
                 </div>
-                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid #DC2626;">
+                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid var(--accent);">
                     <h4 style="color:var(--red);">The cooling spiral</h4>
                     <p data-simple="Hotter colonies run more air conditioners. That pulls more electricity from a coal-heavy grid, releasing more PM2.5 and SO2 &mdash; and every AC dumps its waste heat onto the street, making it hotter still. Heat makes pollution makes heat.">Hotter colonies run more ACs &rarr; more power from a coal-heavy grid &rarr; more PM2.5 and SO2 &mdash; and every AC dumps waste heat onto the street. <strong>Heat makes pollution makes heat.</strong><sup>7</sup></p>
                 </div>
-                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid #15803D;">
+                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid var(--accent);">
                     <h4 style="color:var(--green-700);">One canopy, two jobs</h4>
                     <p data-simple="Tree cover lowers the temperature and also traps particle pollution on its leaves. Removing the green takes away both the shade and the filter at the same time.">Tree cover lowers temperature <em>and</em> deposits particulate matter on its leaves. Strip the green and you remove <strong>the shade and the filter at once</strong> &mdash; which is why &lsquo;trees cool more than concrete heats&rsquo; is also an air-quality statement.<sup>8</sup></p>
                 </div>
@@ -2626,7 +2627,7 @@
     </div>
 
     <!-- ═══ Section 1: The Delhi heat map ═══ -->
-    <div class="card mb-3" style="border-left: 4px solid #DC2626;">
+    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">The worked example: Delhi, neighbourhood by neighbourhood</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="A thermal map of Delhi found surface temperatures ranging from 34&deg;C in green Mehrauli to 52&deg;C in built-up Mubarakpur on the same day. Greener areas were cooler; concrete-heavy areas were hotter.">A thermal survey of Delhi captured surface temperatures on a single day. The greenest pockets &mdash; the Ridge, Mehrauli, the wooded south &mdash; stayed near <strong>34&ndash;35&deg;C</strong>. The densest, most built-up colonies of the north and west crossed <strong>50&deg;C</strong>. Same sun, same hour &mdash; up to 18&deg;C apart.</p>
@@ -2648,16 +2649,16 @@
     </div>
 
     <!-- ═══ Section 2: The science ═══ -->
-    <div class="card mb-3" style="border-left: 4px solid #15803D;">
+    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">The science behind the divide</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="A study by Artha Global looked at 2,368 homes across all 70 assembly seats of Delhi. It found a clear, measurable link between how a neighbourhood is built and how hot it actually feels.">A white paper by <strong>Artha Global</strong> studied <strong>2,368 households</strong> across all <strong>70 assembly constituencies</strong> of Delhi and found a precise, measurable relationship between urban form and experienced heat.</p>
             <div class="grid-2" style="gap:1rem; margin-bottom:1rem;">
-                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid #DC2626;">
+                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid var(--accent);">
                     <h4 style="color:var(--red);">Concrete heats</h4>
                     <p data-simple="When the built-up area of a neighbourhood rises from 25% to 55%, the temperature people actually feel goes up by 0.6&deg;C.">Increasing built-up area from <strong>25% to 55%</strong> raises experienced temperature by <strong>+0.6&deg;C</strong>.</p>
                 </div>
-                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid #15803D;">
+                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid var(--accent);">
                     <h4 style="color:var(--green-700);">Trees cool</h4>
                     <p data-simple="When tree cover rises from just 3% to 11%, the heat people feel drops by a full 1&deg;C.">Increasing tree cover from just <strong>3% to 11%</strong> lowers experienced heat by <strong>&minus;1&deg;C</strong>.</p>
                 </div>
@@ -2670,7 +2671,7 @@
     </div>
 
     <!-- ═══ Section 3: Interactive estimator ═══ -->
-    <div class="card mb-3" style="border-left: 4px solid #EA580C;">
+    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">Estimate your neighbourhood&rsquo;s heat</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="Move the sliders to match your area &mdash; how much is built-up (concrete) and how much has tree cover. See how much hotter or cooler it runs compared with a typical Delhi neighbourhood, using the white paper's own numbers.">Move the sliders to match your locality and see how much hotter or cooler it runs versus a typical Delhi neighbourhood &mdash; using the Artha Global coefficients (+0.02&deg;C per 1% built-up, &minus;0.125&deg;C per 1% tree cover).</p>
@@ -2694,7 +2695,7 @@
     </div>
 
     <!-- ═══ Section 5: Live evidence chart ═══ -->
-    <div class="card mb-3" style="border-left: 4px solid #EA580C;">
+    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
         <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap;">
             <span class="card-title">Live evidence: ozone tracks the day&rsquo;s heat</span>
             <div style="display:flex; align-items:center; gap:0.5rem;">
@@ -2711,7 +2712,7 @@
     </div>
 
     <!-- ═══ Section 6: Sources &amp; further reading ═══ -->
-    <div class="card mb-3" id="uh-sources" style="border-left: 4px solid #64748B;">
+    <div class="card mb-3" id="uh-sources" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">Sources &amp; further reading</span></div>
         <div class="card-body">
             <ol style="margin:0; padding-left:1.25rem; color:var(--text-2); font-size:0.8125rem; line-height:1.7;">
@@ -2754,7 +2755,7 @@
                         <span style="font-size: 0.65rem; color: var(--text-3);">External facilitator &middot; fee set by facilitator</span>
                     </div>
                     <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                        <div style="border-left: 3px solid #7C3AED; padding: 4px 0 4px 12px; margin-bottom: 14px;">
+                        <div style="border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; margin-bottom: 14px;">
                             <strong style="display: block; font-size: 0.95rem;">Air Quality Jeopardy and more</strong>
                             <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Dr. Sarath Guttikunda of <a href="https://urbanemissions.info/" target="_blank" rel="noopener">UrbanEmissions.Info</a> runs interactive sessions on air quality science, sources, and policy &mdash; including a Jeopardy-format game tested with school and adult cohorts. Choose Class 9+ students, college, or adult learners. <strong>Pricing and scheduling are set directly by Dr. Guttikunda</strong>; we relay your request and he'll respond with terms. <em>If you'd like a self-paced taste of the format first, try the <a href="#games" onclick="showPanel('games'); return false;">Learning Games</a> panel.</em></p>
                         </div>
@@ -2830,7 +2831,7 @@
                         <span style="font-size: 0.65rem; color: var(--text-3);">JanVayu team</span>
                     </div>
                     <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                        <div style="border-left: 3px solid #1B6B4A; padding: 4px 0 4px 12px; margin-bottom: 14px;">
+                        <div style="border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; margin-bottom: 14px;">
                             <strong style="display: block; font-size: 0.95rem;">Hands-on session</strong>
                             <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Live walkthrough of the dashboard. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and find the right purifier for your room. Free, online, English/Hindi. Up to 25 participants.</p>
                         </div>
@@ -3017,7 +3018,7 @@
         </div>
 
         <div class="card card-accent-blue">
-            <div class="card-header"><span class="card-title"><span class="si si-sm si-shield" style="color: var(--blue);"></span> Who Is Most Affected</span></div>
+            <div class="card-header"><span class="card-title"><span class="si si-sm si-shield" style="color: var(--ink);"></span> Who Is Most Affected</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Women using solid fuel:</strong> 60% of India's rural women still cook with firewood, dung, or crop residue. Average cooking time: 3-4 hours daily. Exposure levels during cooking sessions can exceed 500 µg/m³ PM2.5.</p>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;"><strong>Home-based workers:</strong> SEWA estimates 40% of non-agricultural women workers are home-based, in sewing, food production, or handicrafts. Aluminium sheet roofs trap heat 8-10°C above ambient, worsening pollutant concentration.</p>
@@ -3039,7 +3040,7 @@
     </div>
 
     <div class="card mt-2 card-accent-blue">
-        <div class="card-header"><span class="card-title"><span class="si si-sm si-shield" style="color: var(--blue);"></span> Choosing a low-cost indoor sensor</span></div>
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-shield" style="color: var(--ink);"></span> Choosing a low-cost indoor sensor</span></div>
         <div class="card-body">
             <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="If you want to measure the air inside your own home, a cheap sensor can help &mdash; but only some are accurate. Here is what to look for so you don&rsquo;t waste money on a gadget that guesses.">Cheap PM sensors put indoor monitoring within reach &mdash; but accuracy varies widely. A 2026 IIT (ISM) Dhanbad evaluation benchmarked affordable PM2.5/PM10 sensors under Indian indoor conditions; use its findings to buy wisely rather than trust the marketing.</p>
             <div class="grid-3" style="gap: 1rem;">
@@ -3122,7 +3123,7 @@
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">169K</div><div class="stat-label">Under-5 deaths from air pollution in India (IHME GBD 2021)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">30%+</div><div class="stat-label">Pneumonia deaths in under-5s linked to indoor air (ICMR)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--amber);">68</div><div class="stat-label">School closure days in Delhi (pollution, 2023-2026 cumulative)</div></div>
-        <div class="stat-strip-item"><div class="number-callout" style="color: var(--blue);">2.6x</div><div class="stat-label">Asthma rate in children near highways vs. clean areas</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: var(--ink);">2.6x</div><div class="stat-label">Asthma rate in children near highways vs. clean areas</div></div>
     </div>
 
     <div class="grid-2" style="gap: 1.25rem;">
@@ -3130,7 +3131,7 @@
             <div class="card-header"><span class="card-title">School Closures Tracker</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Delhi had to close schools many times during winter 2025-26 because the air was too dirty. When pollution gets really bad (AQI above 400), all primary schools must close. But many students in government schools don&rsquo;t have laptops or internet for online classes, so they simply miss out on learning. The next pollution-season closures start October-November 2026.">Delhi schools shifted to online mode multiple times during Winter 2025-26 (the most recent pollution season). Under GRAP Stage III/IV, all primary schools close when AQI exceeds 400. Students in government schools often lack devices for online learning, widening the education equity gap. The next closure window opens with the post-monsoon pollution season &mdash; typically late October 2026.</p>
-                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid #EF4444;">
+                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid var(--accent);">
                     <h4>Winter 2025-26 closures (most recent pollution season)</h4>
                     <p>Nov 4-8, Nov 14-18, Nov 22-26, Dec 2-5, Jan 6-10, Jan 16-20. <strong>Total: ~30 days</strong> across Winter 2025-26. An estimated 4+ million school-age children affected in Delhi-NCR alone. Learning loss is cumulative and disproportionately harms first-generation learners.</p>
                 </div>
@@ -3164,19 +3165,19 @@
 <!-- ═══════════════════════════════════════════════ -->
 <template id="tmpl-gender">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-heart" style="color: var(--pink); margin-right: 0.4rem;"></span>Women's Health &amp; Air Quality</h2>
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-heart" style="color: var(--ink); margin-right: 0.4rem;"></span>Women's Health &amp; Air Quality</h2>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Women and girls are hurt more by India's air pollution. They cook with dirty fuels, work in polluted places, and face higher health risks during pregnancy. But we barely track the problem because most air monitors are not where women spend their time.">Women and girls bear a disproportionate burden of India&rsquo;s air pollution crisis. From indoor cooking smoke to occupational exposure, from maternal health risks to the near-total absence of gender-disaggregated monitoring, the intersection of gender and air quality is one of India&rsquo;s most under-examined public health failures.</p>
     </div>
 
     <div class="stat-strip" style="margin-bottom: 2rem;">
-        <div class="stat-strip-item"><div class="number-callout" style="color: var(--pink);">~70%</div><div class="stat-label">Rural Indian women still cook with solid fuels (NFHS-5, 2019-21)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: var(--ink);">~70%</div><div class="stat-label">Rural Indian women still cook with solid fuels (NFHS-5, 2019-21)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">3&ndash;5%</div><div class="stat-label">Increase in preterm birth risk per +10 &micro;g/m&sup3; PM2.5 (Lancet Planetary Health 2023)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">~500K</div><div class="stat-label">Indian women die annually from household air pollution (GBD 2021)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--amber);">60%</div><div class="stat-label">Of global HAP deaths are women (Lancet Countdown 2025)</div></div>
     </div>
 
     <div class="grid-3" style="gap: 1.25rem; margin-bottom: 1.25rem;">
-        <div class="card" style="border-left: 4px solid #EC4899;">
+        <div class="card" style="border-left: 4px solid var(--accent);">
             <div class="card-header"><span class="card-title">Indoor Cooking Exposure</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="About 70% of rural Indian women still cook with wood, dung, or crop waste. They stand near the chulha for 3 to 5 hours every day, breathing in pollution levels 20 to 40 times higher than what the WHO says is safe.">Approximately 70% of rural Indian women still cook with solid fuels &mdash; wood, dung cake, and crop residue (NFHS-5, 2019-21). Women spend 3&ndash;5 hours per day near the chulha, inhaling PM2.5 concentrations 20&ndash;40&times; the WHO annual guideline of 5 &micro;g/m&sup3;.</p>
@@ -3204,7 +3205,7 @@
             <div class="card-header"><span class="card-title">The Indoor Cooking Crisis</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Cooking with wood, dung, and crop waste exposes women to pollution levels 10 to 40 times higher than outdoor air. The government's Ujjwala scheme gave out 10 crore LPG connections, but many women can't afford refills. They use only about 3.5 cylinders per year instead of the 6-7 needed. Many go back to using firewood because LPG is too expensive.">Solid fuel cooking &mdash; wood, dung, and crop residue &mdash; exposes women to PM2.5 concentrations 10&ndash;40&times; ambient levels. The Pradhan Mantri Ujjwala Yojana (PMUY) distributed over 10 Cr LPG connections since 2016, but sustained use remains a challenge. Refill rates have dropped to approximately 3.5 cylinders per year in many states, far below the 6&ndash;7 cylinders needed for a full cooking fuel transition. Cost remains the primary barrier: many beneficiaries revert to biomass fuels when subsidies are delayed or insufficient.</p>
-                <div class="info-box" style="background: rgba(217,119,6,0.06); border-left: 3px solid #D97706;">
+                <div class="info-box" style="background: rgba(217,119,6,0.06); border-left: 3px solid var(--accent);">
                     <h4>Ujjwala: Connection vs. Transition</h4>
                     <p>A 2024 CEEW evaluation found that only 38% of Ujjwala beneficiaries use LPG as their primary cooking fuel. The remaining 62% practice fuel stacking &mdash; using LPG for quick meals and biomass for roti-making and extended cooking. The scheme succeeded in access but has not yet achieved a clean cooking transition.</p>
                 </div>
@@ -3216,7 +3217,7 @@
             <div class="card-header"><span class="card-title">Occupational Exposure</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Women who work in construction, brick kilns, street vending, and farming breathe dirty air all day without protection. About 30% of construction workers are women, but they are rarely given N95 masks or any safety gear.">Women in construction, brick kilns, street vending, and agriculture face sustained outdoor PM2.5 exposure without respiratory protection. Female construction workers comprise approximately 30% of the workforce but are rarely provided N95 masks or occupational health screening. Brick kiln workers &mdash; many of them women from migrant families &mdash; are exposed to PM levels of 500&ndash;1,000 &micro;g/m&sup3; during firing cycles.</p>
-                <div class="info-box" style="background: rgba(59,130,246,0.06); border-left: 3px solid #3B82F6;">
+                <div class="info-box" style="background: rgba(59,130,246,0.06); border-left: 3px solid var(--accent);">
                     <h4>The Informal Sector Gap</h4>
                     <p>India&rsquo;s Factories Act and Building &amp; Other Construction Workers Act mandate protective equipment, but enforcement in the informal sector &mdash; where most women work &mdash; is nearly non-existent. No national data exists on occupational respiratory disease among female informal workers.</p>
                 </div>
@@ -3237,7 +3238,7 @@
             <div class="card-header"><span class="card-title">The Gender Data Gap</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Most air quality sensors are placed in commercial and industrial areas, not in homes and kitchens where women spend most of their time. India has zero official indoor air monitoring stations. Health studies rarely separate data by gender, so we don't fully know how much worse pollution is for women.">Most air quality monitoring stations (CAAQMS) are sited in commercial, industrial, and traffic zones &mdash; not in residential areas where women spend the majority of their time. CPCB&rsquo;s monitoring network includes zero indoor monitoring stations. Health impact studies rarely disaggregate outcomes by gender, making it impossible to precisely quantify the differential burden on women.</p>
-                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid #EF4444;">
+                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid var(--accent);">
                     <h4>CAG Audit Finding (April 2025)</h4>
                     <p>The Comptroller and Auditor General&rsquo;s April 2025 audit of India&rsquo;s air quality monitoring infrastructure found that station siting criteria systematically excluded residential and peri-urban areas. The audit recommended gender-sensitive monitoring protocols and indoor air quality stations in at least 50 cities by 2028.</p>
                 </div>
@@ -3246,7 +3247,7 @@
         </div>
     </div>
 
-    <div class="card mt-2" style="border-left: 4px solid #10B981;">
+    <div class="card mt-2" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">What Needs to Change</span></div>
         <div class="card-body">
             <div class="grid-3" style="gap: 1rem;">
@@ -3284,7 +3285,7 @@
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">30%</div><div class="stat-label">Industrial contribution to NCR PM2.5 (TERI-ARAI)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--amber);">1,700+</div><div class="stat-label">Industries in Delhi-NCR operating without consent (DPCC est.)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">50mg</div><div class="stat-label">CAQM PM emission limit for NCR industries (2024)</div></div>
-        <div class="stat-strip-item"><div class="number-callout" style="color: var(--blue);">11</div><div class="stat-label">Coal power plants within 300km of Delhi</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: var(--ink);">11</div><div class="stat-label">Coal power plants within 300km of Delhi</div></div>
     </div>
 
     <div class="grid-2" style="gap: 1.25rem;">
@@ -3511,7 +3512,7 @@
             <div class="stat-strip" style="margin-bottom: 1.5rem;">
                 <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">40%</div><div class="stat-label">Target PM10 reduction (vs. 2017 baseline)</div></div>
                 <div class="stat-strip-item"><div class="number-callout" style="color: var(--amber);">23/100</div><div class="stat-label">Cities that met target (CREA Jan 2026, 100 cities with sufficient data)</div></div>
-                <div class="stat-strip-item"><div class="number-callout" style="color: var(--blue);">68%</div><div class="stat-label">NCAP funds spent on road dust control</div></div>
+                <div class="stat-strip-item"><div class="number-callout" style="color: var(--ink);">68%</div><div class="stat-label">NCAP funds spent on road dust control</div></div>
                 <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">&lt;1%</div><div class="stat-label">Spent on industrial emission control</div></div>
             </div>
             <p style="font-size: 0.875rem; color: var(--text-2);">NCAP's 31 March 2026 deadline for 40% PM10 reduction across 131 non-attainment cities has elapsed with the programme far short of its target. Guttikunda et al.'s 2024 analysis (examining 2019&ndash;2023 data) documented "no change in the fraction of cities above 150 µg/m³" for PM10. The programme's spending priorities &mdash; overwhelmingly tilted toward road dust rather than transport, industry, or biomass &mdash; explain much of this underperformance. The CSE Five-Year Review (April 2026) found that 64% of NCAP funds went to dust suppression, not combustion sources. See the <a href="#resources" onclick="showPanel('resources'); return false;">Resources panel</a> for the CSE review.</p>
@@ -3522,19 +3523,19 @@
         <div class="card card-accent-amber">
             <div class="card-header"><span class="card-title">Promise vs. Reality: Key Interventions</span></div>
             <div class="card-body" style="font-size: 0.875rem; color: var(--text-2);">
-                <div class="info-box" style="border-left: 3px solid #EF4444; margin-bottom: 0.75rem;">
+                <div class="info-box" style="border-left: 3px solid var(--accent); margin-bottom: 0.75rem;">
                     <h4>Anti-Smog Guns (200 deployed, Rs 58 Cr)</h4>
                     <p><strong>Evidence:</strong> Reduce AQI by 5-10 points in immediate vicinity only. No measurable city-level impact. IIT Delhi study: "cosmetic measure."</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #D97706; margin-bottom: 0.75rem;">
+                <div class="info-box" style="border-left: 3px solid var(--accent); margin-bottom: 0.75rem;">
                     <h4>Road Mechanised Sweeping</h4>
                     <p><strong>Evidence:</strong> Mixed. Reduces resuspended road dust temporarily. 68% of NCAP budget goes here, but road dust is not the primary PM2.5 source (vehicles and biomass are).</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #22C55E; margin-bottom: 0.75rem;">
+                <div class="info-box" style="border-left: 3px solid var(--accent); margin-bottom: 0.75rem;">
                     <h4>E-bus Procurement</h4>
                     <p><strong>Evidence:</strong> Strong long-term impact. Delhi targets 6,000 buses by Dec 2026 (from 3,600). Each diesel bus replaced = ~25 tonnes CO2/year + significant PM reduction. But procurement pace is slow.</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #3B82F6;">
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
                     <h4>Cloud Seeding Experiments</h4>
                     <p><strong>Evidence:</strong> Delhi government conducted trials in late 2025 and early 2026; both claimed success. Independent assessment of both rounds: minimal rainfall produced, no measurable AQI impact. Scientific consensus (CEEW, IIT-Delhi DSS): not scalable as a pollution-control intervention &mdash; addresses symptoms after the fact, not sources.</p>
                 </div>
@@ -3813,7 +3814,7 @@
     <!-- ── SECTION 3: Public Feedback ── -->
     <div class="card mb-2">
         <div class="card-header">
-            <span class="card-title" style="color: var(--blue);">
+            <span class="card-title" style="color: var(--ink);">
                 <span class="si si-chat"></span>
                 Citizen Observations
             </span>
@@ -3857,33 +3858,33 @@
                 These are the questions that citizens, journalists, and ward councillors should be putting to their municipal corporations and state pollution control boards. Use these in RTI applications, public hearings, or media advocacy.
             </p>
             <div class="grid-2" style="gap: 1rem;">
-                <div class="info-box" style="border-left: 3px solid #EF4444;">
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
                     <h4 style="color: var(--red); font-size: 0.875rem;">On spending priorities</h4>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;How much of the NCAP budget was spent on road dust suppression vs actual emission reduction (vehicles, industry, biomass)?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: 68% of NCAP funds nationally went to dust control. Vehicles (38%) and industry (18%) &mdash; the top PM2.5 sources &mdash; received &lt;1% combined.</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #D97706;">
-                    <h4 style="color: var(--amber); font-size: 0.875rem;">On CAQM functioning</h4>
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="font-size: 0.875rem">On CAQM functioning</h4>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;How many CAQM meetings were held in the past 6 months? What was decided? Are minutes publicly available?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: CAQM is the apex body for NCR air quality. Meeting frequency and decisions should be public. File RTI under CAQM, MoEFCC.</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #3B82F6;">
-                    <h4 style="color: var(--blue); font-size: 0.875rem;">On monitoring gaps</h4>
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="font-size: 0.875rem">On monitoring gaps</h4>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;Has your city&rsquo;s monitoring station count increased since NCAP started? Are all stations reporting data continuously?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: Many cities have 2-3 stations for millions of people. Data gaps (&gt;25% downtime) are common. Without measurement, there is no accountability.</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #7C3AED;">
-                    <h4 style="color: var(--purple); font-size: 0.875rem;">On the funding cliff</h4>
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="font-size: 0.875rem">On the funding cliff</h4>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;What happened to the 15th Finance Commission clean air grants (&rupee;16,539 Cr for 49 cities) that expired 31 March 2026?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: This bucket was 87% of all NCAP city funding. 16th FC recommendations expected Oct 2026 for FY27 (Apr 2027) &mdash; leaving a potential 12-month gap with no new allocation.</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #16803C;">
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
                     <h4 style="color: var(--green-700); font-size: 0.875rem;">On target accountability</h4>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;NCAP targeted 40% PM10 reduction by March 2026. Only 23 of 100 cities met it. What is the revised plan?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: As of mid-May 2026, no revised NCAP programme has been announced. Guttikunda et al. (2024) found &ldquo;no change in the fraction of cities above 150 &micro;g/m&sup3;&rdquo; for PM10.</p>
                 </div>
-                <div class="info-box" style="border-left: 3px solid #EC4899;">
-                    <h4 style="color: var(--pink); font-size: 0.875rem;">On compliance enforcement</h4>
+                <div class="info-box" style="border-left: 3px solid var(--accent);">
+                    <h4 style="font-size: 0.875rem">On compliance enforcement</h4>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;During the last GRAP Stage IV, how many construction sites were inspected? How many penalties were issued?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: Compliance monitoring during winter 2025-26 found 40% of construction sites continued operations during the ban. Enforcement is the weakest link.</p>
                 </div>
@@ -3902,7 +3903,7 @@
 <!-- ═══════════════════════════════════════════════ -->
 <template id="tmpl-migration">
     <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-bus" style="color: var(--blue); margin-right: 0.4rem;"></span>Migration &amp; Climate Displacement</h2>
+        <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-bus" style="color: var(--ink); margin-right: 0.4rem;"></span>Migration &amp; Climate Displacement</h2>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Many people are leaving Delhi because of bad air. IT workers and rich families move to cities with cleaner air. But daily wage workers, who breathe the worst air, cannot afford to leave. This is deeply unfair.">Air quality is becoming a driver of internal migration. Skilled professionals leave Delhi for Bangalore, Pune, Hyderabad. But informal workers who bear the worst exposure have no option to leave. This asymmetry defines the environmental justice crisis.</p>
     </div>
 
@@ -3977,7 +3978,7 @@
         <div class="card card-accent-blue">
             <div class="card-body" style="padding: 1.75rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                    <span class="si si-lg si-clipboard" style="color: var(--blue);"></span>
+                    <span class="si si-lg si-clipboard" style="color: var(--ink);"></span>
                     <h3 style="font-size: 1rem; font-weight: 600;">RTI Template Pack</h3>
                 </div>
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Pre-formatted RTI applications for CPCB, DPCC, MoEFCC, and CAQM. Print-ready with filing instructions.</p>
@@ -4601,7 +4602,7 @@
         </div>
 
         <div>
-            <div class="card mb-2" style="border-left:4px solid #DC2626;">
+            <div class="card mb-2" style="border-left: 4px solid var(--accent);">
                 <div class="card-header"><span class="card-title">But&hellip;</span></div>
                 <div class="card-body" id="ward-stats">
                     <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
@@ -4648,7 +4649,7 @@
                         <strong style="color: var(--purple);">Nov-Feb:</strong> Temperature inversion traps pollutants near ground level
                     </div>
                     <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-light);">
-                        <strong style="color: var(--blue);">Year-round:</strong> Vehicular emissions (40% of Delhi pollution)
+                        <strong style="color: var(--ink);">Year-round:</strong> Vehicular emissions (40% of Delhi pollution)
                     </div>
                     <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-light);">
                         <strong style="color: #6B7280;">Year-round:</strong> Construction dust, industrial emissions, waste burning
@@ -6114,7 +6115,7 @@ Citizens are fighting back. RWAs install community air purifiers. Parents demand
           </div>` },
         { id: 'obs-ncap', top: 504, bottom: 634, left: containerWidth - 200, right: containerWidth,
           html: `<div style="text-align:center;">
-            <div style="font-size:2rem;font-weight:700;color:var(--blue);font-family:var(--sans);">40%</div>
+            <div style="font-size:2rem;font-weight:700;color: var(--ink);font-family:var(--sans);">40%</div>
             <div style="font-size:0.72rem;color:var(--text-3);margin-top:4px;">NCAP 2026 target</div>
             <div style="font-size:0.65rem;color:var(--text-4);margin-top:4px;">PM2.5 reduction goal</div>
             <div style="width:100%;height:6px;background:var(--border);border-radius:3px;margin-top:8px;">
