@@ -1835,20 +1835,72 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 .role-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    /* 12 roles: pin to divisors of 12 (4 / 3 / 2) so every row is full and
+       there are never awkward trailing empty slots. */
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px; margin-bottom: 2rem;
 }
 .role-card {
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: var(--radius-lg); padding: 1.25rem 1rem;
-    cursor: pointer; transition: all 0.2s ease;
+    cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     text-align: center; position: relative;
+    /* Soft staggered "tile" entrance when the overlay opens. */
+    animation: roleTileIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .role-card:hover {
     border-color: var(--accent); box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    background: rgba(22,163,74,0.06);
 }
-.role-card:active { transform: translateY(0); }
+.role-card:hover .role-card-icon { transform: scale(1.08); }
+.role-card:active { transform: translateY(-1px); }
+.role-card-icon { transition: transform 0.18s ease; }
+@keyframes roleTileIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.role-card:nth-child(1)  { animation-delay: 0.02s; }
+.role-card:nth-child(2)  { animation-delay: 0.06s; }
+.role-card:nth-child(3)  { animation-delay: 0.10s; }
+.role-card:nth-child(4)  { animation-delay: 0.14s; }
+.role-card:nth-child(5)  { animation-delay: 0.18s; }
+.role-card:nth-child(6)  { animation-delay: 0.22s; }
+.role-card:nth-child(7)  { animation-delay: 0.26s; }
+.role-card:nth-child(8)  { animation-delay: 0.30s; }
+.role-card:nth-child(9)  { animation-delay: 0.34s; }
+.role-card:nth-child(10) { animation-delay: 0.38s; }
+.role-card:nth-child(11) { animation-delay: 0.42s; }
+.role-card:nth-child(12) { animation-delay: 0.46s; }
+@media (prefers-reduced-motion: reduce) {
+    .role-card { animation: none; }
+    .role-card:hover { transform: none; }
+    .role-card:hover .role-card-icon { transform: none; }
+}
+
+/* ══ Classy motion ═══════════════════════════════════════════════════════
+   Gentle entrance + scroll-reveal. Progressive enhancement: elements are
+   only hidden once JS adds .reveal-on to <html>, a failsafe reveals any
+   stragglers, and everything is disabled for prefers-reduced-motion — so
+   content can never end up permanently hidden. */
+.hero-headline { animation: heroRise 0.7s cubic-bezier(.22,1,.36,1) both; }
+.hero-sub      { animation: heroRise 0.7s cubic-bezier(.22,1,.36,1) 0.08s both; }
+.hero-data     { animation: heroRise 0.8s cubic-bezier(.22,1,.36,1) 0.10s both; }
+.hero-live-alert  { animation: heroRise 0.7s cubic-bezier(.22,1,.36,1) 0.16s both; }
+.hero-live-toggle { animation: heroRise 0.7s cubic-bezier(.22,1,.36,1) 0.20s both; }
+@keyframes heroRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+html.reveal-on [data-reveal] {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.75s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+}
+html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-headline, .hero-sub, .hero-data, .hero-live-alert, .hero-live-toggle { animation: none; }
+    html.reveal-on [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 .role-card-icon {
     font-size: 2rem; margin-bottom: 0.5rem; display: block;
     line-height: 1; color: var(--accent);
@@ -2200,6 +2252,11 @@ body.simple-language .section-intro [data-simple]::after {
 }
 .panel-action-box .action-btn:hover {
     background: var(--accent-hover);
+}
+
+/* Tablet: 3 columns (12 → 4 full rows), still no trailing gaps. */
+@media (max-width: 820px) {
+    .role-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 640px) {
