@@ -419,6 +419,7 @@
             <div class="role-overlay-logo-sub" data-i18n="tagline">Citizen Air Quality Platform</div>
             <h2 data-i18n="role_heading">India's air crisis affects everyone differently.<br>How can we help you?</h2>
             <p class="role-subtitle" data-i18n="role_subtitle">Select your role and we'll show you the most relevant data, tools, and actions.</p>
+            <button class="role-skip role-skip-top" onclick="selectRole('skip')" data-i18n="role_skip">Skip &mdash; just show me the air quality &rarr;</button>
             <div class="role-grid">
                 <div class="role-card" onclick="selectRole('parent')">
                     <span class="role-card-icon"><span class="si si-home"></span></span>
@@ -481,7 +482,6 @@
                     <div class="role-card-desc" data-i18n="role_business_desc">Workforce health & economic impact</div>
                 </div>
             </div>
-            <button class="role-skip" onclick="selectRole('skip')" data-i18n="role_skip">Skip — show me everything</button>
         </div>
     </div>
 
@@ -806,9 +806,10 @@
                     <div>
                         <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>1.72 million people</em> every year</h1>
                         <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
-                        <div class="hero-live-alert">
+                        <div class="hero-live-alert clamped" id="heroLiveAlert">
                             <strong>July 2026:</strong> The monsoon brings a brief respite, but India's air remains in crisis year-round. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2025 covering 2024 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit; only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (launched May 2026) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5 &mdash; ~70% of the global burden. NCAP's 31 March 2026 deadline has elapsed: only 23 of 100 cities with sufficient data hit the target (CREA Jan 2026); CSE's April 2026 five-year review counts 37 of 131. CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in &mdash; the calm months mask a year-round crisis. New: a <a href="#games" onclick="showPanel('games'); return false;" style="color: inherit; text-decoration: underline;">seven-game Learning Games</a> panel is now live &mdash; including the new <em>Vayu Junction</em> word-grouping puzzle &mdash; and a 64-slide <a href="/walkthrough/" style="color: inherit; text-decoration: underline;">guided walkthrough</a> of the whole platform built for the MMSF Fellows cohort.
                         </div>
+                        <button class="hero-live-toggle" id="heroLiveToggle" onclick="toggleHeroAlert()" aria-expanded="false" aria-controls="heroLiveAlert">Read more &#9662;</button>
                     </div>
                     <div class="hero-data">
                         <div class="hero-pm25-card">
@@ -5710,7 +5711,7 @@ const ROLE_CONFIG = {
 function selectRole(role) {
     const overlay = document.getElementById('roleOverlay');
     if (role === 'skip') {
-        sessionStorage.setItem('janvayu-role', 'skip');
+        localStorage.setItem('janvayu-role', 'skip');
         overlay.classList.add('hiding');
         setTimeout(() => {
             overlay.style.display = 'none';
@@ -5719,7 +5720,7 @@ function selectRole(role) {
         updateRoleSwitcher('skip');
         return;
     }
-    sessionStorage.setItem('janvayu-role', role);
+    localStorage.setItem('janvayu-role', role);
     overlay.classList.add('hiding');
     setTimeout(() => {
         overlay.style.display = 'none';
@@ -5859,11 +5860,11 @@ function switchRole(role) {
     closeRoleSwitcher();
 
     if (role === 'skip') {
-        sessionStorage.setItem('janvayu-role', 'skip');
+        localStorage.setItem('janvayu-role', 'skip');
         updateRoleSwitcher('skip');
         dismissRoleDashboard();
     } else {
-        sessionStorage.setItem('janvayu-role', role);
+        localStorage.setItem('janvayu-role', role);
         updateRoleSwitcher(role);
         showRoleDashboard(role);
     }
@@ -5871,7 +5872,9 @@ function switchRole(role) {
 
 // ── Init: Check for saved role on page load ──
 (function initRoleExperience() {
-    const savedRole = sessionStorage.getItem('janvayu-role');
+    // Persisted across sessions (localStorage) so returning visitors land on
+    // data, not the role gate. Migrate any older sessionStorage value once.
+    const savedRole = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role');
     const hash = window.location.hash.replace('#', '');
 
     // If there's a specific panel hash (not dashboard, not my-dashboard), go directly there

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.78] - 2026-07-16
+
+### UX — visual decluttering (lead with data)
+
+Two targeted changes so the site's first impression is the live air quality, not a wall of onboarding and context.
+
+- **Role gate no longer blocks returning visitors.** The first-visit role-selector overlay used `sessionStorage`, so it re-appeared every new session. It now persists the role/skip choice in `localStorage` (reading any older sessionStorage value once for continuity), so returning visitors land straight on the dashboard.
+- **One-click path to the data.** Added a prominent "Skip — just show me the air quality →" action *above* the twelve role cards (previously the only skip sat below all of them, off-screen on mobile).
+- **Collapsed the dashboard context blurb.** The ~180-word "what's happening now" box under the hero headline is clamped to a ~3-line excerpt with a "Read more / Show less" toggle, so the live PM2.5 card and stat tiles lead.
+
+Verified in Chromium: overlay shows first-visit and stays hidden after a reload once skipped; the intro box collapses on load and expands on toggle; zero page errors. Navigation was reviewed and deliberately left as-is — it is already a grouped eight-item mega-menu (desktop) and a labelled drawer (mobile); re-grouping would only lengthen each menu.
+
 ## [v26.6.77] - 2026-07-16
 
 ### Copy — About-panel mission consistency + wording
