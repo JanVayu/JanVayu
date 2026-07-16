@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.84] - 2026-07-16
+
+### Design — colour discipline across all content panels (conference-ready)
+
+Extended the dashboard colour discipline to the ~20 interior panels, which used a different saturated hue per category (pregnancy pink, children amber, mental-health purple, etc.) — the clearest "assembled by an enthusiast" tell.
+
+- **82** decorative heading colours (blue/amber/purple/pink/sky) neutralised to ink; brand-green and semantic-red headings kept.
+- **248** hardcoded-hex card rails unified to the brand accent (green) instead of cycling hues.
+- **45** blue/sky/pink text colours (never AQI-semantic) neutralised to ink; **6** dashboard "Did You Know" stat numbers flattened to ink.
+- AQI-band amber/purple on actual readings preserved — colour now means something (AQI severity), not decoration.
+
+Verified in Chromium across dashboard + interior panels: de-rainbowed, headings ink, rails uniform green, zero page errors; 12/12 unit tests pass.
+
 ## [v26.6.83] - 2026-07-16
 
 ### Design — "How JanVayu works" system diagram (conference-ready pass 3/4)
