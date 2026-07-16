@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.82] - 2026-07-16
+
+### Design — colour discipline on the dashboard (conference-ready pass 2/4)
+
+The dashboard's hero stats used four competing hues (red deaths, amber cost, purple annual-PM2.5, band-coloured worst-city), which read as decorative rather than meaningful. Tightened to a system:
+
+- **Deaths** stay red — the deliberate alarm, and JanVayu's thesis.
+- **Annual cost** and **Delhi annual PM2.5** are now neutral ink (they were arbitrarily amber and purple).
+- The **live worst-city** figure keeps its AQI-band colour (that one is genuinely a real-time severity signal).
+
+So colour on the primary surface now means something: alarm-red for the human toll, band-colour for live severity, ink for everything else. Everything else on the dashboard (AQI bands, GRAP strip, severity badges) was already semantic and is untouched. The deeper content panels still use per-category colour-coding — a larger, separate sweep.
+
 ## [v26.6.81] - 2026-07-16
 
 ### Design — Fraunces headline typeface (conference-ready pass 1/4)
