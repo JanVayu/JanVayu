@@ -674,8 +674,8 @@
                 <button class="mobile-nav-item" data-panel="citizen-action" data-i18n="nav_citizen_action">Citizen Plan</button>
                 <button class="mobile-nav-item" data-panel="rti-assistant" data-i18n="nav_rti_assistant">RTI Assistant</button>
                 <button class="mobile-nav-item" data-panel="legal" data-i18n="nav_legal">Legal Framework</button>
-                <button class="mobile-nav-item" data-panel="voices" data-i18n="nav_voices">Citizen Voices</button>
-                <button class="mobile-nav-item" data-panel="testimony" data-i18n="nav_testimony">Citizen Testimony</button>
+                <button class="mobile-nav-item" data-panel="voices" data-i18n="nav_voices">Voices Online</button>
+                <button class="mobile-nav-item" data-panel="testimony" data-i18n="nav_testimony">Field Testimony</button>
                 <button class="mobile-nav-item" data-panel="workshops" data-i18n="nav_workshops">Workshops</button>
                 <button class="mobile-nav-item" data-panel="games" data-i18n="nav_games">Learning Games</button>
                 <button class="mobile-nav-item" data-panel="migration" data-i18n="nav_migration">Migration &amp; Displacement</button>
@@ -780,8 +780,8 @@
                     <button class="nav-dropdown-link" data-panel="citizen-action" data-i18n="nav_citizen_action">Citizen Plan</button>
                     <button class="nav-dropdown-link" data-panel="rti-assistant" data-i18n="nav_rti_assistant">RTI Assistant</button>
                     <button class="nav-dropdown-link" data-panel="legal" data-i18n="nav_legal">Legal Framework</button>
-                    <button class="nav-dropdown-link" data-panel="voices" data-i18n="nav_voices">Citizen Voices</button>
-                    <button class="nav-dropdown-link" data-panel="testimony" data-i18n="nav_testimony">Citizen Testimony</button>
+                    <button class="nav-dropdown-link" data-panel="voices" data-i18n="nav_voices">Voices Online</button>
+                    <button class="nav-dropdown-link" data-panel="testimony" data-i18n="nav_testimony">Field Testimony</button>
                     <button class="nav-dropdown-link" data-panel="workshops" data-i18n="nav_workshops">Workshops</button>
                     <button class="nav-dropdown-link" data-panel="games" data-i18n="nav_games">Learning Games</button>
                     <button class="nav-dropdown-link" data-panel="migration" data-i18n="nav_migration">Migration &amp; Displacement</button>
@@ -1090,11 +1090,11 @@
                     </div>
                     <div class="quick-link" onclick="showPanel('voices')">
                         <div class="quick-link-icon tools"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h4 data-i18n="ql_voices_t">Citizen Voices</h4><p data-i18n="ql_voices_d">Public response</p></div>
+                        <div><h4 data-i18n="ql_voices_t">Voices Online</h4><p data-i18n="ql_voices_d">What India is posting about its air &mdash; a curated social-media archive</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('testimony')">
                         <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-600);"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h4 data-i18n="ql_testimony_t">Citizen Testimony</h4><p data-i18n="ql_testimony_d">100+ voices, 13 languages</p></div>
+                        <div><h4 data-i18n="ql_testimony_t">Field Testimony</h4><p data-i18n="ql_testimony_d">First-person accounts recorded on the ground &mdash; 100+ people, 13 languages</p></div>
                     </div>
                     <div class="quick-link" onclick="loadPanel('ward-map')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-pin" style="width:20px;height:20px;"></span></div>
@@ -1281,7 +1281,7 @@
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
-                <div>
+                <div class="footer-brand">
                     <div class="footer-title">JanVayu &#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</div>
                     <p class="footer-desc">Independent citizen-led air quality monitoring, health impact analysis, and government accountability tracking for India. Clean air is not a privilege, it is a right.</p>
                     <p class="footer-credits">Part of <strong style="color:rgba(255,255,255,0.7)">AirQuality for Janhit</strong> by <a href="#" onclick="showPanel('about');return false;" style="color:rgba(255,255,255,0.5)">MMSF Fellows, AIPC</a> &mdash; see <a href="#" onclick="showPanel('about');return false;" style="color:rgba(255,255,255,0.5)">Janhit Partners</a>. Data from WAQI, CPCB, WHO, CREA, and <a href="https://urbanemissions.info" target="_blank" style="color:rgba(255,255,255,0.5)">UrbanEmissions.info</a>.</p>
@@ -1482,7 +1482,7 @@
 <template id="tmpl-testimony">
 
             <div class="section-intro" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: var(--green-700); margin-right: 0.4rem;"></span>Citizen Testimony</h2>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: var(--green-700); margin-right: 0.4rem;"></span>Field Testimony</h2>
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="Real people across India say in their own languages how bad the air is in their city.">On-the-ground voices from across India &mdash; in Hindi, English and a dozen Indian languages &mdash; on what the air crisis feels like where people actually live, breathe and work.</p>
                 <p id="testimony-stat-line" style="font-size: 0.9rem; color: var(--text-2); margin-top: 0.75rem;"></p>
             </div>
@@ -5577,7 +5577,7 @@ const ROLE_CONFIG = {
         panels: [
             { panel: 'budget', title: 'Budget Tracker', desc: 'Follow the money — NCAP spending' },
             { panel: 'corporate', title: 'Industrial Sources', desc: 'Who is polluting and how much' },
-            { panel: 'voices', title: 'Citizen Voices', desc: 'Social media sentiment archive' },
+            { panel: 'voices', title: 'Voices Online', desc: 'Social media sentiment archive' },
             { panel: 'downloads', title: 'Downloads', desc: 'Reports & presentations' },
             { panel: 'resources', title: 'Reading List', desc: 'Verified data sources' },
             { panel: 'social-feed', title: 'Social Media Feed', desc: 'Reddit, Twitter, Instagram, YouTube' }
@@ -5615,7 +5615,7 @@ const ROLE_CONFIG = {
             { panel: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Brief your ward councillor' },
             { panel: 'budget', title: 'Budget Tracker', desc: 'Is your city spending its funds?' },
             { panel: 'city-policy', title: 'City Policy Tracker', desc: 'City-wise targets & actions' },
-            { panel: 'voices', title: 'Citizen Voices', desc: 'Join the movement' },
+            { panel: 'voices', title: 'Voices Online', desc: 'Join the movement' },
             { panel: 'policy', title: 'Policy Tracker', desc: 'NCAP targets vs reality' },
             { panel: 'migration', title: 'Migration & Displacement', desc: 'Climate displacement data' }
         ]
