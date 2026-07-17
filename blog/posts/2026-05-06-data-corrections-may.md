@@ -13,7 +13,7 @@ The dashboard hero alert has been updated for May 2026. The headline numbers it 
 - **Most polluted city:** Loni, India — 112.5 µg/m³ annual PM2.5 (IQAir 2025 World Air Quality Report, covering calendar 2024).
 - **Global air quality compliance:** only **14% of cities** meet the WHO 5 µg/m³ guideline. Up from 9% in IQAir 2024 — a real, measurable improvement, driven mostly by Chinese mid-tier cities continuing their long pollution decline.
 - **India average PM2.5:** 48.9 µg/m³ — about 10× the WHO guideline.
-- **Annual mortality:** **1.72 million** — the Lancet Countdown 2025 figure, lifted from 1.5M in earlier reports through re-attribution of household biomass deaths and a tighter exposure-response at the very high end of the PM2.5 distribution. India's share of the global burden held at ~70%.
+- **Annual mortality:** **1.72 million** — the Lancet Countdown 2025 figure, lifted from 1.5M in earlier reports through re-attribution of household biomass deaths and a tighter exposure-response at the very high end of the PM2.5 distribution.
 
 These were already in the README's *Key Statistics* table. The dashboard hero now reads consistently with that table.
 
