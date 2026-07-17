@@ -1,6 +1,7 @@
 <!-- blog/_sidebar.md -->
 
 - [**JanVayu Blog**](README.md)
+- [How We Write (contributor guide)](how-we-write.md)
 
 - **July 2026**
   - [What Shipped This Week: A Longer Walkthrough, Plainer Words, and a Menu You Can Navigate](posts/2026-07-17-what-shipped-walkthrough-plain-language.md)
