@@ -53,7 +53,7 @@ export function calcMigrationBenefit(currentPm25, destPm25) {
 }
 
 // Transport exposure — multiply ambient PM2.5 by mode/duration.
-// Multipliers from WHO/CPCB exposure literature, already in the prompt.
+// Multipliers are modeling assumptions from peer-reviewed commute-exposure studies (e.g., Goel et al. 2015, Delhi), already in the prompt.
 export const TRANSPORT_MULTIPLIERS = {
   walk: 1.0, walking: 1.0,
   cycle: 2.5, cycling: 2.5, bicycle: 2.5, bike: 2.5,
@@ -90,7 +90,7 @@ export function calcTransportExposure(pm25, mode, hours) {
     localPm25: +localPm25.toFixed(1),
     pctOfDailyDose: +(mult * fractionOfDay * 100).toFixed(0),
     equivCigsForCommute: +equivCigs.toFixed(2),
-    source: "WHO/CPCB transport exposure multipliers; cigarette equivalence per Berkeley Earth",
+    source: "Peer-reviewed commute-exposure studies (e.g., Goel et al. 2015, Delhi transport microenvironments); cigarette equivalence per Berkeley Earth",
   };
 }
 
@@ -120,8 +120,8 @@ export function calcSchoolClosureRisk(aqi, month) {
   if (!aqi) return null;
   let risk = "low";
   let trigger = "No GRAP school-closure trigger at this AQI";
-  if (aqi >= 451) { risk = "imminent"; trigger = "GRAP Stage IV (AQI ≥ 451): primary school closure mandated; physical classes suspended"; }
-  else if (aqi >= 401) { risk = "high"; trigger = "GRAP Stage III (AQI 401-450): primary schools likely closed; hybrid mode for higher grades"; }
+  if (aqi >= 451) { risk = "imminent"; trigger = "GRAP Stage IV (AQI > 450): hybrid mode extended to Classes VI-IX & XI; only Classes X & XII remain in person"; }
+  else if (aqi >= 401) { risk = "high"; trigger = "GRAP Stage III (AQI 401-450): hybrid classes mandated for primary students up to Class V in Delhi-NCR"; }
   else if (aqi >= 301) {
     if (month >= 10 || month <= 2) { risk = "moderate"; trigger = "GRAP Stage II + winter pollution season: schools alert to monitor next 72 hr forecast"; }
     else { risk = "moderate"; trigger = "GRAP Stage II: dust control + parking fee hikes; no school closure yet"; }

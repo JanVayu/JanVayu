@@ -6,7 +6,7 @@
 
 India's air pollution crisis is usually framed as a health emergency. It is that. But it is also an economic catastrophe — one that costs the country more each year than the entire GDP of most nations.
 
-The Lancet Countdown on Health and Climate Change 2025 estimates that air pollution costs India $339.4 billion annually, equivalent to 9.5 percent of GDP. (The World Bank's earlier estimate of ~$150 billion per year, widely cited through 2024, is now superseded by this larger Lancet Countdown figure — which folds in updated mortality coefficients and a tightened high-end exposure response.) The Air Quality Life Index (AQLI 2025) calculates that the average Indian loses 3.5 years of life expectancy to air pollution — years of productive economic life erased by particles too small to see.
+The Lancet Countdown on Health and Climate Change 2025 estimates that air pollution costs India $339.4 billion annually, equivalent to 9.5 percent of GDP. (An earlier Greenpeace/CREA estimate (2020) of ~$150 billion per year from fossil-fuel air pollution, widely cited through 2024, is now superseded by this larger Lancet Countdown figure — which folds in updated mortality coefficients and a tightened high-end exposure response.) The Air Quality Life Index (AQLI 2025) calculates that the average Indian loses 3.5 years of life expectancy to air pollution — years of productive economic life erased by particles too small to see.
 
 These are not hypothetical costs. They are measured in hospital beds occupied, workdays lost, crops damaged, businesses relocated, and talent that chooses Bangalore over Delhi.
 
@@ -14,7 +14,7 @@ These are not hypothetical costs. They are measured in hospital beds occupied, w
 
 India's healthcare costs from air pollution are enormous but poorly tracked. The Global Burden of Disease framework attributes 1.72 million annual deaths to air pollution, each preceded by episodes of medical care — hospitalisations, medications, diagnostic tests, and chronic disease management — that fall disproportionately on household budgets.
 
-Out-of-pocket health expenditure accounts for over 55 percent of total health spending in India, one of the highest rates in the world. For families in polluted cities, the chronic respiratory conditions, cardiovascular events, and child health complications caused by PM2.5 exposure translate directly into financial distress. A single hospital admission for a pollution-related cardiac event can push a lower-middle-class family below the poverty line.
+Out-of-pocket health expenditure accounts for about 43 percent of total health spending in India (National Health Accounts 2022-23) — down sharply over the past decade but still a large share that exposes households to medical costs. For families in polluted cities, the chronic respiratory conditions, cardiovascular events, and child health complications caused by PM2.5 exposure translate directly into financial distress. A single hospital admission for a pollution-related cardiac event can push a lower-middle-class family below the poverty line.
 
 ## Labour Productivity
 
