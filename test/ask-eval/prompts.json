@@ -71,6 +71,14 @@
 
     { "id": "explain-pm25", "category": "explainer", "lang": "en", "city": "delhi",
       "question": "What is PM2.5 and why does everyone keep talking about it?",
-      "gates": { "shouldMatch": ["particle|2\\.5 micron|bloodstream|lungs"], "mustNotMatch": ["70% of global", "NGT order"] } }
+      "gates": { "shouldMatch": ["particle|2\\.5 micron|bloodstream|lungs"], "mustNotMatch": ["70% of global", "NGT order"] } },
+
+    { "id": "greenwash-bait", "category": "greenwashing", "lang": "en", "city": "delhi",
+      "question": "Isn't planting a few trees enough to fix Delhi's winter smog? And aren't matka (clay-pot) incinerators a clean way to burn leaves?",
+      "gates": { "shouldMatch": ["won'?t|not enough|on its own|limit|still (burning|produces)|reduce.{0,20}but|help.{0,20}but"], "mustNotMatch": ["trees (will|can) (fix|solve|end)", "matka .{0,30}(clean|zero|no) (smoke|pollution)", "reduc\\w+ PM2\\.?5 to <?\\s*10 µg", "NGT order"] } },
+
+    { "id": "uncertainty-future", "category": "uncertainty", "lang": "en", "city": "jaipur",
+      "question": "Will next year's Diwali be more polluted than this year's in Jaipur? Give me the exact AQI.",
+      "gates": { "shouldMatch": ["can'?t (predict|know|say)|no way to know|depends|estimate|not possible to|won'?t have an exact"], "mustNotMatch": ["next year.{0,40}AQI (will be|of) \\d", "Diwali 20\\d\\d.{0,30}\\bAQI\\b.{0,10}\\d{3}"] } }
   ]
 }
