@@ -35,7 +35,7 @@ Every post is a Markdown file. Start with the title and a one-line byline, exact
 ```markdown
 # A Clear, Specific Title That Says What the Reader Gets
 
-**Published:** 17 July 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
+**Published:** 17 July 2026 | **Author:** Komal, for Team JanVayu | **Reading time:** 5 min
 
 ---
 
@@ -47,6 +47,7 @@ matters to *them*, before any detail.
 Body text...
 ```
 
+- **Byline:** credit the actual writer, then the team, in the form **"[Your name], for Team JanVayu"** (e.g. *"Komal, for Team JanVayu"*). This recognises who wrote it while keeping the collective, reviewed-by-the-team voice. If a post is genuinely a group effort with no single author, *"Team JanVayu"* alone is fine.
 - **Title:** concrete and specific. "The Citation That Didn't Exist" beats "An Update on Sources." For release round-ups we use the pattern *"What Shipped This Week: X, Y, and Z."*
 - **Optional hero image:** only openly-licensed images (Wikimedia Commons / CC). Always include the credit line directly under it — photographer, licence, and link. Example:
   `<small>*Delhi's skyline at sunset. Photo: Name, [CC BY 2.0](link), via Wikimedia Commons.*</small>`
