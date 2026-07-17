@@ -47,6 +47,11 @@ jobs:
           mkdir -p axe-results
           set +e
           # The four most-visited surfaces. Add more as needed.
+          # axe-core/cli ships its own ChromeDriver (built for the newest
+          # Chrome) which drifts ahead of the runner's Chrome. Point it at the
+          # version-matched driver that setup-chromedriver put on PATH.
+          DRIVER="$(command -v chromedriver || true)"
+          echo "Using chromedriver: ${DRIVER:-<bundled>}"
           for path in "" "ask/" "blog/" "downloads/"; do
             url="http://127.0.0.1:8888/${path}"
             slug=${path:-root}
@@ -54,6 +59,7 @@ jobs:
             echo "::group::axe ${slug}"
             axe "$url" \
               --tags wcag2a,wcag2aa \
+              ${DRIVER:+--chromedriver-path "$DRIVER"} \
               --save "axe-results/${slug}.json" \
               --exit || true
             echo "::endgroup::"
