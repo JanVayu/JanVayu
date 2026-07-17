@@ -22,13 +22,13 @@ The International Labour Organization has documented significant productivity lo
 
 In India, this burden falls heaviest on the informal sector. According to NSSO and Periodic Labour Force Survey data, approximately 90 percent of India's workforce operates in the informal economy. These workers — construction labourers, rickshaw pullers, street vendors, domestic workers — have no option to work from home on high-pollution days. They have no employer-provided health insurance. They breathe the worst air for the longest hours and bear the full economic cost personally.
 
-A construction worker in Delhi earning Rs 600 per day who loses fifteen workdays per year to pollution-related illness — a conservative estimate — loses Rs 9,000 in annual income, roughly 4 percent of total earnings. Multiplied across the millions of informal workers in the Indo-Gangetic plain, the aggregate income loss is staggering.
+A construction worker in Delhi earning Rs 600 per day who loses fifteen workdays per year to pollution-related illness — a conservative estimate — loses Rs 9,000 in annual income — around 5 to 6 percent of a typical annual wage of Rs 150,000 to 180,000 (assuming 250 to 300 working days). Multiplied across the millions of informal workers in the Indo-Gangetic plain, the aggregate income loss is staggering.
 
 ## The Business Migration Signal
 
 India's corporate sector has begun responding to air pollution as a business risk. Survey data cited in industry reports consistently shows air quality as a top concern in employee quality-of-life assessments in Delhi-NCR. Several multinational corporations have expanded operations in Bangalore and Hyderabad while freezing or reducing headcount in Delhi.
 
-Delhi's share of India's technology workforce has declined from 18 percent to 14 percent over five years. Not all of this shift is attributable to pollution — Bangalore's ecosystem advantages, Hyderabad's infrastructure investments, and remote work trends all play a role. But employee surveys consistently cite air quality as a factor, and companies report difficulty recruiting senior talent to Delhi offices during the October-to-February pollution season.
+Delhi's share of India's technology workforce has declined in recent years. Not all of this shift is attributable to pollution — Bangalore's ecosystem advantages, Hyderabad's infrastructure investments, and remote work trends all play a role. But employee surveys consistently cite air quality as a factor, and companies report difficulty recruiting senior talent to Delhi offices during the October-to-February pollution season.
 
 The tourism sector absorbs similar losses. Delhi's November-to-January period, which should be peak tourist season given the pleasant temperatures, instead sees cancellations and advisories as AQI readings dominate international headlines. The Taj Mahal in Agra — India's most visited monument — has been photographed shrouded in smog so frequently that the images have become emblematic of India's pollution crisis.
 

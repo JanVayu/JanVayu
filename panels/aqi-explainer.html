@@ -159,7 +159,7 @@
     <div class="card" style="border-left: 4px solid var(--accent);">
         <div class="card-header"><span class="card-title">CPCB vs US EPA AQI Scales</span></div>
         <div class="card-body">
-            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="India's CPCB and America's EPA use different scales to calculate AQI from the same PM2.5 number. CPCB is more lenient — it calls things 'Moderate' that the EPA would call 'Unhealthy'. This table shows the difference.">India&rsquo;s CPCB and the US EPA use different breakpoint tables to convert the same PM2.5 concentration into an AQI number. The CPCB scale is significantly more lenient &mdash; masking the true severity of exposure.</p>
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="India's CPCB and America's EPA use different scales to turn the same PM2.5 number into an AQI, and they don't line up. At low pollution, CPCB gives a lower, milder-sounding number than the EPA. At high pollution, CPCB actually gives a higher number. This table shows the difference.">India&rsquo;s CPCB and the US EPA use different breakpoint tables to convert the same PM2.5 concentration into an AQI number, and the two scales diverge. At low concentrations the CPCB scale is more lenient &mdash; it reports a lower AQI and a milder category than the US EPA. At high concentrations the CPCB sub-index is actually higher than the EPA&rsquo;s. Either way the AQI label alone can mislead &mdash; read the raw &micro;g/m&sup3;. (Sub-indices computed from the CPCB 2014 and US EPA 2024 PM2.5 breakpoint tables.)</p>
             <div style="overflow-x: auto;">
                 <table class="data-table">
                     <thead>
@@ -174,30 +174,30 @@
                     <tbody>
                         <tr>
                             <td><strong>30</strong></td>
-                            <td>100</td>
-                            <td><span style="color: var(--green-600); font-weight: 600;">Satisfactory</span></td>
-                            <td>88</td>
+                            <td>50</td>
+                            <td><span style="color: var(--green-600); font-weight: 600;">Good</span></td>
+                            <td>90</td>
                             <td><span style="color: #EAB308; font-weight: 600;">Moderate</span></td>
                         </tr>
                         <tr>
                             <td><strong>60</strong></td>
-                            <td>150</td>
-                            <td><span style="color: #EAB308; font-weight: 600;">Moderate</span></td>
+                            <td>100</td>
+                            <td><span style="color: var(--green-600); font-weight: 600;">Satisfactory</span></td>
                             <td>154</td>
-                            <td><span style="color: #F97316; font-weight: 600;">Unhealthy (sensitive groups)</span></td>
+                            <td><span style="color: var(--red); font-weight: 600;">Unhealthy</span></td>
                         </tr>
                         <tr>
                             <td><strong>100</strong></td>
-                            <td>174</td>
-                            <td><span style="color: #EAB308; font-weight: 600;">Moderate</span></td>
-                            <td>174</td>
+                            <td>232</td>
+                            <td><span style="color: #F97316; font-weight: 600;">Poor</span></td>
+                            <td>182</td>
                             <td><span style="color: var(--red); font-weight: 600;">Unhealthy</span></td>
                         </tr>
                         <tr>
                             <td><strong>250</strong></td>
-                            <td>300</td>
+                            <td>400</td>
                             <td><span style="color: var(--purple); font-weight: 600;">Very Poor</span></td>
-                            <td>300</td>
+                            <td>350</td>
                             <td><span style="color: #991B1B; font-weight: 600;">Hazardous</span></td>
                         </tr>
                     </tbody>
@@ -205,7 +205,7 @@
             </div>
             <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid var(--accent); margin-top: 1rem;">
                 <h4>Key insight</h4>
-                <p data-simple="At 100 micrograms of PM2.5, CPCB still says 'Moderate' but the US EPA says 'Unhealthy'. CPCB's 'Moderate' range hides what the rest of the world considers dangerous. Don't trust the label — look at the actual PM2.5 number.">At 100 &micro;g/m&sup3; PM2.5, CPCB still says &ldquo;Moderate&rdquo; while the US EPA says &ldquo;Unhealthy.&rdquo; CPCB&rsquo;s &ldquo;Moderate&rdquo; category hides what the rest of the world classifies as dangerous air. <strong>Always look at the raw &micro;g/m&sup3; concentration, not just the AQI number or colour code.</strong></p>
+                <p data-simple="At 60 micrograms of PM2.5, CPCB calls the air 'Satisfactory' (AQI 100) while the US EPA calls it 'Unhealthy' (AQI 154). At the pollution levels common in Indian cities, the Indian scale sounds milder. At very high levels the two scales cross over. The lesson: don't trust the label, look at the actual PM2.5 number.">At 60 &micro;g/m&sup3; PM2.5, CPCB reports AQI 100 (&ldquo;Satisfactory&rdquo;) while the US EPA reports 154 (&ldquo;Unhealthy&rdquo;) &mdash; at the concentrations common in Indian cities, the CPCB scale sounds milder. At very high concentrations the ordering reverses: at 100 &micro;g/m&sup3; CPCB&rsquo;s sub-index of ~232 (&ldquo;Poor&rdquo;) exceeds the EPA&rsquo;s ~182. <strong>Always look at the raw &micro;g/m&sup3; concentration, not just the AQI number or colour code.</strong></p>
             </div>
         </div>
     </div>

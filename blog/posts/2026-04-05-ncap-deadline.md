@@ -12,7 +12,7 @@ According to the Centre for Research on Energy and Clean Air's "Tracing the Hazy
 
 There are genuine success stories. Varanasi tops the list, with PM2.5 levels falling 72 percent over five years to an annual average of 26.9 micrograms per cubic metre in 2023 — a remarkable achievement. Five other cities, mostly in Uttar Pradesh and Rajasthan, also met the 2026 target.
 
-But several cities moved in the wrong direction. Navi Mumbai saw PM2.5 concentrations increase by 46 percent. Ujjain increased by 46 percent. Mumbai — India's financial capital — recorded a 38 percent rise. For these cities, NCAP did not just fail to improve air quality; air quality deteriorated while the programme was active.
+But several cities moved in the wrong direction. Navi Mumbai saw PM2.5 concentrations increase by 46 percent. Ujjain increased by 46 percent. For these cities, NCAP did not just fail to improve air quality; air quality deteriorated while the programme was active.
 
 ## Follow the Money
 
@@ -24,7 +24,7 @@ Road dust is a contributor to PM10, but it is not the primary driver of PM2.5 �
 
 ## The Funding Cliff
 
-The picture becomes more precarious when you consider what comes next. Fifteenth Finance Commission grants, which accounted for Rs 16,539 crore allocated to 49 cities, expired in March 2026. No successor mechanism has been announced. This represents 87 percent of all NCAP city-level funding.
+The picture becomes more precarious when you consider what comes next. Fifteenth Finance Commission grants to the 49 million-plus cities, under which Rs 11,021 crore was released, expired in March 2026. No successor mechanism has been announced. That released amount is roughly 82 percent of the Rs 13,415 crore released across all NCAP and Finance Commission grants combined (CREA, Tracing the Hazy Air 2026).
 
 Without a replacement funding stream, most NCAP cities will lose the majority of their clean air budgets overnight. Cities that were already struggling to utilise funds will now have no funds to utilise.
 

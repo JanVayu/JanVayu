@@ -494,3 +494,197 @@ Total decisions: 117 across 12 files.
   Current file shows '10.55 Cr' connections. The value has been updated from the prior 10.33 Cr. (Minor: the date label still reads 'Jul 2025' while 10.55 Cr is a later snapshot, but the value itself is current.)  
   *Source:* PMUY portal / PIB 2025-26
 
+
+
+---
+
+## Flag resolutions (round 2b)
+
+**Totals:** 3 harmonize, 13 reframe, 12 remove, 15 fix, 10 skip.
+
+### index.html
+
+- **[harmonize · inconsistency]** Preterm birth ~1.3x (Delhi-NCR winter)  
+  The page states the same Delhi-NCR-winter preterm relative risk three different ways: '~1.3x' (line 3044), '~1.5-1.7x' (line 3091), and a dose-response '3-5% per +10 ug/m3' (line 3119). Harmonising this instance to the best-sourced sibling value (~1.5-1.7x, line 3091), which matches the India-wide preterm-birth AOR 1.67 (95% CI 1.57-1.77) in PLOS Global Public Health 2025. The dose-response stat (line 3119) measures a different quantity and is left as-is; the LBW '~1.5x' is left unchanged (study AOR 1.37, within rounding). Note: line 3091 already carries the correct value, so no sibling alignment needed there.  
+  *Source:* PLOS Global Public Health 2025 (Kumar et al., pub. 2 Jul 2025), preterm AOR 1.67 (95% CI 1.57-1.77); PMC12220995
+- **[reframe · direction_flip]** 60% of HAP deaths are women (list bullet, line 1825)  
+  GBD 2021 shows the global HAP death/DALY burden is actually slightly higher in males (60.6M DALYs male vs 50.8M female in 2021, ~54% male), so 'majority of deaths are women' is a directional error. Reframed to the well-supported reality: women bear the highest household smoke *exposure* (WHO fact sheet), dropping the unverifiable '60% of deaths' number. The global male-majority DALY split is deliberately not inserted into this India-context bullet to avoid a scope-mismatch; the defensible equity point (disproportionate exposure) is preserved.  
+  *Source:* GBD 2021 household air pollution (Lancet 2024, PIIS0140-6736(24)02840-X; PMC12182166), 2021 DALYs; WHO household air pollution and health fact sheet
+- **[reframe · direction_flip]** 60% women (stat card, line 1926)  
+  Same '60% women' figure as line 1825, contradicted by GBD 2021 (HAP burden ~54% male). Stat-card caption reframed to the defensible WHO exposure point, preserving card structure (481,700 HAP deaths/year number above it is unaffected).  
+  *Source:* GBD 2021 household air pollution (Lancet 2024; PMC12182166); WHO household air pollution and health fact sheet
+- **[remove · unsourced]** 60% of global HAP deaths are women (Lancet Countdown 2025) (stat strip, line 3121)  
+  Third instance of the '60% women' figure, here carrying an explicit 'Lancet Countdown 2025' citation that could not be verified (the 2025 report says HAP deaths fall 'largely among women and children' but publishes no 60% death-share). GBD 2021 primary data contradicts a majority-women HAP death share. This stat item's entire content is the unverifiable number + unconfirmed citation, so it is removed cleanly (the preceding ~500K GBD 2021 women stat, line 3120, remains and preserves the equity point). Strip drops from 4 to 3 items. anchored old_string keeps line 3120 intact.  
+  *Source:* GBD 2021 household air pollution (Lancet 2024; PMC12182166); Lancet Countdown 2025 report (lancetcountdown.org/air-pollution-and-health) - no 60% figure locatable
+
+### panels/budget.html
+
+- **[remove · unsourced]** Source apportionment: vehicles 38%  
+  No authoritative national '38% vehicles' source-apportionment figure exists; the share is city- and season-specific (e.g. CSE puts transport at ~51.5% of Delhi LOCAL winter PM2.5; vehicles ~20-30% of urban ambient PM2.5 nationally). Removing the invented single national percentage while preserving the qualitative point that vehicles are a top contributor. Non-overlapping with the industry-share and fund-share edits on the same sentence.  
+  *Source:* CSE Delhi source-apportionment (2024); CREA 'Tracing the Hazy Air 2026' (Jan 2026)
+- **[remove · unsourced]** Source apportionment: industry 18%  
+  No CREA/CSE/CPCB publication gives a single national '18% industry' contribution; industry share is city-specific (~10-35% across studies). 18% is within range but not attributable to any national figure, so the specific number is removed while the qualitative 'top contributor' point is kept. Non-overlapping with the vehicles-share and fund-share edits on the same sentence.  
+  *Source:* CREA 'Tracing the Hazy Air 2026' (Jan 2026); CSE assessment (2024)
+- **[fix · objective_error]** Vehicles + industry receive <1% of NCAP funds combined  
+  Objective error: the claim conflates industry-alone with the combined total. Per CREA's NCAP breakdown, spending is road dust ~68%, transport/vehicular ~14%, waste/biomass ~12%, and industry/domestic fuel/outreach ~1% EACH. So vehicles+industry COMBINED is ~15%, not <1% — only industry and domestic fuel are individually <1%. Restated to the defensible, CREA-sourced fund split (which also matches the page's own '68% dust' and '<1% Industry/Fuel' stat cells). Reads correctly after the two sibling removals of (38%)/(18%): 'vehicles and industry are among the top PM2.5 contributors, yet NCAP spends 68% on road-dust control and under 1% each on industry and domestic fuel (CREA 2026).'  
+  *Source:* CREA 'Tracing the Hazy Air 2026' (Jan 2026): road dust 68%, transport 14%, industry/domestic fuel <1% each
+- **[fix · objective_error]** PMUY refills 4.47/year vs 9-12 subsidized  
+  The 4.47 refills/year per-capita figure is defensible (PIB), but the denominator '9-12' is outdated. The FY2025-26 targeted subsidy (Rs 300/14.2kg cylinder) is capped at 'up to 9 refills per year' (the 12 cap was the older general figure). Aligned to the current sourced cap; the usage-gap point is preserved.  
+  *Source:* Union Cabinet / PIB, 6 Aug 2025 — Rs 12,000 Cr targeted PMUY subsidy of Rs 300 for up to 9 refills/year, FY2025-26
+- **[remove · unsourced]** HAP 0.61 million deaths/year, 60% women  
+  The 0.61 million India HAP deaths figure is correct (GBD 2019, Lancet Planetary Health) and sourced. The '60% women' qualifier is not supported by primary sex-disaggregated data — GBD analyses of HAP-attributable mortality show males with a slightly higher burden, and the '60% women' figure traces to an older WHO 'women and children' exposure framing, not a death-share statistic. Surgically removing the unverifiable qualifier while keeping the sourced death count and the clause structure ('...causes 0.61 million deaths annually.'). Editorially sensitive (equity claim); removed the specific unsourced number rather than leaving an unverifiable figure in place.  
+  *Source:* GBD 2019 (Lancet Planetary Health 2020, India state-level); WHO HAP framing (legacy 'women and children') is exposure-based, not a mortality split
+- **[remove · unsourced]** CAMPA ₹94,844 Cr collected, ₹26,002 Cr utilized (2019-24)  
+  The utilized figure (₹26,002 Cr, 2019-24) matches CAG/parliamentary data (CAG Report No. 5 of 2024, PA on CAMPA) and is retained. The '₹94,844 Cr collected' figure could not be substantiated by any authoritative source — the CAMPA corpus is commonly cited at ~₹47,000-55,000 Cr (₹54,685 Cr transferred to the central fund in 2018; ₹47,436 Cr released to states). Removing the invented 'collected' number while preserving the under-utilization accountability point and adding the CAG attribution.  
+  *Source:* CAG Report No. 5 of 2024 (Performance Audit on CAMPA); Compensatory Afforestation Fund Act 2016 corpus figures (~₹54,685 Cr, 2018 transfer)
+- **[reframe · direction_flip]** 16th Finance Commission timing / 12-month funding gap (Funding Cliff alert)  
+  Direction flip: the stated dates are wrong. The 16th FC submitted its report to the President on 17 Nov 2025 (not 'expected by Oct 2026'), and its award period is 1 Apr 2026-31 Mar 2031, beginning immediately after the 15th FC period ends 31 Mar 2026 (not an 'FY27 cycle starting Apr 2027'). So the claimed 12-month FC-cycle gap does not exist. Reframed neutrally: corrected the dates and narrowed the genuine open question to the un-announced successor to the specific air-quality grant. First of two instances (see the Key Accountability Gaps edit).  
+  *Source:* PIB PRID 2190975 (16th FC submits 2026-31 report to President, 17 Nov 2025); award period 1 Apr 2026-31 Mar 2031
+- **[reframe · direction_flip]** 16th Finance Commission timing (Key Accountability Gaps list)  
+  Second instance of the same FC-timing error. 'Report expected Oct 2026' is wrong — the 16th FC report was submitted 17 Nov 2025 and its award period (2026-31) starts 1 Apr 2026 with no cycle gap. Reframed to the accurate submission date while keeping the genuine, still-open point that a successor to the expired air-quality grant has not been announced. Sibling of the Funding Cliff alert edit.  
+  *Source:* PIB PRID 2190975 (16th FC report submitted 17 Nov 2025; award period 2026-27 to 2030-31)
+
+### panels/aqi-explainer.html
+
+- **[fix · objective_error]** CPCB vs EPA AQI at PM2.5 = 30 (row: CPCB 100 Satisfactory vs EPA 88 Moderate)  
+  30 ug/m3 is the top of CPCB's Good band (0-30 -> AQI 0-50), so the sub-index is 50/Good, not 100/Satisfactory. EPA 88 used pre-2024 breakpoints; under the 2024 table (Moderate 9.1-35.4 -> 51-100) 30 ug/m3 computes to ~90/Moderate (category unchanged). Fixed both cells; direction of leniency at this low level is unchanged (CPCB still milder).  
+  *Source:* CPCB National AQI 2014 breakpoints (aqihub.info/indices/india); US EPA 2024 AQI breakpoints (aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html)
+- **[fix · objective_error]** CPCB vs EPA AQI at PM2.5 = 60 (row: CPCB 150 Moderate vs EPA 154 Unhealthy [sensitive groups])  
+  60 ug/m3 is the top of CPCB's Satisfactory band (31-60 -> AQI 51-100), so the sub-index is 100/Satisfactory, not 150/Moderate. EPA 154 is correct (2024 Unhealthy 55.5-125.4 -> 151-200), but its category is 'Unhealthy', not 'Unhealthy (sensitive groups)' (which is the 101-150 band). Fixed the CPCB number/label and the EPA category label.  
+  *Source:* CPCB National AQI 2014 breakpoints; US EPA 2024 AQI breakpoints (aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html)
+- **[fix · objective_error]** CPCB vs EPA AQI at PM2.5 = 100 (row: CPCB 174 Moderate vs EPA 174 Unhealthy)  
+  At 100 ug/m3 PM2.5 sits in CPCB's Poor band (91-120 -> AQI 201-300), giving sub-index ~232/Poor, not 174/Moderate. Under 2024 EPA breakpoints (Unhealthy 55.5-125.4 -> 151-200) it is ~182/Unhealthy, not 174 (pre-2024). NOTE: corrected values make CPCB (232) HIGHER than EPA (182), reversing the panel's leniency thesis at this level -- resolved by the paired reframes of the intro sentence and 'Key insight' box (this same file).  
+  *Source:* CPCB National AQI 2014 breakpoints; US EPA 2024 AQI breakpoints (aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html)
+- **[fix · objective_error]** CPCB vs EPA AQI at PM2.5 = 250 (row: CPCB 300 Very Poor vs EPA 300 Hazardous)  
+  At 250 ug/m3 PM2.5 is at the top of CPCB's Very Poor band (121-250 -> AQI 301-400), so the sub-index is 400/Very Poor, not 300. Under 2024 EPA breakpoints 250 ug/m3 is in the Hazardous band (225.5-325.4 -> AQI 301-500), computing to ~350/Hazardous; the site's 300 came from the retired pre-2024 table (where AQI 300 was 'Very Unhealthy', so labelling 300 'Hazardous' was also wrong). Fixed to CPCB 400 vs EPA 350; corrected CPCB (400) exceeds EPA (350), consistent with the reframed narrative.  
+  *Source:* CPCB National AQI 2014 breakpoints; US EPA 2024 AQI breakpoints (aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html)
+- **[reframe · direction_flip]** The CPCB scale is significantly more lenient - masking the true severity of exposure. (table intro sentence)  
+  Once the table cells are corrected, CPCB is more lenient than the US EPA only at low PM2.5 (30-60 ug/m3, CPCB 50/100 vs EPA 90/154); at 100 and 250 ug/m3 the corrected CPCB sub-index (232, 400) is HIGHER than the EPA's (182, 350). The blanket 'significantly more lenient / masking severity' framing is no longer true across the range, so reframed neutrally to state the scales diverge (CPCB milder at low, higher at high) and added the breakpoint-table citation the table previously lacked. Applies alongside the four row fixes and the Key-insight reframe (same file).  
+  *Source:* CPCB National AQI 2014 breakpoints; US EPA 2024 AQI breakpoints (aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html)
+- **[reframe · direction_flip]** At 100 ug/m3 PM2.5, CPCB still says 'Moderate' while the US EPA says 'Unhealthy.' ('Key insight' box)  
+  This claim is false once the table is corrected: at 100 ug/m3 CPCB reports ~232 'Poor' (not 'Moderate'), which is HIGHER than the EPA's ~182 'Unhealthy'. Replaced with a true, sourced comparison at 60 ug/m3 (CPCB 100 'Satisfactory' vs EPA 154 'Unhealthy') that captures the genuine leniency at the concentrations common in Indian cities, and noted the crossover at high concentrations. Kept the 'read the raw ug/m3' takeaway. Pairs with the four row fixes and the intro reframe (same file).  
+  *Source:* CPCB National AQI 2014 breakpoints; US EPA 2024 AQI breakpoints (aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html)
+
+### panels/source-selector.html
+
+- **[fix · unsourced]** CPCB CAAQMS coverage: ~533 stations across ~250 cities  
+  The '~533 stations across ~250 cities' figure names no source. On re-verification the CPCB CCR dashboard (airquality.cpcb.gov.in/ccr) still returns HTTP 503, but a current citable count is available: aqicn.org's CPCB network page (2026) reports 586 real-time CPCB stations — which are the continuous CAAQMS feed this card describes. This supersedes the stale/unsourced ~533. The '~250 cities' figure has no locatable source and is dropped rather than guessed. I deliberately did NOT fold in the broader ~1,296-station / 473-city national ambient network (MoEFCC/CPCB), because that total mixes continuous CAAQMS with manual NAMP stations — two different methods that platform rule (2) says not to collapse; the card is specifically the continuous/regulatory CAAQMS source, so the fix stays scoped to the continuous count. Citation style matches other cards on the page (e.g. 'aqicn.org, 2026').  
+  *Source:* aqicn.org CPCB network page (2026): 586 real-time CPCB stations; corroborated in scope by MoEFCC/CPCB monitoring-network figures ('over 400' CAAQMS).
+- **[remove · unsourced]** WAQI may lag CPCB by 1-2 hours (weakness box)  
+  The specific '1-2 hours' latency figure is unverifiable: no authoritative WAQI/aqicn.org publication states a station-to-platform latency, and the page cites none. Surgical removal of just the invented number while preserving the supportable qualitative point (aggregators can lag the underlying regulatory feed). A sibling instance carrying the same '1-2 hours' number sits in the data-simple attribute on the WAQI card's Instruments paragraph (line 72) and is harmonized in the second edit.  
+  *Source:* No primary WAQI/aqicn.org latency figure exists; claim removed per platform rule (3) rather than guessed.
+- **[remove · unsourced]** WAQI can lag behind CPCB by 1-2 hours (data-simple text)  
+  Same unsourced '1-2 hours' latency number as the weakness box, repeated in the plain-language data-simple attribute. Removed the specific figure while keeping the qualitative lag point, so the two instances stay consistent after the visible-text edit above.  
+  *Source:* No primary WAQI/aqicn.org latency figure exists; specific number removed rather than guessed.
+
+### panels/accountability.html
+
+- **[harmonize · inconsistency]** NCAP '40% PM2.5 reduction by 2026' promise badge: '25-27% Achieved (CREA)'  
+  CREA publishes no single national '25-27% achieved' percentage. Its Jan 2026 'Tracing the Hazy Air 2026' metric is that only 23 of 100 NCAP cities (with adequate data) met the revised 40% PM10 target; the page already states this correctly at line 25 and in the stat tile at lines 49-50. Aligning this badge to the sourced figure (and fixing PM2.5->PM10, since the revised NCAP target is PM10). Sibling instances at line 25 and lines 49-50 are already correct.  
+  *Source:* CREA, 'Tracing the Hazy Air 2026: Progress Report on NCAP', 9 Jan 2026
+- **[reframe · direction_flip]** Delhi e-bus promise badge: '~400 Deployed'  
+  The '~400 deployed' figure is stale and wrong. DTC missed the 2023 deadline but the 1,000-bus target was met by 2024 and far exceeded: ~4,538 e-buses operational by April 2026 (Delhi now has India's largest e-bus fleet). Stated plainly/neutrally as met-late-then-exceeded. (Companion tracker instance at line 270 corrected separately.)  
+  *Source:* DTC / electrive.com reporting, Apr 2026 (~4,538 e-buses); Feb-Jul 2026 batches
+- **[reframe · direction_flip]** Clean Air Mission tracker, Electric Bus Fleet row: grade E2, '~400 deployed (RTI 2025)'  
+  Same stale figure in the intervention tracker; the E2 (pilot/partial) grade and '~400 deployed' no longer reflect reality. DTC operated ~4,538 e-buses by April 2026 (India's largest e-bus fleet), so the deployment is operational at scale (E4). Reframed neutrally: 2023 deadline missed, 1,000 target met by 2024, ~4,538 by 2026.  
+  *Source:* DTC / electrive.com, Apr 2026 (~4,538 e-buses)
+- **[reframe · direction_flip]** Odd-even promise badge: '2-4% Only (IIT Study)'  
+  The '2-4% (IIT Study)' attribution is unsupported. The best-identified primary estimate is EPIC/University of Chicago (Greenstone et al.), which found PM2.5 fell ~13% during scheme hours (8am-8pm) in the Jan 2016 pilot, with no effect at night and no effect in the Apr 2016 repeat. Stated neutrally with scope. (Companion tracker instance at line 277 corrected separately.)  
+  *Source:* EPIC, University of Chicago — 'Clearing the air on Delhi's odd-even program' (Jan 2016 pilot, ~13% during 8am-8pm)
+- **[reframe · direction_flip]** Clean Air Mission tracker, Odd-Even row: 'IIT study: 2-4% reduction only'  
+  Same unsupported '2-4%' figure. Replaced with the sourced EPIC/UChicago finding (~13% PM2.5 reduction during scheme hours in Jan 2016; none at night or in the Apr 2016 round), keeping the supportable point that exemptions and seasonal-only deployment limit effectiveness.  
+  *Source:* EPIC, University of Chicago — Delhi odd-even analysis (Jan 2016)
+- **[fix · unsourced]** Brick kiln zigzag: '30% compliance (CPCB 2024)'  
+  No CPCB 2024 source gives a 30% national zigzag-compliance figure; the number is unlocatable. CPCB/SPCB inspection data instead show wide regional variation — ~45% of kilns in UP (1,024/2,215), ~71% in Haryana-NCR (of 2,163 units), ~85% in Rajasthan. Replaced the invented single national figure with the sourced regional range, preserving the 'enforcement weak' point.  
+  *Source:* CPCB/SPCB joint inspection tallies (UP ~45.2%, Haryana-NCR ~71.3%), 2024-25 reporting
+- **[reframe · direction_flip]** Industrial FGD: '~35% thermal plants compliant (CEA 2024)'  
+  The ~35% compliance figure overstates installation (FGD was operational at only ~57 coal units, ~8%, as of Aug 2025) and, more importantly, is superseded: the 11 July 2025 MoEFCC notification (Environment Protection Fourth Amendment Rules 2025) exempted ~78% of coal units (Category C) from FGD/SO2 standards entirely, with only ~11% (Category A) required by Dec 2027. Reframed to state this plainly and neutrally.  
+  *Source:* MoEFCC notification 11 Jul 2025 (Category C ~78% exempted); Min. of Power reply, ~57 units with FGD, Aug 2025
+- **[fix · unsourced]** BS-VI: 'CPCB shows 15-25% SO2 reduction in monitoring stations'  
+  No CPCB source documents a 15-25% ambient SO2 reduction attributable to BS-VI; ambient SO2 in India is dominated by coal power, not fuel. Replaced the unsourced CPCB ambient claim with the verifiable, primary-sourced fact: BS-VI cut fuel sulphur 80% (50->10 ppm) from Apr 2020, enabling DPF/SCR after-treatment.  
+  *Source:* PIB / IOCL Media Brief — BS-VI fuel sulphur 50->10 ppm (80% cut), 1 Apr 2020
+- **[fix · objective_error]** Delhi Metro Phase 4: '65km operational, 45km under construction'  
+  Phase 4's first sections only opened Jan-Mar 2026 (Magenta ext. Jan; Pink/Magenta priority stretches Mar), totalling ~25 km of the ~112 km sanctioned; '65 km operational' is not achievable at that date. Corrected the operational/under-construction split.  
+  *Source:* DMRC / TheMetroRailGuy Phase 4 status, Mar 2026 (~25 km of 112.32 km operational)
+- **[fix · unsourced]** March 2026 card: 'Delhi 2026: 0 of 68 days met WHO; Annual AQI average 244 — 46.8% worse than 2020'  
+  The 'annual AQI 244' and '46.8% worse than 2020' figures are unlocatable in any CREA publication and are internally inconsistent (a 68-day winter window cannot be an annual average). Replaced with the sourced CREA winter 2025-26 figure: Delhi PM2.5 averaged ~163 ug/m3, among the highest of any monitored city, with no day meeting the WHO daily guideline. The 'no day met WHO' point is thereby preserved and correctly sourced.  
+  *Source:* CREA Winter 2025-26 (Oct 2025-Feb 2026) analysis — Delhi PM2.5 ~163 ug/m3; no city met WHO daily guideline
+- **[remove · unsourced]** 'GRAP triggers: Imposed 17 times since Jan 2025 — Stage III for 53 days, Stage IV for 15 days'  
+  CAQM publishes individual GRAP invocation/revocation orders but no compiled '17 times / 53 days / 15 days' aggregate, and the page cites no source; the precise counts cannot be verified against any primary aggregate. Removed the unverifiable specific numbers while preserving the supportable qualitative point (repeated invocation, prolonged Stage III/IV spells) and pointing to the actual primary record (CAQM orders).  
+  *Source:* CAQM GRAP orders (no compiled aggregate published) — precise counts unverifiable
+- **[fix · objective_error]** CAG Audit card: '88% of Delhi stations violate CPCB siting criteria (CAG, April 2025)'  
+  Misattribution: the 88% comes from a Newslaundry field probe that physically measured 25 Delhi stations and found ~88% (22) flouting CPCB siting norms — not from the CAG audit. The CAG Performance Audit (tabled 1 Apr 2025) confirmed that CAAQMS locations did not meet CPCB siting criteria, rendering AQI data unreliable, but states no 88% figure. Corrected the attribution in the sub-label; the number itself is real and now sourced. (The card badge 'CAG · April 2025' still fairly frames the confirming audit.)  
+  *Source:* Newslaundry investigation (Dec 2024/Apr 2025, 25 stations, ~88%); CAG Performance Audit tabled 1 Apr 2025 (data unreliable)
+- **[reframe · direction_flip]** Stubble subsidies: 'NASA FIRMS shows 30% fewer fires in 2024 vs 2021 peak'  
+  The '30% fewer' figure is unlocatable and appears mislabeled: against the 2021 peak (~71,300 Punjab fires) the FIRMS-reported 2024 count is far lower (~11,000, a much larger drop). But the true reduction is genuinely disputed — NASA scientists (Jethva) show farmers shifted burning outside satellite overpass windows, so FIRMS counts understate actual burning. Reframed to state the FIRMS-reported decline plainly with the overpass-timing caveat, removing the specific unsupported percentage. The Rs 3,062 Cr allocation figure is left as-is (a defensible 2018-24 cumulative).  
+  *Source:* NASA FIRMS; NASA Earth Observatory / B. Standard reporting on overpass-timing shift, Nov 2024
+- **[remove · unsourced]** Construction site dust screens: '~40% compliance (DPCC inspections)'  
+  No published DPCC headline compliance percentage confirming ~40% could be located; it is a site-level enforcement metric absent from any primary dataset the page cites. Removed the unverifiable number while preserving the supportable points (NGT mandate exists; enforcement patchy; no impact measurement).  
+  *Source:* No locatable DPCC published compliance figure
+- **[reframe · direction_flip]** Stubble payment adequacy: '₹1000/acre vs ₹5000 needed'  
+  The 'Rs 5000 needed' figure is unsupported. Punjab's actual proposal (Oct 2024) was Rs 2,500/acre CRMIP (Rs 1,500 Centre + Rs 1,000 Punjab/Delhi); the Centre declined to fund its share, so no per-acre cash incentive is currently paid — support runs through CRM machinery subsidy. Reframed to state this accurately; the qualitative 'incentives weak' assessment (badge WEAK) is preserved.  
+  *Source:* The Tribune / Down To Earth — Punjab Rs 2,500/acre CRMIP proposal, Centre declined, Oct-Nov 2024
+- **[skip · unsourced]** March 2026 card: '204/238 cities exceed NAAQS PM2.5 (Oct 2025-Feb 2026, CREA)' and '0/238 meet WHO guideline'  
+  Verification CONFIRMS the site's figures are correct after all. CREA's winter 2025-26 analysis (Oct 2025-Feb 2026) found 204 of 238 monitored cities exceeded the PM2.5 NAAQS and not one met the WHO daily guideline (up from 173 the previous winter). The prior flag simply could not locate the source; no edit needed.  
+  *Source:* CREA Winter 2025-26 report / press release (Oct 2025-Feb 2026): 204/238 cities exceed PM2.5 NAAQS; 0 meet WHO daily guideline
+- **[skip · inconsistency]** Delhi air quality budget 2024-25: '₹500 Cr (0.6% of budget)'  
+  Cannot produce a safe scoped edit. The Rs 500 Cr matches Delhi's 2023-24 pledge (~Rs 505 Cr), not FY2024-25; the FY2024-25 environment & forest allocation was ~Rs 822 Cr (~1.1%), but that is a broader bucket, not an 'air quality' line item, and the same card elsewhere (line 119) cites a 'Rs 300 Cr pollution budget.' Scope is genuinely ambiguous and internally inconsistent — needs editorial reconciliation of which figure/scope the platform intends, not a scope-shifting auto-edit. Candidate: relabel as '2023-24 pledge ~Rs 505 Cr' or restate to the sourced ~Rs 822 Cr env & forest allocation.  
+  *Source:* Delhi Budget FY2024-25 (env & forest ~Rs 822 Cr); 2023-24 pledge ~Rs 505 Cr
+- **[skip · direction_flip]** Punjab stubble budget: '₹300 Cr (mostly unspent)'  
+  Editorially sensitive and needs sourced reconciliation. Newer figures contradict both the amount and the 'mostly unspent' judgment: Punjab allocated ~Rs 500 Cr for stubble management in 2025-26 (with a large share disbursed) and higher amounts cited for 2026-27. The 'mostly unspent' framing is an accountability judgment that flips direction if corrected; recommend restating with a specific budget-year figure and disbursement source rather than an auto-edit.  
+  *Source:* Punjab state budget 2025-26 stubble/CRM allocation (~Rs 500 Cr) — needs primary-doc confirmation
+- **[skip · unsourced]** Haryana air quality budget: '₹150 Cr (for 14 cities)'  
+  Cannot produce a safe scoped edit. The unsourced Rs 150 Cr does not map cleanly to an identifiable current figure; candidate replacements span very different scopes — the flagship Rs 3,647 Cr Haryana Clean Air Project (World Bank-backed, FY2024-25 to 2029-30) vs a ~Rs 138 Cr FY2025-26 state-budget air-quality line. Scope ambiguity means an auto-edit would risk swapping in a mismatched-scope number; recommend the editor pick one specific sourced figure.  
+  *Source:* Haryana Clean Air Project (~Rs 3,647 Cr, World Bank) vs FY2025-26 state AQ line (~Rs 138 Cr)
+- **[skip · unsourced]** UP air quality budget: '₹400 Cr (mostly road dust)'  
+  The page names no source and no accessible primary UP state-budget / NCAP record could confirm the Rs 400 Cr allocation or the 'mostly road dust' split. Unverifiable as stated; recommend attributing to a specific dated UP budget / NCAP city-plan figure or removing the number. Skipped rather than guess or fabricate a source.  
+  *Source:* No locatable primary UP budget/NCAP figure confirming Rs 400 Cr
+
+### blog/posts/2026-03-25-economic-cost.md
+
+- **[fix · objective_error]** Construction worker loses Rs 9,000/year, roughly 4 percent of earnings  
+  Rs 600 x 15 = Rs 9,000 is correct, but 'roughly 4 percent' implies annual earnings of ~Rs 225,000, which requires ~375 earning-days at Rs 600/day — arithmetically impossible. A realistic 250-300 working-day year yields Rs 150,000-180,000, making the loss ~5-6%. Rather than impose one hidden denominator, I make the assumption explicit and give the honest range. Left the illustrative Rs 600/day base unchanged (though it is below Delhi's 2025 unskilled statutory minimum of ~Rs 710/day) so as not to cascade a rewrite of the author's example.  
+  *Source:* Arithmetic; Delhi Labour Dept / factoHR minimum-wage schedule effective Apr 2025 (unskilled Rs 18,456/mo ≈ Rs 710/day)
+- **[remove · unsourced]** Delhi tech workforce declined 18 percent to 14 percent over five years  
+  The specific 18%->14% decline is uncited on-site and could not be located in any NASSCOM Strategic Review, talent demand-supply report, or other primary labour source (verified via targeted search of nasscom.in). Surgically removing just the two invented numbers while keeping the qualitative claim of decline; the following sentence's referent ('this shift') is preserved, so no dangling markup or broken logic results.  
+  *Source:* NASSCOM Strategic Review 2025/2026 and Talent Demand-Supply Analysis searched — figure absent; no primary source publishes this split
+
+### blog/posts/2026-04-01-children-air-pollution.md
+
+- **[remove · unsourced]** The researchers estimated that if air quality across India were improved to meet national ambient standards alone — not even the stricter WHO guideline — 3 million fewer children would be stunted.  
+  The '3 million fewer children stunted under national ambient standards' figure cannot be verified. The JEEM paper's public abstract (ideas.repec.org) states only the 5 pp / 2.4 pp per-1-SD PM2.5 stunting/severe-stunting effects and does not describe any national-standards policy simulation. The post's own cited secondary source (Down to Earth) gives a WHO-guideline counterfactual (stunting -10.4 pp, severe -5.17 pp) but contains no '3 million' figure and no national-standards scenario. Full text is paywalled (ScienceDirect/HAL 403; ETH 500). Surgically removing this one sentence loses no verified content: the immediately following sentence already carries the sourced WHO-guideline figure (10.4 pp), and the paragraph reads cleanly without the middle sentence. Not replaced because no locatable source supports a national-standards absolute count.  
+  *Source:* Balietti, Datta & Veljanoska, JEEM vol. 113 (2022), abstract via ideas.repec.org/a/eee/jeeman/v113y2022ics0095069622000122.html; Down to Earth feature (post's own cited source) — neither states a '3 million' or national-standards figure.
+- **[fix · unsourced]** In the 2024-25 winter season, primary schools in Delhi-NCR were shut for a cumulative total of over three weeks.  
+  No CAQM/CPCB/CREA authority publishes a cumulative 'closure-weeks' tally, so the specific 'over three weeks' cannot be tied to a primary source. The supportable qualitative point IS verifiable and sourceable: GRAP Stage IV imposed on 18 Nov 2024 suspended physical classes for all Delhi-NCR students except Classes 10 & 12, after which schools cycled through closure -> hybrid (25 Nov) -> in-person (5 Dec) -> hybrid again (16-17 Dec 2024). Per the platform's unsourced rule, since a sourced qualitative replacement exists I fix rather than blank-remove: I drop the unverifiable precise tally and replace it with the concrete, dated GRAP-IV closure sequence, cited inline in the article's by-name style. Neutral, no accountability spin altered.  
+  *Source:* CAQM GRAP Stage IV order effective 18 Nov 2024 (Delhi CM/Directorate of Education physical-class suspension), reported by India TV / ANI / Deccan Herald 17-18 Nov 2024; subsequent hybrid/in-person transitions Nov 25 & Dec 5 & Dec 16-17 2024 (Business Today, India TV, Akashvani News).
+
+### blog/posts/2026-04-05-ncap-deadline.md
+
+- **[remove · unsourced]** Mumbai PM2.5 recorded a 38 percent rise under NCAP  
+  The '38 percent rise' has no locatable primary source and is contradicted by the most recent data: Respirer Living Sciences' Maharashtra NCAP report shows Mumbai's PM2.5 falling from 34.45 ug/m3 (2019) to 28.19 ug/m3 (Jan-Sept 2024), below the 40 ug/m3 NAAQS, and explicitly names Mumbai among cities that 'Lead the Way in Air Quality Improvements Under NCAP.' Mumbai therefore does not belong in the 'wrong direction' list. Surgically removing only the Mumbai sentence preserves the two unflagged, still-listed examples (Navi Mumbai +46%, Ujjain +46%) and the surrounding structure. A sourced 'rise' replacement does not exist (the transient 2019-2023 peak reversed), so removal is safer than reframing.  
+  *Source:* Respirer Living Sciences, 5-Year Analysis: Maharashtra NCAP Cities PM2.5 2019-2024 (Oct 2024) — Mumbai 34.45->28.19 ug/m3, named an NCAP improvement leader; corroborated by CREA Tracing the Hazy Air 2026
+- **[harmonize · inconsistency]** XV-FC grants (Rs 16,539 cr, 49 cities) represent 87 percent of all NCAP city-level funding  
+  The sentence conflated an allocated figure (Rs 16,539 cr) with the released total the post already cites in 'Follow the Money' (Rs 13,415 cr released), producing an inconsistent derived '87 percent.' CREA's Tracing the Hazy Air 2026 gives the clean released-basis figures: XV-FC released Rs 11,021 crore of the Rs 13,415 crore released across NCAP + XV-FC = 82.2%. Aligning this instance to the released basis makes it internally consistent with the rest of the post while preserving the 'funding cliff' point. The '49 cities' is correct and retained: CREA 2026 states '49 million-plus cities/urban agglomerations are funded under XV-FC air quality grant' (the sibling budget-panel flag's '42 cities' is the item that is wrong, not this one).  
+  *Source:* CREA, Tracing the Hazy Air 2026 (Jan 2026), Financial Support section: 'Rs 11,021 crore was released' under XV-FC; 'Rs 13,415 crore has been released under NCAP and XV-FC funds'; '49 million-plus cities... funded under XV-FC air quality grant'
+
+### netlify/functions/lib/calc.mjs
+
+- **[skip · unsourced]** Car/taxi/cab/uber/ola multiplier 0.4x  
+  The fabricated 'WHO/CPCB' source flagged for this coefficient is already gone from the current file: the TRANSPORT_MULTIPLIERS comment (line 56) and the calcTransportExposure source string (line 93) now cite 'peer-reviewed commute-exposure studies (e.g., Goel et al. 2015, Delhi)'. Nothing left to correct there. The 0.4x value itself is a defensible modeling assumption for AC/windows-up Indian app-cabs (Goel et al. 2015 place AC cars among the lowest-exposure modes); the flag's own reasoning recommends not editing the coefficient unilaterally, and it applies to five modes at once (car/taxi/cab/uber/ola) so there is no single safe unique old_string. Skipping.  
+  *Source:* Goel et al. 2015, Atmospheric Environment (Delhi commute microenvironments); current file already reflects the corrected non-fabricated source string
+- **[skip · unsourced]** Metro/subway multiplier 0.3x  
+  Fabricated 'WHO/CPCB' source already corrected in the current file (line 56 / line 93 cite Goel et al. 2015). The 0.3x value is a defensible assumption for filtered AC metro carriages (Goel et al. 2015: metro among lowest exposure); the exposure literature is genuinely mixed (underground platform rail dust can exceed ambient) so no single sourced constant exists. Flag's own reasoning recommends not editing the coefficient. Skipping.  
+  *Source:* Goel et al. 2015, Atmospheric Environment; current file source string already de-fabricated
+- **[skip · unsourced]** Train multiplier 0.5x  
+  Fabricated source already corrected in the current file. In-transit PM2.5:ambient ratios for rail vary widely (~0.5-1.5x) by ventilation; 0.5x is a plausible modeling assumption, not a sourced constant, and no single primary figure exists. Flag recommends not changing the value. Skipping.  
+  *Source:* Peer-reviewed commute-exposure literature (rail microenvironments); no single authoritative constant
+- **[skip · unsourced]** Bus multiplier 0.9x  
+  Fabricated source already corrected in the current file. 0.9x is route/ventilation-specific and directionally arguable for open-window Indian buses, but no single authoritative national figure exists and the flag itself deems it a defensible modeling assumption not to edit. Skipping.  
+  *Source:* Peer-reviewed commute-exposure literature; values route/ventilation-specific, no national constant
+- **[skip · unsourced]** Motorcycle/scooter multiplier 1.4x  
+  Fabricated source already corrected in the current file. Goel et al. 2015 reports unenclosed two-wheeler exposure ~10-40% above ambient, so both 1.3x and 1.4x sit within the study's range; the 0.1x distinction is within measurement noise. Not worth changing a defensible assumption; flag's own conclusion is 'keep 1.4x'. Skipping.  
+  *Source:* Goel et al. 2015, Atmospheric Environment (two-wheeler exposure ~10-40% above ambient)
+- **[fix · objective_error]** Purifier CADR: 9 ft ceiling default and 'CADR = volume x ACH' attributed to AHAM  
+  Misattribution. AHAM's Verifide room-size guidance (the 2/3 rule) assumes an 8-ft ceiling and ~4.8 ACH, and AHAM defines CADR as a MEASURED chamber-test rating, not the volume x ACH engineering identity this function uses. Per the flag I am NOT changing the 9 ft ceiling / 5 ACH inputs (lowering the ceiling would make the tool less protective for typical ~10 ft Indian rooms), but I am correcting the source string so the volume x ACH sizing and the 9 ft / 5 ACH figures are presented as JanVayu's own conservative assumptions rather than being over-attributed to 'AHAM CADR formula'. Web-verified against AHAM Verifide guidance (2/3 rule, 8 ft ceiling, ~4.8 ACH). Only the source string is changed; the returned numbers are unaffected.  
+  *Source:* AHAM Verifide air-filtration standards / 2/3 rule (8-ft ceiling, ~4.8 ACH); oransi.com, ahamverifide.org, seetheair.org, verified 2026-07-17
+

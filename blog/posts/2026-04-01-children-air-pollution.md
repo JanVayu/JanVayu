@@ -12,7 +12,7 @@ Air pollution in India is not an abstract environmental problem. It is a child h
 
 A peer-reviewed study published in the Journal of Environmental Economics and Management found that a one standard deviation increase in average annual PM2.5 concentrations increases the prevalence of stunting in Indian children by 5 percentage points, and severe stunting by 2.4 percentage points.
 
-India already has one of the highest stunting rates in the world: 35.5 percent of children under five are stunted (NFHS-5, 2019-21). The researchers estimated that if air quality across India were improved to meet national ambient standards alone — not even the stricter WHO guideline — 3 million fewer children would be stunted. If India met the WHO standard of 5 micrograms per cubic metre, the share of stunted children would fall by 10.4 percentage points.
+India already has one of the highest stunting rates in the world: 35.5 percent of children under five are stunted (NFHS-5, 2019-21). If India met the WHO standard of 5 micrograms per cubic metre, the share of stunted children would fall by 10.4 percentage points.
 
 These are not small numbers. Stunting in early childhood is largely irreversible. It leads to weakened immune systems, lower cognitive development, poorer educational outcomes, and, in adulthood, higher vulnerability to hypertension and diabetes. Air pollution is, through stunting, programming a generation of Indian children for worse health outcomes across their entire lives.
 
@@ -26,7 +26,7 @@ For families in Delhi, where winter PM2.5 concentrations routinely exceed 300 mi
 
 ## School Closures
 
-The cognitive effects are compounded by educational disruption. Delhi's schools have been closed multiple times during the November-to-January pollution season in recent years, with government orders triggered when AQI exceeds "severe" levels. In the 2024-25 winter season, primary schools in Delhi-NCR were shut for a cumulative total of over three weeks.
+The cognitive effects are compounded by educational disruption. Delhi's schools have been closed multiple times during the November-to-January pollution season in recent years, with government orders triggered when AQI exceeds "severe" levels. In the 2024-25 winter season, GRAP Stage IV orders repeatedly suspended physical classes for younger students across Delhi-NCR — beginning on 18 November 2024 — with schools shifting between closure, hybrid, and in-person modes over several weeks (CAQM GRAP orders).
 
 These closures disproportionately affect children from lower-income families, who lack access to air purifiers at home and are less likely to have internet-enabled devices for remote learning. The children most exposed to pollution are also the children most harmed by the response to it.
 
