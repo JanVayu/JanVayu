@@ -38,6 +38,9 @@ const FIELD_LABELS = {
   "slot-3": "Slot 3",
   language: "Language preference",
   goals: "Learning goals",
+  // contribute fields
+  "contribution-type": "How they want to help",
+  message: "Message",
 };
 
 function escapeHtml(s) {
@@ -48,16 +51,20 @@ function escapeHtml(s) {
 
 function buildEmail(formName, fields) {
   const isWorkshop = formName === "workshop-request";
-  const heading = isWorkshop ? "New workshop request — UrbanEmissions" : "New JanVayu walkthrough booking";
+  const isContribute = formName === "contribute";
+  const heading = isWorkshop ? "New workshop request — UrbanEmissions"
+    : isContribute ? "New contribution / testimony — JanVayu"
+    : "New JanVayu walkthrough booking";
 
   const subjectBits = [];
   if (fields.name) subjectBits.push(fields.name.trim());
+  if (fields["contribution-type"]) subjectBits.push(fields["contribution-type"].trim());
   if (fields.organisation) subjectBits.push(fields.organisation.trim());
   if (fields["group-size"]) subjectBits.push(fields["group-size"].trim());
   if (fields.attendees) subjectBits.push(fields.attendees.trim() + " attendees");
   if (fields.city) subjectBits.push(fields.city.trim());
-  const subject = (isWorkshop ? "Workshop request" : "Walkthrough booking") +
-    (subjectBits.length ? ` — ${subjectBits.slice(0, 2).join(", ")}` : "");
+  const label = isWorkshop ? "Workshop request" : isContribute ? "Contribution" : "Walkthrough booking";
+  const subject = label + (subjectBits.length ? ` — ${subjectBits.slice(0, 2).join(", ")}` : "");
 
   const rows = Object.entries(fields)
     .filter(([k, v]) => k !== "form-name" && k !== "bot-field" && v && String(v).trim() !== "")
@@ -79,6 +86,8 @@ function buildEmail(formName, fields) {
       <div style="margin-top: 22px; padding: 12px; background: #F8FAFC; border-left: 3px solid #1B6B4A; font-size: 13px; color: #475569; line-height: 1.5;">
         ${isWorkshop
           ? "Triage and forward to Sharath (UrbanEmissions). Aim to acknowledge within 3 working days."
+          : isContribute
+          ? "A citizen wants to help (testimony / chatbot feedback / a fact / translation / etc.). Reply to welcome them and route them to the right next step."
           : "Confirm one of the three preferred slots and reply with a Google Meet link. Aim to confirm within 2 working days."}
       </div>
       <div style="margin-top: 18px; font-size: 12px; color: #94A3B8;">
@@ -126,7 +135,7 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ ok: true, dropped: "honeypot" }), { status: 200, headers });
   }
 
-  if (formName !== "workshop-request" && formName !== "walkthrough-booking") {
+  if (formName !== "workshop-request" && formName !== "walkthrough-booking" && formName !== "contribute") {
     return new Response(JSON.stringify({ error: "unknown form-name" }), { status: 400, headers });
   }
   if (!fields.name || !fields.email) {
