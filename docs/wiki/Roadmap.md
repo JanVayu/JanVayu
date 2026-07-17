@@ -4,6 +4,16 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.19: Accuracy, reliability & more diagrams (✅ Completed — v26.6.89–93)
+
+The follow-through after the visual refresh — correctness and trust.
+
+- [x] **Four more hand-drawn diagrams** — "How the AQI number is built" (AQI explainer), "How PM2.5 travels through your body" (Beyond the Lungs), "How dirty air drains the economy" (Economic Cost), and blog heroes for the stubble-burning and children's-health posts — all responsive. (v26.6.91)
+- [x] **Mobile polish** — quick-nav cards no longer break mid-word; the footer sits two-up instead of one endless column; the Photo Gallery anchor (`#gallery`) opens; "Citizen Voices"/"Citizen Testimony" renamed to the clearly-distinct **Voices Online** (social-media archive) and **Field Testimony** (on-ground). (v26.6.90)
+- [x] **Deploys appear on the first refresh** — version-stamped `styles.css`/`app.js` URLs + no-cache HTML end the stale-service-worker-cache problem. (v26.6.92)
+- [x] **Site-wide fact-check** — a multi-agent sweep web-verified ~80 statistics + calculator constants against current primary sources; **47 confirmed current, 33 corrected** (removed the false "70% of the global burden", fixed Ghaziabad NCAP utilisation, harmonised the death toll, updated IQAir/AQLI/HCES figures, removed unsourced NCAP rows). Findings in `docs/fact-check-2026-07.md`. (v26.6.93)
+- [x] **Weekly automated fact-check** — a scheduled routine re-runs the sweep every Monday and a GitHub Action auto-opens a review PR (`auto-pr-factcheck.yml`); never auto-merges.
+
 ## Phase 5.18: Conference-ready visual refresh (✅ Completed — v26.6.84–88)
 
 A mid-July 2026 design pass to make the platform read as a credible, considered
