@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JanVayu Walkthrough | A guided tour of the platform</title>
-<meta name="description" content="A concise, native walkthrough of janvayu.in: why India's air is an emergency, the live data behind every ward, health and economic costs, government accountability, and how every number stays fact-checked.">
+<meta name="description" content="A native, always-in-sync walkthrough of janvayu.in — in two lengths. A 13-slide overview (~10 min) and a comprehensive, section-by-section long deck. Why India's air is an emergency, the live data behind every ward, health and economic costs, government accountability, and how every number stays fact-checked.">
 <meta name="theme-color" content="#15803D">
 
 <!-- Open Graph -->
 <meta property="og:title" content="JanVayu Walkthrough">
-<meta property="og:description" content="A guided tour of India's citizen air quality accountability platform. 13 slides, native HTML, speaker notes included.">
+<meta property="og:description" content="A guided tour of India's citizen air quality accountability platform — in two lengths. A 13-slide overview and a comprehensive long deck. Native HTML, speaker notes included.">
 <meta property="og:url" content="https://janvayu.in/walkthrough/">
 <meta property="og:type" content="article">
 
@@ -370,12 +370,66 @@ footer strong { color: var(--white); font-weight: 600; }
 footer a { color: var(--green-200); }
 footer .legal { font-size: 0.78rem; color: #A1A1AA; }
 
+/* Deck chooser — short vs long */
+.deck-choice {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0 0.5rem;
+}
+.choice-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.05s;
+}
+.choice-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+}
+.choice-card:active { transform: translateY(1px); }
+.choice-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+}
+.choice-card h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--text-1);
+}
+.choice-card p { margin: 0; font-size: 0.9rem; color: var(--text-2); line-height: 1.5; }
+.choice-meta {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-3);
+}
+.choice-go { font-size: 0.85rem; font-weight: 500; color: var(--accent); }
+
 /* Mobile niceties */
 @media (max-width: 640px) {
     .hero { padding: 2rem 0 1rem; }
     .hero-meta { gap: 0.9rem; }
     .topbar nav a { margin-left: 0; margin-right: 1rem; }
     .topbar nav { width: 100%; }
+    .deck-choice { grid-template-columns: 1fr; }
+    /* The 16:9 box is far too short for the deck's vertical mobile layout —
+       give the preview real height so a whole slide is legible. */
+    .deck-frame { padding-top: 0; height: 78vh; min-height: 460px; }
 }
 </style>
 </head>
@@ -404,14 +458,30 @@ footer .legal { font-size: 0.78rem; color: #A1A1AA; }
         <p class="lede">A concise tour of what <a href="/">janvayu.in</a> is and how to use it: why India's air is a public-health emergency, the live data behind every ward, what today's air means for your body and the economy, how we track the promises and the money, and how every number stays fact-checked. Built natively in the site, so it never goes stale.</p>
 
         <div class="hero-meta">
-            <span><strong>13 slides</strong> · ~10 min</span>
+            <span><strong>Two lengths</strong> · 10 min or the full tour</span>
             <span>Speaker notes included</span>
             <span>Native HTML &mdash; always in sync</span>
             <span>Print to PDF built in</span>
         </div>
+
+        <div class="deck-choice">
+            <a class="choice-card" href="/walkthrough/deck.html">
+                <span class="choice-kicker">Short &mdash; start here</span>
+                <h3>The 10-minute overview</h3>
+                <p>The essentials, tightly edited, with hand-drawn diagrams. Perfect for a first look or a quick share.</p>
+                <span class="choice-meta">13 slides · ~10 min · <span class="choice-go">Open the overview &rarr;</span></span>
+            </a>
+            <a class="choice-card" href="/walkthrough/full.html">
+                <span class="choice-kicker">Long &mdash; the deep dive</span>
+                <h3>The full, section-by-section tour</h3>
+                <p>A slide for essentially every panel on the site, grouped into eight chapters. Built to train a newsroom or brief a class.</p>
+                <span class="choice-meta">36 slides · ~25 min · <span class="choice-go">Open the full deck &rarr;</span></span>
+            </a>
+        </div>
     </section>
 
     <section class="deck">
+        <p class="deck-hint" style="margin-top:0;margin-bottom:0.7rem">Previewing the <strong>short overview</strong> below &mdash; or open either deck above.</p>
         <div class="deck-frame">
             <!-- Native, self-hosted deck: walkthrough/deck.html. Edit that file to update the slides. -->
             <iframe
@@ -428,10 +498,10 @@ footer .legal { font-size: 0.78rem; color: #A1A1AA; }
 
         <div class="actions">
             <a class="btn btn-primary" href="/walkthrough/deck.html">
-                Open the deck (fullscreen)
+                Open the short deck (fullscreen)
             </a>
-            <a class="btn" href="/walkthrough/deck.html#/1" onclick="try{window.open('/walkthrough/deck.html','_blank');}catch(e){}">
-                Present from slide one
+            <a class="btn" href="/walkthrough/full.html">
+                Open the full deck (36 slides)
             </a>
             <a class="btn" href="/">
                 Explore the live site
