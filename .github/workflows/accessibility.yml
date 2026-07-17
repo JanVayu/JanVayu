@@ -22,6 +22,14 @@ jobs:
         with:
           node-version: '22'
 
+      # axe-core/cli drives Chrome via ChromeDriver. The runner's Chrome and a
+      # freshly-installed ChromeDriver can drift a major version apart (e.g.
+      # Chrome 150 vs a driver built for 151), which makes every axe run fail
+      # with "session not created" and silently produce zero results. This
+      # action installs a ChromeDriver matching the runner's Chrome.
+      - name: Install matching ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+
       - name: Install axe-core/cli + http-server
         run: |
           npm install -g @axe-core/cli@4.10.1 http-server@14.1.1
