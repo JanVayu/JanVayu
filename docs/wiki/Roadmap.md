@@ -4,6 +4,21 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.21: A longer walkthrough, plain language & mobile/IA polish (✅ Completed — v26.6.102–115)
+
+A mid-July 2026 usability batch — almost no new panels, entirely about making the existing surface easier to find, read, and use on a phone. It also cleared the last two Phase 10 items and the Phase 6 combobox.
+
+- [x] **Long walkthrough deck** — a comprehensive **36-slide** deck (`walkthrough/full.html`) across eight chapters, a slide for essentially every panel, alongside the existing short 13-slide deck; the `/walkthrough/` landing page offers **both** via a chooser. Data-driven (a `FULL_SLIDES` array rendered by the same engine). Also fixed the deck-preview iframe blanking on the tour page (added a `/walkthrough/*` `X-Frame-Options: SAMEORIGIN` header override to the global `DENY`). (#253, #254)
+- [x] **Plain-language copy sweep** — an audit across every user-facing panel found copy written from the builder's chair; stripped it. Removed "built natively / never goes stale / no Google dependency / always in sync", the Pretext "300× faster than traditional browser text layout" brag, the "Under the hood / no black box" framing, "CORS-open manifest", ward-map GIS jargon ("interpolated, inverse-distance weighted" → "estimated from the nearest monitors", keeping the honest "pattern, not a per-street reading" caveat), and the bare "GEMM" acronym on the risk button/chips (full expansion kept in the explainer + glossary). (#254)
+- [x] **About menu** — FAQ and the Team page were buried as the tail of the "Learn" dropdown and deep in the footer; split into a dedicated **About** nav dropdown (About · Team · FAQ · Contact · GitHub), mirrored in the mobile menu and as a footer column. Nav hamburger breakpoint raised to ~1180px so the ninth menu doesn't overflow. (#254)
+- [x] **Mobile polish** — dashboard tile grids and the footer nav stack into a **single column** on phones (no more mid-word "Learnin g Games", no empty footer cell); tables that forced horizontal scroll fold into **labelled cards**; a **heading-order audit** removed all skipped levels; the crammed walkthrough-preview iframe got real height. (#252, #254)
+- [x] **Mobile CSS de-duplication** — the footer/grid layout rules had drifted (`​.footer-grid` was redefined in **six** conflicting `@media` blocks, one commented "single column" while setting two). Consolidated each to a single source of truth; verified **pixel-identical** column behaviour at 12 widths (375–1280px). (#254)
+- [x] **Air-quality self-check** — a 10-question literacy quiz on the Workshops page, and **Story-of-the-week** rotation on the dashboard hero (surfaces a blog post weekly, no redeploy). *(Completes the two remaining Phase 10 items.)* (#250)
+- [x] **Searchable city combobox** — replaces the long grouped `<select>` in the hero selector, keeping the native value/change semantics. *(Completes the Phase 6 city-coverage combobox item.)* (#251)
+- [x] **CI axe-audit repaired** — the accessibility job had been silently passing on a ChromeDriver/Chrome version mismatch; pinned a matching driver. (#252)
+- [x] **Lucknow** added to the ward atlas — **112 municipal wards** (DataMeet open boundaries), air-layer only (satellite heat/green not yet available for the city, and the toggle says so). (#253)
+- [x] **Two blog posts** — the fact-check transparency post and this usability round-up.
+
 ## Phase 5.20: Native deck, deeper fact-checks & the source-apportionment ring (✅ Completed — v26.6.95–101)
 
 A mid-July 2026 batch: replace the stale slide deck, push the fact-check to the whole content surface, and ship the long-planned apportionment ring.
@@ -267,15 +282,15 @@ These features are ready to build but need specific content/decisions:
 
 ### Accessibility (issue #4)
 
-- [ ] Drive axe-core violation count to zero on `/`, `/ask/`, `/blog/`, `/downloads/`
+- [x] Drive axe-core violation count to zero on `/`, `/ask/`, `/blog/`, `/downloads/` — ✅ v26.6.93–115 (and the CI job's silent ChromeDriver/Chrome mismatch fixed so it actually runs)
 - [ ] Add `/#health`, `/#policy`, `/#workshops`, `/#games` to the audited URL set
-- [ ] Heading hierarchy audit (h1 → h6, no skipping)
-- [ ] Color-contrast pass on stat-card pills, badges, chart legends
+- [x] Heading hierarchy audit (h1 → h6, no skipping) — ✅ site-wide sweep, ~30 skips removed (Phase 5.21)
+- [x] Color-contrast pass on stat-card pills, badges, chart legends — ✅ theme-aware pass (v26.6.93, #249)
 
 ### Mobile (issue #33)
 
-- [ ] Per-panel sweep across iPhone SE / 14, Galaxy, iPad Mini using Chrome DevTools device emulation
-- [ ] Convert any tables that currently rely on horizontal scroll to a card layout on small screens
+- [x] Per-panel sweep across iPhone SE / 14, Galaxy, iPad Mini — ✅ Playwright sweep (58 panels, 0 overflow); dashboard tiles + footer restacked (Phase 5.21)
+- [x] Convert any tables that currently rely on horizontal scroll to a card layout on small screens — ✅ label-above-value responsive cards (Phase 5.21)
 - [ ] Touch testing on the Workshops and Games panels
 
 ### Translation (issue #1)
@@ -288,7 +303,7 @@ These features are ready to build but need specific content/decisions:
 
 - [x] **Expanded to 115+ Indian cities** (v26.6.51) — grew the static list from ~33 to 117, covering the major NCAP non-attainment towns. Selectable across the dashboard, comparison, alerts, forecast and calculators.
 - [x] **Lazy-fetch to stay inside the WAQI free-tier** — only the core ~33 are fetched live on load; the extended cities are fetched on demand when a user selects them, so per-visit WAQI load is unchanged.
-- [ ] Searchable combobox replaces the city `<select>` (currently a long grouped dropdown)
+- [x] Searchable combobox replaces the city `<select>` — ✅ ARIA combobox wraps the native select, keeps value/change semantics (v26.6.10x, #251)
 - [ ] Build-time CPCB station fetch to auto-maintain the list (vs the curated static array)
 
 ---
@@ -403,8 +418,10 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 - [x] **Source apportionment ring** — ✅ shipped v26.6.100 as the [Where PM2.5 Comes From](#apportionment) panel: per-city %-from transport / industry / biomass / construction / dust / power, a 12-city interactive picker, each city sourced to its own study with method + season caveats. See Phase 5.20.
 - [x] **AQI forecast 24–72hr** — ✅ shipped v26.6.44 as a live 5-day Open-Meteo/CAMS forecast (mean + peak, day-by-day). See Phase 5.16.
 - [x] **Push notifications** — ✅ shipped v26.6.49: real Web Push (VAPID), gated on user-picked AQI thresholds, delivered even when the site is closed. Complement to email digest.
-- [ ] **In-browser AQ literacy quiz** — companion to Sharath's Jeopardy game; runs on the Workshops page.
-- [ ] **Story-of-the-week rotation** — surface a blog post on the dashboard hero each week.
+- [x] **In-browser AQ literacy quiz** — ✅ shipped (Phase 5.21, #250): a 10-question air-quality self-check on the Workshops page, mirroring the quiz-game pattern.
+- [x] **Story-of-the-week rotation** — ✅ shipped (Phase 5.21, #250): the dashboard hero surfaces a rotating blog post weekly, driven by `data/stories.json`, no redeploy needed.
+
+*(With both items shipped, Phase 10 is complete.)*
 
 ---
 
@@ -413,7 +430,7 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 Building on the Phase 5.14 ward atlas. Tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
 - [~] **Ward Atlas polish** ([#151](https://github.com/JanVayu/JanVayu/issues/151)) — ✅ ward search / locate-me, ✅ two-finger pan on touch, ✅ correlation view (active layer vs built-up / green, with Pearson *r*); ⏳ time-aware (seasonal-median) heat still to do.
-- [~] **Tier-1 / tier-2 cities** — added Kanpur, Varanasi, Bhopal, Faridabad (14 cities total). Still sourcing: Agra, Lucknow, Patna, Nagpur, Indore (no open, curl-verifiable ward-polygon files found yet).
+- [~] **Tier-1 / tier-2 cities** — added Kanpur, Varanasi, Bhopal, Faridabad, and **Lucknow** (112 wards, DataMeet open boundaries, air-layer only — 15 cities total). Still sourcing: Agra, Patna, Nagpur, Indore (Indore's file truncated on the host's download cap; Patna's is 8 MB / 628 sub-polygons and needs geometry simplification via geo libraries not yet in the pipeline).
 - [ ] **Per-ward share cards** — extend the Shareable AQI Cards generator to ward snapshots ("My ward vs the city").
 
 **Dropped (not feasible on open data):**
