@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.93] - 2026-07-17
+
+### Accuracy — site-wide fact-check corrections
+
+A multi-agent fact-check web-verified ~80 statistics and calculator constants against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA). 47 checked out; the rest are corrected here. Full findings in `docs/fact-check-2026-07.md`.
+
+**Corrected wrong claims:**
+- Removed the false "~70% of the global PM2.5 burden is India" everywhere (India is roughly a quarter) — hero, meta tags, Did You Know, Citizen Voices.
+- Hero economic card: the "9.5% of GDP (Lancet)" figure is **$339.4B**, not $260B.
+- Dementia risk "40% higher" → **~17% per 10 µg/m³** (Lancet Planetary Health 2025).
+- **Ghaziabad NCAP utilisation** "26% / below threshold" → **>80% / high performer** (CREA Jan 2026) — the tracker was branding a leader as a laggard.
+- Household-air-pollution share "nearly 30%" → ~23%; women/HAP "500,000+ / 60% of deaths" reframed to India's ~0.6M total (GBD 2021).
+- Economic-cost diagram: the $339B broader figure is **Lancet Countdown 2025**, not Lancet Planetary Health.
+
+**Stale figures updated (dated & sourced):**
+- Death toll harmonised — 1.72M/yr (Lancet Countdown 2025, ambient) with ~2.1M (State of Global Air 2024, total incl. household) noted alongside, each dated.
+- Life-expectancy loss unified to **3.5 years** (AQLI 2025), removing the stale 5.3-year figure.
+- India ranking **6th most polluted, 48.9 µg/m³** (IQAir 2025), was 5th / 50.6.
+- Solid-fuel cooking "49% (Census 2021)" → **~40% (NSO HCES 2023-24)** — the 2021 census does not exist.
+- NCAP compliance count **27 of 96 cities** (CREA post-deadline 2026); removed a fabricated "CSE April 2026 / 37 of 131" review; informal workforce 93% → ~90%; Ujjwala 10.33 → 10.55 Cr; XV-FC 49 → 42 million-plus cities.
+
+**Unsourced/placeholder data removed:**
+- NCAP per-city rows with no verifiable source (Lucknow, Patna, Mumbai) removed from the budget tracker; over-precise health multipliers (preterm, low-birth-weight) softened to sourced ranges.
+
 ## [v26.6.92] - 2026-07-17
 
 ### Fix — deploys now appear on the first refresh (no more stale cache)
