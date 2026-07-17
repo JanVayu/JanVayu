@@ -383,7 +383,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="/styles.css?v=202606105">
+    <link rel="stylesheet" href="/styles.css?v=202606106">
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1349,7 +1349,7 @@
         </div>
     </footer>
 
-    <script src="/app.js?v=202606105"></script>
+    <script src="/app.js?v=202606106"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2858,6 +2858,23 @@
             <div class="alert alert-info mt-3"><div data-simple="JanVayu walkthroughs (run by our team) are free. The UrbanEmissions workshop with Dr. Guttikunda is run by him and he sets his own fee — we just pass on your request. We don't share your contact details with anyone except the facilitator.">
                 <strong>Note:</strong> <strong>JanVayu walkthroughs</strong> (run by our team) are free. The <strong>UrbanEmissions workshop</strong> is facilitated independently by Dr. Sarath Guttikunda, who sets his own fee and schedule &mdash; we simply forward your request to him. We don't share your contact details with anyone other than the facilitator. If you'd like to host us at a larger event or sponsor a workshop series, write to us via the <a href="#about" onclick="showPanel('about'); return false;">About page</a>.
             </div></div>
+
+            <!-- ── Air-literacy self-check (companion to the facilitated workshop) ── -->
+            <div class="dash-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border); padding-top: 1.75rem;">
+                <span class="dash-section-eyebrow">Before or after a session</span>
+                <h3 style="font-family: var(--serif); font-size: clamp(1.35rem, 2.5vw, 1.75rem); line-height: 1.25; margin: 0.4rem 0 0.6rem; color: var(--ink);">How air-literate are you?</h3>
+                <p style="font-size: 1rem; line-height: 1.65; color: var(--text-2); max-width: 44rem;" data-simple="A short 10-question quiz to test what you know about air pollution. Every answer explains the science. Great before or after a workshop.">A quick <strong>10-question self-check</strong> on the essentials &mdash; what the AQI actually measures, how India's standards compare, what to do on a bad day. Every answer explains the science, so it teaches as it tests. Handy as a warm-up or a wrap-up for a workshop.</p>
+            </div>
+            <div class="card" style="max-width: 44rem; margin-top: 1rem;">
+                <div class="card-header">
+                    <span class="card-title">Air-Literacy Self-Check</span>
+                    <span style="font-size: 0.72rem; color: var(--text-3);">Question <span id="aqlit-q-num">1</span> / <span id="aqlit-q-total">10</span> &middot; Score <span id="aqlit-score">0</span></span>
+                </div>
+                <div class="card-body" id="aqlit-card-body" style="min-height: 12rem;">
+                    <p style="color: var(--text-2); line-height: 1.6; margin-bottom: 1rem;">Ten questions, no sign-up, instant feedback. Ready?</p>
+                    <button type="button" class="btn btn-primary" onclick="startAqLit()">Start the self-check</button>
+                </div>
+            </div>
 
 </template>
 

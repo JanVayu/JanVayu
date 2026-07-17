@@ -971,3 +971,127 @@ function switchGame(name) {
         };
     }
 })();
+
+// ── AIR-LITERACY SELF-CHECK (Workshops panel) ──────────────────────────────
+// A standalone 10-question knowledge check, separate from the Games-panel quiz.
+// Same render pattern; its own `aqlit-*` element IDs. Facts align with the
+// site's verified figures (WHO annual PM2.5 = 5, India NAAQS = 40, etc.).
+const AQLIT_QUESTIONS = [
+    {
+        q: 'What does an AQI number mainly tell you?',
+        opts: ['The temperature outside', 'How polluted the air is, on a health-risk scale', 'The chance of rain', 'How many vehicles are on the road'],
+        ans: 1,
+        why: 'The Air Quality Index converts pollutant concentrations into a single 0-500+ health-risk scale with named bands (Good, Satisfactory, Moderate, Poor, Very Poor, Severe).'
+    },
+    {
+        q: '"PM2.5" refers to particles that are…',
+        opts: ['2.5 metres wide', '2.5 millimetres wide', '2.5 micrometres wide or smaller', 'made of exactly 2.5 chemicals'],
+        ans: 2,
+        why: 'PM2.5 is fine particulate matter 2.5 microns across or smaller — about 1/30th the width of a human hair. That is small enough to reach deep into the lungs and cross into the bloodstream.'
+    },
+    {
+        q: 'The WHO says annual PM2.5 should stay below…',
+        opts: ['5 µg/m³', '40 µg/m³', '100 µg/m³', 'There is no guideline'],
+        ans: 0,
+        why: 'The WHO 2021 Global Air Quality Guideline for annual PM2.5 is 5 µg/m³. Most Indian cities are many times over it.'
+    },
+    {
+        q: 'India’s own national standard (NAAQS) for annual PM2.5 is…',
+        opts: ['5 µg/m³', '40 µg/m³', '10 µg/m³', 'the same as the WHO limit'],
+        ans: 1,
+        why: 'India’s NAAQS annual PM2.5 limit is 40 µg/m³ — eight times the WHO guideline of 5. So "meets Indian standards" is not the same as "safe".'
+    },
+    {
+        q: 'A city’s AQI is reported as a single number. How is it chosen from all the pollutants?',
+        opts: ['It is the average of every pollutant', 'It is the worst (highest) sub-index among the pollutants', 'It is always the PM2.5 value', 'It is chosen at random each hour'],
+        ans: 1,
+        why: 'The overall AQI is the worst of the individual pollutant sub-indices (CPCB uses up to eight: PM2.5, PM10, NO₂, SO₂, CO, O₃, NH₃, Pb). One bad pollutant sets the headline number.'
+    },
+    {
+        q: 'A lot of India’s PM2.5 is "secondary". What does that mean?',
+        opts: ['It is less harmful', 'It forms in the air from gases, rather than being emitted directly', 'It only appears at night', 'It comes only from vehicles'],
+        ans: 1,
+        why: 'Up to ~42% of India’s PM2.5 is secondary — formed in the atmosphere from gases like SO₂ and NOₓ (e.g. ammonium sulphate). That is why dust-only control misses much of the problem.'
+    },
+    {
+        q: 'On a "Severe" AQI day, the most useful thing to do is…',
+        opts: ['Go for a long outdoor run to build tolerance', 'Limit outdoor exertion; use an N95/FFP2 mask and a purifier indoors', 'Open all windows to let fresh air in', 'Nothing — masks do not help'],
+        ans: 1,
+        why: 'On severe days, cut strenuous outdoor activity, keep windows shut, run a purifier if you have one, and wear a well-fitted N95/FFP2 mask outdoors — these do filter fine particles.'
+    },
+    {
+        q: 'Indoor air, compared with outdoor air, is…',
+        opts: ['Always cleaner', 'Often just as bad or worse — cooking smoke, no filtration', 'Never a concern', 'Only polluted if you smoke'],
+        ans: 1,
+        why: 'Indoor PM2.5 tracks outdoor levels and is often worsened by cooking (especially biomass fuels), incense, and closed rooms. Household air pollution is a major health burden in India.'
+    },
+    {
+        q: 'To compare how polluted two cities are over a whole year, the best number is…',
+        opts: ['One day’s AQI reading', 'The annual-average PM2.5 concentration', 'The hottest day’s temperature', 'The number of monitoring stations'],
+        ans: 1,
+        why: 'A single day’s AQI swings with weather. The fair yardstick is the annual-average PM2.5 (µg/m³) — the basis for rankings like IQAir’s and for the WHO/India standards.'
+    },
+    {
+        q: 'Who is generally most vulnerable to air pollution?',
+        opts: ['Only the elderly', 'Children, pregnant women, the elderly, and people with heart or lung conditions', 'Only outdoor workers', 'Everyone equally, with no differences'],
+        ans: 1,
+        why: 'Children (developing lungs, higher breathing rate), pregnant women, older adults, and people with existing heart or lung disease face the highest risk — though sustained exposure harms everyone.'
+    }
+];
+let aqlitState = { i: 0, score: 0, answered: false };
+function startAqLit() {
+    aqlitState = { i: 0, score: 0, answered: false };
+    var t = document.getElementById('aqlit-q-total');
+    if (t) t.textContent = AQLIT_QUESTIONS.length;
+    renderAqLit();
+}
+function renderAqLit() {
+    var body = document.getElementById('aqlit-card-body');
+    if (!body) return;
+    if (aqlitState.i >= AQLIT_QUESTIONS.length) {
+        var pct = Math.round(aqlitState.score / AQLIT_QUESTIONS.length * 100);
+        var verdict = pct >= 90 ? 'Air-literate. You could teach this.' : pct >= 70 ? 'Strong — you know the essentials.' : pct >= 50 ? 'A useful baseline. Keep exploring the site.' : 'A workshop would help — and that’s exactly what this page is for.';
+        body.innerHTML = '<h3 style="font-family: var(--serif); margin: 0 0 8px;">Self-check complete</h3>' +
+            '<div style="font-size: 1.4rem; font-weight: 700; color: var(--accent); margin-bottom: 6px;">' + aqlitState.score + ' / ' + AQLIT_QUESTIONS.length + '  (' + pct + '%)</div>' +
+            '<div style="font-size: 0.9rem; color: var(--text-2); margin-bottom: 14px;">' + verdict + '</div>' +
+            '<button type="button" class="btn btn-primary" onclick="startAqLit()">Try again</button>';
+        var n = document.getElementById('aqlit-q-num');
+        if (n) n.textContent = AQLIT_QUESTIONS.length;
+        return;
+    }
+    var Q = AQLIT_QUESTIONS[aqlitState.i];
+    var qn = document.getElementById('aqlit-q-num');
+    if (qn) qn.textContent = aqlitState.i + 1;
+    var sc = document.getElementById('aqlit-score');
+    if (sc) sc.textContent = aqlitState.score;
+    aqlitState.answered = false;
+    var html = '<div style="font-family: var(--serif); font-size: 1.15rem; line-height: 1.4; margin-bottom: 14px;">' + Q.q + '</div>';
+    html += '<div style="display: flex; flex-direction: column; gap: 8px;">';
+    Q.opts.forEach(function (opt, i) {
+        html += '<button type="button" class="quiz-opt-btn" onclick="answerAqLit(' + i + ')" data-i="' + i + '" style="text-align: left; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.9rem; cursor: pointer;">' + String.fromCharCode(65 + i) + '. ' + opt + '</button>';
+    });
+    html += '</div><div id="aqlit-feedback" style="margin-top: 14px;"></div>';
+    body.innerHTML = html;
+}
+function answerAqLit(i) {
+    if (aqlitState.answered) return;
+    aqlitState.answered = true;
+    var Q = AQLIT_QUESTIONS[aqlitState.i];
+    var correct = i === Q.ans;
+    if (correct) aqlitState.score += 1;
+    document.querySelectorAll('#aqlit-card-body .quiz-opt-btn').forEach(function (btn) {
+        var idx = parseInt(btn.getAttribute('data-i'));
+        btn.style.cursor = 'default';
+        if (idx === Q.ans) { btn.style.background = '#DCFCE7'; btn.style.borderColor = '#86EFAC'; btn.style.color = '#166534'; btn.style.fontWeight = '700'; }
+        else if (idx === i) { btn.style.background = '#FEE2E2'; btn.style.borderColor = '#FCA5A5'; btn.style.color = '#991B1B'; }
+        else { btn.style.opacity = '0.6'; }
+    });
+    var fb = document.getElementById('aqlit-feedback');
+    if (fb) fb.innerHTML = '<div style="padding: 12px; border-radius: 8px; background: var(--bg-section); border-left: 3px solid ' + (correct ? '#22C55E' : '#EF4444') + ';">' +
+        '<div style="font-weight: 700; margin-bottom: 6px; color: ' + (correct ? '#166534' : '#991B1B') + ';">' + (correct ? 'Correct.' : 'Not quite.') + '</div>' +
+        '<div style="font-size: 0.85rem; color: var(--text-2); line-height: 1.55;">' + Q.why + '</div>' +
+        '<button type="button" class="btn btn-primary mt-2" onclick="nextAqLit()">' + (aqlitState.i + 1 === AQLIT_QUESTIONS.length ? 'See results' : 'Next question') + '</button></div>';
+    var sc = document.getElementById('aqlit-score');
+    if (sc) sc.textContent = aqlitState.score;
+}
+function nextAqLit() { aqlitState.i += 1; renderAqLit(); }
