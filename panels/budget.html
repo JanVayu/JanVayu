@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="color: var(--green-700); font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Economic Cost of Air Pollution</h4>
+                            <h3 style="color: var(--green-700); font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Economic Cost of Air Pollution</h3>
                             <div style="font-size: 2.5rem; font-weight: 700; color: var(--green-700);">$36.8 Billion</div>
                             <div style="font-size: 0.875rem; color: var(--text-2);">1.36% of GDP (Lancet 2021) / $339 Billion at 9.5% GDP (Lancet Countdown 2025)</div>
                             <ul style="font-size: 0.875rem; margin-top: 1rem; line-height: 1.8;">
@@ -59,7 +59,7 @@
                             </ul>
                         </div>
                         <div>
-                            <h4 style="color: var(--green-700); font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Clean Air Spending (All Schemes)</h4>
+                            <h3 style="color: var(--green-700); font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Clean Air Spending (All Schemes)</h3>
                             <div style="font-size: 2.5rem; font-weight: 700; color: var(--green-700);">~₹15,000 Cr</div>
                             <div style="font-size: 0.875rem; color: var(--text-2);">Approximately $1.8 Billion across all schemes</div>
                             <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-700);">
@@ -126,7 +126,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-wrap">
-                        <table class="table">
+                        <table class="table responsive-cards">
                             <thead>
                                 <tr>
                                     <th>City</th>
@@ -138,25 +138,25 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Delhi</strong></td>
-                                    <td>81.36</td>
-                                    <td>14.10</td>
-                                    <td><span class="badge badge-danger">17%</span></td>
-                                    <td style="color: var(--green-700);">Critical underutilization</td>
+                                    <td data-label="City"><strong>Delhi</strong></td>
+                                    <td data-label="Allocated (₹ Cr)">81.36</td>
+                                    <td data-label="Utilized (₹ Cr)">14.10</td>
+                                    <td data-label="Utilization %"><span class="badge badge-danger">17%</span></td>
+                                    <td style="color: var(--green-700);" data-label="Status">Critical underutilization</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Noida</strong></td>
-                                    <td>55.70</td>
-                                    <td>7.07</td>
-                                    <td><span class="badge badge-danger">13%</span></td>
-                                    <td style="color: var(--green-700);">Critical underutilization</td>
+                                    <td data-label="City"><strong>Noida</strong></td>
+                                    <td data-label="Allocated (₹ Cr)">55.70</td>
+                                    <td data-label="Utilized (₹ Cr)">7.07</td>
+                                    <td data-label="Utilization %"><span class="badge badge-danger">13%</span></td>
+                                    <td style="color: var(--green-700);" data-label="Status">Critical underutilization</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Ghaziabad</strong></td>
-                                    <td>48.50</td>
-                                    <td>&gt;39</td>
-                                    <td><span class="badge badge-success">&gt;80%</span></td>
-                                    <td style="color: var(--green-700);">High performer (CREA 2026)</td>
+                                    <td data-label="City"><strong>Ghaziabad</strong></td>
+                                    <td data-label="Allocated (₹ Cr)">48.50</td>
+                                    <td data-label="Utilized (₹ Cr)">&gt;39</td>
+                                    <td data-label="Utilization %"><span class="badge badge-success">&gt;80%</span></td>
+                                    <td style="color: var(--green-700);" data-label="Status">High performer (CREA 2026)</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -244,7 +244,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-wrap">
-                        <table class="table">
+                        <table class="table responsive-cards">
                             <thead>
                                 <tr>
                                     <th>Scheme</th>
@@ -256,25 +256,25 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>FAME I</strong></td>
-                                    <td>2015-2019</td>
-                                    <td>895</td>
-                                    <td>Hybrid & EV adoption</td>
-                                    <td><span class="badge badge-success">Completed</span></td>
+                                    <td data-label="Scheme"><strong>FAME I</strong></td>
+                                    <td data-label="Period">2015-2019</td>
+                                    <td data-label="Outlay (₹ Cr)">895</td>
+                                    <td data-label="Key Focus">Hybrid & EV adoption</td>
+                                    <td data-label="Status"><span class="badge badge-success">Completed</span></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>FAME II</strong></td>
-                                    <td>2019-2024</td>
-                                    <td>11,500</td>
-                                    <td>E-2W, E-3W, E-buses, Charging</td>
-                                    <td><span class="badge badge-success">Completed</span></td>
+                                    <td data-label="Scheme"><strong>FAME II</strong></td>
+                                    <td data-label="Period">2019-2024</td>
+                                    <td data-label="Outlay (₹ Cr)">11,500</td>
+                                    <td data-label="Key Focus">E-2W, E-3W, E-buses, Charging</td>
+                                    <td data-label="Status"><span class="badge badge-success">Completed</span></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>PM E-DRIVE</strong></td>
-                                    <td>2024-2026</td>
-                                    <td>10,900</td>
-                                    <td>Mass mobility, 72,300 chargers</td>
-                                    <td><span class="badge badge-info">Active</span></td>
+                                    <td data-label="Scheme"><strong>PM E-DRIVE</strong></td>
+                                    <td data-label="Period">2024-2026</td>
+                                    <td data-label="Outlay (₹ Cr)">10,900</td>
+                                    <td data-label="Key Focus">Mass mobility, 72,300 chargers</td>
+                                    <td data-label="Status"><span class="badge badge-info">Active</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -328,7 +328,7 @@
                 <div class="card-body">
                     <div class="grid-2">
                         <div>
-                            <h4 style="color: var(--green-700); font-size: 0.875rem; margin-bottom: 0.5rem;">Structural Issues</h4>
+                            <h3 style="color: var(--green-700); font-size: 0.875rem; margin-bottom: 0.5rem;">Structural Issues</h3>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>No legally binding targets:</strong> NCAP targets are aspirational with no penalties</li>
                                 <li><strong>XV-FC cliff:</strong> ₹16,539 Cr <strong>expired 31 Mar 2026</strong>; no dedicated successor to the air-quality grant announced as of mid-May 2026 &mdash; 16th Finance Commission report was submitted 17 Nov 2025 (award period 2026-31)</li>
@@ -338,7 +338,7 @@
                             </ul>
                         </div>
                         <div>
-                            <h4 style="font-size: 0.875rem; margin-bottom: 0.5rem">Hidden Funds</h4>
+                            <h3 style="font-size: 0.875rem; margin-bottom: 0.5rem">Hidden Funds</h3>
                             <ul style="font-size: 0.875rem; line-height: 1.8;">
                                 <li><strong>Environmental Cess:</strong> ₹45.8 Cr collected over 8 years, &lt;1% spent on pollution control (RTI)</li>
                                 <li><strong>CAMPA Funds:</strong> only ₹26,002 Cr utilized (2019-24), a fraction of the accumulated afforestation corpus (CAG 2024)</li>

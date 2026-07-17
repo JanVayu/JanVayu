@@ -2287,7 +2287,7 @@ html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
 [data-theme="dark"] .role-action-card-icon {
     background: rgba(22, 163, 74, 0.12);
 }
-.role-action-card h4 {
+.role-action-card h3, .role-action-card h4 {
     font-family: var(--sans); font-size: 0.9rem; font-weight: 600;
     color: var(--text); margin-bottom: 0.25rem;
 }
@@ -2766,3 +2766,26 @@ body {
 .city-combo-opt:hover, .city-combo-opt.active { background: var(--bg-section); }
 .city-combo-opt.active { outline: 1px solid var(--accent); }
 .city-combo-empty { padding: 7px 10px; font-size: 0.85rem; color: var(--text-3); }
+
+/* ── Responsive tables → stacked labeled cards on small screens ─────────── */
+@media (max-width: 640px) {
+    .responsive-cards, .responsive-cards tbody, .responsive-cards tr, .responsive-cards td {
+        display: block; width: 100%; box-sizing: border-box;
+    }
+    .responsive-cards { min-width: 0 !important; }
+    /* Keep the header row in the DOM for assistive tech, hidden visually. */
+    .responsive-cards thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .responsive-cards tr { margin-bottom: 0.75rem; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.85rem; background: var(--bg-card); }
+    /* Label above value, each on its own line — wraps naturally, never overflows. */
+    .responsive-cards td {
+        text-align: left; padding: 0.4rem 0; border: none; border-bottom: 1px solid var(--border);
+        font-size: 0.85rem; overflow-wrap: anywhere;
+    }
+    .responsive-cards td:last-child { border-bottom: none; }
+    .responsive-cards td::before {
+        content: attr(data-label); display: block;
+        font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+        color: var(--text-3); margin-bottom: 0.15rem;
+    }
+    .responsive-cards td[data-label=""]::before { content: ""; margin: 0; }
+}
