@@ -1430,7 +1430,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
    body{word-break:break-word} was splitting labels like "Accountability". */
 @media (max-width: 1024px) {
     .quick-link { align-items: flex-start; gap: 12px; }
-    .quick-link h4, .quick-link p { word-break: normal; overflow-wrap: break-word; hyphens: none; }
+    .quick-link h3, .quick-link h4, .quick-link p { word-break: normal; overflow-wrap: break-word; hyphens: none; }
 }
 
 /* Result boxes */
@@ -2788,4 +2788,16 @@ body {
         color: var(--text-3); margin-bottom: 0.15rem;
     }
     .responsive-cards td[data-label=""]::before { content: ""; margin: 0; }
+}
+
+/* ── Phones: single-column stacks ────────────────────────────────────────────
+   On narrow screens a two-column layout does more harm than good in two places:
+   the dashboard tile grids squeeze each card so tight that titles break
+   mid-word ("Learnin g Games"), and the footer's three nav groups leave an
+   empty cell beside the odd one out. Stack both into one column. This block is
+   last in the file so it wins over the earlier .hero .grid-4 / .footer-grid
+   rules regardless of their source order. */
+@media (max-width: 600px) {
+    .hero .grid-4 { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
 }
