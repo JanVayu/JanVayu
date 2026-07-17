@@ -20,7 +20,7 @@ They share chemistry, weather, causes, and victims.
 
 **One canopy, two jobs.** Tree cover lowers temperature *and* traps particulate matter on its leaves (Nowak et al., 2014). Strip the green from a neighbourhood and you remove the shade and the filter in a single stroke.
 
-And the victims overlap. On a hot, polluted day, heat and dirty air attack the heart and lungs through the same pathways. A nine-city European study (Analitis et al., 2014) found heat-wave deaths were **54% higher on high-ozone days**; a 620-city, 36-country analysis (Stafoggia et al., 2023) confirmed the two compound each other worldwide. The densest, least-green, lowest-income colonies carry the most of both — while being least able to afford an AC or an air purifier.
+And the victims overlap. On a hot, polluted day, heat and dirty air attack the heart and lungs through the same pathways. A nine-city European study (Analitis et al., 2014) found heat-wave deaths were **54% higher on high-ozone days** (among people aged 75–84); a 620-city, 36-country analysis (Stafoggia et al., 2023) confirmed the two compound each other worldwide. The densest, least-green, lowest-income colonies carry the most of both — while being least able to afford an AC or an air purifier.
 
 ## The science of the divide
 

@@ -8,7 +8,7 @@ Every morning, millions of Indians check a single number before deciding whether
 
 ## AQI is the maximum, not the average
 
-This is the single most important fact most people get wrong. The Air Quality Index is **not** an average of all pollutants. It is the **worst** of six separate sub-indices — one each for PM2.5, PM10, NO2, SO2, CO, and O3. A monitoring station calculates a sub-index for each pollutant, then reports the highest one as "the AQI." The pollutant that drives that highest value is called the **dominant pollutant**.
+This is the single most important fact most people get wrong. The Air Quality Index is **not** an average of all pollutants. It is the **worst** of eight separate sub-indices — one each for PM2.5, PM10, NO2, SO2, CO, O3, NH3 (ammonia), and Pb (lead) (CPCB National AQI methodology, 2014). A monitoring station calculates a sub-index for each pollutant, then reports the highest one as "the AQI." The pollutant that drives that highest value is called the **dominant pollutant**.
 
 This matters enormously. An AQI of 200 driven by PM2.5 (fine particulate matter that lodges deep in your lungs) demands a different health response than an AQI of 200 driven by ground-level ozone (which irritates airways and worsens asthma). The number is the same. The danger is not.
 
