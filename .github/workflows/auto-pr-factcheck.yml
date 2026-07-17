@@ -1,0 +1,34 @@
+name: Auto-PR weekly fact-check
+
+# When the weekly fact-check routine pushes its branch, open (or update) a PR to
+# main automatically, so guaranteed PR creation does not depend on the scheduled
+# session holding GitHub connector tools. CI runs on the branch push (see the
+# push trigger added to ci.yml / accessibility.yml), so the checks appear on the
+# PR by commit SHA. A human still reviews and merges — this never auto-merges.
+on:
+  push:
+    branches: [claude/weekly-factcheck]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Open or update the weekly fact-check PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          existing=$(gh pr list --head claude/weekly-factcheck --base main --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$existing" ]; then
+            echo "PR #$existing is already open for claude/weekly-factcheck; this push updates it."
+            exit 0
+          fi
+          gh pr create \
+            --base main \
+            --head claude/weekly-factcheck \
+            --title "Weekly fact-check — $(date -u +%Y-%m-%d)" \
+            --body "Automated weekly fact-check. The routine web-verified the site's statistics and calculator constants against current primary sources and applied the verified corrections. See \`docs/fact-check-*.md\` (newest) for the findings table. **Please review the diff and CI before merging — this PR is never auto-merged.**"
