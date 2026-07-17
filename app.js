@@ -1494,7 +1494,8 @@
         hyderabad: '/data/wards/hyderabad.json', ahmedabad: '/data/wards/ahmedabad.json', chennai: '/data/wards/chennai.json',
         kolkata: '/data/wards/kolkata.json', pune: '/data/wards/pune.json', jaipur: '/data/wards/jaipur.json',
         chandigarh: '/data/wards/chandigarh.json', kanpur: '/data/wards/kanpur.json', varanasi: '/data/wards/varanasi.json',
-        bhopal: '/data/wards/bhopal.json', faridabad: '/data/wards/faridabad.json'
+        bhopal: '/data/wards/bhopal.json', faridabad: '/data/wards/faridabad.json',
+        lucknow: '/data/wards/lucknow.json'
     };
 
     function wardPM25Color(v) {
@@ -1789,6 +1790,20 @@
         });
 
         wardState = { cityKey, geo, stations };
+
+        // Air-only cities (ward boundaries fetched, but no satellite-derived
+        // heat/green/built layers yet): disable those toggles and stay on air.
+        (function () {
+            const raster = !geo.airOnly && geo.features.some(f => f.properties.lst != null);
+            document.querySelectorAll('#ward-layer-toggle .ward-layer-btn').forEach(b => {
+                if (b.dataset.layer === 'pm25') return;
+                b.disabled = !raster;
+                b.style.opacity = raster ? '' : '0.4';
+                b.style.cursor = raster ? '' : 'not-allowed';
+                b.title = raster ? '' : 'Satellite heat / green / built-up layers aren’t available for this city yet';
+            });
+            if (!raster && wardCurrentLayer !== 'pm25') wardCurrentLayer = 'pm25';
+        })();
 
         // (Re)create the map
         if (wardMap) { try { wardMap.remove(); } catch (e) {} wardMap = null; wardLayer = null; }
