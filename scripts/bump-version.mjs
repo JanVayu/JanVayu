@@ -113,14 +113,39 @@ console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
   const file = 'sw.js';
   let content = readFile(file);
 
-  const updated = content.replace(
+  let updated = content.replace(
     /const CACHE_VERSION\s*=\s*'janvayu-[^']*'/,
     `const CACHE_VERSION = 'janvayu-${dateStamp}'`
   );
+  // Keep the precached shell URLs version-stamped so they match the versioned
+  // <link>/<script> requests from index.html (cache-busting; see section 5).
+  updated = updated
+    .replace(/'\/styles\.css(?:\?v=\d+)?'/, `'/styles.css?v=${dateStamp}'`)
+    .replace(/'\/app\.js(?:\?v=\d+)?'/, `'/app.js?v=${dateStamp}'`);
 
   if (updated !== content) {
     writeFile(file, updated);
-    console.log(`${file}: CACHE_VERSION = 'janvayu-${dateStamp}'`);
+    console.log(`${file}: CACHE_VERSION = 'janvayu-${dateStamp}' + stamped shell assets`);
+  } else {
+    console.log(`${file}: already up to date`);
+  }
+}
+
+// --- 5. Version-stamp the CSS/JS URLs in index.html ------------------------
+// The service worker serves same-origin CSS/JS cache-first, so an unversioned
+// /styles.css would keep being served from the old cache after a deploy. Adding
+// ?v=<stamp> makes every release request a *new* URL that cannot hit a stale
+// cache entry — index.html itself is network-first, so the new HTML (with the
+// new stamp) always reaches the browser, and the fresh assets follow.
+{
+  const file = 'index.html';
+  let content = readFile(file);
+  const updated = content
+    .replace(/href="\/styles\.css(?:\?v=\d+)?"/, `href="/styles.css?v=${dateStamp}"`)
+    .replace(/src="\/app\.js(?:\?v=\d+)?"/, `src="/app.js?v=${dateStamp}"`);
+  if (updated !== content) {
+    writeFile(file, updated);
+    console.log(`${file}: styles.css + app.js stamped ?v=${dateStamp}`);
   } else {
     console.log(`${file}: already up to date`);
   }
