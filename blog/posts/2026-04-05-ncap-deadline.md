@@ -16,9 +16,9 @@ But several cities moved in the wrong direction. Navi Mumbai saw PM2.5 concentra
 
 ## Follow the Money
 
-Between 2019 and 2025, the central government released Rs 11,211 crore under NCAP and Fifteenth Finance Commission grants combined. Only 68 percent of this funding was utilised, with NCAP-specific funds showing a utilisation rate of just 63 percent. Cities received money they did not spend, and the money they spent was disproportionately directed at one intervention.
+Between 2019 and 2025, the central government released Rs 13,415 crore under NCAP and Fifteenth Finance Commission grants combined. Only 74 percent of this funding was utilised, with NCAP-specific funds showing a utilisation rate of just 59 percent. Cities received money they did not spend, and the money they spent was disproportionately directed at one intervention.
 
-A staggering 67 percent of NCAP funds were allocated to road dust management — water sprinkling, mechanical sweeping, and road paving. Industries received just 1 percent. Domestic fuel interventions received 1 percent. Public outreach received 1 percent. The programme designed to clean India's air spent two-thirds of its budget watering roads.
+A staggering 68 percent of NCAP funds were allocated to road dust management — water sprinkling, mechanical sweeping, and road paving. Industries received less than 1 percent. Domestic fuel interventions received less than 1 percent. Public outreach received less than 1 percent. The programme designed to clean India's air spent two-thirds of its budget watering roads.
 
 Road dust is a contributor to PM10, but it is not the primary driver of PM2.5 — the pollutant most directly linked to mortality. The health crisis is caused by fine particulate matter from vehicle emissions, industrial processes, construction, waste burning, and crop residue fires. NCAP's spending pattern suggests a programme optimised for visible action rather than health impact.
 

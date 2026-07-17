@@ -12,7 +12,7 @@ Air pollution in India is not an abstract environmental problem. It is a child h
 
 A peer-reviewed study published in the Journal of Environmental Economics and Management found that a one standard deviation increase in average annual PM2.5 concentrations increases the prevalence of stunting in Indian children by 5 percentage points, and severe stunting by 2.4 percentage points.
 
-India already has one of the highest stunting rates in the world: 38 percent of children under five are stunted. The researchers estimated that if air quality across India were improved to meet national ambient standards alone — not even the stricter WHO guideline — 3 million fewer children would be stunted. If India met the WHO standard of 5 micrograms per cubic metre, the share of stunted children would fall by 10.4 percentage points.
+India already has one of the highest stunting rates in the world: 35.5 percent of children under five are stunted (NFHS-5, 2019-21). The researchers estimated that if air quality across India were improved to meet national ambient standards alone — not even the stricter WHO guideline — 3 million fewer children would be stunted. If India met the WHO standard of 5 micrograms per cubic metre, the share of stunted children would fall by 10.4 percentage points.
 
 These are not small numbers. Stunting in early childhood is largely irreversible. It leads to weakened immune systems, lower cognitive development, poorer educational outcomes, and, in adulthood, higher vulnerability to hypertension and diabetes. Air pollution is, through stunting, programming a generation of Indian children for worse health outcomes across their entire lives.
 
@@ -32,7 +32,7 @@ These closures disproportionately affect children from lower-income families, wh
 
 ## The Mortality Data
 
-The Global Burden of Disease study (most recent India estimate, 2021 cycle) attributed 8.8 percent of deaths in Indian children under five in 2017 to air pollution. Vital Strategies' 2023 analysis ("Air pollution hinders childhood development") found that air pollution affects childhood development in up to 90 percent of children globally, with South Asian children among the most affected populations.
+The Global Burden of Disease study (GBD 2017, Lancet Planetary Health) attributed 8.8 percent of deaths in Indian children under five in 2017 to air pollution. Vital Strategies' 2023 analysis ("Air pollution hinders childhood development") found that air pollution affects childhood development in up to 90 percent of children globally, with South Asian children among the most affected populations.
 
 The Lancet Countdown 2025 places India's annual air pollution death toll at 1.72 million, a significant proportion of whom are children and infants. Neonatal mortality from air pollution exposure — including preterm birth, low birth weight, and respiratory distress — accounts for a substantial share of these deaths but receives comparatively little policy attention.
 
