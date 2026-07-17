@@ -4,6 +4,16 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.20: Native deck, deeper fact-checks & the source-apportionment ring (✅ Completed — v26.6.95–101)
+
+A mid-July 2026 batch: replace the stale slide deck, push the fact-check to the whole content surface, and ship the long-planned apportionment ring.
+
+- [x] **Native HTML walkthrough deck** — the Google Slides embed is replaced by a self-hosted 13-slide deck (`walkthrough/deck.html`) with keyboard nav, speaker notes, overview grid, fullscreen, deep-links, touch swipe, and print-to-PDF. Self-hosts its fonts and inlines the hand-drawn diagrams, so it stays in sync with the site and needs no re-export. (v26.6.96)
+- [x] **Fact-check rounds 2 & 2b** — a 12-agent verification pass re-checked the prior findings against the live files and fresh sources: **37 verified corrections** (incl. restoring CREA's 23/100 NCAP figure, removing a fabricated "CSE Apr 2026" citation, refreshing NCAP fund figures to CREA 2026) and **43 resolutions** of flagged items (neutral, sourced reframes of stale accountability claims — Delhi e-buses, odd-even, FGD — plus removals of unsourced figures). Logs in `docs/fact-check-2026-07b.md`. (v26.6.97–98)
+- [x] **Content sweep** — extended the fact-check to the 8 panels and 10 data/research posts the earlier rounds hadn't reached: **327 statistics checked, 116 confirmed current, 8 corrected, 25 flagged** for review (`docs/fact-check-2026-07c.md`). (v26.6.101)
+- [x] **Source-apportionment ring** (`#apportionment`) — "Where PM2.5 comes from": a doughnut with a 12-city picker (Delhi–Jaipur) showing each source's share of ambient PM2.5, each city sourced to its own study (CREA, UrbanEmissions.info, CSIR-NEERI, CSTEP, TERI, IIT Kanpur, state boards) with an honest method/season caveat and a methodology note. *(Delivers the Phase 10 "source apportionment ring" item.)* (v26.6.100)
+- [x] **Team page** (`#team`) with Varna, Atul, and Komal (both with LinkedIn); **detailed FAQ page** (`#faq`); and a transparency **blog post** on the fact-check. (v26.6.95–99)
+
 ## Phase 5.19: Accuracy, reliability & more diagrams (✅ Completed — v26.6.89–93)
 
 The follow-through after the visual refresh — correctness and trust.
@@ -390,7 +400,7 @@ Recommended next-build list, drawing on the latest scan of NCAP Tracker (Climate
 
 - [~] **NCAP city scorecard upgrade** — ✅ one-click pre-filled RTI to the state board shipped v26.6.45 (see Phase 5.16); ⏳ station-level fund utilization + PM2.5-vs-target chart still to do.
 - [x] **Stubble-burning live tracker** — ✅ shipped v26.6.47 as the [Farm Fire Tracker](#fire-tracker) panel (NASA FIRMS, VIIRS/NOAA-20). See Phase 5.16.
-- [ ] **Source apportionment ring** — per-city %-from transport / industry / biomass / construction / dust, sourced from CREA + UrbanEmissions inventories. Interactive city picker.
+- [x] **Source apportionment ring** — ✅ shipped v26.6.100 as the [Where PM2.5 Comes From](#apportionment) panel: per-city %-from transport / industry / biomass / construction / dust / power, a 12-city interactive picker, each city sourced to its own study with method + season caveats. See Phase 5.20.
 - [x] **AQI forecast 24–72hr** — ✅ shipped v26.6.44 as a live 5-day Open-Meteo/CAMS forecast (mean + peak, day-by-day). See Phase 5.16.
 - [x] **Push notifications** — ✅ shipped v26.6.49: real Web Push (VAPID), gated on user-picked AQI thresholds, delivered even when the site is closed. Complement to email digest.
 - [ ] **In-browser AQ literacy quiz** — companion to Sharath's Jeopardy game; runs on the Workshops page.
