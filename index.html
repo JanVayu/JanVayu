@@ -383,7 +383,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="/styles.css?v=202606113">
+    <link rel="stylesheet" href="/styles.css?v=202606114">
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -656,8 +656,6 @@
                 <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                 <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                 <button class="mobile-nav-item" data-panel="gallery">Photo Gallery</button>
-                <button class="mobile-nav-item" data-panel="faq">FAQ</button>
-                <button class="mobile-nav-item" data-panel="team">Team</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_accountability">Accountability</div>
@@ -691,7 +689,13 @@
                 <button class="mobile-nav-item" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                 <button class="mobile-nav-item" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                 <button class="mobile-nav-item" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
-                <button class="mobile-nav-item" data-panel="about" data-i18n="nav_about">About</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label" data-i18n="nav_about">About</div>
+                <button class="mobile-nav-item" data-panel="about" data-i18n="nav_about">About JanVayu</button>
+                <button class="mobile-nav-item" data-panel="team">Team</button>
+                <button class="mobile-nav-item" data-panel="faq">FAQ</button>
+                <a class="mobile-nav-item" href="mailto:contribute@janvayu.in" style="text-decoration:none; color:inherit; display:block;">Contact</a>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_external">External</div>
@@ -761,8 +765,6 @@
                     <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                     <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                     <button class="nav-dropdown-link" data-panel="gallery">Photo Gallery</button>
-                    <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
-                    <button class="nav-dropdown-link" data-panel="team">Team</button>
                 </div>
             </div>
             <div class="nav-item">
@@ -802,7 +804,16 @@
                     <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                     <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                     <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
-                    <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="about" data-i18n="nav_about">About <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About JanVayu</button>
+                    <button class="nav-dropdown-link" data-panel="team">Team</button>
+                    <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
+                    <a class="nav-dropdown-link" href="mailto:contribute@janvayu.in" style="text-decoration:none;">Contact</a>
+                    <a class="nav-dropdown-link" href="https://github.com/JanVayu/JanVayu" target="_blank" rel="noopener" style="text-decoration:none;">GitHub &#8599;</a>
                 </div>
             </div>
             <div class="nav-actions-right">
@@ -1331,10 +1342,15 @@
                     <a class="footer-link" href="#" onclick="showPanel('games');return false;">Learning Games</a>
                     <a class="footer-link" href="#" onclick="showPanel('downloads');return false;">Downloads &amp; API</a>
                     <a class="footer-link" href="/blog/" data-i18n="footer_blog">Blog</a>
-                    <a class="footer-link" href="#" onclick="showPanel('faq');return false;">FAQ</a>
-                    <a class="footer-link" href="#" onclick="showPanel('team');return false;">Team</a>
                     <a class="footer-link" href="/docs/" data-i18n="footer_docs">Docs</a>
                     <a class="footer-link" href="/status">System Status</a>
+                </div>
+                <div>
+                    <div class="footer-title" data-i18n="nav_about">About</div>
+                    <a class="footer-link" href="#" onclick="showPanel('about');return false;">About JanVayu</a>
+                    <a class="footer-link" href="#" onclick="showPanel('team');return false;">Team</a>
+                    <a class="footer-link" href="#" onclick="showPanel('faq');return false;">FAQ</a>
+                    <a class="footer-link" href="mailto:contribute@janvayu.in">Contact</a>
                     <a class="footer-link" href="https://github.com/JanVayu/JanVayu" target="_blank" rel="noopener">GitHub &#8599;</a>
                 </div>
             </div>
@@ -1349,7 +1365,7 @@
         </div>
     </footer>
 
-    <script src="/app.js?v=202606113"></script>
+    <script src="/app.js?v=202606114"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

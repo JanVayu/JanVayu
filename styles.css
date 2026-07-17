@@ -1554,7 +1554,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
     gap: 40px;
 }
 @media (max-width: 1000px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
@@ -1667,7 +1667,10 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 /* ═══ Mobile Hamburger Menu ═══ */
 .mobile-menu-btn { display: none; }
-@media (max-width: 1024px) {
+/* The horizontal section nav carries nine dropdowns now (About was split out);
+   below ~1180px they no longer fit on one row, so hand over to the mobile menu
+   there rather than let the last item overflow. */
+@media (max-width: 1180px) {
     .mobile-menu-btn { display: flex; }
     .section-nav { display: none; }
     .section-nav.show-desktop { display: block; }
