@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "updated": "2026-07",
+    "note": "Percentages are contributions to ambient PM2.5. Source-apportionment studies differ by method (receptor model vs emission inventory), season, and year — so cross-city comparison is indicative, not exact. Each city names its own study."
+  },
+  "cities": [
+    {
+      "key": "delhi",
+      "name": "Delhi",
+      "shares": {
+        "transport": 28,
+        "industry": 30,
+        "residential_biomass": 14,
+        "dust_construction": 17,
+        "power": 0,
+        "other": 11
+      },
+      "source": "ARAI & TERI (Dept. of Heavy Industry)",
+      "source_full": "The Automotive Research Association of India (ARAI) & The Energy and Resources Institute (TERI), 'Source Apportionment of PM2.5 & PM10 Concentrations of Delhi NCR for Identification of Major Sources' — prepared for Dept. of Heavy Industry, Govt. of India (Executive Summary, Table E.2, dispersion-modelling ambient shares for Delhi city)",
+      "year": "2018",
+      "basis": "Dispersion model · winter",
+      "caveat": "Power-sector emissions are counted within \"industry\". Stubble-burning is under-counted (the study window missed the October peak).",
+      "confidence": "high"
+    },
+    {
+      "key": "mumbai",
+      "name": "Mumbai",
+      "shares": {
+        "transport": 19.1,
+        "industry": 53.5,
+        "residential_biomass": 7.3,
+        "dust_construction": 14.2,
+        "power": 5.8,
+        "other": 0
+      },
+      "source": "UrbanEmissions.info (APnA)",
+      "source_full": "UrbanEmissions.Info — Air Quality Analysis for Mumbai (Bombay)-Thane, India (APnA City Program), PM2.5 sector emissions inventory modelled via CAMx",
+      "year": "2018",
+      "basis": "Emission inventory · annual",
+      "caveat": "Emission-inventory split (primary PM2.5), so secondary aerosol and long-range transport are not broken out.",
+      "confidence": "medium"
+    },
+    {
+      "key": "kolkata",
+      "name": "Kolkata",
+      "shares": {
+        "transport": 23.6,
+        "industry": 7.7,
+        "residential_biomass": 40.1,
+        "dust_construction": 28,
+        "power": 0.7,
+        "other": 0
+      },
+      "source": "CSIR-NEERI (WBPCB)",
+      "source_full": "CSIR-NEERI, \"PM10 and PM2.5 Source Apportionment Study and Development of Emission Inventory of Twin Cities Kolkata and Howrah of West Bengal\" (Final Report, Table 3.17 PM2.5 emissions by sector), commissioned by West Bengal Pollution Control Board (WBPCB)",
+      "year": "2020",
+      "basis": "Emission inventory · annual",
+      "caveat": "Emission inventory: secondary aerosol and transboundary transport not captured. The study's receptor model puts secondary aerosol at 20–32%.",
+      "confidence": "high"
+    },
+    {
+      "key": "chennai",
+      "name": "Chennai",
+      "shares": {
+        "transport": 24.5,
+        "industry": 15.9,
+        "residential_biomass": 19.1,
+        "dust_construction": 23.5,
+        "power": 1.6,
+        "other": 15.4
+      },
+      "source": "UrbanEmissions.info (Guttikunda et al.)",
+      "source_full": "Guttikunda, S.K., Nishadh, K.A., Jawahar, P. — \"Air pollution knowledge assessments (APnA) for 20 Indian cities\", Table 9 (annual-average WRF-CAMx modeled source contributions to PM2.5, Chennai), UrbanEmissions.info APnA City Program",
+      "year": "2019",
+      "basis": "Dispersion model · annual",
+      "caveat": "\"Other\" (~15%) is mostly regional/transboundary transport into this coastal airshed; power is inside \"industry\".",
+      "confidence": "high"
+    },
+    {
+      "key": "bengaluru",
+      "name": "Bengaluru",
+      "shares": {
+        "transport": 40,
+        "industry": 6,
+        "residential_biomass": 4,
+        "dust_construction": 26,
+        "power": 1,
+        "other": 23
+      },
+      "source": "CSTEP (KSPCB / NCAP)",
+      "source_full": "CSTEP (Center for Study of Science, Technology and Policy), \"Source Apportionment Study for Bengaluru\" (CSTEP-RR-2022-05), authored by Dr Pratima Singh and Dr Vignesh Prabhu, commissioned under KSPCB / NCAP, supported by Shakti Sustainable Energy Foundation and Bloomberg Philanthropies",
+      "year": "2022",
+      "basis": "Receptor model (CMB) · annual",
+      "caveat": "\"Other\" (~23%) is chiefly secondary aerosol plus unexplained mass, typical of receptor models.",
+      "confidence": "high"
+    },
+    {
+      "key": "hyderabad",
+      "name": "Hyderabad",
+      "shares": {
+        "transport": 20.8,
+        "industry": 33.4,
+        "residential_biomass": 13.3,
+        "dust_construction": 26.3,
+        "power": 6,
+        "other": 0.2
+      },
+      "source": "UrbanEmissions.info (APnA)",
+      "source_full": "UrbanEmissions.info APnA (Air Pollution knowledge Assessment) city program — Hyderabad gridded emissions inventory (Guttikunda / SIM-air, CAMx-based analysis)",
+      "year": "2018",
+      "basis": "Emission inventory · annual",
+      "caveat": "Local emission inventory only — excludes secondary formation and long-range transport.",
+      "confidence": "medium"
+    },
+    {
+      "key": "pune",
+      "name": "Pune",
+      "shares": {
+        "transport": 30,
+        "industry": 20,
+        "residential_biomass": 3,
+        "dust_construction": 47,
+        "power": 0,
+        "other": 0
+      },
+      "source": "MPCB (CPCB / NCAP)",
+      "source_full": "Air Quality Assessment, Emission Inventory & Source Apportionment Study Report for Pune City (Pune SA&EI Report, R3), Maharashtra Pollution Control Board (MPCB) under CPCB / NCAP",
+      "year": "2021",
+      "basis": "Emission inventory · annual",
+      "caveat": "Emission-inventory split; road dust dominates the primary-emission share. Secondary aerosol not separated.",
+      "confidence": "medium"
+    },
+    {
+      "key": "ahmedabad",
+      "name": "Ahmedabad",
+      "shares": {
+        "transport": 11,
+        "industry": 67,
+        "residential_biomass": 6,
+        "dust_construction": 12,
+        "power": 4,
+        "other": 0
+      },
+      "source": "UrbanEmissions.info (APnA)",
+      "source_full": "UrbanEmissions.Info — Air Quality Analysis for Ahmedabad, India (APNA city program): gridded emissions inventory + WRF-CAMx chemical transport modeling, by S. Guttikunda et al.",
+      "year": "2018",
+      "basis": "Emission inventory · annual",
+      "caveat": "Local emission inventory; industry share reflects a heavy industrial base. Secondary/transboundary not broken out.",
+      "confidence": "medium"
+    },
+    {
+      "key": "kanpur",
+      "name": "Kanpur",
+      "shares": {
+        "transport": 17.4,
+        "industry": 14.3,
+        "residential_biomass": 17.3,
+        "dust_construction": 21.9,
+        "power": 0,
+        "other": 29.1
+      },
+      "source": "IIT Kanpur (CPCB / UPPCB, NCAP)",
+      "source_full": "Sharma M. (IIT Kanpur), \"Air Quality Assessment, Trend Analysis, Emission Inventory and Source Apportionment Study in Kanpur City\" - report to CPCB / Uttar Pradesh Pollution Control Board under NCAP; CMB receptor modelling in two seasons (winter/summer)",
+      "year": "2022",
+      "basis": "Receptor model (CMB) · seasonal avg",
+      "caveat": "Winter+summer receptor splits averaged to approximate an annual figure. \"Other\" includes secondary aerosol.",
+      "confidence": "medium"
+    },
+    {
+      "key": "lucknow",
+      "name": "Lucknow",
+      "shares": {
+        "transport": 16.6,
+        "industry": 29.7,
+        "residential_biomass": 29,
+        "dust_construction": 20.4,
+        "power": 4.2,
+        "other": 0
+      },
+      "source": "UrbanEmissions.info (APnA)",
+      "source_full": "UrbanEmissions.info — APnA (Air Pollution knowledge Assessments) city program, 'Air Quality Analysis for Lucknow, India' (gridded emissions inventory + WRF meteorology + CAMx chemical transport model)",
+      "year": "2018",
+      "basis": "Emission inventory · annual",
+      "caveat": "Primary-emission inventory only; secondary aerosol and transboundary transport excluded.",
+      "confidence": "medium"
+    },
+    {
+      "key": "patna",
+      "name": "Patna",
+      "shares": {
+        "transport": 18,
+        "industry": 10,
+        "residential_biomass": 26,
+        "dust_construction": 5,
+        "power": 4,
+        "other": 37
+      },
+      "source": "TERI (BSPCB / ADRI)",
+      "source_full": "TERI, \"Receptor Modelling Based Source Apportionment Study of Ambient Particulate Matter in Patna City, Bihar\" (Chemical Mass Balance receptor model; with BSPCB and ADRI, funded by Bloomberg Philanthropies)",
+      "year": "2021",
+      "basis": "Receptor model (CMB) · winter",
+      "caveat": "Winter receptor split (Delhi-like season). \"Other\" (~37%) is largely secondary aerosol and unresolved mass.",
+      "confidence": "high"
+    },
+    {
+      "key": "jaipur",
+      "name": "Jaipur",
+      "shares": {
+        "transport": 16,
+        "industry": 0,
+        "residential_biomass": 38,
+        "dust_construction": 27,
+        "power": 3,
+        "other": 16
+      },
+      "source": "IIT Kanpur (RPCB)",
+      "source_full": "IIT Kanpur, \"Air Quality Assessment, Trend Analysis, Emission Inventory and Source Apportionment Study in Jaipur City\" (receptor CMB modelling), prepared for the Rajasthan State Pollution Control Board (RPCB)",
+      "year": "2020",
+      "basis": "Receptor model (CMB) · seasonal avg",
+      "caveat": "Winter+summer receptor splits averaged. Soil/road dust is large in this arid region; \"other\" is secondary aerosol.",
+      "confidence": "medium"
+    }
+  ]
+}
