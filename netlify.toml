@@ -21,6 +21,15 @@
     Content-Security-Policy = "frame-ancestors *"
     Access-Control-Allow-Origin = "*"
 
+# The walkthrough decks are embedded in the /walkthrough/ landing page, which is
+# same-origin. The global DENY would otherwise blank the preview iframe, so allow
+# same-origin framing here (still blocks cross-origin embedding).
+[[headers]]
+  for = "/walkthrough/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self'"
+
 # Service worker must serve from root scope with correct content-type
 [[headers]]
   for = "/sw.js"
