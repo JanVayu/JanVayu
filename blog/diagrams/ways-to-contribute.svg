@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" role="img" aria-label="The ways a citizen can contribute to JanVayu and where each one goes">
+  <style>
+    .k   { font-family:'Kalam','Comic Sans MS',cursive; }
+    .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
+    .box { fill:#fbfaf7; stroke:#1e2a22; stroke-width:2.4; }
+    .grn { fill:#dcfce7; stroke:#146c33; stroke-width:2.4; }
+    .amb { fill:#fdf0d5; stroke:#8a5300; stroke-width:2.4; }
+    .ln  { fill:none; stroke:#146c33; stroke-width:2.2; }
+    .mut { fill:#5b6b60; }
+  </style>
+
+  <text x="460" y="36" text-anchor="middle" class="h" font-size="26" fill="#146c33">Seven ways you actually move JanVayu forward</text>
+  <text x="460" y="58" text-anchor="middle" class="k" font-size="15" fill="#5b6b60">no coding required for most &#183; every one reaches a real person</text>
+
+  <!-- YOU -->
+  <rect class="amb" x="366" y="86" width="188" height="56" rx="14"/>
+  <text x="460" y="112" text-anchor="middle" class="h" font-size="17" fill="#8a5300">You, wherever you breathe</text>
+  <text x="460" y="131" text-anchor="middle" class="k" font-size="12.5" fill="#8a5300">any language, any city</text>
+
+  <!-- Seven contribution boxes -->
+  <g>
+    <rect class="grn" x="26" y="196" width="196" height="64" rx="12"/>
+    <text x="46" y="222" class="h" font-size="15" fill="#146c33">&#128038; Test Vayu Gauraiya</text>
+    <text x="46" y="242" class="k" font-size="12" fill="#5b6b60">catch a wrong or invented answer</text>
+
+    <rect class="grn" x="26" y="272" width="196" height="64" rx="12"/>
+    <text x="46" y="298" class="h" font-size="15" fill="#146c33">&#128172; Add your testimony</text>
+    <text x="46" y="318" class="k" font-size="12" fill="#5b6b60">what the air is like where you are</text>
+
+    <rect class="grn" x="26" y="348" width="196" height="64" rx="12"/>
+    <text x="46" y="374" class="h" font-size="15" fill="#146c33">&#128209; Suggest a sourced fact</text>
+    <text x="46" y="394" class="k" font-size="12" fill="#5b6b60">with a link &#8212; we never guess</text>
+
+    <rect class="grn" x="26" y="424" width="196" height="64" rx="12"/>
+    <text x="46" y="450" class="h" font-size="15" fill="#146c33">&#127760; Translate a panel</text>
+    <text x="46" y="470" class="k" font-size="12" fill="#5b6b60">Hindi, Tamil, Marathi, Bengali</text>
+
+    <rect class="grn" x="698" y="196" width="196" height="64" rx="12"/>
+    <text x="718" y="222" class="h" font-size="15" fill="#146c33">&#128270; Report something stale</text>
+    <text x="718" y="242" class="k" font-size="12" fill="#5b6b60">aged claim, broken link, phone bug</text>
+
+    <rect class="grn" x="698" y="290" width="196" height="64" rx="12"/>
+    <text x="718" y="316" class="h" font-size="15" fill="#146c33">&#128187; Write code</text>
+    <text x="718" y="336" class="k" font-size="12" fill="#5b6b60">pick a good first issue</text>
+
+    <rect class="grn" x="698" y="384" width="196" height="64" rx="12"/>
+    <text x="718" y="410" class="h" font-size="15" fill="#146c33">&#128226; Run our social</text>
+    <text x="718" y="430" class="k" font-size="12" fill="#5b6b60">we're deliberately not on it yet</text>
+  </g>
+
+  <!-- arrows from YOU to left column -->
+  <path class="ln" d="M366 120 C 210 120, 150 170, 128 196" marker-end="url(#a)"/>
+  <path class="ln" d="M360 128 C 180 150, 130 250, 124 272" marker-end="url(#a)"/>
+  <path class="ln" d="M362 132 C 150 190, 120 320, 124 348" marker-end="url(#a)"/>
+  <path class="ln" d="M362 136 C 120 240, 110 390, 124 424" marker-end="url(#a)"/>
+  <!-- arrows from YOU to right column -->
+  <path class="ln" d="M554 120 C 720 120, 770 170, 796 196" marker-end="url(#a)"/>
+  <path class="ln" d="M558 128 C 760 160, 800 260, 796 290" marker-end="url(#a)"/>
+  <path class="ln" d="M558 134 C 780 220, 800 355, 796 384" marker-end="url(#a)"/>
+
+  <!-- the destination -->
+  <rect class="box" x="330" y="360" width="260" height="66" rx="14"/>
+  <text x="460" y="388" text-anchor="middle" class="h" font-size="16" fill="#1e2a22">One inbox &#183; one stored record</text>
+  <text x="460" y="409" text-anchor="middle" class="k" font-size="12.5" fill="#5b6b60">the contribute form &#8594; a real teammate reads it</text>
+
+  <!-- arrows from boxes into destination -->
+  <path class="ln" d="M222 300 C 280 340, 300 370, 330 383" marker-end="url(#a)"/>
+  <path class="ln" d="M222 456 C 270 430, 300 410, 330 400" marker-end="url(#a)"/>
+  <path class="ln" d="M698 322 C 640 350, 620 375, 590 385" marker-end="url(#a)"/>
+  <path class="ln" d="M698 416 C 650 410, 620 405, 590 402" marker-end="url(#a)"/>
+
+  <!-- outcome -->
+  <path class="ln" d="M460 426 V 470" marker-end="url(#a)"/>
+  <rect class="grn" x="330" y="470" width="260" height="58" rx="14"/>
+  <text x="460" y="495" text-anchor="middle" class="h" font-size="16" fill="#146c33">The project actually moves</text>
+  <text x="460" y="515" text-anchor="middle" class="k" font-size="12.5" fill="#5b6b60">honest air data, kept honest by people</text>
+
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto">
+      <path d="M0 0 L8 3.2 L0 6.4 Z" fill="#146c33"/>
+    </marker>
+  </defs>
+</svg>

@@ -49,6 +49,49 @@
 </div>
 
 <div class="team-join">
-  <h3 class="team-join-title">Want to help?</h3>
-  <p class="team-join-text">JanVayu is open source and always looking for contributors &mdash; developers, translators, researchers, testers, and citizens with a story or a fact to add. Pick a <a href="https://github.com/JanVayu/JanVayu/labels/good%20first%20issue" target="_blank" rel="noopener">good first issue</a>, read <a href="https://github.com/JanVayu/JanVayu/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a>, or just email <a href="mailto:contribute@janvayu.in">contribute@janvayu.in</a>. Add your name to this page.</p>
+  <h3 class="team-join-title">Want to help? Here's exactly how.</h3>
+  <p class="team-join-text">We're a tiny volunteer team, so specific, concrete help moves JanVayu further than anything. Pick whatever fits &mdash; each of these genuinely advances the project:</p>
+  <ul style="margin: 0.75rem 0 1.25rem; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.95rem; line-height: 1.55; color: var(--text-2);">
+    <li><strong>Test Vayu Gauraiya, our chatbot.</strong> Ask <a href="/ask/" target="_blank" rel="noopener">Ask JanVayu</a> hard or imaginative questions &mdash; in any language &mdash; like "how do I convince my RWA to stop burning leaves?" If an answer <em>invents a fact, cites a source that doesn't exist, or just feels off</em>, send us the exact question and answer. This directly trains our weekly bot-quality checks.</li>
+    <li><strong>Add your testimony.</strong> Tell us, in your language, what the air is like where you live &mdash; we add real voices to the Citizen Testimony wall.</li>
+    <li><strong>Suggest a sourced fact</strong> for the "Did You Know" wall (include where it's from &mdash; we never publish an unsourced number).</li>
+    <li><strong>Translate a panel</strong> into Hindi, Tamil, Marathi or Bengali.</li>
+    <li><strong>Report something stale or wrong</strong> &mdash; a figure that looks off, a broken link, an aged claim, a layout bug on your phone.</li>
+    <li><strong>Write code</strong> &mdash; pick a <a href="https://github.com/JanVayu/JanVayu/labels/good%20first%20issue" target="_blank" rel="noopener">good first issue</a> (start with <a href="https://github.com/JanVayu/JanVayu/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a>).</li>
+    <li><strong>Run our social media.</strong> We're deliberately not on social yet; if you'd enjoy running it well, join the team and lead it.</li>
+  </ul>
+
+  <div id="contribute-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.9rem; margin-bottom: 12px;">
+    <strong>Thank you &mdash; got it.</strong> A real person on the team will read this and reply. Being part of JanVayu is being part of keeping India's air honest.
+  </div>
+
+  <form name="contribute" method="POST" onsubmit="return handleWorkshopSubmit(event, 'contribute')" style="display: flex; flex-direction: column; gap: 10px; max-width: 44rem;">
+    <input type="hidden" name="form-name" value="contribute">
+    <p style="display: none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Your name *
+        <input type="text" name="name" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+      </label>
+      <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Email *
+        <input type="email" name="email" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+      </label>
+    </div>
+    <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">How would you like to help?
+      <select name="contribution-type" style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+        <option value="test-chatbot">Report a chatbot answer that seemed off</option>
+        <option value="testimony">Add my testimony</option>
+        <option value="suggest-fact">Suggest a sourced fact</option>
+        <option value="translate">Translate a panel</option>
+        <option value="report-stale">Report something stale / wrong / a bug</option>
+        <option value="code">Write code</option>
+        <option value="social">Run social media</option>
+        <option value="other">Something else</option>
+      </select>
+    </label>
+    <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Your message
+      <textarea name="message" rows="4" placeholder="If reporting a chatbot answer, paste the question and the answer. If adding a testimony, tell us about the air where you live." style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem; resize: vertical;"></textarea>
+    </label>
+    <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send it to the team</button>
+    <div style="font-size: 0.7rem; color: var(--text-3);">This reaches us directly (email + a stored record). Prefer email? Write to <a href="mailto:contribute@janvayu.in">contribute@janvayu.in</a>.</div>
+  </form>
 </div>

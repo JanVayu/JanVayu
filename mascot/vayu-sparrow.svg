@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Vayu, the JanVayu sparrow mascot">
+  <title>Vayu — the JanVayu sparrow</title>
+  <defs>
+    <style>
+      .ink   { fill:none; stroke:#1e2a22; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
+      .thin  { fill:none; stroke:#1e2a22; stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round; }
+      .leafln{ fill:none; stroke:#146c33; stroke-width:3.4; stroke-linecap:round; stroke-linejoin:round; }
+    </style>
+  </defs>
+
+  <!-- soft ground shadow -->
+  <ellipse cx="120" cy="208" rx="52" ry="9" fill="#1e2a22" opacity="0.08"/>
+
+  <!-- breeze curls (Vayu = air/wind) -->
+  <path class="leafln" d="M20 96 q16 -12 32 0 t32 0" opacity="0.55"/>
+  <path class="leafln" d="M14 118 q13 -10 26 0 t26 0" opacity="0.35"/>
+
+  <!-- tail -->
+  <path d="M176 150 l44 -14 -10 22 18 6 -30 14 z" fill="#8a6f4e" stroke="#1e2a22" stroke-width="4.5" stroke-linejoin="round"/>
+
+  <!-- body -->
+  <path d="M70 138
+           C 60 96, 96 66, 128 70
+           C 168 74, 190 108, 182 146
+           C 176 176, 146 192, 116 190
+           C 90 188, 76 166, 70 138 Z"
+        fill="#c79a63" stroke="#1e2a22" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- pale belly -->
+  <path d="M96 176 C 84 158, 88 130, 108 122 C 128 116, 150 128, 154 150 C 156 172, 134 190, 112 188 C 104 187, 100 183, 96 176 Z"
+        fill="#f4ead2"/>
+
+  <!-- brown cap -->
+  <path d="M104 78 C 120 66, 150 68, 166 86 C 150 84, 128 84, 108 92 C 104 88, 103 82, 104 78 Z"
+        fill="#7a5a37" stroke="#1e2a22" stroke-width="4.5" stroke-linejoin="round"/>
+
+  <!-- folded wing + feather lines -->
+  <path d="M120 118 C 146 112, 172 122, 178 144 C 160 150, 132 150, 112 140 C 112 130, 114 122, 120 118 Z"
+        fill="#a07a4c" stroke="#1e2a22" stroke-width="4.5" stroke-linejoin="round"/>
+  <path class="thin" d="M128 126 q22 2 40 14"/>
+  <path class="thin" d="M124 134 q22 3 44 12"/>
+
+  <!-- eye -->
+  <circle cx="150" cy="104" r="9.5" fill="#1e2a22"/>
+  <circle cx="153" cy="101" r="3" fill="#ffffff"/>
+
+  <!-- beak -->
+  <path d="M182 106 l24 -4 -18 16 z" fill="#e8933b" stroke="#1e2a22" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- legs -->
+  <path class="ink" d="M112 188 l0 18 m-9 0 h18"/>
+  <path class="ink" d="M138 188 l0 18 m-9 0 h18"/>
+
+  <!-- a little green leaf it watches over -->
+  <path d="M44 168 C 44 150, 60 140, 78 144 C 72 162, 60 172, 44 168 Z"
+        fill="#dcfce7" stroke="#146c33" stroke-width="3.6" stroke-linejoin="round"/>
+  <path class="leafln" d="M50 165 q14 -12 26 -19"/>
+</svg>

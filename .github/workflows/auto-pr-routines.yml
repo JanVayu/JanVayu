@@ -1,0 +1,38 @@
+name: Auto-PR maintenance routines
+
+# The scheduled maintenance routines (Ask JanVayu eval, site-wide staleness
+# sweep) run in fresh sessions that do NOT hold GitHub connector tools, so they
+# just push their branch. This workflow opens (or updates) the matching PR to
+# main automatically. CI runs on the branch push, so checks appear on the PR by
+# commit SHA. A human always reviews and merges — this never auto-merges.
+on:
+  push:
+    branches: [claude/ask-eval, claude/staleness-sweep]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Open or update the routine PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if [ "$BRANCH" = "claude/ask-eval" ]; then
+            TITLE="Weekly Ask JanVayu eval — $(date -u +%Y-%m-%d)"
+            BODY="Automated weekly evaluation of the Ask JanVayu chatbot (test/ask-eval). The routine graded the live bot against the adversarial prompt suite — no fabricated citations, correct science, empathy, right language, safety — and (if a gate regressed) tightened the system prompt. See the newest \`docs/ask-eval-*.md\` for the report and the JanVayu-vs-vanilla-LLM comparison. **Review the diff and CI before merging — never auto-merged.**"
+          else
+            TITLE="Site-wide staleness sweep — $(date -u +%Y-%m-%d)"
+            BODY="Automated site-wide staleness review. The routine scanned every user-facing panel/page for aged content (past events, superseded counts/framing, stale 'latest' claims, elapsed deadlines) and applied safe refreshes. See the newest \`docs/staleness-*.md\` for the findings. **Review the diff and CI before merging — never auto-merged.**"
+          fi
+          existing=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$existing" ]; then
+            echo "PR #$existing already open for $BRANCH; this push updates it."
+            exit 0
+          fi
+          gh pr create --base main --head "$BRANCH" --title "$TITLE" --body "$BODY"

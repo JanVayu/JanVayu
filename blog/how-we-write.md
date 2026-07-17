@@ -58,13 +58,17 @@ Body text...
 
 Aim for **a 4–6 minute read** (roughly 700–1,200 words). Put the reading time in the byline — about 200 words per minute. If it's running longer, it's probably two posts.
 
-## Publishing mechanics
+## Getting it published
 
-1. Save the file in `blog/posts/` named `YYYY-MM-DD-short-slug.md` (e.g. `2026-07-17-what-shipped-walkthrough.md`).
-2. Add a link to it at the top of the current month in `blog/_sidebar.md`:
-   `  - [Your Full Title](posts/2026-07-17-short-slug.md)`
-3. That's it — the blog is a Docsify site, so the file *is* the page. No build step.
-4. **Story of the week:** the dashboard surfaces one post a week automatically. To make a post eligible, add it to `data/stories.json` (title, blurb, tag, link) — keep the blurb to one honest sentence.
+Write your draft wherever you're comfortable — a Google Doc, an email, a plain
+text file. When it's ready, send it to the team at **contribute@janvayu.in**.
+We'll put it live (usually within a day or two), add it to the blog, and — if it
+fits — feature it in the dashboard's weekly "Story of the week" slot. You don't
+need to touch any code.
+
+*Comfortable working in the project yourself?* You can add the post directly —
+just ask and we'll point you to exactly where the posts live and how to list a
+new one. It's one file, no build step.
 
 ## Before you publish — a 6-point check
 
