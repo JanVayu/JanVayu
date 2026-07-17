@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JanVayu Walkthrough | A guided tour of the platform</title>
-<meta name="description" content="A 45-minute deep walkthrough of janvayu.in: every panel, every dataset, and how researchers, journalists, and advocates can use the platform in research, writing, and advocacy.">
+<meta name="description" content="A concise, native walkthrough of janvayu.in: why India's air is an emergency, the live data behind every ward, health and economic costs, government accountability, and how every number stays fact-checked.">
 <meta name="theme-color" content="#15803D">
 
 <!-- Open Graph -->
 <meta property="og:title" content="JanVayu Walkthrough">
-<meta property="og:description" content="A guided tour of India's citizen air quality accountability platform. 64 slides, 45 minutes, speaker notes included.">
+<meta property="og:description" content="A guided tour of India's citizen air quality accountability platform. 13 slides, native HTML, speaker notes included.">
 <meta property="og:url" content="https://janvayu.in/walkthrough/">
 <meta property="og:type" content="article">
 
@@ -401,27 +401,21 @@ footer .legal { font-size: 0.78rem; color: #A1A1AA; }
     <section class="hero">
         <div class="hero-eyebrow">Guided tour</div>
         <h1>A walkthrough of JanVayu</h1>
-        <p class="lede">A 45-minute deep tour of every section of <a href="/">janvayu.in</a>: live data and forecasts, health and exposure tools, the budget tracker, accountability dashboards, citizen tools, and the underlying data and design. First released May 2026.</p>
+        <p class="lede">A concise tour of what <a href="/">janvayu.in</a> is and how to use it: why India's air is a public-health emergency, the live data behind every ward, what today's air means for your body and the economy, how we track the promises and the money, and how every number stays fact-checked. Built natively in the site, so it never goes stale.</p>
 
         <div class="hero-meta">
-            <span><strong>65 slides</strong> · 9 chapters · ~45 min</strong></span>
+            <span><strong>13 slides</strong> · ~10 min</span>
             <span>Speaker notes included</span>
-            <span>Refreshed 27 May 2026</span>
-            <span>v26.6.22</span>
+            <span>Native HTML &mdash; always in sync</span>
+            <span>Print to PDF built in</span>
         </div>
     </section>
 
     <section class="deck">
         <div class="deck-frame">
-            <!--
-              Embed source. Two options:
-              (1) Source-doc embed (works once share is set to Anyone-with-link Viewer):
-              https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/embed?start=false&loop=false&delayms=3000
-              (2) Published-to-web embed (use after File > Share > Publish to web):
-              https://docs.google.com/presentation/d/e/PUB_ID/embed?start=false&loop=false&delayms=3000
-            -->
+            <!-- Native, self-hosted deck: walkthrough/deck.html. Edit that file to update the slides. -->
             <iframe
-                src="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/embed?start=false&loop=false&delayms=3000"
+                src="/walkthrough/deck.html"
                 allowfullscreen
                 mozallowfullscreen
                 webkitallowfullscreen
@@ -429,90 +423,94 @@ footer .legal { font-size: 0.78rem; color: #A1A1AA; }
                 loading="lazy"></iframe>
         </div>
         <p class="deck-hint">
-            Use <code>F</code> for fullscreen and <code>S</code> to toggle speaker notes. Each slide carries explanatory notes intended for spoken delivery; click the gear icon in the player and pick <em>Open speaker notes</em> to see them in a side panel.
+            A native, self-hosted deck &mdash; no Google dependency, always in sync with the site. Navigate with <code>&larr;</code>/<code>&rarr;</code>, toggle speaker notes with <code>S</code>, the slide overview with <code>O</code>, and fullscreen with <code>F</code>. Deep-link any slide (e.g. <code>deck.html#/4</code>), and print to PDF straight from the deck.
         </p>
 
         <div class="actions">
-            <a class="btn btn-primary" href="https://docs.google.com/presentation/d/13bf6gXdnbvGqe6E4KqIb2EpPs35pSZoer32VZVnfn-s/edit?usp=sharing" target="_blank" rel="noopener">
-                Open in Google Slides
+            <a class="btn btn-primary" href="/walkthrough/deck.html">
+                Open the deck (fullscreen)
             </a>
-            <a class="btn" href="JanVayu_Walkthrough.pptx" download>
-                Download PowerPoint <small>.pptx · 14 MB</small>
+            <a class="btn" href="/walkthrough/deck.html#/1" onclick="try{window.open('/walkthrough/deck.html','_blank');}catch(e){}">
+                Present from slide one
             </a>
-            <a class="btn" href="JanVayu_Walkthrough.pdf" target="_blank" rel="noopener">
-                Open PDF <small>64 pages</small>
-            </a>
-            <a class="btn" href="JanVayu_MMSF_Walkthrough.pdf" target="_blank" rel="noopener">
-                PDF with speaker notes
+            <a class="btn" href="/">
+                Explore the live site
             </a>
         </div>
     </section>
 
     <section class="chapters" aria-labelledby="chapters-h">
         <div class="section-eyebrow">Contents</div>
-        <h2 id="chapters-h">Nine chapters</h2>
+        <h2 id="chapters-h">What's inside</h2>
         <ol class="chapter-list">
             <li>
                 <span class="chapter-num">1</span>
                 <div>
-                    <div class="chapter-title">Frame &amp; entry</div>
-                    <div class="chapter-desc">Why JanVayu exists, the role-selector splash, and how the site organises itself.</div>
+                    <div class="chapter-title">The emergency, in one number</div>
+                    <div class="chapter-desc">India breathes the world's most dangerous air &mdash; the mortality, the life-years lost, and where the country ranks.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">2</span>
                 <div>
-                    <div class="chapter-title">The live picture</div>
-                    <div class="chapter-desc">Dashboard, live map, rankings, comparison, trends, forecast, My Neighbourhood, Pollution Correlations, alerts, pollution calendar.</div>
+                    <div class="chapter-title">A public record, not a campaign</div>
+                    <div class="chapter-desc">What JanVayu is, who runs it, and why it stays non-partisan and citizen-led.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">3</span>
                 <div>
-                    <div class="chapter-title">Health &amp; exposure</div>
-                    <div class="chapter-desc">Health Impact (GEMM), Children's Health, Women's Health, Indoor Air, Exposure Report, Should I Go Outside, Purifier, School Closures.</div>
+                    <div class="chapter-title">Independent sources, made useful</div>
+                    <div class="chapter-desc">How raw feeds from CPCB, WAQI, WHO, CREA and others become one clear picture of your air.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">4</span>
                 <div>
-                    <div class="chapter-title">Economic cost &amp; migration</div>
-                    <div class="chapter-desc">Economic Cost calculator, Migration &amp; Displacement, Migration Calculator.</div>
+                    <div class="chapter-title">The live picture</div>
+                    <div class="chapter-desc">Real-time AQI for 117 cities, ward-level maps, rankings, trends and forecasts &mdash; and what today's air means for you.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">5</span>
                 <div>
-                    <div class="chapter-title">Policy &amp; accountability</div>
-                    <div class="chapter-desc">Policy Tracker, Budget Tracker, Political Accountability, Industrial Sources, Mission Tracker (E1–E5), Scorecards, Accountability Brief, Clean Air Wins, Legal Framework, RTI Assistant.</div>
+                    <div class="chapter-title">Not just a lung problem</div>
+                    <div class="chapter-desc">What PM2.5 does to the heart, brain, kidneys and unborn children &mdash; the health story beyond the cough.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">6</span>
                 <div>
-                    <div class="chapter-title">Citizen action</div>
-                    <div class="chapter-desc">Take Action, Citizen Plan, Voices, Workshops, Learning Games, Social Feed, Live News.</div>
+                    <div class="chapter-title">The bill nobody sees</div>
+                    <div class="chapter-desc">How dirty air drains the economy &mdash; lost workdays, GDP, and the cost of doing nothing.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">7</span>
                 <div>
-                    <div class="chapter-title">Tools &amp; knowledge</div>
-                    <div class="chapter-desc">Ask JanVayu (AI), Tools, Glossary, Reading List, Downloads, Data Archive.</div>
+                    <div class="chapter-title">Following the promises &amp; the money</div>
+                    <div class="chapter-desc">NCAP, budget tracking, political accountability and the scorecards that hold governments to their targets.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">8</span>
                 <div>
-                    <div class="chapter-title">About, footer, compliance</div>
-                    <div class="chapter-desc">Provenance, licensing, disclaimers, IT Act compliance.</div>
+                    <div class="chapter-title">The AQI hides five pollutants</div>
+                    <div class="chapter-desc">What the single AQI number actually rolls up, and why the components matter.</div>
                 </div>
             </li>
             <li>
                 <span class="chapter-num">9</span>
                 <div>
-                    <div class="chapter-title">Using JanVayu in your work</div>
-                    <div class="chapter-desc">How researchers, journalists, and advocates can pull data, embed widgets, file RTIs, and integrate findings.</div>
+                    <div class="chapter-title">Everything in one place</div>
+                    <div class="chapter-desc">The full toolbox &mdash; calculators, Ask JanVayu, learning games, RTI assistant and more.</div>
+                </div>
+            </li>
+            <li>
+                <span class="chapter-num">10</span>
+                <div>
+                    <div class="chapter-title">Every number, fact-checked &mdash; weekly</div>
+                    <div class="chapter-desc">How an automated audit re-verifies every statistic on the site against primary sources, every Monday.</div>
                 </div>
             </li>
         </ol>
@@ -520,10 +518,10 @@ footer .legal { font-size: 0.78rem; color: #A1A1AA; }
         <details class="notes">
             <summary>About this walkthrough</summary>
             <p>
-                The deck is a one-pass tour of the platform as it stands in May 2026 (v26.6.22). It is built as a teaching reference: every panel is shown with a live screenshot, four short bullets that name the panel's purpose and choices, and spoken-delivery notes that explain why each panel exists and how someone might use it in research, writing, or advocacy. The deck is licensed under CC BY-NC-SA 4.0 like the rest of JanVayu content; the underlying PowerPoint is available above for adaptation and re-presentation under that licence.
+                This deck is built natively inside the site &mdash; plain HTML, self-hosted fonts, and the same hand-drawn diagrams you see across JanVayu. There is no Google dependency and nothing to re-export, so it stays in step with the platform as we ship changes. Navigate with the arrow keys, press <code>S</code> for speaker notes, <code>O</code> for the slide overview, <code>F</code> for fullscreen, and use your browser's Print for a clean one-slide-per-page PDF.
             </p>
             <p>
-                For the most up-to-date version of any panel, click through to the live site rather than relying on the screenshot. Live data, rankings, and budget figures update in real time on janvayu.in; the deck captures the state at the time of recording. Specific dated claims (NCAP deadline elapsed 31 March 2026, CSE Five-Year Review April 2026, IQAir 2025 release, CAQM first off-season GRAP-I on 19 May 2026) are anchored to dated primary sources in the Research Library.
+                For live figures &mdash; current AQI, rankings, budget spend &mdash; click through to the site rather than the slides; those update in real time. The deck is licensed under CC BY-NC-SA 4.0 like the rest of JanVayu content. Dated claims (the NCAP deadline of 31 March 2026, the IQAir 2025 World Air Quality Report, the Lancet Countdown 2025) are anchored to their primary sources in the Research Library.
             </p>
         </details>
     </section>
