@@ -2702,3 +2702,33 @@ body {
     .stat-strip { grid-template-columns: 1fr; }
     .grid-5 { grid-template-columns: 1fr; }
 }
+
+/* ── Source apportionment ring ─────────────────────────────────────────── */
+.apportion-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.apportion-label { font-size: 0.8125rem; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.apportion-select { font: inherit; font-size: 0.95rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--bg-card); color: var(--ink); min-width: 11rem; }
+.apportion-basis { font-size: 0.8125rem; color: var(--text-3); font-style: italic; }
+.apportion-layout { display: grid; grid-template-columns: minmax(0, 300px) 1fr; gap: 1.75rem; align-items: center; }
+.apportion-ringwrap { position: relative; min-height: 260px; }
+.apportion-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; text-align: center; }
+.apportion-center-pct { font-family: var(--serif, Georgia, serif); font-size: 2rem; font-weight: 700; line-height: 1; color: var(--ink); }
+.apportion-center-lbl { font-size: 0.8125rem; color: var(--text-3); margin-top: 0.25rem; max-width: 8rem; }
+.apportion-legend { display: flex; flex-direction: column; gap: 0.6rem; }
+.apportion-row { display: grid; grid-template-columns: 0.85rem minmax(6rem, auto) 1fr 2.75rem; align-items: center; gap: 0.6rem; }
+.apportion-swatch { width: 0.85rem; height: 0.85rem; border-radius: 0.2rem; flex-shrink: 0; }
+.apportion-rowlabel { font-size: 0.9rem; color: var(--ink); }
+.apportion-rowbar { height: 0.5rem; background: var(--bg-section); border-radius: 999px; overflow: hidden; }
+.apportion-rowbar-fill { display: block; height: 100%; border-radius: 999px; }
+.apportion-rowval { font-size: 0.9rem; font-weight: 600; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+.apportion-source { margin-top: 1.5rem; padding: 1rem 1.1rem; background: var(--bg-section); border: 1px solid var(--border); border-radius: 0.6rem; }
+.apportion-src-line { font-size: 0.85rem; color: var(--text-2); margin: 0 0 0.4rem; }
+.apportion-caveat { font-size: 0.8125rem; color: var(--text-3); margin: 0; line-height: 1.55; }
+.apportion-method { margin-top: 1.25rem; }
+.apportion-method > summary { cursor: pointer; font-weight: 600; color: var(--green-700); font-size: 0.95rem; padding: 0.4rem 0; }
+.apportion-method-body { font-size: 0.9rem; color: var(--text-2); line-height: 1.65; padding-top: 0.5rem; }
+.apportion-method-body ul { margin: 0.5rem 0 0.75rem 1.1rem; }
+.apportion-method-body li { margin-bottom: 0.4rem; }
+@media (max-width: 640px) {
+    .apportion-layout { grid-template-columns: 1fr; gap: 1.25rem; }
+    .apportion-ringwrap { max-width: 300px; margin: 0 auto; }
+}
