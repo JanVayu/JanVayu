@@ -4,7 +4,7 @@
 
 ---
 
-Meet **Vayu Gauraiya** — *vayu*, the air; *gauraiya*, the house sparrow. She's the little watchful friend you'll now see around JanVayu and inside the Ask JanVayu chatbot. We picked a sparrow on purpose, and not because sparrows are cute (though they are). We picked her because a sparrow is one of the most honest instruments a city has.
+Meet **Vayu Gauraiya** — *vayu*, the air; *gauraiya*, the house sparrow. She's the face of **Ask JanVayu**, our chatbot — the little watchful friend who greets you when you come with a question. (JanVayu's own logo stays what it's always been: a green leaf carried on air currents. Vayu is the *bot's* mascot, not a rebrand of the platform.) We picked a sparrow on purpose, and not because sparrows are cute (though they are). We picked her because a sparrow is one of the most honest instruments a city has.
 
 <img src="/mascot/vayu-sparrow.svg" alt="Vayu Gauraiya, the JanVayu house sparrow mascot, with a breeze at her back and a small green leaf she watches over" style="width:220px;display:block;margin:1.5rem auto;">
 
@@ -28,7 +28,7 @@ So Vayu Gauraiya isn't decoration. She's a small, stubborn reminder that clean a
 
 ## What she does here
 
-You'll meet Vayu as the face of **Ask JanVayu**, our chatbot — a warm, patient guide who explains your air, never invents a fact, and points you to something you can actually do about it. She sits with a breeze at her back (*vayu*) and a green leaf she keeps an eye on, which is more or less the whole job description of this platform.
+Vayu lives inside **Ask JanVayu**, our chatbot — a warm, patient guide who explains your air, never invents a fact, and points you to something you can actually do about it. She sits with a breeze at her back (*vayu*) and keeps an eye on a green leaf — a nod to JanVayu's own leaf-and-air-currents logo, the emblem she works under. That green leaf she watches over is more or less the whole job description of this platform.
 
 **World Sparrow Day** falls on 20 March — begun by the conservation group Nature Forever in 2010 to raise the alarm we'd all been ignoring. If Vayu makes you want to help the real thing: put out a shallow dish of water and some grain, leave a nesting nook unsealed, plant something native, go easy on the pesticides. And check your air on JanVayu while you're at it. It's the same act of care, pointed at the same city.
 

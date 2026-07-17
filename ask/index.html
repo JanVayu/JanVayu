@@ -69,11 +69,13 @@
       flex-shrink: 0;
     }
     .app-logo {
-      width: 32px; height: 32px; border-radius: 8px;
-      background: linear-gradient(135deg, #1a3a2a, #16A34A);
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #eaf7ef, #d3efdd);
       display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; font-size: 0.9rem;
+      flex-shrink: 0;
+      border: 1px solid var(--border-light, rgba(20,108,51,0.18));
     }
+    .app-logo img { width: 30px; height: 30px; display: block; }
     .app-title {
       font-size: 1.1rem; font-weight: 700; color: var(--accent);
       flex: 1;
@@ -243,7 +245,7 @@
 <body>
 
   <div class="app-header">
-    <div class="app-logo">J</div>
+    <div class="app-logo"><img src="/mascot/vayu-sparrow.svg" alt="Vayu Gauraiya, the Ask JanVayu sparrow" width="30" height="30"></div>
     <div style="flex: 1; min-width: 0;">
       <div class="app-title" data-i18n="title">Ask JanVayu</div>
       <div class="app-subtitle" data-i18n="subtitle">AI-powered air quality Q&amp;A</div>
