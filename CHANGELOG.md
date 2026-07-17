@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.94] - 2026-07-17
+
+### New — dedicated FAQ page + a fact-check data-file fix
+
+- **FAQ page** (`/#faq`, in the nav + footer) — a searchable, accessible native-`<details>` accordion of ~27 questions across six groups (the data, understanding the AQI, health, using JanVayu, accountability, about), every answer naming its source and linking to the deeper tools. Live search filters as you type.
+- **Fixed a false statistic that was still live.** The homepage `data-stat` elements are populated at runtime from `scripts/stats.json`, whose values **override** the HTML — and that file still carried `global_share_deaths: "70%"`, so the corrected text was being replaced by the false "70%" on the live site. Corrected the JSON (India is ~a quarter of the global PM2.5 death burden, not a majority), removed the override on the rich deaths-card sentence, and fixed the hero HTML fallbacks ($260B → $339.4B, 2.0M → 1.72M). The **weekly fact-check routine now audits `scripts/stats.json`** so injected data files can't be missed again.
+
 ## [v26.6.93] - 2026-07-17
 
 ### Accuracy — site-wide fact-check corrections

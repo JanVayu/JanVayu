@@ -9,5 +9,5 @@
   "cpcb_stations": { "value": "~533", "source": "CPCB Annual Report" },
   "ncap_cities": { "value": "131", "source": "NCAP" },
   "most_polluted_city": { "value": "Loni", "pm25": "112.5", "source": "IQAir 2025" },
-  "global_share_deaths": { "value": "70%", "source": "Lancet Countdown 2025" }
+  "global_share_deaths": { "value": "~a quarter of the global PM2.5 death burden", "note": "India ~1.72M of the global total; not a majority — the earlier '70%' figure was incorrect", "source": "Lancet Countdown 2025" }
 }

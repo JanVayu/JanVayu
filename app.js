@@ -1055,6 +1055,33 @@
     }
     window.backToHome = backToHome;
 
+    // FAQ panel live search: filter <details> items (and their group headers)
+    // by matching the query against each question + answer. Wired via
+    // oninput="faqFilter(this.value)" on the FAQ search box.
+    function faqFilter(q) {
+        const query = (q || '').trim().toLowerCase();
+        const groups = document.querySelectorAll('[data-faq-group]');
+        let anyVisible = false;
+        groups.forEach((group) => {
+            let groupVisible = false;
+            group.querySelectorAll('.faq-item').forEach((item) => {
+                const text = (item.textContent || '').toLowerCase();
+                const match = !query || text.indexOf(query) !== -1;
+                item.style.display = match ? '' : 'none';
+                if (match && query) item.open = true;      // expand matches while searching
+                if (!query) item.open = false;             // collapse again when cleared
+                if (match) groupVisible = true;
+            });
+            const title = group.querySelector('.faq-group-title');
+            if (title) title.style.display = groupVisible ? '' : 'none';
+            group.style.display = groupVisible ? '' : 'none';
+            if (groupVisible) anyVisible = true;
+        });
+        const none = document.querySelector('.faq-noresults');
+        if (none) none.style.display = anyVisible ? 'none' : '';
+    }
+    window.faqFilter = faqFilter;
+
     // Show the back-to-home button once the user has scrolled past the hero,
     // or any time a non-dashboard panel is currently loaded.
     (function initBackHomeButton() {
@@ -1094,7 +1121,7 @@
 
     // Panels whose (large) markup lives in an external fragment, fetched on first
     // open instead of being inlined + parsed on every page load. Cached after first use.
-    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html' };
+    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html' };
     const __panelFragmentCache = {};
     function fetchPanelFragment(panelId) {
         if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
