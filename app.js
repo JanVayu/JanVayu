@@ -2856,8 +2856,106 @@
     }
 
     // ── Init ──
+    // ── Searchable city combobox ──
+    // Wraps a native <select> in a type-to-filter combobox WITHOUT removing the
+    // select: the select keeps holding the value and firing 'change', so every
+    // downstream handler (updateHeroCity, generateAQICard, …) keeps working. The
+    // combobox is a WAI-ARIA listbox pattern (role=combobox + role=listbox).
+    window.enhanceCityCombobox = function enhanceCityCombobox(select) {
+        if (!select || select.dataset.comboEnhanced) return;
+        select.dataset.comboEnhanced = '1';
+        const opts = Array.from(select.querySelectorAll('option'))
+            .map(o => ({ value: o.value, label: (o.textContent || '').trim() }))
+            .filter(o => o.value);
+        const wrap = document.createElement('div');
+        wrap.className = 'city-combo';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'city-combo-input';
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-autocomplete', 'list');
+        input.setAttribute('aria-expanded', 'false');
+        input.setAttribute('autocomplete', 'off');
+        input.setAttribute('placeholder', 'Search city…');
+        const lbl = select.getAttribute('aria-label');
+        if (lbl) input.setAttribute('aria-label', lbl);
+        const listId = 'combo-list-' + (select.id || ('c' + Math.floor(opts.length * 997)));
+        const list = document.createElement('ul');
+        list.className = 'city-combo-list';
+        list.id = listId;
+        list.setAttribute('role', 'listbox');
+        list.hidden = true;
+        input.setAttribute('aria-controls', listId);
+        const cur = opts.find(o => o.value === select.value);
+        if (cur) input.value = cur.label;
+        select.parentNode.insertBefore(wrap, select);
+        wrap.appendChild(input);
+        wrap.appendChild(list);
+        wrap.appendChild(select);
+        select.style.display = 'none';
+        select.setAttribute('tabindex', '-1');
+        select.setAttribute('aria-hidden', 'true');
+        let active = -1;
+        let filtered = opts.slice();
+        function renderList(items) {
+            list.innerHTML = items.map((o, i) =>
+                '<li role="option" class="city-combo-opt" id="' + listId + '-opt-' + i + '" data-value="' + o.value + '">' + o.label + '</li>'
+            ).join('') || '<li class="city-combo-empty" aria-disabled="true">No match</li>';
+        }
+        function openList() { list.hidden = false; input.setAttribute('aria-expanded', 'true'); }
+        function closeList() { list.hidden = true; input.setAttribute('aria-expanded', 'false'); active = -1; input.removeAttribute('aria-activedescendant'); }
+        function doFilter(q) {
+            q = (q || '').trim().toLowerCase();
+            filtered = q ? opts.filter(o => o.label.toLowerCase().indexOf(q) !== -1) : opts.slice();
+            renderList(filtered);
+        }
+        function highlight() {
+            Array.from(list.querySelectorAll('.city-combo-opt')).forEach((li, i) => {
+                const on = i === active;
+                li.classList.toggle('active', on);
+                if (on) { input.setAttribute('aria-activedescendant', li.id); li.scrollIntoView({ block: 'nearest' }); }
+            });
+        }
+        function choose(o) {
+            if (!o) return;
+            select.value = o.value;
+            input.value = o.label;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            closeList();
+        }
+        input.addEventListener('focus', () => { doFilter(''); openList(); input.select(); });
+        input.addEventListener('input', () => { doFilter(input.value); openList(); active = -1; });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') { e.preventDefault(); if (list.hidden) { doFilter(''); openList(); } active = Math.min(active + 1, filtered.length - 1); highlight(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); highlight(); }
+            else if (e.key === 'Enter') { if (!list.hidden && active >= 0 && filtered[active]) { e.preventDefault(); choose(filtered[active]); } }
+            else if (e.key === 'Escape') { closeList(); }
+        });
+        input.addEventListener('blur', () => {
+            // If they typed a full match, accept it; otherwise restore the current selection.
+            setTimeout(() => {
+                if (list.hidden) return;
+                const typed = input.value.trim().toLowerCase();
+                const exact = opts.find(o => o.label.toLowerCase() === typed);
+                if (exact) choose(exact);
+                else { const c = opts.find(o => o.value === select.value); if (c) input.value = c.label; closeList(); }
+            }, 120);
+        });
+        list.addEventListener('mousedown', (e) => {
+            const li = e.target.closest('.city-combo-opt');
+            if (li) { e.preventDefault(); choose(opts.find(o => o.value === li.getAttribute('data-value'))); }
+        });
+        document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) closeList(); });
+        // Keep the input label in sync if the value is changed elsewhere in code.
+        select.addEventListener('change', () => {
+            const c = opts.find(o => o.value === select.value);
+            if (c && document.activeElement !== input) input.value = c.label;
+        });
+    };
+
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('[JanVayu] Initializing redesigned version...');
+        try { window.enhanceCityCombobox(document.getElementById('hero-city-select')); } catch (e) { console.warn('city combobox:', e); }
 
         // ── PWA: register service worker for offline shell + last-known AQI cache ──
         if ('serviceWorker' in navigator) {
