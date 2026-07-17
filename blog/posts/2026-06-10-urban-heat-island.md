@@ -4,7 +4,7 @@
 
 ---
 
-On one summer afternoon, a thermal survey of Delhi recorded **52°C in Mubarakpur** and **34°C in Mehrauli** — at the same hour, under the same sun, just kilometres apart. That is an 18°C gap inside a single city. The sun did not change. The ground did.
+On a peak summer afternoon, a CSE satellite thermal survey of Delhi recorded land-surface temperatures reaching nearly **61°C** in its most built-up, treeless zones while tree-covered areas like Lutyens' Delhi and the Yamuna floodplain stayed near **33°C** — under the same sun, within a single city. That is a gap of more than 25°C. The sun did not change. The ground did.
 
 This is the **urban heat island effect**, and we have just added a panel about it to JanVayu — [Urban Heat Island](/index.html#urban-heat), under *Health & Trends*. But a fair question came up while we built it, and it is worth answering in the open: **what is heat doing on an air-quality website?**
 
@@ -47,4 +47,4 @@ Explore it: [**Urban Heat Island on JanVayu**](/index.html#urban-heat).
 
 ---
 
-*Sources: Sircar, N. et al. (2026), "Mapping Heat Inequality Across Neighbourhoods in Delhi," Artha Global; surface-temperature map via India Today; Bloomer, B.J. et al. (2009), Geophysical Research Letters 36, L09803; Jacob, D.J. & Winner, D.A. (2009), Atmospheric Environment 43(1):51–63; Analitis, A. et al. (2014), Epidemiology 25(1):15–22; Stafoggia, M. et al. (2023), Environment International 181:108258; Salamanca, F. et al. (2014), J. Geophysical Research: Atmospheres 119:5949–5965; Nowak, D.J. et al. (2014), Environmental Pollution 193:119–129. Live hourly ozone and temperature via Open-Meteo (CAMS).*
+*Sources: Sircar, N. et al. (2026), "Mapping Heat Inequality Across Neighbourhoods in Delhi," Artha Global; surface-temperature figures from Centre for Science and Environment, *Making Delhi Heat-Resilient: A Roadmap with the Focus on Vulnerable Groups* (2026); Bloomer, B.J. et al. (2009), Geophysical Research Letters 36, L09803; Jacob, D.J. & Winner, D.A. (2009), Atmospheric Environment 43(1):51–63; Analitis, A. et al. (2014), Epidemiology 25(1):15–22; Stafoggia, M. et al. (2023), Environment International 181:108258; Salamanca, F. et al. (2014), J. Geophysical Research: Atmospheres 119:5949–5965; Nowak, D.J. et al. (2014), Environmental Pollution 193:119–129. Live hourly ozone and temperature via Open-Meteo (CAMS).*
