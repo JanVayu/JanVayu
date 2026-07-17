@@ -383,7 +383,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="/styles.css?v=202606104">
+    <link rel="stylesheet" href="/styles.css?v=202606105">
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -830,7 +830,7 @@
                                 <span class="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
                                 <span class="hero-cta-text">
                                     <span class="hero-cta-title">New here? Take the guided tour</span>
-                                    <span class="hero-cta-sub">A 64-slide walkthrough of everything JanVayu tracks &mdash; the data, the health toll, the money, the tools.</span>
+                                    <span class="hero-cta-sub">A guided walkthrough of everything JanVayu tracks &mdash; the data, the health toll, the money, the tools.</span>
                                 </span>
                                 <span class="hero-cta-arrow" aria-hidden="true">&rarr;</span>
                             </a>
@@ -1157,6 +1157,20 @@
             </div>
         </div>
 
+        <!-- STORY OF THE WEEK — a rotating featured blog post -->
+        <div class="container" style="padding-top: 18px;">
+            <div class="dash-section" style="margin-top: 0; border-top: 1px solid var(--border); padding-top: 22px;">
+                <span class="dash-section-eyebrow">From the blog</span>
+                <h2 class="dash-section-title" data-i18n="story_heading">Story of the week</h2>
+            </div>
+            <a class="story-week-card" id="story-of-week" href="/blog/" hidden>
+                <span class="story-week-tag" id="story-week-tag"></span>
+                <span class="story-week-title" id="story-week-title"></span>
+                <span class="story-week-blurb" id="story-week-blurb"></span>
+                <span class="story-week-cta">Read the story <span aria-hidden="true">&rarr;</span></span>
+            </a>
+        </div>
+
         <!-- DID YOU KNOW — surprising, citable, India-specific facts -->
         <div class="container" style="padding-top: 18px;">
             <div class="dash-section" style="margin-top: 0; border-top: 1px solid var(--border); padding-top: 22px;">
@@ -1335,7 +1349,7 @@
         </div>
     </footer>
 
-    <script src="/app.js?v=202606104"></script>
+    <script src="/app.js?v=202606105"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -6251,6 +6265,32 @@ window.handleWorkshopSubmit = async function (event, kind) {
             });
         })
         .catch(function() { /* stats.json unavailable — keep existing values */ });
+
+    // Story of the week — deterministic weekly rotation of a featured blog post.
+    (function initStoryOfWeek() {
+        var card = document.getElementById('story-of-week');
+        if (!card) return;
+        fetch('/data/stories.json')
+            .then(function(r) { return r.ok ? r.json() : null; })
+            .then(function(data) {
+                var list = data && data.stories;
+                if (!list || !list.length) return;
+                // ISO-week index so the pick changes weekly without a deploy.
+                var now = new Date();
+                var start = new Date(now.getFullYear(), 0, 1);
+                var week = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000));
+                var s = list[((week % list.length) + list.length) % list.length];
+                var tag = document.getElementById('story-week-tag');
+                var title = document.getElementById('story-week-title');
+                var blurb = document.getElementById('story-week-blurb');
+                if (tag) tag.textContent = s.tag || 'Blog';
+                if (title) title.textContent = s.title || '';
+                if (blurb) blurb.textContent = s.blurb || '';
+                if (s.url) card.setAttribute('href', s.url);
+                card.hidden = false;
+            })
+            .catch(function() { /* stories.json unavailable — card stays hidden */ });
+    })();
 })();
 </script>
 
