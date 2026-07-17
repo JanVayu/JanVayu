@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 17 Jul 2026 | [We Fact-Checked Our Own Site — and Changed 33 Numbers](posts/2026-07-17-we-factchecked-ourselves.md) | Data integrity |
 | 15 Jul 2026 | [A Working Language Switcher, an Accessibility Sweep, and a Much Lighter Site](posts/2026-07-15-multilingual-accessibility-lighter.md) | Platform |
 | 14 Jul 2026 | [What Shipped This Week: Forecasts, Fire Maps, and Pollution Beyond the Lungs](posts/2026-07-14-forecast-fire-and-beyond-the-lungs.md) | Product |
 | 8 Jul 2026 | [The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky](posts/2026-07-08-secondary-pm25.md) | Data |
