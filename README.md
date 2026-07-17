@@ -22,6 +22,16 @@ This is not a campaign. It is a record.
 
 ---
 
+## ✨ Recent highlights (July 2026)
+
+- 🎨 **Hand-drawn diagrams throughout** — the "How JanVayu works" system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes, all in a native Excalidraw-style (`rough.js` + Kalam) engine with desktop + mobile variants.
+- 🖼️ **"The air, in pictures"** photo gallery — 24 openly-licensed documentary photographs (Wikimedia Commons), reachable from *Learn → Photo Gallery*.
+- 🔎 **Site-wide fact-check + a weekly automated fact-check routine** — every statistic and calculator constant is web-verified against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA); see [`docs/fact-check-2026-07.md`](docs/fact-check-2026-07.md). A scheduled job re-runs this weekly and opens a PR for review.
+- 📱 **Installable PWA + Web Push** — add JanVayu (and the standalone *Ask JanVayu* assistant) to your home screen; opt in to threshold alerts delivered even when the site is closed.
+- 🧭 **Conference-ready visual refresh** — self-hosted Fraunces headline type, labelled section headers, a decluttered dashboard, and version-stamped assets so every deploy appears on the first refresh.
+
+---
+
 ## Features
 
 | # | Feature | Description |
@@ -64,6 +74,10 @@ This is not a campaign. It is a record.
 | 36 | **Beyond the Lungs** | PM2.5's whole-body toll — kidneys (2026 Chennai–Delhi eGFR cohort), cardiovascular, brain, metabolism, pregnancy — arguing for health-complete alerts |
 | 37 | **Occupational Exposure** | Exposure-equity by occupation: street vendors, traffic police, gig riders, construction and waste workers, anchored on a 2026 Chennai street-vendor study |
 | 38 | **Open Data API** | Versioned, CORS-open public data API at [janvayu.in/api](https://www.janvayu.in/api) — JSON manifest of every dataset + CSV export of rankings; free to use with attribution (CC BY-NC-SA 4.0) |
+| 39 | **Hand-drawn Diagrams** | A native Excalidraw-style (`rough.js` + self-hosted Kalam) engine renders the system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes — each with a wide desktop and a portrait mobile variant. Sources in `assets/diagrams/` |
+| 40 | **Photo Gallery** | "The air, in pictures" — 24 openly-licensed (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
+| 41 | **Web Push Alerts** | Installable PWA with real server-sent threshold alerts (VAPID/Web Push), delivered even when the site is closed |
+| 42 | **Automated Fact-Check** | A weekly scheduled routine web-verifies every statistic + calculator constant against current primary sources and opens a review PR; findings archived in `docs/fact-check-*.md` |
 
 ---
 
@@ -73,7 +87,7 @@ This is not a campaign. It is a record.
 |--------|-------|--------|
 | Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
 | Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
-| India's Global Share | 70% of pollution deaths | Lancet Countdown 2025 |
+| India's Global Share | World's largest national PM2.5 death toll (~a quarter of the global total) | Lancet Countdown 2025 |
 | Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2025 |
 | Most Polluted City | Loni, India (112.5 µg/m³) | IQAir 2025 |
 | Cities Meeting WHO Guideline | Only 14% globally | IQAir 2025 |
