@@ -1557,13 +1557,13 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
     gap: 40px;
 }
+/* Footer columns collapse in ONE place: 5 → 2 → 1 as the viewport narrows.
+   (This used to be redefined in five scattered @media blocks that fought each
+   other — one even labelled "single column" while setting two.) The brand cell
+   spans the full width once the grid drops to two columns. */
 @media (max-width: 1000px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-/* Keep the footer link lists two-up on phones (they were stacking into one
-   very long single column). The brand/intro cell spans the full width above. */
-@media (max-width: 768px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 22px 20px; }
-    .footer-brand { grid-column: 1 / -1; }
-}
+@media (max-width: 768px)  { .footer-grid { gap: 20px 16px; } .footer-brand { grid-column: 1 / -1; } }
+@media (max-width: 600px)  { .footer-grid { grid-template-columns: 1fr; } }
 .footer-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 14px; color: rgba(255,255,255,0.8); }
 .footer-link { color: rgba(255,255,255,0.62); display: block; padding: 3px 0; font-size: 0.82rem; text-decoration: none; transition: color 0.12s; }
 .footer-link:hover { color: rgba(255,255,255,0.85); text-decoration: none; }
@@ -1623,7 +1623,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .stat-strip { grid-template-columns: repeat(2, 1fr); }
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .table { min-width: 500px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
     .pull-quote { font-size: 1rem; padding: 1rem; }
     .tool-card { margin-bottom: 1rem; }
     .info-box { padding: 1rem; }
@@ -1652,7 +1651,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 @media (max-width: 768px) {
     .chart-container { height: 220px !important; min-height: 200px; }
     .grid-2 { grid-template-columns: 1fr; }
-    .hero .grid-4 { grid-template-columns: repeat(2, 1fr); }
     .section-intro { margin-bottom: 1.5rem !important; padding-bottom: 1rem !important; }
     .card { margin-bottom: 0.75rem; }
     #india-map { height: 350px !important; }
@@ -2678,9 +2676,9 @@ body {
     /* Forms: full width inputs */
     .form-input, .form-select, .form-textarea { width: 100%; box-sizing: border-box; }
 
-    /* Footer: single column */
+    /* Footer: tighter link spacing (column count is handled in the footer
+       section's own @media blocks, not here). */
     .footer { padding: 24px 0; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
     .footer-link { padding: 6px 0; font-size: 0.8rem; }
 
     /* Section intros: readable */
@@ -2791,16 +2789,4 @@ body {
         color: var(--text-3); margin-bottom: 0.15rem;
     }
     .responsive-cards td[data-label=""]::before { content: ""; margin: 0; }
-}
-
-/* ── Phones: single-column stacks ────────────────────────────────────────────
-   On narrow screens a two-column layout does more harm than good in two places:
-   the dashboard tile grids squeeze each card so tight that titles break
-   mid-word ("Learnin g Games"), and the footer's three nav groups leave an
-   empty cell beside the odd one out. Stack both into one column. This block is
-   last in the file so it wins over the earlier .hero .grid-4 / .footer-grid
-   rules regardless of their source order. */
-@media (max-width: 600px) {
-    .hero .grid-4 { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
 }
