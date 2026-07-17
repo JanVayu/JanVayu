@@ -35,6 +35,33 @@
   .slide.prev { transform:translateX(-40px) scale(.98); }
   @media (prefers-reduced-motion: reduce){ .slide{ transition:opacity .2s; transform:none;} .slide.prev{transform:none;} }
 
+  /* ── Mobile / portrait: drop the fixed 16:9 box; let the active slide fill
+       the width and flow vertically so nothing overlaps. One slide at a time. */
+  @media (max-width: 820px), (orientation: portrait) {
+    html, body { overflow-y: auto; }
+    .stage { position: static; display: block; min-height: 100vh; padding: 54px 12px 96px; }
+    .slide {
+      position: relative; width: 100%; max-width: 640px; margin: 0 auto;
+      aspect-ratio: auto; min-height: calc(100vh - 170px);
+      padding: 26px 22px; overflow: visible;
+      opacity: 0; transform: none; pointer-events: none; display: none;
+    }
+    .slide.active { display: flex; opacity: 1; pointer-events: auto; }
+    .slide.prev { transform: none; }
+    h1.title { font-size: clamp(2rem, 9vw, 3rem); }
+    h2.head { font-size: clamp(1.55rem, 6.6vw, 2.1rem); }
+    .sub { font-size: 1.05rem; max-width: none; }
+    .body, .figrow { flex-direction: column; align-items: stretch; gap: 18px; flex: none; margin-top: 1em; }
+    .col { flex: none; min-width: 0; }
+    ul.points li { font-size: 1rem; }
+    .stats { grid-template-columns: 1fr; gap: 16px; flex: none; }
+    .stat { text-align: left; }
+    .stat .n { font-size: 2.4rem; }
+    .dgm { min-height: 0; }
+    .dgm svg { width: 100%; height: auto; max-height: 52vh; }
+    .slide-note { position: static; margin-top: 18px; }
+  }
+
   /* Slide interior */
   .eyebrow { font-size:clamp(.7rem,1.1vw,.85rem); font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:10px; }
   .eyebrow::before { content:''; width:26px; height:3px; background:var(--accent); border-radius:2px; }
