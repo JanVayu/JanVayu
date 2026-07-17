@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" role="img" aria-label="How JanVayu's maintenance routines work">
+  <style>
+    .k   { font-family:'Kalam','Comic Sans MS',cursive; }
+    .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
+    .box { fill:#fbfaf7; stroke:#1e2a22; stroke-width:2.4; }
+    .grn { fill:#dcfce7; stroke:#146c33; stroke-width:2.4; }
+    .amb { fill:#fdf0d5; stroke:#8a5300; stroke-width:2.4; }
+    .ln  { fill:none; stroke:#146c33; stroke-width:2.4; }
+    .lbl { fill:#1e2a22; }
+    .mut { fill:#5b6b60; }
+  </style>
+
+  <text x="460" y="34" text-anchor="middle" class="h" font-size="26" fill="#146c33">How JanVayu keeps itself honest</text>
+  <text x="460" y="56" text-anchor="middle" class="k" font-size="15" class="mut" fill="#5b6b60">three scheduled routines &#183; a human always merges</text>
+
+  <!-- The three routines (clocks) -->
+  <g>
+    <rect class="grn" x="26" y="96" width="216" height="60" rx="12"/>
+    <text x="46" y="124" class="h" font-size="16" fill="#146c33">&#9200; Weekly fact-check</text>
+    <text x="46" y="144" class="k" font-size="12.5" fill="#5b6b60">every number vs its source</text>
+
+    <rect class="grn" x="26" y="170" width="216" height="60" rx="12"/>
+    <text x="46" y="198" class="h" font-size="16" fill="#146c33">&#9200; Weekly bot eval</text>
+    <text x="46" y="218" class="k" font-size="12.5" fill="#5b6b60">no invented citations, kind, safe</text>
+
+    <rect class="grn" x="26" y="244" width="216" height="60" rx="12"/>
+    <text x="46" y="272" class="h" font-size="16" fill="#146c33">&#9200; Fortnightly staleness</text>
+    <text x="46" y="292" class="k" font-size="12.5" fill="#5b6b60">catches aged content</text>
+  </g>
+
+  <!-- arrows into the loop -->
+  <path class="ln" d="M242 126 C 300 126, 300 200, 356 200" marker-end="url(#a)"/>
+  <path class="ln" d="M242 200 H 356" marker-end="url(#a)"/>
+  <path class="ln" d="M242 274 C 300 274, 300 200, 356 200" marker-end="url(#a)"/>
+
+  <!-- the loop -->
+  <rect class="box" x="356" y="172" width="176" height="58" rx="12"/>
+  <text x="444" y="197" text-anchor="middle" class="h" font-size="15" fill="#1e2a22">Fresh session</text>
+  <text x="444" y="216" text-anchor="middle" class="k" font-size="12.5" fill="#5b6b60">does the work</text>
+
+  <path class="ln" d="M532 201 H 604" marker-end="url(#a)"/>
+
+  <rect class="box" x="604" y="172" width="176" height="58" rx="12"/>
+  <text x="692" y="197" text-anchor="middle" class="h" font-size="15" fill="#1e2a22">Opens a review PR</text>
+  <text x="692" y="216" text-anchor="middle" class="k" font-size="12.5" fill="#5b6b60">CI runs on it</text>
+
+  <path class="ln" d="M692 230 V 300" marker-end="url(#a)"/>
+
+  <rect class="amb" x="604" y="300" width="176" height="58" rx="12"/>
+  <text x="692" y="325" text-anchor="middle" class="h" font-size="15" fill="#8a5300">A human reviews</text>
+  <text x="692" y="344" text-anchor="middle" class="k" font-size="12.5" fill="#8a5300">never auto-merged</text>
+
+  <path class="ln" d="M604 329 H 444 V 240" marker-end="url(#a)"/>
+
+  <rect class="grn" x="356" y="300" width="176" height="58" rx="12"/>
+  <text x="444" y="325" text-anchor="middle" class="h" font-size="15" fill="#146c33">Merged &#8594; live</text>
+  <text x="444" y="344" text-anchor="middle" class="k" font-size="12.5" fill="#5b6b60">on janvayu.in</text>
+
+  <text x="460" y="428" text-anchor="middle" class="k" font-size="14" fill="#5b6b60">Automate the vigilance. Keep the human on the merge. Gates, not vibes.</text>
+
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="7" refY="3.2" orient="auto">
+      <path d="M0 0 L8 3.2 L0 6.4 Z" fill="#146c33"/>
+    </marker>
+  </defs>
+</svg>
