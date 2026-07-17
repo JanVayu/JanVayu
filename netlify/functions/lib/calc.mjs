@@ -106,7 +106,7 @@ export function calcPurifierCADR(roomSqft, ceilingFt = 9, targetACH = 5) {
     targetACH,
     cadrCfm: Math.round(cadrCfm),
     cadrM3h,
-    source: "AHAM CADR formula (Association of Home Appliance Manufacturers); 5 ACH target for Indian winter PM2.5 typical",
+    source: "CADR sizing via volume × ACH — JanVayu estimate using a conservative 5 ACH and 9 ft ceiling for Indian winter PM2.5; note AHAM's own Verifide room-size guidance (the 2/3 rule) assumes ~4.8 ACH at an 8 ft ceiling and defines CADR as a measured chamber-test rating",
   };
 }
 
