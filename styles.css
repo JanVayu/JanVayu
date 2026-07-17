@@ -19,7 +19,7 @@
 
     --green-900: #0f2b1c;
     --green-800: #14532D;
-    --green-700: #15803D;
+    --green-700: #146c33; /* darkened from #15803D so green text meets AA 4.5:1 on tinted card backgrounds, not just white */
     --green-600: #157f3c; /* darkened from #16A34A so green text meets AA 4.5:1 on white */
     --green-500: #22C55E;
     --green-400: #4ADE80;
@@ -36,7 +36,7 @@
     --ink-faint: #5a5a54;
 
     --red: #c0392b;
-    --amber: #a86008; /* darkened to meet WCAG AA 4.5:1 for normal text on white */
+    --amber: #8a5300; /* darkened so amber text meets AA 4.5:1 on tinted backgrounds, not just white */
     --blue: #2563EB;
     --purple: #6D28D9;
     --sky: #0284c7; /* accessible sky-blue for stat text on white */
