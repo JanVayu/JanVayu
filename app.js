@@ -1121,7 +1121,7 @@
 
     // Panels whose (large) markup lives in an external fragment, fetched on first
     // open instead of being inlined + parsed on every page load. Cached after first use.
-    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html' };
+    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html', apportionment: '/panels/apportionment.html' };
     const __panelFragmentCache = {};
     function fetchPanelFragment(panelId) {
         if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
@@ -1190,6 +1190,7 @@
                 if (panelId === 'ward-map') { try { window.initWardMap && window.initWardMap(); } catch(e) { console.warn('Ward map init:', e); } }
                 if (panelId === 'forecast') { try { initForecastPanel(); } catch(e) { console.warn('Forecast init:', e); } }
                 if (panelId === 'fire-tracker') { try { initFireTracker(); } catch(e) { console.warn('Fire tracker init:', e); } }
+                if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
             }, 150);
     }
 
@@ -3153,6 +3154,110 @@
     }
     window.initFireTracker = initFireTracker;
     window.loadFires = loadFires;
+
+    // ── Source apportionment ring: where a city's PM2.5 comes from ──
+    let apportionData = null;
+    let apportionChart = null;
+    const APPORTION_BUCKETS = [
+        { key: 'transport',          label: 'Transport',          color: '#EA580C' },
+        { key: 'industry',           label: 'Industry',           color: '#7C3AED' },
+        { key: 'residential_biomass',label: 'Biomass & burning',  color: '#CA8A04' },
+        { key: 'dust_construction',  label: 'Dust & construction',color: '#A16207' },
+        { key: 'power',              label: 'Power',              color: '#0891B2' },
+        { key: 'other',              label: 'Other (secondary, transboundary)', color: '#64748B' }
+    ];
+    window.initApportionment = async function initApportionment() {
+        const sel = document.getElementById('apportion-city');
+        if (!sel) return;
+        if (!apportionData) {
+            try {
+                const r = await fetch('/data/apportionment.json');
+                apportionData = await r.json();
+            } catch (e) {
+                const legend = document.getElementById('apportion-legend');
+                if (legend) legend.innerHTML = '<p style="color:var(--text-3);">Apportionment data could not load. Please refresh.</p>';
+                return;
+            }
+        }
+        if (sel.options.length === 0) {
+            apportionData.cities.forEach(function (c) {
+                const opt = document.createElement('option');
+                opt.value = c.key; opt.textContent = c.name;
+                sel.appendChild(opt);
+            });
+            sel.value = 'delhi';
+            sel.onchange = function () { window.renderApportionRing(sel.value); };
+        }
+        try { await ensureChartJs(); } catch (e) {
+            const legend = document.getElementById('apportion-legend');
+            if (legend) legend.innerHTML = '<p style="color:var(--text-3);">Chart library could not load.</p>';
+            return;
+        }
+        window.renderApportionRing(sel.value || 'delhi');
+    };
+    window.renderApportionRing = function renderApportionRing(cityKey) {
+        if (!apportionData) return;
+        const c = apportionData.cities.find(function (x) { return x.key === cityKey; });
+        if (!c) return;
+        const canvas = document.getElementById('apportionRing');
+        const legend = document.getElementById('apportion-legend');
+        const basisEl = document.getElementById('apportion-basis');
+        const sourceEl = document.getElementById('apportion-source');
+        const centerEl = document.getElementById('apportion-center');
+        if (!canvas) return;
+
+        const rows = APPORTION_BUCKETS
+            .map(function (b) { return { b: b, val: c.shares[b.key] || 0 }; })
+            .filter(function (r) { return r.val > 0; })
+            .sort(function (a, b) { return b.val - a.val; });
+
+        if (basisEl) basisEl.textContent = c.basis;
+        if (centerEl && rows.length) {
+            centerEl.innerHTML = '<span class="apportion-center-pct">' + Math.round(rows[0].val) + '%</span>' +
+                '<span class="apportion-center-lbl">' + rows[0].b.label + '</span>';
+        }
+
+        if (legend) {
+            legend.innerHTML = rows.map(function (r) {
+                return '<div class="apportion-row">' +
+                    '<span class="apportion-swatch" style="background:' + r.b.color + ';"></span>' +
+                    '<span class="apportion-rowlabel">' + r.b.label + '</span>' +
+                    '<span class="apportion-rowbar"><span class="apportion-rowbar-fill" style="width:' + Math.min(100, r.val) + '%;background:' + r.b.color + ';"></span></span>' +
+                    '<span class="apportion-rowval">' + (Math.round(r.val * 10) / 10) + '%</span>' +
+                    '</div>';
+            }).join('');
+        }
+
+        if (sourceEl) {
+            const conf = c.confidence ? (c.confidence.charAt(0).toUpperCase() + c.confidence.slice(1)) : '';
+            sourceEl.innerHTML = '<p class="apportion-src-line"><strong>Source:</strong> ' + escapeHtml(c.source) +
+                (c.year ? ' (' + escapeHtml(c.year) + ')' : '') + ' &middot; ' + escapeHtml(c.basis) +
+                (conf ? ' &middot; confidence: ' + conf : '') + '</p>' +
+                '<p class="apportion-caveat">' + escapeHtml(c.caveat || '') + '</p>';
+        }
+
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (apportionChart) { try { apportionChart.destroy(); } catch (e) {} apportionChart = null; }
+        apportionChart = new Chart(canvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: rows.map(function (r) { return r.b.label; }),
+                datasets: [{
+                    data: rows.map(function (r) { return r.val; }),
+                    backgroundColor: rows.map(function (r) { return r.b.color; }),
+                    borderColor: isDark ? '#0f172a' : '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, cutout: '62%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: function (ctx) { return ctx.label + ': ' + (Math.round(ctx.parsed * 10) / 10) + '%'; } } }
+                }
+            }
+        });
+    };
 
     function updateMapMarkers() {
             if (!map || !mapMarkerLayer) return;

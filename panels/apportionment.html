@@ -1,0 +1,34 @@
+<div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
+    <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-pie-chart" style="color: var(--green-700); margin-right: 0.4rem;"></span>Where your city's PM2.5 comes from</h2>
+    <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Different things pollute the air in different cities — vehicles, industry, cooking fires, dust. This shows the mix for your city, from the best study we could find.">Cleaning the air means knowing what's dirtying it. This ring shows the share of fine-particle (PM2.5) pollution from each major source in a city &mdash; drawn from the most credible source-apportionment study we could find for that city. Pick a city to see its mix.</p>
+</div>
+
+<div class="apportion-controls">
+    <label for="apportion-city" class="apportion-label">City</label>
+    <select id="apportion-city" class="apportion-select" aria-label="Choose a city"></select>
+    <span id="apportion-basis" class="apportion-basis"></span>
+</div>
+
+<div class="apportion-layout">
+    <div class="apportion-ringwrap">
+        <canvas id="apportionRing" role="img" aria-label="Source apportionment doughnut chart" height="300"></canvas>
+        <div id="apportion-center" class="apportion-center" aria-hidden="true"></div>
+    </div>
+    <div class="apportion-legend" id="apportion-legend"></div>
+</div>
+
+<div id="apportion-source" class="apportion-source"></div>
+
+<details class="apportion-method">
+    <summary>How to read this &mdash; and its limits</summary>
+    <div class="apportion-method-body">
+        <p><strong>What "source apportionment" means.</strong> Scientists work out how much each type of source contributes to the fine particles (PM2.5) you breathe, using one of two methods:</p>
+        <ul>
+            <li><strong>Receptor models</strong> (like Chemical Mass Balance) chemically fingerprint the particles actually measured in the air &mdash; so they capture <em>secondary</em> particles that form in the atmosphere, which show up here under "Other".</li>
+            <li><strong>Emission inventories</strong> add up what each source <em>emits</em>. They're good on primary particles but don't separate out secondary aerosol or long-range transport, so their "Other" is often near zero.</li>
+        </ul>
+        <p><strong>Why you can't cleanly compare cities.</strong> Studies differ by method, by season (winter peaks look very different from annual averages), and by year. The mix is <em>indicative</em>, not a precise league table &mdash; each city names its own study and basis above the ring. Where a study only reported winter and summer, we've said so.</p>
+        <p><strong>The buckets.</strong> <em>Transport</em> = vehicles. <em>Industry</em> = manufacturing (and, in some studies, thermal power). <em>Biomass &amp; burning</em> = household cooking fuel, waste and crop-residue burning. <em>Dust &amp; construction</em> = road/soil dust and building sites. <em>Power</em> = thermal power where the study separates it. <em>Other</em> = secondary aerosol, transboundary transport, and miscellaneous.</p>
+        <p>Primary sources: CREA, UrbanEmissions.info (APnA), CSIR-NEERI, CSTEP, TERI, IIT Kanpur, and state pollution control boards under NCAP.</p>
+    </div>
+</details>
