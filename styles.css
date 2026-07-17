@@ -1430,7 +1430,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
    body{word-break:break-word} was splitting labels like "Accountability". */
 @media (max-width: 1024px) {
     .quick-link { align-items: flex-start; gap: 12px; }
-    .quick-link h4, .quick-link p { word-break: normal; overflow-wrap: break-word; hyphens: none; }
+    .quick-link h3, .quick-link h4, .quick-link p { word-break: normal; overflow-wrap: break-word; hyphens: none; }
 }
 
 /* Result boxes */
@@ -1554,16 +1554,16 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
     gap: 40px;
 }
+/* Footer columns collapse in ONE place: 5 → 2 → 1 as the viewport narrows.
+   (This used to be redefined in five scattered @media blocks that fought each
+   other — one even labelled "single column" while setting two.) The brand cell
+   spans the full width once the grid drops to two columns. */
 @media (max-width: 1000px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-/* Keep the footer link lists two-up on phones (they were stacking into one
-   very long single column). The brand/intro cell spans the full width above. */
-@media (max-width: 768px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 22px 20px; }
-    .footer-brand { grid-column: 1 / -1; }
-}
+@media (max-width: 768px)  { .footer-grid { gap: 20px 16px; } .footer-brand { grid-column: 1 / -1; } }
+@media (max-width: 600px)  { .footer-grid { grid-template-columns: 1fr; } }
 .footer-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 14px; color: rgba(255,255,255,0.8); }
 .footer-link { color: rgba(255,255,255,0.62); display: block; padding: 3px 0; font-size: 0.82rem; text-decoration: none; transition: color 0.12s; }
 .footer-link:hover { color: rgba(255,255,255,0.85); text-decoration: none; }
@@ -1623,7 +1623,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     .stat-strip { grid-template-columns: repeat(2, 1fr); }
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .table { min-width: 500px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
     .pull-quote { font-size: 1rem; padding: 1rem; }
     .tool-card { margin-bottom: 1rem; }
     .info-box { padding: 1rem; }
@@ -1652,7 +1651,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 @media (max-width: 768px) {
     .chart-container { height: 220px !important; min-height: 200px; }
     .grid-2 { grid-template-columns: 1fr; }
-    .hero .grid-4 { grid-template-columns: repeat(2, 1fr); }
     .section-intro { margin-bottom: 1.5rem !important; padding-bottom: 1rem !important; }
     .card { margin-bottom: 0.75rem; }
     #india-map { height: 350px !important; }
@@ -1667,7 +1665,10 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 /* ═══ Mobile Hamburger Menu ═══ */
 .mobile-menu-btn { display: none; }
-@media (max-width: 1024px) {
+/* The horizontal section nav carries nine dropdowns now (About was split out);
+   below ~1180px they no longer fit on one row, so hand over to the mobile menu
+   there rather than let the last item overflow. */
+@media (max-width: 1180px) {
     .mobile-menu-btn { display: flex; }
     .section-nav { display: none; }
     .section-nav.show-desktop { display: block; }
@@ -2675,9 +2676,9 @@ body {
     /* Forms: full width inputs */
     .form-input, .form-select, .form-textarea { width: 100%; box-sizing: border-box; }
 
-    /* Footer: single column */
+    /* Footer: tighter link spacing (column count is handled in the footer
+       section's own @media blocks, not here). */
     .footer { padding: 24px 0; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
     .footer-link { padding: 6px 0; font-size: 0.8rem; }
 
     /* Section intros: readable */

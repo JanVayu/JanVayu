@@ -6,7 +6,7 @@
     <title>JanVayu | India's Citizen Air Quality Platform</title>
 
     <!-- SEO Meta -->
-    <meta name="description" content="India's independent citizen-led air quality platform. Live PM2.5 data for 30+ cities, health impact analysis using GEMM models, NCAP budget tracking, policy accountability, and environmental justice reporting. 1.72 million deaths/year demand action (Lancet Countdown 2025).">
+    <meta name="description" content="India's independent citizen-led air quality platform. Live PM2.5 data for 30+ cities, personal health-impact estimates, NCAP budget tracking, policy accountability, and environmental justice reporting. 1.72 million deaths/year demand action (Lancet Countdown 2025).">
     <meta name="keywords" content="air quality India, AQI Delhi, PM2.5 India, air pollution deaths, NCAP progress, clean air India, JanVayu, जनवायु, pollution accountability, health impact air pollution, CPCB data, WAQI, environmental justice India">
     <meta name="author" content="JanVayu — AirQuality for Janhit by MMSF Fellows, AIPC">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -383,7 +383,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="/styles.css?v=202606110">
+    <link rel="stylesheet" href="/styles.css?v=202606115">
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -656,8 +656,6 @@
                 <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                 <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                 <button class="mobile-nav-item" data-panel="gallery">Photo Gallery</button>
-                <button class="mobile-nav-item" data-panel="faq">FAQ</button>
-                <button class="mobile-nav-item" data-panel="team">Team</button>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_accountability">Accountability</div>
@@ -691,7 +689,13 @@
                 <button class="mobile-nav-item" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                 <button class="mobile-nav-item" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                 <button class="mobile-nav-item" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
-                <button class="mobile-nav-item" data-panel="about" data-i18n="nav_about">About</button>
+            </div>
+            <div class="mobile-nav-group">
+                <div class="mobile-nav-group-label" data-i18n="nav_about">About</div>
+                <button class="mobile-nav-item" data-panel="about" data-i18n="nav_about">About JanVayu</button>
+                <button class="mobile-nav-item" data-panel="team">Team</button>
+                <button class="mobile-nav-item" data-panel="faq">FAQ</button>
+                <a class="mobile-nav-item" href="mailto:contribute@janvayu.in" style="text-decoration:none; color:inherit; display:block;">Contact</a>
             </div>
             <div class="mobile-nav-group">
                 <div class="mobile-nav-group-label" data-i18n="navgroup_external">External</div>
@@ -761,8 +765,6 @@
                     <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                     <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
                     <button class="nav-dropdown-link" data-panel="gallery">Photo Gallery</button>
-                    <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
-                    <button class="nav-dropdown-link" data-panel="team">Team</button>
                 </div>
             </div>
             <div class="nav-item">
@@ -802,7 +804,16 @@
                     <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                     <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                     <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
-                    <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link" data-panel="about" data-i18n="nav_about">About <span class="nav-caret"></span></button>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About JanVayu</button>
+                    <button class="nav-dropdown-link" data-panel="team">Team</button>
+                    <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
+                    <a class="nav-dropdown-link" href="mailto:contribute@janvayu.in" style="text-decoration:none;">Contact</a>
+                    <a class="nav-dropdown-link" href="https://github.com/JanVayu/JanVayu" target="_blank" rel="noopener" style="text-decoration:none;">GitHub &#8599;</a>
                 </div>
             </div>
             <div class="nav-actions-right">
@@ -996,9 +1007,9 @@
 
                 <!-- How JanVayu works — system diagram -->
                 <div class="dash-section">
-                    <span class="dash-section-eyebrow">Under the hood</span>
+                    <span class="dash-section-eyebrow">How it works</span>
                     <h2 class="dash-section-title">Where every number comes from</h2>
-                    <p class="dash-section-sub">Independent public feeds, verified and made useful &mdash; no single source, no black box.</p>
+                    <p class="dash-section-sub">Every reading traces back to an independent, public source &mdash; cross-checked, and never a single feed you have to take on trust.</p>
                 </div>
                 <section class="how-flow mt-3" aria-labelledby="how-flow-title">
                     <h2 id="how-flow-title" class="sr-only">How JanVayu works</h2>
@@ -1331,10 +1342,15 @@
                     <a class="footer-link" href="#" onclick="showPanel('games');return false;">Learning Games</a>
                     <a class="footer-link" href="#" onclick="showPanel('downloads');return false;">Downloads &amp; API</a>
                     <a class="footer-link" href="/blog/" data-i18n="footer_blog">Blog</a>
-                    <a class="footer-link" href="#" onclick="showPanel('faq');return false;">FAQ</a>
-                    <a class="footer-link" href="#" onclick="showPanel('team');return false;">Team</a>
                     <a class="footer-link" href="/docs/" data-i18n="footer_docs">Docs</a>
                     <a class="footer-link" href="/status">System Status</a>
+                </div>
+                <div>
+                    <div class="footer-title" data-i18n="nav_about">About</div>
+                    <a class="footer-link" href="#" onclick="showPanel('about');return false;">About JanVayu</a>
+                    <a class="footer-link" href="#" onclick="showPanel('team');return false;">Team</a>
+                    <a class="footer-link" href="#" onclick="showPanel('faq');return false;">FAQ</a>
+                    <a class="footer-link" href="mailto:contribute@janvayu.in">Contact</a>
                     <a class="footer-link" href="https://github.com/JanVayu/JanVayu" target="_blank" rel="noopener">GitHub &#8599;</a>
                 </div>
             </div>
@@ -1349,7 +1365,7 @@
         </div>
     </footer>
 
-    <script src="/app.js?v=202606110"></script>
+    <script src="/app.js?v=202606115"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -1604,7 +1620,7 @@
                                 <option value="1.6">Multiple Conditions</option>
                             </select>
                         </div>
-                        <button class="btn btn-primary" onclick="calculateHealthRisk()">Calculate Risk (GEMM Model)</button>
+                        <button class="btn btn-primary" onclick="calculateHealthRisk()">Calculate my risk</button>
                     </div>
                 </div>
 
@@ -4028,7 +4044,7 @@
 
         <div class="card mt-3" style="background: var(--bg-section);">
             <div class="card-body" style="font-size: 0.8rem; color: var(--text-3);">
-                <strong>How this works:</strong> We fetch public posts from Reddit's free JSON API (r/india, r/delhi, r/indianews), embed public X/Twitter posts via oEmbed, and aggregate Instagram embeds for air quality hashtags. No paid API required. Data auto-refreshes every 15 minutes.
+                These are public posts about air quality from Reddit (r/india, r/delhi, r/indianews), X/Twitter and Instagram, refreshed every 15 minutes.
             </div>
         </div>
     </div>
@@ -4038,15 +4054,15 @@
 <template id="tmpl-aqi-story">
     <div class="container">
         <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.25rem;">The Air We Breathe</h2>
-        <p style="color: var(--text-2); margin-bottom: 0.5rem; font-size: 0.85rem;" data-simple="An interactive editorial about India's air quality crisis with text that flows around live data.">An editorial layout powered by <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener" style="color:var(--accent);">Pretext</a> — text flows around live AQI data with zero DOM reflow. Resize your browser to see the text re-wrap in real time.</p>
+        <p style="color: var(--text-2); margin-bottom: 0.5rem; font-size: 0.85rem;" data-simple="An interactive editorial about India's air quality crisis with text that flows around live data.">An interactive editorial whose text flows around the live air-quality figures — resize your window to watch it re-wrap in real time.</p>
 
         <div id="aqi-story-canvas" class="editorial-container" style="margin-top: 1.5rem;">
-            <p style="color:var(--text-3);text-align:center;padding:2rem;">Loading editorial layout engine...</p>
+            <p style="color:var(--text-3);text-align:center;padding:2rem;">Loading editorial…</p>
         </div>
 
         <div class="card mt-3" style="background: var(--bg-section);">
             <div class="card-body" style="font-size: 0.8rem; color: var(--text-3);">
-                <strong>How this works:</strong> <a href="https://github.com/chenglou/pretext" target="_blank" rel="noopener">Pretext</a> measures text entirely off-DOM using Canvas, then uses <code>layoutNextLine()</code> to flow each line around obstacles (the AQI gauge, death toll, and NCAP progress cards). No <code>getBoundingClientRect</code>, no layout reflow — 300x faster than traditional browser text layout. The entire page re-wraps on resize with pure arithmetic.
+                The text on this page flows around the live figures — the AQI gauge, the death toll, the NCAP progress cards — and re-wraps around them whenever you resize the window. Try it.
             </div>
         </div>
     </div>
@@ -4111,7 +4127,7 @@
                         <button class="btn btn-sm" onclick="disablePushNotifications()" style="flex:1;">Turn off</button>
                     </div>
                     <div id="alert-status" style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-3);"></div>
-                    <p style="font-size: 0.72rem; color: var(--text-3); margin-top: 0.5rem;">Real push: alerts arrive even when JanVayu is closed. We store only your browser's anonymous push subscription, city and threshold &mdash; no account, no email.</p>
+                    <p style="font-size: 0.72rem; color: var(--text-3); margin-top: 0.5rem;">Alerts arrive even when JanVayu is closed. We store only an anonymous alert token from your browser, plus your city and threshold &mdash; no account, no email.</p>
                 </div>
             </div>
             <div class="card">
@@ -4586,7 +4602,7 @@
                     <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
                 </div>
             </div>
-            <div class="alert alert-info" style="margin:0;"><div id="ward-method"><strong>How this is built:</strong> on the <em>Air quality</em> layer, each ward&rsquo;s value is <strong>interpolated</strong> from the city&rsquo;s live CPCB/WAQI monitors (inverse-distance weighted) &mdash; the citywide <em>spread</em>, not a calibrated per-street reading, and sharper where there are more monitors. The heat / green / built-up layers, by contrast, are measured directly by satellite.</div></div>
+            <div class="alert alert-info" style="margin:0;"><div id="ward-method"><strong>What this shows:</strong> on the <em>Air quality</em> layer, each ward&rsquo;s value is estimated from the city&rsquo;s live CPCB/WAQI monitors &mdash; the nearest monitors count most. It&rsquo;s the citywide <em>pattern</em>, not an exact street-by-street reading, and it&rsquo;s sharper where there are more monitors. The heat, greenery and built-up layers are measured directly by satellite.</div></div>
             <div class="card mt-2" id="ward-corr-card" style="display:none;">
                 <div class="card-header"><span class="card-title" id="ward-corr-title" style="font-size:0.85rem;">Relationship</span></div>
                 <div class="card-body" style="padding:0.6rem;">
@@ -4757,7 +4773,7 @@
         <div class="card mt-3">
             <div class="card-header"><span class="card-title">Open Data API (for developers &amp; researchers)</span></div>
             <div class="card-body">
-                <p style="font-size: 0.85rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="If you write code or do research, you can pull JanVayu's data directly from a free, open web address &mdash; no login needed &mdash; and cite it in your work.">A free, read-only, CORS-open API over the data JanVayu publishes &mdash; so journalists, researchers and forks can consume and cite it. Start at the manifest, which lists every dataset, its parameters and licence.</p>
+                <p style="font-size: 0.85rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="If you write code or do research, you can pull JanVayu's data directly from a free, open web address &mdash; no login needed &mdash; and cite it in your work.">A free, open web address where journalists and researchers can pull the data JanVayu publishes &mdash; no login &mdash; and cite it in their work. Start with the index, which lists every dataset, its options and licence.</p>
                 <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.75rem;">
                     <a class="btn btn-primary btn-sm" href="/api" target="_blank" rel="noopener">View API manifest</a>
                     <a class="btn btn-sm" href="/api?dataset=rankings&amp;format=csv" target="_blank" rel="noopener">Download rankings (CSV)</a>
@@ -5557,7 +5573,7 @@ const ROLE_CONFIG = {
         description: 'Data, research, and tools for projects, assignments, and learning about environmental science.',
         actions: [
             { icon: '<span class="si si-bar-chart"></span>', panel: 'trends', title: 'Explore historical AQI trends', desc: 'See how air quality has changed over the years across Indian cities.', cta: 'View trends →' },
-            { icon: '<span class="si si-insights"></span>', panel: 'health', title: 'Calculate health impact', desc: 'Use the GEMM model to estimate mortality and disease burden from PM2.5.', cta: 'Try calculator →' },
+            { icon: '<span class="si si-insights"></span>', panel: 'health', title: 'Calculate health impact', desc: 'Estimate mortality and disease burden from PM2.5 for your age and exposure.', cta: 'Try calculator →' },
             { icon: '<span class="si si-spark"></span>', panel: 'ask-janvayu', title: 'Ask JanVayu AI', desc: 'Ask questions about air quality in natural language and get data-backed answers.', cta: 'Ask a question →' }
         ],
         panels: [
@@ -5580,7 +5596,7 @@ const ROLE_CONFIG = {
         ],
         panels: [
             { panel: 'trends', title: 'Historical Trends', desc: 'Multi-year PM2.5 patterns' },
-            { panel: 'health', title: 'GEMM Health Calculator', desc: 'Mortality & morbidity modeling' },
+            { panel: 'health', title: 'Health Impact Calculator', desc: 'Mortality & disease-burden estimates' },
             { panel: 'economic', title: 'Economic Cost Analysis', desc: 'GDP loss, healthcare costs' },
             { panel: 'hyperlocal', title: 'Hyperlocal Analysis', desc: 'Station-level data exploration' },
             { panel: 'downloads', title: 'Downloads', desc: 'Reports, presentations, PDFs' },
@@ -5666,7 +5682,7 @@ const ROLE_CONFIG = {
         heading: 'Air quality health intelligence',
         description: 'Patient advisory tools, health risk models, and epidemiological data for clinical decisions.',
         actions: [
-            { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Health risk calculator', desc: 'GEMM-based mortality/morbidity estimates by age, conditions, and exposure.', cta: 'Calculate →' },
+            { icon: '<span class="si si-activity"></span>', panel: 'health', title: 'Health risk calculator', desc: 'Mortality and disease-burden estimates by age, conditions, and exposure.', cta: 'Calculate →' },
             { icon: '<span class="si si-flare"></span>', panel: 'go-outside', title: 'Patient outdoor advisory', desc: 'Should patients with respiratory/cardiac conditions go outside today?', cta: 'Check now →' },
             { icon: '<span class="si si-heart"></span>', panel: 'children', title: "Children's health impact", desc: 'Lung development, stunting, and cognitive impact data for pediatric guidance.', cta: 'View data →' }
         ],
@@ -6056,7 +6072,7 @@ function pretextEnhanceSocialCards() {
 function renderEditorialStory() {
     const container = document.getElementById('aqi-story-canvas');
     if (!container || !window.Pretext) {
-        if (container) container.innerHTML = '<p style="color:var(--text-2);text-align:center;padding:2rem;">Loading editorial layout engine...</p>';
+        if (container) container.innerHTML = '<p style="color:var(--text-2);text-align:center;padding:2rem;">Loading editorial…</p>';
         return;
     }
 
