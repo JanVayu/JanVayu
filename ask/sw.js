@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ask-janvayu-20260695-v95';
+const CACHE_NAME = 'ask-janvayu-20260696-v96';
 const STATIC_ASSETS = [
   '/ask/',
   '/ask/index.html',
