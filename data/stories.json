@@ -1,0 +1,53 @@
+{
+  "note": "Featured blog posts rotated weekly on the dashboard 'Story of the week' card. Ordered newest-ish first; rotation is deterministic by ISO week so it changes without a deploy. Edit freely.",
+  "stories": [
+    {
+      "title": "We Fact-Checked Our Own Site — and Changed 33 Numbers",
+      "blurb": "We turned our own scrutiny on ourselves: a site-wide audit of every statistic against current primary sources. Here's what was wrong, and how we now check every week.",
+      "tag": "Transparency",
+      "url": "/blog/#/posts/2026-07-17-we-factchecked-ourselves"
+    },
+    {
+      "title": "The Pollution You Can't See Being Emitted",
+      "blurb": "Up to 42% of India's PM2.5 isn't emitted directly — it forms in the sky from gases like SO₂. Dust-first clean-air spending misses most of it.",
+      "tag": "Data",
+      "url": "/blog/#/posts/2026-07-08-secondary-pm25"
+    },
+    {
+      "title": "NCAP at the Finish Line: Has It Worked?",
+      "blurb": "The National Clean Air Programme's deadline has elapsed. We follow the promises and the money to see which cities delivered — and which moved backwards.",
+      "tag": "Policy",
+      "url": "/blog/#/posts/2026-04-05-ncap-deadline"
+    },
+    {
+      "title": "The $339 Billion Question: What Pollution Costs India",
+      "blurb": "Dirty air isn't only a health story — it's an economic one. Lost workdays, lower yields, and a bill worth about 9.5% of GDP.",
+      "tag": "Economics",
+      "url": "/blog/#/posts/2026-03-25-economic-cost"
+    },
+    {
+      "title": "India's Children Are Paying the Price",
+      "blurb": "Smaller lungs, higher exposure, developing brains. Why children carry a disproportionate share of the air-pollution burden.",
+      "tag": "Health",
+      "url": "/blog/#/posts/2026-04-01-children-air-pollution"
+    },
+    {
+      "title": "How Farmers Outsmart Satellites: The Stubble-Burning Shell Game",
+      "blurb": "Fire counts fell — but so did the satellites' ability to see them. A look at what the overpass-timing shift hides.",
+      "tag": "Investigation",
+      "url": "/blog/#/posts/2026-03-28-stubble-burning-satellites"
+    },
+    {
+      "title": "A City Is Not One Number: Mapping India's Air Ward by Ward",
+      "blurb": "Your city's headline AQI hides enormous variation. We map fine-particle pollution down to the municipal ward.",
+      "tag": "Data",
+      "url": "/blog/#/posts/2026-06-10-how-polluted-is-your-ward"
+    },
+    {
+      "title": "The Lancet's Causal Evidence: 1.5 Million Deaths",
+      "blurb": "Correlation isn't causation — until it is. How Jaganathan et al. 2024 established a causal link between PM2.5 and mortality in India.",
+      "tag": "Research",
+      "url": "/blog/#/posts/2026-04-08-lancet-causal-evidence"
+    }
+  ]
+}
