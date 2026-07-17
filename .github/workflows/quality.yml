@@ -6,7 +6,7 @@ name: Code Quality (HTML + JS)
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/weekly-factcheck]
   pull_request:
     branches: [main]
   workflow_dispatch:
