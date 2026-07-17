@@ -1733,7 +1733,7 @@
         const el = document.getElementById('ward-method'); if (!el) return;
         const date = wardState.geo && wardState.geo.lst_date;
         if (layer === 'pm25') {
-            el.innerHTML = `<strong>How this is built:</strong> each ward&rsquo;s value is <strong>interpolated</strong> from the city&rsquo;s live CPCB/WAQI monitors (inverse-distance weighted) &mdash; the citywide <em>spread</em>, not a calibrated per-street reading, and sharper where there are more monitors. <em>Timescale note:</em> this air layer is a <strong>live snapshot</strong>, while heat / green / built-up are <strong>annual / structural</strong>. They sit on different clocks &mdash; the drivers explain a ward&rsquo;s <em>typical</em> air over the year, not this exact hour&rsquo;s reading.`;
+            el.innerHTML = `<strong>What this shows:</strong> each ward&rsquo;s value is estimated from the city&rsquo;s live CPCB/WAQI monitors &mdash; the nearest monitors count most. It&rsquo;s the citywide <em>pattern</em>, not an exact street-by-street reading, and it&rsquo;s sharper where there are more monitors. <em>One note on timing:</em> this air layer is a <strong>live snapshot</strong>, while heat, greenery and built-up cover change slowly over the year. So those layers explain a ward&rsquo;s <em>typical</em> air, not this exact hour&rsquo;s reading.`;
         } else if (layer === 'lst') {
             el.innerHTML = `<strong>Heat &mdash; a driver of air quality.</strong> Land-surface temperature from <strong>Landsat 8/9</strong> (~30&nbsp;m)${date ? `, a clear-sky scene on <strong>${date}</strong>` : ''} &mdash; ground temperature on one hot-season afternoon (hotter than air temperature, a snapshot not an average). <em>Why it&rsquo;s here:</em> heat speeds up ozone formation and worsens the health hit of particle pollution, so hotter wards tend to carry a heavier air-quality burden.`;
         } else if (layer === 'green') {
@@ -1749,7 +1749,7 @@
         if (layer === 'pm25') {
             const st = wardState.stations;
             el.textContent = (st && st.pts.length)
-                ? `${n} wards · estimated from ${st.pts.length} live monitors · ${new Date(st.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. Estimate of citywide spread, not a calibrated per-ward reading.`
+                ? `${n} wards · estimated from ${st.pts.length} live monitors · ${new Date(st.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. The citywide pattern, not an exact per-ward reading.`
                 : 'No live monitors are reporting right now.';
         } else if (layer === 'lst') {
             el.textContent = `${n} wards · Landsat 8/9 surface temperature${wardState.geo.lst_date ? ' · ' + wardState.geo.lst_date : ''} · ~30 m.`;
@@ -1937,7 +1937,7 @@
         // footer
         const dateStr = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
         ctx.fillStyle = '#6b7280'; ctx.font = '22px Arial';
-        ctx.fillText('Air = live estimate, interpolated from CPCB/WAQI monitors.', 64, H - 96);
+        ctx.fillText('Air = live estimate, based on nearby CPCB/WAQI monitors.', 64, H - 96);
         ctx.fillStyle = '#1b6b4a'; ctx.font = 'bold 24px Arial';
         ctx.fillText('janvayu.in/#ward-map', 64, H - 56);
         ctx.fillStyle = '#9ca3af'; ctx.font = '20px Arial'; ctx.textAlign = 'right';
