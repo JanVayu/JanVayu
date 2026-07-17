@@ -4,6 +4,8 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **Website:** [janvayu.in](https://www.janvayu.in) · **Repository:** [GitHub](https://github.com/JanVayu/JanVayu) · **Contact:** contribute@janvayu.in
 
+> 🔎 **Every figure is fact-checked.** A weekly automated routine web-verifies each statistic and calculator constant against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA) and opens a review PR. See the latest findings in [`docs/fact-check-2026-07.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07.md).
+
 ---
 
 ## Quick Links
