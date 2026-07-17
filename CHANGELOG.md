@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.92] - 2026-07-17
+
+### Fix — deploys now appear on the first refresh (no more stale cache)
+
+The service worker serves `styles.css`/`app.js` cache-first, and `index.html` referenced them by unversioned URL — so after a deploy the browser kept showing the old CSS/JS until the SW cache happened to swap, sometimes for a long time.
+
+- **Version-stamped asset URLs** — `index.html` now loads `/styles.css?v=<stamp>` and `/app.js?v=<stamp>`, and the SW precache list matches. Each release changes the URL, so a fresh deploy can never hit a stale cache entry. `bump-version.mjs` rewrites the stamp automatically on every version bump.
+- **No-cache on the HTML entry points** — `/` and `/index.html` are now `max-age=0, must-revalidate` (like `/sw.js` already was), so the new HTML — carrying the new asset stamp — always reaches the browser immediately.
+
+Net effect: one normal refresh after a deploy shows the latest version; no more fully-closing the tab to clear the PWA cache.
+
 ## [v26.6.91] - 2026-07-16
 
 ### Design — five more hand-drawn diagrams (panels + blog)

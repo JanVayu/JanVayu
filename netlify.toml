@@ -28,6 +28,20 @@
     Cache-Control = "public, max-age=0, must-revalidate"
     Service-Worker-Allowed = "/"
 
+# The HTML entry points must always be revalidated so a fresh deploy (and its
+# version-stamped CSS/JS URLs) reaches the browser immediately — never served
+# from a stale HTTP cache. The version-stamped assets themselves are safe to
+# cache for a long time because each release changes their URL.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # Redirect non-www to www (canonical domain)
 [[redirects]]
   from = "https://janvayu.in/*"
