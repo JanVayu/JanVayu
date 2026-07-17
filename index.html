@@ -383,7 +383,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="/styles.css?v=202606115">
+    <link rel="stylesheet" href="/styles.css?v=202606117">
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1005,6 +1005,15 @@
                     </div>
                 </div>
 
+                <!-- STORY OF THE WEEK — rotating featured blog post, right under the live AQI -->
+                <a class="story-week-card featured" id="story-of-week" href="/blog/" hidden style="margin-top: 1.5rem;">
+                    <span class="story-week-eyebrow" data-i18n="story_heading">From the blog &middot; Story of the week</span>
+                    <span class="story-week-tag" id="story-week-tag"></span>
+                    <span class="story-week-title" id="story-week-title"></span>
+                    <span class="story-week-blurb" id="story-week-blurb"></span>
+                    <span class="story-week-cta">Read the story <span aria-hidden="true">&rarr;</span></span>
+                </a>
+
                 <!-- How JanVayu works — system diagram -->
                 <div class="dash-section">
                     <span class="dash-section-eyebrow">How it works</span>
@@ -1141,6 +1150,10 @@
                         <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-700);"><span class="si si-library" style="width:20px;height:20px;"></span></div>
                         <div><h3 data-i18n="ql_games_t">Learning Games</h3><p data-i18n="ql_games_d">Seven games: Jeopardy, Vayu Junction &amp; more</p></div>
                     </div>
+                    <div class="quick-link" onclick="showPanel('workshops'); setTimeout(function(){var e=document.getElementById('aqlit-card-body'); if(e) e.scrollIntoView({behavior:'smooth',block:'center'});}, 450); return false;">
+                        <div class="quick-link-icon" style="background: #EEF2FF; color: #4F46E5;"><span class="si si-clipboard-check" style="width:20px;height:20px;"></span></div>
+                        <div><h3>Air-Literacy Quiz <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>Test what you know &mdash; a 10-question self-check</p></div>
+                    </div>
                     <div class="quick-link" onclick="showPanel('gallery')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-image" style="width:20px;height:20px;"></span></div>
                         <div><h3>Photo Gallery <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>The air, in pictures &mdash; 24 open-licensed photographs</p></div>
@@ -1166,20 +1179,6 @@
                     <button class="anomaly-dismiss" onclick="dismissAnomalyBanner()" title="Dismiss">&times;</button>
                 </div>
             </div>
-        </div>
-
-        <!-- STORY OF THE WEEK — a rotating featured blog post -->
-        <div class="container" style="padding-top: 18px;">
-            <div class="dash-section" style="margin-top: 0; border-top: 1px solid var(--border); padding-top: 22px;">
-                <span class="dash-section-eyebrow">From the blog</span>
-                <h2 class="dash-section-title" data-i18n="story_heading">Story of the week</h2>
-            </div>
-            <a class="story-week-card" id="story-of-week" href="/blog/" hidden>
-                <span class="story-week-tag" id="story-week-tag"></span>
-                <span class="story-week-title" id="story-week-title"></span>
-                <span class="story-week-blurb" id="story-week-blurb"></span>
-                <span class="story-week-cta">Read the story <span aria-hidden="true">&rarr;</span></span>
-            </a>
         </div>
 
         <!-- DID YOU KNOW — surprising, citable, India-specific facts -->
@@ -1365,7 +1364,7 @@
         </div>
     </footer>
 
-    <script src="/app.js?v=202606115"></script>
+    <script src="/app.js?v=202606117"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2716,12 +2715,25 @@
 
 <template id="tmpl-workshops">
 
-            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+            <div class="section-intro" style="margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-library" style="color: var(--purple); margin-right: 0.4rem;"></span>Workshops</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Want to learn more about air pollution? Book an air quality workshop — either an interactive session with Dr. Sarath Guttikunda from UrbanEmissions (he sets his own fee), or a free 1-hour walkthrough of JanVayu with our team.">Air pollution is easier to act on once you understand it. Two ways to learn: an interactive Air Quality Jeopardy session with Dr. Sarath Guttikunda (UrbanEmissions) &mdash; scheduled and priced directly by him &mdash; or a free hands-on JanVayu walkthrough with our team.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Want to learn more about air pollution? Book a free session run by our team — a JanVayu walkthrough, an RTI clinic, a ward-map session, or an educator session — or request an interactive workshop with Dr. Sarath Guttikunda from UrbanEmissions (he sets his own fee).">Air pollution is easier to act on once you understand it. Book a <strong>free session run by our team</strong> &mdash; a platform walkthrough, an RTI clinic, a ward-map reading, or a classroom session for educators &mdash; or request an interactive workshop with Dr. Sarath Guttikunda (UrbanEmissions), scheduled and priced directly by him.</p>
             </div>
 
-            <div class="grid-2" style="gap: 1.5rem; align-items: stretch;">
+            <!-- ── Bookable free sessions (rendered from /data/workshops.json) ── -->
+            <div class="dash-section" style="margin-top: 0;">
+                <span class="dash-section-eyebrow">Free &middot; online &middot; run by our team</span>
+                <h3 class="dash-section-title" style="font-size: 1.4rem;">Sessions you can book</h3>
+                <p class="dash-section-sub">All free and online. We schedule around your availability &mdash; pick your preferred slots when you book. Scheduled public group sessions, when we have them, appear here first.</p>
+            </div>
+            <div id="workshops-upcoming" style="margin: 1.1rem 0 0;"></div>
+            <div id="workshops-sessions" class="grid-2" style="gap: 1rem; margin: 1.1rem 0 2.25rem; align-items: stretch;"></div>
+
+            <div class="dash-section" style="margin-top: 0;">
+                <h3 class="dash-section-title" style="font-size: 1.4rem;">Book a session, or request the UrbanEmissions workshop</h3>
+            </div>
+
+            <div class="grid-2" style="gap: 1.5rem; align-items: stretch; margin-top: 1.1rem;">
 
                 <!-- ── Card A: Workshop with Sarath ── -->
                 <div class="card" style="display: flex; flex-direction: column;">
@@ -2802,22 +2814,31 @@
                 <!-- ── Card B: JanVayu walkthrough ── -->
                 <div class="card" style="display: flex; flex-direction: column;">
                     <div class="card-header">
-                        <span class="card-title">1-hour JanVayu walkthrough</span>
+                        <span class="card-title">Book a free session</span>
                         <span style="font-size: 0.65rem; color: var(--text-3);">JanVayu team</span>
                     </div>
                     <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
                         <div style="border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; margin-bottom: 14px;">
-                            <strong style="display: block; font-size: 0.95rem;">Hands-on session</strong>
-                            <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Live walkthrough of the dashboard. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and find the right purifier for your room. Free, online, English/Hindi. Up to 25 participants.</p>
+                            <strong style="display: block; font-size: 0.95rem;">Pick a session and three slots</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-2); margin: 4px 0 0; line-height: 1.55;">Choose the session you want, give us three times that suit you, and we'll confirm one within two working days with a Google Meet link. Free, online, English or Hindi, up to 25 participants.</p>
                         </div>
 
                         <div id="walkthrough-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: #166534; font-size: 0.88rem; margin-bottom: 12px;">
                             <strong>Request received.</strong> We'll email you within 2 working days to confirm a slot.
                         </div>
 
-                        <form name="walkthrough-booking" method="POST" onsubmit="return handleWorkshopSubmit(event, 'walkthrough')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                        <form id="walkthrough-form" name="walkthrough-booking" method="POST" onsubmit="return handleWorkshopSubmit(event, 'walkthrough')" style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
                             <input type="hidden" name="form-name" value="walkthrough-booking">
                             <p style="display: none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+                            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Which session? *
+                                <select name="session" id="walkthrough-session-select" required style="padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink); font-size: 0.85rem;">
+                                    <option value="walkthrough">JanVayu Walkthrough &mdash; 1 hour</option>
+                                    <option value="rti-clinic">RTI Clinic &mdash; 45 min</option>
+                                    <option value="know-your-ward">Know Your Ward &mdash; 30 min</option>
+                                    <option value="educators">Air-Literacy for Educators &mdash; 1 hour</option>
+                                </select>
+                            </label>
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                                 <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-2); display: flex; flex-direction: column; gap: 4px;">Your name *

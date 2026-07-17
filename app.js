@@ -1191,6 +1191,7 @@
                 if (panelId === 'forecast') { try { initForecastPanel(); } catch(e) { console.warn('Forecast init:', e); } }
                 if (panelId === 'fire-tracker') { try { initFireTracker(); } catch(e) { console.warn('Fire tracker init:', e); } }
                 if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
+                if (panelId === 'workshops') { try { window.initWorkshops && window.initWorkshops(); } catch(e) { console.warn('Workshops init:', e); } }
             }, 150);
     }
 
@@ -2891,9 +2892,15 @@
         input.setAttribute('aria-autocomplete', 'list');
         input.setAttribute('aria-expanded', 'false');
         input.setAttribute('autocomplete', 'off');
-        input.setAttribute('placeholder', 'Search city…');
+        input.setAttribute('placeholder', 'Type to search a city…');
         const lbl = select.getAttribute('aria-label');
         if (lbl) input.setAttribute('aria-label', lbl);
+        // Visible search affordance — otherwise the input (pre-filled with the
+        // current city) reads as a plain dropdown and nobody realises they can type.
+        const icon = document.createElement('span');
+        icon.className = 'city-combo-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>';
         const listId = 'combo-list-' + (select.id || ('c' + Math.floor(opts.length * 997)));
         const list = document.createElement('ul');
         list.className = 'city-combo-list';
@@ -2904,6 +2911,7 @@
         const cur = opts.find(o => o.value === select.value);
         if (cur) input.value = cur.label;
         select.parentNode.insertBefore(wrap, select);
+        wrap.appendChild(icon);
         wrap.appendChild(input);
         wrap.appendChild(list);
         wrap.appendChild(select);
@@ -7036,3 +7044,66 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
 
+
+// ── Workshops: bookable-sessions calendar (rendered from /data/workshops.json) ──
+// `sessions` = standing offers (booked on request via the walkthrough form);
+// `upcoming` = specific public dates the team adds to the JSON. No fixed dates
+// are invented here — an empty `upcoming` shows an honest book-on-request note.
+window.initWorkshops = (function () {
+    var cache = null;
+    function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    function render(data) {
+        var menu = document.getElementById('workshops-sessions');
+        var up = document.getElementById('workshops-upcoming');
+        var sessions = (data && data.sessions) || [];
+        var byId = {}; sessions.forEach(function(s){ byId[s.id] = s; });
+        if (menu) {
+            menu.innerHTML = sessions.map(function(s){
+                return '<div class="card" style="display:flex;flex-direction:column;">' +
+                  '<div class="card-body" style="display:flex;flex-direction:column;gap:8px;flex:1;">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">' +
+                      '<strong style="font-size:0.98rem;color:var(--ink);">' + esc(s.title) + '</strong>' +
+                      '<span style="font-size:0.68rem;color:var(--text-3);white-space:nowrap;">' + esc(s.duration) + '</span>' +
+                    '</div>' +
+                    '<span style="font-size:0.72rem;color:var(--accent);font-weight:600;">' + esc(s.mode) + '</span>' +
+                    '<p style="font-size:0.83rem;color:var(--text-2);line-height:1.5;margin:0;flex:1;">' + esc(s.blurb) + '</p>' +
+                    '<button type="button" class="btn btn-sm" onclick="bookWorkshopSession(\'' + esc(s.id) + '\')" style="align-self:flex-start;margin-top:2px;">Request this session</button>' +
+                  '</div></div>';
+            }).join('');
+        }
+        if (up) {
+            var upcoming = (data && data.upcoming) || [];
+            if (!upcoming.length) {
+                up.innerHTML = '<div class="alert alert-info" style="margin:0;font-size:0.85rem;">No public group sessions are scheduled right now &mdash; every session below is <strong>booked on request</strong>, and we schedule around the slots you give us. Want to hear when a public session is dated? <a href="mailto:contribute@janvayu.in?subject=Notify%20me%20about%20JanVayu%20workshops">Email us</a> and we\'ll add you.</div>';
+            } else {
+                up.innerHTML = '<div class="dash-section" style="margin:0 0 0.6rem;"><span class="dash-section-eyebrow">Scheduled &middot; open to book</span></div>' +
+                  '<div class="grid-2" style="gap:0.8rem;">' + upcoming.map(function(u){
+                    var s = byId[u.session] || {};
+                    return '<div class="card" style="border-left:3px solid var(--accent);"><div class="card-body" style="display:flex;flex-direction:column;gap:5px;">' +
+                      '<strong style="font-size:0.95rem;color:var(--ink);">' + esc(s.title || u.session) + '</strong>' +
+                      '<span style="font-size:0.82rem;color:var(--text-1);"><span class="si si-calendar" style="margin-right:5px;"></span>' + esc(u.date) + (u.time ? ' &middot; ' + esc(u.time) : '') + '</span>' +
+                      (u.seatsNote ? '<span style="font-size:0.72rem;color:var(--text-3);">' + esc(u.seatsNote) + '</span>' : '') +
+                      '<button type="button" class="btn btn-sm btn-primary" onclick="bookWorkshopSession(\'' + esc(u.session) + '\')" style="align-self:flex-start;margin-top:3px;">Book a seat</button>' +
+                    '</div></div>';
+                  }).join('') + '</div>';
+            }
+        }
+    }
+    return function initWorkshops() {
+        if (cache) { render(cache); return; }
+        fetch('/data/workshops.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+            if (!d) return; cache = d; render(d);
+        }).catch(function(){ /* workshops.json unavailable — the request forms below still work */ });
+    };
+})();
+
+window.bookWorkshopSession = function (id) {
+    var sel = document.getElementById('walkthrough-session-select');
+    if (sel && id) { sel.value = id; }
+    var form = document.getElementById('walkthrough-form');
+    if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var focusEl = sel || form.querySelector('input[name="name"]');
+        if (focusEl) setTimeout(function(){ try { focusEl.focus({ preventScroll: true }); } catch(e){} }, 400);
+    }
+};

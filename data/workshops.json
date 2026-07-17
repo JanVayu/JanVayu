@@ -1,0 +1,34 @@
+{
+  "_comment": "Drives the Workshops panel calendar. `sessions` = the standing sessions we offer (booked on request; the booking form captures which one). `upcoming` = specific public group sessions with a fixed date — leave [] when nothing is scheduled and the panel shows a book-on-request message. To add a public session, append: {\"session\":\"walkthrough\",\"date\":\"2026-08-02\",\"time\":\"11:00 AM–12:00 PM IST\",\"seatsNote\":\"25 seats\"}.",
+  "sessions": [
+    {
+      "id": "walkthrough",
+      "title": "JanVayu Walkthrough",
+      "duration": "1 hour",
+      "mode": "Online · free",
+      "blurb": "A live tour of the whole platform. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and size the right purifier for your room."
+    },
+    {
+      "id": "rti-clinic",
+      "title": "RTI Clinic",
+      "duration": "45 minutes",
+      "mode": "Online · free",
+      "blurb": "Bring your city; leave having filed a real Right to Information request — on clean-air fund utilisation, a missing monitor, or a specific NCAP gap. We draft it with you."
+    },
+    {
+      "id": "know-your-ward",
+      "title": "Know Your Ward",
+      "duration": "30 minutes",
+      "mode": "Online · free",
+      "blurb": "Read your neighbourhood's air, heat and green-cover maps ward by ward — and understand the honest live-snapshot-vs-annual difference behind the colours."
+    },
+    {
+      "id": "educators",
+      "title": "Air-Literacy for Educators",
+      "duration": "1 hour",
+      "mode": "Online · free",
+      "blurb": "A classroom-ready session for teachers: the learning games, the 10-question self-check, and how to teach AQI, sources and protection to Class 9+ students."
+    }
+  ],
+  "upcoming": []
+}
