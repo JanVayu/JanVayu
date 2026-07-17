@@ -1121,7 +1121,7 @@
 
     // Panels whose (large) markup lives in an external fragment, fetched on first
     // open instead of being inlined + parsed on every page load. Cached after first use.
-    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html' };
+    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html' };
     const __panelFragmentCache = {};
     function fetchPanelFragment(panelId) {
         if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
