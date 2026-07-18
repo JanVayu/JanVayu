@@ -588,7 +588,7 @@
         if (data) {
             const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
             const whoX = getWHOMultiple(pm25);
-            const color = getPM25Color(pm25);
+            const color = getPM25TextColor(pm25); // text on white card — must stay legible
             if (pmEl) { pmEl.textContent = pm25; pmEl.style.color = color; }
             if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
             if (aqiEl) aqiEl.textContent = data.aqi;
@@ -643,7 +643,7 @@
         const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
         const aqi = data.aqi;
         const cigPerDay = (pm25 / 22).toFixed(1);
-        const cigColor = getPM25Color(pm25);
+        const cigColor = getPM25TextColor(pm25); // text on white card
         if (cigEl) { cigEl.textContent = cigPerDay; cigEl.style.color = cigColor; }
         if (cigCtx) {
             const cigPerWeek = Math.round((pm25 / 22) * 7);
@@ -1996,6 +1996,20 @@
         if (pm25 <= 55) return '#99004c';
         return '#7e0023';
     }
+    // Text-legible variant of the PM2.5 band colours. The EPA-style swatch
+    // colours above (bright green, pure yellow) are fine as dots/backgrounds
+    // but wash out as text on a white card — pure #ffff00 is effectively
+    // invisible. These keep each band's hue but darken it to a WCAG-legible
+    // shade for use as TEXT on light backgrounds.
+    function getPM25TextColor(pm25) {
+        if (pm25 <= 5) return '#15803d';   // green-700
+        if (pm25 <= 10) return '#4d7c0f';  // lime-700
+        if (pm25 <= 15) return '#a16207';  // amber-700 (was pure yellow)
+        if (pm25 <= 25) return '#c2410c';  // orange-700
+        if (pm25 <= 35) return '#dc2626';  // red-600
+        if (pm25 <= 55) return '#9d174d';  // pink-800
+        return '#7e0023';                   // already dark
+    }
     function getWHOMultiple(pm25) { return (pm25 / WHO_PM25_GUIDELINE).toFixed(1); }
 
     // WAQI returns iaqi.{pm25,pm10}.v as US-EPA sub-index values (unitless), not µg/m³.
@@ -2107,7 +2121,7 @@
         if (sorted.length > 0) {
             const worstPM25 = sorted[0][1].pm25 || Math.round(sorted[0][1].aqi * 0.7);
             const el = document.getElementById('worst-city-pm25');
-            if (el) { el.textContent = worstPM25; el.style.color = getPM25Color(worstPM25); }
+            if (el) { el.textContent = worstPM25; el.style.color = getPM25TextColor(worstPM25); }
             const nameEl = document.getElementById('worst-city-name');
             if (nameEl) nameEl.textContent = (CITIES[sorted[0][0]]?.name || sorted[0][0]) + ' PM2.5';
         }
@@ -3557,6 +3571,15 @@
         if (pm25 < 150) return 'Unhealthy';
         return 'Very Unhealthy';
     }
+    // Text-legible variant of pm25Color for numbers shown on white popups.
+    function pm25TextColor(pm25) {
+        if (pm25 == null) return '#6B7280';
+        if (pm25 < 30) return '#15803d';
+        if (pm25 < 60) return '#a16207';
+        if (pm25 < 90) return '#c2410c';
+        if (pm25 < 150) return '#dc2626';
+        return '#6d28d9';
+    }
 
     async function fetchHistMonth(month) {
         // Fetch data for all HIST_CITIES for a given month (1-12), using cache
@@ -3628,6 +3651,7 @@
             const entry = data.years.find(y => y.year === year);
             const pm25 = entry?.pm25 ?? null;
             const color = pm25Color(pm25);
+            const textColor = pm25TextColor(pm25); // legible on the white popup
             const label = pm25Label(pm25);
             const whoX = pm25 ? (pm25 / 5).toFixed(0) : null;
             const popupHtml = `
@@ -3635,8 +3659,8 @@
                     <strong style="font-size: 0.95rem;">${city.name}</strong>
                     <div style="font-size: 0.72rem; color: #888; margin-bottom: 4px;">${MONTH_NAMES[month]} ${year} (historical)</div>
                     <div style="display: flex; align-items: baseline; gap: 6px;">
-                        <span style="font-size: 1.6rem; font-weight: 700; color: ${color};">${pm25 != null ? pm25 : '?'}</span>
-                        <span style="font-size: 0.78rem; color: ${color}; font-weight: 600;">PM2.5 &micro;g/m&sup3;</span>
+                        <span style="font-size: 1.6rem; font-weight: 700; color: ${textColor};">${pm25 != null ? pm25 : '?'}</span>
+                        <span style="font-size: 0.78rem; color: ${textColor}; font-weight: 600;">PM2.5 &micro;g/m&sup3;</span>
                     </div>
                     <div style="font-size: 0.75rem; color: #555;">${label}${whoX ? ' &middot; ' + whoX + '&times; WHO guideline' : ''}</div>
                     <div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Source: CPCB/IQAir climatology</div>
@@ -4552,7 +4576,7 @@
         document.getElementById('exposure-stats').innerHTML = `
             <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid var(--red);">
                 <div style="font-size: 0.7rem; color: var(--text-3);">Annual PM2.5</div>
-                <div style="font-size: 1.75rem; font-weight: 700; color: ${getPM25Color(annualPM25)};">${annualPM25}</div>
+                <div style="font-size: 1.75rem; font-weight: 700; color: ${getPM25TextColor(annualPM25)};">${annualPM25}</div>
                 <div style="font-size: 0.65rem; color: var(--text-3);">${getWHOMultiple(annualPM25)}x WHO</div>
             </div>
             <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid var(--amber);">
@@ -4818,12 +4842,13 @@
         var resultsDiv = document.getElementById('diary-results');
         if (resultsDiv) resultsDiv.style.display = 'block';
 
-        // Stats cards
+        // Stats cards — swatch colour for the accent bar, legible variant for the number text
         var pm25Color = getPM25Color(weightedPM25);
+        var pm25Text = getPM25TextColor(weightedPM25);
         document.getElementById('diary-stats').innerHTML =
             '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid ' + pm25Color + ';">' +
                 '<div style="font-size:0.7rem;color:var(--text-3);">Daily Weighted PM2.5</div>' +
-                '<div style="font-size:1.75rem;font-weight:700;color:' + pm25Color + ';">' + weightedPM25.toFixed(1) + '</div>' +
+                '<div style="font-size:1.75rem;font-weight:700;color:' + pm25Text + ';">' + weightedPM25.toFixed(1) + '</div>' +
                 '<div style="font-size:0.65rem;color:var(--text-3);">µg/m³ (' + getWHOMultiple(weightedPM25) + 'x WHO)</div>' +
             '</div>' +
             '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid var(--amber);">' +
@@ -4870,7 +4895,7 @@
                 '<td style="padding:4px 6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + b.color + ';margin-right:4px;"></span>' + b.label + '</td>' +
                 '<td style="text-align:right;padding:4px 6px;">' + b.hours + '</td>' +
                 '<td style="text-align:right;padding:4px 6px;">' + b.multiplier + 'x</td>' +
-                '<td style="text-align:right;padding:4px 6px;color:' + getPM25Color(b.effectivePM25) + ';">' + b.effectivePM25.toFixed(0) + '</td>' +
+                '<td style="text-align:right;padding:4px 6px;color:' + getPM25TextColor(b.effectivePM25) + ';">' + b.effectivePM25.toFixed(0) + '</td>' +
                 '<td style="text-align:right;padding:4px 6px;">' + pct.toFixed(1) + '%</td></tr>';
         });
         barHTML += '</table></div>';
@@ -4971,7 +4996,7 @@
                 html += '<tr style="border-bottom:1px solid var(--border);background:' + bgColor + ';">' +
                     '<td style="padding:6px;">' + entry.date + '</td>' +
                     '<td style="padding:6px;">' + entry.city + '</td>' +
-                    '<td style="padding:6px;text-align:right;color:' + getPM25Color(entry.weightedPM25) + ';font-weight:600;">' + entry.weightedPM25 + '</td>' +
+                    '<td style="padding:6px;text-align:right;color:' + getPM25TextColor(entry.weightedPM25) + ';font-weight:600;">' + entry.weightedPM25 + '</td>' +
                     '<td style="padding:6px;text-align:right;">' + entry.cigsPerDay + '</td>' +
                     '<td style="padding:6px;text-align:right;">' + entry.lifeYearsLost + '</td>' +
                     '<td style="padding:6px;font-size:0.75rem;">' + entry.worstActivity + '</td></tr>';
@@ -5313,6 +5338,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         }
         tbody.innerHTML = rows.map((r, i) => {
             const color = getPM25Color(r.pm25);
+            const textColor = getPM25TextColor(r.pm25); // legible on white cells
             const whoX = getWHOMultiple(r.pm25);
             const delta = r.delta7 == null ? '—' : (r.delta7 > 0 ? '<span style="color:var(--red);">+' + r.delta7.toFixed(0) + '%</span>' : '<span style="color:var(--green-600);">' + r.delta7.toFixed(0) + '%</span>');
             return `<tr>
@@ -5320,7 +5346,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <td style="font-weight: 500;">${r.name}</td>
                 <td style="text-align: right;"><span style="display: inline-block; min-width: 52px; padding: 3px 10px; background: ${color}; color: #fff; border-radius: 6px; font-weight: 600; font-size: 0.82rem;">${r.pm25}</span></td>
                 <td style="text-align: right; color: var(--text-2);">${r.aqi || '--'}</td>
-                <td style="text-align: right; font-weight: 600; color: ${color};">${whoX}×</td>
+                <td style="text-align: right; font-weight: 600; color: ${textColor};">${whoX}×</td>
                 <td style="text-align: right;">${delta}</td>
             </tr>`;
         }).join('');
@@ -5525,7 +5551,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         const d = new Date();
         d.setHours(d.getHours() - (23 - i));
         const timeStr = d.toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit' });
-        const color = getPM25Color(point.pm25);
+        const color = getPM25TextColor(point.pm25); // text on white readout
         readout.innerHTML = `<strong style="color: ${color};">${point.pm25} µg/m³</strong> at ${timeStr} (${getWHOMultiple(point.pm25)}× WHO)`;
     }
 
@@ -5787,7 +5813,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
         function pm25Badge(pm25) {
             if (!pm25) return '<span style="color: var(--text-3);">N/A</span>';
-            return `<span style="color: ${getPM25Color(pm25)}; font-weight: 700;">${pm25}</span>`;
+            return `<span style="color: ${getPM25TextColor(pm25)}; font-weight: 700;">${pm25}</span>`;
         }
 
         // Build the comparison HTML
@@ -5858,8 +5884,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </tr>
                         <tr>
                             <td><strong>WHO multiple</strong></td>
-                            <td style="text-align: center; font-weight: 700; color: ${getPM25Color(fromPM25)};">${fromWHO}x</td>
-                            <td style="text-align: center; font-weight: 700; color: ${getPM25Color(toPM25)};">${toWHO}x</td>
+                            <td style="text-align: center; font-weight: 700; color: ${getPM25TextColor(fromPM25)};">${fromWHO}x</td>
+                            <td style="text-align: center; font-weight: 700; color: ${getPM25TextColor(toPM25)};">${toWHO}x</td>
                         </tr>
                         <tr style="background: var(--bg-2, #f9fafb);">
                             <td><strong>Cigarettes/day</strong> equiv.</td>
@@ -5868,8 +5894,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         </tr>
                         <tr>
                             <td><strong>Life-expectancy loss</strong> (AQLI)</td>
-                            <td style="text-align: center; color: ${getPM25Color(fromPM25)};">${fromLifeLoss.toFixed(1)} years</td>
-                            <td style="text-align: center; color: ${getPM25Color(toPM25)};">${toLifeLoss.toFixed(1)} years</td>
+                            <td style="text-align: center; color: ${getPM25TextColor(fromPM25)};">${fromLifeLoss.toFixed(1)} years</td>
+                            <td style="text-align: center; color: ${getPM25TextColor(toPM25)};">${toLifeLoss.toFixed(1)} years</td>
                         </tr>
                         <tr style="background: var(--bg-2, #f9fafb);">
                             <td><strong>NCAP target city?</strong></td>
