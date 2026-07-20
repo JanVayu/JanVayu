@@ -88,7 +88,7 @@ This is not a campaign. It is a record.
 | Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
 | Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
 | India's Global Share | World's largest national PM2.5 death toll (~a quarter of the global total) | Lancet Countdown 2025 |
-| Most Polluted Capital | New Delhi (91.6 µg/m³) | IQAir 2025 |
+| Most Polluted Capital | New Delhi (82.2 µg/m³, 8th straight year worst) | IQAir 2025 |
 | Most Polluted City | Loni, India (112.5 µg/m³) | IQAir 2025 |
 | Cities Meeting WHO Guideline | Only 14% globally | IQAir 2025 |
 | India Average PM2.5 | 48.9 µg/m³ (~10× WHO limit) | IQAir 2025 |

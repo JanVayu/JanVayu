@@ -2201,7 +2201,7 @@
 
             const ncapCtx = document.getElementById('ncapChart');
             if (ncapCtx) {
-                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Mumbai', 'Noida', 'Ghaziabad', 'Lucknow', 'Patna'], datasets: [{ label: 'Allocated (₹ Cr)', data: [81, 380, 56, 49, 180, 120], backgroundColor: '#3B82F6' }, { label: 'Utilized (₹ Cr)', data: [14, 220, 7, 13, 72, 84], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'NCAP Fund Utilization (CREA Jan 2026)', font: { size: 11 } } }, scales: { y: { grid: { color: gridColor } } } } });
+                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Noida', 'Ghaziabad'], datasets: [{ label: 'Allocated (₹ Cr)', data: [81.36, 127, 48.5], backgroundColor: '#3B82F6' }, { label: 'Utilized (₹ Cr)', data: [14.1, 30, 39], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'NCAP Fund Utilization (city-level, 2025-26)', font: { size: 11 } } }, scales: { y: { grid: { color: gridColor } } } } });
             }
 
             // BUDGET TRACKER CHARTS

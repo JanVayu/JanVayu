@@ -201,7 +201,7 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
 
 2) WAQI single station vs CPCB CAAQMS network
    - WAQI 'geo:' returns the nearest single station to a centroid. NOT the city average. NOT all stations.
-   - CPCB CAAQMS has ~533 stations across ~250 cities; a city often has 5-20 stations with substantial variance (e.g. Delhi: Anand Vihar can be 200 µg/m³ while Lodhi Road is 90 µg/m³ on the same day).
+   - CPCB CAAQMS has ~565 stations across ~250 cities (2025); a city often has 5-20 stations with substantial variance (e.g. Delhi: Anand Vihar can be 200 µg/m³ while Lodhi Road is 90 µg/m³ on the same day).
    - When user asks "what is Delhi AQI", clarify: live readings shown are the NEAREST station, not a city average.
 
 3) CPCB annual vs IQAir World Air Quality Report
@@ -222,7 +222,7 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
 
 const TOPICAL_REFERENCE = `
 MONITORING NETWORK (national):
-- CPCB CAAQMS (Continuous Ambient Air Quality Monitoring Stations): ~533 stations across ~250 Indian cities as of 2025 (CPCB Annual Report).
+- CPCB CAAQMS (Continuous Ambient Air Quality Monitoring Stations): ~565 stations across ~250 Indian cities as of 2025 (CPCB data via CREA 'Tracing the Hazy Air 2026', Jan 2026).
 - WAQI / aqicn.org: surfaces a subset of CAAQMS + community sensors. Geo lookups return the nearest single station.
 - Sensor.Community: ~3,000+ CC0 low-cost community sensors across India (the "Hyperlocal" panel on JanVayu blends these with CPCB/WAQI data).
 - CAG April 2025 audit: 88% of monitoring stations had data-quality issues at least once in 2023-24.
@@ -851,7 +851,7 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
   }
 
   if (items.length === 0) return "";
-  return `\n\nMULTI-SOURCE SPREAD ANALYSIS for ${cityName.toUpperCase()} (computed):\n${items.join("\n")}\nCitation reminder: WAQI = aqicn.org; community sensors = Sensor.Community (CC0, ±20-50% accuracy); IQAir 2025 = the 2025 edition, March 2025, covering 2024 data; CPCB CAAQMS = official Indian regulatory (~533 stations, ±5-10% accuracy).`;
+  return `\n\nMULTI-SOURCE SPREAD ANALYSIS for ${cityName.toUpperCase()} (computed):\n${items.join("\n")}\nCitation reminder: WAQI = aqicn.org; community sensors = Sensor.Community (CC0, ±20-50% accuracy); IQAir 2025 = the 2025 edition, March 2025, covering 2024 data; CPCB CAAQMS = official Indian regulatory (~565 stations, ±5-10% accuracy).`;
 }
 
 // v26.6.41 — prompt-trim (ported from PR #98): METHODOLOGY_REFERENCE (~1000
@@ -906,7 +906,7 @@ ${instruction9}
 10. TONE & LENGTH — Be WARM, patient and explanatory, like a knowledgeable, kind professor who genuinely wants the person to understand — never cold, bureaucratic, preachy or alarmist. Explain the WHY in plain language, and briefly define a technical term the first time you use it (e.g. "PM2.5 — the tiny particles that reach your bloodstream"). Make the person feel capable of acting. Keep it focused though: aim for ~150 words, lead with the direct answer in 1-2 sentences, then a few clear supporting points that teach, not lecture — no walls of text. Write PLAIN TEXT: do NOT use markdown — no **bold**, no # / ## / ### headings, no tables, no | pipes. For a short list, use a plain dash (-) at the start of a line.
 11. SOURCES — cite a source ONLY when the number actually comes from (a) the KEY REFERENCE DATA above, (b) the DATA CONTEXT / computed lines provided in this request, or (c) the TOPICAL/METHODOLOGY blocks when present. Cite the REAL source named there — e.g. "IQAir 2025", "Lancet Countdown 2025", "AQLI 2025", "CPCB CAAQMS", "CREA", "State of Global Air 2024", "Sensor.Community". For general advice, practical suggestions, or anything NOT backed by the data you were given, give the guidance plainly WITHOUT a citation — you may say "as a general guide" or "broadly". Do NOT attach a source tag to a number just to look authoritative. Keep any citation in the SAME LANGUAGE as your answer (never write an English "(Source: …)" inside a Hindi/Tamil/Marathi/Bengali reply).
 12. For NATIONAL/TOPICAL questions (EVs, low-cost sensors, BS-VI, monitoring network, court orders, NCAP): use the TOPICAL REFERENCE block when provided. Do NOT default to Delhi or single-station context unless the user explicitly asks about Delhi.
-13. For station-count questions: ALWAYS use the CPCB REFERENCE data if present in the DATA CONTEXT. Report the TOTAL count first, then bifurcate into CAAQMS (continuous, real-time) and manual (gravimetric, 24-hr sampling) stations. Also mention the CPCB national figure (~533 CAAQMS). If asking about low-cost sensors, use the community sensor data if available.
+13. For station-count questions: ALWAYS use the CPCB REFERENCE data if present in the DATA CONTEXT. Report the TOTAL count first, then bifurcate into CAAQMS (continuous, real-time) and manual (gravimetric, 24-hr sampling) stations. Also mention the CPCB national figure (~565 CAAQMS). If asking about low-cost sensors, use the community sensor data if available.
 14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.
 15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.
 16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.
@@ -1148,12 +1148,12 @@ export default async function handler(req) {
     if (cpcbRef) {
       dataContext += `\nCPCB REFERENCE for ${aqiResult.city} (CPCB Annual Report 2024-25): Total ${cpcbRef.total} monitoring stations — ${cpcbRef.caaqms} CAAQMS (continuous, real-time) + ${cpcbRef.manual} manual (gravimetric, 24-hr sampling). ${cpcbRef.note}.`;
     }
-    dataContext += `\nNOTE: The WAQI-indexed count above is a subset. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
+    dataContext += `\nNOTE: The WAQI-indexed count above is a subset. CPCB CAAQMS national total is ~565 stations across ~250 Indian cities (CPCB data via CREA, Jan 2026). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
   } else if (isStationCountQuery(question)) {
     if (cpcbRef) {
       dataContext += `\nCPCB REFERENCE for ${aqiResult.city} (CPCB Annual Report 2024-25): Total ${cpcbRef.total} monitoring stations — ${cpcbRef.caaqms} CAAQMS (continuous, real-time) + ${cpcbRef.manual} manual (gravimetric, 24-hr sampling). ${cpcbRef.note}.`;
     }
-    dataContext += `\nSTATION COUNT NOTE: WAQI bounds query returned no list for ${aqiResult.city}. CPCB CAAQMS national total is ~533 stations across ~250 Indian cities (CPCB Annual Report). Sensor.Community runs ~3,000+ low-cost community sensors nationwide.`;
+    dataContext += `\nSTATION COUNT NOTE: WAQI bounds query returned no list for ${aqiResult.city}. CPCB CAAQMS national total is ~565 stations across ~250 Indian cities (CPCB data via CREA, Jan 2026). Sensor.Community runs ~3,000+ low-cost community sensors nationwide.`;
   }
 
   // v26.6.13 Phase A — Inject results from rankings / trend / hyperlocal
