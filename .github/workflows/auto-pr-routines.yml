@@ -20,7 +20,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Open or update the routine PR
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Prefer a PAT (ROUTINE_PR_TOKEN) if configured — a user token can open
+          # PRs even when the org/repo "Allow GitHub Actions to create and approve
+          # pull requests" setting is off. Falls back to the default GITHUB_TOKEN,
+          # which works once that setting is enabled.
+          GH_TOKEN: ${{ secrets.ROUTINE_PR_TOKEN || secrets.GITHUB_TOKEN }}
           BRANCH: ${{ github.ref_name }}
         run: |
           if [ "$BRANCH" = "claude/ask-eval" ]; then
