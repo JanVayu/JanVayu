@@ -90,30 +90,104 @@ const CITIES = {
   amritsar: { name: "Amritsar", lat: 31.6340, lon: 74.8723 },
 };
 
-async function fetchCityAQI(cityKey) {
-  const city = CITIES[cityKey];
-  if (!city) return null;
+function waqiIsNum(v) { return typeof v === "number" && isFinite(v); }
+
+// Fetch a single WAQI feed by path (e.g. "geo:lat;lon", "@12345", "kolkata").
+async function fetchWaqiFeed(path) {
   try {
     const res = await fetch(
-      `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`,
+      `https://api.waqi.info/feed/${path}/?token=${WAQI_TOKEN}`,
       { signal: AbortSignal.timeout(8000) }
     );
     const data = await res.json();
-    if (data.status === "ok" && data.data) {
-      return {
-        city: city.name,
-        aqi: data.data.aqi,
-        pm25: data.data.iaqi?.pm25?.v || null,
-        pm10: data.data.iaqi?.pm10?.v || null,
-        station: data.data.city?.name || city.name,
-        time: data.data.time?.s || new Date().toISOString(),
-        dominentpol: data.data.dominentpol || null,
-      };
-    }
+    if (data.status === "ok" && data.data) return data.data;
   } catch (e) {
-    console.log(`Failed to fetch AQI for ${cityKey}:`, e.message);
+    console.log(`WAQI feed ${path}:`, e.message);
   }
   return null;
+}
+
+function shapeWaqiFeed(d, city) {
+  return {
+    city: city.name,
+    aqi: d.aqi,
+    pm25: d.iaqi?.pm25?.v ?? null,
+    pm10: d.iaqi?.pm10?.v ?? null,
+    station: d.city?.name || city.name,
+    time: d.time?.s || new Date().toISOString(),
+    dominentpol: d.dominentpol || null,
+  };
+}
+
+// Fallback for cities whose centroid's nearest station is temporarily dead:
+// scan the city's bounding box for the closest station that actually has a
+// live numeric AQI, then pull that station's full feed for PM2.5/PM10.
+// This is why the dashboard ticker can show a city while the single geo:
+// lookup returns nothing — the ticker uses the network, not one station.
+async function fetchNearestLiveStation(city) {
+  const bounds = `${city.lat - 0.5},${city.lon - 0.6},${city.lat + 0.5},${city.lon + 0.6}`;
+  try {
+    const res = await fetch(
+      `https://api.waqi.info/map/bounds/?latlng=${bounds}&token=${WAQI_TOKEN}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    const data = await res.json();
+    if (data.status !== "ok" || !Array.isArray(data.data)) return null;
+    const live = data.data
+      .map(s => ({ s, aqiNum: Number(s.aqi), d2: (s.lat - city.lat) ** 2 + (s.lon - city.lon) ** 2 }))
+      .filter(x => isFinite(x.aqiNum))
+      .sort((a, b) => a.d2 - b.d2);
+    if (!live.length) return null;
+    const nearest = live[0];
+    // Pull the full feed for accurate PM2.5/PM10; fall back to the AQI we have.
+    if (nearest.s.uid != null) {
+      const feed = await fetchWaqiFeed(`@${nearest.s.uid}`);
+      if (feed && waqiIsNum(feed.aqi)) return shapeWaqiFeed(feed, city);
+    }
+    return {
+      city: city.name,
+      aqi: nearest.aqiNum,
+      pm25: null,
+      pm10: null,
+      station: nearest.s.station?.name || city.name,
+      time: nearest.s.station?.time || new Date().toISOString(),
+      dominentpol: null,
+    };
+  } catch (e) {
+    console.log(`bounds fallback ${city.name}:`, e.message);
+    return null;
+  }
+}
+
+async function fetchCityAQI(cityKey) {
+  const city = CITIES[cityKey];
+  if (!city) return null;
+  // 1. Fast path — nearest station to the city centroid.
+  const geo = await fetchWaqiFeed(`geo:${city.lat};${city.lon}`);
+  if (geo && waqiIsNum(geo.aqi)) return shapeWaqiFeed(geo, city);
+  // 2. Fallback — WAQI's city-name feed. The geo lookup intermittently returns
+  //    {"status":"nope","data":"can not connect"} for some centroids (this is
+  //    what made Patna, Lucknow, Chennai, Kolkata and Hyderabad read as
+  //    "unavailable" in the chatbot while the dashboard still showed them). The
+  //    name feed resolves to a known-good station for the city and carries PM2.5.
+  const named = await fetchWaqiFeed(encodeURIComponent(city.name.toLowerCase()));
+  if (named && waqiIsNum(named.aqi)) return shapeWaqiFeed(named, city);
+  // 3. Last resort — nearest live station anywhere in the city's bounding box.
+  const nearest = await fetchNearestLiveStation(city);
+  if (nearest) return nearest;
+  return null;
+}
+
+// User-facing fallback when the language model can't answer (rate limit or a
+// transient error). Gives the real live reading and a plain, friendly nudge —
+// and deliberately never echoes the provider's raw error text or any URL.
+function buildDataOnlyReply(aqiResult, rateLimited) {
+  const whoX = aqiResult.pm25 ? ` (${Math.round(aqiResult.pm25 / 5)}× the WHO guideline of 5)` : "";
+  const reading = `Here's the live reading for ${aqiResult.city}: PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³${whoX}, AQI ${aqiResult.aqi}, nearest station ${aqiResult.station}.`;
+  const lead = rateLimited
+    ? "Ask JanVayu is fielding a lot of questions right now, so I couldn't write a full answer this time. Please wait a few seconds and ask again."
+    : "I couldn't put together a full answer just now — please try again in a moment.";
+  return `${lead} ${reading}`;
 }
 
 // v26.6.12 — Fetch the list of WAQI-indexed stations inside a 0.5° box
@@ -1277,17 +1351,20 @@ Top 5 worst: ${top5}
     const groqData = await groqRes.json();
     let text = groqData.choices?.[0]?.message?.content || groqData.choices?.[0]?.message?.reasoning;
     if (!text || text.trim().length === 0) {
-      // v26.6.17 — when Groq returns empty (rate limit, transient error,
-      // content-filter), surface the calculator + live-data context so
-      // the user still gets useful information rather than a blank line.
+      // When Groq returns nothing (rate limit, transient error, content
+      // filter), still give the user the live reading — but NEVER surface the
+      // raw provider error (it leaks internal model names, org IDs and a
+      // billing upgrade URL). Detect the rate-limit case for a clearer nudge.
+      const raw = groqData.error?.message || "";
       console.log("Groq returned empty content. Raw response:", JSON.stringify(groqData).slice(0, 400));
-      const errMsg = groqData.error?.message || "AI response unavailable";
-      text = `[AI temporarily unavailable: ${errMsg}.] Here is the live data for ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³ (${aqiResult.pm25 ? Math.round(aqiResult.pm25 / 5) + "× WHO guideline" : ""}), nearest station ${aqiResult.station}. Try the question again in a few seconds, or rephrase it.`;
+      const rateLimited = groqRes.status === 429 || /rate.?limit|tokens per minute|\bTPM\b|quota|too many requests/i.test(raw);
+      text = buildDataOnlyReply(aqiResult, rateLimited);
     }
     return new Response(JSON.stringify({ answer: text, dataUsed: aqiResult }), { status: 200, headers });
   } catch (e) {
+    // Network/timeout — again, no raw internals in the user-facing text.
     console.log("Groq error:", e.message);
-    const fallback = `AI analysis unavailable right now (${e.message}). Raw PM2.5: ${aqiResult.pm25 ?? "N/A"} µg/m³ (${aqiResult.pm25 ? Math.round(aqiResult.pm25 / 5) + "× WHO guideline" : ""}).`;
-    return new Response(JSON.stringify({ answer: fallback, dataUsed: aqiResult }), { status: 200, headers });
+    const rateLimited = /rate.?limit|429|tokens per minute|\bTPM\b|quota/i.test(e.message || "");
+    return new Response(JSON.stringify({ answer: buildDataOnlyReply(aqiResult, rateLimited), dataUsed: aqiResult }), { status: 200, headers });
   }
 }

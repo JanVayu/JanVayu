@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **July 2026**
+  - [Testing the Chatbot to Make It Reliable](posts/2026-07-22-testing-ask-janvayu.md)
   - [You Don't Need to Code to Make India's Air Data Better](posts/2026-07-18-how-to-contribute.md)
   - [Why JanVayu's Mascot Is a Sparrow](posts/2026-07-18-why-our-mascot-is-a-sparrow.md)
   - [The Robots That Keep JanVayu Honest: How Routines Maintain the Platform](posts/2026-07-18-routines-that-keep-janvayu-honest.md)
