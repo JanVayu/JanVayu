@@ -1,13 +1,14 @@
 {
   "deaths_annual": { "value": "1.72 million", "source": "Lancet Countdown 2025", "updated": "2026-07" },
   "economic_cost": { "value": "$339.4 billion", "source": "Lancet Countdown 2025", "updated": "2026-07" },
-  "economic_pct_gdp": { "value": "9.5%", "source": "Lancet Countdown 2025", "updated": "2026-07" },
-  "india_avg_pm25": { "value": "48.9", "unit": "µg/m³", "source": "IQAir 2025", "updated": "2025-03" },
+  "economic_pct_gdp": { "value": "9.5% GDP (Lancet)", "source": "Lancet Countdown 2025", "updated": "2026-07" },
+  "india_avg_pm25": { "value": "48.9", "unit": "µg/m³", "source": "IQAir 2025", "updated": "2026-03" },
   "life_expectancy_loss": { "value": "3.5", "unit": "years", "source": "AQLI 2025", "updated": "2025" },
   "who_guideline": { "value": "5", "unit": "µg/m³" },
   "india_naaqs": { "value": "40", "unit": "µg/m³" },
-  "cpcb_stations": { "value": "~533", "source": "CPCB Annual Report" },
-  "ncap_cities": { "value": "131", "source": "NCAP" },
-  "most_polluted_city": { "value": "Loni", "pm25": "112.5", "source": "IQAir 2025" },
+  "cpcb_stations": { "value": "~565", "source": "CPCB via CREA 'Tracing the Hazy Air 2026' (Jan 2026)", "updated": "2026-01" },
+  "ncap_cities": { "value": "131", "source": "CPCB non-attainment cities list" },
+  "delhi_annual_pm25": { "value": "82.2", "unit": "µg/m³", "source": "IQAir 2025", "updated": "2026-03" },
+  "most_polluted_city": { "value": "112.5", "unit": "µg/m³", "note": "Loni, India", "source": "IQAir 2025" },
   "global_share_deaths": { "value": "~a quarter of the global PM2.5 death burden", "note": "India ~1.72M of the global total; not a majority — the earlier '70%' figure was incorrect", "source": "Lancet Countdown 2025" }
 }

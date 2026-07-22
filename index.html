@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606122">
+    <link rel="preload" as="style" href="/styles.css?v=202606123">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1409,7 +1409,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <div class="hero-stat">
                             <div class="hero-stat-value danger" data-stat="deaths_annual">1.72M</div>
                             <div class="hero-stat-label">Deaths/Year (India)</div>
-                            <div class="hero-stat-note">State of Global Air 2025</div>
+                            <div class="hero-stat-note">Lancet Countdown 2025</div>
                         </div>
                         <div class="hero-stat">
                             <div class="hero-stat-value" data-stat="economic_cost">$339.4B</div>
@@ -1417,9 +1417,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                             <div class="hero-stat-note" data-stat="economic_pct_gdp">9.5% GDP (Lancet)</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="hero-stat-value" data-stat="delhi_annual_pm25">96</div>
+                            <div class="hero-stat-value" data-stat="delhi_annual_pm25">82.2</div>
                             <div class="hero-stat-label">Delhi Annual PM2.5</div>
-                            <div class="hero-stat-note">19x WHO (2025 avg)</div>
+                            <div class="hero-stat-note">16x WHO (IQAir 2025)</div>
                         </div>
                         <div class="hero-stat">
                             <div class="hero-stat-value" id="worst-city-pm25">--</div>
@@ -1826,7 +1826,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606122"></script>
+    <script src="/app.js?v=202606123"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2571,7 +2571,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div class="grid-2">
                 <div class="card">
                     <div class="card-header"><span class="card-title">NCAP Fund Utilization</span></div>
-                    <div class="card-body"><div class="chart-container"><canvas id="ncapChart" role="img" aria-label="Bar chart of NCAP funds allocated versus utilised for six Indian cities (Delhi, Mumbai, Noida, Ghaziabad, Lucknow, Patna)."></canvas></div></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="ncapChart" role="img" aria-label="Bar chart of NCAP funds allocated versus utilised for three Indian cities with verifiable per-city data (Delhi, Noida, Ghaziabad)."></canvas></div></div>
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
@@ -4158,7 +4158,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                             </tr>
                             <tr>
                                 <td data-label="Date">31 Mar 2026</td>
-                                <td data-label="Action">15th Finance Commission clean air grants (&rupee;16,539 Cr for 49 cities) expired. No successor announced.</td>
+                                <td data-label="Action">15th Finance Commission clean air grants (&rupee;16,539 Cr for 42 million-plus cities) expired. No successor announced.</td>
                                 <td data-label="Source">15th FC report</td>
                                 <td data-label="Status"><span class="badge badge-danger">Expired</span></td>
                             </tr>
@@ -4202,9 +4202,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <tbody>
                             <tr>
                                 <td data-label="Date">2025-26</td>
-                                <td data-label="Action">NCAP allocation &rupee;380 Cr; &rupee;220 Cr utilised (58%). Bulk spent on road sweeping and dust suppression.</td>
-                                <td data-label="Source">CREA NCAP Analysis</td>
-                                <td data-label="Status"><span class="badge badge-warning">Moderate</span></td>
+                                <td data-label="Action">15th FC: &rupee;620 Cr released, ~94% utilised; plus &rupee;95.5 Cr MoEFCC direct funds, 100% utilised.</td>
+                                <td data-label="Source">BMC data via Free Press Journal, Feb 2025</td>
+                                <td data-label="Status"><span class="badge badge-success">On track</span></td>
                             </tr>
                             <tr>
                                 <td data-label="Date">2024</td>
@@ -4234,8 +4234,8 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <tbody>
                             <tr>
                                 <td data-label="Date">2025-26</td>
-                                <td data-label="Action">NCAP allocation &rupee;120 Cr; &rupee;84 Cr utilised (70%). Best utilisation rate among major cities.</td>
-                                <td data-label="Source">CREA NCAP Analysis</td>
+                                <td data-label="Action">NCAP + 15th FC funds &rupee;298.60 Cr received; &rupee;194.26 Cr utilised (~65%).</td>
+                                <td data-label="Source">Bihar govt. filing, NGT OA 687/2023</td>
                                 <td data-label="Status"><span class="badge badge-success">On track</span></td>
                             </tr>
                             <tr>
@@ -4264,12 +4264,6 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <table class="table responsive-cards">
                         <thead><tr><th style="width:110px;">Date</th><th>Action</th><th style="width:130px;">Source</th><th style="width:110px;">Status</th></tr></thead>
                         <tbody>
-                            <tr>
-                                <td data-label="Date">2025-26</td>
-                                <td data-label="Action">NCAP allocation &rupee;180 Cr; &rupee;72 Cr utilised (40%). Below 75% threshold &mdash; risks losing next-year funding.</td>
-                                <td data-label="Source">CREA NCAP Analysis</td>
-                                <td data-label="Status"><span class="badge badge-danger">Below threshold</span></td>
-                            </tr>
                             <tr>
                                 <td data-label="Date">2024</td>
                                 <td data-label="Action">PM2.5 annual avg ~76.5 &micro;g/m&sup3; (15&times; WHO). Indo-Gangetic plain trapping.</td>
@@ -4360,7 +4354,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 </div>
                 <div class="info-box" style="border-left: 3px solid var(--accent);">
                     <h3 style="font-size: 0.875rem">On the funding cliff</h3>
-                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;What happened to the 15th Finance Commission clean air grants (&rupee;16,539 Cr for 49 cities) that expired 31 March 2026?&rdquo;</p>
+                    <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;What happened to the 15th Finance Commission clean air grants (&rupee;16,539 Cr for 42 million-plus cities) that expired 31 March 2026?&rdquo;</p>
                     <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: This bucket was 87% of all NCAP city funding. 16th FC recommendations expected Oct 2026 for FY27 (Apr 2027) &mdash; leaving a potential 12-month gap with no new allocation.</p>
                 </div>
                 <div class="info-box" style="border-left: 3px solid var(--accent);">
