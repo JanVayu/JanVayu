@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 22 Jul 2026 | [Testing the Chatbot to Make It Reliable](posts/2026-07-22-testing-ask-janvayu.md) | Quality |
 | 18 Jul 2026 | [You Don't Need to Code to Make India's Air Data Better](posts/2026-07-18-how-to-contribute.md) | Community |
 | 18 Jul 2026 | [Why JanVayu's Mascot Is a Sparrow](posts/2026-07-18-why-our-mascot-is-a-sparrow.md) | Culture |
 | 18 Jul 2026 | [The Robots That Keep JanVayu Honest: How Routines Maintain the Platform](posts/2026-07-18-routines-that-keep-janvayu-honest.md) | Platform |
