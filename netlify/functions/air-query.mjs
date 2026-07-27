@@ -275,17 +275,17 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
 
 2) WAQI single station vs CPCB CAAQMS network
    - WAQI 'geo:' returns the nearest single station to a centroid. NOT the city average. NOT all stations.
-   - CPCB CAAQMS has ~565 stations across ~250 cities (2025); a city often has 5-20 stations with substantial variance (e.g. Delhi: Anand Vihar can be 200 µg/m³ while Lodhi Road is 90 µg/m³ on the same day).
+   - CPCB CAAQMS has ~565 stations across ~289 cities (2025); a city often has 5-20 stations with substantial variance (e.g. Delhi: Anand Vihar can be 200 µg/m³ while Lodhi Road is 90 µg/m³ on the same day).
    - When user asks "what is Delhi AQI", clarify: live readings shown are the NEAREST station, not a city average.
 
 3) CPCB annual vs IQAir World Air Quality Report
    - CPCB uses its own CAAQMS network; IQAir aggregates CPCB + commercial sensors + satellite. Methodologies differ.
-   - IQAir 2025 ranked Loni at 112.5 µg/m³ annual (the 2025 edition was published March 2025 covering 2024 calendar-year data). CPCB's own Loni annual may be 5-15% different — both are valid; IQAir is more widely cited in international press, CPCB is the official Indian regulatory figure.
+   - IQAir 2025 ranked Loni at 112.5 µg/m³ annual (the 2025 edition was published March 2026, covering 2025 calendar-year data). CPCB's own Loni annual may be 5-15% different — both are valid; IQAir is more widely cited in international press, CPCB is the official Indian regulatory figure.
    - CAG April 2025 audit: 88% of CPCB monitoring stations had at least one data-quality issue in 2023-24. Treat any single-source claim with appropriate scepticism.
 
 4) Mortality: Jaganathan et al. (1.5M, causal) vs Lancet Countdown 2025 (1.72M, synthesis)
    - 1.5M is from Jaganathan et al. 2024 (Lancet Planetary Health) — first India-wide causal estimate, a difference-in-differences design across 655 districts. Compares to WHO 5 µg/m³ scenario.
-   - 1.72M is from Lancet Countdown 2025 (launched May 2026) — synthesis figure with revised exposure-response and household biomass re-attribution.
+   - 1.72M is from Lancet Countdown 2025 (published 30 Oct 2025) — synthesis figure with revised exposure-response and household biomass re-attribution.
    - Both are valid. The 1.72M figure is the CURRENT canonical headline; the 1.5M is the original causal evidence base.
 
 5) Low-cost sensors (Sensor.Community, IQAir AirVisual, Aerogram) vs regulatory-grade (CPCB CAAQMS)
@@ -296,7 +296,7 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
 
 const TOPICAL_REFERENCE = `
 MONITORING NETWORK (national):
-- CPCB CAAQMS (Continuous Ambient Air Quality Monitoring Stations): ~565 stations across ~250 Indian cities as of 2025 (CPCB data via CREA 'Tracing the Hazy Air 2026', Jan 2026).
+- CPCB CAAQMS (Continuous Ambient Air Quality Monitoring Stations): ~565 stations across ~289 Indian cities as of 2025 (CPCB data via CREA 'Tracing the Hazy Air 2026', Jan 2026).
 - WAQI / aqicn.org: surfaces a subset of CAAQMS + community sensors. Geo lookups return the nearest single station.
 - Sensor.Community: ~3,000+ CC0 low-cost community sensors across India (the "Hyperlocal" panel on JanVayu blends these with CPCB/WAQI data).
 - CAG April 2025 audit: 88% of monitoring stations had data-quality issues at least once in 2023-24.
@@ -309,16 +309,16 @@ LOW-COST SENSORS:
 EVs & TRANSPORT POLICY (India-wide):
 - BS-VI emission standards: nationwide since April 2020 (India skipped BS-V — went BS-IV → BS-VI direct).
 - PM-eBus Sewa: ₹20,000 Cr scheme for 10,000 e-buses across 169 cities by 2026 (WRI India estimates ~$2.4B).
-- FAME-II: ₹10,000 Cr EV adoption subsidy scheme; replaced by E-DRIVE (₹500 Cr) in 2024.
-- Delhi e-bus fleet: 4,286 operational as of 9 Feb 2026 (largest in India). Target 7,500 by end 2026.
+- FAME I (₹895 Cr, 2015-2019) → FAME II (₹11,500 Cr, 2019-2024) → PM E-DRIVE (₹10,900 Cr, 2024-2026); ₹23,295 Cr total EV investment across all three (PIB/Ministry of Heavy Industries).
+- Delhi e-bus fleet: 4,845 operational as of 9 Jul 2026 (largest in India). Target 7,500 by end 2026, 14,000 by 2028.
 - 8,849 EV charging stations across India as of Dec 2025.
 
 RECENT POLICY/COURT ACTIONS (Apr-May 2026):
 - CAQM: invoked GRAP Stage-I off-season on 19 May 2026 (first-ever off-season invocation at AQI 208) — signals year-round enforcement.
 - NGT: directed 6 south-Indian states (TN/KL/KA/AP/TS/PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets (Apr 2026).
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; next hearing 21 Jul 2026).
-- NCAP March 2026 deadline elapsed: 23/100 cities (CREA Jan 2026) or 37/131 (CSE Apr 2026 5-year review) met the target.
-- 15th Finance Commission grants (₹16,539 Cr for 49 cities) expired 31 March 2026; 16th FC report expected Oct 2026.
+- NCAP March 2026 deadline elapsed: 23/96 cities with sufficient data met the 40% PM10 reduction target (CREA Jan 2026).
+- 15th Finance Commission grants (₹16,539 Cr for 42 million-plus cities) expired 31 March 2026; 16th FC report expected Oct 2026.
 
 URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just the data-rich example):
 - Heat and air pollution are linked, not separate problems. On one summer day a thermal survey of Delhi recorded 52°C (Mubarakpur, dense/built-up) vs 34°C (Mehrauli, green) — up to 18°C apart under the same sun (India Today map).
@@ -896,7 +896,7 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
   }
 
   if (annualRef != null) {
-    items.push(`  • IQAir 2025 annual reference: ${annualRef} µg/m³ (the 2025 edition published March 2025, covering 2024 data — JanVayu cached). This is the "is today normal?" baseline.`);
+    items.push(`  • IQAir 2025 annual reference: ${annualRef} µg/m³ (the 2025 edition published March 2026, covering 2025 data — JanVayu cached). This is the "is today normal?" baseline.`);
   }
 
   if (snapshotPm25Values.length >= 2) {
@@ -925,7 +925,7 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
   }
 
   if (items.length === 0) return "";
-  return `\n\nMULTI-SOURCE SPREAD ANALYSIS for ${cityName.toUpperCase()} (computed):\n${items.join("\n")}\nCitation reminder: WAQI = aqicn.org; community sensors = Sensor.Community (CC0, ±20-50% accuracy); IQAir 2025 = the 2025 edition, March 2025, covering 2024 data; CPCB CAAQMS = official Indian regulatory (~565 stations, ±5-10% accuracy).`;
+  return `\n\nMULTI-SOURCE SPREAD ANALYSIS for ${cityName.toUpperCase()} (computed):\n${items.join("\n")}\nCitation reminder: WAQI = aqicn.org; community sensors = Sensor.Community (CC0, ±20-50% accuracy); IQAir 2025 = the 2025 edition, March 2026, covering 2025 data; CPCB CAAQMS = official Indian regulatory (~565 stations, ±5-10% accuracy).`;
 }
 
 // v26.6.41 — prompt-trim (ported from PR #98): METHODOLOGY_REFERENCE (~1000
@@ -972,11 +972,11 @@ ${methodologyBlock}${topicalBlock}
 KEY REFERENCE DATA (India-wide, not Delhi-specific):
 - WHO annual PM2.5 guideline: 5 µg/m³. India's NAAQS: 40 µg/m³ (8× WHO).
 - India average PM2.5: 48.9 µg/m³ (~10× WHO limit) — IQAir 2025.
-- 1.72 million Indians die annually from ambient PM2.5 — Lancet Countdown 2025. This is the world's largest national toll, but roughly a QUARTER of the global total — NOT a majority. (Counting household air pollution too, State of Global Air 2024 puts India's total nearer 2.1 million.)
+- 1.72 million Indians die annually from ambient PM2.5 — Lancet Countdown 2025 (2022 data). This is the world's largest national toll, but roughly a QUARTER TO A THIRD of the global total — NOT a majority. (Counting household air pollution too, State of Global Air 2025 puts India's total at ~2.0 million, 2023 data.)
 - Economic cost: $339.4 billion/year, ~9.5% of GDP — Lancet Countdown 2025.
-- NCAP target: 40% PM10 reduction across 131 non-attainment cities by 31 March 2026 (this deadline has now PASSED). Of the cities assessed, 23 of 100 met the target — CREA 2026.
-- Average Indian loses 3.5 years of life expectancy to pollution — AQLI 2025. Indo-Gangetic Plain residents lose 7-8 years.
-- Most polluted city globally: Loni, India (112.5 µg/m³ annual) — IQAir 2025, the 2025 edition covering 2024 data.
+- NCAP target: 40% PM10 reduction across 131 non-attainment cities by 31 March 2026 (this deadline has now PASSED). Of the cities assessed, 23 of 96 met the target — CREA 2026.
+- Average Indian loses 3.5 years of life expectancy to pollution — AQLI 2025. Delhi-NCR residents lose up to 8.2 years.
+- Most polluted city globally: Loni, India (112.5 µg/m³ annual) — IQAir 2025, the 2025 edition covering 2025 data.
 ${langOverride}${nationalFraming}
 INSTRUCTIONS:
 1. Use the ACTUAL live data numbers provided — never give generic advice.
@@ -1228,12 +1228,12 @@ export default async function handler(req) {
     if (cpcbRef) {
       dataContext += `\nCPCB REFERENCE for ${aqiResult.city} (CPCB Annual Report 2024-25): Total ${cpcbRef.total} monitoring stations — ${cpcbRef.caaqms} CAAQMS (continuous, real-time) + ${cpcbRef.manual} manual (gravimetric, 24-hr sampling). ${cpcbRef.note}.`;
     }
-    dataContext += `\nNOTE: The WAQI-indexed count above is a subset. CPCB CAAQMS national total is ~565 stations across ~250 Indian cities (CPCB data via CREA, Jan 2026). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
+    dataContext += `\nNOTE: The WAQI-indexed count above is a subset. CPCB CAAQMS national total is ~565 stations across ~289 Indian cities (CPCB data via CREA, Jan 2026). Sensor.Community adds ~3,000+ low-cost community sensors nationwide.`;
   } else if (isStationCountQuery(question)) {
     if (cpcbRef) {
       dataContext += `\nCPCB REFERENCE for ${aqiResult.city} (CPCB Annual Report 2024-25): Total ${cpcbRef.total} monitoring stations — ${cpcbRef.caaqms} CAAQMS (continuous, real-time) + ${cpcbRef.manual} manual (gravimetric, 24-hr sampling). ${cpcbRef.note}.`;
     }
-    dataContext += `\nSTATION COUNT NOTE: WAQI bounds query returned no list for ${aqiResult.city}. CPCB CAAQMS national total is ~565 stations across ~250 Indian cities (CPCB data via CREA, Jan 2026). Sensor.Community runs ~3,000+ low-cost community sensors nationwide.`;
+    dataContext += `\nSTATION COUNT NOTE: WAQI bounds query returned no list for ${aqiResult.city}. CPCB CAAQMS national total is ~565 stations across ~289 Indian cities (CPCB data via CREA, Jan 2026). Sensor.Community runs ~3,000+ low-cost community sensors nationwide.`;
   }
 
   // v26.6.13 Phase A — Inject results from rankings / trend / hyperlocal

@@ -10,5 +10,5 @@
   "ncap_cities": { "value": "131", "source": "CPCB non-attainment cities list" },
   "delhi_annual_pm25": { "value": "82.2", "unit": "µg/m³", "source": "IQAir 2025", "updated": "2026-03" },
   "most_polluted_city": { "value": "112.5", "unit": "µg/m³", "note": "Loni, India", "source": "IQAir 2025" },
-  "global_share_deaths": { "value": "~a quarter of the global PM2.5 death burden", "note": "India ~1.72M of the global total; not a majority — the earlier '70%' figure was incorrect", "source": "Lancet Countdown 2025" }
+  "global_share_deaths": { "value": "roughly a quarter to a third of the global PM2.5 death burden", "note": "India ~1.72M of the global total; not a majority — the earlier '70%' figure was incorrect", "source": "Lancet Countdown 2025" }
 }
