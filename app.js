@@ -2390,11 +2390,11 @@
                 charts.budgetNcap = new Chart(budgetNcapCtx, { 
                     type: 'bar', 
                     data: { 
-                        labels: ['MoEFCC Direct', 'XV-FC Grants', 'Total NCAP'], 
+                        labels: ['MoEFCC Direct', 'XV-FC Grants', 'Total NCAP'],
                         datasets: [
-                            { label: 'Released', data: [1615, 11800, 13415], backgroundColor: '#3B82F6' }, 
-                            { label: 'Utilized', data: [1011, 8918, 9929], backgroundColor: '#22C55E' }
-                        ] 
+                            { label: 'Released', data: [2395, 11021, 13415], backgroundColor: '#3B82F6' },
+                            { label: 'Utilized', data: [1417, 8513, 9929], backgroundColor: '#22C55E' }
+                        ]
                     }, 
                     options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor }, title: { display: true, text: '₹ Crore' } } } } 
                 });
