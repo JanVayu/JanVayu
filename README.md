@@ -24,6 +24,7 @@ This is not a campaign. It is a record.
 
 ## ✨ Recent highlights (July 2026)
 
+- 🗺️ **Maps rebuilt on India's open geodata** — the Ward Atlas grew **15 → 39 cities** (SBM boundaries via [indianopenmaps.com](https://indianopenmaps.com)); the live map now colours all **543 Lok Sabha constituencies** and **785 districts** by live AQI ("the air your MP answers for"), streams Vidhan Sabha boundaries, and plots **pollution sources** (landfills, dumpsites, coal mines, CPCB red/orange industrial parks, SEZs) plus **schools and health centres** over the ward colours.
 - 🎨 **Hand-drawn diagrams throughout** — the "How JanVayu works" system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes, all in a native Excalidraw-style (`rough.js` + Kalam) engine with desktop + mobile variants.
 - 🖼️ **"The air, in pictures"** photo gallery — 24 openly-licensed documentary photographs (Wikimedia Commons), reachable from *Learn → Photo Gallery*.
 - 🔎 **Site-wide fact-check + a weekly automated fact-check routine** — every statistic and calculator constant is web-verified against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA); see [`docs/fact-check-2026-07.md`](docs/fact-check-2026-07.md). A scheduled job re-runs this weekly and opens a PR for review.
@@ -286,6 +287,7 @@ JanVayu integrates **160+ verified public data sources**, including:
 | [ESA WorldCover](https://esa-worldcover.org/) | 10 m land cover (green / built-up) | Open (CC BY) |
 | [USGS/NASA Landsat](https://www.usgs.gov/landsat-missions) | Land-surface temperature | Free (via [Planetary Computer](https://planetarycomputer.microsoft.com/)) |
 | [DataMeet](https://github.com/datameet/Municipal_Spatial_Data) | Municipal ward boundaries | Open (CC BY) |
+| [Indian Open Maps](https://indianopenmaps.com) | Ward/constituency/district boundaries, pollution sources, schools & health centres (SBM, LGD/Bharatmaps, GatiShakti, NCOG mirrors) | Community mirror of govt data ("not-so-open" — attributed, simplified derivatives) |
 
 ---
 
@@ -293,15 +295,16 @@ JanVayu integrates **160+ verified public data sources**, including:
 
 Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
-**Recently shipped (v26.6.71):** the **5-language switcher works again** (a crash had silently disabled Hindi/Tamil/Marathi/Bengali across the UI), a **WCAG 2.1 AA accessibility sweep** (axe-verified form labels, prose-link underlines, chart alt-text, theme-aware badge contrast), **live rankings expanded 27 → 88 cities**, and a **42%-lighter first load** (`index.html` ~1.59 MB → ~0.92 MB by lazy-loading 12 heavy panels). Earlier in July: 5-day forecast, farm-fire tracker, OpenAQ hyperlocal data, and a CORS-open Open Data API.
+**Recently shipped (v26.6.125):** the maps were rebuilt on [indianopenmaps.com](https://indianopenmaps.com) geodata — the **Ward Atlas grew from 15 to 39 cities** (Swachh Bharat Mission boundaries: Patna, Ghaziabad, Ludhiana, Indore, Agra, Surat and 18 more), the live map gained **Lok Sabha / Vidhan Sabha / district AQI choropleths** ("the air your MP answers for", with popups linking to the Accountability tracker and RTI templates), a **pollution-sources overlay** (landfills, dumpsites, coal mines, CPCB red/orange industrial parks, SEZs), and **"who breathes it"** school + health-centre overlays on the ward map. Ask JanVayu answers ward questions for all 39 cities. Earlier in July: hand-drawn diagrams, the photo gallery, the site-wide fact-check + weekly routine, and the conference-ready visual refresh.
 
 **Next up:**
 
-- **More cities** — now 14 (added Kanpur, Varanasi, Bhopal, Faridabad); extending further as open ward boundaries are sourced (Agra, Lucknow, Patna still lack open files).
+- **Satellite heat/green/built layers for the 25 air-only ward cities** — the boundaries now exist; the ESA WorldCover / Landsat extraction is the remaining step.
 - **Time-aware heat** — seasonal-median land-surface temperature to reduce single-day noise.
-- Platform-wide: 100+ CPCB cities, full WCAG 2.1 AA, AQI forecast horizon, push notifications.
+- **Ward cities still blocked on data** — Kolkata-region additions, Guwahati, Srinagar and Madurai have no usable boundaries in the SBM set (West Bengal, Manipur, Mizoram and Tripura are missing entirely).
+- Platform-wide: full WCAG 2.1 AA, longer AQI forecast horizon.
 
-> Two earlier roadmap ideas were dropped as not feasible on open data: satellite-derived per-ward PM2.5 (no openly-fetchable ~1 km PM2.5 raster) and a Surat ward map (no open boundary file) — Chandigarh was added as the 10th city instead.
+> One earlier roadmap idea remains dropped as not feasible on open data: satellite-derived per-ward PM2.5 (no openly-fetchable ~1 km live PM2.5 raster). The other — "no open ward boundaries for Agra, Patna, Surat…" — was solved by the SBM ward set via indianopenmaps.com.
 
 ---
 

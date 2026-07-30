@@ -2,6 +2,12 @@
   "note": "Featured blog posts rotated weekly on the dashboard 'Story of the week' card. Ordered newest-ish first; rotation is deterministic by ISO week so it changes without a deploy. Edit freely.",
   "stories": [
     {
+      "title": "The Air Your MP Answers For",
+      "blurb": "The ward map grew from 15 to 39 cities, and the live map can now colour all 543 Lok Sabha constituencies by the air their voters breathe — plus the landfills, coal mines and red-category industrial parks upwind.",
+      "tag": "Product",
+      "url": "/blog/#/posts/2026-07-30-the-air-your-mp-answers-for"
+    },
+    {
       "title": "We Fact-Checked Our Own Site — and Changed 33 Numbers",
       "blurb": "We turned our own scrutiny on ourselves: a site-wide audit of every statistic against current primary sources. Here's what was wrong, and how we now check every week.",
       "tag": "Transparency",

@@ -421,6 +421,34 @@ async function buildSources(srcDir) {
     console.log(`  openmaps/pollution-sources.json — ${counts}, ${(statSync(out).size / 1048576).toFixed(2)} MB`);
 }
 
+// Regenerate the compact per-city ward list that Ask JanVayu's air-query
+// function uses (netlify/functions/data/ward-stats.json) from ALL ward files
+// in data/wards/ — legacy hand-collected cities keep their satellite fields
+// (g/b/t), SBM-derived cities carry name + centroid only.
+async function buildWardStats() {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = join(ROOT, 'data', 'wards');
+    const out = {};
+    for (const file of readdirSync(dir).filter(f => f.endsWith('.json')).sort()) {
+        const fc = JSON.parse(readFileSync(join(dir, file), 'utf8'));
+        const key = file.replace('.json', '');
+        const entry = { name: fc.city || key };
+        if (fc.lst_date) entry.lst_date = fc.lst_date;
+        entry.wards = fc.features.map(f => {
+            const p = f.properties;
+            const w = { n: p.name, x: p.cx, y: p.cy };
+            if (p.green != null) w.g = p.green;
+            if (p.built != null) w.b = p.built;
+            if (p.lst != null) w.t = p.lst;
+            return w;
+        });
+        out[key] = entry;
+    }
+    const dest = join(ROOT, 'netlify', 'functions', 'data', 'ward-stats.json');
+    await writeFile(dest, JSON.stringify(out));
+    console.log(`  ward-stats.json — ${Object.keys(out).length} cities, ${(statSync(dest).size / 1024).toFixed(0)} KB`);
+}
+
 // ── main ────────────────────────────────────────────────────────────
 
 const args = process.argv.slice(2);
@@ -437,6 +465,7 @@ const jobs = {
         dt: String(p.dtname || '').trim(), st: titleCase(p.stname),
     })),
     sources: () => buildSources(srcDir),
+    wardstats: () => buildWardStats(),
 };
 
 const run = what === 'all' ? Object.keys(jobs) : [what];
