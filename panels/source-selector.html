@@ -159,6 +159,23 @@
         </div>
     </div>
 
+    <!-- ═══ Indian Open Maps (geodata, not AQI) ═══ -->
+    <div class="card" id="source-card-openmaps" style="border-left: 4px solid var(--purple); margin-bottom: 2.5rem;">
+        <div class="card-header">
+            <span class="card-title" style="color: var(--purple);">Indian Open Maps <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; map geometry, not AQI</span></span>
+        </div>
+        <div class="card-body">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Community-run mirror</span>
+                <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Government geodata</span>
+                <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">574 datasets</span>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="The boundaries you see on our maps — wards, districts, MP and MLA constituencies — and the locations of schools, health centres, landfills, coal mines and industrial areas come from Indian Open Maps. It is a free, volunteer-run archive that collects map data from government websites and shares it openly."><strong>What we use it for:</strong> ward boundaries beyond our original 15 cities (Swachh Bharat Mission), Lok Sabha and Vidhan Sabha constituency boundaries and districts (LGD/Bharatmaps), plus pollution-source and who-breathes-it overlays &mdash; landfills, dumpsites, coal mines, CPCB red/orange-category industrial parks, SEZs, schools (UDISE) and health centres.</p>
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Provenance, honestly:</strong> <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a> is a volunteer project (ramSeraph) that scrapes and republishes geodata from official portals &mdash; SBM, Local Government Directory, Bharatmaps, GatiShakti, NCOG. Much of it is flagged <em>&ldquo;not-so-open&rdquo;</em> upstream: published by government, but without an explicit open licence. We ship simplified derivatives with attribution, and the coal-mine locations are CC0 (Harvard Dataverse). Boundary data is refreshed with <code>scripts/fetch-openmaps.mjs</code>, not live-scraped.</p>
+            <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Caveat:</strong> ward boundaries are as ULBs uploaded them &mdash; a few cities publish coarse revenue wards (Rajkot, Vadodara: 18) or stale delimitations, and West Bengal, Manipur, Mizoram and Tripura are missing from the SBM ward set. If your ward looks wrong, that&rsquo;s a data gap worth an RTI.</p>
+        </div>
+    </div>
+
     <!-- ═══ Source Impact Simulator ═══ -->
     <h3 style="font-family: var(--serif); font-size: 1.375rem; margin-bottom: 1rem; color: var(--ink);">See How Sources Affect Your AQI</h3>
 

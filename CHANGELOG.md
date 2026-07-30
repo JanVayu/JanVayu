@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.125] - 2026-07-30
+
+### New — the maps, rebuilt on India's open geodata (indianopenmaps.com)
+
+All boundary and source geometry below comes from [indianopenmaps.com](https://indianopenmaps.com) — ramSeraph's community-run mirror of Indian government geodata (SBM, LGD/Bharatmaps, GatiShakti, NCOG, UDISE) — vendored as simplified derivatives by the new `scripts/fetch-openmaps.mjs` pipeline and validated by `test/openmaps-data.test.mjs`.
+
+- **Ward Atlas: 15 → 39 cities.** 24 new cities (Agra, Amritsar, Coimbatore, Dehradun, Ghaziabad, Gwalior, Indore, Jalandhar, Jodhpur, Kota, Ludhiana, Meerut, Moradabad, Muzaffarpur, Nagpur, Nashik, Patna, Prayagraj, Raipur, Rajkot, Ranchi, Surat, Vadodara, Visakhapatnam) extracted from Swachh Bharat Mission ULB ward boundaries — air-quality layer, live-interpolated from each city's monitors. The pipeline prefers APPROVED ward versions, merges split geometries, guarantees unique ward names, and simplifies to ~30 m (whole set ≈ 1 MB).
+- **"The air your MP answers for."** Live-map toggles for **Lok Sabha constituency** and **district** choropleths, coloured by live AQI estimated from monitored cities (IDW; honest grey where no monitor is within ~200 km), with popups linking straight to the Accountability tracker and RTI templates. **Assembly constituencies** stream as vector tiles for the MLA view.
+- **Pollution-sources overlay** on the live map: 1,473 landfills + 5,396 dumpsites (SBM), 459 coal mines with production tonnage (Harvard Dataverse, CC0), 1,092 CPCB **red/orange-category** industrial parks (GatiShakti) and 376 SEZs — each with a labelled popup and legend.
+- **"Who breathes it" overlays** on the Ward Atlas: schools (UDISE/NCOG) and health centres (Bharatmaps) as on-demand vector tiles around the selected city (Leaflet.VectorGrid, vendored).
+- **Provenance, honestly:** a new Indian Open Maps card in the Data Source Selector explains the "not-so-open" upstream licensing, the SBM ward-quality caveats (coarse revenue wards in some cities; WB/Manipur/Mizoram/Tripura missing), and attribution on every layer.
+
 ## [v26.6.95] - 2026-07-17
 
 ### New — Team page
