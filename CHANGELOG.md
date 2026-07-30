@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.127] - 2026-07-30
+
+### Removed — the MMSF fellowship deck
+
+`walkthrough/JanVayu_MMSF_Walkthrough.pdf/.pptx` removed — a fellowship-specific presentation that was never meant to be committed to the public repo. Nothing on the site linked to it. (Note: the files remain reachable in git history; scrubbing history would need a coordinated force-push.)
+
 ## [v26.6.126] - 2026-07-30
 
 ### Fixed — walkthrough downloads regenerated from the live decks
