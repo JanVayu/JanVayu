@@ -4,6 +4,20 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.22: Maps rebuilt on India's open geodata (✅ Completed — v26.6.125)
+
+A late-July 2026 geodata batch: every boundary and source layer the maps were missing, built on [indianopenmaps.com](https://indianopenmaps.com) (ramSeraph's community mirror of SBM / LGD / Bharatmaps / GatiShakti / NCOG data), vendored as simplified derivatives with attribution.
+
+- [x] **Ward Atlas 15 → 39 cities** — 24 new cities from Swachh Bharat Mission ULB ward boundaries (Agra, Amritsar, Coimbatore, Dehradun, Ghaziabad, Gwalior, Indore, Jalandhar, Jodhpur, Kota, Ludhiana, Meerut, Moradabad, Muzaffarpur, Nagpur, Nashik, Patna, Prayagraj, Raipur, Rajkot, Ranchi, Surat, Vadodara, Visakhapatnam), air layer only. The pipeline (`scripts/fetch-openmaps.mjs`) keeps only APPROVED ward versions (Patna: 628 raw entries → 71 wards), merges split geometries, fixes duplicate names (Meerut's "M_Ward" ×90, Kota's twin corporations), and simplifies to ~30 m. This unblocks the long-stalled "no open boundaries for Agra/Patna/Surat" roadmap item.
+- [x] **Constituency accountability choropleths** — all 543 Lok Sabha constituencies and 785 districts (LGD/Bharatmaps) coloured by live AQI on the live map (IDW from monitored cities; honest grey where no monitor is within ~200 km), with popups linking to the Accountability tracker and RTI templates. Vidhan Sabha constituencies stream as vector tiles (Leaflet.VectorGrid, vendored).
+- [x] **Pollution-sources overlay** — 1,473 SBM landfills, 5,396 dumpsites, 459 coal mines with 2019–20 production (Harvard Dataverse, CC0), 1,092 CPCB red/orange-category GatiShakti industrial parks, 376 SEZs, with legend and labelled popups.
+- [x] **"Who breathes it" overlays** — UDISE/NCOG schools and Bharatmaps health centres as on-demand vector tiles on the ward map (health centres re-drawn as crisp markers because their z7 tiles smear when overzoomed).
+- [x] **Ask JanVayu ward coverage 14 → 39 cities** — `ward-stats.json` regenerated from the ward files by the same pipeline.
+- [x] **Provenance documented** — an Indian Open Maps card in the Data Source Selector covering the "not-so-open" upstream licensing, SBM quality caveats (coarse revenue wards in Rajkot/Vadodara; WB, Manipur, Mizoram, Tripura absent), and per-layer attribution. Data schema gated by `test/openmaps-data.test.mjs`.
+- [x] **Blog post** — ["The Air Your MP Answers For"](https://www.janvayu.in/blog/#/posts/2026-07-30-the-air-your-mp-answers-for).
+
+**Follow-ups opened by this phase:** satellite heat/green/built extraction for the 25 air-only cities; ward sources for WB/NE cities if boundaries surface; per-constituency accountability briefs.
+
 ## Phase 5.21: A longer walkthrough, plain language & mobile/IA polish (✅ Completed — v26.6.102–115)
 
 A mid-July 2026 usability batch — almost no new panels, entirely about making the existing surface easier to find, read, and use on a phone. It also cleared the last two Phase 10 items and the Phase 6 combobox.

@@ -119,13 +119,13 @@
     <div class="card mt-2">
         <div class="card-header"><span class="card-title"><span class="si si-sm si-target" style="color: var(--accent);"></span> Roadmap &mdash; What We're Building Next</span></div>
         <div class="card-body">
-            <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem;" data-simple="Here is what we just added and what is coming next. The newest big feature is the Ward Atlas — a map that colours every neighbourhood of 10 cities by its air, heat, greenery and concrete.">
-                <strong>Just shipped (v26.6.25):</strong> the <a href="#" onclick="loadPanel('ward-map');return false;">Ward-Level Atlas</a> &mdash; every municipal ward across <strong>10 major cities</strong>, with four switchable layers (live PM2.5, satellite heat, green cover, built-up), ward search and a per-ward correlation view, plus an Urban Heat Island panel.
+            <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem;" data-simple="Here is what we just added and what is coming next. The newest big change is to the maps: the Ward Atlas now covers 39 cities, and the live map can colour every MP's constituency by the air its voters breathe — plus show landfills, coal mines and polluting industrial areas.">
+                <strong>Just shipped (v26.6.125):</strong> the maps, rebuilt on India&rsquo;s open geodata &mdash; the <a href="#" onclick="loadPanel('ward-map');return false;">Ward-Level Atlas</a> grew to <strong>39 cities</strong> (Swachh Bharat Mission boundaries via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>), and the <a href="#" onclick="loadPanel('map');return false;">live map</a> now colours all <strong>543 Lok Sabha constituencies</strong> and 785 districts by live AQI, streams MLA constituencies, and plots pollution sources (landfills, dumpsites, coal mines, red/orange industrial parks, SEZs) plus schools and health centres.
             </p>
             <div class="grid-3" style="gap: 12px; margin-bottom: 1rem;">
                 <div class="info-box" style="border-left: 3px solid var(--green-700); padding: 12px;">
-                    <h4 style="color: var(--green-700); font-size: 0.85rem;">More cities</h4>
-                    <p style="font-size: 0.8rem;">Extend the atlas to tier-1 &amp; tier-2 cities as open ward boundaries are sourced.</p>
+                    <h4 style="color: var(--green-700); font-size: 0.85rem;">Satellite layers for the new cities</h4>
+                    <p style="font-size: 0.8rem;">Heat, green-cover and built-up layers for the 25 air-only atlas cities (ESA WorldCover / Landsat extraction).</p>
                 </div>
                 <div class="info-box" style="border-left: 3px solid var(--accent); padding: 12px;">
                     <h4 style="font-size: 0.85rem">Time-aware heat</h4>
@@ -177,6 +177,15 @@
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article" style="color: var(--accent);"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
+                    <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.125 &mdash; 30 July 2026</div>
+                    <strong>Maps rebuilt on India&rsquo;s open geodata (indianopenmaps.com)</strong><br>
+                    &bull; <a href="#" onclick="loadPanel('ward-map');return false;">Ward Atlas</a> <strong>15 &rarr; 39 cities</strong> &mdash; 24 new cities from Swachh Bharat Mission ward boundaries (Patna, Ghaziabad, Ludhiana, Indore, Agra, Surat, and more), air layer only; Ask JanVayu answers ward questions for all 39.<br>
+                    &bull; Live map: <strong>MPs / MLAs / Districts</strong> choropleths coloured by live AQI (&ldquo;the air your MP answers for&rdquo;, grey where no monitor is near) with pop-ups linking to the Accountability tracker and RTI templates.<br>
+                    &bull; <strong>Sources overlay</strong> &mdash; 1,473 landfills, 5,396 dumpsites, 459 coal mines, 1,092 CPCB red/orange industrial parks, 376 SEZs &mdash; and <strong>&ldquo;who breathes it&rdquo;</strong> school + health-centre overlays on the ward map.<br>
+                    &bull; Provenance documented in the Data Source Selector; a blog post, <a href="/blog/#/posts/2026-07-30-the-air-your-mp-answers-for" target="_blank" rel="noopener">&ldquo;The Air Your MP Answers For&rdquo;</a>, tells the full story.
+                </div>
 
                 <div style="margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-light);">
                     <div style="font-weight: 700; color: var(--accent); margin-bottom: 0.25rem;">v26.6.71 &mdash; 15 July 2026</div>
