@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606127">
+    <link rel="preload" as="style" href="/styles.css?v=202606128">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1826,7 +1826,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606127"></script>
+    <script src="/app.js?v=202606128"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -6278,7 +6278,7 @@ function selectRole(role) {
         overlay.classList.add('hiding');
         setTimeout(() => {
             overlay.style.display = 'none';
-            if (!sessionStorage.getItem('janvayu-tour-done')) setTimeout(startTour, 600);
+            if (!localStorage.getItem('janvayu-tour-done') && !sessionStorage.getItem('janvayu-tour-done')) setTimeout(startTour, 600);
         }, 400);
         updateRoleSwitcher('skip');
         return;
@@ -6288,7 +6288,7 @@ function selectRole(role) {
     setTimeout(() => {
         overlay.style.display = 'none';
         showRoleDashboard(role);
-        if (!sessionStorage.getItem('janvayu-tour-done')) setTimeout(startTour, 600);
+        if (!localStorage.getItem('janvayu-tour-done') && !sessionStorage.getItem('janvayu-tour-done')) setTimeout(startTour, 600);
     }, 400);
     updateRoleSwitcher(role);
 }

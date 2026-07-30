@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.128] - 2026-07-30
+
+### Fixed — the intro tour could silently freeze the whole homepage
+
+The "nothing on the homepage is clickable" bug: the intro tour's full-page dimmed overlay blocks every click while the tour runs, but its tooltip was `position: absolute` placed with viewport coordinates — so if the page was scrolled when the tour started, the tooltip (with the only Next/Skip buttons) rendered hidden under the header, leaving an invisible click-shield over the entire site. Fixes: tooltip is now `position: fixed` and clamped into the viewport; clicking the dimmed backdrop ends the tour; Escape ends the tour; every step has a "Skip tour" button (was: first step only); steps anchored to hidden elements are skipped; and tour-completion is remembered in `localStorage` so the tour can't re-arm (and re-block) every session.
+
+### Fixed — smaller repairs from a repo audit
+
+- **Walkthrough downloads**: the short deck's PPTX was missing its speaker notes (the deck keeps them in a closure the exporter couldn't reach — now read from the rendered notes pane per slide); regenerated both decks' exports. The `/walkthrough/` chooser also claimed "14 slides" for the 13-slide short deck (a code comment had been counted as a slide).
+- **Weekly link audit false positives**: `/api` is a Netlify redirect to the data-api function, not a file, so lychee flagged it as broken every week (#261, #266). Excluded in both link-check workflows.
+
 ## [v26.6.127] - 2026-07-30
 
 ### Removed — the MMSF fellowship deck
