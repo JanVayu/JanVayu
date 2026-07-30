@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.126] - 2026-07-30
+
+### Fixed — walkthrough downloads regenerated from the live decks
+
+The committed `JanVayu_Walkthrough.pdf/.pptx` were exports of the retired 65-slide Google Slides deck (pre-v26.6.96) — months stale and no longer linked from anywhere. A new `scripts/export-walkthrough.mjs` renders the current HTML decks slide-by-slide (headless Chromium) and assembles fresh exports: the 13-slide short deck and a new 36-slide `JanVayu_Full_Walkthrough.pdf/.pptx`, speaker notes included in the PPTX, all ~4-8× smaller than the old files. `/walkthrough/` now links all four downloads. The two `JanVayu_MMSF_*` files are untouched — they're a separate fellowship-specific deck whose source isn't in this repo.
+
 ## [v26.6.125] - 2026-07-30
 
 ### New — the maps, rebuilt on India's open geodata (indianopenmaps.com)
