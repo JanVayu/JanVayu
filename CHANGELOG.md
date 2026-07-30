@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.127] - 2026-07-30
+
+### Removed — the MMSF fellowship deck
+
+`walkthrough/JanVayu_MMSF_Walkthrough.pdf/.pptx` removed — a fellowship-specific presentation that was never meant to be committed to the public repo. Nothing on the site linked to it. (Note: the files remain reachable in git history; scrubbing history would need a coordinated force-push.)
+
+## [v26.6.126] - 2026-07-30
+
+### Fixed — walkthrough downloads regenerated from the live decks
+
+The committed `JanVayu_Walkthrough.pdf/.pptx` were exports of the retired 65-slide Google Slides deck (pre-v26.6.96) — months stale and no longer linked from anywhere. A new `scripts/export-walkthrough.mjs` renders the current HTML decks slide-by-slide (headless Chromium) and assembles fresh exports: the 13-slide short deck and a new 36-slide `JanVayu_Full_Walkthrough.pdf/.pptx`, speaker notes included in the PPTX, all ~4-8× smaller than the old files. `/walkthrough/` now links all four downloads. The two `JanVayu_MMSF_*` files are untouched — they're a separate fellowship-specific deck whose source isn't in this repo.
+
+## [v26.6.125] - 2026-07-30
+
+### New — the maps, rebuilt on India's open geodata (indianopenmaps.com)
+
+All boundary and source geometry below comes from [indianopenmaps.com](https://indianopenmaps.com) — ramSeraph's community-run mirror of Indian government geodata (SBM, LGD/Bharatmaps, GatiShakti, NCOG, UDISE) — vendored as simplified derivatives by the new `scripts/fetch-openmaps.mjs` pipeline and validated by `test/openmaps-data.test.mjs`.
+
+- **Ward Atlas: 15 → 39 cities.** 24 new cities (Agra, Amritsar, Coimbatore, Dehradun, Ghaziabad, Gwalior, Indore, Jalandhar, Jodhpur, Kota, Ludhiana, Meerut, Moradabad, Muzaffarpur, Nagpur, Nashik, Patna, Prayagraj, Raipur, Rajkot, Ranchi, Surat, Vadodara, Visakhapatnam) extracted from Swachh Bharat Mission ULB ward boundaries — air-quality layer, live-interpolated from each city's monitors. The pipeline prefers APPROVED ward versions, merges split geometries, guarantees unique ward names, and simplifies to ~30 m (whole set ≈ 1 MB).
+- **"The air your MP answers for."** Live-map toggles for **Lok Sabha constituency** and **district** choropleths, coloured by live AQI estimated from monitored cities (IDW; honest grey where no monitor is within ~200 km), with popups linking straight to the Accountability tracker and RTI templates. **Assembly constituencies** stream as vector tiles for the MLA view.
+- **Pollution-sources overlay** on the live map: 1,473 landfills + 5,396 dumpsites (SBM), 459 coal mines with production tonnage (Harvard Dataverse, CC0), 1,092 CPCB **red/orange-category** industrial parks (GatiShakti) and 376 SEZs — each with a labelled popup and legend.
+- **"Who breathes it" overlays** on the Ward Atlas: schools (UDISE/NCOG) and health centres (Bharatmaps) as on-demand vector tiles around the selected city (Leaflet.VectorGrid, vendored).
+- **Provenance, honestly:** a new Indian Open Maps card in the Data Source Selector explains the "not-so-open" upstream licensing, the SBM ward-quality caveats (coarse revenue wards in some cities; WB/Manipur/Mizoram/Tripura missing), and attribution on every layer.
+- **Ask JanVayu ward coverage 14 → 39 cities** — `ward-stats.json` is now regenerated from the ward files by the same pipeline (`fetch-openmaps.mjs wardstats`), so "which ward is worst right now?" works in every atlas city, Lucknow included.
+- **Blog post** — ["The Air Your MP Answers For"](https://www.janvayu.in/blog/#/posts/2026-07-30-the-air-your-mp-answers-for), also this week's Story of the Week; README roadmap, wiki Roadmap (Phase 5.22) and both walkthrough decks updated to match.
+
 ## [v26.6.95] - 2026-07-17
 
 ### New — Team page
