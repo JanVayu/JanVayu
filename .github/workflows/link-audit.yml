@@ -31,7 +31,7 @@ jobs:
             --root-dir "${{ github.workspace }}"
             --exclude-path docs --exclude-path docs-bn --exclude-path docs-hi --exclude-path docs-mr --exclude-path docs-ta
             --exclude-path docs-impactmojo --exclude-path docs-impactmojo-bn --exclude-path docs-impactmojo-hi --exclude-path docs-impactmojo-mr --exclude-path docs-impactmojo-ta
-            --exclude "localhost|127.0.0.1|example.com|twitter.com|x.com|linkedin.com|facebook.com|instagram.com|t.me|wa.me|play.google.com|apps.apple.com|mailto:"
+            --exclude "localhost|127.0.0.1|example.com|twitter.com|x.com|linkedin.com|facebook.com|instagram.com|t.me|wa.me|play.google.com|apps.apple.com|mailto:|/api$|/api/|janvayu.in/api"
             --timeout 30
             --max-retries 2
             "**/*.html" "**/*.md"

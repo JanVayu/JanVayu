@@ -886,7 +886,10 @@
             e.preventDefault();
             toggleGlossaryOverlay();
         }
-        if (e.key === 'Escape') closeGlossaryOverlay();
+        if (e.key === 'Escape') {
+            closeGlossaryOverlay();
+            if (tourStep >= 0) dismissTour();
+        }
     });
 
     // ── Intro Tour ──
@@ -899,7 +902,15 @@
     let tourStep = -1;
     function startTour() {
         tourStep = 0;
-        document.getElementById('tourOverlay').classList.add('active');
+        const ov = document.getElementById('tourOverlay');
+        ov.classList.add('active');
+        // The dimmed backdrop blocks the whole page while the tour runs, so it
+        // must always offer a way out: click anywhere outside the tooltip to
+        // end the tour (Escape works too — see the keydown handler).
+        if (!ov.dataset.dismissWired) {
+            ov.dataset.dismissWired = '1';
+            ov.addEventListener('click', dismissTour);
+        }
         showTourStep();
     }
     function showTourStep() {
@@ -908,23 +919,30 @@
         if (tourStep >= TOUR_STEPS.length) { dismissTour(); return; }
         const step = TOUR_STEPS[tourStep];
         const el = document.querySelector(step.target);
-        if (!el) { tourStep++; showTourStep(); return; }
-        const rect = el.getBoundingClientRect();
+        const rect = el ? el.getBoundingClientRect() : null;
+        // Skip anchors that are missing OR invisible (display:none gives a
+        // zero-size rect) — anchoring to them strands the tooltip off-screen.
+        if (!rect || (rect.width === 0 && rect.height === 0)) { tourStep++; showTourStep(); return; }
         const tip = document.createElement('div');
         tip.className = 'tour-tooltip';
         tip.innerHTML = step.text + '<br><button onclick="nextTourStep()">' +
             (tourStep < TOUR_STEPS.length - 1 ? 'Next' : 'Done') + '</button>' +
-            (tourStep > 0 ? '' : ' <button onclick="dismissTour()">Skip</button>');
+            ' <button onclick="dismissTour()">Skip tour</button>';
         document.body.appendChild(tip);
-        tip.style.top = (rect.bottom + 10) + 'px';
-        tip.style.left = Math.max(8, rect.left + rect.width/2 - tip.offsetWidth/2) + 'px';
+        // Clamp into the viewport (tooltip is position:fixed)
+        const top = Math.min(rect.bottom + 10, window.innerHeight - tip.offsetHeight - 8);
+        tip.style.top = Math.max(8, top) + 'px';
+        tip.style.left = Math.max(8, Math.min(rect.left + rect.width/2 - tip.offsetWidth/2,
+            window.innerWidth - tip.offsetWidth - 8)) + 'px';
     }
     function nextTourStep() { tourStep++; showTourStep(); }
     function dismissTour() {
         tourStep = -1;
         document.getElementById('tourOverlay').classList.remove('active');
         document.querySelectorAll('.tour-tooltip').forEach(t => t.remove());
-        sessionStorage.setItem('janvayu-tour-done', '1');
+        // localStorage, not sessionStorage: the tour is for first-time
+        // visitors — it must not re-arm (and block the page) every session.
+        localStorage.setItem('janvayu-tour-done', '1');
     }
     // Auto-start tour on first visit (after role selection)
     const origSelectRole = window.selectRole;
