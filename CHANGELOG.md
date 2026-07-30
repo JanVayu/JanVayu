@@ -16,6 +16,8 @@ All boundary and source geometry below comes from [indianopenmaps.com](https://i
 - **Pollution-sources overlay** on the live map: 1,473 landfills + 5,396 dumpsites (SBM), 459 coal mines with production tonnage (Harvard Dataverse, CC0), 1,092 CPCB **red/orange-category** industrial parks (GatiShakti) and 376 SEZs — each with a labelled popup and legend.
 - **"Who breathes it" overlays** on the Ward Atlas: schools (UDISE/NCOG) and health centres (Bharatmaps) as on-demand vector tiles around the selected city (Leaflet.VectorGrid, vendored).
 - **Provenance, honestly:** a new Indian Open Maps card in the Data Source Selector explains the "not-so-open" upstream licensing, the SBM ward-quality caveats (coarse revenue wards in some cities; WB/Manipur/Mizoram/Tripura missing), and attribution on every layer.
+- **Ask JanVayu ward coverage 14 → 39 cities** — `ward-stats.json` is now regenerated from the ward files by the same pipeline (`fetch-openmaps.mjs wardstats`), so "which ward is worst right now?" works in every atlas city, Lucknow included.
+- **Blog post** — ["The Air Your MP Answers For"](https://www.janvayu.in/blog/#/posts/2026-07-30-the-air-your-mp-answers-for), also this week's Story of the Week; README roadmap, wiki Roadmap (Phase 5.22) and both walkthrough decks updated to match.
 
 ## [v26.6.95] - 2026-07-17
 
