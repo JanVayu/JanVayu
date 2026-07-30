@@ -1496,7 +1496,17 @@
         kolkata: '/data/wards/kolkata.json', pune: '/data/wards/pune.json', jaipur: '/data/wards/jaipur.json',
         chandigarh: '/data/wards/chandigarh.json', kanpur: '/data/wards/kanpur.json', varanasi: '/data/wards/varanasi.json',
         bhopal: '/data/wards/bhopal.json', faridabad: '/data/wards/faridabad.json',
-        lucknow: '/data/wards/lucknow.json'
+        lucknow: '/data/wards/lucknow.json',
+        // Extracted from SBM ULB ward boundaries via indianopenmaps.com
+        // (scripts/fetch-openmaps.mjs) — air-quality layer only.
+        agra: '/data/wards/agra.json', amritsar: '/data/wards/amritsar.json', coimbatore: '/data/wards/coimbatore.json',
+        dehradun: '/data/wards/dehradun.json', ghaziabad: '/data/wards/ghaziabad.json', gwalior: '/data/wards/gwalior.json',
+        indore: '/data/wards/indore.json', jalandhar: '/data/wards/jalandhar.json', jodhpur: '/data/wards/jodhpur.json',
+        kota: '/data/wards/kota.json', ludhiana: '/data/wards/ludhiana.json', meerut: '/data/wards/meerut.json',
+        moradabad: '/data/wards/moradabad.json', muzaffarpur: '/data/wards/muzaffarpur.json', nagpur: '/data/wards/nagpur.json',
+        nashik: '/data/wards/nashik.json', patna: '/data/wards/patna.json', prayagraj: '/data/wards/prayagraj.json',
+        raipur: '/data/wards/raipur.json', rajkot: '/data/wards/rajkot.json', ranchi: '/data/wards/ranchi.json',
+        surat: '/data/wards/surat.json', vadodara: '/data/wards/vadodara.json', visakhapatnam: '/data/wards/visakhapatnam.json'
     };
 
     function wardPM25Color(v) {
@@ -1829,6 +1839,7 @@
         // Render the active layer FIRST (colours, legend, stats, explanation, correlation)
         // so nothing below can ever block it.
         wardRenderLayer();
+        try { wardRestoreReceptors(); } catch (e) { console.warn('[JanVayu] ward receptors:', e); }
 
         // Non-critical UI enhancements — guarded so a failure here can't blank the panel.
         try {
@@ -1889,6 +1900,157 @@
         if (!wardSelected) { const st = document.getElementById('ward-map-status'); if (st) st.textContent = 'Tap a ward on the map (or search one) first, then share.'; return; }
         generateWardCard(wardSelected);
     };
+    // ── "Who breathes it" overlays: schools & health centres near each ward ──
+    // Live vector tiles from indianopenmaps.com (ramSeraph's mirror of NCOG
+    // UDISE / Bharatmaps data). Tiles are only fetched for the visible city
+    // viewport, and only when the user switches a toggle on.
+    let _vectorGridPromise = null;
+    function ensureVectorGrid() {
+        if (window.L && L.vectorGrid) return Promise.resolve();
+        if (!_vectorGridPromise) {
+            _vectorGridPromise = new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = '/assets/vendor/leaflet.vectorgrid.bundled.min.js';
+                s.async = true;
+                s.onload = resolve;
+                s.onerror = (e) => { _vectorGridPromise = null; reject(e); };
+                document.head.appendChild(s);
+            });
+        }
+        return _vectorGridPromise;
+    }
+    // NOTE on dotRadius: these tile sets top out at low native zooms (schools
+    // z10, health centres z7) while the city view sits at z11-13, so Leaflet
+    // stretches the rendered canvas 2-16×. The radii below are pre-stretch
+    // values chosen so dots land at a sane on-screen size after scaling.
+    const WARD_RECEPTORS = {
+        schools: {
+            url: 'https://indianopenmaps.com/not-so-open/education/schools/udise/ncog/{z}/{x}/{y}.pbf',
+            layer: 'NCOG_UDISE_Schools', maxNativeZoom: 10, dotRadius: 1.1, color: '#7C3AED',
+            attribution: 'Schools: UDISE/NCOG via indianopenmaps.com',
+            popup: (p) => `<strong>${p.school_nam || 'School'}</strong><br>` +
+                `${p.sch_catego || p.sch_cate_1 || 'School'}${p.sch_mgmt ? ' · ' + p.sch_mgmt : ''}` +
+                `${p.tot_enr_cp ? '<br>' + p.tot_enr_cp + ' students enrolled' : ''}` +
+                '<div style="font-size:0.68rem;color:#888;margin-top:4px;">Children are among the most vulnerable to dirty air.</div>',
+        },
+        health: {
+            url: 'https://indianopenmaps.com/not-so-open/health/centers/bharatmaps/{z}/{x}/{y}.pbf',
+            layer: 'Bharatmaps_Health_Centers', maxNativeZoom: 7, color: '#0891B2',
+            // z7 tiles stretched to a z12 city view smear beyond recognition, so
+            // this layer harvests the decoded tile points and draws them as real
+            // circle markers instead (collector mode below).
+            collector: true, idProp: 'objectid',
+            attribution: 'Health centres: Bharatmaps via indianopenmaps.com',
+            popup: (p) => `<strong>${p.facility_n || 'Health facility'}</strong>` +
+                `${p.facility_t ? '<br>' + p.facility_t : ''}${p.dtname ? '<br>' + p.dtname + ' district' : ''}`,
+        },
+    };
+
+    // Build a VectorGrid that renders nothing itself but harvests every decoded
+    // point feature into crisp L.circleMarkers at true lat/lngs (sharp at any
+    // zoom, unlike overzoom-stretched canvas tiles).
+    function buildCollectorLayer(cfg) {
+        const markers = L.layerGroup();
+        const canvas = L.canvas({ padding: 0.3, pane: 'jv-receptors' });
+        const seen = new Set();
+        const Grid = L.VectorGrid.Protobuf.extend({
+            _getVectorTilePromise: function (coords) {
+                return L.VectorGrid.Protobuf.prototype._getVectorTilePromise.call(this, coords).then((tile) => {
+                    try {
+                        const lyr = tile && tile.layers && tile.layers[cfg.layer];
+                        if (lyr && lyr.features) {
+                            const scale = Math.pow(2, coords.z) * (lyr.extent || 4096);
+                            lyr.features.forEach((feat) => {
+                                (feat.geometry || []).forEach(ring => (Array.isArray(ring) ? ring : [ring]).forEach(pt => {
+                                    const lon = (coords.x * (lyr.extent || 4096) + pt.x) / scale * 360 - 180;
+                                    const yy = (coords.y * (lyr.extent || 4096) + pt.y) / scale;
+                                    const lat = Math.atan(Math.sinh(Math.PI * (1 - 2 * yy))) * 180 / Math.PI;
+                                    const key = (cfg.idProp && feat.properties[cfg.idProp]) || `${lon.toFixed(5)},${lat.toFixed(5)}`;
+                                    if (seen.has(key)) return;
+                                    seen.add(key);
+                                    L.circleMarker([lat, lon], {
+                                        renderer: canvas, radius: 5, fillColor: cfg.color,
+                                        color: '#fff', weight: 1, fillOpacity: 0.85,
+                                    }).bindPopup(cfg.popup(feat.properties), { maxWidth: 240 }).addTo(markers);
+                                }));
+                            });
+                        }
+                    } catch (e) { console.warn('[JanVayu] collector tile:', e); }
+                    return tile;
+                });
+            },
+        });
+        const grid = new Grid(cfg.url, {
+            rendererFactory: L.canvas.tile,
+            maxNativeZoom: cfg.maxNativeZoom,
+            interactive: false,
+            attribution: cfg.attribution,
+            vectorTileLayerStyles: { [cfg.layer]: { fill: false, stroke: false, radius: 0, opacity: 0, fillOpacity: 0 } },
+        });
+        return L.layerGroup([grid, markers]);
+    }
+    const wardReceptorLayers = {};   // kind → VectorGrid layer (while on)
+    window.toggleWardReceptor = async function toggleWardReceptor(btn, kind) {
+        const cfg = WARD_RECEPTORS[kind];
+        const statusEl = document.getElementById('ward-map-status');
+        if (!cfg || !wardMap) return;
+        const willBeOn = !btn.classList.contains('active');
+        btn.classList.toggle('active', willBeOn);
+        btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
+        if (!willBeOn) {
+            if (wardReceptorLayers[kind]) { try { wardMap.removeLayer(wardReceptorLayers[kind]); } catch (e) {} delete wardReceptorLayers[kind]; }
+            return;
+        }
+        try { await ensureVectorGrid(); } catch (e) {
+            btn.classList.remove('active');
+            if (statusEl) statusEl.textContent = 'The overlay library could not load — try again in a moment.';
+            return;
+        }
+        if (!wardMap || wardReceptorLayers[kind]) return;
+        try {
+            // Receptor dots must sit ABOVE the ward choropleth (grid tiles
+            // default to the tile pane, underneath it).
+            if (!wardMap.getPane('jv-receptors')) {
+                wardMap.createPane('jv-receptors').style.zIndex = 450;
+            }
+            let layer;
+            if (cfg.collector) {
+                layer = buildCollectorLayer(cfg);
+            } else {
+                layer = L.vectorGrid.protobuf(cfg.url, {
+                    pane: 'jv-receptors',
+                    rendererFactory: L.canvas.tile,
+                    maxNativeZoom: cfg.maxNativeZoom,
+                    interactive: true,
+                    attribution: cfg.attribution,
+                    vectorTileLayerStyles: {
+                        [cfg.layer]: { radius: cfg.dotRadius, weight: 0, fill: true, fillColor: cfg.color, fillOpacity: 0.7 },
+                    },
+                });
+                layer.on('click', (e) => {
+                    const p = e.layer && e.layer.properties;
+                    if (!p) return;
+                    L.popup({ maxWidth: 240 }).setLatLng(e.latlng).setContent(cfg.popup(p)).openOn(wardMap);
+                });
+            }
+            layer.addTo(wardMap);
+            wardReceptorLayers[kind] = layer;
+        } catch (e) {
+            console.warn('[JanVayu] ward receptor layer:', e);
+            btn.classList.remove('active');
+            if (statusEl) statusEl.textContent = 'Could not load that overlay right now (indianopenmaps.com may be busy).';
+        }
+    };
+    // Called when initWardMap rebuilds the map: re-attach any overlays whose
+    // toggle button is still active, on the fresh map instance.
+    function wardRestoreReceptors() {
+        Object.keys(wardReceptorLayers).forEach(k => delete wardReceptorLayers[k]);
+        document.querySelectorAll('#ward-receptor-toggle .ward-layer-btn.active').forEach(btn => {
+            btn.classList.remove('active');
+            window.toggleWardReceptor(btn, btn.dataset.receptor);
+        });
+    }
+
     function wardRoundRect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
     function generateWardCard(f) {
         const p = f.properties;
@@ -3214,6 +3376,7 @@
                 mapHeatLayer = null;
                 histMarkerLayer = null;
                 histSliderActive = false;
+                mapSourcesLegend = null;
             }
             const mapContainer = document.getElementById('india-map');
             if (!mapContainer) {
@@ -3230,6 +3393,12 @@
                 // Restore heatmap state if user had it on (button-toggle .active class)
                 const heatBtn = document.getElementById('map-toggle-heatmap-btn');
                 if (heatBtn && heatBtn.classList.contains('active')) toggleMapLayer('heatmap', true);
+                // Restore indianopenmaps overlays the same way (old layers died with the old map)
+                Object.keys(OPENMAPS_OVERLAYS).forEach(name => {
+                    delete openmapsOverlayLayers[name];
+                    const b = document.getElementById(`map-toggle-${name}-btn`);
+                    if (b && b.classList.contains('active')) toggleMapLayer(name, true);
+                });
             } catch (e) {
                 console.error('[JanVayu] Error initializing map:', e);
             }
@@ -3434,6 +3603,8 @@
                 if (mapHeatLayer && map.hasLayer(mapHeatLayer)) {
                     rebuildHeatLayer();
                 }
+                // Re-colour constituency/district choropleths with the new readings
+                try { refreshOpenmapsOverlayColors(); } catch (e) {}
             } catch (e) {
                 console.error('[JanVayu] Error updating map markers:', e);
             }
@@ -3481,8 +3652,215 @@
             } else if (name === 'heatmap') {
                 if (on) { rebuildHeatLayer(); }
                 else if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
+            } else if (OPENMAPS_OVERLAYS[name]) {
+                toggleOpenmapsOverlay(name, on);
             }
         }
+
+    // ── indianopenmaps overlays: constituencies, districts, pollution sources ──
+    // Boundary geometry is vendored (simplified) in /data/openmaps/, refreshed
+    // by scripts/fetch-openmaps.mjs. Assembly constituencies stream as vector
+    // tiles from indianopenmaps.com because 4,000+ ACs are too heavy to vendor.
+    const openmapsOverlayLayers = {};   // name → Leaflet layer while toggled on
+    const openmapsJsonCache = {};
+    async function fetchOpenmapsJson(file) {
+        if (!openmapsJsonCache[file]) {
+            openmapsJsonCache[file] = fetch(`/data/openmaps/${file}`)
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .catch(e => { delete openmapsJsonCache[file]; throw e; });
+        }
+        return openmapsJsonCache[file];
+    }
+
+    // Estimate AQI for a point from the live city readings already on the
+    // dashboard (inverse-distance weighting over monitored cities). Returns
+    // null when the nearest monitored city is too far to be meaningful.
+    function estimateAQIAt(lat, lon, maxKm) {
+        let num = 0, den = 0, nearest = null, nearestD2 = Infinity;
+        Object.entries(CITIES).forEach(([key, city]) => {
+            const aqi = aqiData[key]?.aqi;
+            if (!aqi || !city.lat || city.region === 'intl' || city.ext) return;
+            const dx = (lon - city.lon) * Math.cos(lat * Math.PI / 180), dy = lat - city.lat;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < nearestD2) { nearestD2 = d2; nearest = { key, city, aqi }; }
+            const w = 1 / (d2 + 1e-4);
+            num += w * aqi; den += w;
+        });
+        if (!den || !nearest) return null;
+        const nearestKm = Math.round(Math.sqrt(nearestD2) * 111);
+        if (nearestKm > (maxKm || 200)) return null;
+        return { aqi: Math.round(num / den), nearestName: nearest.city.name, nearestAqi: nearest.aqi, nearestKm };
+    }
+
+    function openmapsAqiChip(est) {
+        if (!est) return '<div style="font-size:0.75rem; color:#888; margin-top:4px;">No monitor close enough for a live estimate.</div>';
+        const color = getAQIColor(est.aqi);
+        return `<div style="display:flex; align-items:baseline; gap:6px; margin-top:4px;">
+                    <span style="font-size:1.5rem; font-weight:700; color:${color};">${est.aqi}</span>
+                    <span style="color:${color}; font-size:0.75rem; font-weight:600;">${getAQILabel(est.aqi)}</span>
+                </div>
+                <div style="font-size:0.7rem; color:#777;">Estimated from live monitors · nearest: ${est.nearestName} (AQI ${est.nearestAqi}, ~${est.nearestKm} km)</div>`;
+    }
+
+    const OPENMAPS_SOURCE_TYPES = {
+        industrial: { label: 'Red/Orange-category industrial park', color: '#B91C1C' },
+        coalmines:  { label: 'Coal mine',                           color: '#374151' },
+        landfills:  { label: 'Landfill',                            color: '#A16207' },
+        dumpsites:  { label: 'Dumpsite',                            color: '#CA8A04' },
+        sez:        { label: 'Special Economic Zone',               color: '#7C3AED' },
+    };
+
+    const OPENMAPS_OVERLAYS = {
+        constituencies: {
+            async build() {
+                const geo = await fetchOpenmapsJson('constituencies.json');
+                return L.geoJSON(geo, {
+                    attribution: 'Constituencies: LGD/Bharatmaps via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>',
+                    style: f => {
+                        const est = estimateAQIAt(f.properties.cy, f.properties.cx);
+                        return { weight: 0.7, color: '#6b7280', fillColor: est ? getAQIColor(est.aqi) : '#9CA3AF', fillOpacity: est ? 0.45 : 0.12 };
+                    },
+                    onEachFeature: (f, lyr) => {
+                        const p = f.properties;
+                        lyr.bindPopup(() => {
+                            const est = estimateAQIAt(p.cy, p.cx);
+                            return `<div style="min-width:200px;">
+                                <strong style="font-size:0.95rem;">${p.pc}</strong>
+                                <div style="font-size:0.75rem; color:#555;">Lok Sabha constituency · ${p.st}</div>
+                                ${openmapsAqiChip(est)}
+                                <div style="font-size:0.75rem; margin-top:8px;">This is the air your MP answers for.</div>
+                                <div style="display:flex; gap:6px; margin-top:6px;">
+                                    <button onclick="showPanel('accountability')" style="flex:1; padding:4px 8px; background:var(--accent,#1B6B4A); color:#fff; border:0; border-radius:4px; font-size:0.72rem; cursor:pointer;">Hold them accountable</button>
+                                    <button onclick="showPanel('rti-assistant')" style="padding:4px 8px; background:#374151; color:#fff; border:0; border-radius:4px; font-size:0.72rem; cursor:pointer;">File an RTI</button>
+                                </div></div>`;
+                        }, { maxWidth: 260 });
+                    }
+                });
+            }
+        },
+        districts: {
+            async build() {
+                const geo = await fetchOpenmapsJson('districts.json');
+                return L.geoJSON(geo, {
+                    attribution: 'Districts: LGD/Bharatmaps via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>',
+                    style: f => {
+                        const est = estimateAQIAt(f.properties.cy, f.properties.cx);
+                        return { weight: 0.6, color: '#6b7280', fillColor: est ? getAQIColor(est.aqi) : '#9CA3AF', fillOpacity: est ? 0.45 : 0.12 };
+                    },
+                    onEachFeature: (f, lyr) => {
+                        const p = f.properties;
+                        lyr.bindPopup(() => `<div style="min-width:190px;">
+                                <strong style="font-size:0.95rem;">${p.dt}</strong>
+                                <div style="font-size:0.75rem; color:#555;">District · ${p.st}</div>
+                                ${openmapsAqiChip(estimateAQIAt(p.cy, p.cx))}
+                                <div style="font-size:0.68rem; color:#888; margin-top:6px;">Most districts have no monitor at all — that gap is part of the story.</div>
+                            </div>`, { maxWidth: 250 });
+                    }
+                });
+            }
+        },
+        sources: {
+            async build() {
+                const data = await fetchOpenmapsJson('pollution-sources.json');
+                const renderer = L.canvas({ padding: 0.3 });
+                const group = L.layerGroup([], { attribution: 'Sources: SBM, GatiShakti, Coal-mines dataset (Harvard Dataverse) via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>' });
+                Object.entries(OPENMAPS_SOURCE_TYPES).forEach(([kind, cfg]) => {
+                    (data.layers[kind] || []).forEach(pt => {
+                        const detail =
+                            kind === 'coalmines' ? `${pt.d ? pt.d + ' · ' : ''}${pt.s}${pt.mt ? '<br>' + pt.mt + ' MT coal/yr (2019-20)' : ''}${pt.o ? ' · ' + pt.o : ''}` :
+                            kind === 'industrial' ? `${pt.d ? pt.d + ' · ' : ''}${pt.s}<br>CPCB pollution category: <strong style="color:${pt.c === 'red' ? '#B91C1C' : '#EA580C'}; text-transform:capitalize;">${pt.c}</strong>` :
+                            `${pt.u ? pt.u + ' · ' : ''}${pt.s}`;
+                        L.circleMarker([pt.lat, pt.lon], {
+                            renderer, radius: kind === 'coalmines' || kind === 'industrial' ? 4 : 3,
+                            fillColor: kind === 'industrial' && pt.c === 'orange' ? '#EA580C' : cfg.color,
+                            color: '#fff', weight: 0.5, fillOpacity: 0.75
+                        }).bindPopup(`<strong>${pt.n}</strong><div style="font-size:0.75rem; color:#555;">${cfg.label}</div><div style="font-size:0.75rem; color:#555;">${detail}</div>`)
+                          .addTo(group);
+                    });
+                });
+                return group;
+            }
+        },
+        assembly: {
+            async build() {
+                await ensureVectorGrid();
+                const grid = L.vectorGrid.protobuf('https://indianopenmaps.com/not-so-open/constituencies/assembly/lgd/{z}/{x}/{y}.pbf', {
+                    rendererFactory: L.canvas.tile,
+                    maxNativeZoom: 10,
+                    interactive: true,
+                    attribution: 'Assembly constituencies: LGD via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>',
+                    vectorTileLayerStyles: {
+                        LGD_Assembly_Constituencies: { fill: true, fillOpacity: 0.03, fillColor: '#7C3AED', weight: 1, color: '#7C3AED', opacity: 0.7 },
+                    },
+                });
+                grid.on('click', (e) => {
+                    const p = e.layer && e.layer.properties;
+                    if (!p || !map) return;
+                    const est = estimateAQIAt(e.latlng.lat, e.latlng.lng);
+                    L.popup({ maxWidth: 250 }).setLatLng(e.latlng).setContent(`<div style="min-width:190px;">
+                            <strong style="font-size:0.95rem;">${p.ac_name || 'Assembly constituency'}</strong>
+                            <div style="font-size:0.75rem; color:#555;">Vidhan Sabha constituency${p.dist_name ? ' · ' + p.dist_name : ''}${p.pc_name ? '<br>Lok Sabha seat: ' + p.pc_name : ''}</div>
+                            ${openmapsAqiChip(est)}
+                            <div style="font-size:0.75rem; margin-top:6px;">This is the air your MLA answers for. <a href="#" onclick="showPanel('accountability'); return false;">Hold them accountable →</a></div>
+                        </div>`).openOn(map);
+                });
+                return grid;
+            }
+        },
+    };
+
+    let mapSourcesLegend = null;
+    function sourcesLegendControl() {
+        const ctl = L.control({ position: 'bottomright' });
+        ctl.onAdd = function () {
+            const d = L.DomUtil.create('div');
+            d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);';
+            d.innerHTML = '<strong style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.04em;">Pollution sources</strong><br>' +
+                Object.values(OPENMAPS_SOURCE_TYPES).map(c =>
+                    `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${c.color};margin-right:5px;"></span>${c.label}`
+                ).join('<br>');
+            return d;
+        };
+        return ctl;
+    }
+
+    async function toggleOpenmapsOverlay(name, on) {
+        const btn = document.getElementById(`map-toggle-${name}-btn`);
+        if (!on) {
+            if (openmapsOverlayLayers[name]) { try { map.removeLayer(openmapsOverlayLayers[name]); } catch (e) {} delete openmapsOverlayLayers[name]; }
+            if (name === 'sources' && mapSourcesLegend) { try { map.removeControl(mapSourcesLegend); } catch (e) {} mapSourcesLegend = null; }
+            return;
+        }
+        if (openmapsOverlayLayers[name]) return;
+        if (btn) { btn.style.opacity = '0.55'; btn.disabled = true; }
+        try {
+            const layer = await OPENMAPS_OVERLAYS[name].build();
+            // The user may have toggled off (or left the map) while we fetched.
+            if (!map || !document.getElementById(`map-toggle-${name}-btn`)?.classList.contains('active')) return;
+            layer.addTo(map);
+            openmapsOverlayLayers[name] = layer;
+            if (name === 'sources' && !mapSourcesLegend) { mapSourcesLegend = sourcesLegendControl(); mapSourcesLegend.addTo(map); }
+        } catch (e) {
+            console.warn('[JanVayu] overlay ' + name + ':', e);
+            if (btn) { btn.classList.remove('active'); btn.setAttribute('aria-pressed', 'false'); }
+        } finally {
+            if (btn) { btn.style.opacity = ''; btn.disabled = false; }
+        }
+    }
+
+    // Re-colour boundary overlays when fresh AQI readings arrive.
+    function refreshOpenmapsOverlayColors() {
+        ['constituencies', 'districts'].forEach(name => {
+            const lyr = openmapsOverlayLayers[name];
+            if (!lyr || !map || !map.hasLayer(lyr)) return;
+            lyr.eachLayer(l => {
+                const p = l.feature && l.feature.properties;
+                if (!p) return;
+                const est = estimateAQIAt(p.cy, p.cx);
+                l.setStyle({ fillColor: est ? getAQIColor(est.aqi) : '#9CA3AF', fillOpacity: est ? 0.45 : 0.12 });
+            });
+        });
+    }
 
     // Button-toggle wrapper: flips the .active style and aria-pressed,
     // then delegates to toggleMapLayer with the resulting on/off state.

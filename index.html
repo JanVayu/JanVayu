@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606125">
+    <link rel="preload" as="style" href="/styles.css?v=202606127">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1826,7 +1826,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606125"></script>
+    <script src="/app.js?v=202606127"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2917,10 +2917,14 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             </div>
             <div class="card">
                 <div class="card-body" style="padding: 0; position: relative;">
-                    <div id="map-layer-controls" style="position: absolute; top: 12px; right: 12px; z-index: 1000; background: var(--bg-section); border: 1px solid var(--border); border-radius: 10px; padding: 4px; display: inline-flex; gap: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    <div id="map-layer-controls" style="position: absolute; top: 12px; right: 12px; z-index: 1000; max-width: calc(100% - 24px); background: var(--bg-section); border: 1px solid var(--border); border-radius: 10px; padding: 4px; display: inline-flex; flex-wrap: wrap; gap: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                         <button type="button" id="map-toggle-markers-btn" class="map-layer-btn active" onclick="toggleMapLayerBtn(this, 'markers')" aria-pressed="true">Stations</button>
                         <button type="button" id="map-toggle-heatmap-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'heatmap')" aria-pressed="false">Heatmap</button>
                         <button type="button" id="map-toggle-history-btn" class="map-layer-btn" onclick="toggleHistoricalSlider()" aria-pressed="false">History</button>
+                        <button type="button" id="map-toggle-constituencies-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'constituencies')" aria-pressed="false" title="Live AQI by Lok Sabha constituency — the air your MP answers for">MPs</button>
+                        <button type="button" id="map-toggle-assembly-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'assembly')" aria-pressed="false" title="Assembly constituency boundaries — the air your MLA answers for">MLAs</button>
+                        <button type="button" id="map-toggle-districts-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'districts')" aria-pressed="false" title="Live AQI by district">Districts</button>
+                        <button type="button" id="map-toggle-sources-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'sources')" aria-pressed="false" title="Landfills, dumpsites, coal mines, red/orange-category industrial parks and SEZs">Sources</button>
                     </div>
                     <div id="india-map"></div>
                     <div id="map-time-slider-loading">Loading historical data&hellip;</div>
@@ -5058,6 +5062,30 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <option value="faridabad">Faridabad — 40 wards</option>
                     <option value="chandigarh">Chandigarh — 28 wards</option>
                     <option value="lucknow">Lucknow — 112 wards (air only)</option>
+                    <option value="agra">Agra — 99 wards (air only)</option>
+                    <option value="amritsar">Amritsar — 85 wards (air only)</option>
+                    <option value="coimbatore">Coimbatore — 100 wards (air only)</option>
+                    <option value="dehradun">Dehradun — 100 wards (air only)</option>
+                    <option value="ghaziabad">Ghaziabad — 94 wards (air only)</option>
+                    <option value="gwalior">Gwalior — 66 wards (air only)</option>
+                    <option value="indore">Indore — 85 wards (air only)</option>
+                    <option value="jalandhar">Jalandhar — 80 wards (air only)</option>
+                    <option value="jodhpur">Jodhpur — 160 wards (air only)</option>
+                    <option value="kota">Kota — 150 wards (air only)</option>
+                    <option value="ludhiana">Ludhiana — 94 wards (air only)</option>
+                    <option value="meerut">Meerut — 90 wards (air only)</option>
+                    <option value="moradabad">Moradabad — 70 wards (air only)</option>
+                    <option value="muzaffarpur">Muzaffarpur — 48 wards (air only)</option>
+                    <option value="nagpur">Nagpur — 38 wards (air only)</option>
+                    <option value="nashik">Nashik — 23 wards (air only)</option>
+                    <option value="patna">Patna — 71 wards (air only)</option>
+                    <option value="prayagraj">Prayagraj — 100 wards (air only)</option>
+                    <option value="raipur">Raipur — 70 wards (air only)</option>
+                    <option value="rajkot">Rajkot — 18 wards (air only)</option>
+                    <option value="ranchi">Ranchi — 53 wards (air only)</option>
+                    <option value="surat">Surat — 30 wards (air only)</option>
+                    <option value="vadodara">Vadodara — 18 wards (air only)</option>
+                    <option value="visakhapatnam">Visakhapatnam — 91 wards (air only)</option>
                 </select>
                 <input list="ward-search-list" id="ward-search" placeholder="Find a ward…" onchange="window.wardSearch &amp;&amp; window.wardSearch()" style="flex:1 1 140px; min-width:120px; max-width:240px; font-size:0.82rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:8px;">
                 <datalist id="ward-search-list"></datalist>
@@ -5071,6 +5099,11 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <button type="button" class="ward-layer-btn" data-layer="green" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('green')">Green cover</button>
                 <button type="button" class="ward-layer-btn" data-layer="built" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('built')">Built-up</button>
                 <button type="button" onclick="window.initWardMap &amp;&amp; window.initWardMap(true)" style="font-size:0.78rem; font-weight:600; padding:0.32rem 0.72rem; border-radius:14px; border:1px solid var(--border); background:var(--green-50); color:var(--accent); cursor:pointer;" title="Refresh live air-quality readings"><span class="si si-spark" style="margin-right:3px;"></span>Refresh</button>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-receptor-toggle">
+                <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;" title="Who breathes this air — live overlays from indianopenmaps.com">Who breathes it</span>
+                <button type="button" class="ward-layer-btn" data-receptor="schools" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'schools')" aria-pressed="false" title="Show schools (UDISE/NCOG) on the map">Schools</button>
+                <button type="button" class="ward-layer-btn" data-receptor="health" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'health')" aria-pressed="false" title="Show health centres (Bharatmaps) on the map">Health centres</button>
             </div>
         </div>
     </div>
@@ -5088,7 +5121,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading live ward readings&hellip;</div>
                 </div>
             </div>
-            <div class="alert alert-info" style="margin:0;"><div id="ward-method"><strong>What this shows:</strong> on the <em>Air quality</em> layer, each ward&rsquo;s value is estimated from the city&rsquo;s live CPCB/WAQI monitors &mdash; the nearest monitors count most. It&rsquo;s the citywide <em>pattern</em>, not an exact street-by-street reading, and it&rsquo;s sharper where there are more monitors. The heat, greenery and built-up layers are measured directly by satellite.</div></div>
+            <div class="alert alert-info" style="margin:0;"><div id="ward-method"><strong>What this shows:</strong> on the <em>Air quality</em> layer, each ward&rsquo;s value is estimated from the city&rsquo;s live CPCB/WAQI monitors &mdash; the nearest monitors count most. It&rsquo;s the citywide <em>pattern</em>, not an exact street-by-street reading, and it&rsquo;s sharper where there are more monitors. The heat, greenery and built-up layers are measured directly by satellite. Ward boundaries for the newer cities come from Swachh Bharat Mission ULB data, and the <em>Schools</em> / <em>Health centres</em> overlays stream from UDISE-NCOG and Bharatmaps &mdash; all via the community-run <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a> mirror.</div></div>
             <div class="card mt-2" id="ward-corr-card" style="display:none;">
                 <div class="card-header"><span class="card-title" id="ward-corr-title" style="font-size:0.85rem;">Relationship</span></div>
                 <div class="card-body" style="padding:0.6rem;">
