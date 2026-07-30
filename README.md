@@ -68,7 +68,7 @@ This is not a campaign. It is a record.
 | 29 | **Migration Comparison** | Side-by-side city comparison with live AQI, source apportionment charts, life-years gained verdict |
 | 30 | **Data Source Selector** | Educational panel on CPCB/WAQI/IQAir/Sensor.Community with Source Impact Simulator |
 | 31 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback |
-| 32 | **Ward-Level Atlas** | "How Polluted Is Your Ward?" — Leaflet choropleth of every municipal ward across **39 Indian cities** (15 hand-collected + 24 extracted from Swachh Bharat Mission ward boundaries via indianopenmaps.com, `scripts/fetch-openmaps.mjs`), with a four-layer toggle: live PM2.5 (interpolated), heat (Landsat surface temperature), green cover and built-up (ESA WorldCover, 14 cities). "Who breathes it" overlays stream schools (UDISE/NCOG) and health centres (Bharatmaps) as vector tiles. Per-layer legend, tooltips and live stats; surfaces the urban heat-island link from each city's own data |
+| 32 | **Ward-Level Atlas** | "How Polluted Is Your Ward?" — Leaflet choropleth of every municipal ward across **39 Indian cities** (15 hand-collected + 24 extracted from Swachh Bharat Mission ward boundaries via indianopenmaps.com, `scripts/fetch-openmaps.mjs`), with a four-layer toggle **in every city**: live PM2.5 (interpolated), heat (Landsat 8/9 surface temperature), green cover and built-up (ESA WorldCover 10 m) — satellite layers extracted by `scripts/build-ward-satellite.py`. "Who breathes it" overlays stream schools (UDISE/NCOG) and health centres (Bharatmaps) as vector tiles. Per-layer legend, tooltips and live stats; surfaces the urban heat-island link from each city's own data |
 | 33 | **Citizen Testimony** | A multilingual wall of 100+ on-the-ground, first-person testimonies on how bad the air is, across 86 cities — in Hindi, English and 11 other Indian languages (Bengali, Tamil, Marathi, Telugu, Kannada, Gujarati, Punjabi, Malayalam, Odia, Urdu, Assamese), each with an English translation. Language-filter chips, free-text search, RTL rendering for Urdu, and a submission CTA to add your testimony via contribute@janvayu.in |
 | 34 | **Live 5-Day Forecast** | Independent PM2.5 forecast (Open-Meteo / CAMS, key-less) in the Forecast panel — daily mean + peak, band-coloured summary, trend chart, 33-city selector — shown alongside SAFAR/CPCB reliability tracking. Ask JanVayu answers "will it be bad tomorrow?" |
 | 35 | **Farm Fire Tracker** | Live stubble-burning / farm-fire map (NASA FIRMS, VIIRS/NOAA-20) across the Punjab–Haryana–NCR belt, with region + time-window toggles and honest seasonal framing (peak mid-Oct to late-Nov) |
@@ -299,8 +299,7 @@ Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked
 
 **Next up:**
 
-- **Satellite heat/green/built layers for the 25 air-only ward cities** — the boundaries now exist; the ESA WorldCover / Landsat extraction is the remaining step.
-- **Time-aware heat** — seasonal-median land-surface temperature to reduce single-day noise.
+- **Time-aware heat** — seasonal-median land-surface temperature to reduce single-day noise. (Single-scene heat/green/built layers now cover all 39 ward cities via `scripts/build-ward-satellite.py`.)
 - **Ward cities still blocked on data** — Kolkata-region additions, Guwahati, Srinagar and Madurai have no usable boundaries in the SBM set (West Bengal, Manipur, Mizoram and Tripura are missing entirely).
 - Platform-wide: full WCAG 2.1 AA, longer AQI forecast horizon.
 
