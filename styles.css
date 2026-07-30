@@ -2421,7 +2421,11 @@ body.simple-language .section-intro [data-simple]::after {
 
 /* ═══ Intro Tour ═══ */
 .tour-tooltip {
-    position: absolute; z-index: 3000;
+    /* fixed, not absolute: placed with getBoundingClientRect() viewport
+       coords — absolute positioning put it under the header whenever the
+       page was scrolled, leaving an invisible tooltip over a click-blocking
+       overlay (the "nothing is clickable" bug). */
+    position: fixed; z-index: 3000;
     background: var(--ink); color: var(--bg); font-size: 0.75rem;
     padding: 8px 12px; border-radius: 8px; max-width: 200px;
     line-height: 1.5; pointer-events: auto;

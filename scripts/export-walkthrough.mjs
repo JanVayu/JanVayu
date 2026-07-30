@@ -69,21 +69,23 @@ for (const deck of DECKS) {
     // Hide the on-screen presentation chrome (keyboard hints, pager HUD) —
     // it belongs to the interactive deck, not to a printed slide.
     await page.addStyleTag({ content: '.hint, .hud { display: none !important; }' });
-    const { count, notes } = await page.evaluate(() => {
-        const count = document.querySelectorAll('section.slide').length;
-        // deck.html keeps notes in NOTES[]; full.html in FULL_SLIDES[].note
-        const notes = (typeof FULL_SLIDES !== 'undefined')
-            ? FULL_SLIDES.map(s => s.note || '')
-            : (typeof NOTES !== 'undefined' ? Array.from(NOTES) : []);
-        return { count, notes };
-    });
+    const count = await page.evaluate(() => document.querySelectorAll('section.slide').length);
     console.log(`${deck.page}: ${count} slides`);
 
+    // Speaker notes are read from the rendered notes pane per slide (both decks
+    // write the current slide's note into #noteBody on every render) — the raw
+    // arrays (NOTES / FULL_SLIDES) are closure-scoped in deck.html, so the DOM
+    // is the only reliable place to read them from.
+    const notes = [];
     for (let i = 1; i <= count; i++) {
         await page.evaluate((n) => { location.hash = '#/' + n; }, i);
         await page.waitForTimeout(i === 1 ? 800 : 350);
+        notes.push(await page.evaluate(() =>
+            (document.getElementById('noteBody')?.textContent ||
+             document.querySelector('.notes .note-body, .note-body')?.textContent || '').trim()));
         await page.screenshot({ path: join(shotDir, `slide-${String(i).padStart(2, '0')}.jpg`), type: 'jpeg', quality: 88 });
     }
+    if (notes.every(n => !n)) console.warn(`  WARNING: no speaker notes found for ${deck.page}`);
 
     // Assemble PDF + PPTX in one Python pass (img2pdf keeps JPEGs lossless-wrapped).
     const py = `
