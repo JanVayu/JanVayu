@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.129] - 2026-07-30
+
+### New — satellite heat, green-cover and built-up layers for all 39 ward cities
+
+The Ward Atlas's four-layer toggle now works in **every** city, not just the original 14. A new pipeline (`scripts/build-ward-satellite.py`) computed the three satellite layers for the 25 air-only cities (Lucknow + the 24 SBM cities):
+
+- **Green cover & built-up** per ward from ESA WorldCover 2021 v200 (10 m) — same class formula as the original cities, verified by recomputing Delhi's stored values exactly.
+- **Heat** per ward from Landsat 8/9 Collection-2 L2 surface temperature (Planetary Computer), least-cloudy pre-monsoon 2026 scene per city, with a footprint-containment check (Landsat scenes are rotated quadrilaterals — Lucknow initially got a scene whose bbox covered the city but whose data clipped it) and a physical-bounds pixel filter (residual cloud pixels read "-1.7 °C in May" in Jodhpur before filtering).
+- Ask JanVayu's `ward-stats.json` regenerated — the chatbot can now discuss heat/green/built for all 39 cities; "(air only)" labels removed from the city selector.
+
 ## [v26.6.128] - 2026-07-30
 
 ### Fixed — the intro tour could silently freeze the whole homepage
