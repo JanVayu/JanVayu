@@ -20,7 +20,7 @@
  * fellowship-specific Google Slides deck whose source is not in this repo.
  */
 
-import { mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdirSync, writeFileSync, rmSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -33,10 +33,16 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
 
 // playwright-core need not be installed next to this repo — point
 // PLAYWRIGHT_CORE_PATH at any copy (its package dir or entry file).
-const pwEntry = process.env.PLAYWRIGHT_CORE_PATH
-    ? (await import('node:url')).pathToFileURL(process.env.PLAYWRIGHT_CORE_PATH).href
+const pwPath = process.env.PLAYWRIGHT_CORE_PATH;
+const pwEntry = pwPath
+    ? (await import('node:url')).pathToFileURL(
+        statSync(pwPath).isDirectory() ? join(pwPath, 'index.js') : pwPath).href
     : 'playwright-core';
-const { chromium } = await import(pwEntry);
+// playwright-core's entry is CommonJS, so a by-path import exposes it as
+// `default` rather than as named exports — accept either shape.
+const pw = await import(pwEntry);
+const chromium = pw.chromium ?? pw.default?.chromium;
+if (!chromium) throw new Error(`Could not load playwright-core from ${pwEntry}`);
 
 const DECKS = [
     { page: 'deck.html', out: 'JanVayu_Walkthrough', title: 'JanVayu — Walkthrough (short deck)' },

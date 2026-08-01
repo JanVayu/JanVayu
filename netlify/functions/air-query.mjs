@@ -1362,6 +1362,15 @@ Top 5 worst: ${top5}
     });
     const groqData = await groqRes.json();
     let text = groqData.choices?.[0]?.message?.content || groqData.choices?.[0]?.message?.reasoning;
+    // The system prompt demands plain text, but the model occasionally leaks
+    // markdown anyway (caught by test/ask-eval markdown-* gates). Strip the
+    // known leak patterns server-side so they can never reach the user.
+    if (text) {
+      text = text
+        .replace(/\*\*([^*\n]+)\*\*/g, "$1")   // **bold**
+        .replace(/__([^_\n]+)__/g, "$1")        // __bold__
+        .replace(/^#{1,6}\s+/gm, "");           // # headings
+    }
     if (!text || text.trim().length === 0) {
       // When Groq returns nothing (rate limit, transient error, content
       // filter), still give the user the live reading — but NEVER surface the

@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.130] - 2026-08-01
+
+### Fixed — pre-conference audit: a unit error in the hero, three stale-fact recurrences, and the walkthrough brought current
+
+A full pass over the site and both walkthrough decks ahead of a conference presentation.
+
+**The hero was reporting the wrong unit.** `.hero-pm25-unit` carried `text-transform: uppercase`, and CSS uppercasing maps `µ` (U+00B5 MICRO SIGN) to Greek capital Mu — so the live PM2.5 unit rendered as "MG/M³", off by a factor of 1000, directly under the headline reading. Removed from both the stylesheet and the duplicate inline rule in `index.html` that was overriding it. A rendered-DOM sweep confirms this was the only place on the site where a micro-sign unit was being uppercased.
+
+**Fact-check recurrences the July rounds missed.** All three were flagged in `docs/fact-check-2026-07*.md`, fixed in the panels, and left behind elsewhere:
+
+- The debunked **"~70% of global PM2.5 deaths"** claim was still live in `games.js` (Jeopardy clue + quiz answer) — the one figure the site's own eval harness hard-gates against. Now "the world's largest national toll, roughly a quarter to a third of the global total", matching `scripts/stats.json`.
+- **`$260B`** survived in three `index.html` entries (in-site search index and two audience cards) after the hero and panels moved to the Lancet-sourced **$339.4B**.
+- The **16th Finance Commission** "recommendations expected Oct 2026 — potential 12-month gap" line in the RTI context box contradicted the corrected budget panel. The report was submitted 17 Nov 2025 and its award period runs 2026–31, so there is no FC-cycle gap; the open question is only whether a dedicated air-quality successor grant is included.
+
+**Other staleness:** the games' IQAir vintage was a year off (the 2025 edition covers 2025 data, published March 2026) and carried the superseded Delhi 91.6 µg/m³ instead of 82.2; the City Policy Tracker showed the same 91.6 under a "Current PM2.5" label; the NCAP game answer still described the target as pending rather than elapsed (23 of 96 cities, CREA 2026); the FGD extension count disagreed with `index.html`; and the homepage hero alert was stamped "July 2026".
+
+**Walkthrough decks.** The short deck was already current. The full deck: Ask JanVayu said "five languages" (it answers in ten, with sources); the $339B figure was attributed to a "World Bank / Lancet range" when the World Bank's is the narrower $36.8bn/1.36% measure; "Covers every NCAP non-attainment town" overclaimed 117 cities against NCAP's 131; and the Farm Fire Tracker, Photo Gallery and PWA installability — all headline features — were missing from the deck that promises "a slide for essentially every panel". Both decks' PDF/PPTX exports regenerated; counts unchanged at 13 and 36, matching the chooser.
+
+### Fixed — Ask JanVayu could leak markdown, and the deck exporter's documented escape hatch didn't work
+
+`air-query.mjs` now strips `**bold**`, `__bold__` and `#` headings server-side before returning. The system prompt already forbids markdown, but the model leaked it occasionally — the failing `markdown-bold` gate in `test/ask-eval`. `scripts/export-walkthrough.mjs` documents `PLAYWRIGHT_CORE_PATH` as accepting "its package dir or entry file"; neither worked (a directory is not a valid ESM import, and playwright-core's CJS entry exposes `chromium` on `default`). Both shapes now resolve.
+
 ## [v26.6.129] - 2026-07-30
 
 ### New — satellite heat, green-cover and built-up layers for all 39 ward cities

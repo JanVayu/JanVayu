@@ -7198,7 +7198,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             name: 'Delhi',
             ncapTarget: '40% PM10 reduction by March 2026',
             cityTarget: 'Additional: CAQM year-round GRAP enforcement from May 2026',
-            currentPM25: 91.6,
+            currentPM25: 82.2,
             status: 'not-met',
             statusLabel: 'Not Met',
             statusNote: 'Only 17% NCAP fund utilisation. 0 days met WHO guideline in 2024.',
