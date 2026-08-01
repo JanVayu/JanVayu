@@ -28,7 +28,7 @@ jobs:
       # with "session not created" and silently produce zero results. This
       # action installs a ChromeDriver matching the runner's Chrome.
       - name: Install matching ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
+        uses: nanasess/setup-chromedriver@v3
 
       - name: Install axe-core/cli + http-server
         run: |
