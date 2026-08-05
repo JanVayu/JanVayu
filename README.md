@@ -79,6 +79,7 @@ This is not a campaign. It is a record.
 | 40 | **Photo Gallery** | "The air, in pictures" — 24 openly-licensed (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
 | 41 | **Web Push Alerts** | Installable PWA with real server-sent threshold alerts (VAPID/Web Push), delivered even when the site is closed |
 | 42 | **Automated Fact-Check** | A weekly scheduled routine web-verifies every statistic + calculator constant against current primary sources and opens a review PR; findings archived in `docs/fact-check-*.md` |
+| 43 | **Village Boundaries** | A **Villages** layer on the live map covering all **584,615** Indian village administrative boundaries (LGD via indianopenmaps.com), vendored as one quantized TopoJSON per district in `data/villages/` by `scripts/build-villages.mjs`. Viewport-driven: loads at zoom 9+ only for districts in view. Deliberately **not** an AQI choropleth — with ~565 CPCB stations against 584,615 villages, popups ask for an interpolated estimate with a 50 km cap and say "no monitor close enough" beyond it, rather than implying village-level measurement |
 
 ---
 

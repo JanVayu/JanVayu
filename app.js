@@ -3417,6 +3417,12 @@
                     const b = document.getElementById(`map-toggle-${name}-btn`);
                     if (b && b.classList.contains('active')) toggleMapLayer(name, true);
                 });
+                // Villages are viewport-driven, not in OPENMAPS_OVERLAYS, but
+                // restore the same way — the old layer died with the old map.
+                villageGroup = null;
+                villageOnMap.clear();
+                const vb = document.getElementById('map-toggle-villages-btn');
+                if (vb && vb.classList.contains('active')) toggleMapLayer('villages', true);
             } catch (e) {
                 console.error('[JanVayu] Error initializing map:', e);
             }
@@ -3670,6 +3676,8 @@
             } else if (name === 'heatmap') {
                 if (on) { rebuildHeatLayer(); }
                 else if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
+            } else if (name === 'villages') {
+                toggleVillagesOverlay(on);
             } else if (OPENMAPS_OVERLAYS[name]) {
                 toggleOpenmapsOverlay(name, on);
             }
@@ -3826,6 +3834,166 @@
             }
         },
     };
+
+    // ── Village boundaries (LGD via indianopenmaps) ──────────────────────────
+    // 584,615 village polygons cannot be held on the map (or in the repo) at
+    // once, so this layer is viewport-driven: geometry is vendored as one
+    // quantized TopoJSON per district in /data/villages/, and we load only the
+    // districts whose bbox intersects the current view, above a zoom floor.
+    // Built by scripts/build-villages.mjs.
+    const VILLAGE_MIN_ZOOM = 9;      // below this the whole country would load
+    const VILLAGE_MAX_DISTRICTS = 14; // guard against a huge pan at low zoom
+    const VILLAGE_AQI_MAX_KM = 50;   // rural India is far from monitors: past
+                                     // this, say so rather than invent a number
+    let villageGroup = null;
+    let villageIndex = null;
+    let villageIndexPromise = null;
+    let _topojsonPromise = null;
+    const villageDistrictCache = {};
+    const villageOnMap = new Set();
+    let villageNoteControl = null;
+
+    function ensureTopojson() {
+        if (window.topojson && window.topojson.feature) return Promise.resolve();
+        if (!_topojsonPromise) {
+            _topojsonPromise = new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = '/assets/vendor/topojson-client.min.js';
+                s.async = true;
+                s.onload = resolve;
+                s.onerror = (e) => { _topojsonPromise = null; reject(e); };
+                document.head.appendChild(s);
+            });
+        }
+        return _topojsonPromise;
+    }
+
+    function loadVillageIndex() {
+        if (villageIndex) return Promise.resolve(villageIndex);
+        if (!villageIndexPromise) {
+            villageIndexPromise = fetch('/data/villages/_index.json')
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(j => { villageIndex = j; return j; })
+                .catch(e => { villageIndexPromise = null; throw e; });
+        }
+        return villageIndexPromise;
+    }
+
+    function loadVillageDistrict(id) {
+        if (!villageDistrictCache[id]) {
+            villageDistrictCache[id] = fetch(`/data/villages/${id}.topojson`)
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(topo => {
+                    const key = Object.keys(topo.objects)[0];
+                    return topojson.feature(topo, topo.objects[key]);
+                })
+                .catch(e => { delete villageDistrictCache[id]; throw e; });
+        }
+        return villageDistrictCache[id];
+    }
+
+    function villageNote(text) {
+        if (!map) return;
+        if (!villageNoteControl) {
+            villageNoteControl = L.control({ position: 'bottomleft' });
+            villageNoteControl.onAdd = function () {
+                const d = L.DomUtil.create('div');
+                d.id = 'village-note';
+                d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:5px 9px;font-size:0.68rem;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:230px;';
+                return d;
+            };
+            villageNoteControl.addTo(map);
+        }
+        const el = document.getElementById('village-note');
+        if (el) el.innerHTML = text;
+    }
+
+    async function refreshVillages() {
+        if (!villageGroup || !map) return;
+        const z = map.getZoom();
+        if (z < VILLAGE_MIN_ZOOM) {
+            villageGroup.clearLayers();
+            villageOnMap.clear();
+            villageNote(`Zoom in to see village boundaries (zoom ${VILLAGE_MIN_ZOOM}+).`);
+            return;
+        }
+        let idx;
+        try { idx = await loadVillageIndex(); } catch (e) { villageNote('Could not load the village index.'); return; }
+        const b = map.getBounds();
+        const hits = Object.keys(idx).filter(id => {
+            const bb = idx[id].b;   // [minLon, minLat, maxLon, maxLat]
+            return bb[0] <= b.getEast() && bb[2] >= b.getWest() &&
+                   bb[1] <= b.getNorth() && bb[3] >= b.getSouth();
+        });
+        if (hits.length > VILLAGE_MAX_DISTRICTS) {
+            villageNote(`${hits.length} districts in view — zoom in a little to load village boundaries.`);
+            return;
+        }
+        // Drop districts that have panned out of view, so the layer stays light.
+        villageOnMap.forEach(id => {
+            if (!hits.includes(id)) {
+                const lyr = villageDistrictCache[id + '__layer'];
+                if (lyr) { try { villageGroup.removeLayer(lyr); } catch (e) {} delete villageDistrictCache[id + '__layer']; }
+                villageOnMap.delete(id);
+            }
+        });
+        const pending = hits.filter(id => !villageOnMap.has(id));
+        if (!pending.length) {
+            if (villageOnMap.size) villageNote(`Village boundaries · ${villageOnMap.size} district${villageOnMap.size > 1 ? 's' : ''} loaded`);
+            return;
+        }
+        villageNote(`Loading villages for ${pending.length} district${pending.length > 1 ? 's' : ''}…`);
+        try { await ensureTopojson(); } catch (e) { villageNote('Could not load the map decoder.'); return; }
+        await Promise.all(pending.map(async (id) => {
+            if (villageOnMap.has(id)) return;
+            villageOnMap.add(id);   // claim before await, so a fast pan can't double-add
+            try {
+                const geo = await loadVillageDistrict(id);
+                if (!villageGroup || !villageOnMap.has(id)) return;
+                const lyr = L.geoJSON(geo, {
+                    renderer: L.canvas({ padding: 0.3 }),
+                    attribution: 'Village boundaries: LGD via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>',
+                    style: { weight: 0.5, color: '#0F766E', opacity: 0.75, fill: true, fillColor: '#14B8A6', fillOpacity: 0.06 },
+                    onEachFeature: (f, l) => {
+                        const p = f.properties || {};
+                        l.on('click', (e) => {
+                            const c = e.latlng;
+                            const est = estimateAQIAt(c.lat, c.lng, VILLAGE_AQI_MAX_KM);
+                            L.popup({ maxWidth: 260 }).setLatLng(c).setContent(`<div style="min-width:190px;">
+                                <strong style="font-size:0.95rem;">${p.n || 'Village'}</strong>
+                                <div style="font-size:0.75rem; color:#555;">Village${p.d ? ' · ' + p.d : ''}${p.s ? ', ' + p.s : ''}</div>
+                                ${openmapsAqiChip(est)}
+                                <div style="font-size:0.7rem; color:#777; margin-top:6px;">Village outlines are LGD administrative boundaries (2023). Air here is inferred from the nearest city monitors, not measured in the village.</div>
+                            </div>`).openOn(map);
+                        });
+                    },
+                });
+                villageDistrictCache[id + '__layer'] = lyr;
+                villageGroup.addLayer(lyr);
+            } catch (e) {
+                villageOnMap.delete(id);
+            }
+        }));
+        villageNote(villageOnMap.size
+            ? `Village boundaries · ${villageOnMap.size} district${villageOnMap.size > 1 ? 's' : ''} loaded`
+            : 'No village data for this area.');
+    }
+
+    function toggleVillagesOverlay(on) {
+        if (!map) return;
+        if (!on) {
+            if (villageGroup) { try { map.removeLayer(villageGroup); } catch (e) {} villageGroup = null; }
+            villageOnMap.clear();
+            Object.keys(villageDistrictCache).forEach(k => { if (k.endsWith('__layer')) delete villageDistrictCache[k]; });
+            map.off('moveend zoomend', refreshVillages);
+            if (villageNoteControl) { try { map.removeControl(villageNoteControl); } catch (e) {} villageNoteControl = null; }
+            return;
+        }
+        if (villageGroup) return;
+        villageGroup = L.layerGroup().addTo(map);
+        map.on('moveend zoomend', refreshVillages);
+        refreshVillages();
+    }
 
     let mapSourcesLegend = null;
     function sourcesLegendControl() {
