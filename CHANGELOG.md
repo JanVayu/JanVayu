@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.131] - 2026-08-05
+
+### New — village boundaries for all of India on the live map
+
+A new **Villages** layer on the live map draws every one of India's **584,615 village administrative boundaries** — the level below the ward atlas, and where most of the country actually breathes.
+
+**Source.** `LGD_Villages` from ramSeraph's `indian_admin_boundaries` — the same indianopenmaps.com mirror family `fetch-openmaps.mjs` already pulls from, carrying LGD village/district/state codes and already in WGS84 lon/lat. (A GSI copy of the same boundaries circulates via the NWIC water portal as 36 per-state shapefiles; it was passed over because it declares only an unnamed "Other (Open)" licence, needs an LCC reprojection, and does not advertise the LGD codes that make the geometry joinable.)
+
+**Why per-district TopoJSON.** The raw source is 1.9 GB, so a single file is impossible and the existing "vendor a simplified GeoJSON" pattern doesn't stretch this far. Villages tile the plane, so TopoJSON's shared arcs cut ~40% versus GeoJSON *and* remove the sliver gaps you get from simplifying neighbouring polygons independently. Districts (~906 villages each) are the natural unit: 645 files, 150 MB total, largest 1.4 MB, ~25–60 KB each over the wire gzipped. `scripts/build-villages.mjs` reproduces the whole pipeline (fetch → stream-split → Visvalingam 10% → quantized TopoJSON → bbox index).
+
+**Viewport-driven client.** Village geometry only loads at zoom 9+, and only for districts whose bbox intersects the current view (capped at 14 at once); districts unload as they pan away. A vendored `topojson-client` (7 KB, ISC) decodes them, and rendering goes through Leaflet's canvas renderer.
+
+**On the air numbers.** Village outlines are administrative geography, not measurements — the layer is deliberately *not* an AQI choropleth. India has ~565 CPCB stations against 584,615 villages, so painting each one by interpolated AQI would manufacture precision the monitoring network cannot support. Instead a village popup asks for an estimate with a **50 km** cap (the rest of the map uses 200 km), so villages far from any monitor honestly say "no monitor close enough for a live estimate" rather than borrowing a reading from 190 km away. The popup states plainly that air is inferred from the nearest city monitors, not measured in the village.
+
+**Note on repo weight:** this takes the working tree from ~33 MB to ~182 MB. Contributors who don't need the layer can shallow-clone. The simplification tolerance is a flag (`--pct`) if a lighter build is ever wanted.
+
 ## [v26.6.130] - 2026-08-01
 
 ### Fixed — pre-conference audit: a unit error in the hero, three stale-fact recurrences, and the walkthrough brought current
