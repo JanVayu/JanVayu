@@ -20,7 +20,7 @@
  *   node scripts/build-villages.mjs [--keep] [--pct 10]
  *
  * Requires: 7z (p7zip-full) and mapshaper on PATH or in node_modules/.bin.
- * Writes: data/villages/<dist_lgd>.topojson + data/villages/_index.json
+ * Writes: data/villages/<dist_lgd>.json (TopoJSON) + data/villages/_index.json
  */
 
 import { createReadStream, existsSync, mkdirSync, readFileSync, writeFileSync,
@@ -132,7 +132,10 @@ for (const part of parts) {
 
     const fc = join(PARTS, `${id}.fc.json`);
     writeFileSync(fc, JSON.stringify({ type: 'FeatureCollection', features: feats }));
-    const dest = join(OUT, `${id}.topojson`);
+    // Written as .json (not .topojson) on purpose: Netlify picks compression
+    // from content-type, and an unknown extension is served uncompressed as
+    // application/octet-stream. The content is still TopoJSON.
+    const dest = join(OUT, `${id}.json`);
     try {
         execFileSync(mapshaper, [fc,
             '-simplify', 'visvalingam', `percentage=${PCT}%`, 'keep-shapes',

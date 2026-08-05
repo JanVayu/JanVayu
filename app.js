@@ -3881,7 +3881,10 @@
 
     function loadVillageDistrict(id) {
         if (!villageDistrictCache[id]) {
-            villageDistrictCache[id] = fetch(`/data/villages/${id}.topojson`)
+            // .json, not .topojson: Netlify keys compression off content-type,
+            // and an unknown extension is served as uncompressed
+            // application/octet-stream — 1.4 MB instead of ~350 KB brotli'd.
+            villageDistrictCache[id] = fetch(`/data/villages/${id}.json`)
                 .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
                 .then(topo => {
                     const key = Object.keys(topo.objects)[0];
