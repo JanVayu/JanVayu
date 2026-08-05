@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.132] - 2026-08-05
+
+### Fixed — village tiles were shipping uncompressed
+
+The per-district files landed as `.topojson`, an extension Netlify doesn't recognise, so it served them as `application/octet-stream` **with no compression at all** — the largest district went over the wire as 1.44 MB instead of ~350 KB, while the sibling `_index.json` was correctly brotli'd. Netlify keys compression off content-type, so the files are now written as `.json` (the content is still TopoJSON) and compress like everything else. Caught by checking the live response headers after deploy rather than trusting the transfer sizes.
+
 ## [v26.6.131] - 2026-08-05
 
 ### New — village boundaries for all of India on the live map
