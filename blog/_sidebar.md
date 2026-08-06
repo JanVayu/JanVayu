@@ -3,6 +3,9 @@
 - [**JanVayu Blog**](README.md)
 - [How We Write (contributor guide)](how-we-write.md)
 
+- **August 2026**
+  - [Every Village in India Is Now on the Map — Including the Ones No One Measures](posts/2026-08-05-every-village-on-the-map.md)
+
 - **July 2026**
   - [The Air Your MP Answers For: 39 Cities, 543 Constituencies](posts/2026-07-30-the-air-your-mp-answers-for.md)
   - [Testing the Chatbot to Make It Reliable](posts/2026-07-22-testing-ask-janvayu.md)
