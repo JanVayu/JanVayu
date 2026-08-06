@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v26.6.137] - 2026-08-06
 
-### New — Ward Atlas 39 → 67 cities (batch 1 of 2)
+### New — Ward Atlas 39 → 89 cities (both batches)
 
-The atlas was never limited by air data — it was limited by a hand-written allowlist. `WARD_CITIES` in `fetch-openmaps.mjs` names 39 cities; the Swachh Bharat ward release actually holds **3,675 ULBs and 70,416 ward polygons across 43 states**. This batch adds **28 cities and 2,016 wards**, taking the atlas to **67 cities / 5,702 wards**. All 28 carry an annual satellite PM2.5 figure from day one.
+The atlas was never limited by air data — it was limited by a hand-written allowlist. `WARD_CITIES` in `fetch-openmaps.mjs` names 39 cities; the Swachh Bharat ward release actually holds **3,675 ULBs and 70,416 ward polygons across 43 states**. Two batches add **50 cities and 2,850 wards**, taking the atlas to **89 cities / 6,536 wards**. Every one carries an annual satellite PM2.5 figure from day one.
 
-Added: Chhatrapati Sambhajinagar, Navi Mumbai, Thiruvananthapuram, Gorakhpur, Ajmer, Aligarh, Bareilly, Bikaner, Jabalpur, Jammu, Kochi, Firozabad, Udaipur, Bhubaneswar, Hubballi, Alwar, Mysuru, Vijayawada, Bhiwadi, Erode, Mangaluru, Nizamabad, Patiala, Salem, Thoothukudi, Cuttack, Belagavi, Guntur.
+**Batch 1** — Chhatrapati Sambhajinagar, Navi Mumbai, Thiruvananthapuram, Gorakhpur, Ajmer, Aligarh, Bareilly, Bikaner, Jabalpur, Jammu, Kochi, Firozabad, Udaipur, Bhubaneswar, Hubballi, Alwar, Mysuru, Vijayawada, Bhiwadi, Erode, Mangaluru, Nizamabad, Patiala, Salem, Thoothukudi, Cuttack, Belagavi, Guntur.
+
+**Batch 2** — Thrissur, Kollam, Ujjain, Nellore, Gaya, Kurnool, Bhagalpur, Bathinda, Kalaburagi, Tirupati, Dhanbad, Puducherry, Thane, Panaji, Panipat, Solapur, Rohtak, Sonipat, Amravati, Hisar, Gangtok, Jamnagar.
+
+**Six were deliberately left out** — Noida, Jamshedpur, Vellore, Kozhikode, Akola and Bhavnagar. SBM holds only 1–13 ward polygons for each (checked against the raw release; not a matching failure), so the atlas would draw those cities as a couple of blobs. A partial ward map misinforms more than no ward map. The pipeline now warns when any city imports fewer than 15 wards, so this can't slip through unnoticed next time.
 
 **Matching is geographic, not just textual.** A candidate ULB only qualifies if its ward centroids sit within 35 km of the city's known coordinates. Name-only matching had proposed Chhattisgarh's "Durg" as West Bengal's Durgapur — 453 km away, and the kind of error that would silently put another city's polygons on your map. Several cities also needed aliases because SBM keeps pre-rename spellings (Mysore, Mangalore, Hubli-Dharwad, Aurangabad).
 

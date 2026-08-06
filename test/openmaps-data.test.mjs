@@ -1,5 +1,5 @@
 // Validation for the vendored indianopenmaps-derived geodata that backs the
-// Ward Atlas (67 cities), the MP/district choropleths and the pollution-source
+// Ward Atlas (89 cities), the MP/district choropleths and the pollution-source
 // overlay. These files are build artifacts of scripts/fetch-openmaps.mjs — if
 // one is malformed the map panels fail silently in the browser, so we gate the
 // schema here.
@@ -27,7 +27,7 @@ function eachPosition(geom, fn) {
 test('ward files: valid FeatureCollections with no/name/cx/cy inside India', () => {
   const dir = join(ROOT, 'data', 'wards');
   const files = readdirSync(dir).filter(f => f.endsWith('.json'));
-  assert.ok(files.length >= 67, `expected ≥67 ward files, found ${files.length}`);
+  assert.ok(files.length >= 89, `expected ≥89 ward files, found ${files.length}`);
   for (const file of files) {
     const fc = JSON.parse(readFileSync(join(dir, file), 'utf8'));
     assert.equal(fc.type, 'FeatureCollection', `${file}: type`);

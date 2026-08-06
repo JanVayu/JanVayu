@@ -106,6 +106,37 @@ const WARD_CITIES = {
     thoothukudi:        { city: 'Thoothukudi', ulbs: ['Thoothukudi'], st: 'tamil nadu' },
     cuttack:            { city: 'Cuttack', ulbs: ['Cuttack'], st: 'odisha' },
     guntur:             { city: 'Guntur', ulbs: ['Guntur'], st: 'andhra pradhesh' },
+
+    // ── Batch 2 (v26.6.138): same geo-verified matching as batch 1. The
+    // 'Puducherry;' and 'Dhanbad Municipal Corportion' spellings are the
+    // source's own, typos included — matching is exact, so they stay.
+    dhanbad:    { city: 'Dhanbad', ulbs: ['Dhanbad Municipal Corportion'], st: 'jharkhand' },
+    thrissur:   { city: 'Thrissur', ulbs: ['Thrissur'], st: 'kerala' },
+    kollam:     { city: 'Kollam', ulbs: ['Kollam Corporation'], st: 'kerala' },
+    ujjain:     { city: 'Ujjain', ulbs: ['Ujjain'], st: 'madhya pradesh' },
+    nellore:    { city: 'Nellore', ulbs: ['Nellore'], st: 'andhra pradhesh' },
+    gaya:       { city: 'Gaya', ulbs: ['Gaya'], st: 'bihar' },
+    kurnool:    { city: 'Kurnool', ulbs: ['Kurnool'], st: 'andhra pradhesh' },
+    bhagalpur:  { city: 'Bhagalpur', ulbs: ['Bhagalpur'], st: 'bihar' },
+    bathinda:   { city: 'Bathinda', ulbs: ['Bathinda'], st: 'punjab' },
+    kalaburagi: { city: 'Kalaburagi', ulbs: ['Kalaburagi Mcorp'], st: 'karnataka' },
+    tirupati:   { city: 'Tirupati', ulbs: ['Tirupati', 'TIRUPATI'], st: 'andhra pradhesh' },
+    puducherry: { city: 'Puducherry', ulbs: ['Puducherry;'], st: 'puducherry' },
+    thane:      { city: 'Thane', ulbs: ['Thane'], st: 'maharashtra' },
+    panaji:     { city: 'Panaji (Goa)', ulbs: ['PANAJI'], st: 'goa' },
+    panipat:    { city: 'Panipat', ulbs: ['Panipat'], st: 'haryana' },
+    solapur:    { city: 'Solapur', ulbs: ['Solapur'], st: 'maharashtra' },
+    rohtak:     { city: 'Rohtak', ulbs: ['Rohtak'], st: 'haryana' },
+    sonipat:    { city: 'Sonipat', ulbs: ['Sonipat'], st: 'haryana' },
+    amravati:   { city: 'Amravati', ulbs: ['Amravati Municipal Corporation'], st: 'maharashtra' },
+    hisar:      { city: 'Hisar', ulbs: ['Hisar'], st: 'haryana' },
+    gangtok:    { city: 'Gangtok', ulbs: ['Gangtok Municipal Corporation'], st: 'sikkim' },
+    jamnagar:   { city: 'Jamnagar', ulbs: ['Jamnagar'], st: 'gujarat' },
+    // Deliberately NOT added: Noida, Jamshedpur, Vellore, Kozhikode, Akola
+    // and Bhavnagar. SBM holds only 1-13 ward polygons for each (verified
+    // against the raw release, not a matching failure), so the atlas would
+    // show a city as a couple of blobs. A partial ward map misinforms more
+    // than no ward map. Re-add if the upstream upload is ever completed.
 };
 
 const WARDS_SOURCE = 'Swachh Bharat Mission ULB wards via indianopenmaps.com (ramSeraph), simplified';
@@ -351,6 +382,18 @@ async function buildWards(srcDir) {
         const out = join(ROOT, 'data', 'wards', `${key}.json`);
         await writeFile(out, JSON.stringify(fc));
         console.log(`  wards/${key}.json — ${features.length} wards, ${(statSync(out).size / 1024).toFixed(0)} KB`);
+    }
+    // A ULB can be present but barely populated — SBM has 1 polygon for Akola
+    // and 2 for Kozhikode. Those import "successfully" and render a city as a
+    // couple of blobs, so surface them rather than let them pass silently.
+    const THIN = 15;
+    const thin = Object.entries(cities)
+        .map(([k, m]) => [k, m.size])
+        .filter(([, n]) => n < THIN)
+        .sort((a, b) => a[1] - b[1]);
+    if (thin.length) {
+        console.warn(`  WARNING: ${thin.length} city/cities have < ${THIN} wards — likely a partial `
+            + `upstream upload, check before shipping: ${thin.map(([k, n]) => `${k} (${n})`).join(', ')}`);
     }
     const missing = Object.keys(WARD_CITIES).filter(k => !cities[k]);
     if (missing.length) console.warn(`  WARNING: no wards matched for: ${missing.join(', ')}`);
