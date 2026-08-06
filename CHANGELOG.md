@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.133] - 2026-08-05
+
+### New — blog post: "Every Village in India Is Now on the Map"
+
+A reader-facing piece on the new Villages layer, written for citizens rather than engineers. It leads on what the layer is really for: with ~565 monitoring stations (CPCB via CREA, Jan 2026) against 584,615 villages, most village cards will say "no monitor close enough" — and that silence is the finding, not a defect. Covers why rural air isn't clean air (70% of rural women still cook on solid fuels, NFHS-5 2019-21), keeps the ambient and household death tolls separate and labelled (1.72M, Lancet Countdown 2025; ~2.0M including household, State of Global Air 2025), and is explicit that the outlines are administrative geography, not measurement. Listed in `blog/_sidebar.md` and `blog/README.md`.
+
 ## [v26.6.132] - 2026-08-05
 
 ### Fixed — village tiles were shipping uncompressed
