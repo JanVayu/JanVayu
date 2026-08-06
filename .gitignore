@@ -1,5 +1,7 @@
 node_modules/
 .netlify/
+__pycache__/
+*.pyc
 
 # Added by git standards propagation
 # Environment files
