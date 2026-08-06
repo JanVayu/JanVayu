@@ -4,6 +4,21 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.23: Every village in India, and an annual number for each (✅ Completed — v26.6.131–134)
+
+An early-August 2026 batch that takes the maps below the ward and answers the question the live monitor network structurally cannot.
+
+- [x] **All 584,615 village boundaries** — LGD via [indianopenmaps.com](https://indianopenmaps.com) (`scripts/build-villages.mjs`), vendored as one quantized TopoJSON per district (645 files, 150 MB). Villages tile the plane, so TopoJSON's shared arcs cut ~40% versus GeoJSON *and* remove sliver gaps between neighbours. The client is viewport-driven: zoom 9+, only districts whose bbox intersects the view, capped at 14, unloading as they pan.
+- [x] **Annual PM2.5 for every village** — SatPM2.5 V6GL03 (ACAG / Washington University: a convolutional neural network over satellite AOD + GEOS-Chem, ~1 km, CC BY 4.0, public AWS Open Data), zonal-averaged per village by `scripts/build-village-pm25.py`. **100% coverage** — the answer the ~565-station live network can never give. Villages are coloured by it, banded on the WHO guideline (5) and India's NAAQS limit (40) and split again above it, because 57% of villages fall between 40 and 60.
+- [x] **Two timescales, never merged** — the popup shows the annual satellite figure *and*, separately, the live estimate from the nearest monitor (50 km capped, honest "no monitor close enough" beyond). Discloses that a ~1 km product smooths hyperlocal sources: Byrnihat reads far below its own ground station.
+- [x] **Ask JanVayu knows about it** — a village/rural rule with the annual figures, the timescale warning and the smoothing caveat; the ward instruction's "JanVayu doesn't have annual PM2.5" claim corrected to be ward-specific.
+- [x] **Walkthrough + blog updated** — a village slide in the long deck (36 → 37) and a line in the short deck, exports regenerated; the ["Every Village in India"](https://www.janvayu.in/blog/#/posts/2026-08-05-every-village-on-the-map) post revised once the annual layer landed.
+- [x] **Two bugs found by driving a real browser** — every district got its own `L.canvas()` renderer, and Leaflet canvases don't let clicks fall through, so only the topmost district's villages were clickable; and `.topojson` is an extension Netlify doesn't recognise, so 645 files shipped as uncompressed `application/octet-stream` (1.44 MB instead of ~350 KB brotli'd).
+
+**What this found:** not one of India's 584,615 villages meets the WHO annual guideline of 5 µg/m³, **63.6% (371,938) exceed India's own annual limit of 40**, and the median village sits at 43.7. The median *district* is 41.4 — above India's own standard.
+
+**Follow-ups opened by this phase:** annual per-ward PM2.5 from the same grid (the ward atlas still pairs live air with annual structure, which the chatbot is instructed not to treat as causal); a monthly or seasonal village layer, since the annual mean hides the November peak; and the repo weight question — the working tree is now ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
+
 ## Phase 5.22: Maps rebuilt on India's open geodata (✅ Completed — v26.6.125)
 
 A late-July 2026 geodata batch: every boundary and source layer the maps were missing, built on [indianopenmaps.com](https://indianopenmaps.com) (ramSeraph's community mirror of SBM / LGD / Bharatmaps / GatiShakti / NCOG data), vendored as simplified derivatives with attribution.

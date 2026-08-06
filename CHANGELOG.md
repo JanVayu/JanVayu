@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.135] - 2026-08-06
+
+### Changed — everything that described the site caught up with the village layer
+
+Shipping the villages layer and its annual PM2.5 quietly invalidated several things that describe the platform. Swept them:
+
+- **Ask JanVayu** was telling people the wrong thing. Its ward instruction stated flatly that "annual per-ward PM2.5 [is something] JanVayu doesn't have" — now scoped to wards (still true there) with a pointer to the new village data, plus a rule 27 covering the annual village figures, the hard rule never to present them as today's air, and the two caveats (a ~1 km product smooths hyperlocal sources; it is modelled and calibrated, not measured in the village).
+- **Both walkthrough decks** had zero mention of villages. The long deck gains a slide (36 → 37, and the `/walkthrough/` chooser's count with it); the short deck gains a line. PDF/PPTX exports regenerated — 13 and 37 slides, speaker notes on every one.
+- **The blog post** was written the day before the annual layer existed, so its central claim — that most villages show nothing — had become half-wrong, and one section explicitly said we had "deliberately not coloured each village", which the map now does. Rewritten to draw the real distinction (coloured by annual satellite; live estimate deliberately kept out of the colours), with a dated note saying what changed rather than silently editing the record.
+- **Roadmap** gains Phase 5.23, including the follow-ups this opened: annual per-*ward* PM2.5 from the same grid, a seasonal layer (an annual mean hides the November peak), and the repo-weight question now that the working tree is ~182 MB.
+
 ## [v26.6.134] - 2026-08-06
 
 ### New — every village now has an annual PM2.5 figure, even the 99.99% with no monitor
