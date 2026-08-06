@@ -3420,6 +3420,7 @@
                 // Villages are viewport-driven, not in OPENMAPS_OVERLAYS, but
                 // restore the same way — the old layer died with the old map.
                 villageGroup = null;
+                villageRenderer = null;   // belonged to the old map
                 villageOnMap.clear();
                 const vb = document.getElementById('map-toggle-villages-btn');
                 if (vb && vb.classList.contains('active')) toggleMapLayer('villages', true);
@@ -3845,7 +3846,31 @@
     const VILLAGE_MAX_DISTRICTS = 14; // guard against a huge pan at low zoom
     const VILLAGE_AQI_MAX_KM = 50;   // rural India is far from monitors: past
                                      // this, say so rather than invent a number
+    // Annual mean PM2.5 (µg/m³) is a concentration, not an AQI index, so it
+    // gets its own scale — banded on the WHO annual guideline (5) and its
+    // interim targets, up to India's own annual NAAQS limit (40).
+    // Bands are anchored on the WHO guideline (5) and India's annual NAAQS
+    // limit (40), then split again above it: 57% of Indian villages fall in
+    // 40-60, so a single band there would paint most of the country one flat
+    // colour and hide the gradient people actually live along.
+    const PM25_ANNUAL_BANDS = [
+        { max: 5,        color: '#16A34A', label: 'Meets the WHO guideline' },
+        { max: 15,       color: '#84CC16', label: 'WHO interim target 3' },
+        { max: 25,       color: '#FACC15', label: 'WHO interim target 2' },
+        { max: 40,       color: '#FB923C', label: "Within India's limit" },
+        { max: 50,       color: '#F87171', label: "Above India's limit" },
+        { max: 60,       color: '#DC2626', label: "Well above India's limit" },
+        { max: Infinity, color: '#7F1D1D', label: 'Severe' },
+    ];
+    function pm25AnnualBand(v) {
+        return PM25_ANNUAL_BANDS.find(b => v <= b.max) || PM25_ANNUAL_BANDS[PM25_ANNUAL_BANDS.length - 1];
+    }
+
     let villageGroup = null;
+    // One shared canvas for every district. Leaflet canvases do their own
+    // hit-testing and don't let clicks fall through to a canvas underneath, so
+    // a renderer per district would make all but the topmost one unclickable.
+    let villageRenderer = null;
     let villageIndex = null;
     let villageIndexPromise = null;
     let _topojsonPromise = null;
@@ -3895,6 +3920,25 @@
         return villageDistrictCache[id];
     }
 
+    let villageLegend = null;
+    function villageLegendControl() {
+        const ctl = L.control({ position: 'bottomright' });
+        ctl.onAdd = function () {
+            const d = L.DomUtil.create('div');
+            const yr = (villageIndex && villageIndex._meta && villageIndex._meta.pm25Year) || 2024;
+            d.style.cssText = 'background:rgba(255,255,255,0.93);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:210px;';
+            d.innerHTML = `<strong style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.04em;">Annual PM2.5 · ${yr}</strong><br>` +
+                PM25_ANNUAL_BANDS.map((b, i) => {
+                    const lo = i === 0 ? 0 : PM25_ANNUAL_BANDS[i - 1].max;
+                    const range = b.max === Infinity ? `${lo}+` : `${lo}–${b.max}`;
+                    return `<span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${b.color};margin-right:5px;"></span>${range} µg/m³`;
+                }).join('<br>') +
+                '<div style="margin-top:5px;font-size:0.63rem;color:#6b7280;line-height:1.45;">Satellite-derived yearly average, not today\'s air. WHO guideline 5, India\'s limit 40.</div>';
+            return d;
+        };
+        return ctl;
+    }
+
     function villageNote(text) {
         if (!map) return;
         if (!villageNoteControl) {
@@ -3924,7 +3968,9 @@
         try { idx = await loadVillageIndex(); } catch (e) { villageNote('Could not load the village index.'); return; }
         const b = map.getBounds();
         const hits = Object.keys(idx).filter(id => {
-            const bb = idx[id].b;   // [minLon, minLat, maxLon, maxLat]
+            if (id.charAt(0) === '_') return false;   // _meta, not a district
+            const bb = idx[id] && idx[id].b;          // [minLon, minLat, maxLon, maxLat]
+            if (!bb) return false;
             return bb[0] <= b.getEast() && bb[2] >= b.getWest() &&
                    bb[1] <= b.getNorth() && bb[3] >= b.getSouth();
         });
@@ -3954,19 +4000,45 @@
                 const geo = await loadVillageDistrict(id);
                 if (!villageGroup || !villageOnMap.has(id)) return;
                 const lyr = L.geoJSON(geo, {
-                    renderer: L.canvas({ padding: 0.3 }),
-                    attribution: 'Village boundaries: LGD via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a>',
-                    style: { weight: 0.5, color: '#0F766E', opacity: 0.75, fill: true, fillColor: '#14B8A6', fillOpacity: 0.06 },
+                    renderer: villageRenderer || (villageRenderer = L.canvas({ padding: 0.3 })),
+                    attribution: 'Village boundaries: LGD via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a> · Annual PM2.5: <a href="https://registry.opendata.aws/surface-pm2-5-v6gl/" target="_blank" rel="noopener">SatPM2.5 V6GL03</a> (ACAG, WashU)',
+                    // Coloured by ANNUAL satellite PM2.5 — a real per-village
+                    // value. The live estimate stays out of the fill: it comes
+                    // from city monitors and is usually absent out here.
+                    style: (f) => {
+                        const v = f.properties && f.properties.p;
+                        if (typeof v !== 'number') {
+                            return { weight: 0.5, color: '#0F766E', opacity: 0.75, fill: true, fillColor: '#14B8A6', fillOpacity: 0.06 };
+                        }
+                        return { weight: 0.4, color: '#334155', opacity: 0.55, fill: true, fillColor: pm25AnnualBand(v).color, fillOpacity: 0.62 };
+                    },
                     onEachFeature: (f, l) => {
                         const p = f.properties || {};
                         l.on('click', (e) => {
                             const c = e.latlng;
                             const est = estimateAQIAt(c.lat, c.lng, VILLAGE_AQI_MAX_KM);
-                            L.popup({ maxWidth: 260 }).setLatLng(c).setContent(`<div style="min-width:190px;">
+                            const yr = (villageIndex && villageIndex._meta && villageIndex._meta.pm25Year) || 2024;
+                            let annual = '<div style="font-size:0.75rem; color:#888; margin-top:6px;">No annual estimate for this village.</div>';
+                            if (typeof p.p === 'number') {
+                                const b = pm25AnnualBand(p.p);
+                                annual = `<div style="margin-top:6px;">
+                                    <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:#666;">Annual average · ${yr}</div>
+                                    <div style="display:flex; align-items:baseline; gap:6px;">
+                                        <span style="font-size:1.5rem; font-weight:700; color:${b.color};">${p.p}</span>
+                                        <span style="font-size:0.75rem; color:#555;">µg/m³ · ${b.label}</span>
+                                    </div>
+                                    <div style="font-size:0.7rem; color:#777;">${(p.p / 5).toFixed(0)}× the WHO guideline of 5 · India's limit is 40</div>
+                                </div>`;
+                            }
+                            L.popup({ maxWidth: 280 }).setLatLng(c).setContent(`<div style="min-width:210px;">
                                 <strong style="font-size:0.95rem;">${p.n || 'Village'}</strong>
                                 <div style="font-size:0.75rem; color:#555;">Village${p.d ? ' · ' + p.d : ''}${p.s ? ', ' + p.s : ''}</div>
-                                ${openmapsAqiChip(est)}
-                                <div style="font-size:0.7rem; color:#777; margin-top:6px;">Village outlines are LGD administrative boundaries (2023). Air here is inferred from the nearest city monitors, not measured in the village.</div>
+                                ${annual}
+                                <div style="border-top:1px solid #e5e7eb; margin-top:8px; padding-top:6px;">
+                                    <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:#666;">Right now</div>
+                                    ${openmapsAqiChip(est)}
+                                </div>
+                                <div style="font-size:0.7rem; color:#777; margin-top:8px;">Two different things: the annual figure is satellite-derived for this village (~1 km); "right now" is inferred from the nearest city monitor, not measured here. A ~1 km satellite estimate also smooths hyperlocal sources, so a kiln or smelter next door won't show up in it.</div>
                             </div>`).openOn(map);
                         });
                     },
@@ -3986,15 +4058,18 @@
         if (!map) return;
         if (!on) {
             if (villageGroup) { try { map.removeLayer(villageGroup); } catch (e) {} villageGroup = null; }
+            villageRenderer = null;
             villageOnMap.clear();
             Object.keys(villageDistrictCache).forEach(k => { if (k.endsWith('__layer')) delete villageDistrictCache[k]; });
             map.off('moveend zoomend', refreshVillages);
             if (villageNoteControl) { try { map.removeControl(villageNoteControl); } catch (e) {} villageNoteControl = null; }
+            if (villageLegend) { try { map.removeControl(villageLegend); } catch (e) {} villageLegend = null; }
             return;
         }
         if (villageGroup) return;
         villageGroup = L.layerGroup().addTo(map);
         map.on('moveend zoomend', refreshVillages);
+        if (!villageLegend) { villageLegend = villageLegendControl(); villageLegend.addTo(map); }
         refreshVillages();
     }
 

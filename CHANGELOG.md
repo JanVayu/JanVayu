@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.135] - 2026-08-06
+
+### Changed — everything that described the site caught up with the village layer
+
+Shipping the villages layer and its annual PM2.5 quietly invalidated several things that describe the platform. Swept them:
+
+- **Ask JanVayu** was telling people the wrong thing. Its ward instruction stated flatly that "annual per-ward PM2.5 [is something] JanVayu doesn't have" — now scoped to wards (still true there) with a pointer to the new village data, plus a rule 27 covering the annual village figures, the hard rule never to present them as today's air, and the two caveats (a ~1 km product smooths hyperlocal sources; it is modelled and calibrated, not measured in the village).
+- **Both walkthrough decks** had zero mention of villages. The long deck gains a slide (36 → 37, and the `/walkthrough/` chooser's count with it); the short deck gains a line. PDF/PPTX exports regenerated — 13 and 37 slides, speaker notes on every one.
+- **The blog post** was written the day before the annual layer existed, so its central claim — that most villages show nothing — had become half-wrong, and one section explicitly said we had "deliberately not coloured each village", which the map now does. Rewritten to draw the real distinction (coloured by annual satellite; live estimate deliberately kept out of the colours), with a dated note saying what changed rather than silently editing the record.
+- **Roadmap** gains Phase 5.23, including the follow-ups this opened: annual per-*ward* PM2.5 from the same grid, a seasonal layer (an annual mean hides the November peak), and the repo-weight question now that the working tree is ~182 MB.
+
+## [v26.6.134] - 2026-08-06
+
+### New — every village now has an annual PM2.5 figure, even the 99.99% with no monitor
+
+The Villages layer shipped with an honest hole: with ~565 continuous CPCB stations against 584,615 villages, almost every village card read *"no monitor close enough for a live estimate."* True, but unsatisfying. Satellite-derived PM2.5 fills it on a **different timescale** — it cannot tell you today's air, but it gives a defensible **annual average for all 584,615 villages**. Coverage is 100%.
+
+**Source.** SatPM2.5 **V6GL03** (Atmospheric Composition Analysis Group, Washington University in St. Louis) — annual mean surface PM2.5 at 0.01° (~1 km), estimated by a convolutional neural network from satellite AOD (MODIS/MISR/SeaWiFS/VIIRS) plus GEOS-Chem, calibrated against ground monitors. CC BY 4.0, public AWS Open Data bucket, no credentials, 1998–2024. We use the 2024 annual grid for Asia. `scripts/build-village-pm25.py` reproduces the whole thing.
+
+**The map now colours villages** by that annual figure — which the live estimate could never justify. Bands are anchored on the WHO annual guideline (5) and India's own NAAQS limit (40), then split again above it: 57% of villages sit between 40 and 60, so a single band there painted most of the country one flat colour.
+
+**Both numbers, never merged.** A village popup shows the annual satellite figure *and*, separately, the live estimate from the nearest monitor (still capped at 50 km, still saying "no monitor close enough" when there isn't one). The card states plainly that these are two different things, and that a ~1 km satellite estimate smooths hyperlocal sources — Byrnihat, a small industrial pocket that topped IQAir's city ranking, reads far lower here than its ground station does. Good for regional exposure, blind to the kiln next door.
+
+**What the data says.** Not one of India's 584,615 villages meets the WHO annual guideline of 5 µg/m³. **371,938 of them — 63.6% — exceed India's own annual limit of 40.** The median village sits at 43.7 µg/m³, the median district at 41.4. Dirtiest districts are all in Delhi (94–98); cleanest are the Andaman & Nicobar Islands, Lakshadweep and Kerala (12–20).
+
+### Fixed — most villages weren't actually clickable
+
+Each district got its own `L.canvas()` renderer. Leaflet canvases do their own hit-testing and don't let clicks fall through to a canvas underneath, so once a second district loaded, only the topmost one's villages responded to clicks. All districts now share a single renderer. Found by clicking a village in a browser rather than trusting that a bound handler meant a reachable one.
+
 ## [v26.6.133] - 2026-08-05
 
 ### New — blog post: "Every Village in India Is Now on the Map"
