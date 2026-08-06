@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606135">
+    <link rel="preload" as="style" href="/styles.css?v=202606136">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1828,7 +1828,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606135"></script>
+    <script src="/app.js?v=202606136"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -5098,6 +5098,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
                 <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;">Layer</span>
                 <button type="button" class="ward-layer-btn active" data-layer="pm25" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25')">Air quality</button>
+                <button type="button" class="ward-layer-btn" data-layer="pm25a" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25a')" title="Annual average PM2.5 for each ward, satellite-derived — a whole year, not right now">Air, yearly</button>
                 <button type="button" class="ward-layer-btn" data-layer="lst" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('lst')">Heat</button>
                 <button type="button" class="ward-layer-btn" data-layer="green" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('green')">Green cover</button>
                 <button type="button" class="ward-layer-btn" data-layer="built" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('built')">Built-up</button>

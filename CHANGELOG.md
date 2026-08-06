@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.136] - 2026-08-06
+
+### New — the Ward Atlas finally has annual air to sit beside its annual structure
+
+The ward map could show live air *and* heat / green cover / built-up, but those describe completely different timescales — a snapshot versus a year — so no honest comparison between them was possible. Ask JanVayu was explicitly instructed to admit the gap: *"the proper partner for annual structure would be annual per-ward PM2.5, which JanVayu doesn't have."* It has it now.
+
+- **New "Air, yearly" layer** — an annual mean PM2.5 for all **3,686 wards** across the 39 cities, from the same SatPM2.5 V6GL03 grid used for villages. Built by `scripts/build-village-pm25.py --target wards`, which now takes a `--target villages|wards|both` so there is one PM2.5 pipeline rather than two.
+- **Shaded within each city, not nationally.** Every one of Delhi's 290 wards falls in the top national band (63.5–98.7 µg/m³), so absolute banding painted the city one flat colour and hid a real 35 µg/m³ gradient — exactly what a ward map exists to show. It now uses a within-city ramp like the heat layer, single-hue on purpose so it can't imply "green = safe" in a city where every ward exceeds India's limit, with the absolute µg/m³ endpoints in the legend and the absolute context in the analysis text.
+- **The scatter is finally like-for-like.** The ward correlation chart plots the active metric against built-up share; on the live layer that pairs an hour-old snapshot with an annual structural measure. On this layer both sides are annual.
+- **Ask JanVayu updated** — the "we don't have this" instruction is replaced with a directive to *use* the annual ward figure for any structure-and-air discussion and keep the live reading for "right now" questions. `ward-stats.json` carries the annual value on all 3,686 wards.
+- **Fixed a pre-existing unit bug** — the ward legend header uppercased "µg/m³", and CSS `text-transform` maps µ (U+00B5) to Greek capital Mu, so the live PM2.5 legend had been rendering "ΜG/M³". Same defect class as the hero fix in v26.6.130.
+- **Fixed a crash on the new layer** — the correlation chart's label map had no entry for it, throwing on every render.
+
+**What it shows:** all 290 Delhi wards are above India's annual limit of 40, ranging 63.5 (Khera) to 98.7 (Vinod Nagar). Across the 39 cities, Delhi is worst (ward mean 93.4), then Ghaziabad (92.7) and Faridabad (83.4); Chennai (31.3), Coimbatore (32.1) and Bengaluru (35.5) are cleanest.
+
 ## [v26.6.135] - 2026-08-06
 
 ### Changed — everything that described the site caught up with the village layer

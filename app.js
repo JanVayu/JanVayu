@@ -1574,6 +1574,14 @@
     // Layer registry: PM2.5 is live-interpolated; heat/green/built-up are satellite, baked into the GeoJSON.
     const WARD_LAYERS = {
         pm25:  { label: 'Air quality', prop: '_pm', unit: ' µg/m³', live: true },
+        // Annual satellite PM2.5 — the year-scale partner to the structural
+        // layers below. Live air (above) is a snapshot; these are not
+        // comparable and the UI must never present them as one series.
+        // Relative, like heat: a whole city usually sits inside one national
+        // band (all 290 Delhi wards are 63–99), so absolute banding paints it
+        // flat and hides the intra-city gradient a ward map exists to show.
+        // Single-hue ramp + absolute endpoints in the legend keeps it honest.
+        pm25a: { label: 'Air, yearly', prop: 'pma', unit: ' µg/m³', annual: true, relative: true },
         lst:   { label: 'Heat',        prop: 'lst', unit: '°C', relative: true },
         green: { label: 'Green cover', prop: 'green', unit: '%' },
         built: { label: 'Built-up',    prop: 'built', unit: '%' },
@@ -1590,12 +1598,16 @@
         return `rgb(${wardLerp(a[0],b[0],f)},${wardLerp(a[1],b[1],f)},${wardLerp(a[2],b[2],f)})`;
     }
     const WARD_HEAT_STOPS = [[44,123,182],[171,217,233],[255,255,191],[253,174,97],[215,25,28]];
+    // Single hue on purpose: a within-city ramp must not imply "green = safe"
+    // in a city where every ward is above India's limit.
+    const WARD_PM25A_STOPS = [[254,235,226],[252,197,192],[250,159,181],[221,52,151],[122,1,119]];
     const WARD_GREEN_STOPS = [[247,247,247],[217,240,211],[166,219,160],[90,174,97],[27,120,55]];
     const WARD_BUILT_STOPS = [[247,247,247],[204,204,204],[150,150,150],[99,99,99],[37,37,37]];
 
     function wardFillColor(layer, v, dom) {
         if (v == null || isNaN(v)) return '#d7d7d7';
         if (layer === 'pm25') return wardPM25Color(v);
+        if (layer === 'pm25a') return wardRamp(WARD_PM25A_STOPS, dom.max > dom.min ? (v - dom.min) / (dom.max - dom.min) : 0.5);
         if (layer === 'lst')  return wardRamp(WARD_HEAT_STOPS, dom.max > dom.min ? (v - dom.min) / (dom.max - dom.min) : 0.5);
         if (layer === 'green') return wardRamp(WARD_GREEN_STOPS, Math.min(v, 60) / 60);
         if (layer === 'built') return wardRamp(WARD_BUILT_STOPS, Math.min(v, 100) / 100);
@@ -1605,6 +1617,7 @@
         const v = p[WARD_LAYERS[layer].prop];
         if (v == null) return '<em>No data</em>';
         if (layer === 'pm25') return `Est. PM2.5: <strong>${v} µg/m³</strong> (${wardPM25Label(v)})`;
+        if (layer === 'pm25a') return `Yearly PM2.5: <strong>${v} µg/m³</strong> (${pm25AnnualBand(v).label})`;
         if (layer === 'lst')  return `Surface temp: <strong>${v}°C</strong>`;
         if (layer === 'green') return `Green cover: <strong>${v}%</strong>`;
         if (layer === 'built') return `Built-up: <strong>${v}%</strong>`;
@@ -1659,7 +1672,10 @@
         const yProp = WARD_LAYERS[layer].prop;
         const xProp = layer === 'built' ? 'green' : 'built';
         const xLabel = xProp === 'green' ? 'Green cover %' : 'Built-up %';
-        const yLabels = { pm25: 'Est. PM2.5 µg/m³', lst: 'Surface temp °C', green: 'Green cover %', built: 'Built-up %' };
+        // pm25a is the one air series that can honestly be scattered against
+        // built-up: both are annual. The live pm25 layer is an hour-old
+        // snapshot, so its correlation here is suggestive at best.
+        const yLabels = { pm25: 'Est. PM2.5 µg/m³', pm25a: 'Yearly PM2.5 µg/m³', lst: 'Surface temp °C', green: 'Green cover %', built: 'Built-up %' };
         const pts = [];
         wardState.geo.features.forEach(f => {
             const p = f.properties, x = p[xProp], y = p[yProp];
@@ -1695,7 +1711,14 @@
         const el = document.getElementById('ward-legend'); if (!el) return;
         if (layer === 'pm25') {
             const bands = [['0–30','#55a84f'],['31–60','#a3c853'],['61–90','#e6c93b'],['91–120','#f29c33'],['121–250','#e93f33'],['250+','#af2d24']];
-            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">PM2.5 µg/m³</span>` + bands.map(b => wardSwatch(b[1], b[0])).join('');
+            // No text-transform:uppercase on a label containing µ — CSS maps
+            // U+00B5 to Greek capital Mu, rendering "µg/m³" as "ΜG/M³".
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;letter-spacing:0.05em;color:var(--text-3);">PM2.5 µg/m³</span>` + bands.map(b => wardSwatch(b[1], b[0])).join('');
+        } else if (layer === 'pm25a') {
+            const yr = (wardState.geo && wardState.geo.pma_year) || 2024;
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;letter-spacing:0.05em;color:var(--text-3);">Yearly PM2.5 µg/m³ · ${yr}</span>` +
+                wardGradientBar(WARD_PM25A_STOPS, `${dom.min.toFixed(1)}`, '(cleaner → dirtier, this city)', `${dom.max.toFixed(1)}`) +
+                `<span style="flex-basis:100%;font-size:0.66rem;color:var(--text-3);line-height:1.4;">Shading compares wards <em>within this city</em>. Satellite yearly average, not today's air &mdash; WHO guideline 5, India's limit 40.</span>`;
         } else if (layer === 'lst') {
             el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">Surface temp</span>` +
                 wardGradientBar(WARD_HEAT_STOPS, `${dom.min.toFixed(0)}°C`, '(cooler → hotter, this city)', `${dom.max.toFixed(0)}°C`);
@@ -1723,6 +1746,16 @@
                 row(`Dirtiest: <strong>${worst.name}</strong> &mdash; ~${worst.v} µg/m³ (<strong>${Math.round(worst.v/WHO_PM25_GUIDELINE)}× the WHO limit</strong>).`),
                 row(`Cleanest: <strong>${best.name}</strong> &mdash; ~${best.v} µg/m³.`),
                 row(`Spread: <strong>${best.v}–${worst.v} µg/m³</strong> in one city, same hour.`)
+            ]);
+        } else if (layer === 'pm25a') {
+            const s = [...vals].sort((a, b) => b.v - a.v), worst = s[0], best = s[n - 1];
+            const overIndia = vals.filter(v => v.v > 40).length;
+            const yr = (wardState.geo && wardState.geo.pma_year) || 2024;
+            el.innerHTML = wrap([
+                row(`<strong>${overIndia}/${n}</strong> wards are above <strong>India&rsquo;s annual limit</strong> of 40 µg/m³ (${yr} average).`),
+                row(`Dirtiest over the year: <strong>${worst.name}</strong> &mdash; ${worst.v} µg/m³ (<strong>${Math.round(worst.v/WHO_PM25_GUIDELINE)}× the WHO guideline</strong>).`),
+                row(`Cleanest over the year: <strong>${best.name}</strong> &mdash; ${best.v} µg/m³.`),
+                row(`Spread: <strong>${best.v}–${worst.v} µg/m³</strong> across this city, averaged over a whole year.`)
             ]);
         } else if (layer === 'lst') {
             const s = [...vals].sort((a, b) => b.v - a.v), hot = s[0], cool = s[n - 1];
@@ -1763,6 +1796,9 @@
         const date = wardState.geo && wardState.geo.lst_date;
         if (layer === 'pm25') {
             el.innerHTML = `<strong>What this shows:</strong> each ward&rsquo;s value is estimated from the city&rsquo;s live CPCB/WAQI monitors &mdash; the nearest monitors count most. It&rsquo;s the citywide <em>pattern</em>, not an exact street-by-street reading, and it&rsquo;s sharper where there are more monitors. <em>One note on timing:</em> this air layer is a <strong>live snapshot</strong>, while heat, greenery and built-up cover change slowly over the year. So those layers explain a ward&rsquo;s <em>typical</em> air, not this exact hour&rsquo;s reading.`;
+        } else if (layer === 'pm25a') {
+            const yr = (wardState.geo && wardState.geo.pma_year) || 2024;
+            el.innerHTML = `<strong>What this shows:</strong> each ward&rsquo;s <strong>annual average</strong> PM2.5 for <strong>${yr}</strong>, from satellite (SatPM2.5 V6GL03, ~1&nbsp;km, calibrated against ground monitors). <em>This is the year-scale partner</em> to the heat, greenery and built-up layers &mdash; unlike the live air layer, it can honestly be compared with them, because all four describe the same slow timescale. Two limits: it says nothing about a bad week in November, and a ~1&nbsp;km estimate smooths very local sources, so a single kiln or busy junction won&rsquo;t show up in it.`;
         } else if (layer === 'lst') {
             el.innerHTML = `<strong>Heat &mdash; a driver of air quality.</strong> Land-surface temperature from <strong>Landsat 8/9</strong> (~30&nbsp;m)${date ? `, a clear-sky scene on <strong>${date}</strong>` : ''} &mdash; ground temperature on one hot-season afternoon (hotter than air temperature, a snapshot not an average). <em>Why it&rsquo;s here:</em> heat speeds up ozone formation and worsens the health hit of particle pollution, so hotter wards tend to carry a heavier air-quality burden.`;
         } else if (layer === 'green') {
@@ -1780,6 +1816,8 @@
             el.textContent = (st && st.pts.length)
                 ? `${n} wards · estimated from ${st.pts.length} live monitors · ${new Date(st.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. The citywide pattern, not an exact per-ward reading.`
                 : 'No live monitors are reporting right now.';
+        } else if (layer === 'pm25a') {
+            el.textContent = `${n} wards · SatPM2.5 V6GL03 annual mean${wardState.geo && wardState.geo.pma_year ? ' · ' + wardState.geo.pma_year : ''} · ~1 km satellite. A yearly average, not today's air.`;
         } else if (layer === 'lst') {
             el.textContent = `${n} wards · Landsat 8/9 surface temperature${wardState.geo.lst_date ? ' · ' + wardState.geo.lst_date : ''} · ~30 m.`;
         } else {
@@ -1825,13 +1863,15 @@
         (function () {
             const raster = !geo.airOnly && geo.features.some(f => f.properties.lst != null);
             document.querySelectorAll('#ward-layer-toggle .ward-layer-btn').forEach(b => {
-                if (b.dataset.layer === 'pm25') return;
+                // Live air and the annual satellite layer exist for every
+                // city; only heat/green/built depend on the raster pipeline.
+                if (b.dataset.layer === 'pm25' || b.dataset.layer === 'pm25a') return;
                 b.disabled = !raster;
                 b.style.opacity = raster ? '' : '0.4';
                 b.style.cursor = raster ? '' : 'not-allowed';
                 b.title = raster ? '' : 'Satellite heat / green / built-up layers aren’t available for this city yet';
             });
-            if (!raster && wardCurrentLayer !== 'pm25') wardCurrentLayer = 'pm25';
+            if (!raster && wardCurrentLayer !== 'pm25' && wardCurrentLayer !== 'pm25a') wardCurrentLayer = 'pm25';
         })();
 
         // (Re)create the map

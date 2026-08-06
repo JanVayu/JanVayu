@@ -17,7 +17,9 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
 **What this found:** not one of India's 584,615 villages meets the WHO annual guideline of 5 µg/m³, **63.6% (371,938) exceed India's own annual limit of 40**, and the median village sits at 43.7. The median *district* is 41.4 — above India's own standard.
 
-**Follow-ups opened by this phase:** annual per-ward PM2.5 from the same grid (the ward atlas still pairs live air with annual structure, which the chatbot is instructed not to treat as causal); a monthly or seasonal village layer, since the annual mean hides the November peak; and the repo weight question — the working tree is now ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
+- [x] **Annual per-ward PM2.5** *(v26.6.136)* — the follow-up this phase opened, closed the same day. All **3,686 wards** across the 39 cities carry an annual mean from the same grid, as a new **"Air, yearly"** layer, shaded within each city because a whole city usually sits inside one national band. This gives the heat / green / built-up layers a year-scale partner they never had, makes the ward-vs-built-up scatter like-for-like, and lets Ask JanVayu drop the "we don't have this" caveat.
+
+**Follow-ups still open after this phase:** a monthly or seasonal layer for both villages and wards, since an annual mean hides the November peak entirely; **more Ward Atlas cities** — the atlas is capped at 39 by *boundary* availability, not air data (Kolkata and all of West Bengal, Manipur, Mizoram and Tripura are absent because their ULB wards aren't in the SBM release), so OpenStreetMap `admin_level` relations and state municipal portals are the next places to look; and the repo weight question — the working tree is now ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
 
 ## Phase 5.22: Maps rebuilt on India's open geodata (✅ Completed — v26.6.125)
 
