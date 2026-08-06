@@ -26,7 +26,7 @@
  */
 
 import { createReadStream, createWriteStream, existsSync, mkdirSync, statSync } from 'node:fs';
-import { writeFile } from 'node:fs/promises';
+import { writeFile, readFile } from 'node:fs/promises';
 import { createInterface } from 'node:readline';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -380,6 +380,31 @@ async function buildWards(srcDir) {
             a.properties.name.localeCompare(b.properties.name));
         const fc = { type: 'FeatureCollection', city: WARD_CITIES[key].city, airOnly: true, source: WARDS_SOURCE, features };
         const out = join(ROOT, 'data', 'wards', `${key}.json`);
+
+        // Carry over anything computed by a LATER stage of the pipeline —
+        // satellite heat/green/built (build-ward-satellite.py) and the annual
+        // PM2.5 (build-village-pm25.py). Rebuilding boundaries used to wipe
+        // them, so re-running this script to add one city silently stripped
+        // the satellite layers from every city it regenerated.
+        const DERIVED = ['lst', 'green', 'built', 'pma'];
+        if (existsSync(out)) {
+            try {
+                const prev = JSON.parse(await readFile(out, 'utf8'));
+                const byWard = new Map((prev.features || []).map(f =>
+                    [`${f.properties?.no} ${f.properties?.name}`, f.properties || {}]));
+                let kept = 0;
+                for (const f of features) {
+                    const old = byWard.get(`${f.properties.no} ${f.properties.name}`);
+                    if (!old) continue;
+                    for (const k of DERIVED) if (old[k] != null) { f.properties[k] = old[k]; kept++; }
+                }
+                if (prev.lst_date) fc.lst_date = prev.lst_date;
+                if (prev.pma_year) fc.pma_year = prev.pma_year;
+                if (features.some(f => f.properties.lst != null)) delete fc.airOnly;
+                if (kept) console.log(`    (kept ${kept} derived values from the previous build)`);
+            } catch { /* unreadable previous build — just write the fresh one */ }
+        }
+
         await writeFile(out, JSON.stringify(fc));
         console.log(`  wards/${key}.json — ${features.length} wards, ${(statSync(out).size / 1024).toFixed(0)} KB`);
     }

@@ -23,6 +23,14 @@ The atlas was never limited by air data — it was limited by a hand-written all
 
 SBM files the same city under several spellings of its own state. Vijayawada has 63 wards under "Andhra Pradhesh" and 1 under "Andhra Pradesh"; Nizamabad splits across "Telanagana" and "Telangana"; Tirupati across three casings. The pipeline matched the raw string, so **Vijayawada imported 1 ward instead of 64** and Guntur 41 instead of 57. State names are now normalised (with a small alias map) and ULB names trimmed. This would have quietly mangled every future addition too.
 
+### Fixed — rebuilding boundaries silently wiped the satellite layers
+
+Caught while checking the final numbers: only 15 cities reported satellite heat/green/built, when v26.6.129 had added them for all 39. Re-running `fetch-openmaps.mjs wards` to add a city regenerates every ward file from the source — and the source has no heat, green, built or annual PM2.5, because those come from *later* pipeline stages. So adding one city stripped 5,499 satellite values from the 24 cities the pipeline owns, and flipped them back to `airOnly` (disabling those toggles in the UI).
+
+The build now carries derived columns forward from the previous build, matching on ward number and name, and restores `lst_date` / `pma_year` with them. Re-running is idempotent again. The wiped values were restored from git rather than recomputed, since the geometry is byte-identical.
+
+This is the second time this session that a "successful" build produced quietly wrong data — worth remembering that the ward pipeline is one stage of four, and only the first one is reproducible from upstream alone.
+
 ### Fixed — a city could be added and still not load
 
 Three separate places had to be edited in lockstep for a city to work: the build allowlist, a `WARD_FILES` path map in `app.js`, and the `#ward-map-city` option list in `index.html`. A city missing from the middle one failed **silently** — the map just kept showing whichever city was loaded before, which is how the first Thiruvananthapuram test appeared to "work" while rendering Delhi. `WARD_FILES` is deleted (every value was `/data/wards/<key>.json`, so it's derived now) and the option list is generated from the ward files, so counts can't drift.
