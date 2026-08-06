@@ -73,6 +73,39 @@ const WARD_CITIES = {
     ranchi:        { city: 'Ranchi',        ulbs: ['Ranchi Municipal Corporation'],       st: 'jharkhand' },
     coimbatore:    { city: 'Coimbatore',    ulbs: ['Coimbatore'],                         st: 'tamil nadu' },
     visakhapatnam: { city: 'Visakhapatnam', ulbs: ['Gvmc'],                               st: 'andhra' },
+
+    // ── Batch 1 (v26.6.137): cities matched to SBM ULBs by name AND verified
+    // geographically — a ULB only qualifies if its ward centroids sit within
+    // 35 km of the city's known coordinates. Name-only matching had put
+    // Chhattisgarh's "Durg" forward as West Bengal's Durgapur, 453 km away.
+    mangaluru:          { city: 'Mangaluru', ulbs: ['Mangalore'], st: 'karnataka' },
+    aurangabad:         { city: 'Chhatrapati Sambhajinagar', ulbs: ['Aurangabad'], st: 'maharashtra' },
+    navimumbai:         { city: 'Navi Mumbai', ulbs: ['Navi Mumbai Municiple Corp.'], st: 'maharashtra' },
+    thiruvananthapuram: { city: 'Thiruvananthapuram', ulbs: ['Thiruvananthapuram Corporation'], st: 'kerala' },
+    bareilly:           { city: 'Bareilly', ulbs: ['Bareilly (M.Crop)', 'Bareilly Municipal Corporation'], st: 'uttar pradesh' },
+    gorakhpur:          { city: 'Gorakhpur', ulbs: ['Gorakhpur (M.Corp)', 'Gorakhpur (M . Corp)', 'Gorakhpur'], st: 'uttar pradesh' },
+    ajmer:              { city: 'Ajmer', ulbs: ['Ajmer (M.Corp)'], st: 'rajasthan' },
+    bikaner:            { city: 'Bikaner', ulbs: ['Bikaner'], st: 'rajasthan' },
+    aligarh:            { city: 'Aligarh', ulbs: ['Aligarh (M.Corp)'], st: 'uttar pradesh' },
+    jabalpur:           { city: 'Jabalpur', ulbs: ['Jabalpur'], st: 'madhya pradesh' },
+    jammu:              { city: 'Jammu', ulbs: ['Jammu'], st: 'jammu and kashmir' },
+    kochi:              { city: 'Kochi', ulbs: ['Kochi'], st: 'kerala' },
+    udaipur:            { city: 'Udaipur', ulbs: ['Udaipur (M Cl)'], st: 'rajasthan' },
+    firozabad:          { city: 'Firozabad', ulbs: ['Firozabad Municipal Corporation'], st: 'uttar pradesh' },
+    belagavi:           { city: 'Belagavi', ulbs: ['City Corporation Belagavi'], st: 'karnataka' },
+    bhubaneswar:        { city: 'Bhubaneswar', ulbs: ['Bhubaneswar (Mc)'], st: 'odisha' },
+    hubballi:           { city: 'Hubballi', ulbs: ['Hubli-Dharwad'], st: 'karnataka' },
+    alwar:              { city: 'Alwar', ulbs: ['Alwar'], st: 'rajasthan' },
+    mysuru:             { city: 'Mysuru', ulbs: ['Mysore (M.Corp)'], st: 'karnataka' },
+    vijayawada:         { city: 'Vijayawada', ulbs: ['Vijayawada'], st: 'andhra pradesh' },
+    patiala:            { city: 'Patiala', ulbs: ['Patiala', 'Patiala '], st: 'punjab' },
+    bhiwadi:            { city: 'Bhiwadi', ulbs: ['Bhiwadi'], st: 'rajasthan' },
+    nizamabad:          { city: 'Nizamabad', ulbs: ['Nizamabad'], st: 'telanagana' },
+    salem:              { city: 'Salem', ulbs: ['Salem'], st: 'tamil nadu' },
+    erode:              { city: 'Erode', ulbs: ['Erode'], st: 'tamil nadu' },
+    thoothukudi:        { city: 'Thoothukudi', ulbs: ['Thoothukudi'], st: 'tamil nadu' },
+    cuttack:            { city: 'Cuttack', ulbs: ['Cuttack'], st: 'odisha' },
+    guntur:             { city: 'Guntur', ulbs: ['Guntur'], st: 'andhra pradhesh' },
 };
 
 const WARDS_SOURCE = 'Swachh Bharat Mission ULB wards via indianopenmaps.com (ramSeraph), simplified';
@@ -224,13 +257,25 @@ async function buildWards(srcDir) {
     const src = await ensureSource('wards', srcDir);
     // cityKey → Map(wardKey → {no, name, polys: [poly…]})
     const cities = {};
+    // SBM files the same city under several spellings of its own state —
+    // Vijayawada has 63 wards under "Andhra Pradhesh" and 1 under "Andhra
+    // Pradesh"; Nizamabad splits across "Telanagana" and "Telangana". Matching
+    // the raw string silently dropped most of a city's wards, so normalise
+    // both sides (and trim ULB names, some carry trailing spaces).
+    const ST_FIX = { andhrapradhesh: 'andhrapradesh', telanagana: 'telangana',
+                     orissa: 'odisha', pondicherry: 'puducherry', uttaranchal: 'uttarakhand' };
+    const normSt = (s) => {
+        const v = String(s || '').toLowerCase().replace(/[^a-z]/g, '');
+        return ST_FIX[v] || v;
+    };
+    const normUlb = (s) => String(s || '').trim().toLowerCase();
     const matchers = Object.entries(WARD_CITIES).map(([key, c]) => ({
-        key, st: c.st.toLowerCase(), ulbs: new Set(c.ulbs.map(u => u.toLowerCase())),
+        key, st: normSt(c.st), ulbs: new Set(c.ulbs.map(normUlb)),
     }));
     for await (const f of readFeatures(src)) {
         const p = f.properties || {};
-        const ulb = String(p.ulbname || '').toLowerCase();
-        const st = String(p.statename || '').toLowerCase();
+        const ulb = normUlb(p.ulbname);
+        const st = normSt(p.statename);
         const m = matchers.find(x => x.ulbs.has(ulb) && st.startsWith(x.st));
         if (!m) continue;
         const g = f.geometry;

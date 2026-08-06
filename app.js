@@ -1508,24 +1508,12 @@
     // Satellite-derived per-ward PM2.5 (true coverage) is the planned upgrade.
     let wardMap = null, wardLayer = null, wardCurrentLayer = 'pm25';
     const wardGeoCache = {}, wardLiveCache = {};
-    const WARD_FILES = {
-        delhi: '/data/wards/delhi.json', mumbai: '/data/wards/mumbai.json', bangalore: '/data/wards/bangalore.json',
-        hyderabad: '/data/wards/hyderabad.json', ahmedabad: '/data/wards/ahmedabad.json', chennai: '/data/wards/chennai.json',
-        kolkata: '/data/wards/kolkata.json', pune: '/data/wards/pune.json', jaipur: '/data/wards/jaipur.json',
-        chandigarh: '/data/wards/chandigarh.json', kanpur: '/data/wards/kanpur.json', varanasi: '/data/wards/varanasi.json',
-        bhopal: '/data/wards/bhopal.json', faridabad: '/data/wards/faridabad.json',
-        lucknow: '/data/wards/lucknow.json',
-        // Extracted from SBM ULB ward boundaries via indianopenmaps.com
-        // (scripts/fetch-openmaps.mjs) — air-quality layer only.
-        agra: '/data/wards/agra.json', amritsar: '/data/wards/amritsar.json', coimbatore: '/data/wards/coimbatore.json',
-        dehradun: '/data/wards/dehradun.json', ghaziabad: '/data/wards/ghaziabad.json', gwalior: '/data/wards/gwalior.json',
-        indore: '/data/wards/indore.json', jalandhar: '/data/wards/jalandhar.json', jodhpur: '/data/wards/jodhpur.json',
-        kota: '/data/wards/kota.json', ludhiana: '/data/wards/ludhiana.json', meerut: '/data/wards/meerut.json',
-        moradabad: '/data/wards/moradabad.json', muzaffarpur: '/data/wards/muzaffarpur.json', nagpur: '/data/wards/nagpur.json',
-        nashik: '/data/wards/nashik.json', patna: '/data/wards/patna.json', prayagraj: '/data/wards/prayagraj.json',
-        raipur: '/data/wards/raipur.json', rajkot: '/data/wards/rajkot.json', ranchi: '/data/wards/ranchi.json',
-        surat: '/data/wards/surat.json', vadodara: '/data/wards/vadodara.json', visakhapatnam: '/data/wards/visakhapatnam.json'
-    };
+    // Every ward file is /data/wards/<cityKey>.json, so derive it rather
+    // than keep a hand-maintained map — that list had to be edited in
+    // lockstep with the #ward-map-city options and the build pipeline,
+    // and a city missing from it failed silently (the map just kept
+    // showing whichever city was loaded before).
+    const wardFile = (key) => `/data/wards/${key}.json`;
 
     function wardPM25Color(v) {
         if (v == null || isNaN(v)) return '#cfcfcf';
@@ -1839,7 +1827,7 @@
         let geo = wardGeoCache[cityKey];
         if (!geo) {
             if (statsEl) statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading wards…</div>';
-            try { geo = await (await fetch(WARD_FILES[cityKey])).json(); wardGeoCache[cityKey] = geo; }
+            try { geo = await (await fetch(wardFile(cityKey))).json(); wardGeoCache[cityKey] = geo; }
             catch (e) { if (statusEl) statusEl.textContent = 'Could not load ward boundaries.'; return; }
         }
 

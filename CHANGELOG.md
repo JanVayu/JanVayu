@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.137] - 2026-08-06
+
+### New — Ward Atlas 39 → 67 cities (batch 1 of 2)
+
+The atlas was never limited by air data — it was limited by a hand-written allowlist. `WARD_CITIES` in `fetch-openmaps.mjs` names 39 cities; the Swachh Bharat ward release actually holds **3,675 ULBs and 70,416 ward polygons across 43 states**. This batch adds **28 cities and 2,016 wards**, taking the atlas to **67 cities / 5,702 wards**. All 28 carry an annual satellite PM2.5 figure from day one.
+
+Added: Chhatrapati Sambhajinagar, Navi Mumbai, Thiruvananthapuram, Gorakhpur, Ajmer, Aligarh, Bareilly, Bikaner, Jabalpur, Jammu, Kochi, Firozabad, Udaipur, Bhubaneswar, Hubballi, Alwar, Mysuru, Vijayawada, Bhiwadi, Erode, Mangaluru, Nizamabad, Patiala, Salem, Thoothukudi, Cuttack, Belagavi, Guntur.
+
+**Matching is geographic, not just textual.** A candidate ULB only qualifies if its ward centroids sit within 35 km of the city's known coordinates. Name-only matching had proposed Chhattisgarh's "Durg" as West Bengal's Durgapur — 453 km away, and the kind of error that would silently put another city's polygons on your map. Several cities also needed aliases because SBM keeps pre-rename spellings (Mysore, Mangalore, Hubli-Dharwad, Aurangabad).
+
+### Fixed — a state-name typo in the source was silently dropping most of a city's wards
+
+SBM files the same city under several spellings of its own state. Vijayawada has 63 wards under "Andhra Pradhesh" and 1 under "Andhra Pradesh"; Nizamabad splits across "Telanagana" and "Telangana"; Tirupati across three casings. The pipeline matched the raw string, so **Vijayawada imported 1 ward instead of 64** and Guntur 41 instead of 57. State names are now normalised (with a small alias map) and ULB names trimmed. This would have quietly mangled every future addition too.
+
+### Fixed — a city could be added and still not load
+
+Three separate places had to be edited in lockstep for a city to work: the build allowlist, a `WARD_FILES` path map in `app.js`, and the `#ward-map-city` option list in `index.html`. A city missing from the middle one failed **silently** — the map just kept showing whichever city was loaded before, which is how the first Thiruvananthapuram test appeared to "work" while rendering Delhi. `WARD_FILES` is deleted (every value was `/data/wards/<key>.json`, so it's derived now) and the option list is generated from the ward files, so counts can't drift.
+
 ## [v26.6.136] - 2026-08-06
 
 ### New — the Ward Atlas finally has annual air to sit beside its annual structure
