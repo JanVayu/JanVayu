@@ -1846,6 +1846,13 @@
 
         wardState = { cityKey, geo, stations };
 
+        // Boundary credit for the city actually on screen. Each ward file
+        // records where its outlines came from, and they don't all share a
+        // source or a licence — Guwahati's are OpenCity/Oorvani under ODbL,
+        // which requires the attribution to be visible, not just in the JSON.
+        const srcEl = document.getElementById('ward-map-source');
+        if (srcEl) srcEl.textContent = geo.source ? `Ward boundaries: ${geo.source}` : '';
+
         // Air-only cities (ward boundaries fetched, but no satellite-derived
         // heat/green/built layers yet): disable those toggles and stay on air.
         (function () {

@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 7 Aug 2026 | [Ninety Cities, Ward by Ward — and the One We Had to Go Somewhere Else For](posts/2026-08-07-ninety-cities-ward-by-ward.md) | Product |
 | 5 Aug 2026 | [Every Village in India Is Now on the Map — Including the Ones No One Measures](posts/2026-08-05-every-village-on-the-map.md) | Product |
 | 30 Jul 2026 | [The Air Your MP Answers For: Our Maps Now Cover 39 Cities, 543 Constituencies, and the Places the Smoke Starts](posts/2026-07-30-the-air-your-mp-answers-for.md) | Product |
 | 22 Jul 2026 | [Testing the Chatbot to Make It Reliable](posts/2026-07-22-testing-ask-janvayu.md) | Quality |

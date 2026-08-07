@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606137">
+    <link rel="preload" as="style" href="/styles.css?v=202606138">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1828,7 +1828,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606137"></script>
+    <script src="/app.js?v=202606138"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -5123,6 +5123,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <option value="dhanbad">Dhanbad &mdash; 55 wards</option>
                     <option value="gangtok">Gangtok &mdash; 19 wards</option>
                     <option value="gaya">Gaya &mdash; 53 wards</option>
+                    <option value="guwahati">Guwahati &mdash; 60 wards</option>
                     <option value="hisar">Hisar &mdash; 20 wards</option>
                     <option value="jamnagar">Jamnagar &mdash; 16 wards</option>
                     <option value="kalaburagi">Kalaburagi &mdash; 50 wards</option>
@@ -5187,6 +5188,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     </div>
 
     <p id="ward-map-status" style="font-size:0.78rem; color:var(--text-3); margin-top:0.9rem; text-align:center;"></p>
+    <p id="ward-map-source" style="font-size:0.7rem; color:var(--text-3); margin-top:0.35rem; text-align:center;"></p>
 </template>
 
 <!-- ═══ POLLUTION SOURCE CALENDAR ═══ -->
