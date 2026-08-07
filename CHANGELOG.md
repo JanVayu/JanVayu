@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.140] - 2026-08-07
+
+### New — 142 cities, 9,015 wards, and every state capital
+
+The roadmap item added one release earlier ("audit the other releases we already pull from") paid off immediately. The `urban` release we fetch `SBM_Wards` from also holds **`LivingAtlas_Wards`** — 9,100 wards across 157 towns from the ESRI India Living Atlas, reaching **every state**, including the five Swachh Bharat omits.
+
+45 cities added via `scripts/import-livingatlas-wards.mjs`, taking the atlas to **142 cities / 9,015 wards**. Deduplication is geographic, not by name: the town field spells the same place several ways ("Allahabad" for Prayagraj, "Aurangabad" for Chhatrapati Sambhajinagar, "Ahmadabad", "Vishakhapatanam", "Raurkela"), so a string match would have re-imported cities we already hold.
+
+**Every state and UT capital is now mapped.** Seven never had a ward map here: Srinagar (75), Agartala (51), Imphal (28), Shillong (27), Itanagar (20), Aizawl (19), Kohima (19). Plus Madurai (100) and Gurugram (35).
+
+**What that reveals:** **Agartala averages 61.3 µg/m³ a year, 2.5× the other Northeast capitals** (Itanagar 23.5, Aizawl 23.9, Kohima 24.0, Shillong 30.2, Imphal 31.3) — the Northeast is not one air-quality story. **Gurugram enters at 81.9**, 4th dirtiest of the 142, completing NCR beside Delhi (93.4), Ghaziabad (92.7) and Faridabad (83.4). Across all 9,015 wards, **5,792 (64.2%) exceed India's annual limit of 40** and **none meets the WHO guideline of 5**; the cleanest ward in India is Port Blair's Ward 3 at 18.5.
+
+### Fixed — two heat bugs found by re-running every city
+
+The raster pass was re-run for all 142 rather than only the new ones, because the original 39 were still carrying 2023 scenes — the pipeline only ever processed cities flagged `airOnly`, so the earliest cities were never refreshed.
+
+- **Scene ranking ignored coverage.** Delhi straddles Landsat paths 46 and 47, so nothing contains it; the fallback sorted by cloud alone and chose an 82.8%-coverage scene over a 99.3%-coverage one that was equally clear, leaving 54 wards unmeasured. Ranking now prefers coverage, then cloud. Delhi is 290/290 from one scene.
+- **Gaps were left, not filled.** Wards without a value after the best scene are retried against the next-clearest; contributing dates are recorded in `lst_dates`.
+
+**Corrected characterisation:** the remaining 6 wards in Thiruvananthapuram were reported last release as residual cloud. They are not. They sit in a Landsat coverage seam — 8 pre-monsoon and 6 full-year scenes each return ~5,500 masked pixels with zero valid data. Mosaicking two paths would close it.
+
+### New — Ask JanVayu reaches data it already had
+
+- **Annual per-ward PM2.5 was never in the chatbot's context.** Rule 17 instructed the model that each ward carries a satellite annual mean in field `p` and to "USE THAT" — but `buildWardContext` never emitted it. The model was told to use a number it was never shown. There is now an annual-air block per city, and a named ward reports its own annual mean and rank within the city.
+- **Village air was unreachable.** The function shipped only `ward-stats.json`, so rural questions got national averages despite all 584,615 villages having estimates. New `scripts/build-village-stats.mjs` ships **645 districts, 112 KB** with village count, mean/median/range, count over 40, and named dirtiest/cleanest village. District is the unit deliberately: a full village name index is ~79 MB and 15% of Indian village names occur in more than one district. New rule 18 keeps the annual/live timescale separation.
+
+### Docs
+
+- Blog: ["Every Capital, and the Directory We Never Read"](blog/posts/2026-08-07-every-capital-and-the-directory.md). The morning's post is annotated rather than rewritten.
+- Ward-map doc, Roadmap, README, source-selector cards, both decks and `air-query.mjs` rule 27 updated to 142 / 9,015; test floor raised to 142.
+- **Siliguri** documented as genuinely unavailable rather than assumed: absent from Swachh Bharat, 4 wards of 47 in WB AMRUT, absent from Living Atlas. SJDA publishes only mouza (revenue village) PDFs for two rural blocks — wrong unit, wrong format, wrong area — and our village layer already carries those same mouzas as vector.
+
 ## [v26.6.139] - 2026-08-07
 
 ### New — all five layers on all 97 cities

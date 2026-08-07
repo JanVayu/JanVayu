@@ -98,8 +98,21 @@ def find_lst_scenes(bbox, want=4):
         # a city that the actual data clips diagonally (Lucknow sat on such an
         # edge and got LST for 5/112 wards). Test the true footprint polygon,
         # and prefer fully-covering scenes over partial ones.
-        covering = [it for it in feats if shape(it['geometry']).contains(city)]
-        for it in covering + feats:
+        # Rank by how much of the city a scene actually covers, THEN by cloud.
+        # Ranking by cloud alone breaks cities that straddle two Landsat paths:
+        # Delhi sits across paths 46 and 47, so nothing contains it, and the
+        # cloud-sorted fallback picked an 82.8%-coverage scene over a 99.3%
+        # one that was equally clear — leaving 54 wards with no value.
+        scored = []
+        for it in feats:
+            try:
+                cov = shape(it['geometry']).intersection(city).area / city.area
+            except Exception:
+                cov = 0.0
+            scored.append((cov, it['properties'].get('eo:cloud_cover', 100.0), it))
+        full = sorted([x for x in scored if x[0] >= 0.98], key=lambda x: x[1])
+        part = sorted([x for x in scored if x[0] < 0.98], key=lambda x: (-x[0], x[1]))
+        for cov, cloud, it in full + part:
             key = it['id']
             if key in seen:
                 continue
