@@ -25,11 +25,22 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
 **What we checked and could not use for West Bengal:** OpenStreetMap has only 38 `admin_level` 9/10 relations in the whole state and they are villages, not municipal wards; DataMeet's collection covers 31 cities with Kolkata the only Bengal one. Beyond Kolkata, Bengal's municipal wards do not appear to be openly published at all.
 
+- [x] **All five layers on all 97 cities, and West Bengal after all** *(v26.6.139)* — two things closed together. First, `build-ward-satellite.py` was run for the 51 cities that had been shipping air-only: 51/51 complete, none below the 90% gate, so heat / green cover / built-up now cover every city rather than 39 of them. Second, **West Bengal**, which the previous entry recorded as having no open ward data.
+
+  That claim was wrong, and worth recording honestly. We checked OpenStreetMap (38 `admin_level` 9/10 relations statewide, all villages rather than wards) and DataMeet (31 cities, Kolkata the only Bengal one), found nothing, and published "Bengal's municipal wards are not openly available" in the roadmap, the data doc and a blog post. What we never did was list the other assets in the GitHub release this pipeline already downloads from every run. **`WB_AMRUT_Wards.geojsonl.7z` sits in the same `urban` release as `SBM_Wards.geojsonl.7z`** — 1,633 ward polygons across 52 West Bengal ULBs, from the state's AMRUT GIS master-plan programme.
+
+  Seven cities added (`scripts/import-wb-amrut-wards.mjs`): **Asansol 106, Howrah 50, Durgapur 43, Bidhannagar 42, Kharagpur 35, Bardhaman 35, Haldia 29** — 340 wards, taking the atlas to **97 cities / 6,936 wards**. Two upstream quirks needed handling: the `Name` column is unreliable (Asansol's 106 wards are all filed under the name "Ward No. 65"), so cities are keyed by `ULB_Code` and each is verified against expected coordinates before writing; and a ward can span several rows (Haldia: 58 rows, 29 wards), so rows are dissolved by ward number.
+
+  **What Bengal shows:** Durgapur (63.0 µg/m³ annual mean) and Asansol (60.9) are markedly dirtier than Kolkata (49.1). The industrial belt, not the metro, is the state's worst air — a finding that was invisible while Kolkata was the only Bengal city on the map.
+
+  Siliguri is still out: its AMRUT upload has 4 wards of 47, a partial record rather than a city.
+
 **Follow-ups still open after this phase:**
 
 - **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
-- **Satellite heat / green / built-up for the other 51 cities** — both air layers cover all 90, but the raster pipeline has only run for 39; the rest ship air-only and the UI disables those toggles meanwhile.
-- **West Bengal beyond Kolkata** — still the largest hole. SBM omits WB, Assam, Manipur, Mizoram and Tripura; Assam is now solved via BharatLas, the rest are not. State municipal portals are the next place to look. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM but with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
+- **Time-aware heat** — the heat layer is one clear-sky scene, and residual cloud leaves some wards with no value at all (Bhopal 34%, Thiruvananthapuram 6%, Kolkata 4%). A seasonal median would fix both the noise and the holes.
+- **Manipur, Mizoram, Tripura, Srinagar, Madurai, Siliguri** — the states SBM omits that no alternative source has covered yet, plus Siliguri's partial 4-of-47 AMRUT upload. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
+- **Audit the other releases we already pull from.** The Bengal miss was not a missing dataset, it was an unexamined directory listing. `indian_admin_boundaries`, `indian_facilities`, `indian_industries` and `indian_land_features` all have assets we have never enumerated.
 - **Repo weight** — the working tree is ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
 
 ## Phase 5.22: Maps rebuilt on India's open geodata (✅ Completed — v26.6.125)

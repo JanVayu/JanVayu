@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606138">
+    <link rel="preload" as="style" href="/styles.css?v=202606139">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1828,7 +1828,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606138"></script>
+    <script src="/app.js?v=202606139"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -5140,6 +5140,13 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <option value="thrissur">Thrissur &mdash; 55 wards</option>
                     <option value="tirupati">Tirupati &mdash; 39 wards</option>
                     <option value="ujjain">Ujjain &mdash; 54 wards</option>
+                    <option value="asansol">Asansol &mdash; 106 wards</option>
+                    <option value="howrah">Howrah &mdash; 50 wards</option>
+                    <option value="durgapur">Durgapur &mdash; 43 wards</option>
+                    <option value="bidhannagar">Bidhannagar &mdash; 42 wards</option>
+                    <option value="kharagpur">Kharagpur &mdash; 35 wards</option>
+                    <option value="bardhaman">Bardhaman &mdash; 35 wards</option>
+                    <option value="haldia">Haldia &mdash; 29 wards</option>
                 </select>
                 <input list="ward-search-list" id="ward-search" placeholder="Find a ward…" onchange="window.wardSearch &amp;&amp; window.wardSearch()" style="flex:1 1 140px; min-width:120px; max-width:240px; font-size:0.82rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:8px;">
                 <datalist id="ward-search-list"></datalist>
