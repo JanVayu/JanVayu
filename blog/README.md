@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 7 Aug 2026 | [Agartala Breathes Like the Coal Belt, and Nobody Was Looking](posts/2026-08-07-agartala-northeast-outlier.md) | Analysis |
 | 7 Aug 2026 | [Every Capital, and the Directory We Never Read](posts/2026-08-07-every-capital-and-the-directory.md) | Product |
 | 7 Aug 2026 | [Ninety Cities, Ward by Ward — and the One We Had to Go Somewhere Else For](posts/2026-08-07-ninety-cities-ward-by-ward.md) | Product |
 | 5 Aug 2026 | [Every Village in India Is Now on the Map — Including the Ones No One Measures](posts/2026-08-05-every-village-on-the-map.md) | Product |
