@@ -23,6 +23,55 @@ const WARD_DATA = JSON.parse(
   readFileSync(new URL('./data/ward-stats.json', import.meta.url), 'utf8')
 );
 
+// District-level village air, so rural questions get a real number instead of
+// a national average. The DISTRICT is the unit on purpose: a full village name
+// index is ~79 MB, and 15% of India's village names occur in more than one
+// district, so "Rampur" is not an address. 645 districts, ~112 KB.
+const VILLAGE_DATA = JSON.parse(
+  readFileSync(new URL('./data/village-stats.json', import.meta.url), 'utf8')
+).districts;
+const VILLAGE_BY_NAME = (() => {
+  const m = new Map();
+  for (const d of Object.values(VILLAGE_DATA)) {
+    const k = String(d.d || '').trim().toLowerCase();
+    if (k && !m.has(k)) m.set(k, d);
+  }
+  return m;
+})();
+
+// A rural / village question, as opposed to a city or ward one.
+function isVillageQuery(question) {
+  const q = question.toLowerCase();
+  return /\b(village|villages|rural|gaon|gram|panchayat|taluk|tehsil|block|countryside|my district|district)\b/.test(q);
+}
+
+// Match a district by name anywhere in the question. Longest name first, so
+// "East Godavari" wins over a stray "Godavari".
+function findDistrict(question) {
+  const q = ' ' + question.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ') + ' ';
+  let best = null;
+  for (const [name, d] of VILLAGE_BY_NAME) {
+    if (name.length < 4) continue;
+    if (q.includes(' ' + name + ' ') && (!best || name.length > best[0].length)) best = [name, d];
+  }
+  return best ? best[1] : null;
+}
+
+function buildVillageContext(question) {
+  const d = findDistrict(question);
+  if (!d) {
+    return `\n\nVILLAGE AIR NOTE: JanVayu holds an ANNUAL satellite PM2.5 estimate for every one of India's 584,615 villages, summarised by district (645 districts). The question doesn't name a district we can match, so ask which district they're in — then a real per-district figure can be given, instead of the national average. Map: janvayu.in/#map, Villages layer.`;
+  }
+  const pct = ((d.over40 / d.v) * 100).toFixed(0);
+  let b = `\n\nVILLAGE-LEVEL DATA for ${d.d} district (${d.s}) — annual mean PM2.5 from satellite (SatPM2.5 V6GL03, ~1 km, 2024), across ${d.v} villages:`;
+  b += `\n   - District village average: ${d.mean} µg/m³; median village ${d.med}; range ${d.min}–${d.max}.`;
+  b += `\n   - ${d.over40}/${d.v} villages (${pct}%) exceed India's annual limit of 40 µg/m³. India's limit is 40; the WHO guideline is 5.`;
+  if (d.worst) b += `\n   - Dirtiest village over the year: ${d.worst.n} (${d.worst.p} µg/m³). Cleanest: ${d.best.n} (${d.best.p}).`;
+  b += `\n   - CRITICAL: this is an ANNUAL AVERAGE, not today's air, and must never be merged with a live AQI reading. It is a modelled ~1 km satellite estimate calibrated against ground monitors, not a measurement taken in that village, and at ~1 km it smooths hyperlocal sources — a brick kiln or highway next door will not show up in it.`;
+  b += `\n   - Why this matters: India has roughly 565 continuous CPCB stations for 584,615 villages, so the live network structurally cannot answer "how is my village's air". This satellite figure is the only estimate that reaches everywhere.`;
+  return b;
+}
+
 // Netlify Function: Natural Language Query Interface for JanVayu
 // Accepts a question + city, fetches live AQI, sends to Groq for analysis.
 //
@@ -934,7 +983,7 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
 // common-case query and letting more requests fit inside the Groq rate limit.
 function buildSystemPrompt(seasonal, lang, opts = {}) {
   const { nationalQuery = false, multiSource = false, topical = false, methodologyNeeded = false,
-    ward = false, stationCount = false, rti = false, stationRange = false } = opts;
+    ward = false, stationCount = false, rti = false, stationRange = false, village = false } = opts;
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
     ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
@@ -960,6 +1009,8 @@ function buildSystemPrompt(seasonal, lang, opts = {}) {
   const i13 = stationCount ? `\n13. For station-count questions: ALWAYS use the CPCB REFERENCE data if present in the DATA CONTEXT. Report the TOTAL count first, then bifurcate into CAAQMS (continuous, real-time) and manual (gravimetric, 24-hr sampling) stations. Also mention the CPCB national figure (~565 CAAQMS). If asking about low-cost sensors, use the community sensor data if available.` : "";
   const i15 = rti ? `\n15. For RTI requests, if a "RTI APPLICATION TEMPLATE" block is in the DATA CONTEXT, present it AS-IS to the user with only minimal framing ("Here's a properly-formatted RTI for your case — replace bracketed fields and post / email to the listed PIO"). Do NOT rewrite the questions, statutory anchors, or department address.` : "";
   const i16 = stationRange ? `\n16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.` : "";
+  const i18 = village ? `\n18. VILLAGE / RURAL QUESTIONS. If a VILLAGE-LEVEL DATA block is present, lead with that district's own numbers — the district village average, the share of villages over India's limit of 40, and the named dirtiest and cleanest village. Do not fall back to the national average when a district figure is in front of you. THE TIMESCALE RULE IS ABSOLUTE HERE: this is an ANNUAL satellite mean, never today's air. Never merge it with a live AQI reading, and if you give both, label each. State plainly, when it is relevant, that this is a modelled ~1 km estimate calibrated against ground monitors rather than a measurement taken in that village, and that at ~1 km it smooths hyperlocal sources — a brick kiln, a crusher or a highway next door will not appear in it. The reason this layer exists is worth saying: roughly 565 continuous CPCB stations serve 584,615 villages, so the live network structurally cannot answer "how is my village's air" and never will. If no district could be matched, ask which district they are in rather than guessing — India has many villages sharing a name. Point them to the Villages layer at janvayu.in/#map. Keep the tone plain and warm; for most rural users this is the first air-quality number that has ever applied to where they actually live.` : "";
+
   const i17 = ward ? `\n17. For ward / neighbourhood-level questions, JanVayu is an AIR-QUALITY assistant — so LEAD WITH AIR. If a WARD-LEVEL DATA block is present, open with the per-ward PM2.5 answer (worst-air / cleanest-air ward, citywide spread, or named ward's air), state the band (Good/Moderate/Poor/etc.), and note it's a LIVE interpolated snapshot. CRITICAL TIMESCALE RULE: the air is a live snapshot (this hour, interpolated from sparse monitors + current weather); the built-up / green / heat figures are ANNUAL / structural — DIFFERENT timescales. So you must NOT claim a ward's annual structure CAUSES its live reading. NEVER say "it's 88% built-up, so today's air is bad." Instead keep them separate: "Right now it's ~X µg/m³ (live estimate). Structurally it's a dense, low-green ward (88% built, 10% green) — the kind of place that *tends* to have worse air and more heat OVER THE YEAR, though today's exact reading is driven by current conditions, not its layout." If today's dirtiest-air ward is actually leafy / low-built, say plainly that the live reading there likely reflects weather or a nearby source, not urban form. The proper partner for annual structure is annual per-ward PM2.5, and JanVayu NOW HAS IT — each ward carries a satellite annual mean (field "p" in the ward data, the map's "Air, yearly" layer). USE THAT, not the live snapshot, whenever you discuss how a ward's built-up/green/heat profile relates to its air: those are all annual, so they can honestly be compared. Keep the live reading for "right now" questions only, and never mix the two in one comparison. Never present greenest / most-built-up / hottest as standalone trivia — tie back to people's air and health on the correct timescale. Cite "interpolated from CPCB/WAQI (live)" for air and "JanVayu Ward Atlas / ESA WorldCover / Landsat (annual)" for drivers. If they say "my ward" without naming it, you can't know which ward they mean — give the city's worst- and cleanest-air wards and the spread, then invite them to name their ward or use the map's "My ward" locate button. Point to janvayu.in/#ward-map. Keep warmth — this is someone's own neighbourhood.` : "";
 
   return `You are JanVayu, India's citizen-led air quality assistant. You are NOT a generic chatbot — you have access to LIVE pollution data and deep knowledge of India's air quality context.
@@ -990,7 +1041,7 @@ INSTRUCTIONS:
 ${instruction9}
 10. TONE & LENGTH — Be WARM, patient and explanatory, like a knowledgeable, kind professor who genuinely wants the person to understand — never cold, bureaucratic, preachy or alarmist. Explain the WHY in plain language, and briefly define a technical term the first time you use it (e.g. "PM2.5 — the tiny particles that reach your bloodstream"). Make the person feel capable of acting. Keep it focused though: aim for ~150 words, lead with the direct answer in 1-2 sentences, then a few clear supporting points that teach, not lecture — no walls of text. Write PLAIN TEXT: do NOT use markdown — no **bold**, no # / ## / ### headings, no tables, no | pipes. For a short list, use a plain dash (-) at the start of a line.
 11. SOURCES — cite a source ONLY when the number actually comes from (a) the KEY REFERENCE DATA above, (b) the DATA CONTEXT / computed lines provided in this request, or (c) the TOPICAL/METHODOLOGY blocks when present. Cite the REAL source named there — e.g. "IQAir 2025", "Lancet Countdown 2025", "AQLI 2025", "CPCB CAAQMS", "CREA", "State of Global Air 2024", "Sensor.Community". For general advice, practical suggestions, or anything NOT backed by the data you were given, give the guidance plainly WITHOUT a citation — you may say "as a general guide" or "broadly". Do NOT attach a source tag to a number just to look authoritative. Keep any citation in the SAME LANGUAGE as your answer (never write an English "(Source: …)" inside a Hindi/Tamil/Marathi/Bengali reply).${i12}${i13}
-14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.${i15}${i16}${i17}
+14. If the DATA CONTEXT contains lines tagged "(computed)" — those are deterministic calculations JanVayu just ran (cigarette equivalence, mortality risk, life-expectancy loss, migration delta, transport exposure, purifier CADR, school-closure forecast, source apportionment, RTI template). Use those numbers verbatim. Do NOT recompute, re-round, or paraphrase the RTI template fields. Always carry the cited source.${i15}${i16}${i17}${i18}
 18. NON-PARTISAN — never tell the user who to vote for, and never declare one political party or government "better", "stronger", or "worse". If asked to compare parties, neutrally note documented actions AND shortfalls on each side and say the record is mixed. Critique policies and systems, not parties or individuals. This is a firm rule — JanVayu is strictly non-partisan.
 19. DON'T FABRICATE — the 1.72M deaths figure is NATIONAL. Do NOT invent city-level death tolls, city-specific source-apportionment percentages, or future-date predictions (e.g. a festival's AQI next year). If a certified city-level count or a specific breakdown isn't in your data, say plainly it isn't published and give the national figure or the method instead — the same way you'd decline any question you can't answer precisely. Never attribute a made-up number to a real source.
 20. NEVER INVENT SOURCES — this is the most important rule. Do NOT fabricate government orders (e.g. "NGT order April 2026"), schemes, programmes (e.g. a "Green-Leaf programme"), studies, audit findings, standards, certifications, or specific dates and percentages that are NOT in the reference data or DATA CONTEXT you were given. If you feel the urge to write "(Source: …)" for a claim you cannot back with the data above, that is your signal to either drop the number or present it as general knowledge with NO citation. A citizen may quote you to their RWA or an official — an invented order or study is a serious, trust-destroying failure. It is always better to say "I don't have a sourced figure for that" than to manufacture one.
@@ -1065,7 +1116,7 @@ async function buildWardContext(question, fallbackKey) {
   const air = stations.length ? wards.map(w => ({ ...w, pm: idwPm(w.x, w.y, stations) })).filter(w => w.pm != null) : [];
   const maxBy = (arr, k) => arr.reduce((a, b) => (b[k] > a[k] ? b : a));
   const minBy = (arr, k) => arr.reduce((a, b) => (b[k] < a[k] ? b : a));
-  const ctx = w => [w.b != null ? `${w.b}% built-up` : null, w.g != null ? `${w.g}% green` : null, w.t != null ? `${w.t}°C surface temp` : null].filter(Boolean).join(", ");
+  const ctx = w => [w.p != null ? `${w.p} µg/m³ annual PM2.5` : null, w.b != null ? `${w.b}% built-up` : null, w.g != null ? `${w.g}% green` : null, w.t != null ? `${w.t}°C surface temp` : null].filter(Boolean).join(", ");
 
   let block = `\n\nWARD-LEVEL DATA for ${city.name} (JanVayu Ward Atlas, ${wards.length} municipal wards):`;
   if (air.length) {
@@ -1078,6 +1129,22 @@ async function buildWardContext(question, fallbackKey) {
   } else {
     block += `\n• AIR QUALITY: no live monitors reporting for ${city.name} right now, so per-ward PM2.5 can't be estimated this moment. The live map at janvayu.in/#ward-map updates through the day.`;
   }
+  // ANNUAL AIR — the number rule 17 tells the model to reach for whenever it
+  // relates a ward's structure to its air. This block used to be missing
+  // entirely: every ward carries `p` in ward-stats.json, but the context
+  // builder never emitted it, so the model was instructed to use a figure it
+  // was never shown.
+  const A = wards.filter(w => w.p != null);
+  if (A.length) {
+    const hi = maxBy(A, "p"), lo = minBy(A, "p");
+    const pv = A.map(w => w.p).sort((a, b) => a - b);
+    const med = pv[Math.floor(pv.length / 2)];
+    const over = A.filter(w => w.p > 40).length;
+    block += `\n• ANNUAL AIR (satellite, SatPM2.5 V6GL03 ~1 km, 2024 mean — the map's "Air, yearly" layer). THIS is the air figure to use when relating a ward to its built-up / green / heat profile, because all four are annual:`;
+    block += `\n   - Dirtiest over the year: ${hi.n} ${hi.p} µg/m³. Cleanest: ${lo.n} ${lo.p} µg/m³. Median ward ${med}.`;
+    block += `\n   - ${over}/${A.length} wards exceed India's annual limit of 40 µg/m³; ${A.filter(w => w.p > 5).length}/${A.length} exceed the WHO guideline of 5.`;
+    block += `\n   - Caveats to state when quoting these: an ANNUAL AVERAGE, not today's air, and a ~1 km product that smooths hyperlocal sources (a single kiln or busy junction will not appear in it).`;
+  }
   // Drivers — structural context for the air, never the headline.
   const T = wards.filter(w => w.t != null), G = wards.filter(w => w.g != null), B = wards.filter(w => w.b != null);
   block += `\n• STRUCTURAL DRIVERS (annual satellite values — they shape TYPICAL air, but today's live reading can be driven by weather, a nearby source or monitor placement; only invoke a driver if the worst/cleanest ward's OWN numbers above actually support it):`;
@@ -1089,7 +1156,11 @@ async function buildWardContext(question, fallbackKey) {
   const named = wards.find(w => w.n && w.n.length > 3 && q.includes(w.n.toLowerCase()));
   if (named) {
     const np = stations.length ? idwPm(named.x, named.y, stations) : null;
-    block += `\n• NAMED WARD "${named.n}": ${np != null ? `air ~${np} µg/m³ PM2.5 (${pm25Band(np)}) right now; ` : ""}${ctx(named) || ""}.`;
+    block += `\n• NAMED WARD "${named.n}": ${np != null ? `air ~${np} µg/m³ PM2.5 (${pm25Band(np)}) right now (live estimate); ` : ""}${ctx(named) || ""}.`;
+    if (named.p != null) {
+      const rank = A.filter(w => w.p > named.p).length + 1;
+      block += ` Over the whole year it averages ${named.p} µg/m³ — ${rank === 1 ? "the dirtiest ward in the city" : rank <= A.length / 2 ? `${rank}th dirtiest of ${A.length} wards` : `${A.length - rank + 1}th cleanest of ${A.length} wards`}, and ${named.p > 40 ? "above" : "within"} India's annual limit of 40.`;
+    }
   }
   block += `\nNOTE: per-ward air is an interpolated estimate of the spread (not a calibrated per-street reading); the interactive map is at janvayu.in/#ward-map. BE HONEST: if the dirtiest-air ward today is actually leafy / low built-up (e.g. a rural fringe, or simply a clean day), say so — do NOT force the "built-up = dirty" story when the numbers don't fit. The built-up/green/heat link is a TYPICAL/annual tendency, not a guarantee for any single hour.`;
   return block;
@@ -1308,6 +1379,11 @@ Top 5 worst: ${top5}
     if (wardBlock) dataContext += wardBlock;
   }
 
+  // Village / rural questions — the live monitor network cannot reach these
+  // places at all, so answer from the annual satellite layer, by district.
+  const villageQ = isVillageQuery(question) && !isWardQuery(question);
+  if (villageQ) dataContext += buildVillageContext(question);
+
   // v26.6.15 Phase C — RTI drafting when the user asks for one.
   const rtiKey = detectRTIIntent(question);
   if (rtiKey) {
@@ -1344,7 +1420,7 @@ Top 5 worst: ${top5}
   // the common-case prompt so more questions fit in Groq's per-minute budget.
   const ward = isWardQuery(question);
   const stationRange = !!(stationList && stationList.length >= 2);
-  const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange };
+  const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ };
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
