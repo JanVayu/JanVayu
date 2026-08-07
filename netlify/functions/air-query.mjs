@@ -1393,6 +1393,24 @@ Top 5 worst: ${top5}
     if (wardBlock) dataContext += wardBlock;
   }
 
+  // The city's own ANNUAL figure, always — not just for ward questions.
+  // Without this the model has no annual number for the city itself and
+  // invents one: asked about Agartala (no live monitor) it replied that the
+  // annual mean "isn't listed", guessed a 30-50 range, and concluded Agartala
+  // was cleaner than Guwahati. It is 61.3 against Guwahati's 48.8. Two lines
+  // of real data are cheaper than that.
+  (function () {
+    const c = WARD_DATA[cityKey];
+    const ws = c && c.wards ? c.wards.filter(w => typeof w.p === 'number') : [];
+    if (ws.length < 3) return;
+    const vals = ws.map(w => w.p).sort((a, b) => a - b);
+    const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    const over = vals.filter(v => v > 40).length;
+    const worst = ws.reduce((a, b) => (b.p > a.p ? b : a));
+    const best = ws.reduce((a, b) => (b.p < a.p ? b : a));
+    dataContext += `\n\nANNUAL AIR FOR ${c.name.toUpperCase()} (SatPM2.5 V6GL03 satellite, 2024 annual mean, ~1 km — USE THESE NUMBERS, do not estimate or infer them): city mean ${mean.toFixed(1)} µg/m³ across ${vals.length} wards, range ${vals[0].toFixed(1)}–${vals[vals.length - 1].toFixed(1)}. ${over} of ${vals.length} wards exceed India's annual limit of 40. Dirtiest ward ${worst.n} (${worst.p}), cleanest ${best.n} (${best.p}). India's annual limit is 40 and the WHO annual guideline is 5. This is an ANNUAL average, never a current reading — do not give it a 24-hour AQI band or same-day advice. If you compare this city with another, only compare it against another ANNUAL figure, and only one you have actually been given; if you have not been given the other city's annual number, say so rather than estimating it.`;
+  })();
+
   // Village / rural questions — the live monitor network cannot reach these
   // places at all, so answer from the annual satellite layer, by district.
   const villageQ = isVillageQuery(question) && !isWardQuery(question);
