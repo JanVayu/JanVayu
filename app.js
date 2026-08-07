@@ -194,6 +194,10 @@
         durgapur: { name: 'Durgapur', lat: 23.5204, lon: 87.3119, region: 'east', ext: true },
         howrah: { name: 'Howrah', lat: 22.5958, lon: 88.2636, region: 'east', ext: true },
         siliguri: { name: 'Siliguri', lat: 26.7271, lon: 88.3953, region: 'east', ext: true },
+        bidhannagar: { name: 'Bidhannagar', lat: 22.5808, lon: 88.4200, region: 'east', ext: true },
+        bardhaman: { name: 'Bardhaman', lat: 23.2324, lon: 87.8615, region: 'east', ext: true },
+        kharagpur: { name: 'Kharagpur', lat: 22.3460, lon: 87.2320, region: 'east', ext: true },
+        haldia: { name: 'Haldia', lat: 22.0667, lon: 88.0698, region: 'east', ext: true },
         rourkela: { name: 'Rourkela', lat: 22.2604, lon: 84.8536, region: 'east', ext: true },
         bhubaneswar: { name: 'Bhubaneswar', lat: 20.2961, lon: 85.8245, region: 'east', ext: true },
         cuttack: { name: 'Cuttack', lat: 20.4625, lon: 85.8830, region: 'east', ext: true },
@@ -1851,7 +1855,13 @@
         // source or a licence — Guwahati's are OpenCity/Oorvani under ODbL,
         // which requires the attribution to be visible, not just in the JSON.
         const srcEl = document.getElementById('ward-map-source');
-        if (srcEl) srcEl.textContent = geo.source ? `Ward boundaries: ${geo.source}` : '';
+        // The satellite pass appends its own credits to the same string
+        // ("…; green/built: ESA WorldCover…"). Those belong to the raster
+        // layers, not the outlines, so only the boundary half goes here —
+        // the satellite sources have their own card in the Source Selector.
+        if (srcEl) srcEl.textContent = geo.source
+            ? `Ward boundaries: ${String(geo.source).split(/;\s*green\/built:/)[0]}`
+            : '';
 
         // Air-only cities (ward boundaries fetched, but no satellite-derived
         // heat/green/built layers yet): disable those toggles and stay on air.

@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.139] - 2026-08-07
+
+### New — all five layers on all 97 cities
+
+`build-ward-satellite.py` was run for the 51 cities that had been shipping air-only. **51/51 complete**, none below the 90% completeness gate, every one dropped its `airOnly` flag. Heat, green cover and built-up now cover **every** Ward Atlas city rather than 39 of them, and all 6,936 annual PM2.5 values survived the rewrite.
+
+Output was sanity-checked rather than trusted: land-surface temperature spans 17.2–59.3 °C nationally with no city outside plausible pre-monsoon bounds, green+built never exceeds 100% in any city mean, every city has an `lst_date`, and per-city values track terrain (Gangtok 19–26 °C / 65% green; Kochi 33–42 °C / 68% built).
+
+### New — West Bengal, which we had wrongly said was unavailable
+
+Seven WB cities added via `scripts/import-wb-amrut-wards.mjs`: **Asansol 106, Howrah 50, Durgapur 43, Bidhannagar 42, Kharagpur 35, Bardhaman 35, Haldia 29** — 340 wards, taking the atlas to **97 cities / 6,936 wards**.
+
+**This corrects a claim we published.** v26.6.138's changelog, the roadmap, the ward-map data doc and a blog post all stated that Bengal's municipal wards were not openly available. We had checked OpenStreetMap (38 `admin_level` 9/10 relations statewide, all villages rather than wards) and DataMeet (31 cities, Kolkata the only Bengal one) and concluded the data did not exist. What we never did was list the other assets in the GitHub release this pipeline already downloads on every run: **`WB_AMRUT_Wards.geojsonl.7z` sits in the same `urban` release as `SBM_Wards.geojsonl.7z`** — 1,633 ward polygons across 52 WB urban local bodies, from the state's AMRUT GIS master-plan programme. All corrected in place, with the wrong paragraph left visible in the blog post and an update note explaining it.
+
+Two upstream quirks the importer handles: the `Name` column is unreliable (Asansol's 106 wards are all filed under the name "Ward No. 65"), so cities are keyed by `ULB_Code` and each is verified against expected coordinates before anything is written; and a ward can span several rows (Haldia: 58 rows for 29 wards), so rows are dissolved by ward number into a MultiPolygon.
+
+**What Bengal shows:** Durgapur (63.0 µg/m³ annual mean) and Asansol (60.9) are markedly dirtier than Kolkata (49.1) — the industrial belt, not the metro, is the state's worst air. That was invisible while Kolkata was the only Bengal city on the map.
+
+Siliguri is left out: its AMRUT upload contains 4 wards of 47, a partial record rather than a city.
+
+### Fixed
+
+- The ward map's boundary-credit line claimed the satellite sources as boundary provenance. `build-ward-satellite.py` appends its own credits to the same `source` string, so the line now shows only the boundary half; the satellite sources have their own Data Source Selector card.
+- Four WB cities (Bidhannagar, Bardhaman, Kharagpur, Haldia) added to `CITIES` in `app.js` so their live-air layer has coordinates to interpolate from. Asansol, Durgapur and Howrah were already there.
+
+### Docs
+
+- Ward-map data doc, Roadmap, README, source-selector cards, both walkthrough decks and `air-query.mjs` rule 27 updated to 97 cities / 6,936 wards, with the West Bengal correction recorded in each rather than silently overwritten. Test floor raised to 97. Walkthrough PDF/PPTX exports regenerated.
+- Across all 6,936 wards, **4,597 (66.3%) exceed India's annual limit of 40**, **no ward meets the WHO guideline of 5**, and **25 cities have no ward over 40 at all**. Delhi's cleanest ward (Khera, 63.5) is dirtier than the dirtiest ward in 67 of the other 96 cities.
+- New roadmap follow-up: audit the other releases we already pull from. The Bengal miss was not a missing dataset, it was an unexamined directory listing.
+
 ## [v26.6.138] - 2026-08-07
 
 ### New — Guwahati (90th city), and per-city boundary attribution
