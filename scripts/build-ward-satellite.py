@@ -82,7 +82,11 @@ def per_ward_worldcover(features):
     return out
 
 
-def find_lst_scene(bbox):
+def find_lst_scenes(bbox, want=4):
+    """Return up to `want` candidate scenes, best (least cloudy) first."""
+    from shapely.geometry import shape, box
+    city = box(*bbox)
+    seen, ordered = set(), []
     for window, cloud in zip(LST_WINDOWS, LST_CLOUD):
         r = requests.post(STAC, json={
             'collections': ['landsat-c2-l2'], 'bbox': list(bbox), 'datetime': window,
@@ -92,33 +96,46 @@ def find_lst_scene(bbox):
         feats = r.json().get('features', [])
         # A Landsat footprint is a rotated quadrilateral — its bbox can "cover"
         # a city that the actual data clips diagonally (Lucknow sat on such an
-        # edge and got LST for 5/112 wards). Test the true footprint polygon.
-        from shapely.geometry import shape, box
-        city = box(*bbox)
-        covering = [it for it in feats if shape(it['geometry']).contains(city)]
-        if covering:
-            return covering[0]        # already sorted by cloud cover
-        if feats:
-            return feats[0]
-    return None
+        # edge and got LST for 5/112 wards). Test the true footprint polygon,
+        # and prefer fully-covering scenes over partial ones.
+        # Rank by how much of the city a scene actually covers, THEN by cloud.
+        # Ranking by cloud alone breaks cities that straddle two Landsat paths:
+        # Delhi sits across paths 46 and 47, so nothing contains it, and the
+        # cloud-sorted fallback picked an 82.8%-coverage scene over a 99.3%
+        # one that was equally clear — leaving 54 wards with no value.
+        scored = []
+        for it in feats:
+            try:
+                cov = shape(it['geometry']).intersection(city).area / city.area
+            except Exception:
+                cov = 0.0
+            scored.append((cov, it['properties'].get('eo:cloud_cover', 100.0), it))
+        full = sorted([x for x in scored if x[0] >= 0.98], key=lambda x: x[1])
+        part = sorted([x for x in scored if x[0] < 0.98], key=lambda x: (-x[0], x[1]))
+        for cov, cloud, it in full + part:
+            key = it['id']
+            if key in seen:
+                continue
+            seen.add(key)
+            ordered.append(it)
+        if len(ordered) >= want:
+            break
+    return ordered[:want]
 
 
-def per_ward_lst(features, bbox):
-    item = find_lst_scene(bbox)
-    if not item:
-        return [None] * len(features), None
+def _scene_means(item, features, idxs, bbox):
+    """Mean LST per requested ward index in one scene; None where no data."""
     href = item['assets']['lwir11']['href']
     signed = requests.get(SIGN, params={'href': href}, timeout=90).json()['href']
-    date = item['properties']['datetime'][:10]
-    out = []
+    res = {}
     with rasterio.open('/vsicurl/' + signed) as src:
         wb = transform_bounds('EPSG:4326', src.crs, bbox[0] - 0.02, bbox[1] - 0.02,
                               bbox[2] + 0.02, bbox[3] + 0.02)
         w = from_bounds(*wb, src.transform)
         arr = src.read(1, window=w, boundless=True, fill_value=0)
         t = win_transform(w, src.transform)
-        for f in features:
-            g = transform_geom('EPSG:4326', src.crs, f['geometry'])
+        for i in idxs:
+            g = transform_geom('EPSG:4326', src.crs, features[i]['geometry'])
             mask = geometry_mask([g], out_shape=arr.shape, transform=t, invert=True)
             vals = arr[mask]
             vals = vals[vals != 0]
@@ -127,11 +144,46 @@ def per_ward_lst(features, bbox):
             # degrees cold (Jodhpur had "-1.7 °C in May"). Indian pre-monsoon
             # daytime LST plausibly spans ~15-70 °C; drop pixels outside it.
             temps = temps[(temps > 15) & (temps < 70)]
-            if temps.size < 5:
-                out.append(None)
-                continue
-            out.append(round(float(temps.mean()), 1))
-    return out, date
+            res[i] = round(float(temps.mean()), 1) if temps.size >= 5 else None
+    return res
+
+
+def per_ward_lst(features, bbox, max_scenes=4):
+    """Per-ward mean LST, gap-filled across scenes.
+
+    The clearest single scene still leaves holes: cloud masked over part of a
+    city means those wards get no value at all (Bhopal lost 34% of its wards
+    this way, Kolkata 4%). So after the best scene, any ward still without a
+    value is retried against the next-clearest scenes until none are left or
+    the candidates run out. Wards keep the value from the best scene that
+    actually saw them, and the dates that contributed are recorded, because a
+    ward filled from a later pass is not from the same afternoon as its
+    neighbours and the UI should be able to say so.
+    """
+    scenes = find_lst_scenes(bbox, max_scenes)
+    if not scenes:
+        return [None] * len(features), None, []
+    out = [None] * len(features)
+    dates = []
+    for item in scenes:
+        pending = [i for i, v in enumerate(out) if v is None]
+        if not pending:
+            break
+        try:
+            got = _scene_means(item, features, pending, bbox)
+        except Exception as e:                      # one bad COG must not kill the city
+            print(f'    scene {item["id"]} failed: {e}', flush=True)
+            continue
+        filled = 0
+        for i, v in got.items():
+            if v is not None:
+                out[i] = v
+                filled += 1
+        if filled:
+            dates.append(item['properties']['datetime'][:10])
+            print(f'    {item["properties"]["datetime"][:10]}: +{filled} wards '
+                  f'({sum(1 for v in out if v is None)} still missing)', flush=True)
+    return out, (dates[0] if dates else None), dates
 
 
 def main():
@@ -149,7 +201,7 @@ def main():
         bbox = (min(xs) - pad, min(ys) - pad, max(xs) + pad, max(ys) + pad)
         print(f'{path.stem}: {len(feats)} wards', flush=True)
         gb = per_ward_worldcover(feats)
-        lst, date = per_ward_lst(feats, bbox)
+        lst, date, dates = per_ward_lst(feats, bbox)
         n_ok = 0
         for f, (green, built), t in zip(feats, gb, lst):
             p = f['properties']
@@ -161,6 +213,10 @@ def main():
                 n_ok += 1
         if date:
             fc['lst_date'] = date
+        if len(dates) > 1:
+            fc['lst_dates'] = dates
+        else:
+            fc.pop('lst_dates', None)
         if n_ok >= len(feats) * 0.9:
             fc.pop('airOnly', None)
             fc['source'] = fc.get('source', '') + '; green/built: ESA WorldCover 2021; heat: Landsat 8/9 C2-L2 (Planetary Computer)'

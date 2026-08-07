@@ -2,6 +2,8 @@
 
 **Published:** 7 August 2026 | **Updated:** 7 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 
+> **This post has been overtaken twice in one day.** The atlas is now **142 cities and 9,015 wards**, and every state capital is on it. The follow-up — [Every Capital, and the Directory We Never Read](2026-08-07-every-capital-and-the-directory.md) — explains how, and why the same mistake caught us three times.
+
 ---
 
 If you live in an Indian city, the number you see on the news is a city average. It is one figure standing in for a few million people, and it hides the thing you actually want to know: whether *your* neighbourhood breathes worse than the one across the flyover.

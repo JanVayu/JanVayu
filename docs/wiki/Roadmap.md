@@ -35,12 +35,32 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
   Siliguri is still out: its AMRUT upload has 4 wards of 47, a partial record rather than a city.
 
+- [x] **142 cities, every capital, and the release we never enumerated** *(v26.6.140)* — the roadmap item written one release earlier ("audit the other releases we already pull from") paid off immediately. The `urban` release we download `SBM_Wards` from also holds **`LivingAtlas_Wards`**: 9,100 wards across 157 towns from the ESRI India Living Atlas, reaching **every state**, including the five Swachh Bharat omits.
+
+  45 cities added (`scripts/import-livingatlas-wards.mjs`), taking the atlas to **142 cities / 9,015 wards**. Deduplication is geographic rather than by name, because the town field spells the same place several ways — "Allahabad" for Prayagraj, "Aurangabad" for Chhatrapati Sambhajinagar, "Ahmadabad", "Vishakhapatanam", "Raurkela" — so a string match would have re-imported cities we already hold under a different name.
+
+  **Every state and UT capital is now on the map.** Seven had never had one: Srinagar (75 wards), Agartala (51), Imphal (28), Shillong (27), Itanagar (20), Aizawl (19), Kohima (19). Plus Madurai (100) and Gurugram (35), both long-standing gaps.
+
+  **What the new cities show:** **Agartala averages 61.3 µg/m³ a year — 2.5× the other Northeast capitals** (Itanagar 23.5, Aizawl 23.9, Kohima 24.0, Shillong 30.2, Imphal 31.3). The Northeast is not one air-quality story, and nobody could see that before. **Gurugram enters at 81.9**, the 4th dirtiest city in the atlas, completing NCR alongside Delhi (93.4), Ghaziabad (92.7) and Faridabad (83.4).
+
+- [x] **All five layers on all 142 cities, and two heat bugs** *(v26.6.140)* — the raster pass was re-run for every city, not just the new ones, because the original 39 were still carrying values from 2023 scenes. Two real defects surfaced:
+
+  **Scene ranking ignored coverage.** Delhi straddles Landsat paths 46 and 47, so no scene contains it; the fallback sorted by cloud alone and picked an 82.8%-coverage scene over a 99.3%-coverage one that was equally clear, leaving 54 wards unmeasured. Ranking now prefers coverage, then cloud. Delhi is 290/290 from a single scene.
+
+  **Gaps were left rather than filled.** Wards without a value after the best scene are now retried against the next-clearest, with contributing dates recorded in `lst_dates`.
+
+  Remaining: **6 of Thiruvananthapuram's 100 wards** have no heat value. This was first reported as residual cloud; it is not. They sit in a Landsat coverage seam — 8 pre-monsoon and 6 full-year scenes each return ~5,500 masked pixels with zero valid data. Mosaicking two paths would fix it.
+
+- [x] **Ask JanVayu reaches the ward and village data it already had** *(v26.6.140)* — two gaps between the data and the chatbot. Rule 17 instructed the model to use each ward's annual satellite mean ("field `p` … USE THAT"), but `buildWardContext` never emitted it, so the model was told to use a number it was never shown. And village air was unreachable entirely — the function shipped only `ward-stats.json`, so rural questions got national averages. Now there is an annual-air block per city with a named ward's own annual mean and city rank, and a **district-level village dataset** (645 districts, 112 KB) built by `scripts/build-village-stats.mjs`. The district is the unit deliberately: a full village name index is ~79 MB, and 15% of India's village names occur in more than one district, so "Rampur" is not an address.
+
 **Follow-ups still open after this phase:**
 
 - **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
 - **Time-aware heat** — the heat layer is one clear-sky scene, and residual cloud leaves some wards with no value at all (Bhopal 34%, Thiruvananthapuram 6%, Kolkata 4%). A seasonal median would fix both the noise and the holes.
 - **Manipur, Mizoram, Tripura, Srinagar, Madurai, Siliguri** — the states SBM omits that no alternative source has covered yet, plus Siliguri's partial 4-of-47 AMRUT upload. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
-- **Audit the other releases we already pull from.** The Bengal miss was not a missing dataset, it was an unexamined directory listing. `indian_admin_boundaries`, `indian_facilities`, `indian_industries` and `indian_land_features` all have assets we have never enumerated.
+- **Finish auditing the releases we pull from.** `indian_admin_boundaries/urban` is now enumerated and yielded 52 cities across two files. `indian_facilities`, `indian_industries` and `indian_land_features` still have assets we have never listed.
+- **Mosaic two Landsat paths** for cities on a scene seam — the only way to close Thiruvananthapuram's 6 wards.
+- **Siliguri** — absent from all three ward sources. SJDA publishes mouza PDFs for two rural blocks, which our village layer already covers as vector. An RTI to the WB Municipal Affairs Department is the realistic route.
 - **Repo weight** — the working tree is ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
 
 ## Phase 5.22: Maps rebuilt on India's open geodata (✅ Completed — v26.6.125)
