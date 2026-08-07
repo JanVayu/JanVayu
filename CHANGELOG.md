@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.137] - 2026-08-06
+
+### New — Ward Atlas 39 → 89 cities (both batches)
+
+The atlas was never limited by air data — it was limited by a hand-written allowlist. `WARD_CITIES` in `fetch-openmaps.mjs` names 39 cities; the Swachh Bharat ward release actually holds **3,675 ULBs and 70,416 ward polygons across 43 states**. Two batches add **50 cities and 2,850 wards**, taking the atlas to **89 cities / 6,536 wards**. Every one carries an annual satellite PM2.5 figure from day one.
+
+**Batch 1** — Chhatrapati Sambhajinagar, Navi Mumbai, Thiruvananthapuram, Gorakhpur, Ajmer, Aligarh, Bareilly, Bikaner, Jabalpur, Jammu, Kochi, Firozabad, Udaipur, Bhubaneswar, Hubballi, Alwar, Mysuru, Vijayawada, Bhiwadi, Erode, Mangaluru, Nizamabad, Patiala, Salem, Thoothukudi, Cuttack, Belagavi, Guntur.
+
+**Batch 2** — Thrissur, Kollam, Ujjain, Nellore, Gaya, Kurnool, Bhagalpur, Bathinda, Kalaburagi, Tirupati, Dhanbad, Puducherry, Thane, Panaji, Panipat, Solapur, Rohtak, Sonipat, Amravati, Hisar, Gangtok, Jamnagar.
+
+**Six were deliberately left out** — Noida, Jamshedpur, Vellore, Kozhikode, Akola and Bhavnagar. SBM holds only 1–13 ward polygons for each (checked against the raw release; not a matching failure), so the atlas would draw those cities as a couple of blobs. A partial ward map misinforms more than no ward map. The pipeline now warns when any city imports fewer than 15 wards, so this can't slip through unnoticed next time.
+
+**Matching is geographic, not just textual.** A candidate ULB only qualifies if its ward centroids sit within 35 km of the city's known coordinates. Name-only matching had proposed Chhattisgarh's "Durg" as West Bengal's Durgapur — 453 km away, and the kind of error that would silently put another city's polygons on your map. Several cities also needed aliases because SBM keeps pre-rename spellings (Mysore, Mangalore, Hubli-Dharwad, Aurangabad).
+
+### Fixed — a state-name typo in the source was silently dropping most of a city's wards
+
+SBM files the same city under several spellings of its own state. Vijayawada has 63 wards under "Andhra Pradhesh" and 1 under "Andhra Pradesh"; Nizamabad splits across "Telanagana" and "Telangana"; Tirupati across three casings. The pipeline matched the raw string, so **Vijayawada imported 1 ward instead of 64** and Guntur 41 instead of 57. State names are now normalised (with a small alias map) and ULB names trimmed. This would have quietly mangled every future addition too.
+
+### Fixed — rebuilding boundaries silently wiped the satellite layers
+
+Caught while checking the final numbers: only 15 cities reported satellite heat/green/built, when v26.6.129 had added them for all 39. Re-running `fetch-openmaps.mjs wards` to add a city regenerates every ward file from the source — and the source has no heat, green, built or annual PM2.5, because those come from *later* pipeline stages. So adding one city stripped 5,499 satellite values from the 24 cities the pipeline owns, and flipped them back to `airOnly` (disabling those toggles in the UI).
+
+The build now carries derived columns forward from the previous build, matching on ward number and name, and restores `lst_date` / `pma_year` with them. Re-running is idempotent again. The wiped values were restored from git rather than recomputed, since the geometry is byte-identical.
+
+This is the second time this session that a "successful" build produced quietly wrong data — worth remembering that the ward pipeline is one stage of four, and only the first one is reproducible from upstream alone.
+
+### Fixed — a city could be added and still not load
+
+Three separate places had to be edited in lockstep for a city to work: the build allowlist, a `WARD_FILES` path map in `app.js`, and the `#ward-map-city` option list in `index.html`. A city missing from the middle one failed **silently** — the map just kept showing whichever city was loaded before, which is how the first Thiruvananthapuram test appeared to "work" while rendering Delhi. `WARD_FILES` is deleted (every value was `/data/wards/<key>.json`, so it's derived now) and the option list is generated from the ward files, so counts can't drift.
+
+## [v26.6.136] - 2026-08-06
+
+### New — the Ward Atlas finally has annual air to sit beside its annual structure
+
+The ward map could show live air *and* heat / green cover / built-up, but those describe completely different timescales — a snapshot versus a year — so no honest comparison between them was possible. Ask JanVayu was explicitly instructed to admit the gap: *"the proper partner for annual structure would be annual per-ward PM2.5, which JanVayu doesn't have."* It has it now.
+
+- **New "Air, yearly" layer** — an annual mean PM2.5 for all **3,686 wards** across the 39 cities, from the same SatPM2.5 V6GL03 grid used for villages. Built by `scripts/build-village-pm25.py --target wards`, which now takes a `--target villages|wards|both` so there is one PM2.5 pipeline rather than two.
+- **Shaded within each city, not nationally.** Every one of Delhi's 290 wards falls in the top national band (63.5–98.7 µg/m³), so absolute banding painted the city one flat colour and hid a real 35 µg/m³ gradient — exactly what a ward map exists to show. It now uses a within-city ramp like the heat layer, single-hue on purpose so it can't imply "green = safe" in a city where every ward exceeds India's limit, with the absolute µg/m³ endpoints in the legend and the absolute context in the analysis text.
+- **The scatter is finally like-for-like.** The ward correlation chart plots the active metric against built-up share; on the live layer that pairs an hour-old snapshot with an annual structural measure. On this layer both sides are annual.
+- **Ask JanVayu updated** — the "we don't have this" instruction is replaced with a directive to *use* the annual ward figure for any structure-and-air discussion and keep the live reading for "right now" questions. `ward-stats.json` carries the annual value on all 3,686 wards.
+- **Fixed a pre-existing unit bug** — the ward legend header uppercased "µg/m³", and CSS `text-transform` maps µ (U+00B5) to Greek capital Mu, so the live PM2.5 legend had been rendering "ΜG/M³". Same defect class as the hero fix in v26.6.130.
+- **Fixed a crash on the new layer** — the correlation chart's label map had no entry for it, throwing on every render.
+
+**What it shows:** all 290 Delhi wards are above India's annual limit of 40, ranging 63.5 (Khera) to 98.7 (Vinod Nagar). Across the 39 cities, Delhi is worst (ward mean 93.4), then Ghaziabad (92.7) and Faridabad (83.4); Chennai (31.3), Coimbatore (32.1) and Bengaluru (35.5) are cleanest.
+
 ## [v26.6.135] - 2026-08-06
 
 ### Changed — everything that described the site caught up with the village layer

@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606135">
+    <link rel="preload" as="style" href="/styles.css?v=202606137">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1828,7 +1828,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606135"></script>
+    <script src="/app.js?v=202606137"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -5050,45 +5050,95 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
                 <label class="form-label" style="margin:0; white-space:nowrap; flex-shrink:0;">City</label>
                 <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px; flex-shrink:0;">
-                    <option value="delhi">Delhi — 290 wards</option>
-                    <option value="mumbai">Mumbai — 227 wards</option>
-                    <option value="bangalore">Bengaluru — 243 wards</option>
-                    <option value="hyderabad">Hyderabad — 145 wards</option>
-                    <option value="ahmedabad">Ahmedabad — 48 wards</option>
-                    <option value="chennai">Chennai — 201 wards</option>
-                    <option value="kolkata">Kolkata — 141 wards</option>
-                    <option value="pune">Pune — 58 wards</option>
-                    <option value="jaipur">Jaipur — 77 wards</option>
-                    <option value="kanpur">Kanpur — 58 wards</option>
-                    <option value="varanasi">Varanasi — 99 wards</option>
-                    <option value="bhopal">Bhopal — 86 wards</option>
-                    <option value="faridabad">Faridabad — 40 wards</option>
-                    <option value="chandigarh">Chandigarh — 28 wards</option>
-                    <option value="lucknow">Lucknow — 112 wards</option>
-                    <option value="agra">Agra — 99 wards</option>
-                    <option value="amritsar">Amritsar — 85 wards</option>
-                    <option value="coimbatore">Coimbatore — 100 wards</option>
-                    <option value="dehradun">Dehradun — 100 wards</option>
-                    <option value="ghaziabad">Ghaziabad — 94 wards</option>
-                    <option value="gwalior">Gwalior — 66 wards</option>
-                    <option value="indore">Indore — 85 wards</option>
-                    <option value="jalandhar">Jalandhar — 80 wards</option>
-                    <option value="jodhpur">Jodhpur — 160 wards</option>
-                    <option value="kota">Kota — 150 wards</option>
-                    <option value="ludhiana">Ludhiana — 94 wards</option>
-                    <option value="meerut">Meerut — 90 wards</option>
-                    <option value="moradabad">Moradabad — 70 wards</option>
-                    <option value="muzaffarpur">Muzaffarpur — 48 wards</option>
-                    <option value="nagpur">Nagpur — 38 wards</option>
-                    <option value="nashik">Nashik — 23 wards</option>
-                    <option value="patna">Patna — 71 wards</option>
-                    <option value="prayagraj">Prayagraj — 100 wards</option>
-                    <option value="raipur">Raipur — 70 wards</option>
-                    <option value="rajkot">Rajkot — 18 wards</option>
-                    <option value="ranchi">Ranchi — 53 wards</option>
-                    <option value="surat">Surat — 30 wards</option>
-                    <option value="vadodara">Vadodara — 18 wards</option>
-                    <option value="visakhapatnam">Visakhapatnam — 91 wards</option>
+                    <option value="delhi">Delhi &mdash; 290 wards</option>
+                    <option value="mumbai">Mumbai &mdash; 227 wards</option>
+                    <option value="bangalore">Bengaluru &mdash; 243 wards</option>
+                    <option value="hyderabad">Hyderabad &mdash; 145 wards</option>
+                    <option value="ahmedabad">Ahmedabad &mdash; 48 wards</option>
+                    <option value="chennai">Chennai &mdash; 201 wards</option>
+                    <option value="kolkata">Kolkata &mdash; 141 wards</option>
+                    <option value="pune">Pune &mdash; 58 wards</option>
+                    <option value="jaipur">Jaipur &mdash; 77 wards</option>
+                    <option value="kanpur">Kanpur &mdash; 58 wards</option>
+                    <option value="varanasi">Varanasi &mdash; 99 wards</option>
+                    <option value="bhopal">Bhopal &mdash; 86 wards</option>
+                    <option value="faridabad">Faridabad &mdash; 40 wards</option>
+                    <option value="chandigarh">Chandigarh &mdash; 28 wards</option>
+                    <option value="lucknow">Lucknow &mdash; 112 wards</option>
+                    <option value="agra">Agra &mdash; 99 wards</option>
+                    <option value="amritsar">Amritsar &mdash; 85 wards</option>
+                    <option value="coimbatore">Coimbatore &mdash; 100 wards</option>
+                    <option value="dehradun">Dehradun &mdash; 100 wards</option>
+                    <option value="ghaziabad">Ghaziabad &mdash; 94 wards</option>
+                    <option value="gwalior">Gwalior &mdash; 66 wards</option>
+                    <option value="indore">Indore &mdash; 85 wards</option>
+                    <option value="jalandhar">Jalandhar &mdash; 80 wards</option>
+                    <option value="jodhpur">Jodhpur &mdash; 160 wards</option>
+                    <option value="kota">Kota &mdash; 150 wards</option>
+                    <option value="ludhiana">Ludhiana &mdash; 94 wards</option>
+                    <option value="meerut">Meerut &mdash; 90 wards</option>
+                    <option value="moradabad">Moradabad &mdash; 70 wards</option>
+                    <option value="muzaffarpur">Muzaffarpur &mdash; 48 wards</option>
+                    <option value="nagpur">Nagpur &mdash; 38 wards</option>
+                    <option value="nashik">Nashik &mdash; 23 wards</option>
+                    <option value="patna">Patna &mdash; 71 wards</option>
+                    <option value="prayagraj">Prayagraj &mdash; 100 wards</option>
+                    <option value="raipur">Raipur &mdash; 70 wards</option>
+                    <option value="rajkot">Rajkot &mdash; 18 wards</option>
+                    <option value="ranchi">Ranchi &mdash; 53 wards</option>
+                    <option value="surat">Surat &mdash; 30 wards</option>
+                    <option value="vadodara">Vadodara &mdash; 18 wards</option>
+                    <option value="visakhapatnam">Visakhapatnam &mdash; 91 wards</option>
+                    <option value="ajmer">Ajmer &mdash; 80 wards</option>
+                    <option value="aligarh">Aligarh &mdash; 80 wards</option>
+                    <option value="alwar">Alwar &mdash; 65 wards</option>
+                    <option value="bareilly">Bareilly &mdash; 80 wards</option>
+                    <option value="belagavi">Belagavi &mdash; 57 wards</option>
+                    <option value="bhiwadi">Bhiwadi &mdash; 60 wards</option>
+                    <option value="bhubaneswar">Bhubaneswar &mdash; 67 wards</option>
+                    <option value="bikaner">Bikaner &mdash; 80 wards</option>
+                    <option value="aurangabad">Chhatrapati Sambhajinagar &mdash; 115 wards</option>
+                    <option value="cuttack">Cuttack &mdash; 59 wards</option>
+                    <option value="erode">Erode &mdash; 60 wards</option>
+                    <option value="firozabad">Firozabad &mdash; 70 wards</option>
+                    <option value="gorakhpur">Gorakhpur &mdash; 81 wards</option>
+                    <option value="guntur">Guntur &mdash; 57 wards</option>
+                    <option value="hubballi">Hubballi &mdash; 67 wards</option>
+                    <option value="jabalpur">Jabalpur &mdash; 79 wards</option>
+                    <option value="jammu">Jammu &mdash; 75 wards</option>
+                    <option value="kochi">Kochi &mdash; 74 wards</option>
+                    <option value="mangaluru">Mangaluru &mdash; 60 wards</option>
+                    <option value="mysuru">Mysuru &mdash; 65 wards</option>
+                    <option value="navimumbai">Navi Mumbai &mdash; 111 wards</option>
+                    <option value="nizamabad">Nizamabad &mdash; 60 wards</option>
+                    <option value="patiala">Patiala &mdash; 60 wards</option>
+                    <option value="salem">Salem &mdash; 60 wards</option>
+                    <option value="thiruvananthapuram">Thiruvananthapuram &mdash; 100 wards</option>
+                    <option value="thoothukudi">Thoothukudi &mdash; 60 wards</option>
+                    <option value="udaipur">Udaipur &mdash; 70 wards</option>
+                    <option value="vijayawada">Vijayawada &mdash; 64 wards</option>
+                    <option value="amravati">Amravati &mdash; 22 wards</option>
+                    <option value="bathinda">Bathinda &mdash; 50 wards</option>
+                    <option value="bhagalpur">Bhagalpur &mdash; 50 wards</option>
+                    <option value="dhanbad">Dhanbad &mdash; 55 wards</option>
+                    <option value="gangtok">Gangtok &mdash; 19 wards</option>
+                    <option value="gaya">Gaya &mdash; 53 wards</option>
+                    <option value="hisar">Hisar &mdash; 20 wards</option>
+                    <option value="jamnagar">Jamnagar &mdash; 16 wards</option>
+                    <option value="kalaburagi">Kalaburagi &mdash; 50 wards</option>
+                    <option value="kollam">Kollam &mdash; 55 wards</option>
+                    <option value="kurnool">Kurnool &mdash; 52 wards</option>
+                    <option value="nellore">Nellore &mdash; 54 wards</option>
+                    <option value="panaji">Panaji (Goa) &mdash; 30 wards</option>
+                    <option value="panipat">Panipat &mdash; 26 wards</option>
+                    <option value="puducherry">Puducherry &mdash; 33 wards</option>
+                    <option value="rohtak">Rohtak &mdash; 22 wards</option>
+                    <option value="solapur">Solapur &mdash; 26 wards</option>
+                    <option value="sonipat">Sonipat &mdash; 20 wards</option>
+                    <option value="thane">Thane &mdash; 33 wards</option>
+                    <option value="thrissur">Thrissur &mdash; 55 wards</option>
+                    <option value="tirupati">Tirupati &mdash; 39 wards</option>
+                    <option value="ujjain">Ujjain &mdash; 54 wards</option>
                 </select>
                 <input list="ward-search-list" id="ward-search" placeholder="Find a ward…" onchange="window.wardSearch &amp;&amp; window.wardSearch()" style="flex:1 1 140px; min-width:120px; max-width:240px; font-size:0.82rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:8px;">
                 <datalist id="ward-search-list"></datalist>
@@ -5098,6 +5148,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
                 <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;">Layer</span>
                 <button type="button" class="ward-layer-btn active" data-layer="pm25" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25')">Air quality</button>
+                <button type="button" class="ward-layer-btn" data-layer="pm25a" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25a')" title="Annual average PM2.5 for each ward, satellite-derived — a whole year, not right now">Air, yearly</button>
                 <button type="button" class="ward-layer-btn" data-layer="lst" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('lst')">Heat</button>
                 <button type="button" class="ward-layer-btn" data-layer="green" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('green')">Green cover</button>
                 <button type="button" class="ward-layer-btn" data-layer="built" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('built')">Built-up</button>

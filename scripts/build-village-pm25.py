@@ -195,12 +195,79 @@ def district_means(pm, transform, entries):
     return out
 
 
+def build_wards(pm, transform, year):
+    """Same zonal pass over the Ward Atlas (39 cities, plain GeoJSON).
+
+    This closes the gap Ask JanVayu was instructed to admit: the ward map could
+    pair LIVE air with ANNUAL structure (heat / green / built) but had no annual
+    air to put beside them, so no honest year-scale comparison was possible.
+    """
+    from shapely.geometry import shape as _shape
+    wards_dir = ROOT / 'data' / 'wards'
+    files = sorted(wards_dir.glob('*.json'))
+    total = filled = 0
+    for path in files:
+        geo = json.loads(path.read_text())
+        feats = geo.get('features') or []
+        entries = []
+        for f in feats:
+            try:
+                g = _shape(f['geometry'])
+                if not g.is_valid:
+                    g = g.buffer(0)
+            except Exception:
+                g = None
+            entries.append((f.get('properties', {}), g))
+        means = district_means(pm, transform, entries)
+        n = 0
+        for f, m in zip(feats, means):
+            if m is not None:
+                f.setdefault('properties', {})['pma'] = m
+                n += 1
+        geo['pma_year'] = year
+        path.write_text(json.dumps(geo, separators=(',', ':')))
+        total += len(feats)
+        filled += n
+    print(f'Wards: annual PM2.5 {year} attached to {filled}/{total} wards '
+          f'across {len(files)} cities.')
+
+    # Mirror into the chatbot's ward-stats so Ask JanVayu can use it too.
+    stats_path = ROOT / 'netlify' / 'functions' / 'data' / 'ward-stats.json'
+    if stats_path.exists():
+        stats = json.loads(stats_path.read_text())
+        by_city = {}
+        for path in files:
+            geo = json.loads(path.read_text())
+            by_city[path.stem] = {
+                (f['properties'].get('name') or ''): f['properties'].get('pma')
+                for f in (geo.get('features') or [])
+            }
+        touched = 0
+        for key, city in stats.items():
+            lookup = by_city.get(key) or {}
+            for w in city.get('wards', []):
+                v = lookup.get(w.get('n'))
+                if v is not None:
+                    w['p'] = v
+                    touched += 1
+            if lookup:
+                city['pma_year'] = year
+        stats_path.write_text(json.dumps(stats, separators=(',', ':')))
+        print(f'ward-stats.json: annual PM2.5 on {touched} wards.')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--year', type=int, default=2024)
+    ap.add_argument('--target', choices=['villages', 'wards', 'both'], default='villages')
     args = ap.parse_args()
 
     pm, transform = load_grid(args.year)
+    if args.target in ('wards', 'both'):
+        build_wards(pm, transform, args.year)
+        if args.target == 'wards':
+            return
+
     index_path = VILLAGES / '_index.json'
     index = json.loads(index_path.read_text())
 

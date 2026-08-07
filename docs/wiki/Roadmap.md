@@ -17,7 +17,16 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
 **What this found:** not one of India's 584,615 villages meets the WHO annual guideline of 5 µg/m³, **63.6% (371,938) exceed India's own annual limit of 40**, and the median village sits at 43.7. The median *district* is 41.4 — above India's own standard.
 
-**Follow-ups opened by this phase:** annual per-ward PM2.5 from the same grid (the ward atlas still pairs live air with annual structure, which the chatbot is instructed not to treat as causal); a monthly or seasonal village layer, since the annual mean hides the November peak; and the repo weight question — the working tree is now ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
+- [x] **Annual per-ward PM2.5** *(v26.6.136)* — the follow-up this phase opened, closed the same day. Every ward carries an annual mean from the same grid, as a new **"Air, yearly"** layer, shaded within each city because a whole city usually sits inside one national band. This gives the heat / green / built-up layers a year-scale partner they never had, makes the ward-vs-built-up scatter like-for-like, and lets Ask JanVayu drop the "we don't have this" caveat.
+
+- [x] **Ward Atlas 39 → 89 cities** *(v26.6.137)* — the second follow-up, also closed the same day. The cap was never air data, which now covers the whole country: it was a hand-written allowlist of 39 cities standing against a source holding **3,675 ULBs and 70,416 ward polygons**. Two batches add **50 cities / 2,850 wards** (now 89 / 6,536), matched by name *and* geography — a candidate ULB only qualifies if its ward centroids sit within 35 km of the city's coordinates, which is what stopped Chhattisgarh's "Durg" being imported as West Bengal's Durgapur. Fixed a source bug that had been silently dropping wards (SBM files one city under several spellings of its own state — Vijayawada imported 1 ward instead of 64), removed the `WARD_FILES` map that let a city be added and still fail silently, and generated the city selector from the data so its counts can't drift.
+
+**Follow-ups still open after this phase:**
+
+- **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
+- **Satellite heat / green / built-up for the 50 new cities** — they ship air-only until the raster pipeline runs for them, and the UI disables those toggles meanwhile.
+- **The states SBM doesn't cover** — West Bengal, Manipur, Mizoram and Tripura are absent from the ward release, so no city in them can be added by the pipeline (Kolkata is in the atlas only because its 141 wards were hand-collected). OpenStreetMap `admin_level` relations, DataMeet and state municipal portals are the next places to look. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM but with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
+- **Repo weight** — the working tree is ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
 
 ## Phase 5.22: Maps rebuilt on India's open geodata (✅ Completed — v26.6.125)
 
