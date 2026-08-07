@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.138] - 2026-08-07
+
+### New — Guwahati (90th city), and per-city boundary attribution
+
+The Swachh Bharat ward release omits five states entirely — **West Bengal, Assam, Manipur, Mizoram and Tripura** — so Guwahati, a city with real winter pollution, had no ward map. Its **60 wards** (2022 GMC delimitation) now come from **OpenCity / Oorvani Foundation via [BharatLas](https://bharatlas.com), ODbL-1.0**: a different upstream under a different licence, so it gets its own importer (`scripts/import-bharatlas-wards.mjs`) rather than another row in the SBM allowlist. The atlas is now **90 cities / 6,596 wards**, all carrying an annual satellite PM2.5 figure.
+
+Guwahati runs **43.7–54.5 µg/m³** and all 60 wards sit above India's annual limit of 40.
+
+### New — every ward file names its own source, and the map shows it
+
+Boundaries now come from four upstreams under four licences (SBM via indianopenmaps: 74 cities; DataMeet CC BY: 13; OpenCity/Oorvani ODbL: 1; Mumbai spatial-data project and Varanasi Smart City: 2). Those obligations differ, so they are no longer flattened into one generic credit — a new line under the ward map prints the source of whichever city is on screen, read from the file's own `source` field.
+
+Doing this surfaced that **14 cities (Delhi, Mumbai, Bengaluru, Chennai, Hyderabad, Kolkata, Jaipur, Varanasi, Bhopal, Pune, Kanpur, Ahmedabad, Faridabad, Chandigarh) had been shipping with no `source` recorded at all**. Backfilled from the repo's own provenance registry in `docs/data-sources/ward-map.md`.
+
+### Fixed
+
+- **A hand-rolled Douglas–Peucker silently returned zero wards.** On a closed ring the first and last point coincide, so the initial chord is degenerate and a point-to-*line* distance collapses to zero for every vertex. The repo's proven implementation measures to the clamped *segment*; it is now extracted into `scripts/lib/geo.mjs` and shared by both ward importers. Verified byte-safe against the existing build: re-running the SBM ward pipeline through the shared helpers produced **0 content differences across 68 files**.
+
+### Docs
+
+- `docs/data-sources/ward-map.md` rewritten — it still described **14** cities and four layers, and carried an honesty note claiming satellite per-ward PM2.5 was "investigated but dropped, no openly-fetchable ~1 km raster exists", which shipping the annual layer had made false. Now documents all 90 cities with per-city provenance, five layers, the four upstreams, and what was checked and rejected for West Bengal.
+- Two new Data Source Selector cards: the non-SBM ward boundary sources (DataMeet, BharatLas, city portals) and the satellite layers (SatPM2.5 V6GL03, ESA WorldCover, Landsat) — the latter had no attribution card at all despite powering annual air for every village and ward. The Indian Open Maps card's missing-states list corrected to include Assam.
+- Blog: ["Ninety Cities, Ward by Ward"](blog/posts/2026-08-07-ninety-cities-ward-by-ward.md). Across all 6,596 wards, **4,257 (64.5%) exceed India's annual limit of 40** — close to the village figure of 63.6% — **no ward meets the WHO guideline of 5**, and **25 cities have no ward over 40 at all**. Delhi's cleanest ward (Khera, 63.5) is dirtier than the dirtiest ward in 62 of the other 89 cities.
+- README, Roadmap, walkthrough decks and `air-query.mjs` rule 27 updated to 90 cities / 6,596 wards; the ward-file test floor raised to 90.
+
 ## [v26.6.137] - 2026-08-06
 
 ### New — Ward Atlas 39 → 89 cities (both batches)
