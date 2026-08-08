@@ -1,0 +1,38 @@
+{
+ "ulb": {
+  "level": "ulb",
+  "features": 3368,
+  "mb": 5.6,
+  "minzoom": 5,
+  "maxzoom": 12
+ },
+ "_year": 2024,
+ "subdistrict": {
+  "level": "subdistrict",
+  "features": 6471,
+  "mb": 23.4,
+  "minzoom": 5,
+  "maxzoom": 11
+ },
+ "ward": {
+  "level": "ward",
+  "features": 70417,
+  "mb": 31.3,
+  "minzoom": 9,
+  "maxzoom": 13
+ },
+ "panchayat": {
+  "level": "panchayat",
+  "features": 319287,
+  "mb": 68.5,
+  "minzoom": 6,
+  "maxzoom": 10
+ },
+ "village": {
+  "level": "village",
+  "features": 584615,
+  "mb": 266.6,
+  "minzoom": 7,
+  "maxzoom": 12
+ }
+}

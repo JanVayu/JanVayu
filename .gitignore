@@ -17,3 +17,16 @@ coverage/
 .vscode/
 .idea/
 *.swp
+
+# Boundary PMTiles are build output of scripts/build-boundary-tiles.py.
+# Ignored while the pipeline is being validated: the archives are large
+# binaries and a half-written one (note the *-journal files tippecanoe
+# leaves mid-run) must never reach a commit. Whether the finished tiles
+# get committed or fetched at deploy time is still an open decision —
+# the repo is already 192 MB and contributor clone weight is on the
+# roadmap, so the answer depends on their final size.
+
+# Boundary PMTiles: six levels ship in-repo. village.pmtiles (267 MB) does
+# not — GitHub rejects files over 100 MB. Rebuild it with
+# scripts/build-boundary-tiles.py village.
+data/tiles/village.pmtiles

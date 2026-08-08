@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606143">
+    <link rel="preload" as="style" href="/styles.css?v=202606144">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1828,7 +1828,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606143"></script>
+    <script src="/app.js?v=202606144"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2927,9 +2927,19 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <button type="button" id="map-toggle-assembly-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'assembly')" aria-pressed="false" title="Assembly constituency boundaries — the air your MLA answers for">MLAs</button>
                         <button type="button" id="map-toggle-districts-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'districts')" aria-pressed="false" title="Live AQI by district">Districts</button>
                         <button type="button" id="map-toggle-sources-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'sources')" aria-pressed="false" title="Landfills, dumpsites, coal mines, red/orange-category industrial parks and SEZs">Sources</button>
-                        <button type="button" id="map-toggle-villages-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'villages')" aria-pressed="false" title="Village administrative boundaries (LGD, 2023) — zoom in to load; rural India is where most people breathe">Villages</button>
+                    <select id="map-boundary-level" class="form-select map-layer-btn" onchange="window.setBoundaryLevel &amp;&amp; window.setBoundaryLevel(this.value)" style="max-width:150px; padding:2px 6px; font-size:0.7rem;" title="Colour any Indian administrative boundary by its annual satellite PM2.5 — from state down to ward, village or gram panchayat">
+                        <option value="">Boundaries: off</option>
+                        <option value="state">State</option>
+                        <option value="district">District (zila)</option>
+                        <option value="subdistrict">Block / mandal / tehsil</option>
+                        <option value="panchayat">Gram panchayat</option>
+                        <option value="village">Village</option>
+                        <option value="ulb">City / ULB</option>
+                        <option value="ward">Ward</option>
+                    </select>
                     </div>
                     <div id="india-map"></div>
+                    <p id="map-boundary-note" style="font-size:0.72rem; color:var(--text-3); margin:0.4rem 0 0; text-align:center;"></p>
                     <div id="map-time-slider-loading">Loading historical data&hellip;</div>
                     <div id="map-time-slider-bar">
                         <button class="ts-live-btn active" id="map-ts-live-btn" onclick="restoreLiveMapMarkers()">&#9679; Live</button>

@@ -2007,19 +2007,39 @@
     // UDISE / Bharatmaps data). Tiles are only fetched for the visible city
     // viewport, and only when the user switches a toggle on.
     let _vectorGridPromise = null;
+    function loadScriptOnce(src) {
+        return new Promise((resolve, reject) => {
+            const el = document.createElement('script');
+            el.src = src;
+            el.async = true;
+            el.onload = resolve;
+            el.onerror = reject;
+            document.head.appendChild(el);
+        });
+    }
     function ensureVectorGrid() {
         if (window.L && L.vectorGrid) return Promise.resolve();
         if (!_vectorGridPromise) {
-            _vectorGridPromise = new Promise((resolve, reject) => {
-                const s = document.createElement('script');
-                s.src = '/assets/vendor/leaflet.vectorgrid.bundled.min.js';
-                s.async = true;
-                s.onload = resolve;
-                s.onerror = (e) => { _vectorGridPromise = null; reject(e); };
-                document.head.appendChild(s);
-            });
+            _vectorGridPromise = loadScriptOnce('/assets/vendor/leaflet.vectorgrid.bundled.min.js')
+                .catch((e) => { _vectorGridPromise = null; throw e; });
         }
         return _vectorGridPromise;
+    }
+
+    // The boundary layers need VectorGrid plus the PMTiles reader and the
+    // adapter that joins them — loaded in that order because the adapter
+    // extends L.VectorGrid.Protobuf and reads the pmtiles global at define
+    // time, so it must come last.
+    let _pmtilesPromise = null;
+    function ensurePMTiles() {
+        if (window.L && L.vectorGrid && typeof L.vectorGrid.pmtiles === 'function') return Promise.resolve();
+        if (!_pmtilesPromise) {
+            _pmtilesPromise = ensureVectorGrid()
+                .then(() => loadScriptOnce('/assets/vendor/pmtiles.min.js'))
+                .then(() => loadScriptOnce('/assets/vendor/leaflet-pmtiles-adapter.js'))
+                .catch((e) => { _pmtilesPromise = null; throw e; });
+        }
+        return _pmtilesPromise;
     }
     // NOTE on dotRadius: these tile sets top out at low native zooms (schools
     // z10, health centres z7) while the city view sits at z11-13, so Leaflet
@@ -3949,6 +3969,116 @@
     function pm25AnnualBand(v) {
         return PM25_ANNUAL_BANDS.find(b => v <= b.max) || PM25_ANNUAL_BANDS[PM25_ANNUAL_BANDS.length - 1];
     }
+
+    // ── One map, every Indian boundary level ────────────────────────────
+    // Wards lived in their own panel behind a city dropdown; villages were a
+    // layer here. A user asking "how polluted is my place" had to know whether
+    // their place was a ward or a village to find the right screen — our data
+    // model leaking into the navigation, and the dropdown capped wards at 142
+    // cities out of 3,675. These are PMTiles archives read by range request,
+    // so the browser pulls only what is on screen: rendering Delhi NCR styles
+    // 671 wards from 109 KB, against 224 KB for Delhi's ward file alone.
+    const BOUNDARY_LEVELS = {
+        state:       { label: 'State',        min: 3,  max: 7,  note: '36 states and union territories' },
+        district:    { label: 'District',     min: 4,  max: 9,  note: '785 districts (zila)' },
+        subdistrict: { label: 'Block/Tehsil', min: 6,  max: 11, note: '6,471 sub-districts — block, mandal or tehsil' },
+        panchayat:   { label: 'Panchayat',    min: 7,  max: 10, note: '319,287 gram panchayats' },
+        village:     { label: 'Village',      min: 8,  max: 12, note: '584,615 villages' },
+        ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,368 urban local bodies' },
+        ward:        { label: 'Ward',         min: 9,  max: 13, note: '70,417 municipal wards' },
+    };
+    let boundaryLayer = null;
+    let boundaryLevel = '';
+
+    function boundaryNote(msg) {
+        const el = document.getElementById('map-boundary-note');
+        if (el) el.textContent = msg || '';
+    }
+
+    window.setBoundaryLevel = async function setBoundaryLevel(level) {
+        try { await ensureLeaflet(); } catch (e) { boundaryNote('Map library could not load.'); return; }
+        if (!map) return;
+        if (level) {
+            try { await ensurePMTiles(); }
+            catch (e) { boundaryNote('Boundary tile reader could not load — try again in a moment.'); return; }
+        }
+        if (boundaryLayer) { try { map.removeLayer(boundaryLayer); } catch (e) {} boundaryLayer = null; }
+        boundaryLevel = level || '';
+        if (!boundaryLevel) {
+            try { toggleVillagesOverlay(false); } catch (e) {}
+            boundaryNote('');
+            return;
+        }
+
+        const cfg = BOUNDARY_LEVELS[boundaryLevel];
+
+        // Villages stay on the older per-district TopoJSON path. Their tile
+        // archive is 267 MB and GitHub refuses any file over 100 MB, so it
+        // cannot ship the way the other six do. Same selector, same place in
+        // the hierarchy for the user — different loader underneath, until the
+        // archives move to a release and this special case goes away.
+        if (boundaryLevel === 'village') {
+            const btn = { classList: { contains: () => false, toggle: () => {} }, setAttribute: () => {} };
+            try { toggleVillagesOverlay(true); } catch (e) {}
+            boundaryNote(map.getZoom() < 9
+                ? '584,615 villages — zoom in to zoom 9+ to see them.'
+                : '584,615 villages. Coloured by annual PM2.5; tap one for its figure.');
+            void btn;
+            return;
+        }
+        try { toggleVillagesOverlay(false); } catch (e) {}
+
+        if (!cfg || typeof L.vectorGrid.pmtiles !== 'function') {
+            boundaryNote('Boundary tiles are unavailable.');
+            return;
+        }
+        const styleFor = (props) => {
+            const v = props && typeof props.p === 'number' ? props.p : null;
+            return {
+                fill: true,
+                fillColor: v == null ? '#cbd5e1' : pm25AnnualBand(v).color,
+                fillOpacity: v == null ? 0.25 : 0.6,
+                color: '#ffffff', weight: 0.4, opacity: 0.55,
+            };
+        };
+        boundaryLayer = L.vectorGrid.pmtiles(`/data/tiles/${boundaryLevel}.pmtiles`, {
+            rendererFactory: L.canvas.tile,
+            interactive: true,
+            minZoom: cfg.min,
+            maxNativeZoom: cfg.max,
+            vectorTileLayerStyles: { [boundaryLevel]: styleFor },
+            getFeatureId: (f) => f.properties && (f.properties.c || f.properties.n),
+        });
+        boundaryLayer.on('click', (e) => {
+            const p = (e.layer && e.layer.properties) || {};
+            const v = typeof p.p === 'number' ? p.p : null;
+            const where = [p.n || 'Unnamed', p.u ? `(${p.u})` : ''].filter(Boolean).join(' ');
+            const body = v == null
+                ? 'No annual estimate for this area.'
+                : `<strong>${v} µg/m³</strong> — annual average PM2.5, 2024.<br>` +
+                  `<span style="color:var(--text-3)">${pm25AnnualBand(v).label}. ` +
+                  `India's annual limit is 40; the WHO guideline is 5. ` +
+                  `A yearly average, not today's air.</span>`;
+            L.popup({ maxWidth: 280 })
+                .setLatLng(e.latlng)
+                .setContent(`<div style="font-size:.85rem"><strong>${escapeHtml(where)}</strong>` +
+                            `<div style="color:var(--text-3);font-size:.75rem;margin-bottom:.35rem">${cfg.label}</div>${body}</div>`)
+                .openOn(map);
+            L.DomEvent.stop(e);
+        });
+        boundaryLayer.addTo(map);
+        const z = map.getZoom();
+        boundaryNote(z < cfg.min
+            ? `${cfg.note} — zoom in to zoom ${cfg.min}+ to see them.`
+            : `${cfg.note}. Coloured by annual PM2.5; tap one for its figure.`);
+        map.off('zoomend.boundary').on('zoomend.boundary', () => {
+            if (!boundaryLevel) return;
+            const c = BOUNDARY_LEVELS[boundaryLevel];
+            boundaryNote(map.getZoom() < c.min
+                ? `${c.note} — zoom in to zoom ${c.min}+ to see them.`
+                : `${c.note}. Coloured by annual PM2.5; tap one for its figure.`);
+        });
+    };
 
     let villageGroup = null;
     // One shared canvas for every district. Leaflet canvases do their own
