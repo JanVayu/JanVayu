@@ -854,7 +854,8 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-pm25-unit {
     font-size: 0.78rem;
     color: var(--text-3);
-    text-transform: uppercase;
+    /* Never uppercase this: text-transform maps µ (U+00B5) to Greek capital Mu,
+       so "µg/m³" renders as "MG/M³" — off by a factor of 1000. */
     letter-spacing: 0.1em;
     margin-top: 4px;
 }

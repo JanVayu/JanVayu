@@ -183,7 +183,7 @@ window.FULL_SLIDES = [
     points: ['Live AQI for your city with a plain-language health band', 'Cigarette-equivalent and disease-risk read-outs', '“Did you know” sourced facts and an anomaly explainer', 'Everything one tap from the city selector at the top'],
     sub: 'The home screen answers “how bad is it right now, and what does that mean for me?”', note: 'Walk the dashboard top to bottom; point out the city selector drives the whole page.' },
   { ch: 'The live picture', head: 'Real-time AQI for 117 cities',
-    points: ['117 Indian cities, colour-coded by severity', 'Type-to-search — jump to any city instantly', 'Covers every NCAP non-attainment town', 'Every value shown with its source and time'],
+    points: ['117 Indian cities, colour-coded by severity', 'Type-to-search — jump to any city instantly', 'Covers the major NCAP non-attainment towns', 'Every value shown with its source and time'],
     sub: 'The whole country, one city tap away.', note: 'Core cities load live; the rest load when picked, to stay inside the data source’s free tier — but that’s a build detail, not something the reader needs on screen.' },
   { ch: 'The live picture', head: 'The live map',
     points: ['Every monitoring station plotted, colour-coded by AQI', '<b>MPs / MLAs / Districts</b> — all 543 Lok Sabha seats and 785 districts coloured by live air; grey where no monitor is near', '<b>Sources</b> — landfills, dumpsites, coal mines, red/orange industrial parks, SEZs', 'Constituency pop-ups link straight to the Accountability tracker and RTI templates'],
@@ -192,14 +192,18 @@ window.FULL_SLIDES = [
     points: ['<b>City Rankings</b> — cleanest to worst, live / 7-day / 30-day', '<b>Compare</b> — any two cities side by side, with a verdict', 'International benchmarks (WHO guideline, world cities)', 'Shareable cards for any ranking or comparison'],
     sub: 'Context turns a number into a story.', note: 'Rankings and comparison are the most shared surfaces; show the share-card generator.' },
   { ch: 'The live picture', head: 'Trends & forecast',
-    points: ['<b>Trends</b> — scrubbable 24-hour and year-over-year charts', '<b>Forecast</b> — a free 5-day PM2.5 outlook (Open-Meteo / CAMS)', 'Daily mean + peak, band-coloured, per city', 'Ask JanVayu can answer “will it be bad tomorrow?”'],
-    sub: 'Look back to understand, look forward to plan.', note: 'The forecast is key-less and free; it feeds the chatbot’s tomorrow-answers too.' },
+    points: ['<b>Trends</b> — scrubbable 24-hour and year-over-year charts', '<b>Forecast</b> — a free 5-day PM2.5 outlook (Open-Meteo / CAMS)', '<b>Farm Fire Tracker</b> — live stubble fires (NASA FIRMS) across the Punjab–Haryana–NCR belt', 'Ask JanVayu can answer “will it be bad tomorrow?”'],
+    sub: 'Look back to understand, look forward to plan.', note: 'The forecast is key-less and free; it feeds the chatbot’s tomorrow-answers too. Be honest about the fire map’s season — it peaks mid-Oct to late-Nov and is quiet the rest of the year.' },
   { ch: 'The live picture', head: 'How polluted is your ward?',
-    points: ['A ward-by-ward map for <b>39 cities</b> — the spread beneath the city average', 'Air quality estimated from the city’s live monitors', 'Heat, green cover and built-up layers <b>in every city</b> (Landsat, ESA WorldCover)', '<b>Who breathes it</b> — schools and health centres plotted over the ward colours'],
-    sub: 'A city is not one number — your ward can be very different from the airport monitor.', note: 'Be honest on screen that the air layer is a live estimate of the citywide SPREAD, not a per-street reading; heat/green/built are satellite-derived for all 39 cities. 24 of the 39 use Swachh Bharat Mission ward boundaries via indianopenmaps.com; a few (Rajkot, Vadodara) published only coarse revenue wards, and we show what they published.' },
+    points: ['A ward-by-ward map for <b>142 cities</b> — the spread beneath the city average', 'Air quality estimated from the city’s live monitors', 'An <b>annual</b> satellite PM2.5 layer in every city, beside the live one', 'Heat, green cover and built-up (Landsat, ESA WorldCover) in every one of them', '<b>Who breathes it</b> — schools and health centres plotted over the ward colours'],
+    sub: 'A city is not one number — your ward can be very different from the airport monitor.', note: 'Be honest on screen that the air layer is a live estimate of the citywide SPREAD, not a per-street reading; all five layers now cover all 142 cities. Five upstreams under different licences, and the credit under the map names the source for whichever city is on screen. Two things worth saying out loud here: every state capital is now mapped, including seven that never had a ward map — and Agartala (61 µg/m³ annual) is 2.5× the other Northeast capitals (Itanagar 24, Aizawl 24, Kohima 24), which nobody could see before. And in Bengal, Durgapur (63) and Asansol (61) beat Kolkata (49): the industrial belt, not the metro.' },
+  { ch: 'The live picture', head: 'Every village in India',
+    points: ['All <b>584,615</b> village boundaries — the level below the ward atlas', 'Each one carries an <b>annual</b> PM2.5 figure from satellite (~1 km)', 'Coloured against the WHO guideline (5) and India’s limit (40)', 'The live estimate stays separate — and says so when no monitor is near'],
+    sub: 'Two-thirds of India doesn’t live in a city. Now it’s on the map.',
+    note: 'The point of this slide is the monitoring gap: ~565 continuous CPCB stations against 584,615 villages, so the live network can never answer "how is my village\'s air". Satellite fills it on a DIFFERENT timescale — annual, not today. Keep the two apart out loud. Two honest caveats: a ~1 km product smooths hyperlocal sources (a kiln next door won\'t show), and it is modelled and calibrated, not measured in the village. The finding worth saying: not one Indian village meets the WHO guideline of 5, and 63.6% are above India\'s own limit of 40.' },
   { ch: 'The live picture', head: 'Alerts, correlations & the pollution calendar',
-    points: ['<b>AQI Alerts</b> — Web Push when your city crosses your threshold', '<b>Pollution Correlations</b> — how AQI moves with weather and events', '<b>Pollution Calendar</b> — the seasonal shape of your city’s air', 'Alerts arrive even when the site is closed'],
-    sub: 'Turn monitoring into something that reaches you.', note: 'Push is real VAPID web push; alerts are gated on a user-picked threshold.' },
+    points: ['<b>AQI Alerts</b> — Web Push when your city crosses your threshold', '<b>Pollution Correlations</b> — how AQI moves with weather and events', '<b>Pollution Calendar</b> — the seasonal shape of your city’s air', '<b>Installable app</b> — add JanVayu to your home screen; alerts arrive even when it’s closed'],
+    sub: 'Turn monitoring into something that reaches you.', note: 'Push is real VAPID web push; alerts are gated on a user-picked threshold. Both the main site and the standalone Ask JanVayu app install as PWAs on Android, iOS and desktop.' },
 
   // ── CH.3 HEALTH & EXPOSURE ──
   { ch: 'Health & exposure', head: 'What the air does to a body',
@@ -217,7 +221,7 @@ window.FULL_SLIDES = [
 
   // ── CH.4 ECONOMY ──
   { ch: 'The economic bill', head: 'The bill nobody sees',
-    points: ['<b>Economic Cost</b> — India’s ~US$339B / 9.5%-of-GDP loss (World Bank / Lancet range)', 'Lost workdays, lower yields, medical spending', '<b>Migration & Displacement</b> — when air drives people to move', '<b>Migration Calculator</b> — life-years gained by relocating'],
+    points: ['<b>Economic Cost</b> — India’s ~US$339.4B / 9.5%-of-GDP loss (Lancet Countdown 2025)', 'Lost workdays, lower yields, medical spending', '<b>Migration & Displacement</b> — when air drives people to move', '<b>Migration Calculator</b> — life-years gained by relocating'],
     sub: 'Dirty air is a macroeconomic story, not only a health one.', note: 'Use the economy diagram; the $339B figure is the corrected, sourced value with its method noted.' },
 
   // ── CH.5 ACCOUNTABILITY ──
@@ -239,13 +243,13 @@ window.FULL_SLIDES = [
     points: ['<b>Take Action / Citizen Plan</b> — concrete steps for your situation', '<b>Voices & Field Testimony</b> — the social record and on-ground accounts', '<b>Workshops</b> — book a facilitated session, plus a 10-question air-literacy self-check', '<b>Learning Games</b> — seven original India-context games'],
     sub: 'A platform you use, not just read.', note: 'Games + the new air-literacy quiz make this classroom-ready; workshops connect to a live facilitator.' },
   { ch: 'Citizen action', head: 'News, in context',
-    points: ['<b>Social Feed</b> — curated air-quality conversation', '<b>Live News</b> — the latest reporting, aggregated', '<b>Story of the week</b> — a rotating deep-dive on the dashboard', 'Everything links back to the underlying data'],
-    sub: 'Keep the issue alive between crises.', note: 'Story-of-the-week rotates weekly with no deploy; it surfaces the blog.' },
+    points: ['<b>Social Feed</b> — curated air-quality conversation', '<b>Live News</b> — the latest reporting, aggregated', '<b>Photo Gallery</b> — “The air, in pictures”, 24 openly-licensed documentary photographs', '<b>Story of the week</b> — a rotating deep-dive on the dashboard'],
+    sub: 'Keep the issue alive between crises.', note: 'Story-of-the-week rotates weekly with no deploy; it surfaces the blog. Every gallery photograph carries its own credit and source link.' },
 
   // ── CH.7 TOOLS & KNOWLEDGE ──
   { ch: 'Tools & knowledge', head: 'Ask JanVayu',
-    points: ['A chatbot that answers about your city and ward', 'Seasonal, forecast and NCAP context built in', 'Answers in five languages', 'Your fastest way into the data'],
-    sub: 'Natural-language access to everything above.', note: 'Be candid: grounding the chatbot in the verified figures with citations is the next trust upgrade.' },
+    points: ['A chatbot that answers about your city and ward', 'Seasonal, forecast and NCAP context built in', 'Answers in ten languages, with sources', 'Your fastest way into the data'],
+    sub: 'Natural-language access to everything above.', note: 'It answers from JanVayu’s own verified figures and cites them; an eval suite gates it against fabricated citations and invented orders or schemes.' },
   { ch: 'Tools & knowledge', head: 'Learn & look things up',
     points: ['<b>Understanding AQI</b> — what the number actually rolls up', '<b>Glossary</b> — the vocabulary, one keystroke away (Ctrl-K)', '<b>Reading List</b> — a live Zotero library of ~29 studies', '<b>FAQ</b> — 27 sourced answers with a live search'],
     sub: 'From curious to informed.', note: 'Reading List is a real Zotero group; the AQI explainer’s CPCB-vs-EPA table was just corrected.' },

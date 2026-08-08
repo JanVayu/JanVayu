@@ -5,6 +5,254 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.145] - 2026-08-08
+
+### New — one map, every Indian administrative boundary
+
+The ward atlas and the village layer were two screens, so "how polluted is my place" required knowing whether your place was a ward or a village before you could find the right one — our data model leaking into the navigation. The live map now has a single **Boundaries** menu covering the whole hierarchy:
+
+**state → district (zila) → block/mandal/tehsil → gram panchayat → village** on the rural side; **city/ULB → ward** on the urban side, each coloured by its annual satellite PM2.5.
+
+Six levels ship as **PMTiles** archives read by HTTP range request, so the browser pulls only what is on screen. Measured: Delhi NCR at ward level draws **671 wards across four cities from 109 KB**; the ward atlas downloads **224 KB** for Delhi's 290 alone.
+
+**Coverage added:** all **70,417 municipal wards** (against 142 cities behind a dropdown), **319,287 gram panchayats**, **6,471 blocks/mandals/tehsils**, **3,368 ULBs**, 785 districts, 36 states.
+
+New: `scripts/build-boundary-tiles.py`, `scripts/fetch-tiles.mjs`, `assets/vendor/pmtiles.min.js`, `assets/vendor/leaflet-pmtiles-adapter.js`.
+
+### Fixed — mobile map layout, and the map description
+
+- The layer controls overlaid the map as an absolute box. On a phone they wrapped to three rows, covered most of the map, collided with Leaflet's zoom buttons and clipped "Stations" to "ations". Below 700px they now sit above the map in normal flow on one horizontally-scrolling row. Verified at 390×844: no overlap, single 39px row, no page-level horizontal scroll.
+- The map's description still described only live station markers. It now explains both what the markers show and what the Boundaries menu does.
+
+### Fixed — three silent-failure bugs in the tile pipeline
+
+- **All 584,615 villages would have been labelled with their state.** The column matcher required keys to end with "name"; the real columns are `vilname11`/`vilnam_soi`. It matched nothing and a fallback quietly picked `stname`. Nothing errored. The fallback is removed — the build now stops and prints the real keys. A dry check across all seven levels then caught two more (`ulbnm` no longer matching, districts silently switching join key from `dtcode11` to `dist_lgd`).
+- **Every feature buffered in memory** before writing, the same shape as an earlier 4.4 GB blowup. Now streamed in chunks.
+- **`--no-tile-compression` was a misreading.** The archive must not be CDN-compressed (breaks byte ranges); the tiles inside are gzipped as standard and the client decompresses. Cost measured at 13% before fixing. Panchayats were also 439 MB from being rendered at village-level zoom; retuned to 68.5 MB.
+
+### Known limits
+
+- **Villages still use the older per-district TopoJSON loader.** Their archive is 267 MB and GitHub rejects files over 100 MB. Same menu, same position — a workaround, not a design, until the archives move to a release.
+- `fetch-tiles.mjs` is committed but **deliberately unwired** from `netlify.toml`: creating releases is not permitted from this session, so wiring it would fail every deploy. Publishing all seven archives later takes the repo from ~324 MB to ~31 MB.
+- Panchayat names are 83% populated; unnamed ones are scattered rather than regional, except Andaman & Nicobar (80% unnamed).
+- The ward panel is retained, not deleted — it still owns heat, green cover, built-up and the receptor overlays. It now points at the map instead of dead-ending anyone whose city isn't in its list.
+
+### Docs
+
+- Blog: ["One Map, Every Boundary in India"](blog/posts/2026-08-08-one-map-every-boundary.md).
+
+## [v26.6.140] - 2026-08-07
+
+### New — 142 cities, 9,015 wards, and every state capital
+
+The roadmap item added one release earlier ("audit the other releases we already pull from") paid off immediately. The `urban` release we fetch `SBM_Wards` from also holds **`LivingAtlas_Wards`** — 9,100 wards across 157 towns from the ESRI India Living Atlas, reaching **every state**, including the five Swachh Bharat omits.
+
+45 cities added via `scripts/import-livingatlas-wards.mjs`, taking the atlas to **142 cities / 9,015 wards**. Deduplication is geographic, not by name: the town field spells the same place several ways ("Allahabad" for Prayagraj, "Aurangabad" for Chhatrapati Sambhajinagar, "Ahmadabad", "Vishakhapatanam", "Raurkela"), so a string match would have re-imported cities we already hold.
+
+**Every state and UT capital is now mapped.** Seven never had a ward map here: Srinagar (75), Agartala (51), Imphal (28), Shillong (27), Itanagar (20), Aizawl (19), Kohima (19). Plus Madurai (100) and Gurugram (35).
+
+**What that reveals:** **Agartala averages 61.3 µg/m³ a year, 2.5× the other Northeast capitals** (Itanagar 23.5, Aizawl 23.9, Kohima 24.0, Shillong 30.2, Imphal 31.3) — the Northeast is not one air-quality story. **Gurugram enters at 81.9**, 4th dirtiest of the 142, completing NCR beside Delhi (93.4), Ghaziabad (92.7) and Faridabad (83.4). Across all 9,015 wards, **5,792 (64.2%) exceed India's annual limit of 40** and **none meets the WHO guideline of 5**; the cleanest ward in India is Port Blair's Ward 3 at 18.5.
+
+### Fixed — two heat bugs found by re-running every city
+
+The raster pass was re-run for all 142 rather than only the new ones, because the original 39 were still carrying 2023 scenes — the pipeline only ever processed cities flagged `airOnly`, so the earliest cities were never refreshed.
+
+- **Scene ranking ignored coverage.** Delhi straddles Landsat paths 46 and 47, so nothing contains it; the fallback sorted by cloud alone and chose an 82.8%-coverage scene over a 99.3%-coverage one that was equally clear, leaving 54 wards unmeasured. Ranking now prefers coverage, then cloud. Delhi is 290/290 from one scene.
+- **Gaps were left, not filled.** Wards without a value after the best scene are retried against the next-clearest; contributing dates are recorded in `lst_dates`.
+
+**Corrected characterisation:** the remaining 6 wards in Thiruvananthapuram were reported last release as residual cloud. They are not. They sit in a Landsat coverage seam — 8 pre-monsoon and 6 full-year scenes each return ~5,500 masked pixels with zero valid data. Mosaicking two paths would close it.
+
+### New — Ask JanVayu reaches data it already had
+
+- **Annual per-ward PM2.5 was never in the chatbot's context.** Rule 17 instructed the model that each ward carries a satellite annual mean in field `p` and to "USE THAT" — but `buildWardContext` never emitted it. The model was told to use a number it was never shown. There is now an annual-air block per city, and a named ward reports its own annual mean and rank within the city.
+- **Village air was unreachable.** The function shipped only `ward-stats.json`, so rural questions got national averages despite all 584,615 villages having estimates. New `scripts/build-village-stats.mjs` ships **645 districts, 112 KB** with village count, mean/median/range, count over 40, and named dirtiest/cleanest village. District is the unit deliberately: a full village name index is ~79 MB and 15% of Indian village names occur in more than one district. New rule 18 keeps the annual/live timescale separation.
+
+### Docs
+
+- Blog: ["Every Capital, and the Directory We Never Read"](blog/posts/2026-08-07-every-capital-and-the-directory.md). The morning's post is annotated rather than rewritten.
+- Ward-map doc, Roadmap, README, source-selector cards, both decks and `air-query.mjs` rule 27 updated to 142 / 9,015; test floor raised to 142.
+- **Siliguri** documented as genuinely unavailable rather than assumed: absent from Swachh Bharat, 4 wards of 47 in WB AMRUT, absent from Living Atlas. SJDA publishes only mouza (revenue village) PDFs for two rural blocks — wrong unit, wrong format, wrong area — and our village layer already carries those same mouzas as vector.
+
+## [v26.6.139] - 2026-08-07
+
+### New — all five layers on all 97 cities
+
+`build-ward-satellite.py` was run for the 51 cities that had been shipping air-only. **51/51 complete**, none below the 90% completeness gate, every one dropped its `airOnly` flag. Heat, green cover and built-up now cover **every** Ward Atlas city rather than 39 of them, and all 6,936 annual PM2.5 values survived the rewrite.
+
+Output was sanity-checked rather than trusted: land-surface temperature spans 17.2–59.3 °C nationally with no city outside plausible pre-monsoon bounds, green+built never exceeds 100% in any city mean, every city has an `lst_date`, and per-city values track terrain (Gangtok 19–26 °C / 65% green; Kochi 33–42 °C / 68% built).
+
+### New — West Bengal, which we had wrongly said was unavailable
+
+Seven WB cities added via `scripts/import-wb-amrut-wards.mjs`: **Asansol 106, Howrah 50, Durgapur 43, Bidhannagar 42, Kharagpur 35, Bardhaman 35, Haldia 29** — 340 wards, taking the atlas to **97 cities / 6,936 wards**.
+
+**This corrects a claim we published.** v26.6.138's changelog, the roadmap, the ward-map data doc and a blog post all stated that Bengal's municipal wards were not openly available. We had checked OpenStreetMap (38 `admin_level` 9/10 relations statewide, all villages rather than wards) and DataMeet (31 cities, Kolkata the only Bengal one) and concluded the data did not exist. What we never did was list the other assets in the GitHub release this pipeline already downloads on every run: **`WB_AMRUT_Wards.geojsonl.7z` sits in the same `urban` release as `SBM_Wards.geojsonl.7z`** — 1,633 ward polygons across 52 WB urban local bodies, from the state's AMRUT GIS master-plan programme. All corrected in place, with the wrong paragraph left visible in the blog post and an update note explaining it.
+
+Two upstream quirks the importer handles: the `Name` column is unreliable (Asansol's 106 wards are all filed under the name "Ward No. 65"), so cities are keyed by `ULB_Code` and each is verified against expected coordinates before anything is written; and a ward can span several rows (Haldia: 58 rows for 29 wards), so rows are dissolved by ward number into a MultiPolygon.
+
+**What Bengal shows:** Durgapur (63.0 µg/m³ annual mean) and Asansol (60.9) are markedly dirtier than Kolkata (49.1) — the industrial belt, not the metro, is the state's worst air. That was invisible while Kolkata was the only Bengal city on the map.
+
+Siliguri is left out: its AMRUT upload contains 4 wards of 47, a partial record rather than a city.
+
+### Fixed
+
+- The ward map's boundary-credit line claimed the satellite sources as boundary provenance. `build-ward-satellite.py` appends its own credits to the same `source` string, so the line now shows only the boundary half; the satellite sources have their own Data Source Selector card.
+- Four WB cities (Bidhannagar, Bardhaman, Kharagpur, Haldia) added to `CITIES` in `app.js` so their live-air layer has coordinates to interpolate from. Asansol, Durgapur and Howrah were already there.
+
+### Docs
+
+- Ward-map data doc, Roadmap, README, source-selector cards, both walkthrough decks and `air-query.mjs` rule 27 updated to 97 cities / 6,936 wards, with the West Bengal correction recorded in each rather than silently overwritten. Test floor raised to 97. Walkthrough PDF/PPTX exports regenerated.
+- Across all 6,936 wards, **4,597 (66.3%) exceed India's annual limit of 40**, **no ward meets the WHO guideline of 5**, and **25 cities have no ward over 40 at all**. Delhi's cleanest ward (Khera, 63.5) is dirtier than the dirtiest ward in 67 of the other 96 cities.
+- New roadmap follow-up: audit the other releases we already pull from. The Bengal miss was not a missing dataset, it was an unexamined directory listing.
+
+## [v26.6.138] - 2026-08-07
+
+### New — Guwahati (90th city), and per-city boundary attribution
+
+The Swachh Bharat ward release omits five states entirely — **West Bengal, Assam, Manipur, Mizoram and Tripura** — so Guwahati, a city with real winter pollution, had no ward map. Its **60 wards** (2022 GMC delimitation) now come from **OpenCity / Oorvani Foundation via [BharatLas](https://bharatlas.com), ODbL-1.0**: a different upstream under a different licence, so it gets its own importer (`scripts/import-bharatlas-wards.mjs`) rather than another row in the SBM allowlist. The atlas is now **90 cities / 6,596 wards**, all carrying an annual satellite PM2.5 figure.
+
+Guwahati runs **43.7–54.5 µg/m³** and all 60 wards sit above India's annual limit of 40.
+
+### New — every ward file names its own source, and the map shows it
+
+Boundaries now come from four upstreams under four licences (SBM via indianopenmaps: 74 cities; DataMeet CC BY: 13; OpenCity/Oorvani ODbL: 1; Mumbai spatial-data project and Varanasi Smart City: 2). Those obligations differ, so they are no longer flattened into one generic credit — a new line under the ward map prints the source of whichever city is on screen, read from the file's own `source` field.
+
+Doing this surfaced that **14 cities (Delhi, Mumbai, Bengaluru, Chennai, Hyderabad, Kolkata, Jaipur, Varanasi, Bhopal, Pune, Kanpur, Ahmedabad, Faridabad, Chandigarh) had been shipping with no `source` recorded at all**. Backfilled from the repo's own provenance registry in `docs/data-sources/ward-map.md`.
+
+### Fixed
+
+- **A hand-rolled Douglas–Peucker silently returned zero wards.** On a closed ring the first and last point coincide, so the initial chord is degenerate and a point-to-*line* distance collapses to zero for every vertex. The repo's proven implementation measures to the clamped *segment*; it is now extracted into `scripts/lib/geo.mjs` and shared by both ward importers. Verified byte-safe against the existing build: re-running the SBM ward pipeline through the shared helpers produced **0 content differences across 68 files**.
+
+### Docs
+
+- `docs/data-sources/ward-map.md` rewritten — it still described **14** cities and four layers, and carried an honesty note claiming satellite per-ward PM2.5 was "investigated but dropped, no openly-fetchable ~1 km raster exists", which shipping the annual layer had made false. Now documents all 90 cities with per-city provenance, five layers, the four upstreams, and what was checked and rejected for West Bengal.
+- Two new Data Source Selector cards: the non-SBM ward boundary sources (DataMeet, BharatLas, city portals) and the satellite layers (SatPM2.5 V6GL03, ESA WorldCover, Landsat) — the latter had no attribution card at all despite powering annual air for every village and ward. The Indian Open Maps card's missing-states list corrected to include Assam.
+- Blog: ["Ninety Cities, Ward by Ward"](blog/posts/2026-08-07-ninety-cities-ward-by-ward.md). Across all 6,596 wards, **4,257 (64.5%) exceed India's annual limit of 40** — close to the village figure of 63.6% — **no ward meets the WHO guideline of 5**, and **25 cities have no ward over 40 at all**. Delhi's cleanest ward (Khera, 63.5) is dirtier than the dirtiest ward in 62 of the other 89 cities.
+- README, Roadmap, walkthrough decks and `air-query.mjs` rule 27 updated to 90 cities / 6,596 wards; the ward-file test floor raised to 90.
+
+## [v26.6.137] - 2026-08-06
+
+### New — Ward Atlas 39 → 89 cities (both batches)
+
+The atlas was never limited by air data — it was limited by a hand-written allowlist. `WARD_CITIES` in `fetch-openmaps.mjs` names 39 cities; the Swachh Bharat ward release actually holds **3,675 ULBs and 70,416 ward polygons across 43 states**. Two batches add **50 cities and 2,850 wards**, taking the atlas to **89 cities / 6,536 wards**. Every one carries an annual satellite PM2.5 figure from day one.
+
+**Batch 1** — Chhatrapati Sambhajinagar, Navi Mumbai, Thiruvananthapuram, Gorakhpur, Ajmer, Aligarh, Bareilly, Bikaner, Jabalpur, Jammu, Kochi, Firozabad, Udaipur, Bhubaneswar, Hubballi, Alwar, Mysuru, Vijayawada, Bhiwadi, Erode, Mangaluru, Nizamabad, Patiala, Salem, Thoothukudi, Cuttack, Belagavi, Guntur.
+
+**Batch 2** — Thrissur, Kollam, Ujjain, Nellore, Gaya, Kurnool, Bhagalpur, Bathinda, Kalaburagi, Tirupati, Dhanbad, Puducherry, Thane, Panaji, Panipat, Solapur, Rohtak, Sonipat, Amravati, Hisar, Gangtok, Jamnagar.
+
+**Six were deliberately left out** — Noida, Jamshedpur, Vellore, Kozhikode, Akola and Bhavnagar. SBM holds only 1–13 ward polygons for each (checked against the raw release; not a matching failure), so the atlas would draw those cities as a couple of blobs. A partial ward map misinforms more than no ward map. The pipeline now warns when any city imports fewer than 15 wards, so this can't slip through unnoticed next time.
+
+**Matching is geographic, not just textual.** A candidate ULB only qualifies if its ward centroids sit within 35 km of the city's known coordinates. Name-only matching had proposed Chhattisgarh's "Durg" as West Bengal's Durgapur — 453 km away, and the kind of error that would silently put another city's polygons on your map. Several cities also needed aliases because SBM keeps pre-rename spellings (Mysore, Mangalore, Hubli-Dharwad, Aurangabad).
+
+### Fixed — a state-name typo in the source was silently dropping most of a city's wards
+
+SBM files the same city under several spellings of its own state. Vijayawada has 63 wards under "Andhra Pradhesh" and 1 under "Andhra Pradesh"; Nizamabad splits across "Telanagana" and "Telangana"; Tirupati across three casings. The pipeline matched the raw string, so **Vijayawada imported 1 ward instead of 64** and Guntur 41 instead of 57. State names are now normalised (with a small alias map) and ULB names trimmed. This would have quietly mangled every future addition too.
+
+### Fixed — rebuilding boundaries silently wiped the satellite layers
+
+Caught while checking the final numbers: only 15 cities reported satellite heat/green/built, when v26.6.129 had added them for all 39. Re-running `fetch-openmaps.mjs wards` to add a city regenerates every ward file from the source — and the source has no heat, green, built or annual PM2.5, because those come from *later* pipeline stages. So adding one city stripped 5,499 satellite values from the 24 cities the pipeline owns, and flipped them back to `airOnly` (disabling those toggles in the UI).
+
+The build now carries derived columns forward from the previous build, matching on ward number and name, and restores `lst_date` / `pma_year` with them. Re-running is idempotent again. The wiped values were restored from git rather than recomputed, since the geometry is byte-identical.
+
+This is the second time this session that a "successful" build produced quietly wrong data — worth remembering that the ward pipeline is one stage of four, and only the first one is reproducible from upstream alone.
+
+### Fixed — a city could be added and still not load
+
+Three separate places had to be edited in lockstep for a city to work: the build allowlist, a `WARD_FILES` path map in `app.js`, and the `#ward-map-city` option list in `index.html`. A city missing from the middle one failed **silently** — the map just kept showing whichever city was loaded before, which is how the first Thiruvananthapuram test appeared to "work" while rendering Delhi. `WARD_FILES` is deleted (every value was `/data/wards/<key>.json`, so it's derived now) and the option list is generated from the ward files, so counts can't drift.
+
+## [v26.6.136] - 2026-08-06
+
+### New — the Ward Atlas finally has annual air to sit beside its annual structure
+
+The ward map could show live air *and* heat / green cover / built-up, but those describe completely different timescales — a snapshot versus a year — so no honest comparison between them was possible. Ask JanVayu was explicitly instructed to admit the gap: *"the proper partner for annual structure would be annual per-ward PM2.5, which JanVayu doesn't have."* It has it now.
+
+- **New "Air, yearly" layer** — an annual mean PM2.5 for all **3,686 wards** across the 39 cities, from the same SatPM2.5 V6GL03 grid used for villages. Built by `scripts/build-village-pm25.py --target wards`, which now takes a `--target villages|wards|both` so there is one PM2.5 pipeline rather than two.
+- **Shaded within each city, not nationally.** Every one of Delhi's 290 wards falls in the top national band (63.5–98.7 µg/m³), so absolute banding painted the city one flat colour and hid a real 35 µg/m³ gradient — exactly what a ward map exists to show. It now uses a within-city ramp like the heat layer, single-hue on purpose so it can't imply "green = safe" in a city where every ward exceeds India's limit, with the absolute µg/m³ endpoints in the legend and the absolute context in the analysis text.
+- **The scatter is finally like-for-like.** The ward correlation chart plots the active metric against built-up share; on the live layer that pairs an hour-old snapshot with an annual structural measure. On this layer both sides are annual.
+- **Ask JanVayu updated** — the "we don't have this" instruction is replaced with a directive to *use* the annual ward figure for any structure-and-air discussion and keep the live reading for "right now" questions. `ward-stats.json` carries the annual value on all 3,686 wards.
+- **Fixed a pre-existing unit bug** — the ward legend header uppercased "µg/m³", and CSS `text-transform` maps µ (U+00B5) to Greek capital Mu, so the live PM2.5 legend had been rendering "ΜG/M³". Same defect class as the hero fix in v26.6.130.
+- **Fixed a crash on the new layer** — the correlation chart's label map had no entry for it, throwing on every render.
+
+**What it shows:** all 290 Delhi wards are above India's annual limit of 40, ranging 63.5 (Khera) to 98.7 (Vinod Nagar). Across the 39 cities, Delhi is worst (ward mean 93.4), then Ghaziabad (92.7) and Faridabad (83.4); Chennai (31.3), Coimbatore (32.1) and Bengaluru (35.5) are cleanest.
+
+## [v26.6.135] - 2026-08-06
+
+### Changed — everything that described the site caught up with the village layer
+
+Shipping the villages layer and its annual PM2.5 quietly invalidated several things that describe the platform. Swept them:
+
+- **Ask JanVayu** was telling people the wrong thing. Its ward instruction stated flatly that "annual per-ward PM2.5 [is something] JanVayu doesn't have" — now scoped to wards (still true there) with a pointer to the new village data, plus a rule 27 covering the annual village figures, the hard rule never to present them as today's air, and the two caveats (a ~1 km product smooths hyperlocal sources; it is modelled and calibrated, not measured in the village).
+- **Both walkthrough decks** had zero mention of villages. The long deck gains a slide (36 → 37, and the `/walkthrough/` chooser's count with it); the short deck gains a line. PDF/PPTX exports regenerated — 13 and 37 slides, speaker notes on every one.
+- **The blog post** was written the day before the annual layer existed, so its central claim — that most villages show nothing — had become half-wrong, and one section explicitly said we had "deliberately not coloured each village", which the map now does. Rewritten to draw the real distinction (coloured by annual satellite; live estimate deliberately kept out of the colours), with a dated note saying what changed rather than silently editing the record.
+- **Roadmap** gains Phase 5.23, including the follow-ups this opened: annual per-*ward* PM2.5 from the same grid, a seasonal layer (an annual mean hides the November peak), and the repo-weight question now that the working tree is ~182 MB.
+
+## [v26.6.134] - 2026-08-06
+
+### New — every village now has an annual PM2.5 figure, even the 99.99% with no monitor
+
+The Villages layer shipped with an honest hole: with ~565 continuous CPCB stations against 584,615 villages, almost every village card read *"no monitor close enough for a live estimate."* True, but unsatisfying. Satellite-derived PM2.5 fills it on a **different timescale** — it cannot tell you today's air, but it gives a defensible **annual average for all 584,615 villages**. Coverage is 100%.
+
+**Source.** SatPM2.5 **V6GL03** (Atmospheric Composition Analysis Group, Washington University in St. Louis) — annual mean surface PM2.5 at 0.01° (~1 km), estimated by a convolutional neural network from satellite AOD (MODIS/MISR/SeaWiFS/VIIRS) plus GEOS-Chem, calibrated against ground monitors. CC BY 4.0, public AWS Open Data bucket, no credentials, 1998–2024. We use the 2024 annual grid for Asia. `scripts/build-village-pm25.py` reproduces the whole thing.
+
+**The map now colours villages** by that annual figure — which the live estimate could never justify. Bands are anchored on the WHO annual guideline (5) and India's own NAAQS limit (40), then split again above it: 57% of villages sit between 40 and 60, so a single band there painted most of the country one flat colour.
+
+**Both numbers, never merged.** A village popup shows the annual satellite figure *and*, separately, the live estimate from the nearest monitor (still capped at 50 km, still saying "no monitor close enough" when there isn't one). The card states plainly that these are two different things, and that a ~1 km satellite estimate smooths hyperlocal sources — Byrnihat, a small industrial pocket that topped IQAir's city ranking, reads far lower here than its ground station does. Good for regional exposure, blind to the kiln next door.
+
+**What the data says.** Not one of India's 584,615 villages meets the WHO annual guideline of 5 µg/m³. **371,938 of them — 63.6% — exceed India's own annual limit of 40.** The median village sits at 43.7 µg/m³, the median district at 41.4. Dirtiest districts are all in Delhi (94–98); cleanest are the Andaman & Nicobar Islands, Lakshadweep and Kerala (12–20).
+
+### Fixed — most villages weren't actually clickable
+
+Each district got its own `L.canvas()` renderer. Leaflet canvases do their own hit-testing and don't let clicks fall through to a canvas underneath, so once a second district loaded, only the topmost one's villages responded to clicks. All districts now share a single renderer. Found by clicking a village in a browser rather than trusting that a bound handler meant a reachable one.
+
+## [v26.6.133] - 2026-08-05
+
+### New — blog post: "Every Village in India Is Now on the Map"
+
+A reader-facing piece on the new Villages layer, written for citizens rather than engineers. It leads on what the layer is really for: with ~565 monitoring stations (CPCB via CREA, Jan 2026) against 584,615 villages, most village cards will say "no monitor close enough" — and that silence is the finding, not a defect. Covers why rural air isn't clean air (70% of rural women still cook on solid fuels, NFHS-5 2019-21), keeps the ambient and household death tolls separate and labelled (1.72M, Lancet Countdown 2025; ~2.0M including household, State of Global Air 2025), and is explicit that the outlines are administrative geography, not measurement. Listed in `blog/_sidebar.md` and `blog/README.md`.
+
+## [v26.6.132] - 2026-08-05
+
+### Fixed — village tiles were shipping uncompressed
+
+The per-district files landed as `.topojson`, an extension Netlify doesn't recognise, so it served them as `application/octet-stream` **with no compression at all** — the largest district went over the wire as 1.44 MB instead of ~350 KB, while the sibling `_index.json` was correctly brotli'd. Netlify keys compression off content-type, so the files are now written as `.json` (the content is still TopoJSON) and compress like everything else. Caught by checking the live response headers after deploy rather than trusting the transfer sizes.
+
+## [v26.6.131] - 2026-08-05
+
+### New — village boundaries for all of India on the live map
+
+A new **Villages** layer on the live map draws every one of India's **584,615 village administrative boundaries** — the level below the ward atlas, and where most of the country actually breathes.
+
+**Source.** `LGD_Villages` from ramSeraph's `indian_admin_boundaries` — the same indianopenmaps.com mirror family `fetch-openmaps.mjs` already pulls from, carrying LGD village/district/state codes and already in WGS84 lon/lat. (A GSI copy of the same boundaries circulates via the NWIC water portal as 36 per-state shapefiles; it was passed over because it declares only an unnamed "Other (Open)" licence, needs an LCC reprojection, and does not advertise the LGD codes that make the geometry joinable.)
+
+**Why per-district TopoJSON.** The raw source is 1.9 GB, so a single file is impossible and the existing "vendor a simplified GeoJSON" pattern doesn't stretch this far. Villages tile the plane, so TopoJSON's shared arcs cut ~40% versus GeoJSON *and* remove the sliver gaps you get from simplifying neighbouring polygons independently. Districts (~906 villages each) are the natural unit: 645 files, 150 MB total, largest 1.4 MB, ~25–60 KB each over the wire gzipped. `scripts/build-villages.mjs` reproduces the whole pipeline (fetch → stream-split → Visvalingam 10% → quantized TopoJSON → bbox index).
+
+**Viewport-driven client.** Village geometry only loads at zoom 9+, and only for districts whose bbox intersects the current view (capped at 14 at once); districts unload as they pan away. A vendored `topojson-client` (7 KB, ISC) decodes them, and rendering goes through Leaflet's canvas renderer.
+
+**On the air numbers.** Village outlines are administrative geography, not measurements — the layer is deliberately *not* an AQI choropleth. India has ~565 CPCB stations against 584,615 villages, so painting each one by interpolated AQI would manufacture precision the monitoring network cannot support. Instead a village popup asks for an estimate with a **50 km** cap (the rest of the map uses 200 km), so villages far from any monitor honestly say "no monitor close enough for a live estimate" rather than borrowing a reading from 190 km away. The popup states plainly that air is inferred from the nearest city monitors, not measured in the village.
+
+**Note on repo weight:** this takes the working tree from ~33 MB to ~182 MB. Contributors who don't need the layer can shallow-clone. The simplification tolerance is a flag (`--pct`) if a lighter build is ever wanted.
+
+## [v26.6.130] - 2026-08-01
+
+### Fixed — pre-conference audit: a unit error in the hero, three stale-fact recurrences, and the walkthrough brought current
+
+A full pass over the site and both walkthrough decks ahead of a conference presentation.
+
+**The hero was reporting the wrong unit.** `.hero-pm25-unit` carried `text-transform: uppercase`, and CSS uppercasing maps `µ` (U+00B5 MICRO SIGN) to Greek capital Mu — so the live PM2.5 unit rendered as "MG/M³", off by a factor of 1000, directly under the headline reading. Removed from both the stylesheet and the duplicate inline rule in `index.html` that was overriding it. A rendered-DOM sweep confirms this was the only place on the site where a micro-sign unit was being uppercased.
+
+**Fact-check recurrences the July rounds missed.** All three were flagged in `docs/fact-check-2026-07*.md`, fixed in the panels, and left behind elsewhere:
+
+- The debunked **"~70% of global PM2.5 deaths"** claim was still live in `games.js` (Jeopardy clue + quiz answer) — the one figure the site's own eval harness hard-gates against. Now "the world's largest national toll, roughly a quarter to a third of the global total", matching `scripts/stats.json`.
+- **`$260B`** survived in three `index.html` entries (in-site search index and two audience cards) after the hero and panels moved to the Lancet-sourced **$339.4B**.
+- The **16th Finance Commission** "recommendations expected Oct 2026 — potential 12-month gap" line in the RTI context box contradicted the corrected budget panel. The report was submitted 17 Nov 2025 and its award period runs 2026–31, so there is no FC-cycle gap; the open question is only whether a dedicated air-quality successor grant is included.
+
+**Other staleness:** the games' IQAir vintage was a year off (the 2025 edition covers 2025 data, published March 2026) and carried the superseded Delhi 91.6 µg/m³ instead of 82.2; the City Policy Tracker showed the same 91.6 under a "Current PM2.5" label; the NCAP game answer still described the target as pending rather than elapsed (23 of 96 cities, CREA 2026); the FGD extension count disagreed with `index.html`; and the homepage hero alert was stamped "July 2026".
+
+**Walkthrough decks.** The short deck was already current. The full deck: Ask JanVayu said "five languages" (it answers in ten, with sources); the $339B figure was attributed to a "World Bank / Lancet range" when the World Bank's is the narrower $36.8bn/1.36% measure; "Covers every NCAP non-attainment town" overclaimed 117 cities against NCAP's 131; and the Farm Fire Tracker, Photo Gallery and PWA installability — all headline features — were missing from the deck that promises "a slide for essentially every panel". Both decks' PDF/PPTX exports regenerated; counts unchanged at 13 and 36, matching the chooser.
+
+### Fixed — Ask JanVayu could leak markdown, and the deck exporter's documented escape hatch didn't work
+
+`air-query.mjs` now strips `**bold**`, `__bold__` and `#` headings server-side before returning. The system prompt already forbids markdown, but the model leaked it occasionally — the failing `markdown-bold` gate in `test/ask-eval`. `scripts/export-walkthrough.mjs` documents `PLAYWRIGHT_CORE_PATH` as accepting "its package dir or entry file"; neither worked (a directory is not a valid ESM import, and playwright-core's CJS entry exposes `chromium` on `default`). Both shapes now resolve.
+
 ## [v26.6.129] - 2026-07-30
 
 ### New — satellite heat, green-cover and built-up layers for all 39 ward cities

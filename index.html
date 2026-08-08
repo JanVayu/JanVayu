@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606129">
+    <link rel="preload" as="style" href="/styles.css?v=202606149">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -662,7 +662,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-pm25-card { grid-column: 1 / -1; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; text-align: center; box-shadow: var(--shadow-card); position: relative; overflow: hidden; }
 .hero-pm25-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
 .hero-pm25-number { font-family: var(--mono); font-size: 4rem; font-weight: 600; line-height: 1; letter-spacing: -0.03em; }
-.hero-pm25-unit { font-size: 0.78rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+/* No text-transform: uppercase here — it maps µ (U+00B5) to Greek capital Mu,
+   rendering "µg/m³" as "MG/M³", off by a factor of 1000. */
+.hero-pm25-unit { font-size: 0.78rem; color: var(--text-3); letter-spacing: 0.1em; margin-top: 4px; }
 .hero-pm25-who { font-family: var(--mono); font-size: 1.1rem; font-weight: 500; margin-top: 8px; }
 .hero-pm25-label { font-size: 0.72rem; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 .hero-pm25-aqi { font-size: 0.78rem; color: var(--text-3); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-light); }
@@ -846,6 +848,28 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
          preloaded earlier in <head> so it is already fetching). -->
     <link rel="stylesheet" href="/styles.css?v=202606118" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="/styles.css?v=202606118"></noscript>
+
+<style>
+/* The layer controls sit as an overlay on the map at desktop widths. On a
+   phone they wrapped to three rows, covered most of the map, collided with
+   Leaflet's zoom buttons and clipped "Stations" to "ations". Below 700px they
+   leave the overlay and sit above the map in normal flow, scrolling
+   horizontally on one line instead of wrapping over the content. */
+@media (max-width: 700px) {
+  #map-layer-controls {
+    position: static !important;
+    max-width: 100% !important;
+    margin: 0 0 0.5rem !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: none !important;
+    padding: 4px 2px !important;
+  }
+  #map-layer-controls > * { flex: 0 0 auto; }
+  #map-boundary-level, #map-boundary-metric { max-width: 168px !important; }
+}
+</style>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1294,7 +1318,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>1.72 million people</em> every year</h1>
                         <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
                         <div class="hero-live-alert clamped" id="heroLiveAlert">
-                            <strong>July 2026:</strong> The monsoon brings a brief respite, but India's air remains in crisis year-round. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit; only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5 &mdash; among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of 96 cities with sufficient data met the 40% PM10 reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in &mdash; the calm months mask a year-round crisis. New: a <a href="#games" onclick="showPanel('games'); return false;" style="color: inherit; text-decoration: underline;">seven-game Learning Games</a> panel is now live &mdash; including the new <em>Vayu Junction</em> word-grouping puzzle &mdash; and a native <a href="/walkthrough/" style="color: inherit; text-decoration: underline;">guided walkthrough</a> of the whole platform, now a self-hosted HTML deck we keep in sync with the site.
+                            <strong>August 2026:</strong> The monsoon brings a brief respite, but India's air remains in crisis year-round. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3; &mdash; 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit; only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5 &mdash; among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of 96 cities with sufficient data met the 40% PM10 reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in &mdash; the calm months mask a year-round crisis. New: a <a href="#games" onclick="showPanel('games'); return false;" style="color: inherit; text-decoration: underline;">seven-game Learning Games</a> panel is now live &mdash; including the new <em>Vayu Junction</em> word-grouping puzzle &mdash; and a native <a href="/walkthrough/" style="color: inherit; text-decoration: underline;">guided walkthrough</a> of the whole platform, now a self-hosted HTML deck we keep in sync with the site.
                         </div>
                         <button class="hero-live-toggle" id="heroLiveToggle" onclick="toggleHeroAlert()" aria-expanded="false" aria-controls="heroLiveAlert">Read more &#9662;</button>
 
@@ -1826,7 +1850,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606129"></script>
+    <script src="/app.js?v=202606149"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2910,7 +2934,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map" style="color: var(--accent); margin-right: 0.4rem;"></span>Live Air Quality Map</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="A live map showing how polluted the air is right now in cities across India. Click on any dot to see details. Updates every 10 minutes.">Real-time AQI for major Indian cities from WAQI API. Marker numbers are AQI (US EPA scale, unitless); popups also show PM2.5 and PM10 concentrations in µg/m³, station name, and update time.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="This map shows two things. Live air quality right now from monitoring stations, and yearly figures for every administrative area in India — your state, district, block, gram panchayat, village, city or ward. Pick a level from the Boundaries menu, choose whether to colour it by air, surface heat or green cover, and zoom to where you live."><strong>Live air, and a yearly figure for every place in India.</strong> Markers show real-time AQI from WAQI (US EPA scale, unitless); popups add PM2.5 and PM10 in µg/m³, station name and update time. The <strong>Boundaries</strong> menu covers every Indian administrative level &mdash; state, district (zila), block/mandal/tehsil, gram panchayat and village on the rural side; city and ward on the urban side, covering all <strong>70,417 municipal wards</strong> in the country. The <strong>Colour</strong> menu shades them by <strong>annual satellite PM2.5</strong>, <strong>surface heat</strong> from a national Landsat composite, or &mdash; for wards &mdash; <strong>green cover</strong> and <strong>built-up share</strong>. Zoom to where you live and tap any area for all of its figures.</p>
             </div>
             <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
@@ -2925,8 +2949,28 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <button type="button" id="map-toggle-assembly-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'assembly')" aria-pressed="false" title="Assembly constituency boundaries — the air your MLA answers for">MLAs</button>
                         <button type="button" id="map-toggle-districts-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'districts')" aria-pressed="false" title="Live AQI by district">Districts</button>
                         <button type="button" id="map-toggle-sources-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'sources')" aria-pressed="false" title="Landfills, dumpsites, coal mines, red/orange-category industrial parks and SEZs">Sources</button>
+                    <select id="map-boundary-level" class="form-select map-layer-btn" onchange="window.setBoundaryLevel &amp;&amp; window.setBoundaryLevel(this.value)" style="max-width:150px; padding:2px 6px; font-size:0.7rem;" title="Any Indian administrative boundary, from state down to ward, village or gram panchayat — coloured by satellite air, green cover or built-up share">
+                        <option value="">Boundaries: off</option>
+                        <option value="state">State</option>
+                        <option value="district">District (zila)</option>
+                        <option value="subdistrict">Block / mandal / tehsil</option>
+                        <option value="panchayat">Gram panchayat</option>
+                        <option value="village">Village</option>
+                        <option value="ulb">City / ULB</option>
+                        <option value="ward">Ward</option>
+                    </select>
+                    <select id="map-boundary-metric" class="form-select map-layer-btn" onchange="window.setBoundaryMetric &amp;&amp; window.setBoundaryMetric(this.value)" style="max-width:140px; padding:2px 6px; font-size:0.7rem;" title="What the boundaries are coloured by. Annual PM2.5 covers every level; surface heat comes from a national Landsat pre-monsoon composite; green cover and built-up share come from ESA WorldCover and are measured for wards so far.">
+                        <option value="p">Colour: air</option>
+                        <option value="h">Colour: surface heat</option>
+                        <option value="g">Colour: green cover</option>
+                        <option value="b">Colour: built-up</option>
+                    </select>
+                    <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'schools', 'main')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
+                    <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'health', 'main')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
+                    <button type="button" id="map-locate-btn" class="map-layer-btn" onclick="window.mapLocateMe &amp;&amp; window.mapLocateMe()" title="Jump to your location at a zoom where the selected boundary level is visible">My area</button>
                     </div>
                     <div id="india-map"></div>
+                    <p id="map-boundary-note" style="font-size:0.72rem; color:var(--text-3); margin:0.4rem 0 0; text-align:center;"></p>
                     <div id="map-time-slider-loading">Loading historical data&hellip;</div>
                     <div id="map-time-slider-bar">
                         <button class="ts-live-btn active" id="map-ts-live-btn" onclick="restoreLiveMapMarkers()">&#9679; Live</button>
@@ -4359,7 +4403,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <div class="info-box" style="border-left: 3px solid var(--accent);">
                     <h3 style="font-size: 0.875rem">On the funding cliff</h3>
                     <p style="font-size: 0.9375rem; font-weight: 500; line-height: 1.6;">&ldquo;What happened to the 15th Finance Commission clean air grants (&rupee;16,539 Cr for 42 million-plus cities) that expired 31 March 2026?&rdquo;</p>
-                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: This bucket was 87% of all NCAP city funding. 16th FC recommendations expected Oct 2026 for FY27 (Apr 2027) &mdash; leaving a potential 12-month gap with no new allocation.</p>
+                    <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem;">Context: This bucket was 87% of all NCAP city funding. The 16th Finance Commission submitted its report on 17 November 2025 and its award period runs 1 April 2026 to 31 March 2031, so the transfer cycle continues without a gap &mdash; what has not been confirmed is whether a dedicated successor to the expired air-quality grant is included.</p>
                 </div>
                 <div class="info-box" style="border-left: 3px solid var(--accent);">
                     <h3 style="color: var(--green-700); font-size: 0.875rem;">On target accountability</h3>
@@ -5039,6 +5083,19 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 <template id="tmpl-ward-map">
     <div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; margin-bottom: 0.6rem; color: var(--ink);">How polluted is your ward?</h2>
+        <div class="alert alert-info" style="margin:0 0 1rem;">
+            <strong>Looking for a place that isn&rsquo;t one of these 142 cities?</strong>
+            The <a href="#map" onclick="showPanel('map'); return false;">live map</a> now carries
+            <strong>every Indian administrative boundary</strong> in one place &mdash; state, district,
+            block/mandal/tehsil, gram panchayat and village on the rural side, city and ward on the urban
+            side &mdash; each coloured by its annual satellite PM2.5. It covers
+            <strong>all 70,417 municipal wards in the country</strong> rather than the 142 cities listed here,
+            and it needs no city picker: zoom to where you live.
+            <br><br>
+            This panel stays because it does something the map does not: <em>summer heat</em>,
+            <em>green cover</em> and <em>built-up share</em> per ward, the live monitor estimate, and the
+            schools and health-centre overlays.
+        </div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward by its air pollution right now — and by the three things that shape that air: summer heat, green cover, and how built-up it is. Air quality is the headline; the others help explain why one ward breathes worse than the next. Pick a city — more are being added.">A city is not a single number. This map colours <strong>every municipal ward</strong> by its <strong>air pollution</strong> right now &mdash; and by the three things that <em>shape</em> that air: <strong>summer heat</strong>, <strong>green cover</strong> and <strong>built-up area</strong> (satellite). Air quality is the headline; the others help explain why one ward breathes worse than the next. Choose a city below &mdash; more are being added.</p>
     </div>
 
@@ -5047,45 +5104,148 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
                 <label class="form-label" style="margin:0; white-space:nowrap; flex-shrink:0;">City</label>
                 <select class="form-select" id="ward-map-city" onchange="window.initWardMap &amp;&amp; window.initWardMap(true)" style="max-width:240px; flex-shrink:0;">
-                    <option value="delhi">Delhi — 290 wards</option>
-                    <option value="mumbai">Mumbai — 227 wards</option>
-                    <option value="bangalore">Bengaluru — 243 wards</option>
-                    <option value="hyderabad">Hyderabad — 145 wards</option>
-                    <option value="ahmedabad">Ahmedabad — 48 wards</option>
-                    <option value="chennai">Chennai — 201 wards</option>
-                    <option value="kolkata">Kolkata — 141 wards</option>
-                    <option value="pune">Pune — 58 wards</option>
-                    <option value="jaipur">Jaipur — 77 wards</option>
-                    <option value="kanpur">Kanpur — 58 wards</option>
-                    <option value="varanasi">Varanasi — 99 wards</option>
-                    <option value="bhopal">Bhopal — 86 wards</option>
-                    <option value="faridabad">Faridabad — 40 wards</option>
-                    <option value="chandigarh">Chandigarh — 28 wards</option>
-                    <option value="lucknow">Lucknow — 112 wards</option>
-                    <option value="agra">Agra — 99 wards</option>
-                    <option value="amritsar">Amritsar — 85 wards</option>
-                    <option value="coimbatore">Coimbatore — 100 wards</option>
-                    <option value="dehradun">Dehradun — 100 wards</option>
-                    <option value="ghaziabad">Ghaziabad — 94 wards</option>
-                    <option value="gwalior">Gwalior — 66 wards</option>
-                    <option value="indore">Indore — 85 wards</option>
-                    <option value="jalandhar">Jalandhar — 80 wards</option>
-                    <option value="jodhpur">Jodhpur — 160 wards</option>
-                    <option value="kota">Kota — 150 wards</option>
-                    <option value="ludhiana">Ludhiana — 94 wards</option>
-                    <option value="meerut">Meerut — 90 wards</option>
-                    <option value="moradabad">Moradabad — 70 wards</option>
-                    <option value="muzaffarpur">Muzaffarpur — 48 wards</option>
-                    <option value="nagpur">Nagpur — 38 wards</option>
-                    <option value="nashik">Nashik — 23 wards</option>
-                    <option value="patna">Patna — 71 wards</option>
-                    <option value="prayagraj">Prayagraj — 100 wards</option>
-                    <option value="raipur">Raipur — 70 wards</option>
-                    <option value="rajkot">Rajkot — 18 wards</option>
-                    <option value="ranchi">Ranchi — 53 wards</option>
-                    <option value="surat">Surat — 30 wards</option>
-                    <option value="vadodara">Vadodara — 18 wards</option>
-                    <option value="visakhapatnam">Visakhapatnam — 91 wards</option>
+                    <option value="delhi">Delhi &mdash; 290 wards</option>
+                    <option value="mumbai">Mumbai &mdash; 227 wards</option>
+                    <option value="bangalore">Bengaluru &mdash; 243 wards</option>
+                    <option value="hyderabad">Hyderabad &mdash; 145 wards</option>
+                    <option value="ahmedabad">Ahmedabad &mdash; 48 wards</option>
+                    <option value="chennai">Chennai &mdash; 201 wards</option>
+                    <option value="kolkata">Kolkata &mdash; 141 wards</option>
+                    <option value="pune">Pune &mdash; 58 wards</option>
+                    <option value="jaipur">Jaipur &mdash; 77 wards</option>
+                    <option value="kanpur">Kanpur &mdash; 58 wards</option>
+                    <option value="varanasi">Varanasi &mdash; 99 wards</option>
+                    <option value="bhopal">Bhopal &mdash; 86 wards</option>
+                    <option value="faridabad">Faridabad &mdash; 40 wards</option>
+                    <option value="chandigarh">Chandigarh &mdash; 28 wards</option>
+                    <option value="lucknow">Lucknow &mdash; 112 wards</option>
+                    <option value="agra">Agra &mdash; 99 wards</option>
+                    <option value="amritsar">Amritsar &mdash; 85 wards</option>
+                    <option value="coimbatore">Coimbatore &mdash; 100 wards</option>
+                    <option value="dehradun">Dehradun &mdash; 100 wards</option>
+                    <option value="ghaziabad">Ghaziabad &mdash; 94 wards</option>
+                    <option value="gwalior">Gwalior &mdash; 66 wards</option>
+                    <option value="indore">Indore &mdash; 85 wards</option>
+                    <option value="jalandhar">Jalandhar &mdash; 80 wards</option>
+                    <option value="jodhpur">Jodhpur &mdash; 160 wards</option>
+                    <option value="kota">Kota &mdash; 150 wards</option>
+                    <option value="ludhiana">Ludhiana &mdash; 94 wards</option>
+                    <option value="meerut">Meerut &mdash; 90 wards</option>
+                    <option value="moradabad">Moradabad &mdash; 70 wards</option>
+                    <option value="muzaffarpur">Muzaffarpur &mdash; 48 wards</option>
+                    <option value="nagpur">Nagpur &mdash; 38 wards</option>
+                    <option value="nashik">Nashik &mdash; 23 wards</option>
+                    <option value="patna">Patna &mdash; 71 wards</option>
+                    <option value="prayagraj">Prayagraj &mdash; 100 wards</option>
+                    <option value="raipur">Raipur &mdash; 70 wards</option>
+                    <option value="rajkot">Rajkot &mdash; 18 wards</option>
+                    <option value="ranchi">Ranchi &mdash; 53 wards</option>
+                    <option value="surat">Surat &mdash; 30 wards</option>
+                    <option value="vadodara">Vadodara &mdash; 18 wards</option>
+                    <option value="visakhapatnam">Visakhapatnam &mdash; 91 wards</option>
+                    <option value="ajmer">Ajmer &mdash; 80 wards</option>
+                    <option value="aligarh">Aligarh &mdash; 80 wards</option>
+                    <option value="alwar">Alwar &mdash; 65 wards</option>
+                    <option value="bareilly">Bareilly &mdash; 80 wards</option>
+                    <option value="belagavi">Belagavi &mdash; 57 wards</option>
+                    <option value="bhiwadi">Bhiwadi &mdash; 60 wards</option>
+                    <option value="bhubaneswar">Bhubaneswar &mdash; 67 wards</option>
+                    <option value="bikaner">Bikaner &mdash; 80 wards</option>
+                    <option value="aurangabad">Chhatrapati Sambhajinagar &mdash; 115 wards</option>
+                    <option value="cuttack">Cuttack &mdash; 59 wards</option>
+                    <option value="erode">Erode &mdash; 60 wards</option>
+                    <option value="firozabad">Firozabad &mdash; 70 wards</option>
+                    <option value="gorakhpur">Gorakhpur &mdash; 81 wards</option>
+                    <option value="guntur">Guntur &mdash; 57 wards</option>
+                    <option value="hubballi">Hubballi &mdash; 67 wards</option>
+                    <option value="jabalpur">Jabalpur &mdash; 79 wards</option>
+                    <option value="jammu">Jammu &mdash; 75 wards</option>
+                    <option value="kochi">Kochi &mdash; 74 wards</option>
+                    <option value="mangaluru">Mangaluru &mdash; 60 wards</option>
+                    <option value="mysuru">Mysuru &mdash; 65 wards</option>
+                    <option value="navimumbai">Navi Mumbai &mdash; 111 wards</option>
+                    <option value="nizamabad">Nizamabad &mdash; 60 wards</option>
+                    <option value="patiala">Patiala &mdash; 60 wards</option>
+                    <option value="salem">Salem &mdash; 60 wards</option>
+                    <option value="thiruvananthapuram">Thiruvananthapuram &mdash; 100 wards</option>
+                    <option value="thoothukudi">Thoothukudi &mdash; 60 wards</option>
+                    <option value="udaipur">Udaipur &mdash; 70 wards</option>
+                    <option value="vijayawada">Vijayawada &mdash; 64 wards</option>
+                    <option value="amravati">Amravati &mdash; 22 wards</option>
+                    <option value="bathinda">Bathinda &mdash; 50 wards</option>
+                    <option value="bhagalpur">Bhagalpur &mdash; 50 wards</option>
+                    <option value="dhanbad">Dhanbad &mdash; 55 wards</option>
+                    <option value="gangtok">Gangtok &mdash; 19 wards</option>
+                    <option value="gaya">Gaya &mdash; 53 wards</option>
+                    <option value="guwahati">Guwahati &mdash; 60 wards</option>
+                    <option value="hisar">Hisar &mdash; 20 wards</option>
+                    <option value="jamnagar">Jamnagar &mdash; 16 wards</option>
+                    <option value="kalaburagi">Kalaburagi &mdash; 50 wards</option>
+                    <option value="kollam">Kollam &mdash; 55 wards</option>
+                    <option value="kurnool">Kurnool &mdash; 52 wards</option>
+                    <option value="nellore">Nellore &mdash; 54 wards</option>
+                    <option value="panaji">Panaji (Goa) &mdash; 30 wards</option>
+                    <option value="panipat">Panipat &mdash; 26 wards</option>
+                    <option value="puducherry">Puducherry &mdash; 33 wards</option>
+                    <option value="rohtak">Rohtak &mdash; 22 wards</option>
+                    <option value="solapur">Solapur &mdash; 26 wards</option>
+                    <option value="sonipat">Sonipat &mdash; 20 wards</option>
+                    <option value="thane">Thane &mdash; 33 wards</option>
+                    <option value="thrissur">Thrissur &mdash; 55 wards</option>
+                    <option value="tirupati">Tirupati &mdash; 39 wards</option>
+                    <option value="ujjain">Ujjain &mdash; 54 wards</option>
+                    <option value="asansol">Asansol &mdash; 106 wards</option>
+                    <option value="howrah">Howrah &mdash; 50 wards</option>
+                    <option value="durgapur">Durgapur &mdash; 43 wards</option>
+                    <option value="bidhannagar">Bidhannagar &mdash; 42 wards</option>
+                    <option value="kharagpur">Kharagpur &mdash; 35 wards</option>
+                    <option value="bardhaman">Bardhaman &mdash; 35 wards</option>
+                    <option value="haldia">Haldia &mdash; 29 wards</option>
+                    <option value="agartala">Agartala &mdash; 51 wards</option>
+                    <option value="aizawl">Aizawl &mdash; 19 wards</option>
+                    <option value="ambala">Ambala &mdash; 20 wards</option>
+                    <option value="arrah">Arrah &mdash; 45 wards</option>
+                    <option value="bhilai">Bhilai &mdash; 70 wards</option>
+                    <option value="biharsharif">Bihar Sharif &mdash; 46 wards</option>
+                    <option value="bilaspur">Bilaspur &mdash; 66 wards</option>
+                    <option value="damoh">Damoh &mdash; 39 wards</option>
+                    <option value="davanagere">Davanagere &mdash; 45 wards</option>
+                    <option value="dharamshala">Dharamshala &mdash; 17 wards</option>
+                    <option value="gurugram">Gurugram &mdash; 35 wards</option>
+                    <option value="imphal">Imphal &mdash; 28 wards</option>
+                    <option value="itanagar">Itanagar &mdash; 20 wards</option>
+                    <option value="jhansi">Jhansi &mdash; 60 wards</option>
+                    <option value="kakinada">Kakinada &mdash; 101 wards</option>
+                    <option value="kalyandombivli">Kalyan-Dombivli &mdash; 123 wards</option>
+                    <option value="karnal">Karnal &mdash; 20 wards</option>
+                    <option value="katihar">Katihar &mdash; 45 wards</option>
+                    <option value="kohima">Kohima &mdash; 19 wards</option>
+                    <option value="kolhapur">Kolhapur &mdash; 81 wards</option>
+                    <option value="korba">Korba &mdash; 67 wards</option>
+                    <option value="madurai">Madurai &mdash; 100 wards</option>
+                    <option value="murwara">Murwara &mdash; 45 wards</option>
+                    <option value="nandedwaghala">Nanded-Waghala &mdash; 31 wards</option>
+                    <option value="nayaraipur">Naya Raipur &mdash; 40 wards</option>
+                    <option value="pimprichinchwad">Pimpri Chinchwad &mdash; 32 wards</option>
+                    <option value="portblair">Port Blair &mdash; 24 wards</option>
+                    <option value="ratlam">Ratlam &mdash; 49 wards</option>
+                    <option value="raurkela">Raurkela &mdash; 41 wards</option>
+                    <option value="sagar">Sagar &mdash; 50 wards</option>
+                    <option value="saharanpur">Saharanpur &mdash; 70 wards</option>
+                    <option value="sasaram">Sasaram &mdash; 40 wards</option>
+                    <option value="satna">Satna &mdash; 46 wards</option>
+                    <option value="shillong">Shillong &mdash; 27 wards</option>
+                    <option value="shimla">Shimla &mdash; 25 wards</option>
+                    <option value="shivamogga">Shivamogga &mdash; 35 wards</option>
+                    <option value="silchar">Silchar &mdash; 42 wards</option>
+                    <option value="silvassa">Silvassa &mdash; 15 wards</option>
+                    <option value="siwan">Siwan &mdash; 38 wards</option>
+                    <option value="srinagar">Srinagar &mdash; 75 wards</option>
+                    <option value="thanesar">Thanesar &mdash; 32 wards</option>
+                    <option value="tumakuru">Tumakuru &mdash; 35 wards</option>
+                    <option value="vasaivirar">Vasai-Virar &mdash; 43 wards</option>
+                    <option value="vizianagaram">Vizianagaram &mdash; 60 wards</option>
+                    <option value="warangal">Warangal &mdash; 67 wards</option>
                 </select>
                 <input list="ward-search-list" id="ward-search" placeholder="Find a ward…" onchange="window.wardSearch &amp;&amp; window.wardSearch()" style="flex:1 1 140px; min-width:120px; max-width:240px; font-size:0.82rem; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:8px;">
                 <datalist id="ward-search-list"></datalist>
@@ -5095,6 +5255,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;" id="ward-layer-toggle">
                 <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-3); margin-right:0.2rem;">Layer</span>
                 <button type="button" class="ward-layer-btn active" data-layer="pm25" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25')">Air quality</button>
+                <button type="button" class="ward-layer-btn" data-layer="pm25a" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('pm25a')" title="Annual average PM2.5 for each ward, satellite-derived — a whole year, not right now">Air, yearly</button>
                 <button type="button" class="ward-layer-btn" data-layer="lst" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('lst')">Heat</button>
                 <button type="button" class="ward-layer-btn" data-layer="green" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('green')">Green cover</button>
                 <button type="button" class="ward-layer-btn" data-layer="built" onclick="window.setWardLayer &amp;&amp; window.setWardLayer('built')">Built-up</button>
@@ -5133,6 +5294,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     </div>
 
     <p id="ward-map-status" style="font-size:0.78rem; color:var(--text-3); margin-top:0.9rem; text-align:center;"></p>
+    <p id="ward-map-source" style="font-size:0.7rem; color:var(--text-3); margin-top:0.35rem; text-align:center;"></p>
 </template>
 
 <!-- ═══ POLLUTION SOURCE CALENDAR ═══ -->
@@ -6097,7 +6259,7 @@ const ROLE_CONFIG = {
         ],
         panels: [
             { panel: 'compare', title: 'City Comparison', desc: 'Compare AQI across 30+ cities' },
-            { panel: 'economic', title: 'Economic Cost', desc: '$260B annual impact analysis' },
+            { panel: 'economic', title: 'Economic Cost', desc: '$339.4B annual impact analysis' },
             { panel: 'map', title: 'Live Air Quality Map', desc: 'Interactive map of monitoring stations' },
             { panel: 'resources', title: 'Reading List', desc: '160+ verified sources & papers' },
             { panel: 'correlations', title: 'Data Correlations', desc: 'Explore relationships in the data' },
@@ -6135,7 +6297,7 @@ const ROLE_CONFIG = {
             { panel: 'policy', title: 'Policy Effectiveness', desc: 'NCAP outcomes & analysis' },
             { panel: 'city-policy', title: 'City Policy Tracker', desc: 'City-wise targets & spending' },
             { panel: 'accountability', title: 'Political Accountability', desc: 'Government response tracking' },
-            { panel: 'economic', title: 'Economic Impact', desc: '$260B annual cost to India' },
+            { panel: 'economic', title: 'Economic Impact', desc: '$339.4B annual cost to India' },
             { panel: 'progress', title: 'Clean Air Wins', desc: 'What is actually working' },
             { panel: 'corporate', title: 'Industrial Sources', desc: 'Top polluting sectors' },
             { panel: 'legal', title: 'Legal Framework', desc: 'SC orders, NGT rulings' }
@@ -6255,7 +6417,7 @@ const ROLE_CONFIG = {
         heading: 'Understand air pollution\'s impact on your business',
         description: 'Economic costs, workforce health, indoor air quality, and compliance guidance.',
         actions: [
-            { icon: '<span class="si si-rupee"></span>', panel: 'economic', title: 'See the economic impact', desc: '$260B annual cost to India. How does pollution affect productivity and healthcare?', cta: 'View analysis →' },
+            { icon: '<span class="si si-rupee"></span>', panel: 'economic', title: 'See the economic impact', desc: '$339.4B annual cost to India. How does pollution affect productivity and healthcare?', cta: 'View analysis →' },
             { icon: '<span class="si si-building"></span>', panel: 'indoor', title: 'Indoor air quality for workplaces', desc: 'Protect your workforce with proper ventilation, purifiers, and monitoring.', cta: 'Get guidance →' },
             { icon: '<span class="si si-wrench"></span>', panel: 'purifier-calc', title: 'Air purifier calculator', desc: 'Find the right purifier CADR for your office or factory floor.', cta: 'Calculate →' }
         ],

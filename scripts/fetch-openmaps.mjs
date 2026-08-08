@@ -26,7 +26,7 @@
  */
 
 import { createReadStream, createWriteStream, existsSync, mkdirSync, statSync } from 'node:fs';
-import { writeFile } from 'node:fs/promises';
+import { writeFile, readFile } from 'node:fs/promises';
 import { createInterface } from 'node:readline';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
@@ -73,107 +73,79 @@ const WARD_CITIES = {
     ranchi:        { city: 'Ranchi',        ulbs: ['Ranchi Municipal Corporation'],       st: 'jharkhand' },
     coimbatore:    { city: 'Coimbatore',    ulbs: ['Coimbatore'],                         st: 'tamil nadu' },
     visakhapatnam: { city: 'Visakhapatnam', ulbs: ['Gvmc'],                               st: 'andhra' },
+
+    // ── Batch 1 (v26.6.137): cities matched to SBM ULBs by name AND verified
+    // geographically — a ULB only qualifies if its ward centroids sit within
+    // 35 km of the city's known coordinates. Name-only matching had put
+    // Chhattisgarh's "Durg" forward as West Bengal's Durgapur, 453 km away.
+    mangaluru:          { city: 'Mangaluru', ulbs: ['Mangalore'], st: 'karnataka' },
+    aurangabad:         { city: 'Chhatrapati Sambhajinagar', ulbs: ['Aurangabad'], st: 'maharashtra' },
+    navimumbai:         { city: 'Navi Mumbai', ulbs: ['Navi Mumbai Municiple Corp.'], st: 'maharashtra' },
+    thiruvananthapuram: { city: 'Thiruvananthapuram', ulbs: ['Thiruvananthapuram Corporation'], st: 'kerala' },
+    bareilly:           { city: 'Bareilly', ulbs: ['Bareilly (M.Crop)', 'Bareilly Municipal Corporation'], st: 'uttar pradesh' },
+    gorakhpur:          { city: 'Gorakhpur', ulbs: ['Gorakhpur (M.Corp)', 'Gorakhpur (M . Corp)', 'Gorakhpur'], st: 'uttar pradesh' },
+    ajmer:              { city: 'Ajmer', ulbs: ['Ajmer (M.Corp)'], st: 'rajasthan' },
+    bikaner:            { city: 'Bikaner', ulbs: ['Bikaner'], st: 'rajasthan' },
+    aligarh:            { city: 'Aligarh', ulbs: ['Aligarh (M.Corp)'], st: 'uttar pradesh' },
+    jabalpur:           { city: 'Jabalpur', ulbs: ['Jabalpur'], st: 'madhya pradesh' },
+    jammu:              { city: 'Jammu', ulbs: ['Jammu'], st: 'jammu and kashmir' },
+    kochi:              { city: 'Kochi', ulbs: ['Kochi'], st: 'kerala' },
+    udaipur:            { city: 'Udaipur', ulbs: ['Udaipur (M Cl)'], st: 'rajasthan' },
+    firozabad:          { city: 'Firozabad', ulbs: ['Firozabad Municipal Corporation'], st: 'uttar pradesh' },
+    belagavi:           { city: 'Belagavi', ulbs: ['City Corporation Belagavi'], st: 'karnataka' },
+    bhubaneswar:        { city: 'Bhubaneswar', ulbs: ['Bhubaneswar (Mc)'], st: 'odisha' },
+    hubballi:           { city: 'Hubballi', ulbs: ['Hubli-Dharwad'], st: 'karnataka' },
+    alwar:              { city: 'Alwar', ulbs: ['Alwar'], st: 'rajasthan' },
+    mysuru:             { city: 'Mysuru', ulbs: ['Mysore (M.Corp)'], st: 'karnataka' },
+    vijayawada:         { city: 'Vijayawada', ulbs: ['Vijayawada'], st: 'andhra pradesh' },
+    patiala:            { city: 'Patiala', ulbs: ['Patiala', 'Patiala '], st: 'punjab' },
+    bhiwadi:            { city: 'Bhiwadi', ulbs: ['Bhiwadi'], st: 'rajasthan' },
+    nizamabad:          { city: 'Nizamabad', ulbs: ['Nizamabad'], st: 'telanagana' },
+    salem:              { city: 'Salem', ulbs: ['Salem'], st: 'tamil nadu' },
+    erode:              { city: 'Erode', ulbs: ['Erode'], st: 'tamil nadu' },
+    thoothukudi:        { city: 'Thoothukudi', ulbs: ['Thoothukudi'], st: 'tamil nadu' },
+    cuttack:            { city: 'Cuttack', ulbs: ['Cuttack'], st: 'odisha' },
+    guntur:             { city: 'Guntur', ulbs: ['Guntur'], st: 'andhra pradhesh' },
+
+    // ── Batch 2 (v26.6.138): same geo-verified matching as batch 1. The
+    // 'Puducherry;' and 'Dhanbad Municipal Corportion' spellings are the
+    // source's own, typos included — matching is exact, so they stay.
+    dhanbad:    { city: 'Dhanbad', ulbs: ['Dhanbad Municipal Corportion'], st: 'jharkhand' },
+    thrissur:   { city: 'Thrissur', ulbs: ['Thrissur'], st: 'kerala' },
+    kollam:     { city: 'Kollam', ulbs: ['Kollam Corporation'], st: 'kerala' },
+    ujjain:     { city: 'Ujjain', ulbs: ['Ujjain'], st: 'madhya pradesh' },
+    nellore:    { city: 'Nellore', ulbs: ['Nellore'], st: 'andhra pradhesh' },
+    gaya:       { city: 'Gaya', ulbs: ['Gaya'], st: 'bihar' },
+    kurnool:    { city: 'Kurnool', ulbs: ['Kurnool'], st: 'andhra pradhesh' },
+    bhagalpur:  { city: 'Bhagalpur', ulbs: ['Bhagalpur'], st: 'bihar' },
+    bathinda:   { city: 'Bathinda', ulbs: ['Bathinda'], st: 'punjab' },
+    kalaburagi: { city: 'Kalaburagi', ulbs: ['Kalaburagi Mcorp'], st: 'karnataka' },
+    tirupati:   { city: 'Tirupati', ulbs: ['Tirupati', 'TIRUPATI'], st: 'andhra pradhesh' },
+    puducherry: { city: 'Puducherry', ulbs: ['Puducherry;'], st: 'puducherry' },
+    thane:      { city: 'Thane', ulbs: ['Thane'], st: 'maharashtra' },
+    panaji:     { city: 'Panaji (Goa)', ulbs: ['PANAJI'], st: 'goa' },
+    panipat:    { city: 'Panipat', ulbs: ['Panipat'], st: 'haryana' },
+    solapur:    { city: 'Solapur', ulbs: ['Solapur'], st: 'maharashtra' },
+    rohtak:     { city: 'Rohtak', ulbs: ['Rohtak'], st: 'haryana' },
+    sonipat:    { city: 'Sonipat', ulbs: ['Sonipat'], st: 'haryana' },
+    amravati:   { city: 'Amravati', ulbs: ['Amravati Municipal Corporation'], st: 'maharashtra' },
+    hisar:      { city: 'Hisar', ulbs: ['Hisar'], st: 'haryana' },
+    gangtok:    { city: 'Gangtok', ulbs: ['Gangtok Municipal Corporation'], st: 'sikkim' },
+    jamnagar:   { city: 'Jamnagar', ulbs: ['Jamnagar'], st: 'gujarat' },
+    // Deliberately NOT added: Noida, Jamshedpur, Vellore, Kozhikode, Akola
+    // and Bhavnagar. SBM holds only 1-13 ward polygons for each (verified
+    // against the raw release, not a matching failure), so the atlas would
+    // show a city as a couple of blobs. A partial ward map misinforms more
+    // than no ward map. Re-add if the upstream upload is ever completed.
 };
 
 const WARDS_SOURCE = 'Swachh Bharat Mission ULB wards via indianopenmaps.com (ramSeraph), simplified';
 
 // ── geometry helpers ────────────────────────────────────────────────
 
-const round5 = (n) => Math.round(n * 1e5) / 1e5;
-
-// Douglas-Peucker on a ring/line of [lon, lat] pairs; tol in degrees.
-function simplifyRing(pts, tol) {
-    if (pts.length <= 4) return pts;
-    const keep = new Uint8Array(pts.length);
-    keep[0] = keep[pts.length - 1] = 1;
-    const stack = [[0, pts.length - 1]];
-    while (stack.length) {
-        const [a, b] = stack.pop();
-        if (b - a < 2) continue;
-        const [ax, ay] = pts[a], [bx, by] = pts[b];
-        const dx = bx - ax, dy = by - ay;
-        const len2 = dx * dx + dy * dy;
-        let maxD = -1, maxI = -1;
-        for (let i = a + 1; i < b; i++) {
-            const [px, py] = pts[i];
-            let d;
-            if (len2 === 0) { const ex = px - ax, ey = py - ay; d = ex * ex + ey * ey; }
-            else {
-                const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2));
-                const ex = px - (ax + t * dx), ey = py - (ay + t * dy);
-                d = ex * ex + ey * ey;
-            }
-            if (d > maxD) { maxD = d; maxI = i; }
-        }
-        if (maxD > tol * tol) { keep[maxI] = 1; stack.push([a, maxI], [maxI, b]); }
-    }
-    const out = [];
-    for (let i = 0; i < pts.length; i++) if (keep[i]) out.push(pts[i]);
-    return out;
-}
-
-function ringArea(ring) { // shoelace, signed, sq. degrees
-    let s = 0;
-    for (let i = 0, n = ring.length - 1; i < n; i++)
-        s += ring[i][0] * ring[i + 1][1] - ring[i + 1][0] * ring[i][1];
-    return s / 2;
-}
-
-function ringCentroid(ring) {
-    let a = 0, cx = 0, cy = 0;
-    for (let i = 0, n = ring.length - 1; i < n; i++) {
-        const f = ring[i][0] * ring[i + 1][1] - ring[i + 1][0] * ring[i][1];
-        a += f; cx += (ring[i][0] + ring[i + 1][0]) * f; cy += (ring[i][1] + ring[i + 1][1]) * f;
-    }
-    if (Math.abs(a) < 1e-12) return ring[0];
-    return [cx / (3 * a), cy / (3 * a)];
-}
-
-function closeRing(ring) {
-    const [fx, fy] = ring[0], [lx, ly] = ring[ring.length - 1];
-    if (fx !== lx || fy !== ly) ring.push([fx, fy]);
-    return ring;
-}
-
-// Simplify a Polygon/MultiPolygon geometry in place; drops rings that
-// collapse or fall under minRingArea (sq. degrees). Returns null if nothing left.
-function simplifyGeom(geom, tol, minRingArea = 0) {
-    const polys = geom.type === 'Polygon' ? [geom.coordinates] :
-                  geom.type === 'MultiPolygon' ? geom.coordinates : null;
-    if (!polys) return geom; // points pass through
-    const outPolys = [];
-    for (const poly of polys) {
-        const outRings = [];
-        for (const ring of poly) {
-            let r = simplifyRing(ring.map(([x, y]) => [round5(x), round5(y)]), tol);
-            if (r.length < 4) continue;
-            r = closeRing(r.map(([x, y]) => [round5(x), round5(y)]));
-            if (r.length < 4) continue;
-            if (minRingArea && Math.abs(ringArea(r)) < minRingArea) {
-                if (outRings.length === 0) continue;   // outer ring too small → skip poly
-                else continue;                          // hole too small → drop hole
-            }
-            outRings.push(r);
-        }
-        if (outRings.length) outPolys.push(outRings);
-    }
-    if (!outPolys.length) return null;
-    return outPolys.length === 1
-        ? { type: 'Polygon', coordinates: outPolys[0] }
-        : { type: 'MultiPolygon', coordinates: outPolys };
-}
-
-// Area-weighted centroid of the largest outer ring of a (Multi)Polygon.
-function geomCentroid(geom) {
-    const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
-    let best = null, bestA = -1;
-    for (const poly of polys) {
-        const a = Math.abs(ringArea(poly[0]));
-        if (a > bestA) { bestA = a; best = poly[0]; }
-    }
-    const [cx, cy] = ringCentroid(best);
-    return [round5(cx), round5(cy)];
-}
+// Geometry helpers live in scripts/lib/geo.mjs so both boundary importers
+// (this one and import-bharatlas-wards.mjs) share one implementation.
+import { round5, simplifyRing, ringArea, ringCentroid, closeRing, simplifyGeom, geomCentroid } from './lib/geo.mjs';
 
 // ── input plumbing ──────────────────────────────────────────────────
 
@@ -224,13 +196,25 @@ async function buildWards(srcDir) {
     const src = await ensureSource('wards', srcDir);
     // cityKey → Map(wardKey → {no, name, polys: [poly…]})
     const cities = {};
+    // SBM files the same city under several spellings of its own state —
+    // Vijayawada has 63 wards under "Andhra Pradhesh" and 1 under "Andhra
+    // Pradesh"; Nizamabad splits across "Telanagana" and "Telangana". Matching
+    // the raw string silently dropped most of a city's wards, so normalise
+    // both sides (and trim ULB names, some carry trailing spaces).
+    const ST_FIX = { andhrapradhesh: 'andhrapradesh', telanagana: 'telangana',
+                     orissa: 'odisha', pondicherry: 'puducherry', uttaranchal: 'uttarakhand' };
+    const normSt = (s) => {
+        const v = String(s || '').toLowerCase().replace(/[^a-z]/g, '');
+        return ST_FIX[v] || v;
+    };
+    const normUlb = (s) => String(s || '').trim().toLowerCase();
     const matchers = Object.entries(WARD_CITIES).map(([key, c]) => ({
-        key, st: c.st.toLowerCase(), ulbs: new Set(c.ulbs.map(u => u.toLowerCase())),
+        key, st: normSt(c.st), ulbs: new Set(c.ulbs.map(normUlb)),
     }));
     for await (const f of readFeatures(src)) {
         const p = f.properties || {};
-        const ulb = String(p.ulbname || '').toLowerCase();
-        const st = String(p.statename || '').toLowerCase();
+        const ulb = normUlb(p.ulbname);
+        const st = normSt(p.statename);
         const m = matchers.find(x => x.ulbs.has(ulb) && st.startsWith(x.st));
         if (!m) continue;
         const g = f.geometry;
@@ -304,8 +288,45 @@ async function buildWards(srcDir) {
             a.properties.name.localeCompare(b.properties.name));
         const fc = { type: 'FeatureCollection', city: WARD_CITIES[key].city, airOnly: true, source: WARDS_SOURCE, features };
         const out = join(ROOT, 'data', 'wards', `${key}.json`);
+
+        // Carry over anything computed by a LATER stage of the pipeline —
+        // satellite heat/green/built (build-ward-satellite.py) and the annual
+        // PM2.5 (build-village-pm25.py). Rebuilding boundaries used to wipe
+        // them, so re-running this script to add one city silently stripped
+        // the satellite layers from every city it regenerated.
+        const DERIVED = ['lst', 'green', 'built', 'pma'];
+        if (existsSync(out)) {
+            try {
+                const prev = JSON.parse(await readFile(out, 'utf8'));
+                const byWard = new Map((prev.features || []).map(f =>
+                    [`${f.properties?.no} ${f.properties?.name}`, f.properties || {}]));
+                let kept = 0;
+                for (const f of features) {
+                    const old = byWard.get(`${f.properties.no} ${f.properties.name}`);
+                    if (!old) continue;
+                    for (const k of DERIVED) if (old[k] != null) { f.properties[k] = old[k]; kept++; }
+                }
+                if (prev.lst_date) fc.lst_date = prev.lst_date;
+                if (prev.pma_year) fc.pma_year = prev.pma_year;
+                if (features.some(f => f.properties.lst != null)) delete fc.airOnly;
+                if (kept) console.log(`    (kept ${kept} derived values from the previous build)`);
+            } catch { /* unreadable previous build — just write the fresh one */ }
+        }
+
         await writeFile(out, JSON.stringify(fc));
         console.log(`  wards/${key}.json — ${features.length} wards, ${(statSync(out).size / 1024).toFixed(0)} KB`);
+    }
+    // A ULB can be present but barely populated — SBM has 1 polygon for Akola
+    // and 2 for Kozhikode. Those import "successfully" and render a city as a
+    // couple of blobs, so surface them rather than let them pass silently.
+    const THIN = 15;
+    const thin = Object.entries(cities)
+        .map(([k, m]) => [k, m.size])
+        .filter(([, n]) => n < THIN)
+        .sort((a, b) => a[1] - b[1]);
+    if (thin.length) {
+        console.warn(`  WARNING: ${thin.length} city/cities have < ${THIN} wards — likely a partial `
+            + `upstream upload, check before shipping: ${thin.map(([k, n]) => `${k} (${n})`).join(', ')}`);
     }
     const missing = Object.keys(WARD_CITIES).filter(k => !cities[k]);
     if (missing.length) console.warn(`  WARNING: no wards matched for: ${missing.join(', ')}`);

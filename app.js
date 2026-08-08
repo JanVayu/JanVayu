@@ -194,7 +194,50 @@
         durgapur: { name: 'Durgapur', lat: 23.5204, lon: 87.3119, region: 'east', ext: true },
         howrah: { name: 'Howrah', lat: 22.5958, lon: 88.2636, region: 'east', ext: true },
         siliguri: { name: 'Siliguri', lat: 26.7271, lon: 88.3953, region: 'east', ext: true },
+        bidhannagar: { name: 'Bidhannagar', lat: 22.5808, lon: 88.4200, region: 'east', ext: true },
+        bardhaman: { name: 'Bardhaman', lat: 23.2324, lon: 87.8615, region: 'east', ext: true },
+        kharagpur: { name: 'Kharagpur', lat: 22.3460, lon: 87.2320, region: 'east', ext: true },
+        haldia: { name: 'Haldia', lat: 22.0667, lon: 88.0698, region: 'east', ext: true },
         rourkela: { name: 'Rourkela', lat: 22.2604, lon: 84.8536, region: 'east', ext: true },
+        // ── Ward Atlas cities from the ESRI Living Atlas layer that had no
+        // CITIES entry yet. Needed so their live-air layer has a point to
+        // interpolate from; coordinates are each city's own ward centroid. ──
+        aizawl: { name: 'Aizawl', lat: 23.7350, lon: 92.7176, region: 'east', ext: true },
+        ambala: { name: 'Ambala', lat: 30.3606, lon: 76.8129, region: 'north', ext: true },
+        arrah: { name: 'Arrah', lat: 25.5626, lon: 84.6698, region: 'east', ext: true },
+        bhilai: { name: 'Bhilai', lat: 21.2012, lon: 81.3586, region: 'central', ext: true },
+        biharsharif: { name: 'Bihar Sharif', lat: 25.2030, lon: 85.5214, region: 'east', ext: true },
+        bilaspur: { name: 'Bilaspur', lat: 22.0791, lon: 82.1577, region: 'central', ext: true },
+        damoh: { name: 'Damoh', lat: 23.8363, lon: 79.4421, region: 'central', ext: true },
+        davanagere: { name: 'Davanagere', lat: 14.4627, lon: 75.9194, region: 'south', ext: true },
+        dharamshala: { name: 'Dharamshala', lat: 32.2122, lon: 76.3304, region: 'north', ext: true },
+        gurugram: { name: 'Gurugram', lat: 28.4635, lon: 77.0363, region: 'north', ext: true },
+        itanagar: { name: 'Itanagar', lat: 27.0968, lon: 93.6563, region: 'east', ext: true },
+        jhansi: { name: 'Jhansi', lat: 25.4510, lon: 78.5670, region: 'north', ext: true },
+        kakinada: { name: 'Kakinada', lat: 16.9576, lon: 82.2375, region: 'south', ext: true },
+        kalyandombivli: { name: 'Kalyan-Dombivli', lat: 19.2284, lon: 73.1205, region: 'west', ext: true },
+        karnal: { name: 'Karnal', lat: 29.6830, lon: 76.9884, region: 'north', ext: true },
+        katihar: { name: 'Katihar', lat: 25.5416, lon: 87.5677, region: 'east', ext: true },
+        kohima: { name: 'Kohima', lat: 25.6674, lon: 94.1032, region: 'east', ext: true },
+        korba: { name: 'Korba', lat: 22.3742, lon: 82.6950, region: 'central', ext: true },
+        murwara: { name: 'Murwara', lat: 23.8284, lon: 80.3951, region: 'central', ext: true },
+        nandedwaghala: { name: 'Nanded-Waghala', lat: 19.1597, lon: 77.3161, region: 'west', ext: true },
+        nayaraipur: { name: 'Naya Raipur', lat: 21.1605, lon: 81.7844, region: 'central', ext: true },
+        pimprichinchwad: { name: 'Pimpri Chinchwad', lat: 18.6303, lon: 73.8054, region: 'west', ext: true },
+        portblair: { name: 'Port Blair', lat: 11.6502, lon: 92.7294, region: 'south', ext: true },
+        ratlam: { name: 'Ratlam', lat: 23.3302, lon: 75.0373, region: 'central', ext: true },
+        raurkela: { name: 'Raurkela', lat: 22.2314, lon: 84.8468, region: 'east', ext: true },
+        sagar: { name: 'Sagar', lat: 23.8372, lon: 78.7394, region: 'central', ext: true },
+        sasaram: { name: 'Sasaram', lat: 24.9503, lon: 84.0165, region: 'east', ext: true },
+        satna: { name: 'Satna', lat: 24.5685, lon: 80.8375, region: 'central', ext: true },
+        shivamogga: { name: 'Shivamogga', lat: 13.9322, lon: 75.5720, region: 'south', ext: true },
+        silchar: { name: 'Silchar', lat: 24.8207, lon: 92.7961, region: 'east', ext: true },
+        silvassa: { name: 'Silvassa', lat: 20.2752, lon: 73.0055, region: 'west', ext: true },
+        siwan: { name: 'Siwan', lat: 26.2207, lon: 84.3570, region: 'east', ext: true },
+        thanesar: { name: 'Thanesar', lat: 29.9688, lon: 76.8469, region: 'north', ext: true },
+        tumakuru: { name: 'Tumakuru', lat: 13.3366, lon: 77.1079, region: 'south', ext: true },
+        vasaivirar: { name: 'Vasai-Virar', lat: 19.4199, lon: 72.8251, region: 'west', ext: true },
+        vizianagaram: { name: 'Vizianagaram', lat: 18.1143, lon: 83.4062, region: 'south', ext: true },
         bhubaneswar: { name: 'Bhubaneswar', lat: 20.2961, lon: 85.8245, region: 'east', ext: true },
         cuttack: { name: 'Cuttack', lat: 20.4625, lon: 85.8830, region: 'east', ext: true },
         dibrugarh: { name: 'Dibrugarh', lat: 27.4728, lon: 94.9120, region: 'east', ext: true },
@@ -1508,24 +1551,12 @@
     // Satellite-derived per-ward PM2.5 (true coverage) is the planned upgrade.
     let wardMap = null, wardLayer = null, wardCurrentLayer = 'pm25';
     const wardGeoCache = {}, wardLiveCache = {};
-    const WARD_FILES = {
-        delhi: '/data/wards/delhi.json', mumbai: '/data/wards/mumbai.json', bangalore: '/data/wards/bangalore.json',
-        hyderabad: '/data/wards/hyderabad.json', ahmedabad: '/data/wards/ahmedabad.json', chennai: '/data/wards/chennai.json',
-        kolkata: '/data/wards/kolkata.json', pune: '/data/wards/pune.json', jaipur: '/data/wards/jaipur.json',
-        chandigarh: '/data/wards/chandigarh.json', kanpur: '/data/wards/kanpur.json', varanasi: '/data/wards/varanasi.json',
-        bhopal: '/data/wards/bhopal.json', faridabad: '/data/wards/faridabad.json',
-        lucknow: '/data/wards/lucknow.json',
-        // Extracted from SBM ULB ward boundaries via indianopenmaps.com
-        // (scripts/fetch-openmaps.mjs) — air-quality layer only.
-        agra: '/data/wards/agra.json', amritsar: '/data/wards/amritsar.json', coimbatore: '/data/wards/coimbatore.json',
-        dehradun: '/data/wards/dehradun.json', ghaziabad: '/data/wards/ghaziabad.json', gwalior: '/data/wards/gwalior.json',
-        indore: '/data/wards/indore.json', jalandhar: '/data/wards/jalandhar.json', jodhpur: '/data/wards/jodhpur.json',
-        kota: '/data/wards/kota.json', ludhiana: '/data/wards/ludhiana.json', meerut: '/data/wards/meerut.json',
-        moradabad: '/data/wards/moradabad.json', muzaffarpur: '/data/wards/muzaffarpur.json', nagpur: '/data/wards/nagpur.json',
-        nashik: '/data/wards/nashik.json', patna: '/data/wards/patna.json', prayagraj: '/data/wards/prayagraj.json',
-        raipur: '/data/wards/raipur.json', rajkot: '/data/wards/rajkot.json', ranchi: '/data/wards/ranchi.json',
-        surat: '/data/wards/surat.json', vadodara: '/data/wards/vadodara.json', visakhapatnam: '/data/wards/visakhapatnam.json'
-    };
+    // Every ward file is /data/wards/<cityKey>.json, so derive it rather
+    // than keep a hand-maintained map — that list had to be edited in
+    // lockstep with the #ward-map-city options and the build pipeline,
+    // and a city missing from it failed silently (the map just kept
+    // showing whichever city was loaded before).
+    const wardFile = (key) => `/data/wards/${key}.json`;
 
     function wardPM25Color(v) {
         if (v == null || isNaN(v)) return '#cfcfcf';
@@ -1574,6 +1605,14 @@
     // Layer registry: PM2.5 is live-interpolated; heat/green/built-up are satellite, baked into the GeoJSON.
     const WARD_LAYERS = {
         pm25:  { label: 'Air quality', prop: '_pm', unit: ' µg/m³', live: true },
+        // Annual satellite PM2.5 — the year-scale partner to the structural
+        // layers below. Live air (above) is a snapshot; these are not
+        // comparable and the UI must never present them as one series.
+        // Relative, like heat: a whole city usually sits inside one national
+        // band (all 290 Delhi wards are 63–99), so absolute banding paints it
+        // flat and hides the intra-city gradient a ward map exists to show.
+        // Single-hue ramp + absolute endpoints in the legend keeps it honest.
+        pm25a: { label: 'Air, yearly', prop: 'pma', unit: ' µg/m³', annual: true, relative: true },
         lst:   { label: 'Heat',        prop: 'lst', unit: '°C', relative: true },
         green: { label: 'Green cover', prop: 'green', unit: '%' },
         built: { label: 'Built-up',    prop: 'built', unit: '%' },
@@ -1590,12 +1629,16 @@
         return `rgb(${wardLerp(a[0],b[0],f)},${wardLerp(a[1],b[1],f)},${wardLerp(a[2],b[2],f)})`;
     }
     const WARD_HEAT_STOPS = [[44,123,182],[171,217,233],[255,255,191],[253,174,97],[215,25,28]];
+    // Single hue on purpose: a within-city ramp must not imply "green = safe"
+    // in a city where every ward is above India's limit.
+    const WARD_PM25A_STOPS = [[254,235,226],[252,197,192],[250,159,181],[221,52,151],[122,1,119]];
     const WARD_GREEN_STOPS = [[247,247,247],[217,240,211],[166,219,160],[90,174,97],[27,120,55]];
     const WARD_BUILT_STOPS = [[247,247,247],[204,204,204],[150,150,150],[99,99,99],[37,37,37]];
 
     function wardFillColor(layer, v, dom) {
         if (v == null || isNaN(v)) return '#d7d7d7';
         if (layer === 'pm25') return wardPM25Color(v);
+        if (layer === 'pm25a') return wardRamp(WARD_PM25A_STOPS, dom.max > dom.min ? (v - dom.min) / (dom.max - dom.min) : 0.5);
         if (layer === 'lst')  return wardRamp(WARD_HEAT_STOPS, dom.max > dom.min ? (v - dom.min) / (dom.max - dom.min) : 0.5);
         if (layer === 'green') return wardRamp(WARD_GREEN_STOPS, Math.min(v, 60) / 60);
         if (layer === 'built') return wardRamp(WARD_BUILT_STOPS, Math.min(v, 100) / 100);
@@ -1605,6 +1648,7 @@
         const v = p[WARD_LAYERS[layer].prop];
         if (v == null) return '<em>No data</em>';
         if (layer === 'pm25') return `Est. PM2.5: <strong>${v} µg/m³</strong> (${wardPM25Label(v)})`;
+        if (layer === 'pm25a') return `Yearly PM2.5: <strong>${v} µg/m³</strong> (${pm25AnnualBand(v).label})`;
         if (layer === 'lst')  return `Surface temp: <strong>${v}°C</strong>`;
         if (layer === 'green') return `Green cover: <strong>${v}%</strong>`;
         if (layer === 'built') return `Built-up: <strong>${v}%</strong>`;
@@ -1659,7 +1703,10 @@
         const yProp = WARD_LAYERS[layer].prop;
         const xProp = layer === 'built' ? 'green' : 'built';
         const xLabel = xProp === 'green' ? 'Green cover %' : 'Built-up %';
-        const yLabels = { pm25: 'Est. PM2.5 µg/m³', lst: 'Surface temp °C', green: 'Green cover %', built: 'Built-up %' };
+        // pm25a is the one air series that can honestly be scattered against
+        // built-up: both are annual. The live pm25 layer is an hour-old
+        // snapshot, so its correlation here is suggestive at best.
+        const yLabels = { pm25: 'Est. PM2.5 µg/m³', pm25a: 'Yearly PM2.5 µg/m³', lst: 'Surface temp °C', green: 'Green cover %', built: 'Built-up %' };
         const pts = [];
         wardState.geo.features.forEach(f => {
             const p = f.properties, x = p[xProp], y = p[yProp];
@@ -1695,7 +1742,14 @@
         const el = document.getElementById('ward-legend'); if (!el) return;
         if (layer === 'pm25') {
             const bands = [['0–30','#55a84f'],['31–60','#a3c853'],['61–90','#e6c93b'],['91–120','#f29c33'],['121–250','#e93f33'],['250+','#af2d24']];
-            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">PM2.5 µg/m³</span>` + bands.map(b => wardSwatch(b[1], b[0])).join('');
+            // No text-transform:uppercase on a label containing µ — CSS maps
+            // U+00B5 to Greek capital Mu, rendering "µg/m³" as "ΜG/M³".
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;letter-spacing:0.05em;color:var(--text-3);">PM2.5 µg/m³</span>` + bands.map(b => wardSwatch(b[1], b[0])).join('');
+        } else if (layer === 'pm25a') {
+            const yr = (wardState.geo && wardState.geo.pma_year) || 2024;
+            el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;letter-spacing:0.05em;color:var(--text-3);">Yearly PM2.5 µg/m³ · ${yr}</span>` +
+                wardGradientBar(WARD_PM25A_STOPS, `${dom.min.toFixed(1)}`, '(cleaner → dirtier, this city)', `${dom.max.toFixed(1)}`) +
+                `<span style="flex-basis:100%;font-size:0.66rem;color:var(--text-3);line-height:1.4;">Shading compares wards <em>within this city</em>. Satellite yearly average, not today's air &mdash; WHO guideline 5, India's limit 40.</span>`;
         } else if (layer === 'lst') {
             el.innerHTML = `<span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);">Surface temp</span>` +
                 wardGradientBar(WARD_HEAT_STOPS, `${dom.min.toFixed(0)}°C`, '(cooler → hotter, this city)', `${dom.max.toFixed(0)}°C`);
@@ -1723,6 +1777,16 @@
                 row(`Dirtiest: <strong>${worst.name}</strong> &mdash; ~${worst.v} µg/m³ (<strong>${Math.round(worst.v/WHO_PM25_GUIDELINE)}× the WHO limit</strong>).`),
                 row(`Cleanest: <strong>${best.name}</strong> &mdash; ~${best.v} µg/m³.`),
                 row(`Spread: <strong>${best.v}–${worst.v} µg/m³</strong> in one city, same hour.`)
+            ]);
+        } else if (layer === 'pm25a') {
+            const s = [...vals].sort((a, b) => b.v - a.v), worst = s[0], best = s[n - 1];
+            const overIndia = vals.filter(v => v.v > 40).length;
+            const yr = (wardState.geo && wardState.geo.pma_year) || 2024;
+            el.innerHTML = wrap([
+                row(`<strong>${overIndia}/${n}</strong> wards are above <strong>India&rsquo;s annual limit</strong> of 40 µg/m³ (${yr} average).`),
+                row(`Dirtiest over the year: <strong>${worst.name}</strong> &mdash; ${worst.v} µg/m³ (<strong>${Math.round(worst.v/WHO_PM25_GUIDELINE)}× the WHO guideline</strong>).`),
+                row(`Cleanest over the year: <strong>${best.name}</strong> &mdash; ${best.v} µg/m³.`),
+                row(`Spread: <strong>${best.v}–${worst.v} µg/m³</strong> across this city, averaged over a whole year.`)
             ]);
         } else if (layer === 'lst') {
             const s = [...vals].sort((a, b) => b.v - a.v), hot = s[0], cool = s[n - 1];
@@ -1763,6 +1827,9 @@
         const date = wardState.geo && wardState.geo.lst_date;
         if (layer === 'pm25') {
             el.innerHTML = `<strong>What this shows:</strong> each ward&rsquo;s value is estimated from the city&rsquo;s live CPCB/WAQI monitors &mdash; the nearest monitors count most. It&rsquo;s the citywide <em>pattern</em>, not an exact street-by-street reading, and it&rsquo;s sharper where there are more monitors. <em>One note on timing:</em> this air layer is a <strong>live snapshot</strong>, while heat, greenery and built-up cover change slowly over the year. So those layers explain a ward&rsquo;s <em>typical</em> air, not this exact hour&rsquo;s reading.`;
+        } else if (layer === 'pm25a') {
+            const yr = (wardState.geo && wardState.geo.pma_year) || 2024;
+            el.innerHTML = `<strong>What this shows:</strong> each ward&rsquo;s <strong>annual average</strong> PM2.5 for <strong>${yr}</strong>, from satellite (SatPM2.5 V6GL03, ~1&nbsp;km, calibrated against ground monitors). <em>This is the year-scale partner</em> to the heat, greenery and built-up layers &mdash; unlike the live air layer, it can honestly be compared with them, because all four describe the same slow timescale. Two limits: it says nothing about a bad week in November, and a ~1&nbsp;km estimate smooths very local sources, so a single kiln or busy junction won&rsquo;t show up in it.`;
         } else if (layer === 'lst') {
             el.innerHTML = `<strong>Heat &mdash; a driver of air quality.</strong> Land-surface temperature from <strong>Landsat 8/9</strong> (~30&nbsp;m)${date ? `, a clear-sky scene on <strong>${date}</strong>` : ''} &mdash; ground temperature on one hot-season afternoon (hotter than air temperature, a snapshot not an average). <em>Why it&rsquo;s here:</em> heat speeds up ozone formation and worsens the health hit of particle pollution, so hotter wards tend to carry a heavier air-quality burden.`;
         } else if (layer === 'green') {
@@ -1780,6 +1847,8 @@
             el.textContent = (st && st.pts.length)
                 ? `${n} wards · estimated from ${st.pts.length} live monitors · ${new Date(st.ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}. The citywide pattern, not an exact per-ward reading.`
                 : 'No live monitors are reporting right now.';
+        } else if (layer === 'pm25a') {
+            el.textContent = `${n} wards · SatPM2.5 V6GL03 annual mean${wardState.geo && wardState.geo.pma_year ? ' · ' + wardState.geo.pma_year : ''} · ~1 km satellite. A yearly average, not today's air.`;
         } else if (layer === 'lst') {
             el.textContent = `${n} wards · Landsat 8/9 surface temperature${wardState.geo.lst_date ? ' · ' + wardState.geo.lst_date : ''} · ~30 m.`;
         } else {
@@ -1801,7 +1870,7 @@
         let geo = wardGeoCache[cityKey];
         if (!geo) {
             if (statsEl) statsEl.innerHTML = '<div style="color:var(--text-3); font-size:0.85rem;"><span class="pulse"></span> Loading wards…</div>';
-            try { geo = await (await fetch(WARD_FILES[cityKey])).json(); wardGeoCache[cityKey] = geo; }
+            try { geo = await (await fetch(wardFile(cityKey))).json(); wardGeoCache[cityKey] = geo; }
             catch (e) { if (statusEl) statusEl.textContent = 'Could not load ward boundaries.'; return; }
         }
 
@@ -1820,18 +1889,33 @@
 
         wardState = { cityKey, geo, stations };
 
+        // Boundary credit for the city actually on screen. Each ward file
+        // records where its outlines came from, and they don't all share a
+        // source or a licence — Guwahati's are OpenCity/Oorvani under ODbL,
+        // which requires the attribution to be visible, not just in the JSON.
+        const srcEl = document.getElementById('ward-map-source');
+        // The satellite pass appends its own credits to the same string
+        // ("…; green/built: ESA WorldCover…"). Those belong to the raster
+        // layers, not the outlines, so only the boundary half goes here —
+        // the satellite sources have their own card in the Source Selector.
+        if (srcEl) srcEl.textContent = geo.source
+            ? `Ward boundaries: ${String(geo.source).split(/;\s*green\/built:/)[0]}`
+            : '';
+
         // Air-only cities (ward boundaries fetched, but no satellite-derived
         // heat/green/built layers yet): disable those toggles and stay on air.
         (function () {
             const raster = !geo.airOnly && geo.features.some(f => f.properties.lst != null);
             document.querySelectorAll('#ward-layer-toggle .ward-layer-btn').forEach(b => {
-                if (b.dataset.layer === 'pm25') return;
+                // Live air and the annual satellite layer exist for every
+                // city; only heat/green/built depend on the raster pipeline.
+                if (b.dataset.layer === 'pm25' || b.dataset.layer === 'pm25a') return;
                 b.disabled = !raster;
                 b.style.opacity = raster ? '' : '0.4';
                 b.style.cursor = raster ? '' : 'not-allowed';
                 b.title = raster ? '' : 'Satellite heat / green / built-up layers aren’t available for this city yet';
             });
-            if (!raster && wardCurrentLayer !== 'pm25') wardCurrentLayer = 'pm25';
+            if (!raster && wardCurrentLayer !== 'pm25' && wardCurrentLayer !== 'pm25a') wardCurrentLayer = 'pm25';
         })();
 
         // (Re)create the map
@@ -1898,6 +1982,37 @@
         const v = si.value.trim(); if (!v) return;
         wardZoomToFeature(v);
     };
+    // "My area" on the unified map. The ward panel's version needs a loaded
+    // city file to find the nearest ward centroid; the map has no such file —
+    // boundaries arrive as tiles for whatever is on screen. So this just takes
+    // you to your location at a zoom where the chosen level actually renders,
+    // which is the honest equivalent and works at every level rather than only
+    // inside a listed city.
+    window.mapLocateMe = function mapLocateMe() {
+        const note = (m) => { const el = document.getElementById('map-boundary-note'); if (el) el.textContent = m; };
+        if (!navigator.geolocation) { note('Geolocation is not available in this browser.'); return; }
+        if (!map) return;
+        note('Locating…');
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude: lat, longitude: lon } = pos.coords;
+                const lvl = BOUNDARY_LEVELS[boundaryLevel];
+                // Zoom past the level's minimum so features are actually drawn,
+                // not just technically in range.
+                const z = lvl ? Math.min(lvl.max, Math.max(lvl.min + 1, 12)) : 11;
+                map.setView([lat, lon], z);
+                // Defer to boundaryDescribe rather than restating the level here:
+                // it already knows which metric is selected and whether this
+                // level carries it, and a second copy of that sentence went
+                // stale the moment the colour menu arrived.
+                note(boundaryLevel && lvl
+                    ? `Showing your area. ${boundaryDescribe(boundaryLevel)}`
+                    : 'Showing your area. Pick a level from Boundaries to colour it by air, heat or land cover.');
+            },
+            () => note('Could not get your location (permission denied?).'),
+            { timeout: 8000 });
+    };
+
     window.wardLocateMe = function wardLocateMe() {
         const status = document.getElementById('ward-map-status');
         if (!navigator.geolocation) { if (status) status.textContent = 'Geolocation is not available in this browser.'; return; }
@@ -1923,19 +2038,39 @@
     // UDISE / Bharatmaps data). Tiles are only fetched for the visible city
     // viewport, and only when the user switches a toggle on.
     let _vectorGridPromise = null;
+    function loadScriptOnce(src) {
+        return new Promise((resolve, reject) => {
+            const el = document.createElement('script');
+            el.src = src;
+            el.async = true;
+            el.onload = resolve;
+            el.onerror = reject;
+            document.head.appendChild(el);
+        });
+    }
     function ensureVectorGrid() {
         if (window.L && L.vectorGrid) return Promise.resolve();
         if (!_vectorGridPromise) {
-            _vectorGridPromise = new Promise((resolve, reject) => {
-                const s = document.createElement('script');
-                s.src = '/assets/vendor/leaflet.vectorgrid.bundled.min.js';
-                s.async = true;
-                s.onload = resolve;
-                s.onerror = (e) => { _vectorGridPromise = null; reject(e); };
-                document.head.appendChild(s);
-            });
+            _vectorGridPromise = loadScriptOnce('/assets/vendor/leaflet.vectorgrid.bundled.min.js')
+                .catch((e) => { _vectorGridPromise = null; throw e; });
         }
         return _vectorGridPromise;
+    }
+
+    // The boundary layers need VectorGrid plus the PMTiles reader and the
+    // adapter that joins them — loaded in that order because the adapter
+    // extends L.VectorGrid.Protobuf and reads the pmtiles global at define
+    // time, so it must come last.
+    let _pmtilesPromise = null;
+    function ensurePMTiles() {
+        if (window.L && L.vectorGrid && typeof L.vectorGrid.pmtiles === 'function') return Promise.resolve();
+        if (!_pmtilesPromise) {
+            _pmtilesPromise = ensureVectorGrid()
+                .then(() => loadScriptOnce('/assets/vendor/pmtiles.min.js'))
+                .then(() => loadScriptOnce('/assets/vendor/leaflet-pmtiles-adapter.js'))
+                .catch((e) => { _pmtilesPromise = null; throw e; });
+        }
+        return _pmtilesPromise;
     }
     // NOTE on dotRadius: these tile sets top out at low native zooms (schools
     // z10, health centres z7) while the city view sits at z11-13, so Leaflet
@@ -2008,15 +2143,23 @@
         return L.layerGroup([grid, markers]);
     }
     const wardReceptorLayers = {};   // kind → VectorGrid layer (while on)
-    window.toggleWardReceptor = async function toggleWardReceptor(btn, kind) {
+    const mainReceptorLayers = {};   // same, for the unified map
+    // `target` lets the same overlay run on either map. The ward panel passes
+    // nothing and keeps its own map; the unified map passes 'main'. Layers are
+    // tracked per map so turning schools off in one place doesn't strand the
+    // layer in the other.
+    window.toggleWardReceptor = async function toggleWardReceptor(btn, kind, target) {
         const cfg = WARD_RECEPTORS[kind];
-        const statusEl = document.getElementById('ward-map-status');
-        if (!cfg || !wardMap) return;
+        const onMain = target === 'main';
+        const mp = onMain ? map : wardMap;
+        const statusEl = document.getElementById(onMain ? 'map-boundary-note' : 'ward-map-status');
+        const store = onMain ? mainReceptorLayers : wardReceptorLayers;
+        if (!cfg || !mp) return;
         const willBeOn = !btn.classList.contains('active');
         btn.classList.toggle('active', willBeOn);
         btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
         if (!willBeOn) {
-            if (wardReceptorLayers[kind]) { try { wardMap.removeLayer(wardReceptorLayers[kind]); } catch (e) {} delete wardReceptorLayers[kind]; }
+            if (store[kind]) { try { mp.removeLayer(store[kind]); } catch (e) {} delete store[kind]; }
             return;
         }
         try { await ensureVectorGrid(); } catch (e) {
@@ -2024,12 +2167,12 @@
             if (statusEl) statusEl.textContent = 'The overlay library could not load — try again in a moment.';
             return;
         }
-        if (!wardMap || wardReceptorLayers[kind]) return;
+        if (!wardMap || store[kind]) return;
         try {
             // Receptor dots must sit ABOVE the ward choropleth (grid tiles
             // default to the tile pane, underneath it).
-            if (!wardMap.getPane('jv-receptors')) {
-                wardMap.createPane('jv-receptors').style.zIndex = 450;
+            if (!mp.getPane('jv-receptors')) {
+                mp.createPane('jv-receptors').style.zIndex = 450;
             }
             let layer;
             if (cfg.collector) {
@@ -2048,13 +2191,13 @@
                 layer.on('click', (e) => {
                     const p = e.layer && e.layer.properties;
                     if (!p) return;
-                    L.popup({ maxWidth: 240 }).setLatLng(e.latlng).setContent(cfg.popup(p)).openOn(wardMap);
+                    L.popup({ maxWidth: 240 }).setLatLng(e.latlng).setContent(cfg.popup(p)).openOn(mp);
                 });
             }
-            layer.addTo(wardMap);
-            wardReceptorLayers[kind] = layer;
+            layer.addTo(mp);
+            store[kind] = layer;
         } catch (e) {
-            console.warn('[JanVayu] ward receptor layer:', e);
+            console.warn('[JanVayu] receptor layer:', e);
             btn.classList.remove('active');
             if (statusEl) statusEl.textContent = 'Could not load that overlay right now (indianopenmaps.com may be busy).';
         }
@@ -3417,6 +3560,13 @@
                     const b = document.getElementById(`map-toggle-${name}-btn`);
                     if (b && b.classList.contains('active')) toggleMapLayer(name, true);
                 });
+                // Villages are viewport-driven, not in OPENMAPS_OVERLAYS, but
+                // restore the same way — the old layer died with the old map.
+                villageGroup = null;
+                villageRenderer = null;   // belonged to the old map
+                villageOnMap.clear();
+                const vb = document.getElementById('map-toggle-villages-btn');
+                if (vb && vb.classList.contains('active')) toggleMapLayer('villages', true);
             } catch (e) {
                 console.error('[JanVayu] Error initializing map:', e);
             }
@@ -3670,6 +3820,8 @@
             } else if (name === 'heatmap') {
                 if (on) { rebuildHeatLayer(); }
                 else if (mapHeatLayer) { try { map.removeLayer(mapHeatLayer); } catch(e){} mapHeatLayer = null; }
+            } else if (name === 'villages') {
+                toggleVillagesOverlay(on);
             } else if (OPENMAPS_OVERLAYS[name]) {
                 toggleOpenmapsOverlay(name, on);
             }
@@ -3826,6 +3978,457 @@
             }
         },
     };
+
+    // ── Village boundaries (LGD via indianopenmaps) ──────────────────────────
+    // 584,615 village polygons cannot be held on the map (or in the repo) at
+    // once, so this layer is viewport-driven: geometry is vendored as one
+    // quantized TopoJSON per district in /data/villages/, and we load only the
+    // districts whose bbox intersects the current view, above a zoom floor.
+    // Built by scripts/build-villages.mjs.
+    const VILLAGE_MIN_ZOOM = 9;      // below this the whole country would load
+    const VILLAGE_MAX_DISTRICTS = 14; // guard against a huge pan at low zoom
+    const VILLAGE_AQI_MAX_KM = 50;   // rural India is far from monitors: past
+                                     // this, say so rather than invent a number
+    // Annual mean PM2.5 (µg/m³) is a concentration, not an AQI index, so it
+    // gets its own scale — banded on the WHO annual guideline (5) and its
+    // interim targets, up to India's own annual NAAQS limit (40).
+    // Bands are anchored on the WHO guideline (5) and India's annual NAAQS
+    // limit (40), then split again above it: 57% of Indian villages fall in
+    // 40-60, so a single band there would paint most of the country one flat
+    // colour and hide the gradient people actually live along.
+    const PM25_ANNUAL_BANDS = [
+        { max: 5,        color: '#16A34A', label: 'Meets the WHO guideline' },
+        { max: 15,       color: '#84CC16', label: 'WHO interim target 3' },
+        { max: 25,       color: '#FACC15', label: 'WHO interim target 2' },
+        { max: 40,       color: '#FB923C', label: "Within India's limit" },
+        { max: 50,       color: '#F87171', label: "Above India's limit" },
+        { max: 60,       color: '#DC2626', label: "Well above India's limit" },
+        { max: Infinity, color: '#7F1D1D', label: 'Severe' },
+    ];
+    function pm25AnnualBand(v) {
+        return PM25_ANNUAL_BANDS.find(b => v <= b.max) || PM25_ANNUAL_BANDS[PM25_ANNUAL_BANDS.length - 1];
+    }
+
+    // ── One map, every Indian boundary level ────────────────────────────
+    // Wards lived in their own panel behind a city dropdown; villages were a
+    // layer here. A user asking "how polluted is my place" had to know whether
+    // their place was a ward or a village to find the right screen — our data
+    // model leaking into the navigation, and the dropdown capped wards at 142
+    // cities out of 3,675. These are PMTiles archives read by range request,
+    // so the browser pulls only what is on screen: rendering Delhi NCR styles
+    // 671 wards from 109 KB, against 224 KB for Delhi's ward file alone.
+    const BOUNDARY_LEVELS = {
+        state:       { label: 'State',        min: 3,  max: 7,  note: '36 states and union territories' },
+        district:    { label: 'District',     min: 4,  max: 9,  note: '785 districts (zila)' },
+        subdistrict: { label: 'Block/Tehsil', min: 6,  max: 11, note: '6,471 sub-districts — block, mandal or tehsil' },
+        panchayat:   { label: 'Panchayat',    min: 7,  max: 10, note: '319,287 gram panchayats' },
+        village:     { label: 'Village',      min: 8,  max: 12, note: '584,615 villages' },
+        ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,368 urban local bodies' },
+        ward:        { label: 'Ward',         min: 9,  max: 13, note: '70,417 municipal wards' },
+    };
+    // What the polygons are coloured by. Air is the only metric every level
+    // carries; green cover and built-up share come from ESA WorldCover and so
+    // far exist on wards only, which the note below says out loud rather than
+    // leaving the user with a grey map and no explanation.
+    const BOUNDARY_METRICS = {
+        p: {
+            label: 'Annual PM2.5', unit: 'µg/m³', levels: null,
+            band: (v) => pm25AnnualBand(v),
+            ramp: 'blue is cleaner, red is dirtier',
+        },
+        h: {
+            label: 'Surface heat', unit: '°C', levels: ['ward', 'ulb', 'subdistrict', 'district', 'state', 'panchayat'],
+            band: (v) => HEAT_BANDS.find(x => v <= x.max) || HEAT_BANDS[HEAT_BANDS.length - 1],
+            ramp: 'blue is cool ground, dark red is baking',
+        },
+        g: {
+            label: 'Green cover', unit: '%', levels: ['ward', 'subdistrict', 'panchayat'],
+            band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
+            ramp: 'brown is bare, green is vegetated — cropland counts as green',
+        },
+        b: {
+            label: 'Built-up', unit: '%', levels: ['ward', 'subdistrict', 'panchayat'],
+            band: (x) => BUILT_BANDS.find(y => x <= y.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
+            ramp: 'pale is open ground, dark orange is dense',
+        },
+    };
+    // Land-surface temperature, not air temperature: this is how hot the ground
+    // itself gets under a clear pre-monsoon sky, which runs well above the
+    // number on a weather forecast. Bands are set against that, not against
+    // what a thermometer in the shade would read.
+    const HEAT_BANDS = [
+        { max: 30,  color: '#2563eb', label: 'Cool ground' },
+        { max: 35,  color: '#38bdf8', label: 'Mild' },
+        { max: 40,  color: '#fbbf24', label: 'Warm' },
+        { max: 45,  color: '#f97316', label: 'Hot' },
+        { max: 50,  color: '#dc2626', label: 'Very hot' },
+        { max: 999, color: '#7f1d1d', label: 'Extreme surface heat' },
+    ];
+    // Eight bands, not five, and bunched at the top — because these now cover
+    // rural India as well as wards, and rural India is almost uniformly
+    // vegetated. Half of all gram panchayats are 97% or more "green", so a
+    // ramp calibrated on wards (where the median is 42%) put two-thirds of the
+    // countryside in one colour and drew a flat green sheet. The bands stay
+    // absolute rather than per-level, so the same colour means the same
+    // number whether you are looking at a ward or a block.
+    const GREEN_BANDS = [
+        { max: 10,  color: '#b45309', label: 'Almost bare' },
+        { max: 30,  color: '#d97706', label: 'Very little green' },
+        { max: 50,  color: '#fbbf24', label: 'Low green cover' },
+        { max: 70,  color: '#bef264', label: 'Moderate green cover' },
+        { max: 85,  color: '#84cc16', label: 'Mostly green' },
+        { max: 93,  color: '#4ade80', label: 'Largely green' },
+        { max: 97,  color: '#22c55e', label: 'Very green' },
+        { max: 100, color: '#15803d', label: 'Almost entirely green' },
+    ];
+    const BUILT_BANDS = [
+        { max: 1,   color: '#fef3c7', label: 'Essentially unbuilt' },
+        { max: 3,   color: '#fde68a', label: 'Barely built up' },
+        { max: 7,   color: '#fdba74', label: 'Lightly built up' },
+        { max: 15,  color: '#fb923c', label: 'Partly built up' },
+        { max: 30,  color: '#f97316', label: 'Substantially built up' },
+        { max: 50,  color: '#ea580c', label: 'Half built up' },
+        { max: 75,  color: '#c2410c', label: 'Densely built' },
+        { max: 100, color: '#7c2d12', label: 'Almost entirely built' },
+    ];
+
+    let boundaryLayer = null;
+    let boundaryLevel = '';
+    let boundaryMetric = 'p';
+
+    function boundaryNote(msg) {
+        const el = document.getElementById('map-boundary-note');
+        if (el) el.textContent = msg || '';
+    }
+
+    function boundaryDescribe(level) {
+        const c = BOUNDARY_LEVELS[level];
+        if (!c) return '';
+        if (map && map.getZoom() < c.min) return `${c.note} — zoom in to zoom ${c.min}+ to see them.`;
+        const m = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
+        if (!m.levels || m.levels.indexOf(level) !== -1) {
+            return `${c.note}. Coloured by ${m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
+        }
+        // Name the levels that do have it, rather than a hardcoded "wards
+        // only" that went stale the moment blocks and panchayats were added.
+        const where = m.levels.map(k => (BOUNDARY_LEVELS[k] || {}).label || k).join(', ');
+        return `${c.note}. ${m.label} is measured for ${where} so far, so these are coloured by annual PM2.5 ` +
+               `— switch the level to see it.`;
+    }
+
+    // Re-colouring means re-styling every feature, and VectorGrid resolves
+    // styles when a tile is parsed — so the layer is rebuilt. Tiles are
+    // already in the browser's HTTP cache, so this is not a refetch.
+    window.setBoundaryMetric = function setBoundaryMetric(metric) {
+        boundaryMetric = BOUNDARY_METRICS[metric] ? metric : 'p';
+        if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
+    };
+
+    window.setBoundaryLevel = async function setBoundaryLevel(level) {
+        try { await ensureLeaflet(); } catch (e) { boundaryNote('Map library could not load.'); return; }
+        if (!map) return;
+        if (level) {
+            try { await ensurePMTiles(); }
+            catch (e) { boundaryNote('Boundary tile reader could not load — try again in a moment.'); return; }
+        }
+        if (boundaryLayer) { try { map.removeLayer(boundaryLayer); } catch (e) {} boundaryLayer = null; }
+        boundaryLevel = level || '';
+        if (!boundaryLevel) {
+            try { toggleVillagesOverlay(false); } catch (e) {}
+            boundaryNote('');
+            return;
+        }
+
+        const cfg = BOUNDARY_LEVELS[boundaryLevel];
+
+        // Villages stay on the older per-district TopoJSON path. Their tile
+        // archive is 267 MB and GitHub refuses any file over 100 MB, so it
+        // cannot ship the way the other six do. Same selector, same place in
+        // the hierarchy for the user — different loader underneath, until the
+        // archives move to a release and this special case goes away.
+        if (boundaryLevel === 'village') {
+            const btn = { classList: { contains: () => false, toggle: () => {} }, setAttribute: () => {} };
+            try { toggleVillagesOverlay(true); } catch (e) {}
+            boundaryNote(boundaryDescribe('village'));
+            void btn;
+            return;
+        }
+        try { toggleVillagesOverlay(false); } catch (e) {}
+
+        if (!cfg || typeof L.vectorGrid.pmtiles !== 'function') {
+            boundaryNote('Boundary tiles are unavailable.');
+            return;
+        }
+        const metric = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
+        const metricHere = !metric.levels || metric.levels.indexOf(boundaryLevel) !== -1;
+        const key = metricHere ? boundaryMetric : 'p';
+        const active = BOUNDARY_METRICS[key];
+        const styleFor = (props) => {
+            const v = props && typeof props[key] === 'number' ? props[key] : null;
+            return {
+                fill: true,
+                fillColor: v == null ? '#cbd5e1' : active.band(v).color,
+                fillOpacity: v == null ? 0.25 : 0.6,
+                color: '#ffffff', weight: 0.4, opacity: 0.55,
+            };
+        };
+        boundaryLayer = L.vectorGrid.pmtiles(`/data/tiles/${boundaryLevel}.pmtiles`, {
+            rendererFactory: L.canvas.tile,
+            interactive: true,
+            minZoom: cfg.min,
+            maxNativeZoom: cfg.max,
+            vectorTileLayerStyles: { [boundaryLevel]: styleFor },
+            getFeatureId: (f) => f.properties && (f.properties.c || f.properties.n),
+        });
+        boundaryLayer.on('click', (e) => {
+            const p = (e.layer && e.layer.properties) || {};
+            const v = typeof p.p === 'number' ? p.p : null;
+            const where = [p.n || 'Unnamed', p.u ? `(${p.u})` : ''].filter(Boolean).join(' ');
+            // Every metric this feature carries, not only the one being
+            // coloured — someone who clicked a ward to check its air should
+            // not have to change the dropdown to learn how green it is.
+            const extras = ['h', 'g', 'b'].filter(k => typeof p[k] === 'number');
+            const land = extras.map(k => {
+                const m = BOUNDARY_METRICS[k];
+                return `${m.label}: <strong>${p[k]}${m.unit}</strong> <span style="color:var(--text-3)">(${m.band(p[k]).label.toLowerCase()})</span>`;
+            }).join('<br>');
+            const credit = [
+                extras.indexOf('h') !== -1 ? 'Landsat 8/9 surface temperature, pre-monsoon mean' : '',
+                // Spell out what "green" counts. In a ward it is mostly parks
+                // and scrub; in a gram panchayat it is mostly farmland, and a
+                // reader seeing "97%" would otherwise picture forest.
+                (extras.indexOf('g') !== -1 || extras.indexOf('b') !== -1)
+                    ? 'ESA WorldCover 2021, 10 m — green counts trees, shrub, grass, cropland and wetland' : '',
+            ].filter(Boolean).join(' · ');
+            const body = (v == null
+                ? 'No annual estimate for this area.'
+                : `<strong>${v} µg/m³</strong> — annual average PM2.5, 2024.<br>` +
+                  `<span style="color:var(--text-3)">${pm25AnnualBand(v).label}. ` +
+                  `India's annual limit is 40; the WHO guideline is 5. ` +
+                  `A yearly average, not today's air.</span>`)
+                + (land ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">${land}` +
+                          `<div style="color:var(--text-3);font-size:.7rem;margin-top:.2rem">${credit}</div></div>` : '');
+            L.popup({ maxWidth: 280 })
+                .setLatLng(e.latlng)
+                .setContent(`<div style="font-size:.85rem"><strong>${escapeHtml(where)}</strong>` +
+                            `<div style="color:var(--text-3);font-size:.75rem;margin-bottom:.35rem">${cfg.label}</div>${body}</div>`)
+                .openOn(map);
+            L.DomEvent.stop(e);
+        });
+        boundaryLayer.addTo(map);
+        boundaryNote(boundaryDescribe(boundaryLevel));
+        map.off('zoomend.boundary').on('zoomend.boundary', () => {
+            if (!boundaryLevel) return;
+            boundaryNote(boundaryDescribe(boundaryLevel));
+        });
+    };
+
+    let villageGroup = null;
+    // One shared canvas for every district. Leaflet canvases do their own
+    // hit-testing and don't let clicks fall through to a canvas underneath, so
+    // a renderer per district would make all but the topmost one unclickable.
+    let villageRenderer = null;
+    let villageIndex = null;
+    let villageIndexPromise = null;
+    let _topojsonPromise = null;
+    const villageDistrictCache = {};
+    const villageOnMap = new Set();
+    let villageNoteControl = null;
+
+    function ensureTopojson() {
+        if (window.topojson && window.topojson.feature) return Promise.resolve();
+        if (!_topojsonPromise) {
+            _topojsonPromise = new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = '/assets/vendor/topojson-client.min.js';
+                s.async = true;
+                s.onload = resolve;
+                s.onerror = (e) => { _topojsonPromise = null; reject(e); };
+                document.head.appendChild(s);
+            });
+        }
+        return _topojsonPromise;
+    }
+
+    function loadVillageIndex() {
+        if (villageIndex) return Promise.resolve(villageIndex);
+        if (!villageIndexPromise) {
+            villageIndexPromise = fetch('/data/villages/_index.json')
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(j => { villageIndex = j; return j; })
+                .catch(e => { villageIndexPromise = null; throw e; });
+        }
+        return villageIndexPromise;
+    }
+
+    function loadVillageDistrict(id) {
+        if (!villageDistrictCache[id]) {
+            // .json, not .topojson: Netlify keys compression off content-type,
+            // and an unknown extension is served as uncompressed
+            // application/octet-stream — 1.4 MB instead of ~350 KB brotli'd.
+            villageDistrictCache[id] = fetch(`/data/villages/${id}.json`)
+                .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+                .then(topo => {
+                    const key = Object.keys(topo.objects)[0];
+                    return topojson.feature(topo, topo.objects[key]);
+                })
+                .catch(e => { delete villageDistrictCache[id]; throw e; });
+        }
+        return villageDistrictCache[id];
+    }
+
+    let villageLegend = null;
+    function villageLegendControl() {
+        const ctl = L.control({ position: 'bottomright' });
+        ctl.onAdd = function () {
+            const d = L.DomUtil.create('div');
+            const yr = (villageIndex && villageIndex._meta && villageIndex._meta.pm25Year) || 2024;
+            d.style.cssText = 'background:rgba(255,255,255,0.93);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:210px;';
+            d.innerHTML = `<strong style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.04em;">Annual PM2.5 · ${yr}</strong><br>` +
+                PM25_ANNUAL_BANDS.map((b, i) => {
+                    const lo = i === 0 ? 0 : PM25_ANNUAL_BANDS[i - 1].max;
+                    const range = b.max === Infinity ? `${lo}+` : `${lo}–${b.max}`;
+                    return `<span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${b.color};margin-right:5px;"></span>${range} µg/m³`;
+                }).join('<br>') +
+                '<div style="margin-top:5px;font-size:0.63rem;color:#6b7280;line-height:1.45;">Satellite-derived yearly average, not today\'s air. WHO guideline 5, India\'s limit 40.</div>';
+            return d;
+        };
+        return ctl;
+    }
+
+    function villageNote(text) {
+        if (!map) return;
+        if (!villageNoteControl) {
+            villageNoteControl = L.control({ position: 'bottomleft' });
+            villageNoteControl.onAdd = function () {
+                const d = L.DomUtil.create('div');
+                d.id = 'village-note';
+                d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:5px 9px;font-size:0.68rem;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:230px;';
+                return d;
+            };
+            villageNoteControl.addTo(map);
+        }
+        const el = document.getElementById('village-note');
+        if (el) el.innerHTML = text;
+    }
+
+    async function refreshVillages() {
+        if (!villageGroup || !map) return;
+        const z = map.getZoom();
+        if (z < VILLAGE_MIN_ZOOM) {
+            villageGroup.clearLayers();
+            villageOnMap.clear();
+            villageNote(`Zoom in to see village boundaries (zoom ${VILLAGE_MIN_ZOOM}+).`);
+            return;
+        }
+        let idx;
+        try { idx = await loadVillageIndex(); } catch (e) { villageNote('Could not load the village index.'); return; }
+        const b = map.getBounds();
+        const hits = Object.keys(idx).filter(id => {
+            if (id.charAt(0) === '_') return false;   // _meta, not a district
+            const bb = idx[id] && idx[id].b;          // [minLon, minLat, maxLon, maxLat]
+            if (!bb) return false;
+            return bb[0] <= b.getEast() && bb[2] >= b.getWest() &&
+                   bb[1] <= b.getNorth() && bb[3] >= b.getSouth();
+        });
+        if (hits.length > VILLAGE_MAX_DISTRICTS) {
+            villageNote(`${hits.length} districts in view — zoom in a little to load village boundaries.`);
+            return;
+        }
+        // Drop districts that have panned out of view, so the layer stays light.
+        villageOnMap.forEach(id => {
+            if (!hits.includes(id)) {
+                const lyr = villageDistrictCache[id + '__layer'];
+                if (lyr) { try { villageGroup.removeLayer(lyr); } catch (e) {} delete villageDistrictCache[id + '__layer']; }
+                villageOnMap.delete(id);
+            }
+        });
+        const pending = hits.filter(id => !villageOnMap.has(id));
+        if (!pending.length) {
+            if (villageOnMap.size) villageNote(`Village boundaries · ${villageOnMap.size} district${villageOnMap.size > 1 ? 's' : ''} loaded`);
+            return;
+        }
+        villageNote(`Loading villages for ${pending.length} district${pending.length > 1 ? 's' : ''}…`);
+        try { await ensureTopojson(); } catch (e) { villageNote('Could not load the map decoder.'); return; }
+        await Promise.all(pending.map(async (id) => {
+            if (villageOnMap.has(id)) return;
+            villageOnMap.add(id);   // claim before await, so a fast pan can't double-add
+            try {
+                const geo = await loadVillageDistrict(id);
+                if (!villageGroup || !villageOnMap.has(id)) return;
+                const lyr = L.geoJSON(geo, {
+                    renderer: villageRenderer || (villageRenderer = L.canvas({ padding: 0.3 })),
+                    attribution: 'Village boundaries: LGD via <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a> · Annual PM2.5: <a href="https://registry.opendata.aws/surface-pm2-5-v6gl/" target="_blank" rel="noopener">SatPM2.5 V6GL03</a> (ACAG, WashU)',
+                    // Coloured by ANNUAL satellite PM2.5 — a real per-village
+                    // value. The live estimate stays out of the fill: it comes
+                    // from city monitors and is usually absent out here.
+                    style: (f) => {
+                        const v = f.properties && f.properties.p;
+                        if (typeof v !== 'number') {
+                            return { weight: 0.5, color: '#0F766E', opacity: 0.75, fill: true, fillColor: '#14B8A6', fillOpacity: 0.06 };
+                        }
+                        return { weight: 0.4, color: '#334155', opacity: 0.55, fill: true, fillColor: pm25AnnualBand(v).color, fillOpacity: 0.62 };
+                    },
+                    onEachFeature: (f, l) => {
+                        const p = f.properties || {};
+                        l.on('click', (e) => {
+                            const c = e.latlng;
+                            const est = estimateAQIAt(c.lat, c.lng, VILLAGE_AQI_MAX_KM);
+                            const yr = (villageIndex && villageIndex._meta && villageIndex._meta.pm25Year) || 2024;
+                            let annual = '<div style="font-size:0.75rem; color:#888; margin-top:6px;">No annual estimate for this village.</div>';
+                            if (typeof p.p === 'number') {
+                                const b = pm25AnnualBand(p.p);
+                                annual = `<div style="margin-top:6px;">
+                                    <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:#666;">Annual average · ${yr}</div>
+                                    <div style="display:flex; align-items:baseline; gap:6px;">
+                                        <span style="font-size:1.5rem; font-weight:700; color:${b.color};">${p.p}</span>
+                                        <span style="font-size:0.75rem; color:#555;">µg/m³ · ${b.label}</span>
+                                    </div>
+                                    <div style="font-size:0.7rem; color:#777;">${(p.p / 5).toFixed(0)}× the WHO guideline of 5 · India's limit is 40</div>
+                                </div>`;
+                            }
+                            L.popup({ maxWidth: 280 }).setLatLng(c).setContent(`<div style="min-width:210px;">
+                                <strong style="font-size:0.95rem;">${p.n || 'Village'}</strong>
+                                <div style="font-size:0.75rem; color:#555;">Village${p.d ? ' · ' + p.d : ''}${p.s ? ', ' + p.s : ''}</div>
+                                ${annual}
+                                <div style="border-top:1px solid #e5e7eb; margin-top:8px; padding-top:6px;">
+                                    <div style="font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:#666;">Right now</div>
+                                    ${openmapsAqiChip(est)}
+                                </div>
+                                <div style="font-size:0.7rem; color:#777; margin-top:8px;">Two different things: the annual figure is satellite-derived for this village (~1 km); "right now" is inferred from the nearest city monitor, not measured here. A ~1 km satellite estimate also smooths hyperlocal sources, so a kiln or smelter next door won't show up in it.</div>
+                            </div>`).openOn(map);
+                        });
+                    },
+                });
+                villageDistrictCache[id + '__layer'] = lyr;
+                villageGroup.addLayer(lyr);
+            } catch (e) {
+                villageOnMap.delete(id);
+            }
+        }));
+        villageNote(villageOnMap.size
+            ? `Village boundaries · ${villageOnMap.size} district${villageOnMap.size > 1 ? 's' : ''} loaded`
+            : 'No village data for this area.');
+    }
+
+    function toggleVillagesOverlay(on) {
+        if (!map) return;
+        if (!on) {
+            if (villageGroup) { try { map.removeLayer(villageGroup); } catch (e) {} villageGroup = null; }
+            villageRenderer = null;
+            villageOnMap.clear();
+            Object.keys(villageDistrictCache).forEach(k => { if (k.endsWith('__layer')) delete villageDistrictCache[k]; });
+            map.off('moveend zoomend', refreshVillages);
+            if (villageNoteControl) { try { map.removeControl(villageNoteControl); } catch (e) {} villageNoteControl = null; }
+            if (villageLegend) { try { map.removeControl(villageLegend); } catch (e) {} villageLegend = null; }
+            return;
+        }
+        if (villageGroup) return;
+        villageGroup = L.layerGroup().addTo(map);
+        map.on('moveend zoomend', refreshVillages);
+        if (!villageLegend) { villageLegend = villageLegendControl(); villageLegend.addTo(map); }
+        refreshVillages();
+    }
 
     let mapSourcesLegend = null;
     function sourcesLegendControl() {
@@ -7198,7 +7801,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             name: 'Delhi',
             ncapTarget: '40% PM10 reduction by March 2026',
             cityTarget: 'Additional: CAQM year-round GRAP enforcement from May 2026',
-            currentPM25: 91.6,
+            currentPM25: 82.2,
             status: 'not-met',
             statusLabel: 'Not Met',
             statusNote: 'Only 17% NCAP fund utilisation. 0 days met WHO guideline in 2024.',
