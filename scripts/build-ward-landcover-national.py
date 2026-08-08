@@ -19,7 +19,17 @@ and cloud masking across 3,675 ULBs — and is deliberately not attempted here.
 Reads the cached ward slim produced by build-boundary-tiles.py, adds `g` and
 `b` per ward, and rewrites it in place so the tiles can be rebuilt from it.
 
-Usage:  python3 scripts/build-ward-landcover-national.py [--limit N]
+Resilience, learned the hard way. The first full run reached 14,000 of 70,417
+wards and then stalled, and its success rate fell from 99.9% to 71% on the way.
+The cause was transient "Read failed" errors from the remote WorldCover COGs —
+and two design faults of mine made a blip expensive: a failed read lost the
+whole 2,000-ward chunk rather than the wards actually affected, and there was
+no retry and no resume, so a stall meant starting over. Now: each chunk is
+retried with backoff, a chunk that still fails is split so only the genuinely
+unreadable wards are lost, and completed wards are appended so a re-run picks
+up where it stopped.
+
+Usage:  python3 scripts/build-ward-landcover-national.py [--limit N] [--restart]
 """
 
 import json, os, sys, importlib.util
@@ -35,7 +45,33 @@ bws = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(bws)
 
 LIMIT = int(sys.argv[sys.argv.index('--limit') + 1]) if '--limit' in sys.argv else 0
-CHUNK = 2000
+RESTART = '--restart' in sys.argv
+CHUNK = 500          # smaller: a failed read now costs 500 wards, not 2,000
+RETRIES = 3
+
+
+def zonal_with_retry(feats, depth=0):
+    """Land cover for a batch, retrying transient remote-read failures.
+
+    /vsicurl reads against the WorldCover bucket fail intermittently. A single
+    blip used to cost the entire batch, so failures are retried with backoff
+    and then bisected — an unreadable ward loses only itself, not its
+    neighbours.
+    """
+    import time
+    for attempt in range(RETRIES):
+        try:
+            return bws.per_ward_worldcover(feats)
+        except Exception as e:
+            if attempt == RETRIES - 1:
+                if len(feats) == 1 or depth > 6:
+                    print(f'    giving up on {len(feats)} ward(s): {e}', flush=True)
+                    return [(None, None)] * len(feats)
+                mid = len(feats) // 2
+                print(f'    splitting {len(feats)} wards after repeated failure', flush=True)
+                return zonal_with_retry(feats[:mid], depth + 1) + zonal_with_retry(feats[mid:], depth + 1)
+            time.sleep(2 ** attempt)
+    return [(None, None)] * len(feats)
 
 
 def centroid(geom):
@@ -53,9 +89,18 @@ def main():
     if not SLIM.exists():
         raise SystemExit(f'{SLIM} missing — run build-boundary-tiles.py ward first')
 
+    # Resume: count what a previous run already wrote and skip that many.
+    already = 0
+    if OUT.exists() and not RESTART:
+        with open(OUT, encoding='utf8') as f:
+            already = sum(1 for _ in f)
+        if already:
+            print(f'resuming — {already} wards already written', flush=True)
+
     done = ok = 0
     buf = []
-    with open(SLIM, encoding='utf8') as fin, open(OUT, 'w', encoding='utf8') as fout:
+    mode = 'a' if (already and not RESTART) else 'w'
+    with open(SLIM, encoding='utf8') as fin, open(OUT, mode, encoding='utf8') as fout:
 
         def flush():
             nonlocal ok, done
@@ -63,11 +108,7 @@ def main():
                 return
             # per_ward_worldcover groups tile opens by centroid, so a chunk
             # that spans one WorldCover tile costs one open rather than N.
-            try:
-                vals = bws.per_ward_worldcover(buf)
-            except Exception as e:
-                print(f'  chunk failed ({e}) — leaving {len(buf)} wards without land cover', flush=True)
-                vals = [(None, None)] * len(buf)
+            vals = zonal_with_retry(buf)
             for f, (g, b) in zip(buf, vals):
                 if g is not None:
                     f['properties']['g'] = g
@@ -80,9 +121,13 @@ def main():
             print(f'  {done} wards processed, {ok} with land cover', flush=True)
             buf.clear()
 
+        seen = 0
         for line in fin:
             line = line.strip()
             if not line:
+                continue
+            seen += 1
+            if seen <= already:      # already written by an earlier run
                 continue
             f = json.loads(line)
             cx, cy = centroid(f['geometry'])
