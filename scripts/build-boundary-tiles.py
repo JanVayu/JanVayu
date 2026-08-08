@@ -39,6 +39,9 @@ they are gzip-compressed as normal, the header records it, and the client
 decompresses. Disabling that (--no-tile-compression) is a mistake.
 
 Usage:  python3 scripts/build-boundary-tiles.py [level …] [--skip-pm]
+        python3 scripts/build-boundary-tiles.py ward --retile .heat
+          — re-tile from an enriched slim (green/built or heat already added)
+            without refetching the source or redoing the PM2.5 zonal pass.
 Deps:   tippecanoe, 7zz/7za, rasterio, shapely, numpy  (see build-village-pm25)
 """
 
@@ -213,8 +216,21 @@ def build(level: str, cfg: dict, pm, transform, skip_pm: bool):
         raise SystemExit(f'  {level}: nothing to build')
     feats = None
 
-    # Pass 3 — tiles. --drop-densest-as-needed keeps tiles under the size cap
-    # without silently dropping whole features at low zoom.
+    return tile(level, cfg, slim, kept)
+
+
+def tile(level: str, cfg: dict, slim: Path, kept: int):
+    """Pass 3 — tiles. --drop-densest-as-needed keeps tiles under the size cap
+    without silently dropping whole features at low zoom.
+
+    Split out from build() because later passes enrich the slim in place —
+    build-ward-landcover-national.py adds green and built-up, and
+    build-boundary-heat.py adds surface temperature — and re-tiling their
+    output must use the same zoom and simplification as the original. Keeping
+    those numbers in one place is the point: a hand-typed tippecanoe command
+    that quietly used a different maxzoom would ship a map that looks right
+    and is subtly coarser.
+    """
     OUT.mkdir(parents=True, exist_ok=True)
     dst = OUT / f'{level}.pmtiles'
     cmd = ['tippecanoe', '-o', str(dst), '-f', '-l', level,
@@ -229,22 +245,37 @@ def build(level: str, cfg: dict, pm, transform, skip_pm: bool):
             'minzoom': cfg['minzoom'], 'maxzoom': cfg['maxzoom']}
 
 
+def retile(level: str, cfg: dict, suffix: str):
+    """Re-tile a level from an enriched slim, without refetching or re-zoning."""
+    slim = CACHE / f'{level}.slim{suffix}.geojsonl'
+    if not slim.exists():
+        raise SystemExit(f'{slim} missing — nothing to re-tile for {level}')
+    with open(slim, encoding='utf8') as fh:
+        kept = sum(1 for line in fh if line.strip())
+    print(f'  {level}: re-tiling {kept} features from {slim.name}', flush=True)
+    return tile(level, cfg, slim, kept)
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     skip_pm = '--skip-pm' in sys.argv
+    suffix = sys.argv[sys.argv.index('--retile') + 1] if '--retile' in sys.argv else None
+    if suffix:
+        args = [a for a in args if a != suffix]
     todo = args or list(LEVELS)
     for t in todo:
         if t not in LEVELS:
             raise SystemExit(f'unknown level "{t}". Known: {", ".join(LEVELS)}')
 
     pm = transform = None
-    if not skip_pm:
+    if not skip_pm and not suffix:
         pm, transform = bvp.load_grid(YEAR)
 
     manifest = []
     for level in todo:
         print(f'== {level}', flush=True)
-        manifest.append(build(level, LEVELS[level], pm, transform, skip_pm))
+        manifest.append(retile(level, LEVELS[level], suffix) if suffix
+                        else build(level, LEVELS[level], pm, transform, skip_pm))
 
     mf = OUT / '_levels.json'
     prev = json.loads(mf.read_text()) if mf.exists() else {}

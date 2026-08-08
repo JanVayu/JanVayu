@@ -61,13 +61,26 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
   Also fixed the mobile map: the layer controls overlaid the map, wrapped to three rows, collided with the zoom buttons and clipped "Stations" to "ations". Below 700px they now sit above the map on one scrolling row.
 
+- [x] **Heat and land cover go national, on the same map** *(v26.6.148)* — the unified map made the ward panel redundant except for four layers that only existed for 142 cities. Folding those in as-is would have shipped a green-cover layer that silently does nothing in the other 3,533 ULBs — the same "your town isn't in our list" failure the unified map had just removed. So both went national first.
+
+  **Heat is now one raster, not 3,675 searches.** `build-lst-mosaic.py` composites 1,512 Landsat 8/9 scenes across 388 WRS path/rows into a single ~111 m national grid for the 2026 pre-monsoon season, and `build-boundary-heat.py` runs one zonal pass over it. Every level gets heat from the same pass: **state 100%, district 100%, block 99.8%, panchayat 99.9%, ULB 99.9%, ward 99.8%** — against a per-city pipeline that covered 142 cities and still left holes. It closes **"time-aware heat"** and **"mosaic two Landsat paths"** below: five of Thiruvananthapuram's six seam wards now have a value.
+
+  **The first version of the mosaic looked hung.** It was reading whole 7741×7591 thermal bands — 12.8 s each over the network, ~11 hours for 1,516 scenes. The output grid is ~111 m, so the 30 m detail was being thrown away immediately. Reading the `/4` overview instead gives 120 m in 1.2 s. The catch was worth measuring rather than assuming: the thermal overviews are *average*-resampled (only 31% of overview pixels equal the matching source pixel) but the QA overviews are *nearest* (99.9% identical to plain decimation), so masking from a QA overview would have inspected 1 pixel in 16 and passed the other 15 blind — leaking cloud into a mean that clouds drag *downward*. QA compresses hard, so it is read at full resolution (1.1 s) and block-reduced with any-bad-wins. Stricter mask, a tenth of the time: **22 minutes, 0 failures**.
+
+  **Green cover and built-up for all 70,417 wards** — 70,368 (99.93%) have values. The first pass left 4,046 short, because the script gives up on wards it cannot read rather than losing their neighbours to a bisection; those failures are transient, and a `--fill` retry pass recovered 3,997 of them.
+
+  The map gained a **Colour** menu — air, surface heat, green cover, built-up — and a popup that shows every metric a feature carries rather than only the one being shaded. Choosing a metric a level does not have colours by air and says so, instead of drawing a grey map.
+
+  **And the popup had never opened.** Driving the real page in a browser — not the isolated tile harness — showed that tapping a boundary did nothing, on `main` as well as on the branch. Leaflet.VectorGrid calls `L.DomEvent.fakeStop`, which Leaflet removed in 1.6; we ship 1.9.4, so every boundary click threw inside a DOM handler before the layer could fire its own event. Nothing looked broken: the map drew, the console stayed clean on load, and the note cheerfully said "tap any boundary for its figure". Shipped since the unified map went live, and only caught because the browser check clicked instead of just rendering. Shimmed in `leaflet-pmtiles-adapter.js`.
+
 **Follow-ups still open after this phase:**
 
 - **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
-- **Time-aware heat** — the heat layer is one clear-sky scene, and residual cloud leaves some wards with no value at all (Bhopal 34%, Thiruvananthapuram 6%, Kolkata 4%). A seasonal median would fix both the noise and the holes.
+- **Green cover and built-up beyond wards** — the WorldCover pass is level-agnostic, but has only been run for wards. Panchayats and blocks are the obvious next targets.
+- **Retire the ward panel.** Heat, green and built-up are now on the map nationally, so the panel's remaining exclusives are the correlation view and its "But…" stats. Those are worth keeping — the question is where they live.
 - **Manipur, Mizoram, Tripura, Srinagar, Madurai, Siliguri** — the states SBM omits that no alternative source has covered yet, plus Siliguri's partial 4-of-47 AMRUT upload. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
 - **Finish auditing the releases we pull from.** `indian_admin_boundaries/urban` is now enumerated and yielded 52 cities across two files. `indian_facilities`, `indian_industries` and `indian_land_features` still have assets we have never listed.
-- **Mosaic two Landsat paths** for cities on a scene seam — the only way to close Thiruvananthapuram's 6 wards.
+- ~~**Mosaic two Landsat paths** for cities on a scene seam~~ — done nationally in v26.6.148, which is a mosaic of 1,512 scenes rather than two. Five of Thiruvananthapuram's six seam wards now have a value on the map; one still does not, and the ward *panel* keeps its own gap until it is retired.
 - **Siliguri** — absent from all three ward sources. SJDA publishes mouza PDFs for two rural blocks, which our village layer already covers as vector. An RTI to the WB Municipal Affairs Department is the realistic route.
 - **Repo weight** — the working tree is ~182 MB, so a contributor-friendly shallow-clone or data-split path is worth considering.
 

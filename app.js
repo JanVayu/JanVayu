@@ -2001,9 +2001,13 @@
                 // not just technically in range.
                 const z = lvl ? Math.min(lvl.max, Math.max(lvl.min + 1, 12)) : 11;
                 map.setView([lat, lon], z);
+                // Defer to boundaryDescribe rather than restating the level here:
+                // it already knows which metric is selected and whether this
+                // level carries it, and a second copy of that sentence went
+                // stale the moment the colour menu arrived.
                 note(boundaryLevel && lvl
-                    ? `Showing your area. ${lvl.note}. Tap any boundary for its yearly figure.`
-                    : 'Showing your area. Pick a level from Boundaries to colour it by annual air.');
+                    ? `Showing your area. ${boundaryDescribe(boundaryLevel)}`
+                    : 'Showing your area. Pick a level from Boundaries to colour it by air, heat or land cover.');
             },
             () => note('Could not get your location (permission denied?).'),
             { timeout: 8000 });
@@ -4022,13 +4026,87 @@
         ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,368 urban local bodies' },
         ward:        { label: 'Ward',         min: 9,  max: 13, note: '70,417 municipal wards' },
     };
+    // What the polygons are coloured by. Air is the only metric every level
+    // carries; green cover and built-up share come from ESA WorldCover and so
+    // far exist on wards only, which the note below says out loud rather than
+    // leaving the user with a grey map and no explanation.
+    const BOUNDARY_METRICS = {
+        p: {
+            label: 'Annual PM2.5', unit: 'µg/m³', levels: null,
+            band: (v) => pm25AnnualBand(v),
+            ramp: 'blue is cleaner, red is dirtier',
+        },
+        h: {
+            label: 'Surface heat', unit: '°C', levels: ['ward', 'ulb', 'subdistrict', 'district', 'state', 'panchayat'],
+            band: (v) => HEAT_BANDS.find(x => v <= x.max) || HEAT_BANDS[HEAT_BANDS.length - 1],
+            ramp: 'blue is cool ground, dark red is baking',
+        },
+        g: {
+            label: 'Green cover', unit: '%', levels: ['ward'],
+            band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
+            ramp: 'brown is bare, green is planted',
+        },
+        b: {
+            label: 'Built-up', unit: '%', levels: ['ward'],
+            band: (v) => BUILT_BANDS.find(x => v <= x.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
+            ramp: 'pale is open, dark orange is dense',
+        },
+    };
+    // Land-surface temperature, not air temperature: this is how hot the ground
+    // itself gets under a clear pre-monsoon sky, which runs well above the
+    // number on a weather forecast. Bands are set against that, not against
+    // what a thermometer in the shade would read.
+    const HEAT_BANDS = [
+        { max: 30,  color: '#2563eb', label: 'Cool ground' },
+        { max: 35,  color: '#38bdf8', label: 'Mild' },
+        { max: 40,  color: '#fbbf24', label: 'Warm' },
+        { max: 45,  color: '#f97316', label: 'Hot' },
+        { max: 50,  color: '#dc2626', label: 'Very hot' },
+        { max: 999, color: '#7f1d1d', label: 'Extreme surface heat' },
+    ];
+    const GREEN_BANDS = [
+        { max: 5,   color: '#b45309', label: 'Almost bare' },
+        { max: 15,  color: '#d97706', label: 'Very little green' },
+        { max: 30,  color: '#fbbf24', label: 'Low green cover' },
+        { max: 50,  color: '#84cc16', label: 'Moderate green cover' },
+        { max: 100, color: '#16a34a', label: 'Largely green' },
+    ];
+    const BUILT_BANDS = [
+        { max: 10,  color: '#fef3c7', label: 'Barely built up' },
+        { max: 25,  color: '#fdba74', label: 'Lightly built up' },
+        { max: 50,  color: '#fb923c', label: 'Half built up' },
+        { max: 75,  color: '#ea580c', label: 'Densely built' },
+        { max: 100, color: '#9a3412', label: 'Almost entirely built' },
+    ];
+
     let boundaryLayer = null;
     let boundaryLevel = '';
+    let boundaryMetric = 'p';
 
     function boundaryNote(msg) {
         const el = document.getElementById('map-boundary-note');
         if (el) el.textContent = msg || '';
     }
+
+    function boundaryDescribe(level) {
+        const c = BOUNDARY_LEVELS[level];
+        if (!c) return '';
+        if (map && map.getZoom() < c.min) return `${c.note} — zoom in to zoom ${c.min}+ to see them.`;
+        const m = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
+        if (!m.levels || m.levels.indexOf(level) !== -1) {
+            return `${c.note}. Coloured by ${m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
+        }
+        return `${c.note}. ${m.label} is measured for wards only so far, so these are coloured by annual PM2.5 ` +
+               `— switch the level to Ward to see it.`;
+    }
+
+    // Re-colouring means re-styling every feature, and VectorGrid resolves
+    // styles when a tile is parsed — so the layer is rebuilt. Tiles are
+    // already in the browser's HTTP cache, so this is not a refetch.
+    window.setBoundaryMetric = function setBoundaryMetric(metric) {
+        boundaryMetric = BOUNDARY_METRICS[metric] ? metric : 'p';
+        if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
+    };
 
     window.setBoundaryLevel = async function setBoundaryLevel(level) {
         try { await ensureLeaflet(); } catch (e) { boundaryNote('Map library could not load.'); return; }
@@ -4055,9 +4133,7 @@
         if (boundaryLevel === 'village') {
             const btn = { classList: { contains: () => false, toggle: () => {} }, setAttribute: () => {} };
             try { toggleVillagesOverlay(true); } catch (e) {}
-            boundaryNote(map.getZoom() < 9
-                ? '584,615 villages — zoom in to zoom 9+ to see them.'
-                : '584,615 villages. Coloured by annual PM2.5; tap one for its figure.');
+            boundaryNote(boundaryDescribe('village'));
             void btn;
             return;
         }
@@ -4067,11 +4143,15 @@
             boundaryNote('Boundary tiles are unavailable.');
             return;
         }
+        const metric = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
+        const metricHere = !metric.levels || metric.levels.indexOf(boundaryLevel) !== -1;
+        const key = metricHere ? boundaryMetric : 'p';
+        const active = BOUNDARY_METRICS[key];
         const styleFor = (props) => {
-            const v = props && typeof props.p === 'number' ? props.p : null;
+            const v = props && typeof props[key] === 'number' ? props[key] : null;
             return {
                 fill: true,
-                fillColor: v == null ? '#cbd5e1' : pm25AnnualBand(v).color,
+                fillColor: v == null ? '#cbd5e1' : active.band(v).color,
                 fillOpacity: v == null ? 0.25 : 0.6,
                 color: '#ffffff', weight: 0.4, opacity: 0.55,
             };
@@ -4088,12 +4168,26 @@
             const p = (e.layer && e.layer.properties) || {};
             const v = typeof p.p === 'number' ? p.p : null;
             const where = [p.n || 'Unnamed', p.u ? `(${p.u})` : ''].filter(Boolean).join(' ');
-            const body = v == null
+            // Every metric this feature carries, not only the one being
+            // coloured — someone who clicked a ward to check its air should
+            // not have to change the dropdown to learn how green it is.
+            const extras = ['h', 'g', 'b'].filter(k => typeof p[k] === 'number');
+            const land = extras.map(k => {
+                const m = BOUNDARY_METRICS[k];
+                return `${m.label}: <strong>${p[k]}${m.unit}</strong> <span style="color:var(--text-3)">(${m.band(p[k]).label.toLowerCase()})</span>`;
+            }).join('<br>');
+            const credit = [
+                extras.indexOf('h') !== -1 ? 'Landsat 8/9 surface temperature, pre-monsoon mean' : '',
+                (extras.indexOf('g') !== -1 || extras.indexOf('b') !== -1) ? 'ESA WorldCover 2021, 10 m' : '',
+            ].filter(Boolean).join(' · ');
+            const body = (v == null
                 ? 'No annual estimate for this area.'
                 : `<strong>${v} µg/m³</strong> — annual average PM2.5, 2024.<br>` +
                   `<span style="color:var(--text-3)">${pm25AnnualBand(v).label}. ` +
                   `India's annual limit is 40; the WHO guideline is 5. ` +
-                  `A yearly average, not today's air.</span>`;
+                  `A yearly average, not today's air.</span>`)
+                + (land ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">${land}` +
+                          `<div style="color:var(--text-3);font-size:.7rem;margin-top:.2rem">${credit}</div></div>` : '');
             L.popup({ maxWidth: 280 })
                 .setLatLng(e.latlng)
                 .setContent(`<div style="font-size:.85rem"><strong>${escapeHtml(where)}</strong>` +
@@ -4102,16 +4196,10 @@
             L.DomEvent.stop(e);
         });
         boundaryLayer.addTo(map);
-        const z = map.getZoom();
-        boundaryNote(z < cfg.min
-            ? `${cfg.note} — zoom in to zoom ${cfg.min}+ to see them.`
-            : `${cfg.note}. Coloured by annual PM2.5; tap one for its figure.`);
+        boundaryNote(boundaryDescribe(boundaryLevel));
         map.off('zoomend.boundary').on('zoomend.boundary', () => {
             if (!boundaryLevel) return;
-            const c = BOUNDARY_LEVELS[boundaryLevel];
-            boundaryNote(map.getZoom() < c.min
-                ? `${c.note} — zoom in to zoom ${c.min}+ to see them.`
-                : `${c.note}. Coloured by annual PM2.5; tap one for its figure.`);
+            boundaryNote(boundaryDescribe(boundaryLevel));
         });
     };
 

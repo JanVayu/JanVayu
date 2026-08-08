@@ -29,7 +29,15 @@ retried with backoff, a chunk that still fails is split so only the genuinely
 unreadable wards are lost, and completed wards are appended so a re-run picks
 up where it stopped.
 
+A finished run still leaves gaps — 4,046 of 70,417 wards after the first
+complete pass — because bisection deliberately gives up on the wards it cannot
+read rather than losing their neighbours too. Those are transient failures, not
+permanent ones, so --fill re-attempts only the wards still missing `g` and
+patches them into place. It is a second sweep over 6% of the country, not a
+re-run of the whole thing.
+
 Usage:  python3 scripts/build-ward-landcover-national.py [--limit N] [--restart]
+        python3 scripts/build-ward-landcover-national.py --fill
 """
 
 import json, os, sys, importlib.util
@@ -85,7 +93,67 @@ def centroid(geom):
         return None, None
 
 
+def fill():
+    """Retry only the wards a completed run left without land cover.
+
+    Two passes over the file so memory stays proportional to the gaps rather
+    than to the country: collect the missing wards, resolve them, then stream
+    the file through again patching those line numbers. The rewrite goes to a
+    temporary file and is renamed at the end — a half-patched ward file that
+    looked complete would be exactly the quiet-wrong outcome this project keeps
+    getting caught by.
+    """
+    gaps = []                     # (line number, feature)
+    total = 0
+    with open(OUT, encoding='utf8') as f:
+        for i, line in enumerate(f):
+            line = line.strip()
+            if not line:
+                continue
+            total += 1
+            feat = json.loads(line)
+            if 'g' in feat['properties']:
+                continue
+            cx, cy = centroid(feat['geometry'])
+            if cx is None:
+                continue          # no usable geometry — nothing to retry
+            feat['properties']['cx'], feat['properties']['cy'] = cx, cy
+            gaps.append((i, feat))
+    print(f'{total} wards, {len(gaps)} still without land cover', flush=True)
+    if not gaps:
+        return
+
+    fixed = {}
+    gaps.sort(key=lambda g: bws.wc_tile_name(g[1]['properties']['cx'], g[1]['properties']['cy']))
+    for start in range(0, len(gaps), CHUNK):
+        batch = gaps[start:start + CHUNK]
+        vals = zonal_with_retry([f for _, f in batch])
+        for (idx, _), (g, b) in zip(batch, vals):
+            if g is not None:
+                fixed[idx] = (g, b)
+        print(f'  {min(start + CHUNK, len(gaps))}/{len(gaps)} retried, {len(fixed)} recovered', flush=True)
+
+    tmp = OUT.with_suffix('.patched')
+    with open(OUT, encoding='utf8') as fin, open(tmp, 'w', encoding='utf8') as fout:
+        for i, line in enumerate(fin):
+            line = line.strip()
+            if not line:
+                continue
+            if i in fixed:
+                feat = json.loads(line)
+                feat['properties']['g'], feat['properties']['b'] = fixed[i]
+                line = json.dumps(feat, separators=(',', ':'))
+            fout.write(line + '\n')
+    tmp.replace(OUT)
+    print(f'\nrecovered {len(fixed)} of {len(gaps)}; '
+          f'{total - len(gaps) + len(fixed)}/{total} wards now have land cover')
+
+
 def main():
+    if '--fill' in sys.argv:
+        if not OUT.exists():
+            raise SystemExit(f'{OUT} missing — run without --fill first')
+        return fill()
     if not SLIM.exists():
         raise SystemExit(f'{SLIM} missing — run build-boundary-tiles.py ward first')
 
