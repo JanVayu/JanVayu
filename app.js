@@ -4026,10 +4026,14 @@
         ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,368 urban local bodies' },
         ward:        { label: 'Ward',         min: 9,  max: 13, note: '70,417 municipal wards' },
     };
+    // Every level except village carries land cover. Villages are the one gap,
+    // and only because their 267 MB archive cannot ship — the values exist.
+    const LANDCOVER_LEVELS = ['ward', 'subdistrict', 'panchayat', 'ulb', 'district', 'state'];
+
     // What the polygons are coloured by. Air is the only metric every level
-    // carries; green cover and built-up share come from ESA WorldCover and so
-    // far exist on wards only, which the note below says out loud rather than
-    // leaving the user with a grey map and no explanation.
+    // carries; the rest come from satellite passes, and the note below names
+    // which levels have them rather than leaving the user with a grey map and
+    // no explanation.
     const BOUNDARY_METRICS = {
         p: {
             label: 'Annual PM2.5', unit: 'µg/m³', levels: null,
@@ -4041,13 +4045,18 @@
             band: (v) => HEAT_BANDS.find(x => v <= x.max) || HEAT_BANDS[HEAT_BANDS.length - 1],
             ramp: 'blue is cool ground, dark red is baking',
         },
+        t: {
+            label: 'Tree cover', unit: '%', levels: LANDCOVER_LEVELS,
+            band: (v) => TREE_BANDS.find(x => v <= x.max) || TREE_BANDS[TREE_BANDS.length - 1],
+            ramp: 'pale is treeless, deep green is forest',
+        },
         g: {
-            label: 'Green cover', unit: '%', levels: ['ward', 'subdistrict', 'panchayat'],
+            label: 'Green cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
             ramp: 'brown is bare, green is vegetated — cropland counts as green',
         },
         b: {
-            label: 'Built-up', unit: '%', levels: ['ward', 'subdistrict', 'panchayat'],
+            label: 'Built-up', unit: '%', levels: LANDCOVER_LEVELS,
             band: (x) => BUILT_BANDS.find(y => x <= y.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
             ramp: 'pale is open ground, dark orange is dense',
         },
@@ -4071,6 +4080,22 @@
     // countryside in one colour and drew a flat green sheet. The bands stay
     // absolute rather than per-level, so the same colour means the same
     // number whether you are looking at a ward or a block.
+    // Tree canopy only — WorldCover class 10. This is the layer that answers
+    // what people mean by "is there any greenery here", which green cover
+    // could not: green counts cropland, so the median gram panchayat is 97%
+    // green and 12% treed. Bands come from the national distribution across
+    // all six levels, and no band holds more than about a quarter of any of
+    // them, so the map separates everywhere rather than only in cities.
+    const TREE_BANDS = [
+        { max: 2,   color: '#efe9d9', label: 'Effectively treeless' },
+        { max: 5,   color: '#d9d3ae', label: 'Almost no trees' },
+        { max: 10,  color: '#bcd07a', label: 'Very few trees' },
+        { max: 20,  color: '#94c356', label: 'Some tree cover' },
+        { max: 35,  color: '#63a83c', label: 'Moderate tree cover' },
+        { max: 50,  color: '#3d8b2f', label: 'Well treed' },
+        { max: 70,  color: '#246b26', label: 'Heavily treed' },
+        { max: 100, color: '#14401a', label: 'Forest' },
+    ];
     const GREEN_BANDS = [
         { max: 10,  color: '#b45309', label: 'Almost bare' },
         { max: 30,  color: '#d97706', label: 'Very little green' },
@@ -4187,7 +4212,7 @@
             // Every metric this feature carries, not only the one being
             // coloured — someone who clicked a ward to check its air should
             // not have to change the dropdown to learn how green it is.
-            const extras = ['h', 'g', 'b'].filter(k => typeof p[k] === 'number');
+            const extras = ['h', 't', 'g', 'b'].filter(k => typeof p[k] === 'number');
             const land = extras.map(k => {
                 const m = BOUNDARY_METRICS[k];
                 return `${m.label}: <strong>${p[k]}${m.unit}</strong> <span style="color:var(--text-3)">(${m.band(p[k]).label.toLowerCase()})</span>`;
@@ -4197,8 +4222,8 @@
                 // Spell out what "green" counts. In a ward it is mostly parks
                 // and scrub; in a gram panchayat it is mostly farmland, and a
                 // reader seeing "97%" would otherwise picture forest.
-                (extras.indexOf('g') !== -1 || extras.indexOf('b') !== -1)
-                    ? 'ESA WorldCover 2021, 10 m — green counts trees, shrub, grass, cropland and wetland' : '',
+                extras.some(k => k === 't' || k === 'g' || k === 'b')
+                    ? 'ESA WorldCover 2021, 10 m — green counts trees, shrub, grass, cropland and wetland; tree cover is canopy only' : '',
             ].filter(Boolean).join(' · ');
             const body = (v == null
                 ? 'No annual estimate for this area.'

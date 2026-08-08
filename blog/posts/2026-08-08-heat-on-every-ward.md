@@ -44,6 +44,10 @@ Nationally, the correlation between green cover and ward surface temperature is 
 
 That's not a contradiction of the heat-island effect. It's a scale error — ours. The hottest wards in the country are in Vidarbha, and they are **99% "green"**: dry cropland in Amravati district, fallow in May, reading 57 °C at the surface. The coolest are in Pahalgam and Shopian, sitting at 20 °C because they are in the Himalaya. Comparing a Kashmiri ward with a Vidarbha ward measures latitude and altitude. It does not measure urban form.
 
+> **Correction, 8 August 2026 (later the same day).** The ward counts in the table below are wrong, and we are leaving them visible rather than quietly editing them. Chasing an unrelated bug, we found the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a handful of cities: Patna's "628 wards" are 116 distinct shapes, Mangalore's "540" are 61, Savanur's "356" are 27. "Ward 1" appears 23 times in Patna. The *correlations* survive deduplication nearly unchanged — Patna −0.35, Mangalore −0.42, Savanur +0.82, and the national figure is identical to three decimals — so the argument below stands. The counts do not. Deduplicating the atlas is now on the roadmap.
+>
+> **A second update.** The puzzle this post ends on — that green cover barely tracks heat — turned out to have an answer, and it is not the one we implied. See [the follow-up](2026-08-08-tree-cover-answers-it.md): green cover was simply the wrong variable. Tree canopy alone tracks heat at **r = −0.43** nationally and in 88% of cities.
+
 Within a single city, where climate is held constant, the effect does appear:
 
 | City | Wards | Green vs heat | Built-up vs heat | Hottest-to-coolest ward |

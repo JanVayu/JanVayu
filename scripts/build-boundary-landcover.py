@@ -62,6 +62,15 @@ WC_URL = ('/vsicurl/https://esa-worldcover.s3.eu-central-1.amazonaws.com'
           '/v200/2021/map/ESA_WorldCover_10m_2021_v200_{t}_Map.tif')
 GREEN_CLASSES = (10, 20, 30, 40, 90, 95)   # tree, shrub, grass, crop, wetland, mangrove
 BUILT_CLASS = 50
+# Tree cover on its own, because "green" turned out to answer the wrong
+# question outside cities. WorldCover counts cropland as vegetation, so the
+# median gram panchayat is 97% green — true, and nothing to do with how many
+# trees are there. Class 10 is literally named "Tree cover", and it is the
+# variable people mean when they ask whether a place has any. Mangroves (95)
+# are deliberately left out of this and kept in green only: they are trees,
+# but lumping them in would blur a coastal-ecosystem measure into a
+# tree-canopy one.
+TREE_CLASS = 10
 MIN_PIXELS = 20            # below this a share is noise, not a measurement
 
 # WorldCover ships 3-degree tiles on a 1024-pixel block grid; a strip that is a
@@ -86,6 +95,14 @@ for c in GREEN_CLASSES:
     LUT_GREEN[c] = True
 LUT_BUILT = np.zeros(256, dtype=bool)
 LUT_BUILT[BUILT_CLASS] = True
+LUT_TREE = np.zeros(256, dtype=bool)
+LUT_TREE[TREE_CLASS] = True
+
+# Richest slim first: a level that already has heat, or heat plus land cover,
+# must not be rebuilt from the bare slim — that silently drops properties the
+# tiles are meant to carry. Picking `.slim.geojsonl` for wards would have cost
+# them their heat values without erroring.
+SOURCE_ORDER = ('.slim.full.geojsonl', '.slim.heat.geojsonl', '.slim.geojsonl')
 
 
 def tile_name(lon0, lat0):
@@ -103,6 +120,7 @@ class Level:
         self.total = None
         self.green = None
         self.built = None
+        self.tree = None
 
     def index(self):
         """Pass 1 — record each feature's bbox and where its line starts.
@@ -130,6 +148,7 @@ class Level:
         self.total = np.zeros(n, dtype=np.int64)
         self.green = np.zeros(n, dtype=np.int64)
         self.built = np.zeros(n, dtype=np.int64)
+        self.tree = np.zeros(n, dtype=np.int64)
         self.bounds_arr = np.array(
             [b if b else (999., 999., -999., -999.) for b in self.bounds], dtype='float64')
         print(f'  {self.name}: {n} features indexed', flush=True)
@@ -139,8 +158,13 @@ class Level:
         return json.loads(fh.readline()).get('geometry')
 
     def write(self):
+        # Re-running a level whose richest slim is already the destination is
+        # normal — adding tree cover to a file that has green and built. Writing
+        # straight to it would truncate the file being read, so the rewrite
+        # lands on a temporary and is renamed only once complete.
+        out = self.dst if self.dst != self.src else self.dst.with_suffix('.rewriting')
         kept = 0
-        with open(self.src, encoding='utf8') as fin, open(self.dst, 'w', encoding='utf8') as fout:
+        with open(self.src, encoding='utf8') as fin, open(out, 'w', encoding='utf8') as fout:
             i = 0
             for line in fin:
                 line = line.strip()
@@ -151,17 +175,19 @@ class Level:
                 if t >= MIN_PIXELS:
                     feat['properties']['g'] = int(round(100 * self.green[i] / t))
                     feat['properties']['b'] = int(round(100 * self.built[i] / t))
+                    feat['properties']['t'] = int(round(100 * self.tree[i] / t))
                     kept += 1
                 fout.write(json.dumps(feat, separators=(',', ':')) + '\n')
                 i += 1
+        if out != self.dst:
+            out.replace(self.dst)
         n = len(self.offsets)
         print(f'{self.name}: {kept}/{n} with land cover ({kept / max(n,1) * 100:.2f}%)')
         m = self.total >= MIN_PIXELS
         if m.any():
-            g = 100 * self.green[m] / self.total[m]
-            b = 100 * self.built[m] / self.total[m]
-            print(f'  green  mean {g.mean():.1f}  median {np.median(g):.1f}  range {g.min():.0f}-{g.max():.0f}')
-            print(f'  built  mean {b.mean():.1f}  median {np.median(b):.1f}  range {b.min():.0f}-{b.max():.0f}')
+            for label, arr in (('green', self.green), ('built', self.built), ('tree ', self.tree)):
+                v = 100 * arr[m] / self.total[m]
+                print(f'  {label}  mean {v.mean():.1f}  median {np.median(v):.1f}  range {v.min():.0f}-{v.max():.0f}')
         print(f'wrote {self.dst}\n')
 
 
@@ -179,7 +205,7 @@ def score_strip(masks, transform, shape_, level, idxs, fh):
     0.67 s for the same answer. Times three counters and two levels per strip,
     that difference alone was the gap between a 9-hour run and a 2-hour one.
     """
-    valid, vgreen, vbuilt = masks
+    valid, vgreen, vbuilt, vtree = masks
     shapes, local = [], []
     for i in idxs:
         g = level.geometry(i, fh)
@@ -196,11 +222,12 @@ def score_strip(masks, transform, shape_, level, idxs, fh):
     tot = np.bincount(ids[valid], minlength=n)
     gre = np.bincount(ids[vgreen], minlength=n)
     bui = np.bincount(ids[vbuilt], minlength=n)
+    tre = np.bincount(ids[vtree], minlength=n)
     hit = np.nonzero(tot[1:])[0]
     if not hit.size:
         return None
     idx = np.array([local[k] for k in hit], dtype=np.int64)
-    return idx, tot[1:][hit], gre[1:][hit], bui[1:][hit]
+    return idx, tot[1:][hit], gre[1:][hit], bui[1:][hit], tre[1:][hit]
 
 
 LEVELS = []          # set in run(); inherited by forked workers
@@ -266,7 +293,8 @@ def do_tile(spec):
             valid = arr != 0                # 0 is WorldCover's nodata
             if not valid.any():
                 continue
-            masks = (valid, valid & LUT_GREEN[arr], valid & LUT_BUILT[arr])
+            masks = (valid, valid & LUT_GREEN[arr], valid & LUT_BUILT[arr],
+                     valid & LUT_TREE[arr])
             wtf = tf * Affine.translation(cmin, r0)
             for lname, sel in strip_idx.items():
                 lv = next(l for l in LEVELS if l.name == lname)
@@ -278,7 +306,7 @@ def do_tile(spec):
     merged = {}
     for lname, parts in out.items():
         if parts:
-            merged[lname] = tuple(np.concatenate([p[k] for p in parts]) for k in range(4))
+            merged[lname] = tuple(np.concatenate([p[k] for p in parts]) for k in range(5))
     return ('ok', name, merged, read_px, {k: v.size for k, v in hits.items()})
 
 
@@ -287,7 +315,7 @@ def apply(levels, name, merged):
         lv = next((l for l in levels if l.name == lname), None)
         if lv is None:
             continue
-        idx, tot, gre, bui = arrays
+        idx, tot, gre, bui, tre = arrays
         # np.add.at, not lv.total[idx] += tot: a polygon straddling two strips
         # appears twice in idx, and fancy-index += would keep only the last
         # write — silently undercounting exactly the large polygons this
@@ -295,6 +323,87 @@ def apply(levels, name, merged):
         np.add.at(lv.total, idx, tot)
         np.add.at(lv.green, idx, gre)
         np.add.at(lv.built, idx, bui)
+        np.add.at(lv.tree, idx, tre)
+
+
+def fallback(levels):
+    """Score, one at a time, whatever the tile pass left without pixels.
+
+    The tile pass rasterises every polygon of a level into one label grid, so a
+    pixel belongs to exactly one feature. That is correct and fast for levels
+    whose polygons tile the plane — panchayats, blocks, districts — and wrong
+    for wards, which come from three merged sources and genuinely overlap in
+    272 ULBs. Where they overlap, all but the last-drawn polygon lose their
+    pixels: Patna reported 556 of 628 wards with no land cover, Mangalore 480
+    of 540. Silent, and it looked like ordinary missing data.
+
+    Rather than give up the tile pass, the leftovers get the old treatment —
+    an individual windowed read, masked by that polygon alone, so overlapping
+    neighbours cannot take its pixels. It is the slow method, but it now runs
+    on a few thousand features instead of 400,000.
+    """
+    from rasterio.features import geometry_mask
+    todo = []
+    for lv in levels:
+        for i in np.nonzero(lv.total < MIN_PIXELS)[0]:
+            b = lv.bounds[i]
+            if b:
+                todo.append((lv, int(i), b))
+    if not todo:
+        return
+    print(f'\nfallback: {len(todo)} features the tile pass could not score', flush=True)
+
+    # Group by tile so each COG is opened once, as the original per-feature
+    # script did — but a feature is scored against every tile it touches.
+    by_tile = {}
+    for lv, i, b in todo:
+        for lon0 in range(int(math.floor(b[0] / 3) * 3), int(math.floor(b[2] / 3) * 3) + 3, 3):
+            for lat0 in range(int(math.floor(b[1] / 3) * 3), int(math.floor(b[3] / 3) * 3) + 3, 3):
+                by_tile.setdefault(tile_name(lon0, lat0), []).append((lv, i, b))
+
+    handles = {lv.name: open(lv.src, encoding='utf8') for lv in levels}
+    done = 0
+    for name, items in sorted(by_tile.items()):
+        try:
+            src = rasterio.open(WC_URL.format(t=name))
+        except Exception:
+            continue
+        with src:
+            tf = src.transform
+            for lv, i, b in items:
+                try:
+                    c0 = max(0, int((b[0] - tf.c) / tf.a) - 1)
+                    c1 = min(src.width, int((b[2] - tf.c) / tf.a) + 2)
+                    r0 = max(0, int((b[3] - tf.f) / tf.e) - 1)
+                    r1 = min(src.height, int((b[1] - tf.f) / tf.e) + 2)
+                    if c1 <= c0 or r1 <= r0:
+                        continue
+                    win = Window(c0, r0, c1 - c0, r1 - r0)
+                    arr = src.read(1, window=win)
+                    geom = lv.geometry(i, handles[lv.name])
+                    if not geom:
+                        continue
+                    # invert=True makes True mean "inside the polygon".
+                    inside = geometry_mask([geom], out_shape=arr.shape,
+                                           transform=src.window_transform(win),
+                                           invert=True)
+                    vals = arr[inside]
+                    vals = vals[vals != 0]
+                    if not vals.size:
+                        continue
+                    lv.total[i] += vals.size
+                    lv.green[i] += int(LUT_GREEN[vals].sum())
+                    lv.built[i] += int(LUT_BUILT[vals].sum())
+                    lv.tree[i] += int(LUT_TREE[vals].sum())
+                except Exception:
+                    continue
+                done += 1
+                if done % 500 == 0:
+                    print(f'  {done}/{len(todo)} rescored', flush=True)
+    for fh in handles.values():
+        fh.close()
+    recovered = sum(int((lv.total >= MIN_PIXELS).sum()) for lv in levels)
+    print(f'fallback done — {recovered} features now have land cover', flush=True)
 
 
 def run(levels, workers, restart=False):
@@ -323,7 +432,8 @@ def run(levels, workers, restart=False):
             for lv in levels:
                 if f'{lv.name}_idx' in z:
                     merged[lv.name] = (z[f'{lv.name}_idx'], z[f'{lv.name}_tot'],
-                                       z[f'{lv.name}_gre'], z[f'{lv.name}_bui'])
+                                       z[f'{lv.name}_gre'], z[f'{lv.name}_bui'],
+                                       z[f'{lv.name}_tre'])
             apply(levels, f.stem, merged)
             resumed += 1
         else:
@@ -347,12 +457,14 @@ def run(levels, workers, restart=False):
             apply(levels, name, merged)
             flat = {}
             for lname, arrays in merged.items():
-                for key, a in zip(('idx', 'tot', 'gre', 'bui'), arrays):
+                for key, a in zip(('idx', 'tot', 'gre', 'bui', 'tre'), arrays):
                     flat[f'{lname}_{key}'] = a
             np.savez_compressed(ckpt / f'{name}.npz', **flat)
             if res:
                 summary = ', '.join(f'{k} {v}' for k, v in res[4].items())
                 print(f'  [{done}/{len(tiles)}] {name}: {summary}  ({read_px/1e9:.1f} Gpx read)', flush=True)
+
+    fallback(levels)
 
     for lv in levels:
         lv.write()
@@ -387,10 +499,12 @@ def main():
         if override_in:
             src = Path(override_in)
         else:
-            # Prefer a slim that already carries heat, so the rebuilt tile ends
-            # up with air, heat, green and built rather than losing one.
-            heat = CACHE / f'{name}.slim.heat.geojsonl'
-            src = heat if heat.exists() else CACHE / f'{name}.slim.geojsonl'
+            # Richest available, so the rebuilt tile ends up with everything
+            # the level has earned so far rather than whichever properties this
+            # particular pass happens to compute.
+            src = next((CACHE / f'{name}{sfx}' for sfx in SOURCE_ORDER
+                        if (CACHE / f'{name}{sfx}').exists()),
+                       CACHE / f'{name}{SOURCE_ORDER[-1]}')
         dst = Path(override_out) if override_out else CACHE / f'{name}.slim.full.geojsonl'
         if not src.exists():
             raise SystemExit(f'{src} missing — run build-boundary-tiles.py {name} first')

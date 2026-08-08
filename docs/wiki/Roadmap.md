@@ -84,7 +84,24 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
   **What the data then said.** The median gram panchayat is **97% green**, and 87% are above 90%, because WorldCover counts cropland as vegetation. That is correct and it is not tree cover. The ward-calibrated ramp put two-thirds of the countryside in one colour, so the bands were rebuilt with finer steps at the top (85/93/97/100) and kept absolute so a ward and a block remain comparable. Built-up is the discriminating rural layer; the docs say so plainly rather than implying green is doing work it cannot do here.
 
-- **Tree cover as its own metric** — the genuinely useful rural green question, and a separate WorldCover class. Would need one more pass of the same shape.
+- [x] **Tree cover, and land cover on every shipping level** *(v26.6.150)* — one combined pass added a **Tree cover** metric and filled green/built in for ULBs, districts and states, so all six shipping levels now carry air, heat, tree, green and built. Coverage 99.93–100% everywhere.
+
+  **Tree cover is the metric green cover should have been.** Green counts cropland, so the median gram panchayat is 97% green and the layer says almost nothing outside cities. Canopy alone separates places everywhere — median ward 9%, panchayat 12%, state 38% — and it settles the question the previous phase left open. The heat-island relationship was real all along; green cover was simply the wrong proxy:
+
+  | | green vs heat | tree vs heat |
+  |---|---:|---:|
+  | National, 67,732 distinct wards | −0.069 | **−0.429** |
+  | Within-city median *r* | −0.107 | **−0.412** |
+  | Cities where negative | 680/1,247 (55%) | **1,087/1,240 (88%)** |
+  | Coolest-vs-hottest fifth | 0.8 °C | **4.8 °C** |
+
+  (Computed after removing 2,541 exact-duplicate ward geometries — see below.)
+
+  **A silent-failure bug, caught by watching a total go down.** Ward coverage came back 67,527 of 70,417 — worse than the 70,368 the older per-feature script managed. The tile pass rasterises a level into one label grid, so each pixel belongs to exactly one feature; that is right for panchayats and blocks, which tile the plane, and wrong for wards, which come from three merged sources and overlap in 272 ULBs. Overlapping polygons lose their pixels to whichever was drawn last: **556 of Patna's 628 wards and 480 of Mangalore's 540** came back empty, looking exactly like ordinary missing data. Whatever the tile pass leaves short now gets a per-feature second pass — ~3,200 features, not 400,000 — and wards land at 99.93%, better than before.
+
+- **Ward-source duplication, found by chasing the overlap bug** — the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a few ULBs: Patna has 628 features across **115 distinct shapes**, Mangalore 540 across 60, Savanur 356 across 27. "Ward 1" appears 23 times in Patna. The three merged sources evidently overlap for these cities.
+
+  The correlations published in the 8 August post survive deduplication almost unchanged (national tree-vs-heat −0.429 either way), but the **ward counts** in that post's table were inflated — Mangalore's "540 wards" is 61 distinct ones — and a dated correction has been added there. Still open: dedupe the atlas itself, so "70,417 wards" becomes an honest count rather than 67,876 distinct shapes plus duplicates.
 - **Retire the ward panel.** Heat, green and built-up are now on the map nationally, so the panel's remaining exclusives are the correlation view and its "But…" stats. Those are worth keeping — the question is where they live.
 - **Manipur, Mizoram, Tripura, Srinagar, Madurai, Siliguri** — the states SBM omits that no alternative source has covered yet, plus Siliguri's partial 4-of-47 AMRUT upload. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
 - **Finish auditing the releases we pull from.** `indian_admin_boundaries/urban` is now enumerated and yielded 52 cities across two files. `indian_facilities`, `indian_industries` and `indian_land_features` still have assets we have never listed.

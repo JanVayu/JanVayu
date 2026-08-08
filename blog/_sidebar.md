@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **August 2026**
+  - [We Were Measuring the Wrong Green](posts/2026-08-08-tree-cover-answers-it.md)
   - [We Put Surface Heat on Every Ward in India — and It Argued With Us](posts/2026-08-08-heat-on-every-ward.md)
   - [One Map, Every Boundary in India](posts/2026-08-08-one-map-every-boundary.md)
   - [Agartala Breathes Like the Coal Belt, and Nobody Was Looking](posts/2026-08-07-agartala-northeast-outlier.md)
