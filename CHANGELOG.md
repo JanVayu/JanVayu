@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.145] - 2026-08-08
+
+### New — one map, every Indian administrative boundary
+
+The ward atlas and the village layer were two screens, so "how polluted is my place" required knowing whether your place was a ward or a village before you could find the right one — our data model leaking into the navigation. The live map now has a single **Boundaries** menu covering the whole hierarchy:
+
+**state → district (zila) → block/mandal/tehsil → gram panchayat → village** on the rural side; **city/ULB → ward** on the urban side, each coloured by its annual satellite PM2.5.
+
+Six levels ship as **PMTiles** archives read by HTTP range request, so the browser pulls only what is on screen. Measured: Delhi NCR at ward level draws **671 wards across four cities from 109 KB**; the ward atlas downloads **224 KB** for Delhi's 290 alone.
+
+**Coverage added:** all **70,417 municipal wards** (against 142 cities behind a dropdown), **319,287 gram panchayats**, **6,471 blocks/mandals/tehsils**, **3,368 ULBs**, 785 districts, 36 states.
+
+New: `scripts/build-boundary-tiles.py`, `scripts/fetch-tiles.mjs`, `assets/vendor/pmtiles.min.js`, `assets/vendor/leaflet-pmtiles-adapter.js`.
+
+### Fixed — mobile map layout, and the map description
+
+- The layer controls overlaid the map as an absolute box. On a phone they wrapped to three rows, covered most of the map, collided with Leaflet's zoom buttons and clipped "Stations" to "ations". Below 700px they now sit above the map in normal flow on one horizontally-scrolling row. Verified at 390×844: no overlap, single 39px row, no page-level horizontal scroll.
+- The map's description still described only live station markers. It now explains both what the markers show and what the Boundaries menu does.
+
+### Fixed — three silent-failure bugs in the tile pipeline
+
+- **All 584,615 villages would have been labelled with their state.** The column matcher required keys to end with "name"; the real columns are `vilname11`/`vilnam_soi`. It matched nothing and a fallback quietly picked `stname`. Nothing errored. The fallback is removed — the build now stops and prints the real keys. A dry check across all seven levels then caught two more (`ulbnm` no longer matching, districts silently switching join key from `dtcode11` to `dist_lgd`).
+- **Every feature buffered in memory** before writing, the same shape as an earlier 4.4 GB blowup. Now streamed in chunks.
+- **`--no-tile-compression` was a misreading.** The archive must not be CDN-compressed (breaks byte ranges); the tiles inside are gzipped as standard and the client decompresses. Cost measured at 13% before fixing. Panchayats were also 439 MB from being rendered at village-level zoom; retuned to 68.5 MB.
+
+### Known limits
+
+- **Villages still use the older per-district TopoJSON loader.** Their archive is 267 MB and GitHub rejects files over 100 MB. Same menu, same position — a workaround, not a design, until the archives move to a release.
+- `fetch-tiles.mjs` is committed but **deliberately unwired** from `netlify.toml`: creating releases is not permitted from this session, so wiring it would fail every deploy. Publishing all seven archives later takes the repo from ~324 MB to ~31 MB.
+- Panchayat names are 83% populated; unnamed ones are scattered rather than regional, except Andaman & Nicobar (80% unnamed).
+- The ward panel is retained, not deleted — it still owns heat, green cover, built-up and the receptor overlays. It now points at the map instead of dead-ending anyone whose city isn't in its list.
+
+### Docs
+
+- Blog: ["One Map, Every Boundary in India"](blog/posts/2026-08-08-one-map-every-boundary.md).
+
 ## [v26.6.140] - 2026-08-07
 
 ### New — 142 cities, 9,015 wards, and every state capital
