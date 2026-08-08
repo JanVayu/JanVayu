@@ -25,4 +25,8 @@ coverage/
 # get committed or fetched at deploy time is still an open decision —
 # the repo is already 192 MB and contributor clone weight is on the
 # roadmap, so the answer depends on their final size.
-data/tiles/
+
+# Boundary PMTiles: six levels ship in-repo. village.pmtiles (267 MB) does
+# not — GitHub rejects files over 100 MB. Rebuild it with
+# scripts/build-boundary-tiles.py village.
+data/tiles/village.pmtiles
