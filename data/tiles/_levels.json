@@ -10,7 +10,7 @@
  "subdistrict": {
   "level": "subdistrict",
   "features": 6471,
-  "mb": 23.9,
+  "mb": 24.5,
   "minzoom": 5,
   "maxzoom": 11
  },
@@ -24,7 +24,7 @@
  "panchayat": {
   "level": "panchayat",
   "features": 319287,
-  "mb": 71.6,
+  "mb": 74.5,
   "minzoom": 6,
   "maxzoom": 10
  },

@@ -4042,14 +4042,14 @@
             ramp: 'blue is cool ground, dark red is baking',
         },
         g: {
-            label: 'Green cover', unit: '%', levels: ['ward'],
+            label: 'Green cover', unit: '%', levels: ['ward', 'subdistrict', 'panchayat'],
             band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
-            ramp: 'brown is bare, green is planted',
+            ramp: 'brown is bare, green is vegetated — cropland counts as green',
         },
         b: {
-            label: 'Built-up', unit: '%', levels: ['ward'],
-            band: (v) => BUILT_BANDS.find(x => v <= x.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
-            ramp: 'pale is open, dark orange is dense',
+            label: 'Built-up', unit: '%', levels: ['ward', 'subdistrict', 'panchayat'],
+            band: (x) => BUILT_BANDS.find(y => x <= y.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
+            ramp: 'pale is open ground, dark orange is dense',
         },
     };
     // Land-surface temperature, not air temperature: this is how hot the ground
@@ -4064,19 +4064,32 @@
         { max: 50,  color: '#dc2626', label: 'Very hot' },
         { max: 999, color: '#7f1d1d', label: 'Extreme surface heat' },
     ];
+    // Eight bands, not five, and bunched at the top — because these now cover
+    // rural India as well as wards, and rural India is almost uniformly
+    // vegetated. Half of all gram panchayats are 97% or more "green", so a
+    // ramp calibrated on wards (where the median is 42%) put two-thirds of the
+    // countryside in one colour and drew a flat green sheet. The bands stay
+    // absolute rather than per-level, so the same colour means the same
+    // number whether you are looking at a ward or a block.
     const GREEN_BANDS = [
-        { max: 5,   color: '#b45309', label: 'Almost bare' },
-        { max: 15,  color: '#d97706', label: 'Very little green' },
-        { max: 30,  color: '#fbbf24', label: 'Low green cover' },
-        { max: 50,  color: '#84cc16', label: 'Moderate green cover' },
-        { max: 100, color: '#16a34a', label: 'Largely green' },
+        { max: 10,  color: '#b45309', label: 'Almost bare' },
+        { max: 30,  color: '#d97706', label: 'Very little green' },
+        { max: 50,  color: '#fbbf24', label: 'Low green cover' },
+        { max: 70,  color: '#bef264', label: 'Moderate green cover' },
+        { max: 85,  color: '#84cc16', label: 'Mostly green' },
+        { max: 93,  color: '#4ade80', label: 'Largely green' },
+        { max: 97,  color: '#22c55e', label: 'Very green' },
+        { max: 100, color: '#15803d', label: 'Almost entirely green' },
     ];
     const BUILT_BANDS = [
-        { max: 10,  color: '#fef3c7', label: 'Barely built up' },
-        { max: 25,  color: '#fdba74', label: 'Lightly built up' },
-        { max: 50,  color: '#fb923c', label: 'Half built up' },
-        { max: 75,  color: '#ea580c', label: 'Densely built' },
-        { max: 100, color: '#9a3412', label: 'Almost entirely built' },
+        { max: 1,   color: '#fef3c7', label: 'Essentially unbuilt' },
+        { max: 3,   color: '#fde68a', label: 'Barely built up' },
+        { max: 7,   color: '#fdba74', label: 'Lightly built up' },
+        { max: 15,  color: '#fb923c', label: 'Partly built up' },
+        { max: 30,  color: '#f97316', label: 'Substantially built up' },
+        { max: 50,  color: '#ea580c', label: 'Half built up' },
+        { max: 75,  color: '#c2410c', label: 'Densely built' },
+        { max: 100, color: '#7c2d12', label: 'Almost entirely built' },
     ];
 
     let boundaryLayer = null;
@@ -4096,8 +4109,11 @@
         if (!m.levels || m.levels.indexOf(level) !== -1) {
             return `${c.note}. Coloured by ${m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
         }
-        return `${c.note}. ${m.label} is measured for wards only so far, so these are coloured by annual PM2.5 ` +
-               `— switch the level to Ward to see it.`;
+        // Name the levels that do have it, rather than a hardcoded "wards
+        // only" that went stale the moment blocks and panchayats were added.
+        const where = m.levels.map(k => (BOUNDARY_LEVELS[k] || {}).label || k).join(', ');
+        return `${c.note}. ${m.label} is measured for ${where} so far, so these are coloured by annual PM2.5 ` +
+               `— switch the level to see it.`;
     }
 
     // Re-colouring means re-styling every feature, and VectorGrid resolves
@@ -4178,7 +4194,11 @@
             }).join('<br>');
             const credit = [
                 extras.indexOf('h') !== -1 ? 'Landsat 8/9 surface temperature, pre-monsoon mean' : '',
-                (extras.indexOf('g') !== -1 || extras.indexOf('b') !== -1) ? 'ESA WorldCover 2021, 10 m' : '',
+                // Spell out what "green" counts. In a ward it is mostly parks
+                // and scrub; in a gram panchayat it is mostly farmland, and a
+                // reader seeing "97%" would otherwise picture forest.
+                (extras.indexOf('g') !== -1 || extras.indexOf('b') !== -1)
+                    ? 'ESA WorldCover 2021, 10 m — green counts trees, shrub, grass, cropland and wetland' : '',
             ].filter(Boolean).join(' · ');
             const body = (v == null
                 ? 'No annual estimate for this area.'
