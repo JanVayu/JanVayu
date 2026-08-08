@@ -1982,6 +1982,33 @@
         const v = si.value.trim(); if (!v) return;
         wardZoomToFeature(v);
     };
+    // "My area" on the unified map. The ward panel's version needs a loaded
+    // city file to find the nearest ward centroid; the map has no such file —
+    // boundaries arrive as tiles for whatever is on screen. So this just takes
+    // you to your location at a zoom where the chosen level actually renders,
+    // which is the honest equivalent and works at every level rather than only
+    // inside a listed city.
+    window.mapLocateMe = function mapLocateMe() {
+        const note = (m) => { const el = document.getElementById('map-boundary-note'); if (el) el.textContent = m; };
+        if (!navigator.geolocation) { note('Geolocation is not available in this browser.'); return; }
+        if (!map) return;
+        note('Locating…');
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude: lat, longitude: lon } = pos.coords;
+                const lvl = BOUNDARY_LEVELS[boundaryLevel];
+                // Zoom past the level's minimum so features are actually drawn,
+                // not just technically in range.
+                const z = lvl ? Math.min(lvl.max, Math.max(lvl.min + 1, 12)) : 11;
+                map.setView([lat, lon], z);
+                note(boundaryLevel && lvl
+                    ? `Showing your area. ${lvl.note}. Tap any boundary for its yearly figure.`
+                    : 'Showing your area. Pick a level from Boundaries to colour it by annual air.');
+            },
+            () => note('Could not get your location (permission denied?).'),
+            { timeout: 8000 });
+    };
+
     window.wardLocateMe = function wardLocateMe() {
         const status = document.getElementById('ward-map-status');
         if (!navigator.geolocation) { if (status) status.textContent = 'Geolocation is not available in this browser.'; return; }
