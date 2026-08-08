@@ -43,8 +43,9 @@ Same menu entry, different loader underneath.
 |--------|--------|-----------|--------|-------|
 | **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
 | **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all but village | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
-| **Green cover** | ESA WorldCover 2021 | 10 m | ward, block, panchayat | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
-| **Built-up** | ESA WorldCover 2021 | 10 m | ward, block, panchayat | Share classified as built / impervious surface. |
+| **Tree cover** | ESA WorldCover 2021 | 10 m | all but village | Share under tree canopy (class 10). Cropland is *not* counted. |
+| **Green cover** | ESA WorldCover 2021 | 10 m | all but village | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
+| **Built-up** | ESA WorldCover 2021 | 10 m | all but village | Share classified as built / impervious surface. |
 
 Sources: [ESA WorldCover](https://esa-worldcover.org/) (CC BY 4.0),
 [Landsat](https://www.usgs.gov/landsat-missions) via
@@ -115,11 +116,14 @@ fixed global raster, so the pass goes tile-major instead — open each 3-degree
 tile once, walk it in 1024-row strips clipped to the columns its polygons span,
 and score everything inside as it goes. 45.8 Gpx read, at full 10 m.
 
-| Level | With green and built-up |
-|-------|------------------------:|
-| Ward | 70,368 / 70,417 (99.93%) |
+| Level | With tree, green and built-up |
+|-------|------------------------------:|
+| State | 36 / 36 (100%) |
+| District | 785 / 785 (100%) |
 | Block / tehsil | 6,470 / 6,471 (99.98%) |
-| Gram panchayat | 318,979 / 319,287 (99.90%) |
+| Gram panchayat | 319,109 / 319,287 (99.94%) |
+| City / ULB | 3,367 / 3,368 (99.97%) |
+| Ward | 70,371 / 70,417 (99.93%) |
 
 Two details worth recording, because both were nearly got wrong:
 
@@ -137,6 +141,21 @@ the raster returns nodata that then gets filtered out — so a polygon straddlin
 a 3-degree boundary is scored on the part inside its centroid's tile only. At
 ward size that is a rounding error. A block is ~22 km across, so the tile-major
 pass scores each polygon against every tile it touches and sums the counts.
+
+**Polygons that overlap each other.** The tile pass rasterises a whole level
+into one label grid, so each pixel belongs to exactly one feature. That is
+correct for levels whose polygons tile the plane — panchayats, blocks,
+districts — and wrong for wards, which come from three merged sources and
+genuinely overlap in 272 ULBs. Where they overlap, every polygon but the
+last-drawn loses its pixels, and the first run reported **556 of Patna's 628
+wards and 480 of Mangalore's 540 with no land cover at all**. It looked exactly
+like ordinary missing data.
+
+Whatever the tile pass leaves below the 20-pixel floor now gets a second,
+per-feature pass: an individual windowed read masked by that polygon alone, so
+an overlapping neighbour cannot take its pixels. That is the slow method, but
+it runs on ~3,200 features rather than 400,000, and it lifts wards from 95.90%
+to 99.93%.
 
 ---
 
@@ -157,6 +176,15 @@ pass scores each polygon against every tile it touches and sums the counts.
   accumulator — which is why the mask is deliberately conservative instead:
   cloud tops are cold, and a single leaked cloud pixel would drag a mean down
   and *understate* heat.
+
+- **Tree cover is the layer that answers the question people are actually
+  asking.** Green cover counts cropland, so it says almost nothing outside
+  cities. Tree cover is canopy alone, and it separates places everywhere: the
+  median ward is 9% treed, the median panchayat 12%, the median state 38%.
+  It is also the one that tracks heat — nationally, tree cover against ward
+  surface temperature is **r = −0.43**, against **−0.07** for green cover, and
+  the least-treed fifth of India's wards runs **4.8 °C hotter** than the
+  most-treed fifth. Green cover's equivalent gap is 0.9 °C.
 
 - **"Green" includes cropland, and in rural India that is nearly all of it.**
   WorldCover's vegetation classes are tree, shrub, grassland, cropland and
@@ -179,10 +207,14 @@ pass scores each polygon against every tile it touches and sums the counts.
   cost of rural green looking uniform. Rescaling per level would have made a
   panchayat at 97% look like a ward at 42%.
 
-- **Green cover and built-up are not yet computed for villages, ULBs,
-  districts or states.** Choosing them at those levels colours by annual air
-  instead, and the note says which levels do have the metric rather than
-  drawing a grey map with no explanation.
+- **Villages are the one level without land cover.** Not because the pass
+  cannot do them — because their 267 MB archive cannot ship, so the values
+  would have nothing to draw. Choosing a land-cover metric at village level
+  colours by annual air instead and says so.
+
+- **46 wards, 178 panchayats, one block and one ULB still have no land
+  cover.** These are sub-pixel or degenerate geometries that survive both
+  passes; they draw uncoloured rather than filled with a guess.
 
 - **Land cover is 2021** and may lag very recent construction.
 
