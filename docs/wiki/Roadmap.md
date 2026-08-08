@@ -53,6 +53,14 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
 - [x] **Ask JanVayu reaches the ward and village data it already had** *(v26.6.140)* — two gaps between the data and the chatbot. Rule 17 instructed the model to use each ward's annual satellite mean ("field `p` … USE THAT"), but `buildWardContext` never emitted it, so the model was told to use a number it was never shown. And village air was unreachable entirely — the function shipped only `ward-stats.json`, so rural questions got national averages. Now there is an annual-air block per city with a named ward's own annual mean and city rank, and a **district-level village dataset** (645 districts, 112 KB) built by `scripts/build-village-stats.mjs`. The district is the unit deliberately: a full village name index is ~79 MB, and 15% of India's village names occur in more than one district, so "Rampur" is not an address.
 
+- [x] **One map, every boundary level** *(v26.6.145)* — the ward atlas and the village layer were two screens, so a reader had to know whether their place was a ward or a village to find the right one. A reader pointed this out; it was our data model leaking into the navigation. The live map now carries a single **Boundaries** menu: state → district → block/mandal/tehsil → gram panchayat → village, and city/ULB → ward.
+
+  Six levels ship as **PMTiles** read by HTTP range request — verified Netlify returns 206 with correct `content-range` and no `content-encoding` before committing to it, since edge compression would silently break byte-range addressing. Delhi NCR at ward level: **671 wards across four cities from 109 KB**, against 224 KB for Delhi's 290 alone. Ward coverage goes from 142 cities to **all 70,417**; adds **319,287 gram panchayats** and **6,471 blocks**.
+
+  **Three silent-failure bugs caught in the build**, the same class that has bitten this project repeatedly: all 584,615 villages would have shipped labelled with their *state* (a helpful fallback quietly picked the wrong column, nothing errored); every feature was buffered in memory before writing, echoing an earlier 4.4 GB blowup; and internal tile compression was disabled on a misreading of the CDN rule. The name-column fallback is gone entirely — the build stops and prints the real keys, because mislabelling the country is worse than failing.
+
+  Also fixed the mobile map: the layer controls overlaid the map, wrapped to three rows, collided with the zoom buttons and clipped "Stations" to "ations". Below 700px they now sit above the map on one scrolling row.
+
 **Follow-ups still open after this phase:**
 
 - **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
