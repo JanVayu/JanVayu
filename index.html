@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606144">
+    <link rel="preload" as="style" href="/styles.css?v=202606145">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1828,7 +1828,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606144"></script>
+    <script src="/app.js?v=202606145"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -5052,6 +5052,19 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 <template id="tmpl-ward-map">
     <div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; margin-bottom: 0.6rem; color: var(--ink);">How polluted is your ward?</h2>
+        <div class="alert alert-info" style="margin:0 0 1rem;">
+            <strong>Looking for a place that isn&rsquo;t one of these 142 cities?</strong>
+            The <a href="#map" onclick="showPanel('map'); return false;">live map</a> now carries
+            <strong>every Indian administrative boundary</strong> in one place &mdash; state, district,
+            block/mandal/tehsil, gram panchayat and village on the rural side, city and ward on the urban
+            side &mdash; each coloured by its annual satellite PM2.5. It covers
+            <strong>all 70,417 municipal wards in the country</strong> rather than the 142 cities listed here,
+            and it needs no city picker: zoom to where you live.
+            <br><br>
+            This panel stays because it does something the map does not: <em>summer heat</em>,
+            <em>green cover</em> and <em>built-up share</em> per ward, the live monitor estimate, and the
+            schools and health-centre overlays.
+        </div>
         <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 50rem;" data-simple="A city is not one number. This map colours every municipal ward by its air pollution right now — and by the three things that shape that air: summer heat, green cover, and how built-up it is. Air quality is the headline; the others help explain why one ward breathes worse than the next. Pick a city — more are being added.">A city is not a single number. This map colours <strong>every municipal ward</strong> by its <strong>air pollution</strong> right now &mdash; and by the three things that <em>shape</em> that air: <strong>summer heat</strong>, <strong>green cover</strong> and <strong>built-up area</strong> (satellite). Air quality is the headline; the others help explain why one ward breathes worse than the next. Choose a city below &mdash; more are being added.</p>
     </div>
 
