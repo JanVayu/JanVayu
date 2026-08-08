@@ -30,10 +30,13 @@ Licence note: the panchayat level uses LGD_Panchayats, NOT bhuvan_panchayats.
 Bhuvan's terms grant a restricted, non-transferable licence; redistributing
 derivatives of it would not be safe.
 
-Compression note: PMTiles must be served UNCOMPRESSED or byte-range addressing
-breaks. Netlify leaves unknown extensions alone, which is exactly what we need
-here — and is the inverse of the .topojson bug that cost us 4x transfer when
-the same behaviour was unwanted.
+Compression note, and a distinction that is easy to get wrong: the .pmtiles
+FILE must not be gzip/brotli'd by the CDN, because that breaks byte-range
+addressing. Netlify leaves unknown extensions alone, which is what we need —
+the inverse of the .topojson bug that cost us 4x transfer when the same
+behaviour was unwanted. The tiles INSIDE the archive are a separate matter:
+they are gzip-compressed as normal, the header records it, and the client
+decompresses. Disabling that (--no-tile-compression) is a mistake.
 
 Usage:  python3 scripts/build-boundary-tiles.py [level …] [--skip-pm]
 Deps:   tippecanoe, 7zz/7za, rasterio, shapely, numpy  (see build-village-pm25)
@@ -67,10 +70,10 @@ LEVELS = {
     'state':       dict(asset='states/LGD_States.geojsonl.7z',              subj=('st',),                   minzoom=0, maxzoom=7,  simplify=6),
     'district':    dict(asset='districts/LGD_Districts.geojsonl.7z',        subj=('dist', 'dt'),            minzoom=3, maxzoom=9,  simplify=5),
     'subdistrict': dict(asset='subdistricts/LGD_Subdistricts.geojsonl.7z',  subj=('subdist', 'sdt', 'sub'), minzoom=5, maxzoom=11, simplify=4),
-    'panchayat':   dict(asset='panchayats/LGD_Panchayats.geojsonl.7z',      subj=('panch', 'gp'),           minzoom=7, maxzoom=13, simplify=3),
-    'village':     dict(asset='villages/LGD_Villages.geojsonl.7z',          subj=('vill', 'vlg'),           minzoom=8, maxzoom=14, simplify=2),
+    'panchayat':   dict(asset='panchayats/LGD_Panchayats.geojsonl.7z',      subj=('panch', 'gp'),           minzoom=6, maxzoom=11, simplify=6),
+    'village':     dict(asset='villages/LGD_Villages.geojsonl.7z',          subj=('vill', 'vlg'),           minzoom=7, maxzoom=13, simplify=3),
     'ulb':         dict(asset='urban/SBM_ULBs.geojsonl.7z',                 subj=('ulb',),                  minzoom=5, maxzoom=12, simplify=4),
-    'ward':        dict(asset='urban/SBM_Wards.geojsonl.7z',                subj=('ward',), parent=('ulb',), minzoom=9, maxzoom=14, simplify=2),
+    'ward':        dict(asset='urban/SBM_Wards.geojsonl.7z',                subj=('ward',), parent=('ulb',), minzoom=9, maxzoom=13, simplify=3),
 }
 
 _NAME_SUFFIX = ('nm', 'name', '_n')
@@ -206,7 +209,6 @@ def build(level: str, cfg: dict, pm, transform, skip_pm: bool):
            '-Z', str(cfg['minzoom']), '-z', str(cfg['maxzoom']),
            '--simplification', str(cfg.get('simplify', 4)),
            '--drop-densest-as-needed', '--extend-zooms-if-still-dropping',
-           '--no-tile-compression',   # PMTiles served raw; see module docstring
            '--quiet', str(slim)]
     subprocess.run(cmd, check=True)
     mb = dst.stat().st_size / 1e6
