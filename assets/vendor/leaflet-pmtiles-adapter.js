@@ -23,6 +23,22 @@
     if (!L || !L.VectorGrid || !L.VectorGrid.Protobuf) return;
     if (typeof pmtiles === 'undefined') return;
 
+    // Leaflet.VectorGrid calls L.DomEvent.fakeStop on every feature click.
+    // Leaflet removed it in 1.6; we ship 1.9.4, so every click on a boundary
+    // threw "L.DomEvent.fakeStop is not a function" before the layer could
+    // fire its own click event — the map invited you to tap a ward and then
+    // silently did nothing. It failed inside a DOM handler, so nothing broke
+    // visibly and no popup ever appeared to be missing.
+    //
+    // fakeStop used to flag an event as already handled so Leaflet's own map
+    // click would skip it. A no-op is the right shim here: our handlers call
+    // L.DomEvent.stop themselves, so propagation is already stopped where it
+    // matters. Defined on the adapter because this is the one file we control
+    // that is guaranteed to load after VectorGrid and before any map is built.
+    if (L.DomEvent && typeof L.DomEvent.fakeStop !== 'function') {
+        L.DomEvent.fakeStop = function () {};
+    }
+
     var Proto = L.VectorGrid.Protobuf;
     var origGetTile = Proto.prototype._getVectorTilePromise;
 

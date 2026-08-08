@@ -30,3 +30,10 @@ coverage/
 # not — GitHub rejects files over 100 MB. Rebuild it with
 # scripts/build-boundary-tiles.py village.
 data/tiles/village.pmtiles
+
+# The national land-surface-temperature mosaic (518 MB) is an intermediate,
+# not a shipped asset: nothing in the site reads it. It exists so the zonal
+# pass in scripts/build-boundary-heat.py can stamp a heat value onto boundary
+# polygons, and those values ship inside the PMTiles archives instead.
+# Rebuild with scripts/build-lst-mosaic.py — about 20 minutes.
+data/rasters/

@@ -37,13 +37,13 @@ const FORCE = process.argv.includes('--force');
 // Expected byte sizes, so a truncated download is caught rather than served.
 // Regenerate with: node scripts/fetch-tiles.mjs --manifest
 const EXPECT = {
-    'state.pmtiles': 228885,
-    'district.pmtiles': 3270348,
-    'subdistrict.pmtiles': 23396082,
-    'panchayat.pmtiles': 68476634,
+    'state.pmtiles': 200123,
+    'district.pmtiles': 2832685,
+    'subdistrict.pmtiles': 23939582,
+    'panchayat.pmtiles': 71628341,
     'village.pmtiles': 266596730,
-    'ulb.pmtiles': 5590779,
-    'ward.pmtiles': 31289709,
+    'ulb.pmtiles': 5453114,
+    'ward.pmtiles': 35944631,
 };
 const TOLERANCE = 0.02;   // rebuilt tiles vary slightly run to run
 
