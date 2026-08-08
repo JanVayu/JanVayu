@@ -1982,6 +1982,33 @@
         const v = si.value.trim(); if (!v) return;
         wardZoomToFeature(v);
     };
+    // "My area" on the unified map. The ward panel's version needs a loaded
+    // city file to find the nearest ward centroid; the map has no such file —
+    // boundaries arrive as tiles for whatever is on screen. So this just takes
+    // you to your location at a zoom where the chosen level actually renders,
+    // which is the honest equivalent and works at every level rather than only
+    // inside a listed city.
+    window.mapLocateMe = function mapLocateMe() {
+        const note = (m) => { const el = document.getElementById('map-boundary-note'); if (el) el.textContent = m; };
+        if (!navigator.geolocation) { note('Geolocation is not available in this browser.'); return; }
+        if (!map) return;
+        note('Locating…');
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude: lat, longitude: lon } = pos.coords;
+                const lvl = BOUNDARY_LEVELS[boundaryLevel];
+                // Zoom past the level's minimum so features are actually drawn,
+                // not just technically in range.
+                const z = lvl ? Math.min(lvl.max, Math.max(lvl.min + 1, 12)) : 11;
+                map.setView([lat, lon], z);
+                note(boundaryLevel && lvl
+                    ? `Showing your area. ${lvl.note}. Tap any boundary for its yearly figure.`
+                    : 'Showing your area. Pick a level from Boundaries to colour it by annual air.');
+            },
+            () => note('Could not get your location (permission denied?).'),
+            { timeout: 8000 });
+    };
+
     window.wardLocateMe = function wardLocateMe() {
         const status = document.getElementById('ward-map-status');
         if (!navigator.geolocation) { if (status) status.textContent = 'Geolocation is not available in this browser.'; return; }
@@ -2112,15 +2139,23 @@
         return L.layerGroup([grid, markers]);
     }
     const wardReceptorLayers = {};   // kind → VectorGrid layer (while on)
-    window.toggleWardReceptor = async function toggleWardReceptor(btn, kind) {
+    const mainReceptorLayers = {};   // same, for the unified map
+    // `target` lets the same overlay run on either map. The ward panel passes
+    // nothing and keeps its own map; the unified map passes 'main'. Layers are
+    // tracked per map so turning schools off in one place doesn't strand the
+    // layer in the other.
+    window.toggleWardReceptor = async function toggleWardReceptor(btn, kind, target) {
         const cfg = WARD_RECEPTORS[kind];
-        const statusEl = document.getElementById('ward-map-status');
-        if (!cfg || !wardMap) return;
+        const onMain = target === 'main';
+        const mp = onMain ? map : wardMap;
+        const statusEl = document.getElementById(onMain ? 'map-boundary-note' : 'ward-map-status');
+        const store = onMain ? mainReceptorLayers : wardReceptorLayers;
+        if (!cfg || !mp) return;
         const willBeOn = !btn.classList.contains('active');
         btn.classList.toggle('active', willBeOn);
         btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
         if (!willBeOn) {
-            if (wardReceptorLayers[kind]) { try { wardMap.removeLayer(wardReceptorLayers[kind]); } catch (e) {} delete wardReceptorLayers[kind]; }
+            if (store[kind]) { try { mp.removeLayer(store[kind]); } catch (e) {} delete store[kind]; }
             return;
         }
         try { await ensureVectorGrid(); } catch (e) {
@@ -2128,12 +2163,12 @@
             if (statusEl) statusEl.textContent = 'The overlay library could not load — try again in a moment.';
             return;
         }
-        if (!wardMap || wardReceptorLayers[kind]) return;
+        if (!wardMap || store[kind]) return;
         try {
             // Receptor dots must sit ABOVE the ward choropleth (grid tiles
             // default to the tile pane, underneath it).
-            if (!wardMap.getPane('jv-receptors')) {
-                wardMap.createPane('jv-receptors').style.zIndex = 450;
+            if (!mp.getPane('jv-receptors')) {
+                mp.createPane('jv-receptors').style.zIndex = 450;
             }
             let layer;
             if (cfg.collector) {
@@ -2152,13 +2187,13 @@
                 layer.on('click', (e) => {
                     const p = e.layer && e.layer.properties;
                     if (!p) return;
-                    L.popup({ maxWidth: 240 }).setLatLng(e.latlng).setContent(cfg.popup(p)).openOn(wardMap);
+                    L.popup({ maxWidth: 240 }).setLatLng(e.latlng).setContent(cfg.popup(p)).openOn(mp);
                 });
             }
-            layer.addTo(wardMap);
-            wardReceptorLayers[kind] = layer;
+            layer.addTo(mp);
+            store[kind] = layer;
         } catch (e) {
-            console.warn('[JanVayu] ward receptor layer:', e);
+            console.warn('[JanVayu] receptor layer:', e);
             btn.classList.remove('active');
             if (statusEl) statusEl.textContent = 'Could not load that overlay right now (indianopenmaps.com may be busy).';
         }

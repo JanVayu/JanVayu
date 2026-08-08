@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606145">
+    <link rel="preload" as="style" href="/styles.css?v=202606147">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1850,7 +1850,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606145"></script>
+    <script src="/app.js?v=202606147"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2959,6 +2959,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <option value="ulb">City / ULB</option>
                         <option value="ward">Ward</option>
                     </select>
+                    <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'schools', 'main')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
+                    <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'health', 'main')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
+                    <button type="button" id="map-locate-btn" class="map-layer-btn" onclick="window.mapLocateMe &amp;&amp; window.mapLocateMe()" title="Jump to your location at a zoom where the selected boundary level is visible">My area</button>
                     </div>
                     <div id="india-map"></div>
                     <p id="map-boundary-note" style="font-size:0.72rem; color:var(--text-3); margin:0.4rem 0 0; text-align:center;"></p>
