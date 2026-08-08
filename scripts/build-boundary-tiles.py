@@ -70,36 +70,48 @@ LEVELS = {
     'state':       dict(asset='states/LGD_States.geojsonl.7z',              subj=('st',),                   minzoom=0, maxzoom=7,  simplify=6),
     'district':    dict(asset='districts/LGD_Districts.geojsonl.7z',        subj=('dist', 'dt'),            minzoom=3, maxzoom=9,  simplify=5),
     'subdistrict': dict(asset='subdistricts/LGD_Subdistricts.geojsonl.7z',  subj=('subdist', 'sdt', 'sub'), minzoom=5, maxzoom=11, simplify=4),
-    'panchayat':   dict(asset='panchayats/LGD_Panchayats.geojsonl.7z',      subj=('panch', 'gp'),           minzoom=6, maxzoom=11, simplify=6),
-    'village':     dict(asset='villages/LGD_Villages.geojsonl.7z',          subj=('vill', 'vlg'),           minzoom=7, maxzoom=13, simplify=3),
+    'panchayat':   dict(asset='panchayats/LGD_Panchayats.geojsonl.7z',      subj=('panch', 'gp'),           minzoom=6, maxzoom=10, simplify=8),
+    'village':     dict(asset='villages/LGD_Villages.geojsonl.7z',          subj=('vil',),                   minzoom=7, maxzoom=12, simplify=6),
     'ulb':         dict(asset='urban/SBM_ULBs.geojsonl.7z',                 subj=('ulb',),                  minzoom=5, maxzoom=12, simplify=4),
     'ward':        dict(asset='urban/SBM_Wards.geojsonl.7z',                subj=('ward',), parent=('ulb',), minzoom=9, maxzoom=13, simplify=3),
 }
 
-_NAME_SUFFIX = ('nm', 'name', '_n')
-_SKIP = ('code', 'lgd', 'id', 'objectid')
+_SKIP = ('code', 'lgd', 'id', 'objectid', 'area', 'length')
 
 
 def resolve_keys(props, subj, label):
-    """Pick the name and code column for a subject from the real keys."""
+    """Pick the name and code column for a subject from the file's real keys.
+
+    Matching is substring-based on both sides. An earlier version required the
+    key to END with name/nm, which missed `vilnam_soi` and `vilname11`; the
+    then-present cross-subject fallback quietly picked `stname` instead, so
+    every one of 584,615 villages would have been labelled with its STATE.
+    That fallback is gone. If no column matches the subject we raise, because
+    a build that mislabels the whole country is worse than one that stops.
+    """
     keys = list(props.keys())
     low = {k: k.lower() for k in keys}
 
     def pick(pred):
-        for s in subj:
-            for k in keys:
-                if s in low[k] and pred(low[k]):
-                    return k
+        for s in subj:                     # subjects are in priority order
+            hits = [k for k in keys if s in low[k] and pred(low[k])]
+            if hits:
+                # prefer the fuller spelling: vilname11 over vilnam_soi
+                hits.sort(key=lambda k: (0 if 'name' in low[k] else 1, len(low[k])))
+                return hits[0]
         return None
 
-    name = pick(lambda k: k.endswith(_NAME_SUFFIX) and not any(x in k for x in _SKIP))
-    code = pick(lambda k: 'code' in k)
-    if not name:   # last resort: any *name/*nm column at all
-        name = next((k for k in keys if low[k].endswith(_NAME_SUFFIX)
-                     and not any(x in low[k] for x in _SKIP)), None)
+    # `nam` covers vilnam_soi; a bare `nm` suffix covers SBM's ulbnm/distnm.
+    name = pick(lambda k: ('name' in k or 'nam' in k or k.endswith('nm'))
+                and not any(x in k for x in _SKIP))
+    # Prefer an explicit *code* column over a *_lgd one, so district keeps
+    # dtcode11 rather than switching to dist_lgd between builds.
+    code = pick(lambda k: 'code' in k) or pick(lambda k: k.endswith('_lgd'))
     print(f'  {label}: name column = {name!r}, code column = {code!r}', flush=True)
     if not name:
-        print(f'    !! no name column found among {keys}', flush=True)
+        raise SystemExit(
+            f'  {label}: no name column for subject {subj} among {sorted(keys)}\n'
+            f'  Refusing to build — add the right subject rather than let it guess.')
     return name, code
 
 
