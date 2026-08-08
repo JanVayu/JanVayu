@@ -39,11 +39,11 @@ const FORCE = process.argv.includes('--force');
 const EXPECT = {
     'state.pmtiles': 200123,
     'district.pmtiles': 2832685,
-    'subdistrict.pmtiles': 23939582,
-    'panchayat.pmtiles': 71628341,
+    'subdistrict.pmtiles': 24527340,
+    'panchayat.pmtiles': 74471182,
     'village.pmtiles': 266596730,
     'ulb.pmtiles': 5453114,
-    'ward.pmtiles': 35944631,
+    'ward.pmtiles': 35944652,
 };
 const TOLERANCE = 0.02;   // rebuilt tiles vary slightly run to run
 

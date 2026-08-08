@@ -43,8 +43,8 @@ Same menu entry, different loader underneath.
 |--------|--------|-----------|--------|-------|
 | **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
 | **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all but village | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
-| **Green cover** | ESA WorldCover 2021 | 10 m | ward | Share classified as vegetation — tree, shrub, grass, cropland, wetland. |
-| **Built-up** | ESA WorldCover 2021 | 10 m | ward | Share classified as built / impervious surface. |
+| **Green cover** | ESA WorldCover 2021 | 10 m | ward, block, panchayat | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
+| **Built-up** | ESA WorldCover 2021 | 10 m | ward, block, panchayat | Share classified as built / impervious surface. |
 
 Sources: [ESA WorldCover](https://esa-worldcover.org/) (CC BY 4.0),
 [Landsat](https://www.usgs.gov/landsat-missions) via
@@ -98,15 +98,45 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 
 ## How green cover and built-up are computed
 
-`scripts/build-ward-landcover-national.py` reads ESA WorldCover 2021 as
-windowed `/vsicurl` reads over the remote COGs — no bulk download — and counts
-class shares per ward with the same rasterise-and-bincount pass.
+Two scripts, because the cheap direction depends on how big the polygons are.
 
-**70,368 of 70,417 wards (99.93%)** have green and built-up values. Reaching
-that took two passes: the first left 4,046 wards short, because the script
-deliberately gives up on wards it cannot read rather than losing their
+**Wards** use `scripts/build-ward-landcover-national.py`: one windowed
+`/vsicurl` read per ward over the remote COGs — no bulk download — counted with
+the same rasterise-and-bincount pass as everything else. **70,368 of 70,417
+wards (99.93%)** have values. That took two passes: the first left 4,046 short,
+because the script gives up on wards it cannot read rather than losing their
 neighbours to a bisection, and those failures are transient. `--fill` retries
 only the wards still missing a value and recovered 3,997 of them.
+
+**Blocks and panchayats** use `scripts/build-boundary-landcover.py`, which
+turns the loop inside out. A read per feature is fine for a 2 km² ward and
+absurd for a 500 km² block or for 319,287 separate round trips; WorldCover is a
+fixed global raster, so the pass goes tile-major instead — open each 3-degree
+tile once, walk it in 1024-row strips clipped to the columns its polygons span,
+and score everything inside as it goes. 45.8 Gpx read, at full 10 m.
+
+| Level | With green and built-up |
+|-------|------------------------:|
+| Ward | 70,368 / 70,417 (99.93%) |
+| Block / tehsil | 6,470 / 6,471 (99.98%) |
+| Gram panchayat | 318,979 / 319,287 (99.90%) |
+
+Two details worth recording, because both were nearly got wrong:
+
+**No overviews.** Reading the `/4` overview is ~10x faster, and for the heat
+mosaic that was the right call. Here it is not: land cover is categorical, so
+its overviews are mode-resampled, and mode does not preserve class shares in
+fragmented terrain. Measured over central Delhi against full 10 m, built-up is
+overstated by +1.0 points at `/4`, +2.3 at `/8` and +4.5 at `/16`, always in
+the same direction. These ship as integer percentages beside ward figures
+computed at 10 m, so the shortcut was rejected.
+
+**Polygons that cross a tile edge.** The per-ward script picks its WorldCover
+tile from the polygon centroid and reads boundless past the tile edge, where
+the raster returns nodata that then gets filtered out — so a polygon straddling
+a 3-degree boundary is scored on the part inside its centroid's tile only. At
+ward size that is a rounding error. A block is ~22 km across, so the tile-major
+pass scores each polygon against every tile it touches and sums the counts.
 
 ---
 
@@ -128,8 +158,30 @@ only the wards still missing a value and recovered 3,997 of them.
   cloud tops are cold, and a single leaked cloud pixel would drag a mean down
   and *understate* heat.
 
-- **Green cover and built-up exist for wards only, so far.** Choosing them at
-  another level colours by annual air instead, and the map says so rather than
+- **"Green" includes cropland, and in rural India that is nearly all of it.**
+  WorldCover's vegetation classes are tree, shrub, grassland, cropland and
+  wetland. In a ward that mostly means parks, scrub and roadside trees. In a
+  gram panchayat it mostly means farmland — the median panchayat is **97%
+  green**, and 87% of them are above 90%. That figure is correct and it is not
+  a measure of tree cover. Read it as "how much of this place is not built or
+  bare", not as "how leafy is it". Tree cover on its own is a separate
+  WorldCover class and is not yet extracted; it is the more useful rural
+  question and is on the roadmap.
+
+- **Because of that, green barely discriminates between rural units.** The map
+  bands are deliberately bunched at the top end (85 / 93 / 97 / 100) so the
+  countryside is not one flat colour, but built-up share is the more
+  informative layer at block and panchayat level, and the map is honest about
+  which is which rather than implying green is doing work it cannot do here.
+
+- **Bands are absolute, not per level.** The same colour means the same
+  percentage on a ward and on a block, which makes the two comparable at the
+  cost of rural green looking uniform. Rescaling per level would have made a
+  panchayat at 97% look like a ward at 42%.
+
+- **Green cover and built-up are not yet computed for villages, ULBs,
+  districts or states.** Choosing them at those levels colours by annual air
+  instead, and the note says which levels do have the metric rather than
   drawing a grey map with no explanation.
 
 - **Land cover is 2021** and may lag very recent construction.
