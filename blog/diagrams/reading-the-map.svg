@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-label="How to read the JanVayu map. The map shows two things that must never be mixed: coloured dots are live readings from about 565 CPCB monitoring stations, updated hourly; the shaded areas underneath are satellite estimates averaged over a whole year. To use it, pick one of seven levels from the Boundaries menu — state, district, block, gram panchayat or village on the rural side, city or ward on the urban side, 983,149 areas in all — then pick one of nine measures from the Colour menu: annual PM2.5, air by winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Then tap any area. A caution: green cover counts cropland, so the typical Indian district is 97 percent green and 14 percent treed; use tree cover if you want to know about trees.">
+  <style>
+    .k   { font-family:'Kalam','Comic Sans MS',cursive; }
+    .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
+    .box { fill:#fbfaf7; stroke:#1e2a22; stroke-width:2.4; }
+    .grn { fill:#dcfce7; stroke:#146c33; stroke-width:2.4; }
+    .amb { fill:#fdf0d5; stroke:#8a5300; stroke-width:2.4; }
+    .blu { fill:#e0f2fe; stroke:#075985; stroke-width:2.4; }
+    .red { fill:#fee2e2; stroke:#b91c1c; stroke-width:2.4; }
+    .ln  { fill:none; stroke:#146c33; stroke-width:2.2; }
+  </style>
+
+  <text x="490" y="34" text-anchor="middle" class="h" font-size="26" fill="#146c33">How to read the map</text>
+  <text x="490" y="57" text-anchor="middle" class="k" font-size="14.5" fill="#5b6b60">two timescales &#183; seven levels &#183; nine measures &#183; one tap</text>
+
+  <!-- ── the two timescales ── -->
+  <text x="30" y="96" class="h" font-size="14" fill="#5b6b60">FIRST: TWO DIFFERENT THINGS</text>
+
+  <rect class="blu" x="26" y="110" width="272" height="92" rx="12"/>
+  <circle cx="56" cy="140" r="9" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.6"/>
+  <text x="76" y="146" class="h" font-size="15" fill="#075985">The dots = right now</text>
+  <text x="42" y="170" class="k" font-size="12" fill="#5b6b60">~565 CPCB monitors, updated hourly.</text>
+  <text x="42" y="188" class="k" font-size="12" fill="#5b6b60">Real machines, real readings.</text>
+
+  <rect class="grn" x="26" y="216" width="272" height="106" rx="12"/>
+  <rect x="42" y="234" width="20" height="14" fill="#f97316" stroke="#9a3412" stroke-width="1.4" rx="2"/>
+  <text x="76" y="246" class="h" font-size="15" fill="#146c33">The shading = the year</text>
+  <text x="42" y="270" class="k" font-size="12" fill="#5b6b60">Satellite estimates, averaged over</text>
+  <text x="42" y="288" class="k" font-size="12" fill="#5b6b60">all of 2024. Reaches everywhere,</text>
+  <text x="42" y="306" class="k" font-size="12" fill="#5b6b60">including places with no monitor.</text>
+
+  <rect class="red" x="26" y="336" width="272" height="62" rx="12"/>
+  <text x="42" y="360" class="h" font-size="14" fill="#b91c1c">Never one sentence</text>
+  <text x="42" y="381" class="k" font-size="12" fill="#5b6b60">A yearly average is not today&#8217;s air.</text>
+
+  <!-- ── step 1 ── -->
+  <text x="344" y="96" class="h" font-size="14" fill="#5b6b60">1. PICK A LEVEL</text>
+  <rect class="box" x="340" y="110" width="200" height="288" rx="12"/>
+  <text x="356" y="136" class="k" font-size="12.5" fill="#5b6b60">RURAL</text>
+  <text x="356" y="160" class="k" font-size="12.5" fill="#1e2a22">Village &#183; 584,615</text>
+  <text x="356" y="182" class="k" font-size="12.5" fill="#1e2a22">Gram panchayat &#183; 319,287</text>
+  <text x="356" y="204" class="k" font-size="12.5" fill="#1e2a22">Block/tehsil &#183; 6,471</text>
+  <text x="356" y="234" class="k" font-size="12.5" fill="#5b6b60">URBAN</text>
+  <text x="356" y="258" class="k" font-size="12.5" fill="#1e2a22">Ward &#183; 68,596</text>
+  <text x="356" y="280" class="k" font-size="12.5" fill="#1e2a22">City/ULB &#183; 3,359</text>
+  <text x="356" y="310" class="k" font-size="12.5" fill="#5b6b60">EITHER WAY</text>
+  <text x="356" y="334" class="k" font-size="12.5" fill="#1e2a22">District &#183; 785</text>
+  <text x="356" y="356" class="k" font-size="12.5" fill="#1e2a22">State/UT &#183; 36</text>
+  <text x="356" y="384" class="h" font-size="12.5" fill="#146c33">983,149 areas in all</text>
+
+  <!-- ── step 2 ── -->
+  <text x="590" y="96" class="h" font-size="14" fill="#5b6b60">2. PICK A COLOUR</text>
+  <rect class="box" x="586" y="110" width="196" height="288" rx="12"/>
+  <text x="602" y="136" class="k" font-size="12.5" fill="#5b6b60">AIR</text>
+  <text x="602" y="160" class="k" font-size="12.5" fill="#1e2a22">Annual PM2.5</text>
+  <text x="602" y="182" class="k" font-size="12.5" fill="#1e2a22">Winter &#183; Summer</text>
+  <text x="602" y="204" class="k" font-size="12.5" fill="#1e2a22">Monsoon &#183; Post-monsoon</text>
+  <text x="602" y="234" class="k" font-size="12.5" fill="#5b6b60">THE GROUND</text>
+  <text x="602" y="258" class="k" font-size="12.5" fill="#1e2a22">Surface heat</text>
+  <text x="602" y="280" class="k" font-size="12.5" fill="#1e2a22">Tree cover</text>
+  <text x="602" y="302" class="k" font-size="12.5" fill="#1e2a22">Green cover</text>
+  <text x="602" y="324" class="k" font-size="12.5" fill="#1e2a22">Built-up</text>
+  <text x="602" y="356" class="k" font-size="11.5" fill="#8a5300">Every area carries</text>
+  <text x="602" y="372" class="k" font-size="11.5" fill="#8a5300">all nine, at every level.</text>
+
+  <!-- ── step 3 ── -->
+  <text x="828" y="96" class="h" font-size="14" fill="#5b6b60">3. TAP IT</text>
+  <rect class="grn" x="824" y="110" width="130" height="130" rx="12"/>
+  <text x="840" y="136" class="h" font-size="14" fill="#146c33">You get</text>
+  <text x="840" y="160" class="k" font-size="12" fill="#5b6b60">its name, all nine</text>
+  <text x="840" y="177" class="k" font-size="12" fill="#5b6b60">numbers, and what</text>
+  <text x="840" y="194" class="k" font-size="12" fill="#5b6b60">each one means</text>
+  <text x="840" y="218" class="k" font-size="11.5" fill="#8a5300">&#8220;My area&#8221; jumps</text>
+  <text x="840" y="233" class="k" font-size="11.5" fill="#8a5300">straight there.</text>
+
+  <rect class="amb" x="824" y="256" width="130" height="142" rx="12"/>
+  <text x="840" y="282" class="h" font-size="14" fill="#8a5300">Then Compare</text>
+  <text x="840" y="304" class="k" font-size="11.5" fill="#5b6b60">Plot any two of</text>
+  <text x="840" y="320" class="k" font-size="11.5" fill="#5b6b60">the nine against</text>
+  <text x="840" y="336" class="k" font-size="11.5" fill="#5b6b60">each other, for</text>
+  <text x="840" y="352" class="k" font-size="11.5" fill="#5b6b60">whatever is on</text>
+  <text x="840" y="368" class="k" font-size="11.5" fill="#5b6b60">your screen.</text>
+
+  <path class="ln" d="M540 250 L 586 250" marker-end="url(#a)"/>
+  <path class="ln" d="M782 200 L 824 180" marker-end="url(#a)"/>
+
+  <!-- ── the one trap ── -->
+  <rect class="red" x="26" y="424" width="928" height="76" rx="12"/>
+  <text x="46" y="450" class="h" font-size="15" fill="#b91c1c">The one thing that will mislead you</text>
+  <text x="46" y="472" class="k" font-size="12.5" fill="#5b6b60">&#8220;Green cover&#8221; counts cropland, shrub and grass as well as trees &#8212; so the typical Indian district reads 97% green and 14% treed, and in Nagaur it is 98% green and 0% treed.</text>
+  <text x="46" y="491" class="k" font-size="12.5" fill="#5b6b60">Both numbers are true. If you want to know whether there are trees where you live, use <tspan class="h" fill="#146c33">tree cover</tspan>. We got this wrong ourselves before we fixed it.</text>
+
+  <text x="26" y="530" class="k" font-size="11.5" fill="#8a5300">Air: SatPM2.5 V6GL03 (ACAG/WashU), 2024. Heat: Landsat 8/9, 2026 pre-monsoon. Land cover: ESA WorldCover 2021. Boundaries: LGD &amp; Swachh Bharat Mission via indianopenmaps.com.</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#146c33"/>
+    </marker>
+  </defs>
+</svg>

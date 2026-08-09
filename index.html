@@ -1894,7 +1894,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
     <h2>Sections Available</h2>
     <ul>
-        <li><strong>Dashboard</strong> — Live AQI and PM2.5 for 30+ Indian cities via WAQI API</li>
+        <li><strong>Dashboard</strong> — Live PM2.5 in µg/m³ (with AQI alongside) for 157 Indian cities via WAQI API</li>
         <li><strong>Health Impact Calculator</strong> — GEMM model estimates of mortality, disease burden, life years lost</li>
         <li><strong>Economic Cost Analysis</strong> — GDP loss, healthcare spending, productivity impact (Lancet, World Bank)</li>
         <li><strong>Children's Health</strong> — Lung development, school closures, stunting data</li>
@@ -2883,7 +2883,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             </div>
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">Live AQI Comparison</span>
+                    <span class="card-title">Live PM2.5 Comparison</span>
                     <span style="font-size: 0.8125rem; color: var(--text-3);">Higher = Worse Air Quality</span>
                 </div>
                 <div class="card-body"><div class="chart-container"><canvas id="compareChart" role="img" aria-label="Bar chart comparing live AQI across user-selected Indian cities."></canvas></div></div>
@@ -2965,7 +2965,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map" style="color: var(--accent); margin-right: 0.4rem;"></span>Live Air Quality Map</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="This map shows two things. Live air quality right now from monitoring stations, and yearly figures for every administrative area in India — your state, district, block, gram panchayat, village, city or ward. Pick a level from the Boundaries menu, choose whether to colour it by air, surface heat or green cover, and zoom to where you live."><strong>Live air, and a yearly figure for every place in India.</strong> Markers show real-time AQI from WAQI (US EPA scale, unitless); popups add PM2.5 and PM10 in µg/m³, station name and update time. The <strong>Boundaries</strong> menu covers every Indian administrative level &mdash; state, district (zila), block/mandal/tehsil, gram panchayat and village on the rural side; city and ward on the urban side, covering all <strong>68,596 municipal wards</strong> in the country. The <strong>Colour</strong> menu shades them by <strong>annual satellite PM2.5</strong>, <strong>surface heat</strong> from a national Landsat composite, or <strong>tree cover</strong>, <strong>green cover</strong> and <strong>built-up share</strong> from ESA WorldCover. Zoom to where you live and tap any area for all of its figures.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="This map shows two things. Live air quality right now from monitoring stations, and yearly figures for all 983,149 administrative areas in India — your state, district, block, gram panchayat, village, city or ward. Pick a level from the Boundaries menu, choose whether to colour it by air, air in each season, surface heat, tree cover or built-up land, and zoom to where you live. Tap any area for all of its numbers."><strong>Live air, and a yearly figure for every place in India.</strong> Markers show real-time AQI from WAQI (US EPA scale, unitless); popups add PM2.5 and PM10 in µg/m³, station name and update time. The <strong>Boundaries</strong> menu covers <strong>983,149 areas across seven levels</strong> &mdash; state, district (zila), block/mandal/tehsil, gram panchayat and village on the rural side; city and ward on the urban side &mdash; and every one of them carries the same nine numbers. The <strong>Colour</strong> menu shades them by <strong>annual satellite PM2.5</strong>, <strong>the same air by season</strong>, <strong>surface heat</strong> from a national Landsat composite, or <strong>tree cover</strong>, <strong>green cover</strong> and <strong>built-up share</strong> from ESA WorldCover. Zoom to where you live and tap any area for all of its figures. <a href="/blog/#/posts/2026-08-09-how-to-read-the-map">How to read this map &rarr;</a></p>
             </div>
             <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
@@ -3012,7 +3012,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <p id="map-boundary-note" style="font-size:0.72rem; color:var(--text-3); margin:0.4rem 0 0; text-align:center;"></p>
                     <details id="map-corr-card" style="margin:0.6rem 0.5rem 0.2rem; border-top:1px solid var(--border); padding-top:0.6rem;">
                         <summary style="cursor:pointer; font-size:0.86rem; font-weight:600; color:var(--text-2);">Does one thing go with another? Compare two measures across the areas on this map</summary>
-                        <p style="font-size:0.76rem; color:var(--text-3); margin:0.5rem 0 0;">Pick any two of the five measures and this plots every area currently drawn on the map, one dot each, to show whether they move together — for example, whether wards with more trees are cooler.</p>
+                        <p style="font-size:0.76rem; color:var(--text-3); margin:0.5rem 0 0;">Pick any two of the nine measures and this plots every area currently drawn on the map, one dot each, to show whether they move together — for example, whether wards with more trees are cooler.</p>
                         <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin:0.6rem 0 0.5rem;">
                             <label style="font-size:0.75rem; color:var(--text-3);" for="map-corr-y">Does</label>
                             <select id="map-corr-y" class="form-select" style="max-width:150px; font-size:0.75rem; padding:2px 6px;">
@@ -5150,7 +5150,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
          live map for the whole country: air, surface heat, tree cover, green
          cover and built-up, across all 68,596 wards plus six other boundary
          levels. Its last exclusive feature, the correlation scatter, moved to
-         the map too and got better in the move — any two of the five measures,
+         the map too and got better in the move — any two of the nine measures,
          at any level, instead of the active layer against built-up inside one
          city. The route is kept so existing links and bookmarks land somewhere
          useful rather than on a blank panel. -->
@@ -5391,7 +5391,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 <template id="tmpl-ask-janvayu">
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-chat" style="color: var(--accent); margin-right: 0.4rem;"></span>Ask JanVayu <span class="ai-badge">AI · sources cited</span></h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 56rem;">Live AQI · health &amp; exposure calculators · city rankings &amp; trends · source apportionment · RTI drafts · multi-source reliability checks. Every answer cites a primary source (CPCB, IQAir, Lancet Countdown, AQLI, CREA, Sensor.Community). Available in <strong>10 Indian languages</strong> &mdash; English, हिन्दी, தமிழ், বাংলা, मराठी, తెలుగు, ગુજરાતી, ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ.</p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 56rem;">Live PM2.5 · health &amp; exposure calculators · city rankings &amp; trends · source apportionment · RTI drafts · multi-source reliability checks. Every answer cites a primary source (CPCB, IQAir, Lancet Countdown, AQLI, CREA, Sensor.Community). Available in <strong>10 Indian languages</strong> &mdash; English, हिन्दी, தமிழ், বাংলা, मराठी, తెలుగు, ગુજરાતી, ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ.</p>
                 <p style="font-size: 0.9rem; color: var(--text-3); margin-top: 0.5rem;">For the full chat experience with conversation history and PWA install, open <a href="/ask/" style="color: var(--accent);">/ask/ &rarr;</a></p>
             </div>
 

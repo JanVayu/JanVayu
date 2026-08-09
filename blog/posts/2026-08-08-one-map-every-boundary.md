@@ -15,6 +15,8 @@ The [live map](https://www.janvayu.in/#map) now has a single **Boundaries** menu
 
 Every one of them coloured by its annual satellite PM2.5. Pick a level, zoom to where you live, tap.
 
+<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes nine numbers into every polygon: annual PM2.5, the same by season, surface heat, tree cover, green cover and built-up. Six levels ship as PMTiles read by HTTP range request; villages carry the same numbers in one file per district." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+
 ## What this actually adds
 
 **All 70,417 municipal wards in the country**, not the 142 cities someone had got round to adding. The dropdown is gone; wards are simply what's under the map when you zoom in far enough. Noida, Bhiwandi, Bardhaman, thousands of small municipalities nobody had listed — all there now.

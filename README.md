@@ -302,18 +302,15 @@ JanVayu integrates **160+ verified public data sources**, including:
 
 Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
-**Recently shipped (v26.6.145):** the map became one map. A single **Boundaries** menu now covers every Indian administrative level — state, district, block/mandal/tehsil, gram panchayat and village on the rural side, city and ward on the urban side — each coloured by its annual satellite PM2.5. Six levels ship as **PMTiles** read by HTTP range request, so a browser pulls only what is on screen: Delhi NCR at ward level draws 671 wards across four cities from 109 KB, against 224 KB for Delhi alone before. That takes ward coverage from the 142 cities behind a dropdown to **all 70,417 in the country**, and adds **319,287 gram panchayats** and 6,471 blocks that had never been mapped for air quality. Before that: every state capital mapped (142 cities / 9,015 wards), all five ward layers everywhere, and Ask JanVayu reaching the village and ward data it already held.
+**Recently shipped (v26.6.153):** the boundary atlas is complete. A single **Boundaries** menu covers **983,149 areas across seven levels** — state, district, block/mandal/tehsil, gram panchayat and village on the rural side, city and ward on the urban side — and every one of them carries the same **nine measures**: annual PM2.5, the same air split into four seasons, surface heat from a national Landsat mosaic, and tree, green and built-up cover from ESA WorldCover. Six levels ship as **PMTiles** read by HTTP range request; villages carry the same numbers in per-district TopoJSON because a 267 MB tile archive cannot ship. A **Compare** panel plots any two measures against each other for whatever is on screen. The per-city ward panel is retired; `#ward-map` points at the map.
 
 **Next up:**
 
-- **A monthly or seasonal layer** — every boundary figure is a 2024 annual mean, which says nothing about a bad week in November. The single most valuable thing left to build.
-- **Publish the boundary tiles as a release.** `scripts/fetch-tiles.mjs` is written and unwired; publishing all seven archives and wiring it takes the repo from ~324 MB to ~31 MB, and lets villages use PMTiles like the other six instead of the older per-district loader.
-- **Fold heat, green cover and built-up into the unified map**, so the ward panel can retire rather than being kept for the layers only it has.
-- **Thiruvananthapuram's 6 heat-less wards** sit in a Landsat coverage seam; closing it needs two paths mosaicked.
-
-> Three earlier roadmap ideas are now shipped rather than dropped: "no open ward boundaries for Agra, Patna, Surat…" was solved by the SBM ward set via indianopenmaps.com; satellite-derived per-ward PM2.5 — long marked not feasible because no openly-fetchable ~1 km *live* raster exists — was solved by changing the timescale instead of the resolution, since an **annual** ~1 km product does exist openly and is honest about being annual; and "West Bengal has no open municipal wards", which we asserted publicly and which was simply wrong — `WB_AMRUT_Wards` was in the same GitHub release as the SBM wards we had been reading for weeks.
-
----
+- **Publish the boundary tiles as a release.** `scripts/fetch-tiles.mjs` is written and unwired; publishing the archives takes the repo from ~360 MB to ~31 MB, and would let villages use PMTiles like the other six instead of the per-district loader.
+- **Repo weight.** The working tree is ~219 MB. A contributor-friendly shallow-clone or data-split path is worth having.
+- **Whole-country correlations.** The Compare panel is honest about covering only what is on screen; a precomputed stats file would let it answer nationally.
+- **The states no ward source covers** — Manipur, Mizoram, Srinagar and Siliguri among them. An RTI to West Bengal Municipal Affairs is the realistic route for Siliguri.
+- **Thiruvananthapuram's last heat-less ward** sits in a Landsat coverage seam; the national mosaic closed five of six.
 
 ## Contributing
 

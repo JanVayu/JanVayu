@@ -4,6 +4,8 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **August 2026**
+  - [How to Read the JanVayu Map](posts/2026-08-09-how-to-read-the-map.md)
+  - [Why We Lead With PM2.5, Not AQI](posts/2026-08-09-why-pm25-not-aqi.md)
   - [We Were Measuring the Wrong Green](posts/2026-08-08-tree-cover-answers-it.md)
   - [We Put Surface Heat on Every Ward in India — and It Argued With Us](posts/2026-08-08-heat-on-every-ward.md)
   - [One Map, Every Boundary in India](posts/2026-08-08-one-map-every-boundary.md)
