@@ -1248,7 +1248,10 @@
                     try { window.updateHeatEstimate && window.updateHeatEstimate(); } catch(e) { console.warn('Urban heat init:', e); }
                     try { window.initUrbanHeatChart && window.initUrbanHeatChart(); } catch(e) { console.warn('Urban heat chart init:', e); }
                 }
-                if (panelId === 'ward-map') { try { window.initWardMap && window.initWardMap(); } catch(e) { console.warn('Ward map init:', e); } }
+                // 'ward-map' is a redirect page since v26.6.151 — nothing to
+                // initialise. The panel's JS is still here because Ask JanVayu
+                // and the share-card path reach into parts of it; it is dead
+                // weight to remove deliberately, not incidentally.
                 if (panelId === 'forecast') { try { initForecastPanel(); } catch(e) { console.warn('Forecast init:', e); } }
                 if (panelId === 'fire-tracker') { try { initFireTracker(); } catch(e) { console.warn('Fire tracker init:', e); } }
                 if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
@@ -4121,6 +4124,18 @@
     let boundaryLevel = '';
     let boundaryMetric = 'p';
 
+    // Features seen at the current level, keyed so panning back and forth does
+    // not count a ward twice. Capped because a slow pan across the country at
+    // panchayat level would otherwise accumulate 300,000 objects.
+    const boundaryFeatures = new Map();
+    const BOUNDARY_FEATURE_CAP = 20000;
+
+    function rememberBoundaryFeature(p) {
+        if (boundaryFeatures.size >= BOUNDARY_FEATURE_CAP) return;
+        const id = `${p.c || ''}|${p.n || ''}|${p.u || ''}`;
+        if (!boundaryFeatures.has(id)) boundaryFeatures.set(id, p);
+    }
+
     function boundaryNote(msg) {
         const el = document.getElementById('map-boundary-note');
         if (el) el.textContent = msg || '';
@@ -4141,6 +4156,94 @@
                `— switch the level to see it.`;
     }
 
+    // ── Relationship: any two metrics, at whatever level is showing ─────
+    // This replaces the ward panel's correlation view, which could only ever
+    // compare the active layer against built-up, inside one of 142 cities.
+    // Here it is any pair of the five metrics at any of six levels.
+    //
+    // The honest limit, stated in the caption rather than hidden: it covers
+    // the areas whose tiles the browser has loaded at this level, not all
+    // 68,596 wards. A whole-country figure would need a precomputed stats
+    // file; this is what the map can answer truthfully by itself.
+    let boundaryCorrChart = null;
+
+    function pearson(pts) {
+        const n = pts.length;
+        if (n < 5) return null;
+        const mx = pts.reduce((s, q) => s + q.x, 0) / n;
+        const my = pts.reduce((s, q) => s + q.y, 0) / n;
+        let sxy = 0, sxx = 0, syy = 0;
+        pts.forEach(q => { const dx = q.x - mx, dy = q.y - my; sxy += dx * dy; sxx += dx * dx; syy += dy * dy; });
+        return (sxx && syy) ? sxy / Math.sqrt(sxx * syy) : 0;
+    }
+
+    window.renderBoundaryCorrelation = async function renderBoundaryCorrelation() {
+        const card = document.getElementById('map-corr-card');
+        const canvas = document.getElementById('map-corr-chart');
+        const note = document.getElementById('map-corr-note');
+        if (!card || !canvas || !note) return;
+        const xKey = (document.getElementById('map-corr-x') || {}).value || 'b';
+        const yKey = (document.getElementById('map-corr-y') || {}).value || 'h';
+        const mx = BOUNDARY_METRICS[xKey], my = BOUNDARY_METRICS[yKey];
+        if (!mx || !my) return;
+
+        if (!boundaryLevel) {
+            note.textContent = 'Pick a level from Boundaries first — this compares the areas on the map.';
+            canvas.style.display = 'none';
+            return;
+        }
+        if (xKey === yKey) {
+            note.textContent = 'Pick two different measures.';
+            canvas.style.display = 'none';
+            return;
+        }
+        const pts = [];
+        boundaryFeatures.forEach(p => {
+            const x = p[xKey], y = p[yKey];
+            if (typeof x === 'number' && typeof y === 'number') {
+                pts.push({ x, y, name: p.n || p.u || 'area' });
+            }
+        });
+        const r = pearson(pts);
+        if (r == null) {
+            canvas.style.display = 'none';
+            note.textContent = pts.length
+                ? `Only ${pts.length} area${pts.length === 1 ? '' : 's'} loaded with both measures — zoom to a town or city and try again.`
+                : `No area on screen has both ${mx.label.toLowerCase()} and ${my.label.toLowerCase()}. ` +
+                  `Zoom in until the boundaries draw, or pick measures this level carries.`;
+            return;
+        }
+        canvas.style.display = '';
+        const strength = Math.abs(r) < 0.15 ? 'little or no link' :
+                         Math.abs(r) < 0.35 ? 'a weak link' :
+                         Math.abs(r) < 0.6 ? 'a clear link' : 'a strong link';
+        const dir = r < 0 ? 'falls as' : 'rises with';
+        const lvl = (BOUNDARY_LEVELS[boundaryLevel] || {}).label || boundaryLevel;
+        note.innerHTML = `Each dot is one ${lvl.toLowerCase()}. <strong>${escapeHtml(my.label)}</strong> ${dir} ` +
+            `<strong>${escapeHtml(mx.label.toLowerCase())}</strong> — ${strength}, r = <strong>${r.toFixed(2)}</strong>. ` +
+            `<span style="color:var(--text-3)">Across the ${pts.length.toLocaleString('en-IN')} areas loaded here, ` +
+            `not the whole country. Pan or zoom and refresh to change what is counted. ` +
+            `A correlation is not proof one causes the other.</span>`;
+
+        try { await ensureChartJs(); } catch (e) { canvas.style.display = 'none'; return; }
+        if (boundaryCorrChart) { try { boundaryCorrChart.destroy(); } catch (e) {} boundaryCorrChart = null; }
+        boundaryCorrChart = new Chart(canvas.getContext('2d'), {
+            type: 'scatter',
+            data: { datasets: [{ data: pts.slice(0, 4000), backgroundColor: 'rgba(22,163,74,0.45)', pointRadius: 2.5, pointHoverRadius: 5 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: c => `${c.raw.name}: ${c.raw.x}${mx.unit}, ${c.raw.y}${my.unit}` } },
+                },
+                scales: {
+                    x: { title: { display: true, text: `${mx.label} (${mx.unit})`, font: { size: 10 } }, ticks: { font: { size: 9 } } },
+                    y: { title: { display: true, text: `${my.label} (${my.unit})`, font: { size: 10 } }, ticks: { font: { size: 9 } } },
+                },
+            },
+        });
+    };
+
     // Re-colouring means re-styling every feature, and VectorGrid resolves
     // styles when a tile is parsed — so the layer is rebuilt. Tiles are
     // already in the browser's HTTP cache, so this is not a refetch.
@@ -4157,6 +4260,10 @@
             catch (e) { boundaryNote('Boundary tile reader could not load — try again in a moment.'); return; }
         }
         if (boundaryLayer) { try { map.removeLayer(boundaryLayer); } catch (e) {} boundaryLayer = null; }
+        // Mixing wards and districts in one scatter would be meaningless, so
+        // the cache resets whenever the level does. Changing only the colour
+        // keeps it — the same features are being restyled.
+        if (level !== boundaryLevel) boundaryFeatures.clear();
         boundaryLevel = level || '';
         if (!boundaryLevel) {
             try { toggleVillagesOverlay(false); } catch (e) {}
@@ -4189,6 +4296,12 @@
         const key = metricHere ? boundaryMetric : 'p';
         const active = BOUNDARY_METRICS[key];
         const styleFor = (props) => {
+            // Every feature the layer draws passes through here, which is the
+            // only place the browser sees a boundary's full property set —
+            // the tile decoder inside VectorGrid is private, so there is no
+            // second way to read them in bulk. The relationship card below
+            // the map reads this cache.
+            if (props) rememberBoundaryFeature(props);
             const v = props && typeof props[key] === 'number' ? props[key] : null;
             return {
                 fill: true,

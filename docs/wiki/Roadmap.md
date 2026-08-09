@@ -108,7 +108,11 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
   Coverage after both: air 100%, heat 99.83%, tree/green/built 99.95%.
 
 - **ULB duplicates** — the same scan found 9 duplicate geometries at ULB level. Small, but the same class of problem and not yet fixed.
-- **Retire the ward panel.** Heat, green and built-up are now on the map nationally, so the panel's remaining exclusives are the correlation view and its "But…" stats. Those are worth keeping — the question is where they live.
+- [x] **Ward panel retired, correlation moved onto the map** *(v26.6.151)* — the panel was a dropdown over 142 cities, each with its own baked GeoJSON. Every layer it had now covers the whole country on the map, so it goes.
+
+  Its one genuine exclusive, the correlation scatter, moved and improved: it compared the active layer against built-up inside a single city, and now compares **any two of the five measures at any of six levels**. The honest limit is stated in the caption rather than hidden — it covers the areas whose tiles the browser has loaded, with *n* printed, because a whole-country figure would need a precomputed stats file. Delhi at ward level gives heat vs tree cover *r* = −0.43 over 297 wards, which matches the national −0.429.
+
+  The `#ward-map` route still resolves, to a page pointing at the map, so existing links and bookmarks do not break. The panel's JS is left in place for now — parts of it are reached by Ask JanVayu and the share-card path, so removing it is a deliberate follow-up rather than something to do incidentally.
 - **Manipur, Mizoram, Tripura, Srinagar, Madurai, Siliguri** — the states SBM omits that no alternative source has covered yet, plus Siliguri's partial 4-of-47 AMRUT upload. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
 - **Finish auditing the releases we pull from.** `indian_admin_boundaries/urban` is now enumerated and yielded 52 cities across two files. `indian_facilities`, `indian_industries` and `indian_land_features` still have assets we have never listed.
 - ~~**Mosaic two Landsat paths** for cities on a scene seam~~ — done nationally in v26.6.148, which is a mosaic of 1,512 scenes rather than two. Five of Thiruvananthapuram's six seam wards now have a value on the map; one still does not, and the ward *panel* keeps its own gap until it is retired.

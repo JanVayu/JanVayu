@@ -1,6 +1,26 @@
 # Ward-Level Atlas — Data & Methodology
 
-The **Ward-Level Atlas** ("How Polluted Is Your Ward?", under *City Data*) colours every municipal ward of a city, with five switchable layers. This page documents where each layer's data comes from and how it is computed.
+> **Retired in v26.6.151.** This panel no longer ships. Everything it did is on
+> the [boundary map](boundary-map.md), for the whole country rather than 142
+> cities: annual PM2.5, surface heat, tree cover, green cover and built-up
+> across all **68,596 wards**, plus six other administrative levels. Its
+> correlation view moved too, and compares any two of the five measures at any
+> level instead of the active layer against built-up inside one city. The
+> `#ward-map` route still resolves, to a page pointing at the map, so existing
+> links keep working.
+>
+> Before it was retired, the **14 cities it had that the national sources
+> missed** — Kolkata, Madurai, Asansol, Warangal, Durgapur, Kharagpur,
+> Bardhaman, Haldia, and the north-eastern capitals Agartala, Imphal, Shillong,
+> Itanagar, Aizawl and Kohima — were folded into the map's ward level. The
+> per-city files remain in `data/wards/`.
+>
+> This page is kept as the record of how the panel's numbers were produced,
+> because they differ from the map's: the panel's heat was a single clear-sky
+> scene per city, the map's is a national seasonal composite. Read the sections
+> below as history, not as a description of what is live.
+
+The **Ward-Level Atlas** ("How Polluted Is Your Ward?", under *City Data*) coloured every municipal ward of a city, with five switchable layers. This page documents where each layer's data came from and how it was computed.
 
 The atlas moves JanVayu from **city-level** to **ward-level** resolution — making the point that a single city AQI number hides large differences between neighbourhoods. It was inspired by Vaishnavi Iyer / Unmapped's "How hot is your ward?" maps of Bengaluru.
 
