@@ -3551,6 +3551,16 @@
             band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
             ramp: 'brown is bare, green is vegetated — cropland counts as green',
         },
+        // Not from the tiles: a ~40 km CAMS model calibrated against the 2024
+        // satellite product and rebuilt monthly, joined by district code at
+        // draw time. District only — a 40 km cell cannot resolve a ward, and
+        // drawing it on one would invent detail the model does not have.
+        y: {
+            label: '2026 so far (modelled, ~40 km)', plain: 'this year so far, modelled',
+            unit: ' µg/m³', levels: ['district'], join: 'district',
+            band: (v) => pm25AnnualBand(v),
+            ramp: 'blue is cleaner, red is dirtier — a coarse model, not the satellite layer',
+        },
         b: {
             label: 'Built-up', plain: 'built-up land', unit: '%', levels: LANDCOVER_LEVELS,
             band: (x) => BUILT_BANDS.find(y => x <= y.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
@@ -3634,6 +3644,35 @@
         if (el) el.textContent = msg || '';
     }
 
+    // The current-year layer is the one metric that is not baked into the
+    // tiles. It is a ~40 km model calibrated to the satellite product, rebuilt
+    // monthly, so it ships as a small JSON keyed by district code and is joined
+    // at draw time. Fetched only when someone actually selects it.
+    let currentYearAir = null, currentYearPromise = null;
+    function loadCurrentYearAir() {
+        if (currentYearAir) return Promise.resolve(currentYearAir);
+        if (!currentYearPromise) {
+            currentYearPromise = fetch('/data/current-year-air.json')
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                .then(j => { currentYearAir = j; return j; })
+                .catch(e => { currentYearPromise = null; throw e; });
+        }
+        return currentYearPromise;
+    }
+
+    // One place that answers "what is this feature's value for this metric",
+    // so the tile path, the village path and the popup cannot disagree.
+    function metricValue(props, key) {
+        if (!props) return null;
+        const m = BOUNDARY_METRICS[key];
+        if (m && m.join) {
+            if (!currentYearAir) return null;
+            const rec = currentYearAir.districts && currentYearAir.districts[String(props.c)];
+            return rec && typeof rec.v === 'number' ? rec.v : null;
+        }
+        return typeof props[key] === 'number' ? props[key] : null;
+    }
+
     // Everything a boundary knows about itself, in one place. Villages arrive
     // through a different loader from the other six levels but carry the same
     // nine numbers, and when this markup lived inside the tile layer's click
@@ -3669,6 +3708,18 @@
                   return `${m.label.replace(' air', '')} <strong${peak ? ' style="color:#b91c1c"' : ''}>${p[k]}</strong>`;
               }).join(' · ') + `</div>`
             : '';
+        // The current-year figure is a different instrument on a different
+        // scale, so it gets its own line and its own words rather than sitting
+        // in the list as if it were another satellite measure.
+        const cur = metricValue(p, 'y');
+        const meta = currentYearAir && currentYearAir._meta;
+        const curLine = cur == null ? '' :
+            `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">` +
+            `<span style="color:var(--text-3);font-size:.72rem">This year so far` +
+            `${meta ? ` (${meta.year}, to end of month ${meta.through_month})` : ''}</span><br>` +
+            `<strong>${cur} µg/m³</strong> <span style="color:var(--text-3)">— modelled at ~40 km and ` +
+            `calibrated to the satellite series, so it is district-scale and not a like-for-like ` +
+            `reading of the ${meta ? 'annual' : ''} figure above.</span></div>`;
         const extras = ['h', 't', 'g', 'b'].filter(k => typeof p[k] === 'number');
         const land = extras.map(k => {
             const m = BOUNDARY_METRICS[k];
@@ -3682,7 +3733,7 @@
             extras.some(k => k === 't' || k === 'g' || k === 'b')
                 ? 'ESA WorldCover 2021, 10 m — green counts trees, shrub, grass, cropland and wetland; tree cover is canopy only' : '',
         ].filter(Boolean).join(' · ');
-        return seasonLine
+        return curLine + seasonLine
             + (land ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">${land}` +
                       `<div style="color:var(--text-3);font-size:.7rem;margin-top:.2rem">${credit}</div></div>` : '');
     }
@@ -3829,6 +3880,23 @@
             const sel = document.getElementById('map-boundary-season');
             if (sel) sel.value = '';
         }
+        // Metrics that join an external file have to have it in hand before the
+        // layer draws, or the first paint is a grey map that silently corrects
+        // itself on the next pan.
+        const m = BOUNDARY_METRICS[boundaryMetric];
+        if (m && m.join) {
+            boundaryNote('Loading this year\u2019s figures\u2026');
+            loadCurrentYearAir()
+                .then(() => { if (boundaryLevel) window.setBoundaryLevel(boundaryLevel); })
+                .catch(() => {
+                    boundaryMetric = 'p';
+                    const sel = document.getElementById('map-boundary-metric');
+                    if (sel) sel.value = 'p';
+                    boundaryNote('This year\u2019s figures could not be loaded \u2014 showing annual PM2.5.');
+                    if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
+                });
+            return;
+        }
         if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
     };
 
@@ -3889,7 +3957,7 @@
             // second way to read them in bulk. The relationship card below
             // the map reads this cache.
             if (props) rememberBoundaryFeature(props);
-            const v = props && typeof props[key] === 'number' ? props[key] : null;
+            const v = metricValue(props, key);
             return {
                 fill: true,
                 fillColor: v == null ? '#cbd5e1' : active.band(v).color,

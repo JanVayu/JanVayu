@@ -2988,12 +2988,13 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <option value="ulb">City / ULB</option>
                         <option value="ward">Ward</option>
                     </select>
-                    <select id="map-boundary-metric" class="form-select map-layer-btn" onchange="window.setBoundaryMetric &amp;&amp; window.setBoundaryMetric(this.value)" style="max-width:140px; padding:2px 6px; font-size:0.7rem;" title="What the boundaries are coloured by. Annual PM2.5 covers every level; surface heat comes from a national Landsat pre-monsoon composite; tree cover, green cover and built-up share come from ESA WorldCover 2021. Tree cover is canopy only — green also counts cropland, which is most of rural India.">
+                    <select id="map-boundary-metric" class="form-select map-layer-btn" onchange="window.setBoundaryMetric &amp;&amp; window.setBoundaryMetric(this.value)" style="max-width:140px; padding:2px 6px; font-size:0.7rem;" title="What the boundaries are coloured by. Annual PM2.5 covers every level and is satellite-derived at ~1 km for 2024; &quot;2026 so far&quot; is a different thing — a ~40 km model calibrated against that satellite series and rebuilt monthly, so it is district-only and not a like-for-like comparison; surface heat comes from a national Landsat pre-monsoon composite; tree cover, green cover and built-up share come from ESA WorldCover 2021. Tree cover is canopy only — green also counts cropland, which is most of rural India.">
                         <option value="p">Colour: air</option>
                         <option value="h">Colour: surface heat</option>
                         <option value="t">Colour: tree cover</option>
                         <option value="g">Colour: green cover</option>
                         <option value="b">Colour: built-up</option>
+                        <option value="y">Colour: 2026 so far (modelled, ~40 km)</option>
                     </select>
                     <select id="map-boundary-season" class="form-select map-layer-btn" onchange="window.setBoundarySeason &amp;&amp; window.setBoundarySeason(this.value)" style="max-width:150px; padding:2px 6px; font-size:0.7rem;" title="Air through the year. An annual mean hides the cycle: the Indo-Gangetic plain is near-breathable in the monsoon and at its worst after it. Same colour scale throughout, so a season is comparable with the annual figure.">
                         <option value="">Season: annual</option>

@@ -61,7 +61,7 @@ Run:  python3 scripts/build-current-year-air.py --year 2026 --through 7
 Writes: data/current-year-air.json  (district code -> calibrated mean)
 """
 
-import argparse, json, os, statistics, sys, time, urllib.request
+import argparse, datetime, json, os, ssl, statistics, sys, time, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -74,13 +74,39 @@ MIN_HOURS = 6000
 MONTH_END = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
 
 
+def _opener():
+    """An opener that actually uses the environment's proxy.
+
+    urllib's default opener reads HTTPS_PROXY through getproxies(), and on this
+    runner it still attempted a direct TLS handshake that hung for the full
+    timeout on most calls — a fetch that should take 1.2s took minutes, and a
+    tenth of districts failed outright. Building the ProxyHandler explicitly,
+    with the CA bundle the proxy re-signs with, makes it 1.2s every time.
+    Harmless where there is no proxy: both handlers fall back to direct.
+    """
+    proxy = os.environ.get('HTTPS_PROXY') or os.environ.get('https_proxy')
+    handlers = []
+    if proxy:
+        handlers.append(urllib.request.ProxyHandler({'https': proxy, 'http': proxy}))
+    ca = os.environ.get('SSL_CERT_FILE') or os.environ.get('REQUESTS_CA_BUNDLE')
+    if ca and Path(ca).exists():
+        handlers.append(urllib.request.HTTPSHandler(context=ssl.create_default_context(cafile=ca)))
+    return urllib.request.build_opener(*handlers)
+
+
+OPENER = None
+
+
 def fetch_mean(lat, lon, start, end, tries=3):
+    global OPENER
+    if OPENER is None:
+        OPENER = _opener()
     url = (f'{API}?latitude={lat}&longitude={lon}&start_date={start}&end_date={end}'
            f'&hourly=pm2_5&timezone=UTC')
     for attempt in range(tries):
         try:
             req = urllib.request.Request(url, headers={'User-Agent': UA})
-            with urllib.request.urlopen(req, timeout=60) as r:
+            with OPENER.open(req, timeout=45) as r:
                 d = json.load(r)
             v = [x for x in (d.get('hourly', {}).get('pm2_5') or []) if x is not None]
             return (round(sum(v) / len(v), 1), len(v)) if v else (None, 0)
@@ -91,8 +117,21 @@ def fetch_mean(lat, lon, start, end, tries=3):
     return (None, 0)
 
 
-def districts():
-    """District centroids and their 2024 satellite annual mean."""
+POINTS = ROOT / 'data' / 'district-points.json'
+
+
+def districts(from_cache=None):
+    """District centroids and their 2024 satellite annual mean.
+
+    Read from a committed points file when one is given, because the monthly
+    refresh runs in CI where the 79 MB district slim does not exist and
+    rebuilding the boundary pipeline to recover 785 centroids would be absurd.
+    A local run regenerates that file, so it cannot drift from the geometry.
+    """
+    if from_cache:
+        rows = json.loads(Path(from_cache).read_text())
+        print(f'{len(rows)} district points from {from_cache}')
+        return rows
     from shapely.geometry import shape
     src = CACHE / 'district.slim.seasonal.geojsonl'
     if not src.exists():
@@ -107,6 +146,9 @@ def districts():
             c = shape(r['geometry']).centroid
             out.append({'c': p.get('c'), 'n': p.get('n'),
                         'lat': round(c.y, 4), 'lon': round(c.x, 4), 'sat2024': p['p']})
+    POINTS.write_text(json.dumps(out, separators=(',', ':')))
+    print(f'wrote {POINTS.name} ({len(out)} districts, {POINTS.stat().st_size // 1024} KB) '
+          f'so the monthly refresh can run without the boundary cache')
     return out
 
 
@@ -162,12 +204,22 @@ def report(rows):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--year', type=int, default=2026)
-    ap.add_argument('--through', type=int, default=7, help='last complete month of --year')
+    # Defaults are computed, not hardcoded, because this runs monthly from a
+    # scheduled workflow: a pinned year and month would quietly keep publishing
+    # a stale window long after it stopped being "this year so far".
+    today = datetime.date.today()
+    last_complete = today.month - 1
+    dflt_year, dflt_through = today.year, last_complete
+    if last_complete == 0:                     # in January, last complete month is December
+        dflt_year, dflt_through = today.year - 1, 12
+    ap.add_argument('--year', type=int, default=dflt_year)
+    ap.add_argument('--through', type=int, default=dflt_through,
+                    help='last complete month of --year (defaults to the month just ended)')
     ap.add_argument('--validate', action='store_true', help='fit and report, write nothing')
+    ap.add_argument('--from-cache', help='read district points from this file instead of the boundary slim')
     args = ap.parse_args()
 
-    rows = districts()
+    rows = districts(args.from_cache)
     print(f'{len(rows)} districts with a 2024 satellite value', flush=True)
 
     print('\nfetching CAMS 2024 (for calibration)…', flush=True)
