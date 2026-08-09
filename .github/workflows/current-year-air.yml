@@ -1,0 +1,53 @@
+name: Current-year air layer
+
+# The map's air figures are the 2024 satellite annual mean, because SatPM2.5
+# V6GL03 has published nothing newer. The current-year layer fills that gap with
+# a ~40 km model calibrated against the satellite series — and a "this year so
+# far" figure is only true if something recomputes it as the year goes on.
+#
+# Runs on the 3rd of each month, which gives the upstream archive a couple of
+# days to finalise the month that just ended. The script derives its own window
+# from the date, so nothing here needs editing in January.
+
+on:
+  schedule:
+    - cron: '0 4 3 * *'   # 04:00 UTC on the 3rd
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --quiet shapely
+
+      # The district geometry the script reads is a build artefact, not in the
+      # repo. Rather than rebuild the whole boundary pipeline in CI, the layer
+      # reuses the district centroids and 2024 values committed alongside it.
+      - name: Rebuild the current-year layer
+        run: python3 scripts/build-current-year-air.py --from-cache data/district-points.json
+
+      - name: Commit if the figures moved
+        run: |
+          if git diff --quiet -- data/current-year-air.json; then
+            echo "No change — upstream has not published a new month yet."
+            exit 0
+          fi
+          git config user.name "janvayu-air-bot"
+          git config user.email "air-bot@janvayu.in"
+          git add data/current-year-air.json
+          MONTH=$(python3 -c "import json;d=json.load(open('data/current-year-air.json'));m=d['_meta'];print(f\"{m['year']} through month {m['through_month']}\")")
+          git commit -m "Current-year air layer: $MONTH [skip ci]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:main; then exit 0; fi
+            echo "push failed, retrying"; sleep $((2**i)); git pull --rebase origin main || true
+          done
+          exit 1
