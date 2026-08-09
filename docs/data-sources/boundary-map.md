@@ -9,7 +9,7 @@ which was retired in v26.6.151. The panel baked values into one GeoJSON per
 city for 142 cities; the boundary map reads national PMTiles archives with
 per-feature properties baked in, for the whole country.
 
-<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual grid, Landsat 8/9 scenes, ESA WorldCover 2021, and boundary geometry from LGD, Swachh Bharat Mission, WB AMRUT and Living Atlas — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass stamps five numbers onto every polygon: annual PM2.5, surface heat, tree cover, green cover and built-up. Those ship as PMTiles across seven administrative levels from 36 states down to 68,596 wards and 584,615 villages, read by the browser through HTTP range requests." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021, and boundary geometry from LGD, Swachh Bharat Mission, WB AMRUT and Living Atlas — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass stamps nine numbers onto every polygon: annual PM2.5, the same by season for winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Those ship as PMTiles across seven administrative levels from 36 states down to 68,596 wards and 584,615 villages, read by the browser through HTTP range requests." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
 
 The shape is the point: every layer is one national raster and one zonal pass.
 Nothing is computed per city, so adding a level costs a pass rather than a
@@ -45,7 +45,7 @@ which republishes LGD and Swachh Bharat Mission geometries.
 
 Each level is one PMTiles archive in `data/tiles/`. The browser issues HTTP
 range requests for only the byte ranges covering what is on screen — rendering
-Delhi NCR styles about 700 wards from roughly 120 KB of a 36 MB archive.
+Delhi NCR styles about 700 wards from roughly 120 KB of a 42 MB archive.
 
 Villages are the exception: their archive is 267 MB, over GitHub's 100 MB file
 limit, so that level still loads through the older per-district TopoJSON path.
