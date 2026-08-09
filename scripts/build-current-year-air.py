@@ -61,7 +61,7 @@ Run:  python3 scripts/build-current-year-air.py --year 2026 --through 7
 Writes: data/current-year-air.json  (district code -> calibrated mean)
 """
 
-import argparse, datetime, json, os, ssl, statistics, sys, time, urllib.request
+import argparse, concurrent.futures as cf, datetime, json, os, ssl, statistics, sys, threading, time, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -159,25 +159,41 @@ def linfit(xs, ys):
     return b, my - b * mx
 
 
-def collect(rows, year, through, key, ckpt):
-    """Fetch a mean per district, checkpointing so a long run can resume."""
+def collect(rows, year, through, key, ckpt, workers=6):
+    """Fetch a mean per district, checkpointing so a long run can resume.
+
+    Serial, this is 785 round trips at roughly a second and a half each per
+    year, twice — most of it spent waiting on the network rather than doing
+    anything. A small pool turns two and a half hours into about twenty
+    minutes. Kept small on purpose: Open-Meteo's archive is free and
+    unauthenticated, and hammering it would be a poor way to treat it.
+    """
     done = json.loads(ckpt.read_text()) if ckpt.exists() else {}
     end_m = through or 12
     start, end = f'{year}-01-01', f'{year}-{end_m:02d}-{MONTH_END[end_m]:02d}'
     need = int((MIN_HOURS * end_m) / 12)
-    for i, r in enumerate(rows):
-        k = str(r['c'])
-        if k in done:
-            r[key] = done[k]
-            continue
+    todo = [r for r in rows if str(r['c']) not in done]
+    for r in rows:
+        if str(r['c']) in done:
+            r[key] = done[str(r['c'])]
+    print(f'  {len(rows) - len(todo)} already cached, {len(todo)} to fetch', flush=True)
+
+    lock = threading.Lock()
+    counter = {'n': 0}
+
+    def work(r):
         mean, hours = fetch_mean(r['lat'], r['lon'], start, end)
-        if mean is not None and hours >= need:
-            r[key] = mean
-            done[k] = mean
-        if (i + 1) % 25 == 0:
-            ckpt.write_text(json.dumps(done))
-            print(f'  {i + 1}/{len(rows)} ({len(done)} with data)', flush=True)
-        time.sleep(0.2)
+        with lock:
+            if mean is not None and hours >= need:
+                r[key] = mean
+                done[str(r['c'])] = mean
+            counter['n'] += 1
+            if counter['n'] % 50 == 0:
+                ckpt.write_text(json.dumps(done))
+                print(f"  {counter['n']}/{len(todo)} fetched ({len(done)} with data)", flush=True)
+
+    with cf.ThreadPoolExecutor(max_workers=workers) as ex:
+        list(ex.map(work, todo))
     ckpt.write_text(json.dumps(done))
     return [r for r in rows if key in r]
 
