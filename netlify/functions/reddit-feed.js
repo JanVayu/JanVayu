@@ -12,8 +12,49 @@ const SUBREDDITS = [
   { sub: 'worldnews', query: 'India air pollution' },
 ];
 
+// Reddit's search.json returns 403 to datacentre IPs — every Netlify region is
+// one, so this function returned zero posts with five 403s while the site
+// claimed to carry a live feed. The Atom feed at the same path is served
+// normally (verified 200 with 25 entries), so we read that instead. It carries
+// less than the JSON did: no score, no comment count, no selftext. Those fields
+// are dropped rather than faked.
+function decodeEntities(s) {
+  return String(s || '')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+function parseAtom(xml, sub) {
+  const out = [];
+  const entries = xml.split('<entry>').slice(1);
+  for (const e of entries) {
+    const pick = (tag) => {
+      const m = e.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`));
+      return m ? decodeEntities(m[1].replace(/<!\[CDATA\[|\]\]>/g, '').trim()) : '';
+    };
+    const linkM = e.match(/<link[^>]*href="([^"]+)"/);
+    const title = pick('title');
+    if (!title) continue;
+    // The content block is escaped HTML; strip it to a short plain-text lead.
+    const text = decodeEntities(pick('content')).replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ').trim().substring(0, 200);
+    out.push({
+      platform: 'reddit', sub,
+      title,
+      author: pick('name') || null,
+      url: linkM ? linkM[1] : null,
+      created: Date.parse(pick('updated') || pick('published')) || Date.now(),
+      text,
+      score: null, comments: null, thumbnail: null,
+    });
+  }
+  return out;
+}
+
 async function fetchSubreddit(sub, query, limit = 10) {
-  const url = `https://www.reddit.com/r/${sub}/search.json?q=${encodeURIComponent(query)}&sort=new&restrict_sr=on&limit=${limit}&t=month`;
+  const url = `https://www.reddit.com/r/${sub}/search.rss?q=${encodeURIComponent(query)}` +
+              `&sort=new&restrict_sr=on&limit=${limit}`;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
@@ -21,21 +62,12 @@ async function fetchSubreddit(sub, query, limit = 10) {
       signal: controller.signal,
       headers: {
         'User-Agent': 'JanVayu:AirQualityMonitor:v26.6 (+https://janvayu.in)',
-        'Accept': 'application/json',
+        'Accept': 'application/atom+xml, application/xml',
       },
     });
     clearTimeout(timeout);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    return (data.data?.children || []).map(c => ({
-      platform: 'reddit', sub,
-      title: c.data.title, author: c.data.author,
-      url: `https://reddit.com${c.data.permalink}`,
-      score: c.data.score, comments: c.data.num_comments,
-      created: c.data.created_utc * 1000,
-      text: (c.data.selftext || '').substring(0, 200),
-      thumbnail: c.data.thumbnail?.startsWith('http') ? c.data.thumbnail : null,
-    }));
+    return parseAtom(await res.text(), sub).slice(0, limit);
   } catch (e) {
     clearTimeout(timeout);
     throw e;

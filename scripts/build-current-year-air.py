@@ -94,19 +94,22 @@ def _opener():
     return urllib.request.build_opener(*handlers)
 
 
-OPENER = None
+# One opener per thread. urllib openers keep connection state and are not
+# thread-safe; sharing a single one across the pool made six workers behave
+# like slightly-worse-than-one, ~10s a call instead of 1.2s.
+_local = threading.local()
 
 
 def fetch_mean(lat, lon, start, end, tries=3):
-    global OPENER
-    if OPENER is None:
-        OPENER = _opener()
+    op = getattr(_local, 'opener', None)
+    if op is None:
+        op = _local.opener = _opener()
     url = (f'{API}?latitude={lat}&longitude={lon}&start_date={start}&end_date={end}'
            f'&hourly=pm2_5&timezone=UTC')
     for attempt in range(tries):
         try:
             req = urllib.request.Request(url, headers={'User-Agent': UA})
-            with OPENER.open(req, timeout=45) as r:
+            with op.open(req, timeout=45) as r:
                 d = json.load(r)
             v = [x for x in (d.get('hourly', {}).get('pm2_5') or []) if x is not None]
             return (round(sum(v) / len(v), 1), len(v)) if v else (None, 0)
