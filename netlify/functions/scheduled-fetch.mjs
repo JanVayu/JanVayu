@@ -102,6 +102,11 @@ function parseRedditAtom(xml, sub) {
   return out;
 }
 
+// Kept in step with the same expression in reddit-feed.js — Reddit's search
+// ORs its terms, so "air pollution OR AQI" matches on the word "air" and lets
+// through things like "Air India names new CEO". The title has to say it.
+const ABOUT_AIR = /\b(air quality|air pollution|aqi|smog|smoggy|pm ?2\.?5|pm ?10|stubble burn\w*|particulate|clean air|ncap|grap|polluted|pollution)\b/i;
+
 async function fetchReddit() {
   const allPosts = [];
   const errors = [];
@@ -111,7 +116,7 @@ async function fetchReddit() {
     const { sub, query } = SUBREDDITS[i];
     if (i) await new Promise(r => setTimeout(r, 500));
     const url = `https://www.reddit.com/r/${sub}/search.rss?q=${encodeURIComponent(query)}` +
-                `&sort=new&restrict_sr=on&limit=10&t=month`;
+                `&sort=new&restrict_sr=on&limit=25&t=month`;
     try {
       const res = await fetchWithTimeout(url, {
         headers: {
@@ -119,7 +124,7 @@ async function fetchReddit() {
           'Accept': 'application/atom+xml, application/xml',
         },
       });
-      allPosts.push(...parseRedditAtom(await res.text(), sub));
+      allPosts.push(...parseRedditAtom(await res.text(), sub).filter(p => ABOUT_AIR.test(p.title || '')));
     } catch (e) {
       errors.push(`${sub}: ${e.message}`);
     }
