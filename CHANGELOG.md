@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.157] - 2026-08-09
+
+### Fixed — the Reddit feed's cache had never been filled
+
+Restoring the feed to Reddit's Atom endpoint fixed the function that serves it, and production confirmed it: 0 posts became 10. But the four remaining subreddits came back **429**, and chasing that turned up the actual fault.
+
+`reddit-feed` is designed to serve from a Blobs cache that `scheduled-fetch` refills every four hours, with a live fetch only as a fallback. **`scheduled-fetch` was still calling `search.json`** — the endpoint Reddit refuses from datacentre IPs. So every scheduled run failed, the cache was never filled, and *every visitor* took the fallback path: five simultaneous Reddit requests per page view, all from one shared Netlify IP. The 429s were self-inflicted.
+
+Three changes, smallest first:
+
+- **`scheduled-fetch` reads the Atom feed too**, sequentially with a 500 ms gap. Five requests every four hours does not trouble any rate limit.
+- **The live fallback paces itself** — one subreddit at a time with a 400 ms gap and one retry on 429, under a 7-second budget so a slow subreddit cannot time the function out. Whatever is dropped is named in the response rather than silently missing, and errors now carry the subreddit that produced them, so `HTTP 429 ×4` becomes something diagnosable.
+- **The fallback seeds the cache** with what it fetched, so the next visitor is served rather than repeating the fan-out. Only an unfiltered fetch is stored — caching a filtered one would pass a fraction of the feed off as the whole thing.
+
 ## [v26.6.156] - 2026-08-09
 
 ### New — the map can finally answer "what about *this* year?"

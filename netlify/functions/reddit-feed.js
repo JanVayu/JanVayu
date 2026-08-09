@@ -162,6 +162,24 @@ exports.handler = async function (event) {
   });
   unique.sort((a, b) => b.created - a.created);
 
+  // Seed the cache with whatever the live path just managed to get. Without
+  // this, every visitor who arrives before the next scheduled run repeats the
+  // whole fan-out, and Reddit rate-limits the shared Netlify IP for all of
+  // them. Only a full-feed fetch is stored — a filtered one would cache a
+  // fraction of the feed as though it were the whole thing.
+  if (filter === 'all' && unique.length) {
+    try {
+      const store = getBlobStore("janvayu-feeds");
+      await store.setJSON("reddit", {
+        posts: unique.slice(0, 40), count: unique.length,
+        source: 'reddit-proxy', fetched_at: new Date().toISOString(),
+        seeded_by: 'live-fallback',
+      });
+    } catch (e) {
+      console.log('Could not seed the reddit cache:', e.message);
+    }
+  }
+
   return {
     statusCode: 200, headers,
     body: JSON.stringify({

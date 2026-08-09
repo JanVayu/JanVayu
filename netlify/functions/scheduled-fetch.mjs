@@ -62,34 +62,68 @@ async function fetchWithTimeout(url, opts = {}, timeoutMs = 8000) {
 }
 
 // ── Reddit fetcher ──
+// This job is what fills the Blobs cache the reddit-feed function serves. It
+// had been calling search.json, which Reddit refuses from datacentre IPs, so
+// every run failed silently, the cache stayed empty, and every visitor fell
+// through to reddit-feed's live path — five requests per page view, from one
+// shared Netlify IP, which is what was earning the 429s. Reading the Atom feed
+// here, on a 4-hourly schedule, is both the fix and the point: the live path
+// goes back to being a fallback nobody normally reaches.
+function decodeEntities(s) {
+  return String(s || '')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+function parseRedditAtom(xml, sub) {
+  const out = [];
+  for (const e of xml.split('<entry>').slice(1)) {
+    const pick = (tag) => {
+      const m = e.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`));
+      return m ? decodeEntities(m[1].replace(/<!\[CDATA\[|\]\]>/g, '').trim()) : '';
+    };
+    const title = pick('title');
+    if (!title) continue;
+    const linkM = e.match(/<link[^>]*href="([^"]+)"/);
+    out.push({
+      platform: 'reddit', sub,
+      title,
+      author: pick('name') || null,
+      url: linkM ? linkM[1] : null,
+      created: Date.parse(pick('updated') || pick('published')) || Date.now(),
+      // The Atom feed carries no score, comment count or thumbnail. They are
+      // null rather than invented.
+      score: null, comments: null, thumbnail: null,
+      text: decodeEntities(pick('content')).replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ').trim().substring(0, 200),
+    });
+  }
+  return out;
+}
+
 async function fetchReddit() {
   const allPosts = [];
   const errors = [];
-  const results = await Promise.allSettled(
-    SUBREDDITS.map(async ({ sub, query }) => {
-      const url = `https://www.reddit.com/r/${sub}/search.json?q=${encodeURIComponent(query)}&sort=new&restrict_sr=on&limit=10&t=month`;
+  // Sequential with a gap: Reddit rate-limits per IP, and five simultaneous
+  // requests from one Netlify region look like one impatient client.
+  for (let i = 0; i < SUBREDDITS.length; i++) {
+    const { sub, query } = SUBREDDITS[i];
+    if (i) await new Promise(r => setTimeout(r, 500));
+    const url = `https://www.reddit.com/r/${sub}/search.rss?q=${encodeURIComponent(query)}` +
+                `&sort=new&restrict_sr=on&limit=10&t=month`;
+    try {
       const res = await fetchWithTimeout(url, {
         headers: {
           'User-Agent': 'JanVayu:AirQualityMonitor:v26.6 (+https://janvayu.in)',
-          'Accept': 'application/json',
+          'Accept': 'application/atom+xml, application/xml',
         },
       });
-      const data = await res.json();
-      return (data.data?.children || []).map(c => ({
-        platform: 'reddit', sub,
-        title: c.data.title, author: c.data.author,
-        url: `https://reddit.com${c.data.permalink}`,
-        score: c.data.score, comments: c.data.num_comments,
-        created: c.data.created_utc * 1000,
-        text: (c.data.selftext || '').substring(0, 200),
-        thumbnail: c.data.thumbnail?.startsWith('http') ? c.data.thumbnail : null,
-      }));
-    })
-  );
-  results.forEach(r => {
-    if (r.status === 'fulfilled') allPosts.push(...r.value);
-    else errors.push(r.reason.message);
-  });
+      allPosts.push(...parseRedditAtom(await res.text(), sub));
+    } catch (e) {
+      errors.push(`${sub}: ${e.message}`);
+    }
+  }
   // Deduplicate
   const seen = new Set();
   const unique = allPosts.filter(p => {
