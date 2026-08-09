@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" role="img" aria-label="How the JanVayu boundary atlas is built: four sources feed three satellite passes and one boundary pass, every polygon gets up to five numbers baked in, and seven administrative levels ship as PMTiles the browser reads by range request">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" role="img" aria-label="How the JanVayu boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes up to nine numbers into every polygon: annual PM2.5, the same by season for winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Seven administrative levels ship as PMTiles the browser reads by range request.">
   <style>
     .k   { font-family:'Kalam','Comic Sans MS',cursive; }
     .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
