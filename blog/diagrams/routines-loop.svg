@@ -11,7 +11,7 @@
   </style>
 
   <text x="460" y="34" text-anchor="middle" class="h" font-size="26" fill="#146c33">How JanVayu keeps itself honest</text>
-  <text x="460" y="56" text-anchor="middle" class="k" font-size="15" class="mut" fill="#5b6b60">three scheduled routines &#183; a human always merges</text>
+  <text x="460" y="56" text-anchor="middle" class="k mut" font-size="15" fill="#5b6b60">three scheduled routines &#183; a human always merges</text>
 
   <!-- The three routines (clocks) -->
   <g>

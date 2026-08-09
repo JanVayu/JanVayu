@@ -63,7 +63,7 @@ underneath.
 
 | Colour | Source | Resolution | Levels | Notes |
 |--------|--------|-----------|--------|-------|
-| **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
+| **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean — the newest published; the product is calibrated against ground monitors before release, and as of August 2026 no 2025 grid exists. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
 | **Air by season** | SatPM2.5 V6GL03 monthly | ~1 km | all | Winter (Dec–Feb), summer (Mar–May), monsoon (Jun–Sep), post-monsoon (Oct–Nov), each the mean of its months. |
 | **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
 | **Tree cover** | ESA WorldCover 2021 | 10 m | all | Share under tree canopy (class 10). Cropland is *not* counted. |

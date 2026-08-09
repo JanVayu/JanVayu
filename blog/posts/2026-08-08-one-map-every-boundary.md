@@ -15,7 +15,8 @@ The [live map](https://www.janvayu.in/#map) now has a single **Boundaries** menu
 
 Every one of them coloured by its annual satellite PM2.5. Pick a level, zoom to where you live, tap.
 
-<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes nine numbers into every polygon: annual PM2.5, the same by season, surface heat, tree cover, green cover and built-up. Six levels ship as PMTiles read by HTTP range request; villages carry the same numbers in one file per district." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes nine numbers into every polygon. Six levels ship as PMTiles read by HTTP range request; villages carry the same numbers in one file per district."></div>
+<div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/atlas-layers-tall.svg" alt="" aria-hidden="true"></div>
 
 ## What this actually adds
 
