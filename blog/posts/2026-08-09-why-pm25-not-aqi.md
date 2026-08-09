@@ -8,7 +8,8 @@ At a conference last week, a reader made a point worth acting on: our headline f
 
 It is a fair point, and we have changed how the numbers are presented. This post sets out why PM2.5 is the right measure to lead with — and what AQI is genuinely good for.
 
-<img src="/blog/diagrams/why-pm25.svg" alt="Why PM2.5 is the number that matters: PM10 is about 10 micrometres and PM2.5 is 2.5 micrometres or less, drawn to scale with each other; a human hair at 70 micrometres would be 28 times wider than the PM2.5 dot. The nose and throat catch most PM10 and the cilia sweep more of it back out, but PM2.5 reaches the alveoli and crosses into the bloodstream. PM2.5 is measured in micrograms per cubic metre, with India's annual limit at 40 and the WHO guideline at 5. AQI is a unitless index that reports only whichever of six pollutants scores worst, so two cities at the same AQI can be breathing very different PM2.5." style="width:100%;max-width:960px;display:block;margin:1.5rem auto;">
+<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/why-pm25.svg" alt="Why PM2.5 is the number that matters: PM10 is about 10 micrometres and PM2.5 is 2.5 micrometres or less, drawn to scale with each other; a human hair at 70 micrometres would be 28 times wider than the PM2.5 dot. The nose and throat catch most PM10 and the cilia sweep more of it back out, but PM2.5 reaches the alveoli and crosses into the bloodstream. PM2.5 is measured in micrograms per cubic metre, with India's annual limit at 40 and the WHO guideline at 5. AQI is a unitless index that reports only whichever of six pollutants scores worst, so two cities at the same AQI can be breathing very different PM2.5."></div>
+<div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/why-pm25-tall.svg" alt="" aria-hidden="true"></div>
 
 ---
 

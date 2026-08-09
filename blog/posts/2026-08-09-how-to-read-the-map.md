@@ -10,7 +10,8 @@ That is a lot of map, and it does not explain itself. This post is the manual we
 
 ---
 
-<img src="/blog/diagrams/reading-the-map.svg" alt="How to read the JanVayu map: the dots are live readings from about 565 CPCB monitors updated hourly, the shading underneath is a satellite estimate averaged over a whole year, and the two are never one sentence. Pick one of seven levels from the Boundaries menu covering 983,149 areas, pick one of nine measures from the Colour menu, then tap any area. Caution: green cover counts cropland, so the typical Indian district is 97% green and 14% treed — use tree cover if you want to know about trees." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/reading-the-map.svg" alt="How to read the JanVayu map: the dots are live readings from about 565 CPCB monitors updated hourly, the shading underneath is a satellite estimate averaged over a whole year, and the two are never one sentence. Pick one of seven levels from the Boundaries menu covering 983,149 areas, pick one of nine measures from the Colour menu, then tap any area. Green cover counts cropland, so the typical Indian district is 97% green and 14% treed — use tree cover if you want to know about trees."></div>
+<div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/reading-the-map-tall.svg" alt="" aria-hidden="true"></div>
 
 ## First: the map shows two different things, and mixing them up is the one real mistake
 
@@ -18,7 +19,9 @@ Everything on the map is either **right now** or **over a year**. They are not t
 
 **Right now** is the coloured dots. Those are live readings from real monitoring machines — about 565 continuous CPCB stations, served to us through WAQI. A dot tells you the air at that machine, in the last hour or so. Tap one and you get the AQI, the PM2.5 and PM10 in µg/m³, the station's name, and when it last reported.
 
-**Over a year** is the shaded areas underneath. Those are not measurements. They are satellite estimates of what a place breathed *across all of 2024* — a yearly average. They cannot tell you whether to go for a walk this evening. They can tell you what living there does to you over years, which is the thing that actually shortens lives.
+**Over a year** is the shaded areas underneath. Those are not measurements. They are satellite estimates of what a place breathed *across all of 2024* — a yearly average.
+
+Why 2024 and not this year? The source product (SatPM2.5 V6GL03) is calibrated against ground monitors before release, and that calibration takes time: as of August 2026 the newest year published is 2024, and there is no 2025 grid yet. So the lag is the science, not neglect on our part. If you want to know about *this* week, the live monitors are the only honest answer, and they only exist in cities. They cannot tell you whether to go for a walk this evening. They can tell you what living there does to you over years, which is the thing that actually shortens lives.
 
 Why have both? Because India has roughly 565 continuous stations for 1.4 billion people. If we only showed live monitors, most of the country would be blank forever. The satellite layer is the only estimate that reaches everywhere — including the village that will never have a machine in it.
 
