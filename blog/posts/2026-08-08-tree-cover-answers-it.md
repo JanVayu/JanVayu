@@ -10,9 +10,9 @@ The narrow version was wrong. Not the arithmetic — the variable.
 
 The [map](https://www.janvayu.in/#map) now has a **Tree cover** layer, canopy alone, for every level from ward to state. Against the same heat data, on the same wards:
 
-| | Green cover | **Tree cover** |
+| Against ward surface heat | Green cover | **Tree cover** |
 |---|---:|---:|
-| National correlation with ward surface heat | −0.069 | **−0.429** |
+| National correlation | −0.069 | **−0.429** |
 | Within-city median correlation | −0.107 | **−0.412** |
 | Cities where the relationship is negative | 680 / 1,247 (55%) | **1,087 / 1,240 (88%)** |
 | Coolest fifth vs hottest fifth of wards | 0.8 °C | **4.8 °C** |
@@ -39,11 +39,11 @@ And it holds nearly everywhere. In 88% of the 1,240 Indian cities with twenty or
 
 Delhi makes it concrete. Naraina, in west Delhi: 12% tree cover, 87% built, **41.5 °C**. A ward in New Delhi's Lutyens area: 45% tree cover, 53% built, **39.9 °C**. Comparable levels of construction, very different canopy, and 1.6 °C between them.
 
-## Two things we got wrong, on the record
+## Two corrections to this morning's post
 
-**We published a claim that was narrower than the truth.** This morning's post said the honest statement was "within a humid or temperate Indian city, green cover tracks cooler ward surfaces; across India, and inside arid cities, it does not". Every word of that is defensible about *green cover*. But we framed it as a limit on what the data could show, when it was a limit on the variable we had chosen. The better move would have been to ask what green cover was actually made of before drawing conclusions from it.
+**The earlier framing was narrower than the data warranted.** This morning's post said the honest statement was "within a humid or temperate Indian city, green cover tracks cooler ward surfaces; across India, and inside arid cities, it does not". Every word of that is defensible about *green cover*. But we framed it as a limit on what the data could show, when it was a limit on the variable we had chosen. The better move would have been to ask what green cover was actually made of before drawing conclusions from it.
 
-**And our ward counts were inflated.** While chasing an unrelated bug we found the ward atlas carries **2,541 exact-duplicate geometries**, bunched in a few cities. Patna's "628 wards" are 116 distinct shapes. Mangalore's "540" are 61. "Ward 1" appears twenty-three times in Patna. Every correlation in this post is computed on deduplicated wards; the earlier post's table has a correction note attached, with the wrong figures left visible. The correlations barely moved — the national one is identical to three decimals — but the counts were wrong and we had printed them.
+**The ward counts have been revised down.** While chasing an unrelated bug we found the ward atlas carries **2,541 exact-duplicate geometries**, bunched in a few cities. Patna's "628 wards" are 116 distinct shapes. Mangalore's "540" are 61. "Ward 1" appears twenty-three times in Patna. Every correlation in this post is computed on deduplicated wards; the earlier post's table has a correction note attached, with the wrong figures left visible. The correlations barely moved — the national one is identical to three decimals — but the counts were wrong and we had printed them.
 
 That bug was itself only found because a total went *down*. Our new land-cover pass draws every polygon of a level into one grid, so each pixel belongs to exactly one ward — fine when wards tile the map, wrong when they overlap. Patna came back with 556 of 628 wards having no data at all. It looked exactly like ordinary missing data; the only reason it got investigated is that the previous method had managed more.
 

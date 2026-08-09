@@ -4,9 +4,9 @@
 
 ---
 
-At a conference last week, someone told us our own site was making the mistake we complain about: too much AQI, too much PM10, not enough PM2.5 — the one that actually does the damage.
+At a conference last week, a reader made a point worth acting on: our headline figures often led with AQI, when PM2.5 is the measure that carries the health consequences.
 
-They were right, and we have started fixing it. This post is why it matters, and what we changed.
+It is a fair point, and we have changed how the numbers are presented. This post sets out why PM2.5 is the right measure to lead with — and what AQI is genuinely good for.
 
 <img src="/blog/diagrams/why-pm25.svg" alt="Why PM2.5 is the number that matters: PM10 is about 10 micrometres and PM2.5 is 2.5 micrometres or less, drawn to scale with each other; a human hair at 70 micrometres would be 28 times wider than the PM2.5 dot. The nose and throat catch most PM10 and the cilia sweep more of it back out, but PM2.5 reaches the alveoli and crosses into the bloodstream. PM2.5 is measured in micrograms per cubic metre, with India's annual limit at 40 and the WHO guideline at 5. AQI is a unitless index that reports only whichever of six pollutants scores worst, so two cities at the same AQI can be breathing very different PM2.5." style="width:100%;max-width:960px;display:block;margin:1.5rem auto;">
 
@@ -60,17 +60,15 @@ That is the case for leading with PM2.5. Not that AQI is wrong, but that it cann
 
 ---
 
-## What we changed on JanVayu
+## What this looks like on JanVayu
 
-The criticism was specifically that our own surfaces led with AQI. Going through them:
+**The dashboard** describes itself as live **PM2.5 in µg/m³**, with AQI alongside rather than instead. The city rankings table has always led on PM2.5, with AQI as a secondary column.
 
-**The dashboard** now describes itself as live **PM2.5 in µg/m³**, with AQI shown alongside rather than instead. The city rankings table already led on PM2.5 with AQI as a secondary column — that one was right.
+**The walkthrough decks**, which we use at conferences and workshops, now headline **"Real-time PM2.5 for 157 cities"**, with the speaker note carrying the reasoning: *lead with PM2.5, not AQI — AQI is a derived index and PM2.5 is the pollutant that does the damage.*
 
-**The walkthrough decks**, which we use at conferences and workshops, said "Real-time AQI for 117 cities" on the headline slide. They now say **"Real-time PM2.5 for 157 cities"**, and the speaker notes say plainly why: *lead with PM2.5, not AQI — AQI is a derived index and PM2.5 is the pollutant that does the damage.*
+**The map** uses PM2.5 throughout: every boundary is coloured by annual satellite PM2.5 in µg/m³, banded against 5 and 40, never against AQI categories. That is why a yearly figure on the map never carries "wear a mask today" advice.
 
-**The map** already used PM2.5 throughout — every boundary is coloured by annual satellite PM2.5 in µg/m³, banded against 5 and 40, and never against AQI categories. That was deliberate from the start, and it is the reason a yearly figure on the map never carries "wear a mask today" advice.
-
-**Ask JanVayu**, our assistant, already had a hard rule against mapping an annual mean onto a 24-hour AQI band. It stays.
+**Ask JanVayu**, our assistant, holds a hard rule against mapping an annual mean onto a 24-hour AQI band.
 
 **What we have not changed:** the AQI alerts. If you have asked to be told when your city crosses a threshold, a same-day index is genuinely the right measure for that, and we are not going to make a daily warning worse in the name of consistency.
 
@@ -88,11 +86,11 @@ Three habits worth having, whether or not you use our site:
 
 ---
 
-## And thank you
+## A note of thanks
 
-This change came from a person at a conference telling us we were doing the thing we criticise. That is more useful than a compliment, and it is the kind of correction we would rather have in public than not have at all.
+This change came from a reader at a conference who took the trouble to say what would make the site more useful. That kind of specific, technical feedback is worth more to us than praise, and we would rather hear it than not.
 
-If you find another one — on this site, in this post, anywhere — [tell us](https://github.com/JanVayu/JanVayu/issues).
+If you have a point to make about how anything here is presented, [tell us](https://github.com/JanVayu/JanVayu/issues).
 
 ---
 

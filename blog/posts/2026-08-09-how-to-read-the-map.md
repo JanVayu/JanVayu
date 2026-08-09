@@ -96,7 +96,7 @@ In rural India, "green cover" is mostly **farmland**. The typical Indian distric
 
 Both numbers are true. Only one of them means what people mean when they ask "is there any greenery here". If you want to know whether there are trees, **look at tree cover.** If a place shows deep green on the green-cover layer and near-white on tree cover, you are looking at fields, not forest.
 
-We got this wrong ourselves for a while, and had to [write about it](/blog/#/posts/2026-08-08-tree-cover-answers-it).
+This distinction is why tree cover exists as its own layer rather than being folded into green cover — the two answer different questions, and only one of them tracks heat. [The analysis is here](/blog/#/posts/2026-08-08-tree-cover-answers-it).
 
 ---
 
@@ -158,7 +158,7 @@ Every figure on the map is public data anyone can check:
 - **Tree, green and built-up cover:** ESA WorldCover 2021, CC BY 4.0.
 - **Boundaries:** the Local Government Directory and Swachh Bharat Mission, republished via [indianopenmaps.com](https://indianopenmaps.com), plus West Bengal AMRUT and Living Atlas ward layers.
 
-The full method, including what we got wrong on the way, is in [The Boundary Map](/docs/#/data-sources/boundary-map).
+The full method, with the coverage figures and known limits for every layer, is in [The Boundary Map](/docs/#/data-sources/boundary-map).
 
 ---
 

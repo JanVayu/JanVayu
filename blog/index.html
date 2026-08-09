@@ -54,6 +54,11 @@
       --search-result-keyword-color: #16A34A;
     }
 
+    /* Dark mode set text colours but never a background, so the page stayed
+       white while --base-color went near-white and the even-row rule painted
+       #141414 stripes: light page, black bands, invisible text. The content
+       background has to be declared here too, and by the same token every
+       surface that had a hardcoded light value above. */
     body[data-theme="dark"] {
       --sidebar-background: #0f1419;
       --sidebar-border-color: #2d3748;
@@ -65,7 +70,28 @@
       --heading-color: #86EFAC;
       --blockquote-background: #1a2e23;
       --search-background: #1a1a18;
+      --search-input-border-color: #2d3748;
+      --base-background-color: #0d1117;
+      --background: #0d1117;
+      --content-background: #0d1117;
+      --code-theme-background: #161b22;
+      --code-inline-background: #161b22;
+      --link-color: #86EFAC;
+      --notice-tip-background: #14231b;
+      --pagination-border-top: #2d3748;
     }
+    body[data-theme="dark"],
+    body[data-theme="dark"] .content,
+    body[data-theme="dark"] .markdown-section,
+    body[data-theme="dark"] main,
+    body[data-theme="dark"] section.cover { background-color: #0d1117; }
+    body[data-theme="dark"] .markdown-section { color: #e2e8f0; }
+    body[data-theme="dark"] .markdown-section a { color: #86EFAC; }
+    body[data-theme="dark"] .markdown-section code { background: #161b22; color: #e2e8f0; }
+    body[data-theme="dark"] .markdown-section blockquote { background: #14231b; }
+    /* Diagrams are drawn on warm paper; keep them readable rather than
+       inverting them, which would wreck the hand-drawn colour scheme. */
+    body[data-theme="dark"] .jv-dgm { background: #f7f5f0; border-color: #2d3748; }
 
     /* Typography */
     .markdown-section h1 {
@@ -156,7 +182,9 @@
     table tr:nth-child(even) { background: #fafbfc; }
     body[data-theme="dark"] table th { background: #1a2e23; border-color: #2d3748; }
     body[data-theme="dark"] table td { border-color: #2d3748; }
-    body[data-theme="dark"] table tr:nth-child(even) { background: #141414; }
+    body[data-theme="dark"] table tr:nth-child(odd) { background: #0d1117; }
+    body[data-theme="dark"] table tr:nth-child(even) { background: #161b22; }
+    body[data-theme="dark"] table td, body[data-theme="dark"] table th { color: #e2e8f0; }
 
     /* Sources section at end of posts */
     .markdown-section h2:last-of-type {

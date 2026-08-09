@@ -301,7 +301,7 @@
             hero_sub: "JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.",
             tagline: "Citizen Air Quality Platform",
             nav_myair: "My Air",
-            nav_citydata: "City Data",
+            nav_citydata: "Maps & Places",
             nav_data: "Health & Trends",
             nav_monitor: "Monitoring",
             nav_account: "Accountability",
@@ -318,7 +318,7 @@
             dd_voices: "Citizen Voices", dd_testimony: "Citizen Testimony", dd_migration: "Migration & Displacement",
             dd_tools: "Tools", dd_resources: "Reading List", dd_downloads: "Downloads", dd_about: "About",
             // Mobile nav groups
-            navgroup_myair: "My Air", navgroup_citydata: "City Data", navgroup_health: "Health & Trends",
+            navgroup_myair: "My Air", navgroup_citydata: "Maps & Places", navgroup_health: "Health & Trends",
             navgroup_learn: "Learn",
             mg_data: "Data & Analysis", mg_monitor: "Monitoring", mg_account: "Accountability",
             mg_action: "Take Action", mg_resources: "Resources",
@@ -1889,12 +1889,22 @@
             // so a monitor that went quiet this cycle looks like a quiet
             // monitor rather than a smaller platform.
             liveStatus.innerHTML = usingLiveData
-                ? `<span class="pulse"></span> LIVE: ${successCount} of ${CORE_CITIES.length} monitored cities reporting, ${timeStr}`
+                ? `<span class="pulse"></span> Live: ${successCount} cities, ${timeStr}`
+                  + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
+                  + `India has about 565 continuous monitors in all &mdash; so live readings reach cities only. `
+                  + `Every one of the country's <strong style="font-weight:600;">983,149 areas</strong> has a yearly satellite figure on the map.</span>`
                 : `<span style="color:var(--amber);">⚠</span> Showing estimated data. Check console for API details.`;
-            liveStatus.title = `Live CPCB/WAQI readings are polled for ${CORE_CITIES.length} cities on load; `
-                + `a city not reporting simply had no fresh reading this cycle. `
-                + `JanVayu holds live data for ${INDIAN_CITIES.length} cities in total — the rest load when you select them — `
-                + `and annual figures for all 983,149 administrative areas on the map.`;
+            // Two layers, two kinds of coverage, and the difference is the
+            // thing readers get wrong. Live is monitor readings and reaches
+            // cities only; the satellite layer reaches everywhere. A bare
+            // count here read as "this is how much of India JanVayu covers".
+            liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine — `
+                + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's network, not the whole of ours. `
+                + `${CORE_CITIES.length} cities are polled as the page loads; the other ${INDIAN_CITIES.length - CORE_CITIES.length} `
+                + `of our ${INDIAN_CITIES.length} load when you select them, to stay inside the data source's free tier. `
+                + `The satellite layer is what closes the gap: annual and seasonal PM2.5, surface heat and land cover for all `
+                + `983,149 administrative areas down to the village — a yearly average rather than today's air, and the only `
+                + `estimate that reaches everywhere.`;
         }
     }
 

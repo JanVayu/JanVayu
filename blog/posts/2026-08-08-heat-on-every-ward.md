@@ -1,4 +1,4 @@
-# We Put Surface Heat on Every Ward in India — and It Argued With Us
+# Surface Heat on Every Ward in India — and What It Showed
 
 **Published:** 8 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 
