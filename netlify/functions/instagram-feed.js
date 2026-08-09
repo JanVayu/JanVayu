@@ -44,9 +44,21 @@ async function fetchFromBridge(instance, params) {
   }
 }
 
+// RSS-Bridge reports its own failures as ordinary feed items, so an Instagram
+// block came back as five "posts" titled "Bridge returned error 401!" — and the
+// Social Feed panel rendered them as citizen posts, complete with a link to the
+// bridge operator's internal hostname. Instagram now answers 401 to
+// unauthenticated GraphQL, so this is the normal case, not a blip. An error is
+// an error: it is dropped here and reported in the errors array instead of
+// being dressed up as content.
+function isBridgeError(item) {
+  const t = (item.title || '') + ' ' + (item.content_text || item.content_html || '');
+  return /bridge returned error|HttpException|\bError\b\s*\d{3}\b|Type:\s*\w*Exception/i.test(t);
+}
+
 function normalizeItems(data) {
   if (!data || !data.items) return [];
-  return data.items.map(item => ({
+  return data.items.filter(item => !isBridgeError(item)).map(item => ({
     title: (item.title || '').replace(/<[^>]+>/g, '').trim(),
     content: (item.content_html || item.content_text || '')
       .replace(/<[^>]+>/g, '')

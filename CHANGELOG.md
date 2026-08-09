@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.160] - 2026-08-09
+
+### New — X, by link and checked, rather than by scrape
+
+X's API is no longer freely readable, and X also blocks search engines from indexing recent posts, so a post from last week cannot be discovered from outside the platform at all. Rather than fake a feed or quote posts from memory, the Voices panel now carries an **On X** card with two honest halves:
+
+- **Live searches and accounts** &mdash; `#DelhiPollution`, `#AirPollution India`, `AQI India`, `#AQIForJanHit`, each opening X's live tab, plus @CPCB_OFFICIAL, @CAQM_Official, @moefcc, @airnewsalerts and @weatherindia. These are always current because X renders them, not us.
+- **Checked posts** &mdash; four posts quoted with author, date and wording, including CPCB's own GRAP Stage IV emergency declaration.
+
+Nothing is quoted unverified. `scripts/verify-x-links.py` checks each link against **X's public embed endpoint**, which needs no key and returns the author and text for a post that exists and a 404 for one that does not; the post's date is decoded from the ID in its own URL, which carries its creation timestamp. Every link on the page was re-checked through that script before it shipped, and the script is committed so it can be re-run.
+
+### New — two verified stories from this week
+
+- **Delhi's air is eating a World Heritage Site.** A joint IIT Roorkee / IIT Kanpur study in the *International Journal of Architectural Heritage* finds a black crust of gypsum &mdash; sulphur dioxide reacting with calcium-rich dust and moisture &mdash; accelerating the decay of Humayun's Tomb, trapping soot and metal particles from traffic, construction, biomass burning and industry. 3 August 2026.
+- **Delhi's first "good" air day in nearly three years.** 9 July 2026, daily average AQI **48**, the first inside the 0&ndash;50 band since 10 September 2023 &mdash; monsoon rain scavenging particles below cloud. It held for one day: 54 the next, 99 the day after, and back to *poor* through early August. Which is the argument for keeping annual and seasonal figures apart: one clean day is weather, the year is the air.
+
+## [v26.6.159] - 2026-08-09
+
+### Fixed — the Instagram feed was showing its own error messages as posts
+
+RSS-Bridge reports its failures as ordinary feed items, so the Social Feed panel was rendering five "citizen posts" titled **"Bridge returned error 401! (20674)"**, each linking to the bridge operator's internal hostname. Instagram now answers 401 to unauthenticated GraphQL, so this is the normal case rather than a blip: every one of the five items production was serving was an error.
+
+Errors are dropped and reported in the `errors` array instead of being dressed up as content. The Instagram tab falls back to what it always had underneath — labelled links to the hashtags — which is honest about being a signpost rather than a feed.
+
+Same principle as removing the X/Twitter tab: better to show nothing than something that is not what it claims to be.
+
 ## [v26.6.158] - 2026-08-09
 
 ### Fixed — the Reddit feed was carrying airline news
@@ -13,7 +39,7 @@ With the feed serving again, what it was serving became visible: *"Air India nam
 
 Measured rather than guessed. Of the 25 posts r/india's search returned, **6 named air quality in the title**. Matching on the post body instead lets nearly everything through — 23 of 25 — because a long rant about leaving the country will mention AQI once. That is a real sentiment, but it is not air-quality coverage, and shown under an unrelated headline it reads as a broken feed.
 
-So a post is kept only if **its title** says it. The per-subreddit limit goes 10 → 25 to make up the difference, at no extra request. The same expression is applied in the scheduled fetcher and the live fallback, so the cache and the fallback cannot disagree about what belongs in the feed. The Voices panel now says the feed is filtered, and why.
+So a post is kept only if **its title** says it &mdash; checked on the way into the cache *and* on the way out of it, so a cache written by an older deploy cannot put airline news on the page. The serving path, not whatever happens to be stored, decides what belongs in this feed. The per-subreddit limit goes 10 → 25 to make up the difference, at no extra request. The same expression is applied in the scheduled fetcher and the live fallback, so the cache and the fallback cannot disagree about what belongs in the feed. The Voices panel now says the feed is filtered, and why.
 
 ## [v26.6.157] - 2026-08-09
 
