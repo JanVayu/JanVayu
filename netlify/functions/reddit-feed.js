@@ -139,10 +139,16 @@ exports.handler = async function (event) {
   try {
     const store = getBlobStore("janvayu-feeds");
     const cached = await store.get("reddit", { type: "json" });
-    if (cached && cached.posts && cached.posts.length > 0) {
+    // The cache can hold posts written before the relevance rule existed, or
+    // by an older deploy. Applying the rule on the way out as well as on the
+    // way in means a stale cache cannot put airline news on the page: the
+    // serving path, not whatever happens to be stored, decides what belongs in
+    // this feed. If nothing survives, fall through and fetch fresh.
+    const kept = (cached && cached.posts || []).filter(isAboutAir);
+    if (kept.length > 0) {
       const params = event.queryStringParameters || {};
       const filter = params.filter || 'all';
-      let posts = cached.posts;
+      let posts = kept;
       if (filter !== 'all') {
         posts = posts.filter(p => p.sub === filter);
       }
