@@ -4688,7 +4688,10 @@
         }
 
         // Twitter via proxy
-        if (filter === 'all' || filter === 'twitter') {
+        // X/Twitter is not fetched: the API is no longer freely readable and the
+        // endpoint returned nothing. Left here rather than deleted so the next
+        // person can see it was a deliberate removal, not an oversight.
+        if (false && (filter === 'all' || filter === 'twitter')) {
             try {
                 const controller = new AbortController();
                 setTimeout(() => controller.abort(), 4000);
