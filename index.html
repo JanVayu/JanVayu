@@ -1625,7 +1625,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     </div>
                     <div class="quick-link" onclick="showPanel('testimony')">
                         <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-600);"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_testimony_t">Field Testimony</h3><p data-i18n="ql_testimony_d">First-person accounts recorded on the ground &mdash; 100+ people, 13 languages</p></div>
+                        <div><h3 data-i18n="ql_testimony_t">Field Testimony</h3><p data-i18n="ql_testimony_d">First-person accounts recorded on the ground &mdash; 250 people, 14 languages</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('map')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-pin" style="width:20px;height:20px;"></span></div>
@@ -1938,12 +1938,13 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         ml: { label: 'മലയാളം' },
         or: { label: 'ଓଡ଼ିଆ' },
         ur: { label: 'اردو' },
-        as: { label: 'অসমীয়া' }
+        as: { label: 'অসমীয়া' },
+        ne: { label: 'नेपाली' }
     };
     const TESTIMONY_COLORS = {
         en: '#2563EB', hi: '#B91C1C', bn: '#16A34A', ta: '#7C3AED', mr: '#EA580C',
         te: '#0891B2', kn: '#DB2777', gu: '#CA8A04', pa: '#9333EA', ml: '#059669',
-        or: '#DC2626', ur: '#1D4ED8', as: '#15803D'
+        or: '#DC2626', ur: '#1D4ED8', as: '#15803D', ne: '#B45309'
     };
 
     // Testimonies are loaded lazily from /data/testimonies.json on first open
@@ -1975,7 +1976,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         const filtered = CITIZEN_TESTIMONIES.filter(t => {
             if (lang !== 'all' && t.lang !== lang) return false;
             if (!q) return true;
-            const hay = (t.city + ' ' + t.state + ' ' + t.name + ' ' + (t.role || '') + ' ' + t.q + ' ' + (t.en || '')).toLowerCase();
+            const hay = (t.city + ' ' + t.state + ' ' + t.name + ' ' + (t.role || '') + ' ' + t.q + ' ' + (t.en || '') + ' ' + (t.spoken || '') + ' ' + (t.mode || '')).toLowerCase();
             return hay.indexOf(q) !== -1;
         });
 
@@ -1989,18 +1990,35 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
         grid.innerHTML = filtered.map(t => {
             const color = TESTIMONY_COLORS[t.lang] || 'var(--green-700)';
-            const label = (TESTIMONY_LANGS[t.lang] || {}).label || t.lang;
+            // A quote spoken in mixed speech is badged the way it was spoken —
+            // "Hinglish", "Tamil-English" — while still filing under its base
+            // language in the filter bar.
+            const label = t.spoken || (TESTIMONY_LANGS[t.lang] || {}).label || t.lang;
             const rtl = t.lang === 'ur' ? ' dir="rtl"' : '';
             const enBlock = t.en ? ('<div class="testimony-en">' + escapeTestimony(t.en) + '</div>') : '';
             const role = t.role ? (' &middot; ' + escapeTestimony(t.role)) : '';
+            // Field-collected quotes carry when and how they were taken, so a
+            // reader can date them rather than assume they are current.
+            const stamp = [t.date ? testimonyDate(t.date) : '', t.mode || ''].filter(Boolean).join(' &middot; ');
+            const stampBlock = stamp ? ('<br><span style="color: var(--text-3);">' + stamp + '</span>') : '';
             return '<div class="voice-card testimony-card" lang="' + t.lang + '" style="border-left: 3px solid ' + color + ';">'
                 + '<div class="testimony-quote"' + rtl + '>&ldquo;' + escapeTestimony(t.q) + '&rdquo;</div>'
                 + enBlock
                 + '<div class="voice-meta"><strong>' + escapeTestimony(t.name) + '</strong>' + role
                 + '<br>' + escapeTestimony(t.city) + ', ' + escapeTestimony(t.state)
-                + '<span class="testimony-langbadge" style="background: ' + color + '1a; color: ' + color + ';">' + label + '</span></div>'
+                + stampBlock
+                + '<span class="testimony-langbadge" style="background: ' + color + '1a; color: ' + color + ';">' + escapeTestimony(label) + '</span></div>'
                 + '</div>';
         }).join('');
+    }
+
+    // "2025-08-14" -> "14 Aug 2025". Parsed by hand rather than through Date,
+    // which reads a bare ISO date as UTC midnight and can slip a day west of it.
+    function testimonyDate(iso) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+        if (!m) return '';
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return Number(m[3]) + ' ' + months[Number(m[2]) - 1] + ' ' + m[1];
     }
 
     function escapeTestimony(s) {
@@ -2041,7 +2059,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
             <div class="card mb-3" style="border-left: 4px solid var(--green-700); background: var(--green-50);">
                 <div class="card-body" style="font-size: 0.82rem; line-height: 1.6; color: var(--text-2);">
-                    <strong>Voices from across India.</strong> First-person testimonies, in many Indian languages, on what the air crisis feels like where people live, breathe and work. <strong>Lived in this air?</strong> Add your own testimony (any Indian language welcome) by writing to <a href="mailto:contribute@janvayu.in?subject=Citizen%20Testimony%20Submission&amp;body=Your%20name%20(or%20Anonymous)%3A%0ACity%2FState%3A%0ALanguage%3A%0AYour%20testimony%3A%0A" style="color: var(--green-700); font-weight: 600;">contribute@janvayu.in</a>.
+                    <strong>Voices from across India.</strong> First-person testimonies, in many Indian languages, on what the air crisis feels like where people live, breathe and work. Field-collected quotes carry the date and the way they were taken &mdash; street intercept, phone, WhatsApp, app or web. Every speaker gave consent, and each is named the way they asked to be: full first name, initials, or anonymous. <strong>Lived in this air?</strong> Add your own testimony (any Indian language welcome) by writing to <a href="mailto:contribute@janvayu.in?subject=Citizen%20Testimony%20Submission&amp;body=Your%20name%20(or%20Anonymous)%3A%0ACity%2FState%3A%0ALanguage%3A%0AYour%20testimony%3A%0A" style="color: var(--green-700); font-weight: 600;">contribute@janvayu.in</a>.
                 </div>
             </div>
 

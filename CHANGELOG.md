@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v26.6.154] - 2026-08-09
+## [v26.6.155] - 2026-08-09
+
+### New — 108 field-collected quotes join the testimony wall
+
+The wall grows from **142 to 250** first-person testimonies, across **107 cities** and **14 languages** — Nepali joins, from Gangtok.
+
+The new quotes come from a field-collection sheet rather than desk assembly, and they carry what field collection produces and desk assembly cannot:
+
+- **A collection date and a mode.** Each new card says when the quote was taken and how — street intercept, phone interview, WhatsApp, app or web submission. A reader can date the quote instead of assuming it is current. The 142 earlier entries are unstamped and stay that way; the absence is visible rather than papered over.
+- **Attribution as the speaker asked for it.** The sheet records each person's preference and the wall honours it: full first name, initials only, or anonymous. Nothing is widened. The importer refuses any row without recorded consent.
+- **Mixed speech badged as spoken.** A third of the new quotes are code-mixed — Hinglish, Tamil-English, Punjabi-Hindi. The badge now says what the person actually spoke, while the quote still files under its base language in the filter bar, so "Hinglish" no longer disappears into "Hindi".
+
+`scripts/build-ground-voices.py` does the conversion. It reads .xlsx directly — the format is a zip of XML — so the pipeline gains no dependency, and it is safe to re-run: quotes already on the wall are skipped rather than duplicated.
+
+Because these were collected in August, in the monsoon, many are quiet — *"The air feels really good after the morning rain"* — next to the winter voices already there. That contrast is the record, not a problem with it.
 
 ### Changed — PM2.5 is the headline, AQI is the footnote
 
