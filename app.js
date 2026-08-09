@@ -4032,6 +4032,8 @@
     // Every level except village carries land cover. Villages are the one gap,
     // and only because their 267 MB archive cannot ship — the values exist.
     const LANDCOVER_LEVELS = ['ward', 'subdistrict', 'panchayat', 'ulb', 'district', 'state'];
+    const SEASON_LEVELS = LANDCOVER_LEVELS;
+    const SEASON_KEYS = ['w', 's', 'r', 'o'];
 
     // What the polygons are coloured by. Air is the only metric every level
     // carries; the rest come from satellite passes, and the note below names
@@ -4048,6 +4050,18 @@
             band: (v) => HEAT_BANDS.find(x => v <= x.max) || HEAT_BANDS[HEAT_BANDS.length - 1],
             ramp: 'blue is cool ground, dark red is baking',
         },
+        // Seasons share the annual bands on purpose: the same colour has to
+        // mean the same µg/m³, or switching season would look like the air
+        // changed when only the scale had. Winter reads redder and the monsoon
+        // bluer, which is exactly the thing an annual mean hides.
+        w: { label: 'Winter air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Dec–Feb',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
+        s: { label: 'Summer air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Mar–May',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
+        r: { label: 'Monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Jun–Sep',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
+        o: { label: 'Post-monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Oct–Nov',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
         t: {
             label: 'Tree cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => TREE_BANDS.find(x => v <= x.max) || TREE_BANDS[TREE_BANDS.length - 1],
@@ -4249,6 +4263,20 @@
     // already in the browser's HTTP cache, so this is not a refetch.
     window.setBoundaryMetric = function setBoundaryMetric(metric) {
         boundaryMetric = BOUNDARY_METRICS[metric] ? metric : 'p';
+        // Season and colour are two ways of setting the same thing, so picking
+        // a non-air colour has to clear the season rather than leave the two
+        // controls disagreeing about what is on screen.
+        if (boundaryMetric !== 'p') {
+            const sel = document.getElementById('map-boundary-season');
+            if (sel) sel.value = '';
+        }
+        if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
+    };
+
+    window.setBoundarySeason = function setBoundarySeason(season) {
+        boundaryMetric = SEASON_KEYS.indexOf(season) !== -1 ? season : 'p';
+        const sel = document.getElementById('map-boundary-metric');
+        if (sel) sel.value = 'p';       // a season is still the air layer
         if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
     };
 
@@ -4325,6 +4353,18 @@
             // Every metric this feature carries, not only the one being
             // coloured — someone who clicked a ward to check its air should
             // not have to change the dropdown to learn how green it is.
+            // The seasonal cycle is the point of having seasons at all, so it
+            // gets its own line rather than four entries in the metric list.
+            const seasons = SEASON_KEYS.filter(k => typeof p[k] === 'number');
+            const seasonLine = seasons.length >= 2
+                ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">` +
+                  `<span style="color:var(--text-3);font-size:.72rem">Through the year (µg/m³)</span><br>` +
+                  seasons.map(k => {
+                      const m = BOUNDARY_METRICS[k];
+                      const peak = p[k] === Math.max(...seasons.map(j => p[j]));
+                      return `${m.label.replace(' air', '')} <strong${peak ? ' style="color:#b91c1c"' : ''}>${p[k]}</strong>`;
+                  }).join(' · ') + `</div>`
+                : '';
             const extras = ['h', 't', 'g', 'b'].filter(k => typeof p[k] === 'number');
             const land = extras.map(k => {
                 const m = BOUNDARY_METRICS[k];
@@ -4344,6 +4384,7 @@
                   `<span style="color:var(--text-3)">${pm25AnnualBand(v).label}. ` +
                   `India's annual limit is 40; the WHO guideline is 5. ` +
                   `A yearly average, not today's air.</span>`)
+                + seasonLine
                 + (land ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">${land}` +
                           `<div style="color:var(--text-3);font-size:.7rem;margin-top:.2rem">${credit}</div></div>` : '');
             L.popup({ maxWidth: 280 })

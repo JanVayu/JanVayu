@@ -714,6 +714,12 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+/* The tool directory has an awkward card count (17), and a rigid 4-up grid
+   leaves the remainder alone on the final row. Flex with a shared basis lets
+   the last row centre itself, so a partial row reads as deliberate. */
+.tool-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+.tool-grid > .quick-link { flex: 1 1 240px; max-width: 300px; }
+@media (max-width: 600px) { .tool-grid > .quick-link { max-width: none; flex-basis: 100%; } }
 .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
 @media (max-width: 1024px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 900px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
@@ -867,7 +873,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     padding: 4px 2px !important;
   }
   #map-layer-controls > * { flex: 0 0 auto; }
-  #map-boundary-level, #map-boundary-metric { max-width: 168px !important; }
+  #map-boundary-level, #map-boundary-metric, #map-boundary-season { max-width: 168px !important; }
 }
 </style>
 </head>
@@ -1575,9 +1581,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <div class="dash-section">
                     <span class="dash-section-eyebrow">Go deeper</span>
                     <h2 class="dash-section-title">Explore every tool</h2>
-                    <p class="dash-section-sub">Health and economic calculators, accountability trackers, your ward, alerts, games and more.</p>
+                    <p class="dash-section-sub">Health and economic calculators, accountability trackers, the map, alerts, games and more.</p>
                 </div>
-                <div class="grid-4 mt-3">
+                <div class="tool-grid mt-3">
                     <div class="quick-link" onclick="showPanel('health')">
                         <div class="quick-link-icon health"><span class="si si-hospital" style="width:20px;height:20px;"></span></div>
                         <div><h3 data-i18n="ql_health_title">Health Calculator</h3><p data-i18n="ql_health_desc">Your personal risk</p></div>
@@ -1594,8 +1600,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <div class="quick-link-icon" style="background: #FEF3C7; color: var(--amber);"><span class="si si-eye" style="width:20px;height:20px;"></span></div>
                         <div><h3>Trust the Data?</h3><p>Choose your sources — CPCB, WAQI, IQAir, community sensors</p></div>
                     </div>
-                </div>
-                <div class="grid-4 mt-2">
+                
                     <div class="quick-link" onclick="showPanel('accountability')">
                         <div class="quick-link-icon policy"><span class="si si-shield" style="width:20px;height:20px;"></span></div>
                         <div><h3 data-i18n="ql_accountability_t">Accountability</h3><p data-i18n="ql_accountability_d">Mission Tracker & RTI</p></div>
@@ -1610,10 +1615,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     </div>
                     <div class="quick-link" onclick="showPanel('map')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-pin" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Your Ward</h3><p>Air, heat, tree cover and built-up for every ward in India</p></div>
+                        <div><h3>The Map</h3><p>Your ward, village or district &mdash; air through the year, heat and tree cover</p></div>
                     </div>
-                </div>
-                <div class="grid-4 mt-2">
+                
                     <div class="quick-link" onclick="showPanel('go-outside')">
                         <div class="quick-link-icon" style="background: #EFF6FF; color: var(--ink);"><span class="si si-flare" style="width:20px;height:20px;"></span></div>
                         <div><h3 data-i18n="ql_outside_t">Go Outside?</h3><p data-i18n="ql_outside_d">Real-time advice</p></div>
@@ -1630,8 +1634,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <div class="quick-link-icon" style="background: #F5F3FF; color: var(--purple);"><span class="si si-library" style="width:20px;height:20px;"></span></div>
                         <div><h3 data-i18n="ql_school_t">School Status</h3><p data-i18n="ql_school_d">School closure forecast</p></div>
                     </div>
-                </div>
-                <div class="grid-4 mt-2">
+                
                     <div class="quick-link" onclick="showPanel('games')">
                         <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-700);"><span class="si si-library" style="width:20px;height:20px;"></span></div>
                         <div><h3 data-i18n="ql_games_t">Learning Games</h3><p data-i18n="ql_games_d">Seven games: Jeopardy, Vayu Junction &amp; more</p></div>
@@ -2965,6 +2968,13 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <option value="t">Colour: tree cover</option>
                         <option value="g">Colour: green cover</option>
                         <option value="b">Colour: built-up</option>
+                    </select>
+                    <select id="map-boundary-season" class="form-select map-layer-btn" onchange="window.setBoundarySeason &amp;&amp; window.setBoundarySeason(this.value)" style="max-width:150px; padding:2px 6px; font-size:0.7rem;" title="Air through the year. An annual mean hides the cycle: the Indo-Gangetic plain is near-breathable in the monsoon and at its worst after it. Same colour scale throughout, so a season is comparable with the annual figure.">
+                        <option value="">Season: annual</option>
+                        <option value="w">Winter (Dec–Feb)</option>
+                        <option value="s">Summer (Mar–May)</option>
+                        <option value="r">Monsoon (Jun–Sep)</option>
+                        <option value="o">Post-monsoon (Oct–Nov)</option>
                     </select>
                     <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'schools', 'main')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
                     <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'health', 'main')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
