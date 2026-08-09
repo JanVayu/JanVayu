@@ -4913,7 +4913,12 @@
             proxyFetches.push(
                 fetch('/.netlify/functions/youtube-feed', { signal: AbortSignal.timeout(4000) })
                     .then(r => r.text())
-                    .then(t => { if (t.startsWith('{')) { const d = JSON.parse(t); return (d.videos||[]).slice(0,10).map(v => ({ platform:'youtube', title:v.title, url:v.url, created:v.upload_date ? new Date(v.upload_date.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')) : new Date(), author:v.channel, text:v.description?.substring(0,200)||'', thumbnail:v.thumbnail, view_count:v.view_count, duration:v.duration })); } return []; })
+                    // The feed now comes from YouTube's own channel RSS, which
+                    // dates a video as `published` (ISO) and describes it as
+                    // `text`. The old yt-dlp shape — `upload_date` as YYYYMMDD,
+                    // `description` — is still read as a fallback so a cache
+                    // written before the change does not lose its dates.
+                    .then(t => { if (t.startsWith('{')) { const d = JSON.parse(t); return (d.videos||[]).slice(0,10).map(v => ({ platform:'youtube', title:v.title, url:v.url, created: v.published ? new Date(v.published) : (v.upload_date ? new Date(v.upload_date.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')) : new Date()), author:v.channel, text:(v.text||v.description||'').substring(0,200), thumbnail:v.thumbnail, view_count:v.view_count, duration:v.duration })); } return []; })
                     .catch(() => [])
             );
         }
