@@ -3889,7 +3889,6 @@
         });
         boundaryLayer.on('click', (e) => {
             const p = (e.layer && e.layer.properties) || {};
-            const v = typeof p.p === 'number' ? p.p : null;
             const where = [p.n || 'Unnamed', p.u ? `(${p.u})` : ''].filter(Boolean).join(' ');
             const body = boundaryPopupBody(p);
             L.popup({ maxWidth: 280 })
