@@ -21,6 +21,8 @@ The new quotes come from a field-collection sheet rather than desk assembly, and
 
 Because these were collected in August, in the monsoon, many are quiet — *"The air feels really good after the morning rain"* — next to the winter voices already there. That contrast is the record, not a problem with it.
 
+## [v26.6.154] - 2026-08-09
+
 ### Changed — PM2.5 is the headline, AQI is the footnote
 
 A conference attendee told us the site led with AQI and PM10 while PM2.5 is the pollutant that does the damage. They were right. AQI is a unitless index that reports only whichever of six pollutants scores worst, is scaled differently by CPCB and the US EPA, and cannot be averaged over a year — while every limit India has set, every health study and the NCAP targets are written in µg/m³ of PM2.5.
