@@ -36,7 +36,7 @@ for (const file of (await readdir(SRC)).filter(f => f.endsWith('.json') && !f.st
     for (const g of layer.geometries) {
         const p = g.properties || {};
         if (p.p == null) continue;
-        rows.push({ n: (p.n || '').trim(), p: p.p, d: p.d, s: p.s });
+        rows.push({ n: (p.n || '').trim(), p: p.p, d: p.d, s: p.st });
     }
     if (!rows.length) continue;
     rows.sort((a, b) => a.p - b.p);

@@ -9,7 +9,7 @@ which was retired in v26.6.151. The panel baked values into one GeoJSON per
 city for 142 cities; the boundary map reads national PMTiles archives with
 per-feature properties baked in, for the whole country.
 
-<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021, and boundary geometry from LGD, Swachh Bharat Mission, WB AMRUT and Living Atlas — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass stamps nine numbers onto every polygon: annual PM2.5, the same by season for winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Those ship as PMTiles across seven administrative levels from 36 states down to 68,596 wards and 584,615 villages, read by the browser through HTTP range requests." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021, and boundary geometry from LGD, Swachh Bharat Mission, WB AMRUT and Living Atlas — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass stamps nine numbers onto every polygon: annual PM2.5, the same by season for winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Six of the seven levels ship as PMTiles read by HTTP range request, from 36 states down to 68,596 wards; the 584,615 villages carry the same numbers but load one quantized file per district instead." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
 
 The shape is the point: every layer is one national raster and one zonal pass.
 Nothing is computed per city, so adding a level costs a pass rather than a
@@ -27,10 +27,14 @@ cities and left holes.
 | Block / mandal / tehsil | 6,471 | LGD | 5–11 |
 | Gram panchayat | 319,287 | LGD | 6–10 |
 | Village | 584,615 | LGD | 7–12 |
-| City / ULB | 3,368 | SBM | 5–12 |
+| City / ULB | 3,359 | SBM | 5–12 |
 | Ward | 68,596 | SBM + AMRUT + Living Atlas + panel imports | 9–13 |
 
-**The ward count changed, and it is worth saying why.** It read 70,417 until
+**Two counts changed, and it is worth saying why.** The city/ULB level read
+3,368 until 9 August; the same overlap that duplicated wards left **9
+byte-identical duplicate ULB geometries**, so it is 3,359 distinct cities now.
+
+**The ward count changed for the same reason, and one other.** It read 70,417 until
 8 August. That was a count of *records*, not places: the three merged sources
 overlap for a few dozen ULBs, leaving **2,541 byte-identical duplicate
 geometries** — Patna held 628 ward records across 115 distinct shapes, and
@@ -48,8 +52,10 @@ range requests for only the byte ranges covering what is on screen — rendering
 Delhi NCR styles about 700 wards from roughly 120 KB of a 42 MB archive.
 
 Villages are the exception: their archive is 267 MB, over GitHub's 100 MB file
-limit, so that level still loads through the older per-district TopoJSON path.
-Same menu entry, different loader underneath.
+limit, so that level still loads through the older per-district TopoJSON path —
+one quantized file per district, fetched for whatever is on screen. Same menu
+entry, same nine numbers on every polygon since v26.6.153, different loader
+underneath.
 
 ---
 
@@ -58,11 +64,11 @@ Same menu entry, different loader underneath.
 | Colour | Source | Resolution | Levels | Notes |
 |--------|--------|-----------|--------|-------|
 | **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
-| **Air by season** | SatPM2.5 V6GL03 monthly | ~1 km | all but village | Winter (Dec–Feb), summer (Mar–May), monsoon (Jun–Sep), post-monsoon (Oct–Nov), each the mean of its months. |
-| **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all but village | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
-| **Tree cover** | ESA WorldCover 2021 | 10 m | all but village | Share under tree canopy (class 10). Cropland is *not* counted. |
-| **Green cover** | ESA WorldCover 2021 | 10 m | all but village | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
-| **Built-up** | ESA WorldCover 2021 | 10 m | all but village | Share classified as built / impervious surface. |
+| **Air by season** | SatPM2.5 V6GL03 monthly | ~1 km | all | Winter (Dec–Feb), summer (Mar–May), monsoon (Jun–Sep), post-monsoon (Oct–Nov), each the mean of its months. |
+| **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
+| **Tree cover** | ESA WorldCover 2021 | 10 m | all | Share under tree canopy (class 10). Cropland is *not* counted. |
+| **Green cover** | ESA WorldCover 2021 | 10 m | all | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
+| **Built-up** | ESA WorldCover 2021 | 10 m | all | Share classified as built / impervious surface. |
 
 Sources: [ESA WorldCover](https://esa-worldcover.org/) (CC BY 4.0),
 [Landsat](https://www.usgs.gov/landsat-missions) via
@@ -109,7 +115,7 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 | District | 785 / 785 (100%) |
 | Block / tehsil | 6,459 / 6,471 (99.8%) |
 | Gram panchayat | 319,114 / 319,287 (99.9%) |
-| City / ULB | 3,364 / 3,368 (99.9%) |
+| City / ULB | 3,355 / 3,359 (99.88%) |
 | Ward | 68,481 / 68,596 (99.83%) |
 
 ---
@@ -169,7 +175,7 @@ and score everything inside as it goes. 45.8 Gpx read, at full 10 m.
 | District | 785 / 785 (100%) |
 | Block / tehsil | 6,470 / 6,471 (99.98%) |
 | Gram panchayat | 319,109 / 319,287 (99.94%) |
-| City / ULB | 3,367 / 3,368 (99.97%) |
+| City / ULB | 3,358 / 3,359 (99.97%) |
 | Ward | 68,564 / 68,596 (99.95%) |
 
 Two details worth recording, because both were nearly got wrong:
@@ -254,13 +260,29 @@ to 99.93%.
   cost of rural green looking uniform. Rescaling per level would have made a
   panchayat at 97% look like a ward at 42%.
 
-- **Villages are the one level without land cover.** Not because the pass
-  cannot do them — because their 267 MB archive cannot ship, so the values
-  would have nothing to draw. Choosing a land-cover metric at village level
-  colours by annual air instead and says so.
+- **Villages carry every metric, but were joined rather than tiled.** The
+  passes always scored them; the values had nowhere to go until they were
+  written into the per-district TopoJSON. Two things made that join harder than
+  a dictionary lookup. **4,856 LGD codes are carried by more than one polygon**
+  and those polygons genuinely differ — code 645088 covers one shape 12% treed
+  and another 67% — so a shared code is resolved by centroid rather than by
+  taking the first. And **37,563 villages have no LGD code at all**, blank on
+  both sides, so they are matched by geometry against a 2 km grid of the
+  codeless records, each claimed once, within 3 km. Anything further is refused
+  rather than guessed, and the script prints how many.
+
+  **The join checks itself.** Both files carry an annual PM2.5 computed
+  independently — `build-village-pm25.py` sampled the TopoJSON polygon,
+  `build-boundary-tiles.py` sampled the boundary polygon, from the same grid —
+  so `--verify` compares them. Median difference **0.00 µg/m³** and p95 0.10 on
+  both paths; 0.023% of code matches and 0.072% of geometry matches differ by
+  more than 2 µg/m³. The geometric fallback is as reliable as the key it
+  replaces. Final coverage: **584,586 of 584,615 villages (100.00%)**, air and
+  the four seasons on all of them, land cover on 99.98%, heat on 99.87%.
 
 - **32 wards, 178 panchayats, one block and one ULB still have no land
-  cover**, and 115 wards have no heat. These are sub-pixel or degenerate
+  cover**, 143 villages have none either, and 115 wards and 749 villages have
+  no heat. These are sub-pixel or degenerate
   geometries that survive both passes; they draw uncoloured rather than filled
   with a guess.
 

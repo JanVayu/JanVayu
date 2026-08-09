@@ -1037,22 +1037,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 @media (max-width: 600px) {
     .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 }
-/* Ward air-quality map layout */
-.ward-grid { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
-.ward-canvas { height: 520px; width: 100%; background: var(--warm-white); }
-.ward-toolbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
-.ward-layer-btn { font-size: 0.78rem; font-weight: 600; padding: 0.32rem 0.72rem; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2); cursor: pointer; transition: all .12s; }
-.ward-layer-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
-.ward-layer-btn.active { border-color: var(--accent); background: var(--accent); color: #fff; }
-.ward-legend-item { font-size: 0.72rem; color: var(--text-2); display: inline-flex; align-items: center; }
-.ward-legend-sw { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
-@media (max-width: 860px) {
-    .ward-grid { grid-template-columns: 1fr; }
-    .ward-canvas { height: 62vh; min-height: 320px; max-height: 460px; }
-    .ward-toolbar { flex-direction: column; align-items: stretch; gap: 0.75rem; }
-    .ward-toolbar #ward-layer-toggle { justify-content: flex-start; }
-}
-
 /* Stat cards */
 .stat-card {
     background: var(--bg-card);

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" role="img" aria-label="How the JanVayu boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes up to nine numbers into every polygon: annual PM2.5, the same by season for winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Seven administrative levels ship as PMTiles the browser reads by range request.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" role="img" aria-label="How the JanVayu boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes nine numbers into every polygon: annual PM2.5, the same by season for winter, summer, monsoon and post-monsoon, surface heat, tree cover, green cover and built-up. Six administrative levels ship as PMTiles the browser reads by range request; villages carry the same nine numbers but are too many to tile, so they load one quantized file per district.">
   <style>
     .k   { font-family:'Kalam','Comic Sans MS',cursive; }
     .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
@@ -89,12 +89,12 @@
   <text x="800" y="150" class="k" font-size="12.5" fill="#1e2a22">District &#183; 785</text>
   <text x="800" y="172" class="k" font-size="12.5" fill="#1e2a22">Block/tehsil &#183; 6,471</text>
   <text x="800" y="194" class="k" font-size="12.5" fill="#1e2a22">Panchayat &#183; 319,287</text>
-  <text x="800" y="216" class="k" font-size="12.5" fill="#1e2a22">City/ULB &#183; 3,368</text>
+  <text x="800" y="216" class="k" font-size="12.5" fill="#1e2a22">City/ULB &#183; 3,359</text>
   <text x="800" y="238" class="k" font-size="12.5" fill="#1e2a22">Ward &#183; 68,596</text>
-  <text x="800" y="262" class="k" font-size="12.5" fill="#5b6b60">Village &#183; 584,615</text>
-  <text x="800" y="278" class="k" font-size="10.5" fill="#8a5300">air only &#8212; 267 MB tile</text>
-  <text x="800" y="291" class="k" font-size="10.5" fill="#8a5300">cannot ship, so it uses</text>
-  <text x="800" y="304" class="k" font-size="10.5" fill="#8a5300">the older loader</text>
+  <text x="800" y="262" class="k" font-size="12.5" fill="#1e2a22">Village &#183; 584,615</text>
+  <text x="800" y="278" class="k" font-size="10.5" fill="#8a5300">same nine numbers, but a</text>
+  <text x="800" y="291" class="k" font-size="10.5" fill="#8a5300">267 MB tile cannot ship &#8212;</text>
+  <text x="800" y="304" class="k" font-size="10.5" fill="#8a5300">one file per district instead</text>
   <text x="800" y="325" class="k" font-size="11" fill="#5b6b60">urban and rural, one menu</text>
 
   <path class="ln" d="M748 200 L 786 200" marker-end="url(#a)"/>
