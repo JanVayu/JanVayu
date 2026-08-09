@@ -4,11 +4,17 @@ The [live map](https://www.janvayu.in/#map) has a **Boundaries** menu covering
 the whole administrative hierarchy of India, and a **Colour** menu choosing what
 the polygons are shaded by. This page documents where those numbers come from.
 
-It is a different data path from the [Ward-Level Atlas](ward-map.md), which is
-the older per-city panel. The panel bakes values into one GeoJSON per city; the
-boundary map reads national PMTiles archives with per-feature properties baked
-in. Where the two disagree, they disagree because they were computed
-differently, and this page says how.
+It replaces the [Ward-Level Atlas](ward-map.md), the older per-city panel,
+which was retired in v26.6.151. The panel baked values into one GeoJSON per
+city for 142 cities; the boundary map reads national PMTiles archives with
+per-feature properties baked in, for the whole country.
+
+<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual grid, Landsat 8/9 scenes, ESA WorldCover 2021, and boundary geometry from LGD, Swachh Bharat Mission, WB AMRUT and Living Atlas — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass stamps five numbers onto every polygon: annual PM2.5, surface heat, tree cover, green cover and built-up. Those ship as PMTiles across seven administrative levels from 36 states down to 68,596 wards and 584,615 villages, read by the browser through HTTP range requests." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+
+The shape is the point: every layer is one national raster and one zonal pass.
+Nothing is computed per city, so adding a level costs a pass rather than a
+list — which is exactly what heat could not do before, and why it reached 142
+cities and left holes.
 
 ---
 
