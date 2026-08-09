@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.153] - 2026-08-09
+
+### New — villages join the atlas properly
+
+Villages were the last level carrying only air. Not for want of data — the national heat and land-cover passes score every level, villages included — but because a village PMTiles archive is 267 MB and cannot ship, so the numbers had nowhere to go. `scripts/build-village-layers.py` writes them into the per-district TopoJSON the village loader already fetches.
+
+Every village now carries the same nine numbers as every other level: annual PM2.5, the four seasons, surface heat, tree cover, green cover and built-up. The Colour menu works at village level, the legend follows it, and the Compare card can scatter any two of them across the villages on screen.
+
+**The join is not a dictionary lookup, twice over.** 4,856 LGD codes are carried by more than one polygon and those polygons genuinely differ — code 645088 covers one shape 12% treed and another 67% — so shared codes are resolved by centroid. And **37,563 villages have no LGD code at all**, blank on both sides; those are matched by geometry against a 2 km grid of the codeless boundary records, each claimed once, within a 3 km radius.
+
+**Two key collisions, renamed rather than papered over.** A village's `s` was its state name and `s` is summer air, so state moved to `st`. A district's `b` in `_index.json` is its bounding box — which the map uses to decide what to fetch — and `b` is built-up, so the per-district means went into a nested `m` object instead. Writing over either would have failed silently, and the second would have broken the village layer outright.
+
+### Fixed — the schools and health-centre buttons did nothing
+
+`toggleWardReceptor` ended with `if (!wardMap || store[kind]) return;`. `wardMap` has been permanently `null` since the ward panel was retired in v26.6.151, so on the live map both buttons turned themselves on, set `aria-pressed`, and returned without adding a layer. Found while deleting the panel's dead code; confirmed by clicking both in a real browser against `main` (receptor pane count 0) and after the fix (1). Renamed `toggleReceptorLayer` — it has nothing to do with wards any more.
+
+### Removed
+
+- **536 lines of retired ward-panel JS**, plus 16 lines of orphaned CSS. The note left behind in v26.6.151 said Ask JanVayu and the share-card path still reached into it; they did not. The `#ward-map` route still resolves to its pointer page.
+
+### Changed
+
+- **3,368 → 3,359 ULBs.** The overlap that duplicated wards left 9 byte-identical duplicate ULB geometries. `dedupe-ward-atlas.py` works on any level via `--in`/`--out`. Coverage recomputed on the deduplicated set: heat 99.88%, land cover 99.97%.
+- The tile popup and the village popup shared no code and had drifted; the season and land-cover block is now one function both call.
+
 ## [v26.6.145] - 2026-08-08
 
 ### New — one map, every Indian administrative boundary

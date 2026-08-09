@@ -3004,8 +3004,8 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <option value="r">Monsoon (Jun–Sep)</option>
                         <option value="o">Post-monsoon (Oct–Nov)</option>
                     </select>
-                    <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'schools', 'main')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
-                    <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleWardReceptor &amp;&amp; window.toggleWardReceptor(this, 'health', 'main')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
+                    <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleReceptorLayer &amp;&amp; window.toggleReceptorLayer(this, 'schools')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
+                    <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleReceptorLayer &amp;&amp; window.toggleReceptorLayer(this, 'health')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
                     <button type="button" id="map-locate-btn" class="map-layer-btn" onclick="window.mapLocateMe &amp;&amp; window.mapLocateMe()" title="Jump to your location at a zoom where the selected boundary level is visible">My area</button>
                     </div>
                     <div id="india-map"></div>

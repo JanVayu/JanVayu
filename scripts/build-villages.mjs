@@ -105,7 +105,9 @@ for await (const line of rl) {
             n: p.vilname11 || p.vilnam_soi || '',
             c: p.vil_lgd,
             d: p.dtname || '',
-            s: p.stname || '',
+            // "st", not "s": the atlas metric keys took "s" for summer air.
+            // See scripts/build-village-layers.py.
+            st: p.stname || '',
         },
         geometry: { type: f.geometry.type, coordinates: round(f.geometry.coordinates) },
     });
@@ -164,7 +166,7 @@ for (const part of parts) {
     index[id] = {
         b: [minX, minY, maxX, maxY].map(v => Number(v.toFixed(4))),
         d: feats[0].properties.d,
-        s: feats[0].properties.s,
+        s: feats[0].properties.st,
         v: feats.length,
     };
     if (++done % 100 === 0) console.log(`  simplified ${done}/${parts.length}`);

@@ -25,6 +25,10 @@ Among duplicates the richest record wins: the one with the most populated
 properties, preferring a named ward over an unnamed one, so collapsing never
 costs a name.
 
+Not only wards, despite the name. The same overlap left 9 duplicate ULB
+geometries, and --in/--out point it at any level's slim; the defaults are the
+ward files because that is where the problem is worst.
+
 Usage:  python3 scripts/dedupe-ward-atlas.py [--in FILE] [--out FILE]
 """
 
