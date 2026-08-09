@@ -4024,7 +4024,7 @@
         panchayat:   { label: 'Panchayat',    min: 7,  max: 10, note: '319,287 gram panchayats' },
         village:     { label: 'Village',      min: 8,  max: 12, note: '584,615 villages' },
         ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,368 urban local bodies' },
-        ward:        { label: 'Ward',         min: 9,  max: 13, note: '70,417 municipal wards' },
+        ward:        { label: 'Ward',         min: 9,  max: 13, note: '68,596 municipal wards' },
     };
     // Every level except village carries land cover. Villages are the one gap,
     // and only because their 267 MB archive cannot ship — the values exist.

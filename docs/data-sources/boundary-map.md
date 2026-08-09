@@ -22,7 +22,17 @@ differently, and this page says how.
 | Gram panchayat | 319,287 | LGD | 6–10 |
 | Village | 584,615 | LGD | 7–12 |
 | City / ULB | 3,368 | SBM | 5–12 |
-| Ward | 70,417 | SBM + AMRUT + Living Atlas | 9–13 |
+| Ward | 68,596 | SBM + AMRUT + Living Atlas + panel imports | 9–13 |
+
+**The ward count changed, and it is worth saying why.** It read 70,417 until
+8 August. That was a count of *records*, not places: the three merged sources
+overlap for a few dozen ULBs, leaving **2,541 byte-identical duplicate
+geometries** — Patna held 628 ward records across 115 distinct shapes, and
+"Ward 1" appeared there twenty-three times. Collapsing those, and folding in
+**720 wards from 14 cities the three sources missed entirely** — Kolkata,
+Madurai, Asansol, and the north-eastern capitals Agartala, Imphal, Shillong,
+Itanagar, Aizawl and Kohima, all of which existed only in the older per-city
+panel — gives 68,596 distinct wards. Fewer records, more places.
 
 Boundaries via [ramSeraph/indian_admin_boundaries](https://github.com/ramSeraph/indian_admin_boundaries),
 which republishes LGD and Swachh Bharat Mission geometries.
@@ -93,7 +103,7 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 | Block / tehsil | 6,459 / 6,471 (99.8%) |
 | Gram panchayat | 319,114 / 319,287 (99.9%) |
 | City / ULB | 3,364 / 3,368 (99.9%) |
-| Ward | 70,306 / 70,417 (99.8%) |
+| Ward | 68,481 / 68,596 (99.83%) |
 
 ---
 
@@ -101,13 +111,10 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 
 Two scripts, because the cheap direction depends on how big the polygons are.
 
-**Wards** use `scripts/build-ward-landcover-national.py`: one windowed
-`/vsicurl` read per ward over the remote COGs — no bulk download — counted with
-the same rasterise-and-bincount pass as everything else. **70,368 of 70,417
-wards (99.93%)** have values. That took two passes: the first left 4,046 short,
-because the script gives up on wards it cannot read rather than losing their
-neighbours to a bisection, and those failures are transient. `--fill` retries
-only the wards still missing a value and recovered 3,997 of them.
+**Wards** were first done with `scripts/build-ward-landcover-national.py`:
+one windowed `/vsicurl` read per ward over the remote COGs — no bulk download.
+They now go through the same tile-major pass as every other level, with that
+per-feature method kept as the fallback described below.
 
 **Blocks and panchayats** use `scripts/build-boundary-landcover.py`, which
 turns the loop inside out. A read per feature is fine for a 2 km² ward and
@@ -123,7 +130,7 @@ and score everything inside as it goes. 45.8 Gpx read, at full 10 m.
 | Block / tehsil | 6,470 / 6,471 (99.98%) |
 | Gram panchayat | 319,109 / 319,287 (99.94%) |
 | City / ULB | 3,367 / 3,368 (99.97%) |
-| Ward | 70,371 / 70,417 (99.93%) |
+| Ward | 68,564 / 68,596 (99.95%) |
 
 Two details worth recording, because both were nearly got wrong:
 
@@ -212,9 +219,10 @@ to 99.93%.
   would have nothing to draw. Choosing a land-cover metric at village level
   colours by annual air instead and says so.
 
-- **46 wards, 178 panchayats, one block and one ULB still have no land
-  cover.** These are sub-pixel or degenerate geometries that survive both
-  passes; they draw uncoloured rather than filled with a guess.
+- **32 wards, 178 panchayats, one block and one ULB still have no land
+  cover**, and 115 wards have no heat. These are sub-pixel or degenerate
+  geometries that survive both passes; they draw uncoloured rather than filled
+  with a guess.
 
 - **Land cover is 2021** and may lag very recent construction.
 

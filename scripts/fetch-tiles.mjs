@@ -43,7 +43,7 @@ const EXPECT = {
     'panchayat.pmtiles': 76334547,
     'village.pmtiles': 266596730,
     'ulb.pmtiles': 5974793,
-    'ward.pmtiles': 37028382,
+    'ward.pmtiles': 37403745,
 };
 const TOLERANCE = 0.02;   // rebuilt tiles vary slightly run to run
 
