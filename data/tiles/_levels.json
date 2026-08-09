@@ -2,7 +2,7 @@
  "ulb": {
   "level": "ulb",
   "features": 3368,
-  "mb": 6.0,
+  "mb": 6.9,
   "minzoom": 5,
   "maxzoom": 12
  },
@@ -10,21 +10,21 @@
  "subdistrict": {
   "level": "subdistrict",
   "features": 6471,
-  "mb": 24.9,
+  "mb": 26.8,
   "minzoom": 5,
   "maxzoom": 11
  },
  "ward": {
   "level": "ward",
   "features": 68596,
-  "mb": 37.4,
+  "mb": 42.0,
   "minzoom": 9,
   "maxzoom": 13
  },
  "panchayat": {
   "level": "panchayat",
   "features": 319287,
-  "mb": 76.3,
+  "mb": 87.6,
   "minzoom": 6,
   "maxzoom": 10
  },
@@ -45,7 +45,7 @@
  "district": {
   "level": "district",
   "features": 785,
-  "mb": 2.9,
+  "mb": 3.1,
   "minzoom": 3,
   "maxzoom": 9
  }

@@ -75,7 +75,11 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
 **Follow-ups still open after this phase:**
 
-- **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
+- [x] **Air by season** *(v26.6.152)* — the annual mean was hiding the whole story. A Delhi ward reads **94 µg/m³** for the year: **46 in the monsoon, 154 after it**. Four seasons — winter, summer, monsoon, post-monsoon — on all six shipping levels at **100%** coverage, from the twelve monthly SatPM2.5 grids.
+
+  Four rather than twelve, because twelve numbers on 400,000 polygons would roughly double every tile for detail nobody reads at map zoom, and four matches the actual structure of the Indian year. The colour scale is deliberately unchanged between seasons, so switching shows the air moving rather than the scale moving. Every feature's annual mean is checked to fall inside its own seasonal range — all 398,543 do.
+
+  The first attempt OOM-killed itself on panchayats by holding 319,287 shapely geometries at once, which is the same memory blow-up the tile builder and heat pass were already written to avoid; it streams in chunks now.
 - [x] **Green cover and built-up for blocks and panchayats** *(v26.6.149)* — **6,470/6,471 blocks (99.98%)** and **318,979/319,287 gram panchayats (99.90%)**, at full 10 m.
 
   The per-ward script could not be pointed at them: a windowed read per feature is fine for a 2 km² ward and absurd for a 500 km² block or 319,287 round trips. `build-boundary-landcover.py` turns the loop inside out — tile-major over WorldCover's 3-degree COGs, 1024-row strips clipped to the columns their polygons span, 45.8 Gpx read. It also fixes a latent bug the ward path still has: picking the tile from a polygon's centroid and reading boundless past the edge scores a tile-straddling polygon on only the part inside its own tile. Invisible at ward size, wrong for a block 22 km across.

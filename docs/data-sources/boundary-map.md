@@ -58,6 +58,7 @@ Same menu entry, different loader underneath.
 | Colour | Source | Resolution | Levels | Notes |
 |--------|--------|-----------|--------|-------|
 | **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
+| **Air by season** | SatPM2.5 V6GL03 monthly | ~1 km | all but village | Winter (Dec–Feb), summer (Mar–May), monsoon (Jun–Sep), post-monsoon (Oct–Nov), each the mean of its months. |
 | **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all but village | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
 | **Tree cover** | ESA WorldCover 2021 | 10 m | all but village | Share under tree canopy (class 10). Cropland is *not* counted. |
 | **Green cover** | ESA WorldCover 2021 | 10 m | all but village | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
@@ -110,6 +111,39 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 | Gram panchayat | 319,114 / 319,287 (99.9%) |
 | City / ULB | 3,364 / 3,368 (99.9%) |
 | Ward | 68,481 / 68,596 (99.83%) |
+
+---
+
+## How the seasonal air layers are computed
+
+An annual mean is a bad summary of Indian air. A Delhi ward reads **94 µg/m³**
+for the year — and **46 in the monsoon, 154 after it**. The annual figure
+describes neither state, and the gap between them is most of the argument
+about what to do.
+
+`scripts/build-boundary-seasonal.py` downloads the twelve monthly SatPM2.5
+grids for the year, averages them into four seasons, and runs the same zonal
+pass as the annual layer:
+
+| Season | Months | What it captures |
+|--------|--------|------------------|
+| Winter | Dec, Jan, Feb | inversions trapping what is already there |
+| Summer | Mar, Apr, May | pre-monsoon dust; the south's cleanest air |
+| Monsoon | Jun–Sep | washout, the annual minimum |
+| Post-monsoon | Oct, Nov | stubble burning and Diwali; the peak |
+
+Each season is the mean of its months, so winter weights December, January and
+February equally rather than whichever month was processed last. All six
+shipping levels have all four seasons at **100%** coverage.
+
+The monthly files are 95 MB each; they are fetched one at a time, added into
+their season, and deleted, so peak disk is one file. Every feature is checked
+after the pass: its annual mean must fall inside its own seasonal range, and it
+does for all 398,543 of them — if it did not, a grid would be misaligned.
+
+**The colour scale does not change between seasons.** The same colour means the
+same µg/m³ whether you are looking at the monsoon or at November, so switching
+season shows the air changing rather than the scale moving under you.
 
 ---
 

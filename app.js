@@ -4041,12 +4041,12 @@
     // no explanation.
     const BOUNDARY_METRICS = {
         p: {
-            label: 'Annual PM2.5', unit: 'µg/m³', levels: null,
+            label: 'Annual PM2.5', plain: 'annual PM2.5', unit: 'µg/m³', levels: null,
             band: (v) => pm25AnnualBand(v),
             ramp: 'blue is cleaner, red is dirtier',
         },
         h: {
-            label: 'Surface heat', unit: '°C', levels: ['ward', 'ulb', 'subdistrict', 'district', 'state', 'panchayat'],
+            label: 'Surface heat', plain: 'surface heat', unit: '°C', levels: ['ward', 'ulb', 'subdistrict', 'district', 'state', 'panchayat'],
             band: (v) => HEAT_BANDS.find(x => v <= x.max) || HEAT_BANDS[HEAT_BANDS.length - 1],
             ramp: 'blue is cool ground, dark red is baking',
         },
@@ -4054,26 +4054,26 @@
         // mean the same µg/m³, or switching season would look like the air
         // changed when only the scale had. Winter reads redder and the monsoon
         // bluer, which is exactly the thing an annual mean hides.
-        w: { label: 'Winter air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Dec–Feb',
+        w: { label: 'Winter air', plain: 'winter air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Dec–Feb',
              band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
-        s: { label: 'Summer air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Mar–May',
+        s: { label: 'Summer air', plain: 'summer air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Mar–May',
              band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
-        r: { label: 'Monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Jun–Sep',
+        r: { label: 'Monsoon air', plain: 'monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Jun–Sep',
              band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
-        o: { label: 'Post-monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Oct–Nov',
+        o: { label: 'Post-monsoon air', plain: 'post-monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Oct–Nov',
              band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
         t: {
-            label: 'Tree cover', unit: '%', levels: LANDCOVER_LEVELS,
+            label: 'Tree cover', plain: 'tree cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => TREE_BANDS.find(x => v <= x.max) || TREE_BANDS[TREE_BANDS.length - 1],
             ramp: 'pale is treeless, deep green is forest',
         },
         g: {
-            label: 'Green cover', unit: '%', levels: LANDCOVER_LEVELS,
+            label: 'Green cover', plain: 'green cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
             ramp: 'brown is bare, green is vegetated — cropland counts as green',
         },
         b: {
-            label: 'Built-up', unit: '%', levels: LANDCOVER_LEVELS,
+            label: 'Built-up', plain: 'built-up land', unit: '%', levels: LANDCOVER_LEVELS,
             band: (x) => BUILT_BANDS.find(y => x <= y.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
             ramp: 'pale is open ground, dark orange is dense',
         },
@@ -4161,7 +4161,7 @@
         if (map && map.getZoom() < c.min) return `${c.note} — zoom in to zoom ${c.min}+ to see them.`;
         const m = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
         if (!m.levels || m.levels.indexOf(level) !== -1) {
-            return `${c.note}. Coloured by ${m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
+            return `${c.note}. Coloured by ${m.plain || m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
         }
         // Name the levels that do have it, rather than a hardcoded "wards
         // only" that went stale the moment blocks and panchayats were added.
@@ -4228,16 +4228,43 @@
             return;
         }
         canvas.style.display = '';
-        const strength = Math.abs(r) < 0.15 ? 'little or no link' :
-                         Math.abs(r) < 0.35 ? 'a weak link' :
-                         Math.abs(r) < 0.6 ? 'a clear link' : 'a strong link';
-        const dir = r < 0 ? 'falls as' : 'rises with';
-        const lvl = (BOUNDARY_LEVELS[boundaryLevel] || {}).label || boundaryLevel;
-        note.innerHTML = `Each dot is one ${lvl.toLowerCase()}. <strong>${escapeHtml(my.label)}</strong> ${dir} ` +
-            `<strong>${escapeHtml(mx.label.toLowerCase())}</strong> — ${strength}, r = <strong>${r.toFixed(2)}</strong>. ` +
-            `<span style="color:var(--text-3)">Across the ${pts.length.toLocaleString('en-IN')} areas loaded here, ` +
-            `not the whole country. Pan or zoom and refresh to change what is counted. ` +
-            `A correlation is not proof one causes the other.</span>`;
+        const strength = Math.abs(r) < 0.15 ? 'barely any pattern' :
+                         Math.abs(r) < 0.35 ? 'a weak pattern' :
+                         Math.abs(r) < 0.6 ? 'a clear pattern' : 'a strong pattern';
+        const lvl = ((BOUNDARY_LEVELS[boundaryLevel] || {}).label || boundaryLevel).toLowerCase();
+        const plural = lvl.endsWith('s') ? lvl : lvl + 's';
+
+        // The headline is the finding in ordinary words. An r on its own tells
+        // a reader who already knows what r is something they could have
+        // guessed from the shape of the dots; it tells everyone else nothing.
+        const xl = mx.plain || mx.label.toLowerCase(), yl = my.plain || my.label.toLowerCase();
+        const lead = Math.abs(r) < 0.15
+            ? `Across these ${plural}, ${yl} and ${xl} do not really move together.`
+            : `Where ${xl} is higher, ${yl} tends to be ${r < 0 ? 'lower' : 'higher'}.`;
+
+        // Then make it concrete: top fifth against bottom fifth, in the units
+        // people actually feel, rather than asking anyone to read a coefficient.
+        const sorted = pts.slice().sort((a, b) => a.x - b.x);
+        const cut = Math.max(1, Math.floor(sorted.length / 5));
+        const mean = (arr) => arr.reduce((s, q) => s + q.y, 0) / arr.length;
+        const lowMean = mean(sorted.slice(0, cut));
+        const highMean = mean(sorted.slice(-cut));
+        const gap = Math.abs(highMean - lowMean);
+        const dp = my.unit === '%' ? 0 : 1;
+        const concrete = Math.abs(r) < 0.15 ? '' :
+            `The fifth with the <em>least</em> ${xl} average <strong>${lowMean.toFixed(dp)}${my.unit}</strong>; ` +
+            `the fifth with the <em>most</em> average <strong>${highMean.toFixed(dp)}${my.unit}</strong> ` +
+            `— a difference of <strong>${gap.toFixed(dp)}${my.unit}</strong>. `;
+
+        note.innerHTML =
+            `<strong style="font-size:0.86rem">${escapeHtml(lead)}</strong><br>` +
+            `<span>${concrete}Based on the ` +
+            `<strong>${pts.length.toLocaleString('en-IN')}</strong> ${plural} drawn on the map right now — ` +
+            `zoom or pan somewhere else and press Compare again to ask about a different place.</span>` +
+            `<br><span style="color:var(--text-3)">Each dot is one ${lvl}: left to right is ${escapeHtml(xl)}, ` +
+            `bottom to top is ${escapeHtml(yl)}. Statisticians would call this ${strength} ` +
+            `(r&nbsp;=&nbsp;${r.toFixed(2)}). Places differ in many ways at once, so this shows the two ` +
+            `move together — not that one causes the other.</span>`;
 
         try { await ensureChartJs(); } catch (e) { canvas.style.display = 'none'; return; }
         if (boundaryCorrChart) { try { boundaryCorrChart.destroy(); } catch (e) {} boundaryCorrChart = null; }
