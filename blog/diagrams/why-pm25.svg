@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-label="Why PM2.5 is the number that matters: a human hair is about 70 micrometres across and PM10 about 10, both of which the nose and throat mostly catch; PM2.5 is 2.5 micrometres or smaller, around thirty times thinner than a hair, small enough to pass the airways, reach the alveoli and cross into the bloodstream. India's annual limit for PM2.5 is 40 micrograms per cubic metre against a WHO guideline of 5. AQI is a derived index with no unit that reports only whichever pollutant scores worst, so two cities with the same AQI can have very different PM2.5.">
+  <style>
+    .k   { font-family:'Kalam','Comic Sans MS',cursive; }
+    .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
+    .box { fill:#fbfaf7; stroke:#1e2a22; stroke-width:2.4; }
+    .red { fill:#fee2e2; stroke:#b91c1c; stroke-width:2.4; }
+    .amb { fill:#fdf0d5; stroke:#8a5300; stroke-width:2.4; }
+    .grn { fill:#dcfce7; stroke:#146c33; stroke-width:2.4; }
+    .ln  { fill:none; stroke:#b91c1c; stroke-width:2.2; }
+    .lng { fill:none; stroke:#5b6b60; stroke-width:2; }
+  </style>
+
+  <text x="480" y="36" text-anchor="middle" class="h" font-size="26" fill="#b91c1c">Why PM2.5 is the number that matters</text>
+  <text x="480" y="59" text-anchor="middle" class="k" font-size="14.5" fill="#5b6b60">size decides how deep it goes &#183; and how deep it goes decides what it does</text>
+
+  <!-- ── size comparison ── -->
+  <text x="30" y="98" class="h" font-size="14" fill="#5b6b60">HOW BIG, ACTUALLY</text>
+
+  <!-- PM10 and PM2.5 are exactly 4:1, which is 10 um : 2.5 um. The hair is
+       not drawn to scale because at this scale it would be 280px wide and
+       would not fit; the caption says so rather than quietly shrinking it. -->
+  <path d="M60 118 C 96 150, 60 210, 96 246" stroke="#9ca3af" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <text x="84" y="272" text-anchor="middle" class="h" font-size="14" fill="#374151">hair</text>
+  <text x="84" y="292" text-anchor="middle" class="k" font-size="12" fill="#5b6b60">~70 &#181;m</text>
+
+  <circle cx="212" cy="176" r="20" fill="#fdf0d5" stroke="#8a5300" stroke-width="2.2"/>
+  <text x="212" y="215" text-anchor="middle" class="h" font-size="14" fill="#8a5300">PM10</text>
+  <text x="212" y="236" text-anchor="middle" class="k" font-size="12" fill="#5b6b60">~10 &#181;m</text>
+  <text x="212" y="252" text-anchor="middle" class="k" font-size="11.5" fill="#5b6b60">dust, grit, pollen</text>
+
+  <circle cx="340" cy="176" r="5" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.6"/>
+  <text x="340" y="215" text-anchor="middle" class="h" font-size="14" fill="#b91c1c">PM2.5</text>
+  <text x="340" y="236" text-anchor="middle" class="k" font-size="12" fill="#5b6b60">2.5 &#181;m or less</text>
+  <text x="340" y="252" text-anchor="middle" class="k" font-size="11.5" fill="#5b6b60">smoke, soot, exhaust</text>
+
+  <path class="lng" d="M56 312 L 410 312"/>
+  <text x="30" y="332" class="k" font-size="11.5" fill="#5b6b60">The two circles are exactly to scale with each other. The hair is not &#8212; at</text>
+  <text x="30" y="348" class="k" font-size="11.5" fill="#5b6b60">that scale it would be 28 times wider than the red dot and would not fit here.</text>
+
+  <!-- ── where each one stops ── -->
+  <text x="470" y="98" class="h" font-size="14" fill="#5b6b60">WHERE EACH ONE STOPS</text>
+
+  <rect class="amb" x="466" y="112" width="238" height="62" rx="12"/>
+  <text x="482" y="136" class="h" font-size="14.5" fill="#8a5300">Nose &amp; throat</text>
+  <text x="482" y="157" class="k" font-size="12" fill="#5b6b60">catch most of PM10 here</text>
+
+  <rect class="amb" x="466" y="190" width="238" height="62" rx="12"/>
+  <text x="482" y="214" class="h" font-size="14.5" fill="#8a5300">Windpipe &amp; bronchi</text>
+  <text x="482" y="235" class="k" font-size="12" fill="#5b6b60">cilia sweep much of it back out</text>
+
+  <rect class="red" x="466" y="268" width="238" height="66" rx="12"/>
+  <text x="482" y="292" class="h" font-size="14.5" fill="#b91c1c">Alveoli &#8212; the air sacs</text>
+  <text x="482" y="313" class="k" font-size="12" fill="#5b6b60">PM2.5 reaches here. Nothing</text>
+  <text x="482" y="328" class="k" font-size="12" fill="#5b6b60">sweeps it back out.</text>
+
+  <rect class="red" x="466" y="350" width="238" height="66" rx="12"/>
+  <text x="482" y="374" class="h" font-size="14.5" fill="#b91c1c">Bloodstream</text>
+  <text x="482" y="395" class="k" font-size="12" fill="#5b6b60">heart, brain, placenta &#8212;</text>
+  <text x="482" y="410" class="k" font-size="12" fill="#5b6b60">it does not stay in the lungs</text>
+
+  <path class="ln" d="M585 174 L 585 190" marker-end="url(#a)"/>
+  <path class="ln" d="M585 252 L 585 268" marker-end="url(#a)"/>
+  <path class="ln" d="M585 334 L 585 350" marker-end="url(#a)"/>
+  <path class="ln" d="M356 176 L 440 176 L 440 300 L 466 300" marker-end="url(#a)"/>
+  <text x="378" y="168" class="k" font-size="11.5" fill="#b91c1c">PM2.5 goes</text>
+  <text x="378" y="152" class="k" font-size="11.5" fill="#b91c1c">straight past</text>
+
+  <!-- ── the two numbers ── -->
+  <text x="748" y="98" class="h" font-size="14" fill="#5b6b60">TWO WAYS TO SAY IT</text>
+
+  <rect class="grn" x="744" y="112" width="196" height="150" rx="12"/>
+  <text x="760" y="138" class="h" font-size="15" fill="#146c33">PM2.5</text>
+  <text x="760" y="160" class="k" font-size="12" fill="#5b6b60">micrograms per cubic</text>
+  <text x="760" y="175" class="k" font-size="12" fill="#5b6b60">metre &#8212; a real amount</text>
+  <text x="760" y="197" class="k" font-size="12" fill="#5b6b60">of a real substance</text>
+  <text x="760" y="222" class="h" font-size="13" fill="#146c33">India&#8217;s limit: 40</text>
+  <text x="760" y="243" class="h" font-size="13" fill="#146c33">WHO guideline: 5</text>
+
+  <rect class="box" x="744" y="278" width="196" height="196" rx="12"/>
+  <text x="760" y="304" class="h" font-size="15" fill="#1e2a22">AQI</text>
+  <text x="760" y="326" class="k" font-size="12" fill="#5b6b60">an index, no unit. Takes</text>
+  <text x="760" y="341" class="k" font-size="12" fill="#5b6b60">whichever of six</text>
+  <text x="760" y="356" class="k" font-size="12" fill="#5b6b60">pollutants scores worst</text>
+  <text x="760" y="378" class="k" font-size="12" fill="#5b6b60">and reports only that.</text>
+  <text x="760" y="403" class="k" font-size="11.5" fill="#8a5300">Two cities at AQI 180</text>
+  <text x="760" y="418" class="k" font-size="11.5" fill="#8a5300">can breathe very</text>
+  <text x="760" y="433" class="k" font-size="11.5" fill="#8a5300">different PM2.5 &#8212; and</text>
+  <text x="760" y="448" class="k" font-size="11.5" fill="#8a5300">India and the US scale</text>
+  <text x="760" y="463" class="k" font-size="11.5" fill="#8a5300">it differently.</text>
+
+  <!-- ── footer ── -->
+  <text x="30" y="500" class="h" font-size="15" fill="#b91c1c">So: JanVayu leads with PM2.5</text>
+  <text x="30" y="524" class="k" font-size="12.5" fill="#5b6b60">AQI is useful for one thing &#8212; a quick "is today bad?" &#8212; and useless for comparing places, comparing years, or</text>
+  <text x="30" y="544" class="k" font-size="12.5" fill="#5b6b60">checking a target. Every limit, every health study and every promise India has made is written in &#181;g/m&#179; of PM2.5.</text>
+  <text x="30" y="568" class="k" font-size="12.5" fill="#5b6b60">We show AQI beside it, never instead of it, and we never turn a yearly average into an AQI band.</text>
+  <text x="30" y="596" class="k" font-size="11.5" fill="#8a5300">Sizes: US EPA. Deposition: WHO Global Air Quality Guidelines 2021. Limits: CPCB NAAQS (40 &#181;g/m&#179; annual) and WHO 2021 (5 &#181;g/m&#179; annual).</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+</svg>

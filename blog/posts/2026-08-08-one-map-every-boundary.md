@@ -15,6 +15,8 @@ The [live map](https://www.janvayu.in/#map) now has a single **Boundaries** menu
 
 Every one of them coloured by its annual satellite PM2.5. Pick a level, zoom to where you live, tap.
 
+<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual and monthly grids, Landsat 8/9 scenes, ESA WorldCover 2021 and boundary geometry — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass bakes nine numbers into every polygon: annual PM2.5, the same by season, surface heat, tree cover, green cover and built-up. Six levels ship as PMTiles read by HTTP range request; villages carry the same numbers in one file per district." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+
 ## What this actually adds
 
 **All 70,417 municipal wards in the country**, not the 142 cities someone had got round to adding. The dropdown is gone; wards are simply what's under the map when you zoom in far enough. Noida, Bhiwandi, Bardhaman, thousands of small municipalities nobody had listed — all there now.
@@ -31,9 +33,9 @@ The map uses **PMTiles**: each level is one file, and your browser asks for only
 
 The effect is easier to see in numbers than to describe. Loading the Delhi region at ward level draws **671 wards** — Delhi, Noida, Ghaziabad and Gurugram together — and transfers **109 KB**. The old ward atlas downloaded **224 KB** to show Delhi's 290 wards alone. Twice the data, four cities instead of one, half the bytes.
 
-## Three things we got wrong on the way
+## Three failure modes this build surfaced
 
-We keep a habit of publishing our mistakes, because in a project like this the failures are almost always *quiet* ones — output that looks right and isn't.
+We write these up because in a data pipeline the dangerous failures are the *quiet* ones — output that looks right and isn't. Naming them is how the next build avoids them, and how a reader can judge what the numbers are worth.
 
 **Every one of 584,615 villages was briefly labelled with its state.** Our code picks the "name" column out of each government dataset, since they all spell it differently. The matcher expected the column to end in "name"; the real ones are `vilname11` and `vilnam_soi`. It matched nothing — and a fallback we'd written to be helpful quietly grabbed the first name-ish column in the file, which was the state. Nothing errored. The build reported success. Every village in India would have been labelled "BIHAR" or "KERALA".
 

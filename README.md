@@ -26,7 +26,7 @@ This is not a campaign. It is a record.
 
 - 🗺️ **Maps rebuilt on India's open geodata** — the Ward Atlas grew **15 → 39 cities** (SBM boundaries via [indianopenmaps.com](https://indianopenmaps.com)); the live map now colours all **543 Lok Sabha constituencies** and **785 districts** by live AQI ("the air your MP answers for"), streams Vidhan Sabha boundaries, and plots **pollution sources** (landfills, dumpsites, coal mines, CPCB red/orange industrial parks, SEZs) plus **schools and health centres** over the ward colours.
 - 🎨 **Hand-drawn diagrams throughout** — the "How JanVayu works" system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes, all in a native Excalidraw-style (`rough.js` + Kalam) engine with desktop + mobile variants.
-- 🖼️ **"The air, in pictures"** photo gallery — 24 openly-licensed documentary photographs (Wikimedia Commons), reachable from *Learn → Photo Gallery*.
+- 🖼️ **"The air, in pictures"** photo gallery — 31 documentary photographs (Wikimedia Commons, plus two used with the photographer’s permission), reachable from *Learn → Photo Gallery*.
 - 🔎 **Site-wide fact-check + a weekly automated fact-check routine** — every statistic and calculator constant is web-verified against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA); see [`docs/fact-check-2026-07.md`](docs/fact-check-2026-07.md). A scheduled job re-runs this weekly and opens a PR for review.
 - 📱 **Installable PWA + Web Push** — add JanVayu (and the standalone *Ask JanVayu* assistant) to your home screen; opt in to threshold alerts delivered even when the site is closed.
 - 🧭 **Conference-ready visual refresh** — self-hosted Fraunces headline type, labelled section headers, a decluttered dashboard, and version-stamped assets so every deploy appears on the first refresh.
@@ -76,7 +76,7 @@ This is not a campaign. It is a record.
 | 37 | **Occupational Exposure** | Exposure-equity by occupation: street vendors, traffic police, gig riders, construction and waste workers, anchored on a 2026 Chennai street-vendor study |
 | 38 | **Open Data API** | Versioned, CORS-open public data API at [janvayu.in/api](https://www.janvayu.in/api) — JSON manifest of every dataset + CSV export of rankings; free to use with attribution (CC BY-NC-SA 4.0) |
 | 39 | **Hand-drawn Diagrams** | A native Excalidraw-style (`rough.js` + self-hosted Kalam) engine renders the system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes — each with a wide desktop and a portrait mobile variant. Sources in `assets/diagrams/` |
-| 40 | **Photo Gallery** | "The air, in pictures" — 24 openly-licensed (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
+| 40 | **Photo Gallery** | "The air, in pictures" — 31 (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
 | 41 | **Web Push Alerts** | Installable PWA with real server-sent threshold alerts (VAPID/Web Push), delivered even when the site is closed |
 | 42 | **Automated Fact-Check** | A weekly scheduled routine web-verifies every statistic + calculator constant against current primary sources and opens a review PR; findings archived in `docs/fact-check-*.md` |
 | 43 | **Village Boundaries** | A **Villages** layer on the live map covering all **584,615** Indian village administrative boundaries (LGD via indianopenmaps.com), vendored as one quantized TopoJSON per district in `data/villages/` by `scripts/build-villages.mjs`. Viewport-driven: loads at zoom 9+ only for districts in view |
@@ -302,18 +302,15 @@ JanVayu integrates **160+ verified public data sources**, including:
 
 Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
-**Recently shipped (v26.6.145):** the map became one map. A single **Boundaries** menu now covers every Indian administrative level — state, district, block/mandal/tehsil, gram panchayat and village on the rural side, city and ward on the urban side — each coloured by its annual satellite PM2.5. Six levels ship as **PMTiles** read by HTTP range request, so a browser pulls only what is on screen: Delhi NCR at ward level draws 671 wards across four cities from 109 KB, against 224 KB for Delhi alone before. That takes ward coverage from the 142 cities behind a dropdown to **all 70,417 in the country**, and adds **319,287 gram panchayats** and 6,471 blocks that had never been mapped for air quality. Before that: every state capital mapped (142 cities / 9,015 wards), all five ward layers everywhere, and Ask JanVayu reaching the village and ward data it already held.
+**Recently shipped (v26.6.153):** the boundary atlas is complete. A single **Boundaries** menu covers **983,149 areas across seven levels** — state, district, block/mandal/tehsil, gram panchayat and village on the rural side, city and ward on the urban side — and every one of them carries the same **nine measures**: annual PM2.5, the same air split into four seasons, surface heat from a national Landsat mosaic, and tree, green and built-up cover from ESA WorldCover. Six levels ship as **PMTiles** read by HTTP range request; villages carry the same numbers in per-district TopoJSON because a 267 MB tile archive cannot ship. A **Compare** panel plots any two measures against each other for whatever is on screen. The per-city ward panel is retired; `#ward-map` points at the map.
 
 **Next up:**
 
-- **A monthly or seasonal layer** — every boundary figure is a 2024 annual mean, which says nothing about a bad week in November. The single most valuable thing left to build.
-- **Publish the boundary tiles as a release.** `scripts/fetch-tiles.mjs` is written and unwired; publishing all seven archives and wiring it takes the repo from ~324 MB to ~31 MB, and lets villages use PMTiles like the other six instead of the older per-district loader.
-- **Fold heat, green cover and built-up into the unified map**, so the ward panel can retire rather than being kept for the layers only it has.
-- **Thiruvananthapuram's 6 heat-less wards** sit in a Landsat coverage seam; closing it needs two paths mosaicked.
-
-> Three earlier roadmap ideas are now shipped rather than dropped: "no open ward boundaries for Agra, Patna, Surat…" was solved by the SBM ward set via indianopenmaps.com; satellite-derived per-ward PM2.5 — long marked not feasible because no openly-fetchable ~1 km *live* raster exists — was solved by changing the timescale instead of the resolution, since an **annual** ~1 km product does exist openly and is honest about being annual; and "West Bengal has no open municipal wards", which we asserted publicly and which was simply wrong — `WB_AMRUT_Wards` was in the same GitHub release as the SBM wards we had been reading for weeks.
-
----
+- **Publish the boundary tiles as a release.** `scripts/fetch-tiles.mjs` is written and unwired; publishing the archives takes the repo from ~360 MB to ~31 MB, and would let villages use PMTiles like the other six instead of the per-district loader.
+- **Repo weight.** The working tree is ~219 MB. A contributor-friendly shallow-clone or data-split path is worth having.
+- **Whole-country correlations.** The Compare panel is honest about covering only what is on screen; a precomputed stats file would let it answer nationally.
+- **The states no ward source covers** — Manipur, Mizoram, Srinagar and Siliguri among them. An RTI to West Bengal Municipal Affairs is the realistic route for Siliguri.
+- **Thiruvananthapuram's last heat-less ward** sits in a Landsat coverage seam; the national mosaic closed five of six.
 
 ## Contributing
 

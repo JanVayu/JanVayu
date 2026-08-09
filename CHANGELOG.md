@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.154] - 2026-08-09
+
+### Changed — PM2.5 is the headline, AQI is the footnote
+
+A conference attendee told us the site led with AQI and PM10 while PM2.5 is the pollutant that does the damage. They were right. AQI is a unitless index that reports only whichever of six pollutants scores worst, is scaled differently by CPCB and the US EPA, and cannot be averaged over a year — while every limit India has set, every health study and the NCAP targets are written in µg/m³ of PM2.5.
+
+- The walkthrough decks, used at conferences, said **"Real-time AQI for 117 cities"** on the headline slide. Now **"Real-time PM2.5 for 157 cities"**, with the speaker note spelling out why. Also fixed inside the slide's hand-drawn diagram, which had the old label baked in.
+- Dashboard, section descriptions and the comparison card now lead with PM2.5 in µg/m³ and keep AQI alongside rather than instead.
+- AQI alerts are deliberately unchanged: a same-day index is the right measure for a same-day warning.
+- New post: [Why We Lead With PM2.5, Not AQI](blog/posts/2026-08-09-why-pm25-not-aqi.md), with a diagram.
+
+### Changed — counts that had stopped being true
+
+- **The map description made wards the headline** ("covering all 68,596 municipal wards in the country") when the atlas is seven levels. It now leads with **983,149 areas across seven levels** and mentions the seasonal layer, which it had never mentioned at all.
+- **The live indicator said "27 cities updated"**, which read as a coverage claim for a platform holding 157 cities and 983,149 areas. It is 27 of the 33 cities polled on load; it now says so, with a tooltip explaining the rest load on demand.
+- **The walkthroughs still described two screens** — a 142-city ward atlas and villages as "the level below" it — which is the model retired in v26.6.145. Rewritten as one atlas slide.
+- "115+ cities" in the about intro (all five languages) → 157. "Any two of the five measures" → nine. Ward-source provenance in the source panel rewritten from "68 of 142 cities" to the 720 wards the national sources actually miss.
+- README's "Recently shipped" was three releases behind and its "Next up" list contained three items already delivered.
+
+### New
+
+- [How to Read the JanVayu Map](blog/posts/2026-08-09-how-to-read-the-map.md) — a reader's manual for the atlas, with a diagram. What the two timescales mean, how to find your place, what each of the nine measures says, three worked questions, and what the map cannot tell you.
+- **Ask JanVayu can answer land and heat questions.** `village-stats.json` now carries per-district village summaries for surface heat, tree/green/built-up cover and the four seasons (112 KB → 289 KB), so "how green is my district" and "when is the air worst here" get a real figure. Each block is labelled with its own source and year, and the prompt forbids merging the three timescales. The green-vs-tree caution is explicit: the typical Indian district is 97% green and 14% treed, so the assistant leads with tree cover.
+
+### Fixed
+
+- **The atlas diagram was never added to its own blog post.** It shipped in the docs and the post it was drawn for went without it.
+
 ## [v26.6.153] - 2026-08-09
 
 ### New — villages join the atlas properly

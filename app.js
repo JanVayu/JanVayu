@@ -290,7 +290,7 @@
     const I18N = {
         en: {
             about_heading: 'About JanVayu',
-            about_intro: 'JanVayu (<span lang="hi">जनवायु</span> &mdash; &ldquo;People&rsquo;s Air&rdquo;) is a non-partisan, citizen-led platform documenting India&rsquo;s air quality crisis &mdash; its live data, its human toll, its policies, and its public memory. It brings together real-time AQI across <strong>115+ cities</strong>, a ward-level atlas, a live forecast and farm-fire tracker, health and economic-impact research, policy and accountability tracking, RTI tools, the <a href="/ask/">Ask JanVayu</a> AI assistant, and a multilingual wall of citizen testimony &mdash; every figure sourced and open. It is not a campaign; it is a public record, built for the <strong>#AQIForJanHit</strong> effort.',
+            about_intro: 'JanVayu (<span lang="hi">जनवायु</span> &mdash; &ldquo;People&rsquo;s Air&rdquo;) is a non-partisan, citizen-led platform documenting India&rsquo;s air quality crisis &mdash; its live data, its human toll, its policies, and its public memory. It brings together real-time PM2.5 across <strong>157 cities</strong>, a boundary atlas covering every administrative area in India, a live forecast and farm-fire tracker, health and economic-impact research, policy and accountability tracking, RTI tools, the <a href="/ask/">Ask JanVayu</a> AI assistant, and a multilingual wall of citizen testimony &mdash; every figure sourced and open. It is not a campaign; it is a public record, built for the <strong>#AQIForJanHit</strong> effort.',
             about_mission_h: 'Our Mission',
             about_mission_p1: 'JanVayu exists because clean air is a fundamental right, not a privilege. We measure the distance between what governments promise and what people actually breathe &mdash; using independent data, peer-reviewed research and RTI responses that anyone can check for themselves.',
             about_mission_p2: 'This platform is part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> &mdash; the broader <strong>#AQIForJanHit</strong> campaign. We use real-time monitoring data, peer-reviewed research, RTI responses, and independent analysis to provide the accountability that India&rsquo;s air quality crisis demands.',
@@ -301,7 +301,7 @@
             hero_sub: "JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.",
             tagline: "Citizen Air Quality Platform",
             nav_myair: "My Air",
-            nav_citydata: "City Data",
+            nav_citydata: "Maps & Places",
             nav_data: "Health & Trends",
             nav_monitor: "Monitoring",
             nav_account: "Accountability",
@@ -318,7 +318,7 @@
             dd_voices: "Citizen Voices", dd_testimony: "Citizen Testimony", dd_migration: "Migration & Displacement",
             dd_tools: "Tools", dd_resources: "Reading List", dd_downloads: "Downloads", dd_about: "About",
             // Mobile nav groups
-            navgroup_myair: "My Air", navgroup_citydata: "City Data", navgroup_health: "Health & Trends",
+            navgroup_myair: "My Air", navgroup_citydata: "Maps & Places", navgroup_health: "Health & Trends",
             navgroup_learn: "Learn",
             mg_data: "Data & Analysis", mg_monitor: "Monitoring", mg_account: "Accountability",
             mg_action: "Take Action", mg_resources: "Resources",
@@ -332,7 +332,7 @@
         },
         hi: {
             about_heading: 'जनवायु के बारे में',
-            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोगों की हवा&rdquo;) एक गैर-पक्षपाती, नागरिक-नेतृत्व वाला मंच है जो भारत के वायु गुणवत्ता संकट का दस्तावेज़ीकरण करता है &mdash; इसका लाइव डेटा, इसकी मानवीय क्षति, इसकी नीतियाँ और इसकी सार्वजनिक स्मृति। यह <strong>115+ शहरों</strong> का रीयल-टाइम एक्यूआई, वार्ड-स्तरीय एटलस, लाइव पूर्वानुमान और खेत-आग ट्रैकर, स्वास्थ्य और आर्थिक-प्रभाव शोध, नीति और जवाबदेही ट्रैकिंग, आरटीआई उपकरण, <a href="/ask/">Ask JanVayu</a> एआई सहायक, और नागरिक गवाही की बहुभाषी दीवार को एक साथ लाता है &mdash; हर आँकड़ा स्रोत-सहित और खुला। यह कोई अभियान नहीं है; यह एक सार्वजनिक अभिलेख है, जो <strong>#AQIForJanHit</strong> प्रयास के लिए बनाया गया है।',
+            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोगों की हवा&rdquo;) एक गैर-पक्षपाती, नागरिक-नेतृत्व वाला मंच है जो भारत के वायु गुणवत्ता संकट का दस्तावेज़ीकरण करता है &mdash; इसका लाइव डेटा, इसकी मानवीय क्षति, इसकी नीतियाँ और इसकी सार्वजनिक स्मृति। यह <strong>157 शहरों</strong> का रीयल-टाइम पीएम2.5, भारत के हर प्रशासनिक क्षेत्र का सीमा-एटलस, लाइव पूर्वानुमान और खेत-आग ट्रैकर, स्वास्थ्य और आर्थिक-प्रभाव शोध, नीति और जवाबदेही ट्रैकिंग, आरटीआई उपकरण, <a href="/ask/">Ask JanVayu</a> एआई सहायक, और नागरिक गवाही की बहुभाषी दीवार को एक साथ लाता है &mdash; हर आँकड़ा स्रोत-सहित और खुला। यह कोई अभियान नहीं है; यह एक सार्वजनिक अभिलेख है, जो <strong>#AQIForJanHit</strong> प्रयास के लिए बनाया गया है।',
             about_mission_h: 'हमारा उद्देश्य',
             about_mission_p1: 'जनवायु इसलिए है क्योंकि स्वच्छ हवा एक मौलिक अधिकार है, कोई सुविधा नहीं। हम मापते हैं कि सरकारें जो वादा करती हैं और लोग वास्तव में जो हवा साँस लेते हैं, उनके बीच कितना फ़ासला है &mdash; स्वतंत्र डेटा, सहकर्मी-समीक्षित शोध और आरटीआई जवाबों के आधार पर, जिन्हें कोई भी ख़ुद जाँच सकता है।',
             about_mission_p2: 'यह मंच <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> का हिस्सा है &mdash; व्यापक <strong>#AQIForJanHit</strong> अभियान। हम रीयल-टाइम निगरानी डेटा, सहकर्मी-समीक्षित शोध, आरटीआई जवाब और स्वतंत्र विश्लेषण का उपयोग करके वह जवाबदेही प्रदान करते हैं जिसकी भारत के वायु गुणवत्ता संकट को आवश्यकता है।',
@@ -343,7 +343,7 @@
             hero_sub: "जनवायु भारत का स्वतंत्र, नागरिक-संचालित वायु गुणवत्ता मंच है। हम प्रदूषण के आंकड़े, स्वास्थ्य प्रभाव, बजट का हिसाब और सरकारी जवाबदेही पर नज़र रखते हैं। क्योंकि स्वच्छ हवा विशेषाधिकार नहीं, अधिकार है।",
             tagline: "नागरिक वायु गुणवत्ता मंच",
             nav_myair: "मेरी हवा",
-            nav_citydata: "शहर डेटा",
+            nav_citydata: "नक्शे और जगहें",
             nav_data: "स्वास्थ्य और रुझान",
             nav_monitor: "निगरानी",
             nav_account: "जवाबदेही",
@@ -358,7 +358,7 @@
             dd_actions: "कार्रवाई करें", dd_citizen: "नागरिक योजना", dd_legal: "कानूनी ढांचा",
             dd_voices: "नागरिक आवाज़ें", dd_testimony: "नागरिक गवाही", dd_migration: "पलायन",
             dd_tools: "उपकरण", dd_resources: "पठन सूची", dd_downloads: "डाउनलोड", dd_about: "परिचय",
-            navgroup_myair: "मेरी हवा", navgroup_citydata: "शहर डेटा", navgroup_health: "स्वास्थ्य और रुझान",
+            navgroup_myair: "मेरी हवा", navgroup_citydata: "नक्शे और जगहें", navgroup_health: "स्वास्थ्य और रुझान",
             navgroup_learn: "जानें",
             mg_data: "डेटा और विश्लेषण", mg_monitor: "निगरानी", mg_account: "जवाबदेही",
             mg_action: "कार्रवाई करें", mg_resources: "संसाधन",
@@ -369,7 +369,7 @@
         },
         ta: {
             about_heading: 'ஜன்வாயு பற்றி',
-            about_intro: 'ஜன்வாயு (<span lang="hi">जनवायु</span> &mdash; &ldquo;மக்களின் காற்று&rdquo;) என்பது இந்தியாவின் காற்று தர நெருக்கடியை ஆவணப்படுத்தும் ஒரு கட்சி சாராத, குடிமக்கள் தலைமையிலான தளம் &mdash; அதன் நேரடி தரவு, அதன் மனித இழப்பு, அதன் கொள்கைகள் மற்றும் அதன் பொது நினைவு. இது <strong>115+ நகரங்களில்</strong> நிகழ்நேர AQI, வார்டு அளவிலான அட்லஸ், நேரடி முன்னறிவிப்பு மற்றும் வயல்-தீ கண்காணிப்பு, சுகாதார மற்றும் பொருளாதார-தாக்க ஆராய்ச்சி, கொள்கை மற்றும் பொறுப்புக்கூறல் கண்காணிப்பு, RTI கருவிகள், <a href="/ask/">Ask JanVayu</a> AI உதவியாளர், மற்றும் குடிமக்கள் சாட்சியத்தின் பன்மொழி சுவர் ஆகியவற்றை ஒன்றிணைக்கிறது &mdash; ஒவ்வொரு புள்ளிவிவரமும் ஆதாரத்துடன், திறந்தது. இது ஒரு பிரச்சாரம் அல்ல; இது <strong>#AQIForJanHit</strong> முயற்சிக்காக உருவாக்கப்பட்ட ஒரு பொது பதிவு.',
+            about_intro: 'ஜன்வாயு (<span lang="hi">जनवायु</span> &mdash; &ldquo;மக்களின் காற்று&rdquo;) என்பது இந்தியாவின் காற்று தர நெருக்கடியை ஆவணப்படுத்தும் ஒரு கட்சி சாராத, குடிமக்கள் தலைமையிலான தளம் &mdash; அதன் நேரடி தரவு, அதன் மனித இழப்பு, அதன் கொள்கைகள் மற்றும் அதன் பொது நினைவு. இது <strong>157 நகரங்களில்</strong> நிகழ்நேர PM2.5, இந்தியாவின் ஒவ்வொரு நிர்வாகப் பகுதியையும் உள்ளடக்கிய எல்லை அட்லஸ், நேரடி முன்னறிவிப்பு மற்றும் வயல்-தீ கண்காணிப்பு, சுகாதார மற்றும் பொருளாதார-தாக்க ஆராய்ச்சி, கொள்கை மற்றும் பொறுப்புக்கூறல் கண்காணிப்பு, RTI கருவிகள், <a href="/ask/">Ask JanVayu</a> AI உதவியாளர், மற்றும் குடிமக்கள் சாட்சியத்தின் பன்மொழி சுவர் ஆகியவற்றை ஒன்றிணைக்கிறது &mdash; ஒவ்வொரு புள்ளிவிவரமும் ஆதாரத்துடன், திறந்தது. இது ஒரு பிரச்சாரம் அல்ல; இது <strong>#AQIForJanHit</strong> முயற்சிக்காக உருவாக்கப்பட்ட ஒரு பொது பதிவு.',
             about_mission_h: 'எங்கள் நோக்கம்',
             about_mission_p1: 'தூய்மையான காற்று ஒரு சலுகை அல்ல, அது ஒரு அடிப்படை உரிமை என்பதால் ஜன்வாயு உள்ளது. சுயாதீன சரிபார்ப்பு, குடிமக்கள் அதிகாரமளித்தல் மற்றும் தரவு சார்ந்த பொறுப்புக்கூறல் மூலம் அரசாங்க வாக்குறுதிகளுக்கும் உண்மையான காற்று தர விளைவுகளுக்கும் இடையிலான இடைவெளியை நாங்கள் இணைக்கிறோம்.',
             about_mission_p2: 'இந்த தளம் <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> இன் ஒரு பகுதி &mdash; பரந்த <strong>#AQIForJanHit</strong> பிரச்சாரம். நிகழ்நேர கண்காணிப்பு தரவு, சக மதிப்பாய்வு ஆராய்ச்சி, RTI பதில்கள் மற்றும் சுயாதீன பகுப்பாய்வைப் பயன்படுத்தி இந்தியாவின் காற்று தர நெருக்கடி கோரும் பொறுப்புக்கூறலை நாங்கள் வழங்குகிறோம்.',
@@ -380,7 +380,7 @@
             hero_sub: "ஜன்வாயு இந்தியாவின் சுயாதீன, குடிமக்கள் வழிநடத்தும் காற்றுத் தர தளமாகும். நாங்கள் மாசு தரவுகள், சுகாதார பாதிப்புகள், பட்ஜெட் கணக்கு மற்றும் அரசின் பொறுப்புணர்வை கண்காணிக்கிறோம். ஏனெனில் சுத்தமான காற்று சலுகை அல்ல, அது உரிமை.",
             tagline: "குடிமக்கள் காற்றுத் தர தளம்",
             nav_myair: "என் காற்று",
-            nav_citydata: "நகர தரவு",
+            nav_citydata: "வரைபடங்கள் & இடங்கள்",
             nav_data: "சுகாதாரம் & போக்கு",
             nav_monitor: "கண்காணிப்பு",
             nav_account: "பொறுப்புணர்வு",
@@ -395,7 +395,7 @@
             dd_actions: "நடவடிக்கை எடுங்கள்", dd_citizen: "குடிமக்கள் திட்டம்", dd_legal: "சட்ட கட்டமைப்பு",
             dd_voices: "குடிமக்கள் குரல்கள்", dd_testimony: "குடிமக்கள் சாட்சியம்", dd_migration: "இடப்பெயர்வு",
             dd_tools: "கருவிகள்", dd_resources: "வாசிப்புப் பட்டியல்", dd_downloads: "பதிவிறக்கங்கள்", dd_about: "பற்றி",
-            navgroup_myair: "என் காற்று", navgroup_citydata: "நகர தரவு", navgroup_health: "சுகாதாரம் & போக்கு",
+            navgroup_myair: "என் காற்று", navgroup_citydata: "வரைபடங்கள் & இடங்கள்", navgroup_health: "சுகாதாரம் & போக்கு",
             navgroup_learn: "கற்றுக்கொள்",
             mg_data: "தரவு & பகுப்பாய்வு", mg_monitor: "கண்காணிப்பு", mg_account: "பொறுப்புணர்வு",
             mg_action: "நடவடிக்கை எடுங்கள்", mg_resources: "வளங்கள்",
@@ -406,7 +406,7 @@
         },
         mr: {
             about_heading: 'जनवायु विषयी',
-            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोकांची हवा&rdquo;) हे भारताच्या हवा गुणवत्ता संकटाचे दस्तऐवजीकरण करणारे एक निष्पक्ष, नागरिक-नेतृत्वाखालील व्यासपीठ आहे &mdash; त्याचा थेट डेटा, त्याची मानवी हानी, त्याची धोरणे आणि त्याची सार्वजनिक स्मृती. हे <strong>115+ शहरांतील</strong> रिअल-टाइम AQI, वॉर्ड-स्तरीय नकाशा, थेट अंदाज आणि शेत-आग ट्रॅकर, आरोग्य आणि आर्थिक-परिणाम संशोधन, धोरण आणि उत्तरदायित्व ट्रॅकिंग, आरटीआय साधने, <a href="/ask/">Ask JanVayu</a> AI सहाय्यक, आणि नागरिक साक्षीची बहुभाषिक भिंत एकत्र आणते &mdash; प्रत्येक आकडा स्रोतासह आणि खुला. ही मोहीम नाही; हे <strong>#AQIForJanHit</strong> प्रयत्नासाठी तयार केलेले सार्वजनिक अभिलेख आहे.',
+            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोकांची हवा&rdquo;) हे भारताच्या हवा गुणवत्ता संकटाचे दस्तऐवजीकरण करणारे एक निष्पक्ष, नागरिक-नेतृत्वाखालील व्यासपीठ आहे &mdash; त्याचा थेट डेटा, त्याची मानवी हानी, त्याची धोरणे आणि त्याची सार्वजनिक स्मृती. हे <strong>157 शहरांतील</strong> रिअल-टाइम PM2.5, भारतातील प्रत्येक प्रशासकीय क्षेत्राचा सीमा-नकाशा, थेट अंदाज आणि शेत-आग ट्रॅकर, आरोग्य आणि आर्थिक-परिणाम संशोधन, धोरण आणि उत्तरदायित्व ट्रॅकिंग, आरटीआय साधने, <a href="/ask/">Ask JanVayu</a> AI सहाय्यक, आणि नागरिक साक्षीची बहुभाषिक भिंत एकत्र आणते &mdash; प्रत्येक आकडा स्रोतासह आणि खुला. ही मोहीम नाही; हे <strong>#AQIForJanHit</strong> प्रयत्नासाठी तयार केलेले सार्वजनिक अभिलेख आहे.',
             about_mission_h: 'आमचे ध्येय',
             about_mission_p1: 'जनवायु अस्तित्वात आहे कारण स्वच्छ हवा ही सवलत नाही, तो मूलभूत अधिकार आहे. स्वतंत्र पडताळणी, नागरिक सक्षमीकरण आणि डेटा-आधारित उत्तरदायित्वाद्वारे आम्ही सरकारी आश्वासने आणि प्रत्यक्ष हवा गुणवत्ता परिणाम यांच्यातील दरी भरून काढतो.',
             about_mission_p2: 'हे व्यासपीठ <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> चा भाग आहे &mdash; व्यापक <strong>#AQIForJanHit</strong> मोहीम. रिअल-टाइम निरीक्षण डेटा, समवयस्क-पुनरावलोकित संशोधन, आरटीआय उत्तरे आणि स्वतंत्र विश्लेषण वापरून आम्ही भारताच्या हवा गुणवत्ता संकटाला आवश्यक असलेले उत्तरदायित्व प्रदान करतो.',
@@ -417,7 +417,7 @@
             hero_sub: "जनवायू हे भारताचे स्वतंत्र, नागरिक-संचालित हवा गुणवत्ता व्यासपीठ आहे. आम्ही प्रदूषणाचे आकडे, आरोग्यावरील परिणाम, बजेटचा मागोवा आणि सरकारी जबाबदारी यांवर लक्ष ठेवतो. कारण स्वच्छ हवा ही सवलत नाही, ती हक्क आहे.",
             tagline: "नागरिक हवा गुणवत्ता व्यासपीठ",
             nav_myair: "माझी हवा",
-            nav_citydata: "शहर डेटा",
+            nav_citydata: "नक्शे और जगहें",
             nav_data: "आरोग्य आणि कल",
             nav_monitor: "देखरेख",
             nav_account: "जबाबदारी",
@@ -432,7 +432,7 @@
             dd_actions: "कृती करा", dd_citizen: "नागरिक योजना", dd_legal: "कायदेशीर चौकट",
             dd_voices: "नागरिक आवाज", dd_testimony: "नागरिक साक्ष", dd_migration: "स्थलांतर",
             dd_tools: "साधने", dd_resources: "वाचन सूची", dd_downloads: "डाउनलोड", dd_about: "माहिती",
-            navgroup_myair: "माझी हवा", navgroup_citydata: "शहर डेटा", navgroup_health: "आरोग्य आणि कल",
+            navgroup_myair: "माझी हवा", navgroup_citydata: "नक्शे और जगहें", navgroup_health: "आरोग्य आणि कल",
             navgroup_learn: "शिका",
             mg_data: "डेटा आणि विश्लेषण", mg_monitor: "देखरेख", mg_account: "जबाबदारी",
             mg_action: "कृती करा", mg_resources: "संसाधने",
@@ -443,7 +443,7 @@
         },
         bn: {
             about_heading: 'জনবায়ু সম্পর্কে',
-            about_intro: 'জনবায়ু (<span lang="hi">जनवायु</span> &mdash; &ldquo;জনগণের বাতাস&rdquo;) হল একটি নিরপেক্ষ, নাগরিক-নেতৃত্বাধীন প্ল্যাটফর্ম যা ভারতের বায়ুর মানের সংকট নথিভুক্ত করে &mdash; এর সরাসরি তথ্য, এর মানবিক ক্ষতি, এর নীতি এবং এর জনস্মৃতি। এটি <strong>115+ শহরে</strong> রিয়েল-টাইম AQI, ওয়ার্ড-স্তরের অ্যাটলাস, সরাসরি পূর্বাভাস ও খেত-আগুন ট্র্যাকার, স্বাস্থ্য ও অর্থনৈতিক-প্রভাব গবেষণা, নীতি ও জবাবদিহিতা ট্র্যাকিং, আরটিআই সরঞ্জাম, <a href="/ask/">Ask JanVayu</a> AI সহকারী, এবং নাগরিক সাক্ষ্যের একটি বহুভাষিক দেয়াল একত্র করে &mdash; প্রতিটি পরিসংখ্যান উৎসসহ ও উন্মুক্ত। এটি কোনো অভিযান নয়; এটি একটি জনসাধারণের নথি, <strong>#AQIForJanHit</strong> প্রয়াসের জন্য নির্মিত।',
+            about_intro: 'জনবায়ু (<span lang="hi">जनवायु</span> &mdash; &ldquo;জনগণের বাতাস&rdquo;) হল একটি নিরপেক্ষ, নাগরিক-নেতৃত্বাধীন প্ল্যাটফর্ম যা ভারতের বায়ুর মানের সংকট নথিভুক্ত করে &mdash; এর সরাসরি তথ্য, এর মানবিক ক্ষতি, এর নীতি এবং এর জনস্মৃতি। এটি <strong>157 শহরে</strong> রিয়েল-টাইম PM2.5, ভারতের প্রতিটি প্রশাসনিক এলাকার সীমানা-অ্যাটলাস, সরাসরি পূর্বাভাস ও খেত-আগুন ট্র্যাকার, স্বাস্থ্য ও অর্থনৈতিক-প্রভাব গবেষণা, নীতি ও জবাবদিহিতা ট্র্যাকিং, আরটিআই সরঞ্জাম, <a href="/ask/">Ask JanVayu</a> AI সহকারী, এবং নাগরিক সাক্ষ্যের একটি বহুভাষিক দেয়াল একত্র করে &mdash; প্রতিটি পরিসংখ্যান উৎসসহ ও উন্মুক্ত। এটি কোনো অভিযান নয়; এটি একটি জনসাধারণের নথি, <strong>#AQIForJanHit</strong> প্রয়াসের জন্য নির্মিত।',
             about_mission_h: 'আমাদের লক্ষ্য',
             about_mission_p1: 'জনবায়ু বিদ্যমান কারণ পরিষ্কার বাতাস কোনো সুবিধা নয়, এটি একটি মৌলিক অধিকার। স্বাধীন যাচাই, নাগরিক ক্ষমতায়ন এবং তথ্য-নির্ভর জবাবদিহিতার মাধ্যমে আমরা সরকারি প্রতিশ্রুতি ও প্রকৃত বায়ুর মানের ফলাফলের মধ্যে ব্যবধান দূর করি।',
             about_mission_p2: 'এই প্ল্যাটফর্মটি <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>-এর অংশ &mdash; বৃহত্তর <strong>#AQIForJanHit</strong> অভিযান। রিয়েল-টাইম পর্যবেক্ষণ তথ্য, সমকক্ষ-পর্যালোচিত গবেষণা, আরটিআই উত্তর এবং স্বাধীন বিশ্লেষণ ব্যবহার করে আমরা ভারতের বায়ুর মানের সংকট যে জবাবদিহিতা দাবি করে তা প্রদান করি।',
@@ -454,7 +454,7 @@
             hero_sub: "জনবায়ু ভারতের স্বাধীন, নাগরিক-পরিচালিত বায়ু মান প্ল্যাটফর্ম। আমরা দূষণের তথ্য, স্বাস্থ্যের প্রভাব, বাজেটের হিসাব এবং সরকারি জবাবদিহিতা পর্যবেক্ষণ করি। কারণ বিশুদ্ধ বাতাস বিশেষাধিকার নয়, এটি অধিকার।",
             tagline: "নাগরিক বায়ু মান প্ল্যাটফর্ম",
             nav_myair: "আমার বায়ু",
-            nav_citydata: "শহর তথ্য",
+            nav_citydata: "মানচিত্র ও স্থান",
             nav_data: "স্বাস্থ্য ও প্রবণতা",
             nav_monitor: "পর্যবেক্ষণ",
             nav_account: "জবাবদিহিতা",
@@ -469,7 +469,7 @@
             dd_actions: "পদক্ষেপ নিন", dd_citizen: "নাগরিক পরিকল্পনা", dd_legal: "আইনি কাঠামো",
             dd_voices: "নাগরিক কণ্ঠস্বর", dd_testimony: "নাগরিক সাক্ষ্য", dd_migration: "অভিবাসন",
             dd_tools: "সরঞ্জাম", dd_resources: "পড়ার তালিকা", dd_downloads: "ডাউনলোড", dd_about: "সম্পর্কে",
-            navgroup_myair: "আমার বায়ু", navgroup_citydata: "শহর তথ্য", navgroup_health: "স্বাস্থ্য ও প্রবণতা",
+            navgroup_myair: "আমার বায়ু", navgroup_citydata: "মানচিত্র ও স্থান", navgroup_health: "স্বাস্থ্য ও প্রবণতা",
             navgroup_learn: "শিখুন",
             mg_data: "তথ্য ও বিশ্লেষণ", mg_monitor: "পর্যবেক্ষণ", mg_account: "জবাবদিহিতা",
             mg_action: "পদক্ষেপ নিন", mg_resources: "সম্পদ",
@@ -1882,9 +1882,27 @@
         try { updateTicker(); updateDashboard(); initAllCharts().catch(e => console.error('initAllCharts:', e)); checkAlerts(); initArchiveData(); loadDashboardLiveNews(); updateGlobalTimestamp(); populateExtendedCitySelectors(); } catch(e) { console.error(e); }
 
         if (liveStatus) {
+            // The count that used to sit here was successCount — how many of
+            // the eagerly-polled cities answered this cycle. That is an
+            // implementation detail, and printing it where a reader looks for
+            // coverage made the platform look a fraction of its size. What is
+            // worth stating is the coverage itself: live monitor data for
+            // every one of our cities, drawn from the ~565 continuous stations
+            // that are the whole of India's network, plus the satellite layer
+            // that reaches the 983,149 areas the monitors never will.
             liveStatus.innerHTML = usingLiveData
-                ? `<span class="pulse"></span> LIVE: ${successCount} cities updated at ${timeStr}`
-                : `<span style="color:var(--amber);">⚠</span> Showing estimated data. Check console for API details.`;
+                ? `<span class="pulse"></span> Live air from ${INDIAN_CITIES.length} cities &middot; refreshed ${timeStr}`
+                  + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
+                  + `Drawn from India's ~565 continuous CPCB monitors &mdash; the whole national network. `
+                  + `Yearly satellite figures cover all <strong style="font-weight:600;">983,149</strong> areas, down to the village.</span>`
+                : `<span style="color:var(--amber);">&#9888;</span> Showing estimated data. Check console for API details.`;
+            liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine — `
+                + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's network, not the limit of ours. `
+                + `JanVayu carries live air for ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
+                + `(${successCount} answered this cycle) and the rest load when you select them, to stay inside the data source's free tier. `
+                + `The satellite layer is what closes the gap: annual and seasonal PM2.5, surface heat and land cover for all `
+                + `983,149 administrative areas down to the village — a yearly average rather than today's air, and the only `
+                + `estimate that reaches everywhere.`;
         }
     }
 
@@ -3687,7 +3705,7 @@
     // ── Relationship: any two metrics, at whatever level is showing ─────
     // This replaces the ward panel's correlation view, which could only ever
     // compare the active layer against built-up, inside one of 142 cities.
-    // Here it is any pair of the five metrics at any of six levels.
+    // Here it is any pair of the nine metrics at any of seven levels.
     //
     // The honest limit, stated in the caption rather than hidden: it covers
     // the areas whose tiles the browser has loaded at this level, not all

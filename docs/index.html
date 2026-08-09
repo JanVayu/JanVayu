@@ -85,7 +85,25 @@
       --code-inline-color: #86EFAC;
       --blockquote-background: #1a2e23;
       --content-max-width: 860px;
+      --base-background-color: #0d1117;
+      --background: #0d1117;
+      --content-background: #0d1117;
+      --code-theme-background: #161b22;
+      --link-color: #86EFAC;
     }
+    /* Without an explicit background here the page stayed light while
+       --base-color went near-white: white text on a white page. */
+    body[data-theme="dark"],
+    body[data-theme="dark"] .content,
+    body[data-theme="dark"] .markdown-section,
+    body[data-theme="dark"] main,
+    body[data-theme="dark"] section.cover { background-color: #0d1117; }
+    body[data-theme="dark"] .markdown-section { color: #e2e8f0; }
+    body[data-theme="dark"] .markdown-section a { color: #86EFAC; }
+    body[data-theme="dark"] table tr:nth-child(odd) { background: #0d1117; }
+    body[data-theme="dark"] table tr:nth-child(even) { background: #161b22; }
+    body[data-theme="dark"] table td, body[data-theme="dark"] table th { color: #e2e8f0; border-color: #2d3748; }
+    body[data-theme="dark"] table th { background: #1a2e23; }
 
     /* App name styling */
     .app-name-link img {

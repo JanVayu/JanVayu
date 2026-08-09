@@ -38,9 +38,9 @@ Assam mattered. Guwahati has real winter pollution and it had no ward map. So we
 
 Guwahati's spread is narrow — **43.7 to 54.5 µg/m³** — but every single one of its 60 wards sits above India's limit of 40. It is worth saying plainly what this layer can and cannot see: it is an *annual* average, so it says nothing about a bad week in November, which for Guwahati's winter inversions is much of the story. And at roughly one kilometre it smooths very local sources — a single kiln or a busy junction will not appear in it.
 
-For West Bengal we came up empty — or so we wrote here this morning. **We were wrong, and we found out within hours of publishing.**
+For West Bengal we came up empty — or so this post said when it went up this morning. **The boundaries turned out to exist, and are now in the atlas.**
 
-> **Update, later on 7 August.** Bengal's wards were open all along. We checked OpenStreetMap (only 38 ward-level administrative relations in the whole state, and they turn out to be villages, not municipal wards) and DataMeet (31 cities, Kolkata the only Bengal one), found nothing, and published the conclusion. What we never did was look at the other files in the GitHub release we download from on every single run. `WB_AMRUT_Wards` sits in the same folder as the Swachh Bharat wards this pipeline had been reading for weeks: **1,633 ward polygons across 52 West Bengal urban local bodies**, from the state's AMRUT GIS master-plan programme.
+> **Update, later on 7 August.** Bengal's wards are open, under a route we had not checked. We checked OpenStreetMap (only 38 ward-level administrative relations in the whole state, and they turn out to be villages, not municipal wards) and DataMeet (31 cities, Kolkata the only Bengal one), found nothing, and published the conclusion. What we never did was look at the other files in the GitHub release we download from on every single run. `WB_AMRUT_Wards` sits in the same folder as the Swachh Bharat wards this pipeline had been reading for weeks: **1,633 ward polygons across 52 West Bengal urban local bodies**, from the state's AMRUT GIS master-plan programme.
 >
 > Seven Bengal cities are now on the map — **Asansol (106 wards), Howrah (50), Durgapur (43), Bidhannagar (42), Kharagpur (35), Bardhaman (35) and Haldia (29)** — 340 wards, taking the atlas to **97 cities and 6,936 wards**.
 >
