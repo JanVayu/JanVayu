@@ -3556,7 +3556,10 @@
         // draw time. District only — a 40 km cell cannot resolve a ward, and
         // drawing it on one would invent detail the model does not have.
         y: {
-            label: '2026 so far (modelled, ~40 km)', plain: 'this year so far, modelled',
+            // The year is not hardcoded: the layer rebuilds itself monthly and
+            // rolls into a new year on its own, so the label is filled in from
+            // the data file once it loads.
+            label: 'This year so far (modelled, ~40 km)', plain: 'this year so far, modelled',
             unit: ' µg/m³', levels: ['district'], join: 'district',
             band: (v) => pm25AnnualBand(v),
             ramp: 'blue is cleaner, red is dirtier — a coarse model, not the satellite layer',
@@ -3654,10 +3657,22 @@
         if (!currentYearPromise) {
             currentYearPromise = fetch('/data/current-year-air.json')
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
-                .then(j => { currentYearAir = j; return j; })
+                .then(j => { currentYearAir = j; nameCurrentYear(j); return j; })
                 .catch(e => { currentYearPromise = null; throw e; });
         }
         return currentYearPromise;
+    }
+
+    // Put the real year on the metric and in the menu, from the data rather
+    // than from a constant in this file. The monthly rebuild rolls into a new
+    // year by itself; a hardcoded "2026" would quietly go wrong next January.
+    function nameCurrentYear(j) {
+        const year = j && j._meta && j._meta.year;
+        if (!year) return;
+        BOUNDARY_METRICS.y.label = year + ' so far (modelled, ~40 km)';
+        BOUNDARY_METRICS.y.plain = year + ' so far, modelled';
+        const opt = document.querySelector('#map-boundary-metric option[value="y"]');
+        if (opt) opt.textContent = 'Colour: ' + year + ' so far';
     }
 
     // One place that answers "what is this feature's value for this metric",
@@ -3692,6 +3707,16 @@
     // The season line and the land-cover block, shared by the tile popup and
     // the village popup. Villages keep their own headline — a big number and
     // the WHO multiple — so only the part below it is common.
+    // "January–July" rather than "to end of month 7". The layer is rebuilt on
+    // the 3rd of each month, so this window moves on its own.
+    function currentYearWindow(meta) {
+        const months = ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
+        const m = meta && meta.through_month;
+        if (!m || m < 1 || m > 12) return '';
+        return m === 1 ? 'January' : 'January–' + months[m - 1];
+    }
+
     function boundaryExtrasHtml(p) {
         // Every metric this feature carries, not only the one being coloured —
         // someone who clicked a ward to check its air should not have to
@@ -3716,7 +3741,7 @@
         const curLine = cur == null ? '' :
             `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">` +
             `<span style="color:var(--text-3);font-size:.72rem">This year so far` +
-            `${meta ? ` (${meta.year}, to end of month ${meta.through_month})` : ''}</span><br>` +
+            `${meta ? ` (${meta.year}, ${currentYearWindow(meta)})` : ''}</span><br>` +
             `<strong>${cur} µg/m³</strong> <span style="color:var(--text-3)">— modelled at ~40 km and ` +
             `calibrated to the satellite series, so it is district-scale and not a like-for-like ` +
             `reading of the ${meta ? 'annual' : ''} figure above.</span></div>`;
@@ -3887,7 +3912,10 @@
         if (m && m.join) {
             boundaryNote('Loading this year\u2019s figures\u2026');
             loadCurrentYearAir()
-                .then(() => { if (boundaryLevel) window.setBoundaryLevel(boundaryLevel); })
+                // setBoundaryLevel writes its own note last, but only if a
+                // level is showing. With none picked, the "loading" line would
+                // otherwise sit there for good.
+                .then(() => { boundaryLevel ? window.setBoundaryLevel(boundaryLevel) : boundaryNote(''); })
                 .catch(() => {
                     boundaryMetric = 'p';
                     const sel = document.getElementById('map-boundary-metric');

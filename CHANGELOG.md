@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.156] - 2026-08-09
+
+### New — the map can finally answer "what about *this* year?"
+
+Every air figure on the map is the 2024 annual mean, because that is the newest year SatPM2.5 V6GL03 has published — the product is calibrated against ground monitors before release, and the lag is the science, not neglect. Checked, not assumed: the bucket returns 404 for 2025 and 2026, annual and monthly alike. But "why 2024?" is the first question everyone asks, and until now the honest answer ended there.
+
+There is now a second air layer, **districts only**, from CAMS — the European atmospheric model, reached through Open-Meteo's free archive — which publishes continuously and therefore covers 2026.
+
+On its own CAMS is not comparable with the satellite numbers beside it: a model rather than a retrieval, at ~40 km. But both cover 2024, so they can be checked against each other. Across all **758 districts** where both have a value:
+
+- CAMS tracks the spatial pattern well — **r = 0.910** — while reading **7.3 µg/m³ low** everywhere.
+- A steady offset is the correctable kind of error. Fitting `sat ≈ 0.832 × cams + 12.80` on 2024 and applying it to 2026 leaves a **held-out RMSE of 5.76 µg/m³** across 200 random 50/50 splits, against 5.71 in-sample — so the fit generalises rather than memorising.
+- Half the districts land within **3.1 µg/m³** of what the satellite would have said, nine in ten within **8.5**.
+
+An earlier 55-district pilot reported r = 0.955 and held-out RMSE 4.0. The full sample is the honest number, and it is the one now written into the script and the blog post: a small sample of large, well-separated districts flatters any spatial fit.
+
+What it deliberately is not:
+
+- **Never merged with the 2024 layer.** Separate menu entry, separate label, separate popup line in its own words. Neither can be quoted as the other.
+- **Never drawn below district.** A 40 km cell cannot resolve a ward; colouring one would be inventing detail the model does not have.
+- **Calibrated to V6GL03, not to ground truth.** If that product carries a bias, this inherits it. That is the deliberate choice — continuity with the series already on the map, not an independent estimate.
+
+`.github/workflows/current-year-air.yml` rebuilds it on the 3rd of each month and commits only if the figures moved, so the window grows with the year on its own. The year is not hardcoded anywhere in the interface: the menu, the metric label and the popup all read it from the data file, so nothing needs editing next January.
+
+## [v26.6.155] - 2026-08-09
+
+### New — 108 field-collected quotes join the testimony wall
+
+The wall grows from **142 to 250** first-person testimonies, across **107 cities** and **14 languages** — Nepali joins, from Gangtok.
+
+The new quotes come from a field-collection sheet rather than desk assembly, and they carry what field collection produces and desk assembly cannot:
+
+- **A collection date and a mode.** Each new card says when the quote was taken and how — street intercept, phone interview, WhatsApp, app or web submission. A reader can date the quote instead of assuming it is current. The 142 earlier entries are unstamped and stay that way; the absence is visible rather than papered over.
+- **Attribution as the speaker asked for it.** The sheet records each person's preference and the wall honours it: full first name, initials only, or anonymous. Nothing is widened. The importer refuses any row without recorded consent.
+- **Mixed speech badged as spoken.** A third of the new quotes are code-mixed — Hinglish, Tamil-English, Punjabi-Hindi. The badge now says what the person actually spoke, while the quote still files under its base language in the filter bar, so "Hinglish" no longer disappears into "Hindi".
+
+`scripts/build-ground-voices.py` does the conversion. It reads .xlsx directly — the format is a zip of XML — so the pipeline gains no dependency, and it is safe to re-run: quotes already on the wall are skipped rather than duplicated.
+
+Because these were collected in August, in the monsoon, many are quiet — *"The air feels really good after the morning rain"* — next to the winter voices already there. That contrast is the record, not a problem with it.
+
 ## [v26.6.154] - 2026-08-09
 
 ### Changed — PM2.5 is the headline, AQI is the footnote

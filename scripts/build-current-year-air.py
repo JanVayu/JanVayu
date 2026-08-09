@@ -21,20 +21,29 @@ archive, no key) publishes PM2.5 continuously, including 2026. It is coarse —
 roughly 40 km — and it is a model rather than a satellite retrieval. On its own
 it is not comparable with the V6GL03 numbers beside it.
 
-But both cover 2024, which makes them checkable against each other. Across a
-sample of districts:
+But both cover 2024, which makes them checkable against each other. Over all
+758 districts where both have a value:
 
-    correlation r = 0.955        CAMS tracks the real spatial pattern well
-    bias = -7.2 ug/m3            it systematically reads low over India
-    RMSE = 8.8 ug/m3             before any correction
+    correlation r = 0.910        CAMS tracks the real spatial pattern well
+    bias = -7.3 ug/m3            it systematically reads low over India
+    RMSE = 9.6 ug/m3             before any correction
 
 High correlation with a constant bias is the correctable case. Fitting
-sat ~= a*cams + b on 2024 and testing it on held-out districts gives:
+sat ~= a*cams + b on 2024 gives sat ~= 0.832*cams + 12.80, and testing that
+procedure on held-out districts (200 random 50/50 splits, 379 held out each):
 
-    held-out RMSE = 4.0 ug/m3, held-out bias = 0.0, typical worst case 9.5
+    held-out RMSE = 5.76 ug/m3   in-sample was 5.71, so it is not overfitted
+    held-out bias = +0.05        no systematic error left
+    |error| under 3.1 for half the districts, under 8.5 for nine in ten
+    71% of districts land within +/-5 ug/m3
 
-so a calibrated CAMS figure lands within a few ug/m3 of what V6GL03 would have
-said. That is worth publishing. Uncalibrated CAMS is not.
+so a calibrated CAMS figure typically lands within about 3 ug/m3 of what
+V6GL03 would have said, and within 8.5 for all but the worst tenth. That is
+worth publishing with the error stated. Uncalibrated CAMS is not.
+
+(An early 55-district pilot reported r = 0.955 and held-out RMSE 4.0. The full
+sample is the honest number: a small sample of large, well-separated districts
+flatters any spatial fit.)
 
 What this is NOT
 ----------------

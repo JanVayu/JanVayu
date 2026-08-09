@@ -52,6 +52,41 @@ function parseAtom(xml, sub) {
   return out;
 }
 
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+// Firing all five subreddit requests at once got one through and four 429s:
+// Reddit rate-limits per IP, and a Netlify region is one IP shared by everyone
+// on it. So they go one at a time with a gap, and a 429 is retried once after
+// a longer pause rather than counted as a failure. Whatever has not been
+// fetched by the time budget is dropped — a partial feed beats a timeout.
+const GAP_MS = 400;
+const RETRY_MS = 1200;
+const BUDGET_MS = 7000;
+
+async function fetchSequential(subs) {
+  const posts = [], errors = [];
+  const deadline = Date.now() + BUDGET_MS;
+  for (let i = 0; i < subs.length; i++) {
+    if (Date.now() > deadline) {
+      errors.push(`skipped ${subs.length - i} subreddit(s): out of time`);
+      break;
+    }
+    if (i) await sleep(GAP_MS);
+    const s = subs[i];
+    try {
+      posts.push(...await fetchSubreddit(s.sub, s.query));
+    } catch (e) {
+      if (/429/.test(e.message) && Date.now() + RETRY_MS < deadline) {
+        await sleep(RETRY_MS);
+        try { posts.push(...await fetchSubreddit(s.sub, s.query)); continue; }
+        catch (e2) { errors.push(`${s.sub}: ${e2.message}`); continue; }
+      }
+      errors.push(`${s.sub}: ${e.message}`);
+    }
+  }
+  return { posts, errors };
+}
+
 async function fetchSubreddit(sub, query, limit = 10) {
   const url = `https://www.reddit.com/r/${sub}/search.rss?q=${encodeURIComponent(query)}` +
               `&sort=new&restrict_sr=on&limit=${limit}`;
@@ -116,13 +151,7 @@ exports.handler = async function (event) {
   const filter = params.filter || 'all';
   const subsToFetch = filter === 'all' ? SUBREDDITS : SUBREDDITS.filter(s => s.sub === filter);
 
-  const allPosts = [];
-  const errors = [];
-  const results = await Promise.allSettled(subsToFetch.map(s => fetchSubreddit(s.sub, s.query)));
-  results.forEach(r => {
-    if (r.status === 'fulfilled') allPosts.push(...r.value);
-    else errors.push(r.reason.message);
-  });
+  const { posts: allPosts, errors } = await fetchSequential(subsToFetch);
 
   const seen = new Set();
   const unique = allPosts.filter(p => {

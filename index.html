@@ -1625,7 +1625,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     </div>
                     <div class="quick-link" onclick="showPanel('testimony')">
                         <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-600);"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_testimony_t">Field Testimony</h3><p data-i18n="ql_testimony_d">First-person accounts recorded on the ground &mdash; 100+ people, 13 languages</p></div>
+                        <div><h3 data-i18n="ql_testimony_t">Field Testimony</h3><p data-i18n="ql_testimony_d">First-person accounts recorded on the ground &mdash; 250 people, 14 languages</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('map')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-pin" style="width:20px;height:20px;"></span></div>
@@ -1938,12 +1938,13 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         ml: { label: 'മലയാളം' },
         or: { label: 'ଓଡ଼ିଆ' },
         ur: { label: 'اردو' },
-        as: { label: 'অসমীয়া' }
+        as: { label: 'অসমীয়া' },
+        ne: { label: 'नेपाली' }
     };
     const TESTIMONY_COLORS = {
         en: '#2563EB', hi: '#B91C1C', bn: '#16A34A', ta: '#7C3AED', mr: '#EA580C',
         te: '#0891B2', kn: '#DB2777', gu: '#CA8A04', pa: '#9333EA', ml: '#059669',
-        or: '#DC2626', ur: '#1D4ED8', as: '#15803D'
+        or: '#DC2626', ur: '#1D4ED8', as: '#15803D', ne: '#B45309'
     };
 
     // Testimonies are loaded lazily from /data/testimonies.json on first open
@@ -1975,7 +1976,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         const filtered = CITIZEN_TESTIMONIES.filter(t => {
             if (lang !== 'all' && t.lang !== lang) return false;
             if (!q) return true;
-            const hay = (t.city + ' ' + t.state + ' ' + t.name + ' ' + (t.role || '') + ' ' + t.q + ' ' + (t.en || '')).toLowerCase();
+            const hay = (t.city + ' ' + t.state + ' ' + t.name + ' ' + (t.role || '') + ' ' + t.q + ' ' + (t.en || '') + ' ' + (t.spoken || '') + ' ' + (t.mode || '')).toLowerCase();
             return hay.indexOf(q) !== -1;
         });
 
@@ -1989,18 +1990,35 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
         grid.innerHTML = filtered.map(t => {
             const color = TESTIMONY_COLORS[t.lang] || 'var(--green-700)';
-            const label = (TESTIMONY_LANGS[t.lang] || {}).label || t.lang;
+            // A quote spoken in mixed speech is badged the way it was spoken —
+            // "Hinglish", "Tamil-English" — while still filing under its base
+            // language in the filter bar.
+            const label = t.spoken || (TESTIMONY_LANGS[t.lang] || {}).label || t.lang;
             const rtl = t.lang === 'ur' ? ' dir="rtl"' : '';
             const enBlock = t.en ? ('<div class="testimony-en">' + escapeTestimony(t.en) + '</div>') : '';
             const role = t.role ? (' &middot; ' + escapeTestimony(t.role)) : '';
+            // Field-collected quotes carry when and how they were taken, so a
+            // reader can date them rather than assume they are current.
+            const stamp = [t.date ? testimonyDate(t.date) : '', t.mode || ''].filter(Boolean).join(' &middot; ');
+            const stampBlock = stamp ? ('<br><span style="color: var(--text-3);">' + stamp + '</span>') : '';
             return '<div class="voice-card testimony-card" lang="' + t.lang + '" style="border-left: 3px solid ' + color + ';">'
                 + '<div class="testimony-quote"' + rtl + '>&ldquo;' + escapeTestimony(t.q) + '&rdquo;</div>'
                 + enBlock
                 + '<div class="voice-meta"><strong>' + escapeTestimony(t.name) + '</strong>' + role
                 + '<br>' + escapeTestimony(t.city) + ', ' + escapeTestimony(t.state)
-                + '<span class="testimony-langbadge" style="background: ' + color + '1a; color: ' + color + ';">' + label + '</span></div>'
+                + stampBlock
+                + '<span class="testimony-langbadge" style="background: ' + color + '1a; color: ' + color + ';">' + escapeTestimony(label) + '</span></div>'
                 + '</div>';
         }).join('');
+    }
+
+    // "2025-08-14" -> "14 Aug 2025". Parsed by hand rather than through Date,
+    // which reads a bare ISO date as UTC midnight and can slip a day west of it.
+    function testimonyDate(iso) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+        if (!m) return '';
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return Number(m[3]) + ' ' + months[Number(m[2]) - 1] + ' ' + m[1];
     }
 
     function escapeTestimony(s) {
@@ -2041,7 +2059,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
             <div class="card mb-3" style="border-left: 4px solid var(--green-700); background: var(--green-50);">
                 <div class="card-body" style="font-size: 0.82rem; line-height: 1.6; color: var(--text-2);">
-                    <strong>Voices from across India.</strong> First-person testimonies, in many Indian languages, on what the air crisis feels like where people live, breathe and work. <strong>Lived in this air?</strong> Add your own testimony (any Indian language welcome) by writing to <a href="mailto:contribute@janvayu.in?subject=Citizen%20Testimony%20Submission&amp;body=Your%20name%20(or%20Anonymous)%3A%0ACity%2FState%3A%0ALanguage%3A%0AYour%20testimony%3A%0A" style="color: var(--green-700); font-weight: 600;">contribute@janvayu.in</a>.
+                    <strong>Voices from across India.</strong> First-person testimonies, in many Indian languages, on what the air crisis feels like where people live, breathe and work. Field-collected quotes carry the date and the way they were taken &mdash; street intercept, phone, WhatsApp, app or web. Every speaker gave consent, and each is named the way they asked to be: full first name, initials, or anonymous. <strong>Lived in this air?</strong> Add your own testimony (any Indian language welcome) by writing to <a href="mailto:contribute@janvayu.in?subject=Citizen%20Testimony%20Submission&amp;body=Your%20name%20(or%20Anonymous)%3A%0ACity%2FState%3A%0ALanguage%3A%0AYour%20testimony%3A%0A" style="color: var(--green-700); font-weight: 600;">contribute@janvayu.in</a>.
                 </div>
             </div>
 
@@ -2963,7 +2981,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
             <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map" style="color: var(--accent); margin-right: 0.4rem;"></span>Live Air Quality Map</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="This map shows two things. Live air quality right now from monitoring stations, and yearly figures for all 983,149 administrative areas in India — your state, district, block, gram panchayat, village, city or ward. Pick a level from the Boundaries menu, choose whether to colour it by air, air in each season, surface heat, tree cover or built-up land, and zoom to where you live. Tap any area for all of its numbers."><strong>Live air, and a yearly figure for every place in India.</strong> Markers show real-time AQI from WAQI (US EPA scale, unitless); popups add PM2.5 and PM10 in µg/m³, station name and update time. The <strong>Boundaries</strong> menu covers <strong>983,149 areas across seven levels</strong> &mdash; state, district (zila), block/mandal/tehsil, gram panchayat and village on the rural side; city and ward on the urban side &mdash; and every one of them carries the same nine numbers. The <strong>Colour</strong> menu shades them by <strong>annual satellite PM2.5</strong>, <strong>the same air by season</strong>, <strong>surface heat</strong> from a national Landsat composite, or <strong>tree cover</strong>, <strong>green cover</strong> and <strong>built-up share</strong> from ESA WorldCover. Zoom to where you live and tap any area for all of its figures. <a href="/blog/#/posts/2026-08-09-how-to-read-the-map">How to read this map &rarr;</a></p>
+                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="This map shows two things. Live air quality right now from monitoring stations, and yearly figures for all 983,149 administrative areas in India — your state, district, block, gram panchayat, village, city or ward. Pick a level from the Boundaries menu, choose whether to colour it by air, air in each season, surface heat, tree cover or built-up land, and zoom to where you live. Tap any area for all of its numbers."><strong>Live air, and a yearly figure for every place in India.</strong> Markers show real-time AQI from WAQI (US EPA scale, unitless); popups add PM2.5 and PM10 in µg/m³, station name and update time. The <strong>Boundaries</strong> menu covers <strong>983,149 areas across seven levels</strong> &mdash; state, district (zila), block/mandal/tehsil, gram panchayat and village on the rural side; city and ward on the urban side &mdash; and every one of them carries the same nine numbers. The <strong>Colour</strong> menu shades them by <strong>annual satellite PM2.5</strong>, <strong>the same air by season</strong>, <strong>this year so far</strong> (districts only &mdash; a coarser model, rebuilt monthly), <strong>surface heat</strong> from a national Landsat composite, or <strong>tree cover</strong>, <strong>green cover</strong> and <strong>built-up share</strong> from ESA WorldCover. Zoom to where you live and tap any area for all of its figures. <a href="/blog/#/posts/2026-08-09-how-to-read-the-map">How to read this map &rarr;</a></p>
             </div>
             <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
@@ -2988,8 +3006,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <option value="ulb">City / ULB</option>
                         <option value="ward">Ward</option>
                     </select>
-                    <select id="map-boundary-metric" class="form-select map-layer-btn" onchange="window.setBoundaryMetric &amp;&amp; window.setBoundaryMetric(this.value)" style="max-width:140px; padding:2px 6px; font-size:0.7rem;" title="What the boundaries are coloured by. Annual PM2.5 covers every level and is satellite-derived at ~1 km for 2024; &quot;2026 so far&quot; is a different thing — a ~40 km model calibrated against that satellite series and rebuilt monthly, so it is district-only and not a like-for-like comparison; surface heat comes from a national Landsat pre-monsoon composite; tree cover, green cover and built-up share come from ESA WorldCover 2021. Tree cover is canopy only — green also counts cropland, which is most of rural India.">
+                    <select id="map-boundary-metric" class="form-select map-layer-btn" onchange="window.setBoundaryMetric &amp;&amp; window.setBoundaryMetric(this.value)" style="max-width:140px; padding:2px 6px; font-size:0.7rem;" title="What the boundaries are coloured by. Annual PM2.5 covers every level and is satellite-derived at ~1 km for 2024; &quot;this year so far&quot; is a different thing — a ~40 km model calibrated against that satellite series and rebuilt monthly, so it is district-only and not a like-for-like comparison; surface heat comes from a national Landsat pre-monsoon composite; tree cover, green cover and built-up share come from ESA WorldCover 2021. Tree cover is canopy only — green also counts cropland, which is most of rural India.">
                         <option value="p">Colour: air</option>
+                        <option value="y">Colour: this year so far</option>
                         <option value="h">Colour: surface heat</option>
                         <option value="t">Colour: tree cover</option>
                         <option value="g">Colour: green cover</option>
@@ -3010,7 +3029,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <p id="map-boundary-note" style="font-size:0.72rem; color:var(--text-3); margin:0.4rem 0 0; text-align:center;"></p>
                     <details id="map-corr-card" style="margin:0.6rem 0.5rem 0.2rem; border-top:1px solid var(--border); padding-top:0.6rem;">
                         <summary style="cursor:pointer; font-size:0.86rem; font-weight:600; color:var(--text-2);">Does one thing go with another? Compare two measures across the areas on this map</summary>
-                        <p style="font-size:0.76rem; color:var(--text-3); margin:0.5rem 0 0;">Pick any two of the nine measures and this plots every area currently drawn on the map, one dot each, to show whether they move together — for example, whether wards with more trees are cooler.</p>
+                        <p style="font-size:0.76rem; color:var(--text-3); margin:0.5rem 0 0;">Pick any two of the five year-round measures and this plots every area currently drawn on the map, one dot each, to show whether they move together — for example, whether wards with more trees are cooler.</p>
                         <div style="display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; margin:0.6rem 0 0.5rem;">
                             <label style="font-size:0.75rem; color:var(--text-3);" for="map-corr-y">Does</label>
                             <select id="map-corr-y" class="form-select" style="max-width:150px; font-size:0.75rem; padding:2px 6px;">
