@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.158] - 2026-08-09
+
+### Fixed — the Reddit feed was carrying airline news
+
+With the feed serving again, what it was serving became visible: *"Air India names Tewolde Gebremariam new CEO"*, *"Pilot disoriented by laser light"*. Reddit's search treats a query as loose OR terms, so `air pollution OR AQI OR smog` matches on the word **air**.
+
+Measured rather than guessed. Of the 25 posts r/india's search returned, **6 named air quality in the title**. Matching on the post body instead lets nearly everything through — 23 of 25 — because a long rant about leaving the country will mention AQI once. That is a real sentiment, but it is not air-quality coverage, and shown under an unrelated headline it reads as a broken feed.
+
+So a post is kept only if **its title** says it. The per-subreddit limit goes 10 → 25 to make up the difference, at no extra request. The same expression is applied in the scheduled fetcher and the live fallback, so the cache and the fallback cannot disagree about what belongs in the feed. The Voices panel now says the feed is filtered, and why.
+
 ## [v26.6.157] - 2026-08-09
 
 ### Fixed — the Reddit feed's cache had never been filled

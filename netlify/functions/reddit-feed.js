@@ -87,7 +87,21 @@ async function fetchSequential(subs) {
   return { posts, errors };
 }
 
-async function fetchSubreddit(sub, query, limit = 10) {
+// Reddit's search treats the query as loose OR terms, so "air pollution OR AQI"
+// matches on the word "air" and the feed filled up with things like "Air India
+// names new CEO". Measured on r/india: of 25 posts the search returned, 6
+// actually named air quality in the title. Matching on the body instead lets
+// nearly everything through — a rant about leaving the country that mentions
+// AQI once is a real sentiment but is not air-quality coverage, and shown under
+// an unrelated headline it reads as a broken feed. So the title has to say it.
+// The per-subreddit limit is raised to make up the difference: same one request.
+const ABOUT_AIR = /\b(air quality|air pollution|aqi|smog|smoggy|pm ?2\.?5|pm ?10|stubble burn\w*|particulate|clean air|ncap|grap|polluted|pollution)\b/i;
+
+function isAboutAir(post) {
+  return ABOUT_AIR.test(post.title || '');
+}
+
+async function fetchSubreddit(sub, query, limit = 25) {
   const url = `https://www.reddit.com/r/${sub}/search.rss?q=${encodeURIComponent(query)}` +
               `&sort=new&restrict_sr=on&limit=${limit}`;
   const controller = new AbortController();
@@ -102,7 +116,7 @@ async function fetchSubreddit(sub, query, limit = 10) {
     });
     clearTimeout(timeout);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return parseAtom(await res.text(), sub).slice(0, limit);
+    return parseAtom(await res.text(), sub).filter(isAboutAir);
   } catch (e) {
     clearTimeout(timeout);
     throw e;
