@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 660" role="img" aria-label="How the JanVayu boundary atlas is built: four sources feed three satellite passes and one boundary pass, every polygon gets up to five numbers baked in, and seven administrative levels ship as PMTiles the browser reads by range request">
+  <style>
+    .k   { font-family:'Kalam','Comic Sans MS',cursive; }
+    .h   { font-family:'Kalam','Comic Sans MS',cursive; font-weight:700; }
+    .box { fill:#fbfaf7; stroke:#1e2a22; stroke-width:2.4; }
+    .grn { fill:#dcfce7; stroke:#146c33; stroke-width:2.4; }
+    .amb { fill:#fdf0d5; stroke:#8a5300; stroke-width:2.4; }
+    .blu { fill:#e0f2fe; stroke:#075985; stroke-width:2.4; }
+    .ln  { fill:none; stroke:#146c33; stroke-width:2.2; }
+    .lnm { fill:none; stroke:#8a5300; stroke-width:2.2; }
+    .dash{ fill:none; stroke:#5b6b60; stroke-width:1.8; stroke-dasharray:5 4; }
+  </style>
+
+  <text x="490" y="34" text-anchor="middle" class="h" font-size="26" fill="#146c33">How the boundary atlas is built</text>
+  <text x="490" y="57" text-anchor="middle" class="k" font-size="14.5" fill="#5b6b60">four sources &#183; four passes &#183; every polygon carries its own numbers</text>
+
+  <!-- ── Column 1: sources ── -->
+  <text x="30" y="92" class="h" font-size="14" fill="#5b6b60">WHAT WE START WITH</text>
+
+  <rect class="blu" x="26" y="104" width="228" height="62" rx="12"/>
+  <text x="42" y="128" class="h" font-size="15" fill="#075985">SatPM2.5 V6GL03</text>
+  <text x="42" y="147" class="k" font-size="12" fill="#5b6b60">~1 km annual grid, 2024</text>
+  <text x="42" y="161" class="k" font-size="11.5" fill="#5b6b60">satellite AOD + GEOS-Chem</text>
+
+  <rect class="blu" x="26" y="178" width="228" height="70" rx="12"/>
+  <text x="42" y="202" class="h" font-size="15" fill="#075985">Landsat 8/9 C2 L2</text>
+  <text x="42" y="221" class="k" font-size="12" fill="#5b6b60">1,516 scenes, 388 path/rows</text>
+  <text x="42" y="236" class="k" font-size="11.5" fill="#5b6b60">pre-monsoon, cloud-masked</text>
+
+  <rect class="blu" x="26" y="260" width="228" height="70" rx="12"/>
+  <text x="42" y="284" class="h" font-size="15" fill="#075985">ESA WorldCover 2021</text>
+  <text x="42" y="303" class="k" font-size="12" fill="#5b6b60">10 m, 106 tiles over India</text>
+  <text x="42" y="318" class="k" font-size="11.5" fill="#5b6b60">read at full resolution</text>
+
+  <rect class="amb" x="26" y="342" width="228" height="82" rx="12"/>
+  <text x="42" y="366" class="h" font-size="15" fill="#8a5300">Boundaries</text>
+  <text x="42" y="385" class="k" font-size="12" fill="#5b6b60">LGD &#183; Swachh Bharat Mission</text>
+  <text x="42" y="400" class="k" font-size="12" fill="#5b6b60">WB AMRUT &#183; Living Atlas</text>
+  <text x="42" y="415" class="k" font-size="11.5" fill="#5b6b60">deduplicated, panel cities folded in</text>
+
+  <!-- ── Column 2: the passes ── -->
+  <text x="300" y="92" class="h" font-size="14" fill="#5b6b60">WHAT WE DO TO IT</text>
+
+  <rect class="box" x="296" y="178" width="212" height="70" rx="12"/>
+  <text x="312" y="202" class="h" font-size="14.5" fill="#1e2a22">National heat mosaic</text>
+  <text x="312" y="220" class="k" font-size="11.5" fill="#5b6b60">1,512 scenes &#8594; one ~111 m</text>
+  <text x="312" y="234" class="k" font-size="11.5" fill="#5b6b60">grid. 22 min, 0 failures.</text>
+
+  <rect class="box" x="296" y="260" width="212" height="70" rx="12"/>
+  <text x="312" y="284" class="h" font-size="14.5" fill="#1e2a22">Tile-major land cover</text>
+  <text x="312" y="302" class="k" font-size="11.5" fill="#5b6b60">open each tile once, walk it</text>
+  <text x="312" y="316" class="k" font-size="11.5" fill="#5b6b60">in strips. 45.8 Gpx read.</text>
+
+  <rect class="grn" x="296" y="440" width="212" height="86" rx="12"/>
+  <text x="312" y="464" class="h" font-size="15" fill="#146c33">One zonal pass</text>
+  <text x="312" y="483" class="k" font-size="11.5" fill="#5b6b60">rasterise the polygons,</text>
+  <text x="312" y="497" class="k" font-size="11.5" fill="#5b6b60">bincount against the grid</text>
+  <text x="312" y="515" class="k" font-size="11.5" fill="#8a5300">sub-pixel &#8594; point sample</text>
+
+  <!-- source -> pass arrows -->
+  <path class="ln" d="M254 135 L 268 135 L 268 466 L 296 466" marker-end="url(#a)"/>
+  <path class="ln" d="M254 213 L 296 213" marker-end="url(#a)"/>
+  <path class="ln" d="M254 295 L 296 295" marker-end="url(#a)"/>
+  <path class="lnm" d="M254 383 L 282 383 L 282 486 L 296 486" marker-end="url(#am)"/>
+  <path class="ln" d="M402 248 L 402 440" marker-end="url(#a)"/>
+  <path class="ln" d="M402 330 L 402 440" marker-end="url(#a)"/>
+
+  <!-- ── Column 3: what each polygon ends up carrying ── -->
+  <text x="556" y="92" class="h" font-size="14" fill="#5b6b60">WHAT EACH AREA CARRIES</text>
+
+  <rect class="grn" x="552" y="104" width="196" height="196" rx="12"/>
+  <text x="568" y="130" class="h" font-size="15" fill="#146c33">p &#8194;annual PM2.5</text>
+  <text x="568" y="152" class="h" font-size="15" fill="#146c33">h &#8194;surface heat</text>
+  <text x="568" y="174" class="h" font-size="15" fill="#146c33">t &#8194;tree cover</text>
+  <text x="568" y="196" class="h" font-size="15" fill="#146c33">g &#8194;green cover</text>
+  <text x="568" y="218" class="h" font-size="15" fill="#146c33">b &#8194;built-up</text>
+  <text x="568" y="245" class="k" font-size="11.5" fill="#5b6b60">plus name, code and</text>
+  <text x="568" y="259" class="k" font-size="11.5" fill="#5b6b60">parent city</text>
+  <text x="568" y="273" class="k" font-size="11" fill="#8a5300">99.8&#8211;100% filled</text>
+
+  <path class="ln" d="M508 476 L 530 476 L 530 300 L 552 300" marker-end="url(#a)"/>
+
+  <!-- ── Column 4: the levels ── -->
+  <text x="790" y="92" class="h" font-size="14" fill="#5b6b60">AT SEVEN LEVELS</text>
+  <rect class="box" x="786" y="104" width="168" height="230" rx="12"/>
+  <text x="800" y="128" class="k" font-size="12.5" fill="#1e2a22">State &#183; 36</text>
+  <text x="800" y="150" class="k" font-size="12.5" fill="#1e2a22">District &#183; 785</text>
+  <text x="800" y="172" class="k" font-size="12.5" fill="#1e2a22">Block/tehsil &#183; 6,471</text>
+  <text x="800" y="194" class="k" font-size="12.5" fill="#1e2a22">Panchayat &#183; 319,287</text>
+  <text x="800" y="216" class="k" font-size="12.5" fill="#1e2a22">City/ULB &#183; 3,368</text>
+  <text x="800" y="238" class="k" font-size="12.5" fill="#1e2a22">Ward &#183; 68,596</text>
+  <text x="800" y="262" class="k" font-size="12.5" fill="#5b6b60">Village &#183; 584,615</text>
+  <text x="800" y="278" class="k" font-size="10.5" fill="#8a5300">air only &#8212; 267 MB tile</text>
+  <text x="800" y="291" class="k" font-size="10.5" fill="#8a5300">cannot ship, so it uses</text>
+  <text x="800" y="304" class="k" font-size="10.5" fill="#8a5300">the older loader</text>
+  <text x="800" y="325" class="k" font-size="11" fill="#5b6b60">urban and rural, one menu</text>
+
+  <path class="ln" d="M748 200 L 786 200" marker-end="url(#a)"/>
+
+  <!-- ── Bottom: delivery ── -->
+  <rect class="amb" x="552" y="440" width="402" height="86" rx="12"/>
+  <text x="568" y="466" class="h" font-size="15" fill="#8a5300">Shipped as PMTiles</text>
+  <text x="568" y="486" class="k" font-size="11.5" fill="#5b6b60">one file per level; the browser asks only for the</text>
+  <text x="568" y="500" class="k" font-size="11.5" fill="#5b6b60">byte ranges on screen &#8212; Delhi NCR draws ~700</text>
+  <text x="568" y="514" class="k" font-size="11.5" fill="#5b6b60">wards from about 120 KB of a 37 MB archive</text>
+
+  <path class="dash" d="M870 334 L 870 440" marker-end="url(#ad)"/>
+
+  <!-- ── Footer note ── -->
+  <text x="26" y="566" class="h" font-size="14" fill="#146c33">The point of the shape</text>
+  <text x="26" y="588" class="k" font-size="12.5" fill="#5b6b60">Every layer is one national raster and one zonal pass. Nothing is computed per city, so adding a level costs a pass, not a list.</text>
+  <text x="26" y="608" class="k" font-size="12.5" fill="#5b6b60">Heat used to be a per-city satellite search run 3,675 times &#8212; that is why it reached 142 cities and left holes. It does not any more.</text>
+  <text x="26" y="632" class="k" font-size="11.5" fill="#8a5300">Green counts cropland, so outside cities it says little; tree cover is canopy alone and is the one that tracks heat (r = &#8722;0.43 nationally).</text>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#146c33"/>
+    </marker>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a5300"/>
+    </marker>
+    <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b6b60"/>
+    </marker>
+  </defs>
+</svg>

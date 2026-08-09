@@ -1248,7 +1248,10 @@
                     try { window.updateHeatEstimate && window.updateHeatEstimate(); } catch(e) { console.warn('Urban heat init:', e); }
                     try { window.initUrbanHeatChart && window.initUrbanHeatChart(); } catch(e) { console.warn('Urban heat chart init:', e); }
                 }
-                if (panelId === 'ward-map') { try { window.initWardMap && window.initWardMap(); } catch(e) { console.warn('Ward map init:', e); } }
+                // 'ward-map' is a redirect page since v26.6.151 — nothing to
+                // initialise. The panel's JS is still here because Ask JanVayu
+                // and the share-card path reach into parts of it; it is dead
+                // weight to remove deliberately, not incidentally.
                 if (panelId === 'forecast') { try { initForecastPanel(); } catch(e) { console.warn('Forecast init:', e); } }
                 if (panelId === 'fire-tracker') { try { initFireTracker(); } catch(e) { console.warn('Fire tracker init:', e); } }
                 if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
@@ -4024,11 +4027,13 @@
         panchayat:   { label: 'Panchayat',    min: 7,  max: 10, note: '319,287 gram panchayats' },
         village:     { label: 'Village',      min: 8,  max: 12, note: '584,615 villages' },
         ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,368 urban local bodies' },
-        ward:        { label: 'Ward',         min: 9,  max: 13, note: '70,417 municipal wards' },
+        ward:        { label: 'Ward',         min: 9,  max: 13, note: '68,596 municipal wards' },
     };
     // Every level except village carries land cover. Villages are the one gap,
     // and only because their 267 MB archive cannot ship — the values exist.
     const LANDCOVER_LEVELS = ['ward', 'subdistrict', 'panchayat', 'ulb', 'district', 'state'];
+    const SEASON_LEVELS = LANDCOVER_LEVELS;
+    const SEASON_KEYS = ['w', 's', 'r', 'o'];
 
     // What the polygons are coloured by. Air is the only metric every level
     // carries; the rest come from satellite passes, and the note below names
@@ -4036,27 +4041,39 @@
     // no explanation.
     const BOUNDARY_METRICS = {
         p: {
-            label: 'Annual PM2.5', unit: 'µg/m³', levels: null,
+            label: 'Annual PM2.5', plain: 'annual PM2.5', unit: 'µg/m³', levels: null,
             band: (v) => pm25AnnualBand(v),
             ramp: 'blue is cleaner, red is dirtier',
         },
         h: {
-            label: 'Surface heat', unit: '°C', levels: ['ward', 'ulb', 'subdistrict', 'district', 'state', 'panchayat'],
+            label: 'Surface heat', plain: 'surface heat', unit: '°C', levels: ['ward', 'ulb', 'subdistrict', 'district', 'state', 'panchayat'],
             band: (v) => HEAT_BANDS.find(x => v <= x.max) || HEAT_BANDS[HEAT_BANDS.length - 1],
             ramp: 'blue is cool ground, dark red is baking',
         },
+        // Seasons share the annual bands on purpose: the same colour has to
+        // mean the same µg/m³, or switching season would look like the air
+        // changed when only the scale had. Winter reads redder and the monsoon
+        // bluer, which is exactly the thing an annual mean hides.
+        w: { label: 'Winter air', plain: 'winter air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Dec–Feb',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
+        s: { label: 'Summer air', plain: 'summer air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Mar–May',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
+        r: { label: 'Monsoon air', plain: 'monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Jun–Sep',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
+        o: { label: 'Post-monsoon air', plain: 'post-monsoon air', unit: ' µg/m³', levels: SEASON_LEVELS, season: 'Oct–Nov',
+             band: (v) => pm25AnnualBand(v), ramp: 'blue is cleaner, red is dirtier' },
         t: {
-            label: 'Tree cover', unit: '%', levels: LANDCOVER_LEVELS,
+            label: 'Tree cover', plain: 'tree cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => TREE_BANDS.find(x => v <= x.max) || TREE_BANDS[TREE_BANDS.length - 1],
             ramp: 'pale is treeless, deep green is forest',
         },
         g: {
-            label: 'Green cover', unit: '%', levels: LANDCOVER_LEVELS,
+            label: 'Green cover', plain: 'green cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
             ramp: 'brown is bare, green is vegetated — cropland counts as green',
         },
         b: {
-            label: 'Built-up', unit: '%', levels: LANDCOVER_LEVELS,
+            label: 'Built-up', plain: 'built-up land', unit: '%', levels: LANDCOVER_LEVELS,
             band: (x) => BUILT_BANDS.find(y => x <= y.max) || BUILT_BANDS[BUILT_BANDS.length - 1],
             ramp: 'pale is open ground, dark orange is dense',
         },
@@ -4121,6 +4138,18 @@
     let boundaryLevel = '';
     let boundaryMetric = 'p';
 
+    // Features seen at the current level, keyed so panning back and forth does
+    // not count a ward twice. Capped because a slow pan across the country at
+    // panchayat level would otherwise accumulate 300,000 objects.
+    const boundaryFeatures = new Map();
+    const BOUNDARY_FEATURE_CAP = 20000;
+
+    function rememberBoundaryFeature(p) {
+        if (boundaryFeatures.size >= BOUNDARY_FEATURE_CAP) return;
+        const id = `${p.c || ''}|${p.n || ''}|${p.u || ''}`;
+        if (!boundaryFeatures.has(id)) boundaryFeatures.set(id, p);
+    }
+
     function boundaryNote(msg) {
         const el = document.getElementById('map-boundary-note');
         if (el) el.textContent = msg || '';
@@ -4132,7 +4161,7 @@
         if (map && map.getZoom() < c.min) return `${c.note} — zoom in to zoom ${c.min}+ to see them.`;
         const m = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
         if (!m.levels || m.levels.indexOf(level) !== -1) {
-            return `${c.note}. Coloured by ${m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
+            return `${c.note}. Coloured by ${m.plain || m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
         }
         // Name the levels that do have it, rather than a hardcoded "wards
         // only" that went stale the moment blocks and panchayats were added.
@@ -4141,11 +4170,140 @@
                `— switch the level to see it.`;
     }
 
+    // ── Relationship: any two metrics, at whatever level is showing ─────
+    // This replaces the ward panel's correlation view, which could only ever
+    // compare the active layer against built-up, inside one of 142 cities.
+    // Here it is any pair of the five metrics at any of six levels.
+    //
+    // The honest limit, stated in the caption rather than hidden: it covers
+    // the areas whose tiles the browser has loaded at this level, not all
+    // 68,596 wards. A whole-country figure would need a precomputed stats
+    // file; this is what the map can answer truthfully by itself.
+    let boundaryCorrChart = null;
+
+    function pearson(pts) {
+        const n = pts.length;
+        if (n < 5) return null;
+        const mx = pts.reduce((s, q) => s + q.x, 0) / n;
+        const my = pts.reduce((s, q) => s + q.y, 0) / n;
+        let sxy = 0, sxx = 0, syy = 0;
+        pts.forEach(q => { const dx = q.x - mx, dy = q.y - my; sxy += dx * dy; sxx += dx * dx; syy += dy * dy; });
+        return (sxx && syy) ? sxy / Math.sqrt(sxx * syy) : 0;
+    }
+
+    window.renderBoundaryCorrelation = async function renderBoundaryCorrelation() {
+        const card = document.getElementById('map-corr-card');
+        const canvas = document.getElementById('map-corr-chart');
+        const note = document.getElementById('map-corr-note');
+        if (!card || !canvas || !note) return;
+        const xKey = (document.getElementById('map-corr-x') || {}).value || 'b';
+        const yKey = (document.getElementById('map-corr-y') || {}).value || 'h';
+        const mx = BOUNDARY_METRICS[xKey], my = BOUNDARY_METRICS[yKey];
+        if (!mx || !my) return;
+
+        if (!boundaryLevel) {
+            note.textContent = 'Pick a level from Boundaries first — this compares the areas on the map.';
+            canvas.style.display = 'none';
+            return;
+        }
+        if (xKey === yKey) {
+            note.textContent = 'Pick two different measures.';
+            canvas.style.display = 'none';
+            return;
+        }
+        const pts = [];
+        boundaryFeatures.forEach(p => {
+            const x = p[xKey], y = p[yKey];
+            if (typeof x === 'number' && typeof y === 'number') {
+                pts.push({ x, y, name: p.n || p.u || 'area' });
+            }
+        });
+        const r = pearson(pts);
+        if (r == null) {
+            canvas.style.display = 'none';
+            note.textContent = pts.length
+                ? `Only ${pts.length} area${pts.length === 1 ? '' : 's'} loaded with both measures — zoom to a town or city and try again.`
+                : `No area on screen has both ${mx.label.toLowerCase()} and ${my.label.toLowerCase()}. ` +
+                  `Zoom in until the boundaries draw, or pick measures this level carries.`;
+            return;
+        }
+        canvas.style.display = '';
+        const strength = Math.abs(r) < 0.15 ? 'barely any pattern' :
+                         Math.abs(r) < 0.35 ? 'a weak pattern' :
+                         Math.abs(r) < 0.6 ? 'a clear pattern' : 'a strong pattern';
+        const lvl = ((BOUNDARY_LEVELS[boundaryLevel] || {}).label || boundaryLevel).toLowerCase();
+        const plural = lvl.endsWith('s') ? lvl : lvl + 's';
+
+        // The headline is the finding in ordinary words. An r on its own tells
+        // a reader who already knows what r is something they could have
+        // guessed from the shape of the dots; it tells everyone else nothing.
+        const xl = mx.plain || mx.label.toLowerCase(), yl = my.plain || my.label.toLowerCase();
+        const lead = Math.abs(r) < 0.15
+            ? `Across these ${plural}, ${yl} and ${xl} do not really move together.`
+            : `Where ${xl} is higher, ${yl} tends to be ${r < 0 ? 'lower' : 'higher'}.`;
+
+        // Then make it concrete: top fifth against bottom fifth, in the units
+        // people actually feel, rather than asking anyone to read a coefficient.
+        const sorted = pts.slice().sort((a, b) => a.x - b.x);
+        const cut = Math.max(1, Math.floor(sorted.length / 5));
+        const mean = (arr) => arr.reduce((s, q) => s + q.y, 0) / arr.length;
+        const lowMean = mean(sorted.slice(0, cut));
+        const highMean = mean(sorted.slice(-cut));
+        const gap = Math.abs(highMean - lowMean);
+        const dp = my.unit === '%' ? 0 : 1;
+        const concrete = Math.abs(r) < 0.15 ? '' :
+            `The fifth with the <em>least</em> ${xl} average <strong>${lowMean.toFixed(dp)}${my.unit}</strong>; ` +
+            `the fifth with the <em>most</em> average <strong>${highMean.toFixed(dp)}${my.unit}</strong> ` +
+            `— a difference of <strong>${gap.toFixed(dp)}${my.unit}</strong>. `;
+
+        note.innerHTML =
+            `<strong style="font-size:0.86rem">${escapeHtml(lead)}</strong><br>` +
+            `<span>${concrete}Based on the ` +
+            `<strong>${pts.length.toLocaleString('en-IN')}</strong> ${plural} drawn on the map right now — ` +
+            `zoom or pan somewhere else and press Compare again to ask about a different place.</span>` +
+            `<br><span style="color:var(--text-3)">Each dot is one ${lvl}: left to right is ${escapeHtml(xl)}, ` +
+            `bottom to top is ${escapeHtml(yl)}. Statisticians would call this ${strength} ` +
+            `(r&nbsp;=&nbsp;${r.toFixed(2)}). Places differ in many ways at once, so this shows the two ` +
+            `move together — not that one causes the other.</span>`;
+
+        try { await ensureChartJs(); } catch (e) { canvas.style.display = 'none'; return; }
+        if (boundaryCorrChart) { try { boundaryCorrChart.destroy(); } catch (e) {} boundaryCorrChart = null; }
+        boundaryCorrChart = new Chart(canvas.getContext('2d'), {
+            type: 'scatter',
+            data: { datasets: [{ data: pts.slice(0, 4000), backgroundColor: 'rgba(22,163,74,0.45)', pointRadius: 2.5, pointHoverRadius: 5 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: c => `${c.raw.name}: ${c.raw.x}${mx.unit}, ${c.raw.y}${my.unit}` } },
+                },
+                scales: {
+                    x: { title: { display: true, text: `${mx.label} (${mx.unit})`, font: { size: 10 } }, ticks: { font: { size: 9 } } },
+                    y: { title: { display: true, text: `${my.label} (${my.unit})`, font: { size: 10 } }, ticks: { font: { size: 9 } } },
+                },
+            },
+        });
+    };
+
     // Re-colouring means re-styling every feature, and VectorGrid resolves
     // styles when a tile is parsed — so the layer is rebuilt. Tiles are
     // already in the browser's HTTP cache, so this is not a refetch.
     window.setBoundaryMetric = function setBoundaryMetric(metric) {
         boundaryMetric = BOUNDARY_METRICS[metric] ? metric : 'p';
+        // Season and colour are two ways of setting the same thing, so picking
+        // a non-air colour has to clear the season rather than leave the two
+        // controls disagreeing about what is on screen.
+        if (boundaryMetric !== 'p') {
+            const sel = document.getElementById('map-boundary-season');
+            if (sel) sel.value = '';
+        }
+        if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
+    };
+
+    window.setBoundarySeason = function setBoundarySeason(season) {
+        boundaryMetric = SEASON_KEYS.indexOf(season) !== -1 ? season : 'p';
+        const sel = document.getElementById('map-boundary-metric');
+        if (sel) sel.value = 'p';       // a season is still the air layer
         if (boundaryLevel) window.setBoundaryLevel(boundaryLevel);
     };
 
@@ -4157,6 +4315,10 @@
             catch (e) { boundaryNote('Boundary tile reader could not load — try again in a moment.'); return; }
         }
         if (boundaryLayer) { try { map.removeLayer(boundaryLayer); } catch (e) {} boundaryLayer = null; }
+        // Mixing wards and districts in one scatter would be meaningless, so
+        // the cache resets whenever the level does. Changing only the colour
+        // keeps it — the same features are being restyled.
+        if (level !== boundaryLevel) boundaryFeatures.clear();
         boundaryLevel = level || '';
         if (!boundaryLevel) {
             try { toggleVillagesOverlay(false); } catch (e) {}
@@ -4189,6 +4351,12 @@
         const key = metricHere ? boundaryMetric : 'p';
         const active = BOUNDARY_METRICS[key];
         const styleFor = (props) => {
+            // Every feature the layer draws passes through here, which is the
+            // only place the browser sees a boundary's full property set —
+            // the tile decoder inside VectorGrid is private, so there is no
+            // second way to read them in bulk. The relationship card below
+            // the map reads this cache.
+            if (props) rememberBoundaryFeature(props);
             const v = props && typeof props[key] === 'number' ? props[key] : null;
             return {
                 fill: true,
@@ -4212,6 +4380,18 @@
             // Every metric this feature carries, not only the one being
             // coloured — someone who clicked a ward to check its air should
             // not have to change the dropdown to learn how green it is.
+            // The seasonal cycle is the point of having seasons at all, so it
+            // gets its own line rather than four entries in the metric list.
+            const seasons = SEASON_KEYS.filter(k => typeof p[k] === 'number');
+            const seasonLine = seasons.length >= 2
+                ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">` +
+                  `<span style="color:var(--text-3);font-size:.72rem">Through the year (µg/m³)</span><br>` +
+                  seasons.map(k => {
+                      const m = BOUNDARY_METRICS[k];
+                      const peak = p[k] === Math.max(...seasons.map(j => p[j]));
+                      return `${m.label.replace(' air', '')} <strong${peak ? ' style="color:#b91c1c"' : ''}>${p[k]}</strong>`;
+                  }).join(' · ') + `</div>`
+                : '';
             const extras = ['h', 't', 'g', 'b'].filter(k => typeof p[k] === 'number');
             const land = extras.map(k => {
                 const m = BOUNDARY_METRICS[k];
@@ -4231,6 +4411,7 @@
                   `<span style="color:var(--text-3)">${pm25AnnualBand(v).label}. ` +
                   `India's annual limit is 40; the WHO guideline is 5. ` +
                   `A yearly average, not today's air.</span>`)
+                + seasonLine
                 + (land ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">${land}` +
                           `<div style="color:var(--text-3);font-size:.7rem;margin-top:.2rem">${credit}</div></div>` : '');
             L.popup({ maxWidth: 280 })

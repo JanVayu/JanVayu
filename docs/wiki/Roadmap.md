@@ -75,7 +75,11 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
 **Follow-ups still open after this phase:**
 
-- **A monthly or seasonal layer** for both villages and wards — an annual mean hides the November peak entirely, which for the Indo-Gangetic plain is most of the story.
+- [x] **Air by season** *(v26.6.152)* — the annual mean was hiding the whole story. A Delhi ward reads **94 µg/m³** for the year: **46 in the monsoon, 154 after it**. Four seasons — winter, summer, monsoon, post-monsoon — on all six shipping levels at **100%** coverage, from the twelve monthly SatPM2.5 grids.
+
+  Four rather than twelve, because twelve numbers on 400,000 polygons would roughly double every tile for detail nobody reads at map zoom, and four matches the actual structure of the Indian year. The colour scale is deliberately unchanged between seasons, so switching shows the air moving rather than the scale moving. Every feature's annual mean is checked to fall inside its own seasonal range — all 398,543 do.
+
+  The first attempt OOM-killed itself on panchayats by holding 319,287 shapely geometries at once, which is the same memory blow-up the tile builder and heat pass were already written to avoid; it streams in chunks now.
 - [x] **Green cover and built-up for blocks and panchayats** *(v26.6.149)* — **6,470/6,471 blocks (99.98%)** and **318,979/319,287 gram panchayats (99.90%)**, at full 10 m.
 
   The per-ward script could not be pointed at them: a windowed read per feature is fine for a 2 km² ward and absurd for a 500 km² block or 319,287 round trips. `build-boundary-landcover.py` turns the loop inside out — tile-major over WorldCover's 3-degree COGs, 1024-row strips clipped to the columns their polygons span, 45.8 Gpx read. It also fixes a latent bug the ward path still has: picking the tile from a polygon's centroid and reading boundless past the edge scores a tile-straddling polygon on only the part inside its own tile. Invisible at ward size, wrong for a block 22 km across.
@@ -99,10 +103,20 @@ An early-August 2026 batch that takes the maps below the ward and answers the qu
 
   **A silent-failure bug, caught by watching a total go down.** Ward coverage came back 67,527 of 70,417 — worse than the 70,368 the older per-feature script managed. The tile pass rasterises a level into one label grid, so each pixel belongs to exactly one feature; that is right for panchayats and blocks, which tile the plane, and wrong for wards, which come from three merged sources and overlap in 272 ULBs. Overlapping polygons lose their pixels to whichever was drawn last: **556 of Patna's 628 wards and 480 of Mangalore's 540** came back empty, looking exactly like ordinary missing data. Whatever the tile pass leaves short now gets a per-feature second pass — ~3,200 features, not 400,000 — and wards land at 99.93%, better than before.
 
-- **Ward-source duplication, found by chasing the overlap bug** — the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a few ULBs: Patna has 628 features across **115 distinct shapes**, Mangalore 540 across 60, Savanur 356 across 27. "Ward 1" appears 23 times in Patna. The three merged sources evidently overlap for these cities.
+- [x] **The ward atlas is now a count of places, not records** *(v26.6.151)* — **70,417 → 68,596**, and it covers *more* ground than before.
 
-  The correlations published in the 8 August post survive deduplication almost unchanged (national tree-vs-heat −0.429 either way), but the **ward counts** in that post's table were inflated — Mangalore's "540 wards" is 61 distinct ones — and a dated correction has been added there. Still open: dedupe the atlas itself, so "70,417 wards" becomes an honest count rather than 67,876 distinct shapes plus duplicates.
-- **Retire the ward panel.** Heat, green and built-up are now on the map nationally, so the panel's remaining exclusives are the correlation view and its "But…" stats. Those are worth keeping — the question is where they live.
+  Two problems, opposite in sign. The three merged sources overlap for a few dozen ULBs, leaving **2,541 byte-identical duplicate geometries**: Patna held 628 ward records across 115 distinct shapes, Mangalore 540 across 60, and "Ward 1" appeared 23 times in Patna. `dedupe-ward-atlas.py` collapses exact matches only, keeping the richest record of each set so a merge never costs a name; near-duplicates are deliberately left alone, because choosing between two similar shapes is a data question rather than a scripting one.
+
+  And the same three sources **miss 14 cities outright** — 720 wards that existed only in the older per-city panel, including **Kolkata (141), Madurai (100), Asansol (106)** and every north-eastern capital we had added by hand: Agartala, Imphal, Shillong, Itanagar, Aizawl, Kohima. This was found while planning the panel's retirement, which would otherwise have quietly deleted Kolkata from the site. `merge-panel-wards.py` folds them in with geometry and name only — every satellite figure is recomputed by the national passes, so a Kolkata ward and a Delhi ward mean the same thing.
+
+  Coverage after both: air 100%, heat 99.83%, tree/green/built 99.95%.
+
+- **ULB duplicates** — the same scan found 9 duplicate geometries at ULB level. Small, but the same class of problem and not yet fixed.
+- [x] **Ward panel retired, correlation moved onto the map** *(v26.6.151)* — the panel was a dropdown over 142 cities, each with its own baked GeoJSON. Every layer it had now covers the whole country on the map, so it goes.
+
+  Its one genuine exclusive, the correlation scatter, moved and improved: it compared the active layer against built-up inside a single city, and now compares **any two of the five measures at any of six levels**. The honest limit is stated in the caption rather than hidden — it covers the areas whose tiles the browser has loaded, with *n* printed, because a whole-country figure would need a precomputed stats file. Delhi at ward level gives heat vs tree cover *r* = −0.43 over 297 wards, which matches the national −0.429.
+
+  The `#ward-map` route still resolves, to a page pointing at the map, so existing links and bookmarks do not break. The panel's JS is left in place for now — parts of it are reached by Ask JanVayu and the share-card path, so removing it is a deliberate follow-up rather than something to do incidentally.
 - **Manipur, Mizoram, Tripura, Srinagar, Madurai, Siliguri** — the states SBM omits that no alternative source has covered yet, plus Siliguri's partial 4-of-47 AMRUT upload. Six more cities (Noida, Jamshedpur, Vellore, Kozhikode, Akola, Bhavnagar) are in SBM with only 1–13 polygons each — worth re-checking whenever upstream refreshes.
 - **Finish auditing the releases we pull from.** `indian_admin_boundaries/urban` is now enumerated and yielded 52 cities across two files. `indian_facilities`, `indian_industries` and `indian_land_features` still have assets we have never listed.
 - ~~**Mosaic two Landsat paths** for cities on a scene seam~~ — done nationally in v26.6.148, which is a mosaic of 1,512 scenes rather than two. Five of Thiruvananthapuram's six seam wards now have a value on the map; one still does not, and the ward *panel* keeps its own gap until it is retired.

@@ -4,11 +4,17 @@ The [live map](https://www.janvayu.in/#map) has a **Boundaries** menu covering
 the whole administrative hierarchy of India, and a **Colour** menu choosing what
 the polygons are shaded by. This page documents where those numbers come from.
 
-It is a different data path from the [Ward-Level Atlas](ward-map.md), which is
-the older per-city panel. The panel bakes values into one GeoJSON per city; the
-boundary map reads national PMTiles archives with per-feature properties baked
-in. Where the two disagree, they disagree because they were computed
-differently, and this page says how.
+It replaces the [Ward-Level Atlas](ward-map.md), the older per-city panel,
+which was retired in v26.6.151. The panel baked values into one GeoJSON per
+city for 142 cities; the boundary map reads national PMTiles archives with
+per-feature properties baked in, for the whole country.
+
+<img src="/blog/diagrams/atlas-layers.svg" alt="How the boundary atlas is built: four sources — SatPM2.5 annual grid, Landsat 8/9 scenes, ESA WorldCover 2021, and boundary geometry from LGD, Swachh Bharat Mission, WB AMRUT and Living Atlas — feed a national heat mosaic and a tile-major land-cover pass, then one zonal pass stamps five numbers onto every polygon: annual PM2.5, surface heat, tree cover, green cover and built-up. Those ship as PMTiles across seven administrative levels from 36 states down to 68,596 wards and 584,615 villages, read by the browser through HTTP range requests." style="width:100%;max-width:980px;display:block;margin:1.5rem auto;">
+
+The shape is the point: every layer is one national raster and one zonal pass.
+Nothing is computed per city, so adding a level costs a pass rather than a
+list — which is exactly what heat could not do before, and why it reached 142
+cities and left holes.
 
 ---
 
@@ -22,7 +28,17 @@ differently, and this page says how.
 | Gram panchayat | 319,287 | LGD | 6–10 |
 | Village | 584,615 | LGD | 7–12 |
 | City / ULB | 3,368 | SBM | 5–12 |
-| Ward | 70,417 | SBM + AMRUT + Living Atlas | 9–13 |
+| Ward | 68,596 | SBM + AMRUT + Living Atlas + panel imports | 9–13 |
+
+**The ward count changed, and it is worth saying why.** It read 70,417 until
+8 August. That was a count of *records*, not places: the three merged sources
+overlap for a few dozen ULBs, leaving **2,541 byte-identical duplicate
+geometries** — Patna held 628 ward records across 115 distinct shapes, and
+"Ward 1" appeared there twenty-three times. Collapsing those, and folding in
+**720 wards from 14 cities the three sources missed entirely** — Kolkata,
+Madurai, Asansol, and the north-eastern capitals Agartala, Imphal, Shillong,
+Itanagar, Aizawl and Kohima, all of which existed only in the older per-city
+panel — gives 68,596 distinct wards. Fewer records, more places.
 
 Boundaries via [ramSeraph/indian_admin_boundaries](https://github.com/ramSeraph/indian_admin_boundaries),
 which republishes LGD and Swachh Bharat Mission geometries.
@@ -42,6 +58,7 @@ Same menu entry, different loader underneath.
 | Colour | Source | Resolution | Levels | Notes |
 |--------|--------|-----------|--------|-------|
 | **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | 2024 annual mean. A CNN over satellite AOD plus GEOS-Chem, calibrated against ground monitors. |
+| **Air by season** | SatPM2.5 V6GL03 monthly | ~1 km | all but village | Winter (Dec–Feb), summer (Mar–May), monsoon (Jun–Sep), post-monsoon (Oct–Nov), each the mean of its months. |
 | **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all but village | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
 | **Tree cover** | ESA WorldCover 2021 | 10 m | all but village | Share under tree canopy (class 10). Cropland is *not* counted. |
 | **Green cover** | ESA WorldCover 2021 | 10 m | all but village | Share classified as vegetation — tree, shrub, grass, **cropland**, wetland. |
@@ -93,7 +110,40 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 | Block / tehsil | 6,459 / 6,471 (99.8%) |
 | Gram panchayat | 319,114 / 319,287 (99.9%) |
 | City / ULB | 3,364 / 3,368 (99.9%) |
-| Ward | 70,306 / 70,417 (99.8%) |
+| Ward | 68,481 / 68,596 (99.83%) |
+
+---
+
+## How the seasonal air layers are computed
+
+An annual mean is a bad summary of Indian air. A Delhi ward reads **94 µg/m³**
+for the year — and **46 in the monsoon, 154 after it**. The annual figure
+describes neither state, and the gap between them is most of the argument
+about what to do.
+
+`scripts/build-boundary-seasonal.py` downloads the twelve monthly SatPM2.5
+grids for the year, averages them into four seasons, and runs the same zonal
+pass as the annual layer:
+
+| Season | Months | What it captures |
+|--------|--------|------------------|
+| Winter | Dec, Jan, Feb | inversions trapping what is already there |
+| Summer | Mar, Apr, May | pre-monsoon dust; the south's cleanest air |
+| Monsoon | Jun–Sep | washout, the annual minimum |
+| Post-monsoon | Oct, Nov | stubble burning and Diwali; the peak |
+
+Each season is the mean of its months, so winter weights December, January and
+February equally rather than whichever month was processed last. All six
+shipping levels have all four seasons at **100%** coverage.
+
+The monthly files are 95 MB each; they are fetched one at a time, added into
+their season, and deleted, so peak disk is one file. Every feature is checked
+after the pass: its annual mean must fall inside its own seasonal range, and it
+does for all 398,543 of them — if it did not, a grid would be misaligned.
+
+**The colour scale does not change between seasons.** The same colour means the
+same µg/m³ whether you are looking at the monsoon or at November, so switching
+season shows the air changing rather than the scale moving under you.
 
 ---
 
@@ -101,13 +151,10 @@ ship inside the PMTiles archives. Rebuild it with `build-lst-mosaic.py`, about
 
 Two scripts, because the cheap direction depends on how big the polygons are.
 
-**Wards** use `scripts/build-ward-landcover-national.py`: one windowed
-`/vsicurl` read per ward over the remote COGs — no bulk download — counted with
-the same rasterise-and-bincount pass as everything else. **70,368 of 70,417
-wards (99.93%)** have values. That took two passes: the first left 4,046 short,
-because the script gives up on wards it cannot read rather than losing their
-neighbours to a bisection, and those failures are transient. `--fill` retries
-only the wards still missing a value and recovered 3,997 of them.
+**Wards** were first done with `scripts/build-ward-landcover-national.py`:
+one windowed `/vsicurl` read per ward over the remote COGs — no bulk download.
+They now go through the same tile-major pass as every other level, with that
+per-feature method kept as the fallback described below.
 
 **Blocks and panchayats** use `scripts/build-boundary-landcover.py`, which
 turns the loop inside out. A read per feature is fine for a 2 km² ward and
@@ -123,7 +170,7 @@ and score everything inside as it goes. 45.8 Gpx read, at full 10 m.
 | Block / tehsil | 6,470 / 6,471 (99.98%) |
 | Gram panchayat | 319,109 / 319,287 (99.94%) |
 | City / ULB | 3,367 / 3,368 (99.97%) |
-| Ward | 70,371 / 70,417 (99.93%) |
+| Ward | 68,564 / 68,596 (99.95%) |
 
 Two details worth recording, because both were nearly got wrong:
 
@@ -212,9 +259,10 @@ to 99.93%.
   would have nothing to draw. Choosing a land-cover metric at village level
   colours by annual air instead and says so.
 
-- **46 wards, 178 panchayats, one block and one ULB still have no land
-  cover.** These are sub-pixel or degenerate geometries that survive both
-  passes; they draw uncoloured rather than filled with a guess.
+- **32 wards, 178 panchayats, one block and one ULB still have no land
+  cover**, and 115 wards have no heat. These are sub-pixel or degenerate
+  geometries that survive both passes; they draw uncoloured rather than filled
+  with a guess.
 
 - **Land cover is 2021** and may lag very recent construction.
 
