@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.164] - 2026-08-10
+
+### Fixed — Ask JanVayu knew none of this week's work, and two of its facts were stale
+
+The assistant's system prompt had no idea the current-year layer, the testimony wall, the gallery or the PM2.5-first change existed — zero references to any of them. Worse, it was still telling people JanVayu covers **"all 9,015 wards across the 142 Ward Atlas cities"**, a model retired in v26.6.145, and pointing them at `#ward-map`, a panel that no longer exists. A citizen may quote this assistant to their RWA or an official, so a stale figure there is not cosmetic.
+
+Both corrected — 68,596 wards nationally, and the map link repointed — and three rules added:
+
+- **Rule 28, "what about this year?"** — the district-only CAMS layer, with the three things it must never do: merge it with the 2024 annual figure, give it for a ward or village, or call it a measurement. Its accuracy is stated as measured: r = 0.91, within ~3 µg/m³ for half of districts and 8.5 for nine in ten.
+- **Rule 29, the human record** — 250 testimonies across 107 cities and 14 languages, 31 photographs, and how to add your own. With an explicit instruction never to invent a quote or a photograph: refer to the walls, do not manufacture their contents.
+- **Rule 30, lead with PM2.5** — the same change the rest of the site made, so the assistant does not go on answering in AQI while every page around it speaks in µg/m³.
+
+### Changed — the assistant is now tested on all of it
+
+`test/ask-eval` goes from **20 prompts to 27**, and the new ones are mostly traps rather than softballs: asking for the 2026 figure *for a village* (a 40 km cell cannot resolve one), asking it to quote a testimony *word for word* (it cannot read the wall), asking why the satellite figure is from 2024 (it must not invent a publication date), and asking the ward count (it must not say 9,015).
+
+`air-query.mjs` is also now covered by `guard-site-figures`, so its figures are held to the same standard as a page. Adding it immediately surfaced three more hits — all false positives on inspection: 645 is genuinely the district count in the file the assistant reads, and 758 is the calibration sample where CAMS and the satellite overlap. The `districts` rule was narrowed to match only coverage claims ("all N districts", "India's N districts") rather than any number in front of the word, and confirmed still to catch real drift by injecting a wrong village count and watching it fail.
+
 ## [v26.6.163] - 2026-08-10
 
 ### Fixed — the social card advertised X and not YouTube, and one of its links was dead

@@ -36,13 +36,19 @@ PAGES = [
     'walkthrough/full.html', 'walkthrough/deck.html', 'walkthrough/index.html',
     'docs/wiki/Home.md',
     'app.js',
+    # The assistant states figures to citizens who may quote it to an official,
+    # so its prompt is held to the same standard as a page. Its ward count was
+    # five releases stale — 9,015 across "142 Ward Atlas cities" — before this
+    # caught it.
+    'netlify/functions/air-query.mjs',
 ]
 
 # A number near one of these is quoting somebody else's study or scheme, not
 # describing this site's coverage. Jaganathan et al. sampled 655 districts and
 # PM-eBus Sewa covers 169 cities; neither should be "corrected" to ours.
 CITATION_MARKERS = re.compile(
-    r'et\s+al\.|difference-in-differences|Lancet|PM-eBus|Sewa|study|analysis|cohort',
+    r'et\s+al\.|difference-in-differences|Lancet|PM-eBus|Sewa|study|analysis|cohort'
+    r'|calibrat|where both|sample|summarised by|summarized by',
     re.I,
 )
 CONTEXT = 200   # characters either side to inspect for those markers
@@ -93,7 +99,11 @@ RULES = [
     ('boundary_areas', [r'{n}\s+areas']),
     ('wards', [r'{n}\s+municipal\s+wards', r'all\s+{n}\s+wards']),
     ('villages', [r'{n}\s+villages']),
-    ('districts', [r'{n}\s+districts']),
+    # "N districts" on its own describes all sorts of things — a study's
+    # sample, a data file's coverage, the districts where two products
+    # overlap. Only a claim about what the site COVERS is ours to police.
+    ('districts', [r'all\s+{n}\s+districts', r'{n}\s+districts\s+(?:in|across)\s+India',
+                   r"India'?s\s+{n}\s+districts"]),
     ('panchayats', [r'{n}\s+gram\s+panchayats?']),
     ('ulbs', [r'{n}\s+(?:ULBs|urban\s+local\s+bodies)']),
 ]
