@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.166] - 2026-08-10
+
+### Fixed — the walkthroughs, README and docs had not caught up
+
+A week of changes shipped and none of the material that *describes* the site had moved with it. The figures checker polices numbers, not descriptions, so this was invisible to CI.
+
+**The conference decks** knew nothing about the current-year layer — the single most visible thing built this week — and their atlas slide still said "nine measures" full stop. Both now carry it, with the honest framing: districts only, a ~40 km model corrected against the satellite series, rebuilt monthly. The feeds slide in the long walkthrough claimed a "curated air-quality conversation" and a story-of-the-week that "rotates weekly"; it now names Reddit, YouTube and Indian news as the feeds, describes the blog section as it actually works, and its speaker note explains why X and Instagram are links rather than feeds — a question a conference audience will ask.
+
+**README** described the social feeds as "Aggregated Reddit, Twitter/X, Instagram, and news", listed `twitter-feed.js` as serving cached posts when the endpoint no longer answers at all, and still said "115+ cities" where the rest of the site says 157. Its highlights section was headed *July 2026* and led with the retired ward atlas. All rewritten, and the auto-updating schedule table — which listed three jobs — now includes the monthly current-year rebuild, both CI guards and the weekly social sweep.
+
+**The docs site** said the same things: `architecture.md` and `netlify-functions.md` both documented the X feed as working. Marked retired, with what replaced it.
+
+**`boundary-map.md` gained the method for the new layer**, which matters because the map post tells readers that is where the full method lives: why CAMS is publishable once corrected, the full-sample validation table, the four things the layer deliberately is not, and the assumption that will need re-checking when a 2025 grid appears.
+
+`ward-map.md` needed nothing — it was already marked retired and pointing at the right place with the right ward count.
+
 ## [v26.6.165] - 2026-08-10
 
 ### Fixed — the testimony wall looked untouched after 108 voices were added

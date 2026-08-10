@@ -153,6 +153,73 @@ season shows the air changing rather than the scale moving under you.
 
 ---
 
+## How "this year so far" is computed
+
+Every other air figure on the map is the **2024** annual mean, because
+SatPM2.5 V6GL03 has published nothing newer — checked rather than assumed: the
+bucket returns 404 for 2025 and 2026, annual and monthly alike. The product is
+calibrated against ground monitors before release, so the lag is the science,
+not neglect.
+
+That leaves a real question — *what about this year?* — with no answer. The
+live monitors answer "this hour", and only in cities.
+
+`scripts/build-current-year-air.py` fills the gap for **districts only**, from
+CAMS (the Copernicus atmospheric model) via the Open-Meteo air-quality
+archive, which is free, needs no key, and publishes continuously.
+
+### Why it is publishable
+
+CAMS on its own is not comparable with the satellite figures beside it: it is
+a model rather than a retrieval, and its cells are roughly 40 km. But both
+cover 2024, so they can be checked against each other. Across all **758
+districts** where both have a value:
+
+| | |
+|---|---|
+| correlation | **r = 0.910** — it tracks the spatial pattern |
+| bias | **−7.3 µg/m³** — it reads low, everywhere |
+| RMSE before correction | 9.6 µg/m³ |
+| fitted correction | `sat ≈ 0.832 × cams + 12.80` |
+| **held-out RMSE** | **5.76 µg/m³** (200 random 50/50 splits) |
+| in-sample RMSE | 5.71 — so the fit generalises rather than memorising |
+| \|error\| | under **3.1** for half the districts, under **8.5** for nine in ten |
+
+A high correlation with a steady offset is the correctable case. A fitted
+offset is applied; nothing else is.
+
+> An early 55-district pilot reported r = 0.955 and a held-out RMSE of 4.0.
+> The full sample is the honest number. A small sample of large,
+> well-separated districts flatters any spatial fit.
+
+### What it is not
+
+- **Never merged with the 2024 layer.** Separate menu entry, separate label,
+  its own line in the popup. Neither can be quoted as the other.
+- **Never drawn below district.** A 40 km cell cannot resolve a ward, let
+  alone a village; colouring one would be inventing detail the model does not
+  have.
+- **Not a measurement.** It is a corrected model, and the interface says so.
+- **Calibrated to V6GL03, not to ground truth.** If that product carries a
+  bias, this inherits it — the deliberate choice being continuity with the
+  series already on the map rather than an independent estimate.
+
+### It maintains itself
+
+`.github/workflows/current-year-air.yml` rebuilds it on the **3rd of each
+month** and commits only if the figures moved. The year is not hardcoded
+anywhere in the interface: the menu entry, the metric label and the popup
+window all read it from the data file, so the layer rolls into a new year
+without an edit.
+
+The calibration is fitted on 2024 and applied to a later year, which assumes
+the CAMS-to-satellite relationship is stable. That cannot be checked until a
+2025 or 2026 grid is published. When one is, rerunning will show whether the
+coefficients moved — and if they did, this layer was wrong and should say so
+loudly.
+
+---
+
 ## How green cover and built-up are computed
 
 Two scripts, because the cheap direction depends on how big the polygons are.
