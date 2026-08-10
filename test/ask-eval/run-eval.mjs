@@ -29,7 +29,10 @@ import { dirname, join } from 'node:path';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SUITE = JSON.parse(readFileSync(join(HERE, 'prompts.json'), 'utf8'));
-const CASES = SUITE.cases;
+// --only <id[,id]> runs a subset. Iterating on one gate should not mean
+// re-questioning the assistant 27 times and provoking the rate limiter.
+const ONLY = (() => { const i = process.argv.indexOf('--only'); return i > -1 ? process.argv[i + 1].split(',') : null; })();
+const CASES = ONLY ? SUITE.cases.filter(c => ONLY.includes(c.id)) : SUITE.cases;
 
 const AIR_QUERY_URL = process.env.AIR_QUERY_URL || 'https://www.janvayu.in/.netlify/functions/air-query';
 const GROQ_KEY = process.env.GROQ_API_KEY || '';
