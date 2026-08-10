@@ -154,9 +154,43 @@ const RECENT_DAYS = 90;
 const MIN_VIEWS = 20000;      // a video that travelled on its own
 const MIN_SUBSCRIBERS = 5000; // or a channel that is somebody
 
+// …and it has to be about India. `regionCode=IN` biases the ranking, it does
+// not restrict the results, so "Air Quality Concerns Grow Over Canadian
+// Wildfire Smoke" from a five-million-subscriber US channel passed the topic
+// filter and the subscriber floor alike: right subject, wrong continent.
+//
+// Three signals, any one of which is enough:
+//   · the channel's registered country is India;
+//   · the text names India, an Indian city or state, or something only India
+//     has — GRAP, NCAP, CPCB, CAQM, parali;
+//   · the text is written in an Indian script. A Devanagari or Tamil or
+//     Gurmukhi title is not about Canada.
+// Any one passing is deliberate. Requiring two would drop the BBC's India
+// coverage, which is filed from an account registered elsewhere.
+const INDIA_TERMS = new RegExp([
+  'india', 'indian', 'bharat', 'delhi', '\\bncr\\b', 'noida', 'gurgaon', 'gurugram', 'ghaziabad',
+  'faridabad', 'mumbai', 'kolkata', 'chennai', 'bengaluru', 'bangalore', 'hyderabad', 'pune',
+  'ahmedabad', 'lucknow', 'kanpur', 'patna', 'jaipur', 'indore', 'bhopal', 'nagpur', 'surat',
+  'varanasi', 'agra', 'ludhiana', 'amritsar', 'chandigarh', 'dehradun', 'ranchi', 'raipur',
+  'bhubaneswar', 'guwahati', 'shillong', 'byrnihat', 'srinagar', 'kochi', 'coimbatore',
+  'visakhapatnam', 'punjab', 'haryana', 'rajasthan', 'gujarat', 'maharashtra', 'bihar',
+  'jharkhand', 'odisha', 'assam', 'meghalaya', 'kerala', 'karnataka', 'telangana',
+  'uttar pradesh', 'madhya pradesh', 'tamil nadu', 'west bengal',
+  'cpcb', 'caqm', '\\bgrap\\b', '\\bncap\\b', 'parali', 'stubble', 'diwali', 'monsoon',
+].join('|'), 'i');
+
+// Devanagari, Bengali, Gurmukhi, Gujarati, Odia, Tamil, Telugu, Kannada, Malayalam.
+const INDIC_SCRIPT = /[ऀ-ൿ]/;
+
+function aboutIndia(v, channelCountry) {
+  if (channelCountry === 'IN') return true;
+  const text = `${v.title || ''} ${v.channel || ''} ${v.text || ''}`;
+  return INDIA_TERMS.test(text) || INDIC_SCRIPT.test(text);
+}
+
 // Bump when the rules above change, so cached results chosen under the old
 // ones are discarded rather than served for another four hours.
-const FEED_VERSION = 3;
+const FEED_VERSION = 4;
 
 async function fromSearchApi(key, budgetMs = 6000) {
   const videos = [], errors = [];
@@ -200,32 +234,48 @@ async function fromSearchApi(key, budgetMs = 6000) {
         (async () => {
           const chIds = [...new Set(videos.map(v => v.channelId).filter(Boolean))].slice(0, 50);
           if (!chIds.length) return { items: [] };
+          // snippet as well as statistics: it carries the channel's country,
+          // which is the cheapest reliable "is this India" signal there is.
           return JSON.parse(await getText(
-            'https://www.googleapis.com/youtube/v3/channels?part=statistics&id='
+            'https://www.googleapis.com/youtube/v3/channels?part=statistics,snippet&id='
             + chIds.join(',') + '&key=' + encodeURIComponent(key)));
         })(),
       ]);
 
-      const views = {}, subs = {};
+      const views = {}, subs = {}, country = {};
       for (const v of (vidStats.items || [])) views[v.id] = Number(v.statistics?.viewCount || 0);
-      for (const c of (chStats.items || [])) subs[c.id] = Number(c.statistics?.subscriberCount || 0);
+      for (const c of (chStats.items || [])) {
+        subs[c.id] = Number(c.statistics?.subscriberCount || 0);
+        country[c.id] = c.snippet?.country || '';
+      }
 
       const before = videos.length;
-      // Kept if the channel is established OR the video travelled on its own.
-      // Missing data counts as a pass either way: absent statistics are not
-      // evidence of slop, and dropping on them would thin the feed silently.
+      const dropped = { small: 0, foreign: 0 };
       const kept = videos.filter(v => {
+        // Is it about India? regionCode only biases the ranking, it does not
+        // restrict it, so a US channel on Canadian wildfire smoke passed every
+        // other test — right subject, wrong continent.
+        if (!aboutIndia(v, country[v.channelId])) { dropped.foreign++; return false; }
+        // Established channel, or a video that travelled on its own. Missing
+        // data passes either test: absent statistics are not evidence of slop,
+        // and dropping on them would thin the feed silently.
         const s = v.channelId in subs ? subs[v.channelId] : null;
         const w = v.videoId in views ? views[v.videoId] : null;
         if (s === null && w === null) return true;
-        return (s !== null && s >= MIN_SUBSCRIBERS) || (w !== null && w >= MIN_VIEWS);
+        if ((s !== null && s >= MIN_SUBSCRIBERS) || (w !== null && w >= MIN_VIEWS)) return true;
+        dropped.small++;
+        return false;
       });
-      kept.forEach(v => { v.views = views[v.videoId]; v.channelSubscribers = subs[v.channelId]; });
+      kept.forEach(v => {
+        v.views = views[v.videoId];
+        v.channelSubscribers = subs[v.channelId];
+        v.channelCountry = country[v.channelId] || undefined;
+      });
       videos.length = 0;
       videos.push(...kept);
       if (before - kept.length) {
-        console.log(`youtube: dropped ${before - kept.length} of ${before} search result(s) — `
-          + `channel under ${MIN_SUBSCRIBERS} subscribers and video under ${MIN_VIEWS} views`);
+        console.log(`youtube: kept ${kept.length} of ${before} search result(s) — `
+          + `dropped ${dropped.foreign} not about India, ${dropped.small} too small`);
       }
     } catch (e) {
       // If the statistics fail, keep the unfiltered search results rather than

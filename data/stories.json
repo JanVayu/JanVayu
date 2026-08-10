@@ -1,59 +1,242 @@
 {
-  "note": "Featured blog posts rotated weekly on the dashboard 'Story of the week' card. Ordered newest-ish first; rotation is deterministic by ISO week so it changes without a deploy. Edit freely.",
-  "stories": [
-    {
-      "title": "The Air Your MP Answers For",
-      "blurb": "The ward map grew from 15 to 39 cities, and the live map can now colour all 543 Lok Sabha constituencies by the air their voters breathe — plus the landfills, coal mines and red-category industrial parks upwind.",
-      "tag": "Product",
-      "url": "/blog/#/posts/2026-07-30-the-air-your-mp-answers-for"
-    },
-    {
-      "title": "We Fact-Checked Our Own Site — and Changed 33 Numbers",
-      "blurb": "We turned our own scrutiny on ourselves: a site-wide audit of every statistic against current primary sources. Here's what was wrong, and how we now check every week.",
-      "tag": "Transparency",
-      "url": "/blog/#/posts/2026-07-17-we-factchecked-ourselves"
-    },
-    {
-      "title": "The Pollution You Can't See Being Emitted",
-      "blurb": "Up to 42% of India's PM2.5 isn't emitted directly — it forms in the sky from gases like SO₂. Dust-first clean-air spending misses most of it.",
-      "tag": "Data",
-      "url": "/blog/#/posts/2026-07-08-secondary-pm25"
-    },
-    {
-      "title": "NCAP at the Finish Line: Has It Worked?",
-      "blurb": "The National Clean Air Programme's deadline has elapsed. We follow the promises and the money to see which cities delivered — and which moved backwards.",
-      "tag": "Policy",
-      "url": "/blog/#/posts/2026-04-05-ncap-deadline"
-    },
-    {
-      "title": "The $339 Billion Question: What Pollution Costs India",
-      "blurb": "Dirty air isn't only a health story — it's an economic one. Lost workdays, lower yields, and a bill worth about 9.5% of GDP.",
-      "tag": "Economics",
-      "url": "/blog/#/posts/2026-03-25-economic-cost"
-    },
-    {
-      "title": "India's Children Are Paying the Price",
-      "blurb": "Smaller lungs, higher exposure, developing brains. Why children carry a disproportionate share of the air-pollution burden.",
-      "tag": "Health",
-      "url": "/blog/#/posts/2026-04-01-children-air-pollution"
-    },
-    {
-      "title": "How Farmers Outsmart Satellites: The Stubble-Burning Shell Game",
-      "blurb": "Fire counts fell — but so did the satellites' ability to see them. A look at what the overpass-timing shift hides.",
-      "tag": "Investigation",
-      "url": "/blog/#/posts/2026-03-28-stubble-burning-satellites"
-    },
-    {
-      "title": "A City Is Not One Number: Mapping India's Air Ward by Ward",
-      "blurb": "Your city's headline AQI hides enormous variation. We map fine-particle pollution down to the municipal ward.",
-      "tag": "Data",
-      "url": "/blog/#/posts/2026-06-10-how-polluted-is-your-ward"
-    },
-    {
-      "title": "The Lancet's Causal Evidence: 1.5 Million Deaths",
-      "blurb": "Correlation isn't causation — until it is. How Jaganathan et al. 2024 established a causal link between PM2.5 and mortality in India.",
-      "tag": "Research",
-      "url": "/blog/#/posts/2026-04-08-lancet-causal-evidence"
-    }
-  ]
+ "stories": [
+  {
+   "tag": "Essay",
+   "title": "What the Air Looks Like",
+   "date": "9 Aug 2026",
+   "blurb": "Everything else on this site is a number. Thirty-one photographs are not, and it is worth saying why they are here.",
+   "url": "/blog/#/posts/2026-08-09-what-the-air-looks-like"
+  },
+  {
+   "tag": "Guide",
+   "title": "How to Read the JanVayu Map",
+   "date": "9 Aug 2026",
+   "blurb": "The map now holds a number for every place in India. Not every city — every place: all 983,149 administrative areas the country is divided into, from the 36 states down to the 584,615 villages, and every gram panchayat, block, district,…",
+   "url": "/blog/#/posts/2026-08-09-how-to-read-the-map"
+  },
+  {
+   "tag": "Explainer",
+   "title": "Why We Lead With PM2.5, Not AQI",
+   "date": "9 Aug 2026",
+   "blurb": "At a conference last week, a reader made a point worth acting on: our headline figures often led with AQI, when PM2.5 is the measure that carries the health consequences.",
+   "url": "/blog/#/posts/2026-08-09-why-pm25-not-aqi"
+  },
+  {
+   "tag": "Analysis",
+   "title": "We Were Measuring the Wrong Green",
+   "date": "8 Aug 2026",
+   "blurb": "Earlier today we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal wards, and green cover alongside it, and the two barely moved together: a national correlation of −0.07.",
+   "url": "/blog/#/posts/2026-08-08-tree-cover-answers-it"
+  },
+  {
+   "tag": "Analysis",
+   "title": "Surface Heat on Every Ward in India — and What It Showed",
+   "date": "8 Aug 2026",
+   "blurb": "The map has a new Colour menu. Alongside annual air, you can now shade any boundary by surface heat, and — for wards — by green cover and built-up share.",
+   "url": "/blog/#/posts/2026-08-08-heat-on-every-ward"
+  },
+  {
+   "tag": "Product",
+   "title": "One Map, Every Boundary in India",
+   "date": "8 Aug 2026",
+   "blurb": "Until yesterday, finding out how polluted your neighbourhood is meant knowing something you shouldn't have to know: whether the place you live is officially a ward or a village.",
+   "url": "/blog/#/posts/2026-08-08-one-map-every-boundary"
+  },
+  {
+   "tag": "Analysis",
+   "title": "Agartala Breathes Like the Coal Belt, and Nobody Was Looking",
+   "date": "7 Aug 2026",
+   "blurb": "India's Northeast is usually described in one breath: hills, forest, clean air. For most of the region that is simply true.",
+   "url": "/blog/#/posts/2026-08-07-agartala-northeast-outlier"
+  },
+  {
+   "tag": "Product",
+   "title": "Every Capital, and the Directory We Never Read",
+   "date": "7 Aug 2026",
+   "blurb": "This morning we published a post saying West Bengal's municipal wards were not openly available.",
+   "url": "/blog/#/posts/2026-08-07-every-capital-and-the-directory"
+  },
+  {
+   "tag": "Product",
+   "title": "Ninety Cities, Ward by Ward — and the One We Had to Go Somewhere Else For",
+   "date": "7 Aug 2026",
+   "blurb": "If you live in an Indian city, the number you see on the news is a city average. It is one figure standing in for a few million people, and it hides the thing you actually want to know: whether your neighbourhood breathes worse than the…",
+   "url": "/blog/#/posts/2026-08-07-ninety-cities-ward-by-ward"
+  },
+  {
+   "tag": "Product",
+   "title": "Every Village in India Is Now on the Map — Including the Ones No One Measures",
+   "date": "5 Aug 2026",
+   "blurb": "India's air pollution story is told almost entirely through its cities. Delhi in November.",
+   "url": "/blog/#/posts/2026-08-05-every-village-on-the-map"
+  },
+  {
+   "tag": "Product",
+   "title": "The Air Your MP Answers For: Our Maps Now Cover 39 Cities, 543 Constituencies, and the Places the Smoke Starts",
+   "date": "30 Jul 2026",
+   "blurb": "Until this week, our ward map could show you fifteen cities. If you lived in Patna, Ludhiana, Ghaziabad or Indore — some of the most polluted places in the country — the answer to \"how bad is my ward?\" was: we don't have the boundaries.",
+   "url": "/blog/#/posts/2026-07-30-the-air-your-mp-answers-for"
+  },
+  {
+   "tag": "Quality",
+   "title": "Testing the Chatbot to Make It Reliable",
+   "date": "22 Jul 2026",
+   "blurb": "These days we ask chatbots almost everything. Sometimes we ask them things that really matter — like whether the air outside is safe to breathe.",
+   "url": "/blog/#/posts/2026-07-22-testing-ask-janvayu"
+  },
+  {
+   "tag": "Community",
+   "title": "You Don't Need to Code to Make India's Air Data Better",
+   "date": "18 Jul 2026",
+   "blurb": "People assume there are only two ways to help a project like JanVayu: write code, or send money.",
+   "url": "/blog/#/posts/2026-07-18-how-to-contribute"
+  },
+  {
+   "tag": "Culture",
+   "title": "Why JanVayu's Mascot Is a Sparrow",
+   "date": "18 Jul 2026",
+   "blurb": "Meet Vayu Gauraiya — vayu, the air; gauraiya, the house sparrow. She's the face of Ask JanVayu, our chatbot — the little watchful friend who greets you when you come with a question.",
+   "url": "/blog/#/posts/2026-07-18-why-our-mascot-is-a-sparrow"
+  },
+  {
+   "tag": "Platform",
+   "title": "The Robots That Keep JanVayu Honest: How Routines Maintain the Platform",
+   "date": "18 Jul 2026",
+   "blurb": "A platform that holds others accountable with numbers has no business letting its own numbers rot.",
+   "url": "/blog/#/posts/2026-07-18-routines-that-keep-janvayu-honest"
+  },
+  {
+   "tag": "Data integrity",
+   "title": "We Fact-Checked Our Own Site — and Changed 33 Numbers",
+   "date": "17 Jul 2026",
+   "blurb": "JanVayu exists to hold others accountable with numbers. So the numbers had better be right.",
+   "url": "/blog/#/posts/2026-07-17-we-factchecked-ourselves"
+  },
+  {
+   "tag": "Platform",
+   "title": "A Working Language Switcher, an Accessibility Sweep, and a Much Lighter Site",
+   "date": "15 Jul 2026",
+   "blurb": "This week's releases (v26.6.58 to v26.6.71) were less about new panels and more about the plumbing: making what already exists work properly, load faster, and reach more people.",
+   "url": "/blog/#/posts/2026-07-15-multilingual-accessibility-lighter"
+  },
+  {
+   "tag": "Product",
+   "title": "What Shipped This Week: Forecasts, Fire Maps, and Pollution Beyond the Lungs",
+   "date": "14 Jul 2026",
+   "blurb": "We shipped five releases over the past few days (v26.6.43 to v26.6.47). Here is what changed and why it is useful.",
+   "url": "/blog/#/posts/2026-07-14-forecast-fire-and-beyond-the-lungs"
+  },
+  {
+   "tag": "Data",
+   "title": "The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky",
+   "date": "8 Jul 2026",
+   "blurb": "When we picture air pollution, we picture a source: a truck's exhaust, a brick kiln's chimney, a field of burning stubble, a cloud of construction dust.",
+   "url": "/blog/#/posts/2026-07-08-secondary-pm25"
+  },
+  {
+   "tag": "Research",
+   "title": "The Citation That Didn't Exist: How We Found \"Krishna et al.\" Was Really Jaganathan",
+   "date": "2 Jul 2026",
+   "blurb": "An accountability platform lives or dies by its citations. If we ask the public to trust a number — 1.72 million deaths a year, a +10 µg/m³ rise causing 8.6% more all-cause mortality — we owe them a source they can open, read, and check.",
+   "url": "/blog/#/posts/2026-07-02-citation-integrity"
+  },
+  {
+   "tag": "Product",
+   "title": "Ask JanVayu Can Now Answer About Your Ward",
+   "date": "25 Jun 2026",
+   "blurb": "When we built the Ward Atlas — a map of every municipal ward across 14 cities, coloured by air, heat, green cover and built-up area — it lived only on the map.",
+   "url": "/blog/#/posts/2026-06-25-ask-janvayu-knows-your-ward"
+  },
+  {
+   "tag": "Data",
+   "title": "Live vs Annual: The Honest Version of \"How Polluted Is Your Ward?\"",
+   "date": "11 Jun 2026",
+   "blurb": "When we built the Ward Atlas — a map that colours every municipal ward of a city by its air, heat, green cover and built-up area — we ran into a question that's easy to get wrong, and that a lot of dashboards do get wrong.",
+   "url": "/blog/#/posts/2026-06-11-live-vs-annual-honest-ward-data"
+  },
+  {
+   "tag": "Data",
+   "title": "A City Is Not One Number: Mapping India's Air Ward by Ward",
+   "date": "10 Jun 2026",
+   "blurb": "When the news says \"Delhi AQI is 320,\" it hides something important: there is no single Delhi.",
+   "url": "/blog/#/posts/2026-06-10-how-polluted-is-your-ward"
+  },
+  {
+   "tag": "Health",
+   "title": "The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story",
+   "date": "10 Jun 2026",
+   "blurb": "On a peak summer afternoon, a CSE satellite thermal survey of Delhi recorded land-surface temperatures reaching nearly 61°C in its most built-up, treeless zones while tree-covered areas like Lutyens' Delhi and the Yamuna floodplain…",
+   "url": "/blog/#/posts/2026-06-10-urban-heat-island"
+  },
+  {
+   "tag": "Platform",
+   "title": "Quality You Can Measure: Lighthouse, axe, Lazy-Loading, Mobile",
+   "date": "8 May 2026",
+   "blurb": "The same day we shipped six Learning Games and refreshed the May 2026 data, we did a quieter but arguably more important thing: we made the platform's quality measurable on every PR.",
+   "url": "/blog/#/posts/2026-05-08-quality-and-performance"
+  },
+  {
+   "tag": "Platform",
+   "title": "Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, Tambola",
+   "date": "8 May 2026",
+   "blurb": "We have shipped a self-paced Learning Games panel — six short games, all original, designed for classrooms, RWA meetings, family movie nights, and idle ten-minute browsing on a phone.",
+   "url": "/blog/#/posts/2026-05-08-learning-games"
+  },
+  {
+   "tag": "Data",
+   "title": "Data Refresh, May 2026: Latest Numbers, Updated Hero",
+   "date": "6 May 2026",
+   "blurb": "We try to publish the source-of-truth dataset for India's air quality crisis. That only works if we keep the front-of-site numbers current.",
+   "url": "/blog/#/posts/2026-05-06-data-corrections-may"
+  },
+  {
+   "tag": "Platform",
+   "title": "What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops",
+   "date": "26 Apr 2026",
+   "blurb": "JanVayu shipped its largest single update since launch this week. Here is what changed, why, and what each piece is for.",
+   "url": "/blog/#/posts/2026-04-26-shipped-this-week"
+  },
+  {
+   "tag": "Data",
+   "title": "IQAir 2025: India's Air Got Worse",
+   "date": "12 Apr 2026",
+   "blurb": "On March 24, 2026, IQAir released its eighth annual World Air Quality Report — the most comprehensive global assessment of PM2.5 pollution, covering 9,446 cities across 143 countries.",
+   "url": "/blog/#/posts/2026-04-12-iqair-2025-india"
+  },
+  {
+   "tag": "Research",
+   "title": "The Lancet's Causal Evidence: 1.5 Million Deaths (Jaganathan et al. 2024)",
+   "date": "8 Apr 2026",
+   "blurb": "For years, the relationship between air pollution and death in India has been described in the language of association.",
+   "url": "/blog/#/posts/2026-04-08-lancet-causal-evidence"
+  },
+  {
+   "tag": "Policy",
+   "title": "NCAP at the Finish Line: Has India's Clean Air Programme Worked?",
+   "date": "5 Apr 2026",
+   "blurb": "In January 2019, India launched the National Clean Air Programme with a promise: reduce particulate matter concentrations by 20 to 30 percent across 131 cities by 2024, later revised to 40 percent by 2025-26.",
+   "url": "/blog/#/posts/2026-04-05-ncap-deadline"
+  },
+  {
+   "tag": "Health",
+   "title": "India's Children Are Paying the Price",
+   "date": "1 Apr 2026",
+   "blurb": "Air pollution in India is not an abstract environmental problem. It is a child health emergency.",
+   "url": "/blog/#/posts/2026-04-01-children-air-pollution"
+  },
+  {
+   "tag": "Investigation",
+   "title": "How Farmers Outsmart Satellites: The Stubble Burning Shell Game",
+   "date": "28 Mar 2026",
+   "blurb": "Every October, as the kharif paddy harvest ends across Punjab and Haryana, a familiar ritual begins.",
+   "url": "/blog/#/posts/2026-03-28-stubble-burning-satellites"
+  },
+  {
+   "tag": "Economics",
+   "title": "The $339 Billion Question: What Pollution Costs India",
+   "date": "25 Mar 2026",
+   "blurb": "India's air pollution crisis is usually framed as a health emergency. It is that.",
+   "url": "/blog/#/posts/2026-03-25-economic-cost"
+  }
+ ]
 }
