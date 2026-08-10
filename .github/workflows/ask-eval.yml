@@ -32,12 +32,11 @@ on:
         description: 'air-query endpoint to grade (defaults to production)'
         required: false
         default: 'https://www.janvayu.in/.netlify/functions/air-query'
-  pull_request:
-    # Re-grade whenever the prompt, the suite or the harness changes — those
-    # are exactly the edits that can regress the assistant's behaviour.
-    paths:
-      - 'netlify/functions/air-query.mjs'
-      - 'test/ask-eval/**'
+# Deliberately NOT on pull_request. Grading asks the live assistant 27 real
+# questions on the shared free-tier key, so a PR trigger means every push while
+# iterating on a prompt spends users' quota — and the branch that iterates on
+# the eval is exactly the branch that would push most. Use workflow_dispatch to
+# check a prompt change before merging; the schedule covers everything else.
 
 jobs:
   eval:
