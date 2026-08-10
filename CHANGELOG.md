@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.163] - 2026-08-10
+
+### Fixed — the social card advertised X and not YouTube, and one of its links was dead
+
+The homepage card read **"Live from Reddit & X"**. X has not been readable since its API closed — it was removed from the Voices panel days ago — while YouTube search, now working on a key, was not mentioned at all. The card now reads **"Live from Reddit, YouTube & news"**, which is what actually runs.
+
+Three more faults surfaced from looking at the same card properly:
+
+- **A dead link on the live site.** The curated X list offered `@ABOROMOHANTY (CSE)` for Anumita Roychowdhury. That handle **404s**. Her account is [@AnumitaRoychowd](https://x.com/AnumitaRoychowd), verified resolving before it went in.
+- **A label that contradicted its own link**, reading `@suaboromohanty (CREA)` above a link to `x.com/SunilDahiya16`. The description under it was right; only the handle was wrong. Now `@SunilDahiya16 (CREA)`.
+- **A four-second wait for nothing on every load.** The feed still called `twitter-feed`, which reads Nitter — whose public instances have gone. Measured against production, the endpoint does not answer at all, so every visitor opening the panel waited for the timeout to expire in exchange for zero posts. The call is gone; the curated links stay, because links to a live X search are the honest thing X can still offer.
+
+The panel's own description claimed "auto-updating posts … from X/Twitter, Reddit, Instagram, and YouTube". It now names Reddit, YouTube and Indian news as the feeds, and says plainly that X and Instagram are links out rather than feeds, and why. The two search-index entries describing the panel said the same wrong thing and were corrected with it.
+
 ## [v26.6.162] - 2026-08-10
 
 ### Fixed — the YouTube feed was carrying Canadian wildfire smoke

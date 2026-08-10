@@ -1688,7 +1688,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     </div>
                     <div class="quick-link" onclick="showPanel('social-feed')">
                         <div class="quick-link-icon" style="background: #FFF7ED; color: #F97316;"><span class="si si-article" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_social_t">Social Feed</h3><p data-i18n="ql_social_d">Live from Reddit &amp; X</p></div>
+                        <div><h3 data-i18n="ql_social_t">Social Feed</h3><p data-i18n="ql_social_d">Live from Reddit, YouTube &amp; news</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('aqi-alerts')">
                         <div class="quick-link-icon" style="background: #FEF2F2; color: var(--red);"><span class="si si-notifications" style="width:20px;height:20px;"></span></div>
@@ -4696,7 +4696,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 <template id="tmpl-social-feed">
     <div class="container">
         <h2 style="font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem;">Live Social Media Feed</h2>
-        <p style="color: var(--text-2); margin-bottom: 1.5rem;" data-simple="See what people are posting right now about air pollution on Twitter, Reddit, Instagram, and YouTube. Updates automatically every 15 minutes.">Auto-updating posts about India's air quality from X/Twitter, Reddit, Instagram, and YouTube. Refreshes every 15 minutes.</p>
+        <p style="color: var(--text-2); margin-bottom: 1.5rem;" data-simple="See what people are posting right now about air pollution on Twitter, Reddit, Instagram, and YouTube. Updates automatically every 15 minutes.">Auto-updating posts about India&rsquo;s air quality from Reddit, YouTube and Indian news, refreshed every 15 minutes. X and Instagram are links out, not feeds: neither can be read without a paid or authenticated API, and we would rather send you to the live search than show a feed that is not one.</p>
 
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
             <button class="btn btn-sm" style="background: var(--green-700); color: var(--on-accent);" onclick="loadSocialFeed('all')">All</button>
@@ -6269,7 +6269,7 @@ const ROLE_CONFIG = {
             { panel: 'voices', title: 'Voices Online', desc: 'Social media sentiment archive' },
             { panel: 'downloads', title: 'Downloads', desc: 'Reports & presentations' },
             { panel: 'resources', title: 'Reading List', desc: 'Verified data sources' },
-            { panel: 'social-feed', title: 'Social Media Feed', desc: 'Reddit, Twitter, Instagram, YouTube' }
+            { panel: 'social-feed', title: 'Social Media Feed', desc: 'Reddit, YouTube and news, plus links out to X and Instagram' }
         ]
     },
     citizen: {
