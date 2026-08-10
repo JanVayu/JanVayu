@@ -38,6 +38,13 @@ const AIR_QUERY_URL = process.env.AIR_QUERY_URL || 'https://www.janvayu.in/.netl
 const GROQ_KEY = process.env.GROQ_API_KEY || '';
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 const PACE_MS = Number(process.env.EVAL_PACE_MS || 3000);
+// Retries and pacing make a heavily rate-limited run long: 27 cases at three
+// tries with backoff is ~38 minutes, which outlives a CI timeout. Being killed
+// produces no report at all, which is the worst outcome — worse than a partial
+// one. So the harness watches its own clock and stops asking, reporting what it
+// managed to grade and marking the rest ungraded.
+const BUDGET_MS = Number(process.env.EVAL_BUDGET_MS || 20 * 60 * 1000);
+const STARTED = Date.now();
 const mdOut = (() => { const i = process.argv.indexOf('--md'); return i > -1 ? process.argv[i + 1] : null; })();
 
 // ── Universal gates applied to EVERY answer ─────────────────────────────────
@@ -145,11 +152,15 @@ async function main() {
   console.log(`Ask JanVayu eval — ${CASES.length} cases → ${AIR_QUERY_URL}`);
   console.log(GROQ_KEY ? 'LLM judge + vanilla baseline: ON' : 'LLM judge: OFF (set GROQ_API_KEY to enable)');
   for (const c of CASES) {
-    let answer = '', err = null, rateLimited = false;
-    try { ({ answer, rateLimited } = await askJanVayu(c)); } catch (e) { err = e.message; }
+    let answer = '', err = null, rateLimited = false, outOfTime = false;
+    if (Date.now() - STARTED > BUDGET_MS) {
+      outOfTime = true; rateLimited = true;   // ungraded, same as a rate limit
+    } else {
+      try { ({ answer, rateLimited } = await askJanVayu(c)); } catch (e) { err = e.message; }
+    }
     let g;
     if (err) g = { pass: false, failures: [`request error: ${err}`], soft: [], words: 0 };
-    else if (rateLimited) g = { pass: false, ungraded: true, failures: [], soft: [], words: 0 };
+    else if (rateLimited) g = { pass: false, ungraded: true, reason: outOfTime ? 'out of time budget' : 'rate-limited after retries', failures: [], soft: [], words: 0 };
     else g = runGates(c, answer);
     if (rateLimited) ungraded++;
     else if (!g.pass) gateFails++;
@@ -163,6 +174,7 @@ async function main() {
     }
     rows.push({ c, answer, vanAnswer, g, jv, van });
     const mark = g.ungraded ? 'SKIP' : (g.pass ? 'PASS' : 'FAIL');
+    if (outOfTime) console.log(`  [SKIP] ${c.id} — out of time budget`);
     console.log(`  [${mark}] ${c.id} (${c.category}/${c.lang})` + (g.failures.length ? ` — ${g.failures.join('; ')}` : ''));
   }
 
@@ -173,10 +185,13 @@ async function main() {
   const AX = ['grounding', 'accuracy', 'empathy', 'tone', 'safety'];
 
   const graded = CASES.length - ungraded;
-  console.log(`\nGATES: ${graded - gateFails}/${graded} passed` + (ungraded ? ` — ${ungraded} UNGRADED (rate-limited after retries)` : '') + '.');
+  const timedOut = rows.filter(r => r.g.reason === 'out of time budget').length;
+  const throttled = ungraded - timedOut;
+  const why = [throttled ? `${throttled} rate-limited` : '', timedOut ? `${timedOut} out of time` : ''].filter(Boolean).join(', ');
+  console.log(`\nGATES: ${graded - gateFails}/${graded} passed` + (ungraded ? ` — ${ungraded} UNGRADED (${why})` : '') + '.');
   if (ungraded) {
-    console.log('  A rate-limited answer is not a pass. Re-run when the endpoint is quieter,');
-    console.log('  or raise EVAL_PACE_MS to space the requests further apart.');
+    console.log('  An ungraded case is not a pass. Re-run when the endpoint is quieter,');
+    console.log('  raise EVAL_PACE_MS to space requests out, or EVAL_BUDGET_MS to allow longer.');
   }
   if (jvScores.length) {
     console.log('JUDGE (avg 0-5)  JanVayu  vs  vanilla');
@@ -193,7 +208,7 @@ async function main() {
     }
     md += `## Per-case\n\n`;
     for (const r of rows) {
-      md += `### ${r.c.id} — ${r.c.category} (${r.c.lang}) — ${r.g.ungraded ? '⚠️ UNGRADED (rate-limited)' : (r.g.pass ? '✅ PASS' : '❌ FAIL')}\n`;
+      md += `### ${r.c.id} — ${r.c.category} (${r.c.lang}) — ${r.g.ungraded ? `⚠️ UNGRADED (${r.g.reason})` : (r.g.pass ? '✅ PASS' : '❌ FAIL')}\n`;
       md += `> ${r.c.question}\n\n`;
       if (!r.g.pass) md += `**Gate failures:** ${r.g.failures.join('; ')}\n\n`;
       if (r.g.soft.length) md += `_Soft flags:_ ${r.g.soft.join('; ')}\n\n`;
