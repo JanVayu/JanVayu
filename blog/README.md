@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 9 Aug 2026 | [What the Air Looks Like](posts/2026-08-09-what-the-air-looks-like.md) | Essay |
 | 9 Aug 2026 | [How to Read the JanVayu Map](posts/2026-08-09-how-to-read-the-map.md) | Guide |
 | 9 Aug 2026 | [Why We Lead With PM2.5, Not AQI](posts/2026-08-09-why-pm25-not-aqi.md) | Explainer |
 | 8 Aug 2026 | [We Were Measuring the Wrong Green](posts/2026-08-08-tree-cover-answers-it.md) | Analysis |
