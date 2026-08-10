@@ -125,15 +125,37 @@ async function fromChannels(budgetMs = 7000) {
   return { videos, errors };
 }
 
-// Route 2: the Data API, when a key exists. Search reaches channels we never
-// listed, which is the whole reason it is worth having.
+// Search reaches the whole of YouTube, which is the point of having it and
+// also its problem. Ordered by date it returned, top of the feed, an
+// AI-generated speculation from a channel called "AI GENETATOR" — the title
+// filter checks the subject, not whether anyone made anything. Two changes:
+//
+//   order=relevance inside a recent window, rather than order=date over
+//   everything. Pure recency ranks whatever was uploaded most recently, and
+//   generated video is uploaded constantly. Relevance within the last 90 days
+//   still gives a current feed without handing it to whoever posts most.
+//
+//   A view floor, applied only to search results. videos.list costs 1 unit
+//   against search's 100, so the view count is effectively free to fetch. The
+//   eight listed channels are known publishers and are exempt — this is for
+//   the open web, where a video nobody has watched is usually a video nobody
+//   made.
+const RECENT_DAYS = 90;
+const MIN_VIEWS = 1000;
+
+// Bump when the rules above change, so cached results chosen under the old
+// ones are discarded rather than served for another four hours.
+const FEED_VERSION = 2;
+
 async function fromSearchApi(key, budgetMs = 6000) {
   const videos = [], errors = [];
   const deadline = Date.now() + budgetMs;
+  const since = new Date(Date.now() - RECENT_DAYS * 864e5).toISOString().replace(/\.\d+/, '');
   for (const q of SEARCH_QUERIES) {
     if (Date.now() > deadline) break;
     const url = 'https://www.googleapis.com/youtube/v3/search'
-      + `?part=snippet&type=video&order=date&maxResults=10&regionCode=IN`
+      + `?part=snippet&type=video&order=relevance&maxResults=10&regionCode=IN`
+      + `&publishedAfter=${encodeURIComponent(since)}`
       + `&q=${encodeURIComponent(q)}&key=${encodeURIComponent(key)}`;
     try {
       const data = JSON.parse(await getText(url));
@@ -155,6 +177,32 @@ async function fromSearchApi(key, budgetMs = 6000) {
       errors.push(`search "${q}": ${e.message}`);
     }
   }
+
+  // One videos.list call for the whole batch — 1 unit, up to 50 ids.
+  const ids = videos.map(v => v.videoId).filter(Boolean).slice(0, 50);
+  if (ids.length) {
+    try {
+      const stats = JSON.parse(await getText(
+        'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='
+        + ids.join(',') + '&key=' + encodeURIComponent(key)));
+      const views = {};
+      for (const v of (stats.items || [])) views[v.id] = Number(v.statistics?.viewCount || 0);
+      const before = videos.length;
+      // Unknown view count is kept: a missing statistic is not evidence of
+      // slop, and dropping on absent data would quietly thin the feed.
+      const kept = videos.filter(v => !(v.videoId in views) || views[v.videoId] >= MIN_VIEWS);
+      kept.forEach(v => { v.views = views[v.videoId]; });
+      videos.length = 0;
+      videos.push(...kept);
+      if (before - kept.length) {
+        console.log(`youtube: dropped ${before - kept.length} search result(s) under ${MIN_VIEWS} views`);
+      }
+    } catch (e) {
+      // If statistics fail, keep the unfiltered search results rather than
+      // returning nothing — the title filter has already done the topic work.
+      errors.push(`statistics: ${e.message}`);
+    }
+  }
   return { videos, errors };
 }
 
@@ -173,10 +221,18 @@ exports.handler = async function (event) {
   // Serve from cache when it holds anything, applying the relevance rule on the
   // way out as well: a cache written by an older deploy should not be able to
   // put an unrelated video on the page.
+  //
+  // The version stamp is how a change to the selection rules takes effect
+  // without anyone emptying the cache by hand. Tightening the rules is
+  // pointless if four hours of cached results written under the old ones keep
+  // being served — so a cache stamped with a different version is ignored and
+  // refetched. Bump FEED_VERSION whenever what belongs in this feed changes.
   try {
     const store = getBlobStore('janvayu-feeds');
     const cached = await store.get('youtube', { type: 'json' });
-    const kept = (cached && cached.videos || []).filter(v => ABOUT_AIR.test(v.title || ''));
+    const fresh = cached && cached.feed_version === FEED_VERSION;
+    const kept = (fresh && cached.videos || []).filter(v => ABOUT_AIR.test(v.title || ''));
+    if (!fresh && cached) console.log('youtube: cache written under older rules, refetching');
     if (kept.length > 0) {
       return {
         statusCode: 200, headers,
@@ -220,6 +276,7 @@ exports.handler = async function (event) {
   try {
     const store = getBlobStore('janvayu-feeds');
     await store.setJSON('youtube', {
+      feed_version: FEED_VERSION,
       videos: videos.slice(0, 30), count: videos.length,
       source: key ? 'channel-rss + data-api' : 'channel-rss',
       fetched_at: new Date().toISOString(), seeded_by: 'live-fetch',
