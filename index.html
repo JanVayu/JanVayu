@@ -2005,9 +2005,36 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         if (__testimoniesLoaded) return;
         try {
             const res = await fetch('/data/testimonies.json');
-            if (res.ok) { CITIZEN_TESTIMONIES = await res.json(); }
+            if (res.ok) { CITIZEN_TESTIMONIES = shuffleDaily(await res.json()); }
         } catch (e) { console.warn('Testimonies failed to load:', e); }
         __testimoniesLoaded = true;
+    }
+
+    // The wall used to render in file order, which meant it opened on the same
+    // few quotes every day and whoever was appended last was never read: adding
+    // 108 field-collected voices put every one of them at position 142 or below,
+    // so the page looked untouched even as the count went from 142 to 250.
+    //
+    // A wall of testimony should not have a permanent bottom. The order is
+    // shuffled with a seed derived from the date, so every voice gets its turn
+    // at the top over time, while the order holds steady through a single day —
+    // someone can scroll back to a quote they saw an hour ago, or send it to
+    // somebody else, and find it in the same place.
+    function shuffleDaily(list) {
+        const d = new Date();
+        let seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+        const rand = () => {
+            // xorshift32 — deterministic for a given day, and good enough to
+            // deal a pack of 250 cards.
+            seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5;
+            return ((seed >>> 0) % 100000) / 100000;
+        };
+        const out = list.slice();
+        for (let i = out.length - 1; i > 0; i--) {
+            const j = Math.floor(rand() * (i + 1));
+            [out[i], out[j]] = [out[j], out[i]];
+        }
+        return out;
     }
 
     function renderTestimonies(filterLang) {
@@ -2115,7 +2142,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
             <div class="testimony-toolbar">
                 <input type="search" id="testimony-search" placeholder="Search by city, state or words&hellip;" oninput="renderTestimonies()" style="flex: 1 1 220px; min-width: 180px; padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--sans); font-size: 0.85rem; background: var(--bg-card); color: var(--ink);">
-                <span style="font-size: 0.78rem; color: var(--text-3);">Showing <strong id="testimony-count">0</strong></span>
+                <span style="font-size: 0.78rem; color: var(--text-3);">Showing <strong id="testimony-count">0</strong> &middot; <span title="The order is shuffled once a day, so every voice reaches the top of the page over time instead of whoever was added last never being read.">in a daily-shuffled order</span></span>
             </div>
 
             <div id="testimony-lang-bar" class="testimony-toolbar" style="margin-bottom: 1.5rem;"></div>
