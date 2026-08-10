@@ -4915,14 +4915,12 @@
 
         // Try Netlify Functions for Twitter/Instagram/News (with timeout, non-blocking)
         const proxyFetches = [];
-        if (filter === 'all' || filter === 'twitter') {
-            proxyFetches.push(
-                fetch('/.netlify/functions/twitter-feed', { signal: AbortSignal.timeout(4000) })
-                    .then(r => r.text())
-                    .then(t => { if (t.startsWith('{')) { const d = JSON.parse(t); return (d.posts||[]).map(p => ({ platform:'twitter', title:p.text, url:p.link, created:new Date(p.date), author:p.author, text:p.description?.substring(0,200)||'' })); } return []; })
-                    .catch(() => [])
-            );
-        }
+        // No call to twitter-feed. That endpoint reads Nitter, whose public
+        // instances have gone; measured against production it does not answer
+        // at all, so this was a guaranteed four-second wait on every load of
+        // the feed in exchange for nothing. The curated X entries below are
+        // links to live searches and accounts, which is what X can still
+        // honestly offer.
         if (filter === 'all' || filter === 'instagram') {
             proxyFetches.push(
                 fetch('/.netlify/functions/instagram-feed', { signal: AbortSignal.timeout(4000) })
@@ -5026,8 +5024,8 @@
             { platform: 'twitter', title: 'Search #DelhiAirPollution on X', url: 'https://x.com/search?q=%23DelhiAirPollution&f=live', created: new Date(), text: 'Live search results for Delhi air pollution discussions on X/Twitter. Click to see the latest posts.' },
             { platform: 'twitter', title: 'Search #DelhiSmog on X', url: 'https://x.com/search?q=%23DelhiSmog&f=live', created: new Date(), text: 'Trending discussions about Delhi smog and air quality crisis.' },
             { platform: 'twitter', title: 'Search #AirPollutionIndia on X', url: 'https://x.com/search?q=%23AirPollutionIndia&f=live', created: new Date(), text: 'Pan-India air pollution discussions, policy debates, and citizen reports.' },
-            { platform: 'twitter', title: '@ABOROMOHANTY (CSE)', url: 'https://x.com/ABOROMOHANTY', created: new Date(), text: 'Anumita Roychowdhury, CSE — leading air quality researcher and policy advocate.' },
-            { platform: 'twitter', title: '@suaboromohanty (CREA)', url: 'https://x.com/SunilDahiya16', created: new Date(), text: 'Sunil Dahiya, CREA analyst — data-driven air quality analysis.' }
+            { platform: 'twitter', title: '@AnumitaRoychowd (CSE)', url: 'https://x.com/AnumitaRoychowd', created: new Date(), text: 'Anumita Roychowdhury, CSE — leading air quality researcher and policy advocate.' },
+            { platform: 'twitter', title: '@SunilDahiya16 (CREA)', url: 'https://x.com/SunilDahiya16', created: new Date(), text: 'Sunil Dahiya, CREA analyst — data-driven air quality analysis.' }
         ];
     }
 
@@ -7243,7 +7241,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'accountability-brief', title: 'Accountability Brief (AI)', desc: 'Ward-level briefs for councillors and journalists', keywords: 'brief accountability ward councillor journalist ai llama report' },
         { id: 'resources', title: 'Reading List', desc: 'Reports, studies, expert organizations', keywords: 'resources library reading list research report study paper crea cse iqair lancet' },
         { id: 'downloads', title: 'Downloads', desc: 'PDFs, legal docs, data exports', keywords: 'download pdf export data document template rti' },
-        { id: 'social-feed', title: 'Social Media Feed', desc: 'Live posts from Reddit, X, Instagram, YouTube about air pollution', keywords: 'social media twitter x reddit instagram youtube feed live posts' },
+        { id: 'social-feed', title: 'Social Media Feed', desc: 'Live posts from Reddit, YouTube and Indian news; X and Instagram as links out', keywords: 'social media twitter x reddit instagram youtube feed live posts' },
         { id: 'aqi-story', title: 'The Air We Breathe', desc: 'Editorial story with text flowing around live AQI data', keywords: 'editorial story pretext text layout narrative air quality crisis deaths NCAP' },
         { id: 'live-news', title: 'Live News', desc: 'Auto-updating air quality news from multiple sources', keywords: 'news live updates articles headlines breaking' },
         { id: 'aqi-alerts', title: 'AQI Alerts', desc: 'Browser push notifications for dangerous AQI levels', keywords: 'alerts notifications push warning threshold' },
