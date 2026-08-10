@@ -69,6 +69,39 @@ The free tier is sufficient for the AI features in JanVayu.
 
 ---
 
+## Optional Variables
+
+The site works without these. Each one improves a single feature and nothing breaks if it is absent.
+
+### `YOUTUBE_API_KEY`
+**Used by:** `youtube-feed.js`
+
+Without it, the video feed reads eight Indian news and environment channels' public RSS feeds and keeps the videos whose titles name air quality. That needs no key and no quota, but it can only find coverage from channels we listed, and outside pollution season those channels publish nothing about air for weeks — so the feed is legitimately empty in, say, August.
+
+With it, the function also **searches** YouTube, which reaches channels nobody listed.
+
+**How to get it:**
+1. Go to [console.cloud.google.com](https://console.cloud.google.com) and sign in with any Google account.
+2. Create a project (top bar → **New Project**), or pick an existing one.
+3. **APIs & Services → Library**, search for **YouTube Data API v3**, open it, press **Enable**.
+4. **APIs & Services → Credentials → Create Credentials → API key**. Copy the key.
+5. Press **Edit API key** and under **API restrictions** choose **Restrict key** → *YouTube Data API v3*. Leave application restrictions as **None**: Netlify functions have no fixed IP to allow-list. Restricting it to one API means a leaked key can do nothing but read public YouTube data.
+6. In Netlify: **Site configuration → Environment variables → Add a variable**, name `YOUTUBE_API_KEY`, paste the value, then redeploy.
+
+**No card required.** The free quota is **10,000 units a day** and a search costs **100**, so 100 searches a day cost nothing. The function spends 300 units per cache refill — three queries — and the result is cached, so a busy day uses a fraction of a percent of the allowance.
+
+**It is read server-side only.** The key lives in the Netlify function and is never sent to the browser, so it does not need to be public like the WAQI token. Do not put it in `index.html`.
+
+**To confirm it is working**, fetch the function and look at `source`:
+
+```bash
+curl -s https://www.janvayu.in/.netlify/functions/youtube-feed | head -c 200
+```
+
+`"source": "channel-rss"` means no key is set. `"source": "channel-rss + data-api"` means the key is in use.
+
+---
+
 ## Public Key (Not a Secret)
 
 ### WAQI API Token
@@ -91,4 +124,7 @@ NETLIFY_SITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 # AI features (Groq — Llama 3.3 70B)
 GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Optional: YouTube search for the video feed (free tier, no card)
+YOUTUBE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
