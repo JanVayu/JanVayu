@@ -14,7 +14,7 @@ JanVayu uses [Netlify Functions](https://docs.netlify.com/functions/overview/) f
 
 Feeds fetched:
 - Reddit posts from r/india, r/delhi, r/indianews, r/environment, r/worldnews
-- Twitter/X posts via Nitter RSS instances (hashtags: DelhiAirQuality, DelhiPollution, CleanAirIndia, etc.)
+- ~~Twitter/X posts via Nitter RSS instances~~ — **retired.** Nitter's public instances are gone and the endpoint no longer answers at all. X is now linked, not fetched: live searches and named accounts, each verified with `scripts/verify-x-links.py` against X's public embed endpoint.
 - Google News RSS for air quality topics
 - Instagram hashtags via RSS-Bridge
 
@@ -46,7 +46,7 @@ Falls back to a live Reddit fetch if the cache is empty.
 
 #### `twitter-feed.js`
 **Endpoint:** `GET /.netlify/functions/twitter-feed`  
-**Purpose:** Returns cached Twitter/X posts via Nitter RSS from Netlify Blobs.
+**Purpose:** *Retired.* It read Nitter, whose public instances are gone; measured against production it does not answer at all. Nothing calls it — the front end links to X instead of fetching it.
 
 ---
 

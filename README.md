@@ -22,14 +22,14 @@ This is not a campaign. It is a record.
 
 ---
 
-## ✨ Recent highlights (July 2026)
+## ✨ Recent highlights (August 2026)
 
-- 🗺️ **Maps rebuilt on India's open geodata** — the Ward Atlas grew **15 → 39 cities** (SBM boundaries via [indianopenmaps.com](https://indianopenmaps.com)); the live map now colours all **543 Lok Sabha constituencies** and **785 districts** by live AQI ("the air your MP answers for"), streams Vidhan Sabha boundaries, and plots **pollution sources** (landfills, dumpsites, coal mines, CPCB red/orange industrial parks, SEZs) plus **schools and health centres** over the ward colours.
-- 🎨 **Hand-drawn diagrams throughout** — the "How JanVayu works" system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes, all in a native Excalidraw-style (`rough.js` + Kalam) engine with desktop + mobile variants.
-- 🖼️ **"The air, in pictures"** photo gallery — 31 documentary photographs (Wikimedia Commons, plus two used with the photographer’s permission), reachable from *Learn → Photo Gallery*.
-- 🔎 **Site-wide fact-check + a weekly automated fact-check routine** — every statistic and calculator constant is web-verified against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA); see [`docs/fact-check-2026-07.md`](docs/fact-check-2026-07.md). A scheduled job re-runs this weekly and opens a PR for review.
-- 📱 **Installable PWA + Web Push** — add JanVayu (and the standalone *Ask JanVayu* assistant) to your home screen; opt in to threshold alerts delivered even when the site is closed.
-- 🧭 **Conference-ready visual refresh** — self-hosted Fraunces headline type, labelled section headers, a decluttered dashboard, and version-stamped assets so every deploy appears on the first refresh.
+- 📅 **"This year so far" on the map** — every air figure is the 2024 satellite annual mean, because SatPM2.5 V6GL03 has published nothing newer. A second **district-level** layer now answers the question everyone asks: CAMS via Open-Meteo, corrected against the satellite series on 2024 (r = 0.91, held-out RMSE 5.76 µg/m³ over 200 splits), **rebuilt on the 3rd of each month** by `current-year-air.yml`. Never merged with the annual layer, never drawn below district, never called a measurement.
+- 📏 **PM2.5 leads everywhere** — a fair criticism from a conference. AQI is a unitless index reporting only its worst pollutant and cannot be averaged over a year, while every Indian limit, health study and NCAP target is written in µg/m³ of PM2.5. Explained in [Why We Lead With PM2.5, Not AQI](blog/posts/2026-08-09-why-pm25-not-aqi.md).
+- 🗣️ **Field Testimony 142 → 250 voices** across 107 cities and 14 languages. Field-collected quotes carry their collection date and mode, every speaker consented and is named as they asked, and code-mixed speech is badged as spoken. The wall is shuffled daily so no voice sits permanently at the bottom.
+- 📡 **The feeds tell the truth about themselves** — Reddit restored through its public Atom feed after the JSON API began refusing datacentre IPs; YouTube fetching channel RSS, and searching when a free Data API key is set; X and Instagram reduced to **links out**, because neither can be read without a paid or authenticated API. Every X link is verified against X's public embed endpoint by `scripts/verify-x-links.py` before it ships.
+- 🧭 **Three things now check themselves** — `check-site-figures.py` recomputes every stated figure from the data and fails CI on drift (it caught a photo count five releases stale and a ward count five releases stale); `build-blog-index.py` generates the homepage blog list from the blog itself; and the current-year layer rebuilds monthly.
+- 📖 **New posts** — [How to Read the JanVayu Map](blog/posts/2026-08-09-how-to-read-the-map.md), a plain reader's manual, and [What the Air Looks Like](blog/posts/2026-08-09-what-the-air-looks-like.md), on why a data site carries 31 photographs of something 2.5 µm across.
 
 ---
 
@@ -41,14 +41,14 @@ This is not a campaign. It is a record.
 | 2 | **Simple Language Mode** | Site-wide plain language toggle in the header that switches all content to simple language (persisted via sessionStorage) |
 | 3 | **Glossary (Ctrl+K)** | Searchable glossary overlay for air quality terms, accessible via Ctrl+K keyboard shortcut |
 | 4 | **Intro Tour** | Guided walkthrough for first-time visitors highlighting key sections and features |
-| 5 | **Real-Time AQI Dashboard** | Live air quality across 115+ Indian cities via WAQI/CPCB — the core ~33 auto-refresh every 10 minutes, the rest are fetched on demand when selected |
+| 5 | **Real-Time AQI Dashboard** | Live PM2.5 and AQI across 157 Indian cities via WAQI/CPCB — the core ~33 auto-refresh every 10 minutes, the rest are fetched on demand when selected |
 | 6 | **Interactive AQI Map** | Leaflet.js-powered map with station-level AQI markers across India, plus toggleable accountability and source layers from [indianopenmaps.com](https://indianopenmaps.com): live-AQI choropleths by **Lok Sabha constituency** ("the air your MP answers for") and **district**, **assembly-constituency** boundaries (vector tiles), and a **pollution-sources** overlay — landfills, dumpsites, coal mines, CPCB red/orange-category industrial parks, SEZs |
 | 7 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, Karolinska, and IHME studies |
 | 8 | **Economic Cost Tracker** | Quantified GDP and productivity losses ($339.4B / 9.5% GDP) |
 | 9 | **Policy Tracker** | NCAP progress, GRAP stage history, Supreme Court and NGT orders |
 | 10 | **Citizen Voices Archive** | Social media posts, testimonies, viral content from affected communities |
 | 11 | **Accountability Tracker** | Institutional and official responses to pollution episodes |
-| 12 | **Social Media Feeds** | Aggregated Reddit, Twitter/X, Instagram, and news coverage on air quality |
+| 12 | **Social Media Feeds** | Live from Reddit (public Atom feed), YouTube (channel RSS, plus search when a free Data API key is set) and Indian news. X and Instagram are **links out, not feeds** — neither can be read without a paid or authenticated API, so the site links to live searches and named accounts instead, each one verified against X's public embed endpoint before it ships |
 | 13 | **Daily Email Digest** | Subscribers receive a daily AQI summary for their city at 8:00 AM IST |
 | 14 | **AQI Calculator** | Interactive tool for citizens to understand AQI breakpoints and health advice |
 | 15 | **RTI Templates** | Ready-to-use Right to Information templates for pollution accountability |
@@ -155,6 +155,10 @@ JanVayu is designed as a lightweight, zero-framework architecture with server-si
 | Social/news feed refresh | Every 4 hours | `scheduled-fetch.mjs` (Netlify Scheduled Function) |
 | Daily AQI email digest | Daily at 8:00 AM IST | `daily-digest.mjs` (Netlify Scheduled Function) |
 | Live AQI dashboard refresh | Every 10 minutes | Client-side JavaScript (WAQI API) |
+| Current-year district air layer | 3rd of each month | `current-year-air.yml` → `scripts/build-current-year-air.py` |
+| Stated figures vs the data | Every push and PR | `guard-site-figures` → `scripts/check-site-figures.py` |
+| Homepage blog list vs the blog | Every push and PR | `scripts/build-blog-index.py --check` |
+| Social + news sweep for the Voices panel | Mondays, 04:00 UTC | Scheduled Claude routine (opens a branch for review) |
 
 ---
 
@@ -183,7 +187,7 @@ JanVayu/
 │       ├── scheduled-fetch.mjs         # Cron: fetches all feeds every 4 hours
 │       ├── daily-digest.mjs            # Cron: sends daily AQI email digest
 │       ├── reddit-feed.js              # API: serves cached Reddit posts
-│       ├── twitter-feed.js             # API: serves cached Twitter/X posts
+│       ├── twitter-feed.js             # API: retired — read Nitter, whose public instances are gone; nothing calls it
 │       ├── news-proxy.js               # API: serves cached news articles
 │       ├── instagram-feed.js           # API: serves cached Instagram posts
 │       ├── feed-status.js              # API: reports feed freshness and health

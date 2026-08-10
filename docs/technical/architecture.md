@@ -56,7 +56,7 @@ The entire front-end lives in `index.html` — inline CSS and JavaScript, no bui
 Social media and news APIs are fetched via Netlify Functions to avoid CORS issues and protect API keys. The client never touches these APIs directly.
 
 ### Blob Caching
-The `scheduled-fetch.mjs` function runs every 4 hours and writes all feed data (Reddit, Twitter/X, news, Instagram) to Netlify Blobs. When users request feeds, the on-demand functions serve instantly from the cache — eliminating latency and API rate limits.
+The `scheduled-fetch.mjs` function runs every 4 hours and writes feed data (Reddit, news; Instagram is attempted and normally returns nothing) to Netlify Blobs. When users request feeds, the on-demand functions serve instantly from the cache — eliminating latency and API rate limits.
 
 ### Client-Side AQI
 The WAQI API is called directly from the browser every 10 minutes. The token is a free-tier public key. This means real-time AQI data works without any server-side infrastructure.
@@ -93,7 +93,7 @@ JanVayu/
         ├── scheduled-fetch.mjs   # Cron: all feeds, every 4h
         ├── daily-digest.mjs      # Cron: email digest, 8am IST
         ├── reddit-feed.js        # API: cached Reddit posts
-        ├── twitter-feed.js       # API: cached Twitter/X posts
+        ├── twitter-feed.js       # API: retired — read Nitter, whose public instances are gone
         ├── news-proxy.js         # API: cached news articles
         ├── instagram-feed.js     # API: cached Instagram posts
         ├── feed-status.js        # API: feed freshness health check
