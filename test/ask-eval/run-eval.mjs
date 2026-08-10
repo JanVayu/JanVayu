@@ -37,7 +37,13 @@ const CASES = ONLY ? SUITE.cases.filter(c => ONLY.includes(c.id)) : SUITE.cases;
 const AIR_QUERY_URL = process.env.AIR_QUERY_URL || 'https://www.janvayu.in/.netlify/functions/air-query';
 const GROQ_KEY = process.env.GROQ_API_KEY || '';
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
-const PACE_MS = Number(process.env.EVAL_PACE_MS || 3000);
+// 20 seconds between questions, not 3. The endpoint shares one free-tier Groq
+// key with every real visitor, and its limit is tokens-per-minute: a fast sweep
+// does not just fail itself, it makes the assistant answer "I'm busy" to actual
+// people for as long as it runs. Measured the hard way — four sweeps in an hour
+// took a clean 26/27 down to 19 of 27 ungraded. Twenty seconds puts 27 cases at
+// roughly fifteen minutes, inside the budget, without crowding anyone out.
+const PACE_MS = Number(process.env.EVAL_PACE_MS || 20000);
 // Retries and pacing make a heavily rate-limited run long: 27 cases at three
 // tries with backoff is ~38 minutes, which outlives a CI timeout. Being killed
 // produces no report at all, which is the worst outcome — worse than a partial

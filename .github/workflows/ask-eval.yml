@@ -16,10 +16,16 @@ name: Ask JanVayu eval
 #     plain model for comparison. It needs GROQ_API_KEY as a repository
 #     secret. If the secret is absent the run still does the gates and says
 #     the judge was skipped — a missing key must not look like a pass.
+#
+# This grades PRODUCTION, and production shares one free-tier Groq key with
+# every real visitor. A fast sweep does not merely fail itself: it makes the
+# assistant tell actual people it is busy for as long as the sweep runs. Hence
+# 20 seconds between questions and a schedule at 01:30 IST. Do not speed this
+# up to make CI feel snappier — the cost lands on citizens, not on the runner.
 
 on:
   schedule:
-    - cron: '0 5 * * 1'      # Mondays, 05:00 UTC — after the weekly social sweep
+    - cron: '0 20 * * 0'     # Sundays 20:00 UTC = 01:30 IST Monday, when India is asleep
   workflow_dispatch:
     inputs:
       endpoint:
