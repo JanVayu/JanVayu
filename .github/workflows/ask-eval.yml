@@ -1,0 +1,99 @@
+name: Ask JanVayu eval
+
+# The assistant is the one part of JanVayu that composes its own sentences, so
+# it is the one part that can invent a source, misstate a limit, or quietly go
+# stale when the site around it changes. test/ask-eval exists to catch that,
+# and until now it only ran when somebody remembered to run it.
+#
+# Two layers, and the split matters:
+#
+#   · The deterministic gates need no API key and no model. They catch
+#     fabricated orders and schemes, markdown leaking into plain-text answers,
+#     English source tags inside a Hindi reply, the debunked "70% of global"
+#     claim, and each case's own must/should patterns. These are hard failures.
+#
+#   · The LLM judge scores five axes and runs the same question through a
+#     plain model for comparison. It needs GROQ_API_KEY as a repository
+#     secret. If the secret is absent the run still does the gates and says
+#     the judge was skipped — a missing key must not look like a pass.
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'      # Mondays, 05:00 UTC — after the weekly social sweep
+  workflow_dispatch:
+    inputs:
+      endpoint:
+        description: 'air-query endpoint to grade (defaults to production)'
+        required: false
+        default: 'https://www.janvayu.in/.netlify/functions/air-query'
+  pull_request:
+    # Re-grade whenever the prompt, the suite or the harness changes — those
+    # are exactly the edits that can regress the assistant's behaviour.
+    paths:
+      - 'netlify/functions/air-query.mjs'
+      - 'test/ask-eval/**'
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Grade the live assistant
+        id: run
+        env:
+          AIR_QUERY_URL: ${{ github.event.inputs.endpoint || 'https://www.janvayu.in/.netlify/functions/air-query' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          node test/ask-eval/run-eval.mjs --md eval-report.md | tee eval.log
+        continue-on-error: true
+
+      - name: Say plainly whether the judge ran
+        run: |
+          if [ -z "${{ secrets.GROQ_API_KEY }}" ]; then
+            echo "::notice::LLM judge skipped — no GROQ_API_KEY secret. The deterministic gates still ran; scores are absent, not zero."
+          else
+            echo "::notice::LLM judge ran alongside the gates."
+          fi
+
+      - name: Put the result in the run summary
+        if: always()
+        run: |
+          {
+            echo "## Ask JanVayu eval"
+            echo
+            grep -E '^GATES:' eval.log || true
+            echo
+            echo '<details><summary>Per-case results</summary>'
+            echo
+            echo '```'
+            grep -E '^\s+\[(PASS|FAIL)\]' eval.log || true
+            echo '```'
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-eval-report
+          path: |
+            eval-report.md
+            eval.log
+          retention-days: 90
+
+      # The grade is only worth having if a regression stops something. A gate
+      # failure means the assistant said something it must not — that fails the
+      # build rather than filing a note nobody reads.
+      - name: Fail if any gate failed
+        run: |
+          if grep -qE '^\s+\[FAIL\]' eval.log; then
+            echo "::error::One or more Ask JanVayu gates failed — see the summary and the uploaded report."
+            exit 1
+          fi
+          echo "All gates passed."
