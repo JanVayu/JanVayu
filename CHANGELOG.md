@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.165] - 2026-08-10
+
+### Fixed — the testimony wall looked untouched after 108 voices were added
+
+The count said 250, the language chips gained Nepali, and the page opened on exactly the same quotes it always had. The wall rendered in file order and the new field-collected entries were appended, so **all 108 of them sat at position 142 or below** — past the fold, effectively unread. Anyone who opened it saw no change, which is a fair reading of "not updated": the visible page genuinely wasn't.
+
+A wall of testimony should not have a permanent bottom. The order is now shuffled with a seed taken from the date, so every voice reaches the top over time instead of whoever was added last never being read. The order holds steady through a single day, so a quote seen an hour ago is still where it was and can be sent to someone else. Search, the language filter and the counts are unaffected.
+
+Measured after the change: 3 of the opening 8 cards are field-collected, against 0 before, which is about what 108 in 250 should give.
+
 ## [v26.6.164] - 2026-08-10
 
 ### Fixed — Ask JanVayu knew none of this week's work, and two of its facts were stale
