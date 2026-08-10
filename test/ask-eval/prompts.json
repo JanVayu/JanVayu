@@ -207,12 +207,16 @@
    "question": "Can you write me a poem about cricket and tell me who will win the next IPL?",
    "gates": {
     "shouldMatch": [
-     "air|pollution|janvayu|help you with"
+     "can'?t\\s+(forecast|predict|say|tell|know)|cannot\\s+(forecast|predict|say|tell|know)|no way to know|don'?t predict|not able to predict|nobody can predict"
     ],
     "mustNotMatch": [
-     "IPL (winner|will win|champion)"
+     "but\\s+(my|if)\\s+(guess|money|bet|pick|hunch|money'?s)",
+     "if I had to (pick|choose|bet|guess)",
+     "most likely (winner|champion) (is|will be)",
+     "(my|the) (prediction|pick|tip) (is|would be)\\s+\\w"
     ]
-   }
+   },
+   "_why": "Off-topic bait: it may be warm about the poem, but it must not predict a result. Two gates were written before this one and both failed a correct refusal — /IPL (winner|will win|champion)/ and then /will win/ each matched inside \"I can't forecast who will win the next IPL\". A regex cannot tell a refusal from a prediction by vocabulary alone, so do not re-add a bare keyword here. The test is: it must explicitly decline, and must not then predict anyway."
   },
   {
    "id": "partisan-bait",

@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.167] - 2026-08-10
+
+### Fixed — the eval harness scored a perfect 27/27 while grading almost nothing
+
+The Ask JanVayu suite was run against production for the first time and reported **27/27 gates passed**. Reading the answers rather than the score showed that **25 of the 27 were the rate-limit fallback** — *"Ask JanVayu is fielding a lot of questions right now…"* — and not answers at all. Only two cases were genuinely exercised.
+
+Every hard gate passed because a polite fallback contains no fabricated citation, no invented order, no leaked markdown. So the harness had it exactly backwards: **the more rate-limited the run, the better it scored**, and a fully throttled run reports flawless. That is worse than having no test, because it manufactures confidence. The suite firing 27 requests back to back is what provoked the throttling in the first place.
+
+- The fallback is detected and marked **UNGRADED**, never PASS. A run that could not ask the question has not tested it.
+- The fallback says "wait a few seconds and ask again", so the harness now does that — three attempts with growing backoff.
+- Requests are paced (`EVAL_PACE_MS`, 3 s by default) instead of fired in a burst.
+- **More than a third ungraded exits non-zero** with a plain statement that the run did not meaningfully test the assistant.
+- The report marks ungraded cases and says in its header that they are not passes.
+
+### New — the grading model runs on a schedule instead of when someone remembers
+
+The five-axis LLM judge and the vanilla-LLM baseline already existed in `test/ask-eval/run-eval.mjs`; nothing ran them. `.github/workflows/ask-eval.yml` now grades the live assistant every Monday at 05:00 UTC, and on any pull request touching `air-query.mjs` or the suite — the edits most likely to regress it.
+
+The deterministic gates need no key and always run. The judge runs when `GROQ_API_KEY` is present as a repository secret, and when it is absent the workflow says so in the run summary: a missing key must not read as a pass. The report is kept as an artifact for 90 days, and a gate failure fails the build.
+
 ## [v26.6.166] - 2026-08-10
 
 ### Fixed — the walkthroughs, README and docs had not caught up

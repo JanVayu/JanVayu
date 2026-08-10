@@ -1,0 +1,107 @@
+name: Ask JanVayu eval
+
+# The assistant is the one part of JanVayu that composes its own sentences, so
+# it is the one part that can invent a source, misstate a limit, or quietly go
+# stale when the site around it changes. test/ask-eval exists to catch that,
+# and until now it only ran when somebody remembered to run it.
+#
+# Two layers, and the split matters:
+#
+#   · The deterministic gates need no API key and no model. They catch
+#     fabricated orders and schemes, markdown leaking into plain-text answers,
+#     English source tags inside a Hindi reply, the debunked "70% of global"
+#     claim, and each case's own must/should patterns. These are hard failures.
+#
+#   · The LLM judge scores five axes and runs the same question through a
+#     plain model for comparison. It needs GROQ_API_KEY as a repository
+#     secret. If the secret is absent the run still does the gates and says
+#     the judge was skipped — a missing key must not look like a pass.
+#
+# This grades PRODUCTION, and production shares one free-tier Groq key with
+# every real visitor. A fast sweep does not merely fail itself: it makes the
+# assistant tell actual people it is busy for as long as the sweep runs. Hence
+# 20 seconds between questions and a schedule at 01:30 IST. Do not speed this
+# up to make CI feel snappier — the cost lands on citizens, not on the runner.
+
+on:
+  schedule:
+    - cron: '0 20 * * 0'     # Sundays 20:00 UTC = 01:30 IST Monday, when India is asleep
+  workflow_dispatch:
+    inputs:
+      endpoint:
+        description: 'air-query endpoint to grade (defaults to production)'
+        required: false
+        default: 'https://www.janvayu.in/.netlify/functions/air-query'
+# Deliberately NOT on pull_request. Grading asks the live assistant 27 real
+# questions on the shared free-tier key, so a PR trigger means every push while
+# iterating on a prompt spends users' quota — and the branch that iterates on
+# the eval is exactly the branch that would push most. Use workflow_dispatch to
+# check a prompt change before merging; the schedule covers everything else.
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    # Above the harness's own 20-minute budget, so the harness ends the run and
+    # writes a report rather than the runner killing it with nothing to show.
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Grade the live assistant
+        id: run
+        env:
+          AIR_QUERY_URL: ${{ github.event.inputs.endpoint || 'https://www.janvayu.in/.netlify/functions/air-query' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          EVAL_BUDGET_MS: '1200000'   # 20 minutes of asking, then report
+        run: |
+          node test/ask-eval/run-eval.mjs --md eval-report.md | tee eval.log
+        continue-on-error: true
+
+      - name: Say plainly whether the judge ran
+        run: |
+          if [ -z "${{ secrets.GROQ_API_KEY }}" ]; then
+            echo "::notice::LLM judge skipped — no GROQ_API_KEY secret. The deterministic gates still ran; scores are absent, not zero."
+          else
+            echo "::notice::LLM judge ran alongside the gates."
+          fi
+
+      - name: Put the result in the run summary
+        if: always()
+        run: |
+          {
+            echo "## Ask JanVayu eval"
+            echo
+            grep -E '^GATES:' eval.log || true
+            echo
+            echo '<details><summary>Per-case results</summary>'
+            echo
+            echo '```'
+            grep -E '^\s+\[(PASS|FAIL)\]' eval.log || true
+            echo '```'
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-eval-report
+          path: |
+            eval-report.md
+            eval.log
+          retention-days: 90
+
+      # The grade is only worth having if a regression stops something. A gate
+      # failure means the assistant said something it must not — that fails the
+      # build rather than filing a note nobody reads.
+      - name: Fail if any gate failed
+        run: |
+          if grep -qE '^\s+\[FAIL\]' eval.log; then
+            echo "::error::One or more Ask JanVayu gates failed — see the summary and the uploaded report."
+            exit 1
+          fi
+          echo "All gates passed."

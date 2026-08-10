@@ -29,11 +29,28 @@ import { dirname, join } from 'node:path';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SUITE = JSON.parse(readFileSync(join(HERE, 'prompts.json'), 'utf8'));
-const CASES = SUITE.cases;
+// --only <id[,id]> runs a subset. Iterating on one gate should not mean
+// re-questioning the assistant 27 times and provoking the rate limiter.
+const ONLY = (() => { const i = process.argv.indexOf('--only'); return i > -1 ? process.argv[i + 1].split(',') : null; })();
+const CASES = ONLY ? SUITE.cases.filter(c => ONLY.includes(c.id)) : SUITE.cases;
 
 const AIR_QUERY_URL = process.env.AIR_QUERY_URL || 'https://www.janvayu.in/.netlify/functions/air-query';
 const GROQ_KEY = process.env.GROQ_API_KEY || '';
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+// 20 seconds between questions, not 3. The endpoint shares one free-tier Groq
+// key with every real visitor, and its limit is tokens-per-minute: a fast sweep
+// does not just fail itself, it makes the assistant answer "I'm busy" to actual
+// people for as long as it runs. Measured the hard way — four sweeps in an hour
+// took a clean 26/27 down to 19 of 27 ungraded. Twenty seconds puts 27 cases at
+// roughly fifteen minutes, inside the budget, without crowding anyone out.
+const PACE_MS = Number(process.env.EVAL_PACE_MS || 20000);
+// Retries and pacing make a heavily rate-limited run long: 27 cases at three
+// tries with backoff is ~38 minutes, which outlives a CI timeout. Being killed
+// produces no report at all, which is the worst outcome — worse than a partial
+// one. So the harness watches its own clock and stops asking, reporting what it
+// managed to grade and marking the rest ungraded.
+const BUDGET_MS = Number(process.env.EVAL_BUDGET_MS || 20 * 60 * 1000);
+const STARTED = Date.now();
 const mdOut = (() => { const i = process.argv.indexOf('--md'); return i > -1 ? process.argv[i + 1] : null; })();
 
 // ── Universal gates applied to EVERY answer ─────────────────────────────────
@@ -68,7 +85,17 @@ function runGates(caseObj, answer) {
   return { pass: failures.length === 0, failures, soft, words };
 }
 
-async function askJanVayu(c) {
+// When the model is rate-limited, air-query returns a polite data-only reply
+// instead of an answer. It contains no fabrication, so every hard gate passes
+// — which meant a fully rate-limited run scored a perfect 27/27 while grading
+// almost nothing. A run that could not ask the question has not tested it, and
+// must never report a pass. Measured on the first real run: 25 of 27 cases
+// came back as this fallback because the suite fired them back to back.
+const FALLBACK_MARK = /fielding a lot of questions right now|couldn't write a full answer this time/i;
+
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+async function askOnce(c) {
   const res = await fetch(AIR_QUERY_URL, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ question: c.question, city: c.city, lang: c.lang }),
@@ -76,6 +103,18 @@ async function askJanVayu(c) {
   });
   const data = await res.json().catch(() => ({}));
   return (data.answer || '').trim();
+}
+
+// The fallback itself says "wait a few seconds and ask again", so do exactly
+// that rather than grading the apology.
+async function askJanVayu(c, { tries = 3, backoffMs = 12000 } = {}) {
+  let answer = '';
+  for (let i = 0; i < tries; i++) {
+    answer = await askOnce(c);
+    if (!FALLBACK_MARK.test(answer)) return { answer, rateLimited: false };
+    if (i < tries - 1) await sleep(backoffMs * (i + 1));
+  }
+  return { answer, rateLimited: true };
 }
 
 async function groqChat(messages) {
@@ -115,21 +154,33 @@ const avg = (arr) => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) 
 
 async function main() {
   const rows = [];
-  let gateFails = 0;
+  let gateFails = 0, ungraded = 0;
   console.log(`Ask JanVayu eval — ${CASES.length} cases → ${AIR_QUERY_URL}`);
   console.log(GROQ_KEY ? 'LLM judge + vanilla baseline: ON' : 'LLM judge: OFF (set GROQ_API_KEY to enable)');
   for (const c of CASES) {
-    let answer = '', err = null;
-    try { answer = await askJanVayu(c); } catch (e) { err = e.message; }
-    const g = err ? { pass: false, failures: [`request error: ${err}`], soft: [], words: 0 } : runGates(c, answer);
-    if (!g.pass) gateFails++;
+    let answer = '', err = null, rateLimited = false, outOfTime = false;
+    if (Date.now() - STARTED > BUDGET_MS) {
+      outOfTime = true; rateLimited = true;   // ungraded, same as a rate limit
+    } else {
+      try { ({ answer, rateLimited } = await askJanVayu(c)); } catch (e) { err = e.message; }
+    }
+    let g;
+    if (err) g = { pass: false, failures: [`request error: ${err}`], soft: [], words: 0 };
+    else if (rateLimited) g = { pass: false, ungraded: true, reason: outOfTime ? 'out of time budget' : 'rate-limited after retries', failures: [], soft: [], words: 0 };
+    else g = runGates(c, answer);
+    if (rateLimited) ungraded++;
+    else if (!g.pass) gateFails++;
+    // Space the requests out. Firing 27 at a rate-limited endpoint is what
+    // produced the meaningless perfect score in the first place.
+    await sleep(PACE_MS);
     let jv = null, van = null, vanAnswer = '';
     if (GROQ_KEY && answer) {
       try { jv = await judge(c, answer, 'JanVayu'); } catch {}
       try { vanAnswer = await vanilla(c); van = await judge(c, vanAnswer, 'vanilla LLM'); } catch {}
     }
     rows.push({ c, answer, vanAnswer, g, jv, van });
-    const mark = g.pass ? 'PASS' : 'FAIL';
+    const mark = g.ungraded ? 'SKIP' : (g.pass ? 'PASS' : 'FAIL');
+    if (outOfTime) console.log(`  [SKIP] ${c.id} — out of time budget`);
     console.log(`  [${mark}] ${c.id} (${c.category}/${c.lang})` + (g.failures.length ? ` — ${g.failures.join('; ')}` : ''));
   }
 
@@ -139,7 +190,15 @@ async function main() {
   const axisAvg = (set, k) => avg(set.map(s => s[k]).filter(n => typeof n === 'number'));
   const AX = ['grounding', 'accuracy', 'empathy', 'tone', 'safety'];
 
-  console.log(`\nGATES: ${CASES.length - gateFails}/${CASES.length} passed.`);
+  const graded = CASES.length - ungraded;
+  const timedOut = rows.filter(r => r.g.reason === 'out of time budget').length;
+  const throttled = ungraded - timedOut;
+  const why = [throttled ? `${throttled} rate-limited` : '', timedOut ? `${timedOut} out of time` : ''].filter(Boolean).join(', ');
+  console.log(`\nGATES: ${graded - gateFails}/${graded} passed` + (ungraded ? ` — ${ungraded} UNGRADED (${why})` : '') + '.');
+  if (ungraded) {
+    console.log('  An ungraded case is not a pass. Re-run when the endpoint is quieter,');
+    console.log('  raise EVAL_PACE_MS to space requests out, or EVAL_BUDGET_MS to allow longer.');
+  }
   if (jvScores.length) {
     console.log('JUDGE (avg 0-5)  JanVayu  vs  vanilla');
     for (const k of AX) console.log(`  ${k.padEnd(10)} ${String(axisAvg(jvScores, k)?.toFixed(2)).padStart(5)}      ${String(axisAvg(vanScores, k)?.toFixed(2) ?? '—').padStart(5)}`);
@@ -147,7 +206,7 @@ async function main() {
 
   if (mdOut) {
     let md = `# Ask JanVayu — evaluation report\n\nEndpoint: \`${AIR_QUERY_URL}\`\n\n`;
-    md += `**Gates: ${CASES.length - gateFails}/${CASES.length} passed.**\n\n`;
+    md += `**Gates: ${graded - gateFails}/${graded} passed.**` + (ungraded ? ` ${ungraded} case(s) could not be graded — the endpoint was rate-limited and returned its data-only fallback. Those are NOT passes.` : '') + `\n\n`;
     if (jvScores.length) {
       md += `## JanVayu vs a vanilla LLM (avg 0–5, higher is better)\n\n| Axis | JanVayu | Vanilla LLM |\n|---|---|---|\n`;
       for (const k of AX) md += `| ${k} | ${axisAvg(jvScores, k)?.toFixed(2)} | ${axisAvg(vanScores, k)?.toFixed(2) ?? '—'} |\n`;
@@ -155,7 +214,7 @@ async function main() {
     }
     md += `## Per-case\n\n`;
     for (const r of rows) {
-      md += `### ${r.c.id} — ${r.c.category} (${r.c.lang}) — ${r.g.pass ? '✅ PASS' : '❌ FAIL'}\n`;
+      md += `### ${r.c.id} — ${r.c.category} (${r.c.lang}) — ${r.g.ungraded ? `⚠️ UNGRADED (${r.g.reason})` : (r.g.pass ? '✅ PASS' : '❌ FAIL')}\n`;
       md += `> ${r.c.question}\n\n`;
       if (!r.g.pass) md += `**Gate failures:** ${r.g.failures.join('; ')}\n\n`;
       if (r.g.soft.length) md += `_Soft flags:_ ${r.g.soft.join('; ')}\n\n`;
@@ -167,7 +226,11 @@ async function main() {
     console.log(`\nWrote ${mdOut}`);
   }
 
-  process.exit(gateFails > 0 ? 1 : 0);
+  // More than a third ungraded means the run did not test the assistant, and
+  // reporting that as success is the failure mode this harness had.
+  const tooManySkipped = ungraded > CASES.length / 3;
+  if (tooManySkipped) console.error(`\n${ungraded}/${CASES.length} ungraded — this run did not meaningfully test the assistant.`);
+  process.exit(gateFails > 0 || tooManySkipped ? 1 : 0);
 }
 
 main().catch(e => { console.error(e); process.exit(2); });
