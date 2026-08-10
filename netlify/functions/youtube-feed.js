@@ -135,17 +135,28 @@ async function fromChannels(budgetMs = 7000) {
 //   generated video is uploaded constantly. Relevance within the last 90 days
 //   still gives a current feed without handing it to whoever posts most.
 //
-//   A view floor, applied only to search results. videos.list costs 1 unit
-//   against search's 100, so the view count is effectively free to fetch. The
-//   eight listed channels are known publishers and are exempt — this is for
-//   the open web, where a video nobody has watched is usually a video nobody
-//   made.
+//   A floor on how established the source is, applied only to search results.
+//   A view floor alone was tried first and was wrong: it cut the feed from 23
+//   to 8 and took The Tribune on a Punjab farmer who ended stubble burning,
+//   News18 Punjab, ABPLIVE and Adda247 Tamil with it. Views measure how much
+//   attention a video got, and Punjabi and Tamil coverage of a regional story
+//   gets less of it than an English explainer — so the floor was quietly
+//   biasing an Indian civic feed towards English and towards size.
+//
+//   Subscribers are the better signal. A newsroom with a million subscribers
+//   is a newsroom on a video with four hundred views; a generated-content
+//   channel is small however often it posts. So a result is kept if EITHER
+//   its channel is established OR the video itself was widely watched, which
+//   also leaves room for the genuinely viral clip from nobody in particular.
+//   channels.list costs 1 unit, same as videos.list — both together are 2
+//   against search's 100.
 const RECENT_DAYS = 90;
-const MIN_VIEWS = 1000;
+const MIN_VIEWS = 20000;      // a video that travelled on its own
+const MIN_SUBSCRIBERS = 5000; // or a channel that is somebody
 
 // Bump when the rules above change, so cached results chosen under the old
 // ones are discarded rather than served for another four hours.
-const FEED_VERSION = 2;
+const FEED_VERSION = 3;
 
 async function fromSearchApi(key, budgetMs = 6000) {
   const videos = [], errors = [];
@@ -167,6 +178,7 @@ async function fromSearchApi(key, budgetMs = 6000) {
           title,
           channel: it.snippet?.channelTitle || '',
           videoId: it.id?.videoId || '',
+          channelId: it.snippet?.channelId || '',
           url: it.id?.videoId ? `https://www.youtube.com/watch?v=${it.id.videoId}` : '',
           thumbnail: it.snippet?.thumbnails?.high?.url || null,
           published: it.snippet?.publishedAt || '',
@@ -178,27 +190,45 @@ async function fromSearchApi(key, budgetMs = 6000) {
     }
   }
 
-  // One videos.list call for the whole batch — 1 unit, up to 50 ids.
+  // Two list calls for the whole batch, 1 unit each, up to 50 ids apiece.
   const ids = videos.map(v => v.videoId).filter(Boolean).slice(0, 50);
   if (ids.length) {
     try {
-      const stats = JSON.parse(await getText(
-        'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='
-        + ids.join(',') + '&key=' + encodeURIComponent(key)));
-      const views = {};
-      for (const v of (stats.items || [])) views[v.id] = Number(v.statistics?.viewCount || 0);
+      const [vidStats, chStats] = await Promise.all([
+        getText('https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id='
+                + ids.join(',') + '&key=' + encodeURIComponent(key)).then(JSON.parse),
+        (async () => {
+          const chIds = [...new Set(videos.map(v => v.channelId).filter(Boolean))].slice(0, 50);
+          if (!chIds.length) return { items: [] };
+          return JSON.parse(await getText(
+            'https://www.googleapis.com/youtube/v3/channels?part=statistics&id='
+            + chIds.join(',') + '&key=' + encodeURIComponent(key)));
+        })(),
+      ]);
+
+      const views = {}, subs = {};
+      for (const v of (vidStats.items || [])) views[v.id] = Number(v.statistics?.viewCount || 0);
+      for (const c of (chStats.items || [])) subs[c.id] = Number(c.statistics?.subscriberCount || 0);
+
       const before = videos.length;
-      // Unknown view count is kept: a missing statistic is not evidence of
-      // slop, and dropping on absent data would quietly thin the feed.
-      const kept = videos.filter(v => !(v.videoId in views) || views[v.videoId] >= MIN_VIEWS);
-      kept.forEach(v => { v.views = views[v.videoId]; });
+      // Kept if the channel is established OR the video travelled on its own.
+      // Missing data counts as a pass either way: absent statistics are not
+      // evidence of slop, and dropping on them would thin the feed silently.
+      const kept = videos.filter(v => {
+        const s = v.channelId in subs ? subs[v.channelId] : null;
+        const w = v.videoId in views ? views[v.videoId] : null;
+        if (s === null && w === null) return true;
+        return (s !== null && s >= MIN_SUBSCRIBERS) || (w !== null && w >= MIN_VIEWS);
+      });
+      kept.forEach(v => { v.views = views[v.videoId]; v.channelSubscribers = subs[v.channelId]; });
       videos.length = 0;
       videos.push(...kept);
       if (before - kept.length) {
-        console.log(`youtube: dropped ${before - kept.length} search result(s) under ${MIN_VIEWS} views`);
+        console.log(`youtube: dropped ${before - kept.length} of ${before} search result(s) — `
+          + `channel under ${MIN_SUBSCRIBERS} subscribers and video under ${MIN_VIEWS} views`);
       }
     } catch (e) {
-      // If statistics fail, keep the unfiltered search results rather than
+      // If the statistics fail, keep the unfiltered search results rather than
       // returning nothing — the title filter has already done the topic work.
       errors.push(`statistics: ${e.message}`);
     }
