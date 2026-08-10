@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.162] - 2026-08-10
+
+### Fixed — the YouTube feed was carrying Canadian wildfire smoke
+
+`regionCode=IN` biases YouTube's ranking; it does not restrict the results. So *"Air Quality Concerns Grow Over Canadian Wildfire Smoke"*, from a five-million-subscriber US channel, passed the topic filter and the subscriber floor alike — right subject, wrong continent.
+
+A search result now has to look Indian, by any one of three signals: the channel's registered country is India; the text names India, an Indian city or state, or something only India has (GRAP, NCAP, CPCB, CAQM, parali); or the text is written in an Indian script, since a Devanagari or Tamil or Gurmukhi title is not about Canada. Any one is enough on purpose — requiring two would drop the BBC's India coverage, filed from an account registered elsewhere. Replayed against the live feed: **one dropped, twelve kept**, and the one was the wildfire piece.
+
+The channel's country comes from the `channels.list` call that was already being made for subscriber counts, so this costs nothing.
+
+### Fixed — the blog was barely on the homepage
+
+The whole of the front page's blog presence was one rotating card, drawn from a hand-maintained list of nine posts whose newest was 30 July. Six posts had been published in August, including three the day before. None of them could appear.
+
+`scripts/build-blog-index.py` generates the list from `blog/README.md` — the blog's own index — pulling a blurb from each post's first real paragraph. **9 posts → 34**, newest first, so publishing a post is now enough to put it on the front page.
+
+The homepage shows the **newest** post as the featured card rather than a weekly rotation — a rotation made sense when the list was short and evergreen, and merely hid new work once the blog started publishing several a week — followed by the next three in a row beneath it, and a link reading "Read all 34 posts". `guard-site-figures` in CI now also fails the build if a post is published without regenerating the list.
+
 ## [v26.6.161] - 2026-08-09
 
 ### Fixed — figures that had drifted, and something to stop them drifting again

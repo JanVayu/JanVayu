@@ -39,6 +39,13 @@ jobs:
       - name: Check stated figures against the data
         run: python3 scripts/check-site-figures.py
 
+      # data/stories.json feeds the homepage's blog section. It used to be
+      # hand-maintained and went six posts stale, so the front page showed
+      # nothing published that month. It is generated from blog/README.md now;
+      # this fails the build if someone publishes a post without regenerating.
+      - name: Check the homepage blog list matches the blog
+        run: python3 scripts/build-blog-index.py --check
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for
