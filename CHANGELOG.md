@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.161] - 2026-08-09
+
+### Fixed — figures that had drifted, and something to stop them drifting again
+
+The homepage card offered "24 open-licensed photographs" for a gallery holding **31**, two of which are not open-licensed at all but used with the photographer's permission. The walkthrough deck said 24 too. The source panel credited the satellite annual mean to "all 9,015 wards" when the atlas has carried **68,596** since the ward panel was folded in.
+
+None of this was visible to anyone reading one page at a time, so `scripts/check-site-figures.py` now recomputes the counts **from the data** — testimonies and their cities and languages from `testimonies.json`, photographs from the gallery markup, every boundary level from `_levels.json` — and walks the pages looking for a different number in front of the same phrase. It runs in CI as `guard-site-figures`.
+
+It is deliberately narrow. It only polices figures it can derive from a file in the repo, it skips CHANGELOG and the Roadmap because both are records of what was true at a past release, and it ignores a number sitting next to a citation marker — Jaganathan et al. sampled 655 districts and PM-eBus Sewa covers 169 cities, and neither should be "corrected" to ours. Of twelve initial hits, nine were exactly that kind of false positive; the rule set was tightened until only the three real ones remained.
+
+### Changed — the map's controls fit on one line
+
+Thirteen controls wrapped to two rows on a laptop and stretched the bar far enough left to sit under Leaflet's zoom buttons, which clipped "Stations" to "ations". The nine layer toggles — Stations, Heatmap, History, MPs, MLAs, Districts, Sources, Schools, Health centres — now live in a single **Layers** menu, leaving five controls on one line: Layers, Boundaries, Colour, Season, My area.
+
+The summary carries a count of how many layers are on, recounted from the buttons themselves so it cannot disagree with what is drawn. A `<details>` does the opening and closing, so it works from the keyboard and needs no script; the toggles keep their ids and handlers untouched. On a phone the controls scroll in one line as before, and the row's clipping is released while the menu is open so the panel is not cut off.
+
+Measured in a browser at 1440px: **5 controls, 1 row, 627px wide, no overlap with the zoom control** — against 13 controls over 2 rows before.
+
+### New — [What the Air Looks Like](blog/posts/2026-08-09-what-the-air-looks-like.md)
+
+Why a data site carries 31 photographs, when the thing being measured is two and a half micrometres across and cannot be photographed at all. How the gallery is ordered — effect, then cause, then scale from orbit, then Okhla and Ghazipur, which is the argument the sequence is building towards. What photographs get wrong: haze tracks particle size and humidity rather than mass, so the most dramatic picture is not the worst air, and the chronic annual background that shortens the most lives never photographs as anything. What is missing, which is indoor air and most of the country.
+
 ## [v26.6.160] - 2026-08-09
 
 ### New — X, by link and checked, rather than by scrape

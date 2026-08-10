@@ -856,6 +856,34 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     <noscript><link rel="stylesheet" href="/styles.css?v=202606118"></noscript>
 
 <style>
+/* Thirteen controls in a row wrapped to two lines on a laptop and stretched
+   the bar far enough left to sit under Leaflet's zoom buttons, which clipped
+   "Stations" to "ations". The nine layer toggles now live inside one "Layers"
+   menu, leaving five controls that fit on a single line: Layers, Boundaries,
+   Colour, Season, My area. A <details> does the opening and closing, so it
+   works with the keyboard and needs no script. */
+.map-menu { position: relative; }
+.map-menu > summary { list-style: none; cursor: pointer; user-select: none; }
+.map-menu > summary::-webkit-details-marker { display: none; }
+.map-menu > summary::after { content: ' \25BE'; opacity: 0.7; }
+.map-menu[open] > summary { background: var(--accent, #1B6B4A); color: #fff; border-color: var(--accent, #1B6B4A); }
+.map-menu-count:not(:empty) {
+  display: inline-block; margin-left: 3px; padding: 0 4px; border-radius: 999px;
+  background: var(--accent, #1B6B4A); color: #fff; font-size: 0.62rem; line-height: 1.4;
+}
+.map-menu[open] > summary .map-menu-count { background: #fff; color: var(--accent, #1B6B4A); }
+.map-menu-panel {
+  position: absolute; top: calc(100% + 4px); right: 0; z-index: 1001;
+  min-width: 168px; padding: 6px; display: flex; flex-direction: column; gap: 2px;
+  background: var(--bg-section, #fff); border: 1px solid var(--border, #E2E8F0);
+  border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+.map-menu-panel .map-layer-btn { width: 100%; text-align: left; }
+.map-menu-head {
+  margin: 2px 4px 3px; font-size: 0.62rem; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-3, #64748B);
+}
+
 /* The layer controls sit as an overlay on the map at desktop widths. On a
    phone they wrapped to three rows, covered most of the map, collided with
    Leaflet's zoom buttons and clipped "Stations" to "ations". Below 700px they
@@ -874,6 +902,10 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
   }
   #map-layer-controls > * { flex: 0 0 auto; }
   #map-boundary-level, #map-boundary-metric, #map-boundary-season { max-width: 168px !important; }
+  /* The scrolling row clips anything positioned outside it, which would hide
+     the open Layers panel. Let it out for as long as the menu is open. */
+  #map-layer-controls:has(#map-layers-menu[open]) { overflow: visible !important; }
+  #map-layers-menu .map-menu-panel { right: auto; left: 0; }
 }
 </style>
 </head>
@@ -1659,7 +1691,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     </div>
                     <div class="quick-link" onclick="showPanel('gallery')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-image" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Photo Gallery <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>The air, in pictures &mdash; 24 open-licensed photographs</p></div>
+                        <div><h3>Photo Gallery <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>The air, in pictures &mdash; 31 documentary photographs</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('rankings')">
                         <div class="quick-link-icon" style="background: #FEF2F2; color: var(--red);"><span class="si si-bar-chart" style="width:20px;height:20px;"></span></div>
@@ -2989,13 +3021,21 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div class="card">
                 <div class="card-body" style="padding: 0; position: relative;">
                     <div id="map-layer-controls" style="position: absolute; top: 12px; right: 12px; z-index: 1000; max-width: calc(100% - 24px); background: var(--bg-section); border: 1px solid var(--border); border-radius: 10px; padding: 4px; display: inline-flex; flex-wrap: wrap; gap: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                        <button type="button" id="map-toggle-markers-btn" class="map-layer-btn active" onclick="toggleMapLayerBtn(this, 'markers')" aria-pressed="true">Stations</button>
-                        <button type="button" id="map-toggle-heatmap-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'heatmap')" aria-pressed="false">Heatmap</button>
-                        <button type="button" id="map-toggle-history-btn" class="map-layer-btn" onclick="toggleHistoricalSlider()" aria-pressed="false">History</button>
-                        <button type="button" id="map-toggle-constituencies-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'constituencies')" aria-pressed="false" title="Live AQI by Lok Sabha constituency — the air your MP answers for">MPs</button>
-                        <button type="button" id="map-toggle-assembly-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'assembly')" aria-pressed="false" title="Assembly constituency boundaries — the air your MLA answers for">MLAs</button>
-                        <button type="button" id="map-toggle-districts-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'districts')" aria-pressed="false" title="Live AQI by district">Districts</button>
-                        <button type="button" id="map-toggle-sources-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'sources')" aria-pressed="false" title="Landfills, dumpsites, coal mines, red/orange-category industrial parks and SEZs">Sources</button>
+                        <details id="map-layers-menu" class="map-menu">
+                            <summary class="map-layer-btn" title="Everything that can be drawn on top of the map: live stations, the heatmap, accountability boundaries, pollution sources, schools and health centres">Layers <span id="map-layers-count" class="map-menu-count"></span></summary>
+                            <div class="map-menu-panel">
+                                <p class="map-menu-head">On the map</p>
+                            <button type="button" id="map-toggle-markers-btn" class="map-layer-btn active" onclick="toggleMapLayerBtn(this, 'markers')" aria-pressed="true">Stations</button>
+                            <button type="button" id="map-toggle-heatmap-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'heatmap')" aria-pressed="false">Heatmap</button>
+                            <button type="button" id="map-toggle-history-btn" class="map-layer-btn" onclick="toggleHistoricalSlider()" aria-pressed="false">History</button>
+                            <button type="button" id="map-toggle-constituencies-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'constituencies')" aria-pressed="false" title="Live AQI by Lok Sabha constituency — the air your MP answers for">MPs</button>
+                            <button type="button" id="map-toggle-assembly-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'assembly')" aria-pressed="false" title="Assembly constituency boundaries — the air your MLA answers for">MLAs</button>
+                            <button type="button" id="map-toggle-districts-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'districts')" aria-pressed="false" title="Live AQI by district">Districts</button>
+                            <button type="button" id="map-toggle-sources-btn" class="map-layer-btn" onclick="toggleMapLayerBtn(this, 'sources')" aria-pressed="false" title="Landfills, dumpsites, coal mines, red/orange-category industrial parks and SEZs">Sources</button>
+                            <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleReceptorLayer &amp;&amp; window.toggleReceptorLayer(this, 'schools')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
+                            <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleReceptorLayer &amp;&amp; window.toggleReceptorLayer(this, 'health')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
+                            </div>
+                        </details>
                     <select id="map-boundary-level" class="form-select map-layer-btn" onchange="window.setBoundaryLevel &amp;&amp; window.setBoundaryLevel(this.value)" style="max-width:150px; padding:2px 6px; font-size:0.7rem;" title="Any Indian administrative boundary, from state down to ward, village or gram panchayat — coloured by satellite air, green cover or built-up share">
                         <option value="">Boundaries: off</option>
                         <option value="state">State</option>
@@ -3021,8 +3061,6 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <option value="r">Monsoon (Jun–Sep)</option>
                         <option value="o">Post-monsoon (Oct–Nov)</option>
                     </select>
-                    <button type="button" id="map-toggle-schools-btn" class="map-layer-btn" onclick="window.toggleReceptorLayer &amp;&amp; window.toggleReceptorLayer(this, 'schools')" aria-pressed="false" title="Schools (UDISE/NCOG) — children are among the most vulnerable to dirty air">Schools</button>
-                    <button type="button" id="map-toggle-health-btn" class="map-layer-btn" onclick="window.toggleReceptorLayer &amp;&amp; window.toggleReceptorLayer(this, 'health')" aria-pressed="false" title="Health centres (Bharatmaps) — who has to treat the consequences">Health centres</button>
                     <button type="button" id="map-locate-btn" class="map-layer-btn" onclick="window.mapLocateMe &amp;&amp; window.mapLocateMe()" title="Jump to your location at a zoom where the selected boundary level is visible">My area</button>
                     </div>
                     <div id="india-map"></div>

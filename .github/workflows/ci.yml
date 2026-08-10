@@ -22,6 +22,23 @@ jobs:
             exit 1
           fi
 
+  # The site quotes its own figures in a dozen places — homepage cards, panels,
+  # the README, the walkthrough decks — and they drift as the data grows. The
+  # gallery went to 31 photographs while the homepage card still said 24, and
+  # the ward count in the source panel was five releases stale. Both were
+  # invisible until something recomputed the numbers from the data and compared.
+  guard-site-figures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check stated figures against the data
+        run: python3 scripts/check-site-figures.py
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for

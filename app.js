@@ -4346,7 +4346,29 @@
             btn.classList.toggle('active', willBeOn);
             btn.setAttribute('aria-pressed', willBeOn ? 'true' : 'false');
             toggleMapLayer(name, willBeOn);
+            updateLayerMenuCount();
         }
+
+    // The nine layer toggles live inside a closed "Layers" menu, so with it
+    // shut there is nothing to say which are on. The summary carries a count
+    // instead. Recounted from the buttons themselves rather than tracked
+    // separately, so it cannot disagree with what is actually drawn.
+    function updateLayerMenuCount() {
+        const badge = document.getElementById('map-layers-count');
+        if (!badge) return;
+        const on = document.querySelectorAll('#map-layers-menu .map-layer-btn.active').length;
+        badge.textContent = on ? String(on) : '';
+    }
+    window.updateLayerMenuCount = updateLayerMenuCount;
+
+    // Every toggle in the menu runs one of three different handlers, so rather
+    // than edit each, one delegated listener refreshes the count after any
+    // click inside the panel.
+    document.addEventListener('click', function (e) {
+        if (e.target.closest && e.target.closest('#map-layers-menu .map-menu-panel')) {
+            setTimeout(updateLayerMenuCount, 0);
+        }
+    });
 
     // ── Historical Time-Slider Overlay ──────────────────────────────
     // Cities that have historical-aqi climatology data (subset of CITIES)

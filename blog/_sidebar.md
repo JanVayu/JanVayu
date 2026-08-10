@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **August 2026**
+  - [What the Air Looks Like](posts/2026-08-09-what-the-air-looks-like.md)
   - [How to Read the JanVayu Map](posts/2026-08-09-how-to-read-the-map.md)
   - [Why We Lead With PM2.5, Not AQI](posts/2026-08-09-why-pm25-not-aqi.md)
   - [We Were Measuring the Wrong Green](posts/2026-08-08-tree-cover-answers-it.md)
