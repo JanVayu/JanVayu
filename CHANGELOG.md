@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.168] - 2026-08-21
+
+### Added — 5 peer-reviewed papers (Reading List now 33)
+
+Five open-access India studies from August 2026, each checked against Crossref before being cited:
+
+- Transitioning to cooking with electricity in India for improved health and environmental outcomes: a framework — Parikh, Kosmala & Khetan (*Environmental Research Communications* 8(8), DOI 10.1088/2515-7620/ae9682, 18 Aug 2026, CC BY). Argues induction cooking paired with iron cookware beats LPG-only as an equitable exit from solid fuels, cutting household air pollution and iron-deficiency anaemia together. Also cited in the Indoor Air panel's LPG/Induction box.
+- TimeGAN-based generative modelling for air quality index forecasting and missing data imputation in Indian cities — Singhal, Saurabh & Gupta (*Discover Artificial Intelligence* 6(1), DOI 10.1007/s44163-026-01892-y, 14 Aug 2026, CC BY). Generative time-series modelling aimed at the patchy, intermittent AQI series citizen projects actually have to work with.
+- GreenAirOps: production-ready MLOps for real-time air quality index prediction — Goyal et al. (*Air Quality, Atmosphere & Health* 19(8), DOI 10.1007/s11869-026-02068-4, 4 Aug 2026, CC BY-NC-ND). Multi-source ingestion, a Random Forest / XGBoost ensemble, versioned data and experiments, automated retraining and rollback — a blueprint for running a live public dashboard.
+- Impact of air pollution on birth outcomes: causal evidence from India — Misra & Kulshreshtha (*Journal of Environmental Economics and Management* 139, DOI 10.1016/j.jeem.2026.103360, Aug 2026, CC BY). DHS birth records with quasi-random wind direction as an instrument: a one-SD cut in in-utero PM2.5 raises average birth weight ~1.1% and lowers low- and very-low-birth-weight births by 2.9 and 0.7 percentage points, with the gain concentrated at the lower tail.
+- Ecological associations between ambient air pollution, gut microbiome composition, and metabolic markers in urban populations of central India — Kriti et al. (*Frontiers in Public Health*, accepted 12 Aug 2026). 95 adults across three Bhopal localities; NOx tracked glycemic markers, PM associations were inconsistent, and most genus-level microbiome differences did not survive correction. Carded as descriptive and hypothesis-generating, which is how the authors frame it.
+
+**Citation integrity.** Four of the five DOIs resolve through Crossref and doi.org and their metadata — title, authors, journal, date, licence — was read from the registry rather than from the submission. The fifth (`10.3389/fpubh.2026.1834285`) is **not yet registered**: doi.org returns 404 because the Frontiers article is still an accepted, unformatted manuscript. Its card links the journal page, which resolves, and says so on its face; the DOI can replace the link once it registers.
+
+Descriptions are written from each paper's own abstract, not from the summary that accompanied the submission — which is why the Bhopal card reports null and inconsistent results, and the GreenAirOps card says "multi-source environmental data" rather than naming CPCB, a claim the paper does not make.
+
+### Fixed — the Reading List's study count, and a paper listed twice
+
+The Peer-Reviewed Research badge read **24 studies** while the section carried 29 cards. It has never matched: the badge said 24 on the day it was added (v26.6.49–53, 18 Jul 2026), by which point 29 cards were already there and the v26.6.43 entry had said "Reading List now 29". Singh et al. (2025) on respiratory PM deposition in Delhi also appeared **twice** — once as a terse card, once with the fuller 2019–2023 description. The duplicate is gone, the surviving card keeps the author attribution and both sets of search keywords, and the badge now reads the number of cards actually there.
+
+### Added — an India-specific causal citation for the reproductive-health card
+
+The Gender & Air panel's Reproductive & Child Health card cited "WHO synthesis; peer-reviewed maternal-exposure cohort studies" and no specific paper — the gap left when the fabricated "Krishna et al." attribution was removed in v26.6.40. It now carries the Misra & Kulshreshtha estimates with their DOI, in both the full and plain-language copy.
+
 ## [v26.6.167] - 2026-08-10
 
 ### Fixed — the eval harness scored a perfect 27/27 while grading almost nothing
