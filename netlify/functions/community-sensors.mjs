@@ -57,7 +57,7 @@ async function getSnapshot() {
     if (cached && cached.fetched_at && (Date.now() - cached.fetched_at) < 10 * 60 * 1000) {
       return cached.data;
     }
-  } catch (e) { /* ignore */ }
+  } catch { /* ignore */ }
 
   const res = await fetch(SC_URL, { headers: { "User-Agent": "JanVayu/v26.6 (+https://janvayu.in)" } });
   if (!res.ok) throw new Error("Sensor.Community fetch failed: " + res.status);
@@ -66,7 +66,7 @@ async function getSnapshot() {
   try {
     const store = getBlobStore("janvayu-feeds");
     await store.setJSON("sensor-community", { data, fetched_at: Date.now() });
-  } catch (e) { /* ignore */ }
+  } catch { /* ignore */ }
 
   return data;
 }
@@ -84,7 +84,7 @@ async function getOpenAQStations(lat, lon, radiusKm) {
     if (cached && cached.fetched_at && (Date.now() - cached.fetched_at) < 10 * 60 * 1000) {
       return cached.stations;
     }
-  } catch (e) { /* ignore cache miss */ }
+  } catch { /* ignore cache miss */ }
 
   const headers = { "X-API-Key": OPENAQ_KEY, "User-Agent": "JanVayu/v26.6 (+https://janvayu.in)" };
   const locRes = await fetch(
@@ -155,7 +155,7 @@ async function getOpenAQStations(lat, lon, radiusKm) {
   try {
     const store = getBlobStore("janvayu-feeds");
     await store.setJSON(cacheKey, { stations, fetched_at: Date.now() });
-  } catch (e) { /* ignore cache write failure */ }
+  } catch { /* ignore cache write failure */ }
 
   return stations;
 }

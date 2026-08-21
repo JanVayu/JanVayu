@@ -7,12 +7,12 @@
 //   the cached shell. WAQI / Netlify Function responses are also cached so
 //   the user sees the last-known AQI when offline.
 
-const CACHE_VERSION = 'janvayu-202606152';
+const CACHE_VERSION = 'janvayu-202606170';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css?v=202606152',
-  '/app.js?v=202606152',
+  '/styles.css?v=202606170',
+  '/app.js?v=202606170',
   '/fonts/fraunces-400.woff2',
   '/fonts/fraunces-600.woff2',
   '/fonts/fraunces-700.woff2',
@@ -43,7 +43,7 @@ self.addEventListener('activate', (event) => {
 // closed; focus/open JanVayu when it's clicked.
 self.addEventListener('push', (event) => {
   let data = {};
-  try { data = event.data ? event.data.json() : {}; } catch (e) { data = { title: 'JanVayu', body: event.data ? event.data.text() : '' }; }
+  try { data = event.data ? event.data.json() : {}; } catch { data = { title: 'JanVayu', body: event.data ? event.data.text() : '' }; }
   const title = data.title || 'JanVayu air-quality alert';
   const options = {
     body: data.body || '',
@@ -119,7 +119,7 @@ async function cacheFirst(req) {
     const res = await fetch(req);
     if (res && res.status === 200) cache.put(req, res.clone()).catch(() => {});
     return res;
-  } catch (e) {
+  } catch {
     return cached || new Response('', { status: 504 });
   }
 }

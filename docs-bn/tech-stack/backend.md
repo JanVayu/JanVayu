@@ -21,7 +21,7 @@ JanVayu-র backend সম্পূর্ণ serverless — 13টি Netlify Fun
 | `accountability-brief.mjs` | On-demand (POST) | AI: ওয়ার্ড-পর্যায়ের শাসন ব্রিফ |
 | `anomaly-check.mjs` | On-demand (GET) | AI: PM2.5 spike শনাক্তকরণ |
 | `reddit-feed.js` | On-demand (GET) | ক্যাশকৃত Reddit বায়ুমান পোস্ট |
-| `twitter-feed.js` | On-demand (GET) | ক্যাশকৃত Twitter/X পোস্ট |
+| `twitter-feed.js` | — | **Retired.** Read Nitter, whose public instances are gone; nothing calls it. |
 | `instagram-feed.js` | On-demand (GET) | ক্যাশকৃত Instagram পোস্ট |
 | `news-proxy.js` | On-demand (GET) | ক্যাশকৃত সংবাদ নিবন্ধ |
 | `subscribe.js` | On-demand (POST) | ইমেল সাবস্ক্রিপশন ব্যবস্থাপনা |

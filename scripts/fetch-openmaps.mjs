@@ -25,7 +25,7 @@
  * simplified derivatives with attribution — see the Data Sources panel.
  */
 
-import { createReadStream, createWriteStream, existsSync, mkdirSync, statSync } from 'node:fs';
+import { createReadStream, existsSync, mkdirSync, statSync } from 'node:fs';
 import { writeFile, readFile } from 'node:fs/promises';
 import { createInterface } from 'node:readline';
 import { execFileSync } from 'node:child_process';
@@ -145,7 +145,7 @@ const WARDS_SOURCE = 'Swachh Bharat Mission ULB wards via indianopenmaps.com (ra
 
 // Geometry helpers live in scripts/lib/geo.mjs so both boundary importers
 // (this one and import-bharatlas-wards.mjs) share one implementation.
-import { round5, simplifyRing, ringArea, ringCentroid, closeRing, simplifyGeom, geomCentroid } from './lib/geo.mjs';
+import { round5, simplifyGeom, geomCentroid } from './lib/geo.mjs';
 
 // ── input plumbing ──────────────────────────────────────────────────
 

@@ -21,7 +21,7 @@ JanVayu चा backend पूर्णपणे serverless आहे — डे�
 | `accountability-brief.mjs` | On-demand (POST) | AI: वॉर्ड-स्तरीय शासन ब्रीफ |
 | `anomaly-check.mjs` | On-demand (GET) | AI: PM2.5 स्पाइक शोध |
 | `reddit-feed.js` | On-demand (GET) | कॅश केलेले Reddit हवा गुणवत्ता पोस्ट |
-| `twitter-feed.js` | On-demand (GET) | कॅश केलेले Twitter/X पोस्ट |
+| `twitter-feed.js` | — | **Retired.** Read Nitter, whose public instances are gone; nothing calls it. |
 | `instagram-feed.js` | On-demand (GET) | कॅश केलेले Instagram पोस्ट |
 | `news-proxy.js` | On-demand (GET) | कॅश केलेले बातम्या लेख |
 | `subscribe.js` | On-demand (POST) | ईमेल सदस्यत्व व्यवस्थापन |

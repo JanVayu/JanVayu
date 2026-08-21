@@ -35,7 +35,7 @@ async function fetchAQI(city) {
     if (!res.ok) return null;
     const j = await res.json();
     return j?.data?.aqi != null ? Number(j.data.aqi) : null;
-  } catch (e) { return null; }
+  } catch { return null; }
 }
 
 export default async () => {
@@ -60,7 +60,7 @@ export default async () => {
 
   for (const key of keys) {
     let rec;
-    try { rec = await store.get(key, { type: "json" }); } catch (e) { continue; }
+    try { rec = await store.get(key, { type: "json" }); } catch { continue; }
     if (!rec || !rec.subscription) continue;
     checked++;
 

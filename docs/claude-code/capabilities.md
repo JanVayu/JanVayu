@@ -143,7 +143,8 @@ All four features share:
 | Function | Method | Purpose |
 |----------|--------|---------|
 | `reddit-feed.js` | GET | Cached Reddit posts about air quality |
-| `twitter-feed.js` | GET | Cached Twitter/X posts |
+| `twitter-feed.js` | — | **Retired.** Read Nitter, whose public instances are gone; nothing calls it. |
+| `youtube-feed.js` | GET | Cached India air-quality videos from YouTube channel RSS |
 | `instagram-feed.js` | GET | Cached Instagram posts |
 | `news-proxy.js` | GET | Cached news articles |
 | `subscribe.js` | POST | Email subscription management |

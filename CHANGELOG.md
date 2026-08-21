@@ -5,6 +5,72 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.170] - 2026-08-21
+
+### Fixed — ESLint clean: 37 warnings → 0
+
+The gate repaired in v26.6.169 reported 37 `no-unused-vars` warnings on its first working run. All 37 are now fixed in the code rather than silenced in the config — the rule set is unchanged, so a new unused binding still shows up.
+
+- **25 unused `catch (e)` bindings** across nine functions, two scripts and both service workers, converted to the ES2019 optional catch binding (`catch { … }`). Every one of them was an intentional swallow whose comment already said so (`/* ignore */`, `/* missing snapshot is fine */`, `/* best-effort */`); dropping the binding says the same thing in syntax.
+- **Six unused imports**: `TRANSPORT_MULTIPLIERS` in `air-query.mjs` (still exported by `lib/calc.mjs`, still used there and in `test/calc.test.mjs` — only the dead import went), `statSync` in `check-translations.mjs`, `createWriteStream` in `fetch-openmaps.mjs`, and four geometry helpers (`simplifyRing`, `ringArea`, `ringCentroid`, `closeRing`) that `fetch-openmaps.mjs` imported but never called.
+- **Two computed-and-discarded values**: `fetchResults` in `daily-digest.mjs` (the `await` stays; only the unread binding went) and `monthStr` in `historical-aqi.mjs`.
+- **Three handler parameters nothing read**: the sole `req` argument of the `daily-digest`, `scheduled-fetch` and `feed-health` default exports. `feed-health` carried a comment claiming the base URL came "from the request or fall back to env" — it has only ever read the env, so the comment now says that.
+
+`npx eslint@9` over the CI file set now prints nothing and exits 0.
+
+## [v26.6.169] - 2026-08-21
+
+### Fixed — a full-stack sweep: five defects, four of them invisible to CI
+
+**`&rupee;` is not an HTML entity.** Eight uses in `index.html` and two in `app.js` rendered as the literal text `&rupee;16,539 Cr` — in the Mission Tracker and city-policy funding tables, which is to say on the money figures. Replaced with `₹`, the character used in the other 134 places on the site.
+
+**The Instagram feed served its own error text as citizen posts.** Production returned five posts titled *"Bridge returned error 401! (20686)"* with an MDN status-code link as the body, and `app.js` rendered them in the Social Feed. `instagram-feed.js` has filtered bridge errors since 10 Aug, so the question was how they got through. Two holes, both now closed:
+
+- `scheduled-fetch.mjs` writes the same cache every four hours and had **no filter at all** — it refilled the blob with errors as fast as the API could serve them. Its three separate ingest points (hashtags, extra hashtags, accounts) each had their own copy of the item-mapping code, which is how one of them came to have a filter and the others not; they now share one `normalizeIgItems`.
+- `instagram-feed.js` filtered at ingest but served `cached.posts` **unfiltered**, so a poisoned blob could never be cleaned by the fix. The cache read re-checks each post and falls through to a live fetch when nothing survives, which rewrites the cache clean.
+
+**The service worker had been stamping v26.6.152 since 30 July.** `package.json` said 26.6.155, `CITATION.cff` and both service workers said 26.6.152, and this changelog was at 26.6.168 — so returning visitors could be served cached assets predating the entire atlas rebuild. Bumped to 26.6.169 and synced; the asset stamps on `styles.css` and `app.js` moved with it.
+
+**The ESLint job had never linted anything.** `quality.yml` passed `--no-eslintrc` and a dozen `--rule` flags, all removed in ESLint 9: the command died on startup, `|| true` swallowed it, and the summary step looked for `^[0-9]+ problems` — a pattern that would not have matched ESLint's `✖ 37 problems (…)` line even on a successful run. Two bugs stacked into a permanently green gate that checked nothing. Rules now live in `eslint.config.mjs` (in the repo, so the same lint runs locally), the exit code is inspected — anything above 1 means the lint did not run and is reported as such, not as a pass — and the summary matches the real output line. First actual run: **37 warnings, 0 errors**, all unused `catch` bindings.
+
+**HTML validation: 34 errors → 0.** Beyond the rupee entity: 18 raw `&`/`>` in visible copy encoded; an `<img src="">` in the gallery lightbox that made browsers re-request the page, given a transparent placeholder; three `<input>`s without `type`; an empty `<h2>` the role dashboard fills at runtime, given a default a screen reader can read before the JS lands; and the lightbox's focusable buttons, hidden only by CSS the validator cannot see, marked `inert` while closed and toggled in `galOpen`/`galClose`. The 373 warnings are unchanged and remain advisory.
+
+### Fixed — docs that still sold a retired endpoint
+
+`twitter-feed.js` was marked retired in the prose of `netlify-functions.md` and `architecture.md` in v26.6.166, but three tables were missed and still listed it as a working GET endpoint: the **public API reference**, `tech-stack/backend.md`, and `claude-code/capabilities.md`. The architecture diagram also still had it in the pipeline while the file's own tree listing called it retired. All four now agree, and `youtube-feed.js` — live since July and absent from every one of them — has been added.
+
+The same rows in the Hindi, Bengali, Marathi and Tamil mirrors carried the stale claim; all 11 files corrected. The retirement note is in English inside otherwise translated tables, which is how the code identifiers already read; `translate-docs.py` will render it properly on its next run.
+
+### Fixed — the pre-commit hook blocked on its own documentation
+
+Committing the docs fix above tripped `.githooks/pre-commit`: *"Merge conflict markers found in docs/claude-code/capabilities.md"*. The file has no conflict — line 66 is the table row **documenting this very rule**, listing `<<<<<<<` and `>>>>>>>` in backticks. The hook grepped for those strings anywhere in a staged file, so it would also have blocked any setext heading underline or ASCII divider made of `=`. It now matches only the angle markers at column 1 followed by a space or end of line, which is the exact shape git writes; the bare `=======` line is dropped from the pattern because it cannot be told from a seven-character setext underline, and every real conflict carries the angle markers anyway. Checked against a real conflict block (blocked), the documentation row, a setext heading, and a divider (all allowed).
+
+Also: `sitemap.xml` lastmod dates were three weeks stale (last built 30 July); regenerated. And the public API reference's Quick Reference table linked all ten endpoints to per-endpoint anchors that the file has never had — the dead links are gone.
+
+## [v26.6.168] - 2026-08-21
+
+### Added — 5 peer-reviewed papers (Reading List now 33)
+
+Five open-access India studies from August 2026, each checked against Crossref before being cited:
+
+- Transitioning to cooking with electricity in India for improved health and environmental outcomes: a framework — Parikh, Kosmala & Khetan (*Environmental Research Communications* 8(8), DOI 10.1088/2515-7620/ae9682, 18 Aug 2026, CC BY). Argues induction cooking paired with iron cookware beats LPG-only as an equitable exit from solid fuels, cutting household air pollution and iron-deficiency anaemia together. Also cited in the Indoor Air panel's LPG/Induction box.
+- TimeGAN-based generative modelling for air quality index forecasting and missing data imputation in Indian cities — Singhal, Saurabh & Gupta (*Discover Artificial Intelligence* 6(1), DOI 10.1007/s44163-026-01892-y, 14 Aug 2026, CC BY). Generative time-series modelling aimed at the patchy, intermittent AQI series citizen projects actually have to work with.
+- GreenAirOps: production-ready MLOps for real-time air quality index prediction — Goyal et al. (*Air Quality, Atmosphere & Health* 19(8), DOI 10.1007/s11869-026-02068-4, 4 Aug 2026, CC BY-NC-ND). Multi-source ingestion, a Random Forest / XGBoost ensemble, versioned data and experiments, automated retraining and rollback — a blueprint for running a live public dashboard.
+- Impact of air pollution on birth outcomes: causal evidence from India — Misra & Kulshreshtha (*Journal of Environmental Economics and Management* 139, DOI 10.1016/j.jeem.2026.103360, Aug 2026, CC BY). DHS birth records with quasi-random wind direction as an instrument: a one-SD cut in in-utero PM2.5 raises average birth weight ~1.1% and lowers low- and very-low-birth-weight births by 2.9 and 0.7 percentage points, with the gain concentrated at the lower tail.
+- Ecological associations between ambient air pollution, gut microbiome composition, and metabolic markers in urban populations of central India — Kriti et al. (*Frontiers in Public Health*, accepted 12 Aug 2026). 95 adults across three Bhopal localities; NOx tracked glycemic markers, PM associations were inconsistent, and most genus-level microbiome differences did not survive correction. Carded as descriptive and hypothesis-generating, which is how the authors frame it.
+
+**Citation integrity.** Four of the five DOIs resolve through Crossref and doi.org and their metadata — title, authors, journal, date, licence — was read from the registry rather than from the submission. The fifth (`10.3389/fpubh.2026.1834285`) is **not yet registered**: doi.org returns 404 because the Frontiers article is still an accepted, unformatted manuscript. Its card links the journal page, which resolves, and says so on its face; the DOI can replace the link once it registers.
+
+Descriptions are written from each paper's own abstract, not from the summary that accompanied the submission — which is why the Bhopal card reports null and inconsistent results, and the GreenAirOps card says "multi-source environmental data" rather than naming CPCB, a claim the paper does not make.
+
+### Fixed — the Reading List's study count, and a paper listed twice
+
+The Peer-Reviewed Research badge read **24 studies** while the section carried 29 cards. It has never matched: the badge said 24 on the day it was added (v26.6.49–53, 18 Jul 2026), by which point 29 cards were already there and the v26.6.43 entry had said "Reading List now 29". Singh et al. (2025) on respiratory PM deposition in Delhi also appeared **twice** — once as a terse card, once with the fuller 2019–2023 description. The duplicate is gone, the surviving card keeps the author attribution and both sets of search keywords, and the badge now reads the number of cards actually there.
+
+### Added — an India-specific causal citation for the reproductive-health card
+
+The Gender & Air panel's Reproductive & Child Health card cited "WHO synthesis; peer-reviewed maternal-exposure cohort studies" and no specific paper — the gap left when the fabricated "Krishna et al." attribution was removed in v26.6.40. It now carries the Misra & Kulshreshtha estimates with their DOI, in both the full and plain-language copy.
+
 ## [v26.6.167] - 2026-08-10
 
 ### Fixed — the eval harness scored a perfect 27/27 while grading almost nothing

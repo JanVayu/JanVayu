@@ -144,7 +144,7 @@ for (const part of parts) {
             '-rename-layers', 'villages',   // stable object name for the client
             '-o', dest, 'format=topojson', 'quantization=1e5', 'force'],
             { stdio: 'ignore' });
-    } catch (e) {
+    } catch {
         console.warn(`  ! mapshaper failed for district ${id}`);
         rmSync(fc, { force: true });
         continue;

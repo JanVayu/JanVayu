@@ -22,7 +22,7 @@ JanVayu का बैकएंड 13 सर्वरलेस फ़ंक्श
 | `accountability-brief.mjs` | POST | AI: वार्ड-स्तरीय जवाबदेही ब्रीफ़ |
 | `anomaly-check.mjs` | GET | AI: PM2.5 स्पाइक पहचान |
 | `reddit-feed.js` | GET | कैश्ड Reddit पोस्ट |
-| `twitter-feed.js` | GET | कैश्ड Twitter/X पोस्ट |
+| `twitter-feed.js` | — | **Retired.** Read Nitter, whose public instances are gone; nothing calls it. |
 | `instagram-feed.js` | GET | कैश्ड Instagram पोस्ट |
 | `news-proxy.js` | GET | कैश्ड समाचार लेख |
 | `subscribe.js` | POST | ईमेल सदस्यता प्रबंधन |

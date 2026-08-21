@@ -46,7 +46,7 @@ Cache காலியாக இருந்தால் நேரடி Reddit f
 
 #### `twitter-feed.js`
 **Endpoint:** `GET /.netlify/functions/twitter-feed`
-**நோக்கம்:** Netlify Blobs-லிருந்து Nitter RSS வழியாக cache செய்யப்பட்ட Twitter/X பதிவுகளை திருப்புகிறது.
+**Retired.** Read Nitter, whose public instances are gone; nothing calls it.
 
 ---
 

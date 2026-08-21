@@ -68,26 +68,26 @@ jobs:
         with:
           node-version: '22'
 
+      # Rules live in eslint.config.mjs, not in flags here. ESLint 9 removed
+      # --no-eslintrc and --rule, so the old invocation exited before linting
+      # anything and `|| true` hid it: a green job that checked nothing.
       - name: Run ESLint (advisory)
         id: eslint
         continue-on-error: true
         run: |
+          set +e
           npx --yes eslint@9 \
-            --no-eslintrc \
-            --rule "no-unused-vars: warn" \
-            --rule "no-undef: off" \
-            --rule "no-unreachable: warn" \
-            --rule "no-dupe-keys: warn" \
-            --rule "no-dupe-args: warn" \
-            --rule "no-irregular-whitespace: warn" \
-            --rule "no-misleading-character-class: warn" \
-            --rule "no-self-assign: warn" \
-            --rule "no-unsafe-finally: warn" \
-            --rule "no-with: warn" \
-            --rule "use-isnan: warn" \
-            --parser-options=ecmaVersion:2022,sourceType:module \
             "netlify/functions/**/*.mjs" "netlify/functions/**/*.js" "scripts/**/*.mjs" "ask/**/*.js" "sw.js" \
-            --format stylish > eslint.log 2>&1 || true
+            --format stylish > eslint.log 2>&1
+          status=$?
+          set -e
+          # Exit 1 means lint findings, which are advisory here. Anything else
+          # (2 = config/flag/crash) means the lint did not run, and that must
+          # not be reported as a clean pass.
+          if [ $status -gt 1 ]; then
+            echo "ESLINT_DID_NOT_RUN=1" >> $GITHUB_ENV
+            echo "::warning::ESLint failed to run (exit $status) — see the log; this is NOT a clean lint."
+          fi
           tail -200 eslint.log
 
       - name: Surface in PR summary
@@ -95,9 +95,13 @@ jobs:
         run: |
           echo "## ESLint (advisory)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${ESLINT_DID_NOT_RUN:-0}" = "1" ]; then
+            echo "**ESLint did not run — this is not a clean lint.** See the log below." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
           if [ -s eslint.log ]; then
-            PROBLEMS=$(grep -E "^[0-9]+ problems" eslint.log | tail -1 || echo "no summary line")
-            echo "**${PROBLEMS}**" >> $GITHUB_STEP_SUMMARY
+            PROBLEMS=$(grep -E "problems? \(" eslint.log | tail -1 || true)
+            echo "**${PROBLEMS:-No problem summary line — ESLint produced no report.}**" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "<details><summary>Last 100 lines of eslint output</summary>" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY

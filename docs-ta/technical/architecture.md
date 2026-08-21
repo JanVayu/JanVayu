@@ -18,7 +18,7 @@ JanVayu என்பது **சூன்ய-கட்டமைப்பு, ஒ
 │  Scheduled (cron)              On-demand (API)           │
 │  ┌──────────────────┐   ┌───────────────────────────┐   │
 │  │ scheduled-fetch   │   │ reddit-feed.js            │   │
-│  │ (every 4 hours)   │   │ twitter-feed.js           │   │
+│  │ (every 4 hours)   │   │ youtube-feed.js           │   │
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │
@@ -93,7 +93,7 @@ JanVayu/
         ├── scheduled-fetch.mjs   # Cron: அனைத்து feeds, ஒவ்வொரு 4 மணி நேரம்
         ├── daily-digest.mjs      # Cron: மின்னஞ்சல் சுருக்கம், காலை 8am IST
         ├── reddit-feed.js        # API: கேச் செய்யப்பட்ட Reddit பதிவுகள்
-        ├── twitter-feed.js       # API: கேச் செய்யப்பட்ட Twitter/X பதிவுகள்
+        ├── twitter-feed.js       # API: retired — read Nitter, whose public instances are gone
         ├── news-proxy.js         # API: கேச் செய்யப்பட்ட செய்தி கட்டுரைகள்
         ├── instagram-feed.js     # API: கேச் செய்யப்பட்ட Instagram பதிவுகள்
         ├── feed-status.js        # API: feed புத்தம்புதிய நிலை சோதனை

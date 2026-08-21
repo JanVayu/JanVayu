@@ -88,10 +88,16 @@ exports.handler = async function (event) {
   try {
     const store = getBlobStore("janvayu-feeds");
     const cached = await store.get("instagram", { type: "json" });
-    if (cached && cached.posts && cached.posts.length > 0) {
+    // The filter above runs at ingest, so it could never clean a blob written
+    // before it shipped — or by scheduled-fetch, which had no filter at all and
+    // refilled the cache every four hours. A cached copy is re-checked here, so
+    // a poisoned blob is dropped rather than served forever; if nothing survives
+    // we fall through to a live fetch, which rewrites the cache clean.
+    const cachedPosts = (cached && cached.posts || []).filter(p => !isBridgeError({ title: p.title, content_text: p.content }));
+    if (cachedPosts.length > 0) {
       return {
         statusCode: 200, headers,
-        body: JSON.stringify({ ...cached, served_from: 'cache' }),
+        body: JSON.stringify({ ...cached, posts: cachedPosts, count: cachedPosts.length, served_from: 'cache' }),
       };
     }
   } catch (e) {
@@ -128,7 +134,7 @@ exports.handler = async function (event) {
                 h: t,
               });
               allItems.push(...normalizeItems(d));
-            } catch (e) { /* skip */ }
+            } catch { /* skip */ }
           }
           // Try account feeds
           for (const acct of INSTAGRAM_ACCOUNTS) {
@@ -140,7 +146,7 @@ exports.handler = async function (event) {
                 u: acct,
               });
               allItems.push(...normalizeItems(d));
-            } catch (e) { /* skip */ }
+            } catch { /* skip */ }
           }
           break;
         }

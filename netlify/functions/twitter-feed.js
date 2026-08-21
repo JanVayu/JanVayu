@@ -159,14 +159,14 @@ exports.handler = async function (event) {
         try {
           const xml = await fetchFromNitter(instance, `/search/rss?f=tweets&q=%23${tag}`);
           allItems.push(...parseRSSItems(xml));
-        } catch (e) { /* skip */ }
+        } catch { /* skip */ }
       }
       // Also try search queries
       for (const q of SEARCH_QUERIES) {
         try {
           const xml = await fetchFromNitter(instance, `/search/rss?f=tweets&q=${q}`);
           allItems.push(...parseRSSItems(xml));
-        } catch (e) { /* skip */ }
+        } catch { /* skip */ }
       }
       break; // Don't try other instances
     }

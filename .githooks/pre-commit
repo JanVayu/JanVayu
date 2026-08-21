@@ -42,9 +42,17 @@ if [ -n "$CODE_FILES" ]; then
 fi
 
 # 3. Check for merge conflict markers
+#
+# Matched at the start of a line and in the exact shape git writes them, not
+# anywhere in the file: the loose pattern flagged docs/claude-code/capabilities.md
+# for the table row that documents this very rule, and would flag any setext
+# heading underline as well. Only the angle markers are matched, at column 1 and
+# followed by a space or end of line: a bare '=======' is indistinguishable from
+# a seven-character setext heading underline, and every real conflict git writes
+# carries '<<<<<<<' and '>>>>>>>' too, so nothing is lost by leaving it out.
 if [ -n "$STAGED_FILES" ]; then
   while IFS= read -r file; do
-    if [ -f "$file" ] && grep -rn '<<<<<<<\|=======\|>>>>>>>' "$file" > /dev/null 2>&1; then
+    if [ -f "$file" ] && grep -nE '^(<{7}|>{7})( |$)' "$file" > /dev/null 2>&1; then
       echo -e "${RED}BLOCKED:${NC} Merge conflict markers found in $file"
       exit 1
     fi

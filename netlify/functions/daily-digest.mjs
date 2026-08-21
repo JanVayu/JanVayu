@@ -164,7 +164,7 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
 </html>`;
 }
 
-export default async (req) => {
+export default async () => {
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
   if (!RESEND_API_KEY) {
     console.log("RESEND_API_KEY not set, skipping email digest");
@@ -205,7 +205,7 @@ export default async (req) => {
 
   // Fetch AQI data for all needed cities
   const cityDataMap = {};
-  const fetchResults = await Promise.allSettled(
+  await Promise.allSettled(
     [...allCityKeys].map(async (key) => {
       const data = await fetchCityAQI(key);
       if (data) cityDataMap[key] = data;
