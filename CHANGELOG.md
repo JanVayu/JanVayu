@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.170] - 2026-08-21
+
+### Fixed — ESLint clean: 37 warnings → 0
+
+The gate repaired in v26.6.169 reported 37 `no-unused-vars` warnings on its first working run. All 37 are now fixed in the code rather than silenced in the config — the rule set is unchanged, so a new unused binding still shows up.
+
+- **25 unused `catch (e)` bindings** across nine functions, two scripts and both service workers, converted to the ES2019 optional catch binding (`catch { … }`). Every one of them was an intentional swallow whose comment already said so (`/* ignore */`, `/* missing snapshot is fine */`, `/* best-effort */`); dropping the binding says the same thing in syntax.
+- **Six unused imports**: `TRANSPORT_MULTIPLIERS` in `air-query.mjs` (still exported by `lib/calc.mjs`, still used there and in `test/calc.test.mjs` — only the dead import went), `statSync` in `check-translations.mjs`, `createWriteStream` in `fetch-openmaps.mjs`, and four geometry helpers (`simplifyRing`, `ringArea`, `ringCentroid`, `closeRing`) that `fetch-openmaps.mjs` imported but never called.
+- **Two computed-and-discarded values**: `fetchResults` in `daily-digest.mjs` (the `await` stays; only the unread binding went) and `monthStr` in `historical-aqi.mjs`.
+- **Three handler parameters nothing read**: the sole `req` argument of the `daily-digest`, `scheduled-fetch` and `feed-health` default exports. `feed-health` carried a comment claiming the base URL came "from the request or fall back to env" — it has only ever read the env, so the comment now says that.
+
+`npx eslint@9` over the CI file set now prints nothing and exits 0.
+
 ## [v26.6.169] - 2026-08-21
 
 ### Fixed — a full-stack sweep: five defects, four of them invisible to CI

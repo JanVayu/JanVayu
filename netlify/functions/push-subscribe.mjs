@@ -35,7 +35,7 @@ export default async (req) => {
   if (req.method !== "POST") return new Response(JSON.stringify({ error: "POST only" }), { status: 405, headers });
 
   let body;
-  try { body = await req.json(); } catch (e) { return new Response(JSON.stringify({ error: "invalid JSON" }), { status: 400, headers }); }
+  try { body = await req.json(); } catch { return new Response(JSON.stringify({ error: "invalid JSON" }), { status: 400, headers }); }
 
   const { action, subscription } = body;
   if (!subscription || !subscription.endpoint) {

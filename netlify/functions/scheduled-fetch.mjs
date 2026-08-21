@@ -189,7 +189,7 @@ async function fetchTwitter() {
             headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
           }, 5000);
           allItems.push(...parseRSSItems(await res.text()));
-        } catch (e) { /* skip */ }
+        } catch { /* skip */ }
       }
       for (const q of SEARCH_QUERIES) {
         try {
@@ -197,7 +197,7 @@ async function fetchTwitter() {
             headers: { 'User-Agent': 'JanVayu/v26.6 AirQualityMonitor (+https://janvayu.in)' },
           }, 5000);
           allItems.push(...parseRSSItems(await res.text()));
-        } catch (e) { /* skip */ }
+        } catch { /* skip */ }
       }
       break;
     }
@@ -305,7 +305,7 @@ async function fetchInstagram() {
               const r = await fetchWithTimeout(`https://${instance}/?${p}`);
               const d = await r.json();
               allItems.push(...normalizeIgItems(d.items));
-            } catch (e) { /* skip */ }
+            } catch { /* skip */ }
           }
           for (const acct of INSTAGRAM_ACCOUNTS) {
             try {
@@ -313,7 +313,7 @@ async function fetchInstagram() {
               const r = await fetchWithTimeout(`https://${instance}/?${p}`);
               const d = await r.json();
               allItems.push(...normalizeIgItems(d.items));
-            } catch (e) { /* skip */ }
+            } catch { /* skip */ }
           }
           break;
         }
@@ -348,7 +348,7 @@ async function enrichNewsWithJina(articles) {
         }, 8000);
         const text = await res.text();
         return { ...article, snippet_enhanced: text.slice(0, 500).trim(), enhanced: true };
-      } catch (e) {
+      } catch {
         return article;
       }
     })
@@ -358,7 +358,7 @@ async function enrichNewsWithJina(articles) {
 }
 
 // ── Main scheduled handler ──
-export default async (req) => {
+export default async () => {
   const store = getBlobStore("janvayu-feeds");
   const timestamp = new Date().toISOString();
   const log = { started: timestamp, results: {} };

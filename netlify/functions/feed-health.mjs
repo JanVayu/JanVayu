@@ -76,8 +76,8 @@ async function checkFeed(baseUrl, feed) {
   }
 }
 
-export default async function handler(req) {
-  // Determine base URL from the request or fall back to env/default
+export default async function handler() {
+  // Base URL comes from Netlify's deploy env, not the request.
   const baseUrl =
     process.env.URL || process.env.DEPLOY_PRIME_URL || "https://www.janvayu.in";
 

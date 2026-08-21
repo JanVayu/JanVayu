@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 // of truth; see test/calc.test.mjs). esbuild bundles this relative import.
 import {
   calcCigarettes, calcMortalityRisk, calcLifeExpectancyLoss, calcMigrationBenefit,
-  TRANSPORT_MULTIPLIERS, extractTransportFromQuestion, calcTransportExposure,
+  extractTransportFromQuestion, calcTransportExposure,
   calcPurifierCADR, extractRoomSizeFromQuestion, calcSchoolClosureRisk,
 } from './lib/calc.mjs';
 

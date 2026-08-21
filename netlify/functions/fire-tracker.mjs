@@ -72,7 +72,7 @@ export default async (req) => {
     if (cached && cached.fetched_at && Date.now() - cached.fetched_at < 30 * 60 * 1000) {
       return new Response(JSON.stringify({ ...cached.payload, cached: true }), { headers });
     }
-  } catch (e) { /* cache miss */ }
+  } catch { /* cache miss */ }
 
   try {
     const api = `https://firms.modaps.eosdis.nasa.gov/api/area/csv/${MAP_KEY}/${SOURCE}/${area}/${days}`;
@@ -97,7 +97,7 @@ export default async (req) => {
     try {
       const store = getBlobStore("janvayu-feeds");
       await store.setJSON(cacheKey, { payload, fetched_at: Date.now() });
-    } catch (e) { /* cache write best-effort */ }
+    } catch { /* cache write best-effort */ }
 
     return new Response(JSON.stringify(payload), { headers });
   } catch (e) {

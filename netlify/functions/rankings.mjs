@@ -115,7 +115,7 @@ async function fetchOne(key) {
       const pm25 = json.data.iaqi?.pm25?.v || Math.round(aqi * 0.7);
       return { key, name: c.name, aqi, pm25 };
     }
-  } catch (e) { /* ignore */ }
+  } catch { /* ignore */ }
   return null;
 }
 
@@ -142,7 +142,7 @@ async function aggregatedRankings(days) {
     try {
       const snap = await store.get("snapshot-" + dateOffsetKey(i), { type: "json" });
       if (snap && Array.isArray(snap.cities)) snapshots.push(snap);
-    } catch (e) { /* missing snapshot is fine */ }
+    } catch { /* missing snapshot is fine */ }
   }
   if (snapshots.length === 0) return null;
   // Average PM2.5 per city across snapshots; compute delta vs the oldest
@@ -172,7 +172,7 @@ async function writeTodaySnapshot(rows) {
       date: todayKey(),
       cities: rows.map(r => ({ key: r.key, name: r.name, aqi: r.aqi, pm25: r.pm25 }))
     });
-  } catch (e) { /* best-effort, ignore */ }
+  } catch { /* best-effort, ignore */ }
 }
 
 export default async (req) => {

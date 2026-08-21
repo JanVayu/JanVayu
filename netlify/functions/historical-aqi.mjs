@@ -78,7 +78,6 @@ export default async (req) => {
   // Try to enrich with any accumulated snapshots from the rankings store
   try {
     const store = getBlobStore("janvayu-rankings");
-    const monthStr = String(month).padStart(2, "0");
     const yearMatches = {};
     // Scan up to 30 days of snapshots into the relevant month buckets
     for (let i = 0; i < 30; i++) {
@@ -102,7 +101,7 @@ export default async (req) => {
       if (existing) existing.pm25 = avg;
       else baseYears.push({ year: parseInt(y), pm25: avg });
     });
-  } catch (e) { /* ignore */ }
+  } catch { /* ignore */ }
 
   baseYears.sort((a, b) => a.year - b.year);
   return new Response(JSON.stringify({ city, month, years: baseYears, source: "climatology + snapshots" }), { headers });

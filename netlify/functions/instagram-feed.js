@@ -134,7 +134,7 @@ exports.handler = async function (event) {
                 h: t,
               });
               allItems.push(...normalizeItems(d));
-            } catch (e) { /* skip */ }
+            } catch { /* skip */ }
           }
           // Try account feeds
           for (const acct of INSTAGRAM_ACCOUNTS) {
@@ -146,7 +146,7 @@ exports.handler = async function (event) {
                 u: acct,
               });
               allItems.push(...normalizeItems(d));
-            } catch (e) { /* skip */ }
+            } catch { /* skip */ }
           }
           break;
         }
