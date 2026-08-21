@@ -21,7 +21,8 @@ JanVayu's backend is entirely serverless — 13 Netlify Functions handling data 
 | `accountability-brief.mjs` | On-demand (POST) | AI: ward-level governance briefs |
 | `anomaly-check.mjs` | On-demand (GET) | AI: PM2.5 spike detection |
 | `reddit-feed.js` | On-demand (GET) | Cached Reddit air quality posts |
-| `twitter-feed.js` | On-demand (GET) | Cached Twitter/X posts |
+| `twitter-feed.js` | — | **Retired.** Read Nitter, whose public instances are gone; nothing calls it. |
+| `youtube-feed.js` | On-demand (GET) | Cached India air-quality videos from YouTube channel RSS |
 | `instagram-feed.js` | On-demand (GET) | Cached Instagram posts |
 | `news-proxy.js` | On-demand (GET) | Cached news articles |
 | `subscribe.js` | On-demand (POST) | Email subscription management |

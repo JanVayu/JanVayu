@@ -18,7 +18,7 @@ JanVayu হল একটি **জিরো-ফ্রেমওয়ার্ক,
 │  Scheduled (cron)              On-demand (API)           │
 │  ┌──────────────────┐   ┌───────────────────────────┐   │
 │  │ scheduled-fetch   │   │ reddit-feed.js            │   │
-│  │ (every 4 hours)   │   │ twitter-feed.js           │   │
+│  │ (every 4 hours)   │   │ youtube-feed.js           │   │
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │
@@ -93,7 +93,7 @@ JanVayu/
         ├── scheduled-fetch.mjs   # Cron: সব ফিড, প্রতি 4 ঘণ্টা
         ├── daily-digest.mjs      # Cron: ইমেল ডাইজেস্ট, সকাল 8টা IST
         ├── reddit-feed.js        # API: ক্যাশকৃত Reddit পোস্ট
-        ├── twitter-feed.js       # API: ক্যাশকৃত Twitter/X পোস্ট
+        ├── twitter-feed.js       # API: retired — read Nitter, whose public instances are gone
         ├── news-proxy.js         # API: ক্যাশকৃত সংবাদ নিবন্ধ
         ├── instagram-feed.js     # API: ক্যাশকৃত Instagram পোস্ট
         ├── feed-status.js        # API: ফিড ফ্রেশনেস হেলথ চেক

@@ -18,7 +18,7 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
 │  Scheduled (cron)              On-demand (API)           │
 │  ┌──────────────────┐   ┌───────────────────────────┐   │
 │  │ scheduled-fetch   │   │ reddit-feed.js            │   │
-│  │ (every 4 hours)   │   │ twitter-feed.js           │   │
+│  │ (every 4 hours)   │   │ youtube-feed.js           │   │
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │

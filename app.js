@@ -32,7 +32,7 @@
         _galIdx = Math.max(0, _galItems.indexOf(el));
         _galShow();
         const lb = document.getElementById('galLightbox');
-        if (lb) { lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+        if (lb) { lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); lb.removeAttribute('inert'); document.body.style.overflow = 'hidden'; }
     }
     function galNav(dir) {
         if (!_galItems.length) return;
@@ -41,7 +41,7 @@
     }
     function galClose() {
         const lb = document.getElementById('galLightbox');
-        if (lb) { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); }
+        if (lb) { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); lb.setAttribute('inert', ''); }
         document.body.style.overflow = '';
     }
     window.galOpen = galOpen; window.galNav = galNav; window.galClose = galClose;
@@ -7882,8 +7882,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         '<div style="margin-top: 0.5rem;"><span class="badge ' + statusBadge + '" style="font-size: 1rem; padding: 0.25rem 0.75rem;">' + d.statusLabel + '</span></div>' +
                         '<p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-2);">' + d.statusNote + '</p>' +
                         '<div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg); border-radius: 4px; font-size: 0.8125rem;">' +
-                            '<strong>Total allocated:</strong> &rupee;' + d.totalAllocated.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
-                            '<strong>Total utilised:</strong> &rupee;' + d.totalUtilised.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
+                            '<strong>Total allocated:</strong> ₹' + d.totalAllocated.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
+                            '<strong>Total utilised:</strong> ₹' + d.totalUtilised.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
                             '<strong>Utilisation:</strong> <span style="color: ' + statusColor + '; font-weight: 700;">' + d.utilisationPct + '%</span>' +
                         '</div>' +
                     '</div>' +

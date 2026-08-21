@@ -12,32 +12,33 @@ JanVayu exposes 10 serverless API endpoints via Netlify Functions. All endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| [`/air-query`](#air-query) | POST | Natural language AQI Q&A |
-| [`/health-advisory`](#health-advisory) | POST | Personalised health advice |
-| [`/accountability-brief`](#accountability-brief) | POST | Ward-level governance briefs |
-| [`/anomaly-check`](#anomaly-check) | GET | PM2.5 spike detection |
+| `/air-query` | POST | Natural language AQI Q&A |
+| `/health-advisory` | POST | Personalised health advice |
+| `/accountability-brief` | POST | Ward-level governance briefs |
+| `/anomaly-check` | GET | PM2.5 spike detection |
 
 ### Social Feeds
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| [`/reddit-feed`](#reddit-feed) | GET | Cached Reddit posts |
-| [`/twitter-feed`](#twitter-feed) | GET | Cached Twitter/X posts |
-| [`/news-proxy`](#news-proxy) | GET | Cached news articles |
-| [`/instagram-feed`](#instagram-feed) | GET | Cached Instagram posts |
+| `/reddit-feed` | GET | Cached Reddit posts |
+| `/twitter-feed` | — | **Retired.** Read Nitter, whose public instances are gone; the endpoint no longer answers and nothing calls it. |
+| `/youtube-feed` | GET | Cached India air-quality videos from YouTube channel RSS |
+| `/news-proxy` | GET | Cached news articles |
+| `/instagram-feed` | GET | Cached Instagram posts |
 
 ### Platform
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| [`/subscribe`](#subscribe) | POST | Email subscription management |
-| [`/feed-status`](#feed-status) | GET | Feed health monitoring |
+| `/subscribe` | POST | Email subscription management |
+| `/feed-status` | GET | Feed health monitoring |
 
 ### Open Data
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| [`/api`](#open-data-api) | GET | Versioned data manifest + CSV export |
+| `/api` | GET | Versioned data manifest + CSV export |
 
 ---
 

@@ -46,7 +46,7 @@ JanVayu सर्व सर्व्हर-साइड ऑपरेशन्स
 
 #### `twitter-feed.js`
 **Endpoint:** `GET /.netlify/functions/twitter-feed`
-**उद्देश:** Netlify Blobs मधून Nitter RSS द्वारे कॅश केलेले Twitter/X पोस्ट परत करतो.
+**Retired.** Read Nitter, whose public instances are gone; nothing calls it.
 
 ---
 

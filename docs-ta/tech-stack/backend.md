@@ -21,7 +21,7 @@ JanVayu-ன் backend முழுவதும் serverless — தரவு �
 | `accountability-brief.mjs` | On-demand (POST) | AI: வார்டு அளவிலான ஆளுமை சுருக்கங்கள் |
 | `anomaly-check.mjs` | On-demand (GET) | AI: PM2.5 எகிற்சி கண்டறிதல் |
 | `reddit-feed.js` | On-demand (GET) | Cache செய்யப்பட்ட Reddit காற்று தர பதிவுகள் |
-| `twitter-feed.js` | On-demand (GET) | Cache செய்யப்பட்ட Twitter/X பதிவுகள் |
+| `twitter-feed.js` | — | **Retired.** Read Nitter, whose public instances are gone; nothing calls it. |
 | `instagram-feed.js` | On-demand (GET) | Cache செய்யப்பட்ட Instagram பதிவுகள் |
 | `news-proxy.js` | On-demand (GET) | Cache செய்யப்பட்ட செய்தி கட்டுரைகள் |
 | `subscribe.js` | On-demand (POST) | மின்னஞ்சல் சந்தா மேலாண்மை |

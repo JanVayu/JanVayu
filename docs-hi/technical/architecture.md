@@ -18,7 +18,7 @@ JanVayu एक **शून्य-फ्रेमवर्क, एकल-पृ�
 │  अनुसूचित (cron)              ऑन-डिमांड (API)           │
 │  ┌──────────────────┐   ┌───────────────────────────┐   │
 │  │ scheduled-fetch   │   │ reddit-feed.js            │   │
-│  │ (हर 4 घंटे)      │   │ twitter-feed.js           │   │
+│  │ (हर 4 घंटे)      │   │ youtube-feed.js           │   │
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ air-query.mjs             │   │
 │  │ (8 AM IST दैनिक)  │   │ health-advisory.mjs       │   │

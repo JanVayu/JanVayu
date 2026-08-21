@@ -261,6 +261,30 @@ async function fetchNews() {
   return { articles: unique.slice(0, 50), count: unique.length, categories: NEWS_FEEDS.map(f => f.name), errors };
 }
 
+// RSS-Bridge reports its own failures as ordinary feed items — an Instagram
+// block comes back as posts titled "Bridge returned error 401!". instagram-feed.js
+// has dropped those since 10 Aug 2026, but this writer had no such filter, so every
+// four hours it refilled the cache with them and the API served them straight
+// back out. Same predicate, applied at the only other place items are ingested.
+function isBridgeError(item) {
+  const t = (item.title || '') + ' ' + (item.content_text || item.content_html || '');
+  return /bridge returned error|HttpException|\bError\b\s*\d{3}\b|Type:\s*\w*Exception/i.test(t);
+}
+
+// One shape for all three ingest points below (hashtag, extra hashtags, accounts)
+// so a filter can never again be applied to some of them and not the others.
+function normalizeIgItems(items) {
+  return (items || []).filter(i => !isBridgeError(i)).map(i => ({
+    title: (i.title || '').replace(/<[^>]+>/g, '').trim(),
+    content: (i.content_html || i.content_text || '').replace(/<[^>]+>/g, '').trim().slice(0, 300),
+    link: i.url || i.id || '',
+    date: i.date_published || i.date_modified || '',
+    author: i.author ? i.author.name : '',
+    image: i.image || (i.attachments?.[0]?.url || ''),
+    source: 'instagram',
+  }));
+}
+
 // ── Instagram fetcher ──
 async function fetchInstagram() {
   const allItems = [];
@@ -272,13 +296,7 @@ async function fetchInstagram() {
         const params = new URLSearchParams({ action: 'display', bridge: 'InstagramBridge', context: 'Hashtag', h: tag, format: 'Json' });
         const res = await fetchWithTimeout(`https://${instance}/?${params}`);
         const data = await res.json();
-        const items = (data.items || []).map(item => ({
-          title: (item.title || '').replace(/<[^>]+>/g, '').trim(),
-          content: (item.content_html || item.content_text || '').replace(/<[^>]+>/g, '').trim().slice(0, 300),
-          link: item.url || item.id || '', date: item.date_published || '',
-          author: item.author ? item.author.name : '',
-          image: item.image || (item.attachments?.[0]?.url || ''), source: 'instagram',
-        }));
+        const items = normalizeIgItems(data.items);
         allItems.push(...items);
         if (items.length > 0) {
           for (const t of INSTAGRAM_HASHTAGS.slice(2)) {
@@ -286,12 +304,7 @@ async function fetchInstagram() {
               const p = new URLSearchParams({ action: 'display', bridge: 'InstagramBridge', context: 'Hashtag', h: t, format: 'Json' });
               const r = await fetchWithTimeout(`https://${instance}/?${p}`);
               const d = await r.json();
-              allItems.push(...(d.items || []).map(i => ({
-                title: (i.title || '').replace(/<[^>]+>/g, '').trim(),
-                content: (i.content_html || '').replace(/<[^>]+>/g, '').trim().slice(0, 300),
-                link: i.url || '', date: i.date_published || '',
-                author: i.author?.name || '', image: i.image || '', source: 'instagram',
-              })));
+              allItems.push(...normalizeIgItems(d.items));
             } catch (e) { /* skip */ }
           }
           for (const acct of INSTAGRAM_ACCOUNTS) {
@@ -299,12 +312,7 @@ async function fetchInstagram() {
               const p = new URLSearchParams({ action: 'display', bridge: 'InstagramBridge', context: 'Username', u: acct, format: 'Json' });
               const r = await fetchWithTimeout(`https://${instance}/?${p}`);
               const d = await r.json();
-              allItems.push(...(d.items || []).map(i => ({
-                title: (i.title || '').replace(/<[^>]+>/g, '').trim(),
-                content: (i.content_html || '').replace(/<[^>]+>/g, '').trim().slice(0, 300),
-                link: i.url || '', date: i.date_published || '',
-                author: i.author?.name || '', image: i.image || '', source: 'instagram',
-              })));
+              allItems.push(...normalizeIgItems(d.items));
             } catch (e) { /* skip */ }
           }
           break;
