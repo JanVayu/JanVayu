@@ -1,0 +1,44 @@
+name: CodeQL
+
+# Static security analysis for the JavaScript in this repo. The Netlify
+# Functions under netlify/functions/ are the only genuinely server-side
+# code here — they read request input, talk to blob storage and call out
+# to third-party APIs — so they are where an injection or a leaked secret
+# would actually matter. CodeQL is free for public repositories; findings
+# land in the Security tab under Code scanning.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1'   # Monday 06:00 UTC — catches advisories added since the last push
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze JavaScript
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write   # required to upload results to Code scanning
+      actions: read
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"
