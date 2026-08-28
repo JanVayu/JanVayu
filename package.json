@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks",
-    "test": "node --test",
+    "test": "node --test \"test/**/*.test.{js,mjs}\"",
     "version:sync": "node scripts/bump-version.mjs",
     "sitemap": "node scripts/build-sitemap.mjs",
     "check:translations": "node scripts/check-translations.mjs"
