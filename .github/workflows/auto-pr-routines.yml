@@ -17,7 +17,7 @@ jobs:
   open-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Open or update the routine PR
         env:
           # Prefer a PAT (ROUTINE_PR_TOKEN) if configured — a user token can open
