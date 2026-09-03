@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -28,7 +28,7 @@ jobs:
       # with "session not created" and silently produce zero results. This
       # action installs a ChromeDriver matching the runner's Chrome.
       - name: Install matching ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
+        uses: nanasess/setup-chromedriver@v3
 
       - name: Install axe-core/cli + http-server
         run: |
@@ -88,7 +88,7 @@ jobs:
 
       - name: Upload full axe reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: axe-reports
           path: axe-results/
