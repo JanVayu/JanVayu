@@ -35,3 +35,12 @@ news\.webindia123\.com
 
 # --- CHANGELOG compare/release links for early versions never tagged on GitHub (v24/v25). ---
 github\.com/JanVayu/JanVayu/(compare|releases/tag)/v2[45]\.
+
+# --- Live sites whose TLS or latency defeats the checker, not dead links.
+#     Surfaced repeatedly by the Aug 2026 audits (#277, #314, #318, #325, #329). ---
+# National Green Tribunal: certificate chain the checker rejects. The tribunal is
+# the filing route the legal panel documents, so the link stays.
+greentribunal\.gov\.in
+# Warrior Moms: small clean-air campaign site, intermittently slow past the 30s
+# timeout. Reachable in a browser; timed out in 3 of 5 August audits.
+warriormoms\.in

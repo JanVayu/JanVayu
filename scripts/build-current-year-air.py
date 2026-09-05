@@ -75,6 +75,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = Path(os.environ.get('JV_CACHE', '/tmp/jv-boundaries'))
+# The checkpoints below are the only thing this script writes outside the repo,
+# and with --from-cache it reads its input from data/ instead of from here, so
+# this is the one boundary script that can legitimately run with no cache
+# directory at all. A developer's machine always has one left behind by an
+# earlier build; a fresh CI runner does not, and the first scheduled run died
+# writing its checkpoint after fetching 785 districts. Create it, don't assume it.
+CACHE.mkdir(parents=True, exist_ok=True)
 API = 'https://air-quality-api.open-meteo.com/v1/air-quality'
 UA = 'JanVayu/26.6 (+https://janvayu.in)'
 # Below this many hourly values a district's mean is not trustworthy; a full
