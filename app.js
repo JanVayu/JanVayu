@@ -1182,7 +1182,7 @@
 
     // Panels whose (large) markup lives in an external fragment, fetched on first
     // open instead of being inlined + parsed on every page load. Cached after first use.
-    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html', apportionment: '/panels/apportionment.html' };
+    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html', apportionment: '/panels/apportionment.html', airshed: '/panels/airshed.html' };
     const __panelFragmentCache = {};
     function fetchPanelFragment(panelId) {
         if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
@@ -1254,6 +1254,7 @@
                 if (panelId === 'forecast') { try { initForecastPanel(); } catch(e) { console.warn('Forecast init:', e); } }
                 if (panelId === 'fire-tracker') { try { initFireTracker(); } catch(e) { console.warn('Fire tracker init:', e); } }
                 if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
+                if (panelId === 'airshed') { try { window.initAirshed && window.initAirshed(); } catch(e) { console.warn('Airshed init:', e); } }
                 if (panelId === 'workshops') { try { window.initWorkshops && window.initWorkshops(); } catch(e) { console.warn('Workshops init:', e); } }
             }, 150);
     }
@@ -3118,6 +3119,106 @@
         { key: 'power',              label: 'Power',              color: '#0891B2' },
         { key: 'other',              label: 'Other (secondary, transboundary)', color: '#64748B' }
     ];
+    // --- Airshed panel -------------------------------------------------------
+    // 89% of the variance in district annual PM2.5 is BETWEEN states, not within
+    // them (scripts/build-airshed-decomposition.py computes the split from the
+    // same rows this reads). That is the whole point of the panel: NCAP sets
+    // city targets, and a city acting alone can only reach the local remainder.
+    // Deliberately says the gap names no cause, because a district under its
+    // state median is not thereby well run.
+    var __airshedData = null;
+    window.initAirshed = async function initAirshed() {
+        var sel = document.getElementById('airshed-district');
+        if (!sel) return;
+        if (!__airshedData) {
+            try {
+                var r = await fetch('/data/airshed.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                __airshedData = await r.json();
+            } catch (e) {
+                console.warn('Airshed data load failed:', e);
+                var ro = document.getElementById('airshed-readout');
+                if (ro) ro.innerHTML = '<p style="color:var(--text-3);">The district figures could not load. Please try again.</p>';
+                return;
+            }
+        }
+        var d = __airshedData, esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+        var band = function (v) { return v >= 60 ? '#b91c1c' : v >= 40 ? '#d97706' : v >= 20 ? '#65a30d' : '#0f766e'; };
+
+        var shareEl = document.getElementById('airshed-share');
+        if (shareEl) shareEl.textContent = Math.round(d._meta.between_state_variance_share * 100) + '%';
+        var basis = document.getElementById('airshed-basis');
+        if (basis) basis.textContent = d._meta.districts + ' districts · ' + d._meta.states + ' states and UTs · 2024 annual mean';
+
+        if (!sel.options.length) {
+            var byState = {};
+            d.districts.forEach(function (x) { (byState[x.st] = byState[x.st] || []).push(x); });
+            Object.keys(byState).sort().forEach(function (st) {
+                var g = document.createElement('optgroup');
+                g.label = st;
+                byState[st].forEach(function (x) {
+                    var o = document.createElement('option');
+                    o.value = x.st + '|' + x.dt;
+                    o.textContent = x.dt;
+                    g.appendChild(o);
+                });
+                sel.appendChild(g);
+            });
+            sel.addEventListener('change', render);
+        }
+
+        function render() {
+            var key = sel.value, parts = key.split('|');
+            var row = d.districts.find(function (x) { return x.st === parts[0] && x.dt === parts[1]; });
+            var out = document.getElementById('airshed-readout');
+            if (!row || !out) return;
+            var nat = d._meta.national_median, gap = row.gap;
+            var dir = gap > 0 ? 'above' : gap < 0 ? 'below' : 'level with';
+            var regional = row.sm - nat;
+            var cell = function (label, val, colour) {
+                return '<div style="flex:1 1 8rem; min-width:8rem; padding:0.75rem 0.9rem; border:1px solid var(--border); border-radius:8px;">' +
+                    '<div style="font-size:0.75rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.25rem;">' + label + '</div>' +
+                    '<div style="font-family:var(--serif); font-size:1.5rem; color:' + (colour || 'var(--ink)') + ';">' + val + '</div></div>';
+            };
+            out.innerHTML =
+                '<div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">' +
+                cell(esc(row.dt), row.pm.toFixed(1) + ' <span style="font-size:0.9rem;">&micro;g/m&sup3;</span>', band(row.pm)) +
+                cell(esc(row.st) + ' median', row.sm.toFixed(1), band(row.sm)) +
+                cell('India median', nat.toFixed(1), band(nat)) +
+                '</div>' +
+                '<p style="font-size:1.0625rem; line-height:1.7; color:var(--text-2); max-width:48rem;">' +
+                '<strong>' + esc(row.st) + '</strong> as a whole sits <strong>' + Math.abs(regional).toFixed(1) + '</strong> &micro;g/m&sup3; ' +
+                (regional >= 0 ? 'above' : 'below') + ' the national median. <strong>' + esc(row.dt) + '</strong> is a further <strong>' +
+                Math.abs(gap).toFixed(1) + '</strong> ' + dir + ' its own state, putting it ' + Math.abs(row.pm - nat).toFixed(1) + ' ' +
+                (row.pm >= nat ? 'above' : 'below') + ' the country overall. ' +
+                (Math.abs(gap) < Math.abs(regional)
+                    ? 'The region is doing most of the work here.'
+                    : 'This district departs from its state by more than the state departs from the country, which is unusual and worth a look at the map.') +
+                '</p>' +
+                '<p style="font-size:0.9rem; color:var(--text-3); max-width:48rem; margin-top:0.5rem;">' +
+                'Annual average for 2024, not today’s air. Being below a state median is not evidence of good local policy: see the note below.</p>';
+        }
+
+        // Default to New Delhi: it is the district most readers arrive looking for,
+        // and it is the clearest case of the point (its state median is 92.7).
+        var pick = d.districts.find(function (x) { return x.st === 'Delhi' && x.dt === 'New Delhi'; }) || d.districts[0];
+        sel.value = pick.st + '|' + pick.dt;
+        render();
+
+        var wrap = document.getElementById('airshed-states');
+        if (wrap && !wrap.innerHTML) {
+            var meds = Object.entries(d.state_medians), max = meds[0][1];
+            wrap.innerHTML = meds.map(function (kv) {
+                var pct = Math.max(2, (kv[1] / max) * 100);
+                return '<div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.3rem;">' +
+                    '<div style="flex:0 0 9.5rem; font-size:0.85rem; color:var(--text-2); text-align:right;">' + esc(kv[0]) + '</div>' +
+                    '<div style="flex:1; background:var(--bg-section); border-radius:3px; overflow:hidden;">' +
+                    '<div style="width:' + pct + '%; height:14px; background:' + band(kv[1]) + ';"></div></div>' +
+                    '<div style="flex:0 0 3.2rem; font-size:0.85rem; color:var(--text-3);">' + kv[1].toFixed(1) + '</div></div>';
+            }).join('');
+        }
+    };
+
     window.initApportionment = async function initApportionment() {
         const sel = document.getElementById('apportion-city');
         if (!sel) return;

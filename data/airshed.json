@@ -1,0 +1,5545 @@
+{
+ "_meta": {
+  "air": "SatPM2.5 V6GL03 (ACAG / Washington University), 2024 annual mean, per district",
+  "districts": 785,
+  "states": 36,
+  "national_median": 39.0,
+  "between_state_variance_share": 0.892,
+  "note": "Share of the variance in district annual PM2.5 that lies between states rather than within them. A district below its state median is not thereby well governed: this figure names no cause."
+ },
+ "state_medians": {
+  "Delhi": 92.7,
+  "Chandigarh": 61.1,
+  "Bihar": 58.3,
+  "Haryana": 56.0,
+  "Punjab": 55.8,
+  "Uttar Pradesh": 55.1,
+  "Jharkhand": 52.6,
+  "Tripura": 50.2,
+  "West Bengal": 50.1,
+  "Odisha": 43.5,
+  "Madhya Pradesh": 41.6,
+  "Chhattisgarh": 41.3,
+  "Rajasthan": 41.1,
+  "Gujarat": 39.8,
+  "Maharashtra": 37.0,
+  "Dadra,Nagar Haveli,Daman & Diu": 36.4,
+  "Assam": 33.5,
+  "Meghalaya": 33.3,
+  "Telangana": 33.0,
+  "Andhra Pradesh": 32.0,
+  "Himachal Pradesh": 31.0,
+  "Uttarakhand": 28.7,
+  "Puducherry": 28.1,
+  "Goa": 28.1,
+  "Sikkim": 27.7,
+  "Karnataka": 27.4,
+  "Tamil Nadu": 27.4,
+  "Manipur": 26.1,
+  "Jammu & Kashmir": 25.7,
+  "Mizoram": 25.5,
+  "Nagaland": 24.8,
+  "Kerala": 22.7,
+  "Lakshadweep": 21.1,
+  "Andaman & Nicobar": 17.9,
+  "Arunachal Pradesh": 17.2,
+  "Ladakh": 13.9
+ },
+ "districts": [
+  {
+   "dt": "Nicobars",
+   "st": "Andaman & Nicobar",
+   "pm": 11.9,
+   "sm": 17.9,
+   "gap": -6.0
+  },
+  {
+   "dt": "North And Middle Andaman",
+   "st": "Andaman & Nicobar",
+   "pm": 19.0,
+   "sm": 17.9,
+   "gap": 1.1
+  },
+  {
+   "dt": "South Andamans",
+   "st": "Andaman & Nicobar",
+   "pm": 17.9,
+   "sm": 17.9,
+   "gap": 0.0
+  },
+  {
+   "dt": "Alluri Sitharama Raju",
+   "st": "Andhra Pradesh",
+   "pm": 31.6,
+   "sm": 32.0,
+   "gap": -0.4
+  },
+  {
+   "dt": "Anakapalli",
+   "st": "Andhra Pradesh",
+   "pm": 33.5,
+   "sm": 32.0,
+   "gap": 1.5
+  },
+  {
+   "dt": "Anantapur",
+   "st": "Andhra Pradesh",
+   "pm": 28.4,
+   "sm": 32.0,
+   "gap": -3.6
+  },
+  {
+   "dt": "Annamayya",
+   "st": "Andhra Pradesh",
+   "pm": 28.1,
+   "sm": 32.0,
+   "gap": -3.9
+  },
+  {
+   "dt": "Bapatla",
+   "st": "Andhra Pradesh",
+   "pm": 31.9,
+   "sm": 32.0,
+   "gap": -0.1
+  },
+  {
+   "dt": "Chittoor",
+   "st": "Andhra Pradesh",
+   "pm": 28.0,
+   "sm": 32.0,
+   "gap": -4.0
+  },
+  {
+   "dt": "East Godavari",
+   "st": "Andhra Pradesh",
+   "pm": 33.1,
+   "sm": 32.0,
+   "gap": 1.1
+  },
+  {
+   "dt": "Eluru",
+   "st": "Andhra Pradesh",
+   "pm": 32.7,
+   "sm": 32.0,
+   "gap": 0.7
+  },
+  {
+   "dt": "Guntur",
+   "st": "Andhra Pradesh",
+   "pm": 32.6,
+   "sm": 32.0,
+   "gap": 0.6
+  },
+  {
+   "dt": "Kakinada",
+   "st": "Andhra Pradesh",
+   "pm": 33.3,
+   "sm": 32.0,
+   "gap": 1.3
+  },
+  {
+   "dt": "Konaseema",
+   "st": "Andhra Pradesh",
+   "pm": 32.6,
+   "sm": 32.0,
+   "gap": 0.6
+  },
+  {
+   "dt": "Krishna",
+   "st": "Andhra Pradesh",
+   "pm": 32.2,
+   "sm": 32.0,
+   "gap": 0.2
+  },
+  {
+   "dt": "Kurnool",
+   "st": "Andhra Pradesh",
+   "pm": 29.6,
+   "sm": 32.0,
+   "gap": -2.4
+  },
+  {
+   "dt": "Nandyal",
+   "st": "Andhra Pradesh",
+   "pm": 29.9,
+   "sm": 32.0,
+   "gap": -2.1
+  },
+  {
+   "dt": "Ntr",
+   "st": "Andhra Pradesh",
+   "pm": 32.6,
+   "sm": 32.0,
+   "gap": 0.6
+  },
+  {
+   "dt": "Palnadu",
+   "st": "Andhra Pradesh",
+   "pm": 31.2,
+   "sm": 32.0,
+   "gap": -0.8
+  },
+  {
+   "dt": "Parvathipuram Manyam",
+   "st": "Andhra Pradesh",
+   "pm": 38.7,
+   "sm": 32.0,
+   "gap": 6.7
+  },
+  {
+   "dt": "Prakasam",
+   "st": "Andhra Pradesh",
+   "pm": 28.6,
+   "sm": 32.0,
+   "gap": -3.4
+  },
+  {
+   "dt": "Spsr Nellore",
+   "st": "Andhra Pradesh",
+   "pm": 28.7,
+   "sm": 32.0,
+   "gap": -3.3
+  },
+  {
+   "dt": "Sri Sathya Sai",
+   "st": "Andhra Pradesh",
+   "pm": 28.4,
+   "sm": 32.0,
+   "gap": -3.6
+  },
+  {
+   "dt": "Srikakulam",
+   "st": "Andhra Pradesh",
+   "pm": 36.7,
+   "sm": 32.0,
+   "gap": 4.7
+  },
+  {
+   "dt": "Tirupati",
+   "st": "Andhra Pradesh",
+   "pm": 28.6,
+   "sm": 32.0,
+   "gap": -3.4
+  },
+  {
+   "dt": "Visakhapatanam",
+   "st": "Andhra Pradesh",
+   "pm": 34.7,
+   "sm": 32.0,
+   "gap": 2.7
+  },
+  {
+   "dt": "Vizianagaram",
+   "st": "Andhra Pradesh",
+   "pm": 35.3,
+   "sm": 32.0,
+   "gap": 3.3
+  },
+  {
+   "dt": "West Godavari",
+   "st": "Andhra Pradesh",
+   "pm": 33.2,
+   "sm": 32.0,
+   "gap": 1.2
+  },
+  {
+   "dt": "Y.S.R.",
+   "st": "Andhra Pradesh",
+   "pm": 29.8,
+   "sm": 32.0,
+   "gap": -2.2
+  },
+  {
+   "dt": "Anjaw",
+   "st": "Arunachal Pradesh",
+   "pm": 16.9,
+   "sm": 17.2,
+   "gap": -0.3
+  },
+  {
+   "dt": "Changlang",
+   "st": "Arunachal Pradesh",
+   "pm": 19.1,
+   "sm": 17.2,
+   "gap": 1.9
+  },
+  {
+   "dt": "Dibang Valley",
+   "st": "Arunachal Pradesh",
+   "pm": 12.3,
+   "sm": 17.2,
+   "gap": -4.9
+  },
+  {
+   "dt": "East Kameng",
+   "st": "Arunachal Pradesh",
+   "pm": 18.3,
+   "sm": 17.2,
+   "gap": 1.1
+  },
+  {
+   "dt": "East Siang",
+   "st": "Arunachal Pradesh",
+   "pm": 16.5,
+   "sm": 17.2,
+   "gap": -0.7
+  },
+  {
+   "dt": "Itanagar capital complex",
+   "st": "Arunachal Pradesh",
+   "pm": 22.7,
+   "sm": 17.2,
+   "gap": 5.5
+  },
+  {
+   "dt": "Kamle",
+   "st": "Arunachal Pradesh",
+   "pm": 17.1,
+   "sm": 17.2,
+   "gap": -0.1
+  },
+  {
+   "dt": "Kra Daadi",
+   "st": "Arunachal Pradesh",
+   "pm": 14.9,
+   "sm": 17.2,
+   "gap": -2.3
+  },
+  {
+   "dt": "Kurung Kumey",
+   "st": "Arunachal Pradesh",
+   "pm": 14.7,
+   "sm": 17.2,
+   "gap": -2.5
+  },
+  {
+   "dt": "Leparada",
+   "st": "Arunachal Pradesh",
+   "pm": 15.2,
+   "sm": 17.2,
+   "gap": -2.0
+  },
+  {
+   "dt": "Lohit",
+   "st": "Arunachal Pradesh",
+   "pm": 17.8,
+   "sm": 17.2,
+   "gap": 0.6
+  },
+  {
+   "dt": "Longding",
+   "st": "Arunachal Pradesh",
+   "pm": 22.4,
+   "sm": 17.2,
+   "gap": 5.2
+  },
+  {
+   "dt": "Lower Dibang Valley",
+   "st": "Arunachal Pradesh",
+   "pm": 16.3,
+   "sm": 17.2,
+   "gap": -0.9
+  },
+  {
+   "dt": "Lower Siang",
+   "st": "Arunachal Pradesh",
+   "pm": 17.4,
+   "sm": 17.2,
+   "gap": 0.2
+  },
+  {
+   "dt": "Lower Subansiri",
+   "st": "Arunachal Pradesh",
+   "pm": 17.5,
+   "sm": 17.2,
+   "gap": 0.3
+  },
+  {
+   "dt": "Namsai",
+   "st": "Arunachal Pradesh",
+   "pm": 19.9,
+   "sm": 17.2,
+   "gap": 2.7
+  },
+  {
+   "dt": "Pakke Kessang",
+   "st": "Arunachal Pradesh",
+   "pm": 24.6,
+   "sm": 17.2,
+   "gap": 7.4
+  },
+  {
+   "dt": "Papum Pare",
+   "st": "Arunachal Pradesh",
+   "pm": 21.0,
+   "sm": 17.2,
+   "gap": 3.8
+  },
+  {
+   "dt": "Shi Yomi",
+   "st": "Arunachal Pradesh",
+   "pm": 11.9,
+   "sm": 17.2,
+   "gap": -5.3
+  },
+  {
+   "dt": "Siang",
+   "st": "Arunachal Pradesh",
+   "pm": 13.2,
+   "sm": 17.2,
+   "gap": -4.0
+  },
+  {
+   "dt": "Tawang",
+   "st": "Arunachal Pradesh",
+   "pm": 19.4,
+   "sm": 17.2,
+   "gap": 2.2
+  },
+  {
+   "dt": "Tirap",
+   "st": "Arunachal Pradesh",
+   "pm": 21.6,
+   "sm": 17.2,
+   "gap": 4.4
+  },
+  {
+   "dt": "Upper Siang",
+   "st": "Arunachal Pradesh",
+   "pm": 12.2,
+   "sm": 17.2,
+   "gap": -5.0
+  },
+  {
+   "dt": "Upper Subansiri",
+   "st": "Arunachal Pradesh",
+   "pm": 13.3,
+   "sm": 17.2,
+   "gap": -3.9
+  },
+  {
+   "dt": "West Kameng",
+   "st": "Arunachal Pradesh",
+   "pm": 22.9,
+   "sm": 17.2,
+   "gap": 5.7
+  },
+  {
+   "dt": "West Siang",
+   "st": "Arunachal Pradesh",
+   "pm": 14.1,
+   "sm": 17.2,
+   "gap": -3.1
+  },
+  {
+   "dt": "Bajali",
+   "st": "Assam",
+   "pm": 30.6,
+   "sm": 33.5,
+   "gap": -2.9
+  },
+  {
+   "dt": "Baksa",
+   "st": "Assam",
+   "pm": 33.5,
+   "sm": 33.5,
+   "gap": 0.0
+  },
+  {
+   "dt": "Barpeta",
+   "st": "Assam",
+   "pm": 39.2,
+   "sm": 33.5,
+   "gap": 5.7
+  },
+  {
+   "dt": "Biswanath",
+   "st": "Assam",
+   "pm": 27.2,
+   "sm": 33.5,
+   "gap": -6.3
+  },
+  {
+   "dt": "Bongaigaon",
+   "st": "Assam",
+   "pm": 38.4,
+   "sm": 33.5,
+   "gap": 4.9
+  },
+  {
+   "dt": "Cachar",
+   "st": "Assam",
+   "pm": 34.1,
+   "sm": 33.5,
+   "gap": 0.6
+  },
+  {
+   "dt": "Charaideo",
+   "st": "Assam",
+   "pm": 24.0,
+   "sm": 33.5,
+   "gap": -9.5
+  },
+  {
+   "dt": "Chirang",
+   "st": "Assam",
+   "pm": 34.5,
+   "sm": 33.5,
+   "gap": 1.0
+  },
+  {
+   "dt": "Darrang",
+   "st": "Assam",
+   "pm": 33.3,
+   "sm": 33.5,
+   "gap": -0.2
+  },
+  {
+   "dt": "Dhemaji",
+   "st": "Assam",
+   "pm": 20.6,
+   "sm": 33.5,
+   "gap": -12.9
+  },
+  {
+   "dt": "Dhubri",
+   "st": "Assam",
+   "pm": 45.7,
+   "sm": 33.5,
+   "gap": 12.2
+  },
+  {
+   "dt": "Dibrugarh",
+   "st": "Assam",
+   "pm": 21.3,
+   "sm": 33.5,
+   "gap": -12.2
+  },
+  {
+   "dt": "Dima Hasao",
+   "st": "Assam",
+   "pm": 29.2,
+   "sm": 33.5,
+   "gap": -4.3
+  },
+  {
+   "dt": "Goalpara",
+   "st": "Assam",
+   "pm": 46.0,
+   "sm": 33.5,
+   "gap": 12.5
+  },
+  {
+   "dt": "Golaghat",
+   "st": "Assam",
+   "pm": 29.6,
+   "sm": 33.5,
+   "gap": -3.9
+  },
+  {
+   "dt": "Hailakandi",
+   "st": "Assam",
+   "pm": 38.4,
+   "sm": 33.5,
+   "gap": 4.9
+  },
+  {
+   "dt": "Hojai",
+   "st": "Assam",
+   "pm": 35.7,
+   "sm": 33.5,
+   "gap": 2.2
+  },
+  {
+   "dt": "Jorhat",
+   "st": "Assam",
+   "pm": 28.9,
+   "sm": 33.5,
+   "gap": -4.6
+  },
+  {
+   "dt": "Kamrup",
+   "st": "Assam",
+   "pm": 43.4,
+   "sm": 33.5,
+   "gap": 9.9
+  },
+  {
+   "dt": "Kamrup Metro",
+   "st": "Assam",
+   "pm": 43.3,
+   "sm": 33.5,
+   "gap": 9.8
+  },
+  {
+   "dt": "Karbi Anglong",
+   "st": "Assam",
+   "pm": 30.3,
+   "sm": 33.5,
+   "gap": -3.2
+  },
+  {
+   "dt": "Karimganj",
+   "st": "Assam",
+   "pm": 39.5,
+   "sm": 33.5,
+   "gap": 6.0
+  },
+  {
+   "dt": "Kokrajhar",
+   "st": "Assam",
+   "pm": 38.2,
+   "sm": 33.5,
+   "gap": 4.7
+  },
+  {
+   "dt": "Lakhimpur",
+   "st": "Assam",
+   "pm": 24.3,
+   "sm": 33.5,
+   "gap": -9.2
+  },
+  {
+   "dt": "Majuli",
+   "st": "Assam",
+   "pm": 26.2,
+   "sm": 33.5,
+   "gap": -7.3
+  },
+  {
+   "dt": "Marigaon",
+   "st": "Assam",
+   "pm": 37.7,
+   "sm": 33.5,
+   "gap": 4.2
+  },
+  {
+   "dt": "Nagaon",
+   "st": "Assam",
+   "pm": 35.1,
+   "sm": 33.5,
+   "gap": 1.6
+  },
+  {
+   "dt": "Nalbari",
+   "st": "Assam",
+   "pm": 35.7,
+   "sm": 33.5,
+   "gap": 2.2
+  },
+  {
+   "dt": "Sivasagar",
+   "st": "Assam",
+   "pm": 25.9,
+   "sm": 33.5,
+   "gap": -7.6
+  },
+  {
+   "dt": "Sonitpur",
+   "st": "Assam",
+   "pm": 31.5,
+   "sm": 33.5,
+   "gap": -2.0
+  },
+  {
+   "dt": "South Salmara Mancachar",
+   "st": "Assam",
+   "pm": 50.2,
+   "sm": 33.5,
+   "gap": 16.7
+  },
+  {
+   "dt": "Tamulpur",
+   "st": "Assam",
+   "pm": 32.6,
+   "sm": 33.5,
+   "gap": -0.9
+  },
+  {
+   "dt": "Tinsukia",
+   "st": "Assam",
+   "pm": 20.7,
+   "sm": 33.5,
+   "gap": -12.8
+  },
+  {
+   "dt": "Udalguri",
+   "st": "Assam",
+   "pm": 32.9,
+   "sm": 33.5,
+   "gap": -0.6
+  },
+  {
+   "dt": "West Karbi Anglong",
+   "st": "Assam",
+   "pm": 33.8,
+   "sm": 33.5,
+   "gap": 0.3
+  },
+  {
+   "dt": "Araria",
+   "st": "Bihar",
+   "pm": 57.4,
+   "sm": 58.3,
+   "gap": -0.9
+  },
+  {
+   "dt": "Arwal",
+   "st": "Bihar",
+   "pm": 56.8,
+   "sm": 58.3,
+   "gap": -1.5
+  },
+  {
+   "dt": "Aurangabad",
+   "st": "Bihar",
+   "pm": 51.9,
+   "sm": 58.3,
+   "gap": -6.4
+  },
+  {
+   "dt": "Banka",
+   "st": "Bihar",
+   "pm": 54.6,
+   "sm": 58.3,
+   "gap": -3.7
+  },
+  {
+   "dt": "Begusarai",
+   "st": "Bihar",
+   "pm": 62.2,
+   "sm": 58.3,
+   "gap": 3.9
+  },
+  {
+   "dt": "Bhagalpur",
+   "st": "Bihar",
+   "pm": 60.3,
+   "sm": 58.3,
+   "gap": 2.0
+  },
+  {
+   "dt": "Bhojpur",
+   "st": "Bihar",
+   "pm": 59.7,
+   "sm": 58.3,
+   "gap": 1.4
+  },
+  {
+   "dt": "Buxar",
+   "st": "Bihar",
+   "pm": 59.8,
+   "sm": 58.3,
+   "gap": 1.5
+  },
+  {
+   "dt": "Darbhanga",
+   "st": "Bihar",
+   "pm": 58.5,
+   "sm": 58.3,
+   "gap": 0.2
+  },
+  {
+   "dt": "Gaya",
+   "st": "Bihar",
+   "pm": 52.7,
+   "sm": 58.3,
+   "gap": -5.6
+  },
+  {
+   "dt": "Gopalganj",
+   "st": "Bihar",
+   "pm": 60.7,
+   "sm": 58.3,
+   "gap": 2.4
+  },
+  {
+   "dt": "Jamui",
+   "st": "Bihar",
+   "pm": 55.3,
+   "sm": 58.3,
+   "gap": -3.0
+  },
+  {
+   "dt": "Jehanabad",
+   "st": "Bihar",
+   "pm": 58.1,
+   "sm": 58.3,
+   "gap": -0.2
+  },
+  {
+   "dt": "Kaimur (Bhabua)",
+   "st": "Bihar",
+   "pm": 50.7,
+   "sm": 58.3,
+   "gap": -7.6
+  },
+  {
+   "dt": "Katihar",
+   "st": "Bihar",
+   "pm": 60.3,
+   "sm": 58.3,
+   "gap": 2.0
+  },
+  {
+   "dt": "Khagaria",
+   "st": "Bihar",
+   "pm": 60.6,
+   "sm": 58.3,
+   "gap": 2.3
+  },
+  {
+   "dt": "Kishanganj",
+   "st": "Bihar",
+   "pm": 53.4,
+   "sm": 58.3,
+   "gap": -4.9
+  },
+  {
+   "dt": "Lakhisarai",
+   "st": "Bihar",
+   "pm": 58.3,
+   "sm": 58.3,
+   "gap": 0.0
+  },
+  {
+   "dt": "Madhepura",
+   "st": "Bihar",
+   "pm": 58.3,
+   "sm": 58.3,
+   "gap": 0.0
+  },
+  {
+   "dt": "Madhubani",
+   "st": "Bihar",
+   "pm": 55.5,
+   "sm": 58.3,
+   "gap": -2.8
+  },
+  {
+   "dt": "Munger",
+   "st": "Bihar",
+   "pm": 59.5,
+   "sm": 58.3,
+   "gap": 1.2
+  },
+  {
+   "dt": "Muzaffarpur",
+   "st": "Bihar",
+   "pm": 60.6,
+   "sm": 58.3,
+   "gap": 2.3
+  },
+  {
+   "dt": "Nalanda",
+   "st": "Bihar",
+   "pm": 59.9,
+   "sm": 58.3,
+   "gap": 1.6
+  },
+  {
+   "dt": "Nawada",
+   "st": "Bihar",
+   "pm": 54.3,
+   "sm": 58.3,
+   "gap": -4.0
+  },
+  {
+   "dt": "Pashchim Champaran",
+   "st": "Bihar",
+   "pm": 51.0,
+   "sm": 58.3,
+   "gap": -7.3
+  },
+  {
+   "dt": "Patna",
+   "st": "Bihar",
+   "pm": 62.2,
+   "sm": 58.3,
+   "gap": 3.9
+  },
+  {
+   "dt": "Purbi Champaran",
+   "st": "Bihar",
+   "pm": 55.1,
+   "sm": 58.3,
+   "gap": -3.2
+  },
+  {
+   "dt": "Purnia",
+   "st": "Bihar",
+   "pm": 59.0,
+   "sm": 58.3,
+   "gap": 0.7
+  },
+  {
+   "dt": "Rohtas",
+   "st": "Bihar",
+   "pm": 53.1,
+   "sm": 58.3,
+   "gap": -5.2
+  },
+  {
+   "dt": "Saharsa",
+   "st": "Bihar",
+   "pm": 58.9,
+   "sm": 58.3,
+   "gap": 0.6
+  },
+  {
+   "dt": "Samastipur",
+   "st": "Bihar",
+   "pm": 62.2,
+   "sm": 58.3,
+   "gap": 3.9
+  },
+  {
+   "dt": "Saran",
+   "st": "Bihar",
+   "pm": 63.1,
+   "sm": 58.3,
+   "gap": 4.8
+  },
+  {
+   "dt": "Sheikhpura",
+   "st": "Bihar",
+   "pm": 57.7,
+   "sm": 58.3,
+   "gap": -0.6
+  },
+  {
+   "dt": "Sheohar",
+   "st": "Bihar",
+   "pm": 55.3,
+   "sm": 58.3,
+   "gap": -3.0
+  },
+  {
+   "dt": "Sitamarhi",
+   "st": "Bihar",
+   "pm": 53.2,
+   "sm": 58.3,
+   "gap": -5.1
+  },
+  {
+   "dt": "Siwan",
+   "st": "Bihar",
+   "pm": 62.0,
+   "sm": 58.3,
+   "gap": 3.7
+  },
+  {
+   "dt": "Supaul",
+   "st": "Bihar",
+   "pm": 57.3,
+   "sm": 58.3,
+   "gap": -1.0
+  },
+  {
+   "dt": "Vaishali",
+   "st": "Bihar",
+   "pm": 64.0,
+   "sm": 58.3,
+   "gap": 5.7
+  },
+  {
+   "dt": "Chandigarh",
+   "st": "Chandigarh",
+   "pm": 61.1,
+   "sm": 61.1,
+   "gap": 0.0
+  },
+  {
+   "dt": "Balod",
+   "st": "Chhattisgarh",
+   "pm": 41.3,
+   "sm": 41.3,
+   "gap": 0.0
+  },
+  {
+   "dt": "Baloda Bazar",
+   "st": "Chhattisgarh",
+   "pm": 41.8,
+   "sm": 41.3,
+   "gap": 0.5
+  },
+  {
+   "dt": "Balrampur",
+   "st": "Chhattisgarh",
+   "pm": 45.2,
+   "sm": 41.3,
+   "gap": 3.9
+  },
+  {
+   "dt": "Bastar",
+   "st": "Chhattisgarh",
+   "pm": 35.7,
+   "sm": 41.3,
+   "gap": -5.6
+  },
+  {
+   "dt": "Bemetara",
+   "st": "Chhattisgarh",
+   "pm": 44.5,
+   "sm": 41.3,
+   "gap": 3.2
+  },
+  {
+   "dt": "Bijapur",
+   "st": "Chhattisgarh",
+   "pm": 34.3,
+   "sm": 41.3,
+   "gap": -7.0
+  },
+  {
+   "dt": "Bilaspur",
+   "st": "Chhattisgarh",
+   "pm": 41.0,
+   "sm": 41.3,
+   "gap": -0.3
+  },
+  {
+   "dt": "Dantewada",
+   "st": "Chhattisgarh",
+   "pm": 33.5,
+   "sm": 41.3,
+   "gap": -7.8
+  },
+  {
+   "dt": "Dhamtari",
+   "st": "Chhattisgarh",
+   "pm": 41.1,
+   "sm": 41.3,
+   "gap": -0.2
+  },
+  {
+   "dt": "Durg",
+   "st": "Chhattisgarh",
+   "pm": 46.5,
+   "sm": 41.3,
+   "gap": 5.2
+  },
+  {
+   "dt": "Gariyaband",
+   "st": "Chhattisgarh",
+   "pm": 40.8,
+   "sm": 41.3,
+   "gap": -0.5
+  },
+  {
+   "dt": "Gaurella Pendra Marwahi",
+   "st": "Chhattisgarh",
+   "pm": 42.7,
+   "sm": 41.3,
+   "gap": 1.4
+  },
+  {
+   "dt": "Janjgir-Champa",
+   "st": "Chhattisgarh",
+   "pm": 41.2,
+   "sm": 41.3,
+   "gap": -0.1
+  },
+  {
+   "dt": "Jashpur",
+   "st": "Chhattisgarh",
+   "pm": 42.3,
+   "sm": 41.3,
+   "gap": 1.0
+  },
+  {
+   "dt": "Kabirdham",
+   "st": "Chhattisgarh",
+   "pm": 40.6,
+   "sm": 41.3,
+   "gap": -0.7
+  },
+  {
+   "dt": "Kanker",
+   "st": "Chhattisgarh",
+   "pm": 37.4,
+   "sm": 41.3,
+   "gap": -3.9
+  },
+  {
+   "dt": "Khairgarh Chhuikhadan Gandai",
+   "st": "Chhattisgarh",
+   "pm": 41.3,
+   "sm": 41.3,
+   "gap": 0.0
+  },
+  {
+   "dt": "Kondagaon",
+   "st": "Chhattisgarh",
+   "pm": 36.5,
+   "sm": 41.3,
+   "gap": -4.8
+  },
+  {
+   "dt": "Korba",
+   "st": "Chhattisgarh",
+   "pm": 39.8,
+   "sm": 41.3,
+   "gap": -1.5
+  },
+  {
+   "dt": "Korea",
+   "st": "Chhattisgarh",
+   "pm": 41.6,
+   "sm": 41.3,
+   "gap": 0.3
+  },
+  {
+   "dt": "Mahasamund",
+   "st": "Chhattisgarh",
+   "pm": 43.2,
+   "sm": 41.3,
+   "gap": 1.9
+  },
+  {
+   "dt": "Manendragarh Chirimiri Bharatpur",
+   "st": "Chhattisgarh",
+   "pm": 43.8,
+   "sm": 41.3,
+   "gap": 2.5
+  },
+  {
+   "dt": "Mohla Manpur Ambagarh Chouki",
+   "st": "Chhattisgarh",
+   "pm": 37.8,
+   "sm": 41.3,
+   "gap": -3.5
+  },
+  {
+   "dt": "Mungeli",
+   "st": "Chhattisgarh",
+   "pm": 41.6,
+   "sm": 41.3,
+   "gap": 0.3
+  },
+  {
+   "dt": "Narayanpur",
+   "st": "Chhattisgarh",
+   "pm": 34.3,
+   "sm": 41.3,
+   "gap": -7.0
+  },
+  {
+   "dt": "Raigarh",
+   "st": "Chhattisgarh",
+   "pm": 42.2,
+   "sm": 41.3,
+   "gap": 0.9
+  },
+  {
+   "dt": "Raipur",
+   "st": "Chhattisgarh",
+   "pm": 44.6,
+   "sm": 41.3,
+   "gap": 3.3
+  },
+  {
+   "dt": "Rajnandgaon",
+   "st": "Chhattisgarh",
+   "pm": 41.3,
+   "sm": 41.3,
+   "gap": 0.0
+  },
+  {
+   "dt": "Sakti",
+   "st": "Chhattisgarh",
+   "pm": 41.5,
+   "sm": 41.3,
+   "gap": 0.2
+  },
+  {
+   "dt": "Sarangarh Bilaigarh",
+   "st": "Chhattisgarh",
+   "pm": 42.6,
+   "sm": 41.3,
+   "gap": 1.3
+  },
+  {
+   "dt": "Sukma",
+   "st": "Chhattisgarh",
+   "pm": 33.5,
+   "sm": 41.3,
+   "gap": -7.8
+  },
+  {
+   "dt": "Surajpur",
+   "st": "Chhattisgarh",
+   "pm": 43.4,
+   "sm": 41.3,
+   "gap": 2.1
+  },
+  {
+   "dt": "Surguja",
+   "st": "Chhattisgarh",
+   "pm": 41.4,
+   "sm": 41.3,
+   "gap": 0.1
+  },
+  {
+   "dt": "Dadra And Nagar Haveli",
+   "st": "Dadra,Nagar Haveli,Daman & Diu",
+   "pm": 36.4,
+   "sm": 36.4,
+   "gap": 0.0
+  },
+  {
+   "dt": "Daman",
+   "st": "Dadra,Nagar Haveli,Daman & Diu",
+   "pm": 37.7,
+   "sm": 36.4,
+   "gap": 1.3
+  },
+  {
+   "dt": "Diu",
+   "st": "Dadra,Nagar Haveli,Daman & Diu",
+   "pm": 35.5,
+   "sm": 36.4,
+   "gap": -0.9
+  },
+  {
+   "dt": "Central",
+   "st": "Delhi",
+   "pm": 94.9,
+   "sm": 92.7,
+   "gap": 2.2
+  },
+  {
+   "dt": "East",
+   "st": "Delhi",
+   "pm": 97.9,
+   "sm": 92.7,
+   "gap": 5.2
+  },
+  {
+   "dt": "New Delhi",
+   "st": "Delhi",
+   "pm": 91.2,
+   "sm": 92.7,
+   "gap": -1.5
+  },
+  {
+   "dt": "North",
+   "st": "Delhi",
+   "pm": 83.2,
+   "sm": 92.7,
+   "gap": -9.5
+  },
+  {
+   "dt": "North East",
+   "st": "Delhi",
+   "pm": 94.1,
+   "sm": 92.7,
+   "gap": 1.4
+  },
+  {
+   "dt": "North West",
+   "st": "Delhi",
+   "pm": 84.1,
+   "sm": 92.7,
+   "gap": -8.6
+  },
+  {
+   "dt": "Shahdara",
+   "st": "Delhi",
+   "pm": 97.0,
+   "sm": 92.7,
+   "gap": 4.3
+  },
+  {
+   "dt": "South",
+   "st": "Delhi",
+   "pm": 78.8,
+   "sm": 92.7,
+   "gap": -13.9
+  },
+  {
+   "dt": "South East",
+   "st": "Delhi",
+   "pm": 94.0,
+   "sm": 92.7,
+   "gap": 1.3
+  },
+  {
+   "dt": "South West",
+   "st": "Delhi",
+   "pm": 74.0,
+   "sm": 92.7,
+   "gap": -18.7
+  },
+  {
+   "dt": "West",
+   "st": "Delhi",
+   "pm": 92.7,
+   "sm": 92.7,
+   "gap": 0.0
+  },
+  {
+   "dt": "North Goa",
+   "st": "Goa",
+   "pm": 28.8,
+   "sm": 28.1,
+   "gap": 0.7
+  },
+  {
+   "dt": "South Goa",
+   "st": "Goa",
+   "pm": 27.5,
+   "sm": 28.1,
+   "gap": -0.6
+  },
+  {
+   "dt": "Ahmadabad",
+   "st": "Gujarat",
+   "pm": 42.9,
+   "sm": 39.8,
+   "gap": 3.1
+  },
+  {
+   "dt": "Amreli",
+   "st": "Gujarat",
+   "pm": 37.3,
+   "sm": 39.8,
+   "gap": -2.5
+  },
+  {
+   "dt": "Anand",
+   "st": "Gujarat",
+   "pm": 42.3,
+   "sm": 39.8,
+   "gap": 2.5
+  },
+  {
+   "dt": "Arvalli",
+   "st": "Gujarat",
+   "pm": 39.0,
+   "sm": 39.8,
+   "gap": -0.8
+  },
+  {
+   "dt": "Banas Kantha",
+   "st": "Gujarat",
+   "pm": 36.1,
+   "sm": 39.8,
+   "gap": -3.7
+  },
+  {
+   "dt": "Bharuch",
+   "st": "Gujarat",
+   "pm": 41.9,
+   "sm": 39.8,
+   "gap": 2.1
+  },
+  {
+   "dt": "Bhavnagar",
+   "st": "Gujarat",
+   "pm": 40.3,
+   "sm": 39.8,
+   "gap": 0.5
+  },
+  {
+   "dt": "Botad",
+   "st": "Gujarat",
+   "pm": 42.3,
+   "sm": 39.8,
+   "gap": 2.5
+  },
+  {
+   "dt": "Chhotaudepur",
+   "st": "Gujarat",
+   "pm": 39.2,
+   "sm": 39.8,
+   "gap": -0.6
+  },
+  {
+   "dt": "Dang",
+   "st": "Gujarat",
+   "pm": 36.2,
+   "sm": 39.8,
+   "gap": -3.6
+  },
+  {
+   "dt": "Devbhumi Dwarka",
+   "st": "Gujarat",
+   "pm": 32.7,
+   "sm": 39.8,
+   "gap": -7.1
+  },
+  {
+   "dt": "Dohad",
+   "st": "Gujarat",
+   "pm": 39.0,
+   "sm": 39.8,
+   "gap": -0.8
+  },
+  {
+   "dt": "Gandhinagar",
+   "st": "Gujarat",
+   "pm": 41.4,
+   "sm": 39.8,
+   "gap": 1.6
+  },
+  {
+   "dt": "Gir Somnath",
+   "st": "Gujarat",
+   "pm": 32.5,
+   "sm": 39.8,
+   "gap": -7.3
+  },
+  {
+   "dt": "Jamnagar",
+   "st": "Gujarat",
+   "pm": 37.7,
+   "sm": 39.8,
+   "gap": -2.1
+  },
+  {
+   "dt": "Junagadh",
+   "st": "Gujarat",
+   "pm": 33.5,
+   "sm": 39.8,
+   "gap": -6.3
+  },
+  {
+   "dt": "Kachchh",
+   "st": "Gujarat",
+   "pm": 37.2,
+   "sm": 39.8,
+   "gap": -2.6
+  },
+  {
+   "dt": "Kheda",
+   "st": "Gujarat",
+   "pm": 43.3,
+   "sm": 39.8,
+   "gap": 3.5
+  },
+  {
+   "dt": "Mahesana",
+   "st": "Gujarat",
+   "pm": 40.0,
+   "sm": 39.8,
+   "gap": 0.2
+  },
+  {
+   "dt": "Mahisagar",
+   "st": "Gujarat",
+   "pm": 39.8,
+   "sm": 39.8,
+   "gap": 0.0
+  },
+  {
+   "dt": "Morbi",
+   "st": "Gujarat",
+   "pm": 40.6,
+   "sm": 39.8,
+   "gap": 0.8
+  },
+  {
+   "dt": "Narmada",
+   "st": "Gujarat",
+   "pm": 40.1,
+   "sm": 39.8,
+   "gap": 0.3
+  },
+  {
+   "dt": "Navsari",
+   "st": "Gujarat",
+   "pm": 39.1,
+   "sm": 39.8,
+   "gap": -0.7
+  },
+  {
+   "dt": "Panch Mahals",
+   "st": "Gujarat",
+   "pm": 40.7,
+   "sm": 39.8,
+   "gap": 0.9
+  },
+  {
+   "dt": "Patan",
+   "st": "Gujarat",
+   "pm": 40.1,
+   "sm": 39.8,
+   "gap": 0.3
+  },
+  {
+   "dt": "Porbandar",
+   "st": "Gujarat",
+   "pm": 33.7,
+   "sm": 39.8,
+   "gap": -6.1
+  },
+  {
+   "dt": "Rajkot",
+   "st": "Gujarat",
+   "pm": 38.7,
+   "sm": 39.8,
+   "gap": -1.1
+  },
+  {
+   "dt": "Sabar Kantha",
+   "st": "Gujarat",
+   "pm": 37.7,
+   "sm": 39.8,
+   "gap": -2.1
+  },
+  {
+   "dt": "Surat",
+   "st": "Gujarat",
+   "pm": 41.1,
+   "sm": 39.8,
+   "gap": 1.3
+  },
+  {
+   "dt": "Surendranagar",
+   "st": "Gujarat",
+   "pm": 41.7,
+   "sm": 39.8,
+   "gap": 1.9
+  },
+  {
+   "dt": "Tapi",
+   "st": "Gujarat",
+   "pm": 39.8,
+   "sm": 39.8,
+   "gap": 0.0
+  },
+  {
+   "dt": "Vadodara",
+   "st": "Gujarat",
+   "pm": 44.0,
+   "sm": 39.8,
+   "gap": 4.2
+  },
+  {
+   "dt": "Valsad",
+   "st": "Gujarat",
+   "pm": 36.5,
+   "sm": 39.8,
+   "gap": -3.3
+  },
+  {
+   "dt": "Ambala",
+   "st": "Haryana",
+   "pm": 56.5,
+   "sm": 56.0,
+   "gap": 0.5
+  },
+  {
+   "dt": "Bhiwani",
+   "st": "Haryana",
+   "pm": 53.0,
+   "sm": 56.0,
+   "gap": -3.0
+  },
+  {
+   "dt": "Charki Dadri",
+   "st": "Haryana",
+   "pm": 53.8,
+   "sm": 56.0,
+   "gap": -2.2
+  },
+  {
+   "dt": "Faridabad",
+   "st": "Haryana",
+   "pm": 69.1,
+   "sm": 56.0,
+   "gap": 13.1
+  },
+  {
+   "dt": "Fatehabad",
+   "st": "Haryana",
+   "pm": 53.6,
+   "sm": 56.0,
+   "gap": -2.4
+  },
+  {
+   "dt": "Gurugram",
+   "st": "Haryana",
+   "pm": 61.2,
+   "sm": 56.0,
+   "gap": 5.2
+  },
+  {
+   "dt": "Hisar",
+   "st": "Haryana",
+   "pm": 54.5,
+   "sm": 56.0,
+   "gap": -1.5
+  },
+  {
+   "dt": "Jhajjar",
+   "st": "Haryana",
+   "pm": 59.4,
+   "sm": 56.0,
+   "gap": 3.4
+  },
+  {
+   "dt": "Jind",
+   "st": "Haryana",
+   "pm": 58.8,
+   "sm": 56.0,
+   "gap": 2.8
+  },
+  {
+   "dt": "Kaithal",
+   "st": "Haryana",
+   "pm": 60.0,
+   "sm": 56.0,
+   "gap": 4.0
+  },
+  {
+   "dt": "Karnal",
+   "st": "Haryana",
+   "pm": 59.5,
+   "sm": 56.0,
+   "gap": 3.5
+  },
+  {
+   "dt": "Kurukshetra",
+   "st": "Haryana",
+   "pm": 58.2,
+   "sm": 56.0,
+   "gap": 2.2
+  },
+  {
+   "dt": "Mahendragarh",
+   "st": "Haryana",
+   "pm": 48.6,
+   "sm": 56.0,
+   "gap": -7.4
+  },
+  {
+   "dt": "Nuh",
+   "st": "Haryana",
+   "pm": 53.3,
+   "sm": 56.0,
+   "gap": -2.7
+  },
+  {
+   "dt": "Palwal",
+   "st": "Haryana",
+   "pm": 55.4,
+   "sm": 56.0,
+   "gap": -0.6
+  },
+  {
+   "dt": "Panchkula",
+   "st": "Haryana",
+   "pm": 46.4,
+   "sm": 56.0,
+   "gap": -9.6
+  },
+  {
+   "dt": "Panipat",
+   "st": "Haryana",
+   "pm": 63.2,
+   "sm": 56.0,
+   "gap": 7.2
+  },
+  {
+   "dt": "Rewari",
+   "st": "Haryana",
+   "pm": 52.1,
+   "sm": 56.0,
+   "gap": -3.9
+  },
+  {
+   "dt": "Rohtak",
+   "st": "Haryana",
+   "pm": 59.2,
+   "sm": 56.0,
+   "gap": 3.2
+  },
+  {
+   "dt": "Sirsa",
+   "st": "Haryana",
+   "pm": 49.3,
+   "sm": 56.0,
+   "gap": -6.7
+  },
+  {
+   "dt": "Sonipat",
+   "st": "Haryana",
+   "pm": 62.8,
+   "sm": 56.0,
+   "gap": 6.8
+  },
+  {
+   "dt": "Yamunanagar",
+   "st": "Haryana",
+   "pm": 53.9,
+   "sm": 56.0,
+   "gap": -2.1
+  },
+  {
+   "dt": "Bilaspur",
+   "st": "Himachal Pradesh",
+   "pm": 39.2,
+   "sm": 31.0,
+   "gap": 8.2
+  },
+  {
+   "dt": "Chamba",
+   "st": "Himachal Pradesh",
+   "pm": 23.7,
+   "sm": 31.0,
+   "gap": -7.3
+  },
+  {
+   "dt": "Hamirpur",
+   "st": "Himachal Pradesh",
+   "pm": 36.7,
+   "sm": 31.0,
+   "gap": 5.7
+  },
+  {
+   "dt": "Kangra",
+   "st": "Himachal Pradesh",
+   "pm": 32.3,
+   "sm": 31.0,
+   "gap": 1.3
+  },
+  {
+   "dt": "Kinnaur",
+   "st": "Himachal Pradesh",
+   "pm": 20.1,
+   "sm": 31.0,
+   "gap": -10.9
+  },
+  {
+   "dt": "Kullu",
+   "st": "Himachal Pradesh",
+   "pm": 23.5,
+   "sm": 31.0,
+   "gap": -7.5
+  },
+  {
+   "dt": "Lahul And Spiti",
+   "st": "Himachal Pradesh",
+   "pm": 19.4,
+   "sm": 31.0,
+   "gap": -11.6
+  },
+  {
+   "dt": "Mandi",
+   "st": "Himachal Pradesh",
+   "pm": 29.7,
+   "sm": 31.0,
+   "gap": -1.3
+  },
+  {
+   "dt": "Shimla",
+   "st": "Himachal Pradesh",
+   "pm": 26.9,
+   "sm": 31.0,
+   "gap": -4.1
+  },
+  {
+   "dt": "Sirmaur",
+   "st": "Himachal Pradesh",
+   "pm": 36.4,
+   "sm": 31.0,
+   "gap": 5.4
+  },
+  {
+   "dt": "Solan",
+   "st": "Himachal Pradesh",
+   "pm": 37.7,
+   "sm": 31.0,
+   "gap": 6.7
+  },
+  {
+   "dt": "Una",
+   "st": "Himachal Pradesh",
+   "pm": 42.2,
+   "sm": 31.0,
+   "gap": 11.2
+  },
+  {
+   "dt": "Anantnag",
+   "st": "Jammu & Kashmir",
+   "pm": 20.6,
+   "sm": 25.7,
+   "gap": -5.1
+  },
+  {
+   "dt": "Bandipora",
+   "st": "Jammu & Kashmir",
+   "pm": 19.2,
+   "sm": 25.7,
+   "gap": -6.5
+  },
+  {
+   "dt": "Baramulla",
+   "st": "Jammu & Kashmir",
+   "pm": 24.5,
+   "sm": 25.7,
+   "gap": -1.2
+  },
+  {
+   "dt": "Budgam",
+   "st": "Jammu & Kashmir",
+   "pm": 25.6,
+   "sm": 25.7,
+   "gap": -0.1
+  },
+  {
+   "dt": "Doda",
+   "st": "Jammu & Kashmir",
+   "pm": 24.7,
+   "sm": 25.7,
+   "gap": -1.0
+  },
+  {
+   "dt": "Ganderbal",
+   "st": "Jammu & Kashmir",
+   "pm": 20.3,
+   "sm": 25.7,
+   "gap": -5.4
+  },
+  {
+   "dt": "Jammu",
+   "st": "Jammu & Kashmir",
+   "pm": 41.0,
+   "sm": 25.7,
+   "gap": 15.3
+  },
+  {
+   "dt": "Kathua",
+   "st": "Jammu & Kashmir",
+   "pm": 34.2,
+   "sm": 25.7,
+   "gap": 8.5
+  },
+  {
+   "dt": "Kishtwar",
+   "st": "Jammu & Kashmir",
+   "pm": 19.2,
+   "sm": 25.7,
+   "gap": -6.5
+  },
+  {
+   "dt": "Kulgam",
+   "st": "Jammu & Kashmir",
+   "pm": 24.2,
+   "sm": 25.7,
+   "gap": -1.5
+  },
+  {
+   "dt": "Kupwara",
+   "st": "Jammu & Kashmir",
+   "pm": 22.4,
+   "sm": 25.7,
+   "gap": -3.3
+  },
+  {
+   "dt": "Mirpur",
+   "st": "Jammu & Kashmir",
+   "pm": 37.9,
+   "sm": 25.7,
+   "gap": 12.2
+  },
+  {
+   "dt": "Muzaffarabad",
+   "st": "Jammu & Kashmir",
+   "pm": 22.3,
+   "sm": 25.7,
+   "gap": -3.4
+  },
+  {
+   "dt": "Poonch",
+   "st": "Jammu & Kashmir",
+   "pm": 28.8,
+   "sm": 25.7,
+   "gap": 3.1
+  },
+  {
+   "dt": "Pulwama",
+   "st": "Jammu & Kashmir",
+   "pm": 21.9,
+   "sm": 25.7,
+   "gap": -3.8
+  },
+  {
+   "dt": "Rajouri",
+   "st": "Jammu & Kashmir",
+   "pm": 32.4,
+   "sm": 25.7,
+   "gap": 6.7
+  },
+  {
+   "dt": "Ramban",
+   "st": "Jammu & Kashmir",
+   "pm": 26.3,
+   "sm": 25.7,
+   "gap": 0.6
+  },
+  {
+   "dt": "Reasi",
+   "st": "Jammu & Kashmir",
+   "pm": 29.5,
+   "sm": 25.7,
+   "gap": 3.8
+  },
+  {
+   "dt": "Samba",
+   "st": "Jammu & Kashmir",
+   "pm": 42.2,
+   "sm": 25.7,
+   "gap": 16.5
+  },
+  {
+   "dt": "Shopian",
+   "st": "Jammu & Kashmir",
+   "pm": 25.8,
+   "sm": 25.7,
+   "gap": 0.1
+  },
+  {
+   "dt": "Srinagar",
+   "st": "Jammu & Kashmir",
+   "pm": 25.8,
+   "sm": 25.7,
+   "gap": 0.1
+  },
+  {
+   "dt": "Udhampur",
+   "st": "Jammu & Kashmir",
+   "pm": 30.1,
+   "sm": 25.7,
+   "gap": 4.4
+  },
+  {
+   "dt": "Bokaro",
+   "st": "Jharkhand",
+   "pm": 55.9,
+   "sm": 52.6,
+   "gap": 3.3
+  },
+  {
+   "dt": "Chatra",
+   "st": "Jharkhand",
+   "pm": 53.5,
+   "sm": 52.6,
+   "gap": 0.9
+  },
+  {
+   "dt": "Deoghar",
+   "st": "Jharkhand",
+   "pm": 52.4,
+   "sm": 52.6,
+   "gap": -0.2
+  },
+  {
+   "dt": "Dhanbad",
+   "st": "Jharkhand",
+   "pm": 56.6,
+   "sm": 52.6,
+   "gap": 4.0
+  },
+  {
+   "dt": "Dumka",
+   "st": "Jharkhand",
+   "pm": 50.5,
+   "sm": 52.6,
+   "gap": -2.1
+  },
+  {
+   "dt": "East Singhbum",
+   "st": "Jharkhand",
+   "pm": 55.2,
+   "sm": 52.6,
+   "gap": 2.6
+  },
+  {
+   "dt": "Garhwa",
+   "st": "Jharkhand",
+   "pm": 48.4,
+   "sm": 52.6,
+   "gap": -4.2
+  },
+  {
+   "dt": "Giridih",
+   "st": "Jharkhand",
+   "pm": 54.2,
+   "sm": 52.6,
+   "gap": 1.6
+  },
+  {
+   "dt": "Godda",
+   "st": "Jharkhand",
+   "pm": 52.7,
+   "sm": 52.6,
+   "gap": 0.1
+  },
+  {
+   "dt": "Gumla",
+   "st": "Jharkhand",
+   "pm": 47.8,
+   "sm": 52.6,
+   "gap": -4.8
+  },
+  {
+   "dt": "Hazaribagh",
+   "st": "Jharkhand",
+   "pm": 53.9,
+   "sm": 52.6,
+   "gap": 1.3
+  },
+  {
+   "dt": "Jamtara",
+   "st": "Jharkhand",
+   "pm": 52.5,
+   "sm": 52.6,
+   "gap": -0.1
+  },
+  {
+   "dt": "Khunti",
+   "st": "Jharkhand",
+   "pm": 51.4,
+   "sm": 52.6,
+   "gap": -1.2
+  },
+  {
+   "dt": "Koderma",
+   "st": "Jharkhand",
+   "pm": 55.3,
+   "sm": 52.6,
+   "gap": 2.7
+  },
+  {
+   "dt": "Latehar",
+   "st": "Jharkhand",
+   "pm": 49.7,
+   "sm": 52.6,
+   "gap": -2.9
+  },
+  {
+   "dt": "Lohardaga",
+   "st": "Jharkhand",
+   "pm": 48.6,
+   "sm": 52.6,
+   "gap": -4.0
+  },
+  {
+   "dt": "Pakur",
+   "st": "Jharkhand",
+   "pm": 53.6,
+   "sm": 52.6,
+   "gap": 1.0
+  },
+  {
+   "dt": "Palamu",
+   "st": "Jharkhand",
+   "pm": 49.2,
+   "sm": 52.6,
+   "gap": -3.4
+  },
+  {
+   "dt": "Ramgarh",
+   "st": "Jharkhand",
+   "pm": 53.5,
+   "sm": 52.6,
+   "gap": 0.9
+  },
+  {
+   "dt": "Ranchi",
+   "st": "Jharkhand",
+   "pm": 51.8,
+   "sm": 52.6,
+   "gap": -0.8
+  },
+  {
+   "dt": "Sahebganj",
+   "st": "Jharkhand",
+   "pm": 55.1,
+   "sm": 52.6,
+   "gap": 2.5
+  },
+  {
+   "dt": "Saraikela Kharsawan",
+   "st": "Jharkhand",
+   "pm": 54.5,
+   "sm": 52.6,
+   "gap": 1.9
+  },
+  {
+   "dt": "Simdega",
+   "st": "Jharkhand",
+   "pm": 47.3,
+   "sm": 52.6,
+   "gap": -5.3
+  },
+  {
+   "dt": "West Singhbhum",
+   "st": "Jharkhand",
+   "pm": 51.4,
+   "sm": 52.6,
+   "gap": -1.2
+  },
+  {
+   "dt": "Bagalkote",
+   "st": "Karnataka",
+   "pm": 28.9,
+   "sm": 27.4,
+   "gap": 1.5
+  },
+  {
+   "dt": "Ballari",
+   "st": "Karnataka",
+   "pm": 28.9,
+   "sm": 27.4,
+   "gap": 1.5
+  },
+  {
+   "dt": "Belagavi",
+   "st": "Karnataka",
+   "pm": 29.1,
+   "sm": 27.4,
+   "gap": 1.7
+  },
+  {
+   "dt": "Bengaluru Rural",
+   "st": "Karnataka",
+   "pm": 29.1,
+   "sm": 27.4,
+   "gap": 1.7
+  },
+  {
+   "dt": "Bengaluru Urban",
+   "st": "Karnataka",
+   "pm": 32.0,
+   "sm": 27.4,
+   "gap": 4.6
+  },
+  {
+   "dt": "Bidar",
+   "st": "Karnataka",
+   "pm": 32.5,
+   "sm": 27.4,
+   "gap": 5.1
+  },
+  {
+   "dt": "Chamarajanagara",
+   "st": "Karnataka",
+   "pm": 25.7,
+   "sm": 27.4,
+   "gap": -1.7
+  },
+  {
+   "dt": "Chikkaballapura",
+   "st": "Karnataka",
+   "pm": 28.3,
+   "sm": 27.4,
+   "gap": 0.9
+  },
+  {
+   "dt": "Chikkamagaluru",
+   "st": "Karnataka",
+   "pm": 23.1,
+   "sm": 27.4,
+   "gap": -4.3
+  },
+  {
+   "dt": "Chitradurga",
+   "st": "Karnataka",
+   "pm": 26.2,
+   "sm": 27.4,
+   "gap": -1.2
+  },
+  {
+   "dt": "Dakshina Kannada",
+   "st": "Karnataka",
+   "pm": 22.8,
+   "sm": 27.4,
+   "gap": -4.6
+  },
+  {
+   "dt": "Davangere",
+   "st": "Karnataka",
+   "pm": 25.4,
+   "sm": 27.4,
+   "gap": -2.0
+  },
+  {
+   "dt": "Dharwad",
+   "st": "Karnataka",
+   "pm": 27.1,
+   "sm": 27.4,
+   "gap": -0.3
+  },
+  {
+   "dt": "Gadag",
+   "st": "Karnataka",
+   "pm": 27.6,
+   "sm": 27.4,
+   "gap": 0.2
+  },
+  {
+   "dt": "Hassan",
+   "st": "Karnataka",
+   "pm": 23.1,
+   "sm": 27.4,
+   "gap": -4.3
+  },
+  {
+   "dt": "Haveri",
+   "st": "Karnataka",
+   "pm": 25.7,
+   "sm": 27.4,
+   "gap": -1.7
+  },
+  {
+   "dt": "Kalaburagi",
+   "st": "Karnataka",
+   "pm": 31.5,
+   "sm": 27.4,
+   "gap": 4.1
+  },
+  {
+   "dt": "Kodagu",
+   "st": "Karnataka",
+   "pm": 20.3,
+   "sm": 27.4,
+   "gap": -7.1
+  },
+  {
+   "dt": "Kolar",
+   "st": "Karnataka",
+   "pm": 28.7,
+   "sm": 27.4,
+   "gap": 1.3
+  },
+  {
+   "dt": "Koppal",
+   "st": "Karnataka",
+   "pm": 28.2,
+   "sm": 27.4,
+   "gap": 0.8
+  },
+  {
+   "dt": "Mandya",
+   "st": "Karnataka",
+   "pm": 26.0,
+   "sm": 27.4,
+   "gap": -1.4
+  },
+  {
+   "dt": "Mysuru",
+   "st": "Karnataka",
+   "pm": 22.4,
+   "sm": 27.4,
+   "gap": -5.0
+  },
+  {
+   "dt": "Raichur",
+   "st": "Karnataka",
+   "pm": 29.8,
+   "sm": 27.4,
+   "gap": 2.4
+  },
+  {
+   "dt": "Ramanagara",
+   "st": "Karnataka",
+   "pm": 28.7,
+   "sm": 27.4,
+   "gap": 1.3
+  },
+  {
+   "dt": "Shivamogga",
+   "st": "Karnataka",
+   "pm": 23.7,
+   "sm": 27.4,
+   "gap": -3.7
+  },
+  {
+   "dt": "Tumakuru",
+   "st": "Karnataka",
+   "pm": 27.4,
+   "sm": 27.4,
+   "gap": 0.0
+  },
+  {
+   "dt": "Udupi",
+   "st": "Karnataka",
+   "pm": 24.5,
+   "sm": 27.4,
+   "gap": -2.9
+  },
+  {
+   "dt": "Uttara Kannada",
+   "st": "Karnataka",
+   "pm": 25.4,
+   "sm": 27.4,
+   "gap": -2.0
+  },
+  {
+   "dt": "Vijayanagar",
+   "st": "Karnataka",
+   "pm": 26.5,
+   "sm": 27.4,
+   "gap": -0.9
+  },
+  {
+   "dt": "Vijayapura",
+   "st": "Karnataka",
+   "pm": 30.4,
+   "sm": 27.4,
+   "gap": 3.0
+  },
+  {
+   "dt": "Yadgir",
+   "st": "Karnataka",
+   "pm": 30.0,
+   "sm": 27.4,
+   "gap": 2.6
+  },
+  {
+   "dt": "Alappuzha",
+   "st": "Kerala",
+   "pm": 23.5,
+   "sm": 22.7,
+   "gap": 0.8
+  },
+  {
+   "dt": "Ernakulam",
+   "st": "Kerala",
+   "pm": 24.4,
+   "sm": 22.7,
+   "gap": 1.7
+  },
+  {
+   "dt": "Idukki",
+   "st": "Kerala",
+   "pm": 20.4,
+   "sm": 22.7,
+   "gap": -2.3
+  },
+  {
+   "dt": "Kannur",
+   "st": "Kerala",
+   "pm": 23.0,
+   "sm": 22.7,
+   "gap": 0.3
+  },
+  {
+   "dt": "Kasaragod",
+   "st": "Kerala",
+   "pm": 23.3,
+   "sm": 22.7,
+   "gap": 0.6
+  },
+  {
+   "dt": "Kollam",
+   "st": "Kerala",
+   "pm": 19.8,
+   "sm": 22.7,
+   "gap": -2.9
+  },
+  {
+   "dt": "Kottayam",
+   "st": "Kerala",
+   "pm": 22.2,
+   "sm": 22.7,
+   "gap": -0.5
+  },
+  {
+   "dt": "Kozhikode",
+   "st": "Kerala",
+   "pm": 25.6,
+   "sm": 22.7,
+   "gap": 2.9
+  },
+  {
+   "dt": "Malappuram",
+   "st": "Kerala",
+   "pm": 25.0,
+   "sm": 22.7,
+   "gap": 2.3
+  },
+  {
+   "dt": "Palakkad",
+   "st": "Kerala",
+   "pm": 22.4,
+   "sm": 22.7,
+   "gap": -0.3
+  },
+  {
+   "dt": "Pathanamthitta",
+   "st": "Kerala",
+   "pm": 19.1,
+   "sm": 22.7,
+   "gap": -3.6
+  },
+  {
+   "dt": "Thiruvananthapuram",
+   "st": "Kerala",
+   "pm": 21.5,
+   "sm": 22.7,
+   "gap": -1.2
+  },
+  {
+   "dt": "Thrissur",
+   "st": "Kerala",
+   "pm": 23.1,
+   "sm": 22.7,
+   "gap": 0.4
+  },
+  {
+   "dt": "Wayanad",
+   "st": "Kerala",
+   "pm": 20.3,
+   "sm": 22.7,
+   "gap": -2.4
+  },
+  {
+   "dt": "Kargil",
+   "st": "Ladakh",
+   "pm": 15.8,
+   "sm": 13.9,
+   "gap": 1.9
+  },
+  {
+   "dt": "Leh Ladakh",
+   "st": "Ladakh",
+   "pm": 12.1,
+   "sm": 13.9,
+   "gap": -1.8
+  },
+  {
+   "dt": "Lakshadweep District",
+   "st": "Lakshadweep",
+   "pm": 21.1,
+   "sm": 21.1,
+   "gap": 0.0
+  },
+  {
+   "dt": "Agar Malwa",
+   "st": "Madhya Pradesh",
+   "pm": 41.7,
+   "sm": 41.6,
+   "gap": 0.1
+  },
+  {
+   "dt": "Alirajpur",
+   "st": "Madhya Pradesh",
+   "pm": 38.2,
+   "sm": 41.6,
+   "gap": -3.4
+  },
+  {
+   "dt": "Anuppur",
+   "st": "Madhya Pradesh",
+   "pm": 42.6,
+   "sm": 41.6,
+   "gap": 1.0
+  },
+  {
+   "dt": "Ashoknagar",
+   "st": "Madhya Pradesh",
+   "pm": 39.9,
+   "sm": 41.6,
+   "gap": -1.7
+  },
+  {
+   "dt": "Balaghat",
+   "st": "Madhya Pradesh",
+   "pm": 39.7,
+   "sm": 41.6,
+   "gap": -1.9
+  },
+  {
+   "dt": "Barwani",
+   "st": "Madhya Pradesh",
+   "pm": 38.7,
+   "sm": 41.6,
+   "gap": -2.9
+  },
+  {
+   "dt": "Betul",
+   "st": "Madhya Pradesh",
+   "pm": 37.0,
+   "sm": 41.6,
+   "gap": -4.6
+  },
+  {
+   "dt": "Bhind",
+   "st": "Madhya Pradesh",
+   "pm": 52.2,
+   "sm": 41.6,
+   "gap": 10.6
+  },
+  {
+   "dt": "Bhopal",
+   "st": "Madhya Pradesh",
+   "pm": 42.4,
+   "sm": 41.6,
+   "gap": 0.8
+  },
+  {
+   "dt": "Burhanpur",
+   "st": "Madhya Pradesh",
+   "pm": 38.3,
+   "sm": 41.6,
+   "gap": -3.3
+  },
+  {
+   "dt": "Chhatarpur",
+   "st": "Madhya Pradesh",
+   "pm": 44.2,
+   "sm": 41.6,
+   "gap": 2.6
+  },
+  {
+   "dt": "Chhindwara",
+   "st": "Madhya Pradesh",
+   "pm": 39.4,
+   "sm": 41.6,
+   "gap": -2.2
+  },
+  {
+   "dt": "Damoh",
+   "st": "Madhya Pradesh",
+   "pm": 42.9,
+   "sm": 41.6,
+   "gap": 1.3
+  },
+  {
+   "dt": "Datia",
+   "st": "Madhya Pradesh",
+   "pm": 47.7,
+   "sm": 41.6,
+   "gap": 6.1
+  },
+  {
+   "dt": "Dewas",
+   "st": "Madhya Pradesh",
+   "pm": 40.7,
+   "sm": 41.6,
+   "gap": -0.9
+  },
+  {
+   "dt": "Dhar",
+   "st": "Madhya Pradesh",
+   "pm": 40.4,
+   "sm": 41.6,
+   "gap": -1.2
+  },
+  {
+   "dt": "Dindori",
+   "st": "Madhya Pradesh",
+   "pm": 40.1,
+   "sm": 41.6,
+   "gap": -1.5
+  },
+  {
+   "dt": "East Nimar",
+   "st": "Madhya Pradesh",
+   "pm": 39.0,
+   "sm": 41.6,
+   "gap": -2.6
+  },
+  {
+   "dt": "Guna",
+   "st": "Madhya Pradesh",
+   "pm": 39.3,
+   "sm": 41.6,
+   "gap": -2.3
+  },
+  {
+   "dt": "Gwalior",
+   "st": "Madhya Pradesh",
+   "pm": 46.1,
+   "sm": 41.6,
+   "gap": 4.5
+  },
+  {
+   "dt": "Harda",
+   "st": "Madhya Pradesh",
+   "pm": 38.7,
+   "sm": 41.6,
+   "gap": -2.9
+  },
+  {
+   "dt": "Indore",
+   "st": "Madhya Pradesh",
+   "pm": 42.2,
+   "sm": 41.6,
+   "gap": 0.6
+  },
+  {
+   "dt": "Jabalpur",
+   "st": "Madhya Pradesh",
+   "pm": 43.6,
+   "sm": 41.6,
+   "gap": 2.0
+  },
+  {
+   "dt": "Jhabua",
+   "st": "Madhya Pradesh",
+   "pm": 39.9,
+   "sm": 41.6,
+   "gap": -1.7
+  },
+  {
+   "dt": "Katni",
+   "st": "Madhya Pradesh",
+   "pm": 45.9,
+   "sm": 41.6,
+   "gap": 4.3
+  },
+  {
+   "dt": "Khargone",
+   "st": "Madhya Pradesh",
+   "pm": 39.7,
+   "sm": 41.6,
+   "gap": -1.9
+  },
+  {
+   "dt": "Mandla",
+   "st": "Madhya Pradesh",
+   "pm": 41.1,
+   "sm": 41.6,
+   "gap": -0.5
+  },
+  {
+   "dt": "Mandsaur",
+   "st": "Madhya Pradesh",
+   "pm": 41.2,
+   "sm": 41.6,
+   "gap": -0.4
+  },
+  {
+   "dt": "Morena",
+   "st": "Madhya Pradesh",
+   "pm": 49.2,
+   "sm": 41.6,
+   "gap": 7.6
+  },
+  {
+   "dt": "Narmadapuram",
+   "st": "Madhya Pradesh",
+   "pm": 38.9,
+   "sm": 41.6,
+   "gap": -2.7
+  },
+  {
+   "dt": "Narsinghpur",
+   "st": "Madhya Pradesh",
+   "pm": 41.9,
+   "sm": 41.6,
+   "gap": 0.3
+  },
+  {
+   "dt": "Neemuch",
+   "st": "Madhya Pradesh",
+   "pm": 38.0,
+   "sm": 41.6,
+   "gap": -3.6
+  },
+  {
+   "dt": "Niwari",
+   "st": "Madhya Pradesh",
+   "pm": 44.2,
+   "sm": 41.6,
+   "gap": 2.6
+  },
+  {
+   "dt": "Panna",
+   "st": "Madhya Pradesh",
+   "pm": 44.2,
+   "sm": 41.6,
+   "gap": 2.6
+  },
+  {
+   "dt": "Raisen",
+   "st": "Madhya Pradesh",
+   "pm": 40.8,
+   "sm": 41.6,
+   "gap": -0.8
+  },
+  {
+   "dt": "Rajgarh",
+   "st": "Madhya Pradesh",
+   "pm": 41.5,
+   "sm": 41.6,
+   "gap": -0.1
+  },
+  {
+   "dt": "Ratlam",
+   "st": "Madhya Pradesh",
+   "pm": 41.1,
+   "sm": 41.6,
+   "gap": -0.5
+  },
+  {
+   "dt": "Rewa",
+   "st": "Madhya Pradesh",
+   "pm": 49.5,
+   "sm": 41.6,
+   "gap": 7.9
+  },
+  {
+   "dt": "Sagar",
+   "st": "Madhya Pradesh",
+   "pm": 41.9,
+   "sm": 41.6,
+   "gap": 0.3
+  },
+  {
+   "dt": "Satna",
+   "st": "Madhya Pradesh",
+   "pm": 47.3,
+   "sm": 41.6,
+   "gap": 5.7
+  },
+  {
+   "dt": "Sehore",
+   "st": "Madhya Pradesh",
+   "pm": 40.7,
+   "sm": 41.6,
+   "gap": -0.9
+  },
+  {
+   "dt": "Seoni",
+   "st": "Madhya Pradesh",
+   "pm": 42.1,
+   "sm": 41.6,
+   "gap": 0.5
+  },
+  {
+   "dt": "Shahdol",
+   "st": "Madhya Pradesh",
+   "pm": 46.5,
+   "sm": 41.6,
+   "gap": 4.9
+  },
+  {
+   "dt": "Shajapur",
+   "st": "Madhya Pradesh",
+   "pm": 42.2,
+   "sm": 41.6,
+   "gap": 0.6
+  },
+  {
+   "dt": "Sheopur",
+   "st": "Madhya Pradesh",
+   "pm": 39.7,
+   "sm": 41.6,
+   "gap": -1.9
+  },
+  {
+   "dt": "Shivpuri",
+   "st": "Madhya Pradesh",
+   "pm": 39.0,
+   "sm": 41.6,
+   "gap": -2.6
+  },
+  {
+   "dt": "Sidhi",
+   "st": "Madhya Pradesh",
+   "pm": 48.7,
+   "sm": 41.6,
+   "gap": 7.1
+  },
+  {
+   "dt": "Singrauli",
+   "st": "Madhya Pradesh",
+   "pm": 47.4,
+   "sm": 41.6,
+   "gap": 5.8
+  },
+  {
+   "dt": "Tikamgarh",
+   "st": "Madhya Pradesh",
+   "pm": 43.1,
+   "sm": 41.6,
+   "gap": 1.5
+  },
+  {
+   "dt": "Ujjain",
+   "st": "Madhya Pradesh",
+   "pm": 42.8,
+   "sm": 41.6,
+   "gap": 1.2
+  },
+  {
+   "dt": "Umaria",
+   "st": "Madhya Pradesh",
+   "pm": 46.5,
+   "sm": 41.6,
+   "gap": 4.9
+  },
+  {
+   "dt": "Vidisha",
+   "st": "Madhya Pradesh",
+   "pm": 41.3,
+   "sm": 41.6,
+   "gap": -0.3
+  },
+  {
+   "dt": "Ahmednagar",
+   "st": "Maharashtra",
+   "pm": 38.3,
+   "sm": 37.0,
+   "gap": 1.3
+  },
+  {
+   "dt": "Akola",
+   "st": "Maharashtra",
+   "pm": 37.7,
+   "sm": 37.0,
+   "gap": 0.7
+  },
+  {
+   "dt": "Amravati",
+   "st": "Maharashtra",
+   "pm": 37.7,
+   "sm": 37.0,
+   "gap": 0.7
+  },
+  {
+   "dt": "Aurangabad",
+   "st": "Maharashtra",
+   "pm": 37.3,
+   "sm": 37.0,
+   "gap": 0.3
+  },
+  {
+   "dt": "Beed",
+   "st": "Maharashtra",
+   "pm": 36.3,
+   "sm": 37.0,
+   "gap": -0.7
+  },
+  {
+   "dt": "Bhandara",
+   "st": "Maharashtra",
+   "pm": 38.7,
+   "sm": 37.0,
+   "gap": 1.7
+  },
+  {
+   "dt": "Buldhana",
+   "st": "Maharashtra",
+   "pm": 37.0,
+   "sm": 37.0,
+   "gap": 0.0
+  },
+  {
+   "dt": "Chandrapur",
+   "st": "Maharashtra",
+   "pm": 36.7,
+   "sm": 37.0,
+   "gap": -0.3
+  },
+  {
+   "dt": "Dhule",
+   "st": "Maharashtra",
+   "pm": 39.1,
+   "sm": 37.0,
+   "gap": 2.1
+  },
+  {
+   "dt": "Gadchiroli",
+   "st": "Maharashtra",
+   "pm": 36.0,
+   "sm": 37.0,
+   "gap": -1.0
+  },
+  {
+   "dt": "Gondia",
+   "st": "Maharashtra",
+   "pm": 39.0,
+   "sm": 37.0,
+   "gap": 2.0
+  },
+  {
+   "dt": "Hingoli",
+   "st": "Maharashtra",
+   "pm": 36.9,
+   "sm": 37.0,
+   "gap": -0.1
+  },
+  {
+   "dt": "Jalgaon",
+   "st": "Maharashtra",
+   "pm": 38.6,
+   "sm": 37.0,
+   "gap": 1.6
+  },
+  {
+   "dt": "Jalna",
+   "st": "Maharashtra",
+   "pm": 37.6,
+   "sm": 37.0,
+   "gap": 0.6
+  },
+  {
+   "dt": "Kolhapur",
+   "st": "Maharashtra",
+   "pm": 29.6,
+   "sm": 37.0,
+   "gap": -7.4
+  },
+  {
+   "dt": "Latur",
+   "st": "Maharashtra",
+   "pm": 34.5,
+   "sm": 37.0,
+   "gap": -2.5
+  },
+  {
+   "dt": "Mumbai",
+   "st": "Maharashtra",
+   "pm": 39.7,
+   "sm": 37.0,
+   "gap": 2.7
+  },
+  {
+   "dt": "Mumbai Suburban",
+   "st": "Maharashtra",
+   "pm": 38.1,
+   "sm": 37.0,
+   "gap": 1.1
+  },
+  {
+   "dt": "Nagpur",
+   "st": "Maharashtra",
+   "pm": 39.4,
+   "sm": 37.0,
+   "gap": 2.4
+  },
+  {
+   "dt": "Nanded",
+   "st": "Maharashtra",
+   "pm": 36.2,
+   "sm": 37.0,
+   "gap": -0.8
+  },
+  {
+   "dt": "Nandurbar",
+   "st": "Maharashtra",
+   "pm": 39.1,
+   "sm": 37.0,
+   "gap": 2.1
+  },
+  {
+   "dt": "Nashik",
+   "st": "Maharashtra",
+   "pm": 36.5,
+   "sm": 37.0,
+   "gap": -0.5
+  },
+  {
+   "dt": "Osmanabad",
+   "st": "Maharashtra",
+   "pm": 34.2,
+   "sm": 37.0,
+   "gap": -2.8
+  },
+  {
+   "dt": "Palghar",
+   "st": "Maharashtra",
+   "pm": 35.6,
+   "sm": 37.0,
+   "gap": -1.4
+  },
+  {
+   "dt": "Parbhani",
+   "st": "Maharashtra",
+   "pm": 36.8,
+   "sm": 37.0,
+   "gap": -0.2
+  },
+  {
+   "dt": "Pune",
+   "st": "Maharashtra",
+   "pm": 38.1,
+   "sm": 37.0,
+   "gap": 1.1
+  },
+  {
+   "dt": "Raigad",
+   "st": "Maharashtra",
+   "pm": 36.2,
+   "sm": 37.0,
+   "gap": -0.8
+  },
+  {
+   "dt": "Ratnagiri",
+   "st": "Maharashtra",
+   "pm": 30.5,
+   "sm": 37.0,
+   "gap": -6.5
+  },
+  {
+   "dt": "Sangli",
+   "st": "Maharashtra",
+   "pm": 32.2,
+   "sm": 37.0,
+   "gap": -4.8
+  },
+  {
+   "dt": "Satara",
+   "st": "Maharashtra",
+   "pm": 33.3,
+   "sm": 37.0,
+   "gap": -3.7
+  },
+  {
+   "dt": "Sindhudurg",
+   "st": "Maharashtra",
+   "pm": 28.9,
+   "sm": 37.0,
+   "gap": -8.1
+  },
+  {
+   "dt": "Solapur",
+   "st": "Maharashtra",
+   "pm": 34.6,
+   "sm": 37.0,
+   "gap": -2.4
+  },
+  {
+   "dt": "Thane",
+   "st": "Maharashtra",
+   "pm": 38.2,
+   "sm": 37.0,
+   "gap": 1.2
+  },
+  {
+   "dt": "Wardha",
+   "st": "Maharashtra",
+   "pm": 38.4,
+   "sm": 37.0,
+   "gap": 1.4
+  },
+  {
+   "dt": "Washim",
+   "st": "Maharashtra",
+   "pm": 36.9,
+   "sm": 37.0,
+   "gap": -0.1
+  },
+  {
+   "dt": "Yavatmal",
+   "st": "Maharashtra",
+   "pm": 37.4,
+   "sm": 37.0,
+   "gap": 0.4
+  },
+  {
+   "dt": "Bishnupur",
+   "st": "Manipur",
+   "pm": 30.7,
+   "sm": 26.1,
+   "gap": 4.6
+  },
+  {
+   "dt": "Chandel",
+   "st": "Manipur",
+   "pm": 24.9,
+   "sm": 26.1,
+   "gap": -1.2
+  },
+  {
+   "dt": "Churachandpur",
+   "st": "Manipur",
+   "pm": 23.5,
+   "sm": 26.1,
+   "gap": -2.6
+  },
+  {
+   "dt": "Imphal East",
+   "st": "Manipur",
+   "pm": 26.8,
+   "sm": 26.1,
+   "gap": 0.7
+  },
+  {
+   "dt": "Imphal West",
+   "st": "Manipur",
+   "pm": 29.8,
+   "sm": 26.1,
+   "gap": 3.7
+  },
+  {
+   "dt": "Jiribam",
+   "st": "Manipur",
+   "pm": 33.9,
+   "sm": 26.1,
+   "gap": 7.8
+  },
+  {
+   "dt": "Kakching",
+   "st": "Manipur",
+   "pm": 29.5,
+   "sm": 26.1,
+   "gap": 3.4
+  },
+  {
+   "dt": "Kamjong",
+   "st": "Manipur",
+   "pm": 23.2,
+   "sm": 26.1,
+   "gap": -2.9
+  },
+  {
+   "dt": "Kangpokpi",
+   "st": "Manipur",
+   "pm": 22.1,
+   "sm": 26.1,
+   "gap": -4.0
+  },
+  {
+   "dt": "Noney",
+   "st": "Manipur",
+   "pm": 27.1,
+   "sm": 26.1,
+   "gap": 1.0
+  },
+  {
+   "dt": "Pherzawl",
+   "st": "Manipur",
+   "pm": 28.3,
+   "sm": 26.1,
+   "gap": 2.2
+  },
+  {
+   "dt": "Senapati",
+   "st": "Manipur",
+   "pm": 20.8,
+   "sm": 26.1,
+   "gap": -5.3
+  },
+  {
+   "dt": "Tamenglong",
+   "st": "Manipur",
+   "pm": 25.5,
+   "sm": 26.1,
+   "gap": -0.6
+  },
+  {
+   "dt": "Tengnoupal",
+   "st": "Manipur",
+   "pm": 25.4,
+   "sm": 26.1,
+   "gap": -0.7
+  },
+  {
+   "dt": "Thoubal",
+   "st": "Manipur",
+   "pm": 29.8,
+   "sm": 26.1,
+   "gap": 3.7
+  },
+  {
+   "dt": "Ukhrul",
+   "st": "Manipur",
+   "pm": 20.3,
+   "sm": 26.1,
+   "gap": -5.8
+  },
+  {
+   "dt": "East Garo Hills",
+   "st": "Meghalaya",
+   "pm": 34.9,
+   "sm": 33.3,
+   "gap": 1.6
+  },
+  {
+   "dt": "East Jaintia Hills",
+   "st": "Meghalaya",
+   "pm": 27.8,
+   "sm": 33.3,
+   "gap": -5.5
+  },
+  {
+   "dt": "East Khasi Hills",
+   "st": "Meghalaya",
+   "pm": 28.5,
+   "sm": 33.3,
+   "gap": -4.8
+  },
+  {
+   "dt": "Eastern West Khasi Hills",
+   "st": "Meghalaya",
+   "pm": 28.6,
+   "sm": 33.3,
+   "gap": -4.7
+  },
+  {
+   "dt": "North Garo Hills",
+   "st": "Meghalaya",
+   "pm": 40.9,
+   "sm": 33.3,
+   "gap": 7.6
+  },
+  {
+   "dt": "Ri Bhoi",
+   "st": "Meghalaya",
+   "pm": 35.0,
+   "sm": 33.3,
+   "gap": 1.7
+  },
+  {
+   "dt": "South Garo Hills",
+   "st": "Meghalaya",
+   "pm": 37.6,
+   "sm": 33.3,
+   "gap": 4.3
+  },
+  {
+   "dt": "South West Garo Hills",
+   "st": "Meghalaya",
+   "pm": 45.5,
+   "sm": 33.3,
+   "gap": 12.2
+  },
+  {
+   "dt": "South West Khasi Hills",
+   "st": "Meghalaya",
+   "pm": 30.9,
+   "sm": 33.3,
+   "gap": -2.4
+  },
+  {
+   "dt": "West Garo Hills",
+   "st": "Meghalaya",
+   "pm": 40.6,
+   "sm": 33.3,
+   "gap": 7.3
+  },
+  {
+   "dt": "West Jaintia Hills",
+   "st": "Meghalaya",
+   "pm": 27.8,
+   "sm": 33.3,
+   "gap": -5.5
+  },
+  {
+   "dt": "West Khasi Hills",
+   "st": "Meghalaya",
+   "pm": 31.7,
+   "sm": 33.3,
+   "gap": -1.6
+  },
+  {
+   "dt": "Aizawl",
+   "st": "Mizoram",
+   "pm": 25.5,
+   "sm": 25.5,
+   "gap": 0.0
+  },
+  {
+   "dt": "Champhai",
+   "st": "Mizoram",
+   "pm": 20.7,
+   "sm": 25.5,
+   "gap": -4.8
+  },
+  {
+   "dt": "Hnahthial",
+   "st": "Mizoram",
+   "pm": 24.3,
+   "sm": 25.5,
+   "gap": -1.2
+  },
+  {
+   "dt": "Khawzawl",
+   "st": "Mizoram",
+   "pm": 20.6,
+   "sm": 25.5,
+   "gap": -4.9
+  },
+  {
+   "dt": "Kolasib",
+   "st": "Mizoram",
+   "pm": 33.1,
+   "sm": 25.5,
+   "gap": 7.6
+  },
+  {
+   "dt": "Lawngtlai",
+   "st": "Mizoram",
+   "pm": 32.2,
+   "sm": 25.5,
+   "gap": 6.7
+  },
+  {
+   "dt": "Lunglei",
+   "st": "Mizoram",
+   "pm": 31.9,
+   "sm": 25.5,
+   "gap": 6.4
+  },
+  {
+   "dt": "Mamit",
+   "st": "Mizoram",
+   "pm": 30.8,
+   "sm": 25.5,
+   "gap": 5.3
+  },
+  {
+   "dt": "Saiha",
+   "st": "Mizoram",
+   "pm": 26.8,
+   "sm": 25.5,
+   "gap": 1.3
+  },
+  {
+   "dt": "Saitual",
+   "st": "Mizoram",
+   "pm": 23.4,
+   "sm": 25.5,
+   "gap": -2.1
+  },
+  {
+   "dt": "Serchhip",
+   "st": "Mizoram",
+   "pm": 21.8,
+   "sm": 25.5,
+   "gap": -3.7
+  },
+  {
+   "dt": "Chumoukedima",
+   "st": "Nagaland",
+   "pm": 29.3,
+   "sm": 24.8,
+   "gap": 4.5
+  },
+  {
+   "dt": "Dimapur",
+   "st": "Nagaland",
+   "pm": 32.9,
+   "sm": 24.8,
+   "gap": 8.1
+  },
+  {
+   "dt": "Kiphire",
+   "st": "Nagaland",
+   "pm": 20.3,
+   "sm": 24.8,
+   "gap": -4.5
+  },
+  {
+   "dt": "Kohima",
+   "st": "Nagaland",
+   "pm": 23.6,
+   "sm": 24.8,
+   "gap": -1.2
+  },
+  {
+   "dt": "Longleng",
+   "st": "Nagaland",
+   "pm": 25.4,
+   "sm": 24.8,
+   "gap": 0.6
+  },
+  {
+   "dt": "Mokokchung",
+   "st": "Nagaland",
+   "pm": 26.6,
+   "sm": 24.8,
+   "gap": 1.8
+  },
+  {
+   "dt": "Mon",
+   "st": "Nagaland",
+   "pm": 24.5,
+   "sm": 24.8,
+   "gap": -0.3
+  },
+  {
+   "dt": "Niuland",
+   "st": "Nagaland",
+   "pm": 29.1,
+   "sm": 24.8,
+   "gap": 4.3
+  },
+  {
+   "dt": "Noklak",
+   "st": "Nagaland",
+   "pm": 20.7,
+   "sm": 24.8,
+   "gap": -4.1
+  },
+  {
+   "dt": "Peren",
+   "st": "Nagaland",
+   "pm": 26.6,
+   "sm": 24.8,
+   "gap": 1.8
+  },
+  {
+   "dt": "Phek",
+   "st": "Nagaland",
+   "pm": 20.8,
+   "sm": 24.8,
+   "gap": -4.0
+  },
+  {
+   "dt": "Shamator",
+   "st": "Nagaland",
+   "pm": 20.3,
+   "sm": 24.8,
+   "gap": -4.5
+  },
+  {
+   "dt": "Tseminyu",
+   "st": "Nagaland",
+   "pm": 25.1,
+   "sm": 24.8,
+   "gap": 0.3
+  },
+  {
+   "dt": "Tuensang",
+   "st": "Nagaland",
+   "pm": 22.5,
+   "sm": 24.8,
+   "gap": -2.3
+  },
+  {
+   "dt": "Wokha",
+   "st": "Nagaland",
+   "pm": 28.4,
+   "sm": 24.8,
+   "gap": 3.6
+  },
+  {
+   "dt": "Zunheboto",
+   "st": "Nagaland",
+   "pm": 22.7,
+   "sm": 24.8,
+   "gap": -2.1
+  },
+  {
+   "dt": "Anugul",
+   "st": "Odisha",
+   "pm": 46.2,
+   "sm": 43.5,
+   "gap": 2.7
+  },
+  {
+   "dt": "Balangir",
+   "st": "Odisha",
+   "pm": 44.0,
+   "sm": 43.5,
+   "gap": 0.5
+  },
+  {
+   "dt": "Baleshwar",
+   "st": "Odisha",
+   "pm": 42.9,
+   "sm": 43.5,
+   "gap": -0.6
+  },
+  {
+   "dt": "Bargarh",
+   "st": "Odisha",
+   "pm": 43.9,
+   "sm": 43.5,
+   "gap": 0.4
+  },
+  {
+   "dt": "Bhadrak",
+   "st": "Odisha",
+   "pm": 45.6,
+   "sm": 43.5,
+   "gap": 2.1
+  },
+  {
+   "dt": "Boudh",
+   "st": "Odisha",
+   "pm": 45.2,
+   "sm": 43.5,
+   "gap": 1.7
+  },
+  {
+   "dt": "Cuttack",
+   "st": "Odisha",
+   "pm": 42.9,
+   "sm": 43.5,
+   "gap": -0.6
+  },
+  {
+   "dt": "Deogarh",
+   "st": "Odisha",
+   "pm": 46.1,
+   "sm": 43.5,
+   "gap": 2.6
+  },
+  {
+   "dt": "Dhenkanal",
+   "st": "Odisha",
+   "pm": 46.7,
+   "sm": 43.5,
+   "gap": 3.2
+  },
+  {
+   "dt": "Gajapati",
+   "st": "Odisha",
+   "pm": 37.8,
+   "sm": 43.5,
+   "gap": -5.7
+  },
+  {
+   "dt": "Ganjam",
+   "st": "Odisha",
+   "pm": 42.2,
+   "sm": 43.5,
+   "gap": -1.3
+  },
+  {
+   "dt": "Jagatsinghapur",
+   "st": "Odisha",
+   "pm": 42.3,
+   "sm": 43.5,
+   "gap": -1.2
+  },
+  {
+   "dt": "Jajapur",
+   "st": "Odisha",
+   "pm": 45.7,
+   "sm": 43.5,
+   "gap": 2.2
+  },
+  {
+   "dt": "Jharsuguda",
+   "st": "Odisha",
+   "pm": 44.1,
+   "sm": 43.5,
+   "gap": 0.6
+  },
+  {
+   "dt": "Kalahandi",
+   "st": "Odisha",
+   "pm": 39.7,
+   "sm": 43.5,
+   "gap": -3.8
+  },
+  {
+   "dt": "Kandhamal",
+   "st": "Odisha",
+   "pm": 39.6,
+   "sm": 43.5,
+   "gap": -3.9
+  },
+  {
+   "dt": "Kendrapara",
+   "st": "Odisha",
+   "pm": 42.4,
+   "sm": 43.5,
+   "gap": -1.1
+  },
+  {
+   "dt": "Kendujhar",
+   "st": "Odisha",
+   "pm": 46.9,
+   "sm": 43.5,
+   "gap": 3.4
+  },
+  {
+   "dt": "Khordha",
+   "st": "Odisha",
+   "pm": 43.3,
+   "sm": 43.5,
+   "gap": -0.2
+  },
+  {
+   "dt": "Koraput",
+   "st": "Odisha",
+   "pm": 33.9,
+   "sm": 43.5,
+   "gap": -9.6
+  },
+  {
+   "dt": "Malkangiri",
+   "st": "Odisha",
+   "pm": 34.6,
+   "sm": 43.5,
+   "gap": -8.9
+  },
+  {
+   "dt": "Mayurbhanj",
+   "st": "Odisha",
+   "pm": 43.8,
+   "sm": 43.5,
+   "gap": 0.3
+  },
+  {
+   "dt": "Nabarangpur",
+   "st": "Odisha",
+   "pm": 38.2,
+   "sm": 43.5,
+   "gap": -5.3
+  },
+  {
+   "dt": "Nayagarh",
+   "st": "Odisha",
+   "pm": 45.2,
+   "sm": 43.5,
+   "gap": 1.7
+  },
+  {
+   "dt": "Nuapada",
+   "st": "Odisha",
+   "pm": 41.3,
+   "sm": 43.5,
+   "gap": -2.2
+  },
+  {
+   "dt": "Puri",
+   "st": "Odisha",
+   "pm": 42.0,
+   "sm": 43.5,
+   "gap": -1.5
+  },
+  {
+   "dt": "Rayagada",
+   "st": "Odisha",
+   "pm": 40.1,
+   "sm": 43.5,
+   "gap": -3.4
+  },
+  {
+   "dt": "Sambalpur",
+   "st": "Odisha",
+   "pm": 45.7,
+   "sm": 43.5,
+   "gap": 2.2
+  },
+  {
+   "dt": "Sonepur",
+   "st": "Odisha",
+   "pm": 43.9,
+   "sm": 43.5,
+   "gap": 0.4
+  },
+  {
+   "dt": "Sundargarh",
+   "st": "Odisha",
+   "pm": 44.7,
+   "sm": 43.5,
+   "gap": 1.2
+  },
+  {
+   "dt": "Karaikal",
+   "st": "Puducherry",
+   "pm": 24.8,
+   "sm": 28.1,
+   "gap": -3.3
+  },
+  {
+   "dt": "Mahe",
+   "st": "Puducherry",
+   "pm": 28.2,
+   "sm": 28.1,
+   "gap": 0.1
+  },
+  {
+   "dt": "Pondicherry",
+   "st": "Puducherry",
+   "pm": 28.0,
+   "sm": 28.1,
+   "gap": -0.1
+  },
+  {
+   "dt": "Yanam",
+   "st": "Puducherry",
+   "pm": 32.9,
+   "sm": 28.1,
+   "gap": 4.8
+  },
+  {
+   "dt": "Amritsar",
+   "st": "Punjab",
+   "pm": 60.5,
+   "sm": 55.8,
+   "gap": 4.7
+  },
+  {
+   "dt": "Barnala",
+   "st": "Punjab",
+   "pm": 55.8,
+   "sm": 55.8,
+   "gap": 0.0
+  },
+  {
+   "dt": "Bathinda",
+   "st": "Punjab",
+   "pm": 52.4,
+   "sm": 55.8,
+   "gap": -3.4
+  },
+  {
+   "dt": "Faridkot",
+   "st": "Punjab",
+   "pm": 55.8,
+   "sm": 55.8,
+   "gap": 0.0
+  },
+  {
+   "dt": "Fatehgarh Sahib",
+   "st": "Punjab",
+   "pm": 57.5,
+   "sm": 55.8,
+   "gap": 1.7
+  },
+  {
+   "dt": "Fazilka",
+   "st": "Punjab",
+   "pm": 50.2,
+   "sm": 55.8,
+   "gap": -5.6
+  },
+  {
+   "dt": "Ferozepur",
+   "st": "Punjab",
+   "pm": 59.9,
+   "sm": 55.8,
+   "gap": 4.1
+  },
+  {
+   "dt": "Gurdaspur",
+   "st": "Punjab",
+   "pm": 54.4,
+   "sm": 55.8,
+   "gap": -1.4
+  },
+  {
+   "dt": "Hoshiarpur",
+   "st": "Punjab",
+   "pm": 49.5,
+   "sm": 55.8,
+   "gap": -6.3
+  },
+  {
+   "dt": "Jalandhar",
+   "st": "Punjab",
+   "pm": 60.5,
+   "sm": 55.8,
+   "gap": 4.7
+  },
+  {
+   "dt": "Kapurthala",
+   "st": "Punjab",
+   "pm": 60.9,
+   "sm": 55.8,
+   "gap": 5.1
+  },
+  {
+   "dt": "Ludhiana",
+   "st": "Punjab",
+   "pm": 58.8,
+   "sm": 55.8,
+   "gap": 3.0
+  },
+  {
+   "dt": "Malerkotla",
+   "st": "Punjab",
+   "pm": 57.3,
+   "sm": 55.8,
+   "gap": 1.5
+  },
+  {
+   "dt": "Mansa",
+   "st": "Punjab",
+   "pm": 53.5,
+   "sm": 55.8,
+   "gap": -2.3
+  },
+  {
+   "dt": "Moga",
+   "st": "Punjab",
+   "pm": 56.6,
+   "sm": 55.8,
+   "gap": 0.8
+  },
+  {
+   "dt": "Pathankot",
+   "st": "Punjab",
+   "pm": 40.2,
+   "sm": 55.8,
+   "gap": -15.6
+  },
+  {
+   "dt": "Patiala",
+   "st": "Punjab",
+   "pm": 58.6,
+   "sm": 55.8,
+   "gap": 2.8
+  },
+  {
+   "dt": "Rupnagar",
+   "st": "Punjab",
+   "pm": 49.9,
+   "sm": 55.8,
+   "gap": -5.9
+  },
+  {
+   "dt": "S.A.S Nagar",
+   "st": "Punjab",
+   "pm": 54.0,
+   "sm": 55.8,
+   "gap": -1.8
+  },
+  {
+   "dt": "Sangrur",
+   "st": "Punjab",
+   "pm": 57.8,
+   "sm": 55.8,
+   "gap": 2.0
+  },
+  {
+   "dt": "Shahid Bhagat Singh Nagar",
+   "st": "Punjab",
+   "pm": 53.7,
+   "sm": 55.8,
+   "gap": -2.1
+  },
+  {
+   "dt": "Sri Muktsar Sahib",
+   "st": "Punjab",
+   "pm": 51.5,
+   "sm": 55.8,
+   "gap": -4.3
+  },
+  {
+   "dt": "Tarn Taran",
+   "st": "Punjab",
+   "pm": 62.6,
+   "sm": 55.8,
+   "gap": 6.8
+  },
+  {
+   "dt": "Ajmer",
+   "st": "Rajasthan",
+   "pm": 39.3,
+   "sm": 41.1,
+   "gap": -1.8
+  },
+  {
+   "dt": "Alwar",
+   "st": "Rajasthan",
+   "pm": 48.3,
+   "sm": 41.1,
+   "gap": 7.2
+  },
+  {
+   "dt": "Anoopgarh",
+   "st": "Rajasthan",
+   "pm": 48.9,
+   "sm": 41.1,
+   "gap": 7.8
+  },
+  {
+   "dt": "Balotra",
+   "st": "Rajasthan",
+   "pm": 36.3,
+   "sm": 41.1,
+   "gap": -4.8
+  },
+  {
+   "dt": "Banswara",
+   "st": "Rajasthan",
+   "pm": 39.5,
+   "sm": 41.1,
+   "gap": -1.6
+  },
+  {
+   "dt": "Baran",
+   "st": "Rajasthan",
+   "pm": 40.2,
+   "sm": 41.1,
+   "gap": -0.9
+  },
+  {
+   "dt": "Barmer",
+   "st": "Rajasthan",
+   "pm": 36.8,
+   "sm": 41.1,
+   "gap": -4.3
+  },
+  {
+   "dt": "Beawar",
+   "st": "Rajasthan",
+   "pm": 36.1,
+   "sm": 41.1,
+   "gap": -5.0
+  },
+  {
+   "dt": "Bharatpur",
+   "st": "Rajasthan",
+   "pm": 50.5,
+   "sm": 41.1,
+   "gap": 9.4
+  },
+  {
+   "dt": "Bhilwara",
+   "st": "Rajasthan",
+   "pm": 36.4,
+   "sm": 41.1,
+   "gap": -4.7
+  },
+  {
+   "dt": "Bikaner",
+   "st": "Rajasthan",
+   "pm": 42.8,
+   "sm": 41.1,
+   "gap": 1.7
+  },
+  {
+   "dt": "Bundi",
+   "st": "Rajasthan",
+   "pm": 43.1,
+   "sm": 41.1,
+   "gap": 2.0
+  },
+  {
+   "dt": "Chittorgarh",
+   "st": "Rajasthan",
+   "pm": 37.5,
+   "sm": 41.1,
+   "gap": -3.6
+  },
+  {
+   "dt": "Churu",
+   "st": "Rajasthan",
+   "pm": 46.0,
+   "sm": 41.1,
+   "gap": 4.9
+  },
+  {
+   "dt": "Dausa",
+   "st": "Rajasthan",
+   "pm": 47.5,
+   "sm": 41.1,
+   "gap": 6.4
+  },
+  {
+   "dt": "Deeg",
+   "st": "Rajasthan",
+   "pm": 50.4,
+   "sm": 41.1,
+   "gap": 9.3
+  },
+  {
+   "dt": "Dholpur",
+   "st": "Rajasthan",
+   "pm": 50.8,
+   "sm": 41.1,
+   "gap": 9.7
+  },
+  {
+   "dt": "Didwana Kuchaman",
+   "st": "Rajasthan",
+   "pm": 40.8,
+   "sm": 41.1,
+   "gap": -0.3
+  },
+  {
+   "dt": "Dudu",
+   "st": "Rajasthan",
+   "pm": 43.8,
+   "sm": 41.1,
+   "gap": 2.7
+  },
+  {
+   "dt": "Dungarpur",
+   "st": "Rajasthan",
+   "pm": 38.5,
+   "sm": 41.1,
+   "gap": -2.6
+  },
+  {
+   "dt": "Ganganagar",
+   "st": "Rajasthan",
+   "pm": 49.4,
+   "sm": 41.1,
+   "gap": 8.3
+  },
+  {
+   "dt": "Gangapurcity",
+   "st": "Rajasthan",
+   "pm": 48.4,
+   "sm": 41.1,
+   "gap": 7.3
+  },
+  {
+   "dt": "Hanumangarh",
+   "st": "Rajasthan",
+   "pm": 49.9,
+   "sm": 41.1,
+   "gap": 8.8
+  },
+  {
+   "dt": "Jaipur",
+   "st": "Rajasthan",
+   "pm": 48.4,
+   "sm": 41.1,
+   "gap": 7.3
+  },
+  {
+   "dt": "Jaipur Gramin",
+   "st": "Rajasthan",
+   "pm": 44.6,
+   "sm": 41.1,
+   "gap": 3.5
+  },
+  {
+   "dt": "Jaisalmer",
+   "st": "Rajasthan",
+   "pm": 38.5,
+   "sm": 41.1,
+   "gap": -2.6
+  },
+  {
+   "dt": "Jalore",
+   "st": "Rajasthan",
+   "pm": 33.6,
+   "sm": 41.1,
+   "gap": -7.5
+  },
+  {
+   "dt": "Jhalawar",
+   "st": "Rajasthan",
+   "pm": 41.3,
+   "sm": 41.1,
+   "gap": 0.2
+  },
+  {
+   "dt": "Jhunjhunu",
+   "st": "Rajasthan",
+   "pm": 46.7,
+   "sm": 41.1,
+   "gap": 5.6
+  },
+  {
+   "dt": "Jodhpur",
+   "st": "Rajasthan",
+   "pm": 37.8,
+   "sm": 41.1,
+   "gap": -3.3
+  },
+  {
+   "dt": "Jodhpur Gramin",
+   "st": "Rajasthan",
+   "pm": 36.2,
+   "sm": 41.1,
+   "gap": -4.9
+  },
+  {
+   "dt": "Karauli",
+   "st": "Rajasthan",
+   "pm": 45.4,
+   "sm": 41.1,
+   "gap": 4.3
+  },
+  {
+   "dt": "Kekri",
+   "st": "Rajasthan",
+   "pm": 40.9,
+   "sm": 41.1,
+   "gap": -0.2
+  },
+  {
+   "dt": "Khairthal-Tijara",
+   "st": "Rajasthan",
+   "pm": 49.7,
+   "sm": 41.1,
+   "gap": 8.6
+  },
+  {
+   "dt": "Kota",
+   "st": "Rajasthan",
+   "pm": 42.8,
+   "sm": 41.1,
+   "gap": 1.7
+  },
+  {
+   "dt": "Kotputli-Behror",
+   "st": "Rajasthan",
+   "pm": 47.4,
+   "sm": 41.1,
+   "gap": 6.3
+  },
+  {
+   "dt": "Nagaur",
+   "st": "Rajasthan",
+   "pm": 38.6,
+   "sm": 41.1,
+   "gap": -2.5
+  },
+  {
+   "dt": "Neem Ka Thana",
+   "st": "Rajasthan",
+   "pm": 44.8,
+   "sm": 41.1,
+   "gap": 3.7
+  },
+  {
+   "dt": "Pali",
+   "st": "Rajasthan",
+   "pm": 34.1,
+   "sm": 41.1,
+   "gap": -7.0
+  },
+  {
+   "dt": "Phalodi",
+   "st": "Rajasthan",
+   "pm": 37.7,
+   "sm": 41.1,
+   "gap": -3.4
+  },
+  {
+   "dt": "Pratapgarh",
+   "st": "Rajasthan",
+   "pm": 37.9,
+   "sm": 41.1,
+   "gap": -3.2
+  },
+  {
+   "dt": "Rajsamand",
+   "st": "Rajasthan",
+   "pm": 33.2,
+   "sm": 41.1,
+   "gap": -7.9
+  },
+  {
+   "dt": "Salumbar",
+   "st": "Rajasthan",
+   "pm": 37.5,
+   "sm": 41.1,
+   "gap": -3.6
+  },
+  {
+   "dt": "Sanchor",
+   "st": "Rajasthan",
+   "pm": 35.2,
+   "sm": 41.1,
+   "gap": -5.9
+  },
+  {
+   "dt": "Sawai Madhopur",
+   "st": "Rajasthan",
+   "pm": 45.2,
+   "sm": 41.1,
+   "gap": 4.1
+  },
+  {
+   "dt": "Shahpura",
+   "st": "Rajasthan",
+   "pm": 39.0,
+   "sm": 41.1,
+   "gap": -2.1
+  },
+  {
+   "dt": "Sikar",
+   "st": "Rajasthan",
+   "pm": 42.8,
+   "sm": 41.1,
+   "gap": 1.7
+  },
+  {
+   "dt": "Sirohi",
+   "st": "Rajasthan",
+   "pm": 32.6,
+   "sm": 41.1,
+   "gap": -8.5
+  },
+  {
+   "dt": "Tonk",
+   "st": "Rajasthan",
+   "pm": 44.7,
+   "sm": 41.1,
+   "gap": 3.6
+  },
+  {
+   "dt": "Udaipur",
+   "st": "Rajasthan",
+   "pm": 34.3,
+   "sm": 41.1,
+   "gap": -6.8
+  },
+  {
+   "dt": "Gangtok",
+   "st": "Sikkim",
+   "pm": 26.9,
+   "sm": 27.7,
+   "gap": -0.8
+  },
+  {
+   "dt": "Gyalshing",
+   "st": "Sikkim",
+   "pm": 25.9,
+   "sm": 27.7,
+   "gap": -1.8
+  },
+  {
+   "dt": "Mangan",
+   "st": "Sikkim",
+   "pm": 21.8,
+   "sm": 27.7,
+   "gap": -5.9
+  },
+  {
+   "dt": "Namchi",
+   "st": "Sikkim",
+   "pm": 29.5,
+   "sm": 27.7,
+   "gap": 1.8
+  },
+  {
+   "dt": "Pakyong",
+   "st": "Sikkim",
+   "pm": 28.5,
+   "sm": 27.7,
+   "gap": 0.8
+  },
+  {
+   "dt": "Soreng",
+   "st": "Sikkim",
+   "pm": 30.7,
+   "sm": 27.7,
+   "gap": 3.0
+  },
+  {
+   "dt": "Ariyalur",
+   "st": "Tamil Nadu",
+   "pm": 26.3,
+   "sm": 27.4,
+   "gap": -1.1
+  },
+  {
+   "dt": "Chengalpattu",
+   "st": "Tamil Nadu",
+   "pm": 27.5,
+   "sm": 27.4,
+   "gap": 0.1
+  },
+  {
+   "dt": "Chennai",
+   "st": "Tamil Nadu",
+   "pm": 31.5,
+   "sm": 27.4,
+   "gap": 4.1
+  },
+  {
+   "dt": "Coimbatore",
+   "st": "Tamil Nadu",
+   "pm": 24.5,
+   "sm": 27.4,
+   "gap": -2.9
+  },
+  {
+   "dt": "Cuddalore",
+   "st": "Tamil Nadu",
+   "pm": 27.2,
+   "sm": 27.4,
+   "gap": -0.2
+  },
+  {
+   "dt": "Dharmapuri",
+   "st": "Tamil Nadu",
+   "pm": 29.3,
+   "sm": 27.4,
+   "gap": 1.9
+  },
+  {
+   "dt": "Dindigul",
+   "st": "Tamil Nadu",
+   "pm": 26.9,
+   "sm": 27.4,
+   "gap": -0.5
+  },
+  {
+   "dt": "Erode",
+   "st": "Tamil Nadu",
+   "pm": 29.3,
+   "sm": 27.4,
+   "gap": 1.9
+  },
+  {
+   "dt": "Kallakurichi",
+   "st": "Tamil Nadu",
+   "pm": 28.5,
+   "sm": 27.4,
+   "gap": 1.1
+  },
+  {
+   "dt": "Kanchipuram",
+   "st": "Tamil Nadu",
+   "pm": 29.5,
+   "sm": 27.4,
+   "gap": 2.1
+  },
+  {
+   "dt": "Kanniyakumari",
+   "st": "Tamil Nadu",
+   "pm": 21.2,
+   "sm": 27.4,
+   "gap": -6.2
+  },
+  {
+   "dt": "Karur",
+   "st": "Tamil Nadu",
+   "pm": 28.8,
+   "sm": 27.4,
+   "gap": 1.4
+  },
+  {
+   "dt": "Krishnagiri",
+   "st": "Tamil Nadu",
+   "pm": 29.5,
+   "sm": 27.4,
+   "gap": 2.1
+  },
+  {
+   "dt": "Madurai",
+   "st": "Tamil Nadu",
+   "pm": 27.0,
+   "sm": 27.4,
+   "gap": -0.4
+  },
+  {
+   "dt": "Mayiladuthurai",
+   "st": "Tamil Nadu",
+   "pm": 25.2,
+   "sm": 27.4,
+   "gap": -2.2
+  },
+  {
+   "dt": "Nagapattinam",
+   "st": "Tamil Nadu",
+   "pm": 24.3,
+   "sm": 27.4,
+   "gap": -3.1
+  },
+  {
+   "dt": "Namakkal",
+   "st": "Tamil Nadu",
+   "pm": 30.3,
+   "sm": 27.4,
+   "gap": 2.9
+  },
+  {
+   "dt": "Perambalur",
+   "st": "Tamil Nadu",
+   "pm": 29.1,
+   "sm": 27.4,
+   "gap": 1.7
+  },
+  {
+   "dt": "Pudukkottai",
+   "st": "Tamil Nadu",
+   "pm": 25.9,
+   "sm": 27.4,
+   "gap": -1.5
+  },
+  {
+   "dt": "Ramanathapuram",
+   "st": "Tamil Nadu",
+   "pm": 25.2,
+   "sm": 27.4,
+   "gap": -2.2
+  },
+  {
+   "dt": "Ranipet",
+   "st": "Tamil Nadu",
+   "pm": 30.0,
+   "sm": 27.4,
+   "gap": 2.6
+  },
+  {
+   "dt": "Salem",
+   "st": "Tamil Nadu",
+   "pm": 29.5,
+   "sm": 27.4,
+   "gap": 2.1
+  },
+  {
+   "dt": "Sivaganga",
+   "st": "Tamil Nadu",
+   "pm": 26.0,
+   "sm": 27.4,
+   "gap": -1.4
+  },
+  {
+   "dt": "Tenkasi",
+   "st": "Tamil Nadu",
+   "pm": 21.4,
+   "sm": 27.4,
+   "gap": -6.0
+  },
+  {
+   "dt": "Thanjavur",
+   "st": "Tamil Nadu",
+   "pm": 26.7,
+   "sm": 27.4,
+   "gap": -0.7
+  },
+  {
+   "dt": "The Nilgiris",
+   "st": "Tamil Nadu",
+   "pm": 22.6,
+   "sm": 27.4,
+   "gap": -4.8
+  },
+  {
+   "dt": "Theni",
+   "st": "Tamil Nadu",
+   "pm": 23.6,
+   "sm": 27.4,
+   "gap": -3.8
+  },
+  {
+   "dt": "Thiruvallur",
+   "st": "Tamil Nadu",
+   "pm": 29.6,
+   "sm": 27.4,
+   "gap": 2.2
+  },
+  {
+   "dt": "Thiruvarur",
+   "st": "Tamil Nadu",
+   "pm": 25.6,
+   "sm": 27.4,
+   "gap": -1.8
+  },
+  {
+   "dt": "Tiruchirappalli",
+   "st": "Tamil Nadu",
+   "pm": 28.2,
+   "sm": 27.4,
+   "gap": 0.8
+  },
+  {
+   "dt": "Tirunelveli",
+   "st": "Tamil Nadu",
+   "pm": 22.2,
+   "sm": 27.4,
+   "gap": -5.2
+  },
+  {
+   "dt": "Tirupathur",
+   "st": "Tamil Nadu",
+   "pm": 29.1,
+   "sm": 27.4,
+   "gap": 1.7
+  },
+  {
+   "dt": "Tiruppur",
+   "st": "Tamil Nadu",
+   "pm": 28.1,
+   "sm": 27.4,
+   "gap": 0.7
+  },
+  {
+   "dt": "Tiruvannamalai",
+   "st": "Tamil Nadu",
+   "pm": 29.2,
+   "sm": 27.4,
+   "gap": 1.8
+  },
+  {
+   "dt": "Tuticorin",
+   "st": "Tamil Nadu",
+   "pm": 23.9,
+   "sm": 27.4,
+   "gap": -3.5
+  },
+  {
+   "dt": "Vellore",
+   "st": "Tamil Nadu",
+   "pm": 29.0,
+   "sm": 27.4,
+   "gap": 1.6
+  },
+  {
+   "dt": "Villupuram",
+   "st": "Tamil Nadu",
+   "pm": 28.1,
+   "sm": 27.4,
+   "gap": 0.7
+  },
+  {
+   "dt": "Virudhunagar",
+   "st": "Tamil Nadu",
+   "pm": 25.3,
+   "sm": 27.4,
+   "gap": -2.1
+  },
+  {
+   "dt": "Adilabad",
+   "st": "Telangana",
+   "pm": 34.9,
+   "sm": 33.0,
+   "gap": 1.9
+  },
+  {
+   "dt": "Bhadradri Kothagudem",
+   "st": "Telangana",
+   "pm": 31.6,
+   "sm": 33.0,
+   "gap": -1.4
+  },
+  {
+   "dt": "Hanumakonda",
+   "st": "Telangana",
+   "pm": 34.7,
+   "sm": 33.0,
+   "gap": 1.7
+  },
+  {
+   "dt": "Hyderabad",
+   "st": "Telangana",
+   "pm": 37.8,
+   "sm": 33.0,
+   "gap": 4.8
+  },
+  {
+   "dt": "Jagitial",
+   "st": "Telangana",
+   "pm": 34.8,
+   "sm": 33.0,
+   "gap": 1.8
+  },
+  {
+   "dt": "Jangoan",
+   "st": "Telangana",
+   "pm": 33.0,
+   "sm": 33.0,
+   "gap": 0.0
+  },
+  {
+   "dt": "Jayashankar Bhupalapally",
+   "st": "Telangana",
+   "pm": 34.6,
+   "sm": 33.0,
+   "gap": 1.6
+  },
+  {
+   "dt": "Jogulamba Gadwal",
+   "st": "Telangana",
+   "pm": 30.4,
+   "sm": 33.0,
+   "gap": -2.6
+  },
+  {
+   "dt": "Kamareddy",
+   "st": "Telangana",
+   "pm": 33.0,
+   "sm": 33.0,
+   "gap": 0.0
+  },
+  {
+   "dt": "Karimnagar",
+   "st": "Telangana",
+   "pm": 34.9,
+   "sm": 33.0,
+   "gap": 1.9
+  },
+  {
+   "dt": "Khammam",
+   "st": "Telangana",
+   "pm": 32.1,
+   "sm": 33.0,
+   "gap": -0.9
+  },
+  {
+   "dt": "Kumuram Bheem Asifabad",
+   "st": "Telangana",
+   "pm": 35.1,
+   "sm": 33.0,
+   "gap": 2.1
+  },
+  {
+   "dt": "Mahabubabad",
+   "st": "Telangana",
+   "pm": 31.9,
+   "sm": 33.0,
+   "gap": -1.1
+  },
+  {
+   "dt": "Mahabubnagar",
+   "st": "Telangana",
+   "pm": 30.4,
+   "sm": 33.0,
+   "gap": -2.6
+  },
+  {
+   "dt": "Mancherial",
+   "st": "Telangana",
+   "pm": 35.1,
+   "sm": 33.0,
+   "gap": 2.1
+  },
+  {
+   "dt": "Medak",
+   "st": "Telangana",
+   "pm": 32.3,
+   "sm": 33.0,
+   "gap": -0.7
+  },
+  {
+   "dt": "Medchal Malkajgiri",
+   "st": "Telangana",
+   "pm": 33.1,
+   "sm": 33.0,
+   "gap": 0.1
+  },
+  {
+   "dt": "Mulugu",
+   "st": "Telangana",
+   "pm": 33.4,
+   "sm": 33.0,
+   "gap": 0.4
+  },
+  {
+   "dt": "Nagarkurnool",
+   "st": "Telangana",
+   "pm": 29.2,
+   "sm": 33.0,
+   "gap": -3.8
+  },
+  {
+   "dt": "Nalgonda",
+   "st": "Telangana",
+   "pm": 31.4,
+   "sm": 33.0,
+   "gap": -1.6
+  },
+  {
+   "dt": "Narayanpet",
+   "st": "Telangana",
+   "pm": 30.3,
+   "sm": 33.0,
+   "gap": -2.7
+  },
+  {
+   "dt": "Nirmal",
+   "st": "Telangana",
+   "pm": 35.7,
+   "sm": 33.0,
+   "gap": 2.7
+  },
+  {
+   "dt": "Nizamabad",
+   "st": "Telangana",
+   "pm": 34.8,
+   "sm": 33.0,
+   "gap": 1.8
+  },
+  {
+   "dt": "Peddapalli",
+   "st": "Telangana",
+   "pm": 35.1,
+   "sm": 33.0,
+   "gap": 2.1
+  },
+  {
+   "dt": "Rajanna Sircilla",
+   "st": "Telangana",
+   "pm": 34.1,
+   "sm": 33.0,
+   "gap": 1.1
+  },
+  {
+   "dt": "Ranga Reddy",
+   "st": "Telangana",
+   "pm": 31.3,
+   "sm": 33.0,
+   "gap": -1.7
+  },
+  {
+   "dt": "Sangareddy",
+   "st": "Telangana",
+   "pm": 32.1,
+   "sm": 33.0,
+   "gap": -0.9
+  },
+  {
+   "dt": "Siddipet",
+   "st": "Telangana",
+   "pm": 32.7,
+   "sm": 33.0,
+   "gap": -0.3
+  },
+  {
+   "dt": "Suryapet",
+   "st": "Telangana",
+   "pm": 32.5,
+   "sm": 33.0,
+   "gap": -0.5
+  },
+  {
+   "dt": "Vikarabad",
+   "st": "Telangana",
+   "pm": 30.9,
+   "sm": 33.0,
+   "gap": -2.1
+  },
+  {
+   "dt": "Wanaparthy",
+   "st": "Telangana",
+   "pm": 30.6,
+   "sm": 33.0,
+   "gap": -2.4
+  },
+  {
+   "dt": "Warangal",
+   "st": "Telangana",
+   "pm": 34.0,
+   "sm": 33.0,
+   "gap": 1.0
+  },
+  {
+   "dt": "Yadadri Bhuvanagiri",
+   "st": "Telangana",
+   "pm": 32.7,
+   "sm": 33.0,
+   "gap": -0.3
+  },
+  {
+   "dt": "Dhalai",
+   "st": "Tripura",
+   "pm": 44.0,
+   "sm": 50.2,
+   "gap": -6.2
+  },
+  {
+   "dt": "Gomati",
+   "st": "Tripura",
+   "pm": 55.3,
+   "sm": 50.2,
+   "gap": 5.1
+  },
+  {
+   "dt": "Khowai",
+   "st": "Tripura",
+   "pm": 46.8,
+   "sm": 50.2,
+   "gap": -3.4
+  },
+  {
+   "dt": "North Tripura",
+   "st": "Tripura",
+   "pm": 40.2,
+   "sm": 50.2,
+   "gap": -10.0
+  },
+  {
+   "dt": "Sepahijala",
+   "st": "Tripura",
+   "pm": 61.6,
+   "sm": 50.2,
+   "gap": 11.4
+  },
+  {
+   "dt": "South Tripura",
+   "st": "Tripura",
+   "pm": 59.8,
+   "sm": 50.2,
+   "gap": 9.6
+  },
+  {
+   "dt": "Unakoti",
+   "st": "Tripura",
+   "pm": 43.2,
+   "sm": 50.2,
+   "gap": -7.0
+  },
+  {
+   "dt": "West Tripura",
+   "st": "Tripura",
+   "pm": 53.6,
+   "sm": 50.2,
+   "gap": 3.4
+  },
+  {
+   "dt": "Agra",
+   "st": "Uttar Pradesh",
+   "pm": 53.9,
+   "sm": 55.1,
+   "gap": -1.2
+  },
+  {
+   "dt": "Aligarh",
+   "st": "Uttar Pradesh",
+   "pm": 59.1,
+   "sm": 55.1,
+   "gap": 4.0
+  },
+  {
+   "dt": "Ambedkar Nagar",
+   "st": "Uttar Pradesh",
+   "pm": 58.1,
+   "sm": 55.1,
+   "gap": 3.0
+  },
+  {
+   "dt": "Amethi",
+   "st": "Uttar Pradesh",
+   "pm": 56.8,
+   "sm": 55.1,
+   "gap": 1.7
+  },
+  {
+   "dt": "Amroha",
+   "st": "Uttar Pradesh",
+   "pm": 57.5,
+   "sm": 55.1,
+   "gap": 2.4
+  },
+  {
+   "dt": "Auraiya",
+   "st": "Uttar Pradesh",
+   "pm": 53.8,
+   "sm": 55.1,
+   "gap": -1.3
+  },
+  {
+   "dt": "Ayodhya",
+   "st": "Uttar Pradesh",
+   "pm": 55.6,
+   "sm": 55.1,
+   "gap": 0.5
+  },
+  {
+   "dt": "Azamgarh",
+   "st": "Uttar Pradesh",
+   "pm": 59.8,
+   "sm": 55.1,
+   "gap": 4.7
+  },
+  {
+   "dt": "Baghpat",
+   "st": "Uttar Pradesh",
+   "pm": 62.5,
+   "sm": 55.1,
+   "gap": 7.4
+  },
+  {
+   "dt": "Bahraich",
+   "st": "Uttar Pradesh",
+   "pm": 52.1,
+   "sm": 55.1,
+   "gap": -3.0
+  },
+  {
+   "dt": "Ballia",
+   "st": "Uttar Pradesh",
+   "pm": 61.4,
+   "sm": 55.1,
+   "gap": 6.3
+  },
+  {
+   "dt": "Balrampur",
+   "st": "Uttar Pradesh",
+   "pm": 50.2,
+   "sm": 55.1,
+   "gap": -4.9
+  },
+  {
+   "dt": "Banda",
+   "st": "Uttar Pradesh",
+   "pm": 50.7,
+   "sm": 55.1,
+   "gap": -4.4
+  },
+  {
+   "dt": "Barabanki",
+   "st": "Uttar Pradesh",
+   "pm": 54.7,
+   "sm": 55.1,
+   "gap": -0.4
+  },
+  {
+   "dt": "Bareilly",
+   "st": "Uttar Pradesh",
+   "pm": 53.2,
+   "sm": 55.1,
+   "gap": -1.9
+  },
+  {
+   "dt": "Basti",
+   "st": "Uttar Pradesh",
+   "pm": 55.6,
+   "sm": 55.1,
+   "gap": 0.5
+  },
+  {
+   "dt": "Bhadohi",
+   "st": "Uttar Pradesh",
+   "pm": 54.2,
+   "sm": 55.1,
+   "gap": -0.9
+  },
+  {
+   "dt": "Bijnor",
+   "st": "Uttar Pradesh",
+   "pm": 53.4,
+   "sm": 55.1,
+   "gap": -1.7
+  },
+  {
+   "dt": "Budaun",
+   "st": "Uttar Pradesh",
+   "pm": 57.9,
+   "sm": 55.1,
+   "gap": 2.8
+  },
+  {
+   "dt": "Bulandshahr",
+   "st": "Uttar Pradesh",
+   "pm": 62.2,
+   "sm": 55.1,
+   "gap": 7.1
+  },
+  {
+   "dt": "Chandauli",
+   "st": "Uttar Pradesh",
+   "pm": 52.8,
+   "sm": 55.1,
+   "gap": -2.3
+  },
+  {
+   "dt": "Chitrakoot",
+   "st": "Uttar Pradesh",
+   "pm": 50.3,
+   "sm": 55.1,
+   "gap": -4.8
+  },
+  {
+   "dt": "Deoria",
+   "st": "Uttar Pradesh",
+   "pm": 59.8,
+   "sm": 55.1,
+   "gap": 4.7
+  },
+  {
+   "dt": "Etah",
+   "st": "Uttar Pradesh",
+   "pm": 57.3,
+   "sm": 55.1,
+   "gap": 2.2
+  },
+  {
+   "dt": "Etawah",
+   "st": "Uttar Pradesh",
+   "pm": 53.9,
+   "sm": 55.1,
+   "gap": -1.2
+  },
+  {
+   "dt": "Farrukhabad",
+   "st": "Uttar Pradesh",
+   "pm": 57.8,
+   "sm": 55.1,
+   "gap": 2.7
+  },
+  {
+   "dt": "Fatehpur",
+   "st": "Uttar Pradesh",
+   "pm": 53.6,
+   "sm": 55.1,
+   "gap": -1.5
+  },
+  {
+   "dt": "Firozabad",
+   "st": "Uttar Pradesh",
+   "pm": 55.2,
+   "sm": 55.1,
+   "gap": 0.1
+  },
+  {
+   "dt": "Gautam Buddha Nagar",
+   "st": "Uttar Pradesh",
+   "pm": 69.8,
+   "sm": 55.1,
+   "gap": 14.7
+  },
+  {
+   "dt": "Ghaziabad",
+   "st": "Uttar Pradesh",
+   "pm": 71.8,
+   "sm": 55.1,
+   "gap": 16.7
+  },
+  {
+   "dt": "Ghazipur",
+   "st": "Uttar Pradesh",
+   "pm": 60.4,
+   "sm": 55.1,
+   "gap": 5.3
+  },
+  {
+   "dt": "Gonda",
+   "st": "Uttar Pradesh",
+   "pm": 53.9,
+   "sm": 55.1,
+   "gap": -1.2
+  },
+  {
+   "dt": "Gorakhpur",
+   "st": "Uttar Pradesh",
+   "pm": 58.2,
+   "sm": 55.1,
+   "gap": 3.1
+  },
+  {
+   "dt": "Hamirpur",
+   "st": "Uttar Pradesh",
+   "pm": 51.4,
+   "sm": 55.1,
+   "gap": -3.7
+  },
+  {
+   "dt": "Hapur",
+   "st": "Uttar Pradesh",
+   "pm": 62.0,
+   "sm": 55.1,
+   "gap": 6.9
+  },
+  {
+   "dt": "Hardoi",
+   "st": "Uttar Pradesh",
+   "pm": 55.5,
+   "sm": 55.1,
+   "gap": 0.4
+  },
+  {
+   "dt": "Hathras",
+   "st": "Uttar Pradesh",
+   "pm": 56.9,
+   "sm": 55.1,
+   "gap": 1.8
+  },
+  {
+   "dt": "Jalaun",
+   "st": "Uttar Pradesh",
+   "pm": 51.8,
+   "sm": 55.1,
+   "gap": -3.3
+  },
+  {
+   "dt": "Jaunpur",
+   "st": "Uttar Pradesh",
+   "pm": 59.5,
+   "sm": 55.1,
+   "gap": 4.4
+  },
+  {
+   "dt": "Jhansi",
+   "st": "Uttar Pradesh",
+   "pm": 47.7,
+   "sm": 55.1,
+   "gap": -7.4
+  },
+  {
+   "dt": "Kannauj",
+   "st": "Uttar Pradesh",
+   "pm": 55.1,
+   "sm": 55.1,
+   "gap": 0.0
+  },
+  {
+   "dt": "Kanpur Dehat",
+   "st": "Uttar Pradesh",
+   "pm": 52.9,
+   "sm": 55.1,
+   "gap": -2.2
+  },
+  {
+   "dt": "Kanpur Nagar",
+   "st": "Uttar Pradesh",
+   "pm": 54.6,
+   "sm": 55.1,
+   "gap": -0.5
+  },
+  {
+   "dt": "Kasganj",
+   "st": "Uttar Pradesh",
+   "pm": 58.5,
+   "sm": 55.1,
+   "gap": 3.4
+  },
+  {
+   "dt": "Kaushambi",
+   "st": "Uttar Pradesh",
+   "pm": 52.7,
+   "sm": 55.1,
+   "gap": -2.4
+  },
+  {
+   "dt": "Kheri",
+   "st": "Uttar Pradesh",
+   "pm": 51.5,
+   "sm": 55.1,
+   "gap": -3.6
+  },
+  {
+   "dt": "Kushi Nagar",
+   "st": "Uttar Pradesh",
+   "pm": 55.1,
+   "sm": 55.1,
+   "gap": 0.0
+  },
+  {
+   "dt": "Lalitpur",
+   "st": "Uttar Pradesh",
+   "pm": 41.3,
+   "sm": 55.1,
+   "gap": -13.8
+  },
+  {
+   "dt": "Lucknow",
+   "st": "Uttar Pradesh",
+   "pm": 56.1,
+   "sm": 55.1,
+   "gap": 1.0
+  },
+  {
+   "dt": "Maharajganj",
+   "st": "Uttar Pradesh",
+   "pm": 51.0,
+   "sm": 55.1,
+   "gap": -4.1
+  },
+  {
+   "dt": "Mahoba",
+   "st": "Uttar Pradesh",
+   "pm": 48.9,
+   "sm": 55.1,
+   "gap": -6.2
+  },
+  {
+   "dt": "Mainpuri",
+   "st": "Uttar Pradesh",
+   "pm": 55.7,
+   "sm": 55.1,
+   "gap": 0.6
+  },
+  {
+   "dt": "Mathura",
+   "st": "Uttar Pradesh",
+   "pm": 53.9,
+   "sm": 55.1,
+   "gap": -1.2
+  },
+  {
+   "dt": "Mau",
+   "st": "Uttar Pradesh",
+   "pm": 60.2,
+   "sm": 55.1,
+   "gap": 5.1
+  },
+  {
+   "dt": "Meerut",
+   "st": "Uttar Pradesh",
+   "pm": 61.3,
+   "sm": 55.1,
+   "gap": 6.2
+  },
+  {
+   "dt": "Mirzapur",
+   "st": "Uttar Pradesh",
+   "pm": 51.1,
+   "sm": 55.1,
+   "gap": -4.0
+  },
+  {
+   "dt": "Moradabad",
+   "st": "Uttar Pradesh",
+   "pm": 55.1,
+   "sm": 55.1,
+   "gap": 0.0
+  },
+  {
+   "dt": "Muzaffarnagar",
+   "st": "Uttar Pradesh",
+   "pm": 58.3,
+   "sm": 55.1,
+   "gap": 3.2
+  },
+  {
+   "dt": "Pilibhit",
+   "st": "Uttar Pradesh",
+   "pm": 48.5,
+   "sm": 55.1,
+   "gap": -6.6
+  },
+  {
+   "dt": "Pratapgarh",
+   "st": "Uttar Pradesh",
+   "pm": 57.4,
+   "sm": 55.1,
+   "gap": 2.3
+  },
+  {
+   "dt": "Prayagraj",
+   "st": "Uttar Pradesh",
+   "pm": 52.8,
+   "sm": 55.1,
+   "gap": -2.3
+  },
+  {
+   "dt": "Rae Bareli",
+   "st": "Uttar Pradesh",
+   "pm": 56.3,
+   "sm": 55.1,
+   "gap": 1.2
+  },
+  {
+   "dt": "Rampur",
+   "st": "Uttar Pradesh",
+   "pm": 51.5,
+   "sm": 55.1,
+   "gap": -3.6
+  },
+  {
+   "dt": "Saharanpur",
+   "st": "Uttar Pradesh",
+   "pm": 54.6,
+   "sm": 55.1,
+   "gap": -0.5
+  },
+  {
+   "dt": "Sambhal",
+   "st": "Uttar Pradesh",
+   "pm": 59.3,
+   "sm": 55.1,
+   "gap": 4.2
+  },
+  {
+   "dt": "Sant Kabeer Nagar",
+   "st": "Uttar Pradesh",
+   "pm": 56.9,
+   "sm": 55.1,
+   "gap": 1.8
+  },
+  {
+   "dt": "Shahjahanpur",
+   "st": "Uttar Pradesh",
+   "pm": 56.9,
+   "sm": 55.1,
+   "gap": 1.8
+  },
+  {
+   "dt": "Shamli",
+   "st": "Uttar Pradesh",
+   "pm": 58.9,
+   "sm": 55.1,
+   "gap": 3.8
+  },
+  {
+   "dt": "Shravasti",
+   "st": "Uttar Pradesh",
+   "pm": 50.1,
+   "sm": 55.1,
+   "gap": -5.0
+  },
+  {
+   "dt": "Siddharth Nagar",
+   "st": "Uttar Pradesh",
+   "pm": 51.7,
+   "sm": 55.1,
+   "gap": -3.4
+  },
+  {
+   "dt": "Sitapur",
+   "st": "Uttar Pradesh",
+   "pm": 54.1,
+   "sm": 55.1,
+   "gap": -1.0
+  },
+  {
+   "dt": "Sonbhadra",
+   "st": "Uttar Pradesh",
+   "pm": 48.2,
+   "sm": 55.1,
+   "gap": -6.9
+  },
+  {
+   "dt": "Sultanpur",
+   "st": "Uttar Pradesh",
+   "pm": 58.0,
+   "sm": 55.1,
+   "gap": 2.9
+  },
+  {
+   "dt": "Unnao",
+   "st": "Uttar Pradesh",
+   "pm": 54.8,
+   "sm": 55.1,
+   "gap": -0.3
+  },
+  {
+   "dt": "Varanasi",
+   "st": "Uttar Pradesh",
+   "pm": 56.0,
+   "sm": 55.1,
+   "gap": 0.9
+  },
+  {
+   "dt": "Almora",
+   "st": "Uttarakhand",
+   "pm": 27.9,
+   "sm": 28.7,
+   "gap": -0.8
+  },
+  {
+   "dt": "Bageshwar",
+   "st": "Uttarakhand",
+   "pm": 24.2,
+   "sm": 28.7,
+   "gap": -4.5
+  },
+  {
+   "dt": "Chamoli",
+   "st": "Uttarakhand",
+   "pm": 21.1,
+   "sm": 28.7,
+   "gap": -7.6
+  },
+  {
+   "dt": "Champawat",
+   "st": "Uttarakhand",
+   "pm": 31.5,
+   "sm": 28.7,
+   "gap": 2.8
+  },
+  {
+   "dt": "Dehradun",
+   "st": "Uttarakhand",
+   "pm": 37.4,
+   "sm": 28.7,
+   "gap": 8.7
+  },
+  {
+   "dt": "Haridwar",
+   "st": "Uttarakhand",
+   "pm": 51.2,
+   "sm": 28.7,
+   "gap": 22.5
+  },
+  {
+   "dt": "Nainital",
+   "st": "Uttarakhand",
+   "pm": 38.5,
+   "sm": 28.7,
+   "gap": 9.8
+  },
+  {
+   "dt": "Pauri Garhwal",
+   "st": "Uttarakhand",
+   "pm": 32.9,
+   "sm": 28.7,
+   "gap": 4.2
+  },
+  {
+   "dt": "Pithoragarh",
+   "st": "Uttarakhand",
+   "pm": 20.6,
+   "sm": 28.7,
+   "gap": -8.1
+  },
+  {
+   "dt": "Rudra Prayag",
+   "st": "Uttarakhand",
+   "pm": 24.7,
+   "sm": 28.7,
+   "gap": -4.0
+  },
+  {
+   "dt": "Tehri Garhwal",
+   "st": "Uttarakhand",
+   "pm": 28.7,
+   "sm": 28.7,
+   "gap": 0.0
+  },
+  {
+   "dt": "Udam Singh Nagar",
+   "st": "Uttarakhand",
+   "pm": 47.4,
+   "sm": 28.7,
+   "gap": 18.7
+  },
+  {
+   "dt": "Uttar Kashi",
+   "st": "Uttarakhand",
+   "pm": 23.4,
+   "sm": 28.7,
+   "gap": -5.3
+  },
+  {
+   "dt": "24 Paraganas North",
+   "st": "West Bengal",
+   "pm": 46.2,
+   "sm": 50.1,
+   "gap": -3.9
+  },
+  {
+   "dt": "24 Paraganas South",
+   "st": "West Bengal",
+   "pm": 49.2,
+   "sm": 50.1,
+   "gap": -0.9
+  },
+  {
+   "dt": "Alipurduar",
+   "st": "West Bengal",
+   "pm": 40.8,
+   "sm": 50.1,
+   "gap": -9.3
+  },
+  {
+   "dt": "Bankura",
+   "st": "West Bengal",
+   "pm": 56.8,
+   "sm": 50.1,
+   "gap": 6.7
+  },
+  {
+   "dt": "Birbhum",
+   "st": "West Bengal",
+   "pm": 54.9,
+   "sm": 50.1,
+   "gap": 4.8
+  },
+  {
+   "dt": "Coochbehar",
+   "st": "West Bengal",
+   "pm": 45.2,
+   "sm": 50.1,
+   "gap": -4.9
+  },
+  {
+   "dt": "Darjeeling",
+   "st": "West Bengal",
+   "pm": 39.2,
+   "sm": 50.1,
+   "gap": -10.9
+  },
+  {
+   "dt": "Dinajpur Dakshin",
+   "st": "West Bengal",
+   "pm": 62.0,
+   "sm": 50.1,
+   "gap": 11.9
+  },
+  {
+   "dt": "Dinajpur Uttar",
+   "st": "West Bengal",
+   "pm": 57.6,
+   "sm": 50.1,
+   "gap": 7.5
+  },
+  {
+   "dt": "Hooghly",
+   "st": "West Bengal",
+   "pm": 56.0,
+   "sm": 50.1,
+   "gap": 5.9
+  },
+  {
+   "dt": "Howrah",
+   "st": "West Bengal",
+   "pm": 45.0,
+   "sm": 50.1,
+   "gap": -5.1
+  },
+  {
+   "dt": "Jalpaiguri",
+   "st": "West Bengal",
+   "pm": 45.6,
+   "sm": 50.1,
+   "gap": -4.5
+  },
+  {
+   "dt": "Jhargram",
+   "st": "West Bengal",
+   "pm": 50.1,
+   "sm": 50.1,
+   "gap": 0.0
+  },
+  {
+   "dt": "Kalimpong",
+   "st": "West Bengal",
+   "pm": 36.8,
+   "sm": 50.1,
+   "gap": -13.3
+  },
+  {
+   "dt": "Kolkata",
+   "st": "West Bengal",
+   "pm": 48.2,
+   "sm": 50.1,
+   "gap": -1.9
+  },
+  {
+   "dt": "Maldah",
+   "st": "West Bengal",
+   "pm": 60.3,
+   "sm": 50.1,
+   "gap": 10.2
+  },
+  {
+   "dt": "Medinipur East",
+   "st": "West Bengal",
+   "pm": 44.3,
+   "sm": 50.1,
+   "gap": -5.8
+  },
+  {
+   "dt": "Medinipur West",
+   "st": "West Bengal",
+   "pm": 47.0,
+   "sm": 50.1,
+   "gap": -3.1
+  },
+  {
+   "dt": "Murshidabad",
+   "st": "West Bengal",
+   "pm": 56.4,
+   "sm": 50.1,
+   "gap": 6.3
+  },
+  {
+   "dt": "Nadia",
+   "st": "West Bengal",
+   "pm": 57.9,
+   "sm": 50.1,
+   "gap": 7.8
+  },
+  {
+   "dt": "Paschim Bardhaman",
+   "st": "West Bengal",
+   "pm": 58.1,
+   "sm": 50.1,
+   "gap": 8.0
+  },
+  {
+   "dt": "Purba Bardhaman",
+   "st": "West Bengal",
+   "pm": 57.8,
+   "sm": 50.1,
+   "gap": 7.7
+  },
+  {
+   "dt": "Purulia",
+   "st": "West Bengal",
+   "pm": 55.8,
+   "sm": 50.1,
+   "gap": 5.7
+  }
+ ]
+}
