@@ -52,6 +52,39 @@ permanently unreachable from Netlify, in which case the honest move is the one
 already taken for X and Instagram: reduce it to links-out rather than ship a
 section that is empty for everyone. Left for the maintainer.
 
+### Changed — the current-year air layer, refreshed through August
+
+The first thing the v26.6.171 fix made possible. The layer had been stuck at
+2026 through month 7 because its very first scheduled run died writing a
+checkpoint into a directory nothing created; it now runs.
+
+|  | before | after |
+|---|---:|---:|
+| through month | 7 | **8** |
+| districts with a figure | 752 | **781** |
+| districts calibrated | 758 | **785** |
+| slope / intercept | 0.8319 / 12.797 | 0.8276 / 12.867 |
+
+Calibration now covers **every one of the 785 districts**, and the coefficients
+barely move (slope 0.8319 → 0.8276), which is the check that matters: adding 27
+districts to the fit did not shift the relationship, so the extra coverage is
+consistent with the data already there rather than pulling it around. Across the
+748 districts present in both versions the median change is 1.9 µg/m³ and the
+largest is 6.4, the direction and size expected from folding a monsoon month
+into a year-to-date mean. Four districts drop out on the minimum-hours gate and
+33 are newly covered.
+
+**Worth recording how this nearly shipped wrong.** Run once in this sandbox, the
+build returned **671 districts calibrated on 668** — materially *worse* than the
+752/758 already committed — because the agent proxy silently drops a share of
+the ~1,570 upstream requests and a failed fetch simply leaves a district out. A
+refresh that quietly reduced coverage by 11% would have looked like a routine
+data update in the diff. The build checkpoints every success, so re-running
+retries only the misses; three passes took it to 785/785. The lesson is the one
+this project keeps relearning: a pipeline that degrades silently needs its
+output compared against the previous version, not just inspected for
+plausibility.
+
 ### Changed — walkthrough exports regenerated
 
 `walkthrough/*.pdf` and `*.pptx` were carrying the pre-v26.6.171 slide that read
