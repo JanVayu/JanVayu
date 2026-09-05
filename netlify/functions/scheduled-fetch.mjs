@@ -358,6 +358,42 @@ async function enrichNewsWithJina(articles) {
 }
 
 // ── Main scheduled handler ──
+// Writing an empty result over a good cache is exactly how the Instagram feed
+// came to serve "Bridge returned error 401" as citizen posts (v26.6.169). This
+// job rewrites the same blob every four hours, so whatever it produces becomes
+// the truth until the next run, and reddit-feed.js deliberately refuses to seed
+// an empty cache from its own live path — which this was quietly undoing.
+//
+// The distinction that matters: a feed returning zero items is a legitimate
+// steady state (X and Instagram are links-out and report 0 by design). A feed
+// returning zero items AND reporting errors has not discovered that there is
+// nothing to show; it has failed. Only the second case is treated as a failure,
+// so the previous cache is kept and the health log says so.
+//
+// The health label was the other half of it. fetchReddit catches per-subreddit
+// errors and resolves, so `status === 'fulfilled'` was recorded as ok:true even
+// when all four subreddits returned HTTP 429 and the count was 0 — and the
+// errors explaining it were discarded. A dead feed reported itself healthy.
+export async function storeFeed(store, key, value, meta) {
+  const errors = Array.isArray(value.errors) ? value.errors : [];
+  const failed = value.count === 0 && errors.length > 0;
+  if (failed) {
+    let kept = 0;
+    try {
+      const prev = await store.get(key, { type: 'json' });
+      kept = (prev && prev.count) || 0;
+    } catch { /* no previous cache is fine; there is simply nothing to keep */ }
+    return kept > 0
+      ? { ok: false, count: 0, kept_cache: kept, errors }
+      : { ok: false, count: 0, errors };
+  }
+  await store.setJSON(key, { ...value, ...meta });
+  return errors.length > 0
+    ? { ok: true, count: value.count, errors }
+    : { ok: true, count: value.count };
+}
+
+
 export default async () => {
   const store = getBlobStore("janvayu-feeds");
   const timestamp = new Date().toISOString();
@@ -373,22 +409,19 @@ export default async () => {
 
   // Store each result in Blobs
   if (reddit.status === 'fulfilled') {
-    await store.setJSON("reddit", { ...reddit.value, fetched_at: timestamp, source: 'reddit-proxy' });
-    log.results.reddit = { ok: true, count: reddit.value.count };
+    log.results.reddit = await storeFeed(store, "reddit", reddit.value, { fetched_at: timestamp, source: 'reddit-proxy' });
   } else {
     log.results.reddit = { ok: false, error: reddit.reason?.message };
   }
 
   if (twitter.status === 'fulfilled') {
-    await store.setJSON("twitter", { ...twitter.value, fetched_at: timestamp, source: 'nitter-rss' });
-    log.results.twitter = { ok: true, count: twitter.value.count };
+    log.results.twitter = await storeFeed(store, "twitter", twitter.value, { fetched_at: timestamp, source: 'nitter-rss' });
   } else {
     log.results.twitter = { ok: false, error: twitter.reason?.message };
   }
 
   if (news.status === 'fulfilled') {
-    await store.setJSON("news", { ...news.value, fetched_at: timestamp, source: 'google-news-rss' });
-    log.results.news = { ok: true, count: news.value.count };
+    log.results.news = await storeFeed(store, "news", news.value, { fetched_at: timestamp, source: 'google-news-rss' });
     // Enrich top articles with Jina Reader for better snippets
     try {
       const enrichedArticles = await enrichNewsWithJina(news.value.articles);
@@ -407,8 +440,7 @@ export default async () => {
   }
 
   if (instagram.status === 'fulfilled') {
-    await store.setJSON("instagram", { ...instagram.value, fetched_at: timestamp, source: 'rss-bridge' });
-    log.results.instagram = { ok: true, count: instagram.value.count };
+    log.results.instagram = await storeFeed(store, "instagram", instagram.value, { fetched_at: timestamp, source: 'rss-bridge' });
   } else {
     log.results.instagram = { ok: false, error: instagram.reason?.message };
   }
