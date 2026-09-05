@@ -4946,7 +4946,16 @@
     async function fetchRedditPosts(sub, query, limit = 10) {
         try {
             const url = `https://www.reddit.com/r/${sub}/search.json?q=${encodeURIComponent(query)}&sort=new&restrict_sr=on&limit=${limit}&t=month`;
-            const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+            // The only fetch on this path that had no timeout. Every other call
+            // in loadSocialFeed carries one, and this one is aimed at a host that
+            // now rate-limits and stalls rather than refusing cleanly — so when
+            // Reddit hung, the await never settled, the feed never reached its
+            // fallback, and the panel sat on "Loading live posts from Reddit..."
+            // for as long as the tab was open.
+            const res = await fetch(url, {
+                headers: { 'Accept': 'application/json' },
+                signal: AbortSignal.timeout(5000),
+            });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             return (data.data?.children || []).map(c => ({
@@ -5007,6 +5016,15 @@
                         const results = await Promise.allSettled(REDDIT_SUBS.map(s => fetchRedditPosts(s.sub, s.query)));
                         redditPosts = results.filter(r => r.status === 'fulfilled').flatMap(r => r.value);
                     } catch(e) {}
+                }
+                // Neither path produced anything. The proxy gets HTTP 429 on
+                // every subreddit because Reddit rate-limits datacentre IPs, and
+                // the direct browser fetch is tried second precisely because a
+                // visitor's residential IP may still be allowed where ours is
+                // not. When both fail, show the live searches rather than an
+                // empty section — the same treatment X and Instagram get above.
+                if (redditPosts.length === 0) {
+                    redditPosts = getCuratedRedditPosts();
                 }
                 SOCIAL_CACHE.reddit = redditPosts;
                 SOCIAL_CACHE.lastFetch = now;
@@ -5118,6 +5136,29 @@
         if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
         if (seconds < 604800) return Math.floor(seconds / 86400) + 'd ago';
         return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    }
+
+    // Reddit rate-limits datacentre IPs, so the server-side feed (reddit-feed +
+    // scheduled-fetch) returns HTTP 429 on every subreddit and the Blobs cache
+    // stays empty. The direct browser fetch above may still work, because a
+    // visitor's IP is residential rather than a datacentre one — that is why it
+    // is tried first and why this is a fallback rather than a replacement. If it
+    // also fails (CORS, or Reddit blocking the visitor too), these links are what
+    // the section shows instead of nothing. Same treatment X and Instagram
+    // already get: send people to the live search rather than fake a feed.
+    function getCuratedRedditPosts() {
+        const q = 'air pollution OR AQI OR smog';
+        const search = (sub, label, text) => ({
+            platform: 'reddit', sub, title: label, text,
+            url: `https://www.reddit.com/r/${sub}/search/?q=${encodeURIComponent(q)}&restrict_sr=1&sort=new`,
+            created: new Date(), score: null, comments: null, curated: true,
+        });
+        return [
+            search('india', 'Air pollution on r/india', 'Live search, newest first'),
+            search('delhi', 'Air pollution on r/delhi', 'Live search, newest first'),
+            search('indianews', 'Air pollution on r/indianews', 'Live search, newest first'),
+            search('environment', 'India air pollution on r/environment', 'Live search, newest first'),
+        ];
     }
 
     function getCuratedTwitterPosts() {

@@ -5,6 +5,122 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.172] - 2026-09-05
+
+### Fixed — the Reddit feed was dead, and the health check called it healthy
+
+`feed-status` reported `reddit: { ok: true, count: 0 }`. The feed was returning
+nothing at all, and had been.
+
+Probing production directly: every one of the four subreddits returns **HTTP
+429**. Reddit now rate-limits Netlify's datacentre IPs on the public Atom feed,
+which is the same wall the JSON API hit before v26.6.166 moved this to Atom in
+the first place. That part is upstream and not ours to fix.
+
+**Two things that are ours, and both are the same bug this file has already had
+once.** v26.6.169 records the Instagram feed serving *"Bridge returned error
+401"* as citizen posts because `scheduled-fetch.mjs` "writes the same cache
+every four hours and had no filter at all". Reddit is that bug again, one feed
+over:
+
+- **An empty result was written straight over the cache**, every four hours.
+  `reddit-feed.js` is careful never to seed an empty cache from its own live
+  path (`if (filter === 'all' && unique.length)`), and this job was quietly
+  undoing that care. Once Reddit started refusing every request, the cache could
+  never recover even if a later fetch succeeded.
+- **`ok: true` was recorded for a fetch that returned nothing.** `fetchReddit`
+  catches its per-subreddit errors and resolves, so `status === 'fulfilled'` was
+  true even with four 429s and a count of zero, and the `errors` array it
+  returns was discarded rather than logged. A dead feed reported itself healthy,
+  which is why this went unnoticed.
+
+Both now go through one `storeFeed()` helper. The distinction it draws is the
+whole fix: **zero items is a legitimate steady state** (X and Instagram are
+links-out and report 0 by design, so treating that as failure would freeze a
+stale cache forever), but **zero items alongside errors is a failure** — that
+fetch has not discovered there is nothing to show, it has failed. A failure
+keeps the previous cache, reports `ok: false`, and says how many rows it kept
+and why. A partial fetch is stored and still surfaces its errors.
+
+`test/scheduled-fetch.test.mjs` covers all five cases. It earned its place
+immediately: the first version of the helper was inserted inside the handler
+rather than at module scope, and the test failed with `SyntaxError: Unexpected
+token 'export'` before the change could reach a deploy.
+
+**Not fixed here, because it is an editorial decision.** Reddit may now be
+permanently unreachable from Netlify, in which case the honest move is the one
+already taken for X and Instagram: reduce it to links-out rather than ship a
+section that is empty for everyone. Left for the maintainer.
+
+### Changed — Reddit reduced to links-out, and the fetch that could hang forever
+
+Following the diagnosis above: Reddit is now treated the way X and Instagram
+already are. When no posts can be had, the section shows live subreddit searches
+rather than nothing.
+
+It is a **fallback, not a replacement**, and the distinction is deliberate. The
+429s are against Netlify's datacentre IPs; a visitor's browser is on a
+residential IP and may still be allowed, so `app.js` keeps trying the direct
+fetch first and only falls back to links when that also fails. Replacing the
+feed outright would have deleted content that may still work for real visitors,
+and this cannot be tested from here: a request from this sandbox is itself from
+a datacentre IP and returns 403 regardless.
+
+**And the fetch that made the fallback unreachable.** `fetchRedditPosts()` was
+the only call on that path with no timeout, aimed at a host that now stalls
+rather than refusing cleanly. When Reddit hung, the `await` never settled, so
+execution never reached the fallback and the panel sat on *"Loading live posts
+from Reddit…"* for as long as the tab stayed open. Given `AbortSignal.timeout(5000)`,
+matching every other fetch in `loadSocialFeed`.
+
+Found by driving the panel in a browser and watching the fallback not fire.
+Three wrong guesses preceded it — the helper was first added to `loadVoicesLive`
+(a different panel with near-identical code), then to the right function but
+behind the hanging await — and a console probe at the function entry, rather
+than more reading, is what located it.
+
+### Changed — the current-year air layer, refreshed through August
+
+The first thing the v26.6.171 fix made possible. The layer had been stuck at
+2026 through month 7 because its very first scheduled run died writing a
+checkpoint into a directory nothing created; it now runs.
+
+|  | before | after |
+|---|---:|---:|
+| through month | 7 | **8** |
+| districts with a figure | 752 | **781** |
+| districts calibrated | 758 | **785** |
+| slope / intercept | 0.8319 / 12.797 | 0.8276 / 12.867 |
+
+Calibration now covers **every one of the 785 districts**, and the coefficients
+barely move (slope 0.8319 → 0.8276), which is the check that matters: adding 27
+districts to the fit did not shift the relationship, so the extra coverage is
+consistent with the data already there rather than pulling it around. Across the
+748 districts present in both versions the median change is 1.9 µg/m³ and the
+largest is 6.4, the direction and size expected from folding a monsoon month
+into a year-to-date mean. Four districts drop out on the minimum-hours gate and
+33 are newly covered.
+
+**Worth recording how this nearly shipped wrong.** Run once in this sandbox, the
+build returned **671 districts calibrated on 668** — materially *worse* than the
+752/758 already committed — because the agent proxy silently drops a share of
+the ~1,570 upstream requests and a failed fetch simply leaves a district out. A
+refresh that quietly reduced coverage by 11% would have looked like a routine
+data update in the diff. The build checkpoints every success, so re-running
+retries only the misses; three passes took it to 785/785. The lesson is the one
+this project keeps relearning: a pipeline that degrades silently needs its
+output compared against the previous version, not just inspected for
+plausibility.
+
+### Changed — walkthrough exports regenerated
+
+`walkthrough/*.pdf` and `*.pptx` were carrying the pre-v26.6.171 slide that read
+"31 documentary photographs". The decks rasterise each slide, so the stale count
+lived in the images rather than in any text a grep would find. Re-exported from
+the live HTML with `scripts/export-walkthrough.mjs`: 13 slides short, 37 full,
+all four files valid. Verified by driving the deck in a browser, which now
+renders "32 documentary photographs" and no longer contains "31".
+
 ## [v26.6.171] - 2026-09-05
 
 ### Fixed — the monthly air rebuild had never once run
