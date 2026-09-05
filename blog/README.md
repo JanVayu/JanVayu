@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 5 Sep 2026 | [Your Airshed, or Your Town? A New Way to Read Your District's Air](posts/2026-09-05-your-airshed-or-your-town.md) | Explainer |
 | 5 Sep 2026 | [The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain](posts/2026-09-05-a-map-of-the-gangetic-plain.md) | Analysis |
 | 9 Aug 2026 | [What the Air Looks Like](posts/2026-08-09-what-the-air-looks-like.md) | Essay |
 | 9 Aug 2026 | [How to Read the JanVayu Map](posts/2026-08-09-how-to-read-the-map.md) | Guide |

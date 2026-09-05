@@ -123,9 +123,19 @@ licence and credit read from the file's own Commons metadata. Deliberately not
 another Delhi smog skyline: the wall is heavy on the capital, and this is
 industrial emission in Maharashtra with the counterfactual in the same frame.
 
-### Added — blog
+### Added — blog, and a hand-drawn diagram for the panel
 
-- [The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain](blog/posts/2026-09-05-a-map-of-the-gangetic-plain.md)
+- [Your Airshed, or Your Town? A New Way to Read Your District's Air](blog/posts/2026-09-05-your-airshed-or-your-town.md) — the reader-facing explainer for the new panel, in plain language, with the two worked examples and an explicit section on what the figure cannot tell you.
+- [The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain](blog/posts/2026-09-05-a-map-of-the-gangetic-plain.md) — how the panel came out of a rejected dataset.
+
+`airshed` joins the hand-drawn diagram set (`scripts/build-diagrams.py`), wide
+and tall as the responsive pair requires. Two layout defects were caught by
+rendering it and looking rather than trusting the code, both the same class the
+file's own `panel_height()` docstring describes: the worked-example boxes had a
+hardcoded height of 150 and the total line ("New Delhi breathes 91.2") rendered
+straddling the bottom edge; and the red caveat box sat at a hardcoded `y` that
+drew it straight over the last three lines of the green panel beside it. Both
+are measured from their content now.
 
 ### Known follow-up
 

@@ -428,10 +428,158 @@ def atlas_tall():
     return hd.svg(400, y + 76, ''.join(o), ATLAS_LABEL)
 
 
+
+# ── 4. Your airshed, or your town? ──────────────────────────────────────────
+
+AIRSHED_LABEL = ("Your airshed or your town. Across all 785 Indian districts, 89.2 per cent of the "
+                 "variation in annual PM2.5 lies between states rather than within them, and only "
+                 "10.8 per cent between districts inside the same state. Two worked examples. The "
+                 "national median district reads 39.0 micrograms per cubic metre. Delhi as a whole "
+                 "sits 53.7 above that, and New Delhi is a further 1.5 below its own state, giving "
+                 "91.2. Punjab sits 16.8 above the national median, and Ludhiana is a further 3.0 "
+                 "above its own state, giving 58.8. In both cases the region contributes far more "
+                 "than the town. The consequence is that NCAP sets reduction targets city by city, "
+                 "so a city acting alone can only reach the smaller local share. The diagram also "
+                 "warns that a district below its state median is not thereby well governed: the "
+                 "figure names no cause, and local deviation can be terrain, a valley or an "
+                 "industrial cluster.")
+
+
+def _steps(o, x, y, w, name, state, nat, state_med, district):
+    """One worked example: national median -> state -> district, as stacked steps.
+
+    Height is derived, not hardcoded. The first version fixed the box at 150 and
+    the total line ("New Delhi breathes 91.2") rendered straddling the bottom
+    edge, which is the same defect panel_height() exists to prevent one function
+    further up this file. Returns the height so callers can stack these.
+    """
+    reg = state_med - nat
+    loc = district - state_med
+    # Three rows: one plain (30) and two carrying a note (40 each), then a rule
+    # and the total 14 below it, then bottom padding.
+    inner = 28 + 30 + 40 + 40 + 22
+    o.append(hd.text(x, y, name.upper(), size=13.5, fill=MUTE, weight=700))
+    o.append(hd.box(x - 4, y + 12, w, inner, seed=hash(name) % 900 + 10))
+    yy = y + 40
+    rows = [
+        ('India median', f'{nat:.1f}', MUTE, ''),
+        (f'{state} adds', f'{reg:+.1f}', RED if reg > 0 else GREEN, 'the airshed'),
+        (f'{name} adds', f'{loc:+.1f}', RED if loc > 0 else GREEN, 'the town itself'),
+    ]
+    for label, val, col, note in rows:
+        o.append(hd.text(x + 12, yy, label, size=12.2, fill=INK))
+        o.append(hd.text(x + w - 18, yy, val, size=13.5, fill=col, weight=700, anchor='end'))
+        if note:
+            o.append(hd.text(x + 12, yy + 15, note, size=10.6, fill=MUTE))
+            yy += 40
+        else:
+            yy += 30
+    o.append(hd.hand_line(x + 8, yy - 8, x + w - 12, yy - 8, roughness=0.8, seed=7))
+    o.append(hd.text(x + 12, yy + 14, f'{name} breathes', size=12.2, fill=INK, weight=700))
+    o.append(hd.text(x + w - 18, yy + 14, f'{district:.1f}', size=15, fill=RED, weight=700, anchor='end'))
+    return inner + 12
+
+
+def airshed_wide():
+    o = [hd.text(490, 34, 'Your airshed, or your town?', size=25, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(490, 57, 'why your city cannot fix this on its own', size=14, fill=MUTE, anchor='middle')]
+
+    o.append(hd.text(30, 96, 'WHERE THE DIFFERENCE ACTUALLY LIVES', size=13.5, fill=MUTE, weight=700))
+    o.append(hd.text(30, 120, 'Take the spread of annual PM2.5 across all 785 districts and split it in two.', size=12.2, fill=MUTE))
+
+    bw = 924
+    a = int(bw * 0.892)
+    o.append(hd.box(26, 136, a, 62, fill=RED_BG, stroke=RED, seed=201))
+    o.append(hd.text(26 + a / 2, 166, '89.2%  between states', size=17, fill=RED, weight=700, anchor='middle'))
+    o.append(hd.text(26 + a / 2, 186, 'which airshed you are in', size=11.6, fill=MUTE, anchor='middle'))
+    o.append(hd.box(26 + a + 6, 136, bw - a - 6, 62, fill=GREEN_BG, stroke=GREEN, seed=202))
+    o.append(hd.text(26 + a + 6 + (bw - a - 6) / 2, 166, '10.8%', size=15, fill=GREEN, weight=700, anchor='middle'))
+    o.append(hd.text(26 + a + 6 + (bw - a - 6) / 2, 186, 'your town', size=11, fill=MUTE, anchor='middle'))
+
+    o.append(hd.text(30, 236, 'THE SAME THING, FOR TWO REAL PLACES', size=13.5, fill=MUTE, weight=700))
+    steps_top = 254
+    step_h = _steps(o, 36, steps_top, 300, 'New Delhi', 'Delhi', 39.0, 92.7, 91.2)
+    _steps(o, 366, steps_top, 300, 'Ludhiana', 'Punjab', 39.0, 55.8, 58.8)
+
+    # The red box below used to sit at a hardcoded y and was drawn straight over
+    # the last three lines of this panel. Both bottoms are measured now.
+    so_what = [
+        'NCAP sets clean-air targets',
+        'city by city.',
+        '',
+        'If most of what you breathe',
+        'blew in from four states away,',
+        'your city can only reach the',
+        'small green slice above,',
+        'however well it is run.',
+        '',
+        'That is an argument about',
+        'what level the policy has',
+        'to work at.',
+    ]
+    panel_top = steps_top + 12
+    o.append(panel(696, panel_top, 258, None, 'So what?', so_what, GREEN_BG, GREEN, seed=210, ts=14.5))
+
+    bottom = max(steps_top + step_h, panel_top + panel_height(so_what))
+    ry = bottom + 24
+    o.append(hd.box(26, ry, 928, 74, fill=RED_BG, stroke=RED, seed=220))
+    o.append(hd.text(46, ry + 26, 'What this does NOT say', size=14.5, fill=RED, weight=700))
+    o.append(hd.text(46, ry + 48, 'A district below its state median is not thereby well governed, and one above it is not badly run. This figure names no cause: local', size=12.2, fill=MUTE))
+    o.append(hd.text(46, ry + 66, 'deviation can be terrain, a river valley, an industrial cluster, or simply how a 1 km satellite grid falls across an oddly shaped district.', size=12.2, fill=MUTE))
+
+    o.append(hd.text(26, ry + 100, 'Air: SatPM2.5 V6GL03 (ACAG/WashU), 2024 annual mean, 785 districts. Variance split and per-district figures: data/airshed.json.', size=11, fill=AMBER))
+    return hd.svg(980, ry + 124, ''.join(o), AIRSHED_LABEL)
+
+
+def airshed_tall():
+    o = [hd.text(200, 34, 'Your airshed,', size=22, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(200, 60, 'or your town?', size=22, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(200, 84, 'why your city cannot fix this alone', size=12, fill=MUTE, anchor='middle')]
+
+    o.append(hd.text(20, 122, 'THE SPLIT', size=13, fill=MUTE, weight=700))
+    o.append(hd.text(20, 142, 'Spread of annual PM2.5 across', size=11.4, fill=MUTE))
+    o.append(hd.text(20, 158, 'all 785 districts, divided in two.', size=11.4, fill=MUTE))
+    o.append(hd.box(20, 172, 360, 56, fill=RED_BG, stroke=RED, seed=301))
+    o.append(hd.text(200, 198, '89.2%  between states', size=16, fill=RED, weight=700, anchor='middle'))
+    o.append(hd.text(200, 217, 'which airshed you are in', size=11, fill=MUTE, anchor='middle'))
+    o.append(hd.box(20, 234, 360, 46, fill=GREEN_BG, stroke=GREEN, seed=302))
+    o.append(hd.text(200, 256, '10.8%  your own town', size=14, fill=GREEN, weight=700, anchor='middle'))
+    o.append(hd.text(200, 272, 'everything the city controls', size=10.6, fill=MUTE, anchor='middle'))
+
+    o.append(hd.text(20, 316, 'TWO REAL PLACES', size=13, fill=MUTE, weight=700))
+    hgt = _steps(o, 26, 332, 348, 'New Delhi', 'Delhi', 39.0, 92.7, 91.2)
+    _steps(o, 26, 332 + hgt + 26, 348, 'Ludhiana', 'Punjab', 39.0, 55.8, 58.8)
+
+    y = 332 + 2 * (hgt + 26) + 12
+    o.append(panel(20, y, 360, None, 'So what?', [
+        'NCAP sets clean-air targets',
+        'city by city. If most of what',
+        'you breathe blew in from four',
+        'states away, your city can only',
+        'reach the small green slice,',
+        'however well it is run.',
+    ], GREEN_BG, GREEN, seed=310, ts=14))
+    y += panel_height(['a', 'b', 'c', 'd', 'e', 'f']) + 22
+
+    o.append(panel(20, y, 360, None, 'What it does NOT say', [
+        'Below your state median does',
+        'not mean well governed. The',
+        'figure names no cause: it can',
+        'be terrain, a valley, or an',
+        'industrial cluster next door.',
+    ], RED_BG, RED, seed=320, ts=14))
+    y += panel_height(['a', 'b', 'c', 'd', 'e']) + 26
+
+    o.append(hd.text(20, y, 'Air: SatPM2.5 V6GL03 (ACAG/WashU),', size=10.6, fill=AMBER))
+    o.append(hd.text(20, y + 15, '2024 annual mean, 785 districts.', size=10.6, fill=AMBER))
+    return hd.svg(400, y + 40, ''.join(o), AIRSHED_LABEL)
+
+
 DIAGRAMS = {
     'why-pm25': (pm25_wide, pm25_tall),
     'reading-the-map': (map_wide, map_tall),
     'atlas-layers': (atlas_wide, atlas_tall),
+    'airshed': (airshed_wide, airshed_tall),
 }
 
 
