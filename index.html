@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606170">
+    <link rel="preload" as="style" href="/styles.css?v=202606171">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1191,6 +1191,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <div class="mobile-nav-group-label" data-i18n="navgroup_learn">Learn</div>
                 <button class="mobile-nav-item" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
                 <button class="mobile-nav-item" data-panel="apportionment" data-i18n="nav_apportionment">Where PM2.5 Comes From</button>
+                <button class="mobile-nav-item" data-panel="airshed" data-i18n="nav_airshed">Your Airshed or Your Town</button>
                 <button class="mobile-nav-item" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
                 <button class="mobile-nav-item" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                 <button class="mobile-nav-item" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
@@ -1299,6 +1300,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
                     <button class="nav-dropdown-link" data-panel="apportionment" data-i18n="nav_apportionment">Where PM2.5 Comes From</button>
+                    <button class="nav-dropdown-link" data-panel="airshed" data-i18n="nav_airshed">Your Airshed or Your Town</button>
                     <button class="nav-dropdown-link" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
                     <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
                     <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
@@ -1709,7 +1711,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     </div>
                     <div class="quick-link" onclick="showPanel('gallery')">
                         <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-image" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Photo Gallery <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>The air, in pictures &mdash; 31 documentary photographs</p></div>
+                        <div><h3>Photo Gallery <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>The air, in pictures &mdash; 32 documentary photographs</p></div>
                     </div>
                     <div class="quick-link" onclick="showPanel('rankings')">
                         <div class="quick-link-icon" style="background: #FEF2F2; color: var(--red);"><span class="si si-bar-chart" style="width:20px;height:20px;"></span></div>
@@ -1929,7 +1931,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606170"></script>
+    <script src="/app.js?v=202606171"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

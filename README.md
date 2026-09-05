@@ -22,14 +22,20 @@ This is not a campaign. It is a record.
 
 ---
 
-## ✨ Recent highlights (August 2026)
+## ✨ Recent highlights (September 2026)
+
+- 🧭 **"Your airshed, or your town?"** — a new panel built on the finding that **89.2% of the variance in district annual PM2.5 sits between states, not within them**. NCAP sets targets city by city; if most of a city's burden arrives from its airshed, a city acting alone can only reach the remainder. Pick a district and see the split. It says explicitly that the local gap names no cause.
+- 🔬 **Two global land-pressure rasters tested and rejected** — Biodiversity Intactness and Human Footprint (Impact Observatory / Vizzuality) correlate with district PM2.5 at −0.61 and +0.62, better than anything on the site. With state fixed effects the incremental R² collapses to +0.007 and +0.008. At 100 m they are a map of where the Gangetic Plain is. [The write-up](blog/posts/2026-09-05-a-map-of-the-gangetic-plain.md), and the join bug that nearly published the wrong table.
+- 🛠️ **The monthly air rebuild had never once run** — the current-year layer advertises a rebuild on the 3rd of each month; its first scheduled run died writing a checkpoint into a cache directory nothing created. Fixed and verified against the workflow's own command.
+
+## ✨ Earlier highlights (August 2026)
 
 - 📅 **"This year so far" on the map** — every air figure is the 2024 satellite annual mean, because SatPM2.5 V6GL03 has published nothing newer. A second **district-level** layer now answers the question everyone asks: CAMS via Open-Meteo, corrected against the satellite series on 2024 (r = 0.91, held-out RMSE 5.76 µg/m³ over 200 splits), **rebuilt on the 3rd of each month** by `current-year-air.yml`. Never merged with the annual layer, never drawn below district, never called a measurement.
 - 📏 **PM2.5 leads everywhere** — a fair criticism from a conference. AQI is a unitless index reporting only its worst pollutant and cannot be averaged over a year, while every Indian limit, health study and NCAP target is written in µg/m³ of PM2.5. Explained in [Why We Lead With PM2.5, Not AQI](blog/posts/2026-08-09-why-pm25-not-aqi.md).
 - 🗣️ **Field Testimony 142 → 250 voices** across 107 cities and 14 languages. Field-collected quotes carry their collection date and mode, every speaker consented and is named as they asked, and code-mixed speech is badged as spoken. The wall is shuffled daily so no voice sits permanently at the bottom.
 - 📡 **The feeds tell the truth about themselves** — Reddit restored through its public Atom feed after the JSON API began refusing datacentre IPs; YouTube fetching channel RSS, and searching when a free Data API key is set; X and Instagram reduced to **links out**, because neither can be read without a paid or authenticated API. Every X link is verified against X's public embed endpoint by `scripts/verify-x-links.py` before it ships.
 - 🧭 **Three things now check themselves** — `check-site-figures.py` recomputes every stated figure from the data and fails CI on drift (it caught a photo count five releases stale and a ward count five releases stale); `build-blog-index.py` generates the homepage blog list from the blog itself; and the current-year layer rebuilds monthly.
-- 📖 **New posts** — [How to Read the JanVayu Map](blog/posts/2026-08-09-how-to-read-the-map.md), a plain reader's manual, and [What the Air Looks Like](blog/posts/2026-08-09-what-the-air-looks-like.md), on why a data site carries 31 photographs of something 2.5 µm across.
+- 📖 **New posts** — [How to Read the JanVayu Map](blog/posts/2026-08-09-how-to-read-the-map.md), a plain reader's manual, and [What the Air Looks Like](blog/posts/2026-08-09-what-the-air-looks-like.md), on why a data site carries 32 photographs of something 2.5 µm across.
 
 ---
 
@@ -76,12 +82,13 @@ This is not a campaign. It is a record.
 | 37 | **Occupational Exposure** | Exposure-equity by occupation: street vendors, traffic police, gig riders, construction and waste workers, anchored on a 2026 Chennai street-vendor study |
 | 38 | **Open Data API** | Versioned, CORS-open public data API at [janvayu.in/api](https://www.janvayu.in/api) — JSON manifest of every dataset + CSV export of rankings; free to use with attribution (CC BY-NC-SA 4.0) |
 | 39 | **Hand-drawn Diagrams** | A native Excalidraw-style (`rough.js` + self-hosted Kalam) engine renders the system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes — each with a wide desktop and a portrait mobile variant. Sources in `assets/diagrams/` |
-| 40 | **Photo Gallery** | "The air, in pictures" — 31 (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
+| 40 | **Photo Gallery** | "The air, in pictures" — 32 (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
 | 41 | **Web Push Alerts** | Installable PWA with real server-sent threshold alerts (VAPID/Web Push), delivered even when the site is closed |
 | 42 | **Automated Fact-Check** | A weekly scheduled routine web-verifies every statistic + calculator constant against current primary sources and opens a review PR; findings archived in `docs/fact-check-*.md` |
 | 43 | **Village Boundaries** | A **Villages** layer on the live map covering all **584,615** Indian village administrative boundaries (LGD via indianopenmaps.com), vendored as one quantized TopoJSON per district in `data/villages/` by `scripts/build-villages.mjs`. Viewport-driven: loads at zoom 9+ only for districts in view |
 | 44 | **Annual PM2.5 per Village** | Every one of the 584,615 villages carries an **annual mean PM2.5** from SatPM2.5 V6GL03 (ACAG, Washington University — CNN over satellite AOD + GEOS-Chem, ~1 km, CC BY 4.0), built by `scripts/build-village-pm25.py`. This is what the ~565-station live network can never give: 100% coverage. Villages are coloured by it, banded on the WHO guideline (5) and India's NAAQS limit (40). The live estimate stays separate in the popup — two timescales, never merged — and the card notes that a ~1 km product smooths hyperlocal sources. **Not one village meets the WHO guideline; 63.6% exceed India's own limit of 40** |
 | 45 | **Annual PM2.5 per Ward** | The Ward Atlas gains an **"Air, yearly"** layer: an annual mean PM2.5 for all **9,015 wards** across the 142 cities, from the same SatPM2.5 V6GL03 grid (`scripts/build-village-pm25.py --target wards`). This is the year-scale partner the heat / green / built-up layers never had — unlike the live snapshot, it can honestly be compared with them, and the ward-vs-built-up scatter is finally a like-for-like correlation. Shaded *within* each city (a whole city usually sits inside one national band), with absolute µg/m³ endpoints in the legend. Mirrored into `ward-stats.json` so Ask JanVayu can use it |
+| 46 | **Airshed Decomposition** | "Your airshed, or your town?" — 89.2% of the variance in district annual PM2.5 lies *between* states rather than within them. Pick any of 785 districts and see how the distance between its air and the national median splits into its region and its own local deviation. State medians run from Delhi (92.7 µg/m³) to Ladakh (13.9). Makes the case for airshed-level management from India's own district figures, and states plainly that the gap names no cause |
 
 ---
 

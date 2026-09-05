@@ -1,6 +1,20 @@
 {
  "stories": [
   {
+   "tag": "Explainer",
+   "title": "Your Airshed, or Your Town? A New Way to Read Your District's Air",
+   "date": "5 Sep 2026",
+   "blurb": "If you live in Ludhiana and the air is bad, whose fault is it?",
+   "url": "/blog/#/posts/2026-09-05-your-airshed-or-your-town"
+  },
+  {
+   "tag": "Analysis",
+   "title": "The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain",
+   "date": "5 Sep 2026",
+   "blurb": "Someone sent us a link and asked a reasonable question: could we use this on JanVayu?",
+   "url": "/blog/#/posts/2026-09-05-a-map-of-the-gangetic-plain"
+  },
+  {
    "tag": "Essay",
    "title": "What the Air Looks Like",
    "date": "9 Aug 2026",

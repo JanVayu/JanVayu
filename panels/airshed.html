@@ -1,0 +1,30 @@
+<div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
+    <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wind" style="color: var(--green-700); margin-right: 0.4rem;"></span>Your airshed, or your town?</h2>
+    <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Most of the difference between one district's air and another's comes from which part of India it is in, not from the town itself. Pick your district to see how much is your region and how much is local.">India's clean-air policy sets targets city by city. The data does not divide that way. Across all 785 districts, <strong id="airshed-share">89%</strong> of the variation in annual PM2.5 sits <em>between states</em> rather than within them, because air moves across hundreds of kilometres before it reaches anyone. Pick a district to see how much of its air is the region it sits in.</p>
+</div>
+
+<div class="apportion-controls">
+    <label for="airshed-district" class="apportion-label">District</label>
+    <select id="airshed-district" class="apportion-select" aria-label="Choose a district"></select>
+    <span id="airshed-basis" class="apportion-basis"></span>
+</div>
+
+<div id="airshed-readout" aria-live="polite" style="margin-top:1.25rem;"></div>
+
+<div style="margin-top:1.5rem;">
+    <h3 style="font-family: var(--serif); font-size:1.15rem; color:var(--ink); margin-bottom:0.5rem;">State and union territory medians</h3>
+    <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:0.75rem;">Median annual PM2.5 of the districts in each state. India's own annual limit is 40 &micro;g/m&sup3;; the WHO guideline is 5.</p>
+    <div id="airshed-states"></div>
+</div>
+
+<details class="apportion-method" style="margin-top:1.75rem;">
+    <summary>How to read this, and what it cannot tell you</summary>
+    <div class="apportion-method-body">
+        <p><strong>The number.</strong> Every district gets one figure: its 2024 annual mean PM2.5 from the SatPM2.5 V6GL03 product (ACAG / Washington University), the same annual layer the map uses. Its state median is the median of all districts in that state. The gap between them is what is left once the region is accounted for.</p>
+        <p><strong>What "89% between states" means.</strong> Take the spread of all 785 district figures and split it into the part explained by which state a district is in, and the part that varies between districts inside the same state. The first is 89% of it. In plain terms: knowing your state tells you most of what there is to know about your annual average, and knowing which district within that state tells you comparatively little.</p>
+        <p><strong>Why this matters for policy.</strong> The National Clean Air Programme sets reduction targets for individual cities. If most of a city's annual burden arrives from its airshed, a city acting alone can only reach the smaller share. This is the case for airshed-level management, and it is made here from India's own district figures rather than asserted.</p>
+        <p><strong>What it is not.</strong> A district below its state median is <em>not</em> thereby better governed, and one above is not thereby worse. This figure names no cause. Local deviation can be terrain, a river valley, an industrial cluster, population density, or how the ~1 km satellite grid falls across a district's shape. Do not read the gap as a scorecard.</p>
+        <p><strong>Annual, not today.</strong> These are yearly averages for 2024. They are not a forecast and not this afternoon's air, and they should not be mapped onto the 24-hour AQI bands or their advice. For live readings use the dashboard; for what to do today use the AQI panel.</p>
+        <p><strong>Small states and union territories</strong> can have very few districts, so their median rests on a thin base. Delhi is 11 districts; Ladakh is 2. Treat those medians as indicative.</p>
+    </div>
+</details>
