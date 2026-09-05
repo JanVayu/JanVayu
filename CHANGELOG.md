@@ -52,6 +52,33 @@ permanently unreachable from Netlify, in which case the honest move is the one
 already taken for X and Instagram: reduce it to links-out rather than ship a
 section that is empty for everyone. Left for the maintainer.
 
+### Changed — Reddit reduced to links-out, and the fetch that could hang forever
+
+Following the diagnosis above: Reddit is now treated the way X and Instagram
+already are. When no posts can be had, the section shows live subreddit searches
+rather than nothing.
+
+It is a **fallback, not a replacement**, and the distinction is deliberate. The
+429s are against Netlify's datacentre IPs; a visitor's browser is on a
+residential IP and may still be allowed, so `app.js` keeps trying the direct
+fetch first and only falls back to links when that also fails. Replacing the
+feed outright would have deleted content that may still work for real visitors,
+and this cannot be tested from here: a request from this sandbox is itself from
+a datacentre IP and returns 403 regardless.
+
+**And the fetch that made the fallback unreachable.** `fetchRedditPosts()` was
+the only call on that path with no timeout, aimed at a host that now stalls
+rather than refusing cleanly. When Reddit hung, the `await` never settled, so
+execution never reached the fallback and the panel sat on *"Loading live posts
+from Reddit…"* for as long as the tab stayed open. Given `AbortSignal.timeout(5000)`,
+matching every other fetch in `loadSocialFeed`.
+
+Found by driving the panel in a browser and watching the fallback not fire.
+Three wrong guesses preceded it — the helper was first added to `loadVoicesLive`
+(a different panel with near-identical code), then to the right function but
+behind the hanging await — and a console probe at the function entry, rather
+than more reading, is what located it.
+
 ### Changed — the current-year air layer, refreshed through August
 
 The first thing the v26.6.171 fix made possible. The layer had been stuck at

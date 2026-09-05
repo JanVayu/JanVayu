@@ -200,6 +200,31 @@ exports.handler = async function (event) {
     }
   }
 
+  // Nothing from the cache and nothing from the live fetch. Reddit rate-limits
+  // datacentre IPs, so on Netlify that is the ordinary outcome rather than an
+  // exceptional one. Say so, and hand back the live searches instead of an empty
+  // list, the same way instagram-feed.js does. The client tries a direct browser
+  // fetch before falling back to these, because a visitor's residential IP may
+  // still be allowed where ours is not.
+  if (unique.length === 0) {
+    return {
+      statusCode: 200, headers,
+      body: JSON.stringify({
+        posts: [],
+        fallback: true,
+        curated_links: SUBREDDITS.map(({ sub }) => ({
+          sub,
+          url: `https://www.reddit.com/r/${sub}/search/?q=${encodeURIComponent('air pollution OR AQI OR smog')}&restrict_sr=1&sort=new`,
+        })),
+        count: 0,
+        source: 'reddit-proxy',
+        served_from: 'live',
+        errors: errors.length > 0 ? errors : undefined,
+        fetched_at: new Date().toISOString(),
+      }),
+    };
+  }
+
   return {
     statusCode: 200, headers,
     body: JSON.stringify({
