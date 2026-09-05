@@ -4,6 +4,30 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.24: What the airshed decides, and two datasets that did not survive the control (✅ Completed — v26.6.171)
+
+A reader asked whether the [Biodiversity Intactness](https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1) 100 m raster belongs on the map. Answering it properly produced a negative result, a positive finding nobody was looking for, and three defects found on the way.
+
+- [x] **Both rasters tested, both rejected** — zonal means over all 785 districts against the 2024 annual PM2.5, for Biodiversity Intactness and for [Human Footprint](https://source.coop/vizzuality/hfp-100) from the same publisher. Both beat everything on the site: **BII r = −0.608, HFP r = +0.620**, against built-up +0.411 and tree cover −0.321. They also correlate with **each other at −0.876**, so they are one variable measured twice, and adding BII on top of HFP is worth +0.001 R².
+
+  Then the control. With **state fixed effects**, built-up and tree cover alone reach **R² = 0.900**, and the incremental contribution of either raster collapses to **+0.007** and **+0.008**. At 100 m a human-pressure raster is, for air purposes, a map of where the Indo-Gangetic Plain is. The coefficient is real and it is not evidence. Reproducible in `scripts/analyse-land-pressure-vs-air.py`.
+
+- [x] **The join that nearly published the wrong table** — `district-points.json` and `village-stats.json` both key districts by numeric code, and the codes are different systems. Joining on them matched **518 of 520 districts to the wrong place** (Ahmadabad to Dhule, Anand to Mumbai) and produced a complete, plausible regression with no error at all. What caught it was that the two independently derived district air figures, which should be nearly identical, correlated at 0.56. Rejoined by name and state they correlate at **0.9985**, and the script now asserts that above 0.99 before it will print anything. Third time this year a silent join or fallback has produced confident, wrong, correctly-shaped output.
+
+- [x] **"Your airshed, or your town?"** *(new panel)* — the negative result contains the finding: **89.2% of the variance in district annual PM2.5 lies between states rather than within them**. NCAP sets reduction targets city by city; if most of a city's annual burden arrives from its airshed, a city acting alone can only reach the remainder. Pick any of 785 districts and the panel splits the distance between its air and the national median into region and local deviation. New Delhi: Delhi 53.7 above the national median, New Delhi 1.5 below its own state. State medians run **Delhi 92.7 → Ladakh 13.9**, with 13 states and UTs above India's own limit of 40.
+
+  It states what it will not support: a district below its state median is **not** thereby well governed, and the figure names no cause. Two defects were caught by driving a real browser rather than checking that it rendered: a default district that matched nothing and silently opened on Nicobars, and absolute values printed into an additive sentence.
+
+- [x] **The monthly rebuild that had never run** — the current-year district layer advertises itself as "rebuilt on the 3rd of each month". Its **first** scheduled run, 2026-09-03, died writing its checkpoint into `/tmp/jv-boundaries`, a directory it never creates. It is the only boundary script that reads its input from `data/` rather than from the cache, so it is the only one that can start with no cache at all.
+
+- [x] **A photo manifest stale since the 24th photograph** — `gallery/gallery.json` was hand-written at 24 and never updated as the gallery reached 31. Nothing reads it, which is why nothing broke and what made it dangerous: regenerating the gallery from it would have dropped g25 to g31, and the figure check counts `<figure>` elements in the panel rather than entries there. Now derived from the panel, credit-and-licence enforced, `--check` in CI. Gallery also gains a **32nd photograph** (Sumaira Abdulali, industrial emission near Mumbai, CC BY-SA 4.0).
+
+- [x] **A link audit nobody could read** — red every week since 3 August across five issues carrying identical content, because the exclude list held `/api$` and `/api/` while the link is `/api?dataset=…`, and because the workflow opened a **new** issue every Monday instead of updating one.
+
+**What this phase argues:** the site's discipline has mostly been about not merging timescales and not calling a model a measurement. This adds a third: a correlation strong enough to be worth shipping is exactly the one that needs a geographic control before it ships.
+
+---
+
 ## Phase 5.23: Every village in India, and an annual number for each (✅ Completed — v26.6.131–134)
 
 An early-August 2026 batch that takes the maps below the ward and answers the question the live monitor network structurally cannot.

@@ -22,7 +22,13 @@ This is not a campaign. It is a record.
 
 ---
 
-## ✨ Recent highlights (August 2026)
+## ✨ Recent highlights (September 2026)
+
+- 🧭 **"Your airshed, or your town?"** — a new panel built on the finding that **89.2% of the variance in district annual PM2.5 sits between states, not within them**. NCAP sets targets city by city; if most of a city's burden arrives from its airshed, a city acting alone can only reach the remainder. Pick a district and see the split. It says explicitly that the local gap names no cause.
+- 🔬 **Two global land-pressure rasters tested and rejected** — Biodiversity Intactness and Human Footprint (Impact Observatory / Vizzuality) correlate with district PM2.5 at −0.61 and +0.62, better than anything on the site. With state fixed effects the incremental R² collapses to +0.007 and +0.008. At 100 m they are a map of where the Gangetic Plain is. [The write-up](blog/posts/2026-09-05-a-map-of-the-gangetic-plain.md), and the join bug that nearly published the wrong table.
+- 🛠️ **The monthly air rebuild had never once run** — the current-year layer advertises a rebuild on the 3rd of each month; its first scheduled run died writing a checkpoint into a cache directory nothing created. Fixed and verified against the workflow's own command.
+
+## ✨ Earlier highlights (August 2026)
 
 - 📅 **"This year so far" on the map** — every air figure is the 2024 satellite annual mean, because SatPM2.5 V6GL03 has published nothing newer. A second **district-level** layer now answers the question everyone asks: CAMS via Open-Meteo, corrected against the satellite series on 2024 (r = 0.91, held-out RMSE 5.76 µg/m³ over 200 splits), **rebuilt on the 3rd of each month** by `current-year-air.yml`. Never merged with the annual layer, never drawn below district, never called a measurement.
 - 📏 **PM2.5 leads everywhere** — a fair criticism from a conference. AQI is a unitless index reporting only its worst pollutant and cannot be averaged over a year, while every Indian limit, health study and NCAP target is written in µg/m³ of PM2.5. Explained in [Why We Lead With PM2.5, Not AQI](blog/posts/2026-08-09-why-pm25-not-aqi.md).
@@ -82,6 +88,7 @@ This is not a campaign. It is a record.
 | 43 | **Village Boundaries** | A **Villages** layer on the live map covering all **584,615** Indian village administrative boundaries (LGD via indianopenmaps.com), vendored as one quantized TopoJSON per district in `data/villages/` by `scripts/build-villages.mjs`. Viewport-driven: loads at zoom 9+ only for districts in view |
 | 44 | **Annual PM2.5 per Village** | Every one of the 584,615 villages carries an **annual mean PM2.5** from SatPM2.5 V6GL03 (ACAG, Washington University — CNN over satellite AOD + GEOS-Chem, ~1 km, CC BY 4.0), built by `scripts/build-village-pm25.py`. This is what the ~565-station live network can never give: 100% coverage. Villages are coloured by it, banded on the WHO guideline (5) and India's NAAQS limit (40). The live estimate stays separate in the popup — two timescales, never merged — and the card notes that a ~1 km product smooths hyperlocal sources. **Not one village meets the WHO guideline; 63.6% exceed India's own limit of 40** |
 | 45 | **Annual PM2.5 per Ward** | The Ward Atlas gains an **"Air, yearly"** layer: an annual mean PM2.5 for all **9,015 wards** across the 142 cities, from the same SatPM2.5 V6GL03 grid (`scripts/build-village-pm25.py --target wards`). This is the year-scale partner the heat / green / built-up layers never had — unlike the live snapshot, it can honestly be compared with them, and the ward-vs-built-up scatter is finally a like-for-like correlation. Shaded *within* each city (a whole city usually sits inside one national band), with absolute µg/m³ endpoints in the legend. Mirrored into `ward-stats.json` so Ask JanVayu can use it |
+| 46 | **Airshed Decomposition** | "Your airshed, or your town?" — 89.2% of the variance in district annual PM2.5 lies *between* states rather than within them. Pick any of 785 districts and see how the distance between its air and the national median splits into its region and its own local deviation. State medians run from Delhi (92.7 µg/m³) to Ladakh (13.9). Makes the case for airshed-level management from India's own district figures, and states plainly that the gap names no cause |
 
 ---
 

@@ -5,6 +5,133 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.171] - 2026-09-05
+
+### Fixed — the monthly air rebuild had never once run
+
+The current-year district layer is described, on the map and in the README, as
+"rebuilt on the 3rd of each month". Its first scheduled run, on 2026-09-03,
+failed after fetching all 785 districts:
+
+    FileNotFoundError: '/tmp/jv-boundaries/cams-2024.json'
+
+`build-current-year-air.py` writes its checkpoint into `JV_CACHE` and never
+creates the directory. Every sibling script either creates it
+(`build-boundary-tiles`, `build-lst-mosaic`) or reads its *input* from there, so
+a missing directory fails loudly on the read instead. This one is the exception:
+invoked with `--from-cache`, exactly as the workflow invokes it, it reads
+district points from `data/` and so is the only boundary script that can
+legitimately start with no cache directory at all. A developer's machine always
+has one left behind by an earlier build; a fresh runner does not. One `mkdir`.
+
+Verified by clearing the directory and running the workflow's own command: the
+script now creates the cache, writes `cams-2024.json`, and checkpoints past the
+line that killed it.
+
+### Fixed — a link audit nobody could read
+
+The weekly audit had been red every week since 3 August, across five separate
+issues (#277, #314, #318, #325, #329) carrying the same two errors.
+
+- **The recurring error was ours.** The exclude list held `/api$` and `/api/`;
+  the link on the page is `/api?dataset=rankings&format=csv`, which matches
+  neither, so lychee resolved it against `--root-dir` and reported a missing
+  file. Widened to `/api($|/|[?])`. The `janvayu.in/api` arm got the same
+  treatment, since as written it would also have swallowed any future
+  `/api`-prefixed page.
+- **greentribunal.gov.in** (certificate chain the checker rejects) and
+  **warriormoms.in** (slower than the 30s timeout in three of five audits) are
+  live sites, now in `.lycheeignore` with the reason recorded.
+- **The audit opened a new issue every Monday** rather than updating one, which
+  is why five accumulated with identical content and no way to tell fresh
+  breakage from month-old. It now finds the open tracking issue and appends.
+
+### Fixed — a photo manifest that had been stale since the 24th photograph
+
+`gallery/gallery.json` was hand-written when the gallery held 24 photographs.
+The gallery reached 31; the file never moved. Nothing reads it, which is why
+nothing broke and nobody noticed, and is also what made it dangerous: a
+plausible-looking source of truth that would have silently dropped g25 to g31
+had anyone regenerated the gallery from it. `check-site-figures` counts
+`<figure>` elements in the panel, so it would not have caught that.
+
+The manifest is now derived from `panels/gallery.html` by
+`scripts/build-gallery-manifest.py`, which refuses to write if the panel
+references a missing file or a photograph without a credit and licence.
+`--check` runs in CI beside the existing figure guard.
+
+### Added — "Your airshed, or your town?"
+
+A new panel answering a question the site could always have answered and never
+had: how much of your district's air is the region you live in?
+
+**89.2% of the variance in district annual PM2.5 lies between states rather
+than within them.** Pick a district and the panel says, in one sentence, how the
+distance between your air and the national median splits. New Delhi: Delhi as a
+whole sits 53.7 µg/m³ above the national median, New Delhi a further 1.5 below
+its own state. Ludhiana: Punjab 16.8 above, Ludhiana 3.0 above that. State
+medians run from Delhi at 92.7 to Ladakh at 13.9.
+
+The point is policy. NCAP sets targets city by city; if most of a city's annual
+burden arrives from its airshed, a city acting alone can only reach the
+remainder. The panel states plainly what it will not support: a district below
+its state median is not thereby well governed, and the figure names no cause.
+
+Driven in a real browser rather than assumed, which caught two defects a render
+check would have passed: the default district `'Central Delhi'` matched nothing
+(Delhi's districts are named `Central`, `New Delhi`, `East`), so it silently
+opened on Nicobars; and the readout printed absolute values into an additive
+sentence, so New Delhi read "53.7 … and 1.5" for a total of 52.2.
+
+### Added — two global land-pressure rasters tested, and both rejected
+
+A reader asked whether the Impact Observatory / Vizzuality **Biodiversity
+Intactness** 100 m product belongs on the map. `scripts/analyse-land-pressure-vs-air.py`
+is the answer, with the working, and it also tests **Human Footprint** HFP-100
+from the same publisher.
+
+Zonal means over all 785 districts against the 2024 annual PM2.5:
+
+| Variable | r with district annual PM2.5 |
+|---|---:|
+| Built-up cover | +0.411 |
+| Tree cover | −0.321 |
+| Biodiversity Intactness | −0.608 |
+| Human Footprint | +0.620 |
+
+Either raster is the strongest district-level predictor of annual PM2.5 we have
+measured. They also correlate with **each other** at −0.876, so they are one
+variable measured twice. And the correlation is geography: with state fixed
+effects, built-up and tree cover alone reach R² = 0.900, and the incremental
+contribution collapses to **+0.007** (BII) and **+0.008** (HFP). At 100 m a
+human-pressure raster is, for our purposes, a map of where the Indo-Gangetic
+Plain is. Neither ships.
+
+**The first version of that table was wrong.** `district-points.json` and
+`village-stats.json` both key districts by numeric code and the codes are
+different systems: joining on them matched 518 of 520 districts to the wrong
+place (Ahmadabad to Dhule, Anand to Mumbai) and still produced a complete,
+plausible regression with no error. The join is now by name and state, and the
+script asserts that the two independently derived district air figures agree at
+r > 0.99 before reporting anything. It measures 0.9985.
+
+### Added — a 32nd photograph
+
+Sumaira Abdulali's photograph of a factory near Mumbai restarting the day after
+lockdown lifted, against the blue skies the lockdown had produced. CC BY-SA 4.0,
+licence and credit read from the file's own Commons metadata. Deliberately not
+another Delhi smog skyline: the wall is heavy on the capital, and this is
+industrial emission in Maharashtra with the counterfactual in the same frame.
+
+### Added — blog
+
+- [The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain](blog/posts/2026-09-05-a-map-of-the-gangetic-plain.md)
+
+### Known follow-up
+
+`walkthrough/*.pdf` and `*.pptx` are exported binaries still saying 31
+photographs; they need `scripts/export-walkthrough.mjs` re-run.
+
 ## [v26.6.170] - 2026-08-21
 
 ### Fixed — ESLint clean: 37 warnings → 0
