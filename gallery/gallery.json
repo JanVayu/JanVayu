@@ -238,5 +238,85 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:A_River_of_Haze,_India_2012.jpg"
+ },
+ {
+  "src": "/gallery/g25.jpg",
+  "w": 960,
+  "h": 917,
+  "alt": "Smog swallows Gurgaon, with construction dust rising beneath it",
+  "credit": "Saurabh Kumar",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Smog_as_visible_in_the_Gurgaon_area_near_Delhi_on_Nov_2016.jpg"
+ },
+ {
+  "src": "/gallery/g26.jpg",
+  "w": 720,
+  "h": 960,
+  "alt": "Night smog over Gurgaon, thick enough to halo the streetlights",
+  "credit": "Slyronit",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Smog_at_Sector-47,_Gurgaon_at_night.jpg"
+ },
+ {
+  "src": "/gallery/g27.jpg",
+  "w": 960,
+  "h": 420,
+  "alt": "Haze over Mumbai's skyline and Chowpatty beach",
+  "credit": "Mustang Joe",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "source": "https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Mumbai_(54345507779).jpg"
+ },
+ {
+  "src": "/gallery/g28.jpg",
+  "w": 960,
+  "h": 720,
+  "alt": "The Delhi Metro runs above CNG buses in Azadpur — two of the changes that did work",
+  "credit": "Varun Shiv Kapur",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Delhi_Metro_and_CNG_Buses_in_Azadpur_Neighborhood.jpg"
+ },
+ {
+  "src": "/gallery/g29.jpg",
+  "w": 1024,
+  "h": 526,
+  "alt": "Waste-pickers work the Ghazipur landfill in winter haze — beside one of Delhi’s waste-to-energy plants",
+  "credit": "FacetsOfNonStickPans",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Workers_on_top_of_Ghazipur_landfill_2013.jpg"
+ },
+ {
+  "src": "/gallery/g30.jpg",
+  "w": 1000,
+  "h": 998,
+  "alt": "Residents of Sukhdev Vihar, whose colony shares a wall with the Okhla waste-to-energy plant, demonstrating outside it",
+  "credit": "Bryan Denton / The New York Times",
+  "license": "Used with permission",
+  "licenseUrl": "",
+  "source": "https://www.nytimes.com/2024/11/09/world/asia/india-air-quality-trash.html"
+ },
+ {
+  "src": "/gallery/g31.jpg",
+  "w": 1000,
+  "h": 988,
+  "alt": "Cars coated in ash dust in Delhi after a night of trucks delivering ash to the dumping site next door",
+  "credit": "Bryan Denton / The New York Times",
+  "license": "Used with permission",
+  "licenseUrl": "",
+  "source": "https://www.nytimes.com/2024/11/09/world/asia/india-air-quality-trash.html"
+ },
+ {
+  "src": "/gallery/g32.jpg",
+  "w": 960,
+  "h": 720,
+  "alt": "A factory near Mumbai restarts the day after lockdown lifted, against skies the lockdown had cleared",
+  "credit": "Sumaira Abdulali",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Air_pollution_amid_blue_skies,_the_day_after_reopening_from_lockdown_near_Mumbai.jpg"
  }
 ]
