@@ -11,6 +11,24 @@
 
 <div id="airshed-readout" aria-live="polite" style="margin-top:1.25rem;"></div>
 
+<div id="airshed-history" style="margin-top:1.75rem; padding-top:1.5rem; border-top:1px solid var(--border);">
+    <h3 style="font-family: var(--serif); font-size:1.15rem; color:var(--ink); margin-bottom:0.35rem;">And how it got here, since 1980</h3>
+    <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:0.75rem; max-width:48rem;">Mean PM2.5 for the district selected above, over the period chosen below, reconstructed back to 1980. India had almost no continuous monitoring before the 2010s, so the early decades are a validated <em>estimate</em> of what the air was, not a reading. Source: LongPMInd (Wei et al., 2024), ~10&nbsp;km.</p>
+    <div class="apportion-controls" style="margin-bottom:0.75rem;">
+        <label for="airshed-band" class="apportion-label">Show</label>
+        <select id="airshed-band" class="apportion-select" aria-label="Choose annual or a season">
+            <option value="a">Whole year</option>
+            <option value="w">Winter (Dec&ndash;Feb)</option>
+            <option value="s">Summer (Mar&ndash;May)</option>
+            <option value="r">Monsoon (Jun&ndash;Sep)</option>
+            <option value="o">Post-monsoon (Oct&ndash;Nov)</option>
+        </select>
+        <span id="airshed-hist-note" class="apportion-basis"></span>
+    </div>
+    <div id="airshed-chart" style="position:relative;"></div>
+    <p style="font-size:0.85rem; color:var(--text-3); margin-top:0.75rem; max-width:48rem;"><strong>Do not subtract this from the map's 2024 figure.</strong> The map uses SatPM2.5 at ~1&nbsp;km; this is a different model at ~10&nbsp;km, and a 10&nbsp;km cell averages a busy junction together with the fields beside it. Read this for the shape of the trend, and the map for the level.</p>
+</div>
+
 <div style="margin-top:1.5rem;">
     <h3 style="font-family: var(--serif); font-size:1.15rem; color:var(--ink); margin-bottom:0.5rem;">State and union territory medians</h3>
     <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:0.75rem;">Median annual PM2.5 of the districts in each state. India's own annual limit is 40 &micro;g/m&sup3;; the WHO guideline is 5.</p>

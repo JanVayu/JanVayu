@@ -3119,6 +3119,113 @@
         { key: 'power',              label: 'Power',              color: '#0891B2' },
         { key: 'other',              label: 'Other (secondary, transboundary)', color: '#64748B' }
     ];
+    // --- 43-year district history (LongPMInd) --------------------------------
+    // One series over time, so: a line, one axis, no legend (the heading names
+    // it), recessive reference lines at India's annual limit and the WHO
+    // guideline, and a crosshair on hover. Drawn as inline SVG rather than via a
+    // chart library because the site's CSP blocks third-party script hosts and a
+    // 43-point line does not need 60 KB of dependency.
+    var BAND_NAME = { a: 'annual', w: 'winter', s: 'summer', r: 'monsoon', o: 'post-monsoon' };
+    var __histData = null;
+    async function airshedHistory(dt, st) {
+        var wrap = document.getElementById('airshed-chart');
+        if (!wrap) return;
+        if (!__histData) {
+            try {
+                var r = await fetch('/data/district-history.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                __histData = await r.json();
+            } catch (e) {
+                wrap.innerHTML = '<p style="color:var(--text-3); font-size:0.9rem;">The historical series could not load.</p>';
+                return;
+            }
+        }
+        var d = __histData, rec = d.districts[dt + '|' + st];
+        var note = document.getElementById('airshed-hist-note');
+        if (!rec) {
+            wrap.innerHTML = '<p style="color:var(--text-3); font-size:0.9rem;">No reconstructed series for this district: it is smaller than one ~10 km grid cell and its centroid falls over water.</p>';
+            if (note) note.textContent = '';
+            return;
+        }
+        var band = (document.getElementById('airshed-band') || {}).value || 'a';
+        if (note) {
+            note.textContent = d.years[0] + '–' + d.years[d.years.length - 1] +
+                (rec.pt ? ' · point sample: this district is smaller than one grid cell' : '');
+        }
+
+        var years = d.years, vals = rec[band];
+        var pts = [];
+        for (var i = 0; i < years.length; i++) if (vals[i] !== null) pts.push([years[i], vals[i]]);
+        if (!pts.length) { wrap.innerHTML = '<p style="color:var(--text-3);">No data for this season.</p>'; return; }
+
+        // R is sized for the reference-line labels that sit outside the plot.
+        // At 54 they rendered clipped to "India's ar..." and "WHO guid...",
+        // which a viewBox scales down but never reveals.
+        var W = 720, H = 260, L = 44, R = 104, T = 16, B = 30;
+        var iw = W - L - R, ih = H - T - B;
+        var ymax = Math.max(45, Math.ceil(Math.max.apply(null, pts.map(function (p) { return p[1]; })) / 20) * 20);
+        var x = function (yr) { return L + (yr - years[0]) / (years[years.length - 1] - years[0]) * iw; };
+        var y = function (v) { return T + ih - (v / ymax) * ih; };
+        var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+
+        var o = [];
+        // Recessive gridlines and y labels.
+        for (var g = 0; g <= ymax; g += ymax > 120 ? 40 : 20) {
+            o.push('<line x1="' + L + '" y1="' + y(g) + '" x2="' + (W - R) + '" y2="' + y(g) + '" stroke="var(--border)" stroke-width="1"/>');
+            o.push('<text x="' + (L - 8) + '" y="' + (y(g) + 4) + '" text-anchor="end" font-size="11" fill="var(--text-3)">' + g + '</text>');
+        }
+        // The two standards. Dashed and labelled, so the line is read against a rule.
+        [[40, "India's limit", '#b91c1c'], [5, 'WHO guideline', '#0f766e']].forEach(function (s2) {
+            if (s2[0] > ymax) return;
+            o.push('<line x1="' + L + '" y1="' + y(s2[0]) + '" x2="' + (W - R) + '" y2="' + y(s2[0]) + '" stroke="' + s2[2] + '" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.75"/>');
+            o.push('<text x="' + (W - R + 6) + '" y="' + (y(s2[0]) + 4) + '" font-size="10.5" fill="' + s2[2] + '">' + s2[1] + '</text>');
+        });
+        // x labels, every decade.
+        years.forEach(function (yr) {
+            if (yr % 10 !== 0) return;
+            o.push('<text x="' + x(yr) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="11" fill="var(--text-3)">' + yr + '</text>');
+        });
+        // The series: 2px, no marker on every point.
+        var path = pts.map(function (p, i) { return (i ? 'L' : 'M') + x(p[0]).toFixed(1) + ' ' + y(p[1]).toFixed(1); }).join(' ');
+        o.push('<path d="' + path + '" fill="none" stroke="var(--green-700)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>');
+        // Direct label on the last point only.
+        var last = pts[pts.length - 1];
+        o.push('<circle cx="' + x(last[0]) + '" cy="' + y(last[1]) + '" r="4" fill="var(--green-700)"/>');
+        o.push('<text x="' + (x(last[0]) + 9) + '" y="' + (y(last[1]) + 4) + '" text-anchor="start" font-size="12" font-weight="700" fill="var(--ink)">' + last[1].toFixed(1) + '</text>');
+        // Hover targets, one invisible column per year.
+        pts.forEach(function (p) {
+            o.push('<rect class="ah-hit" data-yr="' + p[0] + '" data-v="' + p[1] + '" x="' + (x(p[0]) - iw / pts.length / 2) + '" y="' + T + '" width="' + (iw / pts.length) + '" height="' + ih + '" fill="transparent"/>');
+        });
+        o.push('<line id="ah-cross" x1="0" y1="' + T + '" x2="0" y2="' + (T + ih) + '" stroke="var(--text-3)" stroke-width="1" opacity="0"/>');
+
+        wrap.innerHTML =
+            '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' +
+            esc(dt + ', ' + BAND_NAME[band] + ' mean PM2.5 from ' + years[0] + ' to ' + years[years.length - 1] +
+                '. ' + pts[0][1] + ' in ' + pts[0][0] + ', ' + last[1] + ' in ' + last[0] +
+                '. India’s annual limit is 40 micrograms per cubic metre and the WHO guideline is 5.') +
+            '" style="display:block; max-width:100%; overflow:visible;">' + o.join('') + '</svg>' +
+            '<div id="ah-tip" role="status" style="position:absolute; pointer-events:none; opacity:0; background:var(--ink); color:#fff; font-size:0.78rem; padding:0.3rem 0.5rem; border-radius:6px; white-space:nowrap; transform:translate(-50%,-130%);"></div>';
+
+        var tip = document.getElementById('ah-tip'), cross = document.getElementById('ah-cross');
+        var svg = wrap.querySelector('svg');
+        wrap.querySelectorAll('.ah-hit').forEach(function (h) {
+            var show = function () {
+                var yr = h.getAttribute('data-yr'), v = h.getAttribute('data-v');
+                var rect = svg.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+                var sx = x(+yr) / W * rect.width;
+                tip.textContent = yr + ': ' + v + ' µg/m³';
+                tip.style.left = sx + 'px';
+                tip.style.top = (y(+v) / H * rect.height + (rect.top - wr.top)) + 'px';
+                tip.style.opacity = '1';
+                cross.setAttribute('x1', x(+yr)); cross.setAttribute('x2', x(+yr));
+                cross.setAttribute('opacity', '0.45');
+            };
+            h.addEventListener('mouseenter', show);
+            h.addEventListener('focus', show);
+            h.addEventListener('mouseleave', function () { tip.style.opacity = '0'; cross.setAttribute('opacity', '0'); });
+        });
+    }
+
     // --- Airshed panel -------------------------------------------------------
     // 89% of the variance in district annual PM2.5 is BETWEEN states, not within
     // them (scripts/build-airshed-decomposition.py computes the split from the
@@ -3180,6 +3287,7 @@
                     '<div style="font-size:0.75rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-3); margin-bottom:0.25rem;">' + label + '</div>' +
                     '<div style="font-family:var(--serif); font-size:1.5rem; color:' + (colour || 'var(--ink)') + ';">' + val + '</div></div>';
             };
+            airshedHistory(row.dt, row.st);
             out.innerHTML =
                 '<div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">' +
                 cell(esc(row.dt), row.pm.toFixed(1) + ' <span style="font-size:0.9rem;">&micro;g/m&sup3;</span>', band(row.pm)) +
@@ -3204,6 +3312,15 @@
         var pick = d.districts.find(function (x) { return x.st === 'Delhi' && x.dt === 'New Delhi'; }) || d.districts[0];
         sel.value = pick.st + '|' + pick.dt;
         render();
+
+        var bandSel = document.getElementById('airshed-band');
+        if (bandSel && !bandSel.dataset.wired) {
+            bandSel.dataset.wired = '1';
+            bandSel.addEventListener('change', function () {
+                var p2 = sel.value.split('|');
+                airshedHistory(p2[1], p2[0]);
+            });
+        }
 
         var wrap = document.getElementById('airshed-states');
         if (wrap && !wrap.innerHTML) {

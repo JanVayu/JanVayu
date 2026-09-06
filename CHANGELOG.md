@@ -5,6 +5,59 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.174] - 2026-09-06
+
+### Added — forty-three years of PM2.5 for every district, 1980 to 2022
+
+JanVayu's annual air layer was **2024 alone**. The site could say what the air is
+and not what it was, so it could not answer the question people actually ask: is
+this getting better or worse?
+
+**783 of 785 districts, 43 years**, annual plus the same four seasons the existing
+seasonal layer uses, from **LongPMInd** (Wei et al., *Earth System Science Data*
+16, 3565–3577, 2024; Zenodo 10.5281/zenodo.14557027, **CC BY 4.0**) — monthly
+ground PM2.5 reconstructed for the whole of India on a ~10 km grid using LightGBM
+over CPCB measurements, satellite AOD, MERRA-2 and ERA5. Cross-validated R² is
+0.77 out-of-sample, 0.70 out-of-site and **0.66 out-of-year**; the last is the one
+that matters, because predicting an unseen year is exactly what the pre-monitoring
+decades ask of it. 872 KB.
+
+**It validates against someone else's published number.** Hawa Ka Hisab reports
+Delhi near 53 µg/m³ through the 1980s and a plateau near 86. This pipeline,
+zonal-averaging the same source over district polygons rather than their spatial
+definition, gives **50.9** and **91.6**. Different method, same answer.
+
+The airshed panel gains a chart below its readout: pick a district, see its line
+since 1980, switch between the whole year and any of the four seasons. New Delhi
+runs flat near 50 through the 1990s, climbs steeply from 1999, and plateaus near
+90. In winter it goes from 64 to 128.
+
+**Three honesty constraints travel in the data**, not in whoever renders it:
+
+- **It is a reconstruction.** India had almost no continuous monitoring before the
+  2010s, so every figure before then is what a model says the air was, not what an
+  instrument recorded. The panel says so above the chart.
+- **It is not differenceable against the 2024 layer.** That is SatPM2.5 V6GL03 at
+  ~1 km; this is LongPMInd at ~10 km, and a 10 km cell averages a busy junction
+  with the fields beside it. Trend and shape from here, level from there. The panel
+  says that too, in bold.
+- **Districts smaller than one cell take their centroid cell** and are flagged
+  `pt`. Rasterised, twelve claimed no cell at all, and dropping them would have
+  removed East and North East Delhi from a history of Indian air. Only Daman and
+  Lakshadweep remain out: their centroid falls over water, where the dataset has no
+  land.
+
+Two chart defects were caught by rendering the SVG and looking at it rather than
+trusting the code: the reference-line labels were clipped to *"India's ar…"* and
+*"WHO guid…"* by a right margin sized before the labels existed, and the
+end-of-series value was drawn on top of the line it labels. A viewBox scales a
+clipped label down without ever revealing it.
+
+CI gains `build-district-history.py --check`, which verifies the committed file's
+shape rather than rebuilding it from a 2.9 GB archive: every district must carry a
+complete annual and four-season series, so a truncated write fails there instead
+of rendering as gaps in a chart.
+
 ## [v26.6.173] - 2026-09-06
 
 ### Added — Hawa Ka Hisab joins the Janhit Partners
