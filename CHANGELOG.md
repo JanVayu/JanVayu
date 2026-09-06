@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.173] - 2026-09-06
+
+### Added — Hawa Ka Hisab joins the Janhit Partners
+
+[हवा का हिसाब / Hawa Ka Hisab](https://hawakahisab.in/), a daily accountability
+cut on Delhi and NCR air, published by the office of Ajay Maken, MP (Rajya
+Sabha), on CPCB data compiled by CREA.
+
+The entry names the publisher rather than eliding it. The site itself is
+unusually direct on this point — *"It is not a neutral third party, and it does
+not pretend to be one"* — and JanVayu's own non-partisan framing is better served
+by saying who publishes a partner than by leaving a reader to discover it.
+
+**What it does that we do not.** It de-weathers: a random forest per pollutant
+over wind speed and direction, temperature, boundary-layer height and rainfall,
+plus lagged weather, holding station and time terms fixed so the procedure
+removes weather without removing the trend it is measuring. Lagged *pollutant*
+values are deliberately excluded, because feeding yesterday's pollution into a
+model meant to isolate emissions launders the answer through the target. It
+carries bootstrap intervals over stations and refuses to call a result when the
+interval contains zero.
+
+JanVayu leads with annual means partly to sidestep weather. That is honest and
+it is also a limit: we cannot currently say whether a city improved because of
+policy or because of wind. Tracked as a roadmap item.
+
+**On the 47-year record**, which is worth recording because we checked it before
+linking. The site's claim that Delhi has never met India's annual standard in 47
+years does not rest on CPCB, whose network does not reach back that far. It rests
+on **LongPMInd** (Wei et al., *Earth System Science Data*, 2024), a peer-reviewed
+daily PM2.5 reconstruction for all of India on a ~10 km grid, 1980–2022, LightGBM
+over CPCB ground data, satellite AOD, MERRA-2 and ERA5, CC BY 4.0, with a held-out
+whole-year R² of about 0.66 — cross-checked against an independently built random
+forest that reaches the same 0.66. Delhi sat near 53 µg/m³ through the 1980s and
+plateaus near 86.
+
+That dataset covers all of India and is openly licensed, so it is a candidate for
+giving JanVayu a history it currently lacks entirely: every district's annual
+layer is 2024 alone. Also tracked.
+
 ## [v26.6.172] - 2026-09-05
 
 ### Fixed — the Reddit feed was dead, and the health check called it healthy
