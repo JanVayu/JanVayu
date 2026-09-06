@@ -55,6 +55,14 @@ jobs:
       - name: Check the photo manifest matches the gallery panel
         run: python3 scripts/build-gallery-manifest.py --check
 
+      # data/district-history.json is 43 years x 783 districts and is built from a
+      # 2.9 GB Zenodo archive that CI does not download. --check therefore verifies
+      # the committed file's shape rather than rebuilding it: every district must
+      # carry a complete annual and four-season series, so a truncated or
+      # partially-written file fails here rather than rendering as gaps in a chart.
+      - name: Check the district history is complete
+        run: python3 scripts/build-district-history.py --check
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for
