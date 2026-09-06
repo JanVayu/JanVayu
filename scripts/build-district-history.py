@@ -36,7 +36,11 @@ Needs:  netCDF4, numpy, rasterio  (pip install netCDF4 numpy rasterio)
 import argparse, calendar, json, sys
 from pathlib import Path
 
-import numpy as np
+# numpy is imported lazily, inside the functions that need it, because --check
+# validates the committed JSON's shape with the standard library alone and CI
+# runs only that. A module-level import made the check job die with
+# ModuleNotFoundError before argparse ever saw its argument, which is a build
+# dependency leaking into a validation step that does not need it.
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -58,12 +62,14 @@ CITE = ('Wei et al. (2024), Reconstructing long-term (1980-2022) daily ground pa
 
 def month_weights(year):
     """Days per month, so an annual mean is a mean over days rather than over months."""
+    import numpy as np
     d = np.array([calendar.monthrange(year, m)[1] for m in range(1, 13)], dtype='float64')
     return d / d.sum()
 
 
 def build_labels(nc_path, feats):
     """Rasterise the district polygons onto the LongPMInd grid, once."""
+    import numpy as np
     import netCDF4
     from rasterio import features
     from rasterio.transform import from_origin
@@ -92,6 +98,7 @@ def centroid_cells(feats, lat, lon):
     centroid falls in instead, and are flagged `pt` so nothing downstream can
     present a point sample as a zonal mean.
     """
+    import numpy as np
     out = {}
     for i, g in enumerate(feats):
         pr = g['properties']
@@ -103,6 +110,7 @@ def centroid_cells(feats, lat, lon):
 
 def zonal(vals, lab, n):
     """Mean of `vals` inside each label. Returns NaN where a district has no cell."""
+    import numpy as np
     ok = np.isfinite(vals) & (lab > 0)
     ids = lab[ok]
     cnt = np.bincount(ids, minlength=n + 1).astype('float64')
@@ -137,6 +145,7 @@ def main():
         print(f'PASS: {n_dist} districts x {n_years} years, all bands complete.')
         return
 
+    import numpy as np
     import netCDF4
     src = Path(args.src)
     files = sorted(src.glob('pm25_arr_10km_*_monthly.nc'))
