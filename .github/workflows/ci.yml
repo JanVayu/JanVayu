@@ -88,6 +88,14 @@ jobs:
       - name: Check the fact-check promise matches the practice
         run: python3 scripts/check-factcheck-freshness.py
 
+      # The de-weathered series is a model output, so the thing worth policing is
+      # not its shape but whether the model is real: --check refuses the file if
+      # the placebo (held-out score on shuffled targets) rises above 0.05, and if
+      # fewer than two months are common to every year, since a naive annual mean
+      # of this coverage reads the gaps as a trend.
+      - name: Check the de-weathered series is sound
+        run: python3 scripts/build-deweathered.py --check
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for

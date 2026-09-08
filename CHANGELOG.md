@@ -5,6 +5,101 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.178] - 2026-09-08
+
+### Added — was it policy, or was it the wind?
+
+JanVayu has led with annual means partly to sidestep weather. That was honest and
+it was also a limit we stated in public: we could not say whether a city improved
+because of policy or because of the wind. This closes it for Delhi-NCR, over the
+one window where the station record is continuous.
+
+A still, cold week reads as dirty air and a windy one reads as clean, whether or
+not anything changed at the source. **Random forest meteorological normalisation**
+(Grange et al. 2018, *Atmos. Chem. Phys.* 18, 6223-6239, which is also what Hawa
+Ka Hisab uses) separates the two: fit daily PM2.5 on wind speed, the two wind
+vector components, temperature and relative humidity plus trend, season, day of
+week and station, then hold time and station fixed and resample the meteorology.
+What survives is the concentration under an average-weather draw.
+
+**Lagged pollutant values are deliberately not features.** Feeding yesterday's
+PM2.5 into a model meant to isolate emissions launders the answer through the
+target and will manufacture a convincing trend out of autocorrelation alone.
+
+10 CPCB/DPCC/IMD stations, **7,346 station-days**, PM2.5 via OpenAQ and
+meteorology from **NOAA's Integrated Surface Database** at Delhi Safdarjung and
+Palam. The co-located wind sensors on these stations only begin in October 2025,
+so the synoptic network is the only meteorology for this window.
+
+**The finding.** Across September and October, the months present in all five
+years, the measured figures fall by **5.5 µg/m³ a year**. With the weather taken
+out only **1.1** remains, about a fifth of it. Neither clears its 95% interval,
+so **no direction is claimed**: most of Delhi's apparent improvement in those
+months was weather, and what is left is not distinguishable from no change.
+
+**Two traps, both caught before this shipped.**
+
+The first run compared naive annual means and produced a confident *rising* trend
+of +4.7 µg/m³/yr. It was an artefact. Coverage is severely and unevenly seasonal:
+2021 is missing April to August — its cleaner months, so it looked terrible at
+137.6 — and 2022 is missing November and December, its worst, so it looked clean
+at 82.2. Averaged against each other they manufacture a trend out of nothing.
+Everything compared across years is now restricted to the months present in
+*every* year, the coverage gaps ship inside the file, and `--check` refuses it if
+fewer than two months are common.
+
+The second: OpenAQ's location endpoint advertises **2016 → 2026** for these
+stations. That is the union of disjoint sensors, not a coverage claim — there is
+a ~2.3-year ingest gap from late 2022 to early 2025, and one station's "decade"
+is two sensors with seven years between them. Taking it at face value gives a
+series with a hole in the middle and no error anywhere.
+
+**Validated by placebo, not by assertion.** Shuffling the PM2.5 values against
+their dates drops held-out R² from 0.749 to **−0.125**: the pipeline is not
+leaking. Meteorology alone predicts daily PM2.5 at R² 0.695 — the premise of the
+whole exercise, confirmed rather than assumed — and the adjustment removes 72% of
+the day-to-day variance. The placebo score ships in the file and CI refuses it
+above 0.05.
+
+Surfaced in the airshed panel, which already asked whether your air is your
+region or your town, and now also asks whether it was the weather. `scikit-learn`
+is a build-time requirement of the ingest script only and ships nothing to the
+browser, on the same footing as `netCDF4`.
+
+### Fixed — a half-applied correction left a figure no source supports
+
+Fact-check round of 8 September, restarted after the six-week lapse. Full
+findings: `docs/fact-check-2026-09-08.md`.
+
+The site said, in **ten** places, that 23 (or 27) of **96** NCAP cities with
+sufficient data met the 40% PM10 reduction target, and credited CREA. CREA never
+said that. *Tracing the Hazy Air 2026* says **23 of the 100** cities that reported
+≥80% PM10 data coverage, out of 102 with monitoring stations, out of 130 assessed.
+
+"96" is CSE's denominator from a different analysis, which reported **27 of 96**.
+The July 2026 round found that on the site and corrected the numerator, 27 → 23,
+in four places. It left the denominator, producing a hybrid neither source
+published — and three further files were never touched and still said "27 of 96
+**(CREA)**", attributing to CREA a number CREA did not publish. For a site whose
+whole proposition is sourcing, that is the worst shape an error can take.
+
+All ten corrected. **The hero instance was mine**: I rewrote that bulletin earlier
+the same day and carried "23 of 96" forward unexamined on the reasoning that the
+dated facts in it age fine. They do; that one was wrong before I touched it and I
+propagated it. **And the tenth was found by the guard, not by me** — `games.js`
+carries the same sentence as a quiz clue, and my greps covered the HTML, the docs
+and the assistant but not the game.
+
+`check-retracted-claims.py` now refuses any `2x of 96`, so a third round cannot
+reintroduce either shape.
+
+**Checked and unchanged**: 1.72 million deaths and $339.4 billion / 9.5% of GDP
+both verified against the Lancet Countdown 2025 India data sheet; the Lancet
+Countdown 2025 and AQLI 2025 vintages are still current (the 2026 global report
+publishes in October); Delhi-NCR's 8.2 years stands; and CPCB's own list really
+does say 131 non-attainment cities while CREA analyses 130 — both correct for
+their own source, recorded so a later round does not "fix" it.
+
 ## [v26.6.177] - 2026-09-08
 
 ### Fixed — the promise had outrun the practice
