@@ -459,7 +459,10 @@ def _steps(o, x, y, w, name, state, nat, state_med, district):
     # and the total 14 below it, then bottom padding.
     inner = 28 + 30 + 40 + 40 + 22
     o.append(hd.text(x, y, name.upper(), size=13.5, fill=MUTE, weight=700))
-    o.append(hd.box(x - 4, y + 12, w, inner, seed=hash(name) % 900 + 10))
+    # Python randomises str.__hash__ per process (PYTHONHASHSEED), so hash(name)
+    # gave these two boxes a different wobble on every run and made the whole
+    # diagram build non-reproducible: rebuilding one diagram churned others.
+    o.append(hd.box(x - 4, y + 12, w, inner, seed=sum(ord(c) for c in name) % 900 + 10))
     yy = y + 40
     rows = [
         ('India median', f'{nat:.1f}', MUTE, ''),
@@ -575,11 +578,159 @@ def airshed_tall():
     return hd.svg(400, y + 40, ''.join(o), AIRSHED_LABEL)
 
 
+
+# ── De-weathering ───────────────────────────────────────────────────────────
+# The hard part to draw is that this is a SUBTRACTION, not a measurement: two
+# weeks with identical emissions read differently because the weather differs,
+# and the model's job is to put both weeks under the same weather before they
+# are compared.
+def deweather_wide():
+    o = [hd.text(490, 34, 'Was it policy, or was it the wind?', size=25, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(490, 57, 'taking the weather out of Delhi\u2019s air', size=14, fill=MUTE, anchor='middle')]
+
+    o.append(hd.text(30, 96, 'THE PROBLEM', size=13.5, fill=MUTE, weight=700))
+    o.append(hd.text(30, 118, 'The same chimneys, the same traffic, two different weeks. The meter disagrees.', size=12.2, fill=MUTE))
+
+    o.append(hd.box(26, 134, 300, 96, fill=RED_BG, stroke=RED, seed=301))
+    o.append(hd.text(176, 160, 'Still, cold week', size=15, fill=RED, weight=700, anchor='middle'))
+    o.append(hd.text(176, 182, 'nothing disperses', size=11.8, fill=MUTE, anchor='middle'))
+    o.append(hd.text(176, 210, 'reads DIRTY', size=13.5, fill=RED, weight=700, anchor='middle'))
+
+    o.append(hd.box(346, 134, 300, 96, fill=GREEN_BG, stroke=GREEN, seed=302))
+    o.append(hd.text(496, 160, 'Windy, wet week', size=15, fill=GREEN, weight=700, anchor='middle'))
+    o.append(hd.text(496, 182, 'everything blows away', size=11.8, fill=MUTE, anchor='middle'))
+    o.append(hd.text(496, 210, 'reads CLEAN', size=13.5, fill=GREEN, weight=700, anchor='middle'))
+
+    o.append(hd.box(666, 134, 284, 96, fill=AMBER_BG, stroke=AMBER, seed=303))
+    o.append(hd.text(808, 162, 'Emissions:', size=13, fill=MUTE, anchor='middle'))
+    o.append(hd.text(808, 188, 'IDENTICAL', size=17, fill=AMBER, weight=700, anchor='middle'))
+    o.append(hd.text(808, 212, 'in both weeks', size=11.5, fill=MUTE, anchor='middle'))
+
+    o.append(hd.text(30, 274, 'WHAT WE DO ABOUT IT', size=13.5, fill=MUTE, weight=700))
+    steps = [
+        ('1. Learn the weather\u2019s fingerprint',
+         ['A random forest reads five years of daily',
+          'readings and works out how much of each',
+          'day was wind, temperature and humidity',
+          '\u2014 and how much was the season, the day',
+          'of the week, and which station.']),
+        ('2. Give every day the same weather',
+         ['Hold the date and the station fixed, then',
+          'swap in weather drawn at random from the',
+          'whole record. Do it sixty times and average.',
+          'Now no day is flattered or punished by the',
+          'week it happened to fall in.']),
+        ('3. Read what is left',
+         ['What survives that swap is the part the',
+          'weather cannot explain. Compare those',
+          'numbers across years and you are finally',
+          'comparing like with like \u2014 emissions,',
+          'not luck.']),
+    ]
+    x = 26
+    for i, (title, lines) in enumerate(steps):
+        h = panel_height(lines)
+        o.append(panel(x, 292, 300, h, title, lines, fill=BLUE_BG, stroke=BLUE, tcol=BLUE, seed=310 + i))
+        if i < 2:
+            o.append(hd.arrow(x + 306, 292 + h / 2, x + 320, 292 + h / 2, stroke=BLUE, seed=320 + i))
+        x += 324
+
+    y = 292 + panel_height(steps[0][1]) + 34
+    o.append(hd.text(30, y, 'WHAT IT SAYS FOR DELHI, SEPTEMBER AND OCTOBER, 2018\u20132022', size=13.5, fill=MUTE, weight=700))
+
+    bar_y = y + 20
+    o.append(hd.text(30, bar_y + 22, 'As measured', size=13, fill=MUTE))
+    o.append(hd.box(150, bar_y + 4, 400, 26, fill=RED_BG, stroke=RED, seed=331))
+    o.append(hd.text(350, bar_y + 23, 'falling 5.5 \u00b5g/m\u00b3 a year', size=13.5, fill=RED, weight=700, anchor='middle'))
+
+    o.append(hd.text(30, bar_y + 62, 'Weather removed', size=13, fill=MUTE))
+    o.append(hd.box(150, bar_y + 44, 80, 26, fill=GREEN_BG, stroke=GREEN, seed=332))
+    o.append(hd.text(190, bar_y + 63, '1.1', size=13.5, fill=GREEN, weight=700, anchor='middle'))
+    o.append(hd.text(244, bar_y + 63, 'about a fifth of it', size=12.5, fill=MUTE))
+
+    note = ['Neither figure clears its own margin of error, so JanVayu claims NO DIRECTION.',
+            'Most of the apparent improvement in those months was the wind. What is left',
+            'cannot be told apart from no change at all.']
+    nh = panel_height(note)
+    o.append(panel(26, bar_y + 88, 924, nh, 'THE HONEST ANSWER', note,
+                   fill=AMBER_BG, stroke=AMBER, tcol=AMBER, seed=340))
+
+    warn = ['We never feed yesterday\u2019s pollution in as a clue. It would let the model',
+            'predict today from yesterday and call the leftover \u201cemissions\u201d \u2014 a convincing',
+            'trend made out of nothing but the fact that dirty days come in runs.']
+    wh = panel_height(warn)
+    top = bar_y + 88 + nh + 14
+    o.append(panel(26, top, 924, wh, 'THE TRAP WE AVOID', warn,
+                   fill=PAPER, stroke=RED, tcol=RED, seed=350))
+
+    return hd.svg(980, top + wh + 26, ''.join(o),
+                  'How JanVayu separates a real change in Delhi\u2019s air from a change in the weather')
+
+
+def deweather_tall():
+    o = [hd.text(180, 34, 'Was it policy,', size=21, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(180, 60, 'or was it the wind?', size=21, fill=GREEN, weight=700, anchor='middle')]
+
+    y = 92
+    o.append(hd.text(20, y, 'THE PROBLEM', size=12.5, fill=MUTE, weight=700))
+    y += 14
+    for title, sub, res, bg, st in [
+            ('Still, cold week', 'nothing disperses', 'reads DIRTY', RED_BG, RED),
+            ('Windy, wet week', 'everything blows away', 'reads CLEAN', GREEN_BG, GREEN)]:
+        o.append(hd.box(18, y, 324, 78, fill=bg, stroke=st, seed=360 + y))
+        o.append(hd.text(180, y + 26, title, size=15, fill=st, weight=700, anchor='middle'))
+        o.append(hd.text(180, y + 46, sub, size=11.5, fill=MUTE, anchor='middle'))
+        o.append(hd.text(180, y + 68, res, size=13, fill=st, weight=700, anchor='middle'))
+        y += 88
+    o.append(hd.box(18, y, 324, 56, fill=AMBER_BG, stroke=AMBER, seed=372))
+    o.append(hd.text(180, y + 24, 'Emissions: IDENTICAL', size=14.5, fill=AMBER, weight=700, anchor='middle'))
+    o.append(hd.text(180, y + 44, 'in both weeks', size=11.5, fill=MUTE, anchor='middle'))
+    y += 84
+
+    o.append(hd.text(20, y, 'WHAT WE DO ABOUT IT', size=12.5, fill=MUTE, weight=700))
+    y += 12
+    for i, (title, lines) in enumerate([
+            ('1. Learn the weather\u2019s fingerprint',
+             ['How much of each day was wind,', 'temperature and humidity \u2014 and how', 'much was the season and the station.']),
+            ('2. Give every day the same weather',
+             ['Hold the date and station fixed, swap', 'in weather drawn from the whole', 'record, average over sixty draws.']),
+            ('3. Read what is left',
+             ['What survives is the part the weather', 'cannot explain. Now the years are', 'comparable \u2014 emissions, not luck.'])]):
+        h = panel_height(lines, ts=13)
+        o.append(panel(18, y, 324, h, title, lines, fill=BLUE_BG, stroke=BLUE, tcol=BLUE, seed=380 + i, ts=13))
+        y += h + 12
+
+    y += 16
+    o.append(hd.text(20, y, 'DELHI, SEP\u2013OCT, 2018\u20132022', size=12.5, fill=MUTE, weight=700))
+    y += 14
+    o.append(hd.text(20, y + 18, 'As measured', size=12, fill=MUTE))
+    o.append(hd.box(18, y + 26, 324, 26, fill=RED_BG, stroke=RED, seed=391))
+    o.append(hd.text(180, y + 45, 'falling 5.5 \u00b5g/m\u00b3 a year', size=13, fill=RED, weight=700, anchor='middle'))
+    o.append(hd.text(20, y + 76, 'Weather removed', size=12, fill=MUTE))
+    o.append(hd.box(18, y + 84, 70, 26, fill=GREEN_BG, stroke=GREEN, seed=392))
+    o.append(hd.text(53, y + 103, '1.1', size=13, fill=GREEN, weight=700, anchor='middle'))
+    o.append(hd.text(98, y + 103, 'about a fifth', size=12, fill=MUTE))
+    y += 126
+
+    note = ['Neither clears its margin of error, so', 'JanVayu claims NO DIRECTION. Most of', 'the apparent improvement was wind.']
+    nh = panel_height(note, ts=13)
+    o.append(panel(18, y, 324, nh, 'THE HONEST ANSWER', note, fill=AMBER_BG, stroke=AMBER, tcol=AMBER, seed=395, ts=13))
+    y += nh + 12
+
+    warn = ['We never feed yesterday\u2019s pollution in', 'as a clue \u2014 it would manufacture a', 'trend out of dirty days coming in runs.']
+    wh = panel_height(warn, ts=13)
+    o.append(panel(18, y, 324, wh, 'THE TRAP WE AVOID', warn, fill=PAPER, stroke=RED, tcol=RED, seed=396, ts=13))
+
+    return hd.svg(360, y + wh + 24, ''.join(o),
+                  'How JanVayu separates a real change in Delhi\u2019s air from a change in the weather')
+
+
 DIAGRAMS = {
     'why-pm25': (pm25_wide, pm25_tall),
     'reading-the-map': (map_wide, map_tall),
     'atlas-layers': (atlas_wide, atlas_tall),
     'airshed': (airshed_wide, airshed_tall),
+    'deweather': (deweather_wide, deweather_tall),
 }
 
 

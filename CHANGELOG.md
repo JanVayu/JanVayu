@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.179] - 2026-09-08
+
+### Added — "Was It Policy, or Was It the Wind?"
+
+The de-weathering work shipped in v26.6.178 as a panel and a data file. This is
+the explanation, because the method is the part a reader has to trust and a
+readout on its own asks them to take it on faith.
+
+New post: [Was It Policy, or Was It the Wind?](blog/posts/2026-09-08-was-it-policy-or-the-wind.md),
+with a hand-drawn diagram in the site's usual pair — a wide version and a tall
+one that takes over below 680px.
+
+The post covers the mechanism (give every day the same weather, then see what is
+left), **the trap we refuse** (never feed yesterday's PM2.5 in as a predictor, or
+you manufacture a trend out of dirty days arriving in runs), the answer for Delhi,
+and — at as much length — why the answer is narrower than we wanted: the first run
+compared plain annual means, said Delhi got *worse* by 4.7 µg/m³/yr, and was
+reading a filing gap as a trend.
+
+It also explains the placebo in plain terms, because "we tested it by giving it a
+problem with no answer, and it correctly failed" is the most convincing thing we
+can say and the least likely to be understood from a number in a JSON file.
+
+### Fixed — the diagram build was never reproducible
+
+`_steps()` seeded two of its boxes with `hash(name)`. Python randomises
+`str.__hash__` per process unless `PYTHONHASHSEED` is set, so those two boxes got
+a different wobble on **every run** — which meant rebuilding any one diagram
+churned the airshed diagrams as a side effect, and no two builds of this repo
+produced the same bytes.
+
+Found by regenerating the diagrams for the new post and noticing that two files
+nobody had touched came back modified. Now seeded from the name's character sum:
+three consecutive builds are byte-identical, and reverting the fix makes two
+consecutive builds differ, which is how the bug was confirmed rather than assumed.
+
 ## [v26.6.178] - 2026-09-08
 
 ### Added — was it policy, or was it the wind?
