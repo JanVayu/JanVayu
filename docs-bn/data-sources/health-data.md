@@ -9,7 +9,7 @@ JanVayu বায়ু দূষণের স্বাস্থ্য প্র
 | মেট্রিক | মান | উৎস |
 |---------|-----|------|
 | **বার্ষিক PM2.5 মৃত্যু (ভারত)** | **১৭.২ লক্ষ / বছর** | Lancet Countdown 2025 |
-| বৈশ্বিক অংশ | বৈশ্বিক PM2.5 মৃত্যুর ~70% | Lancet Countdown 2025 |
+| বৈশ্বিক অংশ | বৈশ্বিক PM2.5 মৃত্যুর ~25–33% | Lancet Countdown 2025 |
 | গড় ভারতীয় আয়ু-ক্ষতি | 3.5 বছর | AQLI 2025 |
 | ইন্দো-গাঙ্গেয় সমভূমির বাসিন্দাদের ক্ষতি | 7-8 বছর | AQLI 2025 |
 | WHO 2021 PM2.5 নির্দেশিকা | 5 µg/m³ (বার্ষিক) | WHO |
@@ -26,7 +26,7 @@ JanVayu বায়ু দূষণের স্বাস্থ্য প্র
 **উৎস:** *The Lancet Countdown on Health and Climate Change* (2025 রিপোর্ট, ভারত অধ্যায়)
 **URL:** [thelancet.com/countdown-health-climate](https://www.thelancet.com/countdown-health-climate)
 
-বার্ষিক *Lancet Countdown* সাম্প্রতিকতম exposure-response functions, জনতাত্ত্বিক ডেটা ও PM2.5 exposure surfaces একত্রিত করে একটি একক attributable-mortality অনুমানে রূপান্তরিত করে। 2025 রিপোর্ট ভারতে বার্ষিক ambient PM2.5 মৃত্যুকে **১৭.২ লক্ষ** হিসেবে চিহ্নিত করেছে — পূর্ববর্তী 15 লক্ষ থেকে বেশি। বৃদ্ধির কারণ গৃহস্থালী বায়োমাস মৃত্যুর পুনঃ-attribution ও PM2.5-এর উচ্চ সীমায় কঠোরতর exposure-response। বৈশ্বিক PM2.5 মৃত্যু ভারে ভারতের অংশ ~70% বহাল রয়েছে।
+বার্ষিক *Lancet Countdown* সাম্প্রতিকতম exposure-response functions, জনতাত্ত্বিক ডেটা ও PM2.5 exposure surfaces একত্রিত করে একটি একক attributable-mortality অনুমানে রূপান্তরিত করে। 2025 রিপোর্ট ভারতে বার্ষিক ambient PM2.5 মৃত্যুকে **১৭.২ লক্ষ** হিসেবে চিহ্নিত করেছে — পূর্ববর্তী 15 লক্ষ থেকে বেশি। বৃদ্ধির কারণ গৃহস্থালী বায়োমাস মৃত্যুর পুনঃ-attribution ও PM2.5-এর উচ্চ সীমায় কঠোরতর exposure-response। বৈশ্বিক PM2.5 মৃত্যু ভারে ভারতের অংশ ~25–33% বহাল রয়েছে।
 
 এটি **JanVayu-তে প্রামাণিক মূল সংখ্যা** — ড্যাশবোর্ডে, স্বাস্থ্য প্রভাব প্যানেলে এবং README-র *Key Statistics* টেবিলে।
 

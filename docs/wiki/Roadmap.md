@@ -4,6 +4,26 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.25: A history to compare against, and the corrections that had never travelled (✅ Completed — v26.6.172–175)
+
+- [x] **43 years of PM2.5, for 783 of 785 districts** — annual and the same four seasons as the existing seasonal layer, 1980 to 2022, from [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wei et al., *Earth System Science Data* 16, 3565–3577, 2024; CC BY 4.0): LightGBM over CPCB ground data, satellite AOD, MERRA-2 and ERA5 on a ~10 km grid, held-out-year R² 0.66. 872 KB, charted in the airshed panel by year and by season.
+
+  Three constraints travel in the data rather than in whoever renders it. It is a **reconstruction** — India had almost no continuous monitoring before the 2010s. It is **not differenceable** against the 2024 satellite layer, which is a different product at ~1 km: trend and shape from here, level from there. And districts smaller than one cell take their centroid cell, which is why East and North East Delhi are in it at all; only Daman and Lakshadweep remain out, their centroids falling over water.
+
+  It validates against a number nobody here computed: Hawa Ka Hisab publishes Delhi near 53 µg/m³ for the 1980s and a plateau near 86; this pipeline, zonal-averaging the same source over district polygons instead of their spatial definition, gives **50.9** and **91.6**.
+
+- [x] **[हवा का हिसाब / Hawa Ka Hisab](https://hawakahisab.in/) joins the Janhit Partners** — a daily accountability cut on Delhi and NCR air, published by the office of Ajay Maken, MP (Rajya Sabha), on CPCB data compiled by CREA. The entry names the publisher rather than eliding it.
+
+- [x] **Three corrections that had never travelled.** JanVayu retracted the "~70% of global PM2.5 deaths" claim publicly in July 2026, in a post about fact-checking itself. On 8 September it was still live in **eleven** files: the English docs front page, the wiki home, the canonical `docs/data-sources/health-data.md` that the rest of the site cites, and the Hindi, Bengali, Marathi and Tamil translations of all of them. Delhi's superseded **91.6 µg/m³** was in nine files seven weeks after the 20 July fact-check moved it to 82.2, and "India 5th most polluted" was still in the Resources panel.
+
+  The correction had reached every surface anyone looks at and none of the surfaces they do not. `scripts/check-retracted-claims.py` now fails the build if a retracted claim reappears anywhere outside the dated records that document the retraction, and it reads the translated docs by numeral so a claim cannot hide in a script nobody on the team reads.
+
+- [x] **The assistant, the decks and the wiki caught up.** Ask JanVayu gained the history and the airshed finding as rule 31, with three new eval cases: that it calls the pre-2010s figures a reconstruction, that it refuses to difference the two layers, and that it will not turn the airshed split into a verdict on a local government. The full walkthrough gained a slide (37 → 38, exports regenerated) and the wiki's "What's New" was 100 versions and two months behind.
+
+- [ ] **De-weathering** *(open)* — JanVayu leads with annual means partly to sidestep weather, which is honest and is also a limit: we cannot currently say whether a city improved because of policy or because of wind. Hawa Ka Hisab does this with a random forest per pollutant over wind speed and direction, temperature, boundary-layer height and rainfall plus lagged weather, holding station and time fixed, deliberately excluding lagged *pollutant* values, with bootstrap intervals over stations and a refusal to call a result when the interval contains zero. Recorded here because v26.6.173 said it was tracked as a roadmap item and it was not. Currently blocked on a meteorology source: Open-Meteo rate-limits the egress used for bulk hourly pulls, so ERA5 via Copernicus is the likelier input.
+
+---
+
 ## Phase 5.24: What the airshed decides, and two datasets that did not survive the control (✅ Completed — v26.6.171)
 
 A reader asked whether the [Biodiversity Intactness](https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1) 100 m raster belongs on the map. Answering it properly produced a negative result, a positive finding nobody was looking for, and three defects found on the way.

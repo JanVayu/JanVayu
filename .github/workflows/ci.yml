@@ -71,6 +71,15 @@ jobs:
       - name: Check the homepage bulletin is from this month
         run: python3 scripts/check-hero-currency.py
 
+      # A retraction is not a one-time edit. JanVayu publicly retracted the
+      # "~70% of global PM2.5 deaths" claim in July 2026 and fixed the homepage,
+      # the panels and the assistant; on 8 September it was still live in eleven
+      # files, all four translations among them. Delhi's superseded 91.6 µg/m³
+      # was in nine. The correction reached every surface anyone looks at and
+      # none of the surfaces they do not.
+      - name: Check no retracted claim has come back
+        run: python3 scripts/check-retracted-claims.py
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for

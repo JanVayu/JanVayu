@@ -33,6 +33,20 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### What's New (v26.6.x)
 
+**v26.6.171–175 — Your airshed, 43 years of PM2.5, and the corrections that had not travelled (5–8 Sep 2026)**
+- New panel, **"Your airshed, or your town?"**: across 785 districts, **89.2%** of the variance in annual PM2.5 sits *between* states rather than within them. State medians run Delhi 92.7 down to Ladakh 13.9. It states its own limit: a district below its state median is not thereby well governed, and the figure names no cause.
+- **43 years of PM2.5 for 783 of 785 districts**, 1980–2022, annual and by season, from LongPMInd (Wei et al., *Earth System Science Data*, 2024; CC BY 4.0). A reconstruction, not a measurement, and deliberately not differenceable against the ~1 km 2024 satellite layer.
+- **[हवा का हिसाब / Hawa Ka Hisab](https://hawakahisab.in/) joins the Janhit Partners** — a daily accountability cut on Delhi and NCR air, published by the office of Ajay Maken, MP, on CPCB data compiled by CREA.
+- Two global land-pressure rasters **tested and rejected**: they beat everything on the site on their face, then collapsed to +0.007 incremental R² under state fixed effects.
+- **Three corrections that had never travelled.** The "~70% of global PM2.5 deaths" claim JanVayu publicly retracted in July was still live in eleven files, including all four translations; Delhi's superseded 91.6 µg/m³ was in nine; and "India 5th most polluted" was still in the Resources panel. All corrected, and `scripts/check-retracted-claims.py` now fails the build if any of them comes back.
+- Also fixed: a monthly air rebuild that had never once run, a dead Reddit feed the health check called healthy, a photo manifest stale since the 24th photograph, and a homepage bulletin that still said August on 8 September.
+
+**v26.6.126–170 — One atlas, seven levels, 983,149 areas (30 Jul – 21 Aug 2026)**
+- The separate ward map was folded into the main atlas, which now covers **every administrative level in India** — states, districts, constituencies, ULBs, wards and **villages**, 983,149 areas — each scored on annual and seasonal PM2.5, surface heat, tree, green and built-up cover.
+- **A current-year answer.** Every satellite figure is the 2024 annual mean because that is the newest published; a second district-level layer from CAMS reaches 2026, bias-corrected on the shared 2024 (r = 0.910, held-out RMSE 5.76 µg/m³) and never blended into the satellite numbers.
+- **Field Testimony 142 → 250 voices** across 107 cities and 14 languages, each stamped with its collection date and mode and attributed exactly as the speaker asked.
+- **PM2.5 leads, AQI is the footnote** — a fair criticism from a conference: AQI is unitless, reports only its worst pollutant, and cannot be averaged over a year, while every Indian limit and NCAP target is written in µg/m³ of PM2.5.
+
 **v26.6.58–71 — Multilingual fix, accessibility & a 42%-lighter site (15 Jul 2026)**
 - Fixed a crash that had silently disabled the entire 5-language switcher — Hindi, Tamil, Marathi and Bengali now actually apply across the UI. Lazy panels translate on open; the About panel is fully translated as a template.
 - Accessibility sweep (WCAG 2.1 AA, axe-verified): form-control labels, underlined prose links, chart alt-text, and theme-aware badge contrast.
@@ -182,7 +196,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ### Key Stats (May 2026)
 
-- **1.72 million** annual Indian PM2.5 deaths (Lancet Countdown 2025) — ~70% of the global burden
+- **1.72 million** annual Indian PM2.5 deaths (Lancet Countdown 2025) — the largest national toll of any single country, and roughly a quarter to a third of the global burden
 - **3.5 years** average life expectancy lost to PM2.5; **7-8 years** in the Indo-Gangetic Plain (AQLI 2025)
 - **$339.4 billion** economic cost (9.5% of GDP, Lancet Countdown 2025)
 - **Loni, India** is the world's most polluted city at 112.5 µg/m³ (IQAir 2025)
