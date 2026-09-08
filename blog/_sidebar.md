@@ -3,6 +3,11 @@
 - [**JanVayu Blog**](README.md)
 - [How We Write (contributor guide)](how-we-write.md)
 
+- **September 2026**
+  - [Was It Policy, or Was It the Wind?](posts/2026-09-08-was-it-policy-or-the-wind.md)
+  - [Your Airshed, or Your Town? A New Way to Read Your District's Air](posts/2026-09-05-your-airshed-or-your-town.md)
+  - [The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain](posts/2026-09-05-a-map-of-the-gangetic-plain.md)
+
 - **August 2026**
   - [What the Air Looks Like](posts/2026-08-09-what-the-air-looks-like.md)
   - [How to Read the JanVayu Map](posts/2026-08-09-how-to-read-the-map.md)
