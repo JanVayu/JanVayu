@@ -5,6 +5,88 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.177] - 2026-09-08
+
+### Fixed — the promise had outrun the practice
+
+Two conference decks and the wiki home told visitors that every number on
+JanVayu was **"fact-checked — weekly"**. The deeper audit that phrase refers to
+ran five times and stopped on **27 July 2026**. Six weeks later the promise was
+still on the decks, still in the speaker notes, and still the line the deck told
+a presenter to say out loud on stage.
+
+The audit itself is not a CI job and cannot be: it web-verifies statistics
+against primary sources, which needs a model and a human reviewer rather than a
+runner. The scheduler that drove it lives outside this repository and has
+stopped; `.github/workflows/auto-pr-factcheck.yml` only opens the PR once
+something pushes the branch, so nothing here failed when nothing pushed.
+
+**What the site says now separates the two layers, because they are genuinely
+different.** *Continuous*, on every change: the build recomputes every stated
+figure from the underlying data and fails on drift, and since v26.6.176 refuses
+any claim JanVayu has publicly retracted, in English and in all four
+translations. *Periodic*: the deeper audit against primary sources, whose
+findings are written into dated files in `docs/`.
+
+**And `scripts/check-factcheck-freshness.py` now holds the two together**, from
+both ends, which is the part that would have caught this:
+
+- the newest `docs/fact-check-<date>.md` may not be older than 120 days — a
+  "periodic" audit that has not run in four months has stopped, not slowed;
+- **no page may advertise a cadence the practice does not keep.** This is the
+  half that failed. The pages describing the audit are checked for a weekly or
+  daily promise near a fact-check phrase, so the wording and the reality cannot
+  drift apart again in either direction.
+
+It earned its place immediately: it found a **sixth** occurrence that a hand
+grep had missed, inside a speaker note in `walkthrough/deck.html` telling the
+presenter to close on "the weekly automated fact-check". Verified against three
+cases — the promise returning on a deck fails, a simulated stale audit fails,
+and an unrelated "weekly newsletter" line does not trip it.
+
+If the weekly routine is restarted, `MAX_AGE_DAYS` tightens and "weekly" goes
+back on the pages **in the same commit**. That is the point of the guard: one
+decision instead of two that drift.
+
+Decks regenerated (38 and 13 slides). `docs/wiki/Home.md` also pointed at
+`fact-check-2026-07.md` as "the latest findings" when the latest is
+`fact-check-2026-07-27.md`.
+
+### Not done — de-weathering is blocked on data access, not on method
+
+Recorded so the roadmap item does not sit there looking like nobody tried.
+
+De-weathering needs two inputs: a multi-year record of **observed** PM2.5 at
+known stations, and matching meteorology. The meteorology is solved —
+**NOAA's Integrated Surface Database** returns 3-hourly temperature, dew point,
+wind speed and direction and pressure for Indian synoptic stations, keyless and
+reachable (verified against Delhi Safdarjung, station 42182099999).
+
+The observations are not, and every route was tried:
+
+| Route | Result |
+|---|---|
+| Open-Meteo archive | **HTTP 429**, daily limit exhausted on the shared egress IP |
+| OpenAQ v3 API | **HTTP 401**, needs a key |
+| OpenAQ open-data archive on S3 | reachable and keyless, but keyed by **opaque numeric location id** with no metadata in the bucket — the id-to-station lookup is the part that needs the API key |
+| legacy `openaq-fetches` bucket | **AccessDenied** |
+| US State Department historical posts | 404 / proxy 502 |
+
+`OPENAQ_API_KEY` **is** configured for the site in Netlify, and reading it from
+there was denied by this environment's guardrail. That is the right call for a
+sandbox to make and it was not worked around.
+
+**It is unblocked by one thing**: the OpenAQ key present in the build
+environment. With it, the id lookup is a handful of requests and the bulk series
+comes from the keyless S3 archive.
+
+**One thing that must not be done instead**, recorded because it is the obvious
+shortcut: de-weathering the LongPMInd layer added in v26.6.174. That product is
+itself reconstructed *from* ERA5 and MERRA-2 meteorology, so regressing it on
+meteorology and removing the fitted component would strip the model's own inputs
+rather than a physical relationship, and would produce a confident trend that
+means nothing. De-weathering has to run on observations.
+
 ## [v26.6.176] - 2026-09-08
 
 ### Fixed — a retraction that never reached the quiet surfaces

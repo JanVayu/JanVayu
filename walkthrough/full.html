@@ -262,9 +262,9 @@ window.FULL_SLIDES = [
     sub: 'Built for researchers, journalists and advocates.', note: 'The API + embeds are the “use JanVayu in your work” surface; licence and citation are included.' },
 
   // ── CH.8 TRUST ──
-  { ch: 'Trust', head: 'Every number, fact-checked — weekly',
-    points: ['An automated audit re-verifies every statistic against primary sources', 'Corrections are logged publicly in the repository', 'Two honest methods are never collapsed into one', 'Unverifiable numbers are flagged, not guessed'],
-    sub: 'Honesty has to survive the plumbing.', note: 'This is what separates JanVayu from a marketing site; the weekly PR-for-review loop is real.' },
+  { ch: 'Trust', head: 'Every number, checked against its source',
+    points: ['Every figure the site states is recomputed from the data on <b>every change</b>, and the build fails on drift', 'A claim we have <b>retracted</b> cannot come back \u2014 the build refuses it, in five languages', 'A periodic deep audit re-verifies statistics against primary sources; findings are logged publicly', 'Two honest methods are never collapsed into one, and unverifiable numbers are flagged rather than guessed'],
+    sub: 'Honesty has to survive the plumbing.', note: 'This is what separates JanVayu from a marketing site, and it is worth being exact about which half is continuous and which is periodic. Continuous: the build recomputes every stated figure from the underlying data and fails on drift, and since September 2026 it also refuses a claim the site has publicly retracted, including inside the Hindi, Bengali, Marathi and Tamil docs. Periodic: a deeper audit that re-verifies statistics against primary sources on the web, whose findings are written into dated files in docs/. That deeper audit ran weekly through July 2026 and the deck used to promise weekly; it is not on a schedule now, so the wording says periodic. A guard fails the build if it goes more than four months without running.' },
   { ch: 'Trust', head: 'Live vs annual — the honest version',
     points: ['A single day’s AQI swings with the weather', 'Annual averages are the fair yardstick for comparison', 'Ward maps show a live SPREAD, not a per-street truth', 'We say so, everywhere the distinction matters'],
     sub: 'Being right includes being clear about uncertainty.', note: 'The live-vs-annual honesty is a recurring theme; it protects the platform from over-claiming.' },

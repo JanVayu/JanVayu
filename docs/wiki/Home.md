@@ -4,7 +4,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **Website:** [janvayu.in](https://www.janvayu.in) · **Repository:** [GitHub](https://github.com/JanVayu/JanVayu) · **Contact:** contribute@janvayu.in
 
-> 🔎 **Every figure is fact-checked.** A weekly automated routine web-verifies each statistic and calculator constant against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA) and opens a review PR. See the latest findings in [`docs/fact-check-2026-07.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07.md).
+> 🔎 **Every figure is checked against its source, in two layers.** *Continuously*: the build recomputes every figure the site states from the underlying data and fails on drift, and refuses any claim JanVayu has publicly retracted — in English and in all four translations. *Periodically*: a deeper audit web-verifies each statistic and calculator constant against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA) and opens a review PR. That deeper audit ran weekly through July 2026 and is not on a schedule now; `scripts/check-factcheck-freshness.py` fails the build if it goes more than four months without running. Latest findings: [`docs/fact-check-2026-07-27.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07-27.md).
 
 ---
 
