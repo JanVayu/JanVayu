@@ -5,6 +5,80 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.176] - 2026-09-08
+
+### Fixed — a retraction that never reached the quiet surfaces
+
+In July 2026 JanVayu published a post about fact-checking itself and retracted
+its own claim that India carries "~70% of the global PM2.5 mortality burden".
+The homepage was corrected. `scripts/stats.json` was corrected after it was
+caught injecting the old figure back over the fixed HTML at runtime.
+`test/ask-eval` gained a hard gate so the assistant can never say it.
+
+On 8 September the claim was still live in **eleven files**: the English docs
+front page, the wiki home, `docs/data-sources/health-data.md` — the canonical
+source the rest of the site cites — and the Hindi, Bengali, Marathi and Tamil
+translations of all of them.
+
+Two more of the same shape. Delhi's annual PM2.5 moved to **82.2 µg/m³** on
+20 July; the superseded **91.6** was still in nine files seven weeks later,
+including three translated user guides. And "India 5th most polluted" was still
+in the Resources panel, which the same fact-check moved to 6th at 48.9.
+
+The correction had reached every surface anyone looks at, and none of the
+surfaces they do not.
+
+**So a retraction is now something the repository keeps out, not something it
+edits once.** `scripts/check-retracted-claims.py` fails the build if a retracted
+claim reappears outside the dated records that document it. Each entry carries
+the date it was retracted, why, and the wording to use instead, so the failure
+message is a fix rather than a puzzle.
+
+It reads the translated docs **by numeral**, because that is where the claim
+actually hid: no one on this team reads Tamil, and `70%` inside a Tamil table
+cell looks like nothing at all. To keep the numeral from over-firing it requires
+a word for *global* on the same line in any of the five languages, so
+"~70% of rural Indian women still cook with solid fuels" is untouched. Verified
+against five cases: the claim returning in English prose, in a Tamil table cell,
+and as "5th most polluted" all fail; an unrelated 70% statistic and an SVG path
+coordinate containing `91.6` both pass.
+
+The translated files were corrected here by **numeral**, not retranslated: each
+stale value sat as a bare figure inside an otherwise-correct native sentence, so
+`~70%` → `~25–33%`, `91.6` → `82.2`, `18×` → `16×` and `7–8 years` → `5–8 years`
+leave the surrounding grammar intact and make each sentence true.
+`scripts/translate-docs.py` re-renders these files whole on the next sync from
+`docs/**`, which the merge to `main` triggers.
+
+### Fixed — the assistant, the decks and the wiki had not caught up
+
+`rules/content-management` has required since Phase 5.23 that a shipped feature
+reach Ask JanVayu and the walkthrough. v26.6.174 shipped without either.
+
+- **Ask JanVayu** gained rule 31: the 43-year history and the airshed finding,
+  with the three things it must say whenever it uses them — that the pre-2010s
+  figures are a **reconstruction** and not a measurement, that the history is
+  **not differenceable** against the ~1 km 2024 layer (trend and shape from one,
+  level from the other), and that the airshed split **names no cause**. Three
+  eval cases added for exactly those three.
+
+  It also now distinguishes **Delhi as a whole** (50.9 in the 1980s, 91.6 over
+  2013–2022 — the figures that reproduce Hawa Ka Hisab's published numbers) from
+  the **New Delhi district** (51.0 and 89.1). Those are different areas and the
+  two pairs are easy to swap by accident.
+
+- **The full walkthrough** gained an airshed slide, 37 → 38, with the speaker
+  note carrying the same three constraints. `walkthrough/index.html` still said
+  37; the PDF and PPTX exports were regenerated from the HTML and both now carry
+  38. The short deck is unchanged at 13, which is what it claimed.
+
+- **The wiki's "What's New"** ended at v26.6.58–71, dated 15 July: a hundred
+  versions and two months behind. Two entries added.
+
+- **The roadmap** recorded nothing after v26.6.171. Phase 5.25 added — and with
+  it **de-weathering as an open item**, which v26.6.173 twice said was "tracked
+  as a roadmap item" when it was tracked nowhere at all.
+
 ## [v26.6.175] - 2026-09-08
 
 ### Fixed — the homepage still said August

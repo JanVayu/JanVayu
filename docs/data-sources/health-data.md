@@ -71,7 +71,7 @@ Used for:
 **Source:** The Lancet Countdown on Health and Climate Change (2025 report, India chapter)  
 **URL:** [thelancet.com/countdown-health-climate](https://www.thelancet.com/countdown-health-climate)
 
-The annual *Lancet Countdown* synthesises the latest exposure-response functions, demographic data, and PM2.5 exposure surfaces into a single attributable-mortality estimate. The 2025 report places annual ambient PM2.5 mortality in India at **1.72 million** &mdash; up from 1.5 million in earlier syntheses. The increase comes from re-attribution of household biomass deaths and a tighter exposure-response at the high end of the PM2.5 distribution. India's share of the global PM2.5 mortality burden remains ~70%.
+The annual *Lancet Countdown* synthesises the latest exposure-response functions, demographic data, and PM2.5 exposure surfaces into a single attributable-mortality estimate. The 2025 report places annual ambient PM2.5 mortality in India at **1.72 million** &mdash; up from 1.5 million in earlier syntheses. The increase comes from re-attribution of household biomass deaths and a tighter exposure-response at the high end of the PM2.5 distribution. India's toll is the largest of any single country, and is roughly a quarter to a third of the global ambient PM2.5 mortality burden — not a majority. The far larger share this file claimed until September 2026 was **retracted** in July 2026 and is now policed by `scripts/check-retracted-claims.py`.
 
 This is the **canonical headline figure** used throughout JanVayu &mdash; on the dashboard, in the Health Impact panel, and in the README's *Key Statistics* table.
 
