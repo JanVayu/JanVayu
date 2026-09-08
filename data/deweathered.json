@@ -1,0 +1,256 @@
+{
+ "_meta": {
+  "what": "Daily mean PM2.5 for Delhi-NCR CPCB stations, raw and meteorologically normalised (weather removed).",
+  "method": "Random forest over wind speed, wind vector components, temperature and relative humidity, plus trend, season, day of week and station. Normalised by resampling the meteorology while holding time and station fixed (Grange et al. 2018, Atmos. Chem. Phys. 18, 6223-6239).",
+  "excluded": "Lagged pollutant values are deliberately NOT features: feeding yesterday PM2.5 into a model meant to isolate emissions launders the answer through the target.",
+  "pm25_source": "CPCB / DPCC / IMD stations via OpenAQ",
+  "met_source": "NOAA Integrated Surface Database, Delhi Safdarjung (42182099999) and Palam (42181099999)",
+  "window": "2018-04-15 to 2022-10-15",
+  "why_this_window": "OpenAQ Delhi coverage is not continuous. A segment runs 2018-03 to 2022-10 at most stations, then a roughly 2.3-year ingest gap, then 2025-02 onward. The location endpoint advertises 2016 to 2026, which is the union of disjoint sensors and not a coverage claim.",
+  "stations": 10,
+  "station_names": [
+   "Aya Nagar, New Delhi - IMD",
+   "North Campus, DU, Delhi - IMD",
+   "Sector- 16A, Faridabad - HSPCB",
+   "NSIT Dwarka, Delhi - CPCB",
+   "DTU, New Delhi - CPCB",
+   "CRRI Mathura Road, New Delhi - IMD",
+   "Shadipur, Delhi - CPCB",
+   "Lodhi Road, New Delhi - IMD",
+   "Vasundhara, Ghaziabad - UPPCB",
+   "IHBAS, Dilshad Garden,New Delhi - "
+  ],
+  "station_days": 7346,
+  "day_coverage_note": "A day is kept only where the station reported at least 18 hourly values, so a \"daily mean\" is not built from three hours.",
+  "covid_note": "The 2020 lockdowns sit inside this window. Normalisation removes weather, NOT lockdowns: the 2020 fall is a real emissions change and stays in the normalised series.",
+  "not_national": "Delhi-NCR only. Nothing here transfers to another city.",
+  "comparison_months": [
+   9,
+   10
+  ],
+  "why_only_these_months": "Coverage is severely and unevenly seasonal, so every figure compared across years is restricted to the months present in EVERY year. A naive annual mean of observed days reads the gaps as a trend: 2021 is missing April to August (its cleaner months, so it looks terrible at 137.6) and 2022 is missing November and December (its worst, so it looks clean at 82.2). Averaged against each other those produce a confident RISING trend that is entirely an artefact of which months reported. all_months_raw is kept only to show that gap.",
+  "holdout_r2": 0.749,
+  "holdout_rmse": 44.03,
+  "r2_placebo_shuffled": -0.125,
+  "r2_meteorology_only": 0.695,
+  "variance_removed_pct": 72.3,
+  "placebo_note": "r2_placebo_shuffled is the held-out score after the PM2.5 values are shuffled against their dates. It must sit near or below zero; anything else means the pipeline is leaking and the trend below is worthless.",
+  "feature_importance": [
+   [
+    "season cos",
+    0.428
+   ],
+   [
+    "wind speed",
+    0.176
+   ],
+   [
+    "station",
+    0.121
+   ],
+   [
+    "relative humidity",
+    0.062
+   ],
+   [
+    "season sin",
+    0.051
+   ],
+   [
+    "trend",
+    0.047
+   ],
+   [
+    "temperature",
+    0.041
+   ],
+   [
+    "wind v",
+    0.037
+   ],
+   [
+    "wind u",
+    0.022
+   ],
+   [
+    "day of week",
+    0.015
+   ]
+  ],
+  "resamples": 60,
+  "bootstrap": 200
+ },
+ "annual_raw": {
+  "2018": {
+   "mean": 95.9,
+   "n": 533
+  },
+  "2019": {
+   "mean": 77.8,
+   "n": 571
+  },
+  "2020": {
+   "mean": 118.5,
+   "n": 239
+  },
+  "2021": {
+   "mean": 72.0,
+   "n": 425
+  },
+  "2022": {
+   "mean": 55.2,
+   "n": 155
+  }
+ },
+ "annual_normalised": {
+  "2018": {
+   "mean": 87.9,
+   "n": 533
+  },
+  "2019": {
+   "mean": 76.5,
+   "n": 571
+  },
+  "2020": {
+   "mean": 100.0,
+   "n": 239
+  },
+  "2021": {
+   "mean": 83.3,
+   "n": 425
+  },
+  "2022": {
+   "mean": 66.2,
+   "n": 155
+  }
+ },
+ "all_months_raw": {
+  "2018": {
+   "mean": 112.8,
+   "n": 1146
+  },
+  "2019": {
+   "mean": 101.9,
+   "n": 1675
+  },
+  "2020": {
+   "mean": 97.6,
+   "n": 2621
+  },
+  "2021": {
+   "mean": 137.6,
+   "n": 1231
+  },
+  "2022": {
+   "mean": 82.2,
+   "n": 673
+  }
+ },
+ "month_coverage": {
+  "2018": {
+   "present": [
+    4,
+    5,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "missing": [
+    1,
+    2,
+    3,
+    6,
+    7
+   ]
+  },
+  "2019": {
+   "present": [
+    1,
+    2,
+    4,
+    5,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "missing": [
+    3,
+    6
+   ]
+  },
+  "2020": {
+   "present": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "missing": []
+  },
+  "2021": {
+   "present": [
+    1,
+    2,
+    3,
+    9,
+    10,
+    11,
+    12
+   ],
+   "missing": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  "2022": {
+   "present": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "missing": [
+    11,
+    12
+   ]
+  }
+ },
+ "trend_raw": {
+  "slope_per_year": -5.48,
+  "ci95": [
+   -9.89,
+   0.23
+  ],
+  "verdict": "no direction called: the 95% interval contains zero"
+ },
+ "trend_normalised": {
+  "slope_per_year": -1.1,
+  "ci95": [
+   -1.93,
+   0.05
+  ],
+  "verdict": "no direction called: the 95% interval contains zero"
+ }
+}

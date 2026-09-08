@@ -3234,6 +3234,87 @@
     // Deliberately says the gap names no cause, because a district under its
     // state median is not thereby well run.
     var __airshedData = null;
+    // ── De-weathering: what is left of a trend once the weather is removed ──
+    // Its own fetch and its own try/catch, so a failure here cannot take the
+    // rest of the airshed panel down with it.
+    var __deweatherData = null;
+    async function renderDeweather() {
+        var host = document.getElementById('airshed-weather-body');
+        if (!host) return;
+        if (!__deweatherData) {
+            try {
+                var r = await fetch('/data/deweathered.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                __deweatherData = await r.json();
+            } catch (e) {
+                console.warn('De-weathered data load failed:', e);
+                host.innerHTML = '<p style="color:var(--text-3); font-size:0.9rem;">The weather-adjusted figures could not load.</p>';
+                return;
+            }
+        }
+        var d = __deweatherData, m = d._meta;
+        var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+        var years = Object.keys(d.annual_raw);
+        var vals = years.map(function (y) { return Math.max(d.annual_raw[y].mean, d.annual_normalised[y].mean); });
+        var top = Math.max.apply(null, vals) * 1.08;
+        var MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+        var monthNames = (m.comparison_months || []).map(function (i) { return MONTHS[i]; }).join(' and ');
+
+        var rows = years.map(function (y) {
+            var a = d.annual_raw[y].mean, b = d.annual_normalised[y].mean;
+            var pa = Math.round(a / top * 100), pb = Math.round(b / top * 100);
+            return '<tr>' +
+                '<th scope="row" style="text-align:left; font-weight:600; padding:0.35rem 0.75rem 0.35rem 0; white-space:nowrap;">' + esc(y) + '</th>' +
+                '<td style="padding:0.35rem 0.5rem 0.35rem 0; width:44%;">' +
+                  '<span style="display:block; height:0.55rem; border-radius:2px; background:var(--border);">' +
+                  '<span style="display:block; height:100%; border-radius:2px; width:' + pa + '%; background:#94a3b8;"></span></span></td>' +
+                '<td style="padding:0.35rem 1rem 0.35rem 0; font-variant-numeric:tabular-nums; white-space:nowrap;">' + a.toFixed(1) + '</td>' +
+                '<td style="padding:0.35rem 0.5rem 0.35rem 0; width:44%;">' +
+                  '<span style="display:block; height:0.55rem; border-radius:2px; background:var(--border);">' +
+                  '<span style="display:block; height:100%; border-radius:2px; width:' + pb + '%; background:var(--green-700);"></span></span></td>' +
+                '<td style="padding:0.35rem 0; font-variant-numeric:tabular-nums; white-space:nowrap;">' + b.toFixed(1) + '</td>' +
+                '</tr>';
+        }).join('');
+
+        var called = d.trend_normalised.verdict.indexOf('no direction') === -1;
+        var ratio = (d.trend_raw.slope_per_year !== 0)
+            ? Math.round(Math.abs(d.trend_normalised.slope_per_year / d.trend_raw.slope_per_year) * 100)
+            : null;
+
+        host.innerHTML =
+            '<table style="width:100%; border-collapse:collapse; font-size:0.9rem;">' +
+            '<caption class="sr-only">Delhi-NCR ' + esc(monthNames) + ' mean PM2.5 by year, as measured and with weather removed</caption>' +
+            '<thead><tr style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-3);">' +
+            '<th scope="col" style="text-align:left; padding-bottom:0.4rem;">Year</th>' +
+            '<th scope="col" colspan="2" style="text-align:left; padding-bottom:0.4rem;">As measured</th>' +
+            '<th scope="col" colspan="2" style="text-align:left; padding-bottom:0.4rem;">Weather removed</th>' +
+            '</tr></thead><tbody>' + rows + '</tbody></table>' +
+            '<p style="font-size:0.9rem; line-height:1.65; color:var(--text-2); margin-top:0.9rem;">' +
+            'Across ' + esc(monthNames) + ', the measured figures fall by <strong>' +
+            Math.abs(d.trend_raw.slope_per_year).toFixed(1) + '</strong> &micro;g/m&sup3; a year. ' +
+            'Take the weather out and only <strong>' + Math.abs(d.trend_normalised.slope_per_year).toFixed(1) +
+            '</strong> remains' + (ratio !== null ? ' — about ' + ratio + '% of it' : '') + '. ' +
+            (called
+              ? 'That remainder is distinguishable from no change.'
+              : 'Neither is distinguishable from no change: both 95% intervals contain zero, so <strong>no direction is claimed</strong>.') +
+            '</p>' +
+            '<p style="font-size:0.82rem; color:var(--text-3); margin-top:0.5rem;">' +
+            esc(m.stations) + ' stations · ' + esc(m.station_days) + ' station-days · ' + esc(m.window) +
+            ' · held-out R&sup2; ' + esc(m.holdout_r2) +
+            ' · placebo on shuffled data ' + esc(m.r2_placebo_shuffled) + '</p>' +
+            '<details class="apportion-method" style="margin-top:0.9rem;">' +
+            '<summary>What this can and cannot say</summary><div class="apportion-method-body">' +
+            '<p><strong>Only these months, and only this window.</strong> Station coverage is uneven and seasonal, so every year here is compared on ' + esc(monthNames) + ' alone, the months present in all five. A plain annual average of whatever days reported would read the gaps as a trend: 2021 is missing April to August, its cleaner months, and 2022 is missing November and December, its worst. Averaged against each other they manufacture a rising trend out of nothing.</p>' +
+            '<p><strong>Not national.</strong> ' + esc(m.not_national) + '</p>' +
+            '<p><strong>The 2020 lockdowns are inside the window.</strong> ' + esc(m.covid_note) + '</p>' +
+            '<p><strong>Why this window.</strong> ' + esc(m.why_this_window) + '</p>' +
+            '<p><strong>Method.</strong> ' + esc(m.method) + ' ' + esc(m.excluded) + '</p>' +
+            '<p><strong>How we know it is not noise.</strong> ' + esc(m.placebo_note) + ' It scores ' + esc(m.r2_placebo_shuffled) + '. Meteorology on its own predicts daily PM2.5 at R&sup2; ' + esc(m.r2_meteorology_only) + ', and the adjustment removes ' + esc(m.variance_removed_pct) + '% of the day-to-day variance.</p>' +
+            '<p><strong>Sources.</strong> PM2.5 from ' + esc(m.pm25_source) + '. Meteorology from ' + esc(m.met_source) + '.</p>' +
+            '</div></details>';
+    }
+
     window.initAirshed = async function initAirshed() {
         var sel = document.getElementById('airshed-district');
         if (!sel) return;
@@ -3273,6 +3354,9 @@
             });
             sel.addEventListener('change', render);
         }
+
+        // Independent of the district selector: this is one airshed-wide result.
+        try { renderDeweather(); } catch (e) { console.warn('De-weather render:', e); }
 
         function render() {
             var key = sel.value, parts = key.split('|');

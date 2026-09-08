@@ -89,6 +89,29 @@ CLAIMS = [
         ],
     },
     {
+        'id': 'ncap-of-96',
+        # Two wrong shapes, one root. CSE's Five-Year Review said 27 of 96; CREA's
+        # Tracing the Hazy Air 2026 says 23 of 100. The July 2026 round corrected
+        # the numerator and left the denominator, so the site carried 23 of 96 —
+        # a hybrid neither source published — while three other files still said
+        # 27 of 96 and credited it to CREA. Both shapes are refused.
+        'pattern': re.compile(r'\b2[0-9]\s+of\s+96\b'),
+        'also_on_line': None,
+        'retracted': '2026-09-08',
+        'why': 'CREA (Tracing the Hazy Air 2026) reports 23 of the 100 cities with '
+               '>=80% PM10 data coverage, out of 102 with monitors, out of 130 '
+               'assessed. "96" is CSE\'s denominator from a different analysis and '
+               'was never CREA\'s.',
+        'instead': '23 of the 100 cities with sufficient PM10 data (CREA, Tracing the Hazy Air 2026)',
+        'allow': [
+            'CHANGELOG.md',
+            'docs/fact-check-',
+            'docs/wiki/Home.md',
+            'docs/wiki/Roadmap.md',
+            'scripts/check-retracted-claims.py',
+        ],
+    },
+    {
         'id': 'india-5th',
         'pattern': re.compile(r'5th most polluted', re.I),
         'also_on_line': None,

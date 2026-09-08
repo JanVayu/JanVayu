@@ -1056,7 +1056,7 @@ KEY REFERENCE DATA (India-wide, not Delhi-specific):
 - India average PM2.5: 48.9 µg/m³ (~10× WHO limit) — IQAir 2025.
 - 1.72 million Indians die annually from ambient PM2.5 — Lancet Countdown 2025 (2022 data). This is the world's largest national toll, but roughly a QUARTER TO A THIRD of the global total — NOT a majority. (Counting household air pollution too, State of Global Air 2025 puts India's total at ~2.0 million, 2023 data.)
 - Economic cost: $339.4 billion/year, ~9.5% of GDP — Lancet Countdown 2025.
-- NCAP target: 40% PM10 reduction across 131 non-attainment cities by 31 March 2026 (this deadline has now PASSED). Of the cities assessed, 23 of 96 met the target — CREA 2026.
+- NCAP target: 40% PM10 reduction across 131 non-attainment cities by 31 March 2026 (this deadline has now PASSED). Of the cities assessed, 23 of the 100 cities with sufficient PM10 data met the target (of 102 with monitors, of 130 assessed) — CREA, Tracing the Hazy Air 2026.
 - Average Indian loses 3.5 years of life expectancy to pollution — AQLI 2025. Delhi-NCR residents lose up to 8.2 years.
 - Most polluted city globally: Loni, India (112.5 µg/m³ annual) — IQAir 2025, the 2025 edition covering 2025 data.
 ${langOverride}${nationalFraming}
