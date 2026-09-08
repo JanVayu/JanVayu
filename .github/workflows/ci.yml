@@ -80,6 +80,14 @@ jobs:
       - name: Check no retracted claim has come back
         run: python3 scripts/check-retracted-claims.py
 
+      # Two conference decks and the wiki told visitors every number was
+      # "fact-checked — weekly". The audit that phrase referred to ran five
+      # times and stopped on 27 July 2026; six weeks later the promise was
+      # still on the decks. This checks both ends: the audit may not go stale,
+      # and no page may advertise a cadence the practice does not keep.
+      - name: Check the fact-check promise matches the practice
+        run: python3 scripts/check-factcheck-freshness.py
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for
