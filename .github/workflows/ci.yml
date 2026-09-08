@@ -63,6 +63,14 @@ jobs:
       - name: Check the district history is complete
         run: python3 scripts/build-district-history.py --check
 
+      # The hero's dated standfirst is hand-written and nothing generates it.
+      # It said "July 2026" on 1 August, caught only by a manual pre-conference
+      # audit, and "August 2026" on 8 September, caught by a reader. Everything
+      # else on that line ages fine; the month label is the part that rots on
+      # its own, in the largest type on the page. A week's grace, then it fails.
+      - name: Check the homepage bulletin is from this month
+        run: python3 scripts/check-hero-currency.py
+
   # Guard against the class of bug that took the chatbot (air-query) down for
   # ~2 weeks in May 2026: declaring `__dirname`/`__filename` at the top level
   # of a Netlify function. Netlify's esbuild bundler injects its own shims for
