@@ -78,6 +78,26 @@ def build():
     return {'stories': stories}
 
 
+
+def sidebar_gaps():
+    """Posts on disk that blog/_sidebar.md does not list.
+
+    README.md is a curated "Latest" table and is allowed to omit posts.
+    _sidebar.md is the month-by-month ARCHIVE and is the blog's own navigation,
+    so a post missing from it is reachable only by direct link. On 8 September
+    2026 three posts were in that state, including two published three days
+    earlier: adding a post updates README (which generates this file, so CI
+    noticed) and nothing forced anyone to touch the sidebar.
+    """
+    import re
+    posts = {f.stem for f in (ROOT / 'blog' / 'posts').glob('*.md')}
+    sb = ROOT / 'blog' / '_sidebar.md'
+    if not sb.exists():
+        return []
+    listed = set(re.findall(r'\(posts/([0-9a-z\-.]+)\.md\)', sb.read_text(encoding='utf-8')))
+    return sorted(posts - listed)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--check', action='store_true', help='exit 1 if the file is out of date')
@@ -86,18 +106,31 @@ def main():
     data = build()
     text = json.dumps(data, ensure_ascii=False, indent=1) + '\n'
 
+    gaps = sidebar_gaps()
+
     if args.check:
         current = OUT.read_text(encoding='utf-8') if OUT.exists() else ''
         if current != text:
             print(f'{OUT.relative_to(ROOT)} is out of date — run scripts/build-blog-index.py')
             return 1
-        print(f'{OUT.relative_to(ROOT)} matches the blog index ({len(data["stories"])} posts).')
+        if gaps:
+            print(f'blog/_sidebar.md does not list {len(gaps)} post(s) that exist:')
+            for g in gaps:
+                print(f'  posts/{g}.md')
+            print('\n  The sidebar is the blog\'s own navigation, so these are reachable\n'
+                  '  only by direct link. Add them under their month heading.')
+            return 1
+        print(f'{OUT.relative_to(ROOT)} matches the blog index ({len(data["stories"])} posts); '
+              f'blog/_sidebar.md lists every post.')
         return 0
 
     OUT.write_text(text, encoding='utf-8')
     print(f'{len(data["stories"])} posts -> {OUT.relative_to(ROOT)}')
     for s in data['stories'][:3]:
         print(f'  {s["date"]:>12s}  {s["tag"]:14s} {s["title"][:52]}')
+    if gaps:
+        print(f'  WARNING: blog/_sidebar.md does not list {len(gaps)} post(s): '
+              + ', '.join(gaps))
     missing = [s['title'] for s in data['stories'] if not s['blurb']]
     if missing:
         print(f'  no blurb found for {len(missing)}: {", ".join(missing[:3])}')

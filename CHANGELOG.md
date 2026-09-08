@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.180] - 2026-09-08
+
+### Fixed — three posts were live and missing from the blog's own navigation
+
+Verifying the new post on production rather than trusting the merge turned up
+something the merge could not have shown: the post was served, its diagrams were
+served, the homepage list carried it — and **`blog/_sidebar.md` did not**.
+
+The sidebar is the blog's month-by-month archive and its actual navigation. A
+post missing from it is reachable only by direct link. Three were in that state:
+
+- `2026-09-08-was-it-policy-or-the-wind` (this session's)
+- `2026-09-05-your-airshed-or-your-town` (**live and unlisted since 5 September**)
+- `2026-09-05-a-map-of-the-gangetic-plain` (same)
+
+**Why nothing caught it.** Publishing a post means adding a row to
+`blog/README.md`, which generates `data/stories.json`, which CI checks. Nothing
+forced anyone to touch the sidebar, and nothing compared the two. So the
+homepage list was right, the generated file was right, `--check` was green, and
+the blog's own navigation was two posts behind for three days.
+
+`build-blog-index.py --check` now fails when a post on disk is absent from the
+sidebar. Verified by deleting an entry: it names the file and says why it
+matters.
+
+**One thing deliberately left alone.** `blog/README.md` omits five older posts
+(May–July), and that is *not* being "fixed". Its heading is `## Latest` — a
+curated table, not an archive — so an editorial omission there is legitimate.
+The invariant the guard enforces is therefore "every post appears in the
+**sidebar**", not "the two lists match". 42 posts on disk, 42 in the sidebar,
+37 in the curated Latest table.
+
 ## [v26.6.179] - 2026-09-08
 
 ### Added — "Was It Policy, or Was It the Wind?"
