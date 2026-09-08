@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.175] - 2026-09-08
+
+### Fixed — the homepage still said August
+
+The hero's opening line is a hand-written bulletin that names its own month.
+On 8 September it read **"August 2026:"**, and went on to tell a reader that
+"the monsoon brings a brief respite" in the week the monsoon starts
+withdrawing. It is the first thing anyone sees and the only place on the site
+that claims, in so many words, to be current.
+
+Rewritten for September: the monsoon withdraws from northwest India around the
+middle of the month, and October opens the season the country argues about
+(stubble burning, Diwali, the winter inversion over the Indo-Gangetic plain).
+The dated facts in it stay, because they age fine: the IQAir 2025 edition, the
+Lancet Countdown 2025, the elapsed NCAP deadline, CAQM's off-season GRAP in
+May. The "New:" tail now points at the airshed panel and its 43-year history
+rather than at August's games and walkthrough.
+
+**This is the third time.** On 1 August the same line still said "July 2026",
+found only because someone audited the whole site before a conference
+(v26.6.154-155). This time a reader found it. Nothing generates the label and
+nothing checked it, so `scripts/check-hero-currency.py` now does, in CI:
+
+- The label must parse as `<Month> <Year>:` at the start of `#heroLiveAlert`.
+- It may not name a month that has not happened.
+- It may not name a month that has ended, once the new month is more than a
+  week old.
+
+The week of grace is deliberate. The standfirst is editorial, written by hand
+near the start of a month, and a check that failed every unrelated pull request
+at midnight on the 1st would teach people to ignore it. Verified against all
+four failure modes and against the boundary: on 7 September an August label
+passes, on the 8th it fails.
+
+### Fixed — the About panel's version history stopped on 9 August
+
+The site's own "what's new" list ran to v26.6.155 while the site was serving
+v26.6.174, so a reader had no way to learn from the site that any of the last
+month's work existed. Two entries added, written from the changelog rather than
+from memory:
+
+- **v26.6.171-174** (5-6 September): the *Your Airshed or Your Town* panel and
+  its finding that 89% of the variation in district PM2.5 lies between states
+  rather than within them; 43 years of PM2.5 for 783 districts; Hawa Ka Hisab
+  joining the Janhit Partners; and the monthly air rebuild that had never once
+  run.
+- **v26.6.156-170** (9-21 August): the CAMS current-year air layer, five more
+  peer-reviewed papers, the three social feeds that were carrying things that
+  were not citizen voices, and the eval harness that scored 27/27 while grading
+  almost nothing.
+
+Neither entry states a count that `check-site-figures.py` polices, so they
+cannot drift into contradicting the data the way the figures they replaced did.
+
 ## [v26.6.174] - 2026-09-06
 
 ### Added — forty-three years of PM2.5 for every district, 1980 to 2022
