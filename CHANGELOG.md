@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.182] - 2026-09-11
+
+### Added — 2 peer-reviewed papers (Reading List now 38)
+
+The two Frontiers papers held back in v26.6.181 are carded, under the v26.6.168 convention. Both articles exist on frontiersin.org with matching titles, authors and abstracts, verified against a bogus-DOI control that correctly 404s; `citation_online_date` gives 2 September and 9 September, and both pages identify themselves as accepted manuscripts. So the Crossref 404 is a pending deposit, not a bad citation. Each card links the journal page and says so on its face; the DOI can replace the link once it registers.
+
+- A Hybrid VMD-Transformer-BiLSTM Framework for daily PM2.5 concentration forecasting in Delhi, India — Muni Lakshmi & Mokesh Rayalu (*Frontiers in Environmental Science* 14, accepted 2 Sep 2026). 2,557 daily CPCB observations for Delhi (2019–2024) with 17 pollutant and meteorological variables, decomposed into six intrinsic mode functions and modelled per component. R² 0.913, RMSE 29.15 µg/m³ against eleven baselines; the ablation attributes most of the gain to the decomposition. Framed around day-ahead GRAP triggers.
+- Prediction accuracy of available early warning systems for air pollution across WHO South-East Asia region: a systematic review — Mahawar, Sivakumar, Singh, Kumar, Parmar, Pati & Aggarwal (*Frontiers in Public Health* 14, accepted 9 Sep 2026). PROSPERO CRD420251275901; 14 studies from India, Bangladesh and Thailand out of 839 records, appraised with PROBAST+AI.
+
+**A third correction to the submission.** The review was described as finding that most tools "struggle with prediction accuracy during extreme pollution episodes". That is not its finding. Hybrid deep-learning models report the *lowest* errors and explained variance up to R² 0.998; what the review actually establishes is that most of that evidence carries a high risk of bias from inadequate external validation and algorithmic overfitting, and that heterogeneity ruled out meta-analysis. The distinction matters for how the paper is used here: it is not a ranking of which alert systems to adopt, it is a reason to distrust reported accuracy that has not been externally validated.
+
+The section badge and the homepage quick-link both move from 36 to 38.
+
 ## [v26.6.181] - 2026-09-11
 
 ### Added — 3 peer-reviewed papers (Reading List now 36)
