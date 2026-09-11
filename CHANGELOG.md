@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.182] - 2026-09-11
+
+### Added — 2 peer-reviewed papers (Reading List now 38)
+
+The two Frontiers papers held back in v26.6.181 are carded, under the v26.6.168 convention. Both articles exist on frontiersin.org with matching titles, authors and abstracts, verified against a bogus-DOI control that correctly 404s; `citation_online_date` gives 2 September and 9 September, and both pages identify themselves as accepted manuscripts. So the Crossref 404 is a pending deposit, not a bad citation. Each card links the journal page and says so on its face; the DOI can replace the link once it registers.
+
+- A Hybrid VMD-Transformer-BiLSTM Framework for daily PM2.5 concentration forecasting in Delhi, India — Muni Lakshmi & Mokesh Rayalu (*Frontiers in Environmental Science* 14, accepted 2 Sep 2026). 2,557 daily CPCB observations for Delhi (2019–2024) with 17 pollutant and meteorological variables, decomposed into six intrinsic mode functions and modelled per component. R² 0.913, RMSE 29.15 µg/m³ against eleven baselines; the ablation attributes most of the gain to the decomposition. Framed around day-ahead GRAP triggers.
+- Prediction accuracy of available early warning systems for air pollution across WHO South-East Asia region: a systematic review — Mahawar, Sivakumar, Singh, Kumar, Parmar, Pati & Aggarwal (*Frontiers in Public Health* 14, accepted 9 Sep 2026). PROSPERO CRD420251275901; 14 studies from India, Bangladesh and Thailand out of 839 records, appraised with PROBAST+AI.
+
+**A third correction to the submission.** The review was described as finding that most tools "struggle with prediction accuracy during extreme pollution episodes". That is not its finding. Hybrid deep-learning models report the *lowest* errors and explained variance up to R² 0.998; what the review actually establishes is that most of that evidence carries a high risk of bias from inadequate external validation and algorithmic overfitting, and that heterogeneity ruled out meta-analysis. The distinction matters for how the paper is used here: it is not a ranking of which alert systems to adopt, it is a reason to distrust reported accuracy that has not been externally validated.
+
+The section badge and the homepage quick-link both move from 36 to 38.
+
+## [v26.6.181] - 2026-09-11
+
+### Added — 3 peer-reviewed papers (Reading List now 36)
+
+Five September 2026 papers were proposed; each was checked against Crossref before being cited, and three survived that check:
+
+- Unveiling hidden air pollution exposure and impacts with low-cost sensor network-based frameworks — Agrawal, Godhani, Chowdhury, Anandh, Kumar, Rai & Tripathi (*Nature Communications*, DOI 10.1038/s41467-026-77148-1, 2 Sep 2026, CC BY-NC-ND). A dense low-cost sensor network across Bihar joined to machine learning, family health survey data and India-specific relative risks: northern districts average 1.2× the exposure of southern ones, district-level mortality per 100,000 varies up to 1.7-fold, and exposure inequity that looks limited at state level is substantial between and within regions.
+- Seasonal predictability of winter PM2.5 pollution severity in India through a strong pollution–extratropical storm connection — Xie, Hunt, Gupta, Goswami, Zhou, Dong & Mauzerall (*Science Advances* 12(37), DOI 10.1126/sciadv.aee4549, 11 Sep 2026, CC BY-NC). Western disturbances explain ~70% of the interannual variation in northern India's winter PM2.5 by ventilation and precipitation; their strength traces to North Atlantic and tropical Indian Ocean sea-surface temperatures the preceding autumn, giving one-season-ahead skill of r² 0.52–0.69.
+- Management of missing air pollution data within urban environments using machine learning regressions: a case study for Delhi, India — Shafi & Scafetta (*Environmental Science and Pollution Research*, DOI 10.1007/s11356-026-38181-1, 3 Sep 2026). Machine-learning regressions for the gap-filling step underneath any continuous series built from India's monitoring network.
+
+**Citation integrity.** All three DOIs resolve through Crossref and doi.org, and title, authors, journal, date and licence were read from the registry rather than from the submission. Two further papers were **not** carded. `10.3389/fenvs.2026.1960286` (Muni Lakshmi & Mokesh Rayalu, VMD-Transformer-BiLSTM forecasting for Delhi) and `10.3389/fpubh.2026.1945362` (Mahawar et al., early-warning-system accuracy across the WHO South-East Asia region) return 404 at doi.org and have no Crossref record by DOI or by title search. Frontiers mints a DOI at publication rather than at acceptance, so an accepted manuscript carrying a live DOI is internally inconsistent. Both articles do exist on frontiersin.org, so this is a pending deposit and not a bad citation; they can be carded under the v26.6.168 convention (link the journal page, say so on its face) or once the DOIs register.
+
+**Two claims in the submission were not carried over.** The *Science Advances* paper arrived described as a North Atlantic storm teleconnection with several weeks of lead time. The storms are western disturbances, which originate over the Mediterranean; the North Atlantic is where the predictive SST anomalies sit, not the storms; and the lead time is a season. The *Nature Communications* paper arrived described as showing satellite estimates underestimating ground-level exposure, especially for lower-income groups. Its abstract makes no satellite comparison and reports exposure inequity as limited at the state level. Descriptions are written from the abstracts, as in v26.6.168.
+
+**One access note.** The submission described all five as open access. The ESPR paper is not: Unpaywall reports it closed, with no open location. It is carded anyway, since the section promises a DOI link rather than open access.
+
+The section badge moves from 33 to 36 and matches the card count.
+
+### Fixed — the homepage quick-link's study count, stale since July
+
+The "Research & Reading" quick-link on the homepage read **29 India-focused peer-reviewed studies**. It was accurate the day it was added (v26.6.89, 16 Jul 2026), and nothing has updated it since: the Reading List reached 33 cards in v26.6.168 while the homepage still said 29. This is the same class of drift as the section badge fixed in v26.6.168, on a different surface, and `check-site-figures.py` does not cover it because the study count is not one of the figures it derives from data. Now reads 36, matching the badge and the card count.
+
 ## [v26.6.180] - 2026-09-08
 
 ### Fixed — three posts were live and missing from the blog's own navigation
