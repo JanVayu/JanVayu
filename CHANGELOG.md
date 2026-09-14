@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.183] - 2026-09-14
+
+### Added — 4 peer-reviewed papers (Reading List now 42)
+
+Six papers were proposed for the Monday run; all six DOIs resolve through Crossref and all six are open access. Four are carded. Two were not, and the one that was excluded from the submission is the one most worth having.
+
+- Characterizing the Seasonal Particulate Matter (PM2.5, PM10) Concentrations in Nine Indian Cities — Roy & Chaudhuri (*Environmental Quality Management*, DOI 10.1002/tqem.70458, Sep 2026). CAQM daily records for 2023 across nine cities: post-monsoon worst, then winter, summer, monsoon; Delhi the most polluted and Varanasi the cleanest; Jaipur and Ahmedabad show summer windblown dust lifting PM10; both fractions breach WHO thresholds on 90–95% of days even in the monsoon and 99–100% of winter and post-monsoon days. Hierarchical clustering gives a four-tier city-season vulnerability ranking.
+- Black carbon in urban atmospheres: source apportionment, mixing states, and implications for climate and respiratory health — Ediagbonya et al. (*npj Clean Air*, DOI 10.1038/s44407-026-00098-x, 2 Sep 2026, CC BY-NC-ND). 33 studies, 2018–2026. One eastern Indian city apportioned at 42% traffic, 38% biomass, 20% industry; bottom-up inventories underestimate African and South Asian urban BC by 1.5–3.0×; only 4 of the 33 studies are South Asian, which the authors name as a research priority.
+- Why Emission Reductions Do Not Yield Proportional Air-Quality Improvements — Tang, Sun & Ding (*Sustainability*, DOI 10.3390/su18189264, 9 Sep 2026, CC BY). Five response forms to precursor control: near-linear, sublinear, superlinear, threshold, sign-reversal.
+- Image-based estimation of ambient particulate matter: a scoping review — Oxoli et al. (*Spatial Information Research*, DOI 10.1007/s41324-026-00708-6, 2 Sep 2026, CC BY). Deep learning predicts best, but most applications remain below reference regulatory accuracy, with small training sets, absent benchmarks and frequently unavailable code.
+
+**Two were skipped as out of scope, not as bad citations.** `10.3389/fpubh.2026.1920233` and `10.1038/s41598-026-69746-2` are both real, both gold open access, and both China-based health studies: depressive symptoms among 11,697 older adults in the 2018 CLHLS wave, and a DLNM time-series of 24,689 mental-and-behavioural-disorder outpatient visits, 2017–2019. The Reading List already carries global methodological work (Xu, Bagkis, Ilenic), but it carries no country-specific health study from outside India, and the homepage quick-link calls it "India-focused" — a line corrected only three days ago in v26.6.182. Adding these would have made that wording false again.
+
+**One submitted description did not match its DOI at all.** `10.3389/fpubh.2026.1920233` arrived as "household solid fuel use, kitchen ventilation and lung cancer in non-smoking women: a systematic review and meta-analysis". The author list matches, so the DOI is right, but the paper is a national cross-sectional study of depressive symptoms among older adults in China. Not a meta-analysis, not cancer, not that population. Two smaller corrections: `10.1007/s41324-026-00708-6` is in *Spatial Information Research*, not the *Journal of Spatial Science*, and `10.1038/s41598-026-69746-2` is a distributed-lag time-series of outpatient visits rather than the cohort study it was described as.
+
+**The excluded paper was the best fit.** Roy & Chaudhuri was held back from the submission because its open-access status could not be confirmed. Unpaywall reports it `is_oa=true`, `oa_status=bronze`: free to read on Wiley's site, with no open licence. Bronze is weaker than a CC grant, since the publisher can withdraw it without notice, but it was readable at the time of carding and it is the most India-specific of the six.
+
+The section badge and the homepage quick-link both move from 38 to 42.
+
 ## [v26.6.182] - 2026-09-11
 
 ### Added — 2 peer-reviewed papers (Reading List now 38)
