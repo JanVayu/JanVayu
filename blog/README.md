@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 17 Sep 2026 | [Thirty-Three Cities Are Getting Cleaner. Eleven Are Not.](posts/2026-09-17-thirty-three-cities.md) | Analysis |
 | 8 Sep 2026 | [Was It Policy, or Was It the Wind?](posts/2026-09-08-was-it-policy-or-the-wind.md) | Analysis |
 | 5 Sep 2026 | [Your Airshed, or Your Town? A New Way to Read Your District's Air](posts/2026-09-05-your-airshed-or-your-town.md) | Explainer |
 | 5 Sep 2026 | [The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain](posts/2026-09-05-a-map-of-the-gangetic-plain.md) | Analysis |

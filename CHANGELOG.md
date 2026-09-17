@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.188] - 2026-09-17
+
+### Added — "Thirty-Three Cities Are Getting Cleaner. Eleven Are Not."
+
+The blog post for the national de-weathering, and the sequel the Delhi one set up. That post closed by saying the method was Delhi-NCR only and that nothing in it transferred to Kanpur or Patna or Bengaluru. Nine days later it does, for 44 cities.
+
+It leads with the split (33 falling, 11 rising), names the steepest falls (Meerut −14.63, Varanasi −14.19, Lucknow −13.98) and the risers (Chandigarh +3.07, Gwalior +2.37, Mumbai +0.80), and spends its middle on the result that surprised us: only 6 of 44 cities move by a microgram a year when weather comes out, and in 5 of those the measured figure was *understating* the improvement.
+
+**Four things it declines to claim**, because the post is only worth publishing if it does. It does not prove policy caused any of it. It reports no confidence intervals, so the direction is the finding and the second decimal place is decoration — said plainly, because the Delhi post *did* carry intervals and used them to decline to call a direction. It is not the same question that post asked: September–October 2018–2022 there, whole years 2018–2024 here, and a city can be flat in two months and falling across the year without either being wrong. And 194 cities did not qualify, which is a statement about where India has put its instruments rather than about those cities.
+
+**A new hand-drawn diagram**, `deweather-national`, wide and tall. Three cities chosen because they are the three things removing weather can do to a number: nothing (Delhi, −1.75 to −1.78), uncover an improvement (Lucknow, −11.62 to −13.98), or leave a rise standing (Chandigarh, +2.32 to +3.07). Built by `scripts/build-diagrams.py` like the rest, so it is reproducible rather than exported from a drawing tool, and verified by rendering both sizes in Chromium rather than by trusting the coordinates.
+
+Registered in `blog/README.md` and `blog/_sidebar.md`; `build-blog-index.py --check` passes at 38 posts, with the sidebar guard added in v26.6.180 confirming the post is reachable from the blog's own navigation.
+
 ## [v26.6.187] - 2026-09-17
 
 ### Fixed — the About panel's version history, stale again nine days after it was last fixed
