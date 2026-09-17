@@ -58,6 +58,14 @@ no offset attached. Nothing here resamples sub-daily, so it does not bite yet; i
 will the moment anyone does, exactly as UTC-stamped ODK timestamps bite a field
 survey.
 
+**2024 is not an arbitrary default, and is not a stale one.** The archive is
+dense to December 2024 and then falls off a cliff: 4 to 5 stations report in
+January to March 2025, 321 to 327 from April to August, and from October 2025
+onward exactly two, both US Embassy monitors publishing through AirNow. The CPCB
+feed stops on 1 September 2025. Applying the completeness rule to 2025 leaves one
+station out of 334. Raising YEAR will silently produce an empty or two-station
+layer rather than an error, so check station counts per month first.
+
 **The gaseous pollutants stop earlier than PM2.5.** The API's own /v1/parameters
 reports PM2.5 running to 2026-03 and PM10 to 2025-09, while NO2, SO2, CO, NOx,
 NO, Ozone, NH3 and Benzene all end 2024-12-31. Check before assuming a

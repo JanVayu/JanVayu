@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.185] - 2026-09-17
+
+### Fixed — the XKDR coverage claim, which v26.6.184 got wrong
+
+v26.6.184 documented the India Air Quality Database as covering "January 2009 to March 2026". That is what the API reports and it is badly misleading, which yesterday's doc did not say. Checked on a full-tier key, station counts per month for PM2.5:
+
+| Months | Stations reporting |
+|---|---|
+| 2023-01 to 2024-12 | 391 rising to 524 |
+| **2025-01 to 2025-03** | **4 to 5** |
+| 2025-04 to 2025-08 | 321 to 327 |
+| 2025-09 | 296, but 7,803 station-hours, roughly one day |
+| **2025-10 to 2026-03** | **2** |
+
+The last two are `DS1010001` and `DS1010005`, the US Embassy monitors in New Delhi and Hyderabad, which publish through AirNow independently of CPCB. **The CPCB feed in this archive stops on 1 September 2025**, with a hole across January to March 2025. Six of the seventeen years in the headline span are carried by two instruments.
+
+The consequence is not academic. Applying the twelve-month completeness rule to 2025 leaves **one station out of 334**, against 284 of 534 for 2024. **2024 is the most recent year that supports a national annual layer.** `data/station-observed.json` is unchanged and remains correct; what changes is that its year is now documented as a finding rather than as a demo-key limitation, which is what v26.6.184 implied.
+
+Recorded in `docs/data-sources/xkdr-air-quality.md` as the first trap and in the build script's docstring, with the specific warning that raising `YEAR` produces an empty or two-station layer silently rather than erroring.
+
+**How the error happened, since the pattern is the point.** PM2.5's `last_seen` is 2026-03-27, and `/v1/meta` reports 196.5 million rows spanning 207 months. Both are true. Neither says how many instruments stand behind a given month, and nothing was checked that would have. A maximum date is not a coverage claim, and an archive can be simultaneously enormous, current by its own metadata, and unusable for the year you want.
+
 ## [v26.6.184] - 2026-09-17
 
 ### Added — the first measured air layer, and a check on the modelled one
