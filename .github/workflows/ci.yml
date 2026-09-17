@@ -49,6 +49,14 @@ jobs:
       - name: Check the observed station layer
         run: python3 scripts/build-station-observed.py --check
 
+      # The national deweathering layer states, in its own metadata, how many
+      # cities are improving once weather is removed. That count is the
+      # headline anyone will quote, so it is recounted from the records here
+      # rather than trusted. Network-free, like the layer above: the XKDR and
+      # Open-Meteo calls belong in a rebuild, not a per-push job.
+      - name: Check the national deweathering layer
+        run: python3 scripts/build-deweathered-national.py --check
+
       # data/stories.json feeds the homepage's blog section. It used to be
       # hand-maintained and went six posts stale, so the front page showed
       # nothing published that month. It is generated from blog/README.md now;
