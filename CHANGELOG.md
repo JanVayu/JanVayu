@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.184] - 2026-09-17
+
+### Added — the first measured air layer, and a check on the modelled one
+
+Every PM2.5 figure on JanVayu has been modelled. The 2024 map is SatPM2.5 V6GL03, a satellite retrieval; the current-year layer is CAMS at ~40 km bias-corrected onto it; the 1980–2022 history is the LongPMInd reconstruction. All three are defensible and all three are labelled as estimates. None is a reading from an instrument, and that meant the site could not check its own headline number against the monitors.
+
+The [India Air Quality Database](https://airquality.xkdr.org) (XKDR Forum, CC BY 4.0) closes that: 196.5 million hourly readings, 558 stations (553 CPCB CAAQM plus the five US Embassy monitors), 15 pollutants, January 2009 to March 2026, one harmonised table, query API and bulk Parquet. It is now documented at `docs/data-sources/xkdr-air-quality.md`, listed in the source overview and both navigation files, and carded in the Resources panel.
+
+**`scripts/build-station-observed.py` and `data/station-observed.json`** are the first use of it. For 2024, per station:
+
+- 534 stations reported PM2.5; **284 cleared twelve complete months** at 75% of possible hours each
+- 276 paired with a district centroid within 50 km
+- observed **53.8** against satellite **51.9** µg/m³, **r = 0.834**, RMSE 14.3, mean difference **+1.9**
+
+**The satellite layer holds up.** It tracks the monitors closely and reads about 2 µg/m³ lower, which is the expected direction rather than an error: a district-wide mean averages an urban monitor together with the countryside around it. The comparison is agreement in pattern, and the metadata says so in as many words, because the tempting misreading is that one number corrects the other.
+
+**Nearly half the network fails a twelve-month completeness test**, and that count is kept rather than engineered away. A station reporting eight months has an "annual mean" that means something different from one reporting twelve, and averaging them together mixes the two silently. The annual mean is the mean of twelve monthly means rather than hour-weighted, for the same reason: India's seasonal swing is large enough that a station reporting heavily in summer and sparsely in winter would be pulled down by its own coverage pattern.
+
+Enforced in CI via `--check`, which recomputes the correlation from the records, so a hand-edited statistic in the metadata cannot survive. Verified by corrupting a reading (caught, and the recomputed r fell to 0.212) and by editing the stated r to 0.99 (caught). The check is deliberately network-free; the API it is built from does not belong in a per-push job, per the lesson in `rules/testing.md` about third-party jobs in CI.
+
+### Notes on the data, each of which cost something
+
+- **A descriptive User-Agent is required.** The API sits behind Cloudflare, which rejects Python's default `urllib` agent with a 403 that reads exactly like an egress denial and is not one.
+- **Timestamps are naive IST.** `collected_at` carries no offset. Nothing here resamples sub-daily, so it does not bite yet; it will the moment anyone does.
+- **Pollutant coverage ends at different dates.** `/v1/parameters` reports PM2.5 to 2026-03 and PM10 to 2025-09, while NO2, SO2, CO, NOx, NO, Ozone, NH3 and Benzene all stop at 2024-12-31. The headline "2009 to 2026" is a PM2.5 span.
+- **62 of 558 stations carry no coordinates** and cannot be joined to any geography.
+- **Nothing is cleaned.** Readings are published as received, no gap filling and no outlier removal, and the source networks label them preliminary. The QC is ours.
+
+### Checked and unchanged — no 2025 satellite grid
+
+`build-current-year-air.py` records that the ACAG bucket returned 404 for 2025 and 2026 in August. Rechecked 17 September against both the monthly and annual Asia paths: still 404, while 2023 and 2024 return 200. ACAG's global series (V6.GL.02.04) reaches 2023. The CAMS-based current-year layer remains the only way to answer "what about this year" below the station network.
+
+### Alternatives surveyed
+
+CPCB's own CCR portal caps downloads at roughly one week per station per pollutant and offers no bulk path. OpenAQ's S3 archive is free and needs no AWS account, but is gzipped CSV partitioned per location per month, global rather than India-first, and shallower; JanVayu keeps using its API for hyperlocal live readings. `data.gov.in` carries the manual NAMP network, not continuous CAAQMS. SAFAR is real-time only across a handful of cities. Dataful is a commercial compilation from 2015 derived from daily AQI bulletins rather than hourly readings. Recorded in the new doc so the next person does not repeat the search.
+
 ## [v26.6.183] - 2026-09-14
 
 ### Added — 4 peer-reviewed papers (Reading List now 42)
