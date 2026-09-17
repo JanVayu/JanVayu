@@ -30,6 +30,18 @@ const WARD_DATA = JSON.parse(
 const VILLAGE_DATA = JSON.parse(
   readFileSync(new URL('./data/village-stats.json', import.meta.url), 'utf8')
 ).districts;
+// Weather-normalised trends for the 44 cities that have enough monitors to
+// support the method. This exists because the prompt alone did not work: rule
+// 19 carried Delhi, Lucknow and Chandigarh as illustrations of what removing
+// weather DOES to a number, and asked about Lucknow the model answered with
+// Delhi's -1.75 and -1.78. Confident, correctly formatted, wrong city. Three
+// worked examples are not a lookup table, so here is the lookup table.
+// Derived from data/deweathered-national.json by build-deweathered-national.py
+// --derive; its --check fails CI if the two drift apart.
+const DEWEATHER = JSON.parse(
+  readFileSync(new URL('./data/deweathered-cities.json', import.meta.url), 'utf8')
+);
+
 const VILLAGE_BY_NAME = (() => {
   const m = new Map();
   for (const d of Object.values(VILLAGE_DATA)) {
@@ -407,7 +419,7 @@ RECENT POLICY/COURT ACTIONS (Apr-May 2026):
 - CAQM: invoked GRAP Stage-I off-season on 19 May 2026 (first-ever off-season invocation at AQI 208) — signals year-round enforcement.
 - NGT: directed 6 south-Indian states (TN/KL/KA/AP/TS/PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets (Apr 2026).
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; next hearing 21 Jul 2026).
-- NCAP March 2026 deadline elapsed: 23/96 cities with sufficient data met the 40% PM10 reduction target (CREA Jan 2026).
+- NCAP March 2026 deadline elapsed: 23 of the 100 cities with sufficient data met the 40% PM10 reduction target (CREA, 'Tracing the Hazy Air 2026', 9 Jan 2026). The denominator is 100, not 96: CREA counts 102 NCAP cities with monitoring stations, of which 100 reported 80% or more PM10 data coverage. 51 met the earlier, looser 20-30% target and 23 cities saw PM10 RISE.
 - 15th Finance Commission grants (₹16,539 Cr for 42 million-plus cities) expired 31 March 2026; 16th FC report expected Oct 2026.
 
 URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just the data-rich example):
@@ -1053,7 +1065,7 @@ function buildSystemPrompt(seasonal, lang, opts = {}) {
   const i16 = stationRange ? `\n16. For generic "how is the air quality" questions: if a CITY-WIDE STATION RANGE is in the DATA CONTEXT, present the AQI range across all stations (e.g. "AQI ranges from X to Y across N stations") rather than quoting just one station. Name 2-3 representative stations. This gives a more accurate city-level picture.` : "";
   const i18 = village ? `\n18. VILLAGE / RURAL QUESTIONS. If a VILLAGE-LEVEL DATA block is present, lead with that district's own numbers — the district village average, the share of villages over India's limit of 40, and the named dirtiest and cleanest village. Do not fall back to the national average when a district figure is in front of you. THE TIMESCALE RULE IS ABSOLUTE HERE: this is an ANNUAL satellite mean, never today's air. Never merge it with a live AQI reading, and if you give both, label each. ANNUAL FIGURES ARE NOT DAILY ONES: never map an annual mean onto a 24-hour AQI band (Good/Moderate/Poor/Unhealthy), and never attach same-day advice to it — no masks, no \"stay indoors today\", no \"children should not play outside\". Those bands and that advice describe acute 24-hour exposure and do not apply to a yearly average. Frame an annual number the way annual numbers are framed: against India's annual limit of 40 µg/m³ and the WHO annual guideline of 5, and in terms of long-term risk (life expectancy, chronic exposure) rather than what to do this afternoon. State plainly, when it is relevant, that this is a modelled ~1 km estimate calibrated against ground monitors rather than a measurement taken in that village, and that at ~1 km it smooths hyperlocal sources — a brick kiln, a crusher or a highway next door will not appear in it. The reason this layer exists is worth saying: roughly 565 continuous CPCB stations serve 584,615 villages, so the live network structurally cannot answer "how is my village's air" and never will. If no district could be matched, ask which district they are in rather than guessing — India has many villages sharing a name. Point them to the Villages layer at janvayu.in/#map. SEASONS: if a seasonal block is present, use it — "when is it worst here" is the question an annual mean hides, and in much of north India the post-monsoon or winter village average is two to three times the monsoon one. Seasonal means are still ANNUAL-SCALE data: four averages, never a forecast and never today's air. LAND AND HEAT: if a LAND AND HEAT block is present it is a DIFFERENT SOURCE ON A DIFFERENT YEAR from the air figures — tree/green/built-up are ESA WorldCover 2021, surface heat is a 2026 pre-monsoon Landsat composite. Never merge them with the air numbers into one sentence as if they were measured together, and give each its year when you cite it. GREEN VS TREES IS THE ONE TO GET RIGHT: "green cover" counts cropland, so nearly every rural district is above 90% green while its typical village has single-digit tree canopy. If someone asks how green their area is, lead with TREE COVER and say plainly that the green figure is mostly farmland. Quoting the green number alone as good news would be misleading. SURFACE HEAT IS GROUND TEMPERATURE, not air temperature: it runs well above what a weather forecast says, so never present it as "it will be X degrees" or attach heat-wave advice to it. Keep the tone plain and warm; for most rural users this is the first air-quality number that has ever applied to where they actually live.` : "";
 
-  const i19 = trend ? `\n19. IS THE AIR ACTUALLY GETTING BETTER? This is the question a raw annual average cannot answer, and JanVayu can now answer it for 44 cities. WHY THE RAW NUMBER IS NOT ENOUGH: a still, cold week traps whatever a city emits near the ground and the monitors read high; a windy, wet week scatters the same emissions and they read low. Traffic, kilns, construction and stubble have not changed, but the number has. That is why every winter one side announces Delhi's air has improved and another says it has not, and both can point at real figures. THE METHOD is meteorological normalisation after Grange et al. (2018), Atmospheric Chemistry and Physics 18, 6223-6239: a random forest learns from daily readings how much of each day was wind, temperature and humidity and how much was the trend, the season, the day of week and the station; then every day is re-run with weather drawn at random from the whole record, holding date and station fixed, averaged over 30 draws. What survives is the part the weather cannot explain. Yesterday's pollution is never used as a predictor, because that would manufacture a trend out of the fact that dirty days come in runs. THE RESULT, 44 cities over 2018-2024 on CPCB's own hourly record (via the XKDR India Air Quality Database, CC BY 4.0): 33 are falling once weather is removed and 11 are rising. Steepest real falls, in ug/m3 per year: Meerut -14.63, Varanasi -14.19, Lucknow -13.98, Moradabad -13.51, Agra -10.61. Rising: Chandigarh +3.07, Gwalior +2.37, Chandrapur +2.36, Solapur +1.73, Mumbai +0.80. THE MOST USEFUL THING TO EXPLAIN is what removing the weather does to a number, because all three outcomes appear: for Delhi it changes almost nothing (-1.75 raw against -1.78 normalised); for Lucknow it makes the fall STEEPER (-11.62 raw against -13.98 normalised), so the weather had been hiding an improvement rather than flattering one; and for Chandigarh the rise survives (+2.32 raw against +3.07 normalised). Only 6 of the 44 cities move by as much as 1 ug/m3 a year when weather comes out, and in 5 of those 6 the raw figure was UNDERSTATING the improvement. FIVE THINGS YOU MUST NOT DO WITH IT. (a) Never call it proof that policy caused the change: emissions, fuel mix, construction and economic activity all sit inside what is left. (b) These figures carry no confidence intervals, so the DIRECTION is the finding and the second decimal place is decoration; do not rank cities by hundredths. (c) Never merge or compare it with the 2024 satellite annual layer or with LongPMInd, and never with a live reading: this is measured city daily means from monitors, on a different footprint and a different question. (d) Cities are not comparable to each other on model fit; the held-out R2 runs 0.52 to 0.91 with a median of 0.81, and it reflects how much of that city's variance its own meteorology explains, not how trustworthy its trend is. (e) If someone's city is not among the 44, the reason is that it lacks monitors, not that its air is fine: a city needs at least 2 stations, 1,800 station-days and 5 of the 7 years, and 194 cities with some data did not qualify. Say plainly that this is a statement about where India has put its instruments, and that it is worth asking a municipal corporation about. THE WINDOW ENDS IN 2024 because CPCB's feed into the source archive stops on 1 September 2025. WHERE TO POINT PEOPLE: the blog post "Thirty-Three Cities Are Getting Cleaner. Eleven Are Not." at janvayu.in/blog, and the earlier Delhi-only version of the same method, with its confidence intervals, in the airshed panel at janvayu.in/#airshed. Note for honesty if asked: the national figures are published as data and in that post; the on-site chart still shows the Delhi-NCR run.` : "";
+  const i19 = trend ? `\n19. IS THE AIR ACTUALLY GETTING BETTER? This is the question a raw annual average cannot answer, and JanVayu can now answer it for 44 cities. READ THIS FIRST: a DE-WEATHERED TREND block for the city in question is in the DATA CONTEXT. Use ITS numbers and no others. The three worked examples further down (Delhi, Lucknow, Chandigarh) illustrate what removing weather DOES to a number; they are NOT a lookup table, and quoting one of them for a different city is the specific error this instruction exists to prevent. If the block says NOT AVAILABLE, then you have no normalised trend for that city: say so, give the reason it gives, and do not improvise a figure from any other city or from the live reading. WHY THE RAW NUMBER IS NOT ENOUGH: a still, cold week traps whatever a city emits near the ground and the monitors read high; a windy, wet week scatters the same emissions and they read low. Traffic, kilns, construction and stubble have not changed, but the number has. That is why every winter one side announces Delhi's air has improved and another says it has not, and both can point at real figures. THE METHOD is meteorological normalisation after Grange et al. (2018), Atmospheric Chemistry and Physics 18, 6223-6239: a random forest learns from daily readings how much of each day was wind, temperature and humidity and how much was the trend, the season, the day of week and the station; then every day is re-run with weather drawn at random from the whole record, holding date and station fixed, averaged over 30 draws. What survives is the part the weather cannot explain. Yesterday's pollution is never used as a predictor, because that would manufacture a trend out of the fact that dirty days come in runs. THE RESULT, 44 cities over 2018-2024 on CPCB's own hourly record (via the XKDR India Air Quality Database, CC BY 4.0): 33 are falling once weather is removed and 11 are rising. Steepest real falls, in ug/m3 per year: Meerut -14.63, Varanasi -14.19, Lucknow -13.98, Moradabad -13.51, Agra -10.61. Rising: Chandigarh +3.07, Gwalior +2.37, Chandrapur +2.36, Solapur +1.73, Mumbai +0.80. THE MOST USEFUL THING TO EXPLAIN is what removing the weather does to a number, because all three outcomes appear: for Delhi it changes almost nothing (-1.75 raw against -1.78 normalised); for Lucknow it makes the fall STEEPER (-11.62 raw against -13.98 normalised), so the weather had been hiding an improvement rather than flattering one; and for Chandigarh the rise survives (+2.32 raw against +3.07 normalised). Only 6 of the 44 cities move by as much as 1 ug/m3 a year when weather comes out, and in 5 of those 6 the raw figure was UNDERSTATING the improvement. FIVE THINGS YOU MUST NOT DO WITH IT. (a) Never call it proof that policy caused the change: emissions, fuel mix, construction and economic activity all sit inside what is left. (b) These figures carry no confidence intervals, so the DIRECTION is the finding and the second decimal place is decoration; do not rank cities by hundredths. (c) Never merge or compare it with the 2024 satellite annual layer or with LongPMInd, and never with a live reading: this is measured city daily means from monitors, on a different footprint and a different question. (d) Cities are not comparable to each other on model fit; the held-out R2 runs 0.52 to 0.91 with a median of 0.81, and it reflects how much of that city's variance its own meteorology explains, not how trustworthy its trend is. (e) If someone's city is not among the 44, the reason is that it lacks monitors, not that its air is fine: a city needs at least 2 stations, 1,800 station-days and 5 of the 7 years, and 194 cities with some data did not qualify. Say plainly that this is a statement about where India has put its instruments, and that it is worth asking a municipal corporation about. THE WINDOW ENDS IN 2024 because CPCB's feed into the source archive stops on 1 September 2025. WHERE TO POINT PEOPLE: the blog post "Thirty-Three Cities Are Getting Cleaner. Eleven Are Not." at janvayu.in/blog, and the earlier Delhi-only version of the same method, with its confidence intervals, in the airshed panel at janvayu.in/#airshed. Note for honesty if asked: the national figures are published as data and in that post; the on-site chart still shows the Delhi-NCR run.` : "";
 
   const i17 = ward ? `\n17. For ward / neighbourhood-level questions, JanVayu is an AIR-QUALITY assistant — so LEAD WITH AIR. If a WARD-LEVEL DATA block is present, open with the per-ward PM2.5 answer (worst-air / cleanest-air ward, citywide spread, or named ward's air), state the band (Good/Moderate/Poor/etc.), and note it's a LIVE interpolated snapshot. CRITICAL TIMESCALE RULE: the air is a live snapshot (this hour, interpolated from sparse monitors + current weather); the built-up / green / heat figures are ANNUAL / structural — DIFFERENT timescales. So you must NOT claim a ward's annual structure CAUSES its live reading. NEVER say "it's 88% built-up, so today's air is bad." Instead keep them separate: "Right now it's ~X µg/m³ (live estimate). Structurally it's a dense, low-green ward (88% built, 10% green) — the kind of place that *tends* to have worse air and more heat OVER THE YEAR, though today's exact reading is driven by current conditions, not its layout." If today's dirtiest-air ward is actually leafy / low-built, say plainly that the live reading there likely reflects weather or a nearby source, not urban form. The proper partner for annual structure is annual per-ward PM2.5, and JanVayu NOW HAS IT — each ward carries a satellite annual mean (field "p" in the ward data, the map's "Air, yearly" layer). USE THAT, not the live snapshot, whenever you discuss how a ward's built-up/green/heat profile relates to its air: those are all annual, so they can honestly be compared. Keep the live reading for "right now" questions only, and never mix the two in one comparison. ANNUAL FIGURES ARE NOT DAILY ONES: never map an annual mean onto a 24-hour AQI band (Good/Moderate/Poor/Unhealthy), and never attach same-day advice to it — no masks, no \"stay indoors today\", no \"children should not play outside\". Those bands and that advice describe acute 24-hour exposure and do not apply to a yearly average. Frame an annual number the way annual numbers are framed: against India's annual limit of 40 µg/m³ and the WHO annual guideline of 5, and in terms of long-term risk (life expectancy, chronic exposure) rather than what to do this afternoon. Never present greenest / most-built-up / hottest as standalone trivia — tie back to people's air and health on the correct timescale. Cite "interpolated from CPCB/WAQI (live)" for air and "JanVayu Ward Atlas / ESA WorldCover / Landsat (annual)" for drivers. If they say "my ward" without naming it, you can't know which ward they mean — give the city's worst- and cleanest-air wards and the spread, then invite them to name their ward or use the map's "My ward" locate button. Point to janvayu.in/#ward-map. Keep warmth — this is someone's own neighbourhood.` : "";
 
@@ -1111,6 +1123,48 @@ ${instruction9}
 // quality (live PM2.5, interpolated from CPCB/WAQI monitors to each ward
 // centroid). Heat / green cover / built-up are surfaced only as the WHY —
 // the drivers that explain why a ward's air is dirtier or cleaner.
+// The de-weathered trend for ONE city, or an explicit statement that this city
+// is not in the 44 and why. The negative case matters as much as the positive:
+// silence here is what let the model reach for another city's numbers.
+function buildDeweatherContext(cityKey, cityName) {
+  const rec = DEWEATHER.cities[String(cityKey || '').toLowerCase()]
+    || DEWEATHER.cities[String(cityName || '').toLowerCase()];
+  const m = DEWEATHER._meta;
+
+  if (!rec) {
+    return `\n\nDE-WEATHERED TREND FOR ${String(cityName || cityKey).toUpperCase()}: NOT AVAILABLE. `
+      + `This city is not one of the ${m.cities} that qualify, so you have NO weather-normalised `
+      + `trend for it and must not give one. Do NOT substitute another city's figures. Say plainly `
+      + `that the method needs ${m.inclusion}, that ${194} cities with some data did not qualify, `
+      + `and that this is a statement about where India has put its monitors rather than about this `
+      + `city's air. Suggest asking the municipal corporation why there are not more stations.`;
+  }
+
+  const yrs = Object.keys(rec.annual_raw).sort();
+  const series = yrs.map(y => `${y}: ${rec.annual_raw[y]} raw / ${rec.annual_norm[y]} normalised`).join('; ');
+  const dir = rec.norm < 0 ? 'FALLING' : 'RISING';
+  const shift = +(rec.norm - rec.raw).toFixed(2);
+  let reading;
+  if (Math.abs(shift) < 0.5) {
+    reading = 'Removing the weather barely changes this city\'s number, so the measured trend was already close to the real one.';
+  } else if (rec.norm < rec.raw) {
+    reading = 'The normalised fall is STEEPER than the measured one, which means the weather had been HIDING part of the improvement rather than flattering it.';
+  } else {
+    reading = 'The normalised trend is less favourable than the measured one, so some of the apparent improvement was weather rather than emissions.';
+  }
+
+  return `\n\nDE-WEATHERED TREND FOR ${rec.city.toUpperCase()} (USE THESE NUMBERS AND NO OTHERS; `
+    + `figures for any other city are irrelevant here and must not be quoted):`
+    + `\n   - Measured trend ${rec.raw > 0 ? '+' : ''}${rec.raw} ug/m3 per year over ${rec.years[0]}-${rec.years[1]}.`
+    + `\n   - With weather removed ${rec.norm > 0 ? '+' : ''}${rec.norm} ug/m3 per year. ${dir}.`
+    + `\n   - ${reading}`
+    + `\n   - Annual means, ${series}.`
+    + `\n   - Built from ${rec.stations} station(s); held-out R2 ${rec.r2}. R2 is not comparable between cities: `
+    + `it says how much of THIS city's day-to-day variance its own weather explains, not how trustworthy the trend is.`
+    + `\n   - Nationally: ${m.cities_falling_normalised} of ${m.cities} cities are falling once weather is removed.`
+    + `\n   - CAVEAT you must carry: ${m.caveat}`;
+}
+
 function isWardQuery(question) {
   const q = question.toLowerCase();
   if (/\b(ward|wards)\b/.test(q)) return true;
@@ -1468,6 +1522,11 @@ Top 5 worst: ${top5}
   const villageQ = isVillageQuery(question) && !isWardQuery(question);
   if (villageQ) dataContext += buildVillageContext(question);
 
+  // "Is my city's air actually improving?" — give the model THIS city's
+  // normalised trend, or an explicit not-in-the-44 statement. Both matter.
+  const trendQ = isTrendQuery(question);
+  if (trendQ) dataContext += buildDeweatherContext(cityKey, CITIES[cityKey]?.name);
+
   // v26.6.15 Phase C — RTI drafting when the user asks for one.
   const rtiKey = detectRTIIntent(question);
   if (rtiKey) {
@@ -1504,7 +1563,7 @@ Top 5 worst: ${top5}
   // the common-case prompt so more questions fit in Groq's per-minute budget.
   const ward = isWardQuery(question);
   const stationRange = !!(stationList && stationList.length >= 2);
-  const trend = isTrendQuery(question);
+  const trend = trendQ;
   const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend };
 
   try {

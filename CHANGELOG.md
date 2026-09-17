@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.192] - 2026-09-17
+
+### Fixed — the assistant gave one city another city's trend
+
+Asked "is Lucknow's air actually improving, or is it just the weather?", the live assistant answered **−1.75 measured against −1.78 normalised**. Those are **Delhi's** figures. Lucknow's are **−11.62 and −13.98**. The answer was fluent, correctly formatted, properly hedged, and about the wrong city.
+
+The cause is in yesterday's change. Rule 19 carried Delhi, Lucknow and Chandigarh as worked examples of *what removing weather does to a number*, which is the right thing to teach and the wrong thing to leave as the only per-city figures in the prompt. Three labelled illustrations are not a lookup table, and the model treated them as one.
+
+**`netlify/functions/data/deweathered-cities.json`** now carries all 44 cities, and `buildDeweatherContext()` puts the asked-about city's own trend, annual series, station count and R² into the DATA CONTEXT. Rule 19 opens by pointing at that block and says in as many words that the three examples are not a lookup table.
+
+**The not-in-the-44 case is handled explicitly**, because silence is what let the model improvise in the first place. Ask about Shillong and the block says NOT AVAILABLE, gives the inclusion rule, and forbids substituting another city.
+
+**The file is derived, not hand-copied.** `build-deweathered-national.py --derive` writes it from `data/deweathered-national.json`, and the existing `--check` (already in CI) now recomputes it and fails on any drift. The build needs the network; the derivation does not.
+
+### Fixed — the NCAP denominator, settled against the source
+
+The site said "23 of the 100 cities with sufficient PM10 data" in nine places and the assistant's topical reference said **23/96**. Checked against CREA's own publication page for *Tracing the Hazy Air 2026* (9 January 2026): **102** NCAP cities have monitoring stations, **100** of those reported 80% or more PM10 data coverage, and **23** met the 40% reduction target. The denominator is 100.
+
+The 96 was not a typo. The 27 July 2026 fact-check round deliberately rewrote `23/100` to `23/96` and recorded doing so; that round got it backwards and the rest of the site was never changed to match, which is why one file disagreed with nine. The walkthrough deck now carries the denominator and the second finding (23 cities saw PM10 **rise**) rather than omitting both.
+
 ## [v26.6.191] - 2026-09-17
 
 ### Added — the four workshops are files now, and anyone can run them
