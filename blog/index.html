@@ -76,9 +76,27 @@
       --content-background: #0d1117;
       --code-theme-background: #161b22;
       --code-inline-background: #161b22;
+      /* The dark block used to set only the code BACKGROUND. The theme takes
+         inline code's colour from --code-inline-color, which defaults to
+         var(--code-theme-text) = #333, so every `inline code` span rendered
+         #333 on #161b22: a contrast ratio of 1.35:1, which is what a reader
+         on a phone reported as invisible. The prism token colours below have
+         the same problem in the two posts that carry fenced blocks. Each
+         value here clears 4.5:1 against #161b22; check before changing one. */
+      --code-theme-text: #e2e8f0;
+      --code-theme-comment: #9aa7b8;
+      --code-theme-punctuation: #b0bccd;
+      --code-theme-keyword: #7dd3fc;
+      --code-theme-function: #ff9db0;
+      --code-theme-selector: #a3e635;
+      --code-theme-tag: #f9a8d4;
+      --code-theme-variable: #fcd34d;
+      --code-theme-operator: #e8b88a;
       --link-color: #86EFAC;
       --notice-tip-background: #14231b;
-      --pagination-border-top: #2d3748;
+      /* This is a border SHORTHAND, not a colour. A bare hex made the
+         whole declaration invalid, so dark mode had no divider at all. */
+      --pagination-border-top: 1px solid #2d3748;
     }
     body[data-theme="dark"],
     body[data-theme="dark"] .content,
@@ -87,7 +105,14 @@
     body[data-theme="dark"] section.cover { background-color: #0d1117; }
     body[data-theme="dark"] .markdown-section { color: #e2e8f0; }
     body[data-theme="dark"] .markdown-section a { color: #86EFAC; }
-    body[data-theme="dark"] .markdown-section code { background: #161b22; color: #e2e8f0; }
+    /* The theme targets inline code as .markdown-section code:not([class*=lang-])
+       :not([class*=language-]), which outspecifies a plain
+       body[data-theme] .markdown-section code, so the rule that used to sit
+       here never applied. Match its shape so this one does. */
+    body[data-theme="dark"] .markdown-section code:not([class*=lang-]):not([class*=language-]) {
+      background: #161b22;
+      color: #e2e8f0;
+    }
     body[data-theme="dark"] .markdown-section blockquote { background: #14231b; }
     /* Diagrams are drawn on warm paper; keep them readable rather than
        inverting them, which would wreck the hand-drawn colour scheme. */
@@ -243,6 +268,32 @@
     /* Better code blocks */
     .markdown-section pre { border-radius: 8px; padding: 1em; }
     .markdown-section code { border-radius: 4px; padding: 2px 6px; }
+
+    /* Previous / next post links.
+
+       docsify-pagination injects its own stylesheet into <head> at runtime,
+       after everything here, and it fades the previous-post block to
+       opacity .3 whenever a next post exists. Alpha applies to the text the
+       reader is meant to click, so the result was 1.5:1 over the light page
+       and 2.2:1 over #0d1117 — the least legible text on the post, in both
+       themes. Keep the de-emphasis; carry it in colour, which can be
+       measured, instead of alpha, which cannot.
+
+       The .markdown-section prefix is load-bearing: without it these lose to
+       the plugin's .pagination-item:not(:last-child) a .pagination-item-title. */
+    .markdown-section .pagination-item a .pagination-item-label,
+    .markdown-section .pagination-item a .pagination-item-subtitle,
+    .markdown-section .pagination-item a .pagination-item-title,
+    .markdown-section .pagination-item:not(:last-child) a .pagination-item-label,
+    .markdown-section .pagination-item:not(:last-child) a .pagination-item-subtitle,
+    .markdown-section .pagination-item:not(:last-child) a .pagination-item-title,
+    .markdown-section .pagination-item:last-child .pagination-item-label {
+      opacity: 1;
+    }
+    .markdown-section .pagination-item-label { color: #4b5563; }
+    .markdown-section .pagination-item-title { color: #15803d; }
+    body[data-theme="dark"] .markdown-section .pagination-item-label { color: #9ca3af; }
+    body[data-theme="dark"] .markdown-section .pagination-item-title { color: #86EFAC; }
 
     /* Mobile */
     @media (max-width: 768px) {
