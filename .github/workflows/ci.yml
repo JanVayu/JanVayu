@@ -57,6 +57,16 @@ jobs:
       - name: Check the national deweathering layer
         run: python3 scripts/build-deweathered-national.py --check
 
+      # The four workshop decks in workshops/ are plain Markdown so anyone can
+      # import them into Workshopy, project them or translate them. Three ways
+      # they break without rendering wrong: a deck path in workshops.json that
+      # no longer has a file behind it (the panel's download link 404s
+      # silently), a quiz question where every option is "- [ ]" (imports
+      # cleanly, grades cleanly, and cannot be answered correctly by anyone),
+      # and a README table whose step counts have drifted from the files.
+      - name: Check the workshop decks match what the site says about them
+        run: python3 scripts/check-workshop-decks.py
+
       # data/stories.json feeds the homepage's blog section. It used to be
       # hand-maintained and went six posts stale, so the front page showed
       # nothing published that month. It is generated from blog/README.md now;

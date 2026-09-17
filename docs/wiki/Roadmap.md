@@ -4,6 +4,19 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.27: The new layers reach the surfaces people actually use (✅ Completed — v26.6.191)
+
+Two layers shipped in Phase 5.26 as data and a blog post. Neither had reached the assistant or the FAQ, which is where most people ask.
+
+- [x] **Ask JanVayu knows about both** *(v26.6.191)* — the instrument record joins `METHODOLOGY_REFERENCE` as section 6, including the coverage cliff so the assistant will never offer a 2025 national figure. A new gated rule 19 carries the de-weathering result, unlocked by a widened `isTrendQuery` rather than a second detector, with a smoke test asserting it fires on seven trend questions and none of six controls. Also fixed two different rules both numbered 31.
+- [x] **Two new FAQ entries** — "Are these real measurements, or models?" and "Is my city's air actually getting better?"
+- [x] **The FAQ was over-promising, and the guard could not see it** — it said "fact-checked weekly" twice and linked a July log. `check-factcheck-freshness.py` exists to stop exactly that, and reported PASS throughout, because `panels/faq.html` was not in its `CLAIM_PAGES`. The list was the gap, not the check. Fixed and added.
+- [x] **The four workshops are Markdown files** — `workshops/{know-your-ward,rti-clinic,walkthrough,educators}.md`, linked from each session card and served at `/workshops/`. Our calendar was the bottleneck, not the material, so the material is now anyone's. Three marks (`#`, `#[quiz]`, `- [x]`) make them importable into [Workshopy](https://workshopy.io); nothing depends on it, because a text file is not a hostage. CC BY-NC-SA 4.0.
+- [x] **`scripts/check-workshop-decks.py`** — catches a `deck` path with no file, a drifted README table, and a quiz question with no `- [x]`, which imports cleanly, renders normally and can never be answered correctly. Each confirmed by breaking it on purpose.
+- [x] **Blog post and diagram** — "The Workshop Is a File Now", with `workshop-decks` wide and tall, verified by rendering both in Chromium.
+
+**Follow-ups opened by this phase:** the RTI Clinic deck assumes the RTI Assistant's templates stay as they are, and nothing ties the two together yet; and the two hour-long decks would fit a free 45-minute session if split into six files rather than four, which is a question for whoever runs one first.
+
 ## Phase 5.26: Measured air at last, and the wind separated from the policy (✅ Completed — v26.6.184–186)
 
 - [x] **An observed station layer, beside the modelled ones** *(v26.6.184)* — JanVayu’s air layers are chosen because they reach where monitors do not: SatPM2.5 V6GL03 gives every village a 2024 annual figure, CAMS carries it to the current year, LongPMInd reaches back to 1980, and all three are calibrated against ground measurements. What the site did not hold was the instrument record itself, which is what lets you check them. The [India Air Quality Database](https://airquality.xkdr.org) (XKDR Forum, CC BY 4.0) closes that: 196.5M hourly readings, 558 stations, 15 pollutants. `scripts/build-station-observed.py` → `data/station-observed.json`.

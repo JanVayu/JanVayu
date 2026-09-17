@@ -1,33 +1,37 @@
 {
-  "_comment": "Drives the Workshops panel calendar. `sessions` = the standing sessions we offer (booked on request; the booking form captures which one). `upcoming` = specific public group sessions with a fixed date — leave [] when nothing is scheduled and the panel shows a book-on-request message. To add a public session, append: {\"session\":\"walkthrough\",\"date\":\"2026-08-02\",\"time\":\"11:00 AM–12:00 PM IST\",\"seatsNote\":\"25 seats\"}.",
+  "_comment": "Drives the Workshops panel calendar. `sessions` = the standing sessions we offer (booked on request; the booking form captures which one). `upcoming` = specific public group sessions with a fixed date — leave [] when nothing is scheduled and the panel shows a book-on-request message. To add a public session, append: {\"session\":\"walkthrough\",\"date\":\"2026-08-02\",\"time\":\"11:00 AM–12:00 PM IST\",\"seatsNote\":\"25 seats\"}. Each session also carries `deck`, the path to its Markdown workshop file under /workshops/. Those files are the same session written so anyone can run it themselves, in Workshopy or on a projector; scripts/check-workshop-decks.py fails CI if a deck path has no file behind it.",
   "sessions": [
     {
       "id": "walkthrough",
       "title": "JanVayu Walkthrough",
       "duration": "1 hour",
       "mode": "Online · free",
-      "blurb": "A live tour of the whole platform. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and size the right purifier for your room."
+      "blurb": "A live tour of the whole platform. Set AQI alerts for your city, file an RTI in one sitting, read the NCAP scorecard, and size the right purifier for your room.",
+      "deck": "/workshops/walkthrough.md"
     },
     {
       "id": "rti-clinic",
       "title": "RTI Clinic",
       "duration": "45 minutes",
       "mode": "Online · free",
-      "blurb": "Bring your city; leave having filed a real Right to Information request — on clean-air fund utilisation, a missing monitor, or a specific NCAP gap. We draft it with you."
+      "blurb": "Bring your city; leave having filed a real Right to Information request — on clean-air fund utilisation, a missing monitor, or a specific NCAP gap. We draft it with you.",
+      "deck": "/workshops/rti-clinic.md"
     },
     {
       "id": "know-your-ward",
       "title": "Know Your Ward",
       "duration": "30 minutes",
       "mode": "Online · free",
-      "blurb": "Read your neighbourhood's air, heat and green-cover maps ward by ward — and understand the honest live-snapshot-vs-annual difference behind the colours."
+      "blurb": "Read your neighbourhood's air, heat and green-cover maps ward by ward — and understand the honest live-snapshot-vs-annual difference behind the colours.",
+      "deck": "/workshops/know-your-ward.md"
     },
     {
       "id": "educators",
       "title": "Air-Literacy for Educators",
       "duration": "1 hour",
       "mode": "Online · free",
-      "blurb": "A classroom-ready session for teachers: the learning games, the 10-question self-check, and how to teach AQI, sources and protection to Class 9+ students."
+      "blurb": "A classroom-ready session for teachers: the learning games, the 10-question self-check, and how to teach AQI, sources and protection to Class 9+ students.",
+      "deck": "/workshops/educators.md"
     }
   ],
   "upcoming": []

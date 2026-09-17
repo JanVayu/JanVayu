@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **September 2026**
+  - [The Workshop Is a File Now](posts/2026-09-17-the-workshop-is-a-file.md)
   - [Thirty-Three Cities Are Getting Cleaner. Eleven Are Not.](posts/2026-09-17-thirty-three-cities.md)
   - [Was It Policy, or Was It the Wind?](posts/2026-09-08-was-it-policy-or-the-wind.md)
   - [Your Airshed, or Your Town? A New Way to Read Your District's Air](posts/2026-09-05-your-airshed-or-your-town.md)
