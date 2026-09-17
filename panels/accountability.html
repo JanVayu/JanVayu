@@ -5,6 +5,24 @@
                 <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Did the government keep its promises on clean air? Here we track what politicians said, how much money was spent, and what actually happened. You can use RTI (Right to Information) to ask the government tough questions.">Tracking promises, court orders, budget allocations, and outcomes. <strong>NEW:</strong> Clean Air Mission Tracker with independent verification of NCAP interventions. Use RTI to demand transparency. Democracy requires accountability.</p>
             </div>
 
+            <!-- ── CPCB's own bulletin, per city per year (rendered from /data/aqi-bulletins.json) ── -->
+            <div id="bulletin-check" style="margin-bottom: 2.5rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border);">
+                <h3 style="font-family: var(--serif); font-size: 1.25rem; color: var(--ink); margin-bottom: 0.4rem;">What CPCB itself said about your city</h3>
+                <p style="font-size: 0.95rem; line-height: 1.65; color: var(--text-2); max-width: 48rem; margin-bottom: 1rem;" data-simple="Every day at 4pm the government publishes an official air quality number for over 200 cities. We have collected ten years of them, so you can see how many bad-air days your city officially had, and how many monitors that came from.">CPCB publishes an AQI bulletin every day at 4pm covering 200+ cities, and has since May 2015. It is the number a minister quotes and a court cites. Pick a city and a year to see how many days it spent in each official category &mdash; and, beside it, how many monitoring stations that figure came from.</p>
+                <div class="apportion-controls">
+                    <span style="display:inline-flex;align-items:center;gap:0.6rem;">
+                        <label for="bulletin-city" class="apportion-label">City</label>
+                        <select id="bulletin-city" class="apportion-select" aria-label="Choose a city"></select>
+                    </span>
+                    <span style="display:inline-flex;align-items:center;gap:0.6rem;">
+                        <label for="bulletin-year" class="apportion-label">Year</label>
+                        <select id="bulletin-year" class="apportion-select" aria-label="Choose a year"></select>
+                    </span>
+                    <span id="bulletin-basis" class="apportion-basis"></span>
+                </div>
+                <div id="bulletin-body" aria-live="polite" style="margin-top:1rem;"></div>
+            </div>
+
             <div class="card mb-2">
                 <div class="card-header"><span class="card-title"> Promises vs Reality</span></div>
                 <div class="card-body">

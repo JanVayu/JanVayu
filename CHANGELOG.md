@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.200] - 2026-09-17
+
+### Added — CPCB's own bulletin gets a surface, and a false claim gets caught on the way
+
+`data/aqi-bulletins.json` shipped in v26.6.195 as 289 cities of CPCB's own daily AQI bulletin, 2015 to 2025, with nothing on the site that drew it. That is the same state `station-observed.json` sat in for nine days. The accountability panel now carries a city-and-year selector over it: days in each official category as a stacked band and a table, the median station count behind that year printed next to it, and a thin-city warning that says what an AQI aggregated over one monitor is and suggests an RTI to the municipal corporation.
+
+Delhi 2025: **164 of 364 reported days rated Poor or worse, 8 of them Severe**, from a median of 37 stations. Agartala 2021: 44 of 329, from a median of **1**.
+
+### Fixed — "Delhi, the only city never thin, shows no trend across the window"
+
+That sentence was in `_meta.no_trend`, in the assistant's prompt, in the build script's docstring and in the v26.6.195 changelog entry. Drawing the panel put it on screen for the first time, which is the only reason anyone read it. It is wrong twice over.
+
+**Three panel cities are never thin**, not one: Bengaluru, Delhi and Lucknow. And Delhi is the worst available stand-in for a stable instrument, because its own station count went from 5 to 37 across the window, a 7.4x growth second only to Hyderabad's. The two counts offered as evidence sit on unequal denominators: 136 Poor-or-worse days of **235** reported in 2015 is 58%, 157 of **366** in 2024 is 43%. Read as rates they are a fall, not a flat line.
+
+The paragraph's conclusion survives and is simpler without it: not one city in the panel held its instrument still, so none of them supplies a clean within-city series either. The steadiest of the ten, Lucknow, still doubled from 3 stations to 6.
+
+A second figure in the same paragraph had drifted quietly: Navi Mumbai was given as 1 to 6 when first-to-last is 1 to **5**. It peaked at 6 in 2024 and reports 5 now.
+
+### Changed — prose that quotes a figure is a claim, and a claim gets a check
+
+None of this was caught by anything, because `build-aqi-bulletins.py --check` verified the *records* thoroughly and treated the notes beside them as decoration. It now recomputes every number `_meta.no_trend` states and requires the note to state it, **at phrase level**: a first attempt asked only whether each number appeared somewhere in the paragraph, and a panel size drifted from 10 to 12 passed clean, because "10" was still present in a different clause. All four claims were then broken in turn and each one fired. The script's own docstring is checked against `station_stability` the same way, since that is where the Navi Mumbai figure had been sitting.
+
+### Fixed — the assistant carried the same sentence
+
+Rule 19 repeated the Delhi claim verbatim and, separately, did not know the bulletins had anywhere to point to. Both corrected; it now names the accountability panel, as v26.6.198 taught it to name the airshed selector.
+
 ## [v26.6.199] - 2026-09-17
 
 ### Added — "What JanVayu Does That the Other Indian Air-Quality Sites Do Not"
@@ -81,7 +107,7 @@ CPCB publishes an AQI bulletin every day at 4pm as a PDF covering 200+ cities, a
 
 The first build computed a like-for-like panel of the ten cities reporting a usable year in all eleven years. It showed Poor-or-worse days falling from **26.3% of city-days in 2015 to 8.3% in 2025**, severe days from 55 to 8. Clean, quotable, and it corroborated the de-weathering result.
 
-It is not usable, and it is recorded here because it was very nearly shipped. Those same ten cities went from a median of **one** station to six: Agra 1→6, Kanpur 1→3, Varanasi 1→4, Faridabad 1→3, Navi Mumbai 1→6, Delhi 5→37. Holding the city list constant does not hold the *measurement* constant. Delhi, the only one never thin, shows no trend across the window at all (136 Poor-or-worse days in 2015, 157 in 2024).
+It is not usable, and it is recorded here because it was very nearly shipped. Those same ten cities went from a median of **one** station to six: Agra 1→6, Kanpur 1→3, Varanasi 1→4, Faridabad 1→3, Navi Mumbai 1→5, Delhi 5→37. Holding the city list constant does not hold the *measurement* constant. ~~Delhi, the only one never thin, shows no trend across the window at all (136 Poor-or-worse days in 2015, 157 in 2024).~~ **Corrected in v26.6.200: that sentence was wrong twice over.** Three panel cities are never thin (Bengaluru, Delhi, Lucknow) and Delhi's own station count grew 7.4x, the second-largest growth in the panel, so it was the worst possible stand-in for a stable instrument. The two counts also sit on unequal denominators: 136 of **235** reported days in 2015 is 58%, 157 of **366** in 2024 is 43%. The conclusion the paragraph reaches still holds, and holds more simply: no city here held its instrument still, so none of them supplies a clean within-city series either.
 
 So the file states no trend, `_meta.no_trend` says why, and `--check` refuses a `like_for_like` block and any annual mean AQI — the latter because the site's own rule is that an index reporting only the worst of six pollutants cannot be averaged over a year.
 

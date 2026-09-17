@@ -38,11 +38,12 @@ in 2015 to 8.3% in 2025. It is a compelling number and it is not usable.
 
 Those same ten cities went from a median of **one** reporting station to six:
 Agra 1 to 6, Kanpur 1 to 3, Varanasi 1 to 4, Faridabad 1 to 3, Navi Mumbai 1 to
-6, Delhi 5 to 37. Holding the city list constant does not hold the measurement
+5, Delhi 5 to 37. Holding the city list constant does not hold the measurement
 constant. A city AQI aggregated over one station and the same city aggregated
 over six are different instruments, so the series is a mix of changing air and
-a changing sensor, and nothing here can separate them. Delhi, the one city whose
-count was never thin, shows no trend at all across the window.
+a changing sensor, and nothing here can separate them. Nor is there one city in
+the panel that held still and can stand in for the rest: the steadiest of the
+ten, Lucknow, still doubled from 3 stations to 6.
 
 So **this file states no trend over time and the check refuses to let one in.**
 What it can honestly answer is a question about a single year: how many days of
@@ -59,6 +60,7 @@ figure printed next to it.
 import argparse
 import csv
 import json
+import re
 import statistics
 import sys
 from collections import defaultdict
@@ -143,6 +145,16 @@ def build(src):
             'thin_years': sum(1 for y in years_all if cities[c][y]['thin']),
         }
 
+    # The no_trend note quotes figures about this panel. Derive them, because an
+    # earlier hardcoded version of this sentence read "Delhi, the only city never
+    # thin, shows no trend across the window" and both halves were false: three
+    # panel cities are never thin, and Delhi's own station count grew 7.4x, the
+    # second-largest growth in the panel. The claim survived only because nothing
+    # recomputed it and nothing displayed it.
+    med_first = int(statistics.median([v['first'] for v in stability.values()])) if stability else 0
+    med_last = int(statistics.median([v['last'] for v in stability.values()])) if stability else 0
+    steady = min(stability.items(), key=lambda kv: kv[1]['grew_by'] or 1e9) if stability else None
+
     return {
         '_meta': {
             'what': ('Days in each official AQI category, by city and year, from CPCB\'s '
@@ -160,13 +172,17 @@ def build(src):
                                'category is the legitimate use of a daily index, and it is '
                                'what GRAP and school closures are triggered by.'),
             'no_trend': ('Deliberately absent, and the check refuses to let one in. '
-                         'Reporting coverage grew from ten cities to nearly three hundred, '
-                         'and the stations behind each city grew with it: the ten cities '
-                         'present throughout went from a median of one station to six. '
+                         f'Reporting coverage grew from {national[years_all[0]]["cities"]} '
+                         f'cities to {national[years_all[-1]]["cities"]}, and the stations '
+                         f'behind each city grew with it: the {len(panel)} cities present '
+                         f'throughout went from a median of {med_first} station'
+                         f'{"" if med_first == 1 else "s"} to {med_last}. '
                          'Holding the city list constant does not hold the measurement '
                          'constant, so a fall in Poor-or-worse days across this window '
                          'cannot be separated from a change in what was doing the measuring. '
-                         'Delhi, the only city never thin, shows no trend across the window. '
+                         'Nor is there a single city here whose instrument stayed still: the '
+                         f'steadiest of the {len(panel)}, {steady[0]}, still went from '
+                         f'{steady[1]["first"]} stations to {steady[1]["last"]}. '
                          'Read a single year, not a series.'),
             'coverage_warning': ('Every figure here is per city and per year. See '
                                  'station_stability for how much the instrument moved under '
@@ -210,6 +226,49 @@ def check():
         tot = sum(cities[c][y]['severe'] for c in cities if y in cities[c])
         if n['severe_days'] != tot:
             errs.append(f'national {y}: severe_days {n["severe_days"]} against {tot} recounted')
+    # Every number _meta.no_trend quotes must still be true of the file that
+    # carries it. The sentence it replaced claimed Delhi was "the only city never
+    # thin" and showed no trend; three panel cities are never thin and Delhi's
+    # own station count grew 7.4x. Nothing recomputed it and nothing displayed
+    # it, so it sat in the file for two releases. Prose that quotes a figure is
+    # a claim, and a claim gets a check.
+    ss, nat = d.get('station_stability', {}), d.get('national', {})
+    note = m.get('no_trend', '')
+    if ss and nat:
+        # Phrase level, not substring. A first attempt asked only whether each
+        # number appeared somewhere in the paragraph, and a panel size drifted
+        # from 10 to 12 still passed, because "10" was present in a different
+        # clause. The figure has to be checked where it is actually claimed.
+        ys = sorted(nat)
+        mf = int(statistics.median([v['first'] for v in ss.values()]))
+        ml = int(statistics.median([v['last'] for v in ss.values()]))
+        steady = min(ss.items(), key=lambda kv: kv[1]['grew_by'] or 1e9)
+        for phrase, what in [
+            (f"grew from {nat[ys[0]]['cities']} cities to {nat[ys[-1]]['cities']}", 'coverage growth'),
+            (f'the {len(ss)} cities present throughout', 'panel size'),
+            (f"a median of {mf} station{'' if mf == 1 else 's'} to {ml}", 'median station growth'),
+            (f'the steadiest of the {len(ss)}, {steady[0]}, still went from '
+             f"{steady[1]['first']} stations to {steady[1]['last']}", 'steadiest city'),
+        ]:
+            if phrase not in note:
+                errs.append(f'_meta.no_trend does not state the {what}: expected "{phrase}"')
+        if m.get('reported_throughout') != len(ss):
+            errs.append(f"_meta.reported_throughout says {m.get('reported_throughout')}, "
+                        f'station_stability carries {len(ss)}')
+
+    # The docstring at the top of this file quotes the same panel figures, and
+    # it drifted too: it said "Navi Mumbai 1 to 6" when first-to-last is 1 to 5
+    # (the city peaked at 6 in 2024 and reports 5 now). A figure in a comment is
+    # still a figure, so it is checked against the data it describes.
+    doc = __doc__ or ''
+    for city, v in ss.items():
+        # not `m`: that name holds _meta here, and shadowing it made the PASS
+        # line raise IndexError instead of printing.
+        hit = re.search(re.escape(city) + r'\s+(\d+)\s+to\s*\n?\s*(\d+)', doc)
+        if hit and (int(hit.group(1)), int(hit.group(2))) != (v['first'], v['last']):
+            errs.append(f"docstring says {city} {hit.group(1)} to {hit.group(2)}, "
+                        f"data gives {v['first']} to {v['last']}")
+
     # Two things must never creep back in. An annual mean AQI contradicts the
     # site's own rule about averaging an index; a cross-year aggregate invites
     # the trend reading that the station growth makes unusable.

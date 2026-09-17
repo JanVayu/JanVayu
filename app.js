@@ -1257,6 +1257,7 @@
                 if (panelId === 'airshed') { try { window.initAirshed && window.initAirshed(); } catch(e) { console.warn('Airshed init:', e); } }
                 if (panelId === 'workshops') { try { window.initWorkshops && window.initWorkshops(); } catch(e) { console.warn('Workshops init:', e); } }
                 if (panelId === 'source-selector') { try { window.initStationCheck && window.initStationCheck(); } catch(e) { console.warn('Station check init:', e); } }
+                if (panelId === 'accountability') { try { window.initBulletins && window.initBulletins(); } catch(e) { console.warn('Bulletins init:', e); } }
             }, 150);
     }
 
@@ -8437,6 +8438,125 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
 
+
+// ── CPCB's own daily bulletin, per city per year (Accountability panel) ──
+// data/aqi-bulletins.json shipped in v26.6.195 as data with no surface, which
+// is the same state station-observed.json sat in for nine days. This draws it.
+//
+// Two things it refuses to show, both deliberate and both explained on the
+// page rather than in a footnote: no annual MEAN AQI, because an index that
+// reports only the worst of six pollutants cannot be averaged over a year; and
+// no trend across years, because the stations behind each city grew from a
+// median of one to six and the instrument changed under the series.
+window.initBulletins = (function () {
+    var cache = null;
+    function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+    // Category -> the band token already defined for both themes.
+    var BAND = {
+        'Good': 'var(--aqi-good)', 'Satisfactory': 'var(--fc-satisfactory)',
+        'Moderate': 'var(--aqi-moderate)', 'Poor': 'var(--aqi-poor)',
+        'Very Poor': 'var(--aqi-very-poor)', 'Severe': 'var(--aqi-hazardous)'
+    };
+
+    function draw() {
+        var host = document.getElementById('bulletin-body');
+        var citySel = document.getElementById('bulletin-city');
+        var yearSel = document.getElementById('bulletin-year');
+        if (!host || !cache) return;
+        var city = citySel.value, year = yearSel.value;
+        var rec = (cache.cities[city] || {})[year];
+        if (!rec) {
+            host.innerHTML = '<p style="font-size:0.9rem;color:var(--text-3);">' + esc(city) +
+                ' did not report enough days in ' + esc(year) + ' to describe a year. ' +
+                'A city needs at least 180 reported days here.</p>';
+            return;
+        }
+        var cats = cache._meta.categories;
+        var bars = cats.map(function (c) {
+            var n = rec.by_category[c] || 0;
+            if (!n) return '';
+            return '<span title="' + esc(c) + ': ' + n + ' days" style="display:block;height:100%;width:' +
+                (n / rec.days * 100).toFixed(2) + '%;background:' + BAND[c] + ';"></span>';
+        }).join('');
+        var rows = cats.map(function (c) {
+            var n = rec.by_category[c] || 0;
+            return '<tr><td style="padding:0.25rem 0.75rem 0.25rem 0;white-space:nowrap;">' +
+                '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' +
+                BAND[c] + ';margin-right:6px;"></span>' + esc(c) + '</td>' +
+                '<td style="padding:0.25rem 0;text-align:right;font-variant-numeric:tabular-nums;">' + n + '</td>' +
+                '<td style="padding:0.25rem 0 0.25rem 0.75rem;text-align:right;color:var(--text-3);font-variant-numeric:tabular-nums;">' +
+                (n / rec.days * 100).toFixed(0) + '%</td></tr>';
+        }).join('');
+
+        var thinNote = rec.thin
+            ? '<div class="alert alert-warning" style="margin-top:0.9rem;font-size:0.85rem;">' +
+              '<strong>This figure came from a median of ' + rec.median_stations +
+              ' station' + (rec.median_stations === 1 ? '' : 's') + '.</strong> ' +
+              'An AQI built from one or two monitors is a reading from one place with a city’s name on it. ' +
+              'It is not wrong, but it cannot describe a city, and it should not be compared against a city with thirty. ' +
+              'That is a reasonable thing to put in an RTI to your municipal corporation.</div>'
+            : '<p style="font-size:0.82rem;color:var(--text-3);margin-top:0.6rem;">Built from a median of ' +
+              rec.median_stations + ' reporting stations.</p>';
+
+        var nat = cache.national[year] || {};
+        host.innerHTML =
+            '<div style="display:flex;align-items:baseline;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.5rem;">' +
+              '<span class="number-callout" style="color:var(--aqi-poor);">' + rec.poor_or_worse + '</span>' +
+              '<span style="font-size:0.95rem;color:var(--text-2);">days rated <strong>Poor or worse</strong> out of ' +
+              rec.days + ' reported' + (rec.severe ? ', including <strong>' + rec.severe + '</strong> rated Severe' : '') + '</span>' +
+            '</div>' +
+            '<span style="display:flex;height:0.85rem;border-radius:3px;overflow:hidden;background:var(--border);margin:0.6rem 0 0.9rem;">' +
+              bars + '</span>' +
+            '<table style="width:100%;max-width:26rem;border-collapse:collapse;font-size:0.88rem;">' +
+              '<caption class="sr-only">Days in each official AQI category for ' + esc(city) + ' in ' + esc(year) + '</caption>' +
+              '<tbody>' + rows + '</tbody></table>' +
+            thinNote +
+            '<details class="apportion-method" style="margin-top:0.9rem;">' +
+            '<summary>Why there is no average, and no trend line</summary><div class="apportion-method-body">' +
+            '<p><strong>No annual mean AQI.</strong> ' + esc(cache._meta.no_annual_mean) + '</p>' +
+            '<p><strong>No trend across years.</strong> ' + esc(cache._meta.no_trend) + '</p>' +
+            '<p><strong>Nationally in ' + esc(year) + ':</strong> ' + (nat.cities || 0) + ' cities reported a usable year, and ' +
+              (nat.thin_cities || 0) + ' of them did so on a median of fewer than three stations.</p>' +
+            '<p><strong>Source.</strong> ' + esc(cache._meta.source) + '</p>' +
+            '</div></details>';
+    }
+
+    function render(d) {
+        var citySel = document.getElementById('bulletin-city');
+        var yearSel = document.getElementById('bulletin-year');
+        if (!citySel || !yearSel) return;
+        cache = d;
+        var cities = Object.keys(d.cities).sort();
+        var years = Object.keys(d.national).sort().reverse();
+        if (!citySel.options.length) {
+            citySel.innerHTML = cities.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('');
+            citySel.value = cities.indexOf('Delhi') !== -1 ? 'Delhi' : cities[0];
+            citySel.addEventListener('change', draw);
+        }
+        if (!yearSel.options.length) {
+            yearSel.innerHTML = years.map(function (y) { return '<option>' + esc(y) + '</option>'; }).join('');
+            yearSel.addEventListener('change', draw);
+        }
+        var basis = document.getElementById('bulletin-basis');
+        if (basis) basis.textContent = d._meta.cities + ' cities · ' + d._meta.window +
+            ' · CPCB daily bulletin';
+        draw();
+    }
+
+    return function initBulletins() {
+        if (!document.getElementById('bulletin-body')) return;
+        if (cache) { render(cache); return; }
+        fetch('/data/aqi-bulletins.json').then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+        }).then(render).catch(function (e) {
+            console.warn('Bulletin data load failed:', e);
+            var h = document.getElementById('bulletin-body');
+            if (h) h.innerHTML = '<p style="color:var(--text-3);font-size:0.9rem;">The bulletin figures could not load.</p>';
+        });
+    };
+})();
 
 // ── Instruments vs the modelled layer (Data Source Selector panel) ──
 // data/station-observed.json shipped in v26.6.184 with no surface at all: the
