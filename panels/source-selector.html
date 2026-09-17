@@ -21,7 +21,7 @@
                             onchange="this.parentElement.querySelector('.toggle-track').classList.toggle('active', this.checked); updateSourceSelection();">
                         <span class="toggle-track active" style="position: absolute; inset: 0; background: #059669; border-radius: 12px; transition: background 0.2s; cursor: pointer;"
                             onclick="var cb = this.parentElement.querySelector('input'); cb.checked = !cb.checked; cb.dispatchEvent(new Event('change'));">
-                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px);"></span>
+                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px); color: #1a1a18;"></span>
                         </span>
                     </span>
                 </label>
@@ -58,7 +58,7 @@
                             onchange="this.parentElement.querySelector('.toggle-track').classList.toggle('active', this.checked); updateSourceSelection();">
                         <span class="toggle-track active" style="position: absolute; inset: 0; background: #2563EB; border-radius: 12px; transition: background 0.2s; cursor: pointer;"
                             onclick="var cb = this.parentElement.querySelector('input'); cb.checked = !cb.checked; cb.dispatchEvent(new Event('change'));">
-                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px);"></span>
+                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px); color: #1a1a18;"></span>
                         </span>
                     </span>
                 </label>
@@ -95,7 +95,7 @@
                             onchange="this.parentElement.querySelector('.toggle-track').classList.toggle('active', this.checked); updateSourceSelection();">
                         <span class="toggle-track active" style="position: absolute; inset: 0; background: #9333EA; border-radius: 12px; transition: background 0.2s; cursor: pointer;"
                             onclick="var cb = this.parentElement.querySelector('input'); cb.checked = !cb.checked; cb.dispatchEvent(new Event('change'));">
-                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px);"></span>
+                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px); color: #1a1a18;"></span>
                         </span>
                     </span>
                 </label>
@@ -132,7 +132,7 @@
                             onchange="this.parentElement.querySelector('.toggle-track').classList.toggle('active', this.checked); updateSourceSelection();">
                         <span class="toggle-track active" style="position: absolute; inset: 0; background: #D97706; border-radius: 12px; transition: background 0.2s; cursor: pointer;"
                             onclick="var cb = this.parentElement.querySelector('input'); cb.checked = !cb.checked; cb.dispatchEvent(new Event('change'));">
-                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px);"></span>
+                            <span style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; transform: translateX(20px); color: #1a1a18;"></span>
                         </span>
                     </span>
                 </label>
@@ -205,6 +205,40 @@
             </div>
             <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="India has only about 565 continuous air monitors for 584,615 villages, so most places have no monitor anywhere near them. Satellites can estimate a whole year&rsquo;s average pollution everywhere, including villages. We use that for the yearly numbers, and keep it clearly separate from today&rsquo;s live readings."><strong>What we use them for:</strong> the <strong>annual mean PM2.5</strong> carried by every one of India&rsquo;s 584,615 villages and all 68,596 wards comes from <a href="https://sites.wustl.edu/acag/datasets/surface-pm2-5/" target="_blank" rel="noopener">SatPM2.5 V6GL03</a> (ACAG, Washington University &mdash; a neural network over satellite aerosol depth combined with the GEOS-Chem model, ~1&nbsp;km, CC BY 4.0, on AWS Open Data). The Ward Atlas&rsquo;s <em>heat</em> layer is <a href="https://www.usgs.gov/landsat-missions" target="_blank" rel="noopener">Landsat 8/9</a> surface temperature (~30&nbsp;m) via Microsoft Planetary Computer; <em>green cover</em> and <em>built-up</em> are <a href="https://esa-worldcover.org/" target="_blank" rel="noopener">ESA WorldCover 2021</a> (10&nbsp;m, CC BY 4.0).</p>
             <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Two limits worth stating:</strong> this is an <strong>annual average, not today&rsquo;s air</strong> &mdash; it says nothing about a bad week in November, which for the Indo-Gangetic plain is much of the story, so we never merge it with a live reading. And a ~1&nbsp;km product <strong>smooths hyperlocal sources</strong>: a single kiln, smelter or busy junction next door will not show up in it. It is a modelled estimate calibrated against ground monitors, not a measurement taken in your village.</p>
+        </div>
+    </div>
+
+    <!-- ═══ CPCB daily bulletins + the wider source landscape ═══ -->
+    <div class="card" id="source-card-bulletins" style="border-left: 4px solid var(--purple); margin-bottom: 2.5rem;">
+        <div class="card-header">
+            <span class="card-title" style="color: var(--purple);">CPCB daily AQI bulletins <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; the official number, 2015&ndash;2025</span></span>
+        </div>
+        <div class="card-body">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">289 cities</span>
+                <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Daily, city-level</span>
+                <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Official</span>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Every day at 4pm the government publishes an official air quality number for 200+ cities as a PDF. Someone has now collected ten years of them. We use it to count how many bad-air days each city officially had."><strong>What we use it for:</strong> CPCB publishes an AQI bulletin every day at 4pm as a PDF, covering 200+ cities, and has since May 2015. It is the number a minister quotes and a court cites, and it has never existed as a series because it is a decade of PDFs. <a href="https://github.com/urbanemissionsinfo/AQI_bulletins" target="_blank" rel="noopener">UrbanEmissions.Info</a> parsed them; we turn that into <strong>days in each official category, per city, per year</strong>, with the number of stations behind each figure printed beside it.</p>
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>The finding.</strong> In CPCB&rsquo;s own 2024 bulletin, 264 cities reported a usable year and <strong>221 of them did so on a median of fewer than three monitoring stations</strong>. For <strong>204 cities the median was exactly one</strong>. Agartala, Ajmer, Amritsar, Aizawl and two hundred others have a daily official air-quality figure that is a reading from one place with a city&rsquo;s name on it.</p>
+            <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Two things we refuse to compute from it.</strong> No <em>annual mean AQI</em>: an index that reports only the worst of six pollutants cannot be averaged over a year, so we count days in each category instead, which is what GRAP and school closures are actually triggered by. And <strong>no trend across years</strong> &mdash; the ten cities reporting throughout went from a median of one station to six, so the instrument changed under the series and a fall in bad-air days cannot be separated from a change in what was doing the measuring. Read one year, not a series.</p>
+        </div>
+    </div>
+
+    <div class="card" id="source-card-others" style="border-left: 4px solid var(--text-3); margin-bottom: 2.5rem;">
+        <div class="card-header">
+            <span class="card-title">Other places to get Indian air-quality data <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; that we do not use, and where to find them</span></span>
+        </div>
+        <div class="card-body">
+            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="Other websites where you can get Indian air quality data, listed so you can check our numbers against someone else&rsquo;s.">JanVayu is not the only place to get this data and should not be the only place you check it. This list follows one compiled by <strong>Dr Sarath Guttikunda</strong> (UrbanEmissions.Info) in September 2026. We name them whether or not we use them, because a reader who can cross-check us is worth more to us than one who cannot.</p>
+            <ul style="font-size: 0.85rem; color: var(--text-2); line-height: 1.75; margin: 0; padding-left: 1.1rem;">
+                <li><strong>Official.</strong> <a href="https://cpcb.nic.in/aqi_bulletin.php" target="_blank" rel="noopener">CPCB daily AQI bulletins</a> (the 4pm PDF), the <a href="https://airquality.cpcb.gov.in/AQI_India/" target="_blank" rel="noopener">real-time National AQI portal</a>, and the CPCB archive by year and station.</li>
+                <li><strong>Open archives.</strong> <a href="https://openaq.org" target="_blank" rel="noopener">OpenAQ</a>, the <a href="https://airquality.xkdr.org" target="_blank" rel="noopener">XKDR India Air Quality Database</a>, <a href="https://www.earthmetry.com" target="_blank" rel="noopener">Earthmetry</a>, and <a href="https://github.com/urbanemissionsinfo/AQI_bulletins" target="_blank" rel="noopener">the bulletin archive</a> above.</li>
+                <li><strong>Sensor networks.</strong> <a href="https://sensor.community" target="_blank" rel="noopener">Sensor.Community</a>, <a href="https://www.purpleair.com" target="_blank" rel="noopener">PurpleAir</a>, <a href="https://www.airgradient.com" target="_blank" rel="noopener">AirGradient</a>, <a href="https://www.airveda.com" target="_blank" rel="noopener">AirVeda</a> and <a href="https://oaq.notf.in/" target="_blank" rel="noopener">Aurassure</a>. Denser than the official network and less accurate; good for hyperlocal variation, not for a legal figure.</li>
+                <li><strong>Analysis and bulletins.</strong> <a href="https://energyandcleanair.org" target="_blank" rel="noopener">CREA</a>&rsquo;s daily bulletin and its NCAP progress reports, which the accountability pages here lean on.</li>
+                <li><strong>Ask-a-question tools.</strong> <a href="https://vayubuddy.streamlit.app/" target="_blank" rel="noopener">VayuBuddy</a> (IIT Gandhinagar), which answers questions against CPCB data. <a href="/ask" target="_blank" rel="noopener">Ask JanVayu</a> does something similar; we mention theirs because two independent answers to the same question are worth having.</li>
+            </ul>
+            <p style="font-size: 0.8rem; color: var(--text-3); margin: 0.75rem 0 0;">If a source is missing from this list, or one of these has gone stale, tell us: <a href="mailto:contribute@janvayu.in?subject=Data%20source">contribute@janvayu.in</a></p>
         </div>
     </div>
 

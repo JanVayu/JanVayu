@@ -57,6 +57,18 @@ jobs:
       - name: Check the national deweathering layer
         run: python3 scripts/build-deweathered-national.py --check
 
+      # A dark-mode sweep on 2026-09-17 measured every text element on all 56
+      # panels in both themes: 1,844 failing in dark, 1,233 in light, almost
+      # all from three habits rather than 3,000 separate mistakes. A themed
+      # background with hardcoded white text (6.52:1 light, 1.74:1 dark). A
+      # hardcoded light background with no ink, so dark mode paints near-white
+      # on a pastel at 1.01:1. And a band colour written as a literal in JS,
+      # which cannot know which theme it landed in. The full sweep lives in
+      # tests/contrast-sweep.mjs and is run by hand: its counts drift on their
+      # own because the page shows live AQI.
+      - name: Check no colour choice works in only one theme
+        run: python3 scripts/check-theme-contrast.py
+
       # text-transform: uppercase is a display rule except for one character:
       # CSS maps U+00B5 MICRO SIGN to Greek capital Mu, so a label reading
       # "µg/m³" renders as "ΜG/M³" and a reader parses milligrams. A factor of
@@ -65,6 +77,15 @@ jobs:
       # including the AQI explainer's own breakpoint table.
       - name: Check no unit renders as milligrams
         run: python3 scripts/check-uppercase-units.py
+
+      # CPCB's own daily AQI bulletins, 2015-2025, as day counts per city per
+      # year. The check recomputes every category count from the records and
+      # refuses two things the data cannot support: an annual mean AQI (an
+      # index cannot be averaged) and any cross-year trend block (the stations
+      # behind each city grew from a median of one to six, so the instrument
+      # changed under the series).
+      - name: Check the CPCB bulletin layer
+        run: python3 scripts/build-aqi-bulletins.py --check
 
       # The four workshop decks in workshops/ are plain Markdown so anyone can
       # import them into Workshopy, project them or translate them. Three ways

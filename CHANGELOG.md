@@ -5,6 +5,56 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.195] - 2026-09-17
+
+### Added — CPCB's own daily bulletins, 2015–2025, and a finding about monitors
+
+CPCB publishes an AQI bulletin every day at 4pm as a PDF covering 200+ cities, and has since May 2015. It is the official number, the one a minister quotes and a court cites, and it has never existed as a series because it is a decade of PDFs. [UrbanEmissions.Info](https://github.com/urbanemissionsinfo/AQI_bulletins) parsed them, from a source list Dr Sarath Guttikunda published in September 2026.
+
+`scripts/build-aqi-bulletins.py` → `data/aqi-bulletins.json`: **289 cities, 2015–2025**, from 471,015 city-days, as **days in each official category per city per year**, each with the number of stations behind it.
+
+**It fills the gap the station archive leaves.** XKDR is station-level and hourly and its CPCB feed stops on 1 September 2025; the bulletin is city-level and daily and ran to 31 December 2025. Different pipeline, so one kept coming when the other stopped.
+
+**The finding.** In CPCB's own 2024 bulletin, 264 cities reported a usable year and **221 of them (84%) did so on a median of fewer than three stations**. For **204 cities the median was exactly one**. Agartala, Ajmer, Amritsar, Aizawl and two hundred others have a daily official air-quality figure that is a reading from one place with a city's name on it.
+
+### Refused — the trend this dataset appears to support
+
+The first build computed a like-for-like panel of the ten cities reporting a usable year in all eleven years. It showed Poor-or-worse days falling from **26.3% of city-days in 2015 to 8.3% in 2025**, severe days from 55 to 8. Clean, quotable, and it corroborated the de-weathering result.
+
+It is not usable, and it is recorded here because it was very nearly shipped. Those same ten cities went from a median of **one** station to six: Agra 1→6, Kanpur 1→3, Varanasi 1→4, Faridabad 1→3, Navi Mumbai 1→6, Delhi 5→37. Holding the city list constant does not hold the *measurement* constant. Delhi, the only one never thin, shows no trend across the window at all (136 Poor-or-worse days in 2015, 157 in 2024).
+
+So the file states no trend, `_meta.no_trend` says why, and `--check` refuses a `like_for_like` block and any annual mean AQI — the latter because the site's own rule is that an index reporting only the worst of six pollutants cannot be averaged over a year.
+
+**A note on the check.** Its first version searched the serialised file for the word "trend" and failed on `_meta.no_trend`, the note explaining why there isn't one. It is structural now: it walks for banned numeric keys and a banned top-level block. Scanning prose for a word is not a check.
+
+**Licence.** The bulletins are Government of India publications and the figures are facts; the parsing and city-name cleaning are that project's work under **GPL-3.0**, a software licence and an awkward fit for a derived dataset. JanVayu publishes only the derived summary, not the source table, and credits both in `_meta.source`.
+
+### Added — where else to get this data
+
+A second card in the Data Source Selector names every source on Guttikunda's list, used or not, including six JanVayu had never mentioned: **AirGradient, AirVeda, Earthmetry, Aurassure, EnviroCatalysts and VayuBuddy**. A reader who can cross-check us is worth more than one who cannot.
+
+## [v26.6.194] - 2026-09-17
+
+### Fixed — a dark-mode pass over the whole site
+
+Measured rather than grepped. `tests/contrast-sweep.mjs` opens all **56 panels in both themes**, walks every element that has its own text, resolves the real background by climbing the tree, and reports anything under 4.5:1 (3:1 for large text). The first run found **1,844 failing elements in dark and 1,233 in light**. After this change: **291 and 275**.
+
+Almost all of it came from three habits, not from three thousand separate mistakes.
+
+**A themed background with hardcoded white text**, in twelve CSS rules and twenty-four inline styles. `background: var(--accent); color: #fff` is 6.52:1 in light; in dark `--accent` becomes `#4ADE80` and white drops to **1.74:1**. The site already had the right token — `--on-accent`, defined in both themes — and these rules simply did not use it. One of the offenders was the **skip link**, which exists for accessibility. The eight standalone pages that load neither `styles.css` nor the tokens get `var(--on-accent, #fff)` so their light-only design is unchanged.
+
+**A hardcoded light background with no text colour.** The GRAP stage cards set `background:#D1FAE5` and let the text inherit, so dark mode painted near-white ink on a pastel at **1.01–1.10:1**. Sixteen such inline styles across five files now carry an explicit ink.
+
+**A band colour written as a literal in JavaScript.** `getPM25TextColor()` returned dark shades and its own comment said they were "for use as TEXT on light backgrounds" — which was true, and was the bug. `#7e0023` measured **1.55:1 on 240 elements across every panel**. The bands are now tokens (`--pm-b1`…`--pm-b7`, `--aqi-good`…`--aqi-hazardous`) defined for both themes, and a new `getAQITextColor()` separates the text case from the swatch case. `getAQIColor()` is unchanged and still paints chart bars, map polygons and the canvas share card, which cannot resolve a `var()`.
+
+**`onSwatchInk()`**, for text painted directly on a swatch. `.city-rank-aqi` hardcoded white and put it on `#ff0000` at 4.00:1 and on `#ffff00` at **1.07:1**. The ink is now chosen by comparing the two candidate ratios rather than testing luminance against a fixed cutoff — the cutoff is how this bug keeps coming back, because it passes a check while still picking the worse ink. All thirteen swatches now clear 4.83:1 or better.
+
+**The JV brand mark** measured 1.55:1 on the dark page. A logo is exempt from WCAG 1.4.3; an invisible logo is still invisible. Now a token.
+
+**`scripts/check-theme-contrast.py`** (CI job `theme-contrast`) enforces the three habits statically, and each branch was confirmed by reintroducing the fault. **The browser sweep is deliberately not in CI**: its counts drift on their own because the page shows live AQI and the bands change with it — one run reported 331 light failures and the next 499 with no code change. A ratchet on a self-drifting number is a flaky check, and a flaky check gets switched off.
+
+**What is left, and why.** The remaining findings are mostly logotypes and brand colours (the rotating multi-script wordmark, the X and Instagram marks, party colours on testimony avatars), which WCAG exempts, plus a handful of one-off inline colours in the legal and language panels. They are listed by running the sweep.
+
 ## [v26.6.193] - 2026-09-17
 
 ### Added — the instrument record finally has a surface

@@ -104,7 +104,7 @@
       font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
       cursor: pointer; white-space: nowrap; transition: all 0.15s;
     }
-    .city-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .city-chip.active { background: var(--accent); color: var(--on-accent, #fff); border-color: var(--accent); }
     .city-chip:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
 
     /* Chat area */
@@ -120,7 +120,7 @@
     @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .msg-user {
       align-self: flex-end;
-      background: var(--accent); color: #fff;
+      background: var(--accent); color: var(--on-accent, #fff);
       border-bottom-right-radius: 4px;
     }
     .msg-ai {
@@ -146,7 +146,7 @@
       transition: all 0.15s;
     }
     .feedback-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .feedback-btn.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .feedback-btn.selected { background: var(--accent); color: var(--on-accent, #fff); border-color: var(--accent); }
     .feedback-btn:disabled { opacity: 0.5; cursor: default; }
     .feedback-thanked { font-size: 0.7rem; color: var(--accent); font-weight: 500; }
     .wa-share-btn {
@@ -209,7 +209,7 @@
     .input-bar textarea::placeholder { color: var(--text-4); }
     .send-btn {
       width: 42px; height: 42px; border-radius: 50%;
-      border: none; background: var(--accent); color: #fff;
+      border: none; background: var(--accent); color: var(--on-accent, #fff);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; transition: opacity 0.15s;
     }
