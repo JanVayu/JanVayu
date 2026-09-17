@@ -78,6 +78,15 @@ jobs:
       - name: Check no unit renders as milligrams
         run: python3 scripts/check-uppercase-units.py
 
+      # CPCB's own daily AQI bulletins, 2015-2025, as day counts per city per
+      # year. The check recomputes every category count from the records and
+      # refuses two things the data cannot support: an annual mean AQI (an
+      # index cannot be averaged) and any cross-year trend block (the stations
+      # behind each city grew from a median of one to six, so the instrument
+      # changed under the series).
+      - name: Check the CPCB bulletin layer
+        run: python3 scripts/build-aqi-bulletins.py --check
+
       # The four workshop decks in workshops/ are plain Markdown so anyone can
       # import them into Workshopy, project them or translate them. Three ways
       # they break without rendering wrong: a deck path in workshops.json that
