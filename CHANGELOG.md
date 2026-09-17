@@ -5,6 +5,66 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.199] - 2026-09-17
+
+### Added — "What JanVayu Does That the Other Indian Air-Quality Sites Do Not"
+
+A capability table against CPCB's portal, AQI.in / IQAir / AQICN, OpenAQ, XKDR, CREA, the sensor networks and VayuBuddy, prompted by Guttikunda's source list and by somebody asking, reasonably, what JanVayu is for if all of that exists.
+
+**Two disclosures carry the post.** Most of these are not competitors and several are our sources: CPCB, WAQI, OpenAQ, Sensor.Community, XKDR and CREA all appear inside JanVayu. And our own column is verifiable exactly while theirs is not — every JanVayu figure comes from a file in the repository with a check that fails the build if it drifts, whereas several of these sites block automated requests, so those cells rest on their own descriptions and say so. **Cells we could not verify say *unverified* rather than guessing.**
+
+A section on **what the others do better**, which is not a courtesy: CPCB's portal is the official record and ours is not; OpenAQ is a better raw-data API and is not trying to be anything else; CREA's NCAP analysis is better than ours and our accountability pages lean on it; the sensor networks reach street level where a regulatory network never will; VayuBuddy answers questions against CPCB data much as our assistant does.
+
+## [v26.6.198] - 2026-09-17
+
+### Fixed — the assistant was describing a panel that had changed underneath it
+
+Rule 19 told Ask JanVayu that "the on-site chart still shows the Delhi-NCR run". True when written at v26.6.192, false since v26.6.193 put a 44-city selector on the airshed panel. **A prompt that describes the site goes stale when the site changes**, and nothing was watching. It now names the selector and says why the narrower Delhi run is kept beside it.
+
+### Added — the assistant learns the bulletins and the workshops
+
+The trend rule carries CPCB's own daily bulletin as a second, independent record, with the three rules the data needs: no annual mean AQI, no trend across years, and a station count of one is not a city. Plus the finding: 264 cities reported a usable 2024, 221 on a median of fewer than three stations, 204 on exactly one.
+
+New rule 33 on the workshops. People ask whether they can teach this, and the assistant did not know four workshops exist as files anyone can take.
+
+## [v26.6.197] - 2026-09-17
+
+### Fixed — three more colour ladders, and the guard that had the same blind spot as the audits it replaced
+
+`check-theme-contrast.py` checked two band functions **by name**, so `pm25Band()` — a third one, painting the forecast strip — survived the first dark-mode pass: five of its seven literals failed in light (`#84CC16` at **1.96:1**) and two in dark (`#7F1D1D` at **1.70:1**).
+
+A structural version that tried to detect "is this used as text" by regex **silently passed**, because `pm25Band`'s result goes through a variable and is interpolated as `color:${b.color}`. Nothing textually ties the function to a colour property. That is how the same function escaped twice.
+
+**So the burden is inverted.** Every function returning three or more colour literals must be classified: it returns tokens, or it is listed in `SWATCH_OK` with the reason it may stay a literal. That immediately found three nobody knew about:
+
+- **`computeSolution()`** — same AQI thresholds as `getAQIColor`, and its `.color` is assigned to `bandEl.style.color` on the page. A real bug; now uses the `--aqi-*` tokens.
+- **`pm25Color()`** — `fillColor` on a Leaflet circle marker. Exempt.
+- **`pm25TextColor()`** — text, but inside a Leaflet popup, and this site adds no `.leaflet-popup-content-wrapper` rule, so the wrapper keeps Leaflet's default white in *both* themes. Light-only shades are correct there. If anyone themes that popup the entry must go, and the reason says so.
+
+Dark-mode sweep: **291 → 179** failing elements. The three ladders were worth about 110 of them.
+
+### Added — CPCB's daily bulletin, read from the primary source
+
+`scripts/fetch-cpcb-bulletin.py` parses CPCB's own bulletin PDF. Reading it ourselves settles the licence question, gives currency where a published archive stops, and keeps a field the archives drop: **stations participated out of stations total**.
+
+There are at least two PDF layouts — one row per line on some dates, one cell per line on others — and a multi-line city name breaks both mid-row. So it does not parse lines: it tokenises the document and walks a row grammar, which is layout-blind by construction.
+
+**Validated against the independent extraction** for 2025-11-15: **249 of 249 cities agree** on both AQI value and category, the only difference a city-name spelling. Clean on four dates across both layouts: 0 skipped rows, 0 gaps in CPCB's own serial numbering.
+
+## [v26.6.196] - 2026-09-17
+
+### Changed — the dyslexia toggle goes first
+
+On desktop it now sits first in the header row, before the documentation book. `js/dyslexia-font.js` is shared across nine pages, so the placement is opt-in rather than a new default: a slot names an element to sit in front of with `data-dyslexia-before="#docsLink"`. Verified in Chromium at 1280px and 390px.
+
+### Fixed — the city count was stale, and the guard was exempting it
+
+The live dashboard ships **160 cities**. The site said "157 cities" in twelve places and **"30+ cities" in its own meta description, og:description and JSON-LD** — the three things a search engine and a shared link show first. 26 figures corrected across eleven files including the GitBook docs.
+
+`check-site-figures.py` now derives `live_cities` from the CITIES table in `app.js`, with patterns narrow enough to mean the live dashboard and not the ward atlas (142), the testimony wall (107), NCAP (131) or the bulletin layer (289).
+
+**Three weaknesses in that guard, found by making it look.** `CITATION_MARKERS` exempted a claim when a marker appeared within 200 characters either way; the homepage meta description cites the Lancet a clause after the city count, **so the word "Lancet" exempted the figure** and the guard built to catch this drift was skipping it. It now inspects the clause the number sits in. That tightening exposed two more: `across {n} cities` matched "Compare AQI across 160 cities" and a cited study's "confirmed across 620 cities in 36 countries", so the testimony rule now requires the wall to be named in the same clause. And `panels/about.html` carries a scrollable Version History inside an otherwise present-tense page, so a dated release note is now skipped at line level.
+
 ## [v26.6.195] - 2026-09-17
 
 ### Added — CPCB's own daily bulletins, 2015–2025, and a finding about monitors
