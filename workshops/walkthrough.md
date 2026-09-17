@@ -184,8 +184,9 @@ about where India has put its instruments, not about their air.
 # Follow the promises and the money
 
 **NCAP**, the National Clean Air Programme, set a 40% PM10 reduction target for
-non-attainment cities with a deadline of 31 March 2026. Only **23 cities** met
-it (CREA, *Tracing the Hazy Air*, 2026).
+non-attainment cities with a deadline of 31 March 2026. Of the **100 cities**
+with enough PM10 monitoring data to judge, only **23** met it, and **23 saw PM10
+rise** (CREA, *Tracing the Hazy Air 2026*, 9 January 2026).
 
 **GRAP**, the Graded Response Action Plan, is Delhi-NCR's stage-by-stage
 emergency response. In May 2026 the Commission for Air Quality Management

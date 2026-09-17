@@ -75,6 +75,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data' / 'deweathered-national.json'
+# The assistant needs these per city, not as three worked examples in its prompt.
+# On 2026-09-17 the prompt carried Delhi, Lucknow and Chandigarh as illustrations
+# of the METHOD, and asked about Lucknow the model answered with Delhi's -1.75
+# and -1.78: confidently, in the right format, about the wrong city. A per-city
+# lookup is the fix, and it is derived here rather than hand-copied so the two
+# files cannot drift.
+FUNC_OUT = ROOT / 'netlify' / 'functions' / 'data' / 'deweathered-cities.json'
 CACHE = Path(os.environ.get('JV_CACHE', '/tmp/jv-boundaries')) / 'dwn'
 
 XKDR = 'https://airquality.xkdr.org/v1'
@@ -344,6 +351,50 @@ def build():
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
     print(f'\n{len(results)} cities, {len(falling)} falling once weather is removed.')
     print(f'wrote {OUT.relative_to(ROOT)}')
+    derive()
+
+
+# ------------------------------------------------------- derived function copy
+
+def derived_payload():
+    """The compact per-city shape the Netlify function bundles.
+
+    Derived from OUT, never fetched again, so `--check` can recompute it and
+    fail on any drift between the data file and the copy the assistant reads.
+    """
+    d = json.loads(OUT.read_text(encoding='utf-8'))
+    cities = {}
+    for c in sorted(d['cities'], key=lambda x: x['city'].lower()):
+        cities[c['city'].lower()] = {
+            'city': c['city'],
+            'raw': c['trend_raw'],
+            'norm': c['trend_normalised'],
+            'r2': c['r2'],
+            'stations': c['stations'],
+            'years': [c['years'][0], c['years'][-1]],
+            'annual_raw': c['annual_raw'],
+            'annual_norm': c['annual_normalised'],
+        }
+    return {
+        '_meta': {
+            'window': d['_meta']['window'],
+            'method': d['_meta']['method'],
+            'pm25_source': d['_meta']['pm25_source'],
+            'inclusion': d['_meta']['inclusion'],
+            'caveat': d['_meta']['caveat'],
+            'cities': d['_meta']['cities'],
+            'cities_falling_normalised': d['_meta']['cities_falling_normalised'],
+            'derived_from': 'data/deweathered-national.json',
+        },
+        'cities': cities,
+    }
+
+
+def derive():
+    FUNC_OUT.parent.mkdir(parents=True, exist_ok=True)
+    FUNC_OUT.write_text(json.dumps(derived_payload(), ensure_ascii=False, indent=1) + '\n',
+                        encoding='utf-8')
+    print(f'wrote {FUNC_OUT.relative_to(ROOT)} ({len(derived_payload()["cities"])} cities)')
 
 
 # ---------------------------------------------------------------- check
@@ -382,14 +433,29 @@ def check():
     if errs:
         print('FAIL —'); [print('  ' + e) for e in errs[:20]]
         return 1
+    # The function's copy must be exactly what derive() would write from this
+    # file. A hand-edit to either one is the drift this catches.
+    if not FUNC_OUT.exists():
+        errs.append(f'{FUNC_OUT.relative_to(ROOT)} is missing; run --derive')
+    else:
+        want = json.dumps(derived_payload(), ensure_ascii=False, indent=1) + '\n'
+        if FUNC_OUT.read_text(encoding='utf-8') != want:
+            errs.append(f'{FUNC_OUT.relative_to(ROOT)} has drifted from '
+                        f'{OUT.relative_to(ROOT)}; run --derive')
+
+    if errs:
+        print('FAIL —'); [print('  ' + e) for e in errs[:20]]
+        return 1
     print(f'PASS — {len(cities)} cities, {falling} falling once weather is removed, '
-          f'recounted from the records.')
+          f'recounted from the records; the function copy matches.')
     return 0
 
 
 if __name__ == '__main__':
     if '--check' in sys.argv:
         sys.exit(check())
+    if '--derive' in sys.argv:
+        derive(); sys.exit(0)
     if '--fetch' in sys.argv:
         fetch_all()
     sys.exit(build() or 0)
