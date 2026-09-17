@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.201] - 2026-09-17
+
+### Fixed — the bulletin parser dropped one city on the 21st of every month
+
+Every page of a CPCB bulletin carries the header `Air Quality Index on Jan 21 , 2026 @ 4 PM`, in which the day of the month is a bare number. The parser walks a row grammar and treats any token equal to the expected serial as the start of a row. Page two begins near serial 21, so on the 21st of a month that header's `21` sits between row 20 and row 21: the scanner matched it, failed the grammar, advanced past serial 21, and never read the real row.
+
+**It bit on all eight 21sts of 2026** (Baddi, Badlapur and six others) **and on 2025-11-15, the date this parser was checked against when it shipped in v26.6.197.** That check counted 249 rows and agreed with an independent extraction at 249. The correct figure is 250; Arrah was missing from both. Page two starts near serial 15 in the 2025 layout, which is why that date was vulnerable at all.
+
+A serial match is now a candidate rather than a row. One that fails the grammar advances the scan without advancing the expected serial, so the real row is still found; a serial is abandoned only after the whole remaining document has been searched, and `MAX_MISS` consecutive misses mean the table ended rather than that rows were lost. A first version of that fix had no such bound and reported **2,104 skipped rows on a 248-row bulletin**, which would have destroyed the one field that tells you a parse lost data.
+
+Verified against the same PDFs: pre-fix, 2026-01-21 gives 247 rows with `gaps [21]`; post-fix, 248 with none. Six unaffected days across both PDF layouts parse byte-identically. All 260 days of 2026 now report zero gaps and zero skipped rows.
+
+### Changed — writing a fault down is not reporting it
+
+Each of the eight damaged files already carried `serial_gaps: [21]`. The backfill counted them as clean fetches and closed with `259 fetched, 0 failed`, so the loss was recorded and invisible for the whole run. The backfill now names the affected days and returns non-zero, and a single-date fetch exits non-zero on any gap or skipped row.
+
+### Added — `data/raw/cpcb-bulletins-2026.csv.gz`
+
+62,851 rows, 260 days, 1 January to 17 September 2026, parsed from CPCB's own PDFs. 350 KB, kept because the fetch takes about five hours and the parse is the expensive part.
+
+It is **not** merged into `data/aqi-bulletins.json` yet, and `data/raw/README.md` says exactly what has to be resolved first. Case folding collapses 588 raw city strings to 304, of which 270 match a shipped city; of the 34 left, most are cities new to the network, one is a spelling (`yamuna nagar` for `Yamunanagar`), one is a rename (Sri Vijaya Puram for Port Blair), and **two must not be guessed**: Byrnihat (Assam) and Byrnihat (Meghalaya) are different places sharing a name, and on 2026-07-10 CPCB wrote a bare `Aurangabad` against two disambiguated entries every other day. Merging on a rushed alias table would split cities across spellings, and nothing would error.
+
 ## [v26.6.200] - 2026-09-17
 
 ### Added — CPCB's own bulletin gets a surface, and a false claim gets caught on the way

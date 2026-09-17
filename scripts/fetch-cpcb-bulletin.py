@@ -31,12 +31,35 @@ grammar: a serial number, then city words until a category appears, then the
 index value, then pollutants until the stations fraction. That is layout-blind
 by construction, which is the point.
 
+## The page-header collision
+
+Every page carries the header `Air Quality Index on Jan 21 , 2026 @ 4 PM`, in
+which the day of the month is a bare token. When that number equals the serial
+of the row that follows a page break, the scanner matched the header instead of
+the row, failed the grammar, and moved on to the next serial: the real row was
+never read. Page two begins near serial 21 in the 2026 layout and near serial 15
+in the 2025 one, so it bit on the 21st of all eight months of 2026 fetched
+(Baddi, Badlapur and six others) and on 2025-11-15 (Arrah), which is the date
+this parser was originally checked against. The check recorded 249 rows and
+agreed with an independent extraction at 249; the correct figure is 250.
+
+A serial match is therefore a candidate, not a row. One that fails the grammar
+advances the scan without advancing the expected serial, and a serial is given
+up only after the whole remaining document has been searched. `MAX_MISS`
+consecutive misses mean the table has ended rather than that rows were lost.
+
 ## What it refuses to do
 
 **It does not guess a missing field.** A row that does not complete the grammar
 is collected in `skipped` and reported, never half-written. The count of skipped
 rows is the check: CPCB's own serial numbers run 1..N without gaps, so a parse
 that drops rows shows up as a gap in the sequence rather than as silence.
+
+**Silence is the failure mode, so a lossy parse now exits non-zero** and the
+backfill summary names the days. It did not before, and eight damaged files sat
+inside a 259-day run whose closing line read `259 fetched, 0 failed`. Each of
+those files already carried `serial_gaps: [21]`. Writing a fault down is not
+the same as reporting it.
 
     python3 scripts/fetch-cpcb-bulletin.py --date 2026-09-16
     python3 scripts/fetch-cpcb-bulletin.py --date 2026-09-16 --out /tmp/x.json
@@ -58,6 +81,9 @@ CATEGORIES = ['Good', 'Satisfactory', 'Moderate', 'Poor', 'Very Poor', 'Severe']
 CAT_TOKENS = sorted(CATEGORIES, key=lambda c: -len(c.split()))
 POLLUTANTS = {'PM2.5', 'PM10', 'NO2', 'SO2', 'CO', 'O3', 'OZONE', 'NH3', 'PB'}
 STATIONS = re.compile(r'^(\d+)\s*/\s*(\d+)$')
+# Consecutive missing serials that mean the table has ended rather than that a
+# row was lost. CPCB's tables are contiguous; five in a row is not a gap.
+MAX_MISS = 5
 
 
 def fetch(ymd, tries=4):
@@ -103,11 +129,44 @@ def parse(text):
     toks = [t for t in re.split(r'[\s]+', text.replace(',', ' , ')) if t]
 
     rows, skipped = [], []
-    i, expect = 0, 1
+    # `cursor` is where the last committed row ended; `i` scans ahead of it for
+    # the next plausible candidate. `pending` holds why the most recent
+    # candidate for a serial failed, and is only promoted to `skipped` once the
+    # whole remaining document has been searched without that serial parsing.
+    i = cursor = 0
+    expect = 1
+    pending = {}
+    # Serials skipped since the last committed row. They are only real gaps if
+    # a later row commits; otherwise they are the end of the table.
+    trailing = []
+    misses = 0
     while i < len(toks):
         if toks[i] != str(expect):
             i += 1
+            # Scanned to the end without parsing this serial. Either CPCB
+            # genuinely dropped it mid-table, or the table has simply ended.
+            # Try the next serial from where the last real row finished; give
+            # up after MAX_MISS consecutive serials fail, which is the end of
+            # the table. Without that bound the loop records a skip for every
+            # number up to the token count: a first version of this fix
+            # reported 2,104 skipped rows on a 248-row bulletin, which would
+            # have destroyed the one field that tells you a parse lost data.
+            if i >= len(toks):
+                misses += 1
+                if misses >= MAX_MISS:
+                    break
+                trailing.append(pending.pop(expect, {'serial': expect, 'why': 'serial not found'}))
+                expect += 1
+                i = cursor
             continue
+        # A bare number matching the expected serial is a CANDIDATE, not a row.
+        # Every page header reads "Air Quality Index on Jan 21 , 2026 @ 4 PM",
+        # and page two begins around serial 21, so on the 21st of any month that
+        # header's bare "21" sits between row 20 and row 21. Committing to the
+        # first match dropped exactly one city on the 21st of all eight months
+        # of 2026 fetched so far, and would do so every month indefinitely. So a
+        # candidate that fails the grammar advances the scan WITHOUT advancing
+        # the expected serial: the real row is still ahead.
         j = i + 1
         city = []
         cat = None
@@ -122,14 +181,13 @@ def parse(text):
                 city.append(toks[j])
                 j += 1
         if cat is None or j >= len(toks):
-            skipped.append({'serial': expect, 'why': 'no category found'})
-            expect += 1
             i += 1
+            pending[expect] = {'serial': expect, 'why': 'no category found'}
             continue
         if not re.fullmatch(r'\d{1,4}', toks[j]):
-            skipped.append({'serial': expect, 'city': ' '.join(city), 'why': f'index value not a number: {toks[j]!r}'})
-            expect += 1
             i += 1
+            pending[expect] = {'serial': expect, 'city': ' '.join(city),
+                               'why': f'index value not a number: {toks[j]!r}'}
             continue
         value = int(toks[j]); j += 1
         polls, st = [], None
@@ -145,9 +203,9 @@ def parse(text):
                 break
             j += 1
         if st is None:
-            skipped.append({'serial': expect, 'city': ' '.join(city), 'why': 'no stations fraction'})
-            expect += 1
             i += 1
+            pending[expect] = {'serial': expect, 'city': ' '.join(city),
+                               'why': 'no stations fraction'}
             continue
         name = ' '.join(city).replace(' (', ' (').strip(' ,')
         rows.append({
@@ -155,8 +213,12 @@ def parse(text):
             'prominent_pollutant': polls,
             'stations_participated': st[0], 'stations_total': st[1],
         })
+        pending.pop(expect, None)
+        skipped.extend(trailing)
+        trailing = []
+        misses = 0
         expect += 1
-        i = j
+        i = cursor = j
     return rows, skipped
 
 
@@ -177,6 +239,11 @@ def backfill(start, end, outdir):
     if last > date.today():
         last = date.today()
     got = miss = have = fail = 0
+    # Days whose parse lost a row. A backfill that does not surface these
+    # reports a clean run over damaged data: the page-header collision fixed
+    # in v26.6.201 wrote `serial_gaps: [21]` into eight files during a 259-day
+    # run whose summary line said nothing but "259 fetched".
+    holed = []
     while d <= last:
         f = out / f'{d.isoformat()}.json'
         absent = out / f'{d.isoformat()}.absent'
@@ -197,6 +264,8 @@ def backfill(start, end, outdir):
                     'skipped': len(skipped), 'serial_gaps': gaps, 'rows': rows,
                 }, ensure_ascii=False) + '\n', encoding='utf-8')
                 got += 1
+                if gaps or skipped:
+                    holed.append((d.isoformat(), gaps, len(skipped)))
         except urllib.error.HTTPError as e:
             if e.code == 404:
                 absent.write_text('404\n', encoding='utf-8')
@@ -209,6 +278,11 @@ def backfill(start, end, outdir):
         d = d.fromordinal(d.toordinal() + 1)
     print(f'{start}..{last}: {got} fetched, {have} already on disk, '
           f'{miss} not published, {fail} failed (re-run to retry those)')
+    if holed:
+        print(f'WARNING - {len(holed)} day(s) lost rows; delete those files and re-run:')
+        for day, gaps, nskip in holed[:20]:
+            print(f'    {day}: serial gaps {gaps}, {nskip} skipped')
+        return 1
     return 0
 
 
@@ -256,7 +330,9 @@ def main():
     short = sum(1 for r in rows if r['stations_participated'] < r['stations_total'])
     print(f'  {thin} cities with a single station; {short} where fewer stations '
           f'reported than the city has')
-    return 0
+    # A gap means a city CPCB published is missing from this parse. Reporting it
+    # on stdout and exiting 0 is how eight damaged days survived a 259-day run.
+    return 1 if (gaps or skipped) else 0
 
 
 if __name__ == '__main__':
