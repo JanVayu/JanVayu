@@ -38,7 +38,7 @@ in 2015 to 8.3% in 2025. It is a compelling number and it is not usable.
 
 Those same ten cities went from a median of **one** reporting station to six:
 Agra 1 to 6, Kanpur 1 to 3, Varanasi 1 to 4, Faridabad 1 to 3, Navi Mumbai 1 to
-5, Delhi 5 to 37. Holding the city list constant does not hold the measurement
+6, Delhi 5 to 43. Holding the city list constant does not hold the measurement
 constant. A city AQI aggregated over one station and the same city aggregated
 over six are different instruments, so the series is a mix of changing air and
 a changing sensor, and nothing here can separate them. Nor is there one city in
@@ -59,11 +59,13 @@ figure printed next to it.
 """
 import argparse
 import csv
+import gzip
 import json
 import re
 import statistics
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,18 +79,117 @@ CATS = ['Good', 'Satisfactory', 'Moderate', 'Poor', 'Very Poor', 'Severe']
 MIN_STATIONS = 3
 # A city-year with fewer days than this cannot describe a year.
 MIN_DAYS = 180
+# Fraction of the calendar year the bulletin series must span before a year is
+# treated as whole. 0.95 lets through a year missing a few days at an end (2025
+# has no 1 January bulletin) and catches the two that are genuinely truncated,
+# 2015 from May and the current year.
+COVERAGE_FULL = 0.95
 
-SOURCE = ('Central Pollution Control Board daily AQI bulletins, parsed from the '
-          'published PDFs by UrbanEmissions.Info '
-          '(github.com/urbanemissionsinfo/AQI_bulletins). The bulletins are '
-          'Government of India publications; the parsing and the city-name '
-          'cleaning are that project\'s work and are credited here. JanVayu '
+SOURCE = ('Central Pollution Control Board daily AQI bulletins. 2015-2025 is '
+          'parsed from the published PDFs by UrbanEmissions.Info '
+          '(github.com/urbanemissionsinfo/AQI_bulletins), whose archive ends '
+          'there; 2026 is parsed from the same PDFs by JanVayu, with '
+          'scripts/fetch-cpcb-bulletin.py. The bulletins are Government of '
+          'India publications; the 2015-2025 parsing and city-name cleaning are '
+          'that project\'s work and are credited here. On three 2025 days '
+          'checked city by city the two extractions agree on the AQI and the '
+          'station count for every city they share, 671 of 671. JanVayu '
           'publishes only this derived summary, not the source table.')
 
+# ── Joining our own 2026 parse onto somebody else's 2015-2025 extraction ──
+#
+# The two disagree about spelling, not about facts. Case and whitespace folding
+# takes 588 raw 2026 strings to 304, of which 270 match a 2015-2025 city
+# exactly. Everything below is what was left, decided one at a time. The silent
+# failure this guards against is a city split across two spellings: each half
+# then shows a plausible count and nothing errors.
+#
+# Checked against near-spellings before being called new: Khairthal is not
+# Kaithal, Khora is not Korba, Nellore is not Vellore.
+ALIAS = {
+    # One word in the 2015-2025 extraction, two in CPCB's 2026 tables. Same
+    # city in Haryana, 238 days of 2026. The only alias in the whole join.
+    'yamuna nagar': 'Yamunanagar',
+}
 
-def build(src):
+# Rows that cannot be attributed, and so are dropped rather than guessed. The
+# count of dropped rows is reported in _meta and asserted by --check, because a
+# silent drop is the thing this file exists to avoid.
+UNRESOLVED = {
+    # On 2026-07-10 alone CPCB wrote "Aurangabad" with no state qualifier,
+    # against "Aurangabad (Bihar)" and "Aurangabad (Maharashtra)" in every
+    # other table. That day's serials run 1..238 with no gap, so nothing was
+    # lost in parsing: the source itself is inconsistent. The row's 3/3 station
+    # count matches Maharashtra, which is evidence and not proof, and it is one
+    # row in 62,851.
+    'aurangabad': 'no state qualifier, against two disambiguated entries every other day',
+}
+
+
+def daily_rows(daily_dir):
+    """Our own parse of CPCB's PDFs: one JSON per day, newest years.
+
+    `no_stations` in the 2015-2025 CSV is the count of stations that REPORTED,
+    not the count a city has. Measured, not assumed: on 2025-06-10, 2025-07-15
+    and 2025-08-20 the CSV's `no_stations` equals our `stations_participated`
+    for all 671 shared city-days and never equals `stations_total` (185, 185,
+    200 of them). Taking the wrong field would change what "median stations"
+    means at the 2025/2026 boundary, invisibly, and make the join a lie.
+    """
+    out, names = [], defaultdict(Counter)
+    src = Path(daily_dir)
+
+    def keep(day, city, cat, st):
+        city = ' '.join((city or '').split())
+        if not city or cat not in CATS:
+            return
+        names[city.casefold()][city] += 1
+        out.append((day, city, cat, int(st or 0)))
+
+    if src.is_dir():
+        # A fetch still on disk, one JSON per day.
+        for f in sorted(src.glob('*.json')):
+            day = json.loads(f.read_text(encoding='utf-8'))
+            for r in day.get('rows', []):
+                keep(day['date'], r.get('city'), r.get('aqi_category'),
+                     r.get('stations_participated'))
+    else:
+        # The archive committed to the repo. This is the path that matters:
+        # the day files live in a scratch directory that does not survive the
+        # session, so without it nobody could rebuild this file from a clone.
+        with gzip.open(src, 'rt', encoding='utf-8') as fh:
+            for r in csv.DictReader(fh):
+                keep(r['date'], r.get('city'), r.get('aqi_category'),
+                     r.get('stations_participated'))
+    return out, names
+
+
+def canonical(fold, names, known):
+    """The spelling this city is filed under, or None to drop the row."""
+    if fold in UNRESOLVED:
+        return None
+    if fold in ALIAS:
+        return ALIAS[fold]
+    if fold in known:
+        return known[fold]
+    # A city new to the file. CPCB lowercases whole tables on some days, so
+    # prefer the variant carrying the most capitals, then the commonest.
+    seen = names[fold]
+    return max(seen, key=lambda v: (sum(ch.isupper() for ch in v), seen[v]))
+
+
+def build(src, daily=None):
     rows = list(csv.DictReader(open(src, encoding='utf-8', errors='replace')))
     per = defaultdict(lambda: defaultdict(list))
+    span = defaultdict(lambda: [None, None])
+
+    def note(day, city, cat, st):
+        y = day[:4]
+        per[city][y].append((cat, st))
+        lo, hi = span[y]
+        span[y] = [day if lo is None or day < lo else lo,
+                   day if hi is None or day > hi else hi]
+
     for r in rows:
         d, city, cat = r.get('date', ''), (r.get('city') or '').strip(), (r.get('aqi_category') or '').strip()
         if len(d) < 10 or not city or cat not in CATS:
@@ -97,7 +198,18 @@ def build(src):
             st = int(float(r.get('no_stations') or 0))
         except ValueError:
             st = 0
-        per[city][d[:4]].append((cat, st))
+        note(d[:10], city, cat, st)
+
+    dropped = Counter()
+    if daily:
+        known = {c.casefold(): c for c in per}
+        drows, names = daily_rows(daily)
+        for day, city, cat, st in drows:
+            name = canonical(city.casefold(), names, known)
+            if name is None:
+                dropped[city.casefold()] += 1
+                continue
+            note(day, name, cat, st)
 
     cities = {}
     for city, years in sorted(per.items()):
@@ -125,12 +237,33 @@ def build(src):
     national = {}
     for y in years_all:
         present = [c for c in cities if y in cities[c]]
+        lo, hi = span[y]
+        # A year the bulletin did not cover end to end. Both ends of this file
+        # are short: CPCB's first bulletin is 2015-05-01 and the current year
+        # runs to whenever it was last fetched. Counting days in each category
+        # across an unequal number of reported days is exactly the comparison
+        # that put "136 Poor-or-worse days in 2015, 157 in 2024" into a
+        # changelog as if it showed no change; as rates those are 58% and 43%.
+        #
+        # Measured, not asserted, and NOT "the span reaches both ends": by that
+        # rule 2025 came out partial because CPCB published nothing on 1 January,
+        # which would have put a warning on a year holding 79,356 city-days from
+        # 246 cities. `coverage` is published beside the flag so a reader can
+        # apply their own threshold instead of trusting COVERAGE_FULL.
+        first = date(int(y), 1, 1)
+        last = date(int(y), 12, 31)
+        held = (date.fromisoformat(hi) - date.fromisoformat(lo)).days + 1 if lo and hi else 0
+        coverage = round(held / ((last - first).days + 1), 3)
         national[y] = {
             'cities': len(present),
             'city_days': sum(cities[c][y]['days'] for c in present),
             'severe_days': sum(cities[c][y]['severe'] for c in present),
             'poor_or_worse_days': sum(cities[c][y]['poor_or_worse'] for c in present),
             'thin_cities': sum(1 for c in present if cities[c][y]['thin']),
+            'first_day': lo,
+            'last_day': hi,
+            'coverage': coverage,
+            'partial': coverage < COVERAGE_FULL,
         }
 
     # How much the instrument moved under each city present throughout. This
@@ -189,6 +322,15 @@ def build(src):
                                  'the cities that reported throughout.'),
             'cities': len(cities),
             'reported_throughout': len(panel),
+            'partial_years': [y for y in years_all if national[y]['partial']],
+            'partial_note': ('A partial year reported fewer days than the calendar '
+                             'holds, so its category counts are not comparable with a '
+                             'full year\'s as counts. CPCB\'s first bulletin is '
+                             '1 May 2015 and the current year runs to the last fetch.'),
+            'unresolved_rows_dropped': {k: dropped[k] for k in sorted(dropped)},
+            'unresolved_note': ('Rows whose city could not be attributed, dropped '
+                                'rather than guessed. The reason for each is in '
+                                'UNRESOLVED in scripts/build-aqi-bulletins.py.'),
         },
         'national': national,
         'station_stability': stability,
@@ -269,6 +411,41 @@ def check():
             errs.append(f"docstring says {city} {hit.group(1)} to {hit.group(2)}, "
                         f"data gives {v['first']} to {v['last']}")
 
+    # The 2026 join: every claim it rests on, recomputed.
+    nat_all = d.get('national', {})
+    for y, n in nat_all.items():
+        lo, hi = n.get('first_day'), n.get('last_day')
+        if not (lo and hi) or lo[:4] != y or hi[:4] != y:
+            errs.append(f'national {y}: span {lo}..{hi} does not sit inside the year')
+            continue
+        held = (date.fromisoformat(hi) - date.fromisoformat(lo)).days + 1
+        want = round(held / ((date(int(y), 12, 31) - date(int(y), 1, 1)).days + 1), 3)
+        if abs(n.get('coverage', -1) - want) > 0.0015:
+            errs.append(f'national {y}: coverage {n.get("coverage")} against {want} recomputed')
+        if n.get('partial') != (want < COVERAGE_FULL):
+            errs.append(f'national {y}: partial={n.get("partial")} disagrees with coverage {want}')
+    listed = sorted(m.get('partial_years', []))
+    real = sorted(y for y, n in nat_all.items() if n.get('partial'))
+    if listed != real:
+        errs.append(f'_meta.partial_years {listed} against {real} recomputed')
+    # A city filed under two spellings is the failure this join can produce
+    # without erroring, so it is checked rather than trusted: no two city keys
+    # may differ only by case, whitespace or punctuation.
+    squashed = defaultdict(list)
+    for c in cities:
+        squashed[re.sub(r'[^a-z0-9]', '', c.casefold())].append(c)
+    for k, v in squashed.items():
+        if len(v) > 1:
+            errs.append(f'the same city is filed under {v}; one spelling, or an ALIAS entry')
+    # An alias must not also exist as its own city, or the split it prevents is
+    # back with an extra step.
+    for fold, target in ALIAS.items():
+        if target not in cities:
+            errs.append(f'ALIAS points {fold!r} at {target!r}, which is not a city in the file')
+        for c in cities:
+            if c.casefold() == fold:
+                errs.append(f'{fold!r} is aliased to {target!r} and still present as {c!r}')
+
     # Two things must never creep back in. An annual mean AQI contradicts the
     # site's own rule about averaging an index; a cross-year aggregate invites
     # the trend reading that the station growth makes unusable.
@@ -305,13 +482,16 @@ def check():
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--source')
+    ap.add_argument('--daily', default=str(ROOT / 'data' / 'raw' / 'cpcb-bulletins-2026.csv.gz'),
+                    help='the committed archive, or a directory of per-day JSON '
+                         'from fetch-cpcb-bulletin.py (default: the archive)')
     ap.add_argument('--check', action='store_true')
     a = ap.parse_args()
     if a.check:
         sys.exit(check())
     if not a.source:
         print('need --source <AllIndiaBulletinsMaster2025_openrefined.csv>'); sys.exit(2)
-    data = build(a.source)
+    data = build(a.source, a.daily)
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     print(f'wrote {OUT.relative_to(ROOT)}: {data["_meta"]["cities"]} cities, '
           f'{data["_meta"]["window"]}, {data["_meta"]["reported_throughout"]} reported throughout')

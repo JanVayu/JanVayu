@@ -8500,12 +8500,24 @@ window.initBulletins = (function () {
               rec.median_stations + ' reporting stations.</p>';
 
         var nat = cache.national[year] || {};
+        // A partial year has to say so where the number is, not in a footnote.
+        // Its category counts are counts, so setting 2026's against a full
+        // year's is the same error that put "136 Poor-or-worse days in 2015,
+        // 157 in 2024" into a changelog as though it showed no change.
+        var partial = nat.partial
+            ? '<div class="alert alert-warning" style="margin:0.5rem 0 0.9rem;font-size:0.85rem;">' +
+              '<strong>' + esc(year) + ' is a part year.</strong> CPCB bulletins here run ' +
+              esc(nat.first_day || '') + ' to ' + esc(nat.last_day || '') + ', about ' +
+              Math.round((nat.coverage || 0) * 100) + '% of the calendar. These are counts of days, ' +
+              'so do not set them against a full year without converting both to shares.</div>'
+            : '';
         host.innerHTML =
             '<div style="display:flex;align-items:baseline;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.5rem;">' +
               '<span class="number-callout" style="color:var(--aqi-poor);">' + rec.poor_or_worse + '</span>' +
               '<span style="font-size:0.95rem;color:var(--text-2);">days rated <strong>Poor or worse</strong> out of ' +
-              rec.days + ' reported' + (rec.severe ? ', including <strong>' + rec.severe + '</strong> rated Severe' : '') + '</span>' +
-            '</div>' +
+              rec.days + ' reported' + (rec.severe ? ', including <strong>' + rec.severe + '</strong> rated Severe' : '') +
+              ' (' + Math.round(rec.poor_or_worse / rec.days * 100) + '% of reported days)</span>' +
+            '</div>' + partial +
             '<span style="display:flex;height:0.85rem;border-radius:3px;overflow:hidden;background:var(--border);margin:0.6rem 0 0.9rem;">' +
               bars + '</span>' +
             '<table style="width:100%;max-width:26rem;border-collapse:collapse;font-size:0.88rem;">' +
@@ -8535,7 +8547,11 @@ window.initBulletins = (function () {
             citySel.addEventListener('change', draw);
         }
         if (!yearSel.options.length) {
-            yearSel.innerHTML = years.map(function (y) { return '<option>' + esc(y) + '</option>'; }).join('');
+            yearSel.innerHTML = years.map(function (y) {
+                var n = d.national[y] || {};
+                return '<option value="' + esc(y) + '">' + esc(y) +
+                       (n.partial ? ' (part year)' : '') + '</option>';
+            }).join('');
             yearSel.addEventListener('change', draw);
         }
         var basis = document.getElementById('bulletin-basis');
