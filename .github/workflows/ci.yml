@@ -87,6 +87,18 @@ jobs:
       - name: Check the CPCB bulletin layer
         run: python3 scripts/build-aqi-bulletins.py --check
 
+      # scripts/fetch-cpcb-bulletin.py reads a live PDF, so nothing in CI could
+      # ever see it, and its one shipped defect was correspondingly invisible:
+      # every page header carries the day of the month as a bare token, and
+      # when that number equalled the serial following a page break the scanner
+      # matched the header instead of the row and dropped a city. It cost one
+      # city on all eight 21sts of 2026, and on 2025-11-15 it cost Arrah from
+      # the very parse used to validate the parser. This drives the row grammar
+      # over synthetic bulletins carrying both published layouts and every
+      # day/page-break combination, offline.
+      - name: Check the bulletin row grammar survives the page header
+        run: python3 scripts/check-bulletin-parser.py
+
       # The four workshop decks in workshops/ are plain Markdown so anyone can
       # import them into Workshopy, project them or translate them. Three ways
       # they break without rendering wrong: a deck path in workshops.json that
