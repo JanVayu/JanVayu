@@ -1,8 +1,8 @@
 {
  "_meta": {
   "what": "Days in each official AQI category, by city and year, from CPCB's own daily bulletins.",
-  "window": "2015-2025",
-  "source": "Central Pollution Control Board daily AQI bulletins, parsed from the published PDFs by UrbanEmissions.Info (github.com/urbanemissionsinfo/AQI_bulletins). The bulletins are Government of India publications; the parsing and the city-name cleaning are that project's work and are credited here. JanVayu publishes only this derived summary, not the source table.",
+  "window": "2015-2026",
+  "source": "Central Pollution Control Board daily AQI bulletins. 2015-2025 is parsed from the published PDFs by UrbanEmissions.Info (github.com/urbanemissionsinfo/AQI_bulletins), whose archive ends there; 2026 is parsed from the same PDFs by JanVayu, with scripts/fetch-cpcb-bulletin.py. The bulletins are Government of India publications; the 2015-2025 parsing and city-name cleaning are that project's work and are credited here. On three 2025 days checked city by city the two extractions agree on the AQI and the station count for every city they share, 671 of 671. JanVayu publishes only this derived summary, not the source table.",
   "categories": [
    "Good",
    "Satisfactory",
@@ -14,10 +14,19 @@
   "inclusion": "a city-year needs at least 180 reported days",
   "thin_rule": "a city-year whose median reporting station count is below 3 is marked thin: an AQI from one or two monitors is a reading from one place with a city's name on it",
   "no_annual_mean": "Deliberately absent. AQI is a unitless index reporting only whichever of six pollutants scores worst, and averaging an index over a year is not a quantity. Counting days in each category is the legitimate use of a daily index, and it is what GRAP and school closures are triggered by.",
-  "no_trend": "Deliberately absent, and the check refuses to let one in. Reporting coverage grew from 10 cities to 246, and the stations behind each city grew with it: the 10 cities present throughout went from a median of 1 station to 6. Holding the city list constant does not hold the measurement constant, so a fall in Poor-or-worse days across this window cannot be separated from a change in what was doing the measuring. Nor is there a single city here whose instrument stayed still: the steadiest of the 10, Lucknow, still went from 3 stations to 6. Read a single year, not a series.",
+  "no_trend": "Deliberately absent, and the check refuses to let one in. Reporting coverage grew from 10 cities to 236, and the stations behind each city grew with it: the 10 cities present throughout went from a median of 1 station to 6. Holding the city list constant does not hold the measurement constant, so a fall in Poor-or-worse days across this window cannot be separated from a change in what was doing the measuring. Nor is there a single city here whose instrument stayed still: the steadiest of the 10, Lucknow, still went from 3 stations to 6. Read a single year, not a series.",
   "coverage_warning": "Every figure here is per city and per year. See station_stability for how much the instrument moved under the cities that reported throughout.",
-  "cities": 289,
-  "reported_throughout": 10
+  "cities": 297,
+  "reported_throughout": 10,
+  "partial_years": [
+   "2015",
+   "2026"
+  ],
+  "partial_note": "A partial year reported fewer days than the calendar holds, so its category counts are not comparable with a full year's as counts. CPCB's first bulletin is 1 May 2015 and the current year runs to the last fetch.",
+  "unresolved_rows_dropped": {
+   "aurangabad": 1
+  },
+  "unresolved_note": "Rows whose city could not be attributed, dropped rather than guessed. The reason for each is in UNRESOLVED in scripts/build-aqi-bulletins.py."
  },
  "national": {
   "2015": {
@@ -25,77 +34,132 @@
    "city_days": 2235,
    "severe_days": 55,
    "poor_or_worse_days": 588,
-   "thin_cities": 6
+   "thin_cities": 6,
+   "first_day": "2015-05-01",
+   "last_day": "2015-12-31",
+   "coverage": 0.671,
+   "partial": true
   },
   "2016": {
    "cities": 22,
    "city_days": 6131,
    "severe_days": 287,
    "poor_or_worse_days": 1851,
-   "thin_cities": 18
+   "thin_cities": 18,
+   "first_day": "2016-01-01",
+   "last_day": "2016-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2017": {
    "cities": 36,
    "city_days": 10819,
    "severe_days": 249,
    "poor_or_worse_days": 2639,
-   "thin_cities": 31
+   "thin_cities": 31,
+   "first_day": "2017-01-01",
+   "last_day": "2017-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2018": {
    "cities": 66,
    "city_days": 20687,
    "severe_days": 293,
    "poor_or_worse_days": 4590,
-   "thin_cities": 61
+   "thin_cities": 61,
+   "first_day": "2018-01-01",
+   "last_day": "2018-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2019": {
    "cities": 101,
    "city_days": 32341,
    "severe_days": 413,
    "poor_or_worse_days": 6516,
-   "thin_cities": 91
+   "thin_cities": 91,
+   "first_day": "2019-01-01",
+   "last_day": "2019-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2020": {
    "cities": 122,
    "city_days": 39397,
    "severe_days": 279,
    "poor_or_worse_days": 5505,
-   "thin_cities": 108
+   "thin_cities": 108,
+   "first_day": "2020-01-01",
+   "last_day": "2020-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2021": {
    "cities": 139,
    "city_days": 45337,
    "severe_days": 240,
    "poor_or_worse_days": 7549,
-   "thin_cities": 118
+   "thin_cities": 118,
+   "first_day": "2021-01-01",
+   "last_day": "2021-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2022": {
    "cities": 170,
    "city_days": 54434,
    "severe_days": 249,
    "poor_or_worse_days": 9248,
-   "thin_cities": 144
+   "thin_cities": 144,
+   "first_day": "2022-01-01",
+   "last_day": "2022-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2023": {
    "cities": 239,
    "city_days": 73788,
    "severe_days": 254,
    "poor_or_worse_days": 9724,
-   "thin_cities": 203
+   "thin_cities": 203,
+   "first_day": "2023-01-01",
+   "last_day": "2023-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2024": {
    "cities": 264,
    "city_days": 85984,
    "severe_days": 62,
    "poor_or_worse_days": 8671,
-   "thin_cities": 221
+   "thin_cities": 221,
+   "first_day": "2024-01-01",
+   "last_day": "2024-12-31",
+   "coverage": 1.0,
+   "partial": false
   },
   "2025": {
    "cities": 246,
    "city_days": 79356,
    "severe_days": 62,
    "poor_or_worse_days": 5020,
-   "thin_cities": 204
+   "thin_cities": 204,
+   "first_day": "2025-01-02",
+   "last_day": "2025-12-31",
+   "coverage": 0.997,
+   "partial": false
+  },
+  "2026": {
+   "cities": 236,
+   "city_days": 56825,
+   "severe_days": 8,
+   "poor_or_worse_days": 2992,
+   "thin_cities": 193,
+   "first_day": "2026-01-01",
+   "last_day": "2026-09-17",
+   "coverage": 0.712,
+   "partial": true
   }
  },
  "station_stability": {
@@ -107,8 +171,8 @@
   },
   "Bengaluru": {
    "first": 3,
-   "last": 11,
-   "grew_by": 3.7,
+   "last": 9,
+   "grew_by": 3.0,
    "thin_years": 0
   },
   "Chennai": {
@@ -119,8 +183,8 @@
   },
   "Delhi": {
    "first": 5,
-   "last": 37,
-   "grew_by": 7.4,
+   "last": 43,
+   "grew_by": 8.6,
    "thin_years": 0
   },
   "Faridabad": {
@@ -149,8 +213,8 @@
   },
   "Navi Mumbai": {
    "first": 1,
-   "last": 5,
-   "grew_by": 5.0,
+   "last": 6,
+   "grew_by": 6.0,
    "thin_years": 6
   },
   "Varanasi": {
@@ -233,6 +297,21 @@
      "Severe": 0
     },
     "poor_or_worse": 29,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 212,
+    "by_category": {
+     "Good": 33,
+     "Satisfactory": 115,
+     "Moderate": 54,
+     "Poor": 9,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -403,6 +482,21 @@
     "severe": 0,
     "median_stations": 6,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 123,
+     "Moderate": 130,
+     "Poor": 6,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 6,
+    "severe": 0,
+    "median_stations": 6,
+    "thin": false
    }
   },
   "Ahmedabad": {
@@ -525,6 +619,21 @@
     "severe": 0,
     "median_stations": 8,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 132,
+     "Moderate": 125,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 8,
+    "thin": false
    }
   },
   "Ahmednagar": {
@@ -554,6 +663,21 @@
      "Severe": 0
     },
     "poor_or_worse": 27,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 242,
+    "by_category": {
+     "Good": 86,
+     "Satisfactory": 99,
+     "Moderate": 57,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -641,6 +765,21 @@
      "Good": 140,
      "Satisfactory": 65,
      "Moderate": 25,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 214,
+    "by_category": {
+     "Good": 127,
+     "Satisfactory": 85,
+     "Moderate": 2,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -771,6 +910,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 246,
+    "by_category": {
+     "Good": 12,
+     "Satisfactory": 141,
+     "Moderate": 93,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Akola": {
@@ -810,6 +964,21 @@
      "Good": 110,
      "Satisfactory": 173,
      "Moderate": 74,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 63,
+     "Satisfactory": 155,
+     "Moderate": 38,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -940,6 +1109,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 247,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 98,
+     "Moderate": 149,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Amaravati": {
@@ -1062,6 +1246,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 237,
+    "by_category": {
+     "Good": 45,
+     "Satisfactory": 112,
+     "Moderate": 72,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Ambala": {
@@ -1154,6 +1353,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 136,
+     "Moderate": 97,
+     "Poor": 9,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 9,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Amravati": {
@@ -1193,6 +1407,21 @@
      "Good": 84,
      "Satisfactory": 173,
      "Moderate": 106,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 71,
+     "Satisfactory": 154,
+     "Moderate": 35,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -1338,6 +1567,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 4,
+     "Satisfactory": 177,
+     "Moderate": 78,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Anantapur": {
@@ -1385,6 +1629,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 226,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 201,
+     "Moderate": 22,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Angul": {
@@ -1414,6 +1673,21 @@
      "Severe": 0
     },
     "poor_or_worse": 71,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 250,
+    "by_category": {
+     "Good": 7,
+     "Satisfactory": 87,
+     "Moderate": 89,
+     "Poor": 40,
+     "Very Poor": 27,
+     "Severe": 0
+    },
+    "poor_or_worse": 67,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1524,6 +1798,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 211,
+    "by_category": {
+     "Good": 19,
+     "Satisfactory": 122,
+     "Moderate": 65,
+     "Poor": 5,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 5,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Araria": {
@@ -1583,6 +1872,21 @@
      "Severe": 0
     },
     "poor_or_worse": 30,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 64,
+     "Satisfactory": 128,
+     "Moderate": 54,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1692,6 +1996,21 @@
      "Severe": 0
     },
     "poor_or_worse": 16,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 209,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 163,
+     "Moderate": 22,
+     "Poor": 13,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1814,6 +2133,21 @@
      "Severe": 0
     },
     "poor_or_worse": 52,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 35,
+     "Satisfactory": 164,
+     "Moderate": 51,
+     "Poor": 10,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 4,
     "thin": false
@@ -2016,6 +2350,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 47,
+     "Satisfactory": 147,
+     "Moderate": 65,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Baddi": {
@@ -2078,6 +2427,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 34,
+     "Moderate": 184,
+     "Poor": 27,
+     "Very Poor": 5,
+     "Severe": 0
+    },
+    "poor_or_worse": 32,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Badlapur": {
@@ -2122,6 +2486,21 @@
      "Severe": 0
     },
     "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 246,
+    "by_category": {
+     "Good": 71,
+     "Satisfactory": 97,
+     "Moderate": 78,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2208,6 +2587,21 @@
     "by_category": {
      "Good": 212,
      "Satisfactory": 46,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 200,
+    "by_category": {
+     "Good": 108,
+     "Satisfactory": 92,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -2324,6 +2718,21 @@
     "severe": 3,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 241,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 64,
+     "Moderate": 97,
+     "Poor": 64,
+     "Very Poor": 6,
+     "Severe": 0
+    },
+    "poor_or_worse": 70,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Bahadurgarh": {
@@ -2416,6 +2825,21 @@
     "severe": 3,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 235,
+    "by_category": {
+     "Good": 7,
+     "Satisfactory": 68,
+     "Moderate": 113,
+     "Poor": 47,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 47,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Balasore": {
@@ -2445,6 +2869,21 @@
      "Severe": 0
     },
     "poor_or_worse": 58,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 49,
+     "Satisfactory": 130,
+     "Moderate": 52,
+     "Poor": 20,
+     "Very Poor": 5,
+     "Severe": 0
+    },
+    "poor_or_worse": 25,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2540,6 +2979,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 245,
+    "by_category": {
+     "Good": 7,
+     "Satisfactory": 37,
+     "Moderate": 93,
+     "Poor": 95,
+     "Very Poor": 13,
+     "Severe": 0
+    },
+    "poor_or_worse": 108,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Banswara": {
@@ -2584,6 +3038,21 @@
      "Severe": 0
     },
     "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 243,
+    "by_category": {
+     "Good": 7,
+     "Satisfactory": 133,
+     "Moderate": 100,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2634,6 +3103,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 24,
+     "Satisfactory": 106,
+     "Moderate": 119,
+     "Poor": 4,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Barbil": {
@@ -2663,6 +3147,21 @@
      "Severe": 0
     },
     "poor_or_worse": 52,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 255,
+    "by_category": {
+     "Good": 34,
+     "Satisfactory": 85,
+     "Moderate": 121,
+     "Poor": 15,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 15,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2728,6 +3227,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 75,
+     "Satisfactory": 172,
+     "Moderate": 9,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Baripada": {
@@ -2772,6 +3286,21 @@
      "Severe": 0
     },
     "poor_or_worse": 17,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 241,
+    "by_category": {
+     "Good": 50,
+     "Satisfactory": 130,
+     "Moderate": 50,
+     "Poor": 8,
+     "Very Poor": 3,
+     "Severe": 0
+    },
+    "poor_or_worse": 11,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2822,6 +3351,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 128,
+     "Moderate": 110,
+     "Poor": 9,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 9,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Barrackpore": {
@@ -2851,6 +3395,21 @@
      "Severe": 0
     },
     "poor_or_worse": 49,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 95,
+     "Satisfactory": 118,
+     "Moderate": 31,
+     "Poor": 5,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2976,6 +3535,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 237,
+    "by_category": {
+     "Good": 14,
+     "Satisfactory": 188,
+     "Moderate": 35,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Begusarai": {
@@ -3008,6 +3582,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 243,
+    "by_category": {
+     "Good": 31,
+     "Satisfactory": 127,
+     "Moderate": 82,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Belapur": {
@@ -3037,6 +3626,21 @@
      "Severe": 0
     },
     "poor_or_worse": 14,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 240,
+    "by_category": {
+     "Good": 60,
+     "Satisfactory": 93,
+     "Moderate": 84,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -3239,6 +3843,21 @@
     "severe": 0,
     "median_stations": 11,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 11,
+     "Satisfactory": 178,
+     "Moderate": 71,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 9,
+    "thin": false
    }
   },
   "Bettiah": {
@@ -3363,6 +3982,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 18,
+     "Satisfactory": 159,
+     "Moderate": 74,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Bharatpur": {
@@ -3407,6 +4041,38 @@
      "Severe": 0
     },
     "poor_or_worse": 13,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 39,
+     "Satisfactory": 90,
+     "Moderate": 122,
+     "Poor": 6,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 6,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   }
+  },
+  "Bhavnagar": {
+   "2026": {
+    "days": 213,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 143,
+     "Moderate": 70,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -3457,6 +4123,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 186,
+     "Satisfactory": 73,
+     "Moderate": 1,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Bhilwara": {
@@ -3486,6 +4167,21 @@
      "Severe": 0
     },
     "poor_or_worse": 19,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 255,
+    "by_category": {
+     "Good": 5,
+     "Satisfactory": 112,
+     "Moderate": 130,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -3611,6 +4307,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 58,
+     "Moderate": 127,
+     "Poor": 63,
+     "Very Poor": 12,
+     "Severe": 0
+    },
+    "poor_or_worse": 75,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Bhiwandi": {
@@ -3635,6 +4346,21 @@
      "Good": 45,
      "Satisfactory": 158,
      "Moderate": 142,
+     "Poor": 0,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 63,
+     "Satisfactory": 112,
+     "Moderate": 76,
      "Poor": 0,
      "Very Poor": 1,
      "Severe": 0
@@ -3735,6 +4461,21 @@
     "severe": 2,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 233,
+    "by_category": {
+     "Good": 33,
+     "Satisfactory": 73,
+     "Moderate": 88,
+     "Poor": 34,
+     "Very Poor": 5,
+     "Severe": 0
+    },
+    "poor_or_worse": 39,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Bhopal": {
@@ -3827,6 +4568,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 42,
+     "Satisfactory": 96,
+     "Moderate": 111,
+     "Poor": 11,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Bhubaneswar": {
@@ -3856,6 +4612,21 @@
      "Severe": 0
     },
     "poor_or_worse": 58,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 32,
+     "Satisfactory": 152,
+     "Moderate": 54,
+     "Poor": 20,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 22,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -3938,6 +4709,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 182,
+    "by_category": {
+     "Good": 22,
+     "Satisfactory": 115,
+     "Moderate": 37,
+     "Poor": 7,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Bikaner": {
@@ -3982,6 +4768,21 @@
      "Severe": 0
     },
     "poor_or_worse": 58,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 245,
+    "by_category": {
+     "Good": 2,
+     "Satisfactory": 54,
+     "Moderate": 152,
+     "Poor": 33,
+     "Very Poor": 4,
+     "Severe": 0
+    },
+    "poor_or_worse": 37,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4047,6 +4848,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 227,
+    "by_category": {
+     "Good": 57,
+     "Satisfactory": 145,
+     "Moderate": 25,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Bileipada": {
@@ -4094,6 +4910,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 207,
+    "by_category": {
+     "Good": 19,
+     "Satisfactory": 63,
+     "Moderate": 99,
+     "Poor": 25,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 26,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Boisar": {
@@ -4123,6 +4954,21 @@
      "Severe": 0
     },
     "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 227,
+    "by_category": {
+     "Good": 64,
+     "Satisfactory": 119,
+     "Moderate": 44,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4248,6 +5094,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 228,
+    "by_category": {
+     "Good": 57,
+     "Satisfactory": 103,
+     "Moderate": 67,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Bulandshahr": {
@@ -4370,6 +5231,21 @@
     "severe": 1,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 23,
+     "Satisfactory": 53,
+     "Moderate": 133,
+     "Poor": 49,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 50,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Bundi": {
@@ -4414,6 +5290,21 @@
      "Severe": 0
     },
     "poor_or_worse": 20,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 28,
+     "Satisfactory": 122,
+     "Moderate": 87,
+     "Poor": 14,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4493,6 +5384,21 @@
      "Severe": 0
     },
     "poor_or_worse": 49,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 230,
+    "by_category": {
+     "Good": 21,
+     "Satisfactory": 112,
+     "Moderate": 56,
+     "Poor": 36,
+     "Very Poor": 5,
+     "Severe": 0
+    },
+    "poor_or_worse": 41,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4620,6 +5526,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 199,
+     "Satisfactory": 51,
+     "Moderate": 1,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Chandigarh": {
@@ -4712,6 +5633,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 58,
+     "Satisfactory": 144,
+     "Moderate": 53,
+     "Poor": 4,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Chandrapur": {
@@ -4864,6 +5800,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 39,
+     "Satisfactory": 88,
+     "Moderate": 132,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Charkhi Dadri": {
@@ -4923,6 +5874,21 @@
      "Severe": 0
     },
     "poor_or_worse": 77,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 4,
+     "Satisfactory": 57,
+     "Moderate": 102,
+     "Poor": 76,
+     "Very Poor": 13,
+     "Severe": 0
+    },
+    "poor_or_worse": 89,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5110,6 +6076,21 @@
     "severe": 0,
     "median_stations": 7,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 38,
+     "Satisfactory": 175,
+     "Moderate": 46,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 7,
+    "thin": false
    }
   },
   "Chhal": {
@@ -5154,6 +6135,21 @@
      "Severe": 0
     },
     "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 205,
+    "by_category": {
+     "Good": 45,
+     "Satisfactory": 131,
+     "Moderate": 29,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5216,6 +6212,21 @@
      "Severe": 0
     },
     "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 196,
+    "by_category": {
+     "Good": 6,
+     "Satisfactory": 68,
+     "Moderate": 115,
+     "Poor": 6,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5323,6 +6334,21 @@
      "Severe": 0
     },
     "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 213,
+    "by_category": {
+     "Good": 77,
+     "Satisfactory": 110,
+     "Moderate": 25,
+     "Poor": 0,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5465,6 +6491,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 222,
+    "by_category": {
+     "Good": 11,
+     "Satisfactory": 200,
+     "Moderate": 10,
+     "Poor": 0,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Chittorgarh": {
@@ -5512,6 +6553,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 12,
+     "Satisfactory": 120,
+     "Moderate": 107,
+     "Poor": 12,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Churu": {
@@ -5556,6 +6612,21 @@
      "Severe": 0
     },
     "poor_or_worse": 58,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 254,
+    "by_category": {
+     "Good": 9,
+     "Satisfactory": 72,
+     "Moderate": 147,
+     "Poor": 24,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 26,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5620,6 +6691,21 @@
     "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 2,
+    "thin": true
+   },
+   "2026": {
+    "days": 218,
+    "by_category": {
+     "Good": 114,
+     "Satisfactory": 83,
+     "Moderate": 21,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
     "thin": true
    }
   },
@@ -5697,6 +6783,21 @@
      "Severe": 0
     },
     "poor_or_worse": 66,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 241,
+    "by_category": {
+     "Good": 18,
+     "Satisfactory": 124,
+     "Moderate": 49,
+     "Poor": 37,
+     "Very Poor": 13,
+     "Severe": 0
+    },
+    "poor_or_worse": 50,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5807,6 +6908,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 200,
+    "by_category": {
+     "Good": 84,
+     "Satisfactory": 77,
+     "Moderate": 37,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Darbhanga": {
@@ -5868,6 +6984,21 @@
      "Severe": 0
     },
     "poor_or_worse": 27,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 13,
+     "Satisfactory": 112,
+     "Moderate": 121,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5992,6 +7123,21 @@
      "Severe": 0
     },
     "poor_or_worse": 17,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 210,
+    "by_category": {
+     "Good": 57,
+     "Satisfactory": 89,
+     "Moderate": 50,
+     "Poor": 13,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6162,6 +7308,21 @@
     "severe": 8,
     "median_stations": 37,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 53,
+     "Moderate": 126,
+     "Poor": 61,
+     "Very Poor": 17,
+     "Severe": 2
+    },
+    "poor_or_worse": 80,
+    "severe": 2,
+    "median_stations": 43,
+    "thin": false
    }
   },
   "Dewas": {
@@ -6284,6 +7445,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 250,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 133,
+     "Moderate": 114,
+     "Poor": 2,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Dhanbad": {
@@ -6328,6 +7504,21 @@
      "Severe": 0
     },
     "poor_or_worse": 32,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 195,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 27,
+     "Moderate": 156,
+     "Poor": 11,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 11,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6423,6 +7614,21 @@
     "severe": 1,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 239,
+    "by_category": {
+     "Good": 2,
+     "Satisfactory": 87,
+     "Moderate": 86,
+     "Poor": 45,
+     "Very Poor": 19,
+     "Severe": 0
+    },
+    "poor_or_worse": 64,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Dharwad": {
@@ -6462,6 +7668,21 @@
      "Good": 17,
      "Satisfactory": 267,
      "Moderate": 4,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 219,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 199,
+     "Moderate": 20,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -6517,6 +7738,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 237,
+    "by_category": {
+     "Good": 45,
+     "Satisfactory": 113,
+     "Moderate": 71,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Dhule": {
@@ -6546,6 +7782,21 @@
      "Severe": 0
     },
     "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 244,
+    "by_category": {
+     "Good": 50,
+     "Satisfactory": 124,
+     "Moderate": 70,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6595,6 +7846,21 @@
      "Severe": 0
     },
     "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 247,
+    "by_category": {
+     "Good": 32,
+     "Satisfactory": 158,
+     "Moderate": 50,
+     "Poor": 7,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6705,6 +7971,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 31,
+     "Satisfactory": 166,
+     "Moderate": 61,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Eloor": {
@@ -6804,6 +8085,23 @@
      "Good": 12,
      "Satisfactory": 233,
      "Moderate": 20,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   }
+  },
+  "Eluru": {
+   "2026": {
+    "days": 181,
+    "by_category": {
+     "Good": 40,
+     "Satisfactory": 139,
+     "Moderate": 2,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -7026,6 +8324,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 30,
+     "Moderate": 187,
+     "Poor": 43,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 43,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Fatehabad": {
@@ -7118,6 +8431,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 224,
+    "by_category": {
+     "Good": 13,
+     "Satisfactory": 102,
+     "Moderate": 105,
+     "Poor": 3,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Firozabad": {
@@ -7177,6 +8505,21 @@
      "Severe": 0
     },
     "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 93,
+     "Satisfactory": 142,
+     "Moderate": 18,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -7341,6 +8684,21 @@
      "Good": 40,
      "Satisfactory": 204,
      "Moderate": 118,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 9,
+     "Satisfactory": 120,
+     "Moderate": 130,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -7548,6 +8906,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 26,
+     "Satisfactory": 134,
+     "Moderate": 98,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Ghaziabad": {
@@ -7685,6 +9058,21 @@
     "severe": 14,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 4,
+     "Satisfactory": 47,
+     "Moderate": 97,
+     "Poor": 80,
+     "Very Poor": 30,
+     "Severe": 2
+    },
+    "poor_or_worse": 112,
+    "severe": 2,
+    "median_stations": 5,
+    "thin": false
    }
   },
   "Gorakhpur": {
@@ -7744,6 +9132,21 @@
      "Severe": 0
     },
     "poor_or_worse": 9,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 217,
+    "by_category": {
+     "Good": 4,
+     "Satisfactory": 169,
+     "Moderate": 43,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -7869,6 +9272,21 @@
     "severe": 9,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 2,
+     "Satisfactory": 28,
+     "Moderate": 105,
+     "Poor": 89,
+     "Very Poor": 35,
+     "Severe": 1
+    },
+    "poor_or_worse": 125,
+    "severe": 1,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Gummidipoondi": {
@@ -7943,6 +9361,38 @@
      "Severe": 0
     },
     "poor_or_worse": 58,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 78,
+     "Moderate": 142,
+     "Poor": 30,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 31,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   }
+  },
+  "Guntur": {
+   "2026": {
+    "days": 186,
+    "by_category": {
+     "Good": 26,
+     "Satisfactory": 160,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -8098,6 +9548,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 45,
+     "Moderate": 112,
+     "Poor": 82,
+     "Very Poor": 21,
+     "Severe": 0
+    },
+    "poor_or_worse": 103,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
    }
   },
   "Guwahati": {
@@ -8205,6 +9670,21 @@
     "severe": 0,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 71,
+     "Satisfactory": 114,
+     "Moderate": 63,
+     "Poor": 11,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Gwalior": {
@@ -8297,6 +9777,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 6,
+     "Satisfactory": 110,
+     "Moderate": 128,
+     "Poor": 16,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 16,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Hajipur": {
@@ -8386,6 +9881,21 @@
      "Severe": 0
     },
     "poor_or_worse": 94,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 39,
+     "Satisfactory": 69,
+     "Moderate": 109,
+     "Poor": 32,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 32,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -8511,6 +10021,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 97,
+     "Satisfactory": 101,
+     "Moderate": 57,
+     "Poor": 4,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Hanumangarh": {
@@ -8555,6 +10080,21 @@
      "Severe": 0
     },
     "poor_or_worse": 39,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 247,
+    "by_category": {
+     "Good": 16,
+     "Satisfactory": 100,
+     "Moderate": 124,
+     "Poor": 7,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -8663,6 +10203,21 @@
     },
     "poor_or_worse": 90,
     "severe": 3,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 226,
+    "by_category": {
+     "Good": 26,
+     "Satisfactory": 48,
+     "Moderate": 94,
+     "Poor": 58,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 58,
+    "severe": 0,
     "median_stations": 1,
     "thin": true
    }
@@ -8866,6 +10421,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 188,
+    "by_category": {
+     "Good": 7,
+     "Satisfactory": 99,
+     "Moderate": 74,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Hosur": {
@@ -9035,6 +10605,21 @@
     "severe": 0,
     "median_stations": 5,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 33,
+     "Satisfactory": 162,
+     "Moderate": 51,
+     "Poor": 14,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
+    "severe": 0,
+    "median_stations": 5,
+    "thin": false
    }
   },
   "Hubballi": {
@@ -9134,6 +10719,21 @@
      "Good": 249,
      "Satisfactory": 96,
      "Moderate": 1,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 232,
+    "by_category": {
+     "Good": 55,
+     "Satisfactory": 177,
+     "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -9309,6 +10909,21 @@
     "severe": 0,
     "median_stations": 12,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 48,
+     "Satisfactory": 208,
+     "Moderate": 4,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 12,
+    "thin": false
    }
   },
   "Imphal": {
@@ -9448,6 +11063,21 @@
     "severe": 0,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 33,
+     "Satisfactory": 169,
+     "Moderate": 56,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 5,
+    "thin": false
    }
   },
   "Jabalpur": {
@@ -9537,6 +11167,21 @@
      "Severe": 0
     },
     "poor_or_worse": 7,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 24,
+     "Satisfactory": 191,
+     "Moderate": 43,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 4,
     "thin": false
@@ -9692,6 +11337,21 @@
     "severe": 0,
     "median_stations": 6,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 91,
+     "Moderate": 160,
+     "Poor": 6,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 6,
+    "severe": 0,
+    "median_stations": 6,
+    "thin": false
    }
   },
   "Jaisalmer": {
@@ -9736,6 +11396,21 @@
      "Severe": 0
     },
     "poor_or_worse": 27,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 106,
+     "Moderate": 134,
+     "Poor": 17,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 18,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -9861,6 +11536,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 22,
+     "Satisfactory": 176,
+     "Moderate": 59,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Jalgaon": {
@@ -9905,6 +11595,21 @@
      "Severe": 0
     },
     "poor_or_worse": 5,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 243,
+    "by_category": {
+     "Good": 74,
+     "Satisfactory": 91,
+     "Moderate": 78,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -9972,6 +11677,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 255,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 141,
+     "Moderate": 103,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Jhalawar": {
@@ -10016,6 +11736,21 @@
      "Severe": 0
     },
     "poor_or_worse": 13,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 254,
+    "by_category": {
+     "Good": 22,
+     "Satisfactory": 108,
+     "Moderate": 116,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10081,6 +11816,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 68,
+     "Satisfactory": 178,
+     "Moderate": 5,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Jhunjhunu": {
@@ -10125,6 +11875,21 @@
      "Severe": 0
     },
     "poor_or_worse": 35,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 4,
+     "Satisfactory": 100,
+     "Moderate": 139,
+     "Poor": 13,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10217,6 +11982,21 @@
      "Severe": 0
     },
     "poor_or_worse": 50,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 237,
+    "by_category": {
+     "Good": 21,
+     "Satisfactory": 68,
+     "Moderate": 115,
+     "Poor": 31,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 33,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10372,6 +12152,21 @@
     "severe": 0,
     "median_stations": 5,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 6,
+     "Satisfactory": 137,
+     "Moderate": 114,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 5,
+    "thin": false
    }
   },
   "Jorapokhar": {
@@ -10448,6 +12243,21 @@
      "Severe": 0
     },
     "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 219,
+    "by_category": {
+     "Good": 19,
+     "Satisfactory": 176,
+     "Moderate": 22,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10540,6 +12350,21 @@
      "Severe": 0
     },
     "poor_or_worse": 52,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 232,
+    "by_category": {
+     "Good": 23,
+     "Satisfactory": 99,
+     "Moderate": 88,
+     "Poor": 20,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 22,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10650,6 +12475,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 246,
+    "by_category": {
+     "Good": 154,
+     "Satisfactory": 92,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Kalyan": {
@@ -10741,6 +12581,21 @@
     "poor_or_worse": 8,
     "severe": 0,
     "median_stations": 2,
+    "thin": true
+   },
+   "2026": {
+    "days": 239,
+    "by_category": {
+     "Good": 22,
+     "Satisfactory": 148,
+     "Moderate": 67,
+     "Poor": 1,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
     "thin": true
    }
   },
@@ -10858,6 +12713,21 @@
      "Good": 7,
      "Satisfactory": 275,
      "Moderate": 1,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 197,
+    "by_category": {
+     "Good": 19,
+     "Satisfactory": 159,
+     "Moderate": 19,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -11033,6 +12903,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 41,
+     "Satisfactory": 137,
+     "Moderate": 78,
+     "Poor": 4,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Karauli": {
@@ -11077,6 +12962,21 @@
      "Severe": 0
     },
     "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 230,
+    "by_category": {
+     "Good": 39,
+     "Satisfactory": 118,
+     "Moderate": 73,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11169,6 +13069,21 @@
      "Severe": 0
     },
     "poor_or_worse": 26,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 14,
+     "Satisfactory": 103,
+     "Moderate": 112,
+     "Poor": 27,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 28,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11315,6 +13230,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 229,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 193,
+     "Moderate": 34,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Katni": {
@@ -11407,6 +13337,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 38,
+     "Satisfactory": 102,
+     "Moderate": 111,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Keonjhar": {
@@ -11451,6 +13396,21 @@
      "Severe": 0
     },
     "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 215,
+    "by_category": {
+     "Good": 70,
+     "Satisfactory": 88,
+     "Moderate": 52,
+     "Poor": 4,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11576,6 +13536,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 239,
+    "by_category": {
+     "Good": 17,
+     "Satisfactory": 145,
+     "Moderate": 76,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Khurja": {
@@ -11638,6 +13613,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 26,
+     "Satisfactory": 109,
+     "Moderate": 106,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Kishanganj": {
@@ -11697,6 +13687,21 @@
      "Severe": 0
     },
     "poor_or_worse": 27,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 241,
+    "by_category": {
+     "Good": 77,
+     "Satisfactory": 122,
+     "Moderate": 37,
+     "Poor": 5,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11839,6 +13844,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 254,
+    "by_category": {
+     "Good": 121,
+     "Satisfactory": 133,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Kolar": {
@@ -11930,6 +13950,21 @@
      "Severe": 0
     },
     "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 131,
+     "Satisfactory": 111,
+     "Moderate": 11,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -12067,6 +14102,21 @@
      "Severe": 0
     },
     "poor_or_worse": 27,
+    "severe": 0,
+    "median_stations": 7,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 75,
+     "Satisfactory": 122,
+     "Moderate": 49,
+     "Poor": 14,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 7,
     "thin": false
@@ -12271,6 +14321,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 105,
+     "Satisfactory": 121,
+     "Moderate": 24,
+     "Poor": 1,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Kota": {
@@ -12393,6 +14458,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 24,
+     "Satisfactory": 113,
+     "Moderate": 109,
+     "Poor": 14,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Kozhikode": {
@@ -12484,6 +14564,21 @@
      "Severe": 0
     },
     "poor_or_worse": 40,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 71,
+     "Satisfactory": 106,
+     "Moderate": 77,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -12579,6 +14674,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 18,
+     "Satisfactory": 78,
+     "Moderate": 134,
+     "Poor": 21,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 22,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Latur": {
@@ -12623,6 +14733,21 @@
      "Severe": 0
     },
     "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 87,
+     "Satisfactory": 147,
+     "Moderate": 22,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -12810,6 +14935,21 @@
     "severe": 0,
     "median_stations": 6,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 25,
+     "Satisfactory": 110,
+     "Moderate": 117,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 6,
+    "thin": false
    }
   },
   "Ludhiana": {
@@ -12947,6 +15087,38 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 228,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 147,
+     "Moderate": 80,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   }
+  },
+  "Machilipatnam": {
+   "2026": {
+    "days": 180,
+    "by_category": {
+     "Good": 11,
+     "Satisfactory": 164,
+     "Moderate": 4,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Madikeri": {
@@ -13024,6 +15196,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 228,
+     "Satisfactory": 20,
+     "Moderate": 1,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Madurai": {
@@ -13070,6 +15257,21 @@
      "Severe": 0
     },
     "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 234,
+    "by_category": {
+     "Good": 55,
+     "Satisfactory": 95,
+     "Moderate": 84,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -13189,6 +15391,21 @@
      "Good": 23,
      "Satisfactory": 173,
      "Moderate": 136,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 219,
+    "by_category": {
+     "Good": 20,
+     "Satisfactory": 119,
+     "Moderate": 80,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -13334,6 +15551,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 218,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 78,
+     "Moderate": 103,
+     "Poor": 31,
+     "Very Poor": 3,
+     "Severe": 0
+    },
+    "poor_or_worse": 34,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Mandideep": {
@@ -13456,6 +15688,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 15,
+     "Satisfactory": 89,
+     "Moderate": 102,
+     "Poor": 38,
+     "Very Poor": 5,
+     "Severe": 0
+    },
+    "poor_or_worse": 43,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Mandikhera": {
@@ -13548,6 +15795,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 214,
+    "by_category": {
+     "Good": 18,
+     "Satisfactory": 138,
+     "Moderate": 52,
+     "Poor": 6,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 6,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Manesar": {
@@ -13637,6 +15899,21 @@
      "Severe": 0
     },
     "poor_or_worse": 56,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 237,
+    "by_category": {
+     "Good": 13,
+     "Satisfactory": 50,
+     "Moderate": 114,
+     "Poor": 52,
+     "Very Poor": 8,
+     "Severe": 0
+    },
+    "poor_or_worse": 60,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -13856,6 +16133,38 @@
     "severe": 1,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 9,
+     "Satisfactory": 54,
+     "Moderate": 117,
+     "Poor": 73,
+     "Very Poor": 7,
+     "Severe": 0
+    },
+    "poor_or_worse": 80,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
+   }
+  },
+  "Mehsana": {
+   "2026": {
+    "days": 212,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 119,
+     "Moderate": 88,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Milupara": {
@@ -13917,6 +16226,21 @@
      "Severe": 0
     },
     "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 223,
+    "by_category": {
+     "Good": 119,
+     "Satisfactory": 60,
+     "Moderate": 44,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14042,6 +16366,21 @@
     "severe": 0,
     "median_stations": 6,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 34,
+     "Satisfactory": 131,
+     "Moderate": 95,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 6,
+    "thin": false
    }
   },
   "Motihari": {
@@ -14101,6 +16440,21 @@
      "Severe": 0
     },
     "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 181,
+    "by_category": {
+     "Good": 21,
+     "Satisfactory": 109,
+     "Moderate": 48,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14256,6 +16610,21 @@
     "severe": 0,
     "median_stations": 24,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 82,
+     "Satisfactory": 124,
+     "Moderate": 54,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 23,
+    "thin": false
    }
   },
   "Munger": {
@@ -14315,6 +16684,21 @@
      "Severe": 0
     },
     "poor_or_worse": 15,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 211,
+    "by_category": {
+     "Good": 51,
+     "Satisfactory": 128,
+     "Moderate": 32,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14422,6 +16806,21 @@
      "Severe": 0
     },
     "poor_or_worse": 83,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 255,
+    "by_category": {
+     "Good": 19,
+     "Satisfactory": 51,
+     "Moderate": 132,
+     "Poor": 52,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 53,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14577,6 +16976,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 44,
+     "Satisfactory": 120,
+     "Moderate": 95,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Mysuru": {
@@ -14669,6 +17083,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 248,
+    "by_category": {
+     "Good": 47,
+     "Satisfactory": 182,
+     "Moderate": 17,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Nagaon": {
@@ -14713,6 +17142,21 @@
      "Severe": 0
     },
     "poor_or_worse": 18,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 227,
+    "by_category": {
+     "Good": 35,
+     "Satisfactory": 130,
+     "Moderate": 62,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14777,6 +17221,21 @@
      "Severe": 0
     },
     "poor_or_worse": 41,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 17,
+     "Satisfactory": 103,
+     "Moderate": 124,
+     "Poor": 7,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14932,6 +17391,21 @@
     "severe": 0,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 61,
+     "Satisfactory": 98,
+     "Moderate": 93,
+     "Poor": 8,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
    }
   },
   "Naharlagun": {
@@ -14961,6 +17435,21 @@
      "Severe": 0
     },
     "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 219,
+    "by_category": {
+     "Good": 124,
+     "Satisfactory": 33,
+     "Moderate": 50,
+     "Poor": 12,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 12,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15011,6 +17500,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 204,
+    "by_category": {
+     "Good": 59,
+     "Satisfactory": 80,
+     "Moderate": 65,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Nanded": {
@@ -15040,6 +17544,21 @@
      "Severe": 0
     },
     "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 237,
+    "by_category": {
+     "Good": 72,
+     "Satisfactory": 98,
+     "Moderate": 61,
+     "Poor": 6,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15164,6 +17683,21 @@
      "Severe": 0
     },
     "poor_or_worse": 16,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 103,
+     "Moderate": 122,
+     "Poor": 21,
+     "Very Poor": 11,
+     "Severe": 0
+    },
+    "poor_or_worse": 32,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15296,6 +17830,21 @@
      "Good": 85,
      "Satisfactory": 140,
      "Moderate": 139,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 99,
+     "Satisfactory": 117,
+     "Moderate": 44,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -15470,6 +18019,21 @@
     "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 5,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 78,
+     "Satisfactory": 119,
+     "Moderate": 63,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 6,
     "thin": false
    }
   },
@@ -15655,6 +18219,21 @@
     "severe": 14,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 2,
+     "Satisfactory": 39,
+     "Moderate": 137,
+     "Poor": 63,
+     "Very Poor": 17,
+     "Severe": 2
+    },
+    "poor_or_worse": 82,
+    "severe": 2,
+    "median_stations": 4,
+    "thin": false
    }
   },
   "Ooty": {
@@ -15824,6 +18403,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 46,
+     "Moderate": 192,
+     "Poor": 11,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 11,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Palkalaiperur": {
@@ -15948,6 +18542,38 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 238,
+    "by_category": {
+     "Good": 6,
+     "Satisfactory": 177,
+     "Moderate": 53,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   }
+  },
+  "Pampore": {
+   "2026": {
+    "days": 207,
+    "by_category": {
+     "Good": 97,
+     "Satisfactory": 108,
+     "Moderate": 2,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Panchgaon": {
@@ -15962,6 +18588,21 @@
      "Severe": 0
     },
     "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 239,
+    "by_category": {
+     "Good": 31,
+     "Satisfactory": 92,
+     "Moderate": 82,
+     "Poor": 30,
+     "Very Poor": 4,
+     "Severe": 0
+    },
+    "poor_or_worse": 34,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16102,6 +18743,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 228,
+    "by_category": {
+     "Good": 93,
+     "Satisfactory": 89,
+     "Moderate": 41,
+     "Poor": 5,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 5,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Panipat": {
@@ -16194,6 +18850,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 205,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 29,
+     "Moderate": 118,
+     "Poor": 52,
+     "Very Poor": 6,
+     "Severe": 0
+    },
+    "poor_or_worse": 58,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Parbhani": {
@@ -16223,6 +18894,21 @@
      "Severe": 0
     },
     "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 257,
+    "by_category": {
+     "Good": 76,
+     "Satisfactory": 124,
+     "Moderate": 57,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16345,6 +19031,21 @@
      "Severe": 0
     },
     "poor_or_worse": 7,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 250,
+    "by_category": {
+     "Good": 56,
+     "Satisfactory": 100,
+     "Moderate": 94,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16500,6 +19201,21 @@
     "severe": 0,
     "median_stations": 5,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 135,
+     "Moderate": 122,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 6,
+    "thin": false
    }
   },
   "Pimpri-Chinchwad": {
@@ -16531,6 +19247,21 @@
     "poor_or_worse": 26,
     "severe": 0,
     "median_stations": 4,
+    "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 51,
+     "Satisfactory": 126,
+     "Moderate": 83,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 5,
     "thin": false
    }
   },
@@ -16654,6 +19385,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 56,
+     "Moderate": 163,
+     "Poor": 27,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 27,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Pratapgarh": {
@@ -16698,6 +19444,21 @@
      "Severe": 0
     },
     "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 255,
+    "by_category": {
+     "Good": 21,
+     "Satisfactory": 117,
+     "Moderate": 115,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16778,6 +19539,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 56,
+     "Satisfactory": 175,
+     "Moderate": 28,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Puducherry": {
@@ -16852,6 +19628,21 @@
      "Severe": 0
     },
     "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 134,
+     "Satisfactory": 101,
+     "Moderate": 21,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17024,6 +19815,21 @@
     "severe": 0,
     "median_stations": 8,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 37,
+     "Satisfactory": 148,
+     "Moderate": 74,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 7,
+    "thin": false
    }
   },
   "Purnia": {
@@ -17083,6 +19889,21 @@
      "Severe": 0
     },
     "poor_or_worse": 21,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 230,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 200,
+     "Moderate": 30,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17195,6 +20016,21 @@
     "severe": 0,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 99,
+     "Satisfactory": 142,
+     "Moderate": 19,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
    }
   },
   "Rairangpur": {
@@ -17239,6 +20075,21 @@
      "Severe": 0
     },
     "poor_or_worse": 5,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 225,
+    "by_category": {
+     "Good": 59,
+     "Satisfactory": 128,
+     "Moderate": 38,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17364,6 +20215,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 244,
+    "by_category": {
+     "Good": 101,
+     "Satisfactory": 89,
+     "Moderate": 42,
+     "Poor": 12,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Rajgir": {
@@ -17426,6 +20292,38 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 181,
+    "by_category": {
+     "Good": 54,
+     "Satisfactory": 102,
+     "Moderate": 24,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   }
+  },
+  "Rajkot": {
+   "2026": {
+    "days": 224,
+    "by_category": {
+     "Good": 29,
+     "Satisfactory": 127,
+     "Moderate": 66,
+     "Poor": 1,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Rajsamand": {
@@ -17470,6 +20368,21 @@
      "Severe": 0
     },
     "poor_or_worse": 8,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 254,
+    "by_category": {
+     "Good": 15,
+     "Satisfactory": 187,
+     "Moderate": 49,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17562,6 +20475,21 @@
      "Severe": 0
     },
     "poor_or_worse": 5,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 248,
+    "by_category": {
+     "Good": 125,
+     "Satisfactory": 87,
+     "Moderate": 36,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17719,6 +20647,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 67,
+     "Satisfactory": 98,
+     "Moderate": 88,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Rishikesh": {
@@ -17763,6 +20706,21 @@
      "Severe": 0
     },
     "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 231,
+    "by_category": {
+     "Good": 126,
+     "Satisfactory": 84,
+     "Moderate": 21,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17888,6 +20846,21 @@
     "severe": 2,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 236,
+    "by_category": {
+     "Good": 30,
+     "Satisfactory": 102,
+     "Moderate": 80,
+     "Poor": 24,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 24,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Rourkela": {
@@ -17935,6 +20908,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 258,
+    "by_category": {
+     "Good": 46,
+     "Satisfactory": 148,
+     "Moderate": 64,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Rupnagar": {
@@ -18057,6 +21045,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 219,
+    "by_category": {
+     "Good": 67,
+     "Satisfactory": 99,
+     "Moderate": 39,
+     "Poor": 14,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 14,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Sagar": {
@@ -18149,6 +21152,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 252,
+    "by_category": {
+     "Good": 52,
+     "Satisfactory": 124,
+     "Moderate": 75,
+     "Poor": 0,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Saharsa": {
@@ -18208,6 +21226,21 @@
      "Severe": 0
     },
     "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 220,
+    "by_category": {
+     "Good": 28,
+     "Satisfactory": 75,
+     "Moderate": 108,
+     "Poor": 9,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 9,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -18349,6 +21382,21 @@
      "Severe": 0
     },
     "poor_or_worse": 17,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 220,
+    "by_category": {
+     "Good": 113,
+     "Satisfactory": 74,
+     "Moderate": 33,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -18536,6 +21584,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 256,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Sawai Madhopur": {
@@ -18580,6 +21643,21 @@
      "Severe": 0
     },
     "poor_or_worse": 23,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 258,
+    "by_category": {
+     "Good": 13,
+     "Satisfactory": 78,
+     "Moderate": 150,
+     "Poor": 17,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 17,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -18737,6 +21815,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 230,
+    "by_category": {
+     "Good": 91,
+     "Satisfactory": 139,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Sikar": {
@@ -18784,6 +21877,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 258,
+    "by_category": {
+     "Good": 13,
+     "Satisfactory": 69,
+     "Moderate": 157,
+     "Poor": 17,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 19,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Silchar": {
@@ -18822,6 +21930,21 @@
     "by_category": {
      "Good": 147,
      "Satisfactory": 208,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 258,
+    "by_category": {
+     "Good": 97,
+     "Satisfactory": 161,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -18953,6 +22076,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 238,
+    "by_category": {
+     "Good": 15,
+     "Satisfactory": 80,
+     "Moderate": 142,
+     "Poor": 1,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Singrauli": {
@@ -19075,6 +22213,21 @@
     "severe": 1,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 214,
+    "by_category": {
+     "Good": 19,
+     "Satisfactory": 35,
+     "Moderate": 70,
+     "Poor": 66,
+     "Very Poor": 24,
+     "Severe": 0
+    },
+    "poor_or_worse": 90,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Sirohi": {
@@ -19119,6 +22272,21 @@
      "Severe": 0
     },
     "poor_or_worse": 5,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 256,
+    "by_category": {
+     "Good": 16,
+     "Satisfactory": 188,
+     "Moderate": 49,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -19214,6 +22382,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 228,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 114,
+     "Moderate": 101,
+     "Poor": 8,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 10,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Sivasagar": {
@@ -19252,6 +22435,21 @@
     "by_category": {
      "Good": 208,
      "Satisfactory": 149,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 238,
+    "by_category": {
+     "Good": 97,
+     "Satisfactory": 141,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -19460,6 +22658,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 78,
+     "Satisfactory": 117,
+     "Moderate": 65,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Sonipat": {
@@ -19552,6 +22765,21 @@
     "severe": 1,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 210,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 35,
+     "Moderate": 151,
+     "Poor": 19,
+     "Very Poor": 2,
+     "Severe": 0
+    },
+    "poor_or_worse": 21,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Sri Ganganagar": {
@@ -19596,6 +22824,21 @@
      "Severe": 0
     },
     "poor_or_worse": 85,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 245,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 53,
+     "Moderate": 150,
+     "Poor": 33,
+     "Very Poor": 9,
+     "Severe": 0
+    },
+    "poor_or_worse": 42,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -19645,6 +22888,21 @@
     "poor_or_worse": 1,
     "severe": 0,
     "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 258,
+    "by_category": {
+     "Good": 185,
+     "Satisfactory": 73,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
     "thin": true
    }
   },
@@ -19739,6 +22997,21 @@
     "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 258,
+    "by_category": {
+     "Good": 43,
+     "Satisfactory": 151,
+     "Moderate": 58,
+     "Poor": 6,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 6,
+    "severe": 0,
+    "median_stations": 2,
     "thin": true
    }
   },
@@ -19859,6 +23132,21 @@
      "Severe": 0
     },
     "poor_or_worse": 87,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 227,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 108,
+     "Moderate": 90,
+     "Poor": 24,
+     "Very Poor": 4,
+     "Severe": 0
+    },
+    "poor_or_worse": 28,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -20046,6 +23334,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 64,
+     "Satisfactory": 145,
+     "Moderate": 50,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Thanjavur": {
@@ -20185,6 +23488,21 @@
     "severe": 0,
     "median_stations": 2,
     "thin": true
+   },
+   "2026": {
+    "days": 255,
+    "by_category": {
+     "Good": 122,
+     "Satisfactory": 104,
+     "Moderate": 29,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
    }
   },
   "Thoothukudi": {
@@ -20260,6 +23578,21 @@
     },
     "poor_or_worse": 5,
     "severe": 2,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 247,
+    "by_category": {
+     "Good": 52,
+     "Satisfactory": 189,
+     "Moderate": 6,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
     "median_stations": 1,
     "thin": true
    }
@@ -20339,6 +23672,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 225,
+    "by_category": {
+     "Good": 26,
+     "Satisfactory": 198,
+     "Moderate": 1,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Tiruchirappalli": {
@@ -20370,6 +23718,21 @@
      "Severe": 0
     },
     "poor_or_worse": 19,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 57,
+     "Satisfactory": 149,
+     "Moderate": 39,
+     "Poor": 4,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -20527,6 +23890,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 210,
+    "by_category": {
+     "Good": 10,
+     "Satisfactory": 176,
+     "Moderate": 21,
+     "Poor": 2,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Tirupur": {
@@ -20621,6 +23999,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 3,
+     "Satisfactory": 65,
+     "Moderate": 152,
+     "Poor": 26,
+     "Very Poor": 3,
+     "Severe": 0
+    },
+    "poor_or_worse": 29,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Tumakuru": {
@@ -20682,6 +24075,21 @@
      "Severe": 0
     },
     "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 209,
+    "by_category": {
+     "Good": 48,
+     "Satisfactory": 107,
+     "Moderate": 51,
+     "Poor": 3,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -20804,6 +24212,21 @@
      "Severe": 0
     },
     "poor_or_worse": 6,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 251,
+    "by_category": {
+     "Good": 8,
+     "Satisfactory": 102,
+     "Moderate": 137,
+     "Poor": 4,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -20931,6 +24354,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 217,
+    "by_category": {
+     "Good": 25,
+     "Satisfactory": 142,
+     "Moderate": 43,
+     "Poor": 5,
+     "Very Poor": 1,
+     "Severe": 1
+    },
+    "poor_or_worse": 7,
+    "severe": 1,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Ulhasnagar": {
@@ -20960,6 +24398,38 @@
      "Severe": 0
     },
     "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 106,
+     "Satisfactory": 83,
+     "Moderate": 71,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 2,
+    "thin": true
+   }
+  },
+  "Vadodara": {
+   "2026": {
+    "days": 228,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 155,
+     "Moderate": 64,
+     "Poor": 8,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 9,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21052,6 +24522,21 @@
      "Severe": 0
     },
     "poor_or_worse": 28,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 198,
+    "by_category": {
+     "Good": 43,
+     "Satisfactory": 133,
+     "Moderate": 20,
+     "Poor": 1,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21222,6 +24707,21 @@
     "severe": 0,
     "median_stations": 4,
     "thin": false
+   },
+   "2026": {
+    "days": 260,
+    "by_category": {
+     "Good": 45,
+     "Satisfactory": 163,
+     "Moderate": 52,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 4,
+    "thin": false
    }
   },
   "Vatva": {
@@ -21326,6 +24826,21 @@
      "Severe": 0
     },
     "poor_or_worse": 12,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 253,
+    "by_category": {
+     "Good": 1,
+     "Satisfactory": 21,
+     "Moderate": 220,
+     "Poor": 11,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 11,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21453,6 +24968,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 213,
+    "by_category": {
+     "Good": 160,
+     "Satisfactory": 53,
+     "Moderate": 0,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Vijayawada": {
@@ -21530,6 +25060,21 @@
     "severe": 0,
     "median_stations": 3,
     "thin": false
+   },
+   "2026": {
+    "days": 259,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 246,
+     "Moderate": 13,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 3,
+    "thin": false
    }
   },
   "Virar": {
@@ -21559,6 +25104,21 @@
      "Severe": 0
     },
     "poor_or_worse": 4,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 235,
+    "by_category": {
+     "Good": 76,
+     "Satisfactory": 110,
+     "Moderate": 47,
+     "Poor": 2,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21716,6 +25276,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 250,
+    "by_category": {
+     "Good": 7,
+     "Satisfactory": 74,
+     "Moderate": 149,
+     "Poor": 19,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 20,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Vrindavan": {
@@ -21775,6 +25350,21 @@
      "Severe": 0
     },
     "poor_or_worse": 1,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 249,
+    "by_category": {
+     "Good": 53,
+     "Satisfactory": 156,
+     "Moderate": 40,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21870,6 +25460,21 @@
     "severe": 0,
     "median_stations": 1,
     "thin": true
+   },
+   "2026": {
+    "days": 209,
+    "by_category": {
+     "Good": 62,
+     "Satisfactory": 104,
+     "Moderate": 43,
+     "Poor": 0,
+     "Very Poor": 0,
+     "Severe": 0
+    },
+    "poor_or_worse": 0,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
    }
   },
   "Yamunanagar": {
@@ -21959,6 +25564,21 @@
      "Severe": 0
     },
     "poor_or_worse": 37,
+    "severe": 0,
+    "median_stations": 1,
+    "thin": true
+   },
+   "2026": {
+    "days": 238,
+    "by_category": {
+     "Good": 0,
+     "Satisfactory": 87,
+     "Moderate": 126,
+     "Poor": 24,
+     "Very Poor": 1,
+     "Severe": 0
+    },
+    "poor_or_worse": 25,
     "severe": 0,
     "median_stations": 1,
     "thin": true

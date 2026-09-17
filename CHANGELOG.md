@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.202] - 2026-09-17
+
+### Added — 2026 joined on, from our own parse of CPCB's PDFs
+
+`data/aqi-bulletins.json` now runs **2015 to 2026 across 297 cities**, 507,334 city-days. 2015-2025 remains the UrbanEmissions extraction; 2026 is our own parse of the same published bulletins, 260 days to 17 September.
+
+**The two agree.** Checked city by city on 2025-06-10, 2025-07-15 and 2025-08-20, they give the same AQI and the same station count for **all 671 city-days they share**. That also settled which field to join on: the CSV's `no_stations` equals our `stations_participated` on all 671, and equals `stations_total` on 185, 185 and 200. Taking the wrong one would have changed what "median stations" means at the 2025/2026 boundary, invisibly.
+
+### Changed — the join is a spelling problem, and spelling problems are silent
+
+A city split across two spellings shows a plausible count under each and nothing errors, so none of this was done by pattern. Case and whitespace folding took 588 raw 2026 strings to 304, of which 270 matched exactly. The remainder, one at a time:
+
+- **Eight cities new to the file**: Bhavnagar, Eluru, Guntur, Machilipatnam, Mehsana, Pampore, Rajkot, Vadodara. Each checked against near-spellings first, because that is how a city gets split: **Khairthal is not Kaithal, Khora is not Korba, Nellore is not Vellore.**
+- **One alias**, `yamuna nagar` to the shipped `Yamunanagar`, 238 days.
+- **Byrnihat (Assam) and Byrnihat (Meghalaya) stay two cities.** The trap there is normalisation, not ambiguity: stripping the parenthetical merges two different places.
+- **One row dropped rather than guessed.** On 2026-07-10 alone CPCB wrote a bare `Aurangabad` against two disambiguated entries every other day. Serials run 1..238 with no gap, so the source is inconsistent, not the parse. The 3/3 station count matches Maharashtra, which is evidence and not proof. It is counted in `_meta.unresolved_rows_dropped`, not discarded quietly.
+
+`--check` now recomputes the join: no two city keys may differ only by case, whitespace or punctuation; an alias target must exist; an aliased spelling must not survive as its own city. Each was broken in turn and each fired.
+
+### Added — part years are marked where the number is
+
+2015 and 2026 are flagged `partial` with the measured `coverage` beside the flag, and the panel says so **next to the figure** rather than in a footnote, with the share of reported days now printed alongside every count. This is the same error the v26.6.200 entry corrected: 136 Poor-or-worse days of 235 in 2015 against 157 of 366 in 2024 read as a rise and are a fall, 58% to 43%.
+
+**The first rule for it was wrong and would have shipped a false warning.** "The span reaches both ends of the year" called 2025 partial, because CPCB published no bulletin on 1 January, putting a truncation warning on a year holding 79,356 city-days from 246 cities. It is now a measured coverage against a stated 0.95 threshold, with the raw fraction published so a reader need not trust the cutoff.
+
+### Changed — the build is reproducible from a clone
+
+`data/raw/cpcb-bulletins-2026.csv.gz` is now an input, not an archive: `--daily` defaults to it, so `build-aqi-bulletins.py` no longer depends on a scratch directory that does not survive the session. Reading the committed file and reading a live fetch's per-day JSON produce byte-identical output, checked.
+
+Stale figures updated with it: the comparison post, `docs/data-sources/aqi-bulletins.md` and the assistant's rule 19. A **different** 289 in `air-query.mjs` and `docs/fact-check-2026-07-27.md` means cities with a CAAQMS station, per CREA, and is deliberately untouched.
+
 ## [v26.6.201] - 2026-09-17
 
 ### Fixed — the bulletin parser dropped one city on the 21st of every month

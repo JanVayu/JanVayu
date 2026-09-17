@@ -11,7 +11,7 @@ a citizen can act on: **how many days of each official category did my city have
 in a given year, and how many stations was that figure built from.**
 
 - Source file: `data/aqi-bulletins.json`
-- **289 cities, 2015–2025**, from 471,015 city-days.
+- **297 cities, 2015–2026**, from 507,334 city-days. 2015 (from 1 May, CPCB's first bulletin) and 2026 (to the last fetch) are flagged `partial`, with the measured `coverage` published beside the flag.
 
 ## Why this, when we already have XKDR
 

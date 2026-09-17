@@ -1,59 +1,59 @@
 # Raw CPCB bulletin tables
 
-This folder holds a table parsed straight from CPCB's own published PDFs by
-`scripts/fetch-cpcb-bulletin.py`, kept because the fetch is slow (about five
-hours for a year) and the parse is the expensive part, not the storage.
+`cpcb-bulletins-2026.csv.gz` is CPCB's daily AQI bulletin for 2026, parsed from
+the published PDFs by `scripts/fetch-cpcb-bulletin.py`. 62,851 rows, 260 days,
+2026-01-01 to 2026-09-17, 588 distinct city strings, no rows skipped
+and no gaps in CPCB's own serial numbering.
 
-## `cpcb-bulletins-2026.csv.gz`
-
-62,851 rows, 260 days, 2026-01-01 to 2026-09-17, 588 distinct
-city strings, 0 rows skipped by the parser and 0 gaps in CPCB's own serial
-numbering. Those last two counts are the check: CPCB numbers its rows 1..N
-without gaps, so a parse that drops rows shows as a gap in the sequence rather
-than as silence.
-
-They were not always zero. The first run of this backfill lost one city on the
-21st of every month, because each page header carries the day of the month as a
-bare number and page two begins near serial 21. The parser was fixed in
-v26.6.201, those eight days were re-fetched, and the fetch now exits non-zero
-on a lossy parse instead of writing the gap into a file nobody reads.
+It is committed rather than fetched on demand for two reasons. The fetch takes
+about five hours, and more importantly `build-aqi-bulletins.py` reads this file
+to build the 2026 half of `data/aqi-bulletins.json`, so without it nobody could
+rebuild that file from a clone. Passing `--daily <dir>` instead reads a live
+fetch's per-day JSON; both paths produce a byte-identical result.
 
 These are Government of India publications and the figures are facts, parsed by
-us. The GPL note in `_meta.source` of `data/aqi-bulletins.json` covers the
-UrbanEmissions extraction that file is built from, and does not apply here.
+us. The GPL note in `_meta.source` covers the UrbanEmissions extraction that
+2015-2025 is built from, and does not apply here.
 
-## Why this is not in `data/aqi-bulletins.json` yet
+## The join, and what it cost
 
-The shipped file ends in 2025 and covers 289 cities. Merging 2026 into it is a
-name-matching problem rather than a data problem, and it has a silent failure
-mode: a city split across two spellings shows a plausible count under each, and
-nothing errors.
+Merged into `data/aqi-bulletins.json` in v26.6.202. The two sources disagree
+about spelling, not about facts: on 2025-06-10, 2025-07-15 and 2025-08-20,
+checked city by city, they agree on the AQI and the station count for all 671
+city-days they share.
 
-Folding case and whitespace collapses 588 raw strings to 304, of which
-270 match a shipped city exactly. The remaining 34 need a decision each:
+Case and whitespace folding took 588 raw 2026 strings to 304, of which 270
+matched a 2015-2025 city exactly. The rest:
 
-- **Genuinely new to the national network**, most of the list. Vadodara
-  (228 days), Rajkot (224 days), Bhavnagar (213 days), Mehsana (212 days),
-  Eluru, Guntur, Machilipatnam, Perundurai and Pampore appear in 2026 and in no
-  earlier year. Plausible, and worth confirming against CPCB's own city list
-  rather than assumed.
-- **A spelling of a city already present.** `yamuna nagar` (238 days) is the
-  shipped `Yamunanagar`. Merge it.
-- **A rename.** `sri vijaya puram` is Port Blair, renamed in 2024. Port Blair is
-  in no year of the shipped file either.
-- **Two that must not be guessed.** `byrnihat (assam)` (149 days) and
-  `byrnihat (meghalaya)` (104 days) are two different places sharing a name. And on
-  2026-07-10 alone, CPCB wrote `Aurangabad` with no state qualifier, against
-  `Aurangabad (Maharashtra)` and `Aurangabad (Bihar)` in every other table. That
-  day's serials run 1..238 with no gap, so nothing was dropped and the source
-  itself is inconsistent. The 3/3 station count matches Maharashtra, which is
-  evidence and not proof, and it is one day in 260.
+- **Eight cities new to the file**, each with enough days to describe a part
+  year: Bhavnagar, Eluru, Guntur, Machilipatnam, Mehsana, Pampore, Rajkot and
+  Vadodara. Checked against near-spellings before being called new, because
+  that is how a city gets split in two: Khairthal is not Kaithal, Khora is not
+  Korba, Nellore is not Vellore.
+- **One alias.** `yamuna nagar` is the shipped `Yamunanagar`, 238 days. It is
+  the only one, and `--check` fails if an alias target is missing or if the
+  aliased spelling survives as a separate city.
+- **Byrnihat (Assam) and Byrnihat (Meghalaya)** stay two cities. They share a
+  name and are different places, so the trap here is normalisation, not
+  ambiguity: stripping the parenthetical would merge them.
+- **One row dropped, not guessed.** On 2026-07-10 alone CPCB wrote `Aurangabad`
+  with no state qualifier, against `Aurangabad (Bihar)` and
+  `Aurangabad (Maharashtra)` in every other table. That day's serials run 1..238
+  with no gap, so nothing was lost in parsing; the source itself is
+  inconsistent. The 3/3 station count matches Maharashtra, which is evidence and
+  not proof, and it is one row in 62,851. It is counted in
+  `_meta.unresolved_rows_dropped` rather than silently discarded.
+- Cities appearing on only a day or two, `Sri Vijaya Puram` (Port Blair,
+  renamed in 2024) among them, fall below the 180-day floor and do not produce a
+  year.
 
-## The other thing to settle first
+## Part years
 
-2026 is a partial year, 260 days against 364 for 2025. The panel prints days in
-each category as counts, with "out of N reported" beside them, so the
-denominator is on screen. It is still the same shape as the error corrected in
-v26.6.200, where 136 of 235 days and 157 of 366 were set against each other as
-if they were the same measurement. A partial year needs marking as one in the
-data, not only in the layout.
+2015 and 2026 are flagged `partial`, with the measured `coverage` published
+beside the flag so a reader can apply their own threshold. The rule is a span
+covering less than 95% of the calendar, and it is derived, never asserted.
+
+An earlier rule, "the span reaches both ends of the year", called 2025 partial
+because CPCB published no bulletin on 1 January, which would have put a warning
+on a year holding 79,356 city-days from 246 cities. The threshold exists to
+catch 2015 (from 1 May) and the current year, not a missing New Year's Day.

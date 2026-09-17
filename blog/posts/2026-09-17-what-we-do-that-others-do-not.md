@@ -54,7 +54,7 @@ Legend: **yes** = we verified it. **no** = we checked and could not find it.
 | **A number for a ward** | **yes, all 68,596** | no | no | no | no | no | no | no |
 | **Air back to 1980** | yes, 783 districts | no | no | no | no | no | no | no |
 | **Weather removed from the trend** | **yes, 44 cities** | no | no | no | no | no | no | no |
-| **Official bulletin as a series** | yes, 289 cities 2015–2025 | publishes the PDF | no | no | no | uses it | no | no |
+| **Official bulletin as a series** | yes, 297 cities 2015–2026 | publishes the PDF | no | no | no | uses it | no | no |
 | **Instruments checked against the model** | yes, r = 0.834 | no | no | no | n/a | no | no | no |
 | **NCAP / GRAP tracking** | yes | the source data | no | no | no | **yes, the best of it** | no | no |
 | **Per-city budget utilisation** | yes | no | no | no | no | yes | no | no |
@@ -108,7 +108,7 @@ and has since May 2015. It is the number a minister quotes and a court cites,
 and it has never existed as a series because it is a decade of PDFs.
 UrbanEmissions parsed the archive; we now read the PDFs directly as well.
 
-**289 cities, 2015–2025**, as days in each official category per city per year.
+**297 cities, 2015–2026**, as days in each official category per city per year. 2015 and 2026 are part years and are labelled as such on the page, because these are counts of days and a part year set against a full one is not a comparison.
 
 The finding is uncomfortable. In CPCB's own 2024 bulletin, 264 cities reported a
 usable year and **221 of them did so on a median of fewer than three monitoring
