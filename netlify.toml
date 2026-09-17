@@ -145,6 +145,25 @@
   status = 200
   force = true
 
+# Workshop decks — plain .md files people download and import into Workshopy.
+# force = true so the SPA fallback at the bottom can never swallow them, which
+# would hand a visitor index.html with a .md extension and no error anywhere.
+[[redirects]]
+  from = "/workshops"
+  to = "/workshops/README.md"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/workshops/"
+  to = "/workshops/README.md"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/workshops/*"
+  to = "/workshops/:splat"
+  status = 200
+  force = true
+
 # Per-pollutant SEO pages
 [[redirects]]
   from = "/pm25"

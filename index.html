@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606190">
+    <link rel="preload" as="style" href="/styles.css?v=202606191">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1931,7 +1931,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606190"></script>
+    <script src="/app.js?v=202606191"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -3404,6 +3404,30 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             </div>
             <div id="workshops-upcoming" style="margin: 1.1rem 0 0;"></div>
             <div id="workshops-sessions" class="grid-2" style="gap: 1rem; margin: 1.1rem 0 2.25rem; align-items: stretch;"></div>
+
+            <!-- ── Self-run workshop decks (files live in /workshops/, listed in data/workshops.json) ── -->
+            <div class="dash-section" style="margin-top: 0;">
+                <span class="dash-section-eyebrow">Free &middot; run it yourself &middot; no permission needed</span>
+                <h3 class="dash-section-title" style="font-size: 1.4rem;">Or run the session without us</h3>
+                <p class="dash-section-sub" data-simple="You don't have to wait for us. Every session above is also a plain text file you can download and teach from yourself, for free.">Every session above is also a plain <strong>Markdown file</strong> you can download and run yourself. We are a small volunteer team and our calendar is the bottleneck, not the material &mdash; so the material is yours.</p>
+            </div>
+
+            <div class="grid-2" style="gap: 1rem; margin: 1.1rem 0 1.25rem; align-items: stretch;">
+                <div class="card"><div class="card-body" style="display:flex;flex-direction:column;gap:9px;">
+                    <span class="card-title">What you get</span>
+                    <p style="font-size:0.85rem;color:var(--text-2);line-height:1.6;margin:0;">Four decks: <strong>Know Your Ward</strong> (30 min), the <strong>RTI Clinic</strong> (45 min), the <strong>JanVayu Walkthrough</strong> (1 hour) and <strong>Air-Literacy for Educators</strong> (1 hour). Each is a single file with numbered steps, a graded quiz, and a source named against every figure.</p>
+                    <p style="font-size:0.85rem;color:var(--text-2);line-height:1.6;margin:0;">The RTI Clinic ends with a filed application, not a drafted one. The educator deck ends with a lesson you can run on Monday.</p>
+                </div></div>
+                <div class="card"><div class="card-body" style="display:flex;flex-direction:column;gap:9px;">
+                    <span class="card-title">How to run one</span>
+                    <p style="font-size:0.85rem;color:var(--text-2);line-height:1.6;margin:0;"><strong>Live with a group:</strong> import the file into <a href="https://workshopy.io" target="_blank" rel="noopener">Workshopy</a>, which turns Markdown into a live session &mdash; each heading becomes a step, each quiz is graded, and people join with a six-character code and no account. Its free plan caps a session at 45 minutes and 30 participants, so the two one-hour decks each carry a marked split point.</p>
+                    <p style="font-size:0.85rem;color:var(--text-2);line-height:1.6;margin:0;"><strong>Or not:</strong> they are ordinary Markdown. A projector, a printout or any renderer works, and nothing here depends on that tool.</p>
+                </div></div>
+            </div>
+
+            <div class="alert alert-info mt-3" style="margin-bottom: 2.25rem;"><div data-simple="You can copy, change and translate these workshop files for teaching, as long as you say they came from JanVayu and share your version the same way.">
+                <strong>Yours to change.</strong> The decks are CC BY-NC-SA 4.0, so cut them, translate them, or drop in your own city's numbers &mdash; with attribution, non-commercially, share-alike. Every figure names its source so you can check it before you edit it. The four files and a note on what to keep are at <a href="/workshops/README.md" target="_blank" rel="noopener">/workshops/</a>, and corrections are welcome at <a href="mailto:contribute@janvayu.in?subject=Workshop%20decks">contribute@janvayu.in</a>.
+            </div></div>
 
             <div class="dash-section" style="margin-top: 0;">
                 <h3 class="dash-section-title" style="font-size: 1.4rem;">Book your free session</h3>

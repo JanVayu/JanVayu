@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.191] - 2026-09-17
+
+### Added — the four workshops are files now, and anyone can run them
+
+JanVayu has offered four free workshops for about a year, booked on request and run by us over a call. They are rate-limited by our calendar, which is the wrong thing for them to be limited by. All four are now also Markdown files in `workshops/`, linked from each session on the Workshops panel and served at `/workshops/`.
+
+- **`know-your-ward.md`** (30 min, 6 steps) — find your own ward or village, and the live-versus-annual distinction that stops people misreading the map. Carries the green-cover correction we had to make ourselves.
+- **`rti-clinic.md`** (45 min, 7 steps) — ends with a **filed** RTI, not a drafted one. Four subjects, the right Public Information Officer for each, and the statutory anchors. The law is stated carefully: **Section 7(9) is not a ground for refusing information**, only for changing the form it is given in; Sections 8 and 9 are the exemptions. First appeal under 19(1), second under 19(3), penalty under 20.
+- **`walkthrough.md`** (1 hour, 12 steps) — the platform tour, now including the instrument record and the 44-city de-weathering result.
+- **`educators.md`** (1 hour, 9 steps) — Class 9 and above, no science background assumed, ending with a lesson and an assessment the teacher did not have to write.
+
+**Why Markdown, and not the platform.** Three marks: `#` is a step, `#[quiz]` makes it a graded quiz, `- [x]` is the right answer. That is [Workshopy](https://workshopy.io)'s authoring format and it works there. But the reason is that a text file is not a hostage: the same four files project, print, render anywhere and translate without anyone's permission. CC BY-NC-SA 4.0, like the rest of the content.
+
+**The free plan caps a session at 45 minutes**, 30 participants, one at a time. The two hour-long decks carry a marked split point rather than letting a facilitator find out at minute 44.
+
+**`scripts/check-workshop-decks.py`** (CI job `workshop-decks`) fails the build on the three ways a deck rots invisibly: a `deck` path in `workshops.json` with no file behind it, a README table that has drifted from the files, and **a quiz question where every option is `- [ ]`** — which imports cleanly, renders exactly like a working question, and cannot be answered correctly by anyone. Each was confirmed by breaking it deliberately and watching the guard fire. Network-free, like every other check here.
+
+**A new hand-drawn diagram**, `workshop-decks`, wide and tall, built by `build-diagrams.py` and verified by rendering both sizes in Chromium at 980px and 360px. The first render put a caption on top of a body line; the coordinates were wrong and the check is why that did not ship.
+
+**Blog post**: "The Workshop Is a File Now".
+
+### Changed — Ask JanVayu now knows about both new air layers
+
+`netlify/functions/air-query.mjs` had shipped two layers ago and knew about neither, so the assistant answered as though the site held no instrument record and could not tell a real improvement from a mild winter. It is the surface most people ask questions through.
+
+- **The instrument record** joins `METHODOLOGY_REFERENCE` as section 6, so it arrives on methodology and source questions: 534 stations reporting in 2024, 284 passing completeness, 276 paired, observed 53.8 against satellite 51.9 at r = 0.834. With the framing that matters — the two agree on *pattern*, neither corrects the other, and a point measurement sitting above a district mean is expected by construction. Includes the coverage cliff, so the assistant will not offer a 2025 figure: CPCB's feed into the archive stops on 1 September 2025 and the same rule leaves **one station out of 334**.
+- **A new gated rule 19** on de-weathering, unlocked by `isTrendQuery`: 33 falling and 11 rising across 44 cities, what removing weather does to a number in all three directions, and five things it must not do with the result. Gated rather than always-on, because the prompt is trimmed to fit Groq's per-minute budget; the existing detector was widened rather than a second one added, and a smoke test asserts it fires on seven trend questions and none of six controls.
+- **Fixed a duplicate rule number.** Two different rules were both numbered 31 in a prompt that instructs by number. The second is now 32.
+
+### Fixed — the FAQ was promising a cadence that stopped in July
+
+`panels/faq.html` said every statistic is "fact-checked weekly", twice, and linked a July findings file two audits out of date. The deep audit stopped being weekly on 27 July 2026 and `check-factcheck-freshness.py` exists precisely to stop that claim outrunning the practice. It was reporting PASS throughout, because **the FAQ was not in its `CLAIM_PAGES` list**. The list was the gap, not the check. The page now says "periodic deep audit", links the current log, and is on the list; breaking it deliberately confirms the guard now fires.
+
+Two new FAQ entries while there: "Are these real measurements, or models?" and "Is my city's air actually getting better?"
+
 ## [v26.6.190] - 2026-09-17
 
 ### Fixed — four contrast failures on the blog, three of them dark-mode only

@@ -8319,7 +8319,12 @@ window.initWorkshops = (function () {
                     '</div>' +
                     '<span style="font-size:0.72rem;color:var(--accent);font-weight:600;">' + esc(s.mode) + '</span>' +
                     '<p style="font-size:0.83rem;color:var(--text-2);line-height:1.5;margin:0;flex:1;">' + esc(s.blurb) + '</p>' +
-                    '<button type="button" class="btn btn-sm" onclick="bookWorkshopSession(\'' + esc(s.id) + '\')" style="align-self:flex-start;margin-top:2px;">Request this session</button>' +
+                    '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:2px;">' +
+                      '<button type="button" class="btn btn-sm" onclick="bookWorkshopSession(\'' + esc(s.id) + '\')">Request this session</button>' +
+                      // The same session as a Markdown file, for anyone who would
+                      // rather run it themselves than wait for us to schedule it.
+                      (s.deck ? '<a href="' + esc(s.deck) + '" download style="font-size:0.75rem;color:var(--accent);font-weight:600;text-decoration:underline;">Run it yourself (.md)</a>' : '') +
+                    '</div>' +
                   '</div></div>';
             }).join('');
         }

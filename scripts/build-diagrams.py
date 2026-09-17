@@ -851,6 +851,135 @@ def national_tall():
                   'Thirty-three of 44 Indian cities are improving once the weather is removed from their air, and eleven are not')
 
 
+# ── 7. Workshop decks ───────────────────────────────────────────────────────
+
+WORKSHOP_LABEL = (
+    "One Markdown file becomes a whole workshop. The file uses three marks: a line "
+    "starting with a single hash becomes a step, a line reading hash-bracket-quiz makes "
+    "that step a graded quiz, and inside a quiz a dash-bracket-x marks the correct option. "
+    "The same file can be run four ways with no conversion: as a live session where people "
+    "join with a six-character code and the facilitator sees who is stuck, on a projector, "
+    "as a printed handout, or translated into another language. JanVayu publishes four decks. "
+    "Know Your Ward runs thirty minutes and ends with you knowing your own neighbourhood's "
+    "annual PM2.5. The RTI Clinic runs forty-five minutes and ends with a filed Right to "
+    "Information request, not a drafted one. The JanVayu Walkthrough runs an hour and ends "
+    "with an alert set for your own city. Air-Literacy for Educators runs an hour and ends "
+    "with a lesson and an assessment a teacher can use on Monday. Two limits: a free "
+    "Workshopy session is capped at forty-five minutes and thirty participants, so the two "
+    "hour-long decks carry a marked split point; and nothing in the decks depends on that "
+    "tool, because the content is a text file and stays one.")
+
+DECKS = [
+    ('Know Your Ward', '30 min', 'ends with your own', "ward's annual figure", GREEN),
+    ('RTI Clinic', '45 min', 'ends with a FILED', 'RTI, not a draft', BLUE),
+    ('Walkthrough', '1 hour', 'ends with an alert', 'set for your city', BLUE),
+    ('For Educators', '1 hour', 'ends with Monday\'s', 'lesson and its test', GREEN),
+]
+
+SYNTAX = [
+    ('# Find yourself on the map', 'a step'),
+    ('#[quiz] Check yourself', 'a graded quiz'),
+    ('- [x] The 2024 annual mean', 'the right answer'),
+]
+
+OUTPUTS = [
+    ('Live session', 'join with a 6-character code;', 'the room shows who is stuck'),
+    ('A projector', 'it is Markdown, so any', 'renderer will do'),
+    ('A printout', 'no screen, no signal,', 'no account'),
+    ('Another language', 'CC BY-NC-SA: translate it,', 'cut it, add local numbers'),
+]
+
+
+def workshop_wide():
+    o = [hd.text(490, 36, 'One file becomes the workshop', size=25, fill=INK, weight=700, anchor='middle'),
+         hd.text(490, 62, 'Four JanVayu sessions, written as Markdown so anyone can run them without asking us',
+                 size=14, fill=MUTE, anchor='middle')]
+
+    o.append(hd.text(30, 104, 'THE WHOLE SYNTAX', size=13.5, fill=MUTE, weight=700))
+    o.append(hd.box(26, 118, 392, 176, fill=PAPER, stroke=INK, seed=501))
+    yy = 148
+    for src, meaning in SYNTAX:
+        o.append(hd.text(44, yy, src, size=12.6, fill=INK, weight=700))
+        o.append(hd.text(44, yy + 18, meaning, size=11.4, fill=MUTE))
+        yy += 44
+    o.append(hd.text(222, 280, 'That is all of it. There is no fourth mark.', size=11.4, fill=MUTE, anchor='middle'))
+
+    o.append(hd.arrow(424, 192, 468, 192, stroke=BLUE, seed=502))
+
+    o.append(hd.text(480, 104, 'FOUR WAYS TO RUN THE SAME FILE', size=13.5, fill=MUTE, weight=700))
+    x, y = 476, 118
+    for i, (title, l1, l2) in enumerate(OUTPUTS):
+        col = 476 + (i % 2) * 242
+        row = 118 + (i // 2) * 78
+        o.append(hd.box(col, row, 230, 68, fill=BLUE_BG, stroke=BLUE, seed=510 + i))
+        o.append(hd.text(col + 14, row + 26, title, size=13.5, fill=BLUE, weight=700))
+        o.append(hd.text(col + 14, row + 44, l1, size=10.9, fill=MUTE))
+        o.append(hd.text(col + 14, row + 58, l2, size=10.9, fill=MUTE))
+
+    o.append(hd.text(30, 310, 'THE FOUR DECKS, AND WHAT EACH ONE ENDS WITH', size=13.5, fill=MUTE, weight=700))
+    x = 26
+    for i, (name, dur, l1, l2, col) in enumerate(DECKS):
+        o.append(hd.box(x, 326, 224, 118, fill=PAPER, stroke=col, seed=520 + i))
+        o.append(hd.text(x + 112, 356, name, size=15, fill=col, weight=700, anchor='middle'))
+        o.append(hd.text(x + 112, 378, dur, size=12.6, fill=MUTE, anchor='middle'))
+        o.append(hd.text(x + 112, 406, l1, size=11.4, fill=INK, anchor='middle'))
+        o.append(hd.text(x + 112, 422, l2, size=11.4, fill=INK, anchor='middle'))
+        x += 234
+
+    y = 464
+    warn = ['A free Workshopy session stops at 45 minutes and 30 people, so the two hour-long decks each',
+            'carry a marked split point. And nothing here depends on that tool: the content is a text file',
+            'and stays one, so a projector, a printout or any other platform works just as well.']
+    wh = panel_height(warn)
+    o.append(panel(26, y, 924, wh, 'TWO LIMITS, STATED UP FRONT', warn,
+                   fill=AMBER_BG, stroke=AMBER, tcol=AMBER, seed=530))
+
+    return hd.svg(980, y + wh + 26, ''.join(o), WORKSHOP_LABEL)
+
+
+def workshop_tall():
+    o = [hd.text(180, 32, 'One file becomes', size=19, fill=INK, weight=700, anchor='middle'),
+         hd.text(180, 56, 'the workshop', size=19, fill=INK, weight=700, anchor='middle'),
+         hd.text(180, 80, 'four sessions, written as Markdown', size=11.6, fill=MUTE, anchor='middle')]
+
+    y = 100
+    o.append(hd.text(20, y, 'THE WHOLE SYNTAX', size=12.5, fill=MUTE, weight=700))
+    y += 10
+    o.append(hd.box(18, y, 324, 142, fill=PAPER, stroke=INK, seed=540))
+    yy = y + 30
+    for src, meaning in SYNTAX:
+        o.append(hd.text(34, yy, src, size=11.8, fill=INK, weight=700))
+        o.append(hd.text(34, yy + 17, meaning, size=10.9, fill=MUTE))
+        yy += 42
+    y += 172
+
+    o.append(hd.text(20, y, 'FOUR WAYS TO RUN IT', size=12.5, fill=MUTE, weight=700))
+    y += 10
+    for i, (title, l1, l2) in enumerate(OUTPUTS):
+        o.append(hd.box(18, y, 324, 62, fill=BLUE_BG, stroke=BLUE, seed=550 + i))
+        o.append(hd.text(34, y + 24, title, size=13, fill=BLUE, weight=700))
+        o.append(hd.text(34, y + 41, l1, size=10.6, fill=MUTE))
+        o.append(hd.text(34, y + 55, l2, size=10.6, fill=MUTE))
+        y += 72
+
+    y += 14
+    o.append(hd.text(20, y, 'THE FOUR DECKS', size=12.5, fill=MUTE, weight=700))
+    y += 10
+    for i, (name, dur, l1, l2, col) in enumerate(DECKS):
+        o.append(hd.box(18, y, 324, 82, fill=PAPER, stroke=col, seed=560 + i))
+        o.append(hd.text(180, y + 26, f'{name} · {dur}', size=13.5, fill=col, weight=700, anchor='middle'))
+        o.append(hd.text(180, y + 48, l1, size=11, fill=INK, anchor='middle'))
+        o.append(hd.text(180, y + 64, l2, size=11, fill=INK, anchor='middle'))
+        y += 92
+
+    warn = ['A free session stops at 45 minutes,', 'so the two hour-long decks carry a', 'split point. Nothing here depends', 'on that tool: it is a text file.']
+    wh = panel_height(warn, ts=13)
+    o.append(panel(18, y, 324, wh, 'TWO LIMITS', warn, fill=AMBER_BG, stroke=AMBER, tcol=AMBER, seed=570, ts=13))
+
+    return hd.svg(360, y + wh + 24, ''.join(o),
+                  'One Markdown file becomes a live workshop, a projector deck, a printout or a translation')
+
+
 DIAGRAMS = {
     'why-pm25': (pm25_wide, pm25_tall),
     'reading-the-map': (map_wide, map_tall),
@@ -858,6 +987,7 @@ DIAGRAMS = {
     'airshed': (airshed_wide, airshed_tall),
     'deweather': (deweather_wide, deweather_tall),
     'deweather-national': (national_wide, national_tall),
+    'workshop-decks': (workshop_wide, workshop_tall),
 }
 
 

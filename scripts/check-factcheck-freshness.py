@@ -46,8 +46,15 @@ CLAIM_PAGES = [
     'walkthrough/index.html',
     'docs/wiki/Home.md',
     'panels/about.html',
+    'panels/faq.html',
     'index.html',
 ]
+# panels/faq.html was added on 2026-09-17. It was not on this list, and it was
+# carrying the exact over-promise this guard exists to stop -- "fact-checked
+# weekly", twice, plus a link to a July findings file two audits out of date --
+# for the whole time the guard was reporting PASS. The list, not the check, was
+# the gap. Any new page that describes the audit belongs here on the same day
+# it is written.
 # Cadences the practice does not currently keep. Matched only near a fact-check
 # phrase, so an unrelated "weekly newsletter" is not a finding.
 OVERPROMISE = re.compile(
