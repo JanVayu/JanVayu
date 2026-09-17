@@ -16,7 +16,7 @@ Consulate monitors published through AirNow.
 | Readings | 196.5 million hourly |
 | Stations | 558 (553 CPCB, 5 US Embassy) |
 | Pollutants | 15 |
-| Coverage | January 2009 to March 2026 |
+| Coverage | January 2009 to March 2026 nominally; **the CPCB network ends 1 September 2025** (see below) |
 | Licence | **CC BY 4.0** |
 | Citation | XKDR Forum (2026). India Air Quality Database. https://airquality.xkdr.org |
 
@@ -75,6 +75,29 @@ default year and nothing later.
 ---
 
 ## Traps
+
+**The headline coverage is carried by two monitors.** "January 2009 to March
+2026" is true and, taken at face value, badly misleading. Station counts per
+month for PM2.5, queried 17 September 2026 on a full-tier key:
+
+| Months | Stations reporting |
+|---|---|
+| 2023-01 to 2024-12 | 391 rising to 524 |
+| **2025-01 to 2025-03** | **4 to 5** |
+| 2025-04 to 2025-08 | 321 to 327 |
+| 2025-09 | 296, but only 7,803 station-hours, roughly one day |
+| **2025-10 to 2026-03** | **2** |
+
+Those last two are `DS1010001` and `DS1010005`, the US Embassy monitors in New
+Delhi and Hyderabad, which publish through AirNow independently of CPCB. The
+CPCB feed in this archive effectively stops on **1 September 2025**, with a hole
+across January to March 2025.
+
+The consequence is concrete: applying the twelve-month completeness rule to 2025
+leaves **one station out of 334**, against 284 of 534 for 2024. **2024 is the
+most recent year that supports a national annual layer**, and that is why
+`build-station-observed.py` defaults to it. Do not read "to March 2026" as
+currency, and check station counts per month before choosing any window.
 
 **Timestamps are naive IST.** `collected_at` carries no offset and is Indian
 Standard Time. Any sub-daily resampling that assumes UTC will be off by 5½ hours
