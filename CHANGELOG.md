@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.187] - 2026-09-17
+
+### Fixed — the About panel's version history, stale again nine days after it was last fixed
+
+v26.6.175 fixed this same list for stopping on 9 August. It then stopped on **6 September**, missing twelve releases: the measured air layer, the coverage correction, the national de-weathering and nine Reading List papers. A new entry covers v26.6.175–186.
+
+The pattern is the point rather than the entry. This list is hand-maintained, nothing forces a release to touch it, and no guard compares it against `CHANGELOG.md`. It has now gone stale twice in five weeks and been fixed twice by hand. A check in the same family as `build-blog-index.py --check` — fail when the newest version in the changelog is absent from the panel — would end it, and is not in this change.
+
+Worth noting what the entry has to say about ourselves: the homepage advertised 29 peer-reviewed studies while the list held 33, and we described the XKDR archive as running to March 2026 when CPCB's feed into it stops on 1 September 2025.
+
+### Changed — walkthrough PDF and PPTX exports regenerated
+
+The three slides added in v26.6.186 existed only in the HTML decks; the downloadable exports still carried the old set, which is exactly the drift `export-walkthrough.mjs` exists to prevent. Regenerated from the live HTML: the short deck goes 14 to 15 PDF pages, the long deck 39 to 41, and both PPTX files gain the same slides.
+
+Two notes for whoever runs it next. **ESM does not honour `NODE_PATH`**, so a globally installed playwright-core is invisible to the script; `PLAYWRIGHT_CORE_PATH` exists for exactly this and the script documents it. And the **one-page offset between each PDF and its PPTX is pre-existing** — 14/13 and 39/38 before this change, 15/14 and 41/40 after — so it is a property of the assembly step, not a symptom of this run.
+
 ## [v26.6.186] - 2026-09-17
 
 ### Added — "was it policy, or was it the wind?", for 44 cities instead of one
