@@ -1256,6 +1256,7 @@
                 if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
                 if (panelId === 'airshed') { try { window.initAirshed && window.initAirshed(); } catch(e) { console.warn('Airshed init:', e); } }
                 if (panelId === 'workshops') { try { window.initWorkshops && window.initWorkshops(); } catch(e) { console.warn('Workshops init:', e); } }
+                if (panelId === 'source-selector') { try { window.initStationCheck && window.initStationCheck(); } catch(e) { console.warn('Station check init:', e); } }
             }, 150);
     }
 
@@ -3237,35 +3238,33 @@
     // ── De-weathering: what is left of a trend once the weather is removed ──
     // Its own fetch and its own try/catch, so a failure here cannot take the
     // rest of the airshed panel down with it.
-    var __deweatherData = null;
-    async function renderDeweather() {
+    //
+    // v26.6.193: switched from data/deweathered.json (Delhi-NCR, Sept-Oct only,
+    // 2018-2022) to data/deweathered-national.json (44 cities, whole years,
+    // 2018-2024). The old file is NOT deleted and is still surfaced below,
+    // because it carries something the national run does not: 95% confidence
+    // intervals and a placebo test on shuffled data. Replacing it outright
+    // would have quietly traded rigour for coverage and told nobody.
+    var __deweatherData = null;      // national, 44 cities
+    var __deweatherDelhi = null;     // the narrower Delhi-NCR run, with intervals
+
+    function dwEsc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+    async function renderDeweatherCity(slug) {
         var host = document.getElementById('airshed-weather-body');
-        if (!host) return;
-        if (!__deweatherData) {
-            try {
-                var r = await fetch('/data/deweathered.json');
-                if (!r.ok) throw new Error('HTTP ' + r.status);
-                __deweatherData = await r.json();
-            } catch (e) {
-                console.warn('De-weathered data load failed:', e);
-                host.innerHTML = '<p style="color:var(--text-3); font-size:0.9rem;">The weather-adjusted figures could not load.</p>';
-                return;
-            }
-        }
+        if (!host || !__deweatherData) return;
         var d = __deweatherData, m = d._meta;
-        var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
-        var years = Object.keys(d.annual_raw);
-        var vals = years.map(function (y) { return Math.max(d.annual_raw[y].mean, d.annual_normalised[y].mean); });
+        var c = d.cities.filter(function (x) { return x.city === slug; })[0] || d.cities[0];
+
+        var years = Object.keys(c.annual_raw).sort();
+        var vals = years.map(function (y) { return Math.max(c.annual_raw[y], c.annual_normalised[y]); });
         var top = Math.max.apply(null, vals) * 1.08;
-        var MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June',
-                      'July', 'August', 'September', 'October', 'November', 'December'];
-        var monthNames = (m.comparison_months || []).map(function (i) { return MONTHS[i]; }).join(' and ');
 
         var rows = years.map(function (y) {
-            var a = d.annual_raw[y].mean, b = d.annual_normalised[y].mean;
+            var a = c.annual_raw[y], b = c.annual_normalised[y];
             var pa = Math.round(a / top * 100), pb = Math.round(b / top * 100);
             return '<tr>' +
-                '<th scope="row" style="text-align:left; font-weight:600; padding:0.35rem 0.75rem 0.35rem 0; white-space:nowrap;">' + esc(y) + '</th>' +
+                '<th scope="row" style="text-align:left; font-weight:600; padding:0.35rem 0.75rem 0.35rem 0; white-space:nowrap;">' + dwEsc(y) + '</th>' +
                 '<td style="padding:0.35rem 0.5rem 0.35rem 0; width:44%;">' +
                   '<span style="display:block; height:0.55rem; border-radius:2px; background:var(--border);">' +
                   '<span style="display:block; height:100%; border-radius:2px; width:' + pa + '%; background:#94a3b8;"></span></span></td>' +
@@ -3277,42 +3276,138 @@
                 '</tr>';
         }).join('');
 
-        var called = d.trend_normalised.verdict.indexOf('no direction') === -1;
-        var ratio = (d.trend_raw.slope_per_year !== 0)
-            ? Math.round(Math.abs(d.trend_normalised.slope_per_year / d.trend_raw.slope_per_year) * 100)
-            : null;
+        var raw = c.trend_raw, norm = c.trend_normalised;
+        var shift = norm - raw;
+        var reading;
+        if (Math.abs(shift) < 0.5) {
+            reading = 'Removing the weather barely moves this city’s number, so the measured trend was already close to the underlying one.';
+        } else if (norm < raw) {
+            reading = 'The fall is <strong>steeper</strong> once the weather is out, which means the weather had been <em>hiding</em> part of the improvement rather than flattering it.';
+        } else {
+            reading = 'The trend is <strong>less favourable</strong> once the weather is out, so some of what the raw figures showed was weather rather than emissions.';
+        }
+        var falling = norm < 0;
 
         host.innerHTML =
             '<table style="width:100%; border-collapse:collapse; font-size:0.9rem;">' +
-            '<caption class="sr-only">Delhi-NCR ' + esc(monthNames) + ' mean PM2.5 by year, as measured and with weather removed</caption>' +
+            '<caption class="sr-only">' + dwEsc(c.city) + ' annual mean PM2.5 by year, as measured and with weather removed</caption>' +
             '<thead><tr style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-3);">' +
             '<th scope="col" style="text-align:left; padding-bottom:0.4rem;">Year</th>' +
             '<th scope="col" colspan="2" style="text-align:left; padding-bottom:0.4rem;">As measured</th>' +
             '<th scope="col" colspan="2" style="text-align:left; padding-bottom:0.4rem;">Weather removed</th>' +
             '</tr></thead><tbody>' + rows + '</tbody></table>' +
             '<p style="font-size:0.9rem; line-height:1.65; color:var(--text-2); margin-top:0.9rem;">' +
-            'Across ' + esc(monthNames) + ', the measured figures fall by <strong>' +
-            Math.abs(d.trend_raw.slope_per_year).toFixed(1) + '</strong> &micro;g/m&sup3; a year. ' +
-            'Take the weather out and only <strong>' + Math.abs(d.trend_normalised.slope_per_year).toFixed(1) +
-            '</strong> remains' + (ratio !== null ? ' — about ' + ratio + '% of it' : '') + '. ' +
-            (called
-              ? 'That remainder is distinguishable from no change.'
-              : 'Neither is distinguishable from no change: both 95% intervals contain zero, so <strong>no direction is claimed</strong>.') +
-            '</p>' +
+            'Over ' + dwEsc(c.years[0]) + '&ndash;' + dwEsc(c.years[c.years.length - 1]) + ', ' + dwEsc(c.city) +
+            '&rsquo;s measured PM2.5 moves by <strong>' + (raw > 0 ? '+' : '') + raw.toFixed(2) +
+            '</strong> &micro;g/m&sup3; a year. With the weather removed, <strong>' + (norm > 0 ? '+' : '') + norm.toFixed(2) +
+            '</strong>. ' + reading + ' On this measure the city is <strong style="color:' +
+            (falling ? 'var(--green-700)' : '#b91c1c') + ';">' + (falling ? 'getting cleaner' : 'getting worse') + '</strong>.</p>' +
             '<p style="font-size:0.82rem; color:var(--text-3); margin-top:0.5rem;">' +
-            esc(m.stations) + ' stations · ' + esc(m.station_days) + ' station-days · ' + esc(m.window) +
-            ' · held-out R&sup2; ' + esc(m.holdout_r2) +
-            ' · placebo on shuffled data ' + esc(m.r2_placebo_shuffled) + '</p>' +
+            dwEsc(c.stations) + ' stations &middot; ' + Number(c.station_days).toLocaleString('en-IN') + ' station-days &middot; ' +
+            'held-out R&sup2; ' + dwEsc(c.r2) + ' &middot; nationally ' + dwEsc(m.cities_falling_normalised) + ' of ' +
+            dwEsc(m.cities) + ' cities are falling once weather is removed</p>' +
+            '<div class="alert alert-info" style="margin-top:0.9rem; font-size:0.85rem;">' +
+            '<strong>No confidence intervals here, so read the direction, not the decimals.</strong> These 44 city trends are point estimates. ' +
+            'The narrower Delhi-NCR run below does carry 95% intervals, and it declines to call a direction because both of them contain zero. ' +
+            'Do not rank cities by hundredths of a microgram.</div>' +
             '<details class="apportion-method" style="margin-top:0.9rem;">' +
             '<summary>What this can and cannot say</summary><div class="apportion-method-body">' +
-            '<p><strong>Only these months, and only this window.</strong> Station coverage is uneven and seasonal, so every year here is compared on ' + esc(monthNames) + ' alone, the months present in all five. A plain annual average of whatever days reported would read the gaps as a trend: 2021 is missing April to August, its cleaner months, and 2022 is missing November and December, its worst. Averaged against each other they manufacture a rising trend out of nothing.</p>' +
-            '<p><strong>Not national.</strong> ' + esc(m.not_national) + '</p>' +
-            '<p><strong>The 2020 lockdowns are inside the window.</strong> ' + esc(m.covid_note) + '</p>' +
-            '<p><strong>Why this window.</strong> ' + esc(m.why_this_window) + '</p>' +
-            '<p><strong>Method.</strong> ' + esc(m.method) + ' ' + esc(m.excluded) + '</p>' +
-            '<p><strong>How we know it is not noise.</strong> ' + esc(m.placebo_note) + ' It scores ' + esc(m.r2_placebo_shuffled) + '. Meteorology on its own predicts daily PM2.5 at R&sup2; ' + esc(m.r2_meteorology_only) + ', and the adjustment removes ' + esc(m.variance_removed_pct) + '% of the day-to-day variance.</p>' +
-            '<p><strong>Sources.</strong> PM2.5 from ' + esc(m.pm25_source) + '. Meteorology from ' + esc(m.met_source) + '.</p>' +
+            '<p><strong>It rules out one explanation, not all of them.</strong> ' + dwEsc(m.caveat) + '</p>' +
+            '<p><strong>R&sup2; is not a league table.</strong> It says how much of <em>this</em> city&rsquo;s day-to-day variance its own meteorology explains, which depends on the city&rsquo;s climate. A city with a lower R&sup2; does not have a less trustworthy trend.</p>' +
+            '<p><strong>Why your city may not be here.</strong> A city needs ' + dwEsc(m.inclusion) + '. 194 cities with some data did not qualify. That is a statement about where India has put its instruments, not about their air, and it is worth asking a municipal corporation about.</p>' +
+            '<p><strong>Method.</strong> ' + dwEsc(m.method) + '</p>' +
+            '<p><strong>The window ends in 2024</strong> because CPCB&rsquo;s feed into the source archive stops on 1 September 2025.</p>' +
+            '<p><strong>Sources.</strong> PM2.5 from ' + dwEsc(m.pm25_source) + '. Meteorology from ' + dwEsc(m.met_source) + '.</p>' +
+            '</div></details>' +
+            '<div id="airshed-weather-delhi" style="margin-top:1rem;"></div>';
+
+        renderDeweatherDelhi();
+    }
+
+    // The Delhi-NCR run: narrower, and the only one with intervals. Kept as a
+    // companion rather than replaced, because coverage and rigour are not the
+    // same thing and the national file has only the first.
+    async function renderDeweatherDelhi() {
+        var host = document.getElementById('airshed-weather-delhi');
+        if (!host) return;
+        if (!__deweatherDelhi) {
+            try {
+                var r = await fetch('/data/deweathered.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                __deweatherDelhi = await r.json();
+            } catch (e) {
+                console.warn('Delhi de-weathered companion load failed:', e);
+                return;   // the national view above stands on its own
+            }
+        }
+        var d = __deweatherDelhi, m = d._meta;
+        var MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+        var months = (m.comparison_months || []).map(function (i) { return MONTHS[i]; }).join(' and ');
+        var called = d.trend_normalised.verdict.indexOf('no direction') === -1;
+        var ratio = (d.trend_raw.slope_per_year !== 0)
+            ? Math.round(Math.abs(d.trend_normalised.slope_per_year / d.trend_raw.slope_per_year) * 100)
+            : null;
+
+        host.innerHTML =
+            '<details class="apportion-method">' +
+            '<summary>The same method run harder, on Delhi-NCR alone, with confidence intervals</summary>' +
+            '<div class="apportion-method-body">' +
+            '<p>Before the national run there was a narrower one: Delhi-NCR, ' + dwEsc(months) +
+              ' only, ' + dwEsc(m.window) + '. It is worth keeping, because it carries two things the 44-city version does not.</p>' +
+            '<p><strong>Confidence intervals.</strong> Across ' + dwEsc(months) + ' the measured figures fall by ' +
+              Math.abs(d.trend_raw.slope_per_year).toFixed(1) + ' &micro;g/m&sup3; a year and only ' +
+              Math.abs(d.trend_normalised.slope_per_year).toFixed(1) + ' survives the weather adjustment' +
+              (ratio !== null ? ', about ' + ratio + '% of it' : '') + '. ' +
+              (called ? 'That remainder is distinguishable from no change.'
+                      : '<strong>Neither is distinguishable from no change</strong>: both 95% intervals contain zero, so no direction is claimed. The 44-city table above would have reported a direction for the same data, because it computes no intervals. That difference is the reason this run is still here.') + '</p>' +
+            '<p><strong>A placebo test.</strong> ' + dwEsc(m.placebo_note) + ' It scores ' + dwEsc(m.r2_placebo_shuffled) +
+              '. Meteorology alone predicts daily PM2.5 at R&sup2; ' + dwEsc(m.r2_meteorology_only) +
+              ', and the adjustment removes ' + dwEsc(m.variance_removed_pct) + '% of the day-to-day variance.</p>' +
+            '<p><strong>Why only two months.</strong> Station coverage in that window is uneven and seasonal, so every year is compared on ' +
+              dwEsc(months) + ' alone, the months present in all five. 2021 is missing April to August, its cleaner months, and 2022 is missing November and December, its worst. Averaged against each other they manufacture a trend out of nothing.</p>' +
+            '<p><strong>Not comparable with the table above.</strong> Different window, different months, a different source archive and a different question. ' + dwEsc(m.not_national) + '</p>' +
+            '<p><strong>The 2020 lockdowns are inside it.</strong> ' + dwEsc(m.covid_note) + '</p>' +
+            '<p style="font-size:0.82rem; color:var(--text-3);">' + dwEsc(m.stations) + ' stations &middot; ' +
+              dwEsc(m.station_days) + ' station-days &middot; held-out R&sup2; ' + dwEsc(m.holdout_r2) + '</p>' +
             '</div></details>';
+    }
+
+    async function renderDeweather() {
+        var host = document.getElementById('airshed-weather-body');
+        var sel = document.getElementById('airshed-weather-city');
+        if (!host) return;
+        if (!__deweatherData) {
+            try {
+                var r = await fetch('/data/deweathered-national.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                __deweatherData = await r.json();
+            } catch (e) {
+                console.warn('De-weathered data load failed:', e);
+                host.innerHTML = '<p style="color:var(--text-3); font-size:0.9rem;">The weather-adjusted figures could not load.</p>';
+                return;
+            }
+        }
+        var d = __deweatherData, m = d._meta;
+        var cities = d.cities.slice().sort(function (a, b) { return a.city.localeCompare(b.city); });
+
+        var countEl = document.getElementById('dw-city-count');
+        if (countEl) countEl.textContent = m.cities;
+        var basis = document.getElementById('airshed-weather-basis');
+        if (basis) basis.textContent = m.cities + ' cities · ' + m.window + ' · ' +
+            m.cities_falling_normalised + ' falling, ' + (m.cities - m.cities_falling_normalised) + ' rising';
+
+        if (sel && !sel.options.length) {
+            sel.innerHTML = cities.map(function (c) {
+                return '<option value="' + dwEsc(c.city) + '">' + dwEsc(c.city) + '</option>';
+            }).join('');
+            var pref = ['Delhi', 'Lucknow', 'Mumbai'].filter(function (n) {
+                return cities.some(function (c) { return c.city === n; });
+            })[0] || cities[0].city;
+            sel.value = pref;
+            sel.addEventListener('change', function () { renderDeweatherCity(sel.value); });
+        }
+        renderDeweatherCity(sel ? sel.value : cities[0].city);
     }
 
     window.initAirshed = async function initAirshed() {
@@ -8296,6 +8391,157 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
 
+
+// ── Instruments vs the modelled layer (Data Source Selector panel) ──
+// data/station-observed.json shipped in v26.6.184 with no surface at all: the
+// comparison that justifies leading with a satellite layer existed only as a
+// file in the repo. This draws it. Deliberately says neither number corrects
+// the other — a station is a point, the satellite figure is a district mean,
+// so the measured value sitting above it is expected by construction and is
+// not evidence that the satellite reads low.
+window.initStationCheck = (function () {
+    var cache = null;
+    function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+    function scatter(paired, w, h) {
+        // Observed on y, satellite on x, with the 1:1 line. Points off the line
+        // are the interesting ones, so the line is drawn, not implied.
+        var pad = { l: 46, r: 12, t: 12, b: 36 };
+        var all = [];
+        paired.forEach(function (s) { all.push(s.obs, s.sat); });
+        var max = Math.ceil(Math.max.apply(null, all) / 20) * 20;
+        var x = function (v) { return pad.l + v / max * (w - pad.l - pad.r); };
+        var y = function (v) { return h - pad.b - v / max * (h - pad.t - pad.b); };
+        var ticks = [];
+        for (var t = 0; t <= max; t += 40) ticks.push(t);
+
+        var grid = ticks.map(function (t) {
+            return '<line x1="' + x(t) + '" y1="' + pad.t + '" x2="' + x(t) + '" y2="' + (h - pad.b) + '" stroke="var(--border)" stroke-width="1"/>' +
+                   '<line x1="' + pad.l + '" y1="' + y(t) + '" x2="' + (w - pad.r) + '" y2="' + y(t) + '" stroke="var(--border)" stroke-width="1"/>' +
+                   '<text x="' + x(t) + '" y="' + (h - pad.b + 15) + '" text-anchor="middle" font-size="10" fill="var(--text-3)">' + t + '</text>' +
+                   '<text x="' + (pad.l - 7) + '" y="' + (y(t) + 3.5) + '" text-anchor="end" font-size="10" fill="var(--text-3)">' + t + '</text>';
+        }).join('');
+
+        var dots = paired.map(function (s) {
+            var over = s.obs - s.sat;
+            var col = Math.abs(over) < 10 ? 'var(--green-700)' : (over > 0 ? 'var(--delta-up)' : 'var(--delta-down)');
+            return '<circle cx="' + x(s.sat).toFixed(1) + '" cy="' + y(s.obs).toFixed(1) + '" r="3" fill="' + col +
+                   '" fill-opacity="0.55"><title>' + esc(s.name) + ' — measured ' + s.obs +
+                   ', satellite ' + s.sat + ' µg/m³</title></circle>';
+        }).join('');
+
+        // height must be a length or omitted; "auto" is invalid and Chromium
+        // logs it. The aspect ratio comes from the viewBox, so leaving height
+        // off and letting CSS size it is the correct form.
+        return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" style="height:auto;display:block;" role="img" ' +
+            'aria-label="Each of the ' + paired.length + ' monitoring stations plotted with its 2024 measured annual PM2.5 against the satellite annual figure for its district. The points cluster along the one-to-one line, which is drawn, and sit slightly above it on average because a station is a single point while the satellite figure averages a whole district.">' +
+            grid +
+            '<line x1="' + x(0) + '" y1="' + y(0) + '" x2="' + x(max) + '" y2="' + y(max) + '" stroke="var(--text-3)" stroke-width="1.5" stroke-dasharray="5 4"/>' +
+            '<text x="' + (x(max * 0.62) + 6) + '" y="' + (y(max * 0.62) + 15) + '" font-size="10" fill="var(--text-3)">where they agree exactly</text>' +
+            dots +
+            '<text x="' + ((pad.l + w - pad.r) / 2) + '" y="' + (h - 4) + '" text-anchor="middle" font-size="11" fill="var(--text-2)">Satellite annual mean for the district (µg/m³)</text>' +
+            '<text x="12" y="' + ((pad.t + h - pad.b) / 2) + '" text-anchor="middle" font-size="11" fill="var(--text-2)" transform="rotate(-90 12 ' + ((pad.t + h - pad.b) / 2) + ')">Measured at the station (µg/m³)</text>' +
+            '</svg>';
+    }
+
+    function render(d) {
+        var host = document.getElementById('station-check-body');
+        if (!host) return;
+        var m = d._meta, c = m.counts, a = m.agreement;
+        var st = d.stations || [];
+        var paired = st.filter(function (s) { return typeof s.sat === 'number'; });
+        var states = {}, cities = {};
+        st.forEach(function (s) { states[s.state] = 1; cities[s.city] = 1; });
+
+        var stat = function (n, l, unit) {
+            // The unit is deliberately outside the uppercasing. .stat-label sets
+            // text-transform: uppercase, and CSS maps U+00B5 MICRO SIGN to Greek
+            // capital Mu, so "µg/m³" inside the label renders as "ΜG/M³" and
+            // reads as milligrams — a thousand-fold error in the unit of the
+            // number beside it.
+            return '<div class="stat-strip-item"><div class="number-callout">' + n +
+                   '</div><div class="stat-label">' + l +
+                   (unit ? '<span style="text-transform:none;">, ' + unit + '</span>' : '') +
+                   '</div></div>';
+        };
+
+        var byGap = paired.slice().sort(function (p, q) { return (p.obs - p.sat) - (q.obs - q.sat); });
+        var row = function (s) {
+            var g = s.obs - s.sat;
+            return '<tr><td style="padding:0.3rem 0.75rem 0.3rem 0;">' + esc(s.name) + '</td>' +
+                '<td style="padding:0.3rem 0.75rem 0.3rem 0; color:var(--text-3); white-space:nowrap;">' + esc(s.state) + '</td>' +
+                '<td style="padding:0.3rem 0.75rem 0.3rem 0; text-align:right; font-variant-numeric:tabular-nums;">' + s.obs.toFixed(1) + '</td>' +
+                '<td style="padding:0.3rem 0.75rem 0.3rem 0; text-align:right; font-variant-numeric:tabular-nums;">' + s.sat.toFixed(1) + '</td>' +
+                '<td style="padding:0.3rem 0; text-align:right; font-variant-numeric:tabular-nums; color:' +
+                  (g > 0 ? 'var(--delta-up)' : 'var(--delta-down)') + ';">' + (g > 0 ? '+' : '') + g.toFixed(1) + '</td></tr>';
+        };
+        var head = '<tr style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-3);">' +
+            '<th scope="col" style="text-align:left; padding-bottom:0.35rem;">Station</th>' +
+            '<th scope="col" style="text-align:left; padding-bottom:0.35rem;">State</th>' +
+            '<th scope="col" style="text-align:right; padding-bottom:0.35rem;">Measured</th>' +
+            '<th scope="col" style="text-align:right; padding-bottom:0.35rem;">Satellite</th>' +
+            '<th scope="col" style="text-align:right; padding-bottom:0.35rem;">Difference</th></tr>';
+
+        host.innerHTML =
+            '<div class="stat-strip" style="margin-bottom:1rem;">' +
+              stat(a.r.toFixed(2), 'Correlation between the two') +
+              stat(a.observed_mean.toFixed(1), 'Measured mean', '\u00b5g/m\u00b3') +
+              stat(a.satellite_mean.toFixed(1), 'Satellite mean, same districts', '\u00b5g/m\u00b3') +
+              stat(paired.length, 'Stations compared') +
+            '</div>' +
+            scatter(paired, 640, 400) +
+            '<p style="font-size:0.9rem; line-height:1.65; color:var(--text-2); margin-top:0.9rem;">' +
+            'Across the ' + paired.length + ' stations that pair with a district, the measured annual mean is <strong>' +
+            a.observed_mean.toFixed(1) + '</strong> &micro;g/m&sup3; against <strong>' + a.satellite_mean.toFixed(1) +
+            '</strong> from the satellite layer, correlating at <strong>' + a.r.toFixed(3) + '</strong> with a root-mean-square difference of ' +
+            a.rmse.toFixed(1) + '. The measured figure sits about ' + a.mean_difference.toFixed(1) +
+            ' &micro;g/m&sup3; higher, which is the direction it should: monitors are placed where people and traffic are, and the satellite value averages that together with the countryside in the same district.</p>' +
+            '<p style="font-size:0.82rem; color:var(--text-3); margin-top:0.5rem;">' +
+            esc(c.stations_reporting) + ' stations reported in ' + esc(m.year) + ' &middot; ' +
+            esc(c.passed_completeness) + ' passed the completeness rule &middot; ' +
+            esc(paired.length) + ' paired with a district &middot; ' +
+            Object.keys(cities).length + ' cities in ' + Object.keys(states).length + ' states and UTs</p>' +
+            '<details class="apportion-method" style="margin-top:0.9rem;">' +
+            '<summary>The stations furthest from the satellite figure, in both directions</summary>' +
+            '<div class="apportion-method-body">' +
+            '<p style="font-size:0.85rem;">A large gap is not an error in either number. A station beside a highway or an industrial cluster should read above its district average, and one in a district whose towns are dirtier than its own surroundings should read below.</p>' +
+            '<table style="width:100%; border-collapse:collapse; font-size:0.83rem; margin-top:0.6rem;">' +
+            '<caption class="sr-only">The ten stations reading furthest above, and ten furthest below, the satellite annual figure for their district</caption>' +
+            '<thead>' + head + '</thead><tbody>' +
+            byGap.slice(-10).reverse().map(row).join('') +
+            '<tr><td colspan="5" style="padding:0.45rem 0; color:var(--text-3); font-size:0.78rem;">&hellip; ' +
+              (paired.length - 20) + ' stations in between &hellip;</td></tr>' +
+            byGap.slice(0, 10).map(row).join('') +
+            '</tbody></table></div></details>' +
+            '<details class="apportion-method" style="margin-top:0.6rem;">' +
+            '<summary>How a station qualifies, and why this is 2024</summary>' +
+            '<div class="apportion-method-body">' +
+            '<p><strong>The completeness rule.</strong> ' + esc(m.completeness_rule) + '. Of ' + esc(c.stations_reporting) +
+              ' stations reporting, ' + esc(c.failed_completeness) + ' failed it and ' + esc(c.no_coordinates) +
+              ' had no usable coordinates. Nearly half the network cannot produce a defensible annual mean, and that count is kept rather than engineered away by loosening the filter.</p>' +
+            '<p><strong>The annual mean is the mean of the twelve monthly means</strong>, not hour-weighted, so a station with a well-covered winter and a thin monsoon is not flattered by its own coverage.</p>' +
+            '<p><strong>Why 2024 and not something more recent.</strong> The source archive advertises coverage to March 2026, and that is carried by two US Embassy monitors. The CPCB feed into it effectively stops on 1 September 2025, with a gap across January to March 2025. Applying this same completeness rule to 2025 leaves <strong>one station out of 334</strong>. 2024 is the most recent year that supports a national annual layer.</p>' +
+            '<p><strong>Joined to the nearest district centroid, capped at 50 km.</strong> ' +
+              (st.length - paired.length) + ' station(s) had no district within that distance and are plotted nowhere.</p>' +
+            '<p><strong>What this is not.</strong> ' + esc(m.caveat) + '</p>' +
+            '<p><strong>Source.</strong> ' + esc(m.source) + '. Networks: ' + esc(m.source_networks) +
+              '. Compared with ' + esc(m.compared_with) + '.</p>' +
+            '</div></details>';
+    }
+
+    return function initStationCheck() {
+        if (!document.getElementById('station-check-body')) return;
+        if (cache) { render(cache); return; }
+        fetch('/data/station-observed.json').then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+        }).then(function (d) { cache = d; render(d); }).catch(function (e) {
+            console.warn('Station comparison load failed:', e);
+            var host = document.getElementById('station-check-body');
+            if (host) host.innerHTML = '<p style="color:var(--text-3); font-size:0.9rem;">The station comparison could not load.</p>';
+        });
+    };
+})();
 
 // ── Workshops: bookable-sessions calendar (rendered from /data/workshops.json) ──
 // `sessions` = standing offers (booked on request via the walkthrough form);

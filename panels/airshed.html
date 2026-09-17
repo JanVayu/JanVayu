@@ -37,8 +37,13 @@
 
 <div id="airshed-weather" style="margin-top:1.75rem; padding-top:1.5rem; border-top:1px solid var(--border);">
     <h3 style="font-family: var(--serif); font-size:1.15rem; color:var(--ink); margin-bottom:0.35rem;">Or was it just the weather?</h3>
-    <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:0.9rem; max-width:48rem;" data-simple="A year with more wind and rain looks cleaner even if nothing about the pollution changed. We took the weather out of Delhi's readings to see what was left.">A still, cold week reads as dirty air and a windy one reads as clean, whether or not anything changed at the source. So a fall between two years can be policy, or it can be wind. For Delhi-NCR we can now separate the two, for the one window where the station record is continuous.</p>
-    <div id="airshed-weather-body"></div>
+    <p style="font-size:0.9rem; color:var(--text-3); margin-bottom:0.9rem; max-width:48rem;" data-simple="A year with more wind and rain looks cleaner even if nothing about the pollution changed. We took the weather out of the readings for 44 cities to see what was really left.">A still, cold week reads as dirty air and a windy one reads as clean, whether or not anything changed at the source. So a fall between two years can be policy, or it can be wind. For <strong id="dw-city-count">44</strong> cities with enough monitors, the two can now be separated.</p>
+    <div class="apportion-controls">
+        <label for="airshed-weather-city" class="apportion-label">City</label>
+        <select id="airshed-weather-city" class="apportion-select" aria-label="Choose a city"></select>
+        <span id="airshed-weather-basis" class="apportion-basis"></span>
+    </div>
+    <div id="airshed-weather-body" aria-live="polite" style="margin-top:1rem;"></div>
 </div>
 
 <details class="apportion-method" style="margin-top:1.75rem;">

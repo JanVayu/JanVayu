@@ -95,7 +95,14 @@ CLAIMS = [
         # the numerator and left the denominator, so the site carried 23 of 96 —
         # a hybrid neither source published — while three other files still said
         # 27 of 96 and credited it to CREA. Both shapes are refused.
-        'pattern': re.compile(r'\b2[0-9]\s+of\s+96\b'),
+        #
+        # 2026-09-17: the pattern was `\b2[0-9]\s+of\s+96\b`, which requires the
+        # word "of". netlify/functions/air-query.mjs wrote it as "23/96 cities"
+        # with a slash and survived this check for nine days after the claim was
+        # retracted, until it was found by hand. The retraction was right and the
+        # register was right; the claim simply reached the page in a shape the
+        # pattern did not describe. Separators are now part of the pattern.
+        'pattern': re.compile(r'\b2[0-9]\s*(?:of|/|\u2044|out\s+of)\s*96\b'),
         'also_on_line': None,
         'retracted': '2026-09-08',
         'why': 'CREA (Tracing the Hazy Air 2026) reports 23 of the 100 cities with '

@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.193] - 2026-09-17
+
+### Added — the instrument record finally has a surface
+
+`data/station-observed.json` shipped in v26.6.184 and has been data with no UI ever since, which meant the comparison that justifies leading with a satellite layer existed only as a file in the repo. It is now a section of the **Data Source Selector**, directly under the satellite card it checks.
+
+A scatter of all **276 paired stations**, measured annual PM2.5 against the satellite figure for the station's district, with the 1:1 line drawn rather than implied. Headline figures: r **0.834**, measured mean **53.8** against satellite **51.9**, RMSE 14.3, across 155 cities in 21 states. Two disclosures are in the copy rather than a footnote: **neither number corrects the other**, and the measured figure sitting about 2 µg/m³ higher is expected by construction, because monitors sit where people and traffic are while a district mean averages that together with the countryside.
+
+Below it, the ten stations furthest above and below the satellite figure in each direction, which is where the interesting cases are (Sector-51 Gurugram +43.6, Nehru Nagar Kanpur −41.8), plus the completeness rule, the 250 stations that fail it, and why the year is 2024 and not something newer.
+
+### Changed — the de-weathering panel now covers 44 cities, and keeps what the old one had
+
+The Airshed panel's weather section read from `data/deweathered.json`: Delhi-NCR, September–October only, 2018–2022. It now reads `data/deweathered-national.json` with a **44-city selector**, whole years 2018–2024, per-city annual series and trend.
+
+**The Delhi-NCR run is not deleted, and is still on the page.** It carries two things the national file does not: **95% confidence intervals** and a **placebo test on shuffled data**. Replacing it outright would have traded rigour for coverage and told nobody. It now sits below the national table, in a `<details>`, saying in as many words that the 44-city table *would* have reported a direction for the same data because it computes no intervals, and that this is why the narrower run is still there. The national view carries its own standing note: read the direction, not the decimals, and do not rank cities by hundredths.
+
+### Fixed — a unit that rendered as milligrams, and the check that could not see a slash
+
+**`text-transform: uppercase` changes the meaning of one character.** CSS maps U+00B5 MICRO SIGN to Greek capital Mu, so a label reading `µg/m³` renders as `ΜG/M³` and a reader parses milligrams. A factor of a thousand on the unit of the number beside it, with correct source, no console error and nothing to see in a diff. Found in the new stat tile ("MEASURED MEAN, MG/M³" over 53.8), then found **live in two more places**, including the AQI explainer's own breakpoint table, the page whose job is teaching people what the numbers mean. Confirmed in Chromium by reading the computed `text-transform` and the rendered string. New guard `scripts/check-uppercase-units.py` (CI job `uppercase-units`) reads the uppercasing selectors from `styles.css` rather than hardcoding them, and resolves them properly: `.data-table th` uppercases the `th`, not the whole table, and a first version that missed that reported two `<td>` cells that render correctly.
+
+**Both new panel colours failed in dark mode and passed in light**, exactly the class of failure fixed this morning: `#b45309` and `#0369a1` measure 4.97:1 and 5.88:1 on the light surface and 3.85:1 and 3.26:1 on the dark one. A colour literal in JavaScript cannot know which theme it landed in, so they are now `--delta-up` / `--delta-down` tokens in `styles.css` with a dark override, measured at 6.08/7.98 light and 11.30/10.44 dark. Also fixed `height="auto"` on an `<svg>`, which is invalid and was logging an error.
+
+**The NCAP denominator, and why the register missed it.** Verified against CREA's own publication page for *Tracing the Hazy Air 2026* (9 January 2026): 102 NCAP cities have monitoring stations, **100** of those reported 80% or more PM10 data coverage, **23** met the 40% target. The claim had already been retracted correctly on 8 September and entered in `check-retracted-claims.py`. It still survived nine more days in `air-query.mjs`, because the pattern required the word *of* (`2[0-9]\s+of\s+96`) and the file had written `23/96` with a slash. **A retraction only removes a claim in the shapes somebody thought to write down.** The pattern now accepts any separator, `scripts/stats.json` gains `ncap_40pct_met` as the single declared value with its source, and `check-site-figures.py` gains a **cited constants** pass holding every page to it — which also catches a new wrong denominator no retraction has been written for yet.
+
+A dated correction is appended to `docs/fact-check-2026-07-27.md`, which recorded rewriting 100 to 96. **The entry is left as written**: a fact-check log is a record of what was decided and when, and editing it to say something else happened would make it useless for exactly this purpose. The correction notes the process lesson too, which is bigger than the number: **an entry reading "matching the fix already applied elsewhere on the site" is a consistency edit, not a verification.** Five entries in that round are phrased that way; one was wrong, one has since been checked against PIB and holds, one carries its own citation, and two have never been checked against a primary source.
+
 ## [v26.6.192] - 2026-09-17
 
 ### Fixed — the assistant gave one city another city's trend

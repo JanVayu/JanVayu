@@ -208,6 +208,13 @@
         </div>
     </div>
 
+    <!-- ═══ Instruments vs the modelled layer (rendered from /data/station-observed.json) ═══ -->
+    <div id="station-check" style="margin-bottom: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+        <h3 style="font-family: var(--serif); font-size: 1.375rem; margin-bottom: 0.4rem; color: var(--ink);">Do the modelled layers agree with the instruments?</h3>
+        <p style="font-size: 0.9rem; line-height: 1.65; color: var(--text-2); max-width: 48rem; margin-bottom: 1rem;" data-simple="The yearly pollution figures on our map come from satellites, because there aren't enough monitors to cover India. Here we compare those satellite figures against what the actual monitors measured in 2024, to show they agree.">The satellite layer above is the only thing that can give every village and ward a number, and it is a model. So it is worth asking what the instruments say. Every station in India&rsquo;s monitoring record with a complete enough 2024 is plotted here against the satellite figure for the district it sits in. <strong>Neither corrects the other</strong> &mdash; a station is one point, a district figure is an average over a whole district &mdash; so what this shows is whether the two agree on the <em>pattern</em>.</p>
+        <div id="station-check-body" aria-live="polite"></div>
+    </div>
+
     <!-- ═══ Source Impact Simulator ═══ -->
     <h3 style="font-family: var(--serif); font-size: 1.375rem; margin-bottom: 1rem; color: var(--ink);">See How Sources Affect Your AQI</h3>
 

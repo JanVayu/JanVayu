@@ -83,3 +83,42 @@ This file feeds every live chatbot answer, so each of these was a standing, ongo
 ---
 
 *Prior rounds: [`fact-check-2026-07.md`](./fact-check-2026-07.md) (baseline sweep, 33 corrections), [`fact-check-2026-07b.md`](./fact-check-2026-07b.md) (round 2, 34 applied), [`fact-check-2026-07c.md`](./fact-check-2026-07c.md) (content sweep, 18 applied/resolved), [`fact-check-2026-07-20.md`](./fact-check-2026-07-20.md) (round 4: `stats.json` display bugs + stale-figure sync, 17 corrected). This round closes the last of the sync gaps those left open — the live chatbot prompt and one panel that had slipped through four prior rounds still carrying the platform's original motivating bug (the false "70%" figure) — and resolves all four flags carried over from the 20 Jul round.*
+
+---
+
+## Correction, appended 17 September 2026
+
+**This round changed a correct figure to an incorrect one, and recorded doing so.** The entry is under *`netlify/functions/air-query.mjs`*:
+
+> **NCAP denominator + a fabricated citation removed**: `23/100 cities (CREA Jan 2026) or 37/131 (CSE Apr 2026 5-year review)` → `23/96 cities with sufficient data`.
+
+Removing the "37/131 CSE Apr 2026" half was right: no such report exists, and it had already been debunked on 17 July. **Changing 100 to 96 was wrong.** CREA's own publication page for *Tracing the Hazy Air 2026* (9 January 2026) states that 102 NCAP cities have monitoring stations, **100** of those reported 80% or more PM10 data coverage, and **23** met the revised 40% PM10 reduction target. The denominator is 100.
+
+**Where the 96 came from.** Not from CREA. It came from this site's own earlier text. The 20 July round (`fact-check-2026-07b.md`) had been correcting "27 of 96 cities" to "23 of 96 cities" in three places, fixing the numerator and leaving the denominator alone. A week later this round harmonised the chatbot prompt to that same 96, in the course of a genuinely necessary fix to the rest of the line.
+
+**Why it survived, in two stages.** For six weeks nothing compared the files: the rest of the site kept saying "23 of the 100 cities" in nine places, one file disagreed, and no check could see it. Then on **8 September** the claim was properly retracted and entered in `scripts/check-retracted-claims.py`, which should have ended it. It did not, because that register's pattern required the word *of* (`2[0-9]\s+of\s+96`) and `netlify/functions/air-query.mjs` had written it with a slash, as `23/96 cities`. The retraction was right and the register was right; the claim had reached the page in a shape the pattern did not describe, and it survived another nine days. It was found on 17 September while writing a workshop deck, by going back to CREA rather than to the repository.
+
+That second stage is the more instructive one. **A retraction only removes a claim in the shapes somebody thought to write down.** The pattern now accepts any separator, and a second guard in `check-site-figures.py` holds every page to one declared value, which also catches a new wrong denominator that no retraction has been written for yet.
+
+**This entry is left as written.** A fact-check log is a record of what was decided and when; editing it to say something else happened would make it useless for exactly this purpose. The correction goes here, at the end, with a date.
+
+### What changed as a result
+
+- `netlify/functions/air-query.mjs` now says "23 of the 100 cities with sufficient data", with CREA's own 102/100/23 breakdown spelled out so the denominator cannot be guessed at again. Also adds the two findings the site was not carrying: 51 cities met the earlier 20–30% target, and 23 cities saw PM10 **rise**.
+- `scripts/stats.json` gains `ncap_40pct_met`, the single declared value with its source.
+- `scripts/check-site-figures.py` gains a **cited constants** pass. The script had been deliberately limited to figures derivable from repo data, on the principle that "a number nobody can recompute is not something a script should be policing". That principle does not cover this failure: a cited constant cannot be recomputed, but it can be held to one declared value across every page. Reintroducing the wrong denominator now fails the check by name, with CREA cited in the failure message.
+- `scripts/check-retracted-claims.py` has its `ncap-of-96` pattern widened to accept any separator, so the retraction it already carried can no longer be evaded by a slash.
+
+### The process lesson, which is bigger than the number
+
+**An entry that reads "matching the fix already applied elsewhere on the site" is a consistency edit, not a verification.** Five entries in this round are phrased that way, and they are not equivalent:
+
+| Entry | Basis | Status |
+|---|---|---|
+| NCAP denominator → 96 | the site's own prior text | **wrong**, corrected above |
+| XV-FC "42 million-plus cities" | the site's own prior text | checked against PIB (17 Sep 2026), holds |
+| CAAQMS ~289 cities | CREA Tables 4 & 5, cited in this round | verified, not merely harmonised |
+| Delhi e-bus 4,845 | `panels/progress.html` | not checked against a primary source |
+| EV scheme outlays | `panels/budget.html` | not checked against a primary source |
+
+The last two may well be right. The point is that the log does not let a reader tell. Future rounds should mark each correction as **verified** (a named external source, with a link or a page reference) or **harmonised** (made consistent with another part of this site, source unchecked), because only the first is evidence, and a harmonisation propagates whatever the other page happens to hold.
