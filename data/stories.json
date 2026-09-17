@@ -2,6 +2,13 @@
  "stories": [
   {
    "tag": "Analysis",
+   "title": "Thirty-Three Cities Are Getting Cleaner. Eleven Are Not.",
+   "date": "17 Sep 2026",
+   "blurb": "Nine days ago we published a post about Delhi called Was It Policy, or Was It the Wind? It explained a problem and then admitted a limit: we could separate a real change in the air from a change in the weather, but only for one city,…",
+   "url": "/blog/#/posts/2026-09-17-thirty-three-cities"
+  },
+  {
+   "tag": "Analysis",
    "title": "Was It Policy, or Was It the Wind?",
    "date": "8 Sep 2026",
    "blurb": "Every winter somebody announces that Delhi's air has improved. Every winter somebody else announces that it has not.",

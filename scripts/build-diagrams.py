@@ -725,12 +725,139 @@ def deweather_tall():
                   'How JanVayu separates a real change in Delhi\u2019s air from a change in the weather')
 
 
+# ── 6. The national de-weathering ────────────────────────────────────
+
+# Three cities chosen because they are the three things taking the weather out
+# can do to a number: nothing, uncover an improvement, or leave a rise standing.
+CASES = [
+    ('Delhi', '−1.75', '−1.78', 'The weather was not the story either way.', GREEN),
+    ('Lucknow', '−11.62', '−13.98', 'The weather was HIDING the improvement.', GREEN),
+    ('Chandigarh', '+2.32', '+3.07', 'Rising, and not because of the weather.', RED),
+]
+
+NATIONAL_LABEL = (
+    "What 44 Indian cities look like once the weather is taken out of their air, 2018 to 2024. "
+    "Thirty-three are improving and eleven are not. The steepest real falls are Meerut at 14.63 "
+    "micrograms per cubic metre a year, Varanasi at 14.19, Lucknow at 13.98, Moradabad at 13.51 "
+    "and Agra at 10.61. The cities getting worse are led by Chandigarh at plus 3.07, Gwalior at "
+    "plus 2.37, Chandrapur at plus 2.36, Solapur at plus 1.73 and Mumbai at plus 0.80. Taking the "
+    "weather out can do three things to a number, and all three appear here: for Delhi it changes "
+    "almost nothing, minus 1.75 measured against minus 1.78 with weather removed; for Lucknow it "
+    "makes the fall steeper, minus 11.62 measured against minus 13.98, because the weather in "
+    "those years was hiding the improvement rather than flattering it; and for Chandigarh the rise "
+    "survives, plus 2.32 measured against plus 3.07. Only six of the 44 cities move by as much as "
+    "one microgram a year when the weather is removed, and in five of those six the measured "
+    "figure was understating the improvement. What is left after the weather is removed is not "
+    "proof that policy caused it: emissions, fuel mix, construction and economic activity all sit "
+    "inside it.")
+
+
+def national_wide():
+    o = [hd.text(490, 34, 'Thirty-three cities are getting cleaner.', size=25, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(490, 60, 'Eleven are not.', size=25, fill=RED, weight=700, anchor='middle'),
+         hd.text(490, 84, '44 Indian cities with the weather taken out of their air, 2018–2024',
+                 size=14, fill=MUTE, anchor='middle')]
+
+    o.append(hd.text(30, 124, 'THE SPLIT', size=13.5, fill=MUTE, weight=700))
+
+    o.append(hd.box(26, 140, 460, 118, fill=GREEN_BG, stroke=GREEN, seed=401))
+    o.append(hd.text(256, 174, '33 falling', size=22, fill=GREEN, weight=700, anchor='middle'))
+    o.append(hd.text(256, 200, 'steepest: Meerut −14.6, Varanasi −14.2,', size=12.2, fill=MUTE, anchor='middle'))
+    o.append(hd.text(256, 218, 'Lucknow −14.0, Moradabad −13.5, Agra −10.6', size=12.2, fill=MUTE, anchor='middle'))
+    o.append(hd.text(256, 242, 'micrograms per cubic metre, per year', size=11.4, fill=MUTE, anchor='middle'))
+
+    o.append(hd.box(506, 140, 444, 118, fill=RED_BG, stroke=RED, seed=402))
+    o.append(hd.text(728, 174, '11 rising', size=22, fill=RED, weight=700, anchor='middle'))
+    o.append(hd.text(728, 200, 'Chandigarh +3.1, Gwalior +2.4,', size=12.2, fill=MUTE, anchor='middle'))
+    o.append(hd.text(728, 218, 'Chandrapur +2.4, Solapur +1.7, Mumbai +0.8', size=12.2, fill=MUTE, anchor='middle'))
+    o.append(hd.text(728, 242, 'with no weather left to blame', size=11.4, fill=MUTE, anchor='middle'))
+
+    o.append(hd.text(30, 300, 'WHAT TAKING THE WEATHER OUT ACTUALLY DOES', size=13.5, fill=MUTE, weight=700))
+    o.append(hd.text(30, 322, 'Three cities, three outcomes. Left column as measured, right column with the weather removed.',
+                     size=12.2, fill=MUTE))
+
+    x, y = 26, 340
+    for i, (city, raw, norm, verdict, col) in enumerate(CASES):
+        o.append(hd.box(x, y, 300, 146, fill=PAPER, stroke=BLUE, seed=410 + i))
+        o.append(hd.text(x + 150, y + 30, city, size=17, fill=BLUE, weight=700, anchor='middle'))
+        o.append(hd.text(x + 78, y + 62, 'as measured', size=11.4, fill=MUTE, anchor='middle'))
+        o.append(hd.text(x + 78, y + 88, raw, size=19, fill=MUTE, weight=700, anchor='middle'))
+        o.append(hd.arrow(x + 132, y + 80, x + 168, y + 80, stroke=BLUE, seed=420 + i))
+        o.append(hd.text(x + 222, y + 62, 'weather removed', size=11.4, fill=MUTE, anchor='middle'))
+        o.append(hd.text(x + 222, y + 88, norm, size=19, fill=col, weight=700, anchor='middle'))
+        o.append(hd.text(x + 150, y + 122, verdict, size=11.6, fill=col, anchor='middle'))
+        x += 324
+
+    y += 146 + 34
+    note = ['Only 6 of the 44 cities move by as much as one microgram a year when the weather comes out,',
+            'and in 5 of those 6 the measured figure was UNDERSTATING the improvement. The usual worry is a',
+            'city claiming credit the wind earned. On this record that is rare — the raw number is usually',
+            'the more pessimistic one.']
+    nh = panel_height(note)
+    o.append(panel(26, y, 924, nh, 'THE RESULT THAT SURPRISED US', note,
+                   fill=BLUE_BG, stroke=BLUE, tcol=BLUE, seed=430))
+
+    y += nh + 14
+    warn = ['Removing the weather rules out ONE explanation. It does not prove policy caused the rest.',
+            'Emissions, fuel mix, construction and economic activity all sit inside what is left. And a',
+            'city is only included if it has enough monitors: 194 cities with some data do not qualify.']
+    wh = panel_height(warn)
+    o.append(panel(26, y, 924, wh, 'WHAT THIS DOES NOT SAY', warn,
+                   fill=AMBER_BG, stroke=AMBER, tcol=AMBER, seed=440))
+
+    return hd.svg(980, y + wh + 26, ''.join(o), NATIONAL_LABEL)
+
+
+def national_tall():
+    o = [hd.text(180, 32, 'Thirty-three cities', size=19, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(180, 56, 'are getting cleaner.', size=19, fill=GREEN, weight=700, anchor='middle'),
+         hd.text(180, 82, 'Eleven are not.', size=19, fill=RED, weight=700, anchor='middle'),
+         hd.text(180, 106, '44 cities, weather removed, 2018–2024', size=11.6, fill=MUTE, anchor='middle')]
+
+    y = 128
+    for label, n, lines, bg, st in [
+            ('falling', '33', ['Meerut −14.6, Varanasi −14.2,', 'Lucknow −14.0, Agra −10.6'], GREEN_BG, GREEN),
+            ('rising', '11', ['Chandigarh +3.1, Gwalior +2.4,', 'Chandrapur +2.4, Mumbai +0.8'], RED_BG, RED)]:
+        o.append(hd.box(18, y, 324, 96, fill=bg, stroke=st, seed=450 + y))
+        o.append(hd.text(180, y + 34, f'{n} {label}', size=20, fill=st, weight=700, anchor='middle'))
+        yy = y + 58
+        for ln in lines:
+            o.append(hd.text(180, yy, ln, size=11.4, fill=MUTE, anchor='middle'))
+            yy += 17
+        y += 108
+
+    y += 6
+    o.append(hd.text(20, y, 'WHAT REMOVING WEATHER DOES', size=12.5, fill=MUTE, weight=700))
+    y += 12
+    for i, (city, raw, norm, verdict, col) in enumerate(CASES):
+        o.append(hd.box(18, y, 324, 104, fill=PAPER, stroke=BLUE, seed=460 + i))
+        o.append(hd.text(180, y + 28, city, size=16, fill=BLUE, weight=700, anchor='middle'))
+        o.append(hd.text(96, y + 54, raw, size=17, fill=MUTE, weight=700, anchor='middle'))
+        o.append(hd.arrow(140, y + 48, 196, y + 48, stroke=BLUE, seed=470 + i))
+        o.append(hd.text(258, y + 54, norm, size=17, fill=col, weight=700, anchor='middle'))
+        o.append(hd.text(180, y + 84, verdict, size=10.8, fill=col, anchor='middle'))
+        y += 114
+
+    note = ['Only 6 of 44 cities move by a whole', 'microgram a year when weather comes', 'out — and in 5 of those, the measured', 'figure was understating the fall.']
+    nh = panel_height(note, ts=13)
+    o.append(panel(18, y, 324, nh, 'THE SURPRISE', note, fill=BLUE_BG, stroke=BLUE, tcol=BLUE, seed=480, ts=13))
+    y += nh + 12
+
+    warn = ['This rules out ONE explanation, not', 'all of them. Emissions, fuel mix and', 'construction sit inside what is left.']
+    wh = panel_height(warn, ts=13)
+    o.append(panel(18, y, 324, wh, 'WHAT IT DOES NOT SAY', warn, fill=AMBER_BG, stroke=AMBER, tcol=AMBER, seed=481, ts=13))
+
+    return hd.svg(360, y + wh + 24, ''.join(o),
+                  'Thirty-three of 44 Indian cities are improving once the weather is removed from their air, and eleven are not')
+
+
 DIAGRAMS = {
     'why-pm25': (pm25_wide, pm25_tall),
     'reading-the-map': (map_wide, map_tall),
     'atlas-layers': (atlas_wide, atlas_tall),
     'airshed': (airshed_wide, airshed_tall),
     'deweather': (deweather_wide, deweather_tall),
+    'deweather-national': (national_wide, national_tall),
 }
 
 
