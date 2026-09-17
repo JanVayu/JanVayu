@@ -99,16 +99,59 @@ def main():
                                          f'light background {bg.group(1)} with no text colour; '
                                          f'dark mode will paint near-white ink on it'))
 
-    # 3. The band functions must hand back tokens, not literals.
+    # 3. Any function that hands back a colour for TEXT must hand back a token.
+    #
+    # This used to check two functions BY NAME, which is how pm25Band() survived
+    # the first pass: it is a third band function, its .color is painted as text
+    # in the forecast strip, and five of its seven literals failed in light
+    # (#84CC16 at 1.96:1) while two failed in dark (#7F1D1D at 1.70:1). A guard
+    # with a hardcoded list has the same blind spot as the audits it replaced.
+    #
+    # So the rule is structural: a function whose body is a ladder of colour
+    # literals, and whose result is assigned to a `color:` somewhere, must
+    # return var(). Swatch functions are exempt by name and by reason, because
+    # a map polygon, a chart bar and a <canvas> cannot resolve a var().
     app = (ROOT / 'app.js').read_text(encoding='utf-8')
-    for fn in ('getPM25TextColor', 'getAQITextColor'):
-        m = re.search(r'function ' + fn + r'\([^)]*\)\s*\{(.*?)\n    \}', app, re.S)
-        if not m:
-            problems.append(('app.js', fn, 'function is missing; it is what makes the bands theme-aware'))
+    SWATCH_OK = {
+        # name: why it is allowed to return a literal
+        'getAQIColor': 'swatch: chart bars, map polygons and the canvas share card',
+        'getPM25Color': 'swatch: map polygons and legend chips',
+        'onSwatchInk': 'returns the ink to paint ON a swatch; picks by contrast',
+        'pm25Color': 'swatch: fillColor on a Leaflet circle marker',
+        # This one is subtle and the reason has to be checked, not assumed. Its
+        # result is painted as TEXT, but inside a Leaflet popup, and this site
+        # adds no .leaflet-popup-content-wrapper rule at all, so the wrapper
+        # keeps Leaflet's default white in BOTH themes. Light-only shades are
+        # therefore correct there. If anyone ever themes that popup, these six
+        # become invisible in dark mode and this entry must go.
+        'pm25TextColor': 'text on a Leaflet popup, which this site leaves white in both themes',
+    }
+    for m in re.finditer(r'function (\w+)\s*\([^)]*\)\s*\{', app):
+        name = m.group(1)
+        body = app[m.end():m.end() + 2600]
+        end = body.find('\n    }')
+        if end != -1:
+            body = body[:end]
+        lits = re.findall(r"return\s+(?:\{[^}]*?color:\s*)?'(#[0-9a-fA-F]{3,6})'", body)
+        if len(lits) < 3:
+            continue                      # not a colour ladder
+        if name in SWATCH_OK:
             continue
-        for lit in re.findall(r"return\s+'(#[0-9a-fA-F]{3,6})'", m.group(1)):
-            problems.append(('app.js', f'{fn} -> {lit}',
-                             'band colour returned as a literal; return a var(--pm-b*) or var(--aqi-*) token'))
+        # Whether the result is used as text cannot be decided by regex: pm25Band()
+        # is assigned to a variable and interpolated as `color:${b.color}`, so
+        # nothing textually ties the function to a colour property. A first
+        # version of this check tried and silently passed, which is how the same
+        # function escaped twice.
+        #
+        # So the burden is inverted. EVERY colour ladder must be classified: it
+        # either returns tokens, or it is listed below with a reason. Adding a
+        # legitimate swatch function costs one line; forgetting one fails.
+        problems.append(('app.js', f'{name}() returns {len(lits)} colour literals',
+                         'classify it: return var() tokens if the colour is painted as '
+                         'text, or add it to SWATCH_OK with the reason it may stay a '
+                         'literal (a canvas, a map polygon or a chart bar cannot resolve '
+                         'a var())'))
+
 
     if problems:
         print(f'FAIL - {len(problems)} colour choice(s) that cannot work in both themes:\n')
@@ -119,7 +162,7 @@ def main():
         return 1
 
     print('PASS - no themed background paired with hardcoded white text, no inline '
-          'light background without an ink, and both band functions return tokens.')
+          'light background without an ink, and no colour-ladder function used as text returns literals.')
     return 0
 
 

@@ -44,6 +44,17 @@
     --aqi-very-poor: #b91c1c;
     --aqi-severe: #6d28d9;
     --aqi-hazardous: #831843;
+    /* pm25Band() in app.js paints the forecast strip. Its cut points differ from
+       the seven --pm-b* bands, so it has its own six. Same lesson: literals in
+       JS cannot know the theme, and five of its seven originals failed in light
+       (#84CC16 at 1.96:1) while two failed in dark (#7F1D1D at 1.70:1). */
+    --fc-good: #15803d;
+    --fc-satisfactory: #4d7c0f;
+    --fc-moderate: #a16207;
+    --fc-poor: #c2410c;
+    --fc-very-poor: #b91c1c;
+    --fc-severe: #86123f;
+    --fc-na: #5a5a54;
     --pm-b1: #15803d;
     --pm-b2: #4d7c0f;
     --pm-b3: #a16207;
@@ -135,6 +146,13 @@
     --aqi-very-poor: #fca5a5;
     --aqi-severe: #c4b5fd;
     --aqi-hazardous: #f9a8d4;
+    --fc-good: #4ade80;
+    --fc-satisfactory: #bef264;
+    --fc-moderate: #fcd34d;
+    --fc-poor: #fdba74;
+    --fc-very-poor: #fca5a5;
+    --fc-severe: #f9a8d4;
+    --fc-na: #a8a8a0;
     --pm-b1: #4ade80;
     --pm-b2: #bef264;
     --pm-b3: #fcd34d;

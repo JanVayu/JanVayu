@@ -745,7 +745,7 @@
     function computeSolution(aqi) {
         if (aqi <= 50) {
             return {
-                label: 'Good', color: '#22C55E',
+                label: 'Good', color: 'var(--aqi-good)',
                 headline: 'Air is clean. Enjoy outdoors.',
                 actions: [
                     'Outdoor exercise is safe for everyone.',
@@ -756,7 +756,7 @@
         }
         if (aqi <= 100) {
             return {
-                label: 'Moderate', color: '#EAB308',
+                label: 'Moderate', color: 'var(--aqi-moderate)',
                 headline: 'Mostly fine. Sensitive groups should watch.',
                 actions: [
                     'Outdoor exercise OK for most. Reduce intensity if asthmatic.',
@@ -767,7 +767,7 @@
         }
         if (aqi <= 200) {
             return {
-                label: 'Poor', color: '#F97316',
+                label: 'Poor', color: 'var(--aqi-poor)',
                 headline: 'Limit prolonged outdoor exertion.',
                 actions: [
                     'Wear a well-fitted N95 outdoors for over 30 minutes.',
@@ -779,7 +779,7 @@
         }
         if (aqi <= 300) {
             return {
-                label: 'Very Poor', color: '#EF4444',
+                label: 'Very Poor', color: 'var(--aqi-very-poor)',
                 headline: 'Stay indoors. Run a HEPA purifier.',
                 actions: [
                     'N95 mandatory outdoors — even brief exposure matters.',
@@ -791,7 +791,7 @@
         }
         if (aqi <= 400) {
             return {
-                label: 'Severe', color: '#7C3AED',
+                label: 'Severe', color: 'var(--aqi-severe)',
                 headline: 'Health emergency. Avoid all outdoor exposure.',
                 actions: [
                     'Stay indoors. Seal gaps under doors and windows.',
@@ -802,7 +802,7 @@
             };
         }
         return {
-            label: 'Hazardous', color: '#831843',
+            label: 'Hazardous', color: 'var(--aqi-hazardous)',
             headline: 'Emergency. Treat outdoor air as toxic.',
             actions: [
                 'Government should activate GRAP Stage IV / emergency protocols.',
@@ -1299,14 +1299,19 @@
     let forecastChart = null;
 
     // CPCB PM2.5 sub-index bands (µg/m³) → { label, colour }.
+    // The forecast strip's band. Its .color is used as TEXT, so it returns
+    // tokens: the literals it used to return failed in light for five of seven
+    // bands (#84CC16 measured 1.96:1 on the page) and in dark for two
+    // (#7F1D1D at 1.70:1 on a card). This was missed by the first dark-mode
+    // pass because that pass fixed the two band functions it knew by name.
     function pm25Band(v) {
-        if (v == null || isNaN(v)) return { label: 'N/A', color: '#9CA3AF' };
-        if (v <= 30)  return { label: 'Good',        color: '#16A34A' };
-        if (v <= 60)  return { label: 'Satisfactory', color: '#84CC16' };
-        if (v <= 90)  return { label: 'Moderate',    color: '#D97706' };
-        if (v <= 120) return { label: 'Poor',        color: '#EA580C' };
-        if (v <= 250) return { label: 'Very Poor',   color: '#DC2626' };
-        return { label: 'Severe', color: '#7F1D1D' };
+        if (v == null || isNaN(v)) return { label: 'N/A', color: 'var(--fc-na)' };
+        if (v <= 30)  return { label: 'Good',         color: 'var(--fc-good)' };
+        if (v <= 60)  return { label: 'Satisfactory', color: 'var(--fc-satisfactory)' };
+        if (v <= 90)  return { label: 'Moderate',     color: 'var(--fc-moderate)' };
+        if (v <= 120) return { label: 'Poor',         color: 'var(--fc-poor)' };
+        if (v <= 250) return { label: 'Very Poor',    color: 'var(--fc-very-poor)' };
+        return { label: 'Severe', color: 'var(--fc-severe)' };
     }
 
     function fmtForecastDay(dayStr) {
