@@ -54,6 +54,7 @@
 * [Overview](data-sources/overview.md)
 * [Real-Time AQI (WAQI)](data-sources/waqi.md)
 * [Observed Station Data (XKDR)](data-sources/xkdr-air-quality.md)
+* [Was it policy or the wind? 44 cities](data-sources/deweathered-national.md)
 * [Boundary Map (every admin level + satellite)](data-sources/boundary-map.md)
 * [Ward-Level Atlas (boundaries + satellite)](data-sources/ward-map.md)
 * [Health & Mortality Data](data-sources/health-data.md)

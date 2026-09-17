@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.186] - 2026-09-17
+
+### Added — "was it policy, or was it the wind?", for 44 cities instead of one
+
+`build-deweathered.py` answered that question for Delhi-NCR over 2018–2022, on PM2.5 from OpenAQ. It was the right question at the wrong scope. `scripts/build-deweathered-national.py` runs the same method over CPCB's own hourly record, via the XKDR archive, for **44 cities across 2018–2024**.
+
+**33 are improving once weather is removed. Eleven are not.**
+
+The steepest falls are in Uttar Pradesh and the western NCR: Meerut −14.63, Varanasi −14.19, Lucknow −13.98, Moradabad −13.51, Agra −10.61 µg/m³ a year. Rising, with no weather to blame: Chandigarh +3.07, Gwalior +2.37, Chandrapur +2.36, Solapur +1.73, Mumbai +0.80. Delhi falls at −1.78 normalised against −1.75 raw, so weather explains almost none of its change either way. Held-out R² runs 0.52 (Bengaluru) to 0.91 (Kolkata), median 0.81.
+
+**Normalisation mostly confirms the raw number, and where it does not, it is kinder.** Only 6 of 44 cities shift by a microgram per year or more, and in five of those the raw figure was *understating* the improvement — Lucknow reads −11.62 raw against −13.98 normalised. The intuitive fear runs the other way, that a city might claim credit the wind earned. On this record that is rare, and the raw number is usually the more pessimistic one. Worth knowing before anyone reaches for the method expecting it to debunk something.
+
+**Method unchanged from the Delhi original** (Grange et al. 2018, *Atmos. Chem. Phys.* 18, 6223–6239), including both of its deliberate exclusions. Lagged pollutant values are not features, because feeding yesterday's PM2.5 into a model meant to isolate emissions launders the answer through the target. And the station term is held fixed during normalisation, which matters more here than in Delhi: the network grew from 129 stations in 2018 to 534 in 2024.
+
+**Meteorology is per city and in IST.** Open-Meteo hourly at the mean position of each city's stations, `timezone=Asia/Kolkata`. Not cosmetic: XKDR's `collected_at` is a naive IST stamp, so a UTC series would be misaligned by 5½ hours and would scramble the diurnal cycle the model leans on. Wind is averaged as a vector, u and v separately, because averaging compass degrees across the 360/0 boundary is meaningless.
+
+**What it costs, stated rather than hidden.** A city qualifies on at least 1,800 station-days, 2 stations and 5 of the 7 years; 194 cities with some data do not. 62 stations are dropped, about 51,000 station-days, because they carry no city, state or coordinates in XKDR's station table — their names often embed a place ("Alandi Pune") and parsing that would be inventing geography. Thirty resamples rather than the Delhi run's sixty, with no interval reported rather than one it did not earn. And a normalised trend is not proof policy caused it: emissions, fuel mix, construction and economic activity all sit inside what weather cannot explain.
+
+`data/deweathered-national.json`, documented at `docs/data-sources/deweathered-national.md`, registered in both navigation files and the source overview. Enforced in CI by `--check`, which recounts the improving-cities figure from the records so the headline number cannot be edited in the metadata. Verified by flipping Mumbai's sign: caught.
+
+**This does not replace `deweathered.json`.** That file is Delhi 2018–2022 and is read by `app.js` and a blog post; migrating the panel is a separate change, and is on the roadmap.
+
+### Fixed — the short deck promised a weekly audit the practice stopped keeping
+
+`walkthrough/deck.html` advertised an "Automated weekly audit" months after `walkthrough/full.html` had been corrected to "periodic", because the deeper fact-check audit is no longer on a schedule. `check-factcheck-freshness.py` scans `deck.html` for exactly this class of overpromise, and walked past it: its pattern requires the words "fact check" near the cadence word, and the deck said "audit".
+
+Widening the pattern to "audit" was tried and **reverted**. It fires on the weekly link audit and the weekly lychee CI job, both of which are real and kept, so it would have turned a precise guard into one that cries wolf. The wording is fixed and the gap is recorded here rather than papered over.
+
+### Changed — walkthroughs and roadmap
+
+Two slides added to the long deck's Trust chapter (checking the map against the monitors; policy versus the wind) and one to the short deck, with speaker notes that state what the comparison does not show. Roadmap gains Phase 5.26 covering v26.6.184–186, with three follow-ups named: migrating the Delhi panel to the national file, a renderer for `station-observed.json` which currently ships as data with no surface, and whether to tell XKDR their CPCB ingestion has stalled.
+
+**The GitHub repository description could not be updated from here** — the session proxy refuses repository settings writes (403, "Repository settings writes are not permitted through this proxy"). Proposed text is in the pull request for a maintainer to paste.
+
 ## [v26.6.185] - 2026-09-17
 
 ### Fixed — the XKDR coverage claim, which v26.6.184 got wrong

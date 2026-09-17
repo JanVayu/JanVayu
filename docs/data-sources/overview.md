@@ -16,6 +16,7 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 | [Sensor.Community](https://sensor.community/) | Low-cost community sensors (CC0) | Free | Hyperlocal fallback |
 | [IMD](https://mausam.imd.gov.in) | Meteorological | Free | Wind, temperature, weather context |
 | [XKDR India Air Quality Database](https://airquality.xkdr.org) | Observed hourly station readings, 2009 onwards (CPCB CAAQM + US Embassy), CC BY 4.0 | Free API key | Observed station layer, checking the satellite map against the monitors. See [xkdr-air-quality.md](xkdr-air-quality.md) |
+| [Open-Meteo archive](https://open-meteo.com/en/docs/historical-weather-api) | Hourly historical meteorology | Free, key-less | Meteorological normalisation for 44 cities, 2018–2024. See [deweathered-national.md](deweathered-national.md) |
 
 ---
 
