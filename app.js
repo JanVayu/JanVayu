@@ -1786,16 +1786,57 @@
     // Text-legible variant of the PM2.5 band colours. The EPA-style swatch
     // colours above (bright green, pure yellow) are fine as dots/backgrounds
     // but wash out as text on a white card — pure #ffff00 is effectively
-    // invisible. These keep each band's hue but darken it to a WCAG-legible
-    // shade for use as TEXT on light backgrounds.
+    // invisible.
+    //
+    // These used to be literal dark shades, and the comment said they were
+    // "for use as TEXT on light backgrounds". That was true and it was the
+    // bug: in dark mode the card goes dark and the shade stays dark. The
+    // worst, #7e0023, measured 1.55:1 on 240 elements across every panel.
+    // A colour picked here cannot know which theme it landed in, so each
+    // band is a token defined for both themes in styles.css.
+    //
+    // Returns a CSS var(), so callers must assign it to a style property.
+    // It will NOT work on a <canvas> context, which cannot resolve var();
+    // the share-card renderer deliberately still uses getAQIColor().
     function getPM25TextColor(pm25) {
-        if (pm25 <= 5) return '#15803d';   // green-700
-        if (pm25 <= 10) return '#4d7c0f';  // lime-700
-        if (pm25 <= 15) return '#a16207';  // amber-700 (was pure yellow)
-        if (pm25 <= 25) return '#c2410c';  // orange-700
-        if (pm25 <= 35) return '#dc2626';  // red-600
-        if (pm25 <= 55) return '#9d174d';  // pink-800
-        return '#7e0023';                   // already dark
+        if (pm25 <= 5) return 'var(--pm-b1)';
+        if (pm25 <= 10) return 'var(--pm-b2)';
+        if (pm25 <= 15) return 'var(--pm-b3)';
+        if (pm25 <= 25) return 'var(--pm-b4)';
+        if (pm25 <= 35) return 'var(--pm-b5)';
+        if (pm25 <= 55) return 'var(--pm-b6)';
+        return 'var(--pm-b7)';
+    }
+    // The AQI band as TEXT. getAQIColor() above stays as it is: it is the
+    // swatch, used for chart bars, map polygons and the canvas share card,
+    // where a var() cannot be resolved and contrast against a page surface
+    // is not the question being asked.
+    // Ink for text painted directly ON a swatch colour. The swatches span pure
+    // yellow (#ffff00) to near-black maroon (#7e0023), so neither white nor
+    // black works for all of them: .city-rank-aqi hardcoded white and put it on
+    // #ff0000 at 4.00:1 and on #ffff00 at 1.07:1.
+    //
+    // The choice is made by comparing the two candidate ratios, not by testing
+    // luminance against a fixed cutoff. A cutoff is how this class of bug keeps
+    // coming back: it passes a contrast check while still picking the worse ink
+    // for colours that sit near the threshold.
+    function onSwatchInk(hex) {
+        var h = String(hex || '').replace('#', '');
+        if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+        if (!/^[0-9a-f]{6}$/i.test(h)) return 'var(--on-accent)';
+        function lin(c) { c /= 255; return c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+        var L = 0.2126*lin(parseInt(h.slice(0,2),16)) + 0.7152*lin(parseInt(h.slice(2,4),16)) + 0.0722*lin(parseInt(h.slice(4,6),16));
+        var withWhite = 1.05 / (L + 0.05);
+        var withInk   = (L + 0.05) / 0.05446;   // #0e0e0c
+        return withInk >= withWhite ? '#0e0e0c' : '#ffffff';
+    }
+    function getAQITextColor(aqi) {
+        if (aqi <= 50) return 'var(--aqi-good)';
+        if (aqi <= 100) return 'var(--aqi-moderate)';
+        if (aqi <= 200) return 'var(--aqi-poor)';
+        if (aqi <= 300) return 'var(--aqi-very-poor)';
+        if (aqi <= 400) return 'var(--aqi-severe)';
+        return 'var(--aqi-hazardous)';
     }
     function getWHOMultiple(pm25) { return (pm25 / WHO_PM25_GUIDELINE).toFixed(1); }
 
@@ -1935,7 +1976,7 @@
         if (worstEl) {
             worstEl.innerHTML = sorted.slice(0, 5).map((item, i) => {
                 const pm25 = item[1].pm25 || Math.round(item[1].aqi * 0.7);
-                return `<div class="city-rank"><span class="rank-num ${i < 3 ? 'top' : ''}">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
+                return `<div class="city-rank"><span class="rank-num ${i < 3 ? 'top' : ''}">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)};color:${onSwatchInk(getPM25Color(pm25))}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
             }).join('');
         }
 
@@ -1943,7 +1984,7 @@
         if (bestEl) {
             bestEl.innerHTML = sorted.slice(-5).reverse().map((item, i) => {
                 const pm25 = item[1].pm25 || Math.round(item[1].aqi * 0.7);
-                return `<div class="city-rank"><span class="rank-num">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
+                return `<div class="city-rank"><span class="rank-num">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)};color:${onSwatchInk(getPM25Color(pm25))}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
             }).join('');
         }
 
@@ -2977,7 +3018,7 @@
                 const data = aqiData[c];
                 const aqi = data?.aqi || '--';
                 const label = data ? getAQILabel(data.aqi) : 'No data';
-                const color = data ? getAQIColor(data.aqi) : 'var(--text-3)';
+                const color = data ? getAQITextColor(data.aqi) : 'var(--text-3)';
                 const pm25 = data?.pm25 ? `PM2.5: ${data.pm25}` : '';
                 return `<div class="card stat-card" style="position: relative;">
                     <button class="share-aqi-btn" onclick="generateAQICard('${c}')" title="Download AQI card" style="position: absolute; top: 8px; right: 8px;"><span class="si si-share"></span></button>
@@ -3617,7 +3658,7 @@
                     if (!city.lat || city.region === 'intl' || city.ext) return;
                     const data = aqiData[key];
                     const aqi = data?.aqi;
-                    const color = aqi ? getAQIColor(aqi) : '#9CA3AF';
+                    const color = aqi ? getAQITextColor(aqi) : 'var(--text-3)';
                     const label = aqi ? getAQILabel(aqi) : 'No data';
                     const pm25 = data?.pm25;
                     const pm10 = data?.pm10;
@@ -3634,7 +3675,7 @@
                             ${cigPerDay ? `<div style="font-size: 0.72rem; color: var(--red); margin-top: 4px;">≈ ${cigPerDay} cigarettes/day equivalent</div>` : ''}
                             ${data?.time ? `<div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Updated: ${data.time}</div>` : ''}
                             <div style="display: flex; gap: 6px; margin-top: 8px;">
-                                <button onclick="document.getElementById('hero-city-select').value='${key}';updateHeroCity('${key}');showPanel('dashboard');" style="flex: 1; padding: 4px 10px; background: var(--accent, #1B6B4A); color: #fff; border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">View on dashboard</button>
+                                <button onclick="document.getElementById('hero-city-select').value='${key}';updateHeroCity('${key}');showPanel('dashboard');" style="flex: 1; padding: 4px 10px; background: var(--accent, #1B6B4A); color: var(--on-accent); border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">View on dashboard</button>
                                 <button onclick="generateAQICard('${key}')" style="padding: 4px 10px; background: #374151; color: #fff; border: 0; border-radius: 4px; font-size: 0.75rem; cursor: pointer;" title="Download shareable AQI card">Share</button>
                             </div>
                         </div>`;
@@ -3777,7 +3818,7 @@
                                 ${openmapsAqiChip(est)}
                                 <div style="font-size:0.75rem; margin-top:8px;">This is the air your MP answers for.</div>
                                 <div style="display:flex; gap:6px; margin-top:6px;">
-                                    <button onclick="showPanel('accountability')" style="flex:1; padding:4px 8px; background:var(--accent,#1B6B4A); color:#fff; border:0; border-radius:4px; font-size:0.72rem; cursor:pointer;">Hold them accountable</button>
+                                    <button onclick="showPanel('accountability')" style="flex:1; padding:4px 8px; background:var(--accent,#1B6B4A); color: var(--on-accent); border:0; border-radius:4px; font-size:0.72rem; cursor:pointer;">Hold them accountable</button>
                                     <button onclick="showPanel('rti-assistant')" style="padding:4px 8px; background:#374151; color:#fff; border:0; border-radius:4px; font-size:0.72rem; cursor:pointer;">File an RTI</button>
                                 </div></div>`;
                         }, { maxWidth: 260 });
@@ -5756,7 +5797,7 @@
         el.innerHTML = cities.map(c => {
             const data = aqiData[c];
             const aqi = data?.aqi || '?';
-            const color = data ? getAQIColor(data.aqi) : '#ccc';
+            const color = data ? getAQITextColor(data.aqi) : 'var(--text-3)';
             return `<div class="card" style="padding: 0.75rem; text-align: center;">
                 <div style="font-size: 0.75rem; font-weight: 600;">${CITIES[c]?.name}</div>
                 <div style="font-size: 1.5rem; font-weight: 700; color: ${color};">${aqi}</div>
@@ -5834,7 +5875,7 @@
             grapEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
                     <div style="font-size: 0.85rem; color: var(--text-3);">NCR Average AQI</div>
-                    <div style="font-size: 2.5rem; font-weight: 700; color: ${getAQIColor(avgAQI)};">${Math.round(avgAQI)}</div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: ${getAQITextColor(avgAQI)};">${Math.round(avgAQI)}</div>
                     <div style="font-size: 1.25rem; font-weight: 700; color: ${stageColor}; margin-top: 0.5rem;">GRAP ${stage}</div>
                 </div>`;
         }
@@ -5854,7 +5895,7 @@
                 const aqi = data?.aqi || 0;
                 return `<div class="card" style="padding: 0.75rem; text-align: center;">
                     <div style="font-size: 0.75rem; font-weight: 600;">${CITIES[c]?.name}</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQIColor(aqi)};">${aqi || '?'}</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQITextColor(aqi)};">${aqi || '?'}</div>
                     <div style="font-size: 0.65rem; color: var(--text-3);">${getAQILabel(aqi)}</div>
                 </div>`;
             }).join('');
@@ -6546,7 +6587,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 : '<span style="background: #3B82F6; color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">CPCB/WAQI</span>';
             return `<div class="card" style="padding: 1rem; border-left: 3px solid ${getAQIColor(aqi)};">
                 <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">${s.station?.name || 'Station'} ${sourceLabel}</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQIColor(aqi)};">${aqi || '--'}</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQITextColor(aqi)};">${aqi || '--'}</div>
                 <div style="font-size: 0.65rem; color: var(--text-3);">${getAQILabel(aqi)}${s.pm25 ? ' · PM2.5: ' + s.pm25 + ' µg/m³' : ''}</div>
             </div>`;
         };
@@ -7129,7 +7170,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         // Helper to format AQI with color
         function aqiBadge(aqi) {
             if (!aqi) return '<span style="color: var(--text-3);">N/A</span>';
-            return `<span style="color: ${getAQIColor(aqi)}; font-weight: 700;">${aqi}</span> <small style="color: var(--text-3);">(${getAQILabel(aqi)})</small>`;
+            return `<span style="color: ${getAQITextColor(aqi)}; font-weight: 700;">${aqi}</span> <small style="color: var(--text-3);">(${getAQILabel(aqi)})</small>`;
         }
 
         function pm25Badge(pm25) {

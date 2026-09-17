@@ -25,6 +25,32 @@
        the first version hardcoded #b45309 and #0369a1, which measure 4.97:1
        and 5.88:1 here and 3.85:1 and 3.26:1 on the dark surface. A literal in
        JS cannot know which theme it landed in. */
+    /* ── Band text colours, light theme ──────────────────────────────────
+       getAQIColor() and getPM25Color() give the EPA-style SWATCH colours,
+       which are right for a dot, a bar or a map polygon and wrong as text:
+       pure #ffff00 on a white card is invisible. getPM25TextColor() existed
+       for that and its own comment said "for use as TEXT on light
+       backgrounds" — which was true, and was the bug. In dark mode those
+       same shades sat on a dark card: #7e0023 measured 1.55:1 on 240
+       elements across every panel, and #9d174d 2.16:1.
+
+       A colour chosen in JavaScript cannot know which theme it landed in,
+       so the bands are tokens and CSS does the flipping. Light values clear
+       4.5:1 on white and on --bg-page; dark values clear 4.5:1 on the card,
+       page and deep surfaces. Measure before changing one. */
+    --aqi-good: #15803d;
+    --aqi-moderate: #a16207;
+    --aqi-poor: #c2410c;
+    --aqi-very-poor: #b91c1c;
+    --aqi-severe: #6d28d9;
+    --aqi-hazardous: #831843;
+    --pm-b1: #15803d;
+    --pm-b2: #4d7c0f;
+    --pm-b3: #a16207;
+    --pm-b4: #c2410c;
+    --pm-b5: #dc2626;
+    --pm-b6: #9d174d;
+    --pm-b7: #7e0023;
     --delta-up: #a14708;    /* reads above the reference: 5.95:1 on this surface */
     --delta-down: #01557f;  /* reads below: 7.86:1 */
     --green-600: #157f3c; /* darkened from #16A34A so green text meets AA 4.5:1 on white */
@@ -48,7 +74,16 @@
     --purple: #6D28D9;
     --sky: #0284c7; /* accessible sky-blue for stat text on white */
     --pink: #be185d; /* accessible pink for text on white */
-    --on-accent: #ffffff; /* text colour that sits on an --accent background */
+    /* Text on a saturated tone background (--accent, --red, --amber). White
+       clears 5.4:1 or better on all three in this theme; in dark mode those
+       same tones become bright (#4ADE80, #f87171, #fbbf24) and white drops
+       to 1.67-2.77:1, so the dark block flips this to near-black. Twelve
+       rules used to hardcode #fff and failed in dark mode as a result. */
+    --on-accent: #ffffff;
+    /* The JV brand mark is painted into an inline SVG. #1a3a2a on the light
+       page is fine and on the dark page measured 1.55:1: a logo is exempt
+       from WCAG 1.4.3, but an invisible logo is still an invisible logo. */
+    --logo-mark: #1a3a2a;
 
     --bg: var(--paper);
     --bg-section: var(--warm-white);
@@ -93,11 +128,26 @@
     --purple: #a78bfa;
     --sky: #38bdf8;
     --green-700: #4ade80;
+    /* Band text colours, dark theme. See the note beside the light values. */
+    --aqi-good: #4ade80;
+    --aqi-moderate: #fcd34d;
+    --aqi-poor: #fdba74;
+    --aqi-very-poor: #fca5a5;
+    --aqi-severe: #c4b5fd;
+    --aqi-hazardous: #f9a8d4;
+    --pm-b1: #4ade80;
+    --pm-b2: #bef264;
+    --pm-b3: #fcd34d;
+    --pm-b4: #fdba74;
+    --pm-b5: #fca5a5;
+    --pm-b6: #f9a8d4;
+    --pm-b7: #f5b8c8;
     --delta-up: #fdb874;    /* 8.64:1 on the dark surface */
     --delta-down: #7cc7f5;  /* 8.45:1 */
     --green-600: #6ee7a0;
     --pink: #f472b6;
-    --on-accent: #0e0e0c; /* dark text on the bright dark-theme --accent */
+    --on-accent: #0e0e0c; /* near-black on the bright dark-theme tones: 6.99-11.57:1 */
+    --logo-mark: #7fd6a0;   /* 7.6:1 on the dark page */
     --ink: #e8e8e2;
     --border: #2a2a28;
     --border-light: #222220;
@@ -155,8 +205,14 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     animation: tickerScroll 120s linear infinite;
 }
 .ticker-item { padding: 0 24px; display: inline-flex; align-items: center; gap: 8px; }
-.ticker-city { color: rgba(255,255,255,0.5); }
-.who-multiple { color: rgba(255,255,255,0.3); font-size: 0.65rem; }
+.ticker-city { color: #cfd8d1; }   /* was 50% alpha: 3.9:1. Now 7.0:1 on the bar. */
+/* The ticker's WHO multiple is the most alarming number on the page and was
+   the least legible text on it: white at 30% alpha over the dark green bar
+   measures 2.65:1 in light and 2.56:1 in dark. De-emphasis is right, alpha
+   is the wrong way to carry it, because alpha cannot be measured from the
+   stylesheet. 0.72 opaque white on that bar is 5.33:1 and still reads as
+   secondary next to the full-white city name. */
+.who-multiple { color: #b9c6bd; font-size: 0.65rem; }
 @keyframes tickerScroll { to { transform: translateX(-50%); } }
 
 /* ── Header ──────────────────────────────── */
@@ -620,7 +676,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     display: inline-flex; align-items: center; justify-content: center;
     transition: all 0.15s; padding: 0; flex-shrink: 0;
 }
-.share-aqi-btn:hover { background: var(--accent); color: #fff; }
+.share-aqi-btn:hover { background: var(--accent); color: var(--on-accent); }
 .share-aqi-btn .si { width: 12px; height: 12px; }
 .share-card-section {
     background: var(--bg-card); border: 1px solid var(--border);
@@ -747,7 +803,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .demo-badge {
     display: none; position: fixed; top: 8px; right: 8px; z-index: 999;
     padding: 4px 12px; background: var(--amber);
-    color: white; font-size: 0.65rem; font-weight: 700;
+    color: var(--on-accent); font-size: 0.65rem; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.08em;
     border-radius: 4px; font-family: var(--mono);
 }
@@ -1160,7 +1216,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .btn:hover { box-shadow: var(--shadow-sm); text-decoration: none; }
 .btn-sm { font-size: 0.75rem; padding: 5px 12px; }
-.btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .btn-primary:hover { background: var(--accent-hover); }
 /* In dark theme --accent is a bright green; white text on it fails contrast,
    so use dark text on primary buttons there. */
@@ -1273,7 +1329,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     cursor: pointer; transition: all 0.15s; line-height: 1.4;
 }
 .testimony-lang-btn:hover { border-color: var(--green-700); color: var(--green-700); }
-.testimony-lang-btn.active { background: var(--green-700); border-color: var(--green-700); color: #fff; }
+.testimony-lang-btn.active { background: var(--green-700); border-color: var(--green-700); color: var(--on-accent); }
 .testimony-grid {
     display: grid; gap: 14px;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -1374,7 +1430,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .aqi-city-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 4px; }
 .city-rank { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 0.82rem; }
 .rank-num { width: 22px; height: 22px; border-radius: 50%; background: var(--bg-section); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; }
-.rank-num.top { background: var(--red); color: white; }
+.rank-num.top { background: var(--red); color: var(--on-accent); }
 .city-rank-name { flex: 1; }
 .city-rank-aqi { padding: 2px 8px; border-radius: 4px; color: white; font-family: var(--mono); font-size: 0.75rem; }
 
@@ -1452,7 +1508,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     background: var(--bg-card);
     color: var(--text);
 }
-.search-btn { padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: var(--radius); cursor: pointer; font-family: var(--sans); font-size: 0.85rem; }
+.search-btn { padding: 10px 20px; background: var(--accent); color: var(--on-accent); border: none; border-radius: var(--radius); cursor: pointer; font-family: var(--sans); font-size: 0.85rem; }
 
 /* Tool cards */
 .tool-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
@@ -1520,7 +1576,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 #map-time-slider-bar .ts-live-btn {
     font-family: var(--sans, system-ui); font-size: 0.75rem; font-weight: 600;
     padding: 5px 12px; border: 0; border-radius: 7px; cursor: pointer;
-    background: var(--accent, #1B6B4A); color: #fff; white-space: nowrap;
+    background: var(--accent, #1B6B4A); color: var(--on-accent); white-space: nowrap;
     transition: background 0.15s, transform 0.05s;
 }
 #map-time-slider-bar .ts-live-btn:hover { filter: brightness(1.1); }
@@ -1725,7 +1781,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .fab-btn {
     position: fixed; bottom: 24px; right: 24px; z-index: 500;
     width: 52px; height: 52px; border-radius: 50%; border: none;
-    background: var(--accent); color: #fff; cursor: pointer;
+    background: var(--accent); color: var(--on-accent); cursor: pointer;
     box-shadow: 0 4px 16px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -1738,7 +1794,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .back-home-btn {
     position: fixed; bottom: 24px; left: 24px; z-index: 600;
     width: 52px; height: 52px; border-radius: 50%; border: 2px solid #fff;
-    background: var(--accent); color: #fff; cursor: pointer;
+    background: var(--accent); color: var(--on-accent); cursor: pointer;
     box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
@@ -1825,7 +1881,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .widget-feedback textarea { min-height: 80px; }
 .widget-submit-btn {
     padding: 10px 20px; font-family: var(--sans); font-size: 0.8125rem; font-weight: 600;
-    background: var(--accent); color: #fff; border: none; border-radius: 8px; cursor: pointer;
+    background: var(--accent); color: var(--on-accent); border: none; border-radius: 8px; cursor: pointer;
     transition: opacity 0.15s; align-self: flex-start;
 }
 .widget-submit-btn:hover { opacity: 0.9; }
@@ -2550,7 +2606,7 @@ body.simple-language .section-intro [data-simple]::after {
 }
 .panel-action-box .action-btn {
     font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
-    background: var(--accent); color: white; border: none;
+    background: var(--accent); color: var(--on-accent); border: none;
     border-radius: 6px; padding: 0.5rem 1.25rem; cursor: pointer;
     white-space: nowrap; transition: background 0.15s ease;
 }
@@ -2597,7 +2653,7 @@ body.simple-language .section-intro [data-simple]::after {
     left: 50%;
     transform: translateX(-50%);
     background: var(--accent);
-    color: #fff;
+    color: var(--on-accent);
     padding: 12px 24px;
     border-radius: 0 0 8px 8px;
     font-family: var(--sans);
