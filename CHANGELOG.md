@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.190] - 2026-09-17
+
+### Fixed — four contrast failures on the blog, three of them dark-mode only
+
+A reader opened *Thirty-Three Cities* on a phone in dark mode and could not read the page. Four separate faults, all confirmed by loading the real stylesheets into Chromium and reading computed styles, and all measured rather than eyeballed.
+
+**Inline `code` sat at 1.37:1.** The theme takes inline code's colour from `--code-inline-color`, which falls back to `--code-theme-text`. The dark block set `--code-theme-background` and never set the text colour, so every inline span rendered `#333` on `#161b22`. There *was* a rule meant to fix this, and it never applied: the theme targets `.markdown-section code:not([class*=lang-]):not([class*=language-])`, which outspecifies a plain `body[data-theme] .markdown-section code`. Fenced blocks were unaffected for the same reason in reverse — they carry a `lang-` class, so the old rule reached them. Now `#e2e8f0` on `#161b22`, 14.03:1.
+
+**The prism token palette was the light-theme one, on a dark background.** `tag` 2.05:1, `keyword` 3.48:1, `function` 4.33:1, `comment` 4.25:1. Nine token colours replaced; the lowest now measures 7.08:1.
+
+**The previous-post link was faded to 30% opacity, in both themes.** `docsify-pagination` injects its own stylesheet into `<head>` at runtime, after everything here, and fades the previous block whenever a next post exists. Alpha applies to the text the reader is meant to click: 1.94:1 on the light page, 2.24:1 on the dark one, making the link the least legible text on the post. The de-emphasis is kept and now carried in colour, which can be measured, rather than alpha, which cannot.
+
+**The dark divider above the pagination was missing.** `--pagination-border-top` is a border *shorthand*; the dark block gave it a bare hex, which made the whole declaration invalid.
+
+Two things worth keeping in mind. Contrast here depends on the *specificity* of a third-party selector and on a stylesheet injected after ours, so reading our own CSS proves nothing; the fix was verified by building a harness from the real `theme-simple.css` and the plugin's runtime CSS, reproducing all four failures against the previous commit, and re-measuring. And an `opacity` rule is invisible to a colour audit that reads declared hex values, because the failing colour never appears in any stylesheet.
+
 ## [v26.6.189] - 2026-09-17
 
 ### Fixed — wording that talked down the site's own air layers
