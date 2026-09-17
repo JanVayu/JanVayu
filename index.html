@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606192">
+    <link rel="preload" as="style" href="/styles.css?v=202606193">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1931,7 +1931,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606192"></script>
+    <script src="/app.js?v=202606193"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -3041,7 +3041,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                                 <tr>
                                     <th style="width: 50px; text-align: center;">#</th>
                                     <th style="min-width: 140px;">City</th>
-                                    <th style="text-align: right; min-width: 100px;">PM2.5 (µg/m³)</th>
+                                    <th style="text-align: right; min-width: 100px;">PM2.5 <span style="text-transform:none;">(µg/m³)</span></th>
                                     <th style="text-align: right; min-width: 60px;">AQI</th>
                                     <th style="text-align: right; min-width: 70px;">vs WHO</th>
                                     <th style="text-align: right; min-width: 60px;">Δ 7d</th>
@@ -3732,7 +3732,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <div class="stat-strip" style="margin-bottom: 1rem;">
                     <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">60-80%</div><div class="stat-label">Indoor PM2.5 as % of outdoor (homes without purifiers)</div></div>
                     <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">40%</div><div class="stat-label">Indian households using solid fuel (Census/NFHS-5)</div></div>
-                    <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">500+</div><div class="stat-label">Indoor PM2.5 (µg/m³) during biomass cooking</div></div>
+                    <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">500+</div><div class="stat-label">Indoor PM2.5 <span style="text-transform:none;">(µg/m³)</span> during biomass cooking</div></div>
                     <div class="stat-strip-item"><div class="number-callout" style="color: var(--amber);">3.8M</div><div class="stat-label">Deaths globally from household air pollution (WHO)</div></div>
                 </div>
                 <p style="font-size: 0.875rem; color: var(--text-2);" data-simple="Cooking with wood, cow dung, or coal kills 3.8 million people every year worldwide (WHO). In India, women cooking with these fuels breathe in 10-20 times more pollution than the safe limit. Small children in these homes get lung infections 2-3 times more often than children in homes using gas stoves.">The WHO estimates that household air pollution from solid fuel combustion causes 3.8 million premature deaths annually. In India, women who cook with biomass have PM2.5 exposure levels 10-20x the WHO guideline during cooking hours. Children under five in these households face acute respiratory infections at rates 2-3x higher than those in LPG-using homes.</p>
@@ -3895,7 +3895,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
     <div class="stat-strip" style="margin-bottom: 2rem;">
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--ink);">~70%</div><div class="stat-label">Rural Indian women still cook with solid fuels (NFHS-5, 2019-21)</div></div>
-        <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">3&ndash;5%</div><div class="stat-label">Increase in preterm birth risk per +10 &micro;g/m&sup3; PM2.5 (Lancet Planetary Health 2023)</div></div>
+        <div class="stat-strip-item"><div class="number-callout" style="color: var(--purple);">3&ndash;5%</div><div class="stat-label">Increase in preterm birth risk per <span style="text-transform:none;">+10 &micro;g/m&sup3;</span> PM2.5 (Lancet Planetary Health 2023)</div></div>
         <div class="stat-strip-item"><div class="number-callout" style="color: var(--red);">~500K</div><div class="stat-label">Indian women die annually from household air pollution (GBD 2021)</div></div>
     </div>
 

@@ -57,6 +57,15 @@ jobs:
       - name: Check the national deweathering layer
         run: python3 scripts/build-deweathered-national.py --check
 
+      # text-transform: uppercase is a display rule except for one character:
+      # CSS maps U+00B5 MICRO SIGN to Greek capital Mu, so a label reading
+      # "µg/m³" renders as "ΜG/M³" and a reader parses milligrams. A factor of
+      # a thousand on the unit, with nothing wrong in the source, no console
+      # error, and nothing to see in a diff. Two live instances existed,
+      # including the AQI explainer's own breakpoint table.
+      - name: Check no unit renders as milligrams
+        run: python3 scripts/check-uppercase-units.py
+
       # The four workshop decks in workshops/ are plain Markdown so anyone can
       # import them into Workshopy, project them or translate them. Three ways
       # they break without rendering wrong: a deck path in workshops.json that

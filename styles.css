@@ -20,6 +20,13 @@
     --green-900: #0f2b1c;
     --green-800: #14532D;
     --green-700: #146c33; /* darkened from #15803D so green text meets AA 4.5:1 on tinted card backgrounds, not just white */
+    /* Above / below a reference value, for the station-vs-satellite table and
+       its scatter. Defined as tokens rather than written into app.js because
+       the first version hardcoded #b45309 and #0369a1, which measure 4.97:1
+       and 5.88:1 here and 3.85:1 and 3.26:1 on the dark surface. A literal in
+       JS cannot know which theme it landed in. */
+    --delta-up: #a14708;    /* reads above the reference: 5.95:1 on this surface */
+    --delta-down: #01557f;  /* reads below: 7.86:1 */
     --green-600: #157f3c; /* darkened from #16A34A so green text meets AA 4.5:1 on white */
     --green-500: #22C55E;
     --green-400: #4ADE80;
@@ -86,6 +93,8 @@
     --purple: #a78bfa;
     --sky: #38bdf8;
     --green-700: #4ade80;
+    --delta-up: #fdb874;    /* 8.64:1 on the dark surface */
+    --delta-down: #7cc7f5;  /* 8.45:1 */
     --green-600: #6ee7a0;
     --pink: #f472b6;
     --on-accent: #0e0e0c; /* dark text on the bright dark-theme --accent */

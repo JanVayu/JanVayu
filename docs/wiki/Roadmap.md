@@ -4,6 +4,11 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+- [x] **A surface for the instrument record** *(v26.6.193)* — `station-observed.json` had been data with no UI since v26.6.184. Now a section of the Data Source Selector, under the satellite card it checks: a scatter of all 276 paired stations against the satellite figure for their district, r 0.834, with the 1:1 line drawn and the disclosure that neither number corrects the other.
+- [x] **The de-weathering panel covers 44 cities** *(v26.6.193)* — a city selector over `deweathered-national.json`, whole years 2018–2024. **The Delhi-NCR run stays on the page**: it carries 95% intervals and a placebo test that the national file does not, and swapping it out would have traded rigour for coverage silently.
+- [x] **A unit that rendered as milligrams** *(v26.6.193)* — `text-transform: uppercase` maps U+00B5 to Greek capital Mu, so `µg/m³` reads as `ΜG/M³`. Two live instances, one of them in the AQI explainer's own breakpoint table. Guard: `check-uppercase-units.py`.
+- [x] **Why the retraction register missed `23/96`** *(v26.6.193)* — the claim was retracted correctly on 8 September; the pattern required the word "of" and the file used a slash. A retraction only removes a claim in the shapes somebody thought to write down.
+
 ## Phase 5.27: The new layers reach the surfaces people actually use (✅ Completed — v26.6.191)
 
 Two layers shipped in Phase 5.26 as data and a blog post. Neither had reached the assistant or the FAQ, which is where most people ask.
@@ -27,7 +32,7 @@ Two layers shipped in Phase 5.26 as data and a blog post. Neither had reached th
 - [x] **Normalisation mostly confirms the raw number, and where it does not, it is kinder** — only 6 of 44 cities shift by ≥1 µg/m³/yr, and in five the raw figure was *understating* the improvement. The intuitive fear is a city claiming credit the wind earned; on this record that is rare, and the raw number is usually the more pessimistic one.
 - [x] **Meteorology in IST, wind as a vector** — Open-Meteo hourly at each city's station centroid, `timezone=Asia/Kolkata`, because XKDR's `collected_at` is a naive IST stamp and a UTC series would be misaligned by 5½ hours. Wind averaged as u and v separately: averaging compass degrees across the 360/0 boundary is meaningless.
 
-**Follow-ups opened by this phase:** migrate the Delhi deweathering panel in `app.js` from `deweathered.json` to the national file; a renderer for `station-observed.json`, which currently ships as data with no surface; and whether to tell XKDR their CPCB ingestion has stalled.
+**Follow-ups opened by this phase:** ~~migrate the Delhi deweathering panel in `app.js` from `deweathered.json` to the national file~~ *(done, v26.6.193 — and the Delhi run is kept beside it, because it has the confidence intervals the national file does not)*; ~~a renderer for `station-observed.json`, which currently ships as data with no surface~~ *(done, v26.6.193, in the Data Source Selector)*; and whether to tell XKDR their CPCB ingestion has stalled.
 
 ## Phase 5.25: A history to compare against, and the corrections that had never travelled (✅ Completed — v26.6.172–175)
 

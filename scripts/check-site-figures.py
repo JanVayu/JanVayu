@@ -16,6 +16,41 @@ different number in front of the same phrase.
 It is deliberately narrow: it only checks figures it can derive from a file in
 the repo. A number nobody can recompute is not something a script should be
 policing.
+
+**A second kind of figure was added on 2026-09-17, for a failure that principle
+does not cover.** A *cited constant* comes from somebody else's report and can
+never be recomputed here: the NCAP compliance count is CREA's, not ours. What it
+can be held to is a single declared value with its source, recorded once in
+`scripts/stats.json`.
+
+The history is worth knowing, because two separate things had to go wrong. The
+27 July 2026 fact-check round rewrote the denominator from 100 to 96 while
+correctly removing a fabricated citation from the same line; it harmonised the
+figure with the site's own earlier wrong text instead of checking CREA, whose
+report says 102 NCAP cities have monitoring stations, 100 of those reported 80%
+or more PM10 data coverage, and 23 met the target. The claim was then properly
+retracted on 8 September and entered in `check-retracted-claims.py`. It still
+survived another nine days in `netlify/functions/air-query.mjs`, because that
+file wrote it with a slash rather than the word "of" and the retraction pattern
+required the word. The register was right and the retraction was right; the
+claim reached the page in a shape the pattern did not describe.
+
+So two guards now cover it from different directions. `check-retracted-claims.py`
+refuses the wrong value in any separator. This script holds every page to the
+one declared value, which also catches a *new* wrong denominator that no
+retraction has been written for yet.
+
+The lesson generalises past this one number: **a fact-check entry that reads
+"matching the fix already applied elsewhere on the site" is a consistency edit,
+not a verification.** Five entries in that round are phrased that way. The NCAP
+denominator is the one that was wrong. The 15th Finance Commission's "42
+million-plus cities" was checked against PIB afterwards and holds. The CAAQMS
+city count carries its own CREA table citation in the same round, so it is
+verified rather than merely harmonised. The Delhi e-bus count and the EV scheme
+outlays cite other pages of this site and nothing else, and have not been
+checked against a primary source; they may well be right, which is the point.
+The two kinds of edit are worth naming differently in the log, because only one
+of them is evidence.
 """
 import argparse
 import json
@@ -108,6 +143,25 @@ RULES = [
     ('ulbs', [r'{n}\s+(?:ULBs|urban\s+local\s+bodies)']),
 ]
 
+# ── Cited constants ────────────────────────────────────────────────────────
+# Externally-sourced numbers that cannot be recomputed from this repo, but can
+# be held to one declared value. Each is recorded once in scripts/stats.json,
+# with its source, and every page quoting it must agree.
+CITED_RULES = [
+    # Matches "23 of the 100 cities with sufficient data" and "23/100 cities",
+    # and any other denominator written in either shape, which is the point.
+    ('ncap_40pct_met', 'denominator', [
+        r'23\s*(?:of|/)\s*(?:the\s+)?([\d,]{1,6})\s+cities',
+        r'23\s+of\s+(?:the\s+)?([\d,]{1,6})\s+NCAP\s+cities',
+    ]),
+]
+
+
+def cited_truth():
+    """Declared values for figures that come from somebody else's report."""
+    return json.loads((ROOT / 'scripts/stats.json').read_text(encoding='utf-8'))
+
+
 NUM = r'([\d,]{1,12})'
 
 
@@ -151,14 +205,41 @@ def main():
                     if not ok:
                         drift.append((rel, line, key, got, T[key]))
 
+    # Second pass: cited constants, held to the single value in stats.json.
+    C = cited_truth()
+    for rel in PAGES:
+        p = ROOT / rel
+        if not p.exists():
+            continue
+        text = p.read_text(encoding='utf-8', errors='replace')
+        for key, field, patterns in CITED_RULES:
+            want_raw = (C.get(key) or {}).get(field)
+            if want_raw is None:
+                continue
+            want = int(str(want_raw).replace(',', ''))
+            for pat in patterns:
+                for m in re.finditer(pat, text, re.I):
+                    try:
+                        got = int(m.group(1).replace(',', ''))
+                    except ValueError:
+                        continue
+                    line = text.count('\n', 0, m.start()) + 1
+                    ok = got == want
+                    if args.list:
+                        print(f'  {"ok " if ok else "OFF"} {rel}:{line}  {key}.{field} = {got:,}')
+                    if not ok:
+                        src = (C[key].get('source') or 'no source recorded')
+                        drift.append((rel, line, f'{key}.{field} (cited: {src})', got, want))
+
     if not drift:
-        print('No drift: every checkable figure on the site matches the data.')
+        print('No drift: every checkable figure on the site matches the data, '
+              'and every cited constant matches scripts/stats.json.')
         return 0
 
     print(f'{len(drift)} figure(s) out of step with the data:\n')
     for rel, line, key, got, want in drift:
         print(f'  {rel}:{line}')
-        print(f'    {key}: page says {got:,}, data says {want:,}')
+        print(f'    {key}: page says {got:,}, the record says {want:,}')
     return 1
 
 
