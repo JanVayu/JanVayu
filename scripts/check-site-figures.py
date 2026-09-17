@@ -89,6 +89,43 @@ CITATION_MARKERS = re.compile(
 CONTEXT = 200   # characters either side to inspect for those markers
 
 
+def clause(text, pos):
+    """The clause the number sits in, not a fixed window around it.
+
+    CITATION_MARKERS exists so that "655 districts" in a description of somebody
+    else's study is not read as a claim about our coverage. It used to look
+    within CONTEXT characters either way, which is wide enough to catch a marker
+    belonging to a different sentence. The homepage's own meta description says
+    "Live PM2.5 data for 30+ cities" and, a clause later, cites the Lancet -- so
+    the word Lancet exempted the city count, and "30+" sat in the first thing a
+    search engine and a shared link show, while the table held 160, unnoticed by
+    a guard built to notice exactly that.
+    """
+    left = max((text.rfind(c, max(0, pos - CONTEXT), pos) for c in '.<|;\n'), default=-1)
+    right_candidates = [text.find(c, pos, pos + CONTEXT) for c in '.<|;\n']
+    right_candidates = [r for r in right_candidates if r != -1]
+    right = min(right_candidates) if right_candidates else pos + CONTEXT
+    return text[left + 1 if left != -1 else max(0, pos - CONTEXT):right]
+
+# A dated release note is a record of what was true then, not a claim about now.
+# CHANGELOG.md and the roadmap are kept out of PAGES for that reason, but
+# panels/about.html carries a scrollable Version History inside a page that is
+# otherwise present-tense, so the exclusion has to work at line level too:
+# "Live AQI data integration via WAQI API for 16 Indian cities" is correct
+# history and was reported as drift until this existed.
+# Accepts a single version or a range, with or without a day: both
+# "v18.0 &mdash; 22 Feb 2026" and "v10.0-14.0 &mdash; Feb 2026" appear in that
+# history, and a first version of this regex required the day and missed the
+# second one.
+HISTORY_MARKER = re.compile(
+    r'v\d+(?:\.\d+)*(?:\s*[-\u2013\u2014]\s*\d+(?:\.\d+)*)?'
+    r'\s*(?:&mdash;|&ndash;|[-\u2013\u2014])\s*(?:\d{1,2}\s+)?'
+    r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w*\s+20\d{2}',
+    re.I,
+)
+HISTORY_LOOKBACK = 1200   # a release block is longer than CONTEXT
+
+
 def truth():
     """Every figure this script is willing to police, derived from the data."""
     out = {}
@@ -104,6 +141,24 @@ def truth():
     cy = ROOT / 'data/current-year-air.json'
     if cy.exists():
         out['current_year_districts'] = len(json.loads(cy.read_text())['districts'])
+
+    # The live dashboard's city list, counted from the table app.js actually
+    # ships. The site said "157 cities" in a dozen places and "30+ cities" in
+    # its own meta description, og:description and JSON-LD -- the three things
+    # a search engine and a shared link show first -- while the table held 160.
+    # Nothing was watching the one number the front page leads with.
+    app = (ROOT / 'app.js').read_text(encoding='utf-8')
+    i = app.find('const CITIES = {')
+    if i != -1:
+        depth, j = 0, app.index('{', i)
+        for k in range(j, len(app)):
+            if app[k] == '{':
+                depth += 1
+            elif app[k] == '}':
+                depth -= 1
+                if depth == 0:
+                    break
+        out['live_cities'] = len(re.findall(r'(?m)^\s{4,8}[a-zA-Z0-9_-]+:\s*\{\s*name:', app[j:k + 1]))
 
     lv = ROOT / 'data/tiles/_levels.json'
     if lv.exists():
@@ -130,7 +185,14 @@ RULES = [
         r'{n}(?:\s+(?:open-licensed|openly-licensed|open\s+licensed|documentary|CC|public-domain))*\s+photograph',
     ]),
     ('testimonies', [r'{n}\s+(?:first-person\s+)?testimonies', r'{n}\s+people,\s*\d+\s+languages']),
-    ('testimony_cities', [r'across\s+{n}\s+cities']),
+    # "across N cities" alone is far too loose: it matched "Compare AQI across
+    # 160 cities" and a cited study's "confirmed across 620 cities in 36
+    # countries". The wall is the only thing this figure describes, so require
+    # the wall to be named in the same clause.
+    ('testimony_cities', [
+        r'(?:testimon\w*|voices|accounts)[^.<|]{0,60}?(?:across|from)\s+{n}\s+cities',
+        r'{n}\s+cities[^.<|]{0,40}?(?:testimon\w*|voices)',
+    ]),
     ('boundary_areas', [r'{n}\s+areas']),
     ('wards', [r'{n}\s+municipal\s+wards', r'all\s+{n}\s+wards']),
     ('villages', [r'{n}\s+villages']),
@@ -139,6 +201,18 @@ RULES = [
     # overlap. Only a claim about what the site COVERS is ours to police.
     ('districts', [r'all\s+{n}\s+districts', r'{n}\s+districts\s+(?:in|across)\s+India',
                    r"India'?s\s+{n}\s+districts"]),
+    # Live-dashboard cities. Narrow on purpose: "N cities" alone describes the
+    # ward atlas (142), testimony (107), NCAP (131) and the bulletin layer (289)
+    # as well, so only phrasings that clearly mean the live dashboard count.
+    ('live_cities', [
+        r'(?:live|real[- ]time)\s+(?:PM2\.?5|AQI)[^.<|]{0,40}?(?:for|across)\s+{n}\+?\s+(?:Indian\s+)?cities',
+        r'PM2\.?5\s+and\s+AQI\s+(?:data\s+)?(?:for|across)\s+{n}\+?\s+(?:Indian\s+)?cities',
+        r'Live\s+AQI\s*(?:&#8212;|&mdash;|-|\u2014)\s*{n}\+?\s+cities',
+        r'live\s+AQI\s+for\s+{n}\+?\s+cities',
+        r'hour-by-hour\s+picture\s+for\s+{n}\+?\s+cities',
+        r'Compare\s+AQI\s+across\s+{n}\+?\s+cities',
+        r'Real-time\s+PM2\.?5\s+for\s+{n}\+?\s+cities',
+    ]),
     ('panchayats', [r'{n}\s+gram\s+panchayats?']),
     ('ulbs', [r'{n}\s+(?:ULBs|urban\s+local\s+bodies)']),
 ]
@@ -195,9 +269,11 @@ def main():
                         got = int(raw.replace(',', ''))
                     except ValueError:
                         continue
-                    around = text[max(0, pos - CONTEXT):pos + CONTEXT]
+                    around = clause(text, pos)
                     if CITATION_MARKERS.search(around):
                         continue   # somebody else's study, not our coverage
+                    if HISTORY_MARKER.search(text[max(0, pos - HISTORY_LOOKBACK):pos]):
+                        continue   # inside a dated release note
                     line = text.count('\n', 0, pos) + 1
                     ok = got == T[key]
                     if args.list:

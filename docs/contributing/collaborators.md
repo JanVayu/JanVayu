@@ -21,7 +21,7 @@ This is the backbone of the platform's credibility. JanVayu cites only peer-revi
 - Identifying, reading, and adding papers to the [JanVayu Zotero group](https://www.zotero.org/groups/6508140/janvayu/library), with a focus on PM2.5 health burden, source apportionment, occupational exposure, indoor air, and economic cost
 - Translating research findings into platform-legible numbers (e.g., updating GEMM model parameters when new GBD data drops, revising city-level mortality estimates)
 - Writing data notes and methodology documentation when numbers are updated
-- Compiling state and city-level data that currently has gaps — the platform covers 30+ cities but is thin on second-tier cities and state-level NCAP data
+- Compiling state and city-level data that currently has gaps — the platform covers 160 cities but is thin on second-tier cities and state-level NCAP data
 - Supporting the environmental justice section with disaggregated data on caste, gender, occupation, and geography
 
 **Typical deliverable:** Annotated research entry in Zotero + a short update note for the platform changelog.

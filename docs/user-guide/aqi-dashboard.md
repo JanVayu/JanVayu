@@ -1,6 +1,6 @@
 # AQI Dashboard
 
-The AQI Dashboard provides live air quality readings for 30+ Indian cities, updated automatically every 10 minutes directly from WAQI and CPCB monitoring stations.
+The AQI Dashboard provides live air quality readings for 160 Indian cities, updated automatically every 10 minutes directly from WAQI and CPCB monitoring stations.
 
 ---
 
@@ -29,7 +29,7 @@ The AQI Dashboard provides live air quality readings for 30+ Indian cities, upda
 
 ## Cities Covered
 
-The dashboard covers 30+ cities including:
+The dashboard covers 160 cities including:
 
 **Northern India:** Delhi, Gurgaon, Noida, Faridabad, Ghaziabad, Lucknow, Kanpur, Agra, Varanasi, Jaipur, Chandigarh
 

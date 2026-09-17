@@ -172,6 +172,18 @@
     return el;
   }
 
+  // Where in the slot the button lands. Default is the end of the row, which is
+  // where it has always gone. A site that wants it somewhere else names an
+  // element to sit in front of: data-dyslexia-before="#docsLink" on the slot.
+  // Opt-in on purpose -- this file is shared across nine pages and a change to
+  // the default would move the button on all of them.
+  function place(h, b) {
+    var sel = h.getAttribute && h.getAttribute('data-dyslexia-before');
+    var ref = sel ? h.querySelector(sel) : null;
+    if (ref && ref.parentElement === h) h.insertBefore(b, ref);
+    else h.appendChild(b);
+  }
+
   function init() {
     if (document.getElementById('dys-font-btn')) return;
     var st = document.createElement('style');
@@ -201,7 +213,7 @@
     sync();
 
     var h = host();
-    if (h) { h.appendChild(b); return; }
+    if (h) { place(h, b); return; }
 
     // No home yet. Two of these sites build their masthead from JavaScript after
     // this runs, so a slot that does not exist at DOMContentLoaded may exist a
@@ -215,7 +227,7 @@
       var late = host();
       if (!late || late.contains(b)) return;
       b.className = '';
-      late.appendChild(b);
+      place(late, b);
       mo.disconnect();
     });
     mo.observe(document.body, { childList: true, subtree: true });

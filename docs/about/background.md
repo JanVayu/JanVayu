@@ -18,7 +18,7 @@ In Tamil: ஜன்வாயு | In Bengali: জনবায়ু | In Marathi
 
 ## Scope
 
-JanVayu is **national in scope** — it covers 30+ cities across all major regions of India, not only Delhi-NCR. It also specifically highlights disparities:
+JanVayu is **national in scope** — it covers 160 cities across all major regions of India, not only Delhi-NCR. It also specifically highlights disparities:
 
 - Women disproportionately exposed to household air pollution
 - Informal workers without protection from outdoor exposure
