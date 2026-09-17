@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.189] - 2026-09-17
+
+### Fixed — wording that talked down the site's own air layers
+
+The About panel and the roadmap introduced the observed station layer by saying that every PM2.5 figure JanVayu carried "had been modelled" and that "none is a reading". Both sentences are literally true and the framing is wrong: it reads as though what the site had was a stopgap.
+
+It was not. SatPM2.5 V6GL03 gives **every one of India's 5,84,615 villages** a 2024 annual figure. CAMS carries that to the current year. LongPMInd is peer-reviewed and reaches back to 1980. All three are calibrated against ground measurements, and all three answer a question the monitoring network structurally cannot: roughly 565 continuous stations cannot tell a village what its air is, and never will. That is why those layers exist, and it is not a compromise.
+
+What the site genuinely did not hold was the instrument record itself, which is what lets you check the other three against something independent. Both passages now say that instead.
+
+No figure changes. This is wording on two live surfaces, and it is worth its own entry because the error is one an engineer makes easily: describing the new thing by what the old thing lacked, when the old thing was chosen deliberately and does something the new thing cannot.
+
 ## [v26.6.188] - 2026-09-17
 
 ### Added — "Thirty-Three Cities Are Getting Cleaner. Eleven Are Not."
