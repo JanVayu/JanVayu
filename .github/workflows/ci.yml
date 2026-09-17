@@ -39,6 +39,16 @@ jobs:
       - name: Check stated figures against the data
         run: python3 scripts/check-site-figures.py
 
+      # data/station-observed.json is the only layer on the site built from
+      # instrument readings rather than a model, and it carries a correlation
+      # against the satellite layer in its own metadata. This recomputes that
+      # number from the records, so a hand-edited statistic cannot survive.
+      # Deliberately network-free: the third-party API it is built from does
+      # not belong in a per-push job. Rebuild with
+      # `python3 scripts/build-station-observed.py`.
+      - name: Check the observed station layer
+        run: python3 scripts/build-station-observed.py --check
+
       # data/stories.json feeds the homepage's blog section. It used to be
       # hand-maintained and went six posts stale, so the front page showed
       # nothing published that month. It is generated from blog/README.md now;
