@@ -21,6 +21,12 @@ Verified against the same PDFs: pre-fix, 2026-01-21 gives 247 rows with `gaps [2
 
 Each of the eight damaged files already carried `serial_gaps: [21]`. The backfill counted them as clean fetches and closed with `259 fetched, 0 failed`, so the loss was recorded and invisible for the whole run. The backfill now names the affected days and returns non-zero, and a single-date fetch exits non-zero on any gap or skipped row.
 
+### Added — an offline regression test for the row grammar
+
+`fetch-cpcb-bulletin.py` reads a live PDF, so no CI job could ever see it, and that is precisely why its one defect was invisible. `scripts/check-bulletin-parser.py` drives the grammar over synthetic bulletins carrying both published layouts and **every combination of day-of-month and page-break position**, plus a genuinely absent serial that must be reported rather than invented. No network, no PDF.
+
+Run against the pre-fix parser it fails on days 1, 11 and 21 with a page break every 10 rows, which is the useful part: the bug was never about the 21st. It was about the day of the month equalling the serial that follows a page break, and the 21st was simply where 2026's layout put the break. Wired into the `guard-site-figures` job.
+
 ### Added — `data/raw/cpcb-bulletins-2026.csv.gz`
 
 62,851 rows, 260 days, 1 January to 17 September 2026, parsed from CPCB's own PDFs. 350 KB, kept because the fetch takes about five hours and the parse is the expensive part.
