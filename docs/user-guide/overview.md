@@ -8,7 +8,7 @@ JanVayu is a single-page web application with 51 panels across 7 intent-based na
 
 | # | Section | What it shows |
 |---|---------|---------------|
-| 1 | **Real-Time AQI Dashboard** | Live PM2.5 and AQI for 30+ cities, auto-refreshed every 10 minutes via WAQI/CPCB. Includes cigarette-equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges, and an AQI-band solution-recommendation card |
+| 1 | **Real-Time AQI Dashboard** | Live PM2.5 and AQI for 160 cities, auto-refreshed every 10 minutes via WAQI/CPCB. Includes cigarette-equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges, and an AQI-band solution-recommendation card |
 | 2 | **"Near Me" geolocation** | One-tap nearest-station lookup via the browser's geolocation API |
 | 3 | **Interactive AQI Map** | Leaflet.js map with station-level markers, a heatmap-layer toggle, station popups, and a historical time-slider showing monthly PM2.5 from Jan 2024 to present |
 | 4 | **City Rankings** | Live / Past 7 days / Past 30 days rankings of Indian cities, sortable and searchable |
