@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 17 Sep 2026 | [What JanVayu Does That the Other Indian Air-Quality Sites Do Not](posts/2026-09-17-what-we-do-that-others-do-not.md) | Explainer |
 | 17 Sep 2026 | [The Workshop Is a File Now](posts/2026-09-17-the-workshop-is-a-file.md) | Platform |
 | 17 Sep 2026 | [Thirty-Three Cities Are Getting Cleaner. Eleven Are Not.](posts/2026-09-17-thirty-three-cities.md) | Analysis |
 | 8 Sep 2026 | [Was It Policy, or Was It the Wind?](posts/2026-09-08-was-it-policy-or-the-wind.md) | Analysis |

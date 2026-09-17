@@ -1,6 +1,13 @@
 {
  "stories": [
   {
+   "tag": "Explainer",
+   "title": "What JanVayu Does That the Other Indian Air-Quality Sites Do Not",
+   "date": "17 Sep 2026",
+   "blurb": "Dr Sarath Guttikunda published a list this month of where to get air-quality data for Indian cities.",
+   "url": "/blog/#/posts/2026-09-17-what-we-do-that-others-do-not"
+  },
+  {
    "tag": "Platform",
    "title": "The Workshop Is a File Now",
    "date": "17 Sep 2026",
