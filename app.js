@@ -1479,6 +1479,7 @@
 
         // Dashboard is special (always visible as hero)
         if (panelId === 'dashboard') {
+            document.body.classList.remove('panel-open');
             document.getElementById('panel-container').innerHTML = '';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             window.history.replaceState(null, '', '#dashboard');
@@ -1595,6 +1596,11 @@
     function loadPanel(panelId) {
         const container = document.getElementById('panel-container');
         const template = document.getElementById('tmpl-' + panelId);
+        // Set once here rather than in each of the three branches below: the
+        // lazy-fetch branch was missed the first time and it is the one that
+        // serves 17 of the panels. See .band-deep:last-child in styles.css for
+        // what this governs.
+        document.body.classList.add('panel-open');
         // Lazy panel: fetch its fragment on first open, then run the same inits.
         if (LAZY_PANELS[panelId] && (!template || !template.innerHTML.trim())) {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Loading&hellip;</p></div>';

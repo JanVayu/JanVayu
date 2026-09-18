@@ -3294,14 +3294,24 @@ body { font-size: 16.5px; }
    block on the page, 96px of its own margin plus the container's bottom
    padding put a 156px strip of cream between two identical dark areas, which
    reads as a mistake rather than as space. It runs into the footer instead. */
-.container > .band-deep:last-child {
-    margin-bottom: 0;
+/* Only while no panel is open. The band is the last child of ITS container,
+   but #panel-container is a separate container after it, so when a panel is
+   showing the -60px pull drags the panel's own content up into the band's dark
+   padding: measured at 1440px, the panel's first heading sat 40px INSIDE the
+   green. `body.panel-open` is set by showPanel() and cleared on Dashboard. */
+body:not(.panel-open) .container > .band-deep:last-child {
     /* The container's own bottom padding is set inline, so it cannot be
        overridden from here; a negative margin pulls the footer up through it
        and the band's padding covers the distance in dark green. */
     margin-bottom: -60px;
     padding-bottom: calc(clamp(48px, 6vw, 88px) + 60px);
 }
+.container > .band-deep:last-child { margin-bottom: 0; }
+
+/* A panel opening under a full-bleed dark band needs a real boundary, not the
+   60px it had. The band ends, the page changes colour, and the panel starts. */
+body.panel-open #panel-container { padding-top: 72px !important; }
+@media (max-width: 760px) { body.panel-open #panel-container { padding-top: 48px !important; } }
 
 /* Where the band runs into the footer, a rule states the join rather than
    leaving two dark greens to fade into one another. */
