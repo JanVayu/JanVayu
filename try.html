@@ -9,7 +9,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
 /* ── Tokens ────────────────────────────────────────────────────────────────
    Same three faces and the same greens as the live site. Everything else is
@@ -18,7 +18,7 @@
    loaded, so nothing here can inherit a colour it did not define. */
 :root{
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --serif:'Newsreader',Georgia,serif;
+  --serif:'Fraunces','Newsreader',Georgia,serif;
   --mono:'JetBrains Mono','Fira Code',monospace;
   --bg:#f7f4ec; --bg-answer:#fffdf6; --ink:#1a1a18; --ink-2:#4a4a46; --ink-3:#6f6f68;
   --edge:#e5e5dc; --rule:#1a1a18;
@@ -254,7 +254,7 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
     <button type="button" class="ctl" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langPop">
       <span id="langLabel">EN</span>
     </button>
-    <button type="button" class="ctl" id="plainBtn" aria-pressed="false" data-i18n="ctl_plain">Plain</button>
+    <button type="button" class="ctl" id="plainBtn" aria-pressed="false" data-i18n="ctl_plain">Simple</button>
     <button type="button" class="ctl" id="themeBtn" aria-label="Switch between light and dark" data-i18n="ctl_theme">Theme</button>
     <button type="button" class="ctl" id="indexBtn" aria-expanded="false" aria-controls="siteIndex" data-i18n="ctl_index">Index</button>
   </div>

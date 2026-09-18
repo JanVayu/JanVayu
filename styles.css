@@ -3369,3 +3369,45 @@ body { font-size: 16.5px; }
    its label floats away from its items. */
 .nav-item:hover .nav-dropdown-wide,
 .nav-item:focus-within .nav-dropdown-wide { align-items: start; }
+
+
+/* ── Hard edges ─────────────────────────────────────────────────────────────
+   The house style is a hard edge: no corner radius, no drop shadow, surfaces
+   that sit on the page rather than float above it. It is what /try
+   demonstrated and what the OpenStacks pages already use, and it is the look
+   the owner asked the whole site to adopt, inner pages included.
+
+   Enforced here in one place rather than by editing each declaration. There
+   are 104 rounded-rectangle rules in this file and 279 inline `border-radius`
+   values across index.html and the panels; editing them individually would
+   miss some and be undone by the next inline style somebody writes.
+
+   `!important` is load-bearing: an important author declaration outranks a
+   normal inline `style=`, which is the only way to reach those 279 without
+   rewriting the markup. The selector is kept at the lowest possible
+   specificity precisely so the exceptions below can outrank it with an
+   ordinary class. */
+body * { border-radius: 0 !important; box-shadow: none !important; }
+
+/* Round on purpose: pills (rank numbers, language badges, bar fills) and
+   circles (avatars, the live pulse, the floating buttons). Inline versions are
+   matched on the attribute, so markup that already means to stay round does,
+   without being rewritten. */
+[style*="border-radius:999px"], [style*="border-radius: 999px"],
+[style*="border-radius:9999px"], [style*="border-radius: 9999px"],
+.apportion-rowbar, .apportion-rowbar-fill, .back-home-btn, .gal-lb-btn,
+.rank-num, .share-aqi-btn, .story-week-tag,
+.testimony-lang-btn, .testimony-langbadge { border-radius: 999px !important; }
+
+[style*="border-radius:50%"], [style*="border-radius: 50%"],
+.pulse, .team-avatar, .voice-avatar, .fab-btn { border-radius: 50% !important; }
+
+/* The map's controls are third-party and its panes use radius for clipping
+   rather than decoration, so the map is left exactly as Leaflet draws it. */
+[class*="leaflet"] { border-radius: revert !important; box-shadow: revert !important; }
+
+/* Things that genuinely float above the page keep a shadow to say so.
+   Nothing else does. */
+.pop, .glossary-overlay, .role-overlay, .gal-lb, .nav-dropdown, .fab-btn {
+    box-shadow: 0 10px 30px rgba(0,0,0,.18) !important;
+}

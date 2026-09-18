@@ -1421,7 +1421,12 @@
         const root = document.documentElement;
         const isDark = root.getAttribute('data-theme') === 'dark';
         root.setAttribute('data-theme', isDark ? '' : 'dark');
-        document.getElementById('themeToggle').textContent = isDark ? '☾' : '☀';
+        // The button carries a Sargam icon rather than a text glyph now, so the
+        // toggle swaps the mask class instead of rewriting textContent, which
+        // would delete the icon span.
+        const themeIcon = document.querySelector('#themeToggle .si');
+        if (themeIcon) themeIcon.className = 'si ' + (isDark ? 'si-moon' : 'si-sun');
+        else document.getElementById('themeToggle').textContent = isDark ? '\u263e' : '\u2600';
         try { initAllCharts(); } catch(e) {}
     }
 
