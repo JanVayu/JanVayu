@@ -61,7 +61,16 @@ a:hover{color:var(--green-deep)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ── Bar ── */
-.bar{display:flex;align-items:center;gap:14px;padding:14px 0}
+/* Six controls do not fit one phone row. They wrap onto their own line
+   instead, because a bar that overflows does not look broken, it just stops
+   working: at 390px the theme button sat on top of the index button and
+   swallowed its taps. Measured, not guessed. */
+.bar{display:flex;align-items:center;gap:10px 14px;padding:12px 0;flex-wrap:wrap}
+.bar .right{flex-wrap:wrap;gap:8px}
+@media(max-width:620px){
+  .bar .mark{flex:1 0 auto}
+  .bar .right{width:100%;margin-left:0}
+}
 .mark{font-family:var(--serif);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
 .mark span{color:var(--green)}
 .bar .right{margin-left:auto;display:flex;gap:8px}
@@ -69,6 +78,42 @@ a:hover{color:var(--green-deep)}
   background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer;
   font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
 .ctl:hover{background:var(--ink);color:var(--bg)}
+
+/* Popovers for the role and language controls. Positioned by the bar, which
+   is why the bar is the positioning context. Each is a real list of buttons,
+   so both are reachable by keyboard without a hover state. */
+.bar{position:relative}
+.pop{position:absolute;top:calc(100% + 4px);right:0;z-index:40;min-width:270px;max-width:min(94vw,440px);
+  background:var(--bg-answer);border:1px solid var(--rule);padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.pop[hidden]{display:none}
+.popnote{margin:0 0 12px;font-size:.84rem;line-height:1.5;color:var(--ink-2)}
+.popgrid{display:flex;flex-wrap:wrap;gap:6px}
+.popgrid button{min-height:44px;padding:0 13px;background:none;border:1px solid var(--edge);color:var(--ink);
+  cursor:pointer;font-family:var(--sans);font-size:.9rem}
+.popgrid button:hover{border-color:var(--green);color:var(--green)}
+.popgrid button[aria-pressed="true"]{background:var(--ink);color:var(--bg-answer);border-color:var(--ink)}
+.ctl[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+/* js/dyslexia-font.js builds its own button and sizes it at 32px tall, which
+   is under the 44px touch target everything else here meets. Its documented
+   knobs cover colour and radius but not height, so the size is set from this
+   side. Worth fixing in the script itself: the same button is 32px on the
+   live site too. */
+.bar .right button[id*="dys"]{min-height:44px;padding-top:0;padding-bottom:0}
+/* Plain-language mode swaps which of the two phrasings is shown. Both are in
+   the markup, so nothing has to be fetched or rebuilt to switch. */
+body:not(.simple-language) [data-plain]{display:none}
+body.simple-language [data-full]{display:none}
+/* The role puts the column that is about you first, and marks it. */
+.who div[data-lead]{order:-1}
+.who div[data-lead] dt::after{content:" \2014 you";color:var(--green)}
+/* Filter on the index: the site's search, where the things being searched are. */
+.index .filter{display:flex;border-bottom:2px solid currentColor;max-width:420px;margin:0 0 18px}
+.index .filter input{flex:1;min-width:0;background:none;border:0;outline:0;color:inherit;
+  font-family:var(--sans);font-size:1.05rem;padding:10px 2px}
+.index .filter input::placeholder{color:currentColor;opacity:.6}
+.index section.hide{display:none}
+.index .grid a.hide{display:none}
+.index .none{opacity:.75;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
 
 /* ── The question ── */
 .ask{padding:12px 0 26px}
@@ -205,15 +250,29 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
 
 <header class="wrap bar">
   <a class="mark" href="/">Jan<span>Vayu</span></a>
-  <div class="right">
-    <button type="button" class="ctl" id="themeBtn" aria-label="Switch between light and dark">Theme</button>
-    <button type="button" class="ctl" id="indexBtn" aria-expanded="false" aria-controls="siteIndex">Index</button>
+  <div class="right" data-dyslexia-slot data-dyslexia-before="#themeBtn">
+    <button type="button" class="ctl" id="roleBtn" aria-haspopup="true" aria-expanded="false" aria-controls="rolePop">
+      <span id="roleLabel">Who you are</span>
+    </button>
+    <button type="button" class="ctl" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langPop">
+      <span id="langLabel">EN</span>
+    </button>
+    <button type="button" class="ctl" id="plainBtn" aria-pressed="false" data-i18n="ctl_plain">Plain</button>
+    <button type="button" class="ctl" id="themeBtn" aria-label="Switch between light and dark" data-i18n="ctl_theme">Theme</button>
+    <button type="button" class="ctl" id="indexBtn" aria-expanded="false" aria-controls="siteIndex" data-i18n="ctl_index">Index</button>
+  </div>
+  <div class="pop" id="rolePop" hidden>
+    <p class="popnote" data-i18n="role_why">Tell us who you are and the answer leads with the part that is about you. Kept on this device, never sent anywhere.</p>
+    <div class="popgrid" id="roleGrid"></div>
+  </div>
+  <div class="pop" id="langPop" hidden>
+    <div class="popgrid" id="langGrid"></div>
   </div>
 </header>
 
 <main>
   <section class="wrap ask" aria-labelledby="q">
-    <h1 id="q">What are you breathing, right now?</h1>
+    <h1 id="q"><span data-full>What are you breathing, right now?</span><span data-plain>What is in the air you are breathing?</span></h1>
     <form class="field" id="findForm" role="search">
       <label class="sr" for="place">Your city, ward or village</label>
       <input id="place" name="place" type="text" autocomplete="off" placeholder="Your city, ward or village" value="Delhi">
@@ -272,7 +331,7 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
     <div class="cols">
       <div class="col">
         <h2>Your air</h2>
-        <p class="lede">Tools that answer for you, not for the country.</p>
+        <p class="lede"><span data-full>Tools that answer for you, not for the country.</span><span data-plain>Things that tell you about your own air.</span></p>
         <a class="row" href="/#go-outside">Should I go outside?</a>
         <a class="row" href="/#exposure-diary">Exposure diary</a>
         <a class="row" href="/#purifier-calc">Purifier calculator</a>
@@ -281,7 +340,7 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
       </div>
       <div class="col">
         <h2>The evidence</h2>
-        <p class="lede">What this does to people, and how the measurement works.</p>
+        <p class="lede"><span data-full>What this does to people, and how the measurement works.</span><span data-plain>How dirty air hurts people, and how we measure it.</span></p>
         <a class="row" href="/#health">Health impact</a>
         <a class="row" href="/#children">Children's health</a>
         <a class="row" href="/#apportionment">Where PM2.5 comes from</a>
@@ -290,7 +349,7 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
       </div>
       <div class="col">
         <h2>Who decided</h2>
-        <p class="lede">Allocations, spending, court orders, and what changed.</p>
+        <p class="lede"><span data-full>Allocations, spending, court orders, and what changed.</span><span data-plain>Who was given money to fix this, what they spent, and what changed.</span></p>
         <a class="row" href="/#budget">NCAP budget tracker</a>
         <a class="row" href="/#policy">Policy tracker</a>
         <a class="row" href="/#accountability">CPCB bulletin record</a>
@@ -314,11 +373,11 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
     <div class="note">
       <div class="body">
         <div class="kicker">September 2026</div>
-        <p>The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the temperature inversions that hold everything down. What follows is not weather. It is the same set of decisions, taken again.</p>
+        <p><span data-full>The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the temperature inversions that hold everything down. What follows is not weather. It is the same set of decisions, taken again.</span><span data-plain>The rains end in the middle of this month. That ends the cleanest few weeks of the year for most of the country. Then come crop fires in Punjab and Haryana, Diwali, and cold air that traps the smoke near the ground. This is not bad luck. The same choices are made every year.</span></p>
       </div>
       <div class="side">
         <h2>Where the numbers come from</h2>
-        <p>Live readings come from India's continuous CPCB monitoring network, which is why they exist only where a machine does. Annual satellite estimates close the gap and reach every ward, panchayat and village. Eleven years of CPCB's own daily bulletins sit behind both.</p>
+        <p><span data-full>Live readings come from India's continuous CPCB monitoring network, which is why they exist only where a machine does. Annual satellite estimates close the gap and reach every ward, panchayat and village. Eleven years of CPCB's own daily bulletins sit behind both.</span><span data-plain>Live numbers come from government machines that measure the air. There is a machine only in some places. For everywhere else we use satellite pictures, which give a figure for the whole year rather than for today.</span></p>
         <a class="all" href="/#data-sources" style="display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green)">How JanVayu works</a>
       </div>
     </div>
@@ -332,6 +391,11 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
       <span class="t">Everything on this site</span>
       <button type="button" class="close" id="closeIndex" aria-label="Close index">&times;</button>
     </div>
+    <div class="filter">
+      <label class="sr" for="filter">Filter this list</label>
+      <input id="filter" type="text" autocomplete="off" placeholder="Filter&hellip;">
+    </div>
+    <p class="none" id="noHits" hidden>Nothing matches that</p>
     <div class="grid">
       <section>
         <h2>Your air</h2><div class="count">Eight</div>
@@ -379,6 +443,8 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
   </div>
 </div>
 
+<script src="/js/dyslexia-font.js" data-accent="var(--green)" data-radius="0"
+        data-idle-border="var(--ink)" data-font="var(--mono)" defer></script>
 <script src="/js/try-home.js" defer></script>
 </body>
 </html>

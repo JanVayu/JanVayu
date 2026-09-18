@@ -140,6 +140,8 @@
       ' µg/m³, a day of this is about ' + cigs +
       ' cigarettes of equivalent PM2.5 exposure (Berkeley Earth, 22 µg/m³ per cigarette).';
 
+    applyRole();
+
     for (var k = 0; k < 3; k++) {
       $('w' + (k + 1)).textContent = v.who[k][0];
       $('w' + (k + 1)).style.color = (v.who[k][0] === 'Fine' || v.who[k][0] === 'Mostly fine')
@@ -195,8 +197,200 @@
     fetchCity(name, lat, lon).then(renderAnswer);
   }
 
+
+  /* ── The site's own preferences, kept on the same keys ─────────────────
+   * Role, plain language and the dyslexia font already exist on janvayu.in.
+   * This page reads and writes the SAME storage keys, so a preference set
+   * here survives a move to the rest of the site and back. The dyslexia font
+   * is not reimplemented at all: js/dyslexia-font.js is the site's own script,
+   * dropped in, and it finds its slot from data-dyslexia-slot on the bar.
+   *
+   * Each control has to earn its place. A role that only remembers a word is
+   * decoration; here it decides WHICH of the three answers is shown first,
+   * because the whole point of the page is that the same reading means
+   * different things to different people. */
+
+  var ROLES = [
+    ['parent',      'Parent',      0], ['woman',       'Woman',       0],
+    ['teacher',     'Teacher',     0], ['student',     'Student',     2],
+    ['doctor',      'Doctor',      1], ['citizen',     'Citizen',     2],
+    ['activist',    'Activist',    2], ['journalist',  'Journalist',  2],
+    ['researcher',  'Researcher',  2], ['policymaker', 'Policymaker', 2],
+    ['ngo',         'NGO worker',  2], ['business',    'Business',    2]
+  ];
+  /* the third value is which of the three columns leads for that role:
+     0 = a child or over 65, 1 = asthma or a heart condition, 2 = healthy adult */
+
+  var LANGS = [['en','EN','English'],['hi','हि','हिन्दी'],['ta','த','தமிழ்'],
+               ['mr','म','मराठी'],['bn','ব','বাংলা']];
+
+  /* This page's own strings, in the five languages the site ships. Kept here
+     rather than reaching into app.js's table: that table is loaded by the
+     homepage and this page does not load app.js. The site forgets your
+     language on reload because it never stores it; this one stores it. */
+  var STRINGS = {
+    en: { ask:'What are you breathing, right now?', place:'Your city, ward or village',
+          near:'Near me', index:'Index', theme:'Theme', plain:'Plain', who:'Who you are',
+          filter:'Filter…', everything:'Everything on this site' },
+    hi: { ask:'आप अभी क्या साँस ले रहे हैं?', place:'आपका शहर, वार्ड या गाँव',
+          near:'मेरे पास', index:'सूची', theme:'थीम', plain:'सरल', who:'आप कौन हैं',
+          filter:'छाँटें…', everything:'इस साइट पर सब कुछ' },
+    ta: { ask:'இப்போது நீங்கள் என்ன சுவாசிக்கிறீர்கள்?', place:'உங்கள் நகரம், வார்டு அல்லது கிராமம்',
+          near:'எனக்கு அருகில்', index:'பட்டியல்', theme:'தீம்', plain:'எளிய', who:'நீங்கள் யார்',
+          filter:'வடிகட்டு…', everything:'இந்தத் தளத்தில் உள்ள அனைத்தும்' },
+    mr: { ask:'तुम्ही आत्ता काय श्वास घेत आहात?', place:'तुमचे शहर, वॉर्ड किंवा गाव',
+          near:'माझ्याजवळ', index:'सूची', theme:'थीम', plain:'सोपे', who:'तुम्ही कोण आहात',
+          filter:'गाळा…', everything:'या साइटवरील सर्व काही' },
+    bn: { ask:'আপনি এখন কী শ্বাস নিচ্ছেন?', place:'আপনার শহর, ওয়ার্ড বা গ্রাম',
+          near:'আমার কাছে', index:'তালিকা', theme:'থিম', plain:'সরল', who:'আপনি কে',
+          filter:'ছাঁকুন…', everything:'এই সাইটের সবকিছু' }
+  };
+
+  function applyLang(code) {
+    var s = STRINGS[code] || STRINGS.en;
+    var q = $('q');
+    if (q) {
+      var f = q.querySelector('[data-full]');
+      if (f) f.textContent = s.ask; else q.textContent = s.ask;
+    }
+    $('place').placeholder = s.place;
+    $('nearBtn').textContent = s.near;
+    $('indexBtn').textContent = s.index;
+    $('themeBtn').textContent = s.theme;
+    $('plainBtn').textContent = s.plain;
+    $('langLabel').textContent = (LANGS.filter(function (l) { return l[0] === code; })[0] || LANGS[0])[1];
+    var flt = $('filter'); if (flt) flt.placeholder = s.filter;
+    document.documentElement.lang = code;
+    try { localStorage.setItem('janvayu-lang', code); } catch (e) {}
+  }
+
+  function leadColumn() {
+    var role;
+    try { role = localStorage.getItem('janvayu-role'); } catch (e) { role = null; }
+    var hit = ROLES.filter(function (r) { return r[0] === role; })[0];
+    return hit ? hit[2] : -1;
+  }
+
+  function applyRole() {
+    var role;
+    try { role = localStorage.getItem('janvayu-role'); } catch (e) { role = null; }
+    var hit = ROLES.filter(function (r) { return r[0] === role; })[0];
+    $('roleLabel').textContent = hit ? hit[1] : (STRINGS[currentLang] || STRINGS.en).who;
+    var lead = leadColumn();
+    var cols = $('who').querySelectorAll('div');
+    for (var i = 0; i < cols.length; i++) {
+      if (i === lead) cols[i].setAttribute('data-lead', '');
+      else cols[i].removeAttribute('data-lead');
+    }
+    Array.prototype.forEach.call($('roleGrid').children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.role === role));
+    });
+  }
+
+  function applyPlain(on) {
+    document.body.classList.toggle('simple-language', on);
+    $('plainBtn').setAttribute('aria-pressed', String(on));
+    try { sessionStorage.setItem('janvayu-simple-mode', String(on)); } catch (e) {}
+  }
+
+  var currentLang = 'en';
+
+  function wirePreferences() {
+    try { currentLang = localStorage.getItem('janvayu-lang') || 'en'; } catch (e) {}
+    if (!STRINGS[currentLang]) currentLang = 'en';
+
+    $('roleGrid').innerHTML = ROLES.map(function (r) {
+      return '<button type="button" data-role="' + r[0] + '" aria-pressed="false">' + r[1] + '</button>';
+    }).join('');
+    $('langGrid').innerHTML = LANGS.map(function (l) {
+      return '<button type="button" data-lang="' + l[0] + '" aria-pressed="false">' + l[1] + ' ' + l[2] + '</button>';
+    }).join('');
+
+    function togglePop(btn, pop) {
+      var open = pop.hidden;
+      $('rolePop').hidden = true; $('langPop').hidden = true;
+      $('roleBtn').setAttribute('aria-expanded', 'false');
+      $('langBtn').setAttribute('aria-expanded', 'false');
+      if (open) { pop.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
+    }
+    $('roleBtn').addEventListener('click', function () { togglePop(this, $('rolePop')); });
+    $('langBtn').addEventListener('click', function () { togglePop(this, $('langPop')); });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('#roleBtn,#rolePop,#langBtn,#langPop')) {
+        $('rolePop').hidden = true; $('langPop').hidden = true;
+        $('roleBtn').setAttribute('aria-expanded', 'false');
+        $('langBtn').setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (!$('rolePop').hidden || !$('langPop').hidden) {
+        $('rolePop').hidden = true; $('langPop').hidden = true;
+        $('roleBtn').setAttribute('aria-expanded', 'false');
+        $('langBtn').setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    $('roleGrid').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      var was;
+      try { was = localStorage.getItem('janvayu-role'); } catch (err) { was = null; }
+      try {
+        if (was === b.dataset.role) localStorage.removeItem('janvayu-role');
+        else localStorage.setItem('janvayu-role', b.dataset.role);
+      } catch (err) {}
+      applyRole();
+      $('rolePop').hidden = true;
+      $('roleBtn').setAttribute('aria-expanded', 'false');
+    });
+    $('langGrid').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      currentLang = b.dataset.lang;
+      applyLang(currentLang); applyRole();
+      Array.prototype.forEach.call($('langGrid').children, function (x) {
+        x.setAttribute('aria-pressed', String(x.dataset.lang === currentLang));
+      });
+      $('langPop').hidden = true;
+      $('langBtn').setAttribute('aria-expanded', 'false');
+    });
+
+    var plainOn = false;
+    try { plainOn = sessionStorage.getItem('janvayu-simple-mode') === 'true'; } catch (e) {}
+    applyPlain(plainOn);
+    $('plainBtn').addEventListener('click', function () {
+      applyPlain(!document.body.classList.contains('simple-language'));
+    });
+
+    applyLang(currentLang);
+    applyRole();
+    Array.prototype.forEach.call($('langGrid').children, function (x) {
+      x.setAttribute('aria-pressed', String(x.dataset.lang === currentLang));
+    });
+
+    /* Filtering the index is what "search" means on a page whose content is
+       a list of destinations: the thing being searched is right there. */
+    var flt = $('filter');
+    if (flt) {
+      flt.addEventListener('input', function () {
+        var q = this.value.trim().toLowerCase(), hits = 0;
+        Array.prototype.forEach.call(document.querySelectorAll('#siteIndex .grid section'), function (sec) {
+          var shown = 0;
+          Array.prototype.forEach.call(sec.querySelectorAll('a'), function (a) {
+            var on = !q || a.textContent.toLowerCase().indexOf(q) !== -1;
+            a.classList.toggle('hide', !on);
+            if (on) shown++;
+          });
+          sec.classList.toggle('hide', q && !shown);
+          hits += shown;
+        });
+        $('noHits').hidden = !(q && hits === 0);
+      });
+    }
+  }
+
   /* ── Wiring ─────────────────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
+    wirePreferences();
     go('Delhi', 28.6139, 77.2090);
 
     Promise.all(CITIES.map(function (c) { return fetchCity(c[0], c[1], c[2]); }))
