@@ -1,6 +1,13 @@
 {
  "stories": [
   {
+   "tag": "Platform",
+   "title": "The Site Looks Different Today. Here Is What Changed, and What Did Not",
+   "date": "18 Sep 2026",
+   "blurb": "JanVayu has grown by accretion. Every few weeks something arrives that was not there before, and it gets a card, and the card goes on the page below the last one.",
+   "url": "/blog/#/posts/2026-09-18-a-design-refresh"
+  },
+  {
    "tag": "Explainer",
    "title": "What JanVayu Does That the Other Indian Air-Quality Sites Do Not",
    "date": "17 Sep 2026",
