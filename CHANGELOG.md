@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.212] - 2026-09-18
+
+### Fixed — the hero note fades instead of cutting
+
+v26.6.210 clamped the September note to four whole lines with an ellipsis, which was tidier than the half-line it replaced and still read as the panel being broken. It was reported that way twice. A hard stop is the problem, not the neatness of the stop.
+
+The note now fades into the page over the last 2.6em, which is the idiom for "there is more", with the Read more control underneath doing the rest. 409px of text, 101px shown, and nothing ends mid-word or mid-line.
+
+### Fixed — the evidence band and the footer merged into one slab
+
+v26.6.211 removed the 156px of cream between them, which was right, and left two blocks of the **same** `--green-900` touching, which was not: they read as a single undifferentiated dark area.
+
+The band is now `#1b452e`, a step lighter. **1.40:1 against the footer** — enough to read as two blocks meeting rather than one — with every text colour on it still **6.22:1 or better** (white 10.84, `#d5e8dc` 8.47, `#bcd6c6` 7.01, `--green-400` 6.22). A hairline in `rgba(255,255,255,0.14)` states the join as well as shading it. Dark theme moves with it, `#071008` to `#12301f`.
+
 ## [v26.6.211] - 2026-09-18
 
 ### Fixed — every icon on the site was blank, and a 200 said it was fine
