@@ -435,7 +435,8 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     opacity: 0.5;
     transition: transform 0.15s;
 }
-.nav-item:hover .nav-caret { transform: rotate(180deg); opacity: 1; }
+.nav-item:hover .nav-caret,
+.nav-item:focus-within .nav-caret { transform: rotate(180deg); opacity: 1; }
 .nav-dropdown {
     display: none;
     position: absolute;
@@ -450,7 +451,13 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     padding: 6px 0;
     z-index: 100;
 }
-.nav-item:hover .nav-dropdown { display: block; }
+/* `:focus-within` as well as `:hover`. Until this line the dropdowns opened
+   on hover and nothing else — no JS bound focus or click — so on desktop all
+   sixty-one destinations behind them were reachable with a mouse and by no
+   other means. axe-core reported nothing, because it checks markup and
+   contrast rather than whether a hover menu can be operated from a keyboard. */
+.nav-item:hover .nav-dropdown,
+.nav-item:focus-within .nav-dropdown { display: block; }
 .nav-dropdown-link {
     display: block;
     width: 100%;
@@ -3196,3 +3203,66 @@ body { font-size: 16.5px; }
 /* Where the band runs into the footer, a rule states the join rather than
    leaving two dark greens to fade into one another. */
 .container > .band-deep:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
+
+/* ══ Six groups and an overflow ══════════════════════════════════════════
+   Nine top-level groups plus nine icon buttons needed about 1300px of nav in
+   a 1200px container, which is why the one-bar attempt in v26.6.210 was
+   reverted. Six fit.
+
+   Nothing was dropped to get there: Resources and About keep every item and
+   move behind the overflow, one click away exactly as a dropdown is, and
+   `check-nav-coverage.py` refuses any change that leaves a panel with no
+   route from the nav, the mobile nav or the footer. Health & Trends and Learn
+   merge into Evidence, which is sixteen items, so that one opens in two
+   columns rather than a column the height of the window. */
+/* `.nav-item:hover .nav-dropdown { display: block }` is what reveals a
+   dropdown, and it outranks a bare `.nav-dropdown-wide { display: grid }`,
+   so the sixteen-item group rendered as one column the height of the window.
+   The two-column rule has to match that specificity to win. */
+.nav-item:hover .nav-dropdown-wide,
+.nav-item:focus-within .nav-dropdown-wide {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 0 6px;
+    min-width: 440px;
+}
+.nav-link.nav-more {
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    padding-left: 12px; padding-right: 12px;
+}
+.nav-link.nav-more .nav-caret { display: none; }
+
+/* Sections inside a dropdown. Merging two groups into one panel gives a
+   sixteen-item list whose only order is the order the two old lists happened
+   to be in, and a reader looking for "Understanding AQI" has to scan all
+   sixteen to find it. A label over each column restores what the merge took
+   away: the items still sit in one panel, one hover, nothing to chase with
+   the cursor, and the old group names still tell you which half to read.
+
+   The label is a <p>, not a heading and not a button: it is not a
+   destination, so it must not take focus or a tab stop. `role="group"` with
+   `aria-labelledby` on the wrapper is what tells a screen reader the same
+   thing the label tells everyone else. */
+.nav-group { display: flex; flex-direction: column; min-width: 0; }
+.nav-group-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3, var(--text-2));
+    margin: 14px 0 4px;
+    padding: 0 18px 6px;
+    border-bottom: 1px solid var(--edge);
+}
+/* Stacked (the overflow panel is one column), the second label needs room
+   above it or it reads as part of the list before it. Side by side, it must
+   not: the two labels are the tops of two columns and have to sit on the same
+   line, which the 14px silently broke by 6px on the first build. */
+.nav-group:first-child .nav-group-label { margin-top: 4px; }
+.nav-dropdown-wide .nav-group-label { margin-top: 4px; }
+/* Two columns of unequal length: without this the shorter one stretches and
+   its label floats away from its items. */
+.nav-item:hover .nav-dropdown-wide,
+.nav-item:focus-within .nav-dropdown-wide { align-items: start; }
