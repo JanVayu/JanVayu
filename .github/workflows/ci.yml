@@ -87,6 +87,19 @@ jobs:
       - name: Check no tool lost its way into the nav
         run: python3 scripts/check-nav-coverage.py
 
+      # index.html inlines a subset of styles.css so the header and hero paint
+      # before the 125KB stylesheet arrives. Its own comment says keep it in
+      # sync; nothing checked that it was, and it had drifted 77 properties
+      # across 30 selectors, frozen at the pre-redesign look. Two long-running
+      # reports were this and only this: the page visibly flipping from the old
+      # design to the new one on every refresh (measured: headline 57.6px ->
+      # 80px, radius 12px -> 0, centre -> left, shadow -> none), and a hero note
+      # cut mid-line, because styles.css loads second and its max-height of
+      # 7.2em is four and a HALF lines at line-height 1.6. Edits to the inline
+      # copy changed nothing, which is why it took so many rounds to find.
+      - name: Check first paint draws the same page as final paint
+        run: python3 scripts/check-critical-css.py
+
       # A dark-mode sweep on 2026-09-17 measured every text element on all 56
       # panels in both themes: 1,844 failing in dark, 1,233 in light, almost
       # all from three habits rather than 3,000 separate mistakes. A themed

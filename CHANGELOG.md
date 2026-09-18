@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.214] - 2026-09-18
+
+### Fixed, the hero note was cut mid-line, and the page really was flipping between two designs
+
+Both had one cause, which is why neither was fixed by the changes aimed at them.
+
+`index.html` inlines a subset of `styles.css` in `<style id="critical-css">` so the header and hero paint before the 125KB stylesheet arrives. The block's own comment says to keep it in sync with `styles.css`. Nothing checked that it was, and it had drifted **77 properties across 30 selectors**, frozen at the pre-redesign look: 12px corner radii, drop shadows, centred stat cards, a 57.6px headline.
+
+**The note.** `.hero-live-alert.clamped` was declared in both files: `6.4em` inline and `7.2em` in `styles.css`. Equal specificity, and `styles.css` loads second, so `7.2em` was the value that applied. At `line-height: 1.6` that is **four and a half lines**, so the fifth line was sliced horizontally through the middle of its letters. Half a row of chopped glyph-tops is what a reader calls cut off, and no amount of fading hides it. Both earlier attempts edited the inline copy, which is why they changed nothing visible.
+
+The height is now `8em`, exactly five whole lines, in both files, with the fade covering exactly the last line (`1.6em`). Measured after the fix: `max-height / line-height = 5.000`.
+
+**The flip.** Reported as the page oscillating between the old version and the new one on refresh. It was doing exactly that, and the service worker, investigated twice, was never the cause. With `styles.css` held back four seconds: first paint gave headline **57.6px**, card radius **12px**, `text-align: center`, a drop shadow; when the stylesheet arrived it repainted to **80px**, **0**, `left`, `none`. After the sync, every one of those is identical at both paints.
+
+### Added, a guard so first paint and final paint cannot disagree again
+
+`scripts/check-critical-css.py` compares every selector declared in both files and fails when a shared property carries different values. `var(--w-300)` and `#e5e5dc` count as one value, because the critical copy has to spell colours as literals (the tokens live in `styles.css` and are not loaded yet), and a rule inside `[data-theme="dark"]` resolves against the dark table, with the colour ladder inherited from `:root` exactly as the cascade does. Broken and re-proved: putting one `font-size` back out of sync names it and exits 1. In CI.
+
 ## [v26.6.213] - 2026-09-18
 
 ### Changed, the desktop nav is six groups and an overflow rather than nine
