@@ -99,6 +99,13 @@ jobs:
       - name: Check the bulletin row grammar survives the page header
         run: python3 scripts/check-bulletin-parser.py
 
+      # The About panel carries a "Just shipped (vX)" line and a Version
+      # History, both prose, neither moving when a release ships. It advertised
+      # v26.6.125 while the site ran v26.6.203, and the repo had already fixed
+      # the same staleness once at v26.6.187 without adding a check.
+      - name: Check the About panel is not far behind the release
+        run: python3 scripts/check-about-currency.py
+
       # The four workshop decks in workshops/ are plain Markdown so anyone can
       # import them into Workshopy, project them or translate them. Three ways
       # they break without rendering wrong: a deck path in workshops.json that
