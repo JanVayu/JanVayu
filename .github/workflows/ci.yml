@@ -100,6 +100,19 @@ jobs:
       - name: Check first paint draws the same page as final paint
         run: python3 scripts/check-critical-css.py
 
+      # sw.js serves same-origin CSS/JS cache-first and never revalidates, so
+      # ?v=<stamp> is the only thing that makes a returning visitor fetch a new
+      # stylesheet. bump-version.mjs stamped with String.replace and no /g, so
+      # it rewrote only the FIRST match: the <link rel="preload"> in <head>.
+      # The <link rel="stylesheet"> that actually loads the file sits ~800
+      # lines lower and stayed pinned at ?v=202606118 for about a hundred
+      # releases. A first visit looked right, because a query string does not
+      # change which file Netlify serves; anyone holding that URL in their
+      # browser or SW cache kept the OLD stylesheet indefinitely, which reads
+      # exactly like "the new design is not live" and was reported as such.
+      - name: Versioned asset URLs carry the current stamp
+        run: python3 scripts/check-asset-stamps.py
+
       # A dark-mode sweep on 2026-09-17 measured every text element on all 56
       # panels in both themes: 1,844 failing in dark, 1,233 in light, almost
       # all from three habits rather than 3,000 separate mistakes. A themed

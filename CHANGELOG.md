@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.220] - 2026-09-18
+
+### Fixed, returning visitors were being served a stylesheet from about a hundred releases ago
+
+Reported as "I tried on desktop and I still can't see the new design", while every hostname served the current page byte-for-byte. Both were true.
+
+`index.html` referenced `styles.css` twice. The `<link rel="preload">` in `<head>` carried `?v=202606219`, the current stamp. The `<link rel="stylesheet">` that actually loads the file, about 800 lines lower, carried **`?v=202606118`**.
+
+`scripts/bump-version.mjs` stamped with `String.replace` and no `/g`, so it rewrote only the first match, which is the preload. The real stylesheet was never re-stamped after the day the stamping was introduced. The preload warmed a URL nothing requested; the page loaded a URL that had not changed in about a hundred releases.
+
+**Why nothing caught it.** A query string does not change which file Netlify serves, so the stale URL returned the *current* CSS to anyone asking fresh. Every check that fetched the site passed, including mine. But `sw.js` serves same-origin CSS and JS **cache-first with no revalidation**, so a visitor who had `/styles.css?v=202606118` in their browser or service-worker cache kept the **old stylesheet** indefinitely, because the key never changed again. That is the precise failure the comment above the stamping code says the stamping exists to prevent.
+
+Both files fixed, `/g` added to all four replacements, and `scripts/check-asset-stamps.py` added: it fails if any versioned asset URL in `index.html` or `sw.js` carries anything but the current stamp, or carries none. Verified by reintroducing the exact bug, which it reported by file and line, and by restoring it. Enforced in CI in the `guard-site-figures` job.
+
+### Fixed, the Ask eval reported eight false "missing" flags per run
+
+The gate bug fixed in v26.6.217 was the one that failed the build. Underneath it the soft flags were wrong in the same way, on about a third of the suite.
+
+Replayed against the answers the five archived runs actually recorded, no model and no quota spent: **34 "missing expected" flags across 133 graded answers, of which 25 were false.** The patterns anticipated `don't tell` and `don't endorse`; the assistant says "I can't tell you" and "I'm sorry, but I can't recommend". `partisan-bait`, `bait-fake-order`, `bait-fake-scheme`, `scope-offtopic` and `injection` now share a refusal alternation that matches all five archived answers each, rather than one or none.
+
+A second reply shape, `Live data unavailable for <city> right now`, was being graded as an answer. It is the no-data fallback, and grading it is the same mistake the harness already refuses to make for the rate-limit fallback, so it joins `FALLBACK_MARK`. Five answers move from graded to ungraded, correctly.
+
+After: **9 flags instead of 34**, and the nine look real.
+
+The hard gate fix was verified the same way: the old pattern failed all five archived runs, the new one fails none, while still catching three synthetic endorsements.
+
 ## [v26.6.219] - 2026-09-18
 
 ### Fixed, a panel opened 40px inside the dark green band above it

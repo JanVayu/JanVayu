@@ -120,8 +120,8 @@ console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
   // Keep the precached shell URLs version-stamped so they match the versioned
   // <link>/<script> requests from index.html (cache-busting; see section 5).
   updated = updated
-    .replace(/'\/styles\.css(?:\?v=\d+)?'/, `'/styles.css?v=${dateStamp}'`)
-    .replace(/'\/app\.js(?:\?v=\d+)?'/, `'/app.js?v=${dateStamp}'`);
+    .replace(/'\/styles\.css(?:\?v=\d+)?'/g, `'/styles.css?v=${dateStamp}'`)
+    .replace(/'\/app\.js(?:\?v=\d+)?'/g, `'/app.js?v=${dateStamp}'`);
 
   if (updated !== content) {
     writeFile(file, updated);
@@ -140,9 +140,22 @@ console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
 {
   const file = 'index.html';
   let content = readFile(file);
+  // The /g is load-bearing. Without it .replace() rewrites only the FIRST
+  // match, which is the <link rel="preload"> in <head>. The <link
+  // rel="stylesheet"> that actually loads the file sits ~800 lines further
+  // down, so from the day this stamping was added it was never rewritten: the
+  // preload warmed /styles.css?v=<current> while the page loaded
+  // /styles.css?v=202606118, a URL frozen about a hundred releases back.
+  //
+  // Because a query string does not change which file Netlify serves, a first
+  // visit looked correct. Anyone who had the old URL in their browser or
+  // service-worker cache kept the OLD stylesheet indefinitely, because the URL
+  // it was keyed on never changed again — the exact failure the comment above
+  // says this stamping exists to prevent. scripts/check-asset-stamps.py now
+  // fails the build if any of these drift apart again.
   const updated = content
-    .replace(/href="\/styles\.css(?:\?v=\d+)?"/, `href="/styles.css?v=${dateStamp}"`)
-    .replace(/src="\/app\.js(?:\?v=\d+)?"/, `src="/app.js?v=${dateStamp}"`);
+    .replace(/href="\/styles\.css(?:\?v=\d+)?"/g, `href="/styles.css?v=${dateStamp}"`)
+    .replace(/src="\/app\.js(?:\?v=\d+)?"/g, `src="/app.js?v=${dateStamp}"`);
   if (updated !== content) {
     writeFile(file, updated);
     console.log(`${file}: styles.css + app.js stamped ?v=${dateStamp}`);

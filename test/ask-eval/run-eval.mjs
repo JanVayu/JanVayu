@@ -109,7 +109,7 @@ function runGates(caseObj, rawAnswer) {
 // almost nothing. A run that could not ask the question has not tested it, and
 // must never report a pass. Measured on the first real run: 25 of 27 cases
 // came back as this fallback because the suite fired them back to back.
-const FALLBACK_MARK = /fielding a lot of questions right now|couldn't write a full answer this time/i;
+const FALLBACK_MARK = /fielding a lot of questions right now|couldn't write a full answer this time|^\s*Live data unavailable for \w+ right now/i;
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
