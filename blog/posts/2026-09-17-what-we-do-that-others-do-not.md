@@ -11,29 +11,27 @@ us to a dataset we had missed and should not have.
 It also prompted an obvious question, which somebody asked us directly: if all
 of that exists, what is JanVayu for?
 
-This is the answer, as a capability table. Two things before it, because a
-comparison written by one of the parties is worth exactly as much as its
-disclosures.
+What follows is a capability table. Two caveats belong in front of it, since we
+are one of the parties being compared.
 
-**Most of these are not competitors. Several are our sources.** CPCB, WAQI,
-OpenAQ, Sensor.Community, XKDR and CREA all appear inside JanVayu. A page that
-reads as "look what they cannot do" about an organisation whose data we ingest
-would be both ungracious and stupid.
+Most of the sites listed are not competitors, and several supply data we use.
+CPCB, WAQI, OpenAQ, Sensor.Community, XKDR and CREA all appear inside JanVayu.
 
-**We can verify our own column exactly and theirs only partly.** Every JanVayu
-figure below comes from a file in our public repository and is recomputed by a
-check that fails the build if it drifts. For the others we have used what their
-own pages state and what we could test directly. Where we could not verify, the
-cell says *unverified* rather than guessing. Several of these sites block
-automated requests, which is their right and our limit.
+The verification is uneven. Every JanVayu figure below sits in a file in our
+public repository and is recomputed by a check that fails the build if it
+drifts. For the other columns we have used what their pages state and what we
+could test ourselves. Where we could test neither, the cell says *unverified*.
+Several of these sites block automated requests, which is their right and our
+limit.
 
 ## The short version
 
-Most Indian air-quality sites answer **"what is the air like right now, where a
-monitor is?"** They answer it well, and several answer it better than we do.
+Most Indian air-quality sites answer one question: what is the air like right
+now, where a monitor is. They answer it well, and several answer it better than
+we do.
 
-JanVayu is built around four questions that a live map structurally cannot
-answer:
+JanVayu is built around four questions a live map cannot answer, whatever its
+quality:
 
 1. **What is the air where there is no monitor?** India has roughly 565
    continuous stations and 5,84,615 villages.
@@ -46,29 +44,33 @@ answer:
 Legend: **yes** = we verified it. **no** = we checked and could not find it.
 *unverified* = we could not test it and their pages do not say.
 
-| | JanVayu | CPCB portal | AQI.in / IQAir / AQICN | OpenAQ | XKDR | CREA | Sensor networks | VayuBuddy |
-|---|---|---|---|---|---|---|---|---|
-| **Live city AQI** | yes, 160 cities | yes, official | yes | yes, raw stations | no (archive) | no | yes, hyperlocal | via CPCB |
-| **Raw station data via API** | via our Open Data API | download by station | no | **yes, its whole point** | yes, hourly | no | yes | no |
-| **A number for a village** | **yes, all 5,84,615** | no | no | no | no | no | no | no |
-| **A number for a ward** | **yes, all 68,596** | no | no | no | no | no | no | no |
-| **Air back to 1980** | yes, 783 districts | no | no | no | no | no | no | no |
-| **Weather removed from the trend** | **yes, 44 cities** | no | no | no | no | no | no | no |
-| **Official bulletin as a series** | yes, 297 cities 2015–2026 | publishes the PDF | no | no | no | uses it | no | no |
-| **Instruments checked against the model** | yes, r = 0.834 | no | no | no | n/a | no | no | no |
-| **NCAP / GRAP tracking** | yes | the source data | no | no | no | **yes, the best of it** | no | no |
-| **Per-city budget utilisation** | yes | no | no | no | no | yes | no | no |
-| **Pre-filled RTI templates** | **yes** | n/a | no | no | no | no | no | no |
-| **Health-impact calculators** | yes | no | partly | no | no | no | no | no |
-| **Answers questions in plain language** | yes, 10 languages | no | no | no | no | no | no | **yes** |
-| **First-person testimony** | yes, 250 in 14 languages | no | no | no | no | no | no | no |
-| **Teaching material you can take** | **yes, 4 workshops + 7 games** | no | no | no | no | reports | no | no |
-| **Open source** | yes, MIT + CC BY-NC-SA | no | no | **yes** | data CC BY 4.0 | reports free | mixed | yes |
-| **Free, no ads, no login** | yes | yes | ads / paid tiers | yes | key required | yes | mixed | yes |
+*Updated 18 September 2026: a Hawa Ka Hisab column was added, and two rows that
+read "no" everywhere but our own column were wrong. See the correction under
+"Weather removed from the trend".*
 
-## The five rows that actually matter
+| | JanVayu | CPCB portal | AQI.in / IQAir / AQICN | OpenAQ | XKDR | CREA | Sensor networks | VayuBuddy | Hawa Ka Hisab |
+|---|---|---|---|---|---|---|---|---|---|
+| **Live city AQI** | yes, 160 cities | yes, official | yes | yes, raw stations | no (archive) | no | yes, hyperlocal | via CPCB | daily, Delhi + NCR |
+| **Raw station data via API** | via our Open Data API | download by station | no | **yes, its whole point** | yes, hourly | no | yes | no | no |
+| **A number for a village** | **yes, all 5,84,615** | no | no | no | no | no | no | no | no |
+| **A number for a ward** | **yes, all 68,596** | no | no | no | no | no | no | no | no |
+| **Air back to 1980** | yes, 783 districts | no | no | no | no | no | no | no | **yes, Delhi + N India** |
+| **Weather removed from the trend** | **yes, 44 cities** | no | no | no | no | no | no | no | **yes, Delhi, daily** |
+| **Official bulletin as a series** | yes, 297 cities 2015–2026 | publishes the PDF | no | no | no | uses it | no | no | no |
+| **Instruments checked against the model** | yes, r = 0.834 | no | no | no | n/a | no | no | no | n/a |
+| **NCAP / GRAP tracking** | yes | the source data | no | no | no | **yes, the best of it** | no | no | weather vs policy, daily |
+| **Per-city budget utilisation** | yes | no | no | no | no | yes | no | no | no |
+| **Pre-filled RTI templates** | **yes** | n/a | no | no | no | no | no | no | no |
+| **Health-impact calculators** | yes | no | partly | no | no | no | no | no | no |
+| **Answers questions in plain language** | yes, 10 languages | no | no | no | no | no | no | **yes** | daily film, in Hindi |
+| **First-person testimony** | yes, 250 in 14 languages | no | no | no | no | no | no | no | no |
+| **Teaching material you can take** | **yes, 4 workshops + 7 games** | no | no | no | no | reports | no | no | no |
+| **Open source** | yes, MIT + CC BY-NC-SA | no | no | **yes** | data CC BY 4.0 | reports free | mixed | yes | no repo; free to republish |
+| **Free, no ads, no login** | yes | yes | ads / paid tiers | yes | key required | yes | mixed | yes | yes |
 
-Everything above is either a convenience or one of these.
+## The rows that carry the argument
+
+Most of the table is convenience. These five are the substance.
 
 ### A number for every village and every ward
 
@@ -98,8 +100,27 @@ We run meteorological normalisation (Grange et al., *Atmos. Chem. Phys.* 18,
 cleaner once weather is removed and 11 are not.** Meerut −14.6 µg/m³ a year,
 Varanasi −14.2, Lucknow −14.0; Chandigarh +3.1, Gwalior +2.4, Mumbai +0.8.
 
-We know of no other public Indian source that publishes this. If one exists, we
-would like to compare notes rather than claim a first.
+**Correction, 18 September 2026.** This section first said we knew of no other
+public Indian source publishing weather-normalised air quality, and the table
+gave every other column a flat *no* on that row. Both were wrong.
+[Hawa Ka Hisab](https://hawakahisab.in), published by Ajay Maken, MP, has done
+it daily for Delhi since 19 July 2026 and publishes its method in full. The
+table above is corrected.
+
+We should have caught this ourselves. Our own assistant already cites that site,
+using its decadal figures for Delhi as an independent check on our 1980-to-2022
+reconstruction. The site was in our repository while this post said no such
+source existed. We knew it as a history and had not looked at what else it
+publishes.
+
+The two are not substitutes. Hawa Ka Hisab asks each day whether Delhi's air
+was worse than the same fortnight last year once weather is accounted for,
+comparing matched stations against a fifteen-day baseline window, using a model
+trained on Delhi data from 2021 onward. That is the question you need if you are
+holding a minister to account this week. We ask whether a multi-year trend is
+real, across seven years and 44 cities, and report it in micrograms per cubic
+metre per year. For Delhi specifically, and for anything current, theirs is the
+better instrument.
 
 ### The official bulletin as a series, and what it shows
 
@@ -136,7 +157,7 @@ Four workshops as plain Markdown at
 a 10-question self-check, 39 blog posts, and an Open Data API. CC BY-NC-SA 4.0,
 so you can cut them, translate them and put your own city's numbers in.
 
-## What the others do better, which is not a courtesy
+## Where the others are better
 
 **CPCB's portal is the official record** and ours is not. When the two disagree,
 theirs is the one with legal standing. We read their bulletin because of that,
@@ -161,19 +182,31 @@ say so than pretend we are the only one.
 **IQAir's global comparability** is something we do not attempt. Their World Air
 Quality Report is what makes an international ranking possible.
 
-## The honest summary
+**Hawa Ka Hisab covers Delhi better than we do, and is far more current.** It
+publishes a twelve-page report daily, a short Hindi film with it, a weekly
+edition, and a reconstruction of Delhi's air back to 1980. We give a city one
+trend line across seven years. It gives Delhi a weather-adjusted verdict every
+morning, measured against the same fortnight a year earlier.
 
-If you want to know whether to go for a run this evening, almost any of these
-will tell you, and several are faster than us.
+Its provenance is worth stating, since the site states it itself: every page
+says it is published by a serving opposition MP and is not a neutral third
+party. JanVayu is non-partisan and that site is not. The method is published in
+full, which is the part to read before deciding what the analysis is worth.
 
-If you want to know what your village breathes, whether your city's improvement
-is real, how many days your city was officially Poor last year, how thin the
-monitoring behind that figure is, and what to write to whom about it, we do not
-know of another single place that answers all five.
+## What this adds up to
 
-That is not a claim that we are better. It is a claim that we are built for a
-different question, which is worth saying plainly so nobody installs the wrong
-tool.
+For whether to go running this evening, almost any of these will tell you, and
+several will tell you faster than we will.
+
+The questions we built for are slower ones. What does my village breathe, when
+there is no monitor within fifty kilometres. Is my city's improvement real or
+was it a wet year. How many days was my city officially Poor, and how many
+monitors produced that figure. What do I write, and to whom. We know of no other
+single site that answers all of those, though several answer one of them better
+than we do.
+
+We are not claiming to be better. We are built for a different question, and
+somebody choosing a tool should know which.
 
 ---
 

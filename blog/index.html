@@ -296,6 +296,34 @@
     body[data-theme="dark"] .markdown-section .pagination-item-title { color: #86EFAC; }
 
     /* Mobile */
+    /* Wide tables on a phone.
+       docsify-themeable stacks a table below 30em: it hides the head, makes
+       every cell a block, pads it 8em on the left and floats the column label
+       into that gutter with a NEGATIVE margin. A float is out of flow, so the
+       cell reserves one line of height no matter how long the label is. Any
+       label that wraps to a second line therefore prints on top of the row
+       beneath it. On the source-comparison table that was 34 cells: "AQI.in /
+       IQAir / AQICN" over "OpenAQ", "Sensor networks" over "VayuBuddy". The
+       label needs 53px and the cell gives it 31.
+       A two-column grid puts the label back in flow, so the row grows to fit
+       whichever side is taller and no label can collide with anything. */
+    @media (max-width: 30em) {
+      .markdown-section .table-wrapper td {
+        display: grid;
+        grid-template-columns: 7.5em minmax(0, 1fr);
+        gap: 0 0.6em;
+        align-items: start;
+        padding: 0.25em 0;
+      }
+      .markdown-section .table-wrapper td::before {
+        display: block;
+        float: none;
+        width: auto;
+        margin-left: 0;
+        overflow-wrap: anywhere;
+      }
+    }
+
     @media (max-width: 768px) {
       .markdown-section h1 { font-size: 1.5rem; }
       .markdown-section p { font-size: 0.95rem; }
