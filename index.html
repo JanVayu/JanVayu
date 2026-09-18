@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606207">
+    <link rel="preload" as="style" href="/styles.css?v=202606208">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1472,11 +1472,11 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                             <button onclick="generateAQICard(document.getElementById('hero-city-select').value)" title="Download shareable AQI card" style="
                                 margin-top: 8px; padding: 4px 14px; font-size: 0.7rem; font-weight: 600;
                                 font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.05em;
-                                background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
-                                border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+                                background: var(--bg-section); color: var(--text-2);
+                                border: 1px solid var(--border); border-radius: 6px;
                                 cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
                                 transition: all 0.15s;
-                            " onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><span class="si si-share" style="width:12px;height:12px;"></span>Share AQI Card</button>
+                            " onmouseover="this.style.background='var(--green-50)'" onmouseout="this.style.background='var(--bg-section)'"><span class="si si-share" style="width:12px;height:12px;"></span>Share AQI Card</button>
                             <button onclick="shareOnWhatsApp(document.getElementById('hero-city-select').value)" title="Share on WhatsApp" style="
                                 margin-top: 8px; margin-left: 6px; padding: 4px 14px; font-size: 0.7rem; font-weight: 600;
                                 font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.05em;
@@ -1938,7 +1938,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606207"></script>
+    <script src="/app.js?v=202606208"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
