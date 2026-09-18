@@ -189,7 +189,7 @@ def out_block(x, y, w, head, subs):
 FOOT = 'every figure sourced + open  ·  no ads  ·  free forever'
 
 
-def wide(f):
+def wide(f, titled=True):
     reads, gets = content(f)
     W, GAP = 920, 14
     LX, LW = 24, 252
@@ -231,9 +231,13 @@ def wide(f):
     parts.append(f'<path class="ln" d="M{EX + EW} {ec:.0f} L {RX} {ec:.0f}" marker-end="url(#a)"/>')
 
     H = int(max(left_bottom, right_bottom)) + 90
-    head = [txt(W / 2, 34, 'How JanVayu works', 'h', 27, '#146c33', 'middle'),
-            txt(W / 2, 58, 'independent sources, verified, made useful', 'k', 15, MUTE, 'middle'),
-            txt(LX + 4, 92, 'WHAT WE READ', 'h', 13, MUTE),
+    # On the homepage the section above the drawing already reads "How it
+    # works / Where every number comes from", so a title inside it says the
+    # same thing twice. The deck slide has no heading above it and keeps one.
+    head = ([txt(W / 2, 34, 'How JanVayu works', 'h', 27, '#146c33', 'middle'),
+             txt(W / 2, 58, 'independent sources, verified, made useful', 'k', 15, MUTE, 'middle')]
+            if titled else [])
+    head += [txt(LX + 4, 92, 'WHAT WE READ', 'h', 13, MUTE),
             txt(EX + 4, 92, 'WHAT WE DO', 'h', 13, MUTE),
             txt(RX + 4, 92, 'WHAT YOU GET', 'h', 13, MUTE)]
     foot = txt(W / 2, H - 28, FOOT, 'k', 14, MUTE, 'middle')
@@ -242,7 +246,7 @@ def wide(f):
             + ''.join(head) + ''.join(parts) + foot + DEFS + '</svg>')
 
 
-def tall(f):
+def tall(f, titled=True):
     reads, gets = content(f)
     W, X, BW = 400, 22, 356
     parts, y = [], 98
@@ -272,8 +276,9 @@ def tall(f):
         y += h + 10
 
     H = y + 46
-    head = [txt(200, 32, 'How JanVayu works', 'h', 24, '#146c33', 'middle'),
-            txt(200, 54, 'independent sources, verified, made useful', 'k', 13, MUTE, 'middle')]
+    head = ([txt(200, 32, 'How JanVayu works', 'h', 24, '#146c33', 'middle'),
+             txt(200, 54, 'independent sources, verified, made useful', 'k', 13, MUTE, 'middle')]
+            if titled else [])
     foot = txt(200, H - 18, FOOT, 'k', 13, MUTE, 'middle')
     return (f'<svg role="img" aria-label="{esc(aria(f, reads, gets))}" viewBox="0 0 {W} {H}" '
             f'xmlns="http://www.w3.org/2000/svg"><style>{STYLE}</style>'
@@ -301,14 +306,15 @@ def splice(text, begin, end, body, path):
 def main():
     check = '--check' in sys.argv
     f = figures()
-    w, t = wide(f), tall(f)
+    w_plain, t_plain = wide(f, titled=False), tall(f, titled=False)
+    w_titled = wide(f, titled=True)
     stale = []
     for rel, which in TARGETS:
         p = ROOT / rel
         s0 = p.read_text(encoding='utf-8')
-        s = splice(s0, BEGIN_H, END_H, w, rel)
+        s = splice(s0, BEGIN_H, END_H, w_plain if which == 'both' else w_titled, rel)
         if which == 'both':
-            s = splice(s, BEGIN_V, END_V, t, rel)
+            s = splice(s, BEGIN_V, END_V, t_plain, rel)
         if s != s0:
             stale.append(rel)
             if not check:
