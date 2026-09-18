@@ -296,6 +296,40 @@
     body[data-theme="dark"] .markdown-section .pagination-item-title { color: #86EFAC; }
 
     /* Mobile */
+    /* Sargam icons, the set used across the rest of the site. The blog is a
+       standalone docsify page and never had them, so its dark-mode toggle was
+       a moon EMOJI: a different shape on every platform, and the one place on
+       the site still using an emoji as an interface element. Masked SVG takes
+       currentColor, so it follows the button's own colour in both themes. */
+    .si { display: inline-block; width: 18px; height: 18px; background: currentColor;
+          -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+          -webkit-mask-position: center; mask-position: center;
+          -webkit-mask-size: contain; mask-size: contain; vertical-align: -0.18em; }
+    .si-moon { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Moon.svg);
+               mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Moon.svg); }
+    .si-sun  { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Sun.svg);
+               mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Sun.svg); }
+
+    /* Wide tables on a desktop.
+       docsify-themeable caps the prose column at 720px, which is right for
+       reading and wrong for a comparison table. The source-comparison table is
+       ten columns and needs 763px, so 133px of it sat hidden behind a
+       horizontal scrollbar inside a narrow column, on a 1440px screen with
+       roughly 700px of unused margin either side. A reader on a laptop found
+       it cut off.
+       Above 700px the table breaks out of the prose column and centres on the
+       available width. Prose stays at its readable measure; only the table
+       widens. Below that it keeps the normal scroll, which is correct on a
+       narrow screen. */
+    @media (min-width: 700px) {
+      .markdown-section .table-wrapper {
+        width: min(96vw, 1180px);
+        max-width: none;
+        margin-left: calc(50% - min(48vw, 590px));
+      }
+      .markdown-section .table-wrapper > table { width: 100%; }
+    }
+
     /* Wide tables on a phone.
        docsify-themeable stacks a table below 30em: it hides the head, makes
        every cell a block, pads it 8em on the left and floats the column label
@@ -348,7 +382,7 @@
   <div id="app">Loading...</div>
 
   <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
-    <span id="dark-mode-icon">&#127769;</span>
+    <span id="dark-mode-icon" class="si si-moon"></span>
   </button>
 
   <script>
@@ -356,14 +390,15 @@
       const body = document.body;
       const isDark = body.getAttribute('data-theme') === 'dark';
       body.setAttribute('data-theme', isDark ? '' : 'dark');
-      document.getElementById('dark-mode-icon').textContent = isDark ? '\u{1F319}' : '\u{2600}\u{FE0F}';
+      const ic = document.getElementById('dark-mode-icon');
+      if (ic) ic.className = isDark ? 'si si-moon' : 'si si-sun';
       localStorage.setItem('docsify-dark-mode', isDark ? 'light' : 'dark');
     }
     if (localStorage.getItem('docsify-dark-mode') === 'dark') {
       document.body.setAttribute('data-theme', 'dark');
       document.addEventListener('DOMContentLoaded', () => {
         const icon = document.getElementById('dark-mode-icon');
-        if (icon) icon.textContent = '\u{2600}\u{FE0F}';
+        if (icon) icon.className = 'si si-sun';
       });
     }
   </script>

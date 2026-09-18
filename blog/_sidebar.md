@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **September 2026**
+  - [The Site Looks Different Today. Here Is What Changed, and What Did Not](posts/2026-09-18-a-design-refresh.md)
   - [What JanVayu Does That the Other Indian Air-Quality Sites Do Not](posts/2026-09-17-what-we-do-that-others-do-not.md)
   - [The Workshop Is a File Now](posts/2026-09-17-the-workshop-is-a-file.md)
   - [Thirty-Three Cities Are Getting Cleaner. Eleven Are Not.](posts/2026-09-17-thirty-three-cities.md)

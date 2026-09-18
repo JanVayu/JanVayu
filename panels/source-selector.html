@@ -1,7 +1,7 @@
 
-    <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+    <div class="section-intro jv-sec-divided">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield" style="color: #8B5CF6; margin-right: 0.4rem;"></span>Data Source Selector</h2>
-        <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Different groups measure air quality using different tools. Some are more accurate than others. Choose which sources you trust, and see how the AQI number changes depending on who measured it.">Not all air quality data is created equal. Different sources use different instruments, different calibration methods, and different reporting frequencies. Choose which sources you trust &mdash; and see how the numbers change.</p>
+        <p class="jv-lede" data-simple="Different groups measure air quality using different tools. Some are more accurate than others. Choose which sources you trust, and see how the AQI number changes depending on who measured it.">Not all air quality data is created equal. Different sources use different instruments, different calibration methods, and different reporting frequencies. Choose which sources you trust &mdash; and see how the numbers change.</p>
     </div>
 
     <!-- ═══ Data Source Cards ═══ -->
@@ -13,7 +13,7 @@
         <!-- CPCB CAAQMS Card -->
         <div class="card" id="source-card-cpcb" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-title" style="color: var(--green-600);">CPCB CAAQMS</span>
+                <span class="card-title jv-t-accent-600">CPCB CAAQMS</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-3);">Include</span>
                     <span style="position: relative; display: inline-block; width: 44px; height: 24px;">
@@ -32,8 +32,8 @@
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(5,150,105,0.08); color: var(--green-700); font-weight: 600;">Hourly</span>
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(5,150,105,0.08); color: var(--green-700); font-weight: 600;">&plusmn;5-10% accuracy</span>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="CPCB is the government's official air monitoring network. They use expensive, high-quality instruments. The data is legally valid. But many cities have only 2-3 stations, and investigations found many stations are poorly placed &mdash; 88% in one 2025 field survey, and 13 of 24 Delhi stations in a government (CAG) audit."><strong>Instruments:</strong> BAM/TEOM (beta attenuation / tapered element oscillating microbalance) &mdash; reference-grade instruments used worldwide for regulatory monitoring.</p>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Coverage:</strong> ~586 continuous real-time (CAAQMS) stations in CPCB&rsquo;s national network (aqicn.org CPCB network count, 2026).</p>
+                <p class="jv-t-sm-2-mb" data-simple="CPCB is the government's official air monitoring network. They use expensive, high-quality instruments. The data is legally valid. But many cities have only 2-3 stations, and investigations found many stations are poorly placed &mdash; 88% in one 2025 field survey, and 13 of 24 Delhi stations in a government (CAG) audit."><strong>Instruments:</strong> BAM/TEOM (beta attenuation / tapered element oscillating microbalance) &mdash; reference-grade instruments used worldwide for regulatory monitoring.</p>
+                <p class="jv-t-sm-2-mb"><strong>Coverage:</strong> ~586 continuous real-time (CAAQMS) stations in CPCB&rsquo;s national network (aqicn.org CPCB network count, 2026).</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem;">
                     <div style="padding: 0.625rem; background: rgba(5,150,105,0.04); border-radius: 6px; border: 1px solid rgba(5,150,105,0.1);">
                         <div style="font-size: 0.6875rem; font-weight: 700; color: var(--green-600); margin-bottom: 0.25rem;">STRENGTHS</div>
@@ -50,7 +50,7 @@
         <!-- WAQI / aqicn.org Card -->
         <div class="card" id="source-card-waqi" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-title" style="color: var(--ink);">WAQI / aqicn.org</span>
+                <span class="card-title jv-t-ink">WAQI / aqicn.org</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-3);">Include</span>
                     <span style="position: relative; display: inline-block; width: 44px; height: 24px;">
@@ -69,8 +69,8 @@
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--ink); font-weight: 600;">Hourly</span>
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(37,99,235,0.08); color: var(--ink); font-weight: 600;">Depends on upstream</span>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="WAQI collects air quality data from government monitors and community sensors around the world. It gives you one API for global data. But it only shows the nearest station, not a city average, and can lag slightly behind the underlying CPCB feed."><strong>Instruments:</strong> Surfaces CPCB data + community sensors. Accuracy depends entirely on the upstream source.</p>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Coverage:</strong> Global &mdash; 50,000+ stations across ~2,000 cities in 132 countries (aqicn.org, 2026).</p>
+                <p class="jv-t-sm-2-mb" data-simple="WAQI collects air quality data from government monitors and community sensors around the world. It gives you one API for global data. But it only shows the nearest station, not a city average, and can lag slightly behind the underlying CPCB feed."><strong>Instruments:</strong> Surfaces CPCB data + community sensors. Accuracy depends entirely on the upstream source.</p>
+                <p class="jv-t-sm-2-mb"><strong>Coverage:</strong> Global &mdash; 50,000+ stations across ~2,000 cities in 132 countries (aqicn.org, 2026).</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem;">
                     <div style="padding: 0.625rem; background: rgba(37,99,235,0.04); border-radius: 6px; border: 1px solid rgba(37,99,235,0.1);">
                         <div style="font-size: 0.6875rem; font-weight: 700; color: var(--ink); margin-bottom: 0.25rem;">STRENGTHS</div>
@@ -87,7 +87,7 @@
         <!-- IQAir Card -->
         <div class="card" id="source-card-iqair" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-title" style="color: var(--purple);">IQAir</span>
+                <span class="card-title jv-t-purple">IQAir</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-3);">Include</span>
                     <span style="position: relative; display: inline-block; width: 44px; height: 24px;">
@@ -106,8 +106,8 @@
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(147,51,234,0.08); color: var(--purple); font-weight: 600;">Hourly (live) / Annual (report)</span>
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(147,51,234,0.08); color: var(--purple); font-weight: 600;">Blended methodology</span>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="IQAir is a Swiss company that combines government data, their own commercial sensors, and satellite images. They publish the widely-cited annual 'most polluted cities' report. But their methods are not fully open, and they also sell air purifiers."><strong>Instruments:</strong> CPCB + proprietary commercial sensors + satellite data. Blended methodology combining multiple inputs.</p>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Coverage:</strong> 9,446 cities across 143 countries (IQAir 2025 World Air Quality Report).</p>
+                <p class="jv-t-sm-2-mb" data-simple="IQAir is a Swiss company that combines government data, their own commercial sensors, and satellite images. They publish the widely-cited annual 'most polluted cities' report. But their methods are not fully open, and they also sell air purifiers."><strong>Instruments:</strong> CPCB + proprietary commercial sensors + satellite data. Blended methodology combining multiple inputs.</p>
+                <p class="jv-t-sm-2-mb"><strong>Coverage:</strong> 9,446 cities across 143 countries (IQAir 2025 World Air Quality Report).</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem;">
                     <div style="padding: 0.625rem; background: rgba(147,51,234,0.04); border-radius: 6px; border: 1px solid rgba(147,51,234,0.1);">
                         <div style="font-size: 0.6875rem; font-weight: 700; color: var(--purple); margin-bottom: 0.25rem;">STRENGTHS</div>
@@ -124,7 +124,7 @@
         <!-- Sensor.Community Card -->
         <div class="card" id="source-card-sensor" style="border-left: 4px solid var(--accent); transition: opacity 0.3s;">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-title" style="color: var(--amber);">Sensor.Community</span>
+                <span class="card-title jv-t-amber">Sensor.Community</span>
                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-3);">Include</span>
                     <span style="position: relative; display: inline-block; width: 44px; height: 24px;">
@@ -143,8 +143,8 @@
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(217,119,6,0.08); color: var(--amber); font-weight: 600;">Every 2.5 minutes</span>
                     <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(217,119,6,0.08); color: var(--amber); font-weight: 600;">&plusmn;20-50% vs regulatory</span>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Sensor.Community is a global citizen science project. Ordinary people build cheap sensors (around 2,000-3,000 rupees each) and put them on their balconies. The data is less accurate than government monitors, but there are thousands more of them, giving hyperlocal coverage."><strong>Instruments:</strong> SDS011/SPS30 laser scattering sensors (~$25-40 / ~&#8377;2,000-3,300 each). Low-cost but widely deployed.</p>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Coverage:</strong> a small footprint in India &mdash; part of a global network of ~12,000 active sensors, concentrated in Europe (sensor.community, 2026). Hyperlocal density where volunteers deploy them.</p>
+                <p class="jv-t-sm-2-mb" data-simple="Sensor.Community is a global citizen science project. Ordinary people build cheap sensors (around 2,000-3,000 rupees each) and put them on their balconies. The data is less accurate than government monitors, but there are thousands more of them, giving hyperlocal coverage."><strong>Instruments:</strong> SDS011/SPS30 laser scattering sensors (~$25-40 / ~&#8377;2,000-3,300 each). Low-cost but widely deployed.</p>
+                <p class="jv-t-sm-2-mb"><strong>Coverage:</strong> a small footprint in India &mdash; part of a global network of ~12,000 active sensors, concentrated in Europe (sensor.community, 2026). Hyperlocal density where volunteers deploy them.</p>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem;">
                     <div style="padding: 0.625rem; background: rgba(217,119,6,0.04); border-radius: 6px; border: 1px solid rgba(217,119,6,0.1);">
                         <div style="font-size: 0.6875rem; font-weight: 700; color: var(--amber); margin-bottom: 0.25rem;">STRENGTHS</div>
@@ -162,7 +162,7 @@
     <!-- ═══ Indian Open Maps (geodata, not AQI) ═══ -->
     <div class="card" id="source-card-openmaps" style="border-left: 4px solid var(--purple); margin-bottom: 2.5rem;">
         <div class="card-header">
-            <span class="card-title" style="color: var(--purple);">Indian Open Maps <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; map geometry, not AQI</span></span>
+            <span class="card-title jv-t-purple">Indian Open Maps <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; map geometry, not AQI</span></span>
         </div>
         <div class="card-body">
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
@@ -170,8 +170,8 @@
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Government geodata</span>
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">574 datasets</span>
             </div>
-            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="The boundaries you see on our maps — wards, districts, MP and MLA constituencies — and the locations of schools, health centres, landfills, coal mines and industrial areas come from Indian Open Maps. It is a free, volunteer-run archive that collects map data from government websites and shares it openly."><strong>What we use it for:</strong> ward boundaries beyond our original 15 cities (Swachh Bharat Mission), Lok Sabha and Vidhan Sabha constituency boundaries and districts (LGD/Bharatmaps), plus pollution-source and who-breathes-it overlays &mdash; landfills, dumpsites, coal mines, CPCB red/orange-category industrial parks, SEZs, schools (UDISE) and health centres.</p>
-            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>Provenance, honestly:</strong> <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a> is a volunteer project (ramSeraph) that scrapes and republishes geodata from official portals &mdash; SBM, Local Government Directory, Bharatmaps, GatiShakti, NCOG. Much of it is flagged <em>&ldquo;not-so-open&rdquo;</em> upstream: published by government, but without an explicit open licence. We ship simplified derivatives with attribution, and the coal-mine locations are CC0 (Harvard Dataverse). Boundary data is refreshed with <code>scripts/fetch-openmaps.mjs</code>, not live-scraped.</p>
+            <p class="jv-t-sm-2-mb" data-simple="The boundaries you see on our maps — wards, districts, MP and MLA constituencies — and the locations of schools, health centres, landfills, coal mines and industrial areas come from Indian Open Maps. It is a free, volunteer-run archive that collects map data from government websites and shares it openly."><strong>What we use it for:</strong> ward boundaries beyond our original 15 cities (Swachh Bharat Mission), Lok Sabha and Vidhan Sabha constituency boundaries and districts (LGD/Bharatmaps), plus pollution-source and who-breathes-it overlays &mdash; landfills, dumpsites, coal mines, CPCB red/orange-category industrial parks, SEZs, schools (UDISE) and health centres.</p>
+            <p class="jv-t-sm-2-mb"><strong>Provenance, honestly:</strong> <a href="https://indianopenmaps.com" target="_blank" rel="noopener">indianopenmaps.com</a> is a volunteer project (ramSeraph) that scrapes and republishes geodata from official portals &mdash; SBM, Local Government Directory, Bharatmaps, GatiShakti, NCOG. Much of it is flagged <em>&ldquo;not-so-open&rdquo;</em> upstream: published by government, but without an explicit open licence. We ship simplified derivatives with attribution, and the coal-mine locations are CC0 (Harvard Dataverse). Boundary data is refreshed with <code>scripts/fetch-openmaps.mjs</code>, not live-scraped.</p>
             <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Caveat:</strong> ward boundaries are as ULBs uploaded them &mdash; a few cities publish coarse revenue wards (Jamnagar: 16; Rajkot, Vadodara: 18) or stale delimitations, and <strong>West Bengal, Assam, Manipur, Mizoram and Tripura</strong> are missing from the SBM ward set entirely. Those states reach the atlas by other routes: Kolkata from a hand-collected source, Guwahati and seven West Bengal cities from the sources below. If your ward looks wrong, that&rsquo;s a data gap worth an RTI.</p>
         </div>
     </div>
@@ -179,7 +179,7 @@
     <!-- ═══ Other ward-boundary sources (geodata, not AQI) ═══ -->
     <div class="card" id="source-card-wardbounds" style="border-left: 4px solid var(--purple); margin-bottom: 2.5rem;">
         <div class="card-header">
-            <span class="card-title" style="color: var(--purple);">DataMeet, BharatLas &amp; city portals <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; the other ward boundaries</span></span>
+            <span class="card-title jv-t-purple">DataMeet, BharatLas &amp; city portals <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; the other ward boundaries</span></span>
         </div>
         <div class="card-body">
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
@@ -187,7 +187,7 @@
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">ODbL-1.0</span>
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">68 of 142 cities</span>
             </div>
-            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Not all our ward maps come from the same place. Most of India&rsquo;s 68,596 wards come from Swachh Bharat Mission, West Bengal and Living Atlas data. But those miss 14 cities completely, so 720 wards &mdash; including all of Kolkata and Madurai &mdash; come from five other open projects. Each city&rsquo;s map says underneath it where its boundaries came from."><strong>What we use them for:</strong> the cities the national ward sources cannot supply. Since the atlas went national, most of its 68,596 wards come from Swachh Bharat Mission, West Bengal AMRUT and Living Atlas &mdash; but those three miss 14 cities outright, and 720 wards reach the map only through the projects below. Thirteen &mdash; including Delhi, Bengaluru, Chennai, Hyderabad and Kolkata &mdash; come from <a href="https://github.com/datameet/Municipal_Spatial_Data" target="_blank" rel="noopener">DataMeet&rsquo;s Municipal Spatial Data</a> (CC BY). <strong>Guwahati</strong> comes from <a href="https://bharatlas.com" target="_blank" rel="noopener">BharatLas</a>, which republishes <strong>OpenCity / Oorvani Foundation</strong> layers under <strong>ODbL-1.0</strong> &mdash; the 2022 GMC delimitation, and the only way to put a city with real winter pollution on the map when its whole state is absent from SBM. Mumbai and Varanasi come from the Mumbai spatial-data project and the Varanasi Smart City portal. Seven West Bengal cities &mdash; <strong>Asansol, Howrah, Durgapur, Bidhannagar, Kharagpur, Bardhaman and Haldia</strong> &mdash; come from the state&rsquo;s <strong>AMRUT GIS master plans</strong>, and <strong>45 more</strong> from the <strong>ESRI India Living Atlas</strong> ward layer, both mirrored on indianopenmaps.com alongside the Swachh Bharat wards. The Living Atlas layer is what finally mapped every remaining state capital &mdash; Srinagar, Agartala, Imphal, Shillong, Itanagar, Aizawl and Kohima. We had publicly written Bengal off as having no open ward data; that was our mistake, not a gap in the record &mdash; the file was in a release we were already downloading from, and we had never listed its other assets.</p>
+            <p class="jv-t-sm-2-mb" data-simple="Not all our ward maps come from the same place. Most of India&rsquo;s 68,596 wards come from Swachh Bharat Mission, West Bengal and Living Atlas data. But those miss 14 cities completely, so 720 wards &mdash; including all of Kolkata and Madurai &mdash; come from five other open projects. Each city&rsquo;s map says underneath it where its boundaries came from."><strong>What we use them for:</strong> the cities the national ward sources cannot supply. Since the atlas went national, most of its 68,596 wards come from Swachh Bharat Mission, West Bengal AMRUT and Living Atlas &mdash; but those three miss 14 cities outright, and 720 wards reach the map only through the projects below. Thirteen &mdash; including Delhi, Bengaluru, Chennai, Hyderabad and Kolkata &mdash; come from <a href="https://github.com/datameet/Municipal_Spatial_Data" target="_blank" rel="noopener">DataMeet&rsquo;s Municipal Spatial Data</a> (CC BY). <strong>Guwahati</strong> comes from <a href="https://bharatlas.com" target="_blank" rel="noopener">BharatLas</a>, which republishes <strong>OpenCity / Oorvani Foundation</strong> layers under <strong>ODbL-1.0</strong> &mdash; the 2022 GMC delimitation, and the only way to put a city with real winter pollution on the map when its whole state is absent from SBM. Mumbai and Varanasi come from the Mumbai spatial-data project and the Varanasi Smart City portal. Seven West Bengal cities &mdash; <strong>Asansol, Howrah, Durgapur, Bidhannagar, Kharagpur, Bardhaman and Haldia</strong> &mdash; come from the state&rsquo;s <strong>AMRUT GIS master plans</strong>, and <strong>45 more</strong> from the <strong>ESRI India Living Atlas</strong> ward layer, both mirrored on indianopenmaps.com alongside the Swachh Bharat wards. The Living Atlas layer is what finally mapped every remaining state capital &mdash; Srinagar, Agartala, Imphal, Shillong, Itanagar, Aizawl and Kohima. We had publicly written Bengal off as having no open ward data; that was our mistake, not a gap in the record &mdash; the file was in a release we were already downloading from, and we had never listed its other assets.</p>
             <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Attribution, honestly:</strong> these upstreams carry <em>different</em> licences with different obligations, so we don&rsquo;t flatten them into one credit line. Every ward file records the source it actually came from, and the atlas prints that credit under the map for whichever city you are looking at. Boundaries are simplified derivatives (~28&nbsp;m), built by <code>scripts/import-bharatlas-wards.mjs</code> and <code>scripts/fetch-openmaps.mjs</code>.</p>
         </div>
     </div>
@@ -195,7 +195,7 @@
     <!-- ═══ Satellite layers ═══ -->
     <div class="card" id="source-card-satellite" style="border-left: 4px solid var(--purple); margin-bottom: 2.5rem;">
         <div class="card-header">
-            <span class="card-title" style="color: var(--purple);">Satellite layers <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; annual air, heat, green &amp; built-up</span></span>
+            <span class="card-title jv-t-purple">Satellite layers <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; annual air, heat, green &amp; built-up</span></span>
         </div>
         <div class="card-body">
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
@@ -203,7 +203,7 @@
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Annual, not live</span>
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">584,615 villages &middot; 68,596 wards</span>
             </div>
-            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="India has only about 565 continuous air monitors for 584,615 villages, so most places have no monitor anywhere near them. Satellites can estimate a whole year&rsquo;s average pollution everywhere, including villages. We use that for the yearly numbers, and keep it clearly separate from today&rsquo;s live readings."><strong>What we use them for:</strong> the <strong>annual mean PM2.5</strong> carried by every one of India&rsquo;s 584,615 villages and all 68,596 wards comes from <a href="https://sites.wustl.edu/acag/datasets/surface-pm2-5/" target="_blank" rel="noopener">SatPM2.5 V6GL03</a> (ACAG, Washington University &mdash; a neural network over satellite aerosol depth combined with the GEOS-Chem model, ~1&nbsp;km, CC BY 4.0, on AWS Open Data). The Ward Atlas&rsquo;s <em>heat</em> layer is <a href="https://www.usgs.gov/landsat-missions" target="_blank" rel="noopener">Landsat 8/9</a> surface temperature (~30&nbsp;m) via Microsoft Planetary Computer; <em>green cover</em> and <em>built-up</em> are <a href="https://esa-worldcover.org/" target="_blank" rel="noopener">ESA WorldCover 2021</a> (10&nbsp;m, CC BY 4.0).</p>
+            <p class="jv-t-sm-2-mb" data-simple="India has only about 565 continuous air monitors for 584,615 villages, so most places have no monitor anywhere near them. Satellites can estimate a whole year&rsquo;s average pollution everywhere, including villages. We use that for the yearly numbers, and keep it clearly separate from today&rsquo;s live readings."><strong>What we use them for:</strong> the <strong>annual mean PM2.5</strong> carried by every one of India&rsquo;s 584,615 villages and all 68,596 wards comes from <a href="https://sites.wustl.edu/acag/datasets/surface-pm2-5/" target="_blank" rel="noopener">SatPM2.5 V6GL03</a> (ACAG, Washington University &mdash; a neural network over satellite aerosol depth combined with the GEOS-Chem model, ~1&nbsp;km, CC BY 4.0, on AWS Open Data). The Ward Atlas&rsquo;s <em>heat</em> layer is <a href="https://www.usgs.gov/landsat-missions" target="_blank" rel="noopener">Landsat 8/9</a> surface temperature (~30&nbsp;m) via Microsoft Planetary Computer; <em>green cover</em> and <em>built-up</em> are <a href="https://esa-worldcover.org/" target="_blank" rel="noopener">ESA WorldCover 2021</a> (10&nbsp;m, CC BY 4.0).</p>
             <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Two limits worth stating:</strong> this is an <strong>annual average, not today&rsquo;s air</strong> &mdash; it says nothing about a bad week in November, which for the Indo-Gangetic plain is much of the story, so we never merge it with a live reading. And a ~1&nbsp;km product <strong>smooths hyperlocal sources</strong>: a single kiln, smelter or busy junction next door will not show up in it. It is a modelled estimate calibrated against ground monitors, not a measurement taken in your village.</p>
         </div>
     </div>
@@ -211,7 +211,7 @@
     <!-- ═══ CPCB daily bulletins + the wider source landscape ═══ -->
     <div class="card" id="source-card-bulletins" style="border-left: 4px solid var(--purple); margin-bottom: 2.5rem;">
         <div class="card-header">
-            <span class="card-title" style="color: var(--purple);">CPCB daily AQI bulletins <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; the official number, 2015&ndash;2025</span></span>
+            <span class="card-title jv-t-purple">CPCB daily AQI bulletins <span style="font-weight: 400; font-size: 0.8em; color: var(--text-3);">&mdash; the official number, 2015&ndash;2025</span></span>
         </div>
         <div class="card-body">
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
@@ -219,8 +219,8 @@
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Daily, city-level</span>
                 <span style="font-size: 0.6875rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.08); color: var(--purple); font-weight: 600;">Official</span>
             </div>
-            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="Every day at 4pm the government publishes an official air quality number for 200+ cities as a PDF. Someone has now collected ten years of them. We use it to count how many bad-air days each city officially had."><strong>What we use it for:</strong> CPCB publishes an AQI bulletin every day at 4pm as a PDF, covering 200+ cities, and has since May 2015. It is the number a minister quotes and a court cites, and it has never existed as a series because it is a decade of PDFs. <a href="https://github.com/urbanemissionsinfo/AQI_bulletins" target="_blank" rel="noopener">UrbanEmissions.Info</a> parsed them; we turn that into <strong>days in each official category, per city, per year</strong>, with the number of stations behind each figure printed beside it.</p>
-            <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem;"><strong>The finding.</strong> In CPCB&rsquo;s own 2024 bulletin, 264 cities reported a usable year and <strong>221 of them did so on a median of fewer than three monitoring stations</strong>. For <strong>204 cities the median was exactly one</strong>. Agartala, Ajmer, Amritsar, Aizawl and two hundred others have a daily official air-quality figure that is a reading from one place with a city&rsquo;s name on it.</p>
+            <p class="jv-t-sm-2-mb" data-simple="Every day at 4pm the government publishes an official air quality number for 200+ cities as a PDF. Someone has now collected ten years of them. We use it to count how many bad-air days each city officially had."><strong>What we use it for:</strong> CPCB publishes an AQI bulletin every day at 4pm as a PDF, covering 200+ cities, and has since May 2015. It is the number a minister quotes and a court cites, and it has never existed as a series because it is a decade of PDFs. <a href="https://github.com/urbanemissionsinfo/AQI_bulletins" target="_blank" rel="noopener">UrbanEmissions.Info</a> parsed them; we turn that into <strong>days in each official category, per city, per year</strong>, with the number of stations behind each figure printed beside it.</p>
+            <p class="jv-t-sm-2-mb"><strong>The finding.</strong> In CPCB&rsquo;s own 2024 bulletin, 264 cities reported a usable year and <strong>221 of them did so on a median of fewer than three monitoring stations</strong>. For <strong>204 cities the median was exactly one</strong>. Agartala, Ajmer, Amritsar, Aizawl and two hundred others have a daily official air-quality figure that is a reading from one place with a city&rsquo;s name on it.</p>
             <p style="font-size: 0.875rem; color: var(--text-2); margin: 0;"><strong>Two things we refuse to compute from it.</strong> No <em>annual mean AQI</em>: an index that reports only the worst of six pollutants cannot be averaged over a year, so we count days in each category instead, which is what GRAP and school closures are actually triggered by. And <strong>no trend across years</strong> &mdash; the ten cities reporting throughout went from a median of one station to six, so the instrument changed under the series and a fall in bad-air days cannot be separated from a change in what was doing the measuring. Read one year, not a series.</p>
         </div>
     </div>
@@ -252,7 +252,7 @@
     <!-- ═══ Source Impact Simulator ═══ -->
     <h3 style="font-family: var(--serif); font-size: 1.375rem; margin-bottom: 1rem; color: var(--ink);">See How Sources Affect Your AQI</h3>
 
-    <div class="card mb-3" style="border-left: 4px solid var(--accent);">
+    <div class="card mb-3 jv-rule-accent-4">
         <div class="card-header"><span class="card-title">Source Impact Simulator</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Click the button to see how the AQI changes when you turn sources on or off. This shows you why the same city can have different AQI numbers on different websites.">Toggle the sources above, then click Compute to see how different source combinations affect the reported AQI for your city. This demonstrates why the same city can show different numbers on CPCB, WAQI, and IQAir.</p>
@@ -289,7 +289,7 @@
 
     <!-- ═══ Implications Callout ═══ -->
     <div class="card" style="border-left: 4px solid var(--accent); background: rgba(239,68,68,0.02);">
-        <div class="card-header"><span class="card-title" style="color: var(--red);">Why Source Transparency Matters</span></div>
+        <div class="card-header"><span class="card-title jv-t-red">Why Source Transparency Matters</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); line-height: 1.7;" data-simple="When a politician says pollution went down 20%, ask: which monitors said that? Which stations? Over what time? If the station near the highway shows improvement but the station near the school was shut down, the 20% number is meaningless. Always ask which data source is being cited.">This is why source transparency matters. When a politician says &ldquo;AQI improved 20%,&rdquo; ask: which monitors? Which stations? Over what period? A 20% improvement measured by one station near a highway is meaningless if the station near the school was decommissioned.</p>
             <div style="margin-top: 1rem; padding: 1rem; background: rgba(239,68,68,0.04); border-radius: 6px;">

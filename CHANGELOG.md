@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.206] - 2026-09-18
+
+### Changed — the design work reaches the screen
+
+v26.6.205 moved the neutrals into a ramp and deliberately changed nothing visible. This is the part you can see.
+
+**989 of the site's 2,860 inline `style=` attributes are now 37 `.jv-*` classes**, across `index.html` and sixteen panels. That was the actual obstacle to restyling anything: a stylesheet cannot reach an inline attribute, so every visual change had to be made panel by panel and would drift apart again. `display` is deliberately excluded from the migration, because the JS writes it back at runtime. 1,871 remain and are one-offs.
+
+**Depth is an edge, not a blur.** `--edge` and `--edge-accent`, and `--shadow-card` is now `0 1px 0 0 var(--edge)`. Cards sit on the page in a darker shade of their own surface instead of floating over a soft grey halo. It stays crisp at any zoom and costs no paint. Blurred shadows are kept for the things that genuinely float, the modal and the FAB.
+
+**The role picker was rebuilt**, because it is the first screen every visitor sees and the one the previous release left untouched. Three cards across instead of four, left-aligned so each reads as a line of prose rather than a centred label, the icon in a tinted tile, and hover as a border and a wash instead of a lift and a shadow. The logo's green drop-shadow glow is gone. All twelve roles now fit one screen at 1280×1000, where before the last row was below the fold.
+
+### Fixed — the comparison table was cut off on a laptop and only a scrollbar said so
+
+The prose column on the blog is 630px. The ten-column comparison table wants 763px. At 1440px, **133px of it sat off-screen**, inside a horizontally scrolling wrapper that gives no indication anything is missing. Tables now break out of the prose column above 700px, to `min(96vw, 1180px)`. Measured after: 0px hidden at 1600, 1440, 1280, 1024 and 900; 26px at 768; and below 30em the stacked-cell grid from v26.6.203 takes over.
+
+### Fixed — the blog's dark-mode button was an emoji
+
+Every other control on the site uses a Sargam icon. The toggle at the bottom right of a blog post was a moon character, swapped by rewriting `textContent`. It is now `si-moon`/`si-sun` on the same CSS-mask mechanism as the rest, swapped by class.
+
+### Added — the homepage diagram is generated from the data
+
+"How JanVayu works" is the first thing a visitor reads that explains where the numbers come from. **Every figure on it was right**, and `check-site-figures.py` was holding them right, which is exactly why this went unnoticed: what had gone stale was the *inventory*. It listed five live feeds and four satellite sources and named neither of the two largest bodies of work on the site — eleven years of CPCB's own daily bulletin, and the measured station record the modelled layers are checked against. On the output side it offered five things and the site offers seven. A figure check cannot catch that, because a missing source is not a wrong number.
+
+So the drawing stops being hand-placed. `scripts/build-how-it-works.py` holds the content as a list of blocks, lays both orientations out arithmetically, and writes them into **all three places the drawing appears** — the wide and tall copies in `index.html` and the slide deck's copy in `walkthrough/deck.html`, which had been diverging unnoticed. Every number in it is read from the repo at build time: the live city count from `CITIES` in `app.js`, the boundary counts from `data/tiles/_levels.json`, the bulletin from `data/aqi-bulletins.json`, the de-weathered panel from `data/deweathered-national.json`.
+
+Two sources added, under a new block that says what they are for — what the models get checked against. Two outputs added: the eleven-year category-days series and the 44-city de-weathered trends. Guarded in `ci.yml`, broken once and re-proved.
+
+### Added — a walkthrough slide for the bulletin
+
+The deck covered the XKDR station record and the 44-city de-weathering and stopped there, so the largest thing shipped since had no slide. The presenter note carries the two things somebody will be asked about: why there is no trend line across the window, and why 2015 and 2026 are marked part years.
+
+### Changed — the Roadmap was five releases behind
+
+`docs/wiki/Roadmap.md` stopped at v26.6.193. Phases 5.29 to 5.32 now cover the bulletin work, the comparison post and its self-correction, the CREA decision, and this visual pass.
+
 ## [v26.6.205] - 2026-09-18
 
 ### Changed — the neutrals become a ramp, and nothing moves on screen
