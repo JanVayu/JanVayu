@@ -36,6 +36,7 @@
  *     --dys-idle-border   default currentColor
  *     --dys-idle-opacity  default .72
  *     --dys-font          label typeface (default system-ui)
+ *     --dys-min-size      minimum touch target (default 44px)
  *     --dys-surface/--dys-fg   ground and ink for the fixed corner variant
  */
 (function () {
@@ -119,8 +120,13 @@
       // fighting this rule on specificity. Point --dys-accent at the site's own
       // accent token and dark mode follows for free, because a var() is resolved
       // where it is used, not where it is declared.
+      // 44px, not 32. This button is a reading aid, so the people most likely
+      // to reach for it are the ones a small target costs most; WCAG 2.2's
+      // Target Size (Minimum), 2.5.8, puts the floor at 24px and the older
+      // 2.5.5 at 44. It was 36x32 on every site using this script. Override
+      // with --dys-min-size if a host genuinely needs it smaller.
       + '#dys-font-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;'
-      + 'min-width:36px;height:32px;padding:0 10px;cursor:pointer;'
+      + 'min-width:var(--dys-min-size,44px);min-height:var(--dys-min-size,44px);padding:0 12px;cursor:pointer;'
       + 'border-radius:var(--dys-radius,8px);'
       + 'border:var(--dys-border-width,1px) solid var(--dys-idle-border,currentColor);'
       + 'background:transparent;color:inherit;'
