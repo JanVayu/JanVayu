@@ -932,7 +932,33 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-live-alert strong { color: var(--red); }
 /* Collapse the dense "what's happening now" blurb to a short excerpt on load
    so the landing leads with the live data, not a wall of context text. */
-.hero-live-alert.clamped { max-height: 7.2em; overflow: hidden; }
+/* A preview, not a truncation. Two things have to hold together or the panel
+   reads as broken, which is how it was reported repeatedly:
+
+   1. The height must be a WHOLE number of lines. line-height is 1.6, so the
+      old 7.2em was 4.5 lines and the fifth line was sliced through the middle
+      of its letters. Half a row of chopped glyph-tops is what a reader calls
+      "cut off", and no amount of fading hides it. 8em is exactly five lines.
+   2. The last line must fade rather than stop, which is the idiom for "there
+      is more", with the Read more control underneath doing the rest.
+
+   This rule and the copy in index.html's critical CSS must agree. They did
+   not: the inline copy said 6.4em (four whole lines, correct) and this one
+   said 7.2em, and this one loads second, so the correct value never applied.
+   scripts/check-critical-css.py now refuses that. */
+.hero-live-alert.clamped {
+    display: block;
+    max-height: 8em;      /* 5 x line-height 1.6 — whole lines only */
+    overflow: hidden;
+    position: relative;
+}
+.hero-live-alert.clamped::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1.6em;        /* exactly the last line */
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    pointer-events: none;
+}
 .hero-live-toggle {
     margin-top: 8px; padding: 4px 0;
     background: none; border: none; cursor: pointer;
@@ -971,14 +997,20 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-data > * { background: var(--bg-card); }
 .hero-pm25-card {
     grid-column: 1 / -1;
-    padding-left: 20px; padding-right: 20px;
     /* Must paint: the grid beneath is the border colour, showing through the
        1px gaps to draw the dividers. Anything transparent here shows grey. */
     background: var(--bg-card);
     border: 0;
     border-top: 3px solid var(--accent);
     border-radius: 0;
-    padding: 22px 0 26px;
+    /* 20px each side, the same gutter .hero-stat and .live-bar use, so the
+       reading and its cells line up. This rule used to declare padding-left
+       and padding-right as longhands ABOVE the shorthand, which then reset
+       both to zero: the live PM2.5 figure, the unit and the WHO multiple all
+       began at the card's own edge with nothing between the ink and the
+       border. Same shape of mistake as the `border: 0` that once wiped the
+       info-box accent rules. Declare it once, as a shorthand. */
+    padding: 22px 20px 26px;
     text-align: left;
     box-shadow: none;
     position: relative;
@@ -1018,6 +1050,15 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     margin-top: 16px;
     padding-top: 14px;
     border-top: 1px solid var(--border-light);
+    /* Its border-top is a divider and has to reach both edges of the card,
+       which the card's 20px gutter would otherwise inset. So it bleeds back
+       out by exactly that gutter and re-adds it as padding: the rule spans
+       the full width, the text inside it stays on the same left edge as
+       everything above. */
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .hero-stat {
     background: var(--bg-card);
