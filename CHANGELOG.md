@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.210] - 2026-09-18
+
+### Fixed — the hero note was sliced through the middle of a line
+
+The September note clamps to a preview with a "Read more" toggle. The clamp was `max-height: 7.2em`, which worked while the note carried 12px of vertical padding. v26.6.208 took that padding to 2px, and the same max-height then showed **4.48 lines**: the fifth line cut horizontally through the letters, 308px hidden, and no box edge left to say the cut was deliberate. It read as the card being broken.
+
+Now `-webkit-line-clamp: 4`, which ends on a whole line with an ellipsis. The repo already uses that pattern for resource abstracts.
+
+### Changed — a page with more voice
+
+Reported twice as very subtle, which was fair. Two causes.
+
+**Everything but the headline sat between 13 and 16px.** Body is now 16.5px, the hero lede `clamp(1.1rem, 1.5vw, 1.3rem)`, section titles `clamp(1.9rem, 3.2vw, 2.9rem)` against 1.4rem before, and the headline up to 5rem. A page reads as dense rather than composed when only one thing is large.
+
+**The page was one surface from top to bottom**, so nothing marked where one idea ended and the next began. "Did you know" — six sourced facts, a self-contained block — now sits in a **full-bleed dark green band** in the green the site already uses, with its cards divided by hairlines instead of boxed, the same move the hero stat tiles make.
+
+The band **redefines the tokens for everything inside it** rather than fighting specificity: those cards set their colours inline as `var(--ink)` and `var(--text-2)`, and an inline style beats any selector. Redefining `--ink`, `--text-2`, `--text-3`, `--border` and `--accent` on `.band-deep` resolves the same markup against a dark surface, which is what a token layer is for. Measured on `--green-900`: **8.25:1 to 15.19:1**. A first attempt used class selectors, and the six stat figures rendered dark maroon on dark green.
+
+Full bleed from inside a 1200px container is done with negative margins and the gutter added back as padding. `100vw` is deliberately not used: it counts the scrollbar and pushes the page sideways. Measured 0px horizontal overflow at 1440 and 390.
+
+### Tried and reverted — merging the header and the nav into one bar
+
+The chrome is a ticker, a logo row and a nav row. Collapsing the last two would have been the single most visible change, and it does not fit: the nav's nine groups need about **1300px** on their own, the wordmark 329 and the buttons 406, against a 1200px container. Measured at five widths from 1200 to 1920, nav links overlapped the icon buttons at every one. It cannot be done without hiding features, which is a decision about the information architecture rather than about CSS, so it is written down here instead of shipped.
+
 ## [v26.6.209] - 2026-09-18
 
 ### Changed — the panels join the dashboard's system
