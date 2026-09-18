@@ -13,6 +13,10 @@ Nine top-level groups (Dashboard, My Air, Maps & Places, Health & Trends, Learn,
 
 Health & Trends and Learn merged into **Evidence**, which is the thing they have in common and is what someone arriving with a question is looking for. Resources and About moved into the overflow. Measured at 1920, 1440, 1280 and 1200: seven groups carrying 61 buttons between them, no horizontal scroll in the bar and none on the page.
 
+A merged panel loses the one thing the two old groups gave a reader: a name for each half. Sixteen items in the order the two lists happened to be in means scanning all sixteen to find *Understanding AQI*. Each column now carries the old group's name over it, **Health** and **Learn** in Evidence, **Resources** and **About** in the overflow, as a `role="group"` with `aria-labelledby` so a screen reader is told what the label tells everyone else. The label is a `<p>`: it is not a destination, so it takes no focus and adds no tab stop. `nav_grp_health`, `nav_grp_learn`, `nav_grp_resources` and `nav_grp_about` in all five locales. Measured at **5.06:1** in light and **6.02:1** in dark against the panel each one sits on.
+
+Side by side the two labels have to sit on one line; stacked, as they are in the overflow's single column, the second needs room above it or it reads as part of the list before it. The first build got the second case right and the first case wrong by 6px.
+
 The overflow trigger is the one control in the bar with no visible word in it, so its accessible name is the only name it has. It carries `aria-label` and `title` through `data-i18n-attr`, with `nav_more` added to all five locales, rather than announcing itself as an ellipsis.
 
 **Nothing was dropped.** The rebuild parses the existing groups and reuses each child button's markup verbatim, so every label, `data-panel` and `data-i18n` is the one that was there before. Evidence holds sixteen items and renders as two columns rather than one sixteen-deep list.

@@ -3232,3 +3232,37 @@ body { font-size: 16.5px; }
     padding-left: 12px; padding-right: 12px;
 }
 .nav-link.nav-more .nav-caret { display: none; }
+
+/* Sections inside a dropdown. Merging two groups into one panel gives a
+   sixteen-item list whose only order is the order the two old lists happened
+   to be in, and a reader looking for "Understanding AQI" has to scan all
+   sixteen to find it. A label over each column restores what the merge took
+   away: the items still sit in one panel, one hover, nothing to chase with
+   the cursor, and the old group names still tell you which half to read.
+
+   The label is a <p>, not a heading and not a button: it is not a
+   destination, so it must not take focus or a tab stop. `role="group"` with
+   `aria-labelledby` on the wrapper is what tells a screen reader the same
+   thing the label tells everyone else. */
+.nav-group { display: flex; flex-direction: column; min-width: 0; }
+.nav-group-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3, var(--text-2));
+    margin: 14px 0 4px;
+    padding: 0 18px 6px;
+    border-bottom: 1px solid var(--edge);
+}
+/* Stacked (the overflow panel is one column), the second label needs room
+   above it or it reads as part of the list before it. Side by side, it must
+   not: the two labels are the tops of two columns and have to sit on the same
+   line, which the 14px silently broke by 6px on the first build. */
+.nav-group:first-child .nav-group-label { margin-top: 4px; }
+.nav-dropdown-wide .nav-group-label { margin-top: 4px; }
+/* Two columns of unequal length: without this the shorter one stretches and
+   its label floats away from its items. */
+.nav-item:hover .nav-dropdown-wide,
+.nav-item:focus-within .nav-dropdown-wide { align-items: start; }

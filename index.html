@@ -1304,22 +1304,28 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div class="nav-item">
                 <button class="nav-link" data-panel="health" data-i18n="nav_data">Evidence <span class="nav-caret"></span></button>
                 <div class="nav-dropdown nav-dropdown-wide">
-                    <button class="nav-dropdown-link" data-panel="health" data-i18n="nav_health">Health Impact</button>
-                    <button class="nav-dropdown-link" data-panel="children" data-i18n="nav_children">Children's Health</button>
-                    <button class="nav-dropdown-link" data-panel="gender" data-i18n="nav_gender">Women's Health</button>
-                    <button class="nav-dropdown-link" data-panel="beyond-lungs" data-i18n="nav_beyond_lungs">Beyond the Lungs</button>
-                    <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
-                    <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
-                    <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
-                    <button class="nav-dropdown-link" data-panel="urban-heat" data-i18n="nav_urban_heat">Urban Heat Island</button>
-                    <button class="nav-dropdown-link" data-panel="occupational" data-i18n="nav_occupational">Occupational Exposure</button>
-                    <button class="nav-dropdown-link" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
-                    <button class="nav-dropdown-link" data-panel="apportionment" data-i18n="nav_apportionment">Where PM2.5 Comes From</button>
-                    <button class="nav-dropdown-link" data-panel="airshed" data-i18n="nav_airshed">Your Airshed or Your Town</button>
-                    <button class="nav-dropdown-link" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
-                    <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
-                    <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
-                    <button class="nav-dropdown-link" data-panel="gallery">Photo Gallery</button>
+                    <div class="nav-group" role="group" aria-labelledby="navgrp-health">
+                        <p class="nav-group-label" id="navgrp-health" data-i18n="nav_grp_health">Health</p>
+                        <button class="nav-dropdown-link" data-panel="health" data-i18n="nav_health">Health Impact</button>
+                        <button class="nav-dropdown-link" data-panel="children" data-i18n="nav_children">Children's Health</button>
+                        <button class="nav-dropdown-link" data-panel="gender" data-i18n="nav_gender">Women's Health</button>
+                        <button class="nav-dropdown-link" data-panel="beyond-lungs" data-i18n="nav_beyond_lungs">Beyond the Lungs</button>
+                        <button class="nav-dropdown-link" data-panel="economic" data-i18n="nav_economic">Economic Cost</button>
+                        <button class="nav-dropdown-link" data-panel="indoor" data-i18n="nav_indoor">Indoor Air</button>
+                        <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
+                        <button class="nav-dropdown-link" data-panel="urban-heat" data-i18n="nav_urban_heat">Urban Heat Island</button>
+                        <button class="nav-dropdown-link" data-panel="occupational" data-i18n="nav_occupational">Occupational Exposure</button>
+                    </div>
+                    <div class="nav-group" role="group" aria-labelledby="navgrp-learn">
+                        <p class="nav-group-label" id="navgrp-learn" data-i18n="nav_grp_learn">Learn</p>
+                        <button class="nav-dropdown-link" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
+                        <button class="nav-dropdown-link" data-panel="apportionment" data-i18n="nav_apportionment">Where PM2.5 Comes From</button>
+                        <button class="nav-dropdown-link" data-panel="airshed" data-i18n="nav_airshed">Your Airshed or Your Town</button>
+                        <button class="nav-dropdown-link" data-panel="source-selector" data-i18n="nav_source_selector">Data Source Selector</button>
+                        <button class="nav-dropdown-link" data-panel="correlations" data-i18n="nav_correlations">Pollution Correlations</button>
+                        <button class="nav-dropdown-link" data-panel="glossary" data-i18n="nav_glossary">Glossary</button>
+                        <button class="nav-dropdown-link" data-panel="gallery">Photo Gallery</button>
+                    </div>
                 </div>
             </div>
             <div class="nav-item">
@@ -1354,17 +1360,23 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div class="nav-item">
                 <button class="nav-link nav-more" data-panel="resources" aria-label="More sections" title="More sections" data-i18n-attr="aria-label:nav_more,title:nav_more">&#8943;<span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-link" data-panel="resources" data-i18n="nav_resources">Reading List</button>
-                    <button class="nav-dropdown-link" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
-                    <button class="nav-dropdown-link" data-panel="tools" data-i18n="nav_tools">Tools</button>
-                    <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
-                    <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
-                    <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
-                    <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About JanVayu</button>
-                    <button class="nav-dropdown-link" data-panel="team">Team</button>
-                    <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
-                    <a class="nav-dropdown-link" href="mailto:contribute@janvayu.in" style="text-decoration:none;">Contact</a>
-                    <a class="nav-dropdown-link" href="https://github.com/JanVayu/JanVayu" target="_blank" rel="noopener" style="text-decoration:none;">GitHub &#8599;</a>
+                    <div class="nav-group" role="group" aria-labelledby="navgrp-resources">
+                        <p class="nav-group-label" id="navgrp-resources" data-i18n="nav_grp_resources">Resources</p>
+                        <button class="nav-dropdown-link" data-panel="resources" data-i18n="nav_resources">Reading List</button>
+                        <button class="nav-dropdown-link" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
+                        <button class="nav-dropdown-link" data-panel="tools" data-i18n="nav_tools">Tools</button>
+                        <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
+                        <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
+                        <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
+                    </div>
+                    <div class="nav-group" role="group" aria-labelledby="navgrp-about">
+                        <p class="nav-group-label" id="navgrp-about" data-i18n="nav_grp_about">About</p>
+                        <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About JanVayu</button>
+                        <button class="nav-dropdown-link" data-panel="team">Team</button>
+                        <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
+                        <a class="nav-dropdown-link" href="mailto:contribute@janvayu.in" style="text-decoration:none;">Contact</a>
+                        <a class="nav-dropdown-link" href="https://github.com/JanVayu/JanVayu" target="_blank" rel="noopener" style="text-decoration:none;">GitHub &#8599;</a>
+                    </div>
                 </div>
             </div>
             <div class="nav-actions-right">
