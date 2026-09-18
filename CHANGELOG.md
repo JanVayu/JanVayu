@@ -19,6 +19,14 @@ The height is now `8em`, exactly five whole lines, in both files, with the fade 
 
 **The flip.** Reported as the page oscillating between the old version and the new one on refresh. It was doing exactly that, and the service worker, investigated twice, was never the cause. With `styles.css` held back four seconds: first paint gave headline **57.6px**, card radius **12px**, `text-align: center`, a drop shadow; when the stylesheet arrived it repainted to **80px**, **0**, `left`, `none`. After the sync, every one of those is identical at both paints.
 
+### Fixed, the live reading sat flush against the edge of its own card
+
+`.hero-pm25-card` declared `padding-left: 20px; padding-right: 20px` and then, five lines below in the same rule, `padding: 22px 0 26px`. The shorthand comes second and resets both to **zero**, so the city label, the PM2.5 figure, the unit and the WHO multiple all began at the card's own border with nothing between the ink and the edge. `.hero-pm25-aqi` had no horizontal padding to begin with. Every other block in the same card, `.hero-stat` and `.live-bar`, carries 20px, so the top of the card was the one part that did not.
+
+Measured before: ink offset from the card edge **0px** at 390 and at 1440. After: **20px**, matching the cells below it. This is the same shape of mistake as the `border: 0` in v26.6.209 that wiped the info-box accent rules, so the padding is now declared once, as a shorthand, with a note saying why.
+
+The AQI row's `border-top` is a divider and has to reach both edges of the card, which the new gutter would have inset. It bleeds back out by exactly that gutter and re-adds it as padding: verified, the row is still 356 of 356px wide on a phone and flush at both ends, while its text sits on the same left edge as everything above it.
+
 ### Added, a guard so first paint and final paint cannot disagree again
 
 `scripts/check-critical-css.py` compares every selector declared in both files and fails when a shared property carries different values. `var(--w-300)` and `#e5e5dc` count as one value, because the critical copy has to spell colours as literals (the tokens live in `styles.css` and are not loaded yet), and a rule inside `[data-theme="dark"]` resolves against the dark table, with the colour ladder inherited from `:root` exactly as the cascade does. Broken and re-proved: putting one `font-size` back out of sync names it and exits 1. In CI.

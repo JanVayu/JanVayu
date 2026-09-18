@@ -678,7 +678,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-cta-sub { font-size: 0.76rem; color: var(--text-3); line-height: 1.35; }
 .hero-cta-arrow { margin-left: auto; color: var(--accent); font-size: 1.15rem; flex: none; }
 .hero-data { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
-.hero-pm25-card { grid-column: 1 / -1; background: var(--bg-card); border: 0; border-radius: 0; padding: 22px 0 26px; text-align: left; box-shadow: none; position: relative; overflow: hidden; }
+.hero-pm25-card { grid-column: 1 / -1; background: var(--bg-card); border: 0; border-radius: 0; padding: 22px 20px 26px; text-align: left; box-shadow: none; position: relative; overflow: hidden; }
 .hero-pm25-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
 .hero-pm25-number { font-family: var(--mono); font-size: clamp(4.4rem, 9vw, 6.4rem); font-weight: 600; line-height: 0.92; letter-spacing: -0.05em; }
 /* No text-transform: uppercase here — it maps µ (U+00B5) to Greek capital Mu,
@@ -686,7 +686,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-pm25-unit { font-size: 0.78rem; color: var(--text-3); letter-spacing: 0.1em; margin-top: 10px; }
 .hero-pm25-who { font-family: var(--mono); font-size: 1.1rem; font-weight: 500; margin-top: 8px; }
 .hero-pm25-label { font-size: 0.72rem; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
-.hero-pm25-aqi { font-size: 0.78rem; color: var(--text-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+.hero-pm25-aqi { font-size: 0.78rem; color: var(--text-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-light); margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
 .hero-stat { background: var(--bg-card); border: 0; border-radius: 0; padding: 22px 20px; text-align: left; box-shadow: none; }
 .hero-stat-value { font-family: var(--mono); font-size: 1.85rem; font-weight: 600; line-height: 1.05; }
 .hero-stat-value.danger { color: var(--red); }

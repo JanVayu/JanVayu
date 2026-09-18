@@ -997,14 +997,20 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-data > * { background: var(--bg-card); }
 .hero-pm25-card {
     grid-column: 1 / -1;
-    padding-left: 20px; padding-right: 20px;
     /* Must paint: the grid beneath is the border colour, showing through the
        1px gaps to draw the dividers. Anything transparent here shows grey. */
     background: var(--bg-card);
     border: 0;
     border-top: 3px solid var(--accent);
     border-radius: 0;
-    padding: 22px 0 26px;
+    /* 20px each side, the same gutter .hero-stat and .live-bar use, so the
+       reading and its cells line up. This rule used to declare padding-left
+       and padding-right as longhands ABOVE the shorthand, which then reset
+       both to zero: the live PM2.5 figure, the unit and the WHO multiple all
+       began at the card's own edge with nothing between the ink and the
+       border. Same shape of mistake as the `border: 0` that once wiped the
+       info-box accent rules. Declare it once, as a shorthand. */
+    padding: 22px 20px 26px;
     text-align: left;
     box-shadow: none;
     position: relative;
@@ -1044,6 +1050,15 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     margin-top: 16px;
     padding-top: 14px;
     border-top: 1px solid var(--border-light);
+    /* Its border-top is a divider and has to reach both edges of the card,
+       which the card's 20px gutter would otherwise inset. So it bleeds back
+       out by exactly that gutter and re-adds it as padding: the rule spans
+       the full width, the text inside it stays on the same left edge as
+       everything above. */
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .hero-stat {
     background: var(--bg-card);
