@@ -13,6 +13,41 @@
 @font-face { font-family: 'Kalam'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/kalam-700.woff2') format('woff2'); }
 
 :root {
+    /* ══ LAYER 1: palette ══════════════════════════════════════════════
+       Raw ramps. Nothing outside layer 2 should reference these directly.
+
+       Every value here is a hex ALREADY in use elsewhere in this file,
+       moved rather than changed, so adding this layer is visually a no-op.
+       It exists because the neutrals were previously one-off hexes: adding
+       a surface level meant inventing a colour and hoping, instead of
+       taking the next step on a scale. The contrast-tuned band colours
+       (--aqi-*, --fc-*, --pm-b*) are deliberately NOT here; they flip per
+       theme for measured reasons documented beside them, and a ramp would
+       destroy that. ── */
+
+    /* warm neutrals, light end */
+    --w-0:   #FFFFFF;   /* card */
+    --w-50:  #FFFEF9;   /* paper, the page */
+    --w-100: #FAFAF5;   /* cream */
+    --w-150: #F7F6F3;   /* warm-white, sections */
+    --w-200: #eeeeea;   /* hairline */
+    --w-300: #e5e5dc;   /* border */
+    /* warm neutrals, ink end */
+    --w-600: #6f6f68;   /* tertiary ink, AA 4.5:1 on white */
+    --w-700: #5a5a54;   /* faint ink */
+    --w-800: #4a4a46;   /* secondary ink */
+    --w-900: #1a1a18;   /* ink */
+    /* warm neutrals, dark-theme surfaces */
+    --d-950: #0e0e0c;   /* page */
+    --d-900: #151513;   /* section */
+    --d-850: #1c1c1a;   /* card */
+    --d-800: #222220;   /* hairline */
+    --d-700: #2a2a28;   /* border */
+    --d-400: #8a8a82;   /* faint ink on dark */
+    --d-300: #9a9a91;   /* tertiary ink on dark, AA 4.5:1 */
+    --d-200: #a8a8a0;   /* secondary ink on dark */
+    --d-50:  #e8e8e2;   /* ink on dark */
+
     --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
     --serif: 'Fraunces', 'Newsreader', 'Georgia', serif;
     --mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -70,14 +105,14 @@
     --green-100: #DCFCE7;
     --green-50: #F0FDF4;
 
-    --cream: #FAFAF5;
-    --warm-white: #F7F6F3;
-    --paper: #FFFEF9;
+    --cream: var(--w-100);
+    --warm-white: var(--w-150);
+    --paper: var(--w-50);
 
-    --ink: #1a1a18;
-    --ink-secondary: #4a4a46;
-    --ink-tertiary: #6f6f68; /* darkened from #7a7a74 to meet WCAG AA 4.5:1 on white */
-    --ink-faint: #5a5a54;
+    --ink: var(--w-900);
+    --ink-secondary: var(--w-800);
+    --ink-tertiary: var(--w-600); /* darkened from #7a7a74 to meet WCAG AA 4.5:1 on white */
+    --ink-faint: var(--w-700);
 
     --red: #c0392b;
     --amber: #8a5300; /* darkened so amber text meets AA 4.5:1 on tinted backgrounds, not just white */
@@ -98,15 +133,15 @@
 
     --bg: var(--paper);
     --bg-section: var(--warm-white);
-    --bg-card: #FFFFFF;
+    --bg-card: var(--w-0);
     --text: var(--ink);
     --text-2: var(--ink-secondary);
     --text-3: var(--ink-tertiary);
     --text-4: var(--ink-faint);
     --accent: var(--green-700);
     --accent-hover: var(--green-600);
-    --border: #e5e5dc;
-    --border-light: #eeeeea;
+    --border: var(--w-300);
+    --border-light: var(--w-200);
 
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
@@ -121,13 +156,13 @@
 
 /* Dark mode */
 [data-theme="dark"] {
-    --bg: #0e0e0c;
-    --bg-section: #151513;
-    --bg-card: #1c1c1a;
-    --text: #e8e8e2;
-    --text-2: #a8a8a0;
-    --text-3: #9a9a91; /* lightened from #6e6e68 (a copy of the light-theme value) to meet WCAG AA 4.5:1 on dark surfaces */
-    --text-4: #8a8a82;
+    --bg: var(--d-950);
+    --bg-section: var(--d-900);
+    --bg-card: var(--d-850);
+    --text: var(--d-50);
+    --text-2: var(--d-200);
+    --text-3: var(--d-300); /* lightened from #6e6e68 (a copy of the light-theme value) to meet WCAG AA 4.5:1 on dark surfaces */
+    --text-4: var(--d-400);
     --accent: #4ADE80;
     --accent-hover: #86EFAC;
     /* Semantic colour tokens brightened for legible text on dark surfaces
@@ -152,7 +187,7 @@
     --fc-poor: #fdba74;
     --fc-very-poor: #fca5a5;
     --fc-severe: #f9a8d4;
-    --fc-na: #a8a8a0;
+    --fc-na: var(--d-200);
     --pm-b1: #4ade80;
     --pm-b2: #bef264;
     --pm-b3: #fcd34d;
@@ -166,9 +201,9 @@
     --pink: #f472b6;
     --on-accent: #0e0e0c; /* near-black on the bright dark-theme tones: 6.99-11.57:1 */
     --logo-mark: #7fd6a0;   /* 7.6:1 on the dark page */
-    --ink: #e8e8e2;
-    --border: #2a2a28;
-    --border-light: #222220;
+    --ink: var(--d-50);
+    --border: var(--d-700);
+    --border-light: var(--d-800);
     --shadow-sm: none;
     --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
     --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
