@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.203] - 2026-09-18
+
+### Fixed — the comparison table overprinted itself on a phone
+
+Below 30em, `docsify-themeable` stacks a table: it hides the head, makes every cell a block, pads it 8em on the left, and floats the column label into that gutter with a negative margin. A float is out of flow, so the cell reserves one line of height whatever the label's length. Any label wrapping to a second line printed **on top of the row beneath it**.
+
+On the source-comparison table that was **34 of 170 cells**, measured: the label needs 53px and the cell gives it 31. "AQI.in / IQAir / AQICN" sat over "OpenAQ", "Sensor networks" over "VayuBuddy". A reader on a phone found it. Reproduced locally by serving docsify and the theme from disk, since the sandbox cannot reach the CDN; the first attempt at reproduction showed nothing because it omitted `docsify-themeable.min.js`, which is what injects the wrapper the theme's rules are scoped to.
+
+Fixed by making the stacked cell a two-column grid, so the label is back in flow and the row grows to fit whichever side is taller. 0 of 170 cells overflow now. It applies to every table on the blog, not only this one.
+
+### Fixed — the table claimed two things nobody else does, and one of them was wrong
+
+[Hawa Ka Hisab](https://hawakahisab.in), published by Ajay Maken, MP, has published weather-normalised air quality for Delhi **daily since 19 July 2026**, with its method set out in full. The comparison table gave every column but ours a flat *no* on that row, and the section text said we knew of no other Indian source doing it. It also reconstructs Delhi's air back to 1980, another row we had marked *no* everywhere else.
+
+**The site was already in this repository.** `air-query.mjs` cites its decadal Delhi figures as an independent check on our own 1980-2022 reconstruction. We knew it as a history and never looked at what else it published.
+
+Both rows corrected, a tenth column added, and a dated correction note carried in the post. The two de-weatherings answer different questions and the post now says which to use when: theirs is day-against-the-same-fortnight-last-year for Delhi, ours is a multi-year trend across 44 cities.
+
+### Changed — the post reads less like a machine wrote it
+
+Headings and closing passages rewritten after the same note twice: the register was too pleased with itself. "The five rows that actually matter" became "The rows that carry the argument", "What the others do better, which is not a courtesy" became "Where the others are better", and the epigram endings went.
+
 ## [v26.6.202] - 2026-09-17
 
 ### Added — 2026 joined on, from our own parse of CPCB's PDFs
