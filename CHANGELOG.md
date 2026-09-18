@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.221] - 2026-09-18
+
+### Changed, a new release now tells the page in front of you to reload itself
+
+The stale stylesheet stamp fixed in v26.6.220 was a real cause and, reported again afterwards, evidently not the only one. So this stops depending on every asset URL being stamped correctly forever, and makes the site say when it has been superseded.
+
+`sw.js` already deleted old caches and claimed clients on activate. It now also notices whether a **previous** `janvayu-*` cache existed, which distinguishes an update from a first install, and posts `janvayu-sw-updated` to every open window. `app.js` listens and reloads once, guarded by the version in `sessionStorage` so a worker that re-activates cannot reload the page in a loop.
+
+Driven against a real worker update in Chromium, counting main-frame navigations rather than trusting the code: **first install 1** (the initial load, no auto-reload), **new version 1** (the single reload), **update with no version change 0**, **idle afterwards 0**. The private-mode path returns rather than reloading, because a `sessionStorage` that throws would otherwise mean no guard at all.
+
+What this does not do is reach a browser that never requests `sw.js` again. It fires on the next visit, which is the point: the visitor does nothing, and the release lands.
+
+### A note on what was actually verified, since three fixes in a row did not settle it
+
+Production was checked at every hostname (`www`, apex, http, `/index.html`), byte-identical to `main` each time, and then, which had not been done before, **rendered in a browser from the bytes production serves** rather than from the repo: verdict headline at 80px, the search box, the Ask band, five situations, six band segments, `border-radius: 0`, no death-toll headline, no page errors. The server has never been the problem.
+
+`sw.js` history was also checked for the obvious remaining suspect, and HTML has been network-first in every version going back to v26.6.206, so a previously registered worker was never serving stale markup either.
+
 ## [v26.6.220] - 2026-09-18
 
 ### Fixed, returning visitors were being served a stylesheet from about a hundred releases ago

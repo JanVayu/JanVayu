@@ -3270,6 +3270,20 @@
         // ── PWA: register service worker for offline shell + last-known AQI cache ──
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js').catch(err => console.warn('[JanVayu] SW register failed:', err));
+            // A new worker that superseded an older one says so on activate.
+            // The page it is speaking to was built by the previous release, so
+            // reload it once. Guarded by the version in sessionStorage: without
+            // that, a worker that re-activates would reload the page forever.
+            navigator.serviceWorker.addEventListener('message', (e) => {
+                if (!e.data || e.data.type !== 'janvayu-sw-updated') return;
+                var key = 'janvayu-sw-reloaded';
+                try {
+                    if (sessionStorage.getItem(key) === e.data.version) return;
+                    sessionStorage.setItem(key, e.data.version);
+                } catch (err) { return; }   // private mode: skip rather than loop
+                console.info('[JanVayu] new version active, reloading once:', e.data.version);
+                location.reload();
+            });
         }
 
         // ── PWA: capture install prompt and surface a discreet banner ──
