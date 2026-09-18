@@ -1,6 +1,6 @@
 # AQI Dashboard
 
-The AQI Dashboard provides live air quality readings for 160 Indian cities, updated automatically every 10 minutes directly from WAQI and CPCB monitoring stations.
+The AQI Dashboard provides live air quality readings for 157 Indian cities, updated automatically every 10 minutes directly from WAQI and CPCB monitoring stations.
 
 ---
 
