@@ -31,7 +31,7 @@ The obstacle was never taste. It was that most of the site's appearance lived in
 
 - [x] **989 of them migrated into 37 `.jv-*` classes** across `index.html` and sixteen panels. `display` is deliberately excluded, because JS writes it back. Verified by a control run: the residual pixel differences occur between two runs of the same code.
 - [x] **Depth becomes an edge, not a blur** — `--edge`, `--edge-accent`, and `--shadow-card: 0 1px 0 0 var(--edge)`. Cards sit on the page instead of floating above it. Blurred shadows are kept only for things that genuinely float.
-- [x] **The role picker, which is the first screen every visitor sees** — three across instead of four, left-aligned, the icon in a tinted tile, hover as a border and a wash rather than a lift, and the logo's green glow removed. All twelve roles now fit one screen at 1280×1000.
+- [x] **The role picker** — three across instead of four, left-aligned, the icon in a tinted tile, hover as a border and a wash rather than a lift, and the logo's green glow removed. All twelve roles fit one screen at 1280×1000. It was the first screen every visitor met when this was written; since v26.6.215 it is reached from the header switcher instead, and since v26.6.216 the first screen asks what you are breathing.
 - [x] **The comparison table stopped being cut off on a laptop** — the prose column is 630px and the table wanted 763px, so 133px sat off-screen at 1440px with only a scrollbar to say so. Tables now break out of the prose column above 700px. Measured: 0px hidden at 1600, 1440, 1280, 1024 and 900.
 - [x] **The blog's dark-mode toggle uses a Sargam icon** like the rest of the site, instead of an emoji.
 - [x] **The homepage diagram is generated, not drawn** — see Phase 5.32.

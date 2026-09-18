@@ -289,6 +289,15 @@
 
     const I18N = {
         en: {
+            hero_question: 'What are you breathing, <em>right now</em>?',
+            hero_question_sub: 'Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 wards, panchayats and villages, in 5 languages.',
+            hero_find_place: 'Your city, ward or village',
+            hero_find_near: 'Near me',
+            askhome_eyebrow: 'Ask JanVayu',
+            askhome_title: 'Ask a question about the air, in your own words',
+            askhome_sub: 'Live PM2.5, exposure and health calculators, rankings and trends, RTI drafts. Every answer names the source it came from, and answers in 10 Indian languages.',
+            askhome_placeholder: 'e.g. Should I go jogging today?',
+            askhome_button: 'Ask',
             about_heading: 'About JanVayu',
             about_intro: 'JanVayu (<span lang="hi">जनवायु</span> &mdash; &ldquo;People&rsquo;s Air&rdquo;) is a non-partisan, citizen-led platform documenting India&rsquo;s air quality crisis &mdash; its live data, its human toll, its policies, and its public memory. It brings together real-time PM2.5 across <strong>160 cities</strong>, a boundary atlas covering every administrative area in India, a live forecast and farm-fire tracker, health and economic-impact research, policy and accountability tracking, RTI tools, the <a href="/ask/">Ask JanVayu</a> AI assistant, and a multilingual wall of citizen testimony &mdash; every figure sourced and open. It is not a campaign; it is a public record, built for the <strong>#AQIForJanHit</strong> effort.',
             about_mission_h: 'Our Mission',
@@ -336,6 +345,15 @@
             lang_note: ""
         },
         hi: {
+            hero_question: 'आप <em>अभी</em> क्या साँस ले रहे हैं?',
+            hero_question_sub: 'भारत के सतत निगरानी नेटवर्क से लाइव हवा, 983,149 वार्ड, पंचायत और गाँवों के वार्षिक अनुमान, 5 भाषाओं में।',
+            hero_find_place: 'आपका शहर, वार्ड या गाँव',
+            hero_find_near: 'मेरे पास',
+            askhome_eyebrow: 'जनवायु से पूछें',
+            askhome_title: 'हवा के बारे में अपने शब्दों में सवाल पूछें',
+            askhome_sub: 'लाइव पीएम2.5, जोखिम और स्वास्थ्य गणनाएँ, रैंकिंग और रुझान, आरटीआई मसौदे। हर उत्तर अपना स्रोत बताता है, और 10 भारतीय भाषाओं में जवाब देता है।',
+            askhome_placeholder: 'जैसे, क्या मैं आज दौड़ने जाऊँ?',
+            askhome_button: 'पूछें',
             about_heading: 'जनवायु के बारे में',
             about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोगों की हवा&rdquo;) एक गैर-पक्षपाती, नागरिक-नेतृत्व वाला मंच है जो भारत के वायु गुणवत्ता संकट का दस्तावेज़ीकरण करता है &mdash; इसका लाइव डेटा, इसकी मानवीय क्षति, इसकी नीतियाँ और इसकी सार्वजनिक स्मृति। यह <strong>157 शहरों</strong> का रीयल-टाइम पीएम2.5, भारत के हर प्रशासनिक क्षेत्र का सीमा-एटलस, लाइव पूर्वानुमान और खेत-आग ट्रैकर, स्वास्थ्य और आर्थिक-प्रभाव शोध, नीति और जवाबदेही ट्रैकिंग, आरटीआई उपकरण, <a href="/ask/">Ask JanVayu</a> एआई सहायक, और नागरिक गवाही की बहुभाषी दीवार को एक साथ लाता है &mdash; हर आँकड़ा स्रोत-सहित और खुला। यह कोई अभियान नहीं है; यह एक सार्वजनिक अभिलेख है, जो <strong>#AQIForJanHit</strong> प्रयास के लिए बनाया गया है।',
             about_mission_h: 'हमारा उद्देश्य',
@@ -378,6 +396,15 @@
             lang_note: "विस्तृत विश्लेषण अंग्रेज़ी में उपलब्ध है। हिन्दी अनुवाद चरणबद्ध रूप से जोड़ा जा रहा है।"
         },
         ta: {
+            hero_question: '<em>இப்போது</em> நீங்கள் என்ன சுவாசிக்கிறீர்கள்?',
+            hero_question_sub: 'இந்தியாவின் தொடர் கண்காணிப்பு வலையமைப்பிலிருந்து நேரடி காற்று, 983,149 வார்டுகள், பஞ்சாயத்துகள் மற்றும் கிராமங்களுக்கான ஆண்டு மதிப்பீடுகள், 5 மொழிகளில்.',
+            hero_find_place: 'உங்கள் நகரம், வார்டு அல்லது கிராமம்',
+            hero_find_near: 'எனக்கு அருகில்',
+            askhome_eyebrow: 'ஜன்வாயுவிடம் கேளுங்கள்',
+            askhome_title: 'காற்றைப் பற்றி உங்கள் சொந்த வார்த்தைகளில் கேளுங்கள்',
+            askhome_sub: 'நேரடி PM2.5, வெளிப்பாடு மற்றும் உடல்நல கணக்கீடுகள், தரவரிசைகள் மற்றும் போக்குகள், தகவல் அறியும் உரிமை வரைவுகள். ஒவ்வொரு பதிலும் அதன் ஆதாரத்தைக் குறிப்பிடுகிறது, 10 இந்திய மொழிகளில் பதிலளிக்கிறது.',
+            askhome_placeholder: 'எ.கா. இன்று ஓட்டப்பயிற்சி செல்லலாமா?',
+            askhome_button: 'கேள்',
             about_heading: 'ஜன்வாயு பற்றி',
             about_intro: 'ஜன்வாயு (<span lang="hi">जनवायु</span> &mdash; &ldquo;மக்களின் காற்று&rdquo;) என்பது இந்தியாவின் காற்று தர நெருக்கடியை ஆவணப்படுத்தும் ஒரு கட்சி சாராத, குடிமக்கள் தலைமையிலான தளம் &mdash; அதன் நேரடி தரவு, அதன் மனித இழப்பு, அதன் கொள்கைகள் மற்றும் அதன் பொது நினைவு. இது <strong>157 நகரங்களில்</strong> நிகழ்நேர PM2.5, இந்தியாவின் ஒவ்வொரு நிர்வாகப் பகுதியையும் உள்ளடக்கிய எல்லை அட்லஸ், நேரடி முன்னறிவிப்பு மற்றும் வயல்-தீ கண்காணிப்பு, சுகாதார மற்றும் பொருளாதார-தாக்க ஆராய்ச்சி, கொள்கை மற்றும் பொறுப்புக்கூறல் கண்காணிப்பு, RTI கருவிகள், <a href="/ask/">Ask JanVayu</a> AI உதவியாளர், மற்றும் குடிமக்கள் சாட்சியத்தின் பன்மொழி சுவர் ஆகியவற்றை ஒன்றிணைக்கிறது &mdash; ஒவ்வொரு புள்ளிவிவரமும் ஆதாரத்துடன், திறந்தது. இது ஒரு பிரச்சாரம் அல்ல; இது <strong>#AQIForJanHit</strong> முயற்சிக்காக உருவாக்கப்பட்ட ஒரு பொது பதிவு.',
             about_mission_h: 'எங்கள் நோக்கம்',
@@ -420,6 +447,15 @@
             lang_note: "விரிவான பகுப்பாய்வு ஆங்கிலத்தில் உள்ளது. தமிழ் மொழிபெயர்ப்பு படிப்படியாக சேர்க்கப்படுகிறது."
         },
         mr: {
+            hero_question: 'तुम्ही <em>आत्ता</em> काय श्वास घेत आहात?',
+            hero_question_sub: 'भारताच्या सतत निरीक्षण जाळ्यातून थेट हवा, 983,149 वॉर्ड, पंचायती आणि गावांचे वार्षिक अंदाज, 5 भाषांमध्ये.',
+            hero_find_place: 'तुमचे शहर, वॉर्ड किंवा गाव',
+            hero_find_near: 'माझ्याजवळ',
+            askhome_eyebrow: 'जनवायुला विचारा',
+            askhome_title: 'हवेबद्दल आपल्या शब्दांत प्रश्न विचारा',
+            askhome_sub: 'थेट पीएम2.5, संपर्क आणि आरोग्य गणना, क्रमवारी आणि कल, माहिती अधिकार मसुदे. प्रत्येक उत्तर त्याचा स्रोत सांगते, आणि 10 भारतीय भाषांमध्ये उत्तर देते.',
+            askhome_placeholder: 'उदा. आज धावायला जाऊ का?',
+            askhome_button: 'विचारा',
             about_heading: 'जनवायु विषयी',
             about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोकांची हवा&rdquo;) हे भारताच्या हवा गुणवत्ता संकटाचे दस्तऐवजीकरण करणारे एक निष्पक्ष, नागरिक-नेतृत्वाखालील व्यासपीठ आहे &mdash; त्याचा थेट डेटा, त्याची मानवी हानी, त्याची धोरणे आणि त्याची सार्वजनिक स्मृती. हे <strong>157 शहरांतील</strong> रिअल-टाइम PM2.5, भारतातील प्रत्येक प्रशासकीय क्षेत्राचा सीमा-नकाशा, थेट अंदाज आणि शेत-आग ट्रॅकर, आरोग्य आणि आर्थिक-परिणाम संशोधन, धोरण आणि उत्तरदायित्व ट्रॅकिंग, आरटीआय साधने, <a href="/ask/">Ask JanVayu</a> AI सहाय्यक, आणि नागरिक साक्षीची बहुभाषिक भिंत एकत्र आणते &mdash; प्रत्येक आकडा स्रोतासह आणि खुला. ही मोहीम नाही; हे <strong>#AQIForJanHit</strong> प्रयत्नासाठी तयार केलेले सार्वजनिक अभिलेख आहे.',
             about_mission_h: 'आमचे ध्येय',
@@ -462,6 +498,15 @@
             lang_note: "तपशीलवार विश्लेषण इंग्रजीत उपलब्ध आहे. मराठी भाषांतर टप्प्याटप्प्याने जोडले जात आहे."
         },
         bn: {
+            hero_question: 'আপনি <em>এখন</em> কী শ্বাস নিচ্ছেন?',
+            hero_question_sub: 'ভারতের ধারাবাহিক পর্যবেক্ষণ নেটওয়ার্ক থেকে সরাসরি বাতাস, 983,149 ওয়ার্ড, পঞ্চায়েত ও গ্রামের বার্ষিক অনুমান, 5টি ভাষায়।',
+            hero_find_place: 'আপনার শহর, ওয়ার্ড বা গ্রাম',
+            hero_find_near: 'আমার কাছে',
+            askhome_eyebrow: 'জনবায়ুকে জিজ্ঞাসা করুন',
+            askhome_title: 'বাতাস নিয়ে নিজের ভাষায় প্রশ্ন করুন',
+            askhome_sub: 'সরাসরি পিএম২.৫, সংস্পর্শ ও স্বাস্থ্য হিসাব, ক্রমতালিকা ও প্রবণতা, তথ্য অধিকার খসড়া। প্রতিটি উত্তর তার সূত্র জানায়, এবং 10টি ভারতীয় ভাষায় উত্তর দেয়।',
+            askhome_placeholder: 'যেমন, আজ কি দৌড়াতে যাব?',
+            askhome_button: 'জিজ্ঞাসা',
             about_heading: 'জনবায়ু সম্পর্কে',
             about_intro: 'জনবায়ু (<span lang="hi">जनवायु</span> &mdash; &ldquo;জনগণের বাতাস&rdquo;) হল একটি নিরপেক্ষ, নাগরিক-নেতৃত্বাধীন প্ল্যাটফর্ম যা ভারতের বায়ুর মানের সংকট নথিভুক্ত করে &mdash; এর সরাসরি তথ্য, এর মানবিক ক্ষতি, এর নীতি এবং এর জনস্মৃতি। এটি <strong>157 শহরে</strong> রিয়েল-টাইম PM2.5, ভারতের প্রতিটি প্রশাসনিক এলাকার সীমানা-অ্যাটলাস, সরাসরি পূর্বাভাস ও খেত-আগুন ট্র্যাকার, স্বাস্থ্য ও অর্থনৈতিক-প্রভাব গবেষণা, নীতি ও জবাবদিহিতা ট্র্যাকিং, আরটিআই সরঞ্জাম, <a href="/ask/">Ask JanVayu</a> AI সহকারী, এবং নাগরিক সাক্ষ্যের একটি বহুভাষিক দেয়াল একত্র করে &mdash; প্রতিটি পরিসংখ্যান উৎসসহ ও উন্মুক্ত। এটি কোনো অভিযান নয়; এটি একটি জনসাধারণের নথি, <strong>#AQIForJanHit</strong> প্রয়াসের জন্য নির্মিত।',
             about_mission_h: 'আমাদের লক্ষ্য',
@@ -569,6 +614,13 @@
             });
         });
 
+        // The first screen may be showing an answer rather than the question.
+        // The loop above has just written the question back over it from the
+        // table, so put the answer back, in the language now selected.
+        if (typeof heroShowing !== 'undefined' && heroShowing) {
+            renderHeroVerdict(heroShowing.pm25, heroShowing.place);
+        }
+
         // Desktop dropdown items
         const ddMap = {
             health: 'dd_health', economic: 'dd_economic', children: 'dd_children',
@@ -675,6 +727,7 @@
             if (pmEl) { pmEl.textContent = pm25; pmEl.style.color = color; }
             if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
             if (aqiEl) aqiEl.textContent = data.aqi;
+            renderHeroVerdict(pm25, cityName);
             updatePersonalImpact(cityKey, data);
             return;
         }
@@ -690,16 +743,267 @@
                 if (v) aqiData[cityKey] = v;
                 if ((document.getElementById('hero-city-select')?.value || 'delhi') === cityKey) {
                     if (v) updateHeroCity(cityKey);
-                    else { if (pmEl) pmEl.textContent = '--'; if (whoEl) whoEl.textContent = 'No data'; if (aqiEl) aqiEl.textContent = '--'; updatePersonalImpact(cityKey, null); }
+                    else { if (pmEl) pmEl.textContent = '--'; if (whoEl) whoEl.textContent = 'No data'; if (aqiEl) aqiEl.textContent = '--'; renderHeroVerdict(null, cityName); updatePersonalImpact(cityKey, null); }
                 }
             }).catch(() => { CITIES[cityKey]._fetching = false; });
         } else if (!CITIES[cityKey]) {
             if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = 'var(--text-3)'; }
             if (whoEl) { whoEl.textContent = 'No data'; whoEl.style.color = 'var(--text-3)'; }
             if (aqiEl) aqiEl.textContent = '--';
+            renderHeroVerdict(null, cityName);
             updatePersonalImpact(cityKey, null);
         }
     }
+
+
+    // ── The first screen: ask, then answer ────────────────────────────────
+    // The hero used to lead with a statistic and a paragraph about what
+    // JanVayu is. It now asks where you are and tells you what to do about
+    // the air there. Bands are the CPCB National AQI PM2.5 24-hour sub-index
+    // breakpoints (30/60/90/120/250 µg/m³), so the label under the verdict
+    // agrees with the Indian standard rather than a US or WHO scale.
+    //
+    // Note there is a second advice table in this file, computeSolution(),
+    // which keys off AQI rather than PM2.5 and drives the Personal Impact
+    // section further down. The two answer different inputs and are not
+    // merged here; reconciling them is its own change.
+    const HERO_BANDS = [
+        { to: 30,       key: 'good',   label: 'Good' },
+        { to: 60,       key: 'sat',    label: 'Satisfactory' },
+        { to: 90,       key: 'mod',    label: 'Moderate' },
+        { to: 120,      key: 'poor',   label: 'Poor' },
+        { to: 250,      key: 'vpoor',  label: 'Very poor' },
+        { to: Infinity, key: 'severe', label: 'Severe' }
+    ];
+
+    // One verdict per band. `head` is the answer, `why` is the reason, and the
+    // three columns answer the same question for the three people who ask it
+    // differently. Written for somebody deciding what to do in the next hour.
+    const HERO_VERDICTS = {
+        good: { head: 'A good day to be outside.',
+            why: 'Open the windows. This is about as clean as the air gets here, and across most of northern India it does not last into October.',
+            plain: 'The air is clean today. Going outside is fine for everyone.',
+            who: [['Fine', 'Outdoor play and school sport are fine.'],
+                  ['Fine', 'No precautions needed at this level.'],
+                  ['Fine', 'A good day for a run.']] },
+        sat: { head: 'Fine for most people today.',
+            why: 'Ordinary activity is fine. If you are unusually sensitive you may notice it on a long run.',
+            plain: 'The air is mostly clean. Normal activity is fine for almost everyone.',
+            who: [['Fine', 'Normal outdoor activity.'],
+                  ['Mostly fine', 'Carry your reliever as usual.'],
+                  ['Fine', 'No reason to change plans.']] },
+        mod: { head: 'Sensitive groups should take it easy.',
+            why: 'Most people will not notice this. Children, older people and anyone with a lung or heart condition should cut back on hard exercise outdoors.',
+            plain: 'Most people are fine. Children, older people and anyone with breathing trouble should not exercise hard outside.',
+            who: [['Go easy', 'Shorten outdoor sport.'],
+                  ['Go easy', 'Avoid prolonged exertion outdoors.'],
+                  ['Fine', 'Normal activity is fine.']] },
+        poor: { head: 'Cut down time outdoors.',
+            why: 'Prolonged exposure at this level causes breathing discomfort in most people. Shorten what you can, and keep the windows shut on the traffic side.',
+            plain: 'Staying outside for long will make most people feel it in their chest. Go out for less time. Keep windows shut on the road side.',
+            who: [['Limit', 'Keep outdoor play short.'],
+                  ['Limit', 'Avoid exertion; keep medication to hand.'],
+                  ['Go easy', 'Skip the run; a walk is fine.']] },
+        vpoor: { head: 'Keep children indoors today.',
+            why: 'Skip the run. A fitted N95 helps outside; a purifier helps in one room, not a house. If this is your normal, the thing that changes it is not a purifier.',
+            plain: 'Keep children inside. A well-fitted N95 mask helps outside. A purifier helps in one room, not a whole house.',
+            who: [['Stay in', 'No outdoor play, no school sport.'],
+                  ['Stay in', 'Keep reliever medication to hand.'],
+                  ['Brief trips', 'A fitted N95 outdoors. No running.']] },
+        severe: { head: 'Stay indoors. This is an emergency-level reading.',
+            why: 'At this level everyone is affected, not only the vulnerable. Keep the windows shut, run a purifier if you have one, and avoid going out at all if you can.',
+            plain: 'This air is dangerous for everyone, not only for children and the sick. Stay inside. Keep windows shut. Do not go out unless you have to.',
+            who: [['Stay in', 'Keep them home; ask about school closure.'],
+                  ['Stay in', 'Seek advice early if symptoms start.'],
+                  ['Stay in', 'Outdoor exertion is unsafe today.']] }
+    };
+    const HERO_WHO_LABELS = ['A child', 'Asthma or COPD', 'Going for a run'];
+
+    // Verdict headlines, translated: this string becomes the page's <h1>.
+    const HERO_HEAD_I18N = {
+        hi: { good: 'बाहर निकलने के लिए अच्छा दिन।', sat: 'आज ज़्यादातर लोगों के लिए ठीक है।',
+              mod: 'संवेदनशील लोग सावधानी बरतें।', poor: 'बाहर कम समय बिताएँ।',
+              vpoor: 'आज बच्चों को घर के अंदर रखें।', severe: 'घर के अंदर रहें। यह आपात स्तर की हवा है।' },
+        ta: { good: 'வெளியே செல்ல நல்ல நாள்.', sat: 'இன்று பெரும்பாலானோருக்கு பரவாயில்லை.',
+              mod: 'பாதிப்புக்குள்ளாகக்கூடியவர்கள் கவனமாக இருக்கவும்.', poor: 'வெளியில் செலவிடும் நேரத்தைக் குறையுங்கள்.',
+              vpoor: 'இன்று குழந்தைகளை வீட்டிற்குள் வைத்திருங்கள்.', severe: 'வீட்டிற்குள் இருங்கள். இது அவசர நிலை காற்று.' },
+        mr: { good: 'बाहेर पडण्यासाठी चांगला दिवस.', sat: 'आज बहुतेकांसाठी ठीक आहे.',
+              mod: 'संवेदनशील लोकांनी काळजी घ्यावी.', poor: 'बाहेरचा वेळ कमी करा.',
+              vpoor: 'आज मुलांना घरातच ठेवा.', severe: 'घरात रहा. ही आणीबाणीच्या पातळीची हवा आहे.' },
+        bn: { good: 'বাইরে যাওয়ার জন্য ভালো দিন।', sat: 'আজ বেশিরভাগ মানুষের জন্য ঠিক আছে।',
+              mod: 'সংবেদনশীল ব্যক্তিরা সাবধান থাকুন।', poor: 'বাইরে কম সময় কাটান।',
+              vpoor: 'আজ শিশুদের ঘরে রাখুন।', severe: 'ঘরে থাকুন। এটি জরুরি মাত্রার বাতাস।' }
+    };
+    function heroHead(bandKey) {
+        const t = HERO_HEAD_I18N[currentLang];
+        return (t && t[bandKey]) || HERO_VERDICTS[bandKey].head;
+    }
+
+    // What the first screen is currently answering. setLanguage() re-applies
+    // every data-i18n element from the table, which would otherwise paint the
+    // question back over the top of the verdict.
+    let heroShowing = null;
+
+    function heroBandFor(pm) {
+        for (let i = 0; i < HERO_BANDS.length; i++) if (pm <= HERO_BANDS[i].to) return HERO_BANDS[i];
+        return HERO_BANDS[HERO_BANDS.length - 1];
+    }
+
+    // applySimpleMode() parks an element's original markup in dataset.technical
+    // the first time simple mode is switched on, and restores it when switched
+    // off. Anything written here has to update both copies, or the toggle puts
+    // the question back over the top of the answer.
+    function heroSetText(el, technicalHtml, simpleText) {
+        if (!el) return;
+        const simple = document.body.classList.contains('simple-language');
+        if (el.dataset) {
+            el.dataset.technical = technicalHtml;
+            if (simpleText !== undefined) el.dataset.simple = simpleText;
+        }
+        el.innerHTML = (simple && simpleText !== undefined) ? simpleText : technicalHtml;
+    }
+
+    function renderHeroVerdict(pm25, placeName) {
+        const qEl = document.getElementById('heroQuestion');
+        const whyEl = document.getElementById('heroWhy');
+        const whoEl = document.getElementById('heroWho');
+        if (!qEl || !whyEl || !whoEl) return;
+        const place = escapeHtml(placeName || 'that place');
+
+        if (pm25 === null || pm25 === undefined || !isFinite(pm25)) {
+            heroShowing = { pm25: null, place: placeName };
+            heroSetText(whyEl,
+                'No live reading for <strong>' + place + '</strong> right now. The nearest monitor may be offline.',
+                'We cannot read the air in ' + place + ' right now. The nearest machine may be switched off.');
+            whoEl.hidden = true;
+            return;
+        }
+
+        heroShowing = { pm25: pm25, place: placeName };
+        const band = heroBandFor(pm25);
+        const v = HERO_VERDICTS[band.key];
+        const n = Math.round(pm25);
+        const head = heroHead(band.key);
+        heroSetText(qEl, head, head);
+        heroSetText(whyEl,
+            '<strong>' + place + '</strong> is at <strong>' + n + ' µg/m³</strong> PM2.5, which CPCB calls <strong>' +
+            band.label.toLowerCase() + '</strong>. ' + v.why,
+            place + ' has ' + n + ' units of PM2.5 in the air. ' + v.plain);
+
+        whoEl.innerHTML = v.who.map((row, i) =>
+            '<div class="hero-who-col">' +
+            '<div class="hero-who-who">' + HERO_WHO_LABELS[i] + '</div>' +
+            '<div class="hero-who-tag">' + row[0] + '</div>' +
+            '<div class="hero-who-text">' + row[1] + '</div>' +
+            '</div>').join('');
+        whoEl.hidden = false;
+    }
+
+    // ── Place search in the first screen ──────────────────────────────────
+    function heroFindMatches(q) {
+        q = (q || '').trim().toLowerCase();
+        if (q.length < 2) return [];
+        const starts = [], contains = [];
+        Object.keys(CITIES).forEach(key => {
+            if (key === '__nearme') return;
+            const name = (CITIES[key].name || key).toLowerCase();
+            if (name.startsWith(q)) starts.push(key);
+            else if (name.includes(q)) contains.push(key);
+        });
+        return starts.concat(contains).slice(0, 6);
+    }
+
+    function heroFindType(value) {
+        const box = document.getElementById('heroMatches');
+        if (!box) return;
+        const hits = heroFindMatches(value);
+        if (!hits.length) { box.hidden = true; box.innerHTML = ''; return; }
+        box.innerHTML = hits.map(k =>
+            '<button class="hero-match" role="option" data-city="' + k + '">' +
+            escapeHtml(CITIES[k].name || k) + '</button>').join('');
+        box.hidden = false;
+    }
+
+    function heroFindEnter() {
+        const input = document.getElementById('heroFind');
+        const hits = heroFindMatches(input ? input.value : '');
+        if (hits.length) heroPick(hits[0]);
+    }
+
+    function heroPick(cityKey) {
+        const input = document.getElementById('heroFind');
+        const box = document.getElementById('heroMatches');
+        if (input) input.value = CITIES[cityKey] ? CITIES[cityKey].name : cityKey;
+        if (box) { box.hidden = true; box.innerHTML = ''; }
+        const sel = document.getElementById('hero-city-select');
+        if (sel) sel.value = cityKey;
+        updateHeroCity(cityKey);
+    }
+
+    document.addEventListener('click', e => {
+        const hit = e.target.closest('.hero-match');
+        if (hit && hit.dataset.city) { heroPick(hit.dataset.city); return; }
+        const box = document.getElementById('heroMatches');
+        if (box && !box.hidden && !e.target.closest('.hero-find')) { box.hidden = true; box.innerHTML = ''; }
+    });
+
+    // ── Ask JanVayu, answering on the homepage ────────────────────────────
+    // Same endpoint as the Ask panel. The city defaults to whatever the first
+    // screen is showing, so a question asked after a search is about the place
+    // the visitor just looked up.
+    function askHomeChip(btn) {
+        const input = document.getElementById('askhome-q');
+        if (!input || !btn) return;
+        input.value = btn.dataset.q || btn.textContent.trim();
+        input.focus();
+        askHomeSubmit();
+    }
+
+    async function askHomeSubmit() {
+        const input = document.getElementById('askhome-q');
+        const out = document.getElementById('askhome-answer');
+        const go = document.getElementById('askhome-go');
+        if (!input || !out) return;
+        const question = (input.value || '').trim();
+        if (!question) { out.textContent = 'Type a question first.'; return; }
+
+        const sel = document.getElementById('hero-city-select');
+        const city = (sel && sel.value && sel.value !== '__nearme') ? sel.value : 'delhi';
+        const lang = document.getElementById('askhome-lang')?.value || 'en';
+
+        if (go) { go.disabled = true; go.textContent = 'Asking…'; }
+        out.textContent = 'Reading the live data…';
+        try {
+            if (!navigator.onLine) throw new Error('offline');
+            const res = await fetch('/.netlify/functions/air-query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, city, lang })
+            });
+            const data = await res.json();
+            const answer = cleanChatText(data.answer) || 'No answer came back. Try again in a moment.';
+            let html = '<div>' + escapeHtml(answer).replace(/\n/g, '<br>') + '</div>';
+            if (data.dataUsed) {
+                html += '<h4>Data used</h4><div>' + escapeHtml(data.dataUsed.city) +
+                    ' — AQI ' + escapeHtml(String(data.dataUsed.aqi)) +
+                    ', PM2.5 ' + escapeHtml(String(data.dataUsed.pm25 ?? 'not reported')) + ' µg/m³, station ' +
+                    escapeHtml(String(data.dataUsed.station)) + ', updated ' + escapeHtml(String(data.dataUsed.time)) + '.</div>';
+            }
+            out.innerHTML = html;
+        } catch (e) {
+            out.textContent = (e && e.message === 'offline')
+                ? 'You are offline. Ask needs a connection because it reads the live data before answering.'
+                : 'Something went wrong reaching the answer service. Try again in a moment.';
+        } finally {
+            if (go) { go.disabled = false; go.textContent = 'Ask'; }
+        }
+    }
+
+    window.heroFindType = heroFindType;
+    window.heroFindEnter = heroFindEnter;
+    window.heroPick = heroPick;
+    window.askHomeChip = askHomeChip;
+    window.askHomeSubmit = askHomeSubmit;
 
     // ── Personal Impact (cigarette equivalence + disease risk + solutions) ──
     // Berkeley Earth equivalence: 22 µg/m³ PM2.5 over 24 hours ≈ 1 cigarette.
@@ -1258,6 +1562,15 @@
                     window.setLanguage(currentLang);
                 }
             } catch (e) { /* i18n re-apply is best-effort */ }
+            // Same problem, same fix, for simple language. A panel's markup is
+            // injected long after applySimpleMode() last ran, so its
+            // [data-simple] elements arrive holding the technical text and stay
+            // that way. 199 of the site's 201 simple-language strings live in
+            // panel markup, so without this the toggle changes nothing a
+            // visitor can see.
+            try {
+                if (simpleMode) applySimpleMode();
+            } catch (e) { /* simple-language re-apply is best-effort */ }
             // Re-init charts/map after DOM update
             setTimeout(() => {
                 try { initAllCharts(); } catch(e) {}
