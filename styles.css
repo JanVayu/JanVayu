@@ -254,10 +254,10 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .ticker {
     background: var(--green-900);
     color: var(--green-400);
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     font-family: var(--mono);
-    letter-spacing: 0.02em;
-    height: 30px;
+    letter-spacing: 0.04em;
+    height: 26px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -268,7 +268,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     white-space: nowrap;
     animation: tickerScroll 120s linear infinite;
 }
-.ticker-item { padding: 0 24px; display: inline-flex; align-items: center; gap: 8px; }
+.ticker-item { padding: 0 20px; display: inline-flex; align-items: center; gap: 8px; }
 .ticker-city { color: #cfd8d1; }   /* was 50% alpha: 3.9:1. Now 7.0:1 on the bar. */
 /* The ticker's WHO multiple is the most alarming number on the page and was
    the least legible text on it: white at 30% alpha over the dark green bar
@@ -283,12 +283,12 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .header {
     height: var(--header-h);
     background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    /* No rule here. The header and the nav beneath it are one band; only the
+       bottom of the band is drawn, so the chrome reads as a single object
+       instead of three stacked strips. */
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
 }
 .header .container {
     display: flex;
@@ -357,6 +357,8 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     border-bottom: 1px solid var(--border);
     width: 100%;
 }
+/* The band's own edge, and the only rule in the chrome. */
+.section-nav { box-shadow: 0 1px 0 0 var(--border); border-bottom-color: transparent; }
 .section-nav .container {
     display: flex;
     gap: 0;
@@ -875,17 +877,15 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 /* ── Hero ────────────────────────────────── */
 .hero {
-    padding: 56px 0 48px;
-    background: linear-gradient(180deg, var(--green-50) 0%, var(--bg) 100%);
+    padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 5vw, 72px);
+    background: none;
     border-bottom: 1px solid var(--border-light);
 }
-[data-theme="dark"] .hero {
-    background: linear-gradient(180deg, rgba(74,222,128,0.03) 0%, var(--bg) 100%);
-}
+[data-theme="dark"] .hero { background: none; }
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: clamp(40px, 5vw, 72px);
     align-items: start;
 }
 @media (max-width: 768px) {
@@ -894,10 +894,10 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .hero-headline {
     font-family: var(--serif);
-    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+    font-size: clamp(2.3rem, 5.2vw, 4.2rem);
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
     color: var(--text);
     text-wrap: balance;
 }
@@ -906,11 +906,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     font-style: normal;
 }
 .hero-sub {
-    font-size: 1.05rem;
+    font-size: 1.12rem;
     color: var(--text-2);
-    margin-top: 16px;
-    line-height: 1.65;
-    max-width: 520px;
+    margin-top: 22px;
+    line-height: 1.6;
+    max-width: 46ch;
 }
 .hero-live-alert {
     margin-top: 20px;
@@ -953,32 +953,36 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-data {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-.hero-pm25-card {
-    grid-column: 1 / -1;
-    background: var(--bg-card);
+    /* 1px of the border colour showing between cells: the grid draws the
+       lines, so no cell needs a border of its own. */
+    gap: 1px;
+    background: var(--border);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    text-align: center;
-    box-shadow: var(--shadow-card);
-    position: relative;
     overflow: hidden;
 }
-.hero-pm25-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
+.hero-data > * { background: var(--bg-card); }
+.hero-pm25-card {
+    grid-column: 1 / -1;
+    padding-left: 20px; padding-right: 20px;
+    /* Must paint: the grid beneath is the border colour, showing through the
+       1px gaps to draw the dividers. Anything transparent here shows grey. */
+    background: var(--bg-card);
+    border: 0;
+    border-top: 3px solid var(--accent);
+    border-radius: 0;
+    padding: 22px 0 26px;
+    text-align: left;
+    box-shadow: none;
+    position: relative;
 }
 .hero-pm25-number {
     font-family: var(--mono);
-    font-size: 4rem;
+    font-size: clamp(4.4rem, 9vw, 6.4rem);
     font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.03em;
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    display: block;
 }
 .hero-pm25-unit {
     font-size: 0.78rem;
@@ -986,7 +990,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     /* Never uppercase this: text-transform maps µ (U+00B5) to Greek capital Mu,
        so "µg/m³" renders as "MG/M³" — off by a factor of 1000. */
     letter-spacing: 0.1em;
-    margin-top: 4px;
+    margin-top: 10px;
 }
 .hero-pm25-who {
     font-family: var(--mono);
@@ -1004,32 +1008,34 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-pm25-aqi {
     font-size: 0.78rem;
     color: var(--text-3);
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
     border-top: 1px solid var(--border-light);
 }
 .hero-stat {
     background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 20px 16px;
-    text-align: center;
-    box-shadow: var(--shadow-card);
+    border: 0;
+    border-radius: 0;
+    padding: 22px 20px;
+    text-align: left;
+    box-shadow: none;
 }
 .hero-stat-value {
     font-family: var(--mono);
-    font-size: 1.6rem;
+    font-size: 1.85rem;
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
 }
 .hero-stat-value.danger { color: var(--red); }
 .hero-stat-value.warning { color: var(--amber); }
 .hero-stat-label {
-    font-size: 0.68rem;
-    color: var(--text-4);
+    font-size: 0.66rem;
+    color: var(--text-3);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 6px;
+    letter-spacing: 0.09em;
+    margin-top: 10px;
+    font-weight: 600;
 }
 .hero-stat-note {
     font-size: 0.72rem;
@@ -1039,13 +1045,13 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 
 /* Live status bar */
 .live-bar {
-    padding: 10px 16px;
+    padding: 12px 20px;
     background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 0;
+    border-radius: 0;
     font-size: 0.82rem;
     color: var(--text-2);
-    margin-top: 16px;
+    margin-top: 0;
     grid-column: 1 / -1;
 }
 .pulse {
@@ -2109,32 +2115,33 @@ html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
    An eyebrow (short kicker) + serif title marks each major block so the page
    reads as ordered sections rather than one continuous list of cards. */
 .dash-section {
-    display: flex; flex-direction: column; gap: 3px;
-    margin: 40px 0 14px; padding-top: 22px;
-    border-top: 1px solid var(--border, #e7e4dc);
+    display: flex; flex-direction: column; gap: 6px;
+    margin: clamp(56px, 7vw, 96px) 0 22px; padding-top: 0;
+    border-top: 0;
 }
-.dash-section:first-of-type { border-top: none; padding-top: 0; margin-top: 26px; }
+.dash-section:first-of-type { margin-top: clamp(40px, 5vw, 64px); }
 .dash-section-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.09em;
-    text-transform: uppercase; color: var(--text-3);
+    font-family: var(--mono);
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 4px;
 }
 .dash-section-eyebrow::before {
     content: ''; width: 18px; height: 2px;
     background: var(--accent); border-radius: 2px;
 }
 .dash-section-title {
-    font-family: var(--serif); font-size: 1.4rem; font-weight: 600;
-    line-height: 1.15; letter-spacing: -0.015em; color: var(--ink); margin: 0;
+    font-family: var(--serif); font-size: clamp(1.6rem, 2.6vw, 2.25rem); font-weight: 600;
+    line-height: 1.1; letter-spacing: -0.03em; color: var(--ink); margin: 0;
     text-wrap: balance;
 }
 .dash-section-sub {
-    font-size: 0.82rem; color: var(--text-2); margin: 2px 0 0;
-    max-width: 62ch; line-height: 1.45;
+    font-size: 0.95rem; color: var(--text-2); margin: 6px 0 0;
+    max-width: 62ch; line-height: 1.6;
 }
 @media (max-width: 640px) {
-    .dash-section { margin-top: 30px; }
-    .dash-section-title { font-size: 1.2rem; }
+    .dash-section { margin-top: 44px; }
 }
 
 .how-flow { padding: 0; background: none; border: none; }
@@ -2981,3 +2988,53 @@ body {
 .jv-mt-05 { margin-top: 0.5rem; }
 .jv-w-full { width: 100%; }
 .jv-ico-accent { color: var(--accent); margin-right: 0.4rem; }
+
+
+/* ══ Dashboard visual system, v2 ═════════════════════════════════════════
+   The v26.6.206 pass moved the styling out of inline attributes and changed a
+   card's shadow to an edge. On the dashboard that was invisible: a 4px blur
+   became a 1px line in a colour close to the page, and nothing else moved. The
+   page a visitor lands on looked identical, which is what it was reported as.
+
+   These rules change the layout, not the content, the fonts or the greens.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* A row of cards stretched to the tallest sets 200px of dead space under the
+   shortest. Let each end where its content ends. */
+.grid-3 > .card, .grid-2 > .card, .grid-4 > .card { align-self: start; }
+
+/* The old idiom put a box around everything. Where a block already sits in its
+   own column, the box is doing nothing that spacing cannot, so the CTA cards
+   and the live note drop the rounded-box look for a rule and open space. */
+.hero-cta-card {
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+    background: none;
+    padding: 16px 2px;
+}
+.hero-cta-row { gap: 0; margin-top: 30px; }
+.hero-cta-row > :last-child { border-bottom: 1px solid var(--border); }
+.hero-cta-card:hover {
+    border-color: var(--border);
+    border-top-color: var(--accent);
+    background: none;
+    transform: none;
+}
+.hero-cta-card:hover .hero-cta-title { color: var(--accent); }
+.hero-cta-icon { border-radius: 8px; width: 34px; height: 34px; }
+
+.hero-live-alert {
+    border-radius: 0;
+    background: none;
+    border-left: 2px solid var(--red);
+    padding: 2px 0 2px 16px;
+    margin-top: 26px;
+}
+
+/* The share row under the reading was a 90px band holding one line. */
+.hero-pm25-aqi { margin-top: 14px; padding-top: 12px; }
+
+/* Section eyebrow: the dash before it was a rounded pill on a 2px bar. A flat
+   rule in the accent, tight to the label, reads as a mark rather than a shape. */
+.dash-section-eyebrow::before { border-radius: 0; height: 1px; width: 22px; }

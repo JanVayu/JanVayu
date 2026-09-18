@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.208] - 2026-09-18
+
+### Changed — the dashboard actually looks different now
+
+v26.6.206 shipped under the title "the design reaches the screen". On the dashboard it did not, and the owner said so: the whole thing looked exactly the same. **Measured, the entire visible difference on the landing screen was a card's `box-shadow` going from `0 1px 4px rgba(0,0,0,0.04)` to `0 1px 0 rgb(229,229,220)` and its bottom border going 1px to 2px.** A blur became a line, in a colour close to the page, on a screen nobody was looking at the shadows of.
+
+What that release actually did was the *plumbing* — the token ramp, 989 inline styles into classes — plus the role picker, which a returning visitor never sees because their role is saved. The reporting was the failure: panel screenshots differing by 11-20% of pixels were quoted as visible change, and a pixel diff counts sub-perceptual antialiasing exactly as it counts a redrawn layout. It is not a measure of whether anyone can see the difference. Looking at the two screens side by side took thirty seconds and settled it.
+
+So this changes the layout. Same content, same fonts, same greens.
+
+- **The green gradient wash behind the hero is gone.** It made the top of the site a different surface from the rest and was the most dated thing on the page. The hero is now the page, with `clamp(48px, 7vw, 96px)` of air above it doing the separating.
+- **The chrome is one band, not three strips.** Ticker (30px to 26px), header and nav each drew their own bottom rule. Only the bottom of the band is drawn now.
+- **The live reading stops being a card.** It was a centred box among four other boxes, at `4rem`. It is left-aligned at `clamp(4.4rem, 9vw, 6.4rem)` under a 3px accent rule, which is the object the page exists for.
+- **The four stat tiles become one block.** Four bordered white cards, on a near-white page, each drawing its own box, was the densest part of the layout. They are now a single bordered block whose 1px grid gaps show the border colour through, so the grid draws the dividers and no cell carries a border. Left-aligned, values up to `1.85rem`.
+- **The CTA cards and the live note lose their boxes**, for a rule and open space.
+- **Section rhythm**: 40px between sections became `clamp(56px, 7vw, 96px)`, titles from `1.4rem` to `clamp(1.6rem, 2.6vw, 2.25rem)`, and the eyebrow is mono in the accent rather than grey.
+- **A row of cards no longer stretches to the tallest.** That set 200px of dead space under the shortest card in "What today's air means for you".
+
+### Fixed — a button that was invisible in the light theme, and had been
+
+The "Share AQI Card" button in the hero was `color: rgba(255,255,255,0.8)` on `background: rgba(255,255,255,0.1)`. Its card is `var(--bg-card)`, which is white in the light theme, so the button measured **about 1.07:1 and could not be seen at all**; it was legible only in dark mode. Written for a dark card, never rechecked against the light one.
+
+Now on `--bg-section` with `--text-2`: **8.24:1 light, 7.64:1 dark**, measured in the browser against the composited ancestor rather than from the stylesheet.
+
+**`check-theme-contrast.py` cannot see this and did not miss it by accident.** It reads the stylesheet, and this pair lives in an inline `style=` attribute on the element. Every one of the site's remaining 1,871 inline styles is outside that guard the same way. The two other white-on-translucent-white pairs found in the same sweep are both in the footer, which is dark in both themes, and are correct.
+
 ## [v26.6.207] - 2026-09-18
 
 ### Fixed — three of the "160 Indian cities" are Beijing, London and Singapore
