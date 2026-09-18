@@ -16,7 +16,7 @@ Consulate monitors published through AirNow.
 | Readings | 196.5 million hourly |
 | Stations | 558 (553 CPCB, 5 US Embassy) |
 | Pollutants | 15 |
-| Coverage | January 2009 to March 2026 nominally; **the CPCB network ends 1 September 2025** (see below) |
+| Coverage | January 2009 to March 2026 nominally; **the CPCB network ends 1 September 2025** (see below). Bringing the de-weathered trends past that date is scoped in [CREA Measurements API](crea-measurements.md), which also records why the two sources must not be spliced. |
 | Licence | **CC BY 4.0** |
 | Citation | XKDR Forum (2026). India Air Quality Database. https://airquality.xkdr.org |
 

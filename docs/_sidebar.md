@@ -47,6 +47,7 @@
   - [Overview](data-sources/overview.md)
   - [Real-Time AQI (WAQI)](data-sources/waqi.md)
   - [Observed Station Data (XKDR)](data-sources/xkdr-air-quality.md)
+  - [CREA Measurements API](data-sources/crea-measurements.md)
   - [Was it policy or the wind? 44 cities](data-sources/deweathered-national.md)
   - [CPCB daily AQI bulletins, 2015-2025](data-sources/aqi-bulletins.md)
   - [Boundary Map (every admin level)](data-sources/boundary-map.md)

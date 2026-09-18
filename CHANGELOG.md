@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.204] - 2026-09-18
+
+### Added — the assistant knows where it is not the best answer
+
+New rule 34 tells Ask JanVayu where to send people instead of us: **hawakahisab.in for Delhi, daily and current**, OpenAQ for raw station data, CREA for NCAP analysis, CPCB's portal for the official record, the sensor networks for street level. It is instructed to say plainly that for Delhi and for anything current, Hawa Ka Hisab is better than we are, to disclose that the site is published by a serving opposition MP because the site itself does, and never to claim JanVayu is the only source of something without naming what it checked.
+
+### Fixed — the About panel advertised a release from seventy-eight versions ago
+
+The roadmap said "Just shipped (v26.6.125)" while the site ran v26.6.203, and the Version History stopped at 186. Both are prose, so neither moved when a release shipped. **The repo had already fixed exactly this at v26.6.187**, "stale again nine days after it was last fixed", and adding no check is why it came back.
+
+Roadmap and history updated, and `scripts/check-about-currency.py` now fails when either falls more than 12 patch releases behind `package.json`. The tolerance is loose on purpose: a guard that fires on every version bump gets switched off.
+
+**Two blind spots in my own guard, both caught by testing it rather than trusting it.** Searching the whole file for the newest version passed even with the entire history block deleted, because the roadmap's own "Just shipped (vX)" string matched; it is scoped to the Version History card now. And reading `v26.6.187&ndash;203` took the range's **start** as the newest version, so it failed on a perfectly current file; it reads the upper bound now. Both directions re-proved.
+
+### Added — `docs/data-sources/crea-measurements.md`, and a decision not to splice
+
+Our 44-city de-weathered trends stop at 2024 because XKDR's CPCB feed ends 1 September 2025. CREA's API is the obvious replacement: open, no key, current to 2026-09-17, and sharing XKDR's `site_*` station namespace, so matching is by id rather than guesswork (39 shared ids in Delhi, 37 within 500 m).
+
+**We will not splice the two.** CREA serves only `station_day_mad`, an outlier-filtered series, so it is systematically lower than XKDR and never higher. On Delhi 2024 that is a median difference of 0.000 µg/m³ across 13,735 station-days and harmless. Across ten more cities it is not uniform: **Hyderabad shifts by −0.98 µg/m³, which is 192% of that city's entire annual trend**, in the direction of improvement. Joining at 1 September 2025 would manufacture improvement precisely where the real trend is smallest.
+
+The note records the alternative (rebuild the whole series on CREA alone, keep XKDR as the cross-check), the blocker found while testing it (`city_name=Meerut` returns zero rows, so query by station id), and the coordinate-order trap (CREA writes lon/lat, XKDR lat/lon).
+
 ## [v26.6.203] - 2026-09-18
 
 ### Fixed — the comparison table overprinted itself on a phone
