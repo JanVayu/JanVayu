@@ -93,12 +93,9 @@ a:hover{color:var(--green-deep)}
 .popgrid button:hover{border-color:var(--green);color:var(--green)}
 .popgrid button[aria-pressed="true"]{background:var(--ink);color:var(--bg-answer);border-color:var(--ink)}
 .ctl[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-/* js/dyslexia-font.js builds its own button and sizes it at 32px tall, which
-   is under the 44px touch target everything else here meets. Its documented
-   knobs cover colour and radius but not height, so the size is set from this
-   side. Worth fixing in the script itself: the same button is 32px on the
-   live site too. */
-.bar .right button[id*="dys"]{min-height:44px;padding-top:0;padding-bottom:0}
+/* The dyslexia button used to be sized from here, because the script built it
+   32px tall. That is fixed in js/dyslexia-font.js itself now, so this page no
+   longer overrides it and every site using the script gets the 44px target. */
 /* Plain-language mode swaps which of the two phrasings is shown. Both are in
    the markup, so nothing has to be fetched or rebuilt to switch. */
 body:not(.simple-language) [data-plain]{display:none}

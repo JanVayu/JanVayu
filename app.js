@@ -642,6 +642,21 @@
 
         // Close dropdown
         document.getElementById('langDropdown').classList.remove('open');
+
+        // Remember it. currentLang was module state only, so choosing Hindi and
+        // reloading put the reader back into English: the switcher worked and
+        // then quietly undid itself on the next page load. Found while building
+        // the /try candidate, which stores it on this same key.
+        try { localStorage.setItem('janvayu-lang', lang); } catch (e) { /* private mode */ }
+    }
+
+    /* Apply a stored language at startup. Called once from init, after the
+       markup the translator walks exists. English is the markup's own language,
+       so there is nothing to do for it and no flash to cause. */
+    function restoreLanguage() {
+        var saved = null;
+        try { saved = localStorage.getItem('janvayu-lang'); } catch (e) { /* private mode */ }
+        if (saved && saved !== 'en' && I18N[saved]) setLanguage(saved);
     }
 
     // ── Hero City Selector ──
@@ -2870,6 +2885,11 @@
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('[JanVayu] Initializing redesigned version...');
         try { window.enhanceCityCombobox(document.getElementById('hero-city-select')); } catch (e) { console.warn('city combobox:', e); }
+
+        // A language chosen on an earlier visit. Runs here, before the panels
+        // load, for the same reason setLanguage() is re-run on panel injection:
+        // the translator only reaches markup that exists when it walks.
+        try { restoreLanguage(); } catch (e) { console.warn('restoreLanguage:', e); }
 
         // ── PWA: register service worker for offline shell + last-known AQI cache ──
         if ('serviceWorker' in navigator) {
