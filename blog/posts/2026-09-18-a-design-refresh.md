@@ -1,6 +1,6 @@
 # The Site Looks Different Today. Here Is What Changed, and What Did Not
 
-**Published:** 18 September 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
+**Published:** 18 September 2026 | **Author:** Team JanVayu | **Reading time:** 8 min
 
 ---
 
@@ -13,22 +13,33 @@ how it looks instead.
 Nothing was removed. Every panel, every calculator, every dataset is where it
 was. What moved is the surface.
 
-## The first screen
+## The first screen, which is now the air
 
-Most people arrive at JanVayu having been sent a link, and the first thing they
-meet is a grid of twelve cards asking who they are: parent, student, doctor,
-journalist, and so on. It exists because a doctor and a schoolteacher want
-genuinely different things from the same data, and asking is cheaper than
+Most people arrive at JanVayu having been sent a link. Until today the first
+thing they met was a grid of twelve cards asking who they are: parent, student,
+doctor, journalist, and so on. It existed because a doctor and a schoolteacher
+want genuinely different things from the same data, and asking is cheaper than
 guessing.
 
-That screen was the worst-looking part of the site. Twelve small squares of
-centred text, four to a row, with the description squeezed underneath in grey.
-On a laptop the bottom row fell below the fold, so a third of the choices were
-invisible unless you thought to scroll a screen that looked complete.
+We spent the first half of this week making that screen better. Three cards
+across instead of four, a line of prose on each instead of a label, all twelve
+above the fold. It went from bad to decent.
 
-It now reads left to right, three cards across, each one a small line of prose
-rather than a label. All twelve fit on one screen. You can still skip the whole
-thing and go straight to the air quality, and that link is where it was.
+Then we deleted it, which is what we should have done first.
+
+The question a person arrives with is whether it is safe to send a child
+outside. They do not arrive asking to be classified, and a twelve-option
+questionnaire standing between them and a number is a toll, however well it is
+laid out. The roles were a good idea answered in the wrong place.
+
+Nothing about them is gone. All twelve sit in the header switcher, one tap, with
+"Show Everything" beside them, and the fuller chooser with its explanations is
+still there behind "What these roles mean". A hint points at the control once if
+you have not picked one. What changed is that the site now shows you the air
+first and offers the lens second.
+
+That correction is the one we are least comfortable writing down, because the
+polish came before the question.
 
 ## Cards that sit on the page
 
@@ -91,6 +102,57 @@ appears in our slide deck, and that copy had been drifting away from the
 homepage without anyone noticing. Both are now the same picture for the same
 reason.
 
+## Nine menus became six
+
+The navigation bar carried nine groups, which filled it edge to edge and gave a
+reader no shape to hold on to. It is now six and an overflow: Dashboard, My Air,
+Places, Evidence, Accountability, Act. Health & Trends and Learn merged into
+Evidence, because the thing they have in common is what somebody arriving with a
+question is actually looking for. Resources and About moved behind the dots.
+
+Every one of the fifty-nine destinations is still reachable. We were not willing
+to take that on trust, so there is now a check that records what the navigation
+can reach and fails the build if that set ever shrinks. We broke it deliberately
+to confirm it fails.
+
+Two faults turned up while doing the work, and the second is the more
+embarrassing. The dropdowns opened on hover and on nothing else: no JavaScript
+opened them, so tabbing to a group focused a button that did nothing visible,
+and the fifty-two destinations inside a menu could not be reached from a keyboard
+at all. That had been true for a long time.
+
+## The site was serving two designs at once
+
+Several readers said the page flickered between the old look and the new one on
+refresh. We looked at the service worker twice, found nothing, and said so.
+
+It was not the service worker. The homepage inlines a copy of the stylesheet so
+the top of the page can paint before the full 125KB file arrives, and that copy
+had drifted seventy-seven properties away from the real one — corner radii,
+shadows, centred text, a smaller headline, all frozen at the pre-refresh look.
+So the first paint drew the old design and the stylesheet then repainted the new
+one. Exactly what was reported, by people who could see it happening and were
+told it was probably a cache.
+
+The same drift explains a complaint we failed to fix twice. The note under the
+headline was cut off mid-line, and both of our fixes edited the copy of the rule
+that loses. The live value clamped the note to four and a half lines, so the
+fifth was sliced through the middle of its letters. It is five whole lines now,
+the last one fading.
+
+There is a check for this too, and it earned its keep within the hour: it caught
+the next edit going out of step before it shipped.
+
+## Two things that were wrong for everybody
+
+Choosing Hindi and reloading put you back into English. The language switcher
+worked and then quietly undid itself, because the choice was never written down
+anywhere. It is now remembered.
+
+And the dyslexia-friendly reading toggle was a 32-pixel button, under the
+44-pixel minimum everything around it meets. A reading aid with a small target
+is a poor joke on the people most likely to reach for it.
+
 ## What we did not touch
 
 No feature was cut. There is still no login, no advertising, no tracking of who
@@ -103,6 +165,12 @@ free, and the data is still yours to download.
 Plenty. Roughly two thirds of the site's one-off styling has not been touched
 yet, which means several panels deeper in still look like the older version.
 Charts have not been revisited at all. The map is untouched.
+
+There is also a candidate homepage at [janvayu.in/try](/try), which is a
+different answer to the same question: one line, one field, and a sentence you
+can act on, with the reading as the evidence for it rather than the point of the
+page. It is not the homepage and may never be. Look at it on a phone and tell us
+whether it is better than what you get at the front door today.
 
 We would rather ship the parts that are done than hold them until everything
 matches. If something looks wrong to you, or worse, looks fine and is missing a

@@ -44,7 +44,7 @@ This is not a campaign. It is a record.
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | **Role-Based Landing Page** | Personalized entry point for 12 audience roles: parent, student, researcher, policymaker, journalist, citizen, activist, doctor, teacher, NGO, business owner, and woman/caregiver |
+| 1 | **Role-Based Views** | An optional lens for 12 audience roles: parent, student, researcher, policymaker, journalist, citizen, activist, doctor, teacher, NGO, business owner, and woman/caregiver. Offered from the header switcher, never as a gate in front of the homepage |
 | 2 | **Simple Language Mode** | Site-wide plain language toggle in the header that switches all content to simple language (persisted via sessionStorage) |
 | 3 | **Glossary (Ctrl+K)** | Searchable glossary overlay for air quality terms, accessible via Ctrl+K keyboard shortcut |
 | 4 | **Intro Tour** | Guided walkthrough for first-time visitors highlighting key sections and features |
