@@ -666,73 +666,73 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .si-sm { width: 14px; height: 14px; }
 .si-md { width: 18px; height: 18px; }
 .si-lg { width: 22px; height: 22px; }
-.si-hospital { -webkit-mask-image: url(/sargam/si_Hospital.svg); mask-image: url(/sargam/si_Hospital.svg); }
-.si-activity { -webkit-mask-image: url(/sargam/si_Activity.svg); mask-image: url(/sargam/si_Activity.svg); }
-.si-shield-health { -webkit-mask-image: url(/sargam/si_Shield_health_safety.svg); mask-image: url(/sargam/si_Shield_health_safety.svg); }
-.si-rupee { -webkit-mask-image: url(/sargam/si_Rupee.svg); mask-image: url(/sargam/si_Rupee.svg); }
-.si-bar-chart { -webkit-mask-image: url(/sargam/si_Bar_chart.svg); mask-image: url(/sargam/si_Bar_chart.svg); }
-.si-briefcase { -webkit-mask-image: url(/sargam/si_Briefcase.svg); mask-image: url(/sargam/si_Briefcase.svg); }
-.si-clipboard-check { -webkit-mask-image: url(/sargam/si_Clipboard_check.svg); mask-image: url(/sargam/si_Clipboard_check.svg); }
-.si-assignment { -webkit-mask-image: url(/sargam/si_Assignment.svg); mask-image: url(/sargam/si_Assignment.svg); }
-.si-ballot { -webkit-mask-image: url(/sargam/si_Ballot.svg); mask-image: url(/sargam/si_Ballot.svg); }
-.si-wallet { -webkit-mask-image: url(/sargam/si_Wallet.svg); mask-image: url(/sargam/si_Wallet.svg); }
-.si-credit-card { -webkit-mask-image: url(/sargam/si_Credit_card.svg); mask-image: url(/sargam/si_Credit_card.svg); }
-.si-shield { -webkit-mask-image: url(/sargam/si_Shield.svg); mask-image: url(/sargam/si_Shield.svg); }
-.si-fact-check { -webkit-mask-image: url(/sargam/si_Fact_check.svg); mask-image: url(/sargam/si_Fact_check.svg); }
-.si-target { -webkit-mask-image: url(/sargam/si_Target.svg); mask-image: url(/sargam/si_Target.svg); }
-.si-globe { -webkit-mask-image: url(/sargam/si_Globe_detailed.svg); mask-image: url(/sargam/si_Globe_detailed.svg); }
-.si-insights { -webkit-mask-image: url(/sargam/si_Insights.svg); mask-image: url(/sargam/si_Insights.svg); }
-.si-map { -webkit-mask-image: url(/sargam/si_Map.svg); mask-image: url(/sargam/si_Map.svg); }
-.si-pin { -webkit-mask-image: url(/sargam/si_Pin.svg); mask-image: url(/sargam/si_Pin.svg); }
-.si-chat { -webkit-mask-image: url(/sargam/si_Chat.svg); mask-image: url(/sargam/si_Chat.svg); }
-.si-quote { -webkit-mask-image: url(/sargam/si_Quote.svg); mask-image: url(/sargam/si_Quote.svg); }
-.si-lightning { -webkit-mask-image: url(/sargam/si_Lightning.svg); mask-image: url(/sargam/si_Lightning.svg); }
-.si-rocket { -webkit-mask-image: url(/sargam/si_Rocket.svg); mask-image: url(/sargam/si_Rocket.svg); }
-.si-flag { -webkit-mask-image: url(/sargam/si_Flag.svg); mask-image: url(/sargam/si_Flag.svg); }
-.si-checklist { -webkit-mask-image: url(/sargam/si_Checklist.svg); mask-image: url(/sargam/si_Checklist.svg); }
-.si-clipboard { -webkit-mask-image: url(/sargam/si_Clipboard.svg); mask-image: url(/sargam/si_Clipboard.svg); }
-.si-shield-police { -webkit-mask-image: url(/sargam/si_Shield_police.svg); mask-image: url(/sargam/si_Shield_police.svg); }
-.si-settings { -webkit-mask-image: url(/sargam/si_Settings.svg); mask-image: url(/sargam/si_Settings.svg); }
-.si-wrench { -webkit-mask-image: url(/sargam/si_Wrench.svg); mask-image: url(/sargam/si_Wrench.svg); }
-.si-code { -webkit-mask-image: url(/sargam/si_Code.svg); mask-image: url(/sargam/si_Code.svg); }
-.si-library { -webkit-mask-image: url(/sargam/si_Library_books.svg); mask-image: url(/sargam/si_Library_books.svg); }
-.si-book { -webkit-mask-image: url(/sargam/si_Book.svg); mask-image: url(/sargam/si_Book.svg); }
-.si-article { -webkit-mask-image: url(/sargam/si_Article.svg); mask-image: url(/sargam/si_Article.svg); }
-.si-download { -webkit-mask-image: url(/sargam/si_File_download.svg); mask-image: url(/sargam/si_File_download.svg); }
-.si-upload { -webkit-mask-image: url(/sargam/si_File_upload.svg); mask-image: url(/sargam/si_File_upload.svg); }
-.si-info { -webkit-mask-image: url(/sargam/si_Info.svg); mask-image: url(/sargam/si_Info.svg); }
-.si-home { -webkit-mask-image: url(/sargam/si_Home.svg); mask-image: url(/sargam/si_Home.svg); }
-.si-building { -webkit-mask-image: url(/sargam/si_Building.svg); mask-image: url(/sargam/si_Building.svg); }
-.si-bus { -webkit-mask-image: url(/sargam/si_Bus.svg); mask-image: url(/sargam/si_Bus.svg); }
-.si-train { -webkit-mask-image: url(/sargam/si_Train.svg); mask-image: url(/sargam/si_Train.svg); }
-.si-alert { -webkit-mask-image: url(/sargam/si_Alert.svg); mask-image: url(/sargam/si_Alert.svg); }
-.si-warning { -webkit-mask-image: url(/sargam/si_Warning.svg); mask-image: url(/sargam/si_Warning.svg); }
-.si-heart { -webkit-mask-image: url(/sargam/si_Heart.svg); mask-image: url(/sargam/si_Heart.svg); }
-.si-user { -webkit-mask-image: url(/sargam/si_User.svg); mask-image: url(/sargam/si_User.svg); }
-.si-search { -webkit-mask-image: url(/sargam/si_Search.svg); mask-image: url(/sargam/si_Search.svg); }
-.si-pie-chart { -webkit-mask-image: url(/sargam/si_Pie_chart.svg); mask-image: url(/sargam/si_Pie_chart.svg); }
-.si-clock { -webkit-mask-image: url(/sargam/si_Clock.svg); mask-image: url(/sargam/si_Clock.svg); }
-.si-eye { -webkit-mask-image: url(/sargam/si_Eye.svg); mask-image: url(/sargam/si_Eye.svg); }
-.si-copy { -webkit-mask-image: url(/sargam/si_Copy.svg); mask-image: url(/sargam/si_Copy.svg); }
-.si-link { -webkit-mask-image: url(/sargam/si_Link.svg); mask-image: url(/sargam/si_Link.svg); }
-.si-flare { -webkit-mask-image: url(/sargam/si_Flare.svg); mask-image: url(/sargam/si_Flare.svg); }
-.si-sun { -webkit-mask-image: url(/sargam/si_Sun.svg); mask-image: url(/sargam/si_Sun.svg); }
-.si-dangerous { -webkit-mask-image: url(/sargam/si_Dangerous.svg); mask-image: url(/sargam/si_Dangerous.svg); }
-.si-dollar { -webkit-mask-image: url(/sargam/si_Dollar.svg); mask-image: url(/sargam/si_Dollar.svg); }
-.si-money { -webkit-mask-image: url(/sargam/si_Money.svg); mask-image: url(/sargam/si_Money.svg); }
-.si-meter { -webkit-mask-image: url(/sargam/si_Meter.svg); mask-image: url(/sargam/si_Meter.svg); }
-.si-spark { -webkit-mask-image: url(/sargam/si_Spark.svg); mask-image: url(/sargam/si_Spark.svg); }
-.si-check { -webkit-mask-image: url(/sargam/si_Check.svg); mask-image: url(/sargam/si_Check.svg); }
-.si-check-circle { -webkit-mask-image: url(/sargam/si_Check_circle.svg); mask-image: url(/sargam/si_Check_circle.svg); }
-.si-error { -webkit-mask-image: url(/sargam/si_Error.svg); mask-image: url(/sargam/si_Error.svg); }
-.si-city { -webkit-mask-image: url(/sargam/si_City.svg); mask-image: url(/sargam/si_City.svg); }
-.si-umbrella { -webkit-mask-image: url(/sargam/si_Umbrella.svg); mask-image: url(/sargam/si_Umbrella.svg); }
-.si-verified { -webkit-mask-image: url(/sargam/si_Verified.svg); mask-image: url(/sargam/si_Verified.svg); }
-.si-ai { -webkit-mask-image: url(/sargam/si_AI.svg); mask-image: url(/sargam/si_AI.svg); }
-.si-notifications { -webkit-mask-image: url(/sargam/si_Notifications.svg); mask-image: url(/sargam/si_Notifications.svg); }
-.si-hammer { -webkit-mask-image: url(/sargam/si_Hammer.svg); mask-image: url(/sargam/si_Hammer.svg); }
-.si-share { -webkit-mask-image: url(/sargam/si_Link.svg); mask-image: url(/sargam/si_Link.svg); }
-.si-image { -webkit-mask-image: url(/sargam/si_Crop.svg); mask-image: url(/sargam/si_Crop.svg); }
+.si-hospital { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hospital.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hospital.svg); }
+.si-activity { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Activity.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Activity.svg); }
+.si-shield-health { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_health_safety.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_health_safety.svg); }
+.si-rupee { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rupee.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rupee.svg); }
+.si-bar-chart { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bar_chart.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bar_chart.svg); }
+.si-briefcase { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Briefcase.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Briefcase.svg); }
+.si-clipboard-check { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard_check.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard_check.svg); }
+.si-assignment { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Assignment.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Assignment.svg); }
+.si-ballot { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Ballot.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Ballot.svg); }
+.si-wallet { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wallet.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wallet.svg); }
+.si-credit-card { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Credit_card.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Credit_card.svg); }
+.si-shield { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield.svg); }
+.si-fact-check { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Fact_check.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Fact_check.svg); }
+.si-target { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Target.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Target.svg); }
+.si-globe { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Globe_detailed.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Globe_detailed.svg); }
+.si-insights { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Insights.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Insights.svg); }
+.si-map { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Map.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Map.svg); }
+.si-pin { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pin.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pin.svg); }
+.si-chat { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Chat.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Chat.svg); }
+.si-quote { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Quote.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Quote.svg); }
+.si-lightning { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Lightning.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Lightning.svg); }
+.si-rocket { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rocket.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Rocket.svg); }
+.si-flag { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flag.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flag.svg); }
+.si-checklist { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Checklist.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Checklist.svg); }
+.si-clipboard { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clipboard.svg); }
+.si-shield-police { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_police.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Shield_police.svg); }
+.si-settings { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Settings.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Settings.svg); }
+.si-wrench { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wrench.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Wrench.svg); }
+.si-code { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Code.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Code.svg); }
+.si-library { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Library_books.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Library_books.svg); }
+.si-book { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Book.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Book.svg); }
+.si-article { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Article.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Article.svg); }
+.si-download { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_download.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_download.svg); }
+.si-upload { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_upload.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_File_upload.svg); }
+.si-info { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Info.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Info.svg); }
+.si-home { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Home.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Home.svg); }
+.si-building { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Building.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Building.svg); }
+.si-bus { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bus.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Bus.svg); }
+.si-train { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Train.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Train.svg); }
+.si-alert { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Alert.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Alert.svg); }
+.si-warning { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Warning.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Warning.svg); }
+.si-heart { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Heart.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Heart.svg); }
+.si-user { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_User.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_User.svg); }
+.si-search { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Search.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Search.svg); }
+.si-pie-chart { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pie_chart.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Pie_chart.svg); }
+.si-clock { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clock.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Clock.svg); }
+.si-eye { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Eye.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Eye.svg); }
+.si-copy { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Copy.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Copy.svg); }
+.si-link { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); }
+.si-flare { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flare.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Flare.svg); }
+.si-sun { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Sun.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Sun.svg); }
+.si-dangerous { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dangerous.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dangerous.svg); }
+.si-dollar { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dollar.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Dollar.svg); }
+.si-money { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Money.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Money.svg); }
+.si-meter { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Meter.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Meter.svg); }
+.si-spark { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Spark.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Spark.svg); }
+.si-check { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check.svg); }
+.si-check-circle { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check_circle.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Check_circle.svg); }
+.si-error { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Error.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Error.svg); }
+.si-city { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_City.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_City.svg); }
+.si-umbrella { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Umbrella.svg); }
+.si-verified { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Verified.svg); }
+.si-ai { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_AI.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_AI.svg); }
+.si-notifications { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Notifications.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Notifications.svg); }
+.si-hammer { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hammer.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hammer.svg); }
+.si-share { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Link.svg); }
+.si-image { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Crop.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Crop.svg); }
 
 /* ── Share AQI Card ────────────────────── */
 .share-aqi-btn {
@@ -3174,4 +3174,17 @@ body { font-size: 16.5px; }
     --border: rgba(255,255,255,0.16);
     --border-light: rgba(255,255,255,0.12);
     --accent: var(--green-400);
+}
+
+/* The band and the footer are both --green-900. When the band is the last
+   block on the page, 96px of its own margin plus the container's bottom
+   padding put a 156px strip of cream between two identical dark areas, which
+   reads as a mistake rather than as space. It runs into the footer instead. */
+.container > .band-deep:last-child {
+    margin-bottom: 0;
+    /* The container's own bottom padding is set inline, so it cannot be
+       overridden from here; a negative margin pulls the footer up through it
+       and the band's padding covers the distance in dark green. */
+    margin-bottom: -60px;
+    padding-bottom: calc(clamp(48px, 6vw, 88px) + 60px);
 }

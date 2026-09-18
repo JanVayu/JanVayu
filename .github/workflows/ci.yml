@@ -68,6 +68,15 @@ jobs:
       - name: Check the how-it-works diagram
         run: python3 scripts/build-how-it-works.py --check
 
+      # v26.6.210 shipped styles.css with its 67 Sargam icon URLs rewritten from
+      # the CDN to a local /sargam/ path that is not in the repo, so every icon
+      # on the site rendered as nothing. A status check could not see it:
+      # Netlify's SPA fallback answers 200 for any unmatched path, so the
+      # browser was handed text/html where it wanted an image. This checks the
+      # paths against the repo instead of against a server.
+      - name: Check every asset URL resolves
+        run: python3 scripts/check-asset-urls.py
+
       # A dark-mode sweep on 2026-09-17 measured every text element on all 56
       # panels in both themes: 1,844 failing in dark, 1,233 in light, almost
       # all from three habits rather than 3,000 separate mistakes. A themed

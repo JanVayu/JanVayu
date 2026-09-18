@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.211] - 2026-09-18
+
+### Fixed — every icon on the site was blank, and a 200 said it was fine
+
+**v26.6.210 shipped `styles.css` with its 67 Sargam icon URLs pointing at `/sargam/si_*.svg` instead of the CDN.** No such directory is in the repository. A CSS mask handed something that is not an image renders nothing, so every icon across the site disappeared. Reported as "things are not loading", which is exactly what it was.
+
+**Entirely self-inflicted, and worth writing down.** The sandbox that renders screenshots cannot reach a CDN, so the working method had been to rewrite those 67 URLs to local paths, shoot, and restore. On this release a second backup of the same file crossed with the first and the rewritten copy was the one committed. The method was wrong, not just the execution: mutating a tracked file to take a screenshot puts the repository one mistake away from shipping the mutation. Intercepting the request at the browser is the correct approach and is what the verification here now does.
+
+**A status check could not see it.** `curl -o /dev/null -w %{http_code}` on `/sargam/si_Home.svg` returned **200**, because Netlify's SPA fallback serves `index.html` for any unmatched path. The content type is what gave it away: `text/html` for a `.svg` request.
+
+New guard, `scripts/check-asset-urls.py`, in the `guard-site-figures` job. It checks the two things a status code cannot: no stylesheet may name a root-relative asset path that is absent from the repository, and every external asset host must be on a short allowlist. Broken and re-proved: the shimmed stylesheet reports 134 problems, the restored one passes on 139 URLs.
+
+### Fixed — "How JanVayu works" appeared twice
+
+The section reads "How it works / Where every number comes from", and the drawing under it was captioned "How JanVayu works · independent sources, verified, made useful". The same thing, twice, and the v26.6.210 type scale made the section heading large enough that the repetition became obvious.
+
+The drawing is generated, so the title is now conditional: omitted in the two homepage copies, kept in `walkthrough/deck.html`, where the slide has no heading above it and needs one.
+
+### Fixed — the bottom of the page
+
+The "Did you know" band and the site footer are **both `--green-900`, the same `rgb(15, 43, 28)`**, and 96px of the band's margin plus the container's bottom padding left a **156px strip of cream between two identical dark areas**. It read as a mistake rather than as space. The band now runs into the footer, so the page ends in one continuous dark region. Measured gap: 156px to 0.
+
 ## [v26.6.210] - 2026-09-18
 
 ### Fixed — the hero note was sliced through the middle of a line
