@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.205] - 2026-09-18
+
+### Changed — the neutrals become a ramp, and nothing moves on screen
+
+First step of the design work: a palette layer above the semantic tokens. `--w-0` to `--w-900` for the warm neutrals and `--d-950` to `--d-50` for the dark-theme surfaces, with the semantic tokens (`--paper`, `--bg-card`, `--ink`, `--border`, `--text-3` and the rest) now pointing at them instead of carrying their own hex. **Twenty-nine tokens across the two blocks now resolve through the palette.**
+
+**Every value is a hex already in this file, moved rather than changed.** The point was that the neutrals were one-off colours, so adding a surface level meant inventing a hex and hoping, rather than taking the next step on a scale.
+
+**The band colours are deliberately not in the ramp.** `--aqi-*`, `--fc-*` and `--pm-b*` flip between themes for measured reasons documented beside them, and flattening them into a ramp would destroy that.
+
+### Verified — pixel-identical, and the one page that differed was not this change
+
+Eight screenshots across four panels in both themes, before and after. Five came back byte-identical; three differed. Two of those (`home`, `accountability`) proved non-deterministic between two runs of the *same* code, so they carry live content.
+
+The third, `airshed-dark`, was **stable** between runs and still differed, which looked like a real regression. It was not. Reverting to the unmodified `styles.css` and re-capturing produced **exactly the same 3,260 differing pixels** against the baseline, so the change is time-dependent content in that panel's chart. A screenshot diff without that control would have blamed the refactor, or worse, waved it through as noise.
+
+Everything deterministic is unchanged, and the full guard suite including `check-theme-contrast.py` passes.
+
+### The next step, not taken here
+
+The real obstacle to restyling is **2,704 inline `style=` attributes** across `index.html` and the panels, which is where most of the site's appearance actually lives. Until those move into classes, a visual redesign can only be applied panel by panel and will drift. That migration is a separate piece of work.
+
 ## [v26.6.204] - 2026-09-18
 
 ### Added — the assistant knows where it is not the best answer
