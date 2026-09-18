@@ -1,6 +1,6 @@
 # The Site Looks Different Today. Here Is What Changed, and What Did Not
 
-**Published:** 18 September 2026 | **Author:** Team JanVayu | **Reading time:** 8 min
+**Published:** 18 September 2026 | **Author:** Team JanVayu | **Reading time:** 10 min
 
 ---
 
@@ -31,6 +31,25 @@ The question a person arrives with is whether it is safe to send a child
 outside. They do not arrive asking to be classified, and a twelve-option
 questionnaire standing between them and a number is a toll, however well it is
 laid out. The roles were a good idea answered in the wrong place.
+
+So the front door now asks one question instead of twelve. *What are you
+breathing, right now?*, a box for your city, ward or village, and a **Near me**
+button that reads the nearest station. Answer it and the headline stops being a
+question and becomes the answer: *A good day to be outside*, *Cut down time
+outdoors*, *Keep children indoors today*. The reading in micrograms sits under
+it as the evidence rather than as the point, next to the CPCB band it falls in,
+and then the same answer three times over, for a child, for somebody with asthma
+or COPD, and for somebody who was going to go running.
+
+Which sentence you get is decided by the CPCB National AQI PM2.5 24-hour
+sub-index thresholds, 30, 60, 90, 120 and 250 µg/m³. That matters more than it
+sounds: the same reading gets a different adjective on a US scale, and using
+India's own thresholds means the word on our page and the word in the CPCB
+bulletin are the same word.
+
+The statistic that used to open the page, 1.72 million deaths a year from the
+Lancet Countdown 2025, has not gone anywhere. It sits in the panel of figures
+beside the reading, where a number that large is context rather than a greeting.
 
 Nothing about them is gone. All twelve sit in the header switcher, one tap, with
 "Show Everything" beside them, and the fuller chooser with its explanations is
@@ -160,17 +179,40 @@ you are and no analytics profile being built about your visit. The role you
 pick is stored in your own browser and you can clear it. Everything is still
 free, and the data is still yours to download.
 
+## Ask stopped being an icon
+
+Ask JanVayu answers a question about the air in ten Indian languages and names
+the source of every figure it uses. On the old homepage it was a 34 by 34 pixel
+icon with two lines of text beside it, and clicking it opened a floating widget.
+The real thing, with the city, the ten languages and the worked examples, was a
+panel you could only reach through the nav.
+
+It is now a band of its own directly under the first screen, with the question
+box, nine example questions you can tap, the language picker, and the answer
+appearing in place. It defaults to whichever place you just searched for, so
+asking "should I go jogging today?" after looking up Patna is a question about
+Patna. Nothing navigates anywhere.
+
+Two honest limits. The answers are generated and can be wrong, which is why each
+one names its source; and while the interface is translated, the advisory text
+under the verdict is still English, as the rest of the site's advice has always
+been. The verdict headline itself is translated, because it is the largest
+sentence on the page.
+
 ## What is still ugly
 
 Plenty. Roughly two thirds of the site's one-off styling has not been touched
 yet, which means several panels deeper in still look like the older version.
 Charts have not been revisited at all. The map is untouched.
 
-There is also a candidate homepage at [janvayu.in/try](/try), which is a
-different answer to the same question: one line, one field, and a sentence you
-can act on, with the reading as the evidence for it rather than the point of the
-page. It is not the homepage and may never be. Look at it on a phone and tell us
-whether it is better than what you get at the front door today.
+The first screen described above started life as a separate page at
+[janvayu.in/try](/try), built to test the idea without touching the front door.
+That page is still there and still works, but it is now the experiment rather
+than the plan: it was an island, and every link on it dropped you back into the
+old design, which read as a seam. Rather than swap one page for another we moved
+the part that was working onto the homepage, so clicking a panel opens it in
+place under the same first screen, with the same nav, the same tokens and the
+same five languages.
 
 We would rather ship the parts that are done than hold them until everything
 matches. If something looks wrong to you, or worse, looks fine and is missing a

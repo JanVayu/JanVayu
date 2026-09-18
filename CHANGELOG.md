@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.216] - 2026-09-18
+
+### Changed, the homepage opens with your air rather than with a statistic
+
+The first screen led with "India's air is killing 1.72 million people every year" and a paragraph explaining what the platform is. It answered "what is this website" before it answered "what am I breathing", which is the wrong order for somebody who arrived from a forwarded link on a bad-air morning.
+
+It now asks where you are and answers what to do about it. A search box over the 160 cities in the live network, a **Near me** button that reads the nearest station, and then the headline itself becomes the answer: *Keep children indoors today*, *Cut down time outdoors*, *A good day to be outside*. Under it, the reading in µg/m³, the CPCB band it falls in, and the same answer given three times over for a child, for somebody with asthma or COPD, and for somebody who was going to go running.
+
+The bands are the CPCB National AQI PM2.5 24-hour sub-index breakpoints, 30/60/90/120/250 µg/m³, so the label under the verdict agrees with the Indian standard rather than a US or WHO scale. Note there are now two advice tables in `app.js`: this one keyed on PM2.5, and the older `computeSolution()` keyed on AQI which still drives the Personal Impact section. They answer different inputs and were not merged here.
+
+The verdict headline is translated in all five site languages, because it is the page's `<h1>`. The reason under it and the three columns are English, like `computeSolution()` and the rest of the advice on this page; translating the advice tables is its own change and is not pretended otherwise.
+
+Two things this broke and the fix for each, both caught in a browser rather than reasoned about. `setLanguage()` re-applies every `data-i18n` element from the table, so switching to Hindi painted the question back over the top of the verdict; the first screen now remembers what it is showing and re-renders after a language change. And `applySimpleMode()` parks an element's original markup in `dataset.technical`, so the plain-language toggle would have restored the question over the answer; both copies are now written together.
+
+### Changed, Ask JanVayu gets a section instead of an icon
+
+Ask was a 34px icon in the hero that opened a floating widget, with the real interface, the city, the ten languages and the eleven example questions, buried in a panel reachable only through the nav. It is now a full band directly under the first screen: the question box, nine example questions visible rather than hidden, the language picker, and the answer rendered in place. Nothing navigates.
+
+It defaults to whichever place the first screen is showing, so a question asked after a search is about the city you just looked up. Same `/.netlify/functions/air-query` endpoint as the panel, and `/ask/` still carries conversation history and the installable app.
+
+### Fixed, simple language mode changed almost nothing
+
+Asked to check whether the toggle works, and it did not, in the way that is hardest to notice: the button lit up, the body class was applied, the choice persisted, and the words on the screen stayed the same.
+
+Two measured causes. **The homepage had no simple-language strings present at load** — of the 108 `data-simple` attributes in `index.html`, 106 sit inside `<template>` blocks that are injected only when a panel is opened, so a visitor who pressed the button on the front page saw nothing change at all. And **`loadPanelInits()` re-applied the active language to freshly-injected panel markup but not simple mode**, with a comment beside it explaining exactly why the language needed it. So a panel opened while the toggle was on arrived holding the technical text and kept it. Counted on the AQI explainer: 18 elements carrying a simple version, 0 of them swapped.
+
+Across the site there are 201 of these strings and 199 live in panel markup, which is to say almost the entire feature was unreachable. `applySimpleMode()` now runs on panel injection beside the language re-apply. Measured afterwards on three panels opened with the mode already on: 21 of 21, 17 of 17 and 22 of 22 swapped, and toggling back restores the technical text.
+
+The first screen carries a simple twin now too, including the verdict, which is generated rather than written into the markup.
+
+### Changed, the monthly briefing moved below the first screen
+
+The September briefing runs to about 250 words and sat above the fold. It is editorial context rather than a first-screen element, so it now sits under the Ask band, keeping its **Read more** toggle. The guided-tour card went with it. The hero's duplicate **Near Me** button was removed, since the first screen now has one; it kept the id the geolocation code already drives, so the loading state and the city sync are unchanged.
+
+Measured after the change at 360, 390, 414, 768, 1024 and 1440px: no horizontal overflow at any width, no overlapping controls, every button and input at or above the 44px touch target, and the three columns stack to one on a phone. No console errors at any width.
+
 ## [v26.6.215] - 2026-09-18
 
 ### Changed, the role chooser stops standing in front of the homepage

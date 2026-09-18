@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606212">
+    <link rel="preload" as="style" href="/styles.css?v=202606216">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -644,6 +644,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-headline { font-family: var(--serif); font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.035em; color: var(--text); text-wrap: balance; }
 .hero-headline em { color: var(--accent); font-style: normal; }
 .hero-sub { font-size: clamp(1.1rem, 1.5vw, 1.3rem); color: var(--text-2); margin-top: 22px; line-height: 1.55; max-width: 46ch; }
+.hero-brief { margin-top: 40px; max-width: 78ch; }
 .hero-live-alert { margin-top: 26px; padding: 2px 0 2px 16px; background: none; border-left: 2px solid var(--red); border-radius: 0; font-size: 0.88rem; line-height: 1.6; color: var(--text-2); }
 .hero-live-alert strong { color: var(--red); }
 /* Clamp to a whole number of lines. A max-height in em cut 4.48 lines once
@@ -687,6 +688,30 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-pm25-who { font-family: var(--mono); font-size: 1.1rem; font-weight: 500; margin-top: 8px; }
 .hero-pm25-label { font-size: 0.72rem; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 .hero-pm25-aqi { font-size: 0.78rem; color: var(--text-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-light); margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+/* ── First screen: the question, then the answer ──────────────────────────
+   The hero used to open with a statistic and a mission paragraph. It now
+   opens by asking where you are and answering what you are breathing there.
+   These rules are duplicated verbatim into index.html's critical block so the
+   first screen cannot paint one way and then repaint another; if they drift,
+   scripts/check-critical-css.py fails. */
+.hero-find { display: flex; gap: 8px; margin-top: 26px; max-width: 46ch; position: relative; }
+.hero-find-input { flex: 1; min-width: 0; font-family: var(--sans); font-size: 1rem; color: var(--text); background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px 16px; }
+.hero-find-input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.hero-find-btn { flex: none; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--on-accent, #fff); background: var(--accent); border: 2px solid var(--accent); border-radius: 0; padding: 14px 18px; cursor: pointer; min-height: 44px; }
+.hero-matches { position: absolute; top: 100%; left: 0; right: 0; z-index: 30; background: var(--bg-card); border: 2px solid var(--border); border-top: 0; }
+.hero-match { display: block; width: 100%; text-align: left; font-family: var(--sans); font-size: 0.95rem; color: var(--text); background: none; border: 0; border-bottom: 1px solid var(--border-light); padding: 12px 16px; cursor: pointer; min-height: 44px; }
+.hero-match:hover, .hero-match:focus { background: var(--bg-section); }
+.hero-who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 28px; background: var(--border-light); }
+.hero-who-col { background: var(--bg-card); padding: 14px 16px; }
+.hero-who-who { font-size: 0.68rem; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.08em; }
+.hero-who-tag { font-family: var(--sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-top: 4px; }
+.hero-who-text { font-size: 0.8rem; color: var(--text-2); line-height: 1.45; margin-top: 4px; }
+.hero-band { display: flex; gap: 2px; margin-top: 18px; }
+.hero-band-seg { flex: 1; height: 8px; background: var(--border-light); }
+.hero-band-seg.on { background: var(--accent); }
+.hero-band-label { font-size: 0.72rem; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.hero-chip { font-family: var(--mono); font-size: 0.72rem; color: var(--text-2); background: var(--bg-section); border: 1px solid var(--border); border-radius: 0; padding: 4px 9px; }
 .hero-stat { background: var(--bg-card); border: 0; border-radius: 0; padding: 22px 20px; text-align: left; box-shadow: none; }
 .hero-stat-value { font-family: var(--mono); font-size: 1.85rem; font-weight: 600; line-height: 1.05; }
 .hero-stat-value.danger { color: var(--red); }
@@ -1393,32 +1418,15 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             <div class="container">
                 <div class="hero-grid">
                     <div>
-                        <h1 class="hero-headline" data-i18n="hero_title">India's air is killing <em>1.72 million people</em> every year</h1>
-                        <p class="hero-sub" data-i18n="hero_sub">JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.</p>
-                        <div class="hero-live-alert clamped" id="heroLiveAlert">
-                            <strong>September 2026:</strong> The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the winter inversion that holds the Indo-Gangetic plain's emissions down at ground level. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3;, or 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit, and only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5, among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of the 100 cities with sufficient PM10 data met the 40% reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in. New: <a href="#airshed" onclick="showPanel('airshed'); return false;" style="color: inherit; text-decoration: underline;">Your Airshed or Your Town</a> now carries <strong>43 years of PM2.5 for 783 districts</strong>, 1980 to 2022, a record of what the air was doing decades before anyone was measuring it; and <a href="https://hawakahisab.in/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Hawa Ka Hisab</a> joins the Janhit Partners.
+                        <h1 class="hero-headline" id="heroQuestion" data-i18n="hero_question" data-simple="What is in the air you are breathing?">What are you breathing, <em>right now</em>?</h1>
+                        <p class="hero-sub" id="heroWhy" data-i18n="hero_question_sub">Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 wards, panchayats and villages, in 5 languages.</p>
+                        <div class="hero-find">
+                            <input id="heroFind" class="hero-find-input" type="text" autocomplete="off" spellcheck="false" placeholder="Your city, ward or village" data-i18n="hero_find_place" data-i18n-attr="aria-label:hero_find_place" aria-label="Your city, ward or village" oninput="heroFindType(this.value)" onkeydown="if(event.key===&apos;Enter&apos;){heroFindEnter();}">
+                            <button class="hero-find-btn" id="near-me-btn" onclick="loadNearestAQI()" data-i18n="hero_find_near">Near me</button>
+                            <div class="hero-matches" id="heroMatches" role="listbox" hidden></div>
                         </div>
-                        <button class="hero-live-toggle" id="heroLiveToggle" onclick="toggleHeroAlert()" aria-expanded="false" aria-controls="heroLiveAlert">Read more &#9662;</button>
-
-                        <div class="hero-cta-row">
-                            <a class="hero-cta-card" href="/walkthrough/">
-                                <span class="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                                <span class="hero-cta-text">
-                                    <span class="hero-cta-title">New here? Take the guided tour</span>
-                                    <span class="hero-cta-sub">A guided walkthrough of everything JanVayu tracks &mdash; the data, the health toll, the money, the tools.</span>
-                                </span>
-                                <span class="hero-cta-arrow" aria-hidden="true">&rarr;</span>
-                            </a>
-                            <button class="hero-cta-card hero-cta-alt" onclick="openWidget('askai')">
-                                <span class="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
-                                <span class="hero-cta-text">
-                                    <span class="hero-cta-title">Ask JanVayu anything</span>
-                                    <span class="hero-cta-sub">The AI assistant answers air-quality questions in 10 languages, with sources.</span>
-                                </span>
-                                <span class="hero-cta-arrow" aria-hidden="true">&rarr;</span>
-                            </button>
+                        <div class="hero-who" id="heroWho" hidden></div>
                         </div>
-                    </div>
                     <div class="hero-data">
                         <div class="hero-pm25-card">
                             <div style="display: flex; gap: 6px; margin-bottom: 6px; align-items: stretch;">
@@ -1477,15 +1485,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                                     <option value="gaya">Gaya</option>
                                 </optgroup>
                             </select>
-                            <button id="near-me-btn" onclick="loadNearestAQI()" title="Find nearest monitoring station" style="
-                                font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
-                                text-transform: uppercase; letter-spacing: 0.06em;
-                                background: var(--accent, #1B6B4A); color: var(--on-accent);
-                                border: 1px solid var(--accent, #1B6B4A); border-radius: 6px;
-                                padding: 4px 10px; cursor: pointer; white-space: nowrap;
-                                display: inline-flex; align-items: center; gap: 4px;
-                            "><span class="si si-pin" style="width:12px;height:12px;"></span>Near Me</button>
-                            </div>
+                                </div>
                             <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
                             <div class="hero-pm25-number jv-t-red" id="delhi-live-pm25">--</div>
                             <div class="hero-pm25-unit">µg/m³</div>
@@ -1531,6 +1531,64 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                         <div class="live-bar">
                             <div id="live-status"><span class="pulse"></span> <span data-i18n="connecting_live">Connecting to live data...</span></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Ask JanVayu. This used to be a 34px icon in the hero that opened a
+                     floating widget, with the real interface buried in a panel behind
+                     the nav. It answers here, in place, without navigating. -->
+                <section class="askhome" id="section-askhome">
+                <span class="askhome-eyebrow" data-i18n="askhome_eyebrow">Ask JanVayu</span>
+                <h2 class="askhome-title" data-i18n="askhome_title">Ask a question about the air, in your own words</h2>
+                <p class="askhome-sub" data-i18n="askhome_sub" data-simple="Type a question about air in your language. You get an answer that says where its numbers came from.">Live PM2.5, exposure and health calculators, city rankings and trends, source apportionment, RTI drafts. Every answer names the source it came from &mdash; CPCB, IQAir, the Lancet Countdown, AQLI, CREA, Sensor.Community &mdash; and answers in 10 Indian languages.</p>
+                <div class="askhome-form">
+                    <input id="askhome-q" class="askhome-input" type="text" autocomplete="off" placeholder="e.g. Should I go jogging today?" data-i18n="askhome_placeholder" data-i18n-attr="aria-label:askhome_placeholder" aria-label="Your question about air quality" onkeydown="if(event.key===&apos;Enter&apos;){askHomeSubmit();}">
+                    <select id="askhome-lang" class="askhome-select" aria-label="Answer language">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="bn">বাংলা</option>
+                            <option value="mr">मराठी</option>
+                            <option value="te">తెలుగు</option>
+                            <option value="gu">ગુજરાતી</option>
+                            <option value="kn">ಕನ್ನಡ</option>
+                            <option value="ml">മലയാളം</option>
+                            <option value="pa">ਪੰਜਾਬੀ</option>
+                    </select>
+                    <button id="askhome-go" class="askhome-btn" onclick="askHomeSubmit()" data-i18n="askhome_button">Ask</button>
+                </div>
+                <div class="askhome-chips">
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="Should I go jogging today?">Should I go jogging today?</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="Top 5 worst Indian cities right now">Top 5 worst cities right now</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="I commute 2 hours by auto — what is my PM2.5 exposure?">What is my commute costing me?</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="Where does the pollution in Patna come from?">Where does the pollution come from?</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="Which ward in Delhi has the worst air right now, and why?">Which Delhi ward is worst?</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="Draft an RTI about brick kilns near my school">Draft an RTI about brick kilns</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="How reliable is today&rsquo;s AQI reading?">How reliable is today&rsquo;s reading?</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="How many cigarettes equivalent am I smoking today?">How many cigarettes today?</button>
+                        <button class="askhome-chip" onclick="askHomeChip(this)" data-q="Has Mumbai air gotten worse since 2019?">Has Mumbai got worse since 2019?</button>
+                </div>
+                <div class="askhome-answer" id="askhome-answer" aria-live="polite"></div>
+                <p class="askhome-foot">Answers are generated and can be wrong. Each one names its source so you can check it. For conversation history and an installable app, open <a href="/ask/">/ask/ &rarr;</a></p>
+                </section>
+
+                <!-- The monthly briefing and the guided tour used to sit in the
+                     hero's left column, above the fold. The first screen now answers
+                     what you are breathing, so both moved under it. -->
+                <div class="hero-brief">
+                    <div class="hero-live-alert clamped" id="heroLiveAlert">
+                            <strong>September 2026:</strong> The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the winter inversion that holds the Indo-Gangetic plain's emissions down at ground level. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3;, or 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit, and only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5, among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of the 100 cities with sufficient PM10 data met the 40% reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in. New: <a href="#airshed" onclick="showPanel('airshed'); return false;" style="color: inherit; text-decoration: underline;">Your Airshed or Your Town</a> now carries <strong>43 years of PM2.5 for 783 districts</strong>, 1980 to 2022, a record of what the air was doing decades before anyone was measuring it; and <a href="https://hawakahisab.in/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Hawa Ka Hisab</a> joins the Janhit Partners.
+                        </div>
+                        <button class="hero-live-toggle" id="heroLiveToggle" onclick="toggleHeroAlert()" aria-expanded="false" aria-controls="heroLiveAlert">Read more &#9662;</button>
+                    <div class="hero-cta-row">
+                        <a class="hero-cta-card" href="/walkthrough/">
+                                <span class="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
+                                <span class="hero-cta-text">
+                                    <span class="hero-cta-title">New here? Take the guided tour</span>
+                                    <span class="hero-cta-sub">A guided walkthrough of everything JanVayu tracks &mdash; the data, the health toll, the money, the tools.</span>
+                                </span>
+                                <span class="hero-cta-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
                     </div>
                 </div>
 
@@ -1765,6 +1823,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
             </div>
         </section>
 
+
         <!-- ANOMALY DETECTION BANNER -->
         <div class="container" style="padding-top: 16px;">
             <div class="anomaly-banner-container" id="anomalyBannerContainer">
@@ -1962,7 +2021,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606212"></script>
+    <script src="/app.js?v=202606216"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
