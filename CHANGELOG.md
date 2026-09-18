@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.209] - 2026-09-18
+
+### Changed — the panels join the dashboard's system
+
+v26.6.208 changed the dashboard and left the panels on the older idiom, so the site read as two designs. The panels' problem was nesting: a `.card` holding a `.card-body` holding `.info-box` items, each drawing its own border, radius and tinted background. Three boxes deep, on a page that is already a surface, and none of the boxes carried information.
+
+- **An info-box inside a card keeps its coloured left rule and drops the rest.** The rule says what kind of note it is; the tint, the radius and the outline say nothing.
+- **Panel spacing** ran at 1.5rem between blocks against the dashboard's 56-96px. Now `clamp(28px, 3.5vw, 48px)`, with the section intro at `clamp(28px, 4vw, 48px)`.
+- **The 3px accent rule across the first card's top** read as a tab on a box; the panel's own heading already says where you are.
+- **Alternating right-to-left `.grid-2` rows** were variety for its own sake. They moved the reading order about for nothing, and a screen reader follows the DOM either way, so the two disagreed.
+
+**A first version of the info-box rule used `border: 0` and broke the thing it was preserving.** The shorthand resets `border-left-color`, so every box whose rule came from `.jv-rule-accent-4` lost its mark while the handful set by an inline attribute kept theirs: half the notes ruled green, half grey, in the same card. Only the three sides that say nothing are removed now.
+
+### Fixed — six AQI band colours, each readable in exactly one theme
+
+The band table in `panels/actions.html` set its levels with fixed hexes as **text**, and the AQI explainer did the same. Measured against the page each sits on:
+
+| Band | Literal | light | dark |
+|---|---|---|---|
+| 51-100 Satisfactory | `#EAB308` | **1.92:1** | 9.53:1 |
+| 101-200 Moderate | `#F97316` | **2.80:1** | 6.52:1 |
+| 301-400 Very Poor | `#991B1B` | 8.31:1 | **2.20:1** |
+| 401-500 Severe | `#7F1D1D` | 10.02:1 | **1.82:1** |
+
+Two were invisible in light, two in dark. The `--aqi-*` tokens exist for exactly this and flip per theme, which `styles.css` says in as many words at the top of the block. Each literal is replaced by the token of its own colour family, so no band changes character: yellow to `--aqi-moderate`, orange to `--aqi-poor`, red to `--aqi-very-poor`, maroon to `--aqi-hazardous`. Same treatment for two instances in `panels/legal.html` and one on the homepage.
+
+All twelve now measure **4.92:1 to 12.68:1**, worst case against a 4.5 threshold. **Band colours used as a `background` are untouched**: that is the correct use, and those pairs already carry a chosen ink.
+
+Six instances remain and are deliberately left: `.badge-danger`, a quick-link icon, a scoring button and a legend bullet all pair the colour with a light wash. Fixing those means choosing the pair per theme, not swapping the ink, which is a different piece of work.
+
+### On the measurement
+
+The sweep that found these also reported `.voice-handle` at 2.56:1. It is `rgb(111,111,104)` on white, which computes to **5.06:1** and passes; the tool's walk up the ancestor chain had picked the wrong background. Every fix above was confirmed by arithmetic on the two colours involved, not by the sweep, and a control run against the pre-change stylesheet showed all twelve findings present before this work, so none was introduced by it.
+
 ## [v26.6.208] - 2026-09-18
 
 ### Changed — the dashboard actually looks different now
