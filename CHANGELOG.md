@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.207] - 2026-09-18
+
+### Fixed — three of the "160 Indian cities" are Beijing, London and Singapore
+
+The live dashboard's table holds 160 rows. Three carry `region: 'intl'` and exist so a reader can put Delhi next to somewhere else. So the dashboard's **total** and its **Indian** total are different numbers, 160 and 157, and the site stated the total under the Indian label in six places: the og:description and the JSON-LD description (the two things a shared link and a search result show first), the About list, the README feature table, the walkthrough deck, and the AQI dashboard user guide.
+
+**How it survived a guard built for exactly this.** A 2026 round found the site saying "157 cities" against a table of 160 and corrected the number everywhere. That was right for "160 cities" and wrong for "160 Indian cities": the fix harmonised the figure and carried the adjective along unexamined. `check-site-figures.py` then kept passing, because its `live_cities` patterns were written as `{n}\+?\s+(?:Indian\s+)?cities` — the optional group swallows the word, so one rule was policing two different claims and could only ever be right about one of them. This is the failure mode that file's own header warns about: a correction phrased as "matching the fix already applied elsewhere" is a consistency edit, not a verification.
+
+`indian_cities` (157) is now derived beside `live_cities` (160), and the `live_cities` patterns no longer absorb the adjective. Proved in both directions: writing 160 under the Indian label fails, and writing 157 under the plain label fails.
+
+The new rule is narrow for the same reason the old one is. "N Indian cities" on its own also describes the ward atlas (142), a study's sample (10) and the cities with a CAAQMS station per CREA (289); a broad pattern reported all three as drift on its first run.
+
+### Added — `core_cities` (33), and a page that was outside the scan
+
+`CORE_CITIES` in `app.js` is the subset polled as the page loads: Indian, and not `ext`. The README said "the core ~33", which turns out to be exactly right, and is now derived rather than approximated.
+
+`docs/user-guide/aqi-dashboard.md` states a coverage figure and was not in `PAGES`, which is why its "160 Indian cities" went unreported. A user guide that states a coverage figure is a page like any other.
+
 ## [v26.6.206] - 2026-09-18
 
 ### Changed — the design work reaches the screen

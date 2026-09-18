@@ -70,6 +70,9 @@ PAGES = [
     'panels/resources.html', 'panels/faq.html', 'panels/source-selector.html',
     'walkthrough/full.html', 'walkthrough/deck.html', 'walkthrough/index.html',
     'docs/wiki/Home.md',
+    # A user guide that states a coverage figure is a page like any other.
+    # This one said "160 Indian cities" and was outside the scan.
+    'docs/user-guide/aqi-dashboard.md',
     'app.js',
     # The assistant states figures to citizens who may quote it to an official,
     # so its prompt is held to the same standard as a page. Its ward count was
@@ -158,7 +161,17 @@ def truth():
                 depth -= 1
                 if depth == 0:
                     break
-        out['live_cities'] = len(re.findall(r'(?m)^\s{4,8}[a-zA-Z0-9_-]+:\s*\{\s*name:', app[j:k + 1]))
+        rows = re.findall(r'(?m)^\s{4,8}[a-zA-Z0-9_-]+:\s*\{\s*name:.*$', app[j:k + 1])
+        out['live_cities'] = len(rows)
+        # Three of those rows are Beijing, London and Singapore, carried as a
+        # comparison and marked `region: 'intl'`. So the dashboard's total and
+        # its INDIAN total are different numbers, and the site stated the total
+        # under the Indian label in six places. See INDIAN_RULES below.
+        out['indian_cities'] = len([r for r in rows if "region: 'intl'" not in r])
+        # The subset polled as the page loads: Indian, and not `ext`, which is
+        # exactly app.js's own CORE_CITIES.
+        out['core_cities'] = len([r for r in rows
+                                  if "region: 'intl'" not in r and 'ext: true' not in r])
 
     lv = ROOT / 'data/tiles/_levels.json'
     if lv.exists():
@@ -204,14 +217,33 @@ RULES = [
     # Live-dashboard cities. Narrow on purpose: "N cities" alone describes the
     # ward atlas (142), testimony (107), NCAP (131) and the bulletin layer (289)
     # as well, so only phrasings that clearly mean the live dashboard count.
+    # Deliberately NOT `(?:Indian\s+)?` here. Three of the 160 rows are
+    # Beijing, London and Singapore, so "160 cities" is right and "160 Indian
+    # cities" is wrong by three; a pattern that swallows the adjective passes
+    # both. That optional group is how the error survived: a 2026 round found
+    # the site saying "157 cities" against a table of 160 and corrected the
+    # number everywhere, carrying the wrong adjective along with it. The
+    # register was right about the number and nothing was checking the noun.
     ('live_cities', [
-        r'(?:live|real[- ]time)\s+(?:PM2\.?5|AQI)[^.<|]{0,40}?(?:for|across)\s+{n}\+?\s+(?:Indian\s+)?cities',
-        r'PM2\.?5\s+and\s+AQI\s+(?:data\s+)?(?:for|across)\s+{n}\+?\s+(?:Indian\s+)?cities',
+        r'(?:live|real[- ]time)\s+(?:PM2\.?5|AQI)[^.<|]{0,40}?(?:for|across)\s+{n}\+?\s+cities',
+        r'PM2\.?5\s+and\s+AQI\s+(?:data\s+)?(?:for|across)\s+{n}\+?\s+cities',
         r'Live\s+AQI\s*(?:&#8212;|&mdash;|-|\u2014)\s*{n}\+?\s+cities',
         r'live\s+AQI\s+for\s+{n}\+?\s+cities',
         r'hour-by-hour\s+picture\s+for\s+{n}\+?\s+cities',
         r'Compare\s+AQI\s+across\s+{n}\+?\s+cities',
         r'Real-time\s+PM2\.?5\s+for\s+{n}\+?\s+cities',
+    ]),
+    # Any claim about the LIVE DASHBOARD that names the country takes the
+    # Indian-only count. Narrow for the same reason live_cities is: "N Indian
+    # cities" on its own also describes the ward atlas (142), a study's sample
+    # (10) and the cities with a CAAQMS station per CREA (289), none of which
+    # are this figure.
+    ('indian_cities', [
+        r'(?:live|real[- ]time)\s+(?:PM2\.?5|AQI)[^.<|]{0,60}?(?:for|across)\s+{n}\+?\s+Indian\s+cities',
+        r'PM2\.?5\s+and\s+AQI\s+(?:data\s+)?(?:for|across)\s+{n}\+?\s+Indian\s+cities',
+        r'accountability\s+for\s+{n}\+?\s+Indian\s+cities',
+        r'(?:air\s+quality\s+)?readings\s+for\s+{n}\+?\s+Indian\s+cities',
+        r'{n}\+?\s+Indian\s+cities,\s+ranked',
     ]),
     ('panchayats', [r'{n}\s+gram\s+panchayats?']),
     ('ulbs', [r'{n}\s+(?:ULBs|urban\s+local\s+bodies)']),
