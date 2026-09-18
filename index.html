@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606216">
+    <link rel="preload" as="style" href="/styles.css?v=202606217">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -644,7 +644,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-headline { font-family: var(--serif); font-size: clamp(2.6rem, 6vw, 5rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.035em; color: var(--text); text-wrap: balance; }
 .hero-headline em { color: var(--accent); font-style: normal; }
 .hero-sub { font-size: clamp(1.1rem, 1.5vw, 1.3rem); color: var(--text-2); margin-top: 22px; line-height: 1.55; max-width: 46ch; }
-.hero-brief { margin-top: 40px; max-width: 78ch; }
+.hero-brief { margin-top: 32px; max-width: 78ch; }
 .hero-live-alert { margin-top: 26px; padding: 2px 0 2px 16px; background: none; border-left: 2px solid var(--red); border-radius: 0; font-size: 0.88rem; line-height: 1.6; color: var(--text-2); }
 .hero-live-alert strong { color: var(--red); }
 /* Clamp to a whole number of lines. A max-height in em cut 4.48 lines once
@@ -694,23 +694,23 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
    These rules are duplicated verbatim into index.html's critical block so the
    first screen cannot paint one way and then repaint another; if they drift,
    scripts/check-critical-css.py fails. */
-.hero-find { display: flex; gap: 8px; margin-top: 26px; max-width: 46ch; position: relative; }
+.hero-find { display: flex; gap: 8px; margin-top: 22px; max-width: 46ch; position: relative; }
 .hero-find-input { flex: 1; min-width: 0; font-family: var(--sans); font-size: 1rem; color: var(--text); background: var(--bg-card); border: 2px solid var(--border); border-radius: 0; padding: 14px 16px; }
 .hero-find-input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
 .hero-find-btn { flex: none; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--on-accent, #fff); background: var(--accent); border: 2px solid var(--accent); border-radius: 0; padding: 14px 18px; cursor: pointer; min-height: 44px; }
 .hero-matches { position: absolute; top: 100%; left: 0; right: 0; z-index: 30; background: var(--bg-card); border: 2px solid var(--border); border-top: 0; }
 .hero-match { display: block; width: 100%; text-align: left; font-family: var(--sans); font-size: 0.95rem; color: var(--text); background: none; border: 0; border-bottom: 1px solid var(--border-light); padding: 12px 16px; cursor: pointer; min-height: 44px; }
 .hero-match:hover, .hero-match:focus { background: var(--bg-section); }
-.hero-who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 28px; background: var(--border-light); }
-.hero-who-col { background: var(--bg-card); padding: 14px 16px; }
-.hero-who-who { font-size: 0.68rem; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.08em; }
-.hero-who-tag { font-family: var(--sans); font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-top: 4px; }
-.hero-who-text { font-size: 0.8rem; color: var(--text-2); line-height: 1.45; margin-top: 4px; }
-.hero-band { display: flex; gap: 2px; margin-top: 18px; }
+.hero-who { display: flex; flex-direction: column; gap: 1px; margin-top: 24px; background: var(--border-light); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+.hero-who-row { background: var(--bg-card); padding: 11px 14px; display: grid; grid-template-columns: 1fr auto; column-gap: 14px; align-items: baseline; }
+.hero-who-who { font-family: var(--sans); font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+.hero-who-tag { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); white-space: nowrap; }
+.hero-who-text { grid-column: 1 / -1; font-size: 0.82rem; color: var(--text-2); line-height: 1.45; margin-top: 3px; }
+.hero-band { display: flex; gap: 2px; margin-top: 22px; }
 .hero-band-seg { flex: 1; height: 8px; background: var(--border-light); }
 .hero-band-seg.on { background: var(--accent); }
 .hero-band-label { font-size: 0.72rem; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; }
-.hero-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .hero-chip { font-family: var(--mono); font-size: 0.72rem; color: var(--text-2); background: var(--bg-section); border: 1px solid var(--border); border-radius: 0; padding: 4px 9px; }
 .hero-stat { background: var(--bg-card); border: 0; border-radius: 0; padding: 22px 20px; text-align: left; box-shadow: none; }
 .hero-stat-value { font-family: var(--mono); font-size: 1.85rem; font-weight: 600; line-height: 1.05; }
@@ -1425,6 +1425,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                             <button class="hero-find-btn" id="near-me-btn" onclick="loadNearestAQI()" data-i18n="hero_find_near">Near me</button>
                             <div class="hero-matches" id="heroMatches" role="listbox" hidden></div>
                         </div>
+                        <div class="hero-band" id="heroBand" hidden></div>
+                        <div class="hero-band-label" id="heroBandLabel"></div>
+                        <div class="hero-chips" id="heroChips" hidden></div>
                         <div class="hero-who" id="heroWho" hidden></div>
                         </div>
                     <div class="hero-data">
@@ -2021,7 +2024,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606216"></script>
+    <script src="/app.js?v=202606217"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

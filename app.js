@@ -768,12 +768,12 @@
     // section further down. The two answer different inputs and are not
     // merged here; reconciling them is its own change.
     const HERO_BANDS = [
-        { to: 30,       key: 'good',   label: 'Good' },
-        { to: 60,       key: 'sat',    label: 'Satisfactory' },
-        { to: 90,       key: 'mod',    label: 'Moderate' },
-        { to: 120,      key: 'poor',   label: 'Poor' },
-        { to: 250,      key: 'vpoor',  label: 'Very poor' },
-        { to: Infinity, key: 'severe', label: 'Severe' }
+        { to: 30,       key: 'good',   label: 'Good',         tone: 'var(--aqi-good)' },
+        { to: 60,       key: 'sat',    label: 'Satisfactory', tone: 'var(--aqi-good)' },
+        { to: 90,       key: 'mod',    label: 'Moderate',     tone: 'var(--aqi-moderate)' },
+        { to: 120,      key: 'poor',   label: 'Poor',         tone: 'var(--aqi-poor)' },
+        { to: 250,      key: 'vpoor',  label: 'Very poor',    tone: 'var(--aqi-very-poor)' },
+        { to: Infinity, key: 'severe', label: 'Severe',       tone: 'var(--aqi-severe)' }
     ];
 
     // One verdict per band. `head` is the answer, `why` is the reason, and the
@@ -783,41 +783,66 @@
         good: { head: 'A good day to be outside.',
             why: 'Open the windows. This is about as clean as the air gets here, and across most of northern India it does not last into October.',
             plain: 'The air is clean today. Going outside is fine for everyone.',
-            who: [['Fine', 'Outdoor play and school sport are fine.'],
-                  ['Fine', 'No precautions needed at this level.'],
-                  ['Fine', 'A good day for a run.']] },
+            who: [['Fine', 'Go whenever suits you.'],
+                  ['Fine', 'Assembly and outdoor games are fine.'],
+                  ['Fine', 'An ordinary working day.'],
+                  ['Fine', 'A good day for a match.'],
+                  ['Fine', 'No precautions needed at this level.']] },
         sat: { head: 'Fine for most people today.',
             why: 'Ordinary activity is fine. If you are unusually sensitive you may notice it on a long run.',
             plain: 'The air is mostly clean. Normal activity is fine for almost everyone.',
-            who: [['Fine', 'Normal outdoor activity.'],
-                  ['Mostly fine', 'Carry your reliever as usual.'],
-                  ['Fine', 'No reason to change plans.']] },
+            who: [['Fine', 'Go whenever suits you.'],
+                  ['Fine', 'A normal school day, games included.'],
+                  ['Fine', 'A normal shift. Drink water.'],
+                  ['Fine', 'Play as usual.'],
+                  ['Mostly fine', 'Carry your reliever, as you would anyway.']] },
         mod: { head: 'Sensitive groups should take it easy.',
             why: 'Most people will not notice this. Children, older people and anyone with a lung or heart condition should cut back on hard exercise outdoors.',
             plain: 'Most people are fine. Children, older people and anyone with breathing trouble should not exercise hard outside.',
-            who: [['Go easy', 'Shorten outdoor sport.'],
-                  ['Go easy', 'Avoid prolonged exertion outdoors.'],
-                  ['Fine', 'Normal activity is fine.']] },
+            who: [['Fine', 'Short trips are fine. Take the quieter road if there is one.'],
+                  ['Go easy', 'School is fine. Shorten PT and outdoor games.'],
+                  ['Go easy', 'Take breaks indoors or in the shade, and ask for them.'],
+                  ['Go easy', 'Cut hard training. A light session is fine.'],
+                  ['Go easy', 'Avoid long exertion outdoors. Keep your reliever with you.']] },
         poor: { head: 'Cut down time outdoors.',
             why: 'Prolonged exposure at this level causes breathing discomfort in most people. Shorten what you can, and keep the windows shut on the traffic side.',
             plain: 'Staying outside for long will make most people feel it in their chest. Go out for less time. Keep windows shut on the road side.',
-            who: [['Limit', 'Keep outdoor play short.'],
-                  ['Limit', 'Avoid exertion; keep medication to hand.'],
-                  ['Go easy', 'Skip the run; a walk is fine.']] },
+            who: [['Limit', 'Go early or late rather than at peak traffic, and keep it short.'],
+                  ['Limit', 'Ask the school to move PT indoors.'],
+                  ['Limit', 'A fitted N95 for the shift, and breaks away from the roadside. That is the employer&rsquo;s duty, not a favour.'],
+                  ['Limit', 'Move training indoors. Skip the match if you can.'],
+                  ['Limit', 'Stay in where you can. Keep medication to hand.']] },
         vpoor: { head: 'Keep children indoors today.',
             why: 'Skip the run. A fitted N95 helps outside; a purifier helps in one room, not a house. If this is your normal, the thing that changes it is not a purifier.',
             plain: 'Keep children inside. A well-fitted N95 mask helps outside. A purifier helps in one room, not a whole house.',
-            who: [['Stay in', 'No outdoor play, no school sport.'],
-                  ['Stay in', 'Keep reliever medication to hand.'],
-                  ['Brief trips', 'A fitted N95 outdoors. No running.']] },
+            who: [['Brief trips', 'Go once, in a fitted N95, and keep it short.'],
+                  ['Stay in', 'No outdoor games. Ask whether the school will shorten the day.'],
+                  ['Protect', 'A fitted N95 is the minimum. Push for shorter shifts and indoor breaks: at this level it is a workplace hazard.'],
+                  ['Stay in', 'Call the match off. Indoor training only.'],
+                  ['Stay in', 'Do not go out unless you must. Seek advice early if symptoms start.']] },
         severe: { head: 'Stay indoors. This is an emergency-level reading.',
             why: 'At this level everyone is affected, not only the vulnerable. Keep the windows shut, run a purifier if you have one, and avoid going out at all if you can.',
             plain: 'This air is dangerous for everyone, not only for children and the sick. Stay inside. Keep windows shut. Do not go out unless you have to.',
-            who: [['Stay in', 'Keep them home; ask about school closure.'],
-                  ['Stay in', 'Seek advice early if symptoms start.'],
-                  ['Stay in', 'Outdoor exertion is unsafe today.']] }
+            who: [['Delay it', 'Send one person in a fitted N95, or go tomorrow if you can.'],
+                  ['Stay in', 'Ask about closure. Several states close schools at this level.'],
+                  ['Hazard', 'This is unsafe to work in. N95, the shortest exposure possible, and a real case for stopping work.'],
+                  ['Cancelled', 'No outdoor sport at this level, for anybody.'],
+                  ['Stay in', 'Windows shut, purifier if you have one, and get advice early.']] }
     };
-    const HERO_WHO_LABELS = ['A child', 'Asthma or COPD', 'Going for a run'];
+    // The five decisions people actually face on a bad-air morning in India.
+    // The first version of this asked about a child, asthma, and going for a
+    // run, which is a middle-class urban framing: it treats being outdoors as
+    // a choice. For most of the country it is not. Buying vegetables, getting
+    // to a shift, and whether a school will hold assembly are the questions,
+    // and for an outdoor worker the honest answer is about masks, breaks and
+    // whose duty they are, not about staying in.
+    const HERO_WHO_LABELS = [
+        'Going out for vegetables',
+        'Sending a child to school',
+        'Working outside all day',
+        'Playing a sport',
+        'Older, or asthma and COPD'
+    ];
 
     // Verdict headlines, translated: this string becomes the page's <h1>.
     const HERO_HEAD_I18N = {
@@ -891,12 +916,39 @@
             place + ' has ' + n + ' units of PM2.5 in the air. ' + v.plain);
 
         whoEl.innerHTML = v.who.map((row, i) =>
-            '<div class="hero-who-col">' +
+            '<div class="hero-who-row">' +
             '<div class="hero-who-who">' + HERO_WHO_LABELS[i] + '</div>' +
-            '<div class="hero-who-tag">' + row[0] + '</div>' +
+            '<div class="hero-who-tag" style="color:' + band.tone + '">' + row[0] + '</div>' +
             '<div class="hero-who-text">' + row[1] + '</div>' +
             '</div>').join('');
         whoEl.hidden = false;
+        renderHeroBand(pm25, band);
+    }
+
+    // Where this reading sits across the six CPCB bands, and the two
+    // comparisons that turn a number into something a person can hold: the
+    // multiple of the WHO guideline, and Berkeley Earth's cigarette
+    // equivalence at 22 µg/m³ over 24 hours, which the site already uses.
+    function renderHeroBand(pm25, band) {
+        const scale = document.getElementById('heroBand');
+        const chips = document.getElementById('heroChips');
+        if (scale) {
+            const at = HERO_BANDS.indexOf(band);
+            scale.innerHTML = HERO_BANDS.map((b, i) =>
+                '<div class="hero-band-seg' + (i <= at ? ' on' : '') + '"' +
+                (i <= at ? ' style="background:' + band.tone + '"' : '') + '></div>').join('');
+            scale.hidden = false;
+            const lbl = document.getElementById('heroBandLabel');
+            if (lbl) { lbl.textContent = band.label + ' \u00b7 CPCB'; lbl.style.color = band.tone; }
+        }
+        if (chips) {
+            const whoX = Math.round(pm25 / 5);
+            const cigs = (pm25 / 22).toFixed(1);
+            chips.innerHTML =
+                '<span class="hero-chip">' + whoX + '\u00d7 WHO guideline</span>' +
+                '<span class="hero-chip">\u2248 ' + cigs + ' cigarettes a day</span>';
+            chips.hidden = false;
+        }
     }
 
     // ── Place search in the first screen ──────────────────────────────────

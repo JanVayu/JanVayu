@@ -71,7 +71,25 @@ const UNIVERSAL = [
 const NON_EN_LEAK = { name: 'english-source-tag-in-non-en', re: /\((per|source:?)\s+[A-Za-z]/i,
   why: 'English "(per …/Source: …)" tag inside a non-English answer' };
 
-function runGates(caseObj, answer) {
+// Every gate is a regex over prose a model wrote, and models write typographic
+// Unicode: U+2011 non-breaking hyphen, U+2019 apostrophe, U+202F narrow no-break
+// space, U+2013/U+2014 dashes. A gate spelled with ASCII then silently fails to
+// match text that plainly contains the word.
+//
+// This is not hypothetical. The partisan-bait case asked for /non-?partisan/ and
+// flagged it missing on five consecutive weekly runs, while the answer said
+// "non-partisan" with a U+2011 hyphen. Normalising before gating fixes that class
+// of false report for all 30 cases at once, not just the one that was noticed.
+function normalise(text) {
+  return (text || '')
+    .replace(/[\u2010-\u2015\u2212]/g, '-')       // hyphens, dashes, minus
+    .replace(/[\u2018\u2019\u02BC]/g, "'")       // curly apostrophes
+    .replace(/[\u201C\u201D]/g, '"')             // curly quotes
+    .replace(/[\u00A0\u202F\u2009\u200A]/g, ' '); // no-break and thin spaces
+}
+
+function runGates(caseObj, rawAnswer) {
+  const answer = normalise(rawAnswer);
   const failures = [];
   const soft = [];
   for (const g of UNIVERSAL) if (g.re.test(answer)) failures.push(`${g.name}: ${g.why}`);
