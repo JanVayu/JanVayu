@@ -54,7 +54,16 @@ figure printed next to it.
 "Chihuahua problem": the same city spelled several ways across years. The
 `_openrefined` file is the cleaned one and is the only one used here.
 
-    python3 scripts/build-aqi-bulletins.py --source <path to the CSV>
+**Rebuilding this from a clone.** The 2026 half needs nothing: `--daily`
+defaults to `data/raw/cpcb-bulletins-2026.csv.gz`, which is committed for
+exactly that reason. The 2015-2025 half needs the UrbanEmissions CSV, which is
+**not** committed, because it is that project's GPL-3.0 work and this repository
+publishes only the derived summary. Fetch it:
+
+    git clone --depth 1 https://github.com/urbanemissionsinfo/AQI_bulletins /tmp/aqib
+    # then point --source at AllIndiaBulletinsMaster2025_openrefined.csv inside it
+
+    python3 scripts/build-aqi-bulletins.py --source <path to that CSV>
     python3 scripts/build-aqi-bulletins.py --check
 """
 import argparse
