@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>What are you breathing, right now? &middot; JanVayu</title>
+<meta name="description" content="A candidate homepage for JanVayu. One question, one answer, and where the answer came from.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* ── Tokens ────────────────────────────────────────────────────────────────
+   Same three faces and the same greens as the live site. Everything else is
+   this page's own, because it is a candidate rather than a change to the
+   system. Both themes are declared here: the live site's tokens are not
+   loaded, so nothing here can inherit a colour it did not define. */
+:root{
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --serif:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+  --bg:#f7f4ec; --bg-answer:#fffdf6; --ink:#1a1a18; --ink-2:#4a4a46; --ink-3:#6f6f68;
+  --edge:#e5e5dc; --rule:#1a1a18;
+  --green:#146c33; --green-deep:#0f2b1c;
+  --alarm:#b3261e; --caution:#8a4b00;
+  --btn-bg:#1a1a18; --btn-ink:#f7f4ec;
+}
+:root[data-theme="auto"]{ color-scheme: light; }
+@media (prefers-color-scheme: dark){
+  :root[data-theme="auto"]{
+    color-scheme: dark;
+    --bg:#0f1311; --bg-answer:#161b18; --ink:#eef3ef; --ink-2:#a8b5ad; --ink-3:#98a79e;
+    --edge:#2a312e; --rule:#eef3ef;
+    --green:#4ade80; --green-deep:#bbf7d0;
+    --alarm:#ff8a65; --caution:#ffb74d;
+    --btn-bg:#4ade80; --btn-ink:#0f1311;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#0f1311; --bg-answer:#161b18; --ink:#eef3ef; --ink-2:#a8b5ad; --ink-3:#98a79e;
+  --edge:#2a312e; --rule:#eef3ef;
+  --green:#4ade80; --green-deep:#bbf7d0;
+  --alarm:#ff8a65; --caution:#ffb74d;
+  --btn-bg:#4ade80; --btn-ink:#0f1311;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16.5px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--green)}
+a:hover{color:var(--green-deep)}
+:focus-visible{outline:2px solid var(--green); outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media(min-width:900px){.wrap{padding:0 40px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ── Bar ── */
+/* Six controls do not fit one phone row. They wrap onto their own line
+   instead, because a bar that overflows does not look broken, it just stops
+   working: at 390px the theme button sat on top of the index button and
+   swallowed its taps. Measured, not guessed. */
+.bar{display:flex;align-items:center;gap:10px 14px;padding:12px 0;flex-wrap:wrap}
+.bar .right{flex-wrap:wrap;gap:8px}
+@media(max-width:620px){
+  .bar .mark{flex:1 0 auto}
+  .bar .right{width:100%;margin-left:0}
+}
+.mark{font-family:var(--serif);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.mark span{color:var(--green)}
+.bar .right{margin-left:auto;display:flex;gap:8px}
+.ctl{min-height:44px;min-width:44px;display:inline-flex;align-items:center;gap:7px;padding:0 13px;
+  background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+.ctl:hover{background:var(--ink);color:var(--bg)}
+
+/* Popovers for the role and language controls. Positioned by the bar, which
+   is why the bar is the positioning context. Each is a real list of buttons,
+   so both are reachable by keyboard without a hover state. */
+.bar{position:relative}
+.pop{position:absolute;top:calc(100% + 4px);right:0;z-index:40;min-width:270px;max-width:min(94vw,440px);
+  background:var(--bg-answer);border:1px solid var(--rule);padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.pop[hidden]{display:none}
+.popnote{margin:0 0 12px;font-size:.84rem;line-height:1.5;color:var(--ink-2)}
+.popgrid{display:flex;flex-wrap:wrap;gap:6px}
+.popgrid button{min-height:44px;padding:0 13px;background:none;border:1px solid var(--edge);color:var(--ink);
+  cursor:pointer;font-family:var(--sans);font-size:.9rem}
+.popgrid button:hover{border-color:var(--green);color:var(--green)}
+.popgrid button[aria-pressed="true"]{background:var(--ink);color:var(--bg-answer);border-color:var(--ink)}
+.ctl[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+/* js/dyslexia-font.js builds its own button and sizes it at 32px tall, which
+   is under the 44px touch target everything else here meets. Its documented
+   knobs cover colour and radius but not height, so the size is set from this
+   side. Worth fixing in the script itself: the same button is 32px on the
+   live site too. */
+.bar .right button[id*="dys"]{min-height:44px;padding-top:0;padding-bottom:0}
+/* Plain-language mode swaps which of the two phrasings is shown. Both are in
+   the markup, so nothing has to be fetched or rebuilt to switch. */
+body:not(.simple-language) [data-plain]{display:none}
+body.simple-language [data-full]{display:none}
+/* The role puts the column that is about you first, and marks it. */
+.who div[data-lead]{order:-1}
+.who div[data-lead] dt::after{content:" \2014 you";color:var(--green)}
+/* Filter on the index: the site's search, where the things being searched are. */
+.index .filter{display:flex;border-bottom:2px solid currentColor;max-width:420px;margin:0 0 18px}
+.index .filter input{flex:1;min-width:0;background:none;border:0;outline:0;color:inherit;
+  font-family:var(--sans);font-size:1.05rem;padding:10px 2px}
+.index .filter input::placeholder{color:currentColor;opacity:.6}
+.index section.hide{display:none}
+.index .grid a.hide{display:none}
+.index .none{opacity:.75;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* ── The question ── */
+.ask{padding:12px 0 26px}
+h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
+  font-size:clamp(2.45rem,8.6vw,5.4rem);line-height:.99;letter-spacing:-.035em;max-width:15ch}
+.field{display:flex;align-items:stretch;border-bottom:3px solid var(--rule);max-width:680px}
+.field input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);
+  font-family:var(--sans);font-size:clamp(1.15rem,4.4vw,1.5rem);padding:12px 2px}
+.field input::placeholder{color:var(--ink-3)}
+.field button{background:var(--btn-bg);color:var(--btn-ink);border:0;cursor:pointer;min-height:48px;
+  padding:0 20px;font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase}
+.hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:14px}
+.hint b{color:var(--green);font-weight:600}
+.matches{list-style:none;margin:10px 0 0;padding:0;max-width:680px;display:none}
+.matches.on{display:block}
+.matches li button{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--edge);
+  padding:12px 2px;font-family:var(--sans);font-size:1rem;color:var(--ink);cursor:pointer;min-height:44px}
+.matches li button:hover{color:var(--green)}
+
+/* ── The answer ── */
+.answer{border-top:1px solid var(--rule);background:var(--bg-answer)}
+.answer .wrap{padding-top:26px;padding-bottom:30px}
+.ansgrid{display:flex;flex-direction:column;gap:22px}
+@media(min-width:900px){.ansgrid{flex-direction:row;gap:52px;align-items:flex-start}}
+.reading{flex-shrink:0}
+.stamp{font-family:var(--mono);font-size:.66rem;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3)}
+.figure{display:flex;align-items:baseline;gap:12px;margin-top:4px}
+.value{font-family:var(--mono);font-weight:600;font-size:clamp(5.4rem,24vw,8.4rem);
+  line-height:.8;letter-spacing:-.06em;color:var(--alarm)}
+.unit{font-family:var(--mono);font-size:.78rem;color:var(--ink-3);line-height:1.35}
+.scale{display:flex;margin-top:18px;max-width:420px}
+.scale i{flex:1;height:10px}
+/* The CPCB band palette, declared once and shared by the scale strip and the
+   ranking bars. It was briefly inline on each element, which duplicated the
+   six hexes into try-home.js and tripped check-theme-contrast: an inline light
+   background with no ink is exactly the pattern that guard exists to catch. */
+.b-good{background:#16a34a}
+.b-sat{background:#84cc16}
+.b-mod{background:#eab308}
+.b-poor{background:#f97316}
+.b-vpoor{background:#dc2626}
+.b-severe{background:#7f1d1d}
+.scale i.here{flex:2;outline:2px solid var(--rule);outline-offset:2px;position:relative;z-index:1}
+.band{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:9px}
+.verdict{margin:18px 0 12px;font-family:var(--serif);font-weight:700;
+  font-size:clamp(1.65rem,5.4vw,2.6rem);line-height:1.13;letter-spacing:-.025em}
+.verdict em{font-style:normal;color:var(--alarm)}
+.plain{margin:0 0 20px;max-width:52ch;font-size:1.02rem;line-height:1.6;color:var(--ink-2)}
+.who{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--rule);margin:0 0 20px}
+@media(min-width:760px){.who{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.who div{padding:14px 0;border-bottom:1px solid var(--edge)}
+@media(min-width:760px){.who div{padding:14px 18px;border-bottom:0;border-right:1px solid var(--edge)}
+ .who div:first-child{padding-left:0}.who div:last-child{padding-right:0;border-right:0}}
+.who dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.who dd{margin:0;font-family:var(--serif);font-weight:700;font-size:1.28rem}
+.who p{margin:4px 0 0;font-size:.88rem;line-height:1.5;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--ink);color:var(--ink);padding:0 15px;text-decoration:none;
+  min-height:44px;display:inline-flex;align-items:center}
+.chip:hover{background:var(--ink);color:var(--bg-answer)}
+.chip.lead{border-color:var(--green);color:var(--green)}
+.chip.lead:hover{background:var(--green);color:var(--bg-answer)}
+.prov{border-top:1px solid var(--edge);margin-top:22px;padding-top:13px;
+  font-family:var(--mono);font-size:.68rem;line-height:1.75;color:var(--ink-3);max-width:78ch}
+
+/* ── Standing figures ── */
+.standing{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--edge)}
+@media(min-width:760px){.standing{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.standing div{padding:16px 0}
+@media(min-width:760px){.standing div{padding:18px 20px;border-left:1px solid var(--edge)}
+ .standing div:first-child{padding-left:0;border-left:0}}
+.standing div:nth-child(2){padding-left:20px;border-left:1px solid var(--edge)}
+@media(min-width:760px){.standing div:nth-child(2){padding-left:20px}}
+.sv{font-family:var(--mono);font-weight:600;font-size:1.5rem;letter-spacing:-.03em}
+.sl{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-top:7px}
+.ss{font-size:.78rem;color:var(--ink-3);margin-top:3px}
+
+/* ── Below the fold ── */
+.more{padding:34px 0 10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--rule)}
+.cols{display:grid;grid-template-columns:1fr;gap:0;border-bottom:1px solid var(--edge)}
+@media(min-width:900px){.cols{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.col{padding:24px 0}
+@media(min-width:900px){.col{padding:26px 30px;border-right:1px solid var(--edge)}
+ .col:first-child{padding-left:0}.col:last-child{padding-right:0;border-right:0}}
+.col h2{margin:0 0 6px;font-family:var(--serif);font-weight:700;font-size:1.6rem;letter-spacing:-.02em}
+.col p.lede{margin:0 0 14px;font-size:.9rem;line-height:1.55;color:var(--ink-3)}
+.col a.row{display:block;padding:11px 0;border-bottom:1px dotted var(--edge);text-decoration:none;color:var(--ink);font-size:.98rem;min-height:44px}
+.col a.row:hover{color:var(--green)}
+.col a.all{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green);min-height:44px;line-height:44px}
+.rank{display:flex;flex-direction:column;gap:22px;padding:26px 0;border-bottom:1px solid var(--edge)}
+@media(min-width:900px){.rank{flex-direction:row;gap:48px}}
+.rank .list{width:100%;max-width:320px}
+.rank .list h2, .rank .chart h2{margin:0 0 10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.rk{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--edge);font-family:var(--mono);font-size:.82rem}
+.rk span:first-child{font-family:var(--sans);color:var(--ink-2)}
+.rk span:last-child{font-weight:600;color:var(--alarm)}
+.chart{flex:1;min-width:0}
+.bars{display:flex;align-items:flex-end;gap:2px;height:150px}
+.bars i{flex:1;border-radius:1px 1px 0 0}
+.axis{border-top:1px dashed var(--alarm);margin-top:4px;padding-top:7px;font-family:var(--mono);font-size:.68rem;color:var(--ink-3)}
+.note{display:flex;flex-direction:column;gap:26px;padding:26px 0 44px}
+@media(min-width:900px){.note{flex-direction:row;gap:48px}}
+.note .body{flex:1}
+.note .kicker{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--alarm);font-weight:700;margin-bottom:8px}
+.note p{margin:0;max-width:62ch;font-family:var(--serif);font-size:1.06rem;line-height:1.65;color:var(--ink-2)}
+.note .side{width:100%;max-width:330px}
+.note .side h2{margin:0 0 10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.note .side p{font-family:var(--sans);font-size:.9rem;line-height:1.6;color:var(--ink-2)}
+
+/* ── The index ── */
+.index{position:fixed;inset:0;z-index:50;background:var(--ink);color:var(--bg);overflow:auto;display:none}
+.index.on{display:block}
+.index a{color:var(--bg);text-decoration:none}
+.index .head{display:flex;align-items:center;gap:20px;padding:20px 0 16px;flex-wrap:wrap}
+.index .head .t{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;opacity:.72}
+.index .close{margin-left:auto;min-height:44px;min-width:44px;background:none;border:1px solid currentColor;color:inherit;cursor:pointer;font-family:var(--mono);font-size:1rem}
+.index .grid{display:grid;grid-template-columns:1fr;gap:0 30px;border-top:1px solid rgba(255,255,255,.22);padding-top:20px}
+@media(min-width:700px){.index .grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1100px){.index .grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.index section{padding-bottom:22px}
+.index h2{margin:0 0 3px;font-family:var(--serif);font-weight:700;font-size:1.3rem;letter-spacing:-.02em}
+.index .count{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.72;margin-bottom:11px}
+.index .grid a{display:block;padding:10px 0;font-size:.95rem;border-bottom:1px solid rgba(255,255,255,.14);min-height:44px}
+.index .grid a:hover{color:var(--green)}
+.index .foot{border-top:1px solid rgba(255,255,255,.22);padding:16px 0 30px;display:flex;flex-wrap:wrap;gap:6px 26px;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;opacity:.82}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+
+<header class="wrap bar">
+  <a class="mark" href="/">Jan<span>Vayu</span></a>
+  <div class="right" data-dyslexia-slot data-dyslexia-before="#themeBtn">
+    <button type="button" class="ctl" id="roleBtn" aria-haspopup="true" aria-expanded="false" aria-controls="rolePop">
+      <span id="roleLabel">Who you are</span>
+    </button>
+    <button type="button" class="ctl" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langPop">
+      <span id="langLabel">EN</span>
+    </button>
+    <button type="button" class="ctl" id="plainBtn" aria-pressed="false" data-i18n="ctl_plain">Plain</button>
+    <button type="button" class="ctl" id="themeBtn" aria-label="Switch between light and dark" data-i18n="ctl_theme">Theme</button>
+    <button type="button" class="ctl" id="indexBtn" aria-expanded="false" aria-controls="siteIndex" data-i18n="ctl_index">Index</button>
+  </div>
+  <div class="pop" id="rolePop" hidden>
+    <p class="popnote" data-i18n="role_why">Tell us who you are and the answer leads with the part that is about you. Kept on this device, never sent anywhere.</p>
+    <div class="popgrid" id="roleGrid"></div>
+  </div>
+  <div class="pop" id="langPop" hidden>
+    <div class="popgrid" id="langGrid"></div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap ask" aria-labelledby="q">
+    <h1 id="q"><span data-full>What are you breathing, right now?</span><span data-plain>What is in the air you are breathing?</span></h1>
+    <form class="field" id="findForm" role="search">
+      <label class="sr" for="place">Your city, ward or village</label>
+      <input id="place" name="place" type="text" autocomplete="off" placeholder="Your city, ward or village" value="Delhi">
+      <button type="button" id="nearBtn">Near me</button>
+    </form>
+    <ul class="matches" id="matches" aria-label="Matching places"></ul>
+    <p class="hint" id="coverage">Live air from India's continuous monitoring network &middot; annual estimates for <b>983,149</b> wards, panchayats and villages &middot; 5 languages</p>
+  </section>
+
+  <section class="answer" aria-live="polite" aria-labelledby="verdictText">
+    <div class="wrap">
+      <div class="ansgrid">
+        <div class="reading">
+          <div class="stamp" id="stamp">Delhi &middot; loading</div>
+          <div class="figure">
+            <div class="value" id="pm">&mdash;</div>
+            <div class="unit">&micro;g/m&sup3;<br>PM2.5</div>
+          </div>
+          <div class="scale" id="scale" role="img" aria-label="Where this reading sits on the CPCB PM2.5 scale">
+            <i class="b-good"></i><i class="b-sat"></i><i class="b-mod"></i>
+            <i class="b-poor"></i><i class="b-vpoor"></i><i class="b-severe"></i>
+          </div>
+          <div class="band" id="bandLabel">&nbsp;</div>
+        </div>
+        <div>
+          <h2 class="verdict" id="verdictText">Reading the nearest station&hellip;</h2>
+          <p class="plain" id="plain"></p>
+          <dl class="who" id="who">
+            <div><dt>A child, or over 65</dt><dd id="w1">&mdash;</dd><p id="w1n"></p></div>
+            <div><dt>Asthma or a heart condition</dt><dd id="w2">&mdash;</dd><p id="w2n"></p></div>
+            <div><dt>Otherwise healthy adult</dt><dd id="w3">&mdash;</dd><p id="w3n"></p></div>
+          </dl>
+          <div class="chips">
+            <a class="chip lead" href="/#go-outside">Full guidance</a>
+            <a class="chip" href="/#aqi-alerts">Set an alert</a>
+            <a class="chip" href="/#compare">Compare my city</a>
+            <a class="chip" href="/#budget">What my city spent</a>
+            <a class="chip" href="/#ask-janvayu">Ask JanVayu</a>
+          </div>
+          <p class="prov" id="prov">Source: CPCB continuous monitoring station data via WAQI. Live readings exist only where there is a machine. Annual satellite estimates cover every ward, panchayat and village. <a href="/#data-sources">How we know this</a></p>
+        </div>
+      </div>
+
+      <div class="standing">
+        <div><div class="sv" style="color:var(--alarm)">1.72 million</div><div class="sl">Deaths / year, India</div><div class="ss">Lancet Countdown 2025</div></div>
+        <div><div class="sv">$339.4 billion</div><div class="sl">Annual cost</div><div class="ss">9.5% GDP (Lancet)</div></div>
+        <div><div class="sv">82.2 &micro;g/m&sup3;</div><div class="sl">Delhi annual PM2.5</div><div class="ss">IQAir 2025</div></div>
+        <div><div class="sv" style="color:var(--green)">3.5 years</div><div class="sl">Life expectancy lost</div><div class="ss">AQLI 2025</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="more">Everything else, one scroll down</div>
+
+    <div class="cols">
+      <div class="col">
+        <h2>Your air</h2>
+        <p class="lede"><span data-full>Tools that answer for you, not for the country.</span><span data-plain>Things that tell you about your own air.</span></p>
+        <a class="row" href="/#go-outside">Should I go outside?</a>
+        <a class="row" href="/#exposure-diary">Exposure diary</a>
+        <a class="row" href="/#purifier-calc">Purifier calculator</a>
+        <a class="row" href="/#school-closure">School closures</a>
+        <a class="all" href="#" data-open-index>All of them</a>
+      </div>
+      <div class="col">
+        <h2>The evidence</h2>
+        <p class="lede"><span data-full>What this does to people, and how the measurement works.</span><span data-plain>How dirty air hurts people, and how we measure it.</span></p>
+        <a class="row" href="/#health">Health impact</a>
+        <a class="row" href="/#children">Children's health</a>
+        <a class="row" href="/#apportionment">Where PM2.5 comes from</a>
+        <a class="row" href="/#aqi-explainer">Understanding AQI</a>
+        <a class="all" href="#" data-open-index>All of them</a>
+      </div>
+      <div class="col">
+        <h2>Who decided</h2>
+        <p class="lede"><span data-full>Allocations, spending, court orders, and what changed.</span><span data-plain>Who was given money to fix this, what they spent, and what changed.</span></p>
+        <a class="row" href="/#budget">NCAP budget tracker</a>
+        <a class="row" href="/#policy">Policy tracker</a>
+        <a class="row" href="/#accountability">CPCB bulletin record</a>
+        <a class="row" href="/#rti">RTI toolkit</a>
+        <a class="all" href="#" data-open-index>All of them</a>
+      </div>
+    </div>
+
+    <div class="rank">
+      <div class="list">
+        <h2>Worst right now</h2>
+        <div id="worst"><div class="rk"><span>Loading</span><span>&mdash;</span></div></div>
+      </div>
+      <div class="chart">
+        <h2 id="chartTitle">Cities we watch, worst to best</h2>
+        <div class="bars" id="bars"></div>
+        <div class="axis">WHO guideline 5 &micro;g/m&sup3; annual mean &middot; <a href="/#rankings">the full ranking</a></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="body">
+        <div class="kicker">September 2026</div>
+        <p><span data-full>The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the temperature inversions that hold everything down. What follows is not weather. It is the same set of decisions, taken again.</span><span data-plain>The rains end in the middle of this month. That ends the cleanest few weeks of the year for most of the country. Then come crop fires in Punjab and Haryana, Diwali, and cold air that traps the smoke near the ground. This is not bad luck. The same choices are made every year.</span></p>
+      </div>
+      <div class="side">
+        <h2>Where the numbers come from</h2>
+        <p><span data-full>Live readings come from India's continuous CPCB monitoring network, which is why they exist only where a machine does. Annual satellite estimates close the gap and reach every ward, panchayat and village. Eleven years of CPCB's own daily bulletins sit behind both.</span><span data-plain>Live numbers come from government machines that measure the air. There is a machine only in some places. For everywhere else we use satellite pictures, which give a figure for the whole year rather than for today.</span></p>
+        <a class="all" href="/#data-sources" style="display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green)">How JanVayu works</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="index" id="siteIndex" role="dialog" aria-modal="true" aria-label="Everything on this site" hidden>
+  <div class="wrap">
+    <div class="head">
+      <span class="mark" style="color:inherit">Jan<span style="color:var(--green)">Vayu</span></span>
+      <span class="t">Everything on this site</span>
+      <button type="button" class="close" id="closeIndex" aria-label="Close index">&times;</button>
+    </div>
+    <div class="filter">
+      <label class="sr" for="filter">Filter this list</label>
+      <input id="filter" type="text" autocomplete="off" placeholder="Filter&hellip;">
+    </div>
+    <p class="none" id="noHits" hidden>Nothing matches that</p>
+    <div class="grid">
+      <section>
+        <h2>Your air</h2><div class="count">Eight</div>
+        <a href="/#ask-janvayu">Ask JanVayu</a><a href="/#go-outside">Should I go outside?</a>
+        <a href="/#aqi-alerts">AQI alerts</a><a href="/#exposure-report">Exposure report</a>
+        <a href="/#exposure-diary">Exposure diary</a><a href="/#school-closure">School closures</a>
+        <a href="/#purifier-calc">Purifier calculator</a><a href="/#migration-calc">Migration comparison</a>
+      </section>
+      <section>
+        <h2>Places</h2><div class="count">Seven</div>
+        <a href="/#map">Live map &amp; area atlas</a><a href="/#rankings">City rankings</a>
+        <a href="/#compare">Compare cities</a><a href="/#hyperlocal">Hyperlocal</a>
+        <a href="/#forecast">Forecast</a><a href="/#farm-fires">Farm fires</a>
+        <a href="/#gallery">Photo gallery</a>
+      </section>
+      <section>
+        <h2>Evidence</h2><div class="count">Sixteen</div>
+        <a href="/#health">Health impact</a><a href="/#children">Children's health</a>
+        <a href="/#gender">Women's health</a><a href="/#beyond-lungs">Beyond the lungs</a>
+        <a href="/#economic">Economic cost</a><a href="/#indoor">Indoor air</a>
+        <a href="/#trends">Historical trends</a><a href="/#aqi-explainer">Understanding AQI</a>
+        <a href="/#apportionment">Where PM2.5 comes from</a><a href="/#glossary">Glossary</a>
+      </section>
+      <section>
+        <h2>Who decided</h2><div class="count">Ten</div>
+        <a href="/#accountability">CPCB bulletin record</a><a href="/#policy">Policy tracker</a>
+        <a href="/#budget">NCAP budget tracker</a><a href="/#court">Court orders</a>
+        <a href="/#corporate">Corporate emitters</a><a href="/#apportionment">Source apportionment</a>
+        <a href="/#trends">Weather-normalised trend</a>
+      </section>
+      <section>
+        <h2>Act</h2><div class="count">Nine</div>
+        <a href="/#actions">Take action</a><a href="/#citizen-action">Citizen plan</a>
+        <a href="/#rti">RTI toolkit</a><a href="/#report">Report a polluter</a>
+        <a href="/#testimonies">Field testimonies</a><a href="/#workshops">Workshops</a>
+        <a href="/#downloads">Open API &amp; downloads</a>
+      </section>
+    </div>
+    <div class="foot">
+      <a href="/#about">About JanVayu</a><a href="/#team">Team</a><a href="/#faq">FAQ</a>
+      <a href="/#resources">Reading list</a><a href="/#data-archive">Data archive</a>
+      <a href="mailto:contribute@janvayu.in">Contact</a>
+      <span style="margin-left:auto">Open data &middot; every figure sourced</span>
+    </div>
+  </div>
+</div>
+
+<script src="/js/dyslexia-font.js" data-accent="var(--green)" data-radius="0"
+        data-idle-border="var(--ink)" data-font="var(--mono)" defer></script>
+<script src="/js/try-home.js" defer></script>
+</body>
+</html>
