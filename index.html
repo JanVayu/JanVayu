@@ -6586,8 +6586,27 @@ function updateRoleSwitcher(role) {
         html += `<button class="role-switcher-option${key === role ? ' active' : ''}" onclick="switchRole('${key}')">${cfg.icon} ${cfg.label}</button>`;
     }
     html += `<button class="role-switcher-option${role === 'skip' ? ' active' : ''}" onclick="switchRole('skip')">☰ Show Everything</button>`;
+    html += `<button class="role-switcher-option" onclick="openRoleChooser()">&#8943; What these roles mean</button>`;
     dropdown.innerHTML = html;
 }
+
+/* The role chooser, opened deliberately rather than thrown at a first-time
+   visitor. It carries a sentence about each role that the dropdown has no room
+   for, so it stays worth having; it just should not be the first thing anyone
+   meets. */
+function openRoleChooser() {
+    const dd = document.getElementById('roleSwitcherDropdown');
+    if (dd) dd.classList.remove('open');
+    const bd = document.getElementById('roleSwitcherBackdrop');
+    if (bd) bd.classList.remove('show');
+    const overlay = document.getElementById('roleOverlay');
+    if (!overlay) return;
+    overlay.classList.remove('hiding');
+    overlay.style.display = 'flex';
+    const first = overlay.querySelector('button, [href]');
+    if (first) first.focus();
+}
+window.openRoleChooser = openRoleChooser;
 
 function toggleRoleSwitcher() {
     const dropdown = document.getElementById('roleSwitcherDropdown');
@@ -6653,11 +6672,27 @@ function switchRole(role) {
         html += `<button class="role-switcher-option" onclick="switchRole('${key}')">${cfg.icon} ${cfg.label}</button>`;
     }
     html += `<button class="role-switcher-option" onclick="switchRole('skip')">☰ Show Everything</button>`;
+    html += `<button class="role-switcher-option" onclick="openRoleChooser()">⋯ What these roles mean</button>`;
     dropdown.innerHTML = html;
 
     if (!savedRole) {
-        // First visit — show the role selector overlay
-        document.getElementById('roleOverlay').style.display = 'flex';
+        // First visit. The overlay used to open here, full screen at z-index
+        // 10000, so the first thing a new visitor met was a thirteen-option
+        // persona picker standing between them and the air quality reading
+        // they came for. Nobody arrives asking to be classified; they arrive
+        // asking whether it is safe to send a child out.
+        //
+        // Nothing is lost by not opening it: the switcher dropdown above is
+        // populated with every role and "Show Everything" whether or not a
+        // role is set, so each one is still one tap away. The hint points at
+        // the control once, which is how an optional feature should announce
+        // itself.
+        const hint = document.getElementById('roleHint');
+        if (hint && !sessionStorage.getItem('janvayu-role-hint-shown')) {
+            sessionStorage.setItem('janvayu-role-hint-shown', '1');
+            setTimeout(() => { hint.classList.add('show'); }, 2500);
+            setTimeout(() => { hint.classList.remove('show'); }, 7000);
+        }
     } else if (savedRole === 'skip') {
         // User chose to see everything
         updateRoleSwitcher('skip');
