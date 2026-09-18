@@ -6,7 +6,25 @@ JanVayu's role selector helps visitors find the most relevant data, tools, and a
 
 ### First Visit
 
-When a visitor arrives at janvayu.in without a hash fragment (e.g. `#health`), a full-screen overlay presents 10 role cards:
+**A first visit shows the air, not a questionnaire.** Until 18 September 2026 a
+full-screen overlay opened over the homepage before anything else, so a new
+visitor met a twelve-option persona picker between them and the reading they had
+come for. It no longer opens by itself. Somebody arriving from a shared link
+gets the live PM2.5 figure, and the role stays available as a choice rather than
+a toll.
+
+The roles are reachable two ways, both from the header:
+
+- **The role switcher** lists all twelve plus "Show Everything", whether or not
+  a role has been set. One tap, no intermediate screen.
+- **"What these roles mean"**, the last entry in that switcher, opens the full
+  chooser below, which carries a sentence of explanation per role that the
+  dropdown has no room for.
+
+A hint points at the switcher once per session for a visitor who has not chosen
+a role, which is how an optional feature should announce itself.
+
+The chooser presents twelve role cards:
 
 | Role | Key | Example Action |
 |------|-----|----------------|
@@ -20,8 +38,11 @@ When a visitor arrives at janvayu.in without a hash fragment (e.g. `#health`), a
 | Teacher | `teacher` | "Should school close today?" |
 | NGO / CSO | `ngo` | "Generate an advocacy brief" |
 | Business Owner | `business` | "See the economic impact" |
+| Woman / Caregiver | `woman` | "Indoor cooking and maternal exposure" |
+| Citizen | `citizen` | "What is my city doing about it?" |
 
-A "Skip — show me everything" option bypasses the overlay entirely.
+A "Skip — show me everything" option closes the chooser without setting a role,
+and is also the "Show Everything" entry in the header switcher.
 
 ### Role Dashboard
 

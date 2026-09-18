@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.215] - 2026-09-18
+
+### Changed, the role chooser stops standing in front of the homepage
+
+On a first visit it opened full screen at `z-index: 10000`, so a new visitor met a twelve-option persona picker before the reading they came for. Measured on a fresh profile at 390x844: the topmost element at the centre of the screen was the role grid. It is now the hero note.
+
+Nothing was lost, and that was checked rather than assumed. The header switcher already carried all twelve roles and "Show Everything" whether or not a role was set, so each is still one tap away; a fresh visit shows 14 options in it. The hint that points at the control now fires for a visitor with **no** role rather than only after one is chosen. The overlay would have been orphaned by that, and it carries a sentence per role the dropdown has no room for, so it keeps a deliberate route through **"What these roles mean"**, which opens it and moves focus into it.
+
+### Fixed, a language choice did not survive a reload
+
+`setLanguage()` kept `currentLang` in module state only. Choosing Hindi and reloading returned the reader to English: the switcher worked and then quietly undid itself. It now writes `janvayu-lang` and `restoreLanguage()` applies it from init, before the panels load, for the same reason `setLanguage()` is re-run on panel injection. English is the markup's own language, so it is skipped and there is no flash.
+
+Verified against an element that actually translates: `nav_myair` goes My Air to मेरी हवा, is still मेरी हवा after a reload, and reverts when the key is cleared. The first probe used the Dashboard link, which carries no `data-i18n` and would have read the same either way.
+
+### Fixed, the dyslexia-font button was under the touch-target minimum
+
+`js/dyslexia-font.js` built it 36x32, below the 44px that everything around it meets, on every site using the script. Now 44x44 through a new `--dys-min-size`, so a host can still override. Measured on the homepage afterwards: 45x44. A reading aid with a small target is the wrong thing to get wrong.
+
+### Added, one paper and a candidate homepage
+
+Pandey et al., *Near-source emission profiling of post-monsoon crop residue fires in N-W India*, npj Clean Air, 15 September 2026 — aircraft measurements over the burning fields themselves. Reading-list badge 42 to 43, counted against the grid rather than assumed. Four others offered in the same batch were not added: two Frontiers DOIs return 404 with no Crossref record (both described as accepted rather than published), and two were already in the panel.
+
+`/try` is a candidate homepage, `noindex`, live and changing nothing at `/`: one question, one field, and a sentence a reader can act on, with CPCB's own National AQI thresholds deciding which sentence. The site's role, plain-language, dyslexia-font, five-language and search features are built into it on the same storage keys.
+
 ## [v26.6.214] - 2026-09-18
 
 ### Fixed, the hero note was cut mid-line, and the page really was flipping between two designs
