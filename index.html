@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606211">
+    <link rel="preload" as="style" href="/styles.css?v=202606212">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -649,9 +649,22 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 /* Clamp to a whole number of lines. A max-height in em cut 4.48 lines once
    the note lost its padding in v26.6.208, slicing the fifth line through the
    letters with nothing around it to say the cut was deliberate. */
+/* A preview, not a truncation. A hard cut — with or without an ellipsis —
+   reads as the panel being broken, which is how it was reported twice. The
+   text fades into the page instead, which is the idiom for "there is more",
+   and the Read more control underneath does the rest. */
 .hero-live-alert.clamped {
-    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;
-    max-height: none; overflow: hidden;
+    display: block;
+    max-height: 6.4em;
+    overflow: hidden;
+    position: relative;
+}
+.hero-live-alert.clamped::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 2.6em;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    pointer-events: none;
 }
 .hero-live-toggle { margin-top: 8px; padding: 4px 0; background: none; border: none; cursor: pointer; color: var(--red); font-family: var(--sans); font-size: 0.82rem; font-weight: 600; }
 .hero-live-toggle:hover { text-decoration: underline; }
@@ -1946,7 +1959,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606211"></script>
+    <script src="/app.js?v=202606212"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
