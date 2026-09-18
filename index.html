@@ -6526,7 +6526,6 @@ function dismissRoleDashboard() {
 
 // ── Role Switcher ──
 function updateRoleSwitcher(role) {
-    const switcher = document.getElementById('roleSwitcher');
     const iconEl = document.getElementById('roleSwitcherIcon');
     const dropdown = document.getElementById('roleSwitcherDropdown');
     const btn = document.getElementById('roleSwitcherBtn');
@@ -7003,10 +7002,6 @@ window.handleWorkshopSubmit = async function (event, kind) {
             .then(function(data) {
                 var list = data && data.stories;
                 if (!list || !list.length) return;
-                // ISO-week index so the pick changes weekly without a deploy.
-                var now = new Date();
-                var start = new Date(now.getFullYear(), 0, 1);
-                var week = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000));
                 // The newest post is the featured one. A weekly rotation made
                 // sense when the list was short and evergreen; with the blog
                 // publishing several a week it just hid the new work.
@@ -7026,8 +7021,12 @@ window.handleWorkshopSubmit = async function (event, kind) {
                 var all = document.getElementById('blog-all-link');
                 if (row && list.length > 1) {
                     row.innerHTML = list.slice(1, 4).map(function (b) {
+                        // Quotes matter here: the escaped value is dropped
+                        // straight into href="..." below, so stopping at
+                        // &, < and > leaves the attribute closable.
                         var esc = function (x) {
-                            return String(x || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                            return String(x || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
                         };
                         return '<a class="blog-mini" href="' + esc(b.url) + '">'
                             + '<span class="blog-mini-tag">' + esc(b.tag || 'Blog') + '</span>'

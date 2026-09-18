@@ -4304,16 +4304,16 @@
         const gap = Math.abs(highMean - lowMean);
         const dp = my.unit === '%' ? 0 : 1;
         const concrete = Math.abs(r) < 0.15 ? '' :
-            `The fifth with the <em>least</em> ${xl} average <strong>${lowMean.toFixed(dp)}${my.unit}</strong>; ` +
+            `The fifth with the <em>least</em> ${escapeHtml(xl)} average <strong>${lowMean.toFixed(dp)}${my.unit}</strong>; ` +
             `the fifth with the <em>most</em> average <strong>${highMean.toFixed(dp)}${my.unit}</strong> ` +
             `— a difference of <strong>${gap.toFixed(dp)}${my.unit}</strong>. `;
 
         note.innerHTML =
             `<strong style="font-size:0.86rem">${escapeHtml(lead)}</strong><br>` +
             `<span>${concrete}Based on the ` +
-            `<strong>${pts.length.toLocaleString('en-IN')}</strong> ${plural} drawn on the map right now — ` +
+            `<strong>${pts.length.toLocaleString('en-IN')}</strong> ${escapeHtml(plural)} drawn on the map right now — ` +
             `zoom or pan somewhere else and press Compare again to ask about a different place.</span>` +
-            `<br><span style="color:var(--text-3)">Each dot is one ${lvl}: left to right is ${escapeHtml(xl)}, ` +
+            `<br><span style="color:var(--text-3)">Each dot is one ${escapeHtml(lvl)}: left to right is ${escapeHtml(xl)}, ` +
             `bottom to top is ${escapeHtml(yl)}. Statisticians would call this ${strength} ` +
             `(r&nbsp;=&nbsp;${r.toFixed(2)}). Places differ in many ways at once, so this shows the two ` +
             `move together — not that one causes the other.</span>`;
