@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606217">
+    <link rel="preload" as="style" href="/styles.css?v=202606218">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -550,7 +550,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .nav-link.active, .nav-item.has-active > .nav-link { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
 .nav-caret { display: inline-block; width: 0; height: 0; border-left: 3.5px solid transparent; border-right: 3.5px solid transparent; border-top: 4px solid currentColor; margin-left: 2px; opacity: 0.5; transition: transform 0.15s; }
 .nav-item:hover .nav-caret { transform: rotate(180deg); opacity: 1; }
-.nav-dropdown { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 180px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow-md); padding: 6px 0; z-index: 100; }
+.nav-dropdown { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 180px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.18); padding: 6px 0; z-index: 100; }
 .nav-item:hover .nav-dropdown { display: block; }
 .nav-dropdown-link { display: block; width: 100%; text-align: left; padding: 8px 16px; font-family: var(--sans); font-size: 0.8rem; font-weight: 500; color: var(--text-2); background: none; border: none; cursor: pointer; transition: all 0.1s; white-space: nowrap; }
 .nav-dropdown-link:hover { background: var(--green-50); color: var(--accent); }
@@ -616,6 +616,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .si-sm { width: 14px; height: 14px; }
 .si-md { width: 18px; height: 18px; }
 .si-lg { width: 22px; height: 22px; }
+.si-moon { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Moon.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Moon.svg); }
 .si-hospital { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hospital.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Hospital.svg); }
 .si-briefcase { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Briefcase.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Briefcase.svg); }
 .si-globe { -webkit-mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Globe_detailed.svg); mask-image: url(https://cdn.jsdelivr.net/npm/sargam-icons@1.6.7/Icons/Line/si_Globe_detailed.svg); }
@@ -909,6 +910,47 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     .hero-headline { font-size: 1.35rem; }
     .grid-5 { grid-template-columns: 1fr; }
 }
+    
+/* ── Hard edges ─────────────────────────────────────────────────────────────
+   The house style is a hard edge: no corner radius, no drop shadow, surfaces
+   that sit on the page rather than float above it. It is what /try
+   demonstrated and what the OpenStacks pages already use, and it is the look
+   the owner asked the whole site to adopt, inner pages included.
+
+   Enforced here in one place rather than by editing each declaration. There
+   are 104 rounded-rectangle rules in this file and 279 inline `border-radius`
+   values across index.html and the panels; editing them individually would
+   miss some and be undone by the next inline style somebody writes.
+
+   `!important` is load-bearing: an important author declaration outranks a
+   normal inline `style=`, which is the only way to reach those 279 without
+   rewriting the markup. The selector is kept at the lowest possible
+   specificity precisely so the exceptions below can outrank it with an
+   ordinary class. */
+body * { border-radius: 0 !important; box-shadow: none !important; }
+
+/* Round on purpose: pills (rank numbers, language badges, bar fills) and
+   circles (avatars, the live pulse, the floating buttons). Inline versions are
+   matched on the attribute, so markup that already means to stay round does,
+   without being rewritten. */
+[style*="border-radius:999px"], [style*="border-radius: 999px"],
+[style*="border-radius:9999px"], [style*="border-radius: 9999px"],
+.apportion-rowbar, .apportion-rowbar-fill, .back-home-btn, .gal-lb-btn,
+.rank-num, .share-aqi-btn, .story-week-tag,
+.testimony-lang-btn, .testimony-langbadge { border-radius: 999px !important; }
+
+[style*="border-radius:50%"], [style*="border-radius: 50%"],
+.pulse, .team-avatar, .voice-avatar, .fab-btn { border-radius: 50% !important; }
+
+/* The map's controls are third-party and its panes use radius for clipping
+   rather than decoration, so the map is left exactly as Leaflet draws it. */
+[class*="leaflet"] { border-radius: revert !important; box-shadow: revert !important; }
+
+/* Things that genuinely float above the page keep a shadow to say so.
+   Nothing else does. */
+.pop, .glossary-overlay, .role-overlay, .gal-lb, .nav-dropdown, .fab-btn {
+    box-shadow: 0 10px 30px rgba(0,0,0,.18) !important;
+}
     </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
@@ -1154,7 +1196,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <button class="icon-btn hide-mobile" id="simpleModeToggle" onclick="toggleSimpleMode()" title="Simple language mode" aria-label="Toggle simple language">
                     <span class="si si-eye" style="width:18px;height:18px;"></span>
                 </button>
-                <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle dark mode">☾</button>
+                <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle dark mode"><span class="si si-moon" style="width:18px;height:18px;"></span></button>
                 <a class="icon-btn hide-mobile" href="https://github.com/JanVayu/JanVayu" target="_blank" title="View source on GitHub" aria-label="GitHub repository">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
@@ -2024,7 +2066,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606217"></script>
+    <script src="/app.js?v=202606218"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

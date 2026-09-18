@@ -230,7 +230,7 @@
      language on reload because it never stores it; this one stores it. */
   var STRINGS = {
     en: { ask:'What are you breathing, right now?', place:'Your city, ward or village',
-          near:'Near me', index:'Index', theme:'Theme', plain:'Plain', who:'Who you are',
+          near:'Near me', index:'Index', theme:'Theme', plain:'Simple', who:'Who you are',
           filter:'Filter…', everything:'Everything on this site' },
     hi: { ask:'आप अभी क्या साँस ले रहे हैं?', place:'आपका शहर, वार्ड या गाँव',
           near:'मेरे पास', index:'सूची', theme:'थीम', plain:'सरल', who:'आप कौन हैं',

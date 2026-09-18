@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.218] - 2026-09-18
+
+### Changed, the whole site takes the hard edge, inner pages included
+
+The owner asked for `/try`'s look across the site rather than only on the front page, keeping the existing fonts. Checked first, because most of it turned out to be already true: `/try` and the live site define the **same three faces** (DM Sans, JetBrains Mono, and a serif) and the **same greens and greys** to the exact hex — `#e5e5dc`, `#1a1a18`, `#146c33` are identical in both. The only font difference was the serif, where `/try` used Newsreader and the site uses Fraunces; `/try` now uses Fraunces, so the site's faces are the ones that stay.
+
+What actually differed was the edge. The site had 8px and 12px corner radii and four shadow tokens; `/try` has neither, which is also what the OpenStacks pages already do.
+
+So there is now one rule rather than 383 edits. `body * { border-radius: 0 !important; box-shadow: none !important; }`, with the exceptions listed beside it. The `!important` is load-bearing and not laziness: **279 of these radii are inline `style=` values** across `index.html` and the panels, and an inline declaration outranks any stylesheet rule at any specificity, so an important author declaration is the only thing that reaches them without rewriting the markup. The selector is deliberately kept at the lowest possible specificity so the exceptions can outrank it with an ordinary class, which is exactly the mistake made on the first attempt: a high-specificity selector with `!important` beat `.rank-num` and flattened the pills too.
+
+Round on purpose and preserved: pills (rank numbers, language badges, bar fills) and circles (avatars, the live pulse, the floating home button), matched by class and, for inline ones, on the attribute. Leaflet is excluded outright, because the map's panes use radius for clipping rather than decoration. Popovers, the glossary, the role overlay and the lightbox keep a shadow, because they genuinely float.
+
+**The layer is mirrored into the critical block**, or the first paint would have drawn rounded cards and then snapped them square on every load. `check-critical-css.py` caught that within one run, along with a `.nav-dropdown` shadow that disagreed between the two copies.
+
+Measured after: **0 rounded and 0 shadowed elements** across the homepage and an opened panel, with the pills still at 999px.
+
+### Changed, the theme toggle is a Sargam icon, and Simple is called Simple
+
+The theme button was the last text glyph in the header, a literal `☾`. It now carries `si-moon` in light and `si-sun` in dark, swapped by changing the mask class rather than by rewriting `textContent`, which would delete the icon span. The direction was inverted on the first attempt and is checked in a browser now: light shows the moon, dark shows the sun, as the glyph it replaced did.
+
+`/try` called the mode **Plain**; the site has always called it **Simple**. It is Simple in both now.
+
+### Fixed, an icon that would have rendered as a blank box
+
+`si_Menu.svg` returns 404 from the Sargam CDN, so the class added for it would have painted nothing, silently, the way a wrong mask URL always does. Removed. All 19 icon URLs the site actually uses were checked and every one returns 200, including the new `si_Moon.svg`.
+
 ## [v26.6.217] - 2026-09-18
 
 ### Changed, the first screen answers Indian questions and stops wasting the space
