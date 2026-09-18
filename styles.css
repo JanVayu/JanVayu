@@ -3038,3 +3038,67 @@ body {
 /* Section eyebrow: the dash before it was a rounded pill on a 2px bar. A flat
    rule in the accent, tight to the label, reads as a mark rather than a shape. */
 .dash-section-eyebrow::before { border-radius: 0; height: 1px; width: 22px; }
+
+
+/* ══ Panels, brought onto the dashboard's system ══════════════════════════
+   v26.6.208 changed the dashboard and left the panels on the older idiom, so
+   the site read as two designs. The panels' problem is nesting: a `.card`
+   holding a `.card-body` holding `.info-box` items, each drawing its own
+   border, radius and tinted background. Three boxes deep, on a page that is
+   itself a surface, and the boxes carry no information.
+
+   Each level here either earns its keep or goes.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* An info-box inside a card is the third box in a stack of three. It keeps its
+   coloured left rule, which says what kind of note it is, and drops the tint,
+   the radius and the outline, which say nothing. */
+.card .info-box,
+.card-body .info-box {
+    background: none;
+    border-radius: 0;
+    padding: 2px 0 2px 16px;
+    /* Only the three sides that say nothing are removed. The left border is
+       left entirely alone: `.jv-rule-accent-4` and a handful of inline rules
+       set its colour and width to mark what kind of note it is, and a
+       `border: 0` shorthand here silently reset that colour for every box
+       whose rule came from a class rather than an attribute, so half of them
+       lost their mark and half kept it. */
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+.card .grid-2 > .info-box:nth-child(even),
+.card-body .grid-2 > .info-box:nth-child(even) { background: none; }
+
+/* Standing on its own, an info-box is a note rather than a card. */
+.panel > .info-box, .panel .card-body > .info-box {
+    line-height: 1.65;
+}
+
+/* Cards inside a panel group content; they do not need to float as well. */
+.panel .card { box-shadow: none; }
+.panel .card-header { border-bottom-color: var(--border-light); }
+
+/* The panel heading and the dashboard section heading were two different
+   treatments for the same job. One scale, one rhythm. */
+.section-title { letter-spacing: -0.03em; line-height: 1.1; }
+.section-desc { font-size: 1.05rem; line-height: 1.6; margin-top: 14px; }
+.section-intro { margin-bottom: clamp(28px, 4vw, 48px); }
+
+/* Panels ran their blocks at 1.5rem apart, against the dashboard's 56-96px.
+   The result on a long panel is one undifferentiated column. */
+.panel .card + .card,
+.panel .card + .grid-2,
+.panel .grid-2 + .card,
+.panel .grid-3 + .card,
+.panel .card + .grid-3 { margin-top: clamp(28px, 3.5vw, 48px); }
+
+/* The first card in a panel carried a 3px accent rule across its top, which
+   read as a tab on a box. The panel's own heading already says where you are. */
+.panel.active > .card:first-of-type { border-top-width: 1px; border-top-color: var(--border); }
+
+/* Alternating right-to-left grids were variety for its own sake: they move the
+   reading order about with nothing to gain, and a screen reader follows the
+   DOM either way, so the two disagree. */
+.panel.active > .grid-2:nth-child(even) { direction: ltr; }
