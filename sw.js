@@ -7,12 +7,12 @@
 //   the cached shell. WAQI / Netlify Function responses are also cached so
 //   the user sees the last-known AQI when offline.
 
-const CACHE_VERSION = 'janvayu-202606220';
+const CACHE_VERSION = 'janvayu-202606221';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css?v=202606220',
-  '/app.js?v=202606220',
+  '/styles.css?v=202606221',
+  '/app.js?v=202606221',
   '/fonts/fraunces-400.woff2',
   '/fonts/fraunces-600.woff2',
   '/fonts/fraunces-700.woff2',
@@ -30,11 +30,27 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k))
-    )).then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    // Was there a PREVIOUS version of this site's cache? If so this is an
+    // update rather than a first install, and the page currently on screen was
+    // built by the old release. Tell it to reload once.
+    //
+    // This exists because a visitor reported, correctly and repeatedly, that
+    // they could not see a new design that production was definitely serving.
+    // HTML is network-first here, so the markup was fresh; what was not was
+    // everything `cacheFirst` had already stored under a URL that had stopped
+    // changing (see v26.6.220). Rather than depend on every asset URL being
+    // stamped correctly forever, the worker now says so when it supersedes an
+    // older one, and the page acts on it.
+    const superseded = keys.some(k => k !== CACHE_VERSION && k.startsWith('janvayu-'));
+    await Promise.all(keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k)));
+    await self.clients.claim();
+    if (superseded) {
+      const windows = await self.clients.matchAll({ type: 'window' });
+      for (const c of windows) c.postMessage({ type: 'janvayu-sw-updated', version: CACHE_VERSION });
+    }
+  })());
 });
 
 // ── Web Push (v26.6.49) ──────────────────────────────────────────────────
