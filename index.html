@@ -1290,7 +1290,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="compare" data-i18n="nav_citydata">Maps &amp; Places <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="compare" data-i18n="nav_citydata">Places <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="map" data-i18n="nav_map">Live Map &amp; Area Atlas</button>
                     <button class="nav-dropdown-link" data-panel="rankings" data-i18n="nav_rankings">City Rankings</button>
@@ -1302,8 +1302,8 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="health" data-i18n="nav_data">Health &amp; Trends <span class="nav-caret"></span></button>
-                <div class="nav-dropdown">
+                <button class="nav-link" data-panel="health" data-i18n="nav_data">Evidence <span class="nav-caret"></span></button>
+                <div class="nav-dropdown nav-dropdown-wide">
                     <button class="nav-dropdown-link" data-panel="health" data-i18n="nav_health">Health Impact</button>
                     <button class="nav-dropdown-link" data-panel="children" data-i18n="nav_children">Children's Health</button>
                     <button class="nav-dropdown-link" data-panel="gender" data-i18n="nav_gender">Women's Health</button>
@@ -1313,11 +1313,6 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <button class="nav-dropdown-link" data-panel="trends" data-i18n="nav_historical_trends">Historical Trends</button>
                     <button class="nav-dropdown-link" data-panel="urban-heat" data-i18n="nav_urban_heat">Urban Heat Island</button>
                     <button class="nav-dropdown-link" data-panel="occupational" data-i18n="nav_occupational">Occupational Exposure</button>
-                </div>
-            </div>
-            <div class="nav-item">
-                <button class="nav-link" data-panel="aqi-explainer" data-i18n="nav_learn">Learn <span class="nav-caret"></span></button>
-                <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="aqi-explainer" data-i18n="nav_aqi_explainer">Understanding AQI</button>
                     <button class="nav-dropdown-link" data-panel="apportionment" data-i18n="nav_apportionment">Where PM2.5 Comes From</button>
                     <button class="nav-dropdown-link" data-panel="airshed" data-i18n="nav_airshed">Your Airshed or Your Town</button>
@@ -1343,7 +1338,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="actions" data-i18n="nav_action">Take Action <span class="nav-caret"></span></button>
+                <button class="nav-link" data-panel="actions" data-i18n="nav_action">Act <span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="actions" data-i18n="nav_actions">Take Action</button>
                     <button class="nav-dropdown-link" data-panel="citizen-action" data-i18n="nav_citizen_action">Citizen Plan</button>
@@ -1357,7 +1352,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 </div>
             </div>
             <div class="nav-item">
-                <button class="nav-link" data-panel="resources" data-i18n="nav_resources">Resources <span class="nav-caret"></span></button>
+                <button class="nav-link nav-more" data-panel="resources" aria-label="More sections" title="More sections" data-i18n-attr="aria-label:nav_more,title:nav_more">&#8943;<span class="nav-caret"></span></button>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="resources" data-i18n="nav_resources">Reading List</button>
                     <button class="nav-dropdown-link" data-panel="data-archive" data-i18n="nav_data_archive">Data Archive</button>
@@ -1365,11 +1360,6 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                     <button class="nav-dropdown-link" data-panel="downloads" data-i18n="nav_downloads">Downloads</button>
                     <button class="nav-dropdown-link" data-panel="social-feed" data-i18n="nav_social_feed">Social Media Feed</button>
                     <button class="nav-dropdown-link" data-panel="live-news" data-i18n="nav_live_news">Live News</button>
-                </div>
-            </div>
-            <div class="nav-item">
-                <button class="nav-link" data-panel="about" data-i18n="nav_about">About <span class="nav-caret"></span></button>
-                <div class="nav-dropdown">
                     <button class="nav-dropdown-link" data-panel="about" data-i18n="nav_about">About JanVayu</button>
                     <button class="nav-dropdown-link" data-panel="team">Team</button>
                     <button class="nav-dropdown-link" data-panel="faq">FAQ</button>
@@ -1381,6 +1371,7 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
                 <button class="nav-icon-btn" onclick="openWidget('search')" title="Search JanVayu (Ctrl+K)" aria-label="Search JanVayu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
                 <button class="nav-cta-btn nav-install-btn" id="navInstallBtn" onclick="installJanVayuPWA()" style="display:none;">Install app</button>
             </div>
+        
         </div>
     </nav>
 

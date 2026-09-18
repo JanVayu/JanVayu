@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.213] - 2026-09-18
+
+### Changed, the desktop nav is six groups and an overflow rather than nine
+
+Nine top-level groups (Dashboard, My Air, Maps & Places, Health & Trends, Learn, Accountability, Take Action, Resources, About) filled the bar edge to edge and gave a reader no shape to hold. They are now six, with everything that did not earn a permanent slot behind a `⋯` at the end: **Dashboard | My Air | Places | Evidence | Accountability | Act | ⋯**.
+
+Health & Trends and Learn merged into **Evidence**, which is the thing they have in common and is what someone arriving with a question is looking for. Resources and About moved into the overflow. Measured at 1920, 1440, 1280 and 1200: seven groups carrying 61 buttons between them, no horizontal scroll in the bar and none on the page.
+
+The overflow trigger is the one control in the bar with no visible word in it, so its accessible name is the only name it has. It carries `aria-label` and `title` through `data-i18n-attr`, with `nav_more` added to all five locales, rather than announcing itself as an ellipsis.
+
+**Nothing was dropped.** The rebuild parses the existing groups and reuses each child button's markup verbatim, so every label, `data-panel` and `data-i18n` is the one that was there before. Evidence holds sixteen items and renders as two columns rather than one sixteen-deep list.
+
+### Added, a guard that refuses to let a tool fall out of the navigation
+
+Regrouping moves buttons between parents, and a destination that loses its last button is not reachable from the chrome at all. The panel still exists, still renders if you reach it another way, and nothing errors, which is what makes it the wrong kind of mistake to catch by eye across 61 destinations.
+
+`scripts/check-nav-coverage.py` collects every destination the desktop bar, the dropdowns, the overflow and the mobile nav can reach, and compares it against `data/nav-baseline.json`, which records **61**: the 59 the desktop bar reaches, plus two the mobile nav and a direct `showPanel` call reach and the desktop bar does not. A shrink fails. Broken and re-proved: stripping `data-archive` from every route that offers it reports the orphan and fails; restored, it passes. Adding a destination is a one-line baseline update. In CI as part of the existing figures job.
+
+### Fixed, on desktop the whole navigation was mouse-only
+
+`.nav-item:hover .nav-dropdown { display: block }` was the only thing that revealed a dropdown. No JavaScript opened one, so tabbing to a group focused a button that did nothing visible, and the 52 destinations that can only be reached from inside a dropdown could not be reached from the keyboard at all. `:focus-within` now matches alongside `:hover`. Verified by focusing each group in turn: all six open, Evidence as `grid` and the other five as `block`.
+
+### Fixed, the Evidence dropdown rendered as one sixteen-item column
+
+`.nav-item:hover .nav-dropdown { display: block }` is two classes and a pseudo-class; `.nav-dropdown-wide { display: grid }` is one class. The hover rule won, so the two-column rule never applied and the list ran off the bottom of a 1080-tall viewport. The wide rule now carries matching specificity.
+
 ## [v26.6.212] - 2026-09-18
 
 ### Fixed — the hero note fades instead of cutting

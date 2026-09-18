@@ -77,6 +77,16 @@ jobs:
       - name: Check every asset URL resolves
         run: python3 scripts/check-asset-urls.py
 
+      # The desktop nav was rebuilt from nine groups to six plus an overflow
+      # menu. Regrouping moves buttons between parents, and a destination that
+      # loses its last button is not reachable on desktop at all: the panel
+      # still exists, still renders if you get to it, and nothing errors. The
+      # guard records every destination the chrome can reach in
+      # data/nav-baseline.json and fails if that set shrinks, so a later tidy-up
+      # cannot quietly orphan a tool. Adding one is a one-line baseline update.
+      - name: Check no tool lost its way into the nav
+        run: python3 scripts/check-nav-coverage.py
+
       # A dark-mode sweep on 2026-09-17 measured every text element on all 56
       # panels in both themes: 1,844 failing in dark, 1,233 in light, almost
       # all from three habits rather than 3,000 separate mistakes. A themed
