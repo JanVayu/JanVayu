@@ -4,6 +4,49 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.29: The government's own bulletin, made readable (✅ Completed — v26.6.199–202)
+
+CPCB has published a daily AQI bulletin as a PDF since 1 May 2015. It was public the whole time and unusable as a series, which is a particular kind of non-availability: nobody can say the data is being withheld, and nobody can read it either.
+
+- [x] **`data/aqi-bulletins.json`: 297 cities, 2015 to 2026, 507,334 city-days** *(v26.6.200, extended v26.6.202)* — days in each official AQI category, per city per year, on the Accountability panel. 2015–2025 is UrbanEmissions.info's extraction of the same PDFs, credited on the panel; 2026 is our own parse. On three 2025 dates checked city by city the two agree on the AQI **and** the station count for all 671 city-days they share.
+- [x] **The monitor count sits beside every figure** — a city-year whose median reporting station count is below 3 is marked thin, because an AQI from one or two monitors is a reading from one place with a city's name on it. In CPCB's own 2024 bulletin, **204 of 264 cities had a citywide figure from a median of exactly one monitor.**
+- [x] **No trend line, and the build refuses to admit one** *(v26.6.200)* — reporting grew from 10 cities to 236 and the stations under each city grew with it; the 10 present throughout went from a median of 1 station to 6. A fall in Poor-or-worse days cannot be separated from a change in what was doing the measuring. The refusal is now derived prose with a phrase-level check, after a first version passed a drifted panel size.
+- [x] **A false claim caught by making the prose derived** *(v26.6.200)* — "Delhi, the only city never thin" was on four pages and was wrong. The fix was not editing four pages; it was computing the sentence from the data so the fifth page cannot be written by hand.
+- [x] **The parser dropped one city on the 21st of every month** *(v26.6.201)* — the page header `Air Quality Index on Jan 21 , 2026` carries a bare day-of-month that collided with the row serial. It bit on all eight 21sts of 2026 **and on the 2025-11-15 date the parser was validated against**, where 249 rows agreed with an independent extraction and the true count was 250. Guard: `check-bulletin-parser.py`, synthetic bulletins across every day-of-month × page-break combination, which fails on days 1, 11 and 21 against the pre-fix parser.
+- [x] **Writing a fault down is not reporting it** *(v26.6.201)* — all eight damaged files already carried `serial_gaps: [21]`, and the backfill closed with `259 fetched, 0 failed`. It now names the affected days and returns non-zero.
+- [x] **Part years marked where the number is** *(v26.6.202)* — 136 Poor-or-worse days of 235 in 2015 against 157 of 366 in 2024 reads as a rise and is a fall. The first rule for it called 2025 partial because CPCB published nothing on 1 January, and would have shipped a false warning over 79,356 city-days.
+
+## Phase 5.30: Saying where we are not the best answer (✅ Completed — v26.6.203–205)
+
+- [x] **A comparison against every other Indian air-quality source** *(v26.6.203)* — ten columns, including what the others do better. Published at `/blog/#/posts/2026-09-17-what-we-do-that-others-do-not`.
+- [x] **A correction published against ourselves in the same post** — the table gave every column but ours a flat *no* on weather-normalised air quality. [Hawa Ka Hisab](https://hawakahisab.in), published by the office of Ajay Maken, MP (Rajya Sabha), has done it daily for Delhi since 19 July 2026 with its method set out in full, and reconstructs Delhi's air back to 1980. **The site was already cited in our own assistant** as a check on our 1980–2022 reconstruction; we knew it as a history and never looked at what else it published.
+- [x] **Ask JanVayu learns where to send people instead** *(v26.6.204)* — rule 34: hawakahisab.in for Delhi and for anything current, OpenAQ for raw station data, CREA for NCAP analysis, CPCB's portal for the official record, the sensor networks for street level. It discloses that Hawa Ka Hisab is published by a serving opposition MP because that site says so itself, and it may never claim JanVayu is the only source of something without naming what it checked.
+- [x] **`docs/data-sources/crea-measurements.md`, and a decision not to splice** *(v26.6.204)* — CREA's API is open, current, and shares XKDR's station namespace, which makes it the obvious way past the 1 September 2025 cliff. It serves only an outlier-filtered series, so it is systematically lower and never higher. On Hyderabad that shift is **−0.98 µg/m³, 192% of the city's entire annual trend**, in the direction of improvement. Joining at the cliff would manufacture improvement precisely where the real trend is smallest. The alternative, rebuilding the whole series on CREA alone with XKDR as cross-check, is written down and not started.
+- [x] **The About panel stopped advertising a release from seventy-eight versions ago** *(v26.6.204)* — guard: `check-about-currency.py`, tolerance 12 patch releases, loose on purpose because a guard that fires on every version bump gets switched off.
+- [x] **A neutral ramp under the semantic tokens** *(v26.6.205)* — `--w-0`…`--w-900` and `--d-950`…`--d-50`, 29 tokens repointed, every value a hex already in the file. Verified pixel-identical, with a control run proving the one panel that differed does so between two runs of the *same* code.
+
+## Phase 5.31: The visual pass (🚧 In progress)
+
+The obstacle was never taste. It was that most of the site's appearance lived in **2,860 inline `style=` attributes**, where no stylesheet can reach it.
+
+- [x] **989 of them migrated into 37 `.jv-*` classes** across `index.html` and sixteen panels. `display` is deliberately excluded, because JS writes it back. Verified by a control run: the residual pixel differences occur between two runs of the same code.
+- [x] **Depth becomes an edge, not a blur** — `--edge`, `--edge-accent`, and `--shadow-card: 0 1px 0 0 var(--edge)`. Cards sit on the page instead of floating above it. Blurred shadows are kept only for things that genuinely float.
+- [x] **The role picker, which is the first screen every visitor sees** — three across instead of four, left-aligned, the icon in a tinted tile, hover as a border and a wash rather than a lift, and the logo's green glow removed. All twelve roles now fit one screen at 1280×1000.
+- [x] **The comparison table stopped being cut off on a laptop** — the prose column is 630px and the table wanted 763px, so 133px sat off-screen at 1440px with only a scrollbar to say so. Tables now break out of the prose column above 700px. Measured: 0px hidden at 1600, 1440, 1280, 1024 and 900.
+- [x] **The blog's dark-mode toggle uses a Sargam icon** like the rest of the site, instead of an emoji.
+- [x] **The homepage diagram is generated, not drawn** — see Phase 5.32.
+- [ ] **The remaining 1,871 inline styles.** Not urgent; the ones that carried the visual language are done.
+
+## Phase 5.32: A diagram that could not go stale (✅ Completed)
+
+"How JanVayu works" is the first thing a visitor reads that explains where the numbers come from. Every figure on it was right, and `check-site-figures.py` was holding them right, so nothing looked wrong. What had drifted was the **inventory**: it named five live feeds and four satellite sources, and neither of the two largest bodies of work on the site. A check cannot catch that, because a missing source is not a wrong number.
+
+- [x] **`scripts/build-how-it-works.py`** lays both orientations out arithmetically from a content list and writes them into all three places the drawing appears — the wide and tall copies in `index.html` and the slide deck's copy in `walkthrough/deck.html`, which had been silently diverging.
+- [x] **Every figure is read from the repo at build time** — the live city count from `CITIES` in `app.js`, the boundary counts from `data/tiles/_levels.json`, the bulletin from `data/aqi-bulletins.json`, the de-weathered panel from `data/deweathered-national.json`.
+- [x] **Two sources added**: CPCB's daily bulletins and the XKDR station record, under a new block that says what they are for — what the models get checked against. **Two outputs added**: the eleven-year category-days series and the 44-city de-weathered trends.
+- [x] **Guard in `ci.yml`**, broken and re-proved.
+- [x] **A walkthrough slide for the bulletin**, with the trend refusal and the part-year rule in the presenter note, since those are what someone will be asked about.
+
 - [x] **A surface for the instrument record** *(v26.6.193)* — `station-observed.json` had been data with no UI since v26.6.184. Now a section of the Data Source Selector, under the satellite card it checks: a scatter of all 276 paired stations against the satellite figure for their district, r 0.834, with the 1:1 line drawn and the disclosure that neither number corrects the other.
 - [x] **The de-weathering panel covers 44 cities** *(v26.6.193)* — a city selector over `deweathered-national.json`, whole years 2018–2024. **The Delhi-NCR run stays on the page**: it carries 95% intervals and a placebo test that the national file does not, and swapping it out would have traded rigour for coverage silently.
 - [x] **A unit that rendered as milligrams** *(v26.6.193)* — `text-transform: uppercase` maps U+00B5 to Greek capital Mu, so `µg/m³` reads as `ΜG/M³`. Two live instances, one of them in the AQI explainer's own breakpoint table. Guard: `check-uppercase-units.py`.

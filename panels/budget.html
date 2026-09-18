@@ -8,9 +8,9 @@
                 <button class="action-btn" onclick="showPanel('rti-assistant')">File an RTI →</button>
             </div>
 
-            <div class="section-intro" style="margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);">
+            <div class="section-intro jv-sec-divided">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-wallet" style="color: var(--amber); margin-right: 0.4rem;"></span>Clean Air Budget Tracker</h2>
-                <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem;" data-simple="Where does the government spend money on cleaning the air? We follow the money across different schemes and check if it is actually being used. Most of the information comes from official budget papers and RTI requests.">Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
+                <p class="jv-lede" data-simple="Where does the government spend money on cleaning the air? We follow the money across different schemes and check if it is actually being used. Most of the information comes from official budget papers and RTI requests.">Following the money: tracking India's air quality investments across NCAP, PMUY, E-DRIVE, and crop residue management schemes. Verified data from Union Budget documents, RTI responses, and CREA analysis.</p>
             </div>
 
             <div class="alert alert-danger mb-2"><div data-simple="&lt;strong&gt;Big problem:&lt;/strong&gt; The money for cleaning air in 42 million-plus cities ran out at the end of March 2026. The government has still not said what comes next. Cities are running on leftover allocations.">
@@ -21,19 +21,19 @@
             <!-- KEY STATS -->
             <div class="stat-strip mb-2">
                 <div class="stat-cell">
-                    <div class="stat-value" style="color: var(--ink);">₹13,415 Cr</div>
+                    <div class="stat-value jv-t-ink">₹13,415 Cr</div>
                     <div class="stat-label">NCAP Released (2019-26)</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value" style="color: var(--amber);">74%</div>
+                    <div class="stat-value jv-t-amber">74%</div>
                     <div class="stat-label">Utilization Rate</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value" style="color: var(--red);">68%</div>
+                    <div class="stat-value jv-t-red">68%</div>
                     <div class="stat-label">Spent on Dust Control</div>
                 </div>
                 <div class="stat-cell">
-                    <div class="stat-value" style="color: var(--purple);">&lt;1%</div>
+                    <div class="stat-value jv-t-purple">&lt;1%</div>
                     <div class="stat-label">On Industry/Fuel</div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <!-- THE GAP: BUDGET VS BURDEN -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title" style="color: var(--green-700);">
+                    <span class="card-title jv-t-accent">
                         <span class="si si-alert"></span>
                         The Gap: Budget vs. Burden
                     </span>
@@ -51,7 +51,7 @@
                         <div>
                             <h3 style="color: var(--green-700); font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Economic Cost of Air Pollution</h3>
                             <div style="font-size: 2.5rem; font-weight: 700; color: var(--green-700);">$339.4 Billion</div>
-                            <div style="font-size: 0.875rem; color: var(--text-2);">9.5% of GDP, 2022 data (Lancet Countdown 2025) &mdash; monetised value of premature mortality</div>
+                            <div class="jv-t-sm-2">9.5% of GDP, 2022 data (Lancet Countdown 2025) &mdash; monetised value of premature mortality</div>
                             <ul style="font-size: 0.875rem; margin-top: 1rem; line-height: 1.8;">
                                 <li><strong>1.72 million deaths</strong> annually from ambient PM2.5 (Lancet Countdown 2025); <strong>~2.0 million</strong> total incl. household air pollution (State of Global Air 2025)</li>
                                 <li>Older GBD 2019 / Lancet Planetary Health estimate: <strong>$36.8 billion</strong> (1.36% of GDP; 1.67 million deaths, 17.8% of all deaths) &mdash; $28.8B from premature mortality + $8.0B from morbidity costs. Different method (output/welfare-loss vs. VSL-monetised mortality); kept for reference, not added to the figure above.</li>
@@ -60,9 +60,9 @@
                         <div>
                             <h3 style="color: var(--green-700); font-size: 0.9375rem; margin-bottom: 0.75rem;">Annual Clean Air Spending (All Schemes)</h3>
                             <div style="font-size: 2.5rem; font-weight: 700; color: var(--green-700);">~₹15,000 Cr</div>
-                            <div style="font-size: 0.875rem; color: var(--text-2);">Approximately $1.8 Billion across all schemes</div>
+                            <div class="jv-t-sm-2">Approximately $1.8 Billion across all schemes</div>
                             <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-700);">
-                                <strong style="color: var(--green-700);">Spending = 0.5% of economic burden</strong>
+                                <strong class="jv-t-accent">Spending = 0.5% of economic burden</strong>
                                 <p style="font-size: 0.8125rem; margin-top: 0.25rem; color: var(--text-2);">For every ₹100 lost to air pollution, India spends ₹0.50 on solutions.</p>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                 <!-- NCAP FUNDING -->
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title" style="color: var(--ink);">
+                        <span class="card-title jv-t-ink">
                             <span class="si si-target"></span>
                             NCAP Fund Flow (2019-2026)
                         </span>
@@ -100,7 +100,7 @@
                 <!-- SPENDING PATTERN -->
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title" style="color: var(--amber);">
+                        <span class="card-title jv-t-amber">
                             <span class="si si-building"></span>
                             Where NCAP Money Goes
                         </span>
@@ -108,7 +108,7 @@
                     <div class="card-body">
                         <div class="chart-container"><canvas id="budgetSpendingChart" role="img" aria-label="Pie chart showing the breakdown of NCAP spending categories."></canvas></div>
                         <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.8125rem;">
-                            <strong style="color: var(--green-700);">Critical Mismatch:</strong> Source apportionment shows vehicles and industry are among the top PM2.5 contributors, yet NCAP spends 68% on road-dust control and under 1% each on industry and domestic fuel (CREA 2026).
+                            <strong class="jv-t-accent">Critical Mismatch:</strong> Source apportionment shows vehicles and industry are among the top PM2.5 contributors, yet NCAP spends 68% on road-dust control and under 1% each on industry and domestic fuel (CREA 2026).
                         </div>
                     </div>
                     <div class="card-footer">Source: CREA NCAP Analysis, CSE Reports</div>
@@ -141,21 +141,21 @@
                                     <td data-label="Allocated (₹ Cr)">81.36</td>
                                     <td data-label="Utilized (₹ Cr)">14.10</td>
                                     <td data-label="Utilization %"><span class="badge badge-danger">17%</span></td>
-                                    <td style="color: var(--green-700);" data-label="Status">Critical underutilization</td>
+                                    <td class="jv-t-accent" data-label="Status">Critical underutilization</td>
                                 </tr>
                                 <tr>
                                     <td data-label="City"><strong>Noida</strong></td>
                                     <td data-label="Allocated (₹ Cr)">127.00</td>
                                     <td data-label="Utilized (₹ Cr)">30.00</td>
                                     <td data-label="Utilization %"><span class="badge badge-danger">24%</span></td>
-                                    <td style="color: var(--green-700);" data-label="Status">Critical underutilization</td>
+                                    <td class="jv-t-accent" data-label="Status">Critical underutilization</td>
                                 </tr>
                                 <tr>
                                     <td data-label="City"><strong>Ghaziabad</strong></td>
                                     <td data-label="Allocated (₹ Cr)">48.50</td>
                                     <td data-label="Utilized (₹ Cr)">&gt;39</td>
                                     <td data-label="Utilization %"><span class="badge badge-success">&gt;80%</span></td>
-                                    <td style="color: var(--green-700);" data-label="Status">High performer</td>
+                                    <td class="jv-t-accent" data-label="Status">High performer</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -172,12 +172,12 @@
                 <!-- PM UJJWALA -->
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title" style="color: var(--green-700);">
+                        <span class="card-title jv-t-accent">
                             <span class="si si-flare"></span>
                             PM Ujjwala Yojana (Clean Cooking)
                         </span>
                     </div>
-                    <div class="card-body" style="font-size: 0.875rem;">
+                    <div class="card-body jv-t-sm">
                         <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
                             <div style="text-align: center; padding: 0.75rem; background: var(--bg); border-radius: 6px;">
                                 <div style="font-size: 1.75rem; font-weight: 700; color: var(--green-700);">10.55 Cr</div>
@@ -189,7 +189,7 @@
                             </div>
                         </div>
                         <div style="padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; border-left: 3px solid var(--green-700);">
-                            <strong style="color: var(--green-700);">Usage Gap:</strong> Average PMUY household uses only <strong>4.47 refills/year</strong> vs up to 9 subsidized (FY2025-26). Indicates persistent affordability barriers and "fuel stacking."
+                            <strong class="jv-t-accent">Usage Gap:</strong> Average PMUY household uses only <strong>4.47 refills/year</strong> vs up to 9 subsidized (FY2025-26). Indicates persistent affordability barriers and "fuel stacking."
                         </div>
                         <div style="margin-top: 0.75rem;">
                             <strong>Health Impact:</strong> Household air pollution causes 0.61 million deaths annually.
@@ -201,12 +201,12 @@
                 <!-- CROP RESIDUE -->
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title" style="color: var(--amber);">
+                        <span class="card-title jv-t-amber">
                             <span class="si si-shield"></span>
                             Crop Residue Management (2018-2026)
                         </span>
                     </div>
-                    <div class="card-body" style="font-size: 0.875rem;">
+                    <div class="card-body jv-t-sm">
                         <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
                             <div style="text-align: center; padding: 0.75rem; background: var(--bg); border-radius: 6px;">
                                 <div style="font-size: 1.75rem; font-weight: 700; color: var(--amber);">₹4,266 Cr</div>
@@ -226,7 +226,7 @@
                             </ul>
                         </div>
                         <div style="padding: 0.75rem; background: rgba(22,128,60,0.1); border-radius: 6px; border-left: 3px solid var(--accent);">
-                            <strong style="color: var(--green-700);">Success Story:</strong> Fire incidents dropped from 82,533 (2021) to 18,457 (2024). 3 lakh+ machines distributed.
+                            <strong class="jv-t-accent">Success Story:</strong> Fire incidents dropped from 82,533 (2021) to 18,457 (2024). 3 lakh+ machines distributed.
                         </div>
                     </div>
                     <div class="card-footer">Total &mdash; PIB / Ministry of Agriculture &amp; Farmers Welfare (17 Jun 2026, now includes Madhya Pradesh); state-wise breakdown &mdash; Business Standard (Nov 2024), ETV Bharat (Feb 2025)</div>
@@ -236,7 +236,7 @@
             <!-- EV SCHEMES -->
             <div class="card mb-2">
                 <div class="card-header">
-                    <span class="card-title" style="color: var(--purple);">
+                    <span class="card-title jv-t-purple">
                         <span class="si si-bus"></span>
                         Electric Mobility: FAME to E-DRIVE (2015-2026)
                     </span>
@@ -280,20 +280,20 @@
                     </div>
                     <div class="grid-3 mt-2" style="font-size: 0.8125rem;">
                         <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px; text-align: center;">
-                            <strong style="color: var(--purple);">₹23,295 Cr</strong><br>
-                            <span style="color: var(--text-3);">Total EV Investment</span>
+                            <strong class="jv-t-purple">₹23,295 Cr</strong><br>
+                            <span class="jv-t-3">Total EV Investment</span>
                         </div>
                         <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px; text-align: center;">
-                            <strong style="color: var(--green-700);">28+ Lakh</strong><br>
-                            <span style="color: var(--text-3);">Vehicles Supported</span>
+                            <strong class="jv-t-accent">28+ Lakh</strong><br>
+                            <span class="jv-t-3">Vehicles Supported</span>
                         </div>
                         <div style="padding: 0.5rem; background: var(--bg); border-radius: 4px; text-align: center;">
-                            <strong style="color: var(--ink);">72,300</strong><br>
-                            <span style="color: var(--text-3);">Chargers Planned</span>
+                            <strong class="jv-t-ink">72,300</strong><br>
+                            <span class="jv-t-3">Chargers Planned</span>
                         </div>
                     </div>
                     <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(245,158,11,0.1); border-radius: 6px; font-size: 0.875rem;">
-                        <strong style="color: var(--amber);">Subsidy Tapering:</strong> E-2W subsidy reduced from ₹5,000/kWh (FY25) to ₹2,500/kWh (FY26). Industry seeks extension beyond March 2026.
+                        <strong class="jv-t-amber">Subsidy Tapering:</strong> E-2W subsidy reduced from ₹5,000/kWh (FY25) to ₹2,500/kWh (FY26). Industry seeks extension beyond March 2026.
                     </div>
                 </div>
                 <div class="card-footer">Sources: DD News, ICCT Report, Business Standard</div>
@@ -310,7 +310,7 @@
                 <div class="card-body">
                     <div class="chart-container"><canvas id="budgetMoefccChart" role="img" aria-label="Bar chart of MoEFCC budget allocation versus actual expenditure."></canvas></div>
                     <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.875rem;">
-                        <strong style="color: var(--green-700);">Stagnant at 0.07% of Union Budget:</strong> Despite air pollution emerging as India's leading environmental health crisis, MoEFCC allocation has remained flat for a decade. The 2025-26 allocation of ₹3,413 Cr represents less than 0.08% of total government spending.
+                        <strong class="jv-t-accent">Stagnant at 0.07% of Union Budget:</strong> Despite air pollution emerging as India's leading environmental health crisis, MoEFCC allocation has remained flat for a decade. The 2025-26 allocation of ₹3,413 Cr represents less than 0.08% of total government spending.
                     </div>
                 </div>
                 <div class="card-footer">Source: PRS Legislative Research, Demand for Grants 2025-26</div>
@@ -319,7 +319,7 @@
             <!-- ACCOUNTABILITY GAPS -->
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title" style="color: var(--green-700);">
+                    <span class="card-title jv-t-accent">
                         <span class="si si-alert"></span>
                         Key Accountability Gaps
                     </span>
@@ -328,7 +328,7 @@
                     <div class="grid-2">
                         <div>
                             <h3 style="color: var(--green-700); font-size: 0.875rem; margin-bottom: 0.5rem;">Structural Issues</h3>
-                            <ul style="font-size: 0.875rem; line-height: 1.8;">
+                            <ul class="jv-t-sm-lh">
                                 <li><strong>No legally binding targets:</strong> NCAP targets are aspirational with no penalties</li>
                                 <li><strong>XV-FC cliff:</strong> ₹16,539 Cr <strong>expired 31 Mar 2026</strong>; no dedicated successor to the air-quality grant announced as of mid-May 2026 &mdash; 16th Finance Commission report was submitted 17 Nov 2025 (award period 2026-31)</li>
                                 <li><strong>Focus mismatch:</strong> 68% on dust vs &lt;1% on industry/domestic fuel</li>
@@ -338,7 +338,7 @@
                         </div>
                         <div>
                             <h3 style="font-size: 0.875rem; margin-bottom: 0.5rem">Hidden Funds</h3>
-                            <ul style="font-size: 0.875rem; line-height: 1.8;">
+                            <ul class="jv-t-sm-lh">
                                 <li><strong>Environmental Cess:</strong> ₹45.8 Cr collected over 8 years, &lt;1% spent on pollution control (RTI)</li>
                                 <li><strong>CAMPA Funds:</strong> only ₹26,002 Cr utilized (2019-24), a fraction of the accumulated afforestation corpus (CAG 2024)</li>
                                 <li><strong>State Boards:</strong> Many SPCBs under-resourced despite fee collections</li>

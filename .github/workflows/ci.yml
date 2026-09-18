@@ -57,6 +57,17 @@ jobs:
       - name: Check the national deweathering layer
         run: python3 scripts/build-deweathered-national.py --check
 
+      # The homepage "How JanVayu works" diagram had every number right and its
+      # whole inventory wrong: it named five live feeds and four satellite
+      # sources, and neither of the two largest things on the site — eleven
+      # years of CPCB's own bulletin, and the measured station record the
+      # modelled layers are checked against. check-site-figures could not catch
+      # that, because a missing source is not a wrong number. So the drawing is
+      # generated from the data instead of hand-placed, in all three places it
+      # appears. Rebuild with `python3 scripts/build-how-it-works.py`.
+      - name: Check the how-it-works diagram
+        run: python3 scripts/build-how-it-works.py --check
+
       # A dark-mode sweep on 2026-09-17 measured every text element on all 56
       # panels in both themes: 1,844 failing in dark, 1,233 in light, almost
       # all from three habits rather than 3,000 separate mistakes. A themed

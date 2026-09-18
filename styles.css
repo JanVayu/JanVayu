@@ -143,10 +143,18 @@
     --border: var(--w-300);
     --border-light: var(--w-200);
 
+    /* Depth is a hard 1px bottom rule in a darker shade of the element,
+       not a blurred shadow. It stays crisp at any zoom and costs no paint. */
+    --edge: var(--w-300);
+    --edge-accent: var(--green-800);
+
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
     --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
-    --shadow-card: 0 1px 4px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.03);
+    /* Cards sit on the page rather than float above it: a hard 1px rule on
+       the bottom edge, in a darker shade of the surface. Blurred shadows are
+       kept only for things that genuinely float, like the modal and the FAB. */
+    --shadow-card: 0 1px 0 0 var(--edge);
 
     --radius: 8px;
     --radius-lg: 12px;
@@ -204,10 +212,13 @@
     --ink: var(--d-50);
     --border: var(--d-700);
     --border-light: var(--d-800);
+    --edge: #3a3a36;
+    --edge-accent: var(--green-600);
+
     --shadow-sm: none;
     --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
     --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
-    --shadow-card: 0 0 0 1px rgba(255,255,255,0.05);
+    --shadow-card: 0 1px 0 0 var(--edge);
     --green-50: rgba(74,222,128,0.06);
     --green-100: rgba(74,222,128,0.1);
     --cream: #151513;
@@ -930,7 +941,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     padding: 12px 14px; cursor: pointer; text-decoration: none; color: inherit;
     font-family: var(--sans); transition: border-color .15s, box-shadow .15s, transform .15s;
 }
-.hero-cta-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.hero-cta-card:hover { border-color: var(--accent); border-bottom-color: var(--edge-accent); transform: translateY(-1px); }
 .hero-cta-icon { flex: none; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent); color: var(--on-accent, #fff); }
 .hero-cta-alt .hero-cta-icon { background: rgba(22,163,74,0.12); color: var(--accent); }
 .hero-cta-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -1087,8 +1098,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-bottom-color: var(--edge);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
     overflow: hidden;
 }
 .card-header {
@@ -1269,7 +1281,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .btn:hover { box-shadow: var(--shadow-sm); text-decoration: none; }
 .btn-sm { font-size: 0.75rem; padding: 5px 12px; }
-.btn-primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); border-bottom: 2px solid var(--edge-accent); }
 .btn-primary:hover { background: var(--accent-hover); }
 /* In dark theme --accent is a bright green; white text on it fails contrast,
    so use dark text on primary buttons there. */
@@ -1982,53 +1994,61 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     pointer-events: none;
 }
 .role-overlay-inner {
-    max-width: 900px; width: 100%; text-align: center;
+    max-width: 940px; width: 100%; text-align: center;
 }
 .role-overlay-logo-icon {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
 }
-.role-overlay-logo-icon svg { border-radius: 18px; filter: drop-shadow(0 6px 20px rgba(22,163,74,0.35)); }
+/* No glow. Depth on this page is a hard edge, never a blurred halo. */
+.role-overlay-logo-icon svg { width: 68px; height: 68px; border-radius: 16px; }
 .role-overlay-logo {
     font-family: var(--serif); font-size: 1.8rem; font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--accent); margin-bottom: 0.25rem;
 }
 .role-overlay-logo-sub {
     font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
     color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.1rem;
 }
 .role-overlay h2 {
-    font-family: var(--serif); font-size: 1.6rem; font-weight: 600;
-    color: var(--text); margin-bottom: 0.5rem; line-height: 1.3;
+    font-family: var(--serif); font-size: clamp(1.6rem, 3.4vw, 2.1rem); font-weight: 600;
+    letter-spacing: -0.02em; text-wrap: balance;
+    color: var(--text); margin-bottom: 0.4rem; line-height: 1.2;
+    max-width: 34ch; margin-left: auto; margin-right: auto;
 }
 .role-overlay .role-subtitle {
-    font-size: 0.95rem; color: var(--text-2); margin-bottom: 2rem;
+    font-size: 0.95rem; color: var(--text-2); margin-bottom: 1.25rem;
     max-width: 520px; margin-left: auto; margin-right: auto;
 }
 
 .role-grid {
     display: grid;
-    /* 12 roles: pin to divisors of 12 (4 / 3 / 2) so every row is full and
-       there are never awkward trailing empty slots. */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px; margin-bottom: 2rem;
+    /* 12 roles: pin to divisors of 12 (3 / 2) so every row is full and
+       there are never awkward trailing empty slots. Three across rather
+       than four, because each card now reads as a line of prose. */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-bottom: 2rem;
+    text-align: left;
 }
 .role-card {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 1.25rem 1rem;
-    cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    text-align: center; position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px; border-bottom-color: var(--edge);
+    border-radius: var(--radius-lg); padding: 1rem 1.05rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    text-align: left; position: relative;
+    display: flex; flex-direction: column; gap: 0.2rem;
     /* Soft staggered "tile" entrance when the overlay opens. */
     animation: roleTileIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.role-card:hover {
-    border-color: var(--accent); box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-    background: rgba(22,163,74,0.06);
+.role-card:hover, .role-card:focus-visible {
+    border-color: var(--accent);
+    border-bottom-color: var(--edge-accent);
+    background: var(--green-50);
+    outline: none;
 }
-.role-card:hover .role-card-icon { transform: scale(1.08); }
-.role-card:active { transform: translateY(-1px); }
-.role-card-icon { transition: transform 0.18s ease; }
 @keyframes roleTileIn {
     from { opacity: 0; transform: translateY(12px) scale(0.96); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -2047,8 +2067,6 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .role-card:nth-child(12) { animation-delay: 0.46s; }
 @media (prefers-reduced-motion: reduce) {
     .role-card { animation: none; }
-    .role-card:hover { transform: none; }
-    .role-card:hover .role-card-icon { transform: none; }
 }
 
 /* ══ Classy motion ═══════════════════════════════════════════════════════
@@ -2311,15 +2329,18 @@ html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
     .how-arrow { transform: rotate(90deg); margin: 0.1rem 0; }
 }
 .role-card-icon {
-    font-size: 2rem; margin-bottom: 0.5rem; display: block;
-    line-height: 1; color: var(--accent);
+    width: 34px; height: 34px; margin-bottom: 0.55rem;
+    border-radius: 8px; display: grid; place-items: center;
+    background: var(--green-50);
+    color: var(--accent); font-size: 1.05rem; line-height: 1;
 }
+.role-card:hover .role-card-icon { background: var(--bg-card); }
 .role-card-title {
-    font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
-    color: var(--text); margin-bottom: 0.25rem;
+    font-family: var(--sans); font-size: 0.9rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.1rem; line-height: 1.3;
 }
 .role-card-desc {
-    font-size: 0.72rem; color: var(--text-3); line-height: 1.4;
+    font-size: 0.78rem; color: var(--text-2); line-height: 1.45;
 }
 .role-skip {
     font-size: 0.85rem; color: var(--text-3);
@@ -2332,17 +2353,15 @@ html.reveal-on [data-reveal].is-in { opacity: 1; transform: none; }
    quality is one click away without scrolling past all twelve role cards. */
 .role-skip-top {
     display: inline-block;
-    margin: 0.25rem auto 1.5rem;
-    font-size: 0.95rem; font-weight: 600;
-    color: var(--accent); text-decoration: none;
-    border: 1.5px solid var(--accent);
-    border-radius: 999px;
-    padding: 0.6rem 1.4rem;
-    transition: background 0.15s, color 0.15s;
+    margin: 0 auto 1.4rem;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--accent);
+    text-decoration: underline; text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    border: 0; border-radius: 0; padding: 0.35rem 0.25rem;
+    transition: color 0.15s;
 }
-.role-skip-top:hover {
-    background: var(--accent); color: var(--on-accent, #fff);
-}
+.role-skip-top:hover { color: var(--text); }
 
 /* Role Dashboard */
 .role-dashboard-hero {
@@ -2667,9 +2686,9 @@ body.simple-language .section-intro [data-simple]::after {
     background: var(--accent-hover);
 }
 
-/* Tablet: 3 columns (12 → 4 full rows), still no trailing gaps. */
+/* Tablet: 2 columns (12 → 6 full rows), still no trailing gaps. */
 @media (max-width: 820px) {
-    .role-grid { grid-template-columns: repeat(3, 1fr); }
+    .role-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -2684,10 +2703,10 @@ body.simple-language .section-intro [data-simple]::after {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
-    .role-card { padding: 0.75rem 0.5rem; }
-    .role-card-icon { font-size: 1.25rem; color: var(--accent); }
-    .role-card-title { font-size: 0.78rem; }
-    .role-card-desc { font-size: 0.68rem; }
+    .role-card { padding: 0.7rem 0.75rem; }
+    .role-card-icon { width: 28px; height: 28px; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .role-card-title { font-size: 0.82rem; }
+    .role-card-desc { font-size: 0.72rem; }
     .role-action-cards { grid-template-columns: 1fr; }
     .role-panel-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -2695,8 +2714,8 @@ body.simple-language .section-intro [data-simple]::after {
     .role-overlay-logo-icon svg { width: 44px; height: 44px; }
     .role-overlay-logo { font-size: 1.2rem; }
     .role-overlay h2 { font-size: 1.05rem; }
-    .role-grid { gap: 6px; }
-    .role-card { padding: 0.6rem 0.4rem; }
+    .role-grid { gap: 6px; grid-template-columns: 1fr; }
+    .role-card { padding: 0.6rem 0.7rem; }
 }
 
 /* ═══ ACCESSIBILITY: Skip link ═══ */
@@ -2913,3 +2932,52 @@ body {
     }
     .responsive-cards td[data-label=""]::before { content: ""; margin: 0; }
 }
+
+/* ══ Component classes extracted from repeated inline style= ══════════
+   Generated from the 37 most-repeated inline declarations, which were
+   989 of the 2,860 style= attributes in index.html and the panels.
+   Each rule is the declaration verbatim, so extracting them changed
+   nothing on screen. They are here so the site can be restyled from one
+   place: these carry the section headings, ledes, dividers and accent
+   rules that give every panel its shape.
+
+   `display` is deliberately absent. JS resets visibility with
+   el.style.display = '', which falls back to the stylesheet, so a class
+   saying display:none would strand the element hidden. ── */
+.jv-rule-accent { border-left: 3px solid var(--accent); }
+.jv-rule-accent-4 { border-left: 4px solid var(--accent); }
+.jv-item-title { font-weight: 700; color: var(--accent); margin-bottom: 0.25rem; }
+.jv-item-title-mt { font-weight: 700; color: var(--accent); margin-top: 0.75rem; }
+.jv-item-divided { margin-bottom: 1.4rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--border-light); }
+.jv-sec-divided { margin-bottom: 3rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border); }
+.jv-panel-h { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.9rem; }
+.jv-panel-h2 { font-family: var(--serif); font-size: 1.75rem; margin-bottom: 0.5rem; }
+.jv-lede { font-size: 1.0625rem; line-height: 1.75; color: var(--text-2); max-width: 46rem; margin-bottom: 1.75rem; }
+.jv-t-accent { color: var(--green-700); }
+.jv-t-accent-2 { color: var(--accent); }
+.jv-t-accent-600 { color: var(--green-600); }
+.jv-t-ink { color: var(--ink); }
+.jv-t-2 { color: var(--text-2); }
+.jv-t-3 { color: var(--text-3); }
+.jv-t-red { color: var(--red); }
+.jv-t-purple { color: var(--purple); }
+.jv-t-amber { color: var(--amber); }
+.jv-t-xs-2 { font-size: 0.8125rem; color: var(--text-2); }
+.jv-t-xs-3 { font-size: 0.8125rem; color: var(--text-3); }
+.jv-t-sm-2 { font-size: 0.875rem; color: var(--text-2); }
+.jv-t-sm-2-mb { font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.5rem; }
+.jv-t-sm-2-mb1 { font-size: 0.875rem; color: var(--text-2); margin-bottom: 1rem; }
+.jv-t-sm-lh { font-size: 0.875rem; line-height: 1.8; }
+.jv-t-sm-lh7 { font-size: 0.875rem; line-height: 1.7; }
+.jv-t-sm { font-size: 0.875rem; }
+.jv-t-2-mb { color: var(--text-2); margin-bottom: 1.5rem; }
+.jv-t-xs3-mt { font-size: 0.8125rem; color: var(--text-3); margin-top: 0.5rem; }
+.jv-t-tiny-3 { font-size: 0.7rem; color: var(--text-3); }
+.jv-t-tiny3b { font-size: 0.78rem; color: var(--text-3); }
+.jv-gap-1 { gap: 1rem; }
+.jv-gap-15 { gap: 1.5rem; }
+.jv-gap-075 { gap: 0.75rem; }
+.jv-mb-15 { margin-bottom: 1.5rem; }
+.jv-mt-05 { margin-top: 0.5rem; }
+.jv-w-full { width: 100%; }
+.jv-ico-accent { color: var(--accent); margin-right: 0.4rem; }
