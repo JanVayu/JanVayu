@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.219] - 2026-09-18
+
+### Fixed, a panel opened 40px inside the dark green band above it
+
+Reported as sections folding out too close to the green band, and it was worse than close: **overlapping**. Measured at 1440px with the AQI explainer open, the band ended at y=7346 and the panel's first heading sat at y=7306, forty pixels *inside* the dark green.
+
+The cause is a rule doing its job in a case it was not written for. `.container > .band-deep:last-child` carries `margin-bottom: -60px` so that, when the band is the last block on the page, it runs into the footer instead of leaving a 156px strip of cream between two dark areas. The band genuinely is the last child of its own container; `#panel-container` is a separate container after it. So the pull applied whether or not a panel was open, and when one was, it dragged the panel's content up through the band's padding.
+
+`showPanel()` now sets `body.panel-open` and clears it on Dashboard, and the pull is scoped to `body:not(.panel-open)`. The panel container gets 72px of top padding while open, 48px on a phone, so the band ends, the surface changes colour, and the panel starts.
+
+Measured after, across four panels including both the templated and the lazily fetched kind: the band ends at 7286 and the first heading is at 7398, **112px of clear space**, with no overlap. Returning to Dashboard restores the -60px pull, so the band still runs into the footer.
+
+**The class was set in the wrong place first.** It went into the two branches of `loadPanel()` that read from a `<template>`, and not into the lazy-fetch branch, which is the one that serves **17 of the panels** including the one being tested. It reported `panel-open=false` and nothing moved. It is set once at the top of `loadPanel()` now, which is the only place that covers all three.
+
 ## [v26.6.218] - 2026-09-18
 
 ### Changed, the whole site takes the hard edge, inner pages included

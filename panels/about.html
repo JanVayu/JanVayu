@@ -128,7 +128,7 @@
         <div class="card-header"><span class="card-title"><span class="si si-sm si-target jv-t-accent-2"></span> Roadmap &mdash; What We're Building Next</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem;" data-simple="Here is what we just added and what is coming next. The newest big change is to the maps: the Ward Atlas now covers 39 cities, and the live map can colour every MP's constituency by the air its voters breathe — plus show landfills, coal mines and polluting industrial areas.">
-                <strong>Just shipped (v26.6.206):</strong> CPCB&rsquo;s own daily AQI bulletin as a searchable series &mdash; <strong>297 cities, 2015&ndash;2026</strong>, on the <a href="#" onclick="loadPanel('accountability');return false;">Accountability</a> panel, with the number of monitors behind every figure printed beside it. The 2026 year is parsed from CPCB&rsquo;s published PDFs by us. Also new: weather-normalised trends for <strong>44 cities</strong> on the <a href="#" onclick="loadPanel('airshed');return false;">Airshed</a> panel, four <a href="#" onclick="loadPanel('workshops');return false;">workshops</a> anyone can run, and a <a href="/blog/#/posts/2026-09-17-what-we-do-that-others-do-not" target="_blank">comparison against the other Indian air-quality sources</a>, including a correction we published against ourselves.</p>
+                <strong>Just shipped (v26.6.219):</strong> The front page asks what you are breathing instead of opening with a death toll. Type a city, ward or village, or press <strong>Near me</strong>, and the headline becomes the answer: <em>a good day to be outside</em>, <em>cut down time outdoors</em>, <em>keep children indoors today</em>. The reading, the CPCB band it falls in and the multiple of the WHO guideline sit under it as the evidence, with the same answer given for five situations people actually have to decide about &mdash; going out for vegetables, sending a child to school, working outside all day, playing a sport, and being older or asthmatic. <a href="#" onclick="loadPanel('ask-janvayu');return false;">Ask JanVayu</a> now answers on the front page rather than behind a menu, in ten Indian languages, naming its source each time. The whole site has taken a harder edge: no rounded corners, no drop shadows, inner pages included.</p>
             <div class="grid-3" style="gap: 12px; margin-bottom: 1rem;">
                 <div class="info-box" style="border-left: 3px solid var(--green-700); padding: 12px;">
                     <h4 style="color: var(--green-700); font-size: 0.85rem;">Weather-normalised trends, brought up to date</h4>
@@ -184,6 +184,17 @@
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article jv-t-accent-2"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div class="jv-item-divided">
+                    <div class="jv-item-title">v26.6.213&ndash;219 &mdash; 18 September 2026</div>
+                    <strong>The front page answers the question people arrive with</strong><br>
+                    &bull; <strong>The first screen is the air, not a statistic.</strong> It asks where you are and answers what to do about it, with the CPCB National AQI PM2.5 thresholds deciding which sentence you get, so the word on our page is the word in the CPCB bulletin.<br>
+                    &bull; <strong>Five situations, chosen for India.</strong> The first version asked about a child, asthma and going for a run, which treats being outdoors as a choice. For an outdoor worker at very poor air the answer is not &ldquo;stay in&rdquo;: it is a fitted N95, shorter shifts and indoor breaks, and that at this level it is a workplace hazard and the employer&rsquo;s duty.<br>
+                    &bull; <strong>The persona picker stopped standing in front of the homepage.</strong> All twelve roles are still one tap away from the header switcher.<br>
+                    &bull; <strong>Simple language mode was doing nothing.</strong> 199 of the site&rsquo;s 201 plain-language strings live in panel markup, and panel injection re-applied the language but not the mode, so the button changed nothing a visitor could see. It works now.<br>
+                    &bull; <strong>Nine menus became six</strong>, with every one of the 59 destinations kept and a build check that fails if the count ever shrinks.<br>
+                    &bull; <strong>The page was serving two designs at once.</strong> The inlined copy of the stylesheet had drifted 77 properties from the real one, so the first paint drew the old design and the page repainted to the new one. A check now compares the two on every push.
+                </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.204&ndash;206 &mdash; 18 September 2026</div>
