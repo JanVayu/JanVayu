@@ -3382,6 +3382,45 @@ body.panel-open #panel-container { padding-top: 72px !important; }
 
 
 
+
+/* ── Below the first screen ─────────────────────────────────────────────────
+   /try's body, which replaced 47KB of the old homepage: three link columns, a
+   live ranking, and the month's note. What went was "What today's air means
+   for you", "Where every number comes from", the "How JanVayu works" diagram,
+   "The bigger picture" and an "Explore every tool" grid of 22 cards that the
+   Index now covers in full. Ported with this stylesheet's token names. */
+.more{padding:34px 0 10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--ink)}
+.cols{display:grid;grid-template-columns:1fr;gap:0;border-bottom:1px solid var(--border)}
+@media(min-width:900px){.cols{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.col{padding:24px 0}
+@media(min-width:900px){.col{padding:26px 30px;border-right:1px solid var(--border)}
+ .col:first-child{padding-left:0}.col:last-child{padding-right:0;border-right:0}}
+.col h2{margin:0 0 6px;font-family:var(--serif);font-weight:700;font-size:1.6rem;letter-spacing:-.02em}
+.col p.lede{margin:0 0 14px;font-size:.9rem;line-height:1.55;color:var(--text-3)}
+.col a.row{display:block;padding:11px 0;border-bottom:1px dotted var(--border);text-decoration:none;color:var(--ink);font-size:.98rem;min-height:44px}
+.col a.row:hover{color:var(--accent)}
+.col a.all{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);min-height:44px;line-height:44px}
+.rank{display:flex;flex-direction:column;gap:22px;padding:26px 0;border-bottom:1px solid var(--border)}
+@media(min-width:900px){.rank{flex-direction:row;gap:48px}}
+.rank .list{width:100%;max-width:320px}
+.rank .list h2, .rank .chart h2{margin:0 0 10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);font-weight:600}
+.rk{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:.82rem}
+.rk span:first-child{font-family:var(--sans);color:var(--text-2)}
+.rk span:last-child{font-weight:600;color:var(--red)}
+.chart{flex:1;min-width:0}
+.bars{display:flex;align-items:flex-end;gap:2px;height:150px}
+.bars i{flex:1;border-radius:1px 1px 0 0}
+.axis{border-top:1px dashed var(--red);margin-top:4px;padding-top:7px;font-family:var(--mono);font-size:.68rem;color:var(--text-3)}
+.note{display:flex;flex-direction:column;gap:26px;padding:26px 0 44px}
+@media(min-width:900px){.note{flex-direction:row;gap:48px}}
+.note .body{flex:1}
+.note .kicker{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:8px}
+.note p{margin:0;max-width:62ch;font-family:var(--serif);font-size:1.06rem;line-height:1.65;color:var(--text-2)}
+.note .side{width:100%;max-width:330px}
+.note .side h2{margin:0 0 10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);font-weight:600}
+.note .side p{font-family:var(--sans);font-size:.9rem;line-height:1.6;color:var(--text-2)}
+
 /* ── The bar ────────────────────────────────────────────────────────────────
    /try's chrome, which is what the site now wears: one row, a wordmark, and
    five controls as bordered mono labels. It replaces a green ticker, a

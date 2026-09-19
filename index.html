@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606222">
+    <link rel="preload" as="style" href="/styles.css?v=202606223">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1026,8 +1026,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606222" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606222"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606223" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606223"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1795,323 +1795,66 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <p class="askhome-foot">Answers are generated and can be wrong. Each one names its source so you can check it. For conversation history and an installable app, open <a href="/ask/">/ask/ &rarr;</a></p>
                 </section>
 
-                <!-- The monthly briefing and the guided tour used to sit in the
-                     hero's left column, above the fold. The first screen now answers
-                     what you are breathing, so both moved under it. -->
-                <div class="hero-brief">
-                    <div class="hero-live-alert clamped" id="heroLiveAlert">
-                            <strong>September 2026:</strong> The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the winter inversion that holds the Indo-Gangetic plain's emissions down at ground level. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3;, or 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit, and only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5, among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of the 100 cities with sufficient PM10 data met the 40% reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in. New: <a href="#airshed" onclick="showPanel('airshed'); return false;" style="color: inherit; text-decoration: underline;">Your Airshed or Your Town</a> now carries <strong>43 years of PM2.5 for 783 districts</strong>, 1980 to 2022, a record of what the air was doing decades before anyone was measuring it; and <a href="https://hawakahisab.in/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Hawa Ka Hisab</a> joins the Janhit Partners.
+                <!-- /try's body. Three link columns, the live ranking and the
+                     month's note, in place of 47KB of the old homepage: "What
+                     today's air means for you", "Where every number comes
+                     from", the "How JanVayu works" diagram, "The bigger
+                     picture", and an "Explore every tool" grid of 22 cards the
+                     Index now covers in full. -->
+                <div class="more" data-i18n="more_below">Everything else, one scroll down</div>
+
+                <div class="cols">
+                    <div class="col">
+                        <h2 data-i18n="col_yourair">Your air</h2>
+                        <p class="lede" data-simple="Things that tell you about your own air.">Tools that answer for you, not for the country.</p>
+                        <a class="row" href="#go-outside" onclick="showPanel('go-outside'); return false;">Should I go outside?</a>
+                        <a class="row" href="#exposure-diary" onclick="showPanel('exposure-diary'); return false;">Exposure diary</a>
+                        <a class="row" href="#purifier-calc" onclick="showPanel('purifier-calc'); return false;">Purifier calculator</a>
+                        <a class="row" href="#school-closure" onclick="showPanel('school-closure'); return false;">School closures</a>
+                        <a class="all" href="#" onclick="openSiteIndex(); return false;" data-i18n="col_all">All of them</a>
+                    </div>
+                    <div class="col">
+                        <h2 data-i18n="col_evidence">The evidence</h2>
+                        <p class="lede" data-simple="How dirty air hurts people, and how we measure it.">What this does to people, and how the measurement works.</p>
+                        <a class="row" href="#health" onclick="showPanel('health'); return false;">Health impact</a>
+                        <a class="row" href="#children" onclick="showPanel('children'); return false;">Children&rsquo;s health</a>
+                        <a class="row" href="#apportionment" onclick="showPanel('apportionment'); return false;">Where PM2.5 comes from</a>
+                        <a class="row" href="#aqi-explainer" onclick="showPanel('aqi-explainer'); return false;">Understanding AQI</a>
+                        <a class="all" href="#" onclick="openSiteIndex(); return false;" data-i18n="col_all">All of them</a>
+                    </div>
+                    <div class="col">
+                        <h2 data-i18n="col_decided">Who decided</h2>
+                        <p class="lede" data-simple="Who was given money to fix this, what they spent, and what changed.">Allocations, spending, court orders, and what changed.</p>
+                        <a class="row" href="#budget" onclick="showPanel('budget'); return false;">NCAP budget tracker</a>
+                        <a class="row" href="#policy" onclick="showPanel('policy'); return false;">Policy tracker</a>
+                        <a class="row" href="#accountability" onclick="showPanel('accountability'); return false;">CPCB bulletin record</a>
+                        <a class="row" href="#rti" onclick="showPanel('rti'); return false;">RTI toolkit</a>
+                        <a class="all" href="#" onclick="openSiteIndex(); return false;" data-i18n="col_all">All of them</a>
+                    </div>
+                </div>
+
+                <div class="rank">
+                    <div class="list">
+                        <h2 data-i18n="rank_worst">Worst right now</h2>
+                        <div id="worstList"><div class="rk"><span>Reading the network&hellip;</span><span>&mdash;</span></div></div>
+                    </div>
+                    <div class="chart">
+                        <h2 data-i18n="rank_chart">Cities we watch, worst to best</h2>
+                        <div class="bars" id="rankBars"></div>
+                        <div class="axis">WHO guideline 5 &micro;g/m&sup3; annual mean &middot; <a href="#rankings" onclick="showPanel('rankings'); return false;">the full ranking</a></div>
+                    </div>
+                </div>
+
+                <div class="note">
+                    <div class="body">
+                        <div class="hero-live-alert clamped" id="heroLiveAlert">
+                        <strong>September 2026:</strong> The monsoon withdraws from northwest India around the middle of this month, and with it goes the stretch when much of the country breathes its cleanest air of the year. October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the winter inversion that holds the Indo-Gangetic plain's emissions down at ground level. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3;, or 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit, and only 14% of global cities meet safe air standards. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths per year to ambient PM2.5, among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of the 100 cities with sufficient PM10 data met the 40% reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP off-season for the first time on 19 May 2026, then revoked it on 29 May 2026 as the monsoon set in. New: <a href="#airshed" onclick="showPanel('airshed'); return false;" style="color: inherit; text-decoration: underline;">Your Airshed or Your Town</a> now carries <strong>43 years of PM2.5 for 783 districts</strong>, 1980 to 2022, a record of what the air was doing decades before anyone was measuring it; and <a href="https://hawakahisab.in/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Hawa Ka Hisab</a> joins the Janhit Partners.
                         </div>
                         <button class="hero-live-toggle" id="heroLiveToggle" onclick="toggleHeroAlert()" aria-expanded="false" aria-controls="heroLiveAlert">Read more &#9662;</button>
-                    <div class="hero-cta-row">
-                        <a class="hero-cta-card" href="/walkthrough/">
-                                <span class="hero-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span>
-                                <span class="hero-cta-text">
-                                    <span class="hero-cta-title">New here? Take the guided tour</span>
-                                    <span class="hero-cta-sub">A guided walkthrough of everything JanVayu tracks &mdash; the data, the health toll, the money, the tools.</span>
-                                </span>
-                                <span class="hero-cta-arrow" aria-hidden="true">&rarr;</span>
-                            </a>
-                    </div>
-                </div>
-
-                <!-- What the air means for you -->
-                <div class="dash-section">
-                    <span class="dash-section-eyebrow">For you</span>
-                    <h2 class="dash-section-title">What today&rsquo;s air means for you</h2>
-                    <p class="dash-section-sub">The live number, translated into cigarettes, disease risk, and what to actually do today.</p>
-                </div>
-                <div class="grid-3 mt-3" id="personal-impact-row">
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-title">What you're breathing right now</span>
-                            <span style="font-size: 0.65rem; color: var(--text-3);" id="personal-impact-city">Delhi</span>
-                        </div>
-                        <div class="card-body" style="text-align: center;">
-                            <div style="font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--red);" id="cigarette-count">--</div>
-                            <div style="font-size: 0.85rem; color: var(--text-2); margin-top: 4px;">cigarettes/day equivalent</div>
-                            <div style="font-size: 0.7rem; color: var(--text-3); margin-top: 8px; line-height: 1.4;">Berkeley Earth: 1 cig ≈ 22 µg/m³·day of PM2.5. <span id="cigarette-context">Today's air ≈ today's smokes.</span></div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Disease risk now</span></div>
-                        <div class="card-body" id="disease-risk-body" style="display: flex; flex-direction: column; gap: 6px; font-size: 0.78rem;">
-                            <div class="jv-t-3">Loading…</div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-title">What to do today</span>
-                            <span style="font-size: 0.65rem; color: var(--text-3);" id="solution-band">--</span>
-                        </div>
-                        <div class="card-body" id="solution-body" style="font-size: 0.82rem; line-height: 1.5;">
-                            <div class="jv-t-3">Loading…</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STORY OF THE WEEK — rotating featured blog post, right under the live AQI -->
-                <a class="story-week-card featured" id="story-of-week" href="/blog/" hidden style="margin-top: 1.5rem;">
-                    <span class="story-week-eyebrow" data-i18n="story_heading">From the blog &middot; Story of the week</span>
-                    <span class="story-week-tag" id="story-week-tag"></span>
-                    <span class="story-week-title" id="story-week-title"></span>
-                    <span class="story-week-blurb" id="story-week-blurb"></span>
-                    <span class="story-week-cta">Read the story <span aria-hidden="true">&rarr;</span></span>
-                </a>
-                <div class="blog-row" id="blog-latest-row" hidden></div>
-                <a class="blog-all" id="blog-all-link" href="/blog/" hidden>Read every post on the JanVayu blog <span aria-hidden="true">&rarr;</span></a>
-
-                <!-- How JanVayu works — system diagram -->
-                <div class="dash-section">
-                    <span class="dash-section-eyebrow">How it works</span>
-                    <h2 class="dash-section-title">Where every number comes from</h2>
-                    <p class="dash-section-sub">Every reading traces back to an independent, public source &mdash; cross-checked, and never a single feed you have to take on trust.</p>
-                </div>
-                <section class="how-flow mt-3" aria-labelledby="how-flow-title">
-                    <h2 id="how-flow-title" class="sr-only">How JanVayu works</h2>
-                    <!-- Desktop: wide horizontal flow -->
-                    <div class="how-flow-svg how-flow-h">
-<!-- BEGIN how-it-works wide (generated by scripts/build-how-it-works.py) -->
-<svg role="img" aria-label="How JanVayu works: three kinds of source feed one engine. Live feeds &#183; every hour &#8212; CPCB CAAQMS, WAQI, OpenAQ + community sensors, NASA FIRMS (farm fires), Open-Meteo (weather); The measured record &#183; years &#8212; CPCB's daily AQI bulletins, XKDR station database (CPCB + US), NOAA weather history; Satellite + boundaries &#8212; SatPM2.5 &#183; yearly + monthly, Landsat 8/9 &#183; surface heat, ESA WorldCover &#183; land cover, LGD + Swachh Bharat Mission. The engine verifies, computes and contextualizes them to produce: Live AQI &#8212; 160 cities (from the monitor network); The map &#8212; every place in India (68,596 wards &#183; 319,287 panchayats, 584,615 villages &#183; blocks &#183; districts); CPCB's own bulletin, 2015&#8211;2026 (297 cities &#183; days in each category, with the monitor count beside each figure); Weather removed from the trend (44 cities, 2018&#8211;2024 &#183; wind or policy?); Ask JanVayu (AI) (answers, with its sources); Forecast + farm fires (what is coming, and from where); RTI + rights &#183; alerts + open API (tools to act on it). Every figure is sourced and open." viewBox="0 0 920 631" xmlns="http://www.w3.org/2000/svg"><style>
-    .k{font-family:'Kalam','Comic Sans MS',cursive}
-    .h{font-family:'Kalam','Comic Sans MS',cursive;font-weight:700}
-    .blu{fill:#e0f2fe;stroke:#075985;stroke-width:2.2}
-    .amb{fill:#fdf0d5;stroke:#8a5300;stroke-width:2.2}
-    .grn{fill:#dcfce7;stroke:#146c33;stroke-width:2.2}
-    .tel{fill:#c3fae8;stroke:#0b7285;stroke-width:2.2}
-    .ln{fill:none;stroke:#2f9e44;stroke-width:2.6}
-  </style><text x="28" y="92" class="h" font-size="13" fill="#5b6b60">WHAT WE READ</text><text x="334" y="92" class="h" font-size="13" fill="#5b6b60">WHAT WE DO</text><text x="564" y="92" class="h" font-size="13" fill="#5b6b60">WHAT YOU GET</text><rect class="blu" x="24" y="104" width="252" height="140" rx="11"/><text x="40" y="128" class="h" font-size="15" fill="#075985">Live feeds &#183; every hour</text><text x="40" y="150" class="k" font-size="13" fill="#5b6b60">CPCB CAAQMS</text><text x="40" y="170" class="k" font-size="13" fill="#5b6b60">WAQI</text><text x="40" y="190" class="k" font-size="13" fill="#5b6b60">OpenAQ + community sensors</text><text x="40" y="210" class="k" font-size="13" fill="#5b6b60">NASA FIRMS (farm fires)</text><text x="40" y="230" class="k" font-size="13" fill="#5b6b60">Open-Meteo (weather)</text><rect class="amb" x="24" y="258" width="252" height="120" rx="11"/><text x="40" y="282" class="h" font-size="15" fill="#8a5300">The measured record &#183; years</text><text x="40" y="304" class="k" font-size="13" fill="#5b6b60">CPCB's daily AQI bulletins</text><text x="40" y="324" class="k" font-size="13" fill="#5b6b60">XKDR station database (CPCB + US)</text><text x="40" y="344" class="k" font-size="13" fill="#5b6b60">NOAA weather history</text><text x="40" y="364" class="k" font-size="13" fill="#5b6b60">&#8230; what the models get checked against</text><rect class="grn" x="24" y="392" width="252" height="140" rx="11"/><text x="40" y="416" class="h" font-size="15" fill="#146c33">Satellite + boundaries</text><text x="40" y="438" class="k" font-size="13" fill="#5b6b60">SatPM2.5 &#183; yearly + monthly</text><text x="40" y="458" class="k" font-size="13" fill="#5b6b60">Landsat 8/9 &#183; surface heat</text><text x="40" y="478" class="k" font-size="13" fill="#5b6b60">ESA WorldCover &#183; land cover</text><text x="40" y="498" class="k" font-size="13" fill="#5b6b60">LGD + Swachh Bharat Mission</text><text x="40" y="518" class="k" font-size="13" fill="#5b6b60">&#8230; every place, not every hour</text><rect class="tel" x="560" y="104" width="336" height="49" rx="11"/><text x="576" y="128" class="h" font-size="15" fill="#0b7285">Live AQI &#8212; 160 cities</text><text x="576" y="145" class="k" font-size="12.5" fill="#5b6b60">from the monitor network</text><rect class="tel" x="560" y="163" width="336" height="66" rx="11"/><text x="576" y="187" class="h" font-size="15" fill="#0b7285">The map &#8212; every place in India</text><text x="576" y="204" class="k" font-size="12.5" fill="#5b6b60">68,596 wards &#183; 319,287 panchayats</text><text x="576" y="221" class="k" font-size="12.5" fill="#5b6b60">584,615 villages &#183; blocks &#183; districts</text><rect class="tel" x="560" y="239" width="336" height="66" rx="11"/><text x="576" y="263" class="h" font-size="15" fill="#0b7285">CPCB's own bulletin, 2015&#8211;2026</text><text x="576" y="280" class="k" font-size="12.5" fill="#5b6b60">297 cities &#183; days in each category</text><text x="576" y="297" class="k" font-size="12.5" fill="#5b6b60">with the monitor count beside each figure</text><rect class="tel" x="560" y="315" width="336" height="49" rx="11"/><text x="576" y="339" class="h" font-size="15" fill="#0b7285">Weather removed from the trend</text><text x="576" y="356" class="k" font-size="12.5" fill="#5b6b60">44 cities, 2018&#8211;2024 &#183; wind or policy?</text><rect class="tel" x="560" y="374" width="336" height="49" rx="11"/><text x="576" y="398" class="h" font-size="15" fill="#0b7285">Ask JanVayu (AI)</text><text x="576" y="415" class="k" font-size="12.5" fill="#5b6b60">answers, with its sources</text><rect class="tel" x="560" y="433" width="336" height="49" rx="11"/><text x="576" y="457" class="h" font-size="15" fill="#0b7285">Forecast + farm fires</text><text x="576" y="474" class="k" font-size="12.5" fill="#5b6b60">what is coming, and from where</text><rect class="tel" x="560" y="492" width="336" height="49" rx="11"/><text x="576" y="516" class="h" font-size="15" fill="#0b7285">RTI + rights &#183; alerts + open API</text><text x="576" y="533" class="k" font-size="12.5" fill="#5b6b60">tools to act on it</text><rect class="grn" x="330" y="248" width="180" height="150" rx="11"/><text x="420.0" y="275.5" class="h" font-size="13" fill="#1e7a34" text-anchor="middle">JANVAYU ENGINE</text><text x="420.0" y="307.5" class="h" font-size="17" fill="#1e2a22" text-anchor="middle">Verify</text><text x="420.0" y="339.5" class="h" font-size="17" fill="#1e2a22" text-anchor="middle">Compute</text><text x="420.0" y="371.5" class="h" font-size="17" fill="#1e2a22" text-anchor="middle">Contextualize</text><path class="ln" d="M276 174 L 303 174 L 303 308 L 330 308" marker-end="url(#a)"/><path class="ln" d="M276 318 L 303 318 L 303 322 L 330 322" marker-end="url(#a)"/><path class="ln" d="M276 462 L 303 462 L 303 336 L 330 336" marker-end="url(#a)"/><path class="ln" d="M510 322 L 560 322" marker-end="url(#a)"/><text x="460.0" y="603" class="k" font-size="14" fill="#5b6b60" text-anchor="middle">every figure sourced + open  &#183;  no ads  &#183;  free forever</text><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f9e44"/></marker></defs></svg>
-<!-- END how-it-works wide -->
-                    </div>
-                    <!-- Mobile: vertical stacked flow (same hand-drawn diagram, readable in portrait) -->
-                    <div class="how-flow-svg how-flow-v">
-<!-- BEGIN how-it-works tall (generated by scripts/build-how-it-works.py) -->
-<svg role="img" aria-label="How JanVayu works: three kinds of source feed one engine. Live feeds &#183; every hour &#8212; CPCB CAAQMS, WAQI, OpenAQ + community sensors, NASA FIRMS (farm fires), Open-Meteo (weather); The measured record &#183; years &#8212; CPCB's daily AQI bulletins, XKDR station database (CPCB + US), NOAA weather history; Satellite + boundaries &#8212; SatPM2.5 &#183; yearly + monthly, Landsat 8/9 &#183; surface heat, ESA WorldCover &#183; land cover, LGD + Swachh Bharat Mission. The engine verifies, computes and contextualizes them to produce: Live AQI &#8212; 160 cities (from the monitor network); The map &#8212; every place in India (68,596 wards &#183; 319,287 panchayats, 584,615 villages &#183; blocks &#183; districts); CPCB's own bulletin, 2015&#8211;2026 (297 cities &#183; days in each category, with the monitor count beside each figure); Weather removed from the trend (44 cities, 2018&#8211;2024 &#183; wind or policy?); Ask JanVayu (AI) (answers, with its sources); Forecast + farm fires (what is coming, and from where); RTI + rights &#183; alerts + open API (tools to act on it). Every figure is sourced and open." viewBox="0 0 400 1231" xmlns="http://www.w3.org/2000/svg"><style>
-    .k{font-family:'Kalam','Comic Sans MS',cursive}
-    .h{font-family:'Kalam','Comic Sans MS',cursive;font-weight:700}
-    .blu{fill:#e0f2fe;stroke:#075985;stroke-width:2.2}
-    .amb{fill:#fdf0d5;stroke:#8a5300;stroke-width:2.2}
-    .grn{fill:#dcfce7;stroke:#146c33;stroke-width:2.2}
-    .tel{fill:#c3fae8;stroke:#0b7285;stroke-width:2.2}
-    .ln{fill:none;stroke:#2f9e44;stroke-width:2.6}
-  </style><text x="26" y="88" class="h" font-size="12" fill="#5b6b60">WHAT WE READ</text><rect class="blu" x="22" y="98" width="356" height="135" rx="11"/><text x="38" y="122" class="h" font-size="15" fill="#075985">Live feeds &#183; every hour</text><text x="38" y="144" class="k" font-size="13" fill="#5b6b60">CPCB CAAQMS</text><text x="38" y="163" class="k" font-size="13" fill="#5b6b60">WAQI</text><text x="38" y="182" class="k" font-size="13" fill="#5b6b60">OpenAQ + community sensors</text><text x="38" y="201" class="k" font-size="13" fill="#5b6b60">NASA FIRMS (farm fires)</text><text x="38" y="220" class="k" font-size="13" fill="#5b6b60">Open-Meteo (weather)</text><rect class="amb" x="22" y="245" width="356" height="116" rx="11"/><text x="38" y="269" class="h" font-size="15" fill="#8a5300">The measured record &#183; years</text><text x="38" y="291" class="k" font-size="13" fill="#5b6b60">CPCB's daily AQI bulletins</text><text x="38" y="310" class="k" font-size="13" fill="#5b6b60">XKDR station database (CPCB + US)</text><text x="38" y="329" class="k" font-size="13" fill="#5b6b60">NOAA weather history</text><text x="38" y="348" class="k" font-size="13" fill="#5b6b60">&#8230; what the models get checked against</text><rect class="grn" x="22" y="373" width="356" height="135" rx="11"/><text x="38" y="397" class="h" font-size="15" fill="#146c33">Satellite + boundaries</text><text x="38" y="419" class="k" font-size="13" fill="#5b6b60">SatPM2.5 &#183; yearly + monthly</text><text x="38" y="438" class="k" font-size="13" fill="#5b6b60">Landsat 8/9 &#183; surface heat</text><text x="38" y="457" class="k" font-size="13" fill="#5b6b60">ESA WorldCover &#183; land cover</text><text x="38" y="476" class="k" font-size="13" fill="#5b6b60">LGD + Swachh Bharat Mission</text><text x="38" y="495" class="k" font-size="13" fill="#5b6b60">&#8230; every place, not every hour</text><path class="ln" d="M200 512 L 200 538" marker-end="url(#a)"/><rect class="grn" x="22" y="550" width="356" height="132" rx="11"/><text x="200" y="576" class="h" font-size="13" fill="#1e7a34" text-anchor="middle">JANVAYU ENGINE</text><text x="200" y="606" class="h" font-size="17" fill="#1e2a22" text-anchor="middle">Verify</text><text x="200" y="634" class="h" font-size="17" fill="#1e2a22" text-anchor="middle">Compute</text><text x="200" y="662" class="h" font-size="17" fill="#1e2a22" text-anchor="middle">Contextualize</text><path class="ln" d="M200 688 L 200 714" marker-end="url(#a)"/><text x="26" y="720" class="h" font-size="12" fill="#5b6b60">WHAT YOU GET</text><rect class="tel" x="22" y="738" width="356" height="49" rx="11"/><text x="38" y="762" class="h" font-size="15" fill="#0b7285">Live AQI &#8212; 160 cities</text><text x="38" y="779" class="k" font-size="12.5" fill="#5b6b60">from the monitor network</text><rect class="tel" x="22" y="797" width="356" height="66" rx="11"/><text x="38" y="821" class="h" font-size="15" fill="#0b7285">The map &#8212; every place in India</text><text x="38" y="838" class="k" font-size="12.5" fill="#5b6b60">68,596 wards &#183; 319,287 panchayats</text><text x="38" y="855" class="k" font-size="12.5" fill="#5b6b60">584,615 villages &#183; blocks &#183; districts</text><rect class="tel" x="22" y="873" width="356" height="66" rx="11"/><text x="38" y="897" class="h" font-size="15" fill="#0b7285">CPCB's own bulletin, 2015&#8211;2026</text><text x="38" y="914" class="k" font-size="12.5" fill="#5b6b60">297 cities &#183; days in each category</text><text x="38" y="931" class="k" font-size="12.5" fill="#5b6b60">with the monitor count beside each figure</text><rect class="tel" x="22" y="949" width="356" height="49" rx="11"/><text x="38" y="973" class="h" font-size="15" fill="#0b7285">Weather removed from the trend</text><text x="38" y="990" class="k" font-size="12.5" fill="#5b6b60">44 cities, 2018&#8211;2024 &#183; wind or policy?</text><rect class="tel" x="22" y="1008" width="356" height="49" rx="11"/><text x="38" y="1032" class="h" font-size="15" fill="#0b7285">Ask JanVayu (AI)</text><text x="38" y="1049" class="k" font-size="12.5" fill="#5b6b60">answers, with its sources</text><rect class="tel" x="22" y="1067" width="356" height="49" rx="11"/><text x="38" y="1091" class="h" font-size="15" fill="#0b7285">Forecast + farm fires</text><text x="38" y="1108" class="k" font-size="12.5" fill="#5b6b60">what is coming, and from where</text><rect class="tel" x="22" y="1126" width="356" height="49" rx="11"/><text x="38" y="1150" class="h" font-size="15" fill="#0b7285">RTI + rights &#183; alerts + open API</text><text x="38" y="1167" class="k" font-size="12.5" fill="#5b6b60">tools to act on it</text><text x="200" y="1213" class="k" font-size="13" fill="#5b6b60" text-anchor="middle">every figure sourced + open  &#183;  no ads  &#183;  free forever</text><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f9e44"/></marker></defs></svg>
-<!-- END how-it-works tall -->
-                    </div>
-                </section>
-
-                <!-- The bigger picture: policy response + national rankings -->
-                <div class="dash-section">
-                    <span class="dash-section-eyebrow">Zoom out</span>
-                    <h2 class="dash-section-title">The bigger picture</h2>
-                    <p class="dash-section-sub">The official emergency response in Delhi-NCR, and how cities across India compare right now.</p>
-                </div>
-
-                <!-- GRAP Status -->
-                <div class="card mt-3">
-                    <div class="card-header"><span class="card-title">Delhi-NCR GRAP Status</span></div>
-                    <div class="card-body">
-                        <div class="grap-status" id="grap-display">
-                            <div class="grap-stage grap-1">Stage I<br><span style="font-size:0.6rem">201-300</span></div>
-                            <div class="grap-stage grap-2">Stage II<br><span style="font-size:0.6rem">301-400</span></div>
-                            <div class="grap-stage grap-3">Stage III<br><span style="font-size:0.6rem">401-450</span></div>
-                            <div class="grap-stage grap-4 active">Stage IV<br><span style="font-size:0.6rem">450+</span></div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- City Rankings + Charts -->
-                <div class="grid-3 mt-3">
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Worst Cities Now</span></div>
-                        <div class="card-body" id="worst-cities"><div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Best Cities Now</span></div>
-                        <div class="card-body" id="best-cities"><div style="color: var(--text-3); font-size: 0.75rem;">Loading...</div></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-title">Latest Updates</span>
-                            <span style="font-size: 0.65rem; color: var(--text-3); cursor: pointer;" onclick="showPanel('live-news')">View all →</span>
-                        </div>
-                        <div class="card-body" id="dashboard-live-news" style="font-size: 0.82rem;">
-                            <div style="color: var(--text-3); font-size: 0.75rem; padding: 0.5rem 0;">Loading latest news...</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid-2 mt-2">
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">Metro Cities AQI (Live)</span></div>
-                        <div class="card-body"><div class="chart-container"><canvas id="metroChart" role="img" aria-label="Bar chart comparing live AQI across the six largest Indian metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad)."></canvas></div></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header"><span class="card-title">North vs South India</span></div>
-                        <div class="card-body"><div class="chart-container"><canvas id="regionChart" role="img" aria-label="Bar chart comparing average AQI between North India and South India."></canvas></div></div>
-                    </div>
-                </div>
-
-                <!-- Quick navigation -->
-                <div class="dash-section">
-                    <span class="dash-section-eyebrow">Go deeper</span>
-                    <h2 class="dash-section-title">Explore every tool</h2>
-                    <p class="dash-section-sub">Health and economic calculators, accountability trackers, the map, alerts, games and more.</p>
-                </div>
-                <div class="tool-grid mt-3">
-                    <div class="quick-link" onclick="showPanel('health')">
-                        <div class="quick-link-icon health"><span class="si si-hospital" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_health_title">Health Calculator</h3><p data-i18n="ql_health_desc">Your personal risk</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('economic')">
-                        <div class="quick-link-icon economic"><span class="si si-rupee" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_economic_title">Economic Impact</h3><p data-i18n="ql_economic_desc">Productivity loss</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('aqi-explainer')">
-                        <div class="quick-link-icon" style="background: #EFF6FF; color: var(--ink);"><span class="si si-info" style="width:20px;height:20px;"></span></div>
-                        <div><h3>What is AQI?</h3><p>The number explained — all 6 pollutants, two scales, what they hide</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('source-selector')">
-                        <div class="quick-link-icon" style="background: #FEF3C7; color: var(--amber);"><span class="si si-eye" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Trust the Data?</h3><p>Choose your sources — CPCB, WAQI, IQAir, community sensors</p></div>
-                    </div>
-                
-                    <div class="quick-link" onclick="showPanel('accountability')">
-                        <div class="quick-link-icon policy"><span class="si si-shield" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_accountability_t">Accountability</h3><p data-i18n="ql_accountability_d">Mission Tracker &amp; RTI</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('voices')">
-                        <div class="quick-link-icon tools"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_voices_t">Voices Online</h3><p data-i18n="ql_voices_d">What India is posting about its air &mdash; a curated social-media archive</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('testimony')">
-                        <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-600);"><span class="si si-chat" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_testimony_t">Field Testimony</h3><p data-i18n="ql_testimony_d">First-person accounts recorded on the ground &mdash; 250 people, 14 languages</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('map')">
-                        <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-pin" style="width:20px;height:20px;"></span></div>
-                        <div><h3>The Map</h3><p>Your ward, village or district &mdash; air through the year, heat and tree cover</p></div>
-                    </div>
-                
-                    <div class="quick-link" onclick="showPanel('go-outside')">
-                        <div class="quick-link-icon" style="background: #EFF6FF; color: var(--ink);"><span class="si si-flare" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_outside_t">Go Outside?</h3><p data-i18n="ql_outside_d">Real-time advice</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('social-feed')">
-                        <div class="quick-link-icon" style="background: #FFF7ED; color: #F97316;"><span class="si si-article" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_social_t">Social Feed</h3><p data-i18n="ql_social_d">Live from Reddit, YouTube &amp; news</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('aqi-alerts')">
-                        <div class="quick-link-icon" style="background: #FEF2F2; color: var(--red);"><span class="si si-notifications" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_alerts_t">AQI Alerts</h3><p data-i18n="ql_alerts_d">Get notified</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('school-closure')">
-                        <div class="quick-link-icon" style="background: #F5F3FF; color: var(--purple);"><span class="si si-library" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_school_t">School Status</h3><p data-i18n="ql_school_d">School closure forecast</p></div>
-                    </div>
-                
-                    <div class="quick-link" onclick="showPanel('games')">
-                        <div class="quick-link-icon" style="background: #ECFDF5; color: var(--green-700);"><span class="si si-library" style="width:20px;height:20px;"></span></div>
-                        <div><h3 data-i18n="ql_games_t">Learning Games</h3><p data-i18n="ql_games_d">Seven games: Jeopardy, Vayu Junction &amp; more</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('workshops'); setTimeout(function(){var e=document.getElementById('aqlit-card-body'); if(e) e.scrollIntoView({behavior:'smooth',block:'center'});}, 450); return false;">
-                        <div class="quick-link-icon" style="background: #EEF2FF; color: #4F46E5;"><span class="si si-clipboard-check" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Air-Literacy Quiz <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>Test what you know &mdash; a 10-question self-check</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('gallery')">
-                        <div class="quick-link-icon" style="background: #ECFEFF; color: #0891B2;"><span class="si si-image" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Photo Gallery <span style="font-size: 0.55rem; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-left: 4px;">NEW</span></h3><p>The air, in pictures &mdash; 32 documentary photographs</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('rankings')">
-                        <div class="quick-link-icon" style="background: #FEF2F2; color: var(--red);"><span class="si si-bar-chart" style="width:20px;height:20px;"></span></div>
-                        <div><h3>City Rankings</h3><p>Cleanest &amp; most polluted &mdash; live, 7-day, 30-day</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('forecast')">
-                        <div class="quick-link-icon" style="background: #EFF6FF; color: #2563EB;"><span class="si si-flare" style="width:20px;height:20px;"></span></div>
-                        <div><h3>AQI Forecast</h3><p>72-hour outlook from SAFAR and CPCB &mdash; and whether it came true</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('fire-tracker')">
-                        <div class="quick-link-icon" style="background: #FEF2F2; color: #C0392B;"><span class="si si-fire" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Farm Fire Tracker</h3><p>Live stubble-burning counts from NASA FIRMS, by state and district</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('indoor')">
-                        <div class="quick-link-icon" style="background: #F5F3FF; color: #7C3AED;"><span class="si si-home" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Indoor Air</h3><p>&ldquo;Stay indoors&rdquo; assumes indoor air is safe. Often it isn&rsquo;t</p></div>
-                    </div>
-                    <div class="quick-link" onclick="showPanel('resources')">
-                        <div class="quick-link-icon" style="background: #FEF3C7; color: #B45309;"><span class="si si-book" style="width:20px;height:20px;"></span></div>
-                        <div><h3>Research &amp; Reading</h3><p>42 India-focused peer-reviewed studies, with citations</p></div>
                     </div>
                 </div>
             </div>
         </section>
-
-
-        <!-- ANOMALY DETECTION BANNER -->
-        <div class="container" style="padding-top: 16px;">
-            <div class="anomaly-banner-container" id="anomalyBannerContainer">
-                <div class="anomaly-banner" id="anomalyBanner">
-                    <span style="font-size: 1.1rem; flex-shrink: 0;">&#9888;</span>
-                    <div id="anomalyBannerText">Checking for anomalies...</div>
-                    <button class="anomaly-dismiss" onclick="dismissAnomalyBanner()" title="Dismiss">&times;</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- DID YOU KNOW — surprising, citable, India-specific facts -->
-        <div class="container" style="padding-top: 18px;">
-            <section class="band-deep">
-<div class="dash-section" style="margin-top: 0; border-top: 1px solid var(--border); padding-top: 22px;">
-                <span class="dash-section-eyebrow">The evidence</span>
-                <h2 class="dash-section-title" data-i18n="dyk_heading">Did you know</h2>
-                <p class="dash-section-sub">Six sourced India-specific facts &middot; the most recent published values from each source (Lancet Countdown 2025, IQAir 2025, AQLI 2025, CSE 2026, Jaganathan et al. 2024).</p>
-            </div>
-            <div class="grid-3" style="gap: 12px;">
-                <div class="card jv-rule-accent">
-                    <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;" data-stat="deaths_annual">1.72M</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_deaths_title">Indian PM2.5 deaths a year</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">Ambient PM2.5, Lancet Countdown 2025 (2022 data) &mdash; up from 1.5M last cycle, and among the world&rsquo;s largest national tolls (roughly a quarter to a third of the global PM2.5 burden). Counting household air pollution too, State of Global Air 2025 puts India at ~2.0M (2023 data).</div>
-                    </div>
-                </div>
-                <div class="card jv-rule-accent">
-                    <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;" data-stat="most_polluted_city">112.5 µg/m&sup3;</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_loni_title">Loni, India &mdash; the world&rsquo;s most polluted city</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">IQAir World Air Quality Report 2025 (covering 2025 data, published March 2026; the most recent annual). Loni in Ghaziabad district, UP, dethroned Byrnihat. The annual average is 22&times; the WHO guideline.</div>
-                    </div>
-                </div>
-                <div class="card jv-rule-accent">
-                    <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;" data-stat="life_expectancy_loss">3.5 yrs</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_le_title">Life expectancy lost on average</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">AQLI 2025 (UChicago EPIC). Delhi residents lose up to 8.2 years &mdash; the largest loss of any major city; the Indo-Gangetic Plain remains the world&rsquo;s most polluted region.</div>
-                    </div>
-                </div>
-                <div class="card jv-rule-accent">
-                    <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;">64%</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_ncap_title">of NCAP funds spent on dust suppression</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">CSE 2026 NCAP review. Mostly mechanical sweeping &amp; water-spraying &mdash; not the combustion sources that drive most PM2.5.</div>
-                    </div>
-                </div>
-                <div class="card jv-rule-accent">
-                    <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;">8&times;</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_naaqs_title">India&rsquo;s NAAQS vs WHO guideline</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">India NAAQS = 40 µg/m&sup3; annual PM2.5; WHO 2021 guideline = 5. Indian standard last revised in 2009.</div>
-                    </div>
-                </div>
-                <div class="card jv-rule-accent">
-                    <div class="card-body" style="font-size: 0.85rem; line-height: 1.5;">
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1;">8.6%</div>
-                        <div style="font-weight: 600; margin: 4px 0 4px;" data-i18n="dyk_doseresp_title">Mortality rise per +10 µg/m&sup3; PM2.5</div>
-                        <div style="color: var(--text-2); font-size: 0.8rem;">Jaganathan et al. 2024, <em>Lancet Planetary Health</em>. India&rsquo;s first nationwide causal estimate &mdash; a difference-in-differences design across 655 districts.</div>
-                    </div>
-                </div>
-            </div>
-            </section>
-        </div>
 
         <!-- PWA INSTALL BANNER -->
         <style>
@@ -2244,7 +1987,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606222"></script>
+    <script src="/app.js?v=202606223"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
