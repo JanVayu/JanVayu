@@ -756,6 +756,35 @@
     }
 
 
+    // ── The live ranking below the first screen ───────────────────────────
+    // /try drew this from its own fetch; here it reads aqiData, which the
+    // homepage already populates, so the bars and the first screen cannot
+    // disagree about a city.
+    function renderRanking() {
+        const list = document.getElementById('worstList');
+        const bars = document.getElementById('rankBars');
+        if (!list && !bars) return;
+        const rows = Object.keys(aqiData)
+            .filter(k => k !== '__nearme' && aqiData[k] && CITIES[k])
+            .map(k => ({ name: CITIES[k].name, pm: aqiData[k].pm25 || Math.round(aqiData[k].aqi * 0.7) }))
+            .filter(r => isFinite(r.pm))
+            .sort((a, b) => b.pm - a.pm);
+        if (!rows.length) return;
+        if (list) {
+            list.innerHTML = rows.slice(0, 6).map(r =>
+                '<div class="rk"><span>' + escapeHtml(r.name) + '</span><span>' + Math.round(r.pm) + '</span></div>').join('');
+        }
+        if (bars) {
+            const max = rows[0].pm || 1;
+            bars.innerHTML = rows.map(r => {
+                const h = Math.max(3, Math.round((r.pm / max) * 100));
+                return '<i style="height:' + h + '%;background:' + heroBandFor(r.pm).tone + '" title="' +
+                       escapeHtml(r.name) + ' ' + Math.round(r.pm) + ' \u00b5g/m\u00b3"></i>';
+            }).join('');
+        }
+    }
+    window.renderRanking = renderRanking;
+
     // ── The bar ───────────────────────────────────────────────────────────
     // /try's chrome, wired to the functions the old chrome already used, so
     // the role, language, simple-language and theme controls behave exactly as
@@ -3488,11 +3517,13 @@
 
         try { populateExtendedCitySelectors(); } catch(e) { console.warn('ext city selectors:', e); }
         try { await fetchAllAQI(); } catch(e) { console.error(e); }
+        try { renderRanking(); } catch (e) { /* the ranking is not on every page */ }
         try { initAllCharts(); } catch(e) { console.error(e); }
 
         // Auto-refresh AQI + news every 10 minutes, social feeds every 15 minutes
         setInterval(async () => {
             try { await fetchAllAQI(); } catch(e) {}
+            try { renderRanking(); } catch (e) { /* the ranking is not on every page */ }
         }, 10 * 60 * 1000);
 
         setInterval(() => {
@@ -7298,6 +7329,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             const tbody = document.getElementById('rankings-tbody');
             if (tbody) tbody.innerHTML = '<tr><td colspan="6" style="color: var(--text-3); padding: 24px; text-align: center;">Fetching live data…</td></tr>';
             try { await fetchAllAQI(); } catch(e) {}
+            try { renderRanking(); } catch (e) { /* the ranking is not on every page */ }
         }
         renderRankingsTable();
     }

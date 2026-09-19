@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.223] - 2026-09-19
+
+### Changed, the homepage body is /try's too, not just its chrome
+
+The previous release swapped the chrome and left 47KB of the old page under it, which was still visible: the "How JanVayu works" diagram, "What today's air means for you", "Where every number comes from", "The bigger picture", and an "Explore every tool" grid of 22 cards.
+
+Below the first screen the page is now what `/try` has: **three link columns** (Your air, The evidence, Who decided, four links each and a route into the Index), the **live ranking** as a worst-six list beside a bar per city, and the **month's note**. 40,000 characters removed, 4,000 added.
+
+The "Explore every tool" grid went without losing anything, because the Index added in v26.6.222 carries all 58 panels with a filter, which the grid did not.
+
+**The ranking reads `aqiData`** rather than fetching for itself, as `/try` did. The homepage already populates that object, so the bars and the first screen cannot disagree about a city, and the bars take the same CPCB band colours as the verdict. It is re-rendered after each AQI sweep, at all three places one completes.
+
+One fault the surgery introduced and the tag-stack check caught: the splice cut at the wrong `</section>`, dropping the `</div>` that closed `.container`, so the two tags closed in the wrong order. Repaired and re-checked: no nesting errors, nothing unclosed.
+
+Measured after: three columns, twelve links, six ranked rows, sixteen bars, the note present, no "How JanVayu works", no "Explore every tool", no horizontal overflow and no console errors at 390px or 1440px. All fourteen check scripts pass, including `check-nav-coverage.py` and `check-site-figures.py`, which the removed sections both fed.
+
+### Merged, three pull requests left open since July and August
+
+`#274` (lighthouse-ci-action 11 to 12) and `#275` (setup-chromedriver 2 to 3), both one-line Dependabot bumps, both green on ten checks. `#273`, the weekly Ask eval of 30 July, carried **zero changed files** — an empty PR whose merge was a no-op, which is presumably why it sat for seven weeks.
+
+### A note on running the Ask eval
+
+The gate fixes in v26.6.217 and v26.6.220 were verified by replaying the corrected gates against the answers five archived runs recorded: the old pattern failed all five, the new one fails none, and the false "missing expected" flags fell from 34 to 9 across 133 graded answers. **Dispatching the workflow itself is refused for this session's token** — 403 "Resource not accessible by integration" from both the REST API and the MCP tool — so the live run will happen on its own schedule, Sundays 20:00 UTC, rather than on demand.
+
 ## [v26.6.222] - 2026-09-19
 
 ### Changed, the site wears /try's chrome, not just its first screen
