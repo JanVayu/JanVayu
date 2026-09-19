@@ -21,6 +21,14 @@ One fault the surgery introduced and the tag-stack check caught: the splice cut 
 
 Measured after: three columns, twelve links, six ranked rows, sixteen bars, the note present, no "How JanVayu works", no "Explore every tool", no horizontal overflow and no console errors at 390px or 1440px. All fourteen check scripts pass, including `check-nav-coverage.py` and `check-site-figures.py`, which the removed sections both fed.
 
+### Fixed, a check that passed locally and failed in CI
+
+v26.6.223 was pushed with a red `guard-site-figures`. `build-how-it-works.py --check` requires its `BEGIN`/`END` markers in every page it lists, and the homepage stopped holding the diagram in this very change.
+
+Two things came out of that. The script now lists only the pages that carry the diagram — the walkthrough deck — and `splice()` takes `missing_ok`, so removing it from a page does not have to be paired with an edit here in the same commit.
+
+The second is the reason it reached CI at all. The sweep being run by hand was `scripts/check-*.py`, fourteen scripts; the `guard-site-figures` job also runs **six `build-*.py --check` steps**, and one of them was the failure. A second, hand-kept idea of "what CI runs" drifts from the workflow, so `scripts/list-ci-checks.py` now reads `ci.yml` and writes `scripts/run-ci-checks.sh`, which runs exactly the 21 commands CI runs. Regenerate it whenever `ci.yml` changes.
+
 ### Merged, three pull requests left open since July and August
 
 `#274` (lighthouse-ci-action 11 to 12) and `#275` (setup-chromedriver 2 to 3), both one-line Dependabot bumps, both green on ten checks. `#273`, the weekly Ask eval of 30 July, carried **zero changed files** — an empty PR whose merge was a no-op, which is presumably why it sat for seven weeks.

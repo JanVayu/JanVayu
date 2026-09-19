@@ -287,17 +287,24 @@ def tall(f, titled=True):
 
 # ── writing it into the pages ──────────────────────────────────────────────
 
+# index.html carried both variants until v26.6.223, when the homepage body was
+# replaced with /try's and the diagram went with the rest of the old page. It
+# still lives in the walkthrough deck. A page is listed here with the variants
+# it should hold; a page that no longer holds the diagram is simply not listed,
+# and `missing_ok` says a marker may legitimately be absent so that removing the
+# diagram from a page does not require editing this list in the same commit.
 TARGETS = [
-    ('index.html', 'both'),
     ('walkthrough/deck.html', 'wide'),
 ]
 
 
-def splice(text, begin, end, body, path):
+def splice(text, begin, end, body, path, missing_ok=False):
     if begin in text:
         a = text.index(begin) + len(begin)
         b = text.index(end)
         return text[:a] + '\n' + body + '\n' + text[b:]
+    if missing_ok:
+        return text
     raise SystemExit(
         f'{path}: no {begin!r} marker. Wrap the existing <svg> in the BEGIN/END '
         f'comments once, by hand, so this script knows where it goes.')
@@ -314,7 +321,9 @@ def main():
         s0 = p.read_text(encoding='utf-8')
         s = splice(s0, BEGIN_H, END_H, w_plain if which == 'both' else w_titled, rel)
         if which == 'both':
-            s = splice(s, BEGIN_V, END_V, t_plain, rel)
+            # The tall variant is the phone one; a page may carry the wide
+            # without it, so its absence is not an error.
+            s = splice(s, BEGIN_V, END_V, t_plain, rel, missing_ok=True)
         if s != s0:
             stale.append(rel)
             if not check:
