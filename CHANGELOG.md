@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.222] - 2026-09-19
+
+### Changed, the site wears /try's chrome, not just its first screen
+
+The instruction was "the design live at /try except fonts", and what had shipped was /try's *first screen* grafted into the old shell. That is not the same thing, and the screenshot showed why: above the new headline sat a green ticker, a masthead carrying the logo in four scripts and six icon buttons, and a six-group dropdown nav — none of which exist on /try.
+
+The chrome is now /try's: one row, a **Jan**Vayu wordmark, and five controls as bordered mono labels (Who you are, EN, Simple, Theme, Index), wrapping onto their own line below 620px exactly as /try does. Ported with this stylesheet's token names rather than /try's, because the two palettes were already the same hex.
+
+**Nothing was reimplemented.** Each control calls the function the old chrome already called: the role popover reads `ROLE_CONFIG`, the same object the old dropdown read, so the two can never disagree about which roles exist; language goes through `setLanguage`, Simple through `toggleSimpleMode`, Theme through `toggleTheme`.
+
+**Nothing lost, and that was counted rather than assumed.** The dropdown nav reached **59** destinations; /try's own index modal reached **42**. The missing **21** — the airshed panel, the legal docket, the RTI assistant, the fire tracker, testimony, the scorecards and fifteen others — are carried across, so the index lists all 58 panels plus the dashboard, grouped as the nav grouped them, with a filter. `check-nav-coverage.py` still passes.
+
+The old chrome is **hidden rather than deleted**: `app.js` addresses the role switcher, the language dropdown and the mobile nav by id, and removing the markup would break those calls. Deleting it is a follow-up, not this change.
+
+Three faults found by looking at the render rather than the code. The hide rule named `#header` when the element is `<header class="header">`, so the masthead was still there, under the new bar. The role hint tooltip still pointed at a control that no longer exists. And `.bar { padding: 12px 0 }` reset `.container`'s side gutter to zero, putting the wordmark hard against the screen edge while the headline stayed inset — the same shorthand-after-longhand trap that cost the live reading card its gutter in v26.6.214. Measured after: wordmark and headline both at x=16 on a phone and x=160 at 1440px.
+
+Both the bar and the hide rules are mirrored into the critical block. Without that the ticker painted and then vanished on every load, which `check-critical-css.py` caught on the first run.
+
+Measured at 360, 390, 414, 768, 1024 and 1440px: no overflow, no overlapping controls, nothing under 44px, no console errors. Every bar control exercised in a browser: Escape closes the index, the two popovers are mutually exclusive, picking Hindi switches the label to HI and translates the verdict headline, Simple reports its own state, Theme flips.
+
 ## [v26.6.221] - 2026-09-18
 
 ### Changed, a new release now tells the page in front of you to reload itself

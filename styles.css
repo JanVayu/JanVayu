@@ -3381,6 +3381,79 @@ body.panel-open #panel-container { padding-top: 72px !important; }
 .nav-item:focus-within .nav-dropdown-wide { align-items: start; }
 
 
+
+/* ── The bar ────────────────────────────────────────────────────────────────
+   /try's chrome, which is what the site now wears: one row, a wordmark, and
+   five controls as bordered mono labels. It replaces a green ticker, a
+   masthead carrying a logo and six icon buttons, a six-group dropdown nav and
+   a separate mobile nav. Ported with this stylesheet's own token names rather
+   than /try's, because the two palettes are already the same hex.
+
+   Six controls do not fit one phone row, so they wrap onto their own line. A
+   bar that overflows does not look broken, it just stops working: at 390px
+   the theme button sat on top of the index button and swallowed its taps. */
+/* padding-top/bottom, not the `padding: 12px 0` shorthand: .bar also carries
+   .container, and the shorthand would reset its 24/40px side gutter to 0,
+   putting the wordmark hard against the screen edge while the headline
+   below stayed inset. The same shorthand-after-longhand trap that cost the
+   live reading card its gutter in v26.6.214. */
+.bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: relative; }
+.bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 620px) {
+    .bar .mark { flex: 1 0 auto; }
+    .bar .right { width: 100%; margin-left: 0; }
+}
+.mark { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+.mark span { color: var(--accent); }
+.ctl { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; gap: 7px; padding: 0 13px;
+    background: none; border: 1px solid var(--ink); color: var(--ink); cursor: pointer;
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+.ctl:hover { background: var(--ink); color: var(--bg); }
+.ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* Popovers for the role and language controls. The bar is their positioning
+   context. Each is a real list of buttons, so both are reachable by keyboard
+   without needing a hover state. */
+.pop { position: absolute; top: calc(100% + 4px); right: 0; z-index: 40; min-width: 270px; max-width: min(94vw, 440px);
+    background: var(--bg-card); border: 1px solid var(--ink); padding: 14px; }
+.pop[hidden] { display: none; }
+.popnote { margin: 0 0 12px; font-size: 0.84rem; line-height: 1.5; color: var(--text-2); }
+.popgrid { display: flex; flex-wrap: wrap; gap: 6px; }
+.popgrid button { min-height: 44px; padding: 0 13px; background: none; border: 1px solid var(--border); color: var(--ink);
+    cursor: pointer; font-family: var(--sans); font-size: 0.9rem; }
+.popgrid button:hover { border-color: var(--accent); color: var(--accent); }
+.popgrid button[aria-pressed="true"] { background: var(--ink); color: var(--bg-card); border-color: var(--ink); }
+
+/* ── The index ──────────────────────────────────────────────────────────────
+   The nav's replacement: everything on the site, on one screen, filterable.
+   The dropdown nav reached 59 destinations and /try's index reached 42, so
+   the missing 21 are carried across rather than dropped. */
+.site-index { position: fixed; inset: 0; z-index: 90; background: var(--bg); overflow-y: auto; padding: 18px 0 60px; }
+.site-index[hidden] { display: none; }
+.site-index .head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.site-index .head h2 { font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 0; font-weight: 700; color: var(--text); }
+.site-index .filter { display: flex; border-bottom: 2px solid currentColor; max-width: 420px; margin: 0 0 18px; }
+.site-index .filter input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: inherit;
+    font-family: var(--sans); font-size: 1.05rem; padding: 10px 2px; }
+.site-index .filter input::placeholder { color: currentColor; opacity: 0.6; }
+.site-index .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: var(--border-light); }
+.site-index .grid a { display: block; padding: 12px 14px; background: var(--bg-card); color: var(--text); text-decoration: none;
+    font-size: 0.95rem; min-height: 44px; }
+.site-index .grid a:hover { background: var(--bg-section); color: var(--accent); }
+.site-index .grid a.hide { display: none; }
+.site-index .grp { grid-column: 1 / -1; background: var(--bg); padding: 18px 0 6px;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.site-index .grp.hide { display: none; }
+.site-index .none { opacity: 0.75; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 0; }
+
+
+/* The chrome /try's bar replaces. Hidden rather than deleted: app.js addresses
+   these elements by id (the role switcher, the language dropdown, the mobile
+   nav) and removing the markup would break those calls. Deleting them once
+   the bar has settled is a follow-up. */
+.ticker, header.header, #header, #sectionNav, #mobileNav, #mobileNavOverlay,
+#roleHint, #roleSwitcherBackdrop { display: none !important; }
+
 /* ── Hard edges ─────────────────────────────────────────────────────────────
    The house style is a hard edge: no corner radius, no drop shadow, surfaces
    that sit on the page rather than float above it. It is what /try
