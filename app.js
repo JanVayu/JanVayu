@@ -756,6 +756,137 @@
     }
 
 
+    // ── The bar ───────────────────────────────────────────────────────────
+    // /try's chrome, wired to the functions the old chrome already used, so
+    // the role, language, simple-language and theme controls behave exactly as
+    // before and nothing had to be reimplemented.
+    function toggleRolePopover() {
+        const pop = document.getElementById('rolePopover');
+        const btn = document.getElementById('ctlRole');
+        if (!pop) return;
+        const open = pop.hidden;
+        document.getElementById('langPopover')?.setAttribute('hidden', '');
+        document.getElementById('ctlLang')?.setAttribute('aria-expanded', 'false');
+        if (open) buildRolePopover();
+        pop.hidden = !open;
+        btn?.setAttribute('aria-expanded', String(open));
+    }
+
+    // ROLE_CONFIG and switchRole are defined in index.html's inline script,
+    // which is where the twelve roles have always lived. The popover reads the
+    // same object the old dropdown read, so the two can never disagree about
+    // which roles exist.
+    function buildRolePopover() {
+        const grid = document.getElementById('rolePopoverGrid');
+        if (!grid || typeof ROLE_CONFIG === 'undefined') return;
+        const current = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role') || '';
+        let html = '';
+        for (const key of Object.keys(ROLE_CONFIG)) {
+            html += '<button type="button" aria-pressed="' + (key === current) + '" onclick="pickRole(\'' + key + '\')">' +
+                    ROLE_CONFIG[key].label + '</button>';
+        }
+        html += '<button type="button" aria-pressed="' + (current === 'skip') + '" onclick="pickRole(\'skip\')">Show everything</button>';
+        html += '<button type="button" onclick="openRoleChooser()">\u22ef What these roles mean</button>';
+        grid.innerHTML = html;
+    }
+
+    function pickRole(key) {
+        try { switchRole(key); } catch (e) { try { selectRole(key); } catch (e2) { /* both own persistence + re-render */ } }
+        const pop = document.getElementById('rolePopover');
+        if (pop) pop.hidden = true;
+        document.getElementById('ctlRole')?.setAttribute('aria-expanded', 'false');
+        updateBarLabels();
+    }
+
+    function toggleLangPopover() {
+        const pop = document.getElementById('langPopover');
+        const btn = document.getElementById('ctlLang');
+        if (!pop) return;
+        const open = pop.hidden;
+        document.getElementById('rolePopover')?.setAttribute('hidden', '');
+        document.getElementById('ctlRole')?.setAttribute('aria-expanded', 'false');
+        if (open) {
+            const grid = document.getElementById('langPopoverGrid');
+            const langs = [['en','English'],['hi','\u0939\u093f\u0928\u094d\u0926\u0940'],['ta','\u0ba4\u0bae\u0bbf\u0bb4\u0bcd'],['mr','\u092e\u0930\u093e\u0920\u0940'],['bn','\u09ac\u09be\u0982\u09b2\u09be']];
+            if (grid) grid.innerHTML = langs.map(l =>
+                '<button type="button" aria-pressed="' + (l[0] === currentLang) + '" onclick="pickLang(\'' + l[0] + '\')">' + l[1] + '</button>').join('');
+        }
+        pop.hidden = !open;
+        btn?.setAttribute('aria-expanded', String(open));
+    }
+
+    function pickLang(code) {
+        setLanguage(code);
+        const pop = document.getElementById('langPopover');
+        if (pop) pop.hidden = true;
+        document.getElementById('ctlLang')?.setAttribute('aria-expanded', 'false');
+        updateBarLabels();
+    }
+
+    function updateBarLabels() {
+        const l = document.getElementById('ctlLangLabel');
+        if (l) l.textContent = (currentLang || 'en').toUpperCase();
+        const s = document.getElementById('ctlSimple');
+        if (s) s.setAttribute('aria-pressed', String(document.body.classList.contains('simple-language')));
+    }
+
+    // ── The index ─────────────────────────────────────────────────────────
+    function openSiteIndex() {
+        const el = document.getElementById('siteIndex');
+        if (!el) return;
+        el.hidden = false;
+        document.getElementById('ctlIndex')?.setAttribute('aria-expanded', 'true');
+        document.getElementById('siteIndexFilter')?.focus();
+    }
+    function closeSiteIndex() {
+        const el = document.getElementById('siteIndex');
+        if (!el) return;
+        el.hidden = true;
+        document.getElementById('ctlIndex')?.setAttribute('aria-expanded', 'false');
+    }
+    function filterSiteIndex(q) {
+        q = (q || '').trim().toLowerCase();
+        const grid = document.getElementById('siteIndexGrid');
+        if (!grid) return;
+        let shown = 0;
+        grid.querySelectorAll('a').forEach(a => {
+            const hit = !q || a.textContent.toLowerCase().includes(q);
+            a.classList.toggle('hide', !hit);
+            if (hit) shown++;
+        });
+        // A group heading with nothing under it is noise, so it goes too.
+        grid.querySelectorAll('.grp').forEach(g => {
+            let any = false;
+            for (let n = g.nextElementSibling; n && !n.classList.contains('grp'); n = n.nextElementSibling) {
+                if (n.tagName === 'A' && !n.classList.contains('hide')) { any = true; break; }
+            }
+            g.classList.toggle('hide', !any);
+        });
+        const none = document.getElementById('siteIndexNone');
+        if (none) none.hidden = shown > 0;
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        if (!document.getElementById('siteIndex')?.hidden) closeSiteIndex();
+        const rp = document.getElementById('rolePopover'); if (rp && !rp.hidden) rp.hidden = true;
+        const lp = document.getElementById('langPopover'); if (lp && !lp.hidden) lp.hidden = true;
+    });
+    document.addEventListener('click', e => {
+        if (e.target.closest('.bar')) return;
+        const rp = document.getElementById('rolePopover'); if (rp && !rp.hidden) rp.hidden = true;
+        const lp = document.getElementById('langPopover'); if (lp && !lp.hidden) lp.hidden = true;
+    });
+
+    window.toggleRolePopover = toggleRolePopover;
+    window.toggleLangPopover = toggleLangPopover;
+    window.pickRole = pickRole;
+    window.pickLang = pickLang;
+    window.openSiteIndex = openSiteIndex;
+    window.closeSiteIndex = closeSiteIndex;
+    window.filterSiteIndex = filterSiteIndex;
+    window.updateBarLabels = updateBarLabels;
+
     // ── The first screen: ask, then answer ────────────────────────────────
     // The hero used to lead with a statistic and a paragraph about what
     // JanVayu is. It now asks where you are and tells you what to do about
@@ -1397,6 +1528,11 @@
         document.body.classList.toggle('simple-language', simpleMode);
         const headerBtn = document.getElementById('simpleModeToggle');
         if (headerBtn) headerBtn.classList.toggle('active', simpleMode);
+        // The bar's Simple control shows its state through aria-pressed, which
+        // is also what styles it. Without this it reads "false" while the mode
+        // is plainly on, which is worse than having no indicator at all.
+        const barBtn = document.getElementById('ctlSimple');
+        if (barBtn) barBtn.setAttribute('aria-pressed', String(simpleMode));
         if (headerBtn) headerBtn.title = simpleMode ? 'Technical language mode' : 'Simple language mode';
         const glossaryBtn = document.getElementById('glossarySimpleToggle');
         if (glossaryBtn) glossaryBtn.innerHTML = simpleMode
@@ -3379,6 +3515,7 @@
 
         // Restore simple-language mode from session
         if (simpleMode) applySimpleMode();
+        try { updateBarLabels(); } catch (e) { /* the bar is not on every page */ }
 
         console.log('[JanVayu] Ready — auto-refresh: AQI every 10m, feeds every 15m');
     });

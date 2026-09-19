@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606221">
+    <link rel="preload" as="style" href="/styles.css?v=202606222">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -951,11 +951,83 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .pop, .glossary-overlay, .role-overlay, .gal-lb, .nav-dropdown, .fab-btn {
     box-shadow: 0 10px 30px rgba(0,0,0,.18) !important;
 }
+    
+/* ── The bar ────────────────────────────────────────────────────────────────
+   /try's chrome, which is what the site now wears: one row, a wordmark, and
+   five controls as bordered mono labels. It replaces a green ticker, a
+   masthead carrying a logo and six icon buttons, a six-group dropdown nav and
+   a separate mobile nav. Ported with this stylesheet's own token names rather
+   than /try's, because the two palettes are already the same hex.
+
+   Six controls do not fit one phone row, so they wrap onto their own line. A
+   bar that overflows does not look broken, it just stops working: at 390px
+   the theme button sat on top of the index button and swallowed its taps. */
+/* padding-top/bottom, not the `padding: 12px 0` shorthand: .bar also carries
+   .container, and the shorthand would reset its 24/40px side gutter to 0,
+   putting the wordmark hard against the screen edge while the headline
+   below stayed inset. The same shorthand-after-longhand trap that cost the
+   live reading card its gutter in v26.6.214. */
+.bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: relative; }
+.bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 620px) {
+    .bar .mark { flex: 1 0 auto; }
+    .bar .right { width: 100%; margin-left: 0; }
+}
+.mark { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+.mark span { color: var(--accent); }
+.ctl { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; gap: 7px; padding: 0 13px;
+    background: none; border: 1px solid var(--ink); color: var(--ink); cursor: pointer;
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+.ctl:hover { background: var(--ink); color: var(--bg); }
+.ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* Popovers for the role and language controls. The bar is their positioning
+   context. Each is a real list of buttons, so both are reachable by keyboard
+   without needing a hover state. */
+.pop { position: absolute; top: calc(100% + 4px); right: 0; z-index: 40; min-width: 270px; max-width: min(94vw, 440px);
+    background: var(--bg-card); border: 1px solid var(--ink); padding: 14px; }
+.pop[hidden] { display: none; }
+.popnote { margin: 0 0 12px; font-size: 0.84rem; line-height: 1.5; color: var(--text-2); }
+.popgrid { display: flex; flex-wrap: wrap; gap: 6px; }
+.popgrid button { min-height: 44px; padding: 0 13px; background: none; border: 1px solid var(--border); color: var(--ink);
+    cursor: pointer; font-family: var(--sans); font-size: 0.9rem; }
+.popgrid button:hover { border-color: var(--accent); color: var(--accent); }
+.popgrid button[aria-pressed="true"] { background: var(--ink); color: var(--bg-card); border-color: var(--ink); }
+
+/* ── The index ──────────────────────────────────────────────────────────────
+   The nav's replacement: everything on the site, on one screen, filterable.
+   The dropdown nav reached 59 destinations and /try's index reached 42, so
+   the missing 21 are carried across rather than dropped. */
+.site-index { position: fixed; inset: 0; z-index: 90; background: var(--bg); overflow-y: auto; padding: 18px 0 60px; }
+.site-index[hidden] { display: none; }
+.site-index .head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.site-index .head h2 { font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 0; font-weight: 700; color: var(--text); }
+.site-index .filter { display: flex; border-bottom: 2px solid currentColor; max-width: 420px; margin: 0 0 18px; }
+.site-index .filter input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: inherit;
+    font-family: var(--sans); font-size: 1.05rem; padding: 10px 2px; }
+.site-index .filter input::placeholder { color: currentColor; opacity: 0.6; }
+.site-index .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: var(--border-light); }
+.site-index .grid a { display: block; padding: 12px 14px; background: var(--bg-card); color: var(--text); text-decoration: none;
+    font-size: 0.95rem; min-height: 44px; }
+.site-index .grid a:hover { background: var(--bg-section); color: var(--accent); }
+.site-index .grid a.hide { display: none; }
+.site-index .grp { grid-column: 1 / -1; background: var(--bg); padding: 18px 0 6px;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
+.site-index .grp.hide { display: none; }
+.site-index .none { opacity: 0.75; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 18px 0; }
+
+
+/* The chrome /try's bar replaces. Hidden rather than deleted: app.js addresses
+   these elements by id (the role switcher, the language dropdown, the mobile
+   nav) and removing the markup would break those calls. Deleting them once
+   the bar has settled is a follow-up. */
+.ticker, header.header, #header, #sectionNav, #mobileNav, #mobileNavOverlay,
+#roleHint, #roleSwitcherBackdrop { display: none !important; }
     </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606221" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606221"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606222" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606222"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1114,6 +1186,112 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     </div>
 
     <div class="demo-badge" id="demoBadge" data-i18n="demo_mode">DEMO MODE</div>
+    <!-- The bar. /try's chrome: one row, a wordmark, five controls as mono
+         labels. It replaces the ticker, the masthead with its logo and six
+         icon buttons, the six-group dropdown nav and the separate mobile nav,
+         all of which are hidden by .bar-chrome rules in styles.css rather than
+         deleted, because app.js still addresses their elements by id. Removing
+         them is a follow-up, not this change. -->
+    <header class="bar container">
+        <a class="mark" href="#dashboard" onclick="showPanel('dashboard'); return false;">Jan<span>Vayu</span></a>
+        <div class="right" data-dyslexia-slot data-dyslexia-before="#ctlTheme">
+            <button type="button" class="ctl" id="ctlRole" aria-haspopup="true" aria-expanded="false" aria-controls="rolePopover" onclick="toggleRolePopover()"><span id="ctlRoleLabel" data-i18n="ctl_who">Who you are</span></button>
+            <button type="button" class="ctl" id="ctlLang" aria-haspopup="true" aria-expanded="false" aria-controls="langPopover" onclick="toggleLangPopover()"><span id="ctlLangLabel">EN</span></button>
+            <button type="button" class="ctl" id="ctlSimple" aria-pressed="false" onclick="toggleSimpleMode()" data-i18n="ctl_simple">Simple</button>
+            <button type="button" class="ctl" id="ctlTheme" aria-label="Switch between light and dark" onclick="toggleTheme()" data-i18n="ctl_theme">Theme</button>
+            <button type="button" class="ctl" id="ctlIndex" aria-expanded="false" aria-controls="siteIndex" onclick="openSiteIndex()" data-i18n="ctl_index">Index</button>
+        </div>
+        <div class="pop" id="rolePopover" hidden>
+            <p class="popnote" data-i18n="role_why">Tell us who you are and the answer leads with the part that is about you. Kept on this device, never sent anywhere.</p>
+            <div class="popgrid" id="rolePopoverGrid"></div>
+        </div>
+        <div class="pop" id="langPopover" hidden>
+            <div class="popgrid" id="langPopoverGrid"></div>
+        </div>
+    </header>
+
+    <!-- Everything on the site, on one screen, filterable. The dropdown nav
+         reached 59 destinations and /try's own index reached 42; the missing
+         21 are carried across here rather than dropped. -->
+    <div class="site-index" id="siteIndex" hidden role="dialog" aria-modal="true" aria-label="Everything on this site">
+        <div class="container">
+            <div class="head">
+                <h2 data-i18n="index_all">Everything on this site</h2>
+                <button type="button" class="ctl" style="margin-left:auto" onclick="closeSiteIndex()" data-i18n="index_close">Close</button>
+            </div>
+            <div class="filter"><input id="siteIndexFilter" type="text" autocomplete="off" placeholder="Filter&hellip;" data-i18n="index_filter" oninput="filterSiteIndex(this.value)" aria-label="Filter the list"></div>
+            <div class="grid" id="siteIndexGrid">
+                    <div class="grp">My Air</div>
+                    <a href="#aqi-alerts" data-panel="aqi-alerts" onclick="showPanel('aqi-alerts'); closeSiteIndex(); return false;">AQI Alerts</a>
+                    <a href="#ask-janvayu" data-panel="ask-janvayu" onclick="showPanel('ask-janvayu'); closeSiteIndex(); return false;">Ask JanVayu (AI)</a>
+                    <a href="#exposure-diary" data-panel="exposure-diary" onclick="showPanel('exposure-diary'); closeSiteIndex(); return false;">Exposure Diary</a>
+                    <a href="#exposure-report" data-panel="exposure-report" onclick="showPanel('exposure-report'); closeSiteIndex(); return false;">Exposure Report</a>
+                    <a href="#migration-calc" data-panel="migration-calc" onclick="showPanel('migration-calc'); closeSiteIndex(); return false;">Migration Comparison</a>
+                    <a href="#purifier-calc" data-panel="purifier-calc" onclick="showPanel('purifier-calc'); closeSiteIndex(); return false;">Purifier Calculator</a>
+                    <a href="#school-closure" data-panel="school-closure" onclick="showPanel('school-closure'); closeSiteIndex(); return false;">School Closures</a>
+                    <a href="#go-outside" data-panel="go-outside" onclick="showPanel('go-outside'); closeSiteIndex(); return false;">Should I Go Outside?</a>
+                    <div class="grp">Maps & Places</div>
+                    <a href="#forecast" data-panel="forecast" onclick="showPanel('forecast'); closeSiteIndex(); return false;">Air Quality Forecast</a>
+                    <a href="#compare" data-panel="compare" onclick="showPanel('compare'); closeSiteIndex(); return false;">City Comparison</a>
+                    <a href="#rankings" data-panel="rankings" onclick="showPanel('rankings'); closeSiteIndex(); return false;">City Rankings</a>
+                    <a href="#fire-tracker" data-panel="fire-tracker" onclick="showPanel('fire-tracker'); closeSiteIndex(); return false;">Farm Fire Tracker</a>
+                    <a href="#map" data-panel="map" onclick="showPanel('map'); closeSiteIndex(); return false;">Live Map &amp;amp; Area Atlas</a>
+                    <a href="#hyperlocal" data-panel="hyperlocal" onclick="showPanel('hyperlocal'); closeSiteIndex(); return false;">My Neighbourhood</a>
+                    <a href="#pollution-calendar" data-panel="pollution-calendar" onclick="showPanel('pollution-calendar'); closeSiteIndex(); return false;">Pollution Calendar</a>
+                    <div class="grp">Health & Trends</div>
+                    <a href="#beyond-lungs" data-panel="beyond-lungs" onclick="showPanel('beyond-lungs'); closeSiteIndex(); return false;">Beyond the Lungs</a>
+                    <a href="#children" data-panel="children" onclick="showPanel('children'); closeSiteIndex(); return false;">Children's Health</a>
+                    <a href="#economic" data-panel="economic" onclick="showPanel('economic'); closeSiteIndex(); return false;">Economic Cost</a>
+                    <a href="#health" data-panel="health" onclick="showPanel('health'); closeSiteIndex(); return false;">Health Impact</a>
+                    <a href="#trends" data-panel="trends" onclick="showPanel('trends'); closeSiteIndex(); return false;">Historical Trends</a>
+                    <a href="#indoor" data-panel="indoor" onclick="showPanel('indoor'); closeSiteIndex(); return false;">Indoor Air</a>
+                    <a href="#occupational" data-panel="occupational" onclick="showPanel('occupational'); closeSiteIndex(); return false;">Occupational Exposure</a>
+                    <a href="#urban-heat" data-panel="urban-heat" onclick="showPanel('urban-heat'); closeSiteIndex(); return false;">Urban Heat Island</a>
+                    <a href="#gender" data-panel="gender" onclick="showPanel('gender'); closeSiteIndex(); return false;">Women's Health</a>
+                    <div class="grp">Accountability</div>
+                    <a href="#accountability-brief" data-panel="accountability-brief" onclick="showPanel('accountability-brief'); closeSiteIndex(); return false;">Accountability Brief</a>
+                    <a href="#budget" data-panel="budget" onclick="showPanel('budget'); closeSiteIndex(); return false;">Budget Tracker</a>
+                    <a href="#accountability" data-panel="accountability" onclick="showPanel('accountability'); closeSiteIndex(); return false;">CPCB Bulletin Record</a>
+                    <a href="#city-policy" data-panel="city-policy" onclick="showPanel('city-policy'); closeSiteIndex(); return false;">City Policy Tracker</a>
+                    <a href="#scorecards" data-panel="scorecards" onclick="showPanel('scorecards'); closeSiteIndex(); return false;">City Scorecards</a>
+                    <a href="#progress" data-panel="progress" onclick="showPanel('progress'); closeSiteIndex(); return false;">Clean Air Wins</a>
+                    <a href="#corporate" data-panel="corporate" onclick="showPanel('corporate'); closeSiteIndex(); return false;">Industrial Sources</a>
+                    <a href="#mission-tracker" data-panel="mission-tracker" onclick="showPanel('mission-tracker'); closeSiteIndex(); return false;">Mission Tracker</a>
+                    <a href="#policy" data-panel="policy" onclick="showPanel('policy'); closeSiteIndex(); return false;">Policy Tracker</a>
+                    <div class="grp">Take Action</div>
+                    <a href="#citizen-action" data-panel="citizen-action" onclick="showPanel('citizen-action'); closeSiteIndex(); return false;">Citizen Plan</a>
+                    <a href="#testimony" data-panel="testimony" onclick="showPanel('testimony'); closeSiteIndex(); return false;">Field Testimony</a>
+                    <a href="#games" data-panel="games" onclick="showPanel('games'); closeSiteIndex(); return false;">Learning Games</a>
+                    <a href="#legal" data-panel="legal" onclick="showPanel('legal'); closeSiteIndex(); return false;">Legal Framework</a>
+                    <a href="#migration" data-panel="migration" onclick="showPanel('migration'); closeSiteIndex(); return false;">Migration &amp;amp; Displacement</a>
+                    <a href="#rti-assistant" data-panel="rti-assistant" onclick="showPanel('rti-assistant'); closeSiteIndex(); return false;">RTI Assistant</a>
+                    <a href="#actions" data-panel="actions" onclick="showPanel('actions'); closeSiteIndex(); return false;">Take Action</a>
+                    <a href="#voices" data-panel="voices" onclick="showPanel('voices'); closeSiteIndex(); return false;">Voices Online</a>
+                    <a href="#workshops" data-panel="workshops" onclick="showPanel('workshops'); closeSiteIndex(); return false;">Workshops</a>
+                    <div class="grp">Learn</div>
+                    <a href="#source-selector" data-panel="source-selector" onclick="showPanel('source-selector'); closeSiteIndex(); return false;">Data Source Selector</a>
+                    <a href="#glossary" data-panel="glossary" onclick="showPanel('glossary'); closeSiteIndex(); return false;">Glossary</a>
+                    <a href="#gallery" data-panel="gallery" onclick="showPanel('gallery'); closeSiteIndex(); return false;">Photo Gallery</a>
+                    <a href="#correlations" data-panel="correlations" onclick="showPanel('correlations'); closeSiteIndex(); return false;">Pollution Correlations</a>
+                    <a href="#aqi-explainer" data-panel="aqi-explainer" onclick="showPanel('aqi-explainer'); closeSiteIndex(); return false;">Understanding AQI</a>
+                    <a href="#apportionment" data-panel="apportionment" onclick="showPanel('apportionment'); closeSiteIndex(); return false;">Where PM2.5 Comes From</a>
+                    <a href="#airshed" data-panel="airshed" onclick="showPanel('airshed'); closeSiteIndex(); return false;">Your Airshed or Your Town</a>
+                    <div class="grp">Resources</div>
+                    <a href="#data-archive" data-panel="data-archive" onclick="showPanel('data-archive'); closeSiteIndex(); return false;">Data Archive</a>
+                    <a href="#downloads" data-panel="downloads" onclick="showPanel('downloads'); closeSiteIndex(); return false;">Downloads</a>
+                    <a href="#live-news" data-panel="live-news" onclick="showPanel('live-news'); closeSiteIndex(); return false;">Live News</a>
+                    <a href="#resources" data-panel="resources" onclick="showPanel('resources'); closeSiteIndex(); return false;">Reading List</a>
+                    <a href="#social-feed" data-panel="social-feed" onclick="showPanel('social-feed'); closeSiteIndex(); return false;">Social Media Feed</a>
+                    <a href="#tools" data-panel="tools" onclick="showPanel('tools'); closeSiteIndex(); return false;">Tools</a>
+                    <div class="grp">About</div>
+                    <a href="#about" data-panel="about" onclick="showPanel('about'); closeSiteIndex(); return false;">About JanVayu</a>
+                    <a href="#faq" data-panel="faq" onclick="showPanel('faq'); closeSiteIndex(); return false;">FAQ</a>
+                    <a href="#team" data-panel="team" onclick="showPanel('team'); closeSiteIndex(); return false;">Team</a>
+            </div>
+            <div class="none" id="siteIndexNone" hidden data-i18n="index_none">Nothing matches that.</div>
+        </div>
+    </div>
+
     <!-- TICKER -->
     <div class="ticker">
         <div class="ticker-track" id="tickerTrack">
@@ -2066,7 +2244,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606221"></script>
+    <script src="/app.js?v=202606222"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
