@@ -196,6 +196,15 @@ jobs:
       - name: Check the district history is complete
         run: python3 scripts/build-district-history.py --check
 
+      # data/reduction.json joins two sources that can drift apart without any
+      # error: the LongPMInd annual mean per district, and a city-specific
+      # apportionment study's shares. --check rebuilds it and diffs, so an edit
+      # to data/apportionment.json that changes a share, or a district key that
+      # stops resolving, fails here rather than shipping a calculator whose
+      # parts no longer sum to the whole it claims.
+      - name: Check the reduction calculator's data
+        run: python3 scripts/build-reduction-data.py --check
+
       # The hero's dated standfirst is hand-written and nothing generates it.
       # It said "July 2026" on 1 August, caught only by a manual pre-conference
       # audit, and "August 2026" on 8 September, caught by a reader. Everything

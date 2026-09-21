@@ -618,7 +618,7 @@
         // The loop above has just written the question back over it from the
         // table, so put the answer back, in the language now selected.
         if (typeof heroShowing !== 'undefined' && heroShowing) {
-            renderHeroVerdict(heroShowing.pm25, heroShowing.place);
+            renderHeroVerdict(heroShowing.pm25, heroShowing.place, heroShowing.station);
         }
 
         // Desktop dropdown items
@@ -727,7 +727,11 @@
             if (pmEl) { pmEl.textContent = pm25; pmEl.style.color = color; }
             if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
             if (aqiEl) aqiEl.textContent = data.aqi;
-            renderHeroVerdict(pm25, cityName);
+            // Only name a station when the reading actually came from one. The
+            // demo fallback sets station to '<City> (Fallback)', which would
+            // otherwise be printed to the visitor as though it were a place.
+            renderHeroVerdict(pm25, cityName, data.live ? data.station : null);
+            renderCitySpread(cityKey, cityName);
             updatePersonalImpact(cityKey, data);
             return;
         }
@@ -1048,7 +1052,7 @@
         el.innerHTML = (simple && simpleText !== undefined) ? simpleText : technicalHtml;
     }
 
-    function renderHeroVerdict(pm25, placeName) {
+    function renderHeroVerdict(pm25, placeName, stationName) {
         const qEl = document.getElementById('heroQuestion');
         const whyEl = document.getElementById('heroWhy');
         const whoEl = document.getElementById('heroWho');
@@ -1064,16 +1068,21 @@
             return;
         }
 
-        heroShowing = { pm25: pm25, place: placeName };
+        heroShowing = { pm25: pm25, place: placeName, station: stationName };
         const band = heroBandFor(pm25);
         const v = HERO_VERDICTS[band.key];
         const n = Math.round(pm25);
         const head = heroHead(band.key);
         heroSetText(qEl, head, head);
+        // Name the station, not the city. A city is not one number: measured on
+        // 19 September 2026, four Delhi stations read 5, 28, 36 and 92 µg/m³ in
+        // the same hour, and the page was quoting whichever happened to be
+        // nearest the coordinates stored for "Delhi" as though it were Delhi.
+        const where = stationName ? escapeHtml(stationName) : place;
         heroSetText(whyEl,
-            '<strong>' + place + '</strong> is at <strong>' + n + ' µg/m³</strong> PM2.5, which CPCB calls <strong>' +
+            '<strong>' + where + '</strong> is reading <strong>' + n + ' µg/m³</strong> PM2.5, which CPCB calls <strong>' +
             band.label.toLowerCase() + '</strong>. ' + v.why,
-            place + ' has ' + n + ' units of PM2.5 in the air. ' + v.plain);
+            where + ' is reading ' + n + ' units of PM2.5. ' + v.plain);
 
         whoEl.innerHTML = v.who.map((row, i) =>
             '<div class="hero-who-row">' +
@@ -1110,6 +1119,62 @@
             chips.hidden = false;
         }
     }
+
+    // ── How much a city disagrees with itself ─────────────────────────────
+    // The first screen reads ONE station, the nearest to the coordinates held
+    // for a city. That is the right number for the person standing near it and
+    // the wrong number for the city: on 19 September 2026 four Delhi stations
+    // read 5, 28, 36 and 92 µg/m³ within the same hour. This says so, using
+    // WAQI's /map/bounds/, which returns every station in a box in one call.
+    //
+    // A deliberate limitation, stated on the page rather than hidden: bounds
+    // gives each station's overall AQI, not its PM2.5 sub-index, and WAQI
+    // publishes AQI on the US EPA scale. Converting it to µg/m³ would be wrong
+    // wherever PM2.5 is not the dominant pollutant, so the spread is shown as
+    // AQI with the scale named, and the headline figure stays in µg/m³.
+    const __spreadCache = {};
+
+    async function fetchCitySpread(cityKey) {
+        const c = CITIES[cityKey];
+        if (!c || cityKey === '__nearme') return null;
+        const hit = __spreadCache[cityKey];
+        if (hit && Date.now() - hit.at < 10 * 60 * 1000) return hit.data;
+        const d = 0.25;   // ~55 km: a city and its immediate ring, not its state
+        const box = [c.lat - d, c.lon - d, c.lat + d, c.lon + d].map(v => v.toFixed(4)).join(',');
+        try {
+            const res = await fetch('https://api.waqi.info/map/bounds/?latlng=' + box + '&token=' + WAQI_TOKEN);
+            const j = await res.json();
+            if (j.status !== 'ok' || !Array.isArray(j.data)) return null;
+            const rows = j.data
+                .map(x => ({ name: (x.station && x.station.name) || '', aqi: parseInt(x.aqi, 10) }))
+                .filter(x => x.name && isFinite(x.aqi))
+                .sort((a, b) => a.aqi - b.aqi);
+            if (rows.length < 2) return null;
+            const out = { n: rows.length, lo: rows[0], hi: rows[rows.length - 1] };
+            __spreadCache[cityKey] = { at: Date.now(), data: out };
+            return out;
+        } catch (e) { return null; }
+    }
+
+    // A station name from WAQI is "Anand Vihar, Delhi, Delhi, India". The city
+    // and country repeat on every row, so only the first part is worth showing.
+    function shortStation(name) {
+        return String(name).split(',')[0].trim();
+    }
+
+    async function renderCitySpread(cityKey, cityName) {
+        const el = document.getElementById('heroSpread');
+        if (!el) return;
+        const sp = await fetchCitySpread(cityKey);
+        if (!sp) { el.hidden = true; el.innerHTML = ''; return; }
+        el.innerHTML =
+            'Across <strong>' + sp.n + ' stations</strong> in ' + escapeHtml(cityName) +
+            ' right now the AQI runs <strong>' + sp.lo.aqi + '</strong> at ' + escapeHtml(shortStation(sp.lo.name)) +
+            ' to <strong>' + sp.hi.aqi + '</strong> at ' + escapeHtml(shortStation(sp.hi.name)) +
+            '. <span class="hero-spread-note">AQI on the US EPA scale WAQI publishes, not the µg/m³ above.</span>';
+        el.hidden = false;
+    }
+    window.renderCitySpread = renderCitySpread;
 
     // ── Place search in the first screen ──────────────────────────────────
     function heroFindMatches(q) {
@@ -1749,7 +1814,7 @@
 
     // Panels whose (large) markup lives in an external fragment, fetched on first
     // open instead of being inlined + parsed on every page load. Cached after first use.
-    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html', apportionment: '/panels/apportionment.html', airshed: '/panels/airshed.html' };
+    const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html', apportionment: '/panels/apportionment.html', airshed: '/panels/airshed.html', reduction: '/panels/reduction.html', lifetime: '/panels/lifetime.html' };
     const __panelFragmentCache = {};
     function fetchPanelFragment(panelId) {
         if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
@@ -1836,6 +1901,8 @@
                 if (panelId === 'fire-tracker') { try { initFireTracker(); } catch(e) { console.warn('Fire tracker init:', e); } }
                 if (panelId === 'apportionment') { try { window.initApportionment && window.initApportionment(); } catch(e) { console.warn('Apportionment init:', e); } }
                 if (panelId === 'airshed') { try { window.initAirshed && window.initAirshed(); } catch(e) { console.warn('Airshed init:', e); } }
+                if (panelId === 'reduction') { try { window.initReduction && window.initReduction(); } catch(e) { console.warn('Reduction init:', e); } }
+                if (panelId === 'lifetime') { try { window.initLifetime && window.initLifetime(); } catch(e) { console.warn('Lifetime init:', e); } }
                 if (panelId === 'workshops') { try { window.initWorkshops && window.initWorkshops(); } catch(e) { console.warn('Workshops init:', e); } }
                 if (panelId === 'source-selector') { try { window.initStationCheck && window.initStationCheck(); } catch(e) { console.warn('Station check init:', e); } }
                 if (panelId === 'accountability') { try { window.initBulletins && window.initBulletins(); } catch(e) { console.warn('Bulletins init:', e); } }
@@ -3826,7 +3893,7 @@
             o.push('<text x="' + (L - 8) + '" y="' + (y(g) + 4) + '" text-anchor="end" font-size="11" fill="var(--text-3)">' + g + '</text>');
         }
         // The two standards. Dashed and labelled, so the line is read against a rule.
-        [[40, "India's limit", '#b91c1c'], [5, 'WHO guideline', '#0f766e']].forEach(function (s2) {
+        [[40, "India's limit", 'var(--std-over)'], [5, 'WHO guideline', 'var(--std-who)']].forEach(function (s2) {
             if (s2[0] > ymax) return;
             o.push('<line x1="' + L + '" y1="' + y(s2[0]) + '" x2="' + (W - R) + '" y2="' + y(s2[0]) + '" stroke="' + s2[2] + '" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.75"/>');
             o.push('<text x="' + (W - R + 6) + '" y="' + (y(s2[0]) + 4) + '" font-size="10.5" fill="' + s2[2] + '">' + s2[1] + '</text>');
@@ -4076,7 +4143,7 @@
             }
         }
         var d = __airshedData, esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
-        var band = function (v) { return v >= 60 ? '#b91c1c' : v >= 40 ? '#d97706' : v >= 20 ? '#65a30d' : '#0f766e'; };
+        var band = function (v) { return v >= 60 ? 'var(--std-over)' : v >= 40 ? 'var(--std-warn)' : v >= 20 ? 'var(--std-ok)' : 'var(--std-who)'; };
 
         var shareEl = document.getElementById('airshed-share');
         if (shareEl) shareEl.textContent = Math.round(d._meta.between_state_variance_share * 100) + '%';
@@ -4257,6 +4324,450 @@
             }
         });
     };
+
+
+    // --- "What would it take?" reduction calculator --------------------------
+    // Annual mean from LongPMInd, source shares from a city-specific study, and
+    // a slider per source. The arithmetic is deliberately transparent: mass_i =
+    // share_i x annual, and cutting a source removes its cut fraction of that
+    // mass. Everything that makes real air not behave that way is said in the
+    // method note rather than smuggled into a coefficient.
+    var __reductionData = null;
+    var __reductionCuts = {};
+
+    function rdEsc(t) {
+        return String(t).replace(/[&<>"]/g, function (c) {
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
+        });
+    }
+    function rdCity(key) {
+        if (!__reductionData) return null;
+        return __reductionData.cities.find(function (x) { return x.key === key; }) || null;
+    }
+    function rdRows(c) {
+        return APPORTION_BUCKETS.map(function (b) {
+            return { key: b.key, label: b.label, color: b.color, pct: c.shares[b.key] || 0 };
+        }).filter(function (r) { return r.pct > 0; });
+    }
+    function rdRemaining(c) {
+        // Returns the annual mean left after the current cuts.
+        return rdRows(c).reduce(function (sum, r) {
+            var mass = r.pct / 100 * c.annual;
+            var cut = Math.min(100, Math.max(0, __reductionCuts[r.key] || 0));
+            return sum + mass * (1 - cut / 100);
+        }, 0);
+    }
+
+    window.initReduction = async function initReduction() {
+        var sel = document.getElementById('reduction-city');
+        if (!sel) return;
+        if (!__reductionData) {
+            try {
+                var r = await fetch('/data/reduction.json');
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                __reductionData = await r.json();
+            } catch (e) {
+                var head = document.getElementById('reduction-headline');
+                if (head) head.innerHTML = '<p style="color:var(--text-3);">The city figures could not load. Please try again.</p>';
+                return;
+            }
+        }
+        if (!sel.options.length) {
+            __reductionData.cities.forEach(function (c) {
+                var o = document.createElement('option');
+                o.value = c.key; o.textContent = c.name;
+                sel.appendChild(o);
+            });
+            sel.value = 'delhi';
+            sel.addEventListener('change', function () { window.renderReduction(sel.value, true); });
+        }
+        window.renderReduction(sel.value || 'delhi', true);
+    };
+
+    window.renderReduction = function renderReduction(cityKey, reset) {
+        var c = rdCity(cityKey);
+        if (!c) return;
+        if (reset) { __reductionCuts = {}; }
+
+        var rows = rdRows(c);
+        var basisEl = document.getElementById('reduction-basis');
+        if (basisEl) basisEl.textContent = c.annual.toFixed(1) + ' µg/m³ annual mean, ' + c.annual_year + ' · shares ' + c.basis;
+
+        // Headline: the distance to the two standards, stated as mass and as a
+        // share, because "cut 55%" and "remove 49 µg/m³" land differently.
+        var head = document.getElementById('reduction-headline');
+        if (head) {
+            var toNaaqs = c.cut_needed_pct > 0
+                ? '<strong>' + c.name + '</strong> averages <strong>' + c.annual.toFixed(1) + ' µg/m³</strong>. Reaching India’s own limit of 40 means removing <strong>' + c.gap_naaqs.toFixed(1) + ' µg/m³</strong>, which is <strong>' + c.cut_needed_pct.toFixed(1) + '%</strong> of the mass.'
+                : '<strong>' + c.name + '</strong> averages <strong>' + c.annual.toFixed(1) + ' µg/m³</strong>, already inside India’s limit of 40.';
+            var whoPct = c.annual > 0 ? (c.gap_who / c.annual * 100) : 0;
+            head.innerHTML = '<p style="font-size:1.0625rem; line-height:1.7; color:var(--text-2); max-width:48rem;">' + toNaaqs +
+                ' Reaching the WHO guideline of 5 means removing <strong>' + c.gap_who.toFixed(1) + ' µg/m³</strong>, or <strong>' + whoPct.toFixed(1) + '%</strong>.</p>';
+        }
+
+        // Presets. Each is a claim someone actually makes, made checkable.
+        var presets = document.getElementById('reduction-presets');
+        if (presets && !presets.dataset.wired) {
+            presets.dataset.wired = '1';
+            presets.addEventListener('click', function (ev) {
+                var btn = ev.target.closest('button[data-rd-preset]');
+                if (!btn) return;
+                var sel2 = document.getElementById('reduction-city');
+                var cc = rdCity(sel2 ? sel2.value : 'delhi');
+                if (!cc) return;
+                var mode = btn.getAttribute('data-rd-preset');
+                __reductionCuts = {};
+                if (mode === 'transport') { __reductionCuts.transport = 100; }
+                else if (mode === 'half') { rdRows(cc).forEach(function (r) { __reductionCuts[r.key] = 50; }); }
+                else if (mode === 'local') {
+                    rdRows(cc).forEach(function (r) { if (r.key !== 'other') __reductionCuts[r.key] = 100; });
+                }
+                window.renderReduction(cc.key, false);
+            });
+        }
+        if (presets) {
+            presets.innerHTML =
+                '<button type="button" class="rd-preset" data-rd-preset="transport">Every vehicle off the road</button>' +
+                '<button type="button" class="rd-preset" data-rd-preset="half">Halve every source</button>' +
+                '<button type="button" class="rd-preset" data-rd-preset="local">Remove everything local</button>' +
+                '<button type="button" class="rd-preset" data-rd-preset="reset">Reset</button>';
+        }
+
+        // Sliders.
+        var sliders = document.getElementById('reduction-sliders');
+        if (sliders) {
+            sliders.innerHTML = rows.map(function (r) {
+                var mass = r.pct / 100 * c.annual;
+                var cut = Math.min(100, Math.max(0, __reductionCuts[r.key] || 0));
+                return '<div class="rd-slider">' +
+                    '<label class="rd-slider-label" for="rd-' + r.key + '">' +
+                    '<span class="rd-swatch" style="background:' + r.color + ';"></span>' +
+                    rdEsc(r.label) +
+                    '<span class="rd-slider-mass">' + mass.toFixed(1) + ' µg/m³</span></label>' +
+                    '<input type="range" id="rd-' + r.key + '" class="rd-range" min="0" max="100" step="5" value="' + cut + '"' +
+                    ' data-rd-source="' + r.key + '"' +
+                    ' aria-label="Cut ' + rdEsc(r.label) + ', currently ' + cut + ' percent">' +
+                    '<output class="rd-slider-out" for="rd-' + r.key + '">&minus;' + cut + '%</output>' +
+                    '</div>';
+            }).join('');
+            if (!sliders.dataset.wired) {
+                sliders.dataset.wired = '1';
+                sliders.addEventListener('input', function (ev) {
+                    var el = ev.target;
+                    if (!el || !el.getAttribute || !el.getAttribute('data-rd-source')) return;
+                    __reductionCuts[el.getAttribute('data-rd-source')] = Number(el.value);
+                    var sel3 = document.getElementById('reduction-city');
+                    var cc = rdCity(sel3 ? sel3.value : 'delhi');
+                    if (!cc) return;
+                    var out = el.parentNode.querySelector('.rd-slider-out');
+                    // textContent, not innerHTML: el.value is read back out of the
+                    // DOM, and writing DOM text back as markup is the sink CodeQL
+                    // flags. U+2212 is what &minus; resolves to, so this renders
+                    // identically to the initial pass above.
+                    if (out) out.textContent = '\u2212' + Number(el.value) + '%';
+                    rdDrawBar(cc);
+                    rdVerdict(cc);
+                });
+            }
+        }
+
+        rdDrawBar(c);
+        rdVerdict(c);
+
+        var srcEl = document.getElementById('reduction-source');
+        if (srcEl) {
+            var conf = c.confidence ? (c.confidence.charAt(0).toUpperCase() + c.confidence.slice(1)) : '';
+            srcEl.innerHTML =
+                '<p class="apportion-src-line"><strong>Shares:</strong> ' + rdEsc(c.source) +
+                (c.year ? ' (' + rdEsc(c.year) + ')' : '') + ' · ' + rdEsc(c.basis) +
+                (conf ? ' · confidence: ' + conf : '') + '</p>' +
+                (c.caveat ? '<p class="apportion-caveat">' + rdEsc(c.caveat) + '</p>' : '') +
+                '<p class="apportion-caveat"><strong>Annual mean:</strong> ' + rdEsc(__reductionData._meta.annual_source) + '</p>';
+        }
+    };
+
+    // Horizontal stacked bar, inline SVG. The two standards are rules across
+    // the bar rather than numbers beside it, so the remaining mass is read
+    // against them directly.
+    function rdDrawBar(c) {
+        var wrap = document.getElementById('reduction-chart');
+        if (!wrap) return;
+        var rows = rdRows(c);
+        var remaining = rdRemaining(c);
+        var W = 720, H = 132, L = 8, R = 8, T = 30, BAR = 46;
+        var iw = W - L - R;
+        // Scale is fixed to the city's own starting mass, so the bar shrinks
+        // visibly as sources are cut instead of rescaling to fill the width.
+        var xmax = Math.max(c.annual, 45);
+        var x = function (v) { return L + (v / xmax) * iw; };
+        var o = [];
+
+        var cursor = 0;
+        rows.forEach(function (r) {
+            var mass = r.pct / 100 * c.annual;
+            var cut = Math.min(100, Math.max(0, __reductionCuts[r.key] || 0));
+            var kept = mass * (1 - cut / 100);
+            if (kept <= 0) return;
+            var x0 = x(cursor), x1 = x(cursor + kept);
+            o.push('<rect x="' + x0.toFixed(2) + '" y="' + T + '" width="' + Math.max(0, x1 - x0).toFixed(2) + '" height="' + BAR +
+                '" fill="' + r.color + '"><title>' + rdEsc(r.label) + ': ' + kept.toFixed(1) + ' µg/m³</title></rect>');
+            cursor += kept;
+        });
+        // The mass removed, drawn as a hatched ghost so the effort is visible.
+        if (cursor < c.annual - 0.05) {
+            var gx0 = x(cursor), gx1 = x(c.annual);
+            o.push('<rect x="' + gx0.toFixed(2) + '" y="' + T + '" width="' + (gx1 - gx0).toFixed(2) + '" height="' + BAR +
+                '" fill="url(#rdHatch)" stroke="var(--border)" stroke-width="1"><title>Removed: ' +
+                (c.annual - cursor).toFixed(1) + ' µg/m³</title></rect>');
+        }
+
+        [[40, 'India’s limit, 40', 'var(--std-over)'], [5, 'WHO, 5', 'var(--std-who)']].forEach(function (s) {
+            if (s[0] > xmax) return;
+            var px = x(s[0]);
+            o.push('<line x1="' + px.toFixed(2) + '" y1="' + (T - 10) + '" x2="' + px.toFixed(2) + '" y2="' + (T + BAR + 8) +
+                '" stroke="' + s[2] + '" stroke-width="1.5" stroke-dasharray="5 4"/>');
+            o.push('<text x="' + Math.min(W - 4, px + 5).toFixed(2) + '" y="' + (T - 14) + '" font-size="11" fill="' + s[2] +
+                '" text-anchor="' + (px > W - 120 ? 'end' : 'start') + '">' + s[1] + '</text>');
+        });
+
+        o.push('<text x="' + L + '" y="' + (T + BAR + 22) + '" font-size="11.5" fill="var(--text-3)">0</text>');
+        o.push('<text x="' + (W - R) + '" y="' + (T + BAR + 22) + '" font-size="11.5" fill="var(--text-3)" text-anchor="end">' +
+            xmax.toFixed(0) + ' µg/m³</text>');
+
+        wrap.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' +
+            rdEsc(c.name) + ' annual PM2.5 of ' + c.annual.toFixed(1) + ' µg/m³ by source, ' + remaining.toFixed(1) +
+            ' µg/m³ remaining after the cuts chosen">' +
+            '<defs><pattern id="rdHatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">' +
+            '<line x1="0" y1="0" x2="0" y2="6" stroke="var(--border)" stroke-width="2"/></pattern></defs>' +
+            o.join('') + '</svg>';
+    }
+
+    function rdVerdict(c) {
+        var el = document.getElementById('reduction-verdict');
+        if (!el) return;
+        var remaining = rdRemaining(c);
+        // Floating-point: with no cuts the sum of the parts misses the whole by
+        // ~1e-14, which printed as "Removed -0.0". Clamp rather than round.
+        var removed = Math.max(0, c.annual - remaining);
+        remaining = Math.min(c.annual, remaining);
+        var pct = c.annual > 0 ? removed / c.annual * 100 : 0;
+        var meetsNaaqs = remaining <= 40.0001, meetsWho = remaining <= 5.0001;
+        var tone = meetsWho ? 'var(--std-who)' : meetsNaaqs ? 'var(--std-ok)' : remaining >= 60 ? 'var(--std-over)' : 'var(--std-warn)';
+        var line;
+        if (meetsWho) {
+            line = 'That reaches the WHO guideline. No large Indian city is anywhere near this, and nothing on this page suggests a route to it.';
+        } else if (meetsNaaqs) {
+            line = (removed < 0.05 ? 'Before any cut, ' + c.name + ' is already inside India’s annual limit, with ' : 'That clears India’s annual limit, with ') +
+                (40 - remaining).toFixed(1) + ' µg/m³ to spare. It is still ' +
+                (remaining / 5).toFixed(1) + '× the WHO guideline, which is the number tied to health rather than to compliance.' +
+                (removed < 0.05 ? ' Move a slider to see what closing the rest would take.' : '');
+        } else {
+            line = 'Still <strong>' + (remaining - 40).toFixed(1) + ' µg/m³ above</strong> India’s own limit. ' +
+                (removed < 0.05
+                    ? 'Nothing has been cut yet: move a slider, or try a preset.'
+                    : 'Cutting ' + pct.toFixed(0) + '% of the mass was not enough.');
+        }
+        el.innerHTML =
+            '<div class="rd-verdict-num" style="color:' + tone + ';">' + remaining.toFixed(1) +
+            ' <span class="rd-verdict-unit">µg/m³ left</span></div>' +
+            '<p class="rd-verdict-line">' + line + '</p>' +
+            '<p class="rd-verdict-note">Removed ' + removed.toFixed(1) + ' µg/m³ of ' + c.annual.toFixed(1) +
+            '. Cutting a source here removes that fraction of its attributed share, which real atmospheric chemistry does not guarantee.</p>';
+    }
+
+
+    // --- "The air you were born into" ---------------------------------------
+    // The same LongPMInd series the airshed panel charts, read as one person's
+    // record instead of a district trend: the year you were born, the years
+    // since, and how many of them cleared each standard. Shares the __histData
+    // cache with airshedHistory(), so opening one panel warms the other.
+    var LIFE_AQLI_YEARS_PER_10 = 0.98;   // AQLI (EPIC): years of life expectancy per 10 µg/m³ sustained above 5
+    var LIFE_WHO = 5, LIFE_NAAQS = 40;
+
+    async function lifeLoad() {
+        if (__histData) return __histData;
+        var r = await fetch('/data/district-history.json');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        __histData = await r.json();
+        return __histData;
+    }
+
+    window.initLifetime = async function initLifetime() {
+        var dsel = document.getElementById('life-district');
+        var ysel = document.getElementById('life-year');
+        if (!dsel || !ysel) return;
+        var d;
+        try { d = await lifeLoad(); } catch (e) {
+            var ro = document.getElementById('life-readout');
+            if (ro) ro.innerHTML = '<p style="color:var(--text-3);">The historical series could not load. Please try again.</p>';
+            return;
+        }
+
+        if (!dsel.options.length) {
+            // Keys are "District|State"; group by state so a long list is navigable.
+            var byState = {};
+            Object.keys(d.districts).forEach(function (k) {
+                var p = k.split('|');
+                (byState[p[1]] = byState[p[1]] || []).push({ dt: p[0], key: k });
+            });
+            Object.keys(byState).sort().forEach(function (st) {
+                var g = document.createElement('optgroup');
+                g.label = st;
+                byState[st].sort(function (a, b) { return a.dt.localeCompare(b.dt); }).forEach(function (x) {
+                    var o = document.createElement('option');
+                    o.value = x.key; o.textContent = x.dt;
+                    g.appendChild(o);
+                });
+                dsel.appendChild(g);
+            });
+            if (d.districts['New Delhi|Delhi']) dsel.value = 'New Delhi|Delhi';
+            dsel.addEventListener('change', window.renderLifetime);
+        }
+        if (!ysel.options.length) {
+            d.years.forEach(function (yr) {
+                var o = document.createElement('option');
+                o.value = String(yr); o.textContent = String(yr);
+                ysel.appendChild(o);
+            });
+            ysel.value = '1995';
+            ysel.addEventListener('change', window.renderLifetime);
+        }
+        var basis = document.getElementById('life-basis');
+        if (basis) basis.textContent = d.years[0] + '–' + d.years[d.years.length - 1] + ' · LongPMInd, ~10 km · annual mean';
+        window.renderLifetime();
+    };
+
+    window.renderLifetime = function renderLifetime() {
+        var d = __histData;
+        if (!d) return;
+        var dsel = document.getElementById('life-district');
+        var ysel = document.getElementById('life-year');
+        var out = document.getElementById('life-readout');
+        if (!dsel || !ysel || !out) return;
+        var rec = d.districts[dsel.value];
+        if (!rec) {
+            out.innerHTML = '<p style="color:var(--text-3);">No reconstructed series for this district: it is smaller than one ~10 km grid cell and its centroid falls over water.</p>';
+            var ch0 = document.getElementById('life-chart'); if (ch0) ch0.innerHTML = '';
+            var st0 = document.getElementById('life-story'); if (st0) st0.innerHTML = '';
+            return;
+        }
+        var born = Number(ysel.value);
+        var years = d.years, vals = rec.a;
+        var i0 = years.indexOf(born);
+        if (i0 < 0) i0 = 0;
+
+        var span = [];
+        for (var i = i0; i < years.length; i++) if (vals[i] !== null) span.push({ yr: years[i], v: vals[i] });
+        if (!span.length) { out.innerHTML = '<p style="color:var(--text-3);">No data for this district.</p>'; return; }
+
+        var vBorn = vals[i0], vNow = span[span.length - 1].v, yNow = span[span.length - 1].yr;
+        var mean = span.reduce(function (s, p) { return s + p.v; }, 0) / span.length;
+        var aboveNaaqs = span.filter(function (p) { return p.v > LIFE_NAAQS; }).length;
+        var withinWho = span.filter(function (p) { return p.v <= LIFE_WHO; }).length;
+        var worst = span.reduce(function (a, b) { return b.v > a.v ? b : a; });
+        var best = span.reduce(function (a, b) { return b.v < a.v ? b : a; });
+        var aqli = Math.max(0, (mean - LIFE_WHO) / 10 * LIFE_AQLI_YEARS_PER_10);
+        var band = function (v) { return v >= 60 ? 'var(--std-over)' : v >= 40 ? 'var(--std-warn)' : v >= 20 ? 'var(--std-ok)' : 'var(--std-who)'; };
+        var dtName = dsel.value.split('|')[0], stName = dsel.value.split('|')[1];
+
+        var cell = function (label, val, colour, sub) {
+            return '<div class="life-cell">' +
+                '<div class="life-cell-label">' + label + '</div>' +
+                '<div class="life-cell-val" style="color:' + (colour || 'var(--ink)') + ';">' + val + '</div>' +
+                (sub ? '<div class="life-cell-sub">' + sub + '</div>' : '') + '</div>';
+        };
+        out.innerHTML = '<div class="life-cells">' +
+            cell('In ' + born, vBorn === null ? '—' : vBorn.toFixed(1) + ' <span class="life-unit">µg/m³</span>', vBorn === null ? null : band(vBorn)) +
+            cell('In ' + yNow, vNow.toFixed(1) + ' <span class="life-unit">µg/m³</span>', band(vNow),
+                (vBorn ? (vNow >= vBorn ? '+' : '&minus;') + Math.abs((vNow - vBorn) / vBorn * 100).toFixed(0) + '% since ' + born : '')) +
+            cell('Your years above 40', aboveNaaqs + ' <span class="life-unit">of ' + span.length + '</span>',
+                aboveNaaqs > 0 ? 'var(--std-over)' : 'var(--std-who)', 'India&rsquo;s annual limit') +
+            cell('Your years within 5', withinWho + ' <span class="life-unit">of ' + span.length + '</span>',
+                withinWho > 0 ? 'var(--std-who)' : 'var(--std-over)', 'WHO guideline') +
+            '</div>';
+
+        lifeChart(rec, years, born, yNow);
+
+        var story = document.getElementById('life-story');
+        if (story) {
+            var dir = vNow > vBorn ? 'risen' : vNow < vBorn ? 'fallen' : 'not moved';
+            var noneLine = withinWho === 0
+                ? ' Not one of those years was within the WHO guideline of 5 µg/m³.'
+                : ' ' + withinWho + ' of them were within the WHO guideline of 5 µg/m³.';
+            story.innerHTML =
+                '<p style="font-size:1.0625rem; line-height:1.7; color:var(--text-2); max-width:48rem;">' +
+                'Someone born in <strong>' + rdEsc(dtName) + '</strong>, ' + rdEsc(stName) + ', in <strong>' + born +
+                '</strong> has lived ' + span.length + ' years under a district average of <strong>' + mean.toFixed(1) +
+                ' µg/m³</strong>. Over that time the annual mean has <strong>' + dir + '</strong> from ' +
+                (vBorn === null ? '—' : vBorn.toFixed(1)) + ' to ' + vNow.toFixed(1) + '. The worst year was <strong>' +
+                worst.yr + '</strong> at ' + worst.v.toFixed(1) + ', the cleanest <strong>' + best.yr + '</strong> at ' +
+                best.v.toFixed(1) + '.' + noneLine + '</p>' +
+                '<p style="font-size:1.0625rem; line-height:1.7; color:var(--text-2); max-width:48rem; margin-top:0.75rem;">' +
+                'Applying the Air Quality Life Index relationship to that lifetime average, about one year of life expectancy for every 10 µg/m³ sustained above 5, gives <strong>' +
+                aqli.toFixed(1) + ' years</strong>. That is a population relationship from cohort studies, applied to a district average and stated for scale. It is not a prediction about any person, and it assumes the exposure continues.</p>' +
+                '<p class="apportion-caveat" style="max-width:48rem;">' + rdEsc(d._meta.reconstruction_note) + '</p>';
+        }
+    };
+
+    // The lifetime line: the whole series in grey so the period before you is
+    // visible, your own years drawn over it, and a marker on the birth year.
+    function lifeChart(rec, years, born, yNow) {
+        var wrap = document.getElementById('life-chart');
+        if (!wrap) return;
+        var vals = rec.a, pts = [];
+        for (var i = 0; i < years.length; i++) if (vals[i] !== null) pts.push([years[i], vals[i]]);
+        if (!pts.length) { wrap.innerHTML = ''; return; }
+
+        var W = 720, H = 260, L = 44, R = 104, T = 18, B = 30;
+        var iw = W - L - R, ih = H - T - B;
+        var ymax = Math.max(45, Math.ceil(Math.max.apply(null, pts.map(function (p) { return p[1]; })) / 20) * 20);
+        var x = function (yr) { return L + (yr - years[0]) / (years[years.length - 1] - years[0]) * iw; };
+        var y = function (v) { return T + ih - (v / ymax) * ih; };
+        var o = [];
+
+        for (var g = 0; g <= ymax; g += ymax > 120 ? 40 : 20) {
+            o.push('<line x1="' + L + '" y1="' + y(g) + '" x2="' + (W - R) + '" y2="' + y(g) + '" stroke="var(--border)" stroke-width="1"/>');
+            o.push('<text x="' + (L - 8) + '" y="' + (y(g) + 4) + '" text-anchor="end" font-size="11" fill="var(--text-3)">' + g + '</text>');
+        }
+        [[LIFE_NAAQS, "India's limit", 'var(--std-over)'], [LIFE_WHO, 'WHO guideline', 'var(--std-who)']].forEach(function (s) {
+            if (s[0] > ymax) return;
+            o.push('<line x1="' + L + '" y1="' + y(s[0]) + '" x2="' + (W - R) + '" y2="' + y(s[0]) + '" stroke="' + s[2] +
+                '" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.75"/>');
+            o.push('<text x="' + (W - R + 6) + '" y="' + (y(s[0]) + 4) + '" font-size="10.5" fill="' + s[2] + '">' + s[1] + '</text>');
+        });
+        years.forEach(function (yr) {
+            if (yr % 10 !== 0) return;
+            o.push('<text x="' + x(yr) + '" y="' + (H - 10) + '" text-anchor="middle" font-size="11" fill="var(--text-3)">' + yr + '</text>');
+        });
+
+        var path = function (subset) {
+            return subset.map(function (p, i) { return (i ? 'L' : 'M') + x(p[0]).toFixed(2) + ' ' + y(p[1]).toFixed(2); }).join(' ');
+        };
+        var beforeYou = pts.filter(function (p) { return p[0] <= born; });
+        var yourYears = pts.filter(function (p) { return p[0] >= born; });
+
+        // Your lifetime, shaded, so the span reads as a block of time.
+        if (yourYears.length > 1) {
+            o.push('<rect x="' + x(born).toFixed(2) + '" y="' + T + '" width="' + (x(yNow) - x(born)).toFixed(2) +
+                '" height="' + ih + '" fill="var(--green-700)" opacity="0.06"/>');
+        }
+        if (beforeYou.length > 1) {
+            o.push('<path d="' + path(beforeYou) + '" fill="none" stroke="var(--text-3)" stroke-width="1.5" opacity="0.45"/>');
+        }
+        o.push('<path d="' + path(yourYears) + '" fill="none" stroke="var(--green-700)" stroke-width="2.5"/>');
+
+        var vBorn = vals[years.indexOf(born)];
+        if (vBorn !== null && vBorn !== undefined) {
+            o.push('<circle cx="' + x(born).toFixed(2) + '" cy="' + y(vBorn).toFixed(2) + '" r="5" fill="var(--green-700)" stroke="var(--bg)" stroke-width="2"/>');
+            var anchor = x(born) > W - R - 90 ? 'end' : 'start';
+            o.push('<text x="' + (x(born) + (anchor === 'end' ? -9 : 9)).toFixed(2) + '" y="' + (y(vBorn) - 9).toFixed(2) +
+                '" font-size="11.5" fill="var(--ink)" text-anchor="' + anchor + '">born ' + born + '</text>');
+        }
+
+        wrap.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Annual mean PM2.5 from ' +
+            years[0] + ' to ' + years[years.length - 1] + ', with the years from ' + born + ' onward highlighted">' +
+            o.join('') + '</svg>';
+    }
 
     function updateMapMarkers() {
             if (!map || !mapMarkerLayer) return;
@@ -8342,6 +8853,10 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'purifier-calc', title: 'Purifier Calculator', desc: 'Find the right air purifier for your room', keywords: 'purifier calculator cadr room filter air cleaner' },
         { id: 'hyperlocal', title: 'My Neighbourhood', desc: 'Station-level air quality within your city', keywords: 'hyperlocal station neighborhood local area monitoring' },
         { id: 'pollution-calendar', title: 'Pollution Calendar', desc: 'Seasonal pollution sources and patterns', keywords: 'calendar seasonal stubble burning diwali monsoon winter inversion' },
+        { id: 'apportionment', title: 'Where PM2.5 Comes From', desc: 'Source apportionment ring for 12 cities — transport, industry, biomass, dust', keywords: 'apportionment source ring share transport industry biomass dust construction where comes from pm25 pie' },
+        { id: 'airshed', title: 'Your Airshed or Your Town', desc: 'District vs state medians, and 43 years of PM2.5 for 783 districts', keywords: 'airshed district state median region history 1980 2022 longpmind trend deweather weather normalised' },
+        { id: 'reduction', title: 'What Would It Take', desc: 'Cut each source and see whether a city reaches India\u2019s 40 limit or the WHO guideline of 5', keywords: 'reduction calculator what would it take cut sources naaqs 40 who 5 target scenario slider transport industry how much' },
+        { id: 'lifetime', title: 'The Air You Were Born Into', desc: 'Your district\u2019s PM2.5 from your birth year to now, and the years it broke the limit', keywords: 'lifetime birth year born air history district life expectancy aqli years lost 1980 2022 personal exposure' },
         { id: 'migration-calc', title: 'Migration Comparison', desc: 'Side-by-side city comparison for relocation — live AQI, health impact, source apportionment', keywords: 'migration comparison calculator relocate move city health benefit compare side by side apportionment source pollution' },
         { id: 'scorecards', title: 'City Scorecards', desc: 'City accountability report cards', keywords: 'scorecard accountability grade report card ncap target' },
         { id: 'data-archive', title: 'Data Archive', desc: 'Download historical air quality datasets', keywords: 'data archive download historical dataset csv json research' },

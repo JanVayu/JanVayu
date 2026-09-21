@@ -1,0 +1,29 @@
+<div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
+    <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-clock" style="color: var(--green-700); margin-right: 0.4rem;"></span>The air you were born into</h2>
+    <p class="jv-lede" data-simple="Pick the district you grew up in and the year you were born. This shows what the air was like that year, what it is like now, and how many of the years in between were over India's legal limit.">Choose a district and a birth year and the reconstruction gives you one person's record rather than a national average: what the air was the year you were born, what it is now, how many of the years since were above India's own limit, and how many were ever within the WHO guideline. For most people born in the Indo-Gangetic plain the last answer is none.</p>
+</div>
+
+<div class="apportion-controls">
+    <label for="life-district" class="apportion-label">District</label>
+    <select id="life-district" class="apportion-select" aria-label="Choose a district"></select>
+    <label for="life-year" class="apportion-label" style="margin-left:0.5rem;">Born</label>
+    <select id="life-year" class="apportion-select" aria-label="Choose a birth year"></select>
+    <span id="life-basis" class="apportion-basis"></span>
+</div>
+
+<div id="life-readout" aria-live="polite" style="margin-top:1.25rem;"></div>
+
+<div id="life-chart" style="margin-top:1.5rem; position:relative;"></div>
+
+<div id="life-story" style="margin-top:1.25rem;"></div>
+
+<details class="apportion-method" style="margin-top:1.75rem;">
+    <summary>Where these numbers come from, and what they are not</summary>
+    <div class="apportion-method-body">
+        <p><strong>The series is a reconstruction, not a set of readings.</strong> India had almost no continuous PM2.5 monitoring before the 2010s. LongPMInd (Wei et al., 2024, <em>Earth System Science Data</em> 16, 3565&ndash;3577) estimates daily ground-level PM2.5 for 1980&ndash;2022 at about 10&nbsp;km from satellite aerosol retrievals, reanalysis meteorology and the monitoring that does exist. Cross-validated against held-out monitors it reaches R&sup2; of 0.77; held out by site, 0.70; held out by year, 0.66. So the early decades are a validated estimate of what the air was, and the shape of the trend is firmer than any single year's level.</p>
+        <p><strong>It is your district's air, not your air.</strong> A 10&nbsp;km grid cell averages a traffic junction together with the fields beside it, and nobody spends a life inside one cell. Indoor air, cooking fuel, a commute, a move between districts and time spent indoors all change a real exposure, usually by more than the difference between two neighbouring districts.</p>
+        <p><strong>The life-expectancy figure is a published relationship applied to this series, not a prediction about you.</strong> It uses the Air Quality Life Index (Energy Policy Institute at the University of Chicago), which puts one year of life expectancy lost for roughly every 10&nbsp;&micro;g/m&sup3; of sustained annual PM2.5 above the WHO guideline of 5. That relationship comes from cohort studies of populations, it assumes the exposure is sustained, and it says nothing about any individual. We show it because it is the standard translation from concentration into harm, and we name it rather than presenting it as ours.</p>
+        <p><strong>Do not compare this against the map.</strong> The dashboard map uses SatPM2.5 at about 1&nbsp;km for 2024; this is a different model at about 10&nbsp;km ending in 2022. Read this for the trajectory and the map for the level.</p>
+        <p><strong>Districts that return nothing</strong> are smaller than one grid cell with a centroid over water, mostly island and coastal territories. That is a limit of the grid, not a statement about their air.</p>
+    </div>
+</details>
