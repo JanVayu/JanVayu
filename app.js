@@ -4460,7 +4460,11 @@
                     var cc = rdCity(sel3 ? sel3.value : 'delhi');
                     if (!cc) return;
                     var out = el.parentNode.querySelector('.rd-slider-out');
-                    if (out) out.innerHTML = '&minus;' + el.value + '%';
+                    // textContent, not innerHTML: el.value is read back out of the
+                    // DOM, and writing DOM text back as markup is the sink CodeQL
+                    // flags. U+2212 is what &minus; resolves to, so this renders
+                    // identically to the initial pass above.
+                    if (out) out.textContent = '\u2212' + Number(el.value) + '%';
                     rdDrawBar(cc);
                     rdVerdict(cc);
                 });
