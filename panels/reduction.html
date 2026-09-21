@@ -1,0 +1,33 @@
+<div class="section-intro" style="margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);">
+    <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-meter" style="color: var(--green-700); margin-right: 0.4rem;"></span>What would it actually take?</h2>
+    <p class="jv-lede" data-simple="India has a legal limit for how dirty the air is allowed to be over a year. Most big cities are far above it. This lets you try cutting each source of pollution and see whether the city would reach the limit.">India's own annual limit for PM2.5 is 40 &micro;g/m&sup3;. The WHO guideline is 5. Take a city's measured annual average, split it into the sources a study attributes it to, then cut whichever sources you like and see where the city lands. Most of the time the answer is that no single source is big enough, which is the point of doing the arithmetic rather than asserting it.</p>
+</div>
+
+<div class="apportion-controls">
+    <label for="reduction-city" class="apportion-label">City</label>
+    <select id="reduction-city" class="apportion-select" aria-label="Choose a city"></select>
+    <span id="reduction-basis" class="apportion-basis"></span>
+</div>
+
+<div id="reduction-headline" aria-live="polite" style="margin-top:1.25rem;"></div>
+
+<div id="reduction-chart" style="margin-top:1.25rem;"></div>
+
+<div class="rd-presets" id="reduction-presets" role="group" aria-label="Preset scenarios"></div>
+
+<div class="rd-sliders" id="reduction-sliders"></div>
+
+<div id="reduction-verdict" aria-live="polite" class="rd-verdict"></div>
+
+<div id="reduction-source" class="apportion-source"></div>
+
+<details class="apportion-method" style="margin-top:1.5rem;">
+    <summary>What this arithmetic can and cannot tell you</summary>
+    <div class="apportion-method-body">
+        <p><strong>It is arithmetic, not atmospheric chemistry.</strong> Cutting a source by half here removes half of its attributed share of the mass. Real air does not oblige. A large part of urban PM2.5 is <em>secondary</em>: it forms in the atmosphere out of gases that several sources emit, so removing one emitter does not remove its full attributed share, and sometimes removes more. Read a result as the order of the effort required, not as a forecast.</p>
+        <p><strong>Some of the mass is not the city's to cut.</strong> The share in "Other" includes secondary aerosol and PM2.5 that arrived from outside the city boundary. A city government can work on its own sources and still be left with a floor it cannot reach, which is the case for airshed-level management rather than city-by-city targets. The airshed panel makes that argument from the district data.</p>
+        <p><strong>The two numbers come from different places, on purpose.</strong> The annual average is a modelled district figure from LongPMInd (Wei et al., 2024), which covers every district on one consistent method. The source shares come from a city-specific study, named under the chart, each with its own method, season and year. They are not from a single integrated model and should not be treated as one.</p>
+        <p><strong>Shares are of ambient concentration, not of emissions.</strong> A tonne emitted at a tailpipe in the middle of a city and a tonne emitted from a stack fifty kilometres away do not contribute equally to what a person on the street breathes. Where a study reported emissions rather than ambient contribution, that is named in its basis line.</p>
+        <p><strong>Why reaching 5 is not a policy proposal.</strong> The WHO guideline is a health-based number, not a compliance target, and no large Indian city is close to it. It is shown because the distance to it is the honest measure of the health burden, and because stopping the scale at India's own limit would imply that 40 is safe. It is not; it is legal.</p>
+    </div>
+</details>

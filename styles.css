@@ -79,6 +79,16 @@
     --aqi-very-poor: #b91c1c;
     --aqi-severe: #6d28d9;
     --aqi-hazardous: #831843;
+
+    /* Standards and bands, drawn by JS and by inline SVG. These exist because
+       a colour written as a literal in a script cannot know which theme it
+       landed in: #b91c1c reads 6.47:1 on white and 2.99:1 on the dark page,
+       and check-theme-contrast.py reads css/*.css so it never saw it. Every
+       value below clears 4.5:1 against its own theme's page, section and card. */
+    --std-over: #b91c1c;   /* above India's annual limit */
+    --std-warn: #b45309;
+    --std-ok:   #4d7c0f;
+    --std-who:  #0f766e;   /* at or near the WHO guideline */
     /* pm25Band() in app.js paints the forecast strip. Its cut points differ from
        the seven --pm-b* bands, so it has its own six. Same lesson: literals in
        JS cannot know the theme, and five of its seven originals failed in light
@@ -189,6 +199,10 @@
     --aqi-very-poor: #fca5a5;
     --aqi-severe: #c4b5fd;
     --aqi-hazardous: #f9a8d4;
+    --std-over: #f87171;
+    --std-warn: #fbbf24;
+    --std-ok:   #a3e635;
+    --std-who:  #2dd4bf;
     --fc-good: #4ade80;
     --fc-satisfactory: #bef264;
     --fc-moderate: #fcd34d;
@@ -1105,6 +1119,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-matches { position: absolute; top: 100%; left: 0; right: 0; z-index: 30; background: var(--bg-card); border: 2px solid var(--border); border-top: 0; }
 .hero-match { display: block; width: 100%; text-align: left; font-family: var(--sans); font-size: 0.95rem; color: var(--text); background: none; border: 0; border-bottom: 1px solid var(--border-light); padding: 12px 16px; cursor: pointer; min-height: 44px; }
 .hero-match:hover, .hero-match:focus { background: var(--bg-section); }
+.hero-spread { margin-top: 12px; font-size: 0.84rem; line-height: 1.5; color: var(--text-2); }
+.hero-spread[hidden] { display: none; }
+.hero-spread-note { color: var(--text-3); }
 .hero-who { display: flex; flex-direction: column; gap: 1px; margin-top: 24px; background: var(--border-light); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
 .hero-who-row { background: var(--bg-card); padding: 11px 14px; display: grid; grid-template-columns: 1fr auto; column-gap: 14px; align-items: baseline; }
 .hero-who-who { font-family: var(--sans); font-size: 0.92rem; font-weight: 600; color: var(--ink); }
@@ -3540,3 +3557,50 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .pop, .glossary-overlay, .role-overlay, .gal-lb, .nav-dropdown, .fab-btn {
     box-shadow: 0 10px 30px rgba(0,0,0,.18) !important;
 }
+
+/* ── "What would it take?" reduction calculator ──────────────────────────────
+   The bar and the verdict number carry the argument, so the controls stay
+   quiet: no card, no shadow, one accent per source taken from the shared
+   apportionment palette so a source is the same colour in both panels. */
+.rd-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.rd-preset {
+    font: inherit; font-size: 0.85rem; line-height: 1.2;
+    padding: 0.5rem 0.85rem; border: 1px solid var(--border); border-radius: 999px;
+    background: var(--bg); color: var(--text-2); cursor: pointer;
+    transition: border-color .15s, color .15s, background .15s;
+}
+.rd-preset:hover { border-color: var(--green-700); color: var(--ink); }
+.rd-preset:focus-visible { outline: 2px solid var(--green-700); outline-offset: 2px; }
+
+.rd-sliders { margin-top: 1.25rem; display: grid; gap: 0.6rem; }
+.rd-slider {
+    display: grid; grid-template-columns: minmax(9rem, 16rem) 1fr 3.5rem;
+    align-items: center; gap: 0.75rem;
+}
+.rd-slider-label { font-size: 0.9rem; color: var(--text-2); display: flex; align-items: center; gap: 0.45rem; min-width: 0; }
+.rd-swatch { width: 0.7rem; height: 0.7rem; border-radius: 2px; flex: 0 0 auto; }
+.rd-slider-mass { font-size: 0.78rem; color: var(--text-3); margin-left: auto; padding-left: 0.5rem; white-space: nowrap; }
+.rd-range { width: 100%; accent-color: var(--green-700); min-width: 0; }
+.rd-range:focus-visible { outline: 2px solid var(--green-700); outline-offset: 3px; }
+.rd-slider-out { font-size: 0.85rem; color: var(--text-2); text-align: right; font-variant-numeric: tabular-nums; }
+
+.rd-verdict { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.rd-verdict-num { font-family: var(--serif); font-size: clamp(2rem, 6vw, 3rem); line-height: 1.05; }
+.rd-verdict-unit { font-size: 0.4em; color: var(--text-3); font-family: inherit; }
+.rd-verdict-line { font-size: 1.0625rem; line-height: 1.7; color: var(--text-2); max-width: 48rem; margin-top: 0.4rem; }
+.rd-verdict-note { font-size: 0.8125rem; line-height: 1.55; color: var(--text-3); max-width: 48rem; margin-top: 0.5rem; }
+
+@media (max-width: 34rem) {
+    .rd-slider { grid-template-columns: 1fr 3.5rem; grid-template-areas: "label label" "range out"; }
+    .rd-slider-label { grid-area: label; }
+    .rd-range { grid-area: range; }
+    .rd-slider-out { grid-area: out; }
+}
+
+/* ── "The air you were born into" ────────────────────────────────────────── */
+.life-cells { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.life-cell { flex: 1 1 9rem; min-width: 9rem; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 8px; }
+.life-cell-label { font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.25rem; }
+.life-cell-val { font-family: var(--serif); font-size: 1.5rem; line-height: 1.15; }
+.life-cell-sub { font-size: 0.78rem; color: var(--text-3); margin-top: 0.2rem; }
+.life-unit { font-size: 0.6em; color: var(--text-3); }

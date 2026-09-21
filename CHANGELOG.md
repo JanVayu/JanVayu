@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.225] - 2026-09-21
+
+### Added, three things the data could already answer and the site did not ask
+
+**The homepage now names the station, not just the city.** The hero read "Delhi is at 182 µg/m³" when what it had was one station's reading. It now says which station, and adds the spread across every station WAQI has in that city: on a typical morning Delhi runs from about 137 at the National Stadium to 270 at Anand Vihar, which is the difference between two different pieces of advice for two people in the same city. The spread line is labelled as AQI on the US EPA scale, because that is what `/map/bounds/` returns and it is not the µg/m³ figure above it. The station name appears only when the reading is live; a fallback figure names no station, since "Delhi (Fallback) is reading" would be a lie about provenance.
+
+**"What would it actually take?" (`#reduction`)** takes a city's annual mean, splits it into the sources a study attributes it to, and lets you cut them. Delhi averages **89.0 µg/m³** against India's own annual limit of 40, so reaching the limit means removing **49.0 µg/m³, or 55.1% of the mass**. ARAI and TERI put transport at 28% of Delhi's PM2.5. Taking every vehicle off the road removes 24.9 µg/m³ and leaves the city **24.1 above the limit**. Removing every local source in the study (transport, industry, biomass, dust, all of it, entirely) lands at 9.8, still twice the WHO guideline, because the remainder is secondary aerosol and PM2.5 that arrived from outside the city. Twelve cities. The panel says plainly that this is arithmetic rather than atmospheric chemistry, and why that matters.
+
+**"The air you were born into" (`#lifetime`)** reads the 43-year reconstruction as one person's record instead of a district trend. Pick a district and a birth year: someone born in New Delhi in 1995 has lived 28 years under a district average of 82.7 µg/m³, has had **28 of those 28 years above India's annual limit**, and **none** within the WHO guideline. 783 districts, 1980 to 2022.
+
+Both panels are in the Index, the desktop nav and the mobile nav, and both are now findable in site search, as are `#apportionment` and `#airshed`, which were reachable from the nav but had never been added to the search registry.
+
+### Added, `data/reduction.json` and its guard
+
+Built by `scripts/build-reduction-data.py` from two sources that are not one model: the LongPMInd annual district mean (Wei et al., 2024, *ESSD* 16, 3565–3577) and a city-specific apportionment study for the shares. The builder refuses to write if a city's shares do not sum to 100 or a district key does not resolve, and `--check` now runs in CI's `guard-site-figures`, so a later edit to `data/apportionment.json` cannot leave the calculator's parts no longer summing to the whole it claims.
+
+**One figure moved.** The site quotes Delhi's annual PM2.5 as 82.2 µg/m³ from the IQAir World Air Quality Report 2025. The calculator uses 89.0, LongPMInd's 2022 district figure for New Delhi, because the shares have to be applied to a figure from a source that covers every district on one method. The two are different products over different years and neither is wrong; the panel names LongPMInd under the chart rather than leaving a reader to reconcile them.
+
+### Fixed, band colours that only worked in one theme
+
+Building the two panels turned up the habit `rules/testing.md` warns about, live on the site: a colour written as a literal inside a script cannot know which theme it landed in. `#b91c1c`, the red marking India's annual limit, reads 6.47:1 on white and **2.99:1** on the dark page. `#0f766e`, the WHO teal, reads 3.53:1 there. Both fail AA, on the reference lines of the airshed history chart and on its district figures.
+
+`check-theme-contrast.py` was green throughout, and correctly so: it reads `css/*.css`, and these values are in `app.js`. Four tokens (`--std-over`, `--std-warn`, `--std-ok`, `--std-who`) now carry the band colours and flip with the theme; every value clears 4.5:1 against its own theme's page, section and card. The two new panels and the airshed chart all read from them. Measured after the change: 0 failures across both panels in both themes, against 8 before.
+
+The gap in the guard is real and stays open for now: a colour literal in JS is still invisible to it.
+
 ## [v26.6.224] - 2026-09-21
 
 ### Fixed, the Index showed fourteen empty slots
