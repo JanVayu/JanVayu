@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606223">
+    <link rel="preload" as="style" href="/styles.css?v=202606224">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1006,9 +1006,16 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .site-index .filter input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: inherit;
     font-family: var(--sans); font-size: 1.05rem; padding: 10px 2px; }
 .site-index .filter input::placeholder { color: currentColor; opacity: 0.6; }
-.site-index .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: var(--border-light); }
+/* No background on the grid itself. It used to paint --border-light so the
+   1px gaps read as hairlines, but a group heading spans the full row, so any
+   group whose count is not a multiple of the column count left 1-3 EMPTY
+   cells showing that grey as solid blocks: fourteen of them at 1440px, and
+   none on a phone, which is why a one-column view never showed it. The rule
+   now lives on the cells, as an outline so it takes no layout space and is
+   not caught by the hard-edge layer's box-shadow reset. */
+.site-index .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: none; }
 .site-index .grid a { display: block; padding: 12px 14px; background: var(--bg-card); color: var(--text); text-decoration: none;
-    font-size: 0.95rem; min-height: 44px; }
+    font-size: 0.95rem; min-height: 44px; outline: 1px solid var(--border-light); }
 .site-index .grid a:hover { background: var(--bg-section); color: var(--accent); }
 .site-index .grid a.hide { display: none; }
 .site-index .grp { grid-column: 1 / -1; background: var(--bg); padding: 18px 0 6px;
@@ -1026,8 +1033,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606223" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606223"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606224" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606224"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1235,7 +1242,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <a href="#compare" data-panel="compare" onclick="showPanel('compare'); closeSiteIndex(); return false;">City Comparison</a>
                     <a href="#rankings" data-panel="rankings" onclick="showPanel('rankings'); closeSiteIndex(); return false;">City Rankings</a>
                     <a href="#fire-tracker" data-panel="fire-tracker" onclick="showPanel('fire-tracker'); closeSiteIndex(); return false;">Farm Fire Tracker</a>
-                    <a href="#map" data-panel="map" onclick="showPanel('map'); closeSiteIndex(); return false;">Live Map &amp;amp; Area Atlas</a>
+                    <a href="#map" data-panel="map" onclick="showPanel('map'); closeSiteIndex(); return false;">Live Map &amp; Area Atlas</a>
                     <a href="#hyperlocal" data-panel="hyperlocal" onclick="showPanel('hyperlocal'); closeSiteIndex(); return false;">My Neighbourhood</a>
                     <a href="#pollution-calendar" data-panel="pollution-calendar" onclick="showPanel('pollution-calendar'); closeSiteIndex(); return false;">Pollution Calendar</a>
                     <div class="grp">Health & Trends</div>
@@ -1263,7 +1270,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <a href="#testimony" data-panel="testimony" onclick="showPanel('testimony'); closeSiteIndex(); return false;">Field Testimony</a>
                     <a href="#games" data-panel="games" onclick="showPanel('games'); closeSiteIndex(); return false;">Learning Games</a>
                     <a href="#legal" data-panel="legal" onclick="showPanel('legal'); closeSiteIndex(); return false;">Legal Framework</a>
-                    <a href="#migration" data-panel="migration" onclick="showPanel('migration'); closeSiteIndex(); return false;">Migration &amp;amp; Displacement</a>
+                    <a href="#migration" data-panel="migration" onclick="showPanel('migration'); closeSiteIndex(); return false;">Migration &amp; Displacement</a>
                     <a href="#rti-assistant" data-panel="rti-assistant" onclick="showPanel('rti-assistant'); closeSiteIndex(); return false;">RTI Assistant</a>
                     <a href="#actions" data-panel="actions" onclick="showPanel('actions'); closeSiteIndex(); return false;">Take Action</a>
                     <a href="#voices" data-panel="voices" onclick="showPanel('voices'); closeSiteIndex(); return false;">Voices Online</a>
@@ -1987,7 +1994,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606223"></script>
+    <script src="/app.js?v=202606224"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
