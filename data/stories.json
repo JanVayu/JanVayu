@@ -1,6 +1,13 @@
 {
  "stories": [
   {
+   "tag": "Analysis",
+   "title": "What a Four-Day Jump in Delhi's AQI Actually Tells You",
+   "date": "22 Sep 2026",
+   "blurb": "Delhi's AQI went from 88 on Friday to 169 on Monday, and the explanation offered was that the monsoon is withdrawing, the winds have dropped, and dust and exhaust are staying up longer.",
+   "url": "/blog/#/posts/2026-09-22-a-four-day-jump"
+  },
+  {
    "tag": "Platform",
    "title": "The Site Looks Different Today. Here Is What Changed, and What Did Not",
    "date": "18 Sep 2026",

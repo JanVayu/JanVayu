@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 22 Sep 2026 | [What a Four-Day Jump in Delhi's AQI Actually Tells You](posts/2026-09-22-a-four-day-jump.md) | Analysis |
 | 18 Sep 2026 | [The Site Looks Different Today. Here Is What Changed, and What Did Not](posts/2026-09-18-a-design-refresh.md) | Platform |
 | 17 Sep 2026 | [What JanVayu Does That the Other Indian Air-Quality Sites Do Not](posts/2026-09-17-what-we-do-that-others-do-not.md) | Explainer |
 | 17 Sep 2026 | [The Workshop Is a File Now](posts/2026-09-17-the-workshop-is-a-file.md) | Platform |

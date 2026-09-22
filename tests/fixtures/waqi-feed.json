@@ -1,0 +1,13 @@
+{
+  "status": "ok",
+  "data": {
+    "idx": 100001,
+    "aqi": 168,
+    "city": { "name": "Fixture Station, Test City", "geo": [28.6139, 77.209] },
+    "iaqi": { "pm25": { "v": 168 }, "pm10": { "v": 121 }, "no2": { "v": 34 },
+              "so2": { "v": 12 }, "co": { "v": 9 }, "o3": { "v": 28 },
+              "t": { "v": 29 }, "h": { "v": 61 }, "w": { "v": 2 } },
+    "time": { "iso": "2026-09-22T09:00:00+05:30", "s": "2026-09-22 09:00:00" },
+    "attributions": [ { "name": "Fixture", "url": "https://example.invalid/" } ]
+  }
+}
