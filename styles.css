@@ -268,7 +268,11 @@
 
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { overflow-x: hidden; }
+/* clip, not hidden. overflow-x:hidden makes the element a scroll container,
+   and a scroll-container ancestor makes position:sticky inert: the bar
+   measured -2711px at scrollY 2711, i.e. not sticking at all. overflow-x:clip
+   suppresses the same horizontal overflow without creating that container. */
+html { overflow-x: clip; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
     font-family: var(--sans);
@@ -277,7 +281,7 @@ body {
     color: var(--text);
     background: var(--bg);
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 a { color: var(--accent); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--accent-hover); }
@@ -3490,7 +3494,15 @@ body.panel-open #panel-container { padding-top: 72px !important; }
    putting the wordmark hard against the screen edge while the headline
    below stayed inset. The same shorthand-after-longhand trap that cost the
    live reading card its gutter in v26.6.214. */
-.bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: relative; }
+/* Sticky, not relative. showPanel() scrolls DOWN to #panel-container, which
+   sits below the hero, so opening anything from the Index left the bar above
+   the viewport: every one of the 61 destinations then had no wordmark, no
+   role, language, Simple, theme or Index control, and the only way back was
+   the floating home button. The new chrome existed and you simply could not
+   see it once you had gone anywhere. */
+.bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 60; background: var(--bg); border-bottom: 1px solid transparent; }
+.bar.is-stuck { border-bottom-color: var(--border); }
 .bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
@@ -3516,6 +3528,25 @@ body.panel-open #panel-container { padding-top: 72px !important; }
     cursor: pointer; font-family: var(--sans); font-size: 0.9rem; }
 .popgrid button:hover { border-color: var(--accent); color: var(--accent); }
 .popgrid button[aria-pressed="true"] { background: var(--ink); color: var(--bg-card); border-color: var(--ink); }
+
+/* The role popover is a list, not a row of chips. It used to be chips with a
+   "What these roles mean" button under them, and that button opened the OLD
+   full-screen role chooser: its own logo, its own masthead, the pre-redesign
+   page. Choosing a role in the new bar therefore dropped you into the old
+   design to find out what you were choosing between. Each role already
+   carries a one-line description in ROLE_CONFIG, so the answer belongs here
+   next to the choice rather than a screen away. */
+.pop { max-height: min(70vh, 540px); overflow-y: auto; }
+.popgrid.popgrid-roles { display: block; }
+.popgrid.popgrid-roles button {
+    display: block; width: 100%; text-align: left; min-height: 0;
+    padding: 9px 12px; margin-bottom: 6px; line-height: 1.35;
+}
+.popgrid.popgrid-roles button:last-child { margin-bottom: 0; }
+.popgrid-roles .rolename { display: block; font-weight: 600; font-size: 0.9rem; }
+.popgrid-roles .roledesc { display: block; font-size: 0.78rem; color: var(--text-3); margin-top: 2px; }
+.popgrid-roles button:hover .roledesc { color: inherit; }
+.popgrid-roles button[aria-pressed="true"] .roledesc { color: inherit; }
 
 /* ── The index ──────────────────────────────────────────────────────────────
    The nav's replacement: everything on the site, on one screen, filterable.

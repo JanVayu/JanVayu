@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606227">
+    <link rel="preload" as="style" href="/styles.css?v=202606228">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -485,7 +485,7 @@
 
 /* ── Reset / base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { overflow-x: hidden; scroll-behavior: smooth; scroll-padding-top: 100px; }
+html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
     font-family: var(--sans);
     font-size: 16.5px;
@@ -493,7 +493,7 @@ body {
     color: var(--text);
     background: var(--bg);
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
     overflow-wrap: break-word;
     word-break: break-word;
 }
@@ -970,7 +970,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
    putting the wordmark hard against the screen edge while the headline
    below stayed inset. The same shorthand-after-longhand trap that cost the
    live reading card its gutter in v26.6.214. */
-.bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: relative; }
+.bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 60; background: var(--bg); border-bottom: 1px solid transparent; }
 .bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
@@ -1036,8 +1036,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606227" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606227"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606228" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606228"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -2004,7 +2004,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606227"></script>
+    <script src="/app.js?v=202606228"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

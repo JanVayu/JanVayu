@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.228] - 2026-09-22
+
+### Fixed, the navigation disappeared the moment you used it
+
+Reported as "all pages and sub sections that open from the index need to be clear and in the new theme", and the cause turned out to be structural rather than cosmetic.
+
+`showPanel()` scrolls **down** to `#panel-container`, which sits below the hero, and `.bar` was `position: relative`. So opening anything from the Index scrolled the bar off the top of the screen. All **61** destinations then had no wordmark and no role, language, Simple, theme or Index control, and the only way back was the floating home button. The new chrome was there the whole time and you could not see it once you had gone anywhere.
+
+Making it sticky changed nothing, and the reason is worth writing down: `html` and `body` both carried `overflow-x: hidden`, which makes an element a scroll container, and a scroll-container ancestor makes `position: sticky` inert. Measured on the health panel, the bar sat at **-2711px with scrollY 2711**, so it was not sticking at all. Both are now `overflow-x: clip`, which suppresses the same horizontal overflow without creating that container. The bar reports `top: 0` on every panel, and 390, 768 and 1280px all still report no horizontal scroll on the homepage and on a panel.
+
+The bar draws its bottom rule only once it is actually stuck, so the homepage keeps its clean top edge.
+
+### Fixed, the new role menu sent you into the old design
+
+"⋯ What these roles mean" in the bar's role popover called `openRoleChooser()`, which opens `#roleOverlay`: the pre-redesign full-screen chooser, with its own logo and its own "Citizen Air Quality Platform" masthead. Choosing a role in the new navigation therefore dropped you into the old design to find out what you were choosing between.
+
+The answer now sits beside the question. Each of the twelve roles shows its own one-line description, which `ROLE_CONFIG` already carried, so not a word had to be written. The popover is a list rather than a row of chips, scrolls if it needs to, and the button into the old overlay is gone. Nothing in the new chrome reaches `#roleOverlay` any more.
+
+**Still outstanding on the theme:** panel bodies carry old-design furniture, tinted callout blocks, coloured sub-headings and filled pill buttons, across the 61 destinations. That is styling rather than structure and is not done.
+
 ## [v26.6.227] - 2026-09-22
 
 ### Added, the contrast sweep is a PR gate now
