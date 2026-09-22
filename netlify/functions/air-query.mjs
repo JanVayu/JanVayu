@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 // Deterministic calculators live in a shared, unit-tested module (single source
 // of truth; see test/calc.test.mjs). esbuild bundles this relative import.
 import {
@@ -203,8 +204,8 @@ function shapeWaqiFeed(d, city) {
   return {
     city: city.name,
     aqi: d.aqi,
-    pm25: d.iaqi?.pm25?.v ?? null,
-    pm10: d.iaqi?.pm10?.v ?? null,
+    pm25: iaqiToPM25(d.iaqi?.pm25?.v),
+    pm10: iaqiToPM10(d.iaqi?.pm10?.v),
     station: d.city?.name || city.name,
     time: d.time?.s || new Date().toISOString(),
     dominentpol: d.dominentpol || null,

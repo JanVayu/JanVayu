@@ -1100,6 +1100,12 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
   #map-layers-menu .map-menu-panel { right: auto; left: 0; }
 }
 </style>
+<!-- Applies the stored theme before first paint. Inline and synchronous on
+     purpose: as an external file this would either block rendering or land
+     after it, and a page that paints light and then flips to dark is worse
+     than either. js/chrome.js owns the storage key; this only reads it. -->
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->

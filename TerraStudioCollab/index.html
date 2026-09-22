@@ -6,22 +6,21 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <title>JanVayu &middot; Terra.Do Studio collab</title>
   <link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
   <style>
+    /* Eight of these eleven names are defined per theme in styles.css and were
+       being overwritten here with a fixed light value, which is what kept this
+       page out of dark mode. The three that are genuinely this page's own --
+       the status colours -- stay, as ink tokens: #94A3B8 measures 2.6:1 on
+       white and #F59E0B 2.1:1, so both were already below AA as text on the
+       light surface, never mind the dark one the page can now show. */
     :root {
-      --ink: #0F172A;
-      --text-2: #334155;
-      --text-3: #64748B;
-      --accent: #1B6B4A;
-      --bg: #FAFAF7;
-      --bg-section: #FFFFFF;
-      --border: #E5E7EB;
-      --soft: #F1F5F9;
-      --radius: 10px;
-      --serif: Georgia, 'Times New Roman', serif;
-      --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      --todo: #94A3B8;
-      --wip:  #F59E0B;
-      --done: #1B6B4A;
+      --soft: var(--bg-section);
+      --todo: var(--text-3);
+      --wip:  var(--ink-amber);
+      --done: var(--ink-green);
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; }
@@ -96,7 +95,7 @@
     .version { font-family: var(--sans); margin-top: 4px; opacity: 0.7; }
   </style>
 </head>
-<body>
+<body data-jv-chrome>
   <div class="gate" id="gate">
     <h1>Terra.Do &times; JanVayu workspace</h1>
     <p>A shared draft for two collaborators. Enter the password Varna shared with you.</p>

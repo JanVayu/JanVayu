@@ -9,6 +9,7 @@
 //   Each call also writes today's snapshot, so the dataset grows over time.
 
 import { getBlobStore } from "./lib/blob.mjs";
+import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 
 
 const WAQI_TOKEN = process.env.WAQI_TOKEN || "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
@@ -104,6 +105,9 @@ const CITIES = {
   thoothukudi: { name: "Thoothukudi", lat: 8.7642, lon: 78.1348 },
 };
 
+// The breakpoint tables and the conversion live in ./lib/iaqi.mjs, which
+// explains why they are needed and which five functions were serving a
+// sub-index under a concentration key.
 async function fetchOne(key) {
   const c = CITIES[key];
   try {
@@ -112,8 +116,29 @@ async function fetchOne(key) {
     const json = await res.json();
     if (json.status === "ok" && json.data && json.data.aqi !== "-") {
       const aqi = parseInt(json.data.aqi);
-      const pm25 = json.data.iaqi?.pm25?.v || Math.round(aqi * 0.7);
-      return { key, name: c.name, aqi, pm25 };
+      const iaqi = json.data.iaqi || {};
+      // Kept: where WAQI reports no PM2.5 sub-index at all, aqi * 0.7 stands in,
+      // because the ranking sorts on this field and a null would drop the city.
+      // It is an estimate and `estimated` says which rows are one, so a consumer
+      // can mark them rather than presenting a guess as a reading.
+      const measured = iaqiToPM25(iaqi.pm25?.v);
+      const pm25 = measured == null ? Math.round(aqi * 0.7) : measured;
+      return {
+        key, name: c.name, aqi, pm25,
+        estimated: measured == null,
+        pm10: iaqiToPM10(iaqi.pm10?.v),
+        // Sub-indices, passed through unconverted and named for what they are.
+        // EPA's NO2/SO2 breakpoints are in ppb and O3/CO in ppm, over averaging
+        // windows that differ per pollutant, so converting those to the ug/m3
+        // the NAAQS is written in needs a molar mass and an assumed temperature
+        // and pressure. Each of those is a place to be wrong, and none of them
+        // is needed to say truthfully how bad the ozone is today.
+        sub: {
+          pm25: iaqi.pm25?.v ?? null, pm10: iaqi.pm10?.v ?? null,
+          no2: iaqi.no2?.v ?? null, so2: iaqi.so2?.v ?? null,
+          o3: iaqi.o3?.v ?? null, co: iaqi.co?.v ?? null,
+        },
+      };
     }
   } catch { /* ignore */ }
   return null;

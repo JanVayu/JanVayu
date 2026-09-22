@@ -4,6 +4,7 @@
 
 import { getBlobStore } from "./lib/blob.mjs";
 import { Resend } from "resend";
+import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
@@ -53,8 +54,8 @@ async function fetchCityAQI(cityKey) {
         city: city.name,
         key: cityKey,
         aqi: data.data.aqi,
-        pm25: data.data.iaqi?.pm25?.v || null,
-        pm10: data.data.iaqi?.pm10?.v || null,
+        pm25: iaqiToPM25(data.data.iaqi?.pm25?.v),
+        pm10: iaqiToPM10(data.data.iaqi?.pm10?.v),
         time: data.data.time?.s || new Date().toISOString(),
       };
     }

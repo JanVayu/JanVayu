@@ -15,43 +15,47 @@
 
   <!-- Docsify Theme (base) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0.9.0/dist/css/theme-simple.min.css">
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script>try{if(!localStorage.getItem('janvayu-theme')&&localStorage.getItem('docsify-dark-mode')==='dark'){localStorage.setItem('janvayu-theme','dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
 
   <style>
     :root {
-      --theme-color: #16A34A;
-      --theme-color-secondary: #22C55E;
+      --theme-color: var(--accent);
+      --theme-color-secondary: var(--accent-hover);
       --sidebar-width: 280px;
-      --sidebar-background: #fafbfc;
-      --sidebar-border-color: #e8ecf0;
-      --sidebar-name-color: #1a3a2a;
+      --sidebar-background: var(--bg-section);
+      --sidebar-border-color: var(--border);
+      --sidebar-name-color: var(--text);
       --sidebar-name-font-size: 1.1rem;
       --sidebar-name-font-weight: 700;
-      --sidebar-nav-link-color: #364153;
-      --sidebar-nav-link-color--active: #16A34A;
+      --sidebar-nav-link-color: var(--text-2);
+      --sidebar-nav-link-color--active: var(--accent);
       --sidebar-nav-link-font-weight--active: 600;
-      --sidebar-nav-strong-color: #1a3a2a;
+      --sidebar-nav-strong-color: var(--text);
       --sidebar-nav-strong-font-size: 0.7rem;
       --sidebar-nav-strong-font-weight: 700;
       --sidebar-nav-strong-margin: 1.5em 0 0.5em 0;
       --sidebar-nav-strong-text-transform: uppercase;
       --sidebar-nav-strong-letter-spacing: 0.08em;
       --content-max-width: 720px;
-      --base-font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --base-font-family: var(--sans);
       --base-font-size: 16px;
       --base-line-height: 1.85;
-      --base-color: #1a1a18;
-      --heading-color: #1a3a2a;
-      --heading-font-family: 'Newsreader', Georgia, serif;
+      --base-color: var(--text);
+      --heading-color: var(--text);
+      --heading-font-family: var(--serif);
       --heading-font-weight: 600;
-      --link-color: #16A34A;
-      --link-color--hover: #15803d;
-      --blockquote-border-color: #16A34A;
-      --blockquote-background: #f0fdf4;
+      --link-color: var(--accent);
+      --link-color--hover: var(--accent-hover);
+      --blockquote-border-color: var(--accent);
+      --blockquote-background: var(--bg-section);
       --blockquote-border-width: 3px;
-      --notice-tip-border-color: #16A34A;
-      --search-background: #fff;
-      --search-input-border-color: #e8ecf0;
-      --search-result-keyword-color: #16A34A;
+      --notice-tip-border-color: var(--accent);
+      --search-background: var(--bg-card);
+      --search-input-border-color: var(--border);
+      --search-result-keyword-color: var(--accent);
     }
 
     /* Dark mode set text colours but never a background, so the page stayed
@@ -59,21 +63,27 @@
        #141414 stripes: light page, black bands, invisible text. The content
        background has to be declared here too, and by the same token every
        surface that had a hardcoded light value above. */
-    body[data-theme="dark"] {
-      --sidebar-background: #0f1419;
-      --sidebar-border-color: #2d3748;
-      --sidebar-name-color: #86EFAC;
-      --sidebar-nav-link-color: #d1d5db;
-      --sidebar-nav-link-color--active: #86EFAC;
-      --sidebar-nav-strong-color: #86EFAC;
-      --base-color: #e2e8f0;
-      --heading-color: #86EFAC;
-      --blockquote-background: #1a2e23;
-      --search-background: #1a1a18;
-      --search-input-border-color: #2d3748;
-      --base-background-color: #0d1117;
-      --background: #0d1117;
-      --content-background: #0d1117;
+    [data-theme="dark"] {
+      --sidebar-background: var(--bg-section);
+      --sidebar-border-color: var(--border);
+      --sidebar-name-color: var(--text);
+      --sidebar-nav-link-color: var(--text-2);
+      --sidebar-nav-link-color--active: var(--accent);
+      --sidebar-nav-strong-color: var(--text);
+      --base-color: var(--text);
+      --heading-color: var(--text);
+      --blockquote-background: var(--bg-section);
+      --search-background: var(--bg-card);
+      --search-input-border-color: var(--border);
+      --base-background-color: var(--bg);
+      --background: var(--bg);
+      --content-background: var(--bg);
+      /* Left as literals on purpose: the nine --code-theme-* values below
+         and the two code backgrounds were measured against each other, and
+         the comment explaining them names #161b22 by number. Pointing the
+         background at a token would move it and silently invalidate all
+         nine ratios, so this pair stays fixed with the values it was
+         measured against. */
       --code-theme-background: #161b22;
       --code-inline-background: #161b22;
       /* The dark block used to set only the code BACKGROUND. The theme takes
@@ -92,31 +102,31 @@
       --code-theme-tag: #f9a8d4;
       --code-theme-variable: #fcd34d;
       --code-theme-operator: #e8b88a;
-      --link-color: #86EFAC;
-      --notice-tip-background: #14231b;
+      --link-color: var(--accent);
+      --notice-tip-background: var(--bg-section);
       /* This is a border SHORTHAND, not a colour. A bare hex made the
          whole declaration invalid, so dark mode had no divider at all. */
       --pagination-border-top: 1px solid #2d3748;
     }
-    body[data-theme="dark"],
-    body[data-theme="dark"] .content,
-    body[data-theme="dark"] .markdown-section,
-    body[data-theme="dark"] main,
-    body[data-theme="dark"] section.cover { background-color: #0d1117; }
-    body[data-theme="dark"] .markdown-section { color: #e2e8f0; }
-    body[data-theme="dark"] .markdown-section a { color: #86EFAC; }
+    [data-theme="dark"],
+    [data-theme="dark"] .content,
+    [data-theme="dark"] .markdown-section,
+    [data-theme="dark"] main,
+    [data-theme="dark"] section.cover { background-color: var(--bg); }
+    [data-theme="dark"] .markdown-section { color: var(--text); }
+    [data-theme="dark"] .markdown-section a { color: var(--accent); }
     /* The theme targets inline code as .markdown-section code:not([class*=lang-])
        :not([class*=language-]), which outspecifies a plain
-       body[data-theme] .markdown-section code, so the rule that used to sit
+       [data-theme] .markdown-section code, so the rule that used to sit
        here never applied. Match its shape so this one does. */
-    body[data-theme="dark"] .markdown-section code:not([class*=lang-]):not([class*=language-]) {
+    [data-theme="dark"] .markdown-section code:not([class*=lang-]):not([class*=language-]) {
       background: #161b22;
       color: #e2e8f0;
     }
-    body[data-theme="dark"] .markdown-section blockquote { background: #14231b; }
+    [data-theme="dark"] .markdown-section blockquote { background: var(--bg-section); }
     /* Diagrams are drawn on warm paper; keep them readable rather than
        inverting them, which would wreck the hand-drawn colour scheme. */
-    body[data-theme="dark"] .jv-dgm { background: #f7f5f0; border-color: #2d3748; }
+    [data-theme="dark"] .jv-dgm { background: #f7f5f0; border-color: var(--border); }
 
     /* Typography */
     .markdown-section h1 {
@@ -205,11 +215,11 @@
     table th { background: #f0fdf4; font-weight: 600; text-align: left; padding: 10px 14px; border: 1px solid #e5e7eb; font-size: 0.85rem; }
     table td { padding: 10px 14px; border: 1px solid #e5e7eb; font-size: 0.9rem; }
     table tr:nth-child(even) { background: #fafbfc; }
-    body[data-theme="dark"] table th { background: #1a2e23; border-color: #2d3748; }
-    body[data-theme="dark"] table td { border-color: #2d3748; }
-    body[data-theme="dark"] table tr:nth-child(odd) { background: #0d1117; }
-    body[data-theme="dark"] table tr:nth-child(even) { background: #161b22; }
-    body[data-theme="dark"] table td, body[data-theme="dark"] table th { color: #e2e8f0; }
+    [data-theme="dark"] table th { background: var(--bg-section); border-color: var(--border); }
+    [data-theme="dark"] table td { border-color: var(--border); }
+    [data-theme="dark"] table tr:nth-child(odd) { background: var(--bg); }
+    [data-theme="dark"] table tr:nth-child(even) { background: var(--bg-section); }
+    [data-theme="dark"] table td, [data-theme="dark"] table th { color: var(--text); }
 
     /* Sources section at end of posts */
     .markdown-section h2:last-of-type {
@@ -240,17 +250,6 @@
     }
 
     /* Dark mode toggle */
-    .dark-mode-toggle {
-      position: fixed; bottom: 20px; right: 20px;
-      width: 40px; height: 40px; border-radius: 50%;
-      border: 1px solid #e5e7eb; background: #fff;
-      cursor: pointer; font-size: 18px;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: all 0.2s;
-    }
-    .dark-mode-toggle:hover { transform: scale(1.1); }
-    body[data-theme="dark"] .dark-mode-toggle { background: #1a2e23; border-color: #2d3748; }
 
     /* Back to site link */
     .back-link {
@@ -292,8 +291,8 @@
     }
     .markdown-section .pagination-item-label { color: #4b5563; }
     .markdown-section .pagination-item-title { color: #15803d; }
-    body[data-theme="dark"] .markdown-section .pagination-item-label { color: #9ca3af; }
-    body[data-theme="dark"] .markdown-section .pagination-item-title { color: #86EFAC; }
+    [data-theme="dark"] .markdown-section .pagination-item-label { color: var(--text-3); }
+    [data-theme="dark"] .markdown-section .pagination-item-title { color: var(--accent); }
 
     /* Mobile */
     /* Sargam icons, the set used across the rest of the site. The blog is a
@@ -378,30 +377,12 @@
     @media (max-width: 680px) { .jv-dgm-wide { display: none; } .jv-dgm-tall { display: block; overflow-x: visible; } }
   </style>
 </head>
-<body>
+<body data-jv-chrome>
   <div id="app">Loading...</div>
 
-  <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
-    <span id="dark-mode-icon" class="si si-moon"></span>
-  </button>
-
-  <script>
-    function toggleDarkMode() {
-      const body = document.body;
-      const isDark = body.getAttribute('data-theme') === 'dark';
-      body.setAttribute('data-theme', isDark ? '' : 'dark');
-      const ic = document.getElementById('dark-mode-icon');
-      if (ic) ic.className = isDark ? 'si si-moon' : 'si si-sun';
-      localStorage.setItem('docsify-dark-mode', isDark ? 'light' : 'dark');
-    }
-    if (localStorage.getItem('docsify-dark-mode') === 'dark') {
-      document.body.setAttribute('data-theme', 'dark');
-      document.addEventListener('DOMContentLoaded', () => {
-        const icon = document.getElementById('dark-mode-icon');
-        if (icon) icon.className = 'si si-sun';
-      });
-    }
-  </script>
+  <!-- The floating emoji toggle here kept its own preference under
+       `docsify-dark-mode`. js/chrome.js owns the toggle and the key now,
+       so the blog and the rest of the site share one choice. -->
 
   <script>
     window.$docsify = {

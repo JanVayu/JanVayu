@@ -14,23 +14,27 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0.9.0/dist/css/theme-simple.min.css">
 
   <!-- Custom Styles -->
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script>try{if(!localStorage.getItem('janvayu-theme')&&localStorage.getItem('docsify-dark-mode')==='dark'){localStorage.setItem('janvayu-theme','dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
   <style>
     :root {
       /* Brand colors matching janvayu.in */
-      --theme-color: #16A34A;
-      --theme-color-secondary: #22C55E;
+      --theme-color: var(--accent);
+      --theme-color-secondary: var(--accent-hover);
 
       /* Sidebar */
       --sidebar-width: 280px;
-      --sidebar-background: #fafbfc;
-      --sidebar-border-color: #e8ecf0;
-      --sidebar-name-color: #1a3a2a;
+      --sidebar-background: var(--bg-section);
+      --sidebar-border-color: var(--border);
+      --sidebar-name-color: var(--text);
       --sidebar-name-font-size: 1.35rem;
       --sidebar-name-font-weight: 700;
-      --sidebar-nav-link-color: #364153;
-      --sidebar-nav-link-color--active: #16A34A;
+      --sidebar-nav-link-color: var(--text-2);
+      --sidebar-nav-link-color--active: var(--accent);
       --sidebar-nav-link-font-weight--active: 600;
-      --sidebar-nav-strong-color: #1a3a2a;
+      --sidebar-nav-strong-color: var(--text);
       --sidebar-nav-strong-font-size: 0.85rem;
       --sidebar-nav-strong-font-weight: 700;
       --sidebar-nav-strong-margin: 1.5em 0 0.5em 0;
@@ -38,20 +42,20 @@
 
       /* Content */
       --content-max-width: 860px;
-      --base-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --base-font-family: var(--sans);
       --base-font-size: 16px;
       --base-line-height: 1.7;
-      --base-color: #1a1a2e;
-      --heading-color: #1a3a2a;
+      --base-color: var(--text);
+      --heading-color: var(--text);
 
       /* Links */
-      --link-color: #16A34A;
-      --link-color--hover: #15803d;
+      --link-color: var(--accent);
+      --link-color--hover: var(--accent-hover);
 
       /* Code */
-      --code-font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-      --code-inline-background: #f0fdf4;
-      --code-inline-color: #166534;
+      --code-font-family: var(--mono);
+      --code-inline-background: var(--bg-section);
+      --code-inline-color: var(--ink-green);
       --code-block-border-radius: 8px;
 
       /* Cover */
@@ -59,51 +63,51 @@
       --cover-color: #fff;
 
       /* Blockquote */
-      --blockquote-border-color: #16A34A;
-      --blockquote-background: #f0fdf4;
+      --blockquote-border-color: var(--accent);
+      --blockquote-background: var(--bg-section);
 
       /* Notice / Tip / Warning */
-      --notice-tip-border-color: #16A34A;
+      --notice-tip-border-color: var(--accent);
 
       /* Search */
-      --search-background: #fff;
-      --search-input-border-color: #e8ecf0;
-      --search-result-keyword-color: #16A34A;
+      --search-background: var(--bg-card);
+      --search-input-border-color: var(--border);
+      --search-result-keyword-color: var(--accent);
     }
 
     /* Dark mode */
-    body[data-theme="dark"] {
-      --sidebar-background: #0f1419;
-      --sidebar-border-color: #2d3748;
-      --sidebar-name-color: #86EFAC;
-      --sidebar-nav-link-color: #d1d5db;
-      --sidebar-nav-link-color--active: #86EFAC;
-      --sidebar-nav-strong-color: #86EFAC;
-      --base-color: #e2e8f0;
-      --heading-color: #86EFAC;
-      --code-inline-background: #1a2e23;
-      --code-inline-color: #86EFAC;
-      --blockquote-background: #1a2e23;
+    [data-theme="dark"] {
+      --sidebar-background: var(--bg-section);
+      --sidebar-border-color: var(--border);
+      --sidebar-name-color: var(--text);
+      --sidebar-nav-link-color: var(--text-2);
+      --sidebar-nav-link-color--active: var(--accent);
+      --sidebar-nav-strong-color: var(--text);
+      --base-color: var(--text);
+      --heading-color: var(--text);
+      --code-inline-background: var(--bg-section);
+      --code-inline-color: var(--accent);
+      --blockquote-background: var(--bg-section);
       --content-max-width: 860px;
-      --base-background-color: #0d1117;
-      --background: #0d1117;
-      --content-background: #0d1117;
-      --code-theme-background: #161b22;
-      --link-color: #86EFAC;
+      --base-background-color: var(--bg);
+      --background: var(--bg);
+      --content-background: var(--bg);
+      --code-theme-background: var(--bg-section);
+      --link-color: var(--accent);
     }
     /* Without an explicit background here the page stayed light while
        --base-color went near-white: white text on a white page. */
-    body[data-theme="dark"],
-    body[data-theme="dark"] .content,
-    body[data-theme="dark"] .markdown-section,
-    body[data-theme="dark"] main,
-    body[data-theme="dark"] section.cover { background-color: #0d1117; }
-    body[data-theme="dark"] .markdown-section { color: #e2e8f0; }
-    body[data-theme="dark"] .markdown-section a { color: #86EFAC; }
-    body[data-theme="dark"] table tr:nth-child(odd) { background: #0d1117; }
-    body[data-theme="dark"] table tr:nth-child(even) { background: #161b22; }
-    body[data-theme="dark"] table td, body[data-theme="dark"] table th { color: #e2e8f0; border-color: #2d3748; }
-    body[data-theme="dark"] table th { background: #1a2e23; }
+    [data-theme="dark"],
+    [data-theme="dark"] .content,
+    [data-theme="dark"] .markdown-section,
+    [data-theme="dark"] main,
+    [data-theme="dark"] section.cover { background-color: var(--bg); }
+    [data-theme="dark"] .markdown-section { color: var(--text); }
+    [data-theme="dark"] .markdown-section a { color: var(--accent); }
+    [data-theme="dark"] table tr:nth-child(odd) { background: var(--bg); }
+    [data-theme="dark"] table tr:nth-child(even) { background: var(--bg-section); }
+    [data-theme="dark"] table td, [data-theme="dark"] table th { color: var(--text); border-color: var(--border); }
+    [data-theme="dark"] table th { background: var(--bg-section); }
 
     /* App name styling */
     .app-name-link img {
@@ -202,63 +206,16 @@
       font-weight: 600;
     }
 
-    /* Dark mode toggle button */
-    .dark-mode-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid #e5e7eb;
-      background: #fff;
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: all 0.2s;
-    }
-
-    .dark-mode-toggle:hover {
-      transform: scale(1.1);
-    }
-
-    body[data-theme="dark"] .dark-mode-toggle {
-      background: #1a2e23;
-      border-color: #2d3748;
-    }
   </style>
 </head>
-<body>
+<body data-jv-chrome>
   <div id="app">Loading...</div>
 
-  <!-- Dark mode toggle -->
-  <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
-    <span id="dark-mode-icon">🌙</span>
-  </button>
-
-  <script>
-    // Dark mode
-    function toggleDarkMode() {
-      const body = document.body;
-      const isDark = body.getAttribute('data-theme') === 'dark';
-      body.setAttribute('data-theme', isDark ? '' : 'dark');
-      document.getElementById('dark-mode-icon').textContent = isDark ? '🌙' : '☀️';
-      localStorage.setItem('docsify-dark-mode', isDark ? 'light' : 'dark');
-    }
-
-    // Restore preference
-    if (localStorage.getItem('docsify-dark-mode') === 'dark') {
-      document.body.setAttribute('data-theme', 'dark');
-      document.addEventListener('DOMContentLoaded', () => {
-        const icon = document.getElementById('dark-mode-icon');
-        if (icon) icon.textContent = '☀️';
-      });
-    }
-  </script>
+  <!-- The floating emoji toggle that used to sit here kept its own preference
+       under `docsify-dark-mode`, so the docs and the rest of the site could
+       disagree about the theme and each would overwrite the other on the way
+       back. js/chrome.js owns the toggle and the key now, and it renders a
+       text control rather than a glyph. One preference, sitewide. -->
 
   <script>
     window.$docsify = {

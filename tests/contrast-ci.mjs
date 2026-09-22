@@ -53,6 +53,18 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ORIGIN = process.env.CONTRAST_ORIGIN || 'http://127.0.0.1:8231';
 const PANELS = readFileSync(join(HERE, 'contrast-sweep-panels.txt'), 'utf8').trim().split('\n');
 const THEMES = ['light', 'dark'];
+// The eighteen standalone documents. Until 2026-09-22 this gate swept the
+// homepage and its panels and nothing else, because they were the only pages
+// that loaded styles.css -- the rest carried private palettes and the sweep
+// would have been measuring a different design system on each one. They are
+// all on the shared tokens now, so they belong inside the gate that protects
+// it. Each is opened directly rather than through showPanel().
+const PAGES = [
+  '/pm25/', '/pm10/', '/no2/', '/so2/', '/o3/', '/co/',
+  '/downloads/', '/status/', '/docs/', '/blog/', '/ask/', '/try.html',
+  '/TerraStudioCollab/', '/walkthrough/', '/walkthrough/full.html',
+  '/walkthrough/deck.html', '/embed/aqi/', '/embed/rankings/',
+];
 // An explicit path in the sandbox; undefined on a runner, where Playwright
 // resolves the browser it downloaded itself.
 const CHROME = process.env.PLAYWRIGHT_CHROMIUM
@@ -127,6 +139,25 @@ for (const theme of THEMES) {
       if (hits.length) (results[theme] ||= {})[panel] = hits;
     } catch (e) { /* panel failed to open; not a contrast finding */ }
   }
+
+  // The standalone pages, in the same theme, through the same stubs.
+  for (const page of PAGES) {
+    try {
+      // The embeds take their theme from ?theme=, deliberately: they are
+      // iframed into other people's pages and follow the host, not the
+      // visitor's preference here. Asking for the theme this way is what
+      // gets the dark half of those two measured at all.
+      const url = ORIGIN + page + (page.startsWith('/embed/') ? '?theme=' + theme : '');
+      await p.goto(url, { waitUntil: 'domcontentloaded' });
+      await p.evaluate(t => { try { localStorage.setItem('janvayu-theme', t); } catch (e) {} }, theme);
+      await p.reload({ waitUntil: 'domcontentloaded' });
+      try { await p.waitForLoadState('networkidle', { timeout: 8000 }); } catch (e) {}
+      await p.waitForTimeout(400);
+      const hits = await p.evaluate(sweepPage);
+      if (hits.length) (results[theme] ||= {})[page] = hits;
+    } catch (e) { /* page failed to open; not a contrast finding */ }
+  }
+
   await p.close();
 }
 await b.close();
@@ -137,7 +168,7 @@ for (const theme of THEMES) {
   for (const [panel, hits] of Object.entries(r)) {
     for (const h of hits) {
       total++;
-      console.log(`  ${theme.padEnd(5)} ${panel.padEnd(18)} ${String(h.ratio).padStart(5)}:1 `
+      console.log(`  ${theme.padEnd(5)} ${panel.padEnd(24)} ${String(h.ratio).padStart(5)}:1 `
         + `(needs ${h.need}:1)  ${h.color} on ${h.bg}  [${h.cls || h.tag}]  ${JSON.stringify(h.text).slice(0, 44)}`);
     }
   }
@@ -145,7 +176,7 @@ for (const theme of THEMES) {
 // The failure count is what this gate asserts. The request counts are
 // diagnostics and move by one or two between runs, because a request already
 // in flight when a page closes may or may not reach the route handler.
-console.log(`\n${PANELS.length} panels x ${THEMES.length} themes; ~${stubbed} request(s) stubbed, ~${aborted} aborted.`);
+console.log(`\n${PANELS.length} panels + ${PAGES.length} pages x ${THEMES.length} themes; ~${stubbed} request(s) stubbed, ~${aborted} aborted.`);
 if (total) {
   console.log(`\nFAIL - ${total} element(s) below their WCAG AA contrast threshold.`);
   console.log('Each line is the ink, the colour behind it, and the ratio. A colour');

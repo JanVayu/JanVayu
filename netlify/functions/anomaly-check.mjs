@@ -1,4 +1,5 @@
 import { jsonCorsHeaders } from "./lib/http.mjs";
+import { iaqiToPM25 } from "./lib/iaqi.mjs";
 // Netlify Function: Anomaly Detection
 // Checks major cities for PM2.5 spikes, optionally explains via Groq
 
@@ -43,7 +44,7 @@ async function fetchCityAQI(cityKey) {
         city: city.name,
         key: cityKey,
         aqi: data.data.aqi,
-        pm25: data.data.iaqi?.pm25?.v || null,
+        pm25: iaqiToPM25(data.data.iaqi?.pm25?.v),
         station: data.data.city?.name || city.name,
         time: data.data.time?.s || new Date().toISOString(),
       };
