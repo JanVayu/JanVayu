@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.229] - 2026-09-22
+
+### Changed, emphasis comes from a rule now, not a tint
+
+The last part of getting the panels into the new theme, and it turned out to be one thing rather than the three this was scoped as.
+
+**Two of the three suspected patterns were already correct.** All 136 inline heading colours were tokens rather than literals. `.btn-primary` already uses the same `--accent` and `--on-accent` as the homepage's own button. `.card`, at 247 uses, is already the bordered-box idiom the homepage's right-hand panel is built from. Restyling any of those would have been churn.
+
+**What genuinely deviated was the tinted fill.** 202 inline `background: rgba(...)` washes, written one at a time by whoever needed a box to look important. That is what made a panel opened from the Index read as the old site: on the health panel both the mint action block and the pink "Key insight" block were tints, and the pink one was inline, which is why converting the `.alert-*` classes alone did not touch it.
+
+**190 converted** to `var(--bg-section)` plus a 3px left rule in the ink token nearest the original hue. Greys, whites, blacks and anything above 25% alpha are left alone: those are scrims and overlays on dark bands, not emphasis. `.alert-danger/-warning/-info/-success` and `.panel-action-box` are converted the same way in CSS, which also retired a `[data-theme="dark"]` override that existed only to compensate for the fill.
+
+A literal rgba cannot know which theme it landed in. 6% red is a pale pink on cream and a muddy maroon on the dark page, against ink that was never chosen for it. The `--ink-*` tokens flip; that is the whole point of them.
+
+### Added, `check-theme-surfaces.py`
+
+Fails on any inline colour tint used as a background, exempting greys, scrims and anything inside a `<style>` block, where the badge pills legitimately carry one. Verified by putting one of the shipped tints back and watching it fail with the file, line and declaration. CI check number 25.
+
+**One thing caught by an existing guard.** The first run of the conversion also rewrote rules inside `index.html`'s critical-CSS block, including the badge pills, where a 3px left rule is simply wrong. `check-critical-css.py` reported the desync straight away. The transform now only touches inline `style=""` attributes on real elements, which is why the count is 190 and not 202.
+
+All 25 local checks pass, contrast gate included: changing the surface under ~200 emphasis blocks moved no text below AA.
+
 ## [v26.6.228] - 2026-09-22
 
 ### Fixed, the navigation disappeared the moment you used it

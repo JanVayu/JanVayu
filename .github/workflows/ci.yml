@@ -137,6 +137,16 @@ jobs:
       - name: Check every CSS variable in use is defined
         run: python3 scripts/check-css-vars.py
 
+      # The old design carried emphasis on a wash and the new one carries it on
+      # a rule. 202 inline `background: rgba(...)` tints had accumulated, one at
+      # a time, written by whoever needed a box to look important, and they are
+      # most of why a panel opened from the Index read as the old site. A
+      # literal rgba also cannot know which theme it landed in: 6% red is a pale
+      # pink on cream and a muddy maroon on the dark page. Greys and scrims are
+      # exempt, as is anything inside a <style> block.
+      - name: Emphasis comes from a rule, not a tint
+        run: python3 scripts/check-theme-surfaces.py
+
       # text-transform: uppercase is a display rule except for one character:
       # CSS maps U+00B5 MICRO SIGN to Greek capital Mu, so a label reading
       # "µg/m³" renders as "ΜG/M³" and a reader parses milligrams. A factor of
