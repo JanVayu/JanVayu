@@ -54,3 +54,5 @@ urban-heat
 voices
 ward-map
 workshops
+reduction
+lifetime

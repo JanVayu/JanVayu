@@ -89,6 +89,23 @@
     --std-warn: #b45309;
     --std-ok:   #4d7c0f;
     --std-who:  #0f766e;   /* at or near the WHO guideline */
+
+    /* Saturated hues used as TEXT. Every ad-hoc hex in this repo that failed a
+       contrast sweep was a mid-tone brand or category colour painted as ink:
+       #1d4ed8 reads 6.42:1 on white and 2.22:1 on the dark page, and the
+       element carrying it usually sits in markup a stylesheet guard never
+       reads. These clear 4.5:1 against the worst surface in their own theme
+       (white and the cream cards in light; the page, section, card and the
+       #2a2a28 grid-gap in dark). Use them instead of writing a hex. */
+    --ink-red:    #b91c1c;
+    --ink-orange: #c2410c;
+    --ink-amber:  #a16207;
+    --ink-green:  #15803d;
+    --ink-teal:   #0f766e;
+    --ink-blue:   #1d4ed8;
+    --ink-violet: #6d28d9;
+    --ink-pink:   #be185d;
+    --ink-slate:  #475569;
     /* pm25Band() in app.js paints the forecast strip. Its cut points differ from
        the seven --pm-b* bands, so it has its own six. Same lesson: literals in
        JS cannot know the theme, and five of its seven originals failed in light
@@ -203,6 +220,15 @@
     --std-warn: #fbbf24;
     --std-ok:   #a3e635;
     --std-who:  #2dd4bf;
+    --ink-red:    #fca5a5;
+    --ink-orange: #fdba74;
+    --ink-amber:  #fcd34d;
+    --ink-green:  #86efac;
+    --ink-teal:   #5eead4;
+    --ink-blue:   #93c5fd;
+    --ink-violet: #c4b5fd;
+    --ink-pink:   #f9a8d4;
+    --ink-slate:  #cbd5e1;
     --fc-good: #4ade80;
     --fc-satisfactory: #bef264;
     --fc-moderate: #fcd34d;
@@ -612,13 +638,19 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     border-radius: var(--radius-lg); overflow: hidden;
     margin: 1.5rem 0;
 }
-.stat-strip .stat-cell {
+.stat-strip .stat-cell,
+.stat-strip .stat-strip-item,
+.stat-strip .stat-item {
     background: var(--bg-card); padding: 1.25rem; text-align: center;
 }
-.stat-strip .stat-cell .stat-value {
+.stat-strip .stat-cell .stat-value,
+.stat-strip .stat-strip-item .stat-value,
+.stat-strip .stat-item .stat-value {
     font-family: var(--mono); font-size: 1.5rem; font-weight: 700;
 }
-.stat-strip .stat-cell .stat-label {
+.stat-strip .stat-cell .stat-label,
+.stat-strip .stat-strip-item .stat-label,
+.stat-strip .stat-item .stat-label {
     font-size: 0.75rem; color: var(--text-3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em;
 }
 
@@ -1511,6 +1543,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     width: 36px; height: 36px; min-width: 36px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
+    /* The background is set inline per avatar, one platform or person colour
+       each. Five of the 62 shipped without one, so white initials painted on
+       the white page at 1.00:1 and simply were not there. This default means a
+       missing inline colour is a wrong colour rather than an invisible one. */
+    background: #15803D;
     font-size: 0.75rem; color: white; font-weight: 600;
 }
 .voice-name { font-weight: 600; font-size: 0.88rem; }
@@ -2027,7 +2064,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 @keyframes widgetSlideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 .widget-tabs {
-    display: flex; border-bottom: 1px solid var(--border); background: var(--bg-body);
+    display: flex; border-bottom: 1px solid var(--border); background: var(--bg-section);
 }
 .widget-tab {
     flex: 1; padding: 10px 0; text-align: center; font-family: var(--sans);
@@ -2045,7 +2082,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .widget-search-wrap { padding: 14px 16px 8px; }
 .widget-search-input {
     width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 0.875rem;
-    border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--bg-section);
     color: var(--ink); outline: none; transition: border-color 0.15s;
 }
 .widget-search-input:focus { border-color: var(--accent); }
@@ -2070,7 +2107,7 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 }
 .widget-feedback input, .widget-feedback textarea, .widget-feedback select {
     width: 100%; padding: 10px 12px; font-family: var(--sans); font-size: 0.875rem;
-    border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--bg-section);
     color: var(--ink); outline: none; resize: vertical;
 }
 .widget-feedback input:focus, .widget-feedback textarea:focus, .widget-feedback select:focus {
@@ -2085,11 +2122,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .widget-submit-btn:hover { opacity: 0.9; }
 /* Ask AI tab */
 .widget-ai { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
-.widget-ai-city { padding: 8px 10px; font-family: var(--sans); font-size: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body); color: var(--ink); }
-.widget-ai-input { width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 0.875rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-body); color: var(--ink); outline: none; resize: none; min-height: 60px; }
+.widget-ai-city { padding: 8px 10px; font-family: var(--sans); font-size: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-section); color: var(--ink); }
+.widget-ai-input { width: 100%; padding: 10px 14px; font-family: var(--sans); font-size: 0.875rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-section); color: var(--ink); outline: none; resize: none; min-height: 60px; }
 .widget-ai-input:focus { border-color: var(--accent); }
 .widget-ai-input::placeholder { color: var(--text-4); }
-.widget-ai-response { flex: 1; overflow-y: auto; font-family: var(--sans); font-size: 0.85rem; line-height: 1.6; color: var(--text-2); padding: 10px; background: var(--bg-body); border-radius: 8px; border: 1px solid var(--border-light); min-height: 80px; }
+.widget-ai-response { flex: 1; overflow-y: auto; font-family: var(--sans); font-size: 0.85rem; line-height: 1.6; color: var(--text-2); padding: 10px; background: var(--bg-section); border-radius: 8px; border: 1px solid var(--border-light); min-height: 80px; }
 .widget-ai-response.loading { color: var(--text-4); }
 .widget-ai-meta { font-size: 0.7rem; color: var(--text-4); }
 .widget-ai-actions { display: flex; gap: 8px; align-items: center; }
