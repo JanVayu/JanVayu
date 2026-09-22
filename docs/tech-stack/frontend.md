@@ -2,40 +2,91 @@
 
 ## HTML/CSS/JavaScript (Vanilla)
 
-The entire frontend is a single `index.html` file — currently ~11,300 lines — with inline `<style>` and `<script>` blocks. There is no separate `.css` or `.js` file.
+The frontend is vanilla HTML, CSS and JavaScript with no build step and no
+bundler. It is **not** a single file, and this page said it was for long
+enough to mislead somebody: `index.html` is 6,644 lines, `styles.css` is
+3,684, `app.js` is 9,935, and there are 19 panel fragments in `panels/`
+loaded into the page at runtime.
 
-### Why Inline Everything?
+### The shape of it
 
-1. **Single HTTP request** — the browser fetches one file and has everything
-2. **No build step** — `index.html` is the deploy artefact
-3. **Contributor-friendly** — "open `index.html` in your browser" is the entire dev setup
-4. **Guaranteed consistency** — no CSS/JS load order issues
+| File | What it is |
+|---|---|
+| `index.html` | The single-page app: the bar, the panel container, and an inline **critical-CSS** subset of `styles.css` for first paint |
+| `styles.css` | The design system. Every token, both themes, and the shared components (`.bar`, `.ctl`, `.card`, `.container`) |
+| `app.js` | Panel routing, data fetching, charts, the role and language machinery |
+| `js/chrome.js` | The theme preference and a cut-down bar for the pages that are not the SPA |
+| `panels/*.html` | Fragments injected into `index.html`; they inherit its styling |
+| 18 standalone pages | `/pm25/`, `/try.html`, `/docs/`, `/blog/`, `/ask/`, the walkthrough, the embeds, and the rest |
 
-### CSS Architecture
+**All 19 standalone documents load `styles.css`.** That was not true until
+2026-09-22: each carried a private `<style>` block redefining the same token
+names with fixed light-theme literals, so a token change reached one page and
+none of the others followed the theme control.
+`scripts/check-design-system.py` fails a page that drops out again.
 
-- **CSS Custom Properties** for theming (light/dark mode toggle)
+### Why no build step
+
+1. **No build step** — the repo is the deploy artefact
+2. **Contributor-friendly** — `python3 -m http.server` is the entire dev setup
+3. **Nothing to go stale between source and output**
+
+The cost is that cache-busting is manual. `/styles.css` and `/app.js` are
+requested with a `?v=<stamp>` query derived from the version in
+`package.json`, because `sw.js` serves same-origin assets **cache-first with
+no revalidation**. Two guards hold that together: `check-asset-stamps.py`
+(every stamped URL carries the current stamp) and `check-asset-freshness.py`
+(no stamped file changed while the version stood still). The second exists
+because the first passed while `app.js` changed under an unchanged URL.
+
+### CSS architecture
+
+- **Three layers of custom properties.** A raw ramp (`--w-0`…`--w-900` warm
+  neutrals for light, `--d-950`…`--d-50` for dark), a semantic layer that
+  points at it, and components that only ever reference the semantic layer.
 - **No preprocessor** (no Sass, Less, or PostCSS)
 - **Mobile-first** responsive design with media queries
-- **WCAG AA** colour contrast compliance
+- **WCAG AA** contrast, gated in CI by a Playwright sweep over every panel
+  and every page in both themes
 
-Key variables:
+The semantic layer, which is what you should be writing against:
 
 ```css
 :root {
-  --primary: #2563eb;
-  --bg: #ffffff;
-  --text: #1e293b;
-  --card-bg: #f8fafc;
-  --border: #e2e8f0;
+  --bg: var(--paper);          /* the page */
+  --bg-section: var(--warm-white);
+  --bg-card: var(--w-0);
+  --text: var(--ink);
+  --text-2: var(--ink-secondary);
+  --text-3: var(--ink-tertiary);
+  --accent: var(--green-700);
+  --border: var(--w-300);
 }
 
 [data-theme="dark"] {
-  --bg: #0f172a;
-  --text: #e2e8f0;
-  --card-bg: #1e293b;
-  --border: #334155;
+  --bg: var(--d-950);
+  --bg-section: var(--d-900);
+  --bg-card: var(--d-850);
+  --text: var(--d-50);
+  --accent: #4ADE80;
+  --border: var(--d-700);
 }
 ```
+
+Alongside these are the ink tokens — `--ink-red`, `--ink-blue`, `--ink-teal`
+and the rest — which exist because a saturated hue that reads as text on
+white does not read as text on `#0e0e0c`. A colour written as a literal in
+JavaScript or a `style=` attribute cannot know which theme it landed in, so
+it gets a token and CSS does the flipping.
+
+### Theming
+
+`data-theme="dark"` on `<html>`, set by `js/chrome.js` and stored under
+`janvayu-theme`. Every page carries a small inline script in `<head>` that
+applies the stored value before first paint, so a page never paints light
+and then flips. Do not add a `prefers-color-scheme` block: four pages used
+to have one, which meant they followed the operating system and ignored the
+site's own control.
 
 ### JavaScript Patterns
 
