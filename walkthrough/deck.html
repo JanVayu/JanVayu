@@ -410,7 +410,17 @@
     var t = document.createElement('div');
     t.className = 'thumb' + (s.classList.contains('cover')?' cover':'');
     var titleEl = s.querySelector('.title,.head');
-    t.innerHTML = '<span class="tnum">'+(idx+1)+'</span><span class="tt">'+(titleEl?titleEl.textContent:('Slide '+(idx+1)))+'</span>';
+    // Built as nodes rather than a markup string: the slide title goes in as
+    // text, so a heading containing < or & cannot become markup here. Same
+    // class of defect CodeQL flagged on the reduction slider readout.
+    var tnum = document.createElement('span');
+    tnum.className = 'tnum';
+    tnum.textContent = String(idx + 1);
+    var tt = document.createElement('span');
+    tt.className = 'tt';
+    tt.textContent = titleEl ? titleEl.textContent : ('Slide ' + (idx + 1));
+    t.appendChild(tnum);
+    t.appendChild(tt);
     t.onclick = function(){ document.body.classList.remove('overview'); go(idx); };
     grid.appendChild(t);
   });
