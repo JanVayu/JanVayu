@@ -5,6 +5,135 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.232] - 2026-09-22
+
+### Changed, every page is on the shared design system
+
+`index.html` was the only document on this site that loaded `styles.css`.
+The other eighteen each carried a private inline `<style>` block that
+redefined the same token names with fixed light-theme literals. Two
+consequences, neither visible from inside any one file: a change to a token
+reached one page, and none of them followed the theme control. The ones that
+had a dark mode at all keyed it on `prefers-color-scheme`, so they followed
+the operating system, and choosing light on janvayu.in with a dark desktop
+left half the site dark. Every page rendered, and rendered plausibly, the
+whole time, which is why it lasted.
+
+All nineteen now load `styles.css` and follow the theme. `js/chrome.js` is
+new: it owns the theme preference and injects a cut-down bar on the pages
+that can take one.
+
+**Two pages keep their own chrome, for reasons rather than oversight.**
+`ask/` is a `100dvh` chat app whose own header is its chrome; a sticky bar
+would push the composer off-screen, so it takes the tokens and a toggle in
+its own header. `walkthrough/deck.html` keeps a **fixed** palette, named
+`--dk-*` so the guard can tell intent from accident: its four slides carry
+about 110 hand-drawn SVG fills where the colour is the meaning, and letting
+the slide surface follow the theme put every diagram label on `#1c1c1a` at
+1.15:1. A slide is paper.
+
+**The theme had no persistence at all.** `toggleTheme()` set an attribute
+and the choice died on the next navigation. Survivable while one page had a
+toggle; not with nineteen. It is stored under `janvayu-theme` and read back
+by every page before first paint. The docs and the blog each kept a separate
+preference under `docsify-dark-mode` behind a floating emoji button; both
+now defer to the shared key, carrying an existing choice over once.
+
+### Fixed, the theme toggle threw and the intro tour showed nothing
+
+Both from v26.6.230, which deleted the pre-redesign chrome. `toggleTheme()`
+still reached for `#themeToggle` unconditionally after flipping the
+attribute, so it threw on null and `initAllCharts()` never ran: the page
+changed theme while every chart kept the previous theme's colours until a
+reload. And all four `TOUR_STEPS` anchored to that same deleted chrome —
+`showTourStep()` skips a target it cannot find, which is correct and is also
+why nobody noticed, because with no step left the tour opened its backdrop
+and dismissed itself in the same frame. The steps now point at the bar's
+five controls.
+
+### Fixed, the pollutant pages were inventing their numbers
+
+For every pollutant except PM2.5, the "live levels" table printed
+
+```js
+Math.round((c.aqi || 0) * (Math.random() * 0.2 + 0.5))
+```
+
+a random number between half and seven-tenths of the city's overall AQI,
+redrawn on every page load, under a heading carrying a real unit. **Five of
+the six published pages showed fabricated concentrations** and two loads of
+the same page disagreed with each other.
+
+It could not be fixed by reading a better field, because there was none: the
+rankings feed returns `aqi` and `pm25` and nothing else per city. It now
+also returns `sub`, the per-pollutant US-EPA sub-index exactly as WAQI
+reports it, and the pages show that, named as a sub-index, listing only
+cities whose stations actually report the pollutant. PM2.5 and PM10 also get
+a concentration. NO₂, SO₂, O₃ and CO do not: EPA's breakpoints for those are
+in ppb and ppm over differing averaging windows, and reaching the µg/m³ that
+India's NAAQS is written in needs an assumed temperature and pressure.
+
+### Fixed, six functions served a sub-index as a concentration
+
+WAQI's `iaqi.<pollutant>.v` is a US-EPA sub-index, unitless, not µg/m³.
+`app.js` has carried the breakpoint tables and a comment saying so since it
+was written; `rankings`, `air-query`, `health-advisory`, `daily-digest`,
+`accountability-brief` and `anomaly-check` never got the conversion, and
+every consumer treated the result as a concentration — the ranking sorts on
+it, `embed/rankings` colours it against the WHO thresholds 5/15/35/55/150.
+
+`air-query` is the one that mattered. Its fallback reply says, in words,
+*"PM2.5 n µg/m³ (n/5× the WHO guideline)"*. At a sub-index of 160, someone
+asking Ask JanVayu whether it was safe to go out was told **160 µg/m³ and
+32× the guideline. It is 73 and about 15×** — a health answer wrong by a
+factor of two, in the direction of alarm. The conversion now lives in
+`netlify/functions/lib/iaqi.mjs`.
+
+### Fixed, a stamped asset changed without the version moving
+
+v26.6.231 shipped a changed `app.js` under an unchanged `?v=202606231`.
+`sw.js` serves same-origin assets cache-first with no revalidation and keys
+its cache on that same version, and Netlify's build runs `bump-version.mjs`
+with no argument, which syncs rather than increments. So the origin served
+the fixed `app.js` to every new visitor and to curl, while **returning
+visitors kept an `app.js` whose theme toggle threw, whose tour showed
+nothing, and which had no `#index` route** — the route the eighteen new
+bars link to. Invisible from outside, by construction. This release rotates
+the stamp and the cache key.
+
+### Added, four guards
+
+- **`check-design-system.py`** — every standalone page loads `styles.css`,
+  and none pins a themed token to one side. Aliasing (`--muted:
+  var(--text-3)`) passes; a literal fails. index.html's critical-CSS block
+  declares both themes and passes.
+- **`check-asset-freshness.py`** — no stamped asset changed while the
+  version stood still. This is the one that was missing above:
+  `check-asset-stamps.py` proves the URLs agree with each other, which is
+  necessary and not sufficient.
+- **`bump-version.mjs` and `check-asset-stamps.py` walk the repo** instead
+  of reading a hardcoded list, which immediately caught `index.html`
+  requesting `/js/chrome.js` with no stamp at all. 41 URLs guarded, up
+  from 4.
+- **The contrast gate covers every page.** It swept the homepage and its 58
+  panels and nothing else, because they were the only pages on these tokens.
+  It now sweeps all eighteen others in both themes, and found **111 failures
+  on its first run** — 87 caused by this change and 24 that pre-dated it:
+  the walkthrough slide numbers at 1.55:1, three diagram labels below AA on
+  white, a footer line at 3.55:1 on a green band no theme ever touched. All
+  fixed with measured replacements.
+
+Each guard was proved by reintroducing the defect it exists for.
+
+### Fixed, a class-name collision and an innerHTML
+
+`js/chrome.js` looks for `header.bar`, not `.bar`: the walkthrough decks
+carry a 4px progress indicator of that name, and a bare class selector both
+wired the stuck-hairline handler to it and let `styles.css`'s padding and
+`border-bottom` through, turning a hairline into a 28px band. CodeQL also
+flagged the decks' overview thumbnails, which concatenated each slide's
+title into an `innerHTML` string; they are built as nodes now.
+
 ## [v26.6.231] - 2026-09-22
 
 ### Changed, "going out for vegetables" is now "going out to buy groceries"

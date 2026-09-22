@@ -4,6 +4,26 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.33: One design system, not nineteen (✅ Completed — v26.6.232)
+
+Phase 5.31 was about appearance that lived where no stylesheet could reach it — 2,860 inline `style=` attributes. This is the same problem one level up: appearance that lived in **eighteen private copies of the stylesheet**, one per page.
+
+`index.html` was the only document on the site that loaded `styles.css`. Every other page carried an inline `<style>` block redefining the same token names with fixed light-theme literals. So a token change reached one page, and none of the others followed the theme control — the ones that had a dark mode keyed it on `prefers-color-scheme` and followed the operating system instead. Choosing light on janvayu.in with a dark desktop left half the site dark. **Nothing failed while that was true**, which is the whole reason it lasted: each page rendered, and rendered plausibly, on its own terms.
+
+- [x] **All 19 standalone documents load `styles.css`** — the six generated pollutant pages, `downloads`, `status`, `docs`, `blog`, `ask`, `try`, `TerraStudioCollab`, the three walkthrough pages and the two embeds. `js/chrome.js` is new and owns the theme preference plus a cut-down bar for the pages that can take one.
+- [x] **The theme is persisted at all** *(it was not)* — `toggleTheme()` set an attribute and the choice died on the next navigation. Survivable with one toggle; not with nineteen. Stored under `janvayu-theme`, applied before first paint on every page. The docs and blog each kept a separate preference under `docsify-dark-mode` behind a floating emoji button; both defer to the shared key now, carrying an existing choice over once.
+- [x] **Two pages keep their own chrome, deliberately** — `ask/` is a `100dvh` chat app where a sticky bar would push the composer off-screen. `walkthrough/deck.html` keeps a **fixed** palette named `--dk-*`: its four slides carry about 110 hand-drawn SVG fills where the colour is the meaning, and letting the slide surface follow the theme put every diagram label on `#1c1c1a` at 1.15:1. A slide is paper.
+- [x] **`check-design-system.py`** — a page must load the stylesheet and must not pin a themed token to one side. Aliasing passes, a literal fails, and `index.html`'s critical-CSS block passes because it declares both themes.
+- [x] **The contrast gate covers every page** — it swept the homepage and its 58 panels and nothing else, because they were the only pages on these tokens. It now sweeps all eighteen others in both themes and found **111 failures on its first run**: 87 caused by this change and 24 that pre-dated it, including the walkthrough slide numbers at 1.55:1 and a footer line at 3.55:1 on a green band no theme ever touched.
+
+**Three defects found in the path of the work, none of them cosmetic.**
+
+- [x] **The pollutant pages were inventing their data** — for every pollutant except PM2.5 the "live levels" table printed `Math.round(aqi * (Math.random() * 0.2 + 0.5))` under a heading carrying a real unit. Five of the six published pages showed fabricated concentrations, and two loads of the same page disagreed. There was no better field to read: the rankings feed carried no NO₂, SO₂, O₃ or CO figure at all. It now returns each pollutant's US-EPA sub-index and the page names it as a sub-index, converting only PM2.5 and PM10, which have published breakpoint tables.
+- [x] **Six functions served a sub-index as a concentration** — `app.js` has known since it was written that `iaqi.<pollutant>.v` is unitless, and carries the tables; `rankings`, `air-query`, `health-advisory`, `daily-digest`, `accountability-brief` and `anomaly-check` never got the conversion. **`air-query` is the one that mattered**: its reply says, in words, "PM2.5 *n* µg/m³ (*n*/5× the WHO guideline)". At a sub-index of 160 a reader asking Ask JanVayu whether it was safe to go out was told 160 µg/m³ and 32× the guideline. It is 73 and about 15×. Now `netlify/functions/lib/iaqi.mjs`.
+- [x] **A stamped asset changed without the version moving** *(v26.6.231, fixed in 232)* — `sw.js` serves same-origin assets cache-first with no revalidation and keys its cache on the version, and Netlify's build runs `bump-version.mjs` with no argument, which syncs rather than increments. The origin served the fixed `app.js` to every new visitor and to curl while returning visitors kept one whose theme toggle threw and which had no `#index` route. Guard: `check-asset-freshness.py`. `check-asset-stamps.py` proves the URLs agree with each other, which is necessary and not sufficient.
+
+**What this phase is really about**, and the reason it is worth writing down: every one of these was a value written where it could not know its context — a hex in a `style=` attribute, a token pinned to one theme, a file changed under a URL that did not change. None of them errored. Each needed a check that could see across files, because no single file was wrong.
+
 ## Phase 5.29: The government's own bulletin, made readable (✅ Completed — v26.6.199–202)
 
 CPCB has published a daily AQI bulletin as a PDF since 1 May 2015. It was public the whole time and unusable as a series, which is a particular kind of non-availability: nobody can say the data is being withheld, and nobody can read it either.
@@ -36,6 +56,7 @@ The obstacle was never taste. It was that most of the site's appearance lived in
 - [x] **The blog's dark-mode toggle uses a Sargam icon** like the rest of the site, instead of an emoji.
 - [x] **The homepage diagram is generated, not drawn** — see Phase 5.32.
 - [ ] **The remaining 1,871 inline styles.** Not urgent; the ones that carried the visual language are done.
+- [x] **The eighteen pages that were never on the stylesheet at all** — see Phase 5.33. This phase counted inline `style=` attributes inside `index.html` and never asked whether the other pages were reading `styles.css` in the first place. They were not.
 
 ## Phase 5.32: A diagram that could not go stale (✅ Completed)
 

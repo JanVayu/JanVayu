@@ -148,6 +148,17 @@ jobs:
       - name: Check every page is on the shared design system
         run: python3 scripts/check-design-system.py
 
+      # check-asset-stamps proves every ?v= URL agrees with every other one.
+      # It cannot see a stamped file changing while the version stands still,
+      # which is what PR #393 did to app.js: all the URLs still agreed, the
+      # check passed, and /app.js?v=202606231 quietly started pointing at
+      # different bytes. sw.js serves these cache-first with no revalidation
+      # and keys its cache on the same version, so a returning visitor would
+      # have kept the old file indefinitely while the origin served the new
+      # one to everyone else -- invisible to curl, to CI and to a new visitor.
+      - name: Check no stamped asset changed without a version bump
+        run: python3 scripts/check-asset-freshness.py
+
       # The old design carried emphasis on a wash and the new one carries it on
       # a rule. 202 inline `background: rgba(...)` tints had accumulated, one at
       # a time, written by whoever needed a box to look important, and they are

@@ -6,11 +6,20 @@
 // Run: node scripts/build-pollutant-pages.mjs
 
 import { writeFile, mkdir } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+
+// Read rather than hardcode. A literal stamp here survives
+// bump-version.mjs -- which rewrites the built pages but not their
+// generator -- so the next regeneration would silently roll all six
+// pages back to whatever release this file was last edited in.
+const VERSION = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version;
+const [maj, min, pat] = VERSION.split(".");
+const STAMP = `20${maj}${min.padStart(2, "0")}${pat.padStart(2, "0")}`;
 
 const POLLUTANTS = [
   {
@@ -135,9 +144,9 @@ const SHARED_HEAD = (p) => `<!DOCTYPE html>
   "description": "${p.description.replace(/"/g,'\\"')}"
 }
 </script>
-<link rel="stylesheet" href="/styles.css?v=202606231">
+<link rel="stylesheet" href="/styles.css?v=${STAMP}">
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606231" defer></script>
+<script src="/js/chrome.js?v=${STAMP}" defer></script>
 <style>
   /* Page-specific only. Everything structural -- tokens, type, .card, .bar,
      .ctl -- comes from styles.css, so a change there now reaches this page. */
