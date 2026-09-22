@@ -7708,7 +7708,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             const aqi = parseInt(s.aqi) || 0;
             const sourceLabel = source === 'community'
                 ? '<span style="background: #7C3AED; color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">COMMUNITY</span>'
-                : '<span style="background: #3B82F6; color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">CPCB/WAQI</span>';
+                // #3B82F6 carries white at 3.68:1. The ink is hardcoded white, so
+                // the background has to be dark in BOTH themes and a var() that
+                // flips would break it; this is the darker blue at 6.70:1. The
+                // COMMUNITY badge beside it is #7C3AED, which clears at 5.70:1.
+                : '<span style="background: #1D4ED8; color: #fff; font-size: 0.6rem; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">CPCB/WAQI</span>';
             return `<div class="card" style="padding: 1rem; border-left: 3px solid ${getAQIColor(aqi)};">
                 <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">${s.station?.name || 'Station'} ${sourceLabel}</div>
                 <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQITextColor(aqi)};">${aqi || '--'}</div>

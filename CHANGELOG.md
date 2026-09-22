@@ -19,6 +19,14 @@ Runs as the gating `contrast-gate` job in `accessibility.yml`, beside the adviso
 
 **Coverage, stated so a green run is not read as more than it is:** nothing drawn into a `<canvas>`, nothing needing a third-party script to render, and no panel missing from `tests/contrast-sweep-panels.txt`.
 
+### Fixed, a badge the gate caught on its first real run
+
+`#3B82F6` carrying white is **3.68:1**, below the 4.5:1 bar, on the CPCB/WAQI badge beside every station in the hyperlocal panel, in both themes. Now `#1D4ED8` at 6.70:1. The ink there is hardcoded white, so the background has to be dark in *both* themes and a token that flips would have broken it; this is one of the few places a colour literal is the right answer. The COMMUNITY badge beside it is `#7C3AED` and clears at 5.70:1.
+
+**The gate found this on the runner after passing locally**, which is the asymmetry it exists to remove, so three real sources of divergence were closed: the measurement now waits for the network to go quiet, then for the panel's own markup to stop changing (bounded at 2.5s, because several panels carry a live ticker and would otherwise sit at the cap), and the same-origin Netlify functions are stubbed rather than left to whatever a static server answers.
+
+None of those closed this particular gap, and the file now says so. Probed directly, the hyperlocal panel issues no `/map/bounds/` request in an agent sandbox at all and falls straight to "No stations found in this area", so there is nothing there to measure. That is upstream of the gate. **A local FAIL is authoritative; a local PASS is not. CI is the authority.**
+
 ### Fixed, the first version of that gate measured nothing
 
 Worth recording because it passed a casual reading. The CI runner lifted the measurement out of `contrast-sweep.mjs` as raw source text with a regex. Inside a template literal `/[\d.]+/` is written with the backslash doubled, so the recovered regex matched "a backslash or a dot" rather than "a digit". Every colour parsed as `NaN`, every background fell through to white, and the run reported white-on-white failures in the footer that are not there and never were.

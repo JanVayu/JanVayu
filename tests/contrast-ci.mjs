@@ -25,6 +25,19 @@
 // panel absent from contrast-sweep-panels.txt. Run the hand sweep against the
 // live site before a release; run this on every push.
 //
+// And one thing measured rather than assumed: A GREEN RUN IN THE AGENT SANDBOX
+// IS WEAKER THAN A GREEN RUN ON CI. On 2026-09-22 this gate passed locally and
+// failed on the runner, on a real defect: the hyperlocal panel's CPCB/WAQI
+// badge, white on #3B82F6 at 3.68:1. The panel renders its station list on the
+// runner and does not here. Probed directly, it issues no /map/bounds/ request
+// in the sandbox at all and falls straight to "No stations found in this area",
+// so there is nothing for the sweep to measure. That is upstream of this file
+// and the stubs do not reach it. Adding networkidle, a bounded
+// wait-for-stable-DOM and a stub for the same-origin Netlify functions each
+// removed a real source of divergence and none of them closed this one.
+//
+// So: a local FAIL is authoritative, a local PASS is not. CI is the authority.
+//
 //   python3 -m http.server 8231 & node tests/contrast-ci.mjs
 //
 // playwright-core resolves from node_modules on a CI runner and from the
@@ -65,6 +78,13 @@ for (const theme of THEMES) {
   const p = await b.newPage({ viewport: { width: 1280, height: 1200 } });
   await p.route('**/*', route => {
     const url = route.request().url();
+    // Same-origin Netlify functions do not exist under a static server, which
+    // answers 404 and sends the panel down its empty path. Stub them, or the
+    // DOM being measured depends on which dev server happens to be running.
+    if (url.includes('/.netlify/functions/')) {
+      stubbed++;
+      return route.fulfill({ status: 200, contentType: 'application/json', body: fixture('netlify-functions.json') });
+    }
     if (url.startsWith(ORIGIN) || url.startsWith('data:') || url.startsWith('blob:')) return route.continue();
     const hit = STUBS.find(([prefix]) => url.replace(/^https?:\/\//, '').startsWith(prefix));
     if (hit) { stubbed++; return route.fulfill({ status: 200, contentType: 'application/json', body: fixture(hit[1]) }); }
@@ -78,7 +98,29 @@ for (const theme of THEMES) {
   for (const panel of PANELS) {
     try {
       await p.evaluate(id => window.showPanel && window.showPanel(id), panel);
-      await p.waitForTimeout(700);
+      // A fixed wait races the panel's own fetches. On 2026-09-22 that made the
+      // gate pass locally and fail on the runner: the hyperlocal panel had not
+      // painted its station list when the local sweep measured, so a badge at
+      // 3.68:1 was invisible here and caught there. Wait for the network to go
+      // quiet first, then settle, so the same panel is measured either way.
+      try { await p.waitForLoadState('networkidle', { timeout: 8000 }); } catch (e) { /* a panel may poll forever */ }
+      // Then wait for the panel's own markup to stop changing. Several panels
+      // render in two or three stages off their own fetches, and networkidle
+      // does not cover the render that follows the response. Without this the
+      // gate measured the hyperlocal panel mid-chain locally and fully formed
+      // on the runner, so a badge at 3.68:1 passed here and failed there.
+      await p.waitForFunction(() => {
+        const c = document.getElementById('panel-container');
+        if (!c) return true;
+        const n = c.innerHTML.length;
+        const prev = window.__jvLastLen;
+        window.__jvLastLen = n;
+        return prev === n;
+      // Bounded deliberately: several panels carry a live ticker or clock and
+      // never stop changing, so an unbounded wait sits at the cap for each of
+      // them and 116 panel-opens becomes a twenty-minute job nobody keeps.
+      }, null, { timeout: 2500, polling: 300 }).catch(() => {});
+      await p.waitForTimeout(250);
       await p.evaluate(t => { document.documentElement.setAttribute('data-theme', t); document.body.setAttribute('data-theme', t); }, theme);
       await p.waitForTimeout(150);
       const hits = await p.evaluate(sweepPage);
