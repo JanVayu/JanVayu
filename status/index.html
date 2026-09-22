@@ -10,37 +10,35 @@
   <meta property="og:title" content="Ask JanVayu — System Status">
   <meta property="og:description" content="Live operational status of the Ask JanVayu chatbot and air-quality services.">
   <meta property="og:type" content="website">
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
   <style>
+    /* This page carried its own eight-colour palette and switched it on
+       prefers-color-scheme, so it followed the operating system and ignored
+       the site's own theme control entirely: a reader who chose light on
+       janvayu.in and had a dark OS got a dark status page. The names below
+       are aliases onto styles.css, which switches on data-theme like every
+       other page, so the toggle in the bar now reaches this page too.
+       --up/--down/--degraded are ink tokens rather than the raw #16A34A,
+       #DC2626 and #D97706: those three were picked against #0f1115 and none
+       of them clears 4.5:1 on the light surface this page can now show. */
     :root {
-      --bg: #0f1115;
-      --card: #171a21;
-      --card-border: #242935;
-      --text: #e6e8ec;
-      --muted: #9aa3b2;
-      --up: #16A34A;
-      --up-dim: rgba(22,163,74,.15);
-      --down: #DC2626;
-      --down-dim: rgba(220,38,38,.13);
-      --degraded: #D97706;
-      --degraded-dim: rgba(217,119,6,.14);
-      --accent: #7C3AED;
-      --radius: 14px;
-    }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f6f7f9; --card: #ffffff; --card-border: #e6e8ec;
-        --text: #1a1d24; --muted: #5b6472;
-        --up-dim: rgba(22,163,74,.10); --down-dim: rgba(220,38,38,.08);
-        --degraded-dim: rgba(217,119,6,.10);
-      }
+      --card: var(--bg-card);
+      --card-border: var(--border);
+      --muted: var(--text-3);
+      --up: var(--ink-green);
+      --down: var(--ink-red);
+      --degraded: var(--ink-amber);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0; background: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: var(--sans);
       line-height: 1.5; -webkit-font-smoothing: antialiased;
     }
-    .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 8px 20px 64px; }
+    .page-title { font-family: var(--serif); font-size: 1.6rem; margin: 12px 0 24px; }
     header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
     header .brand { font-weight: 800; font-size: 1.15rem; letter-spacing: -.01em; }
     header .brand span { color: var(--accent); }
@@ -54,12 +52,12 @@
     .banner .dot { width: 16px; height: 16px; border-radius: 50%; flex: none; }
     .banner h1 { margin: 0; font-size: 1.35rem; letter-spacing: -.02em; }
     .banner p { margin: 2px 0 0; color: var(--muted); font-size: .9rem; }
-    .banner.up    { border-color: rgba(22,163,74,.4);  background: var(--up-dim); }
-    .banner.up .dot { background: var(--up); box-shadow: 0 0 0 4px var(--up-dim); }
-    .banner.down  { border-color: rgba(220,38,38,.45); background: var(--down-dim); }
-    .banner.down .dot { background: var(--down); box-shadow: 0 0 0 4px var(--down-dim); }
-    .banner.degraded { border-color: rgba(217,119,6,.45); background: var(--degraded-dim); }
-    .banner.degraded .dot { background: var(--degraded); box-shadow: 0 0 0 4px var(--degraded-dim); }
+    .banner.up    { border-color: rgba(22,163,74,.4);  background: var(--bg-section); }
+    .banner.up .dot { background: var(--up); box-shadow: 0 0 0 4px var(--bg-section); }
+    .banner.down  { border-color: rgba(220,38,38,.45); background: var(--bg-section); }
+    .banner.down .dot { background: var(--down); box-shadow: 0 0 0 4px var(--bg-section); }
+    .banner.degraded { border-color: rgba(217,119,6,.45); background: var(--bg-section); }
+    .banner.degraded .dot { background: var(--degraded); box-shadow: 0 0 0 4px var(--bg-section); }
 
     .meta { display: flex; justify-content: space-between; align-items: center;
             font-size: .8rem; color: var(--muted); margin: 14px 2px 22px; flex-wrap: wrap; gap: 8px; }
@@ -78,9 +76,9 @@
     .row .right { margin-left: auto; display: flex; align-items: center; gap: 12px; flex: none; }
     .row .latency { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; min-width: 52px; text-align: right; }
     .pill { font-size: .74rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
-    .pill.up { color: var(--up); background: var(--up-dim); }
-    .pill.down { color: var(--down); background: var(--down-dim); }
-    .pill.degraded { color: var(--degraded); background: var(--degraded-dim); }
+    .pill.up { color: var(--up); background: var(--bg-section); }
+    .pill.down { color: var(--down); background: var(--bg-section); }
+    .pill.degraded { color: var(--degraded); background: var(--bg-section); }
     .pill.checking { color: var(--muted); background: rgba(154,163,178,.12); }
     .sdot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--muted); }
     .sdot.up { background: var(--up); } .sdot.down { background: var(--down); } .sdot.degraded { background: var(--degraded); }
@@ -98,12 +96,9 @@
     @keyframes sp { to { transform: rotate(360deg); } }
   </style>
 </head>
-<body>
+<body data-jv-chrome>
   <div class="wrap">
-    <header>
-      <div class="brand">Ask <span>JanVayu</span></div>
-      <div class="tag">System Status</div>
-    </header>
+    <h1 class="page-title">System status</h1>
 
     <div id="banner" class="banner degraded">
       <div class="dot"></div>

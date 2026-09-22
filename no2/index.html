@@ -19,49 +19,46 @@
   "@type": "Article",
   "headline": "Nitrogen Dioxide (NO₂): sources, health effects, and India levels",
   "datePublished": "2026-04-26",
-  "dateModified": "2026-05-20",
+  "dateModified": "2026-09-22",
   "author": { "@type": "Organization", "name": "JanVayu" },
   "publisher": { "@type": "Organization", "name": "JanVayu", "logo": { "@type": "ImageObject", "url": "https://www.janvayu.in/og-image.png" } },
   "mainEntityOfPage": "https://www.janvayu.in/no2/",
   "description": "Reddish-brown gas produced by high-temperature combustion. A key marker of vehicular pollution and a precursor to ozone and PM2.5."
 }
 </script>
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
 <style>
-  :root { --ink: #0F172A; --text-2: #475569; --text-3: #94A3B8; --bg: #FFFFFF; --bg-2: #F8FAFC; --border: #E2E8F0; --accent: #1B6B4A; --pollutant: #3B82F6; }
-  * { box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; margin: 0; color: var(--ink); background: var(--bg); line-height: 1.6; }
-  .container { max-width: 880px; margin: 0 auto; padding: 24px; }
-  header.site-bar { display: flex; gap: 16px; align-items: center; padding: 12px 24px; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 10; }
-  header.site-bar a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-  h1 { font-family: Georgia, serif; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin: 24px 0 12px; }
-  h1 .pollutant { color: var(--pollutant); }
-  h2 { font-family: Georgia, serif; font-size: 1.5rem; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-  .lede { font-size: 1.15rem; color: var(--text-2); margin-bottom: 24px; }
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
-  .stat-card { padding: 16px; background: var(--bg-2); border-left: 3px solid var(--pollutant); border-radius: 6px; }
-  .stat-label { font-size: 0.78rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
-  .stat-value { font-size: 1.25rem; font-weight: 700; margin-top: 4px; }
-  ul { padding-left: 22px; }
-  li { margin-bottom: 6px; }
-  .live-section { padding: 20px; background: var(--bg-2); border-radius: 8px; margin: 24px 0; }
-  .live-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; }
-  .live-table th, .live-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
-  .live-table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); }
-  .badge-val { display: inline-block; padding: 3px 10px; border-radius: 4px; color: #fff; font-weight: 700; min-width: 50px; text-align: center; }
-  footer { padding: 32px 24px; color: var(--text-3); font-size: 0.85rem; text-align: center; border-top: 1px solid var(--border); margin-top: 48px; }
-  footer a { color: var(--accent); }
-  .related-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
-  .related-links a { padding: 6px 12px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 999px; text-decoration: none; color: var(--ink); font-size: 0.85rem; }
-  .cta { display: inline-block; margin-top: 16px; padding: 10px 20px; background: var(--accent); color: var(--on-accent, #fff); border-radius: 6px; text-decoration: none; font-weight: 600; }
+  /* Page-specific only. Everything structural -- tokens, type, .card, .bar,
+     .ctl -- comes from styles.css, so a change there now reaches this page. */
+  :root { --pollutant: var(--ink-blue); }
+  .pollutant-page { max-width: 880px; }
+  .pollutant-page h1 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin: 24px 0 12px; }
+  .pollutant-page h1 .pollutant { color: var(--pollutant); }
+  .pollutant-page h2 { font-family: var(--serif); font-size: 1.5rem; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .pollutant-page .lede { font-size: 1.15rem; color: var(--text-2); margin-bottom: 24px; }
+  .pollutant-page .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+  .pollutant-page .stat-card { padding: 16px; background: var(--bg-section); border-left: 3px solid var(--pollutant); }
+  .pollutant-page .stat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .pollutant-page .stat-value { font-size: 1.25rem; font-weight: 700; margin-top: 4px; }
+  .pollutant-page li { margin-bottom: 6px; }
+  .pollutant-page .live-section { padding: 20px; background: var(--bg-section); border: 1px solid var(--border); margin: 24px 0; }
+  .pollutant-page .live-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; }
+  .pollutant-page .live-table th, .pollutant-page .live-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  .pollutant-page .live-table th { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); }
+  .pollutant-page .live-table td.num { font-family: var(--mono); text-align: right; }
+  .pollutant-page .est { color: var(--text-3); font-style: normal; }
+  .pollutant-page .related-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .pollutant-page .related-links a { padding: 8px 14px; background: var(--bg-section); border: 1px solid var(--border); text-decoration: none; color: var(--text); font-size: 0.85rem; }
+  .pollutant-page .related-links a:hover { border-color: var(--ink); }
+  .pollutant-page .note { font-size: 0.85rem; color: var(--text-3); margin-top: 10px; }
+  .pollutant-foot { padding: 32px 0; color: var(--text-3); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 48px; }
+  .pollutant-foot a { color: var(--accent); }
 </style>
 </head>
-<body>
-<header class="site-bar">
-  <a href="/">JanVayu</a>
-  <span style="color: var(--text-3); font-size: 0.85rem;">India's air quality accountability platform</span>
-  <a href="/" style="margin-left: auto; font-size: 0.85rem;">Dashboard →</a>
-</header>
-<div class="container">
+<body data-jv-chrome>
+<main class="container pollutant-page" id="main-content">
   <h1><span class="pollutant">NO₂</span> in India</h1>
   <p class="lede">Reddish-brown gas produced by high-temperature combustion. A key marker of vehicular pollution and a precursor to ozone and PM2.5.</p>
 
@@ -71,7 +68,7 @@
     <div class="stat-card"><div class="stat-label">Unit</div><div class="stat-value">µg/m³</div></div>
   </div>
 
-  <h2>Live NO₂ levels — top Indian cities right now</h2>
+  <h2>Live NO₂ levels — Indian cities right now</h2>
   <div class="live-section">
     <div id="no2-live"><em style="color: var(--text-3);">Loading live data…</em></div>
   </div>
@@ -94,7 +91,7 @@
 
   <h2>What you can do</h2>
   <p>Reduce personal exposure with N95 masks during peak hours, run a HEPA purifier indoors, and switch to clean transport where possible. Push for systemic change: file an RTI, attend NCAP city consultations, demand transparent station data from your municipality.</p>
-  <a class="cta" href="/#aqi-alerts">Set NO₂ alerts for your city →</a>
+  <a class="btn btn-primary" href="/#aqi-alerts">Set NO₂ alerts for your city</a>
 
   <h2>Other pollutants</h2>
   <div class="related-links">
@@ -104,40 +101,69 @@
     <a href="/so2/">SO₂</a>
     <a href="/o3/">O₃</a>
   </div>
-</div>
-<footer>
+
+<footer class="pollutant-foot">
   <div>JanVayu is an independent, citizen-led air quality accountability platform for India. Part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>.</div>
   <div style="margin-top: 6px;">Data from <a href="https://aqicn.org">WAQI / aqicn.org</a>, <a href="https://cpcb.nic.in">CPCB</a>, and <a href="https://sensor.community">Sensor.Community</a>.</div>
-  <div style="margin-top: 8px;">© 2026 JanVayu · <a href="/">Dashboard</a> · <a href="/blog/">Blog</a> · <a href="/#about">About</a></div>
+  <div style="margin-top: 8px;">© 2026 JanVayu · <a href="/">Dashboard</a> · <a href="/blog/">Blog</a> · <a href="/about">About</a></div>
 </footer>
+</main>
 <script>
 (async () => {
   const el = document.getElementById('no2-live');
   if (!el) return;
+  const SLUG = "no2";
+  const NAME = "NO₂";
+  const UNIT = "µg/m³";
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
   try {
     const res = await fetch('/.netlify/functions/rankings?range=live');
     const json = await res.json();
     if (!Array.isArray(json.cities)) throw new Error('no data');
-    // For PM2.5 we have direct values; for others we approximate from AQI
-    const rows = json.cities.slice(0, 10).map((c, i) => {
-      const val = 'no2' === 'pm25' ? c.pm25 : Math.round((c.aqi || 0) * (Math.random() * 0.2 + 0.5));
-      return '<tr><td>' + (i+1) + '</td><td>' + c.name + '</td><td><span class="badge-val" style="background:' + colorFor(val) + ';">' + val + '</span></td><td>' + c.aqi + '</td></tr>';
+
+    // Shows what the feed actually carries: each pollutant's own sub-index.
+    // PM2.5 and PM10 also get a concentration. See build-pollutant-pages.mjs.
+    const hasConc = SLUG === 'pm25' || SLUG === 'pm10';
+    const rows = json.cities
+      .map(c => ({ c, sub: c.sub ? c.sub[SLUG] : null }))
+      .filter(r => r.sub != null)
+      .sort((a, b) => b.sub - a.sub)
+      .slice(0, 10);
+
+    if (rows.length === 0) {
+      el.innerHTML = '<em style="color: var(--text-3);">No city in the live feed is reporting ' + esc(NAME) +
+        ' right now. Not every monitoring station measures every pollutant. ' +
+        '<a href="/">Open the dashboard for current readings</a></em>';
+      return;
+    }
+
+    const body = rows.map((r, i) => {
+      const conc = hasConc ? (SLUG === 'pm25' ? r.c.pm25 : r.c.pm10) : null;
+      const est = hasConc && SLUG === 'pm25' && r.c.estimated;
+      return '<tr><td class="num">' + (i + 1) + '</td><td>' + esc(r.c.name) + '</td>' +
+        '<td class="num">' + r.sub + '</td>' +
+        (hasConc ? '<td class="num">' + (conc == null ? '<span class="est">not reported</span>'
+          : conc + (est ? ' <span class="est">(est.)</span>' : '')) + '</td>' : '') +
+        '<td class="num">' + esc(r.c.aqi) + '</td></tr>';
     }).join('');
-    el.innerHTML = '<table class="live-table"><thead><tr><th>#</th><th>City</th><th>NO₂ (' + ("µg/m³") + ')</th><th>AQI</th></tr></thead><tbody>' + rows + '</tbody></table>';
+
+    el.innerHTML = '<table class="live-table"><thead><tr>' +
+      '<th>#</th><th>City</th><th>' + esc(NAME) + ' sub-index</th>' +
+      (hasConc ? '<th>' + esc(NAME) + ' (' + esc(UNIT) + ')</th>' : '') +
+      '<th>Overall AQI</th></tr></thead><tbody>' + body + '</tbody></table>' +
+      '<p class="note">The sub-index is this pollutant\'s own US-EPA AQI, which is what the ' +
+      'monitoring feed reports; it is a scale, not a concentration. ' +
+      (hasConc ? 'The ' + esc(UNIT) + ' column is converted from it with the EPA breakpoint table. '
+               : 'Converting it to ' + esc(UNIT) + ' would need an assumed temperature and pressure, so it is not shown. ') +
+      'Only cities whose stations report ' + esc(NAME) + ' appear here.</p>';
   } catch (e) {
-    el.innerHTML = '<em style="color: var(--text-3);">Live data unavailable. <a href="/">Open dashboard for current readings →</a></em>';
-  }
-  function colorFor(v) {
-    if ('no2' !== 'pm25') return '#3B82F6';
-    if (v <= 5) return '#22C55E';
-    if (v <= 15) return '#EAB308';
-    if (v <= 35) return '#F97316';
-    if (v <= 55) return '#EF4444';
-    if (v <= 150) return '#7C3AED';
-    return '#831843';
+    el.innerHTML = '<em style="color: var(--text-3);">Live data unavailable. <a href="/">Open dashboard for current readings</a></em>';
   }
 })();
 </script>
-<script src="../js/dyslexia-font.js" data-accent="var(--accent)" data-radius="var(--radius)" defer></script>
 </body>
 </html>

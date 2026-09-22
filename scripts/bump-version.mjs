@@ -5,7 +5,7 @@
 //   node scripts/bump-version.mjs          # sync all files from package.json version
 //   node scripts/bump-version.mjs 26.7.1   # bump package.json to 26.7.1, then sync
 
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -137,8 +137,30 @@ console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
 // ?v=<stamp> makes every release request a *new* URL that cannot hit a stale
 // cache entry — index.html itself is network-first, so the new HTML (with the
 // new stamp) always reaches the browser, and the fresh assets follow.
-{
-  const file = 'index.html';
+//
+// Scope note (2026-09-22): this used to stamp index.html alone, because
+// index.html was the only page that loaded /styles.css. Eighteen more pages
+// load it now, and each one is behind the same cache-first service worker, so
+// each one carries the same hazard. The list is discovered by walking the repo
+// rather than written down, because a hardcoded list is how a new page joins
+// neither the stamper nor its guard and nobody finds out until a reader is
+// stuck on a stylesheet from four releases ago.
+function htmlFiles() {
+  const SKIP = new Set(['node_modules', '.git', 'Backups', 'tests', 'scripts']);
+  const out = [];
+  (function walk(dir, rel) {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (SKIP.has(e.name)) continue;
+      const abs = join(dir, e.name);
+      const r = rel ? rel + '/' + e.name : e.name;
+      if (e.isDirectory()) walk(abs, r);
+      else if (e.name.endsWith('.html')) out.push(r);
+    }
+  })(ROOT, '');
+  return out;
+}
+
+for (const file of htmlFiles()) {
   let content = readFile(file);
   // The /g is load-bearing. Without it .replace() rewrites only the FIRST
   // match, which is the <link rel="preload"> in <head>. The <link
@@ -155,12 +177,11 @@ console.log(`Version: ${version}  Date: ${isoDate}  Stamp: ${dateStamp}`);
   // fails the build if any of these drift apart again.
   const updated = content
     .replace(/href="\/styles\.css(?:\?v=\d+)?"/g, `href="/styles.css?v=${dateStamp}"`)
-    .replace(/src="\/app\.js(?:\?v=\d+)?"/g, `src="/app.js?v=${dateStamp}"`);
+    .replace(/src="\/app\.js(?:\?v=\d+)?"/g, `src="/app.js?v=${dateStamp}"`)
+    .replace(/src="\/js\/chrome\.js(?:\?v=\d+)?"/g, `src="/js/chrome.js?v=${dateStamp}"`);
   if (updated !== content) {
     writeFile(file, updated);
-    console.log(`${file}: styles.css + app.js stamped ?v=${dateStamp}`);
-  } else {
-    console.log(`${file}: already up to date`);
+    console.log(`${file}: stamped ?v=${dateStamp}`);
   }
 }
 

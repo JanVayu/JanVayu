@@ -1592,11 +1592,17 @@
     });
 
     // ── Intro Tour ──
+    // Every one of these anchored to the pre-redesign chrome, and all four ids
+    // went with it. showTourStep() skips a target it cannot find, which is the
+    // right behaviour and is also why this went unnoticed: with no step left to
+    // show, the tour opened its backdrop and dismissed itself in the same frame.
+    // These are the bar's controls.
     const TOUR_STEPS = [
-        { target: '#glossaryToggle', text: 'Glossary — look up air quality terms and acronyms (Ctrl+K)' },
-        { target: '#simpleModeToggle', text: 'Simple mode — switch all text to plain, easy language' },
-        { target: '#roleSwitcherBtn', text: 'Role selector — choose your role to see relevant content' },
-        { target: '#themeToggle', text: 'Dark/light mode toggle' },
+        { target: '#ctlRole', text: 'Who you are — pick a role and each answer leads with the part that is about you' },
+        { target: '#ctlLang', text: 'Language — read the site in English, Hindi, Bengali, Marathi or Tamil' },
+        { target: '#ctlSimple', text: 'Simple — switch all text to plain, easy language' },
+        { target: '#ctlTheme', text: 'Theme — switch between light and dark' },
+        { target: '#ctlIndex', text: 'Index — everything on this site, on one screen, filterable' },
     ];
     let tourStep = -1;
     function startTour() {
@@ -1685,13 +1691,15 @@
     function toggleTheme() {
         const root = document.documentElement;
         const isDark = root.getAttribute('data-theme') === 'dark';
-        root.setAttribute('data-theme', isDark ? '' : 'dark');
-        // The button carries a Sargam icon rather than a text glyph now, so the
-        // toggle swaps the mask class instead of rewriting textContent, which
-        // would delete the icon span.
-        const themeIcon = document.querySelector('#themeToggle .si');
-        if (themeIcon) themeIcon.className = 'si ' + (isDark ? 'si-moon' : 'si-sun');
-        else document.getElementById('themeToggle').textContent = isDark ? '\u263e' : '\u2600';
+        const next = isDark ? 'light' : 'dark';
+        // The pre-redesign chrome carried #themeToggle with a Sargam icon inside
+        // it, and this function rewrote that icon. Both are gone: the bar's
+        // control is #ctlTheme and it is a text button. The old code reached for
+        // #themeToggle unconditionally, so after the attribute flipped it threw
+        // a TypeError on null, and initAllCharts() below never ran -- the page
+        // changed theme while every chart kept the previous theme's colours
+        // until a reload. Nothing errored visibly, so nothing reported it.
+        JV_setTheme(next);
         try { initAllCharts(); } catch(e) {}
     }
 
@@ -3580,6 +3588,11 @@
         // Anchor link routing: load panel from URL hash
         function handleHash() {
             const hash = window.location.hash.replace('#', '');
+            // The standalone pages carry a cut-down bar (js/chrome.js) whose
+            // Index control cannot open the site index in place, because the
+            // index is built from this page's markup. It links to /#index and
+            // this opens it on arrival.
+            if (hash === 'index') { try { openSiteIndex(); } catch (e) {} return; }
             if (hash && hash !== 'dashboard') {
                 const tmpl = document.getElementById('tmpl-' + hash);
                 // Lazy panels (gallery, voices, resources, …) have no inline

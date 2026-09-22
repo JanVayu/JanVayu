@@ -43,32 +43,48 @@ def current_stamp():
     return f'20{major}{month.zfill(2)}{patch.zfill(2)}'
 
 
-PATTERNS = [
-    ('index.html', r'(?:href|src)="/(?:styles\.css|app\.js)\?v=(\d+)"'),
-    ('sw.js',      r"'/(?:styles\.css|app\.js)\?v=(\d+)'"),
-]
+# Until 2026-09-22 this list was ('index.html', 'sw.js') and that was complete,
+# because index.html was the only page loading /styles.css. Eighteen more pages
+# load it now. A hardcoded list would have left every one of them unguarded and,
+# worse, would have gone on passing -- so the HTML side is discovered by walking
+# the repo. A page joins this check by existing.
+SKIP_DIRS = {'node_modules', '.git', 'Backups', 'tests', 'scripts'}
+ASSET = r'(?:styles\.css|app\.js|js/chrome\.js)'
+HTML_PAT = re.compile(r'(?:href|src)="/(' + ASSET + r')\?v=(\d+)"')
+HTML_BARE = re.compile(r'(?:href|src)="/(' + ASSET + r')"')
+SW_PAT = re.compile(r"'/(" + ASSET + r")\?v=(\d+)'")
+
+
+def html_files():
+    for f in sorted(ROOT.rglob('*.html')):
+        if any(part in SKIP_DIRS for part in f.relative_to(ROOT).parts):
+            continue
+        yield f
 
 
 def main():
     want = current_stamp()
     bad = []
     checked = 0
-    for rel, pat in PATTERNS:
-        f = ROOT / rel
-        if not f.exists():
-            continue
+
+    targets = [(f, HTML_PAT, HTML_BARE) for f in html_files()]
+    sw = ROOT / 'sw.js'
+    if sw.exists():
+        targets.append((sw, SW_PAT, None))
+
+    for f, pat, bare in targets:
+        rel = f.relative_to(ROOT)
         text = f.read_text(encoding='utf-8')
-        for m in re.finditer(pat, text):
+        for m in pat.finditer(text):
             checked += 1
-            if m.group(1) != want:
+            if m.group(2) != want:
                 line = text[:m.start()].count('\n') + 1
                 bad.append(f'  {rel}:{line}  {m.group(0)}  (expected ?v={want})')
-
-    # An unstamped reference is the same hazard wearing different clothes.
-    idx = (ROOT / 'index.html').read_text(encoding='utf-8')
-    for m in re.finditer(r'(?:href|src)="/(?:styles\.css|app\.js)"', idx):
-        line = idx[:m.start()].count('\n') + 1
-        bad.append(f'  index.html:{line}  {m.group(0)}  (no ?v= stamp at all)')
+        # An unstamped reference is the same hazard wearing different clothes.
+        if bare is not None:
+            for m in bare.finditer(text):
+                line = text[:m.start()].count('\n') + 1
+                bad.append(f'  {rel}:{line}  {m.group(0)}  (no ?v= stamp at all)')
 
     if bad:
         print(f'FAIL - {len(bad)} asset URL(s) do not carry the current stamp ?v={want}:\n')
