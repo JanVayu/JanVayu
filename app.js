@@ -884,6 +884,16 @@
         if (l) l.textContent = (currentLang || 'en').toUpperCase();
         const s = document.getElementById('ctlSimple');
         if (s) s.setAttribute('aria-pressed', String(document.body.classList.contains('simple-language')));
+        // The role control now says which role is set. It always read "Who you
+        // are", which was survivable while the old switcher displayed the
+        // choice; deleting that chrome left nothing on screen saying a role was
+        // active at all.
+        const r = document.getElementById('ctlRoleLabel');
+        if (r) {
+            const key = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role') || '';
+            const cfg = (typeof ROLE_CONFIG !== 'undefined' && key !== 'skip') ? ROLE_CONFIG[key] : null;
+            r.textContent = cfg ? cfg.label : (key === 'skip' ? 'Everything' : 'Who you are');
+        }
     }
 
     // ── The index ─────────────────────────────────────────────────────────
@@ -1686,26 +1696,8 @@
     }
 
 
-    // ── Mobile Navigation ──
-    function toggleMobileMenu() {
-        const nav = document.getElementById('mobileNav');
-        const overlay = document.getElementById('mobileNavOverlay');
-        const isOpen = nav.classList.contains('open');
-        if (isOpen) { closeMobileMenu(); } else {
-            nav.classList.add('open'); nav.style.display = 'block';
-            overlay.classList.add('open');
-            requestAnimationFrame(() => { nav.style.transform = 'translateX(0)'; });
-            document.body.style.overflow = 'hidden';
-        }
-    }
-    function closeMobileMenu() {
-        const nav = document.getElementById('mobileNav');
-        const overlay = document.getElementById('mobileNavOverlay');
-        nav.style.transform = 'translateX(100%)';
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-        setTimeout(() => { nav.classList.remove('open'); nav.style.display = 'none'; }, 250);
-    }
+    // The mobile nav drawer and its overlay are gone with the rest of the
+    // pre-redesign chrome; the bar and the Index serve every width now.
 
     // ── Navigation ──
     function showPanel(panelId) {
@@ -3584,13 +3576,6 @@
             link.addEventListener('click', () => showPanel(link.dataset.panel));
         });
 
-        // Mobile nav items
-        document.querySelectorAll('.mobile-nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                showPanel(item.dataset.panel);
-                closeMobileMenu();
-            });
-        });
 
         // Anchor link routing: load panel from URL hash
         function handleHash() {

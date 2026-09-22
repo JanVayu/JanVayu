@@ -3589,8 +3589,11 @@ body.panel-open #panel-container { padding-top: 72px !important; }
    these elements by id (the role switcher, the language dropdown, the mobile
    nav) and removing the markup would break those calls. Deleting them once
    the bar has settled is a follow-up. */
-.ticker, header.header, #header, #sectionNav, #mobileNav, #mobileNavOverlay,
-#roleHint, #roleSwitcherBackdrop { display: none !important; }
+/* The chrome /try's bar replaced is deleted as of v26.6.230, not hidden: the
+   ticker, the old masthead and its nav, the mobile drawer, the section nav,
+   the role switcher and the full-screen role chooser. 38,200 characters of
+   markup, plus the JavaScript that addressed them. Nothing here needs hiding
+   any more. */
 
 /* ── Hard edges ─────────────────────────────────────────────────────────────
    The house style is a hard edge: no corner radius, no drop shadow, surfaces

@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.230] - 2026-09-22
+
+### Removed, the pre-redesign chrome, for real this time
+
+Hidden since the bar landed, with a note in `styles.css` saying deletion was a follow-up once `app.js` no longer addressed the elements by id. This is that follow-up. **`index.html` goes from 662,171 to 618,863 bytes.**
+
+| Block | Bytes |
+|---|---|
+| `#roleOverlay`, the full-screen role chooser | 7,468 |
+| `<header class="header">`, the masthead and its nav | 7,742 |
+| `#mobileNav` drawer and its overlay | 11,048 |
+| `#sectionNav` | 11,581 |
+| `.ticker`, role-switcher dropdown and backdrop | 361 |
+
+Each block was located by its opening tag and closed by matching tag depth rather than by line number, so a shifted file could not quietly cut the wrong thing.
+
+The JavaScript went with it: `toggleMobileMenu`, `closeMobileMenu`, `updateRoleSwitcher`, `openRoleChooser`, `toggleRoleSwitcher`, `closeRoleSwitcher`, `closeRoleSwitcherOnOutsideClick`, and the `.mobile-nav-item` click listener.
+
+**The delicate part was `selectRole` and `switchRole`.** Both mixed dead overlay animation with live work: persisting the choice, rendering the role dashboard, starting the tour. Both are rewritten to keep the live half. The 400ms waits went with the overlay, since they existed only to let it fade before the dashboard replaced it.
+
+Verified rather than assumed: all **58 panels render with zero page errors**, `check-nav-coverage` still reports **62 destinations reachable**, the bar keeps its five controls, and the full role path works end to end (picking a role persists it and renders the dashboard; "Show everything" persists `skip`).
+
+### Fixed, the bar never said which role was set
+
+`updateBarLabels()` only ever touched the language and Simple controls, so the role control always read "Who you are". That was survivable while the old switcher displayed the active role. Deleting that chrome left nothing on screen saying a role was set at all, so the deletion turned a cosmetic gap into a real one. The control now reads the role's own label, or "Everything" for skip.
+
+**Dead CSS is deliberately left in place.** About forty rules for the removed components are now unused, but `header` alone appears 303 times in the markup as `card-header` and similar, and removing a shared rule is a real risk where unused bytes are not. That wants its own pass and its own verification.
+
 ## [v26.6.229] - 2026-09-22
 
 ### Changed, emphasis comes from a rule now, not a tint
