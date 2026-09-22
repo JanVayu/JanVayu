@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.227] - 2026-09-22
+
+### Added, the contrast sweep is a PR gate now
+
+Yesterday's release took 164 contrast failures to zero and said the sweep that found them could not go in CI, because the page paints a band colour per live AQI reading and the counts move on their own: one hand run reported 331 light failures and the next 499 with no code change between them. A gate on a number that drifts is a gate somebody switches off.
+
+`tests/contrast-ci.mjs` removes the drift. Every third-party request is intercepted: the four APIs that feed visible numbers are answered from `tests/fixtures/`, and everything else is aborted. Aborting is the point rather than a shortcut, because a CDN that loads on a GitHub runner and is blocked in an agent sandbox would let the same commit pass in one place and fail in the other, and a webfont arriving late changes text metrics, where the AA bar is 3:1 for large text against 4.5:1 for small. The WAQI fixture spans six AQI bands, so a band colour that is only wrong in one band still gets painted.
+
+Verified the two ways a gate has to be verified. It **fires**: reintroducing the `.stat-label` literal produced `FAIL, 19 element(s)` and exit 1, naming each element, its ratio and the two colours. It is **stable**: five consecutive runs, 88 requests stubbed every time and 0 failures every time. The aborted count moves between 227 and 229 as requests race a closing page, so that number is printed as a diagnostic with a tilde and nothing asserts it.
+
+Runs as the gating `contrast-gate` job in `accessibility.yml`, beside the advisory axe job, with a 15-minute cap. It is in its own workflow rather than `ci.yml` on purpose: a job cancelled by `timeout-minutes` cancels the whole run, and in September that took 44 unrelated jobs down with one overrunning check.
+
+**Coverage, stated so a green run is not read as more than it is:** nothing drawn into a `<canvas>`, nothing needing a third-party script to render, and no panel missing from `tests/contrast-sweep-panels.txt`.
+
+### Fixed, the first version of that gate measured nothing
+
+Worth recording because it passed a casual reading. The CI runner lifted the measurement out of `contrast-sweep.mjs` as raw source text with a regex. Inside a template literal `/[\d.]+/` is written with the backslash doubled, so the recovered regex matched "a backslash or a dot" rather than "a digit". Every colour parsed as `NaN`, every background fell through to white, and the run reported white-on-white failures in the footer that are not there and never were.
+
+The measurement now lives in `tests/contrast-probe.mjs` as a function that both runners import and Playwright serialises, so there is no escaping layer to get wrong and no second copy to drift. The hand explorer and the gate agree at 0 and 0.
+
+### For Learners
+
+- **What a Four-Day Jump in Delhi's AQI Actually Tells You** — a new post reading this week's Delhi headline against our own record: the post-monsoon rise has arrived in all 43 years we hold, for six cities, without exception, and Delhi has been rated Good on 15 of 4,133 CPCB bulletin days since 2015.
+
+### Changed, `run-ci-checks.sh` covers the gating workflows, not one file
+
+It read `ci.yml` alone, so the new gate would have been invisible to a contributor running the checks locally. The generator now scans `accessibility.yml` too, skips the jobs that are advisory there, and the generated script starts a local server if nothing is listening on 8231 and stops it on the way out. 24 commands, up from 23.
+
+`CONTRIBUTING.md` now carries the two colour rules the gate enforces, with the measured ratios for why.
+
 ## [v26.6.226] - 2026-09-22
 
 ### Fixed, 164 contrast failures across the site, down to zero

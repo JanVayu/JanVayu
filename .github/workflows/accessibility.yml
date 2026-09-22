@@ -93,3 +93,46 @@ jobs:
           name: axe-reports
           path: axe-results/
           retention-days: 30
+
+  # The contrast gate. tests/contrast-sweep.mjs is the hand explorer and is
+  # deliberately NOT here: it opens the real page against the real APIs, and
+  # the site paints a band colour per live AQI reading, so its counts move on
+  # their own. One hand run reported 331 light failures and the next 499 with
+  # no code change in between, and a gate on a number that drifts is a gate
+  # somebody switches off.
+  #
+  # tests/contrast-ci.mjs removes the drift: every third-party request is
+  # intercepted, the APIs that feed visible numbers are answered from
+  # tests/fixtures/, and everything else is aborted so a CDN that loads here
+  # and is blocked in an agent sandbox cannot make the same commit pass in one
+  # place and fail in the other.
+  #
+  # This is gating, unlike the advisory axe job above. It exists because
+  # check-theme-contrast.py reads css/*.css only: on 2026-09-22 the site
+  # carried 164 failing elements, and the worst of them were a colour literal
+  # in app.js and an undefined CSS variable, neither of which that guard can
+  # see. What this does NOT cover: anything drawn into a <canvas>, anything
+  # needing a third-party script to render, and any panel missing from
+  # tests/contrast-sweep-panels.txt.
+  contrast-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Install Playwright and its Chromium
+        run: |
+          npm install --no-save playwright-core@1.49.1 playwright@1.49.1
+          npx playwright install --with-deps chromium
+
+      - name: Serve the site on port 8231
+        run: |
+          npx --yes http-server@14.1.1 . -p 8231 --silent &
+          npx --yes wait-on@7.2.0 http://127.0.0.1:8231/ --timeout 60000
+
+      - name: No text may fail WCAG AA in either theme
+        run: node tests/contrast-ci.mjs

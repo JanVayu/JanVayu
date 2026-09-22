@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "data": [
+    { "uid": 1, "aqi": "41",  "station": { "name": "Fixture Good",      "time": "2026-09-22T09:00:00+05:30" }, "lat": 28.70, "lon": 77.10 },
+    { "uid": 2, "aqi": "88",  "station": { "name": "Fixture Moderate",  "time": "2026-09-22T09:00:00+05:30" }, "lat": 28.60, "lon": 77.20 },
+    { "uid": 3, "aqi": "168", "station": { "name": "Fixture Poor",      "time": "2026-09-22T09:00:00+05:30" }, "lat": 28.55, "lon": 77.25 },
+    { "uid": 4, "aqi": "247", "station": { "name": "Fixture Very Poor", "time": "2026-09-22T09:00:00+05:30" }, "lat": 28.65, "lon": 77.30 },
+    { "uid": 5, "aqi": "356", "station": { "name": "Fixture Severe",    "time": "2026-09-22T09:00:00+05:30" }, "lat": 28.50, "lon": 77.15 },
+    { "uid": 6, "aqi": "431", "station": { "name": "Fixture Hazardous", "time": "2026-09-22T09:00:00+05:30" }, "lat": 28.75, "lon": 77.05 }
+  ]
+}

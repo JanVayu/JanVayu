@@ -103,6 +103,32 @@ Thank you for your interest in contributing to JanVayu! This citizen-led archive
 - **Comments:** Document complex logic
 - **Accessibility:** Follow WCAG guidelines
 
+### Before you push
+
+```bash
+bash scripts/run-ci-checks.sh
+```
+
+That runs every gating check CI runs, generated from the workflows themselves
+rather than kept as a second list. Most of it finishes in seconds; the contrast
+gate at the end drives a browser and takes about two minutes.
+
+Two colour rules the gate enforces, because both have shipped broken:
+
+- **Never write a colour literal for text.** `#F97316` reads 2.80:1 on white
+  and `#1D4ED8` reads 2.55:1 on the dark card, and a hex inside a script cannot
+  know which theme it landed in. Use the `--ink-*`, `--aqi-*` or `--std-*`
+  tokens, or `onSwatchInk()` for text painted directly onto a swatch colour.
+- **Never use a CSS variable that is not defined.** With a fallback the
+  fallback wins in *every* theme; with none the declaration is silently
+  dropped. `scripts/check-css-vars.py` fails on either.
+
+```bash
+python3 -m http.server 8231 &
+node tests/contrast-ci.mjs    # the gate, deterministic, fixtures in tests/fixtures/
+node tests/contrast-sweep.mjs # the hand explorer, live APIs, counts drift
+```
+
 ---
 
 ## Netlify Functions Development
