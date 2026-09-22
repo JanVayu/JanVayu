@@ -809,10 +809,32 @@
     // which is where the twelve roles have always lived. The popover reads the
     // same object the old dropdown read, so the two can never disagree about
     // which roles exist.
+    // One reader for the saved role, because there are two pickers writing it:
+    // this popover and the one in js/try-home.js on /try. They shared the key
+    // and not the convention for "no role" — /try removes the key, this popover
+    // used to store the string 'skip' — so the bar read "Everything" after one
+    // of them and "Who you are" after the other, for the same state. The string
+    // is migrated on read, so a visitor carrying one is not left on a label no
+    // control can now produce.
+    function currentRole() {
+        let key = '';
+        try {
+            key = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role') || '';
+        } catch (e) { key = ''; }
+        if (key === 'skip') {
+            try {
+                localStorage.removeItem('janvayu-role');
+                sessionStorage.removeItem('janvayu-role');
+            } catch (e) { /* private mode; the value is then already gone */ }
+            key = '';
+        }
+        return key;
+    }
+
     function buildRolePopover() {
         const grid = document.getElementById('rolePopoverGrid');
         if (!grid || typeof ROLE_CONFIG === 'undefined') return;
-        const current = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role') || '';
+        const current = currentRole();
         // Each role shows what it means, here, beside the choice. This used to be
         // a row of bare labels with a "What these roles mean" button under it,
         // and that button called openRoleChooser(), which opens #roleOverlay:
@@ -830,10 +852,38 @@
                     (r.description ? '<span class="roledesc">' + esc(r.description) + '</span>' : '') +
                     '</button>';
         }
-        html += '<button type="button" aria-pressed="' + (current === 'skip') + '" onclick="pickRole(\'skip\')">' +
-                '<span class="rolename">Show everything</span>' +
-                '<span class="roledesc">No role. Every tool on the site, in the order it was built.</span></button>';
+        // The thirteenth button is the way out of a role, and on this page the
+        // only one: the twelve above each set a role and none of them clears
+        // one, so a visitor who picked Doctor once would keep the doctor
+        // dashboard on every later visit with no control to undo it. (/try's
+        // picker has no such item because re-clicking the active role there
+        // clears it; here re-clicking just sets it again.) So it is not
+        // redundant with the default state, even though a first visit is in
+        // that state.
+        //
+        // What it said was wrong, though. "Every tool on the site, in the
+        // order it was built" describes filtering and ordering that no role
+        // does: a role adds a dashboard panel on this page and leads one of
+        // the three columns on /try, and changes nothing else.
+        html += '<button type="button" aria-pressed="' + (current === '') + '" onclick="clearRole()">' +
+                '<span class="rolename">No role</span>' +
+                '<span class="roledesc">Clears the choice. A role only adds a dashboard on top of the site; nothing is hidden either way.</span></button>';
         grid.innerHTML = html;
+    }
+
+    function clearRole() {
+        // Not pickRole('skip'). That stored a string meaning "no role" which
+        // /try neither writes nor recognises; removing the key is what both
+        // pickers can now agree on.
+        try {
+            localStorage.removeItem('janvayu-role');
+            sessionStorage.removeItem('janvayu-role');
+        } catch (e) { /* private mode */ }
+        try { dismissRoleDashboard(); } catch (e) { /* not on this page */ }
+        const pop = document.getElementById('rolePopover');
+        if (pop) pop.hidden = true;
+        document.getElementById('ctlRole')?.setAttribute('aria-expanded', 'false');
+        updateBarLabels();
     }
 
     function pickRole(key) {
@@ -883,9 +933,9 @@
         // active at all.
         const r = document.getElementById('ctlRoleLabel');
         if (r) {
-            const key = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role') || '';
-            const cfg = (typeof ROLE_CONFIG !== 'undefined' && key !== 'skip') ? ROLE_CONFIG[key] : null;
-            r.textContent = cfg ? cfg.label : (key === 'skip' ? 'Everything' : 'Who you are');
+            const key = currentRole();
+            const cfg = (typeof ROLE_CONFIG !== 'undefined' && key) ? ROLE_CONFIG[key] : null;
+            r.textContent = cfg ? cfg.label : 'Who you are';
         }
     }
 
@@ -940,6 +990,7 @@
     window.toggleRolePopover = toggleRolePopover;
     window.toggleLangPopover = toggleLangPopover;
     window.pickRole = pickRole;
+    window.clearRole = clearRole;
     window.pickLang = pickLang;
     window.openSiteIndex = openSiteIndex;
     window.closeSiteIndex = closeSiteIndex;
@@ -1736,8 +1787,12 @@
 
         // Role dashboard: show the curated role view
         if (panelId === 'my-dashboard') {
-            const savedRole = sessionStorage.getItem('janvayu-role');
-            if (savedRole && savedRole !== 'skip' && typeof showRoleDashboard === 'function') {
+            // This read sessionStorage alone, and nothing in the site has ever
+            // written a role there: both pickers use localStorage. So the
+            // #my-dashboard route found nothing and returned silently, for
+            // every visitor, whatever role they had set.
+            const savedRole = currentRole();
+            if (savedRole && typeof showRoleDashboard === 'function') {
                 showRoleDashboard(savedRole);
             }
             return;
