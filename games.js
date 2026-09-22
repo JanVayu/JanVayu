@@ -65,7 +65,7 @@ function renderJeopardyBoard() {
     // Header row
     JEO_CATS.forEach(cat => {
         const h = document.createElement('div');
-        h.style.cssText = 'background: var(--accent); color: white; font-weight: 700; padding: 14px 8px; text-align: center; border-radius: 8px; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase;';
+        h.style.cssText = 'background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 14px 8px; text-align: center; border-radius: 8px; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase;';
         h.textContent = cat;
         board.appendChild(h);
     });

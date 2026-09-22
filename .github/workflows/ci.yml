@@ -125,6 +125,18 @@ jobs:
       - name: Check no colour choice works in only one theme
         run: python3 scripts/check-theme-contrast.py
 
+      # An undefined custom property does not error, and check-theme-contrast
+      # cannot see it because it reads declared values rather than resolved
+      # ones. With a fallback, the fallback wins in EVERY theme: three rows of
+      # the Migration Comparison table carried `var(--bg-2, #f9fafb)` against a
+      # --bg-2 defined nowhere, so dark-theme ink sat on near-white at 1.18:1
+      # and the table could not be read. With no fallback the declaration is
+      # dropped: seven more cards had no surface at all, and three legend dots
+      # meant to be three colours all came out in body ink. Eleven properties
+      # were undefined when this was written.
+      - name: Check every CSS variable in use is defined
+        run: python3 scripts/check-css-vars.py
+
       # text-transform: uppercase is a display rule except for one character:
       # CSS maps U+00B5 MICRO SIGN to Greek capital Mu, so a label reading
       # "µg/m³" renders as "ΜG/M³" and a reader parses milligrams. A factor of

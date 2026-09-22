@@ -37,3 +37,6 @@ data/tiles/village.pmtiles
 # polygons, and those values ship inside the PMTiles archives instead.
 # Rebuild with scripts/build-lst-mosaic.py — about 20 minutes.
 data/rasters/
+
+# Written by tests/contrast-sweep.mjs on every hand-run; a measurement, not source.
+contrast-sweep.json

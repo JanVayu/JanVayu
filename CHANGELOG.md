@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.226] - 2026-09-22
+
+### Fixed, 164 contrast failures across the site, down to zero
+
+A full sweep of all 58 panels in both themes found **46 failing elements in light and 118 in dark**. Both are now **0**. The 164 were not 164 mistakes; they came from nine habits, and the fixes are almost all one line each.
+
+**Eleven CSS variables were used and never defined.** This is the one that mattered most, because it fails silently in two different ways. With a fallback, the fallback wins in *every* theme: three rows of the Migration Comparison table carried `var(--bg-2, #f9fafb)` against a `--bg-2` defined nowhere in the repo, so dark-theme ink sat on near-white at **1.18:1** and "Annual PM2.5", "Cigarettes/day" and "NCAP target city?" could not be read at all. With no fallback the declaration is simply dropped: seven more cards had no surface, three legend dots meant to be three different colours all rendered in body ink, and a status dot vanished. `scripts/check-css-vars.py` now fails CI on any of it, and was verified by reintroducing the exact `--bg-2` defect and watching it fire.
+
+**One cell had three class names.** The stylesheet styled `.stat-strip .stat-cell`, which appears **zero times** in the markup; the markup uses `.stat-strip-item` (30) and `.stat-item` (4). So every stat strip on the site rendered as a flat block of its own 1px gap colour, and the labels sat on it at 4.14:1 in dark. That single mismatch was 41 of the 118 dark failures across fifteen panels. Fixed by teaching the rules the names the markup uses, which changed no ink at all. The first attempt changed the ink instead and moved all 41 failures from dark into light, which is what a symptom fix looks like.
+
+**Five of the 62 avatars in Voices Online shipped with no background.** `.voice-avatar` sets `color: white` and takes its background from an inline style, so AP, SM, PF, VJ and MM were white on white at **1.00:1**. They now have colours, and the class has a default so a missing one is a wrong colour rather than an invisible one.
+
+**Saturated hues painted as text.** Forty-two of them: `#F97316` at 2.80:1 on white, `#1D4ED8` at 2.55:1 on the dark card, the fourteen language badges on Citizen Testimony that could each only work in one theme. Nine `--ink-*` tokens now carry them, each clearing 4.5:1 against the worst surface in its own theme. The site already had the right accessors in places (`getAQITextColor()`, `onSwatchInk()`, `--on-accent`, `--delta-up`), and the failures were callers reaching past them for the chart-swatch palette instead.
+
+**Brand colours carrying white.** Fifteen avatar and badge backgrounds darkened within their own hue until white clears 4.8:1, rather than changed. The five Games category headers took `--on-accent`, which is `#0e0e0c` in dark and already correct.
+
+**Four organ labels** in the Beyond the Lungs diagram, painted on the fixed `#fbfaf7` diagram surface, darkened.
+
+**What this says about the guards.** `check-theme-contrast.py` was green through all of it, correctly: it reads `css/*.css`, and most of these were literals in `app.js` or an undefined variable it cannot resolve. The sweep that found them is `tests/contrast-sweep.mjs`, run by hand because its counts drift with live AQI, and its panel list did not include the two panels added yesterday until this release. The deterministic part is now in CI as `check-css-vars`; the rest still needs someone to run the sweep.
+
 ## [v26.6.225] - 2026-09-21
 
 ### Added, three things the data could already answer and the site did not ask

@@ -1346,12 +1346,14 @@
         // Buckets: Good (≤50), Moderate (≤100), Poor (≤200), Very Poor (≤300), Severe (≤400), Hazardous (>400)
         const band = aqi <= 50 ? 0 : aqi <= 100 ? 1 : aqi <= 200 ? 2 : aqi <= 300 ? 3 : aqi <= 400 ? 4 : 5;
         const levels = [
-            { level: 'Low',      color: '#22C55E' },
-            { level: 'Watch',    color: '#EAB308' },
-            { level: 'Elevated', color: '#F97316' },
-            { level: 'High',     color: '#EF4444' },
-            { level: 'Severe',   color: '#7C3AED' },
-            { level: 'Extreme',  color: '#831843' },
+            // Tokens, not hexes: these are rendered as text, so the colour has
+            // to flip with the theme. #F97316 reads 2.80:1 on white.
+            { level: 'Low',      color: 'var(--ink-green)' },
+            { level: 'Watch',    color: 'var(--ink-amber)' },
+            { level: 'Elevated', color: 'var(--ink-orange)' },
+            { level: 'High',     color: 'var(--ink-red)' },
+            { level: 'Severe',   color: 'var(--ink-violet)' },
+            { level: 'Extreme',  color: 'var(--ink-pink)' },
         ];
         // Each disease has its own sensitivity to AQI
         return [
@@ -4901,13 +4903,13 @@
     }
 
     function openmapsAqiChip(est) {
-        if (!est) return '<div style="font-size:0.75rem; color:#888; margin-top:4px;">No monitor close enough for a live estimate.</div>';
-        const color = getAQIColor(est.aqi);
+        if (!est) return '<div style="font-size:0.75rem; color:var(--text-3); margin-top:4px;">No monitor close enough for a live estimate.</div>';
+        const color = getAQITextColor(est.aqi);
         return `<div style="display:flex; align-items:baseline; gap:6px; margin-top:4px;">
                     <span style="font-size:1.5rem; font-weight:700; color:${color};">${est.aqi}</span>
                     <span style="color:${color}; font-size:0.75rem; font-weight:600;">${getAQILabel(est.aqi)}</span>
                 </div>
-                <div style="font-size:0.7rem; color:#777;">Estimated from live monitors · nearest: ${est.nearestName} (AQI ${est.nearestAqi}, ~${est.nearestKm} km)</div>`;
+                <div style="font-size:0.7rem; color:var(--text-3);">Estimated from live monitors · nearest: ${est.nearestName} (AQI ${est.nearestAqi}, ~${est.nearestKm} km)</div>`;
     }
 
     const OPENMAPS_SOURCE_TYPES = {
@@ -5288,7 +5290,7 @@
               seasons.map(k => {
                   const m = BOUNDARY_METRICS[k];
                   const peak = p[k] === Math.max(...seasons.map(j => p[j]));
-                  return `${m.label.replace(' air', '')} <strong${peak ? ' style="color:#b91c1c"' : ''}>${p[k]}</strong>`;
+                  return `${m.label.replace(' air', '')} <strong${peak ? ' style="color:var(--ink-red)"' : ''}>${p[k]}</strong>`;
               }).join(' · ') + `</div>`
             : '';
         // The current-year figure is a different instrument on a different
@@ -5646,7 +5648,7 @@
         ctl.onAdd = function () {
             const d = L.DomUtil.create('div');
             d.id = 'village-legend';
-            d.style.cssText = 'background:rgba(255,255,255,0.93);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:210px;';
+            d.style.cssText = 'background:rgba(255,255,255,0.93);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:var(--ink-slate);box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:210px;';
             d.innerHTML = villageLegendHtml();
             return d;
         };
@@ -5677,7 +5679,7 @@
                 const range = (b.max === Infinity || b.max === 999) ? `${lo}+` : `${lo}–${b.max}`;
                 return `<span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${b.color};margin-right:5px;"></span>${range}${unit}`;
             }).join('<br>') +
-            `<div style="margin-top:5px;font-size:0.63rem;color:#6b7280;line-height:1.45;">${foot}</div>`;
+            `<div style="margin-top:5px;font-size:0.63rem;color:var(--ink-slate);line-height:1.45;">${foot}</div>`;
     }
 
     function villageNote(text) {
@@ -5687,7 +5689,7 @@
             villageNoteControl.onAdd = function () {
                 const d = L.DomUtil.create('div');
                 d.id = 'village-note';
-                d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:5px 9px;font-size:0.68rem;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:230px;';
+                d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:5px 9px;font-size:0.68rem;color:var(--ink-slate);box-shadow:0 2px 8px rgba(0,0,0,0.12);max-width:230px;';
                 return d;
             };
             villageNoteControl.addTo(map);
@@ -5849,7 +5851,7 @@
         const ctl = L.control({ position: 'bottomright' });
         ctl.onAdd = function () {
             const d = L.DomUtil.create('div');
-            d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:#374151;box-shadow:0 2px 8px rgba(0,0,0,0.12);';
+            d.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #d1d5db;border-radius:8px;padding:6px 9px;font-size:0.68rem;line-height:1.7;color:var(--ink-slate);box-shadow:0 2px 8px rgba(0,0,0,0.12);';
             d.innerHTML = '<strong style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.04em;">Pollution sources</strong><br>' +
                 Object.values(OPENMAPS_SOURCE_TYPES).map(c =>
                     `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${c.color};margin-right:5px;"></span>${c.label}`
@@ -6555,7 +6557,7 @@
     }
 
     function renderSocialCard(post) {
-        const platformColors = { reddit: '#FF4500', twitter: '#1DA1F2', instagram: '#E4405F', youtube: '#FF0000', news: '#333' };
+        const platformColors = { reddit: '#D13900', twitter: '#0B76B9', instagram: '#DC1F43', youtube: '#E60000', news: '#333333' };
         const platformLabels = { reddit: 'Reddit', twitter: 'X / Twitter', instagram: 'Instagram', youtube: 'YouTube', news: 'News' };
         const color = platformColors[post.platform] || '#666';
         const timeAgo = getTimeAgo(post.created);
@@ -6953,10 +6955,10 @@
         const riskScore = (aqi / 50) * (activityMult[activity] || 1) * (healthMult[health] || 1) * durationMult;
 
         let verdict, color, emoji, advice, maskRec;
-        if (riskScore < 2) { verdict = 'YES — Safe to go'; color = '#22C55E'; emoji = '✓'; advice = 'Air quality is acceptable for your activity.'; maskRec = 'No mask needed.'; }
-        else if (riskScore < 5) { verdict = 'CAUTION — Limit exposure'; color = '#EAB308'; emoji = '⚠'; advice = 'Consider reducing time outdoors or intensity of activity.'; maskRec = 'N95 mask recommended if sensitive.'; }
-        else if (riskScore < 10) { verdict = 'NO — Avoid if possible'; color = '#F97316'; emoji = '✕'; advice = 'Postpone outdoor activities. If unavoidable, wear protection.'; maskRec = 'N95 mask essential.'; }
-        else { verdict = 'STAY INDOORS'; color = '#EF4444'; emoji = '✕'; advice = 'Dangerous air quality. Stay indoors with windows closed.'; maskRec = 'N95/N99 mask essential. Consider air purifier.'; }
+        if (riskScore < 2) { verdict = 'YES — Safe to go'; color = 'var(--ink-green)'; emoji = '✓'; advice = 'Air quality is acceptable for your activity.'; maskRec = 'No mask needed.'; }
+        else if (riskScore < 5) { verdict = 'CAUTION — Limit exposure'; color = 'var(--ink-amber)'; emoji = '⚠'; advice = 'Consider reducing time outdoors or intensity of activity.'; maskRec = 'N95 mask recommended if sensitive.'; }
+        else if (riskScore < 10) { verdict = 'NO — Avoid if possible'; color = 'var(--ink-orange)'; emoji = '✕'; advice = 'Postpone outdoor activities. If unavoidable, wear protection.'; maskRec = 'N95 mask essential.'; }
+        else { verdict = 'STAY INDOORS'; color = 'var(--ink-red)'; emoji = '✕'; advice = 'Dangerous air quality. Stay indoors with windows closed.'; maskRec = 'N95/N99 mask essential. Consider air purifier.'; }
 
         resultEl.innerHTML = `
             <div style="font-size: 3rem; margin-bottom: 0.5rem;">${emoji}</div>
@@ -6984,11 +6986,13 @@
         const avgAQI = ncrCities.reduce((sum, c) => sum + (aqiData[c]?.aqi || 0), 0) / ncrCities.length;
 
         let stage, stageColor, schoolStatus, schoolColor;
-        if (avgAQI <= 200) { stage = 'Normal'; stageColor = '#22C55E'; schoolStatus = 'All schools OPEN'; schoolColor = '#22C55E'; }
-        else if (avgAQI <= 300) { stage = 'Stage I'; stageColor = '#EAB308'; schoolStatus = 'Schools OPEN — outdoor activities restricted'; schoolColor = '#EAB308'; }
-        else if (avgAQI <= 400) { stage = 'Stage II'; stageColor = '#F97316'; schoolStatus = 'Schools OPEN — NO outdoor sports'; schoolColor = '#F97316'; }
-        else if (avgAQI <= 450) { stage = 'Stage III'; stageColor = '#EF4444'; schoolStatus = 'Primary schools (up to Class 5) CLOSED'; schoolColor = '#EF4444'; }
-        else { stage = 'Stage IV'; stageColor = '#7C3AED'; schoolStatus = 'ALL schools CLOSED — online classes only'; schoolColor = '#7C3AED'; }
+        // Both colours are painted as text, so they are tokens: #F97316 reads
+        // 2.80:1 on white, under even the 3:1 large-text bar.
+        if (avgAQI <= 200) { stage = 'Normal'; stageColor = 'var(--ink-green)'; schoolStatus = 'All schools OPEN'; schoolColor = 'var(--ink-green)'; }
+        else if (avgAQI <= 300) { stage = 'Stage I'; stageColor = 'var(--ink-amber)'; schoolStatus = 'Schools OPEN — outdoor activities restricted'; schoolColor = 'var(--ink-amber)'; }
+        else if (avgAQI <= 400) { stage = 'Stage II'; stageColor = 'var(--ink-orange)'; schoolStatus = 'Schools OPEN — NO outdoor sports'; schoolColor = 'var(--ink-orange)'; }
+        else if (avgAQI <= 450) { stage = 'Stage III'; stageColor = 'var(--ink-red)'; schoolStatus = 'Primary schools (up to Class 5) CLOSED'; schoolColor = 'var(--ink-red)'; }
+        else { stage = 'Stage IV'; stageColor = 'var(--ink-violet)'; schoolStatus = 'ALL schools CLOSED — online classes only'; schoolColor = 'var(--ink-violet)'; }
 
         const grapEl = document.getElementById('grap-status');
         if (grapEl) {
@@ -7261,7 +7265,7 @@
         if (el) {
             var diff = 24 - total;
             if (Math.abs(diff) < 0.01) {
-                el.innerHTML = '<span style="color:var(--green);">Total: 24 hrs (complete day)</span>';
+                el.innerHTML = '<span style="color:var(--green-700);">Total: 24 hrs (complete day)</span>';
             } else if (diff > 0) {
                 el.innerHTML = '<span style="color:var(--amber);">Total: ' + total.toFixed(1) + ' hrs (' + diff.toFixed(1) + ' hrs unaccounted)</span>';
             } else {
@@ -7420,21 +7424,21 @@
             if (recs && recs.length > 0) {
                 var rec = recs[0];
                 var savedPM25 = (rec.saving * ambientPM25 * item.hours / 24).toFixed(1);
-                html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;border-left:3px solid ' + item.color + ';">' +
+                html += '<div style="padding:0.75rem;background:var(--bg-section);border-radius:8px;margin-bottom:0.5rem;border-left:3px solid ' + item.color + ';">' +
                     '<div style="font-weight:600;font-size:0.85rem;margin-bottom:4px;">' + item.label + '</div>' +
                     '<p style="margin:0;font-size:0.8rem;">' + rec.text + '</p>' +
-                    '<p style="margin:4px 0 0;font-size:0.75rem;color:var(--green);">Potential saving: ~' + savedPM25 + ' µg/m³ from daily weighted average</p>' +
+                    '<p style="margin:4px 0 0;font-size:0.75rem;color:var(--green-700);">Potential saving: ~' + savedPM25 + ' µg/m³ from daily weighted average</p>' +
                     '</div>';
                 recCount++;
             }
         }
 
         if (recCount === 0) {
-            html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;">' +
+            html += '<div style="padding:0.75rem;background:var(--bg-section);border-radius:8px;margin-bottom:0.5rem;">' +
                 '<p style="margin:0;font-size:0.85rem;">Your routine is relatively low-exposure. Keep windows closed during high-AQI periods and use an air purifier indoors for additional protection.</p></div>';
-            html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;">' +
+            html += '<div style="padding:0.75rem;background:var(--bg-section);border-radius:8px;margin-bottom:0.5rem;">' +
                 '<p style="margin:0;font-size:0.85rem;">Check AQI before outdoor activities and consider wearing an N95 mask when PM2.5 exceeds 60 µg/m³.</p></div>';
-            html += '<div style="padding:0.75rem;background:var(--bg-2);border-radius:8px;margin-bottom:0.5rem;">' +
+            html += '<div style="padding:0.75rem;background:var(--bg-section);border-radius:8px;margin-bottom:0.5rem;">' +
                 '<p style="margin:0;font-size:0.85rem;">Consider indoor plants and HEPA filtration to further reduce your baseline indoor exposure.</p></div>';
         }
 
@@ -7474,7 +7478,7 @@
 
             var reversed = history.slice().reverse();
             reversed.forEach(function(entry, i) {
-                var bgColor = i === 0 ? 'var(--bg-2)' : 'transparent';
+                var bgColor = i === 0 ? 'var(--bg-section)' : 'transparent';
                 html += '<tr style="border-bottom:1px solid var(--border);background:' + bgColor + ';">' +
                     '<td style="padding:6px;">' + entry.date + '</td>' +
                     '<td style="padding:6px;">' + entry.city + '</td>' +
@@ -7490,9 +7494,9 @@
                 var previous = history[history.length - 2].weightedPM25;
                 var diff = latest - previous;
                 var arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
-                var color = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--green)' : 'var(--text-3)';
+                var color = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--green-700)' : 'var(--text-3)';
                 var label = diff > 0 ? 'Exposure increased' : diff < 0 ? 'Exposure decreased' : 'No change';
-                html = '<div style="margin-bottom:0.75rem;padding:0.5rem 0.75rem;background:var(--bg-2);border-radius:6px;display:inline-flex;align-items:center;gap:0.5rem;font-size:0.85rem;">' +
+                html = '<div style="margin-bottom:0.75rem;padding:0.5rem 0.75rem;background:var(--bg-section);border-radius:6px;display:inline-flex;align-items:center;gap:0.5rem;font-size:0.85rem;">' +
                     '<span style="font-size:1.2rem;color:' + color + ';">' + arrow + '</span>' +
                     '<span><strong>' + label + '</strong> since last entry (' + Math.abs(diff).toFixed(1) + ' µg/m³)</span></div>' + html;
             }
@@ -7824,9 +7828,9 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             const whoX = getWHOMultiple(r.pm25);
             const delta = r.delta7 == null ? '—' : (r.delta7 > 0 ? '<span style="color:var(--red);">+' + r.delta7.toFixed(0) + '%</span>' : '<span style="color:var(--green-600);">' + r.delta7.toFixed(0) + '%</span>');
             return `<tr>
-                <td style="text-align: center; font-weight: 600; color: ${i < 3 && order === 'worst' ? '#EF4444' : 'var(--text-2)'}">${i+1}</td>
+                <td style="text-align: center; font-weight: 600; color: ${i < 3 && order === 'worst' ? 'var(--ink-red)' : 'var(--text-2)'}">${i+1}</td>
                 <td style="font-weight: 500;">${r.name}</td>
-                <td style="text-align: right;"><span style="display: inline-block; min-width: 52px; padding: 3px 10px; background: ${color}; color: #fff; border-radius: 6px; font-weight: 600; font-size: 0.82rem;">${r.pm25}</span></td>
+                <td style="text-align: right;"><span style="display: inline-block; min-width: 52px; padding: 3px 10px; background: ${color}; color: ${onSwatchInk(color)}; border-radius: 6px; font-weight: 600; font-size: 0.82rem;">${r.pm25}</span></td>
                 <td style="text-align: right; color: var(--text-2);">${r.aqi || '--'}</td>
                 <td style="text-align: right; font-weight: 600; color: ${textColor};">${whoX}×</td>
                 <td style="text-align: right;">${delta}</td>
@@ -7895,7 +7899,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 const first = valid[0].pm25, last = valid[valid.length - 1].pm25;
                 const pct = ((last - first) / first * 100).toFixed(1);
                 const dir = pct > 0 ? 'worse' : 'better';
-                const color = pct > 0 ? '#EF4444' : '#22C55E';
+                const color = pct > 0 ? 'var(--delta-up)' : 'var(--delta-down)';
                 summaryEl.innerHTML = `<strong>${valid[0].year} → ${valid[valid.length-1].year}:</strong> <span style="color: ${color};">${Math.abs(pct)}% ${dir}</span> for ${CITIES[city]?.name || city} in ${monthName(month)}.`;
             } else {
                 summaryEl.textContent = 'Historical data is sparse for this city/month combination.';
@@ -8062,7 +8066,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         ];
 
         grid.innerHTML = months.map((m, i) => `
-            <div style="background: ${getAQIColor(avgAQI[i])}; color: white; padding: 0.5rem; border-radius: var(--radius); text-align: center; font-size: 0.7rem;">
+            <div style="background: ${getAQIColor(avgAQI[i])}; color: ${onSwatchInk(getAQIColor(avgAQI[i]))}; padding: 0.5rem; border-radius: var(--radius); text-align: center; font-size: 0.7rem;">
                 <div style="font-weight: 700;">${m}</div>
                 <div style="font-size: 1.1rem; font-weight: 700;">${avgAQI[i]}</div>
                 <div style="font-size: 0.55rem; opacity: 0.9;">${sources[i]}</div>
@@ -8312,7 +8316,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <div style="font-size: 1rem; color: var(--text-2); margin-bottom: 1rem;">
                     ${isImprovement ? 'Life expectancy GAINED per person by moving' : 'Life expectancy would DECREASE by moving'}
                 </div>
-                <div style="font-size: 0.95rem; color: var(--text-1); max-width: 36rem; margin: 0 auto; line-height: 1.6;">
+                <div style="font-size: 0.95rem; color: var(--text-2); max-width: 36rem; margin: 0 auto; line-height: 1.6;">
                     ${isImprovement
                         ? `Moving from <strong>${fromName}</strong> to <strong>${toName}</strong> would add ~<strong>${lifeGain.toFixed(1)} years</strong> of life expectancy based on current air quality (AQLI 2025). Your family of ${family} would collectively gain <strong>${(lifeGain * family).toFixed(1)} life-years</strong>.`
                         : `Moving from <strong>${fromName}</strong> to <strong>${toName}</strong> would reduce life expectancy by ~<strong>${Math.abs(lifeGain).toFixed(1)} years</strong>. Consider cities with lower PM2.5 levels.`}
@@ -8360,7 +8364,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <td style="text-align: center;">${pm25Badge(fromLivePM25)}</td>
                             <td style="text-align: center;">${pm25Badge(toLivePM25)}</td>
                         </tr>
-                        <tr style="background: var(--bg-2, #f9fafb);">
+                        <tr style="background: var(--bg-section);">
                             <td><strong>Annual PM2.5</strong> (IQAir 2025)</td>
                             <td style="text-align: center;">${fromAnnualPM25 ? pm25Badge(fromAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
                             <td style="text-align: center;">${toAnnualPM25 ? pm25Badge(toAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
@@ -8370,7 +8374,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <td style="text-align: center; font-weight: 700; color: ${getPM25TextColor(fromPM25)};">${fromWHO}x</td>
                             <td style="text-align: center; font-weight: 700; color: ${getPM25TextColor(toPM25)};">${toWHO}x</td>
                         </tr>
-                        <tr style="background: var(--bg-2, #f9fafb);">
+                        <tr style="background: var(--bg-section);">
                             <td><strong>Cigarettes/day</strong> equiv.</td>
                             <td style="text-align: center;">${fromCigs.toFixed(1)}/day</td>
                             <td style="text-align: center;">${toCigs.toFixed(1)}/day</td>
@@ -8380,7 +8384,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <td style="text-align: center; color: ${getPM25TextColor(fromPM25)};">${fromLifeLoss.toFixed(1)} years</td>
                             <td style="text-align: center; color: ${getPM25TextColor(toPM25)};">${toLifeLoss.toFixed(1)} years</td>
                         </tr>
-                        <tr style="background: var(--bg-2, #f9fafb);">
+                        <tr style="background: var(--bg-section);">
                             <td><strong>NCAP target city?</strong></td>
                             <td style="text-align: center;">${fromNCAP ? '<span style="color: var(--amber); font-weight: 700;">Yes</span>' : '<span style="color: var(--green-600);">No</span>'}</td>
                             <td style="text-align: center;">${toNCAP ? '<span style="color: var(--amber); font-weight: 700;">Yes</span>' : '<span style="color: var(--green-600);">No</span>'}</td>
@@ -8411,7 +8415,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 2px;">
                                 <span>${s.name}</span><span style="font-weight: 700;">${s.pct}%</span>
                             </div>
-                            <div style="height: 8px; background: var(--bg-3, #e5e7eb); border-radius: 4px; overflow: hidden;">
+                            <div style="height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden;">
                                 <div style="height: 100%; width: ${s.pct}%; background: ${color}; border-radius: 4px;"></div>
                             </div>
                         </div>`;
@@ -9470,7 +9474,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         // Render target area
         const targetArea = document.getElementById('cityPolicyTargetArea');
         if (targetArea) {
-            const statusColor = d.status === 'met' ? '#16803C' : d.status === 'on-track' ? '#D97706' : '#EF4444';
+            const statusColor = d.status === 'met' ? 'var(--ink-green)' : d.status === 'on-track' ? 'var(--ink-amber)' : 'var(--ink-red)';
             const statusBadge = d.status === 'met' ? 'badge-success' : d.status === 'on-track' ? 'badge-warning' : 'badge-danger';
             const whoMultiple = (d.currentPM25 / 5).toFixed(0);
             targetArea.innerHTML =
@@ -9885,7 +9889,7 @@ window.initWorkshops = (function () {
                     var s = byId[u.session] || {};
                     return '<div class="card" style="border-left:3px solid var(--accent);"><div class="card-body" style="display:flex;flex-direction:column;gap:5px;">' +
                       '<strong style="font-size:0.95rem;color:var(--ink);">' + esc(s.title || u.session) + '</strong>' +
-                      '<span style="font-size:0.82rem;color:var(--text-1);"><span class="si si-calendar" style="margin-right:5px;"></span>' + esc(u.date) + (u.time ? ' &middot; ' + esc(u.time) : '') + '</span>' +
+                      '<span style="font-size:0.82rem;color:var(--text-2);"><span class="si si-calendar" style="margin-right:5px;"></span>' + esc(u.date) + (u.time ? ' &middot; ' + esc(u.time) : '') + '</span>' +
                       (u.seatsNote ? '<span style="font-size:0.72rem;color:var(--text-3);">' + esc(u.seatsNote) + '</span>' : '') +
                       '<button type="button" class="btn btn-sm btn-primary" onclick="bookWorkshopSession(\'' + esc(u.session) + '\')" style="align-self:flex-start;margin-top:3px;">Book a seat</button>' +
                     '</div></div>';
