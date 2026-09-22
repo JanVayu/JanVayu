@@ -1513,10 +1513,20 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
     line-height: 1.65;
     border: 1px solid var(--border);
 }
-.alert-danger { background: rgba(192,57,43,0.04); border-color: rgba(192,57,43,0.15); }
-.alert-warning { background: rgba(212,133,10,0.04); border-color: rgba(212,133,10,0.15); }
-.alert-info { background: rgba(37,99,235,0.04); border-color: rgba(37,99,235,0.15); }
-.alert-success { background: var(--green-50); border-color: rgba(34,197,94,0.15); }
+/* Emphasis on a rule, not a fill. These were 4% washes, which read as tinted
+   cards: the mint and pink blocks that made a panel look like the old design
+   next to a homepage that carries its emphasis on hairlines and a left rule.
+   The semantic distinction survives, in the ink token, which is the one thing
+   about the colour that has to work in both themes. */
+.alert-danger, .alert-warning, .alert-info, .alert-success {
+    background: var(--bg-section);
+    border-color: var(--border-light);
+    border-left: 3px solid var(--border);
+}
+.alert-danger  { border-left-color: var(--ink-red); }
+.alert-warning { border-left-color: var(--ink-amber); }
+.alert-info    { border-left-color: var(--ink-blue); }
+.alert-success { border-left-color: var(--ink-green); }
 
 /* ── Chart ──────────────────────────────── */
 .chart-container { position: relative; height: 280px; width: 100%; }
@@ -2830,17 +2840,14 @@ body.simple-language .section-intro [data-simple]::after {
 
 /* Action Box for panels */
 .panel-action-box {
-    background: var(--green-50); border: 1px solid var(--green-100);
+    background: var(--bg-section); border: 1px solid var(--border-light);
     border-left: 3px solid var(--accent);
     border-radius: var(--radius); padding: 1rem 1.25rem;
     margin-bottom: 1.5rem; display: flex; align-items: center;
     gap: 1rem; flex-wrap: wrap;
 }
-[data-theme="dark"] .panel-action-box {
-    background: rgba(22, 163, 74, 0.06);
-    border-color: rgba(22, 163, 74, 0.15);
-    border-left-color: var(--accent);
-}
+/* No dark-theme override needed now that the surface is a token: --bg-section
+   is already correct in both themes, and the left rule carries the meaning. */
 .panel-action-box-text {
     flex: 1; min-width: 200px;
 }

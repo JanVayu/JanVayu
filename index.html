@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606228">
+    <link rel="preload" as="style" href="/styles.css?v=202606229">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -796,10 +796,15 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 
 /* ── Alerts ── */
 .alert { padding: 14px 18px; border-radius: var(--radius); font-size: 0.88rem; line-height: 1.65; border: 1px solid var(--border); }
-.alert-danger { background: rgba(192,57,43,0.04); border-color: rgba(192,57,43,0.15); }
-.alert-warning { background: rgba(212,133,10,0.04); border-color: rgba(212,133,10,0.15); }
-.alert-info { background: rgba(37,99,235,0.04); border-color: rgba(37,99,235,0.15); }
-.alert-success { background: var(--green-50); border-color: rgba(34,197,94,0.15); }
+.alert-danger, .alert-warning, .alert-info, .alert-success {
+    background: var(--bg-section);
+    border-color: var(--border-light);
+    border-left: 3px solid var(--border);
+}
+.alert-danger  { border-left-color: var(--ink-red); }
+.alert-warning { border-left-color: var(--ink-amber); }
+.alert-info    { border-left-color: var(--ink-blue); }
+.alert-success { border-left-color: var(--ink-green); }
 
 /* ── Quick links ── */
 .quick-link { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); cursor: pointer; transition: all 0.15s; text-decoration: none !important; }
@@ -1036,8 +1041,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606228" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606228"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606229" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606229"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -2004,7 +2009,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606228"></script>
+    <script src="/app.js?v=202606229"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2276,7 +2281,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                             </ul>
                         </div>
                     </div>
-                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(239,68,68,0.08); border-radius: 8px; font-size: 0.875rem;">
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-section); border-left: 3px solid var(--ink-red); border-radius: 8px; font-size: 0.875rem;">
                         <span data-simple="&lt;strong&gt;What this means:&lt;/strong&gt; Even when Delhi's air quality number says &quot;moderate&quot;, the actual pollution level can be 12 times higher than what the WHO says is safe. This still causes serious health harm."><strong>Key insight:</strong> Delhi's AQI might show "moderate" (100) while PM2.5 is 60 µg/m³ — that's still <strong>12× the WHO guideline</strong> and associated with significant excess mortality risk.</span>
                     </div>
                 </div>
@@ -2465,7 +2470,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <div class="grid-2 jv-gap-15">
                         <div>
                             <!-- STATE OF GLOBAL AIR 2025 -->
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-700); background: rgba(27,107,74,0.03);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--green-700); background: var(--bg-section);">
                                 <h3 style="color: var(--green-700); margin-bottom: 0.5rem;"> State of Global Air 2025 (HEI, October 2025)</h3>
                                 <ul class="jv-t-sm-lh">
                                     <li><strong>2 million deaths in India (2023)</strong> — 43% increase since 2000</li>
@@ -2478,7 +2483,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                             </div>
 
                             <!-- LANCET 10-CITY STUDY -->
-                            <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(37,99,235,0.03);">
+                            <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                                 <h3 style="margin-bottom: 0.5rem"> Lancet 10-City Causal Study (Dec 2024)</h3>
                                 <ul class="jv-t-sm-lh">
                                     <li><strong>33,000 deaths</strong> directly attributable to PM2.5 across 10 Indian cities</li>
@@ -2491,7 +2496,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
                         <div>
                             <!-- HEAT-POLLUTION INTERACTION -->
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent); background: rgba(245,158,11,0.03);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                                 <h3 style="margin-bottom: 0.5rem"> Heat-Pollution Interaction (Karolinska, 2024)</h3>
                                 <ul class="jv-t-sm-lh">
                                     <li><strong>4.6% mortality increase</strong> on days with both high heat AND high PM2.5</li>
@@ -2502,7 +2507,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                             </div>
 
                             <!-- DEMENTIA & COGNITIVE -->
-                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent); background: rgba(124,58,237,0.03);">
+                            <div class="info-box mb-2" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                                 <h3 style="margin-bottom: 0.5rem"> PM2.5 and Dementia (SoGA 2025 — New Finding)</h3>
                                 <ul class="jv-t-sm-lh">
                                     <li><strong>54,000 dementia deaths</strong> attributed to PM2.5 in India (first-ever estimate)</li>
@@ -2513,7 +2518,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                             </div>
 
                             <!-- SOURCE APPORTIONMENT -->
-                            <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(22,128,60,0.03);">
+                            <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                                 <h3 style="color: var(--green-700); margin-bottom: 0.5rem;"> Source Apportionment Update (EGUsphere, 2025)</h3>
                                 <ul class="jv-t-sm-lh">
                                     <li><strong>Industrial emissions:</strong> Now largest domestic source at 18% (previously underestimated)</li>
@@ -2531,7 +2536,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <span class="card-title jv-t-accent"> Environmental Justice — Who Bears the Burden?</span>
                 </div>
                 <div class="card-body">
-                    <div class="alert mb-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--green-700);">
+                    <div class="alert mb-2" style="background: var(--bg-section); border-left: 4px solid var(--green-700);">
                         <div class="jv-t-sm">
                             <strong>The uncomfortable truth:</strong> Air pollution in India is not an equal-opportunity killer. The poor, informal workers, lower-caste communities, and women bear a vastly disproportionate burden — yet policy discourse centers on middle-class urban concerns like odd-even schemes and air purifiers.
                         </div>
@@ -2539,7 +2544,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
                     <div class="grid-2">
                         <!-- HOUSEHOLD AIR POLLUTION -->
-                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(236,72,153,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                             <h3 style="margin-bottom: 0.75rem"> Household Air Pollution — The Invisible Epidemic</h3>
                             <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <strong>481,700 deaths/year in India</strong> from household air pollution (HAP) — about 23% of India's air-pollution deaths. Yet NCAP focuses almost exclusively on ambient air.
@@ -2551,14 +2556,14 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 <li><strong>Children's exposure:</strong> Infants often strapped to mothers' backs during cooking; under-5 respiratory infections</li>
                                 <li><strong>Ujjwala gaps:</strong> 10 crore connections given, but <strong>refill rates only 3.5/year</strong> vs 6-7 needed — cost barrier forces return to biomass</li>
                             </ul>
-                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(236,72,153,0.1); border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-pink); border-radius: 6px; font-size: 0.8125rem;">
                                 <strong>Class dimension:</strong> Urban poor in informal settlements face <em>both</em> HAP from cooking <em>and</em> ambient pollution — double burden invisible to AQI monitors.
                             </div>
                             <div class="jv-t-xs3-mt">Sources: GBD 2021, NSSO 2022, TERI HAP studies</div>
                         </div>
 
                         <!-- OCCUPATIONAL EXPOSURE -->
-                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(245,158,11,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                             <h3 style="margin-bottom: 0.75rem"> Occupational Exposure — Unprotected Workers</h3>
                             <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <strong>~90% of India's workforce is informal</strong> — with no occupational health standards for ambient air exposure. The formal sector gets WFH; workers breathe poison.
@@ -2572,7 +2577,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 <li><strong>Brick kiln workers:</strong> 23 lakh kilns, PM levels 10-20× safe limits; bonded labor, no PPE</li>
                                 <li><strong>Delivery workers:</strong> Gig economy; 50-100 km/day on roads; no employer health responsibility</li>
                             </ul>
-                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(245,158,11,0.1); border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-amber); border-radius: 6px; font-size: 0.8125rem;">
                                 <strong>Policy blind spot:</strong> GRAP bans construction, shuts industries — workers lose wages. No income support, no alternative employment.
                             </div>
                         </div>
@@ -2580,7 +2585,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
                     <div class="grid-2 mt-2">
                         <!-- SPATIAL INJUSTICE -->
-                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(124,58,237,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                             <h3 style="margin-bottom: 0.75rem"> Spatial Injustice — Where You Live Matters</h3>
                             <ul class="jv-t-sm-lh">
                                 <li><strong>Industrial proximity:</strong> Low-income housing systematically located near factories, refineries, power plants</li>
@@ -2589,13 +2594,13 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 <li><strong>No green buffers:</strong> Affluent colonies have parks; slums have concrete and open drains</li>
                                 <li><strong>Monitor placement:</strong> CPCB monitors in institutional areas, not industrial clusters or slums — systematic under-measurement</li>
                             </ul>
-                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-violet); border-radius: 6px; font-size: 0.8125rem;">
                                 <strong>Example:</strong> Anand Vihar AQI consistently 1.5-2× higher than Lodhi Road — but policy treats "Delhi" as homogeneous.
                             </div>
                         </div>
 
                         <!-- CASTE & CLASS -->
-                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(14,165,233,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                             <h3 style="margin-bottom: 0.75rem"> Caste, Class &amp; Environmental Racism</h3>
                             <ul class="jv-t-sm-lh">
                                 <li><strong>Manual scavenging:</strong> Still practiced despite ban; sewer deaths from toxic gases; predominantly Dalit</li>
@@ -2604,7 +2609,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 <li><strong>Leather tanning:</strong> Kanpur, Chennai clusters; chromium + PM; historically caste-segregated</li>
                                 <li><strong>Agricultural laborers:</strong> Stubble burning exposure in fields; landless workers can't "stay indoors"</li>
                             </ul>
-                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(14,165,233,0.1); border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-blue); border-radius: 6px; font-size: 0.8125rem;">
                                 <strong>Intersectionality:</strong> A Dalit woman waste picker faces caste discrimination + gender burden + occupational exposure + residential proximity — compounded vulnerability invisible to aggregate statistics.
                             </div>
                         </div>
@@ -2612,7 +2617,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
                     <div class="grid-2 mt-2">
                         <!-- ADAPTATION INEQUALITY -->
-                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(22,128,60,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                             <h3 style="color: var(--green-700); margin-bottom: 0.75rem;"> Adaptation Inequality — Protection is a Privilege</h3>
                             <ul class="jv-t-sm-lh">
                                 <li><strong>Air purifiers:</strong> ₹10,000-50,000 + electricity cost; inaccessible to 70%+ households</li>
@@ -2625,7 +2630,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         </div>
 
                         <!-- POLICY CRITIQUE -->
-                        <div class="info-box" style="border-left: 4px solid var(--accent); background: rgba(239,68,68,0.03);">
+                        <div class="info-box" style="border-left: 4px solid var(--accent); background: var(--bg-section);">
                             <h3 style="color: var(--red); margin-bottom: 0.75rem;"> Policy Blind Spots — Who's Not at the Table?</h3>
                             <ul class="jv-t-sm-lh">
                                 <li><strong>NCAP:</strong> Focuses on ambient PM10/PM2.5; HAP not integrated; no equity metrics</li>
@@ -2635,7 +2640,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 <li><strong>Solutions discourse:</strong> EVs, purifiers, smog towers — all assume purchasing power</li>
                                 <li><strong>Consultation:</strong> CAQM has no labor union, informal worker, or Dalit organization representation</li>
                             </ul>
-                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: rgba(27,107,74,0.08); border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-green); border-radius: 6px; font-size: 0.8125rem;">
                                 <strong>Question:</strong> When Delhi shuts schools for pollution, which children go to air-conditioned malls, and which breathe the same air at home?
                             </div>
                         </div>
@@ -2808,8 +2813,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <div class="card">
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.8125rem;">
-                        <div style="padding: 0.5rem; background: rgba(124,58,237,0.1); border-radius: 4px; margin-bottom: 0.5rem; border-left: 3px solid var(--green-700);"><strong> Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
-                        <div style="padding: 0.5rem; background: rgba(27,107,74,0.08); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--accent);"><strong> 19 May 2026:</strong> CAQM invokes Stage&nbsp;I at AQI 208 &mdash; <strong>first-ever off-season activation</strong>. GRAP is no longer winter-only.</div>
+                        <div style="padding: 0.5rem; background: var(--bg-section); border-radius: 4px; margin-bottom: 0.5rem; border-left: 3px solid var(--green-700);"><strong> Dec 2024:</strong> GRAP now uses <strong>predictive activation</strong> (3-day forecast via IMD/IITM) instead of reactive triggers</div>
+                        <div style="padding: 0.5rem; background: var(--bg-section); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--accent);"><strong> 19 May 2026:</strong> CAQM invokes Stage&nbsp;I at AQI 208 &mdash; <strong>first-ever off-season activation</strong>. GRAP is no longer winter-only.</div>
                         <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
                         <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage II (301-400):</strong> DG set ban, parking fees 4x</div>
                         <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
@@ -3281,10 +3286,10 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <div class="timeline-item"><div class="timeline-date">Dec 2024</div><div class="timeline-content"><div class="timeline-title">Lancet Causal Study</div><div class="timeline-desc">Harvard/Karolinska: 1.5M deaths/year from PM2.5. First causal inference for India.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Dec 2024</div><div class="timeline-content"><div class="timeline-title">GRAP Goes Predictive</div><div class="timeline-desc">New rules: 3-day advance activation based on IMD/IITM forecasts.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Jan 2025</div><div class="timeline-content"><div class="timeline-title">Delhi's Best Air in 8 Years</div><div class="timeline-desc">79 good/satisfactory days. PM2.5: 96 µg/m³ (still 19x WHO limit).</div></div></div>
-                        <div class="timeline-item" style="background: rgba(27,107,74,0.08);"><div class="timeline-date">Jan 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">Delhi Winter Crisis</div><div class="timeline-desc">Zero "Good" days in 2025 (first time). AQI 500+ on Jan 17. SC gives 4-week deadline.</div></div></div>
+                        <div class="timeline-item" style="background: var(--bg-section); border-left: 3px solid var(--ink-green);"><div class="timeline-date">Jan 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">Delhi Winter Crisis</div><div class="timeline-desc">Zero "Good" days in 2025 (first time). AQI 500+ on Jan 17. SC gives 4-week deadline.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">31 Mar 2026</div><div class="timeline-content"><div class="timeline-title">NCAP Deadline Elapsed</div><div class="timeline-desc">23/100 cities (CREA Jan 2026) and 37/131 (CSE Apr 2026) met the original target. No revised programme announced. 15th Finance Commission grants expire same day.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Apr 2026</div><div class="timeline-content"><div class="timeline-title">NGT South India Order</div><div class="timeline-desc">National Green Tribunal directs six south-Indian states (TN, KL, KA, AP, TS, PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets.</div></div></div>
-                        <div class="timeline-item" style="background: rgba(27,107,74,0.08);"><div class="timeline-date">19 May 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">First Off-Season GRAP</div><div class="timeline-desc">CAQM invokes GRAP Stage-I at AQI 208 &mdash; first-ever off-season activation. Signals year-round, not just winter, enforcement.</div></div></div>
+                        <div class="timeline-item" style="background: var(--bg-section); border-left: 3px solid var(--ink-green);"><div class="timeline-date">19 May 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">First Off-Season GRAP</div><div class="timeline-desc">CAQM invokes GRAP Stage-I at AQI 208 &mdash; first-ever off-season activation. Signals year-round, not just winter, enforcement.</div></div></div>
                     </div>
                 </div>
             </div>
@@ -3334,19 +3339,19 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1.25rem;" data-simple="Heat and dirty air are not two separate problems sitting side by side. They share the same chemistry, the same weather, the same causes and the same victims. Here is how they feed each other.">Heat and dirty air are not two separate problems sitting side by side &mdash; they share chemistry, weather, causes and victims. Here is how they feed each other, which is why this sits inside an air quality archive.</p>
 
             <div class="grid-2" style="gap:1rem; margin-bottom:1rem;">
-                <div class="info-box" style="background: rgba(234,88,12,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3 style="color:var(--ink-orange);">Heat cooks ozone</h3>
                     <p data-simple="Ground-level ozone is not emitted by anything &mdash; it is formed when vehicle and factory gases react in sunlight, and that reaction runs faster as the air gets hotter. A 50&deg;C street makes more ozone than a 35&deg;C one from the same traffic.">Ground-level ozone isn&rsquo;t emitted &mdash; it&rsquo;s formed when NOx and VOCs react in sunlight, and the reaction runs <strong>faster as temperature rises</strong>. A 50&deg;C street makes more ozone than a 35&deg;C one from the same traffic.<sup>3,4</sup></p>
                 </div>
-                <div class="info-box" style="background: rgba(100,116,139,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3 style="color:var(--ink-slate);">Hot days are still days</h3>
                     <p data-simple="Heatwaves usually arrive with stagnant, high-pressure weather. The same still air that traps heat also fails to blow away smoke, dust and exhaust &mdash; so pollution piles up instead of dispersing.">Heatwaves ride in on stagnant high-pressure systems. The same still air that won&rsquo;t carry heat away <strong>won&rsquo;t disperse smoke, dust and exhaust either</strong> &mdash; so pollution accumulates.<sup>4</sup></p>
                 </div>
-                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3 style="color:var(--red);">The cooling spiral</h3>
                     <p data-simple="Hotter colonies run more air conditioners. That pulls more electricity from a coal-heavy grid, releasing more PM2.5 and SO2 &mdash; and every AC dumps its waste heat onto the street, making it hotter still. Heat makes pollution makes heat.">Hotter colonies run more ACs &rarr; more power from a coal-heavy grid &rarr; more PM2.5 and SO2 &mdash; and every AC dumps waste heat onto the street. <strong>Heat makes pollution makes heat.</strong><sup>7</sup></p>
                 </div>
-                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3 style="color:var(--green-700);">One canopy, two jobs</h3>
                     <p data-simple="Tree cover lowers the temperature and also traps particle pollution on its leaves. Removing the green takes away both the shade and the filter at the same time.">Tree cover lowers temperature <em>and</em> deposits particulate matter on its leaves. Strip the green and you remove <strong>the shade and the filter at once</strong> &mdash; which is why &lsquo;trees cool more than concrete heats&rsquo; is also an air-quality statement.<sup>8</sup></p>
                 </div>
@@ -3386,11 +3391,11 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="A study by Artha Global looked at 2,368 homes across all 70 assembly seats of Delhi. It found a clear, measurable link between how a neighbourhood is built and how hot it actually feels.">A white paper by <strong>Artha Global</strong> studied <strong>2,368 households</strong> across all <strong>70 assembly constituencies</strong> of Delhi and found a precise, measurable relationship between urban form and experienced heat.</p>
             <div class="grid-2" style="gap:1rem; margin-bottom:1rem;">
-                <div class="info-box" style="background: rgba(220,38,38,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3 style="color:var(--red);">Concrete heats</h3>
                     <p data-simple="When the built-up area of a neighbourhood rises from 25% to 55%, the temperature people actually feel goes up by 0.6&deg;C.">Increasing built-up area from <strong>25% to 55%</strong> raises experienced temperature by <strong>+0.6&deg;C</strong>.</p>
                 </div>
-                <div class="info-box" style="background: rgba(21,128,61,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3 style="color:var(--green-700);">Trees cool</h3>
                     <p data-simple="When tree cover rises from just 3% to 11%, the heat people feel drops by a full 1&deg;C.">Increasing tree cover from just <strong>3% to 11%</strong> lowers experienced heat by <strong>&minus;1&deg;C</strong>.</p>
                 </div>
@@ -3522,7 +3527,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <span style="font-size: 0.65rem; color: var(--text-3);">Run by our team &middot; free &middot; online</span>
                 </div>
                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                    <div id="walkthrough-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: var(--ink-green); font-size: 0.88rem; margin-bottom: 12px;">
+                    <div id="walkthrough-form-success" style="display: none; padding: 14px; background: var(--bg-section); border-left: 3px solid var(--ink-green); border: 1px solid #22C55E; border-radius: 8px; color: var(--ink-green); font-size: 0.88rem; margin-bottom: 12px;">
                         <strong>Request received.</strong> We'll email you within 2 working days to confirm a slot.
                     </div>
 
@@ -3619,7 +3624,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <p style="font-size: 0.8rem; color: var(--text-3); margin: 8px 0 0; line-height: 1.5;">Want a free, self-paced taste of the Jeopardy format first? Try our own <a href="#games" onclick="showPanel('games'); return false;">Learning Games</a> panel &mdash; that one's on JanVayu.</p>
                     </div>
 
-                    <div id="workshop-form-success" style="display: none; padding: 14px; background: rgba(34,197,94,0.1); border: 1px solid #22C55E; border-radius: 8px; color: var(--ink-green); font-size: 0.88rem; margin-bottom: 12px;">
+                    <div id="workshop-form-success" style="display: none; padding: 14px; background: var(--bg-section); border-left: 3px solid var(--ink-green); border: 1px solid #22C55E; border-radius: 8px; color: var(--ink-green); font-size: 0.88rem; margin-bottom: 12px;">
                         <strong>Request received.</strong> We'll forward this to Dr. Sarath Guttikunda within 3 working days; he'll respond directly with dates and pricing.
                     </div>
 
@@ -3937,7 +3942,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-header"><span class="card-title">School Closures Tracker</span></div>
             <div class="card-body">
                 <p class="jv-t-sm-2-mb1" data-simple="Delhi had to close schools many times during winter 2025-26 because the air was too dirty. When pollution gets really bad (AQI above 400), all primary schools must close. But many students in government schools don&rsquo;t have laptops or internet for online classes, so they simply miss out on learning. The next pollution-season closures start October-November 2026.">Delhi schools shifted to online mode multiple times during Winter 2025-26 (the most recent pollution season). Under GRAP Stage III/IV, all primary schools close when AQI exceeds 400. Students in government schools often lack devices for online learning, widening the education equity gap. The next closure window opens with the post-monsoon pollution season &mdash; typically late October 2026.</p>
-                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3>Winter 2025-26 closures (most recent pollution season)</h3>
                     <p>Nov 4-8, Nov 14-18, Nov 22-26, Dec 2-5, Jan 6-10, Jan 16-20. <strong>Total: ~30 days</strong> across Winter 2025-26. An estimated 4+ million school-age children affected in Delhi-NCR alone. Learning loss is cumulative and disproportionately harms first-generation learners.</p>
                 </div>
@@ -4010,7 +4015,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-header"><span class="card-title">The Indoor Cooking Crisis</span></div>
             <div class="card-body">
                 <p class="jv-t-sm-2-mb1" data-simple="Cooking with wood, dung, and crop waste exposes women to pollution levels 10 to 40 times higher than outdoor air. The government's Ujjwala scheme gave out 10 crore LPG connections, but many women can't afford refills. They use only about 3.5 cylinders per year instead of the 6-7 needed. Many go back to using firewood because LPG is too expensive.">Solid fuel cooking &mdash; wood, dung, and crop residue &mdash; exposes women to PM2.5 concentrations 10&ndash;40&times; ambient levels. The Pradhan Mantri Ujjwala Yojana (PMUY) distributed over 10 Cr LPG connections since 2016, but sustained use remains a challenge. Refill rates have dropped to approximately 3.5 cylinders per year in many states, far below the 6&ndash;7 cylinders needed for a full cooking fuel transition. Cost remains the primary barrier: many beneficiaries revert to biomass fuels when subsidies are delayed or insufficient.</p>
-                <div class="info-box" style="background: rgba(217,119,6,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3>Ujjwala: Connection vs. Transition</h3>
                     <p>A 2024 CEEW evaluation found that only 38% of Ujjwala beneficiaries use LPG as their primary cooking fuel. The remaining 62% practice fuel stacking &mdash; using LPG for quick meals and biomass for roti-making and extended cooking. The scheme succeeded in access but has not yet achieved a clean cooking transition.</p>
                 </div>
@@ -4022,7 +4027,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-header"><span class="card-title">Occupational Exposure</span></div>
             <div class="card-body">
                 <p class="jv-t-sm-2-mb1" data-simple="Women who work in construction, brick kilns, street vending, and farming breathe dirty air all day without protection. About 30% of construction workers are women, but they are rarely given N95 masks or any safety gear.">Women in construction, brick kilns, street vending, and agriculture face sustained outdoor PM2.5 exposure without respiratory protection. Female construction workers comprise approximately 30% of the workforce but are rarely provided N95 masks or occupational health screening. Brick kiln workers &mdash; many of them women from migrant families &mdash; are exposed to PM levels of 500&ndash;1,000 &micro;g/m&sup3; during firing cycles.</p>
-                <div class="info-box" style="background: rgba(59,130,246,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3>The Informal Sector Gap</h3>
                     <p>India&rsquo;s Factories Act and Building &amp; Other Construction Workers Act mandate protective equipment, but enforcement in the informal sector &mdash; where most women work &mdash; is nearly non-existent. No national data exists on occupational respiratory disease among female informal workers.</p>
                 </div>
@@ -4044,7 +4049,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-header"><span class="card-title">The Gender Data Gap</span></div>
             <div class="card-body">
                 <p class="jv-t-sm-2-mb1" data-simple="Most air quality sensors are placed in commercial and industrial areas, not in homes and kitchens where women spend most of their time. India has zero official indoor air monitoring stations. Health studies rarely separate data by gender, so we don't fully know how much worse pollution is for women.">Most air quality monitoring stations (CAAQMS) are sited in commercial, industrial, and traffic zones &mdash; not in residential areas where women spend the majority of their time. CPCB&rsquo;s monitoring network includes zero indoor monitoring stations. Health impact studies rarely disaggregate outcomes by gender, making it impossible to precisely quantify the differential burden on women.</p>
-                <div class="info-box" style="background: rgba(239,68,68,0.06); border-left: 3px solid var(--accent);">
+                <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent);">
                     <h3>CAG Audit Finding (April 2025)</h3>
                     <p>The Comptroller and Auditor General&rsquo;s April 2025 audit of India&rsquo;s air quality monitoring infrastructure found that station siting criteria systematically excluded residential and peri-urban areas. The audit recommended gender-sensitive monitoring protocols and indoor air quality stations in at least 50 cities by 2028.</p>
                 </div>
@@ -4114,7 +4119,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <p><strong>Enforcement actions:</strong> Only 128 closure notices issued in 2024-25 across all of India for emission violations</p>
                     <p><strong>Penalty recovery:</strong> Environmental Compensation charges collected: Rs 186 Cr (2023-24) against an estimated Rs 12,000+ Cr in environmental damage</p>
                 </div>
-                <div class="alert mt-2" style="background: rgba(27,107,74,0.08); border-left: 4px solid var(--accent); font-size: 0.85rem;">
+                <div class="alert mt-2" style="background: var(--bg-section); border-left: 4px solid var(--accent); font-size: 0.85rem;">
                     <strong>9 April 2026 update &mdash; NGT escalation.</strong> National Green Tribunal issued notices to <strong>every State Pollution Control Board and Pollution Control Committee</strong> for failing to enforce CPCB/CAQM directions on diesel-generator-set retrofit norms. Next hearing 21 Jul 2026. First nationwide accountability move beyond NCR.
                 </div>
             </div>
@@ -5605,7 +5610,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             </div>
 
             <!-- EXAMPLE QUESTION CHIPS — surface what the bot can do -->
-            <div class="info-box" style="background: rgba(27,107,74,0.04); border-left: 3px solid var(--accent); margin-bottom: 1.25rem; padding: 1rem;">
+            <div class="info-box" style="background: var(--bg-section); border-left: 3px solid var(--accent); margin-bottom: 1.25rem; padding: 1rem;">
                 <h3 style="margin: 0 0 0.5rem; color: var(--accent); font-size: 0.875rem; font-weight: 700;">Try one of these &mdash; tap a chip to load the question</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 6px;">
                     <button class="ask-chip" style="padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-2); font-size: 0.78rem; cursor: pointer;" onclick="loadAskChip('Should I go jogging today?')">Should I go jogging today?</button>
@@ -5802,7 +5807,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     </div>
                 </div>
                 <div>
-                    <div id="brief-anomaly-banner" style="display: none; padding: 10px 16px; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); border-radius: var(--radius); margin-bottom: 12px; font-size: 0.88rem; color: var(--red); font-weight: 600;"></div>
+                    <div id="brief-anomaly-banner" style="display: none; padding: 10px 16px; background: var(--bg-section); border-left: 3px solid var(--ink-red); border: 1px solid rgba(192,57,43,0.2); border-radius: var(--radius); margin-bottom: 12px; font-size: 0.88rem; color: var(--red); font-weight: 600;"></div>
                     <div class="brief-output" id="brief-output"></div>
                     <div class="brief-actions" id="brief-actions" style="display: none;">
                         <button class="btn btn-sm" onclick="downloadBrief()"><span class="si si-sm si-download"></span> Download .txt</button>
