@@ -813,13 +813,26 @@
         const grid = document.getElementById('rolePopoverGrid');
         if (!grid || typeof ROLE_CONFIG === 'undefined') return;
         const current = localStorage.getItem('janvayu-role') || sessionStorage.getItem('janvayu-role') || '';
+        // Each role shows what it means, here, beside the choice. This used to be
+        // a row of bare labels with a "What these roles mean" button under it,
+        // and that button called openRoleChooser(), which opens #roleOverlay:
+        // the OLD full-screen chooser, with its own logo and masthead. So the
+        // new bar sent you into the old design to find out what you were
+        // choosing between. ROLE_CONFIG already carries a one-line description
+        // per role, so nothing had to be written to fix it.
+        grid.classList.add('popgrid-roles');
+        const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
         let html = '';
         for (const key of Object.keys(ROLE_CONFIG)) {
+            const r = ROLE_CONFIG[key];
             html += '<button type="button" aria-pressed="' + (key === current) + '" onclick="pickRole(\'' + key + '\')">' +
-                    ROLE_CONFIG[key].label + '</button>';
+                    '<span class="rolename">' + esc(r.label) + '</span>' +
+                    (r.description ? '<span class="roledesc">' + esc(r.description) + '</span>' : '') +
+                    '</button>';
         }
-        html += '<button type="button" aria-pressed="' + (current === 'skip') + '" onclick="pickRole(\'skip\')">Show everything</button>';
-        html += '<button type="button" onclick="openRoleChooser()">\u22ef What these roles mean</button>';
+        html += '<button type="button" aria-pressed="' + (current === 'skip') + '" onclick="pickRole(\'skip\')">' +
+                '<span class="rolename">Show everything</span>' +
+                '<span class="roledesc">No role. Every tool on the site, in the order it was built.</span></button>';
         grid.innerHTML = html;
     }
 
@@ -855,6 +868,16 @@
         document.getElementById('ctlLang')?.setAttribute('aria-expanded', 'false');
         updateBarLabels();
     }
+
+    // The bar only draws its rule once it is actually stuck, so the homepage
+    // keeps its clean top edge and a panel gets a visible separation.
+    (function markStuckBar() {
+        const bar = document.querySelector('header.bar');
+        if (!bar) return;
+        const onScroll = () => bar.classList.toggle('is-stuck', bar.getBoundingClientRect().top <= 0);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
 
     function updateBarLabels() {
         const l = document.getElementById('ctlLangLabel');
