@@ -59,10 +59,27 @@
        first paint, so this is only a safety net for a page that forgot it. */
     if (read() === 'dark') apply('dark');
 
+    /* The bar draws its rule only once it is actually stuck, so a page keeps a
+       clean top edge until something scrolls under it. This was markStuckBar()
+       in app.js and therefore index.html only; it lives here so it applies to
+       whichever bar a page ends up with -- the one injected below, or the one
+       try.html brings itself. The test is on the bar's own rect rather than
+       scrollY, which is what makes it correct on a page whose bar is not the
+       first thing in the document. */
+    function wireStuck(bar) {
+        var f = function () { bar.classList.toggle('is-stuck', bar.getBoundingClientRect().top <= 0); };
+        f();
+        window.addEventListener('scroll', f, { passive: true });
+    }
+
     function buildBar() {
         var body = document.body;
+        /* header.bar, not .bar: the walkthrough decks carry a 4px progress
+           indicator that was also called .bar, and a bare class selector
+           would have wired the stuck-hairline handler to it. */
+        var existing = document.querySelector('header.bar');
+        if (existing) { wireStuck(existing); return; }   /* page has its own */
         if (!body || !body.hasAttribute('data-jv-chrome')) return;
-        if (document.querySelector('.bar')) return;   /* page has its own */
 
         var bar = document.createElement('header');
         bar.className = 'bar container';
@@ -99,12 +116,7 @@
 
         bar.appendChild(right);
         body.insertBefore(bar, body.firstChild);
-
-        /* Same contract as markStuckBar() in app.js: the hairline appears only
-           once the bar has something scrolled underneath it. */
-        var mark_ = function () { bar.classList.toggle('is-stuck', window.scrollY > 4); };
-        mark_();
-        window.addEventListener('scroll', mark_, { passive: true });
+        wireStuck(bar);
     }
 
     if (document.readyState === 'loading') {

@@ -443,13 +443,15 @@
       a.addEventListener('click', function (e) { e.preventDefault(); openIndex(); });
     });
 
+    // This used to flip the attribute itself, through a three-state
+    // auto/light/dark cycle, and store nothing -- so the choice died on the
+    // next navigation and the rest of the site never heard about it.
+    // js/chrome.js owns the theme and the key for every page now.
     var themeBtn = $('themeBtn');
-    themeBtn.addEventListener('click', function () {
-      var root = document.documentElement;
-      var now = root.getAttribute('data-theme');
-      var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      root.setAttribute('data-theme',
-        now === 'auto' ? (dark ? 'light' : 'dark') : (now === 'dark' ? 'light' : 'dark'));
-    });
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function () {
+        if (window.JV_toggleTheme) window.JV_toggleTheme();
+      });
+    }
   });
 })();

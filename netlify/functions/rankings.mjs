@@ -9,6 +9,7 @@
 //   Each call also writes today's snapshot, so the dataset grows over time.
 
 import { getBlobStore } from "./lib/blob.mjs";
+import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 
 
 const WAQI_TOKEN = process.env.WAQI_TOKEN || "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
@@ -104,37 +105,9 @@ const CITIES = {
   thoothukudi: { name: "Thoothukudi", lat: 8.7642, lon: 78.1348 },
 };
 
-// WAQI reports iaqi.<pollutant>.v as a US-EPA sub-index, which is unitless, not
-// a concentration. app.js has known this since it was written -- it carries the
-// breakpoint tables and iaqiToPM25()/iaqiToPM10() with a comment saying so -- but
-// this function never got the conversion, so it served a sub-index under the key
-// `pm25` and every consumer treated it as ug/m3: the rankings panel sorts on it,
-// embed/rankings colours it against the WHO thresholds 5/15/35/55/150, and the
-// pollutant pages print it in a column headed ug/m3. A sub-index of 160 is not
-// 160 ug/m3; it is 73. The tables below are the EPA's and match app.js.
-const PM25_BREAKPOINTS = [
-  [0, 12.0, 0, 50], [12.1, 35.4, 51, 100], [35.5, 55.4, 101, 150],
-  [55.5, 150.4, 151, 200], [150.5, 250.4, 201, 300],
-  [250.5, 350.4, 301, 400], [350.5, 500.4, 401, 500],
-];
-const PM10_BREAKPOINTS = [
-  [0, 54, 0, 50], [55, 154, 51, 100], [155, 254, 101, 150],
-  [255, 354, 151, 200], [355, 424, 201, 300],
-  [425, 504, 301, 400], [505, 604, 401, 500],
-];
-
-function iaqiToConcentration(iaqi, table) {
-  if (iaqi == null || iaqi === "" || isNaN(iaqi)) return null;
-  const v = Number(iaqi);
-  for (const [bpLo, bpHi, iLo, iHi] of table) {
-    if (v >= iLo && v <= iHi) {
-      return Math.round(((v - iLo) / (iHi - iLo)) * (bpHi - bpLo) + bpLo);
-    }
-  }
-  if (v > 500) return Math.round(table[table.length - 1][1]);
-  return null;
-}
-
+// The breakpoint tables and the conversion live in ./lib/iaqi.mjs, which
+// explains why they are needed and which five functions were serving a
+// sub-index under a concentration key.
 async function fetchOne(key) {
   const c = CITIES[key];
   try {
@@ -148,12 +121,12 @@ async function fetchOne(key) {
       // because the ranking sorts on this field and a null would drop the city.
       // It is an estimate and `estimated` says which rows are one, so a consumer
       // can mark them rather than presenting a guess as a reading.
-      const measured = iaqiToConcentration(iaqi.pm25?.v, PM25_BREAKPOINTS);
+      const measured = iaqiToPM25(iaqi.pm25?.v);
       const pm25 = measured == null ? Math.round(aqi * 0.7) : measured;
       return {
         key, name: c.name, aqi, pm25,
         estimated: measured == null,
-        pm10: iaqiToConcentration(iaqi.pm10?.v, PM10_BREAKPOINTS),
+        pm10: iaqiToPM10(iaqi.pm10?.v),
         // Sub-indices, passed through unconverted and named for what they are.
         // EPA's NO2/SO2 breakpoints are in ppb and O3/CO in ppm, over averaging
         // windows that differ per pollutant, so converting those to the ug/m3

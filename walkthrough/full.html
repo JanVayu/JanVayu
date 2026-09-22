@@ -5,21 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JanVayu — Full Walkthrough Deck</title>
 <meta name="description" content="The comprehensive, always-up-to-date walkthrough of JanVayu — a slide for every section of India's citizen air-quality platform.">
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
 <style>
   @font-face { font-family:'Fraunces'; font-weight:700; font-display:swap; src:url('/fonts/fraunces-700.woff2') format('woff2'); }
   @font-face { font-family:'Fraunces'; font-weight:400; font-display:swap; src:url('/fonts/fraunces-400.woff2') format('woff2'); }
   @font-face { font-family:'Kalam'; font-weight:400; font-display:swap; src:url('/fonts/kalam-400.woff2') format('woff2'); }
   @font-face { font-family:'Kalam'; font-weight:700; font-display:swap; src:url('/fonts/kalam-700.woff2') format('woff2'); }
 
+  /* A deck is a deck: slides on a stage, not a page with a nav bar, so this
+     file keeps its own layout and takes only the type and the colours. --ink,
+     --muted, --paper and --line are the slide's ink and surface and they
+     follow the theme, so a presenter in a dark room gets dark slides; the
+     stage stays the deep green in both, which is what keeps a slide reading
+     as a slide. --green-900 is the one colour styles.css does not flip. */
   :root {
-    --ink:#1e2a22; --muted:#5b6b60; --paper:#fbfaf7; --line:#e7e4dc;
-    --green-700:#15803d; --green-900:#0f2b1c; --accent:#15803d; --red:#c92a2a;
-    --sans: system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    --serif:'Fraunces','Georgia',serif;
+    --muted: var(--text-2);
+    --paper: var(--bg-card);
+    --line: var(--border);
+    --red: var(--ink-red);
   }
   * { margin:0; box-sizing:border-box; }
   html,body { height:100%; }
-  body { background:#0b1a12; color:var(--ink); font-family:var(--sans); overflow:hidden; }
+  body { background:var(--green-900); color:var(--ink); font-family:var(--sans); overflow:hidden; }
 
   /* Stage */
   .stage { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
@@ -87,7 +96,10 @@
   .foot { display:flex; align-items:baseline; gap:14px; margin-top:auto; padding-top:.6em; }
   .foot .brand { font-family:var(--serif); font-weight:700; color:var(--green-700); }
   .foot .url { font-size:.85rem; color:var(--muted); }
-  .kicker { font-family:var(--serif); font-size:clamp(3rem,9vw,7rem); font-weight:700; line-height:1; color:rgba(255,255,255,.14); position:absolute; top:clamp(18px,3vw,40px); right:clamp(24px,4.5vw,64px); }
+  /* .14 measured 1.55:1 against the stage. These are the slide numbers and
+     they are large text, so the threshold is 3:1; .38 gives 3.30:1 and is
+     still plainly a watermark rather than a heading. */
+  .kicker { font-family:var(--serif); font-size:clamp(3rem,9vw,7rem); font-weight:700; line-height:1; color:rgba(255,255,255,.38); position:absolute; top:clamp(18px,3vw,40px); right:clamp(24px,4.5vw,64px); }
 
   /* Title / section slides — dark */
   .slide.cover { background:var(--green-900); color:#fff; justify-content:center; }
@@ -100,7 +112,7 @@
   .slide.cover .leaf { position:absolute; inset:0; border-radius:16px; background:radial-gradient(1000px 420px at 50% 118%, rgba(21,128,61,.4), transparent 70%); }
 
   /* Chrome */
-  .bar { position:fixed; top:0; left:0; height:4px; background:var(--green-700); width:0; transition:width .3s ease; z-index:20; }
+  .deck-progress { position:fixed; top:0; left:0; height:4px; background:var(--green-700); width:0; transition:width .3s ease; z-index:20; }
   .hud { position:fixed; bottom:14px; left:50%; transform:translateX(-50%); z-index:20; display:flex; align-items:center; gap:14px; background:rgba(0,0,0,.5); color:#fff; padding:7px 14px; border-radius:999px; font-size:.85rem; backdrop-filter:blur(6px); }
   .hud button { background:none; border:none; color:#fff; cursor:pointer; font-size:1.1rem; line-height:1; padding:2px 6px; border-radius:6px; }
   .hud button:hover { background:rgba(255,255,255,.15); }
@@ -128,7 +140,7 @@
   /* Print → PDF: one slide per page */
   @media print {
     body { background:#fff; overflow:visible; }
-    .bar,.hud,.hint,.notes,.grid { display:none !important; }
+    .deck-progress,.hud,.hint,.notes,.grid { display:none !important; }
     .stage { position:static; display:block; }
     .slide { position:relative; opacity:1 !important; transform:none !important; width:100%; aspect-ratio:16/9;
       box-shadow:none; border:1px solid var(--line); border-radius:0; page-break-after:always; margin:0; }
@@ -136,7 +148,7 @@
 </style>
 </head>
 <body>
-<div class="bar" id="bar"></div>
+<div class="deck-progress" id="bar"></div>
 <div class="hint">Slides: <kbd>&larr;</kbd><kbd>&rarr;</kbd> · Notes <kbd>S</kbd> · Overview <kbd>O</kbd> · Fullscreen <kbd>F</kbd></div>
 
 <div class="stage" id="stage"><!-- slides are generated from FULL_SLIDES below --></div>

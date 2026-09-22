@@ -17,6 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
 
 <style>
 :root {
@@ -24,11 +27,10 @@
     --serif: 'Newsreader', 'Georgia', serif;
     --mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-    --green-50:  #F0FDF4;
-    --green-100: #DCFCE7;
+    /* --green-50/100/600/700 and the three shadows come from styles.css,
+       which flips each per theme. Setting them here pinned the page to the
+       light value. */
     --green-200: #BBF7D0;
-    --green-600: #16A34A;
-    --green-700: #15803D;
     --green-800: #166534;
     --green-900: #14532D;
 
@@ -42,37 +44,23 @@
     --gray-700:#3F3F46;
     --gray-900:#18181B;
 
-    --bg: var(--white);
-    --bg-sunken: var(--gray-50);
-    --text-1: var(--gray-900);
-    --text-2: var(--gray-600);
-    --text-3: var(--gray-400);
-    --accent: var(--green-700);
-    --accent-hover: var(--green-600);
-    --border: var(--gray-200);
-    --border-subtle: var(--gray-100);
+    /* The semantic layer points at styles.css instead of at this file's own
+       ramps, so this page follows the theme control rather than the operating
+       system. The ramps above stay: eleven rules still reference them
+       directly, and they are this page's illustration palette. */
+    --bg-sunken: var(--bg-section);
+    --text-1: var(--text);
+    --border-subtle: var(--border-light);
 
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
 
     --radius: 10px;
     --radius-lg: 14px;
     --max-w: 1100px;
 }
 
-@media (prefers-color-scheme: dark) {
-:root {
-    --bg: #0C0C0C;
-    --bg-sunken: #111111;
-    --text-1: #F4F4F5;
-    --text-2: #A1A1AA;
-    --text-3: #52525B;
-    --accent: #4ADE80;
-    --accent-hover: #86EFAC;
-    --border: #2A2A2A;
-    --border-subtle: #1F1F1F;
-}
+/* A second copy of the palette, switched on prefers-color-scheme, used to
+   sit here. It followed the operating system, so a reader who chose light
+   on janvayu.in and ran a dark desktop got a dark walkthrough. */
 }
 
 * { box-sizing: border-box; }
@@ -368,7 +356,10 @@ footer .wrap { display: grid; gap: 1.5rem; }
 footer p { margin: 0; }
 footer strong { color: var(--white); font-weight: 600; }
 footer a { color: var(--green-200); }
-footer .legal { font-size: 0.78rem; color: #A1A1AA; }
+/* #A1A1AA on the deep green footer measured 3.55:1 in both themes -- this
+   line sits on a fixed green band, so the theme never rescued it. #D4D4D8
+   is 6.16:1 on the same band. */
+footer .legal { font-size: 0.78rem; color: #D4D4D8; }
 
 /* Deck chooser — short vs long */
 .deck-choice {
@@ -433,22 +424,8 @@ footer .legal { font-size: 0.78rem; color: #A1A1AA; }
 }
 </style>
 </head>
-<body>
+<body data-jv-chrome>
 
-<header class="topbar">
-    <div class="wrap">
-        <div>
-            <a href="/" class="brand">JanVayu <span class="brand-script">जनवायु</span></a>
-            <span class="brand-tag">Citizen Air Quality Platform</span>
-        </div>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/#dashboard">Dashboard</a>
-            <a href="/#about">About</a>
-            <a href="https://github.com/janvayu" target="_blank" rel="noopener">GitHub</a>
-        </nav>
-    </div>
-</header>
 
 <main class="wrap">
 

@@ -869,15 +869,8 @@
         updateBarLabels();
     }
 
-    // The bar only draws its rule once it is actually stuck, so the homepage
-    // keeps its clean top edge and a panel gets a visible separation.
-    (function markStuckBar() {
-        const bar = document.querySelector('header.bar');
-        if (!bar) return;
-        const onScroll = () => bar.classList.toggle('is-stuck', bar.getBoundingClientRect().top <= 0);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-    })();
+    // markStuckBar() was here. It moved to js/chrome.js, which every page loads,
+    // so the sticky hairline is no longer a thing only the homepage does.
 
     function updateBarLabels() {
         const l = document.getElementById('ctlLangLabel');

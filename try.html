@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="auto">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,40 +10,38 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/styles.css?v=202606231">
+<script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<script src="/js/chrome.js?v=202606231" defer></script>
 <style>
 /* ── Tokens ────────────────────────────────────────────────────────────────
    Same three faces and the same greens as the live site. Everything else is
    this page's own, because it is a candidate rather than a change to the
    system. Both themes are declared here: the live site's tokens are not
    loaded, so nothing here can inherit a colour it did not define. */
+/* This page ran a third theme system: its own token names, its own light and
+   dark palettes, and a data-theme="auto" state that followed the operating
+   system. Three palettes for one site is three places to fix a contrast
+   failure and two of them get forgotten -- its dark --bg was #0f1311 where
+   the site's is #0e0e0c, close enough that nobody would notice and far
+   enough that a colour measured against one is not measured against the
+   other. The names below are aliases onto styles.css, which switches on
+   data-theme, so the button in the corner now moves the whole site. */
 :root{
-  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --serif:'Fraunces','Newsreader',Georgia,serif;
-  --mono:'JetBrains Mono','Fira Code',monospace;
-  --bg:#f7f4ec; --bg-answer:#fffdf6; --ink:#1a1a18; --ink-2:#4a4a46; --ink-3:#6f6f68;
-  --edge:#e5e5dc; --rule:#1a1a18;
-  --green:#146c33; --green-deep:#0f2b1c;
-  --alarm:#b3261e; --caution:#8a4b00;
-  --btn-bg:#1a1a18; --btn-ink:#f7f4ec;
-}
-:root[data-theme="auto"]{ color-scheme: light; }
-@media (prefers-color-scheme: dark){
-  :root[data-theme="auto"]{
-    color-scheme: dark;
-    --bg:#0f1311; --bg-answer:#161b18; --ink:#eef3ef; --ink-2:#a8b5ad; --ink-3:#98a79e;
-    --edge:#2a312e; --rule:#eef3ef;
-    --green:#4ade80; --green-deep:#bbf7d0;
-    --alarm:#ff8a65; --caution:#ffb74d;
-    --btn-bg:#4ade80; --btn-ink:#0f1311;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme: dark;
-  --bg:#0f1311; --bg-answer:#161b18; --ink:#eef3ef; --ink-2:#a8b5ad; --ink-3:#98a79e;
-  --edge:#2a312e; --rule:#eef3ef;
-  --green:#4ade80; --green-deep:#bbf7d0;
-  --alarm:#ff8a65; --caution:#ffb74d;
-  --btn-bg:#4ade80; --btn-ink:#0f1311;
+  --bg-answer: var(--bg-card);
+  --ink-2: var(--text-2);
+  --ink-3: var(--text-3);
+  --edge: var(--border);
+  --rule: var(--ink);
+  --green: var(--accent);
+  --green-deep: var(--accent-hover);
+  --alarm: var(--ink-red);
+  --caution: var(--ink-amber);
+  /* Light gave an ink button on paper and dark gave a green one; both are the
+     high-contrast end of their own theme against the page, which is what
+     --ink and --bg already are on either side. */
+  --btn-bg: var(--ink);
+  --btn-ink: var(--bg);
 }
 
 *{box-sizing:border-box}
@@ -65,34 +63,11 @@ a:hover{color:var(--green-deep)}
    instead, because a bar that overflows does not look broken, it just stops
    working: at 390px the theme button sat on top of the index button and
    swallowed its taps. Measured, not guessed. */
-.bar{display:flex;align-items:center;gap:10px 14px;padding:12px 0;flex-wrap:wrap}
-.bar .right{flex-wrap:wrap;gap:8px}
-@media(max-width:620px){
-  .bar .mark{flex:1 0 auto}
-  .bar .right{width:100%;margin-left:0}
-}
-.mark{font-family:var(--serif);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
-.mark span{color:var(--green)}
-.bar .right{margin-left:auto;display:flex;gap:8px}
-.ctl{min-height:44px;min-width:44px;display:inline-flex;align-items:center;gap:7px;padding:0 13px;
-  background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer;
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
-.ctl:hover{background:var(--ink);color:var(--bg)}
-
-/* Popovers for the role and language controls. Positioned by the bar, which
-   is why the bar is the positioning context. Each is a real list of buttons,
-   so both are reachable by keyboard without a hover state. */
-.bar{position:relative}
-.pop{position:absolute;top:calc(100% + 4px);right:0;z-index:40;min-width:270px;max-width:min(94vw,440px);
-  background:var(--bg-answer);border:1px solid var(--rule);padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
-.pop[hidden]{display:none}
-.popnote{margin:0 0 12px;font-size:.84rem;line-height:1.5;color:var(--ink-2)}
-.popgrid{display:flex;flex-wrap:wrap;gap:6px}
-.popgrid button{min-height:44px;padding:0 13px;background:none;border:1px solid var(--edge);color:var(--ink);
-  cursor:pointer;font-family:var(--sans);font-size:.9rem}
-.popgrid button:hover{border-color:var(--green);color:var(--green)}
-.popgrid button[aria-pressed="true"]{background:var(--ink);color:var(--bg-answer);border-color:var(--ink)}
-.ctl[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+/* The bar, the controls and the popovers were a private copy of the rules in
+   styles.css -- same selectors, same values, maintained in two files. This
+   page loads styles.css now, so the copy is gone and the bar here tracks the
+   one on the homepage, sticky behaviour included. The 44px tap target the
+   comment above is about is in that shared rule, not lost with this block. */
 /* The dyslexia button used to be sized from here, because the script built it
    32px tall. That is fixed in js/dyslexia-font.js itself now, so this page no
    longer overrides it and every site using the script gets the 44px target. */

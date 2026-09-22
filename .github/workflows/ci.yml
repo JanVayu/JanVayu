@@ -137,6 +137,17 @@ jobs:
       - name: Check every CSS variable in use is defined
         run: python3 scripts/check-css-vars.py
 
+      # index.html was, until 2026-09-22, the only document on this site that
+      # loaded styles.css. The other eighteen each kept a private copy of the
+      # token names pinned to light-theme literals, so a token change reached
+      # one page and none of them followed the theme control -- the ones with a
+      # dark mode keyed it on prefers-color-scheme and followed the OS instead.
+      # Every page rendered, and rendered plausibly, the whole time. This checks
+      # the two things a single file cannot show: that the page loads the
+      # stylesheet, and that it aliases the tokens rather than pinning them.
+      - name: Check every page is on the shared design system
+        run: python3 scripts/check-design-system.py
+
       # The old design carried emphasis on a wash and the new one carries it on
       # a rule. 202 inline `background: rgba(...)` tints had accumulated, one at
       # a time, written by whoever needed a box to look important, and they are

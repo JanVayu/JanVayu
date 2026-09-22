@@ -1,4 +1,5 @@
 import { jsonCorsHeaders } from "./lib/http.mjs";
+import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 // Netlify Function: Personalised Health Advisory
 // Accepts user profile + city, fetches live AQI, sends to Groq for advisory
 
@@ -65,8 +66,8 @@ async function fetchCityAQI(cityKey) {
       return {
         city: city.name,
         aqi: data.data.aqi,
-        pm25: data.data.iaqi?.pm25?.v || null,
-        pm10: data.data.iaqi?.pm10?.v || null,
+        pm25: iaqiToPM25(data.data.iaqi?.pm25?.v),
+        pm10: iaqiToPM10(data.data.iaqi?.pm10?.v),
         station: data.data.city?.name || city.name,
         time: data.data.time?.s || new Date().toISOString(),
       };
