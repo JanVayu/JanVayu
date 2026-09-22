@@ -1029,12 +1029,12 @@
     // The five decisions people actually face on a bad-air morning in India.
     // The first version of this asked about a child, asthma, and going for a
     // run, which is a middle-class urban framing: it treats being outdoors as
-    // a choice. For most of the country it is not. Buying vegetables, getting
+    // a choice. For most of the country it is not. Buying groceries, getting
     // to a shift, and whether a school will hold assembly are the questions,
     // and for an outdoor worker the honest answer is about masks, breaks and
     // whose duty they are, not about staying in.
     const HERO_WHO_LABELS = [
-        'Going out for vegetables',
+        'Going out to buy groceries',
         'Sending a child to school',
         'Working outside all day',
         'Playing a sport',
