@@ -232,17 +232,13 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 .btn:active { transform: translateY(1px); }
 .btn-primary {
     background: var(--accent);
-    color: var(--white);
+    color: var(--on-accent);
     border-color: var(--accent);
 }
 .btn-primary:hover {
     background: var(--accent-hover);
     border-color: var(--accent-hover);
-    color: var(--white);
-}
-@media (prefers-color-scheme: dark) {
-    .btn-primary { color: #0C0C0C; }
-    .btn-primary:hover { color: #0C0C0C; }
+    color: var(--on-accent);
 }
 .btn small {
     font-family: var(--mono);
