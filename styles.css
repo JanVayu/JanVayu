@@ -297,7 +297,7 @@ a:hover { color: var(--accent-hover); }
 p a, li a, dd a, dt a, td a, th a, figcaption a, blockquote a,
 .axis a, .lede a, .note a, .caption a, .crumbs a, .meta a, .source a,
 .jv-lede a, .section-intro a, .pollutant-foot a, [class*='jv-t-tiny'] a,
-.card-body a, .method-note a, .panel-note a, a.jv-t-accent {
+.card-body a, .method-note a, .panel-note a, .askhome-foot a, a.jv-t-accent {
   text-decoration: underline;
   text-underline-offset: 0.14em;
 }
