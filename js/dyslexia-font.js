@@ -131,8 +131,17 @@
       + 'border:var(--dys-border-width,1px) solid var(--dys-idle-border,currentColor);'
       + 'background:transparent;color:inherit;'
       + 'font:700 13px/1 var(--dys-font,system-ui,sans-serif);'
-      + 'letter-spacing:.02em;opacity:var(--dys-idle-opacity,.72)}'
-      + '#dys-font-btn:hover,#dys-font-btn:focus-visible{opacity:1}'
+      // Idle opacity defaults to 1, not .72. The paragraph below argues that
+      // leaving the ink alone is the one version that cannot go wrong, because
+      // it is the ink the site already chose for that bar -- and then took 28%
+      // off it, which undoes exactly that guarantee. Measured on
+      // pinpointventures, --color-text #4b5563 is 6.41:1 on the header and the
+      // composite at .72 is #7d858f, 3.73:1. A control that exists so people who
+      // find text hard to read can read it should not be the dimmest thing on
+      // the page. The idle/on distinction rides on the border and the wash, which
+      // it already did. --dys-idle-opacity is still there for a site whose bar
+      // has the headroom to spend.
+      + 'letter-spacing:.02em;opacity:var(--dys-idle-opacity,1)}'
       // "On" is the site's accent as outline and a wash of itself, with the
       // label left at whatever ink the bar around it already uses. Two earlier
       // shapes were worse. A filled button needs an ink that clears 4.5:1
