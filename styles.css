@@ -289,7 +289,18 @@ a:hover { color: var(--accent-hover); }
    distinguishable by more than colour, so underline links within paragraphs,
    list items and definitions. Button/nav/card link classes (.btn, .footer-link,
    etc.) have higher specificity and keep their own no-underline styling. */
-p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
+/* A link inside running text, told apart from the text around it by colour
+   alone, fails WCAG 1.4.1 — and --accent against --ink-3 is 1.28:1, so it was
+   not told apart by colour either. `p a, li a, dd a` missed every sentence
+   written straight into a div: the pollutant pages' breadcrumb line and the
+   axis note under the ranking chart, among others. */
+p a, li a, dd a, dt a, td a, th a, figcaption a, blockquote a,
+.axis a, .lede a, .note a, .caption a, .crumbs a, .meta a, .source a,
+.jv-lede a, .section-intro a, .pollutant-foot a, [class*='jv-t-tiny'] a,
+.card-body a, .method-note a, .panel-note a, .askhome-foot a, a.jv-t-accent {
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
 
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 @media (min-width: 768px) { .container { padding: 0 40px; } }

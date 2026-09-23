@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606233">
+    <link rel="preload" as="style" href="/styles.css?v=202606234">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1041,11 +1041,14 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
    the role switcher and the full-screen role chooser. 38,200 characters of
    markup, plus the JavaScript that addressed them. Nothing here needs hiding
    any more. */
-    </style>
+    
+/* A link inside a sentence, told apart from it by colour alone at 1.28:1. */
+.askhome-foot a { text-decoration: underline; text-underline-offset: 0.14em; }
+</style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606233" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606233"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606234" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606234"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1105,7 +1108,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606233" defer></script>
+<script src="/js/chrome.js?v=202606234" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1606,7 +1609,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606233"></script>
+    <script src="/app.js?v=202606234"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
