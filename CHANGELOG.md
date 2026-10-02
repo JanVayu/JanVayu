@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v26.6.235] - 2026-10-02
 
+### Fixed, every panel, quiz, deck, doc and function checked against its source (sitewide fact check)
+
+After the blog wave (PR #400), the rest of the site went through the same
+process: a verifier agent per area opened the original source for every claim,
+and a second pass applied only what the verifier could source. Panels checked:
+about, resources, AQI explainer, source selector, economic, progress, budget,
+accountability, legal, FAQ, citizen action, actions, lifetime, airshed,
+reduction, apportionment, team, gallery, voices. Also games, walkthrough decks,
+workshops, README, the English docs, the Netlify functions and their reference
+data, `app.js` and the homepage. Claims with neither an original source nor a
+public press report were removed or labelled, not rewritten into vagueness.
+
+- **Removed as untraceable:** quote tiles on the Voices panel (a Supreme Court
+  "winter is over" quote, a Swaminathan quote and others), the assistant's ten
+  city source-apportionment splits and "CEEW 2024" national split, a CEEW
+  library card, Environmental Justice and Occupational statistics, forecast
+  accuracy figures, and the CSE "37/131" caption. Delhi's source split now
+  follows ARAI and TERI 2018.
+- **Corrected:** the Supreme Court filing fee (Rs 500), the RTI time limits,
+  GRAP stage tables (CAQM revision of 21 November 2025), the Solid Waste
+  Management Rules 2026, NCAP funding (CREA to January 2026 against PIB's
+  Rs 16,423.56 crore), the economic-cost chart (Dalberg shares), city PM2.5
+  values (IQAir 2025), Sensor.Community licence (DbCL 1.0), the AQI labels and
+  bands in `app.js` (US EPA, matching WAQI), and four non-Indian gallery photos
+  now captioned with their real place.
+- **Added:** five open-access papers to the Research Library (Wang and Brasseur;
+  Li et al.; Ahmadi et al.; Perperidou and Potamousis; Zhang et al.), with
+  blurbs written from the abstracts.
+- **Open for a person:** see the sitewide section of
+  `docs/fact-check-2026-10-02.md`.
+
 ### Changed, the homepage bulletin is October's
 
 It still opened "September 2026:" and would have failed

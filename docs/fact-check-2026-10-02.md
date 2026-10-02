@@ -123,6 +123,33 @@ Process note: a verifier agent sent the account email address once to the Unpayw
 
 ---
 
+## Sitewide wave (2 October 2026, evening)
+
+Verifier agents checked every factual claim in the remaining files: about 2,900 claims across the panels, games, decks, workshops, README, English docs, Netlify functions, reference data, `app.js` and the homepage. Applier agents then made only the edits the verifiers could source. Full per-claim tables are kept in the working notes; this section records what changed and what still needs a person.
+
+Largest corrections:
+
+- **Fabricated or untraceable quotations removed** from the Voices panel (a Supreme Court "winter is over" quote attributed to the M.C. Mehta bench, which closed on 12 March 2026; a Swaminathan quote; several others).
+- **Source apportionment.** The assistant carried ten city splits and a national "CEEW 2024" split that summed to exactly 100 and contradicted the site's own ARAI-TERI data. Removed; Delhi follows ARAI and TERI 2018 (winter, base year 2016).
+- **Legal.** Supreme Court Article 32 fee is Rs 500 (Third Schedule, Supreme Court Rules 2013), not Rs 50. RTI is 30 days (48 hours for life or liberty); the "45-day extension" has no basis. The Rs 900 crore NGT order concerned legacy landfill waste. GRAP stage tables follow CAQM's order of 13 December 2025. A verified claim the legal applier wrongly removed (the 19 May 2026 Stage-I order, Direction No. 101) was restored from CAQM's own listing.
+- **AQI labels in `app.js`** matched neither the CPCB nor the US EPA scale. They now follow the US EPA table, which is what WAQI reports, and the colour bands were aligned to the same edges.
+- **Gallery.** Four photographs presented as India were taken in Mexico, Essex (1986), Turkey and Taiwan; captions now say so. A duplicate was removed (31 photographs).
+- **Economic cost.** The $339.4 billion Lancet Countdown figure values premature deaths only; the $36.8 billion figure (Pandey et al. 2021) is lost output. The sector chart now uses Dalberg's shares.
+- **Homepage story generator** claimed 1.72 million deaths "every year, more than tobacco, alcohol and road accidents combined" and a 30 to 40% stubble share. Both removed; the death count is dated to 2022 and the stubble share follows the CPCB RTI reply.
+
+Still open for a person:
+
+- Written confirmation from Dr Guttikunda for any description of his work (removed everywhere it appeared); the Legal Framework court-action boxes; the Motor Vehicles Act amendment commencement date and the SWM Rules 2026 open-burning clause.
+- About 29 cached IQAir city values in `app.js` and `reference-data.json` are flagged "working value, not verified"; the IQAir 2025 table was not reachable (HTTP 429).
+- MoEFCC budget chart values for 2019-20 to 2023-24 and per-city NCAP rupee figures for Ghaziabad and Meerut (Lok Sabha reply of 2 February 2026 not opened).
+- WAQI's terms forbid redistributing cached or archived data and require non-profit notification; JanVayu stores WAQI readings in Netlify Blobs. Someone should read the terms against what the site does.
+- The daily digest email has no one-click unsubscribe link, and the API's `range=7d` returns a 30-day average. Both are code issues, not edits.
+- Regenerate the walkthrough PDF and PPTX exports, which predate the edits.
+- The Zotero group needs the five new papers added by hand.
+- Several posts and pages still carry untraced items the verifiers listed under "Needs a human" in their own tables.
+
+---
+
 ## What this round says about the process
 
 **The verifiers were wrong often enough that a second look was necessary.** Of the corrections they proposed, these did not survive checking: a PM E-DRIVE outlay of ₹11,900 crore (the sources I read say ₹10,900 crore, unchanged); a claim that the Delhi day-count tile was inconsistent (it is correct to rounding); a claim that the Raebareli figure should be 57% (the paper says 58%); and several search-snippet summaries that gave a wrong figure for a page the verifier had not opened (the CREA dust share as 64%, where the page says 68%). The method that held up was opening the source and recomputing.
