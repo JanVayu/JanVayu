@@ -44,3 +44,7 @@ greentribunal\.gov\.in
 # Warrior Moms: small clean-air campaign site, intermittently slow past the 30s
 # timeout. Reachable in a browser; timed out in 3 of 5 August audits.
 warriormoms\.in
+# Streamlit community apps answer a cold request with a 303 to their wake-up
+# page, which the audit's accept list (200, 204, 301, 302, 403, 429) rejects.
+# The app is reachable in a browser. Flagged in the September 2026 audit (#343).
+vayubuddy\.streamlit\.app

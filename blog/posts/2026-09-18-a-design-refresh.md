@@ -206,7 +206,7 @@ yet, which means several panels deeper in still look like the older version.
 Charts have not been revisited at all. The map is untouched.
 
 The first screen described above started life as a separate page at
-[janvayu.in/try](/try), built to test the idea without touching the front door.
+[janvayu.in/try](https://www.janvayu.in/try), built to test the idea without touching the front door.
 That page is still there and still works, but it is now the experiment rather
 than the plan: it was an island, and every link on it dropped you back into the
 old design, which read as a seam. Rather than swap one page for another we moved

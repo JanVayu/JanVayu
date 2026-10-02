@@ -18,7 +18,7 @@ One caution before you compare that with a number on a phone app. CPCB and the U
 
 ## The seasonal turn has happened in all 43 years we hold
 
-We publish a reconstruction of daily PM2.5 for 783 Indian districts going back to 1980, from [Wei and colleagues (2024)](https://doi.org/10.5194/essd-16-3565-2024) in *Earth System Science Data*. It lets us ask a question that a four-day comparison cannot: how often does this actually happen?
+We publish a reconstruction of daily PM2.5 for 783 Indian districts going back to 1980, from [Wang and colleagues (2024)](https://doi.org/10.5194/essd-16-3565-2024) in *Earth System Science Data*. It lets us ask a question that a four-day comparison cannot: how often does this actually happen?
 
 Take each year's monsoon months (June to September) and compare them with the post-monsoon (October and November), for every year from 1980 to 2022.
 
@@ -75,4 +75,4 @@ Not this week against last week. The [same week against its own history](https:/
 
 If you find an error in any of the figures above, write to us at contribute@janvayu.in. Every number here comes from a file you can download.
 
-*Sources: CPCB daily AQI bulletins 2015-2026 (2015-2025 parsed by UrbanEmissions.Info); LongPMInd, Wei et al. 2024, ESSD 16, 3565-3577, CC BY 4.0; India Air Quality Database, XKDR Forum, CC BY 4.0; ARAI & TERI 2018 source apportionment for Delhi NCR. The four-day AQI figures are as reported by News18.*
+*Sources: CPCB daily AQI bulletins 2015-2026 (2015-2025 parsed by UrbanEmissions.Info); LongPMInd, Wang et al. 2024, ESSD 16, 3565-3577, CC BY 4.0; India Air Quality Database, XKDR Forum, CC BY 4.0; ARAI & TERI 2018 source apportionment for Delhi NCR. The four-day AQI figures are as reported by News18.*

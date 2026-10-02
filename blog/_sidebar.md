@@ -3,6 +3,9 @@
 - [**JanVayu Blog**](README.md)
 - [How We Write (contributor guide)](how-we-write.md)
 
+- **October 2026**
+  - [Five of Our Six Pollutant Pages Were Printing Random Numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md)
+
 - **September 2026**
   - [What a Four-Day Jump in Delhi's AQI Actually Tells You](posts/2026-09-22-a-four-day-jump.md)
   - [The Site Looks Different Today. Here Is What Changed, and What Did Not](posts/2026-09-18-a-design-refresh.md)

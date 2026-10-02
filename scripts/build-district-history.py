@@ -5,7 +5,7 @@ JanVayu's annual air layer is **2024 alone**. The site can say what the air is
 and cannot say what it was, so it cannot answer the question people actually
 ask: is this getting better or worse? This closes that.
 
-The source is **LongPMInd** (Wei et al., *Earth System Science Data* 16, 3565-3577,
+The source is **LongPMInd** (Wang et al., *Earth System Science Data* 16, 3565-3577,
 2024; Zenodo 10.5281/zenodo.14557027, CC BY 4.0): daily and monthly ground PM2.5
 reconstructed for the whole of India on a ~10 km grid from 1980 to 2022, using a
 LightGBM model over CPCB ground measurements, satellite AOD, MERRA-2 composition
@@ -55,7 +55,7 @@ SEASONS = {
     'o': ('Post-monsoon', (10, 11)),
 }
 
-CITE = ('Wei et al. (2024), Reconstructing long-term (1980-2022) daily ground particulate '
+CITE = ('Wang et al. (2024), Reconstructing long-term (1980-2022) daily ground particulate '
         'matter concentrations in India (LongPMInd), Earth System Science Data 16, 3565-3577, '
         'doi:10.5194/essd-16-3565-2024. Data: Zenodo doi:10.5281/zenodo.14557027, CC BY 4.0.')
 
