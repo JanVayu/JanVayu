@@ -1892,8 +1892,10 @@
     // open instead of being inlined + parsed on every page load. Cached after first use.
     const LAZY_PANELS = { voices: '/panels/voices.html', resources: '/panels/resources.html', legal: '/panels/legal.html', about: '/panels/about.html' , accountability: '/panels/accountability.html', actions: '/panels/actions.html', 'source-selector': '/panels/source-selector.html', 'aqi-explainer': '/panels/aqi-explainer.html', budget: '/panels/budget.html', progress: '/panels/progress.html', 'citizen-action': '/panels/citizen-action.html', economic: '/panels/economic.html', gallery: '/panels/gallery.html', faq: '/panels/faq.html', team: '/panels/team.html', apportionment: '/panels/apportionment.html', airshed: '/panels/airshed.html', reduction: '/panels/reduction.html', lifetime: '/panels/lifetime.html' };
     const __panelFragmentCache = {};
+    const SAFE_PANEL_ID = /^[a-z0-9_-]+$/i;
     function fetchPanelFragment(panelId) {
-        if (__panelFragmentCache[panelId] !== undefined) return Promise.resolve(__panelFragmentCache[panelId]);
+        if (typeof panelId !== 'string' || !SAFE_PANEL_ID.test(panelId) || !Object.prototype.hasOwnProperty.call(LAZY_PANELS, panelId)) return Promise.resolve('');
+        if (Object.prototype.hasOwnProperty.call(__panelFragmentCache, panelId)) return Promise.resolve(__panelFragmentCache[panelId]);
         return fetch(LAZY_PANELS[panelId])
             .then(function(r){ return r.ok ? r.text() : ''; })
             .catch(function(e){ console.warn('Panel fragment load failed:', panelId, e); return ''; })
@@ -1901,14 +1903,15 @@
     }
     function loadPanel(panelId) {
         const container = document.getElementById('panel-container');
-        const template = document.getElementById('tmpl-' + panelId);
+        const validId = typeof panelId === 'string' && SAFE_PANEL_ID.test(panelId);
+        const template = validId ? document.getElementById('tmpl-' + panelId) : null;
         // Set once here rather than in each of the three branches below: the
         // lazy-fetch branch was missed the first time and it is the one that
         // serves 17 of the panels. See .band-deep:last-child in styles.css for
         // what this governs.
         document.body.classList.add('panel-open');
         // Lazy panel: fetch its fragment on first open, then run the same inits.
-        if (LAZY_PANELS[panelId] && (!template || !template.innerHTML.trim())) {
+        if (validId && Object.prototype.hasOwnProperty.call(LAZY_PANELS, panelId) && (!template || !template.innerHTML.trim())) {
             container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Loading&hellip;</p></div>';
             return fetchPanelFragment(panelId).then(function(html) {
                 container.innerHTML = '<div class="panel active" style="padding:40px 0;">' + (html || '<p style="color:var(--text-3);">This section could not load. Please refresh.</p>') + '</div>';
@@ -1919,7 +1922,7 @@
             container.innerHTML = '<div class="panel active" style="padding:40px 0;">' + template.innerHTML + '</div>';
             loadPanelInits(panelId);
         } else {
-            container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + panelId + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
+            container.innerHTML = '<div class="panel active" style="padding:40px 0;"><p style="color:var(--text-3);">Panel "' + escapeHtml(panelId) + '" is being loaded from the original platform. This redesign demonstrates the new visual framework. Import the full content from the original index.html to populate all panels.</p></div>';
         }
     }
     function loadPanelInits(panelId) {
@@ -3751,7 +3754,7 @@
 
             // Show loading state
             document.getElementById('comparison-result').innerHTML = cities.map(c =>
-                `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div><div class="stat-value" style="color: var(--text-3);">...</div><div class="stat-label">Fetching live data</div></div>`
+                `<div class="card stat-card"><div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${escapeHtml(CITIES[c]?.name || c)}</div><div class="stat-value" style="color: var(--text-3);">...</div><div class="stat-label">Fetching live data</div></div>`
             ).join('');
 
             // Fetch data in parallel instead of sequentially
@@ -3777,8 +3780,8 @@
                 const color = data ? getAQITextColor(data.aqi) : 'var(--text-3)';
                 const pm25 = data?.pm25 ? `PM2.5: ${data.pm25}` : '';
                 return `<div class="card stat-card" style="position: relative;">
-                    <button class="share-aqi-btn" onclick="generateAQICard('${c}')" title="Download AQI card" style="position: absolute; top: 8px; right: 8px;"><span class="si si-share"></span></button>
-                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${CITIES[c]?.name || c}</div>
+                    <button class="share-aqi-btn" onclick="generateAQICard('${escapeHtml(c)}')" title="Download AQI card" style="position: absolute; top: 8px; right: 8px;"><span class="si si-share"></span></button>
+                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">${escapeHtml(CITIES[c]?.name || c)}</div>
                     <div class="stat-value" style="color: ${color}">${aqi}</div>
                     <div class="stat-label">${label}</div>
                     <div style="font-size: 0.625rem; color: var(--text-3); margin-top: 0.25rem;">${pm25}</div>
@@ -6661,9 +6664,9 @@
     }
 
     function escapeHtml(str) {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
+        return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+            return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+        });
     }
 
     function getTimeAgo(date) {
@@ -6856,9 +6859,9 @@
                 body: JSON.stringify({ action: 'subscribe', subscription: sub, city, threshold }),
             });
             const data = await res.json();
-            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${CITIES[city]?.name || city} when AQI &gt; ${threshold}. You'll be alerted even when this tab is closed &mdash; try "Send test".</span>`);
+            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when AQI &gt; ${escapeHtml(threshold)}. You'll be alerted even when this tab is closed &mdash; try "Send test".</span>`);
             else setAlertStatus('<span style="color:var(--red);">Could not save your subscription. Try again.</span>');
-        } catch (e) { setAlertStatus('<span style="color:var(--red);">Push setup failed: ' + e.message + '</span>'); }
+        } catch (e) { setAlertStatus('<span style="color:var(--red);">Push setup failed: ' + escapeHtml(e.message) + '</span>'); }
     }
     async function sendTestPush() {
         try {
@@ -6870,8 +6873,8 @@
                 body: JSON.stringify({ action: 'test', subscription: sub }),
             });
             const data = await res.json();
-            setAlertStatus(data.ok ? '<span style="color:var(--green-600);">Test sent &mdash; check your notifications.</span>' : '<span style="color:var(--red);">Test failed: ' + (data.error || '') + '</span>');
-        } catch (e) { setAlertStatus('<span style="color:var(--red);">Test failed: ' + e.message + '</span>'); }
+            setAlertStatus(data.ok ? '<span style="color:var(--green-600);">Test sent &mdash; check your notifications.</span>' : '<span style="color:var(--red);">Test failed: ' + escapeHtml(data.error || '') + '</span>');
+        } catch (e) { setAlertStatus('<span style="color:var(--red);">Test failed: ' + escapeHtml(e.message) + '</span>'); }
     }
     async function disablePushNotifications() {
         try {
@@ -6881,7 +6884,7 @@
                 await sub.unsubscribe();
             }
             setAlertStatus('<span style="color:var(--text-3);">Push notifications turned off.</span>');
-        } catch (e) { setAlertStatus('<span style="color:var(--red);">Could not turn off: ' + e.message + '</span>'); }
+        } catch (e) { setAlertStatus('<span style="color:var(--red);">Could not turn off: ' + escapeHtml(e.message) + '</span>'); }
     }
     window.enablePushNotifications = enablePushNotifications;
     window.sendTestPush = sendTestPush;
@@ -7167,8 +7170,8 @@
             </div>`;
 
         document.getElementById('exposure-interpretation').innerHTML = `
-            <p><strong>Living in ${cityName}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong> — that's <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
-            <p style="margin-top: 0.75rem;">With ${outdoorHours} hours outdoors daily, your annual pollution exposure is equivalent to smoking approximately <strong>${cigaretteEquiv} cigarettes per year</strong> (${(cigaretteEquiv/365).toFixed(1)} per day).</p>
+            <p><strong>Living in ${escapeHtml(cityName)}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong> — that's <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
+            <p style="margin-top: 0.75rem;">With ${escapeHtml(outdoorHours)} hours outdoors daily, your annual pollution exposure is equivalent to smoking approximately <strong>${cigaretteEquiv} cigarettes per year</strong> (${(cigaretteEquiv/365).toFixed(1)} per day).</p>
             <p style="margin-top: 0.75rem;">Research suggests this level of exposure reduces life expectancy by approximately <strong>${lifeYearsLost} years</strong> compared to breathing WHO-guideline air.</p>
             <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb (outdoor-hours scaling is JanVayu's own choice), not a medical equivalence. ${IQAIR_2025_VERIFIED.has(cityKey) ? 'Annual PM2.5 is the IQAir 2025 value.' : 'Annual PM2.5 for this city is an illustrative working value, not a published figure.'} The monthly bars use an illustrative seasonal pattern, not measured monthly data. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
 
@@ -7434,7 +7437,7 @@
             '</div>' +
             '<div class="card" style="padding:1rem;text-align:center;border-left:3px solid var(--red);">' +
                 '<div style="font-size:0.7rem;color:var(--text-3);">Worst Exposure</div>' +
-                '<div style="font-size:1.1rem;font-weight:700;color:var(--red);">' + worstActivity.label + '</div>' +
+                '<div style="font-size:1.1rem;font-weight:700;color:var(--red);">' + escapeHtml(worstActivity.label) + '</div>' +
                 '<div style="font-size:0.65rem;color:var(--text-3);">' + worstActivity.effectivePM25.toFixed(0) + ' µg/m³ effective</div>' +
             '</div>';
 
@@ -7447,12 +7450,12 @@
         sorted.forEach(function(b) {
             var pct = totalContrib > 0 ? (b.exposureContrib / totalContrib * 100) : 0;
             if (pct > 0.5) {
-                barHTML += '<div style="width:' + pct.toFixed(1) + '%;background:' + b.color + ';display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#fff;font-weight:600;min-width:2px;" title="' + b.label + ': ' + pct.toFixed(1) + '%">' +
+                barHTML += '<div style="width:' + pct.toFixed(1) + '%;background:' + b.color + ';display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#fff;font-weight:600;min-width:2px;" title="' + escapeHtml(b.label) + ': ' + pct.toFixed(1) + '%">' +
                     (pct > 8 ? pct.toFixed(0) + '%' : '') + '</div>';
             }
             legendHTML += '<span style="display:inline-flex;align-items:center;gap:3px;">' +
                 '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + b.color + ';"></span>' +
-                b.label + ' (' + pct.toFixed(1) + '%, ' + b.hours + 'h)</span>';
+                escapeHtml(b.label) + ' (' + pct.toFixed(1) + '%, ' + b.hours + 'h)</span>';
         });
         barHTML += '</div>';
         legendHTML += '</div>';
@@ -7463,7 +7466,7 @@
         sorted.forEach(function(b) {
             var pct = totalContrib > 0 ? (b.exposureContrib / totalContrib * 100) : 0;
             barHTML += '<tr style="border-bottom:1px solid var(--border);">' +
-                '<td style="padding:4px 6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + b.color + ';margin-right:4px;"></span>' + b.label + '</td>' +
+                '<td style="padding:4px 6px;"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + b.color + ';margin-right:4px;"></span>' + escapeHtml(b.label) + '</td>' +
                 '<td style="text-align:right;padding:4px 6px;">' + b.hours + '</td>' +
                 '<td style="text-align:right;padding:4px 6px;">' + b.multiplier + 'x</td>' +
                 '<td style="text-align:right;padding:4px 6px;color:' + getPM25TextColor(b.effectivePM25) + ';">' + b.effectivePM25.toFixed(0) + '</td>' +
@@ -7480,7 +7483,7 @@
 
         // Data source note
         document.getElementById('diary-recommendations').innerHTML += '<p style="margin-top:1rem;font-size:0.75rem;color:var(--text-3);border-top:1px solid var(--border);padding-top:0.75rem;">' +
-            '<strong>' + cityName + '</strong> ambient PM2.5: <strong>' + ambientPM25.toFixed(0) + ' µg/m³</strong> (' + dataSource + ').<br>' +
+            '<strong>' + escapeHtml(cityName) + '</strong> ambient PM2.5: <strong>' + ambientPM25.toFixed(0) + ' µg/m³</strong> (' + escapeHtml(dataSource) + ').<br>' +
             'Cigarette equivalence: Berkeley Earth (22 µg/m³/day). Life-expectancy loss: AQLI methodology. The activity multipliers (how much of the outdoor level reaches you) are illustrative working values, not published figures.' +
             '</p>';
 
@@ -7510,7 +7513,7 @@
                 var rec = recs[0];
                 var savedPM25 = (rec.saving * ambientPM25 * item.hours / 24).toFixed(1);
                 html += '<div style="padding:0.75rem;background:var(--bg-section);border-radius:8px;margin-bottom:0.5rem;border-left:3px solid ' + item.color + ';">' +
-                    '<div style="font-weight:600;font-size:0.85rem;margin-bottom:4px;">' + item.label + '</div>' +
+                    '<div style="font-weight:600;font-size:0.85rem;margin-bottom:4px;">' + escapeHtml(item.label) + '</div>' +
                     '<p style="margin:0;font-size:0.8rem;">' + rec.text + '</p>' +
                     '<p style="margin:4px 0 0;font-size:0.75rem;color:var(--green-700);">Potential saving: ~' + savedPM25 + ' µg/m³ from daily weighted average</p>' +
                     '</div>';
@@ -7565,12 +7568,12 @@
             reversed.forEach(function(entry, i) {
                 var bgColor = i === 0 ? 'var(--bg-section)' : 'transparent';
                 html += '<tr style="border-bottom:1px solid var(--border);background:' + bgColor + ';">' +
-                    '<td style="padding:6px;">' + entry.date + '</td>' +
-                    '<td style="padding:6px;">' + entry.city + '</td>' +
-                    '<td style="padding:6px;text-align:right;color:' + getPM25TextColor(entry.weightedPM25) + ';font-weight:600;">' + entry.weightedPM25 + '</td>' +
-                    '<td style="padding:6px;text-align:right;">' + entry.cigsPerDay + '</td>' +
-                    '<td style="padding:6px;text-align:right;">' + entry.lifeYearsLost + '</td>' +
-                    '<td style="padding:6px;font-size:0.75rem;">' + entry.worstActivity + '</td></tr>';
+                    '<td style="padding:6px;">' + escapeHtml(entry.date) + '</td>' +
+                    '<td style="padding:6px;">' + escapeHtml(entry.city) + '</td>' +
+                    '<td style="padding:6px;text-align:right;color:' + getPM25TextColor(entry.weightedPM25) + ';font-weight:600;">' + escapeHtml(entry.weightedPM25) + '</td>' +
+                    '<td style="padding:6px;text-align:right;">' + escapeHtml(entry.cigsPerDay) + '</td>' +
+                    '<td style="padding:6px;text-align:right;">' + escapeHtml(entry.lifeYearsLost) + '</td>' +
+                    '<td style="padding:6px;font-size:0.75rem;">' + escapeHtml(entry.worstActivity) + '</td></tr>';
             });
             html += '</table></div>';
 
@@ -7964,7 +7967,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         if (summaryEl) summaryEl.textContent = 'Loading…';
         let years = [];
         try {
-            const res = await fetch(`/.netlify/functions/historical-aqi?city=${city}&month=${month}`);
+            const res = await fetch(`/.netlify/functions/historical-aqi?city=${encodeURIComponent(city)}&month=${encodeURIComponent(month)}`);
             if (res.ok) {
                 const json = await res.json();
                 if (Array.isArray(json.years)) years = json.years;
@@ -7989,7 +7992,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 const pct = ((last - first) / first * 100).toFixed(1);
                 const dir = pct > 0 ? 'worse' : 'better';
                 const color = pct > 0 ? 'var(--delta-up)' : 'var(--delta-down)';
-                summaryEl.innerHTML = `<strong>${valid[0].year} → ${valid[valid.length-1].year}:</strong> <span style="color: ${color};">${Math.abs(pct)}% ${dir}</span> for ${CITIES[city]?.name || city} in ${monthName(month)}.`;
+                summaryEl.innerHTML = `<strong>${escapeHtml(valid[0].year)} → ${escapeHtml(valid[valid.length-1].year)}:</strong> <span style="color: ${color};">${Math.abs(pct)}% ${dir}</span> for ${escapeHtml(CITIES[city]?.name || city)} in ${escapeHtml(monthName(month))}.`;
             } else {
                 summaryEl.textContent = 'Historical data is sparse for this city/month combination.';
             }
@@ -8220,8 +8223,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         const resultEl = document.getElementById('migration-result');
         const loadingEl = document.getElementById('migration-loading');
 
-        const fromName = CITIES[fromKey]?.name || fromKey;
-        const toName = CITIES[toKey]?.name || toKey;
+        const fromName = escapeHtml(CITIES[fromKey]?.name || fromKey);
+        const toName = escapeHtml(CITIES[toKey]?.name || toKey);
 
         // Show loading
         if (loadingEl) loadingEl.style.display = 'block';
@@ -8475,7 +8478,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         document.getElementById('scorecard-content').innerHTML = `
             <div style="text-align: center; padding: 1rem 0; border-bottom: 2px solid var(--border);">
                 <div style="font-size: 0.75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em;">JanVayu Accountability Scorecard</div>
-                <div style="font-size: 1.75rem; font-weight: 700; margin: 0.5rem 0;">${cityName}</div>
+                <div style="font-size: 1.75rem; font-weight: 700; margin: 0.5rem 0;">${escapeHtml(cityName)}</div>
                 <div style="font-size: 4rem; font-weight: 700; color: ${gradeColor};">${grade}</div>
                 <div style="font-size: 0.85rem; color: var(--text-2);">Grade withdrawn: no published city targets or results to grade against</div>
             </div>
@@ -8487,7 +8490,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <div><div style="font-size: 0.7rem; color: var(--text-3);">As of</div><div style="font-size: 0.9rem; font-weight: 700;">${ncap.asOf}</div></div>
             </div>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-2); text-align: center;">
-                Current AQI: ${aqi} | Annual PM2.5: ${pm25} µg/m³${IQAIR_2025_VERIFIED.has(cityKey) ? ' (IQAir 2025)' : ' (working value, not a published figure)'} (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr utilised of released
+                Current AQI: ${escapeHtml(aqi)} | Annual PM2.5: ${escapeHtml(pm25)} µg/m³${IQAIR_2025_VERIFIED.has(cityKey) ? ' (IQAir 2025)' : ' (working value, not a published figure)'} (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr utilised of released
             </div>` : '<p style="color: var(--text-3); text-align: center; margin-top: 1rem;">NCAP data not available for this city.</p>'}
             <div style="margin-top: 1rem; font-size: 0.65rem; color: var(--text-3); text-align: center;">Generated by JanVayu (janvayu.in) · Data: PIB (21 Dec 2023), ResGov Delhi brief (Dec 2025) · ${new Date().toLocaleDateString('en-IN')}</div>`;
     }
