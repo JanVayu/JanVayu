@@ -34,7 +34,7 @@ JanVayu is built around four questions a live map cannot answer, whatever its
 quality:
 
 1. **What is the air where there is no monitor?** India has roughly 565
-   continuous stations and 5,84,615 villages.
+   continuous stations and 5,84,615 mapped village boundaries.
 2. **Is it actually getting better, or was that the weather?**
 3. **Who promised what, and did they do it?**
 4. **What do I do about it on Tuesday?**
@@ -51,8 +51,8 @@ read "no" everywhere but our own column were wrong. See the correction under
 | | JanVayu | CPCB portal | AQI.in / IQAir / AQICN | OpenAQ | XKDR | CREA | Sensor networks | VayuBuddy | Hawa Ka Hisab |
 |---|---|---|---|---|---|---|---|---|---|
 | **Live city AQI** | yes, 160 cities | yes, official | yes | yes, raw stations | no (archive) | no | yes, hyperlocal | via CPCB | daily, Delhi + NCR |
-| **Raw station data via API** | via our Open Data API | download by station | no | **yes, its whole point** | yes, hourly | no | yes | no | no |
-| **A number for a village** | **yes, all 5,84,615** | no | no | no | no | no | no | no | no |
+| **Raw station data via API** | via our Open Data API | download by station | AQICN: yes (token); IQAir: paid or community API; AQI.in: *unverified* | **yes, its whole point** | yes, hourly | yes, daily station values, outlier-filtered | yes | no | no |
+| **A number for a village** | **yes, all 5,84,615 mapped villages** | no | no | no | no | no | no | no | no |
 | **A number for a ward** | **yes, all 68,596** | no | no | no | no | no | no | no | no |
 | **Air back to 1980** | yes, 783 districts | no | no | no | no | no | no | no | **yes, Delhi + N India** |
 | **Weather removed from the trend** | **yes, 44 cities** | no | no | no | no | no | no | no | **yes, Delhi, daily** |
@@ -61,7 +61,7 @@ read "no" everywhere but our own column were wrong. See the correction under
 | **NCAP / GRAP tracking** | yes | the source data | no | no | no | **yes, the best of it** | no | no | weather vs policy, daily |
 | **Per-city budget utilisation** | yes | no | no | no | no | yes | no | no | no |
 | **Pre-filled RTI templates** | **yes** | n/a | no | no | no | no | no | no | no |
-| **Health-impact calculators** | yes | no | partly | no | no | no | no | no | no |
+| **Health-impact calculators** | yes | no | *unverified* | no | no | no | no | no | no |
 | **Answers questions in plain language** | yes, 10 languages | no | no | no | no | no | no | **yes** | daily film, in Hindi |
 | **First-person testimony** | yes, 250 in 14 languages | no | no | no | no | no | no | no | no |
 | **Teaching material you can take** | **yes, 4 workshops + 7 games** | no | no | no | no | reports | no | no | no |
@@ -75,12 +75,12 @@ Most of the table is convenience. These five are the substance.
 ### A number for every village and every ward
 
 **983,149 administrative areas**: 36 states, 785 districts, 6,471 blocks and
-tehsils, 319,287 gram panchayats, **5,84,615 villages**, 3,359 city bodies and
+tehsils, 319,287 gram panchayats, **5,84,615 village boundaries** (Local Government Directory layer; Census 2011 counted 649,481 villages), 3,359 city bodies and
 **68,596 wards**. Every one carries an annual PM2.5 figure, most carry surface
 heat, tree cover and built-up share.
 
 No live network can do this and none ever will. 565 monitors cannot cover
-5,84,615 villages. The satellite retrieval can, and that is the entire reason we
+5,84,615 village boundaries. The satellite retrieval can, and that is the entire reason we
 lead with a modelled layer rather than apologising for one.
 
 The consequence is concrete: no Indian village meets the WHO annual guideline of
@@ -107,6 +107,8 @@ gave every other column a flat *no* on that row. Both were wrong.
 it daily for Delhi since 19 July 2026 and publishes its method in full. The
 table above is corrected.
 
+*Further correction, 2 October 2026: two cells in the "Raw station data via API" row were also wrong. AQICN offers a token-based station API (JanVayu's own WAQI proxy uses it), and CREA's open API returns daily, outlier-filtered station values.*
+
 We should have caught this ourselves. Our own assistant already cites that site,
 using its decadal figures for Delhi as an independent check on our 1980-to-2022
 reconstruction. The site was in our repository while this post said no such
@@ -125,7 +127,7 @@ better instrument.
 ### The official bulletin as a series, and what it shows
 
 CPCB publishes an AQI bulletin every day at 4pm as a PDF covering 200+ cities,
-and has since May 2015. It is the number a minister quotes and a court cites,
+and has since May 2015. It is the official daily figure,
 and it has never existed as a series because it is a decade of PDFs.
 UrbanEmissions parsed the archive; we now read the PDFs directly as well.
 
@@ -154,13 +156,13 @@ with a filed application, not a drafted one.
 
 Four workshops as plain Markdown at
 [janvayu.in/workshops](https://www.janvayu.in/workshops/README.md), seven games,
-a 10-question self-check, 39 blog posts, and an Open Data API. CC BY-NC-SA 4.0,
+a 10-question self-check, 45 blog posts, and an Open Data API. CC BY-NC-SA 4.0,
 so you can cut them, translate them and put your own city's numbers in.
 
 ## Where the others are better
 
 **CPCB's portal is the official record** and ours is not. When the two disagree,
-theirs is the one with legal standing. We read their bulletin because of that,
+theirs is the official one. We read their bulletin because of that,
 not despite it.
 
 **OpenAQ is a better raw-data API than ours** and is not trying to be anything
@@ -183,7 +185,7 @@ say so than pretend we are the only one.
 Quality Report is what makes an international ranking possible.
 
 **Hawa Ka Hisab covers Delhi better than we do, and is far more current.** It
-publishes a twelve-page report daily, a short Hindi film with it, a weekly
+publishes a daily report (32 pages in September), a short Hindi film with it, a weekly
 edition, and a reconstruction of Delhi's air back to 1980. We give a city one
 trend line across seven years. It gives Delhi a weather-adjusted verdict every
 morning, measured against the same fortnight a year earlier.

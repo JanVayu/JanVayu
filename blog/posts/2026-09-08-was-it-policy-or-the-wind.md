@@ -50,11 +50,11 @@ That is a negative result and we are publishing it as one.
 
 Because that is where the data actually is, and pretending otherwise would have produced something much more satisfying and completely wrong.
 
-Our first run compared plain annual averages of whatever days had reported. It said Delhi's air got *worse* over the period, by 4.7 µg/m³ a year, and it said so with apparent confidence. That was an artefact. The station record has holes, and the holes are not spread evenly through the year. 2021 is missing April to August — its cleaner months — so its average was computed almost entirely from its dirty ones and came out at 137.6. 2022 is missing November and December, its two worst months, so its average came out at 55.2. Line those two up and you have invented a trend out of a filing gap.
+Our first run compared plain annual averages of whatever days had reported. It produced a confident trend that was an artefact, a spurious one of the wrong sign. The station record has holes, and the holes are not spread evenly through the year. 2021 is missing April to August — its cleaner months — so its average was computed almost entirely from its dirty ones and came out at 137.6. 2022 is missing November and December, its two worst months, so its average came out at 82.2 (all-months annual means in [/data/deweathered.json](/data/deweathered.json)). Line those two up and you have invented a trend out of a filing gap.
 
 Everything reported here is therefore restricted to the months present in *every* year, which turns out to be September and October. It is a narrower claim than we set out to make. It is a claim the data supports.
 
-There was a second trap underneath the first. OpenAQ's records for these stations advertise coverage from 2016 to 2026, which reads like a decade of continuous monitoring. It is not: it is the union of separate sensors with a gap of roughly two and a half years in the middle, and at one station the "decade" turns out to be two sensors seven years apart. Taken at face value it would have given us a series with a hole in it and no error message anywhere.
+There was a second trap underneath the first. OpenAQ's records for these stations advertise coverage from 2016 to 2026, which reads like a decade of continuous monitoring. It is not: it is the union of separate sensors with a gap of roughly 2.3 years in the middle, and at one station the "decade" turns out to be two sensors seven years apart. Taken at face value it would have given us a series with a hole in it and no error message anywhere.
 
 ## How we know the model is not just making things up
 
@@ -72,7 +72,7 @@ All of these figures ship inside the data file itself, at [`/data/deweathered.js
 
 It is Delhi-NCR only. Ten stations, one airshed, one window. Nothing here transfers to Kanpur or Patna or Bengaluru, and we are not going to imply that it does.
 
-The 2020 lockdowns sit inside the period. Normalisation removes weather; it does not remove lockdowns. The 2020 dip is a real change in emissions and it stays in the adjusted series, where it belongs.
+The 2020 lockdown (late March to May) falls outside the September to October window used here, but September to October 2020 was still the dirtiest of the five years in /data/deweathered.json. Normalisation removes weather; it does not remove changes in emissions, so whatever 2020 did to emissions stays in the adjusted series.
 
 And "no direction called" means exactly that. It is not a coded way of saying things got worse. It is a statement that this evidence, honestly handled, does not settle the question.
 
