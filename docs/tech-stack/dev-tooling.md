@@ -8,9 +8,9 @@ This page covers the tools and workflows used to build and maintain JanVayu — 
 
 JanVayu was developed with significant assistance from **Claude Code**, Anthropic's CLI agent for software engineering. Claude Code was used for:
 
-- Writing all 13 Netlify Functions
-- Building the entire frontend in `index.html`
-- Crafting Llama 3.3 70B prompt engineering (skill files)
+- Writing the Netlify Functions
+- Building the frontend (`index.html`, `app.js`, `styles.css` and the panel fragments)
+- Crafting gpt-oss-120b prompt engineering (skill files)
 - Creating this Docsify documentation
 - Managing Git workflow (commits, PRs, changelogs)
 - Debugging serverless function issues
@@ -85,7 +85,7 @@ netlify dev
 - Reads `.env` for environment variables
 - Simulates Netlify Blobs
 
-No other setup required. No Docker, no database, no build step.
+No other setup required. No Docker, no database, no bundler (a version-stamp script runs on deploy).
 
 ---
 
@@ -100,7 +100,7 @@ The documentation site is a single-page Docsify shell at `/docs/` that loads mar
 | **docsify-pagination** | Previous/Next navigation between pages |
 | **docsify-copy-code** | Copy button on every code block |
 | **Prism.js** | Syntax highlighting for bash, JS, JSON, YAML, TOML, Markdown |
-| **Plausible** | Privacy-friendly, cookie-free analytics for the docs site |
+| **docsify-search, docsify-zoom-image** | In-page search and image zoom |
 
 ### Using PlantUML for Diagrams
 
@@ -118,8 +118,6 @@ Client -> "Netlify CDN" : HTTPS
 ```
 ````
 
-The diagram renders automatically in the published docs.
-
 ---
 
 ## CI Workflows
@@ -135,4 +133,4 @@ The diagram renders automatically in the published docs.
 
 - **Dependabot** checks for npm and GitHub Actions updates monthly
 - Only 3 npm packages to maintain
-- CDN-loaded libraries (Chart.js, Leaflet.js) auto-update to latest stable
+- CDN-loaded libraries (Chart.js 4.4.7, Leaflet 1.9.4) are pinned to exact versions with SRI hashes

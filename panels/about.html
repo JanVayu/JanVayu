@@ -459,7 +459,7 @@
                     &bull; User feedback: <em>"I am not seeing any overlap or instruction with types of questions to ask. The explanation for what Ask JanVayu does is the same. Why only English and Hindi?"</em> All three fixed.<br>
                     &bull; <strong>Welcome subtitle</strong> rewritten in all 10 languages: <em>"Live AQI · health & exposure calculators · city rankings & trends · source apportionment · RTI drafts · multi-source reliability checks. Every answer cites a primary source."</em><br>
                     &bull; <strong>Suggestion chips</strong>: 7 &rarr; 10, surfacing the new Phase A&ndash;D capabilities (rankings, RTI drafting, apportionment, trends, multi-source, cigarette equivalence, migration calculator).<br>
-                    &bull; <strong>Five new languages</strong>: Telugu (తె), Gujarati (ગુ), Kannada (ಕ), Malayalam (മ), Punjabi (ਪੰ). Total now <strong>10 languages</strong>, covering ~95% of Indian mother-tongue speakers. Backend <code>LANG_NAMES</code> extended so the Groq language-pinning instruction works for all 10.<br>
+                    &bull; <strong>Five new languages</strong>: Telugu (తె), Gujarati (ગુ), Kannada (ಕ), Malayalam (മ), Punjabi (ਪੰ). Total now <strong>10 languages</strong>, covering ~95% of Indian mother-tongue speakers. <em>[Correction, 2 October 2026: the nine Indian languages cover about 85% of Indian mother-tongue speakers (Census of India 2011, Table C-16: 84.7% of 1,210,854,977 persons)]</em> Backend <code>LANG_NAMES</code> extended so the Groq language-pinning instruction works for all 10.<br>
                     &bull; Service-worker cache bumped to <code>ask-janvayu-20260520-v3</code> so returning visitors pick up new welcome text + chips + lang options.
                 </div>
 
@@ -468,14 +468,14 @@
                     <strong>Two bugs found by live integration testing of Phases A&ndash;D</strong><br>
                     &bull; <strong>Bug 1</strong>: ranking responses stripped city names. <code>rankings.mjs</code> returns <code>{key, name, aqi, pm25}</code> but the integration code used <code>c.city</code> (undefined) so the LLM emitted "A city with PM2.5 174 µg/m³" instead of "Lucknow (PM2.5 174 µg/m³)". Fixed via <code>c.name || c.city || c.key</code>.<br>
                     &bull; <strong>Bug 2</strong>: empty Groq responses returned a useless "No response generated." Fallback now surfaces live data + Groq error message + retry hint. Raw Groq response logged for diagnostics.<br>
-                    &bull; Verified: 8 queries end-to-end against the live endpoint &mdash; live AQI, station count, ranking (now with names), national/topical (low-cost sensors), migration, RTI, apportionment, multi-source spread, cigarette equivalence &mdash; all returning useful, sourced answers.
+                    &bull; Verified: 8 queries end-to-end against the live endpoint &mdash; live AQI, station count, ranking (now with names), national/topical (low-cost sensors), migration, RTI, apportionment, multi-source spread, cigarette equivalence &mdash; all returning useful, sourced answers. <em>[Correction, 2 October 2026: nine queries are listed, so the count should read 9, not 8]</em>
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.16 &mdash; 20 May 2026</div>
                     <strong>Ask JanVayu Phase D &mdash; multi-source spread + divergence flagging</strong><br>
                     &bull; <strong>Final phase</strong> of the Ask JanVayu upgrade. Closes the "calibrated across multiple sources" loop.<br>
-                    &bull; <strong>Cross-references four sources</strong> for the user's city: WAQI nearest station, WAQI bounds-network (intra-city spread), Sensor.Community sensors, and a new cached <code>IQAIR_2025_ANNUAL</code> dataset of 37 Indian cities.<br>
+                    &bull; <strong>Cross-references four sources</strong> for the user's city: WAQI nearest station, WAQI bounds-network (intra-city spread), Sensor.Community sensors, and a new cached <code>IQAIR_2025_ANNUAL</code> dataset of 37 Indian cities. <em>[Correction, 2 October 2026: the dataset was not all IQAir 2025 values (New Delhi 2025 is 82.2, Byrnihat 101.1, Gurugram 74.6) and its source label read March 2025 covering 2024 data; to be re-keyed from the IQAir 2025 table]</em><br>
                     &bull; <strong>Computes three diagnostics</strong>: intra-city station spread (flags &gt;2× range), snapshot agreement WAQI vs community (flags &gt;50% disagreement), today-vs-IQAir-annual anomaly (flags &gt;1.5× or &lt;0.5×).<br>
                     &bull; <strong>Always-on anomaly note</strong>: even on non-multi-source queries, if live PM2.5 is &gt;1.5× the IQAir annual baseline, a short ANOMALY NOTE is injected so the bot's health/activity advice acknowledges today is unusual.<br>
                     &bull; <strong>Cumulative across Phases A&ndash;D</strong>: 4 tools wired, 7 calculators running, 10 cities' apportionment, 6 RTI templates, 4-source cross-reference, source citation on every number.
@@ -493,18 +493,18 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.14 &mdash; 20 May 2026</div>
                     <strong>Ask JanVayu Phase B &mdash; calculators the bot actually runs</strong><br>
-                    &bull; Seven deterministic calculators wired in: cigarette equivalence (Berkeley Earth), mortality risk (Krishna et al. 2024), life-expectancy loss (AQLI 2025), migration benefit (live PM2.5 of both cities), transport exposure (WHO/CPCB multipliers), purifier CADR (AHAM formula), school-closure forecast (CAQM GRAP).<br>
+                    &bull; Seven deterministic calculators wired in: cigarette equivalence (Berkeley Earth), mortality risk (Krishna et al. 2024) <em>[Correction, 2 October 2026: the study is Jaganathan et al. 2024, Lancet Planetary Health, DOI 10.1016/S2542-5196(24)00248-1]</em>, life-expectancy loss (AQLI 2025), migration benefit (live PM2.5 of both cities), transport exposure (WHO/CPCB multipliers) <em>[Correction, 2 October 2026: multipliers are JanVayu assumptions informed by Goel et al. on-road to ambient concentration ratios, not WHO/CPCB figures]</em>, purifier CADR (AHAM formula) <em>[Correction, 2 October 2026: air-changes-per-hour sizing; AHAM's own rule of thumb is CADR of at least two-thirds of floor area]</em>, school-closure forecast (CAQM GRAP).<br>
                     &bull; Each calculator runs deterministically when the question implies it, returns its result tagged "(computed)" with a primary-source citation, and Instruction #14 tells the LLM to use those numbers verbatim.<br>
                     &bull; <strong>Input extraction</strong>: transport mode + hours from phrases like "2 hours by auto-rickshaw"; room sqft from "300 sqft"; destination city matched against the CITIES dictionary plus the bengaluru/bangalore alias.<br>
-                    &bull; <strong>Example</strong>: "Should I move from Delhi to Bangalore?" with live PM2.5 of 120 vs 30 → "+8.8 years life expectancy (AQLI 2025), −1,492 cigarette-day equivalents per year."
+                    &bull; <strong>Example</strong>: "Should I move from Delhi to Bangalore?" with live PM2.5 of 120 vs 30 → "+8.8 years life expectancy (AQLI 2025), −1,492 cigarette-day equivalents per year." <em>[Correction, 2 October 2026: the figure computes to −1,493]</em>
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.13 &mdash; 20 May 2026</div>
                     <strong>Ask JanVayu Phase A &mdash; tool wiring + methodology calibration</strong><br>
                     &bull; User direction: <em>"what broad queries can make the chatbot useful? It should surface and use all of the JanVayu tools. Calibrated across multiple sources, better than the average chatbot."</em> Phase A of a four-phase upgrade.<br>
-                    &bull; <strong>Three new internal tool calls</strong> wired in (run in parallel, 6 s timeouts): <code>rankings.mjs</code> (live/7d/30d) for ranking queries; <code>historical-aqi.mjs</code> for trend / YoY queries; <code>community-sensors.mjs</code> (Sensor.Community CC0 low-cost network) for hyperlocal / "near me" queries.<br>
-                    &bull; <strong>New <code>METHODOLOGY_REFERENCE</code> prompt block</strong> covering the five biggest "why do two sources disagree" cases &mdash; CPCB Indian AQI vs US EPA AQI (same µg/m³, different scale/breakpoints); WAQI single-station vs CPCB CAAQMS network; CPCB annual vs IQAir World AQ Report; Krishna 1.5M causal vs Lancet Countdown 2025 1.72M synthesis; low-cost (Sensor.Community ±20-50%, dense) vs regulatory-grade (CPCB ±5-10%, sparse) trade-offs.<br>
+                    &bull; <strong>Three new internal tool calls</strong> wired in (run in parallel, 6 s timeouts): <code>rankings.mjs</code> (live/7d/30d) for ranking queries; <code>historical-aqi.mjs</code> for trend / YoY queries; <code>community-sensors.mjs</code> (Sensor.Community CC0 low-cost network) <em>[Correction, 2 October 2026: Sensor.Community data is open data under the Database Contents License 1.0 (CC0 applies to its photos)]</em> for hyperlocal / "near me" queries.<br>
+                    &bull; <strong>New <code>METHODOLOGY_REFERENCE</code> prompt block</strong> covering the five biggest "why do two sources disagree" cases &mdash; CPCB Indian AQI vs US EPA AQI (same µg/m³, different scale/breakpoints); WAQI single-station vs CPCB CAAQMS network; CPCB annual vs IQAir World AQ Report; Krishna 1.5M causal vs Lancet Countdown 2025 1.72M synthesis <em>[Correction, 2 October 2026: Jaganathan et al. 2024 (about 1.5M per year, 2009-2019) vs Lancet Countdown 2025 (1.72M, 2022); different methods and years, not a revision]</em>; low-cost (Sensor.Community ±20-50%, dense) vs regulatory-grade (CPCB ±5-10%, sparse) trade-offs <em>[2 October 2026: source not traceable; unverified]</em>.<br>
                     &bull; <strong>Phase B/C/D coming</strong>: calculator execution (GEMM/migration/school-closure/cigarette-equivalence), apportionment + RTI tools, multi-source spread surfacing.
                 </div>
 
@@ -512,7 +512,7 @@
                     <div class="jv-item-title">v26.6.12 &mdash; 20 May 2026</div>
                     <strong>Ask JanVayu &mdash; three bugs fixed from user testing</strong><br>
                     &bull; User feedback: <em>"Chatbot &mdash; does not give number of station data correctly, no sources are mentioned in some answers (low-cost sensors, EVs), for most questions I just got Delhi-based information (Mandir Marg data)."</em><br>
-                    &bull; <strong>Station-count fix</strong>: new <code>fetchCityStations()</code> calls the WAQI <code>map/bounds/</code> endpoint with a ~50 km box around the city centroid when the question matches <code>isStationCountQuery()</code>. Real count + sample station names injected into the data context, plus the CPCB national reference (~533 CAAQMS stations across ~250 cities; Sensor.Community ~3,000+ low-cost sensors).<br>
+                    &bull; <strong>Station-count fix</strong>: new <code>fetchCityStations()</code> calls the WAQI <code>map/bounds/</code> endpoint with a ~50 km box around the city centroid when the question matches <code>isStationCountQuery()</code>. Real count + sample station names injected into the data context, plus the CPCB national reference (~533 CAAQMS stations across ~250 cities; <em>[Correction, 2 October 2026: CREA (9 Jan 2026) counts 565 CAAQMS; the ~533 stations / ~250 cities figure here was undated and unsourced]</em> Sensor.Community ~3,000+ low-cost sensors). <em>[2 October 2026: source not traceable; unverified]</em><br>
                     &bull; <strong>Sources fix</strong>: new <code>TOPICAL_REFERENCE</code> block in the system prompt covers monitoring network, low-cost sensors, EVs / BS-VI / PM-eBus Sewa, and the Apr-May 2026 court orders. New Instruction #11: <em>"If you cite a number without a source, you have failed."</em><br>
                     &bull; <strong>Delhi/Mandir-Marg bias fix</strong>: new <code>isNationalQuery()</code> detects India-wide topical questions and tells the model: <em>"Do NOT default to Delhi-specific or single-station context."</em> KEY REFERENCE DATA restructured to lead with India-wide figures, not Delhi-first. Single-station context now labelled "Nearest WAQI station" so the model knows it's one station, not "the city's data".
                 </div>
@@ -520,7 +520,7 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.11 &mdash; 20 May 2026</div>
                     <strong>Walkthrough page featured on the dashboard</strong><br>
-                    &bull; New <code>/walkthrough/</code> guided-tour page (64-slide MMSF Fellows deck embedded via Google Slides iframe + PPTX 24 MB + PDF 13 MB downloads) shipped earlier today. This release features it prominently rather than burying it in the footer.<br>
+                    &bull; New <code>/walkthrough/</code> guided-tour page (64-slide MMSF Fellows deck embedded via Google Slides iframe + PPTX 24 MB + PDF 13 MB downloads) <em>[Correction, 2 October 2026: file sizes as at the time; the deck has since been replaced]</em> shipped earlier today. This release features it prominently rather than burying it in the footer.<br>
                     &bull; <strong>Dashboard quick-link card</strong> added next to Learning Games &mdash; amber accent, NEW badge, links to <code>/walkthrough/</code>.<br>
                     &bull; <strong>Hero alert</strong> extended: <em>"&hellip;and a 64-slide guided walkthrough of the whole platform built for the MMSF Fellows cohort"</em> &mdash; first-time visitors now see it exists.<br>
                     &bull; <strong>Roadmap</strong> updated (Phase 5.9 bullet) and <strong>wiki Home</strong> "What's New (v26.6.x)" gets a v26.6.11 entry.
@@ -530,7 +530,7 @@
                     <div class="jv-item-title">v26.6.10 &mdash; 20 May 2026</div>
                     <strong>Temporal-framing mismatches &mdash; eight more sentences fixed</strong><br>
                     &bull; User feedback after the v26.6.9 IQAir fix: <em>"Go through and look for instances like this."</em> A focused agent audit found 8 more sentences with the same class of bug.<br>
-                    &bull; <strong>Pattern:</strong> phrases like <em>"PNAS (2024) shows…"</em> or <em>"Lancet Respiratory Medicine (2023) found…"</em> imply recent discovery, but a 2024 paper is 5&ndash;17 months old and a 2023 paper is 17&ndash;29 months old.<br>
+                    &bull; <strong>Pattern:</strong> phrases like <em>"PNAS (2024) shows…"</em> or <em>"Lancet Respiratory Medicine (2023) found…"</em> imply recent discovery, but a 2024 paper is 5&ndash;17 months old and a 2023 paper is 17&ndash;29 months old. <em>[Correction, 2 October 2026: as of 20 May 2026 a 2024 paper is 17-29 months old and a 2023 paper is 29-41 months old]</em><br>
                     &bull; <strong>Fixed in <code>index.html</code></strong>: 7 sentences across Children's Health, Mission Tracker, Clean Air Wins honest caveat, Citizen-Led Bus Advocacy, Policy Effectiveness, and two Jeopardy clues. All now use "*A 2023 study in X documented…*" / "*Research published in X in 2024…*" framing.<br>
                     &bull; <strong>Fixed in <code>blog/posts/2026-04-01-children-air-pollution.md</code></strong>: IEG working-paper citation gains the missing 2021 publication year; Vital Strategies "new research" replaced with explicit "Vital Strategies' 2023 analysis"; GBD India estimate gains a vintage hint ("most recent India estimate, 2021 cycle").<br>
                     &bull; <strong>Why this matters</strong>: JanVayu's positioning is archive and accountability &mdash; a permanent public record. The site has to be honest about <em>when</em> each finding entered the record, not just <em>what</em> it says.
@@ -539,10 +539,10 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.9 &mdash; 20 May 2026</div>
                     <strong>Hero alert IQAir 2025 framing fix</strong><br>
-                    &bull; User feedback: <em>"May 2026: IQAir 2025 confirms Loni... &mdash; This is the box. It quotes IQAIR 2025?!"</em> Genuinely confusing &mdash; the phrasing implied IQAir 2025 had just been published, but the IQAir World Air Quality Report 2025 was actually released in March 2025 (covering 2024 data) &mdash; about 14 months old by 20 May 2026.<br>
-                    &bull; <strong>Hero alert reframed</strong> to lead with the most-current items: the Lancet Countdown 2025 (<em>launched May 2026</em>), CAQM's first off-season GRAP (19 May), the elapsed 31 March NCAP deadline. Older anchor figures (IQAir 2025) now appear with explicit vintage: "<em>the 2025 edition, published March 2025 covering 2024 data</em>".<br>
+                    &bull; User feedback: <em>"May 2026: IQAir 2025 confirms Loni... &mdash; This is the box. It quotes IQAIR 2025?!"</em> Genuinely confusing &mdash; the phrasing implied IQAir 2025 had just been published, but the IQAir World Air Quality Report 2025 was actually released in March 2025 (covering 2024 data) &mdash; about 14 months old by 20 May 2026. <em>[Correction, 2 October 2026: this entry misdated the IQAir report. The 2025 World Air Quality Report was published 24 March 2026 and covers 2025 data; the March 2025 report was the 2024 edition]</em><br>
+                    &bull; <strong>Hero alert reframed</strong> to lead with the most-current items: the Lancet Countdown 2025 (<em>launched May 2026</em>) <em>[Correction, 2 October 2026: the Lancet Countdown 2025 was published 28-29 October 2025]</em>, CAQM's first off-season GRAP (19 May) <em>[Correction, 2 October 2026: CAQM invoked Stage-I GRAP off-season again on 19 May 2026; it had also done so in May 2025 and on 16 April 2026]</em>, the elapsed 31 March NCAP deadline. Older anchor figures (IQAir 2025) now appear with explicit vintage: "<em>the 2025 edition, published March 2025 covering 2024 data</em>". <em>[Correction, 2 October 2026: the 2025 edition was published 24 March 2026 and covers 2025 data]</em><br>
                     &bull; <strong>"Did You Know" strip header</strong> reworded: "Six India-specific facts <em>updated for May 2026</em>" &rarr; "Six sourced India-specific facts &middot; figures are the <em>most recent published values from each source</em>" so readers don't infer that all the underlying figures are freshly published.<br>
-                    &bull; <strong>Loni card citation</strong> expanded: "IQAir 2025." &rarr; "IQAir World Air Quality Report 2025 (covering 2024 data; the most recent annual)."
+                    &bull; <strong>Loni card citation</strong> expanded: "IQAir 2025." &rarr; "IQAir World Air Quality Report 2025 (covering 2024 data; the most recent annual)." <em>[Correction, 2 October 2026: Loni 112.5 µg/m³ is 2025 data; the report was published 24 March 2026]</em>
                 </div>
 
                 <div class="jv-item-divided">
@@ -558,7 +558,7 @@
                     <div class="jv-item-title">v26.6.7 &mdash; 20 May 2026</div>
                     <strong>Deep sweep &mdash; remaining Netlify Functions + docs sub-pages</strong><br>
                     &bull; <strong>5 more Netlify Functions</strong> had User-Agent strings bumped to v26.6 &mdash; <code>scheduled-fetch.mjs</code> (6 sites), <code>instagram-feed.js</code>, <code>news-proxy.js</code>, <code>community-sensors.mjs</code>, <code>waqi-proxy.mjs</code> (26.5 &rarr; v26.6). Combined with v26.6.0 and v26.6.4 bumps on reddit-feed and twitter-feed, <em>every outbound HTTP request from JanVayu's serverless tier now reports v26.6 as its identity</em>.<br>
-                    &bull; <strong>English docs</strong>: <code>aqi-dashboard.md</code> + <code>health-calculator.md</code> &mdash; Delhi PM2.5 "~100 µg/m³ (2024)" &rarr; <strong>91.6 µg/m³ (IQAir 2025)</strong>, consistent with <code>docs/README.md</code> which we bumped in v26.6.2.<br>
+                    &bull; <strong>English docs</strong>: <code>aqi-dashboard.md</code> + <code>health-calculator.md</code> &mdash; Delhi PM2.5 "~100 µg/m³ (2024)" &rarr; <strong>91.6 µg/m³ (IQAir 2025)</strong>, consistent with <code>docs/README.md</code> which we bumped in v26.6.2. <em>[Correction, 2 October 2026: 91.6 is New Delhi's 2024 value; the IQAir 2025 figure is 82.2 µg/m³ (New Delhi)]</em><br>
                     &bull; <strong>Translated docs</strong>: same Delhi figure aligned in Bengali, Marathi, Tamil copies of aqi-dashboard.md (Hindi version uses a different layout, no equivalent figure to update).<br>
                     &bull; <strong>Roadmap</strong>: Phase 5.7 "six original games" clarified to reference both six (v26.5) and seven (Vayu Junction in v26.6.0, Phase 5.9).<br>
                     &bull; <strong>Verified clean</strong>: 12 other Netlify Functions, ImpactMojo docs (separate project — development education, not AQ), every other docs/ subdirectory.
@@ -571,7 +571,7 @@
                     &bull; <strong>Six per-pollutant SEO pages</strong> (<code>/pm25/</code>, <code>/pm10/</code>, <code>/co/</code>, <code>/no2/</code>, <code>/so2/</code>, <code>/o3/</code>) regenerated via <code>scripts/build-pollutant-pages.mjs</code>. JSON-LD <code>dateModified</code> now <strong>2026-05-20</strong> (was 2026-05-08).<br>
                     &bull; <strong>Bug fix in the build script.</strong> <code>datePublished</code> was being reset to today's date on every regeneration &mdash; losing publish history. Now pinned to 2026-04-26 (original release); only <code>dateModified</code> updates.<br>
                     &bull; <strong>Root service worker</strong> cache: <code>janvayu-20260508</code> &rarr; <strong><code>janvayu-20260520</code></strong>. Returning users now bypass stale offline-shell cache and get Vayu Junction, back-to-home button, May 2026 panel content.<br>
-                    &bull; <strong>Four blog posts realigned</strong> to canonical figures: <em>lancet-causal-evidence</em> + <em>iqair-2025-india</em> attribute "1.5M" to Krishna et al. 2024 with inline May 2026 update notes pointing to Lancet Countdown 2025's revised 1.72M; <em>learning-games</em> "six games" reframed as "now seven"; <em>economic-cost</em> World Bank $150B framing clarified as superseded.<br>
+                    &bull; <strong>Four blog posts realigned</strong> to canonical figures: <em>lancet-causal-evidence</em> + <em>iqair-2025-india</em> attribute "1.5M" to Krishna et al. 2024 with inline May 2026 update notes pointing to Lancet Countdown 2025's revised 1.72M; <em>[Correction, 2 October 2026: the 1.5M figure is from Jaganathan et al. 2024; 1.72M is a separate Lancet Countdown estimate (2022), not a revision]</em> <em>learning-games</em> "six games" reframed as "now seven"; <em>economic-cost</em> World Bank $150B framing clarified as superseded. <em>[2 October 2026: source not traceable; unverified]</em><br>
                     &bull; <strong>Verified clean</strong>: embed widgets, daily email digest, six other blog posts (already canonically correct).
                 </div>
 
@@ -582,7 +582,7 @@
                     &bull; <strong>Historical Trends</strong> &mdash; chart title "(2015&ndash;2025)" &rarr; "(2015&ndash;present)"; timeline gains 3 May 2026 entries (NCAP deadline elapsed, NGT south-India order, off-season GRAP).<br>
                     &bull; <strong>Legal Framework</strong> &mdash; new <em>"Recent Court &amp; Regulator Action (Apr&ndash;May 2026)"</em> card with 4 info-boxes linking to primary sources.<br>
                     &bull; <strong>Policy Effectiveness</strong> &mdash; GRAP Stages card gains the 19 May 2026 off-season note alongside the Dec 2024 predictive-activation note.<br>
-                    &bull; <strong>Citizen Voices</strong> &mdash; new top voice-card: <em>"CAQM &mdash; First Off-Season GRAP Invocation"</em> dated 19 May 2026.<br>
+                    &bull; <strong>Citizen Voices</strong> &mdash; new top voice-card: <em>"CAQM &mdash; First Off-Season GRAP Invocation"</em> dated 19 May 2026. <em>[Correction, 2 October 2026: Stage-I GRAP was also invoked off-season in May 2025 and on 16 April 2026, so the card is better titled "CAQM - Off-Season GRAP Invocation"]</em><br>
                     &bull; <strong>Industrial Sources</strong> &mdash; CEMS data labelled "Last verified Jan 2026, no public update since"; new <em>"9 April 2026 update &mdash; NGT escalation"</em> alert noting nationwide SPCB notices.<br>
                     &bull; <strong>Citizen Action Plan</strong> &mdash; intro reframed for year-round action following CAQM's off-season GRAP and NGT's south-India order.<br>
                     &bull; <strong>AQI Forecast</strong> &mdash; "Winter 2025-26" framed as historical with Oct 2026 next-season note.<br>
@@ -594,9 +594,9 @@
                     <div class="jv-item-title">v26.6.4 &mdash; 20 May 2026</div>
                     <strong>Panel content freshness sweep</strong><br>
                     &bull; User feedback: <em>"What about Clean Air Wins, etc.? Can you go through the sections in the navigation and make sure they are updated?"</em> The v26.6.2 audit covered stats consistency and the Resources panel only &mdash; individual panel content wasn't touched. This release sweeps the highest-staleness-risk panels.<br>
-                    &bull; <strong>Clean Air Wins</strong> &mdash; new "Update &mdash; May 2026" card at the top surfacing CAQM's off-season GRAP toggle (19 May), NGT's six-state south-India order (Apr), and the nationwide SPCB diesel-generator notices (9 Apr). Stat-strip's "10,000 e-buses planned" replaced with the live "6 south-Indian states ordered to file PM roadmaps" data point. Delhi e-bus card reframed as historical with explicit "next public count expected Q2/Q3 2026" note.<br>
-                    &bull; <strong>Budget Tracker</strong> &mdash; "Funding Cliff Alert" reframed: 15th FC grants <em>expired</em> 31 Mar 2026; 16th FC recommendations expected Oct 2026; potential 12-month funding gap.<br>
-                    &bull; <strong>Mission Tracker</strong> &mdash; NCAP card retitled "Deadline Missed" with verified 23/100 (CREA Jan 2026) + 37/131 (CSE Apr 2026) outcomes side-by-side. Cloud-seeding evidence updated for both 2025 and 2026 trial rounds.<br>
+                    &bull; <strong>Clean Air Wins</strong> &mdash; new "Update &mdash; May 2026" card at the top surfacing CAQM's off-season GRAP toggle (19 May), NGT's six-state south-India order (Apr), and the nationwide SPCB diesel-generator notices (9 Apr). Stat-strip's "10,000 e-buses planned" replaced with the live "6 south-Indian states ordered to file PM roadmaps" data point. Delhi e-bus card reframed as historical with explicit "next public count expected Q2/Q3 2026" note. <em>[Correction, 2 October 2026: Delhi's e-bus fleet was reported at 4,845 on 9 July 2026 (electrive)]</em><br>
+                    &bull; <strong>Budget Tracker</strong> &mdash; "Funding Cliff Alert" reframed: 15th FC grants <em>expired</em> 31 Mar 2026; 16th FC recommendations expected Oct 2026; <em>[Correction, 2 October 2026: the 16th Finance Commission report was tabled on 1 February 2026 and covers 2026-31]</em> potential 12-month funding gap. <em>[2 October 2026: source not traceable; unverified]</em><br>
+                    &bull; <strong>Mission Tracker</strong> &mdash; NCAP card retitled "Deadline Missed" with verified 23/100 (CREA Jan 2026) + 37/131 (CSE Apr 2026) outcomes side-by-side. <em>[Correction, 2 October 2026: the CSE April 2026 figure (37/131) could not be traced to any source; the sourced outcome is 23 of 100 cities with sufficient PM10 data meeting the 40% target (CREA, 9 Jan 2026)]</em> Cloud-seeding evidence updated for both 2025 and 2026 trial rounds. <em>[Correction, 2 October 2026: only the 28 October 2025 trials could be traced; no 2026 trial round was found]</em><br>
                     &bull; <strong>Children's Health</strong> &mdash; "this winter" school-closure language &rarr; "Winter 2025-26 (most recent pollution season)" + forward note about Oct 2026 next-season window.<br>
                     &bull; <strong>Political Accountability + Resources</strong> &mdash; six stale "v19.0" badges replaced with content-vintage labels (CREA · 9 Jan 2026, CAG · Apr 2025, HEI · Oct 2025). Was internal versioning leaking into the UI.
                 </div>
@@ -614,8 +614,8 @@
                     <div class="jv-item-title">v26.6.2 &mdash; 20 May 2026</div>
                     <strong>Full-site audit sweep &mdash; resources refreshed, stale stats fixed</strong><br>
                     &bull; <strong>Five fresh May 2026 items</strong> added to the <a href="#resources" onclick="showPanel('resources'); return false;">Resources panel</a> "May 2026 Updates" card: CREA April 2026 monthly snapshot (Khora #1 most polluted), CAQM GRAP Stage-I off-season re-invocation (19 May), NGT South-India PM reduction order (Apr 2026), NGT diesel-generator retrofit notices (9 Apr), Down to Earth / AAD 2026 "16&times; COVID deaths" briefing.<br>
-                    &bull; <strong>Stale-stat sweep.</strong> SEO meta description and Twitter Card description: "2 million deaths/year" &rarr; <strong>"1.72 million deaths/year (Lancet Countdown 2025)"</strong>. Hero alert: "six-game" &rarr; "seven-game" with explicit Vayu Junction mention. Dashboard quick-link card for Games: "Six games" &rarr; "Seven games".<br>
-                    &bull; <strong>Docs refreshed in all five languages.</strong> `docs/README.md` (EN), `docs-hi/`, `docs-bn/`, `docs-mr/`, `docs-ta/` &mdash; stats overhauled: 1.7&ndash;2 million &rarr; <strong>1.72M</strong>; Delhi ~100 µg/m³ &rarr; <strong>91.6 µg/m³</strong>; $150 billion &rarr; <strong>$339.4 billion (~9.5% GDP)</strong>; added AQLI 2025 IGP detail (7&ndash;8 years).<br>
+                    &bull; <strong>Stale-stat sweep.</strong> SEO meta description and Twitter Card description: "2 million deaths/year" &rarr; <strong>"1.72 million deaths/year (Lancet Countdown 2025)"</strong>. <em>[Correction, 2 October 2026: the Lancet Countdown 2025 figure is 1.72 million deaths in 2022, not per year]</em> Hero alert: "six-game" &rarr; "seven-game" with explicit Vayu Junction mention. Dashboard quick-link card for Games: "Six games" &rarr; "Seven games".<br>
+                    &bull; <strong>Docs refreshed in all five languages.</strong> `docs/README.md` (EN), `docs-hi/`, `docs-bn/`, `docs-mr/`, `docs-ta/` &mdash; stats overhauled: 1.7&ndash;2 million &rarr; <strong>1.72M</strong>; Delhi ~100 µg/m³ &rarr; <strong>91.6 µg/m³</strong>; <em>[Correction, 2 October 2026: 91.6 is New Delhi's 2024 value; New Delhi 2025 is 82.2 µg/m³ (IQAir)]</em> $150 billion &rarr; <strong>$339.4 billion (~9.5% GDP)</strong>; added AQLI 2025 IGP detail (7&ndash;8 years). <em>[Correction, 2 October 2026: AQLI 2025 gives about 5 years for the Northern Plains (Delhi 8.2) relative to the WHO guideline; the 7-year figure is from the 2019 release]</em><br>
                     &bull; <strong>"Latest Research 2025" card relabelled</strong> in the Health panel to "Recent Peer-Reviewed Findings (2024&ndash;2025)" with a neutral *background* badge &mdash; the freshest items now live in the Resources panel's May 2026 Updates card.<br>
                     &bull; <strong>End-to-end verified</strong>: headless Chromium clicked all <strong>43 panels</strong>. Zero uncaught JS exceptions. Only "errors" are localhost 404s for Netlify Functions (production-only) and CDN cert noise from the sandbox &mdash; neither affects production.
                 </div>
@@ -679,11 +679,11 @@
                     &bull; <strong>City Rankings panel</strong> (`/#rankings`) under Monitoring: Live / Past 7 days / Past 30 days, sortable, searchable. Backed by `rankings.mjs` with daily snapshots in Netlify Blobs<br>
                     &bull; <strong>Hourly 24-hr scrubbable PM2.5 chart</strong> in the Trends panel<br>
                     &bull; <strong>Year-over-year city comparison</strong> in the Compare panel: 2024/2025/2026 monthly averages with delta percentages. Backed by `historical-aqi.mjs` climatology baseline<br>
-                    &bull; <strong>Per-pollutant SEO pages</strong> at <a href="/pm25/">/pm25</a>, <a href="/pm10/">/pm10</a>, <a href="/co/">/co</a>, <a href="/no2/">/no2</a>, <a href="/so2/">/so2</a>, <a href="/o3/">/o3</a> with schema.org JSON-LD and live top-10 readings<br>
+                    &bull; <strong>Per-pollutant SEO pages</strong> at <a href="/pm25/">/pm25</a>, <a href="/pm10/">/pm10</a>, <a href="/co/">/co</a>, <a href="/no2/">/no2</a>, <a href="/so2/">/so2</a>, <a href="/o3/">/o3</a> with schema.org JSON-LD and live top-10 readings<br> <em>[Correction, 2 October 2026: the live top-10 tables on /pm10, /co, /no2, /so2 and /o3 showed generated values until 22 September 2026 (v26.6.232); they now show WAQI sub-indices]</em>
                     &bull; <strong>Leaflet.heat heatmap layer</strong> on the Live Map with a toggle. Marker popups show cigarette equivalence and a "View on dashboard" jump<br>
                     &bull; <strong>Embeddable widgets</strong> at `/embed/aqi/?city=...` and `/embed/rankings/?n=10`<br>
                     &bull; <strong>Root PWA:</strong> manifest.json + sw.js (offline shell + last-known AQI cache). Install banner with persistent dismissal in localStorage<br>
-                    &bull; <strong>Sensor.Community community sensors</strong> integrated into the Hyperlocal panel via `community-sensors.mjs`. CC0, free, badged COMMUNITY vs CPCB/WAQI<br>
+                    &bull; <strong>Sensor.Community community sensors</strong> integrated into the Hyperlocal panel via `community-sensors.mjs`. CC0, free, badged COMMUNITY vs CPCB/WAQI<br> <em>[Correction, 2 October 2026: Sensor.Community data is open data under the Database Contents License 1.0, not CC0]</em>
                     &bull; <strong>Workshops panel</strong> under Action: workshop request with Dr. Sarath Guttikunda / UrbanEmissions (incl. Air Quality Jeopardy &mdash; facilitator-set fee) and free 1-hour JanVayu walkthrough booking. Submissions emailed to contribute@janvayu.in via Resend (`workshop-submit.mjs`); durable copy in Netlify Blobs<br>
                     &bull; <strong>Ask JanVayu i18n:</strong> language picker (EN, हि, த, বা, म) on /ask/. Full UI translation; backend pins Llama response language<br>
                     &bull; <strong>Programme attribution updated</strong> to "AirQuality for Janhit by MMSF Fellows, AIPC" everywhere &mdash; meta, JSON-LD, footer, About panel, citation, pollutant pages<br>
@@ -694,7 +694,7 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v25.4 &mdash; 12 Apr 2026</div>
                     <strong>Blog, Zotero Research Library, IQAir 2025 data, mobile &amp; accessibility</strong><br>
-                    &bull; <strong>Blog:</strong> New Docsify-powered blog at <a href="/blog/">/blog/</a> with inaugural post &ldquo;IQAir 2025: India&rsquo;s Air Got Worse&rdquo;<br>
+                    &bull; <strong>Blog:</strong> New Docsify-powered blog at <a href="/blog/">/blog/</a> with inaugural post &ldquo;IQAir 2025: India&rsquo;s Air Got Worse&rdquo;<br> <em>[Correction, 2 October 2026: the post was retitled on 2 October 2026: India's national average eased from 50.6 to 48.9 µg/m³ in 2025 (IQAir), though Loni and several cities worsened]</em>
                     &bull; <strong>Zotero Research Library:</strong> Public bibliography at <a href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank">zotero.org/groups/janvayu</a><br>
                     &bull; <strong>IQAir 2025 data:</strong> Most polluted city updated to Loni, India (112.5 &micro;g/m&sup3;, up 23% from 2024). Only 14% of global cities meet WHO guideline. India average PM2.5: 48.9 &micro;g/m&sup3; (~10&times; WHO limit)<br>
                     &bull; <strong>3 new research papers:</strong> Lancet Planetary Health causal PM2.5 mortality studies (1.5M additional deaths/year vs WHO conditions), Science Advances PM2.5 inequality study<br>
@@ -707,7 +707,7 @@
                     &bull; <strong>Docs, Blog, Research Library</strong> links added to site header and footer<br>
                     &bull; <strong>Mobile header decluttered:</strong> GitHub, Docs, Simple mode icons hidden on mobile (accessible via hamburger menu); language button changed from text to globe icon<br>
                     &bull; <strong>Hero updated:</strong> Featured alert now shows April 2026 IQAir data instead of March<br>
-                    &bull; <strong>Ask JanVayu AI upgraded:</strong> Seasonal awareness (stubble burning, monsoon, Diwali), WHO activity thresholds, transport exposure multipliers, NCAP city data, cross-city comparisons, RTI draft generation. Not a generic chatbot.<br>
+                    &bull; <strong>Ask JanVayu AI upgraded:</strong> Seasonal awareness (stubble burning, monsoon, Diwali), WHO activity thresholds, <em>[Correction, 2 October 2026: these are US-EPA AQI category bands for activity guidance, not WHO thresholds]</em> transport exposure multipliers, NCAP city data, cross-city comparisons, RTI draft generation. Not a generic chatbot.<br>
                     &bull; <strong>Ask JanVayu in FAB:</strong> Integrated into green floating button as third tab (Search / Ask JanVayu / Feedback)<br>
                     &bull; <strong>Ask JanVayu PWA:</strong> Standalone installable AI chat app at <a href="/ask/">/ask/</a> &mdash; chat-style interface, city chip selector, typing indicators, offline fallback. Install to home screen on Android/iOS/desktop.<br>
                     &bull; <strong>Role switcher mobile:</strong> Dropdown moved outside header DOM so it renders as a proper bottom sheet with backdrop overlay, drag handle, and tap-outside-to-close
@@ -761,7 +761,7 @@
                     &bull; <strong>AQI Alerts:</strong> Browser push notifications when any city crosses your threshold (uses Notification API + localStorage)<br>
                     &bull; <strong>"Should I Go Outside?":</strong> Real-time decision engine based on current AQI, activity type, and vulnerable group status<br>
                     &bull; <strong>School Closure Predictor:</strong> GRAP stage analysis with PM2.5 threshold tracking for school closure likelihood<br>
-                    &bull; <strong>Personal Exposure Report:</strong> Annual PM2.5 exposure calculation using GEMM model with equivalent cigarettes and life-years-lost estimates<br>
+                    &bull; <strong>Personal Exposure Report:</strong> Annual PM2.5 exposure calculation using GEMM model with equivalent cigarettes and life-years-lost estimates<br> <em>[Correction, 2 October 2026: the calculation uses AQLI and Berkeley Earth coefficients, not GEMM]</em>
                     &bull; <strong>RTI Filing Assistant:</strong> Auto-generates RTI applications for CPCB, DPCC, MoEFCC, CAQM, Municipal Corps with pre-built question templates<br>
                     &bull; <strong>Air Purifier Calculator:</strong> Room-size based CADR recommendation with cost estimates<br>
                     &bull; <strong>Hyperlocal Comparison:</strong> WAQI bounds API integration showing all monitoring stations in a city<br>
@@ -779,10 +779,10 @@
                     <div class="jv-item-title">v24.0 &mdash; 23 Feb 2026</div>
                     <strong>Clean Air Wins section</strong><br>
                     &bull; New "Clean Air Wins" panel tracking genuine progress: cities improving, e-bus deployment, policy wins, citizen victories<br>
-                    &bull; Delhi e-bus fleet (4,286, largest in India), PM-eBus Sewa (10,000 across 169 cities), CAQM 27th meeting findings<br>
-                    &bull; City progress cards: Varanasi (76.4%), Bareilly (70%+), Moradabad (58%) PM10 reductions<br>
+                    &bull; Delhi e-bus fleet (4,286, largest in India), <em>[Correction, 2 October 2026: 4,845 on 9 July 2026 (electrive)]</em> PM-eBus Sewa (10,000 across 169 cities), CAQM 27th meeting findings<br>
+                    &bull; City progress cards: Varanasi (76.4%), Bareilly (70%+), Moradabad (58%) PM10 reductions<br> <em>[Correction, 2 October 2026: Varanasi (-76.4%) and Moradabad (-58%) are PM reductions 2019-2024 (Respirer Living Sciences, Jan 2025); Bareilly 76% and Varanasi 74.3% are PM10 reductions vs 2017-18 (Lok Sabha, 21 Jul 2025)]</em>
                     &bull; Year-round CAQM action plans, public participation precedent, industrial compliance models<br>
-                    &bull; BS-VI leapfrog, "Double the Bus" citizen campaigns, Warrior Moms/Clean Air Fund<br>
+                    &bull; BS-VI leapfrog, "Double the Bus" citizen campaigns, Warrior Moms/Clean Air Fund<br> <em>[2 October 2026: source not traceable; unverified]</em>
                     &bull; Honest caveats: PM10 vs PM2.5 distinction, monitoring gaps, mixed national picture<br>
                     &bull; Total: 23 content sections
                 </div>
@@ -806,10 +806,10 @@
                     &bull; Added hamburger slide-out menu for mobile (grouped into 5 categories)<br>
                     &bull; Anchor link support: all sections now shareable via URL hash (e.g. #health, #forecast)<br>
                     &bull; Hero PM2.5 card: searchable city selector with 115+ cities (metros, NCR, tier 1, tier 2)<br>
-                    &bull; Added 14 new cities: Chandigarh, Varanasi, Agra, Bhopal, Indore, Nagpur, Kochi, Visakhapatnam, Thiruvananthapuram, Coimbatore, Muzaffarpur, Gaya, Raipur, Jodhpur, Guwahati, Dehradun, Amritsar<br>
+                    &bull; Added 14 new cities: Chandigarh, Varanasi, Agra, Bhopal, Indore, Nagpur, Kochi, Visakhapatnam, Thiruvananthapuram, Coimbatore, Muzaffarpur, Gaya, Raipur, Jodhpur, Guwahati, Dehradun, Amritsar<br> <em>[Correction, 2 October 2026: 17 cities are listed, not 14]</em>
                     &bull; 6 new sections: Indoor Air Quality, Children's Health Dashboard, Industrial Sources &amp; Corporate Accountability, AQI Forecast, Clean Air Mission Tracker, Migration &amp; Climate Displacement<br>
                     &bull; Full version history changelog added to About section<br>
-                    &bull; Total: 22 content sections, 30+ monitored cities
+                    &bull; Total: 22 content sections, 30+ monitored cities <em>[Correction, 2 October 2026: 115+ cities are selectable; 30+ have live monitoring]</em>
                 </div>
 
                 <div class="jv-item-divided">
@@ -819,7 +819,7 @@
                     &bull; Dark mode --text-4 changed from #4a4a44 to #8a8a82 for legibility<br>
                     &bull; 6 new social media voice-cards: @rishabhhshukla oxygen mask reel, Superman meme, Rekha Gupta AQI gaffe, air purifier charcoal reel, Yogi Adityanath "gas chamber" remark, AAP "Ek Saal Dilli Behaal" campaign<br>
                     &bull; All fake download links replaced with real external sources (SCI portal, CAQM GRAP PDF, CREA report, IQAir report, Delhi EV Policy portal)<br>
-                    &bull; Zero remaining broken download links
+                    &bull; Zero remaining broken download links <em>[Correction, 2 October 2026: this no longer holds; the /downloads/ page links a placeholder Legal Precedents .docx, to be removed or replaced]</em>
                 </div>
 
                 <div class="jv-item-divided">
@@ -828,7 +828,7 @@
                     &bull; Fixed Chart.js TypeError: metroCtx.createLinearGradient called on canvas element instead of 2D context. All 10 Chart.js instances now functional<br>
                     &bull; Comprehensive mobile breakpoints at 480px, 768px, 769-1024px<br>
                     &bull; 5 new voice-cards: Reddit r/india viral post, Bloomberg India Gate longform, Washington Post "9 cigarettes/day" analysis, BusinessToday industrialisation debate, Mumbai Climate Week coverage<br>
-                    &bull; 8 new Research Library entries: IMPRI seminars, MCW/ICW coverage, CREA Jan 2026 snapshot, IQAir Feb 2026 alert, Guttikunda et al. NCAP assessment, digital activism study<br>
+                    &bull; 8 new Research Library entries: IMPRI seminars, MCW/ICW coverage, CREA Jan 2026 snapshot, IQAir Feb 2026 alert, Guttikunda et al. NCAP assessment, digital activism study<br> <em>[Correction, 2 October 2026: the count of 8 does not match the six categories named; not reconciled]</em>
                     &bull; 4 new timeline entries for Jan-Feb 2026
                 </div>
 
@@ -858,15 +858,15 @@
                     &bull; Section navigation with panel switching<br>
                     &bull; Environmental justice content: impacts on Dalit communities, women using solid fuel, informal workers<br>
                     &bull; PM2.5-primary reporting methodology aligned with WHO 2021 guidelines<br>
-                    &bull; GEMM model health calculator integration
+                    &bull; GEMM model health calculator integration <em>[Correction, 2 October 2026: not GEMM; the calculators use AQLI, Berkeley Earth and Jaganathan et al. coefficients]</em>
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v10.0-14.0 &mdash; Feb 2026</div>
                     <strong>Core platform features</strong><br>
                     &bull; Live AQI data integration via WAQI API for 16 Indian cities + 3 international<br>
-                    &bull; Health impact calculator with GEMM exposure-response functions<br>
-                    &bull; Economic cost analysis (Lancet Commission, World Bank methodology)<br>
+                    &bull; Health impact calculator with GEMM exposure-response functions <em>[Correction, 2 October 2026: not GEMM; the calculators use AQLI, Berkeley Earth and Jaganathan et al. coefficients]</em><br>
+                    &bull; Economic cost analysis (Lancet Commission, World Bank methodology) <em>[2 October 2026: source not traceable; unverified]</em><br>
                     &bull; NCAP budget tracker with fund utilisation analysis<br>
                     &bull; Political accountability: MoEFCC spending, CAQM compliance, RTI templates<br>
                     &bull; Global comparison panel (Beijing, London, Singapore benchmarks)<br>
@@ -877,7 +877,7 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v5.0-9.0 &mdash; Jan-Feb 2026</div>
                     <strong>Research integration and content depth</strong><br>
-                    &bull; Comprehensive briefing document: 50+ pages covering health data, policy analysis, economic costs, legal framework<br>
+                    &bull; Comprehensive briefing document: 50+ pages covering health data, policy analysis, economic costs, legal framework<br> <em>[2 October 2026: source not traceable; unverified]</em>
                     &bull; Partnership with UrbanEmissions.info (Dr. Sarath Guttikunda)<br>
                     &bull; Historical trends panel with timeline from 1981 Air Act to present<br>
                     &bull; Legal framework: Supreme Court orders, NGT rulings, Article 21 right to clean air<br>
