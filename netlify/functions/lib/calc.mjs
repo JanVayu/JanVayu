@@ -56,15 +56,25 @@ export function calcMigrationBenefit(currentPm25, destPm25) {
 }
 
 // Transport exposure — multiply ambient PM2.5 by mode/duration.
-// Multipliers are JanVayu modelling assumptions informed by commute-exposure studies such as Goel et al. 2015 (Delhi). They are NOT that study's ratios: Goel et al. report on-road PM2.5 about 40% above ambient for walking, 10% for cycling, 30% for auto-rickshaws and open-window cars, 20% for buses, and 50% below ambient inside an air-conditioned car. Replacing these with the published ratios is an open item.
+// Ratios of on-road to ambient PM2.5 concentration from Goel et al. 2015,
+// Atmospheric Environment 123 (Delhi, one 8.3 km arterial route, morning rush
+// hour, Jan-May 2014): "on-road PM2.5 concentrations exceeded the ambient
+// measurements by an average of 40% for walking, 10% for cycle, 30% for
+// motorised two wheeler, 30% for open-windowed car, 30% for auto rickshaw, 20%
+// for air-conditioned as well as open-windowed bus ... lower by 50% inside
+// air-conditioned car and 20% inside the metro rail carriage."
+// They are CONCENTRATION ratios, not inhaled-dose ratios (cycling breathes
+// harder, which this does not model), and the study's exceedance shrinks as
+// ambient rises, so treat the output as indicative. "car" is the air-conditioned,
+// windows-up case; there is no sourced ratio for "train", so it is not listed.
 export const TRANSPORT_MULTIPLIERS = {
-  walk: 1.0, walking: 1.0,
-  cycle: 2.5, cycling: 2.5, bicycle: 2.5, bike: 2.5,
-  auto: 1.5, "auto-rickshaw": 1.5, rickshaw: 1.5, tuktuk: 1.5,
-  car: 0.4, taxi: 0.4, cab: 0.4, uber: 0.4, ola: 0.4,
-  metro: 0.3, subway: 0.3, train: 0.5,
-  bus: 0.9,
-  motorcycle: 1.4, bike2: 1.4, scooter: 1.4, scooty: 1.4,
+  walk: 1.4, walking: 1.4,
+  cycle: 1.1, cycling: 1.1, bicycle: 1.1, bike: 1.1,
+  auto: 1.3, "auto-rickshaw": 1.3, rickshaw: 1.3, tuktuk: 1.3,
+  car: 0.5, taxi: 0.5, cab: 0.5, uber: 0.5, ola: 0.5,
+  metro: 0.8, subway: 0.8,
+  bus: 1.2,
+  motorcycle: 1.3, bike2: 1.3, scooter: 1.3, scooty: 1.3,
 };
 
 export function extractTransportFromQuestion(question) {
@@ -93,7 +103,7 @@ export function calcTransportExposure(pm25, mode, hours) {
     localPm25: +localPm25.toFixed(1),
     pctOfDailyDose: +(mult * fractionOfDay * 100).toFixed(0),
     equivCigsForCommute: +equivCigs.toFixed(2),
-    source: "JanVayu mode multipliers (assumptions informed by Goel et al. 2015, Delhi; not the study's own ratios); cigarette equivalence per Berkeley Earth, a rule of thumb from average chronic mortality rather than an acute-dose equivalence",
+    source: "On-road to ambient PM2.5 concentration ratios from Goel et al. 2015, Atmospheric Environment 123 (Delhi, one arterial route, 2014); concentration not inhaled dose. Cigarette equivalence per Berkeley Earth, a rule of thumb from average chronic mortality rather than an acute-dose equivalence",
   };
 }
 
@@ -118,7 +128,25 @@ export function extractRoomSizeFromQuestion(question) {
   return m ? parseInt(m[1], 10) : null;
 }
 
-// School closure risk — driven by CAQM GRAP thresholds.
+// CPCB National AQI sub-index for PM2.5 (24-hour), from the CPCB NAQI bands:
+// 0-30 Good (0-50), 31-60 Satisfactory (51-100), 61-90 Moderate (101-200),
+// 91-120 Poor (201-300), 121-250 Very Poor (301-400), 250+ Severe (401-500).
+// The CPCB AQI of a station is the worst of its pollutants' sub-indices, so a
+// PM2.5-only figure is a lower bound. GRAP is written on this scale, not on the
+// US-EPA scale WAQI reports (US 401 is about 350 ug/m3; CPCB 401 is about 250).
+const CPCB_PM25_BANDS = [
+  [0, 30, 0, 50], [31, 60, 51, 100], [61, 90, 101, 200],
+  [91, 120, 201, 300], [121, 250, 301, 400],
+];
+export function pm25ToCpcbAqi(pm25) {
+  if (pm25 == null || isNaN(pm25) || pm25 < 0) return null;
+  for (const [cLo, cHi, iLo, iHi] of CPCB_PM25_BANDS) {
+    if (pm25 <= cHi) return Math.round(Math.max(iLo, iLo + ((pm25 - cLo) / (cHi - cLo)) * (iHi - iLo)));
+  }
+  return Math.min(500, Math.round(401 + ((pm25 - 250) / 130) * 99));
+}
+
+// School closure risk — driven by CAQM GRAP thresholds (CPCB-scale AQI).
 export function calcSchoolClosureRisk(aqi, month) {
   if (!aqi) return null;
   let risk = "low";

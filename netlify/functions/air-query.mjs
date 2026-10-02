@@ -5,7 +5,7 @@ import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 import {
   calcCigarettes, calcMortalityRisk, calcLifeExpectancyLoss, calcMigrationBenefit,
   extractTransportFromQuestion, calcTransportExposure,
-  calcPurifierCADR, extractRoomSizeFromQuestion, calcSchoolClosureRisk,
+  calcPurifierCADR, extractRoomSizeFromQuestion, calcSchoolClosureRisk, pm25ToCpcbAqi,
 } from './lib/calc.mjs';
 
 // Resolve the bundled data file relative to this module. We intentionally do
@@ -329,8 +329,8 @@ function getSeasonalContext() {
   }
 
   let diwaliNote = "";
-  if (month === 10 && day >= 1 && day <= 15) {
-    diwaliNote = " DIWALI PERIOD: Firecracker emissions cause extreme PM2.5 spikes (often 500+ µg/m³ in Delhi) lasting 2-3 days.";
+  if ((month === 9 && day >= 15) || (month === 10 && day <= 15)) {
+    diwaliNote = " DIWALI SEASON: Diwali falls between mid-October and mid-November (check the year's date). Firecracker emissions can cause sharp PM2.5 spikes in Delhi for 2-3 days; do not state a peak figure.";
   }
 
   return { dateStr, season: season + diwaliNote };
@@ -348,7 +348,7 @@ Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes th
 - 150-250 µg/m³ (Very Unhealthy): Avoid all outdoor physical activity. Keep windows closed. Run air purifier indoors if available. N95 mask essential outdoors.
 - 250+ µg/m³ (Hazardous/Severe): Stay indoors. Schools should close. No outdoor work without protection. Medical emergency risk for vulnerable populations.
 
-Transport exposure multipliers (vs ambient): Walking 1.0x, Cycling 2-3x (heavy breathing), Auto-rickshaw 1.5x (open vehicle), Car (AC, windows up) 0.3-0.5x, Metro 0.2-0.4x, Bus 0.8-1.0x.
+Transport exposure, on-road PM2.5 vs ambient (Goel et al. 2015, Atmospheric Environment 123, Delhi, one arterial route in 2014): walking 1.4x, cycling 1.1x, two-wheeler 1.3x, auto-rickshaw 1.3x, open-window car 1.3x, bus 1.2x, air-conditioned car with windows up 0.5x, metro rail carriage 0.8x. These are concentration ratios, not inhaled doses: cycling breathes harder, which the ratio does not capture. Do not quote a figure for trains; none is sourced.
 `;
 
 // v26.6.12 — Topical reference cards. Added to system prompt so the LLM
@@ -667,9 +667,12 @@ async function runCalculators(question, aqiResult, cityKey) {
     }
   }
   if (intent.schoolClosure) {
-    const s = calcSchoolClosureRisk(aqi, month);
+    // GRAP triggers are on the CPCB scale; WAQI's `aqi` is the US-EPA scale and
+    // reads far higher at the same air, so convert from PM2.5 rather than compare.
+    const cpcbAqi = pm25ToCpcbAqi(pm25);
+    const s = cpcbAqi ? calcSchoolClosureRisk(cpcbAqi, month) : null;
     if (s) {
-      out.push(`SCHOOL CLOSURE FORECAST (computed): Live AQI ${aqi}, month ${month}. Risk: ${s.risk}. Trigger: ${s.trigger}. Source: ${s.source}.`);
+      out.push(`SCHOOL CLOSURE FORECAST (computed, indicative): live PM2.5 ${pm25} µg/m³ is about CPCB-scale AQI ${cpcbAqi} on PM2.5 alone (the US-scale AQI of ${aqi} is not comparable with GRAP triggers). Month ${month}. Risk: ${s.risk}. Trigger: ${s.trigger}. Source: ${s.source}.`);
     }
   }
 

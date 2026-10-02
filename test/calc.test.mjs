@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 import {
   calcCigarettes, calcMortalityRisk, calcLifeExpectancyLoss, calcMigrationBenefit,
   TRANSPORT_MULTIPLIERS, extractTransportFromQuestion, calcTransportExposure,
-  calcPurifierCADR, extractRoomSizeFromQuestion, calcSchoolClosureRisk,
+  calcPurifierCADR, extractRoomSizeFromQuestion, calcSchoolClosureRisk, pm25ToCpcbAqi,
 } from '../netlify/functions/lib/calc.mjs';
 
 test('calcCigarettes: 110 µg/m³ = 5/day, 35/week, 1825/year', () => {
@@ -49,18 +49,30 @@ test('calcMigrationBenefit: years gained + cigarettes saved', () => {
 
 test('calcTransportExposure: mode multiplier + dose', () => {
   const r = calcTransportExposure(100, 'car', 2);
-  assert.equal(r.multiplier, 0.4);
-  assert.equal(r.localPm25, 40.0);
-  assert.equal(r.pctOfDailyDose, 3);       // round(0.4*(2/24)*100)
-  assert.equal(r.equivCigsForCommute, 0.15); // (40*2)/(22*24)
+  assert.equal(r.multiplier, 0.5);
+  assert.equal(r.localPm25, 50.0);
+  assert.equal(r.pctOfDailyDose, 4);       // round(0.5*(2/24)*100)
+  assert.equal(r.equivCigsForCommute, 0.19); // (50*2)/(22*24)
   assert.equal(calcTransportExposure(100, 'nonsense-mode', 2).multiplier, 1.0); // default
   assert.equal(calcTransportExposure(0, 'car', 2), null);
 });
 
-test('TRANSPORT_MULTIPLIERS: expected sanity ordering (metro < walk < cycle)', () => {
-  assert.ok(TRANSPORT_MULTIPLIERS.metro < TRANSPORT_MULTIPLIERS.walk);
-  assert.ok(TRANSPORT_MULTIPLIERS.walk < TRANSPORT_MULTIPLIERS.cycle);
-  assert.equal(TRANSPORT_MULTIPLIERS.car, 0.4);
+test('TRANSPORT_MULTIPLIERS: Goel et al. 2015 on-road/ambient concentration ratios', () => {
+  assert.equal(TRANSPORT_MULTIPLIERS.walk, 1.4);
+  assert.equal(TRANSPORT_MULTIPLIERS.cycle, 1.1);
+  assert.equal(TRANSPORT_MULTIPLIERS.auto, 1.3);
+  assert.equal(TRANSPORT_MULTIPLIERS.bus, 1.2);
+  assert.equal(TRANSPORT_MULTIPLIERS.car, 0.5);   // air-conditioned, windows up
+  assert.equal(TRANSPORT_MULTIPLIERS.metro, 0.8); // carriage
+  assert.ok(!('train' in TRANSPORT_MULTIPLIERS)); // no sourced ratio
+});
+
+test('pm25ToCpcbAqi: CPCB NAQI PM2.5 bands (not the US-EPA scale)', () => {
+  assert.equal(pm25ToCpcbAqi(30), 50);
+  assert.equal(pm25ToCpcbAqi(60), 100);
+  assert.equal(pm25ToCpcbAqi(100), 232);
+  assert.equal(pm25ToCpcbAqi(250), 400);
+  assert.equal(pm25ToCpcbAqi(null), null);
 });
 
 test('extractTransportFromQuestion: pulls mode + hours', () => {

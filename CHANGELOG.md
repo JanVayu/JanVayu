@@ -75,7 +75,7 @@ apply to farmers), the LongPMInd citation (**Wang** et al., not Wei, in 13
 files), the exposure report's life-years coefficient (0.018, five and a half
 times too small, to AQLI's 0.098), CPCB AQI at 60 and 100 µg/m³ in the
 assistant's prompt, and a bug that gave December the stubble-season text.
-Thirteen groups of claims are flagged, not changed, in the report: most
+The transport multipliers now use Goel et al.'s published ratios, school-closure risk is computed on the CPCB scale (US-scale AQI was being compared with CPCB-scale GRAP triggers), and the legal panel's unsourced state-wise rulings carry a "do not cite" notice. Twelve groups of claims are flagged, not changed, in the report: most
 importantly about 25 state-wise court rulings in `legal.html` that carry no
 case name or date.
 

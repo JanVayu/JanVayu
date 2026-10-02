@@ -14,7 +14,7 @@ The season that decides how much of the year's attention this site gets starts i
 - [x] **Issue #343's six `/about` errors were one bug in the generator.** Fixed there, pages regenerated.
 - [x] **Two npm packages brought current**, and the README and `scripts/README.md` brought current: the first described a release 80 versions back.
 - [x] **A fact-check round** — `docs/fact-check-2026-10-02.md`, the first since 8 September. `check-factcheck-freshness.py` allows 120 days, looser than the weekly cadence the routines are meant to keep; scheduled routines stop when credits run out, so a person has to notice a lapse.
-- [ ] **The flagged items in that report**, above all the ~25 unsourced state-wise court rulings in `legal.html`, the per-city NCAP rupee rows in `budget.html`, the transport multipliers, and the school-closure scale mismatch.
+- [ ] **The flagged items in that report that remain**, above all the ~25 unsourced state-wise court rulings in `legal.html` (now carrying a "do not cite" notice), the per-city NCAP rupee rows in `budget.html`, the unsourced diary multipliers and city annual values in `app.js`, and the source-apportionment tables in the assistant's prompt. The transport multipliers and the school-closure scale mismatch are fixed.
 - [ ] **Lancet Countdown 2026.** The homepage cites the 2025 edition (October 2025). The 2026 global report launches on 28 October 2026; re-check after that date.
 - [x] **Dependabot for npm**, monthly and grouped; it had covered GitHub Actions only.
 - [ ] **The demo fallback's ±5% jitter** in `app.js` is labelled "(Fallback)" and `live: false`, but it makes static demo values look like fresh readings. Decide whether to keep it.
