@@ -16,6 +16,8 @@ That turns out to be enough to be worth doing, as long as we are honest about wh
 
 The [32 photographs](/#gallery) are ordered deliberately. Read start to finish, they go:
 
+*Update, 2 October 2026: one of the 32 was a duplicate of another and has been removed, so the gallery now has 31. Four photographs taken outside India (Mexico, Essex 1986, Turkey, Taiwan) are now captioned as such, and the licence count is 29 Wikimedia Commons images plus two New York Times photographs used with permission.*
+
 **First, the effect.** Seven frames of what dirty air does to a view — a skyline dissolving at sunset, high-rises fading into winter smog, auto-rickshaws in a street where the far end has gone. This is the part everyone has seen. It is also the least informative part, and we put it first because it is what brings people in.
 
 **Then, the causes.** A coal plant's cooling towers. A brick-kiln chimney on a city's edge. A diesel locomotive trailing black smoke. Paddy stubble alight after harvest, six different ways — flames sweeping a field, smoke drifting over a smoulder, farmers standing beside it, a worker inside it at harvest time. Waste burning at a roadside; a wall of black smoke over water.

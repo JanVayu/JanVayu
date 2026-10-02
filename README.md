@@ -36,7 +36,7 @@ This is not a campaign. It is a record.
 - 🗣️ **Field Testimony 142 → 250 voices** across 107 cities and 14 languages. Field-collected quotes carry their collection date and mode, every speaker consented and is named as they asked, and code-mixed speech is badged as spoken. The wall is shuffled daily so no voice sits permanently at the bottom.
 - 📡 **The feeds tell the truth about themselves** — Reddit restored through its public Atom feed after the JSON API began refusing datacentre IPs; YouTube fetching channel RSS, and searching when a free Data API key is set; X and Instagram reduced to **links out**, because neither can be read without a paid or authenticated API. Every X link is verified against X's public embed endpoint by `scripts/verify-x-links.py` before it ships.
 - 🧭 **Three things now check themselves** — `check-site-figures.py` recomputes every stated figure from the data and fails CI on drift (it caught a photo count five releases stale and a ward count five releases stale); `build-blog-index.py` generates the homepage blog list from the blog itself; and the current-year layer rebuilds monthly.
-- 📖 **New posts** — [How to Read the JanVayu Map](blog/posts/2026-08-09-how-to-read-the-map.md), a plain reader's manual, and [What the Air Looks Like](blog/posts/2026-08-09-what-the-air-looks-like.md), on why a data site carries 32 photographs of something 2.5 µm across.
+- 📖 **New posts** — [How to Read the JanVayu Map](blog/posts/2026-08-09-how-to-read-the-map.md), a plain reader's manual, and [What the Air Looks Like](blog/posts/2026-08-09-what-the-air-looks-like.md), on why a data site carries 31 photographs of something 2.5 µm across.
 
 ---
 
