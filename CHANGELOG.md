@@ -160,11 +160,11 @@ India's NAAQS is written in needs an assumed temperature and pressure.
 ### Fixed, six functions served a sub-index as a concentration
 
 WAQI's `iaqi.<pollutant>.v` is a US-EPA sub-index, unitless, not µg/m³.
-`app.js` has carried the breakpoint tables and a comment saying so since it
-was written; `rankings`, `air-query`, `health-advisory`, `daily-digest`,
+`app.js` has carried the breakpoint tables since 3 May 2026 (commit 123b9ec,
+after a reader report); `rankings`, `air-query`, `health-advisory`, `daily-digest`,
 `accountability-brief` and `anomaly-check` never got the conversion, and
 every consumer treated the result as a concentration — the ranking sorts on
-it, `embed/rankings` colours it against the WHO thresholds 5/15/35/55/150.
+it, `embed/rankings` colours it against a 5/15/35/55/150 scale (WHO guideline levels at the low end, EPA breakpoints above).
 
 `air-query` is the one that mattered. Its fallback reply says, in words,
 *"PM2.5 n µg/m³ (n/5× the WHO guideline)"*. At a sub-index of 160, someone

@@ -16,7 +16,7 @@ This update closes that gap, without diluting the accountability mission.
 
 **Cigarettes per day equivalent.** Live PM2.5 converted to a daily smoking equivalent using the Berkeley Earth coefficient (one cigarette ≈ 22 µg/m³ over 24 hours). At 100 µg/m³ — typical for Delhi in winter — that is roughly 4.5 cigarettes a day, every day. Walking past a bus stop in November is hard to wave away once you have that number on screen.
 
-**Disease-risk badges.** Five common harms — asthma flare-ups, heart attack and stroke, allergies, respiratory infection, and risk to children and the elderly — colour-coded by today's AQI band. The mapping comes from the GBD literature; the colours match the AQI gradient so the framing stays internally consistent.
+**Disease-risk badges.** Five common harms — asthma flare-ups, heart attack and stroke, allergies, respiratory infection, and risk to children and the elderly — colour-coded by today's AQI band. The mapping is illustrative: we have not tied each badge to a specific Global Burden of Disease risk outcome. The colours match the AQI gradient so the framing stays internally consistent.
 
 **Solution recommendations.** What to actually do today. At AQI 50, "open windows." At AQI 250, "N95 mandatory outdoors and run a HEPA purifier 24/7." At AQI 450, "treat outdoor air as toxic and create a clean room indoors if needed." The card cross-links to the existing Purifier Calculator and "Should I Go Outside?" panels.
 
@@ -40,11 +40,11 @@ In the Compare panel, pick a city and a month and overlay 2024, 2025, and 2026 m
 
 ## Six pollutant pages for search
 
-`/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3` — standalone, SEO-friendly pages with sources, health effects, the WHO and Indian standards, and the live top-10 most-polluted Indian cities for that pollutant. Built from a single template and fully crawlable. The point is that someone searching "PM2.5 Delhi" finds JanVayu, not just IQAir.
+`/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3` — standalone, SEO-friendly pages with sources, health effects, the WHO and Indian standards, and a top-10 table of Indian cities for that pollutant. *Update, 2 October 2026: for five of the six pages (all except /pm25) the table's values were randomly generated from 26 April to 22 September 2026. See [the 2 October post](/blog/#/posts/2026-10-02-five-pollutant-pages-random-numbers).* Built from a single template and fully crawlable. The point is that someone searching "PM2.5 Delhi" finds JanVayu, not just IQAir.
 
 ## Free community sensors via Sensor.Community
 
-The Hyperlocal panel now blends CPCB and WAQI stations with **Sensor.Community** — a global, CC0-licensed network of citizen-run low-cost monitors. Each station carries a `COMMUNITY` or `CPCB/WAQI` source badge so you know what you are reading. Treat community sensors as indicative; they are less calibrated than CPCB stations but fill coverage gaps in places that have no official station.
+The Hyperlocal panel now blends CPCB and WAQI stations with **Sensor.Community** — a global network of citizen-run low-cost monitors whose data is published under the Open Data Commons Database Contents License (DbCL) 1.0. Each station carries a `COMMUNITY` or `CPCB/WAQI` source badge so you know what you are reading. Treat community sensors as indicative; they are less calibrated than CPCB stations but fill coverage gaps in places that have no official station.
 
 We considered building our own "Host a Monitor" hardware program. This integration gets us the same coverage benefit, today, without the hardware lift. We may still do hardware later, but only if there is a coverage gap that the community network does not solve.
 
@@ -65,10 +65,10 @@ JanVayu is now installable on Android, iOS, and desktop. The service worker cach
 
 A new **Workshops** page under the Action menu. Two cards:
 
-- **Air Quality workshop with UrbanEmissions** — request a session with Dr. Sarath Guttikunda, who runs the Air Quality Jeopardy game (interactive, tested with school and adult cohorts). Class 9+ students, college, adult cohorts, and educators all welcome.
+- **Air Quality workshop with UrbanEmissions** — request a session with Dr. Sarath Guttikunda of UrbanEmissions.info. Class 9+ students, college, adult cohorts, and educators all welcome.
 - **1-hour JanVayu walkthrough** — book a hands-on session with our team. Set AQI alerts, file an RTI in one sitting, read the NCAP scorecard, find the right purifier. Pick three preferred IST slots; we confirm one. Free, online, English or Hindi.
 
-Both forms run on Netlify Forms. We do not share contact details with anyone other than the workshop facilitator.
+*Update, 26 April 2026 (v26.4.2): the forms now post to a JanVayu function that emails each submission to the JanVayu team and stores a copy; contact details go to the JanVayu team and the workshop facilitator.*
 
 ## What we deliberately did not do
 
@@ -89,7 +89,7 @@ In rough priority order:
 - A source-apportionment ring per city, using CREA and UrbanEmissions inventory data.
 - A 24 to 72-hour AQI forecast, extending the existing forecast panel.
 - Browser push notifications gated on user-picked AQI thresholds (using the new service worker).
-- An in-browser AQ literacy quiz as a companion to Sharath's Jeopardy game.
+- An in-browser AQ literacy quiz as a companion to facilitator-led workshops.
 
 If something on this list matters to you — or you spotted a bug — let us know via the [Workshops page](https://www.janvayu.in/#workshops) booking form, or open an issue on the [JanVayu GitHub](https://github.com/JanVayu/JanVayu/issues).
 

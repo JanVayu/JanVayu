@@ -272,7 +272,7 @@ const MATCH_PAIRS = [
     { src: 'Residential biomass', desc: 'Cooking on chulhas with firewood / dung; still the largest household PM2.5 source despite PMUY.' },
     { src: 'Coal thermal power', desc: 'SO2 and NOx that oxidise into secondary sulphate / nitrate aerosol; ~half of capacity still without FGD in 2025.' },
     { src: 'Road dust + non-exhaust', desc: 'Tyre and brake wear plus resuspended dust; can match tailpipe PM2.5 in dense Indian cities.' },
-    { src: 'Brick kilns', desc: 'Seasonal December-May firing across Indo-Gangetic Plain; converting to zigzag tech cuts PM by ~60%.' },
+    { src: 'Brick kilns', desc: 'Seasonal December-May firing across Indo-Gangetic Plain; converting to zigzag tech can cut PM by up to about half (CCAC).' },
     { src: 'Diesel gensets', desc: 'Backup power in commercial buildings and apartments during outages; banned at GRAP stages II-IV.' },
     { src: 'Open waste burning', desc: 'Municipal solid waste lit at night at landfills and street corners; under-reported in official inventories.' }
 ];
@@ -565,7 +565,7 @@ const TAMBOLA_POOL = [
     { term: 'NOx',       clue: 'Vehicle and power-plant exhaust gas; precursor to nitrate aerosol.' },
     { term: 'SO₂',       clue: 'Coal-plant emission that oxidises to secondary sulphate PM2.5.' },
     { term: 'Black Carbon', clue: 'Soot from incomplete combustion; second-largest climate-warming agent after CO₂.' },
-    { term: 'Brick Kiln', clue: 'Indo-Gangetic Plain seasonal Dec-May source; zigzag tech cuts PM ~60%.' }
+    { term: 'Brick Kiln', clue: 'Indo-Gangetic Plain seasonal Dec-May source; zigzag tech can cut PM by up to about half (CCAC).' }
 ];
 // 3 rows × 9 cols, with 5 cells filled per row (Indian housie standard)
 let tambolaState = { ticket: [], queue: [], called: [], marks: {}, calls: 0, wins: { top: false, middle: false, bottom: false, full: false } };
@@ -711,8 +711,8 @@ const JUNCTION_PUZZLES = [
     {
         id: 'names', title: 'Names & numbers', difficulty: 'Hard',
         groups: [
-            { theme: 'Worst-polluted Indian cities (IQAir 2025)', color: '#16A34A', items: ['Loni', 'Byrnihat', 'Begusarai', 'Hajipur'] },
-            { theme: 'NCAP top-performing cities', color: '#3B82F6', items: ['Varanasi', 'Bareilly', 'Moradabad', 'Kanpur'] },
+            { theme: 'Worst-polluted Indian cities (IQAir 2025)', color: '#16A34A', items: ['Loni', 'Byrnihat', 'Delhi', 'Ghaziabad'] },
+            { theme: 'NCAP top-performing cities', color: '#3B82F6', items: ['Varanasi', 'Bareilly', 'Firozabad', 'Dehradun'] },
             { theme: 'Air-quality research bodies & reports', color: '#F59E0B', items: ['CREA', 'AQLI', 'IQAir', 'Lancet'] },
             { theme: 'Citizen accountability tools', color: '#7C3AED', items: ['Petition', 'RTI', 'Audit', 'Survey'] }
         ]

@@ -34,7 +34,7 @@ science looks like, and it is hard to arrange in most syllabus topics.
 
 If a student leaves your class with one idea, make it this one.
 
-**AQI is an index.** It is built from up to six pollutants and it reports only
+**AQI is an index.** It is built from up to eight pollutants and it reports only
 whichever one scores worst. Two cities both reading 200 can be breathing very
 different air. It is also scaled differently in India and the United States, so
 the same air gets two different AQI numbers.

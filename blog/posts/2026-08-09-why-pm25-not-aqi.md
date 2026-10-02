@@ -8,7 +8,7 @@ At a conference last week, a reader made a point worth acting on: our headline f
 
 It is a fair point, and we have changed how the numbers are presented. This post sets out why PM2.5 is the right measure to lead with — and what AQI is genuinely good for.
 
-<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/why-pm25.svg" alt="Why PM2.5 is the number that matters: PM10 is about 10 micrometres and PM2.5 is 2.5 micrometres or less, drawn to scale with each other; a human hair at 70 micrometres would be 28 times wider than the PM2.5 dot. The nose and throat catch most PM10 and the cilia sweep more of it back out, but PM2.5 reaches the alveoli and crosses into the bloodstream. PM2.5 is measured in micrograms per cubic metre, with India's annual limit at 40 and the WHO guideline at 5. AQI is a unitless index that reports only whichever of six pollutants scores worst, so two cities at the same AQI can be breathing very different PM2.5."></div>
+<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/why-pm25.svg" alt="Why PM2.5 is the number that matters: PM10 is about 10 micrometres and PM2.5 is 2.5 micrometres or less, drawn to scale with each other; a human hair at 70 micrometres would be 28 times wider than the PM2.5 dot. The nose and throat catch most PM10 and the cilia sweep more of it back out, but PM2.5 reaches the alveoli and crosses into the bloodstream. PM2.5 is measured in micrograms per cubic metre, with India's annual limit at 40 and the WHO guideline at 5. AQI is a unitless index that reports only whichever of up to eight pollutants scores worst, so two cities at the same AQI can be breathing very different PM2.5."></div>
 <div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/why-pm25-tall.svg" alt="" aria-hidden="true"></div>
 
 ---
@@ -19,7 +19,7 @@ Particulate matter is graded by how wide the particles are, in micrometres (µm 
 
 **PM10** is everything up to 10 µm: road dust, construction grit, pollen, crushed stone. It is dirty and it is unpleasant and it will irritate your eyes and throat. But it is big. Your nose and throat catch most of it, and the tiny hairs lining your windpipe sweep much of the rest back out.
 
-**PM2.5** is everything 2.5 µm and smaller — around **thirty times thinner than a human hair**. That is small enough to travel past every defence your airway has. It reaches the alveoli, the air sacs where your lungs hand oxygen to your blood, and there is no mechanism down there to sweep it out again. From the alveoli, the finest fraction crosses into the bloodstream itself.
+**PM2.5** is everything 2.5 µm and smaller — around **thirty times thinner than a human hair**. That is small enough to travel past every defence your airway has. It reaches the alveoli, the air sacs where your lungs hand oxygen to your blood, and your body clears it only slowly and incompletely. From the alveoli, the finest fraction crosses into the bloodstream itself.
 
 That is not a difference of degree. It is the difference between a pollutant your body can expel and one it cannot.
 
@@ -37,9 +37,9 @@ Here is how it works, and where it goes wrong.
 
 **AQI has no unit.** PM2.5 is measured in micrograms per cubic metre: a real quantity of a real substance in a real volume of air. AQI is an index. "AQI 180" is not 180 of anything.
 
-**AQI reports only the worst pollutant.** India's AQI rolls up six — PM2.5, PM10, NO₂, SO₂, CO and ozone — takes whichever scores highest, and reports that one. So an AQI of 180 might be driven by PM2.5, or it might be driven by ozone on a hot afternoon while PM2.5 sits comfortably lower. The number does not tell you which, and two cities showing the same AQI can be breathing very different air.
+**AQI reports only the worst pollutant.** India's AQI can draw on up to eight pollutants (PM2.5, PM10, NO₂, SO₂, CO, ozone, ammonia and lead). It needs at least three, one of them PM2.5 or PM10, takes whichever scores highest, and reports that one (CPCB, National Air Quality Index, 2014). So an AQI of 180 might be driven by PM2.5, or it might be driven by ozone on a hot afternoon while PM2.5 sits comfortably lower. The number does not tell you which, and two cities showing the same AQI can be breathing very different air.
 
-**AQI is not the same number everywhere.** India's CPCB scale and the US EPA scale convert concentrations to index values differently. The same air gives you different AQI figures depending on whose formula you use — and most international apps and aggregators use the US scale. When someone compares "Delhi's AQI" with "Beijing's AQI" from two different sources, the comparison is often meaningless.
+**AQI is not the same number everywhere.** India's CPCB scale and the US EPA scale convert concentrations to index values differently. The same air gives you different AQI figures depending on whose formula you use — and aggregators such as IQAir and AirNow use the US scale. When someone compares "Delhi's AQI" with "Beijing's AQI" from two different sources, the comparison is often meaningless.
 
 **AQI cannot be averaged over a year.** The bands — Good, Moderate, Poor, Severe — describe *24-hour* exposure and carry same-day advice: wear a mask, keep children indoors. Applying them to a yearly average is a category error. A year is not a bad afternoon.
 
@@ -49,7 +49,7 @@ None of this makes AQI useless. For "should I go for a run this evening?" it is 
 
 ## What every promise is actually written in
 
-Here is the practical test. Every commitment India has made about its air is written in µg/m³ of PM2.5 — not in AQI:
+Here is the practical test. Every commitment India has made about its air is written in concentrations (µg/m³) of particulate matter, mostly PM2.5 and PM10, not in AQI:
 
 - **India's national standard** is 40 µg/m³ as an annual mean (CPCB, NAAQS).
 - **The WHO guideline** is 5 µg/m³ annual (WHO Global Air Quality Guidelines, 2021).
@@ -65,7 +65,7 @@ That is the case for leading with PM2.5. Not that AQI is wrong, but that it cann
 
 **The dashboard** describes itself as live **PM2.5 in µg/m³**, with AQI alongside rather than instead. The city rankings table has always led on PM2.5, with AQI as a secondary column.
 
-**The walkthrough decks**, which we use at conferences and workshops, now headline **"Real-time PM2.5 for 157 cities"**, with the speaker note carrying the reasoning: *lead with PM2.5, not AQI — AQI is a derived index and PM2.5 is the pollutant that does the damage.*
+**The walkthrough decks**, which we use at conferences and workshops, now headline **"Real-time PM2.5 for 157 cities"** (*update, 2 October 2026: it now reads 160 cities*), with a speaker note that paraphrases to: *lead with PM2.5, not AQI — AQI is a derived index and PM2.5 is the pollutant that does the damage.*
 
 **The map** uses PM2.5 throughout: every boundary is coloured by annual satellite PM2.5 in µg/m³, banded against 5 and 40, never against AQI categories. That is why a yearly figure on the map never carries "wear a mask today" advice.
 
@@ -95,4 +95,4 @@ If you have a point to make about how anything here is presented, [tell us](http
 
 ---
 
-**Sources:** Particle sizes and deposition, US EPA and WHO Global Air Quality Guidelines (2021). India's NAAQS annual PM2.5 standard of 40 µg/m³, CPCB. WHO annual guideline of 5 µg/m³, WHO (2021). India's ambient PM2.5 mortality figure of ~1.72 million, Lancet Countdown (2025). Life-expectancy framing, AQLI (2025). India's AQI construction (six pollutants, worst-of reported), CPCB National Air Quality Index methodology.
+**Sources:** Particle sizes and deposition, US EPA and WHO Global Air Quality Guidelines (2021). India's NAAQS annual PM2.5 standard of 40 µg/m³, CPCB. WHO annual guideline of 5 µg/m³, WHO (2021). India's ambient PM2.5 mortality figure of ~1.72 million, Lancet Countdown (2025). Life-expectancy framing, AQLI (2025). India's AQI construction (up to eight pollutants, worst-of reported), CPCB National Air Quality Index methodology.

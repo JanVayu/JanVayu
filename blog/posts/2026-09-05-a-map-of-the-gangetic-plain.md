@@ -6,7 +6,7 @@
 
 Someone sent us a link and asked a reasonable question: could we use this on JanVayu?
 
-The link was the [Biodiversity Intactness](https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1) dataset from Impact Observatory and Vizzuality. Annual global maps, 100 metre pixels, 2017 to 2025, openly licensed. It scores every patch of land from 0 to 1 on how intact its ecological community still is, built by fitting the Natural History Museum's PREDICTS database of 32,000 field sites against satellite measures of human pressure.
+The link was the [Biodiversity Intactness](https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1) dataset from Impact Observatory and Vizzuality. Annual global maps, 100 metre pixels, 2017 to 2025, openly licensed. It scores every patch of land from 0 to 1 on how intact its ecological community still is, built by fitting the Natural History Museum's PREDICTS database of field sites against satellite measures of human pressure.
 
 We said no. Then we measured it, and had to say that our reason for saying no was wrong. Then we measured it properly, and said no again, for a better reason.
 
@@ -16,11 +16,11 @@ The whole sequence took an afternoon and it is worth writing down, because the m
 
 ## Why we expected nothing
 
-JanVayu has been here before. In June we shipped green cover on every ward, from ESA WorldCover, and let readers put it next to surface heat. Trees cool cities; this was going to show it.
+JanVayu has been here before. On 8 August we shipped green cover on every ward, from ESA WorldCover, and let readers put it next to surface heat. Trees cool cities; this was going to show it.
 
 It showed almost nothing. Across 67,732 wards the correlation between green cover and surface heat was **−0.069**. Effectively a flat line.
 
-The layer was not broken. Green cover was the wrong variable. WorldCover counts cropland as vegetation, so the median Indian gram panchayat is 97% green while its typical village has single-digit tree canopy. We [replaced it with tree cover](/blog/#/posts/2026-08-08-tree-cover-answers-it), which reads **−0.429** nationally and −0.412 within the median city, and the heat-island relationship was there all along under a bad proxy.
+The layer was not broken. Green cover was the wrong variable. WorldCover counts cropland as vegetation, so the median Indian gram panchayat is 97% green while its typical village has about 13% tree canopy. We [replaced it with tree cover](/blog/#/posts/2026-08-08-tree-cover-answers-it), which reads **−0.429** nationally and −0.412 within the median city, and the heat-island relationship was there all along under a bad proxy.
 
 So when a biodiversity raster arrived, the prior wrote itself. Ecological intactness is not a measure of air. The mechanism connecting species abundance to fine particulate matter is long and indirect, and we had just spent a month learning that a plausible-looking land layer can measure nothing at all.
 
@@ -51,7 +51,7 @@ One thing did stand out. The two rasters correlate with **each other** at −0.8
 
 ## The control that ended it
 
-Indian air has a geography, and it is not subtle. The Indo-Gangetic Plain is a 2,500-kilometre trough closed by the Himalaya to the north, and in winter it traps everything emitted into it. A district in Bihar and a district in Karnataka are not two towns that made different choices. They are two airsheds.
+Indian air has a geography, and it is not subtle. The Indo-Gangetic Plain is a basin with the Himalaya along its northern edge. A district in Bihar and a district in Karnataka are not two towns that made different choices. They are two airsheds.
 
 Human pressure has a geography too, and it is much the same one. The plain is where the people are.
 
@@ -88,7 +88,7 @@ Rejoined by name and state, they correlate at **+0.9985**.
 
 The script now asserts that before it will report anything. If those two figures do not agree above 0.99, it exits and refuses to print a table. That assertion is the only reason the wrong numbers were thrown away instead of published, and it is now the first thing the script does.
 
-This is the third time this year a silent join or fallback has produced confident, wrong, complete-looking output here: villages nearly shipped labelled with their state, wards came back empty where three sources overlapped, and now this. The pattern is always the same. Nothing errors. The output is the right shape. Only a number that should have been something else gives it away.
+This is not the first time a silent join or fallback has produced confident, wrong, complete-looking output here: villages nearly shipped labelled with their state, wards came back empty where three sources overlapped, and now this. The pattern is always the same. Nothing errors. The output is the right shape. Only a number that should have been something else gives it away.
 
 ---
 
@@ -117,7 +117,7 @@ The panel is explicit about what it will not say. A district below its state med
 
 For completeness, since the question was asked in good faith and deserves a straight answer.
 
-Of the two rasters, **Human Footprint is the better one**. It beats biodiversity intactness on every measure we tried, its inputs are closer to the things that actually burn, and it is easier to explain to a reader. Adding biodiversity intactness on top of it is worth +0.001 R².
+Of the two rasters, **Human Footprint is the better one**. It beats biodiversity intactness on every measure we tried, its inputs are closer to the things that actually burn, and it is easier to explain to a reader. Adding biodiversity intactness on top of it is worth +0.000 R² to three decimals.
 
 But neither earns a place here. Both are, at 100 metres and annual cadence, largely a recombination of land cover, and JanVayu already carries built-up, tree and green cover from WorldCover at **10 metres**, ten times finer, on all six boundary levels. A coarser modelled index of variables we already hold at better resolution is not an addition.
 

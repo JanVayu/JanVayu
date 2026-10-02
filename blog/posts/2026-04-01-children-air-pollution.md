@@ -20,9 +20,9 @@ These are not small numbers. Stunting in early childhood is largely irreversible
 
 The damage extends beyond physical growth. Research compiled by the WHO shows associations between prenatal exposure to high PM2.5 levels and developmental delays at age three, as well as psychological and behavioural problems in later childhood — including symptoms of attention deficit hyperactivity disorder, anxiety, and depression.
 
-A working paper from the Institute of Economic Growth in Delhi (Greenstone, Hanna et al., 2021) documented measurable effects of air pollution on cognitive performance in Indian populations, including reduced attention spans, memory deficits, and lower test scores. Subsequent Brookings Institution analysis (2023) reinforced the finding that early-life exposure to outdoor air pollution in India has significant effects on child health and development that persist into adulthood.
+A working paper from the Institute of Economic Growth in Delhi (Singh, Gupta and Dey, May 2022, IEG Working Paper 452) documented lower maths and reading performance among Indian children aged 8 to 11 exposed to higher PM2.5. A 2019 Brookings India working paper (Singh, Dey, Chowdhury and Bali) found that exposure during the first trimester lowers height-for-age and weight-for-age in children under five.
 
-For families in Delhi, where winter PM2.5 concentrations routinely exceed 300 micrograms per cubic metre — sixty times the WHO guideline — these are not theoretical risks. Paediatricians in the capital have reported seeing respiratory conditions in eight-year-olds that would typically present in middle-aged adults with long smoking histories.
+For families in Delhi, where winter daily PM2.5 regularly peaks above 300 micrograms per cubic metre (the November 2024 monthly average was 249, per CREA), about twenty times the WHO 24-hour guideline of 15, these are not theoretical risks.
 
 ## School Closures
 
@@ -32,15 +32,15 @@ These closures disproportionately affect children from lower-income families, wh
 
 ## The Mortality Data
 
-The Global Burden of Disease study (GBD 2017, Lancet Planetary Health) attributed 8.8 percent of deaths in Indian children under five in 2017 to air pollution. Vital Strategies' 2023 analysis ("Air pollution hinders childhood development") found that air pollution affects childhood development in up to 90 percent of children globally, with South Asian children among the most affected populations.
+The Global Burden of Disease India study (Dandona et al., The Lancet, 2020) attributed 8.8 percent (7.0 to 10.3) of under-five deaths in India in 2017 to air pollution. A 2021 Vital Strategies release on a review of 45 studies of air pollution and stunting noted that 90 percent of children and teens under 15 are exposed to harmful pollution.
 
-The Lancet Countdown 2025 places India's annual air pollution death toll at 1.72 million, a significant proportion of whom are children and infants. Neonatal mortality from air pollution exposure — including preterm birth, low birth weight, and respiratory distress — accounts for a substantial share of these deaths but receives comparatively little policy attention.
+The Lancet Countdown 2025 places India's annual air pollution death toll at 1.72 million, including deaths of infants and young children.
 
 ## What Is Not Being Done
 
 India's National Clean Air Programme does not include child health outcomes as a performance metric. The programme targets PM10 reductions, not PM2.5, and does not track stunting, cognitive development, school closures, or paediatric respiratory admissions as indicators of success.
 
-There is no national standard for indoor air quality in schools. There is no programme to provide air filtration in classrooms, despite the fact that children spend six to eight hours a day in school buildings that often lack sealed windows or mechanical ventilation.
+We found no national standard for indoor air quality in schools. There is no national programme to provide air filtration in classrooms; Delhi announced on 19 December 2025 that air purifiers would be installed in 10,000 classrooms (The Hindu).
 
 The evidence is clear, causal, and quantified. India's air is damaging its children's lungs, brains, and growth. Every year of inaction adds another cohort to the toll. The question is no longer whether air pollution harms children. The question is how long the country will continue to accept a policy response that does not even measure the damage.
 

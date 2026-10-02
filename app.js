@@ -8943,7 +8943,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'scorecards', title: 'City Scorecards', desc: 'City accountability report cards', keywords: 'scorecard accountability grade report card ncap target' },
         { id: 'data-archive', title: 'Data Archive', desc: 'Download historical air quality datasets', keywords: 'data archive download historical dataset csv json research' },
         { id: 'correlations', title: 'Pollution Correlations', desc: 'Explore pollution vs health/economic data', keywords: 'correlation scatter plot health deaths economic relationship' },
-        { id: 'aqi-explainer', title: 'Understanding AQI', desc: 'What AQI means, six pollutants, CPCB vs EPA scales', keywords: 'aqi explainer composite index pollutant pm25 pm10 no2 so2 ozone co naaqs who epa cpcb sub-index criteria dominant' },
+        { id: 'aqi-explainer', title: 'Understanding AQI', desc: 'What AQI means, its pollutants, CPCB vs EPA scales', keywords: 'aqi explainer composite index pollutant pm25 pm10 no2 so2 ozone co naaqs who epa cpcb sub-index criteria dominant' },
         { id: 'source-selector', title: 'Data Source Selector', desc: 'Choose which data sources to include when viewing AQI', keywords: 'source selector data cpcb waqi aqicn iqair sensor community trust reliability calibration monitor station transparency' },
         { id: 'glossary', title: 'Glossary', desc: 'Air quality terms and acronyms explained', keywords: 'glossary terms definitions acronym explanation pm25 aqi grap ncap who meaning' }
     ];
@@ -9646,7 +9646,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 //
 // Two things it refuses to show, both deliberate and both explained on the
 // page rather than in a footnote: no annual MEAN AQI, because an index that
-// reports only the worst of six pollutants cannot be averaged over a year; and
+// reports only the worst of several pollutants cannot be averaged over a year; and
 // no trend across years, because the stations behind each city grew from a
 // median of one to six and the instrument changed under the series.
 window.initBulletins = (function () {

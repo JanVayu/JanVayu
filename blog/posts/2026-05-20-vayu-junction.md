@@ -40,8 +40,8 @@ The misdirect here: `Diwali` is a festival, not a month — but it is the peak o
 
 ### 3. Names & numbers (Hard)
 
-- **Worst-polluted Indian cities, IQAir 2025** — Loni · Byrnihat · Begusarai · Hajipur
-- **NCAP top-performing cities** — Varanasi · Bareilly · Moradabad · Kanpur
+- **Worst-polluted Indian cities, IQAir 2025** — Loni · Byrnihat · Delhi · Ghaziabad
+- **NCAP top-performing cities** — Varanasi · Bareilly · Firozabad · Dehradun
 - **Air-quality research bodies & reports** — CREA · AQLI · IQAir · Lancet
 - **Citizen accountability tools** — Petition · RTI · Audit · Survey
 
@@ -54,7 +54,7 @@ You either know these or you do not — there is no inference path. We picked na
 - **Citizen-action acronyms** — PIL · RTI · FIR · NOC
 - **PM-precursor gases** — NOₓ · SOₓ · VOC · NH₃
 
-The hardest puzzle. `Brown` could be a colour or a `___-field site`. `RTI` could be the citizen tool *or* something else entirely if you do not read the brief carefully. `BS-V` is missing from the emission-standards group because **India skipped BS-V** in 2017 and jumped straight from BS-IV to BS-VI — a useful piece of trivia smuggled into a game. The game tells you, in its quiet way, that you should know that.
+The hardest puzzle. `Brown` could be a colour or a `___-field site`. `RTI` could be the citizen tool *or* something else entirely if you do not read the brief carefully. `BS-V` is missing from the emission-standards group because **India skipped BS-V** and moved straight from BS-IV to BS-VI, which applied nationwide from 1 April 2020 — a useful piece of trivia smuggled into a game. The game tells you, in its quiet way, that you should know that.
 
 ## What the player walks away with
 
@@ -62,7 +62,7 @@ After three or four runs you should be able to name, without hesitation:
 
 - The four CPCB AQI bands below "Very Poor" and "Severe."
 - The four GRAP stages and which one bans construction.
-- Four cities that are succeeding under NCAP, and four that are failing.
+- Four of India's most polluted places (IQAir 2025), and four cities named among NCAP's top performers.
 - The four critical PM-precursor gases.
 - That BS-V was skipped.
 
@@ -70,7 +70,7 @@ Those are exactly the building blocks the rest of JanVayu — the dashboard, the
 
 ## Try it
 
-The new game lives at the right end of the [Learning Games](https://www.janvayu.in/#games) tab bar. Tap "Vayu Junction" and pick a puzzle. Score is not saved or transmitted. There is no leaderboard. If you find the puzzles too easy, hit "Devious." If a category feels miscalibrated, [open an issue](https://github.com/JanVayu/JanVayu/issues) — the puzzle data lives in a single JS array in `index.html` and is editable in two minutes.
+The new game lives at the right end of the [Learning Games](https://www.janvayu.in/#games) tab bar. Tap "Vayu Junction" and pick a puzzle. Score is not saved or transmitted. There is no leaderboard. If you find the puzzles too easy, hit "Devious." If a category feels miscalibrated, [open an issue](https://github.com/JanVayu/JanVayu/issues) — the puzzle data lives in a single JS array in `games.js` and is editable in two minutes.
 
 We will add new puzzles every few weeks. If you want one tailored to a city or a school curriculum — RWA association, classroom, journalist desk — write to [contribute@janvayu.in](mailto:contribute@janvayu.in) and we will put it in the rotation.
 

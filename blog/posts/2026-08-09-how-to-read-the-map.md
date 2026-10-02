@@ -21,7 +21,7 @@ Everything on the map is either **right now** or **over a year**. They are not t
 
 **Over a year** is the shaded areas underneath. Those are not measurements. They are satellite estimates of what a place breathed *across all of 2024* — a yearly average.
 
-Why 2024 and not this year? The source product (SatPM2.5 V6GL03) is calibrated against ground monitors before release, and that calibration takes time: as of August 2026 the newest year published is 2024, and there is no 2025 grid yet. So the lag is the science, not neglect on our part. There is now a **"this year so far"** layer that fills the gap for districts — a coarser model, corrected against this satellite series, described [below](#this-year-so-far) — but it is a different instrument, not a newer version of this one. If you want to know about *this* week, the live monitors are the only honest answer, and they only exist in cities. They cannot tell you whether to go for a walk this evening. They can tell you what living there does to you over years, which is the thing that actually shortens lives.
+Why 2024 and not this year? The source product (SatPM2.5 V6GL03) is calibrated against ground monitors before release, and that calibration takes time: as of our last check in August 2026 the newest year we had found published was 2024, with no 2025 grid yet. The lag is the calibration step, not neglect on our part. There is now a **"this year so far"** layer that fills the gap for districts — a coarser model, corrected against this satellite series, described [below](#this-year-so-far) — but it is a different instrument, not a newer version of this one. If you want to know about *this* week, the live monitors are the only honest answer, and they only exist in cities. They cannot tell you whether to go for a walk this evening. They can tell you what living there does to you over years, which is the thing that actually shortens lives.
 
 Why have both? Because India has roughly 565 continuous stations for 1.4 billion people. If we only showed live monitors, most of the country would be blank forever. The satellite layer is the only estimate that reaches everywhere — including the village that will never have a machine in it.
 
@@ -67,15 +67,15 @@ The yearly average PM2.5, from satellite. Compare it against two lines that matt
 - **India's own legal limit is 40 µg/m³** a year.
 - **The WHO guideline is 5.**
 
-Most of India is above the first. Almost nothing is near the second.
+About 46 per cent of districts (362 of 785) are above the first, and every district is above the second.
 
 ### This year so far
 
 Because "why 2024?" is the first thing everyone asks, there is now a second air layer that answers it — **districts only**, and a different instrument.
 
-It comes from CAMS, the European atmospheric model, which publishes continuously and therefore covers 2026. On its own it is not comparable with the satellite numbers beside it: it is a model rather than a retrieval, and its cells are about 40 km across. But both cover 2024, so they can be checked against each other. Across the 758 districts where both have a value, CAMS tracks the spatial pattern well (r = 0.91) while reading about 7 µg/m³ low everywhere. A steady offset is the correctable kind of error, so the model is fitted to the satellite series on 2024 and that correction applied to 2026.
+It comes from CAMS, the European atmospheric model, which publishes continuously and therefore covers 2026. On its own it is not comparable with the satellite numbers beside it: it is a model rather than a retrieval, and its cells are about 40 km across. But both cover 2024, so they can be checked against each other. Across the districts where both had a value when we fitted the model (758 then; the September refresh covers all 785, with slope 0.8276 and intercept 12.867 in `current-year-air.json`), CAMS tracks the spatial pattern well (r = 0.91) while reading about 7 µg/m³ low everywhere. A steady offset is the correctable kind of error, so the model is fitted to the satellite series on 2024 and that correction applied to 2026.
 
-Tested on districts held out of the fit, the corrected figure lands within **3 µg/m³ for half of them and 8.5 for nine in ten**. That is the accuracy this layer has, and it is why the layer stops at district: a 40 km cell cannot resolve a ward, and colouring one would be inventing detail the model does not have.
+Tested on districts held out of the fit, the corrected figure lands within **3.1 µg/m³ (absolute error) for half of them and 8.5 for nine in ten**. That is the accuracy this layer has, and it is why the layer stops at district: a 40 km cell cannot resolve a ward, and colouring one would be inventing detail the model does not have.
 
 It is a **separate** menu entry with its own label, never merged into the annual layer and never quoted as if it were the same measurement. It rebuilds on the 3rd of each month, so the window grows as the year does.
 
@@ -149,7 +149,7 @@ It answers questions about *your* place, not the country: whatever is on screen 
 
 Being clear about this is more useful than another feature.
 
-**It cannot tell you about the kiln next door.** The satellite air estimate is roughly one kilometre across. It is good at "what does this district breathe over a year" and blind to a single smelter, crusher or highway at the end of your street. Byrnihat — a small industrial pocket that topped IQAir's global city ranking — reads far lower here than its own ground station does. If you live beside a point source, this map understates you.
+**It cannot tell you about the kiln next door.** The satellite air estimate is roughly one kilometre across. It is good at "what does this district breathe over a year" and blind to a single smelter, crusher or highway at the end of your street. Byrnihat — a small industrial pocket that topped IQAir's 2024 global city ranking (the 2025 report, published in March 2026, puts Loni, at 112.5 µg/m³, at the top of India's list) — reads far lower here than its own ground station does. If you live beside a point source, this map understates you.
 
 **It cannot tell you about today.** Nothing in the coloured layers is a forecast or a current reading. If someone quotes a yearly average as today's air quality, they are wrong, and if we ever do it, tell us.
 

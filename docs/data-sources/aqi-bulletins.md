@@ -32,7 +32,7 @@ statement about the city, in writing, on that date.
 ## What this file deliberately does not contain
 
 **No annual mean AQI.** The site's own rule is that AQI is a unitless index
-reporting only whichever of six pollutants scores worst, and that an index
+reporting only whichever of several pollutants scores worst, and that an index
 cannot be averaged over a year. Counting **days in each category** is the
 legitimate use of a daily index, and it is what GRAP stages and school closures
 are actually triggered by. `--check` fails if a mean creeps in.

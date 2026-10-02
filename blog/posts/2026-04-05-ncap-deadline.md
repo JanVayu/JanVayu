@@ -4,13 +4,13 @@
 
 ---
 
-In January 2019, India launched the National Clean Air Programme with a promise: reduce particulate matter concentrations by 20 to 30 percent across 131 cities by 2024, later revised to 40 percent by 2025-26. Seven years and over eleven thousand crore rupees later, the deadline has arrived. The results are mixed at best.
+In January 2019, India launched the National Clean Air Programme with a promise: reduce particulate matter concentrations by 20 to 30 percent across 131 cities by 2024, later revised to 40 percent by 2025-26. Seven years and over Rs 13,000 crore released (Rs 9,929 crore utilised, per CREA) later, the deadline has arrived. The results are mixed at best.
 
 ## The Scorecard
 
-According to the Centre for Research on Energy and Clean Air's "Tracing the Hazy Air" progress reports and the government's own PRANA portal, only 51 of 131 NCAP cities achieved the initial target of a 20 to 30 percent reduction in PM10 levels. When measured against the revised target of 40 percent, just 23 cities made the cut.
+According to the Centre for Research on Energy and Clean Air's "Tracing the Hazy Air" progress reports and the government's own PRANA portal, only 51 of the 100 NCAP cities with adequate PM10 data (out of 130 cities) achieved the initial target of a 20 to 30 percent reduction in PM10 levels. When measured against the revised target of 40 percent, just 23 of those 100 cities made the cut, and 23 saw PM10 rise.
 
-There are genuine success stories. Varanasi tops the list, with PM2.5 levels falling 72 percent over five years to an annual average of 26.9 micrograms per cubic metre in 2023 — a remarkable achievement. Five other cities, mostly in Uttar Pradesh and Rajasthan, also met the 2026 target.
+There are genuine success stories. Varanasi tops the list, with PM2.5 levels falling 72 percent over five years to an annual average of 26.9 micrograms per cubic metre in 2023 — a remarkable achievement. At least four other cities (Jodhpur, Kanpur, Meerut and Lucknow) cut PM2.5 by more than 40 percent between 2019 and 2023, as reported by The Hindu; that is a PM2.5 test, not the PM10 target NCAP sets.
 
 But several cities moved in the wrong direction. Navi Mumbai saw PM2.5 concentrations increase by 46 percent. Ujjain increased by 46 percent. For these cities, NCAP did not just fail to improve air quality; air quality deteriorated while the programme was active.
 
@@ -26,17 +26,17 @@ Road dust is a contributor to PM10, but it is not the primary driver of PM2.5 �
 
 The picture becomes more precarious when you consider what comes next. Fifteenth Finance Commission grants to the 49 million-plus cities, under which Rs 11,021 crore was released, expired in March 2026. No successor mechanism has been announced. That released amount is roughly 82 percent of the Rs 13,415 crore released across all NCAP and Finance Commission grants combined (CREA, Tracing the Hazy Air 2026).
 
-Without a replacement funding stream, most NCAP cities will lose the majority of their clean air budgets overnight. Cities that were already struggling to utilise funds will now have no funds to utilise.
+Without a replacement funding stream, the 49 million-plus cities, which received about 82 percent of released funds (CREA 2026), lose their dedicated grant, and the NCAP funding window for all cities closed in FY2025-26. Cities that were already struggling to utilise funds will now have no funds to utilise.
 
 ## The Structural Problem
 
 NCAP's design reflects a deeper structural issue. The programme targets PM10, not PM2.5. PM10 includes coarse particles like road dust that are less harmful to health. PM2.5 — the fine particles that penetrate deep into lungs and bloodstream — is what kills people. A programme that measures success by PM10 reduction can show progress by sweeping roads while the invisible, lethal particles continue unchecked.
 
-The programme also operates without enforcement teeth. City action plans are advisory. There are no penalties for non-compliance. There is no independent verification of reported air quality improvements — cities self-report their data to the PRANA portal.
+The programme also operates without enforcement teeth. City action plans are advisory. There are no penalties for non-compliance. Cities self-report their action and spending data on the PRANA portal (CSE, July 2024); air-quality trends are computed from CPCB's own monitors.
 
 ## What Would Work
 
-The evidence from cities like Varanasi suggests that sustained, multi-sector interventions can work when there is political commitment. But the NCAP experience as a whole demonstrates that funding without accountability, targeting the wrong pollutant, and spending disproportionately on visible but low-impact interventions produces underwhelming results at an eleven-thousand-crore price tag.
+The evidence from cities like Varanasi suggests that sustained, multi-sector interventions can work when there is political commitment. But the NCAP experience as a whole demonstrates that funding without accountability, targeting the wrong pollutant, and spending disproportionately on visible but low-impact interventions produces underwhelming results at a price tag of over Rs 13,000 crore released.
 
 India does not need a new programme. It needs the existing programme to target PM2.5, enforce compliance, diversify spending beyond road dust, and continue funding beyond the Finance Commission cliff. The air quality data is available. The health evidence is causal. The only missing ingredient is sustained political commitment.
 

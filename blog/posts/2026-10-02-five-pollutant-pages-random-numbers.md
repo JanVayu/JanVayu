@@ -8,9 +8,9 @@ For about five months, the PM10, CO, NO₂, SO₂ and O₃ pages on JanVayu show
 
 ## What the pages showed
 
-Each pollutant page lists ten Indian cities with a reading for that pollutant. The data feed behind the pages returned two numbers per city: the overall AQI and the PM2.5 concentration. It returned nothing for PM10, CO, NO₂, SO₂ or O₃.
+Each pollutant page lists ten Indian cities with a reading for that pollutant. The data feed behind the pages returned two numbers per city: the overall AQI and a "pm25" field. That field was in fact WAQI's PM2.5 sub-index (or 0.7 times the overall AQI where WAQI reported none), not a concentration. It returned nothing for PM10, CO, NO₂, SO₂ or O₃.
 
-The PM2.5 page used the real PM2.5 figure and was correct. The other five needed a number from somewhere, and the code made one up. It took the city's overall AQI and multiplied it by a random factor between 0.5 and 0.7. The result went into a column headed with the pollutant's name and unit, with a coloured badge beside it.
+The PM2.5 page used that PM2.5 field but in the wrong unit: it printed the sub-index as µg/m³, so it overstated concentrations (about twice over at a sub-index of 160). That is the second error described below. The other five needed a number from somewhere, and the code made one up. It took the city's overall AQI and multiplied it by a random factor between 0.5 and 0.7. The result went into a column headed with the pollutant's name and unit, with a coloured badge beside it.
 
 The factor was redrawn on every page load, so two visits a minute apart gave two different tables. A comment in the code said the values were approximated from AQI. The page itself said nothing of the kind.
 
@@ -32,7 +32,7 @@ NO₂, SO₂, O₃ and CO carry no concentration. The US EPA breakpoints for tho
 
 ## A second error in the same place
 
-WAQI reports each pollutant as a US EPA sub-index: a unitless number on a 0 to 500 scale, not a concentration in µg/m³. The dashboard code has carried the conversion table since it was written. Six server functions (`rankings`, `air-query`, `health-advisory`, `daily-digest`, `accountability-brief` and `anomaly-check`) never applied it. They passed the sub-index along as if it were µg/m³. The rankings sorted on it, and the embeddable widget coloured it against the WHO thresholds.
+WAQI reports each pollutant as a US EPA sub-index: a unitless number on a 0 to 500 scale, not a concentration in µg/m³. The dashboard has carried the conversion since 3 May 2026 (commit 123b9ec), after a reader, Sarath Guttikunda, reported that map popups showed sub-indices as µg/m³. Six server functions (`rankings`, `air-query`, `health-advisory`, `daily-digest`, `accountability-brief` and `anomaly-check`) never applied it. They passed the sub-index along as if it were µg/m³. The rankings sorted on it, and the embeddable widget coloured it against a 5, 15, 35, 55 and 150 µg/m³ scale (WHO guideline levels at the low end, US EPA breakpoints above).
 
 The one that mattered most was the fallback reply in Ask JanVayu, which states a PM2.5 figure and how many times the WHO annual guideline of 5 µg/m³ it is. At a sub-index of 160, someone asking whether it was safe to go out was told 160 µg/m³, 32 times the guideline. On the conversion table the site uses, 160 is about 73 µg/m³, about 15 times. The answer was out by a factor of two, in the direction of alarm. The conversion now lives in one shared file, `netlify/functions/lib/iaqi.mjs`.
 
@@ -46,4 +46,4 @@ The check catches random numbers. It would not have caught the second error, whi
 
 ## If you cited one of these pages
 
-If you quoted a figure from the PM10, CO, NO₂, SO₂ or O₃ page between 26 April and 22 September 2026, please treat it as invalid and use the PM2.5 page or the dashboard instead. If you tell us where it appeared, we will say so publicly next to the correction. And if you ever see a number on this site that changes when you reload the page, that is a bug. Write to **contribute@janvayu.in**.
+If you quoted a figure from the PM10, CO, NO₂, SO₂ or O₃ page between 26 April and 22 September 2026, please treat it as invalid. The PM2.5 page, the rankings and the widget were also affected by the unit error above, so treat a PM2.5 figure from them in that window as overstated, and use the dashboard (fixed for the map on 3 May 2026) or CPCB's own readings. If you tell us where it appeared, we will say so publicly next to the correction. And if you ever see a number on this site that changes when you reload the page, that is a bug. Write to **contribute@janvayu.in**.
