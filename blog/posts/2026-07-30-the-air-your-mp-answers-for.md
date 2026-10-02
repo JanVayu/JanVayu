@@ -8,6 +8,8 @@ Until this week, our ward map could show you fifteen cities. If you lived in Pat
 
 Here is what changed, where the data comes from, and what we found while cleaning it.
 
+*Update, 2 October 2026: the ward atlas covered 97 cities by 7 August 2026 (v26.6.139) and 142 cities by September. The ward atlas panel was retired in v26.6.151 and its wards are now part of the boundary map.*
+
 ## From 15 cities to 39
 
 ["How Polluted Is Your Ward?"](https://www.janvayu.in/#ward-map) now covers **39 cities**. The 24 new ones: Agra, Amritsar, Coimbatore, Dehradun, Ghaziabad, Gwalior, Indore, Jalandhar, Jodhpur, Kota, Ludhiana, Meerut, Moradabad, Muzaffarpur, Nagpur, Nashik, Patna, Prayagraj, Raipur, Rajkot, Ranchi, Surat, Vadodara and Visakhapatnam.
@@ -23,6 +25,8 @@ We publish how the sausage is made, so here it is.
 Patna's file contained **628 boundary entries for a city with 71 approved wards** — hundreds of abandoned drafts sat alongside the real ones, so we keep only the versions marked APPROVED. Meerut's corporation named every single ward "M_Ward"; we number them so search works. Kota is served by two municipal corporations that each have a "Ward 5". Rajkot and Vadodara uploaded only 18 coarse revenue wards each, so their maps are blockier than the others — that is what their corporations published, and we show it rather than pretend otherwise.
 
 Some cities we wanted are simply absent: the SBM dataset has **no ward boundaries for West Bengal, Manipur, Mizoram or Tripura**, and no usable file for Guwahati, Srinagar or Madurai. If your city is one of these, the missing map is itself a fact about how your government publishes data — and a fair subject for an RTI.
+
+*Update, 2 October 2026: maps now exist for these places. West Bengal, which we had wrongly said was unavailable, came from AMRUT data (v26.6.139), and Srinagar, Agartala, Imphal, Shillong, Itanagar, Aizawl, Kohima and Madurai from other open sources, so the inference above no longer holds.*
 
 ## The air your MP answers for
 
@@ -51,7 +55,7 @@ On the ward map, two new overlays answer the question the AQI number never does:
 
 ## About Indian Open Maps — and an honest note on licensing
 
-Every boundary and source location above comes to us via [indianopenmaps.com](https://indianopenmaps.com), a volunteer project by one mapper (GitHub: ramSeraph) that collects geodata from official portals — SBM, the Local Government Directory, Bharatmaps, Gati Shakti, NCOG — and republishes it in usable formats, 574 datasets and counting. It is the kind of quiet public-interest infrastructure that deserves to be named and thanked.
+Every boundary and source location above comes to us via [indianopenmaps.com](https://indianopenmaps.com), a volunteer project by one mapper (GitHub: ramSeraph) that collects geodata from official portals — SBM, the Local Government Directory, Bharatmaps, Gati Shakti, NCOG — and republishes it in usable formats. It is the kind of quiet public-interest infrastructure that deserves to be named and thanked.
 
 The honest note: much of this data is flagged *"not-so-open"* upstream. It was published by government bodies, on public portals, but mostly without an explicit open licence. We ship simplified copies with attribution rather than live-scraping anyone's servers, the coal-mine data is properly CC0, and we document all of it in our [Data Source Selector](https://www.janvayu.in/#source-selector). If any agency involved would rather grant these datasets a real open licence, nothing would make us happier — that is the actual fix.
 

@@ -12,7 +12,7 @@ Meet **Vayu Gauraiya** — *vayu*, the air; *gauraiya*, the house sparrow. She's
 
 The house sparrow is a **bioindicator** — a living gauge of an ecosystem's health. Because sparrows live so close to us, in our eaves and hedges and courtyards, the state of their population quietly reports the state of the place we've built. When the sparrows thrive, the small web of life a city depends on — insects, seeds, hedges, water, nooks to nest in — is intact. When they vanish, something underneath has broken.
 
-And in urban India, they have been vanishing. Over roughly the last three decades the house sparrow has declined sharply across our metros — Delhi, Mumbai, Bengaluru, Chennai — to the point that a bird every Indian grew up with is now a rare sight in many neighbourhoods. It mattered enough that in **2012 Delhi named the house sparrow its State Bird**, an official admission that we'd let a companion species slip away.
+And in urban India, they have been vanishing. Over roughly the last two decades the house sparrow has declined in urban India, Delhi included (Down To Earth, 2019), to the point that a bird every Indian grew up with is now a rare sight in many neighbourhoods. It mattered enough that in **2012 Delhi named the house sparrow its State Bird**, an official admission that we'd let a companion species slip away.
 
 ## The same story as the air
 

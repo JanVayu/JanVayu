@@ -18,7 +18,7 @@ Then, before testing any further, I made a list of **45 questions I already knew
 
 A good answer does two jobs: it is correct, and it shows where it came from. When I asked my questions again, the chatbot sometimes named its source and sometimes did not — which leaves a reader unsure whether to believe it.
 
-So, drawing on years of working in this field, I wrote down **all the trusted sources the chatbot must draw from** — government bodies, health organisations, research institutes and think tanks — with clear notes on what each one can, and cannot, be trusted for. That list now lives at the heart of how the bot is allowed to answer. In short, it pulls from:
+So, drawing on years of working in this field, I wrote down **all the trusted sources the chatbot must draw from** — government bodies, health organisations, research institutes and think tanks — with clear notes on what each one can, and cannot, be trusted for. That list is the standard the bot's answers should meet. In short, it covers:
 
 - **Government & regulators** — CPCB, CAQM, State Pollution Control Boards / DPCC, the SAMEER and AIRWISE–SAFAR apps, the PRANA portal, IMD & IITM's Decision Support System, and the National Green Tribunal.
 - **Health & global bodies** — WHO, the Health Effects Institute, *The Lancet*, the World Bank, NASA FIRMS (for fires), and the Air Quality Life Index.

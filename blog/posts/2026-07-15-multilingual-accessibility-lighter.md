@@ -25,7 +25,7 @@ We ran [axe-core](https://github.com/dequelabs/axe-core) (the WCAG 2.1 AA engine
 - The one remaining **chart without a text description** got one.
 - **Status badges** were the biggest colour-contrast offender by far. They are now theme-aware — darker text on the pale light-theme tint, brighter text in dark mode — and pass the 4.5:1 ratio in both. That alone cleared about half of all contrast findings.
 
-A dark-theme contrast pass is [tracked separately](https://github.com/JanVayu/JanVayu/issues/213); it needs design review, not bulk edits.
+A dark-theme contrast pass is [tracked separately](https://github.com/JanVayu/JanVayu/issues/213); it needs design review, not bulk edits. *Update, 2 October 2026: the dark-theme pass shipped in v26.6.74, the same day.*
 
 ## The rankings now cover 88 cities
 
@@ -34,6 +34,8 @@ The live [City Rankings](https://www.janvayu.in/#rankings) were computed from a 
 ## The site is 42% lighter
 
 The whole platform is a single HTML file, and it had grown to about 1.59 MB. Over a series of passes we moved the heaviest panels' markup — Citizen Voices, Resources, Legal, About, and eight more — into external fragments that load only when you open them and are cached afterwards. The Learning Games engine and the citizen-testimony data moved out to cacheable external files too, and the map stylesheet no longer blocks the first paint.
+
+*Update, 2 October 2026: this describes the site at the time of writing. The platform is no longer a single HTML file; panels and data load from external fragments and files.*
 
 The result: `index.html` dropped from ~1.59 MB to about **0.92 MB** — a 42% cut in what your browser downloads and parses on the very first visit, which matters most on the slower mobile connections common across India.
 

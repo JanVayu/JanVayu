@@ -6,7 +6,7 @@
 
 Until yesterday, finding out how polluted your neighbourhood is meant knowing something you shouldn't have to know: whether the place you live is officially a *ward* or a *village*.
 
-Wards were in one panel, behind a dropdown of 142 cities. Villages were a layer on a different map. If your town wasn't in the dropdown, you got nothing. That wasn't a design decision — it was our database structure leaking into the navigation, and a reader spotted it immediately.
+Wards were in one panel, behind a dropdown of 142 cities. Villages were a layer on a different map. If your town wasn't in the dropdown, you got nothing. That wasn't a design decision — it was our database structure leaking into the navigation.
 
 The [live map](https://www.janvayu.in/#map) now has a single **Boundaries** menu covering the whole administrative hierarchy of India:
 
@@ -20,9 +20,11 @@ Every one of them coloured by its annual satellite PM2.5. Pick a level, zoom to 
 
 ## What this actually adds
 
-**All 70,417 municipal wards in the country**, not the 142 cities someone had got round to adding. The dropdown is gone; wards are simply what's under the map when you zoom in far enough. Noida, Bhiwandi, Bardhaman, thousands of small municipalities nobody had listed — all there now.
+**All 70,417 municipal wards in the country**, not the 142 cities someone had got round to adding. The dropdown is gone; wards are simply what's under the map when you zoom in far enough. Bhiwandi, Bardhaman, thousands of small municipalities nobody had listed — all there now.
 
-**319,287 gram panchayats.** This is the tier where most rural governance actually happens, and it has never been on an air-quality map in India as far as we can tell.
+*Update, 2 October 2026: after removing 2,541 duplicate records and adding 720 wards from 14 cities the sources missed, the atlas holds 68,596 distinct wards, not 70,417. "All wards in the country" overstated it, since those 14 cities were missing from the three sources. Noida is only partly covered (10 ward polygons).*
+
+**319,287 gram panchayats.** This is the tier where most rural governance actually happens, and we are not aware of any other air-quality map at this level.
 
 **6,471 blocks, mandals and tehsils** — the administrative level a district collector actually works with.
 
@@ -32,7 +34,7 @@ A naive version of this would be unusable. The village layer alone is 584,615 po
 
 The map uses **PMTiles**: each level is one file, and your browser asks for only the specific byte ranges covering what's on your screen. Nothing else is downloaded.
 
-The effect is easier to see in numbers than to describe. Loading the Delhi region at ward level draws **671 wards** — Delhi, Noida, Ghaziabad and Gurugram together — and transfers **109 KB**. The old ward atlas downloaded **224 KB** to show Delhi's 290 wards alone. Twice the data, four cities instead of one, half the bytes.
+The effect is easier to see in numbers than to describe. Loading the Delhi region at ward level draws **671 wards** — Delhi, Noida, Ghaziabad and Gurugram together — and transfers **109 KB**. The old ward atlas downloaded **224 KB** to show Delhi's 290 ward polygons (an older delimitation) alone. Twice the data, four cities instead of one, half the bytes.
 
 ## Three failure modes this build surfaced
 
@@ -52,6 +54,10 @@ We deleted the fallback. The build now stops and prints the actual column names,
 
 **An annual mean is still the wrong instrument** for a country whose pollution is violently seasonal. Every number on these layers is a 2024 average. It says nothing about a bad week in November, which for the Indo-Gangetic plain is most of the story. A monthly layer is the most valuable thing we could build next.
 
+*Update, 2 October 2026: the map also carries four-season air, 2026 pre-monsoon heat and 2021 land cover, so "every number is a 2024 average" no longer holds (it was already inaccurate for heat and land cover on 8 August).*
+
 **The old ward panel is still there**, because it does things the map doesn't yet: summer heat, green cover, built-up share, and the schools and health-centre overlays. It now points here instead of being a dead end for anyone whose city isn't on its list.
+
+*Update, 2 October 2026: the ward panel was retired in v26.6.151; its `#ward-map` link now points to the map.*
 
 Find your place at [janvayu.in](https://www.janvayu.in/#map) — press **Boundaries**, pick your level, zoom in. If your panchayat's name is wrong, or your ward boundary doesn't match what you know on the ground, tell us at **contribute@janvayu.in**. Local knowledge beats another pass over the data by us.

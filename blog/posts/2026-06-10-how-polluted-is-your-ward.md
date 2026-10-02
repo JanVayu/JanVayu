@@ -4,11 +4,13 @@
 
 ---
 
-When the news says "Delhi AQI is 320," it hides something important: there is no single Delhi. On the same evening, one ward can sit at PM2.5 of 70 µg/m³ while another, a few kilometres away, chokes at 270. The headline number — usually whichever station made the news — flattens a city of enormous variation into one scary digit.
+When the news says "Delhi AQI is 320," it hides something important: there is no single Delhi. For example (illustrative figures), on the same evening one ward can sit at PM2.5 of 70 µg/m³ while another, a few kilometres away, chokes at 270. The headline number — usually whichever station made the news — flattens a city of enormous variation into one scary digit.
 
 A recent series by **Unmapped** (Vaishnavi Iyer) made this beautifully clear for Bengaluru, colouring all of the city's wards by land-surface temperature, green cover, and built-up area — *"How hot is your ward? How cool is your ward?"* It's a powerful idea: zoom from the city down to the ward, and the inequality jumps out.
 
 We asked the obvious question — **can we do this for air?** — and built it: [**How Polluted Is Your Ward?**](/index.html#ward-map), under *City Data*. It grew into four layers across nine cities.
+
+*Update, 2 October 2026: the ward map was folded into the Ward Atlas, which now covers 142 cities and has an added annual satellite "Air, yearly" layer. The link above points to the retired panel.*
 
 ## What it shows
 
@@ -23,7 +25,7 @@ Nine of India's ten largest cities are live — **Delhi (290 wards), Mumbai (227
 
 On a typical Delhi afternoon, the PM2.5 range runs from roughly **45 to 270 µg/m³ across wards** — a 6× difference, same city, same hour. The map makes a point that a single AQI number can never make: clean air is unevenly distributed, and where you live changes what you breathe.
 
-Flip to the **Heat** layer and a second story appears. In every city, the hottest fifth of wards are markedly more built-up and less green than the coolest fifth — the urban heat-island effect, visible in each city's own data. The four layers aren't separate trivia; they're the same story of unequal cities told four ways.
+Flip to the **Heat** layer and a second story appears. In six of the nine cities (Delhi, Mumbai, Chennai, Hyderabad, Kolkata and Jaipur), the hottest fifth of wards are more built-up than the coolest fifth; in Bengaluru, Pune and Ahmedabad the pattern does not hold (JanVayu analysis of `data/wards/*.json`, comparing the top and bottom quintile of wards by Landsat land-surface temperature). That is the urban heat-island effect, visible in most of the cities' own data. The four layers aren't separate trivia; they're the same story of unequal cities told four ways.
 
 ## The honest part: why this is harder for air than for heat
 
@@ -38,7 +40,11 @@ The three satellite layers come from open, calibrated data: **heat** from Landsa
 ## What's next
 
 1. **Satellite-derived per-ward PM2.5.** The air layer is still interpolated from monitors. There is also satellite-derived PM2.5 (modelled from aerosol optical depth at ~1 km); aggregated to wards, it would give the air layer the same full coverage the heat and green layers already have. That's the next pipeline.
+
+   *Update, 6 August 2026: shipped, as an annual "Air, yearly" layer from SatPM2.5 V6GL03 (0.01 degree grid, about 1 km).*
 2. **More cities.** Nine of the top ten are in (Surat is missing only because no open ward-boundary file exists for it yet). The map takes any city the moment we have its ward boundaries — tier-1 and tier-2 cities follow.
+
+   *Update, 2 October 2026: Surat was added later, and the Ward Atlas now covers 142 cities.*
 
 The ambition is simple: let anyone in any Indian city zoom past the headline number and ask the real question — *how clean is the air on my street, and why is it different from the next ward over?*
 

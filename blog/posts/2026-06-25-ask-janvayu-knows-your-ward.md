@@ -6,6 +6,8 @@
 
 When we built the [Ward Atlas](/index.html#ward-map) — a map of every municipal ward across 14 cities, coloured by air, heat, green cover and built-up area — it lived only on the map. You had to go look. Now you can just *ask*.
 
+*Update, 2 October 2026: the Ward Atlas now covers 142 cities.*
+
 [Ask JanVayu](/ask), our chat assistant, has learned the ward data. Try:
 
 - "Which ward in Delhi has the worst air right now?"

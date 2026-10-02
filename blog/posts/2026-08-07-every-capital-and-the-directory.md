@@ -6,7 +6,9 @@
 
 This morning we published a post saying West Bengal's municipal wards were not openly available. By afternoon we had found them, added seven Bengal cities, and written a correction. By evening we had found 45 more cities — including every state capital we had ever written off — in the same place.
 
-The ward atlas now covers **142 cities and 9,015 wards**. Every state and union-territory capital in India is on it. A week ago it covered 39 cities.
+The ward atlas now covers **142 cities and 9,015 wards**. Every state capital in the Northeast and most others are on it; we still lack, among others, Gandhinagar, Amaravati, Leh and Kavaratti. A week ago it covered 39 cities.
+
+*Update, 2 October 2026: the city dropdown was replaced by a national map of 68,596 wards (v26.6.151).*
 
 None of that came from new data being published. All of it came from finally reading a directory listing.
 
@@ -14,7 +16,7 @@ None of that came from new data being published. All of it came from finally rea
 
 Our ward boundaries are downloaded from a GitHub release maintained by the volunteer project [indianopenmaps.com](https://indianopenmaps.com). Our code fetches one file from it: `SBM_Wards.geojsonl.7z`, the Swachh Bharat Mission ward set.
 
-Swachh Bharat is a national release with real holes — it carries no wards at all for West Bengal, Assam, Manipur, Mizoram or Tripura. Every time we hit one of those holes, we searched outside: OpenStreetMap, DataMeet, state portals. When those came up empty, we concluded the data did not exist, and said so in public.
+Swachh Bharat is a national release with real holes — it carries wards for only seven West Bengal municipalities, 67 small Assam towns but not Guwahati, and none for Manipur, Mizoram or Tripura. (The release notes list West Bengal, Tripura, Mizoram and Manipur as missing; the counts are ours, from the file as it stood on 2 October 2026.) Every time we hit one of those holes, we searched outside: OpenStreetMap, DataMeet, state portals. When those came up empty, we concluded the data did not exist, and said so in public.
 
 What we never did was list the *other files in the release we were already downloading from*.
 
@@ -34,9 +36,11 @@ And the moment they were on the map, two things became visible that nobody could
 
 **Agartala averages 61.3.** Two and a half times Itanagar, above India's limit in every one of its 51 wards, and in the same range as Durgapur and Asansol in the industrial belt of West Bengal. Tripura's capital has an air problem that its neighbours do not, and it has been invisible because nobody had the ward map to show it.
 
-**Gurugram enters the atlas at 81.9 µg/m³** — the fourth dirtiest city of the 142. That completes the NCR picture: Delhi 93.4, Ghaziabad 92.7, Faridabad 83.4, Gurugram 81.9. Four adjoining cities, four different municipal corporations, one shared airshed and no shared authority over it.
+**Gurugram enters the atlas at 81.9 µg/m³** — the fourth dirtiest city of the 142. That completes the NCR picture: Delhi 93.4, Ghaziabad 92.7, Faridabad 83.4, Gurugram 81.9. Four adjoining cities, four different municipal corporations and one shared airshed, with no shared municipal authority; the statutory body for the airshed is the Commission for Air Quality Management ([CAQM Act, 2021](https://prsindia.org/billtrack/the-commission-for-air-quality-management-in-national-capital-region-and-adjoining-areas-bill-2021)).
 
-At the other end, the cleanest ward in India is now **Ward 3 in Port Blair, at 18.5 µg/m³** — still more than three times the WHO annual guideline of 5. Across all 9,015 wards, **5,792 (64.2%) exceed India's own annual limit of 40, and not one meets the WHO guideline.**
+At the other end, the cleanest ward in the 142-city atlas is now **Ward 3 in Port Blair, at 18.5 µg/m³** — still more than three times the WHO annual guideline of 5. Across all 9,015 wards, **5,792 (64.2%) exceed India's own annual limit of 40, and not one meets the WHO guideline.**
+
+*Update, 2 October 2026: across the 68,596 wards now on the map, 57.7% exceed 40, and none is at or under 5 (the cleanest is 10.3).*
 
 ## Two bugs we found by re-running everything
 
@@ -44,11 +48,13 @@ While adding the new cities we re-ran the satellite heat pass over all 142, rath
 
 Two real defects came out of it.
 
-**Delhi was measuring only 236 of its 290 wards.** Delhi straddles two Landsat satellite paths, so no single scene contains the whole city. Our code, finding nothing that covered Delhi completely, fell back to whichever scene was least cloudy — and picked one covering 82.8% of the city over one covering 99.3% that was equally clear. It was optimising for the wrong thing. Ranking by coverage first fixed it: Delhi is now 290/290 from one scene.
+**Delhi was measuring only 236 of its 290 ward polygons.** (These are DataMeet's older delimitation; the unified Municipal Corporation of Delhi has had 250 wards since 2022, per the [Delhi State Election Commission](https://sec.delhi.gov.in/sites/default/files/SEC/generic_multiple_files/public_notice_for_publication_of_draft_list_of_polling_stations_for_inviting_suggestions_objections.pdf).) Delhi straddles two Landsat satellite paths, so no single scene contains the whole city. Our code, finding nothing that covered Delhi completely, fell back to whichever scene was least cloudy — and picked one covering 82.8% of the city over one covering 99.3% that was equally clear. It was optimising for the wrong thing. Ranking by coverage first fixed it: Delhi is now 290/290 from one scene.
 
 **Gaps were being left rather than filled.** If cloud sat over part of a city, those wards simply got no heat value. Now the next-clearest scenes are tried until nothing is left unmeasured.
 
 One gap survives all of that, and it is worth being precise about because we described it wrongly at first. **Six of Thiruvananthapuram's 100 wards have no heat value, and it is not cloud.** They sit in a seam between Landsat scene footprints: we checked 8 pre-monsoon scenes and 6 more across a full year, and every one returns about 5,500 pixels of nothing over those wards. Closing it means stitching two satellite paths together, which our pipeline cannot yet do. Those wards are drawn uncoloured rather than filled with a guess.
+
+*Update, 2 October 2026: the national heat mosaic (v26.6.148) filled five of the six; one remains.*
 
 ## The chatbot can now answer for your district
 
@@ -58,7 +64,7 @@ Every ward has carried an annual satellite PM2.5 figure for days. The chatbot's 
 
 And village air was not reachable at all. Ask "how is the air in my village" and you got a national average, despite every one of India's 584,615 villages having an estimate. It now answers by **district** — 645 of them, with the district's village average, how many exceed India's limit, and the dirtiest and cleanest village by name.
 
-District, not village, is deliberate. A full village-name lookup would be about 79 MB, and 15% of India's village names occur in more than one district. "Rampur" is not an address.
+District, not village, is deliberate. A full village-name lookup would be about 79 MB, and about 12 to 14% of India's distinct village names occur in more than one district (our count of the village files, lower-cased names). "Rampur" is not an address.
 
 ## What we would tell anyone doing this
 

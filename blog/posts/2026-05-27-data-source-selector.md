@@ -4,23 +4,23 @@
 
 ---
 
-In April 2026, the environment minister of a major Indian state announced that PM2.5 had dropped 20% year-on-year under NCAP. The number was real. The context was missing. The station showing the improvement was on a highway median that had been repaved and planted with a dust barrier. The station near the industrial estate — the one that had consistently shown the worst readings — had been decommissioned six months earlier for "maintenance."
+Imagine a state environment minister announcing that PM2.5 had dropped 20% year-on-year under NCAP. The number could be real and the context still missing. The station showing the improvement might sit on a highway median that had been repaved and planted with a dust barrier. The station near the industrial estate — the one that had consistently shown the worst readings — might have been decommissioned months earlier for "maintenance." This is a hypothetical example, not a report of a specific announcement.
 
 This is the data source problem. **Four different platforms, four different numbers, four different conclusions about whether the air is getting better or worse.**
 
 ## The four sources
 
-**CPCB (Central Pollution Control Board)** operates India's official Continuous Ambient Air Quality Monitoring Stations (CAAQMS). These are regulatory-grade instruments — beta attenuation monitors, chemiluminescence analysers — housed in climate-controlled shelters. When they work, they are the gold standard. But the CAG's April 2025 audit found that **88% of CPCB stations had data-quality issues**: sensor drift, calibration gaps, missing pollutant channels, or hours-long reporting blackouts. Many cities have only two or three operational stations covering millions of residents.
+**CPCB (Central Pollution Control Board)** operates India's official Continuous Ambient Air Quality Monitoring Stations (CAAQMS). These are regulatory-grade continuous monitors. When they work, they are the reference standard in India. But siting and data quality have been questioned: Newslaundry's 2025 field check of 25 Delhi monitoring stations found that **88% flouted CPCB's siting criteria**, and a CAG audit tabled in the Delhi Assembly in April 2025 found that 13 of the 24 Delhi Pollution Control Committee stations it verified in 2020 were sited too close to trees (Newslaundry, 1 April 2025). Many cities have only two or three operational stations covering millions of residents.
 
 **WAQI (World Air Quality Index)** aggregates data from government networks worldwide, including CPCB. It applies the US EPA scale rather than the Indian CPCB scale, which means the same raw readings produce different AQI numbers. WAQI is useful for international comparison but can confuse users who see a different AQI for their city than what CPCB reports.
 
-**IQAir** combines government data with its own proprietary monitoring network and correction algorithms. It applies machine-learning adjustments for humidity and cross-sensitivity. IQAir numbers tend to diverge most from CPCB during high-humidity monsoon months, when uncorrected government sensors can undercount particles. IQAir's annual World Air Quality Report is widely cited but uses its own station selection criteria, which can shift city rankings from year to year.
+**IQAir** combines government data with its own proprietary monitoring network and correction algorithms. It applies machine-learning adjustments for humidity and cross-sensitivity. IQAir's annual World Air Quality Report is widely cited.
 
-**Sensor.Community (formerly Luftdaten)** is a global citizen-science network of low-cost PM sensors — primarily the SDS011 and SPS30. India now has over 3,000 registered sensors. The accuracy is lower — **typically ±20-50% compared to reference instruments** — but the spatial density is unmatched. A single CPCB station cannot tell you whether the air in your child's school playground is different from the air at the monitoring station 4 km away. A cluster of community sensors can.
+**Sensor.Community (formerly Luftdaten)** is a global citizen-science network of low-cost PM sensors — primarily the SDS011 and SPS30. Its footprint in India is very small: as of 2 October 2026, the Sensor.Community live feed returned no Indian sensors. Field studies find large, humidity-dependent errors in low-cost sensors such as the SDS011 (for example, [Atmospheric Aerosol and Air Quality Research, 2023](https://aaqr.org/articles/aaqr-23-04-oa-0080)), so accuracy is lower than reference instruments, but where they exist the spatial density is unmatched. A single CPCB station cannot tell you whether the air in your child's school playground is different from the air at the monitoring station 4 km away. A cluster of community sensors can.
 
 ## Why the differences matter
 
-Consider Delhi on a typical winter evening. CPCB might report an AQI of 280 from its Anand Vihar station. WAQI shows 310 for the same station because it uses US EPA breakpoints. IQAir shows 340 for "Delhi" because it includes data from additional sensors and applies humidity correction. A Sensor.Community node 500 metres from a construction site reads PM2.5 of 450 µg/m³ — which would translate to an AQI well above 400.
+Consider Delhi on a typical winter evening. CPCB might report an AQI of 280 from its Anand Vihar station, which corresponds to PM2.5 of about 114 µg/m³. On the US EPA scale used by WAQI, the same reading comes to about 190, a lower number, because above roughly 80 µg/m³ the CPCB index runs higher than the EPA index for the same PM2.5. IQAir might show a different figure for "Delhi" because it combines data from additional sensors. These figures are illustrative, not recorded readings. A Sensor.Community node 500 metres from a construction site reads PM2.5 of 450 µg/m³ — which would translate to an AQI well above 400.
 
 None of these numbers is "wrong." Each reflects a different measurement methodology, spatial coverage, and indexing convention. **The problem is when any single number is presented as "the" truth about a city's air.**
 
@@ -33,7 +33,7 @@ When a government claims air quality improvement, the critical questions are:
 3. **Which period?** Annual averages smooth over crisis episodes. A city can show an improving annual trend while experiencing worse peak-season pollution.
 4. **What about missing data?** If a station was offline during the worst pollution month, the annual average will look artificially good.
 
-The CAG audit was blunt: the data infrastructure underpinning NCAP's claimed progress is not reliable enough to support the claims being made from it.
+A CAG audit tabled in the Delhi Assembly in April 2025 found Delhi's AQI data unreliable because station locations did not meet CPCB siting criteria.
 
 ## Source transparency is step one
 
@@ -47,4 +47,4 @@ Explore the tool: [Data Source Selector on JanVayu](/index.html#source-selector)
 
 ---
 
-*Sources: CAG Performance Audit of NCAP (April 2025); CPCB CAAQMS network documentation; Sensor.Community India network stats (May 2026); IQAir World Air Quality Report 2025; CREA analysis of NCAP target cities (January 2026).*
+*Sources: CAG performance audit of air pollution control in Delhi, tabled in the Delhi Assembly, 1 April 2025, as reported by [Newslaundry](https://www.newslaundry.com/2025/04/01/delhi-air-quality-data-unreliable-cag-report-confirms-newslaundry-probe) (press report); CPCB CAAQMS network documentation; Sensor.Community India network stats (May 2026); IQAir World Air Quality Report 2025; CREA analysis of NCAP target cities (January 2026).*

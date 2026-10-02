@@ -4,7 +4,7 @@
 
 ---
 
-On a peak summer afternoon, a CSE satellite thermal survey of Delhi recorded land-surface temperatures reaching nearly **61°C** in its most built-up, treeless zones while tree-covered areas like Lutyens' Delhi and the Yamuna floodplain stayed near **33°C** — under the same sun, within a single city. That is a gap of more than 25°C. The sun did not change. The ground did.
+On a peak summer afternoon, CSE's analysis of Landsat 8/9 satellite data for Delhi found land-surface temperatures reaching **60.77°C** at places such as IGI Airport and barren or unsown land, while the area around the Yamuna hovered near **33°C**. Lutyens' Delhi, Civil Lines and the Cantonment stayed below CSE's heat-stress threshold, which CSE credits to low density and tree shade. Same sun, same city. The sun did not change. The ground did.
 
 This is the **urban heat island effect**, and we have just added a panel about it to JanVayu — [Urban Heat Island](/index.html#urban-heat), under *Health & Trends*. But a fair question came up while we built it, and it is worth answering in the open: **what is heat doing on an air-quality website?**
 
@@ -14,13 +14,13 @@ They share chemistry, weather, causes, and victims.
 
 **Heat cooks ozone.** Ground-level ozone is not emitted by any tailpipe or chimney. It is *manufactured* in the air when nitrogen oxides and volatile organic compounds react in sunlight — and that reaction runs faster as the air gets hotter. The classic measurement of this, Bloomer et al. (2009), found ozone rising roughly **3 parts per billion for every 1°C** of warming across two decades of data. Atmospheric chemists call it the "climate penalty." A 50°C street simply makes more ozone than a 35°C one from the very same traffic.
 
-**Hot days are still days.** Heatwaves arrive on stagnant, high-pressure weather systems. The same motionless air that refuses to carry heat away also refuses to disperse smoke, dust and exhaust — so pollution piles up instead of blowing through. Jacob & Winner (2009) showed that a warming climate is also a more stagnant one.
+**Hot days are still days.** Still air does not carry heat away, and it also does not disperse smoke, dust and exhaust, so pollution piles up instead of blowing through. Jacob & Winner (2009) reviewed projections that a warmer climate will be more stagnant.
 
-**The cooling spiral.** Hotter colonies run more air conditioners. That pulls more electricity from a coal-heavy grid — more PM2.5, more SO₂ — and every AC dumps its waste heat back onto the street. Salamanca et al. (2014) measured AC exhaust raising night-time street temperatures by **more than 1°C**. Heat makes pollution makes heat.
+**The cooling spiral.** Hotter colonies run more air conditioners. That pulls more electricity from a coal-heavy grid — more PM2.5, more SO₂ — and every AC dumps its waste heat back onto the street. Salamanca et al. (2014) simulated a Phoenix, USA heat episode and found AC waste heat raised night-time 2 m air temperature by **more than 1°C** in some urban locations. Heat makes pollution makes heat.
 
 **One canopy, two jobs.** Tree cover lowers temperature *and* traps particulate matter on its leaves (Nowak et al., 2014). Strip the green from a neighbourhood and you remove the shade and the filter in a single stroke.
 
-And the victims overlap. On a hot, polluted day, heat and dirty air attack the heart and lungs through the same pathways. A nine-city European study (Analitis et al., 2014) found heat-wave deaths were **54% higher on high-ozone days** (among people aged 75–84); a 620-city, 36-country analysis (Stafoggia et al., 2023) confirmed the two compound each other worldwide. The densest, least-green, lowest-income colonies carry the most of both — while being least able to afford an AC or an air purifier.
+And the victims overlap. On a hot, polluted day, heat and dirty air attack the heart and lungs through the same pathways. A nine-city European study (Analitis et al., 2014) found heat-wave deaths were **54% higher on high-ozone days** (among people aged 75–84); a 620-city, 36-country analysis (Stafoggia et al., 2023) found suggestive evidence that heat and air pollution reinforce each other. In Delhi, the Artha Global survey below found that poorer, densely built areas remain hotter because of limited access to green cover.
 
 ## The science of the divide
 
@@ -33,7 +33,7 @@ The conclusion is quietly radical: **trees cool more powerfully than concrete he
 
 ## Delhi is the example. The physics is national.
 
-We lead with Delhi because it has the most detailed neighbourhood-level heat data in the country. But none of the chemistry above is Delhi-specific. The afternoon ozone peak rides the afternoon heat peak in Mumbai, Hyderabad, Ahmedabad, Lucknow, Jaipur — every fast-building Indian city paving over its green cover.
+We lead with Delhi because of the CSE and Artha Global work described above. But none of the chemistry above is Delhi-specific. The panel lets you check for your own city whether the afternoon ozone peak rides the afternoon heat peak.
 
 So we made it checkable. The new panel includes a **live chart** that plots today's hourly ozone against hourly air temperature for **any Indian city you choose** (data from the free, key-less Open-Meteo API). Pick your city and watch the two curves climb together through the morning and crest in the afternoon. That shared peak is the climate penalty, happening today, where you live.
 

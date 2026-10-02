@@ -88,7 +88,7 @@
    "tag": "Analysis",
    "title": "We Were Measuring the Wrong Green",
    "date": "8 Aug 2026",
-   "blurb": "Earlier today we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal wards, and green cover alongside it, and the two barely moved together: a national correlation of −0.07.",
+   "blurb": "Earlier today we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal ward records (68,596 distinct wards, as corrected below), and green cover alongside it, and the two barely moved…",
    "url": "/blog/#/posts/2026-08-08-tree-cover-answers-it"
   },
   {
@@ -228,7 +228,7 @@
    "tag": "Health",
    "title": "The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story",
    "date": "10 Jun 2026",
-   "blurb": "On a peak summer afternoon, a CSE satellite thermal survey of Delhi recorded land-surface temperatures reaching nearly 61°C in its most built-up, treeless zones while tree-covered areas like Lutyens' Delhi and the Yamuna floodplain…",
+   "blurb": "On a peak summer afternoon, CSE's analysis of Landsat 8/9 satellite data for Delhi found land-surface temperatures reaching 60.77°C at places such as IGI Airport and barren or unsown land, while the area around the Yamuna hovered near 33°C.",
    "url": "/blog/#/posts/2026-06-10-urban-heat-island"
   },
   {

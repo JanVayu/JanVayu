@@ -4,11 +4,13 @@
 
 ---
 
-This batch (v26.6.102 to v26.6.115) barely added a panel. Almost all of it went into making what already exists easier to find, easier to read, and pleasant to use on a phone. A mature platform earns more trust from being legible than from growing a fifty-second feature — so this week we cleaned house.
+This batch barely added a panel. Almost all of it went into making what already exists easier to find, easier to read, and pleasant to use on a phone. A mature platform earns more trust from being legible than from growing a fifty-second feature — so this week we cleaned house.
 
 ## Two walkthroughs now — pick your depth
 
-The [guided walkthrough](/walkthrough/) used to be a single short deck. It's a good ten-minute overview, so we kept it. But "here's the gist" isn't enough if you're training a newsroom or briefing a class, so there's now a **second, comprehensive deck** — 36 slides across eight chapters, with a slide for essentially every panel on the site: the live data, the health toll, the economics, the accountability trackers, the tools, and how the numbers stay honest.
+The [guided walkthrough](/walkthrough/) used to be a single short deck. It's a good ten-minute overview, so we kept it. But "here's the gist" isn't enough if you're training a newsroom or briefing a class, so there's now a **second, comprehensive deck** — 36 slides across eight chapters (at publication), with a slide for essentially every panel on the site: the live data, the health toll, the economics, the accountability trackers, the tools, and how the numbers stay honest.
+
+*Update, 2 October 2026: the comprehensive deck now has 38 slides (a village slide was added in v26.6.135), and the short deck has 13.*
 
 The landing page lets you choose between the two up front. Both run natively in the browser with speaker notes, a slide overview, fullscreen, and print-to-PDF. The long deck is data-driven, so extending it later is a matter of editing a list, not hand-building slides.
 
@@ -43,9 +45,11 @@ A run of small mobile fixes, most of them things that should never have shipped:
 
 [How Polluted Is Your Ward?](/#ward-map) now covers **Lucknow** — 112 municipal wards, boundaries from DataMeet's open spatial data. As with every atlas city, the air layer is estimated live from Lucknow's own monitors and shown as the citywide pattern, not a per-street reading. (The satellite heat and green-cover layers aren't available for Lucknow yet, and the map says so plainly rather than showing an empty toggle.)
 
+*Update, 30 July 2026: Lucknow now has heat, green-cover and built-up satellite layers (v26.6.129). The ward atlas panel was later retired (v26.6.151) and the ward layers are part of the boundary map.*
+
 ## Under the hood: we cleaned up our own CSS
 
-The footer and grid layout rules had quietly drifted into a mess — the footer's column count was defined in **six** different places across scattered breakpoints, one of them literally commented "single column" while setting two. That's how a fix can be written and never take effect. We consolidated each layout down to a single source of truth and verified the rendering is pixel-identical at a dozen screen widths. No visual change — just rules that no longer fight each other, so the next fix actually sticks.
+The footer and grid layout rules had quietly drifted into a mess — the footer's column count was defined in several different places across scattered breakpoints, one of them literally commented "single column" while setting two. That's how a fix can be written and never take effect. We consolidated each layout down to a single source of truth and checked that the rendering stayed visually unchanged across screen widths. No visual change — just rules that no longer fight each other, so the next fix actually sticks.
 
 ---
 
