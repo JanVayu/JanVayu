@@ -16,7 +16,7 @@ Pre-drafted Right to Information Act (2005) templates for:
 | Industrial emission data | State PCB / MoEFCC |
 | City Action Plan status | Municipal Corporation |
 
-Templates are available in **English and Hindi**, formatted for the RTI online portal at [rtionline.gov.in](https://rtionline.gov.in).
+Templates are available in **English and Hindi**, formatted for the RTI online portal at [rtionline.gov.in](https://rtionline.gov.in). That portal accepts applications only for Central Government authorities (CAQM, CPCB, MoEFCC); State Pollution Control Boards and municipal corporations are state authorities, so those applications go through the state's own RTI portal or by post.
 
 ---
 
@@ -33,20 +33,20 @@ Step-by-step guides covering:
 
 ## Ward-Level Accountability Brief
 
-The platform's AI-assisted brief generator (powered by Llama 3.3 70B via Groq, an open-source LLM) creates a customised accountability brief for any city, tailored for ward councillors, resident welfare associations, or journalists. It includes:
+The platform's AI-assisted brief generator (powered by OpenAI gpt-oss-120b via Groq, an open-weight LLM) creates a customised accountability brief for any city, tailored for ward councillors, resident welfare associations, or journalists. It includes:
 
 - Current AQI readings for the city
 - Comparison against NCAP targets
 - Key local pollution sources
 - Suggested questions to ask elected officials
 
-To generate a brief, use the API endpoint: `GET /.netlify/functions/accountability-brief?city={cityKey}`
+To generate a brief, send a `POST` with a JSON body (`city` and `area` are required) to the API endpoint: `/.netlify/functions/accountability-brief`
 
 ---
 
 ## Mask Selection Guide
 
-A practical guide on choosing the right mask for different AQI levels:
+A practical guide on choosing the right mask for different AQI levels. This is general guidance, not sourced to a health authority, and its category names follow the US EPA scale rather than the dashboard's own bands:
 
 | AQI Level | Recommended Protection |
 |-----------|----------------------|

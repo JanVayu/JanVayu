@@ -33,15 +33,9 @@ const ROLE_CONFIG = {
 };
 ```
 
-### 2. Add the overlay card
+### 2. No HTML change needed
 
-```html
-<div class="role-card" onclick="selectRole('yourRole')">
-    <span class="role-card-icon"><span class="si si-icon-name"></span></span>
-    <div class="role-card-title">Role Display Name</div>
-    <div class="role-card-desc">A question this user might ask</div>
-</div>
-```
+The role switcher in the header is generated from `ROLE_CONFIG` into `#rolePopoverGrid`, so a new key appears there automatically. The old full-screen role overlay and its `role-card` markup no longer exist.
 
 ### 3. Add translation keys (optional)
 

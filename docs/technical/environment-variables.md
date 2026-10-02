@@ -58,7 +58,7 @@ The unique ID of your Netlify site.
 ### `GROQ_API_KEY`
 **Used by:** `air-query.mjs`, `health-advisory.mjs`, `accountability-brief.mjs`, `anomaly-check.mjs`
 
-Groq API key for AI-powered features (uses Llama 3.3 70B, an open-source LLM).
+Groq API key for AI-powered features (uses `openai/gpt-oss-120b`, an open-weight LLM; the model can be overridden with the optional `GROQ_MODEL` variable).
 
 **How to get it:**
 1. Go to [console.groq.com](https://console.groq.com)
@@ -72,6 +72,20 @@ The free tier is sufficient for the AI features in JanVayu.
 ## Optional Variables
 
 The site works without these. Each one improves a single feature and nothing breaks if it is absent.
+
+### Other variables read by the functions
+
+The code also reads these; each has a default or a fallback in the function that uses it.
+
+| Variable | Read by | Purpose |
+|----------|---------|---------|
+| `GROQ_MODEL` | `air-query`, `health-advisory`, `accountability-brief`, `anomaly-check` | Groq model name; defaults to `openai/gpt-oss-120b` |
+| `WAQI_TOKEN`, `WAQI_API_TOKEN` | `rankings`, `push-send`, `waqi-proxy` | WAQI token override; the functions fall back to the token in the source |
+| `OPENAQ_API_KEY` | `community-sensors` | OpenAQ API key |
+| `FIRMS_MAP_KEY` | `fire-tracker` | NASA FIRMS map key |
+| `WORKSHOP_INBOX_EMAIL` | `workshop-submit`, `terra-collab` | Recipient for workshop submissions; defaults to `contribute@janvayu.in` |
+| `ALERT_EMAIL` | `health-monitor` | Comma-separated recipients for uptime alerts |
+| `TERRA_COLLAB_SECRET` | `terra-collab` | Shared secret for that function |
 
 ### `YOUTUBE_API_KEY`
 **Used by:** `youtube-feed.js`
@@ -88,7 +102,9 @@ With it, the function also **searches** YouTube, which reaches channels nobody l
 5. Press **Edit API key** and under **API restrictions** choose **Restrict key** → *YouTube Data API v3*. Leave application restrictions as **None**: Netlify functions have no fixed IP to allow-list. Restricting it to one API means a leaked key can do nothing but read public YouTube data.
 6. In Netlify: **Site configuration → Environment variables → Add a variable**, name `YOUTUBE_API_KEY`, paste the value, then redeploy.
 
-**No card required.** The free quota is **10,000 units a day** and a search costs **100**, so 100 searches a day cost nothing. The function spends 300 units per cache refill — three queries — and the result is cached, so a busy day uses a fraction of a percent of the allowance.
+The function runs three search queries per cache refill, and the result is cached, so a busy day uses a small fraction of the search allowance.
+
+> **Update 2 Oct 2026:** Google's quota page now gives `search.list` its own bucket of 100 calls per day, at 1 unit per call; the separate 10,000 units per day apply to other endpoints ([quota cost reference](https://developers.google.com/youtube/v3/determine_quota_cost)). Three queries per refill therefore use 3 of the 100 daily searches.
 
 **It is read server-side only.** The key lives in the Netlify function and is never sent to the browser, so it does not need to be public like the WAQI token. Do not put it in `index.html`.
 
@@ -102,10 +118,10 @@ curl -s https://www.janvayu.in/.netlify/functions/youtube-feed | head -c 200
 
 ---
 
-## Public Key (Not a Secret)
+## Client-Side Token (Not a Secret)
 
 ### WAQI API Token
-The WAQI API token (`1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3`) is a **free-tier public key** embedded directly in `index.html`. It is not a secret — WAQI provides these tokens publicly. It is rate-limited by WAQI at the IP level.
+The WAQI API token (`1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3`) is embedded in `app.js` and `js/try-home.js` and in several Netlify functions, so anyone can read it and it cannot be kept secret. WAQI issues tokens to each registrant under its [terms of service](https://aqicn.org/data-platform/token/) and requires a valid key for all API access; the default quota is 1,000 requests per second per key.
 
 If you want to use your own WAQI token (for higher rate limits), register at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/) and replace the token in `index.html`.
 
@@ -122,7 +138,7 @@ RESEND_FROM=digest@janvayu.in
 BLOB_TOKEN=nfp_xxxxxxxxxxxxxxxxxxxx
 NETLIFY_SITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-# AI features (Groq — Llama 3.3 70B)
+# AI features (Groq, gpt-oss-120b)
 GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # Optional: YouTube search for the video feed (free tier, no card)

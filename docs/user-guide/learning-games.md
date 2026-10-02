@@ -2,7 +2,7 @@
 
 JanVayu's `/#games` panel hosts **seven self-paced educational games** — all written with original India-context content. Open them via **Action → Learning Games** in the navigation, or directly at [janvayu.in/#games](https://www.janvayu.in/#games).
 
-For a live, facilitator-led session — including Dr. Sarath Guttikunda's longer-form Jeopardy run with audience teams — request a [Workshops](aqi-dashboard.md) booking.
+For a live, facilitator-led session — including Dr. Sarath Guttikunda's longer-form Jeopardy run with audience teams — request a booking from the [Workshops panel](https://www.janvayu.in/#workshops).
 
 ---
 
@@ -102,7 +102,7 @@ A word-grouping puzzle inspired by BBC's *Only Connect*, the NYT *Connections* d
 | 3 | Names & numbers | Hard | Worst-polluted Indian cities · NCAP top performers · AQ research bodies · Citizen-action tools |
 | 4 | Devious | Devious | Types of "___ carbon" · BS emission standards · Citizen acronyms · PM-precursor gases |
 
-Solved groups stack vertically above the live grid in their theme colour. Score is not saved or transmitted; no leaderboard. New puzzles are added every few weeks.
+Solved groups stack vertically above the live grid in their theme colour. Score is not saved or transmitted; no leaderboard.
 
 ---
 

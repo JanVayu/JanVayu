@@ -6,12 +6,13 @@ The City Comparison section ranks Indian cities by current AQI in real time, ref
 
 - Live AQI and PM2.5 for each city
 - Colour-coded status (Good / Moderate / Unhealthy / Very Unhealthy / Hazardous)
-- Trend indicator (improving / worsening / stable vs. yesterday)
 - Annual average PM2.5 against the WHO guideline of 5 µg/m³
 
 ### Seasonal Context
 
 AQI varies significantly by season in India:
+
+Indicative ranges only; no source is cited for these values. The site's own seasonal data (`data/district-history.json`) defines winter as Dec–Feb, summer as Mar–May, monsoon as Jun–Sep and post-monsoon as Oct–Nov, which differs from the month labels in this table.
 
 | Season | Typical PM2.5 (Delhi) | Key Drivers |
 |--------|----------------------|------------|
@@ -46,10 +47,10 @@ The live map displays all CPCB and WAQI monitoring stations across India, with m
 
 ## Station Coverage Limitations
 
-India has approximately 800 CAAQMS (Continuous Ambient Air Quality Monitoring Stations) as of 2025. However:
+India had about 565 CAAQMS (Continuous Ambient Air Quality Monitoring Stations) in 2025, out of 1,600 monitoring stations including manual ones (CREA, *2026 Progress Report on the National Clean Air Programme*). However:
 
 - Coverage is concentrated in large cities; smaller towns have limited or no monitoring
 - Many stations experience downtime (equipment failure, power outages)
 - Rural areas largely lack ground-level monitoring
 
-JanVayu supplements ground data with satellite-derived estimates (NASA MODIS/VIIRS) for areas with no station coverage.
+JanVayu supplements ground data with satellite-derived estimates (SatPM2.5 V6GL03 from the Atmospheric Composition Analysis Group at Washington University, about 1 km) and CAMS model data via Open-Meteo. NASA FIRMS (VIIRS) is used only for the fire tracker.

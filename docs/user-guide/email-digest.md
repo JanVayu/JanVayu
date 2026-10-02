@@ -10,8 +10,6 @@ Each email contains:
 
 - Current AQI and PM2.5 for your selected city
 - AQI category and health advisory for the day
-- Comparison with yesterday's reading
-- One-line summary of the key air quality story of the day (from news feeds)
 - Link to the full platform for more detail
 
 ---
@@ -21,18 +19,18 @@ Each email contains:
 1. Visit [www.janvayu.in](https://www.janvayu.in) and scroll to the "Stay Informed" section
 2. Enter your email address
 3. Select your city (or multiple cities)
-4. Optionally set an AQI threshold — you'll only receive emails when AQI exceeds your threshold
+4. Optionally set an AQI threshold (default 200); the digest is still sent daily; the threshold only switches the email to alert wording when a city exceeds it
 5. Click Subscribe
 
-Your subscription is stored securely in Netlify Blobs (server-side storage). JanVayu does not share subscriber data with third parties.
+Your subscription is stored securely in Netlify Blobs (server-side storage). Your email address is passed to [Resend](https://resend.com), the email delivery service, solely to send the digest; JanVayu does not share subscriber data with anyone else.
 
 ---
 
 ## Unsubscribing
 
-Each digest email includes an unsubscribe link at the bottom. Click it to remove yourself from the list immediately — no account login required.
+Each digest email ends with a note telling you to use the unsubscribe option on janvayu.in; the email does not yet contain a one-click unsubscribe link.
 
-You can also unsubscribe by visiting the platform and using the same subscription form with the "Unsubscribe" option.
+To unsubscribe, visit the platform and use the same subscription form with the "Unsubscribe" option. No account login is required.
 
 ---
 

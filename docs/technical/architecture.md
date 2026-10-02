@@ -9,7 +9,7 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     Client (Browser)                    │
-│  Single HTML file · Chart.js · Leaflet.js · WAQI API   │
+│  HTML + CSS + JS · Chart.js · Leaflet.js · WAQI API    │
 └──────────────────────────┬──────────────────────────────┘
                            │ HTTPS (Netlify CDN)
 ┌──────────────────────────▼──────────────────────────────┐
@@ -22,12 +22,14 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │
-│  └────────┬──────────┘   │ subscribe.js              │   │
-│           │              │ air-query.mjs             │   │
-│           │              │ health-advisory.mjs       │   │
-│           │              │ accountability-brief.mjs  │   │
-│           │              │ anomaly-check.mjs         │   │
-│           ▼              └─────────────┬─────────────┘   │
+│  │                   │   │ subscribe.js              │   │
+│  │ health-monitor    │   │ air-query.mjs             │   │
+│  │ (every 15 min)    │   │ health-advisory.mjs       │   │
+│  │ push-send (3 h)   │   │ accountability-brief.mjs  │   │
+│  │ feed-health       │   │ anomaly-check.mjs         │   │
+│  │ (daily)           │   │ ...and others (see below) │   │
+│  └────────┬──────────┘   └─────────────┬─────────────┘   │
+│           ▼                                              │
 │  ┌──────────────────────────────────────────────────┐    │
 │  │           Netlify Blobs (Cache)                   │    │
 │  │  Feeds cached as JSON · Strong consistency        │    │
@@ -42,15 +44,15 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
           ┌────────────────┼────────────────┐
           ▼                ▼                ▼
     WAQI API           Groq API       External Feeds
-  (Real-time AQI)    (AI features)  (Reddit, News, X)
+  (Real-time AQI)    (AI features)  (Reddit, News)
 ```
 
 ---
 
 ## Key Design Decisions
 
-### Single HTML File
-The entire front-end lives in `index.html` — inline CSS and JavaScript, no build step, no bundler, no framework. This makes the codebase accessible to contributors with basic HTML/JS skills and ensures zero build-time complexity.
+### Static Front-End, No Bundler
+The front-end is `index.html` plus `styles.css`, `app.js`, `games.js` and 19 lazy-loaded panel fragments in `panels/`, with no bundler and no framework (see the [Frontend Stack](../tech-stack/frontend.md)). This makes the codebase accessible to contributors with basic HTML/JS skills and keeps build-time complexity close to zero.
 
 ### Server-Side Proxying
 Social media and news APIs are fetched via Netlify Functions to avoid CORS issues and protect API keys. The client never touches these APIs directly.
@@ -59,10 +61,10 @@ Social media and news APIs are fetched via Netlify Functions to avoid CORS issue
 The `scheduled-fetch.mjs` function runs every 4 hours and writes feed data (Reddit, news; Instagram is attempted and normally returns nothing) to Netlify Blobs. When users request feeds, the on-demand functions serve instantly from the cache — eliminating latency and API rate limits.
 
 ### Client-Side AQI
-The WAQI API is called directly from the browser every 10 minutes. The token is a free-tier public key. This means real-time AQI data works without any server-side infrastructure.
+The WAQI API is called directly from the browser every 10 minutes. The token is issued by WAQI under its terms of service and is visible in the client code. This means real-time AQI data works without any server-side infrastructure.
 
 ### No Framework, No Build Step
-There is no `npm run build`, no Webpack, no React. The deploy artefact is the repository itself. Netlify serves `index.html` from the root.
+There is no `npm run build`, no Webpack, no React. The only build command is `node scripts/bump-version.mjs`, which stamps the version, and the deploy artefact is otherwise the repository itself. Netlify serves `index.html` from the root.
 
 ---
 
@@ -74,6 +76,9 @@ There is no `npm run build`, no Webpack, no React. The deploy artefact is the re
 | Daily AQI email digest | 8:00 AM IST daily | `daily-digest.mjs` |
 | Live AQI dashboard | Every 10 minutes | Client-side JS (WAQI API) |
 | Anomaly detection | On-demand | `anomaly-check.mjs` |
+| Uptime and function health checks | Every 15 minutes | `health-monitor.mjs` |
+| Web push notifications | Every 3 hours | `push-send.mjs` |
+| Feed health check | Daily | `feed-health.mjs` |
 
 ---
 
@@ -81,9 +86,9 @@ There is no `npm run build`, no Webpack, no React. The deploy artefact is the re
 
 ```
 JanVayu/
-├── index.html                    # Entire front-end (SPA)
+├── index.html                    # SPA shell (plus styles.css, app.js, games.js, panels/)
 ├── favicon.svg
-├── package.json                  # Node.js deps (Netlify Blobs, Resend)
+├── package.json                  # Node.js deps (Netlify Blobs, Resend, web-push)
 ├── netlify.toml                  # Build & deploy config
 ├── CNAME                         # Custom domain
 ├── docs/                         # This documentation (Docsify)
@@ -104,3 +109,5 @@ JanVayu/
         ├── accountability-brief.mjs  # AI: ward-level accountability briefs
         └── anomaly-check.mjs     # AI: PM2.5 spike detection
 ```
+
+This list is not exhaustive: `netlify/functions/` holds 29 function files plus shared `lib/` (for example `waqi-proxy`, `rankings`, `data-api`, `push-send`, `fire-tracker`, `terra-collab` and `zotero-library`).

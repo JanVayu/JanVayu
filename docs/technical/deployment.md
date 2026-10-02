@@ -8,8 +8,8 @@ JanVayu is deployed on **Netlify** with automatic deploys triggered by every pus
 
 1. Push to `main` on GitHub
 2. Netlify detects the new commit via webhook
-3. Netlify builds and deploys (no build step — the repo root is the publish directory)
-4. The site is live at [www.janvayu.in](https://www.janvayu.in) within 30–90 seconds
+3. Netlify runs the build command (`node scripts/bump-version.mjs`, a version-stamp script; there is no bundler) and deploys, with the repo root as the publish directory
+4. The site goes live at [www.janvayu.in](https://www.janvayu.in)
 
 The Netlify build status badge in the README reflects the current deploy state.
 
@@ -18,12 +18,14 @@ The Netlify build status badge in the README reflects the current deploy state.
 ## Netlify Configuration (`netlify.toml`)
 
 ```toml
+# Abridged: the real netlify.toml has many more headers and redirect rules
 [build]
+  command = "node scripts/bump-version.mjs"
   publish = "."         # Serve from repo root
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22"
 
 [[headers]]
   for = "/*"
@@ -38,6 +40,7 @@ The Netlify build status badge in the README reflects the current deploy state.
   status = 301
   force = true
 
+# ...specific rules for /docs, /blog, /embed, /api, /ask, /status etc. come before the fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -53,7 +56,7 @@ Key points:
 
 ## Domain & DNS
 
-The custom domain `janvayu.in` is configured in Netlify DNS. The `CNAME` file in the repo root sets the GitHub Pages custom domain (legacy, from before Netlify migration).
+The custom domain `janvayu.in` is configured in Netlify DNS. The `CNAME` file in the repo root contains `www.janvayu.in`; it has no effect on Netlify, and whether it dates from an earlier GitHub Pages setup is not recorded in the repository.
 
 ---
 
