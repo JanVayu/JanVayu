@@ -355,14 +355,14 @@
             askhome_placeholder: 'जैसे, क्या मैं आज दौड़ने जाऊँ?',
             askhome_button: 'पूछें',
             about_heading: 'जनवायु के बारे में',
-            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोगों की हवा&rdquo;) एक गैर-पक्षपाती, नागरिक-नेतृत्व वाला मंच है जो भारत के वायु गुणवत्ता संकट का दस्तावेज़ीकरण करता है &mdash; इसका लाइव डेटा, इसकी मानवीय क्षति, इसकी नीतियाँ और इसकी सार्वजनिक स्मृति। यह <strong>157 शहरों</strong> का रीयल-टाइम पीएम2.5, भारत के हर प्रशासनिक क्षेत्र का सीमा-एटलस, लाइव पूर्वानुमान और खेत-आग ट्रैकर, स्वास्थ्य और आर्थिक-प्रभाव शोध, नीति और जवाबदेही ट्रैकिंग, आरटीआई उपकरण, <a href="/ask/">Ask JanVayu</a> एआई सहायक, और नागरिक गवाही की बहुभाषी दीवार को एक साथ लाता है &mdash; हर आँकड़ा स्रोत-सहित और खुला। यह कोई अभियान नहीं है; यह एक सार्वजनिक अभिलेख है, जो <strong>#AQIForJanHit</strong> प्रयास के लिए बनाया गया है।',
+            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोगों की हवा&rdquo;) एक गैर-पक्षपाती, नागरिक-नेतृत्व वाला मंच है जो भारत के वायु गुणवत्ता संकट का दस्तावेज़ीकरण करता है &mdash; इसका लाइव डेटा, इसकी मानवीय क्षति, इसकी नीतियाँ और इसकी सार्वजनिक स्मृति। यह <strong>160 शहरों</strong> का रीयल-टाइम पीएम2.5, भारत के हर प्रशासनिक क्षेत्र का सीमा-एटलस, लाइव पूर्वानुमान और खेत-आग ट्रैकर, स्वास्थ्य और आर्थिक-प्रभाव शोध, नीति और जवाबदेही ट्रैकिंग, आरटीआई उपकरण, <a href="/ask/">Ask JanVayu</a> एआई सहायक, और नागरिक गवाही की बहुभाषी दीवार को एक साथ लाता है &mdash; हर आँकड़ा स्रोत-सहित और खुला। यह कोई अभियान नहीं है; यह एक सार्वजनिक अभिलेख है, जो <strong>#AQIForJanHit</strong> प्रयास के लिए बनाया गया है।',
             about_mission_h: 'हमारा उद्देश्य',
             about_mission_p1: 'जनवायु इसलिए है क्योंकि स्वच्छ हवा एक मौलिक अधिकार है, कोई सुविधा नहीं। हम मापते हैं कि सरकारें जो वादा करती हैं और लोग वास्तव में जो हवा साँस लेते हैं, उनके बीच कितना फ़ासला है &mdash; स्वतंत्र डेटा, सहकर्मी-समीक्षित शोध और आरटीआई जवाबों के आधार पर, जिन्हें कोई भी ख़ुद जाँच सकता है।',
             about_mission_p2: 'यह मंच <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> का हिस्सा है &mdash; व्यापक <strong>#AQIForJanHit</strong> अभियान। हम रीयल-टाइम निगरानी डेटा, सहकर्मी-समीक्षित शोध, आरटीआई जवाब और स्वतंत्र विश्लेषण का उपयोग करके वह जवाबदेही प्रदान करते हैं जिसकी भारत के वायु गुणवत्ता संकट को आवश्यकता है।',
             about_datasources_h: 'डेटा स्रोत',
             about_partners_h: 'जनहित सहयोगी',
             about_partners_intro: 'स्वच्छ हवा को सार्वजनिक हित बनाने के <strong>#AQIForJanHit</strong> प्रयास में जनवायु जिन संगठनों और पहलों के साथ मिलकर काम करता है।',
-            hero_title: "भारत की हवा हर साल <em>20 लाख लोगों</em> की जान ले रही है",
+            hero_title: "भारत की हवा हर साल <em>17.2 लाख (1.72 मिलियन) लोगों</em> की जान ले रही है",
             hero_sub: "जनवायु भारत का स्वतंत्र, नागरिक-संचालित वायु गुणवत्ता मंच है। हम प्रदूषण के आंकड़े, स्वास्थ्य प्रभाव, बजट का हिसाब और सरकारी जवाबदेही पर नज़र रखते हैं। क्योंकि स्वच्छ हवा विशेषाधिकार नहीं, अधिकार है।",
             tagline: "नागरिक वायु गुणवत्ता मंच",
             nav_myair: "मेरी हवा",
@@ -406,14 +406,14 @@
             askhome_placeholder: 'எ.கா. இன்று ஓட்டப்பயிற்சி செல்லலாமா?',
             askhome_button: 'கேள்',
             about_heading: 'ஜன்வாயு பற்றி',
-            about_intro: 'ஜன்வாயு (<span lang="hi">जनवायु</span> &mdash; &ldquo;மக்களின் காற்று&rdquo;) என்பது இந்தியாவின் காற்று தர நெருக்கடியை ஆவணப்படுத்தும் ஒரு கட்சி சாராத, குடிமக்கள் தலைமையிலான தளம் &mdash; அதன் நேரடி தரவு, அதன் மனித இழப்பு, அதன் கொள்கைகள் மற்றும் அதன் பொது நினைவு. இது <strong>157 நகரங்களில்</strong> நிகழ்நேர PM2.5, இந்தியாவின் ஒவ்வொரு நிர்வாகப் பகுதியையும் உள்ளடக்கிய எல்லை அட்லஸ், நேரடி முன்னறிவிப்பு மற்றும் வயல்-தீ கண்காணிப்பு, சுகாதார மற்றும் பொருளாதார-தாக்க ஆராய்ச்சி, கொள்கை மற்றும் பொறுப்புக்கூறல் கண்காணிப்பு, RTI கருவிகள், <a href="/ask/">Ask JanVayu</a> AI உதவியாளர், மற்றும் குடிமக்கள் சாட்சியத்தின் பன்மொழி சுவர் ஆகியவற்றை ஒன்றிணைக்கிறது &mdash; ஒவ்வொரு புள்ளிவிவரமும் ஆதாரத்துடன், திறந்தது. இது ஒரு பிரச்சாரம் அல்ல; இது <strong>#AQIForJanHit</strong> முயற்சிக்காக உருவாக்கப்பட்ட ஒரு பொது பதிவு.',
+            about_intro: 'ஜன்வாயு (<span lang="hi">जनवायु</span> &mdash; &ldquo;மக்களின் காற்று&rdquo;) என்பது இந்தியாவின் காற்று தர நெருக்கடியை ஆவணப்படுத்தும் ஒரு கட்சி சாராத, குடிமக்கள் தலைமையிலான தளம் &mdash; அதன் நேரடி தரவு, அதன் மனித இழப்பு, அதன் கொள்கைகள் மற்றும் அதன் பொது நினைவு. இது <strong>160 நகரங்களில்</strong> நிகழ்நேர PM2.5, இந்தியாவின் ஒவ்வொரு நிர்வாகப் பகுதியையும் உள்ளடக்கிய எல்லை அட்லஸ், நேரடி முன்னறிவிப்பு மற்றும் வயல்-தீ கண்காணிப்பு, சுகாதார மற்றும் பொருளாதார-தாக்க ஆராய்ச்சி, கொள்கை மற்றும் பொறுப்புக்கூறல் கண்காணிப்பு, RTI கருவிகள், <a href="/ask/">Ask JanVayu</a> AI உதவியாளர், மற்றும் குடிமக்கள் சாட்சியத்தின் பன்மொழி சுவர் ஆகியவற்றை ஒன்றிணைக்கிறது &mdash; ஒவ்வொரு புள்ளிவிவரமும் ஆதாரத்துடன், திறந்தது. இது ஒரு பிரச்சாரம் அல்ல; இது <strong>#AQIForJanHit</strong> முயற்சிக்காக உருவாக்கப்பட்ட ஒரு பொது பதிவு.',
             about_mission_h: 'எங்கள் நோக்கம்',
             about_mission_p1: 'தூய்மையான காற்று ஒரு சலுகை அல்ல, அது ஒரு அடிப்படை உரிமை என்பதால் ஜன்வாயு உள்ளது. சுயாதீன சரிபார்ப்பு, குடிமக்கள் அதிகாரமளித்தல் மற்றும் தரவு சார்ந்த பொறுப்புக்கூறல் மூலம் அரசாங்க வாக்குறுதிகளுக்கும் உண்மையான காற்று தர விளைவுகளுக்கும் இடையிலான இடைவெளியை நாங்கள் இணைக்கிறோம்.',
             about_mission_p2: 'இந்த தளம் <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> இன் ஒரு பகுதி &mdash; பரந்த <strong>#AQIForJanHit</strong> பிரச்சாரம். நிகழ்நேர கண்காணிப்பு தரவு, சக மதிப்பாய்வு ஆராய்ச்சி, RTI பதில்கள் மற்றும் சுயாதீன பகுப்பாய்வைப் பயன்படுத்தி இந்தியாவின் காற்று தர நெருக்கடி கோரும் பொறுப்புக்கூறலை நாங்கள் வழங்குகிறோம்.',
             about_datasources_h: 'தரவு ஆதாரங்கள்',
             about_partners_h: 'ஜன்ஹித் பங்காளர்கள்',
             about_partners_intro: 'தூய்மையான காற்றை பொது நலனாக்கும் <strong>#AQIForJanHit</strong> முயற்சியில் ஜன்வாயு இணைந்து செயல்படும் அமைப்புகள் மற்றும் முயற்சிகள்.',
-            hero_title: "இந்தியாவின் காற்று ஆண்டுதோறும் <em>20 லட்சம் பேரைக்</em> கொல்கிறது",
+            hero_title: "இந்தியாவின் காற்று ஆண்டுதோறும் <em>17.2 லட்சம் (1.72 மில்லியன்) பேரைக்</em> கொல்கிறது",
             hero_sub: "ஜன்வாயு இந்தியாவின் சுயாதீன, குடிமக்கள் வழிநடத்தும் காற்றுத் தர தளமாகும். நாங்கள் மாசு தரவுகள், சுகாதார பாதிப்புகள், பட்ஜெட் கணக்கு மற்றும் அரசின் பொறுப்புணர்வை கண்காணிக்கிறோம். ஏனெனில் சுத்தமான காற்று சலுகை அல்ல, அது உரிமை.",
             tagline: "குடிமக்கள் காற்றுத் தர தளம்",
             nav_myair: "என் காற்று",
@@ -457,14 +457,14 @@
             askhome_placeholder: 'उदा. आज धावायला जाऊ का?',
             askhome_button: 'विचारा',
             about_heading: 'जनवायु विषयी',
-            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोकांची हवा&rdquo;) हे भारताच्या हवा गुणवत्ता संकटाचे दस्तऐवजीकरण करणारे एक निष्पक्ष, नागरिक-नेतृत्वाखालील व्यासपीठ आहे &mdash; त्याचा थेट डेटा, त्याची मानवी हानी, त्याची धोरणे आणि त्याची सार्वजनिक स्मृती. हे <strong>157 शहरांतील</strong> रिअल-टाइम PM2.5, भारतातील प्रत्येक प्रशासकीय क्षेत्राचा सीमा-नकाशा, थेट अंदाज आणि शेत-आग ट्रॅकर, आरोग्य आणि आर्थिक-परिणाम संशोधन, धोरण आणि उत्तरदायित्व ट्रॅकिंग, आरटीआय साधने, <a href="/ask/">Ask JanVayu</a> AI सहाय्यक, आणि नागरिक साक्षीची बहुभाषिक भिंत एकत्र आणते &mdash; प्रत्येक आकडा स्रोतासह आणि खुला. ही मोहीम नाही; हे <strong>#AQIForJanHit</strong> प्रयत्नासाठी तयार केलेले सार्वजनिक अभिलेख आहे.',
+            about_intro: 'जनवायु (<span lang="hi">जनवायु</span> &mdash; &ldquo;लोकांची हवा&rdquo;) हे भारताच्या हवा गुणवत्ता संकटाचे दस्तऐवजीकरण करणारे एक निष्पक्ष, नागरिक-नेतृत्वाखालील व्यासपीठ आहे &mdash; त्याचा थेट डेटा, त्याची मानवी हानी, त्याची धोरणे आणि त्याची सार्वजनिक स्मृती. हे <strong>160 शहरांतील</strong> रिअल-टाइम PM2.5, भारतातील प्रत्येक प्रशासकीय क्षेत्राचा सीमा-नकाशा, थेट अंदाज आणि शेत-आग ट्रॅकर, आरोग्य आणि आर्थिक-परिणाम संशोधन, धोरण आणि उत्तरदायित्व ट्रॅकिंग, आरटीआय साधने, <a href="/ask/">Ask JanVayu</a> AI सहाय्यक, आणि नागरिक साक्षीची बहुभाषिक भिंत एकत्र आणते &mdash; प्रत्येक आकडा स्रोतासह आणि खुला. ही मोहीम नाही; हे <strong>#AQIForJanHit</strong> प्रयत्नासाठी तयार केलेले सार्वजनिक अभिलेख आहे.',
             about_mission_h: 'आमचे ध्येय',
             about_mission_p1: 'जनवायु अस्तित्वात आहे कारण स्वच्छ हवा ही सवलत नाही, तो मूलभूत अधिकार आहे. स्वतंत्र पडताळणी, नागरिक सक्षमीकरण आणि डेटा-आधारित उत्तरदायित्वाद्वारे आम्ही सरकारी आश्वासने आणि प्रत्यक्ष हवा गुणवत्ता परिणाम यांच्यातील दरी भरून काढतो.',
             about_mission_p2: 'हे व्यासपीठ <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> चा भाग आहे &mdash; व्यापक <strong>#AQIForJanHit</strong> मोहीम. रिअल-टाइम निरीक्षण डेटा, समवयस्क-पुनरावलोकित संशोधन, आरटीआय उत्तरे आणि स्वतंत्र विश्लेषण वापरून आम्ही भारताच्या हवा गुणवत्ता संकटाला आवश्यक असलेले उत्तरदायित्व प्रदान करतो.',
             about_datasources_h: 'डेटा स्रोत',
             about_partners_h: 'जनहित भागीदार',
             about_partners_intro: 'स्वच्छ हवा हा सार्वजनिक हिताचा विषय बनवण्याच्या <strong>#AQIForJanHit</strong> प्रयत्नात जनवायु ज्या संस्था आणि उपक्रमांसोबत काम करते.',
-            hero_title: "भारतातील हवा दरवर्षी <em>20 लाख लोकांचा</em> बळी घेत आहे",
+            hero_title: "भारतातील हवा दरवर्षी <em>17.2 लाख (1.72 दशलक्ष) लोकांचा</em> बळी घेत आहे",
             hero_sub: "जनवायू हे भारताचे स्वतंत्र, नागरिक-संचालित हवा गुणवत्ता व्यासपीठ आहे. आम्ही प्रदूषणाचे आकडे, आरोग्यावरील परिणाम, बजेटचा मागोवा आणि सरकारी जबाबदारी यांवर लक्ष ठेवतो. कारण स्वच्छ हवा ही सवलत नाही, ती हक्क आहे.",
             tagline: "नागरिक हवा गुणवत्ता व्यासपीठ",
             nav_myair: "माझी हवा",
@@ -508,14 +508,14 @@
             askhome_placeholder: 'যেমন, আজ কি দৌড়াতে যাব?',
             askhome_button: 'জিজ্ঞাসা',
             about_heading: 'জনবায়ু সম্পর্কে',
-            about_intro: 'জনবায়ু (<span lang="hi">जनवायु</span> &mdash; &ldquo;জনগণের বাতাস&rdquo;) হল একটি নিরপেক্ষ, নাগরিক-নেতৃত্বাধীন প্ল্যাটফর্ম যা ভারতের বায়ুর মানের সংকট নথিভুক্ত করে &mdash; এর সরাসরি তথ্য, এর মানবিক ক্ষতি, এর নীতি এবং এর জনস্মৃতি। এটি <strong>157 শহরে</strong> রিয়েল-টাইম PM2.5, ভারতের প্রতিটি প্রশাসনিক এলাকার সীমানা-অ্যাটলাস, সরাসরি পূর্বাভাস ও খেত-আগুন ট্র্যাকার, স্বাস্থ্য ও অর্থনৈতিক-প্রভাব গবেষণা, নীতি ও জবাবদিহিতা ট্র্যাকিং, আরটিআই সরঞ্জাম, <a href="/ask/">Ask JanVayu</a> AI সহকারী, এবং নাগরিক সাক্ষ্যের একটি বহুভাষিক দেয়াল একত্র করে &mdash; প্রতিটি পরিসংখ্যান উৎসসহ ও উন্মুক্ত। এটি কোনো অভিযান নয়; এটি একটি জনসাধারণের নথি, <strong>#AQIForJanHit</strong> প্রয়াসের জন্য নির্মিত।',
+            about_intro: 'জনবায়ু (<span lang="hi">जनवायु</span> &mdash; &ldquo;জনগণের বাতাস&rdquo;) হল একটি নিরপেক্ষ, নাগরিক-নেতৃত্বাধীন প্ল্যাটফর্ম যা ভারতের বায়ুর মানের সংকট নথিভুক্ত করে &mdash; এর সরাসরি তথ্য, এর মানবিক ক্ষতি, এর নীতি এবং এর জনস্মৃতি। এটি <strong>160 শহরে</strong> রিয়েল-টাইম PM2.5, ভারতের প্রতিটি প্রশাসনিক এলাকার সীমানা-অ্যাটলাস, সরাসরি পূর্বাভাস ও খেত-আগুন ট্র্যাকার, স্বাস্থ্য ও অর্থনৈতিক-প্রভাব গবেষণা, নীতি ও জবাবদিহিতা ট্র্যাকিং, আরটিআই সরঞ্জাম, <a href="/ask/">Ask JanVayu</a> AI সহকারী, এবং নাগরিক সাক্ষ্যের একটি বহুভাষিক দেয়াল একত্র করে &mdash; প্রতিটি পরিসংখ্যান উৎসসহ ও উন্মুক্ত। এটি কোনো অভিযান নয়; এটি একটি জনসাধারণের নথি, <strong>#AQIForJanHit</strong> প্রয়াসের জন্য নির্মিত।',
             about_mission_h: 'আমাদের লক্ষ্য',
             about_mission_p1: 'জনবায়ু বিদ্যমান কারণ পরিষ্কার বাতাস কোনো সুবিধা নয়, এটি একটি মৌলিক অধিকার। স্বাধীন যাচাই, নাগরিক ক্ষমতায়ন এবং তথ্য-নির্ভর জবাবদিহিতার মাধ্যমে আমরা সরকারি প্রতিশ্রুতি ও প্রকৃত বায়ুর মানের ফলাফলের মধ্যে ব্যবধান দূর করি।',
             about_mission_p2: 'এই প্ল্যাটফর্মটি <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>-এর অংশ &mdash; বৃহত্তর <strong>#AQIForJanHit</strong> অভিযান। রিয়েল-টাইম পর্যবেক্ষণ তথ্য, সমকক্ষ-পর্যালোচিত গবেষণা, আরটিআই উত্তর এবং স্বাধীন বিশ্লেষণ ব্যবহার করে আমরা ভারতের বায়ুর মানের সংকট যে জবাবদিহিতা দাবি করে তা প্রদান করি।',
             about_datasources_h: 'তথ্য উৎস',
             about_partners_h: 'জনহিত অংশীদার',
             about_partners_intro: 'পরিষ্কার বাতাসকে জনস্বার্থে পরিণত করার <strong>#AQIForJanHit</strong> প্রচেষ্টায় জনবায়ু যেসব সংস্থা ও উদ্যোগের সঙ্গে কাজ করে।',
-            hero_title: "ভারতের বায়ু প্রতি বছর <em>২০ লক্ষ মানুষের</em> প্রাণ কেড়ে নিচ্ছে",
+            hero_title: "ভারতের বায়ু প্রতি বছর <em>১৭.২ লক্ষ (১.৭২ মিলিয়ন) মানুষের</em> প্রাণ কেড়ে নিচ্ছে",
             hero_sub: "জনবায়ু ভারতের স্বাধীন, নাগরিক-পরিচালিত বায়ু মান প্ল্যাটফর্ম। আমরা দূষণের তথ্য, স্বাস্থ্যের প্রভাব, বাজেটের হিসাব এবং সরকারি জবাবদিহিতা পর্যবেক্ষণ করি। কারণ বিশুদ্ধ বাতাস বিশেষাধিকার নয়, এটি অধিকার।",
             tagline: "নাগরিক বায়ু মান প্ল্যাটফর্ম",
             nav_myair: "আমার বায়ু",
@@ -1065,7 +1065,7 @@
             why: 'At this level everyone is affected, not only the vulnerable. Keep the windows shut, run a purifier if you have one, and avoid going out at all if you can.',
             plain: 'This air is dangerous for everyone, not only for children and the sick. Stay inside. Keep windows shut. Do not go out unless you have to.',
             who: [['Delay it', 'Send one person in a fitted N95, or go tomorrow if you can.'],
-                  ['Stay in', 'Ask about closure. Several states close schools at this level.'],
+                  ['Stay in', 'Ask about closure. In Delhi-NCR, schools shift to hybrid or online classes under GRAP Stage III and IV (CAQM GRAP, revised 21 Nov 2025).'],
                   ['Hazard', 'This is unsafe to work in. N95, the shortest exposure possible, and a real case for stopping work.'],
                   ['Cancelled', 'No outdoor sport at this level, for anybody.'],
                   ['Stay in', 'Windows shut, purifier if you have one, and get advice early.']] }
@@ -1381,7 +1381,8 @@
             return;
         }
 
-        const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
+        // No measured PM2.5: invert the US EPA AQI breakpoint table rather than a flat factor.
+        const pm25 = data.pm25 || iaqiToPM25(data.aqi) || 0;
         const aqi = data.aqi;
         const cigPerDay = (pm25 / 22).toFixed(1);
         const cigColor = getPM25TextColor(pm25); // text on white card
@@ -1398,7 +1399,7 @@
                     <span>${r.name}</span>
                     <span style="background: ${r.color}; color: #fff; font-weight: 600; font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.04em;">${r.level}</span>
                 </div>
-            `).join('');
+            `).join('') + '<div style="color: var(--text-3); font-size: 0.7rem; margin-top: 4px;">Illustrative heuristic by AQI band, not an epidemiological estimate.</div>';
         }
 
         const sol = computeSolution(aqi);
@@ -1420,8 +1421,9 @@
     }
 
     function computeDiseaseRisk(aqi) {
-        // Buckets: Good (≤50), Moderate (≤100), Poor (≤200), Very Poor (≤300), Severe (≤400), Hazardous (>400)
-        const band = aqi <= 50 ? 0 : aqi <= 100 ? 1 : aqi <= 200 ? 2 : aqi <= 300 ? 3 : aqi <= 400 ? 4 : 5;
+        // US EPA AQI buckets (the scale WAQI reports): Good (<=50), Moderate (<=100),
+        // Unhealthy for Sensitive Groups (<=150), Unhealthy (<=200), Very Unhealthy (<=300), Hazardous (>300)
+        const band = aqi <= 50 ? 0 : aqi <= 100 ? 1 : aqi <= 150 ? 2 : aqi <= 200 ? 3 : aqi <= 300 ? 4 : 5;
         const levels = [
             // Tokens, not hexes: these are rendered as text, so the colour has
             // to flip with the theme. #F97316 reads 2.80:1 on white.
@@ -1443,6 +1445,7 @@
     }
 
     function computeSolution(aqi) {
+        // Bands are the US EPA AQI bands that WAQI reports (2016 table).
         if (aqi <= 50) {
             return {
                 label: 'Good', color: 'var(--aqi-good)',
@@ -1465,12 +1468,24 @@
                 ]
             };
         }
+        if (aqi <= 150) {
+            return {
+                label: 'Unhealthy for Sensitive Groups', color: 'var(--aqi-poor)',
+                headline: 'Sensitive groups should limit prolonged outdoor exertion.',
+                actions: [
+                    'People with asthma, heart or lung disease, children and older adults: cut back on hard outdoor exercise.',
+                    'Everyone else: reduce long or intense time outdoors, and avoid roadside running.',
+                    'Close windows near traffic; run an air purifier in bedrooms.',
+                    'Asthmatics: keep the inhaler ready.',
+                ]
+            };
+        }
         if (aqi <= 200) {
             return {
-                label: 'Poor', color: 'var(--aqi-poor)',
-                headline: 'Limit prolonged outdoor exertion.',
+                label: 'Unhealthy', color: 'var(--aqi-very-poor)',
+                headline: 'Everyone should limit prolonged outdoor exertion.',
                 actions: [
-                    'Wear a well-fitted N95 outdoors for over 30 minutes.',
+                    'A well-fitted N95 is advisable outdoors.',
                     'Move workouts indoors; avoid roadside running.',
                     'Close windows; run an air purifier in bedrooms.',
                     'Kids: shorten outdoor recess. Asthmatics: keep inhaler ready.',
@@ -1479,25 +1494,13 @@
         }
         if (aqi <= 300) {
             return {
-                label: 'Very Poor', color: 'var(--aqi-very-poor)',
+                label: 'Very Unhealthy', color: 'var(--aqi-severe)',
                 headline: 'Stay indoors. Run a HEPA purifier.',
                 actions: [
-                    'N95 mandatory outdoors — even brief exposure matters.',
-                    'Run HEPA purifier 24/7; size for room volume.',
+                    'A fitted N95 is advisable outdoors, even for brief exposure.',
+                    'Run a HEPA purifier; size it for the room volume.',
                     'No outdoor exercise. Reschedule sports.',
-                    'Schools: consider hybrid or holiday for primary classes.',
-                ]
-            };
-        }
-        if (aqi <= 400) {
-            return {
-                label: 'Severe', color: 'var(--aqi-severe)',
-                headline: 'Health emergency. Avoid all outdoor exposure.',
-                actions: [
-                    'Stay indoors. Seal gaps under doors and windows.',
-                    'Multiple HEPA purifiers; create a "clean room" if needed.',
-                    'Cardiac and lung patients: keep meds and emergency contacts close.',
-                    'Schools should close. Outdoor work should pause.',
+                    'Schools: consider hybrid classes or a holiday for primary classes.',
                 ]
             };
         }
@@ -1505,10 +1508,10 @@
             label: 'Hazardous', color: 'var(--aqi-hazardous)',
             headline: 'Emergency. Treat outdoor air as toxic.',
             actions: [
-                'Government should activate GRAP Stage IV / emergency protocols.',
-                'Do not go outside without N95 plus eye protection.',
-                'ER visits spike. Seek help immediately for chest pain or breathing trouble.',
-                'If feasible, consider temporary relocation for vulnerable family members.',
+                'In Delhi-NCR, GRAP Stage III applies from CPCB AQI 401 and Stage IV above 450 (CAQM, revised 21 Nov 2025).',
+                'Do not go outside without an N95 and eye protection.',
+                'Seal gaps under doors and windows; keep medicines and emergency contacts close.',
+                'Seek help immediately for chest pain or breathing trouble.',
             ]
         };
     }
@@ -1567,23 +1570,23 @@
 
     // ── Glossary Overlay (Cmd+K) ──
     const GLOSSARY_DATA = [
-        { term: 'AQI', full: 'Air Quality Index', def: 'A standardised scale (0-500) converting pollutant concentrations into a single number. Below 50 is "Good", above 200 is "Very Unhealthy".', simple: 'A number from 0-500 that tells you how clean or dirty the air is. Under 50 is good, over 200 is very unhealthy.' },
-        { term: 'PM2.5', full: 'Fine Particulate Matter', def: 'Airborne particles smaller than 2.5 micrometres. Small enough to penetrate deep into lungs and bloodstream. WHO guideline: 5 µg/m³ annual mean.', simple: 'Tiny invisible particles that get deep into your lungs and blood. The WHO says safe is 5 or less. Delhi averages 96.' },
-        { term: 'PM10', full: 'Coarse Particulate Matter', def: 'Particles smaller than 10 micrometres including dust, pollen, and construction debris. WHO guideline: 15 µg/m³.', simple: 'Larger dust particles from roads or construction. They irritate your nose and throat but don\'t go as deep as PM2.5.' },
+        { term: 'AQI', full: 'Air Quality Index', def: 'A standardised scale (0-500) converting pollutant concentrations into a single number. India\'s CPCB AQI: 0-50 Good, 51-100 Satisfactory, 101-200 Moderate, 201-300 Poor, 301-400 Very Poor, 401-500 Severe. The US AQI that WAQI reports names the bands differently (201-300 is "Very Unhealthy").', simple: 'A number from 0-500 that tells you how clean or dirty the air is. Under 50 is good. On India\'s CPCB scale, over 200 is poor or worse.' },
+        { term: 'PM2.5', full: 'Fine Particulate Matter', def: 'Airborne particles smaller than 2.5 micrometres. Small enough to penetrate deep into lungs and bloodstream. WHO guideline: 5 µg/m³ annual mean.', simple: 'Tiny invisible particles that get deep into your lungs and blood. The WHO says safe is 5 or less. Delhi averaged 96 in 2025 on CPCB monitors (CREA 2026); IQAir put New Delhi at 82.2.' },
+        { term: 'PM10', full: 'Coarse Particulate Matter', def: 'Particles smaller than 10 micrometres including dust, pollen, and construction debris. WHO guideline: 15 µg/m³ (annual).', simple: 'Larger dust particles from roads or construction. They irritate your nose and throat but don\'t go as deep as PM2.5.' },
         { term: 'µg/m³', full: 'Micrograms per cubic metre', def: 'Standard unit for measuring airborne particle concentration. One microgram is one-millionth of a gram.', simple: 'The unit used to measure pollution in the air. Think of it as "parts of pollution per breath". Lower is better.' },
         { term: 'GEMM', full: 'Global Exposure Mortality Model', def: 'A dose-response model (Burnett et al., 2018) estimating excess mortality from PM2.5 exposure.', simple: 'A formula that estimates how many people die from air pollution based on PM2.5 levels.' },
-        { term: 'NCAP', full: 'National Clean Air Programme', def: 'India\'s flagship programme targeting 40% PM reduction by 2025-26 across 131 non-attainment cities. ~$1.4B budget.', simple: 'India\'s government plan to reduce air pollution in 131 cities by 40%. $1.4 billion budget, mixed results.' },
-        { term: 'GRAP', full: 'Graded Response Action Plan', def: 'Emergency pollution control framework for Delhi-NCR. Stage I (AQI 201-300) to Stage IV (AQI >450). Enforced by CAQM.', simple: 'Emergency rules for Delhi that kick in when pollution gets bad. From banning firecrackers to closing schools.' },
+        { term: 'NCAP', full: 'National Clean Air Programme', def: 'India\'s flagship programme targeting up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 across 130-131 cities (CREA 2026; PIB). Rs 19,614 crore was earmarked for FY2019-20 to 2025-26 (CREA 2026).', simple: 'India\'s government plan to cut PM10 by up to 40% in 130-131 cities by 2025-26. Rs 19,614 crore was earmarked, with mixed results.' },
+        { term: 'GRAP', full: 'Graded Response Action Plan', def: 'Emergency pollution control framework for Delhi-NCR. Stage I (AQI 201-300) to Stage IV (AQI >450). Enforced by CAQM.', simple: 'Emergency rules for Delhi that kick in when pollution gets bad. From firecracker-ban orders to shifting classes online.' },
         { term: 'CPCB', full: 'Central Pollution Control Board', def: 'India\'s apex environmental monitoring body under MoEFCC. Operates the CAAQMS monitoring network.', simple: 'India\'s main government body that monitors air and water pollution and runs official monitoring stations.' },
         { term: 'CAQM', full: 'Commission for Air Quality Management', def: 'Statutory body for Delhi-NCR air quality with quasi-judicial powers. Can issue binding directions.', simple: 'A special commission for Delhi-NCR with legal power to enforce pollution rules and activate GRAP stages.' },
         { term: 'RTI', full: 'Right to Information', def: 'Citizen\'s legal right under RTI Act 2005 to request information from public authorities. Response within 30 days.', simple: 'Your legal right to ask the government questions and get answers within 30 days.' },
-        { term: 'WHO', full: 'World Health Organization', def: '2021 guidelines set PM2.5 at 5 µg/m³ (annual) and PM10 at 15 µg/m³ — significantly stricter than India\'s NAAQS.', simple: 'The global health body that sets safe limits for air pollution. Most Indian cities are 10-20x over their guidelines.' },
+        { term: 'WHO', full: 'World Health Organization', def: '2021 guidelines set PM2.5 at 5 µg/m³ (annual) and PM10 at 15 µg/m³ — significantly stricter than India\'s NAAQS.', simple: 'The global health body that sets safe limits for air pollution. India\'s national average is about 10 times the WHO guideline (IQAir 2025); Delhi is about 16 times.' },
         { term: 'COPD', full: 'Chronic Obstructive Pulmonary Disease', def: 'Progressive lung diseases obstructing airflow. PM2.5 exposure is a leading risk factor.', simple: 'A lung disease that makes it hard to breathe. Long-term air pollution is a major cause.' },
         { term: 'IHD', full: 'Ischaemic Heart Disease', def: 'Reduced blood supply to the heart. PM2.5 increases risk through systemic inflammation.', simple: 'Heart disease caused by reduced blood flow. Air pollution increases heart attack risk.' },
-        { term: 'ALRI', full: 'Acute Lower Respiratory Infection', def: 'Lower respiratory tract infections (pneumonia). Leading cause of death in children under 5 in India.', simple: 'Serious lung infections like pneumonia, especially dangerous for children under 5.' },
+        { term: 'ALRI', full: 'Acute Lower Respiratory Infection', def: 'Lower respiratory tract infections (pneumonia). A leading cause of death in children under 5 in India.', simple: 'Serious lung infections like pneumonia, especially dangerous for children under 5.' },
         { term: 'GBD', full: 'Global Burden of Disease', def: 'Comprehensive IHME study quantifying health loss. Attributes ~2M deaths/year in India to air pollution.', simple: 'The world\'s largest health study. Says air pollution kills 2 million Indians per year.' },
-        { term: 'CAAQMS', full: 'Continuous Ambient Air Quality Monitoring System', def: 'Automated stations measuring PM2.5, PM10, SO2, NO2, O3, CO in real-time. India has 400+ stations.', simple: 'Automatic air quality stations that measure pollution 24/7. India has 400+ but coverage is uneven.' },
-        { term: 'WAQI', full: 'World Air Quality Index', def: 'Non-profit aggregating real-time data from 30,000+ stations worldwide. JanVayu\'s live data source.', simple: 'A global project that collects air quality data and makes it free. JanVayu uses it for live data.' },
+        { term: 'CAAQMS', full: 'Continuous Ambient Air Quality Monitoring System', def: 'Automated stations measuring PM2.5, PM10, SO2, NO2, O3, CO in real-time. India has about 565 stations (CREA, Jan 2026).', simple: 'Automatic air quality stations that measure pollution 24/7. India has about 565 but coverage is uneven.' },
+        { term: 'WAQI', full: 'World Air Quality Index', def: 'Independent project (aqicn.org) aggregating real-time data from more than 500,000 known stations in about 130 countries. JanVayu\'s live data source.', simple: 'A global project that collects air quality data and makes it free. JanVayu uses it for live data.' },
         { term: 'NAAQS', full: 'National Ambient Air Quality Standards', def: 'India\'s regulatory limits. PM2.5 annual: 40 µg/m³ (8x the WHO guideline of 5).', simple: 'India\'s official air quality limits — much less strict than WHO. India allows 40, WHO says 5.' },
         { term: 'Stubble Burning', full: '', def: 'Burning crop residue after harvest in Punjab/Haryana. Major contributor to Delhi-NCR\'s winter pollution (Oct-Nov).', simple: 'When farmers burn leftover crop stalks. Causes massive pollution spikes in North India every October-November.' },
         { term: 'Temperature Inversion', full: '', def: 'Warm air layer trapping cooler surface air and pollutants near ground level. Common in Indo-Gangetic winters.', simple: 'When cold air gets trapped under warm air, acting like a lid that stops pollution from dispersing.' },
@@ -2484,12 +2487,16 @@
         if (aqi <= 400) return '#7C3AED';
         return '#831843';
     }
+    // WAQI reports the US EPA AQI (2016 table, aqicn.org/sources), so the names
+    // and band edges here are the US EPA ones: 0-50 Good, 51-100 Moderate,
+    // 101-150 Unhealthy for Sensitive Groups, 151-200 Unhealthy, 201-300 Very
+    // Unhealthy, 301-500 Hazardous. They are not the CPCB (India) names.
     function getAQILabel(aqi) {
         if (aqi <= 50) return 'Good';
         if (aqi <= 100) return 'Moderate';
-        if (aqi <= 200) return 'Poor';
-        if (aqi <= 300) return 'Very Poor';
-        if (aqi <= 400) return 'Severe';
+        if (aqi <= 150) return 'Unhealthy for Sensitive Groups';
+        if (aqi <= 200) return 'Unhealthy';
+        if (aqi <= 300) return 'Very Unhealthy';
         return 'Hazardous';
     }
     function getPM25Class(pm25) {
@@ -2664,11 +2671,11 @@
             liveStatus.innerHTML = usingLiveData
                 ? `<span class="pulse"></span> Live air from ${INDIAN_CITIES.length} cities &middot; refreshed ${timeStr}`
                   + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
-                  + `Drawn from India's ~565 continuous CPCB monitors &mdash; the whole national network. `
+                  + `Drawn from India's ~565 continuous CPCB monitors (CREA, Jan 2026), the whole continuous (CAAQMS) network. `
                   + `Yearly satellite figures cover all <strong style="font-weight:600;">983,149</strong> areas, down to the village.</span>`
                 : `<span style="color:var(--amber);">&#9888;</span> Showing estimated data. Check console for API details.`;
             liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine — `
-                + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's network, not the limit of ours. `
+                + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's continuous (CAAQMS) network (CREA, Jan 2026), not the limit of ours. `
                 + `JanVayu carries live air for ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
                 + `(${successCount} answered this cycle) and the rest load when you select them, to stay inside the data source's free tier. `
                 + `The satellite layer is what closes the gap: annual and seasonal PM2.5, surface heat and land cover for all `
@@ -2775,7 +2782,7 @@
 
             const ncapCtx = document.getElementById('ncapChart');
             if (ncapCtx) {
-                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Noida', 'Ghaziabad'], datasets: [{ label: 'Allocated (₹ Cr)', data: [81.36, 127, 48.5], backgroundColor: '#3B82F6' }, { label: 'Utilized (₹ Cr)', data: [14.1, 30, 39], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'NCAP Fund Utilization (city-level, 2025-26)', font: { size: 11 } } }, scales: { y: { grid: { color: gridColor } } } } });
+                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Noida'], datasets: [{ label: 'Released (₹ Cr)', data: [81.36, 56], backgroundColor: '#3B82F6' }, { label: 'Utilized (₹ Cr)', data: [14.1, 30], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'NCAP funds released and utilised, cumulative to Dec 2025 (Delhi) and Jan 2026 (Noida), ResGov city briefs', font: { size: 11 } } }, scales: { y: { grid: { color: gridColor } } } } });
             }
 
             // BUDGET TRACKER CHARTS
@@ -2816,8 +2823,8 @@
                     data: { 
                         labels: ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26'], 
                         datasets: [
-                            { label: 'MoEFCC Budget (₹ Cr)', data: [2954, 3100, 2870, 3030, 3079, 3265, 3413], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 },
-                            { label: 'Pollution Control (₹ Cr)', data: [650, 700, 750, 845, 845, 858, 854], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }
+                            { label: 'MoEFCC Budget (₹ Cr; BE, except 2024-25 = revised estimate)', data: [2954, 3100, 2870, 3030, 3079, 3125.96, 3413], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 },
+                            { label: 'Pollution Control (₹ Cr; budget estimate, Expenditure Budget)', data: [460, 460, 470, 460, 756, 858, 854], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }
                         ] 
                     }, 
                     options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor } } } } 
@@ -2856,7 +2863,7 @@
 
             const historyCtx = document.getElementById('historyChart');
             if (historyCtx) {
-                charts.history = new Chart(historyCtx, { type: 'line', data: { labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'], datasets: [{ label: 'Delhi PM2.5', data: [122, 134, 128, 115, 108, 84, 96, 99, 102, 105, 100], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 }, { label: 'WHO Guideline', data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], borderColor: '#22C55E', borderDash: [5, 5], fill: false }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 150, grid: { color: gridColor } } } } });
+                charts.history = new Chart(historyCtx, { type: 'line', data: { labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'], datasets: [{ label: 'Delhi PM2.5 (illustrative working values, not a published series)', data: [122, 134, 128, 115, 108, 84, 96, 99, 102, 105, 100], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 }, { label: 'WHO Guideline', data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], borderColor: '#22C55E', borderDash: [5, 5], fill: false }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 150, grid: { color: gridColor } } } } });
             }
 
             // Economic Impact Chart (Dalberg data)
@@ -2867,7 +2874,7 @@
 
             const seasonalCtx = document.getElementById('seasonalChart');
             if (seasonalCtx) {
-                charts.seasonal = new Chart(seasonalCtx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], datasets: [{ label: 'Avg AQI', data: [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450, grid: { color: gridColor } } } } });
+                charts.seasonal = new Chart(seasonalCtx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], datasets: [{ label: 'Avg AQI (illustrative working values, not a published figure)', data: [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450, grid: { color: gridColor } } } } });
             }
         }
 
@@ -3704,7 +3711,7 @@
             document.getElementById('safe-result').style.display = 'block';
             document.getElementById('safe-hours').textContent = adjustedHours === 0 ? 'AVOID OUTDOORS' : adjustedHours.toFixed(1) + ' hours';
             document.getElementById('safe-hours').style.color = adjustedHours < 2 ? '#EF4444' : adjustedHours < 4 ? '#F59E0B' : '#22C55E';
-            document.getElementById('safe-advice').textContent = aqi > 300 ? 'Severe. Stay indoors. N95 if unavoidable.' : aqi > 200 ? 'Very poor. Avoid outdoor exercise.' : 'Reduce prolonged exertion.';
+            document.getElementById('safe-advice').textContent = (aqi > 300 ? 'Severe. Stay indoors. N95 if unavoidable.' : aqi > 200 ? 'Very poor. Avoid outdoor exercise.' : 'Reduce prolonged exertion.') + ' Rule of thumb, not a medical threshold.';
         }
 
     function calculateHealthRisk() {
@@ -3715,10 +3722,11 @@
             const baselineRisk = Math.exp(0.1 * Math.log(1 + 5/2.5));
             const currentRisk = Math.exp(0.1 * Math.log(1 + pm25/2.5));
             const excessRisk = ((currentRisk / baselineRisk) - 1) * 100 * conditions * (outdoor / 8);
-            const yearsLost = (excessRisk / 100) * (75 - age) * 0.3;
+            // AQLI (EPIC): 0.98 years of life expectancy per 10 µg/m³ of sustained PM2.5 above the WHO guideline of 5.
+            const yearsLost = Math.max(0, pm25 - 5) * 0.098;
             const cigarettes = (pm25 * outdoor / 24) / 22;
-            document.getElementById('mortality-risk').textContent = '+' + excessRisk.toFixed(1) + '%';
-            document.getElementById('life-years-lost').textContent = yearsLost.toFixed(1) + ' years';
+            document.getElementById('mortality-risk').textContent = '+' + excessRisk.toFixed(1) + '% (illustrative)';
+            document.getElementById('life-years-lost').textContent = yearsLost.toFixed(1) + ' years (AQLI)';
             document.getElementById('cigarette-equiv').textContent = cigarettes.toFixed(1) + ' cig/day';
         }
 
@@ -3731,7 +3739,7 @@
             const annualLoss = salary * 12 * employees * productivityLoss;
             document.getElementById('econ-result').style.display = 'block';
             document.getElementById('econ-loss').textContent = 'Rs ' + (annualLoss / 100000).toFixed(1) + ' Lakhs/year';
-            document.getElementById('econ-detail').innerHTML = `Productivity loss: ${(productivityLoss * 100).toFixed(1)}%<br>Based on ${CITIES[cityKey]?.name} AQI: ${cityAQI}`;
+            document.getElementById('econ-detail').innerHTML = `Productivity loss: ${(productivityLoss * 100).toFixed(1)}%<br>Based on ${CITIES[cityKey]?.name} AQI: ${cityAQI}<br><em>Illustrative working model (1% per 10 AQI points above 50), not a published figure.</em>`;
         }
 
     async function updateComparison(forceRefresh = false) {
@@ -6170,7 +6178,7 @@
                         <span style="font-size: 0.78rem; color: ${textColor}; font-weight: 600;">PM2.5 &micro;g/m&sup3;</span>
                     </div>
                     <div style="font-size: 0.75rem; color: #555;">${label}${whoX ? ' &middot; ' + whoX + '&times; WHO guideline' : ''}</div>
-                    <div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Source: CPCB/IQAir climatology</div>
+                    <div style="font-size: 0.65rem; color: #888; margin-top: 6px;">Illustrative monthly working values, not a published series</div>
                 </div>`;
             const radius = pm25 != null ? Math.min(20, 8 + pm25 / 30) : 8;
             const marker = L.circleMarker([city.lat, city.lon], {
@@ -7037,7 +7045,8 @@
             <div style="font-size: 0.85rem; padding: 0.75rem; background: var(--bg-section); border-radius: var(--radius);">
                 <strong>Mask:</strong> ${maskRec}<br>
                 <strong>Current AQI:</strong> ${aqi} (${getAQILabel(aqi)})<br>
-                <strong>PM2.5:</strong> ${pm25} µg/m³ (${getWHOMultiple(pm25)}x WHO guideline)
+                <strong>PM2.5:</strong> ${pm25} µg/m³ (${getWHOMultiple(pm25)}x WHO guideline)<br>
+                <em>Rule-of-thumb score from JanVayu's own multipliers, not a medical threshold.</em>
             </div>`;
 
         detailsEl.style.display = 'block';
@@ -7046,7 +7055,7 @@
                 <div class="card" style="padding: 0.75rem;"><div style="font-size: 0.7rem; color: var(--text-3);">Risk Score</div><div style="font-size: 1.25rem; font-weight: 700; color: ${color};">${riskScore.toFixed(1)}</div></div>
                 <div class="card" style="padding: 0.75rem;"><div style="font-size: 0.7rem; color: var(--text-3);">Cigarette Equiv.</div><div style="font-size: 1.25rem; font-weight: 700;">${((pm25 * duration / 60 / 24) / 22).toFixed(1)}</div></div>
                 <div class="card" style="padding: 0.75rem;"><div style="font-size: 0.7rem; color: var(--text-3);">WHO Multiple</div><div style="font-size: 1.25rem; font-weight: 700;">${getWHOMultiple(pm25)}x</div></div>
-                <div class="card" style="padding: 0.75rem;"><div style="font-size: 0.7rem; color: var(--text-3);">Best Time</div><div style="font-size: 1.25rem; font-weight: 700;">${aqi > 200 ? 'Avoid' : '2-4 PM'}</div></div>
+                <div class="card" style="padding: 0.75rem;"><div style="font-size: 0.7rem; color: var(--text-3);">Best Time</div><div style="font-size: 1.25rem; font-weight: 700;">${aqi > 200 ? 'Avoid' : 'Check forecast'}</div></div>
             </div>`;
     }
 
@@ -7059,16 +7068,16 @@
         // Both colours are painted as text, so they are tokens: #F97316 reads
         // 2.80:1 on white, under even the 3:1 large-text bar.
         if (avgAQI <= 200) { stage = 'Normal'; stageColor = 'var(--ink-green)'; schoolStatus = 'All schools OPEN'; schoolColor = 'var(--ink-green)'; }
-        else if (avgAQI <= 300) { stage = 'Stage I'; stageColor = 'var(--ink-amber)'; schoolStatus = 'Schools OPEN — outdoor activities restricted'; schoolColor = 'var(--ink-amber)'; }
-        else if (avgAQI <= 400) { stage = 'Stage II'; stageColor = 'var(--ink-orange)'; schoolStatus = 'Schools OPEN — NO outdoor sports'; schoolColor = 'var(--ink-orange)'; }
-        else if (avgAQI <= 450) { stage = 'Stage III'; stageColor = 'var(--ink-red)'; schoolStatus = 'Primary schools (up to Class 5) CLOSED'; schoolColor = 'var(--ink-red)'; }
-        else { stage = 'Stage IV'; stageColor = 'var(--ink-violet)'; schoolStatus = 'ALL schools CLOSED — online classes only'; schoolColor = 'var(--ink-violet)'; }
+        else if (avgAQI <= 300) { stage = 'Stage I'; stageColor = 'var(--ink-amber)'; schoolStatus = 'Schools OPEN (no school-specific GRAP measure at this stage)'; schoolColor = 'var(--ink-amber)'; }
+        else if (avgAQI <= 400) { stage = 'Stage II'; stageColor = 'var(--ink-orange)'; schoolStatus = 'Schools OPEN (no school-specific GRAP measure at this stage)'; schoolColor = 'var(--ink-orange)'; }
+        else if (avgAQI <= 450) { stage = 'Stage III'; stageColor = 'var(--ink-red)'; schoolStatus = 'Hybrid classes (physical + online) up to Class V'; schoolColor = 'var(--ink-red)'; }
+        else { stage = 'Stage IV'; stageColor = 'var(--ink-violet)'; schoolStatus = 'Hybrid classes up to Class V, and Classes VI-IX and XI in Delhi and other listed NCR districts'; schoolColor = 'var(--ink-violet)'; }
 
         const grapEl = document.getElementById('grap-status');
         if (grapEl) {
             grapEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
-                    <div style="font-size: 0.85rem; color: var(--text-3);">NCR Average AQI</div>
+                    <div style="font-size: 0.85rem; color: var(--text-3);">NCR average of live WAQI (US) AQI, illustrative</div>
                     <div style="font-size: 2.5rem; font-weight: 700; color: ${getAQITextColor(avgAQI)};">${Math.round(avgAQI)}</div>
                     <div style="font-size: 1.25rem; font-weight: 700; color: ${stageColor}; margin-top: 0.5rem;">GRAP ${stage}</div>
                 </div>`;
@@ -7078,7 +7087,7 @@
             predEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
                     <div style="font-size: 1.5rem; font-weight: 700; color: ${schoolColor}; margin-bottom: 0.5rem;">${schoolStatus}</div>
-                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on current NCR average AQI of ${Math.round(avgAQI)}. GRAP stages are determined by CAQM based on 3-day rolling average.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on current NCR average AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 21 Nov 2025). This page applies the stage bands to the live NCR average of WAQI (US AQI) readings as an illustration, so it can differ from the official stage.</p>
                 </div>`;
         }
 
@@ -7097,16 +7106,19 @@
     }
 
     // ── Personal Exposure Report ──
-    // Delhi is New Delhi in IQAir 2025 (82.2). The other cities are rounded working
-    // values that have not yet been matched to IQAir 2025; they will be updated.
+    // IQAir 2025 (iqair.com/in-en/world-most-polluted-cities): Delhi is New Delhi 82.2,
+    // Gurgaon is Gurugram 74.6, Noida 80.5, Ghaziabad 89.2 (IQAIR_2025_VERIFIED below).
+    // Every other city is a rounded working value that has NOT been matched to IQAir 2025;
+    // the UI says so wherever they are shown.
     const CITY_ANNUAL_PM25 = {
         delhi: 82.2, mumbai: 42, kolkata: 84, chennai: 31, bangalore: 48, hyderabad: 55,
-        gurgaon: 105, noida: 98, faridabad: 95, ghaziabad: 108, lucknow: 88, kanpur: 95,
+        gurgaon: 74.6, noida: 80.5, faridabad: 95, ghaziabad: 89.2, lucknow: 88, kanpur: 95,
         patna: 96, jaipur: 72, ahmedabad: 58, pune: 35, chandigarh: 52, varanasi: 82,
         agra: 78, bhopal: 45, indore: 42, nagpur: 48, kochi: 22, visakhapatnam: 35,
         thiruvananthapuram: 18, coimbatore: 28, muzaffarpur: 90, gaya: 85, raipur: 65,
         jodhpur: 70, guwahati: 55, dehradun: 48, amritsar: 75
     };
+    const IQAIR_2025_VERIFIED = new Set(['delhi', 'gurgaon', 'noida', 'ghaziabad']);
 
     async function generateExposureReport() {
         try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
@@ -7118,14 +7130,13 @@
         const annualPM25 = CITY_ANNUAL_PM25[cityKey] || 50;
         const cityName = CITIES[cityKey]?.name || cityKey;
 
-        // Monthly PM2.5 estimates (seasonal variation for North India)
+        // Monthly PM2.5 pattern: illustrative multipliers on the annual mean, not a published monthly series.
         const isNorth = CITIES[cityKey]?.region === 'north';
         const monthlyMultipliers = isNorth
             ? [1.8, 1.5, 1.0, 0.7, 0.6, 0.5, 0.4, 0.4, 0.6, 1.2, 2.2, 2.0]
             : [1.1, 1.0, 0.9, 0.8, 0.8, 0.7, 0.7, 0.7, 0.8, 1.0, 1.2, 1.2];
         const monthlyPM25 = monthlyMultipliers.map(m => Math.round(annualPM25 * m));
 
-        const daysAboveWHO = 365; // Almost all Indian cities exceed WHO guideline year-round
         const daysAbove100 = monthlyPM25.filter(m => m > 100).length * 30;
         const cigaretteEquiv = ((annualPM25 * outdoorHours / 24) / 22 * 365).toFixed(0);
         // AQLI: 0.98 years per 10 µg/m³ of sustained PM2.5 above the WHO guideline (5).
@@ -7150,16 +7161,16 @@
                 <div style="font-size: 0.65rem; color: var(--text-3);">years of life expectancy</div>
             </div>
             <div class="card" style="padding: 1rem; text-align: center; border-left: 3px solid var(--blue);">
-                <div style="font-size: 0.7rem; color: var(--text-3);">Days Above WHO</div>
-                <div style="font-size: 1.75rem; font-weight: 700;">${daysAboveWHO}</div>
-                <div style="font-size: 0.65rem; color: var(--text-3);">of 365 days</div>
+                <div style="font-size: 0.7rem; color: var(--text-3);">Annual mean vs WHO</div>
+                <div style="font-size: 1.75rem; font-weight: 700;">${getWHOMultiple(annualPM25)}x</div>
+                <div style="font-size: 0.65rem; color: var(--text-3);">the WHO annual guideline of 5 µg/m³</div>
             </div>`;
 
         document.getElementById('exposure-interpretation').innerHTML = `
             <p><strong>Living in ${cityName}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong> — that's <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
             <p style="margin-top: 0.75rem;">With ${outdoorHours} hours outdoors daily, your annual pollution exposure is equivalent to smoking approximately <strong>${cigaretteEquiv} cigarettes per year</strong> (${(cigaretteEquiv/365).toFixed(1)} per day).</p>
             <p style="margin-top: 0.75rem;">Research suggests this level of exposure reduces life expectancy by approximately <strong>${lifeYearsLost} years</strong> compared to breathing WHO-guideline air.</p>
-            <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb, not a medical equivalence. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
+            <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb (outdoor-hours scaling is JanVayu's own choice), not a medical equivalence. ${IQAIR_2025_VERIFIED.has(cityKey) ? 'Annual PM2.5 is the IQAir 2025 value.' : 'Annual PM2.5 for this city is an illustrative working value, not a published figure.'} The monthly bars use an illustrative seasonal pattern, not measured monthly data. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
 
         // Chart
         setTimeout(() => {
@@ -7171,7 +7182,7 @@
                     type: 'bar', data: {
                         labels: months,
                         datasets: [{
-                            label: 'PM2.5 (µg/m³)', data: monthlyPM25,
+                            label: 'PM2.5 (µg/m³), illustrative monthly pattern', data: monthlyPM25,
                             backgroundColor: monthlyPM25.map(v => getPM25Color(v)),
                             borderRadius: 4
                         }, {
@@ -7223,23 +7234,23 @@
 
     const DIARY_RECOMMENDATIONS_DB = {
         cooking_solid: [
-            { text: 'Switch from chulha/biomass to LPG: this single change can reduce your cooking exposure by 97%.', saving: 14.5 },
-            { text: 'If LPG is not available, use an improved cookstove with a chimney to cut smoke exposure by 50-60%.', saving: 8.0 },
+            { text: 'Switch from chulha/biomass to LPG: in the HAPIN trial, LPG cut kitchen PM2.5 by about 92%.', saving: 14.5 },
+            { text: 'If LPG is not available, use an improved cookstove with a chimney to cut smoke exposure.', saving: 8.0 },
             { text: 'Cook outdoors or in a well-ventilated separate kitchen to reduce indoor smoke accumulation.', saving: 5.0 }
         ],
         auto_rickshaw: [
-            { text: 'Switch from auto-rickshaw to metro: saves significant PM2.5 exposure due to filtered underground air.', saving: 1.2 },
+            { text: 'Switch from auto-rickshaw to metro: may cut PM2.5 exposure compared with open-air travel.', saving: 1.2 },
             { text: 'If auto-rickshaw is your only option, use a well-fitting N95 mask during commute.', saving: 0.6 },
             { text: 'Shift commute timing to early morning (before 8 AM) when traffic emissions are lower.', saving: 0.3 }
         ],
         cycling: [
             { text: 'Cycle on less-trafficked routes or greenway paths to reduce direct exhaust exposure.', saving: 0.5 },
-            { text: 'Wear a pollution mask (N95/N99) while cycling to filter 90%+ of PM2.5.', saving: 1.5 },
+            { text: 'Wear a pollution mask (N95/N99) while cycling; a certified N95 filters at least 95% of test particles.', saving: 1.5 },
             { text: 'Shift cycling to early morning (5-7 AM) when vehicular emissions are lowest.', saving: 0.5 }
         ],
         exercise_outdoor: [
-            { text: 'Check AQI before exercising outdoors. Skip outdoor workouts when AQI exceeds 150.', saving: 0.8 },
-            { text: 'Exercise in parks or green spaces away from roads to reduce exposure by 30-50%.', saving: 0.7 },
+            { text: 'Check AQI before exercising outdoors. Consider skipping outdoor workouts on high-AQI days.', saving: 0.8 },
+            { text: 'Exercise in parks or green spaces away from roads to reduce exposure.', saving: 0.7 },
             { text: 'Shift outdoor exercise to early morning (5-7 AM) for lower pollution levels.', saving: 0.5 }
         ],
         motorcycle: [
@@ -7248,7 +7259,7 @@
             { text: 'Wear a pollution mask under your helmet on high-AQI days.', saving: 0.5 }
         ],
         walking: [
-            { text: 'Walk on inner lanes or park paths away from main roads to cut exposure by 30%.', saving: 0.3 },
+            { text: 'Walk on inner lanes or park paths away from main roads to cut exposure.', saving: 0.3 },
             { text: 'Wear a well-fitting N95 mask while walking in polluted areas.', saving: 0.6 },
             { text: 'Avoid walking during rush hours (8-10 AM, 5-8 PM) when traffic emissions peak.', saving: 0.2 }
         ],
@@ -7448,7 +7459,7 @@
 
         // Details table
         barHTML += '<div style="margin-top:1rem;overflow-x:auto;"><table style="width:100%;font-size:0.78rem;border-collapse:collapse;">' +
-            '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:4px 6px;">Activity</th><th style="text-align:right;padding:4px 6px;">Hours</th><th style="text-align:right;padding:4px 6px;">Multiplier</th><th style="text-align:right;padding:4px 6px;">Effective PM2.5</th><th style="text-align:right;padding:4px 6px;">% of Exposure</th></tr>';
+            '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:4px 6px;">Activity</th><th style="text-align:right;padding:4px 6px;">Hours</th><th style="text-align:right;padding:4px 6px;">Multiplier (illustrative)</th><th style="text-align:right;padding:4px 6px;">Effective PM2.5</th><th style="text-align:right;padding:4px 6px;">% of Exposure</th></tr>';
         sorted.forEach(function(b) {
             var pct = totalContrib > 0 ? (b.exposureContrib / totalContrib * 100) : 0;
             barHTML += '<tr style="border-bottom:1px solid var(--border);">' +
@@ -7470,7 +7481,7 @@
         // Data source note
         document.getElementById('diary-recommendations').innerHTML += '<p style="margin-top:1rem;font-size:0.75rem;color:var(--text-3);border-top:1px solid var(--border);padding-top:0.75rem;">' +
             '<strong>' + cityName + '</strong> ambient PM2.5: <strong>' + ambientPM25.toFixed(0) + ' µg/m³</strong> (' + dataSource + ').<br>' +
-            'Cigarette equivalence: Berkeley Earth (22 µg/m³/day). Life-expectancy loss: AQLI methodology.' +
+            'Cigarette equivalence: Berkeley Earth (22 µg/m³/day). Life-expectancy loss: AQLI methodology. The activity multipliers (how much of the outdoor level reaches you) are illustrative working values, not published figures.' +
             '</p>';
 
         // WhatsApp share button
@@ -7740,10 +7751,10 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             <div style="font-size: 0.85rem; padding: 1rem; background: var(--bg-section); border-radius: var(--radius);">
                 <div style="margin-bottom: 0.5rem;"><strong>Room:</strong> ${area} sq ft × ${height} ft = ${volumeCuFt.toLocaleString()} cu ft</div>
                 <div style="margin-bottom: 0.5rem;"><strong>Current AQI:</strong> ${currentAQI} (PM2.5: ${currentPM25})</div>
-                <div style="margin-bottom: 0.5rem;"><strong>Air changes needed:</strong> ${airChangesNeeded}x/hour</div>
-                <div style="margin-bottom: 0.5rem;"><strong>Price range:</strong> ${priceRange}</div>
-                <div style="margin-bottom: 0.5rem;"><strong>Filter replacement:</strong> ~${filterCostYear}/year</div>
-                <div><strong>Suggested models:</strong> ${models}</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Air changes needed (rule of thumb):</strong> ${airChangesNeeded}x/hour</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Price range (indicative, not checked):</strong> ${priceRange}</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Filter replacement (indicative):</strong> ~${filterCostYear}/year</div>
+                <div><strong>Example models (availability not checked):</strong> ${models}</div>
             </div>
             <div class="alert alert-info mt-2" style="font-size: 0.75rem;">
                 Tip: Seal windows and doors for best results. Run purifier 30 minutes before entering room. Replace filters on schedule — a clogged filter is worse than no purifier.
@@ -8144,7 +8155,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         ];
 
         grid.innerHTML = months.map((m, i) => `
-            <div style="background: ${getAQIColor(avgAQI[i])}; color: ${onSwatchInk(getAQIColor(avgAQI[i]))}; padding: 0.5rem; border-radius: var(--radius); text-align: center; font-size: 0.7rem;">
+            <div title="Illustrative working value, not a published figure" style="background: ${getAQIColor(avgAQI[i])}; color: ${onSwatchInk(getAQIColor(avgAQI[i]))}; padding: 0.5rem; border-radius: var(--radius); text-align: center; font-size: 0.7rem;">
                 <div style="font-weight: 700;">${m}</div>
                 <div style="font-size: 1.1rem; font-weight: 700;">${avgAQI[i]}</div>
                 <div style="font-size: 0.55rem; opacity: 0.9;">${sources[i]}</div>
@@ -8161,8 +8172,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                     data: {
                         labels: months,
                         datasets: [
-                            { label: 'Avg AQI (Delhi)', data: avgAQI, borderColor: '#EF4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: true, tension: 0.4 },
-                            { label: 'WHO Guideline (AQI 50)', data: Array(12).fill(50), borderColor: '#22C55E', borderDash: [5,5], fill: false, pointRadius: 0 }
+                            { label: 'Avg AQI (Delhi, illustrative working values)', data: avgAQI, borderColor: '#EF4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: true, tension: 0.4 },
+                            { label: 'AQI 50 (upper bound of the Good band)', data: Array(12).fill(50), borderColor: '#22C55E', borderDash: [5,5], fill: false, pointRadius: 0 }
                         ]
                     },
                     options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450 } } }
