@@ -7097,8 +7097,8 @@
     }
 
     // ── Personal Exposure Report ──
-    // Delhi is New Delhi in IQAir 2025 (82.2). The other cities are hand-entered
-    // approximations, not IQAir 2025 figures; they await a source.
+    // Delhi is New Delhi in IQAir 2025 (82.2). The other cities are rounded working
+    // values that have not yet been matched to IQAir 2025; they will be updated.
     const CITY_ANNUAL_PM25 = {
         delhi: 82.2, mumbai: 42, kolkata: 84, chennai: 31, bangalore: 48, hyderabad: 55,
         gurgaon: 105, noida: 98, faridabad: 95, ghaziabad: 108, lucknow: 88, kanpur: 95,
