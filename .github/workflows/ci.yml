@@ -178,6 +178,14 @@ jobs:
       - name: Check no unit renders as milligrams
         run: python3 scripts/check-uppercase-units.py
 
+      # Five of the six pollutant pages printed `aqi * (Math.random() * 0.2 + 0.5)`
+      # under a heading carrying a real unit, from the first version of the page
+      # generator (26 April 2026) until 22 September 2026. The page rendered,
+      # nothing errored, and the only symptom was two loads disagreeing. Any
+      # Math.random outside games.js now needs a written reason beside it.
+      - name: Check no random value can pass as a measurement
+        run: python3 scripts/check-no-random-data.py
+
       # CPCB's own daily AQI bulletins, 2015-2025, as day counts per city per
       # year. The check recomputes every category count from the records and
       # refuses two things the data cannot support: an annual mean AQI (an

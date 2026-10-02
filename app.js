@@ -2621,6 +2621,7 @@
         } catch (e) { console.warn(`[JanVayu] ${cityKey}:`, e.message); }
         const demo = DEMO_DATA[cityKey];
         if (demo) {
+            // allow-random: demo fallback only, returned with live:false and a station name ending "(Fallback)"
             const r = (v) => Math.round(v * (1 + (Math.random() - 0.5) * 0.1));
             return { aqi: r(demo.aqi), pm25: r(demo.pm25), pm10: r(demo.pm10), time: new Date().toISOString(), station: city.name + ' (Fallback)', live: false };
         }

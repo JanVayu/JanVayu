@@ -4,6 +4,21 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.34: October upkeep (✅ Completed — v26.6.235)
+
+The season that decides how much of the year's attention this site gets starts in October, and the homepage bulletin still said September.
+
+- [x] **The homepage bulletin is October's, from sources read this week** — IMD's 21 September start to the retreat from Punjab and Haryana, the rainfall deficits there, and CAQM's revised GRAP of 28 September. A Punjab fire count and the "48 actions" figure were left out because neither could be traced to a named agency or order.
+- [x] **The correction the changelog was carrying alone** — a post on the five pollutant pages that printed random numbers for 149 days, and on the six functions that served a sub-index as a concentration.
+- [x] **`check-no-random-data.py`** — any `Math.random()` outside `games.js` needs a written reason beside it. Proved by restoring the original formula.
+- [x] **Issue #343's six `/about` errors were one bug in the generator.** Fixed there, pages regenerated.
+- [x] **Two npm packages brought current**, and the README and `scripts/README.md` brought current: the first described a release 80 versions back.
+- [ ] **A fact-check round** — the last is 8 September; `check-factcheck-freshness.py` allows 120 days, which is looser than the weekly cadence the routines are meant to keep. Scheduled routines stop when credits run out, so this needs a person to notice.
+- [ ] **Lancet Countdown 2026.** The homepage cites the 2025 edition (October 2025). No 2026 global edition was found on 2 October; re-check before the end of the month.
+- [ ] **Dependabot for npm.** It is configured for GitHub Actions only, which is why `resend` and `@netlify/blobs` had drifted.
+- [ ] **The demo fallback's ±5% jitter** in `app.js` is labelled "(Fallback)" and `live: false`, but it makes static demo values look like fresh readings. Decide whether to keep it.
+- [ ] **The EPA breakpoint table.** The site's sub-index conversion uses the band 55.5 to 150.4 µg/m³ for AQI 151 to 200. EPA revised its PM2.5 breakpoints effective 6 May 2024, and the band for AQI 151 to 200 is now 55.5 to 125.4 ([EPA fact sheet](https://www.epa.gov/system/files/documents/2024-02/pm-naaqs-air-quality-index-fact-sheet.pdf)). Whether WAQI applies the old or the new table is not established here; until it is, the "about 73 µg/m³" in the correction post is a figure on the site's own table, not a settled one.
+
 ## Phase 5.33: One design system, not nineteen (✅ Completed — v26.6.232)
 
 Phase 5.31 was about appearance that lived where no stylesheet could reach it — 2,860 inline `style=` attributes. This is the same problem one level up: appearance that lived in **eighteen private copies of the stylesheet**, one per page.

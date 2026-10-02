@@ -1,6 +1,13 @@
 {
  "stories": [
   {
+   "tag": "Data integrity",
+   "title": "Five of Our Six Pollutant Pages Were Printing Random Numbers",
+   "date": "2 Oct 2026",
+   "blurb": "For about five months, the PM10, CO, NO₂, SO₂ and O₃ pages on JanVayu showed a table of \"live levels\" whose numbers were random.",
+   "url": "/blog/#/posts/2026-10-02-five-pollutant-pages-random-numbers"
+  },
+  {
    "tag": "Analysis",
    "title": "What a Four-Day Jump in Delhi's AQI Actually Tells You",
    "date": "22 Sep 2026",

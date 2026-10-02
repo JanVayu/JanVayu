@@ -5,6 +5,73 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v26.6.235] - 2026-10-02
+
+### Changed, the homepage bulletin is October's
+
+It still opened "September 2026:" and would have failed
+`check-hero-currency.py` from 8 October. Rewritten against sources read this
+week rather than carried over: IMD's statement that the monsoon began
+withdrawing from Punjab and Haryana on 21 September, and the season's rain
+there running 37% (Punjab) and 26% (Haryana) below normal (as reported by The
+Tribune, 24 September 2026); and CAQM's revised GRAP schedule, approved 28
+September (ThePrint, 29 September). `/try` carries the same month and the
+same retreat. **Left out on purpose:** a Punjab farm-fire count (the one
+available, 52 as of 29 September, came from a report that does not name the
+agency behind it) and the "48 actions across four stages" figure, which one
+newspaper gives and neither it nor the other cites a CAQM order for. The
+bulletin still cites the Lancet Countdown 2025 as the latest edition; no 2026
+global edition was found.
+
+### Added, a post correcting the pollutant pages
+
+`blog/posts/2026-10-02-five-pollutant-pages-random-numbers.md`. The v26.6.232
+fix was in this changelog and nowhere a reader would look. The first version
+of the page generator in the repository history (26 April 2026, 0f00f39)
+already carried `Math.random()`, so the fabricated table ran for 149 days,
+until 22 September. (A clone of this repository is shallow and shows only the
+last 50 commits; the older history was read through the GitHub API.)
+
+### Added, a guard for that defect class
+
+`scripts/check-no-random-data.py` fails on any `Math.random()` in site code
+outside `games.js` unless `// allow-random: <reason>` sits on the same line or
+the line above. Proved by putting the original formula back. One use is
+marked: the demo fallback in `app.js`, which returns `live: false` under a
+station name ending "(Fallback)". Wired into `ci.yml` and
+`run-ci-checks.sh`.
+
+### Fixed, six links the audit could not follow
+
+The page generator wrote `href="/about"` into all six pollutant pages;
+lychee resolves a root-relative path as a file and reported six errors in
+issue #343. It writes `/#about` now and the pages are regenerated. The
+design-refresh post links `/try` by its full URL. `vayubuddy.streamlit.app`
+is in `.lycheeignore`: a cold Streamlit app answers 303 to a wake-up page.
+
+### Changed, dependencies
+
+`resend` 6.17.1 to 6.32.0 and `@netlify/blobs` 11.0.2 to 11.1.3, both inside
+the existing `^` ranges, lockfile only. Dependabot is configured for GitHub
+Actions and not npm, which is why they had drifted.
+
+### Changed, documentation that had fallen behind
+
+The README's "Recently shipped" described v26.6.155, 80 releases back.
+`scripts/README.md` listed four of the scripts, said none were needed to
+deploy (the build command is `bump-version.mjs`), and was last updated in May;
+it now lists every CI guard with the first line of its docstring.
+
+### Not recorded elsewhere
+
+v26.6.233 (#395) and v26.6.234 (#396) shipped without changelog entries.
+From their pull requests: 233 made the role popover's "Show everything" clear
+the role (it had stored `'skip'` where `/try` removes the key, and
+`#my-dashboard` read a `sessionStorage` copy nothing writes); 234 underlined
+links in running text (WCAG 1.4.1), fixed a `<p>` directly inside a `<dl>`,
+and replaced a `prefers-color-scheme` block with the attribute selector the
+theme model uses.
+
 ## [v26.6.232] - 2026-09-22
 
 ### Changed, every page is on the shared design system
