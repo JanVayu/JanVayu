@@ -41,7 +41,7 @@
   },
   "ncap_cities": {
     "value": "131",
-    "source": "CPCB non-attainment cities list"
+    "source": "PIB, 10 Jan 2019 NCAP release (131 cities); CREA 2026 counts 130"
   },
   "delhi_annual_pm25": {
     "value": "82.2",
@@ -56,8 +56,8 @@
     "source": "IQAir 2025"
   },
   "global_share_deaths": {
-    "value": "roughly a quarter to a third of the global PM2.5 death burden",
-    "note": "India ~1.72M of the global total; not a majority — the earlier '70%' figure was incorrect",
+    "value": "about a quarter (1.72 million of 6.5 million anthropogenic ambient PM2.5 deaths worldwide in 2022, Lancet Countdown 2025)",
+    "note": "1.72M / 6.5M = 26%. Not a majority. The earlier '70%' figure most likely divided India's 1.72M by the 2.52M fossil-fuel-only global figure, a numerator/denominator mismatch.",
     "source": "Lancet Countdown 2025"
   },
   "ncap_40pct_met": {
