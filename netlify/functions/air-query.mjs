@@ -413,11 +413,11 @@ EVs & TRANSPORT POLICY (India-wide):
 - BS-VI emission standards: nationwide since April 2020 (India skipped BS-V — went BS-IV → BS-VI direct).
 - PM-eBus Sewa: ₹20,000 Cr scheme for 10,000 e-buses across 169 cities by 2026 (WRI India estimates ~$2.4B).
 - FAME I (₹895 Cr, 2015-2019) → FAME II (₹11,500 Cr, 2019-2024) → PM E-DRIVE (₹10,900 Cr, 2024-2026); ₹23,295 Cr total EV investment across all three (PIB/Ministry of Heavy Industries).
-- Delhi e-bus fleet: 4,845 operational as of 9 Jul 2026 (largest in India). Target 7,500 by end 2026, 14,000 by 2028.
+- Delhi e-bus fleet: 4,845 operational as of 9 Jul 2026 (largest in India). Target 7,000 by end 2026, 14,000 by 2028 (Delhi government, per electrive 9 Jul 2026).
 - 8,849 EV charging stations across India as of Dec 2025.
 
 RECENT POLICY/COURT ACTIONS (Apr-May 2026):
-- CAQM: invoked GRAP Stage-I off-season on 19 May 2026 (first-ever off-season invocation at AQI 208) — signals year-round enforcement.
+- CAQM: invoked GRAP Stage-I off-season on 16 April 2026 (AQI 226; revoked 4 May) and again on 19 May 2026 (AQI 208; revoked 29 May). Stage-I was also imposed in May 2025. Do not call any of these a "first" — signals year-round enforcement.
 - NGT: directed 6 south-Indian states (TN/KL/KA/AP/TS/PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets (Apr 2026).
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; next hearing 21 Jul 2026).
 - NCAP March 2026 deadline elapsed: 23 of the 100 cities with sufficient data met the 40% PM10 reduction target (CREA, 'Tracing the Hazy Air 2026', 9 Jan 2026). The denominator is 100, not 96: CREA counts 102 NCAP cities with monitoring stations, of which 100 reported 80% or more PM10 data coverage. 51 met the earlier, looser 20-30% target and 23 cities saw PM10 RISE.

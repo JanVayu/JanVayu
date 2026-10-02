@@ -190,7 +190,7 @@ rise** (CREA, *Tracing the Hazy Air 2026*, 9 January 2026).
 
 **GRAP**, the Graded Response Action Plan, is Delhi-NCR's stage-by-stage
 emergency response. In May 2026 the Commission for Air Quality Management
-invoked Stage I off-season for the first time, at AQI 208.
+invoked Stage I off-season at AQI 208, after an earlier summer invocation on 16 April.
 
 JanVayu tracks both, plus a budget tracker following NCAP and 15th Finance
 Commission grants and their per-city utilisation, and city scorecards.
