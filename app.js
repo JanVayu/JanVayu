@@ -1571,7 +1571,7 @@
         { term: 'PM2.5', full: 'Fine Particulate Matter', def: 'Airborne particles smaller than 2.5 micrometres. Small enough to penetrate deep into lungs and bloodstream. WHO guideline: 5 µg/m³ annual mean.', simple: 'Tiny invisible particles that get deep into your lungs and blood. The WHO says safe is 5 or less. Delhi averages 96.' },
         { term: 'PM10', full: 'Coarse Particulate Matter', def: 'Particles smaller than 10 micrometres including dust, pollen, and construction debris. WHO guideline: 15 µg/m³.', simple: 'Larger dust particles from roads or construction. They irritate your nose and throat but don\'t go as deep as PM2.5.' },
         { term: 'µg/m³', full: 'Micrograms per cubic metre', def: 'Standard unit for measuring airborne particle concentration. One microgram is one-millionth of a gram.', simple: 'The unit used to measure pollution in the air. Think of it as "parts of pollution per breath". Lower is better.' },
-        { term: 'GEMM', full: 'Global Exposure Mortality Model', def: 'A dose-response model (Burnett et al., 2018) estimating excess mortality from PM2.5 exposure. Used in GBD studies.', simple: 'A formula that estimates how many people die from air pollution based on PM2.5 levels.' },
+        { term: 'GEMM', full: 'Global Exposure Mortality Model', def: 'A dose-response model (Burnett et al., 2018) estimating excess mortality from PM2.5 exposure.', simple: 'A formula that estimates how many people die from air pollution based on PM2.5 levels.' },
         { term: 'NCAP', full: 'National Clean Air Programme', def: 'India\'s flagship programme targeting 40% PM reduction by 2025-26 across 131 non-attainment cities. ~$1.4B budget.', simple: 'India\'s government plan to reduce air pollution in 131 cities by 40%. $1.4 billion budget, mixed results.' },
         { term: 'GRAP', full: 'Graded Response Action Plan', def: 'Emergency pollution control framework for Delhi-NCR. Stage I (AQI 201-300) to Stage IV (AQI >450). Enforced by CAQM.', simple: 'Emergency rules for Delhi that kick in when pollution gets bad. From banning firecrackers to closing schools.' },
         { term: 'CPCB', full: 'Central Pollution Control Board', def: 'India\'s apex environmental monitoring body under MoEFCC. Operates the CAAQMS monitoring network.', simple: 'India\'s main government body that monitors air and water pollution and runs official monitoring stations.' },
@@ -7126,7 +7126,9 @@
         const daysAboveWHO = 365; // Almost all Indian cities exceed WHO guideline year-round
         const daysAbove100 = monthlyPM25.filter(m => m > 100).length * 30;
         const cigaretteEquiv = ((annualPM25 * outdoorHours / 24) / 22 * 365).toFixed(0);
-        const lifeYearsLost = ((annualPM25 - 5) * 0.018 * (outdoorHours / 8)).toFixed(1);
+        // AQLI: 0.98 years per 10 µg/m³ of sustained PM2.5 above the WHO guideline (5).
+        // AQLI is built on residential, sustained exposure, so outdoor hours do not scale it.
+        const lifeYearsLost = ((annualPM25 - 5) * 0.098).toFixed(1);
 
         document.getElementById('exposure-results').style.display = 'block';
         document.getElementById('exposure-stats').innerHTML = `
@@ -7155,7 +7157,7 @@
             <p><strong>Living in ${cityName}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong> — that's <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
             <p style="margin-top: 0.75rem;">With ${outdoorHours} hours outdoors daily, your annual pollution exposure is equivalent to smoking approximately <strong>${cigaretteEquiv} cigarettes per year</strong> (${(cigaretteEquiv/365).toFixed(1)} per day).</p>
             <p style="margin-top: 0.75rem;">Research suggests this level of exposure reduces life expectancy by approximately <strong>${lifeYearsLost} years</strong> compared to breathing WHO-guideline air.</p>
-            <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Based on GEMM model estimates and Lancet Countdown 2025 data. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
+            <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb, not a medical equivalence. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
 
         // Chart
         setTimeout(() => {

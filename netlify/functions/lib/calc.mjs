@@ -17,8 +17,11 @@ export function calcCigarettes(pm25) {
   };
 }
 
-// Jaganathan et al. 2024, Lancet Planetary Health — India-wide causal
-// dose-response: every +10 µg/m³ PM2.5 → +8.6% all-cause mortality.
+// Jaganathan et al. 2024, Lancet Planetary Health — a district-level
+// difference-in-differences estimate: +10 µg/m³ annual PM2.5 → +8.6% all-cause
+// mortality (95% CI 6.4-10.8), fitted over observed exposures of about
+// 20-72 µg/m³. Applying it linearly above the WHO guideline, as here, goes
+// beyond that range at the top end; treat the output as indicative.
 export function calcMortalityRisk(pm25) {
   if (!pm25 || pm25 <= 0) return null;
   const aboveWHO = Math.max(0, pm25 - 5);
@@ -26,7 +29,7 @@ export function calcMortalityRisk(pm25) {
   return {
     excessMortalityPct: +excessPct.toFixed(1),
     aboveWHO: +aboveWHO.toFixed(1),
-    source: "Jaganathan et al. 2024, Lancet Planetary Health (India causal dose-response)",
+    source: "Jaganathan et al. 2024, Lancet Planetary Health (district-level difference-in-differences estimate, +8.6% per 10 µg/m³; applied linearly, so indicative above about 70 µg/m³)",
   };
 }
 
@@ -53,7 +56,7 @@ export function calcMigrationBenefit(currentPm25, destPm25) {
 }
 
 // Transport exposure — multiply ambient PM2.5 by mode/duration.
-// Multipliers are modeling assumptions from peer-reviewed commute-exposure studies (e.g., Goel et al. 2015, Delhi), already in the prompt.
+// Multipliers are JanVayu modelling assumptions informed by commute-exposure studies such as Goel et al. 2015 (Delhi). They are NOT that study's ratios: Goel et al. report on-road PM2.5 about 40% above ambient for walking, 10% for cycling, 30% for auto-rickshaws and open-window cars, 20% for buses, and 50% below ambient inside an air-conditioned car. Replacing these with the published ratios is an open item.
 export const TRANSPORT_MULTIPLIERS = {
   walk: 1.0, walking: 1.0,
   cycle: 2.5, cycling: 2.5, bicycle: 2.5, bike: 2.5,
@@ -90,7 +93,7 @@ export function calcTransportExposure(pm25, mode, hours) {
     localPm25: +localPm25.toFixed(1),
     pctOfDailyDose: +(mult * fractionOfDay * 100).toFixed(0),
     equivCigsForCommute: +equivCigs.toFixed(2),
-    source: "Peer-reviewed commute-exposure studies (e.g., Goel et al. 2015, Delhi transport microenvironments); cigarette equivalence per Berkeley Earth",
+    source: "JanVayu mode multipliers (assumptions informed by Goel et al. 2015, Delhi; not the study's own ratios); cigarette equivalence per Berkeley Earth, a rule of thumb from average chronic mortality rather than an acute-dose equivalence",
   };
 }
 
@@ -128,6 +131,6 @@ export function calcSchoolClosureRisk(aqi, month) {
   }
   return {
     risk, trigger, aqi, month,
-    source: "CAQM GRAP framework (revised 2024); Delhi-NCR mandate; other cities follow advisory pattern",
+    source: "CAQM GRAP schedule (revised 21 Nov 2025 and 28 Sep 2026); Delhi-NCR mandate; other cities follow advisory pattern. Indicative only: GRAP is invoked by CAQM on Delhi's average CPCB-scale AQI and forecast, not on one station's reading",
   };
 }

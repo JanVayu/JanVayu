@@ -5,7 +5,7 @@
   "who_annual": 5,
   "naaqs_source": "CPCB, National Ambient Air Quality Standards, 2009 — annual mean PM2.5 40 µg/m³",
   "who_source": "WHO global air quality guidelines, 2021 — annual mean PM2.5 5 µg/m³",
-  "annual_source": "Wei et al. (2024), Reconstructing long-term (1980-2022) daily ground particulate matter concentrations in India (LongPMInd), Earth System Science Data 16, 3565-3577, doi:10.5194/essd-16-3565-2024. Data: Zenodo doi:10.5281/zenodo.14557027, CC BY 4.0.",
+  "annual_source": "Wang et al. (2024), Reconstructing long-term (1980-2022) daily ground particulate matter concentrations in India (LongPMInd), Earth System Science Data 16, 3565-3577, doi:10.5194/essd-16-3565-2024. Data: Zenodo doi:10.5281/zenodo.14557027, CC BY 4.0.",
   "annual_is_reconstruction": true,
   "apportionment_note": "Percentages are contributions to ambient PM2.5. Source-apportionment studies differ by method (receptor model vs emission inventory), season, and year — so cross-city comparison is indicative, not exact. Each city names its own study.",
   "linearity_caveat": "Removing a share of the mass is arithmetic, not atmospheric chemistry. Secondary aerosol forms from precursors that several sources emit, so cutting one source does not always cut its full share, and transported PM2.5 is outside a city’s control entirely. Treat a result as the order of the effort required, not as a forecast."

@@ -62,6 +62,23 @@ The README's "Recently shipped" described v26.6.155, 80 releases back.
 deploy (the build command is `bump-version.mjs`), and was last updated in May;
 it now lists every CI guard with the first line of its docstring.
 
+### Fixed, the fact-check of 2 October
+
+`docs/fact-check-2026-10-02.md`: five verifiers, each given a set of files,
+every correction re-checked before it went in. The first round since 8
+September, run by hand because the scheduled routines stop when credits run
+out. Fixes include: "first-ever off-season GRAP" (Stage I was imposed in May
+2025 and on 16 April 2026), the FAQ's merged death counts and 2025-edition
+NCAP funding, "comparable to smoking" (not in the CPCB study), Varanasi and
+Moradabad shown as PM10 when they are PM2.5, the CAQM Act row (s.14 does not
+apply to farmers), the LongPMInd citation (**Wang** et al., not Wei, in 13
+files), the exposure report's life-years coefficient (0.018, five and a half
+times too small, to AQLI's 0.098), CPCB AQI at 60 and 100 µg/m³ in the
+assistant's prompt, and a bug that gave December the stubble-season text.
+Thirteen groups of claims are flagged, not changed, in the report: most
+importantly about 25 state-wise court rulings in `legal.html` that carry no
+case name or date.
+
 ### Not recorded elsewhere
 
 v26.6.233 (#395) and v26.6.234 (#396) shipped without changelog entries.

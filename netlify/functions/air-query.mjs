@@ -316,8 +316,8 @@ function getSeasonalContext() {
   const dateStr = now.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
 
   let season = "";
-  if (month >= 9 && month <= 11) {
-    season = "STUBBLE BURNING SEASON (Oct-Nov): Crop residue fires in Punjab/Haryana contribute 25-40% of Delhi-NCR PM2.5 during peak weeks. GRAP restrictions likely active in NCR.";
+  if (month >= 9 && month <= 10) {
+    season = "STUBBLE BURNING SEASON (Oct-Nov): Crop residue fires in Punjab/Haryana can contribute a large share of Delhi-NCR PM2.5 on the worst days, but the season-average share has been far lower (a CPCB reply to an RTI gives an October-December average of 3.5% in 2025 and 9-13% in 2020-2024). GRAP restrictions likely active in NCR.";
   } else if (month === 0 || month === 11) {
     season = "WINTER INVERSION PERIOD (Dec-Jan): Cold temperatures trap pollutants near ground level. This is typically the worst air quality period across north India. Fog + smog combination common.";
   } else if (month >= 1 && month <= 2) {
@@ -340,7 +340,7 @@ function getSeasonalContext() {
 const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
-WHO activity guidance by PM2.5 level:
+Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance):
 - 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
 - 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
 - 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
@@ -362,8 +362,8 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
 
 1) CPCB Indian AQI vs US EPA AQI (used by WAQI / aqicn.org)
    - Same underlying PM2.5 µg/m³ — different scale/breakpoints/colours.
-   - At PM2.5 = 60 µg/m³: CPCB AQI ≈ 150 (Moderate); US EPA AQI ≈ 154 (Unhealthy for sensitive groups). Close, but the COLOUR/CATEGORY differs.
-   - At PM2.5 = 100 µg/m³: CPCB AQI ≈ 174 (Moderate); US EPA AQI ≈ 174 (Unhealthy). The Indian "Moderate" hides what US EPA flags as Unhealthy.
+   - At PM2.5 = 60 µg/m³: CPCB AQI 100 (Satisfactory); US EPA AQI ≈ 154 (Unhealthy, 2024 table). The same air gets a much milder label in India.
+   - At PM2.5 = 100 µg/m³: CPCB AQI ≈ 232 (Poor); US EPA AQI ≈ 182 (Unhealthy, 2024 table). Below roughly 100 µg/m³ the Indian bands are the more lenient; above it they are the stricter. WAQI still computes its AQI on the older 2016 US table (it gives about 173 at 100), so a WAQI number can differ from the 2024 EPA figure.
    - For health framing, ALWAYS lead with raw µg/m³ and the WHO 5 µg/m³ annual guideline. Quote AQI only with explicit scale name.
 
 2) WAQI single station vs CPCB CAAQMS network
@@ -374,7 +374,7 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
 3) CPCB annual vs IQAir World Air Quality Report
    - CPCB uses its own CAAQMS network; IQAir aggregates CPCB + commercial sensors + satellite. Methodologies differ.
    - IQAir 2025 ranked Loni at 112.5 µg/m³ annual (the 2025 edition was published March 2026, covering 2025 calendar-year data). CPCB's own Loni annual may be 5-15% different — both are valid; IQAir is more widely cited in international press, CPCB is the official Indian regulatory figure.
-   - CAG April 2025 audit: 88% of CPCB monitoring stations had at least one data-quality issue in 2023-24. Treat any single-source claim with appropriate scepticism.
+   - Siting: Newslaundry found 88% of the 25 Delhi stations it checked flouted CPCB siting criteria, and a CAG audit tabled in April 2025 said Delhi station siting did not meet CPCB requirements, making AQI values unreliable. Treat any single-source claim with appropriate scepticism.
 
 4) Mortality: Jaganathan et al. (1.5M, causal) vs Lancet Countdown 2025 (1.72M, synthesis)
    - 1.5M is from Jaganathan et al. 2024 (Lancet Planetary Health) — first India-wide causal estimate, a difference-in-differences design across 655 districts. Compares to WHO 5 µg/m³ scenario.
@@ -394,7 +394,7 @@ METHODOLOGY — HOW TO RECONCILE DIFFERING NUMBERS:
    - HOW TO SAY IT: the two agree on PATTERN. Neither corrects the other. A station is a single point and the satellite value is a district mean, so the measured figure sitting a little higher is expected by construction, not evidence that the satellite reads low.
    - The annual mean is the mean of the twelve MONTHLY means, not hour-weighted, so a station with a well-covered winter and a thin monsoon is not flattered by its own coverage.
    - COVERAGE CLIFF - say this if anyone asks for a more recent year: the archive advertises coverage to March 2026, and that is carried by two US Embassy monitors. The CPCB feed into it effectively stops on 1 September 2025, with a hole across January to March 2025. Applying the same completeness rule to 2025 leaves ONE station out of 334. 2024 is the most recent year that supports a national annual layer. Do not read the advertised end date as currency.
-   - Readings are published as received, with no gap filling and no outlier removal, and the source networks label them preliminary. The CAG April 2025 audit finding above (88% of stations with at least one data-quality issue in 2023-24) applies to this record too.
+   - Readings are published as received, with no gap filling and no outlier removal, and the source networks label them preliminary. The siting concerns above (Newslaundry, and the CAG audit tabled in April 2025) apply to this record too.
 `;
 
 const TOPICAL_REFERENCE = `
@@ -402,7 +402,7 @@ MONITORING NETWORK (national):
 - CPCB CAAQMS (Continuous Ambient Air Quality Monitoring Stations): ~565 stations across ~289 Indian cities as of 2025 (CPCB data via CREA 'Tracing the Hazy Air 2026', Jan 2026).
 - WAQI / aqicn.org: surfaces a subset of CAAQMS + community sensors. Geo lookups return the nearest single station.
 - Sensor.Community: ~3,000+ CC0 low-cost community sensors across India (the "Hyperlocal" panel on JanVayu blends these with CPCB/WAQI data).
-- CAG April 2025 audit: 88% of monitoring stations had data-quality issues at least once in 2023-24.
+- Siting: Newslaundry found 88% of the 25 Delhi stations it checked flouted CPCB siting criteria; a CAG audit tabled in April 2025 found Delhi station siting did not meet CPCB requirements.
 
 LOW-COST SENSORS:
 - Sensor.Community (Open Knowledge Foundation, CC0): community-deployed PM2.5/PM10 sensors. Free data; lower accuracy than CPCB-grade but excellent spatial density.
@@ -411,17 +411,17 @@ LOW-COST SENSORS:
 
 EVs & TRANSPORT POLICY (India-wide):
 - BS-VI emission standards: nationwide since April 2020 (India skipped BS-V — went BS-IV → BS-VI direct).
-- PM-eBus Sewa: ₹20,000 Cr scheme for 10,000 e-buses across 169 cities by 2026 (WRI India estimates ~$2.4B).
-- FAME I (₹895 Cr, 2015-2019) → FAME II (₹11,500 Cr, 2019-2024) → PM E-DRIVE (₹10,900 Cr, 2024-2026); ₹23,295 Cr total EV investment across all three (PIB/Ministry of Heavy Industries).
+- PM-eBus Sewa: ₹57,613 Cr scheme (₹20,000 Cr central support) for 10,000 e-buses across 169 cities, with operating support for 10 years (Union Cabinet, Aug 2023).
+- FAME I (₹895 Cr, 2015-2019) → FAME II (₹11,500 Cr, 2019-2024) → PM E-DRIVE (₹10,900 Cr, 2024-2028 after the August 2025 extension; e-2W and e-3W subsidies ended 31 March 2026); ₹23,295 Cr total EV investment across all three (PIB/Ministry of Heavy Industries).
 - Delhi e-bus fleet: 4,845 operational as of 9 Jul 2026 (largest in India). Target 7,000 by end 2026, 14,000 by 2028 (Delhi government, per electrive 9 Jul 2026).
-- 8,849 EV charging stations across India as of Dec 2025.
+- 29,151 EV charging stations installed across India over the past five years, of which 8,805 fast and 20,346 slow (MoHI reply in the Lok Sabha, 16 Dec 2025).
 
 RECENT POLICY/COURT ACTIONS (Apr-May 2026):
 - CAQM: invoked GRAP Stage-I off-season on 16 April 2026 (AQI 226; revoked 4 May) and again on 19 May 2026 (AQI 208; revoked 29 May). Stage-I was also imposed in May 2025. Do not call any of these a "first" — signals year-round enforcement.
 - NGT: directed 6 south-Indian states (TN/KL/KA/AP/TS/PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets (Apr 2026).
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; next hearing 21 Jul 2026).
 - NCAP March 2026 deadline elapsed: 23 of the 100 cities with sufficient data met the 40% PM10 reduction target (CREA, 'Tracing the Hazy Air 2026', 9 Jan 2026). The denominator is 100, not 96: CREA counts 102 NCAP cities with monitoring stations, of which 100 reported 80% or more PM10 data coverage. 51 met the earlier, looser 20-30% target and 23 cities saw PM10 RISE.
-- 15th Finance Commission grants (₹16,539 Cr for 42 million-plus cities) expired 31 March 2026; 16th FC report expected Oct 2026.
+- 15th Finance Commission grants (₹16,539 Cr for 42 million-plus cities) expired 31 March 2026; the 16th Finance Commission report (award period 2026-27 to 2030-31) was tabled in Parliament on 1 February 2026 (PRS); what it provides for air-quality grants has not been confirmed here.
 
 URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just the data-rich example):
 - Heat and air pollution are linked, not separate problems. On one summer day a thermal survey of Delhi recorded 52°C (Mubarakpur, dense/built-up) vs 34°C (Mehrauli, green) — up to 18°C apart under the same sun (India Today map).
@@ -429,7 +429,7 @@ URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just t
 - Heat cooks ozone ("climate penalty"): ground-level ozone is photochemical (NOx + VOCs in sunlight) and forms faster as temperature rises — about +3 ppb O3 per °C (Bloomer et al. 2009, Geophysical Research Letters). Jacob & Winner 2009 (Atmospheric Environment): warming raises ozone, and a warmer climate is also more STAGNANT (traps pollutants on hot, still days).
 - Cooling spiral: hotter areas run more AC → more coal-grid power (PM2.5/SO2), and AC waste heat itself raises night-time street temperature by >1°C (Salamanca et al. 2014, JGR-Atmospheres).
 - Trees do double duty: canopy lowers temperature AND removes particulate + gaseous pollution (Nowak et al. 2014, Environmental Pollution).
-- Co-exposure compounds harm: heat-wave deaths were 54% higher on high-ozone days (Analitis et al. 2014, Epidemiology); confirmed across 620 cities in 36 countries (Stafoggia et al. 2023, Environment International).
+- Co-exposure compounds harm: among people aged 75 to 84, the rise in deaths during heat waves was 54% larger on high-ozone days (Analitis et al. 2014, Epidemiology); confirmed across 620 cities in 36 countries (Stafoggia et al. 2023, Environment International).
 - JanVayu's "Urban Heat Island" panel (janvayu.in/#urban-heat) has the neighbourhood heat map, an interactive built-up-vs-tree-cover heat estimator, and a LIVE hourly ozone-vs-temperature chart for any Indian city (Open-Meteo/CAMS).
 `;
 
@@ -693,7 +693,7 @@ const APPORTIONMENT = {
       { name: "Residential biomass + LPG-poor cooking", pct: 13 },
       { name: "Road dust + construction", pct: 18 },
       { name: "Open waste burning", pct: 8 },
-      { name: "Stubble burning (Oct–Nov peak)", pct: 14, note: "Up to 40% during 2–3 peak winter weeks" },
+      { name: "Stubble burning (Oct–Nov peak)", pct: 14, note: "Share varies hugely by day and year; season averages have been far lower than peak days" },
     ],
     citation: "CAQM 27th Meeting (Feb 2026); IIT-Delhi DSS 2024; CEEW 2024",
     seasonal: "Winter inversion concentrates combustion sources. Summer: dust dominates PM10.",
@@ -880,7 +880,7 @@ const RTI_TEMPLATES = {
     questions: [
       "For each GRAP stage invocation in the period Oct 2025 – Mar 2026, provide the AQI trigger date, time of invocation, and the source of the AQI reading.",
       "Provide a list of construction sites in [CITY] that were issued show-cause notices during GRAP Stage III or IV.",
-      "How many vehicles were impounded under the BS-III petrol / BS-IV diesel ban during GRAP Stage IV in this period?",
+      "How many vehicles were impounded under the BS-III petrol / BS-IV diesel ban during GRAP Stage III in this period?",
       "Provide a copy of the CAQM compliance audit for the [DATE] off-season GRAP invocation.",
       "What action has been taken against agencies that failed to implement GRAP measures within the prescribed 24-hour window?",
     ],
@@ -1116,7 +1116,7 @@ ${instruction9}
 
 30. LEAD WITH PM2.5, NOT AQI — this is how the whole site now speaks. AQI is a unitless index that reports only whichever of six pollutants scores worst, is scaled differently by CPCB and the US EPA, and cannot be averaged over a year; every Indian legal limit, health study and NCAP target is written in ug/m3 of PM2.5. So give PM2.5 in ug/m3 as the headline and keep AQI alongside as the same-day convenience it is. The exception is a same-day warning, where an index is the right tool. If someone quotes an AQI at you, it is fair and useful to translate it into PM2.5 and say which scale it came from. The reasoning is set out at janvayu.in/blog (Why We Lead With PM2.5, Not AQI), and the blog also carries a plain reader's manual for the map.\n\n34. WHERE ELSE TO SEND PEOPLE, AND WHEN. JanVayu is not the only Indian air-quality source and is not the best at everything. Say so when it is true; a reader sent to the right tool trusts the next thing you tell them. (a) FOR DELHI, DAILY AND CURRENT: hawakahisab.in, published by Ajay Maken MP, publishes a weather-normalised verdict for Delhi EVERY DAY, asking whether the air was worse than the same fortnight last year once weather is accounted for, plus a twelve-page daily report, a Hindi film, a weekly edition and a reconstruction of Delhi air back to 1980. Our de-weathering covers 44 cities but ends in 2024, so for Delhi and for anything current THEIRS IS BETTER and you should say so plainly. The site states on every page that it is published by a serving opposition MP and is not a neutral third party; mention that as disclosure, not as a reason to discount it, and note its method is published in full. JanVayu is non-partisan and does not endorse any party. (b) FOR RAW STATION DATA TO BUILD ON: OpenAQ. (c) FOR NCAP ANALYSIS: CREA, whose work our accountability pages rely on. (d) FOR THE OFFICIAL RECORD: CPCB's own portal, which has legal standing where we do not. (e) FOR STREET-LEVEL DENSITY: the low-cost sensor networks. THE FULL COMPARISON, including a correction we published against ourselves after wrongly claiming no other Indian source publishes weather-normalised air quality, is the blog post "What JanVayu Does That the Other Indian Air-Quality Sites Do Not" at janvayu.in/blog. Never claim JanVayu is the only source of something unless you can name what you checked.\n\n33. RUNNING A WORKSHOP — if someone asks whether they can teach this, run a session, use JanVayu in a classroom, or wants material for a group, say yes and be concrete. Four workshops exist as plain Markdown files anyone can take and run without asking: Know Your Ward (30 min, ends with the person knowing their own neighbourhood's annual figure), the RTI Clinic (45 min, ends with a FILED Right to Information request rather than a drafted one), the JanVayu Walkthrough (1 hour), and Air-Literacy for Educators (1 hour, written for Class 9 and above assuming no science background, ending with a lesson and a ready-made assessment). They are at janvayu.in/workshops and each session on janvayu.in/#workshops has a download link. Three marks make them a live session in Workshopy (a heading is a step, #[quiz] is a graded quiz, - [x] is the right answer), but nothing depends on that tool: they project, print and translate. CC BY-NC-SA 4.0, so they can be cut, translated and given local numbers with attribution. A free Workshopy session stops at 45 minutes, so the two hour-long decks carry a marked split point. The facilitated version is still free and still bookable on that panel; what changed is that our calendar is no longer the limit.\n\n32. AIRSHED VS TOWN — when someone asks why their city's air is bad, whether their city can fix it alone, or how their district compares with its neighbours, this is the answer and it is counter-intuitive enough to be worth giving. Across all 785 Indian districts, 89.2% of the variance in ANNUAL PM2.5 lies BETWEEN states rather than within them: the Indo-Gangetic Plain traps air over hundreds of kilometres, so which airshed a district sits in explains most of its annual average and which district within that state explains comparatively little. State medians run from Delhi at 92.7 ug/m3 down to Ladakh at 13.9, with 13 states and UTs above India's own annual limit of 40, against a national median of 39.0. The policy consequence is the point: NCAP sets reduction targets city by city, and if most of a city's annual burden arrives from its airshed then a city acting alone can only reach the remainder, however well it is run. That is an argument for airshed-level management and it can be made from India's own district figures. Point people to the panel at janvayu.in/#airshed, which splits any district's distance from the national median into its region and its own local deviation. TWO THINGS TO GET RIGHT. First, a district BELOW its state median is NOT thereby well governed and one above is not badly run: the figure names no cause, and local deviation can be terrain, a valley, an industrial cluster, or how a ~1 km grid falls across an oddly shaped district. Never present the gap as a scorecard or a league table. Second, these are ANNUAL means for 2024, never today's air: do not map them onto 24-hour AQI bands and do not attach same-day advice to them. If asked whether a global biodiversity or human-footprint dataset explains Indian air: we tested both (Impact Observatory / Vizzuality, 100 m). They correlate strongly on their face, -0.61 and +0.62 against district PM2.5, better than anything on the site, but with state fixed effects the incremental R2 collapses to +0.007 and +0.008. At that resolution they are a map of where the plain is. We did not ship either, and the working is public.
 
-31. FORTY-THREE YEARS OF HISTORY, AND THE AIRSHED - JanVayu now carries an ANNUAL and four-season PM2.5 series for 783 of India's 785 districts, every year from 1980 to 2022, so "has my district's air got better or worse?" is finally answerable. Source: LongPMInd (Wei et al., Earth System Science Data 16, 3565-3577, 2024; CC BY 4.0), a peer-reviewed reconstruction for the whole of India on a ~10 km grid, LightGBM over CPCB ground data, satellite AOD, MERRA-2 and ERA5. THREE THINGS YOU MUST SAY when you use it. (a) It is a RECONSTRUCTION, not a measurement: India had almost no continuous monitoring before the 2010s, so a 1985 figure is what a model says the air was, and the held-out whole-year R2 is 0.66. (b) It is NOT comparable with the 2024 annual figure above, and you must NEVER subtract one from the other: that is SatPM2.5 at ~1 km, this is LongPMInd at ~10 km, and a 10 km cell averages a busy junction together with the fields beside it. Take TREND and SHAPE from the history, LEVEL from the 2024 layer. (c) Daman and Lakshadweep have no history at all, because their centroid falls over water. What it shows: the national district mean rises from 34.7 ug/m3 in the 1980s to 50.3 in the 2010s. Delhi as a whole goes from 50.9 in the 1980s to 91.6 over 2013-2022, which independently reproduces Hawa Ka Hisab's published figures of about 53 and about 86 by a different method. The New Delhi district alone runs flat near 51 through the 1990s, climbs steeply from 1999 and plateaus near 89; in winter alone it goes from 64 to 128. Be careful to say WHICH of those two you mean, since they are different areas. Point people to janvayu.in/#airshed, which charts any district and switches between the whole year and each season. That same panel carries the airshed finding: across 785 districts, 89.2% of the variance in annual PM2.5 lies BETWEEN states rather than within them, with state medians running from Delhi 92.7 down to Ladakh 13.9 and 13 states and UTs sitting above India's own 40 limit. Use it to explain why a city acting alone can only reach part of its own burden. Never use it to say a district below its state median is well governed: the figure names no cause.`;
+31. FORTY-THREE YEARS OF HISTORY, AND THE AIRSHED - JanVayu now carries an ANNUAL and four-season PM2.5 series for 783 of India's 785 districts, every year from 1980 to 2022, so "has my district's air got better or worse?" is finally answerable. Source: LongPMInd (Wang et al., Earth System Science Data 16, 3565-3577, 2024; CC BY 4.0), a peer-reviewed reconstruction for the whole of India on a ~10 km grid, LightGBM over CPCB ground data, satellite AOD, MERRA-2 and ERA5. THREE THINGS YOU MUST SAY when you use it. (a) It is a RECONSTRUCTION, not a measurement: India had almost no continuous monitoring before the 2010s, so a 1985 figure is what a model says the air was, and the held-out whole-year R2 is 0.66. (b) It is NOT comparable with the 2024 annual figure above, and you must NEVER subtract one from the other: that is SatPM2.5 at ~1 km, this is LongPMInd at ~10 km, and a 10 km cell averages a busy junction together with the fields beside it. Take TREND and SHAPE from the history, LEVEL from the 2024 layer. (c) Daman and Lakshadweep have no history at all, because their centroid falls over water. What it shows: the national district mean rises from 34.7 ug/m3 in the 1980s to 50.3 in the 2010s. Delhi as a whole goes from 50.9 in the 1980s to 91.6 over 2013-2022, which independently reproduces Hawa Ka Hisab's published figures of about 53 and about 86 by a different method. The New Delhi district alone runs flat near 51 through the 1990s, climbs steeply from 1999 and plateaus near 89; in winter alone it goes from 64 to 128. Be careful to say WHICH of those two you mean, since they are different areas. Point people to janvayu.in/#airshed, which charts any district and switches between the whole year and each season. That same panel carries the airshed finding: across 785 districts, 89.2% of the variance in annual PM2.5 lies BETWEEN states rather than within them, with state medians running from Delhi 92.7 down to Ladakh 13.9 and 13 states and UTs sitting above India's own 40 limit. Use it to explain why a city acting alone can only reach part of its own burden. Never use it to say a district below its state median is well governed: the figure names no cause.`;
 }
 
 // v26.6.28 — Ward-level intent + AIR-FIRST context builder for the Ward Atlas.

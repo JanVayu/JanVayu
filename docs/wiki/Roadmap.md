@@ -13,11 +13,12 @@ The season that decides how much of the year's attention this site gets starts i
 - [x] **`check-no-random-data.py`** — any `Math.random()` outside `games.js` needs a written reason beside it. Proved by restoring the original formula.
 - [x] **Issue #343's six `/about` errors were one bug in the generator.** Fixed there, pages regenerated.
 - [x] **Two npm packages brought current**, and the README and `scripts/README.md` brought current: the first described a release 80 versions back.
-- [ ] **A fact-check round** — the last is 8 September; `check-factcheck-freshness.py` allows 120 days, which is looser than the weekly cadence the routines are meant to keep. Scheduled routines stop when credits run out, so this needs a person to notice.
-- [ ] **Lancet Countdown 2026.** The homepage cites the 2025 edition (October 2025). No 2026 global edition was found on 2 October; re-check before the end of the month.
-- [ ] **Dependabot for npm.** It is configured for GitHub Actions only, which is why `resend` and `@netlify/blobs` had drifted.
+- [x] **A fact-check round** — `docs/fact-check-2026-10-02.md`, the first since 8 September. `check-factcheck-freshness.py` allows 120 days, looser than the weekly cadence the routines are meant to keep; scheduled routines stop when credits run out, so a person has to notice a lapse.
+- [ ] **The flagged items in that report**, above all the ~25 unsourced state-wise court rulings in `legal.html`, the per-city NCAP rupee rows in `budget.html`, the transport multipliers, and the school-closure scale mismatch.
+- [ ] **Lancet Countdown 2026.** The homepage cites the 2025 edition (October 2025). The 2026 global report launches on 28 October 2026; re-check after that date.
+- [x] **Dependabot for npm**, monthly and grouped; it had covered GitHub Actions only.
 - [ ] **The demo fallback's ±5% jitter** in `app.js` is labelled "(Fallback)" and `live: false`, but it makes static demo values look like fresh readings. Decide whether to keep it.
-- [ ] **The EPA breakpoint table.** The site's sub-index conversion uses the band 55.5 to 150.4 µg/m³ for AQI 151 to 200. EPA revised its PM2.5 breakpoints effective 6 May 2024, and the band for AQI 151 to 200 is now 55.5 to 125.4 ([EPA fact sheet](https://www.epa.gov/system/files/documents/2024-02/pm-naaqs-air-quality-index-fact-sheet.pdf)). Whether WAQI applies the old or the new table is not established here; until it is, the "about 73 µg/m³" in the correction post is a figure on the site's own table, not a settled one.
+- [x] **The EPA breakpoint table** — WAQI's own scale page still publishes the 2016 table (151 to 200 is 55.5 to 150.4), which is what the conversion code uses, so the conversion is right for WAQI. The AQI explainer uses the 2024 EPA table and says so. Original note: The site's sub-index conversion uses the band 55.5 to 150.4 µg/m³ for AQI 151 to 200. EPA revised its PM2.5 breakpoints effective 6 May 2024, and the band for AQI 151 to 200 is now 55.5 to 125.4 ([EPA fact sheet](https://www.epa.gov/system/files/documents/2024-02/pm-naaqs-air-quality-index-fact-sheet.pdf)). Whether WAQI applies the old or the new table is not established here; until it is, the "about 73 µg/m³" in the correction post is a figure on the site's own table, not a settled one.
 
 ## Phase 5.33: One design system, not nineteen (✅ Completed — v26.6.232)
 
@@ -115,7 +116,7 @@ Two layers shipped in Phase 5.26 as data and a blog post. Neither had reached th
 
 ## Phase 5.25: A history to compare against, and the corrections that had never travelled (✅ Completed — v26.6.172–175)
 
-- [x] **43 years of PM2.5, for 783 of 785 districts** — annual and the same four seasons as the existing seasonal layer, 1980 to 2022, from [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wei et al., *Earth System Science Data* 16, 3565–3577, 2024; CC BY 4.0): LightGBM over CPCB ground data, satellite AOD, MERRA-2 and ERA5 on a ~10 km grid, held-out-year R² 0.66. 872 KB, charted in the airshed panel by year and by season.
+- [x] **43 years of PM2.5, for 783 of 785 districts** — annual and the same four seasons as the existing seasonal layer, 1980 to 2022, from [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wang et al., *Earth System Science Data* 16, 3565–3577, 2024; CC BY 4.0): LightGBM over CPCB ground data, satellite AOD, MERRA-2 and ERA5 on a ~10 km grid, held-out-year R² 0.66. 872 KB, charted in the airshed panel by year and by season.
 
   Three constraints travel in the data rather than in whoever renders it. It is a **reconstruction** — India had almost no continuous monitoring before the 2010s. It is **not differenceable** against the 2024 satellite layer, which is a different product at ~1 km: trend and shape from here, level from there. And districts smaller than one cell take their centroid cell, which is why East and North East Delhi are in it at all; only Daman and Lakshadweep remain out, their centroids falling over water.
 
