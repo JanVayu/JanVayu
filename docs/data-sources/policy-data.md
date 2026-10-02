@@ -11,11 +11,10 @@ JanVayu tracks India's air quality governance using official sources — parliam
 
 PRANA (Portal for Regulation of Air-pollution in Non-Attainment cities) is the official tracking system for the National Clean Air Programme. It contains:
 
-- City Action Plans for all 132 Non-Attainment Cities
-- Annual PM2.5 and PM10 trends by city
-- Compliance status and budget utilisation
+- City Action Plans for the 131 NCAP cities (non-attainment and million-plus cities; PIB)
+- Physical and financial progress of cities under NCAP
 
-JanVayu links directly to PRANA city pages for each tracked city.
+JanVayu links to the PRANA portal (see the Reading List).
 
 ---
 
@@ -32,11 +31,11 @@ CAQM was established in 2021 to coordinate air quality management in the Nationa
 **URL:** [main.sci.gov.in](https://main.sci.gov.in) / [indiankanoon.org](https://indiankanoon.org)
 
 Key cases tracked:
-- *M.C. Mehta v. Union of India* — landmark environmental PIL with decades of air quality-related orders
+- *M.C. Mehta v. Union of India* — landmark environmental PIL with decades of air quality-related orders (*Update, 2 Oct 2026:* WP(C) 13029/1985 was disposed of on 12 March 2026)
 - Vehicle pollution orders (BS VI norms, CNG transition)
 - Delhi NCR specific emergency orders
 
-All case citations include Indian Kanoon links for full-text access.
+Case citations link to Indian Kanoon for full text where available.
 
 ---
 
@@ -55,7 +54,7 @@ NGT handles environmental disputes and issues binding directions to polluters an
 
 ## RTI Responses
 
-JanVayu includes anonymised RTI responses received by contributors covering:
+JanVayu welcomes anonymised RTI responses from contributors covering:
 
 - NCAP fund disbursement to cities
 - Source apportionment study timelines
@@ -74,4 +73,4 @@ Air quality-related budget allocations are tracked from:
 - MoEFCC annual reports
 - 15th Finance Commission report on clean air grants for cities
 
-Budget utilisation figures come from CAG (Comptroller and Auditor General) audit reports and RTI responses.
+Budget utilisation figures come from MoEFCC and PIB answers, CREA analyses, CAG (Comptroller and Auditor General) audits and RTI replies.

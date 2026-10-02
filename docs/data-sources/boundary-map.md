@@ -145,7 +145,7 @@ shipping levels have all four seasons at **100%** coverage.
 The monthly files are 95 MB each; they are fetched one at a time, added into
 their season, and deleted, so peak disk is one file. Every feature is checked
 after the pass: its annual mean must fall inside its own seasonal range, and it
-does for all 398,543 of them — if it did not, a grid would be misaligned.
+does for all 398,534 of them — if it did not, a grid would be misaligned.
 
 **The colour scale does not change between seasons.** The same colour means the
 same µg/m³ whether you are looking at the monsoon or at November, so switching
@@ -304,7 +304,7 @@ to 99.93%.
   It is also the one that tracks heat — nationally, tree cover against ward
   surface temperature is **r = −0.43**, against **−0.07** for green cover, and
   the least-treed fifth of India's wards runs **4.8 °C hotter** than the
-  most-treed fifth. Green cover's equivalent gap is 0.9 °C.
+  most-treed fifth. Green cover's equivalent gap is 0.8 °C.
 
 - **"Green" includes cropland, and in rural India that is nearly all of it.**
   WorldCover's vegetation classes are tree, shrub, grassland, cropland and
@@ -330,10 +330,10 @@ to 99.93%.
 - **Villages carry every metric, but were joined rather than tiled.** The
   passes always scored them; the values had nowhere to go until they were
   written into the per-district TopoJSON. Two things made that join harder than
-  a dictionary lookup. **4,856 LGD codes are carried by more than one polygon**
+  a dictionary lookup. **4,900 LGD codes are carried by more than one polygon**
   and those polygons genuinely differ — code 645088 covers one shape 12% treed
   and another 67% — so a shared code is resolved by centroid rather than by
-  taking the first. And **37,563 villages have no LGD code at all**, blank on
+  taking the first. And **37,560 villages have no LGD code at all**, blank on
   both sides, so they are matched by geometry against a 2 km grid of the
   codeless records, each claimed once, within 3 km. Anything further is refused
   rather than guessed, and the script prints how many.
@@ -355,7 +355,7 @@ to 99.93%.
 
 - **Land cover is 2021** and may lag very recent construction.
 
-- **The remaining gaps are real gaps.** 111 wards have no heat value and 49 have
+- **The remaining gaps are real gaps.** 115 wards have no heat value and 32 have
   no land cover; they draw uncoloured rather than filled with a guess. One
   Thiruvananthapuram ward still lacks heat — down from the six the per-city
   pipeline could never resolve, but not zero.

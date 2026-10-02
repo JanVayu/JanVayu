@@ -14,14 +14,14 @@ JanVayu is a platform in active development. It is fully public and open-source,
 
 ## Workstream A: Research & Data
 
-This is the backbone of the platform's credibility. JanVayu cites only peer-reviewed research, official datasets, and verified RTI responses — no secondary aggregation.
+This is the backbone of the platform's credibility. JanVayu cites original studies, official datasets and documents; where no original is public it cites a labelled press report.
 
 **What this involves:**
 
 - Identifying, reading, and adding papers to the [JanVayu Zotero group](https://www.zotero.org/groups/6508140/janvayu/library), with a focus on PM2.5 health burden, source apportionment, occupational exposure, indoor air, and economic cost
 - Translating research findings into platform-legible numbers (e.g., updating GEMM model parameters when new GBD data drops, revising city-level mortality estimates)
 - Writing data notes and methodology documentation when numbers are updated
-- Compiling state and city-level data that currently has gaps — the platform covers 160 cities but is thin on second-tier cities and state-level NCAP data
+- Compiling state and city-level data that currently has gaps — the platform covers 157 Indian cities but is thin on second-tier cities and state-level NCAP data
 - Supporting the environmental justice section with disaggregated data on caste, gender, occupation, and geography
 
 **Typical deliverable:** Annotated research entry in Zotero + a short update note for the platform changelog.
@@ -69,7 +69,7 @@ The platform is built in HTML/CSS/JS, hosted on Netlify, with Netlify Functions 
 **What this involves:**
 
 - Moving the live data sections out of demo mode — connecting city-level AQI feeds cleanly for more cities
-- Improving mobile performance (there are open GitHub issues for this: [#3](https://github.com/JanVayu/JanVayu/issues/3) and [#4](https://github.com/JanVayu/JanVayu/issues/4) on WCAG 2.1 compliance)
+- Improving mobile performance and accessibility (issue [#3](https://github.com/JanVayu/JanVayu/issues/3), mobile performance, and issue [#4](https://github.com/JanVayu/JanVayu/issues/4), WCAG 2.1 AA, were both closed in July 2026; remaining dark-theme contrast work is tracked in #213)
 - Building or improving the hyperlocal and AQI forecast sections
 - Improving the "Ask JanVayu" AI feature — prompt quality, response accuracy, city-specific context
 - Data pipeline work: automated updates for budget tracker tables, court orders, promise tracker
@@ -113,4 +113,4 @@ To keep the platform focused: JanVayu does not need general data visualizations 
 
 ---
 
-*Last updated: May 2026. Contact: [contribute@janvayu.in](mailto:contribute@janvayu.in)*
+*Last updated: October 2026. Contact: [contribute@janvayu.in](mailto:contribute@janvayu.in)*

@@ -42,10 +42,11 @@ almost none of its change either way.
 ## What normalisation does and does not change
 
 **In 38 of 44 cities it barely moves the answer.** Only six shift by a
-microgram per year or more, and in five of those the raw figure was
+microgram per year or more, and in four of those the raw figure was
 *understating* the improvement: Lucknow reads −11.62 raw and −13.98 normalised,
-Meerut −12.35 and −14.63. Weather in those years was working against the
-emission cuts, not flattering them.
+Meerut −12.35 and −14.63. In those four, weather was working against the
+emission cuts, not flattering them. In the other two, Agra and Pune, weather
+had flattered the raw figure.
 
 That is worth saying plainly because the intuitive fear runs the other way, that
 a city might be claiming credit the wind earned. On this record that happens
@@ -69,15 +70,15 @@ the Delhi original used and the same one Hawa Ka Hisab uses.
 3. The trend through the normalised annual series is the part weather cannot
    explain.
 
-Held-out R² runs 0.52 (Bengaluru) to 0.91 (Kolkata), median 0.81.
+Held-out R² runs 0.52 (Bengaluru) to 0.91 (Kolkata), median 0.80.
 
 **Two exclusions matter as much as the inclusions.** Lagged pollutant values are
 not features: feeding yesterday's PM2.5 into a model meant to isolate emissions
 launders the answer through the target and manufactures a trend out of
 autocorrelation alone. And the station term is held fixed during normalisation,
 so the result is not contaminated by which stations happened to be reporting on
-a given day. That matters more here than in Delhi: the network grew from 129
-stations in 2018 to 534 in 2024.
+a given day. That matters more here than in Delhi: the network reached 534
+reporting stations in 2024.
 
 ---
 

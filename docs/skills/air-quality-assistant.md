@@ -1,7 +1,7 @@
 # Skill: Air Quality Assistant
 
 **Used in:** `netlify/functions/air-query.mjs`  
-**Model:** Llama 3.3 70B via Groq  
+**Model:** `openai/gpt-oss-120b` via Groq (default, set by `GROQ_MODEL`; Llama 3.3 70B until Groq retired it on 16 Aug 2026)  
 **Trigger:** User submits a plain-language question + a city name
 
 ---
@@ -12,7 +12,9 @@ Accepts a natural language question about a city's current air quality, fetches 
 
 ---
 
-## System Prompt (Exact)
+## System Prompt (original v25.1 wording, since expanded)
+
+The production prompt in `air-query.mjs` now opens "You are JanVayu, India's citizen-led air quality assistant. You are NOT a generic chatbot ..." and is followed by 30+ numbered rules (it aims for about 150 words). The text below is the original, shorter wording.
 
 ```
 You are JanVayu's air quality assistant for India. Answer questions in plain, 
@@ -44,7 +46,7 @@ The WHO guideline is explicitly included so the model can compute and state the 
 Without this constraint, LLMs tend to give boilerplate responses like "limit outdoor activity when AQI is high" regardless of the actual reading. The prompt forces the model to anchor to the specific value provided — e.g., "at 187 µg/m³, which is 37 times the WHO guideline, outdoor exercise today carries real cardiovascular risk."
 
 **Why multilingual?**
-JanVayu's users span Hindi, Tamil, Bengali, and other languages. A question asked in Hindi deserves an answer in Hindi. The prompt detects language implicitly through the question itself — no separate language parameter is needed.
+JanVayu's users span Hindi, Tamil, Bengali, and other languages. A question asked in Hindi deserves an answer in Hindi. A `lang` parameter pins the answer language (ten languages are supported); otherwise the answer follows the language of the question.
 
 **Why 150 words?**
 The response surfaces inline on the platform UI. Longer responses break the layout and lose readers. Brevity also forces specificity.
@@ -59,7 +61,7 @@ It normalises the raw PM2.5 value into something meaningful for a non-specialist
 If the Groq API call fails (rate limit, network error), the function returns:
 
 ```
-AI analysis unavailable right now (rate limit). Raw PM2.5: {pm25} µg/m³.
+Ask JanVayu is fielding a lot of questions right now, so I couldn't write a full answer this time. Please wait a few seconds and ask again. Here's the live reading for {city}: PM2.5 {pm25} µg/m³ ...
 ```
 
 The raw data is always returned regardless of AI availability.

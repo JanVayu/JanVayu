@@ -56,23 +56,24 @@ JanVayu uses plain HTML, CSS, and JavaScript. There is no build step, no framewo
 - Do not add new npm dependencies without discussion — the `package.json` is intentionally minimal
 - Avoid loading large third-party scripts synchronously — use `defer` or `async`
 - Images should be optimised and served in appropriate formats
-- The site must score 90+ on Lighthouse for performance and accessibility
+- Lighthouse CI tracks performance (target 0.6) and accessibility (target 0.85) as advisory budgets: they warn, they do not fail the build. Aim higher where you can
 
 ---
 
 ## Commit Messages
 
-Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+Commit subjects must start with one of the prefixes enforced by `.githooks/commit-msg`:
 
 ```
-type(scope): short description
+Prefix: short description
 
-Types: feat, fix, docs, style, refactor, test, chore
-Scope: dashboard, map, functions, email, policy, data, docs
+Prefixes: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, Merge
 
 Examples:
-feat(dashboard): add PM10 toggle
-fix(email): handle missing city gracefully
-docs(contributing): add code standards page
-chore(deps): update @netlify/blobs to 8.2.0
+Add: PM10 toggle on city cards
+Fix: handle missing city in the email digest
+Docs: add code standards page
+Chore: update dependencies
 ```
+
+Subjects over 72 characters trigger a warning from the hook (not a block). Conventional Commits style such as `feat(dashboard): ...` is rejected by the hook.

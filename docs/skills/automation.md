@@ -89,7 +89,7 @@ if (cacheAge < FOUR_HOURS && cachedData) {
 ```
 
 **Why 4 hours?**
-Reddit, news, and Twitter/X feeds change meaningfully on a ~4-hour cycle. More frequent refreshes hit rate limits; less frequent refreshes make the platform feel stale during active pollution events.
+Reddit and news feeds change meaningfully on a ~4-hour cycle. More frequent refreshes hit rate limits; less frequent refreshes make the platform feel stale during active pollution events.
 
 **Why not use HTTP Cache-Control headers?**
 Netlify's CDN caches HTTP responses, but the feeds contain dynamic JSON. Using Blobs as an application-level cache gives explicit control over expiry — no risk of serving a stale response because of an upstream CDN cache header set incorrectly.
@@ -107,8 +107,7 @@ Write a Netlify Function that reads Blobs keys:
 - "last-email-log" (JSON: digest send stats)
 
 Return all three as a JSON response. This endpoint is called by the 
-client on page load to show "Data last updated: X" with a warning 
-if the last fetch was > 5 hours ago.
+client on page load to show "Feeds last updated: <time> (auto-updates every 4h)". There is no staleness warning.
 ```
 
 This makes the automation observable from the front end — a user (or maintainer) can check the platform's data freshness without accessing the Netlify dashboard.
@@ -122,10 +121,10 @@ All scheduled functions use UTC cron expressions. The IST offset is always compu
 ```
 IST = UTC + 5:30
 8:00 AM IST = 2:30 AM UTC → cron: "30 2 * * *"
-Every 4 hours from midnight IST = "30 18,22,2,6,10,14 * * *" (approx)
+Every 4 hours = "0 */4 * * *" (UTC, i.e. 05:30, 09:30, 13:30 ... IST)
 ```
 
-**Always use Python or a reliable converter to verify UTC conversions before deploying a scheduled function.** Off-by-one-hour errors from DST confusion (even though India does not observe DST, collaborators in other timezones sometimes introduce this error) have caused digest emails to arrive at 9 PM instead of 8 AM.
+**Always use Python or a reliable converter to verify UTC conversions before deploying a scheduled function.** India does not observe DST, so the IST offset is a fixed +5:30 all year; mistakes usually come from forgetting the half-hour.
 
 ---
 

@@ -75,15 +75,15 @@ Create Docsify (or any markdown-based) docs alongside your code. Claude Code can
 
 ## Forking JanVayu for Another City
 
-JanVayu is MIT-licensed. To fork it for another city or country:
+JanVayu's code is MIT-licensed (its content is CC BY-NC-SA 4.0). To fork it for another city or country:
 
 1. **Fork the repo** on GitHub
-2. **Update the city list** in `index.html`
+2. **Update the city list** in `app.js` and the `CITIES` tables in the Netlify functions
 3. **Update seasonal baselines** in `anomaly-check.mjs`
 4. **Update WAQI station IDs** for your region
 5. **Translate** strings for local languages
 6. **Set up your own Netlify site** with environment variables
-7. **Optional:** Replace the Groq/Llama model with another model (the skill files are model-agnostic)
+7. **Optional:** Replace the default Groq model (`openai/gpt-oss-120b`) with another model (the skill files are model-agnostic)
 
 Claude Code can help with all of these steps.
 
@@ -121,7 +121,7 @@ The English markdown lives in `docs/`. Each translated language lives in `docs-{
 | Marathi | [`/docs/#/mr/`](/docs/#/mr/) | `docs-mr/` |
 | Tamil | [`/docs/#/ta/`](/docs/#/ta/) | `docs-ta/` |
 
-All five language trees auto-update whenever changes are pushed to `main` and Netlify redeploys (no separate sync step).
+The translated trees are refreshed by a CI auto-translate job (`.github/workflows/translations.yml`, which needs a Sarvam API key) and may lag the English docs: 47 of the 65 English pages currently have a translated counterpart in each language.
 
 ### Plugins
 
@@ -133,7 +133,7 @@ All five language trees auto-update whenever changes are pushed to `main` and Ne
 | `docsify-footer-enh` | Footer line with copyright and license |
 | `docsify` search | Built-in client-side search across all 5 language trees |
 | Prism.js | Syntax highlighting for bash, JS, JSON, YAML, TOML, Markdown |
-| Plausible | Privacy-friendly, cookie-free analytics |
+| Docsify zoom-image | Click-to-zoom on images |
 
 ### Custom domain
 
@@ -144,4 +144,4 @@ The docs are served from `https://www.janvayu.in/docs/` (a path on the main JanV
 The theme variables sit in `docs/index.html` inside the `<style>` block:
 - Primary colour: `#16A34A` (matches the platform's brand green)
 - Sidebar accent: `#1a3a2a`
-- Dark mode: triggered by a button bottom-right; preference saved in `localStorage`
+- Dark mode: toggled from the shared site header (`js/chrome.js`); the preference is saved in `localStorage` under `janvayu-theme`

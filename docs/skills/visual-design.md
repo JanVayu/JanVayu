@@ -17,11 +17,11 @@ Its visual language should feel:
 - Visually distinct from government portals (which feel bureaucratic) 
   and tech products (which feel commercial)
 
-Colour: deep purples and teals as primary palette. AQI categories use 
-the standard green/yellow/orange/red/purple/maroon scale — never deviate 
+Colour: green as the primary accent. AQI categories use 
+the green/yellow/orange/red/purple/maroon scale — never deviate 
 from this because users are trained to read it.
 
-Typography: system fonts only (no Google Fonts CDN calls) for performance.
+Typography: DM Sans, Newsreader and JetBrains Mono from Google Fonts, loaded without blocking render.
 Density: information-dense but not cluttered. Tables over prose for data.
 Mobile-first: the majority of Indian internet users access on mobile.
 ```
@@ -70,7 +70,7 @@ The "source column as linked citation" requirement was critical for JanVayu's ac
 
 ### 3. The "Section Header" Pattern
 
-JanVayu has 23 sections. Keeping them visually consistent without a component system required a pattern:
+JanVayu has dozens of panels. Keeping them visually consistent without a component system required a pattern:
 
 ```
 Design a section header for a civic data platform. It should include:
@@ -123,20 +123,16 @@ The "text summary of the key finding" requirement means every chart on JanVayu h
 
 ## CSS Architecture Decision
 
-JanVayu uses a single `<style>` block in `index.html` with CSS custom properties at `:root` level. This was an intentional constraint:
+JanVayu keeps its styles in `styles.css`, with CSS custom properties at `:root` level. This was an intentional constraint:
 
 ```css
 :root {
-  --color-aqi-good: #00e400;
-  --color-aqi-moderate: #ffff00;
-  --color-aqi-unhealthy-sensitive: #ff7e00;
-  --color-aqi-unhealthy: #ff0000;
-  --color-aqi-very-unhealthy: #8f3f97;
-  --color-aqi-hazardous: #7e0023;
-  
-  --color-primary: #6d28d9;
-  --color-surface: #1e1b4b;
-  --color-text: #e2e8f0;
+  --aqi-good: #15803d;
+  --aqi-moderate: #a16207;
+  --aqi-poor: #c2410c;
+  --aqi-very-poor: #b91c1c;
+  --aqi-severe: #6d28d9;
+  --aqi-hazardous: #831843;
 }
 ```
 

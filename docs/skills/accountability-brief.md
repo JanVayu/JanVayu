@@ -1,7 +1,7 @@
 # Skill: Accountability Brief Writer
 
 **Used in:** `netlify/functions/accountability-brief.mjs`  
-**Model:** Llama 3.3 70B via Groq  
+**Model:** `openai/gpt-oss-120b` via Groq (default, set by `GROQ_MODEL`; Llama 3.3 70B until Groq retired it on 16 Aug 2026)  
 **Trigger:** User submits a city + area (ward/neighbourhood) + period
 
 ---
@@ -66,11 +66,11 @@ Timestamp: {IST timestamp}
 Before the Groq API call, the function computes whether the current reading is anomalous:
 
 ```javascript
-const baseline = getSeasonalBaseline(cityKey); // from CREA/IQAir seasonal data
+const baseline = getSeasonalBaseline(cityKey); // approximate JanVayu working baseline
 const anomalyDetected = pm25 > baseline * 1.5;
 ```
 
-The seasonal baselines are hardcoded from CREA and IQAir historical data, not derived from the live reading. This ensures the anomaly flag is stable and explainable.
+The seasonal baselines are hardcoded approximate JanVayu working baselines (seven cities, default 60 µg/m³ for the rest), not published CREA or IQAir figures and not derived from the live reading. This ensures the anomaly flag is stable and explainable.
 
 ---
 
@@ -80,13 +80,13 @@ The seasonal baselines are hardcoded from CREA and IQAir historical data, not de
 The brief is meant to be copied and used directly — as a WhatsApp message to a councillor, a tweet thread, or a printed flier for an RWA meeting. Leaving the format to the model produces inconsistent results that require manual cleanup. An exact template guarantees a usable output every time.
 
 **Why include "WHAT LOCAL ACTORS CAN DO" with specific mechanisms?**
-Most accountability tools stop at data. This brief is designed to close the last mile — telling the reader *specifically* what legal and regulatory powers are available to them right now (e.g., "file a GRAP non-compliance complaint with CAQM at caqm.nic.in", "raise a grievance on MCD's 311 app"). Without this, the brief is informational but not actionable.
+Most accountability tools stop at data. This brief is designed to close the last mile — telling the reader *specifically* what legal and regulatory powers are available to them right now (e.g., "file a GRAP non-compliance complaint with CAQM", "raise a grievance on MCD's 311 app"). Without this, the brief is informational but not actionable.
 
 **Why include "DATA Caveat"?**
-Ward-level data is not available in India — only city-level or station-level. The caveat is epistemically honest and protects JanVayu from misuse (e.g., someone using a city-level reading to make a hyperlocal claim in a legal proceeding).
+Ward-dense ground monitoring does not exist in India; wards have only modelled (satellite) estimates. The caveat is epistemically honest and protects JanVayu from misuse (e.g., someone using a city-level reading to make a hyperlocal claim in a legal proceeding).
 
-**Why `maxOutputTokens: 400`?**
-The brief format is specified precisely enough that 400 tokens is sufficient. Allowing more produces padding and repetition that dilutes the actionable content.
+**Why `max_tokens: 1024`?**
+The brief format is specified precisely enough that 1,024 tokens is a sufficient ceiling. Allowing more produces padding and repetition that dilutes the actionable content.
 
 ---
 

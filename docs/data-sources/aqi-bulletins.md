@@ -1,8 +1,7 @@
 # CPCB daily AQI bulletins, 2015–2025
 
 CPCB publishes an AQI bulletin every day at 4pm as a PDF, covering 200+ cities,
-and has done since May 2015. It is the **official** number: the one a minister
-quotes and a court cites. It has never been available as a series, because it is
+and has done since May 2015. It is the **official** number. It has never been available as a series, because it is
 a decade of PDFs.
 
 [UrbanEmissions.Info](https://github.com/urbanemissionsinfo/AQI_bulletins)
@@ -54,7 +53,7 @@ station to six:
 | Kanpur | 1 | 3 |
 | Varanasi | 1 | 4 |
 | Faridabad | 1 | 3 |
-| Navi Mumbai | 1 | 6 |
+| Navi Mumbai | 1 | 5 |
 | Delhi | 5 | 37 |
 
 Holding the city list constant does not hold the **measurement** constant. A

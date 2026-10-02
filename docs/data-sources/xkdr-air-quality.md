@@ -1,11 +1,11 @@
 # Observed Station Data (XKDR India Air Quality Database)
 
-Every other PM2.5 figure on JanVayu is modelled. This one is measured.
+Every other annual PM2.5 map layer on JanVayu is modelled. This one is measured; the live dashboard and the de-weathered trends are also built from monitor readings.
 
 The [India Air Quality Database](https://airquality.xkdr.org) is XKDR Forum's
 compilation of India's two continuous monitoring networks into a single table:
-the Central Pollution Control Board's CAAQM network and the five US Embassy and
-Consulate monitors published through AirNow.
+the Central Pollution Control Board's CAAQM network and the five US Embassy
+monitors published through AirNow.
 
 ---
 

@@ -1,14 +1,14 @@
 # Skill: Anomaly Explainer
 
 **Used in:** `netlify/functions/anomaly-check.mjs`  
-**Model:** Llama 3.3 70B via Groq  
+**Model:** `openai/gpt-oss-120b` via Groq (default, set by `GROQ_MODEL`; Llama 3.3 70B until Groq retired it on 16 Aug 2026)  
 **Trigger:** Invoked on-demand; checks five major cities against seasonal baselines
 
 ---
 
 ## What This Skill Does
 
-Detects PM2.5 spikes across five major cities by comparing live readings against hardcoded seasonal baselines. When a spike is detected (reading > 2× the baseline), it asks Llama 3.3 70B via Groq to explain the most likely cause in a single, India-specific sentence.
+Detects PM2.5 spikes across five major cities by comparing live readings against hardcoded seasonal baselines. When a spike is detected (reading > 2× the baseline), it asks the Groq-hosted model to explain the most likely cause in a single, India-specific sentence.
 
 This is the most constrained of the four skill files — one sentence, one cause, maximum specificity.
 
@@ -39,7 +39,7 @@ Threshold: **2× the seasonal baseline** (not a fixed absolute number). This mat
 - Mumbai's baseline is ~45 µg/m³ — 120 µg/m³ there is highly anomalous
 - A fixed threshold (e.g., "flag anything above 150 µg/m³") would produce both false positives (Delhi winter) and false negatives (coastal cities)
 
-**Seasonal Baselines (from CREA / IQAir historical data):**
+**Seasonal Baselines (approximate JanVayu working baselines, not published CREA or IQAir figures):**
 
 | City | Oct–Mar (Winter) | Apr–Sep (Summer/Monsoon) |
 |------|-----------------|--------------------------|
@@ -58,13 +58,14 @@ The anomaly explanation appears as a tooltip or inline annotation in the UI. One
 
 **Why include the month and hour in the prompt?**
 Cause attribution depends heavily on time of day and season:
+Illustrative examples of what the model might say (not source-apportionment findings):
 - Delhi at 7 AM in November → likely stubble burning + morning inversion
 - Delhi at 2 PM in April → likely dust storms
 - Mumbai at midnight → likely industrial/shipping activity
 The model needs this temporal context to give a useful explanation rather than a generic list of possible causes.
 
 **Why hardcode baselines rather than computing them from historical data?**
-Simplicity and reliability. The seasonal baselines are stable year-on-year within ±15%. Computing a rolling baseline would require a persistent time-series database — unnecessary infrastructure for the marginal accuracy gain. The hardcoded values are sourced from CREA and IQAir annual reports and are updated manually when major new data is available.
+Simplicity and reliability. Computing a rolling baseline would require a persistent time-series database — unnecessary infrastructure for the marginal accuracy gain. The hardcoded values are approximate JanVayu working baselines, not figures published by CREA or IQAir, and are updated manually. Year-to-year variation can be large (IQAir's Delhi annual means for 2017 to 2025 range from 84.1 to 113.5 µg/m³), so treat the baselines as rough thresholds.
 
 **Why run the Groq API calls in parallel (`Promise.allSettled`)?**
 The anomaly check may find spikes in multiple cities simultaneously. Running sequentially would take 3–5× longer. `Promise.allSettled` (not `Promise.all`) means a failure for one city's explanation does not cancel the others.
@@ -75,7 +76,7 @@ The anomaly check may find spikes in multiple cities simultaneously. Running seq
 
 ```javascript
 if (!s.explanation) {
-  s.explanation = `PM2.5 is ${s.ratio}x above seasonal baseline.`;
+  s.explanation = `PM2.5 is ${s.ratio}x above JanVayu's approximate working baseline (not a published figure).`;
 }
 ```
 
