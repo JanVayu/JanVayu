@@ -154,11 +154,11 @@ export function calcSchoolClosureRisk(aqi, month) {
   if (aqi >= 451) { risk = "imminent"; trigger = "GRAP Stage IV (AQI > 450): hybrid mode extended to Classes VI-IX & XI; only Classes X & XII remain in person"; }
   else if (aqi >= 401) { risk = "high"; trigger = "GRAP Stage III (AQI 401-450): hybrid classes mandated for primary students up to Class V in Delhi-NCR"; }
   else if (aqi >= 301) {
-    if (month >= 10 || month <= 2) { risk = "moderate"; trigger = "GRAP Stage II + winter pollution season: schools alert to monitor next 72 hr forecast"; }
+    if (month >= 10 || month <= 2) { risk = "moderate"; trigger = "GRAP Stage II + winter pollution season: check the current CAQM GRAP order for any school directions"; }
     else { risk = "moderate"; trigger = "GRAP Stage II: dust control + parking fee hikes; no school closure yet"; }
   }
   return {
     risk, trigger, aqi, month,
-    source: "CAQM GRAP schedule (revised 21 Nov 2025 and 28 Sep 2026); Delhi-NCR mandate; other cities follow advisory pattern. Indicative only: GRAP is invoked by CAQM on Delhi's average CPCB-scale AQI and forecast, not on one station's reading",
+    source: "CAQM GRAP schedule (school clauses as in the Nov-Dec 2025 Directorate of Education circulars; check the current CAQM GRAP order, revised 29 Sep 2026, before relying on them); Delhi-NCR mandate; other cities follow advisory pattern. Indicative only: GRAP is invoked by CAQM on Delhi's average CPCB-scale AQI and forecast, not on one station's reading",
   };
 }

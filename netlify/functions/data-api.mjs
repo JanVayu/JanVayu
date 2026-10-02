@@ -105,7 +105,7 @@ export default async (req) => {
       },
       {
         id: "historical",
-        title: "Year-over-year monthly PM2.5 (climatology + snapshots)",
+        title: "Year-over-year monthly PM2.5 (illustrative climatology + snapshots; not measured monthly means)",
         url: `${origin}/.netlify/functions/historical-aqi?city=delhi`,
         params: { city: "city key (e.g. delhi)", month: "1-12" },
         formats: ["json"],
@@ -126,7 +126,7 @@ export default async (req) => {
       },
     ],
     notes:
-      "Rankings and community-sensor data are cached snapshots (see Cache-Control). Low-cost sensor readings are ±20-50% vs regulatory-grade. Forecast data is served client-side from the free Open-Meteo (CAMS) API, not this endpoint.",
+      "Rankings and community-sensor data are cached snapshots (see Cache-Control). Low-cost sensor readings can differ from regulatory-grade monitors by tens of percent without correction. Forecast data is served client-side from the free Open-Meteo (CAMS) API, not this endpoint.",
   };
 
   return new Response(JSON.stringify(manifest, null, 2), {

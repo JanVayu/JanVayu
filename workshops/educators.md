@@ -95,8 +95,7 @@ Seven browser games, written with Indian content rather than translated from
 American material. All free, no login, and each runs in a single lesson or less.
 
 **Air Quality Jeopardy, India edition.** A board game for teams. The longest of
-the seven and the best for a full period. Modelled on the classroom Jeopardy
-that Dr Sarath Guttikunda has run live for years at UrbanEmissions.info.
+the seven and the best for a full period. Inspired by quiz-show formats.
 
 **PM Quick-Quiz.** Short, individual, good as a warm-up or an exit ticket.
 

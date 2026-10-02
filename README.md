@@ -24,7 +24,7 @@ This is not a campaign. It is a record.
 
 ## ✨ Recent highlights (September 2026)
 
-- 📉 **Forty-three years of PM2.5, for 783 of 785 districts** — annual and four seasons, 1980 to 2022, from [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wang et al., *Earth System Science Data*, 2024; CC BY 4.0). The airshed panel charts it: New Delhi runs flat near 50 µg/m³ through the 1990s, climbs from 1999 and plateaus near 90; in winter, 64 to 128. It validates against Hawa Ka Hisab's independently computed figures (50.9 vs ~53 for the 1980s, 91.6 vs ~86 for 2013–2022). Carried in the data, not in the renderer: it is a reconstruction, and it is **not differenceable** against the ~1 km 2024 satellite layer.
+- 📉 **Forty-three years of PM2.5, for 783 of 785 districts** — annual and four seasons, 1980 to 2022, from [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wang et al., *Earth System Science Data*, 2024; CC BY 4.0). The airshed panel charts it: New Delhi runs flat near 55 µg/m³ through the 1990s, climbs from 1999 and plateaus near 90; in winter, from about 65 (1980s) to about 138 (2013–2022). It agrees with the decade means in Hawa Ka Hisab's "Destruction of Delhi" report (51 for the 1980s, 87 for the 2010s), which is built on the same LongPMInd data, so this is a consistency check rather than an independent validation. Carried in the data, not in the renderer: it is a reconstruction, and it is **not differenceable** against the ~1 km 2024 satellite layer.
 - 🧭 **"Your airshed, or your town?"** — a new panel built on the finding that **89.2% of the variance in district annual PM2.5 sits between states, not within them**. NCAP sets targets city by city; if most of a city's burden arrives from its airshed, a city acting alone can only reach the remainder. Pick a district and see the split. It says explicitly that the local gap names no cause.
 - 🔬 **Two global land-pressure rasters tested and rejected** — Biodiversity Intactness and Human Footprint (Impact Observatory / Vizzuality) correlate with district PM2.5 at −0.61 and +0.62, better than anything on the site. With state fixed effects the incremental R² collapses to +0.007 and +0.008. At 100 m they are a map of where the Gangetic Plain is. [The write-up](blog/posts/2026-09-05-a-map-of-the-gangetic-plain.md), and the join bug that nearly published the wrong table.
 - 🛠️ **The monthly air rebuild had never once run** — the current-year layer advertises a rebuild on the 3rd of each month; its first scheduled run died writing a checkpoint into a cache directory nothing created. Fixed and verified against the workflow's own command.
@@ -52,7 +52,7 @@ This is not a campaign. It is a record.
 | 6 | **Intro Tour** | Guided walkthrough for first-time visitors highlighting key sections and features |
 | 7 | **Real-Time AQI Dashboard** | Live PM2.5 and AQI across 157 Indian cities via WAQI/CPCB, with Beijing, London and Singapore alongside for comparison — 33 auto-refresh every 10 minutes, the rest are fetched on demand when selected |
 | 8 | **Interactive AQI Map** | Leaflet.js-powered map with station-level AQI markers across India, plus toggleable accountability and source layers from [indianopenmaps.com](https://indianopenmaps.com): live-AQI choropleths by **Lok Sabha constituency** ("the air your MP answers for") and **district**, **assembly-constituency** boundaries (vector tiles), and a **pollution-sources** overlay — landfills, dumpsites, coal mines, CPCB red/orange-category industrial parks, SEZs |
-| 9 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, Karolinska, and IHME studies |
+| 9 | **Health Impact Research** | Curated evidence from Lancet Countdown 2025, Harvard, and IHME studies |
 | 10 | **Economic Cost Tracker** | Quantified GDP and productivity losses ($339.4B / 9.5% GDP) |
 | 11 | **Policy Tracker** | NCAP progress, GRAP stage history, Supreme Court and NGT orders |
 | 12 | **Citizen Voices Archive** | Social media posts, testimonies, viral content from affected communities |
@@ -71,9 +71,9 @@ This is not a campaign. It is a record.
 | 25 | **Women's Health** | Gender-specific air pollution analysis — indoor cooking exposure, maternal health, occupational risks, gender data gap. "Woman / Caregiver" role |
 | 26 | **Historical Map Overlay** | Time-slider on the live map showing monthly PM2.5 data from Jan 2024 to present, color-coded by pollution level |
 | 27 | **Auto-Update Infrastructure** | Version sync, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system, reference data API, Zotero integration |
-| 28 | **Understanding AQI** | Interactive breakdown of 6 criteria pollutants, CPCB vs US EPA AQI scale comparison, "Why PM2.5 isn't the whole story" |
+| 28 | **Understanding AQI** | Interactive breakdown of up to 8 pollutants (PM2.5, PM10, NO2, SO2, CO, O3, NH3, Pb), CPCB vs US EPA AQI scale comparison, "Why PM2.5 isn't the whole story" |
 | 29 | **Shareable AQI Cards** | Canvas-based PNG generator (Instagram/WhatsApp sizes), color-coded by severity, Web Share API on mobile |
-| 30 | **Exposure Diary** | Log 16 daily activities with PM2.5 multipliers, get weighted exposure, cigarette equivalence, life-expectancy impact |
+| 30 | **Exposure Diary** | Log 16 daily activities with illustrative (not yet sourced) PM2.5 multipliers, get weighted exposure, cigarette equivalence, life-expectancy impact |
 | 31 | **Migration Comparison** | Side-by-side city comparison with live AQI, source apportionment charts, life-years gained verdict |
 | 32 | **Data Source Selector** | Educational panel on CPCB/WAQI/IQAir/Sensor.Community with Source Impact Simulator |
 | 33 | **City Policy Tracker** | 8-city NCAP target dashboard with expenditure tables, government action timeline, public feedback |
@@ -87,7 +87,7 @@ This is not a campaign. It is a record.
 | 41 | **Hand-drawn Diagrams** | A native Excalidraw-style (`rough.js` + self-hosted Kalam) engine renders the system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and blog heroes — each with a wide desktop and a portrait mobile variant. Sources in `assets/diagrams/` |
 | 42 | **Photo Gallery** | "The air, in pictures" — 32 (CC / public-domain) documentary photographs from Wikimedia Commons in a masonry grid + full-screen lightbox with per-image credit and source |
 | 43 | **Web Push Alerts** | Installable PWA with real server-sent threshold alerts (VAPID/Web Push), delivered even when the site is closed |
-| 44 | **Automated Fact-Check** | A weekly scheduled routine web-verifies every statistic + calculator constant against current primary sources and opens a review PR; findings archived in `docs/fact-check-*.md` |
+| 44 | **Automated Fact-Check** | A periodic (currently unscheduled) routine web-verifies every statistic + calculator constant against current primary sources and opens a review PR; findings archived in `docs/fact-check-*.md` |
 | 45 | **Village Boundaries** | A **Villages** layer on the live map covering all **584,615** Indian village administrative boundaries (LGD via indianopenmaps.com), vendored as one quantized TopoJSON per district in `data/villages/` by `scripts/build-villages.mjs`. Viewport-driven: loads at zoom 9+ only for districts in view |
 | 46 | **Annual PM2.5 per Village** | Every one of the 584,615 villages carries an **annual mean PM2.5** from SatPM2.5 V6GL03 (ACAG, Washington University — CNN over satellite AOD + GEOS-Chem, ~1 km, CC BY 4.0), built by `scripts/build-village-pm25.py`. This is what the ~565-station live network can never give: 100% coverage. Villages are coloured by it, banded on the WHO guideline (5) and India's NAAQS limit (40). The live estimate stays separate in the popup — two timescales, never merged — and the card notes that a ~1 km product smooths hyperlocal sources. **Not one village meets the WHO guideline; 63.6% exceed India's own limit of 40** |
 | 47 | **Annual PM2.5 per Ward** | The Ward Atlas gains an **"Air, yearly"** layer: an annual mean PM2.5 for all **9,015 wards** across the 142 cities, from the same SatPM2.5 V6GL03 grid (`scripts/build-village-pm25.py --target wards`). This is the year-scale partner the heat / green / built-up layers never had — unlike the live snapshot, it can honestly be compared with them, and the ward-vs-built-up scatter is finally a like-for-like correlation. Shaded *within* each city (a whole city usually sits inside one national band), with absolute µg/m³ endpoints in the legend. Mirrored into `ward-stats.json` so Ask JanVayu can use it |
@@ -101,7 +101,7 @@ This is not a campaign. It is a record.
 |--------|-------|--------|
 | Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
 | Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
-| India's Global Share | World's largest national PM2.5 death toll (~a quarter of the global total) | Lancet Countdown 2025 |
+| India's Global Share | India and China each recorded more than 2 million air-pollution deaths in 2023 (of 7.9 million worldwide) | State of Global Air 2025 |
 | Most Polluted Capital | New Delhi (82.2 µg/m³, 8th straight year worst) | IQAir 2025 |
 | Most Polluted City | Loni, India (112.5 µg/m³) | IQAir 2025 |
 | Cities Meeting WHO Guideline | Only 14% globally | IQAir 2025 |
@@ -215,7 +215,7 @@ JanVayu/
 | Frontend | Vanilla HTML / CSS / JavaScript | Zero-dependency single-page application |
 | Charts | Chart.js | AQI trends and health data visualizations |
 | Maps | Leaflet.js + OpenStreetMap | Interactive AQI station maps |
-| AQI Data | WAQI API | Real-time air quality from 500+ stations |
+| AQI Data | WAQI API | Real-time air quality from the stations WAQI aggregates for India |
 | Serverless | Netlify Functions | Server-side API proxying and scheduled tasks |
 | Caching | Netlify Blobs | Persistent JSON cache with strong consistency |
 | Email | Resend | Transactional email delivery for daily digests |
@@ -244,7 +244,7 @@ The following environment variables must be configured in the Netlify dashboard 
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+
+- [Node.js](https://nodejs.org/) 22.12 or later
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`)
 - A [Resend](https://resend.com) account (for email digest functionality)
 
@@ -287,7 +287,7 @@ The AQI dashboard will work without any server-side setup since it calls the WAQ
 
 ## Data Sources
 
-JanVayu integrates **160+ verified public data sources**, including:
+JanVayu integrates public data sources, including:
 
 | Source | Type | Access |
 |--------|------|--------|
@@ -324,8 +324,8 @@ Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked
 
 **Next up:**
 
-- **Publish the boundary tiles as a release.** `scripts/fetch-tiles.mjs` is written and unwired; publishing the archives takes the repo from ~360 MB to ~31 MB, and would let villages use PMTiles like the other six instead of the per-district loader.
-- **Repo weight.** The working tree is ~219 MB. A contributor-friendly shallow-clone or data-split path is worth having.
+- **Publish the boundary tiles as a release.** `scripts/fetch-tiles.mjs` is written and unwired; publishing the archives would take about 159 MB (`data/tiles`) out of the working tree, and would let villages use PMTiles like the other six instead of the per-district loader.
+- **Repo weight.** The working tree is ~395 MB (excluding `.git`; `data/villages` is ~192 MB and `data/tiles` ~159 MB). A contributor-friendly shallow-clone or data-split path is worth having.
 - **Whole-country correlations.** The Compare panel is honest about covering only what is on screen; a precomputed stats file would let it answer nationally.
 - **The states no ward source covers** — Manipur, Mizoram, Srinagar and Siliguri among them. An RTI to West Bengal Municipal Affairs is the realistic route for Siliguri.
 - **Thiruvananthapuram's last heat-less ward** sits in a Landsat coverage seam; the national mosaic closed five of six.
@@ -359,13 +359,13 @@ Editorial decisions are guided by:
 
 ## Name Change Note
 
-This project was previously known as "Vayu Smriti" (वायु स्मृति). Following community feedback and a vote, it was renamed to **JanVayu** (जनवायु) in January 2026 for better linguistic inclusivity across India's diverse language communities.
+This project was previously known as "Vayu Smriti" (वायु स्मृति). It was renamed to **JanVayu** (जनवायु) for better linguistic inclusivity across India's diverse language communities.
 
 ---
 
 ## Forking & Reuse
 
-JanVayu is designed to be forked for other cities, regions, or countries. Total cost to run a fork: **$0/month** on free tiers (WAQI, Groq, Resend, Netlify).
+JanVayu is designed to be forked for other cities, regions, or countries. Designed to run on the free tiers of WAQI, Groq, Resend and Netlify (free-tier limits change; check each provider).
 
 See **[FORKING.md](FORKING.md)** for a complete guide — what to change, API keys needed, and attribution requirements.
 

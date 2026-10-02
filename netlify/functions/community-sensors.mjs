@@ -3,7 +3,8 @@
 // GET /.netlify/functions/community-sensors?lat=28.6&lon=77.2&radius=25
 //
 // Pulls open community-sensor PM2.5 data from Sensor.Community (formerly
-// Luftdaten) — a free, no-auth, CC0-licensed global network of citizen-run
+// Luftdaten) — a free, no-auth global network (open data under the Database Contents
+// License, DbCL 1.0) of citizen-run
 // low-cost monitors. Filters to a bounding circle around (lat, lon).
 //
 // Why: aqi.in / oaq.notf.in show hyperlocal community sensors that JanVayu
@@ -192,7 +193,7 @@ export default async (req) => {
     }
   }
 
-  // FALLBACK: Sensor.Community (open CC0 network; sparse in India).
+  // FALLBACK: Sensor.Community (open data, DbCL 1.0; essentially no live Indian coverage).
   try {
     const data = await getSnapshot();
     if (!Array.isArray(data)) {
@@ -228,7 +229,7 @@ export default async (req) => {
 
     return new Response(JSON.stringify({
       stations,
-      source: "Sensor.Community (open community network, CC0)",
+      source: "Sensor.Community (open community network, DbCL 1.0)",
       generated: new Date().toISOString()
     }), { headers });
   } catch (e) {

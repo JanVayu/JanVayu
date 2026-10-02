@@ -16,7 +16,7 @@ Section 6(2) says so explicitly.
 
 The application fee is **₹10** for central public authorities under the RTI
 Rules, 2012, and nothing at all if you hold a BPL card. State authorities set
-their own fee by state rules and most, though not all, have kept it at ₹10;
+their own fee by state rules;
 check your own state's rules before sending a postal order for the wrong amount.
 
 The reply is due within **30 days** (Section 7(1)). Where the information
@@ -53,9 +53,9 @@ Pick **one** of these. Mark this step done when you have.
 
 **1. The monitors.** Is your city's network actually working? You ask for
 per-station uptime, calibration schedules and data-quality audit reports. This
-is the strongest opening request because the April 2025 CAG audit already found
-88% of CPCB stations had at least one data-quality issue in 2023-24, so you are
-asking about a known problem.
+is the strongest opening request because Newslaundry's 2025 field check found
+that 88% of the 25 Delhi monitoring stations it visited flouted CPCB siting
+criteria, so you are asking about a known problem.
 
 **2. The money.** What did your city get under NCAP and what did it spend?
 You ask for the tranche-wise release, the category-wise utilisation, the
@@ -84,8 +84,8 @@ The template gives you four things, and each matters:
 not refused, it is transferred under Section 6(3), and that costs you five days.
 Monitoring and consent questions go to the State Pollution Control Board. NCAP
 money goes to the SPCB with a copy to CPCB. School closures go to the state
-Directorate of Education. GRAP enforcement in Delhi-NCR goes to CAQM at Vayu
-Bhawan, Dwarka.
+Directorate of Education. GRAP enforcement in Delhi-NCR goes to CAQM, 17th Floor,
+Jawahar Vyapar Bhawan (STC Building), Tolstoy Marg, New Delhi 110001.
 
 **Questions phrased as requests for records.** "Why is the air so bad?" is an
 opinion and will be refused. "Provide the hourly PM2.5 data for the past 90 days

@@ -4,7 +4,7 @@ import { iaqiToPM25 } from "./lib/iaqi.mjs";
 // Checks major cities for PM2.5 spikes, optionally explains via Groq
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
-// Groq model, env-overridable. llama-3.3-70b-versatile retires 16 Aug 2026.
+// Groq model, env-overridable. llama-3.3-70b-versatile was retired by Groq on 16 Aug 2026 (updated 2 Oct 2026).
 const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 const GROQ_IS_REASONING = /gpt-oss|deepseek|qwen/.test(GROQ_MODEL);
 
@@ -16,7 +16,9 @@ const MONITOR_CITIES = {
   bangalore: { name: "Bengaluru", lat: 12.9716, lon: 77.5946 },
 };
 
-// Seasonal baselines (µg/m³) from CREA/IQAir data
+// Seasonal baselines (µg/m³): APPROXIMATE JanVayu working baselines, NOT published
+// figures. They are not taken from CREA or IQAir (neither publishes city-by-season
+// baselines in this form). Treat as rough thresholds only.
 function getSeasonalBaseline(cityKey) {
   const month = new Date().getMonth();
   const isWinter = month >= 9 || month <= 2;
@@ -122,7 +124,7 @@ export default async function handler(req) {
   // Fill missing explanations
   spikeData.forEach(s => {
     if (!s.explanation) {
-      s.explanation = `PM2.5 is ${s.ratio}x above seasonal baseline.`;
+      s.explanation = `PM2.5 is ${s.ratio}x above JanVayu's approximate working baseline (not a published figure).`;
     }
   });
 
