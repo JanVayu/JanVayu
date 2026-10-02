@@ -2799,10 +2799,10 @@
                 charts.budgetSpending = new Chart(budgetSpendingCtx, { 
                     type: 'doughnut', 
                     data: { 
-                        labels: ['Road Dust (68%)', 'Transport (14%)', 'Waste/Biomass (12%)', 'Monitoring (3%)', 'Industry (<1%)', 'Domestic (<1%)', 'Other (2%)'], 
+                        labels: ['Road Dust (68%)', 'Transport (14%)', 'Waste/Biomass (12%)', 'Monitoring (3%)', 'Industry (<1%)', 'Domestic (<1%)'], 
                         datasets: [{ 
-                            data: [68, 14, 12, 3, 1, 1, 1], 
-                            backgroundColor: ['#94A3B8', '#3B82F6', '#F59E0B', '#7C3AED', '#EF4444', '#16803C', '#CBD5E1'] 
+                            data: [68, 14, 12, 3, 1, 1], 
+                            backgroundColor: ['#94A3B8', '#3B82F6', '#F59E0B', '#7C3AED', '#EF4444', '#16803C'] 
                         }] 
                     }, 
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } } 
