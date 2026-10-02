@@ -2482,9 +2482,9 @@
     function getAQIColor(aqi) {
         if (aqi <= 50) return '#22C55E';
         if (aqi <= 100) return '#EAB308';
-        if (aqi <= 200) return '#F97316';
-        if (aqi <= 300) return '#EF4444';
-        if (aqi <= 400) return '#7C3AED';
+        if (aqi <= 150) return '#F97316';
+        if (aqi <= 200) return '#EF4444';
+        if (aqi <= 300) return '#7C3AED';
         return '#831843';
     }
     // WAQI reports the US EPA AQI (2016 table, aqicn.org/sources), so the names
@@ -2567,9 +2567,9 @@
     function getAQITextColor(aqi) {
         if (aqi <= 50) return 'var(--aqi-good)';
         if (aqi <= 100) return 'var(--aqi-moderate)';
-        if (aqi <= 200) return 'var(--aqi-poor)';
-        if (aqi <= 300) return 'var(--aqi-very-poor)';
-        if (aqi <= 400) return 'var(--aqi-severe)';
+        if (aqi <= 150) return 'var(--aqi-poor)';
+        if (aqi <= 200) return 'var(--aqi-very-poor)';
+        if (aqi <= 300) return 'var(--aqi-severe)';
         return 'var(--aqi-hazardous)';
     }
     function getWHOMultiple(pm25) { return (pm25 / WHO_PM25_GUIDELINE).toFixed(1); }
@@ -6326,9 +6326,9 @@
         if (articles.length === 0) {
             // Hardcoded fallback
             container.innerHTML = `
-                <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);"><span class="badge badge-danger">2026</span><span style="margin-left: 6px;">0% of Delhi's days met WHO safe air limits</span></div>
-                <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);"><span class="badge badge-warning">2026</span><span style="margin-left: 6px;">CREA: 204/238 cities exceed NAAQS for PM2.5</span></div>
-                <div style="padding: 6px 0;"><span class="badge badge-info">2026</span><span style="margin-left: 6px;">Delhi spent only 43% of ₹300 Cr pollution budget</span></div>`;
+                <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);"><span class="badge badge-danger">2026</span><span style="margin-left: 6px;">Delhi exceeded the daily NAAQS on 212 of 365 days in 2025 (CREA)</span></div>
+                <div style="padding: 6px 0; border-bottom: 1px solid var(--border-light);"><span class="badge badge-warning">2026</span><span style="margin-left: 6px;">CREA: 103 of 231 cities with at least 80% PM2.5 data exceeded the PM2.5 NAAQS in 2025</span></div>
+                <div style="padding: 6px 0;"><span class="badge badge-info">2026</span><span style="margin-left: 6px;">Delhi has spent about 17% of its NCAP funds available (ResGov, Dec 2025)</span></div>`;
             return;
         }
 
@@ -6704,7 +6704,7 @@
             { platform: 'twitter', title: 'Search #DelhiSmog on X', url: 'https://x.com/search?q=%23DelhiSmog&f=live', created: new Date(), text: 'Trending discussions about Delhi smog and air quality crisis.' },
             { platform: 'twitter', title: 'Search #AirPollutionIndia on X', url: 'https://x.com/search?q=%23AirPollutionIndia&f=live', created: new Date(), text: 'Pan-India air pollution discussions, policy debates, and citizen reports.' },
             { platform: 'twitter', title: '@AnumitaRoychowd (CSE)', url: 'https://x.com/AnumitaRoychowd', created: new Date(), text: 'Anumita Roychowdhury, CSE — leading air quality researcher and policy advocate.' },
-            { platform: 'twitter', title: '@SunilDahiya16 (CREA)', url: 'https://x.com/SunilDahiya16', created: new Date(), text: 'Sunil Dahiya, CREA analyst — data-driven air quality analysis.' }
+            { platform: 'twitter', title: '@SunilDahiya16', url: 'https://x.com/SunilDahiya16', created: new Date(), text: 'Sunil Dahiya, Envirocatalysts (formerly CREA).' }
         ];
     }
 
@@ -6713,7 +6713,7 @@
             { platform: 'instagram', title: '#DelhiPollution on Instagram', url: 'https://www.instagram.com/explore/tags/delhipollution/', created: new Date(), text: 'Visual stories and citizen reports of Delhi air pollution. Photos from the ground.' },
             { platform: 'instagram', title: '#DelhiSmog on Instagram', url: 'https://www.instagram.com/explore/tags/delhismog/', created: new Date(), text: 'Smog visuals, before/after comparisons, and air quality awareness posts.' },
             { platform: 'instagram', title: '#AirQualityIndia on Instagram', url: 'https://www.instagram.com/explore/tags/airqualityindia/', created: new Date(), text: 'National conversation on air quality — infographics, awareness campaigns.' },
-            { platform: 'instagram', title: 'Warrior Moms India', url: 'https://www.instagram.com/warriormomsin/', created: new Date(), text: 'Mothers fighting for clean air — campaigning for children\'s right to breathe.' }
+            { platform: 'instagram', title: 'Warrior Moms India', url: 'https://www.instagram.com/warriormoms.in/', created: new Date(), text: 'Mothers fighting for clean air — campaigning for children\'s right to breathe.' }
         ];
     }
 
@@ -8184,131 +8184,28 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
     // ── Migration Comparison (enhanced) ──
     // Client-side source apportionment data (mirrored from backend air-query.mjs)
+    // Only Delhi has a split we can trace to a named study (data/apportionment.json:
+    // ARAI & TERI 2018, winter dispersion model, ambient PM2.5 shares for Delhi city).
+    // The earlier tables for the other cities did not match data/apportionment.json
+    // and had no traceable source, so those cities now show "no verified source split".
     const MIGRATION_APPORTIONMENT = {
         delhi: {
             sources: [
-                { name: "Vehicles", pct: 25 },
-                { name: "Industries + coal TPPs", pct: 22 },
-                { name: "Road dust + construction", pct: 18 },
-                { name: "Stubble burning (Oct-Nov)", pct: 14 },
-                { name: "Residential biomass", pct: 13 },
-                { name: "Open waste burning", pct: 8 }
+                { name: "Transport", pct: 28 },
+                { name: "Industry (incl. power)", pct: 30 },
+                { name: "Road dust + construction", pct: 17 },
+                { name: "Residential biomass", pct: 14 },
+                { name: "Other", pct: 11 }
             ],
-            citation: "CAQM 2026; IIT-Delhi DSS 2024; CEEW 2024"
-        },
-        mumbai: {
-            sources: [
-                { name: "Vehicles", pct: 28 },
-                { name: "Industries (Mahul-Trombay)", pct: 19 },
-                { name: "Sea-salt + secondary", pct: 18 },
-                { name: "Road + construction dust", pct: 15 },
-                { name: "Residential cooking", pct: 11 },
-                { name: "Waste + landfill burning", pct: 9 }
-            ],
-            citation: "TERI-Mumbai 2021; CSIR-NEERI 2023"
-        },
-        bangalore: {
-            sources: [
-                { name: "Vehicles", pct: 35 },
-                { name: "Construction dust", pct: 22 },
-                { name: "Industries", pct: 14 },
-                { name: "Secondary aerosols", pct: 12 },
-                { name: "Residential", pct: 9 },
-                { name: "Lake-bed + waste burning", pct: 8 }
-            ],
-            citation: "CSIR-NEERI 2023; KSPCB 2022"
-        },
-        kolkata: {
-            sources: [
-                { name: "Vehicles", pct: 26 },
-                { name: "Coal/diesel industries", pct: 23 },
-                { name: "Residential biomass", pct: 15 },
-                { name: "Road dust", pct: 14 },
-                { name: "Open burning + waste", pct: 11 },
-                { name: "Brick kilns", pct: 11 }
-            ],
-            citation: "Bose Institute 2022; Jadavpur Univ."
-        },
-        chennai: {
-            sources: [
-                { name: "Industries (Manali, Ennore)", pct: 28 },
-                { name: "Vehicles", pct: 22 },
-                { name: "Sea-salt + secondary", pct: 20 },
-                { name: "Road + construction dust", pct: 14 },
-                { name: "Residential biomass", pct: 8 },
-                { name: "Open waste burning", pct: 8 }
-            ],
-            citation: "CPCB-Chennai 2023; IIT-Madras"
-        },
-        lucknow: {
-            sources: [
-                { name: "Vehicles", pct: 24 },
-                { name: "Brick kilns", pct: 21 },
-                { name: "Residential biomass", pct: 18 },
-                { name: "Road dust", pct: 16 },
-                { name: "Industries", pct: 12 },
-                { name: "Open burning", pct: 9 }
-            ],
-            citation: "TERI 2022; UP PCB"
-        },
-        patna: {
-            sources: [
-                { name: "Residential biomass", pct: 26 },
-                { name: "Vehicles + diesel gensets", pct: 21 },
-                { name: "Brick kilns", pct: 17 },
-                { name: "Road dust", pct: 15 },
-                { name: "Open burning", pct: 12 },
-                { name: "Stubble (Punjab+Bihar)", pct: 9 }
-            ],
-            citation: "ICAR-RCER 2023; Bihar PCB; CEEW 2024"
-        },
-        pune: {
-            sources: [
-                { name: "Vehicles", pct: 30 },
-                { name: "Construction + road dust", pct: 22 },
-                { name: "Open burning + secondary", pct: 20 },
-                { name: "Industries", pct: 18 },
-                { name: "Residential", pct: 10 }
-            ],
-            citation: "IITM-Pune; CSIR-NEERI 2022"
-        },
-        varanasi: {
-            sources: [
-                { name: "Road dust", pct: 35 },
-                { name: "Brick kilns + industries", pct: 19 },
-                { name: "Open burning + stubble", pct: 16 },
-                { name: "Vehicles", pct: 16 },
-                { name: "Residential biomass", pct: 14 }
-            ],
-            citation: "NCAP CREA 2024; BHU"
-        },
-        ahmedabad: {
-            sources: [
-                { name: "Industries (Naroda, Vatva)", pct: 25 },
-                { name: "Vehicles", pct: 22 },
-                { name: "Road + construction dust", pct: 20 },
-                { name: "Brick kilns", pct: 13 },
-                { name: "Residential biomass", pct: 11 },
-                { name: "Open burning + secondary", pct: 9 }
-            ],
-            citation: "GPCB; IIT-Gandhinagar"
-        },
-        hyderabad: {
-            sources: [
-                { name: "Vehicles", pct: 30 },
-                { name: "Industries", pct: 20 },
-                { name: "Construction + road dust", pct: 20 },
-                { name: "Residential", pct: 12 },
-                { name: "Open burning + secondary", pct: 18 }
-            ],
-            citation: "TSPCB 2023; CSIR-IICT studies"
+            citation: "ARAI & TERI 2018 (Dept. of Heavy Industry), winter dispersion model"
         }
     };
 
-    // NCAP non-attainment cities (131 total, these are the ones in our CITIES object)
+    // NCAP non-attainment cities (131 total, these are the ones in our CITIES object).
+    // Gurgaon is omitted: it is not in the MoEFCC/CPCB or PIB city lists.
     const NCAP_NONATTAINMENT = new Set([
         'delhi','mumbai','kolkata','chennai','bangalore','hyderabad',
-        'gurgaon','noida','faridabad','ghaziabad','lucknow','kanpur',
+        'noida','faridabad','ghaziabad','lucknow','kanpur',
         'patna','jaipur','ahmedabad','pune','chandigarh','varanasi',
         'agra','bhopal','indore','nagpur','visakhapatnam',
         'muzaffarpur','gaya','raipur','jodhpur','guwahati','dehradun','amritsar'
@@ -8346,7 +8243,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         const fromLivePM25 = fromLive?.pm25 || null;
         const toLivePM25 = toLive?.pm25 || null;
 
-        // Annual values (IQAir 2025 cached)
+        // Annual values: IQAir 2025 for the four cities in IQAIR_2025_VERIFIED, working values otherwise
         const fromAnnualPM25 = CITY_ANNUAL_PM25[fromKey] || null;
         const toAnnualPM25 = CITY_ANNUAL_PM25[toKey] || null;
 
@@ -8454,9 +8351,9 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                             <td style="text-align: center;">${pm25Badge(toLivePM25)}</td>
                         </tr>
                         <tr style="background: var(--bg-section);">
-                            <td><strong>Annual PM2.5</strong> (IQAir 2025)</td>
-                            <td style="text-align: center;">${fromAnnualPM25 ? pm25Badge(fromAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
-                            <td style="text-align: center;">${toAnnualPM25 ? pm25Badge(toAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
+                            <td><strong>Annual PM2.5</strong> (IQAir 2025 for Delhi, Gurgaon, Noida, Ghaziabad; other cities are working values)</td>
+                            <td style="text-align: center;">${fromAnnualPM25 ? pm25Badge(fromAnnualPM25) + ' ug/m3' + (IQAIR_2025_VERIFIED.has(fromKey) ? '' : ' <small style="color: var(--text-3);">(working value)</small>') : '<span style="color:var(--text-3);">N/A</span>'}</td>
+                            <td style="text-align: center;">${toAnnualPM25 ? pm25Badge(toAnnualPM25) + ' ug/m3' + (IQAIR_2025_VERIFIED.has(toKey) ? '' : ' <small style="color: var(--text-3);">(working value)</small>') : '<span style="color:var(--text-3);">N/A</span>'}</td>
                         </tr>
                         <tr>
                             <td><strong>WHO multiple</strong></td>
@@ -8485,7 +8382,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         </div>`;
 
         // ── Source apportionment comparison ──
-        if (fromApport || toApport) {
+        {
             html += `
             <div class="card mb-3">
                 <div class="card-header"><span class="card-title">Pollution Source Breakdown</span></div>
@@ -8494,7 +8391,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             // Source bars helper
             function renderSourceBars(apport, cityName) {
-                if (!apport) return `<div><h4 style="font-size: 0.875rem; margin-bottom: 0.75rem;">${cityName}</h4><p style="font-size: 0.8rem; color: var(--text-3);">No source apportionment data available for this city.</p></div>`;
+                if (!apport) return `<div><h4 style="font-size: 0.875rem; margin-bottom: 0.75rem;">${cityName}</h4><p style="font-size: 0.8rem; color: var(--text-3);">No verified source split for this city.</p></div>`;
                 const barColors = ['#3B82F6', '#EF4444', '#F59E0B', '#10B981', '#8B5CF6', '#EC4899', '#6366F1'];
                 let barsHtml = `<div><h4 style="font-size: 0.875rem; margin-bottom: 0.75rem;">${cityName}</h4>`;
                 apport.sources.forEach((s, i) => {
@@ -8525,7 +8422,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         // ── Caveat ──
         html += `
         <div class="alert alert-info" style="font-size: 0.8rem;">
-            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5 values from IQAir World Air Quality Report 2025. Live AQI from WAQI (single nearest station &mdash; snapshot, not annual average). Source apportionment from CEEW 2024, TERI, IIT-Delhi DSS, CSIR-NEERI, and city-specific studies.<br>
+            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5: IQAir World Air Quality Report 2025 for Delhi (New Delhi), Gurgaon (Gurugram), Noida and Ghaziabad; other cities use illustrative working values, not published figures. Live AQI from WAQI (single nearest station &mdash; snapshot, not annual average). Source apportionment: Delhi from ARAI &amp; TERI 2018 (winter dispersion model); other cities show no verified source split.<br>
             <strong>Caveat:</strong> Live values are today's snapshot. The health calculations use annual averages for a more robust comparison. Actual benefit depends on duration of residence, indoor air quality, and individual health factors.
         </div>
         <div style="text-align: center; margin-top: 1rem;">
@@ -8539,15 +8436,19 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
     // ── Accountability Scorecards ──
+    // Funds released and utilised (Rs crore) from PIB, 21 Dec 2023, Annexure I (FY2019-20 to
+    // Nov 2023) for all cities except Delhi, which is ResGov's Delhi brief (23 Dec 2025).
+    // The earlier target, achieved, station and "allocated" figures had no traceable source
+    // and were removed, so no grade is given.
     const NCAP_DATA = {
-        delhi: { target: 40, achieved: 8, fundsAllocated: 81, fundsUtilized: 14, stations: 40, stationsOnline: 32 },
-        mumbai: { target: 30, achieved: 15, fundsAllocated: 380, fundsUtilized: 220, stations: 28, stationsOnline: 22 },
-        lucknow: { target: 35, achieved: 5, fundsAllocated: 180, fundsUtilized: 72, stations: 12, stationsOnline: 8 },
-        patna: { target: 40, achieved: 3, fundsAllocated: 120, fundsUtilized: 84, stations: 6, stationsOnline: 4 },
-        kolkata: { target: 30, achieved: 12, fundsAllocated: 95, fundsUtilized: 45, stations: 15, stationsOnline: 11 },
-        chennai: { target: 20, achieved: 18, fundsAllocated: 65, fundsUtilized: 52, stations: 10, stationsOnline: 9 },
-        bangalore: { target: 25, achieved: 10, fundsAllocated: 85, fundsUtilized: 40, stations: 14, stationsOnline: 10 },
-        hyderabad: { target: 25, achieved: 12, fundsAllocated: 70, fundsUtilized: 35, stations: 12, stationsOnline: 9 }
+        delhi: { fundsReleased: 81.36, fundsUtilized: 14.1, asOf: 'Dec 2025 (ResGov)' },
+        mumbai: { fundsReleased: 938.59, fundsUtilized: 680.32, asOf: 'Nov 2023 (PIB)' },
+        lucknow: { fundsReleased: 385.83, fundsUtilized: 199.5, asOf: 'Nov 2023 (PIB)' },
+        patna: { fundsReleased: 298.57, fundsUtilized: 157.72, asOf: 'Nov 2023 (PIB)' },
+        kolkata: { fundsReleased: 687.25, fundsUtilized: 636.18, asOf: 'Nov 2023 (PIB)' },
+        chennai: { fundsReleased: 367, fundsUtilized: 367.51, asOf: 'Nov 2023 (PIB)' },
+        bangalore: { fundsReleased: 541.1, fundsUtilized: 5.47, asOf: 'Nov 2023 (PIB, as published)' },
+        hyderabad: { fundsReleased: 454.3, fundsUtilized: 365.6, asOf: 'Nov 2023 (PIB)' }
     };
 
     function generateScorecard() {
@@ -8566,29 +8467,29 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
         document.getElementById('scorecard-display').style.display = 'block';
 
-        const fundUtil = ncap ? Math.round(ncap.fundsUtilized / ncap.fundsAllocated * 100) : '?';
-        const stationUptime = ncap ? Math.round(ncap.stationsOnline / ncap.stations * 100) : '?';
-        const grade = ncap ? (ncap.achieved >= ncap.target * 0.7 ? 'B' : ncap.achieved >= ncap.target * 0.3 ? 'C' : 'D') : '?';
-        const gradeColor = grade === 'B' ? '#EAB308' : grade === 'C' ? '#F97316' : '#EF4444';
+        const fundUtil = ncap ? Math.round(ncap.fundsUtilized / ncap.fundsReleased * 100) : '?';
+        // Grades are withdrawn until target and achievement figures have a published source.
+        const grade = 'n/a';
+        const gradeColor = 'var(--text-3)';
 
         document.getElementById('scorecard-content').innerHTML = `
             <div style="text-align: center; padding: 1rem 0; border-bottom: 2px solid var(--border);">
                 <div style="font-size: 0.75rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em;">JanVayu Accountability Scorecard</div>
                 <div style="font-size: 1.75rem; font-weight: 700; margin: 0.5rem 0;">${cityName}</div>
                 <div style="font-size: 4rem; font-weight: 700; color: ${gradeColor};">${grade}</div>
-                <div style="font-size: 0.85rem; color: var(--text-2);">Overall Air Quality Grade</div>
+                <div style="font-size: 0.85rem; color: var(--text-2);">Grade withdrawn: no published city targets or results to grade against</div>
             </div>
             ${ncap ? `
             <div class="grid-4 mt-3" style="gap: 1rem; text-align: center;">
-                <div><div style="font-size: 0.7rem; color: var(--text-3);">NCAP Target</div><div style="font-size: 1.25rem; font-weight: 700;">-${ncap.target}%</div></div>
-                <div><div style="font-size: 0.7rem; color: var(--text-3);">Achieved</div><div style="font-size: 1.25rem; font-weight: 700; color: ${ncap.achieved >= ncap.target * 0.5 ? '#EAB308' : '#EF4444'};">-${ncap.achieved}%</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-3);">Funds released</div><div style="font-size: 1.25rem; font-weight: 700;">₹${ncap.fundsReleased} Cr</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-3);">Funds utilised</div><div style="font-size: 1.25rem; font-weight: 700;">₹${ncap.fundsUtilized} Cr</div></div>
                 <div><div style="font-size: 0.7rem; color: var(--text-3);">Fund Utilization</div><div style="font-size: 1.25rem; font-weight: 700;">${fundUtil}%</div></div>
-                <div><div style="font-size: 0.7rem; color: var(--text-3);">Station Uptime</div><div style="font-size: 1.25rem; font-weight: 700;">${stationUptime}%</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-3);">As of</div><div style="font-size: 0.9rem; font-weight: 700;">${ncap.asOf}</div></div>
             </div>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-2); text-align: center;">
-                Current AQI: ${aqi} | Annual PM2.5: ${pm25} µg/m³ (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsAllocated} Cr utilized
+                Current AQI: ${aqi} | Annual PM2.5: ${pm25} µg/m³${IQAIR_2025_VERIFIED.has(cityKey) ? ' (IQAir 2025)' : ' (working value, not a published figure)'} (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr utilised of released
             </div>` : '<p style="color: var(--text-3); text-align: center; margin-top: 1rem;">NCAP data not available for this city.</p>'}
-            <div style="margin-top: 1rem; font-size: 0.65rem; color: var(--text-3); text-align: center;">Generated by JanVayu (janvayu.in) · Data: CPCB, CREA, MoEFCC · ${new Date().toLocaleDateString('en-IN')}</div>`;
+            <div style="margin-top: 1rem; font-size: 0.65rem; color: var(--text-3); text-align: center;">Generated by JanVayu (janvayu.in) · Data: PIB (21 Dec 2023), ResGov Delhi brief (Dec 2025) · ${new Date().toLocaleDateString('en-IN')}</div>`;
     }
 
     // Map a scorecard city to the RTI form's state option (best-effort; left
@@ -8740,6 +8641,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     }
 
     // ── Correlation Explorer ──
+    // Every column except pm25 (which is read from CITY_ANNUAL_PM25) is an illustrative
+    // working value with no published source; the chart labels say so.
     const CITY_CORR_DATA = {
         delhi: { pm25: 100, aqi: 280, population: 20, deaths: 54000, life_years: 3.5, economic_cost: 5.8, hospital: 95 },
         mumbai: { pm25: 42, aqi: 120, population: 21, deaths: 18000, life_years: 1.5, economic_cost: 3.2, hospital: 45 },
@@ -8758,10 +8661,12 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         const xAxis = document.getElementById('corr-x')?.value || 'pm25';
         const yAxis = document.getElementById('corr-y')?.value || 'deaths';
 
-        const labels = { pm25: 'Annual PM2.5 (µg/m³)', aqi: 'Average AQI', population: 'Population (M)', deaths: 'Est. Deaths/Year', life_years: 'Life Years Lost', economic_cost: 'Economic Cost (% GDP)', hospital: 'Hospital Admissions Index' };
+        const labels = { pm25: 'Annual PM2.5 (µg/m³; IQAir 2025 for Delhi, Noida, Ghaziabad, otherwise working values)', aqi: 'Average AQI (illustrative)', population: 'Population (M, illustrative)', deaths: 'Deaths/Year (illustrative, not a published figure)', life_years: 'Life Years Lost (illustrative)', economic_cost: 'Economic Cost (% GDP, illustrative)', hospital: 'Hospital Admissions Index (illustrative)' };
 
+        // PM2.5 uses the same annual values as the rest of the page (CITY_ANNUAL_PM25).
+        const val = (key, d, axis) => axis === 'pm25' ? (CITY_ANNUAL_PM25[key] ?? d.pm25) : d[axis];
         const points = Object.entries(CITY_CORR_DATA).map(([key, d]) => ({
-            x: d[xAxis], y: d[yAxis], label: CITIES[key]?.name || key
+            x: val(key, d, xAxis), y: val(key, d, yAxis), label: CITIES[key]?.name || key
         }));
 
         setTimeout(() => {
@@ -9380,171 +9285,135 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     const CITY_POLICY_DATA = {
         delhi: {
             name: 'Delhi',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Additional: CAQM year-round GRAP enforcement from May 2026',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'CAQM invoked GRAP Stage I in May 2026',
             currentPM25: 82.2,
             status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: 'Only 17% NCAP fund utilisation. 0 days met WHO guideline in 2024.',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 14 crore spent, about 17% of the funds available (ResGov Delhi brief, 23 Dec 2025). Rs 81 crore released of Rs 113 crore approved. Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 10.00, utilised: 2.00 },
-                { year: '2020-21', allocated: 12.00, utilised: 3.50 },
-                { year: '2021-22', allocated: 15.00, utilised: 4.10 },
-                { year: '2022-23', allocated: 18.00, utilised: 2.50 },
-                { year: '2023-24', allocated: 14.36, utilised: 1.00 },
-                { year: '2024-25', allocated: 12.00, utilised: 1.00 },
-                { year: '2025-26', allocated: null, utilised: null }
+                { year: '2021-22', allocated: 19.00, utilised: null },
+                { year: '2022-23', allocated: 25.00, utilised: null },
+                { year: '2023-24', allocated: 10.00, utilised: null },
+                { year: '2024-25', allocated: 39.00, utilised: null },
+                { year: '2025-26', allocated: 20.00, utilised: null }
             ],
-            totalAllocated: 81.36,
-            totalUtilised: 14.10,
-            utilisationPct: 17
+            totalReleased: 81.36,
+            totalUtilised: 14.1,
+            utilisationPct: 17,
+            fundsAsOf: 'Dec 2025'
         },
         mumbai: {
             name: 'Mumbai',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'BEST e-bus fleet target: 2,100 by 2026',
-            currentPM25: 41.4,
-            status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: 'PM2.5 increased 38% since 2019 despite NCAP. 58% fund utilisation.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'BEST plans 8,000 e-buses in operation in 2027 (Sustainable Bus)',
+            currentPM25: null,
+            status: 'met',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 680.32 crore of Rs 938.59 crore released was spent, about 72% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 30.00, utilised: 10.00 },
-                { year: '2020-21', allocated: 45.00, utilised: 22.00 },
-                { year: '2021-22', allocated: 55.00, utilised: 32.00 },
-                { year: '2022-23', allocated: 70.00, utilised: 45.00 },
-                { year: '2023-24', allocated: 80.00, utilised: 51.00 },
-                { year: '2024-25', allocated: 60.00, utilised: 35.00 },
-                { year: '2025-26', allocated: 40.00, utilised: 25.00 }
+
             ],
-            totalAllocated: 380.00,
-            totalUtilised: 220.00,
-            utilisationPct: 58
+            totalReleased: 938.59,
+            totalUtilised: 680.32,
+            utilisationPct: 72,
+            fundsAsOf: 'Nov 2023'
         },
         patna: {
             name: 'Patna',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Brick kiln zigzag conversion within 50 km radius',
-            currentPM25: 96.8,
-            status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: 'Best utilisation rate (70%) among major cities but PM2.5 remains 19x WHO guideline.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'No verified city-specific target on record here',
+            currentPM25: null,
+            status: 'on-track',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 157.72 crore of Rs 298.57 crore released was spent, about 53% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 8.00, utilised: 5.00 },
-                { year: '2020-21', allocated: 12.00, utilised: 8.00 },
-                { year: '2021-22', allocated: 18.00, utilised: 13.00 },
-                { year: '2022-23', allocated: 22.00, utilised: 16.00 },
-                { year: '2023-24', allocated: 25.00, utilised: 18.00 },
-                { year: '2024-25', allocated: 20.00, utilised: 14.00 },
-                { year: '2025-26', allocated: 15.00, utilised: 10.00 }
+
             ],
-            totalAllocated: 120.00,
-            totalUtilised: 84.00,
-            utilisationPct: 70
+            totalReleased: 298.57,
+            totalUtilised: 157.72,
+            utilisationPct: 53,
+            fundsAsOf: 'Nov 2023'
         },
         lucknow: {
             name: 'Lucknow',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Anti-smog gun deployment + mechanised sweeping 200 km/day',
-            currentPM25: 76.5,
-            status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: '40% utilisation — below 75% threshold, risks losing next allocation.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'No verified city-specific target on record here',
+            currentPM25: null,
+            status: 'on-track',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 199.5 crore of Rs 385.83 crore released was spent, about 52% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 15.00, utilised: 5.00 },
-                { year: '2020-21', allocated: 20.00, utilised: 8.00 },
-                { year: '2021-22', allocated: 25.00, utilised: 10.00 },
-                { year: '2022-23', allocated: 30.00, utilised: 12.00 },
-                { year: '2023-24', allocated: 35.00, utilised: 15.00 },
-                { year: '2024-25', allocated: 30.00, utilised: 12.00 },
-                { year: '2025-26', allocated: 25.00, utilised: 10.00 }
+
             ],
-            totalAllocated: 180.00,
-            totalUtilised: 72.00,
-            utilisationPct: 40
+            totalReleased: 385.83,
+            totalUtilised: 199.5,
+            utilisationPct: 52,
+            fundsAsOf: 'Nov 2023'
         },
         noida: {
             name: 'Noida',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Part of NCR — subject to CAQM GRAP enforcement',
-            currentPM25: 80.4,
-            status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: 'Critical underutilisation at 13%. One of the worst performing NCAP cities.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'Part of NCR, subject to CAQM GRAP enforcement',
+            currentPM25: 80.5,
+            status: 'on-track',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 30 crore of Rs 56 crore released was spent, about 54% (ResGov Noida brief, 4 Jan 2026). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 5.00, utilised: 0.50 },
-                { year: '2020-21', allocated: 8.00, utilised: 1.00 },
-                { year: '2021-22', allocated: 10.00, utilised: 1.50 },
-                { year: '2022-23', allocated: 10.70, utilised: 1.50 },
-                { year: '2023-24', allocated: 10.00, utilised: 1.07 },
-                { year: '2024-25', allocated: 7.00, utilised: 1.00 },
-                { year: '2025-26', allocated: 5.00, utilised: 0.50 }
+
             ],
-            totalAllocated: 55.70,
-            totalUtilised: 7.07,
-            utilisationPct: 13
+            totalReleased: 56.0,
+            totalUtilised: 30.0,
+            utilisationPct: 54,
+            fundsAsOf: 'Jan 2026'
         },
         ghaziabad: {
             name: 'Ghaziabad',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Part of NCR — subject to CAQM GRAP enforcement',
-            currentPM25: 92.1,
-            status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: '26% utilisation — below threshold.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'Part of NCR, subject to CAQM GRAP enforcement',
+            currentPM25: 89.2,
+            status: 'met',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 97.08 crore of Rs 136.25 crore released was spent, about 71% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 4.00, utilised: 1.00 },
-                { year: '2020-21', allocated: 6.00, utilised: 1.50 },
-                { year: '2021-22', allocated: 8.00, utilised: 2.00 },
-                { year: '2022-23', allocated: 8.50, utilised: 2.10 },
-                { year: '2023-24', allocated: 9.00, utilised: 2.50 },
-                { year: '2024-25', allocated: 7.00, utilised: 2.00 },
-                { year: '2025-26', allocated: 6.00, utilised: 1.50 }
+
             ],
-            totalAllocated: 48.50,
-            totalUtilised: 12.60,
-            utilisationPct: 26
+            totalReleased: 136.25,
+            totalUtilised: 97.08,
+            utilisationPct: 71,
+            fundsAsOf: 'Nov 2023'
         },
         varanasi: {
             name: 'Varanasi',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Showcased as NCAP success story — PM2.5 fell 72% in 5 years',
-            currentPM25: 78.4,
-            status: 'met',
-            statusLabel: 'Met',
-            statusNote: 'Best NCAP performer nationally. PM2.5 down 72% in 5 years — but still 15x WHO guideline.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'No verified city-specific target on record here',
+            currentPM25: null,
+            status: 'on-track',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 83.49 crore of Rs 229.17 crore released was spent, about 36% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 8.00, utilised: 6.00 },
-                { year: '2020-21', allocated: 10.00, utilised: 8.00 },
-                { year: '2021-22', allocated: 12.00, utilised: 10.00 },
-                { year: '2022-23', allocated: 15.00, utilised: 13.00 },
-                { year: '2023-24', allocated: 15.00, utilised: 12.00 },
-                { year: '2024-25', allocated: 12.00, utilised: 10.00 },
-                { year: '2025-26', allocated: 10.00, utilised: 8.00 }
+
             ],
-            totalAllocated: 82.00,
-            totalUtilised: 67.00,
-            utilisationPct: 82
+            totalReleased: 229.17,
+            totalUtilised: 83.49,
+            utilisationPct: 36,
+            fundsAsOf: 'Nov 2023'
         },
         kolkata: {
             name: 'Kolkata',
-            ncapTarget: '40% PM10 reduction by March 2026',
-            cityTarget: 'Focus on vehicle emissions and winter inversions',
-            currentPM25: 50.2,
-            status: 'not-met',
-            statusLabel: 'Not Met',
-            statusNote: 'Limited monitoring coverage (7 CAAQMS). Winter inversions + vehicle emissions.',
+            ncapTarget: 'Up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 (CREA 2026; PIB)',
+            cityTarget: 'No verified city-specific target on record here',
+            currentPM25: null,
+            status: 'met',
+            statusLabel: 'Fund utilisation only',
+            statusNote: 'Rs 636.18 crore of Rs 687.25 crore released was spent, about 93% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
-                { year: '2019-20', allocated: 10.00, utilised: 4.00 },
-                { year: '2020-21', allocated: 15.00, utilised: 7.00 },
-                { year: '2021-22', allocated: 18.00, utilised: 9.00 },
-                { year: '2022-23', allocated: 20.00, utilised: 10.00 },
-                { year: '2023-24', allocated: 18.00, utilised: 8.00 },
-                { year: '2024-25', allocated: 15.00, utilised: 7.00 },
-                { year: '2025-26', allocated: 12.00, utilised: 5.00 }
+
             ],
-            totalAllocated: 108.00,
-            totalUtilised: 50.00,
-            utilisationPct: 46
+            totalReleased: 687.25,
+            totalUtilised: 636.18,
+            utilisationPct: 93,
+            fundsAsOf: 'Nov 2023'
         }
     };
 
@@ -9565,21 +9434,21 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         if (targetArea) {
             const statusColor = d.status === 'met' ? 'var(--ink-green)' : d.status === 'on-track' ? 'var(--ink-amber)' : 'var(--ink-red)';
             const statusBadge = d.status === 'met' ? 'badge-success' : d.status === 'on-track' ? 'badge-warning' : 'badge-danger';
-            const whoMultiple = (d.currentPM25 / 5).toFixed(0);
+            const whoMultiple = d.currentPM25 != null ? (d.currentPM25 / 5).toFixed(0) : null;
             targetArea.innerHTML =
                 '<div class="grid-2" style="gap: 1rem; margin-bottom: 1rem;">' +
                     '<div class="info-box" style="border-left: 3px solid #3B82F6;">' +
                         '<h4 style="font-size: 0.875rem; color: var(--blue);">Announced Targets</h4>' +
                         '<p style="margin-top: 0.5rem;"><strong>NCAP national target:</strong> ' + d.ncapTarget + '</p>' +
                         '<p><strong>City-specific:</strong> ' + d.cityTarget + '</p>' +
-                        '<p style="margin-top: 0.5rem;"><strong>Current PM2.5:</strong> ' + d.currentPM25 + ' &micro;g/m&sup3; (' + whoMultiple + '&times; WHO guideline)</p>' +
+                        '<p style="margin-top: 0.5rem;"><strong>Annual PM2.5 (IQAir 2025):</strong> ' + (d.currentPM25 != null ? d.currentPM25 + ' &micro;g/m&sup3; (' + whoMultiple + '&times; WHO guideline)' : 'no verified figure on this page') + '</p>' +
                     '</div>' +
                     '<div class="info-box" style="border-left: 3px solid ' + statusColor + ';">' +
-                        '<h4 style="font-size: 0.875rem; color: ' + statusColor + ';">Target Status</h4>' +
+                        '<h4 style="font-size: 0.875rem; color: ' + statusColor + ';">Fund Utilisation Status</h4>' +
                         '<div style="margin-top: 0.5rem;"><span class="badge ' + statusBadge + '" style="font-size: 1rem; padding: 0.25rem 0.75rem;">' + d.statusLabel + '</span></div>' +
                         '<p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-2);">' + d.statusNote + '</p>' +
                         '<div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg); border-radius: 4px; font-size: 0.8125rem;">' +
-                            '<strong>Total allocated:</strong> ₹' + d.totalAllocated.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
+                            '<strong>Total released:</strong> ₹' + d.totalReleased.toFixed(0) + ' Cr (to ' + d.fundsAsOf + ') &nbsp;|&nbsp; ' +
                             '<strong>Total utilised:</strong> ₹' + d.totalUtilised.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
                             '<strong>Utilisation:</strong> <span style="color: ' + statusColor + '; font-weight: 700;">' + d.utilisationPct + '%</span>' +
                         '</div>' +
@@ -9590,7 +9459,9 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         // Render expenditure table
         const tbody = document.getElementById('cityPolicyExpBody');
         if (tbody) {
-            tbody.innerHTML = d.expenditure.map(function(row) {
+            if (!d.expenditure.length) {
+                tbody.innerHTML = '<tr><td colspan="4">No verified year-by-year series for this city. Totals above are from PIB (21 Dec 2023) and ResGov.</td></tr>';
+            } else tbody.innerHTML = d.expenditure.map(function(row) {
                 const alloc = row.allocated !== null ? row.allocated.toFixed(2) : '&mdash;';
                 const util = row.utilised !== null ? row.utilised.toFixed(2) : '&mdash;';
                 let pct = '&mdash;';
