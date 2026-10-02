@@ -6,21 +6,21 @@ JanVayu uses the [World Air Quality Index (WAQI)](https://waqi.info) API as its 
 
 ## About WAQI
 
-WAQI is an independent non-profit project that aggregates data from 20,000+ monitoring stations across 100+ countries, including all CPCB CAAQMS stations in India. For India, WAQI aggregates data from:
+The World Air Quality Index project (WAQI) publishes real-time readings from more than 10,000 stations on its map ([waqi.info](https://waqi.info)), collated from national environmental agencies in more than 100 countries ([aqicn.org](https://aqicn.org/here/)), including most CPCB CAAQMS stations in India. For India, WAQI aggregates data from:
 
 - CPCB (Central Pollution Control Board) — official government monitoring network
 - State Pollution Control Boards
-- Embassy monitoring (US Embassy, etc.)
+- Embassy monitoring (the US Embassy programme ended in March 2025, per [IQAir](https://www.iqair.com/newsroom/waqr-2025-pr))
 
 ---
 
 ## How JanVayu Uses WAQI
 
-The WAQI API is called **directly from the browser** (client-side) every 10 minutes. The API token is a free-tier public key embedded in `index.html`.
+The WAQI API is called **directly from the browser** (client-side) every 10 minutes. The API token is a free-tier public key embedded in `app.js`.
 
 ```javascript
 // Client-side AQI fetch (simplified)
-const url = `https://api.waqi.info/feed/${cityStation}/?token=${WAQI_TOKEN}`;
+const url = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${WAQI_TOKEN}`;
 const response = await fetch(url);
 const data = await response.json();
 ```
@@ -45,9 +45,9 @@ The conversion between PM2.5 concentration and AQI uses the US EPA breakpoints. 
 
 ## Rate Limits
 
-The public WAQI token is rate-limited at the IP level. If you are running many API calls locally (e.g., testing all 30 cities simultaneously), you may hit rate limits. Options:
+The WAQI API is subject to a per-key quota (default 1,000 requests per second, per [WAQI's terms](https://aqicn.org/api/)). If you are running many API calls locally (e.g., testing all 157 cities simultaneously), you may hit rate limits. Options:
 
-1. **Use your own WAQI token** — register free at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/) and replace the token in `index.html`
+1. **Use your own WAQI token** — register free at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/) and replace the token in `app.js`
 2. **Slow down requests** — add a small delay between city fetches in development
 
 ---

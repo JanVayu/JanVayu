@@ -1,16 +1,15 @@
 # Health Impact Calculator
 
-The Health Impact Calculator uses the **Global Exposure Mortality Model (GEMM)** to estimate the health burden of air pollution for any city or region.
+The Health Impact Calculator gives an individual a simple estimate of the extra mortality risk from their PM2.5 exposure. Its formula is a simplified log-concentration risk score inspired by the **Global Exposure Mortality Model (GEMM)**; it is not the GEMM function itself, and it does not take a city population.
 
 ---
 
 ## What is GEMM?
 
-GEMM (Global Exposure Mortality Model) is a state-of-the-art exposure-response framework developed from pooled epidemiological data across 41 cohorts. It is considered the most accurate model for estimating PM2.5-attributable mortality because it:
+GEMM (Global Exposure Mortality Model) is an exposure-response framework developed from pooled epidemiological data across 41 cohorts from 16 countries. It is an alternative to the Global Burden of Disease risk functions: in its authors' comparison, GEMM predicts 8.9 million deaths in 2015 against 4.0 million with the GBD function. It:
 
-- Captures non-linear health effects at high PM2.5 concentrations (unlike earlier linear models)
+- Covers the full global exposure range using outdoor-air cohorts only, unlike functions that borrow smoking or household-fuel risk
 - Accounts for the full range of disease outcomes
-- Reflects real-world evidence from high-pollution settings including South and East Asia
 
 **Primary reference:** Burnett et al. (2018), *PNAS* — "Global estimates of mortality associated with long-term exposure to outdoor fine particle matter"
 
@@ -18,32 +17,30 @@ GEMM (Global Exposure Mortality Model) is a state-of-the-art exposure-response f
 
 ## What the Calculator Estimates
 
-Given a city's annual PM2.5 level and population, the calculator estimates:
+Given your age, annual PM2.5 exposure, hours spent outdoors daily and any pre-existing condition, the calculator shows:
 
 | Output | Description |
 |--------|-------------|
-| **Attributable Deaths** | Annual deaths where PM2.5 exposure is a contributing cause |
-| **Ischemic Heart Disease** | Cardiovascular deaths attributable to PM2.5 |
-| **Stroke** | Stroke deaths attributable to PM2.5 |
-| **COPD** | Chronic obstructive pulmonary disease deaths |
-| **Lung Cancer** | Lung cancer deaths attributable to PM2.5 |
-| **Lower Respiratory Infections** | LRI deaths, especially in children under 5 |
-| **Life Years Lost** | Total years of life lost across the population |
+| **Mortality risk** | The extra mortality risk (shown as a percentage) relative to breathing the WHO guideline level of 5 µg/m³ |
+| **Life years lost** | An approximate number of years of life lost for you, from that extra risk and your age |
+| **Cigarette equivalence** | Cigarettes per day with an equivalent exposure, using the 22 µg/m³ per cigarette rule of thumb |
+
+It does not break results down by disease (heart disease, stroke, COPD, lung cancer, lower respiratory infections) and does not estimate deaths for a whole population.
 
 ---
 
 ## How to Use It
 
-1. Select a city from the dropdown — the current annual PM2.5 average is pre-filled from WAQI/CPCB data
-2. Adjust the population figure if needed
-3. Optionally, adjust PM2.5 to a counterfactual (e.g., WHO guideline of 5 µg/m³) to see how many deaths could be prevented
-4. The calculator updates in real time
+1. Enter your age
+2. Enter your annual average PM2.5 exposure in µg/m³ (the field starts at 100; reference values for the WHO guideline, Delhi and the India NAAQS are shown beside it)
+3. Set the hours you spend outdoors daily and choose any pre-existing condition
+4. Press **Calculate my risk**
 
 ---
 
 ## Interpreting Results
 
-- Results are **population attributable fractions** — they represent what share of deaths in a given disease category are linked to PM2.5 exposure above the theoretical minimum risk level
+- Results are an **individual relative-risk estimate** ("+x% mortality risk"), not population attributable fractions
 - These are **annual estimates** based on chronic long-term exposure, not acute episode effects
 - Numbers should be understood as statistical estimates with uncertainty ranges, not precise counts
 
@@ -54,17 +51,14 @@ Given a city's annual PM2.5 level and population, the calculator estimates:
 | City | Annual PM2.5 (µg/m³) | WHO Multiple |
 |------|---------------------|-------------|
 | Delhi | 82.2 | ~16× (IQAir 2025) |
-| Kolkata | ~65 | 13× |
-| Mumbai | ~45 | 9× |
-| Chennai | ~30 | 6× |
-| Bengaluru | ~25 | 5× |
+| Kolkata | 51 | ~10× (IQAir 2025) |
 | WHO Guideline | 5 | — |
 
 ---
 
 ## Interactive Demo
 
-> **Upcoming** — An interactive demo will be embedded here showing how to select a city, adjust population and PM2.5 values, and interpret the GEMM health burden estimates.
+> **Upcoming** — An interactive demo will be embedded here showing how to enter your age, PM2.5 exposure and outdoor hours, and interpret the risk estimate.
 
 <!-- Replace this section with an Arcade embed once recorded -->
 

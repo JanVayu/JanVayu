@@ -1,6 +1,8 @@
-# AI Features (Groq / Llama 3.3 70B)
+# AI Features (Groq / gpt-oss-120b)
 
-JanVayu uses **Llama 3.3 70B**, an open-source LLM served via the **Groq API**, to power four AI-assisted features. All AI calls are server-side (Netlify Functions) and require the `GROQ_API_KEY` environment variable.
+JanVayu uses **OpenAI gpt-oss-120b**, an open-weight LLM served via the **Groq API**, to power four AI-assisted features. All AI calls are server-side (Netlify Functions) and require the `GROQ_API_KEY` environment variable. The model name is read from the optional `GROQ_MODEL` variable and defaults to `openai/gpt-oss-120b`.
+
+> **Update 2 Oct 2026:** Groq retired Llama 3.3 70B on 16 Aug 2026 ([Groq deprecations](https://console.groq.com/docs/deprecations)); the functions run `openai/gpt-oss-120b`.
 
 ---
 
@@ -13,7 +15,7 @@ Ask a plain-language question about a city's air quality and receive a contextua
 **How it works:**
 1. User submits a city and a question
 2. The function fetches live AQI and PM2.5 from WAQI for that city
-3. Both the live data and the question are sent to Llama 3.3 70B via Groq as a prompt
+3. Both the live data and the question are sent to gpt-oss-120b via Groq as a prompt
 4. The model generates a response grounded in the actual reading
 
 **Example inputs:**
@@ -53,11 +55,11 @@ Generates a structured brief for local accountability — designed to be used by
 
 ### 4. Anomaly Detection (`anomaly-check.mjs`)
 
-Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) against seasonal baselines derived from CREA/IQAir data. When a significant spike is detected, Llama 3.3 70B via Groq explains the likely causes.
+Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) against seasonal baselines. The baselines are hand-entered constants in `anomaly-check.mjs`; a code comment attributes them to CREA/IQAir data without naming a report or year. When a significant spike is detected, gpt-oss-120b via Groq explains the likely causes.
 
 **Seasonal baselines used:**
 
-| City | Winter (Oct–Feb) | Summer/Monsoon |
+| City | Winter (Oct–Mar) | Summer/Monsoon |
 |------|-----------------|----------------|
 | Delhi | 95 µg/m³ | 55 µg/m³ |
 | Mumbai | 45 µg/m³ | 45 µg/m³ |
@@ -65,7 +67,7 @@ Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) 
 | Chennai | 40 µg/m³ | 40 µg/m³ |
 | Bengaluru | 40 µg/m³ | 40 µg/m³ |
 
-A reading more than 50% above the seasonal baseline triggers an anomaly alert.
+A reading more than 100% above the seasonal baseline (a ratio above 2x) triggers an anomaly alert.
 
 ---
 

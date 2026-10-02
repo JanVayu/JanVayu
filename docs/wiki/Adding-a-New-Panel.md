@@ -1,6 +1,6 @@
 # Adding a New Panel
 
-JanVayu uses HTML `<template>` elements for panel content. Each panel is loaded on demand when the user navigates to it.
+JanVayu uses HTML `<template>` elements for panel content. Each panel is loaded on demand when the user navigates to it. Newer panels do not live in `index.html` at all: 19 of them are HTML fragments in `panels/*.html`, fetched lazily and registered in the `LAZY_PANELS` map in `app.js`. Use that route for a large panel; the steps below describe the `<template>` route.
 
 ---
 
@@ -58,7 +58,7 @@ parent: {
 ```html
 <div class="stat-strip">
     <div class="stat-strip-item">
-        <div class="number-callout" style="color: #EF4444;">169K</div>
+        <div class="number-callout jv-t-red">169K</div>
         <div class="stat-label">Description</div>
     </div>
 </div>

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: JanVayu API
   description: |
-    JanVayu's serverless API — 10 Netlify Functions powering real-time AQI data,
+    JanVayu's serverless API: Netlify Functions powering real-time AQI data,
     AI-assisted analysis, social feed aggregation, and email subscriptions.
 
     **Base URL:** `https://www.janvayu.in/.netlify/functions`
@@ -24,7 +24,7 @@ servers:
 
 tags:
   - name: AI Features
-    description: Groq/Llama-powered analysis endpoints (v25.1)
+    description: Groq-powered analysis endpoints (v25.1; default model openai/gpt-oss-120b)
   - name: Social Feeds
     description: Cached social media and news feeds
   - name: Platform
@@ -37,8 +37,8 @@ paths:
       summary: Ask a natural language question about air quality
       description: |
         Accepts a city name and free-text question, fetches live AQI from WAQI,
-        and returns an AI-generated answer (Llama 3.3 70B via Groq) grounded in real data.
-        Supports English and Hindi.
+        and returns an AI-generated answer (Groq-hosted model, default openai/gpt-oss-120b) grounded in real data.
+        Supports English plus nine Indian languages (Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati, Kannada, Malayalam, Punjabi).
       tags: [AI Features]
       requestBody:
         required: true
@@ -225,7 +225,7 @@ paths:
       description: |
         Monitors 5 major metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru)
         against seasonal baselines. Returns anomalies where PM2.5 exceeds
-        2x the seasonal baseline, with AI-generated explanations (Llama 3.3 70B via Groq).
+        2x the seasonal baseline, with AI-generated explanations (Groq-hosted model, default openai/gpt-oss-120b).
         Response is cached for 10 minutes.
       tags: [AI Features]
       responses:

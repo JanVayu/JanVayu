@@ -1,7 +1,7 @@
 # Skill: Public Health Advisor
 
 **Used in:** `netlify/functions/health-advisory.mjs`  
-**Model:** Llama 3.3 70B via Groq  
+**Model:** `openai/gpt-oss-120b` via Groq (default, set by `GROQ_MODEL`; Llama 3.3 70B until Groq retired it on 16 Aug 2026)  
 **Trigger:** User submits a profile (age, health conditions, hours outdoors) + a city
 
 ---
@@ -50,14 +50,14 @@ function getRiskLevel(pm25, conditions) {
 }
 ```
 
-The thresholds are adapted from US EPA AQI breakpoints, adjusted to account for India's baseline exposure levels and the higher sensitivity of individuals with pre-existing conditions.
+The thresholds follow the 2012 US EPA PM2.5 breakpoints (12.0, 35.4, 55.4, 150.4 µg/m³), which EPA revised in 2024 (Good now up to 9.0, Unhealthy from 55.5 to 125.4); the code has not been updated to the 2024 values. Sensitivity is handled by moving people with pre-existing conditions up one band.
 
 ---
 
 ## Key Design Decisions
 
 **Why "do not hedge"?**
-Health communication research consistently shows that hedged advice ("you may want to consider...") is less acted upon than direct advice ("do X until Y"). For a public health tool serving people with asthma or heart disease, hedging is not neutral — it actively reduces protective behaviour.
+We assume that hedged advice ("you may want to consider...") is less acted upon than direct advice ("do X until Y"). For a public health tool serving people with asthma or heart disease, hedging is not neutral — it actively reduces protective behaviour.
 
 **Why 3-4 sentences maximum?**
 A health advisory that requires reading effort will not be read during a high-pollution emergency. It must be scannable in under 10 seconds.

@@ -1,6 +1,6 @@
 # Data Sources Overview
 
-JanVayu integrates 160+ verified public data sources. Every data point on the platform is traceable to a primary source. This page lists the major categories.
+JanVayu draws on a Reading List of 160+ public sources and papers. Figures link to their original source where one is public; some map layers are modelled estimates (for example SatPM2.5, CAMS and LongPMInd) and are labelled as such. This page lists the major categories.
 
 ---
 
@@ -13,8 +13,8 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 | [OpenAQ](https://openaq.org) | Hyperlocal CPCB + community stations | Free API key | My Neighbourhood panel, chatbot hyperlocal (primary; Sensor.Community fallback) |
 | [Open-Meteo](https://open-meteo.com/) | PM2.5/PM10 forecast (CAMS) | Free, key-less | Live 5-day Forecast panel, chatbot "will it be bad tomorrow?" |
 | [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Active-fire detection (VIIRS/NOAA-20 NRT) | Free API key | Farm Fire Tracker (stubble burning) |
-| [Sensor.Community](https://sensor.community/) | Low-cost community sensors (CC0) | Free | Hyperlocal fallback |
-| [IMD](https://mausam.imd.gov.in) | Meteorological | Free | Wind, temperature, weather context |
+| [Sensor.Community](https://sensor.community/) | Low-cost community sensors (data under the Open Data Commons Database Contents License v1.0) | Free | Hyperlocal fallback |
+| [IMD](https://mausam.imd.gov.in) | Meteorological | Free | Reference only (not fetched by the platform's code) |
 | [XKDR India Air Quality Database](https://airquality.xkdr.org) | Observed hourly station readings, 2009 onwards (CPCB CAAQM + US Embassy), CC BY 4.0 | Free API key | Observed station layer, checking the satellite map against the monitors. See [xkdr-air-quality.md](xkdr-air-quality.md) |
 | [Open-Meteo archive](https://open-meteo.com/en/docs/historical-weather-api) | Hourly historical meteorology | Free, key-less | Meteorological normalisation for 44 cities, 2018–2024. See [deweathered-national.md](deweathered-national.md) |
 
@@ -26,8 +26,8 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 |--------|------|---------|
 | [Lancet Countdown 2025](https://lancetcountdown.org) | Peer-reviewed | India-specific mortality, economic cost |
 | [IHME GBD 2021](https://vizhub.healthdata.org/gbd-results/) | Peer-reviewed | Disease burden, age-standardised rates |
-| [Lancet Planetary Health](https://www.thelancet.com/journals/lanplh/home) | Peer-reviewed | GEMM methodology, health burden |
-| [Harvard T.H. Chan School](https://www.hsph.harvard.edu) | Academic | Children's health, cognitive impacts |
+| [PNAS (Burnett et al. 2018)](https://doi.org/10.1073/pnas.1803222115) | Peer-reviewed | GEMM methodology |
+| [Harvard T.H. Chan School](https://www.hsph.harvard.edu) | Academic | Children's health |
 | [WHO Air Quality Guidelines 2021](https://www.who.int/publications/i/item/9789240034228) | Guideline | PM2.5 and PM10 standards |
 | [AQLI (EPIC)](https://aqli.epic.uchicago.edu) | Research | Life expectancy estimates |
 | [Lancet Planetary Health — PM2.5 Mortality (2024)](https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(24)00248-1/fulltext) | Peer-reviewed | Causal PM2.5 mortality estimates for India |
@@ -52,9 +52,9 @@ JanVayu integrates 160+ verified public data sources. Every data point on the pl
 | Source | Used For |
 |--------|---------|
 | [World Bank — Cost of Air Pollution](https://openknowledge.worldbank.org/handle/10986/25013) | GDP loss, productivity |
-| [TERI](https://www.teriin.org) | India-specific economic valuation |
-| [ILO](https://www.ilo.org) | Labour productivity losses |
-| [NSSO / PLFS](https://mospi.gov.in) | Informal worker exposure data |
+| [TERI](https://www.teriin.org) | Background reference (specific report not named here) |
+| [ILO](https://www.ilo.org) | Background reference (specific report not named here) |
+| [PLFS (MoSPI)](https://mospi.gov.in) | Informal-employment counts used to size the exposed workforce |
 
 ---
 
@@ -75,9 +75,9 @@ JanVayu maintains a public Zotero group library for collaborative bibliography m
 
 **[zotero.org/groups/6508140/janvayu/library](https://www.zotero.org/groups/6508140/janvayu/library)**
 
-The library contains peer-reviewed papers, reports, and datasets referenced across the platform. Researchers and contributors can use it to:
+The library holds a selection of the papers, reports, and datasets referenced across the platform (21 items when checked on 2 Oct 2026); the Reading List panel carries the fuller list. Researchers and contributors can use it to:
 
-- Browse all cited sources in one place
+- Browse a selection of cited sources
 - Export citations in any format (BibTeX, APA, Chicago, etc.)
 - Suggest new papers for inclusion
 
@@ -88,7 +88,7 @@ The library contains peer-reviewed papers, reports, and datasets referenced acro
 JanVayu always links to primary sources. When reproducing data from JanVayu:
 
 - Cite the original source (Lancet, CPCB, etc.), not JanVayu
-- JanVayu is an aggregator and accountability platform, not a primary data producer
+- JanVayu is mostly an aggregator and accountability platform; the derived datasets it does produce (such as `deweathered-national.json`, `aqi-bulletins.json` and `station-observed.json`) are documented in this folder
 - For methodology questions, refer to the original research papers
 
 **Content licence:** CC BY-NC-SA 4.0 — you may share and adapt content for non-commercial purposes with attribution and the same licence.

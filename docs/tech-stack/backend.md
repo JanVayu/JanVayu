@@ -1,12 +1,12 @@
 # Backend Stack
 
-JanVayu's backend is entirely serverless — 13 Netlify Functions handling data proxying, caching, scheduled tasks, email delivery, and AI features.
+JanVayu's backend is entirely serverless — 29 Netlify Function files (plus shared `lib/`) handling data proxying, caching, scheduled tasks, email delivery, and AI features.
 
 ---
 
 ## Netlify Functions
 
-**Runtime:** Node.js 18
+**Runtime:** Node.js 22
 **Module format:** ES Modules (`.mjs`) for AI features, CommonJS (`.js`) for feed proxies
 **Location:** `netlify/functions/`
 
@@ -28,6 +28,8 @@ JanVayu's backend is entirely serverless — 13 Netlify Functions handling data 
 | `subscribe.js` | On-demand (POST) | Email subscription management |
 | `feed-status.js` | On-demand (GET) | Feed freshness health check |
 | `blob-store.js` | Utility (shared) | Netlify Blobs store initialisation |
+
+The table lists the core functions only. Others in `netlify/functions/` include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit`, `zotero-library` and `reference-data`.
 
 ### Common Patterns
 
@@ -61,9 +63,9 @@ export default async (req, context) => {
 
 ## Netlify Blobs (Cache Layer)
 
-**Package:** `@netlify/blobs` v8.1.0
+**Package:** `@netlify/blobs` ^11.0.2
 **Consistency:** Strong (not eventual)
-**Store name:** `feed-cache`
+**Store name:** `janvayu-feeds` (the code also uses `janvayu-subscribers`, `janvayu-rankings` and `janvayu-push-subs`)
 
 ### How Caching Works
 
@@ -72,16 +74,19 @@ export default async (req, context) => {
 │ scheduled-fetch  │────▶│  Netlify Blobs    │◀────│ On-demand    │
 │ (every 4 hours)  │     │  (JSON cache)     │     │ functions    │
 │                  │     │                   │     │ (instant)    │
-│ Fetches Reddit,  │     │ reddit-posts      │     │ Serve from   │
-│ Twitter, News,   │     │ twitter-posts     │     │ cache first  │
-│ Instagram        │     │ news-articles     │     │              │
-└──────────────────┘     │ instagram-posts   │     └──────────────┘
+│ Fetches Reddit,  │     │ reddit            │     │ Serve from   │
+│ News, Instagram  │     │ news              │     │ cache first  │
+└──────────────────┘     │ instagram         │     └──────────────┘
+                         │ youtube           │
+                         │ sensor-community  │
                          └──────────────────┘
 ```
 
+The `youtube` and `sensor-community` keys are written by `youtube-feed.js` and `community-sensors.mjs`, not by `scheduled-fetch`.
+
 **Cache-first strategy:**
 1. On-demand function checks Blobs for cached data
-2. If cache hit → return immediately (sub-50ms response)
+2. If cache hit → return immediately
 3. If cache miss → fetch live, write to Blobs, return
 4. If live fetch fails → return stale cache (better than nothing)
 
@@ -91,7 +96,7 @@ This ensures feed outages (Reddit rate limits, Nitter downtime) result in slight
 
 ## Resend (Email Delivery)
 
-**Package:** `resend` v6.9.3
+**Package:** `resend` ^6.14.0
 **Used by:** `daily-digest.mjs`
 **From address:** `digest@janvayu.in`
 
@@ -99,22 +104,21 @@ This ensures feed outages (Reddit rate limits, Nitter downtime) result in slight
 
 1. `daily-digest.mjs` fires at 8:00 AM IST (Netlify scheduled function)
 2. Fetches live AQI for subscriber's cities from WAQI
-3. Formats a clean HTML email with AQI data, trends, and health guidance
+3. Formats a clean HTML email with AQI data and health guidance
 4. Sends via Resend API
 
 **Why Resend over SendGrid/Mailgun:**
 - Clean API, minimal code
-- Free tier covers JanVayu's subscriber volume
-- Good deliverability to Indian email providers (Gmail India, Outlook India)
+- Free plan has a daily limit of 100 emails ([resend.com/pricing](https://resend.com/pricing)); check it against the subscriber count
 - Built-in bounce/complaint handling
 
 ---
 
 ## WAQI API (Client-Side)
 
-The World Air Quality Index API is the only external API called directly from the browser.
+The World Air Quality Index API is the main live-AQI source called from the browser.
 
-**Token:** Free-tier public key (embedded in client JS — this is by design, not a leak)
+**Token:** issued by WAQI to a registrant under its [terms of service](https://aqicn.org/data-platform/token/); embedded in client JS, so anyone can read it
 **Refresh:** Every 10 minutes via `setInterval`
 **Endpoints used:**
 - `api.waqi.info/feed/{city}/` — single city AQI
@@ -122,5 +126,5 @@ The World Air Quality Index API is the only external API called directly from th
 
 **Why client-side:**
 - Real-time data (no caching delay)
-- Free tier has no API key restriction on public use
+- WAQI requires a valid key for all API access
 - Reduces serverless function invocations

@@ -6,15 +6,15 @@ JanVayu serves diverse audiences — from parents checking if it's safe for thei
 
 ## How It Works
 
-1. **First visit** — A full-screen overlay asks "How can we help you?" with 10 role cards
-2. **Role selection** — User picks their role (or skips to see everything)
+1. **First visit** — The page opens on the live air reading; there is no full-screen overlay (it was removed in September 2026)
+2. **Role selection** — User picks a role from the header role switcher (or chooses "Show Everything")
 3. **Personalized dashboard** — Shows role-specific actions and recommended panels
-4. **Persistent** — Role saved to `sessionStorage`, restored on return visits
+4. **Persistent** — Role saved to `localStorage`, restored on return visits
 5. **Switchable** — Role switcher icon in the header (rightmost icon) allows changing anytime
 
 ---
 
-## 10 Roles
+## 12 Roles
 
 | Role | Icon | Key Question |
 |------|------|-------------|
@@ -28,6 +28,8 @@ JanVayu serves diverse audiences — from parents checking if it's safe for thei
 | Teacher | `si-library` | School safety & teaching resources |
 | NGO / CSO | `si-globe` | Data-driven advocacy tools |
 | Business Owner | `si-briefcase` | Economic impact & workplace safety |
+| Woman / Caregiver | `si-heart` | Indoor cooking and maternal exposure |
+| Citizen | `si-home` | What is my city doing about it? |
 
 ---
 
@@ -60,8 +62,7 @@ See [Adding a New Role](Adding-a-New-Role) for step-by-step instructions.
 
 ## Technical Details
 
-- **Storage:** `sessionStorage` key `janvayu-role`
-- **Overlay:** `#roleOverlay` element, hidden after first selection
-- **Switcher:** `#roleSwitcher` in header, dropdown with all roles
+- **Storage:** `localStorage` key `janvayu-role` (an older `sessionStorage` value is migrated once)
+- **Switcher:** `#rolePopover` in the header, with its role buttons generated from `ROLE_CONFIG` into `#rolePopoverGrid`
 - **Dashboard template:** `#tmpl-role-dashboard`
 - **Tour:** Triggered after first role selection if tour hasn't been seen

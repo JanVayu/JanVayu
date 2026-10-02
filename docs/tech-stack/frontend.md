@@ -4,8 +4,8 @@
 
 The frontend is vanilla HTML, CSS and JavaScript with no build step and no
 bundler. It is **not** a single file, and this page said it was for long
-enough to mislead somebody: `index.html` is 6,644 lines, `styles.css` is
-3,684, `app.js` is 9,935, and there are 19 panel fragments in `panels/`
+enough to mislead somebody: `index.html` is about 6,600 lines, `styles.css` about
+3,700, `app.js` about 10,000, and there are 19 panel fragments in `panels/`
 loaded into the page at runtime.
 
 ### The shape of it
@@ -100,7 +100,7 @@ site's own control.
 
 ## Chart.js
 
-**Version:** Latest stable (loaded via CDN)
+**Version:** Pinned 4.x (4.4.7), loaded from jsDelivr with SRI and lazy-loaded
 **Used for:**
 - Metro vs Regional AQI comparison bar charts
 - PM2.5 trend lines
@@ -108,7 +108,7 @@ site's own control.
 - Seasonal baseline comparisons
 
 **Why Chart.js:**
-- Small footprint (~60 KB gzipped)
+- Small footprint (~70 KB gzipped, ~60 KB Brotli)
 - Works without a build step (CDN script tag)
 - Canvas-based rendering (performant on mobile)
 - Built-in responsive/accessibility features
@@ -117,17 +117,16 @@ site's own control.
 
 ## Leaflet.js + OpenStreetMap
 
-**Version:** Latest stable (loaded via CDN)
+**Version:** 1.9.4, loaded from unpkg with SRI
 **Used for:**
-- Interactive map of 40+ Indian cities with AQI station markers
+- Interactive map of 160 locations (157 Indian) with AQI station markers
 - Colour-coded markers (green/yellow/orange/red/purple) by AQI severity
 - Click-to-view station details
 
 **Why Leaflet + OSM:**
 - Free and open source (no Google Maps API key needed)
 - Lightweight (~40 KB gzipped)
-- OpenStreetMap tiles are free at any scale
-- Works offline with cached tiles
+- OpenStreetMap data is free, but its tile servers are best-effort and policy-limited ([usage policy](https://operations.osmfoundation.org/policies/tiles/)); heavy use needs a commercial or self-hosted tile source. The site also uses Carto basemap tiles
 
 ---
 
@@ -152,6 +151,5 @@ JanVayu supports 5 languages via a client-side language toggle:
 - Keyboard navigation for all interactive elements
 - ARIA roles where semantic HTML is insufficient
 - Colour contrast meeting WCAG AA (4.5:1 for text)
-- Alt text on all images
-- Form labels on all inputs
+- axe-core sweeps run in CI (`accessibility.yml`)
 - Focus indicators on interactive elements

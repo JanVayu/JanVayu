@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 18 or higher
+- [Node.js](https://nodejs.org/) 22.12 or higher
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`)
 - A [Resend](https://resend.com) account — only needed if you are working on email digest features
 - A [Groq Console](https://console.groq.com) account — only needed for AI features
@@ -29,7 +29,7 @@ cp .env.example .env
 netlify dev
 ```
 
-The site will be available at `http://localhost:8888`. Netlify Dev emulates the serverless functions locally, including scheduled functions and the Blobs store.
+The site will be available at `http://localhost:8888`. Netlify Dev serves the serverless functions locally.
 
 ---
 
@@ -65,7 +65,7 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-The AQI dashboard, map, and all client-side features will work because the WAQI API is called directly from the browser. Social feeds and email digest will not work without the functions.
+The AQI dashboard and map load their live AQI directly from the WAQI API in the browser, so they work without the functions. Anything that depends on a function (rankings, forecast, fire tracker, social feeds, email digest) will not work without them.
 
 ---
 
@@ -88,21 +88,25 @@ netlify functions:invoke feed-status
 
 The repo includes Git hooks in `.githooks/`:
 
-- **pre-commit** — runs basic lint checks before each commit
-- **commit-msg** — enforces the conventional commit message format
+- **pre-commit**: blocks staged `.env` and credential files, warns about `console.log` statements, detects merge conflict markers, and warns on files larger than 500 KB (it does not run a linter)
+- **commit-msg**: enforces the commit message prefix convention
 
 Hooks are enabled automatically via the `npm run prepare` script (which runs `git config core.hooksPath .githooks`).
 
 ### Commit Message Format
 
 ```
-type(scope): short description
+Prefix: short description
+
+Allowed prefixes: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore
 
 Examples:
-feat(dashboard): add PM10 toggle to city cards
-fix(email): handle missing city in digest template
-docs(readme): update setup instructions
+Add: PM10 toggle to city cards
+Fix: handle missing city in digest template
+Docs: update setup instructions
 ```
+
+Conventional-commit style messages such as `feat(dashboard): ...` are rejected by the hook.
 
 ---
 

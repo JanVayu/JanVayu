@@ -27,23 +27,25 @@ The core platform (`index.html`, all Netlify Functions, infrastructure configs) 
 
 1. **Describe the feature** — e.g., "Add a health impact calculator that takes age, conditions, and outdoor hours"
 2. **Claude reads existing code** — understands the zero-framework constraint, existing patterns
-3. **Claude writes the implementation** — inline in `index.html` or as a new Netlify Function
+3. **Claude writes the implementation** — in `index.html`, `app.js` and `styles.css`, or as a new Netlify Function
 4. **Review and iterate** — request adjustments, fix edge cases
 5. **Claude commits** — with proper commit message prefix per project convention
 
 ### v25.1 AI Features
 
-All four Groq/Llama-powered features (Ask JanVayu, Health Advisory, Accountability Brief, Anomaly Detection) were built in Claude Code sessions:
+All four AI features (Ask JanVayu, Health Advisory, Accountability Brief, Anomaly Detection) were built in Claude Code sessions:
 
 - Claude wrote the Netlify Functions (`.mjs` files)
-- Claude crafted the Llama 3.3 70B system prompts
+- Claude crafted the system prompts
 - Claude added the frontend UI sections in `index.html`
 - Claude created the CHANGELOG entries
 - Claude managed the PRs and merges
 
+> **Update, 2 Oct 2026:** v25.1 launched on Google Gemini 2.5 Flash (CHANGELOG v25.1.0). The features later moved to Groq (Llama 3.3 70B) and, after Groq retired that model on 16 Aug 2026, to `openai/gpt-oss-120b` (CHANGELOG v26.6.33).
+
 ### Documentation
 
-This entire Docsify documentation was created by Claude Code — including the page you're reading now.
+This Docsify documentation was drafted largely with Claude Code and reviewed by the maintainers.
 
 ---
 
@@ -60,13 +62,13 @@ A typical Claude Code session for JanVayu follows this pattern:
      for Delhi, Mumbai, Kolkata, Chennai, and Bengaluru"
 
 3. Claude explores the codebase
-   - Reads index.html to understand existing UI patterns
+   - Reads index.html and app.js to understand existing UI patterns
    - Reads existing Netlify Functions for code style
    - Checks package.json for available dependencies
 
 4. Claude implements
    - Creates netlify/functions/anomaly-check.mjs
-   - Adds the banner HTML/CSS/JS to index.html
+   - Adds the banner markup to index.html, styling to styles.css and logic to app.js
    - Updates the client-side code to call the function
 
 5. Claude commits and creates a PR
@@ -83,7 +85,7 @@ A typical Claude Code session for JanVayu follows this pattern:
 ### Context Awareness
 Claude Code reads your entire codebase. For JanVayu, this means it understood:
 - The zero-framework constraint (no React/Vue/Angular)
-- The inline CSS/JS pattern in `index.html`
+- The split into `index.html` (markup), `styles.css` and `app.js`
 - The Netlify Functions structure and CORS handling
 - The cache-first pattern using Netlify Blobs
 - The commit message convention enforced by git hooks

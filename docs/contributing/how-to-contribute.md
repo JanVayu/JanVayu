@@ -52,7 +52,7 @@ git checkout -b feature/your-feature-name
 netlify dev
 
 # 5. Commit with a clear message
-git commit -m "feat(dashboard): add PM10 toggle to city cards"
+git commit -m "Add: PM10 toggle on city cards"
 
 # 6. Push and open a Pull Request
 git push origin feature/your-feature-name

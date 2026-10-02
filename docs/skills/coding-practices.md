@@ -6,7 +6,7 @@ These are the prompting and development patterns used when building JanVayu's co
 
 ## Core Principle: Constraint-First Prompting
 
-When asking an AI to write code for JanVayu, the most important thing to specify is what **not** to do — not what to do. The default behaviour of LLMs is to reach for frameworks, dependencies, and complexity. JanVayu is deliberately zero-framework. Every code prompt started with a constraint:
+When asking an AI to write code for JanVayu, the most important thing to specify is what **not** to do — not what to do. The default behaviour of LLMs is to reach for frameworks, dependencies, and complexity. JanVayu is deliberately zero-framework. Code prompts typically started with a constraint, along these lines:
 
 > "Vanilla JavaScript only. No frameworks. No npm imports in the frontend. No build step."
 
@@ -27,7 +27,7 @@ people who may be accessing this on a 2G connection or a low-end Android phone.
 Prioritise load speed over visual complexity.
 ```
 
-This prompt produced the AQI dashboard, the city comparison table, and the policy tracker sections.
+This pattern was used for dashboard-style sections such as the AQI dashboard and the city comparison table.
 
 **Why it works:** Specifying the audience (low-end device, slow connection) forces the AI to make appropriate tradeoffs — no lazy-loaded images, no heavy chart libraries for simple data, progressive enhancement.
 
@@ -48,13 +48,13 @@ Requirements:
 - Log errors with console.log, not throw
 ```
 
-This is the template behind all 9 functions in `netlify/functions/`. The "graceful fallback" requirement is the most important — it prevents the entire UI feature from breaking when a third-party API (Reddit, Nitter, WAQI) is down.
+This is the template behind the functions in `netlify/functions/`. The "graceful fallback" requirement is the most important — it prevents the entire UI feature from breaking when a third-party API (Reddit, Nitter, WAQI) is down.
 
 ---
 
 ### 3. The "API Proxy" Pattern
 
-For functions that proxy external feeds (Reddit, news, Twitter/X):
+For functions that proxy external feeds (Reddit, news):
 
 ```
 Write a Netlify Function that:

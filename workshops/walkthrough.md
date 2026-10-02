@@ -20,8 +20,8 @@ Four numbers, each from a named source, and each worth stating before anything
 else.
 
 **1.72 million** deaths a year in India from outdoor PM2.5 (Lancet Countdown
-2025, using 2022 data). Counting household air pollution as well, about 2.0
-million (State of Global Air 2025).
+2025, using 2022 data). A different method that adds household air pollution
+and ozone, State of Global Air 2025, gives more than 2 million for 2023.
 
 **3.5 years** of life expectancy lost on average (Air Quality Life Index 2025).
 

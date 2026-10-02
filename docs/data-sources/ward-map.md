@@ -22,7 +22,7 @@
 
 The **Ward-Level Atlas** ("How Polluted Is Your Ward?", under *City Data*) coloured every municipal ward of a city, with five switchable layers. This page documents where each layer's data came from and how it was computed.
 
-The atlas moves JanVayu from **city-level** to **ward-level** resolution — making the point that a single city AQI number hides large differences between neighbourhoods. It was inspired by Vaishnavi Iyer / Unmapped's "How hot is your ward?" maps of Bengaluru.
+The atlas moves JanVayu from **city-level** to **ward-level** resolution — making the point that a single city AQI number hides large differences between neighbourhoods. It was inspired by Bengaluru urban-heat mapping by Vaishnavi Iyer of Unmapped.blr.
 
 ---
 
@@ -237,6 +237,6 @@ The **live air-quality** layer is *not* baked in — it is interpolated in the b
 - **Green/built-up are 2021 annual** land cover and may lag very recent construction.
 - **Ward boundaries carry the delimitation date of whatever the ULB uploaded**, which is not the same year everywhere. Guwahati is the 2022 delimitation; several SBM cities are older, and the West Bengal AMRUT layer dates from that programme's master-plan surveys rather than the latest delimitation.
 - **Six wards in Thiruvananthapuram have no heat value** (6 of 100) *in this panel*. The [boundary map](boundary-map.md) resolves five of the six from a national Landsat mosaic, which is the fix this note called for; the panel's own per-city pipeline still has the gap. The reason is not cloud, which is what we first assumed. Those wards sit in a Landsat coverage seam at the northern edge of every scene available for the city: checked across 8 pre-monsoon and 6 full-year scenes, each returns roughly 5,500 masked pixels containing zero valid data. Fixing it requires mosaicking two Landsat paths, which this pipeline does not yet do. Those wards draw uncoloured rather than filled with a guess.
-- **Heat gaps are filled across scenes.** If the clearest scene leaves wards without a value, the next-clearest scenes are tried until none are left. Where more than one scene contributed, the dates are recorded in `lst_dates`. Scene ranking prefers coverage over cloud, because a city that straddles two Landsat paths (Delhi sits across paths 46 and 47) would otherwise get a cloud-free scene that misses a fifth of it.
+- **Heat gaps are filled across scenes.** If the clearest scene leaves wards without a value, the next-clearest scenes are tried until none are left. Where more than one scene contributed, the dates are recorded in `lst_dates`. Scene ranking prefers coverage over cloud, because a city that straddles two Landsat paths (Delhi sits across WRS-2 paths 146 and 147) would otherwise get a cloud-free scene that misses a fifth of it.
 
 See also: [Data Sources Overview](overview.md) · [Real-Time AQI (WAQI)](waqi.md) · [Roadmap](../wiki/Roadmap.md).

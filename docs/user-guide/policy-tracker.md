@@ -6,7 +6,7 @@ JanVayu tracks India's major air quality policies against their stated targets a
 
 ## National Clean Air Programme (NCAP)
 
-NCAP was launched in January 2019 with a target of **20–30% reduction in PM2.5 and PM10** in 132 Non-Attainment Cities by 2024 (later revised to 2026).
+NCAP was launched in January 2019 with a target of **20–30% reduction in PM10 against 2017 levels by 2024**, covering 131 cities (non-attainment and million-plus cities; originally 102 non-attainment cities). The target was later revised to a reduction of up to 40% in PM10, or achieving the national standard of 60 µg/m³, by 2025-26; that deadline has now passed.
 
 ### What JanVayu Tracks
 
@@ -29,10 +29,12 @@ GRAP is an emergency action protocol for Delhi-NCR that triggers restrictions ba
 
 | Stage | AQI Trigger | Key Measures |
 |-------|------------|--------------|
-| Stage I | 201–300 (Poor) | Ban on coal/wood burning, dust control |
-| Stage II | 301–400 (Very Poor) | Diesel generator restrictions, BS III/IV vehicle limits in NCR |
-| Stage III | 401–450 (Severe) | Construction bans, school hybrid mode |
-| Stage IV | 450+ (Severe+) | Truck entry bans, odd-even vehicle scheme consideration |
+| Stage I | 201–300 (Poor) | Ban on coal/wood burning, dust control; since 28 Sep 2026 also the diesel generator (DG) set and inter-state BS-IV-and-below bus actions that used to sit in Stage II |
+| Stage II | 301–400 (Very Poor) | See the current CAQM schedule (the DG-set and bus actions moved to Stage I on 28 Sep 2026) |
+| Stage III | 401–450 (Severe) | Construction bans, school hybrid mode, restrictions on BS III petrol and BS IV diesel cars |
+| Stage IV | >450 (Severe+) | Truck entry bans, odd-even vehicle scheme consideration |
+
+> **Update 2 Oct 2026:** On 28 Sep 2026 CAQM moved the actions on DG sets and the entry of BS-IV-and-below buses from NCR and adjoining states from Stage II to Stage I (the revised schedule has 25, 8, 10 and 5 actions across the four stages, 48 in all). The stage table above is based on the 21 Nov 2025 schedule plus this change and has not been rebuilt from the new schedule.
 
 JanVayu archives GRAP stage history with dates, so you can correlate emergency restrictions with AQI readings.
 
@@ -42,7 +44,7 @@ JanVayu archives GRAP stage history with dates, so you can correlate emergency r
 
 The Budget Tracker shows fund utilisation rates for:
 
-- **NCAP grants** — ₹4,400 crore allocated (2019–2024)
+- **NCAP funds** — ₹19,614.44 crore earmarked to 131 cities for FY 2019-20 to 2025-26 (PIB); ₹11,211.13 crore released as of the 2024-25 PIB note; ₹13,415 crore released and ₹9,929 crore (74%) utilised in CREA's 2026 progress report
 - **15th Finance Commission** — ₹12,139 crore for cities with >1 million population over 5 years
 - **State-level disbursements** — how much each state received and spent
 
@@ -54,7 +56,7 @@ Low utilisation rates are a key accountability metric. JanVayu flags cities wher
 
 The Legal Framework section archives:
 
-- Supreme Court of India orders on air quality (especially in *M.C. Mehta v. Union of India*)
+- Supreme Court of India orders on air quality (especially in *M.C. Mehta v. Union of India*; the main petition, WP(C) 13029/1985, was disposed of on 12 March 2026)
 - National Green Tribunal (NGT) directions
 - Commission for Air Quality Management (CAQM) orders for NCR
 

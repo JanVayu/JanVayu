@@ -5,16 +5,16 @@
 //
 // Strategy: WAQI's free API does not expose deep historical archives. We use a
 // blob-cached climatology baseline plus any snapshots we have accumulated. The
-// climatology was seeded from CPCB / IQAir 2024 World Air Quality Report and
-// CREA NCAP analyses; values represent monthly averages for 2024–2026 to give
-// users a realistic year-over-year picture even before the snapshot store has
-// matured.
+// climatology values are ILLUSTRATIVE, not measured monthly means: they have not
+// been traced to a CPCB aggregation or to the IQAir report (IQAir publishes annual
+// city means, not monthly ones). Replace with measured monthly means (for example
+// the XKDR India Air Quality Database, CC BY 4.0) before treating them as data.
 
 import { getBlobStore } from "./lib/blob.mjs";
 
 
-// PM2.5 monthly averages (µg/m³) — sourced from CPCB CAAQMS aggregations and
-// IQAir 2024 World Air Quality Report. 2026 values are partial year-to-date.
+// PM2.5 monthly values (µg/m³): ILLUSTRATIVE, untraced (see header). 2026 values
+// are partial year-to-date.
 // Months are 1-indexed in the array (index 0 unused).
 const CLIMATOLOGY = {
   delhi:        { 2024: [, 230, 175, 110,  85,  70,  55,  45,  50,  85, 220, 290, 310],
@@ -104,5 +104,5 @@ export default async (req) => {
   } catch { /* ignore */ }
 
   baseYears.sort((a, b) => a.year - b.year);
-  return new Response(JSON.stringify({ city, month, years: baseYears, source: "climatology + snapshots" }), { headers });
+  return new Response(JSON.stringify({ city, month, years: baseYears, source: "illustrative climatology (not measured monthly means) + snapshots" }), { headers });
 };

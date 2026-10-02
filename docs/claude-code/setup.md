@@ -21,13 +21,13 @@ If you fork JanVayu and want to give Claude Code project-specific instructions, 
 # CLAUDE.md — JanVayu Project Instructions
 
 ## Architecture
-- Single HTML file (index.html) — all CSS and JS inline
+- Three front-end files: index.html (markup), app.js (logic), styles.css (styling)
 - No frameworks, no build step, no npm dependencies on the client
 - Netlify Functions for server-side logic (ES modules, .mjs)
 - Netlify Blobs for caching (strong consistency)
 
 ## Code Style
-- Vanilla JavaScript only (ES2020 max)
+- Vanilla JavaScript only (ES2022, as set in eslint.config.mjs)
 - CSS custom properties for theming
 - 2-space indentation (HTML, CSS, JS, JSON)
 - No TypeScript, no preprocessors
@@ -43,10 +43,10 @@ Must start with: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, M
 - Graceful fallback if external API fails
 
 ## AI Features
-- Model: Llama 3.3 70B via Groq (open-source)
+- Model: openai/gpt-oss-120b via Groq (default; override with the GROQ_MODEL env var)
 - All AI calls server-side (Netlify Functions)
 - Every AI feature has a non-AI fallback
-- Output token limits: 150-400 per response
+- Output token ceilings: 512 to 1,024 per response (max_tokens)
 
 ## Do Not
 - Add frameworks (React, Vue, Angular, Svelte)
@@ -60,10 +60,10 @@ Must start with: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, M
 
 ## Skill Files
 
-Skill files are structured system prompts that define how AI models behave. JanVayu uses them for Groq/Llama features, but the same concept applies to Claude Code workflows.
+Skill files are structured system prompts that define how AI models behave. JanVayu uses them for its Groq-hosted AI features, but the same concept applies to Claude Code workflows.
 
 The skill files documented in the [Skills section](../skills/README.md) serve as:
-1. **Groq/Llama system prompts** — embedded in Netlify Functions
+1. **Groq system prompts** — embedded in Netlify Functions (the Ask JanVayu prompt in `air-query.mjs` is much longer than the page that documents it)
 2. **Development reference** — guiding Claude Code when modifying AI features
 3. **Reusable templates** — for anyone forking JanVayu for other domains
 
@@ -94,7 +94,7 @@ Sample inputs and expected outputs.
 
 ## MCP Server Integrations
 
-Claude Code supports Model Context Protocol (MCP) servers for extended tool access. During JanVayu development, the following MCP integrations were available:
+Claude Code supports Model Context Protocol (MCP) servers for extended tool access. The following MCP integrations can be used with a project like JanVayu (the repository does not record which were used during development):
 
 ### Notion MCP
 - **Purpose:** Project planning, task tracking, meeting notes

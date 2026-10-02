@@ -1,8 +1,7 @@
 // ═══════════════════════════════════════════════════════════
 // LEARNING GAMES — Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, Air Tambola
 // All questions and content are original, written for JanVayu.
-// The Jeopardy format is inspired by the long-running classroom
-// game run by Dr. Sarath Guttikunda at UrbanEmissions.info.
+// The Jeopardy format is inspired by quiz-show formats.
 // The board game is inspired by Moksha Patam, the original
 // Indian Snakes & Ladders. The Tambola and Jodi (memory match)
 // games are inspired by Indian household card games.
@@ -15,39 +14,39 @@
 // `why` is the educational note revealed alongside the answer.
 const JEO_DATA = {
     'SOURCES': [
-        { v: 1000, clue: "This source contributes the largest share of household PM2.5 in rural India, despite the LPG push under PMUY.", q: "What is solid biomass cooking (chulha / firewood / dung)?", why: "CEEW 2024: residential biomass cooking is still the single largest PM2.5 source category nationally. PMUY raised LPG access but refill rates lag." },
-        { v: 2000, clue: "Punjab and Haryana farmers burn this between October and November because the kharif harvest leaves a 2-3 week window before the rabi sowing.", q: "What is paddy stubble (rice straw)?", why: "The MSW-Hortic field-fire window peaks late Oct to mid-Nov, contributing 25-40% of Delhi PM2.5 on bad days per SAFAR." },
-        { v: 3000, clue: "Around half of India's coal-fired thermal capacity still misses this 2015 emission norm originally given a 2017 deadline.", q: "What are FGD (flue-gas desulphurisation) units?", why: "MoEFCC has extended the FGD deadline three times since 2017; the current deadline is December 2027. As of 2025, only ~22 GW of ~210 GW had FGDs installed; SO2 from coal plants oxidises into secondary sulphate PM2.5." },
-        { v: 4000, clue: "This often-overlooked transport source &mdash; tyres, brakes and resuspended road dust &mdash; can match or exceed tailpipe PM2.5 in dense Indian cities.", q: "What are non-exhaust emissions?", why: "TERI's 2023 source apportionment study for Delhi quantified road dust and non-exhaust contributions at 30-40% of urban PM2.5, often more than tailpipes. EVs do not solve this." },
-        { v: 5000, clue: "This invisible gas, emitted heavily by power plants and industry, reacts in the atmosphere with ammonia from agriculture to form a major chunk of winter PM2.5.", q: "What is sulphur dioxide (SO2) &mdash; forming secondary sulphate aerosol?", why: "Secondary inorganic aerosol (sulphate + nitrate + ammonium) accounts for 25-40% of wintertime PM2.5 in the Indo-Gangetic Plain. Cutting it requires SO2/NOx controls plus ammonia controls in agriculture." }
+        { v: 1000, clue: "Burning firewood and dung on a traditional stove is part of the residential sector, which the ARAI/TERI 2018 study found to be the largest single contributor to PM2.5 in Delhi-NCR (25%). Name this household source.", q: "What is solid biomass cooking (chulha / firewood / dung)?", why: "ARAI/TERI 2018 (Delhi-NCR): residential 25%, industries 24%, agricultural burning 19%, transport 13% of PM2.5. PMUY raised LPG access, but average use was about 4.47 refills a year per PMUY household in FY2024-25 (PIB)." },
+        { v: 2000, clue: "Punjab and Haryana farmers burn this between October and November.", q: "What is paddy stubble (rice straw)?", why: "Stubble-burning fires contribute most to Delhi's air pollution in October-November. SAFAR's peak daily stubble share has ranged widely by year; in the 2025 season the highest AQI was 428 on 11 November (CSE)." },
+        { v: 3000, clue: "Only about 11% of India's coal-based capacity had installed this pollution-control equipment, required by a 2015 emission norm originally given a 2017 deadline.", q: "What are FGD (flue-gas desulphurisation) units?", why: "Only about 22.6 GW (11%) of coal-based capacity had FGD installed (CARE Ratings). The deadline has been extended repeatedly since 2017; since the July 2025 notification only Category A plants (about 11% of units) must install FGD, by 30 December 2027, and Category C plants (78%) are exempt (The Hindu, 12 July 2025). SO2 from coal plants forms secondary ammonium sulphate PM2.5 (CREA 2025)." },
+        { v: 4000, clue: "The 2018 ARAI/TERI Delhi study found that this source, dust kicked up from roads by traffic, contributed 8% of winter PM10 and 4% of PM2.5.", q: "What is road dust (a non-exhaust source)?", why: "ARAI/TERI 2018 (Delhi, winter): road dust 4% of PM2.5 and 8% of PM10; construction 1% of PM2.5 and 6% of PM10. Road dust matters more for coarse PM10 than for PM2.5." },
+        { v: 5000, clue: "This invisible gas, emitted heavily by power plants and industry, reacts in the atmosphere with ammonia from agriculture to form a major chunk of India's PM2.5.", q: "What is sulphur dioxide (SO2) &mdash; forming secondary sulphate aerosol?", why: "CREA 2025: ammonium sulphate, formed from SO2 and ammonia, is about 34% of India's PM2.5 mass nationally (20-43% across 130 NCAP cities)." }
     ],
     'HEALTH': [
-        { v: 1000, clue: "At Delhi's typical winter PM2.5 of around 100 ug/m3, this is roughly how many of these per day a non-smoker is passively inhaling.", q: "What is about 4-5 cigarettes a day?", why: "Berkeley Earth coefficient: 1 cigarette ~ 22 ug/m3 of PM2.5 over 24 hours. JanVayu's dashboard shows this live." },
-        { v: 2000, clue: "The 2025 Lancet Countdown attributes this many Indian deaths per year to ambient PM2.5 exposure.", q: "What is approximately 1.7 million?", why: "Lancet Countdown 2025: at ~1.72 million, India carries the world's largest national PM2.5 death toll — roughly a quarter to a third of the global burden, not a majority. The number was 1.5M in 2024 and rose with re-attribution." },
-        { v: 3000, clue: "AQLI 2025 says the average Indian loses this many years of life expectancy due to particulate pollution exceeding WHO guidelines.", q: "What is 3.5 years?", why: "Indo-Gangetic Plain residents lose 7-8 years; nationally the average is 3.5 years. AQLI uses the Pope-Ebenstein-Greenstone causal exposure-response function." },
-        { v: 4000, clue: "These ultrafine particles, smaller than the diameter of a single PM2.5, can cross the blood-brain barrier and have been linked to dementia and stroke.", q: "What is PM0.1 / ultrafine particulate matter?", why: "UFPs (<100 nm) are not regulated by NAAQS or even WHO yet, but 2024 research from Karolinska and Harvard's MAPLE-MIA studies has documented neuro and cardiovascular pathways." },
-        { v: 5000, clue: "A landmark 2024 Indian study found that for every 10 ug/m3 increase in long-term PM2.5, all-cause mortality rose by approximately this much &mdash; the first nationwide causal estimate from Indian data.", q: "What is about 8.6%?", why: "Lancet Planetary Health 2024 (Jaganathan et al.) applied a difference-in-differences design across 655 districts (2009-2019) and produced India's first nationwide causal dose-response. Earlier estimates relied on extrapolated Western cohorts." }
+        { v: 1000, clue: "At a PM2.5 level of 100 ug/m3, this is roughly how many of these per day a non-smoker is passively inhaling.", q: "What is about 4-5 cigarettes a day?", why: "Berkeley Earth: one cigarette per day is the rough equivalent of a PM2.5 level of 22 ug/m3, so 100 ug/m3 is about 4.5. JanVayu's dashboard shows this live." },
+        { v: 2000, clue: "The 2025 Lancet Countdown attributes this many Indian deaths in 2022 to anthropogenic PM2.5 exposure.", q: "What is approximately 1.7 million?", why: "Lancet Countdown 2025: over 1,718,000 deaths in India in 2022 were attributable to anthropogenic PM2.5. A broader method (ambient + household air pollution + ozone), State of Global Air 2025, reports that India and China each had more than 2 million air-pollution deaths in 2023, out of 7.9 million worldwide." },
+        { v: 3000, clue: "AQLI 2025 (2023 data) says the average Indian loses this many years of life expectancy due to particulate pollution exceeding the WHO guideline of 5 ug/m3.", q: "What is 3.5 years?", why: "AQLI 2025: nationally the average is 3.5 years; in the Northern Plains about 5 years and in Delhi 8.2 years. AQLI uses the Chen et al. (2013) and Ebenstein et al. (2017) China-based causal estimates: 0.98 years per 10 ug/m3 of PM2.5." },
+        { v: 4000, clue: "These ultrafine particles, far smaller than PM2.5, are being studied for their ability to reach the brain.", q: "What is PM0.1 / ultrafine particulate matter?", why: "Experimental studies point to a key role for ultrafine particles (UFPs, under 100 nm) in brain effects (TUBE project); epidemiological links to dementia are suggestive. WHO 2021 gives good practice statements on UFPs but no guideline value." },
+        { v: 5000, clue: "A landmark 2024 Indian study found that for every 10 ug/m3 increase in long-term PM2.5, all-cause mortality rose by approximately this much.", q: "What is about 8.6%?", why: "Lancet Planetary Health 2024 (Jaganathan et al.): a 10 ug/m3 increase in annual PM2.5 was associated with an 8.6% (95% CI 6.4-10.8) higher annual mortality, using a difference-in-differences design on district-level death registrations, 2009-2019. Earlier estimates relied on exposure-response functions from countries with low air pollution levels." }
     ],
     'POLICY': [
-        { v: 1000, clue: "Launched in 2019, this national programme set a 20-30% PM reduction target by 2024, then revised it to 40% by 2025-26.", q: "What is the National Clean Air Programme (NCAP)?", why: "NCAP covers 131 non-attainment cities. The 31 March 2026 deadline has now elapsed: only 23 of the 100 cities with sufficient monitoring data met the 40% PM10 target (CREA, Tracing the Hazy Air 2026)." },
-        { v: 2000, clue: "Delhi's stage-based emergency action plan, with bans on construction, BS-III/IV vehicles and diesel gensets at successive stages.", q: "What is GRAP (Graded Response Action Plan)?", why: "GRAP has 4 stages keyed to AQI 201, 301, 401, 451. CAQM operationalises it. Critics note the reactive, not preventive, nature." },
-        { v: 3000, clue: "Created by an act of Parliament in 2021, this body replaced EPCA and has statutory power across the entire NCR.", q: "What is the Commission for Air Quality Management (CAQM)?", why: "CAQM in NCR and Adjoining Areas Act 2021. Its directions on stubble, vehicles, industry are legally binding; non-compliance can attract penalties under section 14." },
-        { v: 4000, clue: "In M. C. Mehta v. Union of India (filed 1985), the Supreme Court ordered Delhi to switch this fleet to a cleaner fuel by 2002.", q: "What is the public bus and auto-rickshaw fleet (to CNG)?", why: "The CNG conversion remains India's most cited air-pollution litigation success. PM2.5 fell measurably until growth in private vehicles overwhelmed gains." },
-        { v: 5000, clue: "India's PM2.5 annual standard is 40 ug/m3 &mdash; this many times the current WHO guideline.", q: "What is 8 times (the WHO guideline of 5 ug/m3)?", why: "WHO tightened from 10 to 5 ug/m3 in 2021. India's CPCB has not revised NAAQS since 2009. Civil society petitions to the NGT seek alignment." }
+        { v: 1000, clue: "Launched in 2019, this national programme set a 20-30% PM10 reduction target (over 2017 levels) by 2024, then revised it to 40% by 2025-26.", q: "What is the National Clean Air Programme (NCAP)?", why: "NCAP covers 131 cities (130 analysed by CREA; PIB). The 31 March 2026 deadline has now elapsed: only 23 of the 100 cities with sufficient monitoring data met the 40% PM10 target (CREA, Tracing the Hazy Air 2026)." },
+        { v: 2000, clue: "Delhi's stage-based emergency action plan, with bans on construction, older vehicles and regulated diesel generators at successive stages.", q: "What is GRAP (Graded Response Action Plan)?", why: "GRAP has 4 stages keyed to AQI 201, 301, 401, 451 (CAQM Direction of 29 September 2026). CAQM operationalises it and invokes stages in advance on forecasts." },
+        { v: 3000, clue: "Created by an act of Parliament in 2021, this body replaced EPCA and has statutory power across the entire NCR.", q: "What is the Commission for Air Quality Management (CAQM)?", why: "CAQM in NCR and Adjoining Areas Act 2021. Its directions on stubble, vehicles, industry are legally binding; non-compliance is an offence under section 14, punishable with imprisonment of up to five years or a fine of up to Rs 1 crore." },
+        { v: 4000, clue: "In M. C. Mehta v. Union of India (filed 1985), the Supreme Court ordered Delhi to switch this fleet to a cleaner fuel by 2002.", q: "What is the public bus and auto-rickshaw fleet (to CNG)?", why: "The Supreme Court's order of 28 July 1998 fixed the CNG switch-over; the deadline was extended to 30 September 2001 and then to 31 January 2002 (order of 5 April 2002)." },
+        { v: 5000, clue: "India's PM2.5 annual standard is 40 ug/m3 &mdash; this many times the current WHO guideline.", q: "What is 8 times (the WHO guideline of 5 ug/m3)?", why: "WHO tightened from 10 to 5 ug/m3 in 2021. India's CPCB has not revised NAAQS since 2009." }
     ],
     'CITIES': [
-        { v: 1000, clue: "Per IQAir 2025, this Indian city was named the most polluted capital in the world.", q: "What is New Delhi?", why: "IQAir World Air Quality Report 2025 (covering 2025 data, published March 2026): New Delhi annual PM2.5 of 82.2 ug/m3. Eighth straight year as the worst capital." },
-        { v: 2000, clue: "This Uttar Pradesh town topped the IQAir 2025 list of the world's most polluted cities, edging out Byrnihat.", q: "What is Loni?", why: "Loni (Ghaziabad district) recorded 112.5 ug/m3 in 2025. It dethroned Byrnihat, Meghalaya, which had held the title in the 2024 report." },
-        { v: 3000, clue: "The 2024 IIT-Delhi DSS source apportionment found this state contributed nearly half of Delhi's PM2.5 on bad days, even before stubble burns started.", q: "What are the surrounding NCR districts of Haryana and UP?", why: "Trans-boundary transport from a 100-300 km radius accounts for 35-50% of Delhi PM2.5 even outside the stubble window. Local sources alone cannot fix the basin." },
-        { v: 4000, clue: "Bengaluru's PM2.5 is far below Delhi's, but this fast-growing pollutant from its IT-fuelled construction boom has been rising sharply.", q: "What is PM10 (and dust from construction)?", why: "Bengaluru BBMP construction permits doubled 2018-2024. CPCB data shows PM10 violations of NAAQS on >40% of days, even as PM2.5 stays moderate." },
-        { v: 5000, clue: "Located on the Brahmaputra plain, this northeastern hub has held the title of most-polluted city in the world in 2 of the last 3 IQAir reports despite its sparse industry.", q: "What is Byrnihat (on the Assam-Meghalaya border)?", why: "Byrnihat's spike is driven by ferroalloy smelters in a narrow valley with poor dispersion. Demonstrates that local-scale industrial sources can outpace mega-city averages." }
+        { v: 1000, clue: "Per IQAir 2025, this Indian city was named the most polluted capital in the world.", q: "What is New Delhi?", why: "IQAir World Air Quality Report 2025 (covering 2025 data, published March 2026): New Delhi annual PM2.5 of 82.2 ug/m3. Eighth straight year as the worst capital, per the Times of India (24 March 2026); IQAir's own release does not give a count." },
+        { v: 2000, clue: "This Uttar Pradesh town topped the IQAir 2025 list of the world's most polluted cities, ahead of Hotan (China) and Byrnihat.", q: "What is Loni?", why: "Loni (Ghaziabad district) recorded 112.5 ug/m3 in 2025; Hotan, China was second (109.6) and Byrnihat third (101.1). Loni dethroned Byrnihat, Meghalaya, which had held the title in the 2024 report." },
+        { v: 3000, clue: "A 2024 paper on the IITM decision-support system for Delhi attributes about 31% (post-monsoon) to 40% (winter) of Delhi's PM2.5 to this group of places outside Delhi.", q: "What are the NCR districts outside Delhi?", why: "Govardhan et al., Geoscientific Model Development 17 (2024): post-monsoon (winter) shares were Delhi 34.4% (33.4%), rest of NCR districts 31% (40.2%), biomass burning 7.3% (0.1%), all other regions 27.3% (26.4%). For 1-15 December 2025, CSE reports the DSS put local Delhi sources at about 35% and the remaining 65% in neighbouring NCR districts and regions further away." },
+        { v: 4000, clue: "In IQAir's 2025 table of the world's most polluted cities, this Indian metropolis ranked fourth at 99.6 ug/m3, while the separate capital-city entry for New Delhi ranked 16th at 82.2.", q: "What is Delhi?", why: "IQAir 2025 most-polluted-cities table: Loni 112.5 (1st), Byrnihat 101.1 (3rd), Delhi 99.6 (4th), Ghaziabad 89.2 (7th), New Delhi 82.2 (16th). IQAir lists Delhi and New Delhi as separate entries." },
+        { v: 5000, clue: "This Meghalaya town was IQAir's most polluted metropolitan area in its 2024 report (128.2 ug/m3) but ranked third in the 2025 table (101.1 ug/m3).", q: "What is Byrnihat (on the Assam-Meghalaya border)?", why: "Byrnihat is an industrial cluster in Ri-Bhoi district, Meghalaya, on the Assam border. IQAir 2024 report: 128.2 ug/m3, most polluted metropolitan area; 2025 table: third, behind Loni and Hotan (China)." }
     ],
     'ACTION': [
-        { v: 1000, clue: "This three-letter Indian legal instrument, costing Rs 10 to file, lets any citizen demand pollution data from a public authority within 30 days.", q: "What is RTI (Right to Information)?", why: "RTI Act 2005. JanVayu's RTI Assistant generates ready-to-file templates targeting NCAP fund utilisation, GRAP compliance, and CAAQMS station downtime." },
-        { v: 2000, clue: "The minimum mask grade that filters out at least 95% of PM2.5 when fitted properly.", q: "What is N95 (or FFP2/KN95 equivalents)?", why: "Cloth and surgical masks block 20-40% of PM2.5. N95/FFP2 fit-tested filtration is >95%. P100/N99 reach 99%+ but are over-spec for most outdoor exposure." },
-        { v: 3000, clue: "For a 200 sq ft Indian living room, you need a HEPA purifier with at least roughly this CADR to hit AQI 50 indoors when outdoor AQI is 250.", q: "What is around 200-250 m3/h CADR?", why: "Rule of thumb: CADR (m3/h) >= room area (sq ft) x ceiling (ft) / 2. JanVayu's Purifier Calculator does the live computation per city AQI." },
-        { v: 4000, clue: "Filed by a citizen in 2017, this Supreme Court PIL led to the firecracker ban during Diwali in NCR.", q: "What is Arjun Gopal v. Union of India?", why: "WP(C) 728/2015 / IA 277477/2017. The court banned barium-based crackers and capped Diwali sales hours; enforcement remains patchy." },
-        { v: 5000, clue: "This is the single most under-used citizen action documented by JanVayu &mdash; only ~3% of Indian municipal NCAP plans had a citizen comment on file as of 2025.", q: "What is filing public comments on draft City Action Plans?", why: "NCAP requires public consultation but most cities upload PDFs after the consultation window closes. JanVayu's Citizen Action panel provides templates and the SPCB email list." }
+        { v: 1000, clue: "This three-letter Indian legal instrument, costing Rs 10 to file with central public authorities, lets any citizen demand pollution data from a public authority within 30 days.", q: "What is RTI (Right to Information)?", why: "RTI Act 2005, section 7(1): the reply is due within thirty days; states set their own fee. JanVayu's RTI Assistant generates ready-to-file templates targeting NCAP fund utilisation, GRAP compliance, and CAAQMS station downtime." },
+        { v: 2000, clue: "The minimum NIOSH respirator grade that filters at least 95% of 0.3 micrometre test particles.", q: "What is N95 (or FFP2/KN95 equivalents)?", why: "N95 is a NIOSH class: at least 95% of 0.3 micrometre test particles. Real-world protection depends on a tight seal and fit." },
+        { v: 3000, clue: "For a 200 sq ft Indian living room with an 8 ft ceiling, the AHAM rule of thumb asks for a purifier with at least roughly this CADR.", q: "What is about 133 cfm (about 225 m3/h)?", why: "AHAM: CADR (cfm) should be at least two-thirds of the room's floor area (sq ft) for 8 ft ceilings; multiply cfm by 1.7 to get m3/h. In general, CADR needed (cfm) is roughly room volume (cubic ft) x air changes per hour / 60, or in m3/min, room volume (m3) x air changes per hour / 60; 200 sq ft x 8 ft = 1,600 cubic ft at 5 air changes an hour gives about 133 cfm. JanVayu's Purifier Calculator does the live computation per city AQI." },
+        { v: 4000, clue: "Filed in 2015 on behalf of three infants, this Supreme Court writ petition led to restrictions on Diwali firecrackers in NCR.", q: "What is Arjun Gopal v. Union of India?", why: "WP(C) 728/2015 was filed on 24 September 2015 on behalf of three infants. The 23 October 2018 judgment permitted only green or low-emission crackers and fixed hours for their use." },
+        { v: 5000, clue: "A second appeal to the Information Commission under Section 19(3) of the RTI Act must be filed within this many days.", q: "What is 90 days?", why: "RTI Act 2005: a first appeal lies within 30 days (s.19(1)); a second appeal within 90 days (s.19(3)). The Commission can impose a penalty of Rs 250 per day, up to Rs 25,000 (s.20)." }
     ]
 };
 const JEO_CATS = Object.keys(JEO_DATA);
@@ -149,10 +148,10 @@ const QUIZ_QUESTIONS = [
         why: "WHO halved its guideline from 10 to 5 ug/m3 in 2021. India's NAAQS (40) is 8x more permissive."
     },
     {
-        q: "Per Lancet Countdown 2025, India's annual PM2.5 mortality is approximately:",
+        q: "Per Lancet Countdown 2025, India's annual PM2.5 mortality (2022) is approximately:",
         opts: ["170,000", "700,000", "1.7 million", "5 million"],
         ans: 2,
-        why: "About 1.72 million Indian deaths per year are attributable to ambient PM2.5 — the world's largest national toll, roughly a quarter to a third of the global total."
+        why: "Over 1,718,000 Indian deaths in 2022 were attributable to anthropogenic PM2.5 (Lancet Countdown 2025). State of Global Air 2025 reports India and China each had more than 2 million air-pollution deaths in 2023 on a broader method."
     },
     {
         q: "Which season typically has the worst PM2.5 in north India?",
@@ -164,7 +163,7 @@ const QUIZ_QUESTIONS = [
         q: "GRAP Stage IV in Delhi-NCR is triggered at AQI:",
         opts: ["201", "301", "401", "451"],
         ans: 3,
-        why: "Stage IV = 'Severe-plus', AQI > 450. Triggers a construction halt, BS-III/IV diesel ban, and possible school closure."
+        why: "Stage IV = 'Severe-plus', AQI > 450. Under the CAQM schedule of 29 September 2026 it stops truck entry, extends construction bans to linear projects and moves classes VI-IX and XI to hybrid mode; states may consider closing colleges."
     },
     {
         q: "What does NCAP stand for?",
@@ -175,36 +174,36 @@ const QUIZ_QUESTIONS = [
             "National Coal Adjustment Plan"
         ],
         ans: 1,
-        why: "NCAP launched 2019. Targets 131 non-attainment cities with funds tied to PM reduction milestones."
+        why: "NCAP launched in January 2019 and covers 131 cities (non-attainment and million-plus). The revised target is a 40% PM10 reduction, or 60 ug/m3, by 2025-26 (PIB)."
     },
     {
         q: "Berkeley Earth's cigarette equivalence is roughly 1 cigarette per:",
         opts: ["1 ug/m3 PM2.5/day", "5 ug/m3 PM2.5/day", "22 ug/m3 PM2.5/day", "100 ug/m3 PM2.5/day"],
         ans: 2,
-        why: "1 cigarette ~ 22 ug/m3 PM2.5 over 24 hours. At Delhi's 100 ug/m3 winter PM2.5 = ~4.5 cigarettes/day passively."
+        why: "1 cigarette ~ 22 ug/m3 PM2.5 over 24 hours. At 100 ug/m3 that is ~4.5 cigarettes a day."
     },
     {
         q: "Which agency physically operates India's CAAQMS (continuous monitoring) stations?",
         opts: ["WHO", "MoEFCC directly", "CPCB and State Pollution Control Boards", "IQAir"],
         ans: 2,
-        why: "CPCB sets standards; State PCBs operate most CAAQMS sites. WAQI/IQAir aggregate from these official feeds."
+        why: "CAAQMS stations are operated by CPCB, State Pollution Control Boards and Pollution Control Committees (CPCB CAAQMS page)."
     },
     {
         q: "Per the IQAir 2025 report, the most polluted city in the world (2025 data) was:",
         opts: ["New Delhi, India", "Lahore, Pakistan", "Loni, India", "Byrnihat, India"],
         ans: 2,
-        why: "Loni (Ghaziabad, UP): 112.5 ug/m3 annual PM2.5. Byrnihat dropped to #2, having topped the 2024 report."
+        why: "Loni (Ghaziabad, UP): 112.5 ug/m3 annual PM2.5. Hotan (China) was second at 109.6 and Byrnihat third at 101.1; Byrnihat had topped the 2024 report."
     },
     {
-        q: "Which is NOT a major source of PM2.5 in Indian winter?",
+        q: "In the ARAI/TERI 2018 source apportionment for Delhi-NCR, which sector was the largest single contributor to PM2.5?",
         opts: [
-            "Stubble burning in Punjab/Haryana",
-            "Coal-fired power plants",
-            "Solar PV manufacturing",
-            "Residential biomass cooking"
+            "Residential (25%)",
+            "Industries (24%)",
+            "Agricultural burning (19%)",
+            "Transport (13%)"
         ],
-        ans: 2,
-        why: "Solar PV manufacturing has localised emissions but is not a top-10 PM2.5 source nationally. The other three are routinely in the top 5."
+        ans: 0,
+        why: "ARAI/TERI 2018 (Delhi-NCR): residential 25%, industries 24%, agricultural burning 19%, transport 13% of PM2.5."
     }
 ];
 let quizState = { i: 0, score: 0, answered: false };
@@ -268,13 +267,13 @@ function nextQuiz() {
 
 // ── 3. SOURCE MATCHER DATA ──
 const MATCH_PAIRS = [
-    { src: 'Stubble burning', desc: 'Punjab + Haryana paddy residue, peaks Oct-Nov, 2-3 week tight window before rabi sowing.' },
-    { src: 'Residential biomass', desc: 'Cooking on chulhas with firewood / dung; still the largest household PM2.5 source despite PMUY.' },
-    { src: 'Coal thermal power', desc: 'SO2 and NOx that oxidise into secondary sulphate / nitrate aerosol; ~half of capacity still without FGD in 2025.' },
-    { src: 'Road dust + non-exhaust', desc: 'Tyre and brake wear plus resuspended dust; can match tailpipe PM2.5 in dense Indian cities.' },
-    { src: 'Brick kilns', desc: 'Seasonal December-May firing across Indo-Gangetic Plain; converting to zigzag tech can cut PM by up to about half (CCAC).' },
-    { src: 'Diesel gensets', desc: 'Backup power in commercial buildings and apartments during outages; banned at GRAP stages II-IV.' },
-    { src: 'Open waste burning', desc: 'Municipal solid waste lit at night at landfills and street corners; under-reported in official inventories.' }
+    { src: 'Stubble burning', desc: 'Punjab + Haryana paddy residue burned in the Oct-Nov window.' },
+    { src: 'Residential biomass', desc: 'Cooking on chulhas with firewood / dung; the residential sector was the largest single PM2.5 contributor in Delhi-NCR (ARAI/TERI 2018, 25%).' },
+    { src: 'Coal thermal power', desc: 'SO2 and NOx that oxidise into secondary sulphate / nitrate aerosol; only about 11% of coal capacity had FGD installed in 2025 (CARE Ratings).' },
+    { src: 'Road dust + non-exhaust', desc: 'Tyre and brake wear plus resuspended dust; road dust was 4% of Delhi winter PM2.5 and 8% of PM10 (ARAI/TERI 2018).' },
+    { src: 'Brick kilns', desc: 'Seasonal firing across the Indo-Gangetic Plain; converting to zigzag tech can cut particulate emissions by roughly 35-50% (CCAC, IFC).' },
+    { src: 'Diesel gensets', desc: 'Backup power in commercial buildings and apartments during outages; regulated from GRAP Stage I, with restrictions by generator capacity.' },
+    { src: 'Open waste burning', desc: 'Municipal solid waste lit at night at landfills and street corners.' }
 ];
 let matchState = { selected: null, matches: {} };
 function shuffle(arr) {
@@ -347,17 +346,17 @@ function resetMatcher() { renderMatcher(); }
 // pollution event or policy slip. Each special square has a one-line learning fact.
 const SL_BOARD_SIZE = 36;
 const SL_LADDERS = {
-    3:  { to: 11, msg: 'Ladder &mdash; you swapped to LPG and stopped using a chulha for cooking. Indoor PM2.5 drops 80%.' },
-    7:  { to: 17, msg: 'Ladder &mdash; you fit-tested an N95 mask. Outdoor exposure drops 95% on bad days.' },
-    14: { to: 24, msg: 'Ladder &mdash; you filed an RTI on NCAP fund utilisation. The data becomes public in 30 days.' },
-    21: { to: 30, msg: 'Ladder &mdash; you submitted a public comment on your city\'s draft Action Plan. Only ~3% of citizens do.' },
+    3:  { to: 11, msg: 'Ladder &mdash; you swapped to LPG and stopped using a chulha for cooking. Your exposure to cooking smoke falls.' },
+    7:  { to: 17, msg: 'Ladder &mdash; you fit-tested an N95 mask. It filters at least 95% of test particles when sealed.' },
+    14: { to: 24, msg: 'Ladder &mdash; you filed an RTI on NCAP fund utilisation. The reply is due within 30 days.' },
+    21: { to: 30, msg: 'Ladder &mdash; you submitted a public comment on your city\'s draft Action Plan. Your comment goes on the record.' },
     27: { to: 35, msg: 'Ladder &mdash; you joined your RWA\'s pollution committee. Local construction now follows dust rules.' }
 };
 const SL_SNAKES = {
-    10: { to: 2,  msg: 'Snake &mdash; Diwali fireworks. PM2.5 spikes 4&times; in a single night across NCR.' },
+    10: { to: 2,  msg: 'Snake &mdash; Diwali fireworks. Pollution spikes about three-fold around Diwali (CarbonCopy, 2021-25 report).' },
     18: { to: 6,  msg: 'Snake &mdash; coal plants miss the FGD deadline. Again. Secondary sulphate aerosol stays high.' },
-    25: { to: 13, msg: 'Snake &mdash; stubble-burn peak. Punjab fires push Delhi PM2.5 past 500 µg/m³ for the week.' },
-    32: { to: 19, msg: 'Snake &mdash; GRAP-IV triggered. Schools shut, BS-III/IV diesel banned. The reactive cycle resets.' },
+    25: { to: 13, msg: 'Snake &mdash; stubble-burn peak. Smoke can push Delhi into the Severe range; the 2025 season\'s highest AQI was 428 on 11 November (CSE).' },
+    32: { to: 19, msg: 'Snake &mdash; GRAP-IV triggered. Trucks barred, construction halted on linear projects, classes go hybrid. The reactive cycle resets.' },
     34: { to: 20, msg: 'Snake &mdash; the NCAP city deadline slips by another year. Targets revised, not met.' }
 };
 const SL_FINISH_MSG = '<strong>Square 36 reached.</strong> India meets the WHO 5 µg/m³ guideline. Roll count: <span id="sl-final-rolls"></span>. The fewer rolls, the closer to the ideal path. Try the Jeopardy board next.';
@@ -451,7 +450,7 @@ function resetSnakesLadders() {
 // ── 5. JODI MATCH (memory-card) ──
 // 6 pairs (12 cards). A pair is two cards with the same `pairId`.
 const JODI_PAIRS = [
-    { pairId: 1, a: 'PM2.5',           b: 'Cooking smoke (chulha biomass)' },
+    { pairId: 1, a: 'Chulha smoke',    b: 'A major household PM2.5 source' },
     { pairId: 2, a: 'NCAP',            b: 'National Clean Air Programme' },
     { pairId: 3, a: 'GRAP-IV',         b: 'AQI > 450 (severe-plus)' },
     { pairId: 4, a: 'CAQM',            b: 'NCR statutory air-quality body (2021 Act)' },
@@ -550,22 +549,22 @@ const TAMBOLA_POOL = [
     { term: 'AQLI',      clue: 'Chicago index that measures life-expectancy lost to particulate pollution.' },
     { term: 'IQAir',     clue: 'Annual world air-quality report publisher, named Loni #1 in 2025.' },
     { term: 'Loni',      clue: 'Most polluted city in the world per IQAir 2025 — small UP town in Ghaziabad district.' },
-    { term: 'Byrnihat',  clue: 'Assam-Meghalaya border town, #1 most polluted in IQAir 2024, dropped to #2 in 2025.' },
-    { term: 'Chulha',    clue: 'Traditional biomass cookstove — largest household PM2.5 source in rural India.' },
+    { term: 'Byrnihat',  clue: 'Assam-Meghalaya border town, #1 most polluted in IQAir 2024, third in 2025 (behind Hotan, China).' },
+    { term: 'Chulha',    clue: 'Traditional biomass cookstove — a major household PM2.5 source in rural India.' },
     { term: 'Stubble',   clue: 'Paddy crop residue burned in Punjab/Haryana between October and November.' },
-    { term: 'FGD',       clue: 'Coal-plant flue-gas desulphurisation tech — half of capacity still missing it.' },
+    { term: 'FGD',       clue: 'Coal-plant flue-gas desulphurisation tech — only about 11% of capacity has it.' },
     { term: 'N95',       clue: 'Mask grade that filters ≥95% of PM2.5 when fitted properly.' },
     { term: 'HEPA',      clue: 'Filter standard inside indoor air purifiers; full name "high-efficiency particulate air".' },
     { term: 'PMUY',      clue: 'Government scheme that distributed LPG connections to BPL households.' },
     { term: 'BS-VI',     clue: 'India\'s current vehicle emission standard, mandatory since 2020.' },
-    { term: 'Diwali',    clue: 'Autumn Indian festival whose firecrackers spike NCR PM2.5 4× in one night.' },
-    { term: 'Lancet 1.72M', clue: 'Lancet Countdown 2025 figure for annual Indian PM2.5 deaths.' },
+    { term: 'Diwali',    clue: 'Autumn Indian festival whose firecrackers spike NCR pollution about three-fold (CarbonCopy, 2021-25 report).' },
+    { term: 'Lancet 1.72M', clue: 'Lancet Countdown 2025 figure for Indian PM2.5 deaths in 2022.' },
     { term: 'RTI',       clue: 'Citizens\' three-letter legal tool for getting air-quality data from public bodies.' },
-    { term: 'Ozone (O₃)', clue: 'Summertime secondary pollutant formed when NOx reacts with sunlight.' },
+    { term: 'Ozone (O₃)', clue: 'Summertime secondary pollutant formed when NOx and VOCs react in sunlight.' },
     { term: 'NOx',       clue: 'Vehicle and power-plant exhaust gas; precursor to nitrate aerosol.' },
     { term: 'SO₂',       clue: 'Coal-plant emission that oxidises to secondary sulphate PM2.5.' },
-    { term: 'Black Carbon', clue: 'Soot from incomplete combustion; second-largest climate-warming agent after CO₂.' },
-    { term: 'Brick Kiln', clue: 'Indo-Gangetic Plain seasonal Dec-May source; zigzag tech can cut PM by up to about half (CCAC).' }
+    { term: 'Black Carbon', clue: 'Soot from incomplete combustion; one of the largest short-lived warming agents (ranked second after CO₂ in a 2008 estimate).' },
+    { term: 'Brick Kiln', clue: 'Indo-Gangetic Plain seasonal source; zigzag tech can cut particulate emissions by roughly 35-50% (CCAC, IFC).' }
 ];
 // 3 rows × 9 cols, with 5 cells filled per row (Indian housie standard)
 let tambolaState = { ticket: [], queue: [], called: [], marks: {}, calls: 0, wins: { top: false, middle: false, bottom: false, full: false } };
@@ -695,7 +694,7 @@ const JUNCTION_PUZZLES = [
         groups: [
             { theme: 'Particulate fractions', color: '#16A34A', items: ['PM1', 'PM2.5', 'PM10', 'TSP'] },
             { theme: 'Criteria gases (NAAQS)', color: '#3B82F6', items: ['NO2', 'SO2', 'CO', 'O3'] },
-            { theme: 'CPCB AQI bands (lower half)', color: '#F59E0B', items: ['Good', 'Satisfactory', 'Moderate', 'Poor'] },
+            { theme: 'CPCB AQI bands (lower half)', color: '#F59E0B', items: ['Good', 'Satisfactory', 'Moderately Polluted', 'Poor'] },
             { theme: 'Indian air-quality regulators', color: '#7C3AED', items: ['CPCB', 'CAQM', 'MoEFCC', 'DPCC'] }
         ]
     },
@@ -712,7 +711,7 @@ const JUNCTION_PUZZLES = [
         id: 'names', title: 'Names & numbers', difficulty: 'Hard',
         groups: [
             { theme: 'Worst-polluted Indian cities (IQAir 2025)', color: '#16A34A', items: ['Loni', 'Byrnihat', 'Delhi', 'Ghaziabad'] },
-            { theme: 'NCAP top-performing cities', color: '#3B82F6', items: ['Varanasi', 'Bareilly', 'Firozabad', 'Dehradun'] },
+            { theme: 'NCAP top-improving cities (PM10, FY2024-25 vs 2017-18)', color: '#3B82F6', items: ['Varanasi', 'Bareilly', 'Firozabad', 'Dehradun'] },
             { theme: 'Air-quality research bodies & reports', color: '#F59E0B', items: ['CREA', 'AQLI', 'IQAir', 'Lancet'] },
             { theme: 'Citizen accountability tools', color: '#7C3AED', items: ['Petition', 'RTI', 'Audit', 'Survey'] }
         ]
@@ -1011,7 +1010,7 @@ const AQLIT_QUESTIONS = [
         q: 'A lot of India’s PM2.5 is "secondary". What does that mean?',
         opts: ['It is less harmful', 'It forms in the air from gases, rather than being emitted directly', 'It only appears at night', 'It comes only from vehicles'],
         ans: 1,
-        why: 'Up to ~42% of India’s PM2.5 is secondary — formed in the atmosphere from gases like SO₂ and NOₓ (e.g. ammonium sulphate). That is why dust-only control misses much of the problem.'
+        why: 'About a third of India’s PM2.5 is ammonium sulphate alone (34% nationally, 20-43% across NCAP cities; CREA 2025), formed in the atmosphere from gases like SO₂ and ammonia. That is why dust-only control misses much of the problem.'
     },
     {
         q: 'On a "Severe" AQI day, the most useful thing to do is…',

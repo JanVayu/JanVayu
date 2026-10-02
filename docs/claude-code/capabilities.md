@@ -22,7 +22,7 @@ This page is a comprehensive, detailed reference of everything the JanVayu Claud
 
 ### Multi-File Coordination
 A single Claude Code session can touch all of these in one pass:
-- `index.html` (HTML structure, inline CSS, inline JS)
+- `index.html` (markup), `app.js` (logic) and `styles.css` (styling)
 - Netlify Functions (`netlify/functions/*.mjs` or `*.js`)
 - Configuration files (`netlify.toml`, `package.json`, `.editorconfig`)
 - Documentation (`docs/**/*.md`, `CHANGELOG.md`, `README.md`)
@@ -46,7 +46,7 @@ A single Claude Code session can touch all of these in one pass:
   - `Test:` — test additions
   - `CI:` — CI/CD pipeline changes
   - `Chore:` — maintenance tasks
-- Subject lines kept under 72 characters (enforced by hook)
+- Subject lines over 72 characters trigger a warning from the hook (not a block); `Merge` is also an allowed prefix
 
 ### Pull Request Management
 - Create PRs with structured title, summary, and test plan
@@ -76,14 +76,16 @@ The setup includes two custom git hooks that run automatically:
 
 ---
 
-## 3. AI-Powered Features (Llama 3.3 70B via Groq)
+## 3. AI-Powered Features (Groq-hosted model)
+
+> **Update, 2 Oct 2026: Groq shut down Llama 3.3 70B on 16 Aug 2026 (Groq deprecations page); the functions now default to `openai/gpt-oss-120b`, which can be changed with the `GROQ_MODEL` environment variable.**
 
 The setup includes four production AI features, each implemented as a Netlify Function with a structured skill file:
 
 ### 3.1 Air Quality Assistant (`air-query.mjs`)
 - **Input**: City name + natural language question
-- **Output**: Grounded answer in < 150 words, citing actual AQI numbers
-- **Languages**: English and Hindi
+- **Output**: Grounded answer (target about 150 words), citing actual AQI numbers
+- **Languages**: English plus nine Indian languages (Hindi, Tamil, Bengali, Marathi, Telugu, Gujarati, Kannada, Malayalam, Punjabi)
 - **Key constraint**: Must cite real data — no generic advice
 - **Fallback**: Returns raw AQI data if Groq is rate-limited
 - **Skill file**: `docs/skills/air-quality-assistant.md`
@@ -98,10 +100,10 @@ The setup includes four production AI features, each implemented as a Netlify Fu
 
 ### 3.3 Accountability Brief (`accountability-brief.mjs`)
 - **Input**: City + ward/area + time period
-- **Output**: Structured 6-section brief (area, current PM2.5, status, data analysis, likely sources, actionable steps, data caveat)
-- **Max output**: 400 tokens
+- **Output**: Structured brief with eight labelled sections (area, period, current PM2.5, status, what the data shows, likely sources, what local actors can do, data caveat)
+- **Max output**: 1,024 tokens
 - **Audience**: Ward councillors, local journalists, RWAs (Resident Welfare Associations)
-- **Key feature**: Includes specific local regulatory mechanisms (NCAP targets, GRAP actions, municipal powers)
+- **Key feature**: Includes specific local regulatory mechanisms (GRAP, RTI and municipal complaint lines)
 - **Fallback**: Returns raw data without AI analysis
 - **Skill file**: `docs/skills/accountability-brief.md`
 
@@ -109,7 +111,7 @@ The setup includes four production AI features, each implemented as a Netlify Fu
 - **Input**: Automatic — monitors Delhi, Mumbai, Kolkata, Chennai, Bengaluru
 - **Threshold**: PM2.5 > 2× seasonal baseline = anomaly
 - **Output**: One-sentence explanation per spike
-- **Seasonal baselines**: Hardcoded from CREA/IQAir data (not computed dynamically)
+- **Seasonal baselines**: Hardcoded approximate JanVayu working baselines, not published CREA or IQAir figures (not computed dynamically)
 - **Fallback**: Returns anomaly flag without AI explanation
 - **Skill file**: `docs/skills/anomaly-explainer.md`
 
@@ -123,7 +125,9 @@ All four features share:
 
 ---
 
-## 4. Netlify Functions (13 Serverless Functions)
+## 4. Netlify Functions (28 Serverless Handlers)
+
+The tables below list the core functions. The repository holds 28 handler files plus one shared helper (`blob-store.js`); five of the handlers are scheduled.
 
 ### Scheduled Functions
 | Function | Schedule | Purpose |
@@ -171,7 +175,7 @@ Every function follows this template:
 **Link Checking** (`ci.yml`):
 - **Triggers**: Push to `main`, PRs to `main`
 - **Tool**: Lychee link checker
-- **Excludes**: localhost, social media platforms, rate-limited domains
+- **Excludes**: localhost, social media platforms, rate-limited domains, and the `docs/` and `docs-*/` directories
 - **Config**: 30-second timeout, 2 retries per link
 
 **Translation Sync** (`translations.yml`):
@@ -183,15 +187,15 @@ Every function follows this template:
 - Same logic as above for `docs-impactmojo/` directories
 
 **Dependabot** (`dependabot.yml`):
-- **Scope**: GitHub Actions dependencies only
+- **Scope**: GitHub Actions dependencies and npm (npm added 2 Oct 2026)
 - **Frequency**: Monthly
-- **Max open PRs**: 2
+- **Max open PRs**: 2 per ecosystem; npm minor and patch updates are grouped
 
 ### Netlify Auto-Deploy
 - Every push to `main` triggers an automatic deploy
 - Build publishes from repo root (`.`)
 - Functions directory: `netlify/functions/`
-- Node.js 18 runtime
+- Node.js 22 runtime (`NODE_VERSION` in `netlify.toml`)
 
 ---
 
@@ -218,28 +222,28 @@ Every function follows this template:
 - Accessed via `@netlify/blobs` package
 
 ### Email — Resend API
-- Transactional email delivery for daily digest and subscription confirmations
+- Email delivery for the daily digest (`daily-digest.mjs`) and other server-side mailers (`health-monitor.mjs`, `terra-collab.mjs`, `workshop-submit.mjs`); `subscribe.js` does not send email
 - Server-side only (via Netlify Functions)
 
 ### Environment Variables Required
 | Variable | Purpose | Where Used |
 |----------|---------|------------|
-| `GROQ_API_KEY` | Llama 3.3 70B AI features | `air-query.mjs`, `health-advisory.mjs`, `accountability-brief.mjs`, `anomaly-check.mjs` |
-| `RESEND_API_KEY` | Email delivery | `daily-digest.mjs`, `subscribe.js` |
+| `GROQ_API_KEY` | Groq-hosted AI features (model set by optional `GROQ_MODEL`, default `openai/gpt-oss-120b`) | `air-query.mjs`, `health-advisory.mjs`, `accountability-brief.mjs`, `anomaly-check.mjs` |
+| `RESEND_API_KEY` | Email delivery | `daily-digest.mjs`, `health-monitor.mjs`, `terra-collab.mjs`, `workshop-submit.mjs` |
 | `RESEND_FROM` | Sender email address | `daily-digest.mjs` |
-| `BLOB_TOKEN` | Netlify Blobs access | All caching functions |
+| `BLOB_TOKEN` | Netlify Blobs access | `blob-store.js` (imported by the caching functions) |
 | `NETLIFY_SITE_ID` | Site identifier | Blobs store initialisation |
-| `WAQI_TOKEN` | Air quality data (public, safe to expose) | Client-side `index.html` |
+| `WAQI_TOKEN` | Air quality data (public, safe to expose) | Hardcoded in `app.js` and the functions; only `rankings.mjs` reads `process.env.WAQI_TOKEN` |
 
 ---
 
 ## 7. MCP Server Integrations
 
-Claude Code supports Model Context Protocol (MCP) servers that extend its tool access beyond the local filesystem:
+Claude Code supports Model Context Protocol (MCP) servers that extend its tool access beyond the local filesystem. The repository does not record which of these were used during JanVayu development; the table lists what each can be used for:
 
 | MCP Server | Tools Available | Use Case for JanVayu |
 |------------|----------------|---------------------|
-| **GitHub** | PR management, issue tracking, code search, CI checks | Active — manages PRs, reviews, issue comments |
+| **GitHub** | PR management, issue tracking, code search, CI checks | Manages PRs, reviews, issue comments |
 | **Notion** | Create pages, query databases, search, update | Project planning, task tracking, meeting notes |
 | **Gmail** | Search messages, read threads, create drafts | Referencing email discussions about features |
 | **Figma** | Get design context, screenshots, metadata | Translating design mockups into HTML/CSS |
@@ -259,7 +263,7 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 | Marathi | `docs-mr/` | `/docs/#/mr/` |
 | Tamil | `docs-ta/` | `/docs/#/ta/` |
 
-### Documentation Sections (54 files)
+### Documentation Sections (65 English pages; 47 in each translated tree)
 - **Claude Code guides** — overview, setup, workflow, sharing, capabilities
 - **Skills & AI** — air quality assistant, health advisory, accountability brief, anomaly explainer, coding practices, visual design, automation
 - **Tech Stack** — overview, frontend, backend, AI layer, infrastructure, dev tooling
@@ -271,7 +275,7 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 - Single-page Docsify shell at `/docs/` renders markdown directly from the `docs/` directory in the browser
 - Translated languages routed via Docsify hash routes (`/docs/#/hi/`, `/docs/#/bn/`, `/docs/#/mr/`, `/docs/#/ta/`)
 - No build step, no server, no DB — Netlify just serves the static files
-- Plugins: docsify-themeable (brand theme + dark mode), docsify-pagination (Prev/Next), docsify-copy-code (code-block copy), Prism.js (syntax highlighting), Plausible (privacy-friendly analytics)
+- Plugins: docsify-themeable (brand theme), docsify-pagination (Prev/Next), docsify-copy-code (code-block copy), Prism.js (syntax highlighting), zoom-image
 - Built-in Docsify search (client-side, indexes all 5 languages)
 
 ---
@@ -279,12 +283,12 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 ## 9. Code Quality & Conventions
 
 ### Architecture Constraints
-- **Single HTML file** (`index.html`) — all CSS and JS inline
+- **Three front-end files** — `index.html` (markup), `app.js` and `styles.css`
 - **No frameworks** — no React, Vue, Angular, Svelte
 - **No build step** — no Webpack, Vite, Rollup
 - **No TypeScript** — vanilla JavaScript only
-- **ES2020 maximum** — no bleeding-edge syntax
-- **No client-side npm packages** — CDN-only for Chart.js and Leaflet.js
+- **ES2022 maximum** (ESLint `ecmaVersion`) — no bleeding-edge syntax
+- **No client-side npm packages** — CDN-only for Chart.js, Leaflet, leaflet.heat and PMTiles
 
 ### Formatting Standards (`.editorconfig`)
 - 2-space indentation for HTML, CSS, JS, JSON
@@ -296,17 +300,17 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 Only 3 npm packages in `package.json`:
 - `@netlify/blobs` — server-side caching
 - `resend` — email delivery
-- (dev/transitive dependencies as needed)
+- `web-push` — push notifications
 
 ---
 
 ## 10. What Claude Code Built vs. What Needs Humans
 
 ### Claude Code Built
-- All 13 Netlify Functions (serverless backend)
-- The entire 12,633-line `index.html` single-page application
+- The Netlify Functions (serverless backend)
+- The single-page application front end (`index.html`, `app.js`, `styles.css`)
 - All AI skill prompts and prompt engineering
-- Complete multilingual Docsify documentation (54 files, 5 languages)
+- Multilingual Docsify documentation (65 English pages; 47 per translated language)
 - Git hooks for commit enforcement
 - GitHub Actions workflows
 - CHANGELOG entries and version management
@@ -331,20 +335,20 @@ Only 3 npm packages in `package.json`:
 | Component | Cost |
 |-----------|------|
 | Netlify hosting + functions | Free tier |
-| Groq API (Llama 3.3 70B) | Free tier |
+| Groq API (default `openai/gpt-oss-120b`) | Free tier |
 | Resend email | Free tier (100 emails/day) |
 | WAQI API | Free tier |
 | GitHub Actions | Free tier |
 | Docsify (docs) | Free (open source, served from Netlify) |
 | Domain (`janvayu.in`) | ~$10/year |
-| **Total** | **~$10/year** |
+| **Total** | **~$10/year** (excludes the cost of Claude Code itself) |
 
 ---
 
 ## Summary
 
 This Claude Code setup provides a complete development environment for a production web platform with:
-- **13 serverless functions** (4 AI-powered, 5 data feeds, 2 scheduled, 1 email, 1 health check)
+- **28 serverless handlers** (4 AI-powered, 5 scheduled, the rest feeds, subscriptions and data APIs) plus one shared helper
 - **Automated code quality** via git hooks (secret blocking, commit conventions, debug detection)
 - **CI/CD pipelines** for link checking, translation coverage, and dependency updates
 - **Multilingual Docsify documentation** in 5 languages, served from a single shell at `/docs/`

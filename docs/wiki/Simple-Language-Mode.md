@@ -22,7 +22,7 @@ Any element can be made simple-mode-aware by adding a `data-simple` attribute:
 
 ```html
 <p data-simple="Dirty air costs India a lot of money every year.">
-    Air pollution costs India $36.8 billion annually (1.36% GDP).
+    The monetised value of premature deaths from outdoor air pollution in India was $339.4 billion in 2022 (9.5% of GDP).
 </p>
 ```
 
@@ -54,8 +54,8 @@ function applySimpleMode() {
 
 ## Coverage
 
-- 30+ panel intro paragraphs
-- 22 glossary definitions (technical / simple)
+- Panel intro paragraphs
+- 20 glossary definitions (technical / simple)
 - Key insight boxes, alert boxes, pull-quotes
 - Budget, policy, health, children, indoor, legal, action panels
 
@@ -71,7 +71,7 @@ function applySimpleMode() {
 
 | Technical | Simple |
 |-----------|--------|
-| PM2.5 concentration of 60 ug/m3 | pollution level of 60 (safe limit is 5) |
+| PM2.5 concentration of 60 ug/m3 | pollution level of 60 (the WHO yearly guideline is 5; India's yearly limit is 40) |
 | GEMM mortality model | a formula that estimates how many people die from pollution |
 | source apportionment studies | research into what causes the pollution |
 | cost-effectiveness analysis | checking if the money was well spent |

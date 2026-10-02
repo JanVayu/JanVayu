@@ -21,7 +21,7 @@ The only requirement is to retain the copyright notice.
 
 ## Content: CC BY-NC-SA 4.0
 
-All documentation, written content, research summaries, and data presented on the platform and in this documentation are licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**.
+All documentation, written content, research summaries, and data that JanVayu itself produces (derived summaries and rankings) are licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**.
 
 This means you are free to:
 - **Share** — copy and redistribute the material in any medium or format
@@ -38,7 +38,7 @@ Under the following terms:
 
 ## Data Sources
 
-Data integrated into JanVayu from external sources retains the original licence of each source. JanVayu does not claim ownership of third-party data. When using data from JanVayu, cite the original primary source (CPCB, Lancet, World Bank, etc.), not JanVayu.
+Data integrated into JanVayu from external sources retains the original licence of each source (for example, the XKDR India Air Quality Database and ESA WorldCover are both CC BY 4.0). JanVayu does not claim ownership of third-party data. When using data from JanVayu, cite the original primary source (CPCB, Lancet, World Bank, etc.), not JanVayu.
 
 ---
 
@@ -47,6 +47,6 @@ Data integrated into JanVayu from external sources retains the original licence 
 To cite JanVayu in academic or policy work:
 
 ```
-JanVayu. (2026). India's Citizen Air Quality Platform. AirQuality for Janhit by MMSF Fellows, AIPC.
+Raman, V. S. (2026). JanVayu: Citizen Air Quality Monitoring Platform for India. AirQuality for Janhit by MMSF Fellows, AIPC.
 Retrieved from https://www.janvayu.in
 ```

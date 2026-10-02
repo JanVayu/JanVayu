@@ -18,11 +18,11 @@ In Tamil: ஜன்வாயு | In Bengali: জনবায়ু | In Marathi
 
 ## Scope
 
-JanVayu is **national in scope** — it covers 160 cities across all major regions of India, not only Delhi-NCR. It also specifically highlights disparities:
+JanVayu is **national in scope** — it covers 157 Indian cities across all major regions of India, not only Delhi-NCR (plus Beijing, London and Singapore as international comparators). It also specifically highlights disparities:
 
 - Women disproportionately exposed to household air pollution
-- Informal workers without protection from outdoor exposure
-- Dalit and Adivasi communities near industrial zones
+- Outdoor workers, who spend long hours exposed ([Barthwal et al. 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9200945/), outdoor workers in Delhi)
+- Scheduled-caste and scheduled-tribe populations, who are more likely to be exposed to pollution from coal-fired plants ([Kopas et al. 2020, *Ecological Economics* 176](https://ideas.repec.org/a/eee/ecolec/v176y2020ics0921800919304197.html))
 - Children whose developing lungs are most vulnerable
 
 ---
@@ -45,4 +45,4 @@ Editorial principles:
 
 ## Previously Known As
 
-This project was previously known as **Vayu Smriti** (वायु स्मृति). All URLs and references have been updated to JanVayu.
+This project was previously known as **Vayu Smriti** (वायु स्मृति). Current references use JanVayu; historical mentions of Vayu Smriti are kept in the README and the About panel as attribution.

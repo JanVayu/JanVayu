@@ -1,6 +1,6 @@
 # API Reference
 
-JanVayu exposes 10 serverless API endpoints via Netlify Functions. All endpoints are publicly accessible, return JSON, and support CORS.
+JanVayu exposes 12 public endpoints (11 Netlify Functions plus the `/api` open-data entry point; one of them, `/twitter-feed`, is retired). All are publicly accessible and support CORS. They return JSON, except the CSV export, which returns `text/csv`. The repository also contains further functions behind the Open Data API (rankings, reference-data, historical-aqi, community-sensors, status-history) and internal ones.
 
 **Base URL:** `https://www.janvayu.in/.netlify/functions`
 
@@ -56,8 +56,13 @@ curl https://www.janvayu.in/api
 
 ```bash
 curl "https://www.janvayu.in/api?dataset=rankings&format=csv"          # live
-curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=7d" # 7-day average
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=week" # 7-day average
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=month" # 30-day average
 ```
+
+The `rankings` function understands `range=live`, `range=week` and `range=month`. Any other value, including `7d` and `30d` (which the manifest lists), is treated as a 30-day range.
+
+> **Known issue:** `range=7d` is advertised in the `/api` manifest but is not recognised by the rankings function, so it returns the 30-day average, not a 7-day average. Use `range=week` for the 7-day average until the code is fixed.
 
 The manifest points at the underlying JSON endpoints — `rankings`, `reference-data` (CPCB stations / NCAP cities / IQAir annual), `historical-aqi`, `community-sensors`, and `status-history` — which remain individually callable.
 
@@ -75,7 +80,7 @@ The full OpenAPI 3.1 spec is available at [`openapi.yaml`](openapi.yaml). Import
 
 No authentication required. All endpoints are public.
 
-- **AI endpoints** are rate-limited by the Groq free tier
+- **AI endpoints** depend on Groq's rate limits
 - **Feed endpoints** serve from cache (pre-fetched every 4 hours)
 - **CORS:** `Access-Control-Allow-Origin: *` on all responses
 
@@ -84,7 +89,7 @@ No authentication required. All endpoints are public.
 ## Common Response Patterns
 
 ### Success
-All endpoints return HTTP 200, even on partial failures. Check the response body for error details.
+Endpoints return HTTP 200 for upstream or AI failures (with a fallback body), but 400 for invalid input, 405 for the wrong method, and 500 or 502 on internal or upstream errors (for example `/api` returns 502 when the rankings CSV cannot be built). Check the status code and the response body.
 
 ### Fallback
 AI endpoints return raw data (without AI analysis) if Groq is rate-limited. Feed endpoints return stale cache if live fetches fail.

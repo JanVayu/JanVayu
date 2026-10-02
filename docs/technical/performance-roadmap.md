@@ -12,7 +12,9 @@ Tracked in [issue #3](https://github.com/JanVayu/JanVayu/issues/3).
 - Chart.js 4.x (~70 KB gzipped) and Leaflet 1.9 + leaflet.heat (~50 KB gzipped) are loaded at the top of the page with `defer`. They block neither parsing nor first paint, but they DO consume ~120 KB of bandwidth on every visit even though most sessions never open the Trends or Live Map panels.
 - Sargam Icons via CSS `mask-image` — no icon font download.
 - Service worker (`sw.js`) caches the shell + last-known AQI.
-- Brotli compression active via Netlify default.
+- Brotli compression expected via Netlify default (not yet verified; see the curl test below).
+
+> **Update 2 Oct 2026:** The bullets above are the May 2026 record and have moved on. `index.html` is now about 621 KB, with `styles.css` and `app.js` as separate files. Chart.js and Leaflet are no longer loaded at the top of the page: lazy-loading shipped by v26.5.6 (`ensureChartJs()` / `ensureLeaflet()` in `app.js`, with SRI hashes on the lazy-loaded scripts), so the planned refactor in section 1 below is done. The inline CSS is now a critical-CSS subset, with the rest in `/styles.css` (see the [Frontend Stack](../tech-stack/frontend.md)), so the ~85 KB inline block described in section 2 no longer exists.
 
 ## Lighthouse budget (`.lighthouserc.json`)
 
@@ -103,7 +105,7 @@ If `gzip` is returned instead, set explicit headers in `netlify.toml`.
 
 ### 4. Image / icon optimisation
 
-- `og-image.png` is 39 KB — fine, but verify it shows current numbers (separate issue, see [audit deferred items](../../docs/wiki/Roadmap.md)).
+- `og-image.png` was recorded here as 39 KB; on 2 Oct 2026 `ls -l` shows 133,256 bytes (about 130 KB), fine, but verify it shows current numbers (separate issue, see [audit deferred items](../../docs/wiki/Roadmap.md)).
 - `favicon.svg` is 1.5 KB — fine.
 - Sargam Icons via mask-image — already optimal.
 

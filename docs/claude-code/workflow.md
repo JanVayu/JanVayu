@@ -15,7 +15,7 @@ Start with a clear, constraint-aware description:
 > It should be a Netlify Function (ES module, .mjs) that:
 > - Takes a city name as input
 > - Fetches live AQI from WAQI
-> - Sends the data to Llama 3.3 70B via Groq with a structured prompt
+> - Sends the data to a Groq-hosted model with a structured prompt
 > - Returns a brief with: current status, NCAP targets, 5 accountability questions
 > - Has a fallback if Groq is rate-limited
 > Also add the UI section in index.html following existing patterns.
@@ -38,7 +38,7 @@ Claude creates/modifies files:
 ### Step 4: Review and Iterate
 
 ```
-> The brief is too long. Limit the model output to 400 tokens.
+> The brief is too long. Cap the model output at 1,024 tokens (max_tokens).
 > Also add a loading spinner while the brief generates.
 ```
 
@@ -107,7 +107,7 @@ Claude:
 For large features, Claude Code manages multiple PRs:
 
 ```
-PR #1: Add Groq/Llama integration (functions only)
+PR #1: Add the AI integration (functions only; v25.1 launched on Gemini 2.5 Flash and later moved to Groq)
 PR #2: Add frontend UI for AI features
 PR #3: Update CHANGELOG and version history
 PR #4: Update About section version line

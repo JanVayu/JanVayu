@@ -2,7 +2,7 @@
 
 This section documents the AI skill files — system prompts, instruction patterns, and prompt engineering decisions — used to build and operate JanVayu.
 
-These are not abstract guidelines. They are the actual instructions embedded in the codebase, plus the broader prompting approach used during development. If you are forking JanVayu for another city or another environmental domain, this section is where to start.
+These are not abstract guidelines. The health advisory, accountability brief and anomaly-check prompts are reproduced here as they appear in the codebase; the Ask JanVayu prompt is far longer and is summarised. The pages also describe the broader prompting approach used during development. If you are forking JanVayu for another city or another environmental domain, this section is where to start.
 
 ---
 
@@ -16,7 +16,9 @@ A skill file is a structured system prompt that tells an AI model how to behave 
 - The **constraints** on tone, length, and claims
 - The **failure modes** to avoid
 
-JanVayu uses skill files for all four Groq-powered features (using the open-source Llama 3.3 70B model).
+JanVayu uses skill files for all four Groq-powered features.
+
+> **Update, 2 Oct 2026:** these pages were written for Llama 3.3 70B, which Groq shut down on 16 Aug 2026. The features now run `openai/gpt-oss-120b` (an Apache-2.0 open-weight model) via the `GROQ_MODEL` setting.
 
 ---
 

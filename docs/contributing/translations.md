@@ -1,12 +1,12 @@
 # Translations
 
-JanVayu is committed to accessibility across India's linguistic diversity. The platform currently supports English, Hindi, Tamil, Marathi, and Bengali.
+JanVayu is committed to accessibility across India's linguistic diversity. The platform currently supports English, Hindi, Tamil, Marathi, and Bengali. The interface is fully translated in all five; the documentation is translated in part (47 of 65 pages in each translated tree).
 
 ---
 
 ## Current Language Support
 
-| Language | Code | Status |
+| Language | Code | Interface status |
 |----------|------|--------|
 | English | `en` | Full |
 | Hindi (हिन्दी) | `hi` | Full |
@@ -69,7 +69,7 @@ Each language lives in a `docs-{lang}/` directory in the repo and is served by a
 | Marathi | [/docs/#/mr/](/docs/#/mr/) | `docs-mr/` |
 | Tamil | [/docs/#/ta/](/docs/#/ta/) | `docs-ta/` |
 
-All spaces sync automatically via GitHub integration when changes are pushed to `main`.
+Translated docs are refreshed by the `auto-translate` job in `.github/workflows/translations.yml` (it needs a Sarvam API key) and may lag the English docs.
 
 ---
 
@@ -87,14 +87,13 @@ Results appear in the GitHub Actions **Job Summary** tab for each run.
 
 ## Directory Structure
 
-Each translation directory mirrors the English `docs/` structure exactly:
+Each translation directory mirrors the English `docs/` structure, except that `api/` and `wiki/` are English-only:
 
 ```
 docs-{lang}/
 ├── README.md
 ├── SUMMARY.md
 ├── about/
-├── api/
 ├── claude-code/
 ├── contributing/
 ├── data-sources/

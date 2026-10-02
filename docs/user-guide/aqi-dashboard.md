@@ -8,14 +8,18 @@ The AQI Dashboard provides live air quality readings for 157 Indian cities, upda
 
 ### AQI Colour Scale
 
-| AQI Range | Category | Health Implication |
-|-----------|----------|--------------------|
-| 0–50 | Good | Air quality is satisfactory |
-| 51–100 | Moderate | Acceptable; some concern for sensitive groups |
-| 101–150 | Unhealthy for Sensitive Groups | Sensitive individuals should limit outdoor activity |
-| 151–200 | Unhealthy | Everyone may begin to experience effects |
-| 201–300 | Very Unhealthy | Health warnings; serious risk for all |
-| 301–500 | Hazardous | Emergency conditions; entire population at risk |
+The dashboard labels a reading by its AQI value using these bands (`getAQILabel` in `app.js`). They are not the US EPA scale:
+
+| AQI Range | Category |
+|-----------|----------|
+| 0–50 | Good |
+| 51–100 | Moderate |
+| 101–200 | Poor |
+| 201–300 | Very Poor |
+| 301–400 | Severe |
+| Above 400 | Hazardous |
+
+The hero banner at the top of the dashboard bands the live **PM2.5** value instead, in µg/m³: Good up to 30, Satisfactory up to 60, Moderate up to 90, Poor up to 120, Very poor up to 250, Severe above that. The two answer different inputs and are not merged.
 
 ### PM2.5 (µg/m³) Standards
 
@@ -51,7 +55,7 @@ The dashboard covers 160 cities including:
 
 ## Interactive Map
 
-The live map uses Leaflet.js with OpenStreetMap tiles and displays CPCB monitoring station markers colour-coded by current AQI. Click any marker to see the station name, current AQI, and PM2.5 reading.
+The live map uses Leaflet.js with OpenStreetMap tiles and displays WAQI station markers (many of which are CPCB stations) colour-coded by current AQI. Click any marker to see the station name, current AQI, and PM2.5 reading.
 
 ---
 

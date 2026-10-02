@@ -17,18 +17,19 @@ replacement, and it is what hawakahisab.in runs on.
 |---|---|
 | Base | `https://api.energyandcleanair.org` |
 | Access | open, **no API key**, CSV or JSON |
-| Currency | `/ncap/ncap_latest_available_date` returned `2026-09-17` |
+| Currency | `/ncap/ncap_latest_available_date` returned `2026-09-17` on 18 Sep 2026 (`2026-10-01` when re-checked on 2 Oct 2026) |
 | Station daily | `/measurements?city_name=<city>&pollutant=pm25&level=station` |
 | Station metadata | `/stations?city_name=<city>` with coordinates and source |
 | Their own de-weathering | `/ncap/deweathered_yoy`, a **gbm** model trained from 2022 |
 
 **The station id namespaces are shared.** XKDR uses `site_<n>` for 553 of its 558
 stations (`cpcb_caaqm`), and CREA returns the same `site_<n>` ids. For Delhi, 39
-ids appear in both and **37 are within 500 m** of each other. Two are not and
-should be excluded until resolved: `site_107` (Pusa) differs by 2.67 km and
-`site_5395` (Lodhi Road) by 0.67 km.
+ids appear in both and **35 are within 500 m** of each other. Four are not and
+should be excluded until resolved: `site_5395` (Lodhi Road) differs by 0.67 km,
+`site_107` (Pusa) by 2.67 km, `site_1563` by 2.68 km and `site_105` by 6.53 km
+(re-checked 2 Oct 2026; CREA coordinates may have changed since 18 Sep).
 
-Note CREA writes coordinates as **(lon, lat)** and XKDR as (lat, lon). Decide by
+Note CREA's station JSON writes coordinates as **(lon, lat)** and XKDR as (lat, lon). Decide by
 range, never by position.
 
 ## The finding that stopped a splice

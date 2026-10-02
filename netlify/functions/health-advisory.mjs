@@ -4,7 +4,7 @@ import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 // Accepts user profile + city, fetches live AQI, sends to Groq for advisory
 
 const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
-// Groq model, env-overridable. llama-3.3-70b-versatile retires 16 Aug 2026.
+// Groq model, env-overridable. llama-3.3-70b-versatile was retired by Groq on 16 Aug 2026 (updated 2 Oct 2026).
 const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 const GROQ_IS_REASONING = /gpt-oss|deepseek|qwen/.test(GROQ_MODEL);
 

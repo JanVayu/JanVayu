@@ -12,18 +12,17 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 | Page | Description |
 |------|-------------|
-| [Architecture](Architecture) | System design, data flow, and technical decisions |
-| [Netlify Functions](Netlify-Functions) | Server-side functions, scheduled tasks, and API endpoints |
-| [Data Sources](Data-Sources) | All 160+ integrated data sources with access details |
-| [API Reference](API-Reference) | Endpoint documentation for all Netlify Functions |
-| [Deployment Guide](Deployment-Guide) | How to deploy, configure, and maintain JanVayu |
+| [Architecture](https://github.com/JanVayu/JanVayu/blob/main/docs/technical/architecture.md) | System design, data flow, and technical decisions |
+| [Netlify Functions](https://github.com/JanVayu/JanVayu/blob/main/docs/technical/netlify-functions.md) | Server-side functions, scheduled tasks, and API endpoints |
+| [Data Sources](https://github.com/JanVayu/JanVayu/blob/main/docs/data-sources/overview.md) | Integrated data sources with access details |
+| [API Reference](https://github.com/JanVayu/JanVayu/blob/main/docs/api/README.md) | Endpoint documentation for all Netlify Functions |
+| [Deployment Guide](https://github.com/JanVayu/JanVayu/blob/main/docs/technical/deployment.md) | How to deploy, configure, and maintain JanVayu |
 | [Role-Based Landing Page](Role-Based-Landing-Page) | 12-role audience system with personalized dashboards |
 | [Simple Language Mode](Simple-Language-Mode) | Site-wide plain language toggle system |
 | [Adding a New Panel](Adding-a-New-Panel) | Step-by-step guide for contributors |
 | [Adding a New Role](Adding-a-New-Role) | How to add roles to the role selector |
 | [Translation Guide](Translation-Guide) | How to contribute translations |
 | [Roadmap](Roadmap) | Feature roadmap and planned releases |
-| [FAQ](FAQ) | Frequently asked questions |
 
 ---
 
@@ -36,13 +35,13 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 **v26.6.171–175 — Your airshed, 43 years of PM2.5, and the corrections that had not travelled (5–8 Sep 2026)**
 - New panel, **"Your airshed, or your town?"**: across 785 districts, **89.2%** of the variance in annual PM2.5 sits *between* states rather than within them. State medians run Delhi 92.7 down to Ladakh 13.9. It states its own limit: a district below its state median is not thereby well governed, and the figure names no cause.
 - **43 years of PM2.5 for 783 of 785 districts**, 1980–2022, annual and by season, from LongPMInd (Wang et al., *Earth System Science Data*, 2024; CC BY 4.0). A reconstruction, not a measurement, and deliberately not differenceable against the ~1 km 2024 satellite layer.
-- **[हवा का हिसाब / Hawa Ka Hisab](https://hawakahisab.in/) joins the Janhit Partners** — a daily accountability cut on Delhi and NCR air, published by the office of Ajay Maken, MP, on CPCB data compiled by CREA.
+- **[हवा का हिसाब / Hawa Ka Hisab](https://hawakahisab.in/) joins the Janhit Partners** — a daily accountability cut on Delhi and NCR air, published by the office of Ajay Maken, MP.
 - Two global land-pressure rasters **tested and rejected**: they beat everything on the site on their face, then collapsed to +0.007 incremental R² under state fixed effects.
 - **Three corrections that had never travelled.** The "~70% of global PM2.5 deaths" claim JanVayu publicly retracted in July was still live in eleven files, including all four translations; Delhi's superseded 91.6 µg/m³ was in nine; and "India 5th most polluted" was still in the Resources panel. All corrected, and `scripts/check-retracted-claims.py` now fails the build if any of them comes back.
 - Also fixed: a monthly air rebuild that had never once run, a dead Reddit feed the health check called healthy, a photo manifest stale since the 24th photograph, and a homepage bulletin that still said August on 8 September.
 
 **v26.6.126–170 — One atlas, seven levels, 983,149 areas (30 Jul – 21 Aug 2026)**
-- The separate ward map was folded into the main atlas, which now covers **every administrative level in India** — states, districts, constituencies, ULBs, wards and **villages**, 983,149 areas — each scored on annual and seasonal PM2.5, surface heat, tree, green and built-up cover.
+- The separate ward map was folded into the main atlas, which now covers **every administrative level in India** — states, districts, subdistricts, ULBs, wards, panchayats and **villages**, 983,149 areas — each scored on annual and seasonal PM2.5, surface heat, tree, green and built-up cover.
 - **A current-year answer.** Every satellite figure is the 2024 annual mean because that is the newest published; a second district-level layer from CAMS reaches 2026, bias-corrected on the shared 2024 (r = 0.910, held-out RMSE 5.76 µg/m³) and never blended into the satellite numbers.
 - **Field Testimony 142 → 250 voices** across 107 cities and 14 languages, each stamped with its collection date and mode and attributed exactly as the speaker asked.
 - **PM2.5 leads, AQI is the footnote** — a fair criticism from a conference: AQI is unitless, reports only its worst pollutant, and cannot be averaged over a year, while every Indian limit and NCAP target is written in µg/m³ of PM2.5.
@@ -89,6 +88,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **v26.6.9 — Hero alert IQAir 2025 framing fix**
 - Hero said *"May 2026: IQAir 2025 confirms Loni…"* — confusing because IQAir 2025 was actually published March 2025 (covering 2024 data), ~14 months old. Reframed to lead with the freshest items (Lancet Countdown launched May 2026, CAQM off-season GRAP 19 May) and explicitly label IQAir's vintage.
+- *Correction 2 Oct 2026:* the IQAir 2025 report (Loni 112.5 µg/m³) was published on 24 March 2026 and covers 2025 data; the "March 2025" vintage described above belongs to IQAir's 2024 report.
 
 **v26.6.8 — Final corners**
 - `docs/wiki/Home.md` "What's New" rewritten to lead with the v26.6.x ship list; v26.5.x history preserved as "Previous".
@@ -96,6 +96,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 **v26.6.7 — Deep sweep**
 - Every outbound HTTP request from JanVayu's serverless tier (all 19 Netlify Functions) now reports v26.6 as its User-Agent — combined `scheduled-fetch.mjs`, `instagram-feed.js`, `news-proxy.js`, `community-sensors.mjs`, `waqi-proxy.mjs`, `reddit-feed.js`, `twitter-feed.js` bumps.
 - English `docs/user-guide/aqi-dashboard.md` + `health-calculator.md` and three translated copies (Bengali, Marathi, Tamil) updated to **Delhi 91.6 µg/m³ (IQAir 2025)** from `~100 µg/m³`.
+- *Update 2 Oct 2026:* 91.6 µg/m³ is the value from IQAir's 2024 report (2024 data), so the "IQAir 2025" label was wrong; it is superseded by **82.2 µg/m³** in the IQAir 2025 report published 24 March 2026.
 - ImpactMojo docs confirmed as a separate project (development education, not air quality).
 
 **v26.6.6 — Secondary surface sweep**
@@ -113,6 +114,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **Clean Air Wins** gains an "Update — May 2026" card (CAQM off-season GRAP, NGT south-India order, SPCB diesel-generator notices).
 - **Budget Tracker** Funding Cliff Alert reframed: 15th FC grants *expired* 31 Mar 2026; 16th FC report expected Oct 2026.
 - **Mission Tracker** NCAP card retitled "Deadline Missed" with CREA 23/100 + CSE Apr 2026 37/131 outcomes.
+  - *Update 2 Oct 2026:* the CSE 37/131 figure could not be traced to a CSE document. CREA's 2026 progress report gives 23 of 100 cities meeting the 40% target and 51 meeting the first target.
 - **Children's Health**, **Political Accountability** also refreshed.
 
 **v26.6.3 — Back-to-home button visibility patch**
@@ -167,7 +169,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **Six per-pollutant SEO pages** at `/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3`.
 - **Embeddable widgets** at `/embed/aqi/` and `/embed/rankings/`.
 - **Root PWA** (manifest.json + sw.js) with install banner.
-- **Sensor.Community integration** in the Hyperlocal panel — free CC0 community sensors blended with CPCB/WAQI data.
+- **Sensor.Community integration** in the Hyperlocal panel — free community sensors blended with CPCB/WAQI data.
 - **Heatmap layer** on the Live Map.
 - **Programme attribution updated** to "AirQuality for Janhit by MMSF Fellows, AIPC".
 
@@ -194,18 +196,17 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **Transparent** — open source, open data, open methodology
 - **Persistent** — creating a permanent public record of the crisis
 
-### Key Stats (May 2026)
+### Key Stats (re-checked 2 Oct 2026)
 
-- **1.72 million** annual Indian PM2.5 deaths (Lancet Countdown 2025) — the largest national toll of any single country, and roughly a quarter to a third of the global burden
-- **3.5 years** average life expectancy lost to PM2.5; **7-8 years** in the Indo-Gangetic Plain (AQLI 2025)
+- **1.72 million** annual Indian PM2.5 deaths (Lancet Countdown 2025) — the largest national toll of any single country
+- **3.5 years** average life expectancy lost to PM2.5; about **5 years** in the Northern Plains on average, up to **8.2** in Delhi-NCR (AQLI 2025)
 - **$339.4 billion** economic cost (9.5% of GDP, Lancet Countdown 2025)
 - **Loni, India** is the world's most polluted city at 112.5 µg/m³ (IQAir 2025)
 - **48.9 µg/m³** India average PM2.5 — about 10× the WHO 2021 guideline of 5 µg/m³
-- **64%** of NCAP funds spent on dust suppression (CSE 2026 review); 37/131 cities hit the original 20% target
-- **8.6%** all-cause mortality rise per +10 µg/m³ — Jaganathan et al. 2024, India's first causal dose-response
-- 16+ cities monitored in real-time + ~200 Sensor.Community community sensors
-- 160+ verified data sources integrated
-- 51 content panels across 7 navigation categories
+- **64%** of funds utilised under NCAP and the 15th Finance Commission were spent on road dust mitigation (CSE analysis, data as of 3 May 2024); CREA's 2026 progress report puts road dust at 68% and finds 51 of 100 cities met the first target
+- **8.6%** all-cause mortality rise per +10 µg/m³ — Jaganathan et al. 2024, *Lancet Planetary Health*
+- 160 locations monitored in real time (157 Indian), plus Sensor.Community community sensors (the count varies)
+- About 58 content panels across 7 navigation groups
 - 5 languages (EN, HI, TA, MR, BN)
 
 ---
