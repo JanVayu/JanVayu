@@ -101,7 +101,7 @@ def content(f):
         ('amb', 'The measured record · years', [
             "CPCB's daily AQI bulletins",
             'XKDR station database (CPCB + US)',
-            'NOAA weather history',
+            'Open-Meteo weather archive',
             '… what the models get checked against',
         ]),
         ('grn', 'Satellite + boundaries', [
