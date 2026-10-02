@@ -5,13 +5,13 @@
 // not micrograms per cubic metre, and the two are not close -- a PM2.5
 // sub-index of 160 is 73 ug/m3, and one of 200 is 150.
 //
-// app.js has known this since it was written and carries the breakpoint tables
-// with a comment saying so. Six Netlify functions did not, and each passed
+// app.js has carried the breakpoint tables since 3 May 2026 (commit 123b9ec,
+// after a reader reported map popups showing sub-indices as ug/m3). Six Netlify functions did not, and each passed
 // `iaqi.pm25.v` straight through under the key `pm25`, which every consumer
 // then treated as a concentration:
 //
 //   rankings.mjs           -> the city ranking sorts on it, embed/rankings
-//                             colours it against the WHO thresholds
+//                             colours it against a 5/15/35/55/150 scale (WHO levels low, EPA above)
 //                             5/15/35/55/150, and the pollutant pages print
 //                             it in a column headed ug/m3
 //   air-query.mjs          -> Ask JanVayu's fallback reply says, in words,

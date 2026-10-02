@@ -10,7 +10,7 @@ We have shipped a self-paced **Learning Games** panel — six short games, all o
 
 Air-quality conversation in India tends to live in two registers: dry data dashboards (which we also ship), and viral outrage when AQI tips past 400 in November (which we track and analyse). A third register is missing: the calm, curious, "I want to actually learn how this works" register. Games fit that gap. They lower the cognitive cost of being wrong, they reward repeat play, and they fit between two stations of a metro commute.
 
-The inspiration is direct and gladly acknowledged. **Dr. Sarath Guttikunda** at [UrbanEmissions.info](https://urbanemissions.info/) has been running a live, facilitator-led Air Quality Jeopardy with school and adult cohorts for years. We have watched a Class 11 group in Delhi argue passionately about whether secondary nitrate aerosol deserves ₹4,000 or ₹5,000 — and decided that energy belongs on JanVayu too. The clues, the categories, and the Indian-context framing on this site are our own; the format is the gift Dr. Guttikunda gave Indian air-quality teaching, and we use it with full credit. For the live, facilitator-led version with audience teams and a buzzer, head to the **Workshops** panel and request a session.
+The inspiration is direct and gladly acknowledged. **Dr. Sarath Guttikunda** at [UrbanEmissions.info](https://urbanemissions.info/) runs air-quality teaching work, and a Jeopardy-style quiz format suits it; we decided that format belongs on JanVayu too. We have not asked Dr. Guttikunda to endorse this version, and the description of his own sessions is not sourced here. The clues, the categories, and the Indian-context framing on this site are our own; the format is the gift Dr. Guttikunda gave Indian air-quality teaching, and we use it with full credit. For the live, facilitator-led version with audience teams and a buzzer, head to the **Workshops** panel and request a session.
 
 The newest game on the panel is rooted even older — in **Moksha Patam**, the original Indian Snakes & Ladders, which travelled out of India to become every other country's "Chutes and Ladders." Returning a clean-air twist to the original feels right.
 
@@ -34,7 +34,7 @@ Ten multiple-choice questions, ~3 minutes. Each answer ships with a short factua
 
 ### 3. Source Matcher
 
-Seven dominant Indian PM2.5 source categories — stubble, residential biomass, coal thermal, road dust + non-exhaust, brick kilns, diesel gensets, open waste burning — each with a one-sentence description that includes a fact a casual reader would not already know (zigzag-tech kilns cut PM by ~60%; non-exhaust often matches tailpipe in dense Indian cities). Tap a source, then tap its description. Five minutes from cold open to all seven matched.
+Seven dominant Indian PM2.5 source categories — stubble, residential biomass, coal thermal, road dust + non-exhaust, brick kilns, diesel gensets, open waste burning — each with a one-sentence description that includes a fact a casual reader would not already know (zigzag-technology kilns can cut PM by up to about half, per the Climate and Clean Air Coalition). Tap a source, then tap its description. Five minutes from cold open to all seven matched.
 
 ### 4. Clean Air Snakes & Ladders (Moksha Patam edition)
 
@@ -83,7 +83,7 @@ If you run a school, an RWA, or a newsroom and want any of the above sooner, wri
 
 ## A note on rigour
 
-Each clue and quiz item has a primary source. Where studies disagree (the cohort all-cause mortality coefficient, for example, varies from 6% to 12% per 10 µg/m³ in Indian datasets), we have picked a defensible mid-range estimate and shown the source in the explainer. Disagreement is fine; opacity is not.
+Each answer carries an explainer, and we are still adding a primary source to every clue; some clues do not yet have one. Where we use a single estimate, such as the all-cause mortality coefficient of 8.6% per 10 µg/m³ (95% CI 6.4 to 10.8, Jaganathan et al. 2024), we name it. Disagreement is fine; opacity is not.
 
 Play the games. [Tell us what could be sharper](https://github.com/JanVayu/JanVayu/issues). We will keep iterating.
 

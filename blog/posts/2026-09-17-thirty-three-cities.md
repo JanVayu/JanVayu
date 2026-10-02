@@ -10,7 +10,7 @@ That limit was never about the method. It was about data. We could not get hold 
 
 Now we can, and here is what it says for **44 cities across 2018 to 2024**.
 
-<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/deweather-national.svg" alt="What 44 Indian cities look like once the weather is taken out of their air, 2018 to 2024. Thirty-three are improving and eleven are not. The steepest real falls are Meerut at 14.63 micrograms per cubic metre a year, Varanasi at 14.19, Lucknow at 13.98, Moradabad at 13.51 and Agra at 10.61. The cities getting worse are led by Chandigarh at plus 3.07, Gwalior at plus 2.37, Chandrapur at plus 2.36, Solapur at plus 1.73 and Mumbai at plus 0.80. Taking the weather out can do three things to a number, and all three appear here: for Delhi it changes almost nothing, minus 1.75 measured against minus 1.78 with weather removed; for Lucknow it makes the fall steeper, minus 11.62 measured against minus 13.98, because the weather in those years was hiding the improvement rather than flattering it; and for Chandigarh the rise survives, plus 2.32 measured against plus 3.07. Only six of the 44 cities move by as much as one microgram a year when the weather is removed, and in five of those six the measured figure was understating the improvement. What is left after the weather is removed is not proof that policy caused it: emissions, fuel mix, construction and economic activity all sit inside it."></div>
+<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/deweather-national.svg" alt="What 44 Indian cities look like once the weather is taken out of their air, 2018 to 2024. Thirty-three are improving and eleven are not. The steepest real falls are Meerut at 14.63 micrograms per cubic metre a year, Varanasi at 14.19, Lucknow at 13.98, Moradabad at 13.51 and Agra at 10.61. The cities getting worse are led by Chandigarh at plus 3.07, Gwalior at plus 2.37, Chandrapur at plus 2.36, Solapur at plus 1.73 and Aurangabad at plus 1.71. Taking the weather out can do three things to a number, and all three appear here: for Delhi it changes almost nothing, minus 1.75 measured against minus 1.78 with weather removed; for Lucknow it makes the fall steeper, minus 11.62 measured against minus 13.98, because the weather in those years was hiding the improvement rather than flattering it; and for Chandigarh the rise survives, plus 2.32 measured against plus 3.07. Only six of the 44 cities move by as much as one microgram a year when the weather is removed, and in four of those six the measured figure was understating the improvement. What is left after the weather is removed is not proof that policy caused it: emissions, fuel mix, construction and economic activity all sit inside it."></div>
 <div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/deweather-national-tall.svg" alt="" aria-hidden="true"></div>
 
 ## What the method does, in one paragraph
@@ -21,15 +21,15 @@ A city's monitors read high in a still, cold week and low in a windy, wet one, e
 
 The steepest improvements are not spread evenly across the country. They sit in Uttar Pradesh and the western edge of the National Capital Region: **Meerut at −14.63 micrograms per cubic metre a year, Varanasi at −14.19, Lucknow at −13.98, Moradabad at −13.51, Agra at −10.61.**
 
-These are large numbers. A city falling at fourteen micrograms a year is falling by roughly the whole WHO annual guideline every four months of trend. They are also the cities that started highest, which is part of why there was so much room to fall.
+These are large numbers. A city falling at fourteen micrograms a year is falling by roughly the whole WHO annual guideline every four months of trend. Most of them also started among the highest in their first year in the record (Agra did not, and Meerut's series begins in 2019; figures in data/deweathered-national.json), which is part of why there was so much room to fall.
 
-Eleven cities went the other way: **Chandigarh at +3.07, Gwalior at +2.37, Chandrapur at +2.36, Solapur at +1.73, Mumbai at +0.80**, and six others. For these there is no weather left to point at. Whatever is happening in them is happening in the emissions.
+Eleven cities went the other way: **Chandigarh at +3.07, Gwalior at +2.37, Chandrapur at +2.36, Solapur at +1.73, Aurangabad at +1.71**, and six others, Mumbai (+0.80) among them. For these there is no weather left to point at. Whatever is happening in them is happening in the emissions.
 
 ## The result we did not expect
 
 The reason to take weather out is usually suspicion. A city announces an improvement; you wonder whether it just had a windy few years.
 
-On this record, that is rare. **Only 6 of the 44 cities move by as much as one microgram a year when the weather comes out — and in 5 of those 6, the measured figure was understating the improvement, not flattering it.** Lucknow reads −11.62 as measured and −13.98 with weather removed. Meerut reads −12.35 and −14.63. In those cities the weather across 2018 to 2024 was working against the emission cuts, and the raw numbers were the more pessimistic ones.
+On this record, that is rare. **Only 6 of the 44 cities move by as much as one microgram a year when the weather comes out — and in 4 of those 6, the measured figure was understating the improvement, not flattering it.** Lucknow reads −11.62 as measured and −13.98 with weather removed. Meerut reads −12.35 and −14.63. (In the other two, Agra and Pune, the measured fall was the larger.) In those cities the weather across 2018 to 2024 was working against the emission cuts, and the raw numbers were the more pessimistic ones.
 
 For most cities, including Delhi, removing the weather barely moves the answer at all. Delhi reads −1.75 measured and −1.78 adjusted. Whatever is going on in Delhi, the wind is not the explanation in either direction.
 
@@ -45,7 +45,7 @@ For most cities, including Delhi, removing the weather barely moves the answer a
 
 ## Where the data came from
 
-The reason this was impossible in September and possible now is a single open dataset. The [India Air Quality Database](https://airquality.xkdr.org), published by [XKDR Forum](https://www.xkdr.org) under CC BY 4.0, compiles the Central Pollution Control Board's continuous monitoring network into one table: 196.5 million hourly readings from 558 stations. Before it, getting a few years of hourly data for one city meant downloading it a week at a time.
+The reason this was impossible in September and possible now is a single open dataset. The [India Air Quality Database](https://airquality.xkdr.org), published by [XKDR Forum](https://www.xkdr.org) under CC BY 4.0, compiles the Central Pollution Control Board's continuous monitoring network into one table: 196.5 million hourly readings from 558 stations. Before it, getting a few years of hourly data for one city was laborious.
 
 One caveat we hit, and have documented, is that the archive's coverage thins sharply after 2024: CPCB's feed into it stops on 1 September 2025. That is why this study ends in 2024 rather than running to the present.
 

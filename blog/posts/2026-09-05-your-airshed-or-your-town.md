@@ -25,13 +25,13 @@ Some of the difference is regional. Every district in Bihar reads high; every di
 
 Split the total spread into those two parts and the regional part is **89%** of it. Knowing which state you are in tells you most of what there is to know about your annual average. Knowing which district within that state adds surprisingly little.
 
-The reason is geography. The Indo-Gangetic Plain is a 2,500-kilometre trough with the Himalaya closing it off to the north. In winter, cold air settles and the whole basin stops ventilating. Smoke from a stubble fire in Punjab, exhaust from Delhi, coal from Bihar: it all mixes and sits. A city in the middle of that is breathing a regional pool, not just its own emissions.
+The reason is geography. The Indo-Gangetic Plain is a basin with the Himalaya along its northern edge. The district figures below are the evidence for how much of a city's air is shared with its state: we have not attributed it to specific sources, and we cite no apportionment study for cross-state transport here.
 
 ## Two real places
 
 **New Delhi.** The median Indian district reads 39.0 µg/m³ a year. Delhi as a whole sits **53.7 above** that. New Delhi is then **1.5 below** its own state's median. It ends up at 91.2.
 
-Nearly everything New Delhi breathes is Delhi. Its own contribution, relative to its neighbours, is slightly *negative*.
+New Delhi's own adjustment relative to its state is slightly negative.
 
 **Ludhiana.** Punjab sits **16.8 above** the national median. Ludhiana adds **3.0** on top of that, reaching 58.8.
 
@@ -43,7 +43,7 @@ So: whose fault is it? Mostly, it is not a question about Ludhiana.
 
 If a city's own contribution is a fraction of its total, then a city working alone can only ever fix that fraction. Ludhiana could do everything right and still read close to 56 because Punjab reads 55.8.
 
-This is the argument for **airshed-level management**: treating the whole basin as one unit with one plan, rather than eighty cities each chasing a separate target. It has been made in Indian policy circles for years, usually in the abstract.
+This is the argument for **airshed-level management**: treating the whole basin as one unit with one plan, rather than 131 cities each chasing a separate target. It has been made in Indian policy circles for years, usually in the abstract.
 
 It can be made from India's own district numbers, and now anyone can check it.
 

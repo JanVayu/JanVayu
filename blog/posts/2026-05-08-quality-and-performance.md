@@ -8,9 +8,9 @@ The same day we shipped six Learning Games and refreshed the May 2026 data, we d
 
 If you don't care about the engineering, the user-visible improvements still matter:
 
-- The site now downloads **~120 KB less** on first paint for visitors who don't open the Trends or Live Map panels.
+- The site now downloads roughly **120 KB less** (our estimate from the libraries' published sizes, not a measured run) on first paint for visitors who don't open the Trends or Live Map panels.
 - Every chart on the platform is now described to screen readers.
-- Every button is at least 44 px tall on small screens — tap-friendly.
+- Buttons are now at least 44 px tall on small screens (they were 40 px before this change).
 - Long URLs and acronym chains stop forcing horizontal scroll on mobile.
 
 Read on for what shipped, why, and what we're still chasing.
@@ -25,7 +25,7 @@ There's a subtlety. The dashboard does have small mini-charts (the metro-vs-regi
 
 Sub-resource integrity (SRI) hashes are pinned for all three CDN scripts. If `cdn.jsdelivr.net` or `unpkg.com` ever served different content under the same URL — through compromise or maintenance error — the browser would reject the script rather than execute it.
 
-Expected first-paint saving on 3G mobile: ~600 ms. The Lighthouse CI we wired up the same day will measure it once it runs.
+Expected first-paint saving on 3G mobile: roughly 600 ms, which is our estimate, not a measurement. The Lighthouse CI we wired up the same day will measure it once it runs.
 
 ## Quality CI: five new pipelines, all advisory
 
@@ -53,7 +53,7 @@ It's not a substitute for actual chart-data accessibility (a sonification or a t
 
 ## Mobile tap targets and long-token wrapping
 
-WCAG 2.5.5 ("Target Size — Enhanced") wants interactive elements to be at least 44×44 CSS pixels. iOS HIG and Android Material both make the same recommendation. Our `.icon-btn` was already there; `.btn` and `.btn-sm` were not on small screens. They are now:
+WCAG 2.5.5 ("Target Size — Enhanced") wants interactive elements to be at least 44×44 CSS pixels. Apple's Human Interface Guidelines give 44×44 points and Android's Material guidance gives 48×48 dp; we have not re-opened Apple's page for this post. Our `.icon-btn` was already there; `.btn` and `.btn-sm` were not on small screens. They are now:
 
 ```css
 @media (max-width: 480px) {

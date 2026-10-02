@@ -4,7 +4,7 @@
 
 ---
 
-JanVayu has offered four free workshops for about a year: a tour of the platform,
+JanVayu has offered free workshops since April, and there are now four: a tour of the platform,
 an RTI clinic, a ward-map session, and one written for teachers. They are booked
 on request, we run them over a video call, and they are genuinely free.
 

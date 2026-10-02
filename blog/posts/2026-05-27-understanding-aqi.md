@@ -14,11 +14,11 @@ This matters enormously. An AQI of 200 driven by PM2.5 (fine particulate matter 
 
 ## The dominant pollutant problem
 
-PM2.5 gets nearly all the public attention, and for good reason — it is the deadliest air pollutant globally, responsible for the vast majority of India's 1.72 million annual pollution deaths (Lancet Countdown 2025). But focusing exclusively on PM2.5 means we are missing threats that are growing silently:
+PM2.5 gets nearly all the public attention, and for good reason — it is the deadliest air pollutant globally, responsible for an estimated 1.72 million deaths in India in 2022 (Lancet Countdown 2025); all air pollution (ambient, household and ozone together) caused more than 2 million deaths in India in 2023 (State of Global Air 2025). But focusing exclusively on PM2.5 means we are missing threats that are growing silently:
 
-- **PM10** (coarse dust) dominates in arid cities like Jodhpur, Jaipur, and parts of Rajasthan. Construction and road dust keep PM10 dangerously high even when PM2.5 looks manageable.
-- **NO2** (nitrogen dioxide) is surging in diesel-heavy metros. It is a precursor to ground-level ozone and is strongly linked to childhood asthma. Delhi's roadside NO2 routinely exceeds safe levels, but because PM2.5 grabs the headline AQI, NO2 rarely makes the news.
-- **O3** (ozone) is India's emerging summer crisis. Unlike PM2.5, which peaks in winter, ozone surges in hot months when sunlight bakes NOx and VOCs into a toxic secondary pollutant. Several cities now see their worst AQI days in April and May — driven not by particles but by ozone.
+- **PM10** (coarse dust) can be the dominant pollutant where road and construction dust is heavy, even when PM2.5 looks manageable.
+- **NO2** (nitrogen dioxide) comes largely from vehicle and combustion emissions. It is a precursor to ground-level ozone. Because PM2.5 grabs the headline AQI, NO2 rarely makes the news.
+- **O3** (ozone) is India's emerging summer crisis. Unlike PM2.5, which peaks in winter, ozone surges in hot months when sunlight bakes NOx and VOCs into a toxic secondary pollutant. A [CSE analysis of 25 cities (1 March to 10 May 2026)](https://www.cseindia.org/ozone-pollution-spreading-across-indian-cities-says-new-cse-anaylsis-13169) found 15 of them recorded summertime ozone averages well above the NAAQS of 100 µg/m³.
 
 When you see an AQI number, always ask: **which pollutant is driving it?**
 
@@ -38,7 +38,7 @@ This is not an academic distinction. It means that a city can technically meet N
 
 AQI is calculated from 24-hour averages (or shorter rolling windows for some pollutants). This smoothing hides spikes. A neighbourhood downwind from a brick kiln might see PM2.5 spike to 400 µg/m³ for three hours during firing, then drop to 80 for the rest of the day. The 24-hour average AQI looks "Poor." The reality at 6 AM was "Severe."
 
-Averaging also hides spatial variation. A city's official AQI is often drawn from one or two monitoring stations, which may be located in cleaner institutional compounds rather than at traffic intersections or near industrial zones. The CPCB network has improved, but as of the CAG's April 2025 audit, **88% of monitoring stations had data-quality issues** — gaps in reporting, uncalibrated instruments, or missing pollutant channels.
+Averaging also hides spatial variation. A city's official AQI is often drawn from one or two monitoring stations, which may not represent every neighbourhood. In CPCB's 2024 daily bulletins, 221 of 264 reporting cities (84%) had a median of fewer than three stations (JanVayu analysis of `data/aqi-bulletins.json`). Siting is also an issue: Newslaundry's 2025 field check of 25 Delhi monitoring stations found that **88% flouted CPCB's siting criteria**, and a CAG audit tabled in the Delhi Assembly in April 2025 found 13 of 24 DPCC stations it verified in 2020 were sited too close to trees (Newslaundry, 1 April 2025, a press report on the CAG audit).
 
 ## What you should actually do
 
@@ -53,4 +53,4 @@ Explore the full breakdown in JanVayu's [Understanding AQI panel](/index.html#aq
 
 ---
 
-*Sources: CPCB National AQI methodology (2014); US EPA AQI Technical Assistance Document (2018); WHO Global Air Quality Guidelines (2021); Lancet Countdown 2025; CAG Performance Audit of NCAP (April 2025); IQAir World Air Quality Report 2025.*
+*Sources: CPCB National AQI methodology (2014); US EPA AQI Technical Assistance Document (2018); WHO Global Air Quality Guidelines (2021); Lancet Countdown 2025; CAG performance audit of air pollution control in Delhi, tabled in the Delhi Assembly, 1 April 2025, as reported by Newslaundry; IQAir World Air Quality Report 2025.*

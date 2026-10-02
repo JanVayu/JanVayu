@@ -38,7 +38,7 @@ ward map until August 2026.
 This is the single most useful idea in the hour, and most air-quality coverage
 gets it wrong.
 
-**AQI is an index, not a measurement.** It is built from up to six pollutants
+**AQI is an index, not a measurement.** It is built from up to eight pollutants
 and it reports **only the worst one**. Two cities both reading 200 can have
 completely different air. It is also scaled differently by India's CPCB and the
 US EPA, so a 150 on your phone may not be a 150 on the news.
@@ -92,7 +92,7 @@ the citations.
 ## Two cities both report AQI 200. What do you know about their PM2.5?
 
 - [ ] Both are at the same PM2.5 level
-- [x] Very little. AQI reports only whichever of six pollutants scores worst
+- [x] Very little. AQI reports only whichever of several pollutants scores worst
 - [ ] Both are above India's annual limit
 - [ ] One of the readings must be wrong
 

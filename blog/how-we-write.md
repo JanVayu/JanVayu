@@ -22,7 +22,7 @@ JanVayu writes for a **citizen**, not an expert and not an insider. Picture a th
 
 These are what separate JanVayu from a marketing site. Never break them.
 
-1. **Every number cites a primary source, in-line.** Name the study or body and the year — Lancet Countdown 2025, IQAir 2025, CREA 2026, WHO, CPCB, AQLI. If you can't source a number, don't use it.
+1. **Every claim cites its source, in-line.** Name the study or body and the year — Lancet Countdown 2025, IQAir 2025, CREA 2026, WHO, CPCB, AQLI. Use the original document; if no original is publicly available, a publicly available press report, named as one. If you can't source a claim either way, don't make it.
 2. **Never invent, never guess.** If a figure can't be verified, leave it out or flag it as unverified. A missing number is fine; a made-up one is not.
 3. **Never collapse two honest methods into one.** India's air-pollution death toll is ~1.72 million from ambient PM2.5 (Lancet Countdown 2025) *and* ~2.1 million counting household air pollution (State of Global Air 2024). Both are true. Show both, each labelled with its scope and year — don't merge or cherry-pick.
 

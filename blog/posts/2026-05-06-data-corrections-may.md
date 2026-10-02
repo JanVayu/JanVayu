@@ -10,10 +10,10 @@ We try to publish the source-of-truth dataset for India's air quality crisis. Th
 
 The dashboard hero alert has been updated for May 2026. The headline numbers it shows:
 
-- **Most polluted city:** Loni, India — 112.5 µg/m³ annual PM2.5 (IQAir 2025 World Air Quality Report, covering calendar 2024).
-- **Global air quality compliance:** only **14% of cities** meet the WHO 5 µg/m³ guideline. Up from 9% in IQAir 2024 — a real, measurable improvement, driven mostly by Chinese mid-tier cities continuing their long pollution decline.
+- **Most polluted city:** Loni, India — 112.5 µg/m³ annual PM2.5 (IQAir 2025 World Air Quality Report, covering calendar 2025).
+- **Global air quality compliance:** only **14% of cities** met the WHO 5 µg/m³ guideline in 2025, down from 17% in 2024 (IQAir).
 - **India average PM2.5:** 48.9 µg/m³ — about 10× the WHO guideline.
-- **Annual mortality:** **1.72 million** — the Lancet Countdown 2025 figure, lifted from 1.5M in earlier reports through re-attribution of household biomass deaths and a tighter exposure-response at the very high end of the PM2.5 distribution.
+- **Mortality:** **1.72 million** deaths attributable to anthropogenic ambient PM2.5 in 2022 (Lancet Countdown 2025). This is not a revision of the 1.5 million figure from Jaganathan et al. 2024, which is a separate study.
 
 These were already in the README's *Key Statistics* table. The dashboard hero now reads consistently with that table.
 
@@ -22,34 +22,34 @@ These were already in the README's *Key Statistics* table. The dashboard hero no
 We are sometimes asked why the resource library still cites "1.5M deaths" in one row and "1.72M deaths" in another. The answer is: they are two different studies.
 
 - **1.5M** comes from Jaganathan et al. 2024 in *Lancet Planetary Health* — India's first nationwide **causal inference** estimate, applying a difference-in-differences design across 655 districts (2009–2019). It established that every 10 µg/m³ rise in long-term PM2.5 raises all-cause mortality by ~8.6%. The 1.5M figure is roughly what that coefficient produces against a WHO-guideline (5 µg/m³) scenario for India's population.
-- **1.72M** comes from the *Lancet Countdown 2025* — an annual synthesis estimate that combines newer exposure-response functions with updated demographic and exposure data. It is the figure currently used by most agencies for India's PM2.5 mortality burden.
+- **1.72M** comes from the *Lancet Countdown 2025* — a count of deaths attributable to anthropogenic ambient PM2.5 in 2022. Its method is described in the Lancet Countdown 2025 indicator documentation.
 
 Both are legitimate. We cite both, separately, in the Health Studies section of the [Research Library](https://www.janvayu.in/#resources). The headline number on the dashboard is now the Lancet Countdown 2025 figure of 1.72M.
 
-## Life-expectancy loss: 3.5 years on average, 7-8 in the IGP
+## Life-expectancy loss: 3.5 years on average
 
-[AQLI 2025](https://aqli.epic.uchicago.edu/) is now our primary source for this number. The Indo-Gangetic Plain loss is unchanged from 2024 at 7-8 years. The national average ticked up from 3.4 to 3.5 because the rural baseline got marginally worse in north-Karnataka and central-MP basins.
+[AQLI 2025](https://aqli.epic.uchicago.edu/) is now our primary source for this number. The national average is 3.5 years (2023 data), down from 3.6 in AQLI 2024. The Northern Plains lose 5.0 years (5.4 in 2024) and Delhi alone 8.2 years.
 
 ## What we are still chasing
 
-**A second post-2024 Indian dose-response coefficient.** Jaganathan et al. 2024 produced India's first nationwide causal estimate from Indian data: ~8.6% all-cause mortality rise per 10 µg/m³, across 655 districts. That is what we cite, and it is what the new PM Quick-Quiz uses. But it is one paper, with one design. A second estimate — ideally from a different research group, with a different method or cohort — would let us anchor the dose-response with more confidence. We are tracking pre-prints; if you spot one that fits, [drop us a line](mailto:contribute@janvayu.in).
+**A second post-2024 Indian dose-response coefficient.** Jaganathan et al. 2024 produced India's first nationwide causal estimate from Indian data: ~8.6% all-cause mortality rise per 10 µg/m³, across 655 districts. That is what we cite, and it is what the new Jeopardy clue uses. But it is one paper, with one design. A second estimate — ideally from a different research group, with a different method or cohort — would let us anchor the dose-response with more confidence. We are tracking pre-prints; if you spot one that fits, [drop us a line](mailto:contribute@janvayu.in).
 
-**A clean rural exposure dataset.** Most CPCB CAAQMS sites are urban. Rural PM2.5 in the IGP is being inferred from satellite retrievals, which have a known bias around biomass-burn aerosols. The new Sensor.Community integration is helping fill the gap but is uneven by state.
+**A clean rural exposure dataset.** Most CPCB CAAQMS sites are urban. Rural PM2.5 in the IGP is being inferred from satellite retrievals, with less ground validation than in cities. The new Sensor.Community integration is helping fill the gap but is uneven by state.
 
 ## Other updates this week
 
-- **Pollutant pages** (`/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3`) had their "top 10 most polluted Indian cities" tables refreshed against rolling 30-day WAQI data. The "WHO standard" lines reflect the 2021 guideline values.
+- **Pollutant pages** (`/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3`) had their "top 10 most polluted Indian cities" tables were changed. *Update, 2 October 2026: for five of the six pages the tables were randomly generated, not refreshed from WAQI. See [the 2 October post](/blog/#/posts/2026-10-02-five-pollutant-pages-random-numbers).* The "WHO standard" lines reflect the 2021 guideline values.
 - **Three new Indian cohort references** added to the [Zotero library](https://www.zotero.org/groups/6508140/janvayu/library) under the "India dose-response" tag.
-- **Hero CTA**: a small note added pointing first-time visitors at the new [Learning Games panel](https://www.janvayu.in/#games), shipped this week.
+- **Hero CTA**: a small note added pointing first-time visitors at the new [Learning Games panel](https://www.janvayu.in/#games), shipped on 8 May.
 
 ## What we are reading
 
 Recent things that informed the numbers above and may interest you:
 
 - **Lancet Countdown 2025** (full report, India chapter): the source of the 1.72M number.
-- **IQAir 2025 World Air Quality Report** (covering 2024): the source of every city ranking we cite.
-- **CEEW 2024 source apportionment review**: the most current synthesis of where Indian PM2.5 actually comes from. The new Source Matcher game pulls heavily from this.
-- **Jaganathan et al. 2024 *Lancet Planetary Health***: India's first all-cause mortality dose-response from domestic cohorts.
+- **IQAir 2025 World Air Quality Report** (covering 2025): the source of every city ranking we cite.
+- **CEEW source apportionment work** (exact title and link to be added): one of the syntheses we use for where Indian PM2.5 comes from. The new Source Matcher game pulls heavily from this.
+- **Jaganathan et al. 2024 *Lancet Planetary Health***: an all-cause mortality dose-response estimated from national district-level death registration data.
 
 If you find anything we have got wrong, file a [GitHub issue](https://github.com/JanVayu/JanVayu/issues) or write to [contribute@janvayu.in](mailto:contribute@janvayu.in). The whole point of this archive is that it is correctable in public.
 

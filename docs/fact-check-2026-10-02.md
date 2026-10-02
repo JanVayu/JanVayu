@@ -105,6 +105,24 @@ These need a decision or a primary document that could not be reached. Nothing h
 
 ---
 
+## Blog wave (2 October 2026, later the same day)
+
+Nine verifier agents checked every factual claim in the 43 blog posts against the original source where one is public, and a press report only where none is. About 1,150 claims were graded. Corrections were applied to roughly 40 posts; each stale count carries a dated "Update" note instead of a rewrite.
+
+Main corrections:
+
+- **Own errors.** The 2 October correction post called the PM2.5 page correct when it printed a sub-index as µg/m³, and said the dashboard conversion existed "since it was written" (it was added 3 May 2026, commit 123b9ec). Both fixed. The four-day-jump post treated a 2000 step in a reconstruction as real (the dataset authors attribute it partly to missing satellite inputs), applied a winter transport share to an annual mean, and misdescribed the 9.8 µg/m³ remainder.
+- **CPCB AQI pollutant count.** CPCB's index uses up to eight pollutants and needs at least three, one of them PM2.5 or PM10. The site said six in diagrams, panels, docs and the assistant. Fixed everywhere except the historical CHANGELOG entry for v26.6.154.
+- **Misattributions.** Lancet 1.5M (model-based estimate with CI 1.1 to 1.9M, not a head count); IQAir 2025 (national average eased from 50.6 to 48.9, so the post was retitled); IEG working paper authors and findings; Brookings 2019; Dandona 2020 for the 8.8% child-death share; NCAP counts (51 and 23 of the 100 cities with PM10 data, Rs 13,415 crore released); CSE 60.77 °C is the airport and barren land, not "built-up versus Lutyens'".
+- **Unsourced claims removed or softened.** Guttikunda Jeopardy description, a Class 11 anecdote, preterm-birth and indoor-station tiles, haze-optics and indoor-burden shares, Guwahati inversion, zigzag kiln "~60%" (CCAC says up to about half).
+- **Quiz data.** Vayu Junction puzzle 3 now uses Loni, Byrnihat, Delhi, Ghaziabad (IQAir 2025) and Varanasi, Bareilly, Firozabad, Dehradun (NCAP top performers per the Lok Sabha reply as reported).
+
+Flagged for a person: written confirmation from Dr Guttikunda; first-person claims in the Ask JanVayu testing post; whether the April 2026 minister episode in the data-source post happened; Patna's real station list; the CEEW source-apportionment title and link; the "67,732 wards" figure; retitling two posts that now overclaim; the Leaflet "removed in 1.6" comment in `assets/vendor/leaflet-pmtiles-adapter.js` and three changelog entries.
+
+Process note: a verifier agent sent the account email address once to the Unpaywall API (its required contact field) while looking for an open-access copy of a paper. Nothing else carried it.
+
+---
+
 ## What this round says about the process
 
 **The verifiers were wrong often enough that a second look was necessary.** Of the corrections they proposed, these did not survive checking: a PM E-DRIVE outlay of ₹11,900 crore (the sources I read say ₹10,900 crore, unchanged); a claim that the Delhi day-count tile was inconsistent (it is correct to rounding); a claim that the Raebareli figure should be 57% (the paper says 58%); and several search-snippet summaries that gave a wrong figure for a page the verifier had not opened (the CREA dust share as 64%, where the page says 68%). The method that held up was opening the source and recomputing.

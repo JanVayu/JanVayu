@@ -10,6 +10,8 @@ We shipped five releases over the past few days (v26.6.43 to v26.6.47). Here is 
 
 The [Forecast panel](https://www.janvayu.in/#forecast) already tracked how accurate India's official forecasters (SAFAR, CPCB) are. It now also shows its own 5-day PM2.5 forecast, from the free Open-Meteo (CAMS) model: daily mean and peak, a colour-coded day-by-day strip, and a chart, for any of 33 cities.
 
+*Update, 2 October 2026: since v26.6.51 (15 July 2026) the forecast selector covers 117 cities.*
+
 The point is comparison. When the official day-3 number looks low, you can check it against an independent model on the same screen. [Ask JanVayu](https://www.janvayu.in/ask) can now answer "will it be bad tomorrow?" using the same forecast.
 
 ## A live map of farm fires
@@ -22,7 +24,7 @@ Right now, in the monsoon, the map is nearly empty, because the fires have not s
 
 The "My Neighbourhood" panel used to come up empty, because its community-sensor source had almost no Indian coverage. We switched it to OpenAQ, which carries CPCB's own monitoring stations plus community sensors. It now returns real Delhi stations (R K Puram, Anand Vihar, Chandni Chowk) with current readings.
 
-One problem we had to handle: OpenAQ returns a station's last reading even when that station stopped reporting years ago. We drop anything older than six hours. On a live Delhi query that kept 17 current stations and discarded a dozen dead ones still reporting 2018 values. Showing an old number as "live" is exactly what this platform should not do.
+One problem we had to handle: OpenAQ returns a station's last reading even when that station stopped reporting years ago. We drop anything older than six hours. On a live Delhi query that kept 16 current stations and discarded a dozen dead ones still reporting 2018 values. Showing an old number as "live" is exactly what this platform should not do.
 
 ## Health beyond the lungs
 
@@ -33,7 +35,7 @@ Two new sections widen what we cover:
 
 ## Two practical tools
 
-- The Indoor Air panel now has a guide to buying a low-cost sensor: choose one with a real optical PM sensor, correct for humidity, and use it to track changes rather than trust exact numbers. It is based on a 2026 IIT (ISM) Dhanbad study.
+- The Indoor Air panel now has a guide to buying a low-cost sensor: choose one with a real optical PM sensor, correct for humidity, and use it to track changes rather than trust exact numbers. It is informed by a 2026 IIT (ISM) Dhanbad study of low-cost indoor particle sensors (Ali, Sameer and Izhar, Scientific Reports, July 2026).
 - The City Scorecards now have a "File an RTI" button. If a city has missed its clean-air target, the button opens a pre-filled Right to Information request to its state pollution board.
 
 ## For developers

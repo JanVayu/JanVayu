@@ -32,7 +32,7 @@
    "tag": "Platform",
    "title": "The Workshop Is a File Now",
    "date": "17 Sep 2026",
-   "blurb": "JanVayu has offered four free workshops for about a year: a tour of the platform, an RTI clinic, a ward-map session, and one written for teachers.",
+   "blurb": "JanVayu has offered free workshops since April, and there are now four: a tour of the platform, an RTI clinic, a ward-map session, and one written for teachers.",
    "url": "/blog/#/posts/2026-09-17-the-workshop-is-a-file"
   },
   {
@@ -67,7 +67,7 @@
    "tag": "Essay",
    "title": "What the Air Looks Like",
    "date": "9 Aug 2026",
-   "blurb": "Everything else on this site is a number. Thirty-one photographs are not, and it is worth saying why they are here.",
+   "blurb": "Everything else on this site is a number. Thirty-two photographs are not, and it is worth saying why they are here.",
    "url": "/blog/#/posts/2026-08-09-what-the-air-looks-like"
   },
   {
@@ -88,7 +88,7 @@
    "tag": "Analysis",
    "title": "We Were Measuring the Wrong Green",
    "date": "8 Aug 2026",
-   "blurb": "Earlier today we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal wards, and green cover alongside it, and the two barely moved together: a national correlation of −0.07.",
+   "blurb": "Earlier today we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal ward records (68,596 distinct wards, as corrected below), and green cover alongside it, and the two barely moved…",
    "url": "/blog/#/posts/2026-08-08-tree-cover-answers-it"
   },
   {
@@ -228,7 +228,7 @@
    "tag": "Health",
    "title": "The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story",
    "date": "10 Jun 2026",
-   "blurb": "On a peak summer afternoon, a CSE satellite thermal survey of Delhi recorded land-surface temperatures reaching nearly 61°C in its most built-up, treeless zones while tree-covered areas like Lutyens' Delhi and the Yamuna floodplain…",
+   "blurb": "On a peak summer afternoon, CSE's analysis of Landsat 8/9 satellite data for Delhi found land-surface temperatures reaching 60.77°C at places such as IGI Airport and barren or unsown land, while the area around the Yamuna hovered near 33°C.",
    "url": "/blog/#/posts/2026-06-10-urban-heat-island"
   },
   {
@@ -261,7 +261,7 @@
   },
   {
    "tag": "Data",
-   "title": "IQAir 2025: India's Air Got Worse",
+   "title": "IQAir 2025: India's National Average Eased, but Loni Is the Most Polluted City",
    "date": "12 Apr 2026",
    "blurb": "On March 24, 2026, IQAir released its eighth annual World Air Quality Report — the most comprehensive global assessment of PM2.5 pollution, covering 9,446 cities across 143 countries.",
    "url": "/blog/#/posts/2026-04-12-iqair-2025-india"

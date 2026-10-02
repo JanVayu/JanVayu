@@ -19,9 +19,11 @@ All content on JanVayu must meet these standards before it is added to the platf
 
 ## Source Verification
 
-Every data point must have a primary source. When contributing content:
+**The rule: every factual claim carries a source, in the text, beside the claim.** The source is the original (the study, the court order, the statute, the official report, the dataset). Where no original is publicly available, a publicly available press report is acceptable, and the text says it is a press report. A claim that has neither is not published. This applies to numbers, dates, names, rankings, quotations, legal propositions and statements about what a report or order found.
 
-1. **Link to the original source** — not a news article summarising a study, but the study itself
+When contributing content:
+
+1. **Link to the original source** — not a news article summarising a study, but the study itself. Use a press report only when the original cannot be read, and say so
 2. **Note the date** — especially for statistics (pollution data changes; always cite the year)
 3. **Note the methodology** — for health/mortality estimates, which model was used matters
 

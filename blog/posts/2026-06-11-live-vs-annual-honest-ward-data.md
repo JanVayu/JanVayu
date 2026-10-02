@@ -20,6 +20,8 @@ A single hour's interpolated PM2.5 is shaped by **today's weather, which monitor
 
 Annual structure correlates with **annual** air. It does not, reliably, correlate with *this* hour. The honest partner for "88% built-up" would be a ward's *yearly average* PM2.5 — which needs satellite-derived pollution data we looked for and couldn't get from any open, usable source. So we don't have it, and we won't fake it.
 
+*Update, 6 August 2026: we later built an annual per-ward PM2.5 layer from SatPM2.5 V6GL03, so the live-versus-annual comparison can now be made on matching clocks.*
+
 ## What we shipped instead
 
 Both the map and [Ask JanVayu](/ask) now keep the two clocks separate:
@@ -28,7 +30,7 @@ Both the map and [Ask JanVayu](/ask) now keep the two clocks separate:
 - **Heat, green and built-up are framed as drivers of a ward's *typical* air** — "the kind of place that *tends* to run hotter and dirtier over the year" — never as the cause of the current reading.
 - The chatbot is explicitly instructed: if today's dirtiest-air ward is actually green and low-built, **say so**, and attribute the reading to weather or a nearby source rather than inventing a story.
 
-Where the cross-sectional comparison *is* legitimate, we kept it: comparing the *spatial pattern* of heat against built-up *across wards on the same day* is standard urban-heat-island analysis, and in Delhi it's strong (correlation ≈ 0.69). Comparing a live snapshot to annual form is not. The difference is the whole point.
+Where the cross-sectional comparison *is* legitimate, we kept it: comparing the *spatial pattern* of heat against built-up *across wards on the same day* is standard urban-heat-island analysis, and in Delhi it was strong in the scene used at publication (Pearson correlation about 0.69 across the 290 wards; with the April 2026 Landsat scene now in the repository it is 0.29, JanVayu analysis of `data/wards/delhi.json`). Comparing a live snapshot to annual form is not. The difference is the whole point.
 
 ## The experiment that didn't make it
 

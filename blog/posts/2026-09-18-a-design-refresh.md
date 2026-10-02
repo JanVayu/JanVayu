@@ -13,6 +13,8 @@ how it looks instead.
 Nothing was removed. Every panel, every calculator, every dataset is where it
 was. What moved is the surface.
 
+*Update, 2 October 2026: on 19 September the homepage body was replaced by the /try layout, so the sections described below as "How JanVayu works" and the nine-group navigation no longer appear on the homepage. All 58 panels remain reachable from the Index.*
+
 ## The first screen, which is now the air
 
 Most people arrive at JanVayu having been sent a link. Until today the first
@@ -57,6 +59,8 @@ still there behind "What these roles mean". A hint points at the control once if
 you have not picked one. What changed is that the site now shows you the air
 first and offers the lens second.
 
+*Update, 2 October 2026: between 19 and 22 September the header role switcher and the full-screen chooser were replaced by a single "Who you are" control in the new bar.*
+
 That correction is the one we are least comfortable writing down, because the
 polish came before the question.
 
@@ -76,7 +80,7 @@ The green is the same green. The type is the same type.
 
 ## A table that was cut off, and nobody could tell
 
-Last week we published a comparison of JanVayu against the other Indian
+Yesterday we published a comparison of JanVayu against the other Indian
 air-quality sites, including the rows where the others are better. It has ten
 columns.
 
@@ -87,7 +91,7 @@ It looked like a table with seven columns, and a reader comparing us against
 the others was quietly reading a shorter argument than the one we wrote.
 
 Wide tables now push out past the text column and use the width of the window.
-We checked it at five common screen sizes; nothing is hidden at any of them.
+We checked it at five desktop sizes, 900 to 1600 pixels wide, and nothing is hidden at any of them. At 768 pixels 26 pixels were still hidden, so below that width the table now stacks instead.
 
 This is the second problem in that post found by a reader rather than by us.
 The first was the same table printing on top of itself on a phone. Both were
@@ -121,6 +125,8 @@ appears in our slide deck, and that copy had been drifting away from the
 homepage without anyone noticing. Both are now the same picture for the same
 reason.
 
+*Update, 2 October 2026: the homepage copy of this drawing was removed on 19 September; the slide-deck copy remains.*
+
 ## Nine menus became six
 
 The navigation bar carried nine groups, which filled it edge to edge and gave a
@@ -128,6 +134,8 @@ reader no shape to hold on to. It is now six and an overflow: Dashboard, My Air,
 Places, Evidence, Accountability, Act. Health & Trends and Learn merged into
 Evidence, because the thing they have in common is what somebody arriving with a
 question is actually looking for. Resources and About moved behind the dots.
+
+*Update, 2 October 2026: between 19 and 22 September the dropdown navigation was replaced by an Index of all 58 panels, with a filter, in the new bar.*
 
 Every one of the fifty-nine destinations is still reachable. We were not willing
 to take that on trust, so there is now a check that records what the navigation
@@ -168,7 +176,7 @@ Choosing Hindi and reloading put you back into English. The language switcher
 worked and then quietly undid itself, because the choice was never written down
 anywhere. It is now remembered.
 
-And the dyslexia-friendly reading toggle was a 32-pixel button, under the
+And the dyslexia-friendly reading toggle was a 36 by 32 pixel button, under the
 44-pixel minimum everything around it meets. A reading aid with a small target
 is a poor joke on the people most likely to reach for it.
 
@@ -213,6 +221,8 @@ old design, which read as a seam. Rather than swap one page for another we moved
 the part that was working onto the homepage, so clicking a panel opens it in
 place under the same first screen, with the same nav, the same tokens and the
 same five languages.
+
+*Update, 2 October 2026: on 19 September the homepage took on the /try chrome and body, so /try remains only as the candidate page.*
 
 We would rather ship the parts that are done than hold them until everything
 matches. If something looks wrong to you, or worse, looks fine and is missing a

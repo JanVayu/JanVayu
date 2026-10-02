@@ -6,17 +6,17 @@
 
 For years, the relationship between air pollution and death in India has been described in the language of association. Studies would show that higher PM2.5 correlated with higher mortality, but critics — including some in government — would argue that correlation is not causation. Other factors, they said, could explain the pattern: poverty, diet, smoking, access to healthcare.
 
-Two studies published in The Lancet Planetary Health in late 2024 have closed that argument. Using rigorous causal inference methods borrowed from economics, they demonstrate that PM2.5 pollution directly causes excess deaths in India — and the scale is staggering.
+Two studies published in The Lancet Planetary Health in 2024 (July and December) make a strong case against that argument. Using rigorous causal inference methods borrowed from economics, they demonstrate that PM2.5 pollution directly causes excess deaths in India — and the scale is staggering.
 
 ## The Difference-in-Differences Study
 
-The first study (Jaganathan et al. 2024, *Lancet Planetary Health*), led by researchers using India's district-level mortality data, applied a difference-in-differences approach — a method widely used in economics to isolate cause from confounders. By comparing districts that experienced pollution changes with those that did not, while controlling for economic conditions, weather, and demographic trends, the authors estimated that long-term PM2.5 exposure causes approximately **1.5 million additional deaths per year** in India compared to a scenario where the country met the WHO annual guideline of 5 micrograms per cubic metre. *(Update: the Lancet Countdown 2025 (published October 2025) attributes 1.72 million deaths to anthropogenic PM2.5 in India in 2022 — a 38% rise since 2010 reflecting real-world exposure trends, not a methodological revision. The 1.5M figure here is the original Jaganathan et al. causal estimate, retained as the causal-study reference.)*
+The first study (Jaganathan et al. 2024, *Lancet Planetary Health*), led by researchers using India's district-level mortality data, applied a difference-in-differences approach — a method widely used in economics to isolate cause from confounders. By comparing districts that experienced pollution changes with those that did not, while controlling for economic conditions, weather, and demographic trends, the authors estimated that long-term PM2.5 exposure causes approximately **1.5 million additional deaths per year** in India compared to a scenario where the country met the WHO annual guideline of 5 micrograms per cubic metre. *(Update: the Lancet Countdown 2025 (published October 2025) attributes 1.72 million deaths to anthropogenic PM2.5 in India in 2022 — a different measure from the 1.5M figure here, not a revision of it. The 1.5M figure is the Jaganathan et al. estimate, retained as the causal-study reference.)*
 
-This figure is not a projection or a model estimate. It is derived from observed mortality differences between comparable populations exposed to different pollution levels. The method controls for precisely the confounding factors that previously allowed governments to dismiss health burden estimates as speculative.
+This is a model-based estimate, not a head-count: it applies a regression coefficient (8.6% higher mortality per 10 µg/m³), estimated from observed district mortality, to India's PM2.5 exposure relative to the WHO guideline (95% confidence interval 1.1 to 1.9 million). The method controls for precisely the confounding factors that previously allowed governments to dismiss health burden estimates as speculative.
 
 ## The Multi-City Causal Study
 
-The second study examined short-term exposure across ten Indian cities using causal modelling techniques. It found statistically significant increases in daily mortality associated with day-to-day PM2.5 fluctuations, particularly among elderly populations and during the winter pollution season when concentrations spike.
+The second study examined short-term exposure across ten Indian cities using causal modelling techniques. It found statistically significant increases in daily mortality associated with day-to-day PM2.5 fluctuations, and a steeper risk per 10 µg/m³ below the Indian 24-hour standard (2.7%) than overall.
 
 This matters because short-term studies capture acute effects — heart attacks, strokes, asthma crises — that occur within hours or days of a pollution spike. Previous Indian studies relied on time-series correlations. This study's causal framework provides much stronger evidence that the deaths observed during high-pollution days are directly attributable to the pollution itself, not to cold weather, seasonal illness, or other coincident factors.
 
@@ -26,11 +26,11 @@ The distinction between correlational and causal evidence is not academic. It ha
 
 When evidence is correlational, policymakers can argue that reducing pollution might not reduce deaths — that other interventions (better hospitals, more doctors) could be more effective. Causal evidence eliminates this escape route. It demonstrates that cleaning the air will, directly and measurably, save lives.
 
-The 1.5 million figure (now revised upward to 1.72 million by the Lancet Countdown 2025) also dwarfs India's official acknowledgement of air pollution as a health crisis. Government statements typically cite much lower figures or focus on respiratory disease alone, ignoring the cardiovascular, neurological, and developmental impacts that the Global Burden of Disease framework has documented for over a decade.
+The 1.5 million figure (a separate estimate; the Lancet Countdown 2025 counts 1.72 million PM2.5-attributable deaths in 2022 on a different method) sits against the government's position in Parliament that there is "no conclusive data" on deaths exclusively due to air pollution (Lok Sabha reply, 9 December 2022).
 
 ## The Inequality Dimension
 
-A complementary study published in Science Advances added another critical finding: whatever air quality improvements India has achieved in recent years have been distributed unequally. Using improved daily PM2.5 satellite estimates, the researchers showed that wealthier urban areas have experienced modest declines in pollution, while poorer regions — often with higher baseline exposure — have seen little or no improvement.
+A complementary study published in Science Advances added another critical finding: whatever air quality improvements India has achieved in recent years have been distributed unequally. Using improved daily PM2.5 satellite estimates, the researchers showed that wealthier areas, which have higher average PM2.5, saw larger recent falls (about 8.1% for the wealthiest against 3.6% for the poorest).
 
 This means that India's aggregate pollution statistics, which show marginal improvements in some metrics, mask a widening inequality in who breathes clean air and who does not. The communities with the least political power are bearing the greatest health burden.
 
@@ -38,7 +38,7 @@ This means that India's aggregate pollution statistics, which show marginal impr
 
 These studies collectively make the scientific case for air pollution reduction airtight. The question for Indian policymakers is no longer whether pollution kills — it is how many deaths they are willing to accept while action remains slow.
 
-The National Clean Air Programme, now at its 2026 deadline, was designed around a 40% reduction in PM10 concentrations. But the Lancet evidence shows that the health crisis is driven by PM2.5, not PM10, and that even modest reductions in fine particulate matter would save hundreds of thousands of lives annually.
+The National Clean Air Programme, now at its 2026 deadline, was designed around a 40% reduction in PM10 concentrations. But these studies measure PM2.5, the fraction most strongly linked to mortality, while NCAP's target is for PM10. Even modest reductions in fine particulate matter would save hundreds of thousands of lives annually.
 
 India now has the causal evidence. What remains is the political will to act on it.
 

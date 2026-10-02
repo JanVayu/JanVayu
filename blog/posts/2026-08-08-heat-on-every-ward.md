@@ -8,6 +8,8 @@ The [map](https://www.janvayu.in/#map) has a new **Colour** menu. Alongside annu
 
 The numbers behind it: **70,306 of India's 70,417 municipal wards** have a land-surface temperature. So do all 785 districts, all 36 states, 6,459 blocks and tehsils, 3,364 city bodies and 319,114 gram panchayats. Green cover and built-up share cover **70,368 wards (99.93%)**.
 
+*Update, 2 October 2026: those ward and city-body counts included duplicate records. After deduplication, 68,481 of 68,596 wards (99.83%) and 3,355 of 3,359 city bodies have a land-surface temperature, and green cover and built-up share cover 68,564 of 68,596 wards (99.95%). The district, state, block and panchayat figures stand.*
+
 Until this week, heat existed for 142 cities.
 
 ## Why it was stuck at 142
@@ -40,11 +42,11 @@ Here is the thing we would have quietly skipped if we weren't in the habit of ch
 
 The heat-island story is a familiar one: more concrete, hotter; more trees, cooler. We have written a version of it ourselves. With 70,000 wards now carrying both green cover and surface temperature, we could finally test it across the whole country.
 
-Nationally, the correlation between green cover and ward surface temperature is **−0.054**. Essentially nothing.
+Nationally, the correlation between green cover and ward surface temperature is **−0.069** (computed after removing duplicate wards; our first calculation, before deduplication, gave −0.054). Essentially nothing.
 
 That's not a contradiction of the heat-island effect. It's a scale error — ours. The hottest wards in the country are in Vidarbha, and they are **99% "green"**: dry cropland in Amravati district, fallow in May, reading 57 °C at the surface. The coolest are in Pahalgam and Shopian, sitting at 20 °C because they are in the Himalaya. Comparing a Kashmiri ward with a Vidarbha ward measures latitude and altitude. It does not measure urban form.
 
-> **Correction, 8 August 2026 (later the same day).** The ward counts in the table below are wrong, and we are leaving them visible rather than quietly editing them. Chasing an unrelated bug, we found the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a handful of cities: Patna's "628 wards" are 116 distinct shapes, Mangalore's "540" are 61, Savanur's "356" are 27. "Ward 1" appears 23 times in Patna. The *correlations* survive deduplication nearly unchanged — Patna −0.35, Mangalore −0.42, Savanur +0.82, and the national figure is identical to three decimals — so the argument below stands. The counts do not. Deduplicating the atlas is now on the roadmap.
+> **Correction, 8 August 2026 (later the same day).** The ward counts in the table below are wrong, and we are leaving them visible rather than quietly editing them. Chasing an unrelated bug, we found the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a handful of cities: Patna's "628 wards" are 115 distinct shapes, Mangalore's "540" are 60, Savanur's "356" are 27. "Ward 1" appears 23 times in Patna. The *correlations* survive deduplication nearly unchanged — Patna −0.35, Mangalore −0.42, Savanur +0.82, and the national figure moves only from −0.054 to −0.069 — so the argument below stands. The counts do not. Deduplicating the atlas is now on the roadmap.
 >
 > **A second update.** The puzzle this post ends on — that green cover barely tracks heat — turned out to have an answer, and it is not the one we implied. See [the follow-up](2026-08-08-tree-cover-answers-it.md): green cover was simply the wrong variable. Tree canopy alone tracks heat at **r = −0.43** nationally and in 88% of cities.
 
@@ -52,15 +54,15 @@ Within a single city, where climate is held constant, the effect does appear:
 
 | City | Wards | Green vs heat | Built-up vs heat | Hottest-to-coolest ward |
 |------|------:|--------------:|-----------------:|------------------------:|
-| Mangalore | 540 | −0.39 | +0.50 | 11.8 °C |
-| Patna | 628 | −0.38 | +0.39 | 6.6 °C |
+| Mangalore | 540 (60 distinct) | −0.39 | +0.50 | 11.8 °C |
+| Patna | 628 (115 distinct) | −0.38 | +0.39 | 6.6 °C |
 | Chennai | 199 | −0.22 | +0.38 | 8.4 °C |
 | Bengaluru | 197 | −0.17 | +0.18 | 4.7 °C |
 | Hyderabad | 145 | −0.15 | +0.25 | 8.1 °C |
 
 Greener wards are cooler; more built-up wards are hotter. In Mangalore an 11.8 °C gap separates its hottest ward from its coolest.
 
-And then Jaipur: **+0.45**. Greener wards are *hotter*. Not an error — in arid India, "green" in the satellite's classification is largely dry cropland and scrub, which is bare and scorching by May, while the dense old city's narrow lanes shade their own ground. Savanur in Karnataka runs to +0.83.
+And then Jaipur: **+0.45**. Greener wards are *hotter*. Not an error. We suspect that in arid India "green" in the satellite's classification is largely dry cropland and scrub, bare and scorching by May, but we have not tested that here. Savanur in Karnataka runs to +0.83.
 
 Across 1,258 cities with 20 or more wards, the correlation is negative in **683 of them — 54%**. A little better than a coin toss.
 
@@ -70,7 +72,7 @@ We are not going to smooth that over. The honest statement is narrower than the 
 
 Open the [map](https://www.janvayu.in/#map), set **Boundaries** to Ward, set **Colour** to surface heat, and find your city. Tap any ward and you get all four numbers at once — annual air, surface heat, green cover, built-up — because someone checking their air shouldn't have to change a dropdown to learn how green their neighbourhood is.
 
-One thing we found while checking this, which we'd rather say than quietly fix: **tapping a boundary had never worked.** Not since the unified map launched. The library that draws the boundaries calls a Leaflet function that Leaflet deleted in version 1.6, and we ship 1.9.4 — so every tap threw an error deep inside a browser event handler and stopped before the popup could open. Nothing looked broken. The map drew fine, the console was clean on load, and the caption underneath confidently told you to tap.
+One thing we found while checking this, which we'd rather say than quietly fix: **tapping a boundary had never worked.** Not since the unified map launched. The library that draws the boundaries calls a function (`L.DomEvent.fakeStop`) that Leaflet removed in version 1.8 (it is in the [1.7.1 source](https://raw.githubusercontent.com/Leaflet/Leaflet/v1.7.1/src/dom/DomEvent.js) and gone from the [1.8.0 source](https://raw.githubusercontent.com/Leaflet/Leaflet/v1.8.0/src/dom/DomEvent.js)), and we ship 1.9.4 — so every tap threw an error deep inside a browser event handler and stopped before the popup could open. Nothing looked broken. The map drew fine, the console was clean on load, and the caption underneath confidently told you to tap.
 
 We only caught it because the pre-release check this time actually *clicked* the map instead of confirming it rendered. That's the lesson, and it's the same one as the cloud mask above: a thing that draws correctly is not a thing that works.
 
@@ -82,8 +84,10 @@ Two cautions, both on the map itself:
 
 Green cover and built-up are wards only for now. Choosing them at another level colours by air instead and tells you why, rather than handing you a grey map with no explanation.
 
+*Update, 2 October 2026: green cover, tree cover and built-up share now exist at every level of the map.*
+
 111 wards still have no heat value and 49 have no land cover. They draw uncoloured. One ward in Thiruvananthapuram remains in that list — down from the six that the old per-city pipeline could never resolve, but not zero, and we would rather say so than paint it in.
 
 ---
 
-*Method, coverage tables and caveats: [The Boundary Map](https://www.janvayu.in/docs/#/data-sources/boundary-map). Heat from [Landsat 8/9](https://www.usgs.gov/landsat-missions) via [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/); land cover from [ESA WorldCover 2021](https://esa-worldcover.org/); annual PM2.5 from [SatPM2.5 V6GL03](https://sites.wustl.edu/acag/datasets/surface-pm2-5/).*
+*Method, coverage tables and caveats: [The Boundary Map](https://www.janvayu.in/docs/#/data-sources/boundary-map). Heat from [Landsat 8/9](https://www.usgs.gov/landsat-missions) via [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/); land cover from [ESA WorldCover 2021](https://esa-worldcover.org/); annual PM2.5 from [SatPM2.5 V6GL03](https://www.satpm.org/).*

@@ -38,7 +38,7 @@ So every village now carries an annual PM2.5 figure derived from satellite measu
 - **371,938 of them — 63.6% — exceed India's own annual limit of 40.**
 - The median village sits at **43.7 µg/m³**, roughly nine times the WHO guideline.
 
-The cleanest places are the island districts — Andaman & Nicobar and Lakshadweep, around 12–20 µg/m³ — and parts of Kerala. The dirtiest are the districts of Delhi, at 94–98.
+The cleanest places are the island districts — Andaman & Nicobar and Lakshadweep, around 12–20 µg/m³ — and parts of Kerala. The five dirtiest districts are all in Delhi, at 94–98.
 
 Two honest limits. This is a yearly average, so it says nothing about a bad week in November. And a one-kilometre estimate smooths out very local sources: a brick kiln or a smelter at the edge of your village won't appear in it. Byrnihat, the small industrial town that topped IQAir's global city ranking, reads far lower on this layer than its own ground monitor does. The satellite is good at the air a whole district breathes, and blind to the chimney next door.
 
@@ -46,7 +46,7 @@ Two honest limits. This is a yearly average, so it says nothing about a bad week
 
 It would be convenient if the gap didn't matter — if the unmeasured places were simply the clean ones. They aren't.
 
-The clearest example is what happens indoors. Around **70% of rural Indian women still cook with solid fuels** — wood, dung cake, crop residue (NFHS-5, 2019-21). They spend three to five hours a day near the chulha, breathing PM2.5 at 20–40 times the WHO annual guideline. That happens in their own kitchens, every day, and no outdoor monitor would catch it even if one were nearby. It's a burden carried mostly by women and by the small children who sit beside them.
+The clearest example is what happens indoors. About **56% of rural Indian households (41% nationally) still cook mainly with solid fuels** — wood, dung cake, crop residue (NFHS-5, 2019-21, Table 2.6). The smoke builds up in their own kitchens, every day, and no outdoor monitor would catch it even if one were nearby. It's a burden carried mostly by women and by the small children who sit beside them.
 
 This is also why the death toll has two honest numbers rather than one, and we think both are worth knowing. Ambient outdoor PM2.5 is linked to about **1.72 million deaths a year in India** (Lancet Countdown 2025, using 2022 data). Count household air pollution as well and the figure rises to roughly **2.0 million** (State of Global Air 2025, using 2023 data). Different scopes, different methods, both real. The second one is where a lot of rural India lives.
 
@@ -62,7 +62,7 @@ So the live number stays out of the colours and sits on its own line in the card
 
 The outlines themselves are administrative geography, not measurement — the official boundaries and nothing more.
 
-The boundaries themselves come from the Local Government Directory via [indianopenmaps.com](https://indianopenmaps.com), the community-run mirror of India's public geodata that also supplies our ward, constituency and district layers. They reflect records as of 2023, so a few very recent reorganisations may not have caught up yet.
+The boundaries themselves come from the Local Government Directory via [indianopenmaps.com](https://indianopenmaps.com), the community-run mirror of India's public geodata that also supplies our ward, constituency and district layers. They reflect the directory's records at the time we imported them, so a few very recent reorganisations may not have caught up yet.
 
 ## Why we bothered
 
