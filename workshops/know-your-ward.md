@@ -45,7 +45,7 @@ decide about where you live.** Masks, school runs and exercise belong to the
 dot. Moving house, planting trees, and asking your corporator for a monitor
 belong to the shading.
 
-One more limit worth stating. At one kilometre the satellite layer smooths over
+One more limit. At one kilometre the satellite layer smooths over
 small sources. A brick kiln, a crusher or a highway immediately next door will
 not appear as its own hotspot.
 
@@ -100,7 +100,7 @@ India has never existed before. Roughly 565 continuous monitors serve 584,615
 villages, so the live network structurally cannot answer "how is my village's
 air", and never will.
 
-Three things this is good for.
+It is good for three things.
 
 **Asking for a monitor.** If your ward is above India's annual limit of 40 and
 has no station within a useful distance, that is a concrete thing to put in

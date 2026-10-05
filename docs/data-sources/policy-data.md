@@ -1,6 +1,6 @@
-# Policy & Legal Data
+# Policy and legal data
 
-JanVayu tracks India's air quality governance using official sources — parliamentary records, court orders, government portals, and RTI responses.
+JanVayu tracks how India governs its air using official sources: parliamentary records, court orders, government portals and RTI responses.
 
 ---
 
@@ -9,10 +9,10 @@ JanVayu tracks India's air quality governance using official sources — parliam
 **URL:** [prana.cpcb.gov.in](https://prana.cpcb.gov.in/)  
 **Maintained by:** Central Pollution Control Board (CPCB)
 
-PRANA (Portal for Regulation of Air-pollution in Non-Attainment cities) is the official tracking system for the National Clean Air Programme. It contains:
+PRANA (Portal for Regulation of Air-pollution in Non-Attainment cities) is the official tracking system for the National Clean Air Programme. It holds:
 
 - City Action Plans for the 131 NCAP cities (non-attainment and million-plus cities; PIB)
-- Physical and financial progress of cities under NCAP
+- The physical and financial progress of cities under NCAP
 
 JanVayu links to the PRANA portal (see the Reading List).
 
@@ -22,7 +22,7 @@ JanVayu links to the PRANA portal (see the Reading List).
 
 **URL:** [caqm.nic.in](https://caqm.nic.in/)
 
-CAQM was established in 2021 to coordinate air quality management in the National Capital Region (NCR) and adjoining areas. JanVayu archives CAQM's GRAP orders, directions to state governments, and compliance notices.
+CAQM was set up in 2021 to coordinate air quality management in the National Capital Region (NCR) and adjoining areas. JanVayu archives its GRAP orders, its directions to state governments and its compliance notices.
 
 ---
 
@@ -30,12 +30,12 @@ CAQM was established in 2021 to coordinate air quality management in the Nationa
 
 **URL:** [main.sci.gov.in](https://main.sci.gov.in) / [indiankanoon.org](https://indiankanoon.org)
 
-Key cases tracked:
-- *M.C. Mehta v. Union of India* — landmark environmental PIL with decades of air quality-related orders (*Update, 2 Oct 2026:* WP(C) 13029/1985 was disposed of on 12 March 2026)
+Cases followed:
+- *M.C. Mehta v. Union of India*, the landmark environmental PIL with decades of air quality orders (*Update, 2 Oct 2026:* WP(C) 13029/1985 was disposed of on 12 March 2026)
 - Vehicle pollution orders (BS VI norms, CNG transition)
-- Delhi NCR specific emergency orders
+- Emergency orders specific to Delhi NCR
 
-Case citations link to Indian Kanoon for full text where available.
+Case citations link to Indian Kanoon for the full text where available.
 
 ---
 
@@ -43,34 +43,34 @@ Case citations link to Indian Kanoon for full text where available.
 
 **URL:** [greentribunal.gov.in](https://greentribunal.gov.in)
 
-NGT handles environmental disputes and issues binding directions to polluters and regulators. JanVayu tracks NGT orders related to:
+The NGT hears environmental disputes and issues binding directions to polluters and regulators. JanVayu follows its orders on:
 
 - Industrial emissions in NCR and other cities
 - Construction dust
-- Municipal solid waste burning
+- Burning of municipal solid waste
 - Stubble burning
 
 ---
 
-## RTI Responses
+## RTI responses
 
-JanVayu welcomes anonymised RTI responses from contributors covering:
+JanVayu welcomes anonymised RTI responses from contributors on:
 
 - NCAP fund disbursement to cities
-- Source apportionment study timelines
+- Timelines for source apportionment studies
 - Monitoring station downtime records
 - Industrial compliance inspection records
 
-If you have received RTI responses relevant to air quality accountability, you can contribute them via a GitHub Issue or by emailing [contribute@janvayu.in](mailto:contribute@janvayu.in).
+If you have RTI responses relevant to air quality accountability, send them through a GitHub Issue or by email to [contribute@janvayu.in](mailto:contribute@janvayu.in).
 
 ---
 
-## Union Budget Data
+## Union Budget data
 
-Air quality-related budget allocations are tracked from:
+Air-quality budget allocations are tracked from:
 
 - Annual Union Budget documents ([indiabudget.gov.in](https://www.indiabudget.gov.in))
 - MoEFCC annual reports
-- 15th Finance Commission report on clean air grants for cities
+- The 15th Finance Commission report on clean air grants for cities
 
-Budget utilisation figures come from MoEFCC and PIB answers, CREA analyses, CAG (Comptroller and Auditor General) audits and RTI replies.
+Figures on how much of the money was spent come from MoEFCC and PIB answers, CREA analyses, CAG (Comptroller and Auditor General) audits and RTI replies.

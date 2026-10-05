@@ -1,9 +1,8 @@
 # RTI clinic
 
 Forty-five minutes. You will leave having filed a real Right to Information
-request about air quality in your own city.
-
-Not a draft. A filed one.
+request about air quality in your own city. Filed means sent, with a registration
+number or a posting receipt to show for it.
 
 Bring the name of your city and, if you can, the name of your state pollution
 control board. Everything else is on the screen.
@@ -58,8 +57,8 @@ that 88% of the 25 Delhi monitoring stations it visited flouted CPCB siting
 criteria, so you are asking about a known problem.
 
 **2. The money.** What did your city get under NCAP and what did it spend?
-You ask for the tranche-wise release, the category-wise utilisation, the
-unutilised balance, and copies of the utilisation certificates sent to MoEFCC.
+You ask for the tranche-wise release, the category-wise spending, the
+unspent balance, and copies of the utilisation certificates sent to MoEFCC.
 Add the tender list with vendor names and amounts. Note that commercial
 confidence is an exemption under Section 8(1)(d), so expect a fight over vendor
 terms, though not over the amounts a public authority has disbursed.
@@ -78,10 +77,10 @@ Open the **RTI Assistant** on JanVayu. From a City Scorecard there is a one-clic
 "File an RTI" that pre-fills your state board and the Clean Air Action Plan
 topic.
 
-The template gives you four things, and each matters:
+The template gives you four things:
 
-**The right Public Information Officer.** An RTI sent to the wrong authority is
-not refused, it is transferred under Section 6(3), and that costs you five days.
+**The right Public Information Officer.** An RTI sent to the wrong authority gets
+transferred under Section 6(3), and the transfer costs you five days.
 Monitoring and consent questions go to the State Pollution Control Board. NCAP
 money goes to the SPCB with a copy to CPCB. School closures go to the state
 Directorate of Education. GRAP enforcement in Delhi-NCR goes to CAQM, 17th Floor,

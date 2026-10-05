@@ -1,63 +1,45 @@
-# Real-Time AQI (WAQI)
+# Real-time AQI (WAQI)
 
-JanVayu uses the [World Air Quality Index (WAQI)](https://waqi.info) API as its primary source of real-time AQI data.
+JanVayu's main source of live AQI readings is the [World Air Quality Index (WAQI)](https://waqi.info) project.
 
 ---
 
 ## About WAQI
 
-The World Air Quality Index project (WAQI) publishes real-time readings from more than 10,000 stations on its map ([waqi.info](https://waqi.info)), collated from national environmental agencies in more than 100 countries ([aqicn.org](https://aqicn.org/here/)), including most CPCB CAAQMS stations in India. For India, WAQI aggregates data from:
+WAQI shows real-time readings from more than 10,000 stations on its map ([waqi.info](https://waqi.info)), gathered from national environmental agencies in more than 100 countries ([aqicn.org](https://aqicn.org/here/)), including most CPCB CAAQMS stations in India. For India it combines:
 
-- CPCB (Central Pollution Control Board) — official government monitoring network
+- CPCB (Central Pollution Control Board), the official government monitoring network
 - State Pollution Control Boards
-- Embassy monitoring (the US Embassy programme ended in March 2025, per [IQAir](https://www.iqair.com/newsroom/waqr-2025-pr))
+- Embassy monitors (the US Embassy programme ended in March 2025, per [IQAir](https://www.iqair.com/newsroom/waqr-2025-pr))
 
 ---
 
-## How JanVayu Uses WAQI
+## How JanVayu uses it
 
-The WAQI API is called **directly from the browser** (client-side) every 10 minutes. The API token is a free-tier public key embedded in `app.js`.
-
-```javascript
-// Client-side AQI fetch (simplified)
-const url = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${WAQI_TOKEN}`;
-const response = await fetch(url);
-const data = await response.json();
-```
-
-This means:
-- No server-side infrastructure needed for live AQI
-- Data refreshes automatically while the page is open
-- Costs nothing beyond WAQI's free-tier rate limits
+Your browser asks WAQI directly for the reading nearest a city, every 10 minutes, using a free public access key. Nothing passes through a JanVayu server. Readings refresh by themselves while the page is open, and the arrangement costs nothing beyond WAQI's free-tier limits.
 
 ---
 
-## AQI vs. PM2.5
+## AQI and PM2.5
 
-WAQI reports AQI on the US EPA scale. JanVayu displays both:
+WAQI reports AQI on the US EPA scale. JanVayu shows two numbers: the AQI, a standardised 0–500 index on the US EPA scale, and PM2.5 in µg/m³, the raw concentration of fine particles.
 
-- **AQI** — the standardised 0–500 index (US EPA scale)
-- **PM2.5 (µg/m³)** — the raw fine particulate concentration
-
-The conversion between PM2.5 concentration and AQI uses the US EPA breakpoints. India uses its own National AQI (NAQI) scale with slightly different breakpoints — JanVayu notes this distinction where relevant.
+The conversion from PM2.5 to AQI uses US EPA breakpoints. India has its own National AQI (NAQI) scale, whose breakpoints differ slightly, and JanVayu points this out where it matters.
 
 ---
 
-## Rate Limits
+## Rate limits
 
-The WAQI API is subject to a per-key quota (default 1,000 requests per second, per [WAQI's terms](https://aqicn.org/api/)). If you are running many API calls locally (e.g., testing all 157 cities simultaneously), you may hit rate limits. Options:
-
-1. **Use your own WAQI token** — register free at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/) and replace the token in `app.js`
-2. **Slow down requests** — add a small delay between city fetches in development
+Each WAQI key has a quota (by default 1,000 requests per second, per [WAQI's terms](https://aqicn.org/api/)). Anyone running many requests at once, for example testing all 157 cities together, can hit it. Two remedies: register your own free key at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/), or space the requests out.
 
 ---
 
-## Station Coverage
+## Station coverage
 
-WAQI coverage for India is strong in major metros and state capitals. Coverage is sparser in:
+WAQI coverage in India is strong in the large metros and state capitals. It is thinner in:
 
 - Smaller district towns
 - Rural areas
-- Northeast states (limited CPCB station presence)
+- The northeast, where CPCB has few stations
 
-Where ground monitoring is absent, JanVayu notes the limitation and may reference satellite-derived estimates.
+Where there is no ground monitor, JanVayu says so and may point to satellite-derived estimates.

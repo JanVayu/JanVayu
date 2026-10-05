@@ -10,14 +10,13 @@ reuse.
 
 Open **[janvayu.in](https://www.janvayu.in)** and keep it beside this.
 
-> A note for the facilitator: on Workshopy's free plan a session runs 45
+> A note for whoever runs the session: on Workshopy's free plan a session runs 45
 > minutes. Steps 1 to 7 fit inside that. Step 8 onwards is the second half, and
 > can be a separate session or a Pro-plan hour.
 
 # The size of the problem
 
-Four numbers, each from a named source, and each worth stating before anything
-else.
+Four numbers, each from a named source.
 
 **1.72 million** deaths a year in India from outdoor PM2.5 (Lancet Countdown
 2025, using 2022 data). A different method that adds household air pollution
@@ -28,7 +27,7 @@ and ozone, State of Global Air 2025, gives more than 2 million for 2023.
 **48.9 µg/m³**, India's national annual average PM2.5 (IQAir 2025). The WHO
 annual guideline is **5**. India's own legal limit is **40**.
 
-The crisis is year-round, not a Delhi winter story. Agartala in Tripura averages
+The problem runs all year round. Agartala in Tripura averages
 61.3 µg/m³, which is two and a half times Itanagar and the same range as the
 steel-and-coal belt of West Bengal. Nobody was looking, because Agartala had no
 ward map until August 2026.
@@ -82,7 +81,7 @@ risk group.
 **The purifier calculator.** Sizes a HEPA unit to your actual room, including
 the low-cost options.
 
-It is worth saying plainly that this is not only a lung problem. PM2.5 is linked
+This is not only a lung problem. PM2.5 is linked
 to heart attack and stroke, to kidney decline, to dementia and cognitive loss,
 and to preterm birth and low birth weight. The Beyond the Lungs panel carries
 the citations.
@@ -151,8 +150,8 @@ corrects the other. What the comparison buys you is confidence in the pattern.
 
 # Was it policy, or was it the wind?
 
-This is the question every "air improved by X%" headline rests on not knowing
-the answer to.
+Every "air improved by X%" headline depends on the answer, and most do not
+know it.
 
 A still, cold week traps whatever a city emits near the ground and the monitors
 read high. A windy, wet week scatters the same emissions and they read low.
@@ -176,7 +175,7 @@ The most interesting case is Lucknow. Its uncorrected fall was −11.6 and its
 corrected fall is −14.0, which means the weather had been **hiding** an
 improvement rather than flattering one.
 
-Two limits stated plainly. What survives the correction is not proof that policy
+Two limits. What survives the correction is not proof that policy
 caused it: emissions, fuel mix, construction and economic activity all sit
 inside it. And 194 cities with some data did not qualify, which is a statement
 about where India has put its instruments, not about their air.
@@ -193,10 +192,9 @@ emergency response. In May 2026 the Commission for Air Quality Management
 invoked Stage I off-season at AQI 208, after an earlier summer invocation on 16 April.
 
 JanVayu tracks both, plus a budget tracker following NCAP and 15th Finance
-Commission grants and their per-city utilisation, and city scorecards.
+Commission grants and their per-city spending, and city scorecards.
 
-There is also an uncomfortable finding here that is worth putting in front of
-anyone who works on clean-air policy. Across all 785 Indian districts, **89% of
+One more finding matters for anyone who works on clean-air policy. Across all 785 Indian districts, **89% of
 the variation in annual PM2.5 between one district and another is explained by
 which state it sits in.** Only 11% comes from the district itself. NCAP sets a
 target per city and measures each city against its own number, which addresses
