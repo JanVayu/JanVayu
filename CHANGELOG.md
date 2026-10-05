@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-10-05
+
+### Added, a Delhi page at `/delhi/`
+
+The season has started and Delhi had no page of its own. `/delhi/` is a dated
+tracker: what is in force or due from 28 September, 1 October and 1 November
+(CAQM's revised GRAP, the winter plan, the industrial norm), Delhi's poor-air
+day counts drawn at load time from `data/aqi-bulletins.json`, NCAP spending,
+the 2026 reduction targets, and the dated commitments in the April 2026
+mitigation plan, each with a "where it stands" column. Every row names its
+outlet and says it is a press report, because the CAQM and Delhi government
+orders could not be opened from the build environment.
+
+Three source problems are shown on the page instead of resolved quietly. The
+reported 2026 targets (AQI 191 to 177 as "15%", PM2.5 99 to 96 as "15%", PM10
+209 to 177 as "20%") imply cuts of 7.3%, 3.0% and 15.3%. One press summary of
+Delhi's NCAP money gives percentages (44%, 24%) that its own rupee figures
+(49.6%, 26.5%) contradict, so it is not used. The 2024-25 MCD figure of 4.36%
+computes to 4.45% from the printed rupees. Two search results that read as a
+GRAP Stage I invocation "now" were from October 2025 and April 2026, so no
+October 2026 invocation is stated.
+
+Registered in `scripts/build-sitemap.mjs`, `netlify.toml` and the sitemap (the
+one entry added by hand, because regenerating rewrote every other page's
+`lastmod` to the checkout date), added to `tests/contrast-ci.mjs` (passes in
+both themes), and linked from the NCAP chart on the homepage.
+
 ## [v26.6.235] - 2026-10-02
 
 ### Fixed, every panel, quiz, deck, doc and function checked against its source (sitewide fact check)

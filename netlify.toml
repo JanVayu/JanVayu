@@ -176,6 +176,11 @@
   status = 200
   force = true
 [[redirects]]
+  from = "/delhi"
+  to = "/delhi/index.html"
+  status = 200
+  force = true
+[[redirects]]
   from = "/co"
   to = "/co/index.html"
   status = 200
