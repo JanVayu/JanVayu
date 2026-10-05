@@ -1,7 +1,7 @@
 {
-  "version": "26.6.235",
+  "version": "26.6.236",
   "assets": {
-    "app.js": "22cbc6f3a8e2cf2f",
+    "app.js": "8a73ef2de2437dc0",
     "styles.css": "bb5b2e26b6bfb557",
     "js/chrome.js": "cf36b47db23359df"
   }
