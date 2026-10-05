@@ -4,90 +4,72 @@
 
 ---
 
-We have shipped a self-paced **Learning Games** panel — six short games, all original, designed for classrooms, RWA meetings, family movie nights, and idle ten-minute browsing on a phone. Open it at [janvayu.in/#games](https://www.janvayu.in/#games) or via the **Action → Learning Games** menu.
+JanVayu now has a Learning Games panel with six short, original games, meant for classrooms, RWA meetings, family evenings and ten idle minutes on a phone. Open it at [janvayu.in/#games](https://www.janvayu.in/#games) or from the Action menu under Learning Games.
 
 ## Why games
 
-Air-quality conversation in India tends to live in two registers: dry data dashboards (which we also ship), and viral outrage when AQI tips past 400 in November (which we track and analyse). A third register is missing: the calm, curious, "I want to actually learn how this works" register. Games fit that gap. They lower the cognitive cost of being wrong, they reward repeat play, and they fit between two stations of a metro commute.
+Talk about air quality in India tends to take two forms. One is the dry data dashboard, which we also run. The other is the outrage when AQI passes 400 in November, which we also track. What is missing is a calm way to learn how all this works. Games help because being wrong costs little, people play again, and a round fits between two metro stations.
 
-The inspiration is direct and gladly acknowledged. **Dr. Sarath Guttikunda** at [UrbanEmissions.info](https://urbanemissions.info/) runs air-quality teaching work, and a Jeopardy-style quiz format suits it; we decided that format belongs on JanVayu too. We have not asked Dr. Guttikunda to endorse this version, and the description of his own sessions is not sourced here. The clues, the categories, and the Indian-context framing on this site are our own; the format is the gift Dr. Guttikunda gave Indian air-quality teaching, and we use it with full credit. For the live, facilitator-led version with audience teams and a buzzer, head to the **Workshops** panel and request a session.
+The Jeopardy format comes from **Dr. Sarath Guttikunda** of [UrbanEmissions.info](https://urbanemissions.info/), who runs air-quality teaching work for which a Jeopardy-style quiz suits well. We thought the format belonged on JanVayu too. We have not asked Dr. Guttikunda to endorse this version, and we have not sourced a description of his own sessions here. The clues, the categories and the Indian framing are ours. If you want the live version, with audience teams and a buzzer, request a session on the Workshops panel.
 
-The newest game on the panel is rooted even older — in **Moksha Patam**, the original Indian Snakes & Ladders, which travelled out of India to become every other country's "Chutes and Ladders." Returning a clean-air twist to the original feels right.
+The newest game is older still. **Moksha Patam** is the original Indian Snakes & Ladders, which travelled abroad and became "Chutes and Ladders". We gave it a clean-air theme.
 
-## What's in the panel
+## The six games
 
 ### 1. Air Quality Jeopardy (India edition)
 
-Twenty-five tiles in five categories — **Sources, Health, Policy, Cities, Action** — each with five tiles worth **₹1,000 to ₹5,000**. Here is exactly how it works:
+There are 25 tiles in five categories (Sources, Health, Policy, Cities, Action), each worth ₹1,000 to ₹5,000. Clicking a tile shows a statement, and you work out the question it answers. For example, the tile says "This Indian city was named the most polluted capital in the world in IQAir 2025", and the matching question is "What is New Delhi?"
 
-1. Click any tile. You see a *statement*. That statement is the answer.
-2. Your job is to think of the *question* it answers. Example: tile says *"This Indian city was named the most polluted capital in the world in IQAir 2025."* The matching question is *"What is New Delhi?"*
-3. Click **Reveal answer**. You see the official question form, plus a one-paragraph explainer pulling from CEEW 2024, IIT-Delhi DSS, NCAP records, IQAir 2025, and the Lancet Countdown 2025.
-4. Mark whether you got it. Earn the rupee value of the tile if you did.
-5. Clear all 25 to top out at **₹75,000**.
+Click Reveal answer to see the question form and a paragraph of explanation drawn from CEEW 2024, IIT-Delhi DSS, NCAP records, IQAir 2025 and the Lancet Countdown 2025. Mark whether you got it, and you earn the tile's value. Clearing all 25 tiles tops out at ₹75,000. Your score is saved on your device only, and we do not log results.
 
-Score is saved locally on your device only — we do not log results.
+### 2. PM Quick-Quiz
 
-### 2. PM Quick-Quiz (10 questions)
-
-Ten multiple-choice questions, ~3 minutes. Each answer ships with a short factual note explaining why the right answer is right and why the distractors are wrong. Topics span the basics (what does PM2.5 mean?), the data points readers should know cold (WHO 5 µg/m³ guideline; ~1.7 million Indian PM2.5 deaths/year per Lancet Countdown 2025), the policy machinery (NCAP, GRAP stage thresholds), and the "wait, really?" facts (Berkeley Earth's 22 µg/m³ ≈ one cigarette/day).
+Ten multiple-choice questions take about 3 minutes. Each answer comes with a short note on why the right option is right and why the others are wrong. The questions start with basics such as what PM2.5 means. They go on to numbers worth knowing (the WHO guideline of 5 µg/m³, and about 1.7 million Indian PM2.5 deaths a year per the Lancet Countdown 2025), then policy (NCAP, GRAP stage thresholds), and then surprises such as Berkeley Earth's finding that 22 µg/m³ is about one cigarette a day.
 
 ### 3. Source Matcher
 
-Seven dominant Indian PM2.5 source categories — stubble, residential biomass, coal thermal, road dust + non-exhaust, brick kilns, diesel gensets, open waste burning — each with a one-sentence description that includes a fact a casual reader would not already know (zigzag-technology kilns can cut PM by up to about half, per the Climate and Clean Air Coalition). Tap a source, then tap its description. Five minutes from cold open to all seven matched.
+Seven main sources of Indian PM2.5 are listed: stubble, residential biomass, coal thermal plants, road dust and non-exhaust emissions, brick kilns, diesel generators and open waste burning. Each has a one-sentence description with a fact many readers will not know. Zigzag brick kilns, for instance, can cut particulate matter by up to about half, according to the Climate and Clean Air Coalition. Tap a source, then tap its description. Matching all seven takes about five minutes from a cold start.
 
 ### 4. Clean Air Snakes & Ladders (Moksha Patam edition)
 
-A 6×6 board, 36 squares, classic serpentine path. Press **Roll dice** to move 1–6 squares forward.
+The 6×6 board has 36 squares on a classic zigzag path. Press Roll dice to move 1 to 6 squares.
 
-- Land on a **ladder** — a positive citizen action — and you climb up. Examples: switching from a chulha to LPG (square 3 → 11), filing an RTI on NCAP fund utilisation (14 → 24), submitting a public comment on your city's draft Action Plan (21 → 30).
-- Land on a **snake** — a pollution event or policy slip — and you slide down. Examples: Diwali fireworks (10 → 2), the FGD deadline missed again (18 → 6), stubble-burn peak (25 → 13), GRAP-IV triggered (32 → 19).
+A ladder is a citizen action that moves you up. Switching from a chulha to LPG takes you from square 3 to 11, filing an RTI on NCAP fund use from 14 to 24, and commenting on your city's draft Action Plan from 21 to 30. A snake is a pollution event or policy failure that moves you down. Diwali fireworks send you from 10 to 2, a missed FGD deadline from 18 to 6, the stubble-burning peak from 25 to 13, and GRAP-IV being triggered from 32 to 19.
 
-Each special square pops up a one-line learning fact, so you pick up scientific and policy points while you play. The goal is square 36: *"India meets the WHO 5 µg/m³ guideline."* The fewer rolls, the closer to the ideal path.
+Each special square shows a one-line fact. The goal is square 36, "India meets the WHO 5 µg/m³ guideline", and fewer rolls is better. The board makes two points. Clean air is built from many small actions by citizens. And single events such as fireworks, missed deadlines and burning seasons can wipe out a lot of that gain at once.
 
-This game is built to teach two things at once: that clean air is built up by small, repeated citizen actions; and that single events — fireworks, missed deadlines, stubble-burn windows — can erase a lot of cumulative gain in one move. Both are true. Both belong on the same board.
+### 5. Jodi Match
 
-### 5. Jodi Match (memory cards)
+Twelve cards make six pairs (*jodis*). Tap two, and if they match, both stay face-up and you score the pair. If not, both flip back. The aim is to clear all six pairs in as few moves as possible, and a perfect run is six moves.
 
-Twelve cards, six pairs (*jodis*). Tap any two; if they form a matching pair — like a pollutant and its main source, or an Indian acronym and what it stands for — both stay face-up and you score the pair. If not, both flip back. Goal: clear all six pairs in as few moves as possible. Perfect run = six moves.
+The pairs are associations that anyone discussing air quality should know: PM2.5 and chulha smoke, NCAP and National Clean Air Programme, GRAP-IV and AQI above 450, CAQM and the NCR statutory air-quality body (2021 Act), WHO PM2.5 and the 5 µg/m³ annual guideline, and N95 and at least 95% PM2.5 filtration when fitted. After two or three rounds they stick. The rules are those of the memory-card game many of us grew up with, called Pelmanism, or "Concentration" abroad. We put pollutants on the cards.
 
-The pairings are set up to teach core associations every Indian newsroom and RWA conversation should be able to make automatically: *PM2.5 ↔ chulha smoke*, *NCAP ↔ National Clean Air Programme*, *GRAP-IV ↔ AQI > 450*, *CAQM ↔ NCR statutory air-quality body (2021 Act)*, *WHO PM2.5 ↔ 5 µg/m³ annual guideline*, *N95 ↔ ≥95% PM2.5 filtration when fitted*. After two or three rounds the connections stick, even for a casual player.
+### 6. Air Tambola
 
-The format is the household memory-card game every Indian grew up with — Pelmanism, sometimes called "Concentration" abroad. Same rules; we just put pollutants on the cards instead of identical pictures.
+This is the most Indian game on the panel. A standard tambola ticket has 3 rows and 9 columns with five filled cells per row. Ours holds 15 air-quality terms drawn from a pool of 27, in place of numbers from 1 to 90. The pool includes PM2.5, GRAP-IV, NCAP, CAAQMS, Loni, Stubble, FGD, N95, HEPA, BS-VI, AQLI, Lancet 1.72M, RTI, Black Carbon and Brick Kiln.
 
-### 6. Air Tambola (Indian housie)
+Press Call next and a one-line clue is read out. An example is "India's continuous air quality monitoring station network, six-letter acronym." If the answer is on your ticket, tap it to mark it. The game detects the four usual housie wins: Top Line (all five cells in row 1), Middle Line (row 2), Bottom Line (row 3) and Full House (every cell on the ticket).
 
-The most distinctly Indian game on the panel. A standard tambola ticket has 3 rows × 9 columns with five filled cells per row — but instead of numbers 1–90, our ticket has 15 air-quality terms drawn from a 27-item pool (PM2.5, GRAP-IV, NCAP, CAAQMS, Loni, Stubble, FGD, N95, HEPA, BS-VI, AQLI, Lancet 1.72M, RTI, Black Carbon, Brick Kiln, and so on).
+A game finishes within 27 calls, and sooner if you mark quickly. We chose tambola because the call-and-mark rhythm is familiar to anyone who has spent a long train journey or a wedding pre-function in India. The moment a player thinks "I am playing housie with pollution terms" is when air quality starts to feel like an ordinary subject.
 
-Press **Call next**: a one-line clue is read out. *Example: "India's continuous air quality monitoring station network — six-letter acronym."* If the answer is on your ticket, tap it to mark it. We auto-detect the four classic Indian housie wins:
+## What we may add
 
-- **Top Line** — all five cells in row 1 marked.
-- **Middle Line** — all five cells in row 2 marked.
-- **Bottom Line** — all five cells in row 3 marked.
-- **Full House** — every cell on the ticket marked.
+Write to [contribute@janvayu.in](mailto:contribute@janvayu.in) if you want to weigh in or want any of these sooner:
 
-A cold ticket finishes inside 27 calls, usually fewer if you mark fast. We picked tambola specifically because the call-and-mark rhythm is already familiar to anyone who has spent a long-distance train journey or a wedding pre-function in India — that familiarity is the point. The first time someone realises *"oh, I am playing housie with pollution terms"* is exactly the moment air quality stops feeling like dry science and starts feeling like a household word.
+- A Hindi translation of all six games (seven now, since Vayu Junction went live on 20 May 2026), then Tamil, Bengali and Marathi.
+- A printable pack for teachers, with questions, answer key, projector slides, a Snakes & Ladders board and tambola tickets, under CC BY-NC-SA 4.0.
+- A monthly rotating clue set on the Jeopardy board, so regular players see new clues.
+- A Moksha Patam variant with snakes and ladders for Delhi, Mumbai, Chennai and Bengaluru, tied to each city's live AQI.
+- An Antakshari-style word chain in which each air-quality term must start with the last letter of the one before.
+- A multiplayer tambola session hosted by the JanVayu team on a Sunday evening, with a real prize for the first Full House.
 
-## Where we want this to go
+If you run a school, an RWA or a newsroom, write in. The code is MIT-licensed and the content is CC BY-NC-SA, so you are free to copy and adapt it.
 
-A few obvious extensions sit in the queue and we are open to feedback at [contribute@janvayu.in](mailto:contribute@janvayu.in):
+## How reliable the answers are
 
-- A Hindi-language translation of all six games (now seven, since Vayu Junction shipped on 20 May 2026), then Tamil, Bengali, and Marathi.
-- A "host this game" PDF facilitator pack for teachers — questions, answer key, projector slides, S&L printable board, tambola ticket sheet — under CC BY-NC-SA 4.0.
-- A monthly rotating clue set on the Jeopardy board so repeat players see fresh content.
-- A variant **Moksha Patam** with state-specific snakes and ladders (Delhi, Mumbai, Chennai, Bengaluru) tied to the live AQI in each city.
-- An **Antakshari**-style word-chain game where each air-quality term must start with the last letter of the previous one.
-- A multi-player **tambola** mode where the JanVayu team hosts a public Sunday-evening housie session with a real prize for the first Full House.
-
-If you run a school, an RWA, or a newsroom and want any of the above sooner, write in. The games are MIT-licensed code, CC BY-NC-SA on content — fork freely.
-
-## A note on rigour
-
-Each answer carries an explainer, and we are still adding a primary source to every clue; some clues do not yet have one. Where we use a single estimate, such as the all-cause mortality coefficient of 8.6% per 10 µg/m³ (95% CI 6.4 to 10.8, Jaganathan et al. 2024), we name it. Disagreement is fine; opacity is not.
-
-Play the games. [Tell us what could be sharper](https://github.com/JanVayu/JanVayu/issues). We will keep iterating.
+Each answer has an explanation. We are still adding a primary source to every clue, and some do not have one yet. Where a clue rests on a single estimate, we name it, as with the all-cause mortality coefficient of 8.6% per 10 µg/m³ (95% CI 6.4 to 10.8, Jaganathan et al. 2024). [Tell us what could be sharper](https://github.com/JanVayu/JanVayu/issues).
 
 ---
 
 **Play now:** [janvayu.in/#games](https://www.janvayu.in/#games)
-**Want a live, facilitated version?** [Book a workshop](https://www.janvayu.in/#workshops).
+**Want a live version led by a host?** [Book a workshop](https://www.janvayu.in/#workshops).

@@ -4,50 +4,50 @@
 
 ---
 
-Every morning, millions of Indians check a single number before deciding whether to open a window or strap on a mask. AQI 150. AQI 300. AQI 500. The number dominates headlines, group chats, and school closure decisions. But almost nobody — including many journalists and policymakers — understands what the number actually means, what it hides, and why the same AQI in Delhi and Denver can describe radically different air.
+Every morning, millions of Indians check one number to decide whether to open a window or put on a mask. AQI 150, AQI 300, AQI 500. It drives headlines, group chats and school closures. Few people, including many journalists and policymakers, know exactly what it measures, what it leaves out, or why the same AQI in Delhi and Denver can describe very different air.
 
 ## AQI is the maximum, not the average
 
-This is the single most important fact most people get wrong. The Air Quality Index is **not** an average of all pollutants. It is the **worst** of eight separate sub-indices — one each for PM2.5, PM10, NO2, SO2, CO, O3, NH3 (ammonia), and Pb (lead) (CPCB National AQI methodology, 2014). A monitoring station calculates a sub-index for each pollutant, then reports the highest one as "the AQI." The pollutant that drives that highest value is called the **dominant pollutant**.
+Most people get this wrong. The Air Quality Index is not an average of all pollutants. It is the **worst** of eight separate sub-indices, one each for PM2.5, PM10, NO2, SO2, CO, O3, NH3 (ammonia) and Pb (lead) (CPCB National AQI methodology, 2014). A monitoring station calculates a sub-index for each pollutant and reports the highest as "the AQI." The pollutant behind that highest value is called the **dominant pollutant**.
 
-This matters enormously. An AQI of 200 driven by PM2.5 (fine particulate matter that lodges deep in your lungs) demands a different health response than an AQI of 200 driven by ground-level ozone (which irritates airways and worsens asthma). The number is the same. The danger is not.
+It matters which one it is. An AQI of 200 driven by PM2.5, the fine particles that lodge deep in the lungs, calls for a different response from an AQI of 200 driven by ground-level ozone, which irritates the airways and worsens asthma. The number is the same and the danger is different.
 
 ## The dominant pollutant problem
 
-PM2.5 gets nearly all the public attention, and for good reason — it is the deadliest air pollutant globally, responsible for an estimated 1.72 million deaths in India in 2022 (Lancet Countdown 2025); all air pollution (ambient, household and ozone together) caused more than 2 million deaths in India in 2023 (State of Global Air 2025). But focusing exclusively on PM2.5 means we are missing threats that are growing silently:
+PM2.5 gets nearly all the public attention, with good reason. It is the deadliest air pollutant globally, responsible for an estimated 1.72 million deaths in India in 2022 (Lancet Countdown 2025). All air pollution (ambient, household and ozone together) caused more than 2 million deaths in India in 2023 (State of Global Air 2025). Looking only at PM2.5, though, hides other pollutants that are growing:
 
-- **PM10** (coarse dust) can be the dominant pollutant where road and construction dust is heavy, even when PM2.5 looks manageable.
-- **NO2** (nitrogen dioxide) comes largely from vehicle and combustion emissions. It is a precursor to ground-level ozone. Because PM2.5 grabs the headline AQI, NO2 rarely makes the news.
-- **O3** (ozone) is India's emerging summer crisis. Unlike PM2.5, which peaks in winter, ozone surges in hot months when sunlight bakes NOx and VOCs into a toxic secondary pollutant. A [CSE analysis of 25 cities (1 March to 10 May 2026)](https://www.cseindia.org/ozone-pollution-spreading-across-indian-cities-says-new-cse-anaylsis-13169) found 15 of them recorded summertime ozone averages well above the NAAQS of 100 µg/m³.
+- PM10, or coarse dust, can be the dominant pollutant where road and construction dust is heavy, even when PM2.5 looks manageable.
+- NO2 (nitrogen dioxide) comes largely from vehicle and combustion emissions and is a precursor to ground-level ozone. PM2.5 usually sets the headline AQI, so NO2 rarely makes the news.
+- O3 (ozone) is India's growing summer problem. PM2.5 peaks in winter, but ozone rises in hot months, when sunlight turns NOx and VOCs into a harmful secondary pollutant. A [CSE analysis of 25 cities (1 March to 10 May 2026)](https://www.cseindia.org/ozone-pollution-spreading-across-indian-cities-says-new-cse-anaylsis-13169) found 15 of them recorded summertime ozone averages well above the NAAQS of 100 µg/m³.
 
-When you see an AQI number, always ask: **which pollutant is driving it?**
+When you see an AQI number, ask which pollutant is driving it.
 
-## Two scales, two different answers
+## Two scales, two answers
 
 India uses the CPCB National AQI scale, which divides air quality into six categories: Good (0-50), Satisfactory (51-100), Moderate (101-200), Poor (201-300), Very Poor (301-400), and Severe (401-500). The US EPA scale, used by platforms like WAQI and IQAir, has different breakpoints and different category names.
 
-Here is where it gets dangerous. **A PM2.5 concentration of 90 µg/m³ is classified as "Moderate" on the Indian CPCB scale but "Unhealthy" on the US EPA scale.** Same air, same particles, same lungs — but one scale tells you it is tolerable and the other tells you to limit outdoor exertion. The CPCB scale is systematically more lenient. When a politician announces that air quality is "Moderate," check which scale they are using.
+The gap matters. A PM2.5 concentration of 90 µg/m³ is classified as "Moderate" on the Indian CPCB scale and "Unhealthy" on the US EPA scale. It is the same air and the same particles, but one scale calls it tolerable and the other tells you to limit outdoor exertion. The CPCB scale is more lenient across the range. When a politician says air quality is "Moderate", check which scale they are using.
 
-## India's own standards are dangerously loose
+## India's own standards are loose
 
-India's National Ambient Air Quality Standards (NAAQS) set the annual average PM2.5 limit at 40 µg/m³. The WHO guideline, updated in 2021 and based on the latest epidemiological evidence, is 5 µg/m³. That is an **8-fold gap**. Air that India considers "acceptable" is hazardous by global public health standards.
+India's National Ambient Air Quality Standards (NAAQS) set the annual average PM2.5 limit at 40 µg/m³. The WHO guideline, updated in 2021 and based on the latest epidemiological evidence, is 5 µg/m³. That is an 8-fold gap. Air that India counts as acceptable is hazardous by global public health standards.
 
-This is not an academic distinction. It means that a city can technically meet NAAQS while exposing its residents to PM2.5 levels that the WHO says cause measurable increases in lung cancer, heart disease, stroke, and childhood respiratory illness.
+In practice, a city can meet NAAQS while its residents breathe PM2.5 at levels that the WHO says measurably raise the risk of lung cancer, heart disease, stroke and childhood respiratory illness.
 
-## The numbers they don't show you
+## What the number hides
 
-AQI is calculated from 24-hour averages (or shorter rolling windows for some pollutants). This smoothing hides spikes. A neighbourhood downwind from a brick kiln might see PM2.5 spike to 400 µg/m³ for three hours during firing, then drop to 80 for the rest of the day. The 24-hour average AQI looks "Poor." The reality at 6 AM was "Severe."
+AQI is calculated from 24-hour averages (or shorter rolling windows for some pollutants), which smooths out spikes. A neighbourhood downwind of a brick kiln might see PM2.5 reach 400 µg/m³ for three hours during firing, then fall to 80 for the rest of the day. The 24-hour average looks "Poor", while at 6 AM the air was "Severe".
 
-Averaging also hides spatial variation. A city's official AQI is often drawn from one or two monitoring stations, which may not represent every neighbourhood. In CPCB's 2024 daily bulletins, 221 of 264 reporting cities (84%) had a median of fewer than three stations (JanVayu analysis of `data/aqi-bulletins.json`). Siting is also an issue: Newslaundry's 2025 field check of 25 Delhi monitoring stations found that **88% flouted CPCB's siting criteria**, and a CAG audit tabled in the Delhi Assembly in April 2025 found 13 of 24 DPCC stations it verified in 2020 were sited too close to trees (Newslaundry, 1 April 2025, a press report on the CAG audit).
+Averaging also hides differences between places. A city's official AQI often comes from one or two monitoring stations, which may not represent every neighbourhood. In CPCB's 2024 daily bulletins, 221 of 264 reporting cities (84%) had a median of fewer than three stations (JanVayu analysis of the CPCB bulletin data). Siting is a problem as well: Newslaundry's 2025 field check of 25 Delhi monitoring stations found that **88% flouted CPCB's siting criteria**, and a CAG audit tabled in the Delhi Assembly in April 2025 found 13 of 24 DPCC stations it verified in 2020 were sited too close to trees (Newslaundry, 1 April 2025, a press report on the CAG audit).
 
 ## What you should actually do
 
-1. **Look at raw µg/m³ values**, not just the AQI number. PM2.5 of 60 µg/m³ is 12 times the WHO guideline regardless of what colour band any scale puts it in.
-2. **Check the dominant pollutant.** If it is ozone, staying indoors with windows closed helps more than a mask. If it is PM2.5, a well-fitted N95 is your first line of defence.
-3. **Compare sources.** CPCB, WAQI, IQAir, and community sensors (Sensor.Community) can show different numbers for the same city. JanVayu's [Data Source Selector](/index.html#source-selector) lets you see all four side by side.
-4. **Do not trust a single station.** Check multiple stations or use a platform like JanVayu that aggregates across the city network.
+1. Look at the raw µg/m³ values as well as the AQI. PM2.5 of 60 µg/m³ is 12 times the WHO guideline, whatever colour band a scale puts it in.
+2. Check the dominant pollutant. If it is ozone, staying indoors with the windows closed helps more than a mask. If it is PM2.5, a well-fitted N95 is your best protection.
+3. Compare sources. CPCB, WAQI, IQAir and community sensors (Sensor.Community) can show different numbers for the same city. JanVayu's [Data Source Selector](/index.html#source-selector) shows all four side by side.
+4. Do not rely on a single station. Check several, or use a platform such as JanVayu that combines the city network.
 
-The AQI was designed to simplify a complex reality into a number that laypeople can act on. That is a noble goal. But simplification is not the same as accuracy. The more you understand what the number hides, the better you can protect yourself and demand better data from the institutions responsible for your air.
+The AQI was built to turn a complicated picture into one number that anyone can act on. That is a sound aim, and a single number still leaves things out.
 
 Explore the full breakdown in JanVayu's [Understanding AQI panel](/index.html#aqi-explainer).
 
