@@ -1,14 +1,14 @@
 
 
             <div class="section-intro jv-sec-divided">
-                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield" style="color: var(--red); margin-right: 0.4rem;"></span>Political Accountability Tracker</h2>
-                <p class="jv-lede" data-simple="Did the government keep its promises on clean air? Here we track what politicians said, how much money was spent, and what actually happened. You can use RTI (Right to Information) to ask the government tough questions.">Tracking promises, court orders, budget allocations, and outcomes. <strong>NEW:</strong> Clean Air Mission Tracker with independent verification of NCAP interventions. Use RTI to demand transparency. Democracy requires accountability.</p>
+                <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-shield" style="color: var(--red); margin-right: 0.4rem;"></span>Political accountability tracker</h2>
+                <p class="jv-lede" data-simple="Did the government keep its promises on clean air? Here we track what politicians said, how much money was spent, and what actually happened. You can use RTI (Right to Information) to ask the government tough questions.">This tracker sets promises, court orders and budget allocations beside what happened. <strong>NEW:</strong> a Clean Air Mission Tracker that checks NCAP interventions against independent sources. You can use RTI to ask for the records yourself.</p>
             </div>
 
             <!-- ── CPCB's own bulletin, per city per year (rendered from /data/aqi-bulletins.json) ── -->
             <div id="bulletin-check" style="margin-bottom: 2.5rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border);">
                 <h3 style="font-family: var(--serif); font-size: 1.25rem; color: var(--ink); margin-bottom: 0.4rem;">What CPCB itself said about your city</h3>
-                <p style="font-size: 0.95rem; line-height: 1.65; color: var(--text-2); max-width: 48rem; margin-bottom: 1rem;" data-simple="Every day at 4pm the government publishes an official air quality number for over 200 cities. We have collected ten years of them, so you can see how many bad-air days your city officially had, and how many monitors that came from.">CPCB publishes an AQI bulletin every day at 4pm covering 200+ cities, and has since May 2015. It is the number a minister quotes and a court cites. Pick a city and a year to see how many days it spent in each official category &mdash; and, beside it, how many monitoring stations that figure came from.</p>
+                <p style="font-size: 0.95rem; line-height: 1.65; color: var(--text-2); max-width: 48rem; margin-bottom: 1rem;" data-simple="Every day at 4pm the government publishes an official air quality number for over 200 cities. We have collected ten years of them, so you can see how many bad-air days your city officially had, and how many monitors that came from.">CPCB publishes an AQI bulletin every day at 4pm covering 200+ cities, and has since May 2015. It is the number a minister quotes and a court cites. Pick a city and a year to see how many days it spent in each official category, and beside that, how many monitoring stations the figure came from.</p>
                 <div class="apportion-controls">
                     <span style="display:inline-flex;align-items:center;gap:0.6rem;">
                         <label for="bulletin-city" class="apportion-label">City</label>
@@ -24,23 +24,23 @@
             </div>
 
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title"> Promises vs Reality</span></div>
+                <div class="card-header"><span class="card-title"> Promises against results</span></div>
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table responsive-cards">
-                            <thead><tr><th>Statement/Promise</th><th>By Whom</th><th>Date</th><th>Status</th></tr></thead>
+                            <thead><tr><th>Statement or promise</th><th>By whom</th><th>Date</th><th>Status</th></tr></thead>
                             <tbody>
-                                <tr style="background: var(--bg-section);"><td data-label="Statement/Promise">"No conclusive data to establish a direct correlation between deaths and air pollution alone"</td><td data-label="By Whom">Union MoS, Environment (Lok Sabha reply)</td><td data-label="Date">10 Feb 2025 (DTE, 11 Feb 2025)</td><td data-label="Status"><span class="badge badge-danger">Contradicts ICMR-Lancet Studies</span></td></tr>
-                                <tr><td data-label="Statement/Promise">NCAP: 20-30% PM10 reduction by 2024, revised to up to 40% PM10 (or the 60 µg/m³ standard) by 2025-26</td><td data-label="By Whom">MoEFCC (NCAP)</td><td data-label="Date">2019; revised 2022</td><td data-label="Status"><span class="badge badge-danger">Only 23/100 Cities Met 40% PM10 Target (CREA 2026)</span></td></tr>
-                                <tr><td data-label="Statement/Promise">Connaught Place smog tower (installed 2021 following the Supreme Court's directions)</td><td data-label="By Whom">DPCC (report to the NGT)</td><td data-label="Date">Nov 2023</td><td data-label="Status"><span class="badge badge-danger">DPCC to NGT: smog towers cannot be a "practical solution" (PTI/Tribune, 17 Nov 2023)</span></td></tr>
-                                <tr><td data-label="Statement/Promise">Electric buses in the DTC fleet</td><td data-label="By Whom">Delhi Transport Corporation</td><td data-label="Date">Apr 2026</td><td data-label="Status"><span class="badge badge-success">~4,538 electric buses of ~6,300 (electrive, 20 Apr 2026)</span></td></tr>
-                                <tr><td data-label="Statement/Promise">"All brick kilns will use zigzag tech"</td><td data-label="By Whom">CPCB</td><td data-label="Date">2019</td><td data-label="Status"><span class="badge badge-danger">Uneven adoption; no consolidated count located</span></td></tr>
-                                <tr><td data-label="Statement/Promise">"Real-time source apportionment"</td><td data-label="By Whom">MoEFCC</td><td data-label="Date">2022</td><td data-label="Status"><span class="badge badge-warning">90/130 Studies Done (CREA 2026)</span></td></tr>
-                                <tr><td data-label="Statement/Promise">Odd-even scheme (rounds in Jan and Apr 2016)</td><td data-label="By Whom">Delhi Govt</td><td data-label="Date">2016</td><td data-label="Status"><span class="badge badge-warning">PM2.5 ~14-16% lower during scheme hours, Jan 2016; no impact detected at night or in the Apr 2016 round (EPIC/Greenstone, Harish, Pande, Sudarshan; the 2017 working paper reports 13% for January)</span></td></tr>
-                                <tr style="background: var(--bg-section);"><td data-label="Statement/Promise">NCAP fund utilisation in Delhi</td><td data-label="By Whom">MoEFCC/States</td><td data-label="Date">2019-25</td><td data-label="Status"><span class="badge badge-warning">Delhi: 14-17% (RTI, Jan 2026; Lok Sabha, Feb 2026)</span></td></tr>
-                                <tr style="background: var(--bg-section);"><td data-label="Statement/Promise">"NCAP 40% reduction in 100 cities"</td><td data-label="By Whom">MoEFCC (NCAP)</td><td data-label="Date">2019</td><td data-label="Status"><span class="badge badge-danger">Only 23/100 Met Target (CREA 2026)</span></td></tr>
-                                <tr style="background: var(--bg-section);"><td data-label="Statement/Promise">"Comprehensive monitoring in NCAP cities"</td><td data-label="By Whom">CPCB</td><td data-label="Date">2019</td><td data-label="Status"><span class="badge badge-danger">28/130 Cities Still No CAAQMS (2026)</span></td></tr>
-                                <tr style="background: var(--bg-section);"><td data-label="Statement/Promise">"Action on CAQM recommendations"</td><td data-label="By Whom">Delhi/NCR States</td><td data-label="Date">Jan 2026</td><td data-label="Status"><span class="badge badge-warning">SC: 4-Week Deadline (Jan 21)</span></td></tr>
+                                <tr style="background: var(--bg-section);"><td data-label="Statement or promise">"No conclusive data to establish a direct correlation between deaths and air pollution alone"</td><td data-label="By whom">Union MoS, Environment (Lok Sabha reply)</td><td data-label="Date">10 Feb 2025 (DTE, 11 Feb 2025)</td><td data-label="Status"><span class="badge badge-danger">Contradicts ICMR-Lancet studies</span></td></tr>
+                                <tr><td data-label="Statement or promise">NCAP: 20-30% PM10 reduction by 2024, revised to up to 40% PM10 (or the 60 µg/m³ standard) by 2025-26</td><td data-label="By whom">MoEFCC (NCAP)</td><td data-label="Date">2019; revised 2022</td><td data-label="Status"><span class="badge badge-danger">Only 23 of 100 cities met the 40% PM10 target (CREA 2026)</span></td></tr>
+                                <tr><td data-label="Statement or promise">Connaught Place smog tower (installed 2021 following the Supreme Court's directions)</td><td data-label="By whom">DPCC (report to the NGT)</td><td data-label="Date">Nov 2023</td><td data-label="Status"><span class="badge badge-danger">DPCC to NGT: smog towers cannot be a "practical solution" (PTI/Tribune, 17 Nov 2023)</span></td></tr>
+                                <tr><td data-label="Statement or promise">Electric buses in the DTC fleet</td><td data-label="By whom">Delhi Transport Corporation</td><td data-label="Date">Apr 2026</td><td data-label="Status"><span class="badge badge-success">~4,538 electric buses of ~6,300 (electrive, 20 Apr 2026)</span></td></tr>
+                                <tr><td data-label="Statement or promise">"All brick kilns will use zigzag tech"</td><td data-label="By whom">CPCB</td><td data-label="Date">2019</td><td data-label="Status"><span class="badge badge-danger">Uneven adoption; no consolidated count located</span></td></tr>
+                                <tr><td data-label="Statement or promise">"Real-time source apportionment"</td><td data-label="By whom">MoEFCC</td><td data-label="Date">2022</td><td data-label="Status"><span class="badge badge-warning">90 of 130 studies done (CREA 2026)</span></td></tr>
+                                <tr><td data-label="Statement or promise">Odd-even scheme (rounds in Jan and Apr 2016)</td><td data-label="By whom">Delhi Govt</td><td data-label="Date">2016</td><td data-label="Status"><span class="badge badge-warning">PM2.5 ~14-16% lower during scheme hours, Jan 2016; no impact detected at night or in the Apr 2016 round (EPIC/Greenstone, Harish, Pande, Sudarshan; the 2017 working paper reports 13% for January)</span></td></tr>
+                                <tr style="background: var(--bg-section);"><td data-label="Statement or promise">NCAP fund spending in Delhi</td><td data-label="By whom">MoEFCC/States</td><td data-label="Date">2019-25</td><td data-label="Status"><span class="badge badge-warning">Delhi: 14-17% (RTI, Jan 2026; Lok Sabha, Feb 2026)</span></td></tr>
+                                <tr style="background: var(--bg-section);"><td data-label="Statement or promise">"NCAP 40% reduction in 100 cities"</td><td data-label="By whom">MoEFCC (NCAP)</td><td data-label="Date">2019</td><td data-label="Status"><span class="badge badge-danger">Only 23 of 100 met the target (CREA 2026)</span></td></tr>
+                                <tr style="background: var(--bg-section);"><td data-label="Statement or promise">"Comprehensive monitoring in NCAP cities"</td><td data-label="By whom">CPCB</td><td data-label="Date">2019</td><td data-label="Status"><span class="badge badge-danger">28 of 130 cities still have no CAAQMS (2026)</span></td></tr>
+                                <tr style="background: var(--bg-section);"><td data-label="Statement or promise">"Action on CAQM recommendations"</td><td data-label="By whom">Delhi/NCR States</td><td data-label="Date">Jan 2026</td><td data-label="Status"><span class="badge badge-warning">Supreme Court: 4-week deadline (Jan 21)</span></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -52,14 +52,14 @@
                 <div class="card-header">
                     <span class="card-title jv-t-accent">
                         <span class="si si-fact-check"></span>
-                         CREA "Tracing the Hazy Air" &mdash; NCAP Progress Report
+                         CREA "Tracing the Hazy Air": NCAP progress report
                     </span>
                     <span class="badge" style="background: #16803C; color: white; margin-left: 0.5rem;">CREA · 9 Jan 2026</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2 jv-gap-15">
                         <div>
-                            <h3 style="color: var(--green-700); font-size: 0.875rem; margin-bottom: 0.75rem;"> NCAP Target Failures</h3>
+                            <h3 style="color: var(--green-700); font-size: 0.875rem; margin-bottom: 0.75rem;"> Where NCAP targets were missed</h3>
                             <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
                                 <div style="text-align: center; padding: 0.75rem; background: var(--bg-section); border-left: 3px solid var(--ink-green); border-radius: 8px;">
                                     <div style="font-size: 1.75rem; font-weight: 700; color: var(--green-700);">23/100</div>
@@ -71,12 +71,12 @@
                                 </div>
                             </div>
                             <ul class="jv-t-sm-lh">
-                                <li><strong>Monitoring gaps:</strong> 28/130 NCAP cities still lack continuous monitoring after 7 years</li>
-                                <li><strong>Fund utilization:</strong> 74% of ₹13,415 Cr released funds utilized (₹9,929 Cr)</li>
+                                <li>28 of 130 NCAP cities still lack continuous monitoring after 7 years.</li>
+                                <li>Cities have spent 74% of the ₹13,415 Cr released, which is ₹9,929 Cr.</li>
                             </ul>
                         </div>
                         <div>
-                            <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem"> Fund Misallocation</h3>
+                            <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem"> Where the money went</h3>
                             <div style="background: var(--bg); padding: 0.75rem; border-radius: 8px; font-size: 0.875rem;">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                                     <span>Road dust control</span><strong class="jv-t-accent">68%</strong>
@@ -95,13 +95,13 @@
                                 </div>
                             </div>
                             <div class="alert alert-warning mt-1" style="padding: 0.5rem; font-size: 0.8125rem;">
-                                <strong>Key finding:</strong> Industry and domestic fuel use each received under 1% of NCAP funds (CREA 2026), against 68% for road dust management. The effect of dust control on PM2.5 is not stated in the CREA report.
+                                <strong>Key finding.</strong> Industry and domestic fuel use each received under 1% of NCAP funds (CREA 2026), against 68% for road dust management. The effect of dust control on PM2.5 is not stated in the CREA report.
                             </div>
                         </div>
                     </div>
                     <div style="margin-top: 1rem;">
                         <a href="https://energyandcleanair.org/publications/" target="_blank" class="btn btn-sm" style="background: #16803C; color: white;">
-                            Read Full CREA Report →
+                            Read the full CREA report →
                         </a>
                     </div>
                 </div>
@@ -112,14 +112,14 @@
                 <div class="card-header">
                     <span class="card-title jv-t-red">
                         <span class="si si-fact-check"></span>
-                         March 2026 Update: NCAP Deadline Year — Most Cities Still Failing
+                         March 2026 update: the NCAP deadline year, with most cities still failing
                     </span>
                     <span class="badge" style="background: #DC2626; color: white; margin-left: 0.5rem;">NEW</span>
                 </div>
                 <div class="card-body">
                     <div class="grid-2 jv-gap-15">
                         <div>
-                            <h3 style="color: var(--red); font-size: 0.875rem; margin-bottom: 0.75rem;">CREA Analysis: Oct 2025 – Feb 2026</h3>
+                            <h3 style="color: var(--red); font-size: 0.875rem; margin-bottom: 0.75rem;">CREA analysis: Oct 2025 – Feb 2026</h3>
                             <div class="grid-2" style="gap: 0.75rem; margin-bottom: 1rem;">
                                 <div style="text-align: center; padding: 0.75rem; background: var(--bg-section); border-left: 3px solid var(--ink-red); border-radius: 8px;">
                                     <div style="font-size: 1.75rem; font-weight: 700; color: var(--red);">204/238</div>
@@ -131,20 +131,20 @@
                                 </div>
                             </div>
                             <ul class="jv-t-sm-lh">
-                                <li><strong>Delhi (winter 2025-26):</strong> PM2.5 averaged ~163 µg/m³, among the highest of any monitored city — not a single day met the WHO daily guideline (CREA)</li>
-                                <li><strong>Budget gap:</strong> Delhi had spent only 43% of the ₹300 Cr 2025-26 Budget allocation for Pollution Control and Emergency Measures (₹129.83 Cr), largely on short-term measures such as mist sprays and anti-smog guns (RTI reply, Pioneer, 26 Feb 2026)</li>
-                                <li><strong>NAAQS outdated:</strong> India's PM2.5 standard now 8x weaker than WHO (last updated 2009)</li>
+                                <li>Delhi in winter 2025-26: PM2.5 averaged ~163 µg/m³, among the highest of any monitored city, and not a single day met the WHO daily guideline (CREA).</li>
+                                <li>Delhi had spent only 43% of the ₹300 Cr 2025-26 Budget allocation for Pollution Control and Emergency Measures (₹129.83 Cr), largely on short-term measures such as mist sprays and anti-smog guns (RTI reply, Pioneer, 26 Feb 2026).</li>
+                                <li>India's PM2.5 standard is now 8 times weaker than the WHO's. The national standard (NAAQS) was last updated in 2009.</li>
                             </ul>
                         </div>
                         <div>
-                            <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem">GRAP & Monitoring Gaps</h3>
+                            <h3 style="font-size: 0.875rem; margin-bottom: 0.75rem">GRAP and monitoring gaps</h3>
                             <ul class="jv-t-sm-lh">
-                                <li><strong>GRAP triggers:</strong> Invoked repeatedly through the winter, with prolonged Stage III/IV spells (per CAQM invocation orders; no official aggregate published)</li>
-                                <li><strong>Monitor discrepancy:</strong> Newslaundry found AQI 400+ at street level vs 249 at nearest CPCB station (Safdarjung, Mar 12)</li>
-                                <li><strong>Recommendation:</strong> NCAP Phase III must use meteorology-adjusted targets, not raw annual averages</li>
+                                <li>GRAP was invoked repeatedly through the winter, with long Stage III/IV spells (per CAQM invocation orders; no official aggregate published).</li>
+                                <li>Newslaundry found AQI 400+ at street level against 249 at the nearest CPCB station (Safdarjung, Mar 12).</li>
+                                <li>The recommendation is that NCAP Phase III use meteorology-adjusted targets rather than raw annual averages.</li>
                             </ul>
                             <div class="alert alert-danger mt-1" style="padding: 0.5rem; font-size: 0.8125rem;">
-                                <strong>NCAP 2026 deadline approaching:</strong> Target was 40% PM10 reduction. Only 23/100 cities met it. Most cities still far from both national and WHO PM2.5 standards.
+                                <strong>The NCAP 2026 deadline is close.</strong> The target was 40% PM10 reduction. Only 23/100 cities met it. Most cities still far from both national and WHO PM2.5 standards.
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
             <div class="card mb-2" style="border-left: 4px solid var(--green-700);">
                 <div class="card-header">
                     <span class="card-title jv-t-accent">
-                         Supreme Court — January 2026 Orders
+                         Supreme Court orders, January 2026
                     </span>
                     
                 </div>
@@ -164,14 +164,14 @@
                         <div style="padding: 1rem; background: var(--bg-section); border-radius: 8px; border-left: 3px solid var(--green-700);">
                             <div style="font-size: 0.8125rem; color: var(--text-3); margin-bottom: 0.25rem;">January 21, 2026</div>
                             <div style="font-size: 0.875rem; line-height: 1.6;">
-                                <strong>4-Week Deadline:</strong> Delhi govt and NCR agencies given strict deadline for action plans on CAQM's 15 long-term recommendations.<br>
+                                <strong>4-week deadline.</strong> Delhi govt and NCR agencies given a strict deadline for action plans on CAQM's 15 long-term recommendations.<br>
                                 <em class="jv-t-accent">"Court will NOT entertain objections"</em>
                             </div>
                         </div>
                         <div style="padding: 1rem; background: var(--bg-section); border-radius: 8px; border-left: 3px solid var(--green-700);">
                             <div style="font-size: 0.8125rem; color: var(--text-3); margin-bottom: 0.25rem;">January 6, 2026</div>
                             <div style="font-size: 0.875rem; line-height: 1.6;">
-                                <strong>CAQM Criticized:</strong> Bench called Commission for Air Quality Management "unserious" and "in no hurry" to address Delhi-NCR air emergency.
+                                <strong>CAQM criticised.</strong> The bench called Commission for Air Quality Management "unserious" and "in no hurry" to address Delhi-NCR air emergency.
                             </div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
             <div class="card mb-2 jv-rule-accent-4">
                 <div class="card-header">
                     <span class="card-title jv-t-purple">
-                         CAG Audit &mdash; Monitoring Station Failures
+                         CAG audit: monitoring station failures
                     </span>
                     <span class="badge" style="background: #6D28D9; color: white; margin-left: 0.5rem;">CAG · April 2025</span>
                 </div>
@@ -193,16 +193,16 @@
                             <div class="jv-t-xs-2">of 25 Delhi stations checked violate CPCB siting norms (Newslaundry field probe; CAG confirmed AQI data unreliable, Apr 2025)</div>
                         </div>
                         <div class="jv-t-sm-lh7">
-                            <strong>Key Findings:</strong>
+                            <strong>Key findings</strong>
                             <ul class="jv-mt-05">
                                 <li>Monitors blocked by trees and buildings</li>
-                                <li>RK Puram station surrounded by full-grown banyan tree</li>
+                                <li>The RK Puram station is surrounded by a full-grown banyan tree</li>
                                 <li>Industrial clusters under-monitored</li>
                             </ul>
                         </div>
                         <div class="jv-t-sm-lh7">
-                            <strong>Implication:</strong>
-                            <p style="margin-top: 0.5rem; color: var(--text-2);">Official AQI data systematically underestimates actual exposure. Slums and informal settlements most affected by monitoring gaps.</p>
+                            <strong>What it means</strong>
+                            <p style="margin-top: 0.5rem; color: var(--text-2);">Official AQI data underestimates actual exposure. Slums and informal settlements are the most affected by monitoring gaps.</p>
                         </div>
                     </div>
                 </div>
@@ -211,40 +211,40 @@
                 <div class="card-header">
                     <span class="card-title jv-t-ink">
                         <span class="si si-fact-check"></span>
-                         Clean Air Mission Tracker — Independent Verification
+                         Clean Air Mission Tracker: independent verification
                     </span>
                     <span class="badge badge-info" style="margin-left: 0.5rem;">NEW</span>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-info mb-2"><div>
-                            <strong>Why This Matters:</strong> Government self-reporting often conflates announcements with implementation. This tracker uses independent verification 
-                            (RTI responses, satellite data, academic studies, field reports) to assess actual operational status of clean air interventions.
+                            <strong>Why this tracker exists.</strong> Government self-reporting often treats an announcement as if it were delivery. This tracker uses independent checks 
+                            (RTI responses, satellite data, academic studies, field reports) to assess whether each clean air intervention is actually operating.
                         </div>
                     </div>
 
                     <!-- EVIDENCE GRADING LEGEND -->
                     <div class="info-box mb-2">
-                        <h3 style="margin-bottom: 0.75rem"> Evidence Grading Scale (E1-E5)</h3>
+                        <h3 style="margin-bottom: 0.75rem"> Evidence grading scale (E1-E5)</h3>
                         <div class="grid-5" style="gap: 0.5rem; font-size: 0.8125rem;">
                             <div style="padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-green); border-radius: 6px; text-align: center;">
                                 <strong class="jv-t-accent">E1</strong><br>
-                                <span class="jv-t-2">Announcement Only</span>
+                                <span class="jv-t-2">Announcement only</span>
                             </div>
                             <div style="padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-orange); border-radius: 6px; text-align: center;">
                                 <strong style="color: var(--ink-orange);">E2</strong><br>
-                                <span class="jv-t-2">Pilot/Partial</span>
+                                <span class="jv-t-2">Pilot or partial</span>
                             </div>
                             <div style="padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-amber); border-radius: 6px; text-align: center;">
                                 <strong class="jv-t-amber">E3</strong><br>
-                                <span class="jv-t-2">Implemented, Unverified</span>
+                                <span class="jv-t-2">Implemented, unverified</span>
                             </div>
                             <div style="padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-green); border-radius: 6px; text-align: center;">
                                 <strong class="jv-t-accent-600">E4</strong><br>
-                                <span class="jv-t-2">Operational, Measured</span>
+                                <span class="jv-t-2">Operational, measured</span>
                             </div>
                             <div style="padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-green); border-radius: 6px; text-align: center;">
                                 <strong class="jv-t-accent">E5</strong><br>
-                                <span class="jv-t-2">Evidence-Based Operational</span>
+                                <span class="jv-t-2">Operational, backed by evidence</span>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                                     <th>Category</th>
                                     <th>Announced</th>
                                     <th>Grade</th>
-                                    <th>Verification Source</th>
+                                    <th>Verification source</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -268,92 +268,92 @@
                                     <td data-label="Category"><span class="badge" style="background: #1D4ED8; color: white;">Transport</span></td>
                                     <td data-label="Announced">2020</td>
                                     <td data-label="Grade"><span class="badge badge-success">E4</span></td>
-                                    <td data-label="Verification Source">Operational nationwide. Cut fuel sulphur 80% (50->10 ppm) from Apr 2020, enabling DPF/SCR after-treatment (PIB).</td>
+                                    <td data-label="Verification source">Operational nationwide. Fuel sulphur was cut by 80% (50 to 10 ppm) from Apr 2020, which makes DPF/SCR after-treatment possible (PIB).</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>Delhi Metro Expansion (Phase 4)</strong></td>
+                                    <td data-label="Intervention"><strong>Delhi Metro expansion (Phase 4)</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #1D4ED8; color: white;">Transport</span></td>
                                     <td data-label="Announced">2019</td>
                                     <td data-label="Grade"><span class="badge badge-warning">E3</span></td>
-                                    <td data-label="Verification Source">~25 km of ~112 km sanctioned operational (first section opened Jan 2025, two more Mar 2026); remainder under construction (DMRC). Ridership impact on emissions unquantified.</td>
+                                    <td data-label="Verification source">~25 km of ~112 km sanctioned operational (first section opened Jan 2025, two more Mar 2026); remainder under construction (DMRC). Ridership impact on emissions unquantified.</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>Electric Bus Fleet (1000 buses)</strong></td>
+                                    <td data-label="Intervention"><strong>Electric bus fleet (1000 buses)</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #1D4ED8; color: white;">Transport</span></td>
                                     <td data-label="Announced">2021</td>
                                     <td data-label="Grade"><span class="badge badge-success">E4</span></td>
-                                    <td data-label="Verification Source">2023 deadline missed, but 1,000-bus target met by 2024; ~4,538 e-buses operational by Apr 2026 — India's largest e-bus fleet (DTC).</td>
+                                    <td data-label="Verification source">2023 deadline missed, but 1,000-bus target met by 2024; ~4,538 e-buses operational by Apr 2026, India's largest e-bus fleet (DTC).</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>Odd-Even Scheme</strong></td>
+                                    <td data-label="Intervention"><strong>Odd-even scheme</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #1D4ED8; color: white;">Transport</span></td>
                                     <td data-label="Announced">2016</td>
                                     <td data-label="Grade"><span class="badge badge-danger">E1</span></td>
-                                    <td data-label="Verification Source">EPIC/UChicago: ~14-16% PM2.5 drop during 8am-8pm in Jan 2016; no effect at night or in the Apr 2016 round. Exemptions and seasonal-only deployment limit impact.</td>
+                                    <td data-label="Verification source">EPIC/UChicago: ~14-16% PM2.5 drop during 8am-8pm in Jan 2016; no effect at night or in the Apr 2016 round. Exemptions and seasonal-only deployment limit impact.</td>
                                 </tr>
 
                                 <!-- INDUSTRIAL -->
                                 <tr style="background: var(--bg-section);">
-                                    <td data-label="Intervention"><strong>Brick Kiln Zigzag Technology</strong></td>
+                                    <td data-label="Intervention"><strong>Brick kiln zigzag technology</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #6D28D9; color: white;">Industrial</span></td>
                                     <td data-label="Announced">2019</td>
                                     <td data-label="Grade"><span class="badge" style="background: #C2410C; color: white;">E2</span></td>
-                                    <td data-label="Verification Source">Zigzag adoption uneven; no comprehensive statewide count located. Enforcement weak; seasonal operation continues.</td>
+                                    <td data-label="Verification source">Zigzag adoption uneven; no comprehensive statewide count located. Enforcement weak; seasonal operation continues.</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>Industrial Emission Standards (FGD)</strong></td>
+                                    <td data-label="Intervention"><strong>Industrial emission standards (FGD)</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #6D28D9; color: white;">Industrial</span></td>
                                     <td data-label="Announced">2015</td>
                                     <td data-label="Grade"><span class="badge badge-warning">E3</span></td>
-                                    <td data-label="Verification Source">FGD installed at only ~8% of coal units (~57 units, Aug 2025). July 2025 MoEFCC notification exempted ~78% of plants (Category C) from FGD entirely; ~11% (Category A) must comply by Dec 2027.</td>
+                                    <td data-label="Verification source">FGD installed at only ~8% of coal units (~57 units, Aug 2025). July 2025 MoEFCC notification exempted ~78% of plants (Category C) from FGD entirely; ~11% (Category A) must comply by Dec 2027.</td>
                                 </tr>
 
                                 <!-- AGRICULTURAL -->
                                 <tr style="background: var(--bg-section);">
-                                    <td data-label="Intervention"><strong>Stubble Management Subsidies</strong></td>
+                                    <td data-label="Intervention"><strong>Stubble management subsidies</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #15803D; color: white;">Agricultural</span></td>
                                     <td data-label="Announced">2018</td>
                                     <td data-label="Grade"><span class="badge" style="background: #C2410C; color: white;">E2</span></td>
-                                    <td data-label="Verification Source">₹4,266 Cr released (2018-19 to 2026-27, PIB Jun 2026). NASA FIRMS counts show Punjab fires well below the 2021 peak, though researchers note some burning shifted outside satellite overpass times, complicating year-on-year comparisons.</td>
+                                    <td data-label="Verification source">₹4,266 Cr released (2018-19 to 2026-27, PIB Jun 2026). NASA FIRMS counts show Punjab fires well below the 2021 peak, though researchers note some burning shifted outside satellite overpass times, complicating year-on-year comparisons.</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>PUSA Bio-Decomposer</strong></td>
+                                    <td data-label="Intervention"><strong>PUSA bio-decomposer</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #15803D; color: white;">Agricultural</span></td>
                                     <td data-label="Announced">2020</td>
                                     <td data-label="Grade"><span class="badge badge-warning">E3</span></td>
-                                    <td data-label="Verification Source">Free distribution in Delhi. No efficacy or adoption data cited here.</td>
+                                    <td data-label="Verification source">Free distribution in Delhi. No efficacy or adoption data cited here.</td>
                                 </tr>
 
                                 <!-- DUST CONTROL -->
                                 <tr style="background: var(--bg-section);">
-                                    <td data-label="Intervention"><strong>Mechanical Road Sweeping</strong></td>
+                                    <td data-label="Intervention"><strong>Mechanical road sweeping</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #C2410C; color: white;">Dust</span></td>
                                     <td data-label="Announced">2019</td>
                                     <td data-label="Grade"><span class="badge badge-warning">E3</span></td>
-                                    <td data-label="Verification Source">68% of NCAP funds allocated to road dust management (CREA 2026). Impact on PM2.5 not quantified.</td>
+                                    <td data-label="Verification source">68% of NCAP funds allocated to road dust management (CREA 2026). Impact on PM2.5 not quantified.</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>Smog Towers</strong></td>
+                                    <td data-label="Intervention"><strong>Smog towers</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #C2410C; color: white;">Dust</span></td>
                                     <td data-label="Announced">2021</td>
                                     <td data-label="Grade"><span class="badge badge-danger">E1</span></td>
-                                    <td data-label="Verification Source">DPCC told the NGT (Nov 2023) that the ₹25-crore Connaught Place tower can mitigate air pollution by up to 17 per cent within a 100-metre radius and that smog towers cannot be a "practical solution" (PTI/Tribune, 17 Nov 2023).</td>
+                                    <td data-label="Verification source">DPCC told the NGT (Nov 2023) that the ₹25-crore Connaught Place tower can mitigate air pollution by up to 17 per cent within a 100-metre radius and that smog towers cannot be a "practical solution" (PTI/Tribune, 17 Nov 2023).</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Intervention"><strong>Construction Site Dust Screens</strong></td>
+                                    <td data-label="Intervention"><strong>Construction site dust screens</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #C2410C; color: white;">Dust</span></td>
                                     <td data-label="Announced">2017</td>
                                     <td data-label="Grade"><span class="badge" style="background: #C2410C; color: white;">E2</span></td>
-                                    <td data-label="Verification Source">No public compliance or impact data cited here.</td>
+                                    <td data-label="Verification source">No public compliance or impact data cited here.</td>
                                 </tr>
 
                                 <!-- WASTE -->
                                 <tr style="background: var(--bg-section);">
-                                    <td data-label="Intervention"><strong>Waste Burning Ban Enforcement</strong></td>
+                                    <td data-label="Intervention"><strong>Waste burning ban enforcement</strong></td>
                                     <td data-label="Category"><span class="badge" style="background: #B91C1C; color: white;">Waste</span></td>
                                     <td data-label="Announced">2015</td>
                                     <td data-label="Grade"><span class="badge badge-danger">E1</span></td>
-                                    <td data-label="Verification Source">Open burning continues. Landfill fires persist at Ghazipur, Bhalswa.</td>
+                                    <td data-label="Verification source">Open burning continues. Landfill fires persist at Ghazipur, Bhalswa.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -361,16 +361,16 @@
 
                     <!-- FOUR I'S FRAMEWORK -->
                     <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <h3 style="margin-bottom: 0.75rem"> World Bank "Four I's" Framework Assessment</h3>
+                        <h3 style="margin-bottom: 0.75rem"> Assessment against the World Bank's "Four I's" framework</h3>
                         <p class="jv-t-sm-2-mb1">
-                            The World Bank's December 2025 report identifies four pillars essential for clean air progress. We assess India's NCAP against this framework:
+                            The World Bank's December 2025 report names four pillars of clean air progress. We assess India's NCAP against each.
                         </p>
                         <div class="grid-4 jv-gap-075">
                             <div class="info-box" style="border-left: 3px solid var(--accent); padding: 0.75rem;">
                                 <h4 style="font-size: 0.875rem"> Information</h4>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Accessible, reliable data for planning and accountability"</em></p>
                                 <div class="jv-t-sm-2">
-                                    <strong>India Status:</strong> CPCB CAAQMS coverage expanding but gaps remain. Source apportionment studies completed in only 90/130 cities (CREA 2026). JanVayu fills citizen data gap.
+                                    <strong>India:</strong> CPCB CAAQMS coverage is expanding but gaps remain. Source apportionment studies are complete in only 90 of 130 cities (CREA 2026). JanVayu fills part of the gap in data for citizens.
                                 </div>
                                 <span class="badge badge-warning mt-1" style="font-size: 0.8125rem;">PARTIAL</span>
                             </div>
@@ -378,7 +378,7 @@
                                 <h4 style="color: var(--green-600); font-size: 0.875rem;"> Incentives</h4>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Encourage behavioral and investment shift"</em></p>
                                 <div class="jv-t-sm-2">
-                                    <strong>India Status:</strong> EV subsidies exist but reach limited. Stubble incentive weak: Punjab's proposed ₹2,500/acre cash scheme stalled after the Centre declined to fund its share (2024); support limited to CRM machinery subsidy. Ujjwala refill subsidy insufficient.
+                                    <strong>India:</strong> EV subsidies exist but reach few people. The stubble incentive is weak: Punjab's proposed ₹2,500/acre cash scheme stalled after the Centre declined to fund its share (2024); support is limited to the CRM machinery subsidy. The Ujjwala refill subsidy is insufficient.
                                 </div>
                                 <span class="badge badge-warning mt-1" style="font-size: 0.8125rem;">WEAK</span>
                             </div>
@@ -386,7 +386,7 @@
                                 <h4 style="font-size: 0.875rem"> Institutions</h4>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Coordinate action, ensure compliance"</em></p>
                                 <div class="jv-t-sm-2">
-                                    <strong>India Status:</strong> CAQM created 2021 but limited enforcement. Inter-state coordination remains blame-game. NCAP city action plans inconsistent.
+                                    <strong>India:</strong> CAQM was created in 2021 but has limited enforcement. States still blame one another instead of coordinating. NCAP city action plans are inconsistent.
                                 </div>
                                 <span class="badge badge-danger mt-1" style="font-size: 0.8125rem;">WEAK</span>
                             </div>
@@ -394,7 +394,7 @@
                                 <h4 style="font-size: 0.875rem"> Infrastructure</h4>
                                 <p style="font-size: 0.8125rem; margin: 0.5rem 0;"><em>"Enable clean energy, transport, waste systems"</em></p>
                                 <div class="jv-t-sm-2">
-                                    <strong>India Status:</strong> Metro expansion ongoing. EV charging patchy. Waste management infrastructure decades behind need. Industrial modernization slow.
+                                    <strong>India:</strong> Metro expansion is under way. EV charging is patchy. Waste management infrastructure is decades behind need. Industrial modernisation is slow.
                                 </div>
                                 <span class="badge badge-warning mt-1" style="font-size: 0.8125rem;">PARTIAL</span>
                             </div>
@@ -402,16 +402,16 @@
                     </div>
 
                     <div class="card-footer" style="margin-top: 1rem; background: var(--bg-section); border-left: 3px solid var(--ink-blue);">
-                        <strong>Methodology:</strong> Evidence grades based on RTI responses, CPCB/SPCB data, NASA FIRMS satellite imagery, peer-reviewed studies, and field reports. 
-                        We welcome corrections and additional data. Framework adapted from World Bank "A Breath of Change" (Dec 2025).
-                        <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank" style="color: var(--green-700); margin-left: 0.5rem;">Read Full Report →</a>
+                        <strong>Method.</strong> Evidence grades rest on RTI responses, CPCB/SPCB data, NASA FIRMS satellite imagery, peer-reviewed studies and field reports. 
+                        We welcome corrections and more data. Framework adapted from World Bank "A Breath of Change" (Dec 2025).
+                        <a href="https://www.worldbank.org/en/news/press-release/2025/12/15/clean-air-solutions-can-improve-lives-of-nearly-one-billion-people-across-south-asia" target="_blank" style="color: var(--green-700); margin-left: 0.5rem;">Read the full report →</a>
                     </div>
                 </div>
             </div>
 
             <!-- COURT ORDERS TRACKER -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title"> Court Orders Tracker</span></div>
+                <div class="card-header"><span class="card-title"> Court orders tracker</span></div>
                 <div class="card-body">
                     <div class="table-wrap">
                         <table class="table responsive-cards">
@@ -446,31 +446,31 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <strong>Note:</strong> Use <a class="jv-t-accent" href="https://indiankanoon.org" target="_blank">Indian Kanoon</a> to search full order texts.
+                    Use <a class="jv-t-accent" href="https://indiankanoon.org" target="_blank">Indian Kanoon</a> to search full order texts.
                 </div>
             </div>
 
             <!-- BUDGET TRACKER -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title"> Budget & Fund Utilization</span></div>
+                <div class="card-header"><span class="card-title"> Budget and fund spending</span></div>
                 <div class="card-body">
                     <div class="grid-2">
                         <div class="info-box jv-rule-accent">
-                            <h3 class="jv-t-red">NCAP Funds (2019-2025)</h3>
+                            <h3 class="jv-t-red">NCAP funds (2019-2025)</h3>
                             <ul>
-                                <li><strong>Released:</strong> ₹13,415 crore to 130 cities — CREA 2026</li>
-                                <li><strong>Utilized:</strong> ~₹9,929 crore (74%) — CREA 2026</li>
-                                <li><strong>Delhi shame:</strong> ₹14.1 Cr spent, which is 17% of the ₹81.36 Cr allocated (RTI reply, reported Jan 2026) or 14% of the ₹99.77 Cr released (Lok Sabha reply, 2 Feb 2026, as reported by the press)</li>
-                                <li><strong>Where it went:</strong> 68% on road dust control (sweeping, sprinkling) — CREA 2026</li>
-                                <li><strong>What's missing:</strong> Only 90/130 cities completed source apportionment (CREA 2026)</li>
+                                <li>₹13,415 crore was released to 130 cities (CREA 2026).</li>
+                                <li>About ₹9,929 crore (74%) has been spent (CREA 2026).</li>
+                                <li>Delhi has spent ₹14.1 Cr, which is 17% of the ₹81.36 Cr allocated (RTI reply, reported Jan 2026) or 14% of the ₹99.77 Cr released (Lok Sabha reply, 2 Feb 2026, as reported by the press).</li>
+                                <li>68% went on road dust control, such as sweeping and sprinkling (CREA 2026).</li>
+                                <li>Only 90 of 130 cities completed source apportionment (CREA 2026).</li>
                             </ul>
                             <div class="jv-t-xs-3">Source: RTI reported Jan 2026, Lok Sabha reply 2 Feb 2026, CREA Report Jan 2026, CSE Assessment</div>
                         </div>
 
                         <div class="info-box jv-rule-accent">
-                            <h3>State Budgets for Air Quality</h3>
+                            <h3>State budgets for air quality</h3>
                             <ul>
-                                <li><strong>Delhi (2025-26):</strong> ₹300 Cr Budget allocation for Pollution Control and Emergency Measures; ₹129.83 Cr (43%) spent per an RTI reply reported by the Pioneer on 26 Feb 2026</li>
+                                <li>Delhi (2025-26): ₹300 Cr Budget allocation for Pollution Control and Emergency Measures; ₹129.83 Cr (43%) spent per an RTI reply reported by the Pioneer on 26 Feb 2026.</li>
                             </ul>
                             <p style="margin-top: 0.5rem; font-size: 0.8125rem;">State-wise budget figures for Punjab, Haryana and Uttar Pradesh shown here earlier have been removed until they can be sourced.</p>
                         </div>
@@ -480,11 +480,11 @@
 
             <!-- RESPONSIBILITY MATRIX -->
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title"> Who's Responsible? The Blame Game Decoded</span></div>
+                <div class="card-header"><span class="card-title"> Who is responsible for what</span></div>
                 <div class="card-body">
                     <div class="grid-3">
                         <div class="info-box jv-rule-accent">
-                            <h3>Delhi Government</h3>
+                            <h3>Delhi government</h3>
                             <ul>
                                 <li>Local transport (buses, autos)</li>
                                 <li>Municipal waste burning</li>
@@ -507,19 +507,19 @@
                         </div>
 
                         <div class="info-box jv-rule-accent">
-                            <h3>Central Government</h3>
+                            <h3>Central government</h3>
                             <ul>
                                 <li>Vehicle emission standards</li>
                                 <li>Fuel quality (BS-VI)</li>
-                                <li>NCAP funding & oversight</li>
+                                <li>NCAP funding and oversight</li>
                                 <li>Interstate coordination</li>
                                 <li>Thermal plant norms</li>
                             </ul>
-                            <p style="font-size: 0.875rem; color: var(--text-2); margin-top: 0.5rem;">Policy framework & inter-state issues</p>
+                            <p style="font-size: 0.875rem; color: var(--text-2); margin-top: 0.5rem;">Policy framework and inter-state issues</p>
                         </div>
                     </div>
                     <div class="alert alert-info mt-2"><div>
-                            <strong>The Real Problem:</strong> Everyone points to everyone else. CAQM was created in 2021 to coordinate, but has limited enforcement power. Solution requires political will across party lines.
+                            Everyone points to everyone else. CAQM was created in 2021 to coordinate, but has limited enforcement power. Fixing this needs political will across party lines.
                         </div>
                     </div>
                 </div>
@@ -528,36 +528,36 @@
             <!-- RTI GUIDE - COMPREHENSIVE -->
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-header"><span class="card-title">RTI Filing Guide</span></div>
+                    <div class="card-header"><span class="card-title">How to file an RTI</span></div>
                     <div class="card-body">
                         <div class="info-box">
                             <h3>What is RTI?</h3>
-                            <p>The Right to Information Act 2005 gives every Indian citizen the right to request information from government bodies. Use it to demand air quality data, fund utilization details, and action reports.</p>
+                            <p>The Right to Information Act 2005 gives every Indian citizen the right to request information from government bodies. Use it to ask for air quality data, details of how funds were spent, and action reports.</p>
                         </div>
                         
                         <div class="info-box">
-                            <h3>Where to File</h3>
+                            <h3>Where to file</h3>
                             <ul>
-                                <li><strong>CPCB</strong> (Central Pollution Control Board) — National air quality data, NCAP funds</li>
-                                <li><strong>DPCC</strong> (Delhi Pollution Control Committee) — Delhi-specific data</li>
-                                <li><strong>State PCBs</strong> — State-level pollution data</li>
-                                <li><strong>MoEFCC</strong> — Policy decisions, national programs</li>
-                                <li><strong>CAQM</strong> — Delhi-NCR GRAP implementation</li>
+                                <li>CPCB (Central Pollution Control Board) holds national air quality data and NCAP funds.</li>
+                                <li>DPCC (Delhi Pollution Control Committee) holds Delhi-specific data.</li>
+                                <li>State PCBs hold state-level pollution data.</li>
+                                <li>MoEFCC holds policy decisions and national programmes.</li>
+                                <li>CAQM holds records on GRAP implementation in Delhi-NCR.</li>
                             </ul>
                         </div>
 
                         <div class="info-box">
-                            <h3>How to File</h3>
+                            <h3>How to file</h3>
                             <ul>
-                                <li><strong>Online:</strong> <a class="jv-t-accent" href="https://rtionline.gov.in" target="_blank">rtionline.gov.in</a> (Rs 10 fee)</li>
-                                <li><strong>By Post:</strong> Send to CPIO of relevant department with Rs 10 postal order</li>
-                                <li><strong>Response Time:</strong> 30 days (RTI Act s.7(1)); 48 hours where the information concerns the life or liberty of a person</li>
-                                <li><strong>Appeals:</strong> First appeal to the First Appellate Authority within 30 days (s.19(1)); second appeal to the CIC or State Information Commission within 90 days (s.19(3))</li>
+                                <li>Online: <a class="jv-t-accent" href="https://rtionline.gov.in" target="_blank">rtionline.gov.in</a> (Rs 10 fee).</li>
+                                <li>By post: send it to the CPIO of the relevant department with a Rs 10 postal order.</li>
+                                <li>The reply is due in 30 days (RTI Act s.7(1)), or in 48 hours where the information concerns the life or liberty of a person.</li>
+                                <li>Appeals: make the first appeal to the First Appellate Authority within 30 days (s.19(1)), and the second to the CIC or State Information Commission within 90 days (s.19(3)).</li>
                             </ul>
                         </div>
 
                         <div class="info-box">
-                            <h3>Key Addresses</h3>
+                            <h3>Key addresses</h3>
                             <p style="margin-bottom: 0.5rem;"><strong>CPCB:</strong> Parivesh Bhawan, East Arjun Nagar, Delhi-110032</p>
                             <p style="margin-bottom: 0.5rem;"><strong>DPCC:</strong> 6th Floor, C Wing, Delhi Secretariat, I.P. Estate, Delhi-110002 (as listed in CAQM's order of 13 Dec 2025)</p>
                             <p><strong>MoEFCC:</strong> Indira Paryavaran Bhawan, Jor Bagh Road, New Delhi-110003</p>
@@ -566,9 +566,9 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-header"><span class="card-title">RTI Template</span></div>
+                    <div class="card-header"><span class="card-title">RTI template</span></div>
                     <div class="card-body">
-                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;">Copy and customize this template:</p>
+                        <p style="font-size: 0.8125rem; color: var(--text-2); margin-bottom: 0.5rem;">Copy this template and fill in your details:</p>
                         <div class="code-box" id="rti-template">To,
 The Central Public Information Officer (CPIO)
 [CPCB / DPCC / MoEFCC / State PCB]
@@ -582,7 +582,7 @@ I request the following information under
 the Right to Information Act, 2005:
 
 1. Total NCAP funds allocated to [city name] 
-   in FY 2024-25 and utilization percentage
+   in FY 2024-25 and the percentage spent
 
 2. Station-wise PM2.5 and PM10 data for all 
    monitoring stations in [city] for [month/year]
@@ -608,8 +608,8 @@ Date: [Today's Date]
 Place: [Your City]
 
 Signature: _______________</div>
-                        <button class="btn btn-primary mt-1" onclick="copyRTI()">Copy Template</button>
-                        <a href="https://rtionline.gov.in" target="_blank" class="btn btn-primary mt-1" style="margin-left: 0.5rem;">File Online</a>
+                        <button class="btn btn-primary mt-1" onclick="copyRTI()">Copy template</button>
+                        <a href="https://rtionline.gov.in" target="_blank" class="btn btn-primary mt-1" style="margin-left: 0.5rem;">File online</a>
                     </div>
                 </div>
             </div>
