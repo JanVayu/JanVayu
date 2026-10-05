@@ -1,31 +1,28 @@
-# Role-Based Landing Experience
+# Role-based views
 
-JanVayu's role selector helps visitors find the most relevant data, tools, and actions based on who they are. Instead of presenting the full dashboard of about 58 panels to everyone, the platform guides each visitor to a curated subset.
+JanVayu's role selector points visitors to the data, tools and actions most relevant to who they are. Instead of showing everyone the full dashboard of about 58 panels, it offers each visitor a smaller, chosen set.
 
-## How It Works
+## How it works
 
-### First Visit
+### First visit
 
-**A first visit shows the air, not a questionnaire.** Until 18 September 2026 a
+A first visit shows the air and asks nothing first. Until 18 September 2026 a
 full-screen overlay opened over the homepage before anything else, so a new
-visitor met a twelve-option persona picker between them and the reading they had
+visitor had to get past a twelve-option picker to reach the reading they had
 come for. It no longer opens by itself. Somebody arriving from a shared link
-gets the live PM2.5 figure, and the role stays available as a choice rather than
-a toll.
+sees the live PM2.5 figure straight away, and choosing a role is optional.
 
-The roles are reachable from the header:
-
-- **The role switcher** lists all twelve plus "Show Everything", whether or not
-  a role has been set. One tap, no intermediate screen. Each role carries a
-  one-line description beside it, so no separate chooser is needed. The old
-  full-screen overlay (`#roleOverlay`) has been removed from the code.
+The roles are reachable from the header. The role switcher lists all twelve plus
+"Show Everything", whether or not a role has been set. It takes one tap and has
+no intermediate screen, and each role has a one-line description beside it. The
+old full-screen overlay (`#roleOverlay`) has been removed from the code.
 
 A hint points at the switcher once per session for a visitor who has not chosen
-a role, which is how an optional feature should announce itself.
+a role.
 
 The twelve roles:
 
-| Role | Key | Example Action |
+| Role | Key | Example action |
 |------|-----|----------------|
 | Parent / Family | `parent` | "Should my child go outside?" |
 | Student | `student` | "Explore historical AQI trends" |
@@ -43,32 +40,21 @@ The twelve roles:
 The "Show Everything" entry in the header switcher clears the role and shows
 the full dashboard.
 
-### Role Dashboard
+### Role dashboard
 
-After selecting a role, the visitor sees a curated dashboard with:
+After choosing a role, the visitor sees a curated dashboard with 3 action cards, which are high-priority tools with direct buttons (for example "Check now" or "Calculate risk"), and 6 recommended panels, the most relevant sections from the full set. An "Explore everything" button opens the complete dashboard.
 
-- **3 action cards** — high-priority tools with direct CTAs (e.g. "Check now →", "Calculate risk →")
-- **6 recommended panels** — the most relevant sections from JanVayu's full panel library
-- An "Explore everything" button to access the complete dashboard
+### Role switcher (header)
 
-### Role Switcher (Header)
+A role switcher button is always visible in the header, next to the language selector and theme toggle. Before you choose, it shows a generic "Role" label with a user icon. Afterwards it shows the chosen role's Sargam icon and short label (for example "Parent").
 
-A role switcher button is always visible in the header, next to the language selector and theme toggle. It shows:
+Clicking it opens a dropdown with all 12 roles plus "Show Everything". After your first choice, a brief pulse and a tooltip ("Change your role anytime here") point you to the switcher.
 
-- **Before selection**: A generic "Role" label with a user icon
-- **After selection**: The selected role's Sargam icon and short label (e.g. "Parent")
+### Remembering your role
 
-Clicking it opens a dropdown with all 12 roles plus "Show Everything". After first selection, a brief pulse animation and tooltip hint ("Change your role anytime here") draw attention to the switcher.
+Your choice is stored in the browser under the key `janvayu-role` (an older `sessionStorage` value is migrated once). It carries across tabs and return visits, so a returning visitor lands on data and not on a role screen. There is no overlay to show or skip, and deep links (for example `janvayu.in/#health`) go straight to their panel.
 
-### Session Persistence
-
-Role selection is stored in `localStorage` under the key `janvayu-role` (an older `sessionStorage` value is migrated once), meaning:
-
-- The role persists across tabs and return visits, so returning visitors land on data rather than a role gate
-- There is no overlay to show or bypass
-- Deep links (e.g. `janvayu.in/#health`) go straight to their panel
-
-## Configuration
+## Configuration (for developers)
 
 All role definitions live in the `ROLE_CONFIG` object in `index.html`. Each role has:
 
@@ -89,19 +75,22 @@ All role definitions live in the `ROLE_CONFIG` object in `index.html`. Each role
 }
 ```
 
-### Adding a New Role
+### Adding a new role
 
 1. Add a new key to `ROLE_CONFIG` with `icon`, `label`, `heading`, `description`, `actions` (3), and `panels` (6)
 2. No HTML change is needed: the role switcher is generated from `ROLE_CONFIG` into `#rolePopoverGrid` automatically
-3. Add a `data-i18n` attribute for translation support
+3. Add a `data-i18n` attribute so the role can be translated
 
 ### Icons
 
 All role and action icons use [Sargam Icons](https://sargamicons.com/) v1.6.7 via CSS mask-image. Icons render as `<span class="si si-{name}"></span>` and inherit colour from their parent element. Available icons are defined as `.si-*` classes in the `<style>` block.
 
-## Design Decisions
+## Design decisions
 
-- **Why 12 roles?** Covers the primary audiences identified through user feedback — from concerned parents to policy researchers. Each gets a meaningfully different set of panels and actions.
-- **Why localStorage over sessionStorage?** Returning visitors should land on data, not a role gate, and should not have to re-select their role. An older `sessionStorage` value is migrated once.
-- **Why not route-based?** JanVayu is a single `index.html` with hash-based navigation. Role selection is a UX layer on top, not a routing concern.
-- **Why always show the role switcher?** Users who select "Parent" and then want to explore budget data shouldn't feel trapped. The always-visible switcher makes role changes effortless.
+There are 12 roles because that covers the main audiences identified through user feedback, from concerned parents to policy researchers, and each gets a different set of panels and actions.
+
+The choice is kept in `localStorage` and not `sessionStorage`, because returning visitors should land on data and should not have to pick their role again. An older `sessionStorage` value is migrated once.
+
+Role selection is not a route. JanVayu is a single `index.html` with hash-based routing, so a role is a layer on top and does not change the address.
+
+The switcher is always visible so that someone who chose "Parent" and then wants budget data does not feel stuck.

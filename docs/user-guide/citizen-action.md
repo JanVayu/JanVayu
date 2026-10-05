@@ -1,56 +1,51 @@
-# Citizen Action Tools
+# Citizen action tools
 
-JanVayu provides practical tools for citizens, journalists, researchers, and advocates to take action on air quality.
+JanVayu offers practical tools for citizens, journalists, researchers and advocates who want to act on air quality.
 
 ---
 
-## RTI Templates
+## RTI templates
 
 Pre-drafted Right to Information Act (2005) templates for:
 
 | Template | Target Authority |
 |----------|-----------------|
-| NCAP fund utilisation | State Pollution Control Board |
+| NCAP fund spending | State Pollution Control Board |
 | GRAP compliance report | Commission for Air Quality Management (CAQM) |
 | Source apportionment study | Central Pollution Control Board (CPCB) |
 | Industrial emission data | State PCB / MoEFCC |
 | City Action Plan status | Municipal Corporation |
 
-Templates are available in **English and Hindi**, formatted for the RTI online portal at [rtionline.gov.in](https://rtionline.gov.in). That portal accepts applications only for Central Government authorities (CAQM, CPCB, MoEFCC); State Pollution Control Boards and municipal corporations are state authorities, so those applications go through the state's own RTI portal or by post.
+Templates are available in English and Hindi, formatted for the RTI online portal at [rtionline.gov.in](https://rtionline.gov.in). That portal accepts applications only for Central Government authorities (CAQM, CPCB, MoEFCC); State Pollution Control Boards and municipal corporations are state authorities, so those applications go through the state's own RTI portal or by post.
 
 ---
 
-## Advocacy Guides
+## Advocacy guides
 
-Step-by-step guides covering:
-
-- **How to file an RTI** — from submission to first appeal
-- **How to approach your ward councillor** — using the ward-level accountability brief generator
-- **How to engage media** — framing the air quality story with data
-- **How to participate in public hearings** — for Environmental Impact Assessments
+Step-by-step guides cover how to file an RTI, from submission to first appeal; how to approach your ward councillor, using the ward-level accountability brief generator; how to work with the media, framing the air quality story with data; and how to take part in public hearings for Environmental Impact Assessments.
 
 ---
 
-## Ward-Level Accountability Brief
+## Ward-level accountability brief
 
-The platform's AI-assisted brief generator (powered by OpenAI gpt-oss-120b via Groq, an open-weight LLM) creates a customised accountability brief for any city, tailored for ward councillors, resident welfare associations, or journalists. It includes:
+The brief generator uses an AI model (OpenAI gpt-oss-120b, an open-weight model, run through Groq) to write an accountability brief for any city, tailored to ward councillors, resident welfare associations or journalists. Each brief includes:
 
 - Current AQI readings for the city
 - Comparison against NCAP targets
 - Key local pollution sources
 - Suggested questions to ask elected officials
 
-To generate a brief, send a `POST` with a JSON body (`city` and `area` are required) to the API endpoint: `/.netlify/functions/accountability-brief`
+Developers can request a brief by sending a `POST` with a JSON body (`city` and `area` are required) to `/.netlify/functions/accountability-brief`.
 
 ---
 
-## Mask Selection Guide
+## Mask selection guide
 
-A practical guide on choosing the right mask for different AQI levels. This is general guidance, not sourced to a health authority, and its category names follow the US EPA scale rather than the dashboard's own bands:
+A practical guide to choosing a mask at different AQI levels. It is general guidance, not sourced to a health authority, and its category names follow the US EPA scale instead of the dashboard's own bands:
 
 | AQI Level | Recommended Protection |
 |-----------|----------------------|
-| Good–Moderate | No mask needed |
+| Good to Moderate | No mask needed |
 | Unhealthy for Sensitive Groups | N95/KN95 for sensitive individuals |
 | Unhealthy | N95/KN95 recommended for all |
 | Very Unhealthy | N95/KN95, limit outdoor time |
@@ -58,19 +53,19 @@ A practical guide on choosing the right mask for different AQI levels. This is g
 
 ---
 
-## Interactive Demo
+## Interactive demo
 
-> **Upcoming** — An interactive demo will be embedded here walking through how to generate an AI accountability brief for your city and download an RTI template.
+> **Upcoming:** An interactive demo will be embedded here walking through how to generate an AI accountability brief for your city and download an RTI template.
 
 <!-- Replace this section with an Arcade embed once recorded -->
 
 ---
 
-## Indoor Air Quality
+## Indoor air quality
 
-The Indoor Air Quality section covers:
+The indoor air quality section covers:
 
-- Ventilation strategies for different building types
-- Air purifier selection (HEPA filter standards, CADR ratings for room size)
-- Cooking fuels and health — LPG vs. solid fuels, Ujjwala scheme reach
-- Monitoring indoor air quality with low-cost sensors
+- Ventilation for different kinds of buildings
+- Choosing an air purifier (HEPA filter standards, and CADR ratings for room size)
+- Cooking fuels and health: LPG against solid fuels, and how far the Ujjwala scheme has reached
+- Measuring indoor air quality with low-cost sensors
