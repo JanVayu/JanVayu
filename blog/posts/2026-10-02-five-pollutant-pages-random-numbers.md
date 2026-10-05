@@ -38,7 +38,7 @@ The one that mattered most was the fallback reply in Ask JanVayu, which states a
 
 ## What we changed
 
-A new CI check, `check-no-random-data.py`, fails on any `Math.random()` in site code outside the games unless a written reason sits next to it. We tested it by putting the original formula back, and it failed.
+A new automated check, `check-no-random-data.py`, fails on any `Math.random()` in site code outside the games unless a written reason sits next to it. We tested it by putting the original formula back, and it failed.
 
 One such use remains, in the demo fallback in `app.js`. It returns values flagged as not live, under a station name ending in "(Fallback)". If you think a few per cent of wobble on demo values is itself misleading, say so and we will remove it.
 

@@ -33,11 +33,11 @@ Take each year's monsoon months (June to September) and compare them with the po
 
 Medians, µg/m³, LongPMInd district means. The last column counts years in which the post-monsoon figure came in at or below the monsoon figure.
 
-Forty-three years, six cities, and the rise arrives every single time. It is not a forecast, an anomaly or a policy failure that began last Friday. It is the year turning.
+Across forty-three years and six cities, the rise arrives every single time. Last Friday did not start it. It is the year turning.
 
 Notice also how much the size of it varies. Delhi's post-monsoon runs at about two and a half times its monsoon; Chennai's rises by a quarter. The reason is likely geographic rather than a matter of governance, though these two ratios alone do not prove it. Our [airshed panel](https://www.janvayu.in/#airshed) shows something related: annual PM2.5 is mostly set by region, with 89 per cent of district variance sitting between states.
 
-## The height of the peak differs by decade, not the timing
+## The peak has grown by decade, and its timing has not
 
 The season is old. Its scale is not. Delhi's average October and November reading, by decade:
 
@@ -59,7 +59,7 @@ For Delhi, over 41 stations and 91,911 station-days from 2018 to 2024, that mode
 
 Stretch the same data to years and it stops carrying the story. Delhi's raw trend across those seven years is **−1.75 µg/m³ per year**. With the weather removed it is **−1.78**. The two agree almost exactly, which means the weather is not hiding an improvement and is not inventing one either. Delhi's normalised 2024 figure is 97.8 µg/m³. At that rate it would reach 40 around 2056, if the trend stayed linear for three more decades, which nothing guarantees.
 
-Thirty-three of the 44 cities are falling once weather is removed. Delhi is one of them. The direction is right and the speed is not.
+Thirty-three of the 44 cities are falling once weather is removed. Delhi is one of them. The direction is right, and the speed is far too slow.
 
 ## What would move it
 
@@ -71,7 +71,7 @@ That last figure is the reason a four-day AQI reading makes a poor scorecard and
 
 ## The useful thing to watch
 
-Not this week against last week. Your [district's annual record since 1980](https://www.janvayu.in/#lifetime), which is on the site for 783 districts, and the annual mean with the weather taken out of it.
+Skip this week against last week. Watch your [district's annual record since 1980](https://www.janvayu.in/#lifetime), which is on the site for 783 districts, and the annual mean with the weather taken out of it.
 
 If you find an error in any of the figures above, write to us at contribute@janvayu.in. Every number from our own analysis comes from a file you can download; the four-day AQI figures are News18's and the source shares are ARAI and TERI's.
 

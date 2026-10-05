@@ -58,16 +58,11 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 ## About This Blog
 
-This blog accompanies [JanVayu](https://www.janvayu.in) — a non-partisan, citizen-led initiative documenting India's air quality crisis.
+This blog accompanies [JanVayu](https://www.janvayu.in), a non-partisan, citizen-led initiative documenting India's air quality crisis.
 
-Every post is grounded in peer-reviewed research, government data, and verified reporting. We cite primary sources so you can verify every claim.
+Every post draws on peer-reviewed research, government data and verified reporting. We cite primary sources so you can check every claim.
 
-**We write about:**
-- **Data** — new reports, AQI trends, methodology
-- **Research** — peer-reviewed findings, health studies
-- **Policy** — NCAP, GRAP, budgets, accountability
-- **Health** — mortality, children, vulnerable populations
-- **Economics** — GDP loss, productivity, migration
+We write about data (new reports, AQI trends, methods), research (peer-reviewed findings and health studies), policy (NCAP, GRAP, budgets and accountability), health (mortality, children and vulnerable groups) and economics (GDP loss, productivity and migration).
 
 *All posts by Team JanVayu.*
 

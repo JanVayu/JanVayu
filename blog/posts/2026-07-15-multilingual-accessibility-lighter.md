@@ -4,44 +4,41 @@
 
 ---
 
-This week's releases (v26.6.58 to v26.6.71) were less about new panels and more about the plumbing: making what already exists work properly, load faster, and reach more people. Here is what changed and why it matters.
+This week's updates added few new panels. They fixed things that already existed so they work properly, load faster and reach more people. Here is what changed and why it matters.
 
-## The language switcher was broken — now it works
+## The language switcher did not work, and now it does
 
-JanVayu has carried a five-language interface (English, Hindi, Tamil, Marathi, Bengali) for months. It turns out almost none of it was reaching users.
+JanVayu has offered a five-language interface (English, Hindi, Tamil, Marathi, Bengali) for months. It turned out that almost none of it was reaching readers.
 
-The function that applies translations, `setLanguage()`, tried to update a small text label next to the language button on its very first step. But that button is icon-only — a globe — and the label element it was looking for did not exist. So the function threw an error and stopped **before it translated anything**. Clicking Hindi, Tamil, Marathi or Bengali did nothing at all.
+The switcher began by updating a small text label beside the language button. That button shows only a globe icon, so the label did not exist, and the switcher failed before it translated anything. Clicking Hindi, Tamil, Marathi or Bengali did nothing at all.
 
-It was a one-line guard to fix, and the effect is night and day: the navigation, hero banner, and dropdown menus now translate the moment you switch languages. "Reading List" becomes "पठन सूची". All the translation work that had been sitting dormant is finally visible.
+The fix was small, and the effect is large. The menus, the hero banner and the dropdown menus now change language as soon as you switch. "Reading List" becomes "पठन सूची". Translation work that had been sitting unused is finally visible.
 
-We also wired translation into the panels that now load on demand (see below), so a panel you open *after* switching language still comes up translated. And we translated the **About** panel end-to-end into all five languages as a template for the rest. We are deliberately *not* auto-translating the health and legal panels without review — a mistranslated health instruction is worse than an English one — so those will follow through a checked translation pass.
+A panel you open after switching language now also appears translated. We translated the **About** panel into all five languages as a model for the rest. We are deliberately not auto-translating the health and legal panels without review, because a mistranslated health instruction is worse than an English one. Those will follow after a checked translation.
 
-## An accessibility sweep, measured with the same tool the CI uses
+## An accessibility sweep
 
-We ran [axe-core](https://github.com/dequelabs/axe-core) (the WCAG 2.1 AA engine our accessibility CI already runs) against the live panels and fixed what it actually flagged, rather than guessing:
+We ran [axe-core](https://github.com/dequelabs/axe-core), a standard WCAG 2.1 AA checker, against the live panels and fixed what it actually flagged, rather than guessing.
 
-- **Form controls** in the health calculator and urban-heat estimator had visible labels that were not programmatically linked — a screen reader announced them as unlabelled. All twelve now carry proper accessible names.
-- **Inline links inside paragraphs** were distinguished only by colour, which fails for colour-blind readers. They are now underlined; buttons and nav links are unaffected.
-- The one remaining **chart without a text description** got one.
-- **Status badges** were the biggest colour-contrast offender by far. They are now theme-aware — darker text on the pale light-theme tint, brighter text in dark mode — and pass the 4.5:1 ratio in both. That alone cleared about half of all contrast findings.
+Form fields in the health calculator and the urban-heat estimator had visible labels that were not linked to them, so a screen reader announced them as unlabelled. All twelve now have proper names.
 
-A dark-theme contrast pass is [tracked separately](https://github.com/JanVayu/JanVayu/issues/213); it needs design review, not bulk edits. *Update, 2 October 2026: the dark-theme pass shipped in v26.6.74, the same day.*
+Links inside paragraphs were set apart only by colour, which fails readers who are colour-blind. They are now underlined. Buttons and menu links are unchanged. The one remaining chart without a text description now has one.
+
+Status badges were the biggest colour-contrast problem by far. Their text is now darker on the pale light-theme background and brighter in dark mode, and both pass the 4.5:1 contrast ratio. That alone cleared about half of all contrast findings.
+
+A dark-theme contrast pass is [tracked separately](https://github.com/JanVayu/JanVayu/issues/213), because it needs design review, not bulk edits. *Update, 2 October 2026: the dark-theme pass shipped the same day.*
 
 ## The rankings now cover 88 cities
 
-The live [City Rankings](https://www.janvayu.in/#rankings) were computed from a hardcoded list of 27 cities, even though the dashboard itself covers around 117. We expanded the rankings backend to **88 cities** — the core set plus state capitals and NCAP non-attainment cities — so the national picture is no longer a metro-only view. Cities without a nearby live station simply drop out; nothing is faked.
+The live [City Rankings](https://www.janvayu.in/#rankings) were computed from a fixed list of 27 cities, although the dashboard itself covers around 117. The rankings now cover **88 cities**: the core set plus state capitals and NCAP non-attainment cities. The national picture is no longer a view of the metros alone. A city with no live station nearby drops out, and nothing is filled in by guesswork.
 
 ## The site is 42% lighter
 
-The whole platform is a single HTML file, and it had grown to about 1.59 MB. Over a series of passes we moved the heaviest panels' markup — Citizen Voices, Resources, Legal, About, and eight more — into external fragments that load only when you open them and are cached afterwards. The Learning Games engine and the citizen-testimony data moved out to cacheable external files too, and the map stylesheet no longer blocks the first paint.
+The whole platform was a single page that had grown to about 1.59 MB. We moved the heaviest panels (Citizen Voices, Resources, Legal, About and eight more) so that they load only when you open them and are remembered afterwards. The Learning Games and the citizen testimonies were separated out in the same way, and the map's styling no longer holds up the first screen.
 
 *Update, 2 October 2026: this describes the site at the time of writing. The platform is no longer a single HTML file; panels and data load from external fragments and files.*
 
-The result: `index.html` dropped from ~1.59 MB to about **0.92 MB** — a 42% cut in what your browser downloads and parses on the very first visit, which matters most on the slower mobile connections common across India.
-
-## Under the hood
-
-We also consolidated the copy-pasted CORS handling across the Netlify serverless functions into a single shared helper, so there is one place to change how the API responds — a maintenance win with no user-visible change.
+The main page fell from about 1.59 MB to about **0.92 MB**, a 42% cut in what your browser has to download and process on a first visit. That matters most on the slower mobile connections common across India.
 
 ---
 

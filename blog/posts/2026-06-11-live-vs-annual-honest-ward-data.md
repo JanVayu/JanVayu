@@ -4,43 +4,41 @@
 
 ---
 
-When we built the [Ward Atlas](/index.html#ward-map) — a map that colours every municipal ward of a city by its air, heat, green cover and built-up area — we ran into a question that's easy to get wrong, and that a lot of dashboards *do* get wrong. This post is about how we answered it, because the answer is more interesting than the map.
+When we built the [Ward Atlas](/index.html#ward-map), a map that colours every municipal ward of a city by its air, heat, green cover and built-up area, we ran into a question that is easy to get wrong. Plenty of dashboards do get it wrong. This post explains how we answered it.
 
 ## The temptation
 
-The Ward Atlas has four layers. Three of them — heat, green cover, built-up area — come from satellites and are **annual / structural**: they describe what a ward *is*, and they barely change from month to month. The fourth — air quality (PM2.5) — is a **live snapshot**, interpolated from the city's working government monitors at the moment you load the page.
+The Ward Atlas has four layers. Three of them (heat, green cover, built-up area) come from satellites and are **annual or structural**: they describe what a ward is, and they barely change from month to month. The fourth, air quality (PM2.5), is a **live snapshot**, interpolated from the city's working government monitors at the moment you load the page.
 
-The tempting story writes itself: *"This ward is 88% concrete and only 10% green, which is why its air is bad today."* It sounds rigorous. It even fits, sometimes.
+The tempting story writes itself: *"This ward is 88% concrete and only 10% green, which is why its air is bad today."* It sounds rigorous, and it sometimes fits.
 
-But it's a category error — and a JanVayu reader caught us mixing exactly these two things.
+It still mixes two different things, and a JanVayu reader caught us doing it.
 
-## Why it's wrong
+## Why it is wrong
 
-A single hour's interpolated PM2.5 is shaped by **today's weather, which monitors happen to be running, and any nearby source** — a fire, a construction site, traffic. It is *not* a clean read-out of a ward's permanent structure. We checked: on one clean-air afternoon, Delhi's "worst-air" ward came out as a **leafy rural fringe** (76% green), not a concrete core. If we'd hard-wired the "built-up = dirty" narrative, the bot would have confidently told you something the data flatly contradicted that hour.
+A single hour's interpolated PM2.5 depends on **today's weather, which monitors happen to be running, and any nearby source** such as a fire, a construction site or traffic. It does not read out a ward's permanent structure. We checked: on one clean-air afternoon, Delhi's "worst-air" ward came out as a **leafy rural fringe** (76% green), not a concrete core. Had we hard-wired the "built-up means dirty" story, the chatbot would have told you something the data contradicted that hour.
 
-Annual structure correlates with **annual** air. It does not, reliably, correlate with *this* hour. The honest partner for "88% built-up" would be a ward's *yearly average* PM2.5 — which needs satellite-derived pollution data we looked for and couldn't get from any open, usable source. So we don't have it, and we won't fake it.
+Annual structure goes with **annual** air. It does not reliably go with *this* hour. The fair partner for "88% built-up" would be a ward's *yearly average* PM2.5, which needs satellite-derived pollution data. We looked for it and could not get it from any open, usable source. So we do not have it, and we will not fake it.
 
 *Update, 6 August 2026: we later built an annual per-ward PM2.5 layer from SatPM2.5 V6GL03, so the live-versus-annual comparison can now be made on matching clocks.*
 
-## What we shipped instead
+## What we did instead
 
-Both the map and [Ask JanVayu](/ask) now keep the two clocks separate:
+Both the map and [Ask JanVayu](/ask) now keep the two clocks apart.
 
-- **Air is the headline, and it's labelled as a live estimate** — the citywide *spread* across wards, sharper where there are more monitors, never a calibrated per-street number.
-- **Heat, green and built-up are framed as drivers of a ward's *typical* air** — "the kind of place that *tends* to run hotter and dirtier over the year" — never as the cause of the current reading.
-- The chatbot is explicitly instructed: if today's dirtiest-air ward is actually green and low-built, **say so**, and attribute the reading to weather or a nearby source rather than inventing a story.
+Air is the headline, and it is labelled as a live estimate: the citywide *spread* across wards, sharper where there are more monitors, and never a calibrated number for a single street. Heat, green cover and built-up area are described as what makes a ward's *typical* air, the kind of place that *tends* to run hotter and dirtier over the year, and never as the cause of the current reading. The chatbot is told that if today's dirtiest-air ward is green and lightly built, it should say so and put the reading down to weather or a nearby source rather than invent a story.
 
-Where the cross-sectional comparison *is* legitimate, we kept it: comparing the *spatial pattern* of heat against built-up *across wards on the same day* is standard urban-heat-island analysis, and in Delhi it was strong in the scene used at publication (Pearson correlation about 0.69 across the 290 wards; with the April 2026 Landsat scene now in the repository it is 0.29, JanVayu analysis of `data/wards/delhi.json`). Comparing a live snapshot to annual form is not. The difference is the whole point.
+One cross-ward comparison is legitimate, and we kept it. Comparing the *spatial pattern* of heat against built-up area *across wards on the same day* is standard urban-heat-island analysis. In Delhi it was strong in the scene used at publication (Pearson correlation about 0.69 across the 290 wards). With the April 2026 Landsat scene now in the repository it is 0.29 (JanVayu analysis of `data/wards/delhi.json`). Comparing a live snapshot to annual form is a different matter, and the difference is the point.
 
-## The experiment that didn't make it
+## An experiment that did not make it
 
-We also tried replacing each city's single-day heat layer with a **median of several summer scenes**, hoping to cut noise. It didn't earn its place: it didn't improve the one city (Bengaluru) whose heat–built-up link was weak, and it *lost* coverage (cloud gaps across every scene left some wards blank). So we dropped it and kept the cleaner single-scene version. Not every idea ships — and saying so is part of the method.
+We also tried replacing each city's single-day heat layer with a **median of several summer scenes**, hoping to cut noise. It did not improve the one city (Bengaluru) whose heat and built-up link was weak, and it *lost* coverage, because cloud gaps across every scene left some wards blank. We dropped it and kept the single-scene version.
 
 ## Why this matters
 
-JanVayu exists to push back on false precision in air-quality data — the broken monitor behind a clean-air award, the single station standing in for a whole city. It would be hypocritical to then dress up a live snapshot as a structural verdict on your neighbourhood. The map can tell you two true things at once: **what your ward breathes right now**, and **what kind of place it tends to be**. It just shouldn't pretend the second one explains the first.
+JanVayu exists to push back on false precision in air-quality data: the broken monitor behind a clean-air award, the single station standing in for a whole city. It would be hypocritical to dress up a live snapshot as a verdict on your neighbourhood's structure. The map can tell you two true things at once, what your ward breathes right now and what kind of place it tends to be. It should not claim that the second explains the first.
 
-Explore it: [**How Polluted Is Your Ward?**](/index.html#ward-map) — or ask the bot "which ward in my city has the worst air right now, and why?"
+Explore it: [**How Polluted Is Your Ward?**](/index.html#ward-map), or ask the chatbot "which ward in my city has the worst air right now, and why?"
 
 ---
 

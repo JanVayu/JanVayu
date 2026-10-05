@@ -1,12 +1,12 @@
-# Surface Heat on Every Ward in India — and What It Showed
+# Surface Heat on Every Ward in India, and What It Showed
 
 **Published:** 8 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 
 ---
 
-The [map](https://www.janvayu.in/#map) has a new **Colour** menu. Alongside annual air, you can now shade any boundary by **surface heat**, and — for wards — by **green cover** and **built-up share**.
+The [map](https://www.janvayu.in/#map) has a new **Colour** menu. Alongside annual air, you can now shade any boundary by **surface heat**, and for wards by **green cover** and **built-up share**.
 
-The numbers behind it: **70,306 of India's 70,417 municipal wards** have a land-surface temperature. So do all 785 districts, all 36 states, 6,459 blocks and tehsils, 3,364 city bodies and 319,114 gram panchayats. Green cover and built-up share cover **70,368 wards (99.93%)**.
+**70,306 of India's 70,417 municipal wards** have a land-surface temperature. So do all 785 districts, all 36 states, 6,459 blocks and tehsils, 3,364 city bodies and 319,114 gram panchayats. Green cover and built-up share cover **70,368 wards (99.93%)**.
 
 *Update, 2 October 2026: those ward and city-body counts included duplicate records. After deduplication, 68,481 of 68,596 wards (99.83%) and 3,355 of 3,359 city bodies have a land-surface temperature, and green cover and built-up share cover 68,564 of 68,596 wards (99.95%). The district, state, block and panchayat figures stand.*
 
@@ -14,41 +14,31 @@ Until this week, heat existed for 142 cities.
 
 ## Why it was stuck at 142
 
-Every other layer on this site works the same way: one national raster, one pass over the polygons. PM2.5 loads a single grid and counts every boundary against it. Land cover reads windows from a fixed global raster.
+Every other layer on this site is worked out in one pass over the whole country. PM2.5 comes from a single national grid, and land cover from a single global one.
 
-Heat was the exception. It did a per-city satellite search — find the clearest Landsat scene over *this* city, mask *its* clouds, average *those* pixels — and it did that 142 times. Which meant every heat bug we had was the same bug wearing different clothes. Six wards in Thiruvananthapuram sat in a gap between two Landsat scene footprints and could never get a value, no matter how many scenes we tried. Bhopal was 34% blank from residual cloud. And adding a city meant running the whole search again.
+Heat was the exception. It searched for the clearest Landsat satellite scene over each city, masked that city's clouds and averaged those pixels, and it did that 142 times. So every heat problem we had was the same problem in a different place. Six wards in Thiruvananthapuram sat in a gap between two satellite scenes and could never get a value, however many scenes we tried. Bhopal was 34% blank from leftover cloud. Adding a city meant repeating the whole search.
 
-So we stopped fixing instances and replaced the shape. `build-lst-mosaic.py` now composites **1,512 Landsat 8/9 scenes across 388 orbital path/rows** into a single national grid at roughly 111 metres, for the 2026 pre-monsoon season. Then one zonal pass stamps a value onto every polygon at every level. Ward, village, panchayat, block — none of them are special-cased, because there is nothing left to special-case.
+So we stopped fixing cases and changed the method. We now combine **1,512 Landsat 8/9 scenes across 388 orbital paths and rows** into one national picture at roughly 111 metres, for the 2026 pre-monsoon season. One calculation then gives every boundary at every level, wards to panchayats, its value.
 
-## The version that looked hung
+## Checking the clouds
 
-The first attempt appeared to stall at about 30 scenes out of 1,516. It wasn't stuck. It was reading each scene's full thermal band — 7741 × 7591 pixels, 12.8 seconds over the network — and there were two bands per scene. About eleven hours, with no progress line frequent enough to say so.
+Clouds are cold. A cloudy pixel that slips through drags a ward's average down and gives a map that looks reasonable and quietly **understates** how hot places are. So the cloud check had to be strict.
 
-The fix was embarrassing in hindsight: the output grid is 111 m, so every one of those 30 m pixels was being averaged away immediately. Landsat files carry pre-built lower-resolution copies inside them. Reading the quarter-scale one gives 120 m directly, in 1.2 seconds.
+Shrinking the satellite images to a coarser grid risks exactly this. We measured how the shrunken temperature and cloud-quality layers were built. The temperature layer is averaged, and the quality layer simply picks one pixel in sixteen and discards the rest, which would check one pixel for cloud and let fifteen through unexamined. Different handling, as we had feared.
 
-But there was a trap in that shortcut, and it is the kind we've been caught by before — the kind where the output looks fine.
-
-Cloud masking works off a separate quality band, pixel by pixel. If the *temperature* overview averages 16 source pixels into one, and the *quality* overview just picks one of the 16 and discards the rest, then you'd be checking one pixel for cloud and letting fifteen through unexamined. Clouds are cold. A leaked cloud pixel drags the average down. You would get a map that looks entirely reasonable and quietly **understates** how hot places are.
-
-So rather than assume, we measured how each overview was built. The temperature overviews are averaged — only 31% of their pixels match the matching source pixel. The quality overviews are pure subsampling — 99.9% identical. Different resampling, exactly as feared.
-
-The quality band is a bitmask, so it compresses hard and reads whole in 1.1 seconds. It's now read at full resolution and reduced with *any-bad-wins*: a 120 m cell is thrown out if **any** of the sixteen 30 m pixels behind it was cloud, shadow, snow or cloud-adjacent. That's a stricter mask than the original slow version used, at a tenth of the cost.
-
-**Final run: 1,512 of 1,516 scenes, zero failures, 22 minutes.**
+So the quality layer is now read at full detail, and a 111 m cell is thrown out if **any** of the sixteen finer pixels behind it was cloud, shadow, snow or next to cloud. The final run processed 1,512 of 1,516 scenes with no failures.
 
 ## Then the data disagreed with us
 
-Here is the thing we would have quietly skipped if we weren't in the habit of checking.
+The heat-island story is familiar: more concrete, hotter; more trees, cooler. We have written a version of it ourselves. With 70,000 wards now carrying both green cover and surface temperature, we could finally test it across the whole country.
 
-The heat-island story is a familiar one: more concrete, hotter; more trees, cooler. We have written a version of it ourselves. With 70,000 wards now carrying both green cover and surface temperature, we could finally test it across the whole country.
+Nationally, the correlation between green cover and ward surface temperature is **−0.069** (computed after removing duplicate wards; our first calculation, before deduplication, gave −0.054). That is close to nothing.
 
-Nationally, the correlation between green cover and ward surface temperature is **−0.069** (computed after removing duplicate wards; our first calculation, before deduplication, gave −0.054). Essentially nothing.
+This does not contradict the heat-island effect. The mistake was ours, one of scale. The hottest wards in the country are in Vidarbha, and they are **99% "green"**: dry cropland in Amravati district, fallow in May, reading 57 °C at the surface. The coolest are in Pahalgam and Shopian, at 20 °C because they are in the Himalaya. Comparing a Kashmiri ward with a Vidarbha ward measures latitude and altitude. It does not measure urban form.
 
-That's not a contradiction of the heat-island effect. It's a scale error — ours. The hottest wards in the country are in Vidarbha, and they are **99% "green"**: dry cropland in Amravati district, fallow in May, reading 57 °C at the surface. The coolest are in Pahalgam and Shopian, sitting at 20 °C because they are in the Himalaya. Comparing a Kashmiri ward with a Vidarbha ward measures latitude and altitude. It does not measure urban form.
-
-> **Correction, 8 August 2026 (later the same day).** The ward counts in the table below are wrong, and we are leaving them visible rather than quietly editing them. Chasing an unrelated bug, we found the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a handful of cities: Patna's "628 wards" are 115 distinct shapes, Mangalore's "540" are 60, Savanur's "356" are 27. "Ward 1" appears 23 times in Patna. The *correlations* survive deduplication nearly unchanged — Patna −0.35, Mangalore −0.42, Savanur +0.82, and the national figure moves only from −0.054 to −0.069 — so the argument below stands. The counts do not. Deduplicating the atlas is now on the roadmap.
+> **Correction, 8 August 2026 (later the same day).** The ward counts in the table below are wrong, and we are leaving them visible instead of quietly editing them. Chasing an unrelated bug, we found the ward atlas carries **2,541 exact-duplicate geometries**, concentrated in a handful of cities: Patna's "628 wards" are 115 distinct shapes, Mangalore's "540" are 60, Savanur's "356" are 27. "Ward 1" appears 23 times in Patna. The *correlations* survive deduplication nearly unchanged (Patna −0.35, Mangalore −0.42, Savanur +0.82, and the national figure moves only from −0.054 to −0.069), so the argument below stands. The counts do not. Deduplicating the atlas is now on the roadmap.
 >
-> **A second update.** The puzzle this post ends on — that green cover barely tracks heat — turned out to have an answer, and it is not the one we implied. See [the follow-up](2026-08-08-tree-cover-answers-it.md): green cover was simply the wrong variable. Tree canopy alone tracks heat at **r = −0.43** nationally and in 88% of cities.
+> **A second update.** The puzzle this post ends on, that green cover barely tracks heat, has an answer, and it is not the one we implied. See [the follow-up](2026-08-08-tree-cover-answers-it.md): green cover was the wrong variable. Tree canopy alone tracks heat at **r = −0.43** nationally and in 88% of cities.
 
 Within a single city, where climate is held constant, the effect does appear:
 
@@ -60,33 +50,33 @@ Within a single city, where climate is held constant, the effect does appear:
 | Bengaluru | 197 | −0.17 | +0.18 | 4.7 °C |
 | Hyderabad | 145 | −0.15 | +0.25 | 8.1 °C |
 
-Greener wards are cooler; more built-up wards are hotter. In Mangalore an 11.8 °C gap separates its hottest ward from its coolest.
+Greener wards are cooler, and more built-up wards are hotter. In Mangalore an 11.8 °C gap separates its hottest ward from its coolest.
 
-And then Jaipur: **+0.45**. Greener wards are *hotter*. Not an error. We suspect that in arid India "green" in the satellite's classification is largely dry cropland and scrub, bare and scorching by May, but we have not tested that here. Savanur in Karnataka runs to +0.83.
+Then there is Jaipur, at **+0.45**: greener wards are *hotter*. This is not an error. We suspect that in arid India the satellite's "green" class is largely dry cropland and scrub, bare and scorching by May, but we have not tested that here. Savanur in Karnataka runs to +0.83.
 
-Across 1,258 cities with 20 or more wards, the correlation is negative in **683 of them — 54%**. A little better than a coin toss.
+Across 1,258 cities with 20 or more wards, the correlation is negative in **683 of them (54%)**. That is a little better than a coin toss.
 
-We are not going to smooth that over. The honest statement is narrower than the one we'd have liked to make: *within a humid or temperate Indian city, green cover tracks cooler ward surfaces, and built-up share tracks hotter ones. Across India, and inside arid cities, it does not.* That is what 70,000 wards say, and it is more useful than the tidier claim, because it tells you where planting trees for cooling is the obvious move and where the answer needs local evidence.
+We are not going to smooth that over. The statement the data supports is narrower than the one we wanted to make: *within a humid or temperate Indian city, green cover tracks cooler ward surfaces, and built-up share tracks hotter ones. Across India, and inside arid cities, it does not.* That is what 70,000 wards say. It is also more useful than a tidier claim, because it shows where planting trees for cooling is the obvious move and where the answer needs local evidence.
 
 ## What to do with it
 
-Open the [map](https://www.janvayu.in/#map), set **Boundaries** to Ward, set **Colour** to surface heat, and find your city. Tap any ward and you get all four numbers at once — annual air, surface heat, green cover, built-up — because someone checking their air shouldn't have to change a dropdown to learn how green their neighbourhood is.
+Open the [map](https://www.janvayu.in/#map), set **Boundaries** to Ward, set **Colour** to surface heat, and find your city. Tap any ward and you get all four numbers at once (annual air, surface heat, green cover, built-up), so you do not have to change a dropdown to learn how green your neighbourhood is.
 
-One thing we found while checking this, which we'd rather say than quietly fix: **tapping a boundary had never worked.** Not since the unified map launched. The library that draws the boundaries calls a function (`L.DomEvent.fakeStop`) that Leaflet removed in version 1.8 (it is in the [1.7.1 source](https://raw.githubusercontent.com/Leaflet/Leaflet/v1.7.1/src/dom/DomEvent.js) and gone from the [1.8.0 source](https://raw.githubusercontent.com/Leaflet/Leaflet/v1.8.0/src/dom/DomEvent.js)), and we ship 1.9.4 — so every tap threw an error deep inside a browser event handler and stopped before the popup could open. Nothing looked broken. The map drew fine, the console was clean on load, and the caption underneath confidently told you to tap.
+We found something else while checking this: **tapping a boundary had never worked.** Not since the unified map launched. The tool that draws the boundaries calls a function (`L.DomEvent.fakeStop`) that the mapping library Leaflet removed in version 1.8 (it is in the [1.7.1 source](https://raw.githubusercontent.com/Leaflet/Leaflet/v1.7.1/src/dom/DomEvent.js) and gone from the [1.8.0 source](https://raw.githubusercontent.com/Leaflet/Leaflet/v1.8.0/src/dom/DomEvent.js)), and we use 1.9.4. So every tap failed before the popup could open. Nothing looked broken: the map drew fine, and the caption underneath told you to tap.
 
-We only caught it because the pre-release check this time actually *clicked* the map instead of confirming it rendered. That's the lesson, and it's the same one as the cloud mask above: a thing that draws correctly is not a thing that works.
+We caught it because the pre-release check this time clicked the map instead of confirming it drew. The same lesson applies to the cloud check above: a map that draws correctly may still not work.
 
-Two cautions, both on the map itself:
+Two cautions, both on the map itself.
 
 **Surface temperature is not air temperature.** This is how hot the *ground* gets under a clear pre-monsoon sky. It runs well above the shade forecast. A ward at 45 °C here is not a place where the weather report says 45.
 
-**It is a seasonal figure, not an annual one.** The window is deliberately the hottest, clearest stretch of the year. It answers "how hot does this place get", not "how hot is this place usually".
+**It is a seasonal figure, not an annual one.** The window is the hottest, clearest stretch of the year. It answers "how hot does this place get", not "how hot is this place usually".
 
-Green cover and built-up are wards only for now. Choosing them at another level colours by air instead and tells you why, rather than handing you a grey map with no explanation.
+Green cover and built-up are wards only for now. Choosing them at another level colours by air instead and tells you why, instead of showing a grey map with no explanation.
 
 *Update, 2 October 2026: green cover, tree cover and built-up share now exist at every level of the map.*
 
-111 wards still have no heat value and 49 have no land cover. They draw uncoloured. One ward in Thiruvananthapuram remains in that list — down from the six that the old per-city pipeline could never resolve, but not zero, and we would rather say so than paint it in.
+111 wards still have no heat value and 49 have no land cover. They draw uncoloured. One ward in Thiruvananthapuram remains in that list, down from the six the old city-by-city method could never resolve, but not zero.
 
 ---
 
