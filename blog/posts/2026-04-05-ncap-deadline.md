@@ -24,7 +24,7 @@ Road dust is a contributor to PM10, but it is not the primary driver of PM2.5 â€
 
 ## The Funding Cliff
 
-The picture becomes more precarious when you consider what comes next. Fifteenth Finance Commission grants to the 49 million-plus cities, under which Rs 11,021 crore was released, expired in March 2026. No successor mechanism has been announced. That released amount is roughly 82 percent of the Rs 13,415 crore released across all NCAP and Finance Commission grants combined (CREA, Tracing the Hazy Air 2026).
+The picture becomes more precarious when you consider what comes next. Fifteenth Finance Commission grants to the 49 million-plus cities, under which Rs 11,021 crore was released, expired in March 2026. No successor mechanism has been announced. *(Update, 5 October 2026: the Sixteenth Finance Commission's report, laid on 1 February 2026, records the Environment Ministry's request to continue the air-quality grant but makes no air-quality award of its own in the text we read. See [Delhi: NCAP, the action plans and this winter](/delhi/).)* That released amount is roughly 82 percent of the Rs 13,415 crore released across all NCAP and Finance Commission grants combined (CREA, Tracing the Hazy Air 2026).
 
 Without a replacement funding stream, the 49 million-plus cities, which received about 82 percent of released funds (CREA 2026), lose their dedicated grant, and the NCAP funding window for all cities closed in FY2025-26. Cities that were already struggling to utilise funds will now have no funds to utilise.
 

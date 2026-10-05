@@ -7,30 +7,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
-### Added, a Delhi page at `/delhi/`
+### Added, a Delhi page at `/delhi/`, linked from the homepage
 
 The season has started and Delhi had no page of its own. `/delhi/` is a dated
-tracker: what is in force or due from 28 September, 1 October and 1 November
-(CAQM's revised GRAP, the winter plan, the industrial norm), Delhi's poor-air
-day counts drawn at load time from `data/aqi-bulletins.json`, NCAP spending,
-the 2026 reduction targets, and the dated commitments in the April 2026
-mitigation plan, each with a "where it stands" column. Every row names its
-outlet and says it is a press report, because the CAQM and Delhi government
-orders could not be opened from the build environment.
+tracker: what is in force or due from 28 September, 1 October and 1 November,
+Delhi's poor-air day counts (drawn at load time from `data/aqi-bulletins.json`),
+the results and money under NCAP, the 2026 reduction targets, Swachh Hawa,
+Swasth Delhi, and the dated commitments of the April 2026 mitigation plan. Each
+row carries its basis: official (PIB, Finance Commission report) or a named
+press report. It is linked from the homepage's New Delhi hero stat and from the
+October bulletin, and from the NCAP chart and the budget panel.
 
-Three source problems are shown on the page instead of resolved quietly. The
-reported 2026 targets (AQI 191 to 177 as "15%", PM2.5 99 to 96 as "15%", PM10
-209 to 177 as "20%") imply cuts of 7.3%, 3.0% and 15.3%. One press summary of
-Delhi's NCAP money gives percentages (44%, 24%) that its own rupee figures
-(49.6%, 26.5%) contradict, so it is not used. The 2024-25 MCD figure of 4.36%
-computes to 4.45% from the printed rupees. Two search results that read as a
-GRAP Stage I invocation "now" were from October 2025 and April 2026, so no
-October 2026 invocation is stated.
+Sourced from primary documents where they could be read: PIB's release of 29
+September 2026 on the CAQM meeting (this also confirms the 48-action GRAP
+schedule that an earlier changelog entry had left out for want of a citation,
+so the homepage bulletin now cites PIB and not ThePrint); PIB's 21 December 2023
+reply for Delhi's NCAP money (Rs 38.22 crore released, Rs 10.77 crore used, 28%);
+and the Sixteenth Finance Commission report, Volume I. CAQM's and the Delhi
+government's own sites and PRANA's fund tables could not be read.
+
+Corrections and findings the page carries, which also correct earlier claims:
+
+- **No successor air-quality grant in the Finance Commission award.** Paragraph
+  10.32 records the Environment Ministry's request; Table 10.5 has no
+  air-quality component, and the report's extracted text mentions air quality
+  nowhere else. The budget panel and the April NCAP post now say so. A search
+  snippet that attributed Rs 4,400 and Rs 12,139 crore to air quality was not in
+  the report and is not used.
+- **The Stage III extension adds Sonipat only**; an earlier press summary also
+  listed border areas of Ghaziabad, Faridabad and Gautam Buddh Nagar, which were
+  already covered. The "22 to 34 measures" charter figure is not in PIB's
+  release and is left out.
+- **The government's NCAP count and CREA's are both shown.** Rajya Sabha reply:
+  108 of 130 cities lower PM10 in 2025-26 than 2017-18, 26 by more than 40%.
+  CREA: 23 of 100 met 40%. As shares of cities they are 20% and 23%.
+- **Source problems left visible, not resolved quietly.** The reported 2026
+  targets (AQI 191 to 177 as "15%", PM2.5 99 to 96 as "15%", PM10 209 to 177 as
+  "20%") imply 7.3%, 3.0% and 15.3%. One press summary of Delhi's NCAP money
+  gives percentages (44%, 24%) that its own rupee figures (49.6%, 26.5%)
+  contradict. The MCD 2024-25 figure of 4.36% computes to 4.45%. Outlets give
+  different dates (24 July, 6 August) for the Rajya Sabha reply, and a Stage I
+  invocation reported as current was from October 2025 and April 2026.
+- **Swachh Hawa, Swasth Delhi** (Rs 8,300 crore, September 2026 to August 2033)
+  assumes 65% World Bank financing. Only a project preparation grant facility
+  has been handed over; no board approval of the loan was found.
 
 Registered in `scripts/build-sitemap.mjs`, `netlify.toml` and the sitemap (the
 one entry added by hand, because regenerating rewrote every other page's
-`lastmod` to the checkout date), added to `tests/contrast-ci.mjs` (passes in
-both themes), and linked from the NCAP chart on the homepage.
+`lastmod` to the checkout date), and added to `tests/contrast-ci.mjs`, which
+passes in both themes.
 
 ## [v26.6.235] - 2026-10-02
 
