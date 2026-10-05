@@ -1,4 +1,4 @@
-# Data Refresh, May 2026: Latest Numbers, Updated Hero, and What We're Reading
+# Updated numbers for May 2026, and what we have been reading
 
 **Published:** 6 May 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

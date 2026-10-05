@@ -1,4 +1,4 @@
-# The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain
+# The dataset that looked like our best predictor, and was a map of the Gangetic Plain
 
 **Published:** 5 September 2026 | **Author:** Team JanVayu | **Reading time:** 9 min
 

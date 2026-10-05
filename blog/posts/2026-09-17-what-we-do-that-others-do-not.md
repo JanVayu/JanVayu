@@ -1,4 +1,4 @@
-# What JanVayu Does That the Other Indian Air-Quality Sites Do Not
+# What JanVayu does that the other Indian air-quality sites do not
 
 **Published:** 17 September 2026 | **Author:** Team JanVayu | **Reading time:** 11 min
 

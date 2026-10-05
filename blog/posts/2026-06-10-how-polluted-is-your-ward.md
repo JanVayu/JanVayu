@@ -1,4 +1,4 @@
-# A City Is Not One Number: Mapping India's Air Ward by Ward
+# India's air, ward by ward
 
 **Published:** 10 June 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

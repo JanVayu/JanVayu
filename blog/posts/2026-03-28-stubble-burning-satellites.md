@@ -1,4 +1,4 @@
-# How Farmers Outsmart Satellites: The Stubble Burning Shell Game
+# How farmers burn stubble when the satellites are not looking
 
 **Published:** 28 March 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

@@ -1,4 +1,4 @@
-# Thirty-Three Cities Are Getting Cleaner. Eleven Are Not.
+# Thirty-three cities are getting cleaner and eleven are not
 
 **Published:** 17 September 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

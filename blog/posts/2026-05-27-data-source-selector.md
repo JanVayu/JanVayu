@@ -1,4 +1,4 @@
-# When a Politician Says 'AQI Improved 20%', Ask: Which Monitor?
+# When a politician says 'AQI improved 20%', ask which monitor
 
 **Published:** 27 May 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

@@ -1,4 +1,4 @@
-# One Map, Every Boundary in India
+# One map, every boundary in India
 
 **Published:** 8 August 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

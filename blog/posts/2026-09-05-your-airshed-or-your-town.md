@@ -1,4 +1,4 @@
-# Your Airshed, or Your Town? A New Way to Read Your District's Air
+# A new way to read your district's air: the airshed as well as the town
 
 **Published:** 5 September 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

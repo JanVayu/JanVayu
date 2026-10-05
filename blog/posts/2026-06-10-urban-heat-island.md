@@ -1,4 +1,4 @@
-# The Same Sun, a Different City: Why Your Neighbourhood's Heat Is an Air-Quality Story
+# Why the heat in your neighbourhood is also an air-quality question
 
 **Published:** 10 June 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

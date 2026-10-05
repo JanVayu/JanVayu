@@ -1,4 +1,4 @@
-# How to Read the JanVayu Map
+# How to read the JanVayu map
 
 **Published:** 9 August 2026 | **Author:** Team JanVayu | **Reading time:** 9 min
 

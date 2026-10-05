@@ -1,4 +1,4 @@
-# The Lancet's Verdict: Air Pollution Is Killing 1.5 Million Indians a Year and We Can Now Prove It Causally
+# Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal
 
 **Published:** 8 April 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

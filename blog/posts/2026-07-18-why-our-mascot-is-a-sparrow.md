@@ -1,4 +1,4 @@
-# Why JanVayu's Mascot Is a Sparrow
+# Why JanVayu's mascot is a sparrow
 
 **Published:** 18 July 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

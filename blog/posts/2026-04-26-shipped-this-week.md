@@ -1,4 +1,4 @@
-# What's New: Cigarette Equivalence, City Rankings, Community Sensors, Workshops
+# Cigarette equivalents, city rankings, community sensors and workshops are now on JanVayu
 
 **Published:** 26 April 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

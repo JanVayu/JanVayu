@@ -1,4 +1,4 @@
-# What Shipped This Week: A Working Language Switcher, an Accessibility Sweep, and a Much Lighter Site
+# A working language switcher, easier access for more readers and a much lighter site
 
 **Published:** 15 July 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

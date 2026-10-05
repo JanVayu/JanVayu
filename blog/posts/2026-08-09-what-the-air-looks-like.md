@@ -1,4 +1,4 @@
-# What the Air Looks Like
+# What the air looks like
 
 **Published:** 9 August 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

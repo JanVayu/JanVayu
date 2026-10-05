@@ -1,4 +1,4 @@
-# The Pollution You Can't See Being Emitted: Up to 42% of India's PM2.5 Is Made in the Sky
+# Up to 42% of India's PM2.5 forms in the air after emission
 
 **Published:** 8 July 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

@@ -1,4 +1,4 @@
-# Every Village in India Is Now on the Map, Including the Ones No One Measures
+# Every village in India is now on the map, including the ones no one measures
 
 **Published:** 5 August 2026 | **Updated:** 6 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 

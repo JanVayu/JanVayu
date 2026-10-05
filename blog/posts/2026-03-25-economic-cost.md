@@ -1,4 +1,4 @@
-# The $339 Billion Question: What Air Pollution Costs India Every Year
+# Air pollution costs India about $339 billion a year
 
 **Published:** 25 March 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

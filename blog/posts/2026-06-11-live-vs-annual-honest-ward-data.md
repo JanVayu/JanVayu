@@ -1,4 +1,4 @@
-# Live vs Annual: The Honest Version of "How Polluted Is Your Ward?"
+# Live and annual readings answer different questions about your ward
 
 **Published:** 11 June 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

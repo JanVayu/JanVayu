@@ -1,4 +1,4 @@
-# The Air Your MP Answers For: Our Maps Now Cover 39 Cities, 543 Constituencies, and the Places the Smoke Starts
+# Our maps now show the air your MP answers for, in 39 cities and 543 constituencies
 
 **Published:** 30 July 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

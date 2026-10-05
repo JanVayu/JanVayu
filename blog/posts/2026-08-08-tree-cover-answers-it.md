@@ -1,4 +1,4 @@
-# We Were Measuring the Wrong Green
+# We were measuring the wrong green
 
 **Published:** 8 August 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

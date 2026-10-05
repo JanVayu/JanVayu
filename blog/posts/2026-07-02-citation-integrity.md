@@ -1,4 +1,4 @@
-# The Citation That Didn't Exist: How We Found "Krishna et al." Was Really Jaganathan
+# A citation that did not exist: 'Krishna et al.' was really Jaganathan
 
 **Published:** 2 July 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

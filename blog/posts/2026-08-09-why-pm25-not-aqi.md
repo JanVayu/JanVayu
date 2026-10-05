@@ -1,4 +1,4 @@
-# Why We Lead With PM2.5, Not AQI
+# Why JanVayu reports PM2.5 first and AQI second
 
 **Published:** 9 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 

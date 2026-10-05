@@ -1,4 +1,4 @@
-# What a Four-Day Jump in Delhi's AQI Actually Tells You
+# What a four-day jump in Delhi's AQI tells you
 
 **Published:** 22 September 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

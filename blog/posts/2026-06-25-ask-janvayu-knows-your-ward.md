@@ -1,4 +1,4 @@
-# Ask JanVayu Can Now Answer About Your Ward
+# Ask JanVayu can now answer questions about your ward
 
 **Published:** 25 June 2026 | **Author:** Team JanVayu | **Reading time:** 3 min
 

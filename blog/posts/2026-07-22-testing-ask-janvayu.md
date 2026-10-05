@@ -1,4 +1,4 @@
-# Testing the Chatbot to Make It Reliable
+# Testing the chatbot to make it reliable
 
 **Published:** 22 July 2026 | **Author:** Komal, for Team JanVayu | **Reading time:** 5 min
 

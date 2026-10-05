@@ -1,4 +1,4 @@
-# Ninety Cities, Ward by Ward, and the One We Had to Go Somewhere Else For
+# Ninety cities, ward by ward, and the one we had to go somewhere else for
 
 **Published:** 7 August 2026 | **Updated:** 7 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 

@@ -1,4 +1,4 @@
-# The Site Looks Different Today. Here Is What Changed, and What Did Not
+# What changed in today's redesign, and what stayed the same
 
 **Published:** 18 September 2026 | **Author:** Team JanVayu | **Reading time:** 10 min
 

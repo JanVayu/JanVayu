@@ -1,4 +1,4 @@
-# What Shipped This Week: Forecasts, Fire Maps, and Pollution Beyond the Lungs
+# Forecasts, fire maps and the health effects of air pollution beyond the lungs
 
 **Published:** 14 July 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

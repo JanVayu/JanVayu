@@ -1,4 +1,4 @@
-# Six Learning Games: Jeopardy, Quiz, Source Matcher, Snakes & Ladders, Jodi Match, and Air Tambola
+# Six games for learning about air quality
 
 **Published:** 8 May 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

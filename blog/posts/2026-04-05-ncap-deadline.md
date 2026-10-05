@@ -1,4 +1,4 @@
-# NCAP at the Finish Line: Has India's Clean Air Programme Worked?
+# Has India's National Clean Air Programme worked?
 
 **Published:** 5 April 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

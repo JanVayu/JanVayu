@@ -1,4 +1,4 @@
-# Quality You Can Measure: Lighthouse, axe, Lazy-Loading, and a Mobile Pass
+# How we checked that the site is fast and usable on a phone
 
 **Published:** 8 May 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

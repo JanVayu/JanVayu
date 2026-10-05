@@ -1,4 +1,4 @@
-# Every Capital, and the Directory We Never Read
+# Every capital, and the directory we never read
 
 **Published:** 7 August 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

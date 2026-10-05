@@ -1,4 +1,4 @@
-# You Don't Need to Code to Make India's Air Data Better
+# You don't need to code to make India's air data better
 
 **Published:** 18 July 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

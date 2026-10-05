@@ -1,4 +1,4 @@
-# The Robots That Keep JanVayu Honest: How Routines Maintain the Platform
+# Scheduled checks that keep JanVayu accurate
 
 **Published:** 18 July 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

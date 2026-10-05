@@ -1,4 +1,4 @@
-# Five of Our Six Pollutant Pages Were Printing Random Numbers
+# Five of our six pollutant pages were printing random numbers
 
 **Published:** 2 October 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

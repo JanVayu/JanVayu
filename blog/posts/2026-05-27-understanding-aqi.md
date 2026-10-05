@@ -1,4 +1,4 @@
-# The Number Everyone Quotes but Nobody Understands: What AQI Actually Is
+# What the AQI actually measures
 
 **Published:** 27 May 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

@@ -1,4 +1,4 @@
-# The Workshop Is a File Now
+# The workshop is a file now
 
 **Published:** 17 September 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 

@@ -1,4 +1,4 @@
-# We Fact-Checked Our Own Site — and Changed 33 Numbers
+# We fact-checked our own site and changed 33 numbers
 
 **Published:** 17 July 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

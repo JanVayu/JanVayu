@@ -1,4 +1,4 @@
-# Surface Heat on Every Ward in India, and What It Showed
+# Surface heat on every ward in India, and what it showed
 
 **Published:** 8 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 

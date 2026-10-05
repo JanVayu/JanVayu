@@ -1,4 +1,4 @@
-# Was It Policy, or Was It the Wind?
+# Was it policy, or was it the wind?
 
 **Published:** 8 September 2026 | **Author:** Team JanVayu | **Reading time:** 8 min
 

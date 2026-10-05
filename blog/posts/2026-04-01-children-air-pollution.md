@@ -1,4 +1,4 @@
-# India's Children Are Paying the Price: Air Pollution, Stunting, and Lost Futures
+# What air pollution does to India's children
 
 **Published:** 1 April 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 

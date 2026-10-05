@@ -1,4 +1,4 @@
-# Agartala Breathes Like the Coal Belt, and Nobody Was Looking
+# Agartala breathes like the coal belt, and nobody was looking
 
 **Published:** 7 August 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

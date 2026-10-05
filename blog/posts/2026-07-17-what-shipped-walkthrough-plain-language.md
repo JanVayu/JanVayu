@@ -1,4 +1,4 @@
-# What Shipped This Week: A Longer Walkthrough, Plainer Words, and a Menu You Can Actually Navigate
+# A longer walkthrough, plainer words and an easier menu
 
 **Published:** 17 July 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 

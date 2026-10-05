@@ -1,4 +1,4 @@
-# Vayu Junction: Connecting the Dots on India's Air-Quality Vocabulary
+# Vayu Junction, a map of the words used to talk about India's air
 
 **Published:** 20 May 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 
