@@ -57,6 +57,20 @@ one entry added by hand, because regenerating rewrote every other page's
 `lastmod` to the checkout date), and added to `tests/contrast-ci.mjs`, which
 passes in both themes.
 
+### Changed, the Delhi page now cites CAQM and PIB's own documents
+
+With the CAQM website readable, the page was checked against it. The revised
+GRAP is Direction No. 104 of 29 September 2026. "No PUCC, no fuel" is CAQM
+Direction No. 101 of 15 May 2026 and covers the whole NCR, so it is not new to
+Delhi. CAQM's list of orders shows Stage III and IV invoked in January, Stage I
+in April and May, and no Stage I order for this autumn as of 5 October. PIB's 12
+January 2026 review gives Bhalswa landfill as October 2026 (an April report
+said December), 3,300 km of road redevelopment (the April plan says 3,500), and
+an expected 15 to 20% regional AQI improvement in 2026, which is a regional
+expectation and not a Delhi target with a base year. The same release says 2025
+had the best AQI figures since 2018 outside the lockdown year; by days rated
+Poor or worse, 2025 (164) was worse than 2023 (159) and 2024 (157).
+
 ## [v26.6.235] - 2026-10-02
 
 ### Fixed, every panel, quiz, deck, doc and function checked against its source (sitewide fact check)
