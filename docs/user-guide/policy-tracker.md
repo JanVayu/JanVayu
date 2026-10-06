@@ -25,16 +25,16 @@ The PRANA (Portal for Regulation of Air-pollution in Non-Attainment cities) port
 
 ## GRAP (Graded Response Action Plan)
 
-GRAP is an emergency action plan for Delhi-NCR. Restrictions come into force as AQI rises.
+GRAP is an emergency action plan for Delhi-NCR. CAQM's Sub-Committee on GRAP invokes a stage on the day's AQI for Delhi and the IMD/IITM forecast, and the actions of earlier stages continue when a higher stage is invoked.
 
 | Stage | AQI trigger | Main measures |
 |-------|------------|--------------|
-| Stage I | 201–300 (Poor) | Ban on coal/wood burning, dust control; since 28 Sep 2026 also the diesel generator (DG) set and inter-state BS-IV-and-below bus actions that used to sit in Stage II |
-| Stage II | 301–400 (Very Poor) | See the current CAQM schedule (the DG-set and bus actions moved to Stage I on 28 Sep 2026) |
-| Stage III | 401–450 (Severe) | Construction bans, hybrid mode for schools, restrictions on BS III petrol and BS IV diesel cars |
-| Stage IV | >450 (Severe+) | Truck entry bans, and consideration of an odd-even vehicle scheme |
+| Stage I | 201–300 (Poor) | Dust control, road sweeping and sprinkling, a ban on open burning; since 28 Sep 2026 also regulated use of diesel generator (DG) sets and a bar on inter-city buses other than electric, CNG and BS-VI diesel |
+| Stage II | 301–400 (Very Poor) | Higher parking fees, staggered office timings, more sweeping and sprinkling, tighter checks on building-site dust |
+| Stage III | 401–450 (Severe) | Listed dust-raising building and demolition work stops, stone crushers and mining close, restrictions on BS III petrol and BS IV diesel cars and on older goods vehicles, hybrid classes up to Class V |
+| Stage IV | >450 (Severe+) | Trucks barred from Delhi except electric, CNG, LNG and BS-VI diesel; the building ban extends to roads, flyovers and pipelines; hybrid classes up to Class IX and XI; states may consider closing colleges and running odd-even |
 
-> Update, 2 Oct 2026: On 28 Sep 2026 CAQM moved the actions on DG sets and the entry of BS-IV-and-below buses from NCR and adjoining states from Stage II to Stage I (the revised schedule has 25, 8, 10 and 5 actions across the four stages, 48 in all). The stage table above is based on the 21 Nov 2025 schedule plus this change and has not been rebuilt from the new schedule.
+> Source: CAQM, GRAP schedule revised 29 Sep 2026, issued with Direction No. 104 after the Commission's meeting of 28 Sep 2026. It has 25, 8, 10 and 5 actions across the four stages, 48 in all. The table above was rebuilt from that schedule on 6 Oct 2026.
 
 JanVayu archives GRAP stage history with dates, so you can compare emergency restrictions with AQI readings.
 

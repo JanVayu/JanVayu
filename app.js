@@ -1065,7 +1065,7 @@
             why: 'At this level everyone is affected. Keep the windows shut, run a purifier if you have one, and avoid going out at all if you can.',
             plain: 'This air is dangerous for everyone. Stay inside. Keep windows shut. Do not go out unless you have to.',
             who: [['Delay it', 'Send one person in a fitted N95, or go tomorrow if you can.'],
-                  ['Stay in', 'Ask about closure. In Delhi-NCR, schools shift to hybrid or online classes under GRAP Stage III and IV (CAQM GRAP, revised 21 Nov 2025).'],
+                  ['Stay in', 'Ask about closure. In Delhi and four adjoining districts, GRAP Stage III requires hybrid classes up to Class V and Stage IV extends them to Classes VI to IX and XI (CAQM GRAP, revised 29 Sep 2026).'],
                   ['Hazard', 'This is unsafe to work in. N95, the shortest exposure possible, and a real case for stopping work.'],
                   ['Cancelled', 'No outdoor sport at this level, for anybody.'],
                   ['Stay in', 'Windows shut, purifier if you have one, and get advice early.']] }
@@ -1508,7 +1508,7 @@
             label: 'Hazardous', color: 'var(--aqi-hazardous)',
             headline: 'Emergency. Treat outdoor air as toxic.',
             actions: [
-                'In Delhi-NCR, GRAP Stage III applies from CPCB AQI 401 and Stage IV above 450 (CAQM, revised 21 Nov 2025).',
+                'In Delhi-NCR, GRAP Stage III applies from CPCB AQI 401 and Stage IV above 450 (CAQM, revised 29 Sep 2026).',
                 'Do not go outside without an N95 and eye protection.',
                 'Seal gaps under doors and windows; keep medicines and emergency contacts close.',
                 'Seek help immediately for chest pain or breathing trouble.',
@@ -7090,7 +7090,7 @@
             predEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
                     <div style="font-size: 1.5rem; font-weight: 700; color: ${schoolColor}; margin-bottom: 0.5rem;">${schoolStatus}</div>
-                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on current NCR average AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 21 Nov 2025). This page applies the stage bands to the live NCR average of WAQI (US AQI) readings as an illustration, so it can differ from the official stage.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on current NCR average AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 29 Sep 2026). This page applies the stage bands to the live NCR average of WAQI (US AQI) readings as an illustration, so it can differ from the official stage.</p>
                 </div>`;
         }
 
