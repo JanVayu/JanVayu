@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Fixed, the CAQM plan was readable after all, and it corrects the previous entry
+
+The previous entry said CAQM's and the Delhi government's documents could not be
+read. They can: caqm.nic.in lists them through its own document service, and
+`Delhi State Action Plan, 2026` (10 February 2026) is a public PDF. Reading it:
+
+- **The 2026 targets were mis-explained, by us.** The plan's footnote says the
+  cuts are "with respect to the average of last five years", and the previous
+  entry repeated that and inferred baselines of about 208, 113 and 221. Those
+  inferred values are the 2021 figures (209, 113, 221), not five-year averages.
+  The plan prints 2021 to 2025: AQI 209, 209, 204, 209, 191; PM2.5 113, 103, 106,
+  110, 99; PM10 221, 223, 219, 225, 209. The stated cuts of 15%, 15% and 20%
+  reproduce against 2021 (15.3%, 15.0%, 19.9%) and not against the five-year
+  averages (13.4%, 9.6%, 19.3%). The Delhi page now shows both and says the
+  footnote and the table disagree.
+- **Delhi's NCAP money now reconciles.** The Lok Sabha reply of 15 December 2025
+  (Rs 81 crore released, Rs 14 crore used) and the ResGov brief are the same
+  figure. The plan gives Rs 81.34 crore received and Rs 26 crore used (32%),
+  of which Rs 38.67 crore arrived in August to October 2025, so about Rs 42.67
+  crore was received before then, close to the Rs 38.22 crore reported to
+  December 2023. The rise in use is not explained as spending.
+- **CAQM's own count of bad days for January to September 2026** (79 Poor or
+  worse, against 86, 86, 80 and 127) is on the Delhi page. Its two counts add up
+  to the days in the period in every year.
+- **The legal panel's RTI quotation is traced.** Both sentences are Amit Gupta's,
+  as quoted by The Tribune on 13 December 2025 (Sneha Richhariya). The panel had
+  joined two separate statements into one quote, bolded a phrase the speaker did
+  not stress, gave no link, dated the report a day early, and wrote "10 of 12
+  plants never monitored", which the report does not say. It reports monitoring
+  at 2 of 12 plants, both partial. The 281 kilo-tonnes of SO2 is one 12-month
+  estimate (June 2022 to May 2023), not an annual figure.
+
 ### Fixed, the full walkthrough had stopped rendering, and the figures behind five open questions
 
 `walkthrough/full.html` showed no slides to any visitor from the previous merge
