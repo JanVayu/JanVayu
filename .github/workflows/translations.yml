@@ -167,6 +167,7 @@ jobs:
     timeout-minutes: 340
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
         with:
@@ -202,23 +203,37 @@ jobs:
           EVENT: ${{ github.event_name }}
         run: python3 scripts/translate-docs.py
 
-      # Commit what did translate even when some files failed, so one bad file
-      # does not discard the rest.
-
-      - name: Commit translations
+      # main is protected ("Changes must be made through a pull request"), so a
+      # push to it is refused. Until 2026-10-06 that threw away 65 finished Hindi
+      # translations when the runner closed. The result goes to a branch and a
+      # pull request instead, which is also where a person can read it before it
+      # is published. What did translate is committed even when some files
+      # failed, so one bad file does not discard the rest.
+      - name: Commit translations to a branch and open a pull request
         if: ${{ !cancelled() && steps.gate.outputs.skip != '1' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          if git diff --quiet docs-hi/ docs-bn/ docs-mr/ docs-ta/; then
+          # git diff alone ignores files that are new, which most of these are
+          if [ -z "$(git status --porcelain -- docs-hi docs-bn docs-mr docs-ta)" ]; then
             echo "No translation changes."
             exit 0
           fi
+          BRANCH="auto-translate/${GITHUB_RUN_ID}"
           git config user.name "janvayu-translation-bot"
           git config user.email "translation-bot@janvayu.in"
+          git checkout -b "$BRANCH"
           git add docs-hi/ docs-bn/ docs-mr/ docs-ta/
-          git commit -m "Auto-translate docs (Sarvam) [skip ci]"
-          # Retry push up to 4 times with backoff in case main moved underneath us
-          for delay in 0 4 8 16; do
-            if [ $delay -gt 0 ]; then sleep $delay; git pull --rebase origin main || true; fi
-            if git push origin HEAD:main; then exit 0; fi
-          done
-          exit 1
+          git commit -m "Auto-translate docs (Sarvam)"
+          git push origin "$BRANCH"
+          printf '%s\n' \
+            "Machine translation by Sarvam, not read by a native speaker." \
+            "" \
+            "Files that failed or were rejected by the structure checks are not in this branch. The run log lists them: $RUN_URL" \
+            > /tmp/pr-body.md
+          if ! gh pr create --base main --head "$BRANCH" \
+               --title "Auto-translate docs (Sarvam), run ${GITHUB_RUN_ID}" \
+               --body-file /tmp/pr-body.md; then
+            echo "::warning::Branch $BRANCH is pushed but the pull request was not opened (Settings > Actions > General > allow GitHub Actions to create pull requests). Open it from ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...$BRANCH"
+          fi

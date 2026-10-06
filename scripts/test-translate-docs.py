@@ -52,6 +52,26 @@ td.translate = lambda k,c,l,r: good.replace("overview.md","x.md")
 rc = td.main(); assert rc == 1 and not (tmp/"docs-hi"/"a.md").exists(), rc
 print("rejected + exit 1 OK")
 
+
+# a rejected translation is retried; a second good attempt is written
+(tmp/"docs-hi"/"a.md").unlink(missing_ok=True)
+attempts=[]
+def flaky(k,c,l,r):
+    attempts.append(1)
+    return good.replace("overview.md","x.md") if len(attempts) == 1 else good
+td.translate = flaky
+rc = td.main(); assert rc == 0 and len(attempts) == 2 and (tmp/"docs-hi"/"a.md").exists(), (rc, attempts)
+print("retry after rejection OK")
+
+# still rejected after every attempt: not written, exit 1, three attempts made
+(tmp/"docs-hi"/"a.md").unlink()
+attempts.clear()
+def always_bad(k,c,l,r):
+    attempts.append(1); return good.replace("overview.md","x.md")
+td.translate = always_bad
+rc = td.main(); assert rc == 1 and len(attempts) == td.MAX_ATTEMPTS and not (tmp/"docs-hi"/"a.md").exists(), (rc, attempts)
+print("gives up after MAX_ATTEMPTS OK")
+
 # an API error exits 1
 def boom(k,c,l,r): raise RuntimeError("HTTP 400")
 td.translate = boom
