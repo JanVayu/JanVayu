@@ -55,6 +55,17 @@
   .delhi-page .sources li { font-size: 0.88rem; }
   .delhi-page a { color: var(--accent); }
   .delhi-page .related-links a { color: var(--text); }
+  @media (max-width: 640px) {
+    .delhi-page .wrap { overflow-x: visible; }
+    .delhi-page table.stack, .delhi-page table.stack tbody, .delhi-page table.stack tr, .delhi-page table.stack td { display: block; width: 100%; }
+    .delhi-page table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .delhi-page table.stack tr { margin-bottom: 14px; padding: 10px 14px; background: var(--bg-section); border: 1px solid var(--border); }
+    .delhi-page table.stack td { padding: 5px 0; border-bottom: 0; text-align: left; white-space: normal; }
+    .delhi-page table.stack td.num { text-align: left; white-space: normal; }
+    .delhi-page table.stack td::before { content: attr(data-label); display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-3); margin-bottom: 1px; }
+    .delhi-page table.stack td.when { font-size: 0.95rem; font-weight: 600; }
+    .delhi-page table.stack td.when::before { font-weight: 600; }
+  }
   .delhi-foot { padding: 32px 0; color: var(--text-3); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 48px; }
   .delhi-foot a { color: var(--accent); }
 </style>
@@ -75,15 +86,15 @@
   <p>The same release reports how enforcement has gone. By 17 September the Commission's task force had issued closure orders to 1,831 units. Of these, 1,479 had been considered for resumption after complying, and 126 had been passed to state pollution control boards or the Delhi Pollution Control Committee. (<a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2316597">PIB, 29 September 2026</a>)</p>
   <p>Delhi's own winter plan, announced by Environment Minister Manjinder Singh Sirsa on 28 September, adds state measures. Everything in the table below comes from press reports. We have not seen the orders.</p>
   <div class="wrap">
-  <table>
+  <table class="stack">
     <thead><tr><th>Date</th><th>What is reported</th><th>Reported by</th></tr></thead>
     <tbody>
-      <tr><td class="when">1 Oct</td><td>The particulate limit for 2,354 targeted industries tightens from 80 to 50 milligrams per normal cubic metre, under a CAQM direction of February. 2,197 of them (97.3%) say they have installed continuous emission monitors, and 57 were closed for failing to.</td><td><a href="https://www.downtoearth.org.in/air/delhi-targets-2354-industries-with-tighter-emission-norms-apcd-and-ocems-enforcement">Down To Earth</a>. The limits themselves are in CAQM Direction No. 98 of 20 February 2026, on particulate emissions from industries across Delhi-NCR.</td></tr>
-      <tr><td class="when">1 Oct</td><td>"No PUCC, no fuel" at the 500 fuel stations with number-plate cameras. A vehicle without a valid pollution-under-control certificate is refused fuel. The rule is not new to Delhi: CAQM's Direction No. 101 of 15 May 2026 already restricts fuelling of such vehicles across the NCR, and the Delhi plan reports enforcing it at these stations from 1 October.</td><td><a href="https://www.newsgram.com/delhi/2026/09/29/delhi-winter-pollution-action-plan-wfh-construction-ban-2026">Newsgram</a>, <a href="https://www.drishtiias.com/daily-updates/daily-news-analysis/delhis-proactive-air-quality-management-framework-2026-27">Drishti IAS</a></td></tr>
-      <tr><td class="when">1 Oct</td><td>An AI-assisted command and control centre opens. Monitoring stations rise from 47 to 60, and there are 334 enforcement teams.</td><td>Drishti IAS, Down To Earth</td></tr>
-      <tr><td class="when">1 Nov</td><td>Vehicles registered outside Delhi that do not meet BS-VI are barred from entering the city.</td><td>Newsgram, Drishti IAS</td></tr>
-      <tr><td class="when">1 Nov to 31 Jan</td><td>Dust-raising demolition and outdoor construction are restricted. One outlet adds a complete ban from 10 December to 20 January, except essential or emergency government work.</td><td>Newsgram; <a href="https://www.thehansindia.com/news/national/delhi-winter-pollution-plan-2026-no-puc-no-fuel-150-more-e-buses-50-wfh-1126638">The Hans India</a> (full-ban dates)</td></tr>
-      <tr><td class="when">1 Nov to 28 Feb</td><td>Half of staff work from home, with staggered hours. No source we read says what legal force this has, or whether private employers must comply.</td><td>The Hans India, Newsgram</td></tr>
+      <tr><td class="when" data-label="Date">1 Oct</td><td data-label="What is reported">The particulate limit for 2,354 targeted industries tightens from 80 to 50 milligrams per normal cubic metre, under a CAQM direction of February. 2,197 of them (97.3%) say they have installed continuous emission monitors, and 57 were closed for failing to.</td><td data-label="Reported by"><a href="https://www.downtoearth.org.in/air/delhi-targets-2354-industries-with-tighter-emission-norms-apcd-and-ocems-enforcement">Down To Earth</a>. The limits themselves are in CAQM Direction No. 98 of 20 February 2026, on particulate emissions from industries across Delhi-NCR.</td></tr>
+      <tr><td class="when" data-label="Date">1 Oct</td><td data-label="What is reported">"No PUCC, no fuel" at the 500 fuel stations with number-plate cameras. A vehicle without a valid pollution-under-control certificate is refused fuel. The rule is not new to Delhi: CAQM's Direction No. 101 of 15 May 2026 already restricts fuelling of such vehicles across the NCR, and the Delhi plan reports enforcing it at these stations from 1 October.</td><td data-label="Reported by"><a href="https://www.newsgram.com/delhi/2026/09/29/delhi-winter-pollution-action-plan-wfh-construction-ban-2026">Newsgram</a>, <a href="https://www.drishtiias.com/daily-updates/daily-news-analysis/delhis-proactive-air-quality-management-framework-2026-27">Drishti IAS</a></td></tr>
+      <tr><td class="when" data-label="Date">1 Oct</td><td data-label="What is reported">An AI-assisted command and control centre opens. Monitoring stations rise from 47 to 60, and there are 334 enforcement teams.</td><td data-label="Reported by">Drishti IAS, Down To Earth</td></tr>
+      <tr><td class="when" data-label="Date">1 Nov</td><td data-label="What is reported">Vehicles registered outside Delhi that do not meet BS-VI are barred from entering the city.</td><td data-label="Reported by">Newsgram, Drishti IAS</td></tr>
+      <tr><td class="when" data-label="Date">1 Nov to 31 Jan</td><td data-label="What is reported">Dust-raising demolition and outdoor construction are restricted. One outlet adds a complete ban from 10 December to 20 January, except essential or emergency government work.</td><td data-label="Reported by">Newsgram; <a href="https://www.thehansindia.com/news/national/delhi-winter-pollution-plan-2026-no-puc-no-fuel-150-more-e-buses-50-wfh-1126638">The Hans India</a> (full-ban dates)</td></tr>
+      <tr><td class="when" data-label="Date">1 Nov to 28 Feb</td><td data-label="What is reported">Half of staff work from home, with staggered hours. No source we read says what legal force this has, or whether private employers must comply.</td><td data-label="Reported by">The Hans India, Newsgram</td></tr>
     </tbody>
   </table>
   </div>
@@ -105,13 +116,13 @@
   <h3>How much of its money Delhi has spent</h3>
   <p>The official figure is the oldest. A Ministry reply published by PIB on 21 December 2023 shows Rs 38.22 crore released to Delhi under the programme for 2019-20 to 2023-24, of which Rs 10.77 crore had been used. That is 28%. A later city brief by ResGov, which JanVayu charts on its budget page, puts the five years to December 2025 at Rs 81.36 crore received and Rs 14.1 crore used, or 17%. The two do not reconcile. The later date explains part of the gap, and the second figure may include other funding streams, but we could not tell.</p>
   <div class="wrap">
-  <table>
+  <table class="stack">
     <thead><tr><th>Source and period</th><th>Reported</th><th>Our arithmetic</th></tr></thead>
     <tbody>
-      <tr><td><a href="https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=1989207">PIB, 21 December 2023</a>: Delhi, 2019-20 to 2023-24</td><td>Rs 38.22 crore released, Rs 10.77 crore used</td><td>10.77 / 38.2185 = 28.2%</td></tr>
-      <tr><td>ResGov city brief: five years to December 2025</td><td>Rs 81.36 crore received, Rs 14.1 crore used</td><td>14.1 / 81.36 = 17.3%</td></tr>
-      <tr><td>Municipal Corporation of Delhi, 2023-24 (<a href="https://www.tribuneindia.com/news/delhi/as-national-capital-chokes-mcd-sat-on-clean-air-funds">Tribune</a>)</td><td>Rs 35.31 crore available (8.93 new plus 26.60 carried over), Rs 5.19 crore spent</td><td>5.19 / 35.31 = 14.7%, reported as about 15%</td></tr>
-      <tr><td>Municipal Corporation of Delhi, 2024-25 (Tribune)</td><td>No new grant, Rs 30.11 crore available, Rs 1.34 crore spent</td><td>1.34 / 30.11 = 4.45%, though the report says 4.36%</td></tr>
+      <tr><td data-label="Source and period"><a href="https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=1989207">PIB, 21 December 2023</a>: Delhi, 2019-20 to 2023-24</td><td data-label="Reported">Rs 38.22 crore released, Rs 10.77 crore used</td><td data-label="Our arithmetic">10.77 / 38.2185 = 28.2%</td></tr>
+      <tr><td data-label="Source and period">ResGov city brief: five years to December 2025</td><td data-label="Reported">Rs 81.36 crore received, Rs 14.1 crore used</td><td data-label="Our arithmetic">14.1 / 81.36 = 17.3%</td></tr>
+      <tr><td data-label="Source and period">Municipal Corporation of Delhi, 2023-24 (<a href="https://www.tribuneindia.com/news/delhi/as-national-capital-chokes-mcd-sat-on-clean-air-funds">Tribune</a>)</td><td data-label="Reported">Rs 35.31 crore available (8.93 new plus 26.60 carried over), Rs 5.19 crore spent</td><td data-label="Our arithmetic">5.19 / 35.31 = 14.7%, reported as about 15%</td></tr>
+      <tr><td data-label="Source and period">Municipal Corporation of Delhi, 2024-25 (Tribune)</td><td data-label="Reported">No new grant, Rs 30.11 crore available, Rs 1.34 crore spent</td><td data-label="Our arithmetic">1.34 / 30.11 = 4.45%, though the report says 4.36%</td></tr>
     </tbody>
   </table>
   </div>
@@ -127,12 +138,12 @@
   <p>On 3 December 2025 the Union Environment Minister told civic bodies in the National Capital Region to file annual action plans for 2026 (<a href="https://www.tribuneindia.com/news/delhi/centre-directs-delhi-ncr-to-submit-2026-annual-action-plan-to-curb-pollution">Tribune</a>). After a review with Delhi's Chief Minister on 12 January, PIB reported that a coordinated, target-based plan by all NCR governments is "expected to lead to a 15-20% improvement in AQI levels by the end of this year", and that 2025 had the best AQI figures since 2018 apart from the lockdown year (<a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2213842">PIB, 12 January 2026</a>). That is an expectation for the region, not a Delhi target with a base year.</p>
   <p>On 9 February Outlook Business reported the cuts that Delhi's own plan proposes. The percentages do not match the levels printed beside them.</p>
   <div class="wrap">
-  <table>
+  <table class="stack">
     <thead><tr><th>Measure</th><th>Reported levels</th><th>Reported cut</th><th>Cut the levels imply</th></tr></thead>
     <tbody>
-      <tr><td>Annual average AQI</td><td class="num">191 to 177</td><td class="num">15%</td><td class="num">7.3%</td></tr>
-      <tr><td>Annual average PM2.5</td><td class="num">99 to 96 µg/m³</td><td class="num">15%</td><td class="num">3.0%</td></tr>
-      <tr><td>Annual average PM10</td><td class="num">209 to 177 µg/m³</td><td class="num">20%</td><td class="num">15.3%</td></tr>
+      <tr><td data-label="Measure">Annual average AQI</td><td class="num" data-label="Reported levels">191 to 177</td><td class="num" data-label="Reported cut">15%</td><td class="num" data-label="Cut the levels imply">7.3%</td></tr>
+      <tr><td data-label="Measure">Annual average PM2.5</td><td class="num" data-label="Reported levels">99 to 96 µg/m³</td><td class="num" data-label="Reported cut">15%</td><td class="num" data-label="Cut the levels imply">3.0%</td></tr>
+      <tr><td data-label="Measure">Annual average PM10</td><td class="num" data-label="Reported levels">209 to 177 µg/m³</td><td class="num" data-label="Reported cut">20%</td><td class="num" data-label="Cut the levels imply">15.3%</td></tr>
     </tbody>
   </table>
   </div>
@@ -145,16 +156,16 @@
   <h3>The mitigation plan announced in April</h3>
   <p>The Chief Minister announced the Delhi Air Pollution Mitigation Action Plan 2026 on 3 April. <a href="https://healthpolicy-watch.news/delhi-has-a-new-plan-to-fight-its-toxic-air-but-will-it-deliver/">Health Policy Watch</a> reported that the full details had not been released more than a week later. We found no document officially called DCAP. The April plan, the winter plan of 28 September and Swachh Hawa, Swasth Delhi are the nearest we can name. The table lists the dated commitments in the April plan and where each stands.</p>
   <div class="wrap">
-  <table>
+  <table class="stack">
     <thead><tr><th>Commitment</th><th>Promised for</th><th>Where it stands</th></tr></thead>
     <tbody>
-      <tr><td>Clear the Okhla landfill</td><td class="when">July 2026</td><td>PIB's January review repeated July 2026. The deadline has since moved: later statements say October, then December 2026. About 70 lakh tonnes of old waste have been processed (<a href="https://theprint.in/ground-reports/delhi-garbage-mountains-coming-down/3059743/">ThePrint</a>, <a href="https://thepatriot.in/delhi-ncr/mcd-on-track-to-clear-okhla-landfill-by-december-delhi-mayor-86925">The Patriot</a>).</td></tr>
-      <tr><td>Clear the Bhalswa landfill</td><td class="when">October or December 2026</td><td>PIB's January review gives October 2026 (<a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2213842">PIB, 12 January 2026</a>); the April report gives December. We have not checked progress.</td></tr>
-      <tr><td>Clear the Ghazipur landfill</td><td class="when">December 2027</td><td>Not yet due.</td></tr>
-      <tr><td>Bar goods vehicles below BS-VI</td><td class="when">1 Nov 2026</td><td>Due in about four weeks. It was already delayed once, from 2025.</td></tr>
-      <tr><td>Double the bus fleet from 6,100 to 13,760</td><td class="when">2028-29</td><td>Not yet due. PIB reported in January that an order for 3,350 electric buses had been placed with CESL under a planned induction of 14,000 buses, a different total from the April plan. JanVayu's progress page has 4,845 electric buses on 9 July, and a later report of more than 5,000.</td></tr>
-      <tr><td>Add 32,000 charging points to the existing 8,800</td><td class="when">Four years</td><td>Not yet due.</td></tr>
-      <tr><td>Pave 3,500 km of road, plant 7 million trees a year, clear 62 congestion points</td><td class="when">No date</td><td>With no date there is nothing to test. PIB's January review says redevelopment of over 3,300 km of roads is planned this year, against 3,500 km in the April plan. CAQM's count has Delhi at 62,00,527 plantations against a 2026-27 target of 58,01,386 on 22 September (PIB).</td></tr>
+      <tr><td data-label="Commitment">Clear the Okhla landfill</td><td class="when" data-label="Promised for">July 2026</td><td data-label="Where it stands">PIB's January review repeated July 2026. The deadline has since moved: later statements say October, then December 2026. About 70 lakh tonnes of old waste have been processed (<a href="https://theprint.in/ground-reports/delhi-garbage-mountains-coming-down/3059743/">ThePrint</a>, <a href="https://thepatriot.in/delhi-ncr/mcd-on-track-to-clear-okhla-landfill-by-december-delhi-mayor-86925">The Patriot</a>).</td></tr>
+      <tr><td data-label="Commitment">Clear the Bhalswa landfill</td><td class="when" data-label="Promised for">October or December 2026</td><td data-label="Where it stands">PIB's January review gives October 2026 (<a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2213842">PIB, 12 January 2026</a>); the April report gives December. We have not checked progress.</td></tr>
+      <tr><td data-label="Commitment">Clear the Ghazipur landfill</td><td class="when" data-label="Promised for">December 2027</td><td data-label="Where it stands">Not yet due.</td></tr>
+      <tr><td data-label="Commitment">Bar goods vehicles below BS-VI</td><td class="when" data-label="Promised for">1 Nov 2026</td><td data-label="Where it stands">Due in about four weeks. It was already delayed once, from 2025.</td></tr>
+      <tr><td data-label="Commitment">Double the bus fleet from 6,100 to 13,760</td><td class="when" data-label="Promised for">2028-29</td><td data-label="Where it stands">Not yet due. PIB reported in January that an order for 3,350 electric buses had been placed with CESL under a planned induction of 14,000 buses, a different total from the April plan. JanVayu's progress page has 4,845 electric buses on 9 July, and a later report of more than 5,000.</td></tr>
+      <tr><td data-label="Commitment">Add 32,000 charging points to the existing 8,800</td><td class="when" data-label="Promised for">Four years</td><td data-label="Where it stands">Not yet due.</td></tr>
+      <tr><td data-label="Commitment">Pave 3,500 km of road, plant 7 million trees a year, clear 62 congestion points</td><td class="when" data-label="Promised for">No date</td><td data-label="Where it stands">With no date there is nothing to test. PIB's January review says redevelopment of over 3,300 km of roads is planned this year, against 3,500 km in the April plan. CAQM's count has Delhi at 62,00,527 plantations against a 2026-27 target of 58,01,386 on 22 September (PIB).</td></tr>
     </tbody>
   </table>
   </div>
@@ -218,14 +229,14 @@
       const r = d[y];
       const full = r.days >= 360;
       const share = Math.round((r.poor_or_worse / r.days) * 100);
-      return '<tr><td>' + y + (full ? '' : ' (part year)') + '</td>' +
-        '<td class="num">' + r.days + '</td>' +
-        '<td class="num">' + r.poor_or_worse + '</td>' +
-        '<td class="num">' + (full ? share + '%' : 'not comparable') + '</td>' +
-        '<td class="num">' + r.by_category['Very Poor'] + '</td>' +
-        '<td class="num">' + r.severe + '</td></tr>';
+      return '<tr><td data-label="Year">' + y + (full ? '' : ' (part year)') + '</td>' +
+        '<td class="num" data-label="Days reported">' + r.days + '</td>' +
+        '<td class="num" data-label="Poor or worse">' + r.poor_or_worse + '</td>' +
+        '<td class="num" data-label="Share of days">' + (full ? share + '%' : 'not comparable') + '</td>' +
+        '<td class="num" data-label="Very Poor">' + r.by_category['Very Poor'] + '</td>' +
+        '<td class="num" data-label="Severe">' + r.severe + '</td></tr>';
     }).join('');
-    el.innerHTML = '<table><thead><tr><th>Year</th><th>Days reported</th><th>Poor or worse</th><th>Share of days</th><th>Very Poor</th><th>Severe</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+    el.innerHTML = '<table class="stack"><thead><tr><th>Year</th><th>Days reported</th><th>Poor or worse</th><th>Share of days</th><th>Very Poor</th><th>Severe</th></tr></thead><tbody>' + rows + '</tbody></table>' +
       '<p class="note">A part year is missing its winter months, so its share is not comparable with a full year and is not shown. Source: CPCB daily AQI bulletins, 2015 to 2025 parsed by UrbanEmissions.Info and 2026 parsed by JanVayu. Counts are for a city bulletin, not for a single station.</p>';
   } catch (e) {
     el.innerHTML = '<em style="color: var(--text-3);">The bulletin summary could not be loaded. <a href="/">Open the dashboard for current readings</a>.</em>';
