@@ -103,4 +103,4 @@ JanVayu runs at **zero cost**:
 | Resend | Free plan (daily limit of 100 emails) | $0 |
 | Domain (janvayu.in) | Annual renewal | price not recorded here |
 
-**Total:** only the domain renewal, for a platform serving 160 locations with real-time data, AI features, and email digests.
+**Total:** only the domain renewal, for a platform serving 160 cities (157 Indian, plus three comparison cities abroad) with real-time data, AI features, and email digests.

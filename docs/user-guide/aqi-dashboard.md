@@ -1,6 +1,6 @@
 # AQI dashboard
 
-The AQI dashboard shows live air quality readings for 157 Indian cities. It updates itself every 10 minutes, with readings taken from WAQI and CPCB monitoring stations.
+The AQI dashboard shows live air quality readings for 157 Indian cities, with Beijing, London and Singapore alongside for comparison. Readings come from WAQI and CPCB monitoring stations. The 33 largest cities refresh every 10 minutes, and the others load when you select them.
 
 ---
 
@@ -33,7 +33,7 @@ The banner at the top of the dashboard bands the live PM2.5 value instead, in µ
 
 ## Cities covered
 
-The dashboard covers 160 cities, including:
+The dashboard covers 160 cities in all: 157 Indian cities and the three abroad. Among the Indian ones are:
 
 Northern India: Delhi, Gurgaon, Noida, Faridabad, Ghaziabad, Lucknow, Kanpur, Agra, Varanasi, Jaipur, Chandigarh
 

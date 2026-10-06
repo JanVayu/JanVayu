@@ -119,7 +119,7 @@ site's own control.
 
 **Version:** 1.9.4, loaded from unpkg with SRI
 **Used for:**
-- Interactive map of 160 locations (157 Indian) with AQI station markers
+- Interactive map of 160 cities (157 Indian, plus Beijing, London and Singapore) with AQI station markers
 - Colour-coded markers (green/yellow/orange/red/purple) by AQI severity
 - Click-to-view station details
 
