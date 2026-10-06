@@ -22,7 +22,7 @@ The response has been costly. Between 2018-19 and 2025-26, the central governmen
 
 The Commission for Air Quality Management (CAQM), the statutory body overseeing NCR air quality, has mandated state-level action plans for each burning season. After the 10,207 fire events recorded in the 2025 wheat season, CAQM ordered time-bound execution of revised plans for the 2026 cycle with stricter enforcement protocols.
 
-The economics for farmers have not changed. A Happy Seeder, the main machine alternative to burning, costs roughly Rs 1.5 lakh, and a Super Seeder about Rs 2.5 lakh (*Indian Express*, 2019 and 2023). CAQM's Direction 96 requires that small and marginal farmers receive crop-residue machines rent-free through Custom Hiring Centres (ESG Times).
+The economics for farmers have not changed. A Happy Seeder, the main machine alternative to burning, costs roughly Rs 1.5 lakh, and a Super Seeder about Rs 2.5 lakh (*Indian Express*, 2019 and 2023). CAQM's Direction 96 (13 February 2026, on wheat residue) and Direction 99 (15 May 2026, on paddy residue) each tell the states to mandate rent-free availability of crop-residue machines for small and marginal farmers through Custom Hiring Centres ([CAQM directions](https://caqm.nic.in/landingpage/pages/advisories-directions/directions); ESG Times on Direction 96).
 
 ## How much stubble burning contributes
 

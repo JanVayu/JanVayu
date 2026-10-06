@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Fixed, the site's CAQM citations checked against the documents
+
+CAQM publishes its directions, reports and orders as PDFs through its own
+website. Reading the ones the site relies on, in full or from page images where
+the text layer was missing or noisy, found these errors and gaps:
+
+- **Direction No. 98 starts in two steps.** The Delhi page put the 50 mg/Nm3
+  particulate limit at 1 October for 2,354 industries, "tightening from 80". The
+  direction applies it to large and medium industries from 1 August 2026 and to
+  the rest from 1 October, covers 17 categories of highly polluting industry plus
+  medium and large red-category units and food, textile and metal units with
+  boilers or furnaces, and replaces the 80 mg/Nm3 limits of Directions 62 and 64.
+- **Direction No. 101 takes effect on 1 October, and the page said it "already
+  restricts" fuelling.** It applies NCR-wide from 1 October 2026, allows fuel in
+  medical, law-and-order and disaster-response cases, requires number-plate
+  cameras at every fuel station by 30 September, and leaves Delhi's own
+  notification of 22 April 2026 in force.
+- **Three 2026 directions were missing.** The Delhi page now carries a dated
+  table: Direction No. 100 (only electric three-wheelers registered, Delhi from 1
+  January 2027, five high-density districts 2028, the rest of NCR 2029), No. 102
+  (no new diesel, petrol or CNG light goods vehicles, phased from 1 January 2027)
+  and No. 103 (stone-crusher dust monitoring, from 1 November 2026). Advisory No.
+  18 asks states to schedule no physical sports competitions in November and
+  December.
+- **The source-apportionment shares are now traced to the report.** The progress
+  panel's figures (winter: secondary particulates 27%, transport 23%, biomass
+  burning 20%; summer: dust 27%) and the 33 experts match the experts' report of
+  January 2026. It also gives dust 15%, industry 9% and other 6% in winter, and
+  calls the shares "indicative and not absolute". The legal panel quoted only the
+  2018 TERI-ARAI split, which has industry above transport in winter; the 2026
+  consensus puts industry at 9%, and both are now shown with the reason they
+  differ. An editorial gloss about attention moving from PM10 to PM2.5 is removed.
+- **Direction No. 96 is about wheat, not paddy.** The stubble-burning post cited
+  it for rent-free machines for small farmers in a paddy-season paragraph.
+  Direction No. 99 (15 May 2026, paddy) carries the same clause, and the post now
+  cites both.
+
 ### Fixed, every GRAP claim checked against CAQM's revised schedule
 
 CAQM's revised GRAP schedule (Direction No. 104, 29 September 2026, 17 pages) and
