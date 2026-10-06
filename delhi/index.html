@@ -38,6 +38,7 @@
   .delhi-page .lede { font-size: 1.15rem; color: var(--text-2); margin-bottom: 12px; }
   .delhi-page .asof { font-size: 0.9rem; color: var(--text-3); margin-bottom: 24px; }
   .delhi-page p, .delhi-page li { line-height: 1.7; }
+  .delhi-page p { margin: 0 0 1em; }
   .delhi-page li { margin-bottom: 6px; }
   .delhi-page .wrap { overflow-x: auto; margin: 12px 0; }
   .delhi-page table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
@@ -56,15 +57,20 @@
   .delhi-page a { color: var(--accent); }
   .delhi-page .related-links a { color: var(--text); }
   @media (max-width: 640px) {
+    .delhi-page h2 { font-size: 1.3rem; margin-top: 32px; }
     .delhi-page .wrap { overflow-x: visible; }
+    /* Text tables become cards: the first cell is the card's title, the rest carry a small label. */
     .delhi-page table.stack, .delhi-page table.stack tbody, .delhi-page table.stack tr, .delhi-page table.stack td { display: block; width: 100%; }
     .delhi-page table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-    .delhi-page table.stack tr { margin-bottom: 14px; padding: 10px 14px; background: var(--bg-section); border: 1px solid var(--border); }
-    .delhi-page table.stack td { padding: 5px 0; border-bottom: 0; text-align: left; white-space: normal; }
-    .delhi-page table.stack td.num { text-align: left; white-space: normal; }
-    .delhi-page table.stack td::before { content: attr(data-label); display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-3); margin-bottom: 1px; }
-    .delhi-page table.stack td.when { font-size: 0.95rem; font-weight: 600; }
-    .delhi-page table.stack td.when::before { font-weight: 600; }
+    .delhi-page table.stack tr { margin-bottom: 10px; padding: 8px 12px; background: var(--bg-section); border: 1px solid var(--border); }
+    .delhi-page table.stack td { padding: 3px 0; border-bottom: 0; text-align: left; white-space: normal; font-size: 0.92rem; line-height: 1.55; }
+    .delhi-page table.stack td::before { content: attr(data-label); display: block; font-size: 0.72rem; font-weight: 600; color: var(--text-3); }
+    .delhi-page table.stack td:first-child { font-size: 1rem; font-weight: 700; padding-bottom: 4px; }
+    .delhi-page table.stack td:first-child::before { display: none; }
+    /* Number tables stay tables, tightened to fit a phone. */
+    .delhi-page table:not(.stack) th, .delhi-page table:not(.stack) td { padding: 6px 4px; font-size: 0.8rem; line-height: 1.4; }
+    .delhi-page table:not(.stack) td.num { white-space: normal; }
+    .delhi-page table:not(.stack) th { overflow-wrap: normal; word-break: normal; hyphens: none; }
   }
   .delhi-foot { padding: 32px 0; color: var(--text-3); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 48px; }
   .delhi-foot a { color: var(--accent); }
@@ -138,7 +144,7 @@
   <p>On 3 December 2025 the Union Environment Minister told civic bodies in the National Capital Region to file annual action plans for 2026 (<a href="https://www.tribuneindia.com/news/delhi/centre-directs-delhi-ncr-to-submit-2026-annual-action-plan-to-curb-pollution">Tribune</a>). After a review with Delhi's Chief Minister on 12 January, PIB reported that a coordinated, target-based plan by all NCR governments is "expected to lead to a 15-20% improvement in AQI levels by the end of this year", and that 2025 had the best AQI figures since 2018 apart from the lockdown year (<a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2213842">PIB, 12 January 2026</a>). That is an expectation for the region, not a Delhi target with a base year.</p>
   <p>On 9 February Outlook Business reported the cuts that Delhi's own plan proposes. The percentages do not match the levels printed beside them.</p>
   <div class="wrap">
-  <table class="stack">
+  <table>
     <thead><tr><th>Measure</th><th>Reported levels</th><th>Reported cut</th><th>Cut the levels imply</th></tr></thead>
     <tbody>
       <tr><td data-label="Measure">Annual average AQI</td><td class="num" data-label="Reported levels">191 to 177</td><td class="num" data-label="Reported cut">15%</td><td class="num" data-label="Cut the levels imply">7.3%</td></tr>
@@ -229,15 +235,15 @@
       const r = d[y];
       const full = r.days >= 360;
       const share = Math.round((r.poor_or_worse / r.days) * 100);
-      return '<tr><td data-label="Year">' + y + (full ? '' : ' (part year)') + '</td>' +
+      return '<tr><td data-label="Year">' + y + (full ? '' : ' (part)') + '</td>' +
         '<td class="num" data-label="Days reported">' + r.days + '</td>' +
         '<td class="num" data-label="Poor or worse">' + r.poor_or_worse + '</td>' +
-        '<td class="num" data-label="Share of days">' + (full ? share + '%' : 'not comparable') + '</td>' +
+        '<td class="num" data-label="Share of days">' + (full ? share + '%' : 'n/a') + '</td>' +
         '<td class="num" data-label="Very Poor">' + r.by_category['Very Poor'] + '</td>' +
         '<td class="num" data-label="Severe">' + r.severe + '</td></tr>';
     }).join('');
-    el.innerHTML = '<table class="stack"><thead><tr><th>Year</th><th>Days reported</th><th>Poor or worse</th><th>Share of days</th><th>Very Poor</th><th>Severe</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-      '<p class="note">A part year is missing its winter months, so its share is not comparable with a full year and is not shown. Source: CPCB daily AQI bulletins, 2015 to 2025 parsed by UrbanEmissions.Info and 2026 parsed by JanVayu. Counts are for a city bulletin, not for a single station.</p>';
+    el.innerHTML = '<table><thead><tr><th>Year</th><th>Days</th><th>Poor or worse</th><th>Share</th><th>Very Poor</th><th>Severe</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<p class="note">A part year (marked part) is missing its winter months, so its share is not comparable with a full year and is shown as n/a. Source: CPCB daily AQI bulletins, 2015 to 2025 parsed by UrbanEmissions.Info and 2026 parsed by JanVayu. Counts are for a city bulletin, not for a single station.</p>';
   } catch (e) {
     el.innerHTML = '<em style="color: var(--text-3);">The bulletin summary could not be loaded. <a href="/">Open the dashboard for current readings</a>.</em>';
   }
