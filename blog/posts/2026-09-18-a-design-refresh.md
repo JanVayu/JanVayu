@@ -50,7 +50,7 @@ A reader found this, and found the earlier fault in the same post: the table pri
 
 Partway down the homepage there was a drawing called "How JanVayu works". It showed what we read on the left, what we do with it in the middle, and what you get on the right. It was the clearest thing on the site for anyone deciding whether to trust us.
 
-Every number on it was correct, and an automatic check confirmed that. What the check could not notice was a source we had never added. The drawing listed five live feeds and four satellite datasets. It left out CPCB's own daily bulletin, which we now hold as eleven years across 297 cities, and the measured station readings we check our maps against. Those are the two largest things we built this year. A reader using that drawing to decide what JanVayu is made of was looking at the 2026 version of a 2025 answer, with every figure on it accurate.
+Every number on it was correct, and an automatic check confirmed that. What the check could not notice was a source we had never added. The drawing listed five live feeds and four satellite datasets. It left out CPCB's own daily bulletin, which we now hold as 2015 to 2026 (the first and last years partial) across 297 cities, and the measured station readings we check our maps against. Those are the two largest things we built this year. A reader using that drawing to decide what JanVayu is made of was looking at the 2026 version of a 2025 answer, with every figure on it accurate.
 
 A missing source is not a wrong number, so nothing was going to flag it. We changed the drawing so it is now put together from our data each time the site is rebuilt, which means the list of what we read and what we produce is the actual list. The same drawing appears in our slide deck, and that copy had been drifting away from the homepage. Both now come from one source.
 
@@ -60,9 +60,9 @@ A missing source is not a wrong number, so nothing was going to flag it. We chan
 
 The menu bar carried nine groups, which filled it edge to edge and gave a reader nothing to hold on to. It is now six and an overflow: Dashboard, My Air, Places, Evidence, Accountability, Act. Health & Trends and Learn merged into Evidence, because they cover what somebody arriving with a question is looking for. Resources and About moved behind the dots.
 
-*Update, 2 October 2026: between 19 and 22 September the dropdown menus were replaced by an Index of all 58 panels, with a filter, in the new bar.*
+*Update, 2 October 2026: between 19 and 22 September the dropdown menus were replaced by an Index of all 58 panels plus the dashboard (59 destinations), with a filter, in the new bar.*
 
-Every one of the fifty-nine destinations is still reachable. We did not want to take that on trust, so an automatic check now records what the menus can reach and stops the site being published if that set ever shrinks. We broke it deliberately to confirm it works.
+Every one of the fifty-nine destinations the menus reached is still reachable. (The check records sixty-one in all, because it also counts two that only the mobile menu or a direct link reached. It records sixty-two today.) We did not want to take that on trust, so an automatic check now records what the menus can reach and stops the site being published if that set ever shrinks. We broke it deliberately to confirm it works.
 
 We also found a fault, and the fault is embarrassing. The dropdowns opened when you hovered over them and in no other way. Somebody using a keyboard could tab to a group, but nothing opened, so the fifty-two destinations inside a menu could not be reached at all. That had been true for a long time.
 

@@ -27,7 +27,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 | 8 Aug 2026 | [One map, every boundary in India](posts/2026-08-08-one-map-every-boundary.md) | Product |
 | 7 Aug 2026 | [Agartala breathes like the coal belt, and nobody was looking](posts/2026-08-07-agartala-northeast-outlier.md) | Analysis |
 | 7 Aug 2026 | [Every capital, and the directory we never read](posts/2026-08-07-every-capital-and-the-directory.md) | Product |
-| 7 Aug 2026 | [Ninety cities, ward by ward, and the one we had to go somewhere else for](posts/2026-08-07-ninety-cities-ward-by-ward.md) | Product |
+| 7 Aug 2026 | [Ninety-seven cities, ward by ward, and the one we had to go somewhere else for](posts/2026-08-07-ninety-cities-ward-by-ward.md) | Product |
 | 5 Aug 2026 | [Every village in India is now on the map, including the ones no one measures](posts/2026-08-05-every-village-on-the-map.md) | Product |
 | 30 Jul 2026 | [Our maps now show the air your MP answers for, in 39 cities and 543 constituencies](posts/2026-07-30-the-air-your-mp-answers-for.md) | Product |
 | 22 Jul 2026 | [Testing the chatbot to make it reliable](posts/2026-07-22-testing-ask-janvayu.md) | Quality |

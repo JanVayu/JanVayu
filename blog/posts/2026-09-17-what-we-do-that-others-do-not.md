@@ -34,7 +34,7 @@ JanVayu is built around four questions a live map cannot answer, whatever its
 quality:
 
 1. What is the air where there is no monitor? India has roughly 565
-   continuous stations and 5,84,615 mapped village boundaries.
+   continuous stations and 584,615 mapped village boundaries.
 2. Is it actually getting better, or was that the weather?
 3. Who promised what, and did they do it?
 4. What do I do about it on Tuesday?
@@ -50,9 +50,9 @@ read "no" everywhere but our own column were wrong. See the correction under
 
 | | JanVayu | CPCB portal | AQI.in / IQAir / AQICN | OpenAQ | XKDR | CREA | Sensor networks | VayuBuddy | Hawa Ka Hisab |
 |---|---|---|---|---|---|---|---|---|---|
-| **Live city AQI** | yes, 160 cities | yes, official | yes | yes, raw stations | no (archive) | no | yes, hyperlocal | via CPCB | daily, Delhi + NCR |
+| **Live city AQI** | yes, 160 cities (157 Indian, plus Beijing, London and Singapore) | yes, official | yes | yes, raw stations | no (archive) | no | yes, hyperlocal | via CPCB | daily, Delhi + NCR |
 | **Raw station data via API** | via our Open Data API | download by station | AQICN: yes (token); IQAir: paid or community API; AQI.in: *unverified* | **yes, its whole point** | yes, hourly | yes, daily station values, outlier-filtered | yes | no | no |
-| **A number for a village** | **yes, all 5,84,615 mapped villages** | no | no | no | no | no | no | no | no |
+| **A number for a village** | **yes, all 584,615 mapped villages** | no | no | no | no | no | no | no | no |
 | **A number for a ward** | **yes, all 68,596** | no | no | no | no | no | no | no | no |
 | **Air back to 1980** | yes, 783 districts | no | no | no | no | no | no | no | **yes, Delhi + N India** |
 | **Weather removed from the trend** | **yes, 44 cities** | no | no | no | no | no | no | no | **yes, Delhi, daily** |
@@ -75,17 +75,17 @@ Most of the table is convenience. These five are the substance.
 ### A number for every village and every ward
 
 **983,149 administrative areas**: 36 states, 785 districts, 6,471 blocks and
-tehsils, 319,287 gram panchayats, **5,84,615 village boundaries** (Local Government Directory layer; Census 2011 counted 649,481 villages), 3,359 city bodies and
+tehsils, 319,287 gram panchayats, **584,615 village boundaries** (Local Government Directory layer; Census 2011 counted 649,481 villages), 3,359 city bodies and
 **68,596 wards**. Every one carries an annual PM2.5 figure, most carry surface
 heat, tree cover and built-up share.
 
-No live network can do this and none ever will. 565 monitors cannot cover
-5,84,615 village boundaries. The satellite retrieval can, and that is the entire reason we
+A network of monitors cannot do this. About 565 continuous stations cannot cover
+584,615 village boundaries. The satellite retrieval can, and that is the entire reason we
 lead with a modelled layer rather than apologising for one.
 
 The consequence is concrete: no Indian village meets the WHO annual guideline of
 5 µg/m³, **371,938 of them (63.6%) are above India's own limit of 40**, and the
-median village sits at 43.7. You cannot get that number from a dashboard of 160
+median village sits at 43.7. You cannot get that number from a dashboard of 157 Indian
 cities.
 
 ### Weather removed from the trend
@@ -126,8 +126,8 @@ better instrument.
 
 ### The official bulletin as a series, and what it shows
 
-CPCB publishes an AQI bulletin every day at 4pm as a PDF covering 200+ cities,
-and has since May 2015. It is the official daily figure,
+CPCB publishes an AQI bulletin every day at 4pm as a PDF, and has since May 2015.
+It covered 10 cities in 2015, 264 in 2024, and between 218 and 258 on each day we hold so far in 2026. It is the official daily figure,
 and it has never existed as a series because it is a decade of PDFs.
 UrbanEmissions parsed the archive; we now read the PDFs directly as well.
 
@@ -183,7 +183,7 @@ We do not attempt IQAir's global comparability. Their World Air
 Quality Report is what makes an international ranking possible.
 
 Hawa Ka Hisab covers Delhi better than we do, and is far more current. It
-publishes a daily report (32 pages in September), a short Hindi film with it, a weekly
+publishes a daily report (roughly twelve pages, by its own description), a short Hindi film with it, a weekly
 edition, and a reconstruction of Delhi's air back to 1980. We give a city one
 trend line across seven years. It gives Delhi a weather-adjusted verdict every
 morning, measured against the same fortnight a year earlier.

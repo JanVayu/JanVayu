@@ -25,7 +25,7 @@
   - [One map, every boundary in India](posts/2026-08-08-one-map-every-boundary.md)
   - [Agartala breathes like the coal belt, and nobody was looking](posts/2026-08-07-agartala-northeast-outlier.md)
   - [Every capital, and the directory we never read](posts/2026-08-07-every-capital-and-the-directory.md)
-  - [Ninety cities, ward by ward, and the one we had to go somewhere else for](posts/2026-08-07-ninety-cities-ward-by-ward.md)
+  - [Ninety-seven cities, ward by ward, and the one we had to go somewhere else for](posts/2026-08-07-ninety-cities-ward-by-ward.md)
   - [Every village in India is now on the map, including the ones no one measures](posts/2026-08-05-every-village-on-the-map.md)
 
 - **July 2026**

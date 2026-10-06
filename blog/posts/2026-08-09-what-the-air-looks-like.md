@@ -4,7 +4,7 @@
 
 ---
 
-Everything else on this site is a number. Thirty-two photographs are not, and we should say why they are here.
+Everything else on this site is a number. Thirty-one photographs are not, and we should say why they are here.
 
 You cannot photograph PM2.5. A PM2.5 particle is two and a half micrometres across or smaller, about a thirtieth the width of a human hair. Nothing you can see in a photograph is the thing that is killing people. A camera catches the visible fraction: the smoke at the moment it leaves the source, and the people standing in it.
 
@@ -14,9 +14,9 @@ That is enough to be worth doing, provided we are clear about what it shows and 
 
 ## The gallery is an argument
 
-The [32 photographs](/#gallery) are ordered deliberately. Read start to finish, they go like this.
+The [31 photographs](/#gallery) are ordered deliberately. Read start to finish, they go like this.
 
-*Update, 2 October 2026: one of the 32 was a duplicate of another and has been removed, so the gallery now has 31. Four photographs taken outside India (Mexico, Essex 1986, Turkey, Taiwan) are now captioned as such, and the licence count is 29 Wikimedia Commons images plus two New York Times photographs used with permission.*
+*Update, 2 October 2026: when we wrote this in August the gallery held 32. One was a duplicate of another and has been removed, so it now holds 31. Four photographs taken outside India (Mexico, Essex 1986, Turkey, Taiwan) are now captioned as such, and the licence count is 29 Wikimedia Commons images plus two New York Times photographs used with permission.*
 
 **First, the effect.** Seven frames of what dirty air does to a view: a skyline dissolving at sunset, high-rises fading into winter smog, auto-rickshaws in a street where the far end has gone. Everyone has seen this. It is also the least informative part, and we put it first because it is what brings people in.
 
@@ -50,7 +50,7 @@ So the map is the instrument, and the gallery is the reason to look at the map.
 
 ## Where they come from
 
-**30 of the 32 are openly licensed.** They are Creative Commons or public domain, from Wikimedia Commons and NASA, each carrying its photographer's name, its licence and a link to the original. Tap any image and the credit is there. We did not crop the credit off, and we used nothing whose licence we could not name.
+**29 of the 31 are openly licensed.** They are Creative Commons, CC0 or public domain images from Wikimedia Commons (the two NASA frames come by the same route), each carrying its photographer's name, its licence and a link to the original. Tap any image and the credit is there. We did not crop the credit off, and we used nothing whose licence we could not name.
 
 **Two are used with the photographer's permission**: Bryan Denton's frames from *The New York Times*'s Okhla investigation, of the residents and the ash. They are credited as such, without a licence URL, because there is no public licence to link to. Permission is not a licence, and we will not imply otherwise.
 

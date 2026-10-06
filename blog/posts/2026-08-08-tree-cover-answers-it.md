@@ -4,7 +4,7 @@
 
 ---
 
-[Earlier today](2026-08-08-heat-on-every-ward.md) we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal ward records (68,596 distinct wards, as corrected below), and green cover alongside it, and the two barely moved together: a national correlation of **−0.07**. Within a single city it was **negative in 55% of them**, a coin toss. We wrote the narrow version of the claim and left it there.
+[Earlier today](2026-08-08-heat-on-every-ward.md) we published a result that bothered us. We had put surface temperature on all 70,417 of India's municipal ward records (68,596 distinct wards, as corrected below), and green cover alongside it, and the two barely moved together: a national correlation of **−0.07**. Within a single city it was **negative in 55% of them** (680 of 1,247 cities with twenty or more distinct wards), a coin toss. We wrote the narrow version of the claim and left it there.
 
 The narrow version was wrong. The arithmetic was fine. The variable was the problem.
 
@@ -17,7 +17,7 @@ The [map](https://www.janvayu.in/#map) now has a **Tree cover** layer, canopy al
 | Cities where the relationship is negative | 680 / 1,247 (55%) | **1,087 / 1,240 (88%)** |
 | Coolest fifth vs hottest fifth of wards | 0.8 °C | **4.8 °C** |
 
-The heat-island effect was there all along. We were looking at it through the wrong lens.
+The two city counts differ slightly (1,247 and 1,240). Both are cities with twenty or more distinct wards, and we have not traced why seven drop out of the tree-cover count. The heat-island effect was there all along. We were looking at it through the wrong lens.
 
 ## What "green cover" counts
 

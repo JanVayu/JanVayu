@@ -54,7 +54,7 @@ Greener wards are cooler, and more built-up wards are hotter. In Mangalore an 11
 
 Then there is Jaipur, at **+0.45**: greener wards are *hotter*. This is not an error. We suspect that in arid India the satellite's "green" class is largely dry cropland and scrub, bare and scorching by May, but we have not tested that here. Savanur in Karnataka runs to +0.83.
 
-Across 1,258 cities with 20 or more wards, the correlation is negative in **683 of them (54%)**. That is a little better than a coin toss.
+Across the 1,247 cities with 20 or more distinct wards, the correlation is negative in **680 of them (55%)**. That is a little better than a coin toss. (Our first count, made before the duplicate wards were removed, was 683 of 1,258, or 54%.)
 
 We are not going to smooth that over. The statement the data supports is narrower than the one we wanted to make: *within a humid or temperate Indian city, green cover tracks cooler ward surfaces, and built-up share tracks hotter ones. Across India, and inside arid cities, it does not.* That is what 70,000 wards say. It is also more useful than a tidier claim, because it shows where planting trees for cooling is the obvious move and where the answer needs local evidence.
 
