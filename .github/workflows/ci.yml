@@ -231,6 +231,12 @@ jobs:
       - name: Check every inline script parses
         run: node scripts/check-inline-js.mjs
 
+      # The translation job failed every file for weeks on a deprecated model
+      # name and still reported success. This holds the guards that make that
+      # impossible: structure checks on every translation and a non-zero exit.
+      - name: Test the translation script offline
+        run: python3 scripts/test-translate-docs.py
+
       # data/stories.json feeds the homepage's blog section. It used to be
       # hand-maintained and went six posts stale, so the front page showed
       # nothing published that month. It is generated from blog/README.md now;
