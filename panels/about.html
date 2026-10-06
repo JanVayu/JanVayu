@@ -576,7 +576,7 @@
                     <div class="jv-item-title">v26.6.1, 20 May 2026</div>
                     <strong>Back-to-home floating button</strong><br>
                     &bull; A small floating arrow (bottom-left, mirroring the search button at bottom-right) returns the reader to the dashboard hero. It appears whenever a panel is opened from the menu, or once the reader has scrolled more than 320 px past the top. Clicking it clears the panel and scrolls smoothly to the top.<br>
-                    &bull; It works from the keyboard: it can be tabbed to and has a 3 px focus ring (matching the v26.5.7 dark-mode focus indicator).<br>
+                    &bull; It works from the keyboard: it can be tabbed to and has a 3 px focus ring (the same ring that v26.5.7 added for dark backgrounds).<br>
                     &bull; Its label and tooltip are translated in English, Hindi, Tamil, Marathi and Bengali.<br>
                     &bull; On screens 480 px wide or narrower it is 42 px across, aligned with the search button&rsquo;s 48 px at the same width.
                 </div>
@@ -607,7 +607,8 @@
                     &bull; Every chart canvas (15 of them) now has an image role and a text label for screen readers.<br>
                     &bull; Five automated checks were added: Lighthouse (performance), axe-core (WCAG 2 AA), html-validate, ESLint, and a weekly lychee link audit. All were advisory at first, with counts shown in the pull-request summaries.<br>
                     &bull; Translation coverage rose from 0.7% to 4.8% by tagging about 140 of the highest-traffic strings.<br>
-                    &bull; Mobile polish: 44 px tap targets, long words wrap instead of overflowing, and the Jodi board collapses to 2 columns on Galaxy phones.
+                    &bull; Mobile polish: 44 px tap targets, long words wrap instead of overflowing, and the Jodi board collapses to 2 columns on Galaxy phones.<br>
+                    &bull; In v26.5.7, keyboard focus on dark backgrounds got a stronger pale-yellow outline (3 px), so the focus marker no longer disappears against deep-green or near-black surfaces.
                 </div>
 
                 <div class="jv-item-divided">
