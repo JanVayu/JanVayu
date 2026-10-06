@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Fixed, the full walkthrough had stopped rendering, and the figures behind five open questions
+
+`walkthrough/full.html` showed no slides to any visitor from the previous merge
+until now. The slogan edit put "everyone's" inside a single-quoted JavaScript
+string, the script threw a SyntaxError, and the page loaded empty with every
+check green. It is fixed, and `scripts/check-inline-js.mjs` now parses every
+inline script on every page in CI. It was fault-injected against the real
+defect and names the file and line. The four walkthrough exports (two PDFs, two
+PowerPoint files) were regenerated from the corrected decks.
+
+Open questions resolved against their documents:
+
+- **Odd-even.** The working paper (Greenstone, Harish, Pande and Sudarshan,
+  2017) estimates 13% for January 2016 against satellite-city monitors, with
+  the clearest fall between 11am and 2pm. EPIC's own press summary of the same
+  study gave 14 to 16%. The accountability panel now states 13% and notes the
+  press range, in both rows.
+- **NCAP money.** CREA (January 2026) and the Ministry's Lok Sabha reply of 15
+  December 2025 (Unstarred Question 2339, tabulated by PRS) both give Rs 13,415
+  crore released. Used is Rs 9,929 crore (74%) in one and Rs 10,003 crore (75%)
+  in the other. Neither source explains the Rs 74 crore gap, and the blog, the
+  budget panel and the accountability panel now show both. The same table gives
+  Delhi Rs 81 crore **released**, not allocated, so that label is corrected.
+- **Delhi 2026 targets.** The Hindustan Times and the Times of India both report
+  that the 15%, 15% and 20% cuts are measured against the average of the
+  previous five years, not 2025. The goals imply five-year averages of about
+  208 (AQI), 113 (PM2.5) and 221 (PM10), close to the 2024 levels. The Delhi
+  page no longer calls the targets unreconciled. The plan document itself was
+  not read, so the baselines are marked as inferred.
+- **Translations.** Hindi, Tamil, Marathi and Bengali carried the old wording
+  for five homepage and About strings ("not a privilege", "not a campaign",
+  the em dashes, "wards, panchayats and villages"). They now follow the English.
+  The Tamil, Marathi and Bengali mission paragraph had drifted further, saying
+  the platform "bridges the gap" through "citizen empowerment", which the
+  English never said, and is retranslated. None of the four has been read by a
+  native speaker.
+
 ### Added, a Delhi page at `/delhi/`, linked from the homepage
 
 The season has started and Delhi had no page of its own. `/delhi/` is a dated

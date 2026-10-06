@@ -224,6 +224,13 @@ jobs:
       - name: Check the workshop decks match what the site says about them
         run: python3 scripts/check-workshop-decks.py
 
+      # A script block that throws SyntaxError runs none of itself and leaves
+      # the page rendering as designed. A slogan edit put an unescaped
+      # apostrophe in a single-quoted string in walkthrough/full.html and
+      # emptied the 41-slide tour while every other check stayed green.
+      - name: Check every inline script parses
+        run: node scripts/check-inline-js.mjs
+
       # data/stories.json feeds the homepage's blog section. It used to be
       # hand-maintained and went six posts stale, so the front page showed
       # nothing published that month. It is generated from blog/README.md now;
