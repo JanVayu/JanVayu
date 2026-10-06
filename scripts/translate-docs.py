@@ -249,6 +249,26 @@ def translate_part(api_key: str, content: str, lang: str, rel_path: str, n: int,
     return choice["message"]["content"].strip() + "\n"
 
 
+# A model sometimes merges two headings or drops a code fence. The checks catch
+# it, and a second attempt usually does not repeat the slip. On the first Hindi
+# backfill 7 of 72 files were rejected on a single attempt.
+MAX_ATTEMPTS = 3
+
+
+def translate_validated(api_key: str, content: str, lang: str, rel_path: str) -> tuple[str, str | None]:
+    """Translate and validate, retrying a rejected result. Returns the last
+    translation and the reason it was rejected, or None when it passed."""
+    problem = None
+    translated = ""
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        translated = translate(api_key, content, lang, rel_path)
+        problem = validate(content, translated, lang)
+        if not problem:
+            return translated, None
+        print(f"  attempt {attempt} of {MAX_ATTEMPTS} rejected: {problem}", file=sys.stderr)
+    return translated, problem
+
+
 def main() -> int:
     api_key = os.environ.get("SARVAM_API_KEY")
     if not api_key:
@@ -289,7 +309,7 @@ def main() -> int:
                 continue
             print(f"translate {rel_str} → {lang}")
             try:
-                translated = translate(api_key, content, lang, rel_str)
+                translated, problem = translate_validated(api_key, content, lang, rel_str)
             except urllib.error.HTTPError as e:
                 detail = e.read().decode("utf-8", errors="replace")[:500]
                 print(f"  HTTP {e.code}: {detail}", file=sys.stderr)
@@ -301,7 +321,6 @@ def main() -> int:
                 summary.append(f"FAILED {rel_str} ({lang}): {e}")
                 failed += 1
                 continue
-            problem = validate(content, translated, lang)
             if problem:
                 print(f"  rejected: {problem}", file=sys.stderr)
                 summary.append(f"REJECTED {rel_str} ({lang}): {problem}")

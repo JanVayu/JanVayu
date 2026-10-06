@@ -73,6 +73,19 @@ written (Sarvam's chat completion documentation says so). The request now sends
 off is split in half at a blank line and retried, because Tamil and Bengali need
 more tokens per word than Hindi.
 
+With thinking off, the Hindi backfill translated 65 of 72 files, and all 65 were
+lost: the job then pushed to `main`, which is protected ("Changes must be made
+through a pull request"), the push was refused four times, and the runner was
+discarded with the files on it. The commit step now pushes a branch
+`auto-translate/<run id>` and opens a pull request, so nothing depends on a push to
+`main` and a person can read the result before it is published. It also stops
+missing new files: the old check used `git diff`, which ignores files that are not
+yet tracked. A translation rejected by the structure checks (the first run had
+seven, each a merged heading or a dropped code fence) is now retried up to three
+times before the file is given up on. If the repository's Actions setting forbids
+creating pull requests, the branch is still pushed and the job prints the compare
+link.
+
 The machine translations are not read by a native speaker.
 
 ### Fixed, every GRAP claim checked against CAQM's revised schedule
