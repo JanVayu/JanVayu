@@ -113,8 +113,8 @@ def content(f):
         ]),
     ]
     gets = [
-        (f'Live AQI — {f["live_cities"]} cities', ['from the monitor network']),
-        ('The map — every place in India',
+        (f'Live AQI: {f["live_cities"]} cities', ['from the monitor network']),
+        ('The map: every place in India',
          [f'{n(f["wards"])} wards · {n(f["panchayats"])} panchayats',
           f'{n(f["villages"])} villages · blocks · districts']),
         (f"CPCB's own bulletin, {f['bulletin_window']}",
@@ -130,7 +130,7 @@ def content(f):
 
 
 def aria(f, reads, gets):
-    src = '; '.join('%s — %s' % (h, ', '.join(x for x in ls if not x.startswith('…')))
+    src = '; '.join('%s: %s' % (h, ', '.join(x for x in ls if not x.startswith('…')))
                     for _, h, ls in reads)
     out = '; '.join('%s (%s)' % (h, ', '.join(ls)) for h, ls in gets)
     return ('How JanVayu works: three kinds of source feed one engine. %s. '
