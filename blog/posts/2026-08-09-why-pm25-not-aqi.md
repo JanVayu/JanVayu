@@ -59,7 +59,7 @@ Suppose you want to know whether your city is meeting the law, whether it is get
 
 The dashboard describes itself as live **PM2.5 in µg/m³**, with AQI alongside rather than instead. The city rankings table has always led on PM2.5, with AQI as a secondary column.
 
-The walkthrough decks, which we use at conferences and workshops, now headline **"Real-time PM2.5 for 157 cities"** (*update, 2 October 2026: it now reads 160 cities*), with a speaker note that paraphrases to: *lead with PM2.5, and treat AQI as a derived index, because PM2.5 is the pollutant that does the damage.*
+The walkthrough decks, which we use at conferences and workshops, now headline **"Real-time PM2.5 for 157 cities"** (*update, 6 October 2026: it now reads "157 Indian cities", since the live feed holds 157 Indian cities plus Beijing, London and Singapore, 160 in all*), with a speaker note that paraphrases to: *lead with PM2.5, and treat AQI as a derived index, because PM2.5 is the pollutant that does the damage.*
 
 The map uses PM2.5 throughout: every boundary is coloured by annual satellite PM2.5 in µg/m³, banded against 5 and 40, never against AQI categories. That is why a yearly figure on the map never carries "wear a mask today" advice.
 

@@ -6,7 +6,7 @@
     <title>JanVayu | India's Citizen Air Quality Platform</title>
 
     <!-- SEO Meta -->
-    <meta name="description" content="India's independent citizen-led air quality platform. Live PM2.5 data for 160 cities, personal health-impact estimates, NCAP budget tracking, policy accountability, and environmental justice reporting. 1.72 million deaths/year demand action (Lancet Countdown 2025).">
+    <meta name="description" content="India's independent citizen-led air quality platform. Live PM2.5 data for 157 Indian cities (plus Beijing, London and Singapore for comparison), personal health-impact estimates, NCAP budget tracking, policy accountability, and environmental justice reporting. 1.72 million deaths/year demand action (Lancet Countdown 2025).">
     <meta name="keywords" content="air quality India, AQI Delhi, PM2.5 India, air pollution deaths, NCAP progress, clean air India, JanVayu, जनवायु, pollution accountability, health impact air pollution, CPCB data, WAQI, environmental justice India">
     <meta name="author" content="JanVayu: AirQuality for Janhit by MMSF Fellows, AIPC">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606236">
+    <link rel="preload" as="style" href="/styles.css?v=202606237">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1047,8 +1047,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606236" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606236"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606237" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606237"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1108,7 +1108,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606236" defer></script>
+<script src="/js/chrome.js?v=202606237" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1260,7 +1260,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <div class="hero-grid">
                     <div>
                         <h1 class="hero-headline" id="heroQuestion" data-i18n="hero_question" data-simple="What is in the air you are breathing?">What are you breathing, <em>right now</em>?</h1>
-                        <p class="hero-sub" id="heroWhy" data-i18n="hero_question_sub">Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 wards, panchayats and villages, in 5 languages.</p>
+                        <p class="hero-sub" id="heroWhy" data-i18n="hero_question_sub">Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 areas, from states down to villages, in 5 languages.</p>
                         <div class="hero-find">
                             <input id="heroFind" class="hero-find-input" type="text" autocomplete="off" spellcheck="false" placeholder="Your city, ward or village" data-i18n="hero_find_place" data-i18n-attr="aria-label:hero_find_place" aria-label="Your city, ward or village" oninput="heroFindType(this.value)" onkeydown="if(event.key===&apos;Enter&apos;){heroFindEnter();}">
                             <button class="hero-find-btn" id="near-me-btn" onclick="loadNearestAQI()" data-i18n="hero_find_near">Near me</button>
@@ -1611,13 +1611,13 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606236"></script>
+    <script src="/app.js?v=202606237"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
 <article style="max-width: 800px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif; line-height: 1.8;">
     <h2>About JanVayu</h2>
-    <p>JanVayu (जनवायु / ஜன்வாயு / জনবায়ু) is India's independent, citizen-led air quality accountability platform. We track live pollution data for 160 cities, measure health impacts using GEMM exposure-response models, follow NCAP budget spending, and hold governments accountable. Available in English, Hindi, Tamil, Marathi, and Bengali.</p>
+    <p>JanVayu (जनवायु / ஜன்வாயு / জনবায়ু) is India's independent, citizen-led air quality accountability platform. We track live pollution data for 157 Indian cities (and Beijing, London and Singapore for comparison), measure health impacts using GEMM exposure-response models, follow NCAP budget spending, and hold governments accountable. Available in English, Hindi, Tamil, Marathi, and Bengali.</p>
 
     <h2>Key Findings</h2>
     <p>An estimated 1.72 million people in India died from ambient PM2.5 exposure in 2022 (Lancet Countdown 2025), about a quarter (1.72 million of 6.5 million anthropogenic ambient PM2.5 deaths worldwide in 2022, Lancet Countdown 2025). PM2.5 exposure reduces average Indian life expectancy by 3.5 years (AQLI 2025), with Delhi-NCR residents losing up to 8.2 years. Delhi's annual PM2.5 of 82.2 µg/m³ is ~16× the WHO guideline of 5 µg/m³. The economic cost is $339.4 billion (~9.5% of GDP) per Lancet Countdown 2025. India ranks 6th most polluted country globally (IQAir 2025), led by Loni at 112.5 µg/m³, the world's most polluted city.</p>
@@ -2060,7 +2060,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                             <div class="info-box mb-2" style="border-left: 4px solid var(--green-700); background: var(--bg-section);">
                                 <h3 style="color: var(--green-700); margin-bottom: 0.5rem;"> State of Global Air 2025 (HEI, October 2025)</h3>
                                 <ul class="jv-t-sm-lh">
-                                    <li><strong>2 million deaths in India (2023)</strong>, a 43% increase since 2000</li>
+                                    <li><strong>2 million deaths in India (2023)</strong> from outdoor and household air pollution together, a 43% increase since 2000</li>
                                     <li><strong>Death rate disparity:</strong> 186 per 100,000 in India vs 17 in high-income countries (10× gap)</li>
                                     <li><strong>India = about a quarter of global deaths</strong> (about 2.0 of 7.9 million, 2023) despite 18% of world population</li>
                                     <li><strong>Dementia added:</strong> First time as a health outcome, with 54,000 deaths in India attributed to PM2.5</li>
@@ -2525,7 +2525,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
             <div class="section-intro jv-sec-divided">
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-globe" style="color: var(--ink); margin-right: 0.4rem;"></span>Live City Comparison</h2>
-                <p class="jv-lede" data-simple="See how dirty the air is in different Indian cities, and compare with cities in other countries. The numbers update every 10 minutes.">Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
+                <p class="jv-lede" data-simple="See how dirty the air is in different Indian cities, and compare with cities in other countries. The 33 core Indian cities refresh every 10 minutes, and other cities load when you pick them.">Compare air quality across Indian cities and with international benchmarks. Data refreshes every 10 minutes from WAQI API.</p>
             </div>
 
             <div class="alert alert-info mb-2"><div><strong>Live Data:</strong> Fetching real-time AQI from monitoring stations. Last update: <span id="compare-update-time">--</span></div>
@@ -2666,7 +2666,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-map jv-ico-accent"></span>Live Air Quality Map</h2>
                 <p class="jv-lede" data-simple="This map shows two things. Live air quality right now from monitoring stations, and yearly figures for all 983,149 administrative areas in India: your state, district, block, gram panchayat, village, city or ward. Pick a level from the Boundaries menu, choose whether to colour it by air, air in each season, surface heat, tree cover or built-up land, and zoom to where you live. Tap any area for all of its numbers."><strong>Live air, and a yearly figure for every place in India.</strong> Markers show real-time AQI from WAQI (US EPA scale, unitless); popups add PM2.5 and PM10 in µg/m³, station name and update time. The <strong>Boundaries</strong> menu covers <strong>983,149 areas across seven levels</strong>: state, district (zila), block/mandal/tehsil, gram panchayat and village on the rural side; city and ward on the urban side. Every one of them carries the same nine numbers. The <strong>Colour</strong> menu shades them by <strong>annual satellite PM2.5</strong>, <strong>the same air by season</strong>, <strong>this year so far</strong> (districts only; a coarser model, rebuilt monthly), <strong>surface heat</strong> from a national Landsat composite, or <strong>tree cover</strong>, <strong>green cover</strong> and <strong>built-up share</strong> from ESA WorldCover. Zoom to where you live and tap any area for all of its figures. <a href="/blog/#/posts/2026-08-09-how-to-read-the-map">How to read this map &rarr;</a></p>
             </div>
-            <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. Auto-refreshes every 10 minutes.</div>
+            <div class="alert alert-info mb-2"><div style="flex: 1;"><strong>Live Data:</strong> Map markers show real-time AQI. Marker size indicates severity. The 33 core Indian cities refresh every 10 minutes; other cities load when selected.</div>
                 <button class="btn btn-sm btn-primary" onclick="fetchAllAQI()">Refresh Now</button>
             </div>
             <div class="card">
@@ -5423,7 +5423,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <dd data-simple="Serious lung infections like pneumonia, especially dangerous for children under 5. Air pollution makes children more likely to get sick.">Infections of the lower respiratory tract (pneumonia, bronchiolitis). Especially dangerous for children under 5. PM2.5 exposure significantly increases incidence.</dd>
 
                     <dt class="jv-item-title-mt">GBD (Global Burden of Disease)</dt>
-                    <dd data-simple="The world's largest health study, tracking causes of death in every country. It says air pollution killed about 2.1 million Indians in 2021.">A comprehensive global study by IHME quantifying health loss from diseases, injuries, and risk factors. The GBD 2021 attributes about 2.1 million deaths in India in 2021 to air pollution (State of Global Air 2024).</dd>
+                    <dd data-simple="The world's largest health study, tracking causes of death in every country. It says outdoor and indoor air pollution together killed about 2.1 million Indians in 2021.">A comprehensive global study by IHME quantifying health loss from diseases, injuries, and risk factors. The GBD 2021 attributes about 2.1 million deaths in India in 2021 to air pollution, outdoor and household together (State of Global Air 2024). That is a wider count than the 1.72 million for outdoor PM2.5 alone in 2022 (Lancet Countdown 2025).</dd>
                 </dl>
             </div>
         </div>
@@ -5720,7 +5720,7 @@ const ROLE_CONFIG = {
             { icon: '<span class="si si-spark"></span>', panel: 'ask-janvayu', title: 'Ask JanVayu AI', desc: 'Ask questions about air quality in natural language and get data-backed answers.', cta: 'Ask a question →' }
         ],
         panels: [
-            { panel: 'compare', title: 'City Comparison', desc: 'Compare AQI across 160 cities' },
+            { panel: 'compare', title: 'City Comparison', desc: 'Compare AQI across 157 Indian cities and three abroad' },
             { panel: 'economic', title: 'Economic Cost', desc: '$339.4B annual impact analysis' },
             { panel: 'map', title: 'Live Air Quality Map', desc: 'Interactive map of monitoring stations' },
             { panel: 'resources', title: 'Reading List', desc: '160+ verified sources & papers' },

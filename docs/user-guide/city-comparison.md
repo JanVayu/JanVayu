@@ -2,7 +2,7 @@
 
 ## City comparison
 
-The city comparison section ranks Indian cities by current AQI in real time, refreshed every 10 minutes. It shows:
+The city comparison section ranks Indian cities by current AQI in real time. The 33 largest cities refresh every 10 minutes and the others load when you select them. It shows:
 
 - Live AQI and PM2.5 for each city
 - Colour-coded status (Good / Moderate / Unhealthy / Very Unhealthy / Hazardous)
@@ -10,13 +10,18 @@ The city comparison section ranks Indian cities by current AQI in real time, ref
 
 ### Seasonal context
 
-AQI varies a great deal by season in India. The ranges below are indicative only, and no source is cited for them. The site's own seasonal data (`data/district-history.json`) defines winter as Dec–Feb, summer as Mar–May, monsoon as Jun–Sep and post-monsoon as Oct–Nov, which differs from the month labels in this table.
+Air quality in India changes a great deal with the season. The table uses the seasons the site itself uses: winter is December to February, summer is March to May, monsoon is June to September and post-monsoon is October and November. The figures are Delhi's 2022 averages from LongPMInd (Wang et al. 2024, in `data/district-history.json`), averaged over Delhi's 11 districts. They come from a model validated against monitors, not from an instrument, and they run at about 10 km resolution, so they will not match a single station.
 
-| Season | Typical PM2.5 (Delhi) | Main causes |
-|--------|----------------------|------------|
-| Winter (Oct–Feb) | 80–300 µg/m³ | Crop stubble burning, temperature inversion, low wind speed |
-| Pre-monsoon (Mar–May) | 50–100 µg/m³ | Dust storms, construction |
-| Monsoon (Jun–Sep) | 20–50 µg/m³ | Rain washout reduces particulates |
+| Season | Delhi PM2.5, 2022 | Main causes |
+|--------|-------------------|-------------|
+| Winter (Dec–Feb) | 132 µg/m³ | Temperature inversion, low wind speed |
+| Summer (Mar–May) | 89 µg/m³ | Dust storms, construction |
+| Monsoon (Jun–Sep) | 41 µg/m³ | Rain washes particles out of the air |
+| Post-monsoon (Oct–Nov) | 129 µg/m³ | Crop stubble burning in Punjab and Haryana, falling temperatures |
+
+The causes are the usual explanations for each season and are not measured by this table.
+
+Correction, 6 October 2026: an earlier version of this table called winter October to February and gave ranges (80 to 300 µg/m³ in winter, for example) that cited no source. The seasons and figures above replace them.
 
 ---
 

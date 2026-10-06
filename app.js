@@ -290,7 +290,7 @@
     const I18N = {
         en: {
             hero_question: 'What are you breathing, <em>right now</em>?',
-            hero_question_sub: 'Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 wards, panchayats and villages, in 5 languages.',
+            hero_question_sub: 'Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 areas, from states down to villages, in 5 languages.',
             hero_find_place: 'Your city, ward or village',
             hero_find_near: 'Near me',
             askhome_eyebrow: 'Ask JanVayu',
@@ -1580,11 +1580,11 @@
         { term: 'CPCB', full: 'Central Pollution Control Board', def: 'India\'s apex environmental monitoring body under MoEFCC. Operates the CAAQMS monitoring network.', simple: 'India\'s main government body that monitors air and water pollution and runs official monitoring stations.' },
         { term: 'CAQM', full: 'Commission for Air Quality Management', def: 'Statutory body for Delhi-NCR air quality with quasi-judicial powers. Can issue binding directions.', simple: 'A special commission for Delhi-NCR with legal power to enforce pollution rules and activate GRAP stages.' },
         { term: 'RTI', full: 'Right to Information', def: 'Citizen\'s legal right under RTI Act 2005 to request information from public authorities. Response within 30 days.', simple: 'Your legal right to ask the government questions and get answers within 30 days.' },
-        { term: 'WHO', full: 'World Health Organization', def: '2021 guidelines set PM2.5 at 5 µg/m³ (annual) and PM10 at 15 µg/m³, much stricter than India\'s NAAQS.', simple: 'The global health body that sets safe limits for air pollution. India\'s national average is about 10 times the WHO guideline (IQAir 2025); Delhi is about 16 times.' },
+        { term: 'WHO', full: 'World Health Organization', def: '2021 guidelines set PM2.5 at 5 µg/m³ (annual) and PM10 at 15 µg/m³, much stricter than India\'s NAAQS.', simple: 'The global health body that sets safe limits for air pollution. India\'s national average is nearly 10 times the WHO guideline (IQAir 2025); Delhi is about 16 times.' },
         { term: 'COPD', full: 'Chronic Obstructive Pulmonary Disease', def: 'Progressive lung diseases obstructing airflow. PM2.5 exposure is a leading risk factor.', simple: 'A lung disease that makes it hard to breathe. Long-term air pollution is a major cause.' },
         { term: 'IHD', full: 'Ischaemic Heart Disease', def: 'Reduced blood supply to the heart. PM2.5 increases risk through systemic inflammation.', simple: 'Heart disease caused by reduced blood flow. Air pollution increases heart attack risk.' },
         { term: 'ALRI', full: 'Acute Lower Respiratory Infection', def: 'Lower respiratory tract infections (pneumonia). A leading cause of death in children under 5 in India.', simple: 'Serious lung infections like pneumonia, especially dangerous for children under 5.' },
-        { term: 'GBD', full: 'Global Burden of Disease', def: 'Comprehensive IHME study quantifying health loss. Attributes ~2M deaths/year in India to air pollution.', simple: 'The world\'s largest health study. Says air pollution kills 2 million Indians per year.' },
+        { term: 'GBD', full: 'Global Burden of Disease', def: 'Comprehensive IHME study quantifying health loss. Its 2021 estimate attributes about 2.1 million deaths in India to air pollution, outdoor and household together (State of Global Air 2024). The Lancet Countdown\'s 1.72 million (2022) counts outdoor PM2.5 only.', simple: 'The world\'s largest health study. It says outdoor and indoor air pollution together killed about 2.1 million Indians in 2021.' },
         { term: 'CAAQMS', full: 'Continuous Ambient Air Quality Monitoring System', def: 'Automated stations measuring PM2.5, PM10, SO2, NO2, O3, CO in real-time. India has about 565 stations (CREA, Jan 2026).', simple: 'Automatic air quality stations that measure pollution 24/7. India has about 565 but coverage is uneven.' },
         { term: 'WAQI', full: 'World Air Quality Index', def: 'Independent project (aqicn.org) aggregating real-time data from more than 500,000 known stations in about 130 countries. JanVayu\'s live data source.', simple: 'A global project that collects air quality data and makes it free. JanVayu uses it for live data.' },
         { term: 'NAAQS', full: 'National Ambient Air Quality Standards', def: 'India\'s regulatory limits. PM2.5 annual: 40 µg/m³ (8x the WHO guideline of 5).', simple: 'India\'s official air quality limits. They are much less strict than the WHO guideline: India allows 40, the WHO says 5.' },
@@ -2827,7 +2827,7 @@
                         labels: ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26'], 
                         datasets: [
                             { label: 'MoEFCC Budget (₹ Cr; BE, except 2024-25 = revised estimate)', data: [2954, 3100, 2870, 3030, 3079, 3125.96, 3413], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 },
-                            { label: 'Pollution Control (₹ Cr; budget estimate, Expenditure Budget)', data: [460, 460, 470, 460, 756, 858, 854], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }
+                            { label: 'Pollution Control (₹ Cr; Expenditure Budget, with 2020-21 as the revised estimate)', data: [460, 460, 470, 460, 756, 858, 854], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }
                         ] 
                     }, 
                     options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor } } } } 

@@ -8,7 +8,7 @@ JanVayu is one web page with about 58 panels, arranged in 7 groups by what you w
 
 | # | Section | What it shows |
 |---|---------|---------------|
-| 1 | **Real-time AQI dashboard** | Live PM2.5 and AQI for 160 cities, refreshed every 10 minutes from WAQI and CPCB. It includes cigarette equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges and a card of recommendations for the current AQI band |
+| 1 | **Real-time AQI dashboard** | Live PM2.5 and AQI for 157 Indian cities, plus Beijing, London and Singapore for comparison, from WAQI and CPCB. 33 cities refresh every 10 minutes and the rest load when you select them. It includes cigarette equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges and a card of recommendations for the current AQI band |
 | 2 | **"Near Me" geolocation** | One tap finds the nearest station, using your browser's location |
 | 3 | **Interactive AQI map** | A map with station-level markers, a heatmap toggle, station popups and a historical time slider showing monthly PM2.5 from Jan 2024 to the present |
 | 4 | **City rankings** | Rankings of Indian cities for now, the past 7 days and the past 30 days, which you can sort and search |
@@ -45,7 +45,7 @@ JanVayu is one web page with about 58 panels, arranged in 7 groups by what you w
 | 35 | **April–May 2026 voices** | Curated reactions to the Lancet Countdown launch, a ground report from Loni residents, Soumya Swaminathan at the "Be Cool" launch, the Supreme Court's four-week deadline, Warrior Moms commentary and the CSE NCAP review |
 | 36 | **April–May 2026 research updates** | A group of featured cards at the top of the Reading List: Lancet Countdown 2025, AQLI 2025, IQAir 2025, the CSE NCAP review, Jaganathan et al. 2024 in Lancet Planetary Health, and CEEW 2024 source apportionment |
 | 37 | **Women's health** | Indoor cooking exposure, maternal health, occupational risks, the gender data gap and an evaluation of the Ujjwala scheme |
-| 38 | **Understanding AQI** | An interactive breakdown of six pollutants (PM2.5, PM10, NO2, SO2, O3, CO), a comparison of the CPCB and US EPA AQI scales, and an explanation of why PM2.5 is not the whole story |
+| 38 | **Understanding AQI** | An interactive breakdown of how the AQI is built from up to eight pollutants (PM2.5, PM10, NO2, SO2, CO, O3, NH3, Pb). The live data and the diagram carry the first six, because ammonia and lead are measured at fewer stations. It also compares the CPCB and US EPA AQI scales and explains why PM2.5 is not the whole story |
 | 39 | **Shareable AQI cards** | Makes a PNG card (1080x1080 for Instagram, 1200x630 for WhatsApp), coloured by severity. Share buttons appear on the dashboard, rankings, map and comparisons, and use the phone's share sheet |
 | 40 | **Exposure diary** | Log your daily routine (16 activities, each with a calibrated PM2.5 multiplier) to get a weighted daily exposure, cigarette equivalence, life-expectancy impact, a stacked bar chart and personalised tips |
 | 41 | **Migration comparison** | Compares two cities side by side: live AQI for both, a 7-row table, source apportionment bar charts and a verdict in life-years gained |

@@ -38,7 +38,7 @@ Six of the seven levels are stored as tile archives, and the browser fetches onl
 |--------|--------|-----------|--------|-------|
 | **Air** (annual PM2.5) | SatPM2.5 V6GL03 (ACAG / Washington University) | ~1 km | all | The 2024 annual mean, the newest published; as of August 2026 no 2025 grid exists. A neural network over satellite aerosol data plus the GEOS-Chem atmospheric model, calibrated against ground monitors before release. |
 | **Air by season** | SatPM2.5 V6GL03 monthly | ~1 km | all | Winter (Dec–Feb), summer (Mar–May), monsoon (Jun–Sep), post-monsoon (Oct–Nov), each the mean of its months. |
-| **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all | Mean land-surface temperature across the 2026 pre-monsoon season, from a national mosaic. |
+| **Surface heat** | Landsat 8/9 Collection 2 Level 2 | ~110 m | all | Mean land-surface temperature from 1 March to 15 June 2026 (the pre-monsoon season), from a national mosaic. The air layers are from 2024, so heat and air are from different years. |
 | **Tree cover** | ESA WorldCover 2021 | 10 m | all | Share under tree canopy (class 10). Cropland is *not* counted. |
 | **Green cover** | ESA WorldCover 2021 | 10 m | all | Share classified as vegetation: tree, shrub, grass, **cropland**, wetland. |
 | **Built-up** | ESA WorldCover 2021 | 10 m | all | Share classified as built or impervious surface. |
@@ -78,8 +78,8 @@ The twelve monthly SatPM2.5 grids for the year are averaged into four seasons, a
 | Season | Months | What it captures |
 |--------|--------|------------------|
 | Winter | Dec, Jan, Feb | inversions trapping what is already there |
-| Summer | Mar, Apr, May | pre-monsoon dust; the south's cleanest air |
-| Monsoon | Jun–Sep | washout, the annual minimum |
+| Summer | Mar, Apr, May | pre-monsoon dust |
+| Monsoon | Jun–Sep | washout; the lowest of the four seasons nearly everywhere (in the LongPMInd record for 2022, the cleanest season in 768 of 783 districts, including all 146 in the south) |
 | Post-monsoon | Oct, Nov | stubble burning and Diwali; the peak |
 
 Each season is the mean of its months, so winter weights December, January and February equally. All six levels that ship as tile archives have all four seasons at **100%** coverage.
@@ -170,7 +170,7 @@ Heat is a mean of clear observations, not a median. A true median needs every sc
 
 Tree cover answers the question people are asking. Green cover counts cropland, so outside cities it says almost nothing. Tree cover is canopy alone, and it separates places everywhere: the median ward is 9% treed, the median panchayat 12% and the median state 38%. It also tracks heat. Nationally, tree cover against ward surface temperature gives **r = −0.43**, against **−0.07** for green cover, and the least-treed fifth of India's wards runs **4.8 °C hotter** than the most-treed fifth. Green cover's equivalent gap is 0.8 °C.
 
-"Green" includes cropland, and in rural India that is nearly all of it. WorldCover's vegetation classes are tree, shrub, grassland, cropland and wetland. In a ward that mostly means parks, scrub and roadside trees. In a gram panchayat it mostly means farmland. The median panchayat is **97% green**, and 87% of them are above 90%. That figure is correct, and it does not measure tree cover. Read it as how much of the place is not built or bare, not as how leafy it is. Tree cover on its own is a separate WorldCover class and is not yet extracted; it is the more useful rural question and is on the roadmap.
+"Green" includes cropland, and in rural India that is nearly all of it. WorldCover's vegetation classes are tree, shrub, grassland, cropland and wetland. In a ward that mostly means parks, scrub and roadside trees. In a gram panchayat it mostly means farmland. The median panchayat is **97% green**, and 87% of them are above 90%. That figure is correct, and it does not measure tree cover. Read it as how much of the place is not built or bare, not as how leafy it is. Tree cover on its own (WorldCover class 10) is a separate layer on the map, and it is the more useful question outside cities.
 
 Because of that, green barely separates rural areas. The map's bands are deliberately bunched at the top (85 / 93 / 97 / 100) so the countryside is not one flat colour. Built-up share is the more informative layer at block and panchayat level, and the map says which is which and does not imply that green is doing work it cannot do here.
 

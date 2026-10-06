@@ -202,10 +202,10 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **3.5 years** average life expectancy lost to PM2.5; about **5 years** in the Northern Plains on average, up to **8.2** in Delhi-NCR (AQLI 2025)
 - **$339.4 billion** economic cost (9.5% of GDP, Lancet Countdown 2025)
 - **Loni, India** is the world's most polluted city at 112.5 µg/m³ (IQAir 2025)
-- **48.9 µg/m³** India average PM2.5 — about 10× the WHO 2021 guideline of 5 µg/m³
+- **48.9 µg/m³** India average PM2.5 — nearly 10 times the WHO 2021 guideline of 5 µg/m³
 - **64%** of funds utilised under NCAP and the 15th Finance Commission were spent on road dust mitigation (CSE analysis, data as of 3 May 2024); CREA's 2026 progress report puts road dust at 68% and finds 51 of 100 cities met the first target
 - **8.6%** all-cause mortality rise per +10 µg/m³ — Jaganathan et al. 2024, *Lancet Planetary Health*
-- 160 locations monitored in real time (157 Indian), plus Sensor.Community community sensors (the count varies)
+- 160 cities monitored in real time (157 Indian, plus Beijing, London and Singapore), plus Sensor.Community community sensors (the count varies)
 - About 58 content panels across 7 navigation groups
 - 5 languages (EN, HI, TA, MR, BN)
 

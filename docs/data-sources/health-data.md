@@ -21,7 +21,7 @@ GEMM is the method behind the Health Impact Calculator. It replaced the older in
 **Latest edition:** 2025 Report  
 **URL:** [lancetcountdown.org](https://lancetcountdown.org)
 
-The Lancet Countdown is an annual publication tracking the health effects of climate change and air pollution. JanVayu's headline figures, 1.72 million annual deaths and a $339.4 billion economic cost, come from the India chapter of the 2025 report.
+The Lancet Countdown is an annual publication tracking the health effects of climate change and air pollution. JanVayu's headline figures come from the 2025 report's [India data sheet](https://lancetcountdown.org/wp-content/uploads/2025/10/India_Lancet-Countdown_2025_Data-Sheet-2.pdf) (Romanello et al., *The Lancet*, October 2025). The 1.72 million deaths (more than 1,718,000 in 2022, from anthropogenic PM2.5) are Indicator 3.2.1 on the sheet's second page. The $339.4 billion is Indicator 4.1.4 on the same page: "the monetised value of premature mortality due to outdoor air pollution in India" in 2022, equal to 9.5% of gross domestic product. It values deaths only, and leaves out illness and healthcare costs.
 
 ---
 
@@ -30,7 +30,7 @@ The Lancet Countdown is an annual publication tracking the health effects of cli
 **Source:** Institute for Health Metrics and Evaluation (IHME)  
 **URL:** [vizhub.healthdata.org/gbd-results](https://vizhub.healthdata.org/gbd-results/)
 
-GBD 2021 gives country and state estimates of disability-adjusted life years (DALYs) and deaths attributable to ambient PM2.5. JanVayu uses it for disease burden by state, for age-specific mortality, and for comparing India with global benchmarks.
+GBD 2021 gives country and state estimates of disability-adjusted life years (DALYs) and deaths attributable to ambient PM2.5. Its wider count of all air pollution, outdoor and household together, was about 2.1 million deaths in India in 2021 (State of Global Air 2024). That is not comparable with the Lancet Countdown's 1.72 million, which covers outdoor PM2.5 alone in 2022. JanVayu uses GBD for disease burden by state, for age-specific mortality, and for comparing India with global benchmarks.
 
 ---
 
@@ -52,7 +52,7 @@ The 8th annual report analysed 9,446 cities across 143 countries. For India it f
 
 - Loni, India, is the most polluted city in the world (112.5 µg/m³, up 23% from 2024 and 22 times the WHO guideline).
 - Only **14% of global cities** met the WHO annual PM2.5 guideline of 5 µg/m³, down from 17%.
-- India's average PM2.5 was **48.9 µg/m³**, about 10 times the WHO limit.
+- India's average PM2.5 was **48.9 µg/m³**, nearly 10 times the WHO limit (9.8 times the 5 µg/m³ guideline).
 - The loss of US State Department embassy monitoring (March 2025) left millions without independent air quality data.
 
 JanVayu uses it for global city and country rankings, for Delhi's position as the most polluted capital city, and for Loni's position as the most polluted city in the world.

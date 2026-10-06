@@ -70,7 +70,7 @@ A public demo key exists for trying it out. It is capped at 10,000 rows and cove
 | 2023-01 to 2024-12 | 391 rising to 524 |
 | **2025-01 to 2025-03** | **4 to 5** |
 | 2025-04 to 2025-08 | 321 to 327 |
-| 2025-09 | 296, but only 7,803 station-hours, roughly one day |
+| 2025-09 | 296, but only 7,803 station-hours in total, about 26 hours each, so the month holds roughly one day (1 September) |
 | **2025-10 to 2026-03** | **2** |
 
 Those last two are `DS1010001` and `DS1010005`, the US Embassy monitors in New Delhi and Hyderabad, which publish through AirNow independently of CPCB. The CPCB feed in this archive effectively stops on **1 September 2025**, with a hole across January to March 2025.
@@ -81,7 +81,7 @@ The consequence is concrete. Applying the twelve-month completeness rule to 2025
 
 **Pollutant coverage ends on different dates.** The API's `/v1/parameters` page reports PM2.5 running to 2026-03 and PM10 to 2025-09, while NO2, SO2, CO, NOx, NO, Ozone, NH3 and Benzene all stop at 2024-12-31. The headline "2009 to 2026" is a PM2.5 span. Check before assuming a multi-pollutant year exists.
 
-**62 stations carry no coordinates.** These are decommissioned sites absent from CPCB's current list, and they cannot be placed on any map.
+**62 stations carry no coordinates** across the whole archive (5 of the 534 that reported in 2024). These are decommissioned sites absent from CPCB's current list, and they cannot be placed on any map.
 
 **Nothing is cleaned.** XKDR publishes readings as received, with no gap filling and no outlier removal. That suits research, and it means the quality control falls to us. The Reading List carries two 2026 papers on this very problem (Shafi & Scafetta on regression imputation for Delhi; Singhal et al. on TimeGAN).
 

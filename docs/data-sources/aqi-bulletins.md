@@ -1,4 +1,4 @@
-# CPCB daily AQI bulletins, 2015–2025
+# CPCB daily AQI bulletins, 2015–2026
 
 Every day at 4pm the Central Pollution Control Board (CPCB) publishes an AQI bulletin as a PDF covering 200+ cities. It has done so since May 2015, and the bulletin is the official number. Nobody had it as a series, because a decade of it sits in PDFs.
 
@@ -15,7 +15,7 @@ The two sources differ in kind, and the bulletins cover the period the other one
 | Unit | one station | one city |
 | Cadence | hourly | daily |
 | Measure | PM2.5 µg/m³ | the official AQI category |
-| Ends | CPCB feed stops **1 Sep 2025** | ran to **31 Dec 2025** |
+| Ends | CPCB feed stops **1 Sep 2025** | still published; the UrbanEmissions.Info archive ends **31 Dec 2025** and JanVayu reads 2026 from the same PDFs |
 
 The bulletin PDFs kept coming after the station feed into the XKDR archive stopped. They are also the official figure, not a reconstruction from raw readings. That matters for accountability: it is CPCB's own statement about the city, in writing, on that date.
 

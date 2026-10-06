@@ -1,4 +1,4 @@
-# Ninety cities, ward by ward, and the one we had to go somewhere else for
+# Ninety-seven cities, ward by ward, and the one we had to go somewhere else for
 
 **Published:** 7 August 2026 | **Updated:** 7 August 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 
@@ -50,7 +50,7 @@ For West Bengal we came up empty, or so this post said when it went up this morn
 
 ## Four sources, four licences, one credit line
 
-Adding Guwahati created a problem we should have fixed earlier. Our ward boundaries now come from four different upstreams under four different licences: Swachh Bharat via indianopenmaps (74 cities), DataMeet under CC BY (13), OpenCity/Oorvani under ODbL (Guwahati), and two city projects. The licences carry different obligations, and one generic credit would have been easy and wrong.
+Adding Guwahati created a problem we should have fixed earlier. Our ward boundaries now come from four different upstreams under four different licences: Swachh Bharat via indianopenmaps (74 cities), DataMeet under CC BY (13), OpenCity/Oorvani under ODbL (Guwahati), and two city projects. Those counts add up to 90, the atlas as it stood before the Bengal files described above; the seven Bengal cities come from the AMRUT file. The licences carry different obligations, and one generic credit would have been easy and wrong.
 
 So every ward file now records the source it came from, and the map prints that credit underneath for whichever city you are looking at. Doing this showed that **14 cities, including Delhi, Mumbai and Chennai, had been shipping with no source recorded at all.** They have one now.
 
