@@ -30,7 +30,7 @@ const POLLUTANTS = [
     color: "#7C3AED",
     whoGuideline: "5 µg/m³ annual mean",
     indianStandard: "40 µg/m³ annual (NAAQS)",
-    description: "Fine particulate matter smaller than 2.5 micrometres in diameter. Small enough to penetrate deep into the lungs and bloodstream — the most lethal of common air pollutants.",
+    description: "Fine particulate matter smaller than 2.5 micrometres in diameter. Small enough to reach deep into the lungs and the bloodstream, it is the most lethal of the common air pollutants.",
     sources: ["Vehicle exhaust (especially diesel)", "Coal-fired power plants", "Brick kilns and industrial furnaces", "Stubble burning (Punjab/Haryana, Oct–Nov)", "Construction dust", "Household biomass cooking"],
     healthEffects: ["Premature death from heart and lung disease", "Stroke and heart attack", "Lung cancer", "Reduced lung development in children", "Pre-term birth and low birth weight", "Aggravated asthma and COPD"],
     waqiKey: "pm25",
@@ -43,7 +43,7 @@ const POLLUTANTS = [
     color: "#F97316",
     whoGuideline: "15 µg/m³ annual mean",
     indianStandard: "60 µg/m³ annual (NAAQS)",
-    description: "Particulate matter smaller than 10 micrometres — including dust, pollen, mould, and construction debris. Penetrates the upper respiratory tract.",
+    description: "Particulate matter smaller than 10 micrometres, including dust, pollen, mould and construction debris. It reaches the upper respiratory tract.",
     sources: ["Road dust (a dominant contributor in Indian cities)", "Construction and demolition", "Open burning of waste", "Industrial process emissions", "Sandstorms and natural dust", "Tyre and brake wear"],
     healthEffects: ["Aggravated asthma and bronchitis", "Reduced lung function", "Eye, nose and throat irritation", "Increased respiratory infections in children", "Premature death in people with heart or lung disease"],
     waqiKey: "pm10",
@@ -82,7 +82,7 @@ const POLLUTANTS = [
     color: "#EAB308",
     whoGuideline: "40 µg/m³ (24 hour mean)",
     indianStandard: "80 µg/m³ (24 hour mean)",
-    description: "Sharp-smelling gas from burning sulphur-containing fuels — primarily coal. India is the world's largest emitter of SO₂.",
+    description: "Sharp-smelling gas from burning sulphur-containing fuels, mainly coal. India is the world's largest emitter of SO₂.",
     sources: ["Coal-fired power plants (largest source)", "Oil refineries", "Metal smelters", "Diesel vehicles"],
     healthEffects: ["Constriction of airways and breathing difficulty", "Severe symptoms in asthmatics", "Eye, nose and throat irritation", "Contributes to PM2.5 formation downwind"],
     waqiKey: "so2",
@@ -95,7 +95,7 @@ const POLLUTANTS = [
     color: "#22C55E",
     whoGuideline: "60 µg/m³ peak season",
     indianStandard: "100 µg/m³ (8 hour mean)",
-    description: "Not emitted directly — formed when NO₂ and volatile organic compounds react in sunlight. Worst in summer afternoons. Different from the protective ozone layer.",
+    description: "It is not emitted directly. It forms when NO₂ and volatile organic compounds react in sunlight, and it is worst on summer afternoons. It is not the protective ozone layer.",
     sources: ["Vehicle exhaust (NO₂ + VOCs)", "Industrial solvents and paints", "Petrol vapours from refuelling", "Strong sunlight + high temperatures (precursor reaction)"],
     healthEffects: ["Coughing and sore throat", "Reduced lung function during outdoor activity", "Aggravated asthma", "Damages lung tissue with long-term exposure"],
     waqiKey: "o3",
@@ -121,11 +121,11 @@ const SHARED_HEAD = (p) => `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${p.name} — sources, health effects, India levels | JanVayu</title>
+<title>${p.name}: sources, health effects, India levels | JanVayu</title>
 <meta name="description" content="${p.fullName}: what it is, where it comes from, how it harms health, and which Indian cities have the worst ${p.name} levels right now. WHO guideline: ${p.whoGuideline}.">
 <meta name="keywords" content="${p.name}, ${p.fullName}, air pollution India, ${p.name} levels, ${p.name} health effects, AQI India">
 <link rel="canonical" href="https://www.janvayu.in/${p.slug}/">
-<meta property="og:title" content="${p.name} in India — JanVayu">
+<meta property="og:title" content="${p.name} in India | JanVayu">
 <meta property="og:description" content="${p.description.slice(0,180)}">
 <meta property="og:image" content="https://www.janvayu.in/og-image.png">
 <meta property="og:url" content="https://www.janvayu.in/${p.slug}/">
@@ -211,7 +211,7 @@ const pollutantPage = (p) => `${SHARED_HEAD(p)}
     <div class="stat-card"><div class="stat-label">Unit</div><div class="stat-value">${p.unit}</div></div>
   </div>
 
-  <h2>Live ${p.name} levels — Indian cities right now</h2>
+  <h2>Live ${p.name} levels in Indian cities right now</h2>
   <div class="live-section">
     <div id="${p.slug}-live"><em style="color: var(--text-3);">Loading live data…</em></div>
   </div>

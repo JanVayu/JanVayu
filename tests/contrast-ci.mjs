@@ -60,7 +60,7 @@ const THEMES = ['light', 'dark'];
 // all on the shared tokens now, so they belong inside the gate that protects
 // it. Each is opened directly rather than through showPanel().
 const PAGES = [
-  '/pm25/', '/pm10/', '/no2/', '/so2/', '/o3/', '/co/',
+  '/delhi/', '/pm25/', '/pm10/', '/no2/', '/so2/', '/o3/', '/co/',
   '/downloads/', '/status/', '/docs/', '/blog/', '/ask/', '/try.html',
   '/TerraStudioCollab/', '/walkthrough/', '/walkthrough/full.html',
   '/walkthrough/deck.html', '/embed/aqi/', '/embed/rankings/',

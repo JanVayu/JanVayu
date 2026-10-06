@@ -1,176 +1,159 @@
-# How to Read the JanVayu Map
+# How to read the JanVayu map
 
 **Published:** 9 August 2026 | **Author:** Team JanVayu | **Reading time:** 9 min
 
 ---
 
-The [map](https://www.janvayu.in/#map) now holds a number for every place in India. Not every city — every *place*: all 983,149 administrative areas the country is divided into, from the 36 states down to the 584,615 villages, and every gram panchayat, block, district, city and ward in between.
+The [map](https://www.janvayu.in/#map) now holds a number for every place in India. That means every *place*, not only every city: all 983,149 administrative areas the country is divided into, from the 36 states down to the 584,615 villages, and every gram panchayat, block, district, city and ward in between.
 
-That is a lot of map, and it does not explain itself. This post is the manual we should have written first. No engineering — just what the thing shows, what the words mean, and what you can actually find out with it.
+That is a lot of map, and it does not explain itself. This post is the manual we should have written first. It covers what the map shows, what the words mean, and what you can find out with it.
 
 ---
 
-<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/reading-the-map.svg" alt="How to read the JanVayu map: the dots are live readings from about 565 CPCB monitors updated hourly, the shading underneath is a satellite estimate averaged over a whole year, and the two are never one sentence. Pick one of seven levels from the Boundaries menu covering 983,149 areas, pick one of nine measures from the Colour menu, then tap any area. Green cover counts cropland, so the typical Indian district is 97% green and 14% treed — use tree cover if you want to know about trees."></div>
+<div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/reading-the-map.svg" alt="How to read the JanVayu map: the dots are live readings from about 565 CPCB monitors updated hourly, the shading underneath is a satellite estimate averaged over a whole year, and the two are never one sentence. Pick one of seven levels from the Boundaries menu covering 983,149 areas, pick one of nine measures from the Colour menu, then tap any area. Green cover counts cropland, so the typical Indian district is 97% green and 14% treed. Use tree cover if you want to know about trees."></div>
 <div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/reading-the-map-tall.svg" alt="" aria-hidden="true"></div>
 
-## First: the map shows two different things, and mixing them up is the one real mistake
+## The map shows two different things
 
-Everything on the map is either **right now** or **over a year**. They are not the same measurement, they do not answer the same question, and no honest sentence contains both without saying so.
+Everything on the map is either **right now** or **over a year**. They are different measurements, they answer different questions, and no honest sentence contains both without saying so. Mixing them up is the one real mistake you can make here.
 
-**Right now** is the coloured dots. Those are live readings from real monitoring machines — about 565 continuous CPCB stations, served to us through WAQI. A dot tells you the air at that machine, in the last hour or so. Tap one and you get the AQI, the PM2.5 and PM10 in µg/m³, the station's name, and when it last reported.
+**Right now** is the coloured dots. These are live readings from real monitoring machines, about 565 continuous CPCB stations, served to us through WAQI. A dot tells you the air at that machine in the last hour or so. Tap one and you get the AQI, the PM2.5 and PM10 in µg/m³, the station's name, and when it last reported.
 
-**Over a year** is the shaded areas underneath. Those are not measurements. They are satellite estimates of what a place breathed *across all of 2024* — a yearly average.
+**Over a year** is the shaded areas underneath. These are not measurements. They are satellite estimates of what a place breathed *across all of 2024*, a yearly average.
 
-Why 2024 and not this year? The source product (SatPM2.5 V6GL03) is calibrated against ground monitors before release, and that calibration takes time: as of our last check in August 2026 the newest year we had found published was 2024, with no 2025 grid yet. The lag is the calibration step, not neglect on our part. There is now a **"this year so far"** layer that fills the gap for districts — a coarser model, corrected against this satellite series, described [below](#this-year-so-far) — but it is a different instrument, not a newer version of this one. If you want to know about *this* week, the live monitors are the only honest answer, and they only exist in cities. They cannot tell you whether to go for a walk this evening. They can tell you what living there does to you over years, which is the thing that actually shortens lives.
+Why 2024 and not this year? The source product (SatPM2.5 V6GL03) is calibrated against ground monitors before release, and that takes time. As of our last check in August 2026 the newest year we had found published was 2024, with no 2025 grid yet. The lag is the calibration step. There is now a **"this year so far"** layer that fills the gap for districts. It is a coarser model, corrected against this satellite series and described [below](#this-year-so-far), and it is a different instrument, not a newer version of this one. If you want to know about *this* week, the live monitors are the only honest answer, and they exist only in cities. They cannot tell you whether to go for a walk this evening. The yearly average tells you what living somewhere does to you over years, and that is what shortens lives.
 
-Why have both? Because India has roughly 565 continuous stations for 1.4 billion people. If we only showed live monitors, most of the country would be blank forever. The satellite layer is the only estimate that reaches everywhere — including the village that will never have a machine in it.
+Why have both? India has roughly 565 continuous stations for 1.4 billion people. If we showed only live monitors, most of the country would stay blank. The satellite layer is the only estimate that reaches everywhere, including the village that will never have a machine in it.
 
-So: **dots are today, colours are the year.** Everything below is about the colours.
+So the dots are today and the colours are the year. Everything below is about the colours.
 
 ---
 
-## Finding your place: the Boundaries menu
+## Finding your place with the Boundaries menu
 
 India is divided up more than once, and which division applies to you depends on where you live.
 
-Open **Boundaries** and you get seven choices:
+Open **Boundaries** and you get seven choices.
 
-**If you live in a town or city:**
-- **City / ULB** — the municipal body itself. 3,359 of them.
-- **Ward** — the individual councillor's ward inside it. 68,596 nationally.
+**If you live in a town or city**, there are two: **City / ULB**, the municipal body itself (3,359 of them), and **Ward**, the individual councillor's ward inside it (68,596 nationally).
 
-**If you live in a village or the countryside:**
-- **Village** — 584,615 of them, the smallest unit there is.
-- **Gram panchayat** — 319,287. The tier where most rural governance actually happens.
-- **Block / mandal / tehsil** — 6,471. What a district administration works in.
+**If you live in a village or the countryside**, there are three. **Village** is the smallest unit there is, with 584,615. **Gram panchayat** has 319,287, and most rural governance happens at this tier. **Block / mandal / tehsil** has 6,471, the level a district administration works at.
 
-**Either way:**
-- **District (zila)** — 785.
-- **State / UT** — 36.
+**Either way**, there are **District (zila)**, 785 of them, and **State / UT**, 36.
 
-Pick one and zoom in. Each level appears at the zoom where it makes sense: states are visible from far out, wards and villages only when you are close. If you have picked a level and see nothing, you are too far away — the note under the map will say so.
+Pick one and zoom in. Each level appears at the zoom where it makes sense: states are visible from far out, wards and villages only when you are close. If you have picked a level and see nothing, you are too far away, and the note under the map will say so.
 
-**Fastest route: press "My area."** It jumps to where you are, at a zoom where the level you picked is actually drawn.
+The fastest route is to press **My area**. It jumps to where you are, at a zoom where the level you picked is drawn.
 
-Then **tap any area**. You get its name, and every number the map holds about it.
+Then **tap any area**. You get its name and every number the map holds about it.
 
 ---
 
-## What the colours mean: the Colour menu
+## What the colours mean
 
-Nine measures, carried by every area at every level — plus a tenth, "this year so far", that only districts have, because the model behind it is too coarse for anything smaller.
+The Colour menu has nine measures, carried by every area at every level. A tenth, "this year so far", exists only for districts, because the model behind it is too coarse for anything smaller.
 
 ### Air (annual)
 
-The yearly average PM2.5, from satellite. Compare it against two lines that matter:
-
-- **India's own legal limit is 40 µg/m³** a year.
-- **The WHO guideline is 5.**
+The yearly average PM2.5, from satellite. Compare it against two lines that matter. **India's own legal limit is 40 µg/m³** a year. **The WHO guideline is 5.**
 
 About 46 per cent of districts (362 of 785) are above the first, and every district is above the second.
 
 ### This year so far
 
-Because "why 2024?" is the first thing everyone asks, there is now a second air layer that answers it — **districts only**, and a different instrument.
+"Why 2024?" is the first thing everyone asks, so there is now a second air layer that answers it. It covers **districts only**, and it is a different instrument.
 
-It comes from CAMS, the European atmospheric model, which publishes continuously and therefore covers 2026. On its own it is not comparable with the satellite numbers beside it: it is a model rather than a retrieval, and its cells are about 40 km across. But both cover 2024, so they can be checked against each other. Across the districts where both had a value when we fitted the model (758 then; the September refresh covers all 785, with slope 0.8276 and intercept 12.867 in `current-year-air.json`), CAMS tracks the spatial pattern well (r = 0.91) while reading about 7 µg/m³ low everywhere. A steady offset is the correctable kind of error, so the model is fitted to the satellite series on 2024 and that correction applied to 2026.
+It comes from CAMS, the European atmospheric model, which publishes continuously and therefore covers 2026. On its own it cannot be compared with the satellite numbers beside it. It is a model rather than a satellite retrieval, and its cells are about 40 km across. Both cover 2024, though, so they can be checked against each other. Across the districts where both had a value when we fitted the model (758 then; the September refresh covers all 785, with a slope of 0.8276 and an intercept of 12.867), CAMS tracks the spatial pattern well (r = 0.91) while reading about 7 µg/m³ low everywhere. A steady offset is the correctable kind of error, so we fit the model to the satellite series on 2024 and apply that correction to 2026.
 
-Tested on districts held out of the fit, the corrected figure lands within **3.1 µg/m³ (absolute error) for half of them and 8.5 for nine in ten**. That is the accuracy this layer has, and it is why the layer stops at district: a 40 km cell cannot resolve a ward, and colouring one would be inventing detail the model does not have.
+Tested on districts held out of the fit, the corrected figure lands within **3.1 µg/m³ (absolute error) for half of them and 8.5 for nine in ten**. That is the accuracy this layer has, and it is why the layer stops at district level. A 40 km cell cannot resolve a ward, and colouring one would invent detail the model does not have.
 
-It is a **separate** menu entry with its own label, never merged into the annual layer and never quoted as if it were the same measurement. It rebuilds on the 3rd of each month, so the window grows as the year does.
+It has its own menu entry and its own label. We never merge it into the annual layer or quote it as if it were the same measurement. It is rebuilt on the 3rd of each month, so the window grows as the year does.
 
 ### Air by season
 
 The same year, split four ways: **winter** (Dec–Feb), **summer** (Mar–May), **monsoon** (Jun–Sep) and **post-monsoon** (Oct–Nov).
 
-This is the setting most people should look at, because **an annual average hides how bad the bad months are.** Villages in West Tripura average 54.1 µg/m³ across the year — which sounds like one steady problem. Split it up and the monsoon reads 24.2 while winter reads 106. That is more than four times, and nobody actually experiences 54. They experience clean air in July and a wall of smoke in January.
+Most people should look at this setting, because **an annual average hides how bad the bad months are.** Villages in West Tripura average 54.1 µg/m³ across the year, which sounds like one steady problem. Split it up and the monsoon reads 24.2 while winter reads 106. That is more than four times, and nobody experiences 54. They experience clean air in July and a wall of smoke in January.
 
-The colours stay on the same scale between seasons on purpose. When you switch from monsoon to winter and the map turns red, that is the air changing, not the scale.
+The colours stay on the same scale between seasons on purpose. When you switch from monsoon to winter and the map turns red, the air has changed, not the scale.
 
 ### Surface heat
 
-How hot the **ground** gets, from Landsat satellites, averaged over the pre-monsoon season — the hottest, clearest part of the year.
+How hot the **ground** gets, from Landsat satellites, averaged over the pre-monsoon season, the hottest and clearest part of the year.
 
-This is not the weather forecast. It is the temperature of the land surface itself: tarmac, roof, bare soil, field. It runs well above what a thermometer in the shade says. A 50°C reading here does not mean 50°C air.
+This is not the weather forecast. It is the temperature of the land surface itself: tarmac, roof, bare soil, field. It runs well above what a thermometer in the shade says, so a 50°C reading here does not mean 50°C air.
 
-It is the honest measure of which neighbourhoods bake — and it is where a treeless colony and a leafy one, two kilometres apart, stop looking similar.
+It shows which neighbourhoods bake, and it is where a treeless colony and a leafy one, two kilometres apart, stop looking alike.
 
 ### Tree cover, green cover, built-up
 
 All three come from ESA WorldCover 2021, which classifies the whole planet at 10-metre resolution.
 
-**This is the one place the map can mislead you, so it is worth a minute.**
+This is the one place the map can mislead you, so it is worth a minute.
 
-- **Tree cover** is tree canopy. Only that.
-- **Green cover** is anything vegetated — trees, but also shrub, grass, wetland, **and cropland**.
-- **Built-up** is buildings, roads and other hard surface.
+**Tree cover** is tree canopy and nothing else. **Green cover** is anything vegetated: trees, but also shrub, grass, wetland, **and cropland**. **Built-up** is buildings, roads and other hard surface.
 
 In rural India, "green cover" is mostly **farmland**. The typical Indian district's villages are **97% green and 14% treed.** In Nagaur, Rajasthan, the typical village is **98% green and 0% treed.**
 
-Both numbers are true. Only one of them means what people mean when they ask "is there any greenery here". If you want to know whether there are trees, **look at tree cover.** If a place shows deep green on the green-cover layer and near-white on tree cover, you are looking at fields, not forest.
+Both numbers are true, but only one means what people mean when they ask "is there any greenery here". If you want to know whether there are trees, **look at tree cover.** If a place shows deep green on the green-cover layer and near-white on tree cover, you are looking at fields, not forest.
 
-This distinction is why tree cover exists as its own layer rather than being folded into green cover — the two answer different questions, and only one of them tracks heat. [The analysis is here](/blog/#/posts/2026-08-08-tree-cover-answers-it).
+That is why tree cover has its own layer instead of being folded into green cover. The two answer different questions, and only tree cover tracks heat. [The analysis is here](/blog/#/posts/2026-08-08-tree-cover-answers-it).
 
 ---
 
-## Three things you can actually find out
+## Three things you can find out
 
-### 1. "When is the air worst where I live?"
+### 1. When is the air worst where I live?
 
-Set **Boundaries** to your level, **Colour** to air, then step the season menu through winter → summer → monsoon → post-monsoon and watch your area change.
+Set **Boundaries** to your level and **Colour** to air, then step the season menu through winter, summer, monsoon and post-monsoon and watch your area change.
 
-For most of north India the answer is post-monsoon and winter, and the size of the swing is the story. Amritsar's villages average 40.1 µg/m³ in the monsoon and 101.3 after it. That is the same fields, the same houses, the same people — two and a half times the pollution, for a couple of months, every year.
+For most of north India the worst months are post-monsoon and winter, and the size of the swing is the story. Amritsar's villages average 40.1 µg/m³ in the monsoon and 101.3 after it. Those are the same fields, houses and people, and two and a half times the pollution for a couple of months every year.
 
-Knowing your own months is worth more than knowing your annual number. It tells you when to press, and when the air you are being shown in a press release was measured.
+Knowing your own months is worth more than knowing your annual number. It tells you when to press for action, and when the air in a press release was measured.
 
-### 2. "Is my area hotter than the one next to it, and why?"
+### 2. Is my area hotter than the one next to it, and why?
 
 Set **Colour** to surface heat and zoom in until wards or villages appear. Then switch to tree cover and look at the same screen.
 
-Across India these two track each other: the treeless places are the hot ones. Inside Maharashtra, villages in Akola have about **1% tree canopy and ground temperatures averaging 53.9°C**; villages in Sindhudurg have **71% canopy and 43.5°C** — ten degrees cooler, in the same state.
+Across India the two track each other: the treeless places are the hot ones. In Maharashtra, villages in Akola have about **1% tree canopy and ground temperatures averaging 53.9°C**, while villages in Sindhudurg have **71% canopy and 43.5°C**. That is ten degrees cooler in the same state.
 
-Be careful with that comparison, though. Sindhudurg is coastal and wet, Akola is inland and dry, and rainfall and elevation do a great deal of that work. The map shows you a pattern, not a proof. Where it is genuinely useful is **close up** — two wards in one city, same climate, same rainfall, one with trees and one without. There the difference is about the ground, not the geography.
+Be careful with that comparison. Sindhudurg is coastal and wet, Akola is inland and dry, and rainfall and altitude do a great deal of the work. The map shows you a pattern, not a proof. It is most useful **close up**: two wards in one city, same climate, same rainfall, one with trees and one without. There the difference comes from the ground, not the geography.
 
-### 3. "Does the thing I suspect actually hold here?"
+### 3. Does what I suspect hold here?
 
-Under the map there is a **Compare** panel. Pick any two of the five year-round measures — annual PM2.5, surface heat, tree, green and built-up cover — press Compare, and it plots every area currently on your screen against each other, with the strength of the relationship.
+Under the map there is a **Compare** panel. Pick any two of the five year-round measures (annual PM2.5, surface heat, tree, green and built-up cover), press Compare, and it plots every area currently on your screen against each other, with the strength of the relationship.
 
-It answers questions about *your* place, not the country: whatever is on screen is what it uses, and it tells you how many areas that was. Zoom somewhere else, press it again, get a different answer. That is the point — "does tree cover cool things down in my city" is a different question from "does it nationally", and until now only the second had an answer.
+It answers questions about *your* place, not the country. Whatever is on screen is what it uses, and it tells you how many areas that was. Zoom somewhere else, press it again, and you get a different answer. "Does tree cover cool things down in my city" is a different question from "does it nationally", and until now only the second had an answer.
 
 ---
 
-## Two more overlays worth knowing about
+## Two overlays worth knowing about
 
-**Schools** and **Health centres** put a dot on every school (UDISE) and every health centre (Bharatmaps) in view, over whatever you have coloured the map by. It answers a question that shading alone cannot: *who is actually breathing this.* A dark-red ward is an abstraction. A dark-red ward with forty schools in it is an argument.
+**Schools** and **Health centres** put a dot on every school (UDISE) and every health centre (Bharatmaps) in view, over whatever you have coloured the map by. They answer a question shading cannot: *who is actually breathing this.* A dark-red ward is an abstraction. A dark-red ward with forty schools in it is an argument.
 
 ---
 
 ## What this map cannot tell you
 
-Being clear about this is more useful than another feature.
-
-**It cannot tell you about the kiln next door.** The satellite air estimate is roughly one kilometre across. It is good at "what does this district breathe over a year" and blind to a single smelter, crusher or highway at the end of your street. Byrnihat — a small industrial pocket that topped IQAir's 2024 global city ranking (the 2025 report, published in March 2026, puts Loni, at 112.5 µg/m³, at the top of India's list) — reads far lower here than its own ground station does. If you live beside a point source, this map understates you.
+**It cannot tell you about the kiln next door.** The satellite air estimate is roughly one kilometre across. It is good at "what does this district breathe over a year" and blind to a single smelter, crusher or highway at the end of your street. Byrnihat, a small industrial pocket that topped IQAir's 2024 global city ranking (the 2025 report, published in March 2026, puts Loni, at 112.5 µg/m³, at the top of India's list), reads far lower here than its own ground station does. If you live beside a point source, this map understates your air.
 
 **It cannot tell you about today.** Nothing in the coloured layers is a forecast or a current reading. If someone quotes a yearly average as today's air quality, they are wrong, and if we ever do it, tell us.
 
 **Land cover is from 2021.** Construction since then does not appear.
 
-**Some areas have no value at all**, and are drawn uncoloured rather than filled with a guess: 143 villages have no land cover, 749 have no heat reading, a few dozen wards likewise. These are slivers and odd shapes too small for the satellite grid to resolve. A grey area means "we don't know", never "zero".
+**Some areas have no value at all**, and are drawn uncoloured rather than filled with a guess: 143 villages have no land cover, 749 have no heat reading, and a few dozen wards likewise. These are slivers and odd shapes too small for the satellite grid to resolve. A grey area means "we don't know", never "zero".
 
-**Boundaries are as good as their sources.** Ward boundaries carry whatever delimitation each municipality last uploaded, which is not the same year everywhere. A handful of cities — Siliguri among them — are still missing because no open source has published them.
+**Boundaries are as good as their sources.** Ward boundaries carry whatever delimitation each municipality last uploaded, which is not the same year everywhere. A handful of cities, Siliguri among them, are still missing because no open source has published them.
 
 ---
 
 ## Where the numbers come from
 
-Every figure on the map is public data anyone can check:
+Every figure on the map is public data anyone can check.
 
-- **Live air:** CPCB monitors, via WAQI.
-- **Annual and seasonal PM2.5:** SatPM2.5 V6GL03, Atmospheric Composition Analysis Group, Washington University in St. Louis — satellite estimates calibrated against ground monitors. 2024. CC BY 4.0.
-- **This year so far (districts):** CAMS, the Copernicus Atmosphere Monitoring Service, via the Open-Meteo air-quality archive — a ~40 km model, calibrated against the SatPM2.5 series on 2024 and rebuilt monthly.
-- **Surface heat:** Landsat 8 and 9, USGS, 2026 pre-monsoon.
-- **Tree, green and built-up cover:** ESA WorldCover 2021, CC BY 4.0.
-- **Boundaries:** the Local Government Directory and Swachh Bharat Mission, republished via [indianopenmaps.com](https://indianopenmaps.com), plus West Bengal AMRUT and Living Atlas ward layers.
+Live air comes from CPCB monitors, via WAQI. Annual and seasonal PM2.5 come from SatPM2.5 V6GL03, Atmospheric Composition Analysis Group, Washington University in St. Louis: satellite estimates calibrated against ground monitors, for 2024, under CC BY 4.0. "This year so far" (districts) comes from CAMS, the Copernicus Atmosphere Monitoring Service, via the Open-Meteo air-quality archive. It is a ~40 km model, calibrated against the SatPM2.5 series on 2024 and rebuilt monthly.
+
+Surface heat comes from Landsat 8 and 9, USGS, 2026 pre-monsoon. Tree, green and built-up cover come from ESA WorldCover 2021, CC BY 4.0. Boundaries come from the Local Government Directory and Swachh Bharat Mission, republished via [indianopenmaps.com](https://indianopenmaps.com), plus West Bengal AMRUT and Living Atlas ward layers.
 
 The full method, with the coverage figures and known limits for every layer, is in [The Boundary Map](/docs/#/data-sources/boundary-map).
 
@@ -180,6 +163,6 @@ The full method, with the coverage figures and known limits for every layer, is 
 
 Open the [map](https://www.janvayu.in/#map), press **My area**, set Boundaries to **Ward** if you are in a town or **Village** if you are not, and tap where you live.
 
-Then do the thing this map was built for: switch the season to winter, and look again.
+Then switch the season to winter and look again.
 
-If something reads wrong for a place you know well — a boundary in the wrong spot, a name misspelt, a number that cannot be right — [tell us](https://github.com/JanVayu/JanVayu/issues). Local knowledge is the one input a satellite does not have.
+If something reads wrong for a place you know well, such as a boundary in the wrong spot, a misspelt name or a number that cannot be right, [tell us](https://github.com/JanVayu/JanVayu/issues). Local knowledge is the one input a satellite does not have.

@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ask JanVayu — System Status</title>
+  <title>Ask JanVayu system status</title>
   <meta name="description" content="Live operational status of the Ask JanVayu chatbot, live AQI data, and air-quality services.">
   <meta name="robots" content="all">
   <link rel="icon" href="https://www.janvayu.in/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Ask JanVayu — System Status">
+  <meta property="og:title" content="Ask JanVayu system status">
   <meta property="og:description" content="Live operational status of the Ask JanVayu chatbot and air-quality services.">
   <meta property="og:type" content="website">
-<link rel="stylesheet" href="/styles.css?v=202606235">
+<link rel="stylesheet" href="/styles.css?v=202606236">
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606235" defer></script>
+<script src="/js/chrome.js?v=202606236" defer></script>
   <style>
     /* This page carried its own eight-colour palette and switched it on
        prefers-color-scheme, so it followed the operating system and ignored
@@ -109,7 +109,7 @@
     </div>
 
     <div class="meta">
-      <span id="last-checked">Last checked: —</span>
+      <span id="last-checked">Last checked: not yet</span>
       <button id="refresh" type="button">↻ Refresh now</button>
     </div>
 
@@ -137,7 +137,7 @@
     const TIMEOUT_MS = 12000;
 
     const COMPONENTS = [
-      { name: "Website", desc: "janvayu.in — main site & CDN", type: "site", url: API + "/" },
+      { name: "Website", desc: "janvayu.in, the main site and its delivery network", type: "site", url: API + "/" },
       { name: "Ask JanVayu chatbot", desc: "AI air-quality assistant (air-query)", type: "fn", url: API + "/.netlify/functions/air-query" },
       { name: "Live AQI rankings", desc: "City rankings feed (rankings)", type: "fn", url: API + "/.netlify/functions/rankings" },
       { name: "Historical AQI", desc: "Monthly PM2.5 history (historical-aqi)", type: "fn", url: API + "/.netlify/functions/historical-aqi" },
@@ -218,13 +218,13 @@
       const total = results.length;
       let cls, title, sub;
       if (down === 0) {
-        cls = "up"; title = "All Systems Operational";
+        cls = "up"; title = "All systems operational";
         sub = total + " of " + total + " services healthy.";
       } else if (down >= total) {
-        cls = "down"; title = "Major Outage";
+        cls = "down"; title = "Major outage";
         sub = "All monitored services are unreachable.";
       } else {
-        cls = "degraded"; title = down === 1 ? "Partial Outage — 1 service down" : "Partial Outage — " + down + " services down";
+        cls = "degraded"; title = down === 1 ? "Partial outage: 1 service down" : "Partial outage: " + down + " services down";
         sub = (total - down) + " of " + total + " services healthy.";
       }
       elBanner.className = "banner " + cls;
@@ -252,7 +252,7 @@
         h.days.forEach((d) => {
           const i = document.createElement("i");
           i.className = d.status || "up";
-          i.title = d.date + (d.note ? " — " + d.note : "");
+          i.title = d.date + (d.note ? ": " + d.note : "");
           bars.appendChild(i);
         });
         document.getElementById("uptime").hidden = false;

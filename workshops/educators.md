@@ -7,13 +7,12 @@ correct understanding of the one thing most air-quality teaching gets wrong.
 No science background assumed. Everything used here is free and needs only a
 browser.
 
-> A note for the facilitator: on Workshopy's free plan a session runs 45
+> A note for whoever runs the session: on Workshopy's free plan a session runs 45
 > minutes. Steps 1 to 6 fit inside that. Step 7 onwards can be a second session.
 
 # Why this belongs in a classroom
 
-Not as a general environmental topic. As something that is happening to the
-students in front of you.
+Teach it as something that is happening to the students in front of you.
 
 India's national annual average PM2.5 is **48.9 µg/m³** (IQAir 2025), against a
 WHO guideline of **5** and India's own legal limit of **40**. The average Indian
@@ -54,12 +53,12 @@ loss, and low birth weight.
 
 # Make it tangible
 
-Abstract micrograms do not land. Three devices that do.
+Abstract micrograms do not land with students. Three things help.
 
 **The cigarette equivalence.** Berkeley Earth's rule of thumb: one cigarette is
 roughly 22 µg/m³ of PM2.5 over a day. So a day at 110 µg/m³ is about five
-cigarettes. Teach it honestly: this is an illustration of inhaled particulate
-dose, not a medical equivalence, and saying so is part of the lesson.
+cigarettes. Teach it as an illustration of inhaled particulate
+dose, not a medical equivalence, and say so in class; saying so is part of the lesson.
 
 **The hair.** Hold up a hair. PM2.5 is a thirtieth of that width.
 
@@ -91,7 +90,7 @@ average every time. See step 6.
 
 # The games
 
-Seven browser games, written with Indian content rather than translated from
+Seven browser games with original Indian content; none is a translation of
 American material. All free, no login, and each runs in a single lesson or less.
 
 **Air Quality Jeopardy, India edition.** A board game for teams. The longest of
@@ -150,12 +149,9 @@ The **Air-Literacy Quiz** on JanVayu is a 10-question self-check on the
 essentials: what AQI actually measures, how India's standards compare with the
 WHO's, and what to do on a bad day.
 
-Every answer carries an explanation, so it teaches while it tests. That makes it
-usable in three ways:
-
-- **As a pre-test**, to find out what the class already believes
-- **As an exit ticket** at the end of a lesson
-- **As a self-paced revision tool** students can repeat
+Every answer carries an explanation, so it teaches while it tests. You can use it
+as a pre-test, to find out what the class already believes, as an exit ticket at
+the end of a lesson, or as a self-paced revision tool that students can repeat.
 
 Pair it with the ward exercise in step 6 and you have a full assessment: a
 factual component and an applied one, neither of which you had to write.

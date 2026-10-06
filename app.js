@@ -299,15 +299,15 @@
             askhome_placeholder: 'e.g. Should I go jogging today?',
             askhome_button: 'Ask',
             about_heading: 'About JanVayu',
-            about_intro: 'JanVayu (<span lang="hi">जनवायु</span> &mdash; &ldquo;People&rsquo;s Air&rdquo;) is a non-partisan, citizen-led platform documenting India&rsquo;s air quality crisis &mdash; its live data, its human toll, its policies, and its public memory. It brings together real-time PM2.5 across <strong>160 cities</strong>, a boundary atlas covering every administrative area in India, a live forecast and farm-fire tracker, health and economic-impact research, policy and accountability tracking, RTI tools, the <a href="/ask/">Ask JanVayu</a> AI assistant, and a multilingual wall of citizen testimony &mdash; every figure sourced and open. It is not a campaign; it is a public record, built for the <strong>#AQIForJanHit</strong> effort.',
+            about_intro: 'JanVayu (<span lang="hi">जनवायु</span>, meaning &ldquo;People&rsquo;s Air&rdquo;) is a non-partisan, citizen-led platform documenting India&rsquo;s air quality crisis: its live data, its human toll, its policies and its public memory. It brings together real-time PM2.5 across <strong>160 cities</strong>, a boundary atlas covering every administrative area in India, a live forecast and farm-fire tracker, health and economic-impact research, policy and accountability tracking, RTI tools, the <a href="/ask/">Ask JanVayu</a> AI assistant, and a multilingual wall of citizen testimony. Every figure is sourced and open. It is a public record, built for the <strong>#AQIForJanHit</strong> effort.',
             about_mission_h: 'Our Mission',
-            about_mission_p1: 'JanVayu exists because clean air is a fundamental right, not a privilege. We measure the distance between what governments promise and what people actually breathe &mdash; using independent data, peer-reviewed research and RTI responses that anyone can check for themselves.',
-            about_mission_p2: 'This platform is part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong> &mdash; the broader <strong>#AQIForJanHit</strong> campaign. We use real-time monitoring data, peer-reviewed research, RTI responses, and independent analysis to provide the accountability that India&rsquo;s air quality crisis demands.',
+            about_mission_p1: 'JanVayu exists because clean air is a fundamental right. We measure the distance between what governments promise and what people actually breathe, using independent data, peer-reviewed research and RTI responses that anyone can check for themselves.',
+            about_mission_p2: 'This platform is part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>, the broader <strong>#AQIForJanHit</strong> campaign. We use real-time monitoring data, peer-reviewed research, RTI responses, and independent analysis to provide the accountability that India&rsquo;s air quality crisis demands.',
             about_datasources_h: 'Data Sources',
             about_partners_h: 'Janhit Partners',
             about_partners_intro: 'The organisations and initiatives JanVayu works alongside in the <strong>#AQIForJanHit</strong> effort for clean air as a public good.',
             hero_title: "India's air is killing <em>1.72 million people</em> every year",
-            hero_sub: "JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Because clean air is not a privilege, it is a right.",
+            hero_sub: "JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Clean air is a right.",
             tagline: "Citizen Air Quality Platform",
             nav_myair: "My Air",
             nav_citydata: "Maps & Places",
@@ -1050,11 +1050,11 @@
             plain: 'Staying outside for long will make most people feel it in their chest. Go out for less time. Keep windows shut on the road side.',
             who: [['Limit', 'Go early or late rather than at peak traffic, and keep it short.'],
                   ['Limit', 'Ask the school to move PT indoors.'],
-                  ['Limit', 'A fitted N95 for the shift, and breaks away from the roadside. That is the employer&rsquo;s duty, not a favour.'],
+                  ['Limit', 'A fitted N95 for the shift, and breaks away from the roadside. That is the employer&rsquo;s duty.'],
                   ['Limit', 'Move training indoors. Skip the match if you can.'],
                   ['Limit', 'Stay in where you can. Keep medication to hand.']] },
         vpoor: { head: 'Keep children indoors today.',
-            why: 'Skip the run. A fitted N95 helps outside; a purifier helps in one room, not a house. If this is your normal, the thing that changes it is not a purifier.',
+            why: 'Skip the run. A fitted N95 helps outside; a purifier helps in one room, not a house. If this is your normal, a purifier will not change it.',
             plain: 'Keep children inside. A well-fitted N95 mask helps outside. A purifier helps in one room, not a whole house.',
             who: [['Brief trips', 'Go once, in a fitted N95, and keep it short.'],
                   ['Stay in', 'No outdoor games. Ask whether the school will shorten the day.'],
@@ -1062,8 +1062,8 @@
                   ['Stay in', 'Call the match off. Indoor training only.'],
                   ['Stay in', 'Do not go out unless you must. Seek advice early if symptoms start.']] },
         severe: { head: 'Stay indoors. This is an emergency-level reading.',
-            why: 'At this level everyone is affected, not only the vulnerable. Keep the windows shut, run a purifier if you have one, and avoid going out at all if you can.',
-            plain: 'This air is dangerous for everyone, not only for children and the sick. Stay inside. Keep windows shut. Do not go out unless you have to.',
+            why: 'At this level everyone is affected. Keep the windows shut, run a purifier if you have one, and avoid going out at all if you can.',
+            plain: 'This air is dangerous for everyone. Stay inside. Keep windows shut. Do not go out unless you have to.',
             who: [['Delay it', 'Send one person in a fitted N95, or go tomorrow if you can.'],
                   ['Stay in', 'Ask about closure. In Delhi-NCR, schools shift to hybrid or online classes under GRAP Stage III and IV (CAQM GRAP, revised 21 Nov 2025).'],
                   ['Hazard', 'This is unsafe to work in. N95, the shortest exposure possible, and a real case for stopping work.'],
@@ -1339,7 +1339,7 @@
             let html = '<div>' + escapeHtml(answer).replace(/\n/g, '<br>') + '</div>';
             if (data.dataUsed) {
                 html += '<h4>Data used</h4><div>' + escapeHtml(data.dataUsed.city) +
-                    ' — AQI ' + escapeHtml(String(data.dataUsed.aqi)) +
+                    ', AQI ' + escapeHtml(String(data.dataUsed.aqi)) +
                     ', PM2.5 ' + escapeHtml(String(data.dataUsed.pm25 ?? 'not reported')) + ' µg/m³, station ' +
                     escapeHtml(String(data.dataUsed.station)) + ', updated ' + escapeHtml(String(data.dataUsed.time)) + '.</div>';
             }
@@ -1542,7 +1542,7 @@
             const stationName = d.city?.name || 'Nearest station';
 
             // Inject as a synthetic "near-me" entry into aqiData so all the cards reuse the same flow.
-            CITIES['__nearme'] = { name: 'Near me — ' + stationName, lat, lon };
+            CITIES['__nearme'] = { name: 'Near me: ' + stationName, lat, lon };
             aqiData['__nearme'] = { aqi, pm25, pm10: iaqiToPM10(d.iaqi?.pm10?.v), time: d.time?.s || new Date().toISOString(), station: stationName, live: true };
 
             // Add or update the dropdown option so the user can switch back
@@ -1554,7 +1554,7 @@
                     opt.value = '__nearme';
                     sel.insertBefore(opt, sel.firstChild);
                 }
-                opt.textContent = 'Near me — ' + stationName;
+                opt.textContent = 'Near me: ' + stationName;
                 sel.value = '__nearme';
             }
             updateHeroCity('__nearme');
@@ -1573,21 +1573,21 @@
         { term: 'AQI', full: 'Air Quality Index', def: 'A standardised scale (0-500) converting pollutant concentrations into a single number. India\'s CPCB AQI: 0-50 Good, 51-100 Satisfactory, 101-200 Moderate, 201-300 Poor, 301-400 Very Poor, 401-500 Severe. The US AQI that WAQI reports names the bands differently (201-300 is "Very Unhealthy").', simple: 'A number from 0-500 that tells you how clean or dirty the air is. Under 50 is good. On India\'s CPCB scale, over 200 is poor or worse.' },
         { term: 'PM2.5', full: 'Fine Particulate Matter', def: 'Airborne particles smaller than 2.5 micrometres. Small enough to penetrate deep into lungs and bloodstream. WHO guideline: 5 µg/m³ annual mean.', simple: 'Tiny invisible particles that get deep into your lungs and blood. The WHO says safe is 5 or less. Delhi averaged 96 in 2025 on CPCB monitors (CREA 2026); IQAir put New Delhi at 82.2.' },
         { term: 'PM10', full: 'Coarse Particulate Matter', def: 'Particles smaller than 10 micrometres including dust, pollen, and construction debris. WHO guideline: 15 µg/m³ (annual).', simple: 'Larger dust particles from roads or construction. They irritate your nose and throat but don\'t go as deep as PM2.5.' },
-        { term: 'µg/m³', full: 'Micrograms per cubic metre', def: 'Standard unit for measuring airborne particle concentration. One microgram is one-millionth of a gram.', simple: 'The unit used to measure pollution in the air. Think of it as "parts of pollution per breath". Lower is better.' },
+        { term: 'µg/m³', full: 'Micrograms per cubic metre', def: 'Standard unit for measuring airborne particle concentration. One microgram is one-millionth of a gram.', simple: 'The unit used to measure pollution in the air. It counts how many millionths of a gram of particles are in one cubic metre of air. Lower is better.' },
         { term: 'GEMM', full: 'Global Exposure Mortality Model', def: 'A dose-response model (Burnett et al., 2018) estimating excess mortality from PM2.5 exposure.', simple: 'A formula that estimates how many people die from air pollution based on PM2.5 levels.' },
         { term: 'NCAP', full: 'National Clean Air Programme', def: 'India\'s flagship programme targeting up to 40% PM10 reduction (or PM10 of 60 µg/m³) by 2025-26 across 130-131 cities (CREA 2026; PIB). Rs 19,614 crore was earmarked for FY2019-20 to 2025-26 (CREA 2026).', simple: 'India\'s government plan to cut PM10 by up to 40% in 130-131 cities by 2025-26. Rs 19,614 crore was earmarked, with mixed results.' },
         { term: 'GRAP', full: 'Graded Response Action Plan', def: 'Emergency pollution control framework for Delhi-NCR. Stage I (AQI 201-300) to Stage IV (AQI >450). Enforced by CAQM.', simple: 'Emergency rules for Delhi that kick in when pollution gets bad. From firecracker-ban orders to shifting classes online.' },
         { term: 'CPCB', full: 'Central Pollution Control Board', def: 'India\'s apex environmental monitoring body under MoEFCC. Operates the CAAQMS monitoring network.', simple: 'India\'s main government body that monitors air and water pollution and runs official monitoring stations.' },
         { term: 'CAQM', full: 'Commission for Air Quality Management', def: 'Statutory body for Delhi-NCR air quality with quasi-judicial powers. Can issue binding directions.', simple: 'A special commission for Delhi-NCR with legal power to enforce pollution rules and activate GRAP stages.' },
         { term: 'RTI', full: 'Right to Information', def: 'Citizen\'s legal right under RTI Act 2005 to request information from public authorities. Response within 30 days.', simple: 'Your legal right to ask the government questions and get answers within 30 days.' },
-        { term: 'WHO', full: 'World Health Organization', def: '2021 guidelines set PM2.5 at 5 µg/m³ (annual) and PM10 at 15 µg/m³ — significantly stricter than India\'s NAAQS.', simple: 'The global health body that sets safe limits for air pollution. India\'s national average is about 10 times the WHO guideline (IQAir 2025); Delhi is about 16 times.' },
+        { term: 'WHO', full: 'World Health Organization', def: '2021 guidelines set PM2.5 at 5 µg/m³ (annual) and PM10 at 15 µg/m³, much stricter than India\'s NAAQS.', simple: 'The global health body that sets safe limits for air pollution. India\'s national average is about 10 times the WHO guideline (IQAir 2025); Delhi is about 16 times.' },
         { term: 'COPD', full: 'Chronic Obstructive Pulmonary Disease', def: 'Progressive lung diseases obstructing airflow. PM2.5 exposure is a leading risk factor.', simple: 'A lung disease that makes it hard to breathe. Long-term air pollution is a major cause.' },
         { term: 'IHD', full: 'Ischaemic Heart Disease', def: 'Reduced blood supply to the heart. PM2.5 increases risk through systemic inflammation.', simple: 'Heart disease caused by reduced blood flow. Air pollution increases heart attack risk.' },
         { term: 'ALRI', full: 'Acute Lower Respiratory Infection', def: 'Lower respiratory tract infections (pneumonia). A leading cause of death in children under 5 in India.', simple: 'Serious lung infections like pneumonia, especially dangerous for children under 5.' },
         { term: 'GBD', full: 'Global Burden of Disease', def: 'Comprehensive IHME study quantifying health loss. Attributes ~2M deaths/year in India to air pollution.', simple: 'The world\'s largest health study. Says air pollution kills 2 million Indians per year.' },
         { term: 'CAAQMS', full: 'Continuous Ambient Air Quality Monitoring System', def: 'Automated stations measuring PM2.5, PM10, SO2, NO2, O3, CO in real-time. India has about 565 stations (CREA, Jan 2026).', simple: 'Automatic air quality stations that measure pollution 24/7. India has about 565 but coverage is uneven.' },
         { term: 'WAQI', full: 'World Air Quality Index', def: 'Independent project (aqicn.org) aggregating real-time data from more than 500,000 known stations in about 130 countries. JanVayu\'s live data source.', simple: 'A global project that collects air quality data and makes it free. JanVayu uses it for live data.' },
-        { term: 'NAAQS', full: 'National Ambient Air Quality Standards', def: 'India\'s regulatory limits. PM2.5 annual: 40 µg/m³ (8x the WHO guideline of 5).', simple: 'India\'s official air quality limits — much less strict than WHO. India allows 40, WHO says 5.' },
+        { term: 'NAAQS', full: 'National Ambient Air Quality Standards', def: 'India\'s regulatory limits. PM2.5 annual: 40 µg/m³ (8x the WHO guideline of 5).', simple: 'India\'s official air quality limits. They are much less strict than the WHO guideline: India allows 40, the WHO says 5.' },
         { term: 'Stubble Burning', full: '', def: 'Burning crop residue after harvest in Punjab/Haryana. Major contributor to Delhi-NCR\'s winter pollution (Oct-Nov).', simple: 'When farmers burn leftover crop stalks. Causes massive pollution spikes in North India every October-November.' },
         { term: 'Temperature Inversion', full: '', def: 'Warm air layer trapping cooler surface air and pollutants near ground level. Common in Indo-Gangetic winters.', simple: 'When cold air gets trapped under warm air, acting like a lid that stops pollution from dispersing.' },
     ];
@@ -1619,7 +1619,7 @@
         }
         container.innerHTML = filtered.map(g => `
             <div class="glossary-item">
-                <div class="glossary-item-term">${g.term}${g.full ? ' — ' + g.full : ''}</div>
+                <div class="glossary-item-term">${g.term}${g.full ? ': ' + g.full : ''}</div>
                 <div class="glossary-item-def">${simpleMode ? g.simple : g.def}</div>
             </div>
         `).join('');
@@ -1645,11 +1645,11 @@
     // show, the tour opened its backdrop and dismissed itself in the same frame.
     // These are the bar's controls.
     const TOUR_STEPS = [
-        { target: '#ctlRole', text: 'Who you are — pick a role and each answer leads with the part that is about you' },
-        { target: '#ctlLang', text: 'Language — read the site in English, Hindi, Bengali, Marathi or Tamil' },
-        { target: '#ctlSimple', text: 'Simple — switch all text to plain, easy language' },
-        { target: '#ctlTheme', text: 'Theme — switch between light and dark' },
-        { target: '#ctlIndex', text: 'Index — everything on this site, on one screen, filterable' },
+        { target: '#ctlRole', text: 'Who you are: pick a role and each answer leads with the part that is about you' },
+        { target: '#ctlLang', text: 'Language: read the site in English, Hindi, Bengali, Marathi or Tamil' },
+        { target: '#ctlSimple', text: 'Simple: switch all text to plain, easy language' },
+        { target: '#ctlTheme', text: 'Theme: switch between light and dark' },
+        { target: '#ctlIndex', text: 'Index: everything on this site, on one screen, filterable' },
     ];
     let tourStep = -1;
     function startTour() {
@@ -2013,9 +2013,9 @@
 
         const verdict = document.getElementById('uh-verdict');
         if (verdict) {
-            if (rounded > 0.05) verdict.innerHTML = 'This neighbourhood runs <strong style="color:var(--red);">hotter</strong> &mdash; concrete is winning over canopy.';
-            else if (rounded < -0.05) verdict.innerHTML = 'This neighbourhood runs <strong style="color:var(--green-600);">cooler</strong> &mdash; tree cover is doing the work.';
-            else verdict.innerHTML = 'About average for Delhi &mdash; concrete and canopy roughly balance.';
+            if (rounded > 0.05) verdict.innerHTML = 'This neighbourhood runs <strong style="color:var(--red);">hotter</strong>: concrete is winning over canopy.';
+            else if (rounded < -0.05) verdict.innerHTML = 'This neighbourhood runs <strong style="color:var(--green-600);">cooler</strong>: tree cover is doing the work.';
+            else verdict.innerHTML = 'About average for Delhi: concrete and canopy roughly balance.';
         }
     };
 
@@ -2277,7 +2277,7 @@
             const nowO3 = nowIdx >= 0 ? Math.round(series.ozone[nowIdx]) : null;
             const nowT = nowIdx >= 0 ? Math.round(series.temp[nowIdx]) : null;
             status.textContent = `${city.name} today: ozone peaks around ${peakHour}, riding the afternoon heat`
-                + (nowO3 != null ? ` — right now it's ${nowT}°C with ozone near ${nowO3} µg/m³.` : '.');
+                + (nowO3 != null ? `. Right now it's ${nowT}°C with ozone near ${nowO3} µg/m³.` : '.');
         }
     };
 
@@ -2440,7 +2440,7 @@
         }
         try { await ensureVectorGrid(); } catch (e) {
             btn.classList.remove('active');
-            if (statusEl) statusEl.textContent = 'The overlay library could not load — try again in a moment.';
+            if (statusEl) statusEl.textContent = 'The overlay library could not load. Try again in a moment.';
             return;
         }
         if (store[kind]) return;
@@ -2676,13 +2676,13 @@
                   + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
                   + `Drawn from India's ~565 continuous CPCB monitors (CREA, Jan 2026), the whole continuous (CAAQMS) network. `
                   + `Yearly satellite figures cover all <strong style="font-weight:600;">983,149</strong> areas, down to the village.</span>`
-                : `<span style="color:var(--amber);">&#9888;</span> Showing estimated data. Check console for API details.`;
-            liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine — `
+                : `<span style="color:var(--amber);">Showing estimated data.</span> Live readings could not be loaded.`;
+            liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine: `
                 + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's continuous (CAAQMS) network (CREA, Jan 2026), not the limit of ours. `
                 + `JanVayu carries live air for ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
                 + `(${successCount} answered this cycle) and the rest load when you select them, to stay inside the data source's free tier. `
                 + `The satellite layer is what closes the gap: annual and seasonal PM2.5, surface heat and land cover for all `
-                + `983,149 administrative areas down to the village — a yearly average rather than today's air, and the only `
+                + `983,149 administrative areas down to the village. It is a yearly average rather than today's air, and the only `
                 + `estimate that reaches everywhere.`;
         }
     }
@@ -2785,7 +2785,7 @@
 
             const ncapCtx = document.getElementById('ncapChart');
             if (ncapCtx) {
-                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Noida'], datasets: [{ label: 'Released (₹ Cr)', data: [81.36, 56], backgroundColor: '#3B82F6' }, { label: 'Utilized (₹ Cr)', data: [14.1, 30], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'NCAP funds released and utilised, cumulative to Dec 2025 (Delhi) and Jan 2026 (Noida), ResGov city briefs', font: { size: 11 } } }, scales: { y: { grid: { color: gridColor } } } } });
+                charts.ncap = new Chart(ncapCtx, { type: 'bar', data: { labels: ['Delhi', 'Noida'], datasets: [{ label: 'Released (₹ Cr)', data: [81.36, 56], backgroundColor: '#3B82F6' }, { label: 'Spent (₹ Cr)', data: [14.1, 30], backgroundColor: '#22C55E' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'NCAP funds released and spent, cumulative to Dec 2025 (Delhi) and Jan 2026 (Noida), ResGov city briefs', font: { size: 11 } } }, scales: { y: { grid: { color: gridColor } } } } });
             }
 
             // BUDGET TRACKER CHARTS
@@ -2797,7 +2797,7 @@
                         labels: ['MoEFCC Direct', 'XV-FC Grants', 'Total NCAP'],
                         datasets: [
                             { label: 'Released', data: [2395, 11021, 13415], backgroundColor: '#3B82F6' },
-                            { label: 'Utilized', data: [1417, 8513, 9929], backgroundColor: '#22C55E' }
+                            { label: 'Spent', data: [1417, 8513, 9929], backgroundColor: '#22C55E' }
                         ]
                     }, 
                     options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor }, title: { display: true, text: '₹ Crore' } } } } 
@@ -3081,7 +3081,7 @@
         // ── Category pill/badge ──
         var pillTextSize = Math.round(24 * S);
         var pillY = aqiNumY + Math.round(isLand ? 16 : 24) * S;
-        var pillLabel = '——  ' + label.toUpperCase() + '  ——';
+        var pillLabel = label.toUpperCase();
         ctx.font = 'bold ' + pillTextSize + 'px system-ui, sans-serif';
         var pillTextW = ctx.measureText(pillLabel).width + Math.round(48 * S);
         var pillH = Math.round(42 * S);
@@ -3186,7 +3186,7 @@
         else if (aqi <= 200) factoid = 'This air is ' + whoX + '× above what WHO says is safe';
         else if (aqi <= 300) factoid = 'At this level, children should not play outdoors';
         else if (aqi <= 400) factoid = 'Equivalent to smoking ' + cigPerDay + ' cigarettes today';
-        else factoid = 'Emergency level — stay indoors, seal windows';
+        else factoid = 'Emergency level: stay indoors, seal windows';
 
         ctx.save();
         ctx.fillStyle = 'rgba(255,255,255,0.85)';
@@ -3353,7 +3353,7 @@
         var whoX = getWHOMultiple(pm25);
         var cigPerDay = (pm25 / 22).toFixed(1);
         var label = getAQILabel(aqi);
-        var text = '🌫️ ' + city.name + ' Air Quality Right Now'
+        var text = '' + city.name + ' Air Quality Right Now'
             + '\n\nAQI: ' + aqi + ' (' + label + ')'
             + '\nPM2.5: ' + pm25 + ' µg/m³ (' + whoX + '× WHO limit)'
             + '\n≈ ' + cigPerDay + ' cigarettes/day'
@@ -3370,7 +3370,7 @@
         var lifeYears = lifeEl ? lifeEl.textContent : '--';
         var whoX = getWHOMultiple(pm25);
         if (mortality === '--') { alert('Calculate your health risk first.'); return; }
-        var text = '🏥 My air pollution health risk:'
+        var text = 'My air pollution health risk:'
             + '\n\nPM2.5: ' + pm25 + ' µg/m³ (' + whoX + '× WHO guideline)'
             + '\nExcess mortality risk: ' + mortality
             + '\nLife expectancy lost: ' + lifeYears
@@ -3386,7 +3386,7 @@
         if (cards[0]) { var v = cards[0].querySelector('[style*="1.75rem"]'); if (v) weighted = v.textContent.trim(); }
         if (cards[1]) { var v = cards[1].querySelector('[style*="1.75rem"]'); if (v) cigs = v.textContent.trim(); }
         if (cards[3]) { var v = cards[3].querySelector('[style*="1.1rem"]'); if (v) worst = v.textContent.trim(); }
-        var text = '📊 My daily PM2.5 exposure:'
+        var text = 'My daily PM2.5 exposure:'
             + '\n\nWeighted exposure: ' + weighted + ' µg/m³'
             + '\n= ' + cigs + ' cigarettes/day'
             + '\nWorst window: ' + worst
@@ -3403,7 +3403,7 @@
         var years = verdictEl ? verdictEl.textContent.trim() : '';
         var cigCards = resultEl.querySelectorAll('[style*="1.5rem"][style*="font-weight"]');
         var cigsSaved = cigCards.length > 0 ? cigCards[0].textContent.trim() : '';
-        var text = '🏙️ Air quality migration comparison:'
+        var text = 'Air quality migration comparison:'
             + '\n\nMoving from ' + fromName + ' to ' + toName
             + ' = ' + years + ' life expectancy'
             + (cigsSaved ? '\n' + cigsSaved + ' fewer cigarettes/year' : '')
@@ -3421,7 +3421,7 @@
         var aqi = aqiEl ? aqiEl.textContent.trim() : '?';
         var stage = stageEl ? stageEl.textContent.trim() : '?';
         var status = statusEl ? statusEl.textContent.trim() : '?';
-        var text = '🏫 NCR School Closure Status:'
+        var text = 'NCR School Closure Status:'
             + '\n\n' + status
             + '\nNCR Average AQI: ' + aqi
             + '\nGRAP Status: ' + stage
@@ -3435,7 +3435,7 @@
         var area = document.getElementById('purifier-area')?.value || '?';
         var cadrEl = resultEl.querySelector('[style*="2rem"]');
         var cadr = cadrEl ? cadrEl.textContent.trim() : '?';
-        var text = '💨 My air purifier calculation:'
+        var text = 'My air purifier calculation:'
             + '\n\nFor my ' + area + ' sq ft room, I need a purifier with CADR >= ' + cadr
             + '\n\nCalculate yours: janvayu.in/#purifier-calc';
         window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
@@ -3898,12 +3898,12 @@
             if (countEl) countEl.textContent = count;
             if (noteEl) {
                 if (data.note) noteEl.textContent = data.note;
-                else if (count === 0) noteEl.textContent = 'No active fires detected in this window. Stubble burning is seasonal — the belt lights up from mid-October to late November. (Off-season now, so a near-empty map is expected.)';
+                else if (count === 0) noteEl.textContent = 'No active fires detected in this window. Stubble burning is seasonal: the belt lights up from mid-October to late November. (Off-season now, so a near-empty map is expected.)';
                 else noteEl.textContent = `${count} detection(s) · ${data.source} · last ${days} day(s).`;
             }
         } catch (e) {
-            if (noteEl) noteEl.textContent = 'Fire data is unavailable right now. NASA FIRMS may be busy — try again shortly.';
-            if (countEl) countEl.textContent = '—';
+            if (noteEl) noteEl.textContent = 'Fire data is unavailable right now. NASA FIRMS may be busy. Try again shortly.';
+            if (countEl) countEl.textContent = 'n/a';
         }
     }
     window.initFireTracker = initFireTracker;
@@ -4760,7 +4760,7 @@
                 (sub ? '<div class="life-cell-sub">' + sub + '</div>' : '') + '</div>';
         };
         out.innerHTML = '<div class="life-cells">' +
-            cell('In ' + born, vBorn === null ? '—' : vBorn.toFixed(1) + ' <span class="life-unit">µg/m³</span>', vBorn === null ? null : band(vBorn)) +
+            cell('In ' + born, vBorn === null ? 'n/a' : vBorn.toFixed(1) + ' <span class="life-unit">µg/m³</span>', vBorn === null ? null : band(vBorn)) +
             cell('In ' + yNow, vNow.toFixed(1) + ' <span class="life-unit">µg/m³</span>', band(vNow),
                 (vBorn ? (vNow >= vBorn ? '+' : '&minus;') + Math.abs((vNow - vBorn) / vBorn * 100).toFixed(0) + '% since ' + born : '')) +
             cell('Your years above 40', aboveNaaqs + ' <span class="life-unit">of ' + span.length + '</span>',
@@ -4782,12 +4782,12 @@
                 'Someone born in <strong>' + rdEsc(dtName) + '</strong>, ' + rdEsc(stName) + ', in <strong>' + born +
                 '</strong> has lived ' + span.length + ' years under a district average of <strong>' + mean.toFixed(1) +
                 ' µg/m³</strong>. Over that time the annual mean has <strong>' + dir + '</strong> from ' +
-                (vBorn === null ? '—' : vBorn.toFixed(1)) + ' to ' + vNow.toFixed(1) + '. The worst year was <strong>' +
+                (vBorn === null ? 'n/a' : vBorn.toFixed(1)) + ' to ' + vNow.toFixed(1) + '. The worst year was <strong>' +
                 worst.yr + '</strong> at ' + worst.v.toFixed(1) + ', the cleanest <strong>' + best.yr + '</strong> at ' +
                 best.v.toFixed(1) + '.' + noneLine + '</p>' +
                 '<p style="font-size:1.0625rem; line-height:1.7; color:var(--text-2); max-width:48rem; margin-top:0.75rem;">' +
                 'Applying the Air Quality Life Index relationship to that lifetime average, about one year of life expectancy for every 10 µg/m³ sustained above 5, gives <strong>' +
-                aqli.toFixed(1) + ' years</strong>. That is a population relationship from cohort studies, applied to a district average and stated for scale. It is not a prediction about any person, and it assumes the exposure continues.</p>' +
+                aqli.toFixed(1) + ' years</strong>. That is a population relationship from cohort studies, applied to a district average and stated for scale. It predicts nothing about any one person, and it assumes the exposure continues.</p>' +
                 '<p class="apportion-caveat" style="max-width:48rem;">' + rdEsc(d._meta.reconstruction_note) + '</p>';
         }
     };
@@ -5044,7 +5044,7 @@
                                 <strong style="font-size:0.95rem;">${p.dt}</strong>
                                 <div style="font-size:0.75rem; color:#555;">District · ${p.st}</div>
                                 ${openmapsAqiChip(estimateAQIAt(p.cy, p.cx))}
-                                <div style="font-size:0.68rem; color:#888; margin-top:6px;">Most districts have no monitor at all — that gap is part of the story.</div>
+                                <div style="font-size:0.68rem; color:#888; margin-top:6px;">Most districts have no monitor at all. That gap is part of the story.</div>
                             </div>`, { maxWidth: 250 });
                     }
                 });
@@ -5141,7 +5141,7 @@
     const BOUNDARY_LEVELS = {
         state:       { label: 'State',        min: 3,  max: 7,  note: '36 states and union territories' },
         district:    { label: 'District',     min: 4,  max: 9,  note: '785 districts (zila)' },
-        subdistrict: { label: 'Block/Tehsil', min: 6,  max: 11, note: '6,471 sub-districts — block, mandal or tehsil' },
+        subdistrict: { label: 'Block/Tehsil', min: 6,  max: 11, note: '6,471 sub-districts (block, mandal or tehsil)' },
         panchayat:   { label: 'Panchayat',    min: 7,  max: 10, note: '319,287 gram panchayats' },
         village:     { label: 'Village',      min: 8,  max: 12, note: '584,615 villages' },
         ulb:         { label: 'City/ULB',     min: 6,  max: 12, note: '3,359 urban local bodies' },
@@ -5190,7 +5190,7 @@
         g: {
             label: 'Green cover', plain: 'green cover', unit: '%', levels: LANDCOVER_LEVELS,
             band: (v) => GREEN_BANDS.find(b => v <= b.max) || GREEN_BANDS[GREEN_BANDS.length - 1],
-            ramp: 'brown is bare, green is vegetated — cropland counts as green',
+            ramp: 'brown is bare, green is vegetated, and cropland counts as green',
         },
         // Not from the tiles: a ~40 km CAMS model calibrated against the 2024
         // satellite product and rebuilt monthly, joined by district code at
@@ -5203,7 +5203,7 @@
             label: 'This year so far (modelled, ~40 km)', plain: 'this year so far, modelled',
             unit: ' µg/m³', levels: ['district'], join: 'district',
             band: (v) => pm25AnnualBand(v),
-            ramp: 'blue is cleaner, red is dirtier — a coarse model, not the satellite layer',
+            ramp: 'blue is cleaner, red is dirtier; this is a coarse model, separate from the satellite layer',
         },
         b: {
             label: 'Built-up', plain: 'built-up land', unit: '%', levels: LANDCOVER_LEVELS,
@@ -5338,7 +5338,7 @@
         const v = typeof p.p === 'number' ? p.p : null;
         return (v == null
             ? 'No annual estimate for this area.'
-            : `<strong>${v} µg/m³</strong> — annual average PM2.5, 2024.<br>` +
+            : `<strong>${v} µg/m³</strong>: annual average PM2.5, 2024.<br>` +
               `<span style="color:var(--text-3)">${pm25AnnualBand(v).label}. ` +
               `India's annual limit is 40; the WHO guideline is 5. ` +
               `A yearly average, not today's air.</span>`)
@@ -5383,7 +5383,7 @@
             `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">` +
             `<span style="color:var(--text-3);font-size:.72rem">This year so far` +
             `${meta ? ` (${meta.year}, ${currentYearWindow(meta)})` : ''}</span><br>` +
-            `<strong>${cur} µg/m³</strong> <span style="color:var(--text-3)">— modelled at ~40 km and ` +
+            `<strong>${cur} µg/m³</strong> <span style="color:var(--text-3)">Modelled at ~40 km and ` +
             `calibrated to the satellite series, so it is district-scale and not a like-for-like ` +
             `reading of the ${meta ? 'annual' : ''} figure above.</span></div>`;
         const extras = ['h', 't', 'g', 'b'].filter(k => typeof p[k] === 'number');
@@ -5397,7 +5397,7 @@
             // scrub; in a gram panchayat it is mostly farmland, and a reader
             // seeing "97%" would otherwise picture forest.
             extras.some(k => k === 't' || k === 'g' || k === 'b')
-                ? 'ESA WorldCover 2021, 10 m — green counts trees, shrub, grass, cropland and wetland; tree cover is canopy only' : '',
+                ? 'ESA WorldCover 2021, 10 m. Green counts trees, shrub, grass, cropland and wetland; tree cover is canopy only' : '',
         ].filter(Boolean).join(' · ');
         return curLine + seasonLine
             + (land ? `<div style="margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--border)">${land}` +
@@ -5407,16 +5407,16 @@
     function boundaryDescribe(level) {
         const c = BOUNDARY_LEVELS[level];
         if (!c) return '';
-        if (map && map.getZoom() < c.min) return `${c.note} — zoom in to zoom ${c.min}+ to see them.`;
+        if (map && map.getZoom() < c.min) return `${c.note}. Zoom in to zoom level ${c.min} or higher to see them.`;
         const m = BOUNDARY_METRICS[boundaryMetric] || BOUNDARY_METRICS.p;
         if (!m.levels || m.levels.indexOf(level) !== -1) {
-            return `${c.note}. Coloured by ${m.plain || m.label.toLowerCase()} — ${m.ramp}. Tap one for its figures.`;
+            return `${c.note}. Coloured by ${m.plain || m.label.toLowerCase()}: ${m.ramp}. Tap one for its figures.`;
         }
         // Name the levels that do have it, rather than a hardcoded "wards
         // only" that went stale the moment blocks and panchayats were added.
         const where = m.levels.map(k => (BOUNDARY_LEVELS[k] || {}).label || k).join(', ');
-        return `${c.note}. ${m.label} is measured for ${where} so far, so these are coloured by annual PM2.5 ` +
-               `— switch the level to see it.`;
+        return `${c.note}. ${m.label} is measured for ${where} so far, so these are coloured by annual PM2.5. ` +
+               `Switch the level to see it.`;
     }
 
     // ── Relationship: any two metrics, at whatever level is showing ─────
@@ -5451,7 +5451,7 @@
         if (!mx || !my) return;
 
         if (!boundaryLevel) {
-            note.textContent = 'Pick a level from Boundaries first — this compares the areas on the map.';
+            note.textContent = 'Pick a level from Boundaries first. This compares the areas on the map.';
             canvas.style.display = 'none';
             return;
         }
@@ -5471,7 +5471,7 @@
         if (r == null) {
             canvas.style.display = 'none';
             note.textContent = pts.length
-                ? `Only ${pts.length} area${pts.length === 1 ? '' : 's'} loaded with both measures — zoom to a town or city and try again.`
+                ? `Only ${pts.length} area${pts.length === 1 ? '' : 's'} loaded with both measures. Zoom to a town or city and try again.`
                 : `No area on screen has both ${mx.label.toLowerCase()} and ${my.label.toLowerCase()}. ` +
                   `Zoom in until the boundaries draw, or pick measures this level carries.`;
             return;
@@ -5503,17 +5503,17 @@
         const concrete = Math.abs(r) < 0.15 ? '' :
             `The fifth with the <em>least</em> ${escapeHtml(xl)} average <strong>${lowMean.toFixed(dp)}${my.unit}</strong>; ` +
             `the fifth with the <em>most</em> average <strong>${highMean.toFixed(dp)}${my.unit}</strong> ` +
-            `— a difference of <strong>${gap.toFixed(dp)}${my.unit}</strong>. `;
+            `a difference of <strong>${gap.toFixed(dp)}${my.unit}</strong>. `;
 
         note.innerHTML =
             `<strong style="font-size:0.86rem">${escapeHtml(lead)}</strong><br>` +
             `<span>${concrete}Based on the ` +
-            `<strong>${pts.length.toLocaleString('en-IN')}</strong> ${escapeHtml(plural)} drawn on the map right now — ` +
+            `<strong>${pts.length.toLocaleString('en-IN')}</strong> ${escapeHtml(plural)} drawn on the map right now. ` +
             `zoom or pan somewhere else and press Compare again to ask about a different place.</span>` +
             `<br><span style="color:var(--text-3)">Each dot is one ${escapeHtml(lvl)}: left to right is ${escapeHtml(xl)}, ` +
             `bottom to top is ${escapeHtml(yl)}. Statisticians would call this ${strength} ` +
             `(r&nbsp;=&nbsp;${r.toFixed(2)}). Places differ in many ways at once, so this shows the two ` +
-            `move together — not that one causes the other.</span>`;
+            `move together, which does not mean one causes the other.</span>`;
 
         try { await ensureChartJs(); } catch (e) { canvas.style.display = 'none'; return; }
         if (boundaryCorrChart) { try { boundaryCorrChart.destroy(); } catch (e) {} boundaryCorrChart = null; }
@@ -5581,7 +5581,7 @@
         if (!map) return;
         if (level) {
             try { await ensurePMTiles(); }
-            catch (e) { boundaryNote('Boundary tile reader could not load — try again in a moment.'); return; }
+            catch (e) { boundaryNote('Boundary tile reader could not load. Try again in a moment.'); return; }
         }
         if (boundaryLayer) { try { map.removeLayer(boundaryLayer); } catch (e) {} boundaryLayer = null; }
         // Mixing wards and districts in one scatter would be meaningless, so
@@ -5752,7 +5752,7 @@
             : m.label;
         const foot = key === 'p' || SEASON_KEYS.indexOf(key) !== -1
             ? 'Satellite-derived average, not today\'s air. WHO guideline 5, India\'s limit 40.'
-            : key === 'h' ? 'Land-surface temperature under a clear pre-monsoon sky — hotter than the air in the shade.'
+            : key === 'h' ? 'Land-surface temperature under a clear pre-monsoon sky, hotter than the air in the shade.'
             : 'ESA WorldCover 2021, 10 m. Green counts cropland; tree cover is canopy only.';
         return `<strong style="font-size:0.66rem;text-transform:uppercase;letter-spacing:0.04em;">${heading}</strong><br>` +
             bands.map((b, i) => {
@@ -5799,7 +5799,7 @@
                    bb[1] <= b.getNorth() && bb[3] >= b.getSouth();
         });
         if (hits.length > VILLAGE_MAX_DISTRICTS) {
-            villageNote(`${hits.length} districts in view — zoom in a little to load village boundaries.`);
+            villageNote(`${hits.length} districts in view. Zoom in a little to load village boundaries.`);
             return;
         }
         // Drop districts that have panned out of view, so the layer stays light.
@@ -6238,7 +6238,7 @@
             const size = document.getElementById('widget-size').value;
             const dims = { small: ['220', '110'], medium: ['320', '160'], large: ['420', '210'] };
             document.getElementById('widget-code').style.display = 'block';
-            document.getElementById('widget-code').textContent = `<iframe src="https://www.janvayu.in/embed/aqi/?city=${encodeURIComponent(city)}&theme=light" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;border:0;" loading="lazy" title="Live AQI for ${city} — JanVayu"></iframe>`;
+            document.getElementById('widget-code').textContent = `<iframe src="https://www.janvayu.in/embed/aqi/?city=${encodeURIComponent(city)}&theme=light" width="${dims[size][0]}" height="${dims[size][1]}" frameborder="0" style="border-radius:8px;border:0;" loading="lazy" title="Live AQI for ${city} on JanVayu"></iframe>`;
         }
 
     function copyRTI() {
@@ -6644,7 +6644,7 @@
         const timeAgo = getTimeAgo(post.created);
         const scoreHtml = post.score ? `<span style="margin-right:0.5rem;">▲ ${post.score}</span>` : '';
         const commentsHtml = post.comments ? `<span>${post.comments} comments</span>` : '';
-        const viewsHtml = post.view_count ? `<span style="margin-right:0.5rem;">👁 ${post.view_count.toLocaleString()}</span>` : '';
+        const viewsHtml = post.view_count ? `<span style="margin-right:0.5rem;">${post.view_count.toLocaleString()} views</span>` : '';
         const durationHtml = post.duration ? `<span>${Math.floor(post.duration/60)}:${String(post.duration%60).padStart(2,'0')}</span>` : '';
         const thumbnailHtml = (post.platform === 'youtube' && post.thumbnail) ? `<img src="${post.thumbnail}" alt="" style="width:100%;max-height:140px;object-fit:cover;border-radius:4px;margin-bottom:0.5rem;" loading="lazy">` : '';
 
@@ -6706,7 +6706,7 @@
             { platform: 'twitter', title: 'Search #DelhiAirPollution on X', url: 'https://x.com/search?q=%23DelhiAirPollution&f=live', created: new Date(), text: 'Live search results for Delhi air pollution discussions on X/Twitter. Click to see the latest posts.' },
             { platform: 'twitter', title: 'Search #DelhiSmog on X', url: 'https://x.com/search?q=%23DelhiSmog&f=live', created: new Date(), text: 'Trending discussions about Delhi smog and air quality crisis.' },
             { platform: 'twitter', title: 'Search #AirPollutionIndia on X', url: 'https://x.com/search?q=%23AirPollutionIndia&f=live', created: new Date(), text: 'Pan-India air pollution discussions, policy debates, and citizen reports.' },
-            { platform: 'twitter', title: '@AnumitaRoychowd (CSE)', url: 'https://x.com/AnumitaRoychowd', created: new Date(), text: 'Anumita Roychowdhury, CSE — leading air quality researcher and policy advocate.' },
+            { platform: 'twitter', title: '@AnumitaRoychowd (CSE)', url: 'https://x.com/AnumitaRoychowd', created: new Date(), text: 'Anumita Roychowdhury of CSE, a leading air quality researcher and policy advocate.' },
             { platform: 'twitter', title: '@SunilDahiya16', url: 'https://x.com/SunilDahiya16', created: new Date(), text: 'Sunil Dahiya, Envirocatalysts (formerly CREA).' }
         ];
     }
@@ -6715,8 +6715,8 @@
         return [
             { platform: 'instagram', title: '#DelhiPollution on Instagram', url: 'https://www.instagram.com/explore/tags/delhipollution/', created: new Date(), text: 'Visual stories and citizen reports of Delhi air pollution. Photos from the ground.' },
             { platform: 'instagram', title: '#DelhiSmog on Instagram', url: 'https://www.instagram.com/explore/tags/delhismog/', created: new Date(), text: 'Smog visuals, before/after comparisons, and air quality awareness posts.' },
-            { platform: 'instagram', title: '#AirQualityIndia on Instagram', url: 'https://www.instagram.com/explore/tags/airqualityindia/', created: new Date(), text: 'National conversation on air quality — infographics, awareness campaigns.' },
-            { platform: 'instagram', title: 'Warrior Moms India', url: 'https://www.instagram.com/warriormoms.in/', created: new Date(), text: 'Mothers fighting for clean air — campaigning for children\'s right to breathe.' }
+            { platform: 'instagram', title: '#AirQualityIndia on Instagram', url: 'https://www.instagram.com/explore/tags/airqualityindia/', created: new Date(), text: 'National conversation on air quality: infographics, awareness campaigns.' },
+            { platform: 'instagram', title: 'Warrior Moms India', url: 'https://www.instagram.com/warriormoms.in/', created: new Date(), text: 'Mothers fighting for clean air and for children\'s right to breathe.' }
         ];
     }
 
@@ -6859,7 +6859,7 @@
                 body: JSON.stringify({ action: 'subscribe', subscription: sub, city, threshold }),
             });
             const data = await res.json();
-            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when AQI &gt; ${escapeHtml(threshold)}. You'll be alerted even when this tab is closed &mdash; try "Send test".</span>`);
+            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when AQI &gt; ${escapeHtml(threshold)}. You'll be alerted even when this tab is closed. Try "Send test".</span>`);
             else setAlertStatus('<span style="color:var(--red);">Could not save your subscription. Try again.</span>');
         } catch (e) { setAlertStatus('<span style="color:var(--red);">Push setup failed: ' + escapeHtml(e.message) + '</span>'); }
     }
@@ -6873,7 +6873,7 @@
                 body: JSON.stringify({ action: 'test', subscription: sub }),
             });
             const data = await res.json();
-            setAlertStatus(data.ok ? '<span style="color:var(--green-600);">Test sent &mdash; check your notifications.</span>' : '<span style="color:var(--red);">Test failed: ' + escapeHtml(data.error || '') + '</span>');
+            setAlertStatus(data.ok ? '<span style="color:var(--green-600);">Test sent. Check your notifications.</span>' : '<span style="color:var(--red);">Test failed: ' + escapeHtml(data.error || '') + '</span>');
         } catch (e) { setAlertStatus('<span style="color:var(--red);">Test failed: ' + escapeHtml(e.message) + '</span>'); }
     }
     async function disablePushNotifications() {
@@ -6903,8 +6903,8 @@
             const triggered = data && data.aqi > a.threshold;
             return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-light);">
                 <div>
-                    <strong>${CITIES[a.city]?.name}</strong> — AQI > ${a.threshold}
-                    <div style="font-size: 0.75rem; color: ${triggered ? 'var(--red)' : 'var(--green-600)'};">Current: ${currentAQI} ${triggered ? '⚠ TRIGGERED' : '✓ OK'}</div>
+                    <strong>${CITIES[a.city]?.name}</strong>: AQI > ${a.threshold}
+                    <div style="font-size: 0.75rem; color: ${triggered ? 'var(--red)' : 'var(--green-600)'};">Current: ${currentAQI} ${triggered ? 'TRIGGERED' : 'OK'}</div>
                 </div>
                 <button class="btn btn-sm" onclick="removeAlert(${i})" style="font-size: 0.7rem;">Remove</button>
             </div>`;
@@ -7036,10 +7036,10 @@
         const riskScore = (aqi / 50) * (activityMult[activity] || 1) * (healthMult[health] || 1) * durationMult;
 
         let verdict, color, emoji, advice, maskRec;
-        if (riskScore < 2) { verdict = 'YES — Safe to go'; color = 'var(--ink-green)'; emoji = '✓'; advice = 'Air quality is acceptable for your activity.'; maskRec = 'No mask needed.'; }
-        else if (riskScore < 5) { verdict = 'CAUTION — Limit exposure'; color = 'var(--ink-amber)'; emoji = '⚠'; advice = 'Consider reducing time outdoors or intensity of activity.'; maskRec = 'N95 mask recommended if sensitive.'; }
-        else if (riskScore < 10) { verdict = 'NO — Avoid if possible'; color = 'var(--ink-orange)'; emoji = '✕'; advice = 'Postpone outdoor activities. If unavoidable, wear protection.'; maskRec = 'N95 mask essential.'; }
-        else { verdict = 'STAY INDOORS'; color = 'var(--ink-red)'; emoji = '✕'; advice = 'Dangerous air quality. Stay indoors with windows closed.'; maskRec = 'N95/N99 mask essential. Consider air purifier.'; }
+        if (riskScore < 2) { verdict = 'YES, safe to go'; color = 'var(--ink-green)'; emoji = ''; advice = 'Air quality is acceptable for your activity.'; maskRec = 'No mask needed.'; }
+        else if (riskScore < 5) { verdict = 'CAUTION: limit exposure'; color = 'var(--ink-amber)'; emoji = ''; advice = 'Consider reducing time outdoors or intensity of activity.'; maskRec = 'N95 mask recommended if sensitive.'; }
+        else if (riskScore < 10) { verdict = 'NO: avoid if possible'; color = 'var(--ink-orange)'; emoji = ''; advice = 'Postpone outdoor activities. If unavoidable, wear protection.'; maskRec = 'N95 mask essential.'; }
+        else { verdict = 'STAY INDOORS'; color = 'var(--ink-red)'; emoji = ''; advice = 'Dangerous air quality. Stay indoors with windows closed.'; maskRec = 'N95/N99 mask essential. Consider air purifier.'; }
 
         resultEl.innerHTML = `
             <div style="font-size: 3rem; margin-bottom: 0.5rem;">${emoji}</div>
@@ -7170,7 +7170,7 @@
             </div>`;
 
         document.getElementById('exposure-interpretation').innerHTML = `
-            <p><strong>Living in ${escapeHtml(cityName)}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong> — that's <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
+            <p><strong>Living in ${escapeHtml(cityName)}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong>, which is <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
             <p style="margin-top: 0.75rem;">With ${escapeHtml(outdoorHours)} hours outdoors daily, your annual pollution exposure is equivalent to smoking approximately <strong>${cigaretteEquiv} cigarettes per year</strong> (${(cigaretteEquiv/365).toFixed(1)} per day).</p>
             <p style="margin-top: 0.75rem;">Research suggests this level of exposure reduces life expectancy by approximately <strong>${lifeYearsLost} years</strong> compared to breathing WHO-guideline air.</p>
             <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb (outdoor-hours scaling is JanVayu's own choice), not a medical equivalence. ${IQAIR_2025_VERIFIED.has(cityKey) ? 'Annual PM2.5 is the IQAir 2025 value.' : 'Annual PM2.5 for this city is an illustrative working value, not a published figure.'} The monthly bars use an illustrative seasonal pattern, not measured monthly data. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
@@ -7620,7 +7620,7 @@
     const RTI_QUESTIONS = {
         'ncap-funds': [
             'Total NCAP funds allocated to this state/city from 2019-20 to 2025-26 (year-wise).',
-            'Amount utilized under each head (monitoring, road dust, transport, waste management) with percentage utilization.',
+            'Amount spent under each head (monitoring, road dust, transport, waste management) with the percentage spent.',
             'List of projects approved, their current status, and completion timeline.',
             'Audit reports or utilization certificates submitted to MoEFCC.'
         ],
@@ -7705,7 +7705,7 @@ ${address}
 Fee: Rs. 10/- (via postal order/DD/court fee stamp)
 
 ---
-Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
+Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
     }
 
     function copyRTIGenerated() {
@@ -7760,7 +7760,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                 <div><strong>Example models (availability not checked):</strong> ${models}</div>
             </div>
             <div class="alert alert-info mt-2" style="font-size: 0.75rem;">
-                Tip: Seal windows and doors for best results. Run purifier 30 minutes before entering room. Replace filters on schedule — a clogged filter is worse than no purifier.
+                Tip: Seal windows and doors for best results. Run purifier 30 minutes before entering room. Replace filters on schedule, because a clogged filter is worse than no purifier.
             </div>
             <div style="text-align: center; margin-top: 1rem;">
                 <button onclick="sharePurifierResultWhatsApp()" style="background: #0f766e; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
@@ -7809,7 +7809,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         };
 
         resultsEl.innerHTML = `
-            <div class="card mb-2"><div class="card-header"><span class="card-title">${city.name} — ${totalCount} stations (${waqiStations.length} CPCB/WAQI + ${communityStations.length} community)</span></div></div>
+            <div class="card mb-2"><div class="card-header"><span class="card-title">${city.name}: ${totalCount} stations (${waqiStations.length} CPCB/WAQI + ${communityStations.length} community)</span></div></div>
             ${communityStations.length > 0 ? `<div class="alert alert-info mb-2"><div><strong>Community sensors</strong> are low-cost monitors run by residents (Sensor.Community / OpenAQ network). Treat as indicative; less calibrated than CPCB stations but fill coverage gaps.</div></div>` : ''}
             <div class="grid-3" style="gap: 0.75rem;">
                 ${[...waqiStations, ...communityStations]
@@ -7918,7 +7918,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             const color = getPM25Color(r.pm25);
             const textColor = getPM25TextColor(r.pm25); // legible on white cells
             const whoX = getWHOMultiple(r.pm25);
-            const delta = r.delta7 == null ? '—' : (r.delta7 > 0 ? '<span style="color:var(--red);">+' + r.delta7.toFixed(0) + '%</span>' : '<span style="color:var(--green-600);">' + r.delta7.toFixed(0) + '%</span>');
+            const delta = r.delta7 == null ? 'n/a' : (r.delta7 > 0 ? '<span style="color:var(--red);">+' + r.delta7.toFixed(0) + '%</span>' : '<span style="color:var(--green-600);">' + r.delta7.toFixed(0) + '%</span>');
             return `<tr>
                 <td style="text-align: center; font-weight: 600; color: ${i < 3 && order === 'worst' ? 'var(--ink-red)' : 'var(--text-2)'}">${i+1}</td>
                 <td style="font-weight: 500;">${r.name}</td>
@@ -8150,7 +8150,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             'Heat, low wind',
             'Pre-monsoon, cleaner',
             'Monsoon washout',
-            'Monsoon — cleanest',
+            'Monsoon, cleanest',
             'Post-monsoon transition',
             'Stubble burning begins',
             'Stubble + Diwali + inversion',
@@ -8425,8 +8425,8 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         // ── Caveat ──
         html += `
         <div class="alert alert-info" style="font-size: 0.8rem;">
-            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5: IQAir World Air Quality Report 2025 for Delhi (New Delhi), Gurgaon (Gurugram), Noida and Ghaziabad; other cities use illustrative working values, not published figures. Live AQI from WAQI (single nearest station &mdash; snapshot, not annual average). Source apportionment: Delhi from ARAI &amp; TERI 2018 (winter dispersion model); other cities show no verified source split.<br>
-            <strong>Caveat:</strong> Live values are today's snapshot. The health calculations use annual averages for a more robust comparison. Actual benefit depends on duration of residence, indoor air quality, and individual health factors.
+            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5: IQAir World Air Quality Report 2025 for Delhi (New Delhi), Gurgaon (Gurugram), Noida and Ghaziabad; other cities use illustrative working values, not published figures. Live AQI from WAQI (single nearest station; a snapshot, not an annual average). Source apportionment: Delhi from ARAI &amp; TERI 2018 (winter dispersion model); other cities show no verified source split.<br>
+            <strong>Caveat:</strong> Live values are today's snapshot. The health calculations use annual averages, which give a steadier comparison. Actual benefit depends on duration of residence, indoor air quality, and individual health factors.
         </div>
         <div style="text-align: center; margin-top: 1rem;">
             <button onclick="shareMigrationResultWhatsApp()" style="background: #0f766e; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
@@ -8485,12 +8485,12 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             ${ncap ? `
             <div class="grid-4 mt-3" style="gap: 1rem; text-align: center;">
                 <div><div style="font-size: 0.7rem; color: var(--text-3);">Funds released</div><div style="font-size: 1.25rem; font-weight: 700;">₹${ncap.fundsReleased} Cr</div></div>
-                <div><div style="font-size: 0.7rem; color: var(--text-3);">Funds utilised</div><div style="font-size: 1.25rem; font-weight: 700;">₹${ncap.fundsUtilized} Cr</div></div>
-                <div><div style="font-size: 0.7rem; color: var(--text-3);">Fund Utilization</div><div style="font-size: 1.25rem; font-weight: 700;">${fundUtil}%</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-3);">Funds spent</div><div style="font-size: 1.25rem; font-weight: 700;">₹${ncap.fundsUtilized} Cr</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-3);">Share of funds spent</div><div style="font-size: 1.25rem; font-weight: 700;">${fundUtil}%</div></div>
                 <div><div style="font-size: 0.7rem; color: var(--text-3);">As of</div><div style="font-size: 0.9rem; font-weight: 700;">${ncap.asOf}</div></div>
             </div>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-2); text-align: center;">
-                Current AQI: ${escapeHtml(aqi)} | Annual PM2.5: ${escapeHtml(pm25)} µg/m³${IQAIR_2025_VERIFIED.has(cityKey) ? ' (IQAir 2025)' : ' (working value, not a published figure)'} (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr utilised of released
+                Current AQI: ${escapeHtml(aqi)} | Annual PM2.5: ${escapeHtml(pm25)} µg/m³${IQAIR_2025_VERIFIED.has(cityKey) ? ' (IQAir 2025)' : ' (working value, not a published figure)'} (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr spent of released
             </div>` : '<p style="color: var(--text-3); text-align: center; margin-top: 1rem;">NCAP data not available for this city.</p>'}
             <div style="margin-top: 1rem; font-size: 0.65rem; color: var(--text-3); text-align: center;">Generated by JanVayu (janvayu.in) · Data: PIB (21 Dec 2023), ResGov Delhi brief (Dec 2025) · ${new Date().toLocaleDateString('en-IN')}</div>`;
     }
@@ -8535,7 +8535,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
     function shareScorecard(platform) {
         const cityKey = document.getElementById('scorecard-city')?.value;
         const cityName = CITIES[cityKey]?.name || '';
-        const text = `${cityName} Air Quality Scorecard from JanVayu — check how your city is performing on clean air targets:`;
+        const text = `${cityName} Air Quality Scorecard from JanVayu. Check how your city is performing on clean air targets:`;
         const url = window.location.origin + '#scorecards';
         if (platform === 'twitter') window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
         else if (platform === 'copy') { navigator.clipboard.writeText(text + ' ' + url); alert('Link copied!'); }
@@ -8818,14 +8818,14 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'gender', title: "Women's Health", desc: 'Indoor cooking, maternal health, occupational exposure, gender data gap', keywords: 'women gender female maternal pregnancy cooking chulha biomass indoor ujjwala lpg caregiver health' },
         { id: 'beyond-lungs', title: 'Beyond the Lungs', desc: 'PM2.5 harm to kidneys, heart, brain, metabolism & pregnancy', keywords: 'kidney renal egfr heart cardiovascular stroke brain cognition dementia diabetes metabolic pregnancy preterm birth weight mental health whole body systemic pm2.5 organ' },
         { id: 'indoor', title: 'Indoor Air Quality', desc: 'Household pollution, cooking fuel, chulha', keywords: 'indoor household cooking chulha solid fuel lpg ujjwala women' },
-        { id: 'occupational', title: 'Occupational Exposure', desc: 'Outdoor & informal workers most exposed — vendors, traffic police, gig riders', keywords: 'occupational work worker street vendor traffic police gig delivery rider construction waste picker sanitation informal outdoor environmental justice equity peak expiratory flow respiratory exposure inequality' },
+        { id: 'occupational', title: 'Occupational Exposure', desc: 'Outdoor & informal workers most exposed: vendors, traffic police, gig riders', keywords: 'occupational work worker street vendor traffic police gig delivery rider construction waste picker sanitation informal outdoor environmental justice equity peak expiratory flow respiratory exposure inequality' },
         { id: 'trends', title: 'Historical Trends', desc: 'Timeline 1981 to present, key milestones', keywords: 'history timeline trends historical air act 1981 ncap' },
         { id: 'compare', title: 'City Comparison', desc: 'Metro AQI rankings, live data table', keywords: 'city cities comparison metro delhi mumbai kolkata bangalore chennai' },
         { id: 'map', title: 'Live Map', desc: 'Interactive station markers, real-time', keywords: 'map live stations markers leaflet geographic' },
         { id: 'forecast', title: 'Air Quality Forecast', desc: 'Predictive models, seasonal patterns', keywords: 'forecast prediction weather seasonal imd winter' },
         { id: 'fire-tracker', title: 'Farm Fire Tracker', desc: 'Live stubble-burning fires (NASA FIRMS) in the NW-India belt', keywords: 'fire stubble burning farm crop residue parali punjab haryana ncr firms nasa satellite viirs smoke winter season source' },
         { id: 'policy', title: 'Policy Tracker', desc: 'NCAP targets vs reality, GRAP, CAQM', keywords: 'policy ncap grap caqm government regulation target effectiveness' },
-        { id: 'budget', title: 'Budget Tracker', desc: 'NCAP funds, utilisation rates, spending', keywords: 'budget money funding ncap finance commission spending utilisation' },
+        { id: 'budget', title: 'Budget Tracker', desc: 'NCAP funds, how much was spent, spending', keywords: 'budget money funding ncap finance commission spending utilisation' },
         { id: 'accountability', title: 'Political Accountability', desc: 'MoEFCC, state compliance, RTI', keywords: 'political accountability moefcc minister state compliance rti parliament' },
         { id: 'corporate', title: 'Industrial Sources', desc: 'Factory emissions, corporate responsibility', keywords: 'industry industrial factory corporate emissions thermal power plant brick kiln' },
         { id: 'mission-tracker', title: 'Clean Air Mission Tracker', desc: 'Government promises vs outcomes', keywords: 'mission tracker promise outcome target achievement' },
@@ -8854,11 +8854,11 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
         { id: 'purifier-calc', title: 'Purifier Calculator', desc: 'Find the right air purifier for your room', keywords: 'purifier calculator cadr room filter air cleaner' },
         { id: 'hyperlocal', title: 'My Neighbourhood', desc: 'Station-level air quality within your city', keywords: 'hyperlocal station neighborhood local area monitoring' },
         { id: 'pollution-calendar', title: 'Pollution Calendar', desc: 'Seasonal pollution sources and patterns', keywords: 'calendar seasonal stubble burning diwali monsoon winter inversion' },
-        { id: 'apportionment', title: 'Where PM2.5 Comes From', desc: 'Source apportionment ring for 12 cities — transport, industry, biomass, dust', keywords: 'apportionment source ring share transport industry biomass dust construction where comes from pm25 pie' },
+        { id: 'apportionment', title: 'Where PM2.5 Comes From', desc: 'Source apportionment ring for 12 cities: transport, industry, biomass, dust', keywords: 'apportionment source ring share transport industry biomass dust construction where comes from pm25 pie' },
         { id: 'airshed', title: 'Your Airshed or Your Town', desc: 'District vs state medians, and 43 years of PM2.5 for 783 districts', keywords: 'airshed district state median region history 1980 2022 longpmind trend deweather weather normalised' },
         { id: 'reduction', title: 'What Would It Take', desc: 'Cut each source and see whether a city reaches India\u2019s 40 limit or the WHO guideline of 5', keywords: 'reduction calculator what would it take cut sources naaqs 40 who 5 target scenario slider transport industry how much' },
         { id: 'lifetime', title: 'The Air You Were Born Into', desc: 'Your district\u2019s PM2.5 from your birth year to now, and the years it broke the limit', keywords: 'lifetime birth year born air history district life expectancy aqli years lost 1980 2022 personal exposure' },
-        { id: 'migration-calc', title: 'Migration Comparison', desc: 'Side-by-side city comparison for relocation — live AQI, health impact, source apportionment', keywords: 'migration comparison calculator relocate move city health benefit compare side by side apportionment source pollution' },
+        { id: 'migration-calc', title: 'Migration Comparison', desc: 'Side-by-side city comparison for relocation: live AQI, health impact, source apportionment', keywords: 'migration comparison calculator relocate move city health benefit compare side by side apportionment source pollution' },
         { id: 'scorecards', title: 'City Scorecards', desc: 'City accountability report cards', keywords: 'scorecard accountability grade report card ncap target' },
         { id: 'data-archive', title: 'Data Archive', desc: 'Download historical air quality datasets', keywords: 'data archive download historical dataset csv json research' },
         { id: 'correlations', title: 'Pollution Correlations', desc: 'Explore pollution vs health/economic data', keywords: 'correlation scatter plot health deaths economic relationship' },
@@ -8935,7 +8935,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             responseEl.classList.remove('loading');
             responseEl.textContent = cleanChatText(data.answer) || 'No response received.';
             if (data.dataUsed) {
-                metaEl.textContent = data.dataUsed.city + ' — AQI: ' + data.dataUsed.aqi + ', PM2.5: ' + (data.dataUsed.pm25 ?? 'N/A') + ' µg/m³';
+                metaEl.textContent = data.dataUsed.city + ', AQI: ' + data.dataUsed.aqi + ', PM2.5: ' + (data.dataUsed.pm25 ?? 'N/A') + ' µg/m³';
             }
         } catch (e) {
             responseEl.classList.remove('loading');
@@ -9050,7 +9050,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             responseEl.textContent = cleanChatText(data.answer) || 'No response received.';
             if (data.dataUsed) {
                 dataEl.style.display = 'block';
-                dataEl.innerHTML = `<strong>Data used:</strong> ${data.dataUsed.city} — AQI: ${data.dataUsed.aqi}, PM2.5: ${data.dataUsed.pm25 ?? 'N/A'} µg/m³, Station: ${data.dataUsed.station}, Updated: ${data.dataUsed.time}`;
+                dataEl.innerHTML = `<strong>Data used:</strong> ${data.dataUsed.city}, AQI: ${data.dataUsed.aqi}, PM2.5: ${data.dataUsed.pm25 ?? 'N/A'} µg/m³, Station: ${data.dataUsed.station}, Updated: ${data.dataUsed.time}`;
             }
         } catch (e) {
             responseEl.classList.remove('loading');
@@ -9156,7 +9156,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             if (data.anomalyDetected) {
                 const ratio = data.pm25 && data.baseline ? (data.pm25 / data.baseline).toFixed(1) : '?';
                 anomalyEl.style.display = 'block';
-                anomalyEl.innerHTML = `&#9888; Anomalous reading — PM2.5 is ${ratio}x above seasonal baseline (${data.baseline} µg/m³)`;
+                anomalyEl.innerHTML = `Anomalous reading: PM2.5 is ${ratio}x above seasonal baseline (${data.baseline} µg/m³)`;
             }
         } catch (e) {
             outputEl.classList.remove('loading');
@@ -9204,13 +9204,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
 
             if (data.spikes && data.spikes.length > 0) {
                 const worst = data.spikes.reduce((a, b) => (a.ratio > b.ratio ? a : b));
-                let html = `<strong>Unusual PM2.5 spike in ${worst.city}: ${worst.pm25} µg/m³</strong> — ${worst.explanation}`;
+                let html = `<strong>Unusual PM2.5 spike in ${worst.city}: ${worst.pm25} µg/m³</strong>: ${worst.explanation}`;
                 if (data.spikes.length > 1) {
                     const others = data.spikes.filter(s => s.city !== worst.city);
                     html += ` <button class="anomaly-expand-link" onclick="expandAnomalies()">+${others.length} more ${others.length === 1 ? 'city' : 'cities'}</button>`;
                     html += `<div id="anomalyExpanded" style="display:none; margin-top: 8px;">`;
                     others.forEach(s => {
-                        html += `<div style="margin-top: 4px;"><strong>${s.city}: ${s.pm25} µg/m³</strong> — ${s.explanation}</div>`;
+                        html += `<div style="margin-top: 4px;"><strong>${s.city}: ${s.pm25} µg/m³</strong>: ${s.explanation}</div>`;
                     });
                     html += `</div>`;
                 }
@@ -9292,7 +9292,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'CAQM invoked GRAP Stage I in May 2026',
             currentPM25: 82.2,
             status: 'not-met',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 14 crore spent, about 17% of the funds available (ResGov Delhi brief, 23 Dec 2025). Rs 81 crore released of Rs 113 crore approved. Target status is not assessed here.',
             expenditure: [
                 { year: '2021-22', allocated: 19.00, utilised: null },
@@ -9312,7 +9312,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'BEST plans 8,000 e-buses in operation in 2027 (Sustainable Bus)',
             currentPM25: null,
             status: 'met',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 680.32 crore of Rs 938.59 crore released was spent, about 72% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
 
@@ -9328,7 +9328,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'No verified city-specific target on record here',
             currentPM25: null,
             status: 'on-track',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 157.72 crore of Rs 298.57 crore released was spent, about 53% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
 
@@ -9344,7 +9344,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'No verified city-specific target on record here',
             currentPM25: null,
             status: 'on-track',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 199.5 crore of Rs 385.83 crore released was spent, about 52% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
 
@@ -9360,7 +9360,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'Part of NCR, subject to CAQM GRAP enforcement',
             currentPM25: 80.5,
             status: 'on-track',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 30 crore of Rs 56 crore released was spent, about 54% (ResGov Noida brief, 4 Jan 2026). Target status is not assessed here.',
             expenditure: [
 
@@ -9376,7 +9376,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'Part of NCR, subject to CAQM GRAP enforcement',
             currentPM25: 89.2,
             status: 'met',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 97.08 crore of Rs 136.25 crore released was spent, about 71% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
 
@@ -9392,7 +9392,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'No verified city-specific target on record here',
             currentPM25: null,
             status: 'on-track',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 83.49 crore of Rs 229.17 crore released was spent, about 36% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
 
@@ -9408,7 +9408,7 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             cityTarget: 'No verified city-specific target on record here',
             currentPM25: null,
             status: 'met',
-            statusLabel: 'Fund utilisation only',
+            statusLabel: 'Fund spending only',
             statusNote: 'Rs 636.18 crore of Rs 687.25 crore released was spent, about 93% (PIB, 21 Dec 2023, FY2019-20 to Nov 2023). Target status is not assessed here.',
             expenditure: [
 
@@ -9447,13 +9447,13 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
                         '<p style="margin-top: 0.5rem;"><strong>Annual PM2.5 (IQAir 2025):</strong> ' + (d.currentPM25 != null ? d.currentPM25 + ' &micro;g/m&sup3; (' + whoMultiple + '&times; WHO guideline)' : 'no verified figure on this page') + '</p>' +
                     '</div>' +
                     '<div class="info-box" style="border-left: 3px solid ' + statusColor + ';">' +
-                        '<h4 style="font-size: 0.875rem; color: ' + statusColor + ';">Fund Utilisation Status</h4>' +
+                        '<h4 style="font-size: 0.875rem; color: ' + statusColor + ';">Fund spending status</h4>' +
                         '<div style="margin-top: 0.5rem;"><span class="badge ' + statusBadge + '" style="font-size: 1rem; padding: 0.25rem 0.75rem;">' + d.statusLabel + '</span></div>' +
                         '<p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-2);">' + d.statusNote + '</p>' +
                         '<div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg); border-radius: 4px; font-size: 0.8125rem;">' +
                             '<strong>Total released:</strong> ₹' + d.totalReleased.toFixed(0) + ' Cr (to ' + d.fundsAsOf + ') &nbsp;|&nbsp; ' +
-                            '<strong>Total utilised:</strong> ₹' + d.totalUtilised.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
-                            '<strong>Utilisation:</strong> <span style="color: ' + statusColor + '; font-weight: 700;">' + d.utilisationPct + '%</span>' +
+                            '<strong>Total spent:</strong> ₹' + d.totalUtilised.toFixed(0) + ' Cr &nbsp;|&nbsp; ' +
+                            '<strong>Share spent:</strong> <span style="color: ' + statusColor + '; font-weight: 700;">' + d.utilisationPct + '%</span>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
@@ -9465,9 +9465,9 @@ Generated via JanVayu (janvayu.in) — India's citizen air quality platform`;
             if (!d.expenditure.length) {
                 tbody.innerHTML = '<tr><td colspan="4">No verified year-by-year series for this city. Totals above are from PIB (21 Dec 2023) and ResGov.</td></tr>';
             } else tbody.innerHTML = d.expenditure.map(function(row) {
-                const alloc = row.allocated !== null ? row.allocated.toFixed(2) : '&mdash;';
-                const util = row.utilised !== null ? row.utilised.toFixed(2) : '&mdash;';
-                let pct = '&mdash;';
+                const alloc = row.allocated !== null ? row.allocated.toFixed(2) : 'n/a';
+                const util = row.utilised !== null ? row.utilised.toFixed(2) : 'n/a';
+                let pct = 'n/a';
                 let pctBadge = '';
                 if (row.allocated !== null && row.utilised !== null && row.allocated > 0) {
                     const p = Math.round((row.utilised / row.allocated) * 100);
@@ -9694,7 +9694,7 @@ window.initStationCheck = (function () {
             var over = s.obs - s.sat;
             var col = Math.abs(over) < 10 ? 'var(--green-700)' : (over > 0 ? 'var(--delta-up)' : 'var(--delta-down)');
             return '<circle cx="' + x(s.sat).toFixed(1) + '" cy="' + y(s.obs).toFixed(1) + '" r="3" fill="' + col +
-                   '" fill-opacity="0.55"><title>' + esc(s.name) + ' — measured ' + s.obs +
+                   '" fill-opacity="0.55"><title>' + esc(s.name) + ': measured ' + s.obs +
                    ', satellite ' + s.sat + ' µg/m³</title></circle>';
         }).join('');
 
@@ -9845,7 +9845,7 @@ window.initWorkshops = (function () {
         if (up) {
             var upcoming = (data && data.upcoming) || [];
             if (!upcoming.length) {
-                up.innerHTML = '<div class="alert alert-info" style="margin:0;font-size:0.85rem;">No public group sessions are scheduled right now &mdash; every session below is <strong>booked on request</strong>, and we schedule around the slots you give us. Want to hear when a public session is dated? <a href="mailto:contribute@janvayu.in?subject=Notify%20me%20about%20JanVayu%20workshops">Email us</a> and we\'ll add you.</div>';
+                up.innerHTML = '<div class="alert alert-info" style="margin:0;font-size:0.85rem;">No public group sessions are scheduled right now. Every session below is <strong>booked on request</strong>, and we schedule around the slots you give us. Want to hear when a public session is dated? <a href="mailto:contribute@janvayu.in?subject=Notify%20me%20about%20JanVayu%20workshops">Email us</a> and we\'ll add you.</div>';
             } else {
                 up.innerHTML = '<div class="dash-section" style="margin:0 0 0.6rem;"><span class="dash-section-eyebrow">Scheduled &middot; open to book</span></div>' +
                   '<div class="grid-2" style="gap:0.8rem;">' + upcoming.map(function(u){

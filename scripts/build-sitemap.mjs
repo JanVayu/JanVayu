@@ -36,6 +36,7 @@ const PAGES = [
   { url: "/no2/", file: "no2/index.html", changefreq: "daily", priority: "0.85" },
   { url: "/so2/", file: "so2/index.html", changefreq: "daily", priority: "0.85" },
   { url: "/o3/", file: "o3/index.html", changefreq: "daily", priority: "0.85" },
+  { url: "/delhi/", file: "delhi/index.html", changefreq: "daily", priority: "0.9" },
 ];
 
 function getLastModified(filePath) {

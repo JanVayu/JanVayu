@@ -1,4 +1,4 @@
-# What JanVayu Does That the Other Indian Air-Quality Sites Do Not
+# What JanVayu does that the other Indian air-quality sites do not
 
 **Published:** 17 September 2026 | **Author:** Team JanVayu | **Reading time:** 11 min
 
@@ -17,8 +17,8 @@ are one of the parties being compared.
 Most of the sites listed are not competitors, and several supply data we use.
 CPCB, WAQI, OpenAQ, Sensor.Community, XKDR and CREA all appear inside JanVayu.
 
-The verification is uneven. Every JanVayu figure below sits in a file in our
-public repository and is recomputed by a check that fails the build if it
+The verification is uneven. Every JanVayu figure below sits in a data file in our
+public repository, and an automated check recomputes it and stops publication if it
 drifts. For the other columns we have used what their pages state and what we
 could test ourselves. Where we could test neither, the cell says *unverified*.
 Several of these sites block automated requests, which is their right and our
@@ -33,11 +33,11 @@ we do.
 JanVayu is built around four questions a live map cannot answer, whatever its
 quality:
 
-1. **What is the air where there is no monitor?** India has roughly 565
+1. What is the air where there is no monitor? India has roughly 565
    continuous stations and 5,84,615 mapped village boundaries.
-2. **Is it actually getting better, or was that the weather?**
-3. **Who promised what, and did they do it?**
-4. **What do I do about it on Tuesday?**
+2. Is it actually getting better, or was that the weather?
+3. Who promised what, and did they do it?
+4. What do I do about it on Tuesday?
 
 ## The table
 
@@ -59,7 +59,7 @@ read "no" everywhere but our own column were wrong. See the correction under
 | **Official bulletin as a series** | yes, 297 cities 2015–2026 | publishes the PDF | no | no | no | uses it | no | no | no |
 | **Instruments checked against the model** | yes, r = 0.834 | no | no | no | n/a | no | no | no | n/a |
 | **NCAP / GRAP tracking** | yes | the source data | no | no | no | **yes, the best of it** | no | no | weather vs policy, daily |
-| **Per-city budget utilisation** | yes | no | no | no | no | yes | no | no | no |
+| **Per-city budget spent** | yes | no | no | no | no | yes | no | no | no |
 | **Pre-filled RTI templates** | **yes** | n/a | no | no | no | no | no | no | no |
 | **Health-impact calculators** | yes | no | *unverified* | no | no | no | no | no | no |
 | **Answers questions in plain language** | yes, 10 languages | no | no | no | no | no | no | **yes** | daily film, in Hindi |
@@ -154,37 +154,35 @@ with a filed application, not a drafted one.
 
 ### Material you can take and teach
 
-Four workshops as plain Markdown at
+Four workshops as plain text files at
 [janvayu.in/workshops](https://www.janvayu.in/workshops/README.md), seven games,
 a 10-question self-check, 45 blog posts, and an Open Data API. CC BY-NC-SA 4.0,
 so you can cut them, translate them and put your own city's numbers in.
 
 ## Where the others are better
 
-**CPCB's portal is the official record** and ours is not. When the two disagree,
-theirs is the official one. We read their bulletin because of that,
-not despite it.
+CPCB's portal is the official record and ours is not. When the two disagree,
+theirs is the official one, which is why we read their bulletin.
 
-**OpenAQ is a better raw-data API than ours** and is not trying to be anything
-else. If you want station measurements to build on, start there.
+OpenAQ is a better raw-data API than ours and does not pretend otherwise. If you want station measurements to build on, start there.
 
-**CREA's NCAP analysis is better than ours** and our accountability pages lean on
+CREA's NCAP analysis is better than ours and our accountability pages lean on
 it. *Tracing the Hazy Air* is the reference, and we cite it rather than
 reproducing it.
 
-**The sensor networks reach places we cannot.** PurpleAir, AirGradient, AirVeda,
+The sensor networks reach places we cannot. PurpleAir, AirGradient, AirVeda,
 Aurassure and Sensor.Community give street-level density that a regulatory
 network never will. Less accurate, far denser, and the right tool for "is it
 worse on my street than the next one".
 
-**VayuBuddy answers questions against CPCB data** much as our assistant does. Two
+VayuBuddy answers questions against CPCB data, much as our assistant does. Two
 independent answers to the same question are worth having, and we would rather
 say so than pretend we are the only one.
 
-**IQAir's global comparability** is something we do not attempt. Their World Air
+We do not attempt IQAir's global comparability. Their World Air
 Quality Report is what makes an international ranking possible.
 
-**Hawa Ka Hisab covers Delhi better than we do, and is far more current.** It
+Hawa Ka Hisab covers Delhi better than we do, and is far more current. It
 publishes a daily report (32 pages in September), a short Hindi film with it, a weekly
 edition, and a reconstruction of Delhi's air back to 1980. We give a city one
 trend line across seven years. It gives Delhi a weather-adjusted verdict every
@@ -207,8 +205,7 @@ monitors produced that figure. What do I write, and to whom. We know of no other
 single site that answers all of those, though several answer one of them better
 than we do.
 
-We are not claiming to be better. We are built for a different question, and
-somebody choosing a tool should know which.
+We are built for a different question, and somebody choosing a tool should know which.
 
 ---
 
@@ -219,9 +216,8 @@ table rest on their own descriptions rather than our testing, and those cells ar
 marked. **contribute@janvayu.in**
 
 **Sources.** Guttikunda's list, September 2026. JanVayu figures from
-`data/` in [our repository](https://github.com/JanVayu/JanVayu), each recomputed
-by `scripts/check-site-figures.py` and the per-layer `--check` scripts. CPCB
-bulletin figures parsed from the published PDFs by
-`scripts/fetch-cpcb-bulletin.py`. De-weathering after Grange et al. (2018),
+the `data/` folder of [our repository](https://github.com/JanVayu/JanVayu), each recomputed
+by automated checks. CPCB
+bulletin figures parsed from the published PDFs. De-weathering after Grange et al. (2018),
 *Atmospheric Chemistry and Physics* 18, 6223–6239. Village and ward air from
 SatPM2.5 V6GL03 (ACAG / Washington University, 2024).

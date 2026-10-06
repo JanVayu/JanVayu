@@ -1,44 +1,44 @@
-# The $339 Billion Question: What Air Pollution Costs India Every Year
+# Air pollution costs India about $339 billion a year
 
 **Published:** 25 March 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 
 ---
 
-India's air pollution crisis is usually framed as a health emergency. It is that. But it is also an economic catastrophe — one whose annual valuation exceeds the entire GDP of most nations (World Bank, 2023 nominal GDP).
+India's air pollution is usually described as a health emergency, and it is one. It is also a very large economic loss, bigger each year than the entire GDP of most nations (World Bank, 2023 nominal GDP).
 
-The Lancet Countdown on Health and Climate Change 2025 estimates that air pollution costs India $339.4 billion annually, equivalent to 9.5 percent of GDP. (An earlier Greenpeace/CREA estimate from 2020, of about $150 billion a year, covered fossil-fuel air pollution only and used a different method, so the two figures are not like for like.) The Air Quality Life Index (AQLI 2025) calculates that the average Indian loses 3.5 years of life expectancy to air pollution — years of productive economic life erased by particles too small to see.
+The Lancet Countdown on Health and Climate Change 2025 estimates that air pollution costs India $339.4 billion annually, equivalent to 9.5 percent of GDP. (An earlier Greenpeace/CREA estimate from 2020, of about $150 billion a year, covered fossil-fuel air pollution only and used a different method, so the two figures are not like for like.) The Air Quality Life Index (AQLI 2025) calculates that the average Indian loses 3.5 years of life expectancy to air pollution. Those are years of working life, taken by particles too small to see.
 
 The Lancet Countdown figure values premature deaths only. The costs described below (medical spending, lost work, business decisions) come on top of it and are not captured in that number.
 
-## The Healthcare Burden
+## Health spending
 
-India's healthcare costs from air pollution are enormous but poorly tracked. The Lancet Countdown 2025 attributes about 1.72 million deaths in India in 2022 to anthropogenic PM2.5 (a different count from the roughly 2 million in State of Global Air 2025, which also includes household air pollution and ozone). Many of these deaths are preceded by illness and medical spending.
+Nobody tracks well what air pollution adds to India's health bills, but the number is large. The Lancet Countdown 2025 attributes about 1.72 million deaths in India in 2022 to anthropogenic PM2.5 (a different count from the roughly 2 million in State of Global Air 2025, which also includes household air pollution and ozone). Most of these deaths are preceded by illness, and illness costs money.
 
-Out-of-pocket health expenditure accounts for about 43 percent of total health spending in India (National Health Accounts 2022-23, Ministry of Health and Family Welfare) — down sharply over the past decade but still a large share that exposes households to medical costs.
+Out-of-pocket health expenditure accounts for about 43 percent of total health spending in India (National Health Accounts 2022-23, Ministry of Health and Family Welfare). That is down sharply over the past decade, but it still leaves households paying much of a medical bill themselves.
 
-## Labour Productivity
+## Lost work
 
 An OECD study of firms across Europe found that a 1 µg/m³ increase in PM2.5 reduced labour productivity per worker by 0.55 percent (Dechezleprêtre and Vienne, OECD, June 2025). That study covers Europe, not India, and we know of no equivalent Indian estimate.
 
-In India, the exposure falls heaviest on informal workers. According to the ILO-IHD India Employment Report 2024, nearly 90 percent of India's workers are informally employed (82 percent work in the informal sector). These workers — construction labourers, rickshaw pullers, street vendors, domestic workers — have no option to work from home on high-pollution days. They have no employer-provided health insurance. They breathe the worst air for the longest hours and bear the full economic cost personally.
+In India, exposure falls heaviest on informal workers. According to the ILO-IHD India Employment Report 2024, nearly 90 percent of India's workers are informally employed (82 percent work in the informal sector). Construction labourers, rickshaw pullers, street vendors and domestic workers cannot work from home on a bad-air day, and they have no employer health insurance. They spend the longest hours in the worst air and pay the whole cost themselves.
 
 As an illustration with assumed figures, not measured data: a construction worker earning Rs 600 a day who loses fifteen workdays in a year to illness would lose Rs 9,000, which is 5 to 6 percent of an annual wage of Rs 150,000 to 180,000 (250 to 300 working days).
 
 ## Whether people leave
 
-We have no data on how many firms or workers have left Delhi-NCR because of its air, and we do not claim a business-migration effect. One survey gives a sense of intent. LocalCircles, a civic engagement platform, reported in early December 2025 that at least 8 percent of 16,454 respondents in Delhi-NCR said they were likely to move out because of worsening air quality (Mongabay India, January 2026). The respondents were registered users of the platform, so the result describes them, not Delhi-NCR's population.
+We have no data on how many firms or workers have left Delhi-NCR because of its air, and we do not claim a business-migration effect. One survey shows intent. LocalCircles, a civic engagement platform, reported in early December 2025 that at least 8 percent of 16,454 respondents in Delhi-NCR said they were likely to move out because of worsening air quality (Mongabay India, January 2026). The respondents were registered users of the platform, so the result describes them, not Delhi-NCR's population.
 
-## The NCAP Budget Mismatch
+## What NCAP spends against what the air costs
 
-Perhaps the most revealing economic figure is the gap between what air pollution costs India and what India spends to fight it. CREA found that Rs 11,211 crore (roughly $1.3 billion) had been released under the National Clean Air Programme and Fifteenth Finance Commission grants during 2019-2025 (CREA, *Tracing the Hazy Air 2025*). Air pollution costs the economy $339 billion in one year (2022), by the Lancet Countdown's valuation. Set side by side, a multi-year release of funds is under 0.4 percent of one year's valuation of premature deaths. *Update, 2 October 2026:* the Ministry of Environment, Forest and Climate Change told Parliament that Rs 16,423.56 crore had been released to targeted cities under NCAP during FY 2019-20 to 2025-26 (PIB, 23 July 2026). At about Rs 88 to the dollar that is roughly $1.9 billion, or about 0.55 percent of the $339 billion figure; the two counts cover different sets of grants and should not be added.
+The clearest comparison is between what air pollution costs India and what India spends to fight it. CREA found that Rs 11,211 crore (roughly $1.3 billion) had been released under the National Clean Air Programme and Fifteenth Finance Commission grants during 2019-2025 (CREA, *Tracing the Hazy Air 2025*). Air pollution costs the economy $339 billion in one year (2022), by the Lancet Countdown's valuation. Set side by side, seven years of released funds come to under 0.4 percent of one year's valuation of premature deaths. *Update, 2 October 2026:* the Ministry of Environment, Forest and Climate Change told Parliament that Rs 16,423.56 crore had been released to targeted cities under NCAP during FY 2019-20 to 2025-26 (PIB, 23 July 2026). At about Rs 88 to the dollar that is roughly $1.9 billion, or about 0.55 percent of the $339 billion figure; the two counts cover different sets of grants and should not be added.
 
-This is not a resource constraint. The Union Budget 2026-27 puts central government expenditure at Rs 53.47 lakh crore (PRS Legislative Research, *Union Budget Analysis 2026-27*). It is a priority choice — one that values visible infrastructure spending over the invisible, diffuse, but economically devastating effects of polluted air.
+The gap is not for lack of money. The Union Budget 2026-27 puts central government expenditure at Rs 53.47 lakh crore (PRS Legislative Research, *Union Budget Analysis 2026-27*). It reflects a choice to fund visible infrastructure over the diffuse, hard-to-see costs of polluted air.
 
-## The Investment Case
+## The case for spending more
 
-The economic case for air pollution reduction is overwhelming. Every dollar spent on PM2.5 mitigation generates returns through reduced healthcare costs, improved labour productivity, retained talent, and tourism revenue. The AQLI estimates that meeting India's own national standard of 40 µg/m³ would add 1.5 years of life expectancy for the 46 percent of Indians who live in areas above it, and that meeting the WHO guideline would add 3.5 years for the average Indian (AQLI India fact sheet, 2025).
+Cutting PM2.5 pays back through lower health costs, more productive work, and people who stay in the city. The AQLI estimates that meeting India's own national standard of 40 µg/m³ would add 1.5 years of life expectancy for the 46 percent of Indians who live in areas above it, and that meeting the WHO guideline would add 3.5 years for the average Indian (AQLI India fact sheet, 2025).
 
-Years of life are years of economic activity. The $339 billion annual cost is not a bill that India must simply pay. It is a loss that India can reduce — if it treats clean air not as an environmental luxury, but as economic infrastructure as essential as roads and power grids.
+Years of life are years of work. The $339 billion is a loss India can reduce, if it treats clean air as economic infrastructure, as necessary as roads and power grids.
 
 ---
 

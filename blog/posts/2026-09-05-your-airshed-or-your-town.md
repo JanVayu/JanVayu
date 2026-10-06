@@ -1,4 +1,4 @@
-# Your Airshed, or Your Town? A New Way to Read Your District's Air
+# A new way to read your district's air: the airshed as well as the town
 
 **Published:** 5 September 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 
@@ -19,7 +19,7 @@ We put every district's annual air figure next to every other one, and the data 
 
 ## What that sentence actually means
 
-Imagine lining up all 785 districts by their yearly PM2.5 and asking why they differ.
+Line up all 785 districts by their yearly PM2.5 and ask why they differ.
 
 Some of the difference is regional. Every district in Bihar reads high; every district in Kerala reads low. Some of it is local. Within Bihar, Patna is not identical to Kishanganj.
 
@@ -29,15 +29,11 @@ The reason is geography. The Indo-Gangetic Plain is a basin with the Himalaya al
 
 ## Two real places
 
-**New Delhi.** The median Indian district reads 39.0 µg/m³ a year. Delhi as a whole sits **53.7 above** that. New Delhi is then **1.5 below** its own state's median. It ends up at 91.2.
+Take New Delhi first. The median Indian district reads 39.0 µg/m³ a year. Delhi as a whole sits **53.7 above** that, and New Delhi is then **1.5 below** its own state's median, so its own adjustment is slightly negative. It ends up at 91.2.
 
-New Delhi's own adjustment relative to its state is slightly negative.
+Now Ludhiana. Punjab sits **16.8 above** the national median. Ludhiana adds **3.0** on top of that, reaching 58.8.
 
-**Ludhiana.** Punjab sits **16.8 above** the national median. Ludhiana adds **3.0** on top of that, reaching 58.8.
-
-Ludhiana is genuinely dirtier than the average Punjab district. But the part that is distinctly Ludhiana's is 3.0, against 16.8 that arrives with the state.
-
-So: whose fault is it? Mostly, it is not a question about Ludhiana.
+Ludhiana is dirtier than the average Punjab district. But the part that is distinctly Ludhiana's is 3.0, against 16.8 that arrives with the state. So the question of whose fault the air is has mostly little to do with Ludhiana itself.
 
 ## Why this matters for policy
 
@@ -72,17 +68,17 @@ The national median district reads 39.0, which is to say the typical Indian dist
 
 ## What this does not tell you
 
-This is the part we want to be blunt about, because the tool is easy to misread as a scorecard.
+We want to be blunt here, because the tool is easy to misread as a scorecard.
 
-**A district below its state median is not thereby well governed.** A district above it is not badly run. The figure names no cause at all.
+A district below its state median is not thereby well governed, and a district above it is not badly run. The figure names no cause at all.
 
 If your district reads lower than its neighbours, that could be altitude, a river valley that ventilates, being upwind of the industry, or simply having fewer people. If it reads higher, that could be a cement cluster, a highway, a landfill, or where a one-kilometre satellite grid happened to fall across an oddly shaped boundary.
 
 We can tell you the gap exists. We cannot tell you why, and neither can anyone else from this number alone.
 
-**These are yearly averages for 2024**, from satellite estimates. They are not today's air and not a forecast. Do not read them against the daily Good/Moderate/Poor bands, and do not take same-day advice from them. For today, use [the live dashboard](/). For the year, use this.
+These are yearly averages for 2024, from satellite estimates. They are not today's air and not a forecast. Do not read them against the daily Good/Moderate/Poor bands, and do not take same-day advice from them. For today, use [the live dashboard](/). For the year, use this.
 
-**Small states have thin medians.** Ladakh has 2 districts. Delhi has 11. Treat those numbers as indicative rather than precise.
+Small states have thin medians. Ladakh has 2 districts. Delhi has 11. Treat those numbers as indicative rather than precise.
 
 ## Where this came from
 

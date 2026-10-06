@@ -1,4 +1,4 @@
-# The Dataset That Looked Like Our Best Predictor, and Was a Map of the Gangetic Plain
+# The dataset that looked like our best predictor, and was a map of the Gangetic Plain
 
 **Published:** 5 September 2026 | **Author:** Team JanVayu | **Reading time:** 9 min
 
@@ -10,7 +10,7 @@ The link was the [Biodiversity Intactness](https://source.coop/vizzuality/biodiv
 
 We said no. Then we measured it, and had to say that our reason for saying no was wrong. Then we measured it properly, and said no again, for a better reason.
 
-The whole sequence took an afternoon and it is worth writing down, because the middle step is the one that would have put a bad layer on this site.
+The whole sequence took an afternoon. It is worth writing down, because the middle step would have put a bad layer on this site.
 
 ---
 
@@ -18,11 +18,11 @@ The whole sequence took an afternoon and it is worth writing down, because the m
 
 JanVayu has been here before. On 8 August we shipped green cover on every ward, from ESA WorldCover, and let readers put it next to surface heat. Trees cool cities; this was going to show it.
 
-It showed almost nothing. Across 67,732 wards the correlation between green cover and surface heat was **−0.069**. Effectively a flat line.
+It showed almost nothing. Across 67,732 wards the correlation between green cover and surface heat was **−0.069**, effectively a flat line.
 
-The layer was not broken. Green cover was the wrong variable. WorldCover counts cropland as vegetation, so the median Indian gram panchayat is 97% green while its typical village has about 13% tree canopy. We [replaced it with tree cover](/blog/#/posts/2026-08-08-tree-cover-answers-it), which reads **−0.429** nationally and −0.412 within the median city, and the heat-island relationship was there all along under a bad proxy.
+The layer was not broken; green cover was the wrong variable. WorldCover counts cropland as vegetation, so the median Indian gram panchayat is 97% green while its typical village has about 13% tree canopy. We [replaced it with tree cover](/blog/#/posts/2026-08-08-tree-cover-answers-it), which reads **−0.429** nationally and −0.412 within the median city, and the heat-island relationship was there all along under a bad proxy.
 
-So when a biodiversity raster arrived, the prior wrote itself. Ecological intactness is not a measure of air. The mechanism connecting species abundance to fine particulate matter is long and indirect, and we had just spent a month learning that a plausible-looking land layer can measure nothing at all.
+So when a biodiversity raster arrived, the prior wrote itself. Ecological intactness is not a measure of air. The chain from species abundance to fine particulate matter is long and indirect, and we had just spent a month learning that a plausible-looking land layer can tell you nothing at all.
 
 We wrote that down as the answer. Then we ran the numbers, because writing it down is not the same as knowing it.
 
@@ -41,11 +41,11 @@ Alongside them, the two land variables JanVayu already ships.
 | **Biodiversity Intactness** | **−0.608** |
 | **Human Footprint** | **+0.620** |
 
-Not a flat line. Not remotely. On this table either raster is the strongest district-level predictor of annual PM2.5 we have ever put on a chart, comfortably beating both layers currently on the site. Biodiversity intactness alone explains 37% of the variance in district PM2.5; human footprint 38%.
+This is nothing like a flat line. On this table either raster is the strongest district-level predictor of annual PM2.5 we have ever put on a chart, and both beat the two layers currently on the site by a wide margin. Biodiversity intactness alone explains 37% of the variance in district PM2.5; human footprint 38%.
 
 If we had stopped here, we would have shipped it. It is exactly the shape of a result that gets shipped: a clean number, a plausible story about degraded land and dirty air, and a colour ramp that would have looked persuasive over northern India.
 
-One thing did stand out. The two rasters correlate with **each other** at −0.876. They are not two findings. They are one variable measured twice, which meant at most one could ever go on the map, and it raised the obvious question of what that variable actually is.
+One thing did stand out. The two rasters correlate with **each other** at −0.876. That makes them one variable measured twice, so at most one could ever go on the map. It also raised the obvious question of what that variable is.
 
 ---
 
@@ -53,7 +53,7 @@ One thing did stand out. The two rasters correlate with **each other** at −0.8
 
 Indian air has a geography, and it is not subtle. The Indo-Gangetic Plain is a basin with the Himalaya along its northern edge. A district in Bihar and a district in Karnataka are not two towns that made different choices. They are two airsheds.
 
-Human pressure has a geography too, and it is much the same one. The plain is where the people are.
+Human pressure has a geography too, and it is much the same one, because the plain is where the people are.
 
 So we asked how much of the raw correlation survives once you compare districts **within the same state** rather than across the country. That is what state fixed effects do: they absorb everything constant within a state, meteorology and airshed included, and ask what the variable explains after that.
 
@@ -68,33 +68,33 @@ So we asked how much of the raw correlation survives once you compare districts 
 
 Built-up cover, tree cover and which state you are in explain **90%** of the variation in district annual PM2.5 across India. Add either global raster to that and you gain less than one percentage point.
 
-The −0.61 is real. It is also, for our purposes, a map of where the Gangetic Plain is. The raster is dark where the plain is and the air is bad where the plain is, and a correlation coefficient cannot tell those two facts apart on its own.
+The −0.61 is real. For our purposes it is also a map of where the Gangetic Plain is. The raster is dark where the plain is and the air is bad where the plain is, and a correlation coefficient cannot tell those two facts apart on its own.
 
-Neither dataset goes on the map. Not because it failed, but because it passed for the wrong reason, which is harder to notice and worse to publish.
+Neither dataset goes on the map. Both passed the test for the wrong reason, which is harder to notice and worse to publish.
 
 ---
 
 ## The join that nearly published the wrong table
 
-The first version of that regression was completely wrong, and the way it was wrong is worth more than the result.
+The first version of that regression was wrong from start to finish, and how it went wrong tells you more than the result does.
 
 Two files in this repository describe districts. One carries the air value, one carries the land cover. Both key districts by a numeric code. The codes are different systems.
 
 Joining on them matched **518 of 520 districts to the wrong place**. Ahmadabad took Dhule's land cover. Anand took Mumbai's. Jamnagar took Hingoli's. And the regression ran perfectly: it produced a full table, sensible coefficients, plausible R² values, and not one error message. We had a complete analysis of noise.
 
-What caught it was not inspection. It was that the two air figures disagreed. Each district has two independently derived annual PM2.5 estimates in this repo, one sampled at the district centroid and one averaged over all its villages. They should be nearly identical. Under the bad join they correlated at +0.56, which is a number that looks unremarkable until you ask what it ought to be.
+Inspection did not catch it. What did was a disagreement between two air figures. Each district has two independently derived annual PM2.5 estimates in this repo, one sampled at the district centroid and one averaged over all its villages. They should be nearly identical. Under the bad join they correlated at +0.56, which is a number that looks unremarkable until you ask what it ought to be.
 
 Rejoined by name and state, they correlate at **+0.9985**.
 
 The script now asserts that before it will report anything. If those two figures do not agree above 0.99, it exits and refuses to print a table. That assertion is the only reason the wrong numbers were thrown away instead of published, and it is now the first thing the script does.
 
-This is not the first time a silent join or fallback has produced confident, wrong, complete-looking output here: villages nearly shipped labelled with their state, wards came back empty where three sources overlapped, and now this. The pattern is always the same. Nothing errors. The output is the right shape. Only a number that should have been something else gives it away.
+Silent joins and fallbacks have produced confident, wrong, complete-looking output here before: villages nearly shipped labelled with their state, and wards came back empty where three sources overlapped. The pattern is the same each time. Nothing errors and the output has the right shape. Only a number that should have been something else gives it away.
 
 ---
 
 ## What we built instead
 
-The negative result had a positive finding inside it that we had not been looking for.
+The negative result held a finding we had not been looking for.
 
 **89.2% of the variance in district annual PM2.5 in India lies between states rather than within them.** That is what makes the rasters redundant, and on its own it is the most policy-relevant number in the whole exercise.
 
@@ -104,12 +104,11 @@ So rather than leave it in a script, it is now a panel: **[Your airshed, or your
 
 Pick a district and it tells you, in one sentence, how much of the distance between your air and the national median is the region you live in and how much is your own district.
 
-- **New Delhi**: Delhi as a whole sits 53.7 µg/m³ above the national median. New Delhi is a further 1.5 *below* its own state, putting it 52.2 above the country.
-- **Ludhiana**: Punjab sits 16.8 above. Ludhiana adds 3.0 on top of that.
+For New Delhi, Delhi as a whole sits 53.7 µg/m³ above the national median, and New Delhi is a further 1.5 *below* its own state, which puts it 52.2 above the country. For Ludhiana, Punjab sits 16.8 above, and Ludhiana adds 3.0 on top of that.
 
 The state medians run from **Delhi at 92.7 µg/m³** down to **Ladakh at 13.9**. India's own annual limit is 40. Thirteen states and union territories have a median district above it.
 
-The panel is explicit about what it will not say. A district below its state median is **not** thereby well governed, and one above is not thereby badly run. The figure names no cause. Local deviation can be terrain, a river valley, an industrial cluster, or simply how a one-kilometre satellite grid falls across an oddly shaped district. We say so on the panel, because the temptation to read it as a league table is obvious and the data does not support one.
+The panel is explicit about what it will not say. A district below its state median is not thereby well governed, and one above is not thereby badly run. The figure names no cause. Local deviation can be terrain, a river valley, an industrial cluster, or simply how a one-kilometre satellite grid falls across an oddly shaped district. We say so on the panel, because it is tempting to read it as a league table and the data does not support one.
 
 ---
 
@@ -121,7 +120,7 @@ Of the two rasters, **Human Footprint is the better one**. It beats biodiversity
 
 But neither earns a place here. Both are, at 100 metres and annual cadence, largely a recombination of land cover, and JanVayu already carries built-up, tree and green cover from WorldCover at **10 metres**, ten times finer, on all six boundary levels. A coarser modelled index of variables we already hold at better resolution is not an addition.
 
-The honest summary is that the dataset is good and the question was a fair one, and the answer is still no. Not every dataset that correlates with your outcome is telling you something about your outcome. Sometimes it is telling you where the mountains are.
+The dataset is good and the question was a fair one, and the answer is still no. A dataset can correlate strongly with your outcome and say nothing about it. This one mostly says where the mountains are.
 
 ---
 

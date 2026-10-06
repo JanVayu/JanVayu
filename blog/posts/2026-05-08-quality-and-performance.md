@@ -1,98 +1,73 @@
-# Quality You Can Measure: Lighthouse, axe, Lazy-Loading, and a Mobile Pass
+# How we checked that the site is fast and usable on a phone
 
 **Published:** 8 May 2026 | **Author:** Team JanVayu | **Reading time:** 5 min
 
 ---
 
-The same day we shipped six Learning Games and refreshed the May 2026 data, we did a quieter but arguably more important thing: **we made the platform's quality measurable on every PR**. This post is for technically-minded readers who want to know what's now under the hood — and for citizen-developers who might fork JanVayu and need the same scaffolding.
+On the day we released six Learning Games and refreshed the May 2026 data, we also did some quieter work: we set up automatic checks on the speed and accessibility of the site, and made several changes you will notice on your phone.
 
-If you don't care about the engineering, the user-visible improvements still matter:
+## What changes for you
 
-- The site now downloads roughly **120 KB less** (our estimate from the libraries' published sizes, not a measured run) on first paint for visitors who don't open the Trends or Live Map panels.
-- Every chart on the platform is now described to screen readers.
-- Buttons are now at least 44 px tall on small screens (they were 40 px before this change).
-- Long URLs and acronym chains stop forcing horizontal scroll on mobile.
+- The site downloads roughly 120 KB less on first load for visitors who do not open the Trends or Live Map panels. That is our estimate from the published sizes of the charting and map code, not a measured run.
+- Every chart now has a text description that a screen reader can read out.
+- Buttons are at least 44 px tall on small screens. Some were 40 px before.
+- Long web addresses and strings of acronyms no longer force the page to scroll sideways on a phone.
 
-Read on for what shipped, why, and what we're still chasing.
+## Loading charts and maps only when you open them
 
-## The trade-off behind lazy-loading Chart.js and Leaflet
+Until this week, the charting code (about 70 KB compressed) and the map code (about 50 KB compressed) loaded on every page view. Most visitors never open the Trends panel, and even fewer open the Live Map. That is about 120 KB that most visits did not use. Both now load when you first open the panel that needs them.
 
-Until this week, Chart.js (~70 KB gzipped) and Leaflet + leaflet.heat (~50 KB gzipped) loaded on every page-view, even though most visitors never open the Trends panel and even fewer open the Live Map. Combined: about 120 KB of bandwidth that most sessions never used.
+The small bar charts on the dashboard are the exception. They should not lag behind the first screen, so the charting code is fetched in the background just after the page appears. Safari does not support the browser feature that does this, so there it waits 1.5 seconds. All three outside scripts are also locked to a fixed fingerprint, so if one of the hosting services ever served different content under the same address, whether by compromise or by mistake, the browser would refuse to run it.
 
-We replaced the eager `<script defer>` tags with two small loaders, `window.ensureChartJs()` and `window.ensureLeaflet()`, that fetch on demand. Each is memoised — concurrent callers share one fetch. The seven chart-rendering functions and the map init were converted to `async` and `await` their respective loader before touching the global `Chart` / `L` objects.
+We expect the saving to be roughly 600 ms on a 3G phone, which is our estimate and not a measurement. The speed test we set up the same day will measure it.
 
-There's a subtlety. The dashboard does have small mini-charts (the metro-vs-region bar pair), and we don't want them to lag behind first paint. So we **pre-warm** `ensureChartJs()` inside `requestIdleCallback` — the browser's "I have a free moment" hook. The script downloads after first paint without blocking it. Safari, which has been late to `requestIdleCallback`, falls back to a 1.5-second `setTimeout`.
+## Automatic checks on every change
 
-Sub-resource integrity (SRI) hashes are pinned for all three CDN scripts. If `cdn.jsdelivr.net` or `unpkg.com` ever served different content under the same URL — through compromise or maintenance error — the browser would reject the script rather than execute it.
+Five checks now run whenever someone changes the site. They report problems and do not block the change, because legacy problems would otherwise block every change until a clean-up was done, and we cannot fix everything in one pass.
 
-Expected first-paint saving on 3G mobile: roughly 600 ms, which is our estimate, not a measurement. The Lighthouse CI we wired up the same day will measure it once it runs.
+- A speed test on the home page, the Ask page, the blog and the PM2.5 page. For now it only warns. The targets on mobile are a performance score of at least 0.60, first content on screen within 3 seconds, the main content within 4.5 seconds, blocking time of at most 600 ms and layout shift of at most 0.15. Once the site meets them three times in a row, we will make the key ones mandatory.
+- An accessibility check against WCAG 2 AA, with each page's violations listed and the three most common problems named.
+- A check that the page markup is valid.
+- A check on the code for common errors.
+- A strict weekly check of every link on the site, which opens an issue if one is dead. The check on each change stays advisory for now.
 
-## Quality CI: five new pipelines, all advisory
+We also now measure how much of the dashboard's English text can be translated. The answer is **0.7%**, which is uncomfortably low, but we can now track it as it rises. When we have a baseline we will set a minimum.
 
-The point of advisory CI is to make problems **visible** without blocking PRs. You can't fix what you don't see, and you can't fix everything in one cycle. So:
+## Charts for screen readers
 
-- **Lighthouse CI** — runs against `/`, `/ask/`, `/blog/`, `/pm25/`. Budgets in `.lighthouserc.json` are warn-only: Performance ≥ 0.60 mobile, FCP ≤ 3 s, LCP ≤ 4.5 s, TBT ≤ 600 ms, CLS ≤ 0.15. Once we hit the budget three times in a row on `main`, we'll flip key assertions from `warn` to `error`.
-- **axe-core** — surfaces WCAG 2 AA violations per page in the PR step summary, with the top three rule IDs and a count. Full JSON reports as 30-day artifacts.
-- **html-validate@9** — across the main app, blog, ask PWA, embed widgets, downloads index, and all six pollutant pages. Pragmatic rule mix; `no-dup-id` and `no-unknown-elements` stay as errors.
-- **ESLint v9** — Netlify Functions, scripts, the Ask PWA, root service worker. Standard JS hygiene rules.
-- **Strict weekly lychee link audit** — opens an issue on failure. The PR-time lychee remains advisory because legacy dead links would otherwise block every PR until cleanup.
+Until this week every chart on the site was a blank to screen readers. A chart displayed on screen, and a blind user heard only "graphic". Every chart now has a description. Examples:
 
-Plus, importantly, an i18n-coverage script. We measured the actual percentage of visible English strings on the dashboard whose immediate parent has a `data-i18n` attribute. The number is **0.7%** — uncomfortable, but now measurable. Each PR that adds `data-i18n` attributes will see the percentage tick up. We'll set a `--min-coverage` floor when we have a baseline.
+- The metro comparison chart: "Bar chart comparing live AQI across the six largest Indian metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad)."
+- The year-on-year chart: "Line chart comparing month-by-month PM2.5 averages for a chosen Indian city across 2024, 2025, and 2026."
+- The Delhi history chart: "Multi-year line chart of Delhi annual average PM2.5 from 2015 to 2025, with the WHO 5 µg/m³ guideline overlay."
 
-## What chart accessibility actually looks like
+A description is the minimum. A spoken version of the data, or a table, would be next.
 
-Until this week, every `<canvas>` on the site was a black box to screen readers — the chart would render visually but a non-sighted user heard "graphic" with no description.
+## Buttons and long words on phones
 
-Now every canvas has `role="img"` and a meaningful `aria-label`. Examples:
+WCAG 2.5.5 ("Target Size, Enhanced") asks for touch targets of at least 44×44 CSS pixels. Apple's guidelines give 44×44 points and Android's Material guidance gives 48×48 dp, though we have not re-opened Apple's page for this post. Our icon buttons already met this on small screens, and the other buttons did not. They do now.
 
-- The metro-comparison bar chart: *"Bar chart comparing live AQI across the six largest Indian metros (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad)."*
-- The year-over-year compare chart: *"Line chart comparing month-by-month PM2.5 averages for a chosen Indian city across 2024, 2025, and 2026."*
-- The Delhi history chart: *"Multi-year line chart of Delhi annual average PM2.5 from 2015 to 2025, with the WHO 5 µg/m³ guideline overlay."*
+Long web addresses and strings such as CAAQMS station IDs and NCAP fund codes used to push the page wider than a narrow screen. They now break onto a new line.
 
-It's not a substitute for actual chart-data accessibility (a sonification or a tabular fallback would be next), but it's the floor: the chart is now nameable and described.
+The new Air Tambola ticket needed its own fix. Nine columns were too narrow to show two-line terms such as "Lancet 1.72M" on a 360 px Galaxy phone. The ticket now sits in a box at least 540 px wide that scrolls sideways, and does not squeeze.
 
-## Mobile tap targets and long-token wrapping
+## What we are working on next
 
-WCAG 2.5.5 ("Target Size — Enhanced") wants interactive elements to be at least 44×44 CSS pixels. Apple's Human Interface Guidelines give 44×44 points and Android's Material guidance gives 48×48 dp; we have not re-opened Apple's page for this post. Our `.icon-btn` was already there; `.btn` and `.btn-sm` were not on small screens. They are now:
+The priorities for the third quarter of 2026, in order of expected benefit, are below (the full list is in [`docs/wiki/Roadmap.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)):
 
-```css
-@media (max-width: 480px) {
-  .btn { min-height: 44px; padding-block: 10px; }
-  .btn-sm { min-height: 40px; padding-block: 8px; }
-  .quick-link { min-height: 64px; }
-}
-```
+1. Split the panel-specific styling into a file that loads later, which should bring first content about 200 ms sooner.
+2. Fix every remaining accessibility violation, then check more addresses: `/#health`, `/#policy`, `/#workshops` and `/#games`.
+3. Test each panel on small phones and tablets: iPhone SE and 14, Galaxy, and iPad Mini.
+4. Raise translation coverage from 0.7% to a target we can measure, perhaps 60% by the end of the third quarter, and enforce a minimum.
+5. Replace the fixed list of 16 cities with CPCB's station list and a searchable city picker.
+6. Turn on the Agent-Reach secrets, or move to the Twitter API v2 Basic tier.
 
-Separately, long URLs and acronym chains (CAAQMS-IDs, station codes, NCAP fund identifiers) were forcing horizontal scroll on narrow viewports. `overflow-wrap: anywhere` on body text and code elements lets them break:
+## Why we did it in this order
 
-```css
-@media (max-width: 480px) {
-  p, li, dd, .voice-body, .resource-desc { overflow-wrap: anywhere; }
-}
-.code-box, code { overflow-wrap: anywhere; }
-```
-
-The Air Tambola ticket — the new 3×9 housie game — needed special treatment. With nine columns, even at `1fr` each, cells got too narrow to render two-line terms ("Lancet 1.72M") on a 360 px Galaxy. We wrapped the ticket in a horizontal-scroll container with `min-width: 540px`, so it scrolls cleanly rather than squishing.
-
-## What's still on the list
-
-The Q3 2026 priorities, in order of expected impact (full list in [`docs/wiki/Roadmap.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)):
-
-1. **CSS split** — extract panel-specific styles to a deferred external file. Estimated +200 ms FCP.
-2. **axe → zero violations** — fix as flagged. Then expand the audited URL set to `/#health`, `/#policy`, `/#workshops`, `/#games`.
-3. **Per-panel mobile sweep** across iPhone SE / 14, Galaxy, iPad Mini.
-4. **i18n coverage** — push from 0.7% to a measurable target (60% by end of Q3?), enforce via `--min-coverage`.
-5. **City coverage** — replace the static 16-city array with a build-time CPCB station fetch and a searchable combobox.
-6. **Agent-Reach secrets activation** — or migrate to Twitter API v2 Basic tier.
-
-## A note on order
-
-The order of these v26.5.x ships matters. We *first* shipped the user-visible value — the games, the data refresh, the voices and research updates. Only *then* did we install the measurement scaffolding and the operational hardening. That order is deliberate: a citizen-led platform's job is to be useful first and well-instrumented second. Quality CI on a half-built site is busywork; quality CI on a working site is a conscience.
-
-If you're forking JanVayu, our recommendation is the same. Make it useful. Then measure it.
+We released the user-visible work first, namely the games, the data refresh and the voices and research updates, and added the checks afterwards. Automatic checks on a half-built site waste effort. On a working site they show what to fix next. If you are forking JanVayu, we suggest the same order.
 
 ---
 
 **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 **Performance roadmap:** [docs/technical/performance-roadmap.md](https://github.com/JanVayu/JanVayu/blob/main/docs/technical/performance-roadmap.md)
-**Q3 priorities:** [docs/wiki/Roadmap.md — Phase 6](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)
+**Q3 priorities:** [docs/wiki/Roadmap.md, Phase 6](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)

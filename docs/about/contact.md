@@ -1,6 +1,6 @@
 # Contact
 
-## General Contact
+## General contact
 
 | Purpose | Contact |
 |---------|--------|
@@ -13,21 +13,21 @@
 
 ## Platform
 
-- **Website:** [www.janvayu.in](https://www.janvayu.in)
-- **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
+- Website: [www.janvayu.in](https://www.janvayu.in)
+- GitHub: [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 
 ---
 
-## Reporting a Security Issue
+## Reporting a security issue
 
 If you have found a security vulnerability, **do not open a public GitHub Issue**. Instead, follow the responsible disclosure process described in [SECURITY.md](https://github.com/JanVayu/JanVayu/blob/main/SECURITY.md).
 
 ---
 
-## Media and Research Inquiries
+## Media and research inquiries
 
 Journalists, researchers, and policy professionals are welcome to use JanVayu's data and analysis. Please:
 
-1. Cite the **primary source** (CPCB, Lancet, etc.) rather than JanVayu for specific statistics
-2. Note JanVayu as the platform where you accessed the aggregated data
+1. Cite the primary source (CPCB, Lancet, etc.) and not JanVayu for specific statistics
+2. Name JanVayu as the platform where you found the aggregated data
 3. For custom analysis or data requests, open a GitHub Issue or email [contribute@janvayu.in](mailto:contribute@janvayu.in)
