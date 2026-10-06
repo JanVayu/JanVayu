@@ -16,6 +16,10 @@ on:
         type: choice
         options: [sync, backfill]
         default: sync
+      langs:
+        description: 'language codes to translate, space separated (hi bn mr ta); empty means all four. A backfill of one language per run finishes well inside the job limit.'
+        type: string
+        default: ''
 
 jobs:
   check-translation-coverage:
@@ -160,6 +164,7 @@ jobs:
   auto-translate:
     needs: [check-translation-coverage]
     runs-on: ubuntu-latest
+    timeout-minutes: 340
     permissions:
       contents: write
     steps:
@@ -184,16 +189,24 @@ jobs:
         with:
           python-version: '3.12'
 
+      # translate-docs.py exits non-zero when any translation fails or is
+      # rejected, so this step turns the job red. Until 2026-10-06 a deprecated
+      # model name failed every translation and the job still reported success.
       - name: Translate stale and missing files
+        id: translate
         if: steps.gate.outputs.skip != '1'
         env:
           SARVAM_API_KEY: ${{ secrets.SARVAM_API_KEY }}
           MODE: ${{ github.event.inputs.mode || 'sync' }}
+          LANGS: ${{ github.event.inputs.langs }}
           EVENT: ${{ github.event_name }}
         run: python3 scripts/translate-docs.py
 
+      # Commit what did translate even when some files failed, so one bad file
+      # does not discard the rest.
+
       - name: Commit translations
-        if: steps.gate.outputs.skip != '1'
+        if: ${{ !cancelled() && steps.gate.outputs.skip != '1' }}
         run: |
           if git diff --quiet docs-hi/ docs-bn/ docs-mr/ docs-ta/; then
             echo "No translation changes."

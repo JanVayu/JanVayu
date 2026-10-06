@@ -44,6 +44,29 @@ the text layer was missing or noisy, found these errors and gaps:
   Direction No. 99 (15 May 2026, paddy) carries the same clause, and the post now
   cites both.
 
+### Fixed, the translated docs had not been updated because the translation job failed on every run
+
+`.github/workflows/translations.yml` has never committed a translation. On every
+push to `main` it called Sarvam with the model `sarvam-30b`, which Sarvam has
+deprecated, and received HTTP 400 ("Model 'sarvam-30b' has been deprecated. Please
+use one of the available models instead: sarvam-105b"). The script logged each
+failure and exited 0, so every run showed green. All 47 translated documents in
+each of Hindi, Bengali, Marathi and Tamil therefore still carry the wording and the
+facts of the previous English, including the old GRAP table, and 25 English
+documents have no translation at all.
+
+- The model is now `sarvam-105b`.
+- A translation cut off by the token limit, or missing a heading, a table row, a
+  code fence or a link target the English has, or not in the target script, is
+  rejected and not written. Long files are translated in parts cut at blank lines
+  outside code blocks.
+- The script exits non-zero when anything fails or is rejected, so the job goes
+  red. What did translate is still committed.
+- The workflow takes a `langs` input, so a backfill can run one language per job.
+- `scripts/test-translate-docs.py` covers all of this offline and runs in CI.
+
+The machine translations are not read by a native speaker.
+
 ### Fixed, every GRAP claim checked against CAQM's revised schedule
 
 CAQM's revised GRAP schedule (Direction No. 104, 29 September 2026, 17 pages) and

@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
@@ -36,9 +37,23 @@ LANGS = {
 TRANSLATE_EXTENSIONS = {".md"}
 
 API_URL = "https://api.sarvam.ai/v1/chat/completions"
-MODEL = "sarvam-30b"
+# sarvam-30b was deprecated by Sarvam; the API answers HTTP 400 and names
+# sarvam-105b as its replacement. Until 2026-10-06 every run failed on that and
+# the job still reported success, so a changed model name now fails the job.
+MODEL = "sarvam-105b"
 MAX_TOKENS = 4096
 TEMPERATURE = 0.2
+# Indic scripts need several times the tokens of English, so a long file is
+# translated in parts. A part is cut at a blank line outside code fences and
+# never inside a table, which has no blank lines.
+CHUNK_CHARS = 2500
+# Unicode block per language, used to confirm the output really is in it.
+SCRIPT_RANGES = {
+    "hi": (0x0900, 0x097F),
+    "mr": (0x0900, 0x097F),
+    "bn": (0x0980, 0x09FF),
+    "ta": (0x0B80, 0x0BFF),
+}
 
 PROMPT_TEMPLATE = """You are translating JanVayu's air quality accountability documentation from English into {lang_name}. JanVayu is India's independent, citizen-led air quality platform.
 
@@ -102,7 +117,80 @@ def is_stale(en_path: Path, lang: str) -> bool:
     return git_unix_time(en_path) > git_unix_time(tgt)
 
 
+def split_chunks(content: str, limit: int = CHUNK_CHARS) -> list[str]:
+    """Split Markdown into parts of about `limit` characters at blank lines
+    that sit outside fenced code blocks."""
+    blocks: list[str] = []
+    cur: list[str] = []
+    in_fence = False
+    for line in content.splitlines(keepends=True):
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+        cur.append(line)
+        if not in_fence and not line.strip():
+            blocks.append("".join(cur))
+            cur = []
+    if cur:
+        blocks.append("".join(cur))
+    chunks: list[str] = []
+    buf = ""
+    for blk in blocks:
+        if buf and len(buf) + len(blk) > limit:
+            chunks.append(buf)
+            buf = ""
+        buf += blk
+    if buf:
+        chunks.append(buf)
+    return chunks or [content]
+
+
+def structure(md: str) -> dict:
+    """Counts that a faithful translation must leave unchanged."""
+    headings = fences = rows = 0
+    in_fence = False
+    for line in md.splitlines():
+        if line.lstrip().startswith("```"):
+            fences += 1
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        if re.match(r"#{1,6}\s", line):
+            headings += 1
+        if line.lstrip().startswith("|"):
+            rows += 1
+    links = sorted(re.findall(r"\]\(([^)\s]+)", md))
+    return {"headings": headings, "fences": fences, "table_rows": rows, "links": links}
+
+
+def validate(src: str, out: str, lang: str) -> str | None:
+    """Return a reason the translation must not be written, or None."""
+    a, b = structure(src), structure(out)
+    for key in ("headings", "fences", "table_rows"):
+        if a[key] != b[key]:
+            return f"{key} differ (english {a[key]}, translated {b[key]})"
+    if a["links"] != b["links"]:
+        lost = sorted(set(a["links"]) - set(b["links"]))[:3]
+        added = sorted(set(b["links"]) - set(a["links"]))[:3]
+        return f"link targets differ (missing {lost}, added {added}, counts {len(a['links'])} and {len(b['links'])})"
+    lo, hi = SCRIPT_RANGES[lang]
+    letters = sum(1 for ch in out if lo <= ord(ch) <= hi)
+    if letters < 50:
+        return f"output holds only {letters} characters of the target script"
+    return None
+
+
 def translate(api_key: str, content: str, lang: str, rel_path: str) -> str:
+    chunks = split_chunks(content)
+    parts = [translate_part(api_key, c, lang, rel_path, i + 1, len(chunks)) for i, c in enumerate(chunks)]
+    return "".join(p if p.endswith("\n") else p + "\n" for p in parts)
+
+
+def translate_part(api_key: str, content: str, lang: str, rel_path: str, n: int, total: int) -> str:
+    if total > 1:
+        # The note goes in the instruction line, not in the content, so the
+        # model cannot translate it and echo it into the file.
+        rel_path = f"{rel_path} (part {n} of {total}: translate only the part below, add nothing before or after it)"
     payload = {
         "model": MODEL,
         "max_tokens": MAX_TOKENS,
@@ -129,7 +217,10 @@ def translate(api_key: str, content: str, lang: str, rel_path: str) -> str:
     )
     with urllib.request.urlopen(req, timeout=180) as resp:
         body = json.loads(resp.read().decode("utf-8"))
-    return body["choices"][0]["message"]["content"].strip() + "\n"
+    choice = body["choices"][0]
+    if choice.get("finish_reason") == "length":
+        raise RuntimeError("output cut off at the token limit; part not written")
+    return choice["message"]["content"].strip() + "\n"
 
 
 def main() -> int:
@@ -151,10 +242,18 @@ def main() -> int:
     else:
         candidates = english_files()
 
+    wanted = [c for c in os.environ.get("LANGS", "").replace(",", " ").split() if c]
+    unknown = [c for c in wanted if c not in LANGS]
+    if unknown:
+        print(f"Unknown LANGS {unknown}, expected some of {sorted(LANGS)}.", file=sys.stderr)
+        return 2
+    langs = wanted or list(LANGS)
+
     summary = []
+    failed = 0
     for en_path in candidates:
         rel_str = str(en_path.relative_to(EN_DIR))
-        for lang in LANGS:
+        for lang in langs:
             if not is_stale(en_path, lang):
                 continue
             try:
@@ -169,10 +268,18 @@ def main() -> int:
                 detail = e.read().decode("utf-8", errors="replace")[:500]
                 print(f"  HTTP {e.code}: {detail}", file=sys.stderr)
                 summary.append(f"FAILED {rel_str} ({lang}): HTTP {e.code}")
+                failed += 1
                 continue
             except Exception as e:
                 print(f"  failed: {e}", file=sys.stderr)
                 summary.append(f"FAILED {rel_str} ({lang}): {e}")
+                failed += 1
+                continue
+            problem = validate(content, translated, lang)
+            if problem:
+                print(f"  rejected: {problem}", file=sys.stderr)
+                summary.append(f"REJECTED {rel_str} ({lang}): {problem}")
+                failed += 1
                 continue
             tgt = target_path(en_path, lang)
             tgt.parent.mkdir(parents=True, exist_ok=True)
@@ -180,6 +287,11 @@ def main() -> int:
             summary.append(f"OK     {rel_str} ({lang})")
 
     print("\n".join(summary) or "No changes written.")
+    if failed:
+        # Exit non-zero so the job goes red. Until 2026-10-06 a deprecated model
+        # name failed every translation and the job still reported success.
+        print(f"{failed} translation(s) failed or were rejected.", file=sys.stderr)
+        return 1
     return 0
 
 
