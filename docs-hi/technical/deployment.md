@@ -1,86 +1,98 @@
 # डिप्लॉयमेंट
 
-JanVayu GitHub के `main` ब्रांच से Netlify पर स्वचालित रूप से डिप्लॉय होता है।
+JanVayu को **Netlify** पर डिप्लॉय किया गया है। GitHub पर `main` ब्रांच में किए गए हर पुश के साथ ऑटोमैटिक डिप्लॉय ट्रिगर हो जाते हैं।
 
 ---
 
-## डिप्लॉयमेंट प्रक्रिया
+## डिप्लॉयमेंट कैसे काम करता है
 
-```
-GitHub main ब्रांच पर पुश
-        │
-        ▼
-Netlify स्वचालित बिल्ड ट्रिगर
-        │
-        ▼
-npm install (3 पैकेज)
-        │
-        ▼
-Root directory सर्व (index.html)
-+ Functions डिप्लॉय (netlify/functions/)
-        │
-        ▼
-Netlify CDN पर लाइव
-(www.janvayu.in)
-```
+1. GitHub पर `main` पर पुश करें
+2. Netlify वेबहुक के ज़रिए नए कमिट का पता लगाता है
+3. Netlify बिल्ड कमांड (`node scripts/bump-version.mjs`, एक वर्ज़न-स्टैम्प स्क्रिप्ट; इसमें कोई बंडलर नहीं है) रन करता है और रेपो रूट को पब्लिश डायरेक्टरी के रूप में इस्तेमाल करके डिप्लॉय करता है
+4. साइट [www.janvayu.in](https://www.janvayu.in) पर लाइव हो जाती है
+
+README में Netlify बिल्ड स्टेटस बैज मौजूदा डिप्लॉय स्टेट को दिखाता है।
 
 ---
 
 ## Netlify कॉन्फ़िगरेशन (`netlify.toml`)
 
 ```toml
+# संक्षिप्त: असली netlify.toml में और भी कई हेडर्स और रीडायरेक्ट रूल्स हैं
 [build]
-  publish = "."
+  command = "node scripts/bump-version.mjs"
+  publish = "."         # रेपो रूट से सर्व करें
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[redirects]]
+  from = "https://janvayu.in/*"
+  to = "https://www.janvayu.in/:splat"
+  status = 301
+  force = true
+
+# .../docs, /blog, /embed, /api, /ask, /status आदि के लिए विशिष्ट रूल्स फॉलबैक से पहले आते हैं
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 ```
 
-- **बिल्ड कमांड:** कोई नहीं (कोई बिल्ड स्टेप नहीं)
-- **पब्लिश डायरेक्टरी:** `.` (रिपॉजिटरी रूट)
-- **फ़ंक्शन डायरेक्टरी:** `netlify/functions/`
+मुख्य बिंदु:
+- SPA फॉलबैक (`/* → /index.html`) यह सुनिश्चित करता है कि डीप लिंक्स सही से काम करें
+- नॉन-www को www (कैनोनिकल डोमेन) पर रीडायरेक्ट किया जाता है
+- सिक्योरिटी हेडर्स को ग्लोबली लागू किया जाता है
 
 ---
 
-## कस्टम डोमेन
+## डोमेन और DNS
 
-- **डोमेन:** janvayu.in
-- **DNS:** Netlify DNS
-- **SSL:** स्वचालित Let's Encrypt
-- **CNAME:** रिपॉजिटरी में `CNAME` फ़ाइल
+कस्टम डोमेन `janvayu.in` को Netlify DNS में कॉन्फ़िगर किया गया है। रेपो रूट में मौजूद `CNAME` फ़ाइल में `www.janvayu.in` है; इसका Netlify पर कोई असर नहीं होता, और यह पहले के GitHub Pages सेटअप का हिस्सा था या नहीं, इसका कोई रिकॉर्ड रिपॉजिटरी में मौजूद नहीं है।
 
 ---
 
-## सुरक्षा हेडर
+## प्रीव्यू डिप्लॉय
 
-सभी प्रतिक्रियाओं पर लागू:
-
-| हेडर | मूल्य | उद्देश्य |
-|------|-------|---------|
-| `X-Frame-Options` | `DENY` | क्लिकजैकिंग रोकथाम |
-| `X-Content-Type-Options` | `nosniff` | MIME स्निफ़िंग रोकथाम |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` | रेफ़रर डेटा सीमित |
+पुल रिक्वेस्ट अपने आप एक प्रीव्यू URL जनरेट कर देते हैं (जैसे, `https://deploy-preview-42--janvayu.netlify.app`)। इससे रिव्यूअर्स को `main` में मर्ज करने से पहले बदलावों को टेस्ट करने में मदद मिलती है।
 
 ---
 
-## रीडायरेक्ट
+## प्रोडक्शन में एनवायरनमेंट वेरिएबल्स
 
-- `www.janvayu.in` → `janvayu.in` (canonical URL)
-- सभी रूट → `/index.html` (SPA फ़ॉलबैक)
-- `/robots.txt` और `/sitemap.xml` SPA फ़ॉलबैक से बाहर
+Netlify डैशबोर्ड में सभी ज़रूरी वेरिएबल्स सेट करें:
+
+1. [app.netlify.com](https://app.netlify.com) पर जाएँ
+2. JanVayu साइट खोलें
+3. **Site Configuration → Environment Variables** पर जाएँ
+4. हर वेरिएबल जोड़ें ([Environment Variables](environment-variables.md) देखें)
+
+प्रोडक्शन एनवायरनमेंट वेरिएबल्स **कभी भी** रिपॉजिटरी में स्टोर नहीं किए जाते हैं।
 
 ---
 
-## लागत
+## रोलबैक
 
-| सेवा | टियर | मासिक लागत |
-|------|------|-----------|
-| Netlify (होस्टिंग + फ़ंक्शन) | निःशुल्क | ₹0 |
-| GitHub | निःशुल्क | ₹0 |
-| WAQI API | निःशुल्क | ₹0 |
-| Gemini API | निःशुल्क | ₹0 |
-| Resend | निःशुल्क | ₹0 |
-| डोमेन (janvayu.in) | वार्षिक | ~₹800/वर्ष |
+पिछले डिप्लॉय पर रोलबैक करने के लिए:
 
-**कुल: ~₹800/वर्ष**
+1. Netlify डैशबोर्ड → Deploys पर जाएँ
+2. आखिरी ज्ञात-सही डिप्लॉय खोजें
+3. "Publish deploy" पर क्लिक करें
+Netlify पूरी डिप्लॉय हिस्ट्री रखता है, इसलिए रोलबैक तुरंत हो जाते हैं।
+
+---
+
+## मॉनिटरिंग
+
+- **डिप्लॉय स्टेटस:** Netlify डैशबोर्ड → Deploys
+- **फंक्शन लॉग्स:** Netlify डैशबोर्ड → Functions → Logs
+- **फीड की ताज़गी:** `GET /.netlify/functions/feed-status` — सभी फीड्स के लिए आखिरी अपडेट टाइमस्टैम्प देता है
+- **शेड्यूल्ड फंक्शन लॉग्स:** Netlify डैशबोर्ड → Functions → Scheduled Functions

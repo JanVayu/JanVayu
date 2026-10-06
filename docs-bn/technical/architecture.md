@@ -1,6 +1,6 @@
 # আর্কিটেকচার
 
-JanVayu হল একটি **জিরো-ফ্রেমওয়ার্ক, সিঙ্গেল-পেজ অ্যাপ্লিকেশন** যা Netlify-তে ডিপ্লয় করা হয়েছে, সার্ভার-সাইড serverless functions সহ ডেটা প্রক্সিং, ক্যাশিং, এবং নির্ধারিত কাজের জন্য।
+JanVayu হলো একটি **জিরো-ফ্রেমওয়ার্ক, সিঙ্গেল-পেজ অ্যাপ্লিকেশন** যা Netlify-তে ডিপ্লয় করা হয়েছে। ডেটা প্রক্সি, ক্যাশিং এবং শিডিউলড টাস্কের জন্য এতে সার্ভার-সাইড সার্ভারলেস ফাংশন ব্যবহার করা হয়েছে।
 
 ---
 
@@ -9,7 +9,7 @@ JanVayu হল একটি **জিরো-ফ্রেমওয়ার্ক,
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     Client (Browser)                    │
-│  Single HTML file · Chart.js · Leaflet.js · WAQI API   │
+│  HTML + CSS + JS · Chart.js · Leaflet.js · WAQI API    │
 └──────────────────────────┬──────────────────────────────┘
                            │ HTTPS (Netlify CDN)
 ┌──────────────────────────▼──────────────────────────────┐
@@ -22,12 +22,14 @@ JanVayu হল একটি **জিরো-ফ্রেমওয়ার্ক,
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │
-│  └────────┬──────────┘   │ subscribe.js              │   │
-│           │              │ air-query.mjs             │   │
-│           │              │ health-advisory.mjs       │   │
-│           │              │ accountability-brief.mjs  │   │
-│           │              │ anomaly-check.mjs         │   │
-│           ▼              └─────────────┬─────────────┘   │
+│  │                   │   │ subscribe.js              │   │
+│  │ health-monitor    │   │ air-query.mjs             │   │
+│  │ (every 15 min)    │   │ health-advisory.mjs       │   │
+│  │ push-send (3 h)   │   │ accountability-brief.mjs  │   │
+│  │ feed-health       │   │ anomaly-check.mjs         │   │
+│  │ (daily)           │   │ ...and others (see below) │   │
+│  └────────┬──────────┘   └─────────────┬─────────────┘   │
+│           ▼                                              │
 │  ┌──────────────────────────────────────────────────┐    │
 │  │           Netlify Blobs (Cache)                   │    │
 │  │  Feeds cached as JSON · Strong consistency        │    │
@@ -41,66 +43,72 @@ JanVayu হল একটি **জিরো-ফ্রেমওয়ার্ক,
                            │
           ┌────────────────┼────────────────┐
           ▼                ▼                ▼
-    WAQI API          Google Gemini    External Feeds
-  (Real-time AQI)    (AI features)  (Reddit, News, X)
+    WAQI API           Groq API       External Feeds
+  (Real-time AQI)    (AI features)  (Reddit, News)
 ```
 
 ---
 
 ## মূল ডিজাইন সিদ্ধান্ত
+### স্ট্যাটিক ফ্রন্ট-এন্ড, কোনো বান্ডলার নেই
+ফ্রন্ট-এন্ডটি হলো `index.html` এবং এর সাথে `styles.css`, `app.js`, `games.js` এবং `panels/`-এ থাকা ১৯টি লেজি-লোডেড প্যানেল ফ্র্যাগমেন্ট, যেখানে কোনো বান্ডলার বা ফ্রেমওয়ার্ক ব্যবহার করা হয়নি ([Frontend Stack](../tech-stack/frontend.md) দেখুন)। এর ফলে বেসিক HTML/JS জানা কন্ট্রিবিউটররাও কোডবেসটি সহজে ব্যবহার করতে পারেন এবং বিল্ড-টাইমের জটিলতা প্রায় শূন্যের কোঠায় থাকে।
 
-### সিঙ্গেল HTML ফাইল
-সম্পূর্ণ ফ্রন্ট-এন্ড `index.html`-এ থাকে — ইনলাইন CSS এবং JavaScript, কোনো বিল্ড স্টেপ নেই, কোনো বান্ডলার নেই, কোনো ফ্রেমওয়ার্ক নেই। এটি মৌলিক HTML/JS দক্ষতা সম্পন্ন কন্ট্রিবিউটরদের জন্য কোডবেস সুলভ করে এবং জিরো বিল্ড-টাইম জটিলতা নিশ্চিত করে।
+### সার্ভার-সাইড প্রক্সি
+CORS সমস্যা এড়াতে এবং API কি সুরক্ষিত রাখতে সোশ্যাল মিডিয়া ও নিউজ API-গুলো Netlify Functions-এর মাধ্যমে ফেচ করা হয়। ক্লায়েন্ট কখনোই সরাসরি এই API-গুলোর সাথে যোগাযোগ করে না।
 
-### সার্ভার-সাইড প্রক্সিং
-সোশ্যাল মিডিয়া ও সংবাদ API গুলো CORS সমস্যা এড়াতে এবং API key সুরক্ষিত রাখতে Netlify Functions এর মাধ্যমে ফেচ করা হয়। ক্লায়েন্ট কখনো এই API গুলো সরাসরি স্পর্শ করে না।
-
-### Blob ক্যাশিং
-`scheduled-fetch.mjs` function প্রতি 4 ঘণ্টায় চলে এবং সমস্ত ফিড ডেটা (Reddit, Twitter/X, সংবাদ, Instagram) Netlify Blobs-এ লেখে। ব্যবহারকারীরা ফিড অনুরোধ করলে, on-demand functions ক্যাশ থেকে তাৎক্ষণিকভাবে পরিবেশন করে — বিলম্ব এবং API rate limits দূর করে।
+### ব্লব ক্যাশিং
+`scheduled-fetch.mjs` ফাংশনটি প্রতি ৪ ঘণ্টা পরপর রান করে এবং ফিড ডেটা (Reddit, নিউজ; Instagram-এ চেষ্টা করা হয় কিন্তু সাধারণত কিছুই পাওয়া যায় না) Netlify Blobs-এ লিখে রাখে। ব্যবহারকারীরা যখন ফিড রিকোয়েস্ট করেন, তখন অন-ডিমান্ড ফাংশনগুলো ক্যাশ থেকে সাথে সাথে সার্ভ করে — যার ফলে ল্যাটেন্সি এবং API রেট লিমিটের সমস্যা দূর হয়।
 
 ### ক্লায়েন্ট-সাইড AQI
-WAQI API প্রতি 10 মিনিটে সরাসরি ব্রাউজার থেকে কল করা হয়। টোকেনটি একটি ফ্রি-টায়ার পাবলিক কী। এর মানে রিয়েল-টাইম AQI ডেটা কোনো সার্ভার-সাইড ইনফ্রাস্ট্রাকচার ছাড়াই কাজ করে।
+ব্রাউজার থেকে প্রতি ১০ মিনিট পরপর সরাসরি WAQI API কল করা হয়। টোকেনটি WAQI তাদের টার্মস অফ সার্ভিস অনুযায়ী ইস্যু করে এবং এটি ক্লায়েন্ট কোডেই দেখা যায়। এর মানে হলো, কোনো সার্ভার-সাইড ইনফ্রাস্ট্রাকচার ছাড়াই রিয়েল-টাইম AQI ডেটা কাজ করে।
 
-### কোনো ফ্রেমওয়ার্ক নেই, কোনো বিল্ড স্টেপ নেই
-কোনো `npm run build` নেই, কোনো Webpack নেই, কোনো React নেই। ডিপ্লয় আর্টিফ্যাক্ট হল রিপোজিটরি নিজেই। Netlify রুট থেকে `index.html` পরিবেশন করে।
+### কোনো ফ্রেমওয়ার্ক নেই, কোনো বিল্ড স্টেপ নেই
+এখানে কোনো `npm run build`, Webpack বা React নেই। একমাত্র বিল্ড কমান্ড হলো `node scripts/bump-version.mjs`, যা ভার্সনটি আপডেট করে, আর ডিপ্লয় করার জন্য মূলত রিপোজিটরিটিকেই ব্যবহার করা হয়। Netlify রুট থেকে `index.html` সার্ভ করে।
 
 ---
 
-## স্বয়ংক্রিয়-আপডেট সময়সূচি
+## অটো-আপডেট শিডিউল
 
-| কাজ | ফ্রিকোয়েন্সি | Function |
+| কাজ | ফ্রিকোয়েন্সি | ফাংশন |
 |------|-----------|----------|
-| সোশ্যাল/সংবাদ ফিড রিফ্রেশ | প্রতি 4 ঘণ্টা | `scheduled-fetch.mjs` |
-| দৈনিক AQI ইমেল ডাইজেস্ট | প্রতিদিন সকাল 8:00 AM IST | `daily-digest.mjs` |
-| লাইভ AQI ড্যাশবোর্ড | প্রতি 10 মিনিটে | ক্লায়েন্ট-সাইড JS (WAQI API) |
-| Anomaly detection | On-demand | `anomaly-check.mjs` |
+| সোশ্যাল/নিউজ ফিড রিফ্রেশ | প্রতি ৪ ঘণ্টা পরপর | `scheduled-fetch.mjs` |
+| দৈনিক AQI ইমেইল ডাইজেস্ট | প্রতিদিন সকাল ৮:০০ টা IST | `daily-digest.mjs` |
+| লাইভ AQI ড্যাশবোর্ড | প্রতি ১০ মিনিট পরপর | ক্লায়েন্ট-সাইড JS (WAQI API) |
+| অ্যানোমালি ডিটেকশন | অন-ডিমান্ড | `anomaly-check.mjs` |
+| আপটাইম এবং ফাংশন হেলথ চেক | প্রতি ১৫ মিনিট পরপর | `health-monitor.mjs` |
+| ওয়েব পুশ নোটিফিকেশন | প্রতি ৩ ঘণ্টা পরপর | `push-send.mjs` |
+| ফিড হেলথ চেক | প্রতিদিন | `feed-health.mjs` |
 
 ---
 
 ## ফাইল স্ট্রাকচার
 
+
+---
 ```
 JanVayu/
-├── index.html                    # সম্পূর্ণ ফ্রন্ট-এন্ড (SPA)
+├── index.html                    # SPA শেল (এবং styles.css, app.js, games.js, panels/)
 ├── favicon.svg
-├── package.json                  # Node.js deps (Netlify Blobs, Resend, Gemini)
-├── netlify.toml                  # Build ও deploy config
-├── CNAME                         # Custom domain
+├── package.json                  # Node.js নির্ভরতা (Netlify Blobs, Resend, web-push)
+├── netlify.toml                  # বিল্ড এবং ডিপ্লয় কনফিগারেশন
+├── CNAME                         # কাস্টম ডোমেইন
 ├── docs/                         # এই ডকুমেন্টেশন (Docsify)
-├── downloads/                    # ডাউনলোডযোগ্য রিপোর্ট (PDF, PPTX, DOCX)
+├── downloads/                    # ডাউনলোডেবল রিপোর্ট (PDF, PPTX, DOCX)
 └── netlify/
     └── functions/
-        ├── scheduled-fetch.mjs   # Cron: সব ফিড, প্রতি 4 ঘণ্টা
-        ├── daily-digest.mjs      # Cron: ইমেল ডাইজেস্ট, সকাল 8টা IST
-        ├── reddit-feed.js        # API: ক্যাশকৃত Reddit পোস্ট
-        ├── twitter-feed.js       # API: retired — read Nitter, whose public instances are gone
-        ├── news-proxy.js         # API: ক্যাশকৃত সংবাদ নিবন্ধ
-        ├── instagram-feed.js     # API: ক্যাশকৃত Instagram পোস্ট
-        ├── feed-status.js        # API: ফিড ফ্রেশনেস হেলথ চেক
-        ├── subscribe.js          # API: ইমেল সাবস্ক্রিপশন ব্যবস্থাপনা
-        ├── blob-store.js         # Shared: Blobs store helper
-        ├── air-query.mjs         # AI: প্রাকৃতিক ভাষায় AQI প্রশ্ন
+        ├── scheduled-fetch.mjs   # ক্রন: সব ফিড, প্রতি ৪ ঘণ্টা অন্তর
+        ├── daily-digest.mjs      # ক্রন: ইমেইল ডাইজেস্ট, সকাল ৮টা IST
+        ├── reddit-feed.js        # API: ক্যাশ করা Reddit পোস্ট
+        ├── twitter-feed.js       # API: বাতিল — Nitter পড়ুন, যার পাবলিক ইনস্ট্যান্সগুলো এখন আর নেই
+        ├── news-proxy.js         # API: ক্যাশ করা নিউজ আর্টিকেল
+        ├── instagram-feed.js     # API: ক্যাশ করা Instagram পোস্ট
+        ├── feed-status.js        # API: ফিডের ফ্রেশনেস হেলথ চেক
+        ├── subscribe.js          # API: ইমেইল সাবস্ক্রিপশন ম্যানেজমেন্ট
+        ├── blob-store.js         # শেয়ার্ড: Blobs স্টোর হেল্পার
+        ├── air-query.mjs         # AI: ন্যাচারাল ল্যাঙ্গুয়েজ AQI কোয়েরি
         ├── health-advisory.mjs   # AI: ব্যক্তিগতকৃত স্বাস্থ্য পরামর্শ
-        ├── accountability-brief.mjs  # AI: ওয়ার্ড-পর্যায়ের জবাবদিহিতা ব্রিফ
-        └── anomaly-check.mjs     # AI: PM2.5 spike শনাক্তকরণ
+        ├── accountability-brief.mjs  # AI: ওয়ার্ড-লেভেল অ্যাকাউন্টেবিলিটি ব্রিফ
+        └── anomaly-check.mjs     # AI: PM2.5 স্পাইক ডিটেকশন
 ```
+
+এই তালিকাটি সম্পূর্ণ নয়: `netlify/functions/`-এ ২৯টি ফাংশন ফাইল এবং শেয়ার্ড `lib/` রয়েছে (উদাহরণস্বরূপ `waqi-proxy`, `rankings`, `data-api`, `push-send`, `fire-tracker`, `terra-collab` এবং `zotero-library`)।

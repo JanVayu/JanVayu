@@ -86,6 +86,16 @@ times before the file is given up on. If the repository's Actions setting forbid
 creating pull requests, the branch is still pushed and the job prints the compare
 link.
 
+The translations were then run from a session holding a Sarvam key rather than
+through the workflow, with one more rule: every number in the English must appear in
+the translation. It found real errors the structure checks had passed, among them a
+Bengali page that turned "768 of 783 districts" into "763 of 763". Of 72 English
+documents, 66 are now translated into Hindi, 62 into Bengali, 65 into Marathi and 69
+into Tamil, 262 files in all, each passing the structure and number checks. The rest
+keep their earlier translation or none: `fact-check-2026-07b.md` is too long for one
+response in every language, and a handful of code-heavy pages and wiki pages lost a
+code fence, a heading or a figure on three attempts.
+
 The machine translations are not read by a native speaker.
 
 ### Fixed, every GRAP claim checked against CAQM's revised schedule

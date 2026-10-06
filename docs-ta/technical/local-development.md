@@ -2,77 +2,77 @@
 
 ## முன்நிபந்தனைகள்
 
-- [Node.js](https://nodejs.org/) 18 அல்லது அதற்கு மேல்
+- [Node.js](https://nodejs.org/) 22.12 அல்லது அதற்கு மேல்
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`)
-- [Resend](https://resend.com) கணக்கு — மின்னஞ்சல் சுருக்க அம்சங்களில் வேலை செய்தால் மட்டும் தேவை
-- [Google AI Studio](https://aistudio.google.com) கணக்கு — AI அம்சங்களுக்கு மட்டும் தேவை
+- ஒரு [Resend](https://resend.com) கணக்கு — மின்னஞ்சல் digest அம்சங்களில் வேலை செய்தால் மட்டுமே தேவை
+- ஒரு [Groq Console](https://console.groq.com) கணக்கு — AI அம்சங்களுக்கு மட்டுமே தேவை
 
 ---
 
 ## அமைப்பு
 
 ```bash
-# 1. Repository-ஐ clone செய்யுங்கள்
+# 1. களஞ்சியத்தை clone செய்யவும்
 git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
-# 2. Dependencies-ஐ நிறுவுங்கள்
+# 2. சார்புகளை நிறுவவும்
 npm install
 
-# 3. சூழல் மாறிகள் வார்ப்புருவை நகலெடுக்கவும்
+# 3. சூழல் மாறிகள் template-ஐ நகலெடுக்கவும்
 cp .env.example .env
 
-# 4. உங்கள் சூழல் மாறிகளை நிரப்புங்கள் (கீழே பார்க்கவும்)
-# .env-ஐ உங்கள் மதிப்புகளுடன் திருத்தவும்
+# 4. உங்கள் சூழல் மாறிகளை நிரப்பவும் (கீழே பார்க்கவும்)
+# உங்கள் மதிப்புகளுடன் .env-ஐ edit செய்யவும்
 
-# 5. உள்ளூர் மேம்பாட்டு சர்வரைத் தொடங்குங்கள்
+# 5. உள்ளூர் மேம்பாட்டு சேவையகத்தை தொடங்கவும்
 netlify dev
 ```
 
-தளம் `http://localhost:8888`-ல் கிடைக்கும். Netlify Dev serverless functions-ஐ உள்ளூரில் பின்பற்றுகிறது, திட்டமிடப்பட்ட functions மற்றும் Blobs store உட்பட.
+இந்த தளம் `http://localhost:8888` என்ற முகவரியில் கிடைக்கும். Netlify Dev சேவையகம் இல்லாத செயல்பாடுகளை (serverless functions) உள்ளூரிலேயே வழங்குகிறது.
 
 ---
 
 ## சூழல் மாறிகள்
 
-திட்ட root-ல் ஒரு `.env` கோப்பை உருவாக்கவும் (இது gitignore ஆகிறது, commit ஆகாது):
+Project root-ல் ஒரு `.env` கோப்பை உருவாக்கவும் (இது gitignored செய்யப்பட்டுள்ளது, எனவே எப்போதுமே commit செய்யப்படாது):
 
 ```bash
-# மின்னஞ்சல் சுருக்கத்திற்கு தேவை
+# மின்னஞ்சல் digest-க்கு தேவை
 RESEND_API_KEY=your_resend_api_key
 RESEND_FROM=digest@yourdomain.com
 
-# Netlify Blobs-க்கு தேவை (local dev)
+# Netlify Blobs (உள்ளூர் மேம்பாடு)-க்கு தேவை
 BLOB_TOKEN=your_netlify_personal_access_token
 NETLIFY_SITE_ID=your_netlify_site_id
 
 # AI அம்சங்களுக்கு தேவை
-GEMINI_API_KEY=your_google_gemini_api_key
+GROQ_API_KEY=your_groq_api_key
 ```
 
-ஒவ்வொரு மதிப்பையும் எவ்வாறு பெறுவது என்பதற்கான முழு விவரங்களுக்கு [சூழல் மாறிகள்](environment-variables.md) பார்க்கவும்.
+ஒவ்வொரு மதிப்பையும் பெறுவதற்கான முழு விவரங்களுக்கும் [Environment Variables](environment-variables.md) பார்க்கவும்.
 
 ---
 
 ## Netlify Functions இல்லாமல் இயக்குதல்
 
-முன்-இறுதியில் (AQI டாஷ்போர்டு, வரைபடம், charts) மட்டும் வேலை செய்ய வேண்டும் என்றால், எந்த சூழல் மாறிகளும் Netlify அமைப்பும் தேவையில்லை:
+நீங்கள் front-end (AQI dashboard, map, charts) மட்டுமே வேலை செய்ய வேண்டும் என்றால், உங்களுக்கு எந்த சூழல் மாறிகளோ அல்லது Netlify அமைப்போ தேவையில்லை:
 
 ```bash
-# HTML கோப்பை நேரடியாக வழங்குங்கள்
+# HTML கோப்பை நேரடியாக வழங்கவும்
 npx serve .
 # அல்லது
 python3 -m http.server 8000
 ```
 
-AQI டாஷ்போர்டு, வரைபடம் மற்றும் அனைத்து கிளையண்ட்-பக்க அம்சங்களும் வேலை செய்யும், ஏனெனில் WAQI API உலாவியிலிருந்து நேரடியாக அழைக்கப்படுகிறது. சமூக feeds மற்றும் மின்னஞ்சல் சுருக்கம் functions இல்லாமல் வேலை செய்யாது.
+AQI dashboard மற்றும் map அவற்றின் நேரடி AQI-ஐ browser-ல் உள்ள WAQI API-லிருந்து நேரடியாகப் பெறுகின்றன, எனவே அவை functions இல்லாமல் வேலை செய்யும். ஒரு function-ஐச் சார்ந்திருக்கும் எந்தவொரு அம்சமும் (rankings, forecast, fire tracker, social feeds, email digest) அவை இல்லாமல் வேலை செய்யாது.
 
 ---
 
-## Netlify Functions-ஐ உள்ளூரில் சோதிப்பது
+## Netlify Functions-ஐ உள்ளூரில் சோதித்தல்
 
 ```bash
-# ஒரு குறிப்பிட்ட function-ஐ சோதனை payload-உடன் அழைக்கவும்
+# சோதனை payload-உடன் ஒரு குறிப்பிட்ட function-ஐ அழைக்கவும்
 netlify functions:invoke air-query --payload '{"city":"delhi","question":"Is it safe to go for a run?"}'
 
 # anomaly check-ஐ அழைக்கவும்
@@ -87,32 +87,35 @@ netlify functions:invoke feed-status
 ## Git Hooks
 
 Repo-வில் `.githooks/`-ல் Git hooks உள்ளன:
+- **pre-commit**: ஸ்டேஜ் செய்யப்பட்ட `.env` மற்றும் சான்றுகள் (credential) கோப்புகளைத் தடுக்கிறது, `console.log` ஸ்டேட்மென்ட்களைப் பற்றி எச்சரிக்கிறது, மெர்ஜ் கான்ஃப்ளிக்ட் (merge conflict) மார்க்கர்களைக் கண்டறிகிறது, மேலும் 500 KB-க்கும் பெரிய கோப்புகளுக்கு எச்சரிக்கை விடுக்கிறது (இது லின்டரை (linter) ரன் செய்யாது)
+- **commit-msg**: கமிட் மெசேஜ் ப்ரிஃபிக்ஸ் (prefix) முறையைப் பின்பற்றச் செய்கிறது
 
-- **pre-commit** — ஒவ்வொரு commit-க்கு முன் அடிப்படை lint சோதனைகளை இயக்குகிறது
-- **commit-msg** — வழக்கமான commit செய்தி வடிவமைப்பை செயல்படுத்துகிறது
+`npm run prepare` ஸ்கிரிப்ட் மூலம் ஹூக்குகள் (Hooks) தானாகவே இயங்கும் (இது `git config core.hooksPath .githooks` என்பதை ரன் செய்யும்).
 
-`npm run prepare` script (இது `git config core.hooksPath .githooks`-ஐ இயக்குகிறது) வழியாக hooks தானாக இயக்கப்படும்.
-
-### Commit செய்தி வடிவமைப்பு
+### கமிட் மெசேஜ் ஃபார்மேட்
 
 ```
-type(scope): short description
+Prefix: short description
 
-எடுத்துக்காட்டுகள்:
-feat(dashboard): add PM10 toggle to city cards
-fix(email): handle missing city in digest template
-docs(readme): update setup instructions
+Allowed prefixes: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore
+
+Examples:
+Add: PM10 toggle to city cards
+Fix: handle missing city in digest template
+Docs: update setup instructions
 ```
+
+`feat(dashboard): ...` போன்ற Conventional-commit ஸ்டைல் மெசேஜ்களை இந்த ஹூக் நிராகரிக்கும்.
 
 ---
 
-## கிளை உத்தி
+## பிரான்ச் ஸ்ட்ராட்டஜி
 
-| கிளை | நோக்கம் |
-|--------|---------|
-| `main` | உற்பத்தி — [www.janvayu.in](https://www.janvayu.in)-க்கு தானாக வரிசைப்படுத்துகிறது |
-| `feature/*` | புதிய அம்சங்கள் அல்லது உள்ளடக்க சேர்க்கைகள் |
-| `fix/*` | பிழை திருத்தங்கள் |
-| `docs/*` | ஆவண மாற்றங்கள் |
+| Branch | Purpose |
+|--------|--------|
+| `main` | புரொடக்‌ஷன் — [www.janvayu.in](https://www.janvayu.in)-க்கு தானாகவே டிப்ளாய் ஆகும் |
+| `feature/*` | புதிய அம்சங்கள் அல்லது புதிய கன்டென்ட் சேர்த்தல் |
+| `fix/*` | பக் (Bug) ஃபிக்ஸ்கள் |
+| `docs/*` | டாக்குமென்டேஷன் மாற்றங்கள் |
 
-எப்போதும் `main`-லிருந்து கிளை பிரித்து, மீண்டும் இணைக்க pull request திறக்கவும். `main`-க்கு நேரடியாக push செய்ய வேண்டாம்.
+எப்போதும் `main`-லிருந்து பிரான்ச் (branch) உருவாக்கி, மீண்டும் மெர்ஜ் (merge) செய்ய ஒரு புல் ரெக்வெஸ்ட்டை (pull request) ஓபன் செய்யவும். நேரடியாக `main`-ல் புஷ் (push) செய்ய வேண்டாம்.

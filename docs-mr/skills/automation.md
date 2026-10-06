@@ -1,49 +1,136 @@
-# Skill: स्वयंचलन
+# कौशल: ऑटोमेशन
 
-JanVayu ची नियोजित कार्ये आणि स्वयंचलित प्रक्रिया.
-
----
-
-## नियोजित कार्ये
-
-### Feed Refresh (प्रत्येक 4 तासांनी)
-- **Function:** `scheduled-fetch.mjs`
-- Reddit, Twitter/X, Instagram, बातम्या fetch
-- Netlify Blobs मध्ये cache
-- अपयश झाल्यास जुना cache राखतो
-
-### दैनिक Digest (सकाळी 8 IST)
-- **Function:** `daily-digest.mjs`
-- सदस्यांच्या शहरांचा AQI fetch
-- HTML email तयार करतो
-- Resend API ने पाठवतो
+JanVayu ची शेड्युल्ड टास्क, कॅशे आर्किटेक्चर आणि वारंवार होणारी देखभाल डिझाईन आणि प्रॉम्प्ट करण्यासाठी वापरल्या जाणाऱ्या पद्धती या खाली दिल्या आहेत — हे प्लॅटफॉर्मचे असे भाग आहेत जे मानवी हस्तक्षेपाशिवाय चालतात.
 
 ---
 
-## स्वयंचलित तपासण्या
+## मुख्य तत्त्व: फेल व्हिझिबली, डिग्रेड ग्रेसफुली
 
-### विसंगती शोध
-- Page load वर trigger
-- 5 शहरांच्या seasonal baseline शी तुलना
-- 10-मिनिट cache
+JanVayu वरील प्रत्येक ऑटोमेटेड सिस्टीम दोन गुणधर्मांसह डिझाईन केली आहे:
 
-### Link तपासणी (CI)
-- GitHub Actions (push/PR वर)
-- Lychee link checker
-- सोशल मीडिया आणि localhost URLs वगळतो
+1. **Fail visibly** — जेव्हा काहीतरी बिघडते, तेव्हा ते स्पष्टपणे लॉग करते आणि अर्थपूर्ण प्रतिसाद देते, मूक 500 एरर नाही
+2. **Degrade gracefully** — UI रिकामे होण्याऐवजी जुन्या किंवा अपूर्ण डेटासह तरीही रेंडर होते
 
-### Dependabot
-- मासिक npm अपडेट तपासणी
-- GitHub Actions अपडेट तपासणी
+हे तत्त्व प्रत्येक ऑटोमेशन प्रॉम्प्टसाठी सुरुवातीची अट होती:
+
+```
+Write a [scheduled/on-demand] Netlify Function for [task]. 
+Requirements:
+- If any external call fails, log the error with context (function name, 
+  city/feed, error message) and continue — do not abort the entire run
+- Always return a response body (never a raw 500)
+- Stale data is better than no data — if a cache read fails, try a live 
+  fetch; if the live fetch fails, return whatever stale data exists
+- Log the start and end of every scheduled run with a timestamp
+```
 
 ---
 
-## निरीक्षण
+## शेड्युल्ड फंक्शन पॅटर्न
 
-### Feed आरोग्य
-- `feed-status.js` — प्रत्येक feed ची ताजेपणा तपासणी
-- Cache मध्ये प्रत्येक feed चा शेवटचा अपडेट वेळ
+### "कॅशे वॉर्मर" पॅटर्न (`scheduled-fetch.mjs`)
 
-### त्रुटी logging
-- सर्व functions `console.log` ने त्रुटी log करतात
-- Netlify Functions logs मध्ये पहा
+जे फंक्शन्स शेड्युलनुसार आधीच डेटा फेच करतात त्यांच्यासाठी:
+
+```
+Write a Netlify Scheduled Function that fetches [list of feeds] and stores 
+results in Netlify Blobs. Requirements:
+- Fetch all feeds in parallel (Promise.allSettled — not Promise.all, 
+  so one failure doesn't cancel the others)
+- Write a "last-fetch-time" key to Blobs after each run (ISO timestamp)
+- Write a "last-fetch-log" key summarising which feeds succeeded/failed 
+  and how many items were retrieved
+- If a feed fetch fails, write the previous cached value back with an 
+  error flag rather than writing nothing
+- The on-demand functions that serve these feeds should check the age 
+  of the cache and serve it without making a live call if < 4 hours old
+```
+
+"last-fetch-log" की ही `feed-status.js` फंक्शन ॲडमिनला "Data last updated: X minutes ago" दाखवण्यासाठी वाचते — मूक ऑटोमेशनपेक्षा ऑब्झर्वेबल ऑटोमेशन डीबग करणे खूप सोपे असते.
+
+**`Promise.all` ऐवजी `Promise.allSettled` का?**
+कोणतेही एक प्रॉमिस रिजेक्ट होताच `Promise.all` सर्व प्रलंबित प्रॉमिस रद्द करते. 5+ स्रोत असलेल्या फीड वॉर्मरमध्ये, एका Reddit टाईमआऊटमुळे न्यूज फीड कॅशे होण्यापासून रोखले जाऊ नये. `Promise.allSettled` सर्व काही पूर्ण होईपर्यंत चालवते आणि प्रत्येकासाठी यश किंवा अपयश असा निकाल देते.
+
+---
+### "डेली डायजेस्ट" पॅटर्न (`daily-digest.mjs`)
+
+ठराविक वेळेनुसार वैयक्तिकृत संवाद पाठवणाऱ्या फंक्शन्ससाठी:
+
+```
+असे एक Netlify शेड्युल्ड फंक्शन लिहा जे:
+1. Blobs मधून सबस्क्रायबर्सची यादी वाचेल (ईमेल, शहराच्या आवडी, थ्रेशोल्ड)
+2. प्रत्येक सबस्क्रायबरसाठी, त्यांच्या शहरातील सध्याचा AQI आणेल
+3. जर AQI सबस्क्रायबरच्या थ्रेशोल्डपेक्षा जास्त असेल, तर Resend द्वारे ईमेल पाठवेल
+4. लॉग करा: एकूण सबस्क्रायबर्स, पाठवलेले ईमेल, वगळलेले ईमेल (थ्रेशोल्ड न गाठल्यामुळे), 
+   आणि फेल झालेले ईमेल
+5. काम पूर्ण झाल्यावर लॉग Blobs मध्ये "last-email-log" म्हणून सेव्ह करा
+6. एकाही सबस्क्रायबरच्या फेल्युअरमुळे लूप थांबणार नाही याची काळजी घ्या — 
+   प्रत्येक सबस्क्रायबरसाठी एरर्स पकडा आणि पुढे चालू ठेवा
+```
+
+"एकाही सबस्क्रायबरच्या फेल्युअरमुळे लूप थांबणार नाही" हे डायजेस्ट पाठवणाऱ्यासाठी सर्वात महत्त्वाचे बंधन आहे. एका चुकीच्या ईमेल ॲड्रेसमुळे इतर २०० सबस्क्रायबर्सना त्यांचा डायजेस्ट मिळण्यापासून रोखता कामा नये.
+
+---
+
+## फीड फ्रेशनेस आर्किटेक्चर
+
+कॅशे फ्रेशनेस चेक हा सर्व ऑन-डिमांड फीड फंक्शन्समध्ये वापरला जाणारा पॅटर्न आहे:
+
+```javascript
+// Fetch live डेटा आणायचा की नाही हे ठरवण्यापूर्वी कॅशेचे वय तपासा
+const cacheAge = Date.now() - new Date(lastFetchTime).getTime();
+const FOUR_HOURS = 4 * 60 * 60 * 1000;
+
+if (cacheAge < FOUR_HOURS && cachedData) {
+  return cachedData; // cache मधून सर्व्ह करा
+}
+// else: fetch live, update cache, return
+```
+
+**४ तासच का?**
+Reddit आणि न्यूज फीड्स साधारणपणे ४ तासांच्या सायकलमध्ये लक्षणीयरीत्या बदलतात. जास्त वेळा रिफ्रेश केल्यास रेट लिमिट्स लागू होतात; तर कमी वेळा रिफ्रेश केल्यास प्रदूषणाच्या सक्रिय घटनांदरम्यान प्लॅटफॉर्म जुनाट वाटतो.
+
+**HTTP Cache-Control हेडर्स का वापरू नयेत?**
+Netlify चे CDN HTTP रिस्पॉन्स कॅशे करते, पण फीड्समध्ये डायनॅमिक JSON असते. ॲप्लिकेशन-लेव्हल कॅशे म्हणून Blobs वापरल्याने एक्सपायरीवर स्पष्ट नियंत्रण मिळते — अपस्ट्रीम CDN कॅशे हेडर चुकीच्या पद्धतीने सेट केल्यामुळे जुनाट रिस्पॉन्स सर्व्ह होण्याचा धोका नसतो.
+
+---
+
+## मॉनिटरिंग पॅटर्न
+
+JanVayu एक हलका हेल्थ एंडपॉइंट म्हणून `feed-status.js` वापरते:
+
+```
+असे एक Netlify फंक्शन लिहा जे Blobs कीज वाचेल:
+- "last-fetch-time" (शेवटच्या शेड्युल्ड फेचची ISO टाइमस्टॅम्प)
+- "last-fetch-log" (JSON: प्रत्येक फीडची यश/अपयश/काऊंट)
+- "last-email-log" (JSON: डायजेस्ट पाठवण्याचे स्टॅट्स)
+
+तिन्ही JSON रिस्पॉन्स म्हणून परत करा. हा एंडपॉइंट क्लायंटद्वारे पेज लोड करताना 
+"Feeds last updated: <time> (auto-updates every 4h)" दाखवण्यासाठी कॉल केला जातो. यात कोणताही स्टेलनेस वॉर्निंग नाही.
+```
+
+यामुळे ऑटोमेशन फ्रंट एंडवरून पाहता येते — एखादा युजर (किंवा मेंटेनर) Netlify डॅशबोर्ड न वापरता प्लॅटफॉर्मच्या डेटाची फ्रेशनेस तपासू शकतो.
+
+---
+
+## क्रॉन टायमिंग पॅटर्न
+सर्व शेड्युल्ड फंक्शन्स UTC क्रॉन (cron) एक्स्प्रेशन्स वापरतात. IST ऑफसेट नेहमी स्पष्टपणे कॅल्क्युलेट केला जातो, गृहीत धरला जात नाही:
+
+```
+IST = UTC + 5:30
+8:00 AM IST = 2:30 AM UTC → cron: "30 2 * * *"
+Every 4 hours = "0 */4 * * *" (UTC, i.e. 05:30, 09:30, 13:30 ... IST)
+```
+
+**शेड्युल्ड फंक्शन डिप्लॉय करण्यापूर्वी UTC कन्व्हर्जन तपासण्यासाठी नेहमी Python किंवा एखाद्या खात्रीशीर कन्व्हर्टरचा वापर करा.** भारतात डेलाइट सेव्हिंग टाईम (DST) पाळला जात नाही, त्यामुळे IST ऑफसेट वर्षभर +5:30 असा निश्चित असतो; सहसा अर्ध्या तासाचा विसर पडल्यामुळे चुका होतात.
+
+---
+
+## इतर प्रोजेक्ट्ससाठी वापरणे
+
+कॅशे-वॉर्मर (cache-warmer) + ऑन-डिमांड-सर्व्हर (on-demand-server) पॅटर्न अशा कोणत्याही प्रोजेक्टसाठी पुन्हा वापरता येतो जो:
+- रेट-लिमिटेड किंवा अविश्वसनीय थर्ड-पार्टी APIs मधील डेटा दाखवतो
+- API उपलब्ध असो वा नसो, युजर्सना पेज फास्ट लोड होण्याची अपेक्षा असते
+- कायमस्वरूपी डेटाबेस परवडत नाही (Netlify Blobs सर्व्हरलेस आहे आणि फ्री-टियरवर उपलब्ध आहे)
+
+महत्त्वाचा आर्किटेक्चरल निर्णय: **फेच (fetch) आणि सर्व्ह (serve) वेगळे करा**. शेड्युल्ड फंक्शन फेच करते; ऑन-डिमांड फंक्शन सर्व्ह करते. ते फक्त Blobs कॅशेद्वारे संवाद साधतात. यामुळे दोन्ही गोष्टी स्वतंत्रपणे टेस्ट करण्यायोग्य आणि स्वतंत्रपणे डीबग करण्यायोग्य बनतात.

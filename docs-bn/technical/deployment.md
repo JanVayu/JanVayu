@@ -1,29 +1,31 @@
 # ডিপ্লয়মেন্ট
 
-JanVayu **Netlify**-তে ডিপ্লয় করা আছে, GitHub-এ `main` ব্রাঞ্চে প্রতিটি পুশে স্বয়ংক্রিয়ভাবে ডিপ্লয় ট্রিগার হয়।
+JanVayu **Netlify**-এ ডিপ্লয় করা হয়েছে, যেখানে GitHub-এর `main` ব্রাঞ্চে প্রতিবার পুশ করার সাথে সাথে স্বয়ংক্রিয়ভাবে ডিপ্লয়মেন্ট ট্রিগার হয়।
 
 ---
 
 ## ডিপ্লয়মেন্ট কীভাবে কাজ করে
 
-1. GitHub-এ `main`-এ পুশ করুন
-2. Netlify webhook-এর মাধ্যমে নতুন কমিট শনাক্ত করে
-3. Netlify বিল্ড ও ডিপ্লয় করে (কোনো বিল্ড স্টেপ নেই — repo root হল publish directory)
-4. 30-90 সেকেন্ডের মধ্যে সাইট [www.janvayu.in](https://www.janvayu.in)-এ লাইভ
+১. GitHub-এ `main`-এ পুশ করা
+২. ওয়েবহুকের মাধ্যমে Netlify নতুন কমিট শনাক্ত করে
+৩. Netlify বিল্ড কমান্ড (`node scripts/bump-version.mjs`, একটি ভার্সন-স্ট্যাম্প স্ক্রিপ্ট; এখানে কোনো বান্ডলার নেই) রান করে এবং রেপো রুটকে পাবলিশ ডিরেক্টরি হিসেবে ধরে ডিপ্লয় করে
+৪. সাইটটি [www.janvayu.in](https://www.janvayu.in)-এ লাইভ হয়
 
-README-তে Netlify build status badge বর্তমান deploy অবস্থা প্রতিফলিত করে।
+README-এ থাকা Netlify বিল্ড স্ট্যাটাস ব্যাজটি বর্তমান ডিপ্লয় স্টেট তুলে ধরে।
 
 ---
 
 ## Netlify কনফিগারেশন (`netlify.toml`)
 
 ```toml
+# সংক্ষেপে দেওয়া হয়েছে: আসল netlify.toml-এ আরও অনেক হেডার এবং রিডাইরেক্ট রুল রয়েছে
 [build]
-  publish = "."         # Repo root থেকে সার্ভ করুন
+  command = "node scripts/bump-version.mjs"
+  publish = "."         # রেপো রুট থেকে সার্ভ করা
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22"
 
 [[headers]]
   for = "/*"
@@ -38,59 +40,57 @@ README-তে Netlify build status badge বর্তমান deploy অবস�
   status = 301
   force = true
 
+# .../docs, /blog, /embed, /api, /ask, /status ইত্যাদির জন্য নির্দিষ্ট রুলগুলো ফলব্যাকের আগে আসে
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 ```
 
-মূল পয়েন্ট:
-- SPA fallback (`/* → /index.html`) নিশ্চিত করে যে deep links সঠিকভাবে কাজ করে
-- Non-www কে www-তে রিডিরেক্ট করা হয় (canonical domain)
-- নিরাপত্তা headers সর্বব্যাপী প্রয়োগ করা হয়
+মূল বিষয়গুলো:
+- SPA ফলব্যাক (`/* → /index.html`) নিশ্চিত করে যে ডিপ লিঙ্কগুলো সঠিকভাবে কাজ করে
+- নন-www থেকে www-তে (ক্যানোনিকাল ডোমেইন) রিডাইরেক্ট করা হয়
+- সিকিউরিটি হেডারগুলো বিশ্বব্যাপী প্রয়োগ করা হয়
 
 ---
 
 ## ডোমেইন ও DNS
 
-কাস্টম ডোমেইন `janvayu.in` Netlify DNS-এ কনফিগার করা আছে। Repo root-এ `CNAME` ফাইলটি GitHub Pages কাস্টম ডোমেইন সেট করে (Netlify মাইগ্রেশনের আগে থেকে legacy)।
+কাস্টম ডোমেইন `janvayu.in` Netlify DNS-এ কনফিগার করা আছে। রেপো রুটে থাকা `CNAME` ফাইলে `www.janvayu.in` রয়েছে; Netlify-এ এর কোনো প্রভাব নেই, এবং এটি আগের কোনো GitHub Pages সেটআপের কিনা তা রেপোজিটোরিতে রেকর্ড করা নেই।
 
 ---
 
-## Preview Deploys
+## প্রিভিউ ডিপ্লয়
 
-Pull requests স্বয়ংক্রিয়ভাবে একটি preview URL তৈরি করে (যেমন, `https://deploy-preview-42--janvayu.netlify.app`)। এটি রিভিউয়ারদের `main`-এ মার্জ করার আগে পরিবর্তন পরীক্ষা করতে দেয়।
+পুল রিকোয়েস্টগুলো স্বয়ংক্রিয়ভাবে একটি প্রিভিউ URL তৈরি করে (যেমন, `https://deploy-preview-42--janvayu.netlify.app`)। এর মাধ্যমে রিভিউয়াররা `main`-এ মার্জ করার আগে পরিবর্তনগুলো পরীক্ষা করে দেখতে পারেন।
 
 ---
 
-## প্রোডাকশনে Environment Variables
+## প্রোডাকশনে এনভায়রনমেন্ট ভেরিয়েবল
 
-Netlify dashboard-এ সমস্ত প্রয়োজনীয় variables সেট করুন:
+Netlify ড্যাশবোর্ডে প্রয়োজনীয় সব ভেরিয়েবল সেট করুন:
 
-1. [app.netlify.com](https://app.netlify.com)-এ যান
-2. JanVayu সাইট খুলুন
-3. **Site Configuration → Environment Variables**-এ যান
-4. প্রতিটি variable যোগ করুন ([Environment Variables](environment-variables.md) দেখুন)
+১. [app.netlify.com](https://app.netlify.com)-এ যান
+২. JanVayu সাইটটি খুলুন
+৩. **Site Configuration → Environment Variables**-এ যান
+৪. প্রতিটি ভেরিয়েবল যোগ করুন ([Environment Variables](environment-variables.md) দেখুন)
 
-প্রোডাকশন environment variables **কখনো** রিপোজিটরিতে সংরক্ষণ করা হয় না।
+প্রোডাকশন এনভায়রনমেন্ট ভেরিয়েবলগুলো **কখনোই** রেপোজিটোরিতে স্টোর করা হয় না।
 
 ---
 
 ## রোলব্যাক
 
-আগের deploy-এ ফিরে যেতে:
+আগের কোনো ডিপ্লয়মেন্টে রোলব্যাক করতে:
 
-1. Netlify dashboard → Deploys-এ যান
-2. সর্বশেষ জানা-ভালো deploy খুঁজুন
-3. "Publish deploy" ক্লিক করুন
+১. Netlify ড্যাশবোর্ডে যান → Deploys
+২. শেষ পরিচিত ভালো ডিপ্লয়টি খুঁজুন
+৩. "Publish deploy"-এ ক্লিক করুন
+নেটলিফাই সম্পূর্ণ ডিপ্লয় হিস্ট্রি সংরক্ষণ করে, তাই রোলব্যাক তাৎক্ষণিক হয়।
 
-Netlify সম্পূর্ণ deploy ইতিহাস রাখে, তাই রোলব্যাক তাৎক্ষণিক।
+## মনিটরিং
 
----
-
-## পর্যবেক্ষণ
-
-- **Deploy স্থিতি:** Netlify dashboard → Deploys
-- **Function logs:** Netlify dashboard → Functions → Logs
-- **ফিড ফ্রেশনেস:** `GET /.netlify/functions/feed-status` — সমস্ত ফিডের শেষ আপডেট টাইমস্ট্যাম্প ফেরত দেয়
-- **Scheduled function logs:** Netlify dashboard → Functions → Scheduled Functions
+- **ডিপ্লয় স্ট্যাটাস:** নেটলিফাই ড্যাশবোর্ড → ডিপ্লয়স
+- **ফাংশন লগস:** নেটলিফাই ড্যাশবোর্ড → ফাংশনস → লগস
+- **ফিড ফ্রেশনেস:** `GET /.netlify/functions/feed-status` — সমস্ত ফিডের সর্বশেষ আপডেটের টাইমস্ট্যাম্প প্রদান করে
+- **শিডিউলড ফাংশন লগস:** নেটলিফাই ড্যাশবোর্ড → ফাংশনস → শিডিউলড ফাংশনস

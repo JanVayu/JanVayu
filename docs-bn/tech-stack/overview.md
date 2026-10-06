@@ -1,66 +1,67 @@
-# টেক স্ট্যাক পরিচিতি
+# টেক স্ট্যাক ওভারভিউ
 
-JanVayu ইচ্ছাকৃতভাবে একটি ন্যূনতম স্ট্যাকে তৈরি — জিরো frontend framework, তিনটি npm dependency, এবং একটি serverless backend। এই পেজ প্রতিটি ব্যবহৃত প্রযুক্তি এবং কেন সেটি বেছে নেওয়া হয়েছে তার মানচিত্র দেয়।
+JanVayu ইচ্ছে করেই খুব সাধারণ একটি স্ট্যাকের ওপর তৈরি করা হয়েছে — কোনো ফ্রন্টএন্ড ফ্রেমওয়ার্ক নেই, মাত্র তিনটি npm ডিপেন্ডেন্সি, এবং একটি সার্ভারলেস ব্যাকএন্ড। এই পেজে ব্যবহৃত প্রতিটি প্রযুক্তি এবং কেন এটি বেছে নেওয়া হয়েছে তা তুলে ধরা হয়েছে।
 
 ---
 
 ## এক নজরে স্ট্যাক
 
-| স্তর | প্রযুক্তি | উদ্দেশ্য |
+| লেয়ার | প্রযুক্তি | উদ্দেশ্য |
 |-------|-----------|---------|
-| **Frontend** | Vanilla HTML/CSS/JS | সিঙ্গেল-পেজ অ্যাপ্লিকেশন (কোনো বিল্ড স্টেপ নেই) |
-| **Charts** | Chart.js (CDN) | AQI ট্রেন্ড ভিজুয়ালাইজেশন |
-| **Maps** | Leaflet.js + OpenStreetMap (CDN) | ইন্টারেক্টিভ স্টেশন মানচিত্র |
-| **Backend** | Netlify Functions (Node.js 18) | Serverless API endpoints |
-| **Cache** | Netlify Blobs | Persistent JSON ক্যাশ (strong consistency) |
-| **Email** | Resend API | দৈনিক AQI ডাইজেস্ট ডেলিভারি |
-| **AI** | Google Gemini 2.5 Flash | NL queries, স্বাস্থ্য পরামর্শ, anomaly detection |
-| **Hosting** | Netlify CDN | GitHub `main` থেকে স্বয়ংক্রিয় ডিপ্লয় |
-| **CI** | GitHub Actions | লিঙ্ক চেকিং, Dependabot |
-| **Domain** | Netlify DNS | janvayu.in কাস্টম ডোমেইন |
-| **Development** | Claude Code (Anthropic) | AI-সহায়তা ডেভেলপমেন্ট ওয়ার্কফ্লো |
+| **ফ্রন্টএন্ড** | ভ্যানিলা HTML/CSS/JS | সিঙ্গেল-পেজ অ্যাপ্লিকেশন (কোনো বিল্ড স্টেপ নেই) |
+| **চার্ট** | Chart.js (CDN) | AQI ট্রেন্ড ভিজ্যুয়ালাইজেশন |
+| **ম্যাপ** | Leaflet.js + OpenStreetMap (CDN) | ইন্টারঅ্যাকটিভ স্টেশন ম্যাপ |
+| **ব্যাকএন্ড** | Netlify Functions (Node.js 22) | সার্ভারলেস API এন্ডপয়েন্ট |
+| **ক্যাশ** | Netlify Blobs | পারসিস্টেন্ট JSON ক্যাশ (স্ট্রং কনসিস্টেন্সি) |
+| **ইমেইল** | Resend API | দৈনিক AQI ডাইজেস্ট ডেলিভারি |
+| **AI** | Groq-এর মাধ্যমে OpenAI gpt-oss-120b (`env-overridable` `GROQ_MODEL`) | এনএল (NL) কোয়েরি, স্বাস্থ্য পরামর্শ, অ্যানোমালি ডিটেকশন |
+| **হোস্টিং** | Netlify CDN | GitHub `main` থেকে অটো-ডিপ্লয় |
+| **CI** | GitHub Actions | লিংক অডিট, অ্যাক্সেসিবিলিটি, Lighthouse, CodeQL, ট্রান্সলেশন সিঙ্ক, সাইট-ফিগার গার্ড, Dependabot |
+| **ডোমেইন** | Netlify DNS | janvayu.in কাস্টম ডোমেইন |
+| **ডকস** | Docsify (৫টি ভাষা) | `/docs/`-এ সিঙ্গেল শেল; ল্যাঙ্গুয়েজ হ্যাশ রুট (`/docs/#/hi/` ইত্যাদি) `docs-{lang}/` মার্কডাউন লোড করে |
+| **ডেভেলপমেন্ট** | Claude Code (Anthropic) | এআই-অ্যাসিস্টেড ডেভেলপমেন্ট ওয়ার্কফ্লো |
 
 ---
 
 ## কেন এই স্ট্যাক?
 
-### জিরো-ফ্রেমওয়ার্ক Frontend
+### জিরো-ফ্রেমওয়ার্ক ফ্রন্টএন্ড
 
-JanVayu-র দর্শকদের মধ্যে ভারতজুড়ে 2G সংযোগ এবং নিম্নমানের Android ডিভাইসের ব্যবহারকারী রয়েছে। React বা Vue এর মতো ফ্রেমওয়ার্ক একটি ফিচার লোড হওয়ার আগেই 40-100 KB JavaScript যোগ করত। পরিবর্তে:
+JanVayu-এর দর্শকদের মধ্যে সারা ভারতের ২জি (2G) কানেকশন এবং লো-এন্ড অ্যান্ড্রয়েড ডিভাইসের ব্যবহারকারীরাও আছেন। React বা Vue-এর মতো কোনো ফ্রেমওয়ার্ক ব্যবহার করলে, একটি ফিচার লোড হওয়ার আগেই ফ্রেমওয়ার্ক রানটাইম ডাউনলোড করতে হতো। এর বদলে:
 
-- সম্পূর্ণ অ্যাপটি একটি `index.html` ফাইল (ইনলাইন CSS + JS)
-- কোনো transpilation নেই, কোনো bundling নেই, কোনো tree-shaking প্রয়োজন নেই
-- Deploy artefact = repo নিজেই
-- মৌলিক HTML/JS দক্ষতা সম্পন্ন যেকোনো contributor অবদান রাখতে পারেন
+- অ্যাপটি হলো `index.html` এবং তার সাথে `styles.css`, `app.js`, `games.js` এবং ১৯টি লেজি-লোডেড প্যানেল ফ্র্যাগমেন্ট, যেখানে কোনো বান্ডলার নেই
+- কোনো ট্রান্সপাইলেশন, বান্ডলিং বা ট্রি-শেকিংয়ের প্রয়োজন নেই
+- ডিপ্লয় আর্টিফ্যাক্ট = রিপোজিটরিটি নিজেই
+- বেসিক HTML/JS স্কিল জানা যেকোনো কন্ট্রিবিউটর এতে অবদান রাখতে পারেন
 
-### মাত্র 3টি npm Dependency
+### মাত্র ৩টি npm ডিপেন্ডেন্সি
 
 ```json
 {
-  "@google/generative-ai": "^0.24.1",
-  "@netlify/blobs": "^8.1.0",
-  "resend": "^6.9.3"
+  "@netlify/blobs": "^11.0.2",
+  "resend": "^6.14.0",
+  "web-push": "^3.6.7"
 }
 ```
 
-তিনটিই শুধু সার্ভার-সাইড (Netlify Functions দ্বারা ব্যবহৃত)। ক্লায়েন্টের কোনো npm dependency নেই — Chart.js এবং Leaflet.js CDN থেকে লোড হয়।
+এই তিনটিই শুধুমাত্র সার্ভার-সাইডে ব্যবহৃত হয় (Netlify Functions দ্বারা)। AI ফিচারগুলো সরাসরি `fetch`-এর মাধ্যমে Groq REST API (OpenAI-কম্প্যাটিবল) ব্যবহার করে — কোনো SDK-এর প্রয়োজন নেই। ক্লায়েন্টের কোনো npm ডিপেন্ডেন্সি নেই — Chart.js এবং Leaflet.js CDN থেকে লোড হয়।
 
-### Serverless Over Server
+### সার্ভারের চেয়ে সার্ভারলেস
 
-Netlify Functions একটি persistent server-এর প্রয়োজনীয়তা দূর করে। সুবিধা:
-- জিরো ops বোঝা (কোনো সার্ভার প্যাচিং নেই, কোনো স্কেলিং নেই)
-- ফ্রি টায়ার JanVayu-র ট্রাফিক কভার করে
-- স্বয়ংক্রিয় HTTPS, CDN, এবং edge deployment
-- Functions cold-start < 500ms-এ
+Netlify Functions একটি পারসিস্টেন্ট সার্ভারের প্রয়োজনীয়তা দূর করে। সুবিধাগুলো হলো:
+- জিরো ওপিএস (ops) বোঝা (কোনো সার্ভার প্যাচিং নেই, কোনো স্কেলিং নেই)
+- অটোমেটিক HTTPS, CDN এবং এজ ডিপ্লয়মেন্ট
 
 ---
 
-## বিস্তারিত ভাঙ্গন
+## বিস্তারিত ব্রেকডাউন
 
-| বিভাগ | পেজ |
+
+---
+| বিভাগ | পৃষ্ঠা |
 |---------|------|
-| Frontend (HTML/CSS/JS, Chart.js, Leaflet) | [Frontend Stack](frontend.md) |
-| Backend (Netlify Functions, Blobs, Resend) | [Backend Stack](backend.md) |
-| AI Layer (Gemini 2.5 Flash) | [AI Stack](ai-layer.md) |
-| Infrastructure (Netlify, GitHub, DNS) | [Infrastructure](infrastructure.md) |
-| Development Tools (Claude Code, Git hooks) | [Dev Tooling](dev-tooling.md) |
+| ফ্রন্টএন্ড (HTML/CSS/JS, Chart.js, Leaflet) | [Frontend Stack](frontend.md) |
+| ব্যাকএন্ড (Netlify Functions, Blobs, Resend) | [Backend Stack](backend.md) |
+| এআই লেয়ার (OpenAI gpt-oss-120b via Groq) | [AI Stack](ai-layer.md) |
+| ইনফ্রাস্ট্রাকচার (Netlify, GitHub, DNS) | [Infrastructure](infrastructure.md) |
+| ডেভেলপমেন্ট টুলস (Claude Code, Git hooks) | [Dev Tooling](dev-tooling.md) |

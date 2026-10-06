@@ -1,78 +1,78 @@
-# குறியீடு தரநிலைகள்
+# குறியீட்டு விதிகள்
 
-JanVayu plain HTML, CSS மற்றும் JavaScript-ஐ பயன்படுத்துகிறது. Build படி இல்லை, framework இல்லை, bundler இல்லை. அப்படியே வைத்திருங்கள்.
+JanVayu சாதாரண HTML, CSS, மற்றும் JavaScript-ஐப் பயன்படுத்துகிறது. இதில் பில்ட் (build) படி இல்லை, ஃப்ரேம்வொர்க் (framework) இல்லை, மற்றும் பண்ட்லர் (bundler) இல்லை. அதை அப்படியே வைத்திருங்கள்.
 
 ---
 
 ## HTML
 
-- **Semantic HTML5 elements** பயன்படுத்தவும் — `<article>`, `<section>`, `<nav>`, `<main>`, `<header>`, `<footer>`
-- அனைத்து images மற்றும் icons-க்கும் `alt` text தேவை
-- Forms-க்கு சரியான `<label>` elements இருக்க வேண்டும் (screen readers-க்கு)
-- Semantic HTML போதுமானதாக இல்லாத இடங்களில் `aria-label` மற்றும் `role` attributes பயன்படுத்தவும்
-- WCAG 2.1 AA அணுகல்தன்மை வழிகாட்டுதல்களை பின்பற்றவும்
+- **semantic HTML5 elements**-ஐப் பயன்படுத்துங்கள் — `<article>`, `<section>`, `<nav>`, `<main>`, `<header>`, `<footer>`
+- அனைத்துப் படங்கள் மற்றும் ஐகான்களுக்கு `alt` உரை (text) தேவை
+- ஃபார்ம்களில் (Forms) சரியான `<label>` எலிமெண்ட்கள் இருக்க வேண்டும் (ஸ்கிரீன் ரீடர்களுக்காக)
+- semantic HTML போதுமானதாக இல்லாத இடங்களில் `aria-label` மற்றும் `role` பண்புகளைப் பயன்படுத்துங்கள்
+- WCAG 2.1 AA அணுகல்தன்மை (accessibility) வழிகாட்டுதல்களைப் பின்பற்றுங்கள்
 
 ---
 
 ## CSS
 
-- வண்ணங்கள் மற்றும் இடைவெளிக்கு **CSS custom properties (variables)** பயன்படுத்தவும் — `:root` block-க்கு வெளியே hex மதிப்புகளை hardcode செய்ய வேண்டாம்
-- Mobile-first CSS எழுதவும் — அடிப்படை styles சிறிய திரைகளை குறிவைக்கும், media queries பெரிய breakpoints-ஐ கையாளும்
-- CSS frameworks (Bootstrap, Tailwind) பயன்படுத்த வேண்டாம் — எளிமை மற்றும் செயல்திறனுக்காக vanilla CSS
+- நிறங்கள் மற்றும் இடைவெளிகளுக்கு **CSS custom properties (variables)**-ஐப் பயன்படுத்துங்கள் — `:root` பிளாக்கிற்கு வெளியே ஹெக்ஸ் (hex) மதிப்புகளை நேரடியாகக் குறியீடு செய்யாதீர்கள்
+- மொபைல்-ஃபர்ஸ்ட் (mobile-first) CSS-ஐ எழுதுங்கள் — அடிப்படை ஸ்டைல்கள் சிறிய திரைகளை இலக்காகக் கொண்டிருக்க வேண்டும், மீடியா குவெரிகள் (media queries) பெரிய பிரேக் பாயிண்ட்களைக் கையாள வேண்டும்
+- CSS ஃப்ரேம்வொர்க்குகளைப் (Bootstrap, Tailwind) பயன்படுத்த வேண்டாம் — எளிமை மற்றும் செயல்திறனுக்காக இந்தத் திட்டம் வெண்ணிலா (vanilla) CSS-ஆக உள்ளது
 
 ---
 
 ## JavaScript
 
-- **Vanilla JavaScript மட்டுமே** — React, Vue, jQuery அல்லது பிற frameworks வேண்டாம்
-- அனைத்து asynchronous operations-க்கும் `async/await` பயன்படுத்தவும் (callbacks அல்ல)
-- API அழைப்புகளை `try/catch`-ல் wrap செய்யவும் — errors-ஐ எப்போதும் அழகாக கையாளவும்
-- தெளிவாக இல்லாத logic-க்கு comments சேர்க்கவும்
-- Safari ஆதரவு இல்லாத ES2022+ features பயன்படுத்த வேண்டாம் — சந்தேகம் இருந்தால் [caniuse.com](https://caniuse.com) சோதிக்கவும்
+- **Vanilla JavaScript மட்டும்** — React, Vue, jQuery, அல்லது வேறு எந்த ஃப்ரேம்வொர்க்குகளும் வேண்டாம்
+- அனைத்து ஒத்திசைவற்ற (asynchronous) செயல்பாடுகளுக்கும் `async/await`-ஐப் பயன்படுத்துங்கள் (கால்பேக்குகள் வேண்டாம்)
+- API அழைப்புகளை `try/catch`-க்குள் வையுங்கள் — பிழைகளைக் கையாள்வதில் எப்போதும் கவனமாக இருங்கள்
+- எளிதில் புரியாத லாஜிக்குக்கு (logic) கமெண்ட்களைச் சேர்க்கவும்
+- Safari ஆதரவு இல்லாத ES2022+ அம்சங்களைப் பயன்படுத்த வேண்டாம் — சந்தேகம் இருந்தால் [caniuse.com](https://caniuse.com)-ஐப் பார்க்கவும்
 
 ---
 
 ## Netlify Functions
 
-- ஒவ்வொரு function-ஐயும் **குவிமையமாகவும் ஒற்றை-நோக்கமாகவும்** வைத்திருங்கள்
-- பொருத்தமான HTTP status codes திருப்பவும் (200, 400, 404, 500)
-- ரகசியங்களை ஒருபோதும் hardcode செய்ய வேண்டாம் — `process.env.VARIABLE_NAME` பயன்படுத்தவும்
-- அனைத்து API functions-லும் CORS headers (`Access-Control-Allow-Origin: *`) சேர்க்கவும்
-- `OPTIONS` preflight requests-ஐ கையாளவும்
-- PR சமர்ப்பிப்பதற்கு முன் `netlify dev`-உடன் உள்ளூரில் சோதிக்கவும்
+- ஒவ்வொரு ஃபங்ஷனையும் **கவனத்துடனும் ஒற்றைப் பயன்பாட்டுடனும்** வைத்திருங்கள்
+- சரியான HTTP ஸ்டேட்டஸ் கோடுகளைத் திருப்பி அனுப்புங்கள் (200, 400, 404, 500)
+- ரகசியங்களை (secrets) நேரடியாகக் குறியீடு செய்ய வேண்டாம் — `process.env.VARIABLE_NAME`-ஐப் பயன்படுத்துங்கள்
+- அனைத்து API ஃபங்ஷன்களிலும் CORS ஹெடர்களை (`Access-Control-Allow-Origin: *`) சேர்க்கவும்
+- `OPTIONS` ப்ரீஃப்ளைட் (preflight) கோரிக்கைகளைக் கையாளவும்
+- PR-ஐச் சமர்ப்பிக்கும் முன் `netlify dev` மூலம் லோக்கலில் (locally) சோதிக்கவும்
 
 ---
 
-## சூழல் மாறிகள்
+## Environment Variables
 
-- புதிய சூழல் மாறிகள்:
-  - placeholder மதிப்பு மற்றும் comment-உடன் `.env.example`-க்கு சேர்க்கப்பட வேண்டும்
-  - `docs/technical/environment-variables.md`-ல் ஆவணப்படுத்தப்பட வேண்டும்
+- புதிய environment variables:
+  - ஒரு பிளேஸ்ஹோல்டர் மதிப்பு மற்றும் கமெண்ட்டுடன் `.env.example`-இல் சேர்க்கப்பட வேண்டும்
+  - `docs/technical/environment-variables.md`-இல் ஆவணப்படுத்தப்பட வேண்டும்
 
 ---
 
 ## செயல்திறன் வழிகாட்டுதல்கள்
 
-- கலந்துரையாடல் இல்லாமல் புதிய npm dependencies சேர்க்க வேண்டாம் — `package.json` வேண்டுமென்றே குறைந்தபட்சமாக உள்ளது
-- பெரிய third-party scripts-ஐ synchronous-ஆக ஏற்ற வேண்டாம் — `defer` அல்லது `async` பயன்படுத்தவும்
-- Images optimize செய்யப்பட வேண்டும், பொருத்தமான formats-ல் serve செய்யப்பட வேண்டும்
-- Site செயல்திறன் மற்றும் அணுகல்தன்மையில் Lighthouse-ல் 90+ score பெற வேண்டும்
+- விவாதம் இல்லாமல் புதிய npm டிபென்டன்சிகளைச் (dependencies) சேர்க்க வேண்டாம் — `package.json` வேண்டுமென்றே மிகக் குறைவாகவே வைக்கப்பட்டுள்ளது
+- பெரிய மூன்றாம் தரப்பு ஸ்கிரிப்ட்களை ஒத்திசைவாக (synchronously) ஏற்றுவதைத் தவிர்க்கவும் — `defer` அல்லது `async`-ஐப் பயன்படுத்துங்கள்
+- படங்கள் ஆப்டிமைஸ் (optimised) செய்யப்பட்டு பொருத்தமான ஃபார்மேட்டுகளில் வழங்கப்பட வேண்டும்
+- Lighthouse CI செயல்திறன் (இலக்கு 0.6) மற்றும் அணுகல்தன்மை (இலக்கு 0.85) ஆகியவற்றை ஆலோசனைக் கட்டங்களாகக் கண்காணிக்கிறது: அவை எச்சரிக்கின்றன, ஆனால் பில்டை (build) தோல்வியடையச் செய்வதில்லை. உங்களால் முடிந்தவரை அதிகமாக இலக்கு வைங்கள்
 
 ---
 
 ## Commit Messages
 
-[Conventional Commits](https://www.conventionalcommits.org/) specification-ஐ பின்பற்றவும்:
-
+Commit சப்ஜெக்ட்கள் (subjects) `.githooks/commit-msg`-ஆல் செயல்படுத்தப்படும் முன்னொட்டுகளில் ஒன்றைக் கொண்டு தொடங்க வேண்டும்:
 ```
-type(scope): short description
+Prefix: சுருக்கமான விளக்கம்
 
-Types: feat, fix, docs, style, refactor, test, chore
-Scope: dashboard, map, functions, email, policy, data, docs
+Prefixes: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, Merge
 
 எடுத்துக்காட்டுகள்:
-feat(dashboard): add PM10 toggle
-fix(email): handle missing city gracefully
-docs(contributing): add code standards page
-chore(deps): update @netlify/blobs to 8.2.0
+Add: நகர அட்டைகளில் PM10 toggle
+Fix: மின்னஞ்சல் digest-ல் விடுபட்ட நகரத்தைக் கையாளுதல்
+Docs: code standards பக்கத்தைச் சேர்த்தல்
+Chore: dependencies-ஐப் புதுப்பித்தல்
 ```
+
+72 எழுத்துகளுக்கு மேல் உள்ள Subjects, hook-ஆல் ஒரு எச்சரிக்கையைத் தூண்டும் (தடைசெய்யாது). `feat(dashboard): ...` போன்ற Conventional Commits ஸ்டைல் hook-ஆல் நிராகரிக்கப்படும்.
