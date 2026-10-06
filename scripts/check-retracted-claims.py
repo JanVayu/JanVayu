@@ -147,8 +147,16 @@ def files():
         yield p
 
 
+# docs-hi/, docs-bn/, docs-mr/, docs-ta/ are translations of docs/. A translated
+# copy of an allowed dated record (a fact-check note, the wiki's history) is the
+# same record, so it is allowed when its English original is. A translation of
+# any other page is still checked like the page itself.
+TRANSLATION_DIR = re.compile(r'^docs-(?:hi|bn|mr|ta)/')
+
+
 def allowed(rel, claim):
-    return any(rel.startswith(a) or a in rel for a in claim['allow'])
+    candidates = {rel, TRANSLATION_DIR.sub('docs/', rel)}
+    return any(c.startswith(a) or a in c for c in candidates for a in claim['allow'])
 
 
 def main():

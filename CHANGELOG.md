@@ -95,6 +95,10 @@ into Tamil, 262 files in all, each passing the structure and number checks. The 
 keep their earlier translation or none: `fact-check-2026-07b.md` is too long for one
 response in every language, and a handful of code-heavy pages and wiki pages lost a
 code fence, a heading or a figure on three attempts.
+`scripts/check-retracted-claims.py` now treats a translated copy of an allowed dated
+record (a fact-check note, the wiki history) as that record: the Hindi fact-check
+note that documents the "India 5th" retraction has to quote it, as the English does.
+A retracted claim in any other translated page still fails.
 
 The machine translations are not read by a native speaker.
 
