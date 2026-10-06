@@ -768,7 +768,7 @@ const RTI_TEMPLATES = {
       "Provide a list of construction sites in [CITY] that were issued show-cause notices during GRAP Stage III or IV.",
       "How many vehicles were impounded under the BS-III petrol / BS-IV diesel ban during GRAP Stage III in this period?",
       "Provide a copy of the CAQM compliance audit for the [DATE] off-season GRAP invocation.",
-      "What action has been taken against agencies that failed to implement GRAP measures within the prescribed 24-hour window?",
+      "What action has been taken against agencies that failed to implement the GRAP measures invoked by the Sub-Committee's order, and on what dates?",
     ],
     statutory: "Right to Information Act, 2005; CAQM Act 2021; Air Act 1981",
   },

@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606238">
+    <link rel="preload" as="style" href="/styles.css?v=202606239">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1047,8 +1047,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606238" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606238"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606239" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606239"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1108,7 +1108,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606238" defer></script>
+<script src="/js/chrome.js?v=202606239" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1611,7 +1611,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606238"></script>
+    <script src="/app.js?v=202606239"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2148,7 +2148,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 <strong>~90% of India's workforce is informal</strong> (ILO/IHD India Employment Report 2024). We know of no enforceable ambient air-quality standard for outdoor workers.
                             </p>
                             <div style="margin-top: 0.75rem; padding: 0.5rem; background: var(--bg-section); border-left: 3px solid var(--ink-amber); border-radius: 6px; font-size: 0.8125rem;">
-                                <strong>Policy blind spot:</strong> GRAP bans construction and shuts industries, so workers lose wages. No income support, no alternative employment.
+                                <strong>Policy blind spot:</strong> Stage III and IV stop listed construction work and close stone crushers and mines, so daily-wage workers lose pay. The Supreme Court has told states to compensate affected construction workers, and Delhi announced Rs 10,000 for each registered and verified worker for the 2025 Stage III spell (ANI, 18 December 2025). Workers who are not registered, and others whose work stops, have no such payment.
                             </div>
                         </div>
                     </div>
@@ -2179,7 +2179,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                             <h3 style="color: var(--red); margin-bottom: 0.75rem;"> Policy blind spots, and who is not at the table</h3>
                             <ul class="jv-t-sm-lh">
                                 <li><strong>NCAP:</strong> Focuses on ambient PM10/PM2.5; HAP not integrated</li>
-                                <li><strong>GRAP:</strong> Construction bans hurt workers; no wage compensation</li>
+                                <li><strong>GRAP:</strong> Construction stops cost daily-wage workers pay; compensation reaches only registered construction workers</li>
                                 <li><strong>Health data:</strong> Mortality studies use city averages; no disaggregation by income, caste, occupation</li>
                                 <li><strong>Solutions discourse:</strong> EVs, purifiers and smog towers all assume purchasing power</li>
                             </ul>
@@ -2338,10 +2338,10 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <div class="card-header"><span class="card-title">GRAP Stages Explained</span></div>
                     <div class="card-body" style="font-size: 0.8125rem;">
                         <div style="padding: 0.5rem; background: var(--bg-section); border-radius: 4px; margin-bottom: 0.75rem; border-left: 3px solid var(--accent);"><strong> 19 May 2026:</strong> CAQM invokes Stage&nbsp;I at AQI 208, after an earlier summer activation on 16 April (AQI 226); Stage&nbsp;I was also imposed in May 2025. GRAP is no longer winter-only.</div>
-                        <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage I (201-300):</strong> Water sprinkling, dust control</div>
-                        <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage II (301-400):</strong> Update (28 Sep 2026): CAQM moved DG-set curbs into Stage I. Stage II now: staggered office timings, higher parking fees (CAQM)</div>
-                        <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage III (401-450):</strong> Construction ban, mining ban</div>
-                        <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px; color: #1a1a18;"><strong>Stage IV (450+):</strong> Entry restrictions on BS-IV and older trucks, hybrid classes with an advisory on closing educational institutions (CAQM)</div>
+                        <div style="padding: 0.5rem; background: #D1FAE5; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage I (201-300):</strong> Dust control, road sweeping and sprinkling, a ban on open burning. Since 28 Sep 2026 it also covers regulated use of diesel generator sets and bars inter-city buses other than electric, CNG and BS-VI diesel (CAQM schedule, revised 29 Sep 2026)</div>
+                        <div style="padding: 0.5rem; background: #FEF3C7; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage II (301-400):</strong> Higher parking fees, staggered office timings in Delhi and four adjoining districts, more sweeping and sprinkling, tighter checks on building-site dust. The generator curbs moved to Stage I on 28 Sep 2026 (CAQM)</div>
+                        <div style="padding: 0.5rem; background: #FED7AA; border-radius: 4px; margin-bottom: 0.5rem; color: #1a1a18;"><strong>Stage III (401-450):</strong> Listed dust-raising building and demolition work stops, with exemptions for railways, metro, hospitals and linear projects. Stone crushers and mining close. BS-III petrol and BS-IV diesel cars are restricted. Hybrid classes up to Class V (CAQM)</div>
+                        <div style="padding: 0.5rem; background: #FEE2E2; border-radius: 4px; color: #1a1a18;"><strong>Stage IV (450+):</strong> Trucks barred from Delhi except electric, CNG, LNG and BS-VI diesel. The building ban extends to roads, flyovers and pipelines. Hybrid classes up to Class IX and XI. States may consider closing colleges and running odd-even (CAQM)</div>
                     </div>
                 </div>
             </div>
@@ -2360,25 +2360,19 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                     <div class="grid-2">
                         <div class="info-box jv-rule-accent">
                             <h3 class="jv-t-red"> 72-Hour Persistence Rule for GRAP</h3>
-                            <p><strong>Problem:</strong> GRAP stages are currently relaxed as soon as AQI dips below threshold, even briefly. This "yo-yo" effect leads to:</p>
-                            <ul>
-                                <li>Premature lifting of restrictions</li>
-                                <li>Pollution rebounds within 24-48 hours</li>
-                                <li>Public confusion about what rules apply</li>
-                                <li>Loss of cumulative health protection</li>
-                            </ul>
+                            <p><strong>Problem:</strong> CAQM's orders lift a stage when the day's reading has improved and the IMD/IITM forecast says it will stay better. In 2026 Stage I was lifted on 4 May at AQI 88 and invoked again on 19 May at AQI 208, fifteen days later (CAQM orders). Nothing in the schedule asks for a minimum period before a stage is lifted.</p>
                             <p class="jv-mt-05"><strong>Recommendation:</strong> GRAP stage should only be downgraded when AQI remains consistently below the threshold for <strong>at least 72 hours</strong> (3 consecutive days).</p>
-                            <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Rationale: Weather patterns typically cycle over 3-5 days. 72-hour persistence ensures improvement is sustained, not a temporary dip.</em></p>
+                            <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Our reasoning: weather in the region tends to turn over several days, so one good reading may not last. We have not tested the 72-hour figure against past episodes.</em></p>
                         </div>
 
                         <div class="info-box jv-rule-accent">
                             <h3> Anticipatory Activation</h3>
-                            <p><strong>Problem:</strong> GRAP is reactive: it starts only after the AQI crosses a threshold. By then the damage is done.</p>
+                            <p><strong>Problem:</strong> The schedule says stages are to be invoked ahead of the forecast AQI reaching them, on the IMD/IITM forecast. The 2026 Stage I orders came on the day Delhi's AQI was already Poor (226 on 16 April, 208 on 19 May), each with a forecast that it would stay there.</p>
                             <p class="jv-mt-05"><strong>Recommendation:</strong></p>
                             <ul>
-                                <li>Use weather forecasts + stubble fire satellite data to predict AQI 48-72 hours ahead</li>
-                                <li>Activate GRAP stages <strong>proactively</strong> when forecast shows likely breach</li>
-                                <li>IMD already provides forecasts; tie them to the GRAP trigger</li>
+                                <li>Use weather forecasts and stubble fire satellite data to predict AQI 48-72 hours ahead</li>
+                                <li>Invoke the next stage ahead of a forecast breach, as the schedule already provides</li>
+                                <li>Publish the forecast the Commission relied on with each order</li>
                             </ul>
                             <p style="font-size: 0.875rem; color: var(--text-3); margin-top: 0.5rem;"><em>Example: If weather + fire data predicts AQI 400+ in 48 hours, activate Stage III immediately.</em></p>
                         </div>
@@ -3440,7 +3434,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         <div class="card card-accent-red">
             <div class="card-header"><span class="card-title">School Closures Tracker</span></div>
             <div class="card-body">
-                <p class="jv-t-sm-2-mb1" data-simple="Delhi had to close schools many times during winter 2025-26 because the air was too dirty. When pollution gets really bad, classes shift to hybrid mode and CAQM advises closing educational institutions. But many students in government schools don&rsquo;t have laptops or internet for online classes, so they simply miss out on learning. The next pollution-season closures start October-November 2026.">Delhi schools shifted to online mode multiple times during Winter 2025-26 (the most recent pollution season). Under CAQM's GRAP schedule, classes shift to hybrid mode at Stage III and Stage IV, with an advisory on closing educational institutions at Stage IV. Students in government schools often lack devices for online learning, widening the education equity gap. The next closure window opens with the post-monsoon pollution season, typically late October 2026.</p>
+                <p class="jv-t-sm-2-mb1" data-simple="Delhi had to close schools many times during winter 2025-26 because the air was too dirty. When pollution gets really bad, classes shift to hybrid mode and CAQM advises closing educational institutions. But many students in government schools don&rsquo;t have laptops or internet for online classes, so they simply miss out on learning. The next pollution-season closures start October-November 2026.">Delhi schools shifted to online mode multiple times during Winter 2025-26 (the most recent pollution season). Under CAQM's GRAP schedule, Stage III requires hybrid classes up to Class V in Delhi, Gurugram, Faridabad, Ghaziabad and Gautam Buddh Nagar. Stage IV extends hybrid classes to Classes VI to IX and XI, and says states may consider closing colleges and educational institutions. Whether a child learns online is the choice of the student and the guardian. Students in government schools often lack devices for online learning, widening the education equity gap. The next closure window opens with the post-monsoon pollution season, typically late October 2026.</p>
             </div>
         </div>
 
@@ -3458,7 +3452,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         <div class="card-body">
             <div class="grid-3 jv-gap-1">
                 <div class="info-box"><h3>School Air Quality Audits</h3><p>Parents can request indoor PM2.5 monitoring in classrooms. Low-cost sensors can be donated to schools.</p></div>
-                <div class="info-box"><h3>N95 for Children</h3><p>Child-sized N95/KN95 masks are available. Proper fit is critical. Mask mandates during GRAP Stage III+ should be enforced in schools that remain open.</p></div>
+                <div class="info-box"><h3>N95 for Children</h3><p>Child-sized N95/KN95 masks are available. Proper fit is critical. GRAP has no mask mandate. At Stage IV its citizen charter advises children, pregnant women, older people and people with chronic illness to wear a mask if they must go out, and schools that stay open can follow that.</p></div>
                 <div class="info-box"><h3>Advocate for Air Purifiers</h3><p>Parents can ask for a HEPA purifier (or DIY Corsi-Rosenthal box) per classroom. File RTI to track the status of any announced purchase.</p></div>
             </div>
         </div>
@@ -3807,9 +3801,9 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <p style="margin-bottom: 1rem;">GRAP (Graded Response Action Plan) triggers emergency measures at AQI thresholds. But does it work?</p>
                 <div class="info-box" style="margin-bottom: 0.75rem;">
                     <h3>Stage IV (AQI 450+)</h3>
-                    <p>Under CAQM's schedule, Stage IV restricts entry of BS-IV and older trucks into Delhi and shifts classes to hybrid mode, with an advisory on closing educational institutions (CAQM).</p>
+                    <p>Under CAQM's schedule, Stage IV stops trucks entering Delhi unless they are electric, CNG, LNG or BS-VI diesel, bans Delhi-registered BS-IV and older diesel trucks, extends hybrid classes to Class IX and XI, and says states may consider closing colleges and running odd-even (CAQM).</p>
                 </div>
-                <p>The fundamental problem: GRAP is reactive (activated after air quality deteriorates) rather than preventive. It does not address base emission loads from vehicles, industry, and biomass that keep baseline AQI in the 200-300 range even between episodes.</p>
+                <p>A basic limit: GRAP is built to be invoked ahead of a forecast rise, but the 2026 orders we read were issued on the day of the reading, so in practice it has followed the air. It does not address base emission loads from vehicles, industry, and biomass that keep baseline AQI in the 200-300 range even between episodes.</p>
             </div>
         </div>
     </div>
@@ -4143,10 +4137,10 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-body" style="padding: 1.75rem;">
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                     <span class="si si-lg si-checklist jv-t-purple"></span>
-                    <h3 style="font-size: 1rem; font-weight: 600;">GRAP Framework (2024 text)</h3>
+                    <h3 style="font-size: 1rem; font-weight: 600;">GRAP schedule (revised 29 September 2026)</h3>
                 </div>
-                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Graded Response Action Plan for Delhi-NCR. Four-stage emergency measures (Stage I-IV) with AQI triggers and enforcement protocols. Official CAQM order. CAQM approved a revised schedule on 28 September 2026 (PIB, 29 September 2026); the PDF linked here is the 2024 text.</p>
-                <a href="https://caqm.nic.in/WriteReadData/LINKS/GRAP2024b7a80bff-e2e6-49e1-a191-28bfe6d1ba52.pdf" target="_blank" rel="noopener" class="btn btn-primary jv-w-full">Download PDF (CAQM)</a>
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 1.25rem;">Graded Response Action Plan for Delhi-NCR. Four-stage emergency measures (Stage I-IV) with AQI triggers and enforcement protocols. Official CAQM schedule, issued with Direction No. 104 on 29 September 2026, with 48 actions: 25 in Stage I, 8 in Stage II, 10 in Stage III and 5 in Stage IV.</p>
+                <a href="https://caqm.nic.in/FileUploadDomain/WebsiteDocument/GRAP/GRAP%20Schedule/01fcdebf-83e1-4cfe-bc0c-d0b1470a4d4e.pdf" target="_blank" rel="noopener" class="btn btn-primary jv-w-full">Download PDF (CAQM)</a>
             </div>
         </div>
 
@@ -4472,10 +4466,10 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <table class="data-table responsive-cards" style="font-size: 0.8rem;">
                     <thead><tr><th>Stage</th><th>AQI Range</th><th>School Action</th><th>Other Measures</th></tr></thead>
                     <tbody>
-                        <tr><td data-label="Stage"><span class="badge" style="background: #EAB308; color: black;">I</span></td><td data-label="AQI Range">201-300</td><td data-label="School Action">No closures, outdoor activity restricted</td><td data-label="Other Measures">Water sprinkling, dust control</td></tr>
-                        <tr><td data-label="Stage"><span class="badge" style="background: #C2410C; color: white;">II</span></td><td data-label="AQI Range">301-400</td><td data-label="School Action">No outdoor sports/activities</td><td data-label="Other Measures">DG-set curbs moved to Stage I on 28 Sep 2026 (PIB); higher parking fees, staggered office timings (CAQM)</td></tr>
-                        <tr><td data-label="Stage"><span class="badge" style="background: #B91C1C; color: white;">III</span></td><td data-label="AQI Range">401-450</td><td data-label="School Action">Classes shift to hybrid mode (CAQM)</td><td data-label="Other Measures">Restrictions on BS-III petrol and BS-IV diesel cars, restrictions or ban on construction and demolition (CAQM)</td></tr>
-                        <tr><td data-label="Stage"><span class="badge" style="background: #6D28D9; color: white;">IV</span></td><td data-label="AQI Range">450+</td><td data-label="School Action">Hybrid classes; advisory for closure of educational institutions (CAQM)</td><td data-label="Other Measures">Entry restriction on BS-IV and older trucks into Delhi (CAQM)</td></tr>
+                        <tr><td data-label="Stage"><span class="badge" style="background: #EAB308; color: black;">I</span></td><td data-label="AQI Range">201-300</td><td data-label="School Action">No school measure</td><td data-label="Other Measures">Water sprinkling, dust control</td></tr>
+                        <tr><td data-label="Stage"><span class="badge" style="background: #C2410C; color: white;">II</span></td><td data-label="AQI Range">301-400</td><td data-label="School Action">No school measure</td><td data-label="Other Measures">Higher parking fees, staggered office timings (CAQM). Generator curbs moved to Stage I on 28 Sep 2026</td></tr>
+                        <tr><td data-label="Stage"><span class="badge" style="background: #B91C1C; color: white;">III</span></td><td data-label="AQI Range">401-450</td><td data-label="School Action">Hybrid classes up to Class V in Delhi and four adjoining districts (CAQM)</td><td data-label="Other Measures">Restrictions on BS-III petrol and BS-IV diesel cars, listed construction and demolition work stops, stone crushers and mining close (CAQM)</td></tr>
+                        <tr><td data-label="Stage"><span class="badge" style="background: #6D28D9; color: white;">IV</span></td><td data-label="AQI Range">450+</td><td data-label="School Action">Hybrid classes up to Class IX and XI; states may consider closing colleges (CAQM)</td><td data-label="Other Measures">Trucks barred from Delhi except electric, CNG, LNG and BS-VI diesel (CAQM)</td></tr>
                     </tbody>
                 </table>
                 </div>

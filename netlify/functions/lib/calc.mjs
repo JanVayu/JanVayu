@@ -151,14 +151,14 @@ export function calcSchoolClosureRisk(aqi, month) {
   if (!aqi) return null;
   let risk = "low";
   let trigger = "No GRAP school-closure trigger at this AQI";
-  if (aqi >= 451) { risk = "imminent"; trigger = "GRAP Stage IV (AQI > 450): hybrid mode extended to Classes VI-IX & XI; only Classes X & XII remain in person"; }
-  else if (aqi >= 401) { risk = "high"; trigger = "GRAP Stage III (AQI 401-450): hybrid classes mandated for primary students up to Class V in Delhi-NCR"; }
+  if (aqi >= 451) { risk = "imminent"; trigger = "GRAP Stage IV (AQI > 450): hybrid classes extended to Classes VI-IX and XI in Delhi and four adjoining districts; the schedule does not mention Classes X and XII"; }
+  else if (aqi >= 401) { risk = "high"; trigger = "GRAP Stage III (AQI 401-450): hybrid classes mandated up to Class V in Delhi, Gurugram, Faridabad, Ghaziabad and Gautam Buddh Nagar"; }
   else if (aqi >= 301) {
     if (month >= 10 || month <= 2) { risk = "moderate"; trigger = "GRAP Stage II + winter pollution season: check the current CAQM GRAP order for any school directions"; }
-    else { risk = "moderate"; trigger = "GRAP Stage II: dust control + parking fee hikes; no school closure yet"; }
+    else { risk = "moderate"; trigger = "GRAP Stage II: dust control, parking fee hikes and staggered office timings; no school measure"; }
   }
   return {
     risk, trigger, aqi, month,
-    source: "CAQM GRAP schedule (school clauses as in the Nov-Dec 2025 Directorate of Education circulars; check the current CAQM GRAP order, revised 29 Sep 2026, before relying on them); Delhi-NCR mandate; other cities follow advisory pattern. Indicative only: GRAP is invoked by CAQM on Delhi's average CPCB-scale AQI and forecast, not on one station's reading",
+    source: "CAQM GRAP schedule, revised 29 Sep 2026 (Direction No. 104); the online option rests with students and guardians; Directorate of Education circulars may add to these clauses; Delhi-NCR mandate; other cities follow advisory pattern. Indicative only: GRAP is invoked by CAQM on Delhi's average CPCB-scale AQI and forecast, not on one station's reading",
   };
 }
