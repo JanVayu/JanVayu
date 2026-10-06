@@ -57,4 +57,43 @@ def boom(k,c,l,r): raise RuntimeError("HTTP 400")
 td.translate = boom
 rc = td.main(); assert rc == 1
 print("api failure exit 1 OK")
+
+# thinking is switched off in the request (it was the cause of every cut-off)
+import io, json, urllib.request
+sent = {}
+class _Resp(io.BytesIO):
+    def __enter__(self): return self
+    def __exit__(self, *a): return False
+def fake_urlopen(req, timeout=0):
+    sent["body"] = json.loads(req.data)
+    return _Resp(json.dumps({"choices":[{"finish_reason":"stop","message":{"content":"ok"}}]}).encode())
+real_urlopen = urllib.request.urlopen
+urllib.request.urlopen = fake_urlopen
+real_part = td.translate_part
+real_part("k", "hello", "hi", "a.md", 1, 1)
+urllib.request.urlopen = real_urlopen
+assert "reasoning_effort" in sent["body"] and sent["body"]["reasoning_effort"] is None, sent["body"]
+assert sent["body"]["model"] == "sarvam-105b"
+print("reasoning_effort null in the request OK")
+
+# a cut-off part is halved and retried until it fits; the pieces rejoin in order
+long = "".join(f"Paragraph {i} " + "word " * 40 + "\n\n" for i in range(12))
+def cutting(k, c, l, r, n, t):
+    if len(c) > 700: raise td.CutOff("cut")
+    return c
+td.translate_part = cutting
+out = td.translate_with_retry("k", long, "hi", "a.md", 1, 1)
+assert out.replace("\n","").replace(" ","") == long.replace("\n","").replace(" ",""), "text lost or reordered"
+assert [x for x in out.split("Paragraph ")[1:]] and out.index("Paragraph 0") < out.index("Paragraph 11")
+print("halve and retry OK")
+
+# a part that cannot be split further still raises, so the file is not written
+def always_cut(k, c, l, r, n, t): raise td.CutOff("cut")
+td.translate_part = always_cut
+try:
+    td.translate_with_retry("k", "one single line with no break", "hi", "a.md", 1, 1)
+    raise SystemExit("expected CutOff")
+except td.CutOff:
+    print("unsplittable cut-off raises OK")
+td.translate_part = real_part
 shutil.rmtree(tmp)

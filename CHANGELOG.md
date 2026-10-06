@@ -65,6 +65,14 @@ documents have no translation at all.
 - The workflow takes a `langs` input, so a backfill can run one language per job.
 - `scripts/test-translate-docs.py` covers all of this offline and runs in CI.
 
+The first backfill after that fix still wrote nothing: all 72 Hindi files were
+rejected as cut off. `sarvam-105b` thinks by default and the thinking tokens count
+against `max_tokens`, so the 4,096-token limit was spent before any translation was
+written (Sarvam's chat completion documentation says so). The request now sends
+`reasoning_effort: null`, which switches thinking off, and a part that is still cut
+off is split in half at a blank line and retried, because Tamil and Bengali need
+more tokens per word than Hindi.
+
 The machine translations are not read by a native speaker.
 
 ### Fixed, every GRAP claim checked against CAQM's revised schedule
