@@ -1,59 +1,183 @@
-# Claude Code सेटअप आणि कॉन्फिगरेशन
+# JanVayu साठी Claude Code सेटअप
 
-JanVayu च्या विकासासाठी वापरलेले Claude Code कॉन्फिगरेशन.
+या पेजवर JanVayu ला Claude Code वापरून डेव्हलप करण्यासाठी वापरलेली अचूक कॉन्फिगरेशन दिली आहे — ज्यामध्ये CLAUDE.md फाईल, परमिशन सेटिंग्स आणि MCP इंटिग्रेशन्सचा समावेश आहे.
 
 ---
 
-## CLAUDE.md — प्रकल्प निर्देश
+## CLAUDE.md — प्रोजेक्ट सूचना
 
-JanVayu सध्या `CLAUDE.md` फाइल वापरत नाही. प्रकल्प conventions Git hooks, `.editorconfig`, आणि `.gitmessage` द्वारे लागू होतात.
+JanVayu सध्या रिपॉझिटरीमध्ये `CLAUDE.md` फाईल वापरत नाही. त्याऐवजी, प्रोजेक्टचे नियम खालील गोष्टींद्वारे लागू केले जातात:
 
-### Fork साठी शिफारस केलेले CLAUDE.md
+1. **Git hooks** (`.githooks/pre-commit` आणि `.githooks/commit-msg`) — कमिट मेसेज फॉरमॅट आपोआप लागू करतात आणि संवेदनशील फाईल्स ब्लॉक करतात
+2. **`.editorconfig`** — इंडेंटेशन आणि एन्कोडिंग स्टँडर्डाईज करते
+3. **`.gitmessage`** — कमिट मेसेज टेम्पलेट
+4. **इनलाईन डॉक्युमेंटेशन** — README.md, CONTRIBUTING.md, आणि कोड कमेंट्स
+
+### फोर्क्ससाठी सुचवलेले CLAUDE.md
+
+जर तुम्ही JanVayu फोर्क करत असाल आणि Claude Code ला प्रोजेक्ट-विशिष्ट सूचना देऊ इच्छित असाल, तर रिपो रूटमध्ये एक `CLAUDE.md` तयार करा:
 
 ```markdown
-# CLAUDE.md — JanVayu प्रकल्प निर्देश
+# CLAUDE.md — JanVayu Project Instructions
 
 ## आर्किटेक्चर
-- एकच HTML फाइल (index.html) — सर्व CSS आणि JS इनलाइन
-- कोणतेही framework नाही, कोणतेही build step नाही
+- तीन फ्रंट-एंड फाईल्स: index.html (मार्कअप), app.js (लॉजिक), styles.css (स्टायलिंग)
+- कोणतेही फ्रेमवर्क्स नाहीत, बिल्ड स्टेप नाही, क्लायंटवर npm डिपेंडन्सीज नाहीत
+- सर्व्हर-साईड लॉजिकसाठी Netlify Functions (ES मॉड्यूल्स, .mjs)
+- कॅशिंगसाठी Netlify Blobs (स्ट्रॉंग कन्सिस्टन्सी)
 
-## कोड शैली
-- Vanilla JavaScript (ES2020 कमाल)
-- 2-space indentation
+## कोड स्टाईल
+- फक्त व्हॅनिला JavaScript (ES2022, जसे eslint.config.mjs मध्ये सेट केले आहे)
+- थीमिंगसाठी CSS कस्टम प्रॉपर्टीज
+- 2-स्पेस इंडेंटेशन (HTML, CSS, JS, JSON)
+- TypeScript नाही, कोणतेही प्रीप्रोसेसर्स नाहीत
 
-## Commit संदेश
-Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, Merge ने सुरू करा
+## कमिट मेसेजेस
+याने सुरू झाले पाहिजेत: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, Merge
 
-## हे करू नका
-- Framework जोडा (React, Vue, Angular)
-- Build step जोडा
-- Client मध्ये API keys उघड करा
+## Netlify Functions पॅटर्न
+- CORS प्रीफ्लाइट हँडल करा (OPTIONS → 204)
+- योग्य स्टेटस कोड्ससह JSON रिटर्न करा
+- प्रत्येक एक्सटर्नल कॉलवर try/catch
+- सिक्रेट्स कधीही हार्डकोड करू नका — process.env वापरा
+- एक्सटर्नल API फेल झाल्यास ग्रेसफुल फॉलबॅक
+
+## AI फीचर्स
+- मॉडेल: Groq द्वारे openai/gpt-oss-120b (डिफॉल्ट; GROQ_MODEL एन्व्हायर्नमेंट व्हेरिएबलने ओव्हरराईड करा)
+- सर्व AI कॉल्स सर्व्हर-साईड (Netlify Functions)
+- प्रत्येक AI फीचरला नॉन-AI फॉलबॅक आहे
+- आउटपुट टोकन लिमिट: प्रति रिस्पॉन्स 512 ते 1,024 (max_tokens)
+
+## करू नका
+- फ्रेमवर्क्स ॲड करू नका (React, Vue, Angular, Svelte)
+- बिल्ड स्टेप ॲड करू नका (Webpack, Vite, Rollup)
+- TypeScript ॲड करू नका
+- क्लायंट साईडवर npm पॅकेजेस इम्पोर्ट करू नका
+- क्लायंट कोडमध्ये API कीज उघड करू नका
 ```
 
 ---
 
-## Skill फाइल्स
+## स्किल फाईल्स
 
-Skill फाइल्स म्हणजे संरचित system prompts. JanVayu चारही Gemini वैशिष्ट्यांसाठी त्यांचा वापर करते.
+स्किल फाईल्स हे स्ट्रक्चर्ड सिस्टीम प्रॉम्प्ट्स असतात जे AI मॉडेल्स कसे वागतील हे ठरवतात. JanVayu त्यांचा वापर त्यांच्या Groq-होस्टेड AI फीचर्ससाठी करते, पण हीच संकल्पना Claude Code वर्कफ्लोलाही लागू होते.
+[Skills section](../skills/README.md) मध्ये दिलेल्या स्किल फाइल्स खालीलप्रमाणे काम करतात:
+1. **Groq system prompts** — Netlify Functions मध्ये एम्बेड केलेले ( `air-query.mjs` मधील Ask JanVayu प्रॉम्प्ट, त्याला डॉक्युमेंट करणाऱ्या पेजपेक्षा खूप मोठा आहे)
+2. **Development reference** — AI फीचर्स बदलताना Claude Code ला मार्गदर्शन करण्यासाठी
+3. **Reusable templates** — इतर डोमेन्ससाठी JanVayu फोर्क करणाऱ्या कोणासाठीही
 
-तपशीलवार माहिती: [Skills विभाग](../skills/README.md)
+### Skill File Structure
+
+प्रत्येक स्किल फाइल या फॉरमॅटमध्ये असते:
+
+```markdown
+# Skill: [Name]
+
+## Role
+मॉडेलने कसे काम करायचे.
+
+## Context
+त्याला कोणता डेटा मिळेल.
+
+## Output Format
+प्रतिसादाची अचूक रचना.
+
+## Constraints
+शब्दांची मर्यादा, टोन, भाषा, फेल्युअर मोड्स.
+
+## Examples
+सॅम्पल इनपुट्स आणि अपेक्षित आउटपुट्स.
+```
 
 ---
 
-## MCP Server एकत्रीकरण
+## MCP Server Integrations
 
-विकासादरम्यान उपलब्ध MCP एकत्रीकरणे:
-- **Notion** — प्रकल्प नियोजन
-- **Gmail** — संवाद संदर्भ
-- **Figma** — Design-to-code
-- **Google Calendar** — वेळापत्रक
-- **Excalidraw** — आर्किटेक्चर आकृत्या
+Claude Code एक्स्टेंडेड टूल ॲक्सेससाठी Model Context Protocol (MCP) सर्व्हर्सना सपोर्ट करतो. JanVayu सारख्या प्रोजेक्टसोबत खालील MCP इंटिग्रेशन्स वापरले जाऊ शकतात (डेव्हलपमेंट दरम्यान कोणते वापरले गेले याची नोंद रिपॉझिटरीमध्ये नाही):
+
+### Notion MCP
+- **उद्देश:** प्रोजेक्ट प्लॅनिंग, टास्क ट्रॅकिंग, मीटिंग नोट्स
+- **टूल्स:** पेजेस तयार करणे, डेटाबेसेस क्वेरी करणे, सर्च करणे, पेजेस अपडेट करणे
+- **युज केस:** फीचर डेव्हलपमेंट ट्रॅक करणे, प्रोजेक्ट रोडमॅप मेंटेन करणे
+
+### Gmail MCP
+- **उद्देश:** कम्युनिकेशन कॉन्टेक्स्ट
+- **टूल्स:** मेसेजेस सर्च करणे, थ्रेड्स वाचणे, ड्राफ्ट्स तयार करणे
+- **युज केस:** फीचर्स किंवा पार्टनरशिप्सबद्दलच्या ईमेल चर्चांचा संदर्भ घेणे
+
+### Figma MCP
+- **उद्देश:** डिझाईन-टू-कोड वर्कफ्लो
+- **टूल्स:** डिझाईन कॉन्टेक्स्ट मिळवणे, स्क्रीनशॉट्स, मेटाडेटा
+- **युज केस:** JanVayu UI सेक्शन्ससाठी डिझाईन मॉकअप्सना HTML/CSS मध्ये ट्रान्सलेट करणे
+
+### Google Calendar MCP
+- **उद्देश:** शेड्युलिंग कॉन्टेक्स्ट
+- **टूल्स:** इव्हेंट्सची यादी पाहणे, इव्हेंट्स तयार करणे, फ्री वेळ शोधणे
+- **युज केस:** डेव्हलपमेंट सेशन्स आणि रिलीजच्या तारखांचे प्लॅनिंग करणे
+
+### Excalidraw MCP
+- **उद्देश:** आर्किटेक्चर डायग्राम्स
+- **टूल्स:** व्ह्यूज तयार करणे, चेकपॉइंट्स सेव्ह करणे
+- **युज केस:** सिस्टीम आर्किटेक्चर आणि डेटा फ्लो व्हिज्युअलाईज करणे
 
 ---
 
-## परवानग्या
+## Permission Configuration
 
-शिफारस केलेल्या परवानगी सेटिंग्ज:
-- ✅ Read, Write, Edit, Glob, Grep
-- ✅ `npm install`, `netlify dev`, `git *`, `gh pr *`
-- ❌ `rm -rf *`, `git push --force *`, `git reset --hard *`
+Claude Code कॉन्फिगरेबल परमिशन्ससह काम करतो. JanVayu डेव्हलपमेंटसाठी:
+
+### Recommended Permissions
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Write",
+      "Edit",
+      "Bash(npm install)",
+      "Bash(netlify dev)",
+      "Bash(git *)",
+      "Bash(gh pr *)",
+      "Bash(ls *)",
+      "Bash(mkdir *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)"
+    ]
+  }
+}
+```
+
+### Why These Permissions?
+
+
+---
+- **Read/Write/Edit/Glob/Grep** — मुख्य डेव्हलपमेंट टूल्स
+- **npm install** — डिपेंडन्सीज इन्स्टॉल करणे
+- **netlify dev** — लोकल डेव्हलपमेंट सर्व्हर रन करणे
+- **git** — व्हर्जन कंट्रोल वर्कफ्लो
+- **gh pr** — पुल रिक्वेस्ट्स तयार करणे आणि मॅनेज करणे
+- **Deny destructive commands** — चुकून डेटा लॉस होण्यापासून संरक्षण
+
+---
+
+## डेव्हलपमेंटसाठी एन्व्हायर्नमेंट
+
+Claude Code ला शेल एन्व्हायर्नमेंट इनहेरिट मिळते. JanVayu साठी:
+
+```bash
+# Required
+export GROQ_API_KEY=your_key
+export RESEND_API_KEY=your_key
+export NETLIFY_SITE_ID=your_site_id
+
+# Optional (for Netlify Blobs in local dev)
+export BLOB_TOKEN=your_token
+```
+
+लोकल डेव्हलपमेंट दरम्यान `netlify dev` द्वारे हे `.env` मधून वाचले जातात.

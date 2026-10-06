@@ -1,107 +1,131 @@
-# Skill: காட்சி வடிவமைப்பு
+# திறன்: காட்சி வடிவமைப்பு (Visual Design)
 
-JanVayu-ன் காட்சி அடையாளத்தை அடைய பயன்படுத்தப்பட்ட prompting patterns — அவசரம், தரவு அடர்த்தி மற்றும் civic தீவிரத்தை தெரிவிக்க வேண்டிய ஒரு தளத்திற்கு, அரசு website அல்லது tech product போல உணராமல்.
-
----
-
-## வடிவமைப்பு Brief
-
-இந்த brief காட்சி வடிவமைப்பு சம்பந்தப்பட்ட ஒவ்வொரு AI interaction-க்கும் அனுப்பப்பட்டது:
-
-```
-JanVayu is a citizen air quality accountability platform for India.
-Its visual language should feel:
-- Serious and data-driven (not alarmist, not cheerful)
-- Accessible to users on low-end devices and small screens
-- Respectful of the communities most harmed by air pollution
-- Visually distinct from government portals and tech products
-
-Colour: deep purples and teals as primary palette. AQI categories use
-the standard green/yellow/orange/red/purple/maroon scale.
-
-Typography: system fonts only (no Google Fonts CDN calls) for performance.
-Density: information-dense but not cluttered. Tables over prose for data.
-Mobile-first: the majority of Indian internet users access on mobile.
-```
+ஜான்வாயுவின் (JanVayu) காட்சி அடையாளத்தை உருவாக்கப் பயன்படுத்தப்படும் தூண்டுதல் முறைகள் (prompting patterns) இவை — இது ஒரு அரசாங்க இணையதளம் அல்லது தொழில்நுட்பப் பொருள் போலத் தோன்றாமல், அவசரம், தரவு அடர்த்தி மற்றும் குடிமக்கள் சார்ந்த தீவிரத்தன்மையை வெளிப்படுத்த வேண்டிய ஒரு தளமாகும்.
 
 ---
 
-## பயன்படுத்தப்பட்ட Prompt Patterns
+## வடிவமைப்பு சுருக்கம் (வளர்ச்சி முழுவதும் பயன்படுத்தப்பட்டது)
 
-### 1. "AQI Colour Card" Pattern
-
-```
-Design an AQI city card in HTML/CSS. It shows: city name, current AQI number,
-AQI category label, PM2.5 value. The background colour should reflect the AQI
-category using the standard US EPA colour scale. Use CSS custom properties.
-The card should be readable at any of the 6 AQI category colours.
-No images. No icons that require a library.
-```
-
-### 2. "Data Table" Pattern
+காட்சி வடிவமைப்பு தொடர்பான ஒவ்வொரு AI தொடர்பிற்கும் இந்தச் சுருக்கம் வழங்கப்பட்டது:
 
 ```
-Create an HTML table for [dataset]. Requirements:
-- Mobile-first: on small screens, show only 2-3 most important columns
-- Sticky header on scroll
-- Alternating row colours using CSS variables
-- A "source" column where each cell is a linked citation
-- No external CSS frameworks
+ஜான்வாயு என்பது இந்தியாவிற்கான குடிமக்கள் காற்று தரப் பொறுப்புக்கூறல் தளமாகும். 
+இதன் காட்சி மொழி இவ்வாறு இருக்க வேண்டும்:
+- தீவிரமான மற்றும் தரவு சார்ந்த (அச்சமூட்டுவதாகவோ, அதிகப்படியான மகிழ்ச்சியாகவோ இருக்கக்கூடாது)
+- குறைந்த திறன் கொண்ட சாதனங்கள் மற்றும் சிறிய திரைகளைப் பயன்படுத்தும் பயனர்களுக்கும் எளிதில் அணுகக்கூடியதாக இருக்க வேண்டும்
+- காற்று மாசுபாட்டால் அதிகம் பாதிக்கப்படும் சமூகங்களுக்கு மதிப்பளிப்பதாக இருக்க வேண்டும்
+- அரசாங்க இணையதளங்களில் (அதிகாரத்துவமாகத் தோன்றுபவை) மற்றும் தொழில்நுட்பப் பொருட்களில் (வணிக நோக்குடன் தோன்றுபவை) இருந்து பார்வைக்கு வேறுபட்டதாக இருக்க வேண்டும்
+
+நிறம்: பச்சை முதன்மை நிறமாக இருக்க வேண்டும். AQI பிரிவுகள் பச்சை/மஞ்சள்/ஆரஞ்சு/சிவப்பு/ஊதா/கரும்சிவப்பு (maroon) அளவைப் பயன்படுத்துகின்றன — பயனர்கள் இதைப் படிக்கப் பழகியிருப்பதால், இதிலிருந்து ஒருபோதும் விலகக்கூடாது.
+
+எழுத்துரு (Typography): Google Fonts-ல் இருந்து DM Sans, Newsreader மற்றும் JetBrains Mono, ரெண்டரைத் (render) தடுக்காமல் லோட் செய்யப்பட வேண்டும்.
+அடர்த்தி: தகவல்கள் அடர்த்தியாக இருக்க வேண்டும் ஆனால் குழப்பமாக இருக்கக்கூடாது. தரவுகளுக்கு உரைநடைகளை விட அட்டவணைகளே (Tables) சிறந்தது.
+மொபைல்-முதல் (Mobile-first): பெரும்பாலான இந்திய இணைய பயனர்கள் மொபைல் மூலமாகவே தளத்தை அணுகுகிறார்கள்.
 ```
+
+ஒவ்வொரு வடிவமைப்புத் தூண்டுதலுக்கும் இந்தச் சுருக்கத்தை நிலையாக வைத்திருப்பதன் மூலம், வடிவமைப்பு அமைப்பு ஆவணம் (design system document) இல்லாமலேயே ஒரு ஒருங்கிணைந்த காட்சி மொழி உருவாக்கப்பட்டது.
+
+---
+
+## பயன்படுத்தப்பட்ட தூண்டுதல் முறைகள்
+
+### 1. "AQI Colour Card" முறை
+
+நகரத்தின் AQI அட்டைகளுக்கு:
+
+```
+HTML/CSS-ல் ஒரு AQI நகர அட்டையை வடிவமைக்கவும். இதில் நகரத்தின் பெயர், தற்போதைய AQI எண், 
+AQI வகை லேபிள், PM2.5 மதிப்பு ஆகியவை இருக்க வேண்டும். பின்னணி நிறம் நிலையான US EPA வண்ண அளவைப் பயன்படுத்தி AQI வகையைப் பிரதிபலிக்க வேண்டும். வண்ணங்களுக்கு CSS custom properties-ஐப் பயன்படுத்தவும், இதனால் JavaScript மூலம் அவற்றை மாறும் வகையில் அமைக்க முடியும். இருண்ட பின்னணிகளில் (கரும்சிவப்பு/ஊதா) உட்பட, 6 AQI வகை வண்ணங்களில் எதிலும் இந்த அட்டை தெளிவாகப் படிக்கக்கூடியதாக இருக்க வேண்டும். படங்கள் வேண்டாம். எந்த லைப்ரரியும் தேவைப்படும் ஐகான்களும் வேண்டாம்.
+```
+
+"6 AQI வகை வண்ணங்களில் எதிலும் தெளிவாகப் படிக்கக்கூடியதாக இருக்க வேண்டும்" என்ற கட்டுப்பாடு, AI சரியான மாறுபாட்டு லாஜிக்கைப் (contrast logic) பயன்படுத்த கட்டாயப்படுத்தியது — வண்ணப் பின்னணியில் வெள்ளை நிற உரை மட்டும் போதாது, ஏனெனில் அது மஞ்சள் நிறத்தில் சரியாகத் தெரியாது.
+
+---
+
+### 2. "Data Table" முறை
+
+எந்தவொரு அட்டவணைத் தரவுகளுக்கும் (policy tracker, budget tracker, city comparison):
+```
+[dataset]-க்கு ஒரு HTML table-ஐ உருவாக்கவும். தேவைகள்:
+- Mobile-first: சிறிய திரைகளில், 2-3 மிக முக்கியமான columns-ஐ மட்டும் காட்டவும்; 
+  secondary columns-ஐ CSS class மூலம் toggle செய்யும் வகையில் மறைக்கவும்
+- Scroll செய்யும் போது sticky header
+- CSS variables-ஐப் பயன்படுத்தி (hardcoded hex அல்ல) மாற்று வரிசை நிறங்கள்
+- Column headers-ல் sort indicator (visual மட்டும் — JS sort தேவையில்லை)
+- ஒவ்வொரு cell-ம் linked citation-ஆக இருக்கும் "source" column
+- External CSS frameworks வேண்டாம்
+```
+
+"source column as linked citation" தேவை JanVayu-வின் பொறுப்புக்கூறல் பணிக்கு மிகவும் முக்கியமானது — ஒவ்வொரு தரவு அட்டவணையும் அதன் முதன்மை மூலத்திற்குக் கொண்டு செல்லும்.
+
+---
 
 ### 3. "Section Header" Pattern
 
-```
-Design a section header for a civic data platform. It should include:
-- Section number (small, muted)
-- Section title (large, bold)
-- A one-sentence description in a muted colour
-- An optional "last updated" timestamp aligned right
-- A subtle border-bottom separator
+JanVayu-வில் பல panels உள்ளன. ஒரு component system இல்லாமல் அவற்றை visually consistent-ஆக வைத்திருக்க ஒரு pattern தேவைப்பட்டது:
 
-Use only CSS — no images, icons, or JavaScript. Works at 320px wide.
 ```
+ஒரு civic data platform-க்கான section header-ஐ வடிவமைக்கவும். அதில் இவை இருக்க வேண்டும்:
+- Section எண் (சிறியது, மங்கலானது)
+- Section தலைப்பு (பெரியது, bold)
+- மங்கலான நிறத்தில் ஒரு வாக்கிய விளக்கம்
+- வலதுபுறம் சீரமைக்கப்பட்ட விருப்பமான "last updated" timestamp
+- நுட்பமான border-bottom separator
+
+CSS மட்டுமே பயன்படுத்தவும் — images, icons, அல்லது JavaScript வேண்டாம். 
+320px அகலத்திலும் (குறைந்தபட்ச mobile) text overflow இல்லாமல் header வேலை செய்ய வேண்டும்.
+```
+
+"Works at 320px without text overflow" என்பது production-க்குச் செல்வதற்கு முன்பே பல wrapping சிக்கல்களைக் கண்டறிந்தது.
+
+---
 
 ### 4. "Colour for Urgency" Pattern
 
+Callout boxes மற்றும் alert banners-க்கு:
+
 ```
-Design a callout box that communicates [low/moderate/high/severe] urgency
-without using red for anything below "severe". Use colour, border weight,
-and typography weight — not icons or emojis — to convey severity level.
-The box must be distinguishable in greyscale (for colour-blind users).
+எந்தவொரு "severe"-க்குக் கீழான நிலைக்கும் சிவப்பு நிறத்தைப் பயன்படுத்தாமல், 
+[low/moderate/high/severe] அவசர நிலையைத் தெரிவிக்கும் ஒரு callout box-ஐ வடிவமைக்கவும். 
+தீவிரத்தன்மை நிலையைத் தெரிவிக்க icons அல்லது emojis-ஐ அல்லாமல், colour, border weight, 
+மற்றும் typography weight-ஐப் பயன்படுத்தவும். 
+Color-blind பயனர்களுக்காக, இந்த box greyscale-லும் தனித்துத் தெரிய வேண்டும்.
 ```
+
+"Distinguishable in greyscale" என்பது border weight மற்றும் typography-ஐ இரண்டாம் நிலை அவசர சமிக்ஞைகளாகப் பயன்படுத்தக் கட்டாயப்படுத்தியது — நிறத்தை மட்டும் அல்ல — இது accessibility-ஐ கணிசமாக மேம்படுத்தியது.
+
+---
 
 ### 5. "Chart Accessibility" Pattern
 
+Chart.js visualisations-க்கு:
+
 ```
-Configure this Chart.js chart for accessibility:
-- All data points have aria-label attributes
-- The chart has a visible title and a text summary of the key finding
-  below it (for screen readers)
-- Colours are from a colour-blind-safe palette
-- Grid lines are subtle
-- Tooltips are readable on both light and dark backgrounds
+இந்த Chart.js chart-ஐ accessibility-க்காக configure செய்யவும்:
+- அனைத்து data points-க்கும் aria-label attributes இருக்க வேண்டும்
+- Chart-ல் ஒரு visible title மற்றும் அதன் கீழே முக்கிய கண்டுபிடிப்பின் text summary இருக்க வேண்டும் 
+  (screen readers மற்றும் charts-ஐப் புரிந்துகொள்ள முடியாத பயனர்களுக்காக)
+- Colours default Chart.js colours ஆக இல்லாமல், color-blind-safe palette-ல் இருக்க வேண்டும்
+- Grid lines நுட்பமாக இருக்க வேண்டும் (தரவு வரிகளை மூழ்கடிக்கும் default grey ஆக இருக்கக்கூடாது)
+- Tooltips light மற்றும் dark backgrounds இரண்டிலும் படிக்கக்கூடியதாக இருக்க வேண்டும்
 ```
+"முக்கிய கண்டுபிடிப்பின் உரைச் சுருக்கம்" (text summary of the key finding) என்ற விதிமுறையின்படி, JanVayu-வில் உள்ள ஒவ்வொரு சார்ட்டிற்கும் (chart) கீழே எளிய மொழியில் ஒரு வாக்கியம் இருக்கும் — இது அணுகல்தன்மைக்கு (accessibility) பயனுள்ளதாக இருப்பதுடன், சார்ட்டை முழுமையாகப் படிக்காமல் முக்கியத் தகவலை மட்டும் தெரிந்துகொள்ள விரும்பும் பயனர்களுக்கும் உதவியாக இருக்கும்.
 
 ---
 
 ## CSS கட்டமைப்பு முடிவு
 
-JanVayu `index.html`-ல் `:root` அளவிலான CSS custom properties-உடன் ஒற்றை `<style>` block-ஐ பயன்படுத்துகிறது:
+JanVayu அதன் ஸ்டைல்களை `styles.css`-ல் வைத்திருக்கிறது, மேலும் CSS கஸ்டம் பண்புகளை (custom properties) `:root` அளவில் கொண்டுள்ளது. இது ஒரு திட்டமிட்ட கட்டுப்பாடாகும்:
 
 ```css
 :root {
-  --color-aqi-good: #00e400;
-  --color-aqi-moderate: #ffff00;
-  --color-aqi-unhealthy-sensitive: #ff7e00;
-  --color-aqi-unhealthy: #ff0000;
-  --color-aqi-very-unhealthy: #8f3f97;
-  --color-aqi-hazardous: #7e0023;
-
-  --color-primary: #6d28d9;
-  --color-surface: #1e1b4b;
-  --color-text: #e2e8f0;
+  --aqi-good: #15803d;
+  --aqi-moderate: #a16207;
+  --aqi-poor: #c2410c;
+  --aqi-very-poor: #b91c1c;
+  --aqi-severe: #6d28d9;
+  --aqi-hazardous: #831843;
 }
 ```
 
-ஒவ்வொரு design prompt-ம் hardcode மதிப்புகளுக்கு பதிலாக இந்த variable பெயர்களை பயன்படுத்தக் கேட்கப்பட்டது. இது சில வரிகளை மாற்றுவதன் மூலம் முழு வண்ண scheme-ஐ audit செய்யவும் புதுப்பிக்கவும் சாத்தியமாக்கியது.
+டிசைன் ப்ராம்ப்ட்கள் (design prompts) மதிப்புகளை நேரடியாகக் குறியீடு செய்வதற்குப் பதிலாக இந்த வேரியபிள் பெயர்களைப் பயன்படுத்தும்படி கேட்கப்பட்டன. இதன் மூலம், சில வரிகளை மாற்றுவதன் மூலம் முழு வண்ணத் திட்டத்தையும் (colour scheme) தணிக்கை (audit) செய்து புதுப்பிக்க முடிந்தது.

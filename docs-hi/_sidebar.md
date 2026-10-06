@@ -1,65 +1,81 @@
-<!-- docs-hi/_sidebar.md -->
+---
+<!-- docs/_sidebar.md -->
 
-- **शुरुआत**
+- **शुरुआत करना**
   - [परिचय](README.md)
 
-- **उपयोगकर्ता मार्गदर्शिका**
-  - [प्लेटफ़ॉर्म अवलोकन](user-guide/overview.md)
+- **यूज़र गाइड**
+  - [प्लेटफ़ॉर्म ओवरव्यू](user-guide/overview.md)
+  - [रोल-बेस्ड लैंडिंग एक्सपीरियंस](user-guide/role-selector.md)
   - [AQI डैशबोर्ड](user-guide/aqi-dashboard.md)
-  - [स्वास्थ्य प्रभाव कैलकुलेटर](user-guide/health-calculator.md)
+  - [हेल्थ इम्पैक्ट कैलकुलेटर](user-guide/health-calculator.md)
   - [आर्थिक लागत विश्लेषण](user-guide/economic-cost.md)
-  - [नीति एवं बजट ट्रैकर](user-guide/policy-tracker.md)
-  - [शहर तुलना एवं मानचित्र](user-guide/city-comparison.md)
-  - [दैनिक ईमेल डाइजेस्ट](user-guide/email-digest.md)
-  - [नागरिक कार्रवाई उपकरण](user-guide/citizen-action.md)
-  - [सीखने के खेल](user-guide/learning-games.md) <small>NEW</small>
+  - [पॉलिसी और बजट ट्रैकर](user-guide/policy-tracker.md)
+  - [सिटी तुलना और मैप](user-guide/city-comparison.md)
+  - [डेली ईमेल डाइजेस्ट](user-guide/email-digest.md)
+  - [सिटीजन एक्शन टूल्स](user-guide/citizen-action.md)
+  - [लर्निंग गेम्स](user-guide/learning-games.md)
 
-- **तकनीकी स्टैक**
-  - [अवलोकन](tech-stack/overview.md)
+- **टेक स्टैक**
+  - [ओवरव्यू](tech-stack/overview.md)
   - [फ्रंटएंड](tech-stack/frontend.md)
   - [बैकएंड](tech-stack/backend.md)
-  - [AI परत](tech-stack/ai-layer.md)
-  - [इन्फ्रास्ट्रक्चर](tech-stack/infrastructure.md)
+  - [AI लेयर](tech-stack/ai-layer.md)
+  - [इंफ्रास्ट्रक्चर](tech-stack/infrastructure.md)
   - [डेवलपमेंट टूलिंग](tech-stack/dev-tooling.md)
 
-- **Claude Code**
+- **क्लाउड कोड**
   - [JanVayu कैसे बनाया गया](claude-code/overview.md)
-  - [सेटअप एवं कॉन्फ़िगरेशन](claude-code/setup.md)
+  - [सेटअप और कॉन्फ़िगरेशन](claude-code/setup.md)
   - [डेवलपमेंट वर्कफ़्लो](claude-code/workflow.md)
-  - [साझाकरण एवं प्रतिकृति](claude-code/sharing.md)
+  - [शेयरिंग और रेप्लिकेटिंग](claude-code/sharing.md)
+  - [फुल कैपेबिलिटीज़ रेफरेंस](claude-code/capabilities.md)
 
-- **तकनीकी संदर्भ**
+- **API रेफरेंस**
+  - [ओवरव्यू](api/README.md)
+  - [ओपनएपीआई स्पेक](api/openapi.yaml)
+
+- **टेक्निकल रेफरेंस**
   - [आर्किटेक्चर](technical/architecture.md)
   - [लोकल डेवलपमेंट](technical/local-development.md)
   - [एनवायरनमेंट वेरिएबल्स](technical/environment-variables.md)
-  - [Netlify Functions](technical/netlify-functions.md)
-  - [AI सुविधाएँ](technical/ai-features.md)
+  - [नेटलाइफ फंक्शन्स](technical/netlify-functions.md)
+  - [AI फीचर्स](technical/ai-features.md)
   - [डिप्लॉयमेंट](technical/deployment.md)
+  - [परफॉरमेंस रोडमैप](technical/performance-roadmap.md)
 
-- **डेटा स्रोत**
-  - [अवलोकन](data-sources/overview.md)
+- **डेटा सोर्सेस**
+  - [ओवरव्यू](data-sources/overview.md)
   - [रियल-टाइम AQI (WAQI)](data-sources/waqi.md)
-  - [स्वास्थ्य एवं मृत्यु दर डेटा](data-sources/health-data.md)
-  - [नीति एवं कानूनी डेटा](data-sources/policy-data.md)
-
+  - [ऑब्ज़र्व्ड स्टेशन डेटा (XKDR)](data-sources/xkdr-air-quality.md)
+  - [CREA मेज़रमेंट्स API](data-sources/crea-measurements.md)
+  - [क्या यह पॉलिसी थी या हवा? 44 शहर](data-sources/deweathered-national.md)
+  - [CPCB डेली AQI बुलेटिन, 2015-2025](data-sources/aqi-bulletins.md)
+  - [बाउंड्री मैप (हर एडमिन लेवल)](data-sources/boundary-map.md)
+  - [हेल्थ और मॉर्टेलिटी डेटा](data-sources/health-data.md)
+  - [पॉलिसी और लीगल डेटा](data-sources/policy-data.md)
 - **योगदान**
-  - [कैसे योगदान दें](contributing/how-to-contribute.md)
-  - [सामग्री मानक](contributing/content-standards.md)
+  - [कैसे योगदान करें](contributing/how-to-contribute.md)
+  - [सहयोगी कार्य विवरण](contributing/collaborators.md)
+  - [कंटेंट मानक](contributing/content-standards.md)
   - [कोड मानक](contributing/code-standards.md)
   - [अनुवाद](contributing/translations.md)
 
-- **स्किल्स एवं AI प्रॉम्प्ट्स**
+- **कौशल और AI प्रॉम्प्ट्स**
   - [अवलोकन](skills/README.md)
-  - [वायु गुणवत्ता सहायक](skills/air-quality-assistant.md)
-  - [सार्वजनिक स्वास्थ्य सलाहकार](skills/health-advisory.md)
-  - [जवाबदेही ब्रीफ़ लेखक](skills/accountability-brief.md)
-  - [विसंगति व्याख्याकार](skills/anomaly-explainer.md)
-  - [कोडिंग प्रथाएँ](skills/coding-practices.md)
+  - [एयर क्वालिटी असिस्टेंट](skills/air-quality-assistant.md)
+  - [पब्लिक हेल्थ एडवाइज़र](skills/health-advisory.md)
+  - [अकाउंटेबिलिटी ब्रीफ राइटर](skills/accountability-brief.md)
+  - [एनोमली एक्सप्लेनर](skills/anomaly-explainer.md)
+  - [कोडिंग अभ्यास](skills/coding-practices.md)
   - [विज़ुअल डिज़ाइन](skills/visual-design.md)
-  - [स्वचालन](skills/automation.md)
+  - [ऑटोमेशन](skills/automation.md)
 
-- **परिचय**
-  - [परियोजना पृष्ठभूमि](about/background.md)
+- **ब्लॉग**
+  - [JanVayu ब्लॉग](/blog/)
+
+- **हमारे बारे में**
+  - [प्रोजेक्ट पृष्ठभूमि](about/background.md)
   - [लाइसेंस](about/license.md)
   - [संपर्क](about/contact.md)
 
@@ -71,3 +87,7 @@
 - [বাংলা](/bn/)
 - [मराठी](/mr/)
 - [தமிழ்](/ta/)
+
+---
+
+<small>[janvayu.in](https://www.janvayu.in) | [GitHub](https://github.com/JanVayu/JanVayu)</small>

@@ -20,6 +20,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from collections import Counter
 import subprocess
 import sys
 import urllib.error
@@ -163,6 +164,16 @@ def structure(md: str) -> dict:
     return {"headings": headings, "fences": fences, "table_rows": rows, "links": links}
 
 
+NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+# Devanagari, Bengali and Tamil digits read as ASCII, so "৭৬৮" counts as 768
+NATIVE_DIGITS = str.maketrans("०१२३४५६७८९০১২৩৪৫৬৭৮৯௦௧௨௩௪௫௬௭௮௯",
+                              "012345678901234567890123456789")
+
+
+def numbers(md: str) -> Counter:
+    return Counter(n.replace(",", "") for n in NUMBER.findall(md.translate(NATIVE_DIGITS)))
+
+
 def validate(src: str, out: str, lang: str) -> str | None:
     """Return a reason the translation must not be written, or None."""
     a, b = structure(src), structure(out)
@@ -173,6 +184,12 @@ def validate(src: str, out: str, lang: str) -> str | None:
         lost = sorted(set(a["links"]) - set(b["links"]))[:3]
         added = sorted(set(b["links"]) - set(a["links"]))[:3]
         return f"link targets differ (missing {lost}, added {added}, counts {len(a['links'])} and {len(b['links'])})"
+    # Every figure in the English must survive. On 6 October 2026 a Bengali
+    # translation turned "768 of 783 districts" into "763 of 763" and passed
+    # every structure check. Extra numbers in the translation are allowed.
+    lost = numbers(src) - numbers(out)
+    if lost:
+        return f"numbers missing or changed: {sorted(lost)[:6]}"
     lo, hi = SCRIPT_RANGES[lang]
     letters = sum(1 for ch in out if lo <= ord(ch) <= hi)
     if letters < 50:

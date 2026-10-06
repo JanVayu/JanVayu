@@ -1,66 +1,67 @@
-# தொழில்நுட்ப அடுக்கு கண்ணோட்டம்
+# தொழில்நுட்ப அடுக்கு (Tech Stack) மேலோட்டம்
 
-JanVayu வேண்டுமென்றே குறைந்தபட்ச அடுக்கில் கட்டமைக்கப்பட்டுள்ளது — சூன்ய frontend frameworks, மூன்று npm dependencies மற்றும் serverless backend. இந்தப் பக்கம் பயன்படுத்தப்படும் ஒவ்வொரு தொழில்நுட்பத்தையும் ஏன் தேர்ந்தெடுக்கப்பட்டது என்பதையும் வரைபடமாக்குகிறது.
+ஜான்வாயு (JanVayu) வேண்டுமென்றே மிகக் குறைந்த தொழில்நுட்ப அடுக்குகளைக் கொண்டு உருவாக்கப்பட்டுள்ளது — பூஜ்ஜிய ஃபிரண்ட்எண்ட் ஃபிரேம்வொர்க்குகள், மூன்று npm டிபென்டென்சிகள் மற்றும் சர்வர்லெஸ் பேக்கெண்ட். இந்த பக்கம் பயன்படுத்தப்படும் ஒவ்வொரு தொழில்நுட்பத்தையும், அது ஏன் தேர்ந்தெடுக்கப்பட்டது என்பதையும் விளக்குகிறது.
 
 ---
 
-## ஒரு பார்வையில் அடுக்கு
+## அடுக்குகளின் சுருக்கம்
 
 | அடுக்கு | தொழில்நுட்பம் | நோக்கம் |
 |-------|-----------|---------|
-| **Frontend** | Vanilla HTML/CSS/JS | ஒற்றைப்பக்க பயன்பாடு (build படி இல்லை) |
-| **Charts** | Chart.js (CDN) | AQI போக்கு காட்சிப்படுத்தல்கள் |
-| **Maps** | Leaflet.js + OpenStreetMap (CDN) | ஊடாடும் நிலைய வரைபடங்கள் |
-| **Backend** | Netlify Functions (Node.js 18) | Serverless API endpoints |
-| **Cache** | Netlify Blobs | நிலையான JSON cache (strong consistency) |
-| **Email** | Resend API | தினசரி AQI சுருக்க விநியோகம் |
-| **AI** | Google Gemini 2.5 Flash | NL வினவல்கள், சுகாதார ஆலோசனை, முரண்பாடு கண்டறிதல் |
-| **Hosting** | Netlify CDN | GitHub `main`-லிருந்து தானாக deploy |
-| **CI** | GitHub Actions | இணைப்பு சோதனை, Dependabot |
-| **Domain** | Netlify DNS | janvayu.in custom domain |
-| **மேம்பாடு** | Claude Code (Anthropic) | AI-உதவி மேம்பாட்டு பணிப்பாய்வு |
+| **Frontend** | Vanilla HTML/CSS/JS | Single-page application (பில்ட் ஸ்டெப் இல்லை) |
+| **Charts** | Chart.js (CDN) | AQI ட்ரெண்ட் காட்சிப்படுத்தல்கள் |
+| **Maps** | Leaflet.js + OpenStreetMap (CDN) | இன்டராக்டிவ் ஸ்டேஷன் மேப்கள் |
+| **Backend** | Netlify Functions (Node.js 22) | சர்வர்லெஸ் API எண்ட்பாயிண்ட்கள் |
+| **Cache** | Netlify Blobs | நிலையான JSON கேச் (strong consistency) |
+| **Email** | Resend API | தினசரி AQI டைஜஸ்ட் டெலிவரி |
+| **AI** | OpenAI gpt-oss-120b via Groq (env-overridable `GROQ_MODEL`) | NL வினவல்கள், சுகாதார ஆலோசனைகள், முரண்பாடுகளைக் கண்டறிதல் |
+| **Hosting** | Netlify CDN | GitHub `main` இலிருந்து ஆட்டோ-டெப்லாய் |
+| **CI** | GitHub Actions | லிங்க் தணிக்கை, அணுகல்தன்மை, Lighthouse, CodeQL, மொழிபெயர்ப்பு சிங்க், சைட்-பிகர் கார்டுகள், Dependabot |
+| **Domain** | Netlify DNS | janvayu.in கஸ்டம் டொமைன் |
+| **Docs** | Docsify (5 மொழிகள்) | `/docs/` இல் ஒற்றை ஷெல்; மொழி ஹாஷ் ரூட்கள் (`/docs/#/hi/` போன்றவை) `docs-{lang}/` மார்க்டவுனை லோட் செய்யும் |
+| **Development** | Claude Code (Anthropic) | AI-உதவியுடன் டெவலப்மென்ட் ஒர்க்ஃப்ளோ |
 
 ---
 
-## ஏன் இந்த அடுக்கு?
+## இந்த அடுக்கு ஏன்?
 
-### சூன்ய-Framework Frontend
+### ஜீரோ-ஃபிரேம்வொர்க் ஃபிரண்ட்எண்ட்
 
-JanVayu-ன் பயனர்களில் இந்தியா முழுவதும் 2G இணைப்புகள் மற்றும் குறைந்த-தர Android சாதனங்களில் உள்ளவர்கள் அடங்குவர். React அல்லது Vue போன்ற framework ஒரு அம்சம் ஏற்றப்படுவதற்கு முன் 40-100 KB JavaScript-ஐ சேர்க்கும். அதற்கு பதிலாக:
+ஜான்வாயுவின் பார்வையாளர்களில் இந்தியா முழுவதும் 2G கனெக்‌ஷன் மற்றும் குறைந்த திறன் கொண்ட ஆண்ட்ராய்டு சாதனங்களைப் பயன்படுத்துபவர்களும் அடங்குவர். React அல்லது Vue போன்ற ஒரு ஃபிரேம்வொர்க், ஒரு அம்சம் லோட் ஆவதற்கு முன்பே ஃபிரேம்வொர்க் ரன்டைமை டவுன்லோட் செய்யச் செய்யும். அதற்குப் பதிலாக:
 
-- முழு app ஒரு `index.html` கோப்பு (inline CSS + JS)
-- Transpilation இல்லை, bundling இல்லை, tree-shaking தேவையில்லை
-- Deploy artefact = repo தானே
-- அடிப்படை HTML/JS திறன்கள் கொண்ட எவரும் பங்களிக்கலாம்
+- இந்த ஆப் ஒரு பண்ட்லர் இல்லாமல் `index.html`, `styles.css`, `app.js`, `games.js` மற்றும் 19 லேஸி-லோட் செய்யப்பட்ட பேனல் துண்டுகளைக் கொண்டுள்ளது
+- ட்ரான்ஸ்பைலேஷன், பண்ட்லிங், ட்ரீ-ஷேக்கிங் எதுவும் தேவையில்லை
+- டெப்லாய் ஆர்ட்டிஃபாக்ட் = ரெப்போ (repo)
+- அடிப்படை HTML/JS திறன்கள் கொண்ட எந்தவொரு பங்களிப்பாளரும் பங்களிக்க முடியும்
 
-### 3 npm Dependencies மட்டுமே
+### 3 npm டிபென்டென்சிகள் மட்டுமே
 
 ```json
 {
-  "@google/generative-ai": "^0.24.1",
-  "@netlify/blobs": "^8.1.0",
-  "resend": "^6.9.3"
+  "@netlify/blobs": "^11.0.2",
+  "resend": "^6.14.0",
+  "web-push": "^3.6.7"
 }
 ```
 
-மூன்றும் சர்வர்-பக்கம் மட்டுமே (Netlify Functions-ஆல் பயன்படுத்தப்படுகிறது). கிளையண்டுக்கு சூன்ய npm dependencies — Chart.js மற்றும் Leaflet.js CDN-லிருந்து ஏற்றப்படுகின்றன.
+இந்த மூன்றிலும் சர்வர்-பக்கத்தில் மட்டுமே பயன்படுத்தப்படுகின்றன (Netlify Functions மூலம்). AI அம்சங்கள் `fetch` மூலம் நேரடியாக Groq REST API (OpenAI-இணக்கமானது) ஐப் பயன்படுத்துகின்றன — SDK தேவையில்லை. கிளைண்டில் பூஜ்ஜிய npm டிபென்டென்சிகள் உள்ளன — Chart.js மற்றும் Leaflet.js ஆகியவை CDN இலிருந்து லோட் செய்யப்படுகின்றன.
 
-### Serverless Over Server
+### சர்வரை விட சர்வர்லெஸ்
 
-Netlify Functions நிரந்தர சர்வரின் தேவையை நீக்குகிறது. நன்மைகள்:
-- சூன்ய ops சுமை (சர்வர் patching இல்லை, scaling இல்லை)
-- Free tier JanVayu-ன் traffic-ஐ உள்ளடக்குகிறது
-- தானாக HTTPS, CDN மற்றும் edge deployment
-- Functions cold-start < 500ms-ல்
+Netlify Functions ஒரு நிலையான சர்வரின் தேவையைக் குறைக்கிறது. நன்மைகள்:
+- பூஜ்ஜிய ஆப்ஸ் (ops) சுமை (சர்வர் பேட்சிங் இல்லை, ஸ்கேலிங் இல்லை)
+- ஆட்டோமேட்டிக் HTTPS, CDN மற்றும் எட்ஜ் டெப்லாய்மென்ட்
 
 ---
 
-## விரிவான பிரிப்பு
+## விரிவான பகுப்பாய்வு
 
-| பிரிவு | பக்கம் |
+
+---
+| பகுதி | பக்கம் |
 |---------|------|
-| Frontend (HTML/CSS/JS, Chart.js, Leaflet) | [Frontend அடுக்கு](frontend.md) |
-| Backend (Netlify Functions, Blobs, Resend) | [Backend அடுக்கு](backend.md) |
-| AI அடுக்கு (Gemini 2.5 Flash) | [AI அடுக்கு](ai-layer.md) |
-| உள்கட்டமைப்பு (Netlify, GitHub, DNS) | [உள்கட்டமைப்பு](infrastructure.md) |
-| மேம்பாட்டு கருவிகள் (Claude Code, Git hooks) | [மேம்பாட்டு கருவிகள்](dev-tooling.md) |
+| Frontend (HTML/CSS/JS, Chart.js, Leaflet) | [Frontend Stack](frontend.md) |
+| Backend (Netlify Functions, Blobs, Resend) | [Backend Stack](backend.md) |
+| AI Layer (OpenAI gpt-oss-120b via Groq) | [AI Stack](ai-layer.md) |
+| Infrastructure (Netlify, GitHub, DNS) | [Infrastructure](infrastructure.md) |
+| Development Tools (Claude Code, Git hooks) | [Dev Tooling](dev-tooling.md) |

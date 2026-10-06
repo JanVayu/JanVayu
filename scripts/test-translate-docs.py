@@ -33,6 +33,14 @@ assert "target script" in td.validate(src, src, "hi")
 assert td.validate(src, good, "ta") is not None   # Devanagari is not Tamil
 print("validation OK")
 
+
+# a changed figure is rejected even when the structure is intact
+en_fig = "# T\n\nThe cleanest season in 768 of 783 districts, 2,541 duplicates.\n" + "अ"*60
+assert td.validate(en_fig, en_fig.replace("768 of 783","763 of 763"), "hi"), "changed number passed"
+bn_ok = "# T\n\n৭৬৮ / ৭৮৩ জেলা, ২,৫৪১ " + "অ"*60
+assert td.validate(en_fig, bn_ok, "bn") is None, td.validate(en_fig, bn_ok, "bn")
+print("number check OK (native digits accepted, changed figure rejected)")
+
 # --- end to end in a scratch copy of the repo layout with a stub translator
 tmp = pathlib.Path(tempfile.mkdtemp())
 (tmp/"docs").mkdir(); (tmp/"docs"/"a.md").write_text(src)

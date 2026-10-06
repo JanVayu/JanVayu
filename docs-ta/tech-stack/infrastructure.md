@@ -1,105 +1,105 @@
 # உள்கட்டமைப்பு
 
-JanVayu முழுவதும் Netlify-ன் platform-ல் இயங்குகிறது, GitHub மூலமாக source of truth ஆக. பாரம்பரிய servers, databases அல்லது container orchestration எதுவும் இல்லை.
+JanVayu முழுமையாக Netlify-இன் தளத்தில் இயங்குகிறது, இதில் GitHub தான் உண்மையான மூலமாகும். இங்கு பாரம்பரிய சர்வர்கள், தரவுத்தளங்கள் அல்லது கண்டெய்னர் ஆர்கெஸ்ட்ரேஷன் எதுவும் இல்லை.
 
 ---
 
 ## Netlify
 
-### Hosting
+### ஹோஸ்டிங்
 
-- **CDN:** Netlify-ன் global edge network
-- **Deploy trigger:** GitHub-ல் `main`-க்கு push
-- **Build command:** எதுவும் இல்லை (build படி இல்லை)
-- **Publish directory:** `.` (repository root)
-- **Functions directory:** `netlify/functions/`
+- **CDN:** Netlify-இன் உலகளாவிய எட்ஜ் நெட்வொர்க்
+- **டெப்லாய் ட்ரிக்கர்:** GitHub-இல் `main`-க்கு புஷ் (Push) செய்வது
+- **பில்ட் கமாண்ட்:** `node scripts/bump-version.mjs` (வெர்ஷன் ஸ்டாம்ப் மட்டும்; பண்ட்லர் இல்லை)
+- **பப்ளிஷ் டைரக்டரி:** `.` (ரெபாசிட்டரி ரூட்)
+- **ஃபங்ஷன்ஸ் டைரக்டரி:** `netlify/functions/`
 
 ### கட்டமைப்பு (`netlify.toml`)
 
 ```toml
 [build]
+  command = "node scripts/bump-version.mjs"
   publish = "."
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22"
 ```
 
-### பாதுகாப்பு Headers
+### செக்யூரிட்டி ஹெடர்கள்
 
-அனைத்து பதில்களுக்கும் பொருந்தும்:
+இரண்டு விதிவிலக்குகளைத் தவிர, அனைத்து பாதைகளுக்கும் (`/*`) இவை பயன்படுத்தப்படுகின்றன: `/embed/*` ஆனது `X-Frame-Options = "ALLOWALL"` என அமைக்கிறது, இதனால் விட்ஜெட்களை எந்த மூலத்திலிருந்தும் ஃப்ரேம் செய்ய முடியும், மேலும் `/walkthrough/*` ஆனது `SAMEORIGIN` என அமைக்கிறது:
 
-| Header | மதிப்பு | நோக்கம் |
+| ஹெடர் | மதிப்பு | நோக்கம் |
 |--------|-------|--------|
-| `X-Frame-Options` | `DENY` | Clickjacking-ஐ தடுக்கிறது |
-| `X-Content-Type-Options` | `nosniff` | MIME sniffing-ஐ தடுக்கிறது |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` | Referrer தரவை கட்டுப்படுத்துகிறது |
+| `X-Frame-Options` | `DENY` | கிளிக்ஜாக்கிங்கைத் தடுக்கிறது |
+| `X-Content-Type-Options` | `nosniff` | MIME ஸ்னிஃபிங்கைத் தடுக்கிறது |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | ரெஃபரர் தரவைக் கட்டுப்படுத்துகிறது |
 
-### Redirects
+### ரீடைரக்ட்கள்
 
-- `www.janvayu.in` → `janvayu.in` (canonical URL)
-- அனைத்து routes → `/index.html` (SPA fallback)
-- `/robots.txt` மற்றும் `/sitemap.xml` SPA fallback-ஐ தவிர்க்கின்றன
+- `janvayu.in/*` → `www.janvayu.in/:splat` (301; கேனானிக்கல் URL `www.janvayu.in` ஆகும்)
+- மற்ற அனைத்து ரூட்களும் → `/index.html` (SPA ஃபால்பேக்), `/docs`, `/blog`, `/embed`, `/api`, `/ask`, `/status` மற்றும் ஒவ்வொரு மாசுக் கூறுகளுக்கான பக்கங்களுக்கான `netlify.toml`-இல் உள்ள குறிப்பிட்ட விதிகளுக்குப் பிறகு இது நடக்கும்
+- `/robots.txt` மற்றும் `/sitemap.xml` ஆகியவை SPA ஃபால்பேக்கை தவிர்க்கின்றன
 
 ---
 
 ## GitHub
 
-### Repository
+### ரெபாசிட்டரி
 
-- **Repo:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
-- **Default branch:** `main`
-- **Branch protection:** merge-ல் தானாக deploy
+- **ரெப்போ:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
+- **டீஃபால்ட் பிரான்ச்:** `main`
+- **டெப்லாய்ஸ்:** `main`-க்கு புஷ் செய்யப்படும்போது ஆட்டோ-டெப்லாய்
 
 ### CI/CD
 
-- **GitHub Actions** workflow (`ci.yml`): push/PR-ல் Lychee link checker
-- **Dependabot** (`dependabot.yml`): GitHub Actions-க்கான மாதாந்தர updates
+- **GitHub Actions** (`.github/workflows/`, 14 ஒர்க்ஃப்ளோக்கள்): `ci.yml` (`index.html`, தளத்தின் புள்ளிவிவரங்கள் மற்றும் Netlify ஃபங்ஷன்களுக்கான பாதுகாப்புகள், அத்துடன் Lychee லிங்க் செக்கர்), `link-audit`, `accessibility`, `lighthouse`, `codeql`, `translations`, `quality` மற்றும் பிற
+- **Dependabot** (`dependabot.yml`): GitHub Actions மற்றும் npm-க்கான மாதாந்திர அப்டேட்கள், சிறிய மற்றும் பேட்ச் அப்டேட்கள் ஒன்றாக தொகுக்கப்படும்
 
-### Git Hooks (`.githooks/`)
+### கிட் ஹூக்ஸ் (`.githooks/`)
 
-| Hook | நோக்கம் |
+| ஹூக் | நோக்கம் |
 |------|--------|
-| `pre-commit` | `.env` கோப்புகளை தடுக்கிறது, `console.log` debug statements-ஐ சோதிக்கிறது, merge conflict markers-ஐ கண்டறிகிறது, 500 KB-க்கு மேல் கோப்புகளில் எச்சரிக்கிறது |
-| `commit-msg` | Commit message prefixes-ஐ செயல்படுத்துகிறது: `Add`, `Fix`, `Update`, `Translate`, `Docs`, `Refactor`, `Test`, `CI`, `Chore`, `Merge` |
+| `pre-commit` | `.env` ஃபைல்களைத் தடுக்கிறது, `console.log` டீபக் ஸ்டேட்மென்ட்களை சரிபார்க்கிறது, மெர்ஜ் கான்ஃப்ளிக்ட் மார்க்கர்களைக் கண்டறிகிறது, 500 KB-க்கு மேற்பட்ட ஃபைல்கள் இருந்தால் எச்சரிக்கிறது |
+| `commit-msg` | கமிட் மெசேஜ் முன்னொட்டுகளை கட்டாயமாக்குகிறது: `Add`, `Fix`, `Update`, `Translate`, `Docs`, `Refactor`, `Test`, `CI`, `Chore`, `Merge` |
 
-### Templates
-
-- **Issue templates** (bug report, feature request)
-- checklist-உடன் **PR template**
-- **Commit message template** (`.gitmessage`)
+### டெம்ப்ளேட்கள்
+- **பிரச்சனை வார்ப்புருக்கள்** (பிழை அறிக்கை, அம்சம் கோருதல்)
+- சரிபார்ப்புப் பட்டியலுடன் கூடிய **PR வார்ப்புரு**
+- **Commit message வார்ப்புரு** (`.gitmessage`)
 
 ---
 
-## Domain & DNS
+## டொமைன் மற்றும் DNS
 
-- **Domain:** `janvayu.in`
-- **Registrar:** Netlify DNS வழியாக நிர்வகிக்கப்படுகிறது
-- **SSL:** Netlify வழியாக தானாக Let's Encrypt
-- **CNAME கோப்பு:** Custom domain-ஐ Netlify-க்கு சுட்டிக்காட்டுகிறது
+- **டொமைன்:** `janvayu.in`
+- **பதிவாளர் மற்றும் DNS ஹோஸ்ட்:** இங்கே ஆவணப்படுத்தப்படவில்லை (அவை வெவ்வேறு சேவைகளாக இருக்கலாம்)
+- **HTTPS:** Netlify மூலம் வழங்கப்படுகிறது
+- **CNAME கோப்பு:** களஞ்சியத்தின் `CNAME`-ல் `www.janvayu.in` உள்ளது; Netlify-ல் `CNAME` கோப்பிற்கு எந்தப் பயனும் இல்லை, ஏனெனில் அது தனது சொந்த டேஷ்போர்டிலிருந்து தனிப்பயன் டொமைனை எடுத்துக்கொள்கிறது
 
 ---
 
 ## SEO
 
-- `robots.txt` — அனைத்து crawlers-ஐ அனுமதிக்கிறது
-- `sitemap.xml` — search engines-க்கான site map
-- `og-image.png` — Open Graph social preview image
-- `index.html`-ல் title, description மற்றும் OG data-க்கான Meta tags
+- `robots.txt` — அனைத்து க்ராலர்களையும் அனுமதிக்கிறது
+- `sitemap.xml` — தேடுபொறிகளுக்கான தள வரைபடம்
+- `og-image.png` — Open Graph சமூக முன்னோட்டப் படம்
+- தலைப்பு, விளக்கம் மற்றும் OG தரவுகளுக்கான `index.html`-ல் உள்ள மெட்டா குறிச்சொற்கள்
 
 ---
 
 ## செலவு
 
-JanVayu **சூன்ய செலவில்** இயங்குகிறது:
+JanVayu **பூஜ்ஜிய செலவில்** இயங்குகிறது:
 
-| சேவை | Tier | மாதாந்தர செலவு |
+| சேவை | அடுக்கு | மாதாந்திர செலவு |
 |---------|------|-------------|
-| Netlify (hosting + functions) | Free | $0 |
-| GitHub | Free | $0 |
-| WAQI API | Free (public token) | $0 |
-| Gemini API | Free (AI Studio) | $0 |
-| Resend | Free tier | $0 |
-| Domain (janvayu.in) | ஆண்டு புதுப்பிப்பு | ~$10/ஆண்டு |
+| Netlify (ஹோஸ்டிங் + ஃபங்ஷன்கள்) | இலவசம் | $0 |
+| GitHub | இலவசம் | $0 |
+| WAQI API | இலவசம் (WAQI வழங்கும் டோக்கன்) | $0 |
+| Groq API | இலவச அடுக்கு | $0 |
+| Resend | இலவசத் திட்டம் (தினசரி 100 மின்னஞ்சல்களுக்கான வரம்பு) | $0 |
+| டொமைன் (janvayu.in) | ஆண்டுதோறும் புதுப்பித்தல் | விலை இங்கே பதிவு செய்யப்படவில்லை |
 
-**மொத்தம்: ~$10/ஆண்டு** — நிகழ்நேர தரவு, AI அம்சங்கள் மற்றும் மின்னஞ்சல் சுருக்கங்களுடன் 40+ நகரங்களுக்கு சேவை செய்யும் தளத்திற்கு.
+**மொத்தம்:** ரியல்-டைம் தரவு, AI அம்சங்கள் மற்றும் மின்னஞ்சல் சுருக்கங்களுடன் 160 நகரங்களுக்கு (157 இந்திய நகரங்கள் மற்றும் வெளிநாடுகளில் உள்ள மூன்று ஒப்பீட்டு நகரங்கள்) சேவை செய்யும் ஒரு தளத்திற்கு, டொமைன் புதுப்பித்தல் மட்டுமே ஒரே செலவாகும்.

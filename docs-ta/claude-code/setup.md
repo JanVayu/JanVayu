@@ -1,33 +1,33 @@
 # JanVayu-க்கான Claude Code அமைப்பு
 
-இந்தப் பக்கம் Claude Code-உடன் JanVayu-ஐ உருவாக்கப் பயன்படுத்தப்பட்ட துல்லியமான கட்டமைப்பை ஆவணப்படுத்துகிறது — CLAUDE.md கோப்பு, அனுமதி settings மற்றும் MCP integrations உட்பட.
+Claude Code-ஐப் பயன்படுத்தி JanVayu-ஐ உருவாக்கப் பயன்படுத்தப்பட்ட சரியான அமைப்பு இந்த பக்கத்தில் ஆவணப்படுத்தப்பட்டுள்ளது — இதில் CLAUDE.md கோப்பு, அனுமதிகள் மற்றும் MCP ஒருங்கிணைப்புகள் ஆகியவை அடங்கும்.
 
 ---
 
-## CLAUDE.md — திட்ட அறிவுறுத்தல்கள்
+## CLAUDE.md — திட்ட வழிமுறைகள்
 
-JanVayu தற்போது repository-ல் `CLAUDE.md` கோப்பை பயன்படுத்தவில்லை. அதற்கு பதிலாக, திட்ட மரபுகள் இவற்றின் மூலம் செயல்படுத்தப்படுகின்றன:
+JanVayu தற்போது களஞ்சியத்தில் `CLAUDE.md` கோப்பைப் பயன்படுத்தவில்லை. அதற்குப் பதிலாக, திட்டத்தின் மரபுகள் இவற்றின் மூலம் செயல்படுத்தப்படுகின்றன:
 
-1. **Git hooks** (`.githooks/pre-commit` மற்றும் `.githooks/commit-msg`) — commit message format-ஐ தானாக செயல்படுத்துகிறது, sensitive files-ஐ தடுக்கிறது
-2. **`.editorconfig`** — indentation மற்றும் encoding-ஐ தரப்படுத்துகிறது
-3. **`.gitmessage`** — commit message template
-4. **Inline documentation** — README.md, CONTRIBUTING.md மற்றும் code comments
+1. **Git hooks** (`.githooks/pre-commit` மற்றும் `.githooks/commit-msg`) — commit செய்தி வடிவத்தை தானாகவே செயல்படுத்துகிறது மற்றும் முக்கியமான கோப்புகளைத் தடுக்கிறது
+2. **`.editorconfig`** — indentation மற்றும் encoding-ஐத் தரப்படுத்துகிறது
+3. **`.gitmessage`** — commit செய்தி வார்ப்புரு
+4. **Inline documentation** — README.md, CONTRIBUTING.md, மற்றும் குறியீடு குறிப்புகள்
 
 ### Forks-க்கான பரிந்துரைக்கப்பட்ட CLAUDE.md
 
-JanVayu-ஐ fork செய்து Claude Code-க்கு திட்ட-குறிப்பிட்ட அறிவுறுத்தல்கள் கொடுக்க விரும்பினால், repo root-ல் `CLAUDE.md` உருவாக்கவும்:
+நீங்கள் JanVayu-ஐ fork செய்து, Claude Code-க்குத் திட்ட-குறிப்பிட்ட வழிமுறைகளை வழங்க விரும்பினால், repo root-ல் ஒரு `CLAUDE.md`-ஐ உருவாக்கவும்:
 
 ```markdown
 # CLAUDE.md — JanVayu Project Instructions
 
 ## Architecture
-- Single HTML file (index.html) — all CSS and JS inline
+- Three front-end files: index.html (markup), app.js (logic), styles.css (styling)
 - No frameworks, no build step, no npm dependencies on the client
 - Netlify Functions for server-side logic (ES modules, .mjs)
 - Netlify Blobs for caching (strong consistency)
 
 ## Code Style
-- Vanilla JavaScript only (ES2020 max)
+- Vanilla JavaScript only (ES2022, as set in eslint.config.mjs)
 - CSS custom properties for theming
 - 2-space indentation (HTML, CSS, JS, JSON)
 - No TypeScript, no preprocessors
@@ -43,10 +43,10 @@ Must start with: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, M
 - Graceful fallback if external API fails
 
 ## AI Features
-- Model: Google Gemini 2.5 Flash
+- Model: openai/gpt-oss-120b via Groq (default; override with the GROQ_MODEL env var)
 - All AI calls server-side (Netlify Functions)
 - Every AI feature has a non-AI fallback
-- Output token limits: 150-400 per response
+- Output token ceilings: 512 to 1,024 per response (max_tokens)
 
 ## Do Not
 - Add frameworks (React, Vue, Angular, Svelte)
@@ -58,33 +58,32 @@ Must start with: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, M
 
 ---
 
-## Skill Files
+## Skill கோப்புகள்
 
-Skill files என்பது AI models எவ்வாறு நடந்துகொள்ள வேண்டும் என்பதை வரையறுக்கும் கட்டமைக்கப்பட்ட system prompts. JanVayu Gemini அம்சங்களுக்கு இவற்றைப் பயன்படுத்துகிறது, ஆனால் அதே கருத்து Claude Code பணிப்பாய்வுகளுக்கும் பொருந்தும்.
+Skill கோப்புகள் என்பவை AI மாடல்கள் எவ்வாறு செயல்படுகின்றன என்பதை வரையறுக்கும் கட்டமைக்கப்பட்ட system prompts ஆகும். JanVayu தனது Groq-hosted AI அம்சங்களுக்கு இவற்றைப் பயன்படுத்துகிறது, ஆனால் இதே கருத்து Claude Code workflows-க்கும் பொருந்தும்.
+[Skills section](../skills/README.md) இல் ஆவணப்படுத்தப்பட்டுள்ள திறன் கோப்புகள் (skill files) பின்வருமாறு செயல்படுகின்றன:
+1. **Groq system prompts** — Netlify Functions-இல் உட்பொதிக்கப்பட்டுள்ளன (`air-query.mjs`-இல் உள்ள Ask JanVayu prompt, அதை ஆவணப்படுத்தும் பக்கத்தை விட மிகவும் நீளமானது)
+2. **Development reference** — AI அம்சங்களை மாற்றியமைக்கும் போது Claude Code-க்கு வழிகாட்டுகிறது
+3. **Reusable templates** — பிற களங்களுக்காக JanVayu-வை fork செய்யும் எவருக்கும்
 
-[Skills பிரிவில்](../skills/README.md) ஆவணப்படுத்தப்பட்ட skill files இவற்றாக செயல்படுகின்றன:
-1. **Gemini system prompts** — Netlify Functions-ல் உட்பொதிக்கப்பட்டவை
-2. **மேம்பாட்டு குறிப்பு** — AI அம்சங்களை மாற்றும்போது Claude Code-ஐ வழிநடத்துகிறது
-3. **மறுபயன்படுத்தக்கூடிய templates** — JanVayu-ஐ மற்ற domains-க்கு fork செய்பவர்களுக்கு
+### Skill File Structure
 
-### Skill File அமைப்பு
-
-ஒவ்வொரு skill file-ம் இந்த format-ஐ பின்பற்றுகிறது:
+ஒவ்வொரு திறன் கோப்பும் (skill file) இந்த வடிவத்தைப் பின்பற்றுகிறது:
 
 ```markdown
 # Skill: [Name]
 
 ## Role
-Model எதாக செயல்பட வேண்டும்.
+மாடல் எந்தப் பாத்திரத்தில் செயல்பட வேண்டும் என்பது.
 
 ## Context
-என்ன தரவு கிடைக்கும்.
+அது பெறும் தரவு.
 
 ## Output Format
-பதிலின் துல்லியமான அமைப்பு.
+பதிலின் சரியான அமைப்பு.
 
 ## Constraints
-சொல் வரம்புகள், தொனி, மொழி, தோல்வி முறைகள்.
+வார்த்தை வரம்புகள், தொனி, மொழி, தோல்வி முறைகள்.
 
 ## Examples
 மாதிரி உள்ளீடுகள் மற்றும் எதிர்பார்க்கப்படும் வெளியீடுகள்.
@@ -94,35 +93,40 @@ Model எதாக செயல்பட வேண்டும்.
 
 ## MCP Server Integrations
 
-Claude Code extended tool access-க்கான Model Context Protocol (MCP) servers-ஐ ஆதரிக்கிறது. JanVayu மேம்பாட்டின் போது, பின்வரும் MCP integrations கிடைத்தன:
+Claude Code விரிவான கருவி அணுகலுக்கு Model Context Protocol (MCP) சேவையகங்களை ஆதரிக்கிறது. JanVayu போன்ற ஒரு திட்டத்துடன் பின்வரும் MCP ஒருங்கிணைப்புகளைப் பயன்படுத்தலாம் (வளர்ச்சியின் போது எவை பயன்படுத்தப்பட்டன என்பதை களஞ்சியம் பதிவு செய்யவில்லை):
 
 ### Notion MCP
-- **நோக்கம்:** திட்ட திட்டமிடல், பணி கண்காணிப்பு, கூட்ட குறிப்புகள்
-- **கருவிகள்:** Pages உருவாக்குதல், databases வினவுதல், தேடல், pages புதுப்பித்தல்
+- **Purpose:** Project planning, task tracking, meeting notes
+- **Tools:** Create pages, query databases, search, update pages
+- **Use case:** Tracking feature development, maintaining a project roadmap
 
 ### Gmail MCP
-- **நோக்கம்:** தொடர்பு சூழல்
-- **கருவிகள்:** Messages தேடுதல், threads படித்தல், drafts உருவாக்குதல்
+- **Purpose:** Communication context
+- **Tools:** Search messages, read threads, create drafts
+- **Use case:** Referencing email discussions about features or partnerships
 
 ### Figma MCP
-- **நோக்கம்:** Design-to-code பணிப்பாய்வு
-- **கருவிகள்:** Design context, screenshots, metadata பெறுதல்
+- **Purpose:** Design-to-code workflow
+- **Tools:** Get design context, screenshots, metadata
+- **Use case:** Translating design mockups into HTML/CSS for JanVayu UI sections
 
 ### Google Calendar MCP
-- **நோக்கம்:** திட்டமிடல் சூழல்
-- **கருவிகள்:** Events பட்டியல், events உருவாக்குதல், free time கண்டறிதல்
+- **Purpose:** Scheduling context
+- **Tools:** List events, create events, find free time
+- **Use case:** Planning development sessions and release dates
 
 ### Excalidraw MCP
-- **நோக்கம்:** Architecture வரைபடங்கள்
-- **கருவிகள்:** Views உருவாக்குதல், checkpoints சேமித்தல்
+- **Purpose:** Architecture diagrams
+- **Tools:** Create views, save checkpoints
+- **Use case:** Visualising system architecture and data flow
 
 ---
 
-## அனுமதி கட்டமைப்பு
+## Permission Configuration
 
-Claude Code கட்டமைக்கக்கூடிய அனுமதிகளுடன் இயங்குகிறது. JanVayu மேம்பாட்டிற்கு:
+Claude Code கட்டமைக்கக்கூடிய அனுமதிகளுடன் (permissions) செயல்படுகிறது. JanVayu வளர்ச்சிக்காக:
 
-### பரிந்துரைக்கப்பட்ட அனுமதிகள்
+### Recommended Permissions
 
 ```json
 {
@@ -149,29 +153,28 @@ Claude Code கட்டமைக்கக்கூடிய அனுமதி�
 }
 ```
 
-### ஏன் இந்த அனுமதிகள்?
-
-- **Read/Write/Edit/Glob/Grep** — முக்கிய மேம்பாட்டு கருவிகள்
-- **npm install** — dependencies நிறுவுதல்
-- **netlify dev** — உள்ளூர் மேம்பாட்டு server இயக்குதல்
-- **git** — version control பணிப்பாய்வு
-- **gh pr** — pull requests உருவாக்குதல் மற்றும் நிர்வகித்தல்
-- **அழிவுகரமான commands-ஐ தடு** — தற்செயலான data loss-ஐ தடுக்க
+### Why These Permissions?
+- **Read/Write/Edit/Glob/Grep** — முக்கிய மேம்பாட்டுத் தளவாடங்கள்
+- **npm install** — சார்புகளை நிறுவுதல்
+- **netlify dev** — உள்ளூர் மேம்பாட்டு சேவையகத்தை இயக்குதல்
+- **git** — பதிப்பு கட்டுப்பாட்டுப் பணிப்பாய்வு
+- **gh pr** — இழுவைக் கோரிக்கைகளை உருவாக்குதல் மற்றும் நிர்வகித்தல்
+- **Deny destructive commands** — எதிர்பாராத தரவு இழப்பிலிருந்து பாதுகாத்தல்
 
 ---
 
 ## மேம்பாட்டிற்கான சூழல்
 
-Claude Code shell சூழலை inherit செய்கிறது. JanVayu-க்கு:
+Claude Code ஷெல் சூழலை ஏற்றுக்கொள்கிறது. JanVayu-க்கு:
 
 ```bash
-# தேவை
-export GEMINI_API_KEY=your_key
+# Required
+export GROQ_API_KEY=your_key
 export RESEND_API_KEY=your_key
 export NETLIFY_SITE_ID=your_site_id
 
-# விருப்பம் (local dev-ல் Netlify Blobs-க்கு)
+# Optional (for Netlify Blobs in local dev)
 export BLOB_TOKEN=your_token
 ```
 
-உள்ளூர் மேம்பாட்டின் போது `netlify dev`-ஆல் `.env`-லிருந்து இவை படிக்கப்படுகின்றன.
+உள்ளூர் மேம்பாட்டின் போது `netlify dev` மூலம் இவை `.env` இலிருந்து படிக்கப்படும்.
