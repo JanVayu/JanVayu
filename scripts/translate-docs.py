@@ -180,10 +180,32 @@ def validate(src: str, out: str, lang: str) -> str | None:
     return None
 
 
+class CutOff(RuntimeError):
+    """The model stopped at max_tokens, so the part is incomplete."""
+
+
 def translate(api_key: str, content: str, lang: str, rel_path: str) -> str:
     chunks = split_chunks(content)
-    parts = [translate_part(api_key, c, lang, rel_path, i + 1, len(chunks)) for i, c in enumerate(chunks)]
+    parts: list[str] = []
+    for i, c in enumerate(chunks):
+        parts.append(translate_with_retry(api_key, c, lang, rel_path, i + 1, len(chunks)))
     return "".join(p if p.endswith("\n") else p + "\n" for p in parts)
+
+
+def translate_with_retry(api_key: str, chunk: str, lang: str, rel_path: str, n: int, total: int) -> str:
+    """Translate one part; if the output is cut off, halve the part and retry.
+    Tamil and Bengali need more tokens per word than Hindi, so one size does not
+    fit all. A part that cannot be split any further raises."""
+    try:
+        return translate_part(api_key, chunk, lang, rel_path, n, total)
+    except CutOff:
+        halves = split_chunks(chunk, max(len(chunk) // 2, 1))
+        if len(halves) < 2:
+            raise
+        return "".join(
+            (h if h.endswith("\n") else h + "\n")
+            for h in (translate_with_retry(api_key, x, lang, rel_path, n, total) for x in halves)
+        )
 
 
 def translate_part(api_key: str, content: str, lang: str, rel_path: str, n: int, total: int) -> str:
@@ -195,6 +217,10 @@ def translate_part(api_key: str, content: str, lang: str, rel_path: str, n: int,
         "model": MODEL,
         "max_tokens": MAX_TOKENS,
         "temperature": TEMPERATURE,
+        # sarvam-105b thinks by default and the thinking tokens count against
+        # max_tokens, so a long part is cut off before any translation is
+        # written. null switches thinking off (Sarvam chat completion docs).
+        "reasoning_effort": None,
         "messages": [
             {
                 "role": "user",
@@ -219,7 +245,7 @@ def translate_part(api_key: str, content: str, lang: str, rel_path: str, n: int,
         body = json.loads(resp.read().decode("utf-8"))
     choice = body["choices"][0]
     if choice.get("finish_reason") == "length":
-        raise RuntimeError("output cut off at the token limit; part not written")
+        raise CutOff("output cut off at the token limit; part not written")
     return choice["message"]["content"].strip() + "\n"
 
 
