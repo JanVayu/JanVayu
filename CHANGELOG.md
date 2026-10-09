@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Added, four papers in the Reading List
+
+Four papers published 5 to 7 October 2026 joined the Peer-Reviewed Research
+section of the Resources panel, which now lists 51. Each DOI was resolved
+through Crossref, open access was checked through Unpaywall, and each
+description was written from the abstract or article page rather than from the
+digest that proposed it.
+
+- Samal et al., public transit and vehicular emissions in Bhubaneswar
+  (*Gases*, doi:10.3390/gases6040047, CC BY). The digest said four-wheelers
+  emit 11 times what buses do. That holds for CO only; for HC+NOx it is 3.4
+  times, and the figures are survey and IPCC estimates, not measurements.
+- Agarwal, Kanudia & Sharma, lithium limits on transport electrification
+  (*Environmental Research Letters*, doi:10.1088/1748-9326/aeb03a, CC BY). The
+  card carries the two limits the digest left out: only lithium-ion is
+  modelled, and the intermediate scenario meets 67.9% of the shortfall with
+  fossil fuels.
+- Stadler et al., a weighted diagnostic-ratio matrix for PAH sources
+  (*Frontiers in Future Transportation*, doi:10.3389/ffutr.2026.1964066, CC BY).
+  The digest said it packages PMF and compares method costs. It does neither;
+  it is a screening method that the authors say needs pairing with PMF or CMB.
+- Ratageri, an editorial commentary on maternal air pollution and congenital
+  heart disease (*Indian Journal of Pediatrics*, doi:10.1007/s12098-026-06419-y).
+  Labelled Commentary rather than Peer-reviewed. Free to read with no open
+  licence. The case-control study it discusses (doi:10.1007/s12098-026-06363-x)
+  is closed access and was not added.
+
+### Removed, a paper whose references do not exist, and a second one refused
+
+- Singhal, Saurabh & Gupta, TimeGAN for AQI forecasting
+  (doi:10.1007/s44163-026-01892-y), added in August. Of eleven of its
+  references resolved through Crossref, four DOIs do not exist and five lead to
+  unrelated papers (cyclone landfall, PCBs in indoor air, formaldehyde in Wuhan,
+  polymer spectroscopy). The mention in `docs/data-sources/xkdr-air-quality.md`
+  went with it.
+- The same group's "Explainable hybrid deep learning framework for air quality
+  index prediction in Indian cities" (doi:10.1007/s44163-026-02131-0) was
+  proposed this week and not added. All eight subject references tested failed
+  the same way. The paper also uses CPCB records from 1990 to 2015, not current
+  city data, and its R² of 0.9994 follows largely from AQI being computed from
+  the inputs.
+
 ### Fixed, the site's CAQM citations checked against the documents
 
 CAQM publishes its directions, reports and orders as PDFs through its own
