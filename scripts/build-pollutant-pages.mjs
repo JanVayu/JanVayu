@@ -3,7 +3,7 @@
 // Each page is static, fetches live readings client-side from the rankings function,
 // and is fully crawlable by search engines.
 //
-// Run: node scripts/build-pollutant-pages.mjs
+// Run: node scripts/build-pollutant-pages.mjs, then python3 scripts/build-share.py (it writes each page's share tags)
 
 import { writeFile, mkdir } from "node:fs/promises";
 import { readFileSync } from "node:fs";
@@ -124,12 +124,10 @@ const SHARED_HEAD = (p) => `<!DOCTYPE html>
 <title>${p.name}: sources, health effects, India levels | JanVayu</title>
 <meta name="description" content="${p.fullName}: what it is, where it comes from, how it harms health, and which Indian cities have the worst ${p.name} levels right now. WHO guideline: ${p.whoGuideline}.">
 <meta name="keywords" content="${p.name}, ${p.fullName}, air pollution India, ${p.name} levels, ${p.name} health effects, AQI India">
-<link rel="canonical" href="https://www.janvayu.in/${p.slug}/">
-<meta property="og:title" content="${p.name} in India | JanVayu">
-<meta property="og:description" content="${p.description.slice(0,180)}">
-<meta property="og:image" content="https://www.janvayu.in/og-image.png">
-<meta property="og:url" content="https://www.janvayu.in/${p.slug}/">
-<meta property="og:type" content="article">
+<!-- share-meta:start -->
+<!-- Canonical, Open Graph and Twitter tags are written here by
+     scripts/build-share.py. Run it after this generator. -->
+<!-- share-meta:end -->
 <link rel="icon" href="/favicon.svg">
 <script type="application/ld+json">
 {
@@ -229,6 +227,8 @@ ${p.healthEffects.map(s => `    <li>${s}</li>`).join("\n")}
   <h2>What you can do</h2>
   <p>Reduce personal exposure with N95 masks during peak hours, run a HEPA purifier indoors, and switch to clean transport where possible. Push for systemic change: file an RTI, attend NCAP city consultations, demand transparent station data from your municipality.</p>
   <a class="btn btn-primary" href="/#aqi-alerts">Set ${p.name} alerts for your city</a>
+
+  <div data-share-bar></div>
 
   <h2>Other pollutants</h2>
   <div class="related-links">

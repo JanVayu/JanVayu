@@ -217,6 +217,23 @@ def collect(rows, year, through, key, ckpt, workers=6):
     return [r for r in rows if key in r]
 
 
+def collect_retrying(rows, year, through, key, ckpt, passes=3):
+    """collect(), run again for the districts whose request failed.
+
+    A failed request leaves a district out of the checkpoint, and nothing else
+    notices. On 12 October 2026 one pass lost 27 of 785 districts, New Delhi
+    among them, and the map would have shipped with them blank. A second pass
+    fetched all 27.
+    """
+    got = collect(rows, year, through, key, ckpt)
+    for _ in range(passes - 1):
+        if len(got) == len(rows):
+            break
+        print(f'  {len(rows) - len(got)} districts missing, retrying', flush=True)
+        got = collect(rows, year, through, key, ckpt)
+    return got
+
+
 def report(rows):
     sat = [r['sat2024'] for r in rows]
     cams = [r['cams2024'] for r in rows]
@@ -258,14 +275,17 @@ def main():
     print(f'{len(rows)} districts with a 2024 satellite value', flush=True)
 
     print('\nfetching CAMS 2024 (for calibration)…', flush=True)
-    cal = collect(rows, 2024, 12, 'cams2024', CACHE / 'cams-2024.json')
+    cal = collect_retrying(rows, 2024, 12, 'cams2024', CACHE / 'cams-2024.json')
     print(f'  {len(cal)} districts', flush=True)
     b, a = report(cal)
     if args.validate:
         return
 
     print(f'\nfetching CAMS {args.year} through month {args.through}…', flush=True)
-    cur = collect(rows, args.year, args.through, 'cur', CACHE / f'cams-{args.year}.json')
+    # The checkpoint is named for the month it runs through: a run in November
+    # must not reuse means computed through September.
+    cur = collect_retrying(rows, args.year, args.through, 'cur',
+                           CACHE / f'cams-{args.year}-m{args.through:02d}.json')
     print(f'  {len(cur)} districts', flush=True)
 
     out = {'_meta': {

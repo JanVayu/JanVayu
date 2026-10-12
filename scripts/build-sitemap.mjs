@@ -3,7 +3,7 @@
 // Usage: node scripts/build-sitemap.mjs
 
 import { execSync } from "node:child_process";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -37,7 +37,24 @@ const PAGES = [
   { url: "/so2/", file: "so2/index.html", changefreq: "daily", priority: "0.85" },
   { url: "/o3/", file: "o3/index.html", changefreq: "daily", priority: "0.85" },
   { url: "/delhi/", file: "delhi/index.html", changefreq: "daily", priority: "0.9" },
+  { url: "/downloads/", file: "downloads/index.html", changefreq: "monthly", priority: "0.6" },
+  { url: "/walkthrough/", file: "walkthrough/index.html", changefreq: "monthly", priority: "0.5" },
+  { url: "/status/", file: "status/index.html", changefreq: "monthly", priority: "0.3" },
 ];
+
+// One URL per blog post: the static page scripts/build-share.py writes at
+// /blog/<slug>/. The Docsify reader's #/posts/ routes cannot be listed here,
+// because a search engine drops the fragment and would see only /blog/.
+// lastmod comes from the Markdown, which is what a post's content is.
+const SHARE = JSON.parse(readFileSync(resolve(ROOT, "data/share-cards.json"), "utf-8"));
+for (const post of SHARE.posts) {
+  PAGES.push({
+    url: `/blog/${post.slug}/`,
+    file: `blog/posts/${post.slug}.md`,
+    changefreq: "yearly",
+    priority: "0.6",
+  });
+}
 
 function getLastModified(filePath) {
   try {

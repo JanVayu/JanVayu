@@ -36,7 +36,10 @@ ROOT = Path(__file__).resolve().parents[1]
 # Directories never worth scanning.
 SKIP_DIRS = {'.git', 'node_modules', 'Backups', 'fonts', 'photos', 'tiles', '.github'}
 # Only text a reader could end up reading.
-EXTS = {'.html', '.md', '.mjs', '.js', '.json', '.py', '.yml', '.yaml', '.txt'}
+# .svg was missing until October 2026, and that is how og-image.svg, the card
+# every homepage share previews with, kept the 70% claim for three months after
+# every page had dropped it.
+EXTS = {'.html', '.md', '.mjs', '.js', '.json', '.py', '.yml', '.yaml', '.txt', '.svg'}
 
 # "global" in each language the docs are translated into, so a translated copy
 # of a retracted claim is caught by its numeral plus its own word for global.
@@ -154,8 +157,13 @@ def files():
 TRANSLATION_DIR = re.compile(r'^docs-(?:hi|bn|mr|ta)/')
 
 
+# blog/<slug>/index.html is generated from blog/posts/<slug>.md by
+# scripts/build-share.py, so it is the same record as its source.
+BLOG_PAGE = re.compile(r'^blog/(\d{4}-\d{2}-\d{2}-[^/]+)/index\.html$')
+
+
 def allowed(rel, claim):
-    candidates = {rel, TRANSLATION_DIR.sub('docs/', rel)}
+    candidates = {rel, TRANSLATION_DIR.sub('docs/', rel), BLOG_PAGE.sub(r'blog/posts/\1.md', rel)}
     return any(c.startswith(a) or a in c for c in candidates for a in claim['allow'])
 
 

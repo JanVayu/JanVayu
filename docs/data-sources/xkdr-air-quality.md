@@ -83,7 +83,7 @@ The consequence is concrete. Applying the twelve-month completeness rule to 2025
 
 **62 stations carry no coordinates** across the whole archive (5 of the 534 that reported in 2024). These are decommissioned sites absent from CPCB's current list, and they cannot be placed on any map.
 
-**Nothing is cleaned.** XKDR publishes readings as received, with no gap filling and no outlier removal. That suits research, and it means the quality control falls to us. The Reading List carries two 2026 papers on this very problem (Shafi & Scafetta on regression imputation for Delhi; Singhal et al. on TimeGAN).
+**Nothing is cleaned.** XKDR publishes readings as received, with no gap filling and no outlier removal. That suits research, and it means the quality control falls to us. The Reading List carries a 2026 paper on this very problem: Shafi & Scafetta on regression imputation for Delhi.
 
 **There is no warranty.** XKDR notes that the source networks label readings preliminary and not fully validated, that XKDR has not validated them for regulatory, legal or health decisions, and that anything important should be checked at the source. Any public claim JanVayu builds on this data must carry that caveat.
 

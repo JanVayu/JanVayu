@@ -7,6 +7,238 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Changed, content checked against 12 October
+
+- **Delhi page.** Last checked 12 October. CAQM's GRAP orders list has nothing
+  after the Stage I revocation of 29 May, so Stage I has not been invoked this
+  autumn; the page's list of this year's orders now includes the 18 February
+  (Stage II) and 16 March (Stage I) revocations it had left out. The Rs 8,300
+  crore programme "starts in September" is now "was due to start in
+  September", with no report found that it did, and the World Bank's project
+  database (searched 12 October) lists clean-air programmes for Uttar Pradesh
+  (P178053) and Haryana (P502491) and none for Delhi. "Due in about four
+  weeks" for the 1 November goods-vehicle bar is now the date. Both sources
+  are in the source list.
+- **Homepage bulletin.** The monsoon has left north-west India; Skymet expects
+  withdrawal from the whole country by about 15 October.
+
+### Changed, the CPCB bulletin archive extended to 11 October
+
+`data/raw/cpcb-bulletins-2026.csv.gz` ended on 17 September. The 24 missing
+bulletins (18 September to 11 October) were fetched from CPCB, now served from
+cpcb.gov.in: 5,963 rows, no rows skipped and no gaps in CPCB's numbering on any
+day. `data/aqi-bulletins.json` was rebuilt; the 2015-2025 half is unchanged,
+which was confirmed first by rebuilding from the current UrbanEmissions data
+and getting a byte-identical file. Delhi's 2026 count is now 80 Poor-or-worse
+days in 284 reported. Ambernath (Thane) passed the 180-day floor and joins as
+city 298.
+
+### Fixed, the monthly current-year air job had never run successfully
+
+`current-year-air.yml` pushed its rebuild straight to `main`, which is
+protected, so both of its runs (3 September and 3 October) were refused and the
+layer stayed at August. It now opens a pull request, as the translation job
+does since #411.
+
+`scripts/build-aqi-bulletins.py` wrote "whichever of six pollutants" where the
+committed file says "several"; India's AQI uses eight. The script now matches
+the file, and a rebuild from the current UrbanEmissions data is byte-identical.
+
+The September rebuild was run by hand on 12 October: `data/current-year-air.json`
+now runs through September 2026 for all 785 districts (781 in the August file),
+mean 42.5 µg/m³. The first pass lost 27 districts, New Delhi among them, to
+failed requests; they were retried rather than shipped missing. Calibration is
+unchanged (satellite ≈ 0.828 × CAMS + 12.87, on 2024).
+
+### Added, three papers in the Reading List (12 October)
+
+The weekly digest proposed five. Each DOI was resolved through Crossref, open
+access checked through Unpaywall, each description written from the abstract
+or the article, and every reference carrying a DOI resolved and its first
+author compared with the citation. The section now lists 54.
+
+- Pippal et al., machine-learning PM2.5 from satellite AOD over Northwest India
+  (*Water, Air, & Soil Pollution* 237, 1365, doi:10.1007/s11270-026-10037-x).
+  The digest called it open access on Springer; the published version is
+  subscription-only and the free copy is the preprint. The card says so.
+- Nair & Shinde, Markov-chain AQI transitions in Mumbai, 2024-2025 (*EQA* 75,
+  98-108, doi:10.60923/issn.2281-4485/26111). All twelve DOI references
+  resolve to the papers cited.
+- Li et al., nitrous acid and ozone and nitrate in megacities (*Nature
+  Communications*, doi:10.1038/s41467-026-78349-4). The card says the HONO
+  series are a neural-network reconstruction, and that in Delhi the HONO
+  change outweighs the effect of NOx and VOC controls, where the digest said
+  "rivals".
+
+Not added:
+
+- Ram, Tiwari & Kumar, household cooking fuel in Eastern Uttar Pradesh, a
+  review (*Discover Sustainability* 7, 1662, doi:10.1007/s43621-025-02334-y).
+  Of 40 references with a DOI, 32 do not resolve or resolve to an unrelated
+  paper (a CEO-salary study, ESG in China, New Zealand forestry). A review is
+  its references.
+- Bongale et al., UAV and IoT air-quality sensing (*Discover Mechanical
+  Engineering* 5, 184, doi:10.1007/s44245-026-00370-0). Four of 20 DOI
+  references fail, two of them to papers on road-network queries and file
+  encryption.
+- Two preprints the digest itself held back (doi:10.31235/osf.io/9jh3z_v2,
+  doi:10.31223/x5vf8p).
+
+### Fixed, figures on the homepage that were not data (v26.6.241)
+
+Found while fixing the WhatsApp share in v26.6.240. Each of these rendered as a
+measurement and none was one.
+
+- **PM2.5 from AQI.** Thirteen places in `app.js` filled a missing PM2.5 with
+  0.7 times the AQI and printed it in µg/m³: the hero, the ranking bars, the
+  ticker, the worst and best city lists, the live rankings table, the "should
+  I go outside" check, the purifier calculator and the near-me reading. AQI is
+  the worst of several sub-indices on a non-linear scale, so no factor turns it
+  into a concentration. `measuredPM25()` now returns the station's own value or
+  nothing; a station that does not report PM2.5 is shown as not reporting it
+  and left off PM2.5 rankings. The personal-impact card read the overall AQI
+  through the PM2.5 breakpoint table, which is right only when PM2.5 sets the
+  AQI; it now needs a measured value too.
+- **The demo table.** When the live feed failed, the homepage loaded fixed
+  figures for 21 cities (Delhi at AQI 312) with up to 5 per cent random noise,
+  showed them under "Live PM2.5", and fed them to the threshold alerts. The
+  table is removed. The status line says live readings could not be loaded and
+  the figures that need one are left blank.
+- **The 24-hour chart** drew a sine wave around the day's forecast average and
+  showed each point as "µg/m³ at 14:00". It now plots the last 24 hours of
+  PM2.5 from the CAMS model through Open-Meteo, which the forecast panel
+  already uses, and says it is a model estimate. If the request fails it says
+  so and draws nothing.
+- **The pollution calendar and seasonal chart** used twelve typed-in AQI values
+  labelled "illustrative" in a tooltip. They put April to June at 120, 110 and
+  90, which erased the pre-monsoon dust season. Averaging AQI breaks the site's
+  own rule (`_meta.no_annual_mean` in `data/aqi-bulletins.json`), so they now
+  show the share of days CPCB rated Poor or worse in each month, Delhi,
+  2016-2025: 94% in January, 56% in April, 1% in August, 98% in November.
+  `scripts/build-delhi-seasonal.py` builds `data/delhi-seasonal.json` from the
+  UrbanEmissions.Info parse of the bulletins, and CI checks it. The calendar
+  grid also wraps on a phone now; twelve fixed columns were a few letters wide.
+- **"Delhi PM2.5 trend"** was eleven typed-in annual values (2015 at 122). It
+  is now the mean of Delhi's 11 districts in LongPMInd (Wang et al. 2024),
+  1980-2022, the reconstruction the district history map already uses, and is
+  labelled as a model reconstruction (2015 at 82).
+- **Annual PM2.5 for 33 cities.** The exposure report, migration calculator,
+  scorecard and share card read four IQAir 2025 figures and 29 "working
+  values" matched to nothing, several far out (Kolkata 84 against 48.2,
+  Kanpur 95 against 54.6). All 33 now come from the 2024 satellite layer
+  (SatPM2.5, district means), one source so cities compare like with like.
+  `scripts/check-city-annual.py` holds the district behind each city and fails
+  if `app.js` drifts. A satellite district mean includes rural areas and runs
+  below a city-centre monitor; the labels say so.
+- **Defaults of 50 µg/m³.** The exposure report, the exposure diary and the
+  migration calculator used 50 when a city had no figure. They now say there
+  is none. The migration calculator also stopped putting a single live reading
+  into AQLI's annual life-expectancy formula.
+- `--pm-b5` (PM2.5 25-35) was `#dc2626`, 4.47:1 on `--bg-section`; the new
+  satellite figures put a value in that band on the migration table and the
+  contrast gate caught it. It is `#cc2222` now, 5.09:1.
+
+Still illustrative and labelled so: the activity multipliers in the exposure
+diary and the correlation explorer's columns other than PM2.5.
+
+### Fixed, every page now shares as itself (v26.6.240)
+
+Checked on 12 October 2026. Of 16 standalone pages, 8 had no preview image,
+only the homepage had a Twitter card, and the 8 with an image all used the
+homepage's. None of the 48 blog posts could be shared or indexed: Docsify
+routes a post through `/blog/#/posts/<file>`, and the part after `#` never
+reaches a server, a link previewer or a search engine, so every post shared
+and indexed as the blog's front page.
+
+- **A preview card for every page and post.** `og/<page>.jpg` and
+  `og/blog/<slug>.jpg`, 61 in all, about 30 KB each, drawn by
+  `scripts/build-og-cards.mjs`. They carry no live figure: platforms cache a
+  preview image for weeks, so a number on one goes stale where nobody can
+  correct it.
+- **Share tags on every standalone page.** `scripts/build-share.py` writes the
+  canonical link, Open Graph and Twitter tags between `share-meta` markers and
+  removes strays, so a page cannot carry two og:image tags. The walkthrough's
+  canonical pointed at `janvayu.in`, which redirects; it is `www` now.
+- **A static page for every blog post** at `/blog/<slug>/`, rendered from its
+  Markdown, with its own title, description, card and `BlogPosting` JSON-LD.
+  These are the URLs to share and to index. The Docsify reader is unchanged,
+  and its share bar now hands out the static URL.
+- **Share bars** (WhatsApp, X, LinkedIn, Telegram, email, copy link, and the
+  phone's own share sheet) on the six pollutant pages, the Delhi page,
+  Downloads, the walkthrough and every post, from `js/chrome.js`.
+- **Sitemap**: 10 URLs to 61, adding Downloads, the walkthrough, Status and
+  the 48 posts.
+
+### Fixed, the homepage preview card carried a retracted figure
+
+`og-image.svg`, the image every homepage share shows, still said India carries
+about 70 per cent of global PM2.5 deaths. `docs/fact-check-2026-07.md` found
+that false in July and every page dropped it; the card, a separate file nothing
+checked, kept it. It now reads "1 in 4 of the world's PM2.5 deaths, 1.72M of
+6.5M, Lancet Countdown 2025", the figure the homepage itself gives, and the
+image URL carries a new `?v=` so platforms fetch it again.
+`scripts/check-retracted-claims.py` now reads `.svg` files, and
+`build-og-cards.mjs --check` fails when the SVG changes without the PNG being
+redrawn. `scripts/build-og-image.py` is removed; `build-og-cards.mjs` draws
+the homepage card too.
+
+### Fixed, WhatsApp and the share card could send numbers that were not readings
+
+- When a station reported no PM2.5, the WhatsApp message and the downloadable
+  card filled it in as 70 per cent of the AQI and sent it as "PM2.5: … µg/m³",
+  with a WHO multiple and a cigarette count computed from it. AQI is not a
+  fixed multiple of PM2.5.
+- When the live feed failed, `app.js` loads the hardcoded `DEMO_DATA` table
+  (marked `live: false`) and the WhatsApp button sent it as "Air Quality Right
+  Now".
+
+Both now refuse and say why unless the reading is live and carries PM2.5, and
+the message names the station and its time. The same 70-per-cent fallback is
+used about fifteen more times in `app.js` (rankings, charts, calculators). That
+is not changed here and needs its own pass.
+
+### Added, four papers in the Reading List
+
+Four papers published 5 to 7 October 2026 joined the Peer-Reviewed Research
+section of the Resources panel, which now lists 51. Each DOI was resolved
+through Crossref, open access was checked through Unpaywall, and each
+description was written from the abstract or article page rather than from the
+digest that proposed it.
+
+- Samal et al., public transit and vehicular emissions in Bhubaneswar
+  (*Gases*, doi:10.3390/gases6040047, CC BY). The digest said four-wheelers
+  emit 11 times what buses do. That holds for CO only; for HC+NOx it is 3.4
+  times, and the figures are survey and IPCC estimates, not measurements.
+- Agarwal, Kanudia & Sharma, lithium limits on transport electrification
+  (*Environmental Research Letters*, doi:10.1088/1748-9326/aeb03a, CC BY). The
+  card carries the two limits the digest left out: only lithium-ion is
+  modelled, and the intermediate scenario meets 67.9% of the shortfall with
+  fossil fuels.
+- Stadler et al., a weighted diagnostic-ratio matrix for PAH sources
+  (*Frontiers in Future Transportation*, doi:10.3389/ffutr.2026.1964066, CC BY).
+  The digest said it packages PMF and compares method costs. It does neither;
+  it is a screening method that the authors say needs pairing with PMF or CMB.
+- Ratageri, an editorial commentary on maternal air pollution and congenital
+  heart disease (*Indian Journal of Pediatrics*, doi:10.1007/s12098-026-06419-y).
+  Labelled Commentary rather than Peer-reviewed. Free to read with no open
+  licence. The case-control study it discusses (doi:10.1007/s12098-026-06363-x)
+  is closed access and was not added.
+
+### Removed, a paper whose references do not exist, and a second one refused
+
+- Singhal, Saurabh & Gupta, TimeGAN for AQI forecasting
+  (doi:10.1007/s44163-026-01892-y), added in August. Of eleven of its
+  references resolved through Crossref, four DOIs do not exist and five lead to
+  unrelated papers (cyclone landfall, PCBs in indoor air, formaldehyde in Wuhan,
+  polymer spectroscopy). The mention in `docs/data-sources/xkdr-air-quality.md`
+  went with it.
+- The same group's "Explainable hybrid deep learning framework for air quality
+  index prediction in Indian cities" (doi:10.1007/s44163-026-02131-0) was
+  proposed this week and not added. All eight subject references tested failed
+  the same way. The paper also uses CPCB records from 1990 to 2015, not current
+  city data, and its R² of 0.9994 follows largely from AQI being computed from
+  the inputs.
+
 ### Fixed, the site's CAQM citations checked against the documents
 
 CAQM publishes its directions, reports and orders as PDFs through its own

@@ -195,6 +195,18 @@ jobs:
       - name: Check the CPCB bulletin layer
         run: python3 scripts/build-aqi-bulletins.py --check
 
+      # The pollution calendar and seasonal chart drew Delhi's year from twelve
+      # typed-in "illustrative" AQI values that erased the pre-monsoon dust
+      # season. They read CPCB's own day counts now.
+      - name: Check the Delhi monthly bulletin counts
+        run: python3 scripts/build-delhi-seasonal.py --check
+
+      # The calculators turned 29 unsourced "working values" for annual PM2.5
+      # into years of life expectancy. Each city is now read from the 2024
+      # satellite layer, and this fails if app.js drifts from it.
+      - name: Check city annual PM2.5 against the satellite layer
+        run: python3 scripts/check-city-annual.py
+
       # scripts/fetch-cpcb-bulletin.py reads a live PDF, so nothing in CI could
       # ever see it, and its one shipped defect was correspondingly invisible:
       # every page header carries the day of the month as a bare token, and
@@ -243,6 +255,21 @@ jobs:
       # this fails the build if someone publishes a post without regenerating.
       - name: Check the homepage blog list matches the blog
         run: python3 scripts/build-blog-index.py --check
+
+      # A link to any page but the homepage used to preview as the homepage, or
+      # as nothing, and no blog post could be shared or indexed at all: Docsify
+      # routes posts through a #fragment no previewer or crawler ever sees.
+      # build-share.py writes each page's share tags and a static page per post;
+      # build-og-cards.mjs --check fails when a preview card's text, or
+      # og-image.svg, changed without the image being redrawn. That is how the
+      # homepage card kept a retracted death-share figure on every WhatsApp
+      # share for three months after the pages dropped it.
+      - name: Check share tags and blog post pages are current
+        run: |
+          pip install markdown==3.7
+          python3 scripts/build-share.py --check
+      - name: Check preview cards match their text
+        run: node scripts/build-og-cards.mjs --check
 
       # gallery/gallery.json was hand-written at 24 photographs and never
       # updated as the gallery reached 31, so it sat seven short while nothing

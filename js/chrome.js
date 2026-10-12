@@ -9,7 +9,7 @@
    redesign: changing --bg or --ink-red reached exactly one page.
 
    This file is the part of the chrome that can work without app.js. It does
-   three things and deliberately no more:
+   four things and deliberately no more:
 
      1. Theme.  The site had no theme persistence at all -- toggleTheme() set
         an attribute and the choice died on the next navigation. That was
@@ -22,6 +22,7 @@
         and a bar advertising a control that does nothing is worse than a bar
         without it.
      3. The stuck hairline, matching index.html's markStuckBar().
+     4. Share bars, wherever a page marks one with [data-share-bar].
 
    A page opts in with data-jv-chrome on <body>. Embeds do not opt in: they are
    iframed into other people's pages, where our bar would be an intrusion.
@@ -119,9 +120,80 @@
         wireStuck(bar);
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', buildBar);
-    } else {
+    /* 4. Share bars. A page marks where one goes with [data-share-bar]. The
+       blog's static post pages write their links into the markup, so they
+       work without this file; an empty marker is filled here from the page's
+       own canonical URL and og:title, so the link shared is the one that
+       previews with the page's card. Either way this adds Copy link, and the
+       phone's own share sheet where the browser offers one. */
+    function meta(sel, attr) {
+        var el = document.querySelector(sel);
+        return el ? el.getAttribute(attr) : '';
+    }
+
+    function shareLink(label, href) {
+        var a = document.createElement('a');
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = label;
+        return a;
+    }
+
+    function buildShareBars() {
+        var bars = document.querySelectorAll('[data-share-bar]');
+        if (!bars.length) return;
+        var url = meta('link[rel="canonical"]', 'href') || location.href.split('#')[0];
+        var title = meta('meta[property="og:title"]', 'content') || document.title;
+        var e = encodeURIComponent;
+        Array.prototype.forEach.call(bars, function (bar) {
+            bar.classList.add('jv-share');
+            if (!bar.querySelector('a')) {
+                var label = document.createElement('span');
+                label.className = 'jv-share-label';
+                label.textContent = 'Share';
+                bar.appendChild(label);
+                bar.appendChild(shareLink('WhatsApp', 'https://wa.me/?text=' + e(title + '\n' + url)));
+                bar.appendChild(shareLink('X', 'https://twitter.com/intent/tweet?text=' + e(title) + '&url=' + e(url)));
+                bar.appendChild(shareLink('LinkedIn', 'https://www.linkedin.com/sharing/share-offsite/?url=' + e(url)));
+                bar.appendChild(shareLink('Telegram', 'https://t.me/share/url?url=' + e(url) + '&text=' + e(title)));
+                var mail = shareLink('Email', 'mailto:?subject=' + e(title) + '&body=' + e(url));
+                mail.removeAttribute('target');
+                bar.appendChild(mail);
+            }
+            var copy = document.createElement('button');
+            copy.type = 'button';
+            copy.textContent = 'Copy link';
+            copy.addEventListener('click', function () {
+                var done = function () { copy.textContent = 'Link copied'; setTimeout(function () { copy.textContent = 'Copy link'; }, 2000); };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link', url); });
+                } else {
+                    window.prompt('Copy this link', url);
+                }
+            });
+            bar.appendChild(copy);
+            if (navigator.share) {
+                var more = document.createElement('button');
+                more.type = 'button';
+                more.textContent = 'More\u2026';
+                more.setAttribute('aria-label', 'Share using another app');
+                more.addEventListener('click', function () {
+                    navigator.share({ title: title, url: url }).catch(function () {});
+                });
+                bar.appendChild(more);
+            }
+        });
+    }
+
+    function ready() {
         buildBar();
+        buildShareBars();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ready);
+    } else {
+        ready();
     }
 })();
