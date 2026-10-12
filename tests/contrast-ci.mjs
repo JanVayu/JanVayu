@@ -64,6 +64,9 @@ const PAGES = [
   '/downloads/', '/status/', '/docs/', '/blog/', '/ask/', '/try.html',
   '/TerraStudioCollab/', '/walkthrough/', '/walkthrough/full.html',
   '/walkthrough/deck.html', '/embed/aqi/', '/embed/rankings/',
+  // One static blog post page (scripts/build-share.py): all 48 share one
+  // template, and its share bar is the part with colours of its own.
+  '/blog/2026-09-22-a-four-day-jump/',
 ];
 // An explicit path in the sandbox; undefined on a runner, where Playwright
 // resolves the browser it downloaded itself.

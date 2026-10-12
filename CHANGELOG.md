@@ -7,6 +7,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Fixed, every page now shares as itself (v26.6.240)
+
+Checked on 12 October 2026. Of 16 standalone pages, 8 had no preview image,
+only the homepage had a Twitter card, and the 8 with an image all used the
+homepage's. None of the 48 blog posts could be shared or indexed: Docsify
+routes a post through `/blog/#/posts/<file>`, and the part after `#` never
+reaches a server, a link previewer or a search engine, so every post shared
+and indexed as the blog's front page.
+
+- **A preview card for every page and post.** `og/<page>.jpg` and
+  `og/blog/<slug>.jpg`, 61 in all, about 30 KB each, drawn by
+  `scripts/build-og-cards.mjs`. They carry no live figure: platforms cache a
+  preview image for weeks, so a number on one goes stale where nobody can
+  correct it.
+- **Share tags on every standalone page.** `scripts/build-share.py` writes the
+  canonical link, Open Graph and Twitter tags between `share-meta` markers and
+  removes strays, so a page cannot carry two og:image tags. The walkthrough's
+  canonical pointed at `janvayu.in`, which redirects; it is `www` now.
+- **A static page for every blog post** at `/blog/<slug>/`, rendered from its
+  Markdown, with its own title, description, card and `BlogPosting` JSON-LD.
+  These are the URLs to share and to index. The Docsify reader is unchanged,
+  and its share bar now hands out the static URL.
+- **Share bars** (WhatsApp, X, LinkedIn, Telegram, email, copy link, and the
+  phone's own share sheet) on the six pollutant pages, the Delhi page,
+  Downloads, the walkthrough and every post, from `js/chrome.js`.
+- **Sitemap**: 10 URLs to 61, adding Downloads, the walkthrough, Status and
+  the 48 posts.
+
+### Fixed, the homepage preview card carried a retracted figure
+
+`og-image.svg`, the image every homepage share shows, still said India carries
+about 70 per cent of global PM2.5 deaths. `docs/fact-check-2026-07.md` found
+that false in July and every page dropped it; the card, a separate file nothing
+checked, kept it. It now reads "1 in 4 of the world's PM2.5 deaths, 1.72M of
+6.5M, Lancet Countdown 2025", the figure the homepage itself gives, and the
+image URL carries a new `?v=` so platforms fetch it again.
+`scripts/check-retracted-claims.py` now reads `.svg` files, and
+`build-og-cards.mjs --check` fails when the SVG changes without the PNG being
+redrawn. `scripts/build-og-image.py` is removed; `build-og-cards.mjs` draws
+the homepage card too.
+
+### Fixed, WhatsApp and the share card could send numbers that were not readings
+
+- When a station reported no PM2.5, the WhatsApp message and the downloadable
+  card filled it in as 70 per cent of the AQI and sent it as "PM2.5: … µg/m³",
+  with a WHO multiple and a cigarette count computed from it. AQI is not a
+  fixed multiple of PM2.5.
+- When the live feed failed, `app.js` loads the hardcoded `DEMO_DATA` table
+  (marked `live: false`) and the WhatsApp button sent it as "Air Quality Right
+  Now".
+
+Both now refuse and say why unless the reading is live and carries PM2.5, and
+the message names the station and its time. The same 70-per-cent fallback is
+used about fifteen more times in `app.js` (rankings, charts, calculators). That
+is not changed here and needs its own pass.
+
 ### Added, four papers in the Reading List
 
 Four papers published 5 to 7 October 2026 joined the Peer-Reviewed Research

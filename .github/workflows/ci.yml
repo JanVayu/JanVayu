@@ -244,6 +244,21 @@ jobs:
       - name: Check the homepage blog list matches the blog
         run: python3 scripts/build-blog-index.py --check
 
+      # A link to any page but the homepage used to preview as the homepage, or
+      # as nothing, and no blog post could be shared or indexed at all: Docsify
+      # routes posts through a #fragment no previewer or crawler ever sees.
+      # build-share.py writes each page's share tags and a static page per post;
+      # build-og-cards.mjs --check fails when a preview card's text, or
+      # og-image.svg, changed without the image being redrawn. That is how the
+      # homepage card kept a retracted death-share figure on every WhatsApp
+      # share for three months after the pages dropped it.
+      - name: Check share tags and blog post pages are current
+        run: |
+          pip install markdown==3.7
+          python3 scripts/build-share.py --check
+      - name: Check preview cards match their text
+        run: node scripts/build-og-cards.mjs --check
+
       # gallery/gallery.json was hand-written at 24 photographs and never
       # updated as the gallery reached 31, so it sat seven short while nothing
       # read it and nothing failed. A stale manifest that looks authoritative

@@ -41,6 +41,7 @@ SKIP_FILES = {'games.js'}
 SUFFIXES = {'.html', '.js', '.mjs'}
 USE = re.compile(r'Math\.random\s*\(')
 MARKER = 'allow-random:'
+BLOG_PAGE = re.compile(r'^blog/\d{4}-\d{2}-\d{2}-[^/]+/index\.html$')
 
 
 def is_comment(line):
@@ -55,6 +56,11 @@ def scan():
             continue
         rel = path.relative_to(ROOT)
         if rel.parts[0] in SKIP_DIRS:
+            continue
+        # A blog post page is the post's Markdown rendered by build-share.py,
+        # with no script of its own; the post that explains this check quotes
+        # Math.random() in its prose.
+        if BLOG_PAGE.match(rel.as_posix()):
             continue
         lines = path.read_text(encoding='utf-8', errors='replace').splitlines()
         for i, line in enumerate(lines):

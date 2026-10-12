@@ -1,0 +1,607 @@
+{
+  "_note": "Written by scripts/build-share.py. Cards are drawn from this by scripts/build-og-cards.mjs.",
+  "cards": [
+    {
+      "name": "ask",
+      "kicker": "Ask JanVayu",
+      "title": "Ask a question about India’s air",
+      "sub": "Live readings, health advice, and the source behind each answer"
+    },
+    {
+      "name": "blog",
+      "kicker": "JanVayu blog",
+      "title": "Analysis of India’s air, with sources",
+      "sub": "Data, research, policy and accountability"
+    },
+    {
+      "name": "blog/2026-03-25-economic-cost",
+      "kicker": "JanVayu blog · 25 March 2026",
+      "title": "Air pollution costs India about $339 billion a year",
+      "sub": "Economics"
+    },
+    {
+      "name": "blog/2026-03-28-stubble-burning-satellites",
+      "kicker": "JanVayu blog · 28 March 2026",
+      "title": "How farmers burn stubble when the satellites are not looking",
+      "sub": "Investigation"
+    },
+    {
+      "name": "blog/2026-04-01-children-air-pollution",
+      "kicker": "JanVayu blog · 1 April 2026",
+      "title": "What air pollution does to India's children",
+      "sub": "Health"
+    },
+    {
+      "name": "blog/2026-04-05-ncap-deadline",
+      "kicker": "JanVayu blog · 5 April 2026",
+      "title": "Has India's National Clean Air Programme worked?",
+      "sub": "Policy"
+    },
+    {
+      "name": "blog/2026-04-08-lancet-causal-evidence",
+      "kicker": "JanVayu blog · 8 April 2026",
+      "title": "Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal",
+      "sub": "Research"
+    },
+    {
+      "name": "blog/2026-04-12-iqair-2025-india",
+      "kicker": "JanVayu blog · 12 April 2026",
+      "title": "In IQAir's 2025 ranking India's average eased, but Loni is the most polluted city",
+      "sub": "Data"
+    },
+    {
+      "name": "blog/2026-04-26-shipped-this-week",
+      "kicker": "JanVayu blog · 26 April 2026",
+      "title": "Cigarette equivalents, city rankings, community sensors and workshops are now on JanVayu",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-05-06-data-corrections-may",
+      "kicker": "JanVayu blog · 6 May 2026",
+      "title": "Updated numbers for May 2026, and what we have been reading",
+      "sub": "Data"
+    },
+    {
+      "name": "blog/2026-05-08-learning-games",
+      "kicker": "JanVayu blog · 8 May 2026",
+      "title": "Six games for learning about air quality",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-05-08-quality-and-performance",
+      "kicker": "JanVayu blog · 8 May 2026",
+      "title": "How we checked that the site is fast and usable on a phone",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-05-20-vayu-junction",
+      "kicker": "JanVayu blog · 20 May 2026",
+      "title": "Vayu Junction, a map of the words used to talk about India's air",
+      "sub": ""
+    },
+    {
+      "name": "blog/2026-05-26-v26.6.20-platform-overhaul",
+      "kicker": "JanVayu blog · 26 May 2026",
+      "title": "Twenty-one fixes in one day",
+      "sub": ""
+    },
+    {
+      "name": "blog/2026-05-27-data-source-selector",
+      "kicker": "JanVayu blog · 27 May 2026",
+      "title": "When a politician says 'AQI improved 20%', ask which monitor",
+      "sub": ""
+    },
+    {
+      "name": "blog/2026-05-27-understanding-aqi",
+      "kicker": "JanVayu blog · 27 May 2026",
+      "title": "What the AQI actually measures",
+      "sub": ""
+    },
+    {
+      "name": "blog/2026-06-10-how-polluted-is-your-ward",
+      "kicker": "JanVayu blog · 10 June 2026",
+      "title": "India's air, ward by ward",
+      "sub": "Data"
+    },
+    {
+      "name": "blog/2026-06-10-urban-heat-island",
+      "kicker": "JanVayu blog · 10 June 2026",
+      "title": "Why the heat in your neighbourhood is also an air-quality question",
+      "sub": "Health"
+    },
+    {
+      "name": "blog/2026-06-11-live-vs-annual-honest-ward-data",
+      "kicker": "JanVayu blog · 11 June 2026",
+      "title": "Live and annual readings answer different questions about your ward",
+      "sub": "Data"
+    },
+    {
+      "name": "blog/2026-06-25-ask-janvayu-knows-your-ward",
+      "kicker": "JanVayu blog · 25 June 2026",
+      "title": "Ask JanVayu can now answer questions about your ward",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-07-02-citation-integrity",
+      "kicker": "JanVayu blog · 2 July 2026",
+      "title": "A citation that did not exist: 'Krishna et al.' was really Jaganathan",
+      "sub": "Research"
+    },
+    {
+      "name": "blog/2026-07-08-secondary-pm25",
+      "kicker": "JanVayu blog · 8 July 2026",
+      "title": "Up to 42% of India's PM2.5 forms in the air after emission",
+      "sub": "Data"
+    },
+    {
+      "name": "blog/2026-07-14-forecast-fire-and-beyond-the-lungs",
+      "kicker": "JanVayu blog · 14 July 2026",
+      "title": "Forecasts, fire maps and the health effects of air pollution beyond the lungs",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-07-15-multilingual-accessibility-lighter",
+      "kicker": "JanVayu blog · 15 July 2026",
+      "title": "A working language switcher, easier access for more readers and a much lighter site",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-07-17-we-factchecked-ourselves",
+      "kicker": "JanVayu blog · 17 July 2026",
+      "title": "We fact-checked our own site and changed 33 numbers",
+      "sub": "Data integrity"
+    },
+    {
+      "name": "blog/2026-07-17-what-shipped-walkthrough-plain-language",
+      "kicker": "JanVayu blog · 17 July 2026",
+      "title": "A longer walkthrough, plainer words and an easier menu",
+      "sub": ""
+    },
+    {
+      "name": "blog/2026-07-18-how-to-contribute",
+      "kicker": "JanVayu blog · 18 July 2026",
+      "title": "You don't need to code to make India's air data better",
+      "sub": "Community"
+    },
+    {
+      "name": "blog/2026-07-18-routines-that-keep-janvayu-honest",
+      "kicker": "JanVayu blog · 18 July 2026",
+      "title": "Scheduled checks that keep JanVayu accurate",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-07-18-why-our-mascot-is-a-sparrow",
+      "kicker": "JanVayu blog · 18 July 2026",
+      "title": "Why JanVayu's mascot is a sparrow",
+      "sub": "Culture"
+    },
+    {
+      "name": "blog/2026-07-22-testing-ask-janvayu",
+      "kicker": "JanVayu blog · 22 July 2026",
+      "title": "Testing the chatbot to make it reliable",
+      "sub": "Quality"
+    },
+    {
+      "name": "blog/2026-07-30-the-air-your-mp-answers-for",
+      "kicker": "JanVayu blog · 30 July 2026",
+      "title": "Our maps now show the air your MP answers for, in 39 cities and 543 constituencies",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-08-05-every-village-on-the-map",
+      "kicker": "JanVayu blog · 5 August 2026",
+      "title": "Every village in India is now on the map, including the ones no one measures",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-08-07-agartala-northeast-outlier",
+      "kicker": "JanVayu blog · 7 August 2026",
+      "title": "Agartala breathes like the coal belt, and nobody was looking",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-08-07-every-capital-and-the-directory",
+      "kicker": "JanVayu blog · 7 August 2026",
+      "title": "Every capital, and the directory we never read",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-08-07-ninety-cities-ward-by-ward",
+      "kicker": "JanVayu blog · 7 August 2026",
+      "title": "Ninety-seven cities, ward by ward, and the one we had to go somewhere else for",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-08-08-heat-on-every-ward",
+      "kicker": "JanVayu blog · 8 August 2026",
+      "title": "Surface heat on every ward in India, and what it showed",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-08-08-one-map-every-boundary",
+      "kicker": "JanVayu blog · 8 August 2026",
+      "title": "One map, every boundary in India",
+      "sub": "Product"
+    },
+    {
+      "name": "blog/2026-08-08-tree-cover-answers-it",
+      "kicker": "JanVayu blog · 8 August 2026",
+      "title": "We were measuring the wrong green",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-08-09-how-to-read-the-map",
+      "kicker": "JanVayu blog · 9 August 2026",
+      "title": "How to read the JanVayu map",
+      "sub": "Guide"
+    },
+    {
+      "name": "blog/2026-08-09-what-the-air-looks-like",
+      "kicker": "JanVayu blog · 9 August 2026",
+      "title": "What the air looks like",
+      "sub": "Essay"
+    },
+    {
+      "name": "blog/2026-08-09-why-pm25-not-aqi",
+      "kicker": "JanVayu blog · 9 August 2026",
+      "title": "Why JanVayu reports PM2.5 first and AQI second",
+      "sub": "Explainer"
+    },
+    {
+      "name": "blog/2026-09-05-a-map-of-the-gangetic-plain",
+      "kicker": "JanVayu blog · 5 September 2026",
+      "title": "The dataset that looked like our best predictor, and was a map of the Gangetic Plain",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-09-05-your-airshed-or-your-town",
+      "kicker": "JanVayu blog · 5 September 2026",
+      "title": "A new way to read your district's air: the airshed as well as the town",
+      "sub": "Explainer"
+    },
+    {
+      "name": "blog/2026-09-08-was-it-policy-or-the-wind",
+      "kicker": "JanVayu blog · 8 September 2026",
+      "title": "Was it policy, or was it the wind?",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-09-17-the-workshop-is-a-file",
+      "kicker": "JanVayu blog · 17 September 2026",
+      "title": "The workshop is a file now",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-09-17-thirty-three-cities",
+      "kicker": "JanVayu blog · 17 September 2026",
+      "title": "Thirty-three cities are getting cleaner and eleven are not",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-09-17-what-we-do-that-others-do-not",
+      "kicker": "JanVayu blog · 17 September 2026",
+      "title": "What JanVayu does that the other Indian air-quality sites do not",
+      "sub": "Explainer"
+    },
+    {
+      "name": "blog/2026-09-18-a-design-refresh",
+      "kicker": "JanVayu blog · 18 September 2026",
+      "title": "What changed in today's redesign, and what stayed the same",
+      "sub": "Platform"
+    },
+    {
+      "name": "blog/2026-09-22-a-four-day-jump",
+      "kicker": "JanVayu blog · 22 September 2026",
+      "title": "What a four-day jump in Delhi's AQI tells you",
+      "sub": "Analysis"
+    },
+    {
+      "name": "blog/2026-10-02-five-pollutant-pages-random-numbers",
+      "kicker": "JanVayu blog · 2 October 2026",
+      "title": "Five of our six pollutant pages were printing random numbers",
+      "sub": "Data integrity"
+    },
+    {
+      "name": "co",
+      "kicker": "Pollutant guide",
+      "title": "CO in India",
+      "sub": "Sources, health effects, and India’s standard against the WHO guideline"
+    },
+    {
+      "name": "delhi",
+      "kicker": "Delhi",
+      "title": "Delhi this winter",
+      "sub": "The plans, the dates and the money, with the source for each"
+    },
+    {
+      "name": "downloads",
+      "kicker": "Downloads",
+      "title": "Reports, briefs and presentations",
+      "sub": "On India’s air quality, free to download"
+    },
+    {
+      "name": "no2",
+      "kicker": "Pollutant guide",
+      "title": "NO₂ in India",
+      "sub": "Sources, health effects, and India’s standard against the WHO guideline"
+    },
+    {
+      "name": "o3",
+      "kicker": "Pollutant guide",
+      "title": "O₃ in India",
+      "sub": "Sources, health effects, and India’s standard against the WHO guideline"
+    },
+    {
+      "name": "pm10",
+      "kicker": "Pollutant guide",
+      "title": "PM10 in India",
+      "sub": "Sources, health effects, and India’s standard against the WHO guideline"
+    },
+    {
+      "name": "pm25",
+      "kicker": "Pollutant guide",
+      "title": "PM2.5 in India",
+      "sub": "Sources, health effects, and India’s standard against the WHO guideline"
+    },
+    {
+      "name": "so2",
+      "kicker": "Pollutant guide",
+      "title": "SO₂ in India",
+      "sub": "Sources, health effects, and India’s standard against the WHO guideline"
+    },
+    {
+      "name": "status",
+      "kicker": "System status",
+      "title": "Is JanVayu working right now?",
+      "sub": "Ask JanVayu, the live AQI feed and the other services"
+    },
+    {
+      "name": "walkthrough",
+      "kicker": "Walkthrough",
+      "title": "A guided tour of JanVayu",
+      "sub": "A short overview and a full deck"
+    }
+  ],
+  "posts": [
+    {
+      "slug": "2026-10-02-five-pollutant-pages-random-numbers",
+      "date": "2026-10-02",
+      "title": "Five of our six pollutant pages were printing random numbers"
+    },
+    {
+      "slug": "2026-09-22-a-four-day-jump",
+      "date": "2026-09-22",
+      "title": "What a four-day jump in Delhi's AQI tells you"
+    },
+    {
+      "slug": "2026-09-18-a-design-refresh",
+      "date": "2026-09-18",
+      "title": "What changed in today's redesign, and what stayed the same"
+    },
+    {
+      "slug": "2026-09-17-what-we-do-that-others-do-not",
+      "date": "2026-09-17",
+      "title": "What JanVayu does that the other Indian air-quality sites do not"
+    },
+    {
+      "slug": "2026-09-17-thirty-three-cities",
+      "date": "2026-09-17",
+      "title": "Thirty-three cities are getting cleaner and eleven are not"
+    },
+    {
+      "slug": "2026-09-17-the-workshop-is-a-file",
+      "date": "2026-09-17",
+      "title": "The workshop is a file now"
+    },
+    {
+      "slug": "2026-09-08-was-it-policy-or-the-wind",
+      "date": "2026-09-08",
+      "title": "Was it policy, or was it the wind?"
+    },
+    {
+      "slug": "2026-09-05-your-airshed-or-your-town",
+      "date": "2026-09-05",
+      "title": "A new way to read your district's air: the airshed as well as the town"
+    },
+    {
+      "slug": "2026-09-05-a-map-of-the-gangetic-plain",
+      "date": "2026-09-05",
+      "title": "The dataset that looked like our best predictor, and was a map of the Gangetic Plain"
+    },
+    {
+      "slug": "2026-08-09-why-pm25-not-aqi",
+      "date": "2026-08-09",
+      "title": "Why JanVayu reports PM2.5 first and AQI second"
+    },
+    {
+      "slug": "2026-08-09-what-the-air-looks-like",
+      "date": "2026-08-09",
+      "title": "What the air looks like"
+    },
+    {
+      "slug": "2026-08-09-how-to-read-the-map",
+      "date": "2026-08-09",
+      "title": "How to read the JanVayu map"
+    },
+    {
+      "slug": "2026-08-08-tree-cover-answers-it",
+      "date": "2026-08-08",
+      "title": "We were measuring the wrong green"
+    },
+    {
+      "slug": "2026-08-08-one-map-every-boundary",
+      "date": "2026-08-08",
+      "title": "One map, every boundary in India"
+    },
+    {
+      "slug": "2026-08-08-heat-on-every-ward",
+      "date": "2026-08-08",
+      "title": "Surface heat on every ward in India, and what it showed"
+    },
+    {
+      "slug": "2026-08-07-ninety-cities-ward-by-ward",
+      "date": "2026-08-07",
+      "title": "Ninety-seven cities, ward by ward, and the one we had to go somewhere else for"
+    },
+    {
+      "slug": "2026-08-07-every-capital-and-the-directory",
+      "date": "2026-08-07",
+      "title": "Every capital, and the directory we never read"
+    },
+    {
+      "slug": "2026-08-07-agartala-northeast-outlier",
+      "date": "2026-08-07",
+      "title": "Agartala breathes like the coal belt, and nobody was looking"
+    },
+    {
+      "slug": "2026-08-05-every-village-on-the-map",
+      "date": "2026-08-05",
+      "title": "Every village in India is now on the map, including the ones no one measures"
+    },
+    {
+      "slug": "2026-07-30-the-air-your-mp-answers-for",
+      "date": "2026-07-30",
+      "title": "Our maps now show the air your MP answers for, in 39 cities and 543 constituencies"
+    },
+    {
+      "slug": "2026-07-22-testing-ask-janvayu",
+      "date": "2026-07-22",
+      "title": "Testing the chatbot to make it reliable"
+    },
+    {
+      "slug": "2026-07-18-why-our-mascot-is-a-sparrow",
+      "date": "2026-07-18",
+      "title": "Why JanVayu's mascot is a sparrow"
+    },
+    {
+      "slug": "2026-07-18-routines-that-keep-janvayu-honest",
+      "date": "2026-07-18",
+      "title": "Scheduled checks that keep JanVayu accurate"
+    },
+    {
+      "slug": "2026-07-18-how-to-contribute",
+      "date": "2026-07-18",
+      "title": "You don't need to code to make India's air data better"
+    },
+    {
+      "slug": "2026-07-17-what-shipped-walkthrough-plain-language",
+      "date": "2026-07-17",
+      "title": "A longer walkthrough, plainer words and an easier menu"
+    },
+    {
+      "slug": "2026-07-17-we-factchecked-ourselves",
+      "date": "2026-07-17",
+      "title": "We fact-checked our own site and changed 33 numbers"
+    },
+    {
+      "slug": "2026-07-15-multilingual-accessibility-lighter",
+      "date": "2026-07-15",
+      "title": "A working language switcher, easier access for more readers and a much lighter site"
+    },
+    {
+      "slug": "2026-07-14-forecast-fire-and-beyond-the-lungs",
+      "date": "2026-07-14",
+      "title": "Forecasts, fire maps and the health effects of air pollution beyond the lungs"
+    },
+    {
+      "slug": "2026-07-08-secondary-pm25",
+      "date": "2026-07-08",
+      "title": "Up to 42% of India's PM2.5 forms in the air after emission"
+    },
+    {
+      "slug": "2026-07-02-citation-integrity",
+      "date": "2026-07-02",
+      "title": "A citation that did not exist: 'Krishna et al.' was really Jaganathan"
+    },
+    {
+      "slug": "2026-06-25-ask-janvayu-knows-your-ward",
+      "date": "2026-06-25",
+      "title": "Ask JanVayu can now answer questions about your ward"
+    },
+    {
+      "slug": "2026-06-11-live-vs-annual-honest-ward-data",
+      "date": "2026-06-11",
+      "title": "Live and annual readings answer different questions about your ward"
+    },
+    {
+      "slug": "2026-06-10-urban-heat-island",
+      "date": "2026-06-10",
+      "title": "Why the heat in your neighbourhood is also an air-quality question"
+    },
+    {
+      "slug": "2026-06-10-how-polluted-is-your-ward",
+      "date": "2026-06-10",
+      "title": "India's air, ward by ward"
+    },
+    {
+      "slug": "2026-05-27-understanding-aqi",
+      "date": "2026-05-27",
+      "title": "What the AQI actually measures"
+    },
+    {
+      "slug": "2026-05-27-data-source-selector",
+      "date": "2026-05-27",
+      "title": "When a politician says 'AQI improved 20%', ask which monitor"
+    },
+    {
+      "slug": "2026-05-26-v26.6.20-platform-overhaul",
+      "date": "2026-05-26",
+      "title": "Twenty-one fixes in one day"
+    },
+    {
+      "slug": "2026-05-20-vayu-junction",
+      "date": "2026-05-20",
+      "title": "Vayu Junction, a map of the words used to talk about India's air"
+    },
+    {
+      "slug": "2026-05-08-quality-and-performance",
+      "date": "2026-05-08",
+      "title": "How we checked that the site is fast and usable on a phone"
+    },
+    {
+      "slug": "2026-05-08-learning-games",
+      "date": "2026-05-08",
+      "title": "Six games for learning about air quality"
+    },
+    {
+      "slug": "2026-05-06-data-corrections-may",
+      "date": "2026-05-06",
+      "title": "Updated numbers for May 2026, and what we have been reading"
+    },
+    {
+      "slug": "2026-04-26-shipped-this-week",
+      "date": "2026-04-26",
+      "title": "Cigarette equivalents, city rankings, community sensors and workshops are now on JanVayu"
+    },
+    {
+      "slug": "2026-04-12-iqair-2025-india",
+      "date": "2026-04-12",
+      "title": "In IQAir's 2025 ranking India's average eased, but Loni is the most polluted city"
+    },
+    {
+      "slug": "2026-04-08-lancet-causal-evidence",
+      "date": "2026-04-08",
+      "title": "Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal"
+    },
+    {
+      "slug": "2026-04-05-ncap-deadline",
+      "date": "2026-04-05",
+      "title": "Has India's National Clean Air Programme worked?"
+    },
+    {
+      "slug": "2026-04-01-children-air-pollution",
+      "date": "2026-04-01",
+      "title": "What air pollution does to India's children"
+    },
+    {
+      "slug": "2026-03-28-stubble-burning-satellites",
+      "date": "2026-03-28",
+      "title": "How farmers burn stubble when the satellites are not looking"
+    },
+    {
+      "slug": "2026-03-25-economic-cost",
+      "date": "2026-03-25",
+      "title": "Air pollution costs India about $339 billion a year"
+    }
+  ]
+}

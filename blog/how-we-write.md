@@ -72,7 +72,11 @@ need to touch any code.
 
 *Comfortable working in the project yourself?* You can add the post directly.
 Just ask and we'll point you to where the posts live and how to list a
-new one. It's one file.
+new one. The post is one Markdown file. After adding it, three scripts bring
+the rest up to date: `scripts/build-blog-index.py` (the homepage),
+`scripts/build-share.py` (the post's shareable page at `/blog/<file-name>/`)
+and `scripts/build-og-cards.mjs` (its link-preview card). CI says if one was
+missed.
 
 ## Before you publish: a six-point check
 

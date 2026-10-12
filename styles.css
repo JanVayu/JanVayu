@@ -3693,3 +3693,9 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .life-cell-val { font-family: var(--serif); font-size: 1.5rem; line-height: 1.15; }
 .life-cell-sub { font-size: 0.78rem; color: var(--text-3); margin-top: 0.2rem; }
 .life-unit { font-size: 0.6em; color: var(--text-3); }
+
+/* Share bar on standalone pages and blog posts, filled by js/chrome.js. */
+.jv-share { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 28px 0; padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.jv-share-label { font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-right: 4px; }
+body .jv-share a, body .jv-share button { font: inherit; font-size: 0.85rem; padding: 6px 12px; min-height: 44px; display: inline-flex; align-items: center; border: 1px solid var(--border); background: var(--bg-section); color: var(--text); text-decoration: none; cursor: pointer; }
+body .jv-share a:hover, body .jv-share button:hover { border-color: var(--ink); }

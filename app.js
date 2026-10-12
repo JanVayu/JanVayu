@@ -2945,6 +2945,11 @@
         if (!data) { if (!(opts && opts.preview)) alert('No AQI data available for this city yet. Please wait for data to load.'); return null; }
         const city = CITIES[cityKey];
         if (!city) return null;
+        // A shared card is read as a measurement, so it is drawn only from a live
+        // reading that carries PM2.5. The fallback table (live: false) and an
+        // AQI-derived guess at PM2.5 must never leave the site as "right now".
+        const shareBlock = shareableReadingProblem(data);
+        if (shareBlock) { if (!(opts && opts.preview)) alert(shareBlock); return null; }
 
         const format = (opts && opts.format) || 'square';
         const W = format === 'landscape' ? 1200 : 1080;
@@ -2957,8 +2962,8 @@
         canvas.height = H;
         const ctx = canvas.getContext('2d');
 
-        const aqi = data.aqi || 0;
-        const pm25 = data.pm25 || Math.round(aqi * 0.7);
+        const aqi = data.aqi;
+        const pm25 = data.pm25;
         const whoX = getWHOMultiple(pm25);
         const cigPerDay = (pm25 / 22).toFixed(1);
         const label = getAQILabel(aqi);
@@ -3343,13 +3348,24 @@
         }, 'image/png');
     }
 
+    // Why a city reading cannot be shared, or null when it can. Sharing sends a
+    // number out of the site with "right now" on it, so it needs a live station
+    // reading that reports PM2.5 itself.
+    function shareableReadingProblem(data) {
+        if (!data || !data.live) return 'Live data for this city has not loaded, so there is no current reading to share. Try again in a minute.';
+        if (!(data.pm25 > 0) || !(data.aqi > 0)) return 'This station is not reporting PM2.5 right now, so there is no reading to share.';
+        return null;
+    }
+
     function shareOnWhatsApp(cityKey) {
         var data = aqiData[cityKey];
         if (!data) { alert('No AQI data available for this city yet.'); return; }
         var city = CITIES[cityKey];
         if (!city) return;
-        var aqi = data.aqi || 0;
-        var pm25 = data.pm25 || Math.round(aqi * 0.7);
+        var block = shareableReadingProblem(data);
+        if (block) { alert(block); return; }
+        var aqi = data.aqi;
+        var pm25 = data.pm25;
         var whoX = getWHOMultiple(pm25);
         var cigPerDay = (pm25 / 22).toFixed(1);
         var label = getAQILabel(aqi);
@@ -3357,7 +3373,8 @@
             + '\n\nAQI: ' + aqi + ' (' + label + ')'
             + '\nPM2.5: ' + pm25 + ' µg/m³ (' + whoX + '× WHO limit)'
             + '\n≈ ' + cigPerDay + ' cigarettes/day'
-            + '\n\nCheck live data: janvayu.in';
+            + '\nStation: ' + data.station + (data.time ? ', ' + data.time : '')
+            + '\n\nCheck live data: https://www.janvayu.in/';
         var url = 'https://wa.me/?text=' + encodeURIComponent(text);
         window.open(url, '_blank');
     }
@@ -3453,7 +3470,12 @@
         // Render the actual canvas card and embed it as an image in the preview
         try {
             Promise.resolve(generateAQICard(cityKey, { format: format, preview: true })).then(function(canvas) {
-                if (!canvas) return;
+                if (!canvas) {
+                    var why = shareableReadingProblem(aqiData[cityKey]) || 'No card could be drawn for this city.';
+                    preview.innerHTML = '<p style="color: var(--text-3); padding: 2rem;"></p>';
+                    preview.firstChild.textContent = why;
+                    return;
+                }
                 preview.innerHTML = '';
                 var img = document.createElement('img');
                 img.src = canvas.toDataURL('image/png');

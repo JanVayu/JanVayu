@@ -5,9 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JanVayu Blog — Air Quality Analysis &amp; Updates</title>
   <meta name="description" content="Evidence-based analysis of India's air quality crisis. Data, research, policy, and accountability.">
-  <meta property="og:title" content="JanVayu Blog">
-  <meta property="og:description" content="Evidence-based analysis of India's air quality crisis from the citizen-led air quality archive.">
-  <meta property="og:type" content="website">
+<!-- share-meta:start -->
+<link rel="canonical" href="https://www.janvayu.in/blog/">
+<meta property="og:site_name" content="JanVayu">
+<meta property="og:locale" content="en_IN">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JanVayu Blog">
+<meta property="og:description" content="Evidence-based analysis of India’s air quality: data, research, policy and accountability, with the source for every figure.">
+<meta property="og:url" content="https://www.janvayu.in/blog/">
+<meta property="og:image" content="https://www.janvayu.in/og/blog.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="JanVayu: Analysis of India’s air, with sources">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JanVayu Blog">
+<meta name="twitter:description" content="Evidence-based analysis of India’s air quality: data, research, policy and accountability, with the source for every figure.">
+<meta name="twitter:image" content="https://www.janvayu.in/og/blog.jpg">
+<meta name="twitter:image:alt" content="JanVayu: Analysis of India’s air, with sources">
+<!-- share-meta:end -->
   <link rel="icon" href="https://www.janvayu.in/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,10 +30,10 @@
 
   <!-- Docsify Theme (base) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0.9.0/dist/css/theme-simple.min.css">
-<link rel="stylesheet" href="/styles.css?v=202606239">
+<link rel="stylesheet" href="/styles.css?v=202606240">
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <script>try{if(!localStorage.getItem('janvayu-theme')&&localStorage.getItem('docsify-dark-mode')==='dark'){localStorage.setItem('janvayu-theme','dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
-<script src="/js/chrome.js?v=202606239" defer></script>
+<script src="/js/chrome.js?v=202606240" defer></script>
 
   <style>
     :root {
@@ -402,6 +417,32 @@
         nextText: 'Next Post',
         crossChapter: true
       },
+      // Each post has a static page at /blog/<slug>/ (scripts/build-share.py)
+      // that previews with its own card. A link to this reader carries the
+      // post in a #fragment, which no server or link previewer ever sees, so
+      // the share bar here always hands out the static URL instead.
+      plugins: [function (hook) {
+        hook.afterEach(function (html, next) {
+          var m = location.hash.match(/^#\/posts\/([^?#]+?)(?:\.md)?(?:[?#].*)?$/);
+          if (!m) return next(html);
+          var url = 'https://www.janvayu.in/blog/' + m[1] + '/';
+          var h = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+          var t = document.createElement('div');
+          t.innerHTML = h ? h[1] : 'JanVayu Blog';
+          var title = t.textContent.trim();
+          var e = encodeURIComponent;
+          var a = function (label, href) {
+            return '<a href="' + href + '" target="_blank" rel="noopener">' + label + '</a>';
+          };
+          next(html + '<div class="jv-share"><span class="jv-share-label">Share</span>' +
+            a('WhatsApp', 'https://wa.me/?text=' + e(title + '\n' + url)) +
+            a('X', 'https://twitter.com/intent/tweet?text=' + e(title) + '&amp;url=' + e(url)) +
+            a('LinkedIn', 'https://www.linkedin.com/sharing/share-offsite/?url=' + e(url)) +
+            a('Telegram', 'https://t.me/share/url?url=' + e(url) + '&amp;text=' + e(title)) +
+            '<a href="mailto:?subject=' + e(title) + '&amp;body=' + e(url) + '">Email</a>' +
+            '<a href="' + url + '">Link to this post</a></div>');
+        });
+      }],
       footer: {
         copy: '<span>JanVayu &copy; 2026 | <a href="https://www.janvayu.in" target="_blank">janvayu.in</a> | <a href="/docs/">Docs</a> | <a href="/ask/">Ask JanVayu</a></span>',
         pre: '<hr>',
