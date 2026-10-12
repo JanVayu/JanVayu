@@ -22,6 +22,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Homepage bulletin.** The monsoon has left north-west India; Skymet expects
   withdrawal from the whole country by about 15 October.
 
+### Changed, the CPCB bulletin archive extended to 11 October
+
+`data/raw/cpcb-bulletins-2026.csv.gz` ended on 17 September. The 24 missing
+bulletins (18 September to 11 October) were fetched from CPCB, now served from
+cpcb.gov.in: 5,963 rows, no rows skipped and no gaps in CPCB's numbering on any
+day. `data/aqi-bulletins.json` was rebuilt; the 2015-2025 half is unchanged,
+which was confirmed first by rebuilding from the current UrbanEmissions data
+and getting a byte-identical file. Delhi's 2026 count is now 80 Poor-or-worse
+days in 284 reported. Ambernath (Thane) passed the 180-day floor and joins as
+city 298.
+
 ### Fixed, the monthly current-year air job had never run successfully
 
 `current-year-air.yml` pushed its rebuild straight to `main`, which is
