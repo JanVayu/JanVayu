@@ -44,6 +44,12 @@ does since #411.
 committed file says "several"; India's AQI uses eight. The script now matches
 the file, and a rebuild from the current UrbanEmissions data is byte-identical.
 
+The September rebuild was run by hand on 12 October: `data/current-year-air.json`
+now runs through September 2026 for all 785 districts (781 in the August file),
+mean 42.5 µg/m³. The first pass lost 27 districts, New Delhi among them, to
+failed requests; they were retried rather than shipped missing. Calibration is
+unchanged (satellite ≈ 0.828 × CAMS + 12.87, on 2024).
+
 ### Added, three papers in the Reading List (12 October)
 
 The weekly digest proposed five. Each DOI was resolved through Crossref, open
