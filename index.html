@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606240">
+    <link rel="preload" as="style" href="/styles.css?v=202606241">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1047,8 +1047,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606240" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606240"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606241" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606241"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1108,7 +1108,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606240" defer></script>
+<script src="/js/chrome.js?v=202606241" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1611,7 +1611,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606240"></script>
+    <script src="/app.js?v=202606241"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -2757,30 +2757,30 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <!-- ── 24-hour hourly scrubbable chart (live) ── -->
             <div class="card mb-2">
                 <div class="card-header" style="flex-wrap: wrap; gap: 8px;">
-                    <span class="card-title">Last 24 hours (hourly)</span>
+                    <span class="card-title">Last 24 hours (hourly, modelled)</span>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <select id="hourly-city" onchange="initHourlyTrendChart()" style="font-size: 0.78rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-section); color: var(--ink);"></select>
                         <span id="hourly-readout" style="font-size: 0.75rem; color: var(--text-3);">—</span>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="chart-container" style="height: 240px;"><canvas id="hourlyChart" role="img" aria-label="Line chart of hourly PM2.5 readings across the last 24 hours, scrubbable by hour."></canvas></div>
+                    <div class="chart-container" style="height: 240px;"><canvas id="hourlyChart" role="img" aria-label="Line chart of modelled hourly PM2.5 across the last 24 hours, scrubbable by hour."></canvas></div>
                     <input id="hourly-scrub" type="range" min="0" max="23" value="23" oninput="updateHourlyReadout(this.value)" style="width: 100%; margin-top: 12px;">
                     <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-3); margin-top: 4px;">
                         <span>24 hours ago</span><span>now</span>
                     </div>
                 </div>
-                <div class="card-footer" style="font-size: 0.72rem;">Drag the slider to inspect any hour. Source: WAQI hourly forecast/observation feed.</div>
+                <div class="card-footer" style="font-size: 0.72rem;"><span id="hourly-note">Drag the slider to inspect any hour. </span>Source: CAMS atmospheric model via Open-Meteo, for the city&rsquo;s coordinates. These are model estimates, not readings from a monitoring station, and can differ from the live figure above.</div>
             </div>
 
             <div class="card mb-2">
-                <div class="card-header"><span class="card-title">Delhi PM2.5 Trend (2015&ndash;present)</span></div>
-                <div class="card-body"><div class="chart-container" style="height: 300px;"><canvas id="historyChart" role="img" aria-label="Multi-year line chart of Delhi annual average PM2.5 from 2015 to present, with the WHO 5 µg/m³ guideline overlay."></canvas></div></div>
+                <div class="card-header"><span class="card-title">Delhi annual PM2.5, 1980&ndash;2022 (reconstructed)</span></div>
+                <div class="card-body"><div class="chart-container" style="height: 300px;"><canvas id="historyChart" role="img" aria-label="Line chart of Delhi annual average PM2.5 from 1980 to 2022, reconstructed by the LongPMInd model, with the WHO 5 µg/m³ guideline. It rises from about 44 to 51 µg/m³ in the early 1980s to between 78 and 107 in every year since 2010."></canvas></div></div>
             </div>
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-header"><span class="card-title">Seasonal Pattern</span></div>
-                    <div class="card-body"><div class="chart-container"><canvas id="seasonalChart" role="img" aria-label="Line chart showing average AQI across each month of the year, showing the November–February pollution peak."></canvas></div></div>
+                    <div class="card-header"><span class="card-title">Seasonal pattern: days Poor or worse (Delhi)</span></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="seasonalChart" role="img" aria-label="Bar chart of the share of days CPCB rated Poor or worse, and Severe, in Delhi for each month, 2016 to 2025. November to January are Poor or worse on over 90 per cent of days; July to September on under 4 per cent."></canvas></div></div>
                 </div>
                 <div class="card">
                     <div class="card-header"><span class="card-title">Key Events Timeline</span></div>
@@ -4762,7 +4762,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         <div class="card mb-3">
             <div class="card-header"><span class="card-title">Annual Pollution Timeline</span></div>
             <div class="card-body">
-                <div id="pollution-calendar-grid" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.25rem;"></div>
+                <div id="pollution-calendar-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); gap: 0.25rem;"></div>
+                <p id="pollution-calendar-caption" style="font-size: 0.75rem; color: var(--text-3); margin-top: 0.5rem;"></p>
             </div>
         </div>
 
@@ -4791,8 +4792,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 </div>
             </div>
             <div class="card">
-                <div class="card-header"><span class="card-title">Seasonal AQI Pattern</span></div>
-                <div class="card-body"><div class="chart-container"><canvas id="calendarChart" role="img" aria-label="Annual pollution calendar showing daily AQI bands across the past year."></canvas></div></div>
+                <div class="card-header"><span class="card-title">Days Poor or worse, by month (Delhi)</span></div>
+                <div class="card-body"><div class="chart-container"><canvas id="calendarChart" role="img" aria-label="Bar chart of the share of days CPCB rated Poor or worse, and Severe, in Delhi for each month, 2016 to 2025."></canvas></div></div>
             </div>
         </div>
     </div>

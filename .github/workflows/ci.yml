@@ -195,6 +195,18 @@ jobs:
       - name: Check the CPCB bulletin layer
         run: python3 scripts/build-aqi-bulletins.py --check
 
+      # The pollution calendar and seasonal chart drew Delhi's year from twelve
+      # typed-in "illustrative" AQI values that erased the pre-monsoon dust
+      # season. They read CPCB's own day counts now.
+      - name: Check the Delhi monthly bulletin counts
+        run: python3 scripts/build-delhi-seasonal.py --check
+
+      # The calculators turned 29 unsourced "working values" for annual PM2.5
+      # into years of life expectancy. Each city is now read from the 2024
+      # satellite layer, and this fails if app.js drifts from it.
+      - name: Check city annual PM2.5 against the satellite layer
+        run: python3 scripts/check-city-annual.py
+
       # scripts/fetch-cpcb-bulletin.py reads a live PDF, so nothing in CI could
       # ever see it, and its one shipped defect was correspondingly invisible:
       # every page header carries the day of the month as a bare token, and

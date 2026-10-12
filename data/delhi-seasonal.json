@@ -1,0 +1,204 @@
+{
+ "_meta": {
+  "what": "Days Delhi spent in each CPCB AQI category, by calendar month, pooled over 2016 to 2025.",
+  "source": "CPCB daily AQI bulletins, parsed from the published PDFs by UrbanEmissions.Info (github.com/urbanemissionsinfo/AQI_bulletins). Built by scripts/build-delhi-seasonal.py.",
+  "years": "2016-2025",
+  "no_mean": "No average AQI: an index of whichever pollutant scores worst is counted by category, not averaged. See _meta.no_annual_mean in aqi-bulletins.json.",
+  "not_a_trend": "A seasonal profile pooled over ten years. Delhi went from 5 reporting stations to 43 over the window, so the years are not compared."
+ },
+ "city": "Delhi",
+ "months": [
+  {
+   "month": 1,
+   "label": "Jan",
+   "days": 309,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 2,
+    "Moderate": 16,
+    "Poor": 92,
+    "Very Poor": 167,
+    "Severe": 32
+   },
+   "poor_or_worse": 291,
+   "severe": 32,
+   "share_poor_or_worse": 0.942
+  },
+  {
+   "month": 2,
+   "label": "Feb",
+   "days": 283,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 3,
+    "Moderate": 72,
+    "Poor": 142,
+    "Very Poor": 66,
+    "Severe": 0
+   },
+   "poor_or_worse": 208,
+   "severe": 0,
+   "share_poor_or_worse": 0.735
+  },
+  {
+   "month": 3,
+   "label": "Mar",
+   "days": 306,
+   "by_category": {
+    "Good": 1,
+    "Satisfactory": 15,
+    "Moderate": 163,
+    "Poor": 121,
+    "Very Poor": 6,
+    "Severe": 0
+   },
+   "poor_or_worse": 127,
+   "severe": 0,
+   "share_poor_or_worse": 0.415
+  },
+  {
+   "month": 4,
+   "label": "Apr",
+   "days": 300,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 16,
+    "Moderate": 115,
+    "Poor": 152,
+    "Very Poor": 17,
+    "Severe": 0
+   },
+   "poor_or_worse": 169,
+   "severe": 0,
+   "share_poor_or_worse": 0.563
+  },
+  {
+   "month": 5,
+   "label": "May",
+   "days": 310,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 15,
+    "Moderate": 150,
+    "Poor": 125,
+    "Very Poor": 20,
+    "Severe": 0
+   },
+   "poor_or_worse": 145,
+   "severe": 0,
+   "share_poor_or_worse": 0.468
+  },
+  {
+   "month": 6,
+   "label": "Jun",
+   "days": 298,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 43,
+    "Moderate": 175,
+    "Poor": 69,
+    "Very Poor": 8,
+    "Severe": 3
+   },
+   "poor_or_worse": 80,
+   "severe": 3,
+   "share_poor_or_worse": 0.268
+  },
+  {
+   "month": 7,
+   "label": "Jul",
+   "days": 304,
+   "by_category": {
+    "Good": 2,
+    "Satisfactory": 192,
+    "Moderate": 99,
+    "Poor": 10,
+    "Very Poor": 1,
+    "Severe": 0
+   },
+   "poor_or_worse": 11,
+   "severe": 0,
+   "share_poor_or_worse": 0.036
+  },
+  {
+   "month": 8,
+   "label": "Aug",
+   "days": 309,
+   "by_category": {
+    "Good": 6,
+    "Satisfactory": 190,
+    "Moderate": 109,
+    "Poor": 4,
+    "Very Poor": 0,
+    "Severe": 0
+   },
+   "poor_or_worse": 4,
+   "severe": 0,
+   "share_poor_or_worse": 0.013
+  },
+  {
+   "month": 9,
+   "label": "Sep",
+   "days": 300,
+   "by_category": {
+    "Good": 2,
+    "Satisfactory": 125,
+    "Moderate": 163,
+    "Poor": 10,
+    "Very Poor": 0,
+    "Severe": 0
+   },
+   "poor_or_worse": 10,
+   "severe": 0,
+   "share_poor_or_worse": 0.033
+  },
+  {
+   "month": 10,
+   "label": "Oct",
+   "days": 309,
+   "by_category": {
+    "Good": 3,
+    "Satisfactory": 16,
+    "Moderate": 87,
+    "Poor": 128,
+    "Very Poor": 68,
+    "Severe": 7
+   },
+   "poor_or_worse": 203,
+   "severe": 7,
+   "share_poor_or_worse": 0.657
+  },
+  {
+   "month": 11,
+   "label": "Nov",
+   "days": 300,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 1,
+    "Moderate": 6,
+    "Poor": 52,
+    "Very Poor": 168,
+    "Severe": 73
+   },
+   "poor_or_worse": 293,
+   "severe": 73,
+   "share_poor_or_worse": 0.977
+  },
+  {
+   "month": 12,
+   "label": "Dec",
+   "days": 310,
+   "by_category": {
+    "Good": 0,
+    "Satisfactory": 0,
+    "Moderate": 18,
+    "Poor": 63,
+    "Very Poor": 179,
+    "Severe": 50
+   },
+   "poor_or_worse": 292,
+   "severe": 50,
+   "share_poor_or_worse": 0.942
+  }
+ ]
+}

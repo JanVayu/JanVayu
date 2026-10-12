@@ -7,6 +7,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Fixed, figures on the homepage that were not data (v26.6.241)
+
+Found while fixing the WhatsApp share in v26.6.240. Each of these rendered as a
+measurement and none was one.
+
+- **PM2.5 from AQI.** Thirteen places in `app.js` filled a missing PM2.5 with
+  0.7 times the AQI and printed it in µg/m³: the hero, the ranking bars, the
+  ticker, the worst and best city lists, the live rankings table, the "should
+  I go outside" check, the purifier calculator and the near-me reading. AQI is
+  the worst of several sub-indices on a non-linear scale, so no factor turns it
+  into a concentration. `measuredPM25()` now returns the station's own value or
+  nothing; a station that does not report PM2.5 is shown as not reporting it
+  and left off PM2.5 rankings. The personal-impact card read the overall AQI
+  through the PM2.5 breakpoint table, which is right only when PM2.5 sets the
+  AQI; it now needs a measured value too.
+- **The demo table.** When the live feed failed, the homepage loaded fixed
+  figures for 21 cities (Delhi at AQI 312) with up to 5 per cent random noise,
+  showed them under "Live PM2.5", and fed them to the threshold alerts. The
+  table is removed. The status line says live readings could not be loaded and
+  the figures that need one are left blank.
+- **The 24-hour chart** drew a sine wave around the day's forecast average and
+  showed each point as "µg/m³ at 14:00". It now plots the last 24 hours of
+  PM2.5 from the CAMS model through Open-Meteo, which the forecast panel
+  already uses, and says it is a model estimate. If the request fails it says
+  so and draws nothing.
+- **The pollution calendar and seasonal chart** used twelve typed-in AQI values
+  labelled "illustrative" in a tooltip. They put April to June at 120, 110 and
+  90, which erased the pre-monsoon dust season. Averaging AQI breaks the site's
+  own rule (`_meta.no_annual_mean` in `data/aqi-bulletins.json`), so they now
+  show the share of days CPCB rated Poor or worse in each month, Delhi,
+  2016-2025: 94% in January, 56% in April, 1% in August, 98% in November.
+  `scripts/build-delhi-seasonal.py` builds `data/delhi-seasonal.json` from the
+  UrbanEmissions.Info parse of the bulletins, and CI checks it. The calendar
+  grid also wraps on a phone now; twelve fixed columns were a few letters wide.
+- **"Delhi PM2.5 trend"** was eleven typed-in annual values (2015 at 122). It
+  is now the mean of Delhi's 11 districts in LongPMInd (Wang et al. 2024),
+  1980-2022, the reconstruction the district history map already uses, and is
+  labelled as a model reconstruction (2015 at 82).
+- **Annual PM2.5 for 33 cities.** The exposure report, migration calculator,
+  scorecard and share card read four IQAir 2025 figures and 29 "working
+  values" matched to nothing, several far out (Kolkata 84 against 48.2,
+  Kanpur 95 against 54.6). All 33 now come from the 2024 satellite layer
+  (SatPM2.5, district means), one source so cities compare like with like.
+  `scripts/check-city-annual.py` holds the district behind each city and fails
+  if `app.js` drifts. A satellite district mean includes rural areas and runs
+  below a city-centre monitor; the labels say so.
+- **Defaults of 50 µg/m³.** The exposure report, the exposure diary and the
+  migration calculator used 50 when a city had no figure. They now say there
+  is none. The migration calculator also stopped putting a single live reading
+  into AQLI's annual life-expectancy formula.
+- `--pm-b5` (PM2.5 25-35) was `#dc2626`, 4.47:1 on `--bg-section`; the new
+  satellite figures put a value in that band on the migration table and the
+  contrast gate caught it. It is `#cc2222` now, 5.09:1.
+
+Still illustrative and labelled so: the activity multipliers in the exposure
+diary and the correlation explorer's columns other than PM2.5.
+
 ### Fixed, every page now shares as itself (v26.6.240)
 
 Checked on 12 October 2026. Of 16 standalone pages, 8 had no preview image,

@@ -78,27 +78,11 @@
 
     // ── Configuration ──
     const WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
-    const DEMO_DATA = {
-        delhi: { aqi: 312, pm25: 185, pm10: 298 },
-        mumbai: { aqi: 89, pm25: 42, pm10: 78 },
-        kolkata: { aqi: 178, pm25: 98, pm10: 156 },
-        chennai: { aqi: 72, pm25: 31, pm10: 65 },
-        bangalore: { aqi: 95, pm25: 48, pm10: 89 },
-        hyderabad: { aqi: 118, pm25: 62, pm10: 105 },
-        gurgaon: { aqi: 345, pm25: 210, pm10: 312 },
-        noida: { aqi: 328, pm25: 195, pm10: 285 },
-        faridabad: { aqi: 298, pm25: 172, pm10: 256 },
-        ghaziabad: { aqi: 356, pm25: 218, pm10: 325 },
-        lucknow: { aqi: 245, pm25: 142, pm10: 212 },
-        kanpur: { aqi: 268, pm25: 158, pm10: 235 },
-        patna: { aqi: 285, pm25: 168, pm10: 248 },
-        jaipur: { aqi: 195, pm25: 108, pm10: 172 },
-        ahmedabad: { aqi: 145, pm25: 78, pm10: 128 },
-        pune: { aqi: 82, pm25: 38, pm10: 72 },
-        beijing: { aqi: 125, pm25: 68, pm10: 112 },
-        london: { aqi: 42, pm25: 18, pm10: 35 },
-        singapore: { aqi: 55, pm25: 24, pm10: 48 }
-    };
+    // There is no demo table. Until October 2026 a failed WAQI request fell
+    // back to fixed figures for 21 cities (Delhi at AQI 312), with up to 5%
+    // random noise added, and the homepage showed them under "Live PM2.5".
+    // They also fed the WhatsApp share and the threshold alerts. A city with no
+    // live reading now shows that it has none.
 
     const CITIES = {
         delhi: { name: 'Delhi', lat: 28.6139, lon: 77.2090, region: 'north' },
@@ -721,15 +705,17 @@
         const aqiEl = document.getElementById('delhi-live-aqi');
         const data = aqiData[cityKey];
         if (data) {
-            const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
-            const whoX = getWHOMultiple(pm25);
-            const color = getPM25TextColor(pm25); // text on white card — must stay legible
-            if (pmEl) { pmEl.textContent = pm25; pmEl.style.color = color; }
-            if (whoEl) { whoEl.textContent = whoX + 'x WHO guideline'; whoEl.style.color = color; }
+            const pm25 = measuredPM25(data);
+            if (pm25 === null) {
+                if (pmEl) { pmEl.textContent = '—'; pmEl.style.color = 'var(--text-3)'; }
+                if (whoEl) { whoEl.textContent = 'PM2.5 not reported by this station'; whoEl.style.color = 'var(--text-3)'; }
+            } else {
+                const color = getPM25TextColor(pm25); // text on white card — must stay legible
+                if (pmEl) { pmEl.textContent = pm25; pmEl.style.color = color; }
+                if (whoEl) { whoEl.textContent = getWHOMultiple(pm25) + 'x WHO guideline'; whoEl.style.color = color; }
+            }
             if (aqiEl) aqiEl.textContent = data.aqi;
-            // Only name a station when the reading actually came from one. The
-            // demo fallback sets station to '<City> (Fallback)', which would
-            // otherwise be printed to the visitor as though it were a place.
+            // Only name a station when the reading actually came from one.
             renderHeroVerdict(pm25, cityName, data.live ? data.station : null);
             renderCitySpread(cityKey, cityName);
             updatePersonalImpact(cityKey, data);
@@ -770,8 +756,8 @@
         if (!list && !bars) return;
         const rows = Object.keys(aqiData)
             .filter(k => k !== '__nearme' && aqiData[k] && CITIES[k])
-            .map(k => ({ name: CITIES[k].name, pm: aqiData[k].pm25 || Math.round(aqiData[k].aqi * 0.7) }))
-            .filter(r => isFinite(r.pm))
+            .map(k => ({ name: CITIES[k].name, pm: measuredPM25(aqiData[k]) }))
+            .filter(r => r.pm !== null)
             .sort((a, b) => b.pm - a.pm);
         if (!rows.length) return;
         if (list) {
@@ -1381,15 +1367,18 @@
             return;
         }
 
-        // No measured PM2.5: invert the US EPA AQI breakpoint table rather than a flat factor.
-        const pm25 = data.pm25 || iaqiToPM25(data.aqi) || 0;
+        // The cigarette figure is computed from PM2.5, so it needs a measured
+        // PM2.5. Reading the overall AQI back through the PM2.5 breakpoint table
+        // is right only when PM2.5 is the pollutant setting the AQI, and the
+        // feed does not say when it is. The AQI-band cards below still apply.
+        const pm25 = measuredPM25(data);
         const aqi = data.aqi;
-        const cigPerDay = (pm25 / 22).toFixed(1);
-        const cigColor = getPM25TextColor(pm25); // text on white card
-        if (cigEl) { cigEl.textContent = cigPerDay; cigEl.style.color = cigColor; }
-        if (cigCtx) {
-            const cigPerWeek = Math.round((pm25 / 22) * 7);
-            cigCtx.textContent = `That's ≈ ${cigPerWeek} cigarettes/week of equivalent PM2.5 exposure.`;
+        if (pm25 === null) {
+            if (cigEl) { cigEl.textContent = '--'; cigEl.style.color = 'var(--text-3)'; }
+            if (cigCtx) cigCtx.textContent = 'This station is not reporting PM2.5 right now, so there is no cigarette equivalent to show.';
+        } else {
+            if (cigEl) { cigEl.textContent = (pm25 / 22).toFixed(1); cigEl.style.color = getPM25TextColor(pm25); }
+            if (cigCtx) cigCtx.textContent = `That's ≈ ${Math.round((pm25 / 22) * 7)} cigarettes/week of equivalent PM2.5 exposure.`;
         }
 
         const riskRows = computeDiseaseRisk(aqi);
@@ -1538,7 +1527,7 @@
             }
             const d = json.data;
             const aqi = parseInt(d.aqi);
-            const pm25 = iaqiToPM25(d.iaqi?.pm25?.v) || Math.round(aqi * 0.7);
+            const pm25 = iaqiToPM25(d.iaqi?.pm25?.v) || null;
             const stationName = d.city?.name || 'Nearest station';
 
             // Inject as a synthetic "near-me" entry into aqiData so all the cards reuse the same flow.
@@ -2577,6 +2566,13 @@
     }
     function getWHOMultiple(pm25) { return (pm25 / WHO_PM25_GUIDELINE).toFixed(1); }
 
+    // PM2.5 as the station measured it, or null. Until October 2026 most of
+    // this file filled a missing value with 0.7 x AQI and printed it in
+    // µg/m³. AQI is the worst of several sub-indices on a non-linear scale, so
+    // no fixed factor turns it into a concentration; a station that does not
+    // report PM2.5 is shown as not reporting it.
+    function measuredPM25(d) { return d && d.pm25 > 0 ? d.pm25 : null; }
+
     // WAQI returns iaqi.{pm25,pm10}.v as US-EPA sub-index values (unitless), not µg/m³.
     // Convert back to concentration using the standard EPA breakpoint table so downstream
     // displays (PM2.5/PM10 popup rows, WHO multiple, cigarette equivalence) are real µg/m³.
@@ -2629,12 +2625,6 @@
                 }
             }
         } catch (e) { console.warn(`[JanVayu] ${cityKey}:`, e.message); }
-        const demo = DEMO_DATA[cityKey];
-        if (demo) {
-            // allow-random: demo fallback only, returned with live:false and a station name ending "(Fallback)"
-            const r = (v) => Math.round(v * (1 + (Math.random() - 0.5) * 0.1));
-            return { aqi: r(demo.aqi), pm25: r(demo.pm25), pm10: r(demo.pm10), time: new Date().toISOString(), station: city.name + ' (Fallback)', live: false };
-        }
         return null;
     }
 
@@ -2651,13 +2641,6 @@
                 successCount++;
             }
         });
-
-        if (successCount === 0) {
-            CORE_CITIES.forEach(ck => {
-                const d = DEMO_DATA[ck], c = CITIES[ck];
-                if (d && c) aqiData[ck] = { aqi: d.aqi, pm25: d.pm25, pm10: d.pm10, time: new Date().toISOString(), station: c.name + ' (Fallback)', live: false };
-            });
-        }
 
         const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
         try { updateTicker(); updateDashboard(); initAllCharts().catch(e => console.error('initAllCharts:', e)); checkAlerts(); initArchiveData(); loadDashboardLiveNews(); updateGlobalTimestamp(); populateExtendedCitySelectors(); } catch(e) { console.error(e); }
@@ -2676,7 +2659,7 @@
                   + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
                   + `Drawn from India's ~565 continuous CPCB monitors (CREA, Jan 2026), the whole continuous (CAAQMS) network. `
                   + `Yearly satellite figures cover all <strong style="font-weight:600;">983,149</strong> areas, down to the village.</span>`
-                : `<span style="color:var(--amber);">Showing estimated data.</span> Live readings could not be loaded.`;
+                : `<span style="color:var(--amber);">Live readings could not be loaded.</span> Figures that need a live reading are left blank; try again in a minute.`;
             liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine: `
                 + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's continuous (CAAQMS) network (CREA, Jan 2026), not the limit of ours. `
                 + `JanVayu carries live air for ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
@@ -2690,9 +2673,10 @@
     function updateTicker() {
         const ticker = document.getElementById('tickerTrack');
         if (!ticker) return;
-        const sorted = Object.entries(aqiData).sort((a, b) => (b[1].pm25 || b[1].aqi*0.7) - (a[1].pm25 || a[1].aqi*0.7));
+        const sorted = Object.entries(aqiData).filter(([, d]) => measuredPM25(d) !== null)
+            .sort((a, b) => b[1].pm25 - a[1].pm25);
         const items = sorted.map(([key, data]) => {
-            const pm25 = data.pm25 || Math.round(data.aqi * 0.7);
+            const pm25 = data.pm25;
             return `<div class="ticker-item"><span class="ticker-city">${CITIES[key]?.name || key}</span><span class="pm25-badge ${getPM25Class(pm25)}">${pm25}</span><span class="who-multiple">${getWHOMultiple(pm25)}x</span></div>`;
         }).join('');
         ticker.innerHTML = items + items; // duplicate for seamless scroll
@@ -2701,9 +2685,12 @@
     function updateDashboard() {
         updateHeroCity('delhi');
 
-        const sorted = Object.entries(aqiData).sort((a, b) => (b[1].pm25 || b[1].aqi*0.7) - (a[1].pm25 || a[1].aqi*0.7));
+        // Ranked by measured PM2.5 only; a city whose station does not report
+        // it cannot be placed on a PM2.5 ranking.
+        const sorted = Object.entries(aqiData).filter(([k, d]) => k !== '__nearme' && measuredPM25(d) !== null)
+            .sort((a, b) => b[1].pm25 - a[1].pm25);
         if (sorted.length > 0) {
-            const worstPM25 = sorted[0][1].pm25 || Math.round(sorted[0][1].aqi * 0.7);
+            const worstPM25 = sorted[0][1].pm25;
             const el = document.getElementById('worst-city-pm25');
             if (el) { el.textContent = worstPM25; el.style.color = getPM25TextColor(worstPM25); }
             const nameEl = document.getElementById('worst-city-name');
@@ -2713,7 +2700,7 @@
         const worstEl = document.getElementById('worst-cities');
         if (worstEl) {
             worstEl.innerHTML = sorted.slice(0, 5).map((item, i) => {
-                const pm25 = item[1].pm25 || Math.round(item[1].aqi * 0.7);
+                const pm25 = item[1].pm25;
                 return `<div class="city-rank"><span class="rank-num ${i < 3 ? 'top' : ''}">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)};color:${onSwatchInk(getPM25Color(pm25))}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
             }).join('');
         }
@@ -2721,7 +2708,7 @@
         const bestEl = document.getElementById('best-cities');
         if (bestEl) {
             bestEl.innerHTML = sorted.slice(-5).reverse().map((item, i) => {
-                const pm25 = item[1].pm25 || Math.round(item[1].aqi * 0.7);
+                const pm25 = item[1].pm25;
                 return `<div class="city-rank"><span class="rank-num">${i+1}</span><span class="city-rank-name">${CITIES[item[0]]?.name || item[0]}</span><span class="city-rank-aqi" style="background:${getPM25Color(pm25)};color:${onSwatchInk(getPM25Color(pm25))}">${pm25} <small style="opacity:0.8">(${getWHOMultiple(pm25)}x)</small></span><button class="share-aqi-btn" onclick="generateAQICard('${item[0]}')" title="Download AQI card for ${CITIES[item[0]]?.name || item[0]}"><span class="si si-share"></span></button></div>`;
             }).join('');
         }
@@ -2866,10 +2853,25 @@
 
             const historyCtx = document.getElementById('historyChart');
             if (historyCtx) {
-                charts.history = new Chart(historyCtx, { type: 'line', data: { labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'], datasets: [{ label: 'Delhi PM2.5 (illustrative working values, not a published series)', data: [122, 134, 128, 115, 108, 84, 96, 99, 102, 105, 100], borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.4 }, { label: 'WHO Guideline', data: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], borderColor: '#22C55E', borderDash: [5, 5], fill: false }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 150, grid: { color: gridColor } } } } });
+                // LongPMInd (Wang et al. 2024, ESSD 16, 3565-3577), the same
+                // reconstruction the district history map uses: the plain mean
+                // of Delhi's 11 districts, 1980-2022. It replaced eleven typed-in
+                // "illustrative" values that put 2015 at 122 µg/m³ (LongPMInd: 82).
+                fetch('/data/district-history.json').then(r => r.ok ? r.json() : null).then(h => {
+                    if (!h || !historyCtx.isConnected) return;
+                    const keys = Object.keys(h.districts).filter(k => k.endsWith('|Delhi'));
+                    if (!keys.length) return;
+                    const series = h.years.map((y, i) => {
+                        const vals = keys.map(k => h.districts[k].a[i]).filter(v => v != null && isFinite(v));
+                        return vals.length ? Math.round(vals.reduce((x, v) => x + v, 0) / vals.length * 10) / 10 : null;
+                    });
+                    if (charts.history) { try { charts.history.destroy(); } catch (e) {} }
+                    charts.history = new Chart(historyCtx, { type: 'line', data: { labels: h.years.map(String), datasets: [
+                        { label: 'Delhi annual PM2.5, µg/m³ (LongPMInd reconstruction: a validated model estimate, not a measurement)', data: series, borderColor: '#7C3AED', backgroundColor: 'rgba(124,58,237,0.1)', fill: true, tension: 0.3, pointRadius: 2 },
+                        { label: 'WHO guideline (5 µg/m³)', data: h.years.map(() => 5), borderColor: '#22C55E', borderDash: [5, 5], fill: false, pointRadius: 0 }
+                    ] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: gridColor } } } } });
+                }).catch(() => {});
             }
-
-            // Economic Impact Chart (Dalberg data)
             const econCtx = document.getElementById('econChart');
             if (econCtx) {
                 charts.econ = new Chart(econCtx, { type:'doughnut', data:{ labels:['Presenteeism (reduced productivity)','Premature mortality','Reduced consumer footfall','Absenteeism','Health expenditure'], datasets:[{data:[35,28,18,12,7],backgroundColor:['#EF4444','#7C3AED','#F59E0B','#3B82F6','#22C55E']}]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:10}}}}}});
@@ -2877,7 +2879,13 @@
 
             const seasonalCtx = document.getElementById('seasonalChart');
             if (seasonalCtx) {
-                charts.seasonal = new Chart(seasonalCtx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], datasets: [{ label: 'Avg AQI (illustrative working values, not a published figure)', data: [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350], borderColor: '#EF4444', backgroundColor: 'rgba(27,107,74,0.08)', fill: true, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450, grid: { color: gridColor } } } } });
+                loadDelhiSeasonal().then(seasonal => {
+                    if (!seasonal) return;
+                    const cfg = seasonalShareChart(seasonal);
+                    cfg.options.scales.y.grid = { color: gridColor };
+                    if (charts.seasonal) { try { charts.seasonal.destroy(); } catch (e) {} }
+                    charts.seasonal = new Chart(seasonalCtx, cfg);
+                });
             }
         }
 
@@ -3289,7 +3297,7 @@
             ctx.setLineDash([]);
             ctx.fillStyle = 'rgba(255,255,255,0.7)';
             ctx.font = Math.round(12 * S) + 'px system-ui, sans-serif';
-            ctx.fillText('Avg ' + cityAnnualPM25, avgBarPos, barYStart + barH + Math.round(18 * S));
+            ctx.fillText('2024 avg ' + cityAnnualPM25, avgBarPos, barYStart + barH + Math.round(18 * S));
         }
 
         // Today's value marker - white triangle pointing down
@@ -7048,7 +7056,7 @@
         }
 
         const aqi = data.aqi;
-        const pm25 = data.pm25 || Math.round(aqi * 0.7);
+        const pm25 = measuredPM25(data);
 
         // Risk multipliers
         const activityMult = { commute: 1, walk: 1.5, jog: 3, cycle: 2.5, kids: 2, construction: 4 };
@@ -7070,7 +7078,7 @@
             <div style="font-size: 0.85rem; padding: 0.75rem; background: var(--bg-section); border-radius: var(--radius);">
                 <strong>Mask:</strong> ${maskRec}<br>
                 <strong>Current AQI:</strong> ${aqi} (${getAQILabel(aqi)})<br>
-                <strong>PM2.5:</strong> ${pm25} µg/m³ (${getWHOMultiple(pm25)}x WHO guideline)<br>
+                <strong>PM2.5:</strong> ${pm25 === null ? 'not reported by this station' : pm25 + ' µg/m³ (' + getWHOMultiple(pm25) + 'x WHO guideline)'}<br>
                 <em>Rule-of-thumb score from JanVayu's own multipliers, not a medical threshold.</em>
             </div>`;
 
@@ -7131,19 +7139,21 @@
     }
 
     // ── Personal Exposure Report ──
-    // IQAir 2025 (iqair.com/in-en/world-most-polluted-cities): Delhi is New Delhi 82.2,
-    // Gurgaon is Gurugram 74.6, Noida 80.5, Ghaziabad 89.2 (IQAIR_2025_VERIFIED below).
-    // Every other city is a rounded working value that has NOT been matched to IQAir 2025;
-    // the UI says so wherever they are shown.
+    // Annual PM2.5 by city, all from the site's 2024 satellite layer (SatPM2.5
+    // V6GL03 district means, data/district-points.json); scripts/check-city-annual.py
+    // holds the district each city is read from and fails if a value here
+    // drifts from it. One source for every city, because the calculators that
+    // read this compare cities. Until October 2026 four of these were IQAir
+    // 2025 station means and 29 were "working values" matched to nothing.
     const CITY_ANNUAL_PM25 = {
-        delhi: 82.2, mumbai: 42, kolkata: 84, chennai: 31, bangalore: 48, hyderabad: 55,
-        gurgaon: 74.6, noida: 80.5, faridabad: 95, ghaziabad: 89.2, lucknow: 88, kanpur: 95,
-        patna: 96, jaipur: 72, ahmedabad: 58, pune: 35, chandigarh: 52, varanasi: 82,
-        agra: 78, bhopal: 45, indore: 42, nagpur: 48, kochi: 22, visakhapatnam: 35,
-        thiruvananthapuram: 18, coimbatore: 28, muzaffarpur: 90, gaya: 85, raipur: 65,
-        jodhpur: 70, guwahati: 55, dehradun: 48, amritsar: 75
+        delhi: 89.3, gurgaon: 61.2, noida: 69.8, ghaziabad: 71.8, mumbai: 39.7, kolkata: 48.2,
+        chennai: 31.5, bangalore: 32.0, hyderabad: 37.8, faridabad: 69.1, lucknow: 56.1, kanpur: 54.6,
+        patna: 62.2, jaipur: 48.4, ahmedabad: 42.9, pune: 38.1, chandigarh: 61.1, varanasi: 56.0,
+        agra: 53.9, bhopal: 42.4, indore: 42.2, nagpur: 39.4, kochi: 24.4, visakhapatnam: 34.7,
+        thiruvananthapuram: 21.5, coimbatore: 24.5, muzaffarpur: 60.6, gaya: 52.7, raipur: 44.6, jodhpur: 37.8,
+        guwahati: 43.3, dehradun: 37.4, amritsar: 60.5
     };
-    const IQAIR_2025_VERIFIED = new Set(['delhi', 'gurgaon', 'noida', 'ghaziabad']);
+    const ANNUAL_PM25_SOURCE = '2024 satellite estimate, district mean';
 
     async function generateExposureReport() {
         try { await ensureChartJs(); } catch (e) { renderLibraryFallback('#panel-container .panel.active', 'Chart.js'); return; }
@@ -7152,8 +7162,15 @@
         const age = parseInt(document.getElementById('exposure-age')?.value || 30);
         const outdoorHours = parseFloat(document.getElementById('exposure-hours')?.value || 4);
 
-        const annualPM25 = CITY_ANNUAL_PM25[cityKey] || 50;
+        const annualPM25 = CITY_ANNUAL_PM25[cityKey] || null;
         const cityName = CITIES[cityKey]?.name || cityKey;
+        if (!annualPM25) {
+            document.getElementById('exposure-results').style.display = 'block';
+            document.getElementById('exposure-stats').innerHTML = '<p style="color: var(--text-3);">No annual PM2.5 figure for ' + escapeHtml(cityName) + ' yet, so there is no report to draw.</p>';
+            const interp = document.getElementById('exposure-interpretation');
+            if (interp) interp.innerHTML = '';
+            return;
+        }
 
         // Monthly PM2.5 pattern: illustrative multipliers on the annual mean, not a published monthly series.
         const isNorth = CITIES[cityKey]?.region === 'north';
@@ -7195,7 +7212,7 @@
             <p><strong>Living in ${escapeHtml(cityName)}</strong>, you breathe air with an annual average PM2.5 of <strong>${annualPM25} µg/m³</strong>, which is <strong>${getWHOMultiple(annualPM25)}x the WHO guideline</strong> of 5 µg/m³.</p>
             <p style="margin-top: 0.75rem;">With ${escapeHtml(outdoorHours)} hours outdoors daily, your annual pollution exposure is equivalent to smoking approximately <strong>${cigaretteEquiv} cigarettes per year</strong> (${(cigaretteEquiv/365).toFixed(1)} per day).</p>
             <p style="margin-top: 0.75rem;">Research suggests this level of exposure reduces life expectancy by approximately <strong>${lifeYearsLost} years</strong> compared to breathing WHO-guideline air.</p>
-            <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb (outdoor-hours scaling is JanVayu's own choice), not a medical equivalence. ${IQAIR_2025_VERIFIED.has(cityKey) ? 'Annual PM2.5 is the IQAir 2025 value.' : 'Annual PM2.5 for this city is an illustrative working value, not a published figure.'} The monthly bars use an illustrative seasonal pattern, not measured monthly data. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
+            <p style="margin-top: 0.75rem; color: var(--text-3); font-size: 0.8rem;"><em>Life-expectancy estimate from the Air Quality Life Index (AQLI 2025); cigarette figure is a Berkeley Earth rule of thumb (outdoor-hours scaling is JanVayu's own choice), not a medical equivalence. Annual PM2.5 is a ${ANNUAL_PM25_SOURCE} (SatPM2.5), usually lower than a city-centre monitor reads. The monthly bars use an illustrative seasonal pattern, not measured monthly data. Individual risk varies with genetics, pre-existing conditions, and indoor air quality.</em></p>`;
 
         // Chart
         setTimeout(() => {
@@ -7398,9 +7415,13 @@
         var cityName = (CITIES[cityKey] && CITIES[cityKey].name) || cityKey;
 
         // Get ambient PM2.5: prefer live data, fall back to annual average
-        var livePM25 = aqiData[cityKey] ? aqiData[cityKey].pm25 : null;
-        var ambientPM25 = livePM25 || CITY_ANNUAL_PM25[cityKey] || 50;
+        var livePM25 = measuredPM25(aqiData[cityKey]);
+        var ambientPM25 = livePM25 || CITY_ANNUAL_PM25[cityKey] || null;
         var dataSource = livePM25 ? 'live' : 'annual average';
+        if (!ambientPM25) {
+            alert('There is no live PM2.5 reading or annual figure for ' + cityName + ' right now, so the exposure cannot be calculated.');
+            return;
+        }
 
         // Calculate per-activity exposure
         var breakdown = entries.map(function(e, i) {
@@ -7744,12 +7765,15 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         const resultEl = document.getElementById('purifier-result');
         if (!resultEl) return;
 
-        const currentAQI = aqiData[cityKey]?.aqi || 200;
-        const currentPM25 = aqiData[cityKey]?.pm25 || Math.round(currentAQI * 0.7);
+        const currentAQI = aqiData[cityKey]?.aqi || null;
+        const currentPM25 = measuredPM25(aqiData[cityKey]);
 
         const volumeCuFt = area * height;
         const volumeM3 = volumeCuFt * 0.0283168;
-        const airChangesNeeded = currentPM25 > 150 ? 6 : currentPM25 > 100 ? 5 : currentPM25 > 50 ? 4 : 3;
+        // With no measured PM2.5 the room is sized for five air changes an
+        // hour, the rate used for 100-150 µg/m³, and the result says so.
+        const airChangesNeeded = currentPM25 === null ? 5
+            : currentPM25 > 150 ? 6 : currentPM25 > 100 ? 5 : currentPM25 > 50 ? 4 : 3;
         const requiredCADR = Math.ceil(volumeM3 * airChangesNeeded / 1); // m³/h
         const requiredCADR_cfm = Math.ceil(requiredCADR * 0.5886);
 
@@ -7775,7 +7799,7 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
             </div>
             <div style="font-size: 0.85rem; padding: 1rem; background: var(--bg-section); border-radius: var(--radius);">
                 <div style="margin-bottom: 0.5rem;"><strong>Room:</strong> ${area} sq ft × ${height} ft = ${volumeCuFt.toLocaleString()} cu ft</div>
-                <div style="margin-bottom: 0.5rem;"><strong>Current AQI:</strong> ${currentAQI} (PM2.5: ${currentPM25})</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Current AQI:</strong> ${currentAQI === null ? 'no live reading' : currentAQI} (PM2.5: ${currentPM25 === null ? 'not reported; sized for 5 air changes an hour' : currentPM25 + ' µg/m³'})</div>
                 <div style="margin-bottom: 0.5rem;"><strong>Air changes needed (rule of thumb):</strong> ${airChangesNeeded}x/hour</div>
                 <div style="margin-bottom: 0.5rem;"><strong>Price range (indicative, not checked):</strong> ${priceRange}</div>
                 <div style="margin-bottom: 0.5rem;"><strong>Filter replacement (indicative):</strong> ~${filterCostYear}/year</div>
@@ -7901,11 +7925,12 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
     async function loadRankingsData(tab) {
         if (rankingsState.cache[tab]) return rankingsState.cache[tab];
         if (tab === 'live') {
-            const rows = Object.entries(aqiData).map(([key, d]) => ({
-                key, name: CITIES[key]?.name || key,
-                pm25: d.pm25 || Math.round(d.aqi * 0.7),
-                aqi: d.aqi, delta7: null
-            }));
+            const rows = Object.entries(aqiData).filter(([key, d]) => key !== '__nearme' && measuredPM25(d) !== null)
+                .map(([key, d]) => ({
+                    key, name: CITIES[key]?.name || key,
+                    pm25: d.pm25,
+                    aqi: d.aqi, delta7: null
+                }));
             rankingsState.cache.live = rows;
             return rows;
         }
@@ -7995,19 +8020,13 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
                 if (Array.isArray(json.years)) years = json.years;
             }
         } catch (e) { /* fall through */ }
-        if (years.length === 0) {
-            // Fallback: synthesize a comparison from current live PM2.5 only
-            const live = aqiData[city]?.pm25 || (aqiData[city]?.aqi ? Math.round(aqiData[city].aqi * 0.7) : null);
-            if (live != null) {
-                years = [
-                    { year: new Date().getFullYear() - 2, pm25: null },
-                    { year: new Date().getFullYear() - 1, pm25: null },
-                    { year: new Date().getFullYear(),     pm25: live }
-                ];
-            }
-        }
+        // No fallback when the history does not load. This used to put the
+        // current live reading in this year's bar of a chart of monthly
+        // averages, which compares an hour with a month.
         renderYoYChart(years);
-        if (summaryEl) {
+        if (summaryEl && years.length === 0) {
+            summaryEl.textContent = 'Historical data for this city and month could not be loaded.';
+        } else if (summaryEl) {
             const valid = years.filter(y => y.pm25 != null);
             if (valid.length >= 2) {
                 const first = valid[0].pm25, last = valid[valid.length - 1].pm25;
@@ -8069,40 +8088,41 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         const city = CITIES[cityKey];
         if (!city) return;
 
-        // Pull WAQI feed; the iaqi.pm25 forecast section + recent readings
-        // give us a coarse 24-hr series. Where the API doesn't expose a
-        // ready hourly array, synthesize from the daily forecast curve.
+        // The last 24 hours of PM2.5 from the CAMS model, through Open-Meteo,
+        // which the forecast panel already uses. WAQI's feed carries a current
+        // reading and a daily forecast, not an hourly history, and until
+        // October 2026 this panel filled the gap with a sine wave drawn around
+        // the forecast average and showed it hour by hour as readings. A model
+        // estimate is not a station reading either, so the panel says which it
+        // is; where the request fails it says that, rather than drawing a line.
         let hourly = [];
         try {
-            const url = `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`;
+            const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${city.lat}&longitude=${city.lon}&hourly=pm2_5&past_days=1&forecast_days=1&timezone=auto`;
             const res = await fetch(url);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
             const json = await res.json();
-            if (json.status === 'ok' && json.data) {
-                const live = parseInt(json.data.aqi);
-                const forecast = json.data.forecast?.daily?.pm25 || [];
-                const todayForecast = forecast.find(f => f.day === new Date().toISOString().slice(0,10));
-                const avg = todayForecast?.avg || iaqiToPM25(json.data.iaqi?.pm25?.v) || (live * 0.7);
-                const min = todayForecast?.min || avg * 0.7;
-                const max = todayForecast?.max || avg * 1.3;
-                // Build a sinusoidal 24-hr curve anchored at avg, swinging between min and max,
-                // with the live reading clamped to position 23 (now).
-                const amp = (max - min) / 2;
-                for (let h = 0; h < 24; h++) {
-                    const phase = ((h - 6) / 24) * 2 * Math.PI; // peak around 6 AM (winter inversion)
-                    const v = Math.round(avg + amp * Math.sin(phase));
-                    hourly.push({ hour: h, pm25: Math.max(1, v) });
-                }
-                if (live) {
-                    hourly[23].pm25 = iaqiToPM25(json.data.iaqi?.pm25?.v) || Math.round(live * 0.7);
+            const times = json.hourly?.time || [], vals = json.hourly?.pm2_5 || [];
+            // "Now" in the city's own time, to the hour, in the API's format.
+            const local = new Date(Date.now() + (json.utc_offset_seconds || 0) * 1000);
+            const nowKey = local.toISOString().slice(0, 13) + ':00';
+            const end = times.indexOf(nowKey);
+            if (end >= 23) {
+                for (let i = end - 23; i <= end; i++) {
+                    if (vals[i] != null && isFinite(vals[i])) hourly.push({ time: times[i], pm25: Math.round(vals[i]) });
                 }
             }
         } catch (e) { console.warn('[JanVayu] hourly fetch failed:', e.message); }
 
-        if (hourly.length === 0) {
-            // Fallback to flat-line synthesis from cached aqiData
-            const live = aqiData[cityKey]?.pm25 || (aqiData[cityKey]?.aqi ? Math.round(aqiData[cityKey].aqi*0.7) : 50);
-            for (let h = 0; h < 24; h++) hourly.push({ hour: h, pm25: live });
+        const note = document.getElementById('hourly-note');
+        if (hourly.length < 24) {
+            hourlySeries = [];
+            if (charts.hourly) { try { charts.hourly.destroy(); } catch (e) {} charts.hourly = null; }
+            const readout = document.getElementById('hourly-readout');
+            if (readout) readout.textContent = 'Hourly data for ' + city.name + ' could not be loaded.';
+            if (note) note.hidden = true;
+            return;
         }
+        if (note) note.hidden = false;
 
         hourlySeries = hourly;
         drawHourlyChart();
@@ -8115,11 +8135,7 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         if (!ctx) return;
         if (charts.hourly) { try { charts.hourly.destroy(); } catch(e){} }
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const labels = hourlySeries.map((_, i) => {
-            const d = new Date();
-            d.setHours(d.getHours() - (23 - i));
-            return d.getHours() + ':00';
-        });
+        const labels = hourlySeries.map(p => p.time.slice(11, 16));
         const data = hourlySeries.map(p => p.pm25);
         charts.hourly = new Chart(ctx, {
             type: 'line',
@@ -8149,11 +8165,9 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         const point = hourlySeries[i];
         const readout = document.getElementById('hourly-readout');
         if (!readout || !point) return;
-        const d = new Date();
-        d.setHours(d.getHours() - (23 - i));
-        const timeStr = d.toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        const timeStr = point.time.slice(11, 16) + (i === hourlySeries.length - 1 ? ' (latest hour)' : '');
         const color = getPM25TextColor(point.pm25); // text on white readout
-        readout.innerHTML = `<strong style="color: ${color};">${point.pm25} µg/m³</strong> at ${timeStr} (${getWHOMultiple(point.pm25)}× WHO)`;
+        readout.innerHTML = `<strong style="color: ${color};">${point.pm25} µg/m³</strong> modelled at ${timeStr} local time (${getWHOMultiple(point.pm25)}× WHO)`;
     }
 
     // ── Pollution Calendar ──
@@ -8162,8 +8176,15 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         const grid = document.getElementById('pollution-calendar-grid');
         if (!grid) return;
 
-        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        const avgAQI = [320, 280, 180, 120, 110, 90, 80, 75, 95, 180, 380, 350];
+        // Counted, not averaged: the share of days in each calendar month that
+        // CPCB's bulletin rated Poor or worse, Delhi, 2016-2025
+        // (scripts/build-delhi-seasonal.py). This replaced twelve typed-in
+        // "illustrative" AQI values that put April to June at 90-120.
+        const seasonal = await loadDelhiSeasonal();
+        if (!seasonal) {
+            grid.textContent = 'The monthly bulletin counts could not be loaded.';
+            return;
+        }
         const sources = [
             'Inversion, heating',
             'Dust, inversion fading',
@@ -8178,33 +8199,66 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
             'Stubble + Diwali + inversion',
             'Inversion peak, heating'
         ];
+        const INK = {
+            'Good': 'var(--aqi-good)', 'Satisfactory': 'var(--fc-satisfactory)', 'Moderate': 'var(--aqi-moderate)',
+            'Poor': 'var(--aqi-poor)', 'Very Poor': 'var(--aqi-very-poor)', 'Severe': 'var(--aqi-hazardous)'
+        };
+        const modal = (m) => Object.entries(m.by_category).sort((x, y) => y[1] - x[1])[0][0];
 
-        grid.innerHTML = months.map((m, i) => `
-            <div title="Illustrative working value, not a published figure" style="background: ${getAQIColor(avgAQI[i])}; color: ${onSwatchInk(getAQIColor(avgAQI[i]))}; padding: 0.5rem; border-radius: var(--radius); text-align: center; font-size: 0.7rem;">
-                <div style="font-weight: 700;">${m}</div>
-                <div style="font-size: 1.1rem; font-weight: 700;">${avgAQI[i]}</div>
-                <div style="font-size: 0.55rem; opacity: 0.9;">${sources[i]}</div>
-            </div>
-        `).join('');
+        grid.innerHTML = seasonal.months.map((m, i) => {
+            const pct = Math.round(m.share_poor_or_worse * 100);
+            const cat = modal(m);
+            return `
+            <div title="${m.poor_or_worse} of ${m.days} days Poor or worse, ${seasonal._meta.years}; most often ${cat}" style="background: var(--bg-section); border: 1px solid var(--border); border-top: 3px solid ${INK[cat]}; padding: 0.5rem; border-radius: var(--radius); text-align: center; font-size: 0.7rem; color: var(--text);">
+                <div style="font-weight: 700;">${m.label}</div>
+                <div style="font-size: 1.1rem; font-weight: 700; color: ${INK[cat]};">${pct}%</div>
+                <div style="font-size: 0.6rem; color: var(--text-2);">${sources[i]}</div>
+            </div>`;
+        }).join('');
+        const cap = document.getElementById('pollution-calendar-caption');
+        if (cap) cap.textContent = `Share of days CPCB rated Poor or worse (AQI above 200) in Delhi, by month, ${seasonal._meta.years}. The top edge shows the category Delhi was in most often that month. Causes listed are the usual seasonal drivers.`;
 
         // Calendar chart
         setTimeout(() => {
             const ctx = document.getElementById('calendarChart');
             if (ctx) {
                 if (charts.calendar) charts.calendar.destroy();
-                charts.calendar = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: months,
-                        datasets: [
-                            { label: 'Avg AQI (Delhi, illustrative working values)', data: avgAQI, borderColor: '#EF4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: true, tension: 0.4 },
-                            { label: 'AQI 50 (upper bound of the Good band)', data: Array(12).fill(50), borderColor: '#22C55E', borderDash: [5,5], fill: false, pointRadius: 0 }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 450 } } }
-                });
+                charts.calendar = new Chart(ctx, seasonalShareChart(seasonal));
             }
         }, 200);
+    }
+
+    // data/delhi-seasonal.json, fetched once.
+    let delhiSeasonalCache = null;
+    async function loadDelhiSeasonal() {
+        if (delhiSeasonalCache) return delhiSeasonalCache;
+        try {
+            const res = await fetch('/data/delhi-seasonal.json');
+            if (!res.ok) return null;
+            delhiSeasonalCache = await res.json();
+            return delhiSeasonalCache;
+        } catch (e) { return null; }
+    }
+
+    // Two bars a month: days Poor or worse, and days Severe, as a share of
+    // the days reported in that month across the ten years.
+    function seasonalShareChart(seasonal) {
+        const pct = (k) => seasonal.months.map(m => Math.round(m[k] / m.days * 1000) / 10);
+        return {
+            type: 'bar',
+            data: {
+                labels: seasonal.months.map(m => m.label),
+                datasets: [
+                    { label: 'Days Poor or worse (%)', data: pct('poor_or_worse'), backgroundColor: '#C2410C' },
+                    { label: 'Days Severe (%)', data: pct('severe'), backgroundColor: '#831843' }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.parsed.y}% (Delhi, ${seasonal._meta.years})` } } },
+                scales: { y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + '%' } } }
+            }
+        };
     }
 
     // ── Migration Comparison (enhanced) ──
@@ -8268,13 +8322,20 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         const fromLivePM25 = fromLive?.pm25 || null;
         const toLivePM25 = toLive?.pm25 || null;
 
-        // Annual values: IQAir 2025 for the four cities in IQAIR_2025_VERIFIED, working values otherwise
+        // Annual values: CITY_ANNUAL_PM25, one satellite source for every city
         const fromAnnualPM25 = CITY_ANNUAL_PM25[fromKey] || null;
         const toAnnualPM25 = CITY_ANNUAL_PM25[toKey] || null;
 
-        // Use annual for health calcs (more robust than single snapshot)
-        const fromPM25 = fromAnnualPM25 || fromLivePM25 || 50;
-        const toPM25 = toAnnualPM25 || toLivePM25 || 50;
+        // The life-expectancy and cigarette figures are annual quantities, so
+        // they need an annual mean for both cities. A live reading is one hour
+        // at one station and is not substituted, and nor is a default.
+        if (!fromAnnualPM25 || !toAnnualPM25) {
+            const missing = [!fromAnnualPM25 ? fromName : null, !toAnnualPM25 ? toName : null].filter(Boolean).join(' and ');
+            resultEl.innerHTML = '<p style="color: var(--text-3);">No annual PM2.5 figure for ' + missing + ' yet, so the life-expectancy comparison cannot be made. It needs a yearly average, which one live reading is not.</p>';
+            return;
+        }
+        const fromPM25 = fromAnnualPM25;
+        const toPM25 = toAnnualPM25;
 
         // AQLI formula: life-expectancy loss = (PM2.5 - WHO guideline) / 10 * 0.98
         // Simplified: each 10 ug/m3 above WHO guideline of 5 = 0.98 years lost
@@ -8376,9 +8437,9 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
                             <td style="text-align: center;">${pm25Badge(toLivePM25)}</td>
                         </tr>
                         <tr style="background: var(--bg-section);">
-                            <td><strong>Annual PM2.5</strong> (IQAir 2025 for Delhi, Gurgaon, Noida, Ghaziabad; other cities are working values)</td>
-                            <td style="text-align: center;">${fromAnnualPM25 ? pm25Badge(fromAnnualPM25) + ' ug/m3' + (IQAIR_2025_VERIFIED.has(fromKey) ? '' : ' <small style="color: var(--text-3);">(working value)</small>') : '<span style="color:var(--text-3);">N/A</span>'}</td>
-                            <td style="text-align: center;">${toAnnualPM25 ? pm25Badge(toAnnualPM25) + ' ug/m3' + (IQAIR_2025_VERIFIED.has(toKey) ? '' : ' <small style="color: var(--text-3);">(working value)</small>') : '<span style="color:var(--text-3);">N/A</span>'}</td>
+                            <td><strong>Annual PM2.5</strong> (${ANNUAL_PM25_SOURCE})</td>
+                            <td style="text-align: center;">${fromAnnualPM25 ? pm25Badge(fromAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
+                            <td style="text-align: center;">${toAnnualPM25 ? pm25Badge(toAnnualPM25) + ' ug/m3' : '<span style="color:var(--text-3);">N/A</span>'}</td>
                         </tr>
                         <tr>
                             <td><strong>WHO multiple</strong></td>
@@ -8447,7 +8508,7 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         // ── Caveat ──
         html += `
         <div class="alert alert-info" style="font-size: 0.8rem;">
-            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5: IQAir World Air Quality Report 2025 for Delhi (New Delhi), Gurgaon (Gurugram), Noida and Ghaziabad; other cities use illustrative working values, not published figures. Live AQI from WAQI (single nearest station; a snapshot, not an annual average). Source apportionment: Delhi from ARAI &amp; TERI 2018 (winter dispersion model); other cities show no verified source split.<br>
+            <strong>Methodology notes:</strong> Life-expectancy calculations use the AQLI 2025 formula (each 10 ug/m3 above WHO guideline of 5 ug/m3 = 0.98 years lost). Cigarette equivalence uses Berkeley Earth (1 cigarette ~ 22 ug/m3 daily exposure). Annual PM2.5: 2024 satellite estimates (SatPM2.5 V6GL03), the mean of each city's district, one source for every city so they compare like with like. A district mean includes its rural parts and runs below a city-centre monitor. Live AQI from WAQI (single nearest station; a snapshot, not an annual average). Source apportionment: Delhi from ARAI &amp; TERI 2018 (winter dispersion model); other cities show no verified source split.<br>
             <strong>Caveat:</strong> Live values are today's snapshot. The health calculations use annual averages, which give a steadier comparison. Actual benefit depends on duration of residence, indoor air quality, and individual health factors.
         </div>
         <div style="text-align: center; margin-top: 1rem;">
@@ -8512,7 +8573,7 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
                 <div><div style="font-size: 0.7rem; color: var(--text-3);">As of</div><div style="font-size: 0.9rem; font-weight: 700;">${ncap.asOf}</div></div>
             </div>
             <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-2); text-align: center;">
-                Current AQI: ${escapeHtml(aqi)} | Annual PM2.5: ${escapeHtml(pm25)} µg/m³${IQAIR_2025_VERIFIED.has(cityKey) ? ' (IQAir 2025)' : ' (working value, not a published figure)'} (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr spent of released
+                Current AQI: ${escapeHtml(aqi)} | Annual PM2.5: ${escapeHtml(pm25)} µg/m³ (${ANNUAL_PM25_SOURCE}) (${getWHOMultiple(pm25)}x WHO) | Funds: ₹${ncap.fundsUtilized}/${ncap.fundsReleased} Cr spent of released
             </div>` : '<p style="color: var(--text-3); text-align: center; margin-top: 1rem;">NCAP data not available for this city.</p>'}
             <div style="margin-top: 1rem; font-size: 0.65rem; color: var(--text-3); text-align: center;">Generated by JanVayu (janvayu.in) · Data: PIB (21 Dec 2023), ResGov Delhi brief (Dec 2025) · ${new Date().toLocaleDateString('en-IN')}</div>`;
     }
@@ -8686,7 +8747,7 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
         const xAxis = document.getElementById('corr-x')?.value || 'pm25';
         const yAxis = document.getElementById('corr-y')?.value || 'deaths';
 
-        const labels = { pm25: 'Annual PM2.5 (µg/m³; IQAir 2025 for Delhi, Noida, Ghaziabad, otherwise working values)', aqi: 'Average AQI (illustrative)', population: 'Population (M, illustrative)', deaths: 'Deaths/Year (illustrative, not a published figure)', life_years: 'Life Years Lost (illustrative)', economic_cost: 'Economic Cost (% GDP, illustrative)', hospital: 'Hospital Admissions Index (illustrative)' };
+        const labels = { pm25: 'Annual PM2.5 (µg/m³; 2024 satellite estimate, district mean)', aqi: 'Average AQI (illustrative)', population: 'Population (M, illustrative)', deaths: 'Deaths/Year (illustrative, not a published figure)', life_years: 'Life Years Lost (illustrative)', economic_cost: 'Economic Cost (% GDP, illustrative)', hospital: 'Hospital Admissions Index (illustrative)' };
 
         // PM2.5 uses the same annual values as the rest of the page (CITY_ANNUAL_PM25).
         const val = (key, d, axis) => axis === 'pm25' ? (CITY_ANNUAL_PM25[key] ?? d.pm25) : d[axis];

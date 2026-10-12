@@ -121,7 +121,7 @@
     --pm-b2: #4d7c0f;
     --pm-b3: #a16207;
     --pm-b4: #c2410c;
-    --pm-b5: #dc2626;
+    --pm-b5: #cc2222; /* #dc2626 was 4.47:1 on --bg-section */
     --pm-b6: #9d174d;
     --pm-b7: #7e0023;
     --delta-up: #a14708;    /* reads above the reference: 5.95:1 on this surface */
