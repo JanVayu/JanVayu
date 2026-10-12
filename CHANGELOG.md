@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Added, three papers in the Reading List (12 October)
+
+The weekly digest proposed five. Each DOI was resolved through Crossref, open
+access checked through Unpaywall, each description written from the abstract
+or the article, and every reference carrying a DOI resolved and its first
+author compared with the citation. The section now lists 54.
+
+- Pippal et al., machine-learning PM2.5 from satellite AOD over Northwest India
+  (*Water, Air, & Soil Pollution* 237, 1365, doi:10.1007/s11270-026-10037-x).
+  The digest called it open access on Springer; the published version is
+  subscription-only and the free copy is the preprint. The card says so.
+- Nair & Shinde, Markov-chain AQI transitions in Mumbai, 2024-2025 (*EQA* 75,
+  98-108, doi:10.60923/issn.2281-4485/26111). All twelve DOI references
+  resolve to the papers cited.
+- Li et al., nitrous acid and ozone and nitrate in megacities (*Nature
+  Communications*, doi:10.1038/s41467-026-78349-4). The card says the HONO
+  series are a neural-network reconstruction, and that in Delhi the HONO
+  change outweighs the effect of NOx and VOC controls, where the digest said
+  "rivals".
+
+Not added:
+
+- Ram, Tiwari & Kumar, household cooking fuel in Eastern Uttar Pradesh, a
+  review (*Discover Sustainability* 7, 1662, doi:10.1007/s43621-025-02334-y).
+  Of 40 references with a DOI, 32 do not resolve or resolve to an unrelated
+  paper (a CEO-salary study, ESG in China, New Zealand forestry). A review is
+  its references.
+- Bongale et al., UAV and IoT air-quality sensing (*Discover Mechanical
+  Engineering* 5, 184, doi:10.1007/s44245-026-00370-0). Four of 20 DOI
+  references fail, two of them to papers on road-network queries and file
+  encryption.
+- Two preprints the digest itself held back (doi:10.31235/osf.io/9jh3z_v2,
+  doi:10.31223/x5vf8p).
+
 ### Fixed, figures on the homepage that were not data (v26.6.241)
 
 Found while fixing the WhatsApp share in v26.6.240. Each of these rendered as a
