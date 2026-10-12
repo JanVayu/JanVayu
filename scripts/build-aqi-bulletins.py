@@ -15,7 +15,7 @@ kept coming when the other stopped.
 ## What this deliberately does NOT compute
 
 **No annual mean AQI.** The site's own rule is that AQI is a unitless index
-which reports only whichever of six pollutants scores worst, and that it cannot
+which reports only whichever of several pollutants scores worst, and that it cannot
 be averaged over a year: two cities at the same AQI can be breathing very
 different air, and the arithmetic mean of an index is not a quantity. Counting
 DAYS IN EACH CATEGORY is the legitimate use of a daily index, and it is also
@@ -309,7 +309,7 @@ def build(src, daily=None):
                           f'{MIN_STATIONS} is marked thin: an AQI from one or two monitors '
                           f'is a reading from one place with a city\'s name on it'),
             'no_annual_mean': ('Deliberately absent. AQI is a unitless index reporting only '
-                               'whichever of six pollutants scores worst, and averaging an '
+                               'whichever of several pollutants scores worst, and averaging an '
                                'index over a year is not a quantity. Counting days in each '
                                'category is the legitimate use of a daily index, and it is '
                                'what GRAP and school closures are triggered by.'),

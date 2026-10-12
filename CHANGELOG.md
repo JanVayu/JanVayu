@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-05
 
+### Changed, content checked against 12 October
+
+- **Delhi page.** Last checked 12 October. CAQM's GRAP orders list has nothing
+  after the Stage I revocation of 29 May, so Stage I has not been invoked this
+  autumn; the page's list of this year's orders now includes the 18 February
+  (Stage II) and 16 March (Stage I) revocations it had left out. The Rs 8,300
+  crore programme "starts in September" is now "was due to start in
+  September", with no report found that it did, and the World Bank's project
+  database (searched 12 October) lists clean-air programmes for Uttar Pradesh
+  (P178053) and Haryana (P502491) and none for Delhi. "Due in about four
+  weeks" for the 1 November goods-vehicle bar is now the date. Both sources
+  are in the source list.
+- **Homepage bulletin.** The monsoon has left north-west India; Skymet expects
+  withdrawal from the whole country by about 15 October.
+
+### Fixed, the monthly current-year air job had never run successfully
+
+`current-year-air.yml` pushed its rebuild straight to `main`, which is
+protected, so both of its runs (3 September and 3 October) were refused and the
+layer stayed at August. It now opens a pull request, as the translation job
+does since #411.
+
+`scripts/build-aqi-bulletins.py` wrote "whichever of six pollutants" where the
+committed file says "several"; India's AQI uses eight. The script now matches
+the file, and a rebuild from the current UrbanEmissions data is byte-identical.
+
 ### Added, three papers in the Reading List (12 October)
 
 The weekly digest proposed five. Each DOI was resolved through Crossref, open

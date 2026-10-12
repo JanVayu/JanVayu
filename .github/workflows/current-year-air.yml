@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
 
@@ -35,19 +36,29 @@ jobs:
       - name: Rebuild the current-year layer
         run: python3 scripts/build-current-year-air.py --from-cache data/district-points.json
 
-      - name: Commit if the figures moved
+      # main is protected ("Changes must be made through a pull request"), so
+      # the direct push this step used to make was refused on both runs it ever
+      # had, 3 September and 3 October 2026, and the layer stayed at August with
+      # nothing on the site to say so. The new month goes to a branch and a pull
+      # request, the same fix the translation job needed (#411).
+      - name: Open a pull request if the figures moved
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if git diff --quiet -- data/current-year-air.json; then
-            echo "No change — upstream has not published a new month yet."
+            echo "No change: upstream has not published a new month yet."
             exit 0
           fi
+          MONTH=$(python3 -c "import json;d=json.load(open('data/current-year-air.json'));m=d['_meta'];print(f\"{m['year']} through month {m['through_month']}\")")
+          BRANCH="auto-air/${GITHUB_RUN_ID}"
           git config user.name "janvayu-air-bot"
           git config user.email "air-bot@janvayu.in"
+          git checkout -b "$BRANCH"
           git add data/current-year-air.json
-          MONTH=$(python3 -c "import json;d=json.load(open('data/current-year-air.json'));m=d['_meta'];print(f\"{m['year']} through month {m['through_month']}\")")
-          git commit -m "Current-year air layer: $MONTH [skip ci]"
-          for i in 1 2 3 4; do
-            if git push origin HEAD:main; then exit 0; fi
-            echo "push failed, retrying"; sleep $((2**i)); git pull --rebase origin main || true
-          done
-          exit 1
+          git commit -m "Current-year air layer: $MONTH"
+          git push origin "$BRANCH"
+          if ! gh pr create --base main --head "$BRANCH" \
+               --title "Current-year air layer: $MONTH" \
+               --body "Monthly rebuild of data/current-year-air.json from the CAMS archive via Open-Meteo, calibrated to SatPM2.5 2024. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"; then
+            echo "::warning::Branch $BRANCH is pushed but the pull request was not opened (Settings > Actions > General > allow GitHub Actions to create pull requests). Open it from ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...$BRANCH"
+          fi
