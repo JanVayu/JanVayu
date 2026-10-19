@@ -1,4 +1,3 @@
----
 # Skill: Air Quality Assistant
 
 **Used in:** `netlify/functions/air-query.mjs`  

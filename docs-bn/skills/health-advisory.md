@@ -1,4 +1,3 @@
----
 # স্কিল: পাবলিক হেলথ অ্যাডভাইজার
 
 **ব্যবহৃত হয়:** `netlify/functions/health-advisory.mjs`  

@@ -38,6 +38,10 @@ on:
 # the eval is exactly the branch that would push most. Use workflow_dispatch to
 # check a prompt change before merging; the schedule covers everything else.
 
+# Read-only: this workflow checks the repository and writes nothing back to it.
+permissions:
+  contents: read
+
 jobs:
   eval:
     runs-on: ubuntu-latest

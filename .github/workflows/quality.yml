@@ -11,6 +11,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Read-only: this workflow checks the repository and writes nothing back to it.
+permissions:
+  contents: read
+
 jobs:
   html-validate:
     runs-on: ubuntu-latest
