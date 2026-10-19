@@ -5,6 +5,10 @@ on:
     - cron: '0 8 * * 1'  # Every Monday at 8am UTC
   workflow_dispatch:       # Manual trigger available
 
+# Read-only: this workflow checks the repository and writes nothing back to it.
+permissions:
+  contents: read
+
 jobs:
   check-feeds:
     runs-on: ubuntu-latest
