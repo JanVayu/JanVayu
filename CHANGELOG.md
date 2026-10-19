@@ -70,9 +70,9 @@ paper.
   the revised GRAP and no stage invoked this autumn, the Ministry's
   January-to-September counts and PM2.5, and IARI's early farm-fire count.
 
-### Changed, the CPCB bulletin archive extended to 18 October
+### Changed, the CPCB bulletin archive extended to 19 October
 
-Seven bulletins (12 to 18 October) fetched from cpcb.gov.in: 1,867 rows, none
+Eight bulletins (12 to 19 October) fetched from cpcb.gov.in: 2,132 rows, none
 skipped and no serial gaps. `data/aqi-bulletins.json` rebuilt: 300 cities
 (Nellore and Byrnihat (Assam) pass the 180-day floor). Two corrections came
 with it. CPCB wrote `delhi` in lower case on 1 to 9 July, which a filter on
@@ -84,7 +84,7 @@ figure), now corrected in the file and the script.
 The pages that describe the layer in the present tense (the About panel,
 the walkthrough, the Ask JanVayu prompt, the README and the bulletin data-source
 page in all five languages) still said 297 cities and 507,334 city-days, two
-rebuilds behind. They now say 300 and 516,922. Dated blog posts and roadmap
+rebuilds behind. They now say 300 and 517,157. Dated blog posts and roadmap
 entries keep the figure of their date.
 
 ### Changed, dependencies and checks

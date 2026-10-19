@@ -4,7 +4,7 @@ Every day at 4pm the Central Pollution Control Board (CPCB) publishes an AQI bul
 
 [UrbanEmissions.Info](https://github.com/urbanemissionsinfo/AQI_bulletins) parsed those PDFs into a table. JanVayu condenses that table into the question a citizen can act on: how many days of each official category did my city have in a given year, and how many stations was that figure built from?
 
-The summary covers **300 cities, 2015–2026**, built from 516,922 city-days. 2015 (from 1 May, CPCB's first bulletin) and 2026 (to the last fetch) are marked as partial years, and the share of days actually covered is published beside the mark. The data is in `data/aqi-bulletins.json`.
+The summary covers **300 cities, 2015–2026**, built from 517,157 city-days. 2015 (from 1 May, CPCB's first bulletin) and 2026 (to the last fetch) are marked as partial years, and the share of days actually covered is published beside the mark. The data is in `data/aqi-bulletins.json`.
 
 ## Why this, when we already have XKDR
 
