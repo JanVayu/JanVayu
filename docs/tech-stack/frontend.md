@@ -100,7 +100,7 @@ site's own control.
 
 ## Chart.js
 
-**Version:** Pinned 4.x (4.4.7), loaded from jsDelivr with SRI and lazy-loaded
+**Version:** Pinned 4.x (4.5.1), loaded from jsDelivr with SRI and lazy-loaded
 **Used for:**
 - Metro vs Regional AQI comparison bar charts
 - PM2.5 trend lines

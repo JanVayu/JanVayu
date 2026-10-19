@@ -66,7 +66,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - Historical data time-slider on map: month/year slider (Jan 2024 → present), color-coded PM2.5 markers for 12 cities.
 
 **v26.6.21 — Auto-update infrastructure (26 May 2026)**
-- 7 systems for freshness automation: version single-source script, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system for dashboard numbers, reference data endpoint, Zotero → Reading List function.
+- 7 systems for freshness automation: version single-source script, sitemap auto-gen, feed health monitoring, translation key sync, data-stat system for dashboard numbers, reference data endpoint, Reading List citation files built from the list.
 - Version bump now runs on every Netlify deploy. Service worker caches auto-sync. Key stats auto-patch from `stats.json`.
 
 **v26.6.20 — Chatbot accuracy + intent-based nav + feedback UI (26 May 2026)**
@@ -176,7 +176,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 ### Earlier (v25.4.0 — April 2026)
 
 - **Blog** — Docsify-powered blog at [janvayu.in/blog](https://www.janvayu.in/blog).
-- **Full Bibliography (Zotero)** — Public bibliography at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library).
+- **Reading List bibliography**: the Reading List's studies as [BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib) or [RIS](https://www.janvayu.in/downloads/janvayu-reading-list.ris), built from the list itself.
 - **IQAir 2025 data** rolled in (Loni #1 globally; only 14% of cities meet WHO guideline).
 - **Lancet Planetary Health** causal PM2.5 mortality studies and **Science Advances** inequality study added to the library.
 

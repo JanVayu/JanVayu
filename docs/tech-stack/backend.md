@@ -29,7 +29,7 @@ JanVayu's backend is entirely serverless — 29 Netlify Function files (plus sha
 | `feed-status.js` | On-demand (GET) | Feed freshness health check |
 | `blob-store.js` | Utility (shared) | Netlify Blobs store initialisation |
 
-The table lists the core functions only. Others in `netlify/functions/` include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit`, `zotero-library` and `reference-data`.
+The table lists the core functions only. Others in `netlify/functions/` include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` and `reference-data`.
 
 ### Common Patterns
 

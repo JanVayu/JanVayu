@@ -16,7 +16,7 @@ For each calendar month this gives the share of days CPCB rated Poor or worse
 (AQI above 200), and Severe, pooled over 2016 to 2025.
 
 Pooling ten years is a seasonal profile and not a trend. Delhi's monitoring
-network grew from 5 stations to 43 over the window (`station_stability` in
+network grew from a median of 5 reporting stations in 2016 to 37 in 2025 (`station_stability` in
 aqi-bulletins.json), which is why no year-by-year comparison is made here.
 
 Source: the UrbanEmissions.Info parse of the CPCB bulletin PDFs
@@ -74,7 +74,7 @@ def build(src):
             'no_mean': 'No average AQI: an index of whichever pollutant scores worst is counted by '
                        'category, not averaged. See _meta.no_annual_mean in aqi-bulletins.json.',
             'not_a_trend': 'A seasonal profile pooled over ten years. Delhi went from 5 reporting '
-                           'stations to 43 over the window, so the years are not compared.',
+                           'stations in 2016 to 37 in 2025, so the years are not compared.',
         },
         'city': CITY,
         'months': months,

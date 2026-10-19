@@ -36,7 +36,7 @@ Each `check-*.py` exists because a specific defect shipped once. `python3 script
 | [`check-uppercase-units.py`](check-uppercase-units.py) | Keep CSS uppercasing away from the micro sign. |
 | [`check-workshop-decks.py`](check-workshop-decks.py) | Keep the workshop decks, the JSON that advertises them, and the README honest. |
 
-The `build-*.py` scripts that take `--check` (`build-aqi-bulletins`, `build-station-observed`, `build-deweathered`, `build-deweathered-national`, `build-how-it-works`, `build-blog-index`, `build-gallery-manifest`, `build-district-history`, `build-reduction-data`) also run in CI as guards: they fail when the committed output no longer matches what the inputs produce.
+The `build-*.py` scripts that take `--check` (`build-aqi-bulletins`, `build-station-observed`, `build-deweathered`, `build-deweathered-national`, `build-how-it-works`, `build-blog-index`, `build-reading-list-bib`, `build-gallery-manifest`, `build-district-history`, `build-reduction-data`) also run in CI as guards: they fail when the committed output no longer matches what the inputs produce.
 
 ## Other scripts
 

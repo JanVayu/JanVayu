@@ -24,7 +24,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
 
       # axe-core/cli drives Chrome via ChromeDriver. The runner's Chrome and a
       # freshly-installed ChromeDriver can drift a major version apart (e.g.
@@ -36,7 +36,7 @@ jobs:
 
       - name: Install axe-core/cli + http-server
         run: |
-          npm install -g @axe-core/cli@4.10.1 http-server@14.1.1
+          npm install -g @axe-core/cli@4.14.0 http-server@14.1.1
 
       - name: Serve static site on port 8888
         run: |
@@ -126,11 +126,11 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Install Playwright and its Chromium
         run: |
-          npm install --no-save playwright-core@1.49.1 playwright@1.49.1
+          npm install --no-save playwright-core@1.64.1 playwright@1.64.1
           npx playwright install --with-deps chromium
 
       - name: Serve the site on port 8231

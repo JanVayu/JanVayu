@@ -1,6 +1,6 @@
 # JanVayu — Statement of Work for Research Collaborators
 
-**Platform:** [janvayu.in](https://www.janvayu.in) | **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu) | **Bibliography:** [Zotero](https://www.zotero.org/groups/6508140/janvayu/library)
+**Platform:** [janvayu.in](https://www.janvayu.in) | **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu) | **Bibliography:** [Reading List as BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib)
 
 **About JanVayu:** India's independent, citizen-led air quality platform — combining live data, health impact analysis, budget tracking, and government accountability. Non-partisan, CC BY-NC-SA 4.0.
 
@@ -18,13 +18,13 @@ This is the backbone of the platform's credibility. JanVayu cites original studi
 
 **What this involves:**
 
-- Identifying, reading, and adding papers to the [JanVayu Zotero group](https://www.zotero.org/groups/6508140/janvayu/library), with a focus on PM2.5 health burden, source apportionment, occupational exposure, indoor air, and economic cost
+- Identifying, reading and checking papers for the [Reading List](https://www.janvayu.in/#resources) (DOI resolves, claims match the abstract, references exist), with a focus on PM2.5 health burden, source apportionment, occupational exposure, indoor air, and economic cost
 - Translating research findings into platform-legible numbers (e.g., updating GEMM model parameters when new GBD data drops, revising city-level mortality estimates)
 - Writing data notes and methodology documentation when numbers are updated
 - Compiling state and city-level data that currently has gaps — the platform covers 157 Indian cities but is thin on second-tier cities and state-level NCAP data
 - Supporting the environmental justice section with disaggregated data on caste, gender, occupation, and geography
 
-**Typical deliverable:** Annotated research entry in Zotero + a short update note for the platform changelog.
+**Typical deliverable:** A Reading List entry with its DOI and a one-paragraph summary, plus a short update note for the platform changelog.
 
 ---
 
@@ -99,7 +99,7 @@ This is the least developed workstream and arguably the most important for long-
 
 | Area | What you need |
 |---|---|
-| Access | GitHub username (for code/docs), Zotero account (for research library) |
+| Access | GitHub username (for code, docs and the Reading List) |
 | Attribution | All contributors credited by name on the platform and in the repository |
 | Communication | Email at [contribute@janvayu.in](mailto:contribute@janvayu.in), [GitHub Discussions](https://github.com/JanVayu/JanVayu/discussions) |
 | Commitment | No minimum — do what you can, when you can |

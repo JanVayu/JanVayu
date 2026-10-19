@@ -128,7 +128,7 @@
         <div class="card-header"><span class="card-title"><span class="si si-sm si-target jv-t-accent-2"></span> What we are building next</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; line-height: 1.8; color: var(--text-2); margin-bottom: 1rem;" data-simple="Here is what we just added and what is coming next. The newest big change is to the maps: the atlas now covers every administrative level (983,149 areas), with 142 cities at ward level, and the live map can colour every MP’s constituency by the air its voters breathe. It can also show landfills, coal mines and polluting industrial areas.">
-                <strong>Just shipped (v26.6.232):</strong> Every page on this site now uses one stylesheet and follows one theme control. Until this release only <em>index.html</em> loaded it. The other eighteen pages each carried a private copy of the same colour names, fixed to light, so a change reached one page, and the ones with a dark mode followed your operating system instead of the button in the bar. Choosing light here with a dark desktop left half the site dark. Nothing failed while that was true, which is why it lasted. Two faults found on the way were not cosmetic. The per-pollutant pages had been printing a <em>random number</em> as the live level for every pollutant except PM2.5, and six of our functions were reporting the US-EPA sub-index as a concentration, so <a href="#" onclick="loadPanel('ask-janvayu');return false;">Ask JanVayu</a> could tell you the air was twice as bad as it was. Both are fixed and now checked automatically.</p>
+                <strong>Just shipped (v26.6.242):</strong> We checked the Delhi government&rsquo;s claim of 211 good-to-moderate air days in 2026 against CPCB&rsquo;s own daily bulletins. The 2026 count holds to within a day; the earlier years it was compared with were whole years, and on the same dates 2026 still leads, by 7 days over 2023. <a href="/blog/2026-10-19-delhi-211-days-checked/">The check</a> also shows that most of those days were above the national standard. The Reading List no longer points to a Zotero library that had not been edited since May; you can download all 54 studies as a BibTeX or RIS file built from the list itself.
             <div class="grid-3" style="gap: 12px; margin-bottom: 1rem;">
                 <div class="info-box" style="border-left: 3px solid var(--green-700); padding: 12px;">
                     <h4 style="color: var(--green-700); font-size: 0.85rem;">Weather-normalised trends, brought up to date</h4>
@@ -160,7 +160,7 @@
             <div class="grid-3" style="gap: 12px; margin-bottom: 1rem;">
                 <div class="info-box" style="border-left: 3px solid var(--accent); padding: 12px;">
                     <h4 style="color: var(--accent); font-size: 0.85rem;">Research</h4>
-                    <p style="font-size: 0.8rem;">Add papers to the Zotero library. Translate findings into platform-legible numbers. Fill city and state data gaps.</p>
+                    <p style="font-size: 0.8rem;">Find and check papers for the Reading List. Translate findings into platform-legible numbers. Fill city and state data gaps.</p>
                 </div>
                 <div class="info-box" style="border-left: 3px solid var(--accent); padding: 12px;">
                     <h4 style="font-size: 0.85rem">Policy</h4>
@@ -184,6 +184,16 @@
         <div class="card-header"><span class="card-title"><span class="si si-sm si-article jv-t-accent-2"></span> Version History</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
+
+                <div class="jv-item-divided">
+                    <div class="jv-item-title">v26.6.240&ndash;242, 12 to 19 October 2026</div>
+                    <strong>A claim checked day by day, and a bibliography that cannot drift</strong><br>
+                    &bull; Delhi&rsquo;s 211 good-to-moderate days in 2026 reproduce from CPCB&rsquo;s bulletins to within a day. The years they were compared with were full-year totals; over the same dates 2026 still leads 2023 by 7 days, all of them from early October, and 148 of its days were Moderate, above the national 24-hour standard.<br>
+                    &bull; Every page and blog post now has a link preview and a share bar, and blog posts have their own pages that previewers and search engines can read.<br>
+                    &bull; Numbers that were not data were removed: PM2.5 worked backwards from AQI, a demonstration dataset, and charts drawn from made-up values.<br>
+                    &bull; The Reading List&rsquo;s link to a Zotero library, last edited in May and holding 21 of the list&rsquo;s 54 studies, is replaced by a BibTeX and RIS download generated from the list and each paper&rsquo;s Crossref record. A check fails if the two disagree.<br>
+                    &bull; Third-party code on the docs and blog readers is pinned with integrity hashes, and the text-layout library is served from this site.
+                </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.230&ndash;232, 22 September 2026</div>
@@ -220,7 +230,7 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.187&ndash;203, 17&ndash;18 September 2026</div>
                     <strong>CPCB&rsquo;s own bulletin becomes a series, and four things we got wrong in public</strong><br>
-                    &bull; Eleven years of the government&rsquo;s daily AQI bulletin, 297 cities, 2015 to 2026. The Accountability panel shows days in each official category per city per year, with the number of monitors behind each figure printed beside it. We read 2026 from CPCB&rsquo;s published PDFs ourselves; 2015&ndash;2025 comes from the UrbanEmissions extraction. On three 2025 dates checked city by city, the two agree on the AQI and the station count for all 671 city-days they share. The main finding is that in CPCB&rsquo;s own 2024 bulletin, <strong>204 of 264 cities had an official citywide figure from a median of exactly one monitor</strong>.<br>
+                    &bull; Eleven years of the government&rsquo;s daily AQI bulletin, 300 cities, 2015 to 2026. The Accountability panel shows days in each official category per city per year, with the number of monitors behind each figure printed beside it. We read 2026 from CPCB&rsquo;s published PDFs ourselves; 2015&ndash;2025 comes from the UrbanEmissions extraction. On three 2025 dates checked city by city, the two agree on the AQI and the station count for all 671 city-days they share. The main finding is that in CPCB&rsquo;s own 2024 bulletin, <strong>204 of 264 cities had an official citywide figure from a median of exactly one monitor</strong>.<br>
                     &bull; A sentence about Delhi was wrong twice over, in four places. Our own metadata said Delhi was &ldquo;the only city never thin&rdquo; and showed no trend. Three cities are never thin, and Delhi&rsquo;s own monitor count grew from 5 to 43, which makes it the worst possible example of a stable instrument. The two counts quoted beside it compared unequal denominators, 136 of 235 reported days against 157 of 366: as counts they look like a rise, as rates they are a fall. It had never been on screen, which is why nobody read it. Drawing the panel is what found it.<br>
                     &bull; Reading the bulletin dropped a city on the 21st of every month. Every page header carries the day of the month as a bare number, and page two begins near serial 21, so the reader matched the header instead of the row. It also cost a city from the very check used when the reader first shipped. A test now covers every day of the month and every page break.<br>
                     &bull; We compared ourselves with the other Indian air-quality sources, and corrected the comparison. We had claimed no other Indian source publishes weather-normalised air quality. <a href="https://hawakahisab.in" target="_blank" rel="noopener">Hawa Ka Hisab</a>, published by Ajay Maken MP, has done it daily for Delhi since July, and for Delhi it is better than ours. We already cited the site as a check on our history and had never looked at what else it published.<br>

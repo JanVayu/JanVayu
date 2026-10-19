@@ -133,4 +133,4 @@ Client -> "Netlify CDN" : HTTPS
 
 - **Dependabot** checks for npm and GitHub Actions updates monthly
 - Only 3 npm packages to maintain
-- CDN-loaded libraries (Chart.js 4.4.7, Leaflet 1.9.4) are pinned to exact versions with SRI hashes
+- CDN-loaded libraries (Chart.js 4.5.1, Leaflet 1.9.4) are pinned to exact versions with SRI hashes

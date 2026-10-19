@@ -132,4 +132,4 @@ Client -> "Netlify CDN" : HTTPS
 
 - **Dependabot** ஒவ்வொரு மாதமும் npm மற்றும் GitHub Actions updates-ஐ சரிபார்க்கும்
 - பராமரிக்க 3 npm packages மட்டுமே உள்ளன
-- CDN-ல் இருந்து load செய்யப்படும் libraries (Chart.js 4.4.7, Leaflet 1.9.4) SRI hashes உடன் சரியான versions-ல் pin செய்யப்பட்டுள்ளன
+- CDN-ல் இருந்து load செய்யப்படும் libraries (Chart.js 4.5.1, Leaflet 1.9.4) SRI hashes உடன் சரியான versions-ல் pin செய்யப்பட்டுள்ளன

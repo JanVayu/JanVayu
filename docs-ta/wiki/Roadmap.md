@@ -404,7 +404,7 @@ CPCB 1 மே 2015 முதல் ஒரு தினசரி AQI புல்
 - [x] Anomaly Explainer — சூழல் சார்ந்த AQI அதிகரிப்பு பகுப்பாய்வு
 - [x] GEMM Health Risk Calculator
 - [x] Business Productivity Loss Calculator
-- [x] Policy Effectiveness Tracker
+- [x] Policy Tracker (கொள்கை கண்காணிப்பான்)
 - [x] Political Accountability Tracker
 - [x] Budget Tracker (NCAP நிதி ஓட்டம்)
 - [x] Clean Air Mission Tracker
@@ -607,7 +607,7 @@ CPCB 1 மே 2015 முதல் ஒரு தினசரி AQI புல்
 - [x] பொதுவான காற்று தர வினவல்களுக்கான **Multi-station AQI range** — நகரத்தில் உள்ள அனைத்து நிலையங்களையும் கொண்டு வந்து காண்பிப்பதன் மூலம் ஒற்றை-நிலைய (Mandir Marg) சார்புநிலையை சரிசெய்கிறது.
 - [x] "low cost sensors in [city]" வினவல்களைப் பிடிக்க **Low-cost sensor detection** விரிவுபடுத்தப்பட்டுள்ளது.
 - [x] **Intent-based navigation** மறுசீரமைப்பு: 6 தரவு-வகை தாவல்கள் → 7 நோக்கம் சார்ந்த தாவல்கள். தனிப்பட்ட கருவிகளுக்கான புதிய "My Air" தாவல். வளங்கள் 16-லிருந்து 8 உருப்படிகளாக குறைக்கப்பட்டன. அனைத்து 43 பேனல்களும் பாதுகாக்கப்பட்டுள்ளன.
-- [x] **Clarity renames**: Hyperlocal → My Neighbourhood, Policy Effectiveness → Policy Tracker, Research Library → Reading List.
+- [x] **தெளிவுக்கான பெயர் மாற்றங்கள்**: என் சுற்றுப்புறம் (My Neighbourhood), கொள்கை கண்காணிப்பான் (Policy Tracker), வாசிப்புப் பட்டியல் (Reading List).
 - [x] **Feedback UI**: துல்லியத்தைக் கண்காணிக்க சாட்பாட் பதில்களில் thumbs up/down.
 - [x] **City bar**: `/ask/` விரைவான-தேர்வு சிப் பட்டியில் 10 → 33 நகரங்கள்.
 - [x] திரும்பி வரும் பார்வையாளர்களுக்கு force-refresh செய்ய **Service worker cache** அதிகரிக்கப்பட்டுள்ளது.

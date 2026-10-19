@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 19 Oct 2026 | [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md) | Fact check |
 | 2 Oct 2026 | [Five of our six pollutant pages were printing random numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md) | Data integrity |
 | 22 Sep 2026 | [What a four-day jump in Delhi's AQI tells you](posts/2026-09-22-a-four-day-jump.md) | Analysis |
 | 18 Sep 2026 | [What changed in today's redesign, and what stayed the same](posts/2026-09-18-a-design-refresh.md) | Platform |
