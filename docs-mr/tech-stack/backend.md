@@ -1,6 +1,6 @@
 # बॅकएंड स्टॅक
 
-JanVayu चे बॅकएंड पूर्णपणे सर्व्हरलेस आहे — यात २९ Netlify Function फाइल्स (आणि शेअर केलेले `lib/`) आहेत, जे डेटा प्रॉक्सींग, कॅशिंग, शेड्युल्ड टास्क, ईमेल डिलिव्हरी आणि AI फीचर्स हाताळतात.
+JanVayu चे बॅकएंड पूर्णपणे सर्व्हरलेस आहे — 29 Netlify Function फाइल्स (आणि सामायिक `lib/`) डेटा प्रॉक्सींग, कॅशिंग, शेड्युल्ड टास्क, ईमेल डिलिव्हरी आणि AI फीचर्स हाताळतात.
 
 ---
 
@@ -14,41 +14,41 @@ JanVayu चे बॅकएंड पूर्णपणे सर्व्हर
 
 | फंक्शन | प्रकार | उद्देश |
 |----------|------|---------|
-| `scheduled-fetch.mjs` | शेड्युल्ड (cron, दर ४ तासांनी) | सर्व सोशल/न्यूज फीड्स प्री-फेच करते |
-| `daily-digest.mjs` | शेड्युल्ड (cron, सकाळी ८ IST) | रोजचा AQI ईमेल डायजेस्ट पाठवते |
-| `air-query.mjs` | ऑन-डिमांड (POST) | AI: नॅचरल लँग्वेजमध्ये AQI Q&A |
-| `health-advisory.mjs` | ऑन-डिमांड (POST) | AI: पर्सनलाइज्ड हेल्थ अ‍ॅडव्हाइस |
-| `accountability-brief.mjs` | ऑन-डिमांड (POST) | AI: वॉर्ड-लेव्हल गव्हर्नन्स ब्रीफ्स |
+| `scheduled-fetch.mjs` | शेड्युल्ड (cron, दर 4 तासांनी) | सर्व सोशल/न्यूज फीड्स प्री-फेच करते |
+| `daily-digest.mjs` | शेड्युल्ड (cron, सकाळी 8 IST) | रोजचा AQI ईमेल डायजेस्ट पाठवते |
+| `air-query.mjs` | ऑन-डिमांड (POST) | AI: नॅचरल लँग्वेज AQI Q&A |
+| `health-advisory.mjs` | ऑन-डिमांड (POST) | AI: पर्सनलाईज्ड हेल्थ सल्ला |
+| `accountability-brief.mjs` | ऑन-डिमांड (POST) | AI: वॉर्ड-लेव्हल गव्हर्नन्स ब्रिफ्स |
 | `anomaly-check.mjs` | ऑन-डिमांड (GET) | AI: PM2.5 स्पाइक डिटेक्शन |
 | `reddit-feed.js` | ऑन-डिमांड (GET) | कॅश केलेले Reddit एअर क्वालिटी पोस्ट्स |
-| `twitter-feed.js` | — | **रिटायर केलेले.** Nitter वाचते, ज्याचे पब्लिक इन्स्टन्सेस आता उपलब्ध नाहीत; याला कोणीही कॉल करत नाही. |
-| `youtube-feed.js` | ऑन-डिमांड (GET) | YouTube चॅनेल RSS मधून कॅश केलेले इंडिया एअर-क्वालिटी व्हिडिओज |
+| `twitter-feed.js` | — | **रिटायर्ड.** Nitter वाचते, ज्याचे पब्लिक इन्स्टन्स बंद झाले आहेत; आता कोणीही याचा वापर करत नाही. |
+| `youtube-feed.js` | ऑन-डिमांड (GET) | YouTube चॅनेल RSS मधून कॅश केलेले इंडिया एअर-क्वालिटी व्हिडिओ |
 | `instagram-feed.js` | ऑन-डिमांड (GET) | कॅश केलेले Instagram पोस्ट्स |
 | `news-proxy.js` | ऑन-डिमांड (GET) | कॅश केलेले न्यूज आर्टिकल्स |
 | `subscribe.js` | ऑन-डिमांड (POST) | ईमेल सबस्क्रिप्शन मॅनेजमेंट |
 | `feed-status.js` | ऑन-डिमांड (GET) | फीड फ्रेशनेस हेल्थ चेक |
-| `blob-store.js` | युटिलिटी (शेअर्ड) | Netlify Blobs स्टोअर इनिशियलायझेशन |
+| `blob-store.js` | युटिलिटी (सामायिक) | Netlify Blobs स्टोअर इनिशियलायझेशन |
 
-या टेबलमध्ये फक्त मुख्य फंक्शन्स दिली आहेत. `netlify/functions/` मधील इतर फंक्शन्समध्ये `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit`, `zotero-library` आणि `reference-data` यांचा समावेश आहे.
+या टेबलमध्ये फक्त मुख्य फंक्शन्स दिली आहेत. `netlify/functions/` मधील इतर फंक्शन्समध्ये `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` आणि `reference-data` यांचा समावेश आहे.
 
 ### कॉमन पॅटर्न्स
 
 प्रत्येक फंक्शन एकाच टेम्पलेटचे पालन करते:
 ```javascript
 export default async (req, context) => {
-  // 1. CORS प्रीफ्लाइट
+  // 1. CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('', { status: 204, headers: corsHeaders });
   }
 
   try {
-    // 2. कोअर लॉजिक (डेटा फेच करणे, AI ला कॉल करणे, इ.)
+    // 2. मुख्य लॉजिक (डेटा फेच करणे, AI ला कॉल करणे, इ.)
     const result = await doWork();
 
-    // 3. JSON रिटर्न करा
+    // 3. JSON रिटर्न करणे
     return Response.json(result, { headers: corsHeaders });
   } catch (error) {
-    // 4. ग्रेसफुल फॉलबॅक — बॉडीशिवाय कधीही 500 नाही
+    // 4. ग्रेसफुल फॉलबॅक — कधीही बॉडीशिवाय 500 एरर नाही
     console.log('Error:', error.message);
     return Response.json({ error: 'Service unavailable', fallback: rawData }, {
       status: 200,
@@ -85,45 +85,44 @@ export default async (req, context) => {
 
 **कॅशे-फर्स्ट स्ट्रॅटेजी:**
 1. ऑन-डिमांड फंक्शन ब्लब्समध्ये कॅशे केलेला डेटा तपासते
-2. जर कॅशे हिट झाले → लगेच रिटर्न करा
-3. जर कॅशे मिस झाले → लाईव्ह फेच करा, ब्लब्समध्ये लिहा, रिटर्न करा
-4. जर लाईव्ह फेच फेल झाले → जुना कॅशे रिटर्न करा (काहीच नसण्यापेक्षा चांगले)
+2. जर कॅशे हिट झाला → लगेच रिटर्न करा
+3. जर कॅशे मिस झाला → लाईव्ह फेच करा, ब्लब्समध्ये लिहा, रिटर्न करा
+4. जर लाईव्ह फेच फेल झाला → जुना कॅशे रिटर्न करा (काहीच नसण्यापेक्षा चांगले)
 
-यामुळे फीड आउटेज (Reddit रेट लिमिट्स, Nitter डाऊनटाइम) मुळे डेटा थोडा जुना (stale) मिळतो — UI कधीही ब्रेक होत नाही.
+यामुळे फीड आउटेज (Reddit रेट लिमिट्स, Nitter डाऊनटाइम) मुळे थोडा जुना डेटा मिळतो — पण UI कधीही ब्रेक होत नाही.
 
 ---
 
 ## Resend (ईमेल डिलिव्हरी)
 
 **पॅकेज:** `resend` ^6.14.0
-**वापरकर्ते:** `daily-digest.mjs`
+**वापरकर्ता:** `daily-digest.mjs`
 **From ॲड्रेस:** `digest@janvayu.in`
 
 ### डेली डायजेस्ट फ्लो
 
 1. `daily-digest.mjs` सकाळी 8:00 वाजता IST ला फायर होते (Netlify शेड्युल्ड फंक्शन)
-2. WAQI वरून सबस्क्रायबर्सच्या शहरांसाठी लाईव्ह AQI फेच करते
+2. WAQI कडून सबस्क्रायबर्सच्या शहरांचा लाईव्ह AQI फेच करते
 3. AQI डेटा आणि आरोग्य मार्गदर्शनासह एक स्वच्छ HTML ईमेल फॉरमॅट करते
 4. Resend API द्वारे पाठवते
----
-**SendGrid/Mailgun ऐवजी Resend का:**
+**SendGrid/Mailgun पेक्षा Resend का:**
 - स्वच्छ API, कमीत कमी कोड
-- मोफत प्लॅनमध्ये दररोज 100 ईमेल्सची मर्यादा आहे ([resend.com/pricing](https://resend.com/pricing)); सबस्क्रायबरच्या संख्येसोबत याची तुलना करा
-- इन-बिल्ट बाऊन्स/तक्रार हाताळणी
+- मोफत प्लॅनमध्ये दिवसाला 100 ईमेल्सची मर्यादा आहे ([resend.com/pricing](https://resend.com/pricing)); सबस्क्रायबर्सच्या संख्येसोबत याची तपासणी करा
+- अंगभूत बाऊन्स/तक्रार हाताळणी
 
 ---
 
 ## WAQI API (क्लायंट-साइड)
 
-The World Air Quality Index API हा मुख्य लाईव्ह-AQI सोर्स आहे जो ब्राउझरवरून कॉल केला जातो.
+ब्राउझरवरून कॉल केलेला World Air Quality Index API हा मुख्य लाईव्ह-AQI स्रोत आहे.
 
-**टोकन:** WAQI द्वारे त्यांच्या [अटी व शर्ती](https://aqicn.org/data-platform/token/) नुसार नोंदणीकर्त्याला दिले जाते; हे क्लायंट JS मध्ये एम्बेड केलेले असते, त्यामुळे कोणीही ते वाचू शकतो
+**टोकन:** WAQI द्वारे त्यांच्या [terms of service](https://aqicn.org/data-platform/token/) अंतर्गत नोंदणीकर्त्याला दिले जाते; क्लायंट JS मध्ये एम्बेड केलेले असते, त्यामुळे कोणीही ते वाचू शकतो
 **रिफ्रेश:** `setInterval` द्वारे दर 10 मिनिटांनी
 **वापरलेले एंडपॉइंट्स:**
 - `api.waqi.info/feed/{city}/` — एका शहराचा AQI
 - `api.waqi.info/map/bounds/` — भौगोलिक मर्यादेतील स्टेशन्स
 
 **क्लायंट-साइड का:**
-- रिअल-टाइम डेटा (कॅशिंगला विलंब नाही)
+- रिअल-टाइम डेटा (कॅशिंगला उशीर नाही)
 - WAQI ला सर्व API ॲक्सेससाठी वैध की (key) आवश्यक असते
-- सर्व्हरलेस फंक्शन कॉल्स कमी होतात
+- सर्व्हरलेस फंक्शन इन्व्होकेशन्स कमी होतात
