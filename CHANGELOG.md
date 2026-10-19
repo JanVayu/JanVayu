@@ -50,6 +50,12 @@ now says so. And `delhi-seasonal.json` said Delhi's network grew from 5
 stations to 43 over 2016 to 2025; the medians are 5 and 37 (43 was a later
 figure), now corrected in the file and the script.
 
+The pages that describe the layer in the present tense (the About panel,
+the walkthrough, the Ask JanVayu prompt, the README and the bulletin data-source
+page in all five languages) still said 297 cities and 507,334 city-days, two
+rebuilds behind. They now say 300 and 516,922. Dated blog posts and roadmap
+entries keep the figure of their date.
+
 ### Changed, dependencies and checks
 
 - **Unit tests and the translation check now run in CI** (`unit-tests` job in
@@ -70,6 +76,8 @@ figure), now corrected in the file and the script.
   maintenance until April 2027). Playwright 1.49.1 to 1.64.1 and axe-core CLI
   4.10.1 to 4.14.0 in the accessibility workflow. `@netlify/blobs` and
   `resend` updated within their ranges; `npm audit` reports none.
+- **Delhi page footer links are underlined.** axe flagged them as told apart
+  from the surrounding text by colour alone (WCAG 1.4.1), in both themes.
 
 ## [v26.6.241] - 2026-10-12
 
