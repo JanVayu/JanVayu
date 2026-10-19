@@ -11,7 +11,7 @@
 
 If you discover a security vulnerability in JanVayu, please report it responsibly.
 
-**Email:** [contribute@janvayu.in](mailto:contribute@janvayu.in)
+**Email:** [care@pinpointventures.in](mailto:care@pinpointventures.in)
 
 **Subject line:** `[SECURITY] Brief description of the issue`
 
