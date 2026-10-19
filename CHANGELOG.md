@@ -38,6 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Homepage bulletin.** IMD declared the southwest monsoon withdrawn from the
   whole country on 15 October (press release read); the bulletin now says so
   and carries the Delhi year-to-date count.
+- **Progress panel.** A dated "Update, October 2026" card above the May one:
+  the revised GRAP and no stage invoked this autumn, the Ministry's
+  January-to-September counts and PM2.5, and IARI's early farm-fire count.
 
 ### Changed, the CPCB bulletin archive extended to 18 October
 
