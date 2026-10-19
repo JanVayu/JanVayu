@@ -1,6 +1,13 @@
 {
  "stories": [
   {
+   "tag": "Fact check",
+   "title": "Delhi's 211 days of good-to-moderate air, checked day by day",
+   "date": "19 Oct 2026",
+   "blurb": "On 17 October Delhi's Environment Minister said the capital had recorded 211 days of good, satisfactory or moderate air so far in 2026, the best since 2016 if 2020 is set aside, and set it beside 200 such days in 2025, 209 in 2024, 206…",
+   "url": "/blog/#/posts/2026-10-19-delhi-211-days-checked"
+  },
+  {
    "tag": "Data integrity",
    "title": "Five of our six pollutant pages were printing random numbers",
    "date": "2 Oct 2026",

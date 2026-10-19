@@ -4,7 +4,7 @@
   "source": "CPCB daily AQI bulletins, parsed from the published PDFs by UrbanEmissions.Info (github.com/urbanemissionsinfo/AQI_bulletins). Built by scripts/build-delhi-seasonal.py.",
   "years": "2016-2025",
   "no_mean": "No average AQI: an index of whichever pollutant scores worst is counted by category, not averaged. See _meta.no_annual_mean in aqi-bulletins.json.",
-  "not_a_trend": "A seasonal profile pooled over ten years. Delhi went from 5 reporting stations to 43 over the window, so the years are not compared."
+  "not_a_trend": "A seasonal profile pooled over ten years. Delhi went from 5 reporting stations in 2016 to 37 in 2025, so the years are not compared."
  },
  "city": "Delhi",
  "months": [

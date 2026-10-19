@@ -46,5 +46,6 @@ echo "--- [guard-site-figures] python3 scripts/check-hero-currency.py"; python3 
 echo "--- [guard-site-figures] python3 scripts/check-retracted-claims.py"; python3 scripts/check-retracted-claims.py >/dev/null 2>&1 || { echo "   FAIL: python3 scripts/check-retracted-claims.py"; python3 scripts/check-retracted-claims.py 2>&1 | tail -6; }
 echo "--- [guard-site-figures] python3 scripts/check-factcheck-freshness.py"; python3 scripts/check-factcheck-freshness.py >/dev/null 2>&1 || { echo "   FAIL: python3 scripts/check-factcheck-freshness.py"; python3 scripts/check-factcheck-freshness.py 2>&1 | tail -6; }
 echo "--- [guard-site-figures] python3 scripts/build-deweathered.py --check"; python3 scripts/build-deweathered.py --check >/dev/null 2>&1 || { echo "   FAIL: python3 scripts/build-deweathered.py --check"; python3 scripts/build-deweathered.py --check 2>&1 | tail -6; }
+echo "--- [unit-tests] node scripts/check-translations.mjs"; node scripts/check-translations.mjs >/dev/null 2>&1 || { echo "   FAIL: node scripts/check-translations.mjs"; node scripts/check-translations.mjs 2>&1 | tail -6; }
 echo "--- [contrast-gate] node tests/contrast-ci.mjs"; node tests/contrast-ci.mjs >/dev/null 2>&1 || { echo "   FAIL: node tests/contrast-ci.mjs"; node tests/contrast-ci.mjs 2>&1 | tail -6; }
 echo "=== done ==="

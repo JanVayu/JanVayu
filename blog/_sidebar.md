@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **October 2026**
+  - [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md)
   - [Five of our six pollutant pages were printing random numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md)
 
 - **September 2026**

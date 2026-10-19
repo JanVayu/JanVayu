@@ -132,4 +132,4 @@ Client -> "Netlify CDN" : HTTPS
 
 - **Dependabot** हर महीने npm और GitHub Actions अपडेट चेक करता है
 - मेंटेन करने के लिए केवल 3 npm पैकेज हैं
-- CDN-लोडेड लाइब्रेरी (Chart.js 4.4.7, Leaflet 1.9.4) को SRI हैश के साथ सटीक वर्ज़न पर पिन किया गया है
+- CDN-लोडेड लाइब्रेरी (Chart.js 4.5.1, Leaflet 1.9.4) को SRI हैश के साथ सटीक वर्ज़न पर पिन किया गया है

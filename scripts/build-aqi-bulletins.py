@@ -38,7 +38,7 @@ in 2015 to 8.3% in 2025. It is a compelling number and it is not usable.
 
 Those same ten cities went from a median of **one** reporting station to six:
 Agra 1 to 6, Kanpur 1 to 3, Varanasi 1 to 4, Faridabad 1 to 3, Navi Mumbai 1 to
-6, Delhi 5 to 43. Holding the city list constant does not hold the measurement
+6, Delhi 5 to 44. Holding the city list constant does not hold the measurement
 constant. A city AQI aggregated over one station and the same city aggregated
 over six are different instruments, so the series is a mix of changing air and
 a changing sensor, and nothing here can separate them. Nor is there one city in

@@ -5,7 +5,73 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-10-05
+## [v26.6.242] - 2026-10-19
+
+### Added, a check of Delhi's "211 good-to-moderate days"
+
+- **Blog post, 19 October:** "Delhi's 211 days of good-to-moderate air,
+  checked day by day". On 17 October the Delhi government said the city had
+  211 days of good, satisfactory or moderate air in 2026 and compared it with
+  200 (2025), 209 (2024), 206 (2023), 159 (2018) and 110 (2016). Counted from
+  CPCB's bulletins, 2026 has 210 such days to 17 October and 80 Poor-or-worse,
+  one day off the government's 211 and 79. The comparison figures are
+  full-year totals, exactly; over the same dates the earlier years have 200,
+  201, 203, 157 and 110. 2026 still leads, by 7 days over 2023, and the whole
+  lead comes from 1 to 17 October. 148 of the 210 days were Moderate, above
+  the national 24-hour standard; days within the standard number 62 against 79
+  in 2025. The Environment Ministry's own release of 30 September (read in
+  full) puts January-to-September PM2.5 at 69 µg/m³ in both 2026 and 2025.
+  Station counts (median 5 in 2016, 44 in 2026) and the weather are set out
+  as limits on the comparison.
+
+### Changed, content checked against 19 October
+
+- **Delhi page.** Last checked 19 October. CAQM's GRAP orders list, read in a
+  browser, still has nothing after 29 May. The Supreme Court's 12 October
+  hearing (no directions; CAQM asked to take a view; the ban left in place to
+  15 October) is added, with a note that no report of the 15 October outcome
+  was found and that Diwali falls on 8 November. A paragraph on the
+  year-to-date count, and IARI's farm-fire count to 6 October (Punjab 88,
+  Haryana 4, Down To Earth), are added. The World Bank project database,
+  queried again, still lists clean-air programmes for Uttar Pradesh and
+  Haryana only.
+- **Homepage bulletin.** IMD declared the southwest monsoon withdrawn from the
+  whole country on 15 October (press release read); the bulletin now says so
+  and carries the Delhi year-to-date count.
+
+### Changed, the CPCB bulletin archive extended to 18 October
+
+Seven bulletins (12 to 18 October) fetched from cpcb.gov.in: 1,867 rows, none
+skipped and no serial gaps. `data/aqi-bulletins.json` rebuilt: 300 cities
+(Nellore and Byrnihat (Assam) pass the 180-day floor). Two corrections came
+with it. CPCB wrote `delhi` in lower case on 1 to 9 July, which a filter on
+the exact string misses; the build already folds case and `data/raw/README.md`
+now says so. And `delhi-seasonal.json` said Delhi's network grew from 5
+stations to 43 over 2016 to 2025; the medians are 5 and 37 (43 was a later
+figure), now corrected in the file and the script.
+
+### Changed, dependencies and checks
+
+- **Unit tests and the translation check now run in CI** (`unit-tests` job in
+  `ci.yml`). Neither ran anywhere before. `test/scheduled-fetch.test.mjs`
+  only failed where dependencies were not installed; with `npm ci` all 23
+  tests pass.
+- **Seven stale English panel names** in `docs-hi/wiki/Home.md` and
+  `docs-ta/wiki/Roadmap.md` replaced with the canonical translations from
+  `scripts/translations.json`.
+- **Subresource Integrity** added to the 20 pinned docsify, prism and themeable
+  tags in `docs/index.html` and `blog/index.html` and to Leaflet's stylesheet.
+  Every hash was computed from the file served.
+- **Chart.js 4.4.7 to 4.5.1**, with its new SRI hash.
+- **Pretext is served from this site.** The homepage imported it from esm.sh,
+  and a module import cannot carry an integrity hash. Version 0.0.3 is copied
+  unchanged into `js/vendor/pretext-0.0.3/`, with its licence and hashes.
+- **Node 24** for the Netlify build and every workflow (Node 22 is in
+  maintenance until April 2027). Playwright 1.49.1 to 1.64.1 and axe-core CLI
+  4.10.1 to 4.14.0 in the accessibility workflow. `@netlify/blobs` and
+  `resend` updated within their ranges; `npm audit` reports none.
+
+## [v26.6.241] - 2026-10-12
 
 ### Changed, content checked against 12 October
 

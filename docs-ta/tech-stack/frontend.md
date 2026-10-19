@@ -77,7 +77,7 @@
 
 ## Chart.js
 
-**Version:** Pinned 4.x (4.4.7), SRI-உடன் jsDelivr-ல் இருந்து load செய்யப்படுகிறது மற்றும் lazy-loaded
+**Version:** Pinned 4.x (4.5.1), SRI-உடன் jsDelivr-ல் இருந்து load செய்யப்படுகிறது மற்றும் lazy-loaded
 **Used for:**
 - Metro vs Regional AQI ஒப்பீட்டு bar charts
 - PM2.5 trend lines

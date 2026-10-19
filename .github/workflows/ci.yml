@@ -363,6 +363,28 @@ jobs:
           done
           exit $fail
 
+  # `npm test` and the translation check existed and ran nowhere. Without a
+  # job, test/scheduled-fetch.test.mjs read as failing on any machine that had
+  # not installed the dependencies, and seven stale English panel names sat in
+  # the Hindi and Tamil wiki pages with nothing to say so.
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Translated docs carry the current panel names
+        run: node scripts/check-translations.mjs
+
   check-links:
     runs-on: ubuntu-latest
     steps:

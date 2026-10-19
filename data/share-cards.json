@@ -302,6 +302,12 @@
       "sub": "Data integrity"
     },
     {
+      "name": "blog/2026-10-19-delhi-211-days-checked",
+      "kicker": "JanVayu blog · 19 October 2026",
+      "title": "Delhi's 211 days of good-to-moderate air, checked day by day",
+      "sub": "Fact check"
+    },
+    {
       "name": "co",
       "kicker": "Pollutant guide",
       "title": "CO in India",
@@ -363,6 +369,11 @@
     }
   ],
   "posts": [
+    {
+      "slug": "2026-10-19-delhi-211-days-checked",
+      "date": "2026-10-19",
+      "title": "Delhi's 211 days of good-to-moderate air, checked day by day"
+    },
     {
       "slug": "2026-10-02-five-pollutant-pages-random-numbers",
       "date": "2026-10-02",
