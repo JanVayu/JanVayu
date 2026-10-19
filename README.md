@@ -8,7 +8,7 @@
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/Content-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![GitHub Issues](https://img.shields.io/github/issues/JanVayu/JanVayu)](https://github.com/JanVayu/JanVayu/issues)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/JanVayu/JanVayu)](https://github.com/JanVayu/JanVayu/commits/main)
-[![Zotero Library](https://img.shields.io/badge/Zotero-Research%20Library-CC2936)](https://www.zotero.org/groups/6508140/janvayu/library)
+[![Reading List](https://img.shields.io/badge/Reading%20List-BibTeX%20%7C%20RIS-CC2936)](https://www.janvayu.in/downloads/janvayu-reading-list.bib)
 
 ---
 
@@ -73,12 +73,12 @@ Two new posts: [How to read the JanVayu map](blog/posts/2026-08-09-how-to-read-t
 | 19 | **Downloadable reports** | Research papers and datasets to keep for offline reference |
 | 20 | **Cultural archive** | Satire, memes, art and other cultural responses to the pollution crisis |
 | 21 | **Blog** | Updates, data analysis and reflections on India's air quality crisis at [janvayu.in/blog](https://www.janvayu.in/blog) |
-| 22 | **Zotero bibliography** | A public bibliography of air quality research papers at [zotero.org/groups/janvayu](https://www.zotero.org/groups/6508140/janvayu/library) |
+| 22 | **Reading List bibliography** | The Reading List's 54 peer-reviewed studies as [BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib) and [RIS](https://www.janvayu.in/downloads/janvayu-reading-list.ris), built from the list and each DOI's Crossref record by `scripts/build-reading-list-bib.py` |
 | 23 | **Ask JanVayu app** | The same assistant as an installable app at [janvayu.in/ask](https://www.janvayu.in/ask). It covers 33 cities and 10 languages, takes thumbs up or down feedback, and works on Android, iOS and desktop |
 | 24 | **Learning games** | Seven self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games): India-context Air Quality Jeopardy (5×5 board, ₹1k–₹5k tiles), a 10-question PM Quick-Quiz, a 7-source matcher, Clean Air Snakes & Ladders after Moksha Patam, Jodi Match memory cards, Air Tambola (Indian housie), and Vayu Junction, a word-grouping puzzle inspired by *Only Connect*, NYT *Connections* and *Torchlight*, with four sets of India air quality puzzles |
 | 25 | **Women's health** | Gender-specific air pollution analysis: indoor cooking exposure, maternal health, occupational risks and the gender data gap. Linked to the "Woman / Caregiver" role |
 | 26 | **Historical map overlay** | A time slider on the live map showing monthly PM2.5 from Jan 2024 to the present, coloured by pollution level |
-| 27 | **Automatic updates** | The sitemap, site statistics, feed-health checks and translation keys are kept in step without manual work, and a reference data API and the Zotero library stay linked to the site |
+| 27 | **Automatic updates** | The sitemap, site statistics, feed-health checks and translation keys are kept in step without manual work, and the Reading List's citation files are rebuilt from the list itself |
 | 28 | **Understanding AQI** | An interactive breakdown of how the AQI is built from up to eight pollutants (PM2.5, PM10, NO2, SO2, CO, O3, NH3, Pb). The live data and the diagram carry the first six, because ammonia and lead are measured at fewer stations. It also compares the CPCB and US EPA AQI scales and explains why PM2.5 is not the whole story |
 | 29 | **Shareable AQI cards** | Makes a PNG card for Instagram or WhatsApp, coloured by severity, and shares it through the phone's share sheet |
 | 30 | **Exposure diary** | Log 16 daily activities, each with an illustrative (not yet sourced) PM2.5 multiplier, and get a weighted exposure, a cigarette equivalence and a life-expectancy impact |

@@ -24,6 +24,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Station counts (median 5 in 2016, 44 in 2026) and the weather are set out
   as limits on the comparison.
 
+### Changed, the Reading List replaces the Zotero library
+
+The Resources panel told readers that "the full collection lives in the
+JanVayu Zotero library". That group (owned by a project account, user
+`JanVayu`) was last edited on 8 May, held 21 papers against the panel's 54,
+and nobody on the project could still sign in to it. One Reading List card,
+Rautela and Goyal (2024), linked to the library itself rather than to the
+paper.
+
+- `downloads/janvayu-reading-list.bib` and `.ris` are new, built by
+  `scripts/build-reading-list-bib.py` from the panel's cards and each DOI's
+  Crossref record (cached in `data/reading-list-crossref.json` so CI needs no
+  network). All 54 studies, every author, journal, volume and DOI; every card's
+  year agrees with Crossref. CI fails if a card has no DOI or the files fall
+  out of step with the panel. Linked from the panel and the Downloads page.
+- The Rautela and Goyal card now links its DOI (10.1038/s41598-024-71269-7,
+  *Scientific Reports*).
+- Removed: the "Latest from Zotero" block, its loader in `index.html` and
+  `app.js`, and `netlify/functions/zotero-library.mjs`, which nothing else
+  called. Docs now count 28 functions.
+- Text that described the library as current (About, walkthrough, README,
+  English docs, the contributor guide) now describes the citation files. The
+  translated docs follow through the translation job. Dated blog posts and
+  changelog entries keep their history; the old library is still public, so
+  their links still work.
+- The Downloads page no longer promises the legal-precedents brief "for Q3
+  2026", a quarter that has ended; it says the brief is a stub.
+
 ### Changed, content checked against 19 October
 
 - **Delhi page.** Last checked 19 October. CAQM's GRAP orders list, read in a

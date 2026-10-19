@@ -5,20 +5,6 @@
                 <p class="jv-lede" data-simple="A collection of trustworthy reports, studies, and data sources about air pollution in India. All free to access. Great for school projects, journalism, or just learning more.">Curated, verified open-access resources from peer-reviewed studies, government portals, and research institutions.</p>
             </div>
 
-            <!-- ZOTERO LATEST (loaded dynamically) -->
-            <div id="zotero-section" style="display: none; margin-bottom: 2rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                    <span class="si si-library jv-t-accent-2"></span>
-                    <h3 style="font-family: var(--serif); font-size: 1.25rem; margin: 0; color: var(--ink);">Latest from Zotero</h3>
-                    <span id="zotero-count" class="badge badge-info" style="margin-left: 0.25rem;"></span>
-                </div>
-                <div id="zotero-items" class="grid-2 jv-gap-075"></div>
-            </div>
-            <div id="zotero-loading" style="display: none; text-align: center; padding: 1.5rem; margin-bottom: 2rem;">
-                <div style="display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
-                <p style="font-size: 0.85rem; color: var(--text-3); margin-top: 0.5rem;">Loading Zotero library&hellip;</p>
-            </div>
-
             <!-- SEARCH + CATEGORY FILTERS -->
             <div class="search-box" style="margin-bottom: 1rem;">
                 <input type="text" class="search-input" id="resource-search" placeholder="Search resources (e.g., 'lancet', 'NCAP', 'source apportionment')..." oninput="filterResources()" aria-label="Search the reading list">
@@ -131,7 +117,7 @@
                 </div>
             </div>
 
-            <!-- v26.6.39: PEER-REVIEWED RESEARCH (Zotero library) -->
+            <!-- PEER-REVIEWED RESEARCH. downloads/janvayu-reading-list.{bib,ris} are built from these cards by scripts/build-reading-list-bib.py -->
             <div class="card mb-2" data-resource-category="featured health source data policy justice">
                 <div class="card-header">
                     <span class="card-title jv-t-purple">Peer-Reviewed Research
@@ -140,7 +126,7 @@
                 </div>
                 <div class="card-body">
                     <p style="font-size: 0.85rem; color: var(--text-2); margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-section); border-left: 3px solid var(--ink-violet); border-radius: 6px;">
-                        Peer-reviewed studies on India's air quality (health effects, source apportionment, exposure inequality and low-cost sensing), each linked to its DOI or journal page. The full collection lives in the <a class="jv-t-accent-2" href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank" rel="noopener">JanVayu Zotero library</a>.
+                        Peer-reviewed studies on India's air quality (health effects, source apportionment, exposure inequality and low-cost sensing), each linked to its DOI or journal page. Every study below can be downloaded as one citation file for a reference manager: <a class="jv-t-accent-2" href="/downloads/janvayu-reading-list.bib" download>BibTeX</a> or <a class="jv-t-accent-2" href="/downloads/janvayu-reading-list.ris" download>RIS</a> (Zotero, Mendeley, EndNote). The files are generated from this list, with full details taken from each DOI&rsquo;s Crossref record.
                     </p>
                     <div class="grid-2 jv-gap-075">
                         <div class="resource-card" data-keywords="pandey crop residue stubble burning punjab haryana aircraft emission factors near-source npj 2026">
@@ -277,10 +263,10 @@
                             </a>
                         </div>
                         <div class="resource-card" data-keywords="rautela goyal ai machine learning management data action">
-                            <a href="https://www.zotero.org/groups/6508140/janvayu/library" target="_blank" rel="noopener">
+                            <a href="https://doi.org/10.1038/s41598-024-71269-7" target="_blank" rel="noopener">
                                 <div class="resource-type">Peer-reviewed <span class="badge badge-info">2024</span></div>
                                 <div class="resource-title">Rautela & Goyal (2024): Transforming India's air-pollution management with AI & ML</div>
-                                <div class="resource-desc">How AI and machine-learning tools could transform air-pollution management in India.</div>
+                                <div class="resource-desc">How AI and machine-learning tools could transform air-pollution management in India. <em>Scientific Reports</em>, 2024.</div>
                             </a>
                         </div>
                         <div class="resource-card" data-keywords="guttikunda delhi review 1990 2022 source apportionment sustainability">

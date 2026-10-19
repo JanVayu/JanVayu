@@ -110,4 +110,4 @@ JanVayu/
         └── anomaly-check.mjs     # AI: PM2.5 spike detection
 ```
 
-This list is not exhaustive: `netlify/functions/` holds 29 function files plus shared `lib/` (for example `waqi-proxy`, `rankings`, `data-api`, `push-send`, `fire-tracker`, `terra-collab` and `zotero-library`).
+This list is not exhaustive: `netlify/functions/` holds 28 function files plus shared `lib/` (for example `waqi-proxy`, `rankings`, `data-api`, `push-send`, `fire-tracker` and `terra-collab`).

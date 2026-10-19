@@ -1,0 +1,9831 @@
+{
+ "10.1002/tqem.70458": {
+  "DOI": "10.1002/tqem.70458",
+  "ISSN": [
+   "1088-1913",
+   "1520-6483"
+  ],
+  "URL": "https://doi.org/10.1002/tqem.70458",
+  "article-number": "e70458",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Jindal School of Liberal Arts and Humanities O.P. Jindal Global University  Sonipat Haryana India"
+     }
+    ],
+    "family": "Roy",
+    "given": "Mimi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-0380-6128",
+    "affiliation": [
+     {
+      "name": "Jindal School of Liberal Arts and Humanities O.P. Jindal Global UniversityCenter for Environment, Sustainability and Human Development  Sonipat Haryana India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Chaudhuri",
+    "given": "Sriroop",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Quality Management"
+  ],
+  "issue": "3",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9
+    ]
+   ]
+  },
+  "publisher": "Wiley",
+  "title": [
+   "Characterizing the Seasonal Particulate Matter (PM\n                    <sub>2.5</sub>\n                    , PM\n                    <sub>10</sub>\n                    ) Concentrations in Nine Indian Cities, Using Exploratory Seasonal Analysis (ESA), Supervised Statistical Methods and Contextual Appraisal"
+  ],
+  "type": "journal-article",
+  "volume": "36"
+ },
+ "10.1007/s11270-026-10037-x": {
+  "DOI": "10.1007/s11270-026-10037-x",
+  "ISSN": [
+   "0049-6979",
+   "1573-2932"
+  ],
+  "URL": "https://doi.org/10.1007/s11270-026-10037-x",
+  "article-number": "1365",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Pippal",
+    "given": "Prity S.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-1415-3000",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Kumar",
+    "given": "Rajesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Atar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Ramesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Water, Air, &amp; Soil Pollution"
+  ],
+  "issue": "23",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     8
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     8
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Suitability of Machine Learning Models and their Performance for PM2.5 Estimation using high-resolution satellite-driven datasets over Northwest India"
+  ],
+  "type": "journal-article",
+  "volume": "237"
+ },
+ "10.1007/s11356-026-38181-1": {
+  "DOI": "10.1007/s11356-026-38181-1",
+  "ISSN": [
+   "1614-7499"
+  ],
+  "URL": "https://doi.org/10.1007/s11356-026-38181-1",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Shafi",
+    "given": "Sedra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0967-1911",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Scafetta",
+    "given": "Nicola",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Science and Pollution Research"
+  ],
+  "issue": "28",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     3
+    ]
+   ]
+  },
+  "page": "14364-14392",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     3
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Management of missing air pollution data within urban environments using machine learning regressions: a case study for Delhi, India"
+  ],
+  "type": "journal-article",
+  "volume": "33"
+ },
+ "10.1007/s11869-025-01793-6": {
+  "DOI": "10.1007/s11869-025-01793-6",
+  "ISSN": [
+   "1873-9318",
+   "1873-9326"
+  ],
+  "URL": "https://doi.org/10.1007/s11869-025-01793-6",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Ghosh",
+    "given": "Sukanya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9434-2786",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Sinha",
+    "given": "Dona",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Air Quality, Atmosphere &amp; Health"
+  ],
+  "issue": "9",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     7,
+     15
+    ]
+   ]
+  },
+  "page": "2765-2804",
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     7,
+     15
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Indian perspective of PM2.5 attributed human health hazards during 2010–2025"
+  ],
+  "type": "journal-article",
+  "volume": "18"
+ },
+ "10.1007/s11869-026-02068-4": {
+  "DOI": "10.1007/s11869-026-02068-4",
+  "ISSN": [
+   "1873-9318",
+   "1873-9326"
+  ],
+  "URL": "https://doi.org/10.1007/s11869-026-02068-4",
+  "article-number": "174",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Goyal",
+    "given": "Sahil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Vaibhav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Hotchandani",
+    "given": "Vivek",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mahale",
+    "given": "Girish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gaikwad",
+    "given": "Mayur",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shahade",
+    "given": "Aniket K.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Air Quality, Atmosphere &amp; Health"
+  ],
+  "issue": "8",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     8
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     8
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "GreenAirOps: production-ready MLOps for real-time air quality index prediction"
+  ],
+  "type": "journal-article",
+  "volume": "19"
+ },
+ "10.1007/s11869-026-02114-1": {
+  "DOI": "10.1007/s11869-026-02114-1",
+  "ISSN": [
+   "1873-9318",
+   "1873-9326"
+  ],
+  "URL": "https://doi.org/10.1007/s11869-026-02114-1",
+  "article-number": "222",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-5901-6072",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ahmadi",
+    "given": "Ferial",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9603-818X",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Karimi",
+    "given": "Maryam",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-0664-438X",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Nazari",
+    "given": "Rouzbeh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3740-4389",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Nikoo",
+    "given": "Mohammad Reza",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Air Quality, Atmosphere &amp; Health"
+  ],
+  "issue": "10",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Ambient air pollution and type 2 diabetes mellitus: an updated global systematic review, meta-analysis, and cross-country comparative analysis"
+  ],
+  "type": "journal-article",
+  "volume": "19"
+ },
+ "10.1007/s12098-026-06419-y": {
+  "DOI": "10.1007/s12098-026-06419-y",
+  "ISSN": [
+   "0019-5456",
+   "0973-7693"
+  ],
+  "URL": "https://doi.org/10.1007/s12098-026-06419-y",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-7772-2413",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ratageri",
+    "given": "Vinod H.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   }
+  ],
+  "container-title": [
+   "Indian Journal of Pediatrics"
+  ],
+  "issue": "11",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     7
+    ]
+   ]
+  },
+  "page": "1153-1154",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     7
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Maternal Air Pollution and Congenital Heart Disease: Bridging the Evidence Gap in India"
+  ],
+  "type": "journal-article",
+  "volume": "93"
+ },
+ "10.1007/s41324-026-00708-6": {
+  "DOI": "10.1007/s41324-026-00708-6",
+  "ISSN": [
+   "2366-3286",
+   "2366-3294"
+  ],
+  "URL": "https://doi.org/10.1007/s41324-026-00708-6",
+  "article-number": "57",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-3226-5586",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Oxoli",
+    "given": "Daniele",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Moazzam",
+    "given": "Afshin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Brovelli",
+    "given": "Maria Antonia",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Li",
+    "given": "Songnian",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pirotti",
+    "given": "Francesco",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Xu",
+    "given": "Shishuo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Spatial Information Research"
+  ],
+  "issue": "5",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     2
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     2
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Image-based estimation of ambient particulate matter: a scoping review"
+  ],
+  "type": "journal-article",
+  "volume": "34"
+ },
+ "10.1016/j.ekir.2026.106693": {
+  "DOI": "10.1016/j.ekir.2026.106693",
+  "ISSN": [
+   "2468-0249"
+  ],
+  "URL": "https://doi.org/10.1016/j.ekir.2026.106693",
+  "article-number": "106693",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Mandal",
+    "given": "Siddhartha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Jagannathan",
+    "given": "Ram",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Anand",
+    "given": "Shuchi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ali",
+    "given": "Mohammed K.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Poornima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mohan",
+    "given": "Sailesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Ruby",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Narayan",
+    "given": "K.M. Venkat",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mohan",
+    "given": "Viswanathan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Schwartz",
+    "given": "Joel D.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Tandon",
+    "given": "Nikhil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Dorairaj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Kidney International Reports"
+  ],
+  "issue": "9",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9
+    ]
+   ]
+  },
+  "page": "106693",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Long Term Exposure to Ambient Particulate Matter 2.5 and Kidney Function in Urban Indian Adults"
+  ],
+  "type": "journal-article",
+  "volume": "11"
+ },
+ "10.1016/j.jeem.2026.103360": {
+  "DOI": "10.1016/j.jeem.2026.103360",
+  "ISSN": [
+   "0095-0696"
+  ],
+  "URL": "https://doi.org/10.1016/j.jeem.2026.103360",
+  "article-number": "103360",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Misra",
+    "given": "Shashank",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Kulshreshtha",
+    "given": "Shobhit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Environmental Economics and Management"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     8
+    ]
+   ]
+  },
+  "page": "103360",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     8
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Impact of air pollution on birth outcomes: Causal evidence from India"
+  ],
+  "type": "journal-article",
+  "volume": "139"
+ },
+ "10.1016/s2542-5196(18)30261-4": {
+  "DOI": "10.1016/s2542-5196(18)30261-4",
+  "ISSN": [
+   "2542-5196"
+  ],
+  "URL": "https://doi.org/10.1016/s2542-5196(18)30261-4",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Balakrishnan",
+    "given": "Kalpana",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Dey",
+    "given": "Sagnik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Tarun",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dhaliwal",
+    "given": "R S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Brauer",
+    "given": "Michael",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cohen",
+    "given": "Aaron J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Stanaway",
+    "given": "Jeffrey D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Beig",
+    "given": "Gufran",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Joshi",
+    "given": "Tushar K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Aggarwal",
+    "given": "Ashutosh N",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sabde",
+    "given": "Yogesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sadhu",
+    "given": "Harsiddha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Frostad",
+    "given": "Joseph",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Causey",
+    "given": "Kate",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Godwin",
+    "given": "William",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shukla",
+    "given": "D K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "G Anil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Varghese",
+    "given": "Chris M",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Muraleedharan",
+    "given": "Pallavi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Agrawal",
+    "given": "Anurag",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Anjana",
+    "given": "R M",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bhansali",
+    "given": "Anil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bhardwaj",
+    "given": "Deeksha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Burkart",
+    "given": "Katrin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cercy",
+    "given": "Kelly",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chakma",
+    "given": "Joy K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chowdhury",
+    "given": "Sourangsu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Christopher",
+    "given": "D J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dutta",
+    "given": "Eliza",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Furtado",
+    "given": "Melissa",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ghosh",
+    "given": "Santu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ghoshal",
+    "given": "Aloke G",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Glenn",
+    "given": "Scott D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Guleria",
+    "given": "Randeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Rajeev",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Jeemon",
+    "given": "Panniyammakal",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kant",
+    "given": "Rajni",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kant",
+    "given": "Surya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kaur",
+    "given": "Tanvir",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Koul",
+    "given": "Parvaiz A",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Krish",
+    "given": "Varsha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Krishna",
+    "given": "Bhargav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Larson",
+    "given": "Samantha L",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Madhipatla",
+    "given": "Kishore",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mahesh",
+    "given": "P A",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mohan",
+    "given": "Viswanathan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mukhopadhyay",
+    "given": "Satinath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mutreja",
+    "given": "Parul",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Naik",
+    "given": "Nitish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nair",
+    "given": "Sanjeev",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nguyen",
+    "given": "Grant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Odell",
+    "given": "Christopher M",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pandian",
+    "given": "Jeyaraj D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Dorairaj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Poornima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Roy",
+    "given": "Ambuj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Salvi",
+    "given": "Sundeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sambandam",
+    "given": "Sankar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Saraf",
+    "given": "Deepika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Meenakshi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shrivastava",
+    "given": "Aakash",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Virendra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Tandon",
+    "given": "Nikhil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Thomas",
+    "given": "Nihal J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Torre",
+    "given": "Anna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Xavier",
+    "given": "Denis",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Yadav",
+    "given": "Geetika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Sujeet",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shekhar",
+    "given": "Chander",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Vos",
+    "given": "Theo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dandona",
+    "given": "Rakhi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Reddy",
+    "given": "K Srinath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Lim",
+    "given": "Stephen S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Murray",
+    "given": "Christopher J L",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Venkatesh",
+    "given": "S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dandona",
+    "given": "Lalit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "The Lancet Planetary Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2019,
+     1
+    ]
+   ]
+  },
+  "page": "e26-e39",
+  "published": {
+   "date-parts": [
+    [
+     2019,
+     1
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "The impact of air pollution on deaths, disease burden, and life expectancy across the states of India: the Global Burden of Disease Study 2017"
+  ],
+  "type": "journal-article",
+  "volume": "3"
+ },
+ "10.1016/s2542-5196(20)30298-9": {
+  "DOI": "10.1016/s2542-5196(20)30298-9",
+  "ISSN": [
+   "2542-5196"
+  ],
+  "URL": "https://doi.org/10.1016/s2542-5196(20)30298-9",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Pandey",
+    "given": "Anamika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Brauer",
+    "given": "Michael",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cropper",
+    "given": "Maureen L",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Balakrishnan",
+    "given": "Kalpana",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mathur",
+    "given": "Prashant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dey",
+    "given": "Sagnik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Turkgulu",
+    "given": "Burak",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "G Anil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Khare",
+    "given": "Mukesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Beig",
+    "given": "Gufran",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Tarun",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Krishnankutty",
+    "given": "Rinu P",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Causey",
+    "given": "Kate",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cohen",
+    "given": "Aaron J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bhargava",
+    "given": "Stuti",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Aggarwal",
+    "given": "Ashutosh N",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Agrawal",
+    "given": "Anurag",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Awasthi",
+    "given": "Shally",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bennitt",
+    "given": "Fiona",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bhagwat",
+    "given": "Sadhana",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bhanumati",
+    "given": "P",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Burkart",
+    "given": "Katrin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chakma",
+    "given": "Joy K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chiles",
+    "given": "Thomas C",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chowdhury",
+    "given": "Sourangsu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Christopher",
+    "given": "D J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dey",
+    "given": "Subhojit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Fisher",
+    "given": "Samantha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Fraumeni",
+    "given": "Barbara",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Fuller",
+    "given": "Richard",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ghoshal",
+    "given": "Aloke G",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Golechha",
+    "given": "Mahaveer J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Prakash C",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Rachita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Rajeev",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gupta",
+    "given": "Shreekant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Guttikunda",
+    "given": "Sarath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Hanrahan",
+    "given": "David",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Harikrishnan",
+    "given": "Sivadasanpillai",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Jeemon",
+    "given": "Panniyammakal",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Joshi",
+    "given": "Tushar K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kant",
+    "given": "Rajni",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kant",
+    "given": "Surya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kaur",
+    "given": "Tanvir",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Koul",
+    "given": "Parvaiz A",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Praveen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Rakesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Larson",
+    "given": "Samantha L",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Lodha",
+    "given": "Rakesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Madhipatla",
+    "given": "Kishore K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mahesh",
+    "given": "P A",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Malhotra",
+    "given": "Ridhima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Managi",
+    "given": "Shunsuke",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Martin",
+    "given": "Keith",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mathai",
+    "given": "Matthews",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mathew",
+    "given": "Joseph L",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mehrotra",
+    "given": "Ravi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mohan",
+    "given": "B V Murali",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mohan",
+    "given": "Viswananthan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mukhopadhyay",
+    "given": "Satinath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mutreja",
+    "given": "Parul",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Naik",
+    "given": "Nitish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nair",
+    "given": "Sanjeev",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pandian",
+    "given": "Jeyaraj D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pant",
+    "given": "Pallavi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Perianayagam",
+    "given": "Arokiasamy",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Dorairaj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Poornima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rath",
+    "given": "Goura K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ravi",
+    "given": "Shamika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Roy",
+    "given": "Ambuj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sabde",
+    "given": "Yogesh D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Salvi",
+    "given": "Sundeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sambandam",
+    "given": "Sankar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Bhavay",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Meenakshi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Shweta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "R S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shrivastava",
+    "given": "Aakash",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Sujeet",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Virendra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Smith",
+    "given": "Rodney",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Stanaway",
+    "given": "Jeffrey D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Taghian",
+    "given": "Gabrielle",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Tandon",
+    "given": "Nikhil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Thakur",
+    "given": "J S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Thomas",
+    "given": "Nihal J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Toteja",
+    "given": "G S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Varghese",
+    "given": "Chris M",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Venkataraman",
+    "given": "Chandra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Venugopal",
+    "given": "Krishnan N",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Walker",
+    "given": "Katherine D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Watson",
+    "given": "Alexandrea Y",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Wozniak",
+    "given": "Sarah",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Xavier",
+    "given": "Denis",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Yadama",
+    "given": "Gautam N",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Yadav",
+    "given": "Geetika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shukla",
+    "given": "D K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bekedam",
+    "given": "Hendrik J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Reddy",
+    "given": "K Srinath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Guleria",
+    "given": "Randeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Vos",
+    "given": "Theo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Lim",
+    "given": "Stephen S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dandona",
+    "given": "Rakhi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Sunil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Pushpam",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Landrigan",
+    "given": "Philip J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dandona",
+    "given": "Lalit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "The Lancet Planetary Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2021,
+     1
+    ]
+   ]
+  },
+  "page": "e25-e38",
+  "published": {
+   "date-parts": [
+    [
+     2021,
+     1
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Health and economic impact of air pollution in the states of India: the Global Burden of Disease Study 2019"
+  ],
+  "type": "journal-article",
+  "volume": "5"
+ },
+ "10.1016/s2542-5196(24)00114-1": {
+  "DOI": "10.1016/s2542-5196(24)00114-1",
+  "ISSN": [
+   "2542-5196"
+  ],
+  "URL": "https://doi.org/10.1016/s2542-5196(24)00114-1",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "de Bont",
+    "given": "Jeroen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Krishna",
+    "given": "Bhargav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Stafoggia",
+    "given": "Massimo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Banerjee",
+    "given": "Tirthankar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dholakia",
+    "given": "Hem",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Garg",
+    "given": "Amit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ingole",
+    "given": "Vijendra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Jaganathan",
+    "given": "Suganthi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kloog",
+    "given": "Itai",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Lane",
+    "given": "Kevin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mall",
+    "given": "Rajesh Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mandal",
+    "given": "Siddhartha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nori-Sarma",
+    "given": "Amruta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Dorairaj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rajiva",
+    "given": "Ajit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Tiwari",
+    "given": "Abhiyant Suresh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Wei",
+    "given": "Yaguang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Wellenius",
+    "given": "Gregory A",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Schwartz",
+    "given": "Joel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Poornima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ljungman",
+    "given": "Petter",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "The Lancet Planetary Health"
+  ],
+  "issue": "7",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     7
+    ]
+   ]
+  },
+  "page": "e433-e440",
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     7
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Ambient air pollution and daily mortality in ten cities of India: a causal modelling study"
+  ],
+  "type": "journal-article",
+  "volume": "8"
+ },
+ "10.1016/s2542-5196(24)00248-1": {
+  "DOI": "10.1016/s2542-5196(24)00248-1",
+  "ISSN": [
+   "2542-5196"
+  ],
+  "URL": "https://doi.org/10.1016/s2542-5196(24)00248-1",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Jaganathan",
+    "given": "Suganthi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Stafoggia",
+    "given": "Massimo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rajiva",
+    "given": "Ajit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mandal",
+    "given": "Siddhartha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dixit",
+    "given": "Shweta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "de Bont",
+    "given": "Jeroen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Wellenius",
+    "given": "Gregory A",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Lane",
+    "given": "Kevin J",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nori-Sarma",
+    "given": "Amruta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kloog",
+    "given": "Itai",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Dorairaj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Poornima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Schwartz",
+    "given": "Joel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ljungman",
+    "given": "Petter",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "The Lancet Planetary Health"
+  ],
+  "issue": "12",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     12
+    ]
+   ]
+  },
+  "page": "e987-e996",
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     12
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Estimating the effect of annual PM2·5 exposure on mortality in India: a difference-in-differences approach"
+  ],
+  "type": "journal-article",
+  "volume": "8"
+ },
+ "10.1021/acs.est.2c05636": {
+  "DOI": "10.1021/acs.est.2c05636",
+  "ISSN": [
+   "0013-936X",
+   "1520-5851"
+  ],
+  "URL": "https://doi.org/10.1021/acs.est.2c05636",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Centre for Rural Development & Technology, Indian Institute of Technology Delhi, New Delhi110016, India"
+     },
+     {
+      "name": "World Resources Institute, New Delhi110016, India"
+     }
+    ],
+    "family": "Tomar",
+    "given": "Gaurav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "World Resources Institute, New Delhi110016, India"
+     }
+    ],
+    "family": "Nagpure",
+    "given": "Ajay Singh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centre for Rural Development & Technology, Indian Institute of Technology Delhi, New Delhi110016, India"
+     }
+    ],
+    "family": "Jain",
+    "given": "Yash",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1557-263X",
+    "affiliation": [
+     {
+      "name": "Centre for Rural Development & Technology, Indian Institute of Technology Delhi, New Delhi110016, India"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Kumar",
+    "given": "Vivek",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Science &amp; Technology"
+  ],
+  "issue": "6",
+  "issued": {
+   "date-parts": [
+    [
+     2023,
+     2,
+     2
+    ]
+   ]
+  },
+  "page": "2310-2321",
+  "published": {
+   "date-parts": [
+    [
+     2023,
+     2,
+     2
+    ]
+   ]
+  },
+  "publisher": "American Chemical Society (ACS)",
+  "title": [
+   "High-Resolution PM<sub>2.5</sub> Emissions and Associated Health Impact Inequalities in an Indian District"
+  ],
+  "type": "journal-article",
+  "volume": "57"
+ },
+ "10.1021/acs.est.4c02264": {
+  "DOI": "10.1021/acs.est.4c02264",
+  "ISSN": [
+   "0013-936X",
+   "1520-5851"
+  ],
+  "URL": "https://doi.org/10.1021/acs.est.4c02264",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Jiangsu Collaborative Innovation Center of Atmospheric Environment and Equipment Technology, Jiangsu Key Laboratory of Atmospheric Environment Monitoring and Pollution Control, Nanjing University of Information Science & Technology, 219 Ningliu Road, Nanjing 210044, China"
+     },
+     {
+      "name": "State Key Laboratory of Pollution Control and Resource Reuse, School of the Environment, Nanjing University, Nanjing 210023, China"
+     }
+    ],
+    "family": "Wang",
+    "given": "Yiyi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5694-4794",
+    "affiliation": [
+     {
+      "name": "Jiangsu Collaborative Innovation Center of Atmospheric Environment and Equipment Technology, Jiangsu Key Laboratory of Atmospheric Environment Monitoring and Pollution Control, Nanjing University of Information Science & Technology, 219 Ningliu Road, Nanjing 210044, China"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Hu",
+    "given": "Jianlin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "State Key Laboratory of Pollution Control and Resource Reuse, School of the Environment, Nanjing University, Nanjing 210023, China"
+     }
+    ],
+    "family": "Wu",
+    "given": "Yangyang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Civil Engineering, Indian Institute of Technology Delhi, New Delhi 110016, India"
+     }
+    ],
+    "family": "Kota",
+    "given": "Sri Harsha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1797-2311",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Science and Engineering, Fudan University, Shanghai 200438, China"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Zhang",
+    "given": "Hongliang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Jiangsu Collaborative Innovation Center of Atmospheric Environment and Equipment Technology, Jiangsu Key Laboratory of Atmospheric Environment Monitoring and Pollution Control, Nanjing University of Information Science & Technology, 219 Ningliu Road, Nanjing 210044, China"
+     }
+    ],
+    "family": "Gong",
+    "given": "Kangjia",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Jiangsu Collaborative Innovation Center of Atmospheric Environment and Equipment Technology, Jiangsu Key Laboratory of Atmospheric Environment Monitoring and Pollution Control, Nanjing University of Information Science & Technology, 219 Ningliu Road, Nanjing 210044, China"
+     }
+    ],
+    "family": "Xie",
+    "given": "Xiaodong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-8861-8192",
+    "affiliation": [
+     {
+      "name": "Jiangsu Collaborative Innovation Center of Atmospheric Environment and Equipment Technology, Jiangsu Key Laboratory of Atmospheric Environment Monitoring and Pollution Control, Nanjing University of Information Science & Technology, 219 Ningliu Road, Nanjing 210044, China"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Yue",
+    "given": "Xu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6628-1798",
+    "affiliation": [
+     {
+      "name": "Jiangsu Collaborative Innovation Center of Atmospheric Environment and Equipment Technology, Jiangsu Key Laboratory of Atmospheric Environment Monitoring and Pollution Control, Nanjing University of Information Science & Technology, 219 Ningliu Road, Nanjing 210044, China"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Liao",
+    "given": "Hong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9279-878X",
+    "affiliation": [
+     {
+      "name": "State Key Laboratory of Pollution Control and Resource Reuse, School of the Environment, Nanjing University, Nanjing 210023, China"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Huang",
+    "given": "Lei",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Science &amp; Technology"
+  ],
+  "issue": "20",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     5,
+     6
+    ]
+   ]
+  },
+  "page": "8685-8695",
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     5,
+     6
+    ]
+   ]
+  },
+  "publisher": "American Chemical Society (ACS)",
+  "title": [
+   "Continued Rise in Health Burden from Ambient PM<sub>2.5</sub> in India under SSP Scenarios Until 2100 despite Decreasing Concentrations"
+  ],
+  "type": "journal-article",
+  "volume": "58"
+ },
+ "10.1029/2024jd040834": {
+  "DOI": "10.1029/2024jd040834",
+  "ISSN": [
+   "2169-897X",
+   "2169-8996"
+  ],
+  "URL": "https://doi.org/10.1029/2024jd040834",
+  "article-number": "e2024JD040834",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-2280-3360",
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Venkataraman",
+    "given": "Chandra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "family": "Anand",
+    "given": "Abhinav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     },
+     {
+      "name": "Indian Institute of Tropical Meteorology Pune  Pune India"
+     }
+    ],
+    "family": "Maji",
+    "given": "Sujit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1675-3643",
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Barman",
+    "given": "Neeldip",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "family": "Tiwari",
+    "given": "Dewashish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-8967-7872",
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Muduchuru",
+    "given": "Kaushik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "family": "Sharma",
+    "given": "Arushi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "family": "Gupta",
+    "given": "Ganesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Bhopal  Bhopal India"
+     }
+    ],
+    "family": "Bhardwaj",
+    "given": "Ankur",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-7351-5492",
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Bhopal  Bhopal India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Haswani",
+    "given": "Diksha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5874-3064",
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Bhopal  Bhopal India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pullokaran",
+    "given": "Delwin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-9494-4114",
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Bhopal  Bhopal India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Yadav",
+    "given": "Kajal",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3518-7170",
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Bhopal  Bhopal India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sunder Raman",
+    "given": "Ramya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Delhi  New Delhi India"
+     }
+    ],
+    "family": "Imran",
+    "given": "Mohd.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Delhi  New Delhi India"
+     }
+    ],
+    "family": "Habib",
+    "given": "Gazala",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-9137-4240",
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Kapoor",
+    "given": "Taveen Singh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0002-0430-985X",
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     },
+     {
+      "name": "Environmental Science and Engineering Department IIT Bombay  Mumbai India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Anurag",
+    "given": "Gupta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     }
+    ],
+    "family": "Sharma",
+    "given": "Renuka",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Interdisciplinary Program in Climate Studies Indian Institute of Technology Bombay  Mumbai India"
+     },
+     {
+      "name": "Environmental Science and Engineering Department IIT Bombay  Mumbai India"
+     }
+    ],
+    "family": "Phuleria",
+    "given": "Harish C.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Kanpur  Kanpur India"
+     }
+    ],
+    "family": "Qadri",
+    "given": "Adnan Mateen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3980-3292",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Kanpur  Kanpur India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Singh",
+    "given": "Gyanesh Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Kanpur  Kanpur India"
+     }
+    ],
+    "family": "Gupta",
+    "given": "Tarun",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0344-9965",
+    "affiliation": [
+     {
+      "name": "Department of Civil and Environmental Engineering Birla Institute of Technology Mesra  Ranchi India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Dhandapani",
+    "given": "Abisheg",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5514-2511",
+    "affiliation": [
+     {
+      "name": "Department of Civil and Environmental Engineering Birla Institute of Technology Mesra  Ranchi India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Kumar",
+    "given": "R. Naresh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Bose Institute  Darjeeling India"
+     }
+    ],
+    "family": "Mukherjee",
+    "given": "Sauryadeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Bose Institute  Darjeeling India"
+     }
+    ],
+    "family": "Chatterjee",
+    "given": "Abhijit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Coal &amp; Energy Group Materials Science and Technology Division CSIR‐North East Institute of Science &amp; Technology  Jorhat India"
+     }
+    ],
+    "family": "Rabha",
+    "given": "Shahadev",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Coal &amp; Energy Group Materials Science and Technology Division CSIR‐North East Institute of Science &amp; Technology  Jorhat India"
+     }
+    ],
+    "family": "Saikia",
+    "given": "Binoy K.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Coal &amp; Energy Group Materials Science and Technology Division CSIR‐North East Institute of Science &amp; Technology  Jorhat India"
+     }
+    ],
+    "family": "Saikia",
+    "given": "Prasenjit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centre for Atmospheric Sciences Indian Institute of Technology Delhi  New Delhi India"
+     }
+    ],
+    "family": "Ganguly",
+    "given": "Dilip",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Mohali  Mohali India"
+     }
+    ],
+    "family": "Chaudhary",
+    "given": "Pooja",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-8614-7473",
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences Indian Institute of Science Education and Research Mohali  Mohali India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sinha",
+    "given": "Baerbel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-0779-2827",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Delhi  New Delhi India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Roy",
+    "given": "Sayantee",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Hyderabad  Hyderabad India"
+     }
+    ],
+    "family": "Muthalagu",
+    "given": "Akila",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3329-0166",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Hyderabad  Hyderabad India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Qureshi",
+    "given": "Asif",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1249-2722",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Tropical Meteorology Pune  Pune India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Lian",
+    "given": "Yang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-7324-3773",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Tropical Meteorology Pune  Pune India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pandithurai",
+    "given": "Govindan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Environmental Engineering SJCE JSS Science and Technology University  Mysuru India"
+     }
+    ],
+    "family": "Prasad",
+    "given": "Laxmi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-8357-0839",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Engineering SJCE JSS Science and Technology University  Mysuru India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Murthy",
+    "given": "Sadashiva",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5583-5502",
+    "affiliation": [
+     {
+      "name": "Maharshi Dayanand University  Rohtak India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Duhan",
+    "given": "Sandeep Singh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-5717-9089",
+    "affiliation": [
+     {
+      "name": "Maharshi Dayanand University  Rohtak India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Laura",
+    "given": "Jitender S.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Maharaja Ganga Singh University  Bikaner India"
+     }
+    ],
+    "family": "Chhangani",
+    "given": "Anil Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0007-3970-7467",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Science University of Kashmir  Srinagar India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Najar",
+    "given": "Tanveer Ahmad",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4877-609X",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Science University of Kashmir  Srinagar India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Jehangir",
+    "given": "Arshid",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3218-0600",
+    "affiliation": [
+     {
+      "name": "National Atmospheric Research Laboratory  Tirupati India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Kesarkar",
+    "given": "Amit P.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "National Atmospheric Research Laboratory  Tirupati India"
+     }
+    ],
+    "family": "Singh",
+    "given": "Vikas",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Geophysical Research: Atmospheres"
+  ],
+  "issue": "14",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     7,
+     20
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     7,
+     20
+    ]
+   ]
+  },
+  "publisher": "American Geophysical Union (AGU)",
+  "title": [
+   "Drivers of PM<sub>2.5</sub> Episodes and Exceedance in India: A Synthesis From the COALESCE Network"
+  ],
+  "type": "journal-article",
+  "volume": "129"
+ },
+ "10.1038/s41467-023-42709-1": {
+  "DOI": "10.1038/s41467-023-42709-1",
+  "ISSN": [
+   "2041-1723"
+  ],
+  "URL": "https://doi.org/10.1038/s41467-023-42709-1",
+  "article-number": "6955",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-8733-3531",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Chaudhary",
+    "given": "Ekta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "George",
+    "given": "Franciosalgeo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Saji",
+    "given": "Aswathi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-0604-0869",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Dey",
+    "given": "Sagnik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9373-9570",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ghosh",
+    "given": "Santu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1786-6076",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Thomas",
+    "given": "Tinku",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-7998-2438",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Kurpad",
+    "given": "Anura. V.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Sumit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5085-3269",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Singh",
+    "given": "Nimish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Agarwal",
+    "given": "Shivang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mehta",
+    "given": "Unnati",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Nature Communications"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2023,
+     10,
+     31
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2023,
+     10,
+     31
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Cumulative effect of PM2.5 components is larger than the effect of PM2.5 mass on child health in India"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.1038/s41467-026-77148-1": {
+  "DOI": "10.1038/s41467-026-77148-1",
+  "ISSN": [
+   "2041-1723"
+  ],
+  "URL": "https://doi.org/10.1038/s41467-026-77148-1",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-4352-4926",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Agrawal",
+    "given": "Navdeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Godhani",
+    "given": "Nimit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4600-2226",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Chowdhury",
+    "given": "Sourangsu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6889-5603",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Anandh",
+    "given": "P. C.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4078-7322",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Kumar",
+    "given": "Anil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rai",
+    "given": "Piyush",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6402-4680",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Tripathi",
+    "given": "Sachchida Nand",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Nature Communications"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     2
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     2
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Unveiling hidden air pollution exposure and impacts with low-cost sensor network-based frameworks"
+  ],
+  "type": "journal-article"
+ },
+ "10.1038/s41467-026-78349-4": {
+  "DOI": "10.1038/s41467-026-78349-4",
+  "ISSN": [
+   "2041-1723"
+  ],
+  "URL": "https://doi.org/10.1038/s41467-026-78349-4",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0001-0033-1163",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Li",
+    "given": "Xuan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4350-0892",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ye",
+    "given": "Can",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dong",
+    "given": "Huabin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Xu",
+    "given": "Xuezhen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6161-1874",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Wang",
+    "given": "Haichao",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0001-6434-6946",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Chen",
+    "given": "Xiaorui",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3808-1964",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Tan",
+    "given": "Zhaofeng",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ma",
+    "given": "Xuefei",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chen",
+    "given": "Shiyi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-9425-9520",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Lu",
+    "given": "Keding",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4927-9685",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Zhang",
+    "given": "Yuanhang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Nature Communications"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     10
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     10
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Long-term nitrous acid evolution modulates ozone and secondary aerosol variations in global megacities"
+  ],
+  "type": "journal-article"
+ },
+ "10.1038/s41598-023-51140-x": {
+  "DOI": "10.1038/s41598-023-51140-x",
+  "ISSN": [
+   "2045-2322"
+  ],
+  "URL": "https://doi.org/10.1038/s41598-023-51140-x",
+  "article-number": "986",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Nirwan",
+    "given": "Nirwan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Siddiqui",
+    "given": "Asfa",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kannemadugu",
+    "given": "Hareef baba shaeb",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chauhan",
+    "given": "Prakash",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "R. P.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Scientific Reports"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     1,
+     10
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     1,
+     10
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Determining hotspots of gaseous criteria air pollutants in Delhi airshed and its association with stubble burning"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.1038/s41598-024-71269-7": {
+  "DOI": "10.1038/s41598-024-71269-7",
+  "ISSN": [
+   "2045-2322"
+  ],
+  "URL": "https://doi.org/10.1038/s41598-024-71269-7",
+  "article-number": "20412",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Rautela",
+    "given": "Kuldeep Singh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Goyal",
+    "given": "Manish Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Scientific Reports"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     9,
+     2
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     9,
+     2
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Transforming air pollution management in India with AI and machine learning technologies"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.1038/s41598-025-26663-0": {
+  "DOI": "10.1038/s41598-025-26663-0",
+  "ISSN": [
+   "2045-2322"
+  ],
+  "URL": "https://doi.org/10.1038/s41598-025-26663-0",
+  "article-number": "42601",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Amrendra Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Pathak",
+    "given": "Ashutosh Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Saini",
+    "given": "Gaurav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Scientific Reports"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     11,
+     28
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     11,
+     28
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Respiratory deposition of particulate matter in Delhi: a five-year assessment of exposure patterns and health risks"
+  ],
+  "type": "journal-article",
+  "volume": "15"
+ },
+ "10.1038/s41598-026-60752-y": {
+  "DOI": "10.1038/s41598-026-60752-y",
+  "ISSN": [
+   "2045-2322"
+  ],
+  "URL": "https://doi.org/10.1038/s41598-026-60752-y",
+  "article-number": "31194",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-2995-0216",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Kumar",
+    "given": "Munish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-7761-0603",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Sihag",
+    "given": "Parveen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-8376-9020",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Vambol",
+    "given": "Sergij",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Scientific Reports"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     7
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     7
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Forecasting ambient PM2.5 and PM10 concentrations in Hisar City through machine learning"
+  ],
+  "type": "journal-article",
+  "volume": "16"
+ },
+ "10.1038/s41598-026-61453-2": {
+  "DOI": "10.1038/s41598-026-61453-2",
+  "ISSN": [
+   "2045-2322"
+  ],
+  "URL": "https://doi.org/10.1038/s41598-026-61453-2",
+  "article-number": "31394",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Ali",
+    "given": "Mudassir",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Sameer",
+    "given": "Ahmed",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-7065-8535",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Izhar",
+    "given": "Saifi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Scientific Reports"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     8
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     8
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Evaluation of low-cost sensors for size-resolved indoor particle monitoring"
+  ],
+  "type": "journal-article",
+  "volume": "16"
+ },
+ "10.1038/s41612-025-00941-0": {
+  "DOI": "10.1038/s41612-025-00941-0",
+  "ISSN": [
+   "2397-3722"
+  ],
+  "URL": "https://doi.org/10.1038/s41612-025-00941-0",
+  "article-number": "54",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Xu",
+    "given": "Chenyang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Xia",
+    "given": "Kaiming",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Huang",
+    "given": "Zhehan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Qu",
+    "given": "John J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Ashbindu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ye",
+    "given": "Ziqian",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Li",
+    "given": "Qingquan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Xia",
+    "given": "Jizhe",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Climate and Atmospheric Science"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     2,
+     17
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     2,
+     17
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Global PM2.5 exposures and inequalities"
+  ],
+  "type": "journal-article",
+  "volume": "8"
+ },
+ "10.1038/s41612-025-01216-4": {
+  "DOI": "10.1038/s41612-025-01216-4",
+  "ISSN": [
+   "2397-3722"
+  ],
+  "URL": "https://doi.org/10.1038/s41612-025-01216-4",
+  "article-number": "335",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Bagkis",
+    "given": "Evangelos",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Hassani",
+    "given": "Amirhossein",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Schneider",
+    "given": "Philipp",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "DeSouza",
+    "given": "Priyanka",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shetty",
+    "given": "Shobitha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kassandros",
+    "given": "Theodosios",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Salamalikis",
+    "given": "Vasileios",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Castell",
+    "given": "Núria",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Karatzas",
+    "given": "Kostas",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ahlawat",
+    "given": "Ajit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Khan",
+    "given": "Jibran",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Climate and Atmospheric Science"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     10,
+     2
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     10,
+     2
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Evolving trends in application of low-cost air quality sensor networks: challenges and future directions"
+  ],
+  "type": "journal-article",
+  "volume": "8"
+ },
+ "10.1038/s44407-026-00098-x": {
+  "DOI": "10.1038/s44407-026-00098-x",
+  "ISSN": [
+   "3059-2240"
+  ],
+  "URL": "https://doi.org/10.1038/s44407-026-00098-x",
+  "article-number": "55",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Ediagbonya",
+    "given": "Thompson Faraday",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Ashikodi",
+    "given": "Marian Onyemaechi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Akpojivi",
+    "given": "Ochuko Vincent",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Oziegbe",
+    "given": "Friday Elumah",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mbabazi",
+    "given": "Aline Françoise",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nzayisenga",
+    "given": "Isaac",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Clean Air"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     2
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     2
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Black carbon in urban atmospheres: source apportionment, mixing states, and implications for climate and respiratory health"
+  ],
+  "type": "journal-article",
+  "volume": "2"
+ },
+ "10.1038/s44407-026-00099-w": {
+  "DOI": "10.1038/s44407-026-00099-w",
+  "ISSN": [
+   "3059-2240"
+  ],
+  "URL": "https://doi.org/10.1038/s44407-026-00099-w",
+  "article-number": "56",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Pandey",
+    "given": "Anjanay",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Vikram",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ali",
+    "given": "Umer",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Faisal",
+    "given": "Mohd",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Ajit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Goel",
+    "given": "Vikas",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Hao",
+    "given": "Yufang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mor",
+    "given": "Suman",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ravindra",
+    "given": "Khaiwal",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Daellenbach",
+    "given": "Kaspar R.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prévôt",
+    "given": "André S. H.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Mayank",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Clean Air"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     15
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     15
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Near-source emission profiling of post-monsoon crop residue fires in N-W India"
+  ],
+  "type": "journal-article",
+  "volume": "2"
+ },
+ "10.1038/s44407-026-00105-1": {
+  "DOI": "10.1038/s44407-026-00105-1",
+  "ISSN": [
+   "3059-2240"
+  ],
+  "URL": "https://doi.org/10.1038/s44407-026-00105-1",
+  "article-number": "62",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Wang",
+    "given": "Yuting",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Brasseur",
+    "given": "Guy",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Clean Air"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     1
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     1
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "From air quality forecasting to integrated and intelligent urban prediction systems"
+  ],
+  "type": "journal-article",
+  "volume": "2"
+ },
+ "10.1038/s44407-026-00108-y": {
+  "DOI": "10.1038/s44407-026-00108-y",
+  "ISSN": [
+   "3059-2240"
+  ],
+  "URL": "https://doi.org/10.1038/s44407-026-00108-y",
+  "article-number": "63",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Li",
+    "given": "Shouxiu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhang",
+    "given": "Junxi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0288-5618",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Chen",
+    "given": "Deliang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Bell",
+    "given": "Michelle L.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1871-8999",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Kan",
+    "given": "Haidong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Liu",
+    "given": "Yang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6569-9842",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Zhang",
+    "given": "Shaoqing",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Guo",
+    "given": "Yuming",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gong",
+    "given": "Xun",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kou",
+    "given": "Wenbin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Guo",
+    "given": "Xiuwen",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Yao",
+    "given": "Xiaohong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gao",
+    "given": "Huiwang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6444-6544",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Gao",
+    "given": "Yang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Clean Air"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     1
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     1
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Population aging reshapes the projected composition of future global PM2.5-attributable mortality"
+  ],
+  "type": "journal-article",
+  "volume": "2"
+ },
+ "10.1073/pnas.1900888116": {
+  "DOI": "10.1073/pnas.1900888116",
+  "ISSN": [
+   "0027-8424",
+   "1091-6490"
+  ],
+  "URL": "https://doi.org/10.1073/pnas.1900888116",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Centre for Atmospheric Sciences, Indian Institute of Technology Delhi, New Delhi 110016, India;"
+     },
+     {
+      "name": "School of Public Health, University of California, Berkeley, CA 94720-7360;"
+     }
+    ],
+    "family": "Chowdhury",
+    "given": "Sourangsu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centre for Atmospheric Sciences, Indian Institute of Technology Delhi, New Delhi 110016, India;"
+     },
+     {
+      "name": "School of Public Policy, Indian Institute of Technology Delhi, New Delhi 110016, India;"
+     }
+    ],
+    "family": "Dey",
+    "given": "Sagnik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Urban Emissions, New Delhi 110019, India;"
+     }
+    ],
+    "family": "Guttikunda",
+    "given": "Sarath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Public Health, University of California, Berkeley, CA 94720-7360;"
+     }
+    ],
+    "family": "Pillarisetti",
+    "given": "Ajay",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-0439-1120",
+    "affiliation": [
+     {
+      "name": "School of Public Health, University of California, Berkeley, CA 94720-7360;"
+     },
+     {
+      "name": "Collaborative Clean Air Policy Centre, Delhi 110003, India;"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Smith",
+    "given": "Kirk R.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Atmospheric Sciences, University of Illinois at Urbana–Champaign, Urbana, IL 61801"
+     }
+    ],
+    "family": "Di Girolamo",
+    "given": "Larry",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Proceedings of the National Academy of Sciences"
+  ],
+  "issue": "22",
+  "issued": {
+   "date-parts": [
+    [
+     2019,
+     4,
+     15
+    ]
+   ]
+  },
+  "page": "10711-10716",
+  "published": {
+   "date-parts": [
+    [
+     2019,
+     4,
+     15
+    ]
+   ]
+  },
+  "publisher": "National Academy of Sciences",
+  "title": [
+   "Indian annual ambient air quality standard is achievable by completely mitigating emissions from household sources"
+  ],
+  "type": "journal-article",
+  "volume": "116"
+ },
+ "10.1088/1748-9326/ad1c7a": {
+  "DOI": "10.1088/1748-9326/ad1c7a",
+  "ISSN": [
+   "1748-9326"
+  ],
+  "URL": "https://doi.org/10.1088/1748-9326/ad1c7a",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-7117-170X",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Peshin",
+    "given": "Tapas",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Sengupta",
+    "given": "Shayak",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-2205-3333",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Thakrar",
+    "given": "Sumil K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Kirat",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-7609-6713",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Hill",
+    "given": "Jason",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Apte",
+    "given": "Joshua S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Tessum",
+    "given": "Christopher W",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Marshall",
+    "given": "Julian D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4755-8656",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Azevedo",
+    "given": "Inês M L",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Research Letters"
+  ],
+  "issue": "2",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     1,
+     19
+    ]
+   ]
+  },
+  "page": "024015",
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     1,
+     19
+    ]
+   ]
+  },
+  "publisher": "IOP Publishing",
+  "title": [
+   "Air quality, health, and equity impacts of vehicle electrification in India"
+  ],
+  "type": "journal-article",
+  "volume": "19"
+ },
+ "10.1088/1748-9326/adccdd": {
+  "DOI": "10.1088/1748-9326/adccdd",
+  "ISSN": [
+   "1748-9326"
+  ],
+  "URL": "https://doi.org/10.1088/1748-9326/adccdd",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-6398-2513",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Menon",
+    "given": "Jyothi S",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Mandal",
+    "given": "Siddhartha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ali",
+    "given": "Mohammed K",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Deepa",
+    "given": "Mohan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-5038-6210",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Mohan",
+    "given": "Viswanathan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Schwartz",
+    "given": "Joel D",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Prabhakaran",
+    "given": "Dorairaj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3134-7026",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Prabhakaran",
+    "given": "Poornima",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "name": "GeoHealth Hub Study Investigators",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "name": "CoE-CARRS Study Investigators",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Research Letters"
+  ],
+  "issue": "5",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     4,
+     29
+    ]
+   ]
+  },
+  "page": "054063",
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     4,
+     29
+    ]
+   ]
+  },
+  "publisher": "IOP Publishing",
+  "title": [
+   "The role of neighborhood and household level socio-economic status in determining air pollution exposure in two Indian cities"
+  ],
+  "type": "journal-article",
+  "volume": "20"
+ },
+ "10.1088/1748-9326/aeb03a": {
+  "DOI": "10.1088/1748-9326/aeb03a",
+  "ISSN": [
+   "1748-9326"
+  ],
+  "URL": "https://doi.org/10.1088/1748-9326/aeb03a",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0009-0665-6362",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Roorkee"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Agarwal",
+    "given": "Anu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Kanors Energy Modelling and Research"
+     }
+    ],
+    "family": "Kanudia",
+    "given": "Amit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3636-2858",
+    "affiliation": [
+     {
+      "name": "Indian Institute of Technology Roorkee"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sharma",
+    "given": "Tarun",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Research Letters"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     5
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     5
+    ]
+   ]
+  },
+  "publisher": "IOP Publishing",
+  "title": [
+   "Lithium Constraints on India’s Transport Electrification: System-Level Impacts and Policy Implications for the Net-Zero Transition"
+  ],
+  "type": "journal-article"
+ },
+ "10.1088/2515-7620/ae02ef": {
+  "DOI": "10.1088/2515-7620/ae02ef",
+  "ISSN": [
+   "2515-7620"
+  ],
+  "URL": "https://doi.org/10.1088/2515-7620/ae02ef",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-5053-9405",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ilenič",
+    "given": "Anja",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9822-7806",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Mauko Pranjić",
+    "given": "Alenka",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-8018-1715",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Ščančar",
+    "given": "Janez",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5751-4059",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Ščančar",
+    "given": "Radmila Milačič",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-2462-4411",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Kumar",
+    "given": "Prashant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Research Communications"
+  ],
+  "issue": "9",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     9,
+     1
+    ]
+   ]
+  },
+  "page": "095007",
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     9,
+     1
+    ]
+   ]
+  },
+  "publisher": "IOP Publishing",
+  "title": [
+   "Can low-cost sensors (LCS) enhance air quality monitoring for personal pollution exposure assessment?"
+  ],
+  "type": "journal-article",
+  "volume": "7"
+ },
+ "10.1088/2515-7620/ae9682": {
+  "DOI": "10.1088/2515-7620/ae9682",
+  "ISSN": [
+   "2515-7620"
+  ],
+  "URL": "https://doi.org/10.1088/2515-7620/ae9682",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0008-5061-2677",
+    "affiliation": [
+     {
+      "name": "McMaster University"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Parikh",
+    "given": "Mann",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0006-5399-4282",
+    "affiliation": [
+     {
+      "name": "McMaster University"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Kosmala",
+    "given": "Olivia",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3277-425X",
+    "affiliation": [
+     {
+      "name": "McMaster University"
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Khetan",
+    "given": "Aditya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Research Communications"
+  ],
+  "issue": "8",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     8,
+     1
+    ]
+   ]
+  },
+  "page": "082502",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     8,
+     1
+    ]
+   ]
+  },
+  "publisher": "IOP Publishing",
+  "title": [
+   "Transitioning to cooking with electricity in India for improved health and environmental outcomes: a framework"
+  ],
+  "type": "journal-article",
+  "volume": "8"
+ },
+ "10.1126/sciadv.adq1071": {
+  "DOI": "10.1126/sciadv.adq1071",
+  "ISSN": [
+   "2375-2548"
+  ],
+  "URL": "https://doi.org/10.1126/sciadv.adq1071",
+  "article-number": "eadq1071",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0003-4054-1111",
+    "affiliation": [
+     {
+      "name": "Emmett Interdisciplinary Program in Environment and Resources, Stanford University, Stanford, CA, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Kawano",
+    "given": "Ayako",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0451-3439",
+    "affiliation": [
+     {
+      "name": "Department of Earth System Science, Stanford University, Stanford, CA, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Kelp",
+    "given": "Makoto",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Marine and Atmospheric Sciences, Stony Brook University, Stony Brook, NY, USA."
+     },
+     {
+      "name": "Program in Public Health, Stony Brook University, Stony Brook, NY, USA."
+     }
+    ],
+    "family": "Qiu",
+    "given": "Minghao",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5643-7362",
+    "affiliation": [
+     {
+      "name": "Emmett Interdisciplinary Program in Environment and Resources, Stanford University, Stanford, CA, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Singh",
+    "given": "Kirat",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Emmett Interdisciplinary Program in Environment and Resources, Stanford University, Stanford, CA, USA."
+     }
+    ],
+    "family": "Chaturvedi",
+    "given": "Eeshan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3404-0081",
+    "affiliation": [
+     {
+      "name": "Centre for Research on Energy and Clean Air, New Delhi, Delhi, India."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Dahiya",
+    "given": "Sunil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4755-8656",
+    "affiliation": [
+     {
+      "name": "Department of Energy Science and Engineering, Stanford University, Stanford, CA, USA."
+     },
+     {
+      "name": "Woods Institute for the Environment, Stanford University, Stanford, CA, USA."
+     },
+     {
+      "name": "Precout Institute for Energy, Stanford University, Stanford, CA, USA."
+     },
+     {
+      "name": "Visiting Professor, Nova School of Business and Economics, Lisbon, Portugal."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Azevedo",
+    "given": "Inés",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4288-5858",
+    "affiliation": [
+     {
+      "name": "Doerr School of Sustainability, Stanford University, Stanford, CA, USA."
+     },
+     {
+      "name": "Center on Food Security and the Environment, Stanford University, Stanford, CA, USA."
+     },
+     {
+      "name": "National Bureau of Economic Research, Cambridge, MA, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Burke",
+    "given": "Marshall",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Science Advances"
+  ],
+  "issue": "4",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     1,
+     24
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     1,
+     24
+    ]
+   ]
+  },
+  "publisher": "American Association for the Advancement of Science (AAAS)",
+  "title": [
+   "Improved daily PM\n                    <sub>2.5</sub>\n                    estimates in India reveal inequalities in recent enhancement of air quality"
+  ],
+  "type": "journal-article",
+  "volume": "11"
+ },
+ "10.1126/sciadv.aee4549": {
+  "DOI": "10.1126/sciadv.aee4549",
+  "ISSN": [
+   "2375-2548"
+  ],
+  "URL": "https://doi.org/10.1126/sciadv.aee4549",
+  "article-number": "eaee4549",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-5966-0482",
+    "affiliation": [
+     {
+      "name": "Center for Policy Research on Energy and Environment, School of Public and International Affairs, Princeton University, Princeton, NJ, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Xie",
+    "given": "Yuanyu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-1480-3755",
+    "affiliation": [
+     {
+      "name": "Department of Meteorology, University of Reading, Reading, UK."
+     },
+     {
+      "name": "National Centre for Atmospheric Sciences, University of Reading, Reading, UK."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Hunt",
+    "given": "Kieran M. R.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Center for Policy Research on Energy and Environment, School of Public and International Affairs, Princeton University, Princeton, NJ, USA."
+     }
+    ],
+    "family": "Gupta",
+    "given": "Rohit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Center for Policy Research on Energy and Environment, School of Public and International Affairs, Princeton University, Princeton, NJ, USA."
+     }
+    ],
+    "family": "Goswami",
+    "given": "Gargee",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-8600-1503",
+    "affiliation": [
+     {
+      "name": "Department of Civil and Environmental Engineering, Princeton University, Princeton, NJ, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Zhou",
+    "given": "Mi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5662-5435",
+    "affiliation": [
+     {
+      "name": "Department of Earth System Science, Ministry of Education Key Laboratory for Earth System Modeling, Institute for Global Change Studies, Tsinghua University, Beijing, China."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Dong",
+    "given": "Wenhao",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3479-1798",
+    "affiliation": [
+     {
+      "name": "Center for Policy Research on Energy and Environment, School of Public and International Affairs, Princeton University, Princeton, NJ, USA."
+     },
+     {
+      "name": "Department of Civil and Environmental Engineering, Princeton University, Princeton, NJ, USA."
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Mauzerall",
+    "given": "Denise L.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Science Advances"
+  ],
+  "issue": "37",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     11
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     11
+    ]
+   ]
+  },
+  "publisher": "American Association for the Advancement of Science (AAAS)",
+  "title": [
+   "Seasonal predictability of winter PM\n                    <sub>2.5</sub>\n                    pollution severity in India through a strong pollution–extratropical storm connection"
+  ],
+  "type": "journal-article",
+  "volume": "12"
+ },
+ "10.1186/s12889-026-28270-8": {
+  "DOI": "10.1186/s12889-026-28270-8",
+  "ISSN": [
+   "1471-2458"
+  ],
+  "URL": "https://doi.org/10.1186/s12889-026-28270-8",
+  "article-number": "2665",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Muruganantham",
+    "given": "Palanivelan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "T S",
+    "given": "Veeragoudhaman",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0003-4134-9938",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ubaithullah",
+    "given": "Aabitha Banu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Jayaraman",
+    "given": "Niveditha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sethuraman",
+    "given": "Sivaranjani",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Arasu",
+    "given": "Vinitha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ravichandran",
+    "given": "Hariharasudhan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Janakiraman",
+    "given": "Balamurugan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "BMC Public Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     3
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     3
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Occupational exposure to air pollution and respiratory health among urban street vendors in South India"
+  ],
+  "type": "journal-article",
+  "volume": "26"
+ },
+ "10.3389/fclim.2026.1855755": {
+  "DOI": "10.3389/fclim.2026.1855755",
+  "ISSN": [
+   "2624-9553"
+  ],
+  "URL": "https://doi.org/10.3389/fclim.2026.1855755",
+  "article-number": "1855755",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Department of Computer Science and Engineering, ITS Engineering College",
+      "place": [
+       "Greater Noida, India"
+      ]
+     }
+    ],
+    "family": "Gupta",
+    "given": "Vinayak",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of CSE (AI & ML), Krishna Institute of Engineering & Technology (KIET), KIET Deemed to be University",
+      "place": [
+       "Ghaziabad, Uttar Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Dash",
+    "given": "Yajnaseni",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "SCSET, Bennett University",
+      "place": [
+       "Greater Noida, Uttar Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Goyal",
+    "given": "Ankush",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Earth and Environmental Sciences (MGeo), Lund University",
+      "place": [
+       "Lund, Sweden"
+      ]
+     },
+     {
+      "name": "National Centre for Medium Range Weather Forecasting (NCMRWF), Ministry of Earth Sciences",
+      "place": [
+       "Noida, India"
+      ]
+     }
+    ],
+    "family": "Lodh",
+    "given": "Abhishek",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Institute of Tropical Meteorology, Ministry of Earth Sciences",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Singh",
+    "given": "Vivek",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "National Centre for Medium Range Weather Forecasting (NCMRWF), Ministry of Earth Sciences",
+      "place": [
+       "Noida, India"
+      ]
+     }
+    ],
+    "family": "Routray",
+    "given": "Ashish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Physics, School of Physical & Biological Sciences, Faculty of Science, Technology & Architecture, Manipal University Jaipur",
+      "place": [
+       "Jaipur, India"
+      ]
+     }
+    ],
+    "family": "Kumar",
+    "given": "Pradeep",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Climate"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     7
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     7,
+     7
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "A BiLSTM-driven framework for operational PM2.5 forecasting: integrating meteorological kinematics for urban air quality management"
+  ],
+  "type": "journal-article",
+  "volume": "8"
+ },
+ "10.3389/fenvs.2026.1960286": {
+  "DOI": "10.3389/fenvs.2026.1960286",
+  "ISSN": [
+   "2296-665X"
+  ],
+  "URL": "https://doi.org/10.3389/fenvs.2026.1960286",
+  "article-number": "1960286",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Department of Mathematics, School of Advanced Sciences, Vellore Institute of Technology",
+      "place": [
+       "Vellore, India"
+      ]
+     }
+    ],
+    "family": "GK",
+    "given": "Muni Lakshmi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Mathematics, School of Advanced Sciences, Vellore Institute of Technology",
+      "place": [
+       "Vellore, India"
+      ]
+     }
+    ],
+    "family": "G",
+    "given": "Mokesh Rayalu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Environmental Science"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     29
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     29
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "A hybrid VMD-transformer -BiLSTM framework for daily PM2.5 concentration forecasting in Delhi, India"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.3389/ffutr.2026.1964066": {
+  "DOI": "10.3389/ffutr.2026.1964066",
+  "ISSN": [
+   "2673-5210"
+  ],
+  "URL": "https://doi.org/10.3389/ffutr.2026.1964066",
+  "article-number": "1964066",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigaciones en Física e Ingeniería Del Centro de La Provincia de Buenos Aires (CONICET - UNCPBA - CICPBA)",
+      "place": [
+       "Tandil, Argentina"
+      ]
+     }
+    ],
+    "family": "Stadler",
+    "given": "Carla Sofía",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigaciones en Física e Ingeniería Del Centro de La Provincia de Buenos Aires (CONICET - UNCPBA - CICPBA)",
+      "place": [
+       "Tandil, Argentina"
+      ]
+     }
+    ],
+    "family": "Peña Moules",
+    "given": "Manuel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigaciones Del Medio Ambiente (CONICET - UNLP)",
+      "place": [
+       "La Plata, Argentina"
+      ]
+     }
+    ],
+    "family": "Badura",
+    "given": "Brenda Estefanía",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigaciones Del Medio Ambiente (CONICET - UNLP)",
+      "place": [
+       "La Plata, Argentina"
+      ]
+     }
+    ],
+    "family": "Giuliani",
+    "given": "Daniela Silvana",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigaciones en Física e Ingeniería Del Centro de La Provincia de Buenos Aires (CONICET - UNCPBA - CICPBA)",
+      "place": [
+       "Tandil, Argentina"
+      ]
+     }
+    ],
+    "family": "Sanchez",
+    "given": "Erica Yanina",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigaciones Del Medio Ambiente (CONICET - UNLP)",
+      "place": [
+       "La Plata, Argentina"
+      ]
+     }
+    ],
+    "family": "Porta",
+    "given": "Atilio Andrés",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centro de Investigación y Desarrollo en Ciencias Aplicadas “Jorge J. Ronco” (CONICET - UNLP - CICPBA)",
+      "place": [
+       "La Plata, Argentina"
+      ]
+     },
+     {
+      "name": "Universidad Nacional Arturo Jauretche (UNAJ)",
+      "place": [
+       "Florencio Varela, Argentina"
+      ]
+     }
+    ],
+    "family": "Colman Lerner",
+    "given": "Jorge Esteban",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Future Transportation"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     7
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     7
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "A semi-quantitative decision matrix for Polycyclic aromatic hydrocarbons source apportionment to support sustainable urban transport and air quality management"
+  ],
+  "type": "journal-article",
+  "volume": "7"
+ },
+ "10.3389/fmed.2026.1969759": {
+  "DOI": "10.3389/fmed.2026.1969759",
+  "ISSN": [
+   "2296-858X"
+  ],
+  "URL": "https://doi.org/10.3389/fmed.2026.1969759",
+  "article-number": "1969759",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Department of Cataract, Lanzhou Aier Eye Hospital",
+      "place": [
+       "Lanzhou, China"
+      ]
+     }
+    ],
+    "family": "Zhang",
+    "given": "Bin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Glaucoma, Lanzhou Aier Eye Hospital",
+      "place": [
+       "Lanzhou, China"
+      ]
+     }
+    ],
+    "family": "Xu",
+    "given": "Bing",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Nursing and Midwifery, Mazandaran University of Medical Sciences",
+      "place": [
+       "Sari, Iran"
+      ]
+     }
+    ],
+    "family": "Pakdaman",
+    "given": "Kasra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Medicine"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     1
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     1
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Air pollution exposure and cataract outcomes: a systematic review and pollutant-specific meta-analysis"
+  ],
+  "type": "journal-article",
+  "volume": "13"
+ },
+ "10.3389/fpubh.2026.1834285": {
+  "DOI": "10.3389/fpubh.2026.1834285",
+  "ISSN": [
+   "2296-2565"
+  ],
+  "URL": "https://doi.org/10.3389/fpubh.2026.1834285",
+  "article-number": "1834285",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "ICMR–National Institute for Research in Environmental Health",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     },
+     {
+      "name": "Department of Microbiology, Barkatullah Vishwavidyalaya",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Kriti",
+    "given": "Mona",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR–National Institute for Research in Environmental Health",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Ojha",
+    "given": "Raj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR–National Institute for Research in Environmental Health",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Singh",
+    "given": "Samradhi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR–National Institute for Research in Environmental Health",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Sarma",
+    "given": "Devojit Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Stem Cell Research Centre, Department of Hematology, Sanjay Gandhi Post-Graduate Institute of Medical Sciences",
+      "place": [
+       "Lucknow, Uttar Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Verma",
+    "given": "Vinod",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Biological Sciences, Indian Institute of Science Education and Research Bhopal (IISERB)",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Kumawat",
+    "given": "Manoj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Microbiology, Barkatullah Vishwavidyalaya",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Tilwari",
+    "given": "Anita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR–National Institute for Research in Environmental Health",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Tiwari",
+    "given": "Rajnarayan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR–National Institute for Research in Environmental Health",
+      "place": [
+       "Bhopal, Madhya Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Kumar",
+    "given": "Manoj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Public Health"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     14
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     14
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Ecological associations between ambient air pollution, gut microbiome composition, and metabolic markers in urban populations of central India"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.3389/fpubh.2026.1945362": {
+  "DOI": "10.3389/fpubh.2026.1945362",
+  "ISSN": [
+   "2296-2565"
+  ],
+  "URL": "https://doi.org/10.3389/fpubh.2026.1945362",
+  "article-number": "1945362",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Indian Council of Medical Research, ICMR Headquarters",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Mahawar",
+    "given": "Charu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Council of Medical Research, ICMR Headquarters",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Sasidharan",
+    "given": "Sivakumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Council of Medical Research, ICMR Headquarters",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Singh",
+    "given": "Vikram",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "National Institute for Research in Environmental Health, Indian Council of Medical Research",
+      "place": [
+       "Bhopal, India"
+      ]
+     }
+    ],
+    "family": "Kumar",
+    "given": "Manoj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Council of Medical Research, ICMR Headquarters",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Parmar",
+    "given": "Neeraj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Council of Medical Research, ICMR Headquarters",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Pati",
+    "given": "Sanghamitra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Indian Council of Medical Research, ICMR Headquarters",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Aggarwal",
+    "given": "Sumit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Public Health"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     30
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     30
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Prediction accuracy of available early warning systems for air pollution across WHO South-East Asia region: a systematic review"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.3389/frsc.2021.648551": {
+  "DOI": "10.3389/frsc.2021.648551",
+  "ISSN": [
+   "2624-9634"
+  ],
+  "URL": "https://doi.org/10.3389/frsc.2021.648551",
+  "article-number": "648551",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Bangar",
+    "given": "Vaibhav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Mishra",
+    "given": "Amit Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Jangid",
+    "given": "Manish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rajput",
+    "given": "Prashant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Sustainable Cities"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021,
+     4,
+     12
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2021,
+     4,
+     12
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Elemental Characteristics and Source-Apportionment of PM2.5 During the Post-monsoon Season in Delhi, India"
+  ],
+  "type": "journal-article",
+  "volume": "3"
+ },
+ "10.3390/gases6040047": {
+  "DOI": "10.3390/gases6040047",
+  "ISSN": [
+   "2673-5628"
+  ],
+  "URL": "https://doi.org/10.3390/gases6040047",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0004-6905-4311",
+    "affiliation": [
+     {
+      "name": "School of Civil Engineering, Kalinga Institute of Industrial Technology (KIIT) Deemed to be University, Bhubaneswar 751024, Odisha, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Samal",
+    "given": "Rashmi Ranjan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "formal-analysis",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Civil Engineering, Kalinga Institute of Industrial Technology (KIIT) Deemed to be University, Bhubaneswar 751024, Odisha, India"
+     }
+    ],
+    "family": "Samal",
+    "given": "Satya Ranjan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "formal-analysis",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "project-administration",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6116-782X",
+    "affiliation": [
+     {
+      "name": "School of Civil Engineering, Kalinga Institute of Industrial Technology (KIIT) Deemed to be University, Bhubaneswar 751024, Odisha, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Mohanty",
+    "given": "Malaya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "formal-analysis",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Civil Engineering, Kalinga Institute of Industrial Technology (KIIT) Deemed to be University, Bhubaneswar 751024, Odisha, India"
+     }
+    ],
+    "family": "Pattanaik",
+    "given": "Madhu Lisha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "visualization",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Civil Engineering, Kalinga Institute of Industrial Technology (KIIT) Deemed to be University, Bhubaneswar 751024, Odisha, India"
+     }
+    ],
+    "family": "Samal",
+    "given": "Kundan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "project-administration",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Circular Bioeconomy Research Group, Shannon Applied Biotechnology Centre, Munster Technological University, V92 CX88 Tralee, Ireland"
+     }
+    ],
+    "family": "Nayak",
+    "given": "Jagdeep Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "formal-analysis",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Gases"
+  ],
+  "issue": "4",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     6
+    ]
+   ]
+  },
+  "page": "47",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     6
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Public Transit as a Catalyst for Emission Mitigation and Air Pollution Reduction: A Case Study in India"
+  ],
+  "type": "journal-article",
+  "volume": "6"
+ },
+ "10.3390/su15054209": {
+  "DOI": "10.3390/su15054209",
+  "ISSN": [
+   "2071-1050"
+  ],
+  "URL": "https://doi.org/10.3390/su15054209",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0003-4507-5199",
+    "affiliation": [
+     {
+      "name": "Transportation Research and Injury Prevention (TRIP) Centre, Indian Institute of Technology, New Delhi 110016, India"
+     },
+     {
+      "name": "Urban Emissions, New Delhi 110019, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Guttikunda",
+    "given": "Sarath K.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Urban Emissions, New Delhi 110019, India"
+     }
+    ],
+    "family": "Dammalapati",
+    "given": "Sai Krishna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Earthmetry, Bengaluru 560037, India"
+     }
+    ],
+    "family": "Pradhan",
+    "given": "Gautam",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Centre for Policy Research, New Delhi 110021, India"
+     }
+    ],
+    "family": "Krishna",
+    "given": "Bhargav",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "GESTAR-II, NASA Goddard Space Flight Center, Morgan State University, Greenbelt, MD 21251, USA"
+     }
+    ],
+    "family": "Jethva",
+    "given": "Hiren T.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Urban Emissions, New Delhi 110019, India"
+     }
+    ],
+    "family": "Jawahar",
+    "given": "Puja",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Sustainability"
+  ],
+  "issue": "5",
+  "issued": {
+   "date-parts": [
+    [
+     2023,
+     2,
+     26
+    ]
+   ]
+  },
+  "page": "4209",
+  "published": {
+   "date-parts": [
+    [
+     2023,
+     2,
+     26
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "What Is Polluting Delhi’s Air? A Review from 1990 to 2022"
+  ],
+  "type": "journal-article",
+  "volume": "15"
+ },
+ "10.3390/su18189264": {
+  "DOI": "10.3390/su18189264",
+  "ISSN": [
+   "2071-1050"
+  ],
+  "URL": "https://doi.org/10.3390/su18189264",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Department of Environmental Engineering, College of Energy Environment and Safety Engineering, China Jiliang University, Hangzhou 310018, China"
+     }
+    ],
+    "family": "Tang",
+    "given": "Jinghong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Environmental Engineering, College of Energy Environment and Safety Engineering, China Jiliang University, Hangzhou 310018, China"
+     }
+    ],
+    "family": "Sun",
+    "given": "Youxue",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3669-8490",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Engineering, College of Energy Environment and Safety Engineering, China Jiliang University, Hangzhou 310018, China"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Ding",
+    "given": "Shuo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Sustainability"
+  ],
+  "issue": "18",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     9
+    ]
+   ]
+  },
+  "page": "9264",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     9
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Why Emission Reductions Do Not Yield Proportional Air-Quality Improvements: Atmospheric Nonlinearities and Implications for Sustainable Pollution Control"
+  ],
+  "type": "journal-article",
+  "volume": "18"
+ },
+ "10.5194/acp-24-10279-2024": {
+  "DOI": "10.5194/acp-24-10279-2024",
+  "ISSN": [
+   "1680-7324"
+  ],
+  "URL": "https://doi.org/10.5194/acp-24-10279-2024",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0004-3494-6272",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Awasthi",
+    "given": "Arpit",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-8614-7473",
+    "affiliation": [
+     {
+      "id": [
+       {
+        "asserted-by": "publisher",
+        "id": "https://ror.org/01vztzd79",
+        "id-type": "ROR"
+       }
+      ],
+      "name": "Indian Institute of Science Education and Research Mohali (Mohali, India)"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sinha",
+    "given": "Baerbel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "corresponding-author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Hakkim",
+    "given": "Haseeb",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-7471-0011",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Mishra",
+    "given": "Sachin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mummidivarapu",
+    "given": "Varkrishna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0000-9403-5025",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Singh",
+    "given": "Gurmanjot",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Ghude",
+    "given": "Sachin D.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3880-3613",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Soni",
+    "given": "Vijay Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Nigam",
+    "given": "Narendra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5508-0779",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Sinha",
+    "given": "Vinayak",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rajeevan",
+    "given": "Madhavan N.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Atmospheric Chemistry and Physics"
+  ],
+  "issue": "18",
+  "issued": {
+   "date-parts": [
+    [
+     2024,
+     9,
+     18
+    ]
+   ]
+  },
+  "page": "10279-10304",
+  "published": {
+   "date-parts": [
+    [
+     2024,
+     9,
+     18
+    ]
+   ]
+  },
+  "publisher": "Copernicus GmbH",
+  "title": [
+   "Biomass-burning sources control ambient particulate matter, but traffic and industrial sources control volatile organic compound (VOC) emissions and secondary-pollutant formation during extreme pollution events in Delhi"
+  ],
+  "type": "journal-article",
+  "volume": "24"
+ },
+ "10.5194/amt-16-4357-2023": {
+  "DOI": "10.5194/amt-16-4357-2023",
+  "ISSN": [
+   "1867-8548"
+  ],
+  "URL": "https://doi.org/10.5194/amt-16-4357-2023",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-8614-6470",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Campmier",
+    "given": "Mark Joseph",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Gingrich",
+    "given": "Jonathan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Singh",
+    "given": "Saumya",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Baig",
+    "given": "Nisar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6966-0520",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Gani",
+    "given": "Shahzad",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Upadhya",
+    "given": "Adithi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4298-7854",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Agrawal",
+    "given": "Pratyush",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kushwaha",
+    "given": "Meenakshi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mishra",
+    "given": "Harsh Raj",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pillarisetti",
+    "given": "Ajay",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0400-6584",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Vakacherla",
+    "given": "Sreekanth",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pathak",
+    "given": "Ravi Kant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Apte",
+    "given": "Joshua S.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "corresponding-author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Atmospheric Measurement Techniques"
+  ],
+  "issue": "19",
+  "issued": {
+   "date-parts": [
+    [
+     2023,
+     10,
+     5
+    ]
+   ]
+  },
+  "page": "4357-4374",
+  "published": {
+   "date-parts": [
+    [
+     2023,
+     10,
+     5
+    ]
+   ]
+  },
+  "publisher": "Copernicus GmbH",
+  "title": [
+   "Seasonally optimized calibrations improve low-cost sensor performance: long-term field evaluation of PurpleAir sensors in urban and rural India"
+  ],
+  "type": "journal-article",
+  "volume": "16"
+ },
+ "10.5194/isprs-annals-xii-4-w2-2026-163-2026": {
+  "DOI": "10.5194/isprs-annals-xii-4-w2-2026-163-2026",
+  "ISSN": [
+   "2194-9050"
+  ],
+  "URL": "https://doi.org/10.5194/isprs-annals-xii-4-w2-2026-163-2026",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Perperidou",
+    "given": "Dionysia Georgia Ch.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Potamousis",
+    "given": "Georgios",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences"
+  ],
+  "issue": "0",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     29
+    ]
+   ]
+  },
+  "page": "163-169",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     9,
+     29
+    ]
+   ]
+  },
+  "publisher": "Copernicus GmbH",
+  "title": [
+   "A Multi-Domain Urban Informatics Framework for Ambient Air Pollution Population Exposure Inequality Assessment"
+  ],
+  "type": "journal-article",
+  "volume": "XII-4/W2-2026"
+ },
+ "10.60923/issn.2281-4485/26111": {
+  "DOI": "10.60923/issn.2281-4485/26111",
+  "ISSN": [
+   "2281-4485",
+   "2039-9898"
+  ],
+  "URL": "https://doi.org/10.60923/issn.2281-4485/26111",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-2866-6897",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Nair",
+    "given": "Divya Vijithaswan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Shinde",
+    "given": "Ramkrishna Lahu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "EQA - International Journal of Environmental Quality"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     5
+    ]
+   ]
+  },
+  "page": "98-108",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     5
+    ]
+   ]
+  },
+  "publisher": "Alma Mater Studiorum Università di Bologna",
+  "title": [
+   "Markov chain modeling of Air Quality Index transitions in Mumbai metropolitan region during 2024 – 2025"
+  ],
+  "type": "journal-article",
+  "volume": "75"
+ }
+}

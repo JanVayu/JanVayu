@@ -120,6 +120,6 @@ A dated, India-specific figure for household-air-pollution deaths is not cited h
 
 ## Full bibliography
 
-A selection of the sources cited across JanVayu is catalogued in our public Zotero library:
+The Reading List panel carries the peer-reviewed studies the site relies on, each linked to its DOI. All of them can be downloaded as one citation file, [BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib) or [RIS](https://www.janvayu.in/downloads/janvayu-reading-list.ris), for Zotero, Mendeley, EndNote or a LaTeX bibliography. `scripts/build-reading-list-bib.py` builds both files from the panel and each DOI's Crossref record, and CI fails if they fall out of step with the list.
 
-**[zotero.org/groups/6508140/janvayu/library](https://www.zotero.org/groups/6508140/janvayu/library)**
+Until October 2026 this pointed to a public Zotero group. It had last been edited in May, held 21 items against the list's 54, and nobody on the project could still sign in to it, so it was retired in favour of a file that cannot drift.

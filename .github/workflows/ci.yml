@@ -256,6 +256,12 @@ jobs:
       - name: Check the homepage blog list matches the blog
         run: python3 scripts/build-blog-index.py --check
 
+      # The Reading List's BibTeX and RIS downloads are built from the panel's
+      # cards and each DOI's cached Crossref record. A card added without
+      # rebuilding them, or a card with no DOI, fails here.
+      - name: Check the Reading List citation files match the panel
+        run: python3 scripts/build-reading-list-bib.py --check
+
       # A link to any page but the homepage used to preview as the homepage, or
       # as nothing, and no blog post could be shared or indexed at all: Docsify
       # routes posts through a #fragment no previewer or crawler ever sees.

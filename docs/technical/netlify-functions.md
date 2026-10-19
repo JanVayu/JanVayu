@@ -150,7 +150,7 @@ An optional `lang` field requests a response language.
 
 ### Other Functions
 
-`netlify/functions/` holds 29 function files in total. Those not described above include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit`, `zotero-library` and `reference-data`. Their reference entries have not been written yet.
+`netlify/functions/` holds 28 function files in total. Those not described above include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` and `reference-data`. Their reference entries have not been written yet.
 
 ---
 

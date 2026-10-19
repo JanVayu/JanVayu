@@ -1956,7 +1956,6 @@
                         }
                     } catch(e) { console.warn(e); }
                 }
-                if (panelId === 'resources') { try { loadZoteroItems(); } catch(e) { console.warn(e); } }
                 if (panelId === 'city-policy') { try { initCityPolicyTracker(); } catch(e) { console.warn('City policy init:', e); } }
                 if (panelId === 'urban-heat') {
                     try { window.updateHeatEstimate && window.updateHeatEstimate(); } catch(e) { console.warn('Urban heat init:', e); }
