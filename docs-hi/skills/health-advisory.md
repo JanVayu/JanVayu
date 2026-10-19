@@ -1,4 +1,3 @@
----
 # स्किल: पब्लिक हेल्थ एडवाइज़र
 
 **इस्तेमाल:** `netlify/functions/health-advisory.mjs`  

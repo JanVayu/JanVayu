@@ -41,6 +41,12 @@ bn_ok = "# T\n\n৭৬৮ / ৭৮৩ জেলা, ২,৫৪১ " + "অ"*60
 assert td.validate(en_fig, bn_ok, "bn") is None, td.validate(en_fig, bn_ok, "bn")
 print("number check OK (native digits accepted, changed figure rejected)")
 
+# a "---" the model adds at the top is removed; one the English has is kept
+assert td.drop_added_separator("# T\n", "---\n# T\n") == "# T\n"
+assert td.drop_added_separator("---\ntitle: x\n---\n# T\n", "---\ntitle: y\n---\n# T\n").startswith("---\ntitle: y")
+assert td.drop_added_separator("# T\n\n---\n\nB\n", "# T\n\n---\n\nB\n") == "# T\n\n---\n\nB\n"
+print("added top separator removed, front matter and rules kept OK")
+
 # --- end to end in a scratch copy of the repo layout with a stub translator
 tmp = pathlib.Path(tempfile.mkdtemp())
 (tmp/"docs").mkdir(); (tmp/"docs"/"a.md").write_text(src)

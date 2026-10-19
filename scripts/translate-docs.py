@@ -62,7 +62,7 @@ TRANSLATION RULES:
 1. Translate naturally for fluent native readers — not word-for-word.
 2. Keep ALL Markdown structure intact: headings, lists, tables, code blocks, links, image references, HTML tags, frontmatter.
 3. Preserve link targets exactly (e.g. `[text](path/to/file.md)` — translate `text` only).
-4. Keep these in English: product names (JanVayu, Supabase, Netlify, Sarvam, GitHub, NCAP, WAQI, CPCB, Docsify), technical identifiers (variable names, API endpoints, file paths, env vars), units (µg/m³, ppm), and all numbers/dates/code.
+4. Keep these in English: product names (JanVayu, Supabase, Netlify, Sarvam, GitHub, NCAP, WAQI, CPCB, Docsify), technical identifiers (variable names, API endpoints, file paths, env vars), units (µg/m³, ppm), and all numbers/dates/code. Write every number in digits exactly as the source has it: do not convert million or billion into lakh or crore, do not round, and do not write a number as a word ("5 US Embassy" keeps the 5).
 5. Pollutant names (PM2.5, PM10, NO2, SO2, O3, CO) stay as-is.
 6. Use respectful, neutral, journalistic tone. JanVayu is non-partisan in mission.
 7. If the source file has YAML frontmatter, translate values but keep keys in English.
@@ -272,13 +272,25 @@ def translate_part(api_key: str, content: str, lang: str, rel_path: str, n: int,
 MAX_ATTEMPTS = 3
 
 
+def drop_added_separator(src: str, out: str) -> str:
+    """Remove a "---" line the model put at the top that the English lacks.
+
+    At the top of a Markdown file that line opens YAML front matter, so Jekyll
+    read the rest of docs-ta/user-guide/email-digest.md as broken YAML and the
+    Pages build failed (12 October 2026). 28 translated files carried it; no
+    English file does."""
+    if src.startswith("---") or not out.startswith("---\n"):
+        return out
+    return out[4:].lstrip("\n")
+
+
 def translate_validated(api_key: str, content: str, lang: str, rel_path: str) -> tuple[str, str | None]:
     """Translate and validate, retrying a rejected result. Returns the last
     translation and the reason it was rejected, or None when it passed."""
     problem = None
     translated = ""
     for attempt in range(1, MAX_ATTEMPTS + 1):
-        translated = translate(api_key, content, lang, rel_path)
+        translated = drop_added_separator(content, translate(api_key, content, lang, rel_path))
         problem = validate(content, translated, lang)
         if not problem:
             return translated, None
