@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-10-20
+
+### Added, five studies on the Reading List (54 to 59)
+
+- Diez et al., *ACS ES&T Air* (19 Oct 2026, CC BY-NC-ND): a four-layer framework
+  for reading low-cost sensor performance evaluations.
+- Alsafari et al., *Atmosphere* 17, 1021 (16 Oct 2026, CC BY): five megacities,
+  2018 to 2023; Delhi above 87 µg/m³ throughout, 2,025 exceedance days, PM2.5
+  most tied to pressure (r = 0.65) and temperature (r = -0.66).
+- Ghanchi et al., *Next Sustainability* 8, 100533 (2026, CC BY-NC-ND): five
+  machine-learning models for next-day PM2.5 at three sites in Gandhinagar and
+  Ahmedabad, with SHAP attribution.
+- Walter et al., *JESEE* (15 Oct 2026, CC BY-NC-ND): air exchange rates and
+  children's inhaled dose across a city in Massachusetts.
+- Buendía and Martínez-Herrera, *Environmental Advances* 26, 100768 (2026,
+  CC BY-NC-ND): PM2.5, health coverage and tuberculosis in 204 countries, with
+  projections to 2050.
+
+Each DOI resolves, each licence was read from its Crossref record, and each card
+was written from the paper's abstract. Two claims in the brief were not in the
+abstracts and are left out: that the Gujarat sites are non-metro (Ahmedabad is a
+metro) and that India is the highest-burden case in the tuberculosis panel. The
+BibTeX and RIS downloads are rebuilt; the count is updated on the panel, the
+downloads page, the README and the walkthrough.
+
 ## [v26.6.242] - 2026-10-19
 
 ### Added, a check of Delhi's "211 good-to-moderate days"
