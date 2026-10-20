@@ -837,6 +837,70 @@
   "type": "journal-article",
   "volume": "11"
  },
+ "10.1016/j.envadv.2026.100768": {
+  "DOI": "10.1016/j.envadv.2026.100768",
+  "ISSN": [
+   "2666-7657"
+  ],
+  "URL": "https://doi.org/10.1016/j.envadv.2026.100768",
+  "article-number": "100768",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0003-2404-6612",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Buendía",
+    "given": "Jefferson Antonio",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6524-4709",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Martínez-Herrera",
+    "given": "Eliana",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environmental Advances"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     12
+    ]
+   ]
+  },
+  "page": "100768",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     12
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Air Pollution, health coverage, and global tuberculosis trajectories: A longitudinal country-level analysis with projections to 2050"
+  ],
+  "type": "journal-article",
+  "volume": "26"
+ },
  "10.1016/j.jeem.2026.103360": {
   "DOI": "10.1016/j.jeem.2026.103360",
   "ISSN": [
@@ -896,6 +960,78 @@
   ],
   "type": "journal-article",
   "volume": "139"
+ },
+ "10.1016/j.nxsust.2026.100533": {
+  "DOI": "10.1016/j.nxsust.2026.100533",
+  "ISSN": [
+   "2949-8236"
+  ],
+  "URL": "https://doi.org/10.1016/j.nxsust.2026.100533",
+  "article-number": "100533",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Ghanchi",
+    "given": "Sajeed I.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Pandya",
+    "given": "Dishant M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shah",
+    "given": "Manan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Next Sustainability"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     12
+    ]
+   ]
+  },
+  "page": "100533",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     12
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Multi-metric evaluation of machine learning models for PM2.5 forecasting in diverse urban regions of Gujarat, India"
+  ],
+  "type": "journal-article",
+  "volume": "8"
  },
  "10.1016/s2542-5196(18)30261-4": {
   "DOI": "10.1016/s2542-5196(18)30261-4",
@@ -3989,6 +4125,196 @@
   "type": "journal-article",
   "volume": "58"
  },
+ "10.1021/acsestair.6c00166": {
+  "DOI": "10.1021/acsestair.6c00166",
+  "ISSN": [
+   "2837-1402"
+  ],
+  "URL": "https://doi.org/10.1021/acsestair.6c00166",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-9659-0356",
+    "affiliation": [
+     {
+      "name": "Universidad Del Desarrollo , , ,",
+      "place": [
+       "Santiago, Chile, 7550000"
+      ]
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Diez",
+    "given": "Sebastián",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "VinUniversity , , ,",
+      "place": [
+       "Hanoi, Vietnam, 100000"
+      ]
+     },
+     {
+      "name": "VinUniversity , , ,",
+      "place": [
+       "Hanoi, Vietnam, 100000"
+      ]
+     }
+    ],
+    "family": "Gillott",
+    "given": "Stefan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Imperial College London , , Weeks Building, 16-18 Prince’s Gardens , ,",
+      "place": [
+       "London, U.K., SW7 1NE"
+      ]
+     }
+    ],
+    "family": "Cowell",
+    "given": "Nicole Hannah",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Morgan State University , , ,",
+      "place": [
+       "Baltimore, Maryland, United States, 21251"
+      ]
+     },
+     {
+      "name": "NASA Global Modeling & Assimilation Office, Goddard Space Flight Center , , ,",
+      "place": [
+       "Greenbelt, Maryland, United States, 20771"
+      ]
+     }
+    ],
+    "family": "Malings",
+    "given": "Carl",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6647-993X",
+    "affiliation": [
+     {
+      "name": "National Physical Laboratory , , ,",
+      "place": [
+       "Teddington, U.K., TW11 0LW"
+      ]
+     }
+    ],
+    "authenticated-orcid": true,
+    "family": "Ferracci",
+    "given": "Valerio",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "C40 Cities Climate Leadership Group Inc. , , ,",
+      "place": [
+       "New York, New York, United States, 10017"
+      ]
+     },
+     {
+      "name": "University of Sao Paulo , , ,",
+      "place": [
+       "São Paulo, Brazil, 05508-020"
+      ]
+     }
+    ],
+    "family": "Camargo",
+    "given": "Camila Acosta",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "TD Environmental Services, LLC , , ,",
+      "place": [
+       "Petaluma, California, United States, 94952"
+      ]
+     }
+    ],
+    "family": "Dye",
+    "given": "Tim",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "ACS ES&amp;T Air"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     19
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     19
+    ]
+   ]
+  },
+  "publisher": "American Chemical Society (ACS)",
+  "title": [
+   "What Does Sensor\nPerformance Really Mean? A Four-Layer\nFramework for Interpreting Air Quality Sensor Performance Evaluations"
+  ],
+  "type": "journal-article"
+ },
  "10.1029/2024jd040834": {
   "DOI": "10.1029/2024jd040834",
   "ISSN": [
@@ -4818,6 +5144,80 @@
   ],
   "type": "journal-article",
   "volume": "129"
+ },
+ "10.1038/s41370-026-00989-x": {
+  "DOI": "10.1038/s41370-026-00989-x",
+  "ISSN": [
+   "1559-0631",
+   "1559-064X"
+  ],
+  "URL": "https://doi.org/10.1038/s41370-026-00989-x",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Walter",
+    "given": "Emma K.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Eckelman",
+    "given": "Matthew J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6891-7083",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Varshavsky",
+    "given": "Julia R.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Exposure Science &amp; Environmental Epidemiology"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     15
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     15
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Neighborhood-scale disparities in air exchange rates and inhaled pollution dose among school-aged children"
+  ],
+  "type": "journal-article"
  },
  "10.1038/s41467-023-42709-1": {
   "DOI": "10.1038/s41467-023-42709-1",
@@ -8809,6 +9209,98 @@
   ],
   "type": "journal-article",
   "volume": "3"
+ },
+ "10.3390/atmos17101021": {
+  "DOI": "10.3390/atmos17101021",
+  "ISSN": [
+   "2073-4433"
+  ],
+  "URL": "https://doi.org/10.3390/atmos17101021",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0008-5303-0074",
+    "affiliation": [
+     {
+      "name": "Department of Marine Earth and Atmospheric Sciences, North Carolina State University, Raleigh, NC 27695-8208, USA"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Alsafari",
+    "given": "Ibrahim",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4904-7603",
+    "affiliation": [
+     {
+      "name": "Department of Climate Meteorology and Atmospheric Sciences, University of Illinois Urbana-Champaign, Urbana, IL 61801, USA"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sanyal",
+    "given": "Swarnali",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1528-6107",
+    "affiliation": [
+     {
+      "name": "Department of Marine Earth and Atmospheric Sciences, North Carolina State University, Raleigh, NC 27695-8208, USA"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Aneja",
+    "given": "Viney P.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Atmosphere"
+  ],
+  "issue": "10",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     16
+    ]
+   ]
+  },
+  "page": "1021",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     16
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Urban Air Quality Trends and Meteorological Influences Across Five Global Megacities, 2018–2023"
+  ],
+  "type": "journal-article",
+  "volume": "17"
  },
  "10.3390/gases6040047": {
   "DOI": "10.3390/gases6040047",
