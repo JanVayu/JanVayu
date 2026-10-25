@@ -57,7 +57,7 @@ JanVayu can now be installed on Android, iOS and desktop. It keeps the last read
 
 ## Workshops
 
-A new Workshops page under the Action menu has two options. The first is an air quality workshop with UrbanEmissions: request a session with Dr. Sarath Guttikunda of UrbanEmissions.info. Class 9+ students, college students, adult groups and educators are all welcome. The second is a 1-hour JanVayu walkthrough, a hands-on session with our team. In one sitting you can set AQI alerts, file an RTI, read the NCAP scorecard and find the right purifier. Pick three preferred IST slots and we confirm one. It is free and online, in English or Hindi.
+A new Workshops page under the Action menu has two options. The first is an air quality workshop request form. Class 9+ students, college students, adult groups and educators are all welcome. The second is a 1-hour JanVayu walkthrough, a hands-on session with our team. In one sitting you can set AQI alerts, file an RTI, read the NCAP scorecard and find the right purifier. Pick three preferred IST slots and we confirm one. It is free and online, in English or Hindi.
 
 *Update, 26 April 2026: the booking forms now email each submission to the JanVayu team and keep a copy. Contact details go to the JanVayu team and the person running the workshop.*
 
