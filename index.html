@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606242">
+    <link rel="preload" as="style" href="/styles.css?v=202606243">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -987,8 +987,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606242" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606242"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606243" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606243"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1048,7 +1048,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606242" defer></script>
+<script src="/js/chrome.js?v=202606243" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1541,7 +1541,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 </div>
             </div>
             <div class="footer-legal">
-                <p><strong>Disclaimer:</strong> JanVayu is an independent, non-partisan, citizen-led platform for educational and informational purposes only. Not affiliated with any government body or commercial entity.</p>
+                <p><strong>Disclaimer:</strong> JanVayu is a citizen-led platform for educational and informational purposes only. It grew out of a campaign by the All India Professionals' Congress (AIPC), which describes itself as a political platform. It is not an official government or commercial service.</p>
                 <p><strong>Data:</strong> Air quality data sourced from WAQI API, CPCB CAAQMS, and third-party networks. Health risk estimates are population-level and should not replace medical consultation.</p>
                 <p><strong>License:</strong> Code: MIT License. Content: CC BY-NC-SA 4.0.</p>
                 <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: contribute@janvayu.in</p>
@@ -1551,7 +1551,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606242"></script>
+    <script src="/app.js?v=202606243"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -3351,7 +3351,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         <div class="card-header"><span class="card-title">Why this matters for alerts &amp; advocacy</span></div>
         <div class="card-body">
             <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 0.5rem;" data-simple="If pollution harms the whole body, then health warnings, doctor advice, and the case for stricter limits should say so, beyond coughing and asthma.">If PM2.5 is a whole-body toxin, then health advisories, clinical screening and the case for stricter standards should reflect renal, cardiac, metabolic, neurological and prenatal risk, not respiratory symptoms alone. The full evidence base sits in the <a href="#resources" onclick="showPanel('resources'); return false;">Reading List</a>.</p>
-            <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.75rem;">Non-partisan framing: this section documents the breadth of the health evidence; it argues for health-complete messaging, not for any party or individual.</p>
+            <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 0.75rem;">Framing: this section documents the breadth of the health evidence; it argues for health-complete messaging, not for any party or individual.</p>
         </div>
     </div>
 </template>
@@ -3604,7 +3604,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <div class="info-box"><h3>Protective equipment</h3><p>Properly-fitted N95-class respirators issued and replaced for traffic police, sanitation and construction crews, not token cloth masks.</p></div>
                 <div class="info-box"><h3>Hold the system accountable</h3><p>File an <a href="#rti-assistant" onclick="showPanel('rti-assistant'); return false;">RTI</a> on whether your city budgets for worker protection or health screening under its Clean Air Plan.</p></div>
             </div>
-            <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 1rem;">Non-partisan framing: this section documents an exposure-equity gap in the evidence; it critiques the absence of protective standards, not any party or individual.</p>
+            <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 1rem;">Framing: this section documents an exposure-equity gap in the evidence; it critiques the absence of protective standards, not any party or individual.</p>
         </div>
     </div>
 </template>
@@ -3643,7 +3643,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <div class="card card-accent-amber">
         <div class="card-header"><span class="card-title">Why it matters</span></div>
         <div class="card-body">
-            <p style="font-size: 0.9375rem; color: var(--text-2);" data-simple="Stubble smoke is a big reason Delhi's air turns dangerous in November. But it is seasonal. For most of the year, local sources like traffic, dust and industry matter more. This tracker helps tell the difference.">Stubble burning can contribute a large share of Delhi's PM2.5 during peak episodes in late October and November, but it is <em>seasonal</em>. For most of the year, year-round local sources (traffic, road dust, industry, secondary particles) dominate. Cross-check this against the <a href="#forecast" onclick="showPanel('forecast'); return false;">forecast</a> and the source-mix in the <a href="#resources" onclick="showPanel('resources'); return false;">Reading List</a>. Non-partisan framing: this tracks a measurable source, not blame for any group; farmers burn residue for lack of affordable alternatives.</p>
+            <p style="font-size: 0.9375rem; color: var(--text-2);" data-simple="Stubble smoke is a big reason Delhi's air turns dangerous in November. But it is seasonal. For most of the year, local sources like traffic, dust and industry matter more. This tracker helps tell the difference.">Stubble burning can contribute a large share of Delhi's PM2.5 during peak episodes in late October and November, but it is <em>seasonal</em>. For most of the year, year-round local sources (traffic, road dust, industry, secondary particles) dominate. Cross-check this against the <a href="#forecast" onclick="showPanel('forecast'); return false;">forecast</a> and the source-mix in the <a href="#resources" onclick="showPanel('resources'); return false;">Reading List</a>. Framing: this tracks a measurable source, not blame for any group; farmers burn residue for lack of affordable alternatives.</p>
         </div>
     </div>
 </template>

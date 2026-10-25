@@ -61,7 +61,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 ## About This Blog
 
-This blog accompanies [JanVayu](https://www.janvayu.in), a non-partisan, citizen-led initiative documenting India's air quality crisis.
+This blog accompanies [JanVayu](https://www.janvayu.in), a citizen-led initiative documenting India's air quality crisis.
 
 Every post draws on peer-reviewed research, government data and verified reporting. We cite primary sources so you can check every claim.
 

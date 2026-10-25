@@ -190,7 +190,7 @@ morning, measured against the same fortnight a year earlier.
 
 Its provenance is worth stating, since the site states it itself: every page
 names the publisher as Ajay Maken, a Rajya Sabha MP, and its About page says it is not a neutral third
-party and is the work of a serving opposition politician. JanVayu is non-partisan and that site is not. The method is published in
+party and is the work of a serving opposition politician. JanVayu has a political origin too: it grew out of a campaign by the All India Professionals' Congress, as our About page says. The method is published in
 full, which is the part to read before deciding what the analysis is worth.
 
 ## What this adds up to

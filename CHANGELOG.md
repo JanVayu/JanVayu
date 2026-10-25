@@ -24,6 +24,20 @@ checked, every correction and what is left for the owner.
   Messi event placed in the wrong stadium, and a Finance Commission grant
   stated at ₹12,139 crore against PIB's ₹16,539 crore.
 
+### Changed, how JanVayu describes its political origin
+
+The README, the About lede, the homepage disclaimer, the FAQ, the Team panel,
+the documentation, the walkthrough deck and the Ask JanVayu prompt called
+JanVayu "non-partisan", "independent of any government or party" and "not
+affiliated with any political party". The About panel's own Partners section
+says the platform was built under the All India Professionals' Congress's
+Dr. Manmohan Singh Fellows Programme and that AIPC describes itself as a
+political platform. Those pages now say that JanVayu grew out of an AIPC
+campaign and keep the practices as rules: endorse or oppose no party, apply the
+same sourcing rules to every government. The 26 May post's "funded by no one"
+is removed because nothing in the repository supports it. The version moves to
+26.6.243 because `app.js` changed.
+
 ### Added
 
 - Blog: "Ammonia, the other half of secondary PM2.5, checked against what has

@@ -14,7 +14,7 @@
 
 ## About
 
-**JanVayu** (जनवायु, "People's Air") is a non-partisan, citizen-led initiative to build India's first comprehensive public archive of the air quality crisis: its data, its victims, its policies and its public memory.
+**JanVayu** (जनवायु, "People's Air") is a citizen-led initiative to build India's first comprehensive public archive of the air quality crisis: its data, its victims, its policies and its public memory.
 
 It keeps a record and runs no campaign.
 
@@ -356,7 +356,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and the [Collaborator Stat
 
 ## Governance
 
-JanVayu is a **non-partisan initiative**. It is not affiliated with any political party, government body, or corporate entity.
+JanVayu grew out of the #AQIForJanHit campaign of the All India Professionals' Congress (AIPC), which describes itself as a political platform, and was designed and built under AIPC's Dr. Manmohan Singh Fellows Programme. Its code, data, sources and editorial rules are public, and the same sourcing rules apply to every government and party.
 
 Editorial decisions are guided by:
 

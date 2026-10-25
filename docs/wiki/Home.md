@@ -28,7 +28,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ## About JanVayu
 
-**JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
+**JanVayu** (जनवायु — "People's Air") is a citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
 ### What's New (v26.6.x)
 
@@ -191,7 +191,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 ### Core Principles
 
 - **Evidence-based** — all data sourced from verified, public sources
-- **Non-partisan** — no affiliation with any political party or entity
+- **Disclosed origins** — grew out of an AIPC campaign and was built under its fellowship programme; endorses no party
 - **Accessible** — designed for India's diverse users, languages, and devices
 - **Transparent** — open source, open data, open methodology
 - **Persistent** — creating a permanent public record of the crisis

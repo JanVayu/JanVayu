@@ -20,7 +20,7 @@ JanVayu is a citizen-led initiative documenting India's air quality crisis. We a
 ✅ Focusing on what is best for affected communities
 ✅ Showing empathy towards other community members
 ✅ Prioritizing factual accuracy over opinion
-✅ Maintaining non-partisan stance on political issues
+✅ Not endorsing or opposing political parties
 ✅ Respecting the privacy and dignity of air pollution victims
 
 ### Unacceptable Behaviors
@@ -84,9 +84,9 @@ JanVayu documents a public health crisis affecting millions. Contributors must:
 - Prioritize the dignity of victims and their families
 - Be mindful of trauma when discussing health impacts
 
-### Non-Partisan Stance
+### Political parties
 
-JanVayu is deliberately non-partisan. While we document government policies and hold institutions accountable:
+JanVayu documents government policies and holds institutions accountable. In doing so:
 
 - We do not endorse or oppose political parties
 - We focus on facts, not political opinions
