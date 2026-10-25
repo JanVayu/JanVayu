@@ -58,6 +58,16 @@ call JanVayu non-partisan, matching the English. The four walkthrough PDF and
 PowerPoint exports are regenerated from the updated decks. The version moves to
 26.6.245 because `app.js` changed.
 
+### Changed, translated docs regenerated
+
+The 15 English docs this round changed are re-translated into Hindi, Bengali,
+Marathi and Tamil with `scripts/translate-docs.py` (60 file and language pairs;
+every one passed the script's number, heading and structure checks). The wiki
+home page had no translation before; it is new in all four languages, and its
+English source now describes the three panel renames without the retired panel
+names, so `check-translations.mjs` stays clean. These are machine translations
+and have not been read by a native speaker.
+
 ### Added
 
 - Blog: "Ammonia, the other half of secondary PM2.5, checked against what has
