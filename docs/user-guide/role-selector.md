@@ -1,6 +1,6 @@
 # Role-based views
 
-JanVayu's role selector points visitors to the data, tools and actions most relevant to who they are. Instead of showing everyone the full dashboard of about 58 panels, it offers each visitor a smaller, chosen set.
+JanVayu's role selector points visitors to the data, tools and actions most relevant to who they are. Instead of showing everyone the full list of 60 destinations, it offers each visitor a smaller, chosen set.
 
 ## How it works
 

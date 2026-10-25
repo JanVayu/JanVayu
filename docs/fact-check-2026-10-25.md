@@ -56,7 +56,7 @@ Prompted by. Two articles in The Hindu, on 23 and 24 October 2026 (an excerpt fr
 
 These were found and are not changed here, because each needs a decision or a source the verifiers could not reach.
 
-1. Resolved on 25 October, on the owner's instruction. The "non-partisan", "independent of any government or party" and "not affiliated with any political party" claims were replaced everywhere by a statement that JanVayu grew out of an AIPC campaign and was built under its fellowship programme. The practices stay as rules. The translated docs (`docs-bn`, `docs-hi`, `docs-mr`, `docs-ta`) and the PowerPoint and PDF walkthroughs still carry the old wording until they are regenerated.
+1. Resolved on 25 October, on the owner's instruction. The "non-partisan", "independent of any government or party" and "not affiliated with any political party" claims were replaced everywhere by a statement that JanVayu grew out of an AIPC campaign and was built under its fellowship programme. The practices stay as rules. The About intro in Hindi, Tamil, Marathi and Bengali (`app.js`) lost the same adjective, and the four walkthrough PDF and PowerPoint exports were regenerated from the updated decks. The translated docs (`docs-bn`, `docs-hi`, `docs-mr`, `docs-ta`) still carry the old wording: they are produced by the Sarvam translation job, which runs on a push to `main` and re-translates the English files that changed in that push. After the merge, run the Translation Sync workflow once with mode `backfill` for each language to catch every changed file.
 2. WAQI's terms of service. The owner confirmed on 25 October that WAQI has been notified of JanVayu's public use. The date and the sender are not recorded in the repository; add them here when known. The terms also do not allow data to be redistributed as cached or archived copies, and JanVayu publishes derived datasets under CC BY-NC-SA. That second point is not answered by the notification and stays open.
 3. Dr Guttikunda. On the owner's instruction the three unconfirmed statements were removed from the 26 April, 8 May and 20 May posts. The same relationship is described on other surfaces (the Workshops panel on the home page, `docs/user-guide/learning-games.md`, `docs/user-guide/overview.md`, `docs/wiki/Home.md`, and the About and Resources panels), and those are not changed here. The owner stated on 25 October that the workshop arrangement exists and asked for those surfaces to stay. No written confirmation from him is on record, and its date can be added here when there is one.
 4. Resolved on 25 October, each by sourcing or softening:
@@ -75,7 +75,7 @@ These were found and are not changed here, because each needs a decision or a so
 7. Resolved: the Reading List intro now reads "air quality in India and the methods used to study it".
 8. Resolved: the Delhi page now says that JanVayu's mean of CPCB's daily AQI for January to September is about 168 in 2026 and about 164 in 2025, beside the lower count of poor days.
 9. Still open: the "eighth" figure was recorded as correct in `docs/fact-check-2026-10-02.md` and should be read as withdrawn.
-10. Still open: "about 58 panels in 7 groups" in the user guide is not pinned to anything.
+10. Resolved: the user guide said "about 58 panels in 7 groups" and the site Index lists 60 destinations in 8 groups. Both guides are corrected, and `scripts/check-nav-coverage.py` now compares them with the Index on every run (fault-injected three ways).
 
 ## Not an error, left alone
 

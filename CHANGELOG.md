@@ -49,6 +49,15 @@ gives no count. Delhi's page now states that the January to September mean AQI
 is about 168 in 2026 against about 164 in 2025. The version moves to 26.6.244
 because `games.js` changed. Details are in `docs/fact-check-2026-10-25.md`.
 
+### Changed, the panel count in the user guide, the translated About intro and the walkthrough exports
+
+The user guide said "about 58 panels in 7 groups". The site Index lists 60
+destinations in 8 groups, and `check-nav-coverage.py` now compares both guides
+with the Index. The Hindi, Tamil, Marathi and Bengali About intros no longer
+call JanVayu non-partisan, matching the English. The four walkthrough PDF and
+PowerPoint exports are regenerated from the updated decks. The version moves to
+26.6.245 because `app.js` changed.
+
 ### Added
 
 - Blog: "Ammonia, the other half of secondary PM2.5, checked against what has
