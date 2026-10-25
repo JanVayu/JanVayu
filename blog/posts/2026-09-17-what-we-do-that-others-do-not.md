@@ -75,7 +75,7 @@ Most of the table is convenience. These five are the substance.
 ### A number for every village and every ward
 
 **983,149 administrative areas**: 36 states, 785 districts, 6,471 blocks and
-tehsils, 319,287 gram panchayats, **584,615 village boundaries** (Local Government Directory layer; Census 2011 counted 649,481 villages), 3,359 city bodies and
+tehsils, 319,287 gram panchayats, **584,615 village boundaries** (Local Government Directory layer; Census 2011 counted about 6.4 lakh villages, of which about 5.98 lakh were inhabited), 3,359 city bodies and
 **68,596 wards**. Every one carries an annual PM2.5 figure, most carry surface
 heat, tree cover and built-up share.
 

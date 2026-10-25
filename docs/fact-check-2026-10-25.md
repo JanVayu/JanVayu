@@ -59,12 +59,23 @@ These were found and are not changed here, because each needs a decision or a so
 1. Resolved on 25 October, on the owner's instruction. The "non-partisan", "independent of any government or party" and "not affiliated with any political party" claims were replaced everywhere by a statement that JanVayu grew out of an AIPC campaign and was built under its fellowship programme. The practices stay as rules. The translated docs (`docs-bn`, `docs-hi`, `docs-mr`, `docs-ta`) and the PowerPoint and PDF walkthroughs still carry the old wording until they are regenerated.
 2. WAQI's terms of service. The owner confirmed on 25 October that WAQI has been notified of JanVayu's public use. The date and the sender are not recorded in the repository; add them here when known. The terms also do not allow data to be redistributed as cached or archived copies, and JanVayu publishes derived datasets under CC BY-NC-SA. That second point is not answered by the notification and stays open.
 3. Dr Guttikunda. On the owner's instruction the three unconfirmed statements were removed from the 26 April, 8 May and 20 May posts. The same relationship is described on other surfaces (the Workshops panel on the home page, `docs/user-guide/learning-games.md`, `docs/user-guide/overview.md`, `docs/wiki/Home.md`, and the About and Resources panels), and those are not changed here. The owner stated on 25 October that the workshop arrangement exists and asked for those surfaces to stay. No written confirmation from him is on record, and its date can be added here when there is one.
-4. Claims no verifier could source: Varanasi's 26.9 µg/m³ in 2023 (NCAP post); the AQLI 2024 values in the data-corrections post; the list of 13 countries meeting the WHO guideline (IQAir post); the WHO developmental-delay sentence (children post); the Census 2011 village count of 649,481, where 640,867 also circulates; the "160+ public sources" in the data-sources overview; ₹11,211.13 crore in the policy tracker; the 1,600 monitoring stations in the city comparison guide.
-5. `docs/tech-stack/ai-layer.md` labels Groq's 30 requests per minute and 200,000 tokens per day as free-plan limits. Groq's page now calls them developer-plan base limits; the numbers are unchanged.
-6. The SatPM2.5 citations (`docs/data-sources/boundary-map.md`, `ward-map.md`, `README.md`) point to a page that does not yet list V6.GL.03. The data, licence (CC BY 4.0) and 2024 end year are confirmed at satpm.org/v6-gl-03.
-7. The Reading List describes itself as "peer-reviewed studies on India's air quality", but three cards (Walter, Ilenic, Alsafari) are not studies of India. Their descriptions name the places, so nothing is false.
-8. The Delhi page could add that CPCB's own bulletin gives a January to September 2026 average AQI of 167.6, against 164.3 a year earlier, beside CAQM's fewer poor days.
-9. Health Policy Watch writes that Delhi was the most polluted capital "for the seventh time in the last eight years". Wherever the site says "eighth", check it against IQAir.
+4. Resolved on 25 October, each by sourcing or softening:
+   - Varanasi's 26.9 µg/m³ in 2023 now names its source, the *What Am I Breathing* newsletter's summary; the 72% fall is unchanged.
+   - AQLI 2024 is confirmed by its India fact sheet (3.6 years for India, 5.4 for the Northern Plains, 2022 data), which the data-corrections post now links.
+   - The ₹11,211.13 crore in the policy tracker is PIB's Rajya Sabha reply of 25 July 2024 (PRID 2036732), and is now labelled that way.
+   - The 1,600 monitoring stations in the city comparison guide are confirmed by CREA's 2026 report (565 CAAQMS and 1,035 manual stations).
+   - The IQAir list of 13 countries meeting the WHO guideline is confirmed by IQAir's 2025 press release.
+   - The "160+ public sources" count is removed; nothing in the repository produces it.
+   - The Census 2011 village count is now "about 6.4 lakh villages, of which about 5.98 lakh were inhabited", because two exact totals circulate and no official table was reached.
+   - The WHO developmental-delay sentence in the children post is removed; the WHO report could not be read and no other source on the page supports it.
+   - The "roughly a quarter of the global total" now states its denominator: about 8.1 million deaths from all air pollution worldwide in 2021.
+   - "Eighth straight year as worst capital" is removed from the README, the Reading List card and the quiz explanation. IQAir gives no count, and the sources found disagree on whether the run was unbroken.
+5. Resolved: `docs/tech-stack/ai-layer.md` now describes Groq's limits as the base limits Groq publishes, checked 25 October, and no longer claims a free plan or a zero budget.
+6. Resolved: the SatPM2.5 citations in the README and the boundary and ward map docs now point to satpm.org/v6-gl-03.
+7. Resolved: the Reading List intro now reads "air quality in India and the methods used to study it".
+8. Resolved: the Delhi page now says that JanVayu's mean of CPCB's daily AQI for January to September is about 168 in 2026 and about 164 in 2025, beside the lower count of poor days.
+9. Still open: the "eighth" figure was recorded as correct in `docs/fact-check-2026-10-02.md` and should be read as withdrawn.
+10. Still open: "about 58 panels in 7 groups" in the user guide is not pinned to anything.
 
 ## Not an error, left alone
 

@@ -8,16 +8,16 @@ JanVayu's AI features are powered by **OpenAI gpt-oss-120B**, an open-source LLM
 
 | Criterion | Choice |
 |-----------|--------|
-| **Cost** | Free tier (Groq Console) — no billing required |
+| **Cost** | Groq Console; the plan and any billing are set on the account |
 | **Speed** | Served from Groq's hosted inference service (latency not measured here) |
-| **Rate limits** | Generous free tier — sufficient for a public interest platform |
+| **Rate limits** | The base limits in the table below |
 | **Multilingual** | Strong Hindi support (critical for JanVayu's audience) |
 | **Quality** | Adequate for data-grounded factual responses (not creative writing) |
 | **Open source** | OpenAI gpt-oss-120B is an open model (OpenAI), ensuring transparency and reproducibility |
 
 ### Trade-offs Accepted
 
-- **Not GPT-4 / Claude** — Groq's free tier with an open-source model is the differentiator. JanVayu runs on zero budget.
+- **Not GPT-4 / Claude** — JanVayu uses an open-weight model served by Groq, chosen for cost and speed.
 - **Output token cap** — Output is capped per function at 512 to 1,024 `max_tokens` (air-query 700, accountability-brief 1,024, health-advisory 768, anomaly-check 512). Reasoning models spend part of that cap on reasoning, so the cap bounds the whole response, not only the visible text.
 - **No fine-tuning** — Prompt engineering only. Every skill is a system prompt, not a fine-tuned model.
 
@@ -89,9 +89,9 @@ Structured response → Browser
 
 ## Rate Limiting Strategy
 
-Free-tier Groq limits (subject to change — check [console.groq.com](https://console.groq.com) for current values):
+Groq's published base limits (subject to change; check [console.groq.com](https://console.groq.com) for the limits on the account's own plan):
 
-| Limit | Value (openai/gpt-oss-120b, Groq free plan, checked 2 Oct 2026) |
+| Limit | Value (openai/gpt-oss-120b, base limits published by Groq, checked 25 Oct 2026) |
 |-------|-------|
 | Requests per minute | 30 |
 | Requests per day | 1,000 |

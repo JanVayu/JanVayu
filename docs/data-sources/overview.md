@@ -1,6 +1,6 @@
 # Data sources overview
 
-JanVayu draws on a Reading List of 160+ public sources and papers. Figures link to their original source where one is public. Some map layers are modelled estimates (SatPM2.5, CAMS and LongPMInd, for example) and are labelled as such. This page lists the main groups of sources.
+JanVayu draws on a Reading List of public sources and papers. Figures link to their original source where one is public. Some map layers are modelled estimates (SatPM2.5, CAMS and LongPMInd, for example) and are labelled as such. This page lists the main groups of sources.
 
 ---
 

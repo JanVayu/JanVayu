@@ -18,7 +18,7 @@ These are large effects. Stunting in early childhood is largely irreversible. It
 
 ## Learning and development
 
-The harm goes beyond physical growth. Research compiled by the WHO links prenatal exposure to high PM2.5 with developmental delays at age three, and with psychological and behavioural problems in later childhood, including symptoms of attention deficit hyperactivity disorder, anxiety and depression.
+Growth is one outcome. The studies below look at learning.
 
 A working paper from the Institute of Economic Growth in Delhi (Singh, Gupta and Dey, May 2022, IEG Working Paper 452) documented lower maths and reading performance among Indian children aged 8 to 11 exposed to higher PM2.5. A 2019 Brookings India working paper (Singh, Dey, Chowdhury and Bali) found that exposure during the first trimester lowers height-for-age and weight-for-age in children under five.
 

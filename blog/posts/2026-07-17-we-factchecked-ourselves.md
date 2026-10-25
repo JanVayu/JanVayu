@@ -18,7 +18,7 @@ The tally: **around 80 figures checked, 47 confirmed current, and 33 that needed
 
 ## The one that stung
 
-Our own homepage claimed India carries **"~70% of the global PM2.5 mortality burden."** That is false. India's toll is one of the world's two largest national tolls (State of Global Air 2024: India 2.1 million deaths, China 2.3 million, in 2021), but it is roughly **a quarter** of the global total, not a majority.
+Our own homepage claimed India carries **"~70% of the global PM2.5 mortality burden."** That is false. India's toll is one of the world's two largest national tolls (State of Global Air 2024: India 2.1 million deaths, China 2.3 million, of about 8.1 million worldwide in 2021, all from air pollution), but it is roughly **a quarter** of that global total, not a majority.
 
 The error was also hidden. The corrected wording was in the page, but a small data file put the old "70%" back over it each time the page loaded, so the site looked fixed while still showing the wrong number. We fixed the data file, and we taught our weekly checker to read data files as well as the visible page.
 

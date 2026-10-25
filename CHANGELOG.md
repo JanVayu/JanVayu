@@ -38,6 +38,17 @@ same sourcing rules to every government. The 26 May post's "funded by no one"
 is removed because nothing in the repository supports it. The version moves to
 26.6.243 because `app.js` changed.
 
+### Changed, open fact-check items closed
+
+Items the 25 October round left open now carry a source or a softer claim:
+Varanasi's 2023 figure, the AQLI 2024 values, the ₹11,211.13 crore NCAP
+release (PIB, 25 July 2024), the Census village count, the "roughly a quarter"
+denominator, the Groq limits wording, the SatPM2.5 citation and the Reading
+List intro. "Eighth straight year as worst capital" is removed because IQAir
+gives no count. Delhi's page now states that the January to September mean AQI
+is about 168 in 2026 against about 164 in 2025. The version moves to 26.6.244
+because `games.js` changed. Details are in `docs/fact-check-2026-10-25.md`.
+
 ### Added
 
 - Blog: "Ammonia, the other half of secondary PM2.5, checked against what has

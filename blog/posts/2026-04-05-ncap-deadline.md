@@ -10,7 +10,7 @@ In January 2019, India launched the National Clean Air Programme (NCAP) and prom
 
 According to the Centre for Research on Energy and Clean Air's "Tracing the Hazy Air" progress reports and the government's own PRANA portal, only 51 of the 100 NCAP cities with adequate PM10 data (out of 130 cities; the programme was announced with 131, and CREA and the Environment Ministry's 2026 reply count 130) achieved the initial target of a 20 to 30 percent reduction in PM10 levels. When measured against the revised target of 40 percent, just 23 of those 100 cities made the cut, and 23 saw PM10 rise.
 
-Some cities did well. Varanasi tops the list: PM2.5 fell 72 percent over five years, to an annual average of 26.9 micrograms per cubic metre in 2023. At least four other cities (Jodhpur, Kanpur, Meerut and Lucknow) cut PM2.5 by more than 40 percent between 2019 and 2023, as reported by The Hindu; that is a PM2.5 test, not the PM10 target NCAP sets.
+Some cities did well. Varanasi tops the list: PM2.5 fell 72 percent over five years, to an annual average of 26.9 micrograms per cubic metre in 2023 (figure as reported by the *What Am I Breathing* newsletter). At least four other cities (Jodhpur, Kanpur, Meerut and Lucknow) cut PM2.5 by more than 40 percent between 2019 and 2023, as reported by The Hindu; that is a PM2.5 test, not the PM10 target NCAP sets.
 
 Others went the wrong way. PM2.5 in Navi Mumbai rose by 46 percent between 2019 and 2023, and Ujjain's also rose by 46 percent. The two figures are identical in the source, which is The Hindu's report of 10 January 2024 on an analysis by Respirer Living Sciences and Climate Trends; it also gives Mumbai a 38.1 percent rise. In these cities the air got worse while the programme was running.
 
