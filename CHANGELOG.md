@@ -5,7 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-10-20
+## [Unreleased] - 2026-10-25
+
+### Changed, a fact-check round, and a correction to the 42% secondary PM2.5 figure
+
+The round is written up in `docs/fact-check-2026-10-25.md`: what was
+checked, every correction and what is left for the owner.
+
+- The 8 July post said that up to 42% of India's PM2.5 is secondary. CREA's
+  42% is Chhattisgarh's annual ammonium sulphate share, and the national
+  average for ammonium sulphate is about 34%. The post, the Reading List card
+  and the Citizen Voices card now say what the figures measure, and the post
+  carries a correction note.
+- 22 other Reading List cards and 18 other blog posts now say what their sources say, no
+  more. The largest were a dementia figure restated as "17% per 10 µg/m³"
+  (the paper reports 1.08 per 5), a claim that CPCB's index is more lenient
+  than the US index across the range (it is stricter above about 80 µg/m³), a
+  Messi event placed in the wrong stadium, and a Finance Commission grant
+  stated at ₹12,139 crore against PIB's ₹16,539 crore.
+
+### Added
+
+- Blog: "Ammonia, the other half of secondary PM2.5, checked against what has
+  been published", from The Hindu's excerpt of *The Nitrogen Bomb* (23 Oct).
+  It separates what CREA measured from the excerpt's own figures and sets the
+  published 11% (Wang et al., 2025) beside the excerpt's "about a quarter".
+- Blog: "A very strong El Niño is forecast, and one study asks what it did to
+  winter air last time", from NOAA's 8 October discussion and Yadav, Beig and
+  Kripalani (2026).
+- Reading List: Wang et al. (2025) and Yadav, Beig and Kripalani (2026), now
+  61 studies. The BibTeX and RIS downloads are rebuilt.
 
 ### Added, five studies on the Reading List (54 to 59)
 

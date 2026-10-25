@@ -4,7 +4,7 @@
 
 ---
 
-In January 2019, India launched the National Clean Air Programme (NCAP) and promised to cut particulate matter by 20 to 30 percent across 131 cities by 2024, a goal later raised to 40 percent by 2025-26. Seven years on, CREA counts Rs 13,415 crore released under NCAP and Fifteenth Finance Commission grants together, of which Rs 9,929 crore had been used by January 2026, and the deadline has arrived. The results are mixed.
+In January 2019, India launched the National Clean Air Programme (NCAP) and promised to cut PM10 by 20 to 30 percent across 131 cities by 2024-25 against 2017-18, a goal later revised to up to 40 percent, or meeting the PM10 standard of 60 µg/m³, by 2025-26. Seven years on, CREA counts Rs 13,415 crore released under NCAP and Fifteenth Finance Commission grants together, of which Rs 9,929 crore had been used by January 2026, and the deadline has arrived. The results are mixed.
 
 ## The scorecard
 
@@ -18,9 +18,9 @@ Others went the wrong way. PM2.5 in Navi Mumbai rose by 46 percent between 2019 
 
 From 2019 to January 2026, CREA counts Rs 13,415 crore released by the central government under NCAP and Fifteenth Finance Commission (XV-FC) grants combined: Rs 2,395 crore from NCAP's own fund and Rs 11,021 crore in XV-FC grants for the million-plus cities. Of the total, 74 percent was used (Rs 9,929 crore). That is 59 percent of the NCAP fund (Rs 1,417 crore) and 77 percent of the XV-FC grants (Rs 8,513 crore). Cities received money they did not spend, and much of what they did spend went to one measure.
 
-Of the money spent, 68 percent went to road dust (CREA 2026): water sprinkling, mechanical sweeping and road paving. Industry received less than 1 percent, domestic fuel measures less than 1 percent, and public outreach less than 1 percent. About two-thirds of the budget went on keeping roads damp and swept.
+Of the money allocated, 68 percent went to road dust (CREA 2026): water sprinkling, mechanical sweeping and road paving. Industry received less than 1 percent, domestic fuel measures less than 1 percent, and public outreach less than 1 percent. About two-thirds of the budget went on keeping roads damp and swept.
 
-Road dust adds to PM10, but it is not the main source of PM2.5, the pollutant most closely linked to deaths. Fine particles come mostly from vehicle exhaust, industry, construction, waste burning and crop residue fires. The spending pattern favours measures people can see over measures that protect health.
+Road dust adds to PM10, but it is not the main source of PM2.5, the pollutant most closely linked to deaths. Fine particles come from vehicle exhaust, industry, construction, waste burning and crop residue fires. They also form in the air from gases such as sulphur dioxide, and CREA estimates that ammonium sulphate alone is about 34 percent of PM2.5 mass nationwide. The spending pattern favours measures people can see over measures that protect health.
 
 ## The funding cliff
 

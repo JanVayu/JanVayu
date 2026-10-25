@@ -32,7 +32,7 @@ We wrote that down as the answer. Then we ran the numbers, because writing it do
 
 We took the zonal mean of the 2025 biodiversity grid inside all 785 Indian district boundaries and set it against each district's 2024 annual PM2.5 from the satellite layer the map already uses. For comparison we did the same with [Human Footprint](https://source.coop/vizzuality/hfp-100), a second raster from the same publisher that scores land 0 to 50 on population density, built environment, croplands, roads, railways, electrical infrastructure and navigable waterways.
 
-Alongside them, the two land variables JanVayu already ships.
+Alongside them, the two land variables JanVayu already ships. (Human Footprint is published for 2017 to 2021, so its latest year is set against 2024 PM2.5.)
 
 | Variable | Correlation with district annual PM2.5 |
 |---|---:|

@@ -38,7 +38,7 @@ Not one meets the WHO annual guideline of 5 µg/m³. Not a single village in Ind
 
 The cleanest places are the island districts, Andaman & Nicobar and Lakshadweep, at around 12–20 µg/m³, and parts of Kerala. The five dirtiest districts are all in Delhi, at 94–98.
 
-There are two limits. This is a yearly average, so it says nothing about a bad week in November. And a one-kilometre estimate smooths out very local sources: a brick kiln or a smelter at the edge of your village will not appear in it. Byrnihat, the small industrial town that topped IQAir's global city ranking, reads far lower on this layer than its own ground monitor does. The satellite sees the air a whole district breathes and misses the chimney next door.
+There are two limits. This is a yearly average, so it says nothing about a bad week in November. And a one-kilometre estimate smooths out very local sources: a brick kiln or a smelter at the edge of your village will not appear in it. Byrnihat, the small industrial town that topped IQAir's 2024 global city ranking, reads far lower on this layer than its own ground monitor does. The satellite sees the air a whole district breathes and misses the chimney next door.
 
 ## Rural air is not clean air
 
@@ -46,7 +46,7 @@ It would be convenient if the unmeasured places were simply the clean ones. They
 
 The clearest example is indoors. About **56% of rural Indian households (41% nationally) still cook mainly with solid fuels**: wood, dung cake, crop residue (NFHS-5, 2019-21, Table 2.6). The smoke builds up in their own kitchens every day, and no outdoor monitor would catch it even if one stood nearby. Women and the small children who sit beside them carry most of it.
 
-This is why the death toll has two figures, and both are worth knowing. Ambient outdoor PM2.5 is linked to about **1.72 million deaths a year in India** (Lancet Countdown 2025, using 2022 data). Count household air pollution as well and the figure rises to roughly **2.0 million** (State of Global Air 2025, using 2023 data). The scopes and methods differ, and both are real. The second is where a lot of rural India lives.
+This is why the death toll has two figures, and both are worth knowing. Ambient outdoor PM2.5 is linked to about **1.72 million deaths a year in India** (Lancet Countdown 2025, using 2022 data). State of Global Air 2025 puts all air pollution (ambient PM2.5, household and ozone) at **more than 2 million** Indian deaths in 2023. The scopes and methods differ, and both are real. The second is where a lot of rural India lives.
 
 Then there is pollution that ignores the city limit. Stubble smoke drifts across whole states. Brick kilns, small industry and highway traffic sit in places with no station for a hundred kilometres. A village can lie well outside a city and still be inside the same airshed.
 

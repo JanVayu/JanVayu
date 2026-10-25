@@ -12,7 +12,7 @@ This is the **urban heat island effect**, and we have added a panel about it to 
 
 They share chemistry, weather, causes and victims.
 
-**Heat makes ozone.** Ground-level ozone is not emitted by any tailpipe or chimney. It forms in the air when nitrogen oxides and volatile organic compounds react in sunlight, and the reaction runs faster as the air gets hotter. Bloomer et al. (2009) found ozone rising roughly **3 parts per billion for every 1°C** of warming across two decades of data. Atmospheric chemists call this the "climate penalty." The same traffic makes more ozone on a 50°C street than on a 35°C one.
+**Heat makes ozone.** Ground-level ozone is not emitted by any tailpipe or chimney. It forms in the air when nitrogen oxides and volatile organic compounds react in sunlight, and the reaction runs faster as the air gets hotter. Bloomer et al. (2009) analysed 21 years of ozone and temperature data from the rural eastern United States and found ozone rising by about **3.2 parts per billion for every 1°C** before 2002, and by about 2.2 afterwards, once power-plant nitrogen oxide emissions fell. Atmospheric chemists call this the "climate penalty." The same traffic makes more ozone on a 50°C street than on a 35°C one.
 
 **Hot days are often still days.** Still air does not carry heat away, and it does not disperse smoke, dust and exhaust either, so pollution piles up. Jacob & Winner (2009) reviewed projections that a warmer climate will be more stagnant.
 
@@ -20,7 +20,7 @@ They share chemistry, weather, causes and victims.
 
 **Trees do two jobs.** Tree cover lowers temperature and also traps particulate matter on its leaves (Nowak et al., 2014). Strip the green from a neighbourhood and you remove the shade and the filter together.
 
-The victims overlap too. On a hot, polluted day, heat and dirty air strain the heart and lungs through the same pathways. A nine-city European study (Analitis et al., 2014) found heat-wave deaths were **54% higher on high-ozone days** (among people aged 75–84). A 620-city, 36-country analysis (Stafoggia et al., 2023) found suggestive evidence that heat and air pollution reinforce each other. In Delhi, the Artha Global survey below found that poorer, densely built areas remain hotter because of limited access to green cover.
+The victims overlap too. On a hot, polluted day, heat and dirty air strain the heart and lungs through the same pathways. A nine-city European study (Analitis et al., 2014) found that the heat-wave increase in daily deaths was **54% higher on high-ozone days** than on low-ozone days among people aged 75 to 84. A 620-city, 36-country analysis (Stafoggia et al., 2023) found suggestive evidence that heat and air pollution reinforce each other. In Delhi, the Artha Global survey below found that poorer, densely built areas remain hotter because of limited access to green cover.
 
 ## What the Delhi survey found
 

@@ -1,6 +1,20 @@
 {
  "stories": [
   {
+   "tag": "Analysis",
+   "title": "A very strong El Niño is forecast, and one study asks what it did to winter air last time",
+   "date": "25 Oct 2026",
+   "blurb": "NOAA's Climate Prediction Center issued its monthly ENSO discussion on 8 October 2026. El Niño is under an Advisory, it is strengthening, and a strong-to-very-strong event is likely through January to March 2027, with the chance staying…",
+   "url": "/blog/#/posts/2026-10-25-el-nino-and-the-winter-ahead"
+  },
+  {
+   "tag": "Fact check",
+   "title": "Ammonia, the other half of secondary PM2.5, checked against what has been published",
+   "date": "25 Oct 2026",
+   "blurb": "On 23 October The Hindu ran an excerpt from Jacob Koshy's forthcoming book The Nitrogen Bomb (Penguin Viking), under the heading \"The other face of air pollution\".",
+   "url": "/blog/#/posts/2026-10-25-ammonia-the-other-half"
+  },
+  {
    "tag": "Fact check",
    "title": "Delhi's 211 days of good-to-moderate air, checked day by day",
    "date": "19 Oct 2026",
@@ -198,7 +212,7 @@
   },
   {
    "tag": "Data",
-   "title": "Up to 42% of India's PM2.5 forms in the air after emission",
+   "title": "Ammonium sulphate is up to 42% of PM2.5 in some Indian states, and it forms in the air",
    "date": "8 Jul 2026",
    "blurb": "When we picture air pollution, we picture a source: a truck's exhaust, a brick kiln's chimney, a field of burning stubble, a cloud of construction dust.",
    "url": "/blog/#/posts/2026-07-08-secondary-pm25"
@@ -275,7 +289,7 @@
   },
   {
    "tag": "Research",
-   "title": "Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal",
+   "title": "A causal Lancet study puts India's excess PM2.5 deaths at about 1.5 million a year",
    "date": "8 Apr 2026",
    "blurb": "For years, studies in India showed that higher PM2.5 went with higher mortality. Critics, including some in government, answered that correlation is not causation.",
    "url": "/blog/#/posts/2026-04-08-lancet-causal-evidence"
@@ -284,7 +298,7 @@
    "tag": "Policy",
    "title": "Has India's National Clean Air Programme worked?",
    "date": "5 Apr 2026",
-   "blurb": "In January 2019, India launched the National Clean Air Programme (NCAP) and promised to cut particulate matter by 20 to 30 percent across 131 cities by 2024, a goal later raised to 40 percent by 2025-26.",
+   "blurb": "In January 2019, India launched the National Clean Air Programme (NCAP) and promised to cut PM10 by 20 to 30 percent across 131 cities by 2024-25 against 2017-18, a goal later revised to up to 40 percent, or meeting the PM10 standard of…",
    "url": "/blog/#/posts/2026-04-05-ncap-deadline"
   },
   {
@@ -303,7 +317,7 @@
   },
   {
    "tag": "Economics",
-   "title": "Air pollution costs India about $339 billion a year",
+   "title": "Premature deaths from air pollution cost India about $339 billion in 2022",
    "date": "25 Mar 2026",
    "blurb": "India's air pollution is usually described as a health emergency, and it is one. It is also a very large economic loss, bigger each year than the entire GDP of most nations (World Bank, 2023 nominal GDP).",
    "url": "/blog/#/posts/2026-03-25-economic-cost"

@@ -25,7 +25,7 @@ The error was also hidden. The corrected wording was in the page, but a small da
 ## A sample of what else changed
 
 - Ghaziabad's NCAP spending was labelled "26%, below threshold." A written reply by the Ministry of Environment in the Lok Sabha (February 2026, as reported by [The Indian Express](https://indianexpress.com/article/cities/delhi/delhi-ncap-funds-fight-air-pollution-since-2019-lags-far-behind-ncr-cities-10512700/), a press report) says the city spent **over 80%**. It was a leader, and we had labelled it a laggard.
-- Dementia risk was stated as "40% higher." The supported figure is about **17% per 10 µg/m³** of PM2.5 (Lancet Planetary Health, 2025).
+- Dementia risk was stated as "40% higher." The supported figure is a pooled hazard ratio of **1.08 (95% CI 1.02 to 1.14) per 5 µg/m³** of long-term PM2.5 (Lancet Planetary Health, 2025).
 - Life expectancy loss appeared as both 3.5 and 5.3 years in different places. We settled on **3.5 years** (AQLI 2025).
 - India's ranking moved to **6th most polluted, 48.9 µg/m³** (IQAir 2025), from an older 5th / 50.6.
 - A "49% of households cook with biomass, **Census 2021**" line cited a census that **does not exist yet**, because India's is postponed to 2026–27. It now reads about 41% of households using solid fuel for cooking (NFHS-5, 2019–21, Table 2.6).

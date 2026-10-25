@@ -47,7 +47,7 @@ A city is only here if it has enough monitors: at least two stations, 1,800 stat
 
 The reason this was impossible in September and possible now is a single open dataset. The [India Air Quality Database](https://airquality.xkdr.org), published by [XKDR Forum](https://www.xkdr.org) under CC BY 4.0, compiles the Central Pollution Control Board's continuous monitoring network into one table: 196.5 million hourly readings from 558 stations. Before it, getting a few years of hourly data for one city was laborious.
 
-One caveat we hit, and have documented, is that the archive's coverage thins sharply after 2024: CPCB's feed into it stops on 1 September 2025. That is why this study ends in 2024 rather than running to the present.
+One caveat we hit, and have documented, is that when we built this study the archive's record after 2024 was too thin to use. That is why the study ends in 2024 rather than running to the present. XKDR's coverage page now lists data to March 2026, so check it before extending the study.
 
 ---
 

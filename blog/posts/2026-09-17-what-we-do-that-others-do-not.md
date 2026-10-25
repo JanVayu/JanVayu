@@ -103,8 +103,8 @@ Varanasi −14.2, Lucknow −14.0; Chandigarh +3.1, Gwalior +2.4, Mumbai +0.8.
 **Correction, 18 September 2026.** This section first said we knew of no other
 public Indian source publishing weather-normalised air quality, and the table
 gave every other column a flat *no* on that row. Both were wrong.
-[Hawa Ka Hisab](https://hawakahisab.in), published by Ajay Maken, MP, has done
-it daily for Delhi since 19 July 2026 and publishes its method in full. The
+[Hawa Ka Hisab](https://hawakahisab.in), published by Ajay Maken, MP, opened on
+19 July 2026, now publishes a weather-adjusted report for Delhi every day, and publishes its method in full. The
 table above is corrected.
 
 *Further correction, 2 October 2026: two cells in the "Raw station data via API" row were also wrong. AQICN offers a token-based station API (JanVayu's own WAQI proxy uses it), and CREA's open API returns daily, outlier-filtered station values.*
@@ -117,8 +117,8 @@ publishes.
 
 The two are not substitutes. Hawa Ka Hisab asks each day whether Delhi's air
 was worse than the same fortnight last year once weather is accounted for,
-comparing matched stations against a fifteen-day baseline window, using a model
-trained on Delhi data from 2021 onward. That is the question you need if you are
+comparing matched stations against a window of the same date last year, plus or
+minus seven days, with its model training periods published separately. That is the question you need if you are
 holding a minister to account this week. We ask whether a multi-year trend is
 real, across seven years and 44 cities, and report it in micrograms per cubic
 metre per year. For Delhi specifically, and for anything current, theirs is the
@@ -183,14 +183,14 @@ We do not attempt IQAir's global comparability. Their World Air
 Quality Report is what makes an international ranking possible.
 
 Hawa Ka Hisab covers Delhi better than we do, and is far more current. It
-publishes a daily report (roughly twelve pages, by its own description), a short Hindi film with it, a weekly
+publishes a daily written report, a short Hindi film (from 13 October 2026; earlier days carry the written report only), a weekly
 edition, and a reconstruction of Delhi's air back to 1980. We give a city one
 trend line across seven years. It gives Delhi a weather-adjusted verdict every
 morning, measured against the same fortnight a year earlier.
 
 Its provenance is worth stating, since the site states it itself: every page
-says it is published by a serving opposition MP and is not a neutral third
-party. JanVayu is non-partisan and that site is not. The method is published in
+names the publisher as Ajay Maken, a Rajya Sabha MP, and its About page says it is not a neutral third
+party and is the work of a serving opposition politician. JanVayu is non-partisan and that site is not. The method is published in
 full, which is the part to read before deciding what the analysis is worth.
 
 ## What this adds up to

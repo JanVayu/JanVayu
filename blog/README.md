@@ -10,6 +10,8 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 25 Oct 2026 | [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md) | Analysis |
+| 25 Oct 2026 | [Ammonia, the other half of secondary PM2.5, checked against what has been published](posts/2026-10-25-ammonia-the-other-half.md) | Fact check |
 | 19 Oct 2026 | [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md) | Fact check |
 | 2 Oct 2026 | [Five of our six pollutant pages were printing random numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md) | Data integrity |
 | 22 Sep 2026 | [What a four-day jump in Delhi's AQI tells you](posts/2026-09-22-a-four-day-jump.md) | Analysis |
@@ -38,7 +40,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 | 17 Jul 2026 | [We fact-checked our own site and changed 33 numbers](posts/2026-07-17-we-factchecked-ourselves.md) | Data integrity |
 | 15 Jul 2026 | [A working language switcher, easier access for more readers and a much lighter site](posts/2026-07-15-multilingual-accessibility-lighter.md) | Platform |
 | 14 Jul 2026 | [Forecasts, fire maps and the health effects of air pollution beyond the lungs](posts/2026-07-14-forecast-fire-and-beyond-the-lungs.md) | Product |
-| 8 Jul 2026 | [Up to 42% of India's PM2.5 forms in the air after emission](posts/2026-07-08-secondary-pm25.md) | Data |
+| 8 Jul 2026 | [Ammonium sulphate is up to 42% of PM2.5 in some Indian states, and it forms in the air](posts/2026-07-08-secondary-pm25.md) | Data |
 | 2 Jul 2026 | [A citation that did not exist: 'Krishna et al.' was really Jaganathan](posts/2026-07-02-citation-integrity.md) | Research |
 | 25 Jun 2026 | [Ask JanVayu can now answer questions about your ward](posts/2026-06-25-ask-janvayu-knows-your-ward.md) | Product |
 | 11 Jun 2026 | [Live and annual readings answer different questions about your ward](posts/2026-06-11-live-vs-annual-honest-ward-data.md) | Data |
@@ -49,11 +51,11 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 | 6 May 2026 | [Updated numbers for May 2026, and what we have been reading](posts/2026-05-06-data-corrections-may.md) | Data |
 | 26 Apr 2026 | [Cigarette equivalents, city rankings, community sensors and workshops are now on JanVayu](posts/2026-04-26-shipped-this-week.md) | Platform |
 | 12 Apr 2026 | [In IQAir's 2025 ranking India's average eased, but Loni is the most polluted city](posts/2026-04-12-iqair-2025-india.md) | Data |
-| 8 Apr 2026 | [Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal](posts/2026-04-08-lancet-causal-evidence.md) | Research |
+| 8 Apr 2026 | [A causal Lancet study puts India's excess PM2.5 deaths at about 1.5 million a year](posts/2026-04-08-lancet-causal-evidence.md) | Research |
 | 5 Apr 2026 | [Has India's National Clean Air Programme worked?](posts/2026-04-05-ncap-deadline.md) | Policy |
 | 1 Apr 2026 | [What air pollution does to India's children](posts/2026-04-01-children-air-pollution.md) | Health |
 | 28 Mar 2026 | [How farmers burn stubble when the satellites are not looking](posts/2026-03-28-stubble-burning-satellites.md) | Investigation |
-| 25 Mar 2026 | [Air pollution costs India about $339 billion a year](posts/2026-03-25-economic-cost.md) | Economics |
+| 25 Mar 2026 | [Premature deaths from air pollution cost India about $339 billion in 2022](posts/2026-03-25-economic-cost.md) | Economics |
 
 ---
 

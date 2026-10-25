@@ -12,7 +12,7 @@ Air pollution is a direct threat to children's health in India. Evidence from th
 
 A peer-reviewed study published in the Journal of Environmental Economics and Management found that a one standard deviation increase in average annual PM2.5 concentrations increases the prevalence of stunting in Indian children by 5 percentage points, and severe stunting by 2.4 percentage points.
 
-India already has one of the highest stunting rates in the world: 35.5 percent of children under five are stunted (NFHS-5, 2019-21). If India met the WHO standard of 5 micrograms per cubic metre, the share of stunted children would fall by 10.4 percentage points.
+India already has one of the highest stunting rates in the world: 35.5 percent of children under five are stunted (NFHS-5, 2019-21). A study of children's height in India (Balietti et al., *Journal of Environmental Economics and Management*) estimated, from NFHS-4 data (2015-16), that the share of stunted children would fall by 10.4 percentage points if India met the WHO standard of 5 micrograms per cubic metre.
 
 These are large effects. Stunting in early childhood is largely irreversible. It is linked to weaker immune systems, lower cognitive development and poorer schooling, and in adulthood to a higher risk of hypertension and diabetes. Through stunting, air pollution is setting a generation of Indian children up for worse health for life.
 
@@ -26,15 +26,15 @@ For families in Delhi, where winter daily PM2.5 regularly peaks above 300 microg
 
 ## School closures
 
-Closures add to the damage. Delhi's schools have been shut several times in recent years during the November-to-January pollution season, on government orders triggered when AQI exceeds "severe". In the 2024-25 winter, GRAP Stage IV orders repeatedly suspended physical classes for younger students across Delhi-NCR, beginning on 18 November 2024. Schools moved between closure, hybrid and in-person classes over several weeks (CAQM GRAP orders).
+Closures add to the damage. Delhi's schools have been shut several times in recent years during the November-to-January pollution season, on government orders triggered when AQI exceeds "severe". In the 2024-25 winter, GRAP Stage IV orders, which took effect at 8 am on 18 November 2024, discontinued physical classes for all students except those in Classes 10 and 12. Schools moved between closure, hybrid and in-person classes over several weeks (CAQM GRAP orders).
 
 Closures hit children from lower-income families hardest. They are less likely to have an air purifier at home or a device for remote learning. The children most exposed to pollution are also the ones most harmed by the response to it.
 
 ## Deaths
 
-The Global Burden of Disease India study (Dandona et al., The Lancet, 2020) attributed 8.8 percent (7.0 to 10.3) of under-five deaths in India in 2017 to air pollution. A 2021 Vital Strategies release on a review of 45 studies of air pollution and stunting noted that 90 percent of children and teens under 15 are exposed to harmful pollution.
+The Global Burden of Disease India study (Dandona et al., The Lancet, 2020) attributed 8.8 percent (7.0 to 10.3) of under-five deaths in India in 2017 to air pollution. A 2021 Vital Strategies release on a review of 45 studies of air pollution and stunting said that 90 percent of children and teens worldwide are exposed to harmful air pollution.
 
-The Lancet Countdown 2025 places India's annual air pollution death toll at 1.72 million, including deaths of infants and young children.
+The Lancet Countdown 2025 attributes about 1.72 million deaths in India in 2022 to anthropogenic PM2.5, across all ages.
 
 ## What is not being done
 
@@ -42,7 +42,7 @@ India's National Clean Air Programme does not include child health outcomes as a
 
 We found no national standard for indoor air quality in schools. There is no national programme to provide air filtration in classrooms; Delhi announced on 19 December 2025 that air purifiers would be installed in 10,000 classrooms (The Hindu).
 
-The evidence is causal and quantified: India's air damages children's lungs, brains and growth. Each year without action adds another cohort to the toll, and the national programme does not yet measure the harm to children at all.
+The studies cited here estimate the size of the damage India's air does to children's growth and cognition. Each year without action adds another cohort to the toll, and the national programme does not yet measure the harm to children at all.
 
 ---
 

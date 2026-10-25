@@ -75,7 +75,7 @@ The phrase "good-to-moderate" sounds like clean air. Most of it is not.
 
 India's AQI scale puts the top of Satisfactory, 100, at the national 24-hour standard for each pollutant. For PM2.5 the standard is 60 µg/m³, and a Moderate day covers 61 to 90 µg/m³. For PM10 the standard is 100 µg/m³ and Moderate runs to 250 (CPCB, National Air Quality Index, 2014). A Moderate day is therefore a day on which the pollutant that set the index was above the national 24-hour limit. The WHO's 24-hour guideline for PM2.5, set in 2021, is 15 µg/m³.
 
-Of the 210 days to 17 October, 148 were Moderate. Days at Satisfactory or better, the days on which every reported pollutant was within the national standard, numbered 62 in 2026, against 79 in 2025, 66 in 2024 and 61 in 2023. So 2026 has fewer of those days than 2025. What changed is that many days which in another year would have been Poor came in as Moderate. That is a real improvement, and it is smaller than "211 good days" implies.
+Of the 210 days to 17 October, 148 were Moderate. Days at Satisfactory or better, the days on which every pollutant in the city's index was within the national standard, numbered 62 in 2026, against 79 in 2025, 66 in 2024 and 61 in 2023. So 2026 has fewer of those days than 2025. The bulletin gives one city-wide figure, so an individual station can still exceed a standard on such a day. What changed is that many days which in another year would have been Poor came in as Moderate. That is a real improvement, and it is smaller than "211 good days" implies.
 
 The pollutant that set the index on the 148 Moderate days was PM10 on 80, PM2.5 on 35 and ozone on 32. Coarse dust drove more of Delhi's Moderate days this year than fine particles did.
 
@@ -101,7 +101,7 @@ The comparison with 2016 sets an index built from five stations against one buil
 
 ## Weather can move a count like this on its own
 
-A year's count of good days carries that year's weather: when the monsoon arrived and left, how much it rained, how often the wind blew. The India Meteorological Department declared the monsoon withdrawn from Delhi on 23 September, two days before the normal date, after a season wetter than normal (press reports of IMD's statement, 24 September). Ten months of one year cannot separate a policy effect from a kind season.
+A year's count of good days carries that year's weather: when the monsoon arrived and left, how much it rained, how often the wind blew. The India Meteorological Department declared the monsoon withdrawn from Delhi on 23 September, two days before the normal date, after a season with 16 per cent more rain than the long-period average, which IMD classes as normal rainfall (IMD press release, 23 September). Ten months of one year cannot separate a policy effect from a kind season.
 
 The way to separate them is to remove the weather first and look at what is left, which is what our [weather-normalised trends](https://www.janvayu.in/blog/2026-09-08-was-it-policy-or-the-wind/) do for 44 cities. That analysis currently runs to 2024. Until a weather-adjusted 2026 exists, the fair reading is that 2026 has so far been better than recent years, and that the cause is still open.
 
@@ -109,10 +109,10 @@ The way to separate them is to remove the weather first and look at what is left
 
 All of this CPCB already has:
 
-- **State the window.** Say "1 January to 17 October" and compare the same dates in earlier years, as the 30 September release did.
-- **Count the days within the standard separately.** Satisfactory or better is the count that means the air met the national limit; a Moderate day did not.
-- **Report PM2.5 beside the day count.** The Ministry already does so in its own release.
-- **Say how many stations each year's figure rests on**, so a reader can tell a change in the air from a change in the network.
+- State the window. Say "1 January to 17 October" and compare the same dates in earlier years, as the 30 September release did.
+- Count the days within the standard separately. Satisfactory or better is the count that means the air met the national limit; a Moderate day did not.
+- Report PM2.5 beside the day count. The Ministry already does so in its own release.
+- Say how many stations each year's figure rests on, so a reader can tell a change in the air from a change in the network.
 
 ## Check it yourself
 

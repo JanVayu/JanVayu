@@ -656,6 +656,83 @@
   "type": "journal-article",
   "volume": "34"
  },
+ "10.1016/j.apr.2026.103231": {
+  "DOI": "10.1016/j.apr.2026.103231",
+  "ISSN": [
+   "1309-1042"
+  ],
+  "URL": "https://doi.org/10.1016/j.apr.2026.103231",
+  "article-number": "103231",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-1705-0325",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Yadav",
+    "given": "Rekha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5564-7210",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Beig",
+    "given": "Gufran",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kripalani",
+    "given": "Ramesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Atmospheric Pollution Research"
+  ],
+  "issue": "11",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     11
+    ]
+   ]
+  },
+  "page": "103231",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     11
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Air quality in flux: The baffling ENSO transition in India"
+  ],
+  "type": "journal-article",
+  "volume": "17"
+ },
  "10.1016/j.ekir.2026.106693": {
   "DOI": "10.1016/j.ekir.2026.106693",
   "ISSN": [
@@ -900,6 +977,210 @@
   ],
   "type": "journal-article",
   "volume": "26"
+ },
+ "10.1016/j.envint.2024.109207": {
+  "DOI": "10.1016/j.envint.2024.109207",
+  "ISSN": [
+   "0160-4120"
+  ],
+  "URL": "https://doi.org/10.1016/j.envint.2024.109207",
+  "article-number": "109207",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Wang",
+    "given": "Yuanlin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Nemitz",
+    "given": "Eiko",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Tomlinson",
+    "given": "Samuel J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Carnell",
+    "given": "Edward J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Yao",
+    "given": "Liquan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Scheffler",
+    "given": "Janice",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Liska",
+    "given": "Tomas",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Pearson",
+    "given": "Clare",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dragosits",
+    "given": "Ulrike",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Venkataraman",
+    "given": "Chandra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Balasubramanian",
+    "given": "Srinidhi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Beck",
+    "given": "Rachel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Sutton",
+    "given": "Mark A.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Vieno",
+    "given": "Massimo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Environment International"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     1
+    ]
+   ]
+  },
+  "page": "109207",
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     1
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Response of South Asia PM2.5 pollution to ammonia emission changes and associated impacts on human health"
+  ],
+  "type": "journal-article",
+  "volume": "195"
  },
  "10.1016/j.jeem.2026.103360": {
   "DOI": "10.1016/j.jeem.2026.103360",
