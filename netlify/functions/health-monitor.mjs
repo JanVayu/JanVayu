@@ -17,8 +17,10 @@ import { Resend } from "resend";
 const BASE_URL = process.env.URL || "https://www.janvayu.in";
 const PROBE_TIMEOUT_MS = 12000;
 
-// Recipients: comma-separated, defaults to the JanVayu inbox + maintainer.
-const RECIPIENTS = (process.env.ALERT_EMAIL || "contribute@janvayu.in,varna.sr@gmail.com")
+// Recipients: comma-separated, defaults to the maintainer. janvayu.in has no MX records, so
+// contribute@janvayu.in bounced every alert until 25 October 2026. Add it back through
+// ALERT_EMAIL once mail forwarding exists for the domain.
+const RECIPIENTS = (process.env.ALERT_EMAIL || "varna.sr@gmail.com")
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
