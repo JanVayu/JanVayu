@@ -1,0 +1,82 @@
+# Fact-check, 25 October 2026
+
+Method. Five verifiers each took a set of files and checked every claim that carries a number, date, legal citation, programme figure, agency name or provider term against a primary source. They changed nothing. The corrections below were then applied by hand, and each one is a statement the verifier could source. Items a verifier could not source are listed at the end as open.
+
+Scope. This round covers what the 2 October round (`docs/fact-check-2026-10-02.md`) did not: the 59 study cards that were on the Reading List (the two added today were checked by hand), 36 of the 49 blog posts (the other 13 carry no external claim or rest on the site's own data), `README.md`, the English documentation under `docs/`, the About, Team, Voices and Gallery panels, the Delhi page, the walkthrough deck and the workshop guides. About 90 claims in the documentation were checked. Not covered: testimonies and photograph captions, and every figure the site computes from its own data files, which `check-site-figures.py` polices. The full text of 22 of the first 30 papers was not read; those verdicts rest on the abstract and the Crossref record.
+
+Prompted by. Two articles in The Hindu, on 23 and 24 October 2026 (an excerpt from Jacob Koshy's *The Nitrogen Bomb*, and Neelima Vallangi's report on record Pacific warming). Checking the first against CREA's own documents found the largest error of the round, below.
+
+---
+
+## Corrections made
+
+### Claims that were wrong
+
+| Where | Was | Now | Source |
+|---|---|---|---|
+| Secondary PM2.5 post (8 July), Reading List card, Citizen Voices card | "Up to 42% of India's PM2.5 is secondary" | 42% is Chhattisgarh's annual ammonium sulphate share (states range 17% to 42%); CREA's national average for ammonium sulphate is about 34%; total secondary share is larger than either. The post is retitled and carries a correction note. | CREA press release, 24 Dec 2025; CREA report, 30 Jun 2025 |
+| We-fact-checked-ourselves post | Dementia "about 17% per 10 µg/m³" | Pooled hazard ratio 1.08 (95% CI 1.02 to 1.14) per 5 µg/m³; the 2 October round had corrected the homepage but not this post | Lancet Planetary Health, 2025 |
+| Understanding-AQI post | "The CPCB scale is more lenient across the range" | Lower numbers than the US EPA index below about 80 µg/m³ and higher above it: 100 µg/m³ is 232 on the CPCB scale and 182 on the EPA scale (recomputed from both breakpoint tables) | CPCB NAQI; EPA AQI technical assistance document |
+| Citizen Voices panel | Messi event at "JLN Stadium" | Arun Jaitley Stadium, 15 December 2025 | press reports of the event |
+| Policy tracker doc | 15th Finance Commission "₹12,139 crore ... over 5 years" | ₹16,539 crore to 42 million-plus cities for 2020-21 to 2025-26 (the Delhi panel already used this figure) | PIB, Lok Sabha reply, 5 Feb 2024 |
+| MP post | Patna "a city with 71 approved wards" | 628 boundary entries, 71 marked approved; Patna Municipal Corporation has 75 wards | Patna Municipal Corporation |
+| README | All 31 gallery photographs "CC or public domain" | 29 openly licensed or public-domain, two by Bryan Denton shown with permission | gallery panel |
+| About panel and README | New Delhi "flat near 50" and "near 55" in the 1990s | "near 55" in both (district history file: 51 to 57, mean about 54.7) | `data/district-history.json` |
+| Economic cost post, Reading List card | Out-of-pocket health spending "down sharply over the past decade" | 43.4% in 2022-23, up from 39.4%, after falling for a decade | National Health Accounts 2022-23 |
+| Reading List, Pandey et al. 2026 | "emission factors for PM2.5"; "Delhi's winter source apportionment has had to estimate these figures" | Factors for 17 species including PM1, from two plume events; the second sentence is not in the paper | npj Clean Air 2, 56 |
+
+### Claims stated more strongly than the source
+
+| Where | Change |
+|---|---|
+| Wang et al. 2024 card | "Health burden keeps climbing even as concentrations fall" now says premature deaths rise under every scenario (1.01 million in the 2020s to 4.12 to 5.44 million in the 2100s), concentrations fall in every scenario except SSP3-7.0, and ageing and growth offset the gain |
+| Chowdhury et al. 2019 card | "cutting household sources" now says "completely mitigating", the paper's condition |
+| Guttikunda et al. 2023 card | "quantitative review" removed; the abstract reports limited consensus on source contributions |
+| Ghosh and Sinha 2025 card | "trends" removed; the abstract does not claim them |
+| Ali et al. 2026 card | Rewritten to the paper's result: PM1 tracked closely (R² about 0.90 to 0.95), PM10 poorly (about 0.28 to 0.68), nothing below 0.3 µm |
+| Mandal, Muruganantham, Parikh, Agarwal, Muni Lakshmi and Shafi cards | Rewritten to what each abstract reports, including the study design, effect sizes and the authors' own caveats |
+| Alsafari and Ghanchi cards | The 15 µg/m³ WHO threshold behind "2,025 exceedance days" is stated; the 18.39 RMSE is tied to the run that produced it |
+| Stubble post | "The fires have fallen sharply" now sets the official >90% fall in counted fire incidents beside the ISRO geostationary finding of no decline in total activity over 2020 to 2024; seeder prices carry the subsidy; the 4 to 6 PM finding is attributed to Jethva's geostationary analysis |
+| NCAP post | Target stated as PM10, 20 to 30% by 2024-25 against 2017-18, revised to up to 40% or 60 µg/m³ by 2025-26; the 68% is "allocated", not "spent"; secondary particles added to the list of sources |
+| Economic cost and Lancet posts | Retitled to what the sources measure: monetised premature deaths in 2022, and a causal estimate of excess deaths; "settle the scientific case" softened |
+| Children post | Vital Strategies' 90% is global; the 1.72 million is PM2.5 in 2022 across all ages; the 10.4-point stunting estimate is from NFHS-4 data; GRAP Stage IV discontinued physical classes for all but Classes 10 and 12 |
+| Urban heat island post | Bloomer et al.: 21 years, rural eastern United States, about 3.2 ppb per °C before 2002 and 2.2 after; Analitis et al.: the 54% is the heat-wave excess in daily deaths |
+| Delhi 211-days post | Monsoon season was 16% above the long-period average, which IMD classes as normal; the Satisfactory-or-better count is for the city-wide figure |
+| Villages, map, air-pictures, Gangetic Plain, 33-cities and what-we-do posts | Byrnihat dated to the 2024 ranking; CAMS cells about 45 km; household air pollution figure restated as SoGA's all-air-pollution total (more than 2 million, 2023); "700 km" removed; Human Footprint year stated; XKDR coverage caveat dated; Hawa Ka Hisab described as opened on 19 July 2026 with its baseline window and publisher wording as its own pages give them |
+| WAQI doc | Quota is 1,000 requests per minute with bursts of 60, and the terms on attribution, non-profit notification and cached copies are stated |
+
+### New material
+
+- Blog: "Ammonia, the other half of secondary PM2.5, checked against what has been published" and "A very strong El Niño is forecast, and one study asks what it did to winter air last time".
+- Reading List: Wang et al. (2025, ammonia and South Asian PM2.5, CC BY 4.0) and Yadav, Beig and Kripalani (2026, ENSO and winter PM2.5). The list is 61 studies; the BibTeX and RIS files are rebuilt.
+
+---
+
+## Open, and for the owner
+
+These were found and are not changed here, because each needs a decision or a source the verifiers could not reach.
+
+1. Resolved on 25 October, on the owner's instruction. The "non-partisan", "independent of any government or party" and "not affiliated with any political party" claims were replaced everywhere by a statement that JanVayu grew out of an AIPC campaign and was built under its fellowship programme. The practices stay as rules. The About intro in Hindi, Tamil, Marathi and Bengali (`app.js`) lost the same adjective, and the four walkthrough PDF and PowerPoint exports were regenerated from the updated decks. The translated docs (`docs-bn`, `docs-hi`, `docs-mr`, `docs-ta`) were regenerated on 25 October for the 15 English files this round changed, 60 file and language pairs, with the repository's Sarvam translation script and its number, heading and structure checks. They are machine translations that no native reader has reviewed. The other stale translations in those folders were left for the translation job.
+2. WAQI's terms of service. The owner confirmed on 25 October that WAQI has been notified of JanVayu's public use. The date and the sender are not recorded in the repository; add them here when known. The terms also do not allow data to be redistributed as cached or archived copies, and JanVayu publishes derived datasets under CC BY-NC-SA. That second point is not answered by the notification and stays open.
+3. Dr Guttikunda. On the owner's instruction the three unconfirmed statements were removed from the 26 April, 8 May and 20 May posts. The same relationship is described on other surfaces (the Workshops panel on the home page, `docs/user-guide/learning-games.md`, `docs/user-guide/overview.md`, `docs/wiki/Home.md`, and the About and Resources panels), and those are not changed here. The owner stated on 25 October that the workshop arrangement exists and asked for those surfaces to stay. No written confirmation from him is on record, and its date can be added here when there is one.
+4. Resolved on 25 October, each by sourcing or softening:
+   - Varanasi's 26.9 µg/m³ in 2023 now names its source, the *What Am I Breathing* newsletter's summary; the 72% fall is unchanged.
+   - AQLI 2024 is confirmed by its India fact sheet (3.6 years for India, 5.4 for the Northern Plains, 2022 data), which the data-corrections post now links.
+   - The ₹11,211.13 crore in the policy tracker is PIB's Rajya Sabha reply of 25 July 2024 (PRID 2036732), and is now labelled that way.
+   - The 1,600 monitoring stations in the city comparison guide are confirmed by CREA's 2026 report (565 CAAQMS and 1,035 manual stations).
+   - The IQAir list of 13 countries meeting the WHO guideline is confirmed by IQAir's 2025 press release.
+   - The "160+ public sources" count is removed; nothing in the repository produces it.
+   - The Census 2011 village count is now "about 6.4 lakh villages, of which about 5.98 lakh were inhabited", because two exact totals circulate and no official table was reached.
+   - The WHO developmental-delay sentence in the children post is removed; the WHO report could not be read and no other source on the page supports it.
+   - The "roughly a quarter of the global total" now states its denominator: about 8.1 million deaths from all air pollution worldwide in 2021.
+   - "Eighth straight year as worst capital" is removed from the README, the Reading List card and the quiz explanation. IQAir gives no count, and the sources found disagree on whether the run was unbroken.
+5. Resolved: `docs/tech-stack/ai-layer.md` now describes Groq's limits as the base limits Groq publishes, checked 25 October, and no longer claims a free plan or a zero budget.
+6. Resolved: the SatPM2.5 citations in the README and the boundary and ward map docs now point to satpm.org/v6-gl-03.
+7. Resolved: the Reading List intro now reads "air quality in India and the methods used to study it".
+8. Resolved: the Delhi page now says that JanVayu's mean of CPCB's daily AQI for January to September is about 168 in 2026 and about 164 in 2025, beside the lower count of poor days.
+9. Still open: the "eighth" figure was recorded as correct in `docs/fact-check-2026-10-02.md` and should be read as withdrawn.
+10. Resolved: the user guide said "about 58 panels in 7 groups" and the site Index lists 60 destinations in 8 groups. Both guides are corrected, and `scripts/check-nav-coverage.py` now compares them with the Index on every run (fault-injected three ways).
+
+## Not an error, left alone
+
+The 17 em dashes the style check reports in the Voices panel are verbatim quotations and testimonies. The 16 in `index.html` are "no value" placeholders in tables and counters.

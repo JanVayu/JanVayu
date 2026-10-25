@@ -2,7 +2,7 @@
 
 **Platform:** [janvayu.in](https://www.janvayu.in) | **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu) | **Bibliography:** [Reading List as BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib)
 
-**About JanVayu:** India's independent, citizen-led air quality platform — combining live data, health impact analysis, budget tracking, and government accountability. Non-partisan, CC BY-NC-SA 4.0.
+**About JanVayu:** India's citizen-led air quality platform — combining live data, health impact analysis, budget tracking, and government accountability. CC BY-NC-SA 4.0.
 
 ---
 

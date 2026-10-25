@@ -16,7 +16,7 @@
     {
       "name": "blog/2026-03-25-economic-cost",
       "kicker": "JanVayu blog · 25 March 2026",
-      "title": "Air pollution costs India about $339 billion a year",
+      "title": "Premature deaths from air pollution cost India about $339 billion in 2022",
       "sub": "Economics"
     },
     {
@@ -40,7 +40,7 @@
     {
       "name": "blog/2026-04-08-lancet-causal-evidence",
       "kicker": "JanVayu blog · 8 April 2026",
-      "title": "Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal",
+      "title": "A causal Lancet study puts India's excess PM2.5 deaths at about 1.5 million a year",
       "sub": "Research"
     },
     {
@@ -130,7 +130,7 @@
     {
       "name": "blog/2026-07-08-secondary-pm25",
       "kicker": "JanVayu blog · 8 July 2026",
-      "title": "Up to 42% of India's PM2.5 forms in the air after emission",
+      "title": "Ammonium sulphate is up to 42% of PM2.5 in some Indian states, and it forms in the air",
       "sub": "Data"
     },
     {
@@ -308,6 +308,18 @@
       "sub": "Fact check"
     },
     {
+      "name": "blog/2026-10-25-ammonia-the-other-half",
+      "kicker": "JanVayu blog · 25 October 2026",
+      "title": "Ammonia, the other half of secondary PM2.5, checked against what has been published",
+      "sub": "Fact check"
+    },
+    {
+      "name": "blog/2026-10-25-el-nino-and-the-winter-ahead",
+      "kicker": "JanVayu blog · 25 October 2026",
+      "title": "A very strong El Niño is forecast, and one study asks what it did to winter air last time",
+      "sub": "Analysis"
+    },
+    {
       "name": "co",
       "kicker": "Pollutant guide",
       "title": "CO in India",
@@ -369,6 +381,16 @@
     }
   ],
   "posts": [
+    {
+      "slug": "2026-10-25-el-nino-and-the-winter-ahead",
+      "date": "2026-10-25",
+      "title": "A very strong El Niño is forecast, and one study asks what it did to winter air last time"
+    },
+    {
+      "slug": "2026-10-25-ammonia-the-other-half",
+      "date": "2026-10-25",
+      "title": "Ammonia, the other half of secondary PM2.5, checked against what has been published"
+    },
     {
       "slug": "2026-10-19-delhi-211-days-checked",
       "date": "2026-10-19",
@@ -517,7 +539,7 @@
     {
       "slug": "2026-07-08-secondary-pm25",
       "date": "2026-07-08",
-      "title": "Up to 42% of India's PM2.5 forms in the air after emission"
+      "title": "Ammonium sulphate is up to 42% of PM2.5 in some Indian states, and it forms in the air"
     },
     {
       "slug": "2026-07-02-citation-integrity",
@@ -592,7 +614,7 @@
     {
       "slug": "2026-04-08-lancet-causal-evidence",
       "date": "2026-04-08",
-      "title": "Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal"
+      "title": "A causal Lancet study puts India's excess PM2.5 deaths at about 1.5 million a year"
     },
     {
       "slug": "2026-04-05-ncap-deadline",
@@ -612,7 +634,7 @@
     {
       "slug": "2026-03-25-economic-cost",
       "date": "2026-03-25",
-      "title": "Air pollution costs India about $339 billion a year"
+      "title": "Premature deaths from air pollution cost India about $339 billion in 2022"
     }
   ]
 }

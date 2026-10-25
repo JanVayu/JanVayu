@@ -14,7 +14,7 @@
 
 ## About
 
-**JanVayu** (जनवायु, "People's Air") is a non-partisan, citizen-led initiative to build India's first comprehensive public archive of the air quality crisis: its data, its victims, its policies and its public memory.
+**JanVayu** (जनवायु, "People's Air") is a citizen-led initiative to build India's first comprehensive public archive of the air quality crisis: its data, its victims, its policies and its public memory.
 
 It keeps a record and runs no campaign.
 
@@ -73,7 +73,7 @@ Two new posts: [How to read the JanVayu map](blog/posts/2026-08-09-how-to-read-t
 | 19 | **Downloadable reports** | Research papers and datasets to keep for offline reference |
 | 20 | **Cultural archive** | Satire, memes, art and other cultural responses to the pollution crisis |
 | 21 | **Blog** | Updates, data analysis and reflections on India's air quality crisis at [janvayu.in/blog](https://www.janvayu.in/blog) |
-| 22 | **Reading List bibliography** | The Reading List's 59 peer-reviewed studies as [BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib) and [RIS](https://www.janvayu.in/downloads/janvayu-reading-list.ris), built from the list and each DOI's Crossref record by `scripts/build-reading-list-bib.py` |
+| 22 | **Reading List bibliography** | The Reading List's 61 peer-reviewed studies as [BibTeX](https://www.janvayu.in/downloads/janvayu-reading-list.bib) and [RIS](https://www.janvayu.in/downloads/janvayu-reading-list.ris), built from the list and each DOI's Crossref record by `scripts/build-reading-list-bib.py` |
 | 23 | **Ask JanVayu app** | The same assistant as an installable app at [janvayu.in/ask](https://www.janvayu.in/ask). It covers 33 cities and 10 languages, takes thumbs up or down feedback, and works on Android, iOS and desktop |
 | 24 | **Learning games** | Seven self-paced educational games at [janvayu.in/#games](https://www.janvayu.in/#games): India-context Air Quality Jeopardy (5×5 board, ₹1k–₹5k tiles), a 10-question PM Quick-Quiz, a 7-source matcher, Clean Air Snakes & Ladders after Moksha Patam, Jodi Match memory cards, Air Tambola (Indian housie), and Vayu Junction, a word-grouping puzzle inspired by *Only Connect*, NYT *Connections* and *Torchlight*, with four sets of India air quality puzzles |
 | 25 | **Women's health** | Gender-specific air pollution analysis: indoor cooking exposure, maternal health, occupational risks and the gender data gap. Linked to the "Woman / Caregiver" role |
@@ -93,7 +93,7 @@ Two new posts: [How to read the JanVayu map](blog/posts/2026-08-09-how-to-read-t
 | 39 | **Occupational exposure** | Who is exposed most, by occupation: street vendors, traffic police, gig riders, and construction and waste workers, built around a 2026 Chennai street-vendor study |
 | 40 | **Open data API** | A versioned, open public data API at [janvayu.in/api](https://www.janvayu.in/api): a manifest of every dataset and a CSV export of rankings. Free to use with attribution (CC BY-NC-SA 4.0) |
 | 41 | **Hand-drawn diagrams** | Diagrams in a hand-drawn style: the system diagram, "How the AQI number is built", "PM2.5 through the body", "How dirty air drains the economy", and the blog headers. Each has a wide desktop version and a portrait mobile version. Sources are in `assets/diagrams/` |
-| 42 | **Photo gallery** | "The air, in pictures": 31 documentary photographs (CC or public domain) from Wikimedia Commons, in a grid that opens full screen, with credit and source for each image |
+| 42 | **Photo gallery** | "The air, in pictures": 31 documentary photographs (29 openly licensed or public-domain images from Wikimedia Commons, and two by Bryan Denton for The New York Times, shown with permission), in a grid that opens full screen, with credit and source for each image |
 | 43 | **Web push alerts** | An installable app that sends real alerts when air crosses a threshold, even when the site is closed |
 | 44 | **Automated fact-check** | A periodic routine (currently unscheduled) checks every statistic and calculator constant against current primary sources on the web and opens a review. Findings are archived in `docs/fact-check-*.md` |
 | 45 | **Village boundaries** | A Villages layer on the live map covering all **584,615** Indian village boundaries (LGD via indianopenmaps.com). It loads at zoom 9 and above, and only for districts in view |
@@ -110,7 +110,7 @@ Two new posts: [How to read the JanVayu map](blog/posts/2026-08-09-how-to-read-t
 | Annual PM2.5 Deaths | 1.72 million | Lancet Countdown 2025 |
 | Economic Cost | $339.4 billion (9.5% GDP) | Lancet Countdown 2025 |
 | India's Global Share | India and China each recorded more than 2 million air-pollution deaths in 2023 (of 7.9 million worldwide) | State of Global Air 2025 |
-| Most Polluted Capital | New Delhi (82.2 µg/m³, 8th straight year worst) | IQAir 2025 |
+| Most Polluted Capital | New Delhi (82.2 µg/m³) | IQAir 2025 |
 | Most Polluted City | Loni, India (112.5 µg/m³) | IQAir 2025 |
 | Cities Meeting WHO Guideline | Only 14% globally | IQAir 2025 |
 | India Average PM2.5 | 48.9 µg/m³ (nearly 10 times the WHO limit) | IQAir 2025 |
@@ -315,7 +315,7 @@ JanVayu integrates public data sources, including:
 | [BharatLas](https://bharatlas.com) (OpenCity / Oorvani Foundation) | Municipal ward boundaries for cities Swachh Bharat omits (Guwahati) | Open (ODbL-1.0) |
 | [AMRUT GIS master plans](https://amrut.mohua.gov.in/) (West Bengal), via indianopenmaps.com | Municipal ward boundaries for 7 West Bengal cities | Community mirror of govt data |
 | ESRI India Living Atlas wards, via indianopenmaps.com | Municipal ward boundaries for 45 cities incl. every remaining state capital | Community mirror of govt data |
-| [SatPM2.5 V6GL03](https://sites.wustl.edu/acag/datasets/surface-pm2-5/) (ACAG, Washington University) | Annual mean PM2.5, ~1 km, for every village and ward | Open (CC BY 4.0) |
+| [SatPM2.5 V6GL03](https://www.satpm.org/v6-gl-03) (ACAG, Washington University) | Annual mean PM2.5, ~1 km, for every village and ward | Open (CC BY 4.0) |
 | [Indian Open Maps](https://indianopenmaps.com) | Ward/constituency/district boundaries, pollution sources, schools & health centres (SBM, LGD/Bharatmaps, GatiShakti, NCOG mirrors) | Community mirror of govt data ("not-so-open"; attributed, simplified derivatives) |
 
 ---
@@ -356,7 +356,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and the [Collaborator Stat
 
 ## Governance
 
-JanVayu is a **non-partisan initiative**. It is not affiliated with any political party, government body, or corporate entity.
+JanVayu grew out of the #AQIForJanHit campaign of the All India Professionals' Congress (AIPC), which describes itself as a political platform, and was designed and built under AIPC's Dr. Manmohan Singh Fellows Programme. Its code, data, sources and editorial rules are public, and the same sourcing rules apply to every government and party.
 
 Editorial decisions are guided by:
 

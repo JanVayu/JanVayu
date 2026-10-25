@@ -24,7 +24,7 @@ The [31 photographs](/#gallery) are ordered deliberately. Read start to finish, 
 
 This part matters most, because **the effect photographs are anonymous and the cause photographs are not.** A grey skyline could be anywhere. A brick kiln is somebody's kiln, in somebody's district, running in a season you can name.
 
-**Then, the scale.** Two NASA frames from orbit: stubble smoke streaming across the plains, and haze and farm fires blanketing north India. From the ground, smog looks like weather. From 700 kilometres up it shows what it is, a continental event with a shape and a direction.
+**Then, the scale.** Two NASA frames from orbit: stubble smoke streaming across the plains, and haze and farm fires blanketing north India. From the ground, smog looks like weather. From orbit it shows what it is, a continental event with a shape and a direction.
 
 **Then, particular places.** Gurgaon by day, with construction dust rising under the smog, and Gurgaon at night, thick enough to halo the streetlights. Mumbai's skyline over Chowpatty. Azadpur, where the Delhi Metro runs above CNG buses, two measures aimed at cutting emissions. We included them because a gallery of only failure would be a lie.
 
@@ -60,7 +60,7 @@ We do not generate images. Every frame here is a photograph of a real place on a
 
 ## What is missing
 
-Indoor air. Household air pollution from cooking fuel is a large part of India's burden (State of Global Air 2025 attributes about 0.5 million of roughly 2 million deaths to it), and the gallery has almost nothing of it. Outdoor smog is what gets photographed and uploaded under an open licence, and a woman's kitchen is not. This gap skews the sequence towards the street.
+Indoor air. Household air pollution from cooking fuel is a large part of India's burden (State of Global Air 2025 counts more than 2 million Indian deaths from all air pollution in 2023, household air pollution among them), and the gallery has almost nothing of it. Outdoor smog is what gets photographed and uploaded under an open licence, and a woman's kitchen is not. This gap skews the sequence towards the street.
 
 Most of the country is missing too. The frames cluster in Delhi–NCR because that is where the photographers are. The [map](/#map) covers 983,149 areas; the gallery covers perhaps a dozen.
 

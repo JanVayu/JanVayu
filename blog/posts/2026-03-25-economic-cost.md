@@ -1,4 +1,4 @@
-# Air pollution costs India about $339 billion a year
+# Premature deaths from air pollution cost India about $339 billion in 2022
 
 **Published:** 25 March 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 
@@ -6,7 +6,7 @@
 
 India's air pollution is usually described as a health emergency, and it is one. It is also a very large economic loss, bigger each year than the entire GDP of most nations (World Bank, 2023 nominal GDP).
 
-The Lancet Countdown on Health and Climate Change 2025 estimates that air pollution costs India $339.4 billion annually, equivalent to 9.5 percent of GDP. (An earlier Greenpeace/CREA estimate from 2020, of about $150 billion a year, covered fossil-fuel air pollution only and used a different method, so the two figures are not like for like.) The Air Quality Life Index (AQLI 2025) calculates that the average Indian loses 3.5 years of life expectancy to air pollution. Those are years of working life, taken by particles too small to see.
+The Lancet Countdown on Health and Climate Change 2025 puts the monetised value of premature deaths from outdoor air pollution in India at $339.4 billion in 2022, equivalent to 9.5 percent of GDP. (An earlier Greenpeace/CREA estimate from 2020, of about $150 billion a year, covered fossil-fuel air pollution only and used a different method, so the two figures are not like for like.) The Air Quality Life Index (AQLI 2025) calculates that the average Indian loses 3.5 years of life expectancy to air pollution. Those are years of working life, taken by particles too small to see.
 
 The Lancet Countdown figure values premature deaths only. The costs described below (medical spending, lost work, business decisions) come on top of it and are not captured in that number.
 
@@ -14,7 +14,7 @@ The Lancet Countdown figure values premature deaths only. The costs described be
 
 Nobody tracks well what air pollution adds to India's health bills, but the number is large. The Lancet Countdown 2025 attributes about 1.72 million deaths in India in 2022 to anthropogenic PM2.5 (a different count from the roughly 2 million in State of Global Air 2025, which also includes household air pollution and ozone). Most of these deaths are preceded by illness, and illness costs money.
 
-Out-of-pocket health expenditure accounts for about 43 percent of total health spending in India (National Health Accounts 2022-23, Ministry of Health and Family Welfare). That is down sharply over the past decade, but it still leaves households paying much of a medical bill themselves.
+Out-of-pocket health expenditure was 43.4 percent of total health spending in India in 2022-23, up from 39.4 percent the year before, after falling for a decade (National Health Accounts 2022-23, Ministry of Health and Family Welfare). Households still pay much of a medical bill themselves.
 
 ## Lost work
 
@@ -32,7 +32,7 @@ We have no data on how many firms or workers have left Delhi-NCR because of its 
 
 The clearest comparison is between what air pollution costs India and what India spends to fight it. CREA found that Rs 11,211 crore (roughly $1.3 billion) had been released under the National Clean Air Programme's own fund and Fifteenth Finance Commission grants together during 2019-2025, as of its January 2025 report (CREA, *Tracing the Hazy Air 2025*). Its January 2026 report counts Rs 13,415 crore on the same two streams. Air pollution costs the economy $339 billion in one year (2022), by the Lancet Countdown's valuation. Set side by side, seven years of released funds come to under 0.4 percent of one year's valuation of premature deaths. *Update, 2 October 2026:* the Ministry of Environment, Forest and Climate Change told the Rajya Sabha that an air quality performance-based incentive grant of Rs 16,423.56 crore had been released to targeted cities under NCAP during FY 2019-20 to 2025-26 (PIB, 23 July 2026). The reply does not say how that divides between NCAP's own fund and Finance Commission grants. At about Rs 88 to the dollar that is roughly $1.9 billion, or about 0.55 percent of the $339 billion figure; the ministry's figure and CREA's counts come from different sources and cover different periods, so they are three readings of NCAP money, not one series to add up.
 
-The gap is not for lack of money. The Union Budget 2026-27 puts central government expenditure at Rs 53.47 lakh crore (PRS Legislative Research, *Union Budget Analysis 2026-27*). It reflects a choice to fund visible infrastructure over the diffuse, hard-to-see costs of polluted air.
+The gap is not for lack of money. The Union Budget 2026-27 puts central government expenditure at Rs 53.47 lakh crore (PRS Legislative Research, *Union Budget Analysis 2026-27*). The Rs 16,423.56 crore released over seven years is about 0.3 percent of one year's budgeted central expenditure.
 
 ## The case for spending more
 

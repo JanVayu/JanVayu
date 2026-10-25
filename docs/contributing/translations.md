@@ -41,7 +41,7 @@ If you notice an inaccurate or awkward translation:
 - **Preserve technical terms** — terms like PM2.5, AQI, NCAP, GEMM should remain as-is (they are internationally standardised)
 - **Use plain language** — the translations should be accessible to the same audience as the English version: educated general public, not specialists
 - **Consistency** — use the same translated term for the same concept throughout (e.g., always translate "air quality index" the same way)
-- **Neutral tone** — JanVayu is non-partisan; translations must preserve this neutrality
+- **Same tone** — translations must keep the English text's rule of not endorsing or opposing any party
 
 ---
 

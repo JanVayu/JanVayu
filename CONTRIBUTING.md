@@ -218,7 +218,7 @@ Key principles:
 - Be respectful and inclusive
 - Focus on facts, not opinions
 - Respect affected communities
-- Maintain non-partisan stance
+- Do not endorse or oppose political parties
 
 ---
 

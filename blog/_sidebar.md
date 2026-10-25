@@ -4,6 +4,8 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **October 2026**
+  - [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md)
+  - [Ammonia, the other half of secondary PM2.5, checked against what has been published](posts/2026-10-25-ammonia-the-other-half.md)
   - [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md)
   - [Five of our six pollutant pages were printing random numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md)
 
@@ -39,7 +41,7 @@
   - [We fact-checked our own site and changed 33 numbers](posts/2026-07-17-we-factchecked-ourselves.md)
   - [A working language switcher, easier access for more readers and a much lighter site](posts/2026-07-15-multilingual-accessibility-lighter.md)
   - [Forecasts, fire maps and the health effects of air pollution beyond the lungs](posts/2026-07-14-forecast-fire-and-beyond-the-lungs.md)
-  - [Up to 42% of India's PM2.5 forms in the air after emission](posts/2026-07-08-secondary-pm25.md)
+  - [Ammonium sulphate is up to 42% of PM2.5 in some Indian states, and it forms in the air](posts/2026-07-08-secondary-pm25.md)
   - [A citation that did not exist: 'Krishna et al.' was really Jaganathan](posts/2026-07-02-citation-integrity.md)
 
 - **June 2026**
@@ -60,13 +62,13 @@
 - **April 2026**
   - [Cigarette equivalents, city rankings, community sensors and workshops are now on JanVayu](posts/2026-04-26-shipped-this-week.md)
   - [In IQAir's 2025 ranking India's average eased, but Loni is the most polluted city](posts/2026-04-12-iqair-2025-india.md)
-  - [Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal](posts/2026-04-08-lancet-causal-evidence.md)
+  - [A causal Lancet study puts India's excess PM2.5 deaths at about 1.5 million a year](posts/2026-04-08-lancet-causal-evidence.md)
   - [Has India's National Clean Air Programme worked?](posts/2026-04-05-ncap-deadline.md)
   - [What air pollution does to India's children](posts/2026-04-01-children-air-pollution.md)
 
 - **March 2026**
   - [How farmers burn stubble when the satellites are not looking](posts/2026-03-28-stubble-burning-satellites.md)
-  - [Air pollution costs India about $339 billion a year](posts/2026-03-25-economic-cost.md)
+  - [Premature deaths from air pollution cost India about $339 billion in 2022](posts/2026-03-25-economic-cost.md)
 
 ---
 

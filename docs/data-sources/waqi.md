@@ -30,7 +30,7 @@ The conversion from PM2.5 to AQI uses US EPA breakpoints. India has its own Nati
 
 ## Rate limits
 
-Each WAQI key has a quota (by default 1,000 requests per second, per [WAQI's terms](https://aqicn.org/api/)). Anyone running many requests at once, for example testing all 157 cities together, can hit it. Two remedies: register your own free key at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/), or space the requests out.
+Each WAQI key has a quota (by default 1,000 requests per minute with bursts of up to 60, per [WAQI's terms of service](https://aqicn.org/api/tos/)). The terms also require credit to the World Air Quality Index Project and the originating EPA, ask non-profit users to notify WAQI by email before public use, and do not allow the data to be redistributed as cached or archived copies. Anyone running many requests at once, for example testing all 157 cities together, can hit it. Two remedies: register your own free key at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/), or space the requests out.
 
 ---
 

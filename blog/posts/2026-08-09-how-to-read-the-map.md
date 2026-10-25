@@ -63,7 +63,7 @@ About 46 per cent of districts (362 of 785) are above the first, and every distr
 
 "Why 2024?" is the first thing everyone asks, so there is now a second air layer that answers it. It covers **districts only**, and it is a different instrument.
 
-It comes from CAMS, the European atmospheric model, which publishes continuously and therefore covers 2026. On its own it cannot be compared with the satellite numbers beside it. It is a model rather than a satellite retrieval, and its cells are about 40 km across. Both cover 2024, though, so they can be checked against each other. Across the districts where both had a value when we fitted the model (758 then; the September refresh covers all 785, with a slope of 0.8276 and an intercept of 12.867), CAMS tracks the spatial pattern well (r = 0.91) while reading about 7 µg/m³ low everywhere. A steady offset is the correctable kind of error, so we fit the model to the satellite series on 2024 and apply that correction to 2026.
+It comes from CAMS, the European atmospheric model, which publishes continuously and therefore covers 2026. On its own it cannot be compared with the satellite numbers beside it. It is a model rather than a satellite retrieval, and its cells are about 45 km across. Both cover 2024, though, so they can be checked against each other. Across the districts where both had a value when we fitted the model (758 then; the September refresh covers all 785, with a slope of 0.8276 and an intercept of 12.867), CAMS tracks the spatial pattern well (r = 0.91) while reading about 7 µg/m³ low everywhere. A steady offset is the correctable kind of error, so we fit the model to the satellite series on 2024 and apply that correction to 2026.
 
 Tested on districts held out of the fit, the corrected figure lands within **3.1 µg/m³ (absolute error) for half of them and 8.5 for nine in ten**. That is the accuracy this layer has, and it is why the layer stops at district level. A 40 km cell cannot resolve a ward, and colouring one would invent detail the model does not have.
 
@@ -151,7 +151,7 @@ It answers questions about *your* place, not the country. Whatever is on screen 
 
 Every figure on the map is public data anyone can check.
 
-Live air comes from CPCB monitors, via WAQI. Annual and seasonal PM2.5 come from SatPM2.5 V6GL03, Atmospheric Composition Analysis Group, Washington University in St. Louis: satellite estimates calibrated against ground monitors, for 2024, under CC BY 4.0. "This year so far" (districts) comes from CAMS, the Copernicus Atmosphere Monitoring Service, via the Open-Meteo air-quality archive. It is a ~40 km model, calibrated against the SatPM2.5 series on 2024 and rebuilt monthly.
+Live air comes from CPCB monitors, via WAQI. Annual and seasonal PM2.5 come from SatPM2.5 V6GL03, Atmospheric Composition Analysis Group, Washington University in St. Louis: satellite estimates calibrated against ground monitors, for 2024, under CC BY 4.0. "This year so far" (districts) comes from CAMS, the Copernicus Atmosphere Monitoring Service, via the Open-Meteo air-quality archive. It is a ~45 km model, calibrated against the SatPM2.5 series on 2024 and rebuilt monthly.
 
 Surface heat comes from Landsat 8 and 9, USGS, 2026 pre-monsoon. Tree, green and built-up cover come from ESA WorldCover 2021, CC BY 4.0. Boundaries come from the Local Government Directory and Swachh Bharat Mission, republished via [indianopenmaps.com](https://indianopenmaps.com), plus West Bengal AMRUT and Living Atlas ward layers.
 

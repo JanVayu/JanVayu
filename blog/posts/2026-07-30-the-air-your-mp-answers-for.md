@@ -22,7 +22,7 @@ The boundaries come from the **Swachh Bharat Mission**, where every urban local 
 
 Here is how the data gets made usable.
 
-Patna's file contained **628 boundary entries for a city with 71 approved wards**. Hundreds of abandoned drafts sat alongside the real ones, so we keep only the versions marked APPROVED. Meerut's corporation named every ward "M_Ward", so we number them to make search work. Kota is served by two municipal corporations that each have a "Ward 5". Rajkot and Vadodara uploaded only 18 coarse revenue wards each, so their maps are blockier than the others. That is what their corporations published, and we show it as it is.
+Patna's file contained **628 boundary entries, of which 71 were marked approved**. Patna Municipal Corporation has 75 wards. Hundreds of abandoned drafts sat alongside the real ones, so we keep only the versions marked APPROVED. Meerut's corporation named every ward "M_Ward", so we number them to make search work. Kota is served by two municipal corporations that each have a "Ward 5". Rajkot and Vadodara uploaded only 18 coarse revenue wards each, so their maps are blockier than the others. That is what their corporations published, and we show it as it is.
 
 Some cities we wanted are missing: the SBM dataset has **no ward boundaries for West Bengal, Manipur, Mizoram or Tripura**, and no usable file for Guwahati, Srinagar or Madurai. If your city is one of these, the missing map tells you something about how your government publishes data, and it is a fair subject for an RTI.
 

@@ -45,7 +45,7 @@ These docs are available in 5 languages:
 
 ## Guiding principles
 
-- JanVayu is non-partisan. Air quality affects every Indian regardless of political affiliation, and the data, analysis and accountability work serve everyone.
+- JanVayu grew out of an AIPC campaign and was built under its fellowship programme (see About). Air quality affects every Indian regardless of political affiliation, and the data and analysis are published with sources so that anyone can check them.
 - Every data point links to a primary source.
 - The site is available in English, Hindi, Tamil, Marathi and Bengali.
 - The code is MIT-licensed, and the content is CC BY-NC-SA 4.0.

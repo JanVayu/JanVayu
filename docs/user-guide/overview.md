@@ -1,6 +1,6 @@
 # Platform overview
 
-JanVayu is one web page with about 58 panels, arranged in 7 groups by what you want to do: My Air, Maps & Places, Health & Trends, Accountability, Take Action, Learn and Resources. Together they cover live data, health, policy and legal accountability.
+JanVayu is one web page with 60 destinations, arranged in 8 groups by what you want to do: My Air, Maps & Places, Health & Trends, Accountability, Take Action, Learn, Resources and About. Together they cover live data, health, policy and legal accountability.
 
 ---
 

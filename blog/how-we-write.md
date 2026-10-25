@@ -16,7 +16,7 @@ Prefer plain words to clever ones. Use short sentences and everyday words. If a 
 
 Prefer honesty to impressiveness. The case for clean air is strong enough that it never needs an exaggerated number. Understating and sourcing beats overstating and getting caught.
 
-Stay non-partisan. We name problems, sources, and the gap between promise and delivery, and we never name a party. Track the money and the record, not the politics.
+Do not endorse or oppose a party. We name problems, sources, and the gap between promise and delivery, and we apply the same scrutiny to every government. Track the money and the record, not the politics.
 
 Stay calm. The facts are alarming on their own, so let them be. No doom, no hype, no exclamation marks.
 
@@ -84,7 +84,7 @@ missed.
 - [ ] Nothing is invented or guessed; anything shaky is flagged, not stated.
 - [ ] No two different methods are quietly merged into one figure.
 - [ ] No jargon a citizen wouldn't know (or it's explained the first time).
-- [ ] It's non-partisan: problems and sources, not parties.
+- [ ] It does not endorse or oppose a party: problems and sources, not parties.
 - [ ] It ends with a clear, small invitation to the reader.
 
 ## A quick before/after

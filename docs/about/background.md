@@ -29,7 +29,7 @@ JanVayu covers the whole country: 157 Indian cities across all major regions, an
 
 ## Governance
 
-JanVayu is non-partisan: air quality affects every Indian regardless of political affiliation, and the data, analysis and accountability work serve everyone. It is maintained independently, so decisions follow editorial principles and not donor requirements. The code is MIT-licensed, and the content is CC BY-NC-SA 4.0.
+JanVayu grew out of an AIPC campaign and was built under its fellowship programme (see the About panel). Air quality affects every Indian regardless of political affiliation, and the data and analysis are published with sources so that anyone can check them. Decisions follow the editorial principles on this page. The code is MIT-licensed, and the content is CC BY-NC-SA 4.0.
 
 Editorial principles:
 1. Factual accuracy and source transparency

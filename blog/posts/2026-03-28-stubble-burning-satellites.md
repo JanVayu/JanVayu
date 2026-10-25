@@ -8,7 +8,7 @@
 
 Every October, as the kharif paddy harvest ends across Punjab and Haryana, farmers in the two states set fire to crop residue to clear their fields for winter wheat. Smoke drifts southeast across the Indo-Gangetic plain, and Delhi's air quality collapses. Governments announce crackdowns and satellite images circulate on social media. Meanwhile the timing of the fires has changed.
 
-A NASA Earth Observatory feature (15 December 2025) reported that most stubble fires in Punjab and Haryana now happen between 4 PM and 6 PM. It cited a study in *Current Science* by scientists at ISRO's Space Applications Centre (Singh and colleagues, 2025) which found that peak fire activity moved from about 1:30 PM in 2020 to about 5:00 PM in 2024. The study's authors attribute the shift to farmers avoiding detection by polar-orbiting satellites, which pass over in the early afternoon.
+A NASA Earth Observatory feature (15 December 2025) reported, from Hiren Jethva's analysis of geostationary data, that most stubble fires in Punjab and Haryana now happen between 4 PM and 6 PM. It also cited a study in *Current Science* by scientists at ISRO's Space Applications Centre (Singh and colleagues, 2025) which found that peak fire activity moved from about 1:30 PM in 2020 to about 5:00 PM in 2024. The study's authors attribute the shift to farmers avoiding detection by polar-orbiting satellites, which pass over in the early afternoon.
 
 ## The numbers
 
@@ -22,7 +22,7 @@ The response has been costly. Between 2018-19 and 2025-26, the central governmen
 
 The Commission for Air Quality Management (CAQM), the statutory body overseeing NCR air quality, has mandated state-level action plans for each burning season. After the 10,207 fire events recorded in the 2025 wheat season, CAQM ordered time-bound execution of revised plans for the 2026 cycle with stricter enforcement protocols.
 
-The economics for farmers have not changed. A Happy Seeder, the main machine alternative to burning, costs roughly Rs 1.5 lakh, and a Super Seeder about Rs 2.5 lakh (*Indian Express*, 2019 and 2023). CAQM's Direction 96 (13 February 2026, on wheat residue) and Direction 99 (15 May 2026, on paddy residue) each tell the states to mandate rent-free availability of crop-residue machines for small and marginal farmers through Custom Hiring Centres ([CAQM directions](https://caqm.nic.in/landingpage/pages/advisories-directions/directions); ESG Times on Direction 96).
+The machines are costly. A Happy Seeder, the main machine alternative to burning, costs roughly Rs 1.5 lakh, and a Super Seeder about Rs 2.5 lakh, before subsidy (*Indian Express*, 2019 and 2023). The central scheme pays 50 percent of the cost for individual farmers and 80 percent for cooperatives, self-help groups and farmer producer organisations (PIB, 16 March 2026). CAQM's Direction 96 (13 February 2026, on wheat residue) and Direction 99 (15 May 2026, on paddy residue) each tell the states to mandate rent-free availability of crop-residue machines for small and marginal farmers through Custom Hiring Centres ([CAQM directions](https://caqm.nic.in/landingpage/pages/advisories-directions/directions); ESG Times on Direction 96).
 
 ## How much stubble burning contributes
 
@@ -38,7 +38,7 @@ The timing shift documented by ISRO scientists and reported by NASA exposes a we
 
 Better options include continuous monitoring from geostationary satellites (which India's INSAT fleet could in theory provide) and checks on the ground by patwaris and block-level officers. Incentives could make the alternatives cheaper than burning. The biggest pressure is the crop calendar, which leaves farmers a narrow window between harvest and sowing and no affordable way to clear the field in it.
 
-India has spent over four thousand crore rupees and distributed hundreds of thousands of machines, and the fires have fallen sharply. Fewer fires do not mean the problem is solved. While burning stays the cheapest choice for millions of farmers, the fires will continue, at different hours.
+India has spent over four thousand crore rupees and distributed hundreds of thousands of machines, and the official satellite count of fire incidents in Punjab and Haryana fell by more than 90 percent between the 2022 and 2025 paddy seasons. The ISRO geostationary study cited above found no decline in total fire activity over 2020 to 2024, so how much of the fall is real is unsettled. Fewer counted fires do not mean the problem is solved. While burning stays the cheapest choice for millions of farmers, the fires will continue, at different hours.
 
 ---
 

@@ -5,7 +5,80 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-10-20
+## [Unreleased] - 2026-10-25
+
+### Changed, a fact-check round, and a correction to the 42% secondary PM2.5 figure
+
+The round is written up in `docs/fact-check-2026-10-25.md`: what was
+checked, every correction and what is left for the owner.
+
+- The 8 July post said that up to 42% of India's PM2.5 is secondary. CREA's
+  42% is Chhattisgarh's annual ammonium sulphate share, and the national
+  average for ammonium sulphate is about 34%. The post, the Reading List card
+  and the Citizen Voices card now say what the figures measure, and the post
+  carries a correction note.
+- 22 other Reading List cards and 18 other blog posts now say what their sources say, no
+  more. The largest were a dementia figure restated as "17% per 10 µg/m³"
+  (the paper reports 1.08 per 5), a claim that CPCB's index is more lenient
+  than the US index across the range (it is stricter above about 80 µg/m³), a
+  Messi event placed in the wrong stadium, and a Finance Commission grant
+  stated at ₹12,139 crore against PIB's ₹16,539 crore.
+
+### Changed, how JanVayu describes its political origin
+
+The README, the About lede, the homepage disclaimer, the FAQ, the Team panel,
+the documentation, the walkthrough deck and the Ask JanVayu prompt called
+JanVayu "non-partisan", "independent of any government or party" and "not
+affiliated with any political party". The About panel's own Partners section
+says the platform was built under the All India Professionals' Congress's
+Dr. Manmohan Singh Fellows Programme and that AIPC describes itself as a
+political platform. Those pages now say that JanVayu grew out of an AIPC
+campaign and keep the practices as rules: endorse or oppose no party, apply the
+same sourcing rules to every government. The 26 May post's "funded by no one"
+is removed because nothing in the repository supports it. The version moves to
+26.6.243 because `app.js` changed.
+
+### Changed, open fact-check items closed
+
+Items the 25 October round left open now carry a source or a softer claim:
+Varanasi's 2023 figure, the AQLI 2024 values, the ₹11,211.13 crore NCAP
+release (PIB, 25 July 2024), the Census village count, the "roughly a quarter"
+denominator, the Groq limits wording, the SatPM2.5 citation and the Reading
+List intro. "Eighth straight year as worst capital" is removed because IQAir
+gives no count. Delhi's page now states that the January to September mean AQI
+is about 168 in 2026 against about 164 in 2025. The version moves to 26.6.244
+because `games.js` changed. Details are in `docs/fact-check-2026-10-25.md`.
+
+### Changed, the panel count in the user guide, the translated About intro and the walkthrough exports
+
+The user guide said "about 58 panels in 7 groups". The site Index lists 60
+destinations in 8 groups, and `check-nav-coverage.py` now compares both guides
+with the Index. The Hindi, Tamil, Marathi and Bengali About intros no longer
+call JanVayu non-partisan, matching the English. The four walkthrough PDF and
+PowerPoint exports are regenerated from the updated decks. The version moves to
+26.6.245 because `app.js` changed.
+
+### Changed, translated docs regenerated
+
+The 15 English docs this round changed are re-translated into Hindi, Bengali,
+Marathi and Tamil with `scripts/translate-docs.py` (60 file and language pairs;
+every one passed the script's number, heading and structure checks). The wiki
+home page had no translation before; it is new in all four languages, and its
+English source now describes the three panel renames without the retired panel
+names, so `check-translations.mjs` stays clean. These are machine translations
+and have not been read by a native speaker.
+
+### Added
+
+- Blog: "Ammonia, the other half of secondary PM2.5, checked against what has
+  been published", from The Hindu's excerpt of *The Nitrogen Bomb* (23 Oct).
+  It separates what CREA measured from the excerpt's own figures and sets the
+  published 11% (Wang et al., 2025) beside the excerpt's "about a quarter".
+- Blog: "A very strong El Niño is forecast, and one study asks what it did to
+  winter air last time", from NOAA's 8 October discussion and Yadav, Beig and
+  Kripalani (2026).
+- Reading List: Wang et al. (2025) and Yadav, Beig and Kripalani (2026), now
+  61 studies. The BibTeX and RIS downloads are rebuilt.
 
 ### Added, five studies on the Reading List (54 to 59)
 

@@ -1,4 +1,4 @@
-# Air pollution kills 1.5 million Indians a year, and the Lancet now shows the link is causal
+# A causal Lancet study puts India's excess PM2.5 deaths at about 1.5 million a year
 
 **Published:** 8 April 2026 | **Author:** Team JanVayu | **Reading time:** 4 min
 
@@ -34,7 +34,7 @@ India's aggregate pollution statistics show small improvements on some measures,
 
 ## What this means for policy
 
-Taken together, these studies settle the scientific case for reducing air pollution. The open question for policymakers is how many deaths to accept while action stays slow.
+Taken together, these studies add strong causal evidence to the case for reducing air pollution. The open question for policymakers is how many deaths to accept while action stays slow.
 
 The National Clean Air Programme, now at its 2026 deadline, was designed around a 40% reduction in PM10 concentrations. These studies, though, measure PM2.5, the fraction most strongly linked to mortality, while NCAP's target is for PM10. Even modest reductions in fine particulate matter would save hundreds of thousands of lives annually.
 

@@ -29,7 +29,7 @@ Both are sound, and we cite them separately in the Health Studies section of the
 
 ## Life expectancy: 3.5 years lost on average
 
-[AQLI 2025](https://aqli.epic.uchicago.edu/) is now our main source for this number. The national average is 3.5 years (2023 data), down from 3.6 in AQLI 2024. The Northern Plains lose 5.0 years (5.4 in 2024) and Delhi alone 8.2 years.
+[AQLI 2025](https://aqli.epic.uchicago.edu/) is now our main source for this number. The national average is 3.5 years (2023 data), down from 3.6 in AQLI 2024 ([fact sheet](https://aqli.epic.uchicago.edu/files/India-FactSheet_2024.pdf), 2022 data). The Northern Plains lose 5.0 years (5.4 in the 2024 fact sheet) and Delhi alone 8.2 years.
 
 ## What we still lack
 

@@ -51,7 +51,47 @@ def reachable():
     return {d for d in dests if '${' not in d}
 
 
+def site_index():
+    """The destinations and groups the site's own Index lists, as a visitor sees them."""
+    s = (ROOT / 'index.html').read_text(encoding='utf-8')
+    a, b = s.find('id="siteIndexGrid"'), s.find('id="siteIndexNone"')
+    block = s[a:b]
+    links = re.findall(r'<a [^>]*data-panel="([^"]+)"', block)
+    groups = re.findall(r'<div class="grp">([^<]+)</div>', block)
+    return len(set(links)), len(groups)
+
+
+def docs_agree():
+    """The user guide states how many destinations and groups there are.
+
+    "About 58 panels in 7 groups" stood in two guides after the Index had grown
+    to 60 destinations in 8 groups, and nothing compared them, so the guides
+    are tied to the Index here.
+    """
+    n, g = site_index()
+    problems = []
+    overview = (ROOT / 'docs/user-guide/overview.md').read_text(encoding='utf-8')
+    m = re.search(r'with (\d+) destinations, arranged in (\d+) groups', overview)
+    if not m:
+        problems.append('docs/user-guide/overview.md no longer states "N destinations, arranged in G groups"')
+    elif (int(m.group(1)), int(m.group(2))) != (n, g):
+        problems.append(f'docs/user-guide/overview.md says {m.group(1)} destinations in {m.group(2)} groups; the Index lists {n} in {g}')
+    role = (ROOT / 'docs/user-guide/role-selector.md').read_text(encoding='utf-8')
+    m = re.search(r'full list of (\d+) destinations', role)
+    if not m:
+        problems.append('docs/user-guide/role-selector.md no longer states "the full list of N destinations"')
+    elif int(m.group(1)) != n:
+        problems.append(f'docs/user-guide/role-selector.md says {m.group(1)} destinations; the Index lists {n}')
+    return problems
+
+
 def main():
+    problems = docs_agree()
+    if problems and '--update' not in sys.argv:
+        print('FAIL — the user guide and the site Index disagree:')
+        for pr in problems:
+            print(f'  {pr}')
+        return 1
     now = reachable()
     if '--update' in sys.argv:
         BASELINE.parent.mkdir(parents=True, exist_ok=True)

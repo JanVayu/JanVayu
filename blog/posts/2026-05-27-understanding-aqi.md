@@ -26,7 +26,7 @@ When you see an AQI number, ask which pollutant is driving it.
 
 India uses the CPCB National AQI scale, which divides air quality into six categories: Good (0-50), Satisfactory (51-100), Moderate (101-200), Poor (201-300), Very Poor (301-400), and Severe (401-500). The US EPA scale, used by platforms like WAQI and IQAir, has different breakpoints and different category names.
 
-The gap matters. A PM2.5 concentration of 90 µg/m³ is classified as "Moderate" on the Indian CPCB scale and "Unhealthy" on the US EPA scale. It is the same air and the same particles, but one scale calls it tolerable and the other tells you to limit outdoor exertion. The CPCB scale is more lenient across the range. When a politician says air quality is "Moderate", check which scale they are using.
+The gap matters. A PM2.5 concentration of 90 µg/m³ is classified as "Moderate" on the Indian CPCB scale and "Unhealthy" on the US EPA scale. It is the same air and the same particles, but one scale calls it tolerable and the other tells you to limit outdoor exertion. Below about 80 µg/m³ of PM2.5 the CPCB index gives lower numbers than the US EPA index. Above about 80 µg/m³ it gives higher ones: 100 µg/m³ is 232 on the CPCB scale and 182 on the EPA scale. When a politician says air quality is "Moderate", check which scale they are using.
 
 ## India's own standards are loose
 
@@ -38,7 +38,7 @@ In practice, a city can meet NAAQS while its residents breathe PM2.5 at levels t
 
 AQI is calculated from 24-hour averages (or shorter rolling windows for some pollutants), which smooths out spikes. A neighbourhood downwind of a brick kiln might see PM2.5 reach 400 µg/m³ for three hours during firing, then fall to 80 for the rest of the day. The 24-hour average looks "Poor", while at 6 AM the air was "Severe".
 
-Averaging also hides differences between places. A city's official AQI often comes from one or two monitoring stations, which may not represent every neighbourhood. In CPCB's 2024 daily bulletins, 221 of the 264 cities with a usable year, meaning at least 180 reported days (84%), had a median of fewer than three stations (JanVayu analysis of the CPCB bulletin data). Siting is a problem as well: Newslaundry's 2025 field check of 25 Delhi monitoring stations found that **88% flouted CPCB's siting criteria**, and a CAG audit tabled in the Delhi Assembly in April 2025 found 13 of 24 DPCC stations it verified in 2020 were sited too close to trees (Newslaundry, 1 April 2025, a press report on the CAG audit).
+Averaging also hides differences between places. A city's official AQI often comes from one or two monitoring stations, which may not represent every neighbourhood. In CPCB's 2024 daily bulletins, 221 of the 264 cities with a usable year, meaning at least 180 reported days (84%), had a median of fewer than three stations (JanVayu analysis of the CPCB bulletin data). Siting is a problem as well: Newslaundry's 2025 field check of 25 Delhi monitoring stations found that **88% flouted CPCB's siting criteria**, and a CAG audit tabled in the Delhi Assembly in April 2025 physically checked 13 of the Delhi Pollution Control Committee's 24 stations in September 2020 and found all 13 close to trees on several sides (Newslaundry, 1 April 2025, a press report on the CAG audit).
 
 ## What you should actually do
 

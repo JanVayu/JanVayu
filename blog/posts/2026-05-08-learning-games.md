@@ -10,7 +10,7 @@ JanVayu now has a Learning Games panel with six short, original games, meant for
 
 Talk about air quality in India tends to take two forms. One is the dry data dashboard, which we also run. The other is the outrage when AQI passes 400 in November, which we also track. What is missing is a calm way to learn how all this works. Games help because being wrong costs little, people play again, and a round fits between two metro stations.
 
-The Jeopardy format comes from **Dr. Sarath Guttikunda** of [UrbanEmissions.info](https://urbanemissions.info/), who runs air-quality teaching work for which a Jeopardy-style quiz suits well. We thought the format belonged on JanVayu too. We have not asked Dr. Guttikunda to endorse this version, and we have not sourced a description of his own sessions here. The clues, the categories and the Indian framing are ours. If you want the live version, with audience teams and a buzzer, request a session on the Workshops panel.
+We built a Jeopardy-style quiz because the format suits classroom teaching. The clues, the categories and the Indian framing are ours. If you want the live version, with audience teams and a buzzer, request a session on the Workshops panel.
 
 The newest game is older still. **Moksha Patam** is the original Indian Snakes & Ladders, which travelled abroad and became "Chutes and Ladders". We gave it a clean-air theme.
 

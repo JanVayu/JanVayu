@@ -43,9 +43,9 @@ When contributing content:
 
 ---
 
-## Non-Partisan Standard
+## Standard on parties and governments
 
-JanVayu is non-partisan. Content must:
+Content must:
 
 - Criticise policies and institutional failures — not individuals or political parties
 - Apply the same standard of scrutiny to all governments (central, state, regardless of party)

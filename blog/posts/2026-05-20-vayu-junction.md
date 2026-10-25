@@ -76,6 +76,6 @@ We will add new puzzles every few weeks. If you want one for a city or a school 
 
 ## Credits
 
-The form comes from BBC's *Only Connect*, by way of the daily NYT *Connections* and the *[Torchlight](https://timesofclimatechange.com/torchlight/)* climate puzzle at Times of Climate Change. The content is JanVayu's own, written from the primary sources used across the site: CPCB, CAQM, IQAir 2025, NCAP scorecards, the Lancet Countdown 2025, CREA's monthly snapshots, and Dr. Sarath Guttikunda's work at UrbanEmissions.info. The Jeopardy clue list in the first game, tested in classrooms, is the teaching work that made us start building these games.
+The form comes from BBC's *Only Connect*, by way of the daily NYT *Connections* and the *[Torchlight](https://timesofclimatechange.com/torchlight/)* climate puzzle at Times of Climate Change. The content is JanVayu's own, written from the primary sources used across the site: CPCB, CAQM, IQAir 2025, NCAP scorecards, the Lancet Countdown 2025, CREA's monthly snapshots.
 
 *Team JanVayu*

@@ -28,7 +28,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 ## About JanVayu
 
-**JanVayu** (जनवायु — "People's Air") is a non-partisan, citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
+**JanVayu** (जनवायु — "People's Air") is a citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
 ### What's New (v26.6.x)
 
@@ -73,7 +73,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - Chatbot station-count accuracy: CPCB reference data for 27 cities with CAAQMS vs manual bifurcation.
 - Multi-station AQI range for generic queries (fixes Delhi/Mandir Marg single-station bias).
 - Navigation reorganized from data-type to intent-based: new "My Air" tab surfaces personal tools first. Resources cut from 16 → 8 items. All 43 panels preserved.
-- Renamed: Hyperlocal → My Neighbourhood, Research Library → Reading List, Policy Effectiveness → Policy Tracker.
+- Renamed three panels: the neighbourhood panel is now My Neighbourhood, the research library is now the Reading List, and the policy effectiveness panel is now the Policy Tracker.
 - Thumbs up/down feedback buttons on chatbot responses.
 - City bar expanded from 10 → 33 cities.
 - Service worker cache bumped so returning visitors see new features.
@@ -169,7 +169,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **Six per-pollutant SEO pages** at `/pm25`, `/pm10`, `/co`, `/no2`, `/so2`, `/o3`.
 - **Embeddable widgets** at `/embed/aqi/` and `/embed/rankings/`.
 - **Root PWA** (manifest.json + sw.js) with install banner.
-- **Sensor.Community integration** in the Hyperlocal panel — free community sensors blended with CPCB/WAQI data.
+- **Sensor.Community integration** in the My Neighbourhood panel — free community sensors blended with CPCB/WAQI data.
 - **Heatmap layer** on the Live Map.
 - **Programme attribution updated** to "AirQuality for Janhit by MMSF Fellows, AIPC".
 
@@ -191,7 +191,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 ### Core Principles
 
 - **Evidence-based** — all data sourced from verified, public sources
-- **Non-partisan** — no affiliation with any political party or entity
+- **Disclosed origins** — grew out of an AIPC campaign and was built under its fellowship programme; endorses no party
 - **Accessible** — designed for India's diverse users, languages, and devices
 - **Transparent** — open source, open data, open methodology
 - **Persistent** — creating a permanent public record of the crisis
