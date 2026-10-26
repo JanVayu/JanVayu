@@ -443,7 +443,7 @@ URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just t
 const ABOUT_REFERENCE = `ABOUT JANVAYU (the only source for questions about who is behind the platform and its political links):
 - JanVayu grew out of the #AQIForJanHit campaign of the All India Professionals' Congress (AIPC), which describes itself as a political platform, and was designed and built under AIPC's Dr. Manmohan Singh Fellows Programme. The About panel lists AIPC, the Fellows Programme and UrbanEmissions as Janhit partners.
 - It is not an official government or commercial service. Its code, data, sources and editorial rules are public, and the same sourcing rules apply to every government and party. It endorses and opposes no party.
-- When asked, state the AIPC origin plainly in the first sentence. Never call JanVayu non-partisan, neutral, independent of political parties or unaffiliated, and never deny or play down the link. Do not say who funds it or who staffs it: the reference data does not say.`;
+- When asked, state the AIPC origin plainly in the first sentence, in the words above ("grew out of" a campaign, "designed and built under" a programme). Do not say AIPC created, owns or runs JanVayu: the repository does not say so. Never call JanVayu non-partisan, neutral, independent of political parties or unaffiliated, and never deny or play down the link. Do not say who funds it or who staffs it: the reference data does not say.`;
 
 const SECONDARY_REFERENCE = `SECONDARY PARTICLES, AMMONIUM SULPHATE AND AMMONIA (use only these figures, each with what it measures):
 - CREA (report of 30 June 2025): ammonium sulphate, one compound, is about 34% of India's PM2.5 mass on a national average and 20% to 43% across the NCAP cities. It is not the whole secondary share: ammonium nitrate and organic particles formed from gases come on top, so total secondary PM2.5 is larger than 34%.
@@ -461,7 +461,7 @@ const WINTER_PEAKS_REFERENCE = `DELHI'S WINTER PEAKS (use only these figures):
 
 const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
 - NOAA's Climate Prediction Center (8 October 2026): an El Nino Advisory, with a strong to very strong event likely through January to March 2027 and a chance of a historic one (3-month index of +2.5C or more) of 54% for September to November, 83% for October to December and 70% for November to January. The next update is 12 November 2026, so say the figures may have changed.
-- Yadav, Beig and Kripalani (Atmospheric Pollution Research 17(11), 103231, October 2026): winter PM2.5 swung by up to 70% with no appreciable change in emissions, between a La Nina winter (2022-23, northern cities up to about 30% cleaner than their 2019-2022 average) and an El Nino winter (2023-24). The authors warn the correlations show no direct causation and cannot be carried to other years, and the 2023-24 event was short-lived.
+- Yadav, Beig and Kripalani (Atmospheric Pollution Research 17(11), 103231, October 2026): winter PM2.5 across Indian cities swung by up to 70% with no appreciable change in emissions (this is the range over cities, not a Delhi figure; a Times of India report, not checked against the paper, puts Delhi a little over 10% above its 2019-2022 average in the El Nino winter), between a La Nina winter (2022-23, northern cities up to about 30% cleaner than their 2019-2022 average) and an El Nino winter (2023-24). The authors warn the correlations show no direct causation and cannot be carried to other years, and the 2023-24 event was short-lived.
 - Never forecast Delhi's or any city's winter from El Nino. Advise checking the weather before crediting or blaming a policy for a week well above or below normal.`;
 
 function isAboutQuery(question) {
@@ -471,7 +471,7 @@ function isSecondaryQuery(question) {
   return /\b(ammoni\w+|secondary(?!\s+(school|education|college))|formed\s+in\s+the\s+air|nitrogen\s+bomb|fertili[sz]er\w*|sulph\w+|sulf\w+)/i.test(question);
 }
 function isWinterPeaksQuery(question) {
-  return /(twice\s+(a|each|every)\s+winter|two\s+peaks?|second\s+peak|winter\s+(peak|biomass)|biomass\s+burning|(worst|peak|highest)\s+(week|weeks|time|month|months)[^?.]{0,40}(delhi|winter)|when\s+(is|does|do|are)[^?.]{0,40}(delhi|pollution|pm\s?2\.?5)[^?.]{0,30}(worst|peak|highest))/i.test(question);
+  return /(twice\s+(a|each|every)\s+winter|two\s+peaks?|second\s+peak|winter\s+(peak|biomass)|biomass\s+burning|(worst|peak|highest)\s+(week|weeks|time|month|months)[^?.]{0,40}(delhi|winter)|when\b[^?.]{0,60}(delhi|pollution|pm\s?2\.?5)[^?.]{0,40}(worst|peak|highest))/i.test(question);
 }
 function isEnsoQuery(question) {
   return /\b(el\s?ni[nñ]o|la\s?ni[nñ]a|enso\b|southern\s+oscillation)/i.test(question);

@@ -29,6 +29,7 @@ const FIRES = {
   isWinterPeaksQuery: [
     'Does Delhi\'s air pollution peak twice each winter?',
     'When is Delhi\'s pollution at its worst in winter?',
+    'When in the year is Delhi\'s PM2.5 usually at its worst, and why?',
     'Is biomass burning behind the second peak?',
   ],
   isEnsoQuery: [
@@ -82,6 +83,7 @@ test('the about block states the AIPC origin the About panel states, and claims 
   assert.match(b, /All India Professionals' Congress \(AIPC\)/);
   assert.match(b, /describes itself as a political platform/);
   assert.match(b, /Dr\. Manmohan Singh Fellows Programme/);
+  assert.match(b, /Do not say AIPC created, owns or runs/);
   // It may name the words only to forbid them.
   const positive = b.replace(/Never call JanVayu[^.]*\./, '');
   assert.doesNotMatch(positive, /non-?partisan|unaffiliated|independent of/i);
@@ -119,6 +121,7 @@ test('the El Nino block carries a date and tells the model not to forecast', () 
   assert.match(b, /8 October 2026/);
   assert.match(b, /next update is 12 November 2026/);
   assert.match(b, /Never forecast/);
+  assert.match(b, /not a Delhi figure/, 'the 70% must not be attributed to Delhi');
 });
 
 test('retired claims are in no prompt the assistant can be sent', () => {

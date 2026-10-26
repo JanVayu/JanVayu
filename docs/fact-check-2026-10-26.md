@@ -25,7 +25,7 @@ The Reading List is 66 studies. Papers 4 and 5 are methods papers with no Indian
 ## Not done, and why
 
 1. **The CPCB bulletins stop at 19 October.** `cpcb.gov.in` fails certificate verification from the agent environment even with the environment's CA bundle, so the fetch could not run. It needs GitHub's runner or a person.
-2. **The new eval cases have not run against production.** The new knowledge is not deployed yet, and a live run spends the visitors' token budget. Run `node test/ask-eval/run-eval.mjs --only about-affiliation,secondary-42-premise,ammonia-share,enso-forecast,delhi-winter-timing` after the next publish.
+2. **The new eval cases have been run against production once, and two could not be graded.** After PR 424 was published on 26 October, three of the five were answered and two (`secondary-42-premise`, `ammonia-share`) were rate-limited on both tries and on the second pass. They still need a run. The three answered showed four faults, all fixed in the follow-up: the ENSO gate failed a correct answer that quoted the question; the Delhi-timing detector missed the exact question the case asks, so that block was never used; the assistant said winter PM2.5 swung "in Delhi" by up to 70%, when the figure is a range over cities; and it said AIPC "created" JanVayu, where the repository says the platform grew out of a campaign. Re-run `node test/ask-eval/run-eval.mjs --only secondary-42-premise,ammonia-share,enso-forecast,delhi-winter-timing` after the next publish.
 3. **Photograph captions and testimonies** are first-hand records. No source exists to check them against, so they were not checked.
 4. **The translated copy of `docs/technical/ai-features.md`** is stale until the translation job runs on the next push to main.
 
