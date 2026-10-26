@@ -91,7 +91,7 @@ test('the about block states the AIPC origin the About panel states, and claims 
 
 test('the secondary block keeps 42% where CREA put it, and 34% as the national figure', () => {
   const b = t.SECONDARY_REFERENCE;
-  assert.match(b, /42% is Chhattisgarh's annual ammonium sulphate share/);
+  assert.match(b, /42% is Chhattisgarh's ANNUAL ammonium sulphate share/);
   assert.match(b, /NEVER say that 42% of India's PM2\.5 is secondary/);
   assert.match(b, /about 34% of India's PM2\.5 mass/);
   assert.match(b, /11% of annual mean PM2\.5 across South Asia/);
@@ -160,4 +160,22 @@ test('retired claims are in no prompt the assistant can be sent', () => {
     [/eighth straight year/i, 'the withdrawn IQAir run'],
     [/17% per 10/i, 'the dementia figure'],
   ]) assert.doesNotMatch(everything.replace(/NEVER say that 42%[^.]*\./, ''), re, why);
+});
+
+test('"El Nina" is corrected to La Nina and real El Nino text is untouched', () => {
+  assert.equal(t.fixKnownSlips('a La Niña winter and an El Niña winter'), 'a La Niña winter and an La Niña winter');
+  assert.equal(t.fixKnownSlips('El Nina and El Nino'), 'La Nina and El Nino');
+  assert.equal(t.fixKnownSlips('An El Niño advisory'), 'An El Niño advisory');
+});
+
+test('the activity bands are labelled US-EPA and sit beside the CPCB bands', () => {
+  const a = t.ACTIVITY_THRESHOLDS;
+  assert.match(a, /say they are US-EPA bands/);
+  assert.match(a, /Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250/);
+});
+
+test('the round-three fixes: annual not winter, Mangaraj is not a model', () => {
+  assert.match(t.SECONDARY_REFERENCE, /never call it a winter figure/);
+  assert.match(t.WINTER_PEAKS_REFERENCE, /not a model; only Nandi et al\. is a model/);
+  assert.match(t.WINTER_PEAKS_REFERENCE, /never "a modelling study"/);
 });

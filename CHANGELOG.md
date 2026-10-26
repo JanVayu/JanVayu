@@ -21,6 +21,9 @@ Delhi's winter episodes (it says nothing about Delhi), and that the Langford
 result shows policy from London cannot work in Delhi (the paper concludes that
 primary sources differ from those controlling ambient PM1 mass).
 
+### Fixed, a third round of answer faults, and the health bands now name their scale
+The second round went live and the answers were read again. The reply on the 42% called Chhattisgarh's figure a winter one, when CREA's is annual. The Delhi reply called Mangaraj et al. a modelling study, when it is a measurement study with 30 low-cost sensors, and still said causes "make" the worst week. The El Nino reply wrote "El Nina" even though the prompt forbids it, so `fixKnownSlips()` now corrects it in the answer itself, as the markdown stripping does. The activity guidance in the base prompt uses US-EPA bands, which an answer quoted as a bare "55 µg/m³" threshold to an Indian reader. It now says they are US-EPA bands and sets CPCB's own PM2.5 bands (Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250, Severe above 250) beside them. The advice for each band is unchanged. `test/knowledge-gates.test.mjs` pins all of it.
+
 ### Fixed, a second round of answer faults found on the published site
 Reading the answers again after the first round went live showed that all three fixes held and four faults remained. The reply to "is 42% of India's PM2.5 secondary" called the 42% untraceable, when it is CREA's real figure for Chhattisgarh. The Delhi timing reply opened "Yes", put Diwali in "mid-October to mid-November" (it fell between 24 October and 14 November in the six winters), called one study "recent studies" and named meteorology the main driver, which the figures do not show. The El Nino reply wrote "El Nina" and said El Nino winters often coincide with higher PM2.5, which two winters cannot show. The reference blocks now rule each of these out and `test/knowledge-gates.test.mjs` pins the wording.
 
