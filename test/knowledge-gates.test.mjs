@@ -162,10 +162,11 @@ test('retired claims are in no prompt the assistant can be sent', () => {
   ]) assert.doesNotMatch(everything.replace(/NEVER say that 42%[^.]*\./, ''), re, why);
 });
 
-test('"El Nina" is corrected to La Nina and real El Nino text is untouched', () => {
-  assert.equal(t.fixKnownSlips('a La Niña winter and an El Niña winter'), 'a La Niña winter and an La Niña winter');
-  assert.equal(t.fixKnownSlips('El Nina and El Nino'), 'La Nina and El Nino');
-  assert.equal(t.fixKnownSlips('An El Niño advisory'), 'An El Niño advisory');
+test('"El Nina" becomes El Nino, in either encoding of the n-tilde, and real text is untouched', () => {
+  assert.equal(t.fixKnownSlips('between La Niña and El Niña winters'), 'between La Niña and El Niño winters');
+  assert.equal(t.fixKnownSlips('El Nin\u0303a winter (2023-24)'), 'El Niño winter (2023-24)');
+  assert.equal(t.fixKnownSlips('El Nina and La Nina'), 'El Nino and La Nina');
+  assert.equal(t.fixKnownSlips('An El Niño advisory and a La Niña winter'), 'An El Niño advisory and a La Niña winter');
 });
 
 test('the activity bands are labelled US-EPA and sit beside the CPCB bands', () => {
@@ -196,4 +197,13 @@ test('the scale note reaches the prompt only when there is a number to name', ()
   assert.ok(t.buildSystemPrompt(s, null, { scaleNote: t.scaleNote('', 96) }).includes('SCALE CHECK'));
   assert.ok(!t.buildSystemPrompt(s, null, {}).includes('SCALE CHECK'));
   assert.match(t.SECONDARY_REFERENCE, /annual ammonium sulphate share of PM2\.5 \(CREA, 24 December 2025\), not the national secondary share/);
+});
+
+test('a live reading alone must not tell the answer how to open', () => {
+  const live = t.scaleNote('When in the year is Delhi worst?', 96);
+  assert.match(live, /live reading of 96/);
+  assert.doesNotMatch(live, /open with the category/);
+  assert.match(live, /say nothing about how the answer should begin/);
+  const asked = t.scaleNote('Delhi is at 32 micrograms today. Which category?', 96);
+  assert.match(asked, /open with the category/);
 });

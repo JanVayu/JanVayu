@@ -988,10 +988,18 @@ function scaleNote(question, livePm25) {
     const c = bandOf(CPCB_PM25_BANDS, v), e = bandOf(EPA_PM25_BANDS, v);
     return `- ${label} ${v} µg/m3: CPCB (India) says ${c[1]} (${c[2]}); the US-EPA scale says ${e[1]} (${e[2]}).`;
   };
-  if (asked != null && asked >= 0 && asked < 2000) lines.push(line("The reader's figure of", asked));
+  const hasAsked = asked != null && asked >= 0 && asked < 2000;
+  if (hasAsked) lines.push(line("The reader's figure of", asked));
   if (livePm25 != null && Number.isFinite(Number(livePm25))) lines.push(line("The live reading of", Number(livePm25)));
   if (!lines.length) return "";
-  return `SCALE CHECK (computed by the code, so use these names exactly; never rename a band or say the two scales agree):\n${lines.join("\n")}\nName India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No".`;
+  const head = "SCALE CHECK (computed by the code, so use these names exactly; never rename a band or say the two scales agree):";
+  // Only a question that quotes a figure is a question about its band. For the
+  // live reading alone the names are there to be used if the answer mentions
+  // the category; they must not shape how the answer opens.
+  const tail = hasAsked
+    ? `Name India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No".`
+    : `Use these names only if the answer mentions the live reading's category, and say which scale each belongs to. They say nothing about how the answer should begin.`;
+  return `${head}\n${lines.join("\n")}\n${tail}`;
 }
 
 function buildSystemPrompt(seasonal, lang, opts = {}) {
@@ -1574,10 +1582,13 @@ Top 5 worst: ${top5}
   }
 }
 
-// "El Nina" is not a thing: the model blends El Nino and La Nina, in spite of
-// the prompt, so correct it after the fact. It can only mean La Nina.
+// "El Nina" is not a thing: the model blends the two names, in spite of the
+// prompt. Read in context it means El Nino (the model writes it for the warm
+// winter, set against "La Nina" for the cool one), so that is what it becomes.
+// Matched after NFC normalisation, because the model sometimes emits n + a
+// combining tilde, which a literal "ñ" in the pattern does not match.
 function fixKnownSlips(text) {
-  return text.replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "La Niña" : "La Nina"));
+  return text.normalize("NFC").replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "El Niño" : "El Nino"));
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
