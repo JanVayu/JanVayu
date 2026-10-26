@@ -21,6 +21,16 @@ Delhi's winter episodes (it says nothing about Delhi), and that the Langford
 result shows policy from London cannot work in Delhi (the paper concludes that
 primary sources differ from those controlling ambient PM1 mass).
 
+### Fixed, Ask JanVayu after its first live test
+
+The five new eval cases were run against production once. Three were answered
+and two were rate-limited. Four faults: the ENSO gate failed a correct answer
+because it quoted the question, so it now bans only predict-anyway phrasings;
+the Delhi-timing detector missed the case's own question; the El Nino block
+let the assistant call a 70% range over cities a Delhi figure; and the assistant
+said AIPC created JanVayu, which the repository does not say. The tests now
+carry the real question and both wordings.
+
 ### Changed, Ask JanVayu: knowledge and testing
 
 - The assistant had no knowledge of its own origin, of secondary particles and
