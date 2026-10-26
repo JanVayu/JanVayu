@@ -1527,7 +1527,7 @@ Top 5 worst: ${top5}
   const trend = trendQ;
   const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend,
     aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question),
-    scaleNote: scaleNote(question, aqiResult && aqiResult.pm25) };
+    scaleNote: scaleNote(question, aqiResult.pm25) };
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
