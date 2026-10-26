@@ -1,4 +1,4 @@
-# Six winters of Delhi's weekly PM2.5: the highest weeks fall in the same few weeks every year, and the average hides how high they go
+# Delhi's weekly PM2.5 peaks in the same few weeks every winter, and averaging six winters hides how high the first peak goes
 
 **Published:** 26 October 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 
@@ -6,16 +6,10 @@
 
 CEEW, the Council on Energy, Environment and Water, has posted a chart on LinkedIn titled "Delhi's air pollution peaks twice each winter". It plots Delhi's weekly average PM2.5 from CPCB data, May to April. The first peak, 260 µg/m³, is labelled as the start of stubble burning and sits above the 250 that CPCB's index calls Severe. The second, 247, is labelled winter biomass burning. The chart's note says the values are averaged over 2023 to 2026, and that weeks after September are averaged over 2023 to 2025.
 
-XKDR Forum's archive of CPCB's monitor data, which we already use elsewhere on the site, reaches back to 2018 for Delhi, so we could draw the same chart winter by winter instead of as one average. The result agrees with CEEW on the shape and the scale. It disagrees on how high a winter's first peak goes, and it shows that the claim in the title needs a qualifier.
+CPCB's monitor data for Delhi reaches back to 2018, so we drew the same chart for six winters, one line each, instead of one average. The shape and the scale agree with CEEW's. Three things do not carry over from an average to a winter. One is how high the first peak goes, another is whether a single winter shows two peaks, and the third is what causes either one.
 
 <div class="jv-dgm jv-dgm-wide"><img src="/blog/diagrams/delhi-weekly.svg" alt="Line chart of Delhi's weekly mean PM2.5 in micrograms per cubic metre from May to April. A grey band shows the lowest to highest week across six winters, 2018-19 to 2023-24, and a bold line shows their mean. The mean stays between about 30 and 60 from late June to late September, then rises to 254 in the week of 30 October, falls to 156 in the week of 11 December, rises again to 238 in the week of 18 December, and declines through February to about 80 by March. A dashed line shows winter 2024-25 to December, reaching 385 in the week of 13 November 2024. Dotted horizontal lines mark 60, the 24-hour standard, and 250, CPCB's Severe threshold."></div>
 <div class="jv-dgm jv-dgm-tall"><img src="/blog/diagrams/delhi-weekly-tall.svg" alt="" aria-hidden="true"></div>
-
-## What we drew
-
-The data are the India Air Quality Database of XKDR Forum, which carries CPCB's continuous monitors (CC BY 4.0). A station's day counts if it has at least 18 hourly readings. A city-day is the mean of the stations reporting, and we require at least 10 of them; between 10 and 39 reported on any day. A week is a seven-day block counted from 1 May, so a winter is not cut in two on 1 January.
-
-Six winters are complete, 2018-19 to 2023-24. Winter 2024-25 is drawn as a dashed line to December only. The archive has no CPCB data for January to March 2025, and its CPCB feed stops on 1 September 2025, so we cannot draw the start of this winter or the 2025 weeks CEEW's average includes. The network also grew, with 13 to 37 stations reporting a day in 2018-19 and 20 to 39 in 2022-23, so levels in early winters are not strictly like for like with later ones.
 
 ## What agrees with CEEW
 
@@ -38,7 +32,7 @@ Each winter has its own first peak, and it is higher than the mean of the winter
 
 The first peaks average 291, and every one is above 250. The six-winter mean reaches only 254, because the winters do not peak in the same week and averaging blends a high week with its lower neighbours. A reader of the average would conclude the first peak just touches Severe. In every complete winter at least one week was above it, and in 2023-24 two were. The second peak averaged 247 and cleared 250 in two winters of six.
 
-Winter 2024-25 went higher than any of them: 385 in the week of 13 November 2024. It is incomplete, so it enters no average.
+Winter 2024-25 went higher than any of them. The week of 13 November 2024 reached 385. That winter is incomplete, so it enters no average.
 
 The peaks also sit inside a long season. Weekly means were above 120, the bottom of CPCB's Very Poor band, for 13 to 19 weeks of each year.
 
@@ -46,13 +40,13 @@ The peaks also sit inside a long season. Weekly means were above 120, the bottom
 
 The title says yes. The data support something narrower.
 
-Every winter in the table dips between its two highest weeks, by 32% to 63% of the lower peak. That looks like two peaks, and it is also what a noisy series does. We took each winter's 15 weekly values from 16 October to 28 January, shuffled their order at random 4,000 times, and measured the same dip. Shuffled weeks give a dip of 30% or more in 91% of draws, with a median of 50%. The real winters' median is 41%. A dip between two highs is therefore no evidence of a second peak in a single winter.
+Every winter in the table dips between its two highest weeks, by 32% to 63% of the lower peak. That looks like two peaks, and it is also what a noisy series does. We took each winter's 15 weekly values from 16 October to 28 January, shuffled their order at random thousands of times, and measured the same dip. Shuffled weeks give a dip of 30% or more in 91% of draws, with a median of 50%. The real winters' median is 41%. A dip between two highs is therefore no evidence of a second peak in a single winter.
 
-Two things survive the test. The first is the dip in the average of the winters. Resampling the six winters 5,000 times gives a dip of 28% to 42% (5th to 95th percentile), so the mid-December trough in the mean, 156 in the week of 11 December, is not an accident of one winter.
+Two things survive the test. The first is the dip in the average of the winters. Resampling the six winters gives a dip of 28% to 42% in the average (5th to 95th percentile), so the mid-December trough in the mean, 156 in the week of 11 December, is not an accident of one winter.
 
 The second is timing. The first peak falls in the week of 30 October in three winters and the week of 6 November in the other three. The second falls in the week of 18 December in three winters, 25 December in two and 8 January in one. Diwali fell between 24 October and 14 November over these winters, a spread of three weeks, while the first peak week moved by one. In 2020-21 and 2023-24 the peak came before Diwali. Diwali does not set the date of the first peak, though it can add to it in the week it falls.
 
-## What the chart cannot say: why
+## Why the peaks happen
 
 CEEW labels the first peak stubble burning and the second winter biomass burning for warmth. A concentration chart carries no sources, and the published work points in several directions.
 
@@ -62,13 +56,13 @@ CEEW labels the first peak stubble burning and the second winter biomass burning
 
 The residential result fits CEEW's second label. We read the abstract and the results text, not the supplement, so we cannot say how much of the residential share is burning for warmth and how much is cooking. Nandi and colleagues also describe winter episodes as intense emissions meeting low winds, inversions and shallow boundary layers, which is weather. Our de-weathered series for Delhi, described in "Was it policy, or was it the wind?", covers September and October of 2018 to 2022 and does not extend to this weekly series. We cannot say how much of either peak is weather.
 
-## What we will and will not say
+## Where the numbers come from
 
-We will say that the highest weeks recur in the same few weeks: 30 October or 6 November, then 18 December to 8 January. We will say that every complete winter's first peak crossed 250, that the second did in two of six, and that Delhi spends 13 to 19 weeks a year above 120.
+The data are the India Air Quality Database of XKDR Forum, which carries CPCB's continuous monitors (CC BY 4.0). A day at a station counts if it has at least 18 hourly readings. A day for the city is the mean of the stations reporting, and at least 10 did, up to 39. A week is a block of seven days counted from 1 May, so a winter is not cut in two on 1 January. The grey band and the bold line use the six complete winters, 2018-19 to 2023-24.
 
-We will not say that a single winter has two separate peaks, because the shuffle test cannot tell them from noise. We will not attribute either peak to a source, and we have nothing on winter 2025-26, because the archive's CPCB feed ends on 1 September 2025.
+Two gaps limit the chart. The archive has no CPCB data for January to March 2025, so winter 2024-25 is drawn to December only. Its CPCB feed also stops on 1 September 2025, which is why we say nothing about winter 2025-26 or about the 2025 weeks CEEW's average includes. The network grew over the period, with 13 to 37 stations reporting a day in 2018-19 and 20 to 39 in 2022-23, so levels across winters are not strictly like for like.
 
-As in our [El Niño post](2026-10-25-el-nino-and-the-winter-ahead.md), the reading rule for this winter is to check the weather before crediting or blaming a policy. The grey band is the range of six winters. A week outside it needs an explanation.
+The grey band is the range of the six winters. Before crediting or blaming a policy for a week outside it, check the weather, as we argued in our [El Niño post](2026-10-25-el-nino-and-the-winter-ahead.md).
 
 ---
 
