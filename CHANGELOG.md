@@ -21,6 +21,9 @@ Delhi's winter episodes (it says nothing about Delhi), and that the Langford
 result shows policy from London cannot work in Delhi (the paper concludes that
 primary sources differ from those controlling ambient PM1 mass).
 
+### Fixed, two faults the scale note and the El Nino correction introduced
+Reading the answers after the scale note went live found that it made the Delhi timing answer open with "Poor (CPCB) - Unhealthy (US-EPA)", because its instruction to open with the category applied whenever a live reading was present. It now applies only to a question that quotes a figure. The El Nino correction was also wrong. The model writes "El Nina" for El Nino, set against "La Nina", so `fixKnownSlips()` turning it into "La Nina" would have made the sentence false. It now becomes El Nino, and the match normalises the n-tilde first, because the model sometimes emits it as n plus a combining accent, which the earlier pattern missed.
+
 ### Fixed, Ask JanVayu now gets the CPCB and US-EPA band for a PM2.5 figure from code
 Asked which category 32 µg/m3 falls in, the live assistant said Moderate and added that India's CPCB system uses the same name. CPCB's band for 32 is Satisfactory (31-60). Adding the CPCB bands to the prompt in the last round did not fix it, because the model still had to look the band up. `scaleNote()` now works out the CPCB band and the US-EPA band for a figure in the question and for the live reading, and puts both names in the prompt as a SCALE CHECK. The `band-scale-named` eval case was advisory and is now a gate that fails the answer "the same range is called Moderate in India". The 42% correction is also given to the model as one exact sentence, because it kept calling Chhattisgarh's annual share a winter one.
 
