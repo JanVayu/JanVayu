@@ -656,6 +656,92 @@
   "type": "journal-article",
   "volume": "34"
  },
+ "10.1016/j.adhoc.2026.104453": {
+  "DOI": "10.1016/j.adhoc.2026.104453",
+  "ISSN": [
+   "1570-8705"
+  ],
+  "URL": "https://doi.org/10.1016/j.adhoc.2026.104453",
+  "article-number": "104453",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-5876-0585",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Khan",
+    "given": "Naqash Azeem",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Ferrer-Cid",
+    "given": "Pau",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Barcelo-Ordinas",
+    "given": "Jose M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Garcia-Vidal",
+    "given": "Jorge",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Ad Hoc Networks"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2027,
+     2
+    ]
+   ]
+  },
+  "page": "104453",
+  "published": {
+   "date-parts": [
+    [
+     2027,
+     2
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Virtual Sensing for Remote Correction in IoT Air Quality Low-Cost Sensor Networks"
+  ],
+  "type": "journal-article",
+  "volume": "195"
+ },
  "10.1016/j.apr.2026.103231": {
   "DOI": "10.1016/j.apr.2026.103231",
   "ISSN": [
@@ -6382,6 +6468,103 @@
   "type": "journal-article",
   "volume": "16"
  },
+ "10.1038/s41598-026-77029-z": {
+  "DOI": "10.1038/s41598-026-77029-z",
+  "ISSN": [
+   "2045-2322"
+  ],
+  "URL": "https://doi.org/10.1038/s41598-026-77029-z",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Sánchez",
+    "given": "Daniellys Alejo",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-8705-7293",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Schalm",
+    "given": "Olivier",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Delgado",
+    "given": "Liset Roche",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rodríguez",
+    "given": "Erik Hernández",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Laguardia",
+    "given": "Alain Martínez",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Scientific Reports"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     25
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     25
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Improving low-cost NO₂ sensor reliability under real-world air quality conditions by calibrating distributions instead of data points"
+  ],
+  "type": "journal-article"
+ },
  "10.1038/s41612-025-00941-0": {
   "DOI": "10.1038/s41612-025-00941-0",
   "ISSN": [
@@ -6685,6 +6868,297 @@
   ],
   "type": "journal-article",
   "volume": "8"
+ },
+ "10.1038/s41612-026-01583-6": {
+  "DOI": "10.1038/s41612-026-01583-6",
+  "ISSN": [
+   "2397-3722"
+  ],
+  "URL": "https://doi.org/10.1038/s41612-026-01583-6",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-6968-5197",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Langford",
+    "given": "Ben",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Di Marco",
+    "given": "Chiara, F.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-8567-1377",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Cash",
+    "given": "James M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6492-4876",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Allan",
+    "given": "James D.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cheng",
+    "given": "Zixuan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Coe",
+    "given": "Hugh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6470-9970",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Farmer",
+    "given": "Delphine K.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6249-2280",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Fu",
+    "given": "Pingqing",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gadi",
+    "given": "Ranu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Gurjar",
+    "given": "Bhola Ram",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6203-1847",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Jimenez",
+    "given": "Jose L.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kimmel",
+    "given": "Joel",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Liu",
+    "given": "Dantong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mandal",
+    "given": "Tuhin Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mullinger",
+    "given": "Neil J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Phillips",
+    "given": "Gavin J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4710-2277",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Reyes-Villegas",
+    "given": "Ernesto",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Joshi",
+    "given": "Rutambhara",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Shivani",
+    "given": "Shivani",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1765-6298",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Nemitz",
+    "given": "Eiko",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "npj Climate and Atmospheric Science"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     23
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     23
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Traffic and combustion emission controls leave cooking as a dominant local source of primary PM1 in megacities"
+  ],
+  "type": "journal-article"
  },
  "10.1038/s44407-026-00098-x": {
   "DOI": "10.1038/s44407-026-00098-x",
@@ -8752,6 +9226,100 @@
   "type": "journal-article",
   "volume": "14"
  },
+ "10.3389/ffutr.2026.1919945": {
+  "DOI": "10.3389/ffutr.2026.1919945",
+  "ISSN": [
+   "2673-5210"
+  ],
+  "URL": "https://doi.org/10.3389/ffutr.2026.1919945",
+  "article-number": "1919945",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "Department of Economics & CSD, New Delhi Institute of Management",
+      "place": [
+       "New Delhi, India"
+      ]
+     }
+    ],
+    "family": "Zeeshan",
+    "given": "Zeeshan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Humanities and Social Sciences, National Institute of Technology Warangal",
+      "place": [
+       "Warangal, Telangana, India"
+      ]
+     }
+    ],
+    "family": "Khosla",
+    "given": "Sunil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "VIT-AP School of Social Sciences and Humanities (VISH), VIT-AP University",
+      "place": [
+       "Amaravati, Andhra Pradesh, India"
+      ]
+     }
+    ],
+    "family": "Bhutia",
+    "given": "Pema Choden",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Future Transportation"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     19
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     19
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Gendered mobility vulnerability, vehicle access, and unequal starting points for sustainable transport transition in India"
+  ],
+  "type": "journal-article",
+  "volume": "7"
+ },
  "10.3389/ffutr.2026.1964066": {
   "DOI": "10.3389/ffutr.2026.1964066",
   "ISSN": [
@@ -10268,6 +10836,228 @@
   ],
   "type": "journal-article",
   "volume": "24"
+ },
+ "10.5194/acp-26-14917-2026": {
+  "DOI": "10.5194/acp-26-14917-2026",
+  "ISSN": [
+   "1680-7324"
+  ],
+  "URL": "https://doi.org/10.5194/acp-26-14917-2026",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Srivastav",
+    "given": "Gaurav Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Wagay",
+    "given": "Aasif Ahmad",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Lampilahti",
+    "given": "Janne",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Rathore",
+    "given": "Jaswant",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kunchala",
+    "given": "Ravi Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-5282-0156",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Ganguly",
+    "given": "Dilip",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-3464-7825",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Kulmala",
+    "given": "Markku",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1881-9044",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Petäjä",
+    "given": "Tuukka",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4625-9590",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Paasonen",
+    "given": "Pauli",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3238-4171",
+    "affiliation": [
+     {
+      "id": [
+       {
+        "asserted-by": "publisher",
+        "id": "https://ror.org/040af2s02",
+        "id-type": "ROR"
+       }
+      ],
+      "name": "University of Helsinki (Helsinki, Finland)"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Thakur",
+    "given": "Roseline C.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "corresponding-author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6966-0520",
+    "affiliation": [
+     {
+      "id": [
+       {
+        "asserted-by": "publisher",
+        "id": "https://ror.org/049tgcd06",
+        "id-type": "ROR"
+       }
+      ],
+      "name": "Indian Institute of Technology Delhi (New Delhi, India)"
+     },
+     {
+      "id": [
+       {
+        "asserted-by": "publisher",
+        "id": "https://ror.org/040af2s02",
+        "id-type": "ROR"
+       }
+      ],
+      "name": "University of Helsinki (Helsinki, Finland)"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Gani",
+    "given": "Shahzad",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "corresponding-author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Atmospheric Chemistry and Physics"
+  ],
+  "issue": "20",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     23
+    ]
+   ]
+  },
+  "page": "14917-14938",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     23
+    ]
+   ]
+  },
+  "publisher": "Copernicus GmbH",
+  "title": [
+   "Ion and particle size distribution measurements in the Indo-Gangetic Plain: seasonal insights and challenges in new particle formation event characterization"
+  ],
+  "type": "journal-article",
+  "volume": "26"
  },
  "10.5194/amt-16-4357-2023": {
   "DOI": "10.5194/amt-16-4357-2023",

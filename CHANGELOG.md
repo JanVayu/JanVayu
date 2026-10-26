@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-26
 
+### Added, five Reading List studies
+
+Langford et al. (primary PM1 sources in London, Beijing and Delhi, by flux),
+Srivastav et al. (new particle formation in the Indo-Gangetic Plain), Zeeshan,
+Khosla and Bhutia (gender and vehicle access in India), Khan et al. (virtual
+sensing for drifting low-cost sensors) and Alejo Sanchez et al. (distribution
+calibration of NO2 sensors). The list is 66 studies; BibTeX, RIS and the
+walkthrough deck are updated. Every DOI was resolved on Crossref and each card
+is written from the abstract. Two summaries supplied with the papers went
+further than the abstracts and were not used: that the Sonipat study explains
+Delhi's winter episodes (it says nothing about Delhi), and that the Langford
+result shows policy from London cannot work in Delhi (the paper concludes that
+primary sources differ from those controlling ambient PM1 mass).
+
+### Changed, Ask JanVayu: knowledge and testing
+
+- The assistant had no knowledge of its own origin, of secondary particles and
+  ammonia, of Delhi's winter timing or of El Nino. Four small keyword-gated
+  reference blocks now carry them (see `docs/technical/ai-features.md`). The
+  about block states the AIPC origin and forbids claims of neutrality.
+- `test/knowledge-gates.test.mjs` (15 tests) pins each detector, the token cost
+  of each block, the wording, and the winter figures against the data file. It
+  caught two defects before they shipped.
+- Five eval cases added (37 in all): affiliation, the 42% false premise,
+  ammonia's share, an El Nino forecast bait and Delhi's winter timing.
+- The weekly eval graded 22 of 32 cases on 25 October and called it green: the
+  seven newest cases ran out of the 20-minute budget in both of the last two
+  runs, and three (including partisan-bait) were rate-limited. The budget is 45
+  minutes, the workflow timeout 60, and rate-limited cases now get a second
+  pass. The LLM judge has never run on a schedule, because the repository has
+  no `GROQ_API_KEY` secret.
+- `docs/technical/ai-features.md` no longer says the free Groq tier is
+  sufficient: at 8,000 tokens a minute it allows about one answer a minute.
+
 ### Added, Delhi's weekly PM2.5 winter by winter, and a post that tests "peaks twice each winter"
 
 CEEW posted a chart of Delhi's weekly PM2.5 averaged over a few winters,

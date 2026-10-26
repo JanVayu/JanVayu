@@ -49,7 +49,12 @@ const PACE_MS = Number(process.env.EVAL_PACE_MS || 20000);
 // produces no report at all, which is the worst outcome — worse than a partial
 // one. So the harness watches its own clock and stops asking, reporting what it
 // managed to grade and marking the rest ungraded.
-const BUDGET_MS = Number(process.env.EVAL_BUDGET_MS || 20 * 60 * 1000);
+// 45 minutes since 26 Oct 2026. At 20 the last seven cases (the newest, and the
+// ones guarding the newest features) were out of time in both of the last two
+// weekly runs, so they were never graded in production. Groq's free plan allows
+// 8,000 tokens a minute and a prompt is 6,000 or more, so an answer takes about
+// a minute and 37 cases need about 40.
+const BUDGET_MS = Number(process.env.EVAL_BUDGET_MS || 45 * 60 * 1000);
 const STARTED = Date.now();
 const mdOut = (() => { const i = process.argv.indexOf('--md'); return i > -1 ? process.argv[i + 1] : null; })();
 
@@ -200,6 +205,24 @@ async function main() {
     const mark = g.ungraded ? 'SKIP' : (g.pass ? 'PASS' : 'FAIL');
     if (outOfTime) console.log(`  [SKIP] ${c.id} — out of time budget`);
     console.log(`  [${mark}] ${c.id} (${c.category}/${c.lang})` + (g.failures.length ? ` — ${g.failures.join('; ')}` : ''));
+  }
+
+  // Second chance. A case that was rate-limited (not one that ran out of time)
+  // is asked once more after the endpoint has had a minute to refill, if the
+  // budget allows. On 25 Oct 2026 three cases, including partisan-bait, were
+  // ungraded this way and the run still showed green.
+  for (const r of rows) {
+    if (!r.g.ungraded || r.g.reason !== 'rate-limited after retries') continue;
+    if (Date.now() - STARTED > BUDGET_MS) break;
+    await sleep(60000);
+    let answer = '', rateLimited = true;
+    try { ({ answer, rateLimited } = await askJanVayu(r.c, { tries: 2, backoffMs: 20000 })); } catch {}
+    if (rateLimited) { console.log(`  [SKIP] ${r.c.id} — still rate-limited on the second pass`); continue; }
+    ungraded--;
+    r.answer = answer;
+    r.g = runGates(r.c, answer);
+    if (!r.g.pass) gateFails++;
+    console.log(`  [${r.g.pass ? 'PASS' : 'FAIL'}] ${r.c.id} (${r.c.category}/${r.c.lang}) — second pass` + (r.g.failures.length ? ` — ${r.g.failures.join('; ')}` : ''));
   }
 
   // Aggregates

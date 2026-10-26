@@ -433,6 +433,50 @@ URBAN HEAT ISLAND & THE HEAT–AIR-QUALITY LINK (national topic, Delhi is just t
 - JanVayu's "Urban Heat Island" panel (janvayu.in/#urban-heat) has the neighbourhood heat map, an interactive built-up-vs-tree-cover heat estimator, and a LIVE hourly ozone-vs-temperature chart for any Indian city (Open-Meteo/CAMS).
 `;
 
+// 26 Oct 2026 — four small reference blocks, each sent only when the question
+// is about its subject. The assistant held nothing on who is behind JanVayu
+// (so a question about affiliation could only be guessed at), on secondary
+// particles and ammonia (where CREA's 42% is a state maximum for one salt and
+// was being read as a national total), on the timing of Delhi's winter peaks,
+// or on El Nino. Gated like TOPICAL_REFERENCE because Groq's free plan allows
+// 8,000 tokens a minute and the base prompt is already ~5,700.
+const ABOUT_REFERENCE = `ABOUT JANVAYU (the only source for questions about who is behind the platform and its political links):
+- JanVayu grew out of the #AQIForJanHit campaign of the All India Professionals' Congress (AIPC), which describes itself as a political platform, and was designed and built under AIPC's Dr. Manmohan Singh Fellows Programme. The About panel lists AIPC, the Fellows Programme and UrbanEmissions as Janhit partners.
+- It is not an official government or commercial service. Its code, data, sources and editorial rules are public, and the same sourcing rules apply to every government and party. It endorses and opposes no party.
+- When asked, state the AIPC origin plainly in the first sentence. Never call JanVayu non-partisan, neutral, independent of political parties or unaffiliated, and never deny or play down the link. Do not say who funds it or who staffs it: the reference data does not say.`;
+
+const SECONDARY_REFERENCE = `SECONDARY PARTICLES, AMMONIUM SULPHATE AND AMMONIA (use only these figures, each with what it measures):
+- CREA (report of 30 June 2025): ammonium sulphate, one compound, is about 34% of India's PM2.5 mass on a national average and 20% to 43% across the NCAP cities. It is not the whole secondary share: ammonium nitrate and organic particles formed from gases come on top, so total secondary PM2.5 is larger than 34%.
+- CREA (press release of 24 December 2025): 42% is Chhattisgarh's annual ammonium sulphate share, the highest of any state (states range from 17% to 42%). NEVER say that 42% of India's PM2.5 is secondary or formed in the air. For Delhi, CREA's analysis as reported by The Indian Express puts ammonium sulphate at 41% of winter PM2.5.
+- Wang et al. 2025 (Environment International 195, 109207; a WRF-EMEP model of South Asia for 2018): ammonia emissions are associated with 11% of annual mean PM2.5 across South Asia and with 247,000 of 2.228 million PM2.5 deaths in the model. PM2.5 responds non-linearly: ammonia cuts pay off proportionately only at 70% to 100%, so sulphur dioxide, nitrogen oxide and ammonia controls have to be considered together.
+- Coal: CREA finds ammonium sulphate within 10 km of coal plants (15 ug/m3) is 2.5 times that beyond 10 km (6 ug/m3), and over 60% of India's sulphur dioxide comes from coal power.
+- A 2026 book excerpt (Jacob Koshy, The Nitrogen Bomb, in The Hindu) gives ammonia as about a quarter of India's PM2.5 and farming as 80% to 85% of India's ammonia. JanVayu could not trace either number to a published paper, so do not state them as fact; if asked, say they are unverified and give the 11% figure with its region, year and method.
+- Dust control reaches primary particles only, not particles formed in the air.`;
+
+const WINTER_PEAKS_REFERENCE = `DELHI'S WINTER PEAKS (use only these figures):
+- JanVayu's weekly series for Delhi (CPCB monitors via the XKDR India Air Quality Database), six complete May-to-April years, 2018-19 to 2023-24: the highest week of the autumn peak began on 30 October or 6 November in all six winters, at 264 to 331 ug/m3 (mean 291), every one above CPCB's 250 Severe line. The highest week of the later peak began between 18 December and 8 January, at 229 to 291 (mean 247), above 250 in two of the six. The weekly mean was above 120 for 13 to 19 weeks of every year.
+- A mean over several winters flattens the peaks (254 and 238) because the winters do not peak in the same week, so a chart of an average understates a typical winter's worst week. A dip between two high weeks does not prove two separate peaks in one winter: reshuffling a winter's own weeks produces a dip that deep in 91% of draws. The claim rests on timing, and the peak week does not follow Diwali's date.
+- Causes are not in these figures. CEEW (22 May 2026) says weather, mainly boundary-layer height and wind direction, helps explain why Delhi's autumn is far worse than its spring for similar farm fires. Mangaraj et al. 2025: crop residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Nandi et al. 2026 (a model of September 2019 to January 2020): the residential sector about 53% of PM2.5 over Delhi, secondary particles about 58% in December-January, an airshed-wide crop-residue-burning ban cuts Delhi PM2.5 about 10%, and with a 50% cut in residential emissions about 30%. Do not attribute either peak to one source.
+- JanVayu has no weekly series after 1 September 2025.`;
+
+const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
+- NOAA's Climate Prediction Center (8 October 2026): an El Nino Advisory, with a strong to very strong event likely through January to March 2027 and a chance of a historic one (3-month index of +2.5C or more) of 54% for September to November, 83% for October to December and 70% for November to January. The next update is 12 November 2026, so say the figures may have changed.
+- Yadav, Beig and Kripalani (Atmospheric Pollution Research 17(11), 103231, October 2026): winter PM2.5 swung by up to 70% with no appreciable change in emissions, between a La Nina winter (2022-23, northern cities up to about 30% cleaner than their 2019-2022 average) and an El Nino winter (2023-24). The authors warn the correlations show no direct causation and cannot be carried to other years, and the 2023-24 event was short-lived.
+- Never forecast Delhi's or any city's winter from El Nino. Advise checking the weather before crediting or blaming a policy for a week well above or below normal.`;
+
+function isAboutQuery(question) {
+  return /\b(who\s+(is|are)\s+(behind|running|funding)|who\s+(made|built|runs|funds|owns|created|started|founded|pays\s+for)|affiliat\w*|aipc|all\s+india\s+professionals|manmohan\s+singh\s+fellow\w*|(is|are)\s+(jan\s?vayu|this\s+(site|platform|website|tool)|you)[^?.]{0,40}(partisan|neutral|independent|political|government|party))/i.test(question);
+}
+function isSecondaryQuery(question) {
+  return /\b(ammoni\w+|secondary(?!\s+(school|education|college))|formed\s+in\s+the\s+air|nitrogen\s+bomb|fertili[sz]er\w*|sulph\w+|sulf\w+)/i.test(question);
+}
+function isWinterPeaksQuery(question) {
+  return /(twice\s+(a|each|every)\s+winter|two\s+peaks?|second\s+peak|winter\s+(peak|biomass)|biomass\s+burning|(worst|peak|highest)\s+(week|weeks|time|month|months)[^?.]{0,40}(delhi|winter)|when\s+(is|does|do|are)[^?.]{0,40}(delhi|pollution|pm\s?2\.?5)[^?.]{0,30}(worst|peak|highest))/i.test(question);
+}
+function isEnsoQuery(question) {
+  return /\b(el\s?ni[nñ]o|la\s?ni[nñ]a|enso\b|southern\s+oscillation)/i.test(question);
+}
+
 const LANG_NAMES = {
   en: "English",
   hi: "Hindi (Devanagari script)",
@@ -930,7 +974,7 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
 function buildSystemPrompt(seasonal, lang, opts = {}) {
   const { nationalQuery = false, multiSource = false, topical = false, methodologyNeeded = false,
     ward = false, stationCount = false, rti = false, stationRange = false, village = false,
-    trend = false } = opts;
+    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false } = opts;
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
     ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
@@ -947,6 +991,9 @@ function buildSystemPrompt(seasonal, lang, opts = {}) {
   // Heavy reference blocks, gated by relevance (v26.6.41, ported from PR #98).
   const methodologyBlock = (multiSource || methodologyNeeded) ? `\n${METHODOLOGY_REFERENCE}\n` : "";
   const topicalBlock = (nationalQuery || topical) ? `\n${TOPICAL_REFERENCE}\n` : "";
+  const knowledgeBlocks = [aboutQ && ABOUT_REFERENCE, secondaryQ && SECONDARY_REFERENCE,
+    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE]
+    .filter(Boolean).map((b) => `\n${b}\n`).join("");
 
   // v26.6.124 — Situational instructions: only sent when the request actually
   // needs them (~770 tokens trimmed from the common-case prompt, ~30-40% less),
@@ -968,7 +1015,7 @@ TODAY: ${seasonal.dateStr}
 SEASONAL CONTEXT: ${seasonal.season}
 
 ${ACTIVITY_THRESHOLDS}
-${methodologyBlock}${topicalBlock}
+${methodologyBlock}${topicalBlock}${knowledgeBlocks}
 KEY REFERENCE DATA (India-wide, not Delhi-specific):
 - WHO annual PM2.5 guideline: 5 µg/m³. India's NAAQS: 40 µg/m³ (8× WHO).
 - India average PM2.5: 48.9 µg/m³ (~10× WHO limit) — IQAir 2025.
@@ -1455,7 +1502,8 @@ Top 5 worst: ${top5}
   const ward = isWardQuery(question);
   const stationRange = !!(stationList && stationList.length >= 2);
   const trend = trendQ;
-  const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend };
+  const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend,
+    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question) };
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -1501,3 +1549,7 @@ Top 5 worst: ${top5}
     return new Response(JSON.stringify({ answer: buildDataOnlyReply(aqiResult, rateLimited), dataUsed: aqiResult }), { status: 200, headers });
   }
 }
+
+// Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
+export const __testing = { buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+  isWinterPeaksQuery, isEnsoQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE };

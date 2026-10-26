@@ -69,11 +69,13 @@ Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) 
 
 A reading more than 100% above the seasonal baseline (a ratio above 2x) triggers an anomaly alert.
 
+**Gated reference blocks.** Heavy knowledge is sent only when the question is about it, so that the common question stays small. `TOPICAL_REFERENCE` and `METHODOLOGY_REFERENCE` were the first. On 26 Oct 2026 four more were added, each about 300 to 600 tokens: `ABOUT_REFERENCE` (the AIPC origin, so the assistant can answer "who is behind this" without guessing and never claims neutrality), `SECONDARY_REFERENCE` (ammonium sulphate against the 42% state maximum, and Wang et al. on ammonia), `WINTER_PEAKS_REFERENCE` (the timing of Delhi's winter peaks from `data/delhi-weekly.json`, and what the figures cannot say about causes) and `ENSO_REFERENCE` (NOAA's 8 October 2026 outlook and the Yadav, Beig and Kripalani study, with an instruction never to forecast a winter from it). Each is switched on by a detector in `air-query.mjs` (`isAboutQuery` and its siblings). `test/knowledge-gates.test.mjs` pins the detectors on questions they must and must not catch, the token cost of each block, the AIPC wording, and the winter figures against `data/delhi-weekly.json`, so a changed data file fails the test until the block is edited. The ENSO block carries a date and goes stale monthly: update it after each NOAA discussion (next on 12 November 2026) or remove it.
+
 ---
 
 ## API Key Setup
 
-The free tier of the Groq API (available at [console.groq.com](https://console.groq.com)) is sufficient for all JanVayu AI features. Rate limits on the free tier are generous for the expected usage patterns of a public interest platform.
+Groq's published base limits for `openai/gpt-oss-120b` are 30 requests a minute, 1,000 a day, **8,000 tokens a minute and 200,000 a day** ([Groq rate limits](https://console.groq.com/docs/rate-limits), checked 26 Oct 2026). Whether the production key sits on that plan is not recorded in the repository. If it does, the limits bind: the system prompt for `air-query.mjs` is about 5,700 tokens before any question, and up to about 12,000 with every block switched on (measured by building it, 26 Oct 2026). That allows about one answered question a minute and roughly 25 to 30 a day across all visitors, and it is why a weekly eval of 37 cases takes about 40 minutes and can find itself rate-limited. Check the plan in the Groq console before relying on any figure here.
 
 Set the key as `GROQ_API_KEY` in:
 - Your `.env` file for local development
