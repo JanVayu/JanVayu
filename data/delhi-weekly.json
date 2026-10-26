@@ -1,0 +1,3110 @@
+{
+ "_meta": {
+  "what": "Delhi weekly mean PM2.5 (ug/m3) from CPCB monitors, one series per May-to-April year, with a per-winter test of whether the winter has two peaks.",
+  "source": "India Air Quality Database, XKDR Forum (https://airquality.xkdr.org), CC BY 4.0; CPCB continuous monitoring network. Built by scripts/build-delhi-weekly.py.",
+  "window": "May 2018 to August 2025; the CPCB feed in the archive ends on 1 September 2025.",
+  "weeks": "seven-day blocks counted from 1 May; week 0 is 1 to 7 May",
+  "rules": {
+   "station_day_min_hours": 18,
+   "city_day_min_stations": 10,
+   "week_min_days": 5,
+   "early_weeks": [
+    24,
+    29
+   ],
+   "late_weeks": [
+    31,
+    38
+   ]
+  },
+  "complete_means": "every week from 16 October to 28 January present (weeks 24 to 38)",
+  "not_aqi": "A weekly mean read against CPCB 24-hour breakpoints is a guide, not an AQI day.",
+  "gap": "No CPCB data in the archive for January to March 2025, so winter 2024-25 is never counted and is drawn to December only.",
+  "network": "Reporting stations grew over the window, so levels across years are not like for like; the shape within a winter is.",
+  "lockdown": "April and May 2020 sit inside the 2019-20 and 2020-21 years."
+ },
+ "cycles": [
+  {
+   "label": "2018-19",
+   "start": "2018-05-01",
+   "complete": true,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 74.4,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 31
+    },
+    {
+     "w": 1,
+     "mean": 91.0,
+     "days": 7,
+     "stations_min": 24,
+     "stations_max": 30
+    },
+    {
+     "w": 2,
+     "mean": 87.4,
+     "days": 7,
+     "stations_min": 25,
+     "stations_max": 28
+    },
+    {
+     "w": 3,
+     "mean": 106.0,
+     "days": 7,
+     "stations_min": 26,
+     "stations_max": 28
+    },
+    {
+     "w": 4,
+     "mean": 71.1,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 30
+    },
+    {
+     "w": 5,
+     "mean": 65.6,
+     "days": 7,
+     "stations_min": 24,
+     "stations_max": 30
+    },
+    {
+     "w": 6,
+     "mean": 149.3,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 30
+    },
+    {
+     "w": 7,
+     "mean": 66.4,
+     "days": 7,
+     "stations_min": 25,
+     "stations_max": 30
+    },
+    {
+     "w": 8,
+     "mean": 37.2,
+     "days": 7,
+     "stations_min": 22,
+     "stations_max": 29
+    },
+    {
+     "w": 9,
+     "mean": 57.3,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 33
+    },
+    {
+     "w": 10,
+     "mean": 38.6,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 33
+    },
+    {
+     "w": 11,
+     "mean": 36.1,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 34
+    },
+    {
+     "w": 12,
+     "mean": 35.6,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 33
+    },
+    {
+     "w": 13,
+     "mean": 60.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 34
+    },
+    {
+     "w": 14,
+     "mean": 36.3,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 34
+    },
+    {
+     "w": 15,
+     "mean": 42.5,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 16,
+     "mean": 26.7,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 17,
+     "mean": 40.7,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 18,
+     "mean": 41.2,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 35
+    },
+    {
+     "w": 19,
+     "mean": 36.1,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 34
+    },
+    {
+     "w": 20,
+     "mean": 44.2,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 21,
+     "mean": 64.3,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 22,
+     "mean": 90.8,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 23,
+     "mean": 96.8,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 24,
+     "mean": 141.4,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 25,
+     "mean": 188.4,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 26,
+     "mean": 221.0,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 27,
+     "mean": 264.3,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 36
+    },
+    {
+     "w": 28,
+     "mean": 159.6,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 29,
+     "mean": 171.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 30,
+     "mean": 183.8,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 31,
+     "mean": 214.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 32,
+     "mean": 164.1,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 33,
+     "mean": 290.8,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 34,
+     "mean": 279.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 35,
+     "mean": 261.7,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 36,
+     "mean": 202.4,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 37,
+     "mean": 250.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 38,
+     "mean": 110.7,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 37
+    },
+    {
+     "w": 39,
+     "mean": 170.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 40,
+     "mean": 138.3,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 41,
+     "mean": 143.2,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 37
+    },
+    {
+     "w": 42,
+     "mean": 87.5,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 37
+    },
+    {
+     "w": 43,
+     "mean": 81.5,
+     "days": 7,
+     "stations_min": 13,
+     "stations_max": 36
+    },
+    {
+     "w": 44,
+     "mean": 83.3,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 37
+    },
+    {
+     "w": 45,
+     "mean": 85.4,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 46,
+     "mean": 73.6,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 47,
+     "mean": 86.3,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 48,
+     "mean": 108.0,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 49,
+     "mean": 69.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 50,
+     "mean": 70.0,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 51,
+     "mean": 85.0,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 34
+    }
+   ],
+   "peaks": {
+    "early": {
+     "week": 27,
+     "start": "6 Nov",
+     "mean": 264.3
+    },
+    "late": {
+     "week": 33,
+     "start": "18 Dec",
+     "mean": 290.8
+    },
+    "weeks_over_severe": {
+     "early": 1,
+     "late": 4
+    },
+    "trough": {
+     "week": 28,
+     "start": "13 Nov",
+     "mean": 159.6
+    },
+    "dip": 0.396
+   }
+  },
+  {
+   "label": "2019-20",
+   "start": "2019-05-01",
+   "complete": true,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 95.5,
+     "days": 7,
+     "stations_min": 13,
+     "stations_max": 34
+    },
+    {
+     "w": 1,
+     "mean": 126.6,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 2,
+     "mean": 78.3,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 3,
+     "mean": 61.7,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 4,
+     "mean": 77.0,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 5,
+     "mean": 80.2,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 6,
+     "mean": 51.4,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 7,
+     "mean": 54.6,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 8,
+     "mean": 63.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 9,
+     "mean": 41.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 10,
+     "mean": 60.2,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 11,
+     "mean": 52.0,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 37
+    },
+    {
+     "w": 12,
+     "mean": 31.0,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 13,
+     "mean": 38.2,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 14,
+     "mean": 22.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 15,
+     "mean": 26.4,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 34
+    },
+    {
+     "w": 16,
+     "mean": 43.0,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 17,
+     "mean": 47.1,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 18,
+     "mean": 47.5,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 19,
+     "mean": 49.7,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 20,
+     "mean": 33.1,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 21,
+     "mean": 24.5,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 22,
+     "mean": 49.0,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 23,
+     "mean": 109.4,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 24,
+     "mean": 105.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 25,
+     "mean": 193.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 26,
+     "mean": 331.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 27,
+     "mean": 202.6,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 28,
+     "mean": 239.4,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 29,
+     "mean": 152.0,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 30,
+     "mean": 94.2,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 31,
+     "mean": 227.3,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 32,
+     "mean": 146.8,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 33,
+     "mean": 222.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 34,
+     "mean": 256.8,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 35,
+     "mean": 225.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 36,
+     "mean": 147.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 37,
+     "mean": 140.1,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 38,
+     "mean": 142.8,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 39,
+     "mean": 118.0,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 40,
+     "mean": 153.0,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 41,
+     "mean": 120.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 42,
+     "mean": 94.0,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 43,
+     "mean": 88.6,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 44,
+     "mean": 55.7,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 45,
+     "mean": 59.3,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 46,
+     "mean": 74.0,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 47,
+     "mean": 31.8,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 32
+    },
+    {
+     "w": 48,
+     "mean": 38.9,
+     "days": 7,
+     "stations_min": 26,
+     "stations_max": 30
+    },
+    {
+     "w": 49,
+     "mean": 47.7,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 32
+    },
+    {
+     "w": 50,
+     "mean": 43.4,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 30
+    },
+    {
+     "w": 51,
+     "mean": 45.0,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 34
+    }
+   ],
+   "peaks": {
+    "early": {
+     "week": 26,
+     "start": "30 Oct",
+     "mean": 331.2
+    },
+    "late": {
+     "week": 34,
+     "start": "25 Dec",
+     "mean": 256.8
+    },
+    "weeks_over_severe": {
+     "early": 1,
+     "late": 1
+    },
+    "trough": {
+     "week": 30,
+     "start": "27 Nov",
+     "mean": 94.2
+    },
+    "dip": 0.633
+   }
+  },
+  {
+   "label": "2020-21",
+   "start": "2020-05-01",
+   "complete": true,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 43.1,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 31
+    },
+    {
+     "w": 1,
+     "mean": 50.8,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 33
+    },
+    {
+     "w": 2,
+     "mean": 80.4,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 33
+    },
+    {
+     "w": 3,
+     "mean": 60.4,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 36
+    },
+    {
+     "w": 4,
+     "mean": 39.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 5,
+     "mean": 49.6,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 6,
+     "mean": 49.3,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 7,
+     "mean": 38.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 8,
+     "mean": 49.8,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 9,
+     "mean": 38.5,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 10,
+     "mean": 30.6,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 11,
+     "mean": 29.2,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 34
+    },
+    {
+     "w": 12,
+     "mean": 31.0,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 13,
+     "mean": 28.5,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 14,
+     "mean": 30.0,
+     "days": 7,
+     "stations_min": 26,
+     "stations_max": 34
+    },
+    {
+     "w": 15,
+     "mean": 24.4,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 33
+    },
+    {
+     "w": 16,
+     "mean": 16.9,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 35
+    },
+    {
+     "w": 17,
+     "mean": 24.1,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 18,
+     "mean": 38.5,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 35
+    },
+    {
+     "w": 19,
+     "mean": 60.2,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 20,
+     "mean": 45.8,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 21,
+     "mean": 56.1,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 22,
+     "mean": 78.9,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 23,
+     "mean": 118.5,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 34
+    },
+    {
+     "w": 24,
+     "mean": 124.7,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 34
+    },
+    {
+     "w": 25,
+     "mean": 197.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 26,
+     "mean": 231.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 27,
+     "mean": 326.3,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 35
+    },
+    {
+     "w": 28,
+     "mean": 187.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 29,
+     "mean": 173.6,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 38
+    },
+    {
+     "w": 30,
+     "mean": 159.2,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 31,
+     "mean": 220.3,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 32,
+     "mean": 135.4,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 33,
+     "mean": 229.2,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 38
+    },
+    {
+     "w": 34,
+     "mean": 180.7,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 38
+    },
+    {
+     "w": 35,
+     "mean": 173.9,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 36,
+     "mean": 181.2,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 37,
+     "mean": 227.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 38,
+     "mean": 198.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 39,
+     "mean": 184.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 40,
+     "mean": 143.7,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 41,
+     "mean": 175.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 42,
+     "mean": 141.6,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 43,
+     "mean": 89.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 44,
+     "mean": 103.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 45,
+     "mean": 103.7,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 46,
+     "mean": 84.0,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 47,
+     "mean": 83.7,
+     "days": 7,
+     "stations_min": 11,
+     "stations_max": 35
+    },
+    {
+     "w": 48,
+     "mean": 78.1,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 36
+    },
+    {
+     "w": 49,
+     "mean": 80.2,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 50,
+     "mean": 64.6,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 51,
+     "mean": 119.4,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    }
+   ],
+   "peaks": {
+    "early": {
+     "week": 27,
+     "start": "6 Nov",
+     "mean": 326.3
+    },
+    "late": {
+     "week": 33,
+     "start": "18 Dec",
+     "mean": 229.2
+    },
+    "weeks_over_severe": {
+     "early": 1,
+     "late": 0
+    },
+    "trough": {
+     "week": 32,
+     "start": "11 Dec",
+     "mean": 135.4
+    },
+    "dip": 0.409
+   }
+  },
+  {
+   "label": "2021-22",
+   "start": "2021-05-01",
+   "complete": true,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 68.1,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 1,
+     "mean": 50.5,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 35
+    },
+    {
+     "w": 2,
+     "mean": 45.2,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 34
+    },
+    {
+     "w": 3,
+     "mean": 61.3,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 32
+    },
+    {
+     "w": 4,
+     "mean": 47.2,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 34
+    },
+    {
+     "w": 5,
+     "mean": 60.1,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 36
+    },
+    {
+     "w": 6,
+     "mean": 37.8,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 7,
+     "mean": 47.7,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 8,
+     "mean": 63.3,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 9,
+     "mean": 49.2,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 37
+    },
+    {
+     "w": 10,
+     "mean": 36.6,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 36
+    },
+    {
+     "w": 11,
+     "mean": 33.1,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 36
+    },
+    {
+     "w": 12,
+     "mean": 35.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 13,
+     "mean": 34.8,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 14,
+     "mean": 40.1,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 15,
+     "mean": 47.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 16,
+     "mean": 36.5,
+     "days": 7,
+     "stations_min": 26,
+     "stations_max": 37
+    },
+    {
+     "w": 17,
+     "mean": 32.7,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 37
+    },
+    {
+     "w": 18,
+     "mean": 36.8,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 19,
+     "mean": 26.1,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 38
+    },
+    {
+     "w": 20,
+     "mean": 28.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 21,
+     "mean": 41.4,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 22,
+     "mean": 50.2,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 23,
+     "mean": 73.3,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 24,
+     "mean": 84.0,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 36
+    },
+    {
+     "w": 25,
+     "mean": 87.1,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 26,
+     "mean": 203.6,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 39
+    },
+    {
+     "w": 27,
+     "mean": 289.8,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 28,
+     "mean": 223.9,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 29,
+     "mean": 209.7,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 30,
+     "mean": 232.8,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 39
+    },
+    {
+     "w": 31,
+     "mean": 147.6,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 32,
+     "mean": 180.6,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 33,
+     "mean": 246.6,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 34,
+     "mean": 213.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 35,
+     "mean": 202.8,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 38
+    },
+    {
+     "w": 36,
+     "mean": 111.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 37,
+     "mean": 176.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 38,
+     "mean": 116.6,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 38
+    },
+    {
+     "w": 39,
+     "mean": 150.0,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 39
+    },
+    {
+     "w": 40,
+     "mean": 119.1,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 39
+    },
+    {
+     "w": 41,
+     "mean": 115.9,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 42,
+     "mean": 105.5,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 39
+    },
+    {
+     "w": 43,
+     "mean": 66.6,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 44,
+     "mean": 85.1,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 45,
+     "mean": 106.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 46,
+     "mean": 103.5,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 47,
+     "mean": 105.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 48,
+     "mean": 109.8,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 49,
+     "mean": 96.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 50,
+     "mean": 102.7,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 39
+    },
+    {
+     "w": 51,
+     "mean": 125.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    }
+   ],
+   "peaks": {
+    "early": {
+     "week": 27,
+     "start": "6 Nov",
+     "mean": 289.8
+    },
+    "late": {
+     "week": 33,
+     "start": "18 Dec",
+     "mean": 246.6
+    },
+    "weeks_over_severe": {
+     "early": 1,
+     "late": 0
+    },
+    "trough": {
+     "week": 31,
+     "start": "4 Dec",
+     "mean": 147.6
+    },
+    "dip": 0.401
+   }
+  },
+  {
+   "label": "2022-23",
+   "start": "2022-05-01",
+   "complete": true,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 87.5,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 38
+    },
+    {
+     "w": 1,
+     "mean": 75.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 2,
+     "mean": 85.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 3,
+     "mean": 65.3,
+     "days": 7,
+     "stations_min": 20,
+     "stations_max": 35
+    },
+    {
+     "w": 4,
+     "mean": 83.2,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 5,
+     "mean": 68.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 38
+    },
+    {
+     "w": 6,
+     "mean": 44.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 7,
+     "mean": 57.4,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 8,
+     "mean": 53.1,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 38
+    },
+    {
+     "w": 9,
+     "mean": 47.2,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 10,
+     "mean": 33.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 11,
+     "mean": 39.3,
+     "days": 7,
+     "stations_min": 25,
+     "stations_max": 37
+    },
+    {
+     "w": 12,
+     "mean": 24.6,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 13,
+     "mean": 38.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 14,
+     "mean": 31.8,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 15,
+     "mean": 20.5,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 16,
+     "mean": 33.5,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 17,
+     "mean": 41.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 18,
+     "mean": 44.7,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 19,
+     "mean": 23.2,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 35
+    },
+    {
+     "w": 20,
+     "mean": 41.2,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 34
+    },
+    {
+     "w": 21,
+     "mean": 56.3,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 22,
+     "mean": 44.3,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 35
+    },
+    {
+     "w": 23,
+     "mean": 48.1,
+     "days": 7,
+     "stations_min": 23,
+     "stations_max": 36
+    },
+    {
+     "w": 24,
+     "mean": 111.4,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 35
+    },
+    {
+     "w": 25,
+     "mean": 180.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 26,
+     "mean": 269.1,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 27,
+     "mean": 181.7,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 28,
+     "mean": 138.0,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 29,
+     "mean": 139.8,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 30,
+     "mean": 209.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 31,
+     "mean": 183.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 32,
+     "mean": 109.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 33,
+     "mean": 210.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 34,
+     "mean": 184.5,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 35,
+     "mean": 211.9,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 36,
+     "mean": 230.0,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 37,
+     "mean": 155.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 38,
+     "mean": 138.0,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 39,
+     "mean": 107.0,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 38
+    },
+    {
+     "w": 40,
+     "mean": 109.1,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 41,
+     "mean": 121.7,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 39
+    },
+    {
+     "w": 42,
+     "mean": 124.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 39
+    },
+    {
+     "w": 43,
+     "mean": 89.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 39
+    },
+    {
+     "w": 44,
+     "mean": 80.4,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 45,
+     "mean": 96.1,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 46,
+     "mean": 65.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 47,
+     "mean": 60.3,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 38
+    },
+    {
+     "w": 48,
+     "mean": 56.6,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 49,
+     "mean": 100.1,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 50,
+     "mean": 59.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 51,
+     "mean": 66.1,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    }
+   ],
+   "peaks": {
+    "early": {
+     "week": 26,
+     "start": "30 Oct",
+     "mean": 269.1
+    },
+    "late": {
+     "week": 36,
+     "start": "8 Jan",
+     "mean": 230.0
+    },
+    "weeks_over_severe": {
+     "early": 1,
+     "late": 0
+    },
+    "trough": {
+     "week": 32,
+     "start": "11 Dec",
+     "mean": 109.5
+    },
+    "dip": 0.524
+   }
+  },
+  {
+   "label": "2023-24",
+   "start": "2023-05-01",
+   "complete": true,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 63.1,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 1,
+     "mean": 95.0,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 39
+    },
+    {
+     "w": 2,
+     "mean": 75.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 3,
+     "mean": 40.9,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 4,
+     "mean": 47.4,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 5,
+     "mean": 53.7,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 6,
+     "mean": 43.3,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 7,
+     "mean": 39.4,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 8,
+     "mean": 34.3,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 9,
+     "mean": 36.2,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 36
+    },
+    {
+     "w": 10,
+     "mean": 33.2,
+     "days": 7,
+     "stations_min": 10,
+     "stations_max": 35
+    },
+    {
+     "w": 11,
+     "mean": 37.9,
+     "days": 5,
+     "stations_min": 11,
+     "stations_max": 33
+    },
+    {
+     "w": 12,
+     "mean": 30.6,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 36
+    },
+    {
+     "w": 13,
+     "mean": 34.6,
+     "days": 7,
+     "stations_min": 21,
+     "stations_max": 35
+    },
+    {
+     "w": 14,
+     "mean": 34.3,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 15,
+     "mean": 42.6,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 16,
+     "mean": 38.1,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 17,
+     "mean": 45.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 18,
+     "mean": 27.5,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 36
+    },
+    {
+     "w": 19,
+     "mean": 37.7,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 33
+    },
+    {
+     "w": 20,
+     "mean": 40.5,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 35
+    },
+    {
+     "w": 21,
+     "mean": 63.2,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 22,
+     "mean": 74.7,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 23,
+     "mean": 94.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 24,
+     "mean": 86.7,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 35
+    },
+    {
+     "w": 25,
+     "mean": 135.1,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 26,
+     "mean": 267.3,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 27,
+     "mean": 214.1,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 28,
+     "mean": 239.8,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 37
+    },
+    {
+     "w": 29,
+     "mean": 250.5,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 37
+    },
+    {
+     "w": 30,
+     "mean": 192.4,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 31,
+     "mean": 156.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 32,
+     "mean": 200.4,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 33,
+     "mean": 225.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 34,
+     "mean": 231.1,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 35,
+     "mean": 180.4,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 36,
+     "mean": 223.7,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 37,
+     "mean": 192.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 38,
+     "mean": 227.6,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 39,
+     "mean": 147.2,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 38
+    },
+    {
+     "w": 40,
+     "mean": 100.3,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 36
+    },
+    {
+     "w": 41,
+     "mean": 146.8,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 42,
+     "mean": 84.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 43,
+     "mean": 63.7,
+     "days": 7,
+     "stations_min": 31,
+     "stations_max": 37
+    },
+    {
+     "w": 44,
+     "mean": 66.5,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 45,
+     "mean": 79.7,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 46,
+     "mean": 93.1,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 37
+    },
+    {
+     "w": 47,
+     "mean": 80.8,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 48,
+     "mean": 68.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 49,
+     "mean": 85.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 50,
+     "mean": 67.2,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 51,
+     "mean": 64.3,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    }
+   ],
+   "peaks": {
+    "early": {
+     "week": 26,
+     "start": "30 Oct",
+     "mean": 267.3
+    },
+    "late": {
+     "week": 34,
+     "start": "25 Dec",
+     "mean": 231.1
+    },
+    "weeks_over_severe": {
+     "early": 2,
+     "late": 0
+    },
+    "trough": {
+     "week": 31,
+     "start": "4 Dec",
+     "mean": 156.2
+    },
+    "dip": 0.324
+   }
+  },
+  {
+   "label": "2024-25",
+   "start": "2024-05-01",
+   "complete": false,
+   "weeks": [
+    {
+     "w": 0,
+     "mean": 119.9,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 1,
+     "mean": 82.9,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 38
+    },
+    {
+     "w": 2,
+     "mean": 100.1,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 3,
+     "mean": 73.6,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 4,
+     "mean": 65.7,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 39
+    },
+    {
+     "w": 5,
+     "mean": 65.6,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 38
+    },
+    {
+     "w": 6,
+     "mean": 57.6,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 7,
+     "mean": 65.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 8,
+     "mean": 43.5,
+     "days": 7,
+     "stations_min": 28,
+     "stations_max": 35
+    },
+    {
+     "w": 9,
+     "mean": 28.0,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 10,
+     "mean": 45.7,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 11,
+     "mean": 45.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 36
+    },
+    {
+     "w": 12,
+     "mean": 40.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 13,
+     "mean": 23.3,
+     "days": 7,
+     "stations_min": 30,
+     "stations_max": 38
+    },
+    {
+     "w": 14,
+     "mean": 25.5,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 36
+    },
+    {
+     "w": 15,
+     "mean": 28.3,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 16,
+     "mean": 30.2,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 36
+    },
+    {
+     "w": 17,
+     "mean": 34.5,
+     "days": 7,
+     "stations_min": 34,
+     "stations_max": 37
+    },
+    {
+     "w": 18,
+     "mean": 37.7,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 19,
+     "mean": 35.7,
+     "days": 7,
+     "stations_min": 27,
+     "stations_max": 36
+    },
+    {
+     "w": 20,
+     "mean": 56.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 35
+    },
+    {
+     "w": 21,
+     "mean": 44.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 22,
+     "mean": 58.1,
+     "days": 7,
+     "stations_min": 32,
+     "stations_max": 35
+    },
+    {
+     "w": 23,
+     "mean": 79.2,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 36
+    },
+    {
+     "w": 24,
+     "mean": 139.9,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 37
+    },
+    {
+     "w": 25,
+     "mean": 155.0,
+     "days": 7,
+     "stations_min": 33,
+     "stations_max": 38
+    },
+    {
+     "w": 26,
+     "mean": 210.7,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 27,
+     "mean": 202.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    },
+    {
+     "w": 28,
+     "mean": 385.0,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 37
+    },
+    {
+     "w": 29,
+     "mean": 222.8,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 30,
+     "mean": 160.4,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 38
+    },
+    {
+     "w": 31,
+     "mean": 101.6,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 32,
+     "mean": 177.3,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 33,
+     "mean": 281.3,
+     "days": 7,
+     "stations_min": 36,
+     "stations_max": 39
+    },
+    {
+     "w": 34,
+     "mean": 137.9,
+     "days": 7,
+     "stations_min": 29,
+     "stations_max": 39
+    },
+    {
+     "w": 48,
+     "mean": 88.5,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 49,
+     "mean": 64.4,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 39
+    },
+    {
+     "w": 50,
+     "mean": 68.6,
+     "days": 7,
+     "stations_min": 37,
+     "stations_max": 39
+    },
+    {
+     "w": 51,
+     "mean": 89.2,
+     "days": 7,
+     "stations_min": 35,
+     "stations_max": 38
+    }
+   ],
+   "peaks": null
+  }
+ ],
+ "average": [
+  {
+   "w": 0,
+   "mean": 72.0,
+   "min": 43.1,
+   "max": 95.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 1,
+   "mean": 81.6,
+   "min": 50.5,
+   "max": 126.6,
+   "n_cycles": 6
+  },
+  {
+   "w": 2,
+   "mean": 75.2,
+   "min": 45.2,
+   "max": 87.4,
+   "n_cycles": 6
+  },
+  {
+   "w": 3,
+   "mean": 65.9,
+   "min": 40.9,
+   "max": 106.0,
+   "n_cycles": 6
+  },
+  {
+   "w": 4,
+   "mean": 60.9,
+   "min": 39.5,
+   "max": 83.2,
+   "n_cycles": 6
+  },
+  {
+   "w": 5,
+   "mean": 63.0,
+   "min": 49.6,
+   "max": 80.2,
+   "n_cycles": 6
+  },
+  {
+   "w": 6,
+   "mean": 62.7,
+   "min": 37.8,
+   "max": 149.3,
+   "n_cycles": 6
+  },
+  {
+   "w": 7,
+   "mean": 50.7,
+   "min": 38.7,
+   "max": 66.4,
+   "n_cycles": 6
+  },
+  {
+   "w": 8,
+   "mean": 50.2,
+   "min": 34.3,
+   "max": 63.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 9,
+   "mean": 45.0,
+   "min": 36.2,
+   "max": 57.3,
+   "n_cycles": 6
+  },
+  {
+   "w": 10,
+   "mean": 38.8,
+   "min": 30.6,
+   "max": 60.2,
+   "n_cycles": 6
+  },
+  {
+   "w": 11,
+   "mean": 37.9,
+   "min": 29.2,
+   "max": 52.0,
+   "n_cycles": 6
+  },
+  {
+   "w": 12,
+   "mean": 31.4,
+   "min": 24.6,
+   "max": 35.6,
+   "n_cycles": 6
+  },
+  {
+   "w": 13,
+   "mean": 39.2,
+   "min": 28.5,
+   "max": 60.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 14,
+   "mean": 32.5,
+   "min": 22.7,
+   "max": 40.1,
+   "n_cycles": 6
+  },
+  {
+   "w": 15,
+   "mean": 34.1,
+   "min": 20.5,
+   "max": 47.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 16,
+   "mean": 32.4,
+   "min": 16.9,
+   "max": 43.0,
+   "n_cycles": 6
+  },
+  {
+   "w": 17,
+   "mean": 38.6,
+   "min": 24.1,
+   "max": 47.1,
+   "n_cycles": 6
+  },
+  {
+   "w": 18,
+   "mean": 39.4,
+   "min": 27.5,
+   "max": 47.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 19,
+   "mean": 38.8,
+   "min": 23.2,
+   "max": 60.2,
+   "n_cycles": 6
+  },
+  {
+   "w": 20,
+   "mean": 38.9,
+   "min": 28.9,
+   "max": 45.8,
+   "n_cycles": 6
+  },
+  {
+   "w": 21,
+   "mean": 51.0,
+   "min": 24.5,
+   "max": 64.3,
+   "n_cycles": 6
+  },
+  {
+   "w": 22,
+   "mean": 64.6,
+   "min": 44.3,
+   "max": 90.8,
+   "n_cycles": 6
+  },
+  {
+   "w": 23,
+   "mean": 90.2,
+   "min": 48.1,
+   "max": 118.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 24,
+   "mean": 109.0,
+   "min": 84.0,
+   "max": 141.4,
+   "n_cycles": 6
+  },
+  {
+   "w": 25,
+   "mean": 163.8,
+   "min": 87.1,
+   "max": 197.7,
+   "n_cycles": 6
+  },
+  {
+   "w": 26,
+   "mean": 254.0,
+   "min": 203.6,
+   "max": 331.2,
+   "n_cycles": 6
+  },
+  {
+   "w": 27,
+   "mean": 246.5,
+   "min": 181.7,
+   "max": 326.3,
+   "n_cycles": 6
+  },
+  {
+   "w": 28,
+   "mean": 198.0,
+   "min": 138.0,
+   "max": 239.8,
+   "n_cycles": 6
+  },
+  {
+   "w": 29,
+   "mean": 182.9,
+   "min": 139.8,
+   "max": 250.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 30,
+   "mean": 178.7,
+   "min": 94.2,
+   "max": 232.8,
+   "n_cycles": 6
+  },
+  {
+   "w": 31,
+   "mean": 191.6,
+   "min": 147.6,
+   "max": 227.3,
+   "n_cycles": 6
+  },
+  {
+   "w": 32,
+   "mean": 156.1,
+   "min": 109.5,
+   "max": 200.4,
+   "n_cycles": 6
+  },
+  {
+   "w": 33,
+   "mean": 237.5,
+   "min": 210.3,
+   "max": 290.8,
+   "n_cycles": 6
+  },
+  {
+   "w": 34,
+   "mean": 224.3,
+   "min": 180.7,
+   "max": 279.2,
+   "n_cycles": 6
+  },
+  {
+   "w": 35,
+   "mean": 209.4,
+   "min": 173.9,
+   "max": 261.7,
+   "n_cycles": 6
+  },
+  {
+   "w": 36,
+   "mean": 182.7,
+   "min": 111.7,
+   "max": 230.0,
+   "n_cycles": 6
+  },
+  {
+   "w": 37,
+   "mean": 190.2,
+   "min": 140.1,
+   "max": 250.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 38,
+   "mean": 155.8,
+   "min": 110.7,
+   "max": 227.6,
+   "n_cycles": 6
+  },
+  {
+   "w": 39,
+   "mean": 146.2,
+   "min": 107.0,
+   "max": 184.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 40,
+   "mean": 127.2,
+   "min": 100.3,
+   "max": 153.0,
+   "n_cycles": 6
+  },
+  {
+   "w": 41,
+   "mean": 137.3,
+   "min": 115.9,
+   "max": 175.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 42,
+   "mean": 106.3,
+   "min": 84.5,
+   "max": 141.6,
+   "n_cycles": 6
+  },
+  {
+   "w": 43,
+   "mean": 80.0,
+   "min": 63.7,
+   "max": 89.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 44,
+   "mean": 79.1,
+   "min": 55.7,
+   "max": 103.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 45,
+   "mean": 88.5,
+   "min": 59.3,
+   "max": 106.9,
+   "n_cycles": 6
+  },
+  {
+   "w": 46,
+   "mean": 82.3,
+   "min": 65.7,
+   "max": 103.5,
+   "n_cycles": 6
+  },
+  {
+   "w": 47,
+   "mean": 74.7,
+   "min": 31.8,
+   "max": 105.3,
+   "n_cycles": 6
+  },
+  {
+   "w": 48,
+   "mean": 76.6,
+   "min": 38.9,
+   "max": 109.8,
+   "n_cycles": 6
+  },
+  {
+   "w": 49,
+   "mean": 79.8,
+   "min": 47.7,
+   "max": 100.1,
+   "n_cycles": 6
+  },
+  {
+   "w": 50,
+   "mean": 67.9,
+   "min": 43.4,
+   "max": 102.7,
+   "n_cycles": 6
+  },
+  {
+   "w": 51,
+   "mean": 84.2,
+   "min": 45.0,
+   "max": 125.5,
+   "n_cycles": 6
+  }
+ ],
+ "summary": {
+  "complete_winters": 6,
+  "labels": [
+   "2018-19",
+   "2019-20",
+   "2020-21",
+   "2021-22",
+   "2022-23",
+   "2023-24"
+  ]
+ },
+ "tests": {
+  "shuffle": {
+   "what": "each winter's own weekly values (weeks 24 to 38) put in random order, then the same dip measured",
+   "seed": 1,
+   "draws": 24000,
+   "observed_dip": [
+    0.396,
+    0.633,
+    0.409,
+    0.401,
+    0.524,
+    0.324
+   ],
+   "observed_median": 0.409,
+   "null_median": 0.499,
+   "null_share_at_least_30pct": 0.914
+  },
+  "bootstrap": {
+   "what": "resampling the winters with replacement, the dip in the average series",
+   "seed": 7,
+   "draws": 5000,
+   "p5": 0.276,
+   "median": 0.351,
+   "p95": 0.424
+  },
+  "timing": {
+   "early_peak_weeks": [
+    27,
+    26,
+    27,
+    27,
+    26,
+    26
+   ],
+   "late_peak_weeks": [
+    33,
+    34,
+    33,
+    33,
+    36,
+    34
+   ],
+   "early_peak_starts": [
+    "6 Nov",
+    "30 Oct",
+    "6 Nov",
+    "6 Nov",
+    "30 Oct",
+    "30 Oct"
+   ],
+   "late_peak_starts": [
+    "18 Dec",
+    "25 Dec",
+    "18 Dec",
+    "18 Dec",
+    "8 Jan",
+    "25 Dec"
+   ]
+  },
+  "flattening": {
+   "mean_of_winter_early_peaks": 291.3,
+   "mean_of_winter_late_peaks": 247.4,
+   "peak_of_average_early": 254.0,
+   "peak_of_average_late": 237.5
+  }
+ }
+}

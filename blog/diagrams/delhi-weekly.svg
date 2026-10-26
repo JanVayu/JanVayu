@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 490" role="img" aria-label="Delhi weekly mean PM2.5 across seven winters" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+<rect width="980" height="490" fill="#fbfaf7"/>
+<text x="14.0" y="26.0" font-size="17" fill="#1e2a22" text-anchor="start" font-weight="700">Delhi, weekly mean PM2.5 (µg/m³), May to April</text>
+<text x="14.0" y="46.0" font-size="11.5" fill="#5b6b60" text-anchor="start" font-weight="400">Shaded band: lowest to highest week across 6 winters, 2018-19 to 2023-24. Line: their mean. Dashed: winter 2024-25, to December (no January to March data).</text>
+<text x="14.0" y="62.0" font-size="11.5" fill="#5b6b60" text-anchor="start" font-weight="400">Dotted lines: 60, the 24-hour standard, and 250, CPCB's Severe threshold. Dots: green up to 60, amber to 120, red to 250, dark red above.</text>
+<line x1="60" x2="960" y1="434.0" y2="434.0" stroke="#e4e1d8"/>
+<text x="54.0" y="438.0" font-size="10.5" fill="#5b6b60" text-anchor="end" font-weight="400">0</text>
+<line x1="60" x2="960" y1="387.2" y2="387.2" stroke="#e4e1d8"/>
+<text x="54.0" y="391.2" font-size="10.5" fill="#5b6b60" text-anchor="end" font-weight="400">60</text>
+<line x1="60" x2="960" y1="340.4" y2="340.4" stroke="#e4e1d8"/>
+<text x="54.0" y="344.4" font-size="10.5" fill="#5b6b60" text-anchor="end" font-weight="400">120</text>
+<line x1="60" x2="960" y1="239.0" y2="239.0" stroke="#e4e1d8"/>
+<text x="54.0" y="243.0" font-size="10.5" fill="#5b6b60" text-anchor="end" font-weight="400">250</text>
+<line x1="60" x2="960" y1="122.0" y2="122.0" stroke="#e4e1d8"/>
+<text x="54.0" y="126.0" font-size="10.5" fill="#5b6b60" text-anchor="end" font-weight="400">400</text>
+<line x1="60" x2="960" y1="387.2" y2="387.2" stroke="#1e2a22" stroke-width="1" stroke-dasharray="2 4"/>
+<line x1="60" x2="960" y1="239.0" y2="239.0" stroke="#1e2a22" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="62.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">May</text>
+<text x="137.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Jun</text>
+<text x="212.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Jul</text>
+<text x="287.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Aug</text>
+<text x="362.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Sep</text>
+<text x="437.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Oct</text>
+<text x="512.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Nov</text>
+<text x="587.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Dec</text>
+<text x="662.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Jan</text>
+<text x="737.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Feb</text>
+<text x="812.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Mar</text>
+<text x="887.0" y="452.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Apr</text>
+<text x="14.0" y="482.0" font-size="10.5" fill="#5b6b60" text-anchor="start" font-weight="400">Source: CPCB monitors via XKDR India Air Quality Database, CC BY 4.0. Weeks are 7-day blocks from 1 May.</text>
+<line x1="674.4" x2="674.4" y1="122" y2="434" stroke="#e4e1d8"/>
+<text x="677.4" y="430.0" font-size="10" fill="#5b6b60" text-anchor="start" font-weight="400">1 Jan</text>
+<polygon points="68.7,359.5 86.0,335.3 103.3,365.8 120.6,351.3 137.9,369.1 155.2,371.4 172.5,317.5 189.8,382.2 207.1,384.5 224.4,389.3 241.7,387.0 259.0,393.4 276.3,406.2 293.7,386.5 311.0,402.7 328.3,396.6 345.6,400.5 362.9,397.3 380.2,396.9 397.5,387.0 414.8,398.3 432.1,383.8 449.4,363.2 466.7,341.6 484.0,323.7 501.3,279.8 518.7,175.7 536.0,179.5 553.3,247.0 570.6,238.6 587.9,252.4 605.2,256.7 622.5,277.7 639.8,207.2 657.1,216.2 674.4,229.9 691.7,254.6 709.0,238.3 726.3,256.5 743.7,289.8 761.0,314.7 778.3,297.1 795.6,323.6 812.9,363.9 830.2,353.0 847.5,350.6 864.8,353.3 882.1,351.9 899.4,348.4 916.7,355.9 934.0,353.9 951.3,336.1 951.3,398.9 934.0,400.1 916.7,396.8 899.4,403.7 882.1,409.2 864.8,382.8 847.5,387.7 830.2,390.6 812.9,384.3 795.6,368.1 778.3,343.6 761.0,355.8 743.7,350.5 726.3,347.7 709.0,324.7 691.7,346.9 674.4,298.4 657.1,293.1 639.8,270.0 622.5,348.6 605.2,318.9 587.9,360.5 570.6,325.0 553.3,326.4 536.0,292.3 518.7,275.2 501.3,366.1 484.0,368.5 466.7,396.5 449.4,399.4 432.1,414.9 414.8,411.5 397.5,415.9 380.2,412.6 362.9,415.2 345.6,420.8 328.3,418.0 311.0,416.3 293.7,411.8 276.3,414.8 259.0,411.2 241.7,410.1 224.4,405.8 207.1,407.2 189.8,403.8 172.5,404.5 155.2,395.3 137.9,403.2 120.6,402.1 103.3,398.7 86.0,394.6 68.7,400.4" fill="#d9e2dc" opacity="0.9"/>
+<polyline fill="none" stroke="#1e2a22" stroke-width="1.6" stroke-dasharray="5 3" points="68.7,340.5 86.0,369.3 103.3,355.9 120.6,376.6 137.9,382.8 155.2,382.8 172.5,389.1 189.8,383.1 207.1,400.1 224.4,412.2 241.7,398.4 259.0,398.9 276.3,402.4 293.7,415.8 311.0,414.1 328.3,411.9 345.6,410.4 362.9,407.1 380.2,404.6 397.5,406.2 414.8,389.6 432.1,399.0 449.4,388.7 466.7,372.2 484.0,324.9 501.3,313.1 518.7,269.7 536.0,276.2 553.3,133.7 570.6,260.2 587.9,308.9 605.2,354.8 622.5,295.7 639.8,214.6 657.1,326.4"/>
+<polyline fill="none" stroke="#1e2a22" stroke-width="1.6" stroke-dasharray="5 3" points="899.4,365.0 916.7,383.8 934.0,380.5 951.3,364.4"/>
+<polyline fill="none" stroke="#1e2a22" stroke-width="2.4" points="68.7,377.8 86.0,370.4 103.3,375.3 120.6,382.6 137.9,386.5 155.2,384.9 172.5,385.1 189.8,394.5 207.1,394.8 224.4,398.9 241.7,403.7 259.0,404.4 276.3,409.5 293.7,403.4 311.0,408.6 328.3,407.4 345.6,408.7 362.9,403.9 380.2,403.3 397.5,403.7 414.8,403.7 432.1,394.2 449.4,383.6 466.7,363.6 484.0,349.0 501.3,306.2 518.7,235.9 536.0,241.7 553.3,279.6 570.6,291.3 587.9,294.6 605.2,284.6 622.5,312.2 639.8,248.8 657.1,259.0 674.4,270.7 691.7,291.5 709.0,285.6 726.3,312.5 743.7,320.0 761.0,334.8 778.3,326.9 795.6,351.1 812.9,371.6 830.2,372.3 847.5,365.0 864.8,369.8 882.1,375.7 899.4,374.3 916.7,371.8 934.0,381.0 951.3,368.3"/>
+<circle cx="68.7" cy="377.8" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="86.0" cy="370.4" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="103.3" cy="375.3" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="120.6" cy="382.6" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="137.9" cy="386.5" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="155.2" cy="384.9" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="172.5" cy="385.1" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="189.8" cy="394.5" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="207.1" cy="394.8" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="224.4" cy="398.9" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="241.7" cy="403.7" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="259.0" cy="404.4" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="276.3" cy="409.5" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="293.7" cy="403.4" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="311.0" cy="408.6" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="328.3" cy="407.4" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="345.6" cy="408.7" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="362.9" cy="403.9" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="380.2" cy="403.3" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="397.5" cy="403.7" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="414.8" cy="403.7" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="432.1" cy="394.2" r="3.2" fill="#146c33" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="449.4" cy="383.6" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="466.7" cy="363.6" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="484.0" cy="349.0" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="501.3" cy="306.2" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="518.7" cy="235.9" r="4.2" fill="#7f1d1d" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="536.0" cy="241.7" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="553.3" cy="279.6" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="570.6" cy="291.3" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="587.9" cy="294.6" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="605.2" cy="284.6" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="622.5" cy="312.2" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="639.8" cy="248.8" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="657.1" cy="259.0" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="674.4" cy="270.7" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="691.7" cy="291.5" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="709.0" cy="285.6" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="726.3" cy="312.5" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="743.7" cy="320.0" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="761.0" cy="334.8" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="778.3" cy="326.9" r="3.2" fill="#b91c1c" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="795.6" cy="351.1" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="812.9" cy="371.6" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="830.2" cy="372.3" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="847.5" cy="365.0" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="864.8" cy="369.8" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="882.1" cy="375.7" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="899.4" cy="374.3" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="916.7" cy="371.8" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="934.0" cy="381.0" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<circle cx="951.3" cy="368.3" r="3.2" fill="#8a5300" stroke="#fbfaf7" stroke-width="1"/>
+<text x="509.7" y="227.9" font-size="11.5" fill="#1e2a22" text-anchor="end" font-weight="700">254 (30 Oct)</text>
+<line x1="639.8" x2="651.8" y1="243.8" y2="180.6" stroke="#1e2a22" stroke-width="0.8"/>
+<text x="653.8" y="180.6" font-size="11.5" fill="#1e2a22" text-anchor="start" font-weight="700">238 (18 Dec)</text>
+<text x="545.3" y="129.7" font-size="10.5" fill="#1e2a22" text-anchor="end" font-weight="400">385 in the week of 13 Nov, 2024</text>
+</svg>

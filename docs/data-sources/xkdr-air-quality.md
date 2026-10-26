@@ -57,7 +57,7 @@ Endpoints: `/v1/meta`, `/v1/stations`, `/v1/parameters`, `/v1/measurements`, `/v
 
 The API sits behind Cloudflare, which refuses requests that carry a script's default user agent (it returns a 403 that looks like a network block). Send a descriptive user agent.
 
-A public demo key exists for trying it out. It is capped at 10,000 rows and covers 2024 only.
+A public demo key exists for trying it out. It is capped at 10,000 rows per request. The published description says it covers 2024 only, and that was true of the 2024 comparison it was first used for. On 26 October 2026, asked one month at a time, it returned Delhi's daily PM2.5 for every month from January 2018 to August 2025, which is how `scripts/build-delhi-weekly.py` works. The key is not documented to do that, so set `XKDR_API_KEY` for any build you need to repeat.
 
 ---
 
@@ -100,3 +100,11 @@ The consequence is concrete. Applying the twelve-month completeness rule to 2025
 | **Dataful** | A commercial compilation from 2015, derived from daily AQI bulletins, not hourly readings. |
 
 For satellite PM2.5 the position is unchanged. ACAG's global series reaches 2023 (V6.GL.02.04), and the Asia regional V6GL03 bucket still returns 404 for 2025 and 2026, rechecked 17 September 2026. The CAMS-based current-year layer remains the only way to answer "what about this year" below the station network.
+
+---
+
+## Delhi by week and winter
+
+`scripts/build-delhi-weekly.py` turns the daily station means for Delhi into weekly means for each May-to-April year, writes `data/delhi-weekly.json` and draws the two charts in the 26 October 2026 post. The rules (at least 18 hours for a station-day, 10 stations for a city-day, 5 days for a week) and the tests are in the script's docstring and in the file's `_meta`.
+
+Two limits to carry forward. January to March 2025 is empty in the archive, so winter 2024-25 is drawn to December and never averaged. And the CPCB feed ends on 1 September 2025, so no winter after 2024-25 can be drawn from this source. `--check` runs offline: it recomputes the shuffle and bootstrap tests from the file and fails if either chart is stale.

@@ -5,6 +5,66 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-10-26
+
+### Added, five Reading List studies
+
+Langford et al. (primary PM1 sources in London, Beijing and Delhi, by flux),
+Srivastav et al. (new particle formation in the Indo-Gangetic Plain), Zeeshan,
+Khosla and Bhutia (gender and vehicle access in India), Khan et al. (virtual
+sensing for drifting low-cost sensors) and Alejo Sanchez et al. (distribution
+calibration of NO2 sensors). The list is 66 studies; BibTeX, RIS and the
+walkthrough deck are updated. Every DOI was resolved on Crossref and each card
+is written from the abstract. Two summaries supplied with the papers went
+further than the abstracts and were not used: that the Sonipat study explains
+Delhi's winter episodes (it says nothing about Delhi), and that the Langford
+result shows policy from London cannot work in Delhi (the paper concludes that
+primary sources differ from those controlling ambient PM1 mass).
+
+### Changed, Ask JanVayu: knowledge and testing
+
+- The assistant had no knowledge of its own origin, of secondary particles and
+  ammonia, of Delhi's winter timing or of El Nino. Four small keyword-gated
+  reference blocks now carry them (see `docs/technical/ai-features.md`). The
+  about block states the AIPC origin and forbids claims of neutrality.
+- `test/knowledge-gates.test.mjs` (15 tests) pins each detector, the token cost
+  of each block, the wording, and the winter figures against the data file. It
+  caught two defects before they shipped.
+- Five eval cases added (37 in all): affiliation, the 42% false premise,
+  ammonia's share, an El Nino forecast bait and Delhi's winter timing.
+- The weekly eval graded 22 of 32 cases on 25 October and called it green: the
+  last seven cases in the file ran out of the 20-minute budget in both of the
+  last two runs, and three (including partisan-bait) were rate-limited. The budget is 45
+  minutes, the workflow timeout 60, and rate-limited cases now get a second
+  pass. The LLM judge has never run on a schedule, because the repository has
+  no `GROQ_API_KEY` secret.
+- `docs/technical/ai-features.md` no longer says the free Groq tier is
+  sufficient: at 8,000 tokens a minute it allows about one answer a minute.
+
+### Added, Delhi's weekly PM2.5 winter by winter, and a post that tests "peaks twice each winter"
+
+CEEW posted a chart of Delhi's weekly PM2.5 averaged over a few winters,
+titled "Delhi's air pollution peaks twice each winter". The new post
+(`blog/posts/2026-10-26-delhi-six-winters-weekly-pm25.md`) draws six complete
+winters, 2018-19 to 2023-24, from CPCB monitors in the XKDR archive, with
+winter 2024-25 as a dashed line to December.
+
+- The six-winter mean peaks at 254 and 238 µg/m³, the same scale as CEEW's 260
+  and 247. Each winter's own first peak is higher (264 to 331, mean 291) and
+  every one is above the 250 Severe line, which the average hides.
+- A dip between two highs does not show two peaks in a single winter:
+  reshuffling a winter's own weeks gives a dip of 30% or more in 91% of draws.
+  The post rests the claim on timing instead. The first peak falls in the week
+  of 30 October or 6 November in all six winters and does not follow Diwali,
+  which moved over three weeks.
+- `scripts/build-delhi-weekly.py` builds `data/delhi-weekly.json` and both
+  charts, and `--check` (offline, now in CI) recomputes the seeded tests and
+  fails on a stale chart.
+- `docs/data-sources/xkdr-air-quality.md` records that the demo key returned
+  Delhi data for 2018 to August 2025 month by month, which its documentation
+  does not promise, and that the archive has no CPCB data for January to March
+  2025 or after 1 September 2025.
+
 ## [Unreleased] - 2026-10-25
 
 ### Changed, a fact-check round, and a correction to the 42% secondary PM2.5 figure

@@ -205,6 +205,15 @@ jobs:
       - name: Check the Delhi monthly bulletin counts
         run: python3 scripts/build-delhi-seasonal.py --check
 
+      # CEEW's "peaks twice each winter" chart averaged a few winters. This
+      # draws six separately from CPCB monitors and holds the post to what
+      # they support: a dip between two highs is what a noisy series does
+      # anyway (91% of shuffles reach a 30% dip), so the claim rests on timing.
+      # Offline: it recomputes the tests from the file and fails if either
+      # chart is stale.
+      - name: Check Delhi's weekly PM2.5 by winter
+        run: python3 scripts/build-delhi-weekly.py --check
+
       # The calculators turned 29 unsourced "working values" for annual PM2.5
       # into years of life expectancy. Each city is now read from the 2024
       # satellite layer, and this fails if app.js drifts from it.

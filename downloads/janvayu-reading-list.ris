@@ -533,6 +533,21 @@ UR  - https://doi.org/10.1126/sciadv.adq1071
 ER  - 
 
 TY  - JOUR
+AU  - Khan, Naqash Azeem
+AU  - Ferrer-Cid, Pau
+AU  - Barcelo-Ordinas, Jose M.
+AU  - Garcia-Vidal, Jorge
+TI  - Virtual Sensing for Remote Correction in IoT Air Quality Low-Cost Sensor Networks
+T2  - Ad Hoc Networks
+PY  - 2027
+VL  - 195
+SP  - 104453
+PB  - Elsevier BV
+DO  - 10.1016/j.adhoc.2026.104453
+UR  - https://doi.org/10.1016/j.adhoc.2026.104453
+ER  - 
+
+TY  - JOUR
 AU  - Kriti, Mona
 AU  - Ojha, Raj
 AU  - Singh, Samradhi
@@ -565,6 +580,35 @@ SP  - 31194
 PB  - Springer Science and Business Media LLC
 DO  - 10.1038/s41598-026-60752-y
 UR  - https://doi.org/10.1038/s41598-026-60752-y
+ER  - 
+
+TY  - JOUR
+AU  - Langford, Ben
+AU  - Di Marco, Chiara, F.
+AU  - Cash, James M.
+AU  - Allan, James D.
+AU  - Cheng, Zixuan
+AU  - Coe, Hugh
+AU  - Farmer, Delphine K.
+AU  - Fu, Pingqing
+AU  - Gadi, Ranu
+AU  - Gurjar, Bhola Ram
+AU  - Jimenez, Jose L.
+AU  - Kimmel, Joel
+AU  - Liu, Dantong
+AU  - Mandal, Tuhin Kumar
+AU  - Mullinger, Neil J.
+AU  - Phillips, Gavin J.
+AU  - Reyes-Villegas, Ernesto
+AU  - Joshi, Rutambhara
+AU  - Shivani, Shivani
+AU  - Nemitz, Eiko
+TI  - Traffic and combustion emission controls leave cooking as a dominant local source of primary PM1 in megacities
+T2  - npj Climate and Atmospheric Science
+PY  - 2026
+PB  - Springer Science and Business Media LLC
+DO  - 10.1038/s41612-026-01583-6
+UR  - https://doi.org/10.1038/s41612-026-01583-6
 ER  - 
 
 TY  - JOUR
@@ -1062,6 +1106,30 @@ UR  - https://doi.org/10.1038/s41598-025-26663-0
 ER  - 
 
 TY  - JOUR
+AU  - Srivastav, Gaurav Kumar
+AU  - Wagay, Aasif Ahmad
+AU  - Lampilahti, Janne
+AU  - Rathore, Jaswant
+AU  - Kunchala, Ravi Kumar
+AU  - Ganguly, Dilip
+AU  - Kulmala, Markku
+AU  - Petäjä, Tuukka
+AU  - Paasonen, Pauli
+AU  - Thakur, Roseline C.
+AU  - Gani, Shahzad
+TI  - Ion and particle size distribution measurements in the Indo-Gangetic Plain: seasonal insights and challenges in new particle formation event characterization
+T2  - Atmospheric Chemistry and Physics
+PY  - 2026
+VL  - 26
+IS  - 20
+SP  - 14917
+EP  - 14938
+PB  - Copernicus GmbH
+DO  - 10.5194/acp-26-14917-2026
+UR  - https://doi.org/10.5194/acp-26-14917-2026
+ER  - 
+
+TY  - JOUR
 AU  - Stadler, Carla Sofía
 AU  - Peña Moules, Manuel
 AU  - Badura, Brenda Estefanía
@@ -1077,6 +1145,20 @@ SP  - 1964066
 PB  - Frontiers Media SA
 DO  - 10.3389/ffutr.2026.1964066
 UR  - https://doi.org/10.3389/ffutr.2026.1964066
+ER  - 
+
+TY  - JOUR
+AU  - Sánchez, Daniellys Alejo
+AU  - Schalm, Olivier
+AU  - Delgado, Liset Roche
+AU  - Rodríguez, Erik Hernández
+AU  - Laguardia, Alain Martínez
+TI  - Improving low-cost NO₂ sensor reliability under real-world air quality conditions by calibrating distributions instead of data points
+T2  - Scientific Reports
+PY  - 2026
+PB  - Springer Science and Business Media LLC
+DO  - 10.1038/s41598-026-77029-z
+UR  - https://doi.org/10.1038/s41598-026-77029-z
 ER  - 
 
 TY  - JOUR
@@ -1295,6 +1377,20 @@ SP  - 103231
 PB  - Elsevier BV
 DO  - 10.1016/j.apr.2026.103231
 UR  - https://doi.org/10.1016/j.apr.2026.103231
+ER  - 
+
+TY  - JOUR
+AU  - Zeeshan, Zeeshan
+AU  - Khosla, Sunil
+AU  - Bhutia, Pema Choden
+TI  - Gendered mobility vulnerability, vehicle access, and unequal starting points for sustainable transport transition in India
+T2  - Frontiers in Future Transportation
+PY  - 2026
+VL  - 7
+SP  - 1919945
+PB  - Frontiers Media SA
+DO  - 10.3389/ffutr.2026.1919945
+UR  - https://doi.org/10.3389/ffutr.2026.1919945
 ER  - 
 
 TY  - JOUR

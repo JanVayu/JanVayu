@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **October 2026**
+  - [Delhi's weekly PM2.5 peaks in the same few weeks every winter, and averaging six winters hides how high the first peak goes](posts/2026-10-26-delhi-six-winters-weekly-pm25.md)
   - [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md)
   - [Ammonia, the other half of secondary PM2.5, checked against what has been published](posts/2026-10-25-ammonia-the-other-half.md)
   - [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md)
