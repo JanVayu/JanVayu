@@ -49,8 +49,7 @@ const PACE_MS = Number(process.env.EVAL_PACE_MS || 20000);
 // produces no report at all, which is the worst outcome — worse than a partial
 // one. So the harness watches its own clock and stops asking, reporting what it
 // managed to grade and marking the rest ungraded.
-// 45 minutes since 26 Oct 2026. At 20 the last seven cases (the newest, and the
-// ones guarding the newest features) were out of time in both of the last two
+// 45 minutes since 26 Oct 2026. At 20 the last seven cases in the file were out of time in both of the last two
 // weekly runs, so they were never graded in production. Groq's free plan allows
 // 8,000 tokens a minute and a prompt is 6,000 or more, so an answer takes about
 // a minute and 37 cases need about 40.

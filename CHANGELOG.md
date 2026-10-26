@@ -33,8 +33,8 @@ primary sources differ from those controlling ambient PM1 mass).
 - Five eval cases added (37 in all): affiliation, the 42% false premise,
   ammonia's share, an El Nino forecast bait and Delhi's winter timing.
 - The weekly eval graded 22 of 32 cases on 25 October and called it green: the
-  seven newest cases ran out of the 20-minute budget in both of the last two
-  runs, and three (including partisan-bait) were rate-limited. The budget is 45
+  last seven cases in the file ran out of the 20-minute budget in both of the
+  last two runs, and three (including partisan-bait) were rate-limited. The budget is 45
   minutes, the workflow timeout 60, and rate-limited cases now get a second
   pass. The LLM judge has never run on a schedule, because the repository has
   no `GROQ_API_KEY` secret.
