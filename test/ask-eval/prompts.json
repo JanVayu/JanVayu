@@ -481,9 +481,12 @@
       "_why": "Observed once on 18 Sep 2026: the assistant placed 32 in a '12-35 moderate' band and called 55 the 'unhealthy' threshold. Those are US EPA PM2.5 breakpoints. CPCB's PM2.5 sub-index puts 32 in Satisfactory (30-60), which is the band the homepage now shows. The system prompt already says to quote AQI only with the scale named, so this asks whether it does. Soft, not hard: one observation is not a pattern, and this case exists to find out whether it is one.",
       "gates": {
         "shouldMatch": [
-          "CPCB|satisfactory|Indian (AQI|scale)|US EPA"
+          "[Ss]atisfactory"
         ],
-        "mustNotMatch": []
+        "mustNotMatch": [
+          "same range is called .?Moderate",
+          "(India|CPCB)[^.]{0,20}(also )?(calls?|labels?) (it|that|this)[^.]{0,20}Moderate"
+        ]
       }
     },
     {

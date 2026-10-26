@@ -447,7 +447,7 @@ const ABOUT_REFERENCE = `ABOUT JANVAYU (the only source for questions about who 
 
 const SECONDARY_REFERENCE = `SECONDARY PARTICLES, AMMONIUM SULPHATE AND AMMONIA (use only these figures, each with what it measures):
 - CREA (report of 30 June 2025): ammonium sulphate, one compound, is about 34% of India's PM2.5 mass on a national average and 20% to 43% across the NCAP cities. It is not the whole secondary share: ammonium nitrate and organic particles formed from gases come on top, so total secondary PM2.5 is larger than 34%.
-- CREA (press release of 24 December 2025): 42% is Chhattisgarh's ANNUAL ammonium sulphate share (never call it a winter figure), the highest of any state (states range from 17% to 42%). NEVER say that 42% of India's PM2.5 is secondary or formed in the air. When someone quotes 42% for India, say it is not the national figure and say where it comes from (Chhattisgarh's ammonium sulphate share, CREA, 24 December 2025). Never call the 42% unsubstantiated or untraceable: it is a real CREA figure that gets misread. For Delhi, CREA's analysis as reported by The Indian Express puts ammonium sulphate at 41% of winter PM2.5.
+- CREA (press release of 24 December 2025): 42% is Chhattisgarh's ANNUAL ammonium sulphate share (never call it a winter figure), the highest of any state (states range from 17% to 42%). NEVER say that 42% of India's PM2.5 is secondary or formed in the air. When someone quotes 42% for India, say it is not the national figure and say where it comes from (Chhattisgarh's ammonium sulphate share, CREA, 24 December 2025). When you correct it, use this sentence for the 42%: "42% is Chhattisgarh's annual ammonium sulphate share of PM2.5 (CREA, 24 December 2025), not the national secondary share." Never call the 42% unsubstantiated or untraceable: it is a real CREA figure that gets misread. For Delhi, CREA's analysis as reported by The Indian Express puts ammonium sulphate at 41% of winter PM2.5.
 - Wang et al. 2025 (Environment International 195, 109207; a WRF-EMEP model of South Asia for 2018): ammonia emissions are associated with 11% of annual mean PM2.5 across South Asia and with 247,000 of 2.228 million PM2.5 deaths in the model. This is a South Asia figure. Never restate it as India's share or as "one-tenth of India's PM2.5"; no figure here gives an India-only ammonia share. PM2.5 responds non-linearly: ammonia cuts pay off proportionately only at 70% to 100%, so sulphur dioxide, nitrogen oxide and ammonia controls have to be considered together.
 - Coal: CREA finds ammonium sulphate within 10 km of coal plants (15 ug/m3) is 2.5 times that beyond 10 km (6 ug/m3), and over 60% of India's sulphur dioxide comes from coal power.
 - A 2026 book excerpt (Jacob Koshy, The Nitrogen Bomb, in The Hindu) gives ammonia as about a quarter of India's PM2.5 and farming as 80% to 85% of India's ammonia. JanVayu could not trace either number to a published paper. Do not repeat either number, even with a caveat; if asked, say plainly that no published source for them was found, then give the 11% figure with its region, year and method.
@@ -971,10 +971,33 @@ function buildSpreadAnalysis(cityKey, cityName, waqiPm25, stationList, sensorLis
 // tokens) and TOPICAL_REFERENCE (~600 tokens) are injected only when a query
 // detector flags them relevant, trimming ~1,500 input tokens (~30%) on the
 // common-case query and letting more requests fit inside the Groq rate limit.
+// A PM2.5 value falls in one band on India's CPCB scale and a different one on
+// the US-EPA scale the activity guidance uses. The model got this wrong
+// whenever it had to look it up (it called 32 "Moderate" in India, where CPCB
+// says Satisfactory), so the code names both bands and the prompt quotes them.
+const CPCB_PM25_BANDS = [[30, "Good", "0-30"], [60, "Satisfactory", "31-60"], [90, "Moderate", "61-90"],
+  [120, "Poor", "91-120"], [250, "Very Poor", "121-250"], [Infinity, "Severe", "above 250"]];
+const EPA_PM25_BANDS = [[12, "Good", "0-12"], [35.4, "Moderate", "12-35"], [55.4, "Unhealthy for sensitive groups", "35-55"],
+  [150.4, "Unhealthy", "55-150"], [250.4, "Very Unhealthy", "150-250"], [Infinity, "Hazardous", "above 250"]];
+function bandOf(table, v) { return table.find(([max]) => v <= max); }
+function scaleNote(question, livePm25) {
+  const lines = [];
+  const m = String(question || "").match(/(\d+(?:\.\d+)?)\s*(?:µg|μg|ug|micrograms?)/i);
+  const asked = m ? Number(m[1]) : null;
+  const line = (label, v) => {
+    const c = bandOf(CPCB_PM25_BANDS, v), e = bandOf(EPA_PM25_BANDS, v);
+    return `- ${label} ${v} µg/m3: CPCB (India) says ${c[1]} (${c[2]}); the US-EPA scale says ${e[1]} (${e[2]}).`;
+  };
+  if (asked != null && asked >= 0 && asked < 2000) lines.push(line("The reader's figure of", asked));
+  if (livePm25 != null && Number.isFinite(Number(livePm25))) lines.push(line("The live reading of", Number(livePm25)));
+  if (!lines.length) return "";
+  return `SCALE CHECK (computed by the code, so use these names exactly; never rename a band or say the two scales agree):\n${lines.join("\n")}\nName India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No".`;
+}
+
 function buildSystemPrompt(seasonal, lang, opts = {}) {
   const { nationalQuery = false, multiSource = false, topical = false, methodologyNeeded = false,
     ward = false, stationCount = false, rti = false, stationRange = false, village = false,
-    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false } = opts;
+    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false, scaleNote: scaleNoteText = "" } = opts;
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
     ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
@@ -992,7 +1015,7 @@ function buildSystemPrompt(seasonal, lang, opts = {}) {
   const methodologyBlock = (multiSource || methodologyNeeded) ? `\n${METHODOLOGY_REFERENCE}\n` : "";
   const topicalBlock = (nationalQuery || topical) ? `\n${TOPICAL_REFERENCE}\n` : "";
   const knowledgeBlocks = [aboutQ && ABOUT_REFERENCE, secondaryQ && SECONDARY_REFERENCE,
-    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE]
+    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE, scaleNoteText]
     .filter(Boolean).map((b) => `\n${b}\n`).join("");
 
   // v26.6.124 — Situational instructions: only sent when the request actually
@@ -1503,7 +1526,8 @@ Top 5 worst: ${top5}
   const stationRange = !!(stationList && stationList.length >= 2);
   const trend = trendQ;
   const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend,
-    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question) };
+    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question),
+    scaleNote: scaleNote(question, aqiResult && aqiResult.pm25) };
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -1557,5 +1581,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { fixKnownSlips, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { scaleNote, fixKnownSlips, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE };
