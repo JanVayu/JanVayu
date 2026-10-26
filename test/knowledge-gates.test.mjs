@@ -95,7 +95,7 @@ test('the secondary block keeps 42% where CREA put it, and 34% as the national f
   assert.match(b, /NEVER say that 42% of India's PM2\.5 is secondary/);
   assert.match(b, /about 34% of India's PM2\.5 mass/);
   assert.match(b, /11% of annual mean PM2\.5 across South Asia/);
-  assert.match(b, /do not state them as fact/);
+  assert.match(b, /no published source for them was found/);
 });
 
 test('the winter block matches data/delhi-weekly.json', async () => {
@@ -116,11 +116,25 @@ test('the winter block matches data/delhi-weekly.json', async () => {
   assert.ok(b.includes(`${Math.min(...over120)} to ${Math.max(...over120)} weeks`), 'weeks above 120');
 });
 
+test('the secondary block keeps the South Asia ammonia figure from becoming an India figure, and drops the unverified numbers', () => {
+  const b = t.SECONDARY_REFERENCE;
+  assert.match(b, /Never restate it as India's share/);
+  assert.match(b, /Do not repeat either number, even with a caveat/);
+});
+
+test('the winter block keeps Mangaraj and Nandi apart and calls Nandi one study', () => {
+  const b = t.WINTER_PEAKS_REFERENCE;
+  assert.match(b, /Never merge Mangaraj's 14% and Nandi's cuts/);
+  assert.match(b, /say "one modelling study", not "studies"/);
+  assert.match(b, /inside Delhi-NCR alone cut Delhi PM2\.5 by 2% to 3%/);
+});
+
 test('the El Nino block carries a date and tells the model not to forecast', () => {
   const b = t.ENSO_REFERENCE;
   assert.match(b, /8 October 2026/);
   assert.match(b, /next update is 12 November 2026/);
   assert.match(b, /Never forecast/);
+  assert.match(b, /Do not open with "Yes" or "No"/);
   assert.match(b, /not a Delhi figure/, 'the 70% must not be attributed to Delhi');
 });
 
