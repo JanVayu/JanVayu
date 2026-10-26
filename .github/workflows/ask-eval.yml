@@ -60,6 +60,7 @@ jobs:
         env:
           AIR_QUERY_URL: ${{ github.event.inputs.endpoint || 'https://www.janvayu.in/.netlify/functions/air-query' }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           EVAL_BUDGET_MS: '2700000'   # 45 minutes of asking, then report
         run: |
           node test/ask-eval/run-eval.mjs --md eval-report.md | tee eval.log
@@ -67,8 +68,8 @@ jobs:
 
       - name: Say plainly whether the judge ran
         run: |
-          if [ -z "${{ secrets.GROQ_API_KEY }}" ]; then
-            echo "::notice::LLM judge skipped — no GROQ_API_KEY secret. The deterministic gates still ran; scores are absent, not zero."
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ] && [ -z "${{ secrets.GROQ_API_KEY }}" ]; then
+            echo "::notice::LLM judge skipped — no ANTHROPIC_API_KEY or GROQ_API_KEY secret. The deterministic gates still ran; scores are absent, not zero."
           else
             echo "::notice::LLM judge ran alongside the gates."
           fi
