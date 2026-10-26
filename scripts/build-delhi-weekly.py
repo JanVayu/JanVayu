@@ -19,6 +19,9 @@ Method, and what each choice costs.
   Weeks are 7-day blocks counted from 1 May (week 0 is 1 to 7 May). In a leap
   cycle the blocks after 29 February start a day later by the calendar; no
   claim here depends on them.
+* Every mean here uses `math.fsum`. Python 3.12 changed `sum()` of floats to
+  compensated summation, so week 22's mean was 64.6 on 3.12+ and 64.7 on 3.11,
+  and CI (3.11) rejected a file built on 3.13. `fsum` is exact on every version.
 * A station-day counts only with at least 18 hourly values. A city-day is the
   mean of the station-day means and needs at least 10 stations. A week needs at
   least 5 such days. The network grew over the window (see `stations` in the
@@ -52,6 +55,7 @@ import argparse
 import csv
 import datetime as dt
 import json
+import math
 import os
 import random
 import ssl
@@ -144,7 +148,7 @@ def load_days():
         for r in csv.DictReader(open(f, encoding='utf-8')):
             if int(r['n']) >= MIN_HOURS:
                 byday[dt.date.fromisoformat(r['period_start'][:10])].append(float(r['mean']))
-    return {d: (sum(v) / len(v), len(v)) for d, v in byday.items() if len(v) >= MIN_STATIONS}
+    return {d: (math.fsum(v) / len(v), len(v)) for d, v in byday.items() if len(v) >= MIN_STATIONS}
 
 
 def peaks(weeks):
@@ -193,9 +197,9 @@ def tests(done):
     boot = []
     for _ in range(BOOTSTRAPS):
         pick = [ser[rng.randrange(len(ser))] for _ in ser]
-        boot.append(dip_of({w: sum(m[w] for m in pick) / len(pick) for w in WINDOW_WEEKS}))
+        boot.append(dip_of({w: math.fsum(m[w] for m in pick) / len(pick) for w in WINDOW_WEEKS}))
     boot.sort()
-    avg = {w: sum(m[w] for m in ser) / len(ser) for w in WINDOW_WEEKS}
+    avg = {w: math.fsum(m[w] for m in ser) / len(ser) for w in WINDOW_WEEKS}
     ep = [max(EARLY, key=lambda w: m[w]) for m in ser]
     lp = [max(LATE, key=lambda w: m[w]) for m in ser]
     return {
@@ -214,8 +218,8 @@ def tests(done):
         'timing': {'early_peak_weeks': ep, 'late_peak_weeks': lp,
                    'early_peak_starts': [week_label(w) for w in ep],
                    'late_peak_starts': [week_label(w) for w in lp]},
-        'flattening': {'mean_of_winter_early_peaks': round(sum(m[w] for m, w in zip(ser, ep)) / len(ser), 1),
-                       'mean_of_winter_late_peaks': round(sum(m[w] for m, w in zip(ser, lp)) / len(ser), 1),
+        'flattening': {'mean_of_winter_early_peaks': round(math.fsum(m[w] for m, w in zip(ser, ep)) / len(ser), 1),
+                       'mean_of_winter_late_peaks': round(math.fsum(m[w] for m, w in zip(ser, lp)) / len(ser), 1),
                        'peak_of_average_early': round(max(avg[w] for w in EARLY), 1),
                        'peak_of_average_late': round(max(avg[w] for w in LATE), 1)},
     }
@@ -234,7 +238,7 @@ def build():
         for w in range(52):
             x = wk.get((y, w), [])
             if len(x) >= MIN_DAYS:
-                weeks.append({'w': w, 'mean': round(sum(a for a, _ in x) / len(x), 1), 'days': len(x),
+                weeks.append({'w': w, 'mean': round(math.fsum(a for a, _ in x) / len(x), 1), 'days': len(x),
                               'stations_min': min(n for _, n in x), 'stations_max': max(n for _, n in x)})
         if not weeks:
             continue
@@ -247,7 +251,7 @@ def build():
         vals = [(c['label'], x['mean']) for c in cycles if c['complete'] for x in c['weeks'] if x['w'] == w]
         if vals:
             v = [b for _, b in vals]
-            avg.append({'w': w, 'mean': round(sum(v) / len(v), 1), 'min': min(v), 'max': max(v),
+            avg.append({'w': w, 'mean': round(math.fsum(v) / len(v), 1), 'min': min(v), 'max': max(v),
                         'n_cycles': len(v)})
     done = [c for c in cycles if c['complete']]
     return {
@@ -403,7 +407,7 @@ def check():
         errs.append('tests do not match what the winters give when recomputed (seeded)')
     for a in d['average']:
         v = [x['mean'] for c in done for x in c['weeks'] if x['w'] == a['w']]
-        if a['n_cycles'] != len(v) or round(sum(v) / len(v), 1) != a['mean']:
+        if a['n_cycles'] != len(v) or round(math.fsum(v) / len(v), 1) != a['mean']:
             errs.append(f"average week {a['w']} is not the mean of the complete winters")
     if d['summary']['complete_winters'] != len(done):
         errs.append('complete_winters does not match')
