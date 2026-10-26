@@ -179,3 +179,21 @@ test('the round-three fixes: annual not winter, Mangaraj is not a model', () => 
   assert.match(t.WINTER_PEAKS_REFERENCE, /not a model; only Nandi et al\. is a model/);
   assert.match(t.WINTER_PEAKS_REFERENCE, /never "a modelling study"/);
 });
+
+test('the scale note names the right band on both scales, from the question and the live reading', () => {
+  const n = t.scaleNote('Delhi is at 32 micrograms of PM2.5 today. Which category does that fall in?', 96);
+  assert.match(n, /figure of 32 µg\/m3: CPCB \(India\) says Satisfactory \(31-60\); the US-EPA scale says Moderate \(12-35\)/);
+  assert.match(n, /live reading of 96 µg\/m3: CPCB \(India\) says Poor \(91-120\); the US-EPA scale says Unhealthy \(55-150\)/);
+  assert.match(t.scaleNote('x', 30), /says Good \(0-30\)/);
+  assert.match(t.scaleNote('x', 31), /says Satisfactory/);
+  assert.match(t.scaleNote('x', 61), /says Moderate \(61-90\)/);
+  assert.match(t.scaleNote('x', 300), /says Severe \(above 250\)/);
+  assert.equal(t.scaleNote('What is PM2.5?', null), '');
+});
+
+test('the scale note reaches the prompt only when there is a number to name', () => {
+  const s = t.getSeasonalContext();
+  assert.ok(t.buildSystemPrompt(s, null, { scaleNote: t.scaleNote('', 96) }).includes('SCALE CHECK'));
+  assert.ok(!t.buildSystemPrompt(s, null, {}).includes('SCALE CHECK'));
+  assert.match(t.SECONDARY_REFERENCE, /annual ammonium sulphate share of PM2\.5 \(CREA, 24 December 2025\), not the national secondary share/);
+});
