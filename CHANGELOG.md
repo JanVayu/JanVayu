@@ -21,6 +21,9 @@ Delhi's winter episodes (it says nothing about Delhi), and that the Langford
 result shows policy from London cannot work in Delhi (the paper concludes that
 primary sources differ from those controlling ambient PM1 mass).
 
+### Fixed, a second round of answer faults found on the published site
+Reading the answers again after the first round went live showed that all three fixes held and four faults remained. The reply to "is 42% of India's PM2.5 secondary" called the 42% untraceable, when it is CREA's real figure for Chhattisgarh. The Delhi timing reply opened "Yes", put Diwali in "mid-October to mid-November" (it fell between 24 October and 14 November in the six winters), called one study "recent studies" and named meteorology the main driver, which the figures do not show. The El Nino reply wrote "El Nina" and said El Nino winters often coincide with higher PM2.5, which two winters cannot show. The reference blocks now rule each of these out and `test/knowledge-gates.test.mjs` pins the wording.
+
 ### Fixed, three answer faults found by reading the live answers
 After the first fix was published, all four new test cases passed their gates and a read of the answers still found three faults. The ammonia answer turned the South Asia figure of 11% into "roughly one-tenth of India's PM2.5" and repeated the unverified 80% to 85% farming share. The Delhi answer gave stubble burning as "10-14%" by joining Mangaraj's measured 14% to a modelled cut in Nandi's study, and called one modelling study "recent studies". The El Nino answer opened "Short answer: NO". The three reference blocks in `netlify/functions/air-query.mjs` now forbid each of these, and `test/knowledge-gates.test.mjs` pins the wording. The eval judge uses `ANTHROPIC_API_KEY` when the repository has one, and Groq otherwise. Its grounding scores are not meaningful yet, because the judge is not shown the reference text and rates real studies as invented.
 
