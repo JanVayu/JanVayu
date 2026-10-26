@@ -160,12 +160,16 @@ async function anthropicChat(messages) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({ model: ANTHROPIC_MODEL, max_tokens: 400, temperature: 0.2, system,
+    body: JSON.stringify({ model: ANTHROPIC_MODEL, max_tokens: 1200, system,
       messages: messages.filter(m => m.role !== 'system') }),
     signal: AbortSignal.timeout(45000),
   });
   const d = await res.json();
-  return (d.content?.[0]?.text || '').trim();
+  // A judge that fails must say so. An empty string parses as judge-parse-failed
+  // and a thrown error was swallowed, which printed "undefined" for every score.
+  if (d.type === 'error') throw new Error(`Anthropic judge: ${d.error?.message || 'unknown error'}`);
+  // Reasoning models put a thinking block first; the answer is the text block.
+  return ((d.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n')).trim();
 }
 const judgeChat = (messages) => (ANTHROPIC_KEY ? anthropicChat(messages) : groqChat(messages));
 
@@ -219,7 +223,7 @@ async function main() {
     await sleep(PACE_MS);
     let jv = null, van = null, vanAnswer = '';
     if ((ANTHROPIC_KEY || GROQ_KEY) && answer) {
-      try { jv = await judge(c, answer, 'JanVayu'); } catch {}
+      try { jv = await judge(c, answer, 'JanVayu'); } catch (e) { console.log('  judge error: ' + e.message); }
       if (GROQ_KEY) try { vanAnswer = await vanilla(c); van = await judge(c, vanAnswer, 'vanilla LLM'); } catch {}
     }
     rows.push({ c, answer, vanAnswer, g, jv, van });
