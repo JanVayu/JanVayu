@@ -122,6 +122,17 @@ test('the secondary block keeps the South Asia ammonia figure from becoming an I
   assert.match(b, /Do not repeat either number, even with a caveat/);
 });
 
+test('the second-round faults stay out: the 42% is explained, the winter causes are not asserted, El Nino stays correct', () => {
+  assert.match(t.SECONDARY_REFERENCE, /Never call the 42% unsubstantiated or untraceable/);
+  assert.match(t.SECONDARY_REFERENCE, /where it comes from \(Chhattisgarh/);
+  const w = t.WINTER_PEAKS_REFERENCE;
+  assert.match(w, /never say that meteorology or any single factor is the main driver/);
+  assert.match(w, /Diwali fell between 24 October and 14 November/);
+  assert.match(w, /Open with the timing itself/);
+  assert.match(t.ENSO_REFERENCE, /never "El Nina"/);
+  assert.match(t.ENSO_REFERENCE, /never say they often do/);
+});
+
 test('the winter block keeps Mangaraj and Nandi apart and calls Nandi one study', () => {
   const b = t.WINTER_PEAKS_REFERENCE;
   assert.match(b, /Never merge Mangaraj's 14% and Nandi's cuts/);
