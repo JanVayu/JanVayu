@@ -340,7 +340,7 @@ function getSeasonalContext() {
 const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
-Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance):
+Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance). Whenever you quote one of these thresholds or band names, say they are US-EPA bands. India's own CPCB bands for 24-hour PM2.5 are Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250 µg/m3, so the same air can carry a different label in India:
 - 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
 - 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
 - 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
@@ -447,7 +447,7 @@ const ABOUT_REFERENCE = `ABOUT JANVAYU (the only source for questions about who 
 
 const SECONDARY_REFERENCE = `SECONDARY PARTICLES, AMMONIUM SULPHATE AND AMMONIA (use only these figures, each with what it measures):
 - CREA (report of 30 June 2025): ammonium sulphate, one compound, is about 34% of India's PM2.5 mass on a national average and 20% to 43% across the NCAP cities. It is not the whole secondary share: ammonium nitrate and organic particles formed from gases come on top, so total secondary PM2.5 is larger than 34%.
-- CREA (press release of 24 December 2025): 42% is Chhattisgarh's annual ammonium sulphate share, the highest of any state (states range from 17% to 42%). NEVER say that 42% of India's PM2.5 is secondary or formed in the air. When someone quotes 42% for India, say it is not the national figure and say where it comes from (Chhattisgarh's ammonium sulphate share, CREA, 24 December 2025). Never call the 42% unsubstantiated or untraceable: it is a real CREA figure that gets misread. For Delhi, CREA's analysis as reported by The Indian Express puts ammonium sulphate at 41% of winter PM2.5.
+- CREA (press release of 24 December 2025): 42% is Chhattisgarh's ANNUAL ammonium sulphate share (never call it a winter figure), the highest of any state (states range from 17% to 42%). NEVER say that 42% of India's PM2.5 is secondary or formed in the air. When someone quotes 42% for India, say it is not the national figure and say where it comes from (Chhattisgarh's ammonium sulphate share, CREA, 24 December 2025). Never call the 42% unsubstantiated or untraceable: it is a real CREA figure that gets misread. For Delhi, CREA's analysis as reported by The Indian Express puts ammonium sulphate at 41% of winter PM2.5.
 - Wang et al. 2025 (Environment International 195, 109207; a WRF-EMEP model of South Asia for 2018): ammonia emissions are associated with 11% of annual mean PM2.5 across South Asia and with 247,000 of 2.228 million PM2.5 deaths in the model. This is a South Asia figure. Never restate it as India's share or as "one-tenth of India's PM2.5"; no figure here gives an India-only ammonia share. PM2.5 responds non-linearly: ammonia cuts pay off proportionately only at 70% to 100%, so sulphur dioxide, nitrogen oxide and ammonia controls have to be considered together.
 - Coal: CREA finds ammonium sulphate within 10 km of coal plants (15 ug/m3) is 2.5 times that beyond 10 km (6 ug/m3), and over 60% of India's sulphur dioxide comes from coal power.
 - A 2026 book excerpt (Jacob Koshy, The Nitrogen Bomb, in The Hindu) gives ammonia as about a quarter of India's PM2.5 and farming as 80% to 85% of India's ammonia. JanVayu could not trace either number to a published paper. Do not repeat either number, even with a caveat; if asked, say plainly that no published source for them was found, then give the 11% figure with its region, year and method.
@@ -456,7 +456,7 @@ const SECONDARY_REFERENCE = `SECONDARY PARTICLES, AMMONIUM SULPHATE AND AMMONIA 
 const WINTER_PEAKS_REFERENCE = `DELHI'S WINTER PEAKS (use only these figures):
 - JanVayu's weekly series for Delhi (CPCB monitors via the XKDR India Air Quality Database), six complete May-to-April years, 2018-19 to 2023-24: the highest week of the autumn peak began on 30 October or 6 November in all six winters, at 264 to 331 ug/m3 (mean 291), every one above CPCB's 250 Severe line. The highest week of the later peak began between 18 December and 8 January, at 229 to 291 (mean 247), above 250 in two of the six. The weekly mean was above 120 for 13 to 19 weeks of every year.
 - A mean over several winters flattens the peaks (254 and 238) because the winters do not peak in the same week, so a chart of an average understates a typical winter's worst week. A dip between two high weeks does not prove two separate peaks in one winter: reshuffling a winter's own weeks produces a dip that deep in 91% of draws. The claim rests on timing, and the peak week does not follow Diwali's date.
-- Causes are not in these figures. CEEW (22 May 2026) says weather, mainly boundary-layer height and wind direction, helps explain why Delhi's autumn is far worse than its spring for similar farm fires. Mangaraj et al. 2025 (measurements from 30 low-cost sensors): crop residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Nandi et al. 2026 is one model of September 2019 to January 2020, so say "one modelling study", not "studies": it puts the residential sector at about 53% of PM2.5 over Delhi and secondary particles at about 58% in December-January, and it reports what cuts would do, which is not a source share. Crop-residue-burning controls inside Delhi-NCR alone cut Delhi PM2.5 by 2% to 3%; an airshed-wide ban cuts it about 10%; with a 50% cut in residential emissions as well, about 30%. Never merge Mangaraj's 14% and Nandi's cuts into one range such as "10-14%", and write the authors' full surnames. Do not attribute either peak to one source, and never say that meteorology or any single factor is the main driver: these figures do not say. Do not explain why the autumn peak is higher than the later one. Say Mangaraj's 14% is one study of one year, never "recent studies". Diwali fell between 24 October and 14 November in these years, and no other dates for it are given here. Open with the timing itself, not with "Yes" or "No".
+- Causes are not in these figures. CEEW (22 May 2026) says weather, mainly boundary-layer height and wind direction, helps explain why Delhi's autumn is far worse than its spring for similar farm fires. Mangaraj et al. 2025 (a measurement study with 30 low-cost sensors, not a model; only Nandi et al. is a model): crop residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Nandi et al. 2026 is one model of September 2019 to January 2020, so say "one modelling study", not "studies": it puts the residential sector at about 53% of PM2.5 over Delhi and secondary particles at about 58% in December-January, and it reports what cuts would do, which is not a source share. Crop-residue-burning controls inside Delhi-NCR alone cut Delhi PM2.5 by 2% to 3%; an airshed-wide ban cuts it about 10%; with a 50% cut in residential emissions as well, about 30%. Never merge Mangaraj's 14% and Nandi's cuts into one range such as "10-14%", and write the authors' full surnames. Do not attribute either peak to one source, and never say that meteorology or any single factor is the main driver: these figures do not say. Do not explain why the autumn peak is higher than the later one, and do not say that any cause "makes" or "explains" the worst week: say only what each source found. Say Mangaraj's 14% is one measurement study of one year, never "recent studies" and never "a modelling study". Diwali fell between 24 October and 14 November in these years, and no other dates for it are given here. Open with the timing itself, not with "Yes" or "No".
 - JanVayu has no weekly series after 1 September 2025.`;
 
 const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
@@ -1526,7 +1526,7 @@ Top 5 worst: ${top5}
     // markdown anyway (caught by test/ask-eval markdown-* gates). Strip the
     // known leak patterns server-side so they can never reach the user.
     if (text) {
-      text = text
+      text = fixKnownSlips(text)
         .replace(/\*\*([^*\n]+)\*\*/g, "$1")   // **bold**
         .replace(/__([^_\n]+)__/g, "$1")        // __bold__
         .replace(/^#{1,6}\s+/gm, "");           // # headings
@@ -1550,6 +1550,12 @@ Top 5 worst: ${top5}
   }
 }
 
+// "El Nina" is not a thing: the model blends El Nino and La Nina, in spite of
+// the prompt, so correct it after the fact. It can only mean La Nina.
+function fixKnownSlips(text) {
+  return text.replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "La Niña" : "La Nina"));
+}
+
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { fixKnownSlips, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE };
