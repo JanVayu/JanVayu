@@ -10,6 +10,7 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
+| 26 Oct 2026 | [Six winters of Delhi's weekly PM2.5: the highest weeks fall in the same few weeks every year, and the average hides how high they go](posts/2026-10-26-delhi-six-winters-weekly-pm25.md) | Analysis |
 | 25 Oct 2026 | [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md) | Analysis |
 | 25 Oct 2026 | [Ammonia, the other half of secondary PM2.5, checked against what has been published](posts/2026-10-25-ammonia-the-other-half.md) | Fact check |
 | 19 Oct 2026 | [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md) | Fact check |

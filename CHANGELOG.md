@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-10-26
+
+### Added, Delhi's weekly PM2.5 winter by winter, and a post that tests "peaks twice each winter"
+
+CEEW posted a chart of Delhi's weekly PM2.5 averaged over a few winters,
+titled "Delhi's air pollution peaks twice each winter". The new post
+(`blog/posts/2026-10-26-delhi-six-winters-weekly-pm25.md`) draws six complete
+winters, 2018-19 to 2023-24, from CPCB monitors in the XKDR archive, with
+winter 2024-25 as a dashed line to December.
+
+- The six-winter mean peaks at 254 and 238 µg/m³, the same scale as CEEW's 260
+  and 247. Each winter's own first peak is higher (264 to 331, mean 291) and
+  every one is above the 250 Severe line, which the average hides.
+- A dip between two highs does not show two peaks in a single winter:
+  reshuffling a winter's own weeks gives a dip of 30% or more in 91% of draws.
+  The post rests the claim on timing instead. The first peak falls in the week
+  of 30 October or 6 November in all six winters and does not follow Diwali,
+  which moved over three weeks.
+- `scripts/build-delhi-weekly.py` builds `data/delhi-weekly.json` and both
+  charts, and `--check` (offline, now in CI) recomputes the seeded tests and
+  fails on a stale chart.
+- `docs/data-sources/xkdr-air-quality.md` records that the demo key returned
+  Delhi data for 2018 to August 2025 month by month, which its documentation
+  does not promise, and that the archive has no CPCB data for January to March
+  2025 or after 1 September 2025.
+
 ## [Unreleased] - 2026-10-25
 
 ### Changed, a fact-check round, and a correction to the 42% secondary PM2.5 figure

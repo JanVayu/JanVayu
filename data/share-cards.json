@@ -320,6 +320,12 @@
       "sub": "Analysis"
     },
     {
+      "name": "blog/2026-10-26-delhi-six-winters-weekly-pm25",
+      "kicker": "JanVayu blog · 26 October 2026",
+      "title": "Six winters of Delhi's weekly PM2.5: the highest weeks fall in the same few weeks every year, and the average hides how high they go",
+      "sub": "Analysis"
+    },
+    {
       "name": "co",
       "kicker": "Pollutant guide",
       "title": "CO in India",
@@ -381,6 +387,11 @@
     }
   ],
   "posts": [
+    {
+      "slug": "2026-10-26-delhi-six-winters-weekly-pm25",
+      "date": "2026-10-26",
+      "title": "Six winters of Delhi's weekly PM2.5: the highest weeks fall in the same few weeks every year, and the average hides how high they go"
+    },
     {
       "slug": "2026-10-25-el-nino-and-the-winter-ahead",
       "date": "2026-10-25",
