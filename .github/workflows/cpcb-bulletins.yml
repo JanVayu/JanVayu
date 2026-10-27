@@ -1,0 +1,96 @@
+name: CPCB daily bulletins
+
+# data/raw/cpcb-bulletins-2026.csv.gz stopped on 19 October 2026. The fetch
+# script was run by hand from an agent environment whose network gateway
+# replaces certificates and could not verify cpcb.nic.in, so nobody was running
+# it. This runs it on GitHub's own runners, every day, and opens a pull request
+# when CPCB has published days the file does not have.
+#
+# CPCB publishes the bulletin at 4 pm India time (10:30 UTC). 12:00 UTC leaves
+# an hour and a half. A day that is not up yet is a 404, which the script treats
+# as "not yet", so a late bulletin is simply picked up the next day.
+#
+# It also runs once when this file is merged to main, so the first real test of
+# the fetch on a runner does not wait for tomorrow.
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/cpcb-bulletins.yml']
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --quiet pypdf
+
+      # Informational. If the fetch fails on a certificate, this is the evidence:
+      # what the server presents and whether it chains to a root the runner trusts.
+      - name: Show the certificate chain cpcb.nic.in presents
+        continue-on-error: true
+        run: |
+          echo | openssl s_client -connect cpcb.nic.in:443 -servername cpcb.nic.in -showcerts 2>&1 \
+            | grep -E "^ *[0-9]+ s:|^ *i:|Verification|verify error|verify return" || true
+
+      - name: Fetch the days CPCB has published since the last one in the file
+        id: fetch
+        continue-on-error: true
+        run: python3 scripts/refresh-cpcb-bulletins.py
+
+      - name: Rebuild the city-year summary from the 2015-2025 archive and the new days
+        if: steps.fetch.outcome != 'cancelled'
+        run: |
+          if git diff --quiet -- data/raw/cpcb-bulletins-2026.csv.gz; then
+            echo "No new days."
+            exit 0
+          fi
+          git clone --depth 1 https://github.com/urbanemissionsinfo/AQI_bulletins /tmp/aqib
+          python3 scripts/build-aqi-bulletins.py --source /tmp/aqib/data/Processed/AllIndiaBulletinsMaster2025_openrefined.csv
+          python3 scripts/build-aqi-bulletins.py --check
+
+      # main is protected, so this goes to a branch and a pull request, as the
+      # current-year air and translation jobs do.
+      - name: Open a pull request if days were added
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          LAST=$(python3 -c "import csv,gzip;print(max(r['date'] for r in csv.DictReader(gzip.open('data/raw/cpcb-bulletins-2026.csv.gz','rt'))))")
+          BRANCH="auto-cpcb/${GITHUB_RUN_ID}"
+          git config user.name "janvayu-air-bot"
+          git config user.email "air-bot@janvayu.in"
+          git checkout -b "$BRANCH"
+          git add data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json
+          git commit -m "Update: CPCB daily bulletins through $LAST"
+          git push origin "$BRANCH"
+          if ! gh pr create --base main --head "$BRANCH" \
+               --title "Update: CPCB daily bulletins through $LAST" \
+               --body "Days CPCB published since the last one in data/raw/cpcb-bulletins-2026.csv.gz, parsed by scripts/refresh-cpcb-bulletins.py, and the city-year summary rebuilt from them. A day is added only if the whole bulletin parsed with no missing serials. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"; then
+            echo "::warning::Branch $BRANCH is pushed but the pull request was not opened (Settings > Actions > General > allow GitHub Actions to create pull requests). Open it from ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...$BRANCH"
+          fi
+
+      # The fetch step is allowed to fail so the days that did parse are still
+      # proposed. The job then fails, so a day that would not parse, or a
+      # certificate that would not verify, is a red run and not a silent gap.
+      - name: Fail if any day could not be fetched or parsed
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "::error::Some days could not be fetched or parsed. See the fetch step and the certificate chain printed above."
+          exit 1
