@@ -7,7 +7,7 @@ import { Resend } from "resend";
 import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 
 
-const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
+import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
 
 const CITIES = {
   delhi: { name: "Delhi", station: "delhi" },

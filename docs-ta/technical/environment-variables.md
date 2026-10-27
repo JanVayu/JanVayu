@@ -120,7 +120,7 @@ curl -s https://www.janvayu.in/.netlify/functions/youtube-feed | head -c 200
 ## Client-Side Token (ரகசியம் அல்ல)
 
 ### WAQI API Token
-WAQI API token (`1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3`) ஆனது `app.js` மற்றும் `js/try-home.js` மற்றும் பல Netlify functions-ல் சேர்க்கப்பட்டுள்ளது, எனவே யார் வேண்டுமானாலும் இதைப் படிக்கலாம், இதை ரகசியமாக வைத்திருக்க முடியாது. WAQI தனது [terms of service](https://aqicn.org/data-platform/token/)-ன் கீழ் பதிவு செய்யும் ஒவ்வொருவருக்கும் tokens-ஐ வழங்குகிறது, மேலும் அனைத்து API access-க்கும் சரியான key தேவை; ஒரு key-க்கு ஒரு வினாடிக்கு 1,000 requests என்பது default quota ஆகும்.
+The WAQI API token is a server-side setting. It is the `WAQI_TOKEN` environment variable in the Netlify site settings, and no page, script or function in this repository contains it. The browser reaches WAQI only through `/.netlify/functions/waqi-proxy`, which adds the token on the server, accepts only city slugs, coordinates and a bounding box no wider than three degrees, and caches answers for five minutes. `scripts/check-no-waqi-token.py` fails the build if a token is committed. Until 27 October 2026 the token was written into `app.js`, `js/try-home.js` and eight functions, so every visitor held it; the copy in git history remains readable, so a token that was ever committed must be replaced with a new one from [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/), and `WAQI_TOKEN` updated in Netlify (a new deploy picks it up).
 
 நீங்கள் உங்கள் சொந்த WAQI token-ஐப் பயன்படுத்த விரும்பினால் (அதிக rate limits-க்காக), [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/)-ல் பதிவு செய்து, `index.html`-ல் உள்ள token-ஐ மாற்றவும்.
 

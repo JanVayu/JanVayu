@@ -12,7 +12,7 @@ import { getBlobStore } from "./lib/blob.mjs";
 import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 
 
-const WAQI_TOKEN = process.env.WAQI_TOKEN || "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
+import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
 
 const CITIES = {
   delhi: { name: "Delhi", lat: 28.6139, lon: 77.209 },

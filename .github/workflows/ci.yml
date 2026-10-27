@@ -368,6 +368,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # The WAQI token sat in app.js, js/try-home.js and eight functions, so every
+      # visitor held a key that could be spent from anywhere. It is the WAQI_TOKEN
+      # setting in Netlify now and the browser goes through waqi-proxy. This fails
+      # on a literal token in a WAQI URL or assignment, and on the retired token
+      # itself (by hash, so the guard does not put it back) in any tracked file.
+      - name: Check no WAQI token is written into the repository
+        run: python3 scripts/check-no-waqi-token.py
+
       - name: Reject top-level __dirname / __filename redeclarations
         run: |
           MATCHES=$(grep -rnE '^[[:space:]]*(const|let|var)[[:space:]]+(__dirname|__filename)[[:space:]]*=' \

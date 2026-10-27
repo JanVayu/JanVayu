@@ -233,7 +233,7 @@ Every function follows this template:
 | `RESEND_FROM` | Sender email address | `daily-digest.mjs` |
 | `BLOB_TOKEN` | Netlify Blobs access | `blob-store.js` (imported by the caching functions) |
 | `NETLIFY_SITE_ID` | Site identifier | Blobs store initialisation |
-| `WAQI_TOKEN` | Air quality data (public, safe to expose) | Hardcoded in `app.js` and the functions; only `rankings.mjs` reads `process.env.WAQI_TOKEN` |
+| `WAQI_TOKEN` | Air quality data (server-side, not public) | `waqi-proxy` and the functions, through `netlify/functions/lib/waqi-token.mjs` |
 
 ---
 

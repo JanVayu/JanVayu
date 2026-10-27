@@ -139,7 +139,7 @@ function buildVillageContext(question) {
 //  4. System prompt updated with instructions for station bifurcation and
 //     multi-station range presentation.
 
-const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
+import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
 
 // v26.6.33 — Groq model, env-overridable. llama-3.3-70b-versatile was retired by
 // Groq on 16 Aug 2026 (updated 2 Oct 2026); the default is the replacement openai/gpt-oss-120b.

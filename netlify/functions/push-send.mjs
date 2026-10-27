@@ -14,7 +14,7 @@ import webpush from "web-push";
 export const config = { schedule: "0 */3 * * *" };
 
 
-const WAQI_TOKEN = process.env.WAQI_TOKEN || process.env.WAQI_API_TOKEN || "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
+import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
 const COOLDOWN_MS = 6 * 60 * 60 * 1000; // don't push the same person more than once per 6 h
 
 // Coordinates for the cities offered in the AQI Alerts panel (+ common extras).

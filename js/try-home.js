@@ -12,7 +12,8 @@
 (function () {
   'use strict';
 
-  var WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
+  // Via the server-side proxy, which holds the token; see netlify/functions/waqi-proxy.mjs.
+  var WAQI_PROXY = '/.netlify/functions/waqi-proxy';
 
   /* CPCB National AQI, PM2.5 24-hour sub-index breakpoints (µg/m³).
      A reading is placed by the band it falls in, never by a colour picked
@@ -89,7 +90,7 @@
   }
 
   function fetchCity(name, lat, lon) {
-    var url = 'https://api.waqi.info/feed/geo:' + lat + ';' + lon + '/?token=' + WAQI_TOKEN;
+    var url = WAQI_PROXY + '?geo=' + lat + ',' + lon;
     return fetch(url)
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
