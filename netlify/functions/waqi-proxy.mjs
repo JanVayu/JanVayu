@@ -40,11 +40,18 @@ export default async (req) => {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Content-Type': 'application/json',
     'Cache-Control': `public, max-age=${CACHE_SECONDS}, s-maxage=${CACHE_SECONDS}`,
+    // Every call to this function costs an invocation, and the homepage makes about
+    // thirty-four of them. The plain s-maxage is held per edge node, so measured
+    // from one machine only one request in six was a hit. `durable` asks Netlify to
+    // keep the response in its shared cache, so a node that misses is answered from
+    // there and the function does not run. stale-while-revalidate lets the answer
+    // refresh in the background instead of making a visitor wait for it.
+    'Netlify-CDN-Cache-Control': `public, s-maxage=${CACHE_SECONDS}, stale-while-revalidate=${CACHE_SECONDS}, durable`,
   };
   const fail = (status, message) => new Response(JSON.stringify({ status: 'error', message }), {
     status,
     // An error must not be cached for five minutes.
-    headers: { ...headers, 'Cache-Control': 'no-store' },
+    headers: { ...headers, 'Cache-Control': 'no-store', 'Netlify-CDN-Cache-Control': 'no-store' },
   });
 
   if (req.method === 'OPTIONS') {

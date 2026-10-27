@@ -80,8 +80,10 @@ test('errors are not cached, successes are', async () => {
   globalThis.fetch = async () => new Response(JSON.stringify({ status: 'ok' }), { status: 200 });
   const ok = await get('geo=28.6,77.2');
   assert.match(ok.headers.get('Cache-Control'), /s-maxage=300/);
+  assert.match(ok.headers.get('Netlify-CDN-Cache-Control'), /s-maxage=300.*durable/);
   const bad = await get('geo=zzz');
   assert.equal(bad.headers.get('Cache-Control'), 'no-store');
+  assert.equal(bad.headers.get('Netlify-CDN-Cache-Control'), 'no-store');
 });
 
 test('with no token set it says so and makes no WAQI call', () => {
