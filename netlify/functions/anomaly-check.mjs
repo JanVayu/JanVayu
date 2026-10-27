@@ -3,7 +3,7 @@ import { iaqiToPM25 } from "./lib/iaqi.mjs";
 // Netlify Function: Anomaly Detection
 // Checks major cities for PM2.5 spikes, optionally explains via Groq
 
-const WAQI_TOKEN = "1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3";
+import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
 // Groq model, env-overridable. llama-3.3-70b-versatile was retired by Groq on 16 Aug 2026 (updated 2 Oct 2026).
 const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 const GROQ_IS_REASONING = /gpt-oss|deepseek|qwen/.test(GROQ_MODEL);

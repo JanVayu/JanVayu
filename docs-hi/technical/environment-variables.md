@@ -120,7 +120,7 @@ curl -s https://www.janvayu.in/.netlify/functions/youtube-feed | head -c 200
 ## क्लाइंट-साइड टोकन (सीक्रेट नहीं)
 
 ### WAQI API टोकन
-WAQI API टोकन (`1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3`) `app.js` और `js/try-home.js` में और कई Netlify फ़ंक्शन्स में एम्बेड किया गया है, इसलिए कोई भी इसे पढ़ सकता है और इसे सीक्रेट नहीं रखा जा सकता। WAQI अपने [टर्म्स ऑफ़ सर्विस](https://aqicn.org/data-platform/token/) के तहत हर रजिस्टर्ड यूज़र को टोकन जारी करता है और सभी API एक्सेस के लिए एक वैलिड की (key) की ज़रूरत होती है; डिफ़ॉल्ट कोटा प्रति की (key) प्रति सेकंड 1,000 रिक्वेस्ट्स है।
+The WAQI API token is a server-side setting. It is the `WAQI_TOKEN` environment variable in the Netlify site settings, and no page, script or function in this repository contains it. The browser reaches WAQI only through `/.netlify/functions/waqi-proxy`, which adds the token on the server, accepts only city slugs, coordinates and a bounding box no wider than three degrees, and caches answers for five minutes. `scripts/check-no-waqi-token.py` fails the build if a token is committed. Until 27 October 2026 the token was written into `app.js`, `js/try-home.js` and eight functions, so every visitor held it; the copy in git history remains readable, so a token that was ever committed must be replaced with a new one from [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/), and `WAQI_TOKEN` updated in Netlify (a new deploy picks it up).
 
 अगर आप अपना खुद का WAQI टोकन इस्तेमाल करना चाहते हैं (ज़्यादा रेट लिमिट के लिए), तो [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/) पर रजिस्टर करें और `index.html` में टोकन को बदल दें।
 

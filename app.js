@@ -77,7 +77,9 @@
     })();
 
     // ── Configuration ──
-    const WAQI_TOKEN = '1f64cc8563a165dc5a6ce48f7eeb9ba0221b63f3';
+    // The browser never talks to api.waqi.info. The token is a server-side
+    // setting and this function adds it (netlify/functions/waqi-proxy.mjs).
+    const WAQI_PROXY = '/.netlify/functions/waqi-proxy';
     // There is no demo table. Until October 2026 a failed WAQI request fell
     // back to fixed figures for 21 cities (Delhi at AQI 312), with up to 5%
     // random noise added, and the homepage showed them under "Live PM2.5".
@@ -1205,7 +1207,7 @@
         const d = 0.25;   // ~55 km: a city and its immediate ring, not its state
         const box = [c.lat - d, c.lon - d, c.lat + d, c.lon + d].map(v => v.toFixed(4)).join(',');
         try {
-            const res = await fetch('https://api.waqi.info/map/bounds/?latlng=' + box + '&token=' + WAQI_TOKEN);
+            const res = await fetch(WAQI_PROXY + '?bounds=' + box);
             const j = await res.json();
             if (j.status !== 'ok' || !Array.isArray(j.data)) return null;
             const rows = j.data
@@ -1518,8 +1520,12 @@
             const pos = await new Promise((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 10000, enableHighAccuracy: false });
             });
-            const { latitude: lat, longitude: lon } = pos.coords;
-            const url = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${WAQI_TOKEN}`;
+            // Two decimals is about a kilometre: close enough to find the nearest
+            // station, coarse enough that neighbours share a cached answer and the
+            // server is not sent a reader's exact position.
+            const lat = pos.coords.latitude.toFixed(2);
+            const lon = pos.coords.longitude.toFixed(2);
+            const url = `${WAQI_PROXY}?geo=${lat},${lon}`;
             const res = await fetch(url);
             const json = await res.json();
             if (json.status !== 'ok' || !json.data || json.data.aqi === '-') {
@@ -2612,7 +2618,7 @@
         const city = CITIES[cityKey];
         if (!city) return null;
         try {
-            const url = `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`;
+            const url = `${WAQI_PROXY}?geo=${city.lat},${city.lon}`;
             const res = await fetch(url, { method: 'GET', mode: 'cors' });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
@@ -7865,7 +7871,7 @@ Generated via JanVayu (janvayu.in), India's citizen air quality platform`;
 
     async function fetchWAQIStations(city) {
         try {
-            const url = `https://api.waqi.info/map/bounds/?latlng=${city.lat-0.2},${city.lon-0.2},${city.lat+0.2},${city.lon+0.2}&token=${WAQI_TOKEN}`;
+            const url = `${WAQI_PROXY}?bounds=${(city.lat-0.2).toFixed(4)},${(city.lon-0.2).toFixed(4)},${(city.lat+0.2).toFixed(4)},${(city.lon+0.2).toFixed(4)}`;
             const res = await fetch(url);
             const data = await res.json();
             if (data.status === 'ok' && Array.isArray(data.data)) {

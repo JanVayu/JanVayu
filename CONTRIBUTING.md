@@ -179,9 +179,9 @@ To develop and test Netlify Functions locally:
 
 2. **Required variables:**
    ```
-   WAQI_API_TOKEN=<your-waqi-token>
+   WAQI_TOKEN=<your-waqi-token>
    ```
-   The WAQI API token is free to obtain from [aqicn.org/data-platform/token/](https://aqicn.org/data-platform/token/). The project's token is public (free tier, read-only), so you can also find it in the frontend source.
+   The WAQI token is free to obtain from [aqicn.org/data-platform/token/](https://aqicn.org/data-platform/token/). The project's own token is not in the repository, so register your own. Run `netlify dev` rather than a plain static server, because the pages reach WAQI through a Netlify function.
 
 3. **Optional variables** (for Netlify Functions features):
    ```

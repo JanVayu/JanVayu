@@ -34,7 +34,7 @@ The following are considered security issues and should be reported:
 
 ## What Is NOT a Security Issue
 
-- **WAQI API token** — The World Air Quality Index API token used in the frontend is intentionally public. It is a free-tier, read-only token that provides access to publicly available air quality data. Exposure of this token does not constitute a vulnerability.
+- **WAQI API token** — The token is server-side (`WAQI_TOKEN` in Netlify), and the frontend reaches WAQI through `waqi-proxy`. It was written into the frontend until 27 October 2026. A report that finds it in the repository's history is correct and is already known; the fix is a new token, which the owner issues at aqicn.org.
 - **Netlify Functions environment variables** — Environment variables used by Netlify Functions (such as email service credentials) are server-side only and are not exposed to the client. These are managed through Netlify's dashboard and are not included in the repository.
 
 ## Response Timeline
