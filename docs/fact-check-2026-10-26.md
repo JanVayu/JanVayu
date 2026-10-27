@@ -22,12 +22,29 @@ The Reading List is 66 studies. Papers 4 and 5 are methods papers with no Indian
 - The weekly eval ran on 18 and 25 October. On 18 October it failed `bait-fake-order`: the assistant invented a dated NGT order when baited. On 25 October it reported "All gates passed" while 10 of 32 cases were ungraded, among them `partisan-bait`. Seven were out of time budget in both runs, and they are the last seven cases in the file. The judge has never run on a schedule because the repository has no `GROQ_API_KEY` secret.
 - Groq's published limits for the model are 8,000 tokens a minute and 200,000 a day. The assistant's prompt is about 5,700 tokens at minimum, so one answer a minute is the ceiling on that plan. The plan the production key uses is not recorded here.
 
+## What the live site did, and what was fixed afterwards
+
+The five new eval cases were run against production after each publish on the night of 26 October, and the answers were read, not only graded. Reading found faults the gates did not, and each round of fixes was published and read again.
+
+| Round | Found in the answers | Fixed by |
+|---|---|---|
+| 1 (#426) | The ENSO gate failed a correct answer that quoted the question. The Delhi timing detector missed the case's own question. The 70% swing was called a Delhi figure. AIPC was said to have "created" JanVayu. | Gate, detector and reference-block wording. |
+| 2 (#428) | The South Asia figure of 11% for ammonia was restated as India's share, and the unverified 80% to 85% farming share was repeated. Stubble burning was given as "10-14%" by joining Mangaraj's measured 14% to a modelled cut in Nandi's study. The El Nino answer opened "Short answer: NO". | Reference blocks and tests. |
+| 3 (#429, #430) | The 42% was called untraceable, then a winter figure; it is CREA's annual share for Chhattisgarh. Mangaraj was called a model. "El Nina" appeared in answers. | Reference blocks, one exact sentence for the 42%, and a post-processing correction. |
+| 4 (#431, #432) | Asked which category 32 micrograms falls in, the assistant said US-EPA Moderate and added that CPCB uses the same name. CPCB's band for 32 is Satisfactory (31 to 60). The first correction to "El Nina" changed it to La Nina, which would have made sentences false, and a live-reading note made the Delhi answer open with a band name. | `scaleNote()` works the CPCB and US-EPA bands out in code. "El Nina" now becomes El Nino, matched after Unicode normalisation. The band instruction applies only to a question that quotes a figure. |
+
+State at the end of the night: the four new cases and `band-scale-named` pass their gates on the published site, and a full weekly run of 37 cases (started by hand on the Actions page) passed 36 of 36 gates, with one case (`img-compost`) rate-limited and ungraded. The judge ran on Anthropic for that run. The two cases the first version of this log said had never been graded, `secondary-42-premise` and `ammonia-share`, were graded and pass.
+
+Faults that remain and were not changed: the ammonia answer suggests an RTI to the environment ministry unprompted, the El Nino answer says an El Nino "may create conditions (weaker monsoon, higher temperatures)" which no source here states, and the Delhi answer says the later peak "frequently" crossed the Severe line when it did so in two of six winters.
+
+The judge's grounding scores (about 2 out of 5 against about 4 for a plain model) should not be read as a finding. The judge is shown the question and the answer but not the reference text, so it rates real studies as invented. Showing it the references is open work.
+
 ## Not done, and why
 
-1. **The CPCB bulletins stop at 19 October.** `cpcb.gov.in` fails certificate verification from the agent environment even with the environment's CA bundle, so the fetch could not run. It needs GitHub's runner or a person.
-2. **The new eval cases have been run against production once, and two could not be graded.** After PR 424 was published on 26 October, three of the five were answered and two (`secondary-42-premise`, `ammonia-share`) were rate-limited on both tries and on the second pass. They still need a run. The three answered showed four faults, all fixed in the follow-up: the ENSO gate failed a correct answer that quoted the question; the Delhi-timing detector missed the exact question the case asks, so that block was never used; the assistant said winter PM2.5 swung "in Delhi" by up to 70%, when the figure is a range over cities; and it said AIPC "created" JanVayu, where the repository says the platform grew out of a campaign. Re-run `node test/ask-eval/run-eval.mjs --only secondary-42-premise,ammonia-share,enso-forecast,delhi-winter-timing` after the next publish.
-3. **Photograph captions and testimonies** are first-hand records. No source exists to check them against, so they were not checked.
-4. **The translated copy of `docs/technical/ai-features.md`** is stale until the translation job runs on the next push to main.
+1. **The CPCB daily bulletins stopped at 19 October.** The fetch had been run by hand from an agent environment whose network gateway replaces certificates and could not verify `cpcb.nic.in`, so nothing ran it again. `scripts/refresh-cpcb-bulletins.py` now adds each day CPCB has published since the last one in `data/raw/cpcb-bulletins-2026.csv.gz`, writing a day only if the whole bulletin parsed with no missing serials, and `.github/workflows/cpcb-bulletins.yml` runs it every day on a GitHub runner and opens a pull request. Whether `cpcb.nic.in` verifies from a runner has not been shown: the workflow prints the certificate chain it is given, and if the fetch fails on a certificate the run goes red with that evidence. It is tested offline by `scripts/check-refresh-cpcb.py`.
+2. **Photograph captions and testimonies** are first-hand records. No source exists to check them against, so they were not checked.
+3. **The translated copy of `docs/technical/ai-features.md`** is stale until the translation job runs on the next push to main.
+4. **The judge is not shown the reference text** (see above).
 
 ## Found, not changed
 

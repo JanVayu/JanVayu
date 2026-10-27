@@ -232,6 +232,15 @@ jobs:
       - name: Check the bulletin row grammar survives the page header
         run: python3 scripts/check-bulletin-parser.py
 
+      # The daily refresh that keeps data/raw/cpcb-bulletins-2026.csv.gz current
+      # runs on a schedule against a live site, so nothing here can see it
+      # either. This drives the real refresh and parser over a scripted fetcher:
+      # good days append in order, a second run is a no-op, a 404 is "not
+      # published yet", a bulletin missing a row is refused, and one reset does
+      # not stop the later days.
+      - name: Check the CPCB daily refresh appends only whole days
+        run: python3 scripts/check-refresh-cpcb.py
+
       # The About panel carries a "Just shipped (vX)" line and a Version
       # History, both prose, neither moving when a release ships. It advertised
       # v26.6.125 while the site ran v26.6.203, and the repo had already fixed
