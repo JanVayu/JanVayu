@@ -41,11 +41,13 @@ The judge's grounding scores (about 2 out of 5 against about 4 for a plain model
 
 ## Not done, and why
 
-1. **The CPCB daily bulletins stopped at 19 October.** The fetch had been run by hand from an agent environment whose network gateway replaces certificates and could not verify `cpcb.nic.in`, so nothing ran it again. `scripts/refresh-cpcb-bulletins.py` now adds each day CPCB has published since the last one in `data/raw/cpcb-bulletins-2026.csv.gz`, writing a day only if the whole bulletin parsed with no missing serials, and `.github/workflows/cpcb-bulletins.yml` runs it every day on a GitHub runner and opens a pull request. Whether `cpcb.nic.in` verifies from a runner has not been shown: the workflow prints the certificate chain it is given, and if the fetch fails on a certificate the run goes red with that evidence. It is tested offline by `scripts/check-refresh-cpcb.py`.
+1. **The CPCB daily bulletins stopped at 19 October.** The fetch had been run by hand from an agent environment whose network gateway replaces certificates and could not verify `cpcb.nic.in`, so nothing ran it again. `scripts/refresh-cpcb-bulletins.py` now adds each day CPCB has published since the last one in `data/raw/cpcb-bulletins-2026.csv.gz`, writing a day only if the whole bulletin parsed with no missing serials, and `.github/workflows/cpcb-bulletins.yml` runs it every day on a GitHub runner and opens a pull request. It did verify from a GitHub runner on 27 October 2026, and the run added 19 to 26 October (1,830 rows, merged in #435). It is tested offline by `scripts/check-refresh-cpcb.py`.
 2. **Photograph captions and testimonies** are first-hand records. No source exists to check them against, so they were not checked.
 3. **The translated copy of `docs/technical/ai-features.md`** is stale until the translation job runs on the next push to main.
 4. **The judge is not shown the reference text** (see above).
 
-## Found, not changed
+## Found, and then changed
 
-The WAQI API token is written into `app.js`, eight Netlify functions, the README and the documentation. In `app.js` it reaches every browser, so it cannot be kept secret from there. It carries the platform's WAQI quota, which anyone can spend.
+The WAQI API token was written into `app.js`, eight Netlify functions, the README and the documentation. In `app.js` it reached every browser, so anyone could spend the platform's WAQI quota. It is now the Netlify variable `WAQI_TOKEN`, read only by the functions, and the browser calls `/.netlify/functions/waqi-proxy` (merged in #434, live on 27 October 2026 as version 26.6.246). Measured on the live site: the home page made no request to `api.waqi.info` and 34 to the proxy, all answered 200. A check in CI (`scripts/check-no-waqi-token.py`) fails if a literal token returns.
+
+The old token is not retired. It stays readable in git history and in cached copies of the old `app.js`. Only a new token closes that: request one at aqicn.org/data-platform/token, set it as `WAQI_TOKEN` in Netlify and mark the variable secret.
