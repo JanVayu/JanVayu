@@ -486,6 +486,14 @@ const WINTER_PEAKS_REFERENCE = `DELHI'S WINTER PEAKS (use only these figures):
 - Causes are not in these figures. CEEW (22 May 2026) says weather, mainly boundary-layer height and wind direction, helps explain why Delhi's autumn is far worse than its spring for similar farm fires. Mangaraj et al. 2025 (a measurement study with 30 low-cost sensors, not a model; only Nandi et al. is a model): crop residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Nandi et al. 2026 is one model of September 2019 to January 2020, so say "one modelling study", not "studies": it puts the residential sector at about 53% of PM2.5 over Delhi and secondary particles at about 58% in December-January, and it reports what cuts would do, which is not a source share. Crop-residue-burning controls inside Delhi-NCR alone cut Delhi PM2.5 by 2% to 3%; an airshed-wide ban cuts it about 10%; with a 50% cut in residential emissions as well, about 30%. Never merge Mangaraj's 14% and Nandi's cuts into one range such as "10-14%", and write the authors' full surnames. Do not attribute either peak to one source, and never say that meteorology or any single factor is the main driver: these figures do not say. Do not explain why the autumn peak is higher than the later one, and do not say that any cause "makes" or "explains" the worst week: say only what each source found. Say Mangaraj's 14% is one measurement study of one year, never "recent studies" and never "a modelling study". Diwali fell between 24 October and 14 November in these years, and no other dates for it are given here. Open with the timing itself, not with "Yes" or "No".
 - JanVayu has no weekly series after 1 September 2025.`;
 
+const NCAP_REFERENCE = `NCAP AFTER SEVEN YEARS (use only these figures):
+- Source: an analysis by Manoj Kumar (25 October 2026; The Wire describes him as a CREA analyst) of the 130 NCAP cities, from the PRANA portal, comparing annual PM10 in 2017-18 (baseline), 2019-20 (the programme's first year) and 2025-26 (the end of the extended period). It is PM10, not PM2.5.
+- 117 of 130 cities were above the 60 ug/m3 national annual PM10 standard in 2025-26, so 13 met it. The count was 125 in 2017-18 and 112 in 2019-20.
+- Against 2017-18, PM10 fell by more than 40% in 21 cities and more than 30% in 44, and rose in 23. Against 2019-20, it fell by more than 40% in 8 cities and more than 30% in 25, and rose in 43. The choice of baseline changes the picture.
+- Funds across the 130 cities: Rs 16,824 crore released and Rs 12,087 crore utilised, about 72%. The author says this does not show that spending caused the changes, and that his figures differ from those in the government's replies in Parliament, which he did not reproduce.
+- Earlier, CREA (January 2026) found 23 of 100 cities with sufficient data had met the PM10 reduction target. That is a different measure and a different set of cities, so never add the two or put them in one sentence as a trend.
+- Do not say the programme failed or that spending raised pollution. Give the figures, the baseline and the author's caveat.`;
+
 const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
 - NOAA's Climate Prediction Center (8 October 2026): an El Nino Advisory, with a strong to very strong event likely through January to March 2027 and a chance of a historic one (3-month index of +2.5C or more) of 54% for September to November, 83% for October to December and 70% for November to January. The next update is 12 November 2026, so say the figures may have changed.
 - Yadav, Beig and Kripalani (Atmospheric Pollution Research 17(11), 103231, October 2026): winter PM2.5 across Indian cities swung by up to 70% with no appreciable change in emissions (this is the range over cities, not a Delhi figure; a Times of India report, not checked against the paper, puts Delhi a little over 10% above its 2019-2022 average in the El Nino winter), between a La Nina winter (2022-23, northern cities up to about 30% cleaner than their 2019-2022 average) and an El Nino winter (2023-24). The authors warn the correlations show no direct causation and cannot be carried to other years, and the 2023-24 event was short-lived.
@@ -499,6 +507,9 @@ function isSecondaryQuery(question) {
 }
 function isWinterPeaksQuery(question) {
   return /(twice\s+(a|each|every)\s+winter|two\s+peaks?|second\s+peak|winter\s+(peak|biomass)|biomass\s+burning|(worst|peak|highest)\s+(week|weeks|time|month|months)[^?.]{0,40}(delhi|winter)|when\b[^?.]{0,60}(delhi|pollution|pm\s?2\.?5)[^?.]{0,40}(worst|peak|highest))/i.test(question);
+}
+function isNcapQuery(question) {
+  return /\b(ncap|national\s+clean\s+air\s+(programme|program|plan|mission)|clean\s+air\s+(programme|program|funds?))\b/i.test(question);
 }
 function isEnsoQuery(question) {
   return /\b(el\s?ni[nñ]o|la\s?ni[nñ]a|enso\b|southern\s+oscillation)/i.test(question);
@@ -1032,7 +1043,7 @@ function scaleNote(question, livePm25) {
 function buildSystemPrompt(seasonal, lang, opts = {}) {
   const { nationalQuery = false, multiSource = false, topical = false, methodologyNeeded = false,
     ward = false, stationCount = false, rti = false, stationRange = false, village = false,
-    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false, scaleNote: scaleNoteText = "" } = opts;
+    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false, ncapQ = false, scaleNote: scaleNoteText = "" } = opts;
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
     ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
@@ -1050,7 +1061,7 @@ function buildSystemPrompt(seasonal, lang, opts = {}) {
   const methodologyBlock = (multiSource || methodologyNeeded) ? `\n${METHODOLOGY_REFERENCE}\n` : "";
   const topicalBlock = (nationalQuery || topical) ? `\n${TOPICAL_REFERENCE}\n` : "";
   const knowledgeBlocks = [aboutQ && ABOUT_REFERENCE, secondaryQ && SECONDARY_REFERENCE,
-    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE, scaleNoteText]
+    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE, ncapQ && NCAP_REFERENCE, scaleNoteText]
     .filter(Boolean).map((b) => `\n${b}\n`).join("");
 
   // v26.6.124 — Situational instructions: only sent when the request actually
@@ -1561,7 +1572,7 @@ Top 5 worst: ${top5}
   const stationRange = !!(stationList && stationList.length >= 2);
   const trend = trendQ;
   const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend,
-    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question),
+    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question), ncapQ: isNcapQuery(question),
     scaleNote: scaleNote(question, aqiResult.pm25) };
 
   try {
@@ -1625,4 +1636,4 @@ function fixKnownSlips(text) {
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
 export const __testing = { scaleNote, fixKnownSlips, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
-  isWinterPeaksQuery, isEnsoQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE };
+  isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };

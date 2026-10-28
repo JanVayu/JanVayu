@@ -222,3 +222,18 @@ test('a district name shared by two states needs the state', () => {
   assert.equal(t.findDistrict('Aurangabad district in Maharashtra').district.s, 'MAHARASHTRA');
   assert.match(t.buildVillageContext('Air quality in Aurangabad district'), /more than one state/);
 });
+
+test('the NCAP block is sent for an NCAP question and not otherwise', () => {
+  assert.ok(t.isNcapQuery('How much money was spent under NCAP?'));
+  assert.ok(t.isNcapQuery('Did the National Clean Air Programme work?'));
+  assert.ok(!t.isNcapQuery('Is it safe to run in Delhi today?'));
+  const seasonal = t.getSeasonalContext ? t.getSeasonalContext() : null;
+  assert.ok(t.buildSystemPrompt(seasonal, null, { ncapQ: true }).includes('NCAP AFTER SEVEN YEARS'));
+  assert.ok(!t.buildSystemPrompt(seasonal, null, {}).includes('NCAP AFTER SEVEN YEARS'));
+});
+
+test('the NCAP block carries the figures from the October 2026 analysis', () => {
+  for (const f of ['117 of 130', '125 in 2017-18', '112 in 2019-20', 'Rs 16,824 crore', 'Rs 12,087 crore', 'rose in 43', 'rose in 23']) {
+    assert.ok(t.NCAP_REFERENCE.includes(f), f);
+  }
+});

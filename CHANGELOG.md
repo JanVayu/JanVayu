@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-10-28
+
+### Added, the final-year NCAP analysis (25 October 2026)
+An analysis by Manoj Kumar (a CREA analyst, per The Wire) of all 130 NCAP cities, from PRANA data, found 117 above the 60 µg/m³ national annual PM10 standard in 2025-26, against 125 in 2017-18 and 112 in 2019-20, and PM10 higher than in 2019-20 in 43 cities. Rs 16,824 crore was released and Rs 12,087 crore (about 72%) utilised. Every figure was read against the author's own post, not only The Wire's report of it. It is PM10, and the author says it does not show that spending caused the changes. It is now in the Reading List, in the Legal timeline under "NCAP Deadline Elapsed", and in the Accountability panel, whose banner still said the deadline was close. Ask JanVayu had said the spending figure was "not available in the public data we have"; a gated block (`NCAP_REFERENCE`, sent only for an NCAP question) now gives the figures, the baselines and the caveat, and keeps the January 2026 "23 of 100 cities" count apart from them, since it is a different measure over a different set of cities. Two tests hold the gate and the figures.
+
 ## [Unreleased] - 2026-10-27
 
 ### Fixed, Ask JanVayu stops mixing up villages, districts and time zones
