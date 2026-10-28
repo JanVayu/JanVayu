@@ -237,3 +237,17 @@ test('the NCAP block carries the figures from the October 2026 analysis', () => 
     assert.ok(t.NCAP_REFERENCE.includes(f), f);
   }
 });
+
+test('the scale note puts CPCB first and never crowns one scale for health', () => {
+  for (const note of [t.scaleNote('Is 32 micrograms safe?', null), t.scaleNote('', 57)]) {
+    assert.match(note, /Give CPCB's category first/);
+    assert.match(note, /Never say that either scale is the one that guides health decisions/);
+    assert.match(note, /15 µg\/m³ over 24 hours/);
+  }
+  assert.match(t.ACTIVITY_THRESHOLDS, /holds no CPCB equivalent/);
+});
+
+test('the NCAP block keeps the two dates apart', () => {
+  assert.match(t.NCAP_REFERENCE, /analysis of 25 October 2026/);
+  assert.match(t.NCAP_REFERENCE, /reported it on 27 October/);
+});

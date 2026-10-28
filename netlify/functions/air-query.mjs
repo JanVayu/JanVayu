@@ -367,7 +367,7 @@ function getSeasonalContext() {
 const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
-Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance). Whenever you quote one of these thresholds or band names, say they are US-EPA bands. India's own CPCB bands for 24-hour PM2.5 are Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250 µg/m3, so the same air can carry a different label in India:
+Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance). Whenever you quote one of these thresholds or band names, say they are US-EPA bands. They are the only graded activity guidance JanVayu holds; it holds no CPCB equivalent, so say that the advice follows the US-EPA table for that reason, and never write CPCB advice you have not been given. India's own CPCB bands for 24-hour PM2.5 are Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250 µg/m3, so the same air can carry a different label in India:
 - 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
 - 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
 - 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
@@ -492,6 +492,7 @@ const NCAP_REFERENCE = `NCAP AFTER SEVEN YEARS (use only these figures):
 - Against 2017-18, PM10 fell by more than 40% in 21 cities and more than 30% in 44, and rose in 23. Against 2019-20, it fell by more than 40% in 8 cities and more than 30% in 25, and rose in 43. The choice of baseline changes the picture.
 - Funds across the 130 cities: Rs 16,824 crore released and Rs 12,087 crore utilised, about 72%. The author says this does not show that spending caused the changes, and that his figures differ from those in the government's replies in Parliament, which he did not reproduce.
 - Earlier, CREA (January 2026) found 23 of 100 cities with sufficient data had met the PM10 reduction target. That is a different measure and a different set of cities, so never add the two or put them in one sentence as a trend.
+- Cite it as Manoj Kumar's analysis of 25 October 2026. The Wire reported it on 27 October, so never attach The Wire to the 25 October date.
 - Do not say the programme failed or that spending raised pollution. Give the figures, the baseline and the author's caveat.`;
 
 const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
@@ -1018,6 +1019,11 @@ const CPCB_PM25_BANDS = [[30, "Good", "0-30"], [60, "Satisfactory", "31-60"], [9
 const EPA_PM25_BANDS = [[12, "Good", "0-12"], [35.4, "Moderate", "12-35"], [55.4, "Unhealthy for sensitive groups", "35-55"],
   [150.4, "Unhealthy", "55-150"], [250.4, "Very Unhealthy", "150-250"], [Infinity, "Hazardous", "above 250"]];
 function bandOf(table, v) { return table.find(([max]) => v <= max); }
+// CPCB is India's own scale and goes first. Neither scale is "the one" for
+// health decisions, and nothing JanVayu holds says so: a live answer called
+// the US-EPA band "the one that guides health-based activity limits", which
+// is not in any source. The WHO's 24-hour guideline is 15 ug/m3 (2021).
+const SCALE_RULE = `Give CPCB's category first, because it is India's national scale. Never say that either scale is the one that guides health decisions. The US-EPA bands are stricter at low concentrations, and the WHO's 2021 guideline (15 µg/m³ over 24 hours, 5 µg/m³ a year) is stricter than both.`;
 function scaleNote(question, livePm25) {
   const lines = [];
   const m = String(question || "").match(/(\d+(?:\.\d+)?)\s*(?:µg|μg|ug|micrograms?)/i);
@@ -1035,8 +1041,8 @@ function scaleNote(question, livePm25) {
   // live reading alone the names are there to be used if the answer mentions
   // the category; they must not shape how the answer opens.
   const tail = hasAsked
-    ? `Name India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No".`
-    : `Use these names only if the answer mentions the live reading's category, and say which scale each belongs to. They say nothing about how the answer should begin.`;
+    ? `Name India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No". ${SCALE_RULE}`
+    : `Use these names only if the answer mentions the live reading's category, and say which scale each belongs to. They say nothing about how the answer should begin. ${SCALE_RULE}`;
   return `${head}\n${lines.join("\n")}\n${tail}`;
 }
 
