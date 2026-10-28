@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-27
 
+### Fixed, Ask JanVayu stops mixing up villages, districts and time zones
+Three faults found by asking the live assistant. A question about "Kheri Khurd near Delhi" was answered with Kheri district, which is Lakhimpur Kheri in Uttar Pradesh: the match found "kheri" inside a village name. A district name shared by two states (Aurangabad, Balrampur, Pratapgarh) was answered with whichever the code met first, so Aurangabad in Maharashtra got Bihar's figures. And live readings were labelled UTC when WAQI gives the station's local clock: a 10:00 reading was announced as 10:00 UTC, five and a half hours stale. A district name followed by khurd, kalan, buzurg and similar is now treated as a village, a shared name asks which state instead of picking one, and the prompt tells the model the reading time is IST. Two tests hold the first two.
+
 ### Fixed, Ask JanVayu no longer prints its own prompt heading in Hindi
 Asked in Hindi whether to run this morning, the assistant answered correctly and then left "【SCALE CHECK】" in the middle of the sentence. That is the heading of the band note the code gives the model (added 26 October), copied into the answer inside the full-width brackets the model uses for citations. `fixKnownSlips` now removes any 【…】 span from an answer, and a test holds it. The English answers never showed it.
 

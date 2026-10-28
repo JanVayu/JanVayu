@@ -208,3 +208,17 @@ test('a live reading alone must not tell the answer how to open', () => {
   const asked = t.scaleNote('Delhi is at 32 micrograms today. Which category?', 96);
   assert.match(asked, /open with the category/);
 });
+
+test('a village named like a district is not answered with that district', () => {
+  assert.equal(t.findDistrict('Air in Kheri Khurd village near Delhi'), null);
+  const kheri = t.findDistrict('How is the air in Kheri district?');
+  assert.equal(kheri.district.s, 'UTTAR PRADESH');
+});
+
+test('a district name shared by two states needs the state', () => {
+  const bare = t.findDistrict('Air quality in Aurangabad district');
+  assert.equal(bare.district, null);
+  assert.deepEqual([...bare.ambiguous].sort(), ['BIHAR', 'MAHARASHTRA']);
+  assert.equal(t.findDistrict('Aurangabad district in Maharashtra').district.s, 'MAHARASHTRA');
+  assert.match(t.buildVillageContext('Air quality in Aurangabad district'), /more than one state/);
+});

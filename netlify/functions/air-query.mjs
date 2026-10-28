@@ -43,11 +43,17 @@ const DEWEATHER = JSON.parse(
   readFileSync(new URL('./data/deweathered-cities.json', import.meta.url), 'utf8')
 );
 
+// Name -> every district carrying it. Three names are shared by two states
+// (Aurangabad, Balrampur, Pratapgarh), and the first version of this kept the
+// first one it met and said nothing, so Aurangabad in Maharashtra was answered
+// with Bihar's figures.
 const VILLAGE_BY_NAME = (() => {
   const m = new Map();
   for (const d of Object.values(VILLAGE_DATA)) {
     const k = String(d.d || '').trim().toLowerCase();
-    if (k && !m.has(k)) m.set(k, d);
+    if (!k) continue;
+    if (!m.has(k)) m.set(k, []);
+    m.get(k).push(d);
   }
   return m;
 })();
@@ -61,20 +67,41 @@ function isVillageQuery(question) {
     || /\b(tree|trees|canopy|forest|green cover|greenery|built[- ]up|land cover|surface heat|heat island)\b/.test(q);
 }
 
+// Words that follow a place name to make a different place: "Kheri Khurd" is
+// a village, not Kheri district (Lakhimpur Kheri, in Uttar Pradesh), and the
+// word match on "kheri" answered a village near Delhi with a district 400 km
+// away. A district name followed by one of these is not a district mention.
+const VILLAGE_SUFFIX = /^(khurd|kurd|kalan|kala|buzurg|khas|jadid|purwa|purva|nagla|kheda|khera|wala|pur)\b/;
+
 // Match a district by name anywhere in the question. Longest name first, so
-// "East Godavari" wins over a stray "Godavari".
+// "East Godavari" wins over a stray "Godavari". Returns
+// { district, ambiguous } where `ambiguous` lists the states when a shared
+// name could not be settled from a state named in the question.
 function findDistrict(question) {
-  const q = ' ' + question.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ') + ' ';
+  const plain = ' ' + question.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ') + ' ';
   let best = null;
-  for (const [name, d] of VILLAGE_BY_NAME) {
+  for (const [name, list] of VILLAGE_BY_NAME) {
     if (name.length < 4) continue;
-    if (q.includes(' ' + name + ' ') && (!best || name.length > best[0].length)) best = [name, d];
+    const at = plain.indexOf(' ' + name + ' ');
+    if (at < 0) continue;
+    const after = plain.slice(at + name.length + 2);
+    if (VILLAGE_SUFFIX.test(after)) continue;
+    if (!best || name.length > best[0].length) best = [name, list];
   }
-  return best ? best[1] : null;
+  if (!best) return null;
+  const list = best[1];
+  if (list.length === 1) return { district: list[0], ambiguous: null };
+  const named = list.filter((d) => plain.includes(' ' + String(d.s).toLowerCase() + ' '));
+  if (named.length === 1) return { district: named[0], ambiguous: null };
+  return { district: null, ambiguous: list.map((d) => d.s) };
 }
 
 function buildVillageContext(question) {
-  const d = findDistrict(question);
+  const found = findDistrict(question);
+  if (found && found.ambiguous) {
+    return `\n\nVILLAGE AIR NOTE: the district named in the question exists in more than one state (${found.ambiguous.join(" and ")}), and the question does not say which. Do not pick one and do not quote a figure. Ask which state, and say that JanVayu holds an ANNUAL satellite PM2.5 estimate for every district in both.`;
+  }
+  const d = found ? found.district : null;
   if (!d) {
     return `\n\nVILLAGE AIR NOTE: JanVayu holds an ANNUAL satellite PM2.5 estimate for every one of India's 584,615 villages, summarised by district (645 districts). The question doesn't name a district we can match, so ask which district they're in — then a real per-district figure can be given, instead of the national average. Map: janvayu.in/#map, Villages layer.`;
   }
@@ -1361,7 +1388,7 @@ export default async function handler(req) {
   // city-wide range instead of just the nearest station name.
   let primaryLabel = liveUnavailable
     ? `PRIMARY CITY — ${aqiResult.city}: NO LIVE MONITOR. There is no CPCB/WAQI station reporting for this city, so there is NO current reading and you must not invent, estimate or imply one. Say plainly that no live monitor covers this city, then answer from the ANNUAL satellite figures below, which do cover it. This gap is the point, not a failure: roughly 565 continuous CPCB stations serve the whole country.`
-    : `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Nearest WAQI station: ${aqiResult.station}, Updated: ${aqiResult.time}.`;
+    : `PRIMARY CITY — ${aqiResult.city}: AQI ${aqiResult.aqi}, PM2.5 ${aqiResult.pm25 ?? "N/A"} µg/m³, PM10 ${aqiResult.pm10 ?? "N/A"} µg/m³, Nearest WAQI station: ${aqiResult.station}, Updated: ${aqiResult.time} (WAQI gives the station's local clock, which is India Standard Time, IST. Write IST, never UTC).`;
 
   if (stationList && stationList.length >= 2) {
     const aqis = stationList.map(s => s.aqi).filter(v => typeof v === "number" && v > 0);
@@ -1597,5 +1624,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { scaleNote, fixKnownSlips, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { scaleNote, fixKnownSlips, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE };
