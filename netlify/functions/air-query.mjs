@@ -1588,7 +1588,12 @@ Top 5 worst: ${top5}
 // Matched after NFC normalisation, because the model sometimes emits n + a
 // combining tilde, which a literal "ñ" in the pattern does not match.
 function fixKnownSlips(text) {
-  return text.normalize("NFC").replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "El Niño" : "El Nino"));
+  return text.normalize("NFC")
+    .replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "El Niño" : "El Nino"))
+    // The model sometimes copies a prompt heading into the answer in the
+    // full-width brackets it uses for citations (seen in Hindi:
+    // "【SCALE CHECK】"). No answer should carry one, so they are dropped.
+    .replace(/\s*【[^】]*】/g, "");
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.

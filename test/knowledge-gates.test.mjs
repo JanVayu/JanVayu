@@ -167,6 +167,7 @@ test('"El Nina" becomes El Nino, in either encoding of the n-tilde, and real tex
   assert.equal(t.fixKnownSlips('El Nin\u0303a winter (2023-24)'), 'El Niño winter (2023-24)');
   assert.equal(t.fixKnownSlips('El Nina and La Nina'), 'El Nino and La Nina');
   assert.equal(t.fixKnownSlips('An El Niño advisory and a La Niña winter'), 'An El Niño advisory and a La Niña winter');
+  assert.equal(t.fixKnownSlips('Very Poor (121-250 µg/m³) 【SCALE CHECK】। यह स्तर'), 'Very Poor (121-250 µg/m³)। यह स्तर');
 });
 
 test('the activity bands are labelled US-EPA and sit beside the CPCB bands', () => {
