@@ -167,6 +167,7 @@ test('"El Nina" becomes El Nino, in either encoding of the n-tilde, and real tex
   assert.equal(t.fixKnownSlips('El Nin\u0303a winter (2023-24)'), 'El Niño winter (2023-24)');
   assert.equal(t.fixKnownSlips('El Nina and La Nina'), 'El Nino and La Nina');
   assert.equal(t.fixKnownSlips('An El Niño advisory and a La Niña winter'), 'An El Niño advisory and a La Niña winter');
+  assert.equal(t.fixKnownSlips('Very Poor (121-250 µg/m³) 【SCALE CHECK】। यह स्तर'), 'Very Poor (121-250 µg/m³)। यह स्तर');
 });
 
 test('the activity bands are labelled US-EPA and sit beside the CPCB bands', () => {
@@ -206,4 +207,18 @@ test('a live reading alone must not tell the answer how to open', () => {
   assert.match(live, /say nothing about how the answer should begin/);
   const asked = t.scaleNote('Delhi is at 32 micrograms today. Which category?', 96);
   assert.match(asked, /open with the category/);
+});
+
+test('a village named like a district is not answered with that district', () => {
+  assert.equal(t.findDistrict('Air in Kheri Khurd village near Delhi'), null);
+  const kheri = t.findDistrict('How is the air in Kheri district?');
+  assert.equal(kheri.district.s, 'UTTAR PRADESH');
+});
+
+test('a district name shared by two states needs the state', () => {
+  const bare = t.findDistrict('Air quality in Aurangabad district');
+  assert.equal(bare.district, null);
+  assert.deepEqual([...bare.ambiguous].sort(), ['BIHAR', 'MAHARASHTRA']);
+  assert.equal(t.findDistrict('Aurangabad district in Maharashtra').district.s, 'MAHARASHTRA');
+  assert.match(t.buildVillageContext('Air quality in Aurangabad district'), /more than one state/);
 });
