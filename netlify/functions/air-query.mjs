@@ -368,6 +368,7 @@ const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
 Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance). Whenever you quote one of these thresholds or band names, say they are US-EPA bands. They are the only graded activity guidance JanVayu holds; it holds no CPCB equivalent, so say that the advice follows the US-EPA table for that reason, and never write CPCB advice you have not been given. India's own CPCB bands for 24-hour PM2.5 are Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250 µg/m3, so the same air can carry a different label in India:
+Give only the advice written on the row that matches the reading, in its own strength. Never make it stricter (for example "stay indoors completely" for a row that says children should play indoors), and never add a season, a cause or a reason that this table and the live data do not state.
 - 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
 - 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
 - 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
@@ -493,7 +494,7 @@ const NCAP_REFERENCE = `NCAP AFTER SEVEN YEARS (use only these figures):
 - Funds across the 130 cities: Rs 16,824 crore released and Rs 12,087 crore utilised, about 72%. The author says this does not show that spending caused the changes, and that his figures differ from those in the government's replies in Parliament, which he did not reproduce.
 - Earlier, CREA (January 2026) found 23 of 100 cities with sufficient data had met the PM10 reduction target. That is a different measure and a different set of cities, so never add the two or put them in one sentence as a trend.
 - Cite it as Manoj Kumar's analysis of 25 October 2026. The Wire reported it on 27 October, so never attach The Wire to the 25 October date.
-- Do not say the programme failed or that spending raised pollution. Give the figures, the baseline and the author's caveat.`;
+- Do not say the programme failed or that spending raised pollution. Give the figures, the baseline and the author's caveat. These figures do not say why results differ between cities, so never offer causes such as local action, enforcement, funding gaps or weather; say the analysis does not show why. End on the figures or the caveat, not on an explanation.`;
 
 const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
 - NOAA's Climate Prediction Center (8 October 2026): an El Nino Advisory, with a strong to very strong event likely through January to March 2027 and a chance of a historic one (3-month index of +2.5C or more) of 54% for September to November, 83% for October to December and 70% for November to January. The next update is 12 November 2026, so say the figures may have changed.

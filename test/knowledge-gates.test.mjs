@@ -251,3 +251,12 @@ test('the NCAP block keeps the two dates apart', () => {
   assert.match(t.NCAP_REFERENCE, /analysis of 25 October 2026/);
   assert.match(t.NCAP_REFERENCE, /reported it on 27 October/);
 });
+
+test("activity guidance forbids stricter or invented advice", () => {
+  assert.match(t.ACTIVITY_THRESHOLDS, /Never make it stricter/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /never add a season, a cause or a reason/);
+});
+
+test("NCAP block forbids inventing causes for the mixed results", () => {
+  assert.match(t.NCAP_REFERENCE, /never offer causes/);
+});
