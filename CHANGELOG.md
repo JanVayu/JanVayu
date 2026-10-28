@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-28
 
+### Fixed
+- Ask JanVayu: activity advice is now held to the strength written in the table (no stricter wording, no invented season or cause), and the NCAP answer no longer offers causes for the mixed results that the analysis does not give.
+
 ### Fixed, Ask JanVayu stops treating the US-EPA scale as the one that counts
 Asked whether it was safe to run in Delhi at a live 57 µg/m³, the assistant gave the US-EPA band (Unhealthy) and CPCB's (Satisfactory), then said the US-EPA band "is the one that guides health-based activity limits". No source JanVayu holds says that, and for an Indian reader it puts a foreign scale above the national one. The band note now tells the model to give CPCB's category first, never to call either scale the one for health decisions, and to name the WHO's 2021 guideline (15 µg/m³ over 24 hours, 5 a year) as the stricter yardstick. The activity guidance is still the US-EPA table, because it is the only graded guidance the site holds; the prompt now says so plainly and forbids inventing CPCB advice. The NCAP block also now keeps its dates straight: the analysis is of 25 October, The Wire reported it on 27 October. Two tests hold the wording.
 
