@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-28
 
+### Changed
+- Daily email digest: each city now shows India's CPCB category from PM2.5 beside the US AQI, the columns are labelled with their scale and units, the alert wording says US AQI, and the footer links straight to the Alerts panel. The advisory still follows the US-EPA table and says so.
+
 ### Fixed
 - Ask JanVayu: activity advice is now held to the strength written in the table (no stricter wording, no invented season or cause), and the NCAP answer no longer offers causes for the mixed results that the analysis does not give.
 

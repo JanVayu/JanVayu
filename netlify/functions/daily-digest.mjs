@@ -31,6 +31,20 @@ function getAQILevel(aqi) {
   return { label: "Hazardous", color: "#7f1d1d", emoji: "⚫" };
 }
 
+// India's CPCB categories for PM2.5 (24-hour bands, ug/m3): Good 0-30, Satisfactory 31-60,
+// Moderate 61-90, Poor 91-120, Very Poor 121-250, Severe above 250. The email applies them to
+// the station's current reading, so the label is indicative, not CPCB's 24-hour category.
+export function getCpcbPM25Category(pm25) {
+  if (pm25 == null || Number.isNaN(Number(pm25))) return null;
+  const v = Number(pm25);
+  if (v <= 30) return { label: "Good", color: "#16a34a" };
+  if (v <= 60) return { label: "Satisfactory", color: "#65a30d" };
+  if (v <= 90) return { label: "Moderate", color: "#ca8a04" };
+  if (v <= 120) return { label: "Poor", color: "#ea580c" };
+  if (v <= 250) return { label: "Very Poor", color: "#dc2626" };
+  return { label: "Severe", color: "#7f1d1d" };
+}
+
 function getHealthAdvice(aqi) {
   if (aqi <= 50) return "Air quality is good. Enjoy outdoor activities!";
   if (aqi <= 100) return "Acceptable air quality. Unusually sensitive people should limit prolonged outdoor exertion.";
@@ -75,6 +89,7 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
 
   const cityRows = cityData.map((c) => {
     const level = getAQILevel(c.aqi);
+    const cpcb = getCpcbPM25Category(c.pm25);
     const isAlert = alertCities.includes(c.key);
     return `
       <tr style="border-bottom: 1px solid #e5e7eb;">
@@ -84,7 +99,7 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
             ${level.emoji} ${c.aqi}
           </span>
         </td>
-        <td style="padding: 12px 16px; text-align: center; color: #6b7280; font-size: 13px;">${level.label}</td>
+        <td style="padding: 12px 16px; text-align: center; font-size: 13px;">${cpcb ? `<span style="color: ${cpcb.color}; font-weight: 700;">${cpcb.label}</span>` : "–"}</td>
         <td style="padding: 12px 16px; text-align: center; font-size: 13px;">${c.pm25 || "–"}</td>
         <td style="padding: 12px 16px; text-align: center; font-size: 13px;">${c.pm10 || "–"}</td>
       </tr>`;
@@ -111,10 +126,10 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
       ${hasAlerts ? `
       <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
         <strong style="color: #dc2626;">⚠️ Alert:</strong>
-        <span style="color: #991b1b;"> AQI exceeds your threshold (${subscriber.threshold}) in: ${alertCities.map(k => CITIES[k]?.name).join(", ")}</span>
+        <span style="color: #991b1b;"> US AQI exceeds your threshold (${subscriber.threshold}) in: ${alertCities.map(k => CITIES[k]?.name).join(", ")}</span>
       </div>` : `
       <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
-        <span style="color: #166534;">✓ All monitored cities are below your alert threshold (${subscriber.threshold})</span>
+        <span style="color: #166534;">✓ All monitored cities are below your US AQI alert threshold (${subscriber.threshold})</span>
       </div>`}
     </div>
 
@@ -124,10 +139,10 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
         <thead>
           <tr style="background: #f9fafb;">
             <th style="padding: 10px 16px; text-align: left; font-size: 12px; color: #6b7280; text-transform: uppercase;">City</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">AQI</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">Level</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">PM2.5</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">PM10</th>
+            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">US AQI</th>
+            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">CPCB category</th>
+            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">PM2.5 µg/m³</th>
+            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">PM10 µg/m³</th>
           </tr>
         </thead>
         <tbody>
@@ -141,6 +156,7 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
       <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 16px;">
         <strong style="color: #92400e; font-size: 13px;">Health Advisory:</strong>
         <p style="color: #78350f; margin: 6px 0 0; font-size: 13px; line-height: 1.5;">${advice}</p>
+        <p style="color: #92400e; margin: 8px 0 0; font-size: 11px; line-height: 1.5;">The CPCB category is India's national scale, applied to the current PM2.5 reading. The US AQI is the number the alert threshold uses. The advisory follows the US-EPA table because JanVayu holds no CPCB advice table. The WHO's 24-hour PM2.5 guideline is 15 µg/m³.</p>
       </div>
     </div>
 
@@ -157,7 +173,7 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
         You're receiving this because you subscribed to JanVayu AQI alerts for ${subscriber.cities.map(k => CITIES[k]?.name || k).join(", ")}.<br>
         <a href="https://janvayu.in" style="color: #16a34a;">Visit JanVayu</a> ·
         <a href="mailto:contribute@janvayu.in" style="color: #16a34a;">Contact Us</a> ·
-        To unsubscribe, visit the Alerts page on janvayu.in
+        To unsubscribe, visit the Alerts page: janvayu.in/#aqi-alerts
       </p>
     </div>
   </div>
@@ -238,8 +254,8 @@ export default async () => {
       const hasAlerts = alertCities.length > 0;
 
       const subject = hasAlerts
-        ? `⚠️ AQI Alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} exceeds ${sub.threshold} — JanVayu Daily Digest`
-        : `Air Quality Update: Worst AQI ${worstAQI} — JanVayu Daily Digest`;
+        ? `⚠️ US AQI Alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} exceeds ${sub.threshold} — JanVayu Daily Digest`
+        : `Air Quality Update: worst US AQI ${worstAQI} — JanVayu Daily Digest`;
 
       await resend.emails.send({
         from: fromAddress,
