@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-10-28
 
 ### Changed
+- Alerts now use PM2.5 in µg/m³ on India's CPCB categories, in the browser, push and email channels, in place of WAQI's US AQI number. The forms offer 60, 90, 120 and 250 µg/m³ (Moderate, Poor, Very Poor, Severe or worse). Subscribers who set a US AQI level before this change keep the air-quality level they chose, converted to µg/m³ (AQI 100 is 35, 200 is 150, 300 is 250). Alerts need a PM2.5 reading for the city.
+- The daily email's health note now quotes CPCB's own wording for the worst city's category, and its subject gives the worst PM2.5 and its CPCB category.
+- Ask JanVayu leads health answers with CPCB's wording for the category (from the PIB release on the National AQI launch). CPCB publishes health effects and no instructions, so the practical steps still come from the US-EPA table and are labelled as such.
+
+### Changed
 - Daily email digest: each city now shows India's CPCB category from PM2.5 beside the US AQI, the columns are labelled with their scale and units, the alert wording says US AQI, and the footer links straight to the Alerts panel. The advisory still follows the US-EPA table and says so.
 
 ### Fixed
