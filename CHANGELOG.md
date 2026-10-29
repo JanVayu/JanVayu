@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-10-28
 
 ### Fixed
+- Ask JanVayu: after the model answers, the code drops activity steps and groups that no US-EPA row for the figure contains ("air purifier" and "keep windows closed" below 150 µg/m³, "stay indoors" below 250, "pregnant women" at any level) and rewrites "children should stay indoors" to the 55-150 row's "play indoors". The instruction not to add steps had cut these down but not stopped them. English answers only. An answer that would be emptied is returned whole.
+
+### Fixed
 - Ask JanVayu: the code now picks the one US-EPA activity row that matches the PM2.5 figure and hands the model only that row, with CPCB's health wording for the same figure. The model had been given the whole table and chose the next band up's steps at 123 µg/m³ ("avoid all outdoor physical activity" where the row says children play indoors). The full table is no longer in the prompt.
 
 ### Changed

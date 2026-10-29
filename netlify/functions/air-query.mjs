@@ -1618,7 +1618,7 @@ Top 5 worst: ${top5}
     // markdown anyway (caught by test/ask-eval markdown-* gates). Strip the
     // known leak patterns server-side so they can never reach the user.
     if (text) {
-      text = fixKnownSlips(text)
+      text = trimUnsourcedSteps(fixKnownSlips(text), [aqiResult.pm25, askedFigure(question)])
         .replace(/\*\*([^*\n]+)\*\*/g, "$1")   // **bold**
         .replace(/__([^_\n]+)__/g, "$1")        // __bold__
         .replace(/^#{1,6}\s+/gm, "");           // # headings
@@ -1647,6 +1647,38 @@ Top 5 worst: ${top5}
 // winter, set against "La Nina" for the cool one), so that is what it becomes.
 // Matched after NFC normalisation, because the model sometimes emits n + a
 // combining tilde, which a literal "ñ" in the pattern does not match.
+// The activity steps are given to the model as one US-EPA row, but it still recalls the rows
+// above it from training: at 123 ug/m3 it added "keep windows closed" and "run an air purifier"
+// (the 150-250 row) and "stay indoors" (the 250+ row), and "pregnant women", which no row names.
+// The instruction not to add steps cuts these down and does not stop them, so the code drops
+// the sentences. A phrase is allowed only when a figure in play (the live reading or the one
+// the reader asked about) falls in a band whose row contains it. Words only match in English,
+// so an answer in another language is left alone.
+const UNSOURCED_STEPS = [
+  { minBand: 4, re: /air purifier|keep (?:the |your )?windows closed|avoid all outdoor physical activity/i },
+  { minBand: 5, re: /stay indoors|schools should close|no outdoor work/i },
+  { minBand: -1, re: /pregnan/i },
+];
+function askedFigure(question) {
+  const m = String(question || "").match(/(\d+(?:\.\d+)?)\s*(?:µg|μg|ug|micrograms?)/i);
+  const v = m ? Number(m[1]) : null;
+  return v != null && v >= 0 && v < 2000 ? v : null;
+}
+function trimUnsourcedSteps(text, figures) {
+  const vals = (figures || []).filter((v) => v != null && Number.isFinite(Number(v))).map(Number);
+  if (!vals.length) return text;
+  const band = Math.max(...vals.map((v) => EPA_PM25_BANDS.indexOf(bandOf(EPA_PM25_BANDS, v))));
+  const banned = UNSOURCED_STEPS.filter((r) => band < r.minBand || r.minBand === -1).map((r) => r.re);
+  let out = text;
+  // At 55-150 the row says children should play indoors; the model writes "stay indoors".
+  if (band === 3) out = out.replace(/\b(children should) stay indoors\b/gi, "$1 play indoors");
+  const kept = out.split("\n").map((line) => {
+    const sentences = line.split(/(?<=[.!?])\s+(?=[A-Z(])/);
+    return sentences.filter((sen) => !banned.some((re) => re.test(sen))).join(" ");
+  }).filter((line, i, all) => line.trim() !== "" || (all[i - 1] ?? "x").trim() !== "").join("\n").trim();
+  return kept.length >= 40 ? kept : text;
+}
+
 function fixKnownSlips(text) {
   return text.normalize("NFC")
     .replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "El Niño" : "El Nino"))
@@ -1657,5 +1689,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { scaleNote, fixKnownSlips, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };
