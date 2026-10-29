@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
+import { getCpcbPM25Category } from "./lib/cpcb.mjs";
 // Deterministic calculators live in a shared, unit-tested module (single source
 // of truth; see test/calc.test.mjs). esbuild bundles this relative import.
 import {
@@ -374,13 +375,7 @@ CPCB HEALTH EFFECTS (India's national scale on PM2.5 in µg/m3; wording is CPCB'
 - Poor 91-120: May cause breathing discomfort to people on prolonged exposure, and discomfort to people with heart disease.
 - Very Poor 121-250: May cause respiratory illness to the people on prolonged exposure. Effect may be more pronounced in people with lung and heart diseases.
 - Severe above 250: May cause respiratory impact even on healthy people, and serious health impacts on people with lung/heart disease. The health impacts may be experienced even during light physical activity.
-CPCB publishes health effects, not instructions. If asked what to do, say so, then give the steps below, labelled US-EPA (its PM2.5 bands, as WAQI publishes them; not WHO). Never present a step as CPCB's. Give only the advice on the matching row, never stricter, and add no season, cause or reason these tables and the live data do not state.
-- 0-12 µg/m³: All activities safe for everyone.
-- 12-35: Sensitive people (asthma, heart disease, children <5, over 65) should limit prolonged outdoor exertion.
-- 35-55: Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
-- 55-150: Everyone should reduce prolonged outdoor exertion. No jogging/cycling. Children should play indoors. N95 recommended outdoors.
-- 150-250: Avoid all outdoor physical activity. Keep windows closed. Run an air purifier indoors if available. N95 essential outdoors.
-- 250+: Stay indoors. Schools should close. No outdoor work without protection.
+CPCB publishes health effects, not instructions. If asked what to do, say so, then give the steps in the scale-check lines (the lines starting with a figure and its bands, computed by the code), labelled US-EPA (its PM2.5 bands, as WAQI publishes them; not WHO). Never present a step as CPCB's. Use only the steps the code gives for the figure, never stricter, and add no season, cause or reason that those lines and the live data do not state. With no such lines there is no reading to advise on: ask for a figure or a city and give no steps.
 
 Transport exposure, on-road PM2.5 vs ambient (Goel et al. 2015, Atmospheric Environment 123, Delhi, one arterial route in 2014): walking 1.4x, cycling 1.1x, two-wheeler 1.3x, auto-rickshaw 1.3x, open-window car 1.3x, bus 1.2x, air-conditioned car with windows up 0.5x, metro rail carriage 0.8x. These are concentration ratios, not inhaled doses: cycling breathes harder, which the ratio does not capture. Do not quote a figure for trains; none is sourced.
 `;
@@ -1025,6 +1020,18 @@ const CPCB_PM25_BANDS = [[30, "Good", "0-30"], [60, "Satisfactory", "31-60"], [9
   [120, "Poor", "91-120"], [250, "Very Poor", "121-250"], [Infinity, "Severe", "above 250"]];
 const EPA_PM25_BANDS = [[12, "Good", "0-12"], [35.4, "Moderate", "12-35"], [55.4, "Unhealthy for sensitive groups", "35-55"],
   [150.4, "Unhealthy", "55-150"], [250.4, "Very Unhealthy", "150-250"], [Infinity, "Hazardous", "above 250"]];
+// The US-EPA activity steps, one per EPA band above and in the same order. The code picks the
+// row for a concentration so the model never has to: it was handing out the next band up's
+// steps ("avoid all outdoor physical activity" at 123 ug/m3, where the row says children play
+// indoors), which is stricter than the table.
+const EPA_STEPS = [
+  "All activities are safe for everyone.",
+  "Sensitive people (asthma, heart disease, children under 5, over 65) should limit prolonged outdoor exertion.",
+  "Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.",
+  "Everyone should reduce prolonged outdoor exertion. No jogging or cycling. Children should play indoors. N95 recommended outdoors.",
+  "Avoid all outdoor physical activity. Keep windows closed. Run an air purifier indoors if available. N95 essential outdoors.",
+  "Stay indoors. Schools should close. No outdoor work without protection.",
+];
 function bandOf(table, v) { return table.find(([max]) => v <= max); }
 // CPCB is India's own scale and goes first. Neither scale is "the one" for
 // health decisions, and nothing JanVayu holds says so: a live answer called
@@ -1037,7 +1044,9 @@ function scaleNote(question, livePm25) {
   const asked = m ? Number(m[1]) : null;
   const line = (label, v) => {
     const c = bandOf(CPCB_PM25_BANDS, v), e = bandOf(EPA_PM25_BANDS, v);
-    return `- ${label} ${v} µg/m3: CPCB (India) says ${c[1]} (${c[2]}); the US-EPA scale says ${e[1]} (${e[2]}).`;
+    const impact = getCpcbPM25Category(v).impact;
+    const steps = EPA_STEPS[EPA_PM25_BANDS.indexOf(e)];
+    return `- ${label} ${v} µg/m3: CPCB (India) says ${c[1]} (${c[2]}); the US-EPA scale says ${e[1]} (${e[2]}).\n  CPCB health effect (quote it): ${impact}\n  The ONLY practical steps for this figure (US-EPA row ${e[2]}; use them as written, never add to them or borrow another row's): ${steps}`;
   };
   const hasAsked = asked != null && asked >= 0 && asked < 2000;
   if (hasAsked) lines.push(line("The reader's figure of", asked));
