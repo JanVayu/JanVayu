@@ -5,6 +5,9 @@
 import { getBlobStore } from "./lib/blob.mjs";
 import { Resend } from "resend";
 import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
+import { getCpcbPM25Category, thresholdPM25 } from "./lib/cpcb.mjs";
+
+export { getCpcbPM25Category };
 
 
 import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
@@ -31,27 +34,10 @@ function getAQILevel(aqi) {
   return { label: "Hazardous", color: "#7f1d1d", emoji: "⚫" };
 }
 
-// India's CPCB categories for PM2.5 (24-hour bands, ug/m3): Good 0-30, Satisfactory 31-60,
-// Moderate 61-90, Poor 91-120, Very Poor 121-250, Severe above 250. The email applies them to
-// the station's current reading, so the label is indicative, not CPCB's 24-hour category.
-export function getCpcbPM25Category(pm25) {
-  if (pm25 == null || Number.isNaN(Number(pm25))) return null;
-  const v = Number(pm25);
-  if (v <= 30) return { label: "Good", color: "#16a34a" };
-  if (v <= 60) return { label: "Satisfactory", color: "#65a30d" };
-  if (v <= 90) return { label: "Moderate", color: "#ca8a04" };
-  if (v <= 120) return { label: "Poor", color: "#ea580c" };
-  if (v <= 250) return { label: "Very Poor", color: "#dc2626" };
-  return { label: "Severe", color: "#7f1d1d" };
-}
-
-function getHealthAdvice(aqi) {
-  if (aqi <= 50) return "Air quality is good. Enjoy outdoor activities!";
-  if (aqi <= 100) return "Acceptable air quality. Unusually sensitive people should limit prolonged outdoor exertion.";
-  if (aqi <= 150) return "Sensitive groups should reduce prolonged outdoor exertion. Consider wearing a mask outdoors.";
-  if (aqi <= 200) return "Everyone should reduce prolonged outdoor exertion. Wear N95 masks outside. Keep windows closed.";
-  if (aqi <= 300) return "Health alert! Avoid all outdoor physical activities. Use air purifiers indoors. Wear N95 masks if going out.";
-  return "EMERGENCY: Stay indoors. Seal windows. Run air purifiers on max. Avoid all outdoor exposure.";
+function getHealthAdvice(worstCity) {
+  const cat = getCpcbPM25Category(worstCity.pm25);
+  if (!cat) return "No PM2.5 reading was available for the worst-affected city today.";
+  return `${worstCity.city} is the worst-affected city on your list today, in the CPCB ${cat.label} category. CPCB says: ${cat.impact}`;
 }
 
 async function fetchCityAQI(cityKey) {
@@ -105,8 +91,8 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
       </tr>`;
   }).join("");
 
-  const worstCity = cityData.reduce((a, b) => (a.aqi > b.aqi ? a : b), cityData[0]);
-  const advice = getHealthAdvice(worstCity.aqi);
+  const worstCity = cityData.reduce((a, b) => ((a.pm25 ?? -1) > (b.pm25 ?? -1) ? a : b), cityData[0]);
+  const advice = getHealthAdvice(worstCity);
 
   return `
 <!DOCTYPE html>
@@ -126,10 +112,10 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
       ${hasAlerts ? `
       <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
         <strong style="color: #dc2626;">⚠️ Alert:</strong>
-        <span style="color: #991b1b;"> US AQI exceeds your threshold (${subscriber.threshold}) in: ${alertCities.map(k => CITIES[k]?.name).join(", ")}</span>
+        <span style="color: #991b1b;"> PM2.5 exceeds your alert level (${Math.round(thresholdPM25(subscriber))} µg/m³) in: ${alertCities.map(k => CITIES[k]?.name).join(", ")}</span>
       </div>` : `
       <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
-        <span style="color: #166534;">✓ All monitored cities are below your US AQI alert threshold (${subscriber.threshold})</span>
+        <span style="color: #166534;">✓ All monitored cities are below your PM2.5 alert level (${Math.round(thresholdPM25(subscriber))} µg/m³)</span>
       </div>`}
     </div>
 
@@ -154,9 +140,9 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
     <!-- Health Advice -->
     <div style="padding: 0 32px 20px;">
       <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 16px;">
-        <strong style="color: #92400e; font-size: 13px;">Health Advisory:</strong>
+        <strong style="color: #92400e; font-size: 13px;">Health effects (CPCB):</strong>
         <p style="color: #78350f; margin: 6px 0 0; font-size: 13px; line-height: 1.5;">${advice}</p>
-        <p style="color: #92400e; margin: 8px 0 0; font-size: 11px; line-height: 1.5;">The CPCB category is India's national scale, applied to the current PM2.5 reading. The US AQI is the number the alert threshold uses. The advisory follows the US-EPA table because JanVayu holds no CPCB advice table. The WHO's 24-hour PM2.5 guideline is 15 µg/m³.</p>
+        <p style="color: #92400e; margin: 8px 0 0; font-size: 11px; line-height: 1.5;">CPCB category is India's national scale, applied here to the current PM2.5 reading. CPCB publishes health effects, not instructions. The WHO 24-hour PM2.5 guideline is 15 µg/m³. For practical steps, ask Ask JanVayu at janvayu.in.</p>
       </div>
     </div>
 
@@ -246,16 +232,19 @@ export default async () => {
       if (subCityData.length === 0) continue;
 
       const alertCities = subCityData
-        .filter((c) => c.aqi > (sub.threshold || 200))
+        .filter((c) => c.pm25 != null && c.pm25 > thresholdPM25(sub))
         .map((c) => c.key);
 
       const html = buildEmailHTML(sub, subCityData, alertCities);
-      const worstAQI = Math.max(...subCityData.map((c) => c.aqi));
+      const worstPM25 = Math.max(...subCityData.map((c) => c.pm25 ?? -1));
+      const worstCat = worstPM25 >= 0 ? getCpcbPM25Category(worstPM25) : null;
       const hasAlerts = alertCities.length > 0;
 
       const subject = hasAlerts
-        ? `⚠️ US AQI Alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} exceeds ${sub.threshold} — JanVayu Daily Digest`
-        : `Air Quality Update: worst US AQI ${worstAQI} — JanVayu Daily Digest`;
+        ? `⚠️ PM2.5 Alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} above ${Math.round(thresholdPM25(sub))} µg/m³ — JanVayu Daily Digest`
+        : worstCat
+          ? `Air Quality Update: worst PM2.5 ${Math.round(worstPM25)} µg/m³, CPCB ${worstCat.label} — JanVayu Daily Digest`
+          : `Air Quality Update — JanVayu Daily Digest`;
 
       await resend.emails.send({
         from: fromAddress,

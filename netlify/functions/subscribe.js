@@ -20,7 +20,8 @@ exports.handler = async function (event) {
 
   try {
     const body = JSON.parse(event.body || '{}');
-    const { email, cities, threshold, action } = body;
+    const { email, cities, action } = body;
+    const pm25Threshold = Math.max(10, Math.min(500, parseInt(body.pm25_threshold, 10) || 90));
 
     if (!email || !email.includes('@')) {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Valid email required' }) };
@@ -41,7 +42,7 @@ exports.handler = async function (event) {
     await store.setJSON(key, {
       email: email.toLowerCase(),
       cities: cities || ['delhi'],
-      threshold: threshold || 200,
+      pm25_threshold: pm25Threshold,
       subscribed_at: new Date().toISOString(),
       active: true,
     });
@@ -50,7 +51,7 @@ exports.handler = async function (event) {
       statusCode: 200, headers,
       body: JSON.stringify({
         ok: true,
-        message: `Subscribed! You'll get daily AQI digests for ${(cities || ['delhi']).join(', ')} when AQI exceeds ${threshold || 200}.`,
+        message: `Subscribed! You'll get daily AQI digests for ${(cities || ['delhi']).join(', ')} when PM2.5 exceeds ${pm25Threshold} µg/m³.`,
       }),
     };
   } catch (e) {

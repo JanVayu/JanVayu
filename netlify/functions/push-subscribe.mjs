@@ -1,7 +1,7 @@
 // Netlify Function: Web Push subscription management
 //
 // POST /.netlify/functions/push-subscribe
-//   { action: "subscribe",   subscription, city, threshold }
+//   { action: "subscribe",   subscription, city, pm25_threshold }  (ug/m3 of PM2.5)
 //   { action: "unsubscribe", subscription }
 //   { action: "test",        subscription }   → sends an immediate test push
 //
@@ -56,7 +56,7 @@ export default async (req) => {
       try {
         await webpush.sendNotification(subscription, JSON.stringify({
           title: "JanVayu alerts are on ✓",
-          body: "This is a test. You'll get a push when your city's AQI crosses your threshold — even when this tab is closed.",
+          body: "This is a test. You'll get a push when your city's PM2.5 crosses your alert level — even when this tab is closed.",
           url: "https://www.janvayu.in/#aqi-alerts",
         }));
         return new Response(JSON.stringify({ ok: true, action: "test-sent" }), { headers });
@@ -68,15 +68,15 @@ export default async (req) => {
 
     // default: subscribe (create/update)
     const city = (body.city || "delhi").toLowerCase();
-    const threshold = Math.max(50, Math.min(500, parseInt(body.threshold, 10) || 200));
+    const pm25_threshold = Math.max(10, Math.min(500, parseInt(body.pm25_threshold, 10) || 90));
     await store.setJSON(key, {
       subscription,
       city,
-      threshold,
+      pm25_threshold,
       created_at: Date.now(),
       last_pushed: 0,
     });
-    return new Response(JSON.stringify({ ok: true, action: "subscribed", city, threshold }), { headers });
+    return new Response(JSON.stringify({ ok: true, action: "subscribed", city, pm25_threshold }), { headers });
   } catch (e) {
     return new Response(JSON.stringify({ error: e.message }), { status: 500, headers });
   }

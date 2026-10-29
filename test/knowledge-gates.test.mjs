@@ -172,8 +172,9 @@ test('"El Nina" becomes El Nino, in either encoding of the n-tilde, and real tex
 
 test('the activity bands are labelled US-EPA and sit beside the CPCB bands', () => {
   const a = t.ACTIVITY_THRESHOLDS;
-  assert.match(a, /say they are US-EPA bands/);
-  assert.match(a, /Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250/);
+  assert.match(a, /labelled US-EPA/);
+  for (const band of ['Good 0-30', 'Satisfactory 31-60', 'Moderate 61-90', 'Poor 91-120', 'Very Poor 121-250', 'Severe above 250'])
+    assert.ok(a.includes(band), band);
 });
 
 test('the round-three fixes: annual not winter, Mangaraj is not a model', () => {
@@ -244,7 +245,7 @@ test('the scale note puts CPCB first and never crowns one scale for health', () 
     assert.match(note, /Never say that either scale is the one that guides health decisions/);
     assert.match(note, /15 µg\/m³ over 24 hours/);
   }
-  assert.match(t.ACTIVITY_THRESHOLDS, /holds no CPCB equivalent/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /CPCB publishes health effects, not instructions/);
 });
 
 test('the NCAP block keeps the two dates apart', () => {
@@ -253,10 +254,16 @@ test('the NCAP block keeps the two dates apart', () => {
 });
 
 test("activity guidance forbids stricter or invented advice", () => {
-  assert.match(t.ACTIVITY_THRESHOLDS, /Never make it stricter/);
-  assert.match(t.ACTIVITY_THRESHOLDS, /never add a season, a cause or a reason/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /never stricter/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /add no season, cause or reason/);
 });
 
 test("NCAP block forbids inventing causes for the mixed results", () => {
   assert.match(t.NCAP_REFERENCE, /never offer causes/);
+});
+
+test("health questions carry CPCB's own wording and label practical steps as US-EPA", () => {
+  assert.match(t.ACTIVITY_THRESHOLDS, /Poor 91-120: May cause breathing discomfort to people on prolonged exposure/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /CPCB publishes health effects, not instructions/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /Never present a step as CPCB's/);
 });

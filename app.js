@@ -6834,6 +6834,13 @@
 
     // ── AQI Alerts ──
     let alertConfig = JSON.parse(localStorage.getItem('janvayu_alerts') || '[]');
+    // Alert level in ug/m3 of PM2.5. Alerts saved before 29 October 2026 hold a US-EPA AQI in
+    // `threshold`; it is converted so the person keeps the air-quality level they chose.
+    function alertPM25(a) {
+        if (a.pm25Threshold > 0) return a.pm25Threshold;
+        const converted = iaqiToPM25(a.threshold);
+        return Number.isFinite(converted) && converted > 0 ? converted : 150;
+    }
 
     function setupAQIAlerts() {
         if (!('Notification' in window)) {
@@ -6843,12 +6850,12 @@
         Notification.requestPermission().then(permission => {
             if (permission === 'granted') {
                 const city = document.getElementById('alert-city').value;
-                const threshold = parseInt(document.getElementById('alert-threshold').value);
+                const pm25Threshold = parseInt(document.getElementById('alert-threshold').value);
                 const existing = alertConfig.findIndex(a => a.city === city);
-                if (existing >= 0) alertConfig[existing].threshold = threshold;
-                else alertConfig.push({ city, threshold });
+                if (existing >= 0) { alertConfig[existing].pm25Threshold = pm25Threshold; delete alertConfig[existing].threshold; }
+                else alertConfig.push({ city, pm25Threshold });
                 localStorage.setItem('janvayu_alerts', JSON.stringify(alertConfig));
-                document.getElementById('alert-status').innerHTML = `<span style="color: var(--green-600);">Alert set for ${CITIES[city]?.name} when AQI > ${threshold}</span>`;
+                document.getElementById('alert-status').innerHTML = `<span style="color: var(--green-600);">Alert set for ${CITIES[city]?.name} when PM2.5 > ${pm25Threshold} µg/m³</span>`;
                 renderActiveAlerts();
             } else {
                 document.getElementById('alert-status').innerHTML = '<span style="color: var(--red);">Notification permission denied. Please enable in browser settings.</span>';
@@ -6888,13 +6895,13 @@
             let sub = await reg.pushManager.getSubscription();
             if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
             const city = document.getElementById('alert-city')?.value || 'delhi';
-            const threshold = parseInt(document.getElementById('alert-threshold')?.value || '200', 10);
+            const pm25Threshold = parseInt(document.getElementById('alert-threshold')?.value || '90', 10);
             const res = await fetch('/.netlify/functions/push-subscribe', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'subscribe', subscription: sub, city, threshold }),
+                body: JSON.stringify({ action: 'subscribe', subscription: sub, city, pm25_threshold: pm25Threshold }),
             });
             const data = await res.json();
-            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when AQI &gt; ${escapeHtml(threshold)}. You'll be alerted even when this tab is closed. Try "Send test".</span>`);
+            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when PM2.5 &gt; ${escapeHtml(pm25Threshold)} &micro;g/m&sup3;. You'll be alerted even when this tab is closed. Try "Send test".</span>`);
             else setAlertStatus('<span style="color:var(--red);">Could not save your subscription. Try again.</span>');
         } catch (e) { setAlertStatus('<span style="color:var(--red);">Push setup failed: ' + escapeHtml(e.message) + '</span>'); }
     }
@@ -6934,12 +6941,12 @@
         }
         el.innerHTML = alertConfig.map((a, i) => {
             const data = aqiData[a.city];
-            const currentAQI = data?.aqi || '?';
-            const triggered = data && data.aqi > a.threshold;
+            const currentPM25 = data?.pm25 != null ? Math.round(data.pm25) : '?';
+            const triggered = data && data.pm25 != null && data.pm25 > alertPM25(a);
             return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-light);">
                 <div>
-                    <strong>${CITIES[a.city]?.name}</strong>: AQI > ${a.threshold}
-                    <div style="font-size: 0.75rem; color: ${triggered ? 'var(--red)' : 'var(--green-600)'};">Current: ${currentAQI} ${triggered ? 'TRIGGERED' : 'OK'}</div>
+                    <strong>${CITIES[a.city]?.name}</strong>: PM2.5 > ${Math.round(alertPM25(a))} &micro;g/m&sup3;
+                    <div style="font-size: 0.75rem; color: ${triggered ? 'var(--red)' : 'var(--green-600)'};">Current PM2.5: ${currentPM25} &micro;g/m&sup3; ${triggered ? 'TRIGGERED' : 'OK'}</div>
                 </div>
                 <button class="btn btn-sm" onclick="removeAlert(${i})" style="font-size: 0.7rem;">Remove</button>
             </div>`;
@@ -6966,13 +6973,13 @@
             if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Select at least one city.</span>';
             return;
         }
-        const threshold = parseInt(document.getElementById('subscribe-threshold')?.value || '200');
+        const pm25Threshold = parseInt(document.getElementById('subscribe-threshold')?.value || '90');
         if (statusEl) statusEl.innerHTML = '<span style="color: var(--text-3);">Subscribing...</span>';
         try {
             const res = await fetch('/.netlify/functions/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, cities, threshold }),
+                body: JSON.stringify({ email, cities, pm25_threshold: pm25Threshold }),
             });
             const text = await res.text();
             if (text.startsWith('{')) {
@@ -7017,9 +7024,9 @@
         if (!('Notification' in window) || Notification.permission !== 'granted') return;
         alertConfig.forEach(a => {
             const data = aqiData[a.city];
-            if (data && data.aqi > a.threshold) {
+            if (data && data.pm25 != null && data.pm25 > alertPM25(a)) {
                 new Notification(`JanVayu Alert: ${CITIES[a.city]?.name}`, {
-                    body: `AQI is ${data.aqi} (threshold: ${a.threshold}). PM2.5: ${data.pm25 || 'N/A'}. Take precautions.`,
+                    body: `PM2.5 is ${Math.round(data.pm25)} µg/m³, above your alert level of ${Math.round(alertPM25(a))} µg/m³.`,
                     icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌫</text></svg>',
                     tag: `janvayu-${a.city}`
                 });

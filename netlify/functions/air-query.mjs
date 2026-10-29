@@ -367,14 +367,20 @@ function getSeasonalContext() {
 const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
-Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance). Whenever you quote one of these thresholds or band names, say they are US-EPA bands. They are the only graded activity guidance JanVayu holds; it holds no CPCB equivalent, so say that the advice follows the US-EPA table for that reason, and never write CPCB advice you have not been given. India's own CPCB bands for 24-hour PM2.5 are Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250 µg/m3, so the same air can carry a different label in India:
-Give only the advice written on the row that matches the reading, in its own strength. Never make it stricter (for example "stay indoors completely" for a row that says children should play indoors), and never add a season, a cause or a reason that this table and the live data do not state.
-- 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
-- 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
-- 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
-- 55-150 µg/m³ (Unhealthy): Everyone should reduce prolonged outdoor exertion. No jogging/cycling. Children should play indoors. N95 mask recommended outdoors.
-- 150-250 µg/m³ (Very Unhealthy): Avoid all outdoor physical activity. Keep windows closed. Run air purifier indoors if available. N95 mask essential outdoors.
-- 250+ µg/m³ (Hazardous/Severe): Stay indoors. Schools should close. No outdoor work without protection. Medical emergency risk for vulnerable populations.
+CPCB HEALTH EFFECTS (India's national scale on PM2.5 in µg/m3; wording is CPCB's, from the PIB release on the National AQI launch). For any health question lead with the matching category and quote it:
+- Good 0-30: Minimal impact.
+- Satisfactory 31-60: May cause minor breathing discomfort to sensitive people.
+- Moderate 61-90: May cause breathing discomfort to people with lung disease such as asthma, and discomfort to people with heart disease, children and older adults.
+- Poor 91-120: May cause breathing discomfort to people on prolonged exposure, and discomfort to people with heart disease.
+- Very Poor 121-250: May cause respiratory illness to the people on prolonged exposure. Effect may be more pronounced in people with lung and heart diseases.
+- Severe above 250: May cause respiratory impact even on healthy people, and serious health impacts on people with lung/heart disease. The health impacts may be experienced even during light physical activity.
+CPCB publishes health effects, not instructions. If asked what to do, say so, then give the steps below, labelled US-EPA (its PM2.5 bands, as WAQI publishes them; not WHO). Never present a step as CPCB's. Give only the advice on the matching row, never stricter, and add no season, cause or reason these tables and the live data do not state.
+- 0-12 µg/m³: All activities safe for everyone.
+- 12-35: Sensitive people (asthma, heart disease, children <5, over 65) should limit prolonged outdoor exertion.
+- 35-55: Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
+- 55-150: Everyone should reduce prolonged outdoor exertion. No jogging/cycling. Children should play indoors. N95 recommended outdoors.
+- 150-250: Avoid all outdoor physical activity. Keep windows closed. Run an air purifier indoors if available. N95 essential outdoors.
+- 250+: Stay indoors. Schools should close. No outdoor work without protection.
 
 Transport exposure, on-road PM2.5 vs ambient (Goel et al. 2015, Atmospheric Environment 123, Delhi, one arterial route in 2014): walking 1.4x, cycling 1.1x, two-wheeler 1.3x, auto-rickshaw 1.3x, open-window car 1.3x, bus 1.2x, air-conditioned car with windows up 0.5x, metro rail carriage 0.8x. These are concentration ratios, not inhaled doses: cycling breathes harder, which the ratio does not capture. Do not quote a figure for trains; none is sourced.
 `;
