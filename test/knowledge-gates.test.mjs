@@ -298,3 +298,59 @@ test('the full EPA table is no longer in the base prompt, so the model cannot pi
   assert.doesNotMatch(base, /Run an air purifier indoors if available/);
   assert.doesNotMatch(base, /Children should play indoors/);
 });
+
+const ASTHMA_ANSWER = [
+  "Today's Delhi PM2.5 of 123 µg/m³ falls in the CPCB Very Poor category.",
+  "",
+  "For this band the practical steps are:",
+  "- Everyone should reduce prolonged outdoor exertion.",
+  "- No jogging or cycling.",
+  "- Children should stay indoors.",
+  "- Use an N95 mask if you must be outside.",
+  "",
+  "Because your child has asthma, they belong to the most vulnerable group (children, elderly, pregnant women, people with lung or heart disease). Limit their time outdoors, keep windows closed, and run an air purifier if possible. If symptoms worsen, seek medical advice promptly.",
+].join("\n");
+
+test('steps from a stricter row, and groups no row names, are removed from the answer', () => {
+  const out = t.trimUnsourcedSteps(ASTHMA_ANSWER, [123]);
+  assert.doesNotMatch(out, /air purifier/i);
+  assert.doesNotMatch(out, /windows closed/i);
+  assert.doesNotMatch(out, /pregnan/i);
+  assert.doesNotMatch(out, /stay indoors/i);
+  assert.match(out, /Children should play indoors/);        // the row's own wording
+  assert.match(out, /Everyone should reduce prolonged outdoor exertion/);
+  assert.match(out, /No jogging or cycling/);
+  assert.match(out, /N95 mask/);
+  assert.match(out, /If symptoms worsen, seek medical advice promptly/);
+});
+
+test('a phrase stays only when the figure is in a band whose row contains it', () => {
+  const out = t.trimUnsourcedSteps(ASTHMA_ANSWER, [200]);
+  assert.match(out, /air purifier/i);
+  assert.match(out, /windows closed/i);
+  assert.doesNotMatch(out, /stay indoors/i); // that wording belongs to the 250+ row only
+  assert.doesNotMatch(out, /pregnan/i);    // no row names pregnant women, at any level
+  // the reader asking about a higher figure than the live reading also opens the row
+  assert.match(t.trimUnsourcedSteps("Keep windows closed.", [57, 200]), /windows closed/i);
+});
+
+test('with no figure in play the answer is left alone', () => {
+  assert.equal(t.trimUnsourcedSteps(ASTHMA_ANSWER, []), ASTHMA_ANSWER);
+  assert.equal(t.trimUnsourcedSteps(ASTHMA_ANSWER, [null, null]), ASTHMA_ANSWER);
+});
+
+test('an answer that would be emptied is returned whole, not blank', () => {
+  const only = "Keep windows closed.";
+  assert.equal(t.trimUnsourcedSteps(only, [57]), only);
+});
+
+test('the reader\'s figure is read from the question', () => {
+  assert.equal(t.askedFigure('Is 32 micrograms safe?'), 32);
+  assert.equal(t.askedFigure('Is it safe to run?'), null);
+});
+
+test('stay indoors and school closure survive at 250 and above, where that row says them', () => {
+  const out = t.trimUnsourcedSteps('Stay indoors today. Schools should close. The air is Severe.', [300]);
+  assert.match(out, /Stay indoors/);
+  assert.match(out, /Schools should close/);
+});
