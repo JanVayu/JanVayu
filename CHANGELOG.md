@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-28
 
+### Fixed
+- Ask JanVayu: the code now picks the one US-EPA activity row that matches the PM2.5 figure and hands the model only that row, with CPCB's health wording for the same figure. The model had been given the whole table and chose the next band up's steps at 123 µg/m³ ("avoid all outdoor physical activity" where the row says children play indoors). The full table is no longer in the prompt.
+
 ### Changed
 - Alerts now use PM2.5 in µg/m³ on India's CPCB categories, in the browser, push and email channels, in place of WAQI's US AQI number. The forms offer 60, 90, 120 and 250 µg/m³ (Moderate, Poor, Very Poor, Severe or worse). Subscribers who set a US AQI level before this change keep the air-quality level they chose, converted to µg/m³ (AQI 100 is 35, 200 is 150, 300 is 250). Alerts need a PM2.5 reading for the city.
 - The daily email's health note now quotes CPCB's own wording for the worst city's category, and its subject gives the worst PM2.5 and its CPCB category.

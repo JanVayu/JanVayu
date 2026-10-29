@@ -267,3 +267,34 @@ test("health questions carry CPCB's own wording and label practical steps as US-
   assert.match(t.ACTIVITY_THRESHOLDS, /CPCB publishes health effects, not instructions/);
   assert.match(t.ACTIVITY_THRESHOLDS, /Never present a step as CPCB's/);
 });
+
+test('the code hands the model the one US-EPA row that matches the figure, never a stricter one', () => {
+  // The live bug: 123 ug/m3 was given the 150-250 row ("avoid all outdoor physical activity").
+  const n = t.scaleNote('', 123);
+  assert.match(n, /US-EPA row 55-150/);
+  assert.match(n, /Children should play indoors/);
+  assert.doesNotMatch(n, /Avoid all outdoor physical activity/);
+  assert.doesNotMatch(n, /Keep windows closed/);
+  assert.match(n, /respiratory illness to the people on prolonged exposure/);
+  const hi = t.scaleNote('', 200);
+  assert.match(hi, /US-EPA row 150-250/);
+  assert.match(hi, /Avoid all outdoor physical activity/);
+  const mid = t.scaleNote('', 45);
+  assert.match(mid, /CPCB \(India\) says Satisfactory/);
+  assert.match(mid, /US-EPA row 35-55/);
+  assert.match(mid, /minor breathing discomfort to sensitive people/);
+  assert.doesNotMatch(mid, /play indoors/);
+});
+
+test('every EPA band has exactly one row of steps', () => {
+  for (const v of [5, 20, 40, 100, 200, 300]) {
+    const n = t.scaleNote('', v);
+    assert.equal((n.match(/The ONLY practical steps/g) || []).length, 1, `figure ${v}`);
+  }
+});
+
+test('the full EPA table is no longer in the base prompt, so the model cannot pick a row', () => {
+  const base = t.buildSystemPrompt(t.getSeasonalContext(), null, {});
+  assert.doesNotMatch(base, /Run an air purifier indoors if available/);
+  assert.doesNotMatch(base, /Children should play indoors/);
+});
