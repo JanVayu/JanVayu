@@ -25,19 +25,28 @@ const CITIES = {
   noida: { name: "Noida", station: "noida" },
 };
 
-function getAQILevel(aqi) {
-  if (aqi <= 50) return { label: "Good", color: "#22c55e", emoji: "🟢" };
-  if (aqi <= 100) return { label: "Moderate", color: "#eab308", emoji: "🟡" };
-  if (aqi <= 150) return { label: "Unhealthy for Sensitive", color: "#f97316", emoji: "🟠" };
-  if (aqi <= 200) return { label: "Unhealthy", color: "#ef4444", emoji: "🔴" };
-  if (aqi <= 300) return { label: "Very Unhealthy", color: "#a855f7", emoji: "🟣" };
-  return { label: "Hazardous", color: "#7f1d1d", emoji: "⚫" };
-}
-
 function getHealthAdvice(worstCity) {
+  if (!worstCity) return "No city on your list had a reliable PM2.5 reading today.";
   const cat = getCpcbPM25Category(worstCity.pm25);
   if (!cat) return "No PM2.5 reading was available for the worst-affected city today.";
   return `${worstCity.city} is the worst-affected city on your list today, in the CPCB ${cat.label} category. CPCB says: ${cat.impact}`;
+}
+
+// A station feed can answer 200 and still be wrong: stale, or near zero. On 30 October the
+// Delhi feed gave PM2.5 1 and PM10 3 at 8 AM, which the digest printed as "Good" a day after
+// Delhi read 123. A reading is held back, not shown, when it is older than six hours or when
+// PM2.5 and PM10 are both implausibly low for a city with a monitor.
+const STALE_AFTER_MS = 6 * 60 * 60 * 1000;
+export function assessReading({ pm25, pm10, time }, now = Date.now()) {
+  if (pm25 == null || Number.isNaN(Number(pm25))) return { ok: false, reason: "no PM2.5 reading" };
+  // WAQI's time.s is the station's own clock, which for an Indian station is IST.
+  const m = String(time || "").match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/);
+  if (m) {
+    const at = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]) - 5.5 * 60 * 60 * 1000;
+    if (now - at > STALE_AFTER_MS) return { ok: false, reason: "the station has not reported for over six hours" };
+  }
+  if (Number(pm25) < 3 && (pm10 == null || Number(pm10) < 10)) return { ok: false, reason: "the reading is implausibly low" };
+  return { ok: true, reason: null };
 }
 
 async function fetchCityAQI(cityKey) {
@@ -50,7 +59,7 @@ async function fetchCityAQI(cityKey) {
     );
     const data = await res.json();
     if (data.status === "ok" && data.data) {
-      return {
+      const reading = {
         city: city.name,
         key: cityKey,
         aqi: data.data.aqi,
@@ -58,6 +67,8 @@ async function fetchCityAQI(cityKey) {
         pm10: iaqiToPM10(data.data.iaqi?.pm10?.v),
         time: data.data.time?.s || new Date().toISOString(),
       };
+      const check = assessReading(reading);
+      return { ...reading, unreliable: check.ok ? null : check.reason };
     }
   } catch (e) {
     console.log(`Failed to fetch AQI for ${cityKey}:`, e.message);
@@ -65,7 +76,7 @@ async function fetchCityAQI(cityKey) {
   return null;
 }
 
-function buildEmailHTML(subscriber, cityData, alertCities) {
+export function buildEmailHTML(subscriber, cityData, alertCities) {
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-IN", {
     weekday: "long", day: "numeric", month: "long", year: "numeric",
@@ -73,25 +84,28 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
 
   const hasAlerts = alertCities.length > 0;
 
+  const cell = "padding: 10px 6px; text-align: center; font-size: 13px;";
   const cityRows = cityData.map((c) => {
-    const level = getAQILevel(c.aqi);
-    const cpcb = getCpcbPM25Category(c.pm25);
     const isAlert = alertCities.includes(c.key);
+    if (c.unreliable) {
+      return `
+      <tr style="border-bottom: 1px solid #e5e7eb;">
+        <td style="padding: 10px 6px; font-weight: 600; font-size: 14px;">${c.city}</td>
+        <td colspan="3" style="${cell} color: #6b7280;">No reliable reading today (${c.unreliable})</td>
+      </tr>`;
+    }
+    const cpcb = getCpcbPM25Category(c.pm25);
     return `
       <tr style="border-bottom: 1px solid #e5e7eb;">
-        <td style="padding: 12px 16px; font-weight: 600;">${c.city} ${isAlert ? "⚠️" : ""}</td>
-        <td style="padding: 12px 16px; text-align: center;">
-          <span style="background: ${level.color}; color: white; padding: 4px 12px; border-radius: 12px; font-weight: 700; font-size: 14px;">
-            ${level.emoji} ${c.aqi}
-          </span>
-        </td>
-        <td style="padding: 12px 16px; text-align: center; font-size: 13px;">${cpcb ? `<span style="color: ${cpcb.color}; font-weight: 700;">${cpcb.label}</span>` : "–"}</td>
-        <td style="padding: 12px 16px; text-align: center; font-size: 13px;">${c.pm25 || "–"}</td>
-        <td style="padding: 12px 16px; text-align: center; font-size: 13px;">${c.pm10 || "–"}</td>
+        <td style="padding: 10px 6px; font-weight: 600; font-size: 14px;">${c.city}${isAlert ? " (alert)" : ""}</td>
+        <td style="${cell}">${cpcb ? `<span style="color: ${cpcb.color}; font-weight: 700;">${cpcb.label}</span>` : "-"}</td>
+        <td style="${cell}">${c.pm25 != null ? Math.round(c.pm25) : "-"}</td>
+        <td style="${cell}">${c.pm10 != null ? Math.round(c.pm10) : "-"}</td>
       </tr>`;
   }).join("");
 
-  const worstCity = cityData.reduce((a, b) => ((a.pm25 ?? -1) > (b.pm25 ?? -1) ? a : b), cityData[0]);
+  const reliable = cityData.filter((c) => !c.unreliable);
+  const worstCity = reliable.length ? reliable.reduce((a, b) => ((a.pm25 ?? -1) > (b.pm25 ?? -1) ? a : b), reliable[0]) : null;
   const advice = getHealthAdvice(worstCity);
 
   return `
@@ -101,34 +115,33 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
 <body style="margin: 0; padding: 0; background: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <div style="max-width: 600px; margin: 0 auto; background: white;">
     <!-- Header -->
-    <div style="background: linear-gradient(135deg, #1a3a2a, #16a34a); padding: 24px 32px; text-align: center;">
+    <div style="background: #166534; padding: 24px 16px; text-align: center;">
       <h1 style="color: white; margin: 0; font-size: 24px; letter-spacing: 1px;">JanVayu</h1>
       <p style="color: #bbf7d0; margin: 4px 0 0; font-size: 13px;">Daily Air Quality Digest</p>
     </div>
 
     <!-- Date & Alert Banner -->
-    <div style="padding: 20px 32px 0;">
+    <div style="padding: 20px 16px 0;">
       <p style="color: #6b7280; font-size: 13px; margin: 0;">${dateStr}</p>
       ${hasAlerts ? `
       <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
-        <strong style="color: #dc2626;">⚠️ Alert:</strong>
+        <strong style="color: #dc2626;">Alert:</strong>
         <span style="color: #991b1b;"> PM2.5 exceeds your alert level (${Math.round(thresholdPM25(subscriber))} µg/m³) in: ${alertCities.map(k => CITIES[k]?.name).join(", ")}</span>
       </div>` : `
       <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
-        <span style="color: #166534;">✓ All monitored cities are below your PM2.5 alert level (${Math.round(thresholdPM25(subscriber))} µg/m³)</span>
+        <span style="color: #166534;">All monitored cities are below your PM2.5 alert level (${Math.round(thresholdPM25(subscriber))} µg/m³)</span>
       </div>`}
     </div>
 
     <!-- AQI Table -->
-    <div style="padding: 20px 32px;">
+    <div style="padding: 20px 16px;">
       <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
         <thead>
           <tr style="background: #f9fafb;">
-            <th style="padding: 10px 16px; text-align: left; font-size: 12px; color: #6b7280; text-transform: uppercase;">City</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">US AQI</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">CPCB category</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">PM2.5 µg/m³</th>
-            <th style="padding: 10px 16px; text-align: center; font-size: 12px; color: #6b7280; text-transform: uppercase;">PM10 µg/m³</th>
+            <th style="padding: 8px 6px; text-align: left; font-size: 11px; color: #6b7280;">City</th>
+            <th style="padding: 8px 6px; text-align: center; font-size: 11px; color: #6b7280;">CPCB category</th>
+            <th style="padding: 8px 6px; text-align: center; font-size: 11px; color: #6b7280;">PM2.5<br>(&micro;g/m&sup3;)</th>
+            <th style="padding: 8px 6px; text-align: center; font-size: 11px; color: #6b7280;">PM10<br>(&micro;g/m&sup3;)</th>
           </tr>
         </thead>
         <tbody>
@@ -138,16 +151,16 @@ function buildEmailHTML(subscriber, cityData, alertCities) {
     </div>
 
     <!-- Health Advice -->
-    <div style="padding: 0 32px 20px;">
+    <div style="padding: 0 16px 20px;">
       <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 16px;">
         <strong style="color: #92400e; font-size: 13px;">Health effects (CPCB):</strong>
         <p style="color: #78350f; margin: 6px 0 0; font-size: 13px; line-height: 1.5;">${advice}</p>
-        <p style="color: #92400e; margin: 8px 0 0; font-size: 11px; line-height: 1.5;">CPCB category is India's national scale, applied here to the current PM2.5 reading. CPCB publishes health effects, not instructions. The WHO 24-hour PM2.5 guideline is 15 µg/m³. For practical steps, ask Ask JanVayu at janvayu.in.</p>
+        <p style="color: #92400e; margin: 8px 0 0; font-size: 11px; line-height: 1.5;">CPCB category is India's national scale, applied here to the current PM2.5 reading. CPCB publishes health effects, not instructions. The WHO 24-hour PM2.5 guideline is 15 µg/m³. For practical steps, use Ask JanVayu at janvayu.in.</p>
       </div>
     </div>
 
     <!-- CTA -->
-    <div style="padding: 0 32px 24px; text-align: center;">
+    <div style="padding: 0 16px 24px; text-align: center;">
       <a href="https://janvayu.in" style="display: inline-block; background: #16a34a; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
         View Full Dashboard →
       </a>
@@ -232,16 +245,16 @@ export default async () => {
       if (subCityData.length === 0) continue;
 
       const alertCities = subCityData
-        .filter((c) => c.pm25 != null && c.pm25 > thresholdPM25(sub))
+        .filter((c) => !c.unreliable && c.pm25 != null && c.pm25 > thresholdPM25(sub))
         .map((c) => c.key);
 
       const html = buildEmailHTML(sub, subCityData, alertCities);
-      const worstPM25 = Math.max(...subCityData.map((c) => c.pm25 ?? -1));
+      const worstPM25 = Math.max(...subCityData.filter((c) => !c.unreliable).map((c) => c.pm25 ?? -1), -1);
       const worstCat = worstPM25 >= 0 ? getCpcbPM25Category(worstPM25) : null;
       const hasAlerts = alertCities.length > 0;
 
       const subject = hasAlerts
-        ? `⚠️ PM2.5 Alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} above ${Math.round(thresholdPM25(sub))} µg/m³ — JanVayu Daily Digest`
+        ? `PM2.5 alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} above ${Math.round(thresholdPM25(sub))} µg/m³ — JanVayu Daily Digest`
         : worstCat
           ? `Air Quality Update: worst PM2.5 ${Math.round(worstPM25)} µg/m³, CPCB ${worstCat.label} — JanVayu Daily Digest`
           : `Air Quality Update — JanVayu Daily Digest`;

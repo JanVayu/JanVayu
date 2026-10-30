@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-10-28
 
 ### Fixed
+- Daily email: a station reading that is older than six hours, or where PM2.5 and PM10 are both implausibly low, is no longer shown. On 30 October the Delhi feed gave PM2.5 1 and printed "Good" the day after Delhi read 123. The row now says no reliable reading was available, and that city is left out of the worst-city line and the alert check.
+- Daily email: the column headings were set in capitals, which turned µg/m³ into MG/M³ (milligrams, 1,000 times too large). The table also ran past the edge of a phone and the AQI badge broke across two lines. The US AQI column and all emoji are gone, the table is sized for a 360px screen, and the colour and wording come from the CPCB category only.
+- Ask JanVayu: sentences that tie the live reading to a cause ("this reading reflects the stubble-burning season") are removed on questions where no cause source was loaded.
+- CPCB bulletin job: it closes its own older open pull requests when it opens a new one (each holds the same days and later ones), and asks for the merge. A pull request opened with the workflow token does not start the checks, so the merge only lands by itself if the repository allows that; otherwise the run warns that a person must approve and merge.
+
+### Fixed
 - Ask JanVayu: after the model answers, the code drops activity steps and groups that no US-EPA row for the figure contains ("air purifier" and "keep windows closed" below 150 µg/m³, "stay indoors" below 250, "pregnant women" at any level) and rewrites "children should stay indoors" to the 55-150 row's "play indoors". The instruction not to add steps had cut these down but not stopped them. English answers only. An answer that would be emptied is returned whole.
 
 ### Fixed
