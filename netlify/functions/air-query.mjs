@@ -1619,6 +1619,9 @@ Top 5 worst: ${top5}
     // known leak patterns server-side so they can never reach the user.
     if (text) {
       text = trimUnsourcedSteps(fixKnownSlips(text), [aqiResult.pm25, askedFigure(question)])
+      const causeSourced = promptOpts.winterQ || promptOpts.secondaryQ || promptOpts.ensoQ || promptOpts.ncapQ
+        || promptOpts.topical || promptOpts.multiSource || promptOpts.trend || promptOpts.village || promptOpts.ward;
+      if (!causeSourced) text = dropUnsourcedCause(text)
         .replace(/\*\*([^*\n]+)\*\*/g, "$1")   // **bold**
         .replace(/__([^_\n]+)__/g, "$1")        // __bold__
         .replace(/^#{1,6}\s+/gm, "");           // # headings
@@ -1679,6 +1682,21 @@ function trimUnsourcedSteps(text, figures) {
   return kept.length >= 40 ? kept : text;
 }
 
+// A live reading has no cause attached to it in anything JanVayu holds. The model still closes
+// answers with "This reading reflects the stubble-burning season and the build-up ahead of
+// Diwali" (seen on 30 October). Sentences that tie the current reading to a cause are dropped
+// on questions where no cause block was loaded; when one was (winter peaks, secondary particles,
+// NCAP, El Nino, an ordinary multi-source question) the sources give the cause and it stays.
+const READING_WORD = String.raw`(?:this|today'?s|the current|the live|the present)\s+(?:reading|level|concentration|figure|air|spike|pm\s?2\.5)`;
+const CAUSE_LINK = String.raw`(?:reflects?|due to|caused by|driven by|because of|result of|owing to|stems? from|linked to|is explained by)`;
+const CAUSE_WORD = String.raw`(?:stubble|crop[- ]?residue|burning|diwali|firecrackers?|post-?monsoon|winter|inversion|season|traffic|construction)`;
+const READING_CAUSE_RE = new RegExp(`${READING_WORD}[^.!?\\n]*\\b${CAUSE_LINK}\\b[^.!?\\n]*${CAUSE_WORD}`, "i");
+function dropUnsourcedCause(text) {
+  return text.split("\n").map((line) => line.split(/(?<=[.!?])\s+(?=[A-Z(])/)
+    .filter((sen) => !READING_CAUSE_RE.test(sen)).join(" "))
+    .filter((line, i, all) => line.trim() !== "" || (all[i - 1] ?? "x").trim() !== "").join("\n").trim() || text;
+}
+
 function fixKnownSlips(text) {
   return text.normalize("NFC")
     .replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "El Niño" : "El Nino"))
@@ -1689,5 +1707,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };

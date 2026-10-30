@@ -80,10 +80,23 @@ jobs:
           git add data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json
           git commit -m "Update: CPCB daily bulletins through $LAST"
           git push origin "$BRANCH"
+          # Each of these pull requests rewrites the same two files, so the newest holds every
+          # day the older ones do. Close the older open ones so a person sees one, not three.
+          for OLD in $(gh pr list --state open --limit 100 --json number,headRefName --jq '.[] | select(.headRefName | startswith("auto-cpcb/")) | .number'); do
+            gh pr close "$OLD" --comment "Superseded by the run for $LAST (branch $BRANCH), which holds the same days and the later ones." || true
+          done
           if ! gh pr create --base main --head "$BRANCH" \
                --title "Update: CPCB daily bulletins through $LAST" \
                --body "Days CPCB published since the last one in data/raw/cpcb-bulletins-2026.csv.gz, parsed by scripts/refresh-cpcb-bulletins.py, and the city-year summary rebuilt from them. A day is added only if the whole bulletin parsed with no missing serials. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"; then
             echo "::warning::Branch $BRANCH is pushed but the pull request was not opened (Settings > Actions > General > allow GitHub Actions to create pull requests). Open it from ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...$BRANCH"
+            exit 0
+          fi
+          # A pull request opened with the workflow token does not start the repository's
+          # checks, so a person has to approve them before it can merge. Asking for the merge
+          # here means it lands by itself when the repository allows that, and stays open with
+          # a warning when it does not, instead of waiting in silence.
+          if ! gh pr merge "$BRANCH" --squash --delete-branch; then
+            echo "::warning::The pull request for $LAST is open but was not merged. It needs a person to approve its checks and merge it, and CPCB data on the site stops at the last merged day until then."
           fi
 
       # The fetch step is allowed to fail so the days that did parse are still

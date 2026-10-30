@@ -44,3 +44,62 @@ test('a legacy record keeps the air-quality level it chose, converted from US AQ
 test('a record with no threshold at all falls back to 150', () => {
   assert.equal(thresholdPM25({}), 150);
 });
+
+import { assessReading, buildEmailHTML } from '../netlify/functions/daily-digest.mjs';
+
+// WAQI's time.s is the station's clock (IST). 08:00 IST is 02:30 UTC.
+const NOW = Date.UTC(2026, 9, 30, 2, 30, 0);
+
+test('a fresh, plausible reading is accepted', () => {
+  assert.equal(assessReading({ pm25: 69, pm10: 90, time: '2026-10-30 07:30:00' }, NOW).ok, true);
+});
+
+test('a reading older than six hours is held back', () => {
+  const r = assessReading({ pm25: 80, pm10: 90, time: '2026-10-29 20:00:00' }, NOW);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /six hours/);
+});
+
+test('PM2.5 and PM10 both near zero is held back, the 30 October Delhi case', () => {
+  const r = assessReading({ pm25: 1, pm10: 3, time: '2026-10-30 07:55:00' }, NOW);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /implausibly low/);
+});
+
+test('a genuinely clean day is not held back when PM10 is not near zero', () => {
+  assert.equal(assessReading({ pm25: 2, pm10: 25, time: '2026-10-30 07:55:00' }, NOW).ok, true);
+});
+
+test('a missing PM2.5 reading is held back', () => {
+  assert.equal(assessReading({ pm25: null, pm10: 40, time: '2026-10-30 07:55:00' }, NOW).ok, false);
+});
+
+const SUB = { email: 'x@example.com', cities: ['delhi', 'mumbai'], pm25_threshold: 150 };
+const CITIES_DATA = [
+  { city: 'Delhi', key: 'delhi', aqi: 5, pm25: 1, pm10: 3, unreliable: 'the reading is implausibly low' },
+  { city: 'Mumbai', key: 'mumbai', aqi: 158, pm25: 69, pm10: null, unreliable: null },
+];
+
+test('the email never upper-cases the unit, which would turn micrograms into milligrams', () => {
+  const html = buildEmailHTML(SUB, CITIES_DATA, []);
+  assert.doesNotMatch(html, /text-transform:\s*uppercase/);
+  assert.match(html, /&micro;g\/m&sup3;/);
+});
+
+test('the email carries no emoji and no US AQI column', () => {
+  const html = buildEmailHTML(SUB, CITIES_DATA, ['mumbai']);
+  assert.doesNotMatch(html, /\p{Extended_Pictographic}/u);
+  assert.doesNotMatch(html, /US AQI/);
+});
+
+test('an unreliable reading is stated, not shown as Good, and is not the worst city', () => {
+  const html = buildEmailHTML(SUB, CITIES_DATA, []);
+  assert.match(html, /No reliable reading today/);
+  assert.doesNotMatch(html, />Good</);
+  assert.match(html, /Mumbai is the worst-affected city/);
+});
+
+test('with no reliable reading at all the email says so', () => {
+  const html = buildEmailHTML(SUB, [CITIES_DATA[0]], []);
+  assert.match(html, /No city on your list had a reliable PM2\.5 reading today/);
+});

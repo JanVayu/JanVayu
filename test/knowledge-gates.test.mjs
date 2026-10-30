@@ -354,3 +354,23 @@ test('stay indoors and school closure survive at 250 and above, where that row s
   assert.match(out, /Stay indoors/);
   assert.match(out, /Schools should close/);
 });
+
+test('a sentence tying the live reading to a cause is dropped', () => {
+  const ans = "The current PM2.5 concentration in Delhi is 53 µg/m³.\n- CPCB category: Satisfactory.\n\nThis reading reflects the stubble-burning season and the build-up of pollutants ahead of Diwali, which can raise concentrations further. For a live map see janvayu.in/#map.";
+  const out = t.dropUnsourcedCause(ans);
+  assert.doesNotMatch(out, /stubble/i);
+  assert.doesNotMatch(out, /Diwali/);
+  assert.match(out, /53 µg\/m³/);
+  assert.match(out, /Satisfactory/);
+  assert.match(out, /janvayu\.in\/#map/);
+});
+
+test('sentences about causes that are not about the live reading are left alone', () => {
+  const s = "Crop-residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Winter is the worst season in the Indo-Gangetic Plain.";
+  assert.equal(t.dropUnsourcedCause(s), s);
+});
+
+test('an answer that would be emptied is returned whole', () => {
+  const only = "This reading reflects the stubble-burning season.";
+  assert.equal(t.dropUnsourcedCause(only), only);
+});
