@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026-10-28
 
+### Added
+- Reading List: three studies published 26 to 27 October 2026, each checked against its Crossref record (the list is now 69; BibTeX and RIS regenerated). Pulagam and Subramanian on AQI prediction from CPCB data; Sethi and others, an umbrella review of PM2.5 and type 2 diabetes; Sen and others on urinary 1-hydroxypyrene and mental health in Kolkata traffic wardens. Two further candidates were left out: an EV-adoption simulation with no air-quality outcome, and a Chicago emissions-inventory study with no Indian data.
+
 ### Fixed
 - Daily email: a station reading that is older than six hours, or where PM2.5 and PM10 are both implausibly low, is no longer shown. On 30 October the Delhi feed gave PM2.5 1 and printed "Good" the day after Delhi read 123. The row now says no reliable reading was available, and that city is left out of the worst-city line and the alert check.
 - Daily email: the column headings were set in capitals, which turned µg/m³ into MG/M³ (milligrams, 1,000 times too large). The table also ran past the edge of a phone and the AQI badge broke across two lines. The US AQI column and all emoji are gone, the table is sized for a 360px screen, and the colour and wording come from the CPCB category only.

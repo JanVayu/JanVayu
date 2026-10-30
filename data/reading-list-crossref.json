@@ -9151,6 +9151,81 @@
   "type": "journal-article",
   "volume": "8"
  },
+ "10.3389/fenvs.2026.1952221": {
+  "DOI": "10.3389/fenvs.2026.1952221",
+  "ISSN": [
+   "2296-665X"
+  ],
+  "URL": "https://doi.org/10.3389/fenvs.2026.1952221",
+  "article-number": "1952221",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "School of Computer Science Engineering and Information Systems, Vellore Institute of Technology",
+      "place": [
+       "Vellore, Tamil Nadu, India"
+      ]
+     }
+    ],
+    "family": "Pulagam",
+    "given": "Maheswari Devi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Computer Science Engineering and Information Systems, Vellore Institute of Technology",
+      "place": [
+       "Vellore, Tamil Nadu, India"
+      ]
+     }
+    ],
+    "family": "Subramanian",
+    "given": "Sumathy",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Environmental Science"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Ensemble tree-based machine learning models for data-driven AQI prediction"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
  "10.3389/fenvs.2026.1960286": {
   "DOI": "10.3389/fenvs.2026.1960286",
   "ISSN": [
@@ -10413,6 +10488,175 @@
   "type": "journal-article",
   "volume": "6"
  },
+ "10.3390/jvd5060046": {
+  "DOI": "10.3390/jvd5060046",
+  "ISSN": [
+   "2813-2475"
+  ],
+  "URL": "https://doi.org/10.3390/jvd5060046",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0003-0345-3876",
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Subharti Medical College, Swami Vivekanand Subharti University, Meerut 250005, India"
+     },
+     {
+      "name": "Department of Cardiometabolism, Nexoria Institute of Cardiometabolic Excellence (NICE), Vigyaved Healthcare, Dehradun 248001, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sethi",
+    "given": "Yashendra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4379-9265",
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Saint Vincent Hospital, Worcester, MA 01608, USA"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Kaka",
+    "given": "Nirja",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Subharti Medical College, Swami Vivekanand Subharti University, Meerut 250005, India"
+     },
+     {
+      "name": "Department of Cardiometabolism, Nexoria Institute of Cardiometabolic Excellence (NICE), Vigyaved Healthcare, Dehradun 248001, India"
+     }
+    ],
+    "family": "Singhal",
+    "given": "Saurabh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0000-7706-9928",
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Subharti Medical College, Swami Vivekanand Subharti University, Meerut 250005, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Vasudev",
+    "given": "Manvi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6103-8510",
+    "affiliation": [
+     {
+      "name": "Department of Medical-Surgical Sciences and Biotechnologies, Sapienza University of Rome, 04100 Latina, Italy"
+     },
+     {
+      "name": "IRCCS Maria Cecilia Hospital—GVM Care & Research, 48033 Cotignola, Italy"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Biondi-Zoccai",
+    "given": "Giuseppe",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Fortis C-DOC Center of Excellence for Diabetes, Metabolic Diseases and Endocrinology, New Delhi 110048, India"
+     },
+     {
+      "name": "National Diabetes Obesity and Cholesterol Foundation (N-DOC), New Delhi 110016, India"
+     },
+     {
+      "name": "Diabetes Foundation India, New Delhi 110016, India"
+     }
+    ],
+    "family": "Misra",
+    "given": "Anoop",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Vascular Diseases"
+  ],
+  "issue": "6",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "page": "46",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Association Between PM2.5 Exposure and Type 2 Diabetes Across the Cardiovascular–Kidney–Metabolic (CKM) Continuum (APEX-T2D): An Umbrella Review of Systematic Reviews and Meta-Analyses"
+  ],
+  "type": "journal-article",
+  "volume": "5"
+ },
  "10.3390/su15054209": {
   "DOI": "10.3390/su15054209",
   "ISSN": [
@@ -10639,6 +10883,437 @@
   ],
   "type": "journal-article",
   "volume": "18"
+ },
+ "10.3390/toxics14110945": {
+  "DOI": "10.3390/toxics14110945",
+  "ISSN": [
+   "2305-6304"
+  ],
+  "URL": "https://doi.org/10.3390/toxics14110945",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-9587-0057",
+    "affiliation": [
+     {
+      "name": "ICMR National Institute of Health Research, Bhubaneswar 751023, Odisha, India"
+     },
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sen",
+    "given": "Somnath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "funding-acquisition",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "project-administration",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6622-7695",
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Saha",
+    "given": "Indranil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "family": "Saha",
+    "given": "Asim",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Psychiatry, All India Institute of Medical Sciences Kalyani, Basantapur, Kalyani 741245, West Bengal, India"
+     }
+    ],
+    "family": "Basu",
+    "given": "Aniruddha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-8614-2920",
+    "affiliation": [
+     {
+      "name": "ICMR National Institute of Health Research, Bhubaneswar 751023, Odisha, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pattnaik",
+    "given": "Matrujyoti",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "family": "Bhowmik",
+    "given": "Kalyan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0003-9536-1406",
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Das",
+    "given": "Anirban",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0009-1173-7466",
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Dhar",
+    "given": "Suparna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "visualization",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "family": "Mukherjee",
+    "given": "Sovonlal",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "visualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     }
+    ],
+    "family": "Das",
+    "given": "Purnendu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-7717-5592",
+    "affiliation": [
+     {
+      "name": "ICMR National Institute of Health Research, Bhubaneswar 751023, Odisha, India"
+     },
+     {
+      "name": "Indian Council of Medical Research, Ansari Nagar, New Delhi 110018, Delhi, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pati",
+    "given": "Sanghamitra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Toxics"
+  ],
+  "issue": "11",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "page": "945",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Association Between 1-Hydroxypyrene and Common Mental Health Problems Among Urban Traffic Wardens in Kolkata City, India"
+  ],
+  "type": "journal-article",
+  "volume": "14"
  },
  "10.5194/acp-24-10279-2024": {
   "DOI": "10.5194/acp-24-10279-2024",
