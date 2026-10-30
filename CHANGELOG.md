@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-10-28
 
 ### Added
+- Resources: the CEEW and HEI issue brief on long-term PM trend methods (30 October 2026), listed as an institutional brief and not a peer-reviewed study; its PDF was unavailable, so none of its figures are quoted.
 - Reading List: three studies published 26 to 27 October 2026, each checked against its Crossref record (the list is now 69; BibTeX and RIS regenerated). Pulagam and Subramanian on AQI prediction from CPCB data; Sethi and others, an umbrella review of PM2.5 and type 2 diabetes; Sen and others on urinary 1-hydroxypyrene and mental health in Kolkata traffic wardens. Two further candidates were left out: an EV-adoption simulation with no air-quality outcome, and a Chicago emissions-inventory study with no Indian data.
 
 ### Fixed
