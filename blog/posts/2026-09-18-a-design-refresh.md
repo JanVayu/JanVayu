@@ -50,9 +50,9 @@ A reader found this, and found the earlier fault in the same post: the table pri
 
 Partway down the homepage there was a drawing called "How JanVayu works". It showed what we read on the left, what we do with it in the middle, and what you get on the right. It was the clearest thing on the site for anyone deciding whether to trust us.
 
-Every number on it was correct, and an automatic check confirmed that. What the check could not notice was a source we had never added. The drawing listed five live feeds and four satellite datasets. It left out CPCB's own daily bulletin, which we now hold as 2015 to 2026 (the first and last years partial) across 297 cities, and the measured station readings we check our maps against. Those are the two largest things we built this year. A reader using that drawing to decide what JanVayu is made of was looking at the 2026 version of a 2025 answer, with every figure on it accurate.
+Every number on it was correct. What it lacked was a source we had never added. The drawing listed five live feeds and four satellite datasets. It left out CPCB's own daily bulletin, which we now hold as 2015 to 2026 (the first and last years partial) across 297 cities, and the measured station readings we check our maps against. Those are the two largest things we built this year. A reader using that drawing to decide what JanVayu is made of was looking at the 2026 version of a 2025 answer, with every figure on it accurate.
 
-A missing source is not a wrong number, so nothing was going to flag it. We changed the drawing so it is now put together from our data each time the site is rebuilt, which means the list of what we read and what we produce is the actual list. The same drawing appears in our slide deck, and that copy had been drifting away from the homepage. Both now come from one source.
+We changed the drawing so it is now drawn from our data itself, which means the list of what we read and what we produce is the actual list. The same drawing appears in our slide deck, and that copy had been drifting away from the homepage. Both now come from one source.
 
 *Update, 2 October 2026: the homepage copy of this drawing was removed on 19 September; the slide-deck copy remains.*
 
@@ -62,7 +62,7 @@ The menu bar carried nine groups, which filled it edge to edge and gave a reader
 
 *Update, 2 October 2026: between 19 and 22 September the dropdown menus were replaced by an Index of all 58 panels plus the dashboard (59 destinations), with a filter, in the new bar.*
 
-Every one of the fifty-nine destinations the menus reached is still reachable. (The check records sixty-one in all, because it also counts two that only the mobile menu or a direct link reached. It records sixty-two today.) We did not want to take that on trust, so an automatic check now records what the menus can reach and stops the site being published if that set ever shrinks. We broke it deliberately to confirm it works.
+Every one of the fifty-nine destinations the menus reached is still reachable. (Counting two more that only the mobile menu or a direct link reached, there were sixty-one in all, and there are sixty-two today.) None of them can now be lost by accident: a change that would leave one unreachable does not go live.
 
 We also found a fault, and the fault is embarrassing. The dropdowns opened when you hovered over them and in no other way. Somebody using a keyboard could tab to a group, but nothing opened, so the fifty-two destinations inside a menu could not be reached at all. That had been true for a long time.
 
@@ -70,9 +70,9 @@ We also found a fault, and the fault is embarrassing. The dropdowns opened when 
 
 Several readers said the page flickered between the old look and the new one on refresh. We looked for a cause twice, found nothing, and said so.
 
-The cause was in the homepage itself. It carries a small copy of the styling so the top of the page can appear quickly, and that copy had drifted seventy-seven settings away from the real one: corner radii, shadows, centred text, a smaller headline, all frozen at the pre-refresh look. So the first paint drew the old design and the full styling then repainted the new one. That is what readers reported, and we had told them it was probably their browser's cache.
+The cause was in the homepage itself. To make the top of the page appear quickly, it carries a small copy of the design, and that copy had fallen seventy-seven settings behind: corner radii, shadows, centred text, a smaller headline, all frozen at the pre-refresh look. So the page appeared in the old design and then redrew itself in the new one. That is what readers reported, and we had told them it was probably their browser's cache.
 
-The same drift explains a complaint we failed to fix twice. The note under the headline was cut off mid-line, and both of our fixes changed the copy that loses. It now shows five whole lines, the last one fading. An automatic check now catches the two copies drifting apart, and it caught the next edit going out of step within the hour.
+The same drift explains a complaint we failed to fix twice. The note under the headline was cut off mid-line, and both of our fixes changed the copy that loses. It now shows five whole lines, the last one fading. The two copies are now kept in step, so the flicker should not come back.
 
 ## Two things that were wrong for everybody
 

@@ -12,7 +12,7 @@ JanVayu exists to hold others accountable with numbers, so our own numbers have 
 
 ## What we did
 
-We ran a **site-wide fact-check**. Automated agents pulled out every checkable statistic and every fixed scientific constant from the homepage, the data-heavy panels, the calculator code and the blog. They then **checked each one on the web against current primary sources**: the Lancet Countdown, IQAir's World Air Quality Report, the Air Quality Life Index, State of Global Air, WHO, CPCB, CREA and NASA. Each figure came back marked *current*, *stale*, *wrong*, *unsourced* or *unverifiable*.
+We ran a **site-wide fact-check**. With the help of AI tools we listed every checkable statistic and every fixed scientific constant on the homepage, the data-heavy panels, the calculators and the blog, and **checked each one against current primary sources**: the Lancet Countdown, IQAir's World Air Quality Report, the Air Quality Life Index, State of Global Air, WHO, CPCB, CREA and NASA. Each figure came back marked *current*, *stale*, *wrong*, *unsourced* or *unverifiable*.
 
 The tally: **around 80 figures checked, 47 confirmed current, and 33 that needed fixing.**
 
@@ -20,7 +20,7 @@ The tally: **around 80 figures checked, 47 confirmed current, and 33 that needed
 
 Our own homepage claimed India carries **"~70% of the global PM2.5 mortality burden."** That is false. India's toll is one of the world's two largest national tolls (State of Global Air 2024: India 2.1 million deaths, China 2.3 million, of about 8.1 million worldwide in 2021, all from air pollution), but it is roughly **a quarter** of that global total, not a majority.
 
-The error was also hidden. The corrected wording was in the page, but a small data file put the old "70%" back over it each time the page loaded, so the site looked fixed while still showing the wrong number. We fixed the data file, and we taught our weekly checker to read data files as well as the visible page.
+The error was also hidden. We had corrected the wording once, but the old "70%" came back each time the page loaded, so the site looked fixed to us while visitors still saw the wrong number. The page now shows the corrected figure, and our later checks look at every number as a visitor sees it.
 
 ## A sample of what else changed
 
@@ -37,9 +37,9 @@ The error was also hidden. The corrected wording was in the page, but a small da
 2. Keep two honest methods separate. India's air-pollution death toll is ~1.72 million from ambient PM2.5 (Lancet Countdown 2025) and ~2.1 million when household air pollution is counted (State of Global Air 2024). Both are true. We show both, each with its scope and year.
 3. Never invent. A number that cannot be verified is flagged, not guessed.
 
-## Every week from now on
+## Checking again
 
-A one-off audit goes stale, so the same check now runs **automatically every Monday** on the live site. It proposes its changes for a person to review before anything is altered. The full findings from this first pass are public in the repository ([`fact-check-2026-07.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07.md)), and every number we corrected carries its source.
+A one-off check goes stale, so we set the same check to run **every Monday** on the live site, with a person reviewing each proposed change before anything was altered. The [full findings from this first pass](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07.md) are public, and every number we corrected carries its source.
 
 *Update, 2 October 2026: the scheduled routines stopped after 8 September 2026 because credits ran out; the 2 October 2026 round was run by hand.*
 

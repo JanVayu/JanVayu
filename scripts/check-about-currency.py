@@ -52,7 +52,8 @@ def main():
     # file passes on the roadmap's own "Just shipped (vX)" string, so deleting
     # the entire history block still came back green. Same blind spot as a
     # substring test that matches in the wrong clause.
-    cut = html.find('Version History')
+    # Case-insensitive: the heading is written in sentence case.
+    cut = html.lower().find('version history')
     hist = html[cut:] if cut != -1 else ''
     if not hist:
         errs.append('no Version History card found in panels/about.html')

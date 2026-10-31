@@ -181,7 +181,7 @@
 
     <!-- FULL CHANGELOG -->
     <div class="card mt-2">
-        <div class="card-header"><span class="card-title"><span class="si si-sm si-article jv-t-accent-2"></span> Version History</span></div>
+        <div class="card-header"><span class="card-title"><span class="si si-sm si-article jv-t-accent-2"></span> Version history</span></div>
         <div class="card-body" style="max-height: 500px; overflow-y: auto;">
             <div style="font-family: var(--mono); font-size: 0.8rem; line-height: 1.9; color: var(--text-2);">
 
@@ -191,19 +191,19 @@
                     &bull; Delhi&rsquo;s 211 good-to-moderate days in 2026 reproduce from CPCB&rsquo;s bulletins to within a day. The years they were compared with were full-year totals; over the same dates 2026 still leads 2023 by 7 days, all of them from early October, and 148 of its days were Moderate, above the national 24-hour standard.<br>
                     &bull; Every page and blog post now has a link preview and a share bar, and blog posts have their own pages that previewers and search engines can read.<br>
                     &bull; Numbers that were not data were removed: PM2.5 worked backwards from AQI, a demonstration dataset, and charts drawn from made-up values.<br>
-                    &bull; The Reading List&rsquo;s link to a Zotero library, last edited in May and holding 21 of the list&rsquo;s 54 studies, is replaced by a BibTeX and RIS download generated from the list and each paper&rsquo;s Crossref record. A check fails if the two disagree.<br>
-                    &bull; Third-party code on the docs and blog readers is pinned with integrity hashes, and the text-layout library is served from this site.
+                    &bull; The Reading List&rsquo;s link to a Zotero library, last edited in May and holding 21 of the list&rsquo;s 54 studies, is replaced by a BibTeX and RIS download built from the list itself and each paper&rsquo;s Crossref record, so it always matches the list.<br>
+                    &bull; The documentation and blog pages now load only the exact versions of outside code we have tested, and one of those libraries is now served from this site.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.230&ndash;232, 22 September 2026</div>
                     <strong>One look across the site, and three faults found on the way</strong><br>
-                    &bull; All nineteen pages now share one stylesheet. Eighteen of them each had a private copy of the colour names fixed to light, so none followed the theme control and a colour change reached only one page. A check now fails if a page drops out.<br>
+                    &bull; All nineteen pages now share one look. Eighteen of them had their colours fixed to the light theme, so they ignored the theme control.<br>
                     &bull; The theme you choose is now remembered. Before, the toggle set a value that was lost on the next click, and the docs and blog each kept a separate preference behind their own button. There is one now.<br>
                     &bull; The pollutant pages were inventing their numbers. For every pollutant except PM2.5 the live table printed a random number between half and seven-tenths of the city&rsquo;s AQI, under a heading carrying a real unit, redrawn on every page load. They now show each pollutant&rsquo;s own sub-index, named as a sub-index, for the cities that report it.<br>
-                    &bull; Six of our data functions reported a scale as a concentration. WAQI gives a US-EPA sub-index, not &micro;g/m&sup3;. Ask JanVayu&rsquo;s reply said &ldquo;PM2.5 160 &micro;g/m&sup3;, 32&times; the WHO guideline&rdquo; where the true figures were 73 and about 15&times;, wrong by a factor of two and toward alarm.<br>
-                    &bull; A fix did not reach the people who use the site most. A changed file kept its old address and the saved copy on a visitor&rsquo;s device never re-checked it, so returning visitors kept the broken version while everyone else got the fix. Two checks now cover that, because the one we had could only see whether the addresses agreed with each other.<br>
-                    &bull; Colour contrast is now checked on every page, not just one. The first run of the wider check found 111 failures, and 24 of them had been live for some time.
+                    &bull; Six of our live data feeds reported an index as if it were a concentration. WAQI gives a US-EPA sub-index, which is a score on a scale and carries no unit. Ask JanVayu&rsquo;s reply said &ldquo;PM2.5 160 &micro;g/m&sup3;, 32&times; the WHO guideline&rdquo; where the true figures were 73 and about 15&times;, wrong by a factor of two and toward alarm.<br>
+                    &bull; A fix did not reach the people who use the site most. The copy of the site saved on a returning visitor&rsquo;s device was never refreshed, so they kept the broken version while everyone else got the fix. Returning visitors now get each update on their next visit.<br>
+                    &bull; Text too faint to read against its background was fixed across every page: 111 places in all, 24 of which had been live for some time.
                 </div>
 
                 <div class="jv-item-divided">
@@ -213,15 +213,15 @@
                     &bull; There are five situations, chosen for India. The first version asked about a child, asthma and going for a run, which treats being outdoors as a choice. For an outdoor worker at very poor air the answer is not &ldquo;stay in&rdquo;. It is a fitted N95, shorter shifts and indoor breaks, and at this level it is a workplace hazard and the employer&rsquo;s duty.<br>
                     &bull; The role picker no longer stands in front of the homepage. All twelve roles are still one tap away from the header switcher.<br>
                     &bull; Simple language mode was doing nothing. 199 of the site&rsquo;s 201 plain-language strings live in panel markup, and opening a panel re-applied the language but not the mode, so the button changed nothing a visitor could see. It works now.<br>
-                    &bull; Nine menus became six, with all 61 destinations kept. A check fails if the count ever shrinks.<br>
-                    &bull; The page was showing two designs at once. The copy of the stylesheet built into the page had drifted 77 properties from the real one, so the first paint showed the old design and then repainted in the new one. A check now compares the two on every push.
+                    &bull; Nine menus became six, with all 61 destinations kept.<br>
+                    &bull; The page was showing two designs at once: it opened in the old design for a moment and then redrew itself in the new one. It now opens in the right design.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.204&ndash;206, 18 September 2026</div>
                     <strong>The site is redesigned, and a diagram that could not tell you it was out of date</strong><br>
                     &bull; Cards now have a hard edge underneath instead of a soft grey shadow. The role picker, the first screen anyone sees, reads left to right in three columns, and all twelve roles fit on one screen.<br>
-                    &bull; The homepage diagram was accurate and out of date at the same time. Every figure on it was right, and a check was keeping them right. What had gone stale was the list: it named none of CPCB&rsquo;s eleven-year bulletin and none of the measured station record, which are the two largest things we hold. It is now generated from the data files themselves, in all three places it appears, so the list cannot fall behind the site again.<br>
+                    &bull; The homepage diagram was accurate and out of date at the same time. Every figure on it was right. What had gone stale was the list: it named none of CPCB&rsquo;s eleven-year bulletin and none of the measured station record, which are the two largest things we hold. It is now drawn from the data itself, in all three places it appears, so it stays in step with what the site holds.<br>
                     &bull; The comparison table was cut off on a laptop, with 133 pixels of it off-screen behind a scrollbar that gave no hint. Wide tables now extend beyond the text column.<br>
                     &bull; Ask JanVayu now says where it is not the best answer: Hawa Ka Hisab for Delhi and for anything current, OpenAQ for raw station data, CREA for NCAP analysis, and CPCB&rsquo;s own portal for the official record.<br>
                     &bull; We wrote down a decision instead of taking it. CREA&rsquo;s measurements would bring our 44-city trends past 2024, but we are not joining the two series. CREA filters outliers, so it runs lower, and on Hyderabad the shift is 192% of that city&rsquo;s entire annual trend, in the direction of improvement.
@@ -231,8 +231,8 @@
                     <div class="jv-item-title">v26.6.187&ndash;203, 17&ndash;18 September 2026</div>
                     <strong>CPCB&rsquo;s own bulletin becomes a series, and four things we got wrong in public</strong><br>
                     &bull; Eleven years of the government&rsquo;s daily AQI bulletin, 300 cities, 2015 to 2026. The Accountability panel shows days in each official category per city per year, with the number of monitors behind each figure printed beside it. We read 2026 from CPCB&rsquo;s published PDFs ourselves; 2015&ndash;2025 comes from the UrbanEmissions extraction. On three 2025 dates checked city by city, the two agree on the AQI and the station count for all 671 city-days they share. The main finding is that in CPCB&rsquo;s own 2024 bulletin, <strong>204 of 264 cities had an official citywide figure from a median of exactly one monitor</strong>.<br>
-                    &bull; A sentence about Delhi was wrong twice over, in four places. Our own metadata said Delhi was &ldquo;the only city never thin&rdquo; and showed no trend. Three cities are never thin, and Delhi&rsquo;s own monitor count grew from 5 to 43, which makes it the worst possible example of a stable instrument. The two counts quoted beside it compared unequal denominators, 136 of 235 reported days against 157 of 366: as counts they look like a rise, as rates they are a fall. It had never been on screen, which is why nobody read it. Drawing the panel is what found it.<br>
-                    &bull; Reading the bulletin dropped a city on the 21st of every month. Every page header carries the day of the month as a bare number, and page two begins near serial 21, so the reader matched the header instead of the row. It also cost a city from the very check used when the reader first shipped. A test now covers every day of the month and every page break.<br>
+                    &bull; A sentence about Delhi was wrong twice over, in four places. Our own description of the data said Delhi was &ldquo;the only city never thin&rdquo; and showed no trend. Three cities are never thin, and Delhi&rsquo;s own monitor count grew from 5 to 43, which makes it the worst possible example of a stable instrument. The two counts quoted beside it compared unequal denominators, 136 of 235 reported days against 157 of 366: as counts they look like a rise, as rates they are a fall. It had never been shown on screen, and drawing it as a chart is what showed the error.<br>
+                    &bull; Our reading of the bulletin dropped one city on the 21st of every month, because the date printed in each page header was mistaken for a row of the table. That city is now counted on every date.<br>
                     &bull; We compared ourselves with the other Indian air-quality sources, and corrected the comparison. We had claimed no other Indian source publishes weather-normalised air quality. <a href="https://hawakahisab.in" target="_blank" rel="noopener">Hawa Ka Hisab</a>, published by Ajay Maken MP, has done it daily for Delhi since July, and for Delhi it is better than ours. We already cited the site as a check on our history and had never looked at what else it published.<br>
                     &bull; A comparison table overprinted itself on a phone. In 34 of 170 cells a column label printed on top of the row beneath it. A reader on a phone found it.
                 </div>
@@ -244,7 +244,7 @@
                     &bull; &ldquo;Was it policy, or was it the wind?&rdquo; now has an answer for 44 cities, not one. In September the honest answer was that removing the weather effect was blocked on data access, and it no longer is. Across 2018&ndash;2024, <strong>33 cities are improving once weather is removed and 11 are not</strong>. The steepest real falls are Meerut &minus;14.6, Varanasi &minus;14.2 and Lucknow &minus;14.0 &micro;g/m&sup3; a year. Getting worse with nothing to blame on the weather: Chandigarh +3.1, Gwalior +2.4, Mumbai +0.8. What is left after weather is not proof that policy caused it, because emissions, fuel mix and construction all sit inside it.<br>
                     &bull; Nine peer-reviewed papers joined the Reading List, taking it from 33 to 42, each checked against Crossref first. Two arrived with DOIs that resolve to nothing and were held. One arrived with a real DOI attached to an entirely different paper, which a DOI check passes and only reading the abstract catches.<br>
                     &bull; We had to correct two numbers about ourselves. The homepage advertised 29 peer-reviewed studies while the list held 33, and had been stale since July. And we recorded the XKDR archive as running to March 2026, which is what it reports and is badly misleading: CPCB&rsquo;s feed into it stops on <strong>1 September 2025</strong>, and the months after are two US Embassy monitors. A maximum date is not a coverage claim.<br>
-                    &bull; Three blog posts were live and missing from the blog&rsquo;s own sidebar, two of them for three days. Publishing a post updated the homepage list, and nothing forced anyone to touch the sidebar. The build now fails when the two disagree.
+                    &bull; Three blog posts were live and missing from the blog&rsquo;s own sidebar, two of them for three days. The sidebar now lists every post the homepage lists.
                 </div>
 
                 <div class="jv-item-divided">
@@ -253,7 +253,7 @@
                     &bull; <a href="#" onclick="showPanel('airshed');return false;">Your Airshed or Your Town</a> is a new panel. Across <strong>785 districts</strong>, <strong>89% of the variation</strong> in annual PM2.5 lies between states rather than within them, so which state you are in tells you more about the air than which district. Pick yours and read it against its state median. The figure names no cause: a district below its state median is not thereby well governed.<br>
                     &bull; <strong>43 years of PM2.5 for 783 districts, 1980 to 2022</strong>, annual and for four seasons, from <a href="https://doi.org/10.5194/essd-16-3565-2024" target="_blank" rel="noopener">LongPMInd</a> (Wang et al., <em>Earth System Science Data</em>, 2024; CC BY 4.0), a peer-reviewed reconstruction on a grid of about 10 km. New Delhi runs flat near 55 &micro;g/m&sup3; through the 1990s, climbs from 1999 and levels off near 90; in winter it goes from 64 to 128. It is a model-based reconstruction, because India had almost no continuous monitoring before the 2010s, and it cannot be subtracted from the 2024 satellite layer, which is a different product at a different resolution. The panel says both, above the chart.<br>
                     &bull; <a href="https://hawakahisab.in/" target="_blank" rel="noopener">&#2361;&#2357;&#2366; &#2325;&#2366; &#2361;&#2367;&#2360;&#2366;&#2348; / Hawa Ka Hisab</a> joined the Janhit Partners. It publishes a daily accountability cut on Delhi and NCR air, by Ajay Maken, MP (Rajya Sabha), on CPCB data compiled by CREA. It removes the weather effect, which we did not yet (update, 17 September 2026: we now do so for 44 cities). The entry names its publisher plainly.<br>
-                    &bull; The monthly air rebuild had never once run. The current-year district layer is described on the map as rebuilt on the 3rd of each month, and its first scheduled run failed on a folder the script never creates. Also fixed: the Reddit feed had been returning nothing while the health check reported it healthy, the photo list had gone stale against the gallery, and a month of link audits were unreadable behind the same two false positives.
+                    &bull; The current-year district layer, which the map says is refreshed on the 3rd of each month, had never been refreshed. It now is. Also fixed: the Reddit feed had been showing nothing while we recorded it as working, and the photo gallery had fallen behind.
                 </div>
 
                 <div class="jv-item-divided">
@@ -262,7 +262,7 @@
                     &bull; The map can now answer &ldquo;what about <em>this</em> year?&rdquo; Every satellite air figure is the 2024 annual mean, because 2024 is the newest year the product has published. There is now a second district-level layer from <strong>CAMS</strong>, the European atmospheric model, which publishes continuously and so reaches 2026. The two agree on spatial pattern where they overlap (r = 0.910), with CAMS reading low by a steady amount. So it is bias-corrected on their shared 2024 and held out to check the fit (RMSE 5.76 &micro;g/m&sup3;). It sits beside the satellite numbers and is not blended into them.<br>
                     &bull; Five peer-reviewed papers joined the Reading List, each checked against Crossref. A paper that had been listed twice was also tidied, and the reproductive-health card gained an India-specific causal citation.<br>
                     &bull; Three social feeds were carrying things that were not citizen voices. Instagram was publishing its own error messages as posts, Reddit was carrying airline news, and YouTube was carrying Canadian wildfire smoke. All three now filter to Indian air quality or show nothing.<br>
-                    &bull; The test that grades Ask JanVayu&rsquo;s answers was scoring a perfect 27/27 while grading almost nothing. It now grades properly and runs on a schedule instead of when someone remembers.
+                    &bull; Our test of Ask JanVayu&rsquo;s answers had been passing it while checking almost nothing. It now checks the answers properly, on a regular schedule.
                 </div>
 
                 <div class="jv-item-divided">
@@ -271,7 +271,7 @@
                     &bull; PM2.5 is now the headline everywhere. A conference criticism pushed us there, and a fair one: AQI is a unitless index reporting only its worst pollutant, while India&rsquo;s NAAQS limits and the health studies are written in &micro;g/m&sup3; of individual pollutants (PM2.5 for most health evidence; NCAP&rsquo;s targets are for PM10). Decks, dashboard and section copy now lead with PM2.5, and same-day AQI alerts are deliberately unchanged. New post: <a href="/blog/#/posts/2026-08-09-why-pm25-not-aqi" target="_blank" rel="noopener">Why We Lead With PM2.5, Not AQI</a>.<br>
                     &bull; <a href="/blog/#/posts/2026-08-09-how-to-read-the-map" target="_blank" rel="noopener">How to Read the JanVayu Map</a> is a reader&rsquo;s manual. It covers the two timescales, how to find your place, what each of the nine measures says, and what the map cannot tell you. Both new posts carry hand-drawn diagrams that scale on a phone.<br>
                     &bull; Field Testimony grew from 142 to 250 quotes across <strong>107 cities and 14 languages</strong> (Nepali is new). Field-collected quotes are stamped with their collection date and mode and attributed exactly as each speaker asked. Code-mixed speech is badged as spoken, so Hinglish stays Hinglish.<br>
-                    &bull; Reddit voices work again. Reddit&rsquo;s JSON API now refuses data-centre addresses, so the feed reads its public Atom feed instead (update, 5 September 2026: Reddit now rate-limits the Atom feed from data-centre addresses too, so the section falls back to live subreddit searches). X/Twitter was removed instead of being left as an empty tab pretending to be a feed.
+                    &bull; Reddit voices work again, after Reddit blocked the way we had been reading them (update, 5 September 2026: Reddit has since limited the new route too, so the section now shows live subreddit searches). X/Twitter was removed instead of being left as an empty tab pretending to be a feed.
                 </div>
 
                 <div class="jv-item-divided">
@@ -280,7 +280,7 @@
                     &bull; The separate ward map was folded into the main atlas, which now covers <strong>every administrative level in India</strong>: states, districts, sub-districts, gram panchayats, villages, urban local bodies and wards, 983,149 areas in all.<br>
                     &bull; There are five measures instead of one: annual PM2.5 (satellite, ~1 km), surface heat (Landsat), tree cover, green cover and built-up share (ESA WorldCover), plus a <strong>seasonal layer</strong> showing when the air is worst in each place. Every level is scored, villages included.<br>
                     &bull; Ask JanVayu answers land and heat questions, using per-district village summaries for heat, tree, green and built-up cover and the four seasons, each labelled with its own source and year.<br>
-                    &bull; Duplicate urban local bodies were merged, and a fault that had left the map&rsquo;s Schools and Health buttons silently dead was fixed.
+                    &bull; Duplicate urban local bodies were merged, and the map&rsquo;s Schools and Health buttons, which had stopped working, work again.
                 </div>
 
                 <div class="jv-item-divided">
@@ -307,15 +307,14 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.68&ndash;69, 15 July 2026</div>
                     <strong>Accessibility sweep (WCAG 2.1 AA)</strong><br>
-                    &bull; An automated accessibility tester was run against the live panels. We labelled 12 form controls, underlined links inside sentences (for colour-blind readers), labelled the last unlabelled chart, and made status-badge colours follow the light or dark theme so they meet contrast in both. A dark-theme contrast pass is tracked separately.
+                    &bull; We tested the panels for readers who use screen readers or a keyboard, or who cannot tell some colours apart. We labelled 12 form controls, underlined links inside sentences (for colour-blind readers), labelled the last unlabelled chart, and made status-badge colours follow the light or dark theme so they meet contrast in both. A dark-theme contrast pass is tracked separately.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.57&ndash;67, 15 July 2026</div>
                     <strong>Faster loading and housekeeping</strong><br>
                     &bull; The home page fell from about 1.59 MB to about 0.92 MB (about 42%), which helps on slow mobile connections. The Resources, Legal, About, Citizen Voices, Testimony and Learning Games panels and the map styling now load only when you open them, and then stay cached. Partner logos are about 80 KB lighter across the Janhit Partners section, with the same look.<br>
-                    &bull; The long version log at the top of the About panel was replaced by a short description of what JanVayu is. The scrollable Version History below is now the single changelog, brought current through v26.6.56.<br>
-                    &bull; Behind the scenes, the code that decides how the site&rsquo;s data services answer was merged into one place, with no visible change.
+                    &bull; The long version log at the top of the About panel was replaced by a short description of what JanVayu is. The scrollable version history below is now the single changelog, brought current through v26.6.56.
                 </div>
 
                 <div class="jv-item-divided">
@@ -329,9 +328,9 @@
                     <strong>Push alerts, 115+ cities, an Ask JanVayu clean-up, accessibility</strong><br>
                     &bull; Web Push notifications send real AQI alerts that arrive even when JanVayu is closed. They are anonymous and need no account.<br>
                     &bull; More than 115 cities can now be selected. About 33 core cities load live and the rest are fetched on demand.<br>
-                    &bull; The page&rsquo;s styling moved into a separate file that is cached across visits, so pages are smaller.<br>
+                    &bull; Pages are smaller and load faster on a return visit.<br>
                     &bull; Ask JanVayu now answers in English by default, gives shorter answers in clean plain text, and follows firm rules to stay non-partisan and never invent a figure.<br>
-                    &bull; An automated WCAG 2.1 AA sweep cleared every actionable violation (86 to 0).
+                    &bull; 86 accessibility faults found in a test against the WCAG 2.1 AA standard were fixed.
                 </div>
 
                 <div class="jv-item-divided">
@@ -347,8 +346,7 @@
                     <div class="jv-item-title">v26.6.40&ndash;43, 1&ndash;13 July 2026</div>
                     <strong>A citation corrected, fresh research and testimonies</strong><br>
                     &bull; The causal-inference (difference-in-differences) PM2.5&ndash;mortality study is <strong>Jaganathan et al. 2024</strong>. It had been mis-attributed to &ldquo;Krishna&rdquo;, and is corrected across the site.<br>
-                    &bull; Routine software updates were made behind the scenes, along with a root-cause fix to the weekly link audit, which now sends browser headers.<br>
-                    &bull; The Reading List grew to <strong>29 peer-reviewed papers</strong> (forecasting, sensing, kidney and occupational health), and CREA&rsquo;s secondary-PM2.5 finding was added.<br>
+                                        &bull; The Reading List grew to <strong>29 peer-reviewed papers</strong> (forecasting, sensing, kidney and occupational health), and CREA&rsquo;s secondary-PM2.5 finding was added.<br>
                     &bull; There are <strong>34 new citizen testimonies</strong> (142 across 13 languages) and June&ndash;July curated highlights.
                 </div>
 
@@ -357,7 +355,7 @@
                     <strong>Ward-Level Atlas and Urban Heat Island</strong><br>
                     &bull; A new <a href="#" onclick="loadPanel('ward-map');return false;">&ldquo;How Polluted Is Your Ward?&rdquo;</a> atlas colours every municipal ward across <strong>14 cities</strong>, with a four-layer toggle: live PM2.5, heat (Landsat), green cover and built-up (ESA WorldCover).<br>
                     &bull; A new Urban Heat Island panel shows the air&ndash;heat link. There are per-ward share cards, and Ask JanVayu now answers ward-level questions.<br>
-                    &bull; The Reading List was seeded with 21 peer-reviewed papers, and routine maintenance was done (Node 22, CI, link audit).
+                    &bull; The Reading List opened with 21 peer-reviewed papers.
                 </div>
 
                 <div class="jv-item-divided">
@@ -371,8 +369,8 @@
                     &bull; The City Policy Tracker is an 8-city NCAP target dashboard with expenditure tables, a government action timeline and a public feedback section.<br>
                     &bull; The Legal Framework panel grew to include state-wise court rulings (8 regions), 5 key legal rights and a 5-step citizen recourse guide with a template letter.<br>
                     &bull; Citizen/Activist was split into two roles, making 12. Women &amp; Air Quality became Women&rsquo;s Health.<br>
-                    &bull; A menu audit made 17 label fixes (the RTI footer link, cryptic labels, mismatches).<br>
-                    &bull; Other fixes: 8 grid fixes and 2 table wraps, Rankings table formatting and loading, and 9 broken icons replaced.<br>
+                    &bull; 17 menu labels were made clearer, including the RTI link in the footer.<br>
+                    &bull; Other fixes: layout fixes in 8 places, two tables that now wrap on a narrow screen, the Rankings table&rsquo;s formatting and loading, and 9 broken icons replaced.<br>
                     &bull; Blog: &ldquo;The May 26 Overhaul: 21 Fixes in One Day&rdquo;. The walkthrough deck was updated (65 slides).
                 </div>
 
@@ -386,10 +384,10 @@
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.21, 26 May 2026</div>
-                    <strong>Seven behind-the-scenes systems to keep the site fresh</strong><br>
-                    &bull; The version number, the sitemap (with real last-changed dates) and the key dashboard figures (such as 1.72M deaths and $339.4B cost) now each come from a single source and update across the site automatically.<br>
-                    &bull; A daily check tests all 5 live data feeds and reports each as healthy, stale or broken. A separate check flags English terms that have gone stale in the translated docs.<br>
-                    &bull; CPCB stations, NCAP data and IQAir annual figures moved into an editable reference file that the site reads. The Reading List now pulls from the public Zotero library, refreshed every 6 hours.
+                    <strong>Headline figures that agree everywhere</strong><br>
+                    &bull; The key dashboard figures (such as 1.72M deaths and $339.4B cost) are now stated once and appear the same everywhere on the site.<br>
+                    &bull; Each of the 5 live data feeds is now tested daily and marked as healthy, stale or broken.<br>
+                    &bull; The Reading List was linked to the public Zotero library (since replaced by a download built from the list itself, in v26.6.240).
                 </div>
 
                 <div class="jv-item-divided">
@@ -402,19 +400,19 @@
                     &bull; The menus were reorganised from data type to intent. Before: Data &amp; Health (5) | Monitoring (7) | Accountability (8) | Action (7) | Resources (16). Now: <strong>My Air (7)</strong> | City Data (6) | Health &amp; Trends (6) | Accountability (8) | Take Action (8) | Resources (8). &ldquo;My Air&rdquo; puts personal tools first (Ask AI, Should I Go Outside, Alerts, School Closures, calculators). All 43 panels were kept.<br>
                     &bull; Renamed: Hyperlocal to My Neighbourhood, Policy Effectiveness to Policy Tracker, Research Library to Reading List, and the Zotero link to Full Bibliography (Zotero).<br>
                     &bull; Every Ask JanVayu answer now has thumbs up and thumbs down buttons. The votes are stored on the device to track accuracy.<br>
-                    &bull; The city bar grew from 10 to 33 cities: every city the backend supports now shows as a scrollable chip.<br>
+                    &bull; The city bar grew from 10 to 33 cities: every city with live data now shows as a scrollable chip.<br>
                     &bull; Menu labels and group names were updated in English, Hindi, Tamil, Marathi and Bengali.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.19, 20 May 2026</div>
                     <strong>In-page Ask JanVayu widget refreshed</strong><br>
-                    &bull; A user pointed to a screenshot of the in-page Ask JanVayu panel still saying &ldquo;in English or Hindi&rdquo; with no example questions. The previous release had updated only the standalone <code>/ask/</code> app, and the in-page widget is a separate surface that was missed.<br>
-                    &bull; The section intro now carries the full v26.6.x capability statement, with the 10 languages named: English, हिन्दी, தமிழ், বাংলা, मराठी, తెలుగు, ગુજરાતી, ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ.<br>
+                    &bull; A user pointed to a screenshot of the in-page Ask JanVayu panel still saying &ldquo;in English or Hindi&rdquo; with no example questions. The previous release had updated only the standalone <code>/ask/</code> app and missed the panel on the main site.<br>
+                    &bull; The panel&rsquo;s introduction now says what Ask JanVayu can do, with the 10 languages named: English, हिन्दी, தமிழ், বাংলা, मराठी, తెలుగు, ગુજરાતી, ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ.<br>
                     &bull; 10 example questions were added in a green box. Tapping one loads it into the input without sending it, so people can change city or language first.<br>
                     &bull; A language dropdown in the form lets people pick the answer language from all 10.<br>
-                    &bull; &ldquo;How it works&rdquo; was rewritten to describe the 4 data fetches (WAQI live, WAQI bounds, Sensor.Community, IQAir cached), the 7 calculators, the 6 RTI templates, the source-citation requirement and the India-default framing.<br>
-                    &bull; The chosen language is now sent with each question, so the answer comes back in that language.
+                    &bull; &ldquo;How it works&rdquo; now describes the four data sources it reads (WAQI&rsquo;s nearest station, WAQI&rsquo;s stations across the city, Sensor.Community, and IQAir annual figures), the 7 calculators, the 6 RTI templates, the rule that every figure carries its source, and the India-wide starting point.<br>
+                    &bull; Answers now come back in the language you choose.
                 </div>
 
                 <div class="jv-item-divided">
@@ -423,25 +421,25 @@
                     &bull; User feedback: <em>"I am not seeing any overlap or instruction with types of questions to ask. The explanation for what Ask JanVayu does is the same. Why only English and Hindi?"</em> All three were fixed.<br>
                     &bull; The welcome subtitle was rewritten in all 10 languages: <em>"Live AQI · health &amp; exposure calculators · city rankings &amp; trends · source apportionment · RTI drafts · multi-source reliability checks. Every answer cites a primary source."</em><br>
                     &bull; Suggestion chips went from 7 to 10, showing the newer abilities (rankings, RTI drafting, apportionment, trends, multi-source, cigarette equivalence, migration calculator).<br>
-                    &bull; Five new languages were added: Telugu (తె), Gujarati (ગુ), Kannada (ಕ), Malayalam (മ) and Punjabi (ਪੰ). That makes <strong>10 languages</strong>, covering ~95% of Indian mother-tongue speakers. <em>[Correction, 2 October 2026: the nine Indian languages cover about 85% of Indian mother-tongue speakers (Census of India 2011, Table C-16: 84.7% of 1,210,854,977 persons)]</em> The language-pinning instruction now works for all 10.
+                    &bull; Five new languages were added: Telugu (తె), Gujarati (ગુ), Kannada (ಕ), Malayalam (മ) and Punjabi (ਪੰ). That makes <strong>10 languages</strong>, covering ~95% of Indian mother-tongue speakers. <em>[Correction, 2 October 2026: the nine Indian languages cover about 85% of Indian mother-tongue speakers (Census of India 2011, Table C-16: 84.7% of 1,210,854,977 persons)]</em> Answers stay in the chosen language for all 10.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.17, 20 May 2026</div>
                     <strong>Two bugs found by live testing of the new Ask JanVayu abilities</strong><br>
-                    &bull; Ranking answers lost the city names. The rankings service returns each city under one field name and the code read another, so the model wrote &ldquo;A city with PM2.5 174 &micro;g/m&sup3;&rdquo; instead of &ldquo;Lucknow (PM2.5 174 &micro;g/m&sup3;)&rdquo;. This is fixed.<br>
-                    &bull; An empty reply from the language model returned a useless &ldquo;No response generated.&rdquo; The fallback now shows the live data, the error message and a retry hint.<br>
-                    &bull; Verified: 8 queries end to end against the live service: live AQI, station count, ranking (now with names), national and topical (low-cost sensors), migration, RTI, apportionment, multi-source spread, cigarette equivalence. All returned useful, sourced answers. <em>[Correction, 2 October 2026: nine queries are listed, so the count should read 9, not 8]</em>
+                    &bull; Ranking answers lost the city names. The rankings were being read wrongly, so answers said &ldquo;A city with PM2.5 174 &micro;g/m&sup3;&rdquo; instead of &ldquo;Lucknow (PM2.5 174 &micro;g/m&sup3;)&rdquo;. This is fixed.<br>
+                    &bull; When the AI gave no reply, readers saw only &ldquo;No response generated.&rdquo; They now see the live data, what went wrong and a suggestion to try again.<br>
+                    &bull; We tested 8 kinds of question on the live site: live AQI, station count, ranking (now with names), national and topical (low-cost sensors), migration, RTI, apportionment, multi-source spread, cigarette equivalence. All returned useful, sourced answers. <em>[Correction, 2 October 2026: nine queries are listed, so the count should read 9, not 8]</em>
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.16, 20 May 2026</div>
                     <strong>Ask JanVayu cross-checks several sources and flags divergence</strong><br>
-                    &bull; This was the final phase of the Ask JanVayu upgrade. It closes the &ldquo;calibrated across multiple sources&rdquo; loop.<br>
+                    &bull; This completed the Ask JanVayu upgrade: answers now compare several sources.<br>
                     &bull; For the user&rsquo;s city it now cross-references four sources: the nearest WAQI station, the WAQI network of stations in the city, Sensor.Community sensors, and a new cached annual dataset of 37 Indian cities labelled IQAir 2025. <em>[Correction, 2 October 2026: the dataset was not all IQAir 2025 values (New Delhi 2025 is 82.2, Byrnihat 101.1, Gurugram 74.6) and its source label read March 2025 covering 2024 data; to be re-keyed from the IQAir 2025 table]</em><br>
                     &bull; It runs three checks: the spread between stations in a city (flags a range above 2&times;), the agreement between WAQI and community sensors (flags more than 50% disagreement), and today&rsquo;s reading against the IQAir annual figure (flags above 1.5&times; or below 0.5&times;).<br>
                     &bull; Even on ordinary questions, if live PM2.5 is above 1.5&times; the IQAir annual baseline, a short anomaly note is added so the health and activity advice acknowledges that today is unusual.<br>
-                    &bull; Across the four phases: 4 tools wired in, 7 calculators, apportionment for 10 cities, 6 RTI templates, a 4-source cross-reference, and a source citation on every number.
+                    &bull; Across the four releases: 7 calculators, apportionment for 10 cities, 6 RTI templates, a 4-source cross-reference, and a source on every number.
                 </div>
 
                 <div class="jv-item-divided">
@@ -455,20 +453,20 @@
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.14, 20 May 2026</div>
-                    <strong>Ask JanVayu: calculators the bot actually runs</strong><br>
-                    &bull; Seven calculators were wired in: cigarette equivalence (Berkeley Earth), mortality risk (Krishna et al. 2024) <em>[Correction, 2 October 2026: the study is Jaganathan et al. 2024, Lancet Planetary Health, DOI 10.1016/S2542-5196(24)00248-1]</em>, life-expectancy loss (AQLI 2025), migration benefit (live PM2.5 of both cities), transport exposure (WHO/CPCB multipliers) <em>[Correction, 2 October 2026: multipliers are JanVayu assumptions informed by Goel et al. on-road to ambient concentration ratios, not WHO/CPCB figures]</em>, purifier CADR (AHAM formula) <em>[Correction, 2 October 2026: air-changes-per-hour sizing; AHAM's own rule of thumb is CADR of at least two-thirds of floor area]</em>, and school-closure forecast (CAQM GRAP).<br>
-                    &bull; Each calculator runs when the question implies it and returns its result tagged &ldquo;(computed)&rdquo; with a primary-source citation. The model is told to use those numbers as given.<br>
+                    <strong>Ask JanVayu: calculators inside its answers</strong><br>
+                    &bull; Seven calculators now run inside answers: cigarette equivalence (Berkeley Earth), mortality risk (Krishna et al. 2024) <em>[Correction, 2 October 2026: the study is Jaganathan et al. 2024, Lancet Planetary Health, DOI 10.1016/S2542-5196(24)00248-1]</em>, life-expectancy loss (AQLI 2025), migration benefit (live PM2.5 of both cities), transport exposure (WHO/CPCB multipliers) <em>[Correction, 2 October 2026: multipliers are JanVayu assumptions informed by Goel et al. on-road to ambient concentration ratios, not WHO/CPCB figures]</em>, purifier CADR (AHAM formula) <em>[Correction, 2 October 2026: air-changes-per-hour sizing; AHAM's own rule of thumb is CADR of at least two-thirds of floor area]</em>, and school-closure forecast (CAQM GRAP).<br>
+                    &bull; Each calculator runs when the question implies it and returns its result tagged &ldquo;(computed)&rdquo; with a primary-source citation. Ask JanVayu quotes those numbers as given.<br>
                     &bull; Inputs are picked out of the question: transport mode and hours from phrases like &ldquo;2 hours by auto-rickshaw&rdquo;, room size from &ldquo;300 sqft&rdquo;, and the destination city, including the Bengaluru/Bangalore alias.<br>
                     &bull; Example: &ldquo;Should I move from Delhi to Bangalore?&rdquo; with live PM2.5 of 120 vs 30 gives &ldquo;+8.8 years life expectancy (AQLI 2025), &minus;1,492 cigarette-day equivalents per year.&rdquo; <em>[Correction, 2 October 2026: the figure computes to &minus;1,493]</em>
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.13, 20 May 2026</div>
-                    <strong>Ask JanVayu: wiring in the site&rsquo;s tools, and calibrating the method</strong><br>
-                    &bull; User direction: <em>"what broad queries can make the chatbot useful? It should surface and use all of the JanVayu tools. Calibrated across multiple sources, better than the average chatbot."</em> This was the first of four phases.<br>
-                    &bull; Three new data lookups run in parallel with 6-second timeouts: live, 7-day and 30-day rankings for ranking questions, historical AQI for trend and year-on-year questions, and Sensor.Community (low-cost network, CC0) <em>[Correction, 2 October 2026: Sensor.Community data is open data under the Database Contents License 1.0 (CC0 applies to its photos)]</em> for hyperlocal and &ldquo;near me&rdquo; questions.<br>
+                    <strong>Ask JanVayu: using the site&rsquo;s own tools, and explaining why sources differ</strong><br>
+                    &bull; User direction: <em>"what broad queries can make the chatbot useful? It should surface and use all of the JanVayu tools. Calibrated across multiple sources, better than the average chatbot."</em> This was the first of four releases.<br>
+                    &bull; Ask JanVayu now looks up three more things: live, 7-day and 30-day rankings for ranking questions, historical AQI for trend and year-on-year questions, and Sensor.Community (low-cost network, CC0) <em>[Correction, 2 October 2026: Sensor.Community data is open data under the Database Contents License 1.0 (CC0 applies to its photos)]</em> for hyperlocal and &ldquo;near me&rdquo; questions.<br>
                     &bull; A new methodology note covers the five biggest &ldquo;why do two sources disagree&rdquo; cases: CPCB Indian AQI vs US EPA AQI (same &micro;g/m&sup3;, different scale and breakpoints); a single WAQI station vs the CPCB CAAQMS network; CPCB annual vs the IQAir World AQ Report; Krishna 1.5M causal vs Lancet Countdown 2025 1.72M synthesis <em>[Correction, 2 October 2026: Jaganathan et al. 2024 (about 1.5M per year, 2009-2019) vs Lancet Countdown 2025 (1.72M, 2022); different methods and years, not a revision]</em>; and low-cost (Sensor.Community &plusmn;20-50%, dense) vs regulatory-grade (CPCB &plusmn;5-10%, sparse) trade-offs <em>[2 October 2026: source not traceable; unverified]</em>.<br>
-                    &bull; Phases B, C and D were still to come: calculators, apportionment and RTI tools, and multi-source spread.
+                    &bull; Calculators, apportionment and RTI tools, and a comparison across sources followed in the next three releases.
                 </div>
 
                 <div class="jv-item-divided">
@@ -476,8 +474,8 @@
                     <strong>Ask JanVayu: three bugs fixed from user testing</strong><br>
                     &bull; User feedback: <em>"Chatbot: does not give number of station data correctly, no sources are mentioned in some answers (low-cost sensors, EVs), for most questions I just got Delhi-based information (Mandir Marg data)."</em><br>
                     &bull; Station counts: when a question asks for the number of stations, Ask JanVayu now queries WAQI for stations in a box of about 50 km around the city centre. The real count and sample station names go into the answer, along with the CPCB national reference (~533 CAAQMS stations across ~250 cities; <em>[Correction, 2 October 2026: CREA (9 Jan 2026) counts 565 CAAQMS; the ~533 stations / ~250 cities figure here was undated and unsourced]</em> Sensor.Community ~3,000+ low-cost sensors). <em>[2 October 2026: source not traceable; unverified]</em><br>
-                    &bull; Sources: a new reference block covers the monitoring network, low-cost sensors, EVs / BS-VI / PM-eBus Sewa, and the Apr-May 2026 court orders. A new rule says: <em>"If you cite a number without a source, you have failed."</em><br>
-                    &bull; Delhi and Mandir Marg bias: India-wide questions are now detected, and the model is told <em>"Do NOT default to Delhi-specific or single-station context."</em> The reference data now leads with India-wide figures instead of Delhi first. Single-station data is labelled &ldquo;Nearest WAQI station&rdquo;, so the model knows it is one station and not &ldquo;the city&rsquo;s data&rdquo;.
+                    &bull; Sources: Ask JanVayu now holds sourced figures on the monitoring network, low-cost sensors, EVs / BS-VI / PM-eBus Sewa, and the April and May 2026 court orders, and every figure in an answer must carry its source.<br>
+                    &bull; Delhi and Mandir Marg bias: Ask JanVayu now recognises India-wide questions and no longer falls back on Delhi or a single station. The reference data now leads with India-wide figures instead of Delhi first. Single-station data is labelled &ldquo;Nearest WAQI station&rdquo;, so answers say it is one station and not &ldquo;the city&rsquo;s data&rdquo;.
                 </div>
 
                 <div class="jv-item-divided">
@@ -485,8 +483,7 @@
                     <strong>Walkthrough page featured on the dashboard</strong><br>
                     &bull; A new <code>/walkthrough/</code> guided-tour page went live earlier that day: a 64-slide MMSF Fellows deck embedded through Google Slides, with a 24 MB PPTX and a 13 MB PDF to download. <em>[Correction, 2 October 2026: file sizes as at the time; the deck has since been replaced]</em> This release features it prominently instead of leaving it in the footer.<br>
                     &bull; A quick-link card next to Learning Games, with an amber accent and a NEW badge, links to it.<br>
-                    &bull; The hero alert now adds <em>"&hellip;and a 64-slide guided walkthrough of the whole platform built for the MMSF Fellows cohort"</em>, so first-time visitors see it exists.<br>
-                    &bull; The roadmap (Phase 5.9) and the wiki Home page &ldquo;What&rsquo;s New (v26.6.x)&rdquo; record it too.
+                    &bull; The hero alert now adds <em>"&hellip;and a 64-slide guided walkthrough of the whole platform built for the MMSF Fellows cohort"</em>, so first-time visitors see it exists.
                 </div>
 
                 <div class="jv-item-divided">
@@ -510,37 +507,34 @@
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.8, 20 May 2026</div>
-                    <strong>Final corners: the wiki Home page and the last small surfaces</strong><br>
+                    <strong>A last pass over the smallest pages</strong><br>
                     &bull; User feedback: <em>"Yes I want you to do all small or big. Everything."</em> This was a final pass on the smallest remaining surfaces.<br>
-                    &bull; The wiki Home &ldquo;What&rsquo;s New&rdquo; section was rewritten to lead with the v26.6.x list (v26.6.0 Vayu Junction to v26.6.7 deep sweep, all 8 versions), with v26.5.x kept as &ldquo;Previous&rdquo;.<br>
-                    &bull; Checked and found clean: the other wiki pages, the downloads index, the app manifest, robots.txt, the deployment settings and all 9 automated workflows.<br>
-                    &bull; By this point, from v26.6.0 to v26.6.8, every user-facing surface had been swept for May 2026 freshness: 43 panels, Ask JanVayu in 5 languages, 7 learning games, the back-to-home button, 6 per-pollutant pages, 2 embed widgets, the daily email digest, 10 blog posts plus 1 new, the Resources and Health cards, docs in 5 languages, the wiki Home and roadmap, and the search-engine descriptions.
+                    &bull; The downloads page and the documentation wiki were checked and needed no change.<br>
+                    &bull; By this point, from v26.6.0 to v26.6.8, every part of the site had been brought up to date for May 2026: 43 panels, Ask JanVayu in 5 languages, 7 learning games, the back-to-home button, 6 per-pollutant pages, 2 embed widgets, the daily email digest, 10 blog posts plus 1 new, the Resources and Health cards, docs in 5 languages, the wiki Home and roadmap, and the search-engine descriptions.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.7, 20 May 2026</div>
-                    <strong>Deep sweep: remaining data services and docs sub-pages</strong><br>
-                    &bull; Behind the scenes, the remaining data services now identify themselves as v26.6 in their outgoing requests.<br>
-                    &bull; English docs: in the dashboard and health-calculator pages, Delhi PM2.5 &ldquo;~100 &micro;g/m&sup3; (2024)&rdquo; became <strong>91.6 &micro;g/m&sup3; (IQAir 2025)</strong>, consistent with the docs README, which was updated in v26.6.2. <em>[Correction, 2 October 2026: 91.6 is New Delhi's 2024 value; the IQAir 2025 figure is 82.2 &micro;g/m&sup3; (New Delhi)]</em><br>
+                    <strong>The rest of the documentation brought up to date</strong><br>
+                    &bull; English docs: in the dashboard and health-calculator pages, Delhi PM2.5 &ldquo;~100 &micro;g/m&sup3; (2024)&rdquo; became <strong>91.6 &micro;g/m&sup3; (IQAir 2025)</strong>, consistent with the rest of the documentation. <em>[Correction, 2 October 2026: 91.6 is New Delhi's 2024 value; the IQAir 2025 figure is 82.2 &micro;g/m&sup3; (New Delhi)]</em><br>
                     &bull; Translated docs: the same Delhi figure was aligned in the Bengali, Marathi and Tamil dashboard pages. The Hindi version uses a different layout with no equivalent figure to update.<br>
-                    &bull; Roadmap: Phase 5.7 &ldquo;six original games&rdquo; was clarified to mention both six (v26.5) and seven (Vayu Junction in v26.6.0, Phase 5.9).<br>
-                    &bull; Checked and found clean: 12 other data services, the ImpactMojo docs (a separate project on development education, not air quality), and every other docs sub-directory.
+                    &bull; The rest of the documentation was checked and needed no change.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.6, 20 May 2026</div>
-                    <strong>Secondary surface sweep: pollutant pages, offline copy, blog posts</strong><br>
+                    <strong>Pollutant pages, the offline copy and blog posts brought up to date</strong><br>
                     &bull; User feedback after the v26.6.5 stocktake: <em>"What have we not checked?"</em> The honest list included the per-pollutant pages, the offline copy of the site and the existing blog posts. This release addresses all three.<br>
-                    &bull; The six per-pollutant pages (<code>/pm25/</code>, <code>/pm10/</code>, <code>/co/</code>, <code>/no2/</code>, <code>/so2/</code>, <code>/o3/</code>) were regenerated. Their last-modified date is now <strong>2026-05-20</strong> (was 2026-05-08). A bug in the generator had reset the published date to today on every run, losing the publish history. It is now pinned to 2026-04-26 (the original release), and only the modified date updates.<br>
+                    &bull; The six per-pollutant pages (<code>/pm25/</code>, <code>/pm10/</code>, <code>/co/</code>, <code>/no2/</code>, <code>/so2/</code>, <code>/o3/</code>) were updated, and their last-modified date is now <strong>20 May 2026</strong> (it was 8 May). Their published date had been reset with every update; it is back to 26 April 2026, the original release, and only the last-modified date now changes.<br>
                     &bull; The offline copy of the site was refreshed from the 8 May version to the 20 May version. Returning users now skip the stale copy and get Vayu Junction, the back-to-home button and the May 2026 panel content.<br>
-                    &bull; Four blog posts were realigned to the canonical figures. The Lancet causal-evidence and IQAir 2025 posts attribute &ldquo;1.5M&rdquo; to Krishna et al. 2024 with inline May 2026 update notes pointing to Lancet Countdown 2025&rsquo;s revised 1.72M. <em>[Correction, 2 October 2026: the 1.5M figure is from Jaganathan et al. 2024; 1.72M is a separate Lancet Countdown estimate (2022), not a revision]</em> The learning-games post&rsquo;s &ldquo;six games&rdquo; was reframed as &ldquo;now seven&rdquo;, and the economic-cost post&rsquo;s World Bank $150B framing was clarified as superseded. <em>[2 October 2026: source not traceable; unverified]</em><br>
-                    &bull; Checked and found clean: the embed widgets, the daily email digest, and six other blog posts (already correct).
+                    &bull; Four blog posts were brought in line with the site&rsquo;s current figures. The Lancet causal-evidence and IQAir 2025 posts attribute &ldquo;1.5M&rdquo; to Krishna et al. 2024 with inline May 2026 update notes pointing to Lancet Countdown 2025&rsquo;s revised 1.72M. <em>[Correction, 2 October 2026: the 1.5M figure is from Jaganathan et al. 2024; 1.72M is a separate Lancet Countdown estimate (2022), not a revision]</em> The learning-games post&rsquo;s &ldquo;six games&rdquo; was reframed as &ldquo;now seven&rdquo;, and the economic-cost post&rsquo;s World Bank $150B framing was clarified as superseded. <em>[2 October 2026: source not traceable; unverified]</em><br>
+                    &bull; The embed widgets, the daily email digest and six other blog posts were checked and were already correct.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.5, 20 May 2026</div>
                     <strong>Complete panel content freshness sweep: every remaining section</strong><br>
-                    &bull; User feedback: <em>"Please DO ALL."</em> v26.6.4 covered the top five panels, and this release sweeps every remaining template (30+).<br>
+                    &bull; User feedback: <em>"Please DO ALL."</em> v26.6.4 covered the top five panels, and this release covers every remaining panel (30+).<br>
                     &bull; Historical Trends: the chart title &ldquo;(2015&ndash;2025)&rdquo; became &ldquo;(2015&ndash;present)&rdquo;, and the timeline gained 3 May 2026 entries (NCAP deadline elapsed, NGT south-India order, off-season GRAP).<br>
                     &bull; Legal Framework: a new <em>&ldquo;Recent Court &amp; Regulator Action (Apr&ndash;May 2026)&rdquo;</em> card has 4 boxes linking to primary sources.<br>
                     &bull; Policy Effectiveness: the GRAP Stages card gains the 19 May 2026 off-season note beside the Dec 2024 predictive-activation note.<br>
@@ -549,37 +543,37 @@
                     &bull; Citizen Action Plan: the intro was reframed for year-round action following CAQM&rsquo;s off-season GRAP and NGT&rsquo;s south-India order.<br>
                     &bull; AQI Forecast: &ldquo;Winter 2025-26&rdquo; is framed as historical, with an Oct 2026 next-season note.<br>
                     &bull; Climate Displacement: the Reddit testimonial is vintage-tagged (&ldquo;late 2025; the cleaner-air-elsewhere story has only intensified through 2026&rdquo;).<br>
-                    &bull; The audit confirmed that the 30+ remaining panels are evergreen or live-data tools (rankings, map, calculators, AI features, glossary) and need no refresh.
+                    &bull; The other 30+ panels hold reference material or live data tools (rankings, map, calculators, AI features, glossary) and needed no change.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.4, 20 May 2026</div>
                     <strong>Panel content freshness sweep</strong><br>
-                    &bull; User feedback: <em>"What about Clean Air Wins, etc.? Can you go through the sections in the navigation and make sure they are updated?"</em> The v26.6.2 audit covered stats consistency and the Resources panel only, and individual panel content was not touched. This release sweeps the panels most likely to go stale.<br>
+                    &bull; User feedback: <em>"What about Clean Air Wins, etc.? Can you go through the sections in the navigation and make sure they are updated?"</em> The v26.6.2 review covered the headline figures and the Resources panel only, and left the other panels as they were. This release sweeps the panels most likely to go stale.<br>
                     &bull; Clean Air Wins: a new &ldquo;Update: May 2026&rdquo; card at the top shows CAQM&rsquo;s off-season GRAP toggle (19 May), NGT&rsquo;s six-state south-India order (Apr), and the nationwide SPCB diesel-generator notices (9 Apr). The stat strip&rsquo;s &ldquo;10,000 e-buses planned&rdquo; was replaced with the live &ldquo;6 south-Indian states ordered to file PM roadmaps&rdquo; data point. The Delhi e-bus card is now framed as historical, with an explicit &ldquo;next public count expected Q2/Q3 2026&rdquo; note. <em>[Correction, 2 October 2026: Delhi's e-bus fleet was reported at 4,845 on 9 July 2026 (electrive)]</em><br>
                     &bull; Budget Tracker: the &ldquo;Funding Cliff Alert&rdquo; was reframed: 15th FC grants <em>expired</em> 31 Mar 2026, 16th FC recommendations expected Oct 2026, <em>[Correction, 2 October 2026: the 16th Finance Commission report was tabled on 1 February 2026 and covers 2026-31]</em> and a potential 12-month funding gap. <em>[2 October 2026: source not traceable; unverified]</em><br>
                     &bull; Mission Tracker: the NCAP card was retitled &ldquo;Deadline Missed&rdquo; with verified 23/100 (CREA Jan 2026) and 37/131 (CSE Apr 2026) outcomes side by side. <em>[Correction, 2 October 2026: the CSE April 2026 figure (37/131) could not be traced to any source; the sourced outcome is 23 of 100 cities with sufficient PM10 data meeting the 40% target (CREA, 9 Jan 2026)]</em> Cloud-seeding evidence was updated for both 2025 and 2026 trial rounds. <em>[Correction, 2 October 2026: only the 28 October 2025 trials could be traced; no 2026 trial round was found]</em><br>
                     &bull; Children&rsquo;s Health: &ldquo;this winter&rdquo; school-closure language became &ldquo;Winter 2025-26 (most recent pollution season)&rdquo;, with a forward note about the Oct 2026 next-season window.<br>
-                    &bull; Political Accountability and Resources: six stale &ldquo;v19.0&rdquo; badges were replaced with content-vintage labels (CREA &middot; 9 Jan 2026, CAG &middot; Apr 2025, HEI &middot; Oct 2025). Internal version numbers had been leaking into the page.
+                    &bull; Political Accountability and Resources: six stale &ldquo;v19.0&rdquo; badges were replaced with content-vintage labels (CREA &middot; 9 Jan 2026, CAG &middot; Apr 2025, HEI &middot; Oct 2025). Our own version numbers had been showing where a reader needs the date of the source.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.3, 20 May 2026</div>
                     <strong>Back-to-home button: visibility patch</strong><br>
-                    &bull; User feedback: <em>"I can't see the button you added to return home."</em> Checking the live site in a browser confirmed that the button was rendering, but its styling (light card background, accent-coloured stroke) blended into the page&rsquo;s cream background.<br>
+                    &bull; User feedback: <em>"I can't see the button you added to return home."</em> The button was there, but its light colours blended into the page&rsquo;s cream background.<br>
                     &bull; It is now a solid accent-green button with a white house icon and a 2 px white ring, the same visual weight as the search button at bottom right, in the mirror corner. It is 52 px on desktop (was 46) and 48 px on mobile (was 42), so the pair is symmetric.<br>
                     &bull; A single gentle pulse plays when the button first appears: 1.4 s, with a ring expanding from 0 to 16 px and fading. It respects the reduced-motion setting.<br>
-                    &bull; On hover the button turns a deeper green and grows 8%. It now sits above the search button&rsquo;s layer.
+                    &bull; On hover the button turns a deeper green and grows 8%.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.6.2, 20 May 2026</div>
-                    <strong>Full-site audit sweep: resources refreshed, stale figures fixed</strong><br>
+                    <strong>Resources refreshed and old figures corrected</strong><br>
                     &bull; Five fresh May 2026 items were added to the &ldquo;May 2026 Updates&rdquo; card in the <a href="#resources" onclick="showPanel('resources'); return false;">Resources panel</a>: CREA April 2026 monthly snapshot (Khora #1 most polluted), CAQM GRAP Stage-I off-season re-invocation (19 May), NGT South-India PM reduction order (Apr 2026), NGT diesel-generator retrofit notices (9 Apr), and the Down to Earth / AAD 2026 &ldquo;16&times; COVID deaths&rdquo; briefing.<br>
-                    &bull; Stale figures were swept. The search-engine and Twitter Card descriptions changed from &ldquo;2 million deaths/year&rdquo; to <strong>&ldquo;1.72 million deaths/year (Lancet Countdown 2025)&rdquo;</strong>. <em>[Correction, 2 October 2026: the Lancet Countdown 2025 figure is 1.72 million deaths in 2022, not per year]</em> The hero alert changed &ldquo;six-game&rdquo; to &ldquo;seven-game&rdquo; with an explicit Vayu Junction mention, and the dashboard quick-link card for Games changed &ldquo;Six games&rdquo; to &ldquo;Seven games&rdquo;.<br>
+                    &bull; Old figures were corrected. The descriptions shown in search results and link previews changed from &ldquo;2 million deaths/year&rdquo; to <strong>&ldquo;1.72 million deaths/year (Lancet Countdown 2025)&rdquo;</strong>. <em>[Correction, 2 October 2026: the Lancet Countdown 2025 figure is 1.72 million deaths in 2022, not per year]</em> The hero alert changed &ldquo;six-game&rdquo; to &ldquo;seven-game&rdquo; with an explicit Vayu Junction mention, and the dashboard quick-link card for Games changed &ldquo;Six games&rdquo; to &ldquo;Seven games&rdquo;.<br>
                     &bull; Docs were refreshed in all five languages (English, Hindi, Bengali, Marathi, Tamil), with the figures overhauled: 1.7&ndash;2 million became <strong>1.72M</strong>; Delhi ~100 &micro;g/m&sup3; became <strong>91.6 &micro;g/m&sup3;</strong>; <em>[Correction, 2 October 2026: 91.6 is New Delhi's 2024 value; New Delhi 2025 is 82.2 &micro;g/m&sup3; (IQAir)]</em> $150 billion became <strong>$339.4 billion (~9.5% GDP)</strong>; and AQLI 2025 IGP detail (7&ndash;8 years) was added. <em>[Correction, 2 October 2026: AQLI 2025 gives about 5 years for the Northern Plains (Delhi 8.2) relative to the WHO guideline; the 7-year figure is from the 2019 release]</em><br>
                     &bull; The &ldquo;Latest Research 2025&rdquo; card in the Health panel was relabelled &ldquo;Recent Peer-Reviewed Findings (2024&ndash;2025)&rdquo; with a neutral <em>background</em> badge, because the freshest items now live in the Resources panel&rsquo;s May 2026 Updates card.<br>
-                    &bull; Verified end to end: a headless browser clicked all <strong>43 panels</strong> and recorded zero uncaught script exceptions. The only errors were localhost 404s for functions that exist only in production and certificate noise from the test sandbox, and neither affects the live site.
+                    &bull; All <strong>43 panels</strong> were opened in turn, and none showed an error.
                 </div>
 
                 <div class="jv-item-divided">
@@ -595,28 +589,26 @@
                     <div class="jv-item-title">v26.6.0, 20 May 2026</div>
                     <strong>Vayu Junction (the 7th game), Ask JanVayu verification, docs and roadmap refresh</strong><br>
                     &bull; Vayu Junction is a new word-grouping puzzle in the <a href="#games" onclick="showPanel('games'); return false;">Learning Games</a> panel. It is inspired by <em>Only Connect</em>, NYT <em>Connections</em>, and the <a href="https://timesofclimatechange.com/torchlight/" target="_blank" rel="noopener"><em>Torchlight</em></a> climate puzzle at Times of Climate Change. There are sixteen tiles, four hidden groups of four, and four strikes allowed, and &ldquo;one off&rdquo; near-misses are detected. It ships with four original India-AQ puzzles: Basics, Sources/Seasons/Protection, Names &amp; Numbers, and Devious.<br>
-                    &bull; Ask JanVayu was verified end to end. A city is picked from the chips, the question goes to Groq Llama 3.3 70B with seasonal context, NCAP city data and a pinned answer language, and welcome text, suggestion chips and error messages are translated in EN/HI/TA/BN/MR. The installable app manifest was confirmed.<br>
-                    &bull; The roadmap was restructured: Phase 5.7 moved back into numeric order (it was listed after 5.8), the duplicate Phase 6 heading at the bottom was renamed Phase 6.5, and a new Phase 5.9 covers this release.<br>
-                    &bull; Documentation was refreshed: the README feature count went from 6 to 7 games, the version marker moved to 26.6.0, and the sitemap dates were refreshed. A v26.6 stub was added to the Hindi, Bengali, Marathi and Tamil docs so non-English readers see the release list at the top of their local changelog.<br>
+                    &bull; Ask JanVayu was verified end to end. A city is picked from the chips, the question goes to Groq Llama 3.3 70B with seasonal context, NCAP city data and a pinned answer language, and welcome text, suggestion chips and error messages are translated in EN/HI/TA/BN/MR. The site still installs as an app.<br>
+                    &bull; The documentation now lists seven games, and the Hindi, Bengali, Marathi and Tamil documentation lists this release at the top of its own changelog.<br>
                     &bull; New blog post: <em>&ldquo;Vayu Junction: connecting the dots on India&rsquo;s air-quality vocabulary&rdquo;</em>.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.5.8, 8 May 2026</div>
                     <strong>Protecting the reader&rsquo;s experience: sturdier embed widgets, a fallback for blocked libraries, an honest social card, a new preview image</strong><br>
-                    &bull; The embed widgets (<code>/embed/aqi/</code>, <code>/embed/rankings/</code>) were hardened. The city is sanitised on the server and in the browser, a request gives up after 8 seconds and retries once, and a JanVayu-branded fallback card appears if the last try fails.<br>
-                    &bull; If the hosts for the chart and map libraries (cdn.jsdelivr.net or unpkg.com) are blocked, every chart and map panel now shows an explainer card with a link back to the dashboard instead of failing silently.<br>
-                    &bull; The &ldquo;Latest Social Media Coverage&rdquo; card was renamed from &ldquo;Live from Social Media&rdquo;, because a live and curated mix is what we actually serve. The dead spinner is hidden when no posts return.<br>
+                    &bull; The embed widgets (<code>/embed/aqi/</code>, <code>/embed/rankings/</code>) cope better with a slow connection: each request is tried twice, and a JanVayu card appears in place of the data if both tries fail.<br>
+                    &bull; If your network blocks the services our charts and maps load from, every chart and map panel now shows an explainer card with a link back to the dashboard instead of failing silently.<br>
+                    &bull; The &ldquo;Latest Social Media Coverage&rdquo; card was renamed from &ldquo;Live from Social Media&rdquo;, because a live and curated mix is what we actually serve. The loading spinner no longer turns forever when no posts come back.<br>
                     &bull; The social preview image was refreshed for May 2026 with Loni 112.5 &micro;g/m&sup3;, 1.72M deaths (Lancet 2025) and 3.5 yrs of life expectancy lost (AQLI 2025).
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v26.5.4&ndash;7, 8 May 2026</div>
-                    <strong>Quality checks, performance, mobile and translation work</strong><br>
-                    &bull; Chart.js and Leaflet now load only when needed, with integrity hashes, which takes about 120 KB off the first paint. They are pre-warmed while the browser is idle so the dashboard mini-charts stay quick.<br>
-                    &bull; Every chart canvas (15 of them) now has an image role and a text label for screen readers.<br>
-                    &bull; Five automated checks were added: Lighthouse (performance), axe-core (WCAG 2 AA), html-validate, ESLint, and a weekly lychee link audit. All were advisory at first, with counts shown in the pull-request summaries.<br>
-                    &bull; Translation coverage rose from 0.7% to 4.8% by tagging about 140 of the highest-traffic strings.<br>
+                    <strong>Faster loading, screen readers, mobile and translation</strong><br>
+                    &bull; The chart and map code now loads only when it is needed, which takes about 120 KB off the first load, and it is fetched in the background so the dashboard mini-charts stay quick.<br>
+                    &bull; All 15 charts now have a text description for screen readers.<br>
+                    &bull; About 140 of the most-read phrases on the site were translated, raising translated coverage from 0.7% to 4.8%.<br>
                     &bull; Mobile polish: 44 px tap targets, long words wrap instead of overflowing, and the Jodi board collapses to 2 columns on Galaxy phones.<br>
                     &bull; In v26.5.7, keyboard focus on dark backgrounds got a stronger pale-yellow outline (3 px), so the focus marker no longer disappears against deep-green or near-black surfaces.
                 </div>
@@ -643,13 +635,13 @@
                     &bull; Per-pollutant pages at <a href="/pm25/">/pm25</a>, <a href="/pm10/">/pm10</a>, <a href="/co/">/co</a>, <a href="/no2/">/no2</a>, <a href="/so2/">/so2</a> and <a href="/o3/">/o3</a> show live top-10 readings.<br> <em>[Correction, 2 October 2026: the live top-10 tables on /pm10, /co, /no2, /so2 and /o3 showed generated values until 22 September 2026 (v26.6.232); they now show WAQI sub-indices]</em><br>
                     &bull; The Live Map has a heatmap layer with a toggle, and marker popups show cigarette equivalence and a &ldquo;View on dashboard&rdquo; jump.<br>
                     &bull; Embeddable widgets are available at <code>/embed/aqi/?city=...</code> and <code>/embed/rankings/?n=10</code>.<br>
-                    &bull; The site can now be installed as an app, with an offline shell and a last-known AQI cache. An install banner remembers if you dismiss it.<br>
+                    &bull; The site can now be installed as an app that opens offline and shows the last AQI it fetched. An install banner remembers if you dismiss it.<br>
                     &bull; Sensor.Community community sensors joined the Hyperlocal panel, free and CC0, badged COMMUNITY versus CPCB/WAQI.<br> <em>[Correction, 2 October 2026: Sensor.Community data is open data under the Database Contents License 1.0, not CC0]</em><br>
                     &bull; A Workshops panel under Action takes workshop requests with Dr. Sarath Guttikunda / UrbanEmissions (including Air Quality Jeopardy, at a fee set by the workshop leader) and bookings for a free 1-hour JanVayu walkthrough. Submissions are emailed to contribute@janvayu.in, with a saved copy.<br>
                     &bull; Ask JanVayu has a language picker (EN, हि, த, বা, म) on <code>/ask/</code>. The interface is fully translated and the answer language is pinned.<br>
-                    &bull; Programme attribution was updated to &ldquo;AirQuality for Janhit by MMSF Fellows, AIPC&rdquo; everywhere: meta tags, JSON-LD, footer, About panel, citation and pollutant pages.<br>
-                    &bull; The no-emoji style was enforced: emojis introduced this cycle were replaced with SVG icons, coloured borders and dot bullets.<br>
-                    &bull; Mobile fix: the PWA install banner was reworked so the &ldquo;Install&rdquo; button no longer wraps one letter per line on narrow screens.
+                    &bull; Programme attribution was updated to &ldquo;AirQuality for Janhit by MMSF Fellows, AIPC&rdquo; everywhere it appears: the footer, the About panel, the citation, the pollutant pages and search results.<br>
+                    &bull; Emoji were replaced with icons, coloured borders and dot bullets.<br>
+                    &bull; Mobile fix: the install banner was reworked so the &ldquo;Install&rdquo; button no longer wraps one letter per line on narrow screens.
                 </div>
 
                 <div class="jv-item-divided">
@@ -661,10 +653,10 @@
                     &bull; Three new research papers were added: Lancet Planetary Health causal PM2.5 mortality studies (1.5M additional deaths/year vs WHO conditions) and a Science Advances PM2.5 inequality study.<br>
                     &bull; Mobile layout got 44px touch targets and a full phone layout (768px and 375px breakpoints), plus a fix to the role overlay on mobile.<br>
                     &bull; Accessibility gained a skip-to-content link, visible focus outlines and reduced-motion support.<br>
-                    &bull; Chart.js and Leaflet.js are now deferred, because they had been blocking the page from rendering.<br>
-                    &bull; Social feeds were re-enabled at 3&times; a day (was 12&times;), a 75% reduction in Netlify credits.<br>
-                    &bull; References to the old personal account Varnasr were replaced with JanVayu across the whole repository (60+ files).<br>
-                    &bull; Wiki and Discussions: 7 wiki pages were published, 6 seed discussions created, and issue #35 closed.<br>
+                    &bull; The page now appears before the chart and map code has finished loading.<br>
+                    &bull; Social feeds were switched back on, refreshing three times a day.<br>
+                    &bull; Links to the project&rsquo;s old personal account now point to JanVayu.<br>
+                    &bull; A project wiki (7 pages) and a discussion forum opened on GitHub.<br>
                     &bull; Docs, Blog and Research Library links were added to the site header and footer.<br>
                     &bull; The mobile header was decluttered: the GitHub, Docs and Simple mode icons are hidden on mobile (reachable from the hamburger menu), and the language button became a globe icon.<br>
                     &bull; The hero&rsquo;s featured alert now shows April 2026 IQAir data instead of March.<br>
@@ -682,7 +674,7 @@
                     &bull; The glossary overlay opens with Ctrl+K and has 22+ air quality terms, with a technical/simple toggle.<br>
                     &bull; An intro tour guides first-time visitors.<br>
                     &bull; A header icon lets users change role at any time.<br>
-                    &bull; ARIA labels were added to all menu icons for screen readers.
+                    &bull; Every menu icon now has a label for screen readers.
                 </div>
 
                 <div class="jv-item-divided">
@@ -693,8 +685,8 @@
                     &bull; The role switcher in the header is always visible, with a pulse animation and tooltip hint that draw attention after a selection.<br>
                     &bull; The role resets on each new visit, so the overlay greets every visitor fresh.<br>
                     &bull; All role card and action emojis were replaced with verified Sargam Icons v1.6.7, matching the site&rsquo;s existing icon system.<br>
-                    &bull; A documentation link (si-book icon) was added to the header next to the language selector.<br>
-                    &bull; The AI backend moved from Google Gemini 2.5 Flash to Llama 3.3 70B (open-source) via the Groq free tier: faster, with better rate limits and no vendor lock-in. All 4 AI-backed data services now call Groq&rsquo;s OpenAI-compatible REST API directly.<br>
+                    &bull; A documentation link was added to the header next to the language selector.<br>
+                    &bull; The AI features moved from Google Gemini 2.5 Flash to the open-source Llama 3.3 70B model, run by Groq, which answers faster and is busy less often.<br>
                     &bull; Deep links (#health, #budget, etc.) bypass the role overlay entirely.<br>
                     &bull; The role grid is responsive on mobile (2 columns) and works in dark mode.
                 </div>
@@ -707,29 +699,28 @@
                     &bull; The Ward-Level Accountability Brief (AI) writes structured briefs for ward councillors, journalists and RWAs, with seasonal baselines from CREA/IQAir, anomaly detection (1.5&times; threshold), references to GRAP stages, RTI powers and MCD complaint lines. It can be downloaded as .txt.<br>
                     &bull; The Anomaly Detection Banner monitors PM2.5 spikes across Delhi, Mumbai, Kolkata, Chennai and Bengaluru. It runs on page load and every 30 min, and triggers at 2&times; the seasonal baseline with month-aware AI explanations.<br>
                     &bull; Demo Day mode: <code>?demo=true</code> pre-populates all AI features with Delhi/Anand Vihar defaults.<br>
-                    &bull; 4 new data services were added: air-query, health-advisory, accountability-brief and anomaly-check. All AI calls run on the server only, and a rate-limit fallback always shows the raw PM2.5 data.
+                    &bull; When the AI service is busy, these features still show the raw PM2.5 data.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v25.0, 14 Mar 2026</div>
-                    <strong>Code tidy-up, 14 new interactive tools, live social media feeds, favicon</strong><br>
-                    &bull; About 600 lines of dead or duplicate code were removed, broken script tags were fixed, API fetches now run in parallel, and a memory leak in data export was fixed.<br>
-                    &bull; The Social Media Feed shows live Reddit posts from r/india, r/delhi and r/environment, Twitter/X through a Nitter RSS relay, Instagram through an RSS Bridge relay, and a curated-links fallback.<br>
-                    &bull; Live News uses a Google News RSS relay (5 categories: Delhi AQ, India Pollution, CPCB, Stubble Burning, Clean Air India) with Reddit as a supplement.<br>
+                    <strong>14 new interactive tools, live social media feeds, a site icon</strong><br>
+                    &bull; Pages load faster, and data export no longer slows the browser down the longer it runs.<br>
+                    &bull; The Social Media Feed shows live Reddit posts from r/india, r/delhi and r/environment, posts from Twitter/X and Instagram, and a list of chosen links when the feeds are down.<br>
+                    &bull; Live News draws on Google News in 5 categories ( Delhi AQ, India Pollution, CPCB, Stubble Burning, Clean Air India) with Reddit as a supplement.<br>
                     &bull; AQI Alerts send browser push notifications when any city crosses your threshold.<br>
                     &bull; &ldquo;Should I Go Outside?&rdquo; is a real-time decision engine based on current AQI, activity type and vulnerable-group status.<br>
                     &bull; The School Closure Predictor analyses GRAP stages with PM2.5 threshold tracking for school closure likelihood.<br>
                     &bull; The Personal Exposure Report calculates annual PM2.5 exposure using the GEMM model, with equivalent cigarettes and life-years-lost estimates.<br> <em>[Correction, 2 October 2026: the calculation uses AQLI and Berkeley Earth coefficients, not GEMM]</em><br>
                     &bull; The RTI Filing Assistant auto-generates RTI applications for CPCB, DPCC, MoEFCC, CAQM and Municipal Corps with pre-built question templates.<br>
                     &bull; The Air Purifier Calculator gives a room-size-based CADR recommendation with cost estimates.<br>
-                    &bull; The Hyperlocal Comparison uses the WAQI bounds API to show all monitoring stations in a city.<br>
+                    &bull; The Hyperlocal Comparison shows every WAQI monitoring station in a city.<br>
                     &bull; The Pollution Calendar gives a month-by-month breakdown of seasonal pollution sources (stubble, Diwali, inversion, dust storms).<br>
                     &bull; The Migration Calculator compares PM2.5 exposure, health impact and life expectancy across cities.<br>
                     &bull; Accountability Scorecards set NCAP target against actual performance for major cities, with budget spending.<br>
                     &bull; The Data Archive accumulates AQI data on your own device, with CSV export.<br>
                     &bull; The Correlation Explorer shows temperature, wind speed and humidity against PM2.5 for cities.<br>
-                    &bull; 3 small relay services (twitter-feed, news-proxy, instagram-feed) fetch social media feeds without browser restrictions.<br>
-                    &bull; The favicon is an SVG wind-leaf motif in the JanVayu green theme.<br>
+                    &bull; The site icon is a wind-leaf motif in JanVayu green.<br>
                     &bull; Total: 36+ content sections, 14 new interactive tools.
                 </div>
 
@@ -766,7 +757,7 @@
                     &bull; The hero PM2.5 card has a searchable city selector with 115+ cities (metros, NCR, tier 1, tier 2).<br>
                     &bull; 14 new cities were added: Chandigarh, Varanasi, Agra, Bhopal, Indore, Nagpur, Kochi, Visakhapatnam, Thiruvananthapuram, Coimbatore, Muzaffarpur, Gaya, Raipur, Jodhpur, Guwahati, Dehradun, Amritsar.<br> <em>[Correction, 2 October 2026: 17 cities are listed, not 14]</em><br>
                     &bull; 6 new sections: Indoor Air Quality, Children&rsquo;s Health Dashboard, Industrial Sources &amp; Corporate Accountability, AQI Forecast, Clean Air Mission Tracker, and Migration &amp; Climate Displacement.<br>
-                    &bull; A full version history changelog was added to the About section.<br>
+                    &bull; This version history was added to the About section.<br>
                     &bull; Total: 22 content sections, 30+ monitored cities <em>[Correction, 2 October 2026: 115+ cities are selectable; 30+ have live monitoring]</em>
                 </div>
 
@@ -774,7 +765,7 @@
                     <div class="jv-item-title">v21.0, 23 Feb 2026</div>
                     <strong>Content updates, download fixes, menu visibility</strong><br>
                     &bull; Menu bar visibility was fixed: the faint ink colour was darkened for both light and dark modes.<br>
-                    &bull; The dark-mode --text-4 colour changed from #4a4a44 to #8a8a82 for legibility.<br>
+                    &bull; The faintest text in dark mode was made lighter so it can be read.<br>
                     &bull; 6 new social media voice-cards were added: the @rishabhhshukla oxygen mask reel, the Superman meme, the Rekha Gupta AQI gaffe, the air purifier charcoal reel, Yogi Adityanath&rsquo;s &ldquo;gas chamber&rdquo; remark, and the AAP &ldquo;Ek Saal Dilli Behaal&rdquo; campaign.<br>
                     &bull; All fake download links were replaced with real external sources (SCI portal, CAQM GRAP PDF, CREA report, IQAir report, Delhi EV Policy portal).<br>
                     &bull; Zero remaining broken download links. <em>[Correction, 2 October 2026: this no longer holds; the /downloads/ page links a placeholder Legal Precedents .docx, to be removed or replaced]</em>
@@ -796,7 +787,7 @@
                     &bull; A complete visual overhaul replaced the tab-based layout with an editorial scroll format.<br>
                     &bull; Typography: Newsreader serif, DM Sans, JetBrains Mono.<br>
                     &bull; Sargam Icons v1.6.7 were integrated (40+ icons) and all emoji removed.<br>
-                    &bull; A layout variety system added pull-quote, stat-strip, card-accent and number-callout variants.<br>
+                    &bull; Pages gained pull quotes, stat strips, accented cards and number callouts.<br>
                     &bull; The two main bar charts became horizontal bars with rounded corners.<br>
                     &bull; A Downloads section was added (5 cards), the Research Library was renamed, and the footer was updated for IT Act compliance.
                 </div>
@@ -804,16 +795,16 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v18.0, 22 Feb 2026</div>
                     <strong>Icon system and UI polish</strong><br>
-                    &bull; Sargam Icons were integrated and icon size limits applied everywhere.<br>
+                    &bull; Sargam Icons were added, sized consistently everywhere.<br>
                     &bull; Overflow problems on small screens were fixed.<br>
                     &bull; Card styling was refined and dark mode improved.
                 </div>
 
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v15.0-17.0, Feb 2026</div>
-                    <strong>15-panel extraction and editorial framework</strong><br>
-                    &bull; 15 content panels were pulled out of one monolithic page into a template-based system.<br>
-                    &bull; Section menus with panel switching were added.<br>
+                    <strong>The site splits into 15 sections</strong><br>
+                    &bull; The single long page was split into 15 sections that each open on their own.<br>
+                    &bull; Menus to move between sections were added.<br>
                     &bull; Environmental justice content covers impacts on Dalit communities, women using solid fuel, and informal workers.<br>
                     &bull; PM2.5-primary reporting was aligned with the WHO 2021 guidelines.<br>
                     &bull; The GEMM model health calculator was integrated. <em>[Correction, 2 October 2026: not GEMM; the calculators use AQLI, Berkeley Earth and Jaganathan et al. coefficients]</em>
@@ -822,13 +813,13 @@
                 <div class="jv-item-divided">
                     <div class="jv-item-title">v10.0-14.0, Feb 2026</div>
                     <strong>Core platform features</strong><br>
-                    &bull; Live AQI data from the WAQI API began with 16 Indian cities + 3 international<br>
+                    &bull; Live AQI from WAQI began with 16 Indian cities + 3 international<br>
                     &bull; A health impact calculator used GEMM exposure-response functions. <em>[Correction, 2 October 2026: not GEMM; the calculators use AQLI, Berkeley Earth and Jaganathan et al. coefficients]</em><br>
                     &bull; Economic cost analysis (Lancet Commission, World Bank methodology). <em>[2 October 2026: source not traceable; unverified]</em><br>
                     &bull; An NCAP budget tracker with fund spending analysis.<br>
                     &bull; Political accountability: MoEFCC spending, CAQM compliance, RTI templates.<br>
                     &bull; A global comparison panel (Beijing, London, Singapore benchmarks).<br>
-                    &bull; An interactive Leaflet.js map with live station markers.<br>
+                    &bull; An interactive map with live station markers.<br>
                     &bull; Dark mode with a full colour system.
                 </div>
 
@@ -846,10 +837,10 @@
                     <div class="jv-item-title">v1.0-4.0, Jan 2026</div>
                     <strong>Platform foundation</strong><br>
                     &bull; The first JanVayu (Vayu Smriti) concept and design.<br>
-                    &bull; A single-page website with Chart.js charts for the data.<br>
-                    &bull; WAQI API integration for live air quality data.<br>
+                    &bull; A single-page website with charts of the data.<br>
+                    &bull; Live air quality data from WAQI.<br>
                     &bull; A basic dashboard with Delhi-focused AQI monitoring.<br>
-                    &bull; The GitHub repository was set up and deployed.
+                    &bull; The site went live.
                 </div>
 
             </div>

@@ -263,7 +263,7 @@
    "tag": "Platform",
    "title": "How we checked that the site is fast and usable on a phone",
    "date": "8 May 2026",
-   "blurb": "On the day we released six Learning Games and refreshed the May 2026 data, we also did some quieter work: we set up automatic checks on the speed and accessibility of the site, and made several changes you will notice on your phone.",
+   "blurb": "On the day we released six Learning Games and refreshed the May 2026 data, we also made the site faster and easier to use on a phone, and began testing its speed and accessibility each time it changes.",
    "url": "/blog/#/posts/2026-05-08-quality-and-performance"
   },
   {
