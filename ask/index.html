@@ -199,6 +199,9 @@
     }
     .suggestion:hover { border-color: var(--accent); color: var(--accent); }
 
+    .page-credit { flex-shrink: 0; margin: 0; padding: 0 16px calc(8px + var(--safe-bottom)); text-align: center; font-size: 0.72rem; color: var(--text-3); background: var(--bg); }
+    .page-credit a { color: inherit; text-decoration: underline; }
+
     /* Input bar */
     .input-bar {
       display: flex; align-items: flex-end; gap: 8px;
@@ -336,6 +339,8 @@
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
+
+  <p class="page-credit" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>
 
   <script>
     let selectedCity = 'delhi';

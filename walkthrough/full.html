@@ -127,6 +127,8 @@
   .slide.cover .eyebrow::before { background:#15803d; }
   .slide.cover .foot .brand { color:#9be3b6; }
   .slide.cover .foot .url { color:rgba(255,255,255,.7); }
+  .slide.cover .credit { margin:.8em 0 0; font-size:.85rem; color:rgba(255,255,255,.85); }
+  .slide.cover .credit a { color:#fff; text-decoration:underline; }
   .slide.cover .leaf { position:absolute; inset:0; border-radius:16px; background:radial-gradient(1000px 420px at 50% 118%, rgba(21,128,61,.4), transparent 70%); }
 
   /* Chrome */
@@ -315,7 +317,7 @@ window.FULL_SLIDES = [
     sub: 'Being right includes being clear about uncertainty.', note: 'The live-vs-annual honesty is a recurring theme; it protects the platform from over-claiming.' },
 
   // ── CLOSING ──
-  { cover: true, ch: 'Get involved', head: 'Clean air is everyone&rsquo;s right.',
+  { cover: true, credit: true, ch: 'Get involved', head: 'Clean air is everyone&rsquo;s right.',
     sub: 'The platform is open source and the data is yours. Pull it, embed it, file an RTI with it, or add your name to the team at github.com/JanVayu/JanVayu.',
     note: 'Close on agency: the point of all this data is to be used. Point to the API, the RTI Assistant, and contribute@janvayu.in.' }
 ];
@@ -354,7 +356,9 @@ window.FULL_SLIDES = [
               + '<h1 class="title" style="font-size:clamp(2rem,4.6vw,3.6rem)">' + d.head + '</h1>'
               + (d.sub ? '<p class="sub" style="margin-top:.6em">' + d.sub + '</p>' : '')
               + '<div class="foot"><span class="brand">janvayu.in</span>'
-              + '<span class="url">Citizen-led · open source · free forever</span></div></section>';
+              + '<span class="url">Citizen-led · open source · free forever</span></div>'
+              + (d.credit ? '<p class="credit" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>' : '')
+              + '</section>';
       } else {
         var body;
         if(d.points && d.points.length){
