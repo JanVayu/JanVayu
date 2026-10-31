@@ -86,11 +86,11 @@
 <p><small><em>Delhi's skyline dissolves into smog at sunset. Photo: Ville Miettinen, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>, via Wikimedia Commons.</em></small></p>
 <p>JanVayu exists to hold others accountable with numbers, so our own numbers have to be right. This month we turned that scrutiny on ourselves. It was uncomfortable, as it should be.</p>
 <h2>What we did</h2>
-<p>We ran a <strong>site-wide fact-check</strong>. Automated agents pulled out every checkable statistic and every fixed scientific constant from the homepage, the data-heavy panels, the calculator code and the blog. They then <strong>checked each one on the web against current primary sources</strong>: the Lancet Countdown, IQAir's World Air Quality Report, the Air Quality Life Index, State of Global Air, WHO, CPCB, CREA and NASA. Each figure came back marked <em>current</em>, <em>stale</em>, <em>wrong</em>, <em>unsourced</em> or <em>unverifiable</em>.</p>
+<p>We ran a <strong>site-wide fact-check</strong>. With the help of AI tools we listed every checkable statistic and every fixed scientific constant on the homepage, the data-heavy panels, the calculators and the blog, and <strong>checked each one against current primary sources</strong>: the Lancet Countdown, IQAir's World Air Quality Report, the Air Quality Life Index, State of Global Air, WHO, CPCB, CREA and NASA. Each figure came back marked <em>current</em>, <em>stale</em>, <em>wrong</em>, <em>unsourced</em> or <em>unverifiable</em>.</p>
 <p>The tally: <strong>around 80 figures checked, 47 confirmed current, and 33 that needed fixing.</strong></p>
 <h2>The one that stung</h2>
 <p>Our own homepage claimed India carries <strong>"~70% of the global PM2.5 mortality burden."</strong> That is false. India's toll is one of the world's two largest national tolls (State of Global Air 2024: India 2.1 million deaths, China 2.3 million, of about 8.1 million worldwide in 2021, all from air pollution), but it is roughly <strong>a quarter</strong> of that global total, not a majority.</p>
-<p>The error was also hidden. The corrected wording was in the page, but a small data file put the old "70%" back over it each time the page loaded, so the site looked fixed while still showing the wrong number. We fixed the data file, and we taught our weekly checker to read data files as well as the visible page.</p>
+<p>The error was also hidden. We had corrected the wording once, but the old "70%" came back each time the page loaded, so the site looked fixed to us while visitors still saw the wrong number. The page now shows the corrected figure, and our later checks look at every number as a visitor sees it.</p>
 <h2>A sample of what else changed</h2>
 <ul>
 <li>Ghaziabad's NCAP spending was labelled "26%, below threshold." A written reply by the Ministry of Environment in the Lok Sabha (February 2026, as reported by <a href="https://indianexpress.com/article/cities/delhi/delhi-ncap-funds-fight-air-pollution-since-2019-lags-far-behind-ncr-cities-10512700/">The Indian Express</a>, a press report) says the city spent <strong>over 80%</strong>. It was a leader, and we had labelled it a laggard.</li>
@@ -106,8 +106,8 @@
 <li>Keep two honest methods separate. India's air-pollution death toll is ~1.72 million from ambient PM2.5 (Lancet Countdown 2025) and ~2.1 million when household air pollution is counted (State of Global Air 2024). Both are true. We show both, each with its scope and year.</li>
 <li>Never invent. A number that cannot be verified is flagged, not guessed.</li>
 </ol>
-<h2>Every week from now on</h2>
-<p>A one-off audit goes stale, so the same check now runs <strong>automatically every Monday</strong> on the live site. It proposes its changes for a person to review before anything is altered. The full findings from this first pass are public in the repository (<a href="https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07.md"><code>fact-check-2026-07.md</code></a>), and every number we corrected carries its source.</p>
+<h2>Checking again</h2>
+<p>A one-off check goes stale, so we set the same check to run <strong>every Monday</strong> on the live site, with a person reviewing each proposed change before anything was altered. The <a href="https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07.md">full findings from this first pass</a> are public, and every number we corrected carries its source.</p>
 <p><em>Update, 2 October 2026: the scheduled routines stopped after 8 September 2026 because credits ran out; the 2 October 2026 round was run by hand.</em></p>
 <p>Clean air is a right, and the case for it is strong enough to need no exaggerated number. If you spot a figure that looks off, <a href="mailto:contribute@janvayu.in">tell us</a>. Being corrected in public is the point.</p>
 </article>

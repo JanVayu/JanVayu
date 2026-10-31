@@ -17,9 +17,8 @@ are one of the parties being compared.
 Most of the sites listed are not competitors, and several supply data we use.
 CPCB, WAQI, OpenAQ, Sensor.Community, XKDR and CREA all appear inside JanVayu.
 
-The verification is uneven. Every JanVayu figure below sits in a data file in our
-public repository, and an automated check recomputes it and stops publication if it
-drifts. For the other columns we have used what their pages state and what we
+The verification is uneven. Every JanVayu figure below comes from the data we
+publish, and is compared with that data whenever the site changes. For the other columns we have used what their pages state and what we
 could test ourselves. Where we could test neither, the cell says *unverified*.
 Several of these sites block automated requests, which is their right and our
 limit.
@@ -107,12 +106,11 @@ gave every other column a flat *no* on that row. Both were wrong.
 19 July 2026, now publishes a weather-adjusted report for Delhi every day, and publishes its method in full. The
 table above is corrected.
 
-*Further correction, 2 October 2026: two cells in the "Raw station data via API" row were also wrong. AQICN offers a token-based station API (JanVayu's own WAQI proxy uses it), and CREA's open API returns daily, outlier-filtered station values.*
+*Further correction, 2 October 2026: two cells in the "Raw station data via API" row were also wrong. AQICN offers a token-based station API (JanVayu uses it), and CREA's open API returns daily, outlier-filtered station values.*
 
 We should have caught this ourselves. Our own assistant already cites that site,
 using its decadal figures for Delhi as an independent check on our 1980-to-2022
-reconstruction. The site was in our repository while this post said no such
-source existed. We knew it as a history and had not looked at what else it
+reconstruction, while this post said no such source existed. We knew it as a history and had not looked at what else it
 publishes.
 
 The two are not substitutes. Hawa Ka Hisab asks each day whether Delhi's air
@@ -216,8 +214,7 @@ table rest on their own descriptions rather than our testing, and those cells ar
 marked. **contribute@janvayu.in**
 
 **Sources.** Guttikunda's list, September 2026. JanVayu figures from
-the `data/` folder of [our repository](https://github.com/JanVayu/JanVayu), each recomputed
-by automated checks. CPCB
-bulletin figures parsed from the published PDFs. De-weathering after Grange et al. (2018),
+the data published in [our repository](https://github.com/JanVayu/JanVayu). CPCB
+bulletin figures read from the published PDFs. De-weathering after Grange et al. (2018),
 *Atmospheric Chemistry and Physics* 18, 6223–6239. Village and ward air from
 SatPM2.5 V6GL03 (ACAG / Washington University, 2024).
