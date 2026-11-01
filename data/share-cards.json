@@ -326,6 +326,12 @@
       "sub": "Analysis"
     },
     {
+      "name": "blog/2026-11-01-cbse-class-10-environmental-education",
+      "kicker": "JanVayu blog · 1 November 2026",
+      "title": "CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open",
+      "sub": "Fact check"
+    },
+    {
       "name": "co",
       "kicker": "Pollutant guide",
       "title": "CO in India",
@@ -387,6 +393,11 @@
     }
   ],
   "posts": [
+    {
+      "slug": "2026-11-01-cbse-class-10-environmental-education",
+      "date": "2026-11-01",
+      "title": "CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open"
+    },
     {
       "slug": "2026-10-26-delhi-six-winters-weekly-pm25",
       "date": "2026-10-26",

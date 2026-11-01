@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-01
+
+### Added
+- Blog: "CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open". It quotes CBSE circular Acad-70/2026 of 29 October 2026, says what the circular does not settle (later batches, and environmental content inside other subjects), and cites the circular and not the social post that prompted it. Static page, preview card, sitemap entry and blog index regenerated.
+
 ## [Unreleased] - 2026-10-28
 
 ### Added
