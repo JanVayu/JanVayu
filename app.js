@@ -7105,14 +7105,37 @@
     }
 
     // ── School Closure Predictor ──
+    // GRAP's stage bands are written on the CPCB AQI scale. WAQI's `aqi` is the
+    // US-EPA scale, which reads far lower than CPCB once PM2.5 passes about 90
+    // ug/m3 (PM2.5 150: US 200, CPCB 323), so comparing it with the bands showed
+    // "Normal" on air that is already in the Stage II range. This converts the
+    // PM2.5 concentration with the CPCB breakpoints instead (same table as
+    // netlify/functions/lib/calc.mjs, which a test holds equal). PM2.5 alone is a
+    // lower bound on the official AQI, which takes the worst pollutant.
+    const CPCB_PM25_BANDS = [[0, 30, 0, 50], [31, 60, 51, 100], [61, 90, 101, 200], [91, 120, 201, 300], [121, 250, 301, 400]];
+    function pm25ToCpcbAqi(pm25) {
+        if (pm25 == null || isNaN(pm25) || pm25 < 0) return null;
+        for (const [cLo, cHi, iLo, iHi] of CPCB_PM25_BANDS) {
+            if (pm25 <= cHi) return Math.round(Math.max(iLo, iLo + ((pm25 - cLo) / (cHi - cLo)) * (iHi - iLo)));
+        }
+        return Math.min(500, Math.round(401 + ((pm25 - 250) / 130) * 99));
+    }
+
     function updateSchoolPrediction() {
+        // GRAP is invoked on Delhi's AQI, so Delhi leads. Where Delhi has no
+        // PM2.5, fall back to the mean of the NCR cities that do.
         const ncrCities = ['delhi', 'gurgaon', 'noida', 'faridabad', 'ghaziabad'];
-        const avgAQI = ncrCities.reduce((sum, c) => sum + (aqiData[c]?.aqi || 0), 0) / ncrCities.length;
+        const ncrAqis = ncrCities.map(c => pm25ToCpcbAqi(measuredPM25(aqiData[c]))).filter(v => v != null);
+        const delhiAqi = pm25ToCpcbAqi(measuredPM25(aqiData['delhi']));
+        const avgAQI = delhiAqi != null ? delhiAqi
+            : (ncrAqis.length ? ncrAqis.reduce((a, b) => a + b, 0) / ncrAqis.length : 0);
+        const basis = delhiAqi != null ? "Delhi's" : 'the NCR average of';
 
         let stage, stageColor, schoolStatus, schoolColor;
         // Both colours are painted as text, so they are tokens: #F97316 reads
         // 2.80:1 on white, under even the 3:1 large-text bar.
-        if (avgAQI <= 200) { stage = 'Normal'; stageColor = 'var(--ink-green)'; schoolStatus = 'All schools OPEN'; schoolColor = 'var(--ink-green)'; }
+        if (!avgAQI) { stage = 'unknown'; stageColor = 'var(--text-3)'; schoolStatus = 'No live PM2.5 reading yet'; schoolColor = 'var(--text-3)'; }
+        else if (avgAQI <= 200) { stage = 'Normal'; stageColor = 'var(--ink-green)'; schoolStatus = 'All schools OPEN'; schoolColor = 'var(--ink-green)'; }
         else if (avgAQI <= 300) { stage = 'Stage I'; stageColor = 'var(--ink-amber)'; schoolStatus = 'Schools OPEN (no school-specific GRAP measure at this stage)'; schoolColor = 'var(--ink-amber)'; }
         else if (avgAQI <= 400) { stage = 'Stage II'; stageColor = 'var(--ink-orange)'; schoolStatus = 'Schools OPEN (no school-specific GRAP measure at this stage)'; schoolColor = 'var(--ink-orange)'; }
         else if (avgAQI <= 450) { stage = 'Stage III'; stageColor = 'var(--ink-red)'; schoolStatus = 'Hybrid classes (physical + online) up to Class V'; schoolColor = 'var(--ink-red)'; }
@@ -7122,8 +7145,8 @@
         if (grapEl) {
             grapEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
-                    <div style="font-size: 0.85rem; color: var(--text-3);">NCR average of live WAQI (US) AQI, illustrative</div>
-                    <div style="font-size: 2.5rem; font-weight: 700; color: ${getAQITextColor(avgAQI)};">${Math.round(avgAQI)}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-3);">${basis} PM2.5 as a CPCB-scale AQI, an estimate</div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: ${stageColor};">${avgAQI ? Math.round(avgAQI) : '?'}</div>
                     <div style="font-size: 1.25rem; font-weight: 700; color: ${stageColor}; margin-top: 0.5rem;">GRAP ${stage}</div>
                 </div>`;
         }
@@ -7132,19 +7155,23 @@
             predEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
                     <div style="font-size: 1.5rem; font-weight: 700; color: ${schoolColor}; margin-bottom: 0.5rem;">${schoolStatus}</div>
-                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on current NCR average AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 29 Sep 2026). This page applies the stage bands to the live NCR average of WAQI (US AQI) readings as an illustration, so it can differ from the official stage.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on ${basis} PM2.5-derived CPCB-scale AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 29 Sep 2026). This page converts live PM2.5 to the CPCB scale and applies the stage bands as an estimate. The official AQI takes the worst pollutant, so the real figure can be higher, and the stage in force is whatever CAQM has ordered.</p>
                 </div>`;
         }
 
         const gridEl = document.getElementById('ncr-school-grid');
         if (gridEl) {
+            // CPCB scale, to match the stage above (WAQI's own AQI is US-EPA).
+            const cpcbBand = (v) => v <= 50 ? ['Good', 'var(--ink-green)'] : v <= 100 ? ['Satisfactory', 'var(--ink-green)']
+                : v <= 200 ? ['Moderate', 'var(--ink-amber)'] : v <= 300 ? ['Poor', 'var(--ink-orange)']
+                : v <= 400 ? ['Very poor', 'var(--ink-red)'] : ['Severe', 'var(--ink-violet)'];
             gridEl.innerHTML = ncrCities.map(c => {
-                const data = aqiData[c];
-                const aqi = data?.aqi || 0;
+                const aqi = pm25ToCpcbAqi(measuredPM25(aqiData[c]));
+                const band = aqi == null ? ['No reading', 'var(--text-3)'] : cpcbBand(aqi);
                 return `<div class="card" style="padding: 0.75rem; text-align: center;">
                     <div style="font-size: 0.75rem; font-weight: 600;">${CITIES[c]?.name}</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQITextColor(aqi)};">${aqi || '?'}</div>
-                    <div style="font-size: 0.65rem; color: var(--text-3);">${getAQILabel(aqi)}</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: ${band[1]};">${aqi == null ? '?' : aqi}</div>
+                    <div style="font-size: 0.65rem; color: var(--text-3);">${band[0]}</div>
                 </div>`;
             }).join('');
         }

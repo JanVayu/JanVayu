@@ -3,6 +3,8 @@
 - [**JanVayu Blog**](README.md)
 - [How We Write (contributor guide)](how-we-write.md)
 
+- **November 2026**
+  - [CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open](posts/2026-11-01-cbse-class-10-environmental-education.md)
 - **October 2026**
   - [Delhi's weekly PM2.5 peaks in the same few weeks every winter, and averaging six winters hides how high the first peak goes](posts/2026-10-26-delhi-six-winters-weekly-pm25.md)
   - [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md)
