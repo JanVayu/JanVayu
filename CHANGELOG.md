@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-11-02
 
 ### Fixed
+- Ask JanVayu: asked "Is GRAP Stage 2 in force in Delhi right now?" it answered yes in the present tense, gave a trigger nobody published ("24-hour PM2.5 above 250"), a seasonal reason, and a list of measures that belongs to a different stage. We do not read CAQM's orders, so a question about the stage currently in force is now answered by code: it says it cannot see the order, points to caqm.nic.in, gives the live PM2.5 as a CPCB-scale figure with the band it falls in, quotes the dated press reports as reports, and does not list each stage's measures from memory. Questions about what GRAP is or what a stage involves still go to the model. Three tests pin the wording.
+
+### Fixed
 - GRAP widget (school-closure panel): it compared WAQI's US-EPA AQI with GRAP's CPCB stage bands, so air already in the Stage II range read as "Normal". At PM2.5 150 µg/m³ the US AQI is 200 and the CPCB figure is 323. It now converts live PM2.5 to the CPCB scale, leads with Delhi (GRAP is invoked on Delhi's AQI) and shows the four NCR cities on the same scale. The text says it is an estimate: PM2.5 alone is a lower bound on the official AQI, and the stage in force is whatever CAQM orders. A test holds the browser conversion equal to the server's and fails if the widget reads the raw WAQI figure again.
 
 ### Changed
