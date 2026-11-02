@@ -1303,6 +1303,17 @@ async function buildWardContext(question, fallbackKey) {
   return block;
 }
 
+// The system prompt demands plain text and the model leaks markdown anyway, so
+// every answer goes through this. The bold pattern is the same one the eval's
+// markdown-bold gate uses (test/ask-eval/run-eval.mjs), so anything the gate
+// would flag is removed here.
+function stripMarkdown(text) {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, "$1")          // **bold**
+    .replace(/__([^_\n]+)__/g, "$1")              // __bold__
+    .replace(/^[ \t]*#{1,6}[ \t]+/gm, "");        // # headings
+}
+
 export default async function handler(req) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -1622,9 +1633,11 @@ Top 5 worst: ${top5}
       const causeSourced = promptOpts.winterQ || promptOpts.secondaryQ || promptOpts.ensoQ || promptOpts.ncapQ
         || promptOpts.topical || promptOpts.multiSource || promptOpts.trend || promptOpts.village || promptOpts.ward;
       if (!causeSourced) text = dropUnsourcedCause(text)
-        .replace(/\*\*([^*\n]+)\*\*/g, "$1")   // **bold**
-        .replace(/__([^_\n]+)__/g, "$1")        // __bold__
-        .replace(/^#{1,6}\s+/gm, "");           // # headings
+      // Outside the branch above on purpose. This used to be chained onto
+      // dropUnsourcedCause, so a question that is cause-sourced (winter,
+      // secondary, ENSO, NCAP, topical, trend, ward and the rest) skipped it,
+      // and the weekly eval found bold in 12 of 36 answers on 2 Nov 2026.
+      text = stripMarkdown(text)
     }
     if (!text || text.trim().length === 0) {
       // When Groq returns nothing (rate limit, transient error, content
@@ -1707,5 +1720,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { stripMarkdown, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };

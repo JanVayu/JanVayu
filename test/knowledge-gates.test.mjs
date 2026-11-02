@@ -374,3 +374,33 @@ test('an answer that would be emptied is returned whole', () => {
   const only = "This reading reflects the stubble-burning season.";
   assert.equal(t.dropUnsourcedCause(only), only);
 });
+
+// Markdown must be stripped from every answer, not only from the ones that are
+// not cause-sourced. On 2 Nov 2026 the strip was chained onto dropUnsourcedCause
+// inside `if (!causeSourced)`, so winter, secondary, ENSO and NCAP questions
+// returned **bold** and 12 of 36 eval cases failed the markdown-bold gate.
+test('stripMarkdown removes bold, underscore bold and headings', () => {
+  assert.equal(t.stripMarkdown('The **AQI** is 180.'), 'The AQI is 180.');
+  assert.equal(t.stripMarkdown('A __strong__ claim.'), 'A strong claim.');
+  assert.equal(t.stripMarkdown('## Heading\nBody text'), 'Heading\nBody text');
+  assert.equal(t.stripMarkdown('  ### Indented\nBody'), 'Indented\nBody');
+});
+
+test('stripMarkdown leaves what the eval gate allows, and clears what it flags', () => {
+  const flagged = /\*\*[^*]+\*\*/;
+  const sample = 'First **point**\nand a **second\npoint** that wraps.';
+  assert.ok(flagged.test(sample));
+  assert.ok(!flagged.test(t.stripMarkdown(sample)));
+  const plain = 'PM2.5 is 42 ug/m3.\n- keep windows shut\n- 3 * 4 = 12';
+  assert.equal(t.stripMarkdown(plain), plain);
+});
+
+test('the handler strips markdown outside the cause-sourced branch', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../netlify/functions/air-query.mjs', import.meta.url), 'utf8');
+  const line = src.split('\n').findIndex((l) => /^\s*text = stripMarkdown\(text\)/.test(l));
+  assert.ok(line > -1, 'handler no longer calls stripMarkdown');
+  const before = src.split('\n').slice(Math.max(0, line - 3), line).join('\n');
+  assert.ok(!/if \(!causeSourced\)[^\n]*\n?\s*$/.test(before.split('\n').slice(-1)[0] + ''),
+    'stripMarkdown has been chained back onto the !causeSourced branch');
+});
