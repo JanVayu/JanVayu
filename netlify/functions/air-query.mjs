@@ -1318,6 +1318,24 @@ function isGrapStatusQuestion(question) {
   return /\b(in force|in effect|invoked|imposed|enforced|implemented|active|activated|current(?:ly)?|right now|today|now|status|applied|applicable)\b/.test(q);
 }
 
+// "What is GRAP?" had the same failure in milder form: the model said the Delhi
+// government activates it, that it limits private vehicles and tightens
+// stubble-burning enforcement, and that it is "triggered by live data", none of
+// which we can source. The definition is short and the sourced part is known, so
+// it is fixed text too.
+function isGrapDefinitionQuestion(question) {
+  const q = String(question || "").toLowerCase().trim().replace(/[?.!]+$/, "");
+  return /^(?:what(?:'s| is| does)|explain|define|tell me about)\s+(?:the\s+)?(?:grap|graded response action plan)(?:\s+(?:mean|stand for))?$/.test(q);
+}
+
+function buildGrapDefinitionReply() {
+  return [
+    "GRAP is the Graded Response Action Plan, the set of emergency measures for air pollution in the National Capital Region. It is run by the Commission for Air Quality Management (CAQM), whose Sub-Committee orders each stage.",
+    "It has four stages tied to the CPCB AQI for Delhi: Stage I for Poor air (201 to 300), Stage II for Very Poor (301 to 400), Stage III for Severe (401 to 450) and Stage IV above 450. CAQM invokes a stage on its forecast of Delhi's AQI, so a stage can be ordered before the reading reaches its band.",
+    "Each stage adds measures to the one before. We do not list them here from memory, because the revised schedule of 29 September 2026 changed them from 1 November. The schedule is on caqm.nic.in. To see what the air is doing now, ask for the live PM2.5, and for the stage currently in force, check CAQM's latest order.",
+  ].join("\n\n");
+}
+
 function buildGrapStatusReply(aqiResult) {
   const lines = [
     "I cannot see CAQM's orders, so I cannot tell you which GRAP stage is in force. Stages are invoked by CAQM's Sub-Committee on forecasts, and its order is the only authority. Check caqm.nic.in for the order in force.",
@@ -1387,6 +1405,9 @@ export default async function handler(req) {
                   aqi: null, pm25: null, pm10: null, station: null, time: null };
   }
 
+  if (isGrapDefinitionQuestion(question)) {
+    return new Response(JSON.stringify({ answer: buildGrapDefinitionReply(), dataUsed: aqiResult }), { status: 200, headers });
+  }
   if (isGrapStatusQuestion(question)) {
     return new Response(JSON.stringify({ answer: buildGrapStatusReply(aqiResult), dataUsed: aqiResult }), { status: 200, headers });
   }
@@ -1745,5 +1766,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { isGrapStatusQuestion, buildGrapStatusReply, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { isGrapDefinitionQuestion, buildGrapDefinitionReply, isGrapStatusQuestion, buildGrapStatusReply, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };

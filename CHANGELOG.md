@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-11-02
 
 ### Fixed
+- Ask JanVayu: "What is GRAP?" (and "what does GRAP stand for") is now fixed text as well. The model had said the Delhi government activates it and that it limits private vehicles and tightens stubble-burning enforcement, none of which we can source. The text gives the name, that CAQM's Sub-Committee orders each stage, the four CPCB AQI bands, that stages are invoked on forecast, and sends the reader to the CAQM schedule for the measures.
 - Ask JanVayu: asked "Is GRAP Stage 2 in force in Delhi right now?" it answered yes in the present tense, gave a trigger nobody published ("24-hour PM2.5 above 250"), a seasonal reason, and a list of measures that belongs to a different stage. We do not read CAQM's orders, so a question about the stage currently in force is now answered by code: it says it cannot see the order, points to caqm.nic.in, gives the live PM2.5 as a CPCB-scale figure with the band it falls in, quotes the dated press reports as reports, and does not list each stage's measures from memory. Questions about what GRAP is or what a stage involves still go to the model. Three tests pin the wording.
 
 ### Fixed
