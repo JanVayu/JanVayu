@@ -446,6 +446,7 @@ EVs & TRANSPORT POLICY (India-wide):
 - 29,151 EV charging stations installed across India over the past five years, of which 8,805 fast and 20,346 slow (MoHI reply in the Lok Sabha, 16 Dec 2025).
 
 RECENT POLICY/COURT ACTIONS (Apr-May 2026):
+- GRAP, autumn 2026 (press reports, not the CAQM orders themselves, which we have not read): CAQM invoked Stage I on 21 October 2026 with Delhi's AQI in the poor band (PTI, via Rediff). The revised GRAP of 29 September 2026 restricts non-BS-VI vehicles entering Delhi from 1 November 2026 (Indian Express). On 2 November PTI reported Delhi's 9 am AQI at 312, the first very poor reading of the season, and said that activates Stage 2. Stages are invoked by CAQM on forecasts, so say "reported" and send the user to CAQM (caqm.nic.in) for the order in force; do not state a stage as officially current.
 - CAQM: invoked GRAP Stage-I off-season on 16 April 2026 (AQI 226; revoked 4 May) and again on 19 May 2026 (AQI 208; revoked 29 May). Stage-I was also imposed in May 2025. Do not call any of these a "first" — signals year-round enforcement.
 - NGT: directed 6 south-Indian states (TN/KL/KA/AP/TS/PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets (Apr 2026).
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; listed for 21 Jul 2026, outcome not checked).
