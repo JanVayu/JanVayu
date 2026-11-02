@@ -319,6 +319,7 @@ def post_page(slug, src, topic, slugs):
 <footer class="post-foot">
 <p><a href="/blog/">All posts</a> &middot; <a href="/blog/#/posts/{slug}">Open in the blog reader</a> &middot; <a href="/">JanVayu dashboard</a></p>
 <p>Published {human_date(date)}. Text licensed CC BY-NC-SA 4.0.</p>
+<p lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>
 </footer>
 </main>
 </body>
