@@ -1332,7 +1332,7 @@ function buildGrapDefinitionReply() {
   return [
     "GRAP is the Graded Response Action Plan, the set of emergency measures for air pollution in the National Capital Region. It is run by the Commission for Air Quality Management (CAQM), whose Sub-Committee orders each stage.",
     "It has four stages tied to the CPCB AQI for Delhi: Stage I for Poor air (201 to 300), Stage II for Very Poor (301 to 400), Stage III for Severe (401 to 450) and Stage IV above 450. CAQM invokes a stage on its forecast of Delhi's AQI, so a stage can be ordered before the reading reaches its band.",
-    "Each stage adds measures to the one before. We do not list them here from memory, because the revised schedule of 29 September 2026 changed them from 1 November. The schedule is on caqm.nic.in. To see what the air is doing now, ask for the live PM2.5, and for the stage currently in force, check CAQM's latest order.",
+    "Each stage adds measures to the one before. Ask what a particular stage involves, for example \"What does Stage 2 of GRAP involve?\", for its main measures under the schedule CAQM revised on 29 September 2026, which is on caqm.nic.in. To see what the air is doing now, ask for the live PM2.5, and for the stage currently in force, check CAQM's latest order.",
   ].join("\n\n");
 }
 
@@ -1390,7 +1390,7 @@ function buildGrapStatusReply(aqiResult) {
     lines.push(`What I can say is what the air is doing. The live PM2.5 at ${aqiResult.station || aqiResult.city} is ${pm25} µg/m³, about ${cpcbAqi} on the CPCB scale on PM2.5 alone, which is ${band}. The official AQI takes the worst pollutant, so it can be higher, and GRAP is invoked on Delhi's average and on the forecast, not on one station's reading.`);
   }
   lines.push("Press reports so far this season: CAQM invoked Stage I on 21 October 2026, and on 2 November 2026 PTI reported Delhi's morning AQI at 312, the first Very Poor reading of the season, and said this activates Stage 2. We have not read the CAQM order for Stage II.");
-  lines.push("I do not list what each stage requires from memory, because the revised GRAP schedule (29 September 2026) changed the rules from 1 November, including the vehicle restrictions. The schedule is on caqm.nic.in.");
+  lines.push("For what each stage requires, ask about a particular stage, for example \"What does Stage 2 of GRAP involve?\". The full schedule, revised on 29 September 2026, is on caqm.nic.in.");
   return lines.join("\n\n");
 }
 
