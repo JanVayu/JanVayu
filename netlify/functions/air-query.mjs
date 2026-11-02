@@ -1336,25 +1336,43 @@ function buildGrapDefinitionReply() {
   ].join("\n\n");
 }
 
-// "What does Stage 2 of GRAP involve?" went to the model, which gave a trigger
-// ("150 µg/m³ for two consecutive days") and measures (school closures, a
-// stubble-burning rule) that no source we hold supports, and described Stage 3
-// the same way. The revised schedule of 29 September 2026 changed the measures
-// from 1 November and we hold no reviewed copy of it, so what a stage requires is
-// not answered from memory at all.
+const GRAP_STAGES = {
+  1: { band: "Poor (CPCB AQI 201 to 300)", measures: "dust control, road sweeping and sprinkling, a ban on open burning, and, since 28 September 2026, regulated use of diesel generator sets and a bar on inter-city buses other than electric, CNG and BS-VI diesel" },
+  2: { band: "Very Poor (301 to 400)", measures: "higher parking fees, staggered office timings, more sweeping and sprinkling, tighter checks on building-site dust, and targeted action in identified hotspots" },
+  3: { band: "Severe (401 to 450)", measures: "listed dust-raising building and demolition work stops, stone crushers and mining close, restrictions on BS III petrol and BS IV diesel cars and on older goods vehicles, and hybrid (physical and online) classes up to Class V in Delhi, Gurugram, Faridabad, Ghaziabad and Gautam Buddh Nagar" },
+  4: { band: "Severe plus (above 450)", measures: "trucks barred from Delhi except electric, CNG, LNG and BS-VI diesel, the building ban extended to roads, flyovers and pipelines, hybrid classes up to Class IX and XI, and states may consider closing colleges and odd-even" },
+};
+
+function grapStageAsked(question) {
+  const q = String(question || "").toLowerCase();
+  const m = q.match(/stage[ -]?(iv|iii|ii|i|1|2|3|4)\b/);
+  if (!m) return null;
+  return { i: 1, ii: 2, iii: 3, iv: 4, 1: 1, 2: 2, 3: 3, 4: 4 }[m[1]];
+}
+
 function isGrapMeasuresQuestion(question) {
   const q = String(question || "").toLowerCase();
   if (!/\bgrap\b|graded response|stage[ -]?(?:1|2|3|4|i{1,3}|iv)\b/.test(q)) return false;
-  if (/\bschools?\b|\bclasses\b/.test(q)) return false; // the school-closure block is sourced
-  return /\b(involve|involves|include|includes|measures?|restrictions?|rules?|banned?|ban|allowed|require[sd]?|requirements?|what happens|what are the|triggers?|triggered|thresholds?|mean|means)\b/.test(q);
+  return /\b(involve|involves|include|includes|measures?|restrictions?|rules?|banned?|ban|allowed|require[sd]?|requirements?|what happens|what are the|triggers?|triggered|thresholds?|mean|means|schools?|classes|close|closed|closure)\b/.test(q);
 }
 
-function buildGrapMeasuresReply() {
-  return [
-    "I do not list what a GRAP stage requires or what triggers it from memory, because I have not read the revised schedule that CAQM issued on 29 September 2026, which changed the measures from 1 November, including the vehicle restrictions. Any list I gave you could describe the old schedule or the wrong stage.",
-    "What I can say is how the stages are tied to air quality: Stage I is for Poor air (CPCB AQI 201 to 300), Stage II for Very Poor (301 to 400), Stage III for Severe (401 to 450) and Stage IV above 450. CAQM's Sub-Committee orders each stage on its forecast of Delhi's AQI, and each stage adds measures to the one before.",
-    "The measures for each stage are in CAQM's GRAP schedule on caqm.nic.in. For the stage in force today, check CAQM's latest order.",
-  ].join("\n\n");
+// Stage content is the CAQM GRAP schedule revised 29 September 2026 (Direction
+// No. 104), as rebuilt in docs/user-guide/policy-tracker.md on 6 October 2026.
+// Stage II and the Stage III class rule were re-read against CAQM's own PDF on
+// 2 November 2026. Which stage is in force is never stated here.
+function buildGrapMeasuresReply(question) {
+  const n = grapStageAsked(question);
+  const lines = [];
+  if (n) {
+    const st = GRAP_STAGES[n];
+    lines.push(`Stage ${["", "I", "II", "III", "IV"][n]} of GRAP is for ${st.band} air in Delhi. Its main measures in CAQM's schedule revised on 29 September 2026 are: ${st.measures}.`);
+    if (n > 1) lines.push("The measures of the earlier stages continue when a higher stage is invoked.");
+  } else {
+    lines.push("GRAP has four stages, tied to the CPCB AQI for Delhi, and each stage adds measures to the one before. Under CAQM's schedule revised on 29 September 2026:");
+    for (const k of [1, 2, 3, 4]) lines.push(`Stage ${["", "I", "II", "III", "IV"][k]}, ${GRAP_STAGES[k].band}: ${GRAP_STAGES[k].measures}.`);
+  }
+  lines.push("This is a summary of the schedule, which is on caqm.nic.in, and it does not say which stage is in force. CAQM's Sub-Committee orders each stage on its forecast of Delhi's AQI, so check CAQM's latest order for the stage in force today. In Delhi-NCR the online option for school classes rests with students and guardians, and the Directorate of Education may add its own circulars.");
+  return lines.join("\n\n");
 }
 
 function buildGrapStatusReply(aqiResult) {
@@ -1430,7 +1448,7 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ answer: buildGrapDefinitionReply(), dataUsed: aqiResult }), { status: 200, headers });
   }
   if (isGrapMeasuresQuestion(question)) {
-    return new Response(JSON.stringify({ answer: buildGrapMeasuresReply(), dataUsed: aqiResult }), { status: 200, headers });
+    return new Response(JSON.stringify({ answer: buildGrapMeasuresReply(question), dataUsed: aqiResult }), { status: 200, headers });
   }
   if (isGrapStatusQuestion(question)) {
     return new Response(JSON.stringify({ answer: buildGrapStatusReply(aqiResult), dataUsed: aqiResult }), { status: 200, headers });
