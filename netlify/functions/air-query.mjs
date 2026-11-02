@@ -1304,6 +1304,39 @@ async function buildWardContext(question, fallbackKey) {
   return block;
 }
 
+
+// "Is GRAP Stage 2 in force in Delhi right now?" The model answered yes, in the
+// present tense, with a trigger it made up ("24-hour PM2.5 above 250"), a
+// seasonal reason nobody has published and a list of measures that belongs to
+// Stage III. Nothing we hold says which stage CAQM has ordered, because stages
+// come from CAQM's Sub-Committee orders on forecasts and we do not read them.
+// So this question is answered by code, from the live reading and a dated press
+// report, and never by the model.
+function isGrapStatusQuestion(question) {
+  const q = String(question || "").toLowerCase();
+  if (!/\bgrap\b|graded response|stage[ -]?(?:1|2|3|4|i{1,3}|iv)\b/.test(q)) return false;
+  return /\b(in force|in effect|invoked|imposed|enforced|implemented|active|activated|current(?:ly)?|right now|today|now|status|applied|applicable)\b/.test(q);
+}
+
+function buildGrapStatusReply(aqiResult) {
+  const lines = [
+    "I cannot see CAQM's orders, so I cannot tell you which GRAP stage is in force. Stages are invoked by CAQM's Sub-Committee on forecasts, and its order is the only authority. Check caqm.nic.in for the order in force.",
+  ];
+  const pm25 = aqiResult && aqiResult.pm25;
+  const cpcbAqi = pm25ToCpcbAqi(pm25);
+  if (cpcbAqi != null) {
+    const band = cpcbAqi <= 200 ? "below the Poor band, where GRAP is not triggered"
+      : cpcbAqi <= 300 ? "the Poor band (CPCB AQI 201 to 300), the Stage I band"
+      : cpcbAqi <= 400 ? "the Very Poor band (301 to 400), the Stage II band"
+      : cpcbAqi <= 450 ? "the Severe band (401 to 450), the Stage III band"
+      : "above 450, the Stage IV band";
+    lines.push(`What I can say is what the air is doing. The live PM2.5 at ${aqiResult.station || aqiResult.city} is ${pm25} µg/m³, about ${cpcbAqi} on the CPCB scale on PM2.5 alone, which is ${band}. The official AQI takes the worst pollutant, so it can be higher, and GRAP is invoked on Delhi's average and on the forecast, not on one station's reading.`);
+  }
+  lines.push("Press reports so far this season: CAQM invoked Stage I on 21 October 2026, and on 2 November 2026 PTI reported Delhi's morning AQI at 312, the first Very Poor reading of the season, and said this activates Stage 2. We have not read the CAQM order for Stage II.");
+  lines.push("I do not list what each stage requires from memory, because the revised GRAP schedule (29 September 2026) changed the rules from 1 November, including the vehicle restrictions. The schedule is on caqm.nic.in.");
+  return lines.join("\n\n");
+}
+
 export default async function handler(req) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -1352,6 +1385,10 @@ export default async function handler(req) {
   if (!aqiResult) {
     aqiResult = { city: (WARD_DATA[cityKey] && WARD_DATA[cityKey].name) || city,
                   aqi: null, pm25: null, pm10: null, station: null, time: null };
+  }
+
+  if (isGrapStatusQuestion(question)) {
+    return new Response(JSON.stringify({ answer: buildGrapStatusReply(aqiResult), dataUsed: aqiResult }), { status: 200, headers });
   }
 
   // v26.6.18 — Fetch station list for: station-count queries, generic AQI
@@ -1708,5 +1745,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { isGrapStatusQuestion, buildGrapStatusReply, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };
