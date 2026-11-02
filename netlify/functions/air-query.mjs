@@ -1336,6 +1336,27 @@ function buildGrapDefinitionReply() {
   ].join("\n\n");
 }
 
+// "What does Stage 2 of GRAP involve?" went to the model, which gave a trigger
+// ("150 µg/m³ for two consecutive days") and measures (school closures, a
+// stubble-burning rule) that no source we hold supports, and described Stage 3
+// the same way. The revised schedule of 29 September 2026 changed the measures
+// from 1 November and we hold no reviewed copy of it, so what a stage requires is
+// not answered from memory at all.
+function isGrapMeasuresQuestion(question) {
+  const q = String(question || "").toLowerCase();
+  if (!/\bgrap\b|graded response|stage[ -]?(?:1|2|3|4|i{1,3}|iv)\b/.test(q)) return false;
+  if (/\bschools?\b|\bclasses\b/.test(q)) return false; // the school-closure block is sourced
+  return /\b(involve|involves|include|includes|measures?|restrictions?|rules?|banned?|ban|allowed|require[sd]?|requirements?|what happens|what are the|triggers?|triggered|thresholds?|mean|means)\b/.test(q);
+}
+
+function buildGrapMeasuresReply() {
+  return [
+    "I do not list what a GRAP stage requires or what triggers it from memory, because I have not read the revised schedule that CAQM issued on 29 September 2026, which changed the measures from 1 November, including the vehicle restrictions. Any list I gave you could describe the old schedule or the wrong stage.",
+    "What I can say is how the stages are tied to air quality: Stage I is for Poor air (CPCB AQI 201 to 300), Stage II for Very Poor (301 to 400), Stage III for Severe (401 to 450) and Stage IV above 450. CAQM's Sub-Committee orders each stage on its forecast of Delhi's AQI, and each stage adds measures to the one before.",
+    "The measures for each stage are in CAQM's GRAP schedule on caqm.nic.in. For the stage in force today, check CAQM's latest order.",
+  ].join("\n\n");
+}
+
 function buildGrapStatusReply(aqiResult) {
   const lines = [
     "I cannot see CAQM's orders, so I cannot tell you which GRAP stage is in force. Stages are invoked by CAQM's Sub-Committee on forecasts, and its order is the only authority. Check caqm.nic.in for the order in force.",
@@ -1407,6 +1428,9 @@ export default async function handler(req) {
 
   if (isGrapDefinitionQuestion(question)) {
     return new Response(JSON.stringify({ answer: buildGrapDefinitionReply(), dataUsed: aqiResult }), { status: 200, headers });
+  }
+  if (isGrapMeasuresQuestion(question)) {
+    return new Response(JSON.stringify({ answer: buildGrapMeasuresReply(), dataUsed: aqiResult }), { status: 200, headers });
   }
   if (isGrapStatusQuestion(question)) {
     return new Response(JSON.stringify({ answer: buildGrapStatusReply(aqiResult), dataUsed: aqiResult }), { status: 200, headers });
@@ -1766,5 +1790,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { isGrapDefinitionQuestion, buildGrapDefinitionReply, isGrapStatusQuestion, buildGrapStatusReply, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+export const __testing = { isGrapMeasuresQuestion, buildGrapMeasuresReply, isGrapDefinitionQuestion, buildGrapDefinitionReply, isGrapStatusQuestion, buildGrapStatusReply, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
   isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };

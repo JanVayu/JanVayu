@@ -46,3 +46,18 @@ test('"What is GRAP?" is a fixed, sourced definition and nothing broader is caug
   assert.match(r, /caqm\.nic\.in/);
   assert.doesNotMatch(r, /Delhi government|stubble|diesel generator|private vehicles|—/i);
 });
+
+test('what a stage involves is never answered from memory', () => {
+  for (const q of ['What does Stage 2 of GRAP involve?', 'What are the restrictions under GRAP stage 3?',
+                   'What triggers GRAP Stage 4?', 'Which vehicles are banned under GRAP?']) {
+    assert.equal(t.isGrapMeasuresQuestion(q), true, q);
+  }
+  for (const q of ['What is GRAP?', 'Is GRAP Stage 2 in force right now?', 'Will schools close under GRAP stage 3?',
+                   'What is the PM2.5 in Delhi?']) {
+    assert.equal(t.isGrapMeasuresQuestion(q), false, q);
+  }
+  const r = t.buildGrapMeasuresReply();
+  assert.match(r, /caqm\.nic\.in/);
+  assert.match(r, /not list what a GRAP stage requires/);
+  assert.doesNotMatch(r, /diesel generator|construction|stubble|consecutive|—/i);
+});
