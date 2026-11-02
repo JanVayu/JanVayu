@@ -31,3 +31,18 @@ test('with no reading it still declines and points to CAQM', () => {
   assert.match(r, /caqm\.nic\.in/);
   assert.doesNotMatch(r, /live PM2\.5/);
 });
+
+test('"What is GRAP?" is a fixed, sourced definition and nothing broader is caught', () => {
+  for (const q of ['What is GRAP?', 'what does GRAP stand for', 'Explain the Graded Response Action Plan']) {
+    assert.equal(t.isGrapDefinitionQuestion(q), true, q);
+  }
+  for (const q of ['What does Stage 2 of GRAP involve?', 'What is the GRAP stage today?', 'Will GRAP close schools?',
+                   'How does GRAP affect my commute']) {
+    assert.equal(t.isGrapDefinitionQuestion(q), false, q);
+  }
+  const r = t.buildGrapDefinitionReply();
+  assert.match(r, /CAQM/);
+  assert.match(r, /201 to 300/);
+  assert.match(r, /caqm\.nic\.in/);
+  assert.doesNotMatch(r, /Delhi government|stubble|diesel generator|private vehicles|—/i);
+});
