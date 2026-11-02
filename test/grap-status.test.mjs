@@ -47,17 +47,26 @@ test('"What is GRAP?" is a fixed, sourced definition and nothing broader is caug
   assert.doesNotMatch(r, /Delhi government|stubble|diesel generator|private vehicles|—/i);
 });
 
-test('what a stage involves is never answered from memory', () => {
+test('what a stage involves comes from the documented CAQM schedule, never from the model', () => {
   for (const q of ['What does Stage 2 of GRAP involve?', 'What are the restrictions under GRAP stage 3?',
-                   'What triggers GRAP Stage 4?', 'Which vehicles are banned under GRAP?']) {
+                   'What triggers GRAP Stage 4?', 'Which vehicles are banned under GRAP?',
+                   'Will schools close under GRAP stage 3?']) {
     assert.equal(t.isGrapMeasuresQuestion(q), true, q);
   }
-  for (const q of ['What is GRAP?', 'Is GRAP Stage 2 in force right now?', 'Will schools close under GRAP stage 3?',
-                   'What is the PM2.5 in Delhi?']) {
+  for (const q of ['What is GRAP?', 'Is GRAP Stage 2 in force right now?', 'What is the PM2.5 in Delhi?',
+                   'Is it safe to run today?']) {
     assert.equal(t.isGrapMeasuresQuestion(q), false, q);
   }
-  const r = t.buildGrapMeasuresReply();
-  assert.match(r, /caqm\.nic\.in/);
-  assert.match(r, /not list what a GRAP stage requires/);
-  assert.doesNotMatch(r, /diesel generator|construction|stubble|consecutive|—/i);
+  const two = t.buildGrapMeasuresReply('What does Stage 2 of GRAP involve?');
+  assert.match(two, /Stage II of GRAP is for Very Poor/);
+  assert.match(two, /parking fees/);
+  assert.match(two, /staggered office timings/);
+  const three = t.buildGrapMeasuresReply('Will schools close under GRAP stage 3?');
+  assert.match(three, /hybrid \(physical and online\) classes up to Class V/);
+  for (const r of [two, three, t.buildGrapMeasuresReply('What does GRAP involve?')]) {
+    assert.match(r, /does not say which stage is in force/);
+    assert.match(r, /caqm\.nic\.in/);
+    assert.doesNotMatch(r, /consecutive|150 µg|two days|\u2014/i);
+  }
+  assert.match(t.buildGrapMeasuresReply('What does GRAP involve?'), /Stage IV, Severe plus/);
 });
