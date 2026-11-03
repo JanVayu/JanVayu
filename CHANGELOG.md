@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Ask JanVayu: knows the autumn 2026 GRAP sequence as press reports (Stage I on 21 October, the revised vehicle rules from 1 November, PTI's 2 November report that Delhi's AQI of 312 activates Stage 2), and is told to say "reported" and point to CAQM for the order in force.
 
+### Added
+- Reading List: three peer-reviewed studies added after reading each abstract. Sethi and Siddiqui on Delhi preschoolers, parents and teachers; Paul on firewood smoke and respiratory health among Mid-Day Meal cooks in rural Assam; Tiwari and others on black carbon and India's 2015 heatwave. The list is now 72 studies, and the BibTeX and RIS files are regenerated.
+
 ## [Unreleased] - 2026-11-01
 
 ### Added

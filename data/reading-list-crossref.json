@@ -7160,6 +7160,105 @@
   ],
   "type": "journal-article"
  },
+ "10.1038/s43247-026-04157-9": {
+  "DOI": "10.1038/s43247-026-04157-9",
+  "ISSN": [
+   "2662-4435"
+  ],
+  "URL": "https://doi.org/10.1038/s43247-026-04157-9",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-9033-0799",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Tiwari",
+    "given": "Dewashish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Arushi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dhasmana",
+    "given": "Manish Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mondal",
+    "given": "Arpita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-2280-3360",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Venkataraman",
+    "given": "Chandra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Communications Earth &amp; Environment"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Black carbon aerosols intensified India’s 2015 mega heatwave and expanded heat stress exposure"
+  ],
+  "type": "journal-article"
+ },
  "10.1038/s44407-026-00098-x": {
   "DOI": "10.1038/s44407-026-00098-x",
   "ISSN": [
@@ -8974,6 +9073,58 @@
   ],
   "type": "journal-article",
   "volume": "26"
+ },
+ "10.1186/s12982-026-02866-2": {
+  "DOI": "10.1186/s12982-026-02866-2",
+  "ISSN": [
+   "3005-0774"
+  ],
+  "URL": "https://doi.org/10.1186/s12982-026-02866-2",
+  "article-number": "1722",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0001-4246-9267",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Paul",
+    "given": "Shanku",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   }
+  ],
+  "container-title": [
+   "Discover Public Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Respiratory health effects of occupational biomass smoke exposure among cook cum helpers in rural Assam school kitchens using propensity score matching"
+  ],
+  "type": "journal-article",
+  "volume": "23"
  },
  "10.3389/fclim.2026.1855755": {
   "DOI": "10.3389/fclim.2026.1855755",
@@ -11314,6 +11465,72 @@
   ],
   "type": "journal-article",
   "volume": "14"
+ },
+ "10.37291/jces.909": {
+  "DOI": "10.37291/jces.909",
+  "ISSN": [
+   "2717-638X"
+  ],
+  "URL": "https://doi.org/10.37291/jces.909",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-5062-5645",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Sethi",
+    "given": "Ridhi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-7544-9537",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Siddiqui",
+    "given": "Fariha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Childhood, Education &amp; Society"
+  ],
+  "issue": "3",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     11,
+     2
+    ]
+   ]
+  },
+  "page": "569-588",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     11,
+     2
+    ]
+   ]
+  },
+  "publisher": "Journal of Childhood, Education and Society",
+  "title": [
+   "Understanding the impact of air pollution on young children in Delhi through the voices of parents, teachers, and children"
+  ],
+  "type": "journal-article",
+  "volume": "7"
  },
  "10.5194/acp-24-10279-2024": {
   "DOI": "10.5194/acp-24-10279-2024",
