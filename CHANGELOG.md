@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-04
+
+### Added
+- Blog: "Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it". It checks Newslaundry's 22 May 2026 report against the sources: the "more than 23%" share of global preterm births is 22.6% by the Lancet paper's own figures (which say "over 20%"), the mechanism is plausible, and "India has no comparable study" is too strong because several Indian studies exist. It sets out what the Delhi RTI count cannot show: it has no exposure data, its rates imply recorded live births rose by about a quarter, and heat is a competing explanation for the August peak. Two claims in the report that we could not verify are not repeated.
+- Reading List: five studies on air pollution and pregnancy, read from their abstracts. Xue and others on pregnancy loss in south Asia, deSouza and others on infant mortality in India, Jana and others on birth outcomes across India, Parikh and others on a 406-woman prospective cohort, and Ghosh and others on the global burden. The list is now 77 studies, and the BibTeX and RIS files are regenerated.
+
+### Changed
+- Beyond the Lungs: the pregnancy line now carries the national survey result on preterm birth, the 2026 birth-weight estimate, and a link to the post on what Delhi's preterm count can and cannot show. Version 26.6.249.
+
 ## [Unreleased] - 2026-11-02
 
 ### Fixed

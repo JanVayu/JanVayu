@@ -1400,6 +1400,224 @@
   "type": "journal-article",
   "volume": "8"
  },
+ "10.1016/j.reprotox.2025.109127": {
+  "DOI": "10.1016/j.reprotox.2025.109127",
+  "ISSN": [
+   "0890-6238"
+  ],
+  "URL": "https://doi.org/10.1016/j.reprotox.2025.109127",
+  "article-number": "109127",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Parikh",
+    "given": "Garvita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Mehta",
+    "given": "Amiya Udayan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Siddiqui",
+    "given": "Niyamat Ali",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Krishna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Adhikary",
+    "given": "Mihir",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0594-5452",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Patel",
+    "given": "Bhoomika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Reproductive Toxicology"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     3
+    ]
+   ]
+  },
+  "page": "109127",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     3
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Maternal exposure to PM2.5 and its association with adverse pregnancy and birth outcomes: A prospective cohort study"
+  ],
+  "type": "journal-article",
+  "volume": "140"
+ },
+ "10.1016/j.scitotenv.2021.152755": {
+  "DOI": "10.1016/j.scitotenv.2021.152755",
+  "ISSN": [
+   "0048-9697"
+  ],
+  "URL": "https://doi.org/10.1016/j.scitotenv.2021.152755",
+  "article-number": "152755",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "deSouza",
+    "given": "Priyanka N.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Dey",
+    "given": "Sagnik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mwenda",
+    "given": "Kevin M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kim",
+    "given": "Rockli",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Subramanian",
+    "given": "S.V.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kinney",
+    "given": "Patrick L.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Science of The Total Environment"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2022,
+     4
+    ]
+   ]
+  },
+  "page": "152755",
+  "published": {
+   "date-parts": [
+    [
+     2022,
+     4
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Robust relationship between ambient air pollution and infant mortality in India"
+  ],
+  "type": "journal-article",
+  "volume": "815"
+ },
  "10.1016/s2542-5196(18)30261-4": {
   "DOI": "10.1016/s2542-5196(18)30261-4",
   "ISSN": [
@@ -2347,6 +2565,114 @@
   ],
   "type": "journal-article",
   "volume": "3"
+ },
+ "10.1016/s2542-5196(20)30268-0": {
+  "DOI": "10.1016/s2542-5196(20)30268-0",
+  "ISSN": [
+   "2542-5196"
+  ],
+  "URL": "https://doi.org/10.1016/s2542-5196(20)30268-0",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Xue",
+    "given": "Tao",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Guan",
+    "given": "Tianjia",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Geng",
+    "given": "Guannan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhang",
+    "given": "Qiang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhao",
+    "given": "Yong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhu",
+    "given": "Tong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "The Lancet Planetary Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2021,
+     1
+    ]
+   ]
+  },
+  "page": "e15-e24",
+  "published": {
+   "date-parts": [
+    [
+     2021,
+     1
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Estimation of pregnancy losses attributable to exposure to ambient fine particles in south Asia: an epidemiological case-control study"
+  ],
+  "type": "journal-article",
+  "volume": "5"
  },
  "10.1016/s2542-5196(20)30298-9": {
   "DOI": "10.1016/s2542-5196(20)30298-9",
@@ -9125,6 +9451,224 @@
   ],
   "type": "journal-article",
   "volume": "23"
+ },
+ "10.1371/journal.pgph.0003798": {
+  "DOI": "10.1371/journal.pgph.0003798",
+  "ISSN": [
+   "2767-3375"
+  ],
+  "URL": "https://doi.org/10.1371/journal.pgph.0003798",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-5377-4614",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Jana",
+    "given": "Arup",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Pramanik",
+    "given": "Malay",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Maiti",
+    "given": "Arabinda",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chattopadhyay",
+    "given": "Aparajita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9006-730X",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Abed Al Ahad",
+    "given": "Mary",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "PLOS Global Public Health"
+  ],
+  "issue": "7",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     7,
+     2
+    ]
+   ]
+  },
+  "page": "e0003798",
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     7,
+     2
+    ]
+   ]
+  },
+  "publisher": "Public Library of Science (PLoS)",
+  "title": [
+   "In-utero exposure to PM2.5 and adverse birth outcomes in India: Geostatistical modelling using remote sensing and demographic health survey data 2019–21"
+  ],
+  "type": "journal-article",
+  "volume": "5"
+ },
+ "10.1371/journal.pmed.1003718": {
+  "DOI": "10.1371/journal.pmed.1003718",
+  "ISSN": [
+   "1549-1676"
+  ],
+  "URL": "https://doi.org/10.1371/journal.pmed.1003718",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-7839-4148",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Ghosh",
+    "given": "Rakesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4143-7159",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Causey",
+    "given": "Kate",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6772-620X",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Burkart",
+    "given": "Katrin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Wozniak",
+    "given": "Sara",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cohen",
+    "given": "Aaron",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Brauer",
+    "given": "Michael",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "PLOS Medicine"
+  ],
+  "issue": "9",
+  "issued": {
+   "date-parts": [
+    [
+     2021,
+     9,
+     28
+    ]
+   ]
+  },
+  "page": "e1003718",
+  "published": {
+   "date-parts": [
+    [
+     2021,
+     9,
+     28
+    ]
+   ]
+  },
+  "publisher": "Public Library of Science (PLoS)",
+  "title": [
+   "Ambient and household PM2.5 pollution and adverse perinatal outcomes: A meta-regression and analysis of attributable global burden for 204 countries and territories"
+  ],
+  "type": "journal-article",
+  "volume": "18"
  },
  "10.3389/fclim.2026.1855755": {
   "DOI": "10.3389/fclim.2026.1855755",
