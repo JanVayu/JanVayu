@@ -254,10 +254,10 @@ export default async () => {
       const hasAlerts = alertCities.length > 0;
 
       const subject = hasAlerts
-        ? `PM2.5 alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} above ${Math.round(thresholdPM25(sub))} µg/m³ — JanVayu Daily Digest`
+        ? `PM2.5 alert: ${alertCities.map(k => CITIES[k]?.name).join(", ")} above ${Math.round(thresholdPM25(sub))} µg/m³ | JanVayu Daily Digest`
         : worstCat
-          ? `Air Quality Update: worst PM2.5 ${Math.round(worstPM25)} µg/m³, CPCB ${worstCat.label} — JanVayu Daily Digest`
-          : `Air Quality Update — JanVayu Daily Digest`;
+          ? `Air Quality Update: worst PM2.5 ${Math.round(worstPM25)} µg/m³, CPCB ${worstCat.label} | JanVayu Daily Digest`
+          : `Air Quality Update | JanVayu Daily Digest`;
 
       await resend.emails.send({
         from: fromAddress,
