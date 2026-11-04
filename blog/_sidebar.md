@@ -4,6 +4,7 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **November 2026**
+  - [Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it](posts/2026-11-04-pollution-and-preterm-birth-delhi.md)
   - [CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open](posts/2026-11-01-cbse-class-10-environmental-education.md)
 - **October 2026**
   - [Delhi's weekly PM2.5 peaks in the same few weeks every winter, and averaging six winters hides how high the first peak goes](posts/2026-10-26-delhi-six-winters-weekly-pm25.md)
