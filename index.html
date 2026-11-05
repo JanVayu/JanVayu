@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606249">
+    <link rel="preload" as="style" href="/styles.css?v=202606250">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -987,8 +987,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606249" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606249"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606250" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606250"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1048,7 +1048,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606249" defer></script>
+<script src="/js/chrome.js?v=202606250" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1551,7 +1551,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606249"></script>
+    <script src="/app.js?v=202606250"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
@@ -3343,6 +3343,15 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="Air pollution is now linked to type-2 diabetes, and to worse pregnancy outcomes, more premature births and underweight babies, especially in the polluted winter months."><strong>Metabolic:</strong> chronic PM2.5 exposure is associated with higher <strong>type-2 diabetes</strong> risk through insulin resistance and systemic inflammation.</p>
                 <p class="jv-t-sm-2"><strong>Pregnancy:</strong> studies of India link higher PM2.5 in pregnancy to low birth weight, preterm birth, pregnancy loss and neonatal death. A 2025 national survey analysis found a <strong>12% higher prevalence of preterm birth</strong> per 10 &micro;g/m&sup3; (Jana et al.), and one standard deviation less in-utero PM2.5 goes with about <strong>1.1% higher average birth weight</strong> (Misra &amp; Kulshreshtha, 2026). Delhi&rsquo;s recorded preterm births rose 51% between 2021 and 2025, but that count carries no exposure data: <a href="/blog/2026-11-04-pollution-and-preterm-birth-delhi/">what it can and cannot show</a>.</p>
+            </div>
+        </div>
+
+        <div class="card card-accent-red" style="grid-column: 1 / -1;">
+            <div class="card-header"><span class="card-title">Cancer</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="The World Health Organization's cancer agency says outdoor air pollution causes cancer. The proof is strongest for lung cancer and weaker for other cancers."><strong>Established:</strong> IARC, the World Health Organization&rsquo;s cancer agency, classified outdoor air pollution and particulate matter as carcinogenic to humans (Group 1) in 2013, on evidence that they cause <strong>lung cancer</strong>. Group 1 describes how sure the evidence is, not how large the risk is.</p>
+                <p class="jv-t-sm-2"><strong>Newer estimates:</strong> a 2026 UICC and George Institute overview of 42 reviews reports an <strong>11% higher overall risk</strong> of developing cancer, and a 12% higher risk of dying from it, with long-term PM2.5 exposure. It is a global association and not a count of cases in Delhi, and the evidence for cancers other than lung is more limited (Turner et al., 2020).</p>
+                <p class="jv-t-xs-3"><strong>Delhi:</strong> AIIMS Delhi&rsquo;s AIRCARE study, announced in March 2026, plans to compare 1,615 lung cancer patients with 1,615 controls and has not reported results. <a href="/blog/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports/">What the evidence supports</a></p>
             </div>
         </div>
     </div>

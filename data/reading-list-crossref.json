@@ -9670,6 +9670,237 @@
   "type": "journal-article",
   "volume": "18"
  },
+ "10.3322/caac.21632": {
+  "DOI": "10.3322/caac.21632",
+  "ISSN": [
+   "0007-9235",
+   "1542-4863"
+  ],
+  "URL": "https://doi.org/10.3322/caac.21632",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-6431-1997",
+    "affiliation": [
+     {
+      "name": "Barcelona Institute for Global Health (ISGlobal) Barcelona Spain"
+     },
+     {
+      "name": "Pompeu Fabra University Barcelona Spain"
+     },
+     {
+      "name": "Consortium for Biomedical Research in Epidemiology and Public Health (CIBERESP) Madrid Spain"
+     },
+     {
+      "name": "McLaughlin Center for Population Health Risk Assessment University of Ottawa Ottawa Ontario Canada"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Turner",
+    "given": "Michelle C.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4138-9828",
+    "affiliation": [
+     {
+      "name": "Department of Public Health University of Copenhagen Copenhagen Denmark"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Andersen",
+    "given": "Zorana J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3436-0640",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Health Sciences Columbia University Mailman School of Public Health New York New York"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Baccarelli",
+    "given": "Andrea",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5418-9000",
+    "affiliation": [
+     {
+      "name": "Behavioral and Epidemiology Research Group American Cancer Society Atlanta Georgia"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Diver",
+    "given": "W. Ryan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1934-2110",
+    "affiliation": [
+     {
+      "name": "Behavioral and Epidemiology Research Group American Cancer Society Atlanta Georgia"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Gapstur",
+    "given": "Susan M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4239-6686",
+    "affiliation": [
+     {
+      "name": "Department of Economics Brigham Young University Provo Utah"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pope",
+    "given": "C. Arden",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional",
+    "suffix": "III"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6517-156X",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Health Sciences Columbia University Mailman School of Public Health New York New York"
+     },
+     {
+      "name": "National Cancer Institute Mexico City Mexico"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Prada",
+    "given": "Diddier",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Colorado School of Public Health Aurora Colorado"
+     }
+    ],
+    "family": "Samet",
+    "given": "Jonathan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-9429-2267",
+    "affiliation": [
+     {
+      "name": "New York University School of Medicine New York New York"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Thurston",
+    "given": "George",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Health Effects Institute Boston Massachusetts"
+     },
+     {
+      "name": "Institute for Health Metrics and Evaluation Seattle Washington"
+     }
+    ],
+    "family": "Cohen",
+    "given": "Aaron",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "CA: A Cancer Journal for Clinicians"
+  ],
+  "issue": "6",
+  "issued": {
+   "date-parts": [
+    [
+     2020,
+     8,
+     25
+    ]
+   ]
+  },
+  "page": "460-479",
+  "published": {
+   "date-parts": [
+    [
+     2020,
+     8,
+     25
+    ]
+   ]
+  },
+  "publisher": "Wiley",
+  "title": [
+   "Outdoor air pollution and cancer: An overview of the current evidence and public health recommendations"
+  ],
+  "type": "journal-article",
+  "volume": "70"
+ },
  "10.3389/fclim.2026.1855755": {
   "DOI": "10.3389/fclim.2026.1855755",
   "ISSN": [
