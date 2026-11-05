@@ -51,7 +51,7 @@ And "clean-air days" should not be used for any count that includes Moderate. Th
 
 - [Ministry of Environment, Forest and Climate Change, "Delhi Records Lowest Average AQI for October in the Last Eight Years at 166", PIB release 2331032, 31 October 2026](https://www.pib.gov.in/PressReleasePage.aspx?PRID=2331032&reg=48&lang=2)
 - [CPCB daily AQI bulletins, including 4 November 2026 with CPCB's category health statements](https://cpcb.nic.in/upload/Downloads/AQI_Bulletin_20261104.pdf), and the bulletin file we hold for 1 January to 1 November, [data/raw/cpcb-bulletins-2026.csv.gz](https://github.com/JanVayu/JanVayu/blob/main/data/raw/cpcb-bulletins-2026.csv.gz)
-- [JanVayu, "Delhi's 211 days of good-to-moderate air, checked day by day", 19 October 2026](/blog/2026-10-19-delhi-211-days-checked/)
+- [JanVayu, "Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them", 19 October 2026](/blog/2026-10-19-delhi-211-days-checked/)
 - [IANS report of the Delhi government's statement, 17 October 2026](https://www.socialnews.xyz/2026/10/17/delhi-has-achieved-211-good-to-moderate-air-quality-days-in-2026-environment-minister/)
 - [DJ News Live, "Delhi Records 220 Clean-Air Days in 2026", 3 November 2026](https://www.djnewslive.com/india/delhi-records-220-clean-air-days-as-october-aqi-hits-eight-year/article-9771)
 - [FirstReport, "Delhi Air Quality: 220 Better Days, Then AQI Hits 324", 3 November 2026](https://firstreport.news/weather-india/delhi-air-quality-claim-collides-with-november-smog-spike)

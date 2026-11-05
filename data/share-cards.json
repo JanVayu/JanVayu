@@ -304,14 +304,14 @@
     {
       "name": "blog/2026-10-19-delhi-211-days-checked",
       "kicker": "JanVayu blog · 19 October 2026",
-      "title": "Delhi's 211 days of good-to-moderate air, checked day by day",
-      "sub": "Fact check"
+      "title": "Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them",
+      "sub": "Position"
     },
     {
       "name": "blog/2026-10-25-ammonia-the-other-half",
       "kicker": "JanVayu blog · 25 October 2026",
-      "title": "Ammonia, the other half of secondary PM2.5, checked against what has been published",
-      "sub": "Fact check"
+      "title": "India's secondary PM2.5 starts at the coal plant: cut sulphur dioxide first, and pair it with deep ammonia cuts",
+      "sub": "Position"
     },
     {
       "name": "blog/2026-10-25-el-nino-and-the-winter-ahead",
@@ -328,20 +328,20 @@
     {
       "name": "blog/2026-11-01-cbse-class-10-environmental-education",
       "kicker": "JanVayu blog · 1 November 2026",
-      "title": "CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open",
-      "sub": "Fact check"
+      "title": "CBSE should not leave Class 10 without environmental education, and should say now when it returns",
+      "sub": "Position"
     },
     {
       "name": "blog/2026-11-04-pollution-and-preterm-birth-delhi",
       "kicker": "JanVayu blog · 4 November 2026",
-      "title": "Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it",
-      "sub": "Fact check"
+      "title": "Delhi must release its birth records, so we can find out what its air is doing to pregnancies",
+      "sub": "Position"
     },
     {
       "name": "blog/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports",
       "kicker": "JanVayu blog · 5 November 2026",
-      "title": "Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked",
-      "sub": "Fact check"
+      "title": "The evidence that air pollution causes cancer is enough to act on, and Delhi needs the data to show its own toll",
+      "sub": "Position"
     },
     {
       "name": "blog/2026-11-05-delhi-220-good-to-moderate-days",
@@ -419,17 +419,17 @@
     {
       "slug": "2026-11-05-air-pollution-and-cancer-what-the-evidence-supports",
       "date": "2026-11-05",
-      "title": "Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked"
+      "title": "The evidence that air pollution causes cancer is enough to act on, and Delhi needs the data to show its own toll"
     },
     {
       "slug": "2026-11-04-pollution-and-preterm-birth-delhi",
       "date": "2026-11-04",
-      "title": "Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it"
+      "title": "Delhi must release its birth records, so we can find out what its air is doing to pregnancies"
     },
     {
       "slug": "2026-11-01-cbse-class-10-environmental-education",
       "date": "2026-11-01",
-      "title": "CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open"
+      "title": "CBSE should not leave Class 10 without environmental education, and should say now when it returns"
     },
     {
       "slug": "2026-10-26-delhi-six-winters-weekly-pm25",
@@ -444,12 +444,12 @@
     {
       "slug": "2026-10-25-ammonia-the-other-half",
       "date": "2026-10-25",
-      "title": "Ammonia, the other half of secondary PM2.5, checked against what has been published"
+      "title": "India's secondary PM2.5 starts at the coal plant: cut sulphur dioxide first, and pair it with deep ammonia cuts"
     },
     {
       "slug": "2026-10-19-delhi-211-days-checked",
       "date": "2026-10-19",
-      "title": "Delhi's 211 days of good-to-moderate air, checked day by day"
+      "title": "Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them"
     },
     {
       "slug": "2026-10-02-five-pollutant-pages-random-numbers",

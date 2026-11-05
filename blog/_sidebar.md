@@ -5,14 +5,14 @@
 
 - **November 2026**
   - [Delhi should stop counting Moderate air as a good day](posts/2026-11-05-delhi-220-good-to-moderate-days.md)
-  - [Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked](posts/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports.md)
-  - [Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it](posts/2026-11-04-pollution-and-preterm-birth-delhi.md)
-  - [CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open](posts/2026-11-01-cbse-class-10-environmental-education.md)
+  - [The evidence that air pollution causes cancer is enough to act on, and Delhi needs the data to show its own toll](posts/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports.md)
+  - [Delhi must release its birth records, so we can find out what its air is doing to pregnancies](posts/2026-11-04-pollution-and-preterm-birth-delhi.md)
+  - [CBSE should not leave Class 10 without environmental education, and should say now when it returns](posts/2026-11-01-cbse-class-10-environmental-education.md)
 - **October 2026**
   - [Delhi's weekly PM2.5 peaks in the same few weeks every winter, and averaging six winters hides how high the first peak goes](posts/2026-10-26-delhi-six-winters-weekly-pm25.md)
   - [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md)
-  - [Ammonia, the other half of secondary PM2.5, checked against what has been published](posts/2026-10-25-ammonia-the-other-half.md)
-  - [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md)
+  - [India's secondary PM2.5 starts at the coal plant: cut sulphur dioxide first, and pair it with deep ammonia cuts](posts/2026-10-25-ammonia-the-other-half.md)
+  - [Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them](posts/2026-10-19-delhi-211-days-checked.md)
   - [Five of our six pollutant pages were printing random numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md)
 
 - **September 2026**

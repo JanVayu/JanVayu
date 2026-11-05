@@ -1,40 +1,32 @@
-# Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked
+# The evidence that air pollution causes cancer is enough to act on, and Delhi needs the data to show its own toll
 
 **Published:** 5 November 2026 | **Author:** Team JanVayu | **Reading time:** 6 min
 
 ---
 
-On 4 November The Indian Express published "Can breathing Delhi's polluted air for years cause lung cancer?" by Dr Ashish Joshi, a medical oncologist. Its standfirst, "Fine particles can trigger DNA damage, increasing cancer risk over time", has travelled on X as a card. We checked the article's main claims against the sources. The article is more careful than its standfirst, and most of it holds.
+On 4 November The Indian Express published "Can breathing Delhi's polluted air for years cause lung cancer?" by Dr Ashish Joshi, a medical oncologist. It gets the central point right: air pollution is a recognised carcinogen, the evidence is strongest for lung cancer, and risk builds with years of exposure. We agree with its conclusion that clean air must become part of cancer prevention. This post sets out the evidence, says how to state it precisely, and says what Delhi still needs.
 
-## What holds up
+## The evidence is enough to act on
 
-**The classification.** In October 2013 the International Agency for Research on Cancer (IARC), the World Health Organization's cancer agency, classified outdoor air pollution as carcinogenic to humans (Group 1), and classified particulate matter on its own the same way. IARC's press release of 17 October 2013 says there is sufficient evidence that outdoor air pollution causes lung cancer, and estimates that 223,000 deaths from lung cancer worldwide in 2010 resulted from air pollution. A Working Group had reviewed epidemiological studies, animal cancer bioassays and mechanistic data (Monograph Volume 109).
+In October 2013 the International Agency for Research on Cancer (IARC), the World Health Organization's cancer agency, classified outdoor air pollution as carcinogenic to humans (Group 1), and classified particulate matter on its own the same way. IARC's press release of 17 October 2013 says there is sufficient evidence that outdoor air pollution causes lung cancer, and estimates that 223,000 lung cancer deaths worldwide in 2010 resulted from it. A Working Group had reviewed epidemiological studies, animal cancer bioassays and mechanistic data (Monograph Volume 109).
 
-**The 11%.** A report from the Union for International Cancer Control (UICC) and The George Institute for Global Health, released in April 2026, draws on 42 meta-analyses and systematic reviews published from 2019 to 2024. UICC's summary says long-term PM2.5 exposure goes with an 11% higher overall risk of developing cancer and a 12% higher risk of dying from it. It reports a 32% higher incidence of liver cancer and 18% higher odds of colorectal cancer with rising PM2.5, and 20%, 14% and 12% higher mortality for breast, liver and lung cancer. It also reports a 69% higher lung cancer risk among women exposed to household air pollution.
+A report from the Union for International Cancer Control (UICC) and The George Institute for Global Health, released in April 2026, draws on 42 meta-analyses and systematic reviews published from 2019 to 2024. UICC's summary says long-term PM2.5 exposure goes with an 11% higher overall risk of developing cancer and a 12% higher risk of dying from it. It reports a 32% higher incidence of liver cancer and 18% higher odds of colorectal cancer with rising PM2.5, and 20%, 14% and 12% higher mortality for breast, liver and lung cancer, and a 69% higher lung cancer risk among women exposed to household air pollution. We read UICC's summary page and not the full report, so we do not have the intervals or the quality ratings. The Indian Express is right that the 11% is a global association and not a count of cases caused by Delhi's air.
 
-We read UICC's summary page and not the full report, so we do not have the intervals or the quality ratings. This is a review of reviews, and we have not checked how far the 42 overlap in the studies they draw on. The Indian Express says the 11% is a global association and not an estimate of cases caused by Delhi's air. That is the right reading.
+The IARC Director, Dr Elisabete Weiderpass, writes in the report's foreword, as UICC's page quotes her, that "air pollution must also be recognised as a major and preventable factor that increases the risk of developing cancer and of dying from the disease". UICC's central recommendation is to build air-quality goals into national cancer control plans, align air-quality standards with WHO guidelines, and expand monitoring in the most exposed communities. We back all three.
 
-**The limit on the evidence.** A 2020 overview in CA: A Cancer Journal for Clinicians (Turner and colleagues) finds substantial evidence from human, animal and mechanistic studies for a causal link between outdoor air pollution, especially particulate matter, and lung cancer. It describes the evidence for other cancers, such as bladder and breast cancer, as more limited, and says a link with poorer survival needs further research. The article says the same: the evidence is strongest for lung cancer, and it "would be misleading to suggest that PM2.5 is proven to cause all types of cancer".
+## Say it precisely
 
-## Where the standfirst goes further
+The precise claim is strong enough without a shortcut, and the shortcut is what travels. The standfirst on the Indian Express card, "Fine particles can trigger DNA damage, increasing cancer risk over time", compresses a mechanism into a headline. The monograph reviewed mechanistic evidence alongside the epidemiology, and the article describes inflammation, oxidative stress and DNA damage as the route, but none of the sources we read measures DNA damage in people living in Delhi.
 
-"Fine particles can trigger DNA damage, increasing cancer risk over time" compresses a mechanism into a headline. The monograph reviewed mechanistic evidence alongside the epidemiology, and the article describes inflammation, oxidative stress and DNA damage as the route. None of the sources we read measures DNA damage in people living in Delhi, so the sentence describes how the process is thought to work and not something shown in Delhi.
+A 2020 overview in CA: A Cancer Journal for Clinicians (Turner and colleagues) finds substantial evidence from human, animal and mechanistic studies for a causal link between outdoor air pollution, especially particulate matter, and lung cancer. It describes the evidence for other cancers, such as bladder and breast cancer, as more limited, and says a link with poorer survival needs further research. The article says the same, that it "would be misleading to suggest that PM2.5 is proven to cause all types of cancer". That is the claim to repeat.
 
-"Group 1" is also easy to misread. It describes how sure IARC is that an agent can cause cancer. It says nothing about how large the risk is, so a Group 1 label on air pollution does not by itself put a number on any one person's risk.
+"Group 1" is also easy to misread. It describes how sure IARC is that an agent can cause cancer, and it says nothing about how large the risk is.
 
-## What Delhi does not have yet
+## What Delhi needs
 
-AIIMS Delhi announced the AIRCARE study in March 2026. According to reports in The Times of India and ETV Bharat, it plans to study 1,615 lung cancer patients and 1,615 controls drawn from the patients' family members across Delhi-NCR. The Indian Express adds that it will examine exposure patterns and potential genetic susceptibility. It has not reported results.
+Delhi needs data that links where people live to what they breathe and to who gets cancer. AIIMS Delhi announced the AIRCARE study in March 2026. According to reports in The Times of India and ETV Bharat, it plans to study 1,615 lung cancer patients and 1,615 controls drawn from the patients' family members across Delhi-NCR, and The Indian Express adds that it will examine exposure patterns and potential genetic susceptibility. It has not reported results. Relatives as controls share a household and often a neighbourhood with the patient, which may narrow the difference in exposure the study can detect. That is our reading of the design, and the study team are the ones to explain how they handle it.
 
-Relatives as controls share a household and often a neighbourhood with the patient, which may narrow the difference in exposure that the study can detect. That is our reading of the design and not something the study team has said, and they are the ones to explain how they handle it.
-
-The article's own list of what is needed, long-term exposure mapping, neighbourhood-level data, chemical composition and population-based cancer registries that can be linked to them, is the right one. We have not searched for studies that link cancer registries to measured exposure in Delhi, so we cannot say whether any exist.
-
-## What we did not check
-
-The article also cites a Scientific Reports study of Delhi's daily PM2.5 from 2019 to 2023, a June 2026 Scientific Reports figure of 19% higher PM2.5 during Diwali 2024, and an air-toxicity laboratory inaugurated in Delhi-NCR in October 2026. We have not checked those and do not repeat their numbers. The source shares it quotes from the CAQM assessment, 27% secondary particulates, 23% transport and 9% industry, match what our Legal panel already carries.
-
-JanVayu has added the UICC report, the IARC monograph and the Turner overview to its [Reading List](https://www.janvayu.in/#resources) and a cancer card to [Beyond the Lungs](https://www.janvayu.in/#beyond-lungs).
+The article asks for long-term exposure mapping, neighbourhood-level data, chemical composition and population-based cancer registries that can be linked to them. We back that list, and we will add any Delhi study that comes of it to the [Reading List](https://www.janvayu.in/#resources). We did not verify the article's figures from Scientific Reports or its account of the air-toxicity laboratory opened in Delhi-NCR in October 2026, and we do not repeat them. The cancer card in [Beyond the Lungs](https://www.janvayu.in/#beyond-lungs) carries the evidence above.
 
 ---
 

@@ -1,4 +1,4 @@
-# Delhi's 211 days of good-to-moderate air, checked day by day
+# Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them
 
 **Published:** 19 October 2026 | **Author:** Team JanVayu | **Reading time:** 7 min
 
@@ -6,7 +6,7 @@
 
 On 17 October Delhi's Environment Minister said the capital had recorded 211 days of good, satisfactory or moderate air so far in 2026, the best since 2016 if 2020 is set aside, and set it beside 200 such days in 2025, 209 in 2024, 206 in 2023, 159 in 2018 and 110 in 2016. Poor-to-severe days, he said, had fallen from 168 in 2016 to 79 (IANS report of the Delhi government's statement, 17 October 2026).
 
-We hold CPCB's own daily AQI bulletin for Delhi for every day since May 2015, so we counted. The 2026 figure is right to within a day. The years it is compared with are counted over a different stretch of the calendar, and once that is fixed 2026 still leads, by a smaller margin and for a narrower reason than the list suggests.
+The improvement is real, and we say so plainly. The way it is counted and compared makes it look bigger than it is, and Delhi should report it better. We hold CPCB's own daily AQI bulletin for Delhi for every day since May 2015, so we counted. The 2026 figure is right to within a day. The earlier years are counted over a different stretch of the calendar, and once that is fixed 2026 still leads, by a smaller margin and for a narrower reason than the list suggests. Most of the days are Moderate, which is above the national standard, and fine-particle levels did not fall.
 
 ## The 2026 count, to 17 October
 
@@ -28,7 +28,7 @@ We cannot say which day it is, because the government did not publish its day-by
 
 One practical note for anyone repeating this. On 1 to 9 July CPCB's bulletin spelled the city `delhi`, in lower case. A count that filters on the exact word `Delhi` loses those nine days.
 
-## The comparison years are whole years
+## The comparison sets nine months against twelve
 
 Here is the same count for every year since 2016, done two ways: from 1 January to 17 October, the window the 2026 figure covers, and for the full calendar year.
 
@@ -105,16 +105,16 @@ A year's count of good days carries that year's weather: when the monsoon arrive
 
 The way to separate them is to remove the weather first and look at what is left, which is what our [weather-normalised trends](https://www.janvayu.in/blog/2026-09-08-was-it-policy-or-the-wind/) do for 44 cities. That analysis currently runs to 2024. Until a weather-adjusted 2026 exists, the fair reading is that 2026 has so far been better than recent years, and that the cause is still open.
 
-## What would make a claim like this checkable
+## What Delhi should report
 
-All of this CPCB already has:
+CPCB already holds all of this, and the government should publish it with every headline count:
 
 - State the window. Say "1 January to 17 October" and compare the same dates in earlier years, as the 30 September release did.
 - Count the days within the standard separately. Satisfactory or better is the count that means the air met the national limit; a Moderate day did not.
 - Report PM2.5 beside the day count. The Ministry already does so in its own release.
 - Say how many stations each year's figure rests on, so a reader can tell a change in the air from a change in the network.
 
-## Check it yourself
+## The data
 
 Every number in this post comes from CPCB's daily bulletin. The 2016 to 2025 bulletins are the UrbanEmissions.Info extraction of CPCB's PDFs ([github.com/urbanemissionsinfo/AQI_bulletins](https://github.com/urbanemissionsinfo/AQI_bulletins)); the 2026 bulletins we parse ourselves and publish as [data/raw/cpcb-bulletins-2026.csv.gz](https://github.com/JanVayu/JanVayu/blob/main/data/raw/cpcb-bulletins-2026.csv.gz), one row per city per day. The per-year counts are in [data/aqi-bulletins.json](https://www.janvayu.in/data/aqi-bulletins.json), and the [Delhi page](https://www.janvayu.in/delhi/) carries the month-by-month picture.
 
