@@ -10,14 +10,14 @@ Data, research, policy accountability, and what the numbers mean for 1.4 billion
 
 | Date | Post | Topic |
 |------|------|-------|
-| 5 Nov 2026 | [Delhi's 220 good-to-moderate days check out to within a day, and one of them was rated Good](posts/2026-11-05-delhi-220-good-to-moderate-days.md) | Fact check |
-| 5 Nov 2026 | [Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked](posts/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports.md) | Fact check |
-| 4 Nov 2026 | [Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it](posts/2026-11-04-pollution-and-preterm-birth-delhi.md) | Fact check |
-| 1 Nov 2026 | [CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open](posts/2026-11-01-cbse-class-10-environmental-education.md) | Fact check |
+| 5 Nov 2026 | [Delhi should stop counting Moderate air as a good day](posts/2026-11-05-delhi-220-good-to-moderate-days.md) | Position |
+| 5 Nov 2026 | [The evidence that air pollution causes cancer is enough to act on, and Delhi needs the data to show its own toll](posts/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports.md) | Position |
+| 4 Nov 2026 | [Delhi must release its birth records, so we can find out what its air is doing to pregnancies](posts/2026-11-04-pollution-and-preterm-birth-delhi.md) | Position |
+| 1 Nov 2026 | [CBSE should not leave Class 10 without environmental education, and should say now when it returns](posts/2026-11-01-cbse-class-10-environmental-education.md) | Position |
 | 26 Oct 2026 | [Delhi's weekly PM2.5 peaks in the same few weeks every winter, and averaging six winters hides how high the first peak goes](posts/2026-10-26-delhi-six-winters-weekly-pm25.md) | Analysis |
 | 25 Oct 2026 | [A very strong El Niño is forecast, and one study asks what it did to winter air last time](posts/2026-10-25-el-nino-and-the-winter-ahead.md) | Analysis |
-| 25 Oct 2026 | [Ammonia, the other half of secondary PM2.5, checked against what has been published](posts/2026-10-25-ammonia-the-other-half.md) | Fact check |
-| 19 Oct 2026 | [Delhi's 211 days of good-to-moderate air, checked day by day](posts/2026-10-19-delhi-211-days-checked.md) | Fact check |
+| 25 Oct 2026 | [India's secondary PM2.5 starts at the coal plant: cut sulphur dioxide first, and pair it with deep ammonia cuts](posts/2026-10-25-ammonia-the-other-half.md) | Position |
+| 19 Oct 2026 | [Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them](posts/2026-10-19-delhi-211-days-checked.md) | Position |
 | 2 Oct 2026 | [Five of our six pollutant pages were printing random numbers](posts/2026-10-02-five-pollutant-pages-random-numbers.md) | Data integrity |
 | 22 Sep 2026 | [What a four-day jump in Delhi's AQI tells you](posts/2026-09-22-a-four-day-jump.md) | Analysis |
 | 18 Sep 2026 | [What changed in today's redesign, and what stayed the same](posts/2026-09-18-a-design-refresh.md) | Platform |
