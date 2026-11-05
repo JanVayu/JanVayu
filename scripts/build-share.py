@@ -244,6 +244,9 @@ POST_CSS = """  .post-page { max-width: 760px; }
   .post-page h2 { font-family: var(--serif); font-size: 1.45rem; margin: 36px 0 12px; }
   .post-page h3 { font-size: 1.1rem; margin: 24px 0 8px; }
   .post-page p, .post-page li { line-height: 1.75; }
+  .post-page ul, .post-page ol { margin: 0 0 1.2em; padding-left: 1.6em; }
+  .post-page li { margin: 0 0 0.6em; }
+  .post-page li:last-child { margin-bottom: 0; }
   .post-page p { margin: 0 0 1em; }
   .post-page a { color: var(--accent); }
   .post-page img { max-width: 100%; height: auto; }
