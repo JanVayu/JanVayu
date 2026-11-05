@@ -4,13 +4,11 @@
 
 ---
 
-On 29 October the Central Board of Secondary Education issued circular Acad-70/2026 on the subjects Class 9 students will study as they move into Class 10. News reports led with one line from it: Environmental Education is out. A post on X by Warrior Moms, which reached us as a screenshot, argued that a curriculum cannot claim to prepare children for the future while pushing environmental education to the margins, at a time of escalating air pollution. We agree with the stakes. This post sets out what the circular says, why we think the decision is wrong, and what CBSE should do now.
+On 29 October the Central Board of Secondary Education issued circular Acad-70/2026 on the subjects Class 9 students will study as they move into Class 10. News reports led with one line from it: Environmental Education is out. A post on X by Warrior Moms, which reached us as a screenshot, argued that a curriculum cannot claim to prepare children for the future while pushing environmental education to the margins, at a time of escalating air pollution. We agree with the stakes, and we think the decision is wrong.
 
 ## What the circular says
 
 The sentence that matters is in paragraph (i). It says that the subject "Individuals in Society" and the "Modules of CT & AI" in Class IX (2026-27), and the subject "Environmental Education" in Class X (2027-28), "shall not be the part of the curriculum for these batches". CT & AI is Computational Thinking and Artificial Intelligence.
-
-Three things follow from the text.
 
 - The change applies to the batch now in Class 9 (2026-27), when it reaches Class 10 in 2027-28. India Today reports that the current Class 10 batch keeps the existing scheme.
 - The reason given concerns timing: the circular says the omission is "to align the introduction of this curricular area with the implementation schedule".
@@ -18,7 +16,7 @@ Three things follow from the text.
 
 ## Why we think it is wrong
 
-Clean-air policy works better when people can read an air quality index, tell a seasonal spike from a lasting change, and ask what a policy did. Schools are one place those skills can be taught, and a Class 10 year without a named subject for environmental learning leaves a whole batch of students without it. That is our judgement, not a finding from the circular.
+Clean-air policy works better when people can read an air quality index, tell a seasonal spike from a lasting change, and ask what a policy did. Schools are one place those skills can be taught, and a Class 10 year without a named subject for environmental learning leaves a whole batch of students without it. That is our judgement.
 
 The reason the circular gives concerns timing. Timing is a reason to sequence a rollout, and it does not by itself explain why one entire batch should go without the subject. CBSE's own Secondary Curriculum 2026-27, Part 1, lists Environmental Education, assessed by the school, in its scheme for 2027-28 and 2028-29. We saw that document only as a search excerpt, so we cannot say how it reads in full. The circular overrides it for this batch.
 
