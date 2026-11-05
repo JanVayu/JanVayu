@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reading List: Turner and others (2020) on outdoor air pollution and cancer, as a peer-reviewed entry (now 78 studies, with BibTeX and RIS regenerated), plus the UICC and George Institute report and IARC Monographs Volume 109 as report entries. The count of curated items in the panel text is corrected from eleven to fourteen.
 
 ### Changed
+- Blog: the 220-days post is rewritten as a position piece, "Delhi should stop counting Moderate air as a good day". It credits Vimlendu Jha's core point, keeps the evidence (one Good day, 219 days at Moderate or better on our count against the Ministry's 220, PM2.5 69 against 72, PM10 up), and asks for four changes to how Delhi reports air quality. The URL is unchanged. We did not find a statement of 222 and say so in one sentence.
+- Blog guide: a new section, "Take a stance, on the evidence". JanVayu is for clean air and posts argue for something specific, engage with other people's claims by saying first where they are right, and are labelled Position, Analysis, Explainer or Data and never "fact check".
 - Beyond the Lungs: a Cancer card with the IARC classification, the UICC figures, the limit on evidence for cancers other than lung and the AIRCARE study, with a link to the post. Version 26.6.250.
 
 ## [Unreleased] - 2026-11-04

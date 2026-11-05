@@ -22,6 +22,18 @@ Stay calm. The facts are alarming on their own, so let them be. No doom, no hype
 
 Be specific. A number with a source and a date beats an adjective. "3.5 years of life expectancy lost (AQLI 2025)" beats "devastating harm."
 
+## Take a stance, on the evidence
+
+JanVayu is for clean air, and a post should say so. Evidence is what we argue from. It is not the format of the post, and a post should never read as a verdict on someone else's statement.
+
+- Start from the question or the failure that matters to the reader, say what we think should happen, then show the numbers that support it. "Delhi should stop counting Moderate air as a good day" is a post. "We checked a claim about Moderate days" is not.
+- A post argues for something specific: a metric, a standard, a data release, a policy, a deadline. End on one sentence we would defend in public and one thing we are asking for.
+- When someone else has made a claim (a minister, a journalist, an environmentalist, a researcher), engage with their point and say first where they are right. People who work on air quality are allies unless the evidence shows otherwise, and we disagree with them on specifics, with respect. We do not grade them.
+- When we cannot verify a figure, say so in one sentence and carry on with what the evidence does show. Do not build the post around the gap.
+- Intent: we describe what a choice does to readers, and we do not need to prove motive to say a choice is wrong. A metric that counts air above the national standard as a success is the wrong metric whoever chose it.
+- No party is endorsed or opposed, and every government gets the same scrutiny. A stance on a standard, a number or a policy is not a stance on a party.
+- Do not label a post "fact check", and do not write "we checked". Label it Position, Analysis, Explainer or Data.
+
 ## The three non-negotiables
 
 These are what separate JanVayu from a marketing site. Never break them.
