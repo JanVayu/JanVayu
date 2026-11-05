@@ -4,6 +4,8 @@
 - [How We Write (contributor guide)](how-we-write.md)
 
 - **November 2026**
+  - [Delhi's 220 good-to-moderate days check out to within a day, and one of them was rated Good](posts/2026-11-05-delhi-220-good-to-moderate-days.md)
+  - [Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked](posts/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports.md)
   - [Delhi's recorded preterm births rose 51% in five years. Studies link PM2.5 to early birth, but the Delhi count cannot show it](posts/2026-11-04-pollution-and-preterm-birth-delhi.md)
   - [CBSE has dropped Environmental Education from Class 10 for the 2027-28 batch, and the circular leaves one question open](posts/2026-11-01-cbse-class-10-environmental-education.md)
 - **October 2026**

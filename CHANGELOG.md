@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-05
+
+### Added
+- Blog: "Delhi's 220 good-to-moderate days check out to within a day, and one of them was rated Good". It checks a tweet claiming the minister counted 222 "good air days" against the Union Environment Ministry's release of 31 October (PIB 2331032) and CPCB's bulletins. The count is 220 on the Ministry's figures and 219 on ours, one of the days was rated Good, and the bulletins from 1 to 4 November add no qualifying day, so we could not find or reproduce 222. The label "clean-air days" in headlines overstates a count that is mostly Moderate.
+- Blog: "Air pollution is a Group 1 carcinogen and the evidence is strongest for lung cancer: the Indian Express explainer, checked". It checks the 4 November explainer against IARC's classification, the 2026 UICC and George Institute overview and the 2020 Turner review, and says what the AIIMS AIRCARE study can and cannot show. Figures the explainer cites from Scientific Reports and the AATAL laboratory were not checked and are not repeated.
+- Reading List: Turner and others (2020) on outdoor air pollution and cancer, as a peer-reviewed entry (now 78 studies, with BibTeX and RIS regenerated), plus the UICC and George Institute report and IARC Monographs Volume 109 as report entries. The count of curated items in the panel text is corrected from eleven to fourteen.
+
+### Changed
+- Beyond the Lungs: a Cancer card with the IARC classification, the UICC figures, the limit on evidence for cancers other than lung and the AIRCARE study, with a link to the post. Version 26.6.250.
+
 ## [Unreleased] - 2026-11-04
 
 ### Fixed
