@@ -29,7 +29,7 @@ The error was also hidden. We had corrected the wording once, but the old "70%" 
 - Life expectancy loss appeared as both 3.5 and 5.3 years in different places. We settled on **3.5 years** (AQLI 2025).
 - India's ranking moved to **6th most polluted, 48.9 µg/m³** (IQAir 2025), from an older 5th / 50.6.
 - A "49% of households cook with biomass, **Census 2021**" line cited a census that **does not exist yet**, because India's is postponed to 2026–27. It now reads about 41% of households using solid fuel for cooking (NFHS-5, 2019–21, Table 2.6).
-- Several per-city NCAP spending rows traced to **no credible source**. We **removed them** rather than invent numbers.
+- Several per-city NCAP spending rows traced to **no credible source**. We **removed them** and invented no replacements.
 
 ## The rules we followed
 

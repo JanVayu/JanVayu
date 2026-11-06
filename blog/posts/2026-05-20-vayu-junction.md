@@ -36,7 +36,7 @@ If you have read JanVayu for five minutes, you should clear this set without a s
 - Delhi GRAP stages: GRAP-I, GRAP-II, GRAP-III, GRAP-IV
 - Mask and filter terms: N95, FFP2, HEPA, CADR
 
-The trap here is `Diwali`. It is a festival and not a month, but it marks the peak of the smog season, so it belongs in that group.
+The trap here is `Diwali`, a festival and no month. It marks the peak of the smog season, so it belongs in that group.
 
 ### 3. Names and numbers (hard)
 

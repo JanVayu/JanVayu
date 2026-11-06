@@ -44,7 +44,7 @@ At the other end, the cleanest ward in the 142-city atlas is now **Ward 3 in Por
 
 ## Two bugs we found by re-running everything
 
-While adding the new cities we re-ran the satellite heat pass over all 142, not only the new ones. The old cities were still carrying values measured from 2023 scenes, because the process only handled cities flagged as missing data, so the earliest ones had never been refreshed.
+While adding the new cities we re-ran the satellite heat pass over all 142, the old cities included. The old cities were still carrying values measured from 2023 scenes, because the process only handled cities flagged as missing data, so the earliest ones had never been refreshed.
 
 Two real defects came out of it.
 
@@ -52,7 +52,7 @@ Two real defects came out of it.
 
 **Gaps were being left, not filled.** If cloud sat over part of a city, those wards simply got no heat value. Now the next-clearest scenes are tried until nothing is left unmeasured.
 
-One gap survives, and we described it wrongly at first. **Six of Thiruvananthapuram's 100 wards have no heat value, and cloud is not the reason.** They sit in a seam between Landsat scene footprints. We checked 8 pre-monsoon scenes and 6 more across a full year, and every one returns about 5,500 pixels of nothing over those wards. Closing it means stitching two satellite paths together, which we cannot yet do. Those wards are drawn uncoloured rather than filled with a guess.
+One gap survives, and we described it wrongly at first. **Six of Thiruvananthapuram's 100 wards have no heat value, and the cause is a gap between satellite scene footprints.** They fall between two Landsat scene footprints. We checked 8 pre-monsoon scenes and 6 more across a full year, and every one returns about 5,500 pixels of nothing over those wards. Closing it means stitching two satellite paths together, which we cannot yet do. Those wards are drawn uncoloured, with no guessed fill.
 
 *Update, 2 October 2026: the national heat mosaic (v26.6.148) filled five of the six; one remains.*
 
@@ -70,6 +70,6 @@ We chose district over village on purpose. A full village-name lookup would be a
 
 The lesson is not about air quality. Three times we searched hard in the wrong place, found nothing, and published a confident negative. "No open data exists for X" is a claim, and it needs a source just as a number does. We gave it three external checks and never the obvious internal one.
 
-If you maintain something that pulls from a public data release, list the whole release, not only the file you already know about.
+If you maintain something that pulls from a public data release, list the whole release, including the files you do not yet know about.
 
 Find your ward at [janvayu.in](https://www.janvayu.in/#ward-map). If your city is still missing, or your boundaries look wrong, write to **contribute@janvayu.in**. If you know of an open source for Siliguri's 47 municipal wards, we would particularly like to hear from you. It is the one large city we have looked for in every source we know and cannot find.

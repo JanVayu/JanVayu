@@ -4,7 +4,7 @@
 
 ---
 
-Meet **Vayu Gauraiya**: *vayu* is the air, *gauraiya* the house sparrow. She is the face of **Ask JanVayu**, our chatbot, the small watchful friend who greets you when you arrive with a question. (JanVayu's own logo stays what it has always been, a green leaf carried on air currents. Vayu is the *bot's* mascot, and the platform has not been rebranded.) We chose a sparrow on purpose, and not only because sparrows are cute. A sparrow is one of the most honest instruments a city has.
+Meet **Vayu Gauraiya**: *vayu* is the air, *gauraiya* the house sparrow. She is the face of **Ask JanVayu**, our chatbot, the small watchful friend who greets you when you arrive with a question. (JanVayu's own logo stays what it has always been, a green leaf carried on air currents. Vayu is the *bot's* mascot, and the platform has not been rebranded.) We chose a sparrow on purpose. Sparrows are cute, and a sparrow is also one of the most honest instruments a city has.
 
 <img src="/mascot/vayu-sparrow.svg" alt="Vayu Gauraiya, the JanVayu house sparrow mascot, with a breeze at her back and a small green leaf she watches over" style="width:220px;display:block;margin:1.5rem auto;">
 

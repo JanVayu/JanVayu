@@ -4,7 +4,7 @@
 
 ---
 
-The [map](https://www.janvayu.in/#map) now holds a number for every place in India. That means every *place*, not only every city: all 983,149 administrative areas the country is divided into, from the 36 states down to the 584,615 villages, and every gram panchayat, block, district, city and ward in between.
+The [map](https://www.janvayu.in/#map) now holds a number for every place in India. That means every *place*, cities included: all 983,149 administrative areas the country is divided into, from the 36 states down to the 584,615 villages, and every gram panchayat, block, district, city and ward in between.
 
 That is a lot of map, and it does not explain itself. This post is the manual we should have written first. It covers what the map shows, what the words mean, and what you can find out with it.
 
@@ -81,7 +81,7 @@ The colours stay on the same scale between seasons on purpose. When you switch f
 
 How hot the **ground** gets, from Landsat satellites, averaged over the pre-monsoon season, the hottest and clearest part of the year.
 
-This is not the weather forecast. It is the temperature of the land surface itself: tarmac, roof, bare soil, field. It runs well above what a thermometer in the shade says, so a 50°C reading here does not mean 50°C air.
+This is the temperature of the land surface itself: tarmac, roof, bare soil, field. It runs well above what a thermometer in the shade says, so a 50°C reading here does not mean 50°C air.
 
 It shows which neighbourhoods bake, and it is where a treeless colony and a leafy one, two kilometres apart, stop looking alike.
 
@@ -141,7 +141,7 @@ It answers questions about *your* place, not the country. Whatever is on screen 
 
 **Land cover is from 2021.** Construction since then does not appear.
 
-**Some areas have no value at all**, and are drawn uncoloured rather than filled with a guess: 143 villages have no land cover, 749 have no heat reading, and a few dozen wards likewise. These are slivers and odd shapes too small for the satellite grid to resolve. A grey area means "we don't know", never "zero".
+**Some areas have no value at all**, and are drawn uncoloured, with no guessed fill: 143 villages have no land cover, 749 have no heat reading, and a few dozen wards likewise. These are slivers and odd shapes too small for the satellite grid to resolve. A grey area means "we don't know", never "zero".
 
 **Boundaries are as good as their sources.** Ward boundaries carry whatever delimitation each municipality last uploaded, which is not the same year everywhere. A handful of cities, Siliguri among them, are still missing because no open source has published them.
 
