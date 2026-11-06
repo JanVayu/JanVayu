@@ -374,3 +374,27 @@ test('an answer that would be emptied is returned whole', () => {
   const only = "This reading reflects the stubble-burning season.";
   assert.equal(t.dropUnsourcedCause(only), only);
 });
+
+// Markdown must never reach the chat bubble, whichever knowledge block a
+// question triggered. The 1 November 2026 scheduled eval failed 12 of 36
+// cases on this gate; the strip used to be chained onto an `if` that skipped
+// every sourced-cause question (winter, secondary, ENSO, NCAP, ward, village).
+test('stripMarkdown removes bold, heading and underscore-bold, across lines', () => {
+  const s = t.stripMarkdown;
+  assert.equal(s('It peaks in **November and December**.'), 'It peaks in November and December.');
+  assert.equal(s('A **bold span\nthat runs over a line** ends here.'), 'A bold span\nthat runs over a line ends here.');
+  assert.equal(s('## Heading\nBody'), 'Heading\nBody');
+  assert.equal(s('Use __this__ one.'), 'Use this one.');
+  assert.equal(s('Plain text, PM2.5 of 61 µg/m³, stays as written.'), 'Plain text, PM2.5 of 61 µg/m³, stays as written.');
+  assert.doesNotMatch(s('**a** and **b**'), /\*\*/);
+});
+
+test('the handler strips markdown outside the causeSourced condition', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const src = await readFile(new URL('../netlify/functions/air-query.mjs', import.meta.url), 'utf8');
+  const i = src.indexOf('if (!causeSourced)');
+  assert.ok(i > 0, 'causeSourced branch not found');
+  const line = src.slice(i, src.indexOf('\n', i));
+  assert.doesNotMatch(line, /stripMarkdown|\.replace\(/, 'markdown stripping must not be chained onto the causeSourced if');
+  assert.match(src.slice(i, i + 700), /text = stripMarkdown\(text\)/);
+});
