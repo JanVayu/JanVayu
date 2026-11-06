@@ -6,7 +6,7 @@
 
 On 23 October The Hindu ran an excerpt from Jacob Koshy's forthcoming book *The Nitrogen Bomb* (Penguin Viking), under the heading "The other face of air pollution". Its argument is that ammonia, most of it from farming, is the missing base in India's particle problem: sulphur dioxide and nitrogen oxides from coal and engines are the acids, ammonia neutralises them, and the salts that result are fine particles that settle in the lungs of the Indo-Gangetic Plain.
 
-The chemistry is sound, and ammonia belongs on India's clean-air agenda. Our position is that the plan should start with sulphur dioxide at coal plants, where the evidence is clearest, and pair it with deep and sustained ammonia cuts, because the modelling says ammonia control on its own pays off slowly. To argue that well, each figure has to be quoted for what it measures, and several of the numbers now circulating are not quite that.
+The chemistry is sound, and ammonia belongs on India's clean-air agenda. Our position is that the plan should start with sulphur dioxide at coal plants, where the evidence is clearest, and pair it with deep and sustained ammonia cuts, because the modelling says ammonia control on its own pays off slowly. Several of the numbers now circulating measure something narrower than they are said to.
 
 ## Where the evidence is clearest: sulphur dioxide at coal plants
 
@@ -20,7 +20,7 @@ A peer-reviewed estimate with Srinidhi Balasubramanian of IIT Bombay as a co-aut
 
 They also find that PM2.5 responds non-linearly to cuts in ammonia, and that the efficiency of the reduction rises only at cuts of 70 to 100 per cent. In their words, in the ammonia-rich chemistry of South Asia the reduction in PM2.5 is only moderately sensitive to ammonia emissions until they are cut very severely, so controls on sulphur dioxide, nitrogen oxides and ammonia need to be considered jointly.
 
-Three things follow, and we back all three.
+That gives three asks.
 
 - Start with coal-plant sulphur dioxide, where the evidence is clearest.
 - Pursue deep cuts in fertiliser and manure ammonia alongside it. Ammonia control works as a companion to acid-gas control and cannot replace it.
@@ -28,17 +28,29 @@ Three things follow, and we back all three.
 
 ## The numbers to quote, and what each measures
 
-**CREA's "one-third".** CREA's June 2025 report, by Manojkumar N and Rosa Gierens, measures ammonium sulphate. Its nationwide average is about 34 per cent of PM2.5 mass, and across the 130 NCAP cities the share runs from 20 to 43 per cent and exceeds 30 per cent in 114 of them. The report's headline says "secondary particles", but the figure beneath it is one salt. Ammonium nitrate, other nitrate and sulphate salts, and organic particles formed from gases come on top, and the same CREA page cites an ACS Earth and Space Chemistry paper estimating that precursor gases contribute more than 50 per cent of PM2.5 in several regions of India. So "nearly one-third" understates the secondary share, and calling it the secondary share describes something CREA did not report.
+### CREA's "one-third"
 
-**Delhi's 41 per cent.** CREA's December 2025 analysis, as reported by The Indian Express, puts ammonium sulphate at 49 per cent of Delhi's PM2.5 after the monsoon, 41 per cent in winter, and 21 per cent in summer and monsoon. The 41 per cent is the winter share of one compound.
+CREA's June 2025 report, by Manojkumar N and Rosa Gierens, measures ammonium sulphate. Its nationwide average is about 34 per cent of PM2.5 mass, and across the 130 NCAP cities the share runs from 20 to 43 per cent and exceeds 30 per cent in 114 of them. The report's headline says "secondary particles", but the figure beneath it is one salt. Ammonium nitrate, other nitrate and sulphate salts, and organic particles formed from gases come on top, and the same CREA page cites an ACS Earth and Space Chemistry paper estimating that precursor gases contribute more than 50 per cent of PM2.5 in several regions of India. So "nearly one-third" understates the secondary share, and calling it the secondary share describes something CREA did not report.
 
-**The 42 per cent.** CREA's December press release leads with "up to 42% of India's PM2.5 burden is chemically formed", and a few lines later says that 42 per cent is Chhattisgarh's annual ammonium sulphate share, the highest of any state, in a range of 17 to 42 per cent. A state maximum for one salt is a different quantity from a national total for all secondary particles. Our own July post, originally headed "Up to 42% of India's PM2.5 forms in the air after emission", made a related slip, and we have corrected it.
+### Delhi's 41 per cent
 
-**The book's quarter of PM2.5.** The excerpt gives ammonia acting alone as about a quarter of India's PM2.5, the inorganic secondary fraction as roughly 40 per cent, and the national split as something like 45 per cent primary and 55 per cent secondary, in its account of Balasubramanian's modelling. It names no paper for any of them, and we do not quote them. Wang and colleagues' 11 per cent is a regional figure for South Asia in 2018 from a model, and it should be quoted with its region, year and method. The two numbers are not the same quantity.
+CREA's December 2025 analysis, as reported by The Indian Express, puts ammonium sulphate at 49 per cent of Delhi's PM2.5 after the monsoon, 41 per cent in winter, and 21 per cent in summer and monsoon. The 41 per cent is the winter share of one compound.
 
-**The farming share of ammonia.** The excerpt puts it at roughly 80 per cent globally and 80 to 85 per cent in India. That is plausible, because agriculture is the dominant ammonia source in most regional inventories, but we could not match the India-specific figure to a specific 2021 paper, so we treat it as reported.
+### The 42 per cent
 
-**Why winter is the hard season.** The excerpt credits Sachchida Nand Tripathi's group at IIT Kanpur with four years of continuous measurements at Kanpur, which describes a 2014 study we have not read. The 400-metre boundary-layer figure stays attributed to the book. The mechanism itself, ammonium nitrate favouring the particle phase at low temperature, is standard atmospheric chemistry.
+CREA's December press release leads with "up to 42% of India's PM2.5 burden is chemically formed", and a few lines later says that 42 per cent is Chhattisgarh's annual ammonium sulphate share, the highest of any state, in a range of 17 to 42 per cent. A state maximum for one salt is a different quantity from a national total for all secondary particles. Our own July post, originally headed "Up to 42% of India's PM2.5 forms in the air after emission", made a related slip, and we have corrected it.
+
+### The book's quarter of PM2.5
+
+The excerpt gives ammonia acting alone as about a quarter of India's PM2.5, the inorganic secondary fraction as roughly 40 per cent, and the national split as something like 45 per cent primary and 55 per cent secondary, in its account of Balasubramanian's modelling. It names no paper for any of them, and we do not quote them. Wang and colleagues' 11 per cent is a regional figure for South Asia in 2018 from a model, and it should be quoted with its region, year and method. The two numbers are not the same quantity.
+
+### The farming share of ammonia
+
+The excerpt puts it at roughly 80 per cent globally and 80 to 85 per cent in India. That is plausible, because agriculture is the dominant ammonia source in most regional inventories, but we could not match the India-specific figure to a specific 2021 paper, so we treat it as reported.
+
+### Why winter is the hard season
+
+The excerpt credits Sachchida Nand Tripathi's group at IIT Kanpur with four years of continuous measurements at Kanpur, which describes a 2014 study we have not read. The 400-metre boundary-layer figure stays attributed to the book. The mechanism itself, ammonium nitrate favouring the particle phase at low temperature, is standard atmospheric chemistry.
 
 ## What JanVayu has changed
 

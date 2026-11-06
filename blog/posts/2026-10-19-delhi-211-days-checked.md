@@ -67,7 +67,7 @@ The months show where the 7 days came from.
 
 July to September is the monsoon, and every recent year is at or near the ceiling there, so those months cannot separate one year from another. The difference sits in the shoulder months. Over the first nine months 2026 and 2023 are level on our count, at 193 each. The whole of the lead comes from 1 to 17 October, when 2026 had 17 days at Moderate or better and not one Poor day; 2023 had 10 and 7. February 2026 was the worst February of the four years shown.
 
-That matters for what comes next. In each of the ten years from 2016 to 2025, between 66 and 74 of the 74 days after 18 October were rated Poor or worse. The days still to come in 2026 are the ones Delhi usually loses. On that record the full-year count will probably finish between 211 and about 219, and whether 2026 ends ahead of 2023 and 2024 will be settled in November and December. The full-year comparison can be made fairly on 1 January 2027.
+In each of the ten years from 2016 to 2025, between 66 and 74 of the 74 days after 18 October were rated Poor or worse. The days still to come in 2026 are the ones Delhi usually loses. On that record the full-year count will probably finish between 211 and about 219, and whether 2026 ends ahead of 2023 and 2024 will be settled in November and December. The full-year comparison can be made fairly on 1 January 2027.
 
 ## "Moderate" is above the national standard
 
