@@ -11,7 +11,7 @@ us to a dataset we had missed and should not have.
 It also prompted an obvious question, which somebody asked us directly: if all
 of that exists, what is JanVayu for?
 
-What follows is a capability table. Two caveats belong in front of it, since we
+Two caveats come before the capability table, since we
 are one of the parties being compared.
 
 Most of the sites listed are not competitors, and several supply data we use.

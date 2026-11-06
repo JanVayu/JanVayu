@@ -29,7 +29,7 @@ There is an obvious way to make this model look much better, and it is a trap.
 
 Air pollution is strongly autocorrelated: dirty days arrive in runs. If you let the model use yesterday's PM2.5 as a clue for today's, its accuracy leaps. It also becomes worthless for our purpose, because it is now predicting pollution from pollution. Whatever is left over gets labelled "the part weather cannot explain", and you have manufactured a confident trend out of nothing but the calendar.
 
-So lagged pollutant values are not inputs. The model is allowed to know what the weather was doing and what day it was. It is not allowed to know what the air was doing.
+So lagged pollutant values are excluded as inputs. The model may know what the weather was doing and what day it was. It may not know what the air was doing.
 
 ## The answer for Delhi, and why it is narrower than we wanted
 
@@ -54,7 +54,7 @@ Our first run compared plain annual averages of whatever days had reported. It p
 
 Everything reported here is therefore restricted to the months present in *every* year, which turns out to be September and October. That is a narrower claim than we set out to make, and it is one the data supports.
 
-There was a second trap underneath the first. OpenAQ's records for these stations advertise coverage from 2016 to 2026, which reads like a decade of continuous monitoring. It is not: it is the union of separate sensors with a gap of roughly 2.3 years in the middle, and at one station the "decade" turns out to be two sensors seven years apart. Taken at face value it would have given us a series with a hole in it and no error message anywhere.
+There was a second trap underneath the first. OpenAQ's records for these stations advertise coverage from 2016 to 2026, which reads like a decade of continuous monitoring. In fact it is the union of separate sensors with a gap of roughly 2.3 years in the middle, and at one station the "decade" turns out to be two sensors seven years apart. Taken at face value it would have given us a series with a hole in it and no error message anywhere.
 
 ## How we know the model is not just making things up
 
@@ -70,7 +70,7 @@ All of these figures ship inside the data file itself, at [`/data/deweathered.js
 
 ## What this does not say
 
-It is Delhi-NCR only. Ten stations, one airshed, one window. Nothing here transfers to Kanpur or Patna or Bengaluru, and we are not going to imply that it does.
+It is Delhi-NCR only. Ten stations, one airshed, one window. Nothing here transfers to Kanpur or Patna or Bengaluru, and we make no claim that it does.
 
 The 2020 lockdown (late March to May) falls outside the September to October window used here, but September to October 2020 was still the dirtiest of the five years in /data/deweathered.json. Normalisation removes weather; it does not remove changes in emissions, so whatever 2020 did to emissions stays in the adjusted series.
 

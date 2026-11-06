@@ -4,7 +4,7 @@
 
 ---
 
-When we built the [Ward Atlas](/index.html#ward-map), a map that colours every municipal ward of a city by its air, heat, green cover and built-up area, we ran into a question that is easy to get wrong. Plenty of dashboards do get it wrong. This post explains how we answered it.
+When we built the [Ward Atlas](/index.html#ward-map), a map that colours every municipal ward of a city by its air, heat, green cover and built-up area, we ran into a question that is easy to get wrong. Plenty of dashboards do get it wrong.
 
 ## The temptation
 

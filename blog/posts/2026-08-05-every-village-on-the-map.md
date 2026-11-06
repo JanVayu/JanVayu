@@ -42,7 +42,7 @@ There are two limits. This is a yearly average, so it says nothing about a bad w
 
 ## Rural air is not clean air
 
-It would be convenient if the unmeasured places were simply the clean ones. They are not.
+It would be convenient if the unmeasured places were simply the clean ones. Many of them carry smoke that no outdoor monitor sees.
 
 The clearest example is indoors. About **56% of rural Indian households (41% nationally) still cook mainly with solid fuels**: wood, dung cake, crop residue (NFHS-5, 2019-21, Table 2.6). The smoke builds up in their own kitchens every day, and no outdoor monitor would catch it even if one stood nearby. Women and the small children who sit beside them carry most of it.
 
