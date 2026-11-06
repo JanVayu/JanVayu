@@ -1,0 +1,574 @@
+{
+ "_meta": {
+  "what": "Delhi's official daily AQI for this autumn, against the middle half of the autumns of 2019 to 2025, by calendar date.",
+  "source": "CPCB daily AQI bulletins. 2019-2025 from the UrbanEmissions.Info extraction (github.com/urbanemissionsinfo/AQI_bulletins); 2026 from data/raw/cpcb-bulletins-2026.csv.gz. Built by scripts/build-delhi-season.py.",
+  "past_years": "2019-2025",
+  "why_these_years": "Delhi's bulletin rested on a median of 5 stations in 2016 and 28 in 2018, and 33 to 37 from 2019 to 2025. Earlier years are left out so the band does not compare two different networks.",
+  "no_mean": "No average AQI. The band is the median and the 25th to 75th percentile of the daily figure, date by date.",
+  "min_years_per_date": 5
+ },
+ "window": [
+  "2026-10-01",
+  "2026-11-30"
+ ],
+ "diwali_2026": "2026-11-08",
+ "stations_2026_median": 54,
+ "counts": {
+  "Good": 0,
+  "Satisfactory": 3,
+  "Moderate": 23,
+  "Poor": 6,
+  "Very Poor": 4,
+  "Severe": 0
+ },
+ "this_season": {
+  "2026-10-01": {
+   "aqi": 166,
+   "category": "Moderate",
+   "stations": 44
+  },
+  "2026-10-02": {
+   "aqi": 174,
+   "category": "Moderate",
+   "stations": 43
+  },
+  "2026-10-03": {
+   "aqi": 171,
+   "category": "Moderate",
+   "stations": 44
+  },
+  "2026-10-04": {
+   "aqi": 187,
+   "category": "Moderate",
+   "stations": 43
+  },
+  "2026-10-05": {
+   "aqi": 184,
+   "category": "Moderate",
+   "stations": 44
+  },
+  "2026-10-06": {
+   "aqi": 179,
+   "category": "Moderate",
+   "stations": 44
+  },
+  "2026-10-07": {
+   "aqi": 136,
+   "category": "Moderate",
+   "stations": 45
+  },
+  "2026-10-08": {
+   "aqi": 162,
+   "category": "Moderate",
+   "stations": 44
+  },
+  "2026-10-09": {
+   "aqi": 176,
+   "category": "Moderate",
+   "stations": 48
+  },
+  "2026-10-10": {
+   "aqi": 122,
+   "category": "Moderate",
+   "stations": 46
+  },
+  "2026-10-11": {
+   "aqi": 111,
+   "category": "Moderate",
+   "stations": 52
+  },
+  "2026-10-12": {
+   "aqi": 83,
+   "category": "Satisfactory",
+   "stations": 51
+  },
+  "2026-10-13": {
+   "aqi": 158,
+   "category": "Moderate",
+   "stations": 53
+  },
+  "2026-10-14": {
+   "aqi": 181,
+   "category": "Moderate",
+   "stations": 56
+  },
+  "2026-10-15": {
+   "aqi": 149,
+   "category": "Moderate",
+   "stations": 56
+  },
+  "2026-10-16": {
+   "aqi": 90,
+   "category": "Satisfactory",
+   "stations": 54
+  },
+  "2026-10-17": {
+   "aqi": 159,
+   "category": "Moderate",
+   "stations": 55
+  },
+  "2026-10-18": {
+   "aqi": 187,
+   "category": "Moderate",
+   "stations": 58
+  },
+  "2026-10-19": {
+   "aqi": 139,
+   "category": "Moderate",
+   "stations": 55
+  },
+  "2026-10-20": {
+   "aqi": 179,
+   "category": "Moderate",
+   "stations": 54
+  },
+  "2026-10-21": {
+   "aqi": 245,
+   "category": "Poor",
+   "stations": 55
+  },
+  "2026-10-22": {
+   "aqi": 223,
+   "category": "Poor",
+   "stations": 54
+  },
+  "2026-10-23": {
+   "aqi": 230,
+   "category": "Poor",
+   "stations": 56
+  },
+  "2026-10-24": {
+   "aqi": 191,
+   "category": "Moderate",
+   "stations": 57
+  },
+  "2026-10-25": {
+   "aqi": 153,
+   "category": "Moderate",
+   "stations": 52
+  },
+  "2026-10-26": {
+   "aqi": 174,
+   "category": "Moderate",
+   "stations": 57
+  },
+  "2026-10-27": {
+   "aqi": 197,
+   "category": "Moderate",
+   "stations": 55
+  },
+  "2026-10-28": {
+   "aqi": 229,
+   "category": "Poor",
+   "stations": 58
+  },
+  "2026-10-29": {
+   "aqi": 222,
+   "category": "Poor",
+   "stations": 58
+  },
+  "2026-10-30": {
+   "aqi": 60,
+   "category": "Satisfactory",
+   "stations": 53
+  },
+  "2026-10-31": {
+   "aqi": 117,
+   "category": "Moderate",
+   "stations": 58
+  },
+  "2026-11-01": {
+   "aqi": 261,
+   "category": "Poor",
+   "stations": 57
+  },
+  "2026-11-02": {
+   "aqi": 324,
+   "category": "Very Poor",
+   "stations": 58
+  },
+  "2026-11-03": {
+   "aqi": 350,
+   "category": "Very Poor",
+   "stations": 57
+  },
+  "2026-11-04": {
+   "aqi": 377,
+   "category": "Very Poor",
+   "stations": 59
+  },
+  "2026-11-05": {
+   "aqi": 369,
+   "category": "Very Poor",
+   "stations": 59
+  }
+ },
+ "past": {
+  "10-01": {
+   "n": 7,
+   "q25": 119,
+   "median": 147,
+   "q75": 152
+  },
+  "10-02": {
+   "n": 7,
+   "q25": 124,
+   "median": 146,
+   "q75": 177
+  },
+  "10-03": {
+   "n": 7,
+   "q25": 116,
+   "median": 136,
+   "q75": 158
+  },
+  "10-04": {
+   "n": 7,
+   "q25": 119,
+   "median": 150,
+   "q75": 180
+  },
+  "10-05": {
+   "n": 7,
+   "q25": 130,
+   "median": 159,
+   "q75": 178
+  },
+  "10-06": {
+   "n": 7,
+   "q25": 110,
+   "median": 127,
+   "q75": 160
+  },
+  "10-07": {
+   "n": 7,
+   "q25": 100,
+   "median": 127,
+   "q75": 172
+  },
+  "10-08": {
+   "n": 7,
+   "q25": 96,
+   "median": 164,
+   "q75": 167
+  },
+  "10-09": {
+   "n": 7,
+   "q25": 132,
+   "median": 171,
+   "q75": 174
+  },
+  "10-10": {
+   "n": 7,
+   "q25": 150,
+   "median": 170,
+   "q75": 196
+  },
+  "10-11": {
+   "n": 7,
+   "q25": 154,
+   "median": 193,
+   "q75": 208
+  },
+  "10-12": {
+   "n": 7,
+   "q25": 161,
+   "median": 179,
+   "q75": 221
+  },
+  "10-13": {
+   "n": 7,
+   "q25": 180,
+   "median": 224,
+   "q75": 263
+  },
+  "10-14": {
+   "n": 7,
+   "q25": 196,
+   "median": 234,
+   "q75": 254
+  },
+  "10-15": {
+   "n": 7,
+   "q25": 198,
+   "median": 233,
+   "q75": 252
+  },
+  "10-16": {
+   "n": 7,
+   "q25": 231,
+   "median": 239,
+   "q75": 264
+  },
+  "10-17": {
+   "n": 7,
+   "q25": 246,
+   "median": 284,
+   "q75": 286
+  },
+  "10-18": {
+   "n": 7,
+   "q25": 185,
+   "median": 248,
+   "q75": 261
+  },
+  "10-19": {
+   "n": 7,
+   "q25": 141,
+   "median": 228,
+   "q75": 261
+  },
+  "10-20": {
+   "n": 7,
+   "q25": 222,
+   "median": 232,
+   "q75": 258
+  },
+  "10-21": {
+   "n": 7,
+   "q25": 248,
+   "median": 256,
+   "q75": 286
+  },
+  "10-22": {
+   "n": 7,
+   "q25": 236,
+   "median": 296,
+   "q75": 320
+  },
+  "10-23": {
+   "n": 7,
+   "q25": 250,
+   "median": 263,
+   "q75": 334
+  },
+  "10-24": {
+   "n": 7,
+   "q25": 248,
+   "median": 306,
+   "q75": 312
+  },
+  "10-25": {
+   "n": 7,
+   "q25": 256,
+   "median": 284,
+   "q75": 297
+  },
+  "10-26": {
+   "n": 7,
+   "q25": 256,
+   "median": 271,
+   "q75": 298
+  },
+  "10-27": {
+   "n": 7,
+   "q25": 281,
+   "median": 312,
+   "q75": 346
+  },
+  "10-28": {
+   "n": 7,
+   "q25": 296,
+   "median": 304,
+   "q75": 330
+  },
+  "10-29": {
+   "n": 7,
+   "q25": 281,
+   "median": 325,
+   "q75": 396
+  },
+  "10-30": {
+   "n": 7,
+   "q25": 327,
+   "median": 352,
+   "q75": 374
+  },
+  "10-31": {
+   "n": 7,
+   "q25": 308,
+   "median": 359,
+   "q75": 380
+  },
+  "11-01": {
+   "n": 7,
+   "q25": 321,
+   "median": 364,
+   "q75": 394
+  },
+  "11-02": {
+   "n": 7,
+   "q25": 310,
+   "median": 366,
+   "q75": 384
+  },
+  "11-03": {
+   "n": 7,
+   "q25": 312,
+   "median": 382,
+   "q75": 459
+  },
+  "11-04": {
+   "n": 7,
+   "q25": 362,
+   "median": 382,
+   "q75": 411
+  },
+  "11-05": {
+   "n": 7,
+   "q25": 348,
+   "median": 381,
+   "q75": 452
+  },
+  "11-06": {
+   "n": 7,
+   "q25": 325,
+   "median": 352,
+   "q75": 414
+  },
+  "11-07": {
+   "n": 7,
+   "q25": 338,
+   "median": 377,
+   "q75": 411
+  },
+  "11-08": {
+   "n": 7,
+   "q25": 366,
+   "median": 380,
+   "q75": 403
+  },
+  "11-09": {
+   "n": 7,
+   "q25": 318,
+   "median": 370,
+   "q75": 420
+  },
+  "11-10": {
+   "n": 7,
+   "q25": 308,
+   "median": 334,
+   "q75": 367
+  },
+  "11-11": {
+   "n": 7,
+   "q25": 345,
+   "median": 352,
+   "q75": 386
+  },
+  "11-12": {
+   "n": 7,
+   "q25": 308,
+   "median": 334,
+   "q75": 422
+  },
+  "11-13": {
+   "n": 7,
+   "q25": 348,
+   "median": 404,
+   "q75": 428
+  },
+  "11-14": {
+   "n": 7,
+   "q25": 358,
+   "median": 397,
+   "q75": 419
+  },
+  "11-15": {
+   "n": 7,
+   "q25": 370,
+   "median": 396,
+   "q75": 416
+  },
+  "11-16": {
+   "n": 7,
+   "q25": 310,
+   "median": 377,
+   "q75": 410
+  },
+  "11-17": {
+   "n": 7,
+   "q25": 238,
+   "median": 351,
+   "q75": 390
+  },
+  "11-18": {
+   "n": 7,
+   "q25": 252,
+   "median": 319,
+   "q75": 360
+  },
+  "11-19": {
+   "n": 7,
+   "q25": 282,
+   "median": 301,
+   "q75": 386
+  },
+  "11-20": {
+   "n": 7,
+   "q25": 308,
+   "median": 348,
+   "q75": 382
+  },
+  "11-21": {
+   "n": 7,
+   "q25": 330,
+   "median": 364,
+   "q75": 368
+  },
+  "11-22": {
+   "n": 7,
+   "q25": 292,
+   "median": 360,
+   "q75": 382
+  },
+  "11-23": {
+   "n": 7,
+   "q25": 292,
+   "median": 312,
+   "q75": 390
+  },
+  "11-24": {
+   "n": 7,
+   "q25": 276,
+   "median": 361,
+   "q75": 380
+  },
+  "11-25": {
+   "n": 7,
+   "q25": 322,
+   "median": 353,
+   "q75": 394
+  },
+  "11-26": {
+   "n": 7,
+   "q25": 314,
+   "median": 336,
+   "q75": 370
+  },
+  "11-27": {
+   "n": 7,
+   "q25": 220,
+   "median": 328,
+   "q75": 386
+  },
+  "11-28": {
+   "n": 7,
+   "q25": 272,
+   "median": 325,
+   "q75": 351
+  },
+  "11-29": {
+   "n": 7,
+   "q25": 273,
+   "median": 305,
+   "q75": 350
+  },
+  "11-30": {
+   "n": 7,
+   "q25": 298,
+   "median": 328,
+   "q75": 356
+  }
+ }
+}

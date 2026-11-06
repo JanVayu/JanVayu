@@ -204,6 +204,8 @@ jobs:
       # season. They read CPCB's own day counts now.
       - name: Check the Delhi monthly bulletin counts
         run: python3 scripts/build-delhi-seasonal.py --check
+      - name: Check the Delhi season charts against the bulletin data
+        run: python3 scripts/build-delhi-season.py --check
 
       # CEEW's "peaks twice each winter" chart averaged a few winters. This
       # draws six separately from CPCB monitors and holds the post to what
