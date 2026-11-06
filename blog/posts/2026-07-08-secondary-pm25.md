@@ -28,7 +28,7 @@ Ammonium sulphate forms across a region, so a city with few local sulphur dioxid
 
 ## What it would take
 
-Cutting secondary PM2.5 means regulating **gases** as well as dust. Scrubbers on coal plants would be the largest single step on SO₂, and the mandate needs enforcing rather than extending. NOₓ controls on power and transport would reduce the ammonium nitrate that forms from them. Ammonia from agriculture is a precursor that clean-air policy rarely addresses. It reacts with the acids that sulphur dioxide and nitrogen oxides form in the air, and the products are ammonium sulphate and ammonium nitrate. And monitoring should record what the PM2.5 is made of, not only how much there is, so that control money follows the chemistry.
+Cutting secondary PM2.5 means regulating **gases** as well as dust. Scrubbers on coal plants would be the largest single step on SO₂, and the mandate needs enforcing and should not be extended. NOₓ controls on power and transport would reduce the ammonium nitrate that forms from them. Ammonia from agriculture is a precursor that clean-air policy rarely addresses. It reacts with the acids that sulphur dioxide and nitrogen oxides form in the air, and the products are ammonium sulphate and ammonium nitrate. And monitoring should record what the PM2.5 is made of as well as how much there is, so that control money follows the chemistry.
 
 ## What JanVayu takes from this
 

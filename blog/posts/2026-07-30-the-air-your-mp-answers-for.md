@@ -32,7 +32,7 @@ Some cities we wanted are missing: the SBM dataset has **no ward boundaries for 
 
 The [live map](https://www.janvayu.in/#map) has four new toggles. The one we care most about is **MPs**: all **543 Lok Sabha constituencies** (boundaries from the Local Government Directory / Bharatmaps), each coloured by the air its residents are breathing right now.
 
-Most constituencies contain no monitor at all, and the map says so. We estimate each one from the nearest monitored cities. Where the nearest monitor is more than about 200 km away, we colour the constituency grey rather than guess. The grey patches are not a drawing fault. They show where India's monitoring network has gaps.
+Most constituencies contain no monitor at all, and the map says so. We estimate each one from the nearest monitored cities. Where the nearest monitor is more than about 200 km away, we colour the constituency grey and make no guess. The grey patches show where India's monitoring network has gaps.
 
 Tap any constituency and you get its estimated AQI, which monitor it leans on, and two buttons: one to the [Accountability tracker](https://www.janvayu.in/#accountability), one to a pre-filled [RTI template](https://www.janvayu.in/#rti-assistant). An **MLAs** toggle does the same for Vidhan Sabha constituencies, and a **Districts** toggle covers all 785 districts.
 
@@ -54,7 +54,7 @@ On the ward map, two new overlays answer a question the AQI number never does: w
 
 Every boundary and source location above comes to us via [indianopenmaps.com](https://indianopenmaps.com), a volunteer project by one mapper (GitHub: ramSeraph). It collects geodata from official portals (SBM, the Local Government Directory, Bharatmaps, Gati Shakti, NCOG) and republishes it in usable formats. It deserves to be named and thanked.
 
-Much of this data is flagged *"not-so-open"* upstream. Government bodies published it on public portals, mostly without an explicit open licence. We ship simplified copies with attribution rather than live-scraping anyone's servers. The coal-mine data is properly CC0, and we document all of it in our [Data Source Selector](https://www.janvayu.in/#source-selector). If any agency involved would rather grant these datasets a real open licence, that is the actual fix, and we would welcome it.
+Much of this data is flagged *"not-so-open"* upstream. Government bodies published it on public portals, mostly without an explicit open licence. We ship simplified copies with attribution and do not live-scrape anyone's servers. The coal-mine data is properly CC0, and we document all of it in our [Data Source Selector](https://www.janvayu.in/#source-selector). If any agency involved would rather grant these datasets a real open licence, that is the actual fix, and we would welcome it.
 
 ## Try it
 
