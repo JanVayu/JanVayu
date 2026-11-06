@@ -1,11 +1,12 @@
 # Raw CPCB bulletin tables
 
 `cpcb-bulletins-2026.csv.gz` is CPCB's daily AQI bulletin for 2026, parsed from
-the published PDFs by `scripts/fetch-cpcb-bulletin.py`. 70,946 rows, 292 days,
-2026-01-01 to 2026-10-19, 593 distinct city strings, no rows skipped
-and no gaps in CPCB's own serial numbering. Extended from 2026-09-17 on
-2026-10-12 and to 2026-10-19 on 2026-10-19; the bulletin now downloads from
-cpcb.gov.in.
+the published PDFs by `scripts/fetch-cpcb-bulletin.py`. 75,477 rows, 309 days,
+2026-01-01 to 2026-11-05, 601 distinct city strings, no day missing.
+Extended from 2026-09-17 on 2026-10-12, to 2026-10-19 on 2026-10-19, and from
+2026-11-02 to 2026-11-05 on 2026-11-06; the bulletin downloads from
+cpcb.gov.in (`cpcb.nic.in` redirects there and the redirect fails TLS in some
+environments, so fetch the `cpcb.gov.in` address directly).
 
 City strings are not case-stable. On 2026-07-01 to 2026-07-09 CPCB wrote
 `delhi` in lower case, so a filter on the exact string `Delhi` misses nine
