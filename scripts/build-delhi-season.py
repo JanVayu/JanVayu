@@ -44,6 +44,13 @@ COLOUR = {'Good': '#15803d', 'Satisfactory': '#4d7c0f', 'Moderate': '#a16207',
 INK, MUTED, PAPER = '#1f2a24', '#4b5a50', '#fbfaf7'
 FONT = 'font-family="Inter, system-ui, sans-serif"'
 DIWALI_2026 = date(2026, 11, 8)
+# The gazetted public-holiday date of Diwali each year. 2019: India Briefing's list of India's
+# public holidays; 2020: the Government of India's list of holidays for 2020 (several offices
+# publish it); 2021-2026: timeanddate.com's gazetted-holiday table, and 2026 also the central
+# government holiday lists (cgca.gov.in, CAG, Indian Statistical Institute). Read on 6 November 2026.
+DIWALI = {2019: date(2019, 10, 27), 2020: date(2020, 11, 14), 2021: date(2021, 11, 4), 2022: date(2022, 10, 24),
+          2023: date(2023, 11, 12), 2024: date(2024, 10, 31), 2025: date(2025, 10, 20), 2026: DIWALI_2026}
+REL = list(range(-7, 8))
 M, E = '<!-- season:start -->', '<!-- season:end -->'
 
 
@@ -98,6 +105,16 @@ def build(src):
                 this[r['date']] = {'aqi': int(r['aqi']), 'category': r['aqi_category'],
                                    'stations': int(r['stations_participated'])}
     counts = {c: sum(1 for v in this.values() if v['category'] == c) for c in CATS}
+    aligned = {}
+    for y, dd in DIWALI.items():
+        row = {}
+        for k in REL:
+            day = dd + timedelta(days=k)
+            v = this[day.isoformat()]['aqi'] if y == 2026 and day.isoformat() in this else \
+                past[y].get(day.isoformat()) if y in past else None
+            if v is not None:
+                row[str(k)] = v
+        aligned[str(y)] = row
     return {
         '_meta': {
             'what': "Delhi's official daily AQI for this autumn, against the middle half of the autumns of 2019 to 2025, by calendar date.",
@@ -111,6 +128,10 @@ def build(src):
             'min_years_per_date': 5,
         },
         'window': [START.isoformat(), END.isoformat()],
+        'diwali': {str(y): dd.isoformat() for y, dd in DIWALI.items()},
+        'diwali_sources': "Gazetted public-holiday date each year: India Briefing's 2019 list of India's public holidays; the Government of India's "
+                          "2020 holiday list; timeanddate.com's gazetted-holiday table for 2021 to 2026; and the central government 2026 holiday lists.",
+        'aligned': aligned,
         'diwali_2026': DIWALI_2026.isoformat(),
         'stations_2026_median': int(statistics.median(v['stations'] for v in this.values())),
         'counts': counts,
@@ -183,6 +204,48 @@ def line_svg(d):
     return s, (420, 296)
 
 
+def rank_of(d, k):
+    """2026's rank among the eight years on relative day k (1 = highest), or None."""
+    a = d['aligned']
+    if str(k) not in a['2026']:
+        return None
+    v = a['2026'][str(k)]
+    vals = [a[y][str(k)] for y in a if str(k) in a[y]]
+    return 1 + sum(1 for x in vals if x > v), len(vals)
+
+
+def aligned_svg(d):
+    L, R, T, B = 40, 410, 34, 256
+    X = lambda k: L + (R - L) * (k + 7) / 14
+    Y = lambda v: B - (B - T) * min(v, 500) / 500
+    s = f'<text x="14" y="20" {FONT} font-size="15" font-weight="700" fill="{INK}">Days either side of Diwali, 2019 to 2026</text>'
+    for g in (100, 200, 300, 400, 500):
+        s += f'<line x1="{L}" y1="{Y(g):.1f}" x2="{R}" y2="{Y(g):.1f}" stroke="#d8d6cc" stroke-width="1"/>'
+        s += f'<text x="{L - 5}" y="{Y(g) + 4:.1f}" text-anchor="end" {FONT} font-size="11.5" fill="{MUTED}">{g}</text>'
+    s += f'<line x1="{L}" y1="{B}" x2="{R}" y2="{B}" stroke="{MUTED}" stroke-width="1"/>'
+    dx = X(0)
+    s += f'<line x1="{dx:.1f}" y1="{T}" x2="{dx:.1f}" y2="{B}" stroke="{INK}" stroke-width="1" stroke-dasharray="2 3"/>'
+    s += f'<text x="{dx + 4:.1f}" y="{T + 11}" {FONT} font-size="11.5" font-weight="700" fill="{INK}">Diwali</text>'
+    a = d['aligned']
+    for y in sorted(a):
+        if y == '2026':
+            continue
+        for k, v in a[y].items():
+            s += f'<circle cx="{X(int(k)):.1f}" cy="{Y(v):.1f}" r="2.6" fill="#6f7d74" opacity="0.8"/>'
+    cur = [(int(k), v) for k, v in a['2026'].items()]
+    s += f'<polyline fill="none" stroke="{COLOUR["Very Poor"]}" stroke-width="2.4" stroke-linejoin="round" points="' + \
+         ' '.join(f'{X(k):.1f},{Y(v):.1f}' for k, v in cur) + '"/>'
+    for k, v in cur:
+        s += f'<circle cx="{X(k):.1f}" cy="{Y(v):.1f}" r="3.8" fill="{COLOUR["Very Poor"]}"/>'
+    lk, lv = cur[-1]
+    s += f'<text x="{X(lk) + 8:.1f}" y="{Y(lv) - 8:.1f}" {FONT} font-size="12.5" font-weight="700" fill="{COLOUR["Very Poor"]}">2026: {lv}</text>'
+    for k in (-7, -3, 0, 3, 7):
+        lab = 'Diwali' if k == 0 else (f'{k}' if k < 0 else f'+{k}')
+        s += f'<text x="{X(k):.1f}" y="{B + 17}" text-anchor="middle" {FONT} font-size="12" fill="{MUTED}">{lab}</text>'
+    s += f'<text x="{L}" y="{B + 36}" {FONT} font-size="11.5" fill="{MUTED}">Grey: 2019 to 2025. Red: 2026. Axis: days from Diwali.</text>'
+    return s, (420, 296)
+
+
 def wrap(inner, vb, label):
     return f'<div class="jv-dgm"><svg viewBox="0 0 {vb[0]} {vb[1]}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{label}">{inner}</svg></div>'
 
@@ -238,6 +301,35 @@ def block(d):
         v = d['this_season'].get(dd.isoformat())
         rows2 += (f'<tr><td class="when">{fmt_day(dd)}</td><td class="num">{v["aqi"] if v else ""}</td>'
                   f'<td class="num">{p["median"] if p else ""}</td><td class="num">{str(p["q25"]) + " to " + str(p["q75"]) if p else ""}</td></tr>')
+    al_svg, al_vb = aligned_svg(d)
+    rk = {k: rank_of(d, k) for k in REL}
+    ordn = {1: 'highest', 2: 'second highest', 3: 'third highest'}
+    r3 = rk[-3]
+    ORD = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth', 6: 'sixth', 7: 'seventh', 8: 'eighth'}
+    past3 = sorted(d['aligned'][y]['-3'] for y in d['aligned'] if y != '2026' and '-3' in d['aligned'][y])
+    higher3 = [y for y in d['aligned'] if y != '2026' and d['aligned'][y].get('-3', 0) > d['aligned']['2026']['-3']]
+    ranks = [ORD[rk[k][0]] for k in (-7, -6, -5, -4, -3) if rk[k]]
+    ranks_txt = ', '.join(ranks[:-1]) + ' and ' + ranks[-1]
+    aligned_text = (f"Lining the years up by Diwali, not by date, gives a different picture. Three days before Diwali, on 5 November, the bulletin gave Delhi "
+                    f"{d['aligned']['2026']['-3']}. On that day in 2019 to 2025 it gave {past3[0]} to {past3[-1]}"
+                    + (f", and only {higher3[0]} was higher" if len(higher3) == 1 else f", and {len(higher3)} years were higher")
+                    + f", so 2026 ranks {ORD[r3[0]]} highest of {r3[1]}. Over the five days from seven to three days before Diwali, 2026 ranked {ranks_txt} highest of eight. Diwali is a gazetted holiday that moves each year, and the dates used are in the table.")
+    al_label = (f"Dot chart of Delhi's daily AQI from 7 days before to 7 days after Diwali. Grey dots are 2019 to 2025. The 2026 line runs from "
+                f"{d['aligned']['2026']['-7']} seven days before Diwali to {d['aligned']['2026']['-3']} three days before, the second highest of eight years on that day.")
+    rows3 = ''
+    for k in REL:
+        vals = [d['aligned'][y][str(k)] for y in d['aligned'] if y != '2026' and str(k) in d['aligned'][y]]
+        v26 = d['aligned']['2026'].get(str(k))
+        lab = 'Diwali day' if k == 0 else (f'{-k} before' if k < 0 else f'{k} after')
+        rr = rk[k]
+        rows3 += (f'<tr><td class="when">{lab}</td><td class="num">{v26 if v26 is not None else ""}</td><td class="num">{min(vals)}</td>'
+                  f'<td class="num">{max(vals)}</td><td class="num">{str(rr[0]) + " of " + str(rr[1]) if rr else ""}</td></tr>')
+    rows4 = ''
+    for y in sorted(d['aligned']):
+        dd = date.fromisoformat(d['diwali'][y])
+        g = lambda k: d['aligned'][y].get(str(k), '')
+        rows4 += (f'<tr><td class="when">{y}</td><td class="when">{fmt_long(dd)}</td><td class="num">{g(-3)}</td>'
+                  f'<td class="num">{g(-2)}</td><td class="num">{g(-1)}</td><td class="num">{g(0)}</td></tr>')
     cc = ', '.join(f'{c[k]} {k}' for k in ('Very Poor', 'Poor', 'Moderate', 'Satisfactory') if c[k]) + (f', {c["Good"]} Good' if c['Good'] else '')
     return f'''{M}
   <h3>This season, day by day</h3>
@@ -248,7 +340,13 @@ def block(d):
   <p>On {below} of the {compared} days we can compare, this season's figure was below the middle of the same calendar date in the autumns of 2019 to 2025. The days at or above that middle were {nb}. A comparison by date can differ from one that lines the years up by Diwali. Diwali is on 8 November this year, later than in several of those years, so the days before it fall in the stretch when past autumns were already close to their worst.</p>
   {wrap(line, vb2, f"Line chart of Delhi's daily AQI from 1 October to {fmt_long(ld)} 2026 against the middle and the middle half of the same dates in 2019 to 2025. The 2026 line sits below the middle for most of October and rises to {d['this_season'][last]['aqi']} on {fmt_long(ld)}.")}
   <details><summary>Show the numbers</summary><div class="wrap"><table><thead><tr><th>Date</th><th>2026</th><th>Middle, 2019 to 2025</th><th>Middle half</th></tr></thead><tbody>{rows2}</tbody></table></div></details>
-  <p class="note"><strong>About these figures.</strong> The source is CPCB's daily AQI bulletin. The bands use 2019 to 2025 only: Delhi's bulletin rested on a median of 5 stations in 2016 and 28 in 2018, against 33 to 37 from 2019 to 2025 and a median of {d['stations_2026_median']} this autumn, so earlier years are left out. Seven years is a small sample. The AQI is an index of whichever pollutant scores worst, so no average is taken. A day with no bulletin is a gap and is never filled. A cell with an outline only has no bulletin yet.</p>
+  <h3>Lined up by Diwali</h3>
+  <p>{aligned_text}</p>
+  {wrap(al_svg, al_vb, al_label)}
+  <details><summary>Show the numbers</summary><div class="wrap"><table><thead><tr><th>Days from Diwali</th><th>2026</th><th>Lowest, 2019 to 2025</th><th>Highest, 2019 to 2025</th><th>2026 rank of eight</th></tr></thead><tbody>{rows3}</tbody></table></div>
+  <div class="wrap"><table><thead><tr><th>Year</th><th>Diwali</th><th>3 days before</th><th>2 days before</th><th>1 day before</th><th>Diwali day</th></tr></thead><tbody>{rows4}</tbody></table></div>
+  <p class="note">Every day from 7 days before to 7 days after, for every year, is in <a href="/data/delhi-season.json">data/delhi-season.json</a>.</p></details>
+  <p class="note"><strong>About these figures.</strong> The source is CPCB's daily AQI bulletin. The bands use 2019 to 2025 only: Delhi's bulletin rested on a median of 5 stations in 2016 and 28 in 2018, against 33 to 37 from 2019 to 2025 and a median of {d['stations_2026_median']} this autumn, so earlier years are left out. Seven years is a small sample. The AQI is an index of whichever pollutant scores worst, so no average is taken. A day with no bulletin is a gap and is never filled. A cell with an outline only has no bulletin yet. Diwali dates are the gazetted public holiday each year (India Briefing for 2019; the Government of India's 2020 holiday list; timeanddate.com for 2021 to 2026; central government holiday lists for 2026), and a festival night can fall a day either side of the holiday.</p>
   {E}'''
 
 
@@ -265,6 +363,14 @@ def check():
             errs.append(f"{k}: AQI {v['aqi']} is not {v['category']} on CPCB's scale")
     if sum(d['counts'].values()) != len(ts):
         errs.append('category counts do not add up to the number of days')
+    if sorted(d.get('diwali', {})) != [str(y) for y in range(2019, 2027)]:
+        errs.append('diwali dates must cover 2019 to 2026')
+    for y, row in d.get('aligned', {}).items():
+        for k, v in row.items():
+            if not -7 <= int(k) <= 7 or not 0 < v <= 500:
+                errs.append(f'aligned {y} day {k}: {v} is out of range')
+        if y != '2026' and len(row) < 13:
+            errs.append(f'aligned {y}: only {len(row)} of 15 days present')
     for md, p in d['past'].items():
         if not (p['q25'] <= p['median'] <= p['q75']) or p['n'] < d['_meta']['min_years_per_date']:
             errs.append(f'{md}: band is out of order or rests on too few years')
