@@ -3,7 +3,7 @@ import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 // Netlify Function: Personalised Health Advisory
 // Accepts user profile + city, fetches live AQI, sends to Groq for advisory
 
-import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
+import { fetchStationNear } from "./lib/waqi-station.mjs";
 // Groq model, env-overridable. llama-3.3-70b-versatile was retired by Groq on 16 Aug 2026 (updated 2 Oct 2026).
 const GROQ_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 const GROQ_IS_REASONING = /gpt-oss|deepseek|qwen/.test(GROQ_MODEL);
@@ -57,11 +57,10 @@ async function fetchCityAQI(cityKey) {
   const city = CITIES[cityKey];
   if (!city) return null;
   try {
-    const res = await fetch(
-      `https://api.waqi.info/feed/geo:${city.lat};${city.lon}/?token=${WAQI_TOKEN}`,
-      { signal: AbortSignal.timeout(8000) }
-    );
-    const data = await res.json();
+    // Only a station near the city: WAQI's own geo lookup has returned Delhi for
+    // Bengaluru (see lib/waqi-station.mjs), so the reading is checked, not trusted.
+    const hit = await fetchStationNear({ lat: city.lat, lon: city.lon, slug: cityKey });
+    const data = hit ? { status: "ok", data: hit.data } : { status: "none" };
     if (data.status === "ok" && data.data) {
       return {
         city: city.name,

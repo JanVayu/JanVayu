@@ -13,11 +13,17 @@ const { default: handler } = await import('../netlify/functions/waqi-proxy.mjs')
 
 let calls = [];
 const realFetch = globalThis.fetch;
+// A WAQI whose station is exactly where it is asked and reported just now, so the
+// plumbing tests below are about the proxy and not about which station comes back
+// (test/waqi-station.test.mjs covers that, including the far and stale ones).
+async function fakeWaqi(url) {
+  calls.push(String(url));
+  const m = String(url).match(/feed\/geo:(-?[\d.]+);(-?[\d.]+)/);
+  const city = m ? { name: 'Test station', geo: [Number(m[1]), Number(m[2])] } : { name: 'Test station', geo: [28.6, 77.2] };
+  return new Response(JSON.stringify({ status: 'ok', data: { aqi: 120, city, time: { iso: new Date().toISOString() } } }), { status: 200 });
+}
 before(() => {
-  globalThis.fetch = async (url) => {
-    calls.push(String(url));
-    return new Response(JSON.stringify({ status: 'ok', data: { aqi: 120 } }), { status: 200 });
-  };
+  globalThis.fetch = fakeWaqi;
 });
 after(() => { globalThis.fetch = realFetch; });
 
@@ -70,14 +76,14 @@ test('the token is never in a response, including an error', async () => {
   const bad = await (await get('geo=zzz')).text();
   assert.ok(!ok.includes(TOKEN) && !bad.includes(TOKEN));
   globalThis.fetch = async (url) => { throw new Error(`connect failed: ${url}`); };
-  const down = await get('geo=28.6,77.2');
+  const down = await get('city=delhi');
   const body = await down.text();
   assert.equal(down.status, 502);
   assert.ok(!body.includes(TOKEN), 'the upstream URL, which carries the token, leaked into the error');
 });
 
 test('errors are not cached, successes are', async () => {
-  globalThis.fetch = async () => new Response(JSON.stringify({ status: 'ok' }), { status: 200 });
+  globalThis.fetch = fakeWaqi;
   const ok = await get('geo=28.6,77.2');
   assert.match(ok.headers.get('Cache-Control'), /s-maxage=300/);
   assert.match(ok.headers.get('Netlify-CDN-Cache-Control'), /s-maxage=300.*durable/);
