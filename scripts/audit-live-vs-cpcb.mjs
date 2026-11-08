@@ -54,17 +54,26 @@ export function trackedCities(appJs) {
   const re = /^\s{8}(\w+):\s*\{\s*name:\s*'([^']*)',\s*lat:\s*([-\d.]+),\s*lon:\s*([-\d.]+)(.*?)\}/gm;
   const out = [];
   for (let m; (m = re.exec(appJs));) out.push({ key: m[1], name: m[2], lat: +m[3], lon: +m[4], ext: /ext:\s*true/.test(m[5]) });
-  return out;
+  // These become part of a request URL, so only well-formed values go on: a slug of letters,
+  // digits and hyphens and a point inside the subcontinent. Anything else is dropped, not escaped.
+  return out.filter((c) => /^[a-z0-9-]{1,60}$/i.test(c.key) && Number.isFinite(c.lat) && Number.isFinite(c.lon) &&
+    c.lat >= 5 && c.lat <= 60 && c.lon >= -10 && c.lon <= 130);
 }
 
 async function main() {
   const base = (process.argv[2] || 'https://www.janvayu.in').replace(/\/$/, '');
+  // The script sends requests to whatever base it is given, so it accepts only JanVayu's own
+  // origins: production, a Netlify deploy preview of this site, or a local server.
+  if (!/^(https:\/\/([a-z0-9-]+\.)?janvayu\.in|https:\/\/[a-z0-9-]+--janvayu\.netlify\.app|http:\/\/localhost:\d+)$/i.test(base)) {
+    console.error(`Refusing to audit ${base}: not a JanVayu origin.`);
+    process.exit(2);
+  }
   const root = new URL('..', import.meta.url);
   const cities = trackedCities(readFileSync(new URL('app.js', root), 'utf8')).filter((c) => !c.ext && !/^(beijing|london|singapore)$/.test(c.key));
   const latest = JSON.parse(readFileSync(new URL('data/cpcb-latest.json', root), 'utf8'));
   const rows = [];
   for (const c of cities) {
-    const url = `${base}/.netlify/functions/waqi-proxy?near=${c.lat},${c.lon}&slug=${encodeURIComponent(c.key)}`;
+    const url = `${base}/.netlify/functions/waqi-proxy?near=${c.lat.toFixed(4)},${c.lon.toFixed(4)}&slug=${encodeURIComponent(c.key)}`;
     let j = null;
     try { j = await (await fetch(url, { signal: AbortSignal.timeout(20000) })).json(); } catch { /* reported below */ }
     const entry = latest.cities[norm(c.name)] || latest.cities[ALIASES[norm(c.key)]] || latest.cities[ALIASES[norm(c.name)]];

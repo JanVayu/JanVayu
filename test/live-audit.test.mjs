@@ -40,3 +40,9 @@ test('the tracked-city list is read from app.js and carries the cities that lost
   assert.ok(core.length >= 30, `only ${core.length} core cities parsed`);
   for (const k of ['delhi', 'mumbai', 'bangalore', 'pune']) assert.ok(core.includes(k), k);
 });
+
+test('a malformed key or a point outside the subcontinent is dropped, not sent', () => {
+  const src = "        ok: { name: 'Fine', lat: 12.9, lon: 77.6 },\n        bad_key: { name: 'Bad', lat: 12.9, lon: 77.6 },\n        far: { name: 'Far', lat: 40.7, lon: -74.0 },\n";
+  const keys = trackedCities(src).map((c) => c.key);
+  assert.deepEqual(keys, ['ok']);
+});
