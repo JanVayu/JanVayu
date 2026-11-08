@@ -133,6 +133,8 @@
       return;
     }
 
+    if (r.kind === 'daily' || r.kind === 'model') { renderNotLive(r); return; }
+
     var b = bandFor(r.pm);
     var v = VERDICTS[b.key];
     var mult = Math.round(r.pm / WHO_GUIDELINE);
@@ -206,12 +208,44 @@
     box.className = 'matches on';
   }
 
+  /* No monitor near this place has reported lately. js/air-sources.js tries CPCB's daily
+     bulletin and then a model; either is shown as exactly that, never as a live reading. */
+  function renderNotLive(r) {
+    var kids = $('scale').children;
+    for (var i = 0; i < kids.length; i++) kids[i].className = BANDS[i].cls;
+    for (var k = 1; k <= 3; k++) { $('w' + k).textContent = ''; $('w' + k + 'n').textContent = ''; }
+    $('bandLabel').textContent = '';
+    if (r.kind === 'daily') {
+      $('pm').textContent = '—';
+      $('pm').style.color = '';
+      $('stamp').textContent = r.name + ' · CPCB daily bulletin, ' + r.date;
+      $('verdictText').textContent = 'The latest official figure, not a live reading.';
+      $('plain').textContent = 'No monitor near ' + r.name + ' has reported in the last 6 hours. CPCB\u2019s bulletin for ' +
+        r.city + ' on ' + r.date + ' gives an AQI of ' + r.aqi + ' (' + r.category + ', on CPCB\u2019s scale), from ' +
+        r.stations + ' of ' + r.stationsTotal + ' stations. It is a city-wide daily figure published about a day late.';
+      return;
+    }
+    $('pm').textContent = Math.round(r.pm25);
+    $('pm').style.color = '';
+    $('stamp').textContent = r.name + ' · modelled estimate';
+    $('verdictText').textContent = 'A model\u2019s estimate, not a measurement.';
+    $('plain').textContent = 'No monitor near ' + r.name + ' has reported lately and CPCB\u2019s bulletin has no recent figure for it. ' +
+      'A computer model (Open-Meteo, CAMS) estimates ' + Math.round(r.pm25) + ' \u00b5g/m\u00b3 of PM2.5 there. ' +
+      'A model is not a monitor, and it can read far too low in a polluted city.';
+  }
+
   function go(name, lat, lon) {
     $('matches').className = 'matches';
     $('place').value = name;
     $('stamp').textContent = name + ' · reading…';
     var slug = name === 'Your location' ? nearestSlug(lat, lon) : name.toLowerCase();
-    fetchCity(name, lat, lon, slug).then(renderAnswer);
+    fetchCity(name, lat, lon, slug).then(function (r) {
+      if (r || !window.JVAir) return r;
+      var cities = CITIES.map(function (c) { return { key: c[0].toLowerCase(), name: c[0], lat: c[1], lon: c[2] }; });
+      var key = name === 'Your location' ? undefined : name.toLowerCase();
+      return window.JVAir.reading({ lat: +lat, lon: +lon, key: key, name: name }, { cities: cities, skip: ['live'] })
+        .then(function (x) { return x ? Object.assign({ name: name }, x) : null; });
+    }).then(renderAnswer);
   }
 
 

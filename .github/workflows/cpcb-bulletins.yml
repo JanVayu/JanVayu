@@ -61,6 +61,7 @@ jobs:
           git clone --depth 1 https://github.com/urbanemissionsinfo/AQI_bulletins /tmp/aqib
           python3 scripts/build-aqi-bulletins.py --source /tmp/aqib/data/Processed/AllIndiaBulletinsMaster2025_openrefined.csv
           python3 scripts/build-aqi-bulletins.py --check
+          python3 scripts/build-cpcb-latest.py
 
       # main is protected, so this goes to a branch and a pull request, as the
       # current-year air and translation jobs do.
@@ -68,7 +69,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json; then
+          if git diff --quiet -- data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json data/cpcb-latest.json; then
             echo "Nothing to commit."
             exit 0
           fi
@@ -77,7 +78,7 @@ jobs:
           git config user.name "janvayu-air-bot"
           git config user.email "air-bot@janvayu.in"
           git checkout -b "$BRANCH"
-          git add data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json
+          git add data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json data/cpcb-latest.json
           git commit -m "Update: CPCB daily bulletins through $LAST"
           git push origin "$BRANCH"
           # Each of these pull requests rewrites the same two files, so the newest holds every
