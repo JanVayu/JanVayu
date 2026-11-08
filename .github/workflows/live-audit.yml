@@ -1,0 +1,39 @@
+name: Live readings versus CPCB
+
+# Every day, ask the live site for each tracked city's reading and compare it with what
+# CPCB's own daily bulletin says about the same city (scripts/audit-live-vs-cpcb.mjs).
+#
+# Why: on 8 November 2026 a reader in Bengaluru was shown a Delhi station's air as "Very
+# Unhealthy" while CPCB rated Bengaluru Satisfactory, and nothing on the site could tell. A
+# check that reads only the site's own data cannot catch a wrong source. This one compares
+# two independent ones. A gap of two CPCB bands or more is a fault; a city with no live
+# reading is reported and is not.
+#
+# It needs the network and talks to production, so it runs on a schedule and on demand and
+# not on pull requests, where a contributor could not act on the result. A red scheduled run
+# is how the owner is told.
+
+on:
+  schedule:
+    - cron: '17 6 * * *'     # 11:47 IST, after CPCB's 4 pm bulletin of the day before is parsed
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Base URL to audit (defaults to production)'
+        required: false
+        default: 'https://www.janvayu.in'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Compare live readings with CPCB's bulletin
+        run: node scripts/audit-live-vs-cpcb.mjs "${{ github.event.inputs.base_url || 'https://www.janvayu.in' }}"
