@@ -698,6 +698,80 @@
     }
 
     // ── Hero City Selector ──
+    // ── When no monitor near a place has reported lately ──────────────────
+    // js/air-sources.js tries CPCB's daily bulletin and then a model. Whatever it finds is
+    // worded as what it is, kept out of aqiData (so it never reaches the ranking, the ticker
+    // or the alerts), and never given the "live" wording. See that file for why it exists.
+    function heroDate(iso) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+        if (!m) return iso || '';
+        return parseInt(m[3], 10) + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2], 10) - 1];
+    }
+
+    function renderHeroNotLive(r, placeName, spoken) {
+        const labelEl = document.getElementById('hero-city-label');
+        const pmEl = document.getElementById('delhi-live-pm25');
+        const whoEl = document.getElementById('delhi-who-multiple');
+        const aqiEl = document.getElementById('delhi-live-aqi');
+        const qEl = document.getElementById('heroQuestion');
+        const whyEl = document.getElementById('heroWhy');
+        const rowsEl = document.getElementById('heroWho');
+        const place = escapeHtml(spoken || placeName || 'that place');
+        const grey = 'var(--text-3)';
+        heroShowing = { pm25: null, place: placeName };
+        // The reading has settled (as a fallback): release the room the page held for it.
+        const heroSection = document.getElementById('section-dashboard');
+        if (heroSection) heroSection.classList.remove('hero-pending');
+        if (rowsEl) rowsEl.hidden = true;
+        const hide = (el) => { if (el) el.hidden = true; };
+        hide(document.getElementById('heroSpread'));
+        if (!r) {
+            if (labelEl) labelEl.textContent = placeName + ' (no reading)';
+            if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = grey; }
+            if (whoEl) { whoEl.textContent = 'No station has reported here in the last 6 hours'; whoEl.style.color = grey; }
+            if (aqiEl) aqiEl.textContent = '--';
+            renderHeroVerdict(null, placeName);
+            return;
+        }
+        if (r.kind === 'daily') {
+            if (labelEl) labelEl.textContent = placeName + ': CPCB daily bulletin, ' + heroDate(r.date);
+            if (pmEl) { pmEl.textContent = '—'; pmEl.style.color = grey; }
+            if (whoEl) { whoEl.textContent = 'A daily figure, not a live reading'; whoEl.style.color = grey; }
+            if (aqiEl) aqiEl.textContent = r.aqi + ' (' + r.category + ', CPCB scale)';
+            if (qEl) heroSetText(qEl, 'The latest official figure, not a live reading', 'The latest official figure, not a live reading');
+            if (whyEl) heroSetText(whyEl,
+                'No monitor near <strong>' + place + '</strong> has reported in the last 6 hours. CPCB&rsquo;s daily bulletin for <strong>' +
+                    escapeHtml(r.city) + '</strong> on ' + heroDate(r.date) + ' gives an AQI of <strong>' + r.aqi + '</strong>, <strong>' +
+                    escapeHtml(String(r.category).toLowerCase()) + '</strong>, from ' + r.stations + ' of ' + r.stationsTotal +
+                    ' stations. It is a city-wide daily figure, published about a day late, on CPCB&rsquo;s scale.',
+                'No machine near ' + place + ' has reported lately. CPCB’s daily report for ' + escapeHtml(r.city) + ' on ' + heroDate(r.date) +
+                    ' says the air was ' + escapeHtml(String(r.category).toLowerCase()) + '. That is yesterday’s figure, not now.');
+            return;
+        }
+        // model
+        const n = Math.round(r.pm25);
+        if (labelEl) labelEl.textContent = placeName + ': modelled estimate';
+        if (pmEl) { pmEl.textContent = n; pmEl.style.color = grey; }
+        if (whoEl) { whoEl.textContent = getWHOMultiple(r.pm25) + 'x WHO guideline (modelled)'; whoEl.style.color = grey; }
+        if (aqiEl) aqiEl.textContent = r.aqi != null ? r.aqi + ' (model)' : '--';
+        if (qEl) heroSetText(qEl, 'A model’s estimate, not a measurement', 'A model’s estimate, not a measurement');
+        if (whyEl) heroSetText(whyEl,
+            'No monitor near <strong>' + place + '</strong> has reported lately and CPCB&rsquo;s bulletin has no recent figure for it, so this is a computer model&rsquo;s estimate (Open-Meteo, CAMS): <strong>' +
+                n + ' &micro;g/m&sup3;</strong> PM2.5. A model is not a monitor, and it can read far too low in a polluted city.',
+            'No machine near ' + place + ' has reported lately. A computer model guesses about ' + n + ' units of PM2.5 there. It is a guess and can be too low.');
+    }
+
+    async function heroFallback(cityKey, cityName) {
+        const c = CITIES[cityKey];
+        if (!c || !window.JVAir) { renderHeroNotLive(null, cityName); return; }
+        const cities = Object.keys(CITIES).filter(k => k !== '__nearme').map(k => ({ key: k, name: CITIES[k].name, lat: CITIES[k].lat, lon: CITIES[k].lon }));
+        let r = null;
+        try { r = await window.JVAir.reading({ lat: c.lat, lon: c.lon, key: cityKey, name: cityName }, { cities, skip: ['live'] }); } catch (e) { r = null; }
+        // The reader may have chosen another city while this was loading.
+        if ((document.getElementById('hero-city-select')?.value || 'delhi') !== cityKey) return;
+        renderHeroNotLive(r, cityName);
+    }
+
     function updateHeroCity(cityKey) {
         const cityName = CITIES[cityKey]?.name || cityKey;
         const labelEl = document.getElementById('hero-city-label');
@@ -735,7 +809,7 @@
                 if (v) aqiData[cityKey] = v;
                 if ((document.getElementById('hero-city-select')?.value || 'delhi') === cityKey) {
                     if (v) updateHeroCity(cityKey);
-                    else { if (pmEl) pmEl.textContent = '--'; if (whoEl) whoEl.textContent = 'No station has reported here in the last 6 hours'; if (aqiEl) aqiEl.textContent = '--'; renderHeroVerdict(null, cityName); updatePersonalImpact(cityKey, null); }
+                    else { heroFallback(cityKey, cityName); updatePersonalImpact(cityKey, null); }
                 }
             }).catch(() => { CITIES[cityKey]._fetching = false; });
         } else if (!CITIES[cityKey]) {
@@ -1548,10 +1622,26 @@
             const nearKey = nearestTrackedCity(+lat, +lon);
             const url = `${WAQI_PROXY}?near=${lat},${lon}` + (nearKey ? `&slug=${encodeURIComponent(nearKey)}` : '');
             const res = await fetch(url);
-            const json = await res.json();
-            if (json.status !== 'ok' || !json.data || json.data.aqi === '-') {
-                const where = nearKey ? ` The nearest city we track is ${CITIES[nearKey].name}; pick it from the list.` : '';
-                throw new Error('No monitoring station within 30 km of you has reported in the last 6 hours, so there is no live reading for your spot.' + where);
+            // A reply that is not JSON (a gateway error page) is "no reading", not an alert about parsing.
+            let json = null;
+            try { json = await res.json(); } catch (e) { json = null; }
+            if (!json || json.status !== 'ok' || !json.data || json.data.aqi === '-') {
+                // No monitor near the reader has reported lately. Say what else is known, worded
+                // as what it is (CPCB's daily bulletin for the nearest city, or a model), and
+                // do not call it live. js/air-sources.js holds the chain.
+                const cities = Object.keys(CITIES).filter(k => k !== '__nearme').map(k => ({ key: k, name: CITIES[k].name, lat: CITIES[k].lat, lon: CITIES[k].lon }));
+                const fb = window.JVAir ? await window.JVAir.reading({ lat: +lat, lon: +lon }, { cities, skip: ['live'] }) : null;
+                CITIES['__nearme'] = { name: 'Near me', lat, lon };
+                delete aqiData['__nearme'];
+                const sel2 = document.getElementById('hero-city-select');
+                if (sel2) {
+                    let opt = sel2.querySelector('option[value="__nearme"]');
+                    if (!opt) { opt = document.createElement('option'); opt.value = '__nearme'; sel2.insertBefore(opt, sel2.firstChild); }
+                    opt.textContent = 'Near me (no live station)';
+                    sel2.value = '__nearme';
+                }
+                renderHeroNotLive(fb, 'Near me', 'your location');
+                return;
             }
             const d = json.data;
             const aqi = parseInt(d.aqi);
@@ -2981,7 +3071,7 @@
 
     async function generateAQICard(cityKey, opts) {
         const data = aqiData[cityKey];
-        if (!data) { if (!(opts && opts.preview)) alert('No AQI data available for this city yet. Please wait for data to load.'); return null; }
+        if (!data) { if (!(opts && opts.preview)) alert('Only a live reading can be shared, and there is none for this place right now (or it is still loading).'); return null; }
         const city = CITIES[cityKey];
         if (!city) return null;
         // A shared card is read as a measurement, so it is drawn only from a live
@@ -3398,7 +3488,7 @@
 
     function shareOnWhatsApp(cityKey) {
         var data = aqiData[cityKey];
-        if (!data) { alert('No AQI data available for this city yet.'); return; }
+        if (!data) { alert('Only a live reading can be shared, and there is none for this place right now.'); return; }
         var city = CITIES[cityKey];
         if (!city) return;
         var block = shareableReadingProblem(data);

@@ -178,7 +178,8 @@ for (const file of htmlFiles()) {
   const updated = content
     .replace(/href="\/styles\.css(?:\?v=\d+)?"/g, `href="/styles.css?v=${dateStamp}"`)
     .replace(/src="\/app\.js(?:\?v=\d+)?"/g, `src="/app.js?v=${dateStamp}"`)
-    .replace(/src="\/js\/chrome\.js(?:\?v=\d+)?"/g, `src="/js/chrome.js?v=${dateStamp}"`);
+    .replace(/src="\/js\/chrome\.js(?:\?v=\d+)?"/g, `src="/js/chrome.js?v=${dateStamp}"`)
+    .replace(/src="\/js\/air-sources\.js(?:\?v=\d+)?"/g, `src="/js/air-sources.js?v=${dateStamp}"`);
   if (updated !== content) {
     writeFile(file, updated);
     console.log(`${file}: stamped ?v=${dateStamp}`);
