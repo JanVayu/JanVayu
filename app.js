@@ -719,6 +719,9 @@
         const place = escapeHtml(spoken || placeName || 'that place');
         const grey = 'var(--text-3)';
         heroShowing = { pm25: null, place: placeName };
+        // The reading has settled (as a fallback): release the room the page held for it.
+        const heroSection = document.getElementById('section-dashboard');
+        if (heroSection) heroSection.classList.remove('hero-pending');
         if (rowsEl) rowsEl.hidden = true;
         const hide = (el) => { if (el) el.hidden = true; };
         hide(document.getElementById('heroSpread'));
@@ -1194,6 +1197,9 @@
         const whoEl = document.getElementById('heroWho');
         if (!qEl || !whyEl || !whoEl) return;
         const place = escapeHtml(placeName || 'that place');
+        // The reading is in, or has failed: the room held for it is no longer needed.
+        const heroSection = document.getElementById('section-dashboard');
+        if (heroSection) heroSection.classList.remove('hero-pending');
 
         if (pm25 === null || pm25 === undefined || !isFinite(pm25)) {
             heroShowing = { pm25: null, place: placeName };
