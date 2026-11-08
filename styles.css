@@ -1181,6 +1181,18 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .hero-chip { font-family: var(--mono); font-size: 0.72rem; color: var(--text-2); background: var(--bg-section); border: 1px solid var(--border); border-radius: 0; padding: 4px 9px; }
 
+/* Room for what the live reading fills in, mirrored in the critical CSS of
+   index.html. app.js removes .hero-pending once the reading is in or has
+   failed. The first line of the card holds the height of the city search that
+   replaces the select. */
+.hero-pm25-card > div:first-child { min-height: 29px; }
+@media (max-width: 768px) {
+    .hero-pending .hero-band { min-height: 8px; }
+    .hero-pending .hero-band-label { min-height: 20px; }
+    .hero-pending .hero-chips { min-height: 30px; }
+    .hero-pending .hero-who { min-height: 360px; }
+}
+
 @media (max-width: 760px) {
     .hero-find { flex-direction: column; max-width: none; }
     .hero-find-btn { width: 100%; }
@@ -3522,6 +3534,11 @@ body.panel-open #panel-container { padding-top: 72px !important; }
     position: sticky; top: 0; z-index: 60; background: var(--bg); border-bottom: 1px solid transparent; }
 .bar.is-stuck { border-bottom-color: var(--border); }
 .bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+/* js/dyslexia-font.js adds a 44px button before Theme once it has loaded. Hold
+   its place until then, or on a phone-sized bar the sixth control wraps and
+   the bar grows by a row after first paint. */
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
