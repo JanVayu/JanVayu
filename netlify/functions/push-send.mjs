@@ -16,7 +16,7 @@ import { getCpcbPM25Category, thresholdPM25 } from "./lib/cpcb.mjs";
 export const config = { schedule: "0 */3 * * *" };
 
 
-import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
+import { fetchStationNear } from "./lib/waqi-station.mjs";
 const COOLDOWN_MS = 6 * 60 * 60 * 1000; // don't push the same person more than once per 6 h
 
 // Coordinates for the cities offered in the AQI Alerts panel (+ common extras).
@@ -33,9 +33,10 @@ async function fetchAQI(city) {
   const c = CITIES[city];
   if (!c) return null;
   try {
-    const res = await fetch(`https://api.waqi.info/feed/geo:${c[0]};${c[1]}/?token=${WAQI_TOKEN}`, { signal: AbortSignal.timeout(6000) });
-    if (!res.ok) return null;
-    const j = await res.json();
+    // Only a station near the city (lib/waqi-station.mjs says why).
+    const hit = await fetchStationNear({ lat: c[0], lon: c[1], slug: city, timeoutMs: 6000 });
+    if (!hit) return null;
+    const j = { data: hit.data };
     const pm25 = iaqiToPM25(j?.data?.iaqi?.pm25?.v);
     return pm25 != null && Number.isFinite(Number(pm25)) ? Number(pm25) : null;
   } catch { return null; }

@@ -735,7 +735,7 @@
                 if (v) aqiData[cityKey] = v;
                 if ((document.getElementById('hero-city-select')?.value || 'delhi') === cityKey) {
                     if (v) updateHeroCity(cityKey);
-                    else { if (pmEl) pmEl.textContent = '--'; if (whoEl) whoEl.textContent = 'No data'; if (aqiEl) aqiEl.textContent = '--'; renderHeroVerdict(null, cityName); updatePersonalImpact(cityKey, null); }
+                    else { if (pmEl) pmEl.textContent = '--'; if (whoEl) whoEl.textContent = 'No station has reported here in the last 6 hours'; if (aqiEl) aqiEl.textContent = '--'; renderHeroVerdict(null, cityName); updatePersonalImpact(cityKey, null); }
                 }
             }).catch(() => { CITIES[cityKey]._fetching = false; });
         } else if (!CITIES[cityKey]) {
@@ -1507,7 +1507,20 @@
         };
     }
 
-    // ── Near Me (geolocation → nearest WAQI station) ──
+    // The tracked city closest to a point, within 60 km, or null.
+    function nearestTrackedCity(lat, lon) {
+        let best = null, bestKm = 60;
+        Object.keys(CITIES).forEach(k => {
+            const c = CITIES[k];
+            if (k === '__nearme' || !c || typeof c.lat !== 'number') return;
+            const dy = (c.lat - lat) * 111.2, dx = (c.lon - lon) * 111.2 * Math.cos(lat * Math.PI / 180);
+            const km = Math.sqrt(dy * dy + dx * dx);
+            if (km < bestKm) { bestKm = km; best = k; }
+        });
+        return best;
+    }
+
+    // ── Near Me (geolocation → nearest station, within 30 km or not at all) ──
     async function loadNearestAQI() {
         const btn = document.getElementById('near-me-btn');
         const origText = btn ? btn.textContent : '';
@@ -1525,16 +1538,23 @@
             // server is not sent a reader's exact position.
             const lat = pos.coords.latitude.toFixed(2);
             const lon = pos.coords.longitude.toFixed(2);
-            const url = `${WAQI_PROXY}?geo=${lat},${lon}`;
+            // The nearest city we track gives the proxy a second place to look: WAQI's
+            // own lookup by coordinates answered Bengaluru with a station in Delhi, 1,730 km
+            // away, and called it "Very Unhealthy" (8 November 2026). The proxy now refuses
+            // any station more than 30 km from the reader, whichever route found it.
+            const nearKey = nearestTrackedCity(+lat, +lon);
+            const url = `${WAQI_PROXY}?near=${lat},${lon}` + (nearKey ? `&slug=${encodeURIComponent(nearKey)}` : '');
             const res = await fetch(url);
             const json = await res.json();
             if (json.status !== 'ok' || !json.data || json.data.aqi === '-') {
-                throw new Error('No nearby station found.');
+                const where = nearKey ? ` The nearest city we track is ${CITIES[nearKey].name}; pick it from the list.` : '';
+                throw new Error('No monitoring station within 30 km of you has reported in the last 6 hours, so there is no live reading for your spot.' + where);
             }
             const d = json.data;
             const aqi = parseInt(d.aqi);
             const pm25 = iaqiToPM25(d.iaqi?.pm25?.v) || null;
-            const stationName = d.city?.name || 'Nearest station';
+            const km = json.jv && isFinite(json.jv.distance_km) ? json.jv.distance_km : null;
+            const stationName = (d.city?.name || 'Nearest station') + (km !== null ? ` (${km} km away)` : '');
 
             // Inject as a synthetic "near-me" entry into aqiData so all the cards reuse the same flow.
             CITIES['__nearme'] = { name: 'Near me: ' + stationName, lat, lon };
@@ -2618,7 +2638,9 @@
         const city = CITIES[cityKey];
         if (!city) return null;
         try {
-            const url = `${WAQI_PROXY}?geo=${city.lat},${city.lon}`;
+            // `near`, not `geo`: the proxy refuses a station more than 30 km from the
+            // city, because WAQI's own coordinate lookup has returned Delhi for Bengaluru.
+            const url = `${WAQI_PROXY}?near=${city.lat},${city.lon}&slug=${encodeURIComponent(cityKey)}`;
             const res = await fetch(url, { method: 'GET', mode: 'cors' });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
@@ -2660,14 +2682,15 @@
             // that are the whole of India's network, plus the satellite layer
             // that reaches the 983,149 areas the monitors never will.
             liveStatus.innerHTML = usingLiveData
-                ? `<span class="pulse"></span> Live air from ${INDIAN_CITIES.length} cities &middot; refreshed ${timeStr}`
+                ? `<span class="pulse"></span> Live readings for ${successCount} of ${CORE_CITIES.length} cities right now &middot; refreshed ${timeStr}`
+                  + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">A city shows a live reading only if a monitor within 30 km has reported in the last 6 hours. Where none has, it shows none rather than an old or distant figure.</span>`
                   + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
                   + `Drawn from India's ~565 continuous CPCB monitors (CREA, Jan 2026), the whole continuous (CAAQMS) network. `
                   + `Yearly satellite figures cover all <strong style="font-weight:600;">983,149</strong> areas, down to the village.</span>`
                 : `<span style="color:var(--amber);">Live readings could not be loaded.</span> Figures that need a live reading are left blank; try again in a minute.`;
             liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine: `
                 + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's continuous (CAAQMS) network (CREA, Jan 2026), not the limit of ours. `
-                + `JanVayu carries live air for ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
+                + `JanVayu tracks ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
                 + `(${successCount} answered this cycle) and the rest load when you select them, to stay inside the data source's free tier. `
                 + `The satellite layer is what closes the gap: annual and seasonal PM2.5, surface heat and land cover for all `
                 + `983,149 administrative areas down to the village. It is a yearly average rather than today's air, and the only `

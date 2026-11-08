@@ -89,8 +89,23 @@
     return BANDS[BANDS.length - 1];
   }
 
-  function fetchCity(name, lat, lon) {
-    var url = WAQI_PROXY + '?geo=' + lat + ',' + lon;
+  /* The nearest city we list, as the slug WAQI files its station under. WAQI's own
+     lookup by coordinates has answered Bengaluru with a station in Delhi, so the
+     proxy checks that whatever comes back is within 30 km of the point asked for
+     and says so when nothing is. */
+  function nearestSlug(lat, lon) {
+    var best = null, bestD = Infinity;
+    CITIES.forEach(function (c) {
+      var dy = c[1] - lat, dx = (c[2] - lon) * Math.cos(lat * Math.PI / 180);
+      var d = dy * dy + dx * dx;
+      if (d < bestD) { bestD = d; best = c[0]; }
+    });
+    return best ? best.toLowerCase() : '';
+  }
+
+  function fetchCity(name, lat, lon, slug) {
+    var url = WAQI_PROXY + '?near=' + lat + ',' + lon +
+      (slug ? '&slug=' + encodeURIComponent(slug) : '');
     return fetch(url)
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
@@ -112,8 +127,8 @@
     if (!r) {
       $('stamp').textContent = 'No reading available';
       $('pm').textContent = '—';
-      $('verdictText').textContent = 'We could not reach a station just now.';
-      $('plain').textContent = 'Rather than show you a number we cannot stand behind, this says nothing. Try again in a moment, or open the full map.';
+      $('verdictText').textContent = 'No monitor within 30 km has reported in the last 6 hours.';
+      $('plain').textContent = 'Rather than show you a number from a station far away, or one we cannot stand behind, this says nothing. Try again in a moment, pick the nearest city, or open the full map.';
       $('bandLabel').textContent = '';
       return;
     }
@@ -195,7 +210,8 @@
     $('matches').className = 'matches';
     $('place').value = name;
     $('stamp').textContent = name + ' · reading…';
-    fetchCity(name, lat, lon).then(renderAnswer);
+    var slug = name === 'Your location' ? nearestSlug(lat, lon) : name.toLowerCase();
+    fetchCity(name, lat, lon, slug).then(renderAnswer);
   }
 
 
@@ -394,7 +410,7 @@
     wirePreferences();
     go('Delhi', 28.6139, 77.2090);
 
-    Promise.all(CITIES.map(function (c) { return fetchCity(c[0], c[1], c[2]); }))
+    Promise.all(CITIES.map(function (c) { return fetchCity(c[0], c[1], c[2], c[0].toLowerCase()); }))
       .then(renderRanking);
 
     $('place').addEventListener('input', function () { showMatches(this.value); });
