@@ -168,6 +168,7 @@ function buildVillageContext(question) {
 //     multi-station range presentation.
 
 import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
+import { fetchStationNear, distanceToFeed, haversineKm, MAX_STATION_KM } from "./lib/waqi-station.mjs";
 
 // v26.6.33 — Groq model, env-overridable. llama-3.3-70b-versatile was retired by
 // Groq on 16 Aug 2026 (updated 2 Oct 2026); the default is the replacement openai/gpt-oss-120b.
@@ -255,8 +256,8 @@ async function fetchNearestLiveStation(city) {
     const data = await res.json();
     if (data.status !== "ok" || !Array.isArray(data.data)) return null;
     const live = data.data
-      .map(s => ({ s, aqiNum: Number(s.aqi), d2: (s.lat - city.lat) ** 2 + (s.lon - city.lon) ** 2 }))
-      .filter(x => isFinite(x.aqiNum))
+      .map(s => ({ s, aqiNum: Number(s.aqi), d2: (s.lat - city.lat) ** 2 + (s.lon - city.lon) ** 2, km: haversineKm(city.lat, city.lon, s.lat, s.lon) }))
+      .filter(x => isFinite(x.aqiNum) && x.km <= MAX_STATION_KM)
       .sort((a, b) => a.d2 - b.d2);
     if (!live.length) return null;
     const nearest = live[0];
@@ -283,16 +284,20 @@ async function fetchNearestLiveStation(city) {
 async function fetchCityAQI(cityKey) {
   const city = CITIES[cityKey];
   if (!city) return null;
-  // 1. Fast path — nearest station to the city centroid.
-  const geo = await fetchWaqiFeed(`geo:${city.lat};${city.lon}`);
-  if (geo && waqiIsNum(geo.aqi)) return shapeWaqiFeed(geo, city);
+  // 1. Fast path — the nearest station to the city centroid, accepted only if it
+  //    is within MAX_STATION_KM of the city. WAQI's geo lookup has answered
+  //    Bengaluru with a Delhi station (lib/waqi-station.mjs), so a far station is
+  //    treated as no answer and the chatbot never quotes Delhi's air as another city's.
+  const near = await fetchStationNear({ lat: city.lat, lon: city.lon, slug: cityKey });
+  if (near && waqiIsNum(near.data.aqi)) return shapeWaqiFeed(near.data, city);
   // 2. Fallback — WAQI's city-name feed. The geo lookup intermittently returns
   //    {"status":"nope","data":"can not connect"} for some centroids (this is
   //    what made Patna, Lucknow, Chennai, Kolkata and Hyderabad read as
   //    "unavailable" in the chatbot while the dashboard still showed them). The
   //    name feed resolves to a known-good station for the city and carries PM2.5.
   const named = await fetchWaqiFeed(encodeURIComponent(city.name.toLowerCase()));
-  if (named && waqiIsNum(named.aqi)) return shapeWaqiFeed(named, city);
+  const namedKm = named ? distanceToFeed(named, city.lat, city.lon) : null;
+  if (named && waqiIsNum(named.aqi) && namedKm !== null && namedKm <= MAX_STATION_KM) return shapeWaqiFeed(named, city);
   // 3. Last resort — nearest live station anywhere in the city's bounding box.
   const nearest = await fetchNearestLiveStation(city);
   if (nearest) return nearest;
