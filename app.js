@@ -1123,6 +1123,9 @@
         const whoEl = document.getElementById('heroWho');
         if (!qEl || !whyEl || !whoEl) return;
         const place = escapeHtml(placeName || 'that place');
+        // The reading is in, or has failed: the room held for it is no longer needed.
+        const heroSection = document.getElementById('section-dashboard');
+        if (heroSection) heroSection.classList.remove('hero-pending');
 
         if (pm25 === null || pm25 === undefined || !isFinite(pm25)) {
             heroShowing = { pm25: null, place: placeName };

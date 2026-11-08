@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606251">
+    <link rel="preload" as="style" href="/styles.css?v=202606252">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -858,6 +858,36 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     .hero-headline { font-size: 1.35rem; }
     .grid-5 { grid-template-columns: 1fr; }
 }
+/* The hero on a phone, as styles.css finally leaves it. These come after the
+   blocks above on purpose: in styles.css the later ≤768px block and the
+   unconditional .hero-sub rule override them. Without this the first paint
+   differs from the finished page (search box and button side by side, a
+   smaller intro and a 4px wider gutter), and the full stylesheet moves
+   everything under the hero when it lands. Keep in sync with styles.css. */
+.hero-sub { font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.55; }
+.hero { padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 5vw, 72px); background: none; }
+.hero-headline { font-size: clamp(2.6rem, 6vw, 5rem); }
+.hero-data { background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.hero-data > * { background: var(--bg-card); }
+.hero-pm25-card { border-top: 3px solid var(--accent); }
+/* Room for what the live reading fills in. Until app.js has an answer the
+   band, its label, the groups chips and the who-is-affected rows are empty, so
+   the live card sits 360px higher than it will once they fill. It then drops
+   below the first screen as the rows arrive. On a phone the rows are reserved
+   here (app.js removes .hero-pending when the reading is in or has failed), and
+   the first line of the card holds the height of the city search that replaces
+   the select. Keep in sync with styles.css. */
+.hero-pm25-card > div:first-child { min-height: 29px; }
+@media (max-width: 768px) {
+    .hero-pending .hero-band { min-height: 8px; }
+    .hero-pending .hero-band-label { min-height: 20px; }
+    .hero-pending .hero-chips { min-height: 30px; }
+    .hero-pending .hero-who { min-height: 360px; }
+}
+@media (max-width: 768px) { .container { padding: 0 16px; } .hero { padding: 28px 0 24px; } }
+@media (max-width: 760px) { .hero-find { flex-direction: column; max-width: none; } .hero-find-btn { width: 100%; } }
+@media (max-width: 480px) { .hero h1 { font-size: 1.6rem; } }
+@media (max-width: 375px) { .container { padding: 0 12px; } }
     
 /* ── Hard edges ─────────────────────────────────────────────────────────────
    The house style is a hard edge: no corner radius, no drop shadow, surfaces
@@ -917,6 +947,11 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
    live reading card its gutter in v26.6.214. */
 .bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 60; background: var(--bg); border-bottom: 1px solid transparent; }
 .bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+/* js/dyslexia-font.js adds a 44px button before Theme once it has loaded. Hold
+   its place until then, or on a phone-sized bar the sixth control wraps and
+   the bar grows by a row after first paint. */
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -987,8 +1022,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606251" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606251"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606252" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606252"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1048,7 +1083,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606251" defer></script>
+<script src="/js/chrome.js?v=202606252" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1195,7 +1230,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
     <main id="main-content">
         <!-- ═══ HERO SECTION ═══ -->
-        <section class="hero" id="section-dashboard">
+        <section class="hero hero-pending" id="section-dashboard">
             <div class="container">
                 <div class="hero-grid">
                     <div>
@@ -1551,7 +1586,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/app.js?v=202606251"></script>
+    <script src="/app.js?v=202606252"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
