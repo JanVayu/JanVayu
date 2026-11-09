@@ -150,7 +150,8 @@
    "-3": 369,
    "-2": 382,
    "-1": 369,
-   "0": 376
+   "0": 376,
+   "1": 344
   }
  },
  "diwali_2026": "2026-11-08",
@@ -160,7 +161,7 @@
   "Satisfactory": 3,
   "Moderate": 23,
   "Poor": 6,
-  "Very Poor": 7,
+  "Very Poor": 8,
   "Severe": 0
  },
  "this_season": {
@@ -358,6 +359,11 @@
    "aqi": 376,
    "category": "Very Poor",
    "stations": 59
+  },
+  "2026-11-09": {
+   "aqi": 344,
+   "category": "Very Poor",
+   "stations": 47
   }
  },
  "past": {

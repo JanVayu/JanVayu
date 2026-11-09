@@ -164,6 +164,9 @@ def block(data):
         lead += (f'CPCB’s bulletin for {nice(after["date"])}, which covers the night of the fireworks, '
                  f'put Delhi at AQI {after["aqi"]} ({after["category"]}), '
                  f'from {after["stations"]} of {after["stations_total"]} stations.')
+        missing = after['stations_total'] - after['stations']
+        if missing > 0:
+            lead += f' {missing} of the {after["stations_total"]} stations did not report.'
     else:
         lead += (f'CPCB’s bulletin for {nice(after["date"])} covers the night of the fireworks. '
                  'It is issued at 4 pm, so this page shows no number for it until then.')
