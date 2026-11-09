@@ -34,7 +34,11 @@
   },
   {
    "date": "2026-11-09",
-   "offset": 1
+   "offset": 1,
+   "aqi": 344,
+   "category": "Very Poor",
+   "stations": 47,
+   "stations_total": 59
   }
  ],
  "past": {
