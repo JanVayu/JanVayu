@@ -194,8 +194,9 @@ def block(data):
         '  <p class="dm-src">Source: CPCB daily AQI bulletins, one figure for the whole city over 24 hours, '
         'issued at 4 pm. 2019 to 2025 from the UrbanEmissions.Info extraction of the same bulletins. '
         'Diwali dates are the gazetted holiday each year. The station count is CPCB\u2019s own and does not say that every hour was complete. '
-        'A city figure cannot separate firework smoke from stubble smoke or weather. <a href="/delhi/">The Delhi page</a> draws the whole season, '
-        'day by day, against 2019 to 2025.</p>\n'
+        'A city figure cannot separate firework smoke from stubble smoke or weather. <a href="/delhi/diwali-2026/">Delhi after Diwali 2026</a> has the station-by-station '
+        'figures for the night and the morning after, and <a href="/delhi/">the Delhi page</a> draws the whole '
+        'season against 2019 to 2025.</p>\n'
         '</section>\n'
         f'{END}'
     )

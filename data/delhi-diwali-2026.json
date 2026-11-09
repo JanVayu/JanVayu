@@ -1,0 +1,69 @@
+{
+  "_meta": {
+    "what": "Figures reported for Delhi and the NCR on Diwali night and the morning after, 8 and 9 November 2026, each with the article or post it was read from.",
+    "how": "Typed from the articles named in each block, re-read on 9 November 2026. Nothing here is estimated or filled in. A figure the source does not give is absent. Built into delhi/diwali-2026/index.html by scripts/build-delhi-diwali.py.",
+    "status": "The station figures are as reported by the press from CPCB and DPCC dashboards. They are not a download of those dashboards, and the page says so."
+  },
+  "as_of": "2026-11-09",
+  "snapshot_7am": {
+    "time": "7 a.m., 9 November 2026",
+    "source_id": "bs",
+    "city_aqi": 368,
+    "stations_valid": 54,
+    "above_200": 54,
+    "above_300": 50,
+    "above_400": 15,
+    "top": [
+      ["Burari Crossing", 441],
+      ["Sonia Vihar", 441],
+      ["Vivek Vihar", 437],
+      ["Delhi Technological University", 434],
+      ["North Campus, Delhi University", 433],
+      ["Jahangirpuri", 433],
+      ["Rohini", 430],
+      ["Bawana", 424]
+    ]
+  },
+  "ncr_7am": {
+    "time": "7 a.m., 9 November 2026",
+    "source_id": "bs",
+    "cities": [
+      ["Bahadurgarh", 389],
+      ["Delhi (city figure)", 368],
+      ["Ghaziabad", 366],
+      ["Noida", 340],
+      ["Manesar", 338],
+      ["Faridabad", 334],
+      ["Gurugram", 316],
+      ["Bhiwadi", 300],
+      ["Greater Noida", 293]
+    ]
+  },
+  "night_pm25": {
+    "unit": "micrograms per cubic metre",
+    "source_id": "outlook",
+    "series": [
+      {"station": "RK Puram", "source_id": "outlook", "points": [["20:00", 504], ["21:00", 924]], "then": "no reading shown after 9 p.m."},
+      {"station": "JNU", "source_id": "outlook", "points": [["20:00", 161], ["23:00", 786]], "then": "kept reporting; hours between were not given"},
+      {"station": "Akshardham", "source_id": "hindu", "points": [["23:00", 760.99]], "then": "DPCC reading at 11 p.m. on 8 November"}
+    ],
+    "stations_blank": ["RK Puram", "Nehru Nagar", "Mundka", "Sonia Vihar", "Dwarka"],
+    "who_24h": 15,
+    "india_24h": 60
+  },
+  "morning_readings": [
+    {"time": "1:30 a.m.", "place": "Rajiv Chowk", "aqi": 381, "category": "Very Poor", "source_id": "hindu", "x": "https://x.com/ANI/status/2119549261151133726"},
+    {"time": "4:00 a.m.", "place": "South Extension", "aqi": 360, "category": "Very Poor", "source_id": "hindu"},
+    {"time": "4:20 a.m.", "place": "ITO", "aqi": 406, "category": "Severe", "source_id": "hindu"},
+    {"time": "5:50 a.m.", "place": "Ghazipur", "aqi": 418, "category": "Severe", "source_id": "ani", "x": "https://x.com/ANI/status/2119599707324588149"},
+    {"time": "6:20 a.m.", "place": "Akshardham", "aqi": 337, "category": "Very Poor", "source_id": "ani", "x": "https://x.com/ANI/status/2119602423941759200"}
+  ],
+  "diwali_day_2026": "2026-11-08",
+  "sources": {
+    "hindu": {"name": "The Hindu", "title": "Delhi's air quality slips into 'severe' category morning after Deepavali, AQI at 404", "url": "https://www.thehindu.com/news/cities/Delhi/delhis-air-quality-slips-into-severe-category-morning-after-deepavali-aqi-at-404/article71681305.ece", "date": "9 November 2026"},
+    "hindu_pm": {"name": "The Hindu", "title": "Air pollution over 50 times WHO limit in parts of Delhi as people defy ban on firecrackers on Deepavali", "url": "https://www.thehindu.com/news/cities/Delhi/air-pollution-over-50-times-who-limit-in-parts-of-delhi-as-people-defy-ban-on-firecrackers-on-deepavali/article71681210.ece", "date": "9 November 2026"},
+    "bs": {"name": "Business Standard", "title": "Delhi's post-Diwali air remains 'very poor', 15 locations record severe AQI", "url": "https://www.business-standard.com/india-news/delhi-s-post-diwali-air-remains-very-poor-15-locations-record-severe-aqi-126110900063_1.html", "date": "9 November 2026"},
+    "outlook": {"name": "Outlook India", "title": "Delhi Air Quality Stations Stop Reporting On Diwali Night As Pollution Levels Spike", "url": "https://www.outlookindia.com/national/delhi-air-quality-monitoring-stations-stop-reporting-diwali-night-pm25-pollution-data-rk-puram-jnu", "date": "9 November 2026"},
+    "ani": {"name": "ANI on X", "title": "Station readings posted on the morning of 9 November", "url": "https://x.com/ANI", "date": "9 November 2026"}
+  }
+}
