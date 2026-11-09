@@ -25,7 +25,7 @@ DATA = ROOT / 'data' / 'delhi-diwali-2026.json'
 SEASON = ROOT / 'data' / 'delhi-season.json'
 CSV26 = ROOT / 'data' / 'raw' / 'cpcb-bulletins-2026.csv.gz'
 PAGE = ROOT / 'delhi' / 'diwali-2026' / 'index.html'
-STAMP = '202606254'
+STAMP = '202606255'
 
 COLOUR = {'Poor': '#c2410c', 'Very Poor': '#b91c1c', 'Severe': '#7f1d1d'}
 RKP, JNU, AKS = '#b91c1c', '#1e5a8a', '#6d28d9'

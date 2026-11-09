@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606254">
+    <link rel="preload" as="style" href="/styles.css?v=202606255">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -1022,8 +1022,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606254" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606254"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606255" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606255"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1083,7 +1083,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606254" defer></script>
+<script src="/js/chrome.js?v=202606255" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1358,6 +1358,38 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <!-- Ask JanVayu. This used to be a 34px icon in the hero that opened a
                      floating widget, with the real interface buried in a panel behind
                      the nav. It answers here, in place, without navigating. -->
+<!--diwali:start-->
+<section class="dm" id="section-diwali-morning" aria-labelledby="dm-title">
+  <span class="dm-eyebrow">Diwali 2026</span>
+  <h2 class="dm-title" id="dm-title">Delhi’s air the morning after Diwali</h2>
+  <p class="dm-lead">Diwali fell on Sunday 8 November. CPCB’s bulletin for Monday 9 November covers the night of the fireworks. It is issued at 4 pm, so this page shows no number for it until then.</p>
+  <ol class="dm-days">
+    <li class="dm-cell"><span class="dm-date">Fri 6 Nov</span><span class="dm-aqi">382</span><span class="dm-cat">Very Poor</span><span class="dm-st">57 of 59 stations</span></li>
+    <li class="dm-cell"><span class="dm-date">Sat 7 Nov</span><span class="dm-aqi">369</span><span class="dm-cat">Very Poor</span><span class="dm-st">59 of 59 stations</span></li>
+    <li class="dm-cell"><span class="dm-date">Sun 8 Nov</span><span class="dm-tag">Diwali</span><span class="dm-aqi">376</span><span class="dm-cat">Very Poor</span><span class="dm-st">59 of 59 stations</span></li>
+    <li class="dm-cell"><span class="dm-date">Mon 9 Nov</span><span class="dm-tag">Morning after</span><span class="dm-aqi dm-wait">Due 4 pm</span><span class="dm-cat">CPCB issues the bulletin at 4 pm</span><span class="dm-st">No figure until then</span></li>
+  </ol>
+  <p class="dm-find">In 6 of the 7 years from 2019 to 2025, the bulletin for the day after Diwali was higher than the one for Diwali day, by 6 to 140 points; in 2022 it was 10 points lower. This year’s Diwali-day figure, 376, is the third highest of the 8 Diwali-day figures from 2019 to 2026.</p>
+  <div class="dm-table-wrap" tabindex="0" role="region" aria-label="Delhi AQI on Diwali day and the day after, 2019 to 2026">
+  <table class="dm-table">
+    <caption>Delhi, CPCB 24-hour AQI</caption>
+    <thead><tr><th scope="col">Year</th><th scope="col">Diwali</th><th scope="col">Diwali day</th><th scope="col">Day after</th><th scope="col">Change</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">2019</th><td>Sun 27 Oct</td><td>337</td><td>368</td><td>+31</td></tr>
+      <tr><th scope="row">2020</th><td>Sat 14 Nov</td><td>414</td><td>435</td><td>+21</td></tr>
+      <tr><th scope="row">2021</th><td>Thu 4 Nov</td><td>382</td><td>462</td><td>+80</td></tr>
+      <tr><th scope="row">2022</th><td>Mon 24 Oct</td><td>312</td><td>302</td><td>-10</td></tr>
+      <tr><th scope="row">2023</th><td>Sun 12 Nov</td><td>218</td><td>358</td><td>+140</td></tr>
+      <tr><th scope="row">2024</th><td>Thu 31 Oct</td><td>328</td><td>339</td><td>+11</td></tr>
+      <tr><th scope="row">2025</th><td>Mon 20 Oct</td><td>345</td><td>351</td><td>+6</td></tr>
+      <tr class="dm-now"><th scope="row">2026</th><td>Sun 8 Nov</td><td>376</td><td>Due 4 pm</td><td></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="dm-src">Source: CPCB daily AQI bulletins, one figure for the whole city over 24 hours, issued at 4 pm. 2019 to 2025 from the UrbanEmissions.Info extraction of the same bulletins. Diwali dates are the gazetted holiday each year. The station count is CPCB’s own and does not say that every hour was complete. A city figure cannot separate firework smoke from stubble smoke or weather. <a href="/delhi/diwali-2026/">Delhi after Diwali 2026</a> has the station-by-station figures for the night and the morning after, and <a href="/delhi/">the Delhi page</a> draws the whole season against 2019 to 2025.</p>
+</section>
+<!--diwali:end-->
+
                 <section class="askhome" id="section-askhome">
                 <span class="askhome-eyebrow" data-i18n="askhome_eyebrow">Ask JanVayu</span>
                 <h2 class="askhome-title" data-i18n="askhome_title">Ask a question about the air, in your own words</h2>
@@ -1586,8 +1618,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/js/air-sources.js?v=202606254"></script>
-    <script src="/app.js?v=202606254"></script>
+    <script src="/js/air-sources.js?v=202606255"></script>
+    <script src="/app.js?v=202606255"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

@@ -3716,3 +3716,29 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .jv-share-label { font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-right: 4px; }
 body .jv-share a, body .jv-share button { font: inherit; font-size: 0.85rem; padding: 6px 12px; min-height: 44px; display: inline-flex; align-items: center; border: 1px solid var(--border); background: var(--bg-section); color: var(--text); text-decoration: none; cursor: pointer; }
 body .jv-share a:hover, body .jv-share button:hover { border-color: var(--ink); }
+
+/* Diwali morning-after block (index.html, written by scripts/build-diwali-morning.py).
+   Below the first screen, so it lives here only and not in the critical block. */
+.dm { margin: 44px 0 0; padding: 36px 0 8px; border-top: 2px solid var(--border); }
+.dm-eyebrow { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); }
+.dm-title { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-top: 8px; }
+.dm-lead { font-size: 1rem; color: var(--text-2); line-height: 1.6; margin-top: 12px; max-width: 64ch; }
+.dm-days { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 20px; background: var(--border); border: 1px solid var(--border); }
+@media (min-width: 768px) { .dm-days { grid-template-columns: repeat(4, 1fr); } }
+.dm-cell { background: var(--bg-card); padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 3px; min-height: 148px; }
+.dm-date { font-family: var(--mono); font-size: 0.78rem; font-weight: 600; color: var(--text); }
+.dm-tag { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+.dm-aqi { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; line-height: 1.1; color: var(--text); margin-top: 4px; }
+.dm-aqi.dm-wait { font-size: 1.5rem; padding-top: 8px; }
+.dm-cat { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.dm-st { font-size: 0.8rem; color: var(--text-2); }
+.dm-find { font-size: 1rem; color: var(--text); line-height: 1.6; margin-top: 20px; max-width: 64ch; }
+.dm-table-wrap { margin-top: 16px; overflow-x: auto; }
+.dm-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.dm-table caption { text-align: left; font-size: 0.8rem; color: var(--text-2); padding-bottom: 6px; }
+.dm-table th, .dm-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border-light); color: var(--text); white-space: nowrap; }
+.dm-table thead th { font-size: 0.75rem; font-weight: 700; color: var(--text-2); border-bottom: 2px solid var(--border); }
+.dm-table .dm-now th, .dm-table .dm-now td { font-weight: 700; background: var(--bg-section); }
+.dm-src { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; margin-top: 12px; max-width: 72ch; }
+.dm-src a { text-decoration: underline; text-underline-offset: 0.14em; }
+@media (max-width: 480px) { .dm-table { font-size: 0.8rem; } .dm-table th, .dm-table td { padding: 7px 5px; } .dm-table thead th { font-size: 0.7rem; } }
