@@ -236,6 +236,12 @@
       "title": "Post on monitors that stopped reporting PM2.5 on Diwali night",
       "url": "https://x.com/VinayakD/status/2119654589452673140",
       "date": "9 November 2026"
+    },
+    "manoj_x": {
+      "name": "Dr. Manoj Kumar (@manoj_kumar_nr) on X",
+      "title": "Post on missing hourly PM2.5 data across Delhi's CPCB stations",
+      "url": "https://x.com/manoj_kumar_nr/status/2119620170071286068",
+      "date": "9 November 2026"
     }
   },
   "ht": {
@@ -383,5 +389,50 @@
     "monitors": 39,
     "last_year_above_1000": 29,
     "checked": "Exists and carries these figures, checked with the platform's embed service on 9 November 2026. The article behind the post was not found, so the counts rest on the post alone."
+  },
+  "x_post_gaps": {
+    "source_id": "manoj_x",
+    "handle": "@manoj_kumar_nr",
+    "bio": "Analyst @CREACleanAir; his bio says his tweets are personal",
+    "window": "midnight on 8 November to 5 a.m. on 9 November",
+    "missing_hours": 227,
+    "stations": 59,
+    "complete": 14,
+    "with_gaps": 45,
+    "most_missing": [
+      [
+        "Mundka",
+        10
+      ],
+      [
+        "Dwarka Sector 8",
+        8
+      ],
+      [
+        "IIT Delhi",
+        8
+      ],
+      [
+        "Nehru Nagar",
+        8
+      ],
+      [
+        "Pusa IITM",
+        8
+      ],
+      [
+        "Uttam Nagar",
+        8
+      ]
+    ],
+    "low_readings": [
+      "IGNOU Maidan Garhi",
+      "Cantonment Area",
+      "Siri Fort",
+      "Tikri Kalan"
+    ],
+    "low_threshold": 30,
+    "instrument_limit_claim": 1000,
+    "checked": "Posted 02:36 UTC on 9 November 2026. Found through X's own account timeline, confirmed with the platform's embed service, and the text matches the screenshot the owner supplied."
   }
 }
