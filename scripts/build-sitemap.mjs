@@ -37,6 +37,7 @@ const PAGES = [
   { url: "/so2/", file: "so2/index.html", changefreq: "daily", priority: "0.85" },
   { url: "/o3/", file: "o3/index.html", changefreq: "daily", priority: "0.85" },
   { url: "/delhi/", file: "delhi/index.html", changefreq: "daily", priority: "0.9" },
+  { url: "/delhi/diwali-2026/", file: "delhi/diwali-2026/index.html", changefreq: "daily", priority: "0.8" },
   { url: "/downloads/", file: "downloads/index.html", changefreq: "monthly", priority: "0.6" },
   { url: "/walkthrough/", file: "walkthrough/index.html", changefreq: "monthly", priority: "0.5" },
   { url: "/status/", file: "status/index.html", changefreq: "monthly", priority: "0.3" },
