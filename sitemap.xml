@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.janvayu.in/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.janvayu.in/" />
@@ -15,97 +15,103 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/ask/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/pm25/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/pm10/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/co/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/no2/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/so2/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/o3/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/delhi/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.janvayu.in/delhi/diwali-2026/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.janvayu.in/downloads/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/walkthrough/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/status/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-08T10:30:22+05:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-11-05-delhi-220-good-to-moderate-days/</loc>
-    <lastmod>2026-11-05T07:45:07+00:00</lastmod>
+    <lastmod>2026-11-06T12:05:07+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports/</loc>
-    <lastmod>2026-11-05T12:52:12+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:07+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-11-04-pollution-and-preterm-birth-delhi/</loc>
-    <lastmod>2026-11-04T15:02:34+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:07+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-11-01-cbse-class-10-environmental-education/</loc>
-    <lastmod>2026-11-02T18:04:16+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:07+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -123,13 +129,13 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-10-25-ammonia-the-other-half/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:07+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-10-19-delhi-211-days-checked/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:07+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -153,7 +159,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-09-17-what-we-do-that-others-do-not/</loc>
-    <lastmod>2026-10-31T15:39:36+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -171,13 +177,13 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-09-08-was-it-policy-or-the-wind/</loc>
-    <lastmod>2026-10-06T07:03:30+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-09-05-your-airshed-or-your-town/</loc>
-    <lastmod>2026-10-06T07:03:30+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -189,7 +195,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-09-why-pm25-not-aqi/</loc>
-    <lastmod>2026-10-06T07:39:01+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -201,7 +207,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-09-how-to-read-the-map/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -219,37 +225,37 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-08-heat-on-every-ward/</loc>
-    <lastmod>2026-10-06T07:39:01+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-07-ninety-cities-ward-by-ward/</loc>
-    <lastmod>2026-10-06T07:39:01+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-07-every-capital-and-the-directory/</loc>
-    <lastmod>2026-10-06T07:03:30+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-07-agartala-northeast-outlier/</loc>
-    <lastmod>2026-10-06T07:39:01+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-08-05-every-village-on-the-map/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-07-30-the-air-your-mp-answers-for/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -261,13 +267,13 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-07-18-why-our-mascot-is-a-sparrow/</loc>
-    <lastmod>2026-10-06T07:03:30+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-07-18-routines-that-keep-janvayu-honest/</loc>
-    <lastmod>2026-10-31T15:39:36+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -285,7 +291,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-07-17-we-factchecked-ourselves/</loc>
-    <lastmod>2026-10-31T15:39:36+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -303,7 +309,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-07-08-secondary-pm25/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -321,7 +327,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-06-11-live-vs-annual-honest-ward-data/</loc>
-    <lastmod>2026-10-06T07:03:30+05:30</lastmod>
+    <lastmod>2026-11-06T12:05:17+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -357,7 +363,7 @@
   </url>
   <url>
     <loc>https://www.janvayu.in/blog/2026-05-20-vayu-junction/</loc>
-    <lastmod>2026-10-25T12:30:10+05:30</lastmod>
+    <lastmod>2026-11-06T12:27:22+05:30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
