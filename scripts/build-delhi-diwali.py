@@ -335,6 +335,7 @@ def page(d):
     higher_than_before = [y for y, v in over_before.items() if v > 0]
     ht = d['ht']
     xp = d['x_post_monitors']
+    xg = d['x_post_gaps']
     d26_before = d['_delhi26'].get('2026-11-07')
     biggest = max(rises, key=rises.get)
     d26 = d['_delhi26']
@@ -431,6 +432,8 @@ def page(d):
 
   <p>On X, {src_link(d, "binayak_x", "Binayak D (@VinayakD)")}, who tags Hindustan Times, wrote that on Diwali night many monitors “{xp["quote"]}”. At 1 a.m., the post says, only {xp["at_1am_sending"]} of {xp["monitors"]} were sending PM2.5 although they kept sending other readings, and last year {xp["last_year_above_1000"]} of the same monitors recorded more than 1,000. The article behind the post was not found, so those counts rest on the post alone.</p>
 
+  <p>{src_link(d, "manoj_x", "Dr. Manoj Kumar (@manoj_kumar_nr)")}, an analyst at CREA whose bio says his tweets are personal, counted the gaps for the {xg["stations"]} CPCB stations in Delhi from {xg["window"]}. He reports {xg["missing_hours"]} missing hourly PM2.5 observations, with only {xg["complete"]} stations complete and {xg["with_gaps"]} missing at least one hour. Mundka had the most ({xg["most_missing"][0][1]}), and {", ".join(n for n, _ in xg["most_missing"][1:-1])} and {xg["most_missing"][-1][0]} had {xg["most_missing"][1][1]} each. His reading is that many of the gaps came as concentrations approached the instruments’ upper limit of {xg["instrument_limit_claim"]:,} micrograms per cubic metre, so they should be flagged as possibly above range and not left out of averages. That reading is his and we have not checked it. He also notes that {", ".join(xg["low_readings"][:-1])} and {xg["low_readings"][-1]} read below {xg["low_threshold"]} at points during the episode and says those readings need checking for instrument problems.</p>
+
   <h2>The morning</h2>
   <p>At 7 a.m. the {s["stations_valid"]} stations with valid data split into {b["Poor"]} in the Poor band, {b["Very Poor"]} Very Poor and {b["Severe"]} Severe. The first two numbers come from the reported counts: all {s["above_200"]} read above 200 and {s["above_300"]} above 300, which leaves {b["Poor"]} between 201 and 300, and {s["above_400"]} read above 400, which leaves {b["Very Poor"]} between 301 and 400 ({src_link(d, "bs")}).</p>
   {wrap(ch1, vb1, f"Delhi's {s['stations_valid']} stations at 7 a.m. on 9 November: {b['Poor']} Poor, {b['Very Poor']} Very Poor, {b['Severe']} Severe. The highest were Burari Crossing and Sonia Vihar at 441.")}
@@ -456,7 +459,7 @@ def page(d):
 
   <h2>Sources</h2>
   <ul class="sources">{sources}</ul>
-  <p class="note">The post by Binayak D was checked against the platform’s embed service on 9 November 2026: it exists and carries the figures quoted. The Hindustan Times figures were typed from the paper’s print page and checked against its online articles on 9 November 2026. The three ANI posts in the table were checked against the platform’s embed service on 9 November 2026: each exists and carries the figure shown.</p>
+  <p class="note">The post by Dr. Manoj Kumar was found on his X timeline and checked against the platform’s embed service on 9 November 2026. The post by Binayak D was checked against the platform’s embed service on 9 November 2026: it exists and carries the figures quoted. The Hindustan Times figures were typed from the paper’s print page and checked against its online articles on 9 November 2026. The three ANI posts in the table were checked against the platform’s embed service on 9 November 2026: each exists and carries the figure shown.</p>
 
 <footer class="delhi-foot">
   <div>JanVayu is a citizen-led air quality accountability platform for India. Part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>.</div>
@@ -516,6 +519,11 @@ def check():
     xp = d['x_post_monitors']
     if not 0 < xp['at_1am_sending'] <= xp['monitors'] or xp['source_id'] not in d['sources']:
         errs.append('the X post counts are out of order or its source is missing')
+    xg = d['x_post_gaps']
+    if xg['complete'] + xg['with_gaps'] != xg['stations']:
+        errs.append('Manoj Kumar post: complete plus incomplete stations must equal the stations counted')
+    if xg['most_missing'][0][1] < max(n for _, n in xg['most_missing']) or xg['source_id'] not in d['sources']:
+        errs.append('Manoj Kumar post: the station with most gaps must be listed first, and the source must exist')
     for y, row in ht['table'].items():
         if len(row) != 3 or not all(0 < v <= 500 for v in row):
             errs.append(f'HT table {y}: {row} is not three AQI figures')
