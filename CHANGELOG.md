@@ -5,9 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2026-11-08
+## [Unreleased] - 2026-11-09
 
 ### Added
+- Three post-Diwali items on the Voices panel, each checked against the article it cites: The Hindu on ITO reading 406 and the late firecracker use, Business Standard on the 7 a.m. CPCB picture (54 Delhi stations reporting, 15 above 400), and Outlook on stations going blank after 9 p.m. on Diwali night. The hourly Akshardham PM2.5 figure is labelled as an hourly reading against a 24-hour guideline.
 - A daily check that what the site calls live agrees with CPCB. `scripts/audit-live-vs-cpcb.mjs` asks the live site for each of the 33 tracked cities, converts the PM2.5 to CPCB's band and compares it with the city's category in CPCB's daily bulletin. A gap of two bands or more is a fault (the Delhi-for-Bengaluru error of 8 November was three); one band is weather. It also fails if a served reading is more than 30 km away or more than 6 hours old, which the proxy should already prevent. A city with no live reading is reported, not failed. It runs from `.github/workflows/live-audit.yml` each day at 06:17 UTC and on demand, not on pull requests, because it needs the network; a red scheduled run is the alert. Checked against production on 8 November: 5 cities live (Delhi, Gurgaon, Noida, Faridabad, Ghaziabad), all within one band of the bulletin; 28 with no live reading, 27 of which have a bulletin figure (Kochi has none). Five tests in `test/live-audit.test.mjs`.
 
 ### Added
