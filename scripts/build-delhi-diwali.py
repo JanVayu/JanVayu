@@ -25,7 +25,13 @@ DATA = ROOT / 'data' / 'delhi-diwali-2026.json'
 SEASON = ROOT / 'data' / 'delhi-season.json'
 CSV26 = ROOT / 'data' / 'raw' / 'cpcb-bulletins-2026.csv.gz'
 PAGE = ROOT / 'delhi' / 'diwali-2026' / 'index.html'
-STAMP = '202606255'
+def _stamp():
+    import re
+    m = re.search(r'/styles\.css\?v=(\d+)', (ROOT / 'delhi' / 'index.html').read_text(encoding='utf-8'))
+    return m.group(1) if m else '0'
+
+
+STAMP = _stamp()
 
 COLOUR = {'Poor': '#c2410c', 'Very Poor': '#b91c1c', 'Severe': '#7f1d1d'}
 RKP, JNU, AKS = '#b91c1c', '#1e5a8a', '#6d28d9'
@@ -71,7 +77,7 @@ def load():
     past = []
     for y in range(2019, 2026):
         a = season['aligned'][str(y)]
-        past.append((y, season['diwali'][str(y)], a['0'], a['1']))
+        past.append((y, season['diwali'][str(y)], a['0'], a['1'], a['-1']))
     delhi26 = {}
     with gzip.open(CSV26, 'rt', newline='') as f:
         for r in csv.DictReader(f):
@@ -196,38 +202,71 @@ def chart_ncr(d):
 
 
 def chart_next_day(d):
-    rows = [(str(y), dd, a, b) for y, dd, a, b in d['_past']]
+    rows = [(str(y), dd, a, b, before) for y, dd, a, b, before in d['_past']]
     d26 = d['_delhi26']
-    diw = d['diwali_day_2026']
-    nxt = '2026-11-09'
-    rows.append(('2026', diw, d26.get(diw), d26.get(nxt)))
+    rows.append(('2026', d['diwali_day_2026'], d26.get(d['diwali_day_2026']), d26.get('2026-11-09'), d26.get('2026-11-07')))
     L, R = 62, 400
     X = lambda v: L + (R - L) * (v - 200) / 300
-    out = txt(14, 20, 'Diwali day and the day after, Delhi’s CPCB bulletin', 15, INK, weight=700)
-    y0 = 40
+    out = txt(14, 20, 'The day before, Diwali day and the day after', 15, INK, weight=700)
+    out += txt(14, 36, 'Delhi’s CPCB bulletin figure', 12, MUTED)
+    y0 = 52
     for g in (200, 300, 400, 500):
         out += f'<line x1="{X(g):.1f}" y1="{y0 - 6}" x2="{X(g):.1f}" y2="{y0 + len(rows) * 26}" stroke="{GRID}" stroke-width="1"/>'
         out += txt(X(g), y0 + len(rows) * 26 + 14, g, 11.5, MUTED, 'middle')
-    for i, (y, dd, a, b) in enumerate(rows):
+    for i, (y, dd, a, b, before) in enumerate(rows):
         yy = y0 + i * 26 + 10
         out += txt(L - 8, yy + 4, y, 12.5, INK, 'end', 700 if y == '2026' else None)
-        if a is not None and b is not None:
-            out += f'<line x1="{X(a):.1f}" y1="{yy}" x2="{X(b):.1f}" y2="{yy}" stroke="{MUTED}" stroke-width="1.6"/>'
+        pts = [v for v in (before, a, b) if v is not None]
+        if len(pts) > 1:
+            out += f'<line x1="{X(min(pts)):.1f}" y1="{yy}" x2="{X(max(pts)):.1f}" y2="{yy}" stroke="{MUTED}" stroke-width="1.6"/>'
+        if before is not None:
+            out += f'<circle cx="{X(before):.1f}" cy="{yy}" r="4.2" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.8"/>'
         if a is not None:
             out += f'<circle cx="{X(a):.1f}" cy="{yy}" r="4.4" fill="{MUTED}"/>'
-            if y == '2026':
-                out += txt(X(a), yy - 9, a, 12, INK, 'middle', 700)
         if b is not None:
-            col = '#b91c1c' if (a is not None and b > a) else '#1e5a8a'
-            out += f'<circle cx="{X(b):.1f}" cy="{yy}" r="4.4" fill="{col}"/>'
+            col = '#b91c1c' if (before is not None and b > before) else '#1e5a8a'
+            out += f'<circle cx="{X(b):.1f}" cy="{yy}" r="4.6" fill="{col}"/>'
         elif y == '2026':
-            out += f'<circle cx="{X(a) + 34:.1f}" cy="{yy}" r="4.4" fill="none" stroke="{INK}" stroke-width="1.4" stroke-dasharray="2 2"/>'
-            out += txt(X(a) + 44, yy + 4, 'due after 4 pm', 11.5, INK)
+            out += f'<circle cx="{X(a) + 36:.1f}" cy="{yy}" r="4.4" fill="none" stroke="{INK}" stroke-width="1.4" stroke-dasharray="2 2"/>'
+            out += txt(X(a) + 46, yy + 4, 'due after 4 pm', 11.5, INK)
     ly = y0 + len(rows) * 26 + 34
-    out += f'<circle cx="20" cy="{ly - 4}" r="4.4" fill="{MUTED}"/>' + txt(30, ly, 'Diwali day', 12, INK)
-    out += f'<circle cx="108" cy="{ly - 4}" r="4.4" fill="#b91c1c"/>' + txt(118, ly, 'day after, higher', 12, INK)
-    out += f'<circle cx="236" cy="{ly - 4}" r="4.4" fill="#1e5a8a"/>' + txt(246, ly, 'day after, lower', 12, INK)
-    return out, (420, ly + 12)
+    out += f'<circle cx="20" cy="{ly - 4}" r="4.2" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.8"/>' + txt(30, ly, 'Day before', 12, INK)
+    out += f'<circle cx="112" cy="{ly - 4}" r="4.4" fill="{MUTED}"/>' + txt(122, ly, 'Diwali day', 12, INK)
+    out += f'<circle cx="224" cy="{ly - 4}" r="4.6" fill="#b91c1c"/>' + txt(234, ly, 'Day after', 12, INK)
+    out += txt(14, ly + 20, 'In every year from 2019 to 2025 the day after was higher than the day before.', 11, MUTED)
+    return out, (420, ly + 32)
+
+
+def chart_evening(d):
+    e_ = d['ht']['evening_15min']
+    L, R, T, B = 52, 400, 40, 220
+    mins = lambda t: int(t[:2]) * 60 + int(t[3:])
+    t0, t1 = mins('19:45'), mins('22:00')
+    X = lambda t: L + 18 + (R - L - 48) * (mins(t) - t0) / (t1 - t0)
+    Y = lambda v: B - (B - T) * v / 350
+    out = txt(14, 20, 'PM2.5 on Saturday evening and Friday evening', 15, INK, weight=700)
+    out += txt(14, 34, 'Average of the stations reporting, micrograms per cubic metre', 11.5, MUTED)
+    for g in (0, 100, 200, 300):
+        out += f'<line x1="{L}" y1="{Y(g):.1f}" x2="{R}" y2="{Y(g):.1f}" stroke="{GRID}" stroke-width="1"/>'
+        out += txt(L - 6, Y(g) + 4, g, 11.5, MUTED, 'end')
+    for t, lab, anc in (('19:45', '7.45', 'end'), ('20:00', '8 pm', 'start'), ('22:00', '10 pm', 'middle')):
+        out += txt(X(t) + (4 if anc == 'end' else -2 if anc == 'start' else 0), B + 18, lab, 11.5, MUTED, anc)
+    out += f'<line x1="{X("20:00"):.1f}" y1="{T}" x2="{X("20:00"):.1f}" y2="{B}" stroke="{INK}" stroke-width="1" stroke-dasharray="2 3"/>'
+    out += txt(X('20:00') + 4, T + 10, 'first bursting window opens', 11, INK)
+    fr = e_['friday']
+    out += f'<polyline fill="none" stroke="{JNU}" stroke-width="2" stroke-dasharray="5 4" points="{" ".join(f"{X(t):.1f},{Y(v):.1f}" for t, v in fr)}"/>'
+    for t, v in fr:
+        out += f'<circle cx="{X(t):.1f}" cy="{Y(v):.1f}" r="4" fill="{JNU}"/>'
+    out += txt(X(fr[1][0]) - 6, Y(fr[1][1]) + 18, f'Friday {fr[1][1]}', 12, JNU, 'end', 700)
+    sa = e_['saturday']
+    out += f'<polyline fill="none" stroke="{RKP}" stroke-width="2.6" points="{" ".join(f"{X(t):.1f},{Y(v):.1f}" for t, v in sa)}"/>'
+    for t, v in sa:
+        out += f'<circle cx="{X(t):.1f}" cy="{Y(v):.1f}" r="4" fill="{RKP}"/>'
+    out += txt(X(sa[2][0]) - 6, Y(sa[2][1]) - 9, f'Saturday {sa[2][1]}', 12, RKP, 'end', 700)
+    out += txt(14, B + 38, f'Saturday {sa[0][1]}, {sa[1][1]}, {sa[2][1]} at 7.45, 8 and 10 pm. Friday {fr[0][1]} to {fr[1][1]}.', 11, MUTED)
+    out += txt(14, B + 52, 'Saturday: 15-minute readings, rising at each one from 8 pm to 10 pm.', 11, MUTED)
+    out += txt(14, B + 66, 'Friday: only the start and the end were given, so the line is dashed.', 11, MUTED)
+    return out, (420, B + 76)
 
 
 # ----------------------------------------------------------------- page
@@ -289,9 +328,14 @@ def page(d):
     jn = ser['JNU']['points']
     ak = ser['Akshardham']['points'][0]
     past = d['_past']
-    higher = [y for y, dd, a, c in past if c > a]
-    lower = [y for y, dd, a, c in past if c < a]
-    rises = {y: c - a for y, dd, a, c in past}
+    higher = [y for y, dd, a, c, bf in past if c > a]
+    lower = [y for y, dd, a, c, bf in past if c < a]
+    rises = {y: c - a for y, dd, a, c, bf in past}
+    over_before = {y: c - bf for y, dd, a, c, bf in past}
+    higher_than_before = [y for y, v in over_before.items() if v > 0]
+    ht = d['ht']
+    xp = d['x_post_monitors']
+    d26_before = d['_delhi26'].get('2026-11-07')
     biggest = max(rises, key=rises.get)
     d26 = d['_delhi26']
     top = s['top']
@@ -299,14 +343,18 @@ def page(d):
     ch2, vb2 = chart_night(d)
     ch3, vb3 = chart_ncr(d)
     ch4, vb4 = chart_next_day(d)
+    ch5, vb5 = chart_evening(d)
 
     t1 = table(['Band', 'Stations'], [[f'{c} ({r})', b[c]] for c, r in (('Poor', '201 to 300'), ('Very Poor', '301 to 400'), ('Severe', 'above 400'))] + [['Valid readings', s['stations_valid']]]) + \
         table(['Station', 'AQI'], [[e(n), v] for n, v in top])
     t2 = table(['Station', 'Time', 'PM2.5'], [[e(x['station']), t.replace(':00', ':00'), v] for x in night['series'] for t, v in x['points']])
     t3 = table(['Place', 'AQI, 7 a.m.', 'Band'], [[e(n), v, cat(v)] for n, v in d['ncr_7am']['cities']], 1)
-    nxt_rows = [[str(y), date.fromisoformat(dd).strftime('%-d %B %Y'), a, c, f'{c - a:+d}'] for y, dd, a, c in past]
-    nxt_rows.append(['2026', '8 November 2026', d26.get(d['diwali_day_2026'], ''), d26.get('2026-11-09', ''), ''])
-    t4 = table(['Year', 'Diwali', 'Diwali day', 'Day after', 'Change'], nxt_rows)
+    nxt_rows = [[str(y), date.fromisoformat(dd).strftime('%-d %B %Y'), bf, a, c, f'{c - bf:+d}'] for y, dd, a, c, bf in past]
+    nxt_rows.append(['2026', '8 November 2026', d26_before, d26.get(d['diwali_day_2026'], ''), d26.get('2026-11-09', ''), ''])
+    t4 = table(['Year', 'Diwali', 'Day before', 'Diwali day', 'Day after', 'Day after minus day before'], nxt_rows)
+    ev = ht['evening_15min']
+    t5 = table(['Time', 'Saturday 7 November', 'Friday 6 November'],
+               [['7.45 pm', ev['saturday'][0][1], ev['friday'][0][1]], ['8 pm', ev['saturday'][1][1], ''], ['10 pm', ev['saturday'][2][1], ev['friday'][1][1]]])
     morning = ''.join(
         f'<tr><td class="when">{e(r["time"])}</td><td>{e(r["place"])}</td><td class="num">{r["aqi"]}</td><td>{r["category"]}</td>'
         f'<td>{src_link(d, r["source_id"])}' + (f' · <a href="{e(r["x"])}">post on X</a>' if r.get('x') else '') + '</td></tr>'
@@ -363,8 +411,15 @@ def page(d):
     <div class="fact"><b>{s["above_400"]} of {s["stations_valid"]}</b><span>stations above 400 at 7 a.m.</span></div>
     <div class="fact"><b>{rk[1][1]}</b><span>PM2.5 at RK Puram at 9 pm, then no reading</span></div>
     <div class="fact"><b>{jn[1][1]}</b><span>PM2.5 at JNU by 11 pm, up from {jn[0][1]} at 8 pm</span></div>
-    <div class="fact"><b>{len(higher)} of {len(past)}</b><span>past years the day after Diwali was higher than Diwali day</span></div>
+    <div class="fact"><b>{len(higher_than_before)} of {len(past)}</b><span>past years the day after Diwali was higher than the day before</span></div>
   </div>
+
+  <h2>The evening before</h2>
+  <p>On Saturday 7 November, the day before Diwali, CPCB’s 4 p.m. figure for Delhi was {ht["this_year_4pm_saturday"]}, Very Poor. {src_link(d, "ht")} reports that this was the highest for the day before Diwali since {ht["highest_eve_since"][0]}, when it was {ht["highest_eve_since"][1]}, and that the index had climbed from {ht["aqi_1_nov"]} on 1 November. Between 10 and 11 a.m. PM2.5 averaged {ht["morning_peak"]["pm25_mean"]} micrograms per cubic metre across Delhi’s {ht["morning_peak"]["stations"]} stations, and {ht["morning_peak"]["above_250"]} of them were above 250.</p>
+  <p>The evening window for green crackers opened at 8 p.m. In HT’s analysis of CPCB’s 15-minute readings, across the {ev["stations_reporting"]} stations that had reported, PM2.5 was {ev["saturday"][0][1]} at 7.45 p.m., {ev["saturday"][1][1]} at 8 p.m. and {ev["saturday"][2][1]} at 10 p.m. Over the same hours on Friday it moved from {ev["friday"][0][1]} to {ev["friday"][1][1]}. HT notes that this rise came inside the 8 to 10 p.m. window the Supreme Court allowed. By 9 p.m. nine stations were above 400, against none on Friday.</p>
+  {wrap(ch5, vb5, f"Line chart of average PM2.5 across Delhi stations. On Saturday it rose from {ev['saturday'][0][1]} at 7.45 pm to {ev['saturday'][1][1]} at 8 pm and {ev['saturday'][2][1]} at 10 pm. On Friday it moved from {ev['friday'][0][1]} to {ev['friday'][1][1]} over the same hours.")}
+  {t5}
+  <p class="note">HT also names single stations: Punjabi Bagh, where PM2.5 went from {ht["named_readings"][0][2]} at 7 p.m. to {ht["named_readings"][1][2]} at 8 p.m., and Mundka, which read {ht["named_readings"][3][2]} (HT gives no time for that one). On farm fires, HT reports that INSAT-3DS counted {ht["farm_fires"]["insat_pixels"]} fire pixels in Punjab and Haryana on Saturday, {ht["farm_fires"]["insat_vs_1_nov"]} times its count on 1 November, and that the NASA count was {ht["farm_fires"]["nasa_vs_1_nov"]} times its 1 November level. The two satellites detect fires differently, so only their growth can be compared.</p>
 
   <h2>The night</h2>
   <p>The Supreme Court allowed approved green crackers in two windows on 7 and 8 November, 6 to 7 a.m. and 8 to 10 p.m., according to {src_link(d, "bs")}. The same report and {src_link(d, "hindu")} say crackers were burst well past 10 p.m. The Commission for Air Quality Management had already put Stage III of the Graded Response Action Plan in force across Delhi-NCR on 6 November.</p>
@@ -372,6 +427,9 @@ def page(d):
   {wrap(ch2, vb2, label2)}
   {t2}
   <p class="note">India’s 24-hour PM2.5 standard is 60 and the WHO’s 24-hour guideline is 15, both in micrograms per cubic metre. These are hourly readings, so the chart shows how sharp the rise was and does not compare an hour with a day. {src_link(d, "outlook")} names RK Puram, Nehru Nagar, Mundka, Sonia Vihar and Dwarka as stations that stopped displaying readings for several hours after 9 p.m., and says no cause has been established for this year’s gaps. Delhi’s portal leaves a station that is not reporting out of the hourly city figure.</p>
+  <p class="note">The two reports do not agree on RK Puram at 9 p.m. {src_link(d, "ht")} gives {ht["named_readings"][2][2]} at 9 p.m. from CPCB’s 15-minute readings, and Outlook gives {rk[1][1]} by 9 p.m. The chart shows Outlook’s figure, and the difference could be a later reading inside the same hour. For scale, HT reports that last year at 2 a.m. on Diwali night PM2.5 averaged {ht["last_year_night"]["at_2am"]:,} across the {ht["last_year_night"]["stations"]} stations that reported through the night, up from {ht["last_year_night"]["at_10pm"]} at 10 p.m.</p>
+
+  <p>On X, {src_link(d, "binayak_x", "Binayak D (@VinayakD)")}, who tags Hindustan Times, wrote that on Diwali night many monitors “{xp["quote"]}”. At 1 a.m., the post says, only {xp["at_1am_sending"]} of {xp["monitors"]} were sending PM2.5 although they kept sending other readings, and last year {xp["last_year_above_1000"]} of the same monitors recorded more than 1,000. The article behind the post was not found, so those counts rest on the post alone.</p>
 
   <h2>The morning</h2>
   <p>At 7 a.m. the {s["stations_valid"]} stations with valid data split into {b["Poor"]} in the Poor band, {b["Very Poor"]} Very Poor and {b["Severe"]} Severe. The first two numbers come from the reported counts: all {s["above_200"]} read above 200 and {s["above_300"]} above 300, which leaves {b["Poor"]} between 201 and 300, and {s["above_400"]} read above 400, which leaves {b["Very Poor"]} between 301 and 400 ({src_link(d, "bs")}).</p>
@@ -386,9 +444,9 @@ def page(d):
   {t3}
 
   <h2>The day after, in past years</h2>
-  <p>CPCB’s bulletin figure for Delhi was higher on the day after Diwali than on Diwali day in {len(higher)} of the {len(past)} years from 2019 to 2025. The rise was {min(r for r in rises.values() if r > 0)} points at the least ({", ".join(str(y) for y in rises if rises[y] == min(r for r in rises.values() if r > 0))}) and {max(rises.values())} at the most ({biggest}). In {", ".join(str(y) for y in lower)} it was {abs(rises[lower[0]])} lower. The bulletin is a 24-hour figure to 4 pm, so Diwali night falls inside the day-after figure.</p>
-  <p>This year’s Diwali-day bulletin figure was {d26.get(d["diwali_day_2026"], "not available")}. The figure for 9 November <span id="next-day">is due after 4 pm today and is not estimated here</span>.</p>
-  {wrap(ch4, vb4, f"Dumbbell chart of Delhi's CPCB bulletin AQI on Diwali day and the day after, 2019 to 2025, with 2026's Diwali-day figure of {d26.get(d['diwali_day_2026'], '')} and the day-after figure still to come.")}
+  <p>In each of the {len(past)} years from 2019 to 2025, CPCB’s bulletin figure for Delhi was higher on the day after Diwali than on the day before. The gap ran from {min(over_before.values())} points ({min(over_before, key=over_before.get)}) to {max(over_before.values())} ({max(over_before, key=over_before.get)}). Against Diwali day itself it was higher in {len(higher)} of the {len(past)} years, and {abs(rises[lower[0]])} points lower in {", ".join(str(y) for y in lower)}. The bulletin is a 24-hour figure to 4 p.m., so Diwali night falls inside the day-after figure.</p>
+  <p>This year the day before was {d26_before} and Diwali day {d26.get(d["diwali_day_2026"], "not available")}. The figure for 9 November <span id="next-day">is due after 4 pm today and is not estimated here</span>. {src_link(d, "ht")} printed the same comparison with 2015 to 2018 added, and its figures for 2019 to 2025 match the bulletin data used here, cell for cell. The earlier years are not charted because Delhi’s bulletin rested on far fewer stations before 2019.</p>
+  {wrap(ch4, vb4, f"Chart of Delhi's CPCB bulletin AQI on the day before Diwali, Diwali day and the day after, 2019 to 2025. The day after was higher than the day before in every year. For 2026 the day before was {d26_before}, Diwali day {d26.get(d['diwali_day_2026'], '')}, and the day-after figure is still to come.")}
   {t4}
   <p class="note">Seven years is a small sample, and Diwali falls on a different date each year, with different weather. This shows what the bulletin recorded and does not say how much of any rise the fireworks caused. Diwali dates are the gazetted public holiday each year, and the table is in <a href="/data/delhi-season.json">data/delhi-season.json</a>.</p>
 
@@ -398,7 +456,7 @@ def page(d):
 
   <h2>Sources</h2>
   <ul class="sources">{sources}</ul>
-  <p class="note">The three ANI posts in the table were checked against the platform’s embed service on 9 November 2026: each exists and carries the figure shown.</p>
+  <p class="note">The post by Binayak D was checked against the platform’s embed service on 9 November 2026: it exists and carries the figures quoted. The Hindustan Times figures were typed from the paper’s print page and checked against its online articles on 9 November 2026. The three ANI posts in the table were checked against the platform’s embed service on 9 November 2026: each exists and carries the figure shown.</p>
 
 <footer class="delhi-foot">
   <div>JanVayu is a citizen-led air quality accountability platform for India. Part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>.</div>
@@ -450,6 +508,26 @@ def check():
     for c, h in list(COLOUR.items()) + [('RK Puram', RKP), ('JNU', JNU), ('Akshardham', AKS), ('muted', MUTED), ('ink', INK)]:
         if ratio(h, PAPER) < 3.0:
             errs.append(f'{c} colour {h} is {ratio(h, PAPER):.2f}:1 on the card, under 3:1')
+    # HT's printed table against the bulletin data, cell by cell, 2019 to 2025
+    ht = d['ht']
+    for y, dd, diwali, after, before in d['_past']:
+        if ht['table'][str(y)] != [before, diwali, after]:
+            errs.append(f"{y}: HT prints {ht['table'][str(y)]} but the bulletin data gives {[before, diwali, after]}")
+    xp = d['x_post_monitors']
+    if not 0 < xp['at_1am_sending'] <= xp['monitors'] or xp['source_id'] not in d['sources']:
+        errs.append('the X post counts are out of order or its source is missing')
+    for y, row in ht['table'].items():
+        if len(row) != 3 or not all(0 < v <= 500 for v in row):
+            errs.append(f'HT table {y}: {row} is not three AQI figures')
+    if d['_delhi26'].get('2026-11-07') != ht['this_year_4pm_saturday']:
+        errs.append(f"HT's 4 pm Saturday figure {ht['this_year_4pm_saturday']} is not the bulletin's {d['_delhi26'].get('2026-11-07')}")
+    sat = [v for _, v in ht['evening_15min']['saturday']]
+    if sat != sorted(sat):
+        errs.append('Saturday evening readings must rise, as HT reports')
+    if ht['morning_peak']['above_250'] > ht['morning_peak']['stations']:
+        errs.append('more stations above 250 than stations counted')
+    if ht['stations_at_9pm']['above_400_friday'] != 0:
+        errs.append('HT reports no station above 400 at 9 pm on Friday')
     if len(d['_past']) != 7:
         errs.append('need seven past years')
     if d['_delhi26'].get(d['diwali_day_2026']) is None:
