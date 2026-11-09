@@ -206,6 +206,8 @@ jobs:
         run: python3 scripts/build-delhi-seasonal.py --check
       - name: Check the Delhi season charts against the bulletin data
         run: python3 scripts/build-delhi-season.py --check
+      - name: Diwali morning-after block matches the bulletin file
+        run: python3 scripts/build-diwali-morning.py --check
       - name: CPCB latest days match the bulletin file
         run: python3 scripts/build-cpcb-latest.py --check
 

@@ -1,0 +1,78 @@
+{
+ "_meta": {
+  "what": "Delhi's official 24-hour AQI on and after Diwali, from CPCB's daily bulletin.",
+  "source": "CPCB daily AQI bulletins (cpcb.gov.in), issued at 4 pm. 2019-2025 via data/delhi-season.json (UrbanEmissions.Info extraction); 2026 from data/raw/cpcb-bulletins-2026.csv.gz.",
+  "built_by": "scripts/build-diwali-morning.py",
+  "no_estimate": "A day CPCB has not yet published has no figure here."
+ },
+ "year": 2026,
+ "diwali": "2026-11-08",
+ "days": [
+  {
+   "date": "2026-11-06",
+   "offset": -2,
+   "aqi": 382,
+   "category": "Very Poor",
+   "stations": 57,
+   "stations_total": 59
+  },
+  {
+   "date": "2026-11-07",
+   "offset": -1,
+   "aqi": 369,
+   "category": "Very Poor",
+   "stations": 59,
+   "stations_total": 59
+  },
+  {
+   "date": "2026-11-08",
+   "offset": 0,
+   "aqi": 376,
+   "category": "Very Poor",
+   "stations": 59,
+   "stations_total": 59
+  },
+  {
+   "date": "2026-11-09",
+   "offset": 1
+  }
+ ],
+ "past": {
+  "2019": {
+   "diwali": "2019-10-27",
+   "day_of": 337,
+   "day_after": 368
+  },
+  "2020": {
+   "diwali": "2020-11-14",
+   "day_of": 414,
+   "day_after": 435
+  },
+  "2021": {
+   "diwali": "2021-11-04",
+   "day_of": 382,
+   "day_after": 462
+  },
+  "2022": {
+   "diwali": "2022-10-24",
+   "day_of": 312,
+   "day_after": 302
+  },
+  "2023": {
+   "diwali": "2023-11-12",
+   "day_of": 218,
+   "day_after": 358
+  },
+  "2024": {
+   "diwali": "2024-10-31",
+   "day_of": 328,
+   "day_after": 339
+  },
+  "2025": {
+   "diwali": "2025-10-20",
+   "day_of": 345,
+   "day_after": 351
+  }
+ },
+ "day_of_2026": 376
+}
