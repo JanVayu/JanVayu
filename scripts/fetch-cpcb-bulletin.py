@@ -74,7 +74,16 @@ import urllib.request
 from datetime import date, datetime
 from pathlib import Path
 
-URL = 'https://cpcb.nic.in/upload/Downloads/AQI_Bulletin_{ymd}.pdf'
+# cpcb.gov.in is where the files are served. cpcb.nic.in used to redirect to it,
+# and from 13 November 2026 it stopped answering at all from GitHub's runners:
+# every connection timed out, and the daily job spent its whole 30 minutes
+# waiting on it. So the .gov.in host is tried first and .nic.in only as a fallback.
+URL = 'https://cpcb.gov.in/upload/Downloads/AQI_Bulletin_{ymd}.pdf'
+FALLBACK_URL = 'https://cpcb.nic.in/upload/Downloads/AQI_Bulletin_{ymd}.pdf'
+
+
+class HostUnreachable(RuntimeError):
+    """Neither host answered at all. Retrying the next date will not help."""
 
 CATEGORIES = ['Good', 'Satisfactory', 'Moderate', 'Poor', 'Very Poor', 'Severe']
 # "Very Poor" is two tokens and must be tried before "Poor".
@@ -86,32 +95,39 @@ STATIONS = re.compile(r'^(\d+)\s*/\s*(\d+)$')
 MAX_MISS = 5
 
 
-def fetch(ymd, tries=4):
-    """Fetch one bulletin, with retries.
+def fetch(ymd, tries=3, timeout=45):
+    """Fetch one bulletin, trying cpcb.gov.in and then cpcb.nic.in.
 
-    cpcb.nic.in redirects to cpcb.gov.in and the handshake on that hop is reset
-    often enough that a single attempt is not a fair test of whether a date
-    exists. A reset is not a 404 and must not be reported as one.
+    The handshake is reset often enough that a single attempt is not a fair test
+    of whether a date exists, so each host gets a few tries. A reset is not a 404
+    and must not be reported as one. If no attempt on either host got any HTTP
+    answer, HostUnreachable is raised, so the caller can stop instead of spending
+    the same minutes again on every later date.
     """
-    url = URL.format(ymd=ymd)
-    last = None
-    for attempt in range(tries):
-        try:
-            req = urllib.request.Request(url, headers={
-                # A descriptive agent, for the same reason the XKDR loader has one.
-                'User-Agent': 'JanVayu/1.0 (+https://janvayu.in; air-quality research)',
-            })
-            with urllib.request.urlopen(req, timeout=90) as r:
-                return r.read()
-        except urllib.error.HTTPError as e:
-            if e.code == 404:
-                raise                      # genuinely not published
-            last = e
-        except Exception as e:             # reset, timeout, DNS
-            last = e
-        if attempt < tries - 1:
-            time.sleep(2 ** attempt)
-    raise RuntimeError(f'{url}: {type(last).__name__}: {last}')
+    errors = []
+    answered = False
+    for template in (URL, FALLBACK_URL):
+        url = template.format(ymd=ymd)
+        for attempt in range(tries):
+            try:
+                req = urllib.request.Request(url, headers={
+                    # A descriptive agent, for the same reason the XKDR loader has one.
+                    'User-Agent': 'JanVayu/1.0 (+https://janvayu.in; air-quality research)',
+                })
+                with urllib.request.urlopen(req, timeout=timeout) as r:
+                    return r.read()
+            except urllib.error.HTTPError as e:
+                answered = True
+                if e.code == 404:
+                    raise                  # genuinely not published
+                errors.append(f'{url}: HTTP {e.code}')
+            except Exception as e:         # reset, timeout, DNS
+                errors.append(f'{url}: {type(e).__name__}: {e}')
+            if attempt < tries - 1:
+                time.sleep(2 ** attempt)
+    if not answered:
+        raise HostUnreachable('; '.join(errors[-2:]))
+    raise RuntimeError('; '.join(errors[-2:]))
 
 
 def text_of(pdf_bytes):

@@ -152,13 +152,13 @@
   },
   "2026": {
    "cities": 256,
-   "city_days": 72492,
+   "city_days": 74461,
    "severe_days": 11,
-   "poor_or_worse_days": 3753,
+   "poor_or_worse_days": 4138,
    "thin_cities": 213,
    "first_day": "2026-01-01",
-   "last_day": "2026-11-09",
-   "coverage": 0.858,
+   "last_day": "2026-11-17",
+   "coverage": 0.879,
    "partial": true
   }
  },
@@ -302,16 +302,16 @@
     "thin": true
    },
    "2026": {
-    "days": 264,
+    "days": 271,
     "by_category": {
      "Good": 38,
-     "Satisfactory": 126,
-     "Moderate": 88,
-     "Poor": 11,
+     "Satisfactory": 130,
+     "Moderate": 90,
+     "Poor": 12,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 12,
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -484,11 +484,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 4,
      "Satisfactory": 149,
-     "Moderate": 154,
+     "Moderate": 162,
      "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
@@ -621,11 +621,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 4,
      "Satisfactory": 140,
-     "Moderate": 167,
+     "Moderate": 175,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -668,11 +668,11 @@
     "thin": true
    },
    "2026": {
-    "days": 293,
+    "days": 300,
     "by_category": {
      "Good": 94,
      "Satisfactory": 128,
-     "Moderate": 71,
+     "Moderate": 78,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -775,11 +775,11 @@
     "thin": true
    },
    "2026": {
-    "days": 261,
+    "days": 267,
     "by_category": {
-     "Good": 171,
-     "Satisfactory": 88,
-     "Moderate": 2,
+     "Good": 177,
+     "Satisfactory": 87,
+     "Moderate": 3,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -912,11 +912,11 @@
     "thin": true
    },
    "2026": {
-    "days": 298,
+    "days": 306,
     "by_category": {
      "Good": 15,
-     "Satisfactory": 174,
-     "Moderate": 108,
+     "Satisfactory": 178,
+     "Moderate": 112,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -974,11 +974,11 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 75,
-     "Satisfactory": 194,
-     "Moderate": 38,
+     "Satisfactory": 196,
+     "Moderate": 44,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -1111,16 +1111,16 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 0,
      "Satisfactory": 128,
-     "Moderate": 169,
-     "Poor": 2,
+     "Moderate": 174,
+     "Poor": 5,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1248,11 +1248,11 @@
     "thin": true
    },
    "2026": {
-    "days": 287,
+    "days": 295,
     "by_category": {
      "Good": 55,
      "Satisfactory": 146,
-     "Moderate": 78,
+     "Moderate": 86,
      "Poor": 8,
      "Very Poor": 0,
      "Severe": 0
@@ -1355,16 +1355,16 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 10,
-     "Satisfactory": 145,
-     "Moderate": 132,
-     "Poor": 16,
+     "Satisfactory": 146,
+     "Moderate": 135,
+     "Poor": 20,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 17,
+    "poor_or_worse": 21,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1372,11 +1372,11 @@
   },
   "Ambernath": {
    "2026": {
-    "days": 218,
+    "days": 226,
     "by_category": {
      "Good": 79,
      "Satisfactory": 107,
-     "Moderate": 31,
+     "Moderate": 39,
      "Poor": 0,
      "Very Poor": 1,
      "Severe": 0
@@ -1434,11 +1434,11 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 80,
-     "Satisfactory": 193,
-     "Moderate": 40,
+     "Satisfactory": 195,
+     "Moderate": 46,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -1586,16 +1586,16 @@
     "thin": true
    },
    "2026": {
-    "days": 312,
+    "days": 319,
     "by_category": {
      "Good": 4,
      "Satisfactory": 211,
-     "Moderate": 96,
-     "Poor": 1,
+     "Moderate": 99,
+     "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 1,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1648,10 +1648,10 @@
     "thin": true
    },
    "2026": {
-    "days": 276,
+    "days": 284,
     "by_category": {
      "Good": 6,
-     "Satisfactory": 246,
+     "Satisfactory": 254,
      "Moderate": 24,
      "Poor": 0,
      "Very Poor": 0,
@@ -1695,11 +1695,11 @@
     "thin": true
    },
    "2026": {
-    "days": 302,
+    "days": 310,
     "by_category": {
      "Good": 8,
-     "Satisfactory": 112,
-     "Moderate": 111,
+     "Satisfactory": 116,
+     "Moderate": 115,
      "Poor": 44,
      "Very Poor": 27,
      "Severe": 0
@@ -1817,16 +1817,16 @@
     "thin": true
    },
    "2026": {
-    "days": 256,
+    "days": 264,
     "by_category": {
      "Good": 19,
      "Satisfactory": 129,
-     "Moderate": 103,
-     "Poor": 5,
+     "Moderate": 109,
+     "Poor": 7,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -1894,16 +1894,16 @@
     "thin": true
    },
    "2026": {
-    "days": 301,
+    "days": 309,
     "by_category": {
      "Good": 66,
-     "Satisfactory": 147,
-     "Moderate": 83,
-     "Poor": 5,
+     "Satisfactory": 148,
+     "Moderate": 86,
+     "Poor": 9,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 9,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2018,16 +2018,16 @@
     "thin": true
    },
    "2026": {
-    "days": 246,
+    "days": 253,
     "by_category": {
      "Good": 15,
      "Satisfactory": 194,
-     "Moderate": 22,
-     "Poor": 14,
+     "Moderate": 25,
+     "Poor": 18,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 15,
+    "poor_or_worse": 19,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2155,11 +2155,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 44,
-     "Satisfactory": 204,
-     "Moderate": 55,
+     "Satisfactory": 207,
+     "Moderate": 60,
      "Poor": 10,
      "Very Poor": 0,
      "Severe": 0
@@ -2369,11 +2369,11 @@
     "thin": false
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
      "Good": 50,
      "Satisfactory": 180,
-     "Moderate": 80,
+     "Moderate": 88,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -2446,16 +2446,16 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 1,
      "Satisfactory": 47,
-     "Moderate": 221,
-     "Poor": 30,
+     "Moderate": 228,
+     "Poor": 31,
      "Very Poor": 5,
      "Severe": 0
     },
-    "poor_or_worse": 35,
+    "poor_or_worse": 36,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2508,11 +2508,11 @@
     "thin": true
    },
    "2026": {
-    "days": 297,
+    "days": 305,
     "by_category": {
      "Good": 88,
-     "Satisfactory": 127,
-     "Moderate": 82,
+     "Satisfactory": 133,
+     "Moderate": 84,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -2615,10 +2615,10 @@
     "thin": true
    },
    "2026": {
-    "days": 225,
+    "days": 231,
     "by_category": {
      "Good": 110,
-     "Satisfactory": 115,
+     "Satisfactory": 121,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -2737,16 +2737,16 @@
     "thin": true
    },
    "2026": {
-    "days": 290,
+    "days": 298,
     "by_category": {
      "Good": 14,
      "Satisfactory": 69,
-     "Moderate": 121,
-     "Poor": 76,
+     "Moderate": 122,
+     "Poor": 83,
      "Very Poor": 10,
      "Severe": 0
     },
-    "poor_or_worse": 86,
+    "poor_or_worse": 93,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2844,16 +2844,16 @@
     "thin": true
    },
    "2026": {
-    "days": 286,
+    "days": 294,
     "by_category": {
      "Good": 7,
      "Satisfactory": 79,
      "Moderate": 139,
-     "Poor": 54,
-     "Very Poor": 7,
+     "Poor": 59,
+     "Very Poor": 10,
      "Severe": 0
     },
-    "poor_or_worse": 61,
+    "poor_or_worse": 69,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -2891,11 +2891,11 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
-     "Good": 60,
-     "Satisfactory": 160,
-     "Moderate": 63,
+     "Good": 59,
+     "Satisfactory": 167,
+     "Moderate": 65,
      "Poor": 20,
      "Very Poor": 5,
      "Severe": 0
@@ -2998,16 +2998,16 @@
     "thin": true
    },
    "2026": {
-    "days": 296,
+    "days": 304,
     "by_category": {
      "Good": 8,
      "Satisfactory": 58,
-     "Moderate": 105,
+     "Moderate": 106,
      "Poor": 104,
-     "Very Poor": 20,
+     "Very Poor": 27,
      "Severe": 1
     },
-    "poor_or_worse": 125,
+    "poor_or_worse": 132,
     "severe": 1,
     "median_stations": 1,
     "thin": true
@@ -3060,11 +3060,11 @@
     "thin": true
    },
    "2026": {
-    "days": 294,
+    "days": 302,
     "by_category": {
      "Good": 15,
-     "Satisfactory": 172,
-     "Moderate": 104,
+     "Satisfactory": 171,
+     "Moderate": 113,
      "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
@@ -3122,11 +3122,11 @@
     "thin": true
    },
    "2026": {
-    "days": 303,
+    "days": 310,
     "by_category": {
      "Good": 30,
-     "Satisfactory": 128,
-     "Moderate": 141,
+     "Satisfactory": 129,
+     "Moderate": 147,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -3169,10 +3169,10 @@
     "thin": true
    },
    "2026": {
-    "days": 306,
+    "days": 314,
     "by_category": {
      "Good": 46,
-     "Satisfactory": 120,
+     "Satisfactory": 128,
      "Moderate": 125,
      "Poor": 15,
      "Very Poor": 0,
@@ -3246,11 +3246,11 @@
     "thin": true
    },
    "2026": {
-    "days": 307,
+    "days": 315,
     "by_category": {
      "Good": 83,
-     "Satisfactory": 196,
-     "Moderate": 28,
+     "Satisfactory": 203,
+     "Moderate": 29,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -3308,11 +3308,11 @@
     "thin": true
    },
    "2026": {
-    "days": 293,
+    "days": 301,
     "by_category": {
      "Good": 66,
-     "Satisfactory": 152,
-     "Moderate": 64,
+     "Satisfactory": 155,
+     "Moderate": 69,
      "Poor": 8,
      "Very Poor": 3,
      "Severe": 0
@@ -3370,11 +3370,11 @@
     "thin": true
    },
    "2026": {
-    "days": 310,
+    "days": 318,
     "by_category": {
      "Good": 11,
-     "Satisfactory": 156,
-     "Moderate": 134,
+     "Satisfactory": 160,
+     "Moderate": 138,
      "Poor": 9,
      "Very Poor": 0,
      "Severe": 0
@@ -3417,16 +3417,16 @@
     "thin": true
    },
    "2026": {
-    "days": 299,
+    "days": 307,
     "by_category": {
      "Good": 104,
-     "Satisfactory": 147,
-     "Moderate": 43,
-     "Poor": 5,
+     "Satisfactory": 149,
+     "Moderate": 47,
+     "Poor": 7,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -3554,16 +3554,16 @@
     "thin": true
    },
    "2026": {
-    "days": 275,
+    "days": 279,
     "by_category": {
      "Good": 18,
-     "Satisfactory": 212,
+     "Satisfactory": 213,
      "Moderate": 45,
-     "Poor": 0,
-     "Very Poor": 0,
+     "Poor": 2,
+     "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 0,
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -3601,11 +3601,11 @@
     "thin": true
    },
    "2026": {
-    "days": 293,
+    "days": 301,
     "by_category": {
      "Good": 35,
-     "Satisfactory": 163,
-     "Moderate": 91,
+     "Satisfactory": 164,
+     "Moderate": 98,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -3648,11 +3648,11 @@
     "thin": true
    },
    "2026": {
-    "days": 292,
+    "days": 300,
     "by_category": {
      "Good": 62,
-     "Satisfactory": 113,
-     "Moderate": 113,
+     "Satisfactory": 116,
+     "Moderate": 118,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -3862,11 +3862,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 14,
-     "Satisfactory": 223,
-     "Moderate": 76,
+     "Satisfactory": 227,
+     "Moderate": 80,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -3939,16 +3939,16 @@
     "thin": true
    },
    "2026": {
-    "days": 216,
+    "days": 223,
     "by_category": {
-     "Good": 138,
-     "Satisfactory": 48,
-     "Moderate": 25,
-     "Poor": 4,
+     "Good": 139,
+     "Satisfactory": 47,
+     "Moderate": 31,
+     "Poor": 5,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4016,16 +4016,16 @@
     "thin": true
    },
    "2026": {
-    "days": 305,
+    "days": 313,
     "by_category": {
      "Good": 27,
-     "Satisfactory": 190,
-     "Moderate": 86,
-     "Poor": 2,
+     "Satisfactory": 189,
+     "Moderate": 92,
+     "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 2,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -4078,16 +4078,16 @@
     "thin": true
    },
    "2026": {
-    "days": 309,
+    "days": 317,
     "by_category": {
      "Good": 40,
      "Satisfactory": 111,
-     "Moderate": 147,
-     "Poor": 10,
+     "Moderate": 153,
+     "Poor": 12,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 11,
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4095,11 +4095,11 @@
   },
   "Bhavnagar": {
    "2026": {
-    "days": 266,
+    "days": 274,
     "by_category": {
      "Good": 0,
      "Satisfactory": 162,
-     "Moderate": 101,
+     "Moderate": 109,
      "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
@@ -4157,10 +4157,10 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
-     "Good": 211,
-     "Satisfactory": 101,
+     "Good": 210,
+     "Satisfactory": 110,
      "Moderate": 1,
      "Poor": 0,
      "Very Poor": 0,
@@ -4204,11 +4204,11 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 6,
      "Satisfactory": 135,
-     "Moderate": 159,
+     "Moderate": 167,
      "Poor": 8,
      "Very Poor": 0,
      "Severe": 0
@@ -4341,16 +4341,16 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 1,
      "Satisfactory": 67,
-     "Moderate": 152,
-     "Poor": 76,
-     "Very Poor": 17,
+     "Moderate": 153,
+     "Poor": 81,
+     "Very Poor": 19,
      "Severe": 0
     },
-    "poor_or_worse": 93,
+    "poor_or_worse": 100,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -4388,16 +4388,16 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 68,
      "Satisfactory": 124,
-     "Moderate": 105,
-     "Poor": 2,
+     "Moderate": 111,
+     "Poor": 4,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4495,16 +4495,16 @@
     "thin": true
    },
    "2026": {
-    "days": 283,
+    "days": 291,
     "by_category": {
      "Good": 40,
      "Satisfactory": 83,
-     "Moderate": 115,
-     "Poor": 37,
-     "Very Poor": 8,
+     "Moderate": 116,
+     "Poor": 43,
+     "Very Poor": 9,
      "Severe": 0
     },
-    "poor_or_worse": 45,
+    "poor_or_worse": 52,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4602,16 +4602,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 48,
      "Satisfactory": 109,
-     "Moderate": 142,
-     "Poor": 14,
+     "Moderate": 148,
+     "Poor": 16,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 14,
+    "poor_or_worse": 16,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -4649,11 +4649,11 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 45,
-     "Satisfactory": 176,
-     "Moderate": 69,
+     "Satisfactory": 181,
+     "Moderate": 72,
      "Poor": 21,
      "Very Poor": 2,
      "Severe": 0
@@ -4743,11 +4743,11 @@
     "thin": true
    },
    "2026": {
-    "days": 216,
+    "days": 224,
     "by_category": {
      "Good": 29,
-     "Satisfactory": 139,
-     "Moderate": 39,
+     "Satisfactory": 143,
+     "Moderate": 43,
      "Poor": 8,
      "Very Poor": 1,
      "Severe": 0
@@ -4805,16 +4805,16 @@
     "thin": true
    },
    "2026": {
-    "days": 298,
+    "days": 306,
     "by_category": {
      "Good": 2,
-     "Satisfactory": 58,
+     "Satisfactory": 59,
      "Moderate": 184,
-     "Poor": 50,
-     "Very Poor": 4,
+     "Poor": 56,
+     "Very Poor": 5,
      "Severe": 0
     },
-    "poor_or_worse": 54,
+    "poor_or_worse": 61,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4882,11 +4882,11 @@
     "thin": true
    },
    "2026": {
-    "days": 269,
+    "days": 276,
     "by_category": {
      "Good": 64,
-     "Satisfactory": 176,
-     "Moderate": 29,
+     "Satisfactory": 180,
+     "Moderate": 32,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -4944,16 +4944,16 @@
     "thin": true
    },
    "2026": {
-    "days": 252,
+    "days": 260,
     "by_category": {
      "Good": 27,
      "Satisfactory": 73,
-     "Moderate": 121,
-     "Poor": 27,
-     "Very Poor": 4,
+     "Moderate": 125,
+     "Poor": 30,
+     "Very Poor": 5,
      "Severe": 0
     },
-    "poor_or_worse": 31,
+    "poor_or_worse": 35,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -4991,11 +4991,11 @@
     "thin": true
    },
    "2026": {
-    "days": 280,
+    "days": 288,
     "by_category": {
      "Good": 69,
-     "Satisfactory": 162,
-     "Moderate": 49,
+     "Satisfactory": 168,
+     "Moderate": 51,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -5128,10 +5128,10 @@
     "thin": true
    },
    "2026": {
-    "days": 275,
+    "days": 283,
     "by_category": {
-     "Good": 65,
-     "Satisfactory": 132,
+     "Good": 66,
+     "Satisfactory": 139,
      "Moderate": 77,
      "Poor": 1,
      "Very Poor": 0,
@@ -5265,16 +5265,16 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
      "Good": 24,
      "Satisfactory": 62,
-     "Moderate": 161,
-     "Poor": 61,
+     "Moderate": 164,
+     "Poor": 66,
      "Very Poor": 3,
      "Severe": 0
     },
-    "poor_or_worse": 64,
+    "poor_or_worse": 69,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5327,11 +5327,11 @@
     "thin": true
    },
    "2026": {
-    "days": 303,
+    "days": 311,
     "by_category": {
      "Good": 30,
      "Satisfactory": 139,
-     "Moderate": 120,
+     "Moderate": 128,
      "Poor": 14,
      "Very Poor": 0,
      "Severe": 0
@@ -5389,16 +5389,16 @@
     "thin": true
    },
    "2026": {
-    "days": 205,
+    "days": 213,
     "by_category": {
      "Good": 48,
-     "Satisfactory": 106,
-     "Moderate": 47,
-     "Poor": 4,
+     "Satisfactory": 109,
+     "Moderate": 51,
+     "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 4,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5436,11 +5436,11 @@
     "thin": true
    },
    "2026": {
-    "days": 280,
+    "days": 288,
     "by_category": {
-     "Good": 30,
-     "Satisfactory": 136,
-     "Moderate": 73,
+     "Good": 31,
+     "Satisfactory": 142,
+     "Moderate": 74,
      "Poor": 36,
      "Very Poor": 5,
      "Severe": 0
@@ -5500,16 +5500,16 @@
   },
   "Byrnihat (Assam)": {
    "2026": {
-    "days": 202,
+    "days": 210,
     "by_category": {
      "Good": 0,
-     "Satisfactory": 113,
-     "Moderate": 83,
-     "Poor": 6,
+     "Satisfactory": 116,
+     "Moderate": 87,
+     "Poor": 7,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 6,
+    "poor_or_worse": 7,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -5592,10 +5592,10 @@
     "thin": true
    },
    "2026": {
-    "days": 297,
+    "days": 305,
     "by_category": {
-     "Good": 242,
-     "Satisfactory": 54,
+     "Good": 249,
+     "Satisfactory": 55,
      "Moderate": 1,
      "Poor": 0,
      "Very Poor": 0,
@@ -5699,11 +5699,11 @@
     "thin": false
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 75,
-     "Satisfactory": 177,
-     "Moderate": 56,
+     "Satisfactory": 181,
+     "Moderate": 60,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -5866,16 +5866,16 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 41,
      "Satisfactory": 107,
-     "Moderate": 163,
-     "Poor": 2,
+     "Moderate": 170,
+     "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 2,
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -5943,16 +5943,16 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 9,
      "Satisfactory": 67,
-     "Moderate": 128,
-     "Poor": 83,
-     "Very Poor": 17,
+     "Moderate": 132,
+     "Poor": 85,
+     "Very Poor": 19,
      "Severe": 0
     },
-    "poor_or_worse": 100,
+    "poor_or_worse": 104,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6142,11 +6142,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 38,
-     "Satisfactory": 220,
-     "Moderate": 54,
+     "Satisfactory": 223,
+     "Moderate": 59,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -6204,10 +6204,10 @@
     "thin": true
    },
    "2026": {
-    "days": 248,
+    "days": 256,
     "by_category": {
-     "Good": 53,
-     "Satisfactory": 164,
+     "Good": 55,
+     "Satisfactory": 170,
      "Moderate": 31,
      "Poor": 0,
      "Very Poor": 0,
@@ -6281,11 +6281,11 @@
     "thin": true
    },
    "2026": {
-    "days": 234,
+    "days": 240,
     "by_category": {
      "Good": 6,
      "Satisfactory": 74,
-     "Moderate": 147,
+     "Moderate": 153,
      "Poor": 6,
      "Very Poor": 1,
      "Severe": 0
@@ -6403,11 +6403,11 @@
     "thin": true
    },
    "2026": {
-    "days": 254,
+    "days": 261,
     "by_category": {
      "Good": 101,
-     "Satisfactory": 126,
-     "Moderate": 26,
+     "Satisfactory": 130,
+     "Moderate": 29,
      "Poor": 0,
      "Very Poor": 1,
      "Severe": 0
@@ -6510,10 +6510,10 @@
     "thin": true
    },
    "2026": {
-    "days": 200,
+    "days": 208,
     "by_category": {
-     "Good": 144,
-     "Satisfactory": 56,
+     "Good": 148,
+     "Satisfactory": 60,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -6572,11 +6572,11 @@
     "thin": true
    },
    "2026": {
-    "days": 269,
+    "days": 277,
     "by_category": {
      "Good": 15,
-     "Satisfactory": 240,
-     "Moderate": 13,
+     "Satisfactory": 246,
+     "Moderate": 15,
      "Poor": 0,
      "Very Poor": 1,
      "Severe": 0
@@ -6634,16 +6634,16 @@
     "thin": true
    },
    "2026": {
-    "days": 301,
+    "days": 309,
     "by_category": {
      "Good": 12,
-     "Satisfactory": 136,
-     "Moderate": 139,
-     "Poor": 14,
+     "Satisfactory": 137,
+     "Moderate": 145,
+     "Poor": 15,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 14,
+    "poor_or_worse": 15,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6696,16 +6696,16 @@
     "thin": true
    },
    "2026": {
-    "days": 307,
+    "days": 315,
     "by_category": {
      "Good": 9,
-     "Satisfactory": 86,
-     "Moderate": 181,
-     "Poor": 29,
+     "Satisfactory": 87,
+     "Moderate": 184,
+     "Poor": 33,
      "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 31,
+    "poor_or_worse": 35,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -6773,10 +6773,10 @@
     "thin": true
    },
    "2026": {
-    "days": 237,
+    "days": 239,
     "by_category": {
-     "Good": 125,
-     "Satisfactory": 91,
+     "Good": 126,
+     "Satisfactory": 92,
      "Moderate": 21,
      "Poor": 0,
      "Very Poor": 0,
@@ -6867,11 +6867,11 @@
     "thin": true
    },
    "2026": {
-    "days": 294,
+    "days": 302,
     "by_category": {
      "Good": 26,
-     "Satisfactory": 153,
-     "Moderate": 64,
+     "Satisfactory": 159,
+     "Moderate": 66,
      "Poor": 38,
      "Very Poor": 13,
      "Severe": 0
@@ -6989,11 +6989,11 @@
     "thin": true
    },
    "2026": {
-    "days": 238,
+    "days": 246,
     "by_category": {
      "Good": 94,
-     "Satisfactory": 99,
-     "Moderate": 43,
+     "Satisfactory": 103,
+     "Moderate": 47,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -7068,11 +7068,11 @@
     "thin": true
    },
    "2026": {
-    "days": 301,
+    "days": 309,
     "by_category": {
      "Good": 14,
      "Satisfactory": 127,
-     "Moderate": 152,
+     "Moderate": 160,
      "Poor": 8,
      "Very Poor": 0,
      "Severe": 0
@@ -7207,11 +7207,11 @@
     "thin": true
    },
    "2026": {
-    "days": 262,
+    "days": 271,
     "by_category": {
-     "Good": 73,
-     "Satisfactory": 121,
-     "Moderate": 53,
+     "Good": 75,
+     "Satisfactory": 126,
+     "Moderate": 55,
      "Poor": 14,
      "Very Poor": 1,
      "Severe": 0
@@ -7389,16 +7389,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 1,
      "Satisfactory": 62,
-     "Moderate": 156,
-     "Poor": 67,
-     "Very Poor": 25,
+     "Moderate": 157,
+     "Poor": 70,
+     "Very Poor": 29,
      "Severe": 2
     },
-    "poor_or_worse": 94,
+    "poor_or_worse": 101,
     "severe": 2,
     "median_stations": 44,
     "thin": false
@@ -7526,16 +7526,16 @@
     "thin": true
    },
    "2026": {
-    "days": 303,
+    "days": 310,
     "by_category": {
      "Good": 0,
      "Satisfactory": 152,
-     "Moderate": 147,
-     "Poor": 3,
+     "Moderate": 150,
+     "Poor": 7,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 4,
+    "poor_or_worse": 8,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -7588,10 +7588,10 @@
     "thin": true
    },
    "2026": {
-    "days": 201,
+    "days": 202,
     "by_category": {
      "Good": 1,
-     "Satisfactory": 32,
+     "Satisfactory": 33,
      "Moderate": 157,
      "Poor": 11,
      "Very Poor": 0,
@@ -7695,16 +7695,16 @@
     "thin": true
    },
    "2026": {
-    "days": 288,
+    "days": 296,
     "by_category": {
      "Good": 3,
-     "Satisfactory": 102,
-     "Moderate": 111,
-     "Poor": 53,
+     "Satisfactory": 103,
+     "Moderate": 112,
+     "Poor": 59,
      "Very Poor": 19,
      "Severe": 0
     },
-    "poor_or_worse": 72,
+    "poor_or_worse": 78,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -7757,11 +7757,11 @@
     "thin": true
    },
    "2026": {
-    "days": 264,
+    "days": 272,
     "by_category": {
      "Good": 0,
-     "Satisfactory": 244,
-     "Moderate": 20,
+     "Satisfactory": 249,
+     "Moderate": 23,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -7819,16 +7819,16 @@
     "thin": true
    },
    "2026": {
-    "days": 286,
+    "days": 294,
     "by_category": {
      "Good": 57,
-     "Satisfactory": 134,
-     "Moderate": 84,
-     "Poor": 11,
+     "Satisfactory": 137,
+     "Moderate": 88,
+     "Poor": 12,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 11,
+    "poor_or_worse": 12,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -7866,11 +7866,11 @@
     "thin": true
    },
    "2026": {
-    "days": 289,
+    "days": 297,
     "by_category": {
      "Good": 54,
-     "Satisfactory": 146,
-     "Moderate": 89,
+     "Satisfactory": 145,
+     "Moderate": 98,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -7930,10 +7930,10 @@
     "thin": true
    },
    "2026": {
-    "days": 298,
+    "days": 306,
     "by_category": {
      "Good": 36,
-     "Satisfactory": 193,
+     "Satisfactory": 201,
      "Moderate": 62,
      "Poor": 7,
      "Very Poor": 0,
@@ -8052,11 +8052,11 @@
     "thin": false
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 32,
-     "Satisfactory": 210,
-     "Moderate": 68,
+     "Satisfactory": 215,
+     "Moderate": 71,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -8176,10 +8176,10 @@
   },
   "Eluru": {
    "2026": {
-    "days": 226,
+    "days": 234,
     "by_category": {
-     "Good": 47,
-     "Satisfactory": 176,
+     "Good": 46,
+     "Satisfactory": 185,
      "Moderate": 3,
      "Poor": 0,
      "Very Poor": 0,
@@ -8405,16 +8405,16 @@
     "thin": false
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 0,
      "Satisfactory": 41,
      "Moderate": 221,
-     "Poor": 46,
-     "Very Poor": 4,
+     "Poor": 53,
+     "Very Poor": 5,
      "Severe": 0
     },
-    "poor_or_worse": 50,
+    "poor_or_worse": 58,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -8512,16 +8512,16 @@
     "thin": true
    },
    "2026": {
-    "days": 271,
+    "days": 278,
     "by_category": {
      "Good": 15,
      "Satisfactory": 120,
-     "Moderate": 130,
-     "Poor": 5,
-     "Very Poor": 1,
+     "Moderate": 131,
+     "Poor": 10,
+     "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 6,
+    "poor_or_worse": 12,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -8589,11 +8589,11 @@
     "thin": true
    },
    "2026": {
-    "days": 302,
+    "days": 310,
     "by_category": {
      "Good": 108,
-     "Satisfactory": 168,
-     "Moderate": 26,
+     "Satisfactory": 169,
+     "Moderate": 33,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -8773,11 +8773,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 12,
      "Satisfactory": 138,
-     "Moderate": 161,
+     "Moderate": 169,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -8850,10 +8850,10 @@
     "thin": true
    },
    "2026": {
-    "days": 218,
+    "days": 223,
     "by_category": {
-     "Good": 167,
-     "Satisfactory": 51,
+     "Good": 170,
+     "Satisfactory": 53,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -9002,11 +9002,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 30,
-     "Satisfactory": 158,
-     "Moderate": 123,
+     "Satisfactory": 159,
+     "Moderate": 130,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -9154,16 +9154,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 4,
      "Satisfactory": 55,
-     "Moderate": 119,
-     "Poor": 101,
-     "Very Poor": 32,
+     "Moderate": 121,
+     "Poor": 105,
+     "Very Poor": 34,
      "Severe": 2
     },
-    "poor_or_worse": 135,
+    "poor_or_worse": 141,
     "severe": 2,
     "median_stations": 5,
     "thin": false
@@ -9231,16 +9231,16 @@
     "thin": true
    },
    "2026": {
-    "days": 267,
+    "days": 275,
     "by_category": {
      "Good": 5,
      "Satisfactory": 193,
-     "Moderate": 64,
-     "Poor": 5,
+     "Moderate": 71,
+     "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -9368,16 +9368,16 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 4,
      "Satisfactory": 36,
-     "Moderate": 126,
-     "Poor": 109,
-     "Very Poor": 37,
+     "Moderate": 129,
+     "Poor": 113,
+     "Very Poor": 38,
      "Severe": 1
     },
-    "poor_or_worse": 147,
+    "poor_or_worse": 152,
     "severe": 1,
     "median_stations": 2,
     "thin": true
@@ -9460,16 +9460,16 @@
     "thin": true
    },
    "2026": {
-    "days": 299,
+    "days": 307,
     "by_category": {
      "Good": 1,
-     "Satisfactory": 83,
-     "Moderate": 174,
-     "Poor": 40,
-     "Very Poor": 1,
+     "Satisfactory": 84,
+     "Moderate": 176,
+     "Poor": 44,
+     "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 41,
+    "poor_or_worse": 46,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -9477,11 +9477,11 @@
   },
   "Guntur": {
    "2026": {
-    "days": 234,
+    "days": 241,
     "by_category": {
      "Good": 27,
-     "Satisfactory": 206,
-     "Moderate": 1,
+     "Satisfactory": 212,
+     "Moderate": 2,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -9644,16 +9644,16 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 0,
      "Satisfactory": 53,
-     "Moderate": 139,
-     "Poor": 94,
-     "Very Poor": 27,
+     "Moderate": 140,
+     "Poor": 96,
+     "Very Poor": 32,
      "Severe": 0
     },
-    "poor_or_worse": 121,
+    "poor_or_worse": 128,
     "severe": 0,
     "median_stations": 4,
     "thin": false
@@ -9766,11 +9766,11 @@
     "thin": false
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 72,
-     "Satisfactory": 162,
-     "Moderate": 67,
+     "Satisfactory": 166,
+     "Moderate": 71,
      "Poor": 11,
      "Very Poor": 0,
      "Severe": 0
@@ -9873,16 +9873,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 7,
      "Satisfactory": 125,
-     "Moderate": 159,
-     "Poor": 20,
+     "Moderate": 161,
+     "Poor": 26,
      "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 22,
+    "poor_or_worse": 28,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -9980,16 +9980,16 @@
     "thin": true
    },
    "2026": {
-    "days": 302,
+    "days": 310,
     "by_category": {
      "Good": 47,
-     "Satisfactory": 87,
-     "Moderate": 132,
-     "Poor": 35,
+     "Satisfactory": 86,
+     "Moderate": 134,
+     "Poor": 42,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 36,
+    "poor_or_worse": 43,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10117,16 +10117,16 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
-     "Good": 109,
-     "Satisfactory": 130,
-     "Moderate": 67,
-     "Poor": 5,
+     "Good": 110,
+     "Satisfactory": 132,
+     "Moderate": 71,
+     "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10179,16 +10179,16 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 18,
      "Satisfactory": 115,
-     "Moderate": 151,
-     "Poor": 16,
+     "Moderate": 156,
+     "Poor": 19,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 16,
+    "poor_or_worse": 19,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10301,16 +10301,16 @@
     "thin": true
    },
    "2026": {
-    "days": 272,
+    "days": 280,
     "by_category": {
      "Good": 32,
      "Satisfactory": 57,
-     "Moderate": 112,
-     "Poor": 68,
-     "Very Poor": 3,
+     "Moderate": 115,
+     "Poor": 72,
+     "Very Poor": 4,
      "Severe": 0
     },
-    "poor_or_worse": 71,
+    "poor_or_worse": 76,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10517,16 +10517,16 @@
     "thin": true
    },
    "2026": {
-    "days": 238,
+    "days": 245,
     "by_category": {
      "Good": 7,
      "Satisfactory": 113,
-     "Moderate": 103,
+     "Moderate": 105,
      "Poor": 12,
-     "Very Poor": 3,
+     "Very Poor": 8,
      "Severe": 0
     },
-    "poor_or_worse": 15,
+    "poor_or_worse": 20,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -10701,16 +10701,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 36,
-     "Satisfactory": 182,
-     "Moderate": 81,
-     "Poor": 14,
+     "Satisfactory": 183,
+     "Moderate": 87,
+     "Poor": 15,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 14,
+    "poor_or_worse": 15,
     "severe": 0,
     "median_stations": 5,
     "thin": false
@@ -10823,10 +10823,10 @@
     "thin": true
    },
    "2026": {
-    "days": 281,
+    "days": 290,
     "by_category": {
      "Good": 62,
-     "Satisfactory": 219,
+     "Satisfactory": 228,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -11005,10 +11005,10 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 50,
-     "Satisfactory": 258,
+     "Satisfactory": 266,
      "Moderate": 5,
      "Poor": 0,
      "Very Poor": 0,
@@ -11159,16 +11159,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 45,
-     "Satisfactory": 203,
-     "Moderate": 62,
-     "Poor": 3,
+     "Satisfactory": 204,
+     "Moderate": 68,
+     "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 5,
     "thin": false
@@ -11266,11 +11266,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 26,
      "Satisfactory": 219,
-     "Moderate": 65,
+     "Moderate": 73,
      "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
@@ -11433,16 +11433,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 3,
      "Satisfactory": 106,
-     "Moderate": 195,
-     "Poor": 9,
+     "Moderate": 201,
+     "Poor": 11,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 9,
+    "poor_or_worse": 11,
     "severe": 0,
     "median_stations": 6,
     "thin": false
@@ -11495,11 +11495,11 @@
     "thin": true
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 1,
      "Satisfactory": 120,
-     "Moderate": 168,
+     "Moderate": 176,
      "Poor": 22,
      "Very Poor": 1,
      "Severe": 0
@@ -11632,16 +11632,16 @@
     "thin": true
    },
    "2026": {
-    "days": 309,
+    "days": 313,
     "by_category": {
      "Good": 23,
      "Satisfactory": 194,
-     "Moderate": 87,
-     "Poor": 4,
+     "Moderate": 88,
+     "Poor": 7,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 8,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11694,16 +11694,16 @@
     "thin": true
    },
    "2026": {
-    "days": 294,
+    "days": 302,
     "by_category": {
      "Good": 78,
-     "Satisfactory": 122,
-     "Moderate": 92,
-     "Poor": 2,
+     "Satisfactory": 121,
+     "Moderate": 100,
+     "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 2,
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11741,16 +11741,16 @@
     "thin": true
    },
    "2026": {
-    "days": 221,
+    "days": 229,
     "by_category": {
      "Good": 49,
-     "Satisfactory": 115,
-     "Moderate": 55,
-     "Poor": 2,
+     "Satisfactory": 116,
+     "Moderate": 61,
+     "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 2,
+    "poor_or_worse": 3,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11788,11 +11788,11 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 11,
      "Satisfactory": 159,
-     "Moderate": 134,
+     "Moderate": 142,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -11850,16 +11850,16 @@
     "thin": true
    },
    "2026": {
-    "days": 307,
+    "days": 315,
     "by_category": {
      "Good": 25,
      "Satisfactory": 137,
-     "Moderate": 136,
-     "Poor": 9,
+     "Moderate": 143,
+     "Poor": 10,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 9,
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -11927,11 +11927,11 @@
     "thin": true
    },
    "2026": {
-    "days": 303,
+    "days": 311,
     "by_category": {
-     "Good": 72,
-     "Satisfactory": 219,
-     "Moderate": 12,
+     "Good": 73,
+     "Satisfactory": 225,
+     "Moderate": 13,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -11989,16 +11989,16 @@
     "thin": true
    },
    "2026": {
-    "days": 309,
+    "days": 317,
     "by_category": {
      "Good": 4,
-     "Satisfactory": 117,
-     "Moderate": 170,
-     "Poor": 18,
+     "Satisfactory": 118,
+     "Moderate": 173,
+     "Poor": 22,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 18,
+    "poor_or_worse": 22,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -12096,16 +12096,16 @@
     "thin": true
    },
    "2026": {
-    "days": 281,
+    "days": 289,
     "by_category": {
      "Good": 23,
      "Satisfactory": 78,
-     "Moderate": 137,
-     "Poor": 39,
-     "Very Poor": 4,
+     "Moderate": 138,
+     "Poor": 45,
+     "Very Poor": 5,
      "Severe": 0
     },
-    "poor_or_worse": 43,
+    "poor_or_worse": 50,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -12263,11 +12263,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 7,
      "Satisfactory": 154,
-     "Moderate": 147,
+     "Moderate": 155,
      "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
@@ -12310,11 +12310,11 @@
     "thin": true
    },
    "2026": {
-    "days": 207,
+    "days": 215,
     "by_category": {
      "Good": 3,
-     "Satisfactory": 122,
-     "Moderate": 82,
+     "Satisfactory": 127,
+     "Moderate": 85,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -12372,11 +12372,11 @@
     "thin": true
    },
    "2026": {
-    "days": 267,
+    "days": 275,
     "by_category": {
      "Good": 19,
-     "Satisfactory": 223,
-     "Moderate": 23,
+     "Satisfactory": 230,
+     "Moderate": 24,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -12479,16 +12479,16 @@
     "thin": true
    },
    "2026": {
-    "days": 278,
+    "days": 286,
     "by_category": {
      "Good": 28,
-     "Satisfactory": 107,
-     "Moderate": 110,
-     "Poor": 27,
-     "Very Poor": 6,
+     "Satisfactory": 108,
+     "Moderate": 112,
+     "Poor": 30,
+     "Very Poor": 8,
      "Severe": 0
     },
-    "poor_or_worse": 33,
+    "poor_or_worse": 38,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -12601,10 +12601,10 @@
     "thin": true
    },
    "2026": {
-    "days": 296,
+    "days": 304,
     "by_category": {
-     "Good": 198,
-     "Satisfactory": 98,
+     "Good": 203,
+     "Satisfactory": 101,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -12708,11 +12708,11 @@
     "thin": true
    },
    "2026": {
-    "days": 294,
+    "days": 310,
     "by_category": {
      "Good": 24,
-     "Satisfactory": 189,
-     "Moderate": 79,
+     "Satisfactory": 196,
+     "Moderate": 88,
      "Poor": 1,
      "Very Poor": 1,
      "Severe": 0
@@ -12847,10 +12847,10 @@
     "thin": true
    },
    "2026": {
-    "days": 234,
+    "days": 240,
     "by_category": {
      "Good": 21,
-     "Satisfactory": 194,
+     "Satisfactory": 200,
      "Moderate": 19,
      "Poor": 0,
      "Very Poor": 0,
@@ -13029,16 +13029,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 51,
      "Satisfactory": 155,
-     "Moderate": 97,
-     "Poor": 10,
+     "Moderate": 103,
+     "Poor": 12,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 10,
+    "poor_or_worse": 12,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -13091,11 +13091,11 @@
     "thin": true
    },
    "2026": {
-    "days": 277,
+    "days": 284,
     "by_category": {
      "Good": 46,
-     "Satisfactory": 142,
-     "Moderate": 86,
+     "Satisfactory": 146,
+     "Moderate": 89,
      "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
@@ -13198,16 +13198,16 @@
     "thin": true
    },
    "2026": {
-    "days": 309,
+    "days": 317,
     "by_category": {
      "Good": 32,
      "Satisfactory": 122,
-     "Moderate": 120,
-     "Poor": 34,
+     "Moderate": 122,
+     "Poor": 40,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 35,
+    "poor_or_worse": 41,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -13356,11 +13356,11 @@
     "thin": true
    },
    "2026": {
-    "days": 277,
+    "days": 284,
     "by_category": {
      "Good": 1,
-     "Satisfactory": 237,
-     "Moderate": 37,
+     "Satisfactory": 238,
+     "Moderate": 43,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -13463,16 +13463,16 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 44,
      "Satisfactory": 118,
-     "Moderate": 135,
-     "Poor": 3,
+     "Moderate": 142,
+     "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -13525,11 +13525,11 @@
     "thin": true
    },
    "2026": {
-    "days": 264,
+    "days": 271,
     "by_category": {
      "Good": 96,
-     "Satisfactory": 107,
-     "Moderate": 56,
+     "Satisfactory": 110,
+     "Moderate": 60,
      "Poor": 4,
      "Very Poor": 1,
      "Severe": 0
@@ -13662,16 +13662,16 @@
     "thin": true
    },
    "2026": {
-    "days": 291,
+    "days": 299,
     "by_category": {
      "Good": 17,
      "Satisfactory": 186,
-     "Moderate": 80,
-     "Poor": 8,
+     "Moderate": 83,
+     "Poor": 13,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 8,
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -13739,16 +13739,16 @@
     "thin": true
    },
    "2026": {
-    "days": 301,
+    "days": 309,
     "by_category": {
      "Good": 31,
      "Satisfactory": 120,
-     "Moderate": 131,
-     "Poor": 18,
-     "Very Poor": 1,
+     "Moderate": 133,
+     "Poor": 23,
+     "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 19,
+    "poor_or_worse": 25,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -13816,11 +13816,11 @@
     "thin": true
    },
    "2026": {
-    "days": 292,
+    "days": 299,
     "by_category": {
      "Good": 95,
-     "Satisfactory": 152,
-     "Moderate": 40,
+     "Satisfactory": 155,
+     "Moderate": 44,
      "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
@@ -13970,10 +13970,10 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 121,
-     "Satisfactory": 183,
+     "Satisfactory": 191,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -14079,11 +14079,11 @@
     "thin": true
    },
    "2026": {
-    "days": 305,
+    "days": 313,
     "by_category": {
      "Good": 152,
-     "Satisfactory": 141,
-     "Moderate": 12,
+     "Satisfactory": 148,
+     "Moderate": 13,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -14231,11 +14231,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 83,
-     "Satisfactory": 147,
-     "Moderate": 69,
+     "Satisfactory": 150,
+     "Moderate": 74,
      "Poor": 14,
      "Very Poor": 0,
      "Severe": 0
@@ -14447,10 +14447,10 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 137,
-     "Satisfactory": 141,
+     "Satisfactory": 149,
      "Moderate": 24,
      "Poor": 1,
      "Very Poor": 1,
@@ -14584,16 +14584,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 27,
      "Satisfactory": 131,
-     "Moderate": 140,
-     "Poor": 15,
+     "Moderate": 145,
+     "Poor": 18,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 15,
+    "poor_or_worse": 18,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -14693,10 +14693,10 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 81,
-     "Satisfactory": 137,
+     "Satisfactory": 145,
      "Moderate": 83,
      "Poor": 3,
      "Very Poor": 0,
@@ -14800,16 +14800,16 @@
     "thin": true
    },
    "2026": {
-    "days": 301,
+    "days": 309,
     "by_category": {
      "Good": 20,
      "Satisfactory": 92,
-     "Moderate": 158,
-     "Poor": 30,
-     "Very Poor": 1,
+     "Moderate": 161,
+     "Poor": 34,
+     "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 31,
+    "poor_or_worse": 36,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -14862,11 +14862,11 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 103,
-     "Satisfactory": 182,
-     "Moderate": 23,
+     "Satisfactory": 189,
+     "Moderate": 24,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -15061,16 +15061,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 33,
      "Satisfactory": 132,
-     "Moderate": 136,
-     "Poor": 12,
+     "Moderate": 140,
+     "Poor": 16,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 12,
+    "poor_or_worse": 16,
     "severe": 0,
     "median_stations": 6,
     "thin": false
@@ -15213,16 +15213,16 @@
     "thin": true
    },
    "2026": {
-    "days": 281,
+    "days": 289,
     "by_category": {
      "Good": 2,
      "Satisfactory": 172,
-     "Moderate": 99,
-     "Poor": 8,
-     "Very Poor": 0,
+     "Moderate": 102,
+     "Poor": 12,
+     "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 8,
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15230,10 +15230,10 @@
   },
   "Machilipatnam": {
    "2026": {
-    "days": 210,
+    "days": 218,
     "by_category": {
      "Good": 18,
-     "Satisfactory": 186,
+     "Satisfactory": 194,
      "Moderate": 5,
      "Poor": 1,
      "Very Poor": 0,
@@ -15322,11 +15322,11 @@
     "thin": true
    },
    "2026": {
-    "days": 296,
+    "days": 304,
     "by_category": {
-     "Good": 273,
-     "Satisfactory": 22,
-     "Moderate": 1,
+     "Good": 274,
+     "Satisfactory": 28,
+     "Moderate": 2,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -15386,11 +15386,11 @@
     "thin": true
    },
    "2026": {
-    "days": 286,
+    "days": 294,
     "by_category": {
      "Good": 57,
      "Satisfactory": 118,
-     "Moderate": 111,
+     "Moderate": 119,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -15493,10 +15493,10 @@
     "thin": true
    },
    "2026": {
-    "days": 183,
+    "days": 191,
     "by_category": {
      "Good": 50,
-     "Satisfactory": 130,
+     "Satisfactory": 138,
      "Moderate": 3,
      "Poor": 0,
      "Very Poor": 0,
@@ -15540,16 +15540,16 @@
     "thin": true
    },
    "2026": {
-    "days": 268,
+    "days": 276,
     "by_category": {
      "Good": 22,
-     "Satisfactory": 135,
-     "Moderate": 108,
-     "Poor": 3,
+     "Satisfactory": 134,
+     "Moderate": 114,
+     "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15692,16 +15692,16 @@
     "thin": true
    },
    "2026": {
-    "days": 270,
+    "days": 279,
     "by_category": {
      "Good": 3,
      "Satisfactory": 78,
-     "Moderate": 151,
-     "Poor": 32,
+     "Moderate": 159,
+     "Poor": 33,
      "Very Poor": 6,
      "Severe": 0
     },
-    "poor_or_worse": 38,
+    "poor_or_worse": 39,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15829,16 +15829,16 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 16,
      "Satisfactory": 98,
-     "Moderate": 133,
-     "Poor": 48,
-     "Very Poor": 5,
+     "Moderate": 137,
+     "Poor": 51,
+     "Very Poor": 6,
      "Severe": 0
     },
-    "poor_or_worse": 53,
+    "poor_or_worse": 57,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -15936,16 +15936,16 @@
     "thin": true
    },
    "2026": {
-    "days": 258,
+    "days": 266,
     "by_category": {
      "Good": 35,
      "Satisfactory": 149,
-     "Moderate": 66,
-     "Poor": 8,
+     "Moderate": 72,
+     "Poor": 10,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 8,
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16043,16 +16043,16 @@
     "thin": true
    },
    "2026": {
-    "days": 286,
+    "days": 295,
     "by_category": {
      "Good": 18,
      "Satisfactory": 58,
-     "Moderate": 129,
-     "Poor": 68,
-     "Very Poor": 13,
+     "Moderate": 130,
+     "Poor": 74,
+     "Very Poor": 15,
      "Severe": 0
     },
-    "poor_or_worse": 81,
+    "poor_or_worse": 89,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16182,16 +16182,16 @@
     "thin": true
    },
    "2026": {
-    "days": 206,
+    "days": 214,
     "by_category": {
      "Good": 12,
-     "Satisfactory": 108,
-     "Moderate": 83,
-     "Poor": 3,
+     "Satisfactory": 114,
+     "Moderate": 84,
+     "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16289,16 +16289,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 11,
      "Satisfactory": 65,
-     "Moderate": 143,
-     "Poor": 86,
-     "Very Poor": 8,
+     "Moderate": 146,
+     "Poor": 89,
+     "Very Poor": 10,
      "Severe": 0
     },
-    "poor_or_worse": 94,
+    "poor_or_worse": 99,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -16306,11 +16306,11 @@
   },
   "Mehsana": {
    "2026": {
-    "days": 264,
+    "days": 272,
     "by_category": {
      "Good": 4,
-     "Satisfactory": 152,
-     "Moderate": 104,
+     "Satisfactory": 159,
+     "Moderate": 105,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -16353,11 +16353,11 @@
     "thin": true
    },
    "2026": {
-    "days": 193,
+    "days": 200,
     "by_category": {
      "Good": 46,
-     "Satisfactory": 83,
-     "Moderate": 57,
+     "Satisfactory": 88,
+     "Moderate": 59,
      "Poor": 7,
      "Very Poor": 0,
      "Severe": 0
@@ -16400,11 +16400,11 @@
     "thin": true
    },
    "2026": {
-    "days": 272,
+    "days": 281,
     "by_category": {
      "Good": 128,
-     "Satisfactory": 93,
-     "Moderate": 51,
+     "Satisfactory": 94,
+     "Moderate": 59,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -16537,16 +16537,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 41,
-     "Satisfactory": 149,
-     "Moderate": 122,
-     "Poor": 1,
-     "Very Poor": 0,
+     "Satisfactory": 150,
+     "Moderate": 126,
+     "Poor": 3,
+     "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 1,
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 6,
     "thin": false
@@ -16614,16 +16614,16 @@
     "thin": true
    },
    "2026": {
-    "days": 225,
+    "days": 231,
     "by_category": {
      "Good": 21,
      "Satisfactory": 133,
-     "Moderate": 66,
-     "Poor": 5,
+     "Moderate": 71,
+     "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -16781,11 +16781,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 87,
      "Satisfactory": 153,
-     "Moderate": 73,
+     "Moderate": 81,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -16858,10 +16858,10 @@
     "thin": true
    },
    "2026": {
-    "days": 249,
+    "days": 256,
     "by_category": {
      "Good": 52,
-     "Satisfactory": 152,
+     "Satisfactory": 159,
      "Moderate": 44,
      "Poor": 1,
      "Very Poor": 0,
@@ -16980,16 +16980,16 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 23,
      "Satisfactory": 57,
-     "Moderate": 161,
-     "Poor": 66,
-     "Very Poor": 1,
+     "Moderate": 163,
+     "Poor": 71,
+     "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 67,
+    "poor_or_worse": 73,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17147,16 +17147,16 @@
     "thin": false
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 53,
      "Satisfactory": 156,
-     "Moderate": 102,
-     "Poor": 1,
+     "Moderate": 109,
+     "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 1,
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 3,
     "thin": false
@@ -17254,16 +17254,16 @@
     "thin": true
    },
    "2026": {
-    "days": 285,
+    "days": 292,
     "by_category": {
      "Good": 54,
-     "Satisfactory": 210,
-     "Moderate": 19,
-     "Poor": 2,
+     "Satisfactory": 212,
+     "Moderate": 21,
+     "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 2,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17316,11 +17316,11 @@
     "thin": true
    },
    "2026": {
-    "days": 275,
+    "days": 283,
     "by_category": {
      "Good": 41,
-     "Satisfactory": 171,
-     "Moderate": 63,
+     "Satisfactory": 178,
+     "Moderate": 64,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -17395,16 +17395,16 @@
     "thin": true
    },
    "2026": {
-    "days": 303,
+    "days": 311,
     "by_category": {
      "Good": 18,
-     "Satisfactory": 112,
-     "Moderate": 162,
-     "Poor": 11,
+     "Satisfactory": 114,
+     "Moderate": 166,
+     "Poor": 13,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 11,
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17562,16 +17562,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 71,
      "Satisfactory": 115,
-     "Moderate": 117,
-     "Poor": 10,
+     "Moderate": 121,
+     "Poor": 14,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 10,
+    "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 4,
     "thin": false
@@ -17609,10 +17609,10 @@
     "thin": true
    },
    "2026": {
-    "days": 268,
+    "days": 276,
     "by_category": {
-     "Good": 153,
-     "Satisfactory": 52,
+     "Good": 155,
+     "Satisfactory": 58,
      "Moderate": 51,
      "Poor": 12,
      "Very Poor": 0,
@@ -17671,16 +17671,16 @@
     "thin": true
    },
    "2026": {
-    "days": 250,
+    "days": 258,
     "by_category": {
-     "Good": 65,
-     "Satisfactory": 119,
-     "Moderate": 66,
-     "Poor": 0,
+     "Good": 66,
+     "Satisfactory": 121,
+     "Moderate": 69,
+     "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 0,
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17718,16 +17718,16 @@
     "thin": true
    },
    "2026": {
-    "days": 281,
+    "days": 290,
     "by_category": {
      "Good": 73,
      "Satisfactory": 128,
-     "Moderate": 72,
-     "Poor": 8,
+     "Moderate": 79,
+     "Poor": 10,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 8,
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -17872,16 +17872,16 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 0,
      "Satisfactory": 115,
-     "Moderate": 155,
-     "Poor": 25,
+     "Moderate": 160,
+     "Poor": 28,
      "Very Poor": 13,
      "Severe": 0
     },
-    "poor_or_worse": 38,
+    "poor_or_worse": 41,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -18024,11 +18024,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 104,
      "Satisfactory": 149,
-     "Moderate": 59,
+     "Moderate": 67,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -18206,11 +18206,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 83,
      "Satisfactory": 147,
-     "Moderate": 83,
+     "Moderate": 91,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -18268,11 +18268,11 @@
     "thin": true
    },
    "2026": {
-    "days": 196,
+    "days": 204,
     "by_category": {
      "Good": 48,
-     "Satisfactory": 62,
-     "Moderate": 79,
+     "Satisfactory": 64,
+     "Moderate": 85,
      "Poor": 7,
      "Very Poor": 0,
      "Severe": 0
@@ -18285,11 +18285,11 @@
   },
   "Nellore": {
    "2026": {
-    "days": 199,
+    "days": 207,
     "by_category": {
      "Good": 44,
-     "Satisfactory": 149,
-     "Moderate": 6,
+     "Satisfactory": 154,
+     "Moderate": 9,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -18437,16 +18437,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 2,
      "Satisfactory": 47,
-     "Moderate": 159,
-     "Poor": 81,
-     "Very Poor": 22,
+     "Moderate": 161,
+     "Poor": 83,
+     "Very Poor": 26,
      "Severe": 2
     },
-    "poor_or_worse": 105,
+    "poor_or_worse": 111,
     "severe": 2,
     "median_stations": 4,
     "thin": false
@@ -18621,16 +18621,16 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 0,
-     "Satisfactory": 54,
-     "Moderate": 234,
-     "Poor": 12,
+     "Satisfactory": 56,
+     "Moderate": 239,
+     "Poor": 13,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 12,
+    "poor_or_worse": 13,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -18760,16 +18760,16 @@
     "thin": true
    },
    "2026": {
-    "days": 285,
+    "days": 292,
     "by_category": {
-     "Good": 11,
-     "Satisfactory": 209,
-     "Moderate": 62,
-     "Poor": 3,
+     "Good": 12,
+     "Satisfactory": 208,
+     "Moderate": 67,
+     "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -18777,10 +18777,10 @@
   },
   "Pampore": {
    "2026": {
-    "days": 227,
+    "days": 231,
     "by_category": {
-     "Good": 97,
-     "Satisfactory": 128,
+     "Good": 98,
+     "Satisfactory": 131,
      "Moderate": 2,
      "Poor": 0,
      "Very Poor": 0,
@@ -18809,16 +18809,16 @@
     "thin": true
    },
    "2026": {
-    "days": 286,
+    "days": 294,
     "by_category": {
      "Good": 40,
-     "Satisfactory": 117,
-     "Moderate": 83,
-     "Poor": 34,
-     "Very Poor": 10,
+     "Satisfactory": 116,
+     "Moderate": 84,
+     "Poor": 36,
+     "Very Poor": 16,
      "Severe": 2
     },
-    "poor_or_worse": 46,
+    "poor_or_worse": 54,
     "severe": 2,
     "median_stations": 1,
     "thin": true
@@ -18961,11 +18961,11 @@
     "thin": true
    },
    "2026": {
-    "days": 272,
+    "days": 280,
     "by_category": {
      "Good": 118,
-     "Satisfactory": 107,
-     "Moderate": 42,
+     "Satisfactory": 111,
+     "Moderate": 46,
      "Poor": 5,
      "Very Poor": 0,
      "Severe": 0
@@ -19068,16 +19068,16 @@
     "thin": true
    },
    "2026": {
-    "days": 246,
+    "days": 254,
     "by_category": {
      "Good": 0,
      "Satisfactory": 36,
-     "Moderate": 141,
-     "Poor": 63,
+     "Moderate": 144,
+     "Poor": 68,
      "Very Poor": 6,
      "Severe": 0
     },
-    "poor_or_worse": 69,
+    "poor_or_worse": 74,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -19115,16 +19115,16 @@
     "thin": true
    },
    "2026": {
-    "days": 310,
+    "days": 318,
     "by_category": {
      "Good": 76,
      "Satisfactory": 160,
-     "Moderate": 73,
-     "Poor": 1,
+     "Moderate": 80,
+     "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 1,
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -19252,16 +19252,16 @@
     "thin": true
    },
    "2026": {
-    "days": 302,
+    "days": 310,
     "by_category": {
      "Good": 65,
      "Satisfactory": 125,
-     "Moderate": 105,
-     "Poor": 7,
+     "Moderate": 110,
+     "Poor": 10,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 7,
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -19419,16 +19419,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 1,
-     "Satisfactory": 172,
-     "Moderate": 137,
-     "Poor": 3,
+     "Satisfactory": 171,
+     "Moderate": 145,
+     "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 6,
     "thin": false
@@ -19466,16 +19466,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 53,
      "Satisfactory": 143,
-     "Moderate": 114,
-     "Poor": 2,
+     "Moderate": 120,
+     "Poor": 4,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 5,
     "severe": 0,
     "median_stations": 6,
     "thin": false
@@ -19603,16 +19603,16 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 10,
-     "Satisfactory": 61,
-     "Moderate": 200,
-     "Poor": 36,
+     "Satisfactory": 62,
+     "Moderate": 205,
+     "Poor": 38,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 37,
+    "poor_or_worse": 39,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -19665,11 +19665,11 @@
     "thin": true
    },
    "2026": {
-    "days": 307,
+    "days": 315,
     "by_category": {
      "Good": 26,
-     "Satisfactory": 148,
-     "Moderate": 131,
+     "Satisfactory": 149,
+     "Moderate": 138,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -19757,11 +19757,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 65,
      "Satisfactory": 207,
-     "Moderate": 39,
+     "Moderate": 47,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -19849,11 +19849,11 @@
     "thin": true
    },
    "2026": {
-    "days": 309,
+    "days": 317,
     "by_category": {
      "Good": 164,
-     "Satisfactory": 122,
-     "Moderate": 22,
+     "Satisfactory": 125,
+     "Moderate": 27,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -20033,11 +20033,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 38,
      "Satisfactory": 168,
-     "Moderate": 105,
+     "Moderate": 113,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -20110,16 +20110,16 @@
     "thin": true
    },
    "2026": {
-    "days": 269,
+    "days": 277,
     "by_category": {
      "Good": 0,
-     "Satisfactory": 217,
-     "Moderate": 52,
-     "Poor": 0,
+     "Satisfactory": 221,
+     "Moderate": 55,
+     "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 0,
+    "poor_or_worse": 1,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -20234,11 +20234,11 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 107,
-     "Satisfactory": 186,
-     "Moderate": 20,
+     "Satisfactory": 193,
+     "Moderate": 21,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -20296,11 +20296,11 @@
     "thin": true
    },
    "2026": {
-    "days": 273,
+    "days": 281,
     "by_category": {
      "Good": 74,
-     "Satisfactory": 154,
-     "Moderate": 45,
+     "Satisfactory": 161,
+     "Moderate": 46,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -20433,11 +20433,11 @@
     "thin": true
    },
    "2026": {
-    "days": 295,
+    "days": 301,
     "by_category": {
-     "Good": 114,
-     "Satisfactory": 120,
-     "Moderate": 47,
+     "Good": 115,
+     "Satisfactory": 121,
+     "Moderate": 51,
      "Poor": 14,
      "Very Poor": 0,
      "Severe": 0
@@ -20510,16 +20510,16 @@
     "thin": true
    },
    "2026": {
-    "days": 233,
+    "days": 241,
     "by_category": {
      "Good": 91,
-     "Satisfactory": 115,
-     "Moderate": 26,
-     "Poor": 1,
+     "Satisfactory": 121,
+     "Moderate": 27,
+     "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 1,
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -20527,11 +20527,11 @@
   },
   "Rajkot": {
    "2026": {
-    "days": 275,
+    "days": 283,
     "by_category": {
      "Good": 29,
-     "Satisfactory": 155,
-     "Moderate": 89,
+     "Satisfactory": 162,
+     "Moderate": 90,
      "Poor": 1,
      "Very Poor": 1,
      "Severe": 0
@@ -20589,11 +20589,11 @@
     "thin": true
    },
    "2026": {
-    "days": 307,
+    "days": 315,
     "by_category": {
      "Good": 20,
-     "Satisfactory": 226,
-     "Moderate": 58,
+     "Satisfactory": 228,
+     "Moderate": 64,
      "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
@@ -20696,11 +20696,11 @@
     "thin": true
    },
    "2026": {
-    "days": 289,
+    "days": 297,
     "by_category": {
      "Good": 143,
-     "Satisfactory": 105,
-     "Moderate": 41,
+     "Satisfactory": 107,
+     "Moderate": 47,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -20865,11 +20865,11 @@
     "thin": true
    },
    "2026": {
-    "days": 306,
+    "days": 314,
     "by_category": {
      "Good": 82,
-     "Satisfactory": 130,
-     "Moderate": 93,
+     "Satisfactory": 134,
+     "Moderate": 97,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -20927,11 +20927,11 @@
     "thin": true
    },
    "2026": {
-    "days": 284,
+    "days": 291,
     "by_category": {
-     "Good": 164,
-     "Satisfactory": 98,
-     "Moderate": 22,
+     "Good": 165,
+     "Satisfactory": 103,
+     "Moderate": 23,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -21064,16 +21064,16 @@
     "thin": true
    },
    "2026": {
-    "days": 289,
+    "days": 297,
     "by_category": {
      "Good": 31,
      "Satisfactory": 129,
-     "Moderate": 98,
-     "Poor": 27,
+     "Moderate": 102,
+     "Poor": 31,
      "Very Poor": 4,
      "Severe": 0
     },
-    "poor_or_worse": 31,
+    "poor_or_worse": 35,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21126,11 +21126,11 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
      "Good": 68,
-     "Satisfactory": 177,
-     "Moderate": 66,
+     "Satisfactory": 179,
+     "Moderate": 72,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -21263,10 +21263,10 @@
     "thin": true
    },
    "2026": {
-    "days": 263,
+    "days": 269,
     "by_category": {
-     "Good": 73,
-     "Satisfactory": 137,
+     "Good": 78,
+     "Satisfactory": 138,
      "Moderate": 39,
      "Poor": 14,
      "Very Poor": 0,
@@ -21370,11 +21370,11 @@
     "thin": true
    },
    "2026": {
-    "days": 300,
+    "days": 308,
     "by_category": {
      "Good": 56,
-     "Satisfactory": 150,
-     "Moderate": 93,
+     "Satisfactory": 153,
+     "Moderate": 98,
      "Poor": 0,
      "Very Poor": 1,
      "Severe": 0
@@ -21447,16 +21447,16 @@
     "thin": true
    },
    "2026": {
-    "days": 260,
+    "days": 267,
     "by_category": {
      "Good": 34,
-     "Satisfactory": 100,
-     "Moderate": 114,
-     "Poor": 12,
+     "Satisfactory": 99,
+     "Moderate": 120,
+     "Poor": 14,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 12,
+    "poor_or_worse": 14,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21556,16 +21556,16 @@
     "thin": true
    },
    "2026": {
-    "days": 204,
+    "days": 212,
     "by_category": {
      "Good": 38,
-     "Satisfactory": 91,
-     "Moderate": 66,
-     "Poor": 9,
+     "Satisfactory": 95,
+     "Moderate": 69,
+     "Poor": 10,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 9,
+    "poor_or_worse": 10,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21618,11 +21618,11 @@
     "thin": true
    },
    "2026": {
-    "days": 267,
+    "days": 275,
     "by_category": {
-     "Good": 123,
-     "Satisfactory": 105,
-     "Moderate": 39,
+     "Good": 122,
+     "Satisfactory": 108,
+     "Moderate": 45,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -21695,10 +21695,10 @@
     "thin": true
    },
    "2026": {
-    "days": 209,
+    "days": 216,
     "by_category": {
-     "Good": 24,
-     "Satisfactory": 112,
+     "Good": 25,
+     "Satisfactory": 118,
      "Moderate": 66,
      "Poor": 6,
      "Very Poor": 1,
@@ -21832,10 +21832,10 @@
     "thin": true
    },
    "2026": {
-    "days": 309,
+    "days": 317,
     "by_category": {
      "Good": 0,
-     "Satisfactory": 309,
+     "Satisfactory": 317,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -21894,16 +21894,16 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
      "Good": 14,
      "Satisfactory": 89,
-     "Moderate": 183,
-     "Poor": 24,
+     "Moderate": 188,
+     "Poor": 27,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 25,
+    "poor_or_worse": 28,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -21986,10 +21986,10 @@
     "thin": true
    },
    "2026": {
-    "days": 193,
+    "days": 201,
     "by_category": {
-     "Good": 134,
-     "Satisfactory": 53,
+     "Good": 141,
+     "Satisfactory": 54,
      "Moderate": 5,
      "Poor": 1,
      "Very Poor": 0,
@@ -22078,10 +22078,10 @@
     "thin": true
    },
    "2026": {
-    "days": 271,
+    "days": 279,
     "by_category": {
-     "Good": 111,
-     "Satisfactory": 160,
+     "Good": 112,
+     "Satisfactory": 167,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -22140,16 +22140,16 @@
     "thin": true
    },
    "2026": {
-    "days": 306,
+    "days": 314,
     "by_category": {
      "Good": 13,
      "Satisfactory": 82,
-     "Moderate": 188,
-     "Poor": 21,
+     "Moderate": 193,
+     "Poor": 24,
      "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 23,
+    "poor_or_worse": 26,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -22202,10 +22202,10 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
-     "Good": 110,
-     "Satisfactory": 201,
+     "Good": 111,
+     "Satisfactory": 208,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -22339,16 +22339,16 @@
     "thin": true
    },
    "2026": {
-    "days": 287,
+    "days": 294,
     "by_category": {
      "Good": 35,
-     "Satisfactory": 108,
-     "Moderate": 143,
-     "Poor": 1,
+     "Satisfactory": 110,
+     "Moderate": 147,
+     "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 1,
+    "poor_or_worse": 2,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -22476,16 +22476,16 @@
     "thin": true
    },
    "2026": {
-    "days": 228,
+    "days": 231,
     "by_category": {
      "Good": 19,
      "Satisfactory": 39,
      "Moderate": 76,
-     "Poor": 70,
+     "Poor": 73,
      "Very Poor": 24,
      "Severe": 0
     },
-    "poor_or_worse": 94,
+    "poor_or_worse": 97,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -22538,11 +22538,11 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 19,
-     "Satisfactory": 227,
-     "Moderate": 58,
+     "Satisfactory": 230,
+     "Moderate": 63,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -22645,16 +22645,16 @@
     "thin": true
    },
    "2026": {
-    "days": 278,
+    "days": 287,
     "by_category": {
      "Good": 3,
-     "Satisfactory": 128,
-     "Moderate": 133,
-     "Poor": 10,
-     "Very Poor": 4,
+     "Satisfactory": 129,
+     "Moderate": 136,
+     "Poor": 12,
+     "Very Poor": 7,
      "Severe": 0
     },
-    "poor_or_worse": 14,
+    "poor_or_worse": 19,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -22707,10 +22707,10 @@
     "thin": true
    },
    "2026": {
-    "days": 291,
+    "days": 299,
     "by_category": {
-     "Good": 107,
-     "Satisfactory": 184,
+     "Good": 109,
+     "Satisfactory": 190,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -22784,16 +22784,16 @@
     "thin": true
    },
    "2026": {
-    "days": 212,
+    "days": 220,
     "by_category": {
      "Good": 1,
      "Satisfactory": 122,
-     "Moderate": 86,
-     "Poor": 3,
+     "Moderate": 91,
+     "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 3,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -22936,11 +22936,11 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 87,
-     "Satisfactory": 160,
-     "Moderate": 66,
+     "Satisfactory": 162,
+     "Moderate": 72,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -23043,16 +23043,16 @@
     "thin": true
    },
    "2026": {
-    "days": 261,
+    "days": 269,
     "by_category": {
      "Good": 4,
      "Satisfactory": 58,
-     "Moderate": 170,
-     "Poor": 26,
+     "Moderate": 172,
+     "Poor": 32,
      "Very Poor": 3,
      "Severe": 0
     },
-    "poor_or_worse": 29,
+    "poor_or_worse": 35,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -23105,16 +23105,16 @@
     "thin": true
    },
    "2026": {
-    "days": 297,
+    "days": 305,
     "by_category": {
      "Good": 0,
      "Satisfactory": 63,
-     "Moderate": 177,
-     "Poor": 46,
+     "Moderate": 183,
+     "Poor": 48,
      "Very Poor": 11,
      "Severe": 0
     },
-    "poor_or_worse": 57,
+    "poor_or_worse": 59,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -23167,9 +23167,9 @@
     "thin": true
    },
    "2026": {
-    "days": 310,
+    "days": 318,
     "by_category": {
-     "Good": 203,
+     "Good": 211,
      "Satisfactory": 107,
      "Moderate": 0,
      "Poor": 0,
@@ -23229,11 +23229,11 @@
     "thin": true
    },
    "2026": {
-    "days": 200,
+    "days": 209,
     "by_category": {
      "Good": 23,
-     "Satisfactory": 99,
-     "Moderate": 67,
+     "Satisfactory": 101,
+     "Moderate": 74,
      "Poor": 11,
      "Very Poor": 0,
      "Severe": 0
@@ -23291,11 +23291,11 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
      "Good": 43,
      "Satisfactory": 172,
-     "Moderate": 89,
+     "Moderate": 97,
      "Poor": 7,
      "Very Poor": 0,
      "Severe": 0
@@ -23428,16 +23428,16 @@
     "thin": true
    },
    "2026": {
-    "days": 271,
+    "days": 278,
     "by_category": {
      "Good": 6,
      "Satisfactory": 119,
-     "Moderate": 116,
-     "Poor": 26,
+     "Moderate": 120,
+     "Poor": 29,
      "Very Poor": 4,
      "Severe": 0
     },
-    "poor_or_worse": 30,
+    "poor_or_worse": 33,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -23490,11 +23490,11 @@
     "thin": true
    },
    "2026": {
-    "days": 209,
+    "days": 217,
     "by_category": {
-     "Good": 92,
-     "Satisfactory": 93,
-     "Moderate": 24,
+     "Good": 91,
+     "Satisfactory": 101,
+     "Moderate": 25,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -23642,11 +23642,11 @@
     "thin": true
    },
    "2026": {
-    "days": 311,
+    "days": 319,
     "by_category": {
      "Good": 68,
      "Satisfactory": 178,
-     "Moderate": 65,
+     "Moderate": 73,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -23796,16 +23796,16 @@
     "thin": true
    },
    "2026": {
-    "days": 308,
+    "days": 316,
     "by_category": {
      "Good": 157,
-     "Satisfactory": 122,
-     "Moderate": 29,
-     "Poor": 0,
+     "Satisfactory": 128,
+     "Moderate": 30,
+     "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 0,
+    "poor_or_worse": 1,
     "severe": 0,
     "median_stations": 2,
     "thin": true
@@ -23888,11 +23888,11 @@
     "thin": true
    },
    "2026": {
-    "days": 292,
+    "days": 299,
     "by_category": {
-     "Good": 66,
-     "Satisfactory": 220,
-     "Moderate": 6,
+     "Good": 67,
+     "Satisfactory": 224,
+     "Moderate": 8,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -23980,10 +23980,10 @@
     "thin": true
    },
    "2026": {
-    "days": 269,
+    "days": 277,
     "by_category": {
      "Good": 35,
-     "Satisfactory": 233,
+     "Satisfactory": 241,
      "Moderate": 1,
      "Poor": 0,
      "Very Poor": 0,
@@ -24029,11 +24029,11 @@
     "thin": true
    },
    "2026": {
-    "days": 302,
+    "days": 310,
     "by_category": {
      "Good": 57,
-     "Satisfactory": 197,
-     "Moderate": 44,
+     "Satisfactory": 202,
+     "Moderate": 47,
      "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
@@ -24198,10 +24198,10 @@
     "thin": true
    },
    "2026": {
-    "days": 254,
+    "days": 259,
     "by_category": {
-     "Good": 10,
-     "Satisfactory": 219,
+     "Good": 11,
+     "Satisfactory": 223,
      "Moderate": 22,
      "Poor": 2,
      "Very Poor": 1,
@@ -24307,16 +24307,16 @@
     "thin": true
    },
    "2026": {
-    "days": 299,
+    "days": 307,
     "by_category": {
      "Good": 3,
      "Satisfactory": 72,
-     "Moderate": 191,
-     "Poor": 30,
+     "Moderate": 194,
+     "Poor": 35,
      "Very Poor": 3,
      "Severe": 0
     },
-    "poor_or_worse": 33,
+    "poor_or_worse": 38,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -24386,11 +24386,11 @@
     "thin": true
    },
    "2026": {
-    "days": 260,
+    "days": 267,
     "by_category": {
      "Good": 59,
-     "Satisfactory": 143,
-     "Moderate": 55,
+     "Satisfactory": 147,
+     "Moderate": 58,
      "Poor": 3,
      "Very Poor": 0,
      "Severe": 0
@@ -24523,16 +24523,16 @@
     "thin": true
    },
    "2026": {
-    "days": 302,
+    "days": 310,
     "by_category": {
      "Good": 8,
-     "Satisfactory": 113,
-     "Moderate": 176,
-     "Poor": 5,
+     "Satisfactory": 114,
+     "Moderate": 182,
+     "Poor": 6,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 5,
+    "poor_or_worse": 6,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -24662,16 +24662,16 @@
     "thin": true
    },
    "2026": {
-    "days": 268,
+    "days": 275,
     "by_category": {
      "Good": 25,
-     "Satisfactory": 165,
-     "Moderate": 68,
-     "Poor": 7,
+     "Satisfactory": 164,
+     "Moderate": 75,
+     "Poor": 8,
      "Very Poor": 2,
      "Severe": 1
     },
-    "poor_or_worse": 10,
+    "poor_or_worse": 11,
     "severe": 1,
     "median_stations": 1,
     "thin": true
@@ -24709,11 +24709,11 @@
     "thin": true
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 108,
      "Satisfactory": 115,
-     "Moderate": 90,
+     "Moderate": 98,
      "Poor": 0,
      "Very Poor": 0,
      "Severe": 0
@@ -24726,11 +24726,11 @@
   },
   "Vadodara": {
    "2026": {
-    "days": 281,
+    "days": 289,
     "by_category": {
      "Good": 0,
-     "Satisfactory": 184,
-     "Moderate": 87,
+     "Satisfactory": 187,
+     "Moderate": 92,
      "Poor": 9,
      "Very Poor": 1,
      "Severe": 0
@@ -24833,11 +24833,11 @@
     "thin": true
    },
    "2026": {
-    "days": 241,
+    "days": 247,
     "by_category": {
      "Good": 45,
-     "Satisfactory": 173,
-     "Moderate": 21,
+     "Satisfactory": 178,
+     "Moderate": 22,
      "Poor": 1,
      "Very Poor": 1,
      "Severe": 0
@@ -25015,16 +25015,16 @@
     "thin": false
    },
    "2026": {
-    "days": 313,
+    "days": 321,
     "by_category": {
      "Good": 51,
      "Satisfactory": 181,
-     "Moderate": 79,
-     "Poor": 2,
+     "Moderate": 85,
+     "Poor": 4,
      "Very Poor": 0,
      "Severe": 0
     },
-    "poor_or_worse": 2,
+    "poor_or_worse": 4,
     "severe": 0,
     "median_stations": 4,
     "thin": false
@@ -25137,11 +25137,11 @@
     "thin": true
    },
    "2026": {
-    "days": 304,
+    "days": 312,
     "by_category": {
      "Good": 1,
      "Satisfactory": 29,
-     "Moderate": 260,
+     "Moderate": 268,
      "Poor": 14,
      "Very Poor": 0,
      "Severe": 0
@@ -25276,10 +25276,10 @@
     "thin": true
    },
    "2026": {
-    "days": 244,
+    "days": 248,
     "by_category": {
      "Good": 190,
-     "Satisfactory": 54,
+     "Satisfactory": 58,
      "Moderate": 0,
      "Poor": 0,
      "Very Poor": 0,
@@ -25368,10 +25368,10 @@
     "thin": false
    },
    "2026": {
-    "days": 312,
+    "days": 320,
     "by_category": {
      "Good": 6,
-     "Satisfactory": 292,
+     "Satisfactory": 300,
      "Moderate": 14,
      "Poor": 0,
      "Very Poor": 0,
@@ -25415,11 +25415,11 @@
     "thin": true
    },
    "2026": {
-    "days": 284,
+    "days": 291,
     "by_category": {
      "Good": 90,
-     "Satisfactory": 140,
-     "Moderate": 52,
+     "Satisfactory": 139,
+     "Moderate": 60,
      "Poor": 2,
      "Very Poor": 0,
      "Severe": 0
@@ -25584,16 +25584,16 @@
     "thin": true
    },
    "2026": {
-    "days": 298,
+    "days": 304,
     "by_category": {
      "Good": 18,
-     "Satisfactory": 83,
-     "Moderate": 174,
-     "Poor": 22,
+     "Satisfactory": 84,
+     "Moderate": 178,
+     "Poor": 23,
      "Very Poor": 1,
      "Severe": 0
     },
-    "poor_or_worse": 23,
+    "poor_or_worse": 24,
     "severe": 0,
     "median_stations": 1,
     "thin": true
@@ -25661,11 +25661,11 @@
     "thin": true
    },
    "2026": {
-    "days": 301,
+    "days": 309,
     "by_category": {
      "Good": 59,
-     "Satisfactory": 161,
-     "Moderate": 80,
+     "Satisfactory": 165,
+     "Moderate": 84,
      "Poor": 1,
      "Very Poor": 0,
      "Severe": 0
@@ -25768,10 +25768,10 @@
     "thin": true
    },
    "2026": {
-    "days": 253,
+    "days": 261,
     "by_category": {
      "Good": 74,
-     "Satisfactory": 135,
+     "Satisfactory": 143,
      "Moderate": 44,
      "Poor": 0,
      "Very Poor": 0,
@@ -25875,16 +25875,16 @@
     "thin": true
    },
    "2026": {
-    "days": 282,
+    "days": 290,
     "by_category": {
      "Good": 0,
      "Satisfactory": 93,
-     "Moderate": 158,
-     "Poor": 30,
-     "Very Poor": 1,
+     "Moderate": 160,
+     "Poor": 35,
+     "Very Poor": 2,
      "Severe": 0
     },
-    "poor_or_worse": 31,
+    "poor_or_worse": 37,
     "severe": 0,
     "median_stations": 1,
     "thin": true

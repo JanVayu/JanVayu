@@ -110,6 +110,14 @@ def refresh(path=DAILY, today=None, fetcher=None, dry_run=False, log=print):
         except Exception as e:                      # reset, timeout, certificate
             log(f'{day}: FAILED, {type(e).__name__}: {e}')
             failed.append(day)
+            if type(e).__name__ == 'HostUnreachable':
+                # Neither CPCB host answered. Every later date would wait out
+                # the same timeouts, which is how the job ran past its 30 minutes
+                # four days running from 13 November 2026. Stop and fail loudly.
+                rest = [x.isoformat() for x in days_to_try(d, today)]
+                log(f'CPCB unreachable; not trying {len(rest)} later day(s)')
+                failed.extend(x for x in rest if x not in have)
+                break
             continue
         parsed, skipped = f.parse(f.text_of(raw))
         serials = {r['serial'] for r in parsed}

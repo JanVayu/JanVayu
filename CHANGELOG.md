@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-17
+
+### Added
+- A page for every city in CPCB's daily bulletin, at `/bulletins/`. Pick one of 318 cities and see each day of 2026 to the latest bulletin as a dot chart and a month-by-month calendar coloured by category, with the share of the city's stations that reported under each day, a filter by prominent pollutant, and two tables that count days in each category from 1 October and from 1 January to the same date in each year from 2019 to 2025. No average AQI is given. The earlier years are counts made from UrbanEmissions.Info's extraction of the PDFs; the daily rows of that extraction are not republished. Built by `scripts/build-bulletin-explorer.py` into `data/bulletin-explorer/` (one file per city), rebuilt by the daily CPCB workflow and checked in CI with `--check`, which compares every day with the bulletin file. axe-core reports no serious or critical issue in either theme at 390 and 1280 pixels. Linked from the accountability panel and the home page Diwali block.
+
+### Fixed
+- CPCB bulletins had stopped at 9 November. The daily job was cancelled at its 30 minute limit on 13 to 16 November: cpcb.nic.in stopped answering from GitHub's runners, the fetcher spent about six minutes on each day, and because the pull request for 10 to 12 November was never merged every run started again from 9 November. The fetcher now tries cpcb.gov.in first, stops the run at once when neither host answers, and logs unbuffered. 10 to 17 November are added (274 to 289 cities a day). The workflow also rebuilds the Delhi season page, which it did not before, so its pull requests no longer fail that page's check.
+- 18 April 2026 held 17 April's bulletin a second time (241 of 241 cities identical; Delhi 263 where CPCB's 18 April PDF says 152). Found by comparing JanVayu's 2026 parse with UrbanEmissions.Info's, which now covers 2026 to 25 October: the two agree on every other shared city-day. Re-parsed from the PDF, and `scripts/check-refresh-cpcb.py` now fails if any day repeats the day before.
+- The Delhi season chart labelled its last point "on 5 Nov" whatever the date was, and the Diwali-window label ran outside its chart once the season passed seven days after Diwali.
+
 ## [Unreleased] - 2026-11-09
 
 ### Added
