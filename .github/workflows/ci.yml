@@ -212,6 +212,8 @@ jobs:
         run: python3 scripts/build-delhi-diwali.py --check
       - name: CPCB latest days match the bulletin file
         run: python3 scripts/build-cpcb-latest.py --check
+      - name: Bulletin explorer matches the bulletin file
+        run: python3 scripts/build-bulletin-explorer.py --check
 
       # CEEW's "peaks twice each winter" chart averaged a few winters. This
       # draws six separately from CPCB monitors and holds the post to what

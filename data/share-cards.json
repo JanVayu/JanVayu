@@ -350,6 +350,12 @@
       "sub": "Position"
     },
     {
+      "name": "bulletins",
+      "kicker": "CPCB bulletin",
+      "title": "Every city, every day of 2026",
+      "sub": "CPCB’s 4 pm figure, the stations behind it, and the same weeks since 2019"
+    },
+    {
       "name": "co",
       "kicker": "Pollutant guide",
       "title": "CO in India",
