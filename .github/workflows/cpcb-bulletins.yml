@@ -40,16 +40,17 @@ jobs:
 
       # Informational. If the fetch fails on a certificate, this is the evidence:
       # what the server presents and whether it chains to a root the runner trusts.
-      - name: Show the certificate chain cpcb.nic.in presents
+      - name: Show the certificate chain cpcb.gov.in presents
         continue-on-error: true
         run: |
-          echo | openssl s_client -connect cpcb.nic.in:443 -servername cpcb.nic.in -showcerts 2>&1 \
+          echo | timeout 30 openssl s_client -connect cpcb.gov.in:443 -servername cpcb.gov.in -showcerts 2>&1 \
             | grep -E "^ *[0-9]+ s:|^ *i:|Verification|verify error|verify return" || true
 
       - name: Fetch the days CPCB has published since the last one in the file
         id: fetch
         continue-on-error: true
-        run: python3 scripts/refresh-cpcb-bulletins.py
+        # -u: unbuffered, so a run that is cancelled still shows which day it was on.
+        run: python3 -u scripts/refresh-cpcb-bulletins.py
 
       - name: Rebuild the city-year summary from the 2015-2025 archive and the new days
         if: steps.fetch.outcome != 'cancelled'

@@ -151,17 +151,23 @@
    "-2": 382,
    "-1": 369,
    "0": 376,
-   "1": 344
+   "1": 344,
+   "2": 299,
+   "3": 313,
+   "4": 350,
+   "5": 373,
+   "6": 367,
+   "7": 290
   }
  },
  "diwali_2026": "2026-11-08",
- "stations_2026_median": 55,
+ "stations_2026_median": 56,
  "counts": {
   "Good": 0,
   "Satisfactory": 3,
   "Moderate": 23,
-  "Poor": 6,
-  "Very Poor": 8,
+  "Poor": 10,
+  "Very Poor": 12,
   "Severe": 0
  },
  "this_season": {
@@ -364,6 +370,46 @@
    "aqi": 344,
    "category": "Very Poor",
    "stations": 47
+  },
+  "2026-11-10": {
+   "aqi": 299,
+   "category": "Poor",
+   "stations": 58
+  },
+  "2026-11-11": {
+   "aqi": 313,
+   "category": "Very Poor",
+   "stations": 58
+  },
+  "2026-11-12": {
+   "aqi": 350,
+   "category": "Very Poor",
+   "stations": 57
+  },
+  "2026-11-13": {
+   "aqi": 373,
+   "category": "Very Poor",
+   "stations": 59
+  },
+  "2026-11-14": {
+   "aqi": 367,
+   "category": "Very Poor",
+   "stations": 59
+  },
+  "2026-11-15": {
+   "aqi": 290,
+   "category": "Poor",
+   "stations": 58
+  },
+  "2026-11-16": {
+   "aqi": 275,
+   "category": "Poor",
+   "stations": 59
+  },
+  "2026-11-17": {
+   "aqi": 204,
+   "category": "Poor",
+   "stations": 58
   }
  },
  "past": {

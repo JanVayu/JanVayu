@@ -192,7 +192,7 @@ def line_svg(d):
          ' '.join(f'{X(i):.1f},{Y(v):.1f}' for i, v in cur) + '"/>'
     li, lv = cur[-1]
     s += f'<circle cx="{X(li):.1f}" cy="{Y(lv):.1f}" r="3.6" fill="{COLOUR["Very Poor"]}"/>'
-    s += f'<text x="{X(li) - 6:.1f}" y="{Y(lv) - 9:.1f}" text-anchor="end" {FONT} font-size="12.5" font-weight="700" fill="{COLOUR["Very Poor"]}">2026: {lv} on 5 Nov</text>'
+    s += f'<text x="{X(li) - 6:.1f}" y="{Y(lv) - 9:.1f}" text-anchor="end" {FONT} font-size="12.5" font-weight="700" fill="{COLOUR["Very Poor"]}">2026: {lv} on {fmt_day(START + timedelta(days=li))}</text>'
     dx = X((DIWALI_2026 - START).days)
     s += f'<line x1="{dx:.1f}" y1="{T}" x2="{dx:.1f}" y2="{B}" stroke="{INK}" stroke-width="1" stroke-dasharray="2 3"/>'
     s += f'<text x="{dx + 4:.1f}" y="{T + 11}" {FONT} font-size="11.5" font-weight="700" fill="{INK}">Diwali 2026</text>'
@@ -238,7 +238,9 @@ def aligned_svg(d):
     for k, v in cur:
         s += f'<circle cx="{X(k):.1f}" cy="{Y(v):.1f}" r="3.8" fill="{COLOUR["Very Poor"]}"/>'
     lk, lv = cur[-1]
-    s += f'<text x="{X(lk) + 8:.1f}" y="{Y(lv) - 8:.1f}" {FONT} font-size="12.5" font-weight="700" fill="{COLOUR["Very Poor"]}">2026: {lv}</text>'
+    # Near the right edge the label goes on the left of the point, or it runs out of the viewBox.
+    lx, anchor = (X(lk) - 8, 'end') if lk >= 3 else (X(lk) + 8, 'start')
+    s += f'<text x="{lx:.1f}" y="{Y(lv) - 8:.1f}" text-anchor="{anchor}" {FONT} font-size="12.5" font-weight="700" fill="{COLOUR["Very Poor"]}">2026: {lv}</text>'
     for k in (-7, -3, 0, 3, 7):
         lab = 'Diwali' if k == 0 else (f'{k}' if k < 0 else f'+{k}')
         s += f'<text x="{X(k):.1f}" y="{B + 17}" text-anchor="middle" {FONT} font-size="12" fill="{MUTED}">{lab}</text>'
