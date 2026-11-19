@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606256">
+    <link rel="preload" as="style" href="/styles.css?v=202606257">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -877,15 +877,34 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
    here (app.js removes .hero-pending when the reading is in or has failed), and
    the first line of the card holds the height of the city search that replaces
    the select. Keep in sync with styles.css. */
-.hero-pm25-card > div:first-of-type { min-height: 29px; }
-/* The source of the figure, as a tab hanging from the card's top rule, so no
-   number is on screen without the name of who published it. It sits in the
-   card's 22px top padding; the 6px it adds below is given to the first row
-   while the tab is hidden, so the card does not move when a reading arrives. */
-.hero-source-tab { display: table; margin: -22px 0 8px; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
+.hero-pm25-card > div:first-child { min-height: 29px; }
+/* The reading as figures, under the headline. One row a figure: the number or
+   word, a one-line label, a hairline. The tab hangs from the block's top rule
+   and names who published the figures, so none is on screen without its source.
+   While the reading is loading the block holds the height of the tab and two
+   rows, so the search field under it does not jump when the reading arrives. */
+.hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
+.hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
+.hero-pending .hero-figs-wrap { display: block; min-height: 172px; }
+.hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
     font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
 .hero-source-tab[hidden] { display: none; }
-.hero-source-tab[hidden] + div { margin-top: 6px; }
+.hero-figs { margin: 0; border-top: 2px solid var(--ink); }
+.hero-figs[hidden] { display: none; }
+.hero-fig { display: flex; flex-direction: column-reverse; padding: 11px 0 12px; border-bottom: 1px solid var(--border); }
+.hero-fig-n { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--text); }
+.hero-fig-n small { font-family: var(--sans); font-weight: 500; font-size: 0.42em; letter-spacing: 0; margin-left: 0.3em; }
+.hero-fig-l { margin-top: 3px; font-family: var(--sans); font-size: 0.9rem; line-height: 1.4; color: var(--text-2); }
+/* The explanation under the figures: the first sentence carries the point in
+   the paragraph's own ink, and what follows is quieter. */
+.hero-sub-more { color: var(--text-3); }
+/* A notice, not a paragraph: shown when the bulletin on screen is older than
+   yesterday's, so a reader does not take an old figure for the latest one. */
+.hero-notice { margin: 16px 0 0; max-width: 46ch; padding: 12px 14px; background: var(--ink); color: var(--bg);
+    font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; }
+.hero-notice[hidden] { display: none; }
+/* A daily figure has no concentration, so the card does not print an empty one. */
+.hero-pm25-number[hidden], .hero-pm25-unit[hidden] { display: none; }
 @media (max-width: 768px) {
     .hero-pending .hero-band { min-height: 8px; }
     .hero-pending .hero-band-label { min-height: 20px; }
@@ -959,7 +978,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
    its place until then, or on a phone-sized bar the sixth control wraps and
    the bar grows by a row after first paint. */
 .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
-.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme { order: 2; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -972,21 +991,30 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .ctl:hover { background: var(--ink); color: var(--bg); }
 .ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .ctl[hidden] { display: none; }
-/* One row on a phone. Before this the six controls wrapped under the wordmark
-   and the bar stood 165px tall at 390px wide, so a reader met two rows of boxes
-   before the first sentence. Index and language stay in view; More opens the
-   other four on a second row. .bar-fold is added by the inline script under the
-   header, so with no script every control shows, as it did before. */
-#ctlMore { display: none; }
+/* One row on a phone, from the first frame. Before this the six controls
+   wrapped under the wordmark and the bar stood 165px tall at 390px wide. Below
+   620px the bar is the wordmark and one bordered Menu word; Menu opens all six
+   controls on the rows beneath it, in the order they have on a wide screen.
+   .bar-fold is added by the inline script under the header, so with no script
+   every control shows, as it did before. */
+#ctlMenu { display: none; }
 @media (max-width: 620px) {
     .bar.bar-fold { column-gap: 8px; }
     .bar.bar-fold .right { display: contents; }
     .bar.bar-fold .ctl { padding: 0 11px; }
-    .bar.bar-fold #ctlMore:not([hidden]) { display: inline-flex; }
-    .bar.bar-fold #ctlMore[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
-    .bar.bar-fold:not(.more-open) #ctlRole, .bar.bar-fold:not(.more-open) #ctlSimple,
-    .bar.bar-fold:not(.more-open) #ctlTheme, .bar.bar-fold:not(.more-open) #dys-font-btn { display: none; }
-    .bar.bar-fold:not(.more-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+    .bar.bar-fold #ctlMenu:not([hidden]) { display: inline-flex; padding: 0 16px; }
+    .bar.bar-fold #ctlMenu[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
+    .bar.bar-fold:not(.menu-open) .ctl:not(#ctlMenu), .bar.bar-fold:not(.menu-open) #dys-font-btn { display: none; }
+    .bar.bar-fold:not(.menu-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+    /* Open, the six controls start a row of their own under the wordmark. The
+       bar's ::before is a zero-height full-width item that ends the first row;
+       the order values keep the controls in the order they have on a wide
+       screen, with the reading-font button (or the space held for it) before
+       Theme. */
+    .bar.bar-fold.menu-open::before { content: ''; flex: 0 0 100%; height: 0; order: 1; }
+    .bar.bar-fold.menu-open #ctlRole, .bar.bar-fold.menu-open #ctlLang, .bar.bar-fold.menu-open #ctlSimple { order: 2; }
+    .bar.bar-fold.menu-open #dys-font-btn, .bar.bar-fold.menu-open .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { order: 3; }
+    .bar.bar-fold.menu-open #ctlTheme, .bar.bar-fold.menu-open #ctlIndex { order: 4; }
 }
 
 /* Popovers for the role and language controls. The bar is their positioning
@@ -1047,8 +1075,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606256" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606256"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606257" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606257"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1108,7 +1136,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606256" defer></script>
+<script src="/js/chrome.js?v=202606257" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1127,17 +1155,18 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <header class="bar container">
         <a class="mark" href="#dashboard" onclick="showPanel('dashboard'); return false;">Jan<span>Vayu</span></a>
         <div class="right" data-dyslexia-slot data-dyslexia-before="#ctlTheme">
-            <!-- Index and language stay in view on a phone. The four controls after
-                 More fold behind it below 620px, and only once the script under this
-                 header has run, so a page whose script failed still shows all of them.
-                 More sits directly before what it reveals, so the tab order is the
-                 order on screen. -->
-            <button type="button" class="ctl" id="ctlIndex" aria-expanded="false" aria-controls="siteIndex" onclick="openSiteIndex()" data-i18n="ctl_index">Index</button>
-            <button type="button" class="ctl" id="ctlLang" aria-haspopup="true" aria-expanded="false" aria-controls="langPopover" onclick="toggleLangPopover()"><span id="ctlLangLabel">EN</span></button>
-            <button type="button" class="ctl" id="ctlMore" aria-expanded="false" aria-label="More controls" hidden onclick="toggleBarMore()">More</button>
+            <!-- On a phone the bar is the wordmark and Menu. The six controls fold
+                 behind Menu below 620px, and only once the script under this header
+                 has run, so a page whose script failed still shows all of them. Menu
+                 sits directly before what it reveals, so the tab order is the order
+                 on screen. On a wide screen Menu is not shown and the order is the
+                 one the bar has always had, with Index last. -->
+            <button type="button" class="ctl" id="ctlMenu" aria-expanded="false" hidden onclick="toggleBarMenu()">Menu</button>
             <button type="button" class="ctl" id="ctlRole" aria-haspopup="true" aria-expanded="false" aria-controls="rolePopover" onclick="toggleRolePopover()"><span id="ctlRoleLabel" data-i18n="ctl_who">Who you are</span></button>
+            <button type="button" class="ctl" id="ctlLang" aria-haspopup="true" aria-expanded="false" aria-controls="langPopover" onclick="toggleLangPopover()"><span id="ctlLangLabel">EN</span></button>
             <button type="button" class="ctl" id="ctlSimple" aria-pressed="false" onclick="toggleSimpleMode()" data-i18n="ctl_simple">Simple</button>
             <button type="button" class="ctl" id="ctlTheme" aria-label="Theme: switch between light and dark" onclick="toggleTheme()" data-i18n="ctl_theme">Theme</button>
+            <button type="button" class="ctl" id="ctlIndex" aria-expanded="false" aria-controls="siteIndex" onclick="openSiteIndex()" data-i18n="ctl_index">Index</button>
         </div>
         <div class="pop" id="rolePopover" hidden>
             <p class="popnote" data-i18n="role_why">Tell us who you are and the answer leads with the part that is about you. Kept on this device, never sent anywhere.</p>
@@ -1149,17 +1178,17 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     </header>
     <script>
     /* Runs before the rest of the page paints, so the bar is one row on a phone
-       from the first frame. It owns the More control by itself and needs nothing
+       from the first frame. It owns the Menu control by itself and needs nothing
        from app.js. */
     (function () {
-        var bar = document.querySelector('header.bar'), more = document.getElementById('ctlMore');
-        if (!bar || !more) return;
+        var bar = document.querySelector('header.bar'), menu = document.getElementById('ctlMenu');
+        if (!bar || !menu) return;
         bar.classList.add('bar-fold');
-        more.hidden = false;
-        function set(open) { bar.classList.toggle('more-open', open); more.setAttribute('aria-expanded', open ? 'true' : 'false'); }
-        window.toggleBarMore = function () { set(!bar.classList.contains('more-open')); };
+        menu.hidden = false;
+        function set(open) { bar.classList.toggle('menu-open', open); menu.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+        window.toggleBarMenu = function () { set(!bar.classList.contains('menu-open')); };
         bar.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && bar.classList.contains('more-open') && !bar.querySelector('.pop:not([hidden])')) { set(false); more.focus(); }
+            if (e.key === 'Escape' && bar.classList.contains('menu-open') && !bar.querySelector('.pop:not([hidden])')) { set(false); menu.focus(); }
         });
     })();
     </script>
@@ -1282,6 +1311,15 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <div class="hero-grid">
                     <div>
                         <h1 class="hero-headline" id="heroQuestion" data-i18n="hero_question" data-simple="What is in the air you are breathing?">What are you breathing, <em>right now</em>?</h1>
+                        <!-- The reading, as figures: one number or word a row, a one-line
+                             label under it and a hairline between rows. The tab on the
+                             top rule names who published them, so no figure is on screen
+                             without its source. app.js fills both once a reading is in. -->
+                        <div class="hero-figs-wrap" id="heroFigsWrap">
+                            <p class="hero-source-tab" id="hero-source-tab" hidden></p>
+                            <dl class="hero-figs" id="heroFigs" hidden></dl>
+                        </div>
+                        <p class="hero-notice" id="heroNotice" role="note" hidden></p>
                         <p class="hero-sub" id="heroWhy" data-i18n="hero_question_sub">Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 areas, from states down to villages, in 5 languages.</p>
                         <div class="hero-find">
                             <input id="heroFind" class="hero-find-input" type="text" autocomplete="off" spellcheck="false" placeholder="Your city, ward or village" data-i18n="hero_find_place" data-i18n-attr="aria-label:hero_find_place" aria-label="Your city, ward or village" oninput="heroFindType(this.value)" onkeydown="if(event.key===&apos;Enter&apos;){heroFindEnter();}">
@@ -1296,7 +1334,6 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         </div>
                     <div class="hero-data">
                         <div class="hero-pm25-card">
-                            <p class="hero-source-tab" id="hero-source-tab" hidden></p>
                             <div style="display: flex; gap: 6px; margin-bottom: 6px; align-items: stretch;">
                             <select id="hero-city-select" aria-label="Select city for the dashboard" onchange="updateHeroCity(this.value)" style="
                                 font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
@@ -1356,7 +1393,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 </div>
                             <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
                             <div class="hero-pm25-number jv-t-red" id="delhi-live-pm25">--</div>
-                            <div class="hero-pm25-unit">µg/m³</div>
+                            <div class="hero-pm25-unit" id="hero-pm25-unit">µg/m³</div>
                             <div class="hero-pm25-who jv-t-red" id="delhi-who-multiple">--x WHO guideline</div>
                             <div class="hero-pm25-aqi">AQI: <span id="delhi-live-aqi">--</span></div>
                             <button onclick="generateAQICard(document.getElementById('hero-city-select').value)" title="Download shareable AQI card" style="
@@ -1667,8 +1704,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/js/air-sources.js?v=202606256"></script>
-    <script src="/app.js?v=202606256"></script>
+    <script src="/js/air-sources.js?v=202606257"></script>
+    <script src="/app.js?v=202606257"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

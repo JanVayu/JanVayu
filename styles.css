@@ -1185,15 +1185,34 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
    index.html. app.js removes .hero-pending once the reading is in or has
    failed. The first line of the card holds the height of the city search that
    replaces the select. */
-.hero-pm25-card > div:first-of-type { min-height: 29px; }
-/* The source of the figure, as a tab hanging from the card's top rule, so no
-   number is on screen without the name of who published it. It sits in the
-   card's 22px top padding; the 6px it adds below is given to the first row
-   while the tab is hidden, so the card does not move when a reading arrives. */
-.hero-source-tab { display: table; margin: -22px 0 8px; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
+.hero-pm25-card > div:first-child { min-height: 29px; }
+/* The reading as figures, under the headline. One row a figure: the number or
+   word, a one-line label, a hairline. The tab hangs from the block's top rule
+   and names who published the figures, so none is on screen without its source.
+   While the reading is loading the block holds the height of the tab and two
+   rows, so the search field under it does not jump when the reading arrives. */
+.hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
+.hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
+.hero-pending .hero-figs-wrap { display: block; min-height: 172px; }
+.hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
     font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
 .hero-source-tab[hidden] { display: none; }
-.hero-source-tab[hidden] + div { margin-top: 6px; }
+.hero-figs { margin: 0; border-top: 2px solid var(--ink); }
+.hero-figs[hidden] { display: none; }
+.hero-fig { display: flex; flex-direction: column-reverse; padding: 11px 0 12px; border-bottom: 1px solid var(--border); }
+.hero-fig-n { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--text); }
+.hero-fig-n small { font-family: var(--sans); font-weight: 500; font-size: 0.42em; letter-spacing: 0; margin-left: 0.3em; }
+.hero-fig-l { margin-top: 3px; font-family: var(--sans); font-size: 0.9rem; line-height: 1.4; color: var(--text-2); }
+/* The explanation under the figures: the first sentence carries the point in
+   the paragraph's own ink, and what follows is quieter. */
+.hero-sub-more { color: var(--text-3); }
+/* A notice, not a paragraph: shown when the bulletin on screen is older than
+   yesterday's, so a reader does not take an old figure for the latest one. */
+.hero-notice { margin: 16px 0 0; max-width: 46ch; padding: 12px 14px; background: var(--ink); color: var(--bg);
+    font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; }
+.hero-notice[hidden] { display: none; }
+/* A daily figure has no concentration, so the card does not print an empty one. */
+.hero-pm25-number[hidden], .hero-pm25-unit[hidden] { display: none; }
 @media (max-width: 768px) {
     .hero-pending .hero-band { min-height: 8px; }
     .hero-pending .hero-band-label { min-height: 20px; }
@@ -3546,7 +3565,7 @@ body.panel-open #panel-container { padding-top: 72px !important; }
    its place until then, or on a phone-sized bar the sixth control wraps and
    the bar grows by a row after first paint. */
 .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
-.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme { order: 2; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -3559,21 +3578,30 @@ body.panel-open #panel-container { padding-top: 72px !important; }
 .ctl:hover { background: var(--ink); color: var(--bg); }
 .ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .ctl[hidden] { display: none; }
-/* One row on a phone. Before this the six controls wrapped under the wordmark
-   and the bar stood 165px tall at 390px wide, so a reader met two rows of boxes
-   before the first sentence. Index and language stay in view; More opens the
-   other four on a second row. .bar-fold is added by the inline script under the
-   header, so with no script every control shows, as it did before. */
-#ctlMore { display: none; }
+/* One row on a phone, from the first frame. Before this the six controls
+   wrapped under the wordmark and the bar stood 165px tall at 390px wide. Below
+   620px the bar is the wordmark and one bordered Menu word; Menu opens all six
+   controls on the rows beneath it, in the order they have on a wide screen.
+   .bar-fold is added by the inline script under the header, so with no script
+   every control shows, as it did before. */
+#ctlMenu { display: none; }
 @media (max-width: 620px) {
     .bar.bar-fold { column-gap: 8px; }
     .bar.bar-fold .right { display: contents; }
     .bar.bar-fold .ctl { padding: 0 11px; }
-    .bar.bar-fold #ctlMore:not([hidden]) { display: inline-flex; }
-    .bar.bar-fold #ctlMore[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
-    .bar.bar-fold:not(.more-open) #ctlRole, .bar.bar-fold:not(.more-open) #ctlSimple,
-    .bar.bar-fold:not(.more-open) #ctlTheme, .bar.bar-fold:not(.more-open) #dys-font-btn { display: none; }
-    .bar.bar-fold:not(.more-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+    .bar.bar-fold #ctlMenu:not([hidden]) { display: inline-flex; padding: 0 16px; }
+    .bar.bar-fold #ctlMenu[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
+    .bar.bar-fold:not(.menu-open) .ctl:not(#ctlMenu), .bar.bar-fold:not(.menu-open) #dys-font-btn { display: none; }
+    .bar.bar-fold:not(.menu-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+    /* Open, the six controls start a row of their own under the wordmark. The
+       bar's ::before is a zero-height full-width item that ends the first row;
+       the order values keep the controls in the order they have on a wide
+       screen, with the reading-font button (or the space held for it) before
+       Theme. */
+    .bar.bar-fold.menu-open::before { content: ''; flex: 0 0 100%; height: 0; order: 1; }
+    .bar.bar-fold.menu-open #ctlRole, .bar.bar-fold.menu-open #ctlLang, .bar.bar-fold.menu-open #ctlSimple { order: 2; }
+    .bar.bar-fold.menu-open #dys-font-btn, .bar.bar-fold.menu-open .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { order: 3; }
+    .bar.bar-fold.menu-open #ctlTheme, .bar.bar-fold.menu-open #ctlIndex { order: 4; }
 }
 
 /* Popovers for the role and language controls. The bar is their positioning
