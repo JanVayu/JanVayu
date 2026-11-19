@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606257">
+    <link rel="preload" as="style" href="/styles.css?v=202606258">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -882,10 +882,11 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
    word, a one-line label, a hairline. The tab hangs from the block's top rule
    and names who published the figures, so none is on screen without its source.
    While the reading is loading the block holds the height of the tab and two
-   rows, so the search field under it does not jump when the reading arrives. */
+   rows (214px, a live station's block), so the search field under it stays
+   where it is when a live reading arrives and moves by one row for a bulletin. */
 .hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
 .hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
-.hero-pending .hero-figs-wrap { display: block; min-height: 172px; }
+.hero-pending .hero-figs-wrap { display: block; min-height: 214px; }
 .hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
     font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
 .hero-source-tab[hidden] { display: none; }
@@ -1075,8 +1076,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606257" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606257"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606258" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606258"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1136,7 +1137,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606257" defer></script>
+<script src="/js/chrome.js?v=202606258" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1704,8 +1705,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/js/air-sources.js?v=202606257"></script>
-    <script src="/app.js?v=202606257"></script>
+    <script src="/js/air-sources.js?v=202606258"></script>
+    <script src="/app.js?v=202606258"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

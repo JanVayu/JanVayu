@@ -1190,10 +1190,11 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
    word, a one-line label, a hairline. The tab hangs from the block's top rule
    and names who published the figures, so none is on screen without its source.
    While the reading is loading the block holds the height of the tab and two
-   rows, so the search field under it does not jump when the reading arrives. */
+   rows (214px, a live station's block), so the search field under it stays
+   where it is when a live reading arrives and moves by one row for a bulletin. */
 .hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
 .hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
-.hero-pending .hero-figs-wrap { display: block; min-height: 172px; }
+.hero-pending .hero-figs-wrap { display: block; min-height: 214px; }
 .hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
     font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
 .hero-source-tab[hidden] { display: none; }

@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The daily check of live readings against CPCB failed every day from 13 to 19 November because the newest bulletin in the repository was two days old, so air that had since cleared was set against the older figure. `scripts/audit-live-vs-cpcb.mjs` now compares a city only when its bulletin is dated today or yesterday in India and reports an older one as too old to compare. If no tracked city has a bulletin from today or yesterday the run fails and says the bulletin data is stale, which is the real fault. Five new tests in `test/live-audit.test.mjs`.
 - The CPCB bulletin job's pull requests had no checks to merge on. A pull request opened with the workflow's own token does not start CI, so each one waited for a person and the next run began again from the last merged day. The job now starts CI on its branch itself (`ci.yml` accepts `workflow_dispatch` for this) and asks GitHub to merge the pull request when the checks pass. If the repository does not allow auto-merge it tries a direct merge and, failing that, leaves a warning on the run as before.
 - The Theme button's accessible name now begins with the word on the button ("Theme: switch between light and dark"), on the home page, `/try` and the shared bar. axe-core 4.14 reported the old name as a mismatch with the visible label.
-- `scripts/bump-version.mjs` now stamps `/js/bulletin-explorer.js`, so a version bump no longer puts `/bulletins/` out of step with its builder. Version 26.6.257.
+- `scripts/bump-version.mjs` now stamps `/js/bulletin-explorer.js`, so a version bump no longer puts `/bulletins/` out of step with its builder. Version 26.6.258.
 
 ## [Unreleased] - 2026-11-17
 
