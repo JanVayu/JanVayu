@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606255">
+    <link rel="preload" as="style" href="/styles.css?v=202606256">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -877,7 +877,15 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
    here (app.js removes .hero-pending when the reading is in or has failed), and
    the first line of the card holds the height of the city search that replaces
    the select. Keep in sync with styles.css. */
-.hero-pm25-card > div:first-child { min-height: 29px; }
+.hero-pm25-card > div:first-of-type { min-height: 29px; }
+/* The source of the figure, as a tab hanging from the card's top rule, so no
+   number is on screen without the name of who published it. It sits in the
+   card's 22px top padding; the 6px it adds below is given to the first row
+   while the tab is hidden, so the card does not move when a reading arrives. */
+.hero-source-tab { display: table; margin: -22px 0 8px; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
+    font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
+.hero-source-tab[hidden] { display: none; }
+.hero-source-tab[hidden] + div { margin-top: 6px; }
 @media (max-width: 768px) {
     .hero-pending .hero-band { min-height: 8px; }
     .hero-pending .hero-band-label { min-height: 20px; }
@@ -951,7 +959,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
    its place until then, or on a phone-sized bar the sixth control wraps and
    the bar grows by a row after first paint. */
 .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
-.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -963,6 +971,23 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
 .ctl:hover { background: var(--ink); color: var(--bg); }
 .ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.ctl[hidden] { display: none; }
+/* One row on a phone. Before this the six controls wrapped under the wordmark
+   and the bar stood 165px tall at 390px wide, so a reader met two rows of boxes
+   before the first sentence. Index and language stay in view; More opens the
+   other four on a second row. .bar-fold is added by the inline script under the
+   header, so with no script every control shows, as it did before. */
+#ctlMore { display: none; }
+@media (max-width: 620px) {
+    .bar.bar-fold { column-gap: 8px; }
+    .bar.bar-fold .right { display: contents; }
+    .bar.bar-fold .ctl { padding: 0 11px; }
+    .bar.bar-fold #ctlMore:not([hidden]) { display: inline-flex; }
+    .bar.bar-fold #ctlMore[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
+    .bar.bar-fold:not(.more-open) #ctlRole, .bar.bar-fold:not(.more-open) #ctlSimple,
+    .bar.bar-fold:not(.more-open) #ctlTheme, .bar.bar-fold:not(.more-open) #dys-font-btn { display: none; }
+    .bar.bar-fold:not(.more-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+}
 
 /* Popovers for the role and language controls. The bar is their positioning
    context. Each is a real list of buttons, so both are reachable by keyboard
@@ -1022,8 +1047,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606255" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606255"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606256" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606256"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1083,7 +1108,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606255" defer></script>
+<script src="/js/chrome.js?v=202606256" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1102,11 +1127,17 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <header class="bar container">
         <a class="mark" href="#dashboard" onclick="showPanel('dashboard'); return false;">Jan<span>Vayu</span></a>
         <div class="right" data-dyslexia-slot data-dyslexia-before="#ctlTheme">
-            <button type="button" class="ctl" id="ctlRole" aria-haspopup="true" aria-expanded="false" aria-controls="rolePopover" onclick="toggleRolePopover()"><span id="ctlRoleLabel" data-i18n="ctl_who">Who you are</span></button>
-            <button type="button" class="ctl" id="ctlLang" aria-haspopup="true" aria-expanded="false" aria-controls="langPopover" onclick="toggleLangPopover()"><span id="ctlLangLabel">EN</span></button>
-            <button type="button" class="ctl" id="ctlSimple" aria-pressed="false" onclick="toggleSimpleMode()" data-i18n="ctl_simple">Simple</button>
-            <button type="button" class="ctl" id="ctlTheme" aria-label="Switch between light and dark" onclick="toggleTheme()" data-i18n="ctl_theme">Theme</button>
+            <!-- Index and language stay in view on a phone. The four controls after
+                 More fold behind it below 620px, and only once the script under this
+                 header has run, so a page whose script failed still shows all of them.
+                 More sits directly before what it reveals, so the tab order is the
+                 order on screen. -->
             <button type="button" class="ctl" id="ctlIndex" aria-expanded="false" aria-controls="siteIndex" onclick="openSiteIndex()" data-i18n="ctl_index">Index</button>
+            <button type="button" class="ctl" id="ctlLang" aria-haspopup="true" aria-expanded="false" aria-controls="langPopover" onclick="toggleLangPopover()"><span id="ctlLangLabel">EN</span></button>
+            <button type="button" class="ctl" id="ctlMore" aria-expanded="false" aria-label="More controls" hidden onclick="toggleBarMore()">More</button>
+            <button type="button" class="ctl" id="ctlRole" aria-haspopup="true" aria-expanded="false" aria-controls="rolePopover" onclick="toggleRolePopover()"><span id="ctlRoleLabel" data-i18n="ctl_who">Who you are</span></button>
+            <button type="button" class="ctl" id="ctlSimple" aria-pressed="false" onclick="toggleSimpleMode()" data-i18n="ctl_simple">Simple</button>
+            <button type="button" class="ctl" id="ctlTheme" aria-label="Theme: switch between light and dark" onclick="toggleTheme()" data-i18n="ctl_theme">Theme</button>
         </div>
         <div class="pop" id="rolePopover" hidden>
             <p class="popnote" data-i18n="role_why">Tell us who you are and the answer leads with the part that is about you. Kept on this device, never sent anywhere.</p>
@@ -1116,6 +1147,22 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="popgrid" id="langPopoverGrid"></div>
         </div>
     </header>
+    <script>
+    /* Runs before the rest of the page paints, so the bar is one row on a phone
+       from the first frame. It owns the More control by itself and needs nothing
+       from app.js. */
+    (function () {
+        var bar = document.querySelector('header.bar'), more = document.getElementById('ctlMore');
+        if (!bar || !more) return;
+        bar.classList.add('bar-fold');
+        more.hidden = false;
+        function set(open) { bar.classList.toggle('more-open', open); more.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+        window.toggleBarMore = function () { set(!bar.classList.contains('more-open')); };
+        bar.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && bar.classList.contains('more-open') && !bar.querySelector('.pop:not([hidden])')) { set(false); more.focus(); }
+        });
+    })();
+    </script>
 
     <!-- Everything on the site, on one screen, filterable. The dropdown nav
          reached 59 destinations and /try's own index reached 42; the missing
@@ -1249,6 +1296,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         </div>
                     <div class="hero-data">
                         <div class="hero-pm25-card">
+                            <p class="hero-source-tab" id="hero-source-tab" hidden></p>
                             <div style="display: flex; gap: 6px; margin-bottom: 6px; align-items: stretch;">
                             <select id="hero-city-select" aria-label="Select city for the dashboard" onchange="updateHeroCity(this.value)" style="
                                 font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
@@ -1619,8 +1667,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/js/air-sources.js?v=202606255"></script>
-    <script src="/app.js?v=202606255"></script>
+    <script src="/js/air-sources.js?v=202606256"></script>
+    <script src="/app.js?v=202606256"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>

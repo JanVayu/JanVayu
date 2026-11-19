@@ -708,6 +708,15 @@
         return parseInt(m[3], 10) + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2], 10) - 1];
     }
 
+    // The tab on the reading card. It says who published the figure, in the words
+    // js/air-sources.js already uses for each source, and is hidden when there is no figure.
+    function setHeroSource(text) {
+        const el = document.getElementById('hero-source-tab');
+        if (!el) return;
+        el.textContent = text || '';
+        el.hidden = !text;
+    }
+
     function renderHeroNotLive(r, placeName, spoken) {
         const labelEl = document.getElementById('hero-city-label');
         const pmEl = document.getElementById('delhi-live-pm25');
@@ -727,6 +736,7 @@
         hide(document.getElementById('heroSpread'));
         if (!r) {
             if (labelEl) labelEl.textContent = placeName + ' (no reading)';
+            setHeroSource('');
             if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = grey; }
             if (whoEl) { whoEl.textContent = 'No station has reported here in the last 6 hours'; whoEl.style.color = grey; }
             if (aqiEl) aqiEl.textContent = '--';
@@ -734,27 +744,30 @@
             return;
         }
         if (r.kind === 'daily') {
-            if (labelEl) labelEl.textContent = placeName + ': CPCB daily bulletin, ' + heroDate(r.date);
+            // The tab above the card names the bulletin and its date, so the label is the place alone.
+            if (labelEl) labelEl.textContent = placeName;
+            setHeroSource(r.source + ', ' + heroDate(r.date));
             if (pmEl) { pmEl.textContent = '—'; pmEl.style.color = grey; }
-            if (whoEl) { whoEl.textContent = 'A daily figure, not a live reading'; whoEl.style.color = grey; }
+            if (whoEl) { whoEl.textContent = 'A daily figure for the whole city'; whoEl.style.color = grey; }
             if (aqiEl) aqiEl.textContent = r.aqi + ' (' + r.category + ', CPCB scale)';
-            if (qEl) heroSetText(qEl, 'The latest official figure, not a live reading', 'The latest official figure, not a live reading');
+            if (qEl) { const dailyHead = 'CPCB’s daily bulletin figure for ' + heroDate(r.date); heroSetText(qEl, dailyHead, dailyHead); }
             if (whyEl) heroSetText(whyEl,
                 'No monitor near <strong>' + place + '</strong> has reported in the last 6 hours. CPCB&rsquo;s daily bulletin for <strong>' +
                     escapeHtml(r.city) + '</strong> on ' + heroDate(r.date) + ' gives an AQI of <strong>' + r.aqi + '</strong>, <strong>' +
                     escapeHtml(String(r.category).toLowerCase()) + '</strong>, from ' + r.stations + ' of ' + r.stationsTotal +
                     ' stations. It is a city-wide daily figure, published about a day late, on CPCB&rsquo;s scale.',
                 'No machine near ' + place + ' has reported lately. CPCB’s daily report for ' + escapeHtml(r.city) + ' on ' + heroDate(r.date) +
-                    ' says the air was ' + escapeHtml(String(r.category).toLowerCase()) + '. That is yesterday’s figure, not now.');
+                    ' says the air was ' + escapeHtml(String(r.category).toLowerCase()) + '. That figure is for ' + heroDate(r.date) + '.');
             return;
         }
         // model
         const n = Math.round(r.pm25);
         if (labelEl) labelEl.textContent = placeName + ': modelled estimate';
+        setHeroSource(r.source);
         if (pmEl) { pmEl.textContent = n; pmEl.style.color = grey; }
         if (whoEl) { whoEl.textContent = getWHOMultiple(r.pm25) + 'x WHO guideline (modelled)'; whoEl.style.color = grey; }
         if (aqiEl) aqiEl.textContent = r.aqi != null ? r.aqi + ' (model)' : '--';
-        if (qEl) heroSetText(qEl, 'A model’s estimate, not a measurement', 'A model’s estimate, not a measurement');
+        if (qEl) heroSetText(qEl, 'A computer model’s estimate', 'A computer model’s estimate');
         if (whyEl) heroSetText(whyEl,
             'No monitor near <strong>' + place + '</strong> has reported lately and CPCB&rsquo;s bulletin has no recent figure for it, so this is a computer model&rsquo;s estimate (Open-Meteo, CAMS): <strong>' +
                 n + ' &micro;g/m&sup3;</strong> PM2.5. A model is not a monitor, and it can read far too low in a polluted city.',
@@ -782,6 +795,7 @@
         const data = aqiData[cityKey];
         if (data) {
             const pm25 = measuredPM25(data);
+            setHeroSource(data.live ? 'WAQI' + (data.station ? ': ' + data.station : '') : '');
             if (pm25 === null) {
                 if (pmEl) { pmEl.textContent = '—'; pmEl.style.color = 'var(--text-3)'; }
                 if (whoEl) { whoEl.textContent = 'PM2.5 not reported by this station'; whoEl.style.color = 'var(--text-3)'; }

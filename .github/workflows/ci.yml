@@ -5,6 +5,12 @@ on:
     branches: [main, claude/weekly-factcheck]
   pull_request:
     branches: [main]
+  # So a workflow that opens its own pull request can start these checks on its
+  # branch. A pull request opened with the workflow token does not start them
+  # (GitHub's rule against workflows triggering workflows), which left the daily
+  # CPCB bulletin pull requests open with no checks and nothing to merge on.
+  # workflow_dispatch is the exception to that rule.
+  workflow_dispatch:
 
 # Read-only: this workflow checks the repository and writes nothing back to it.
 permissions:

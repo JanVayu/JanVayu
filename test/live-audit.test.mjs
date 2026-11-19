@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { pm25Band, bulletinBand, compare, trackedCities, BANDS } from '../scripts/audit-live-vs-cpcb.mjs';
+import { pm25Band, bulletinBand, compare, trackedCities, BANDS, istDate, bulletinAgeDays, judgeCity, verdict } from '../scripts/audit-live-vs-cpcb.mjs';
 
 test('CPCB PM2.5 bands at their edges', () => {
   assert.equal(BANDS[pm25Band(30)], 'Good');
@@ -45,4 +45,55 @@ test('a malformed key or a point outside the subcontinent is dropped, not sent',
   const src = "        ok: { name: 'Fine', lat: 12.9, lon: 77.6 },\n        bad_key: { name: 'Bad', lat: 12.9, lon: 77.6 },\n        far: { name: 'Far', lat: 40.7, lon: -74.0 },\n";
   const keys = trackedCities(src).map((c) => c.key);
   assert.deepEqual(keys, ['ok']);
+});
+
+// 13 to 19 November 2026: the audit failed every day because the newest bulletin in the repository
+// was two days old. These hold the rule that replaced that: compare only against a bulletin from
+// today or yesterday in India, and treat "no fresh bulletin anywhere" as the fault.
+const NOON_IST_19_NOV = new Date('2026-11-19T06:30:00Z');
+
+test('the date in India rolls over at 18:30 UTC', () => {
+  assert.equal(istDate(new Date('2026-11-19T18:29:00Z')), '2026-11-19');
+  assert.equal(istDate(new Date('2026-11-19T18:30:00Z')), '2026-11-20');
+  assert.equal(bulletinAgeDays('2026-11-17', NOON_IST_19_NOV), 2);
+  assert.equal(bulletinAgeDays('17 Nov', NOON_IST_19_NOV), null);
+});
+
+test('a bulletin two days old is too old to compare, and the city is not at fault', () => {
+  // Visakhapatnam on 19 November: live 30 µg/m³ (Good) against the 17 November bulletin (Moderate).
+  const r = judgeCity(30, { date: '2026-11-17', category: 'Moderate', aqi: 154 }, NOON_IST_19_NOV);
+  assert.equal(r.state, 'live, bulletin too old to compare');
+  assert.equal(r.problem, null);
+});
+
+test('the same gap against yesterday\'s bulletin is still a fault', () => {
+  const r = judgeCity(30, { date: '2026-11-18', category: 'Moderate', aqi: 154 }, NOON_IST_19_NOV);
+  assert.equal(r.state, 'live');
+  assert.match(r.problem, /2 bands apart/);
+  assert.equal(judgeCity(30, { date: '2026-11-19', category: 'Satisfactory', aqi: 80 }, NOON_IST_19_NOV).problem, null);
+});
+
+test('no city with a fresh bulletin fails the run as stale data, with no city blamed', () => {
+  const rows = [
+    { day: { date: '2026-11-17', category: 'Moderate' }, problems: [] },
+    { day: { date: '2026-11-15', category: 'Satisfactory' }, problems: [] },
+    { day: undefined, problems: [] },
+  ];
+  const v = verdict(rows, NOON_IST_19_NOV);
+  assert.equal(v.stale, true);
+  assert.equal(v.faults, 0);
+  assert.equal(v.newest, '2026-11-17');
+  assert.equal(v.exitCode, 1);
+});
+
+test('one fresh bulletin is enough for the run to pass, and a city fault still fails it', () => {
+  const rows = [
+    { day: { date: '2026-11-18', category: 'Moderate' }, problems: [] },
+    { day: { date: '2026-11-15', category: 'Satisfactory' }, problems: [] },
+  ];
+  assert.equal(verdict(rows, NOON_IST_19_NOV).exitCode, 0);
+  rows[0].problems.push('station 80 km away');
+  const v = verdict(rows, NOON_IST_19_NOV);
+  assert.equal(v.stale, false);
+  assert.equal(v.exitCode, 1);
 });

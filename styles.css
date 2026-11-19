@@ -1185,7 +1185,15 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
    index.html. app.js removes .hero-pending once the reading is in or has
    failed. The first line of the card holds the height of the city search that
    replaces the select. */
-.hero-pm25-card > div:first-child { min-height: 29px; }
+.hero-pm25-card > div:first-of-type { min-height: 29px; }
+/* The source of the figure, as a tab hanging from the card's top rule, so no
+   number is on screen without the name of who published it. It sits in the
+   card's 22px top padding; the 6px it adds below is given to the first row
+   while the tab is hidden, so the card does not move when a reading arrives. */
+.hero-source-tab { display: table; margin: -22px 0 8px; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
+    font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
+.hero-source-tab[hidden] { display: none; }
+.hero-source-tab[hidden] + div { margin-top: 6px; }
 @media (max-width: 768px) {
     .hero-pending .hero-band { min-height: 8px; }
     .hero-pending .hero-band-label { min-height: 20px; }
@@ -3538,7 +3546,7 @@ body.panel-open #panel-container { padding-top: 72px !important; }
    its place until then, or on a phone-sized bar the sixth control wraps and
    the bar grows by a row after first paint. */
 .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
-.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -3550,6 +3558,23 @@ body.panel-open #panel-container { padding-top: 72px !important; }
     font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
 .ctl:hover { background: var(--ink); color: var(--bg); }
 .ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.ctl[hidden] { display: none; }
+/* One row on a phone. Before this the six controls wrapped under the wordmark
+   and the bar stood 165px tall at 390px wide, so a reader met two rows of boxes
+   before the first sentence. Index and language stay in view; More opens the
+   other four on a second row. .bar-fold is added by the inline script under the
+   header, so with no script every control shows, as it did before. */
+#ctlMore { display: none; }
+@media (max-width: 620px) {
+    .bar.bar-fold { column-gap: 8px; }
+    .bar.bar-fold .right { display: contents; }
+    .bar.bar-fold .ctl { padding: 0 11px; }
+    .bar.bar-fold #ctlMore:not([hidden]) { display: inline-flex; }
+    .bar.bar-fold #ctlMore[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
+    .bar.bar-fold:not(.more-open) #ctlRole, .bar.bar-fold:not(.more-open) #ctlSimple,
+    .bar.bar-fold:not(.more-open) #ctlTheme, .bar.bar-fold:not(.more-open) #dys-font-btn { display: none; }
+    .bar.bar-fold:not(.more-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+}
 
 /* Popovers for the role and language controls. The bar is their positioning
    context. Each is a real list of buttons, so both are reachable by keyboard

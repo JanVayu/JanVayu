@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-19
+
+### Changed
+- The bar on the home page is one row on a phone. At 390 pixels wide its six controls wrapped under the wordmark and the bar stood 165 pixels tall; it is 69 now, and the first sentence starts 96 pixels higher. Index and the language control stay in view, and a new More control opens Who you are, Simple, the reading font and Theme on a second row. More sits directly before the four controls it opens, so the keyboard order is the order on screen, and Escape closes it and returns focus to it. The fold is switched on by a small script under the header, so a page whose script failed still shows every control. On wider screens the bar holds the same six controls with Index and language first. Measured at 320, 360, 390, 620, 621 and 1280 pixels: one row closed, no sideways scroll.
+- The reading card carries a tab on its top rule that names the source of the figure: "CPCB daily bulletin, 17 Nov", "WAQI" and the station's name, or "Open-Meteo (CAMS model)". The wording is the source name `js/air-sources.js` already gives each answer. The tab is hidden when there is no figure. The label under the search box no longer repeats the bulletin and its date.
+- The headline over a daily bulletin figure reads "CPCB's daily bulletin figure for 17 Nov", with the date of the bulletin shown. It read "The latest official figure, not a live reading". The lines beside it and the two matching lines on `/try` are reworded the same way, as plain statements of what the figure is.
+
+### Fixed
+- The daily check of live readings against CPCB failed every day from 13 to 19 November because the newest bulletin in the repository was two days old, so air that had since cleared was set against the older figure. `scripts/audit-live-vs-cpcb.mjs` now compares a city only when its bulletin is dated today or yesterday in India and reports an older one as too old to compare. If no tracked city has a bulletin from today or yesterday the run fails and says the bulletin data is stale, which is the real fault. Five new tests in `test/live-audit.test.mjs`.
+- The CPCB bulletin job's pull requests had no checks to merge on. A pull request opened with the workflow's own token does not start CI, so each one waited for a person and the next run began again from the last merged day. The job now starts CI on its branch itself (`ci.yml` accepts `workflow_dispatch` for this) and asks GitHub to merge the pull request when the checks pass. If the repository does not allow auto-merge it tries a direct merge and, failing that, leaves a warning on the run as before.
+- The Theme button's accessible name now begins with the word on the button ("Theme: switch between light and dark"), on the home page, `/try` and the shared bar. axe-core 4.14 reported the old name as a mismatch with the visible label.
+- `scripts/bump-version.mjs` now stamps `/js/bulletin-explorer.js`, so a version bump no longer puts `/bulletins/` out of step with its builder. Version 26.6.256.
+
 ## [Unreleased] - 2026-11-17
 
 ### Added

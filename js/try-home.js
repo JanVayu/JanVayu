@@ -219,7 +219,7 @@
       $('pm').textContent = '—';
       $('pm').style.color = '';
       $('stamp').textContent = r.name + ' · CPCB daily bulletin, ' + r.date;
-      $('verdictText').textContent = 'The latest official figure, not a live reading.';
+      $('verdictText').textContent = 'CPCB\u2019s daily bulletin figure for ' + r.date + '.';
       $('plain').textContent = 'No monitor near ' + r.name + ' has reported in the last 6 hours. CPCB\u2019s bulletin for ' +
         r.city + ' on ' + r.date + ' gives an AQI of ' + r.aqi + ' (' + r.category + ', on CPCB\u2019s scale), from ' +
         r.stations + ' of ' + r.stationsTotal + ' stations. It is a city-wide daily figure published about a day late.';
@@ -228,7 +228,7 @@
     $('pm').textContent = Math.round(r.pm25);
     $('pm').style.color = '';
     $('stamp').textContent = r.name + ' · modelled estimate';
-    $('verdictText').textContent = 'A model\u2019s estimate, not a measurement.';
+    $('verdictText').textContent = 'A computer model\u2019s estimate.';
     $('plain').textContent = 'No monitor near ' + r.name + ' has reported lately and CPCB\u2019s bulletin has no recent figure for it. ' +
       'A computer model (Open-Meteo, CAMS) estimates ' + Math.round(r.pm25) + ' \u00b5g/m\u00b3 of PM2.5 there. ' +
       'A model is not a monitor, and it can read far too low in a polluted city.';

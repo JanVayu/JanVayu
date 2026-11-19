@@ -28,6 +28,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      # To start CI on the branch this job pushes. See the merge step.
+      actions: write
     steps:
       - uses: actions/checkout@v7
 
@@ -97,11 +99,20 @@ jobs:
             exit 0
           fi
           # A pull request opened with the workflow token does not start the repository's
-          # checks, so a person has to approve them before it can merge. Asking for the merge
-          # here means it lands by itself when the repository allows that, and stays open with
-          # a warning when it does not, instead of waiting in silence.
-          if ! gh pr merge "$BRANCH" --squash --delete-branch; then
-            echo "::warning::The pull request for $LAST is open but was not merged. It needs a person to approve its checks and merge it, and CPCB data on the site stops at the last merged day until then."
+          # checks, so until 19 November 2026 each of these sat open with no checks at all
+          # (#508 showed three Netlify checks and none of CI's) and the merge below was
+          # refused every day. The next run then started again from the last merged day.
+          # workflow_dispatch is the one event the workflow token may start, and a check it
+          # produces is recorded against the same commit the pull request points at. So: start
+          # CI on the branch, then ask GitHub to merge when the required checks pass. If the
+          # repository does not allow auto-merge, try a direct merge, and if that is refused
+          # too, say so in the run instead of waiting in silence.
+          gh workflow run ci.yml --ref "$BRANCH" || echo "::warning::CI could not be started on $BRANCH."
+          gh workflow run quality.yml --ref "$BRANCH" || true
+          if gh pr merge "$BRANCH" --auto --squash --delete-branch; then
+            echo "The pull request for $LAST will merge by itself when its checks pass."
+          elif ! gh pr merge "$BRANCH" --squash --delete-branch; then
+            echo "::warning::The pull request for $LAST is open but was not merged. It needs a person to merge it, and CPCB data on the site stops at the last merged day until then. If this repeats, turn on 'Allow auto-merge' in the repository settings."
           fi
 
       # The fetch step is allowed to fail so the days that did parse are still
