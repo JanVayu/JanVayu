@@ -1195,6 +1195,9 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
 .hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
 .hero-pending .hero-figs-wrap { display: block; min-height: 214px; }
+/* A returning reader: the whole block is held at the height it settled at last
+   time (set inline before first paint), so the 214px guess is not needed. */
+.hero-pending .hero-known .hero-figs-wrap { display: none; min-height: 0; }
 .hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
     font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
 .hero-source-tab[hidden] { display: none; }
@@ -1212,8 +1215,10 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-notice { margin: 16px 0 0; max-width: 46ch; padding: 12px 14px; background: var(--ink); color: var(--bg);
     font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; }
 .hero-notice[hidden] { display: none; }
-/* A daily figure has no concentration, so the card does not print an empty one. */
-.hero-pm25-number[hidden], .hero-pm25-unit[hidden] { display: none; }
+/* The figures under the headline carry the reading, so the card prints no second
+   copy of it: its number and unit stay hidden, and its two lines show only when
+   they add something. */
+.hero-pm25-number[hidden], .hero-pm25-unit[hidden], .hero-pm25-who[hidden], .hero-pm25-aqi[hidden] { display: none; }
 @media (max-width: 768px) {
     .hero-pending .hero-band { min-height: 8px; }
     .hero-pending .hero-band-label { min-height: 20px; }

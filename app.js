@@ -751,13 +751,38 @@
         el.hidden = !text;
     }
 
-    // The card's big number is a PM2.5 concentration. A daily bulletin has none, so the
-    // number and its unit are taken off the card for it, not left as an empty row.
-    function heroCardNumber(show) {
+    // The card beside the figures (below them on a phone) is where a reader picks a city
+    // and shares it. It used to print the reading a second time. The figures under the
+    // headline carry the reading now, so the card keeps only what they do not show: its
+    // number and unit stay hidden, and the two lines under them show only when they add
+    // something (a status line, a model's WHO multiple, an AQI the figures leave out).
+    function heroCard(showLine, showAqi) {
         const pmEl = document.getElementById('delhi-live-pm25');
         const unitEl = document.getElementById('hero-pm25-unit');
-        if (pmEl) pmEl.hidden = !show;
-        if (unitEl) unitEl.hidden = !show;
+        const whoEl = document.getElementById('delhi-who-multiple');
+        const aqiRow = document.getElementById('hero-aqi-row');
+        if (pmEl) pmEl.hidden = true;
+        if (unitEl) unitEl.hidden = true;
+        if (whoEl) whoEl.hidden = !showLine;
+        if (aqiRow) aqiRow.hidden = !showAqi;
+    }
+
+    // While the reading loads, the block from the headline to the paragraph holds the
+    // height it settled at on this reader's last visit at this width (an inline script in
+    // index.html sets it before first paint). Once the reading is in, the hold is released
+    // and the new height is remembered, so the search field under it stays where it is.
+    function heroSettled() {
+        const sec = document.getElementById('section-dashboard');
+        if (sec) sec.classList.remove('hero-pending');
+        const box = document.getElementById('heroRead');
+        if (!box) return;
+        box.style.minHeight = '';
+        box.classList.remove('hero-known');
+        const keep = () => {
+            try { localStorage.setItem('janvayu-hero-h', JSON.stringify({ w: window.innerWidth, h: box.offsetHeight })); } catch (e) { /* private mode */ }
+        };
+        const later = () => (window.requestAnimationFrame || setTimeout)(keep);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(later); else later();
     }
 
     function renderHeroNotLive(r, placeName, spoken) {
@@ -771,14 +796,11 @@
         const place = escapeHtml(spoken || placeName || 'that place');
         const grey = 'var(--text-3)';
         heroShowing = { pm25: null, place: placeName, notLive: r, spoken: spoken };
-        // The reading has settled (as a fallback): release the room the page held for it.
-        const heroSection = document.getElementById('section-dashboard');
-        if (heroSection) heroSection.classList.remove('hero-pending');
         if (rowsEl) rowsEl.hidden = true;
         const hide = (el) => { if (el) el.hidden = true; };
         hide(document.getElementById('heroSpread'));
         setHeroNotice('');
-        heroCardNumber(true);
+        heroCard(true, false);
         if (!r) {
             if (labelEl) labelEl.textContent = placeName + ' (no reading)';
             if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = grey; }
@@ -787,13 +809,17 @@
             renderHeroVerdict(null, placeName);
             return;
         }
+        // The reading has settled (as a fallback). Released at the end of this call, once
+        // the figures and the paragraph are in, so the height remembered is the settled one.
+        setTimeout(heroSettled, 0);
         if (r.kind === 'daily') {
             const when = heroDate(r.date);
             const city = escapeHtml(r.city);
             const cat = String(r.category);
             // The card stands apart from the figures (below them on a phone), so it names its own source.
             if (labelEl) labelEl.textContent = placeName + ': CPCB daily bulletin, ' + when;
-            heroCardNumber(false);
+            // The AQI, its category and the stations are the figures; the card repeats none of them.
+            heroCard(false, false);
             if (whoEl) { whoEl.textContent = 'A daily figure for the whole city'; whoEl.style.color = grey; }
             if (aqiEl) aqiEl.textContent = r.aqi + ' (' + cat + ', CPCB scale)';
             // The bulletin and its date are named once, on the tab. The headline says what kind
@@ -818,6 +844,9 @@
         if (pmEl) { pmEl.textContent = n; pmEl.style.color = grey; }
         if (whoEl) { whoEl.textContent = getWHOMultiple(r.pm25) + 'x WHO guideline (modelled)'; whoEl.style.color = grey; }
         if (aqiEl) aqiEl.textContent = r.aqi != null ? r.aqi + ' (model)' : '--';
+        // The estimate is a figure under the headline. The card adds what it is against the
+        // WHO guideline, and the model's AQI where it gives one.
+        heroCard(true, r.aqi != null);
         if (qEl) heroSetText(qEl, 'A computer model’s estimate', 'A computer model’s estimate');
         setHeroFigs([{ n: n, unit: 'µg/m³', label: 'PM2.5, estimated by a model' }]);
         setHeroSource(r.source);
@@ -841,14 +870,16 @@
     function updateHeroCity(cityKey) {
         const cityName = CITIES[cityKey]?.name || cityKey;
         const labelEl = document.getElementById('hero-city-label');
-        if (labelEl) labelEl.textContent = cityName + ' Live PM2.5';
+        if (labelEl) labelEl.textContent = cityName + ': live reading';
         const pmEl = document.getElementById('delhi-live-pm25');
         const whoEl = document.getElementById('delhi-who-multiple');
         const aqiEl = document.getElementById('delhi-live-aqi');
         const data = aqiData[cityKey];
         if (data) {
             const pm25 = measuredPM25(data);
-            heroCardNumber(true);
+            // With a PM2.5 figure the chips under the search field give the WHO multiple, so
+            // the card keeps only the station's AQI. Without one it says why there is none.
+            heroCard(pm25 === null, true);
             setHeroNotice('');
             if (pm25 === null) {
                 if (pmEl) { pmEl.textContent = '—'; pmEl.style.color = 'var(--text-3)'; }
@@ -871,6 +902,7 @@
         // city's live AQI on demand and re-render when it lands.
         if (CITIES[cityKey] && !CITIES[cityKey]._fetching) {
             CITIES[cityKey]._fetching = true;
+            heroCard(true, false);
             if (pmEl) { pmEl.textContent = '…'; pmEl.style.color = 'var(--text-3)'; }
             if (whoEl) { whoEl.textContent = 'Fetching live data…'; whoEl.style.color = 'var(--text-3)'; }
             if (aqiEl) aqiEl.textContent = '…';
@@ -883,6 +915,7 @@
                 }
             }).catch(() => { CITIES[cityKey]._fetching = false; });
         } else if (!CITIES[cityKey]) {
+            heroCard(true, false);
             if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = 'var(--text-3)'; }
             if (whoEl) { whoEl.textContent = 'No data'; whoEl.style.color = 'var(--text-3)'; }
             if (aqiEl) aqiEl.textContent = '--';
@@ -1267,9 +1300,9 @@
         const whoEl = document.getElementById('heroWho');
         if (!qEl || !whyEl || !whoEl) return;
         const place = escapeHtml(placeName || 'that place');
-        // The reading is in, or has failed: the room held for it is no longer needed.
-        const heroSection = document.getElementById('section-dashboard');
-        if (heroSection) heroSection.classList.remove('hero-pending');
+        // The reading is in, or has failed: the room held for it is no longer needed. Released
+        // at the end of this call, once the figures and the paragraph are in.
+        setTimeout(heroSettled, 0);
 
         if (pm25 === null || pm25 === undefined || !isFinite(pm25)) {
             heroShowing = { pm25: null, place: placeName };

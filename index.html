@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606258">
+    <link rel="preload" as="style" href="/styles.css?v=202606259">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -887,6 +887,9 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
 .hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
 .hero-pending .hero-figs-wrap { display: block; min-height: 214px; }
+/* A returning reader: the whole block is held at the height it settled at last
+   time (set inline before first paint), so the 214px guess is not needed. */
+.hero-pending .hero-known .hero-figs-wrap { display: none; min-height: 0; }
 .hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
     font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
 .hero-source-tab[hidden] { display: none; }
@@ -904,8 +907,10 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
 .hero-notice { margin: 16px 0 0; max-width: 46ch; padding: 12px 14px; background: var(--ink); color: var(--bg);
     font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; }
 .hero-notice[hidden] { display: none; }
-/* A daily figure has no concentration, so the card does not print an empty one. */
-.hero-pm25-number[hidden], .hero-pm25-unit[hidden] { display: none; }
+/* The figures under the headline carry the reading, so the card prints no second
+   copy of it: its number and unit stay hidden, and its two lines show only when
+   they add something. */
+.hero-pm25-number[hidden], .hero-pm25-unit[hidden], .hero-pm25-who[hidden], .hero-pm25-aqi[hidden] { display: none; }
 @media (max-width: 768px) {
     .hero-pending .hero-band { min-height: 8px; }
     .hero-pending .hero-band-label { min-height: 20px; }
@@ -1076,8 +1081,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606258" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606258"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606259" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606259"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1137,7 +1142,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606258" defer></script>
+<script src="/js/chrome.js?v=202606259" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1311,6 +1316,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="container">
                 <div class="hero-grid">
                     <div>
+                        <div class="hero-read" id="heroRead"><script>(function(){try{var s=JSON.parse(localStorage.getItem('janvayu-hero-h')||'null'),b=document.currentScript.parentNode;if(s&&s.w===window.innerWidth&&s.h>0&&s.h<1600){b.style.minHeight=s.h+'px';b.classList.add('hero-known');}}catch(e){}})();</script>
                         <h1 class="hero-headline" id="heroQuestion" data-i18n="hero_question" data-simple="What is in the air you are breathing?">What are you breathing, <em>right now</em>?</h1>
                         <!-- The reading, as figures: one number or word a row, a one-line
                              label under it and a hairline between rows. The tab on the
@@ -1322,6 +1328,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         </div>
                         <p class="hero-notice" id="heroNotice" role="note" hidden></p>
                         <p class="hero-sub" id="heroWhy" data-i18n="hero_question_sub">Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 areas, from states down to villages, in 5 languages.</p>
+                        </div>
                         <div class="hero-find">
                             <input id="heroFind" class="hero-find-input" type="text" autocomplete="off" spellcheck="false" placeholder="Your city, ward or village" data-i18n="hero_find_place" data-i18n-attr="aria-label:hero_find_place" aria-label="Your city, ward or village" oninput="heroFindType(this.value)" onkeydown="if(event.key===&apos;Enter&apos;){heroFindEnter();}">
                             <button class="hero-find-btn" id="near-me-btn" onclick="loadNearestAQI()" data-i18n="hero_find_near">Near me</button>
@@ -1392,11 +1399,13 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 </optgroup>
                             </select>
                                 </div>
-                            <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
-                            <div class="hero-pm25-number jv-t-red" id="delhi-live-pm25">--</div>
-                            <div class="hero-pm25-unit" id="hero-pm25-unit">µg/m³</div>
-                            <div class="hero-pm25-who jv-t-red" id="delhi-who-multiple">--x WHO guideline</div>
-                            <div class="hero-pm25-aqi">AQI: <span id="delhi-live-aqi">--</span></div>
+                            <div class="hero-pm25-label" id="hero-city-label">Delhi: live reading</div>
+                            <!-- The reading itself is the figures under the headline. These two stay
+                                 in the markup, hidden, because app.js still writes them. -->
+                            <div class="hero-pm25-number jv-t-red" id="delhi-live-pm25" hidden>--</div>
+                            <div class="hero-pm25-unit" id="hero-pm25-unit" hidden>µg/m³</div>
+                            <div class="hero-pm25-who jv-t-red" id="delhi-who-multiple" hidden>--x WHO guideline</div>
+                            <div class="hero-pm25-aqi" id="hero-aqi-row" hidden>AQI: <span id="delhi-live-aqi">--</span></div>
                             <button onclick="generateAQICard(document.getElementById('hero-city-select').value)" title="Download shareable AQI card" style="
                                 margin-top: 8px; padding: 4px 14px; font-size: 0.7rem; font-weight: 600;
                                 font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.05em;
@@ -1705,8 +1714,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         </div>
     </footer>
 
-    <script src="/js/air-sources.js?v=202606258"></script>
-    <script src="/app.js?v=202606258"></script>
+    <script src="/js/air-sources.js?v=202606259"></script>
+    <script src="/app.js?v=202606259"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
