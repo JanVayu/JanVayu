@@ -22,7 +22,19 @@ It keeps a record and runs no campaign.
 
 ---
 
-## Recent highlights (September 2026)
+## Recent highlights (November 2026)
+
+The live reading now has two sources behind it. On 8 November 2026 WAQI's feeds turned out to be frozen for most Indian cities outside Delhi-NCR, and its lookup by coordinates was returning Delhi stations for cities as far away as Bengaluru. A reading is now shown as live only when a station within 30 km has reported in the last 6 hours. When none has, the site shows CPCB's own daily bulletin for the nearest tracked city, on CPCB's scale, with its date and the number of stations that reported. When there is no recent bulletin either, it shows an Open-Meteo (CAMS) model estimate, labelled as an estimate. A daily figure and a model estimate are never called live, and they never enter the city ranking, the alerts or a share card. The chain is in `js/air-sources.js`.
+
+The home page opens with the reading set out as figures (20 November). Each figure has its own row and label, and a tab above them names the source. On a phone the bar is the wordmark and one Menu control, which opens the six controls.
+
+CPCB's daily AQI bulletin is fetched every day by `.github/workflows/cpcb-bulletins.yml`. On 21 November 2026 the file for this year ran to the bulletin of 20 November, and [janvayu.in/bulletins](https://www.janvayu.in/bulletins/) had a page for each of 319 cities, showing every day of 2026 as a dot chart and a calendar coloured by category, with the share of the city's stations that reported.
+
+[Delhi after Diwali 2026](https://www.janvayu.in/delhi/diwali-2026/) sets out Diwali night and the morning after in sourced charts, and the [Delhi page](https://www.janvayu.in/delhi/) charts this autumn's daily AQI against the autumns of 2019 to 2025.
+
+The WAQI token left the browser on 27 October. It is a Netlify setting now, and the pages reach WAQI through the `waqi-proxy` function. A daily job, `.github/workflows/live-audit.yml`, checks that what the site calls live agrees with CPCB's bulletin for the 33 tracked cities.
+
+## Earlier highlights (September 2026)
 
 Forty-three years of PM2.5 are now on the site for 783 of 785 districts. The figures are annual and seasonal (four seasons), run from 1980 to 2022, and come from [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wang et al., *Earth System Science Data*, 2024; CC BY 4.0). The airshed panel charts them. New Delhi stays flat near 55 µg/m³ through the 1990s, climbs from 1999 and levels off near 90. In winter it rises from about 65 in the 1980s to about 138 in 2013–2022. These decade means match the ones in Hawa Ka Hisab's "Destruction of Delhi" report (51 for the 1980s, 87 for the 2010s), but that report is built on the same LongPMInd data, so the match is a consistency check and not independent confirmation. The series is a reconstruction. It should not be subtracted from the roughly 1 km 2024 satellite layer to show change.
 
@@ -52,13 +64,13 @@ Two new posts: [How to read the JanVayu map](blog/posts/2026-08-09-how-to-read-t
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | **The first screen** | Asks what you are breathing. You enter a city, ward or village, or let it read the nearest station, and it replies with an instruction instead of a number. The headline is the verdict, with the reading, the CPCB band, and the same answer for a child, for asthma or COPD, and for going running. Bands follow the CPCB National AQI PM2.5 24-hour sub-index thresholds (30/60/90/120/250 µg/m³) |
-| 2 | **Ask JanVayu on the homepage** | A question box under the first screen, with nine worked examples, in 10 Indian languages. Answers appear in place with their source named, and default to the place you just searched. `/ask/` keeps conversation history and offers the installable app |
+| 1 | **The first screen** | Asks what you are breathing. You enter a city, ward or village, or press Near me, and the reading is set out as figures under a one-line headline, each with its own label. A tab above the figures names the source: a WAQI station, CPCB's daily bulletin with its date, or the Open-Meteo (CAMS) model. A live station shows its PM2.5 and CPCB's band for that level, with advice under it for five situations (buying groceries, sending a child to school, working outside all day, playing a sport, and being older or having asthma or COPD). A daily bulletin shows its AQI, CPCB's category and how many of the city's stations reported. A model estimate is labelled as an estimate. Bands follow the CPCB National AQI PM2.5 24-hour sub-index thresholds (30/60/90/120/250 µg/m³) |
+| 2 | **Ask JanVayu on the homepage** | A question box under the first screen, with nine worked examples, in 10 languages (English and nine Indian languages). Answers appear in place with their source named, and default to the place you just searched. `/ask/` keeps conversation history and offers the installable app |
 | 3 | **Role-based views** | An optional view for 12 audience roles: parent, student, researcher, policymaker, journalist, citizen, activist, doctor, teacher, NGO, business owner, and woman/caregiver. It is offered from the header switcher and never stands in front of the homepage |
 | 4 | **Simple language mode** | A toggle in the header that switches the whole site to simple language. The choice lasts for the browser session |
 | 5 | **Glossary (Ctrl+K)** | A searchable glossary of air quality terms, opened with Ctrl+K |
-| 6 | **Intro tour** | A guided walkthrough of the main sections for first-time visitors |
-| 7 | **Real-time AQI dashboard** | Live PM2.5 and AQI for 157 Indian cities from WAQI and CPCB, with Beijing, London and Singapore alongside for comparison. 33 cities refresh every 10 minutes, and the rest are fetched when you select them |
+| 6 | **Intro tour** | A guided walkthrough of the main sections. It starts the first time a visitor chooses a role |
+| 7 | **Real-time AQI dashboard** | Live PM2.5 and AQI for 157 Indian cities from WAQI and CPCB, with Beijing, London and Singapore alongside for comparison. 33 cities refresh every 10 minutes, and the rest are fetched when you select them. Since 8 November 2026 a reading counts as live only when a station within 30 km has reported in the last 6 hours. Checked against the live site that day, 5 of the 33 tracked cities had one (Delhi, Gurgaon, Noida, Faridabad and Ghaziabad), and 27 of the other 28 had a figure from CPCB's daily bulletin |
 | 8 | **Interactive AQI map** | A map with station-level AQI markers across India. You can switch on layers from [indianopenmaps.com](https://indianopenmaps.com): live-AQI shading by Lok Sabha constituency ("the air your MP answers for") and by district, assembly-constituency boundaries, and a pollution-sources layer showing landfills, dumpsites, coal mines, CPCB red and orange category industrial parks, and SEZs |
 | 9 | **Health impact research** | Curated evidence from Lancet Countdown 2025, Harvard and IHME studies |
 | 10 | **Economic cost tracker** | The monetised value of premature deaths from outdoor air pollution ($339.4B, 9.5% of GDP; Lancet Countdown 2025), with lost output and healthcare costs shown separately |
@@ -100,6 +112,8 @@ Two new posts: [How to read the JanVayu map](blog/posts/2026-08-09-how-to-read-t
 | 46 | **Annual PM2.5 per village** | Every one of the 584,615 villages has an annual mean PM2.5 from SatPM2.5 V6GL03 (ACAG, Washington University; a CNN over satellite AOD and GEOS-Chem, about 1 km, CC BY 4.0). The ~565-station live network can never offer that: 100% coverage. Villages are coloured by the figure and banded against the WHO guideline (5) and India's NAAQS limit (40). The live estimate stays separate in the popup, because the two cover different timescales, and the card notes that a ~1 km product smooths over very local sources. Not one village meets the WHO guideline, and 63.6% exceed India's own limit of 40 |
 | 47 | **Annual PM2.5 per ward** | Every one of the 68,596 distinct wards has an annual mean PM2.5 from the same SatPM2.5 V6GL03 grid (the 2024 annual mean), on the Boundaries menu of the map. This replaced the earlier per-city Ward Atlas, which covered 142 cities and was retired in v26.6.151. Unlike the live snapshot it can fairly be set beside the heat, tree cover and built-up layers on the same ward. The colour bands are absolute µg/m³ and are the same at every level. Ask JanVayu can use these figures too |
 | 48 | **Airshed decomposition** | "Your airshed, or your town?" 89.2% of the variance in district annual PM2.5 lies between states, and the remainder within them. Pick any of 785 districts to see how the gap between its air and the national median divides into its region and its own local deviation. State medians run from Delhi (92.7 µg/m³) to Ladakh (13.9). The panel makes the case for managing air by airshed, using India's own district figures, and says plainly that the gap names no cause |
+| 49 | **A page for every city in CPCB's bulletin** | [janvayu.in/bulletins](https://www.janvayu.in/bulletins/) shows each day of 2026 for a chosen city as a dot chart and a month-by-month calendar coloured by category, with the share of the city's stations that reported, a filter by prominent pollutant, and tables that count days in each category against the same dates in 2019 to 2025. It gives no average AQI. Built by `scripts/build-bulletin-explorer.py` and rebuilt by the daily CPCB workflow |
+| 50 | **Delhi pages** | [janvayu.in/delhi](https://www.janvayu.in/delhi/) carries this autumn's days by CPCB category and its daily AQI against the autumns of 2019 to 2025. [janvayu.in/delhi/diwali-2026](https://www.janvayu.in/delhi/diwali-2026/) covers Diwali night and the morning after, with every figure typed from a named source in `data/delhi-diwali-2026.json` |
 
 ---
 
@@ -125,7 +139,7 @@ JanVayu is a light site with no front-end framework. Social and news feeds are g
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     Client (Browser)                    │
-│  Single-page HTML app · Chart.js · Leaflet.js · WAQI   │
+│  index.html, styles.css, app.js · Chart.js · Leaflet   │
 └──────────────────────────┬──────────────────────────────┘
                            │
               HTTPS (Netlify CDN)
@@ -136,7 +150,7 @@ JanVayu is a light site with no front-end framework. Social and news feeds are g
 │  Scheduled (cron)              On-demand (API)           │
 │  ┌──────────────────┐   ┌───────────────────────────┐   │
 │  │ scheduled-fetch   │   │ reddit-feed.js            │   │
-│  │ (every 4 hours)   │   │ twitter-feed.js           │   │
+│  │ (every 4 hours)   │   │ waqi-proxy.mjs            │   │
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │
@@ -158,10 +172,10 @@ JanVayu is a light site with no front-end framework. Social and news feeds are g
 
 **Main design choices:**
 
-- The whole front end is one `index.html` with its CSS and JavaScript inline. There is no build step, bundler or framework.
+- The front end is `index.html` with `styles.css`, `app.js`, `games.js` and 19 panel fragments in `panels/` that load on demand. There is no bundler or framework, and the only build command stamps the version (`node scripts/bump-version.mjs`).
 - Social media and news APIs are fetched through Netlify Functions, which avoids browser cross-origin limits and keeps API keys private.
 - A scheduled function fetches all feeds every 4 hours and stores them in Netlify Blobs. The on-demand API functions read from that store, so responses are instant.
-- The browser calls the WAQI API directly every 10 minutes. The token is a free-tier public key.
+- The browser refreshes live readings every 10 minutes through `waqi-proxy`, a Netlify Function that keeps the WAQI token on the server. When no station near a place has reported in the last 6 hours, `js/air-sources.js` falls back to CPCB's daily bulletin (`data/cpcb-latest.json`) and then to an Open-Meteo (CAMS) model estimate from the `air-model` function, and says which one it is showing.
 - A scheduled function runs daily at 8:00 AM IST (2:30 AM UTC), reads subscribers from Blobs, fetches current AQI and sends personalised HTML emails through Resend.
 
 ---
@@ -172,7 +186,13 @@ JanVayu is a light site with no front-end framework. Social and news feeds are g
 |------|-----------|----------|
 | Social/news feed refresh | Every 4 hours | `scheduled-fetch.mjs` (Netlify Scheduled Function) |
 | Daily AQI email digest | Daily at 8:00 AM IST | `daily-digest.mjs` (Netlify Scheduled Function) |
-| Live AQI dashboard refresh | Every 10 minutes | Client-side JavaScript (WAQI API) |
+| Live AQI dashboard refresh | Every 10 minutes | Client-side JavaScript, through the `waqi-proxy` function |
+| Web push alerts | Every 3 hours | `push-send.mjs` (Netlify Scheduled Function) |
+| Uptime and function health | Every 15 minutes | `health-monitor.mjs` (Netlify Scheduled Function) and `function-health.yml` |
+| CPCB daily AQI bulletins | Daily at 12:00 UTC | `cpcb-bulletins.yml` → `scripts/refresh-cpcb-bulletins.py`, then the builders that read the bulletin file |
+| Live readings against CPCB's bulletin | Daily at 06:17 UTC | `live-audit.yml` → `scripts/audit-live-vs-cpcb.mjs` |
+| Ask JanVayu evaluation | Sundays at 20:00 UTC | `ask-eval.yml` → `test/ask-eval/run-eval.mjs` |
+| Link audit | Mondays at 06:00 UTC | `link-audit.yml` |
 | Current-year district air layer | 3rd of each month | `current-year-air.yml` → `scripts/build-current-year-air.py` |
 | Stated figures vs the data | Every push and PR | `guard-site-figures` → `scripts/check-site-figures.py` |
 | Homepage blog list vs the blog | Every push and PR | `scripts/build-blog-index.py --check` |
@@ -182,36 +202,37 @@ JanVayu is a light site with no front-end framework. Social and news feeds are g
 
 ## Project structure
 
+The tree shows the main parts and leaves out most single files.
+
 ```
 JanVayu/
-├── index.html                          # Main website (single-page application)
-├── favicon.svg                         # Site favicon
-├── package.json                        # Node.js dependencies (Netlify Blobs, Resend)
-├── netlify.toml                        # Netlify build & deploy configuration
-├── .gitignore                          # Ignored files (node_modules/, .netlify/)
-├── CNAME                               # Custom domain configuration
-├── README.md                           # This file
-├── CONTRIBUTING.md                     # Contribution guidelines
-├── CODE_OF_CONDUCT.md                  # Community standards
-├── LICENSE                             # MIT (code) + CC BY-NC-SA 4.0 (content)
-├── blog/                               # Blog (Docsify-powered, Markdown posts)
-│   ├── index.html                      # Docsify blog config
-│   ├── _sidebar.md                     # Blog navigation
-│   ├── README.md                       # Blog home page
-│   └── posts/                          # Blog posts (YYYY-MM-DD-slug.md)
-├── downloads/                          # Downloadable reports and datasets
-├── netlify/
-│   └── functions/                      # Netlify serverless functions
-│       ├── scheduled-fetch.mjs         # Cron: fetches all feeds every 4 hours
-│       ├── daily-digest.mjs            # Cron: sends daily AQI email digest
-│       ├── reddit-feed.js              # API: serves cached Reddit posts
-│       ├── twitter-feed.js             # API: retired; it read Nitter, whose public instances are gone, and nothing calls it
-│       ├── news-proxy.js               # API: serves cached news articles
-│       ├── instagram-feed.js           # API: serves cached Instagram posts
-│       ├── feed-status.js              # API: reports feed freshness and health
-│       ├── subscribe.js                # API: manages email subscriptions
-│       └── blob-store.js              # Shared: Netlify Blobs store helper
-└── node_modules/                       # Dependencies (git-ignored)
+├── index.html                  # The home page and the shell the panels load into
+├── styles.css                  # The shared stylesheet, both themes
+├── app.js                      # Routing, data fetching, charts, roles, languages
+├── games.js                    # The seven learning games
+├── sw.js, manifest.json        # Service worker and install manifest
+├── js/                         # air-sources.js (the live, daily, model chain), chrome.js (shared bar and theme),
+│                               #   bulletin-explorer.js, try-home.js, dyslexia-font.js
+├── panels/                     # 19 panel fragments, loaded on demand
+├── ask/                        # Ask JanVayu as an installable app
+├── bulletins/                  # A page for every city in CPCB's daily bulletin
+├── delhi/                      # The Delhi page and delhi/diwali-2026/
+├── pm25/ pm10/ co/ no2/ so2/ o3/   # One page per pollutant (generated)
+├── embed/                      # Embeddable AQI badge and rankings widgets
+├── status/, walkthrough/, workshops/, downloads/, try.html
+├── blog/                       # Blog (Docsify reader, Markdown posts in blog/posts/)
+├── docs/                       # This documentation (Docsify), with docs-hi/, docs-bn/, docs-mr/, docs-ta/
+├── data/                       # Data the site serves: bulletins, boundary tiles, villages, wards, testimonies
+├── assets/, fonts/, gallery/, og/  # Diagrams, vendored scripts, fonts, photographs, preview cards
+├── scripts/                    # Builders (build-*), checks (check-*), fetchers and importers
+├── test/                       # Unit tests (npm test) and the Ask JanVayu evaluation
+├── tests/                      # The colour-contrast gate and its fixtures
+├── netlify/functions/          # 28 serverless functions, the blob-store.js helper, lib/ and data/
+├── netlify.toml                # Build command, headers and redirects
+├── .github/workflows/          # 16 workflows: CI, audits, the daily CPCB fetch, translations
+├── package.json                # Three server-side dependencies (Netlify Blobs, Resend, web-push)
+├── CHANGELOG.md, CONTRIBUTING.md, FORKING.md, SECURITY.md, CITATION.cff
+└── LICENSE                     # MIT (code) + CC BY-NC-SA 4.0 (content)
 ```
 
 ---
@@ -223,11 +244,13 @@ JanVayu/
 | Frontend | Vanilla HTML / CSS / JavaScript | Zero-dependency single-page application |
 | Charts | Chart.js | AQI trends and health data visualizations |
 | Maps | Leaflet.js + OpenStreetMap | Interactive AQI station maps |
-| AQI Data | WAQI API | Real-time air quality from the stations WAQI aggregates for India |
+| AQI Data | WAQI API, through the `waqi-proxy` function | Real-time air quality from the stations WAQI aggregates for India |
+| Daily official AQI | CPCB daily bulletins, parsed by `scripts/fetch-cpcb-bulletin.py` | The figure shown when no station near a place has reported in the last 6 hours, and the bulletin pages |
+| Modelled estimate | Open-Meteo (CAMS), through the `air-model` function | The last resort when there is no station reading and no recent bulletin |
 | Serverless | Netlify Functions | Server-side API proxying and scheduled tasks |
 | Caching | Netlify Blobs | Persistent JSON cache with strong consistency |
 | Email | Resend | Transactional email delivery for daily digests |
-| Hosting | Netlify (auto-deploy from GitHub) | CDN, edge functions, scheduled functions |
+| Hosting | Netlify (builds from GitHub `main`) | CDN, functions, scheduled functions |
 | Domain | janvayu.in | Custom domain via Netlify DNS |
 
 ---
@@ -243,8 +266,9 @@ The following environment variables must be configured in the Netlify dashboard 
 | `BLOB_TOKEN` | Yes | Netlify personal access token for Blob store access |
 | `NETLIFY_SITE_ID` | Yes | Netlify site identifier (used by Blob store and scheduled functions) |
 | `GROQ_API_KEY` | Yes | Groq API key for AI features; runs the `openai/gpt-oss-120b` open model (free at [console.groq.com](https://console.groq.com)). Optional `GROQ_MODEL` overrides the model without a code change. |
+| `WAQI_TOKEN` | Yes | WAQI token for live readings, free from [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/). It is read on the server only. |
 
-> **Note:** The WAQI API token is the `WAQI_TOKEN` environment variable in Netlify. It is not in the repository, and the browser reaches WAQI through `/.netlify/functions/waqi-proxy`. See [environment variables](docs/technical/environment-variables.md).
+> **Note:** The WAQI token is not in the repository, and the browser reaches WAQI through `/.netlify/functions/waqi-proxy`. The optional variables (`YOUTUBE_API_KEY`, `OPENAQ_API_KEY`, `FIRMS_MAP_KEY` and others) are listed in [environment variables](docs/technical/environment-variables.md).
 
 ---
 
@@ -255,6 +279,7 @@ The following environment variables must be configured in the Netlify dashboard 
 - [Node.js](https://nodejs.org/) 22.12 or later
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/) (`npm install -g netlify-cli`)
 - A [Resend](https://resend.com) account (for email digest functionality)
+- A free [WAQI token](https://aqicn.org/data-platform/token/) (for live readings) and a free [Groq](https://console.groq.com) key (for the AI features)
 
 ### Setup
 
@@ -264,9 +289,11 @@ git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
 # Install dependencies
-npm install
+npm ci
 
 # Set environment variables (create a .env file or configure in Netlify CLI)
+export WAQI_TOKEN="your_waqi_token"
+export GROQ_API_KEY="your_groq_api_key"
 export RESEND_API_KEY="your_resend_api_key"
 export RESEND_FROM="your_verified_sender@example.com"
 export BLOB_TOKEN="your_netlify_personal_access_token"
@@ -278,9 +305,11 @@ netlify dev
 
 The site will be available at `http://localhost:8888`. Netlify Dev emulates the serverless functions locally so you can test the full stack.
 
+Run the unit tests with `npm test`, and every gating check CI runs with `bash scripts/run-ci-checks.sh` (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+
 ### Without Netlify Functions
 
-If you only need the front-end (no social feeds or email digests):
+If you only need the front-end (no live readings, social feeds or email digests):
 
 ```bash
 # Serve index.html with any static file server
@@ -289,7 +318,7 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-The AQI dashboard will work without any server-side setup since it calls the WAQI API directly from the browser.
+Live readings will not load this way, because the pages reach WAQI through the `waqi-proxy` function. The pages themselves, the boundary layers of the map and CPCB's daily bulletin figures are static files and still work.
 
 ---
 
@@ -301,8 +330,11 @@ JanVayu integrates public data sources, including:
 |--------|------|--------|
 | [WAQI](https://waqi.info) | Real-time AQI | Free API |
 | [CPCB CAAQMS](https://app.cpcbccr.com/ccr/) | Official AQI | Free |
+| [CPCB daily AQI bulletins](https://cpcb.gov.in/) | The official city AQI for each day, 2015 to 2026. JanVayu parses 2026 from CPCB's PDFs, and 2015 to 2025 comes from the [UrbanEmissions.Info](https://github.com/urbanemissionsinfo/AQI_bulletins) extraction | Free |
+| [XKDR India Air Quality Database](https://airquality.xkdr.org) | Observed hourly station readings (CPCB CAAQM and US Department of State monitors), used for the observed station layer and the weather-normalised trends | Free API key (CC BY 4.0) |
+| [LongPMInd](https://doi.org/10.5194/essd-16-3565-2024) (Wang et al. 2024) | Reconstructed PM2.5 by district, 1980 to 2022 | Open (CC BY 4.0) |
 | [OpenAQ](https://openaq.org) | Hyperlocal CPCB + community stations (My Neighbourhood) | Free API key |
-| [Open-Meteo](https://open-meteo.com/) | 5-day PM2.5 forecast (CAMS) for the Forecast panel | Free, key-less |
+| [Open-Meteo](https://open-meteo.com/) | 5-day PM2.5 forecast (CAMS) for the Forecast panel, the current-year district layer, and the modelled estimate shown when no station or bulletin is available | Free, key-less |
 | [IHME GBD](https://vizhub.healthdata.org/gbd-results/) | Health burden | Free |
 | [Lancet Countdown](https://lancetcountdown.org) | Annual health reports | Open Access |
 | [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Active-fire detection for the Farm Fire Tracker (VIIRS/NOAA-20) | Free API key |
@@ -324,7 +356,9 @@ JanVayu integrates public data sources, including:
 
 Full phased roadmap: **[docs/wiki/Roadmap.md](docs/wiki/Roadmap.md)** · tracked on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues).
 
-**Recently shipped (v26.6.242):** the Delhi government's claim of 211 good-to-moderate days in 2026 is checked against CPCB's own bulletins in [Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them](blog/posts/2026-10-19-delhi-211-days-checked.md): the 2026 count holds to within a day, the years it was compared with are full-year totals, and on the same dates 2026 still leads 2023 by 7 days. The CPCB bulletin layer runs to 19 October and covers 300 cities and 517,157 city-days. Every page now carries a share bar and a preview card, blog posts have static pages a link previewer can read, and figures that were not data (PM2.5 back-calculated from AQI, a demo dataset, synthetic charts) were removed (v26.6.240 to 241). Third-party code on the docs and blog readers is pinned with integrity hashes, Pretext is served from this site, and unit tests now run in CI.
+**Recently shipped (after v26.6.242, up to v26.6.259 on 20 November 2026):** the live reading gained two fallbacks, CPCB's daily bulletin and an Open-Meteo (CAMS) model estimate, after WAQI was found frozen for most cities outside Delhi-NCR on 8 November. A station is accepted only within 30 km and 6 hours, and `live-audit.yml` checks the live figures against CPCB every day. The WAQI token moved to the server (v26.6.246). Alerts, the daily email and the health wording use CPCB's categories on PM2.5 (v26.6.247). The CPCB bulletin is fetched daily, `/bulletins/` has a page for every city in it, and the Delhi page gained season charts and a Diwali 2026 page. The home page opens with the reading as figures, with a tab naming the source, and the bar folds to one Menu control on a phone (v26.6.259).
+
+**Before that (v26.6.242):** the Delhi government's claim of 211 good-to-moderate days in 2026 is checked against CPCB's own bulletins in [Delhi's 211 good-to-moderate days are real progress, and the way they are counted flatters them](blog/posts/2026-10-19-delhi-211-days-checked.md): the 2026 count holds to within a day, the years it was compared with are full-year totals, and on the same dates 2026 still leads 2023 by 7 days. The CPCB bulletin layer runs to 19 October and covers 300 cities and 517,157 city-days. Every page now carries a share bar and a preview card, blog posts have static pages a link previewer can read, and figures that were not data (PM2.5 back-calculated from AQI, a demo dataset, synthetic charts) were removed (v26.6.240 to 241). Third-party code on the docs and blog readers is pinned with integrity hashes, Pretext is served from this site, and unit tests now run in CI.
 
 **Before that (v26.6.235):** every standalone page now loads the shared stylesheet and follows the theme control, and the choice is remembered between pages (v26.6.232). Five of the six pollutant pages printed a random value under a real unit from 26 April to 22 September 2026. They now show the per-pollutant sub-index that WAQI reports, labelled as one, and [Five of our six pollutant pages were printing random numbers](blog/posts/2026-10-02-five-pollutant-pages-random-numbers.md). CPCB's own daily AQI bulletins, 2015 to 2026, cover 297 cities and 507,334 city-days, with the monitor count beside every figure and no trend line, because the number of stations behind each city grew over the period (v26.6.199 to 202). Weather-normalised trends for 44 cities replaced the single Delhi-NCR run as the national view (v26.6.193), and a colour-contrast check now sweeps every page in both themes before a pull request can merge.
 

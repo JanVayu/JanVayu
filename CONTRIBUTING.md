@@ -106,6 +106,7 @@ Thank you for your interest in contributing to JanVayu! This citizen-led archive
 ### Before you push
 
 ```bash
+npm test                        # unit tests in test/
 bash scripts/run-ci-checks.sh
 ```
 
@@ -181,14 +182,16 @@ To develop and test Netlify Functions locally:
    ```
    WAQI_TOKEN=<your-waqi-token>
    ```
+   `.env.example` does not list this variable yet, so add the line yourself.
    The WAQI token is free to obtain from [aqicn.org/data-platform/token/](https://aqicn.org/data-platform/token/). The project's own token is not in the repository, so register your own. Run `netlify dev` rather than a plain static server, because the pages reach WAQI through a Netlify function.
 
 3. **Optional variables** (for Netlify Functions features):
    ```
-   EMAIL_SERVICE_API_KEY=<your-key>
-   NOTIFICATION_SENDER=<sender-email>
+   GROQ_API_KEY=<your-key>
+   RESEND_API_KEY=<your-key>
+   RESEND_FROM=<sender-email>
    ```
-   These are only needed if you are working on email subscription or notification features. They are not required for general frontend development.
+   `GROQ_API_KEY` is needed for the AI features, and the two Resend variables for the email digest. They are not required for general frontend development. The full list is in [docs/technical/environment-variables.md](docs/technical/environment-variables.md).
 
 ### For Production
 

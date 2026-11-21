@@ -25,7 +25,7 @@ If you fork this project, please:
 |------|---------------|
 | `CNAME` | Your custom domain |
 | `netlify.toml` | Your Netlify site config, domain redirects |
-| `.env.example` | Your API keys (WAQI, Groq, Resend) |
+| `.env.example` | Your API keys (Groq, Resend and the rest). `WAQI_TOKEN` is required too and is not listed in the file yet, so add it |
 | `index.html` | Logo, project name, city list, color scheme |
 | `favicon.svg` | Your icon |
 | `og-image.png` | Your social preview image |
@@ -36,9 +36,10 @@ If you fork this project, please:
 
 The WAQI API works globally. To adapt for your country:
 
-1. **`index.html`** — Replace the city list in the hero dropdown, AQI comparison grid, and role configs
-2. **`netlify/functions/air-query.mjs`** — Update the `CITIES` object with your cities' coordinates, `NCAP_CITY_DATA` with your country's clean air programme data, and `getSeasonalContext()` with your local pollution calendar
+1. **`app.js` and `index.html`**: replace the `CITIES` object in `app.js`, and the city list in the hero dropdown, the AQI comparison grid and the role configs in `index.html`
+2. **`netlify/functions/air-query.mjs`**: update the `CITIES` object with your cities' coordinates and `getSeasonalContext()` with your local pollution calendar. The clean air programme data it reads as `NCAP_CITY_DATA` is in `netlify/functions/data/reference-data.json`
 3. **`netlify/functions/anomaly-check.mjs`** — Update the monitored cities and seasonal baselines
+4. CPCB's daily bulletin is specific to India. The fallback in `js/air-sources.js` reads `data/cpcb-latest.json`, which `.github/workflows/cpcb-bulletins.yml` builds from CPCB's PDFs. Replace it with your country's official daily figure, or remove that step and keep the live station and the model estimate
 
 ### Content
 
@@ -52,7 +53,7 @@ The WAQI API works globally. To adapt for your country:
 | Service | Purpose | Cost |
 |---------|---------|------|
 | [WAQI](https://aqicn.org/data-platform/token/) | Real-time AQI | Free |
-| [Groq](https://console.groq.com) | AI features (Llama 3.3 70B) | Free tier |
+| [Groq](https://console.groq.com) | AI features (`openai/gpt-oss-120b` by default, set by `GROQ_MODEL`) | Free tier |
 | [Resend](https://resend.com) | Email digests | Free tier (100/day) |
 | [Netlify](https://netlify.com) | Hosting + Functions | Free tier |
 
@@ -62,9 +63,9 @@ Total cost to run a fork: **$0/month** on free tiers.
 
 JanVayu is deliberately simple to fork:
 
-- **Single HTML file** — no build step, no framework, no bundler
+- **Plain files**: `index.html`, `styles.css`, `app.js`, `games.js` and the fragments in `panels/`, with no framework and no bundler. The only build command stamps the version
 - **Netlify Functions** — serverless, no server to maintain
-- **No database** — Netlify Blobs for caching, sessionStorage for user state
+- **No database**: Netlify Blobs for caching, and the browser's own storage for a visitor's role, language and theme
 - **CDN-hosted libraries** — Chart.js, Leaflet.js loaded from CDN
 
 See [Architecture docs](docs/technical/architecture.md) for the full system design.
