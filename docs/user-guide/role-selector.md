@@ -12,13 +12,11 @@ visitor had to get past a twelve-option picker to reach the reading they had
 come for. It no longer opens by itself. Somebody arriving from a shared link
 sees the live PM2.5 figure straight away, and choosing a role is optional.
 
-The roles are reachable from the header. The role switcher lists all twelve plus
+The roles are reachable from the bar at the top of the page (inside Menu on a
+phone). The role switcher lists all twelve plus
 "Show Everything", whether or not a role has been set. It takes one tap and has
 no intermediate screen, and each role has a one-line description beside it. The
 old full-screen overlay (`#roleOverlay`) has been removed from the code.
-
-A hint points at the switcher once per session for a visitor who has not chosen
-a role.
 
 The twelve roles:
 
@@ -46,9 +44,9 @@ After choosing a role, the visitor sees a curated dashboard with 3 action cards,
 
 ### Role switcher (header)
 
-A role switcher button is always visible in the header, next to the language selector and theme toggle. Before you choose, it shows a generic "Role" label with a user icon. Afterwards it shows the chosen role's Sargam icon and short label (for example "Parent").
+The role switcher is the first control in the bar at the top of the page, before the language control, Simple, the reading font, Theme and Index. Before you choose, it reads "Who you are". Afterwards it shows the chosen role's label (for example "Parent / Family"). On a phone (below 620 pixels wide) the six controls fold behind one Menu control, so the role switcher is one tap further in.
 
-Clicking it opens a dropdown with all 12 roles plus "Show Everything". After your first choice, a brief pulse and a tooltip ("Change your role anytime here") point you to the switcher.
+Clicking it opens a list of all 12 roles plus "Show Everything", with a note that the choice is kept on your device and never sent anywhere.
 
 ### Remembering your role
 

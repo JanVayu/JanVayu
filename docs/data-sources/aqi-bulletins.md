@@ -4,7 +4,7 @@ Every day at 4pm the Central Pollution Control Board (CPCB) publishes an AQI bul
 
 [UrbanEmissions.Info](https://github.com/urbanemissionsinfo/AQI_bulletins) parsed those PDFs into a table. JanVayu condenses that table into the question a citizen can act on: how many days of each official category did my city have in a given year, and how many stations was that figure built from?
 
-The summary covers **300 cities, 2015–2026**, built from 517,157 city-days. 2015 (from 1 May, CPCB's first bulletin) and 2026 (to the last fetch) are marked as partial years, and the share of days actually covered is published beside the mark. The data is in `data/aqi-bulletins.json`.
+The summary covers **300 cities, 2015 to 2026**. With the bulletin of 20 November 2026 it was built from 525,698 city-days, and that figure grows each day. 2015 (from 1 May, CPCB's first bulletin) and 2026 (to the last fetch) are marked as partial years, and the share of days actually covered is published beside the mark. The data is in `data/aqi-bulletins.json`.
 
 ## Why this, when we already have XKDR
 
@@ -15,9 +15,26 @@ The two sources differ in kind, and the bulletins cover the period the other one
 | Unit | one station | one city |
 | Cadence | hourly | daily |
 | Measure | PM2.5 µg/m³ | the official AQI category |
-| Ends | CPCB feed stops **1 Sep 2025** | still published; the UrbanEmissions.Info archive ends **31 Dec 2025** and JanVayu reads 2026 from the same PDFs |
+| Ends | CPCB feed stops **1 Sep 2025** | still published; JanVayu uses the UrbanEmissions.Info archive to **31 Dec 2025** and reads 2026 from the same PDFs itself |
 
 The bulletin PDFs kept coming after the station feed into the XKDR archive stopped. They are also the official figure, not a reconstruction from raw readings. That matters for accountability: it is CPCB's own statement about the city, in writing, on that date.
+
+## How it is kept current
+
+`.github/workflows/cpcb-bulletins.yml` runs every day at 12:00 UTC. `scripts/refresh-cpcb-bulletins.py` fetches any bulletin not yet held (from cpcb.gov.in first, then cpcb.nic.in) and appends whole days to `data/raw/cpcb-bulletins-2026.csv.gz`. The workflow then rebuilds everything that reads that file and opens a pull request:
+
+| File | Built by | What it is |
+|---|---|---|
+| `data/aqi-bulletins.json` | `scripts/build-aqi-bulletins.py` | The days-per-category summary described on this page |
+| `data/cpcb-latest.json` | `scripts/build-cpcb-latest.py` | The last three days of every city in the bulletin. The home page shows it when no station near a place has reported in the last 6 hours |
+| `data/bulletin-explorer/` | `scripts/build-bulletin-explorer.py` | One file per city behind the pages at [/bulletins/](https://www.janvayu.in/bulletins/): every day of 2026, and counts of days in each category for the same dates in 2019 to 2025 |
+| `data/delhi-season.json`, `data/diwali-morning.json` | `scripts/build-delhi-season.py`, `scripts/build-diwali-morning.py` | The Delhi season charts and the home page's Diwali block |
+
+Each builder has a `--check` that CI runs, and `scripts/check-refresh-cpcb.py` fails if a day repeats the day before. That check exists because 18 April 2026 once held 17 April's bulletin a second time.
+
+The 300 cities in the summary are those with at least one year of 180 or more reported days. The bulletin pages count every city in the bulletin, 319 on 20 November 2026.
+
+On 17 November 2026 the UrbanEmissions.Info extraction was found to cover 2026 up to 25 October as well. JanVayu's own parse of 2026 was compared with it, and the two agreed on every shared city-day except 18 April, which was the fault above.
 
 ## What the summary leaves out
 

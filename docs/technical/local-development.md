@@ -17,7 +17,7 @@ git clone https://github.com/JanVayu/JanVayu.git
 cd JanVayu
 
 # 2. Install dependencies
-npm install
+npm ci
 
 # 3. Copy the environment variables template
 cp .env.example .env
@@ -48,7 +48,12 @@ NETLIFY_SITE_ID=your_netlify_site_id
 
 # Required for AI features
 GROQ_API_KEY=your_groq_api_key
+
+# Required for live readings (free at aqicn.org/data-platform/token)
+WAQI_TOKEN=your_waqi_token
 ```
+
+`.env.example` does not list `WAQI_TOKEN` yet, so add the line yourself.
 
 See [Environment Variables](environment-variables.md) for full details on how to obtain each value.
 
@@ -56,7 +61,7 @@ See [Environment Variables](environment-variables.md) for full details on how to
 
 ## Running Without Netlify Functions
 
-If you only need to work on the front-end (AQI dashboard, map, charts), you don't need any environment variables or Netlify setup:
+If you only need to work on the layout, the panels or the static pages, you don't need any environment variables or Netlify setup:
 
 ```bash
 # Serve the HTML file directly
@@ -65,7 +70,7 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-The AQI dashboard and map load their live AQI directly from the WAQI API in the browser, so they work without the functions. Anything that depends on a function (rankings, forecast, fire tracker, social feeds, email digest) will not work without them.
+Live readings do not load this way. Since 27 October 2026 the pages reach WAQI through the `waqi-proxy` function, so a plain static server has no live AQI. The home page falls back to CPCB's daily bulletin, which is a static file (`data/cpcb-latest.json`). Anything else that depends on a function (rankings, the modelled estimate, fire tracker, social feeds, email digest, Ask JanVayu) will not work without `netlify dev`.
 
 ---
 
@@ -84,6 +89,17 @@ netlify functions:invoke feed-status
 
 ---
 
+## Tests and checks
+
+```bash
+npm test                         # unit tests in test/ (node --test)
+bash scripts/run-ci-checks.sh    # every gating check CI runs
+```
+
+`scripts/run-ci-checks.sh` is generated from the workflows by `scripts/list-ci-checks.py`. Most of it finishes in seconds. The contrast gate at the end drives a browser and takes about two minutes.
+
+---
+
 ## Git Hooks
 
 The repo includes Git hooks in `.githooks/`:
@@ -98,7 +114,7 @@ Hooks are enabled automatically via the `npm run prepare` script (which runs `gi
 ```
 Prefix: short description
 
-Allowed prefixes: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore
+Allowed prefixes: Add, Fix, Update, Translate, Docs, Refactor, Test, CI, Chore, Merge
 
 Examples:
 Add: PM10 toggle to city cards

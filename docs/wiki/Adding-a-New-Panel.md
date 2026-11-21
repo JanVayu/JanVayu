@@ -22,19 +22,19 @@ Add a new `<template>` element in `index.html`:
 </template>
 ```
 
-### 2. Add navigation link
+### 2. Add it to the Index
 
-In `<nav class="section-nav">`, add under the appropriate dropdown:
-
-```html
-<button class="nav-dropdown-link" data-panel="your-panel">Your Panel</button>
-```
-
-### 3. Add mobile navigation link
+The Index is how a visitor finds a panel. The Index control in the bar opens a list of every destination, in groups. Add a link under the right group heading inside `#siteIndexGrid` in `index.html`:
 
 ```html
-<button class="mobile-nav-item" data-panel="your-panel">Your Panel</button>
+<a href="#your-panel" data-panel="your-panel" onclick="showPanel('your-panel'); closeSiteIndex(); return false;">Your Panel</a>
 ```
+
+The older dropdown nav (`<nav class="section-nav">` with `.nav-dropdown-link` buttons) and the separate mobile nav (`.mobile-nav-item`) are no longer in the markup of `index.html`. Only some of their CSS remains, so there is nothing to add there.
+
+### 3. Update the destination count
+
+`scripts/check-nav-coverage.py` compares the number of destinations and groups in the Index with the figures stated in `docs/user-guide/overview.md` and `docs/user-guide/role-selector.md`, and fails if a destination loses its route. Update both pages when you add to the Index, then run the check.
 
 ### 4. Add simple language text
 

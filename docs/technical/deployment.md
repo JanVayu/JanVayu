@@ -1,6 +1,6 @@
 # Deployment
 
-JanVayu is deployed on **Netlify** with automatic deploys triggered by every push to the `main` branch on GitHub.
+JanVayu is deployed on **Netlify**, which builds every push to the `main` branch on GitHub.
 
 ---
 
@@ -10,6 +10,8 @@ JanVayu is deployed on **Netlify** with automatic deploys triggered by every pus
 2. Netlify detects the new commit via webhook
 3. Netlify runs the build command (`node scripts/bump-version.mjs`, a version-stamp script; there is no bundler) and deploys, with the repo root as the publish directory
 4. The site goes live at [www.janvayu.in](https://www.janvayu.in)
+
+Step 4 depends on a Netlify setting that is not in this repository. `CLAUDE.md` describes the site as publish-locked, which means a push builds a deploy and the deploy goes live at the next publish window. Check the Netlify dashboard for the current setting before telling anyone that a merged change is live.
 
 The Netlify build status badge in the README reflects the current deploy state.
 
@@ -25,7 +27,7 @@ The Netlify build status badge in the README reflects the current deploy state.
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "24"
 
 [[headers]]
   for = "/*"
@@ -96,4 +98,6 @@ Netlify keeps a full deploy history, so rollbacks are instant.
 - **Deploy status:** Netlify dashboard → Deploys
 - **Function logs:** Netlify dashboard → Functions → Logs
 - **Feed freshness:** `GET /.netlify/functions/feed-status` — returns last update timestamps for all feeds
+- **Uptime:** the public status page at [/status/](https://www.janvayu.in/status/) reads the history that `health-monitor.mjs` records every 15 minutes. `.github/workflows/function-health.yml` probes the site and its functions on the same interval and keeps a "status: outage" issue open while one is down
+- **Live readings:** `.github/workflows/live-audit.yml` compares what the site calls live with CPCB's daily bulletin once a day; a red scheduled run is the alert
 - **Scheduled function logs:** Netlify dashboard → Functions → Scheduled Functions

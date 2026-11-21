@@ -9,7 +9,7 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                     Client (Browser)                    │
-│  HTML + CSS + JS · Chart.js · Leaflet.js · WAQI API    │
+│  HTML + CSS + JS · Chart.js · Leaflet.js               │
 └──────────────────────────┬──────────────────────────────┘
                            │ HTTPS (Netlify CDN)
 ┌──────────────────────────▼──────────────────────────────┐
@@ -18,7 +18,7 @@ JanVayu is a **zero-framework, single-page application** deployed on Netlify wit
 │  Scheduled (cron)              On-demand (API)           │
 │  ┌──────────────────┐   ┌───────────────────────────┐   │
 │  │ scheduled-fetch   │   │ reddit-feed.js            │   │
-│  │ (every 4 hours)   │   │ youtube-feed.js           │   │
+│  │ (every 4 hours)   │   │ waqi-proxy.mjs            │   │
 │  │                   │   │ news-proxy.js             │   │
 │  │ daily-digest      │   │ instagram-feed.js         │   │
 │  │ (8 AM IST daily)  │   │ feed-status.js            │   │
@@ -60,8 +60,11 @@ Social media and news APIs are fetched via Netlify Functions to avoid CORS issue
 ### Blob Caching
 The `scheduled-fetch.mjs` function runs every 4 hours and writes feed data (Reddit, news; Instagram is attempted and normally returns nothing) to Netlify Blobs. When users request feeds, the on-demand functions serve instantly from the cache — eliminating latency and API rate limits.
 
-### Client-Side AQI
-The WAQI API is called directly from the browser every 10 minutes. The token is issued by WAQI under its terms of service and is visible in the client code. This means real-time AQI data works without any server-side infrastructure.
+### Live AQI through a proxy
+The browser asks for live readings every 10 minutes, and since 27 October 2026 every request goes through the `waqi-proxy` function. The WAQI token is the `WAQI_TOKEN` environment variable and is not in the client code. The proxy accepts a station only if it is within 30 km of the place asked about and has reported in the last 6 hours (`netlify/functions/lib/waqi-station.mjs`).
+
+### A fallback chain behind the live reading
+`js/air-sources.js` decides what to say about the air at a place. It tries, in order, a live WAQI station, CPCB's daily bulletin for the nearest tracked city (`data/cpcb-latest.json`, within 50 km and no more than 7 days old) and an Open-Meteo (CAMS) model estimate from the `air-model` function. Each answer carries its kind, source and scale. A daily figure and a model estimate are never returned as live and never enter the city ranking or the alerts.
 
 ### No Framework, No Build Step
 There is no `npm run build`, no Webpack, no React. The only build command is `node scripts/bump-version.mjs`, which stamps the version, and the deploy artefact is otherwise the repository itself. Netlify serves `index.html` from the root.
@@ -74,11 +77,14 @@ There is no `npm run build`, no Webpack, no React. The only build command is `no
 |------|-----------|----------|
 | Social/news feed refresh | Every 4 hours | `scheduled-fetch.mjs` |
 | Daily AQI email digest | 8:00 AM IST daily | `daily-digest.mjs` |
-| Live AQI dashboard | Every 10 minutes | Client-side JS (WAQI API) |
+| Live AQI dashboard | Every 10 minutes | Client-side JS, through `waqi-proxy.mjs` |
 | Anomaly detection | On-demand | `anomaly-check.mjs` |
 | Uptime and function health checks | Every 15 minutes | `health-monitor.mjs` |
 | Web push notifications | Every 3 hours | `push-send.mjs` |
 | Feed health check | Daily | `feed-health.mjs` |
+| CPCB daily AQI bulletins | Daily at 12:00 UTC | `.github/workflows/cpcb-bulletins.yml` (a GitHub Actions workflow, not a function) |
+| Live readings checked against CPCB's bulletin | Daily at 06:17 UTC | `.github/workflows/live-audit.yml` |
+| Current-year district air layer | 3rd of each month, 04:00 UTC | `.github/workflows/current-year-air.yml` |
 
 ---
 
@@ -87,6 +93,9 @@ There is no `npm run build`, no Webpack, no React. The only build command is `no
 ```
 JanVayu/
 ├── index.html                    # SPA shell (plus styles.css, app.js, games.js, panels/)
+├── js/                           # air-sources.js (live, daily, model chain), chrome.js (shared bar)
+├── data/                         # Bulletins, boundary tiles, villages, wards and other served data
+├── scripts/                      # Builders, checks and fetchers (see scripts/README.md)
 ├── favicon.svg
 ├── package.json                  # Node.js deps (Netlify Blobs, Resend, web-push)
 ├── netlify.toml                  # Build & deploy config
@@ -101,6 +110,8 @@ JanVayu/
         ├── twitter-feed.js       # API: retired — read Nitter, whose public instances are gone
         ├── news-proxy.js         # API: cached news articles
         ├── instagram-feed.js     # API: cached Instagram posts
+        ├── waqi-proxy.mjs        # API: the only route from a browser to WAQI
+        ├── air-model.mjs         # API: Open-Meteo (CAMS) estimate, the last fallback
         ├── feed-status.js        # API: feed freshness health check
         ├── subscribe.js          # API: email subscription management
         ├── blob-store.js         # Shared: Blobs store helper
@@ -110,4 +121,4 @@ JanVayu/
         └── anomaly-check.mjs     # AI: PM2.5 spike detection
 ```
 
-This list is not exhaustive: `netlify/functions/` holds 28 function files plus shared `lib/` (for example `waqi-proxy`, `rankings`, `data-api`, `push-send`, `fire-tracker` and `terra-collab`).
+This list is not exhaustive: `netlify/functions/` holds 29 files (28 functions and the shared `blob-store.js` helper) plus `lib/` and `data/`. Others include `rankings`, `data-api`, `push-send`, `fire-tracker` and `terra-collab`.

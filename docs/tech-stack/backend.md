@@ -6,7 +6,7 @@ JanVayu's backend is entirely serverless — 29 Netlify Function files (plus sha
 
 ## Netlify Functions
 
-**Runtime:** Node.js 22
+**Runtime:** Node.js 24 (`NODE_VERSION` in `netlify.toml`; `package.json` asks for 22.12 or later)
 **Module format:** ES Modules (`.mjs`) for AI features, CommonJS (`.js`) for feed proxies
 **Location:** `netlify/functions/`
 
@@ -29,7 +29,7 @@ JanVayu's backend is entirely serverless — 29 Netlify Function files (plus sha
 | `feed-status.js` | On-demand (GET) | Feed freshness health check |
 | `blob-store.js` | Utility (shared) | Netlify Blobs store initialisation |
 
-The table lists the core functions only. Others in `netlify/functions/` include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` and `reference-data`.
+The table lists the core functions only. Others in `netlify/functions/` include `waqi-proxy`, `air-model`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` and `reference-data`.
 
 ### Common Patterns
 
@@ -114,17 +114,20 @@ This ensures feed outages (Reddit rate limits, Nitter downtime) result in slight
 
 ---
 
-## WAQI API (Client-Side)
+## WAQI API (through a proxy)
 
-The World Air Quality Index API is the main live-AQI source called from the browser.
+The World Air Quality Index API is the source of live station readings. Since 27 October 2026 the browser does not call it. Every request goes to the `waqi-proxy` function.
 
-**Token:** issued by WAQI to a registrant under its [terms of service](https://aqicn.org/data-platform/token/); embedded in client JS, so anyone can read it
-**Refresh:** Every 10 minutes via `setInterval`
-**Endpoints used:**
-- `api.waqi.info/feed/{city}/` — single city AQI
-- `api.waqi.info/map/bounds/` — stations within geographic bounds
+**Token:** issued by WAQI to a registrant under its [terms of service](https://aqicn.org/data-platform/token/); held in the `WAQI_TOKEN` environment variable and read through `netlify/functions/lib/waqi-token.mjs`. `scripts/check-no-waqi-token.py` fails the build if a token is committed
+**Refresh:** Every 10 minutes via `setInterval` in the browser
+**Endpoints the proxy calls:**
+- `api.waqi.info/feed/{city}/` for a single city's AQI
+- `api.waqi.info/feed/geo:{lat};{lon}/` for the station nearest a point
+- `api.waqi.info/map/bounds/` for the stations within geographic bounds
 
-**Why client-side:**
-- Real-time data (no caching delay)
-- WAQI requires a valid key for all API access
-- Reduces serverless function invocations
+**What the proxy enforces:**
+- Only city slugs, in-range coordinates and a box no wider than three degrees
+- For a lookup by coordinates, a station within 30 km that has reported in the last 6 hours (`lib/waqi-station.mjs`)
+- No cached errors, and no upstream URL (which carries the token) in an error
+
+When the proxy has no station to offer, `js/air-sources.js` falls back to CPCB's daily bulletin and then to the `air-model` function (Open-Meteo, CAMS).

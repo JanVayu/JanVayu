@@ -8,7 +8,7 @@ This page explains how to share JanVayu's Claude Code workflow with your team or
 
 ### Share the Docs
 
-This documentation is hosted on JanVayu's own site at [`/docs/`](/docs/) — a single-page Docsify shell that reads the markdown directly from the repo. Send the URL to anyone who needs to understand:
+This documentation is hosted on JanVayu's own site at [`/docs/`](/docs/ ':ignore'), a single-page Docsify shell that reads the markdown directly from the repo. Send the URL to anyone who needs to understand:
 - How JanVayu is built
 - How to contribute using Claude Code
 - How to fork JanVayu for another city or domain
@@ -16,7 +16,7 @@ This documentation is hosted on JanVayu's own site at [`/docs/`](/docs/) — a s
 ### Onboard a New Contributor
 
 1. **Clone the repo** — `git clone https://github.com/JanVayu/JanVayu.git`
-2. **Read the docs** — start at [`/docs/`](/docs/), especially:
+2. **Read the docs**: start at [`/docs/`](/docs/ ':ignore'), especially:
    - [Tech Stack Overview](../tech-stack/overview.md)
    - [Architecture](../technical/architecture.md)
    - [Local Development](../technical/local-development.md)
@@ -115,13 +115,13 @@ The English markdown lives in `docs/`. Each translated language lives in `docs-{
 
 | Language | URL | Source Directory |
 |----------|-----|------------------|
-| English (default) | [`/docs/`](/docs/) | `docs/` |
-| Hindi | [`/docs/#/hi/`](/docs/#/hi/) | `docs-hi/` |
-| Bengali | [`/docs/#/bn/`](/docs/#/bn/) | `docs-bn/` |
-| Marathi | [`/docs/#/mr/`](/docs/#/mr/) | `docs-mr/` |
-| Tamil | [`/docs/#/ta/`](/docs/#/ta/) | `docs-ta/` |
+| English (default) | [`/docs/`](/docs/ ':ignore') | `docs/` |
+| Hindi | [`/docs/#/hi/`](/docs/#/hi/ ':ignore') | `docs-hi/` |
+| Bengali | [`/docs/#/bn/`](/docs/#/bn/ ':ignore') | `docs-bn/` |
+| Marathi | [`/docs/#/mr/`](/docs/#/mr/ ':ignore') | `docs-mr/` |
+| Tamil | [`/docs/#/ta/`](/docs/#/ta/ ':ignore') | `docs-ta/` |
 
-The translated trees are refreshed by a CI auto-translate job (`.github/workflows/translations.yml`, which needs a Sarvam API key) and may lag the English docs: 47 of the 65 English pages currently have a translated counterpart in each language.
+The translated trees are refreshed by a CI auto-translate job (`.github/workflows/translations.yml`, which needs a Sarvam API key) and may lag the English docs. On 21 November 2026, of the 74 English Markdown pages, 70 had a Hindi counterpart, 68 a Bengali one, 70 a Marathi one and 71 a Tamil one. Most of the missing ones are dated fact-check reports.
 
 ### Plugins
 

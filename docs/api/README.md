@@ -1,6 +1,6 @@
 # API Reference
 
-JanVayu exposes 12 public endpoints (11 Netlify Functions plus the `/api` open-data entry point; one of them, `/twitter-feed`, is retired). All are publicly accessible and support CORS. They return JSON, except the CSV export, which returns `text/csv`. The repository also contains further functions behind the Open Data API (rankings, reference-data, historical-aqi, community-sensors, status-history) and internal ones.
+This page lists 12 public endpoints (11 Netlify Functions plus the `/api` open-data entry point; one of them, `/twitter-feed`, is retired). Two more that the site's own pages call, `/waqi-proxy` and `/air-model`, are described in [Netlify Functions](../technical/netlify-functions.md). All are publicly accessible and support CORS. They return JSON, except the CSV export, which returns `text/csv`. The repository also contains further functions behind the Open Data API (rankings, reference-data, historical-aqi, community-sensors, status-history) and internal ones.
 
 **Base URL:** `https://www.janvayu.in/.netlify/functions`
 
@@ -8,7 +8,7 @@ JanVayu exposes 12 public endpoints (11 Netlify Functions plus the `/api` open-d
 
 ## Quick Reference
 
-### AI Features (v25.1)
+### AI features (first shipped in v25.1)
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -72,7 +72,7 @@ The manifest points at the underlying JSON endpoints — `rankings`, `reference-
 
 ## OpenAPI Specification
 
-The full OpenAPI 3.1 spec is available at [`openapi.yaml`](openapi.yaml). Import it into Swagger UI, Postman, Insomnia, or any OpenAPI-compatible tool.
+The full OpenAPI 3.1 spec is available at [`openapi.yaml`](https://www.janvayu.in/docs/api/openapi.yaml). Import it into Swagger UI, Postman, Insomnia, or any OpenAPI-compatible tool.
 
 ---
 
@@ -134,5 +134,5 @@ curl https://www.janvayu.in/.netlify/functions/reddit-feed?filter=delhi
 ```bash
 curl -X POST https://www.janvayu.in/.netlify/functions/subscribe \
   -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "cities": ["delhi", "mumbai"]}'
+  -d '{"email": "user@example.com", "cities": ["delhi", "mumbai"], "pm25_threshold": 90}'
 ```

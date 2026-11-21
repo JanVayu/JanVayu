@@ -32,7 +32,7 @@
 
 - **API Reference**
   - [Overview](api/README.md)
-  - [OpenAPI Spec](api/openapi.yaml)
+  - [OpenAPI Spec](api/openapi.yaml ':ignore')
 
 - **Technical Reference**
   - [Architecture](technical/architecture.md)
@@ -49,7 +49,7 @@
   - [Observed Station Data (XKDR)](data-sources/xkdr-air-quality.md)
   - [CREA Measurements API](data-sources/crea-measurements.md)
   - [Was it policy or the wind? 44 cities](data-sources/deweathered-national.md)
-  - [CPCB daily AQI bulletins, 2015-2025](data-sources/aqi-bulletins.md)
+  - [CPCB daily AQI bulletins, 2015 to 2026](data-sources/aqi-bulletins.md)
   - [Boundary Map (every admin level)](data-sources/boundary-map.md)
   - [Health & Mortality Data](data-sources/health-data.md)
   - [Policy & Legal Data](data-sources/policy-data.md)
@@ -72,7 +72,7 @@
   - [Automation](skills/automation.md)
 
 - **Blog**
-  - [JanVayu Blog](/blog/)
+  - [JanVayu Blog](/blog/ ':ignore')
 
 - **About**
   - [Project Background](about/background.md)

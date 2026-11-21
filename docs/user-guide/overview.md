@@ -8,7 +8,7 @@ JanVayu is one web page with 60 destinations, arranged in 8 groups by what you w
 
 | # | Section | What it shows |
 |---|---------|---------------|
-| 1 | **Real-time AQI dashboard** | Live PM2.5 and AQI for 157 Indian cities, plus Beijing, London and Singapore for comparison, from WAQI and CPCB. 33 cities refresh every 10 minutes and the rest load when you select them. It includes cigarette equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges and a card of recommendations for the current AQI band |
+| 1 | **Real-time AQI dashboard** | Live PM2.5 and AQI for 157 Indian cities, plus Beijing, London and Singapore for comparison, from WAQI and CPCB. 33 cities refresh every 10 minutes and the rest load when you select them. When no station within 30 km has reported in the last 6 hours, the page shows CPCB's daily bulletin or a model estimate and says which (see [AQI dashboard](aqi-dashboard.md)). It includes cigarette equivalence (Berkeley Earth: 1 cig ≈ 22 µg/m³·day), disease-risk badges and a card of recommendations for the current AQI band |
 | 2 | **"Near Me" geolocation** | One tap finds the nearest station, using your browser's location |
 | 3 | **Interactive AQI map** | A map with station-level markers, a heatmap toggle, station popups and a historical time slider showing monthly PM2.5 from Jan 2024 to the present |
 | 4 | **City rankings** | Rankings of Indian cities for now, the past 7 days and the past 30 days, which you can sort and search |
@@ -51,6 +51,8 @@ JanVayu is one web page with 60 destinations, arranged in 8 groups by what you w
 | 41 | **Migration comparison** | Compares two cities side by side: live AQI for both, a 7-row table, source apportionment bar charts and a verdict in life-years gained |
 | 42 | **Data source selector** | Explains how CPCB, WAQI, IQAir and Sensor.Community differ, with toggle switches, details of instruments, accuracy and coverage, and a Source Impact Simulator |
 | 43 | **City policy tracker** | An 8-city NCAP target dashboard with expenditure tables, a timeline of government action, a public feedback section and governance questions |
+| 44 | **A page for every city in CPCB's bulletin** | `/bulletins/` shows each day of 2026 for a chosen city as a dot chart and a calendar coloured by CPCB's category, with the share of the city's stations that reported and counts of days in each category for the same dates in 2019 to 2025. It gives no average AQI |
+| 45 | **Delhi pages** | `/delhi/` charts this autumn's daily AQI against the autumns of 2019 to 2025, and `/delhi/diwali-2026/` covers Diwali night and the morning after |
 
 ---
 
