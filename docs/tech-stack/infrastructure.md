@@ -23,7 +23,7 @@ JanVayu runs entirely on Netlify's platform with GitHub as the source of truth. 
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "24"
 ```
 
 ### Security Headers
@@ -50,11 +50,11 @@ Applied to all paths (`/*`), with two exceptions: `/embed/*` sets `X-Frame-Optio
 
 - **Repo:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
 - **Default branch:** `main`
-- **Deploys:** Auto-deploy on push to `main`
+- **Deploys:** Netlify builds every push to `main` (see [Deployment](../technical/deployment.md) for when a build goes live)
 
 ### CI/CD
 
-- **GitHub Actions** (`.github/workflows/`, 14 workflows): `ci.yml` (guards for `index.html`, site figures and Netlify functions, plus the Lychee link checker), `link-audit`, `accessibility`, `lighthouse`, `codeql`, `translations`, `quality` and others
+- **GitHub Actions** (`.github/workflows/`, 16 workflows): `ci.yml` (guards for `index.html`, site figures and Netlify functions, unit tests, plus the Lychee link checker), `link-audit`, `accessibility`, `lighthouse`, `codeql`, `translations`, `quality`, `cpcb-bulletins` (the daily CPCB fetch), `live-audit` (live readings against CPCB), `function-health`, `ask-eval`, `current-year-air` and others
 - **Dependabot** (`dependabot.yml`): Monthly updates for GitHub Actions and npm, with minor and patch bumps grouped
 
 ### Git Hooks (`.githooks/`)

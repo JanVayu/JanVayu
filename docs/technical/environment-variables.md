@@ -10,7 +10,7 @@ All secrets and configuration are managed through environment variables. They ar
 ## Required Variables
 
 ### `RESEND_API_KEY`
-**Used by:** `daily-digest.mjs`
+**Used by:** `daily-digest.mjs`, `health-monitor.mjs`, `workshop-submit.mjs`, `terra-collab.mjs`
 
 Your API key from [Resend](https://resend.com). Required for sending daily email digests to subscribers.
 
@@ -106,7 +106,7 @@ The function runs three search queries per cache refill, and the result is cache
 
 > **Update 2 Oct 2026:** Google's quota page now gives `search.list` its own bucket of 100 calls per day, at 1 unit per call; the separate 10,000 units per day apply to other endpoints ([quota cost reference](https://developers.google.com/youtube/v3/determine_quota_cost)). Three queries per refill therefore use 3 of the 100 daily searches.
 
-**It is read server-side only.** The key lives in the Netlify function and is never sent to the browser, so it does not need to be public like the WAQI token. Do not put it in `index.html`.
+**It is read server-side only.** The key lives in the Netlify function and is never sent to the browser. Do not put it in `index.html`.
 
 **To confirm it is working**, fetch the function and look at `source`:
 
@@ -140,6 +140,9 @@ NETLIFY_SITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 # AI features (Groq, gpt-oss-120b)
 GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Live readings (WAQI), read by waqi-proxy and the functions
+WAQI_TOKEN=your_waqi_token
 
 # Optional: YouTube search for the video feed (free tier, no card)
 YOUTUBE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

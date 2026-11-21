@@ -14,7 +14,7 @@ Tracked in [issue #3](https://github.com/JanVayu/JanVayu/issues/3).
 - Service worker (`sw.js`) caches the shell + last-known AQI.
 - Brotli compression expected via Netlify default (not yet verified; see the curl test below).
 
-> **Update 2 Oct 2026:** The bullets above are the May 2026 record and have moved on. `index.html` is now about 621 KB, with `styles.css` and `app.js` as separate files. Chart.js and Leaflet are no longer loaded at the top of the page: lazy-loading shipped by v26.5.6 (`ensureChartJs()` / `ensureLeaflet()` in `app.js`, with SRI hashes on the lazy-loaded scripts), so the planned refactor in section 1 below is done. The inline CSS is now a critical-CSS subset, with the rest in `/styles.css` (see the [Frontend Stack](../tech-stack/frontend.md)), so the ~85 KB inline block described in section 2 no longer exists.
+> **Update 2 Oct 2026:** The bullets above are the May 2026 record and have moved on. `index.html` is now about 621 KB, with `styles.css` and `app.js` as separate files. Chart.js and Leaflet are no longer loaded at the top of the page: lazy-loading shipped by v26.5.6 (`ensureChartJs()` / `ensureLeaflet()` in `app.js`, with SRI hashes on the lazy-loaded scripts), so the planned refactor in section 1 below is done. The inline CSS is now a critical-CSS subset, with the rest in `/styles.css` (see the [Frontend Stack](../tech-stack/frontend.md)), so the ~85 KB inline block described in section 2 no longer exists. On 21 November 2026 `index.html` is 602,507 bytes, `styles.css` 187,875 and `app.js` 641,719.
 
 ## Lighthouse budget (`.lighthouserc.json`)
 

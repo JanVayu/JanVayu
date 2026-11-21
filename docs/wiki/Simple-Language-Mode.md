@@ -6,7 +6,7 @@ JanVayu contains complex technical content (PM2.5 concentrations, GEMM mortality
 
 ## How It Works
 
-1. **Toggle** — Click the eye icon in the header, or use the toggle in the glossary panel
+1. **Toggle**: click Simple in the bar at the top of the page (inside Menu on a phone), or use the toggle in the glossary panel
 2. **Swap** — All elements with `data-simple` attributes have their content replaced with plain-language versions
 3. **Persist** — State saved to `sessionStorage`, restored on page reload
 4. **Visual indicator** — A green "Simple language" badge appears next to simplified text

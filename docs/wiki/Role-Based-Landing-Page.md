@@ -10,7 +10,7 @@ JanVayu serves diverse audiences — from parents checking if it's safe for thei
 2. **Role selection** — User picks a role from the header role switcher (or chooses "Show Everything")
 3. **Personalized dashboard** — Shows role-specific actions and recommended panels
 4. **Persistent** — Role saved to `localStorage`, restored on return visits
-5. **Switchable** — Role switcher icon in the header (rightmost icon) allows changing anytime
+5. **Switchable**: the role switcher is the first control in the bar ("Who you are", or the chosen role's label) and allows changing anytime. On a phone it sits inside Menu
 
 ---
 

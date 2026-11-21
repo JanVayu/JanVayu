@@ -486,11 +486,13 @@ paths:
                     type: string
                   default: ["delhi"]
                   example: ["delhi", "mumbai"]
-                threshold:
+                pm25_threshold:
                   type: integer
-                  description: AQI threshold for alerts
-                  default: 200
-                  example: 150
+                  description: Alert level in µg/m³ of PM2.5 (CPCB categories). The digest is sent daily either way; the level only changes the alert wording.
+                  minimum: 10
+                  maximum: 500
+                  default: 90
+                  example: 120
                 action:
                   type: string
                   enum: [subscribe, unsubscribe]

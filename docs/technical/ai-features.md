@@ -14,7 +14,7 @@ Ask a plain-language question about a city's air quality and receive a contextua
 
 **How it works:**
 1. User submits a city and a question
-2. The function fetches live AQI and PM2.5 from WAQI for that city
+2. The function fetches live AQI and PM2.5 from WAQI for that city, and accepts a station only if it is within 30 km and has reported in the last 6 hours (`lib/waqi-station.mjs`)
 3. Both the live data and the question are sent to gpt-oss-120b via Groq as a prompt
 4. The model generates a response grounded in the actual reading
 
@@ -55,7 +55,7 @@ Generates a structured brief for local accountability — designed to be used by
 
 ### 4. Anomaly Detection (`anomaly-check.mjs`)
 
-Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) against seasonal baselines. The baselines are hand-entered constants in `anomaly-check.mjs`; a code comment attributes them to CREA/IQAir data without naming a report or year. When a significant spike is detected, gpt-oss-120b via Groq explains the likely causes.
+Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) against seasonal baselines. The baselines are hand-entered constants in `anomaly-check.mjs`. The code comment calls them approximate JanVayu working baselines and says they are not taken from CREA or IQAir, neither of which publishes city-by-season baselines in this form. When a significant spike is detected, gpt-oss-120b via Groq explains the likely causes.
 
 **Seasonal baselines used:**
 
@@ -69,7 +69,7 @@ Monitors AQI for five major cities (Delhi, Mumbai, Kolkata, Chennai, Bengaluru) 
 
 A reading more than 100% above the seasonal baseline (a ratio above 2x) triggers an anomaly alert.
 
-**Gated reference blocks.** Heavy knowledge is sent only when the question is about it, so that the common question stays small. `TOPICAL_REFERENCE` and `METHODOLOGY_REFERENCE` were the first. On 26 Oct 2026 four more were added, each about 300 to 600 tokens: `ABOUT_REFERENCE` (the AIPC origin, so the assistant can answer "who is behind this" without guessing and never claims neutrality), `SECONDARY_REFERENCE` (ammonium sulphate against the 42% state maximum, and Wang et al. on ammonia), `WINTER_PEAKS_REFERENCE` (the timing of Delhi's winter peaks from `data/delhi-weekly.json`, and what the figures cannot say about causes) and `ENSO_REFERENCE` (NOAA's 8 October 2026 outlook and the Yadav, Beig and Kripalani study, with an instruction never to forecast a winter from it). Each is switched on by a detector in `air-query.mjs` (`isAboutQuery` and its siblings). `test/knowledge-gates.test.mjs` pins the detectors on questions they must and must not catch, the token cost of each block, the AIPC wording, and the winter figures against `data/delhi-weekly.json`, so a changed data file fails the test until the block is edited. The ENSO block carries a date and goes stale monthly: update it after each NOAA discussion (next on 12 November 2026) or remove it.
+**Gated reference blocks.** Heavy knowledge is sent only when the question is about it, so that the common question stays small. `TOPICAL_REFERENCE` and `METHODOLOGY_REFERENCE` were the first. On 26 Oct 2026 four more were added, each about 300 to 600 tokens: `ABOUT_REFERENCE` (the AIPC origin, so the assistant can answer "who is behind this" without guessing and never claims neutrality), `SECONDARY_REFERENCE` (ammonium sulphate against the 42% state maximum, and Wang et al. on ammonia), `WINTER_PEAKS_REFERENCE` (the timing of Delhi's winter peaks from `data/delhi-weekly.json`, and what the figures cannot say about causes) and `ENSO_REFERENCE` (NOAA's 8 October 2026 outlook and the Yadav, Beig and Kripalani study, with an instruction never to forecast a winter from it). Each is switched on by a detector in `air-query.mjs` (`isAboutQuery` and its siblings). `test/knowledge-gates.test.mjs` pins the detectors on questions they must and must not catch, the token cost of each block, the AIPC wording, and the winter figures against `data/delhi-weekly.json`, so a changed data file fails the test until the block is edited. The ENSO block carries a date and goes stale monthly: update it after each NOAA discussion (next on 12 November 2026) or remove it. On 21 November 2026 the block in `air-query.mjs` still cited the 8 October outlook, so this update is overdue.
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## City comparison
 
-The city comparison section ranks Indian cities by current AQI in real time. The 33 largest cities refresh every 10 minutes and the others load when you select them. It shows:
+The city comparison section ranks Indian cities by current AQI in real time. The 33 largest cities refresh every 10 minutes and the others load when you select them. A city is ranked only on a live station reading, from a station within 30 km that has reported in the last 6 hours. A figure from CPCB's daily bulletin or from a model never enters the ranking. It shows:
 
 - Live AQI and PM2.5 for each city
 - Colour-coded status (Good / Moderate / Unhealthy / Very Unhealthy / Hazardous)
