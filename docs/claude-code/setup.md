@@ -6,7 +6,7 @@ This page documents the exact configuration used to develop JanVayu with Claude 
 
 ## CLAUDE.md — Project Instructions
 
-JanVayu does not currently use a `CLAUDE.md` file in the repository. Instead, project conventions are enforced through:
+JanVayu has a short `CLAUDE.md` in the repository root. It points to these pages, to `CONTRIBUTING.md` and `FORKING.md`, and to a shared engineering standard in `.claude/engineering-standards.md`. It names the CI checks in `scripts/` and warns about the scheduled workflows that push commits. It does not repeat the conventions, which are enforced through:
 
 1. **Git hooks** (`.githooks/pre-commit` and `.githooks/commit-msg`) — automatically enforce commit message format and block sensitive files
 2. **`.editorconfig`** — standardises indentation and encoding
@@ -15,13 +15,13 @@ JanVayu does not currently use a `CLAUDE.md` file in the repository. Instead, pr
 
 ### Recommended CLAUDE.md for Forks
 
-If you fork JanVayu and want to give Claude Code project-specific instructions, create a `CLAUDE.md` in the repo root:
+If you fork JanVayu and want to give Claude Code project-specific instructions, replace the `CLAUDE.md` in the repo root with your own. A fuller starting point than the one in this repository:
 
 ```markdown
 # CLAUDE.md — JanVayu Project Instructions
 
 ## Architecture
-- Three front-end files: index.html (markup), app.js (logic), styles.css (styling)
+- Front end: index.html (markup), app.js (logic), styles.css (styling), games.js, js/ and panels/
 - No frameworks, no build step, no npm dependencies on the client
 - Netlify Functions for server-side logic (ES modules, .mjs)
 - Netlify Blobs for caching (strong consistency)
@@ -172,6 +172,7 @@ Claude Code inherits the shell environment. For JanVayu:
 ```bash
 # Required
 export GROQ_API_KEY=your_key
+export WAQI_TOKEN=your_token
 export RESEND_API_KEY=your_key
 export NETLIFY_SITE_ID=your_site_id
 

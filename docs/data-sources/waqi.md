@@ -1,6 +1,6 @@
 # Real-time AQI (WAQI)
 
-JanVayu's main source of live AQI readings is the [World Air Quality Index (WAQI)](https://waqi.info) project.
+JanVayu's source of live station readings is the [World Air Quality Index (WAQI)](https://waqi.info) project. Since 8 November 2026 it is the first of three sources, and the page says which one it is showing.
 
 ---
 
@@ -16,7 +16,18 @@ WAQI shows real-time readings from more than 10,000 stations on its map ([waqi.i
 
 ## How JanVayu uses it
 
-Your browser asks WAQI directly for the reading nearest a city, every 10 minutes, using a free public access key. Nothing passes through a JanVayu server. Readings refresh by themselves while the page is open, and the arrangement costs nothing beyond WAQI's free-tier limits.
+Your browser asks for the reading nearest a place every 10 minutes while the page is open. Since 27 October 2026 the request goes to a JanVayu function, `waqi-proxy`, which adds the access key on the server and passes the question to WAQI. The key is not in the pages. Until that date it was, and every visitor's browser held it.
+
+A reading is shown as live only when the station is within 30 km of the place and has reported in the last 6 hours. That rule dates from 8 November 2026, when two faults were found. WAQI's lookup by coordinates was answering with a Delhi station for Bengaluru, Hyderabad, Chennai, Mumbai and other cities. And WAQI's feeds for most Indian cities outside Delhi-NCR were frozen: Bengaluru's last reading was 23 June 2026, and Pune's was 15 November 2021, each still returned as current. Checked against the live site that day, 5 of the 33 tracked cities had a live reading (Delhi, Gurgaon, Noida, Faridabad and Ghaziabad).
+
+## When no station has reported
+
+`js/air-sources.js` tries two more sources, in order, and words each as what it is:
+
+1. CPCB's daily bulletin for the nearest tracked city, within 50 km and no more than 7 days old. It is a figure for the whole city for one day, on CPCB's own AQI scale, shown with its date and the number of stations that reported. See [CPCB daily AQI bulletins](aqi-bulletins.md).
+2. An Open-Meteo (CAMS) model estimate for the exact point, from the `air-model` function. It is a last resort and is labelled as an estimate. On 8 November 2026 it gave Delhi PM2.5 of 106 µg/m³ while Delhi's stations read AQI 335, so it can read far too low in a polluted city.
+
+A daily figure and a model estimate are never called live, never enter the city ranking, the alerts or a share card, and are never averaged with another source.
 
 ---
 
@@ -42,4 +53,4 @@ WAQI coverage in India is strong in the large metros and state capitals. It is t
 - Rural areas
 - The northeast, where CPCB has few stations
 
-Where there is no ground monitor, JanVayu says so and may point to satellite-derived estimates.
+Where no monitor has reported, JanVayu says so and shows the daily bulletin or the model estimate described above. The map's annual layers are satellite-derived estimates and are labelled as such.

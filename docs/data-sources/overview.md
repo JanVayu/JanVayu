@@ -8,10 +8,11 @@ JanVayu draws on a Reading List of public sources and papers. Figures link to th
 
 | Source | Type | Access | Used for |
 |--------|------|--------|---------|
-| [WAQI](https://waqi.info) | Real-time AQI | Free API | Dashboard, map, all city data |
+| [WAQI](https://waqi.info) | Real-time AQI | Free API, reached through the `waqi-proxy` function | Dashboard, map and live city readings, when a station within 30 km has reported in the last 6 hours. See [waqi.md](waqi.md) |
+| [CPCB daily AQI bulletins](https://cpcb.gov.in/) | Official daily AQI by city | Free PDFs, fetched daily | The figure shown when no station has reported, the pages at `/bulletins/`, the Delhi season charts and the days-per-category summary. See [aqi-bulletins.md](aqi-bulletins.md) |
 | [CPCB CAAQMS](https://app.cpcbccr.com/ccr/) | Official AQI | Free web | Verification, official readings |
 | [OpenAQ](https://openaq.org) | Hyperlocal CPCB and community stations | Free API key | My Neighbourhood panel and the chatbot's hyperlocal answers (primary source; Sensor.Community is the fallback) |
-| [Open-Meteo](https://open-meteo.com/) | PM2.5/PM10 forecast (CAMS) | Free, no key | Live 5-day Forecast panel, chatbot "will it be bad tomorrow?" |
+| [Open-Meteo](https://open-meteo.com/) | PM2.5/PM10 forecast (CAMS) | Free, no key | Live 5-day Forecast panel, chatbot "will it be bad tomorrow?", the current-year district layer, and the modelled estimate shown when there is no station reading and no recent bulletin |
 | [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) | Active-fire detection (VIIRS/NOAA-20 NRT) | Free API key | Farm Fire Tracker (stubble burning) |
 | [Sensor.Community](https://sensor.community/) | Low-cost community sensors (data under the Open Data Commons Database Contents License v1.0) | Free | Hyperlocal fallback |
 | [IMD](https://mausam.imd.gov.in) | Meteorological | Free | Reference only (not fetched by the site) |
@@ -79,6 +80,6 @@ Until October 2026 this pointed to a public Zotero group. It had last been edite
 
 ## Citation and attribution
 
-JanVayu links to primary sources. If you reproduce data from JanVayu, cite the original source (Lancet, CPCB and so on), not JanVayu. JanVayu mostly collects and holds institutions to account, but it does produce a few datasets of its own (`deweathered-national.json`, `aqi-bulletins.json` and `station-observed.json`), and they are documented in this folder. For questions about method, go to the original research papers.
+JanVayu links to primary sources. If you reproduce data from JanVayu, cite the original source (Lancet, CPCB and so on), not JanVayu. JanVayu mostly collects and holds institutions to account, but it does produce a few datasets of its own (`deweathered-national.json`, `aqi-bulletins.json`, `station-observed.json`, `delhi-weekly.json` and `current-year-air.json` among them), and they are documented in this folder. For questions about method, go to the original research papers.
 
 **Content licence:** CC BY-NC-SA 4.0. You may share and adapt the content for non-commercial purposes, with attribution and under the same licence.

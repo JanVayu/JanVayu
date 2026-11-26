@@ -35,11 +35,11 @@ These docs are available in 5 languages:
 
 | Language | Link |
 |----------|------|
-| English | [/docs/](/docs/) |
-| हिन्दी (Hindi) | [/docs/#/hi/](/docs/#/hi/) |
-| বাংলা (Bengali) | [/docs/#/bn/](/docs/#/bn/) |
-| मराठी (Marathi) | [/docs/#/mr/](/docs/#/mr/) |
-| தமிழ் (Tamil) | [/docs/#/ta/](/docs/#/ta/) |
+| English | [/docs/](/docs/ ':ignore') |
+| हिन्दी (Hindi) | [/docs/#/hi/](/docs/#/hi/ ':ignore') |
+| বাংলা (Bengali) | [/docs/#/bn/](/docs/#/bn/ ':ignore') |
+| मराठी (Marathi) | [/docs/#/mr/](/docs/#/mr/ ':ignore') |
+| தமிழ் (Tamil) | [/docs/#/ta/](/docs/#/ta/ ':ignore') |
 
 ---
 

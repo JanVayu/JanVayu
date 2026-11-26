@@ -30,6 +30,9 @@ jobs:
       pull-requests: write
       # To start CI on the branch this job pushes. See the merge step.
       actions: write
+      # To read the result of those checks before merging.
+      checks: read
+      statuses: read
     steps:
       - uses: actions/checkout@v7
 
@@ -105,12 +108,25 @@ jobs:
           # workflow_dispatch is the one event the workflow token may start, and a check it
           # produces is recorded against the same commit the pull request points at. So: start
           # CI on the branch, then ask GitHub to merge when the required checks pass. If the
-          # repository does not allow auto-merge, try a direct merge, and if that is refused
+          # repository does not allow auto-merge, wait for the checks and merge directly, and if that is refused
           # too, say so in the run instead of waiting in silence.
           gh workflow run ci.yml --ref "$BRANCH" || echo "::warning::CI could not be started on $BRANCH."
           gh workflow run quality.yml --ref "$BRANCH" || true
           if gh pr merge "$BRANCH" --auto --squash --delete-branch; then
             echo "The pull request for $LAST will merge by itself when its checks pass."
+          else
+            # Auto-merge is a repository setting and it was off on 20 November 2026, so the
+            # direct merge was tried the moment the pull request opened, before any check
+            # had finished, and the branch rule refused it. Wait for the checks this job
+            # started, then merge. The checks need a moment to be recorded against the
+            # commit, and the link check alone takes about six minutes.
+            sleep 45
+            timeout 20m gh pr checks "$BRANCH" --watch --fail-fast --interval 30 || echo "::warning::The checks on $BRANCH did not all pass in 20 minutes."
+          fi
+          if gh pr view "$BRANCH" --json state --jq .state | grep -q MERGED; then
+            echo "Merged."
+          elif gh pr view "$BRANCH" --json autoMergeRequest --jq .autoMergeRequest | grep -q enabledAt; then
+            echo "Waiting on auto-merge."
           elif ! gh pr merge "$BRANCH" --squash --delete-branch; then
             echo "::warning::The pull request for $LAST is open but was not merged. It needs a person to merge it, and CPCB data on the site stops at the last merged day until then. If this repeats, turn on 'Allow auto-merge' in the repository settings."
           fi
