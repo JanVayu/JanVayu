@@ -79,12 +79,15 @@ def load():
         a = season['aligned'][str(y)]
         past.append((y, season['diwali'][str(y)], a['0'], a['1'], a['-1']))
     delhi26 = {}
+    delhi26_st = {}
     with gzip.open(CSV26, 'rt', newline='') as f:
         for r in csv.DictReader(f):
             if r['city'].strip().lower() == 'delhi' and r['date'] >= '2026-11-01':
                 delhi26.setdefault(r['date'], int(r['aqi']))
+                delhi26_st.setdefault(r['date'], (int(r['stations_participated']), int(r['stations_total'])))
     d['_past'] = past
     d['_delhi26'] = delhi26
+    d['_delhi26_st'] = delhi26_st
     return d
 
 
@@ -226,15 +229,16 @@ def chart_next_day(d):
         if b is not None:
             col = '#b91c1c' if (before is not None and b > before) else '#1e5a8a'
             out += f'<circle cx="{X(b):.1f}" cy="{yy}" r="4.6" fill="{col}"/>'
-        elif y == '2026':
-            out += f'<circle cx="{X(a) + 36:.1f}" cy="{yy}" r="4.4" fill="none" stroke="{INK}" stroke-width="1.4" stroke-dasharray="2 2"/>'
-            out += txt(X(a) + 46, yy + 4, 'due after 4 pm', 11.5, INK)
     ly = y0 + len(rows) * 26 + 34
     out += f'<circle cx="20" cy="{ly - 4}" r="4.2" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.8"/>' + txt(30, ly, 'Day before', 12, INK)
     out += f'<circle cx="112" cy="{ly - 4}" r="4.4" fill="{MUTED}"/>' + txt(122, ly, 'Diwali day', 12, INK)
-    out += f'<circle cx="224" cy="{ly - 4}" r="4.6" fill="#b91c1c"/>' + txt(234, ly, 'Day after', 12, INK)
-    out += txt(14, ly + 20, 'In every year from 2019 to 2025 the day after was higher than the day before.', 11, MUTED)
-    return out, (420, ly + 32)
+    out += f'<circle cx="224" cy="{ly - 4}" r="4.6" fill="#b91c1c"/>' + txt(234, ly, 'Day after, higher', 12, INK)
+    out += f'<circle cx="224" cy="{ly + 16}" r="4.6" fill="#1e5a8a"/>' + txt(234, ly + 20, 'Day after, lower', 12, INK)
+    out += txt(14, ly + 40, 'From 2019 to 2025 the day after was higher', 11, MUTED)
+    out += txt(14, ly + 55, 'than the day before. In 2026 it was lower.', 11, MUTED)
+    pa, tot = d['_delhi26_st']['2026-11-09']
+    out += txt(14, ly + 70, f'2026 day after: {pa} of {tot} stations reported.', 11, MUTED)
+    return out, (420, ly + 82)
 
 
 def chart_evening(d):
@@ -337,6 +341,7 @@ def page(d):
     xp = d['x_post_monitors']
     xg = d['x_post_gaps']
     d26_before = d['_delhi26'].get('2026-11-07')
+    st7, st8, st9 = (d['_delhi26_st'][k] for k in ('2026-11-07', '2026-11-08', '2026-11-09'))
     biggest = max(rises, key=rises.get)
     d26 = d['_delhi26']
     top = s['top']
@@ -351,7 +356,7 @@ def page(d):
     t2 = table(['Station', 'Time', 'PM2.5'], [[e(x['station']), t.replace(':00', ':00'), v] for x in night['series'] for t, v in x['points']])
     t3 = table(['Place', 'AQI, 7 a.m.', 'Band'], [[e(n), v, cat(v)] for n, v in d['ncr_7am']['cities']], 1)
     nxt_rows = [[str(y), date.fromisoformat(dd).strftime('%-d %B %Y'), bf, a, c, f'{c - bf:+d}'] for y, dd, a, c, bf in past]
-    nxt_rows.append(['2026', '8 November 2026', d26_before, d26.get(d['diwali_day_2026'], ''), d26.get('2026-11-09', ''), ''])
+    nxt_rows.append(['2026', '8 November 2026', d26_before, d26.get(d['diwali_day_2026'], ''), d26.get('2026-11-09', ''), f"{d26.get('2026-11-09', 0) - d26_before:+d}"])
     t4 = table(['Year', 'Diwali', 'Day before', 'Diwali day', 'Day after', 'Day after minus day before'], nxt_rows)
     ev = ht['evening_15min']
     t5 = table(['Time', 'Saturday 7 November', 'Friday 6 November'],
@@ -387,7 +392,7 @@ def page(d):
   "@type": "Article",
   "headline": "Delhi after Diwali 2026: what the monitors recorded",
   "datePublished": "2026-11-09",
-  "dateModified": "2026-11-09",
+  "dateModified": "2026-11-26",
   "author": {{ "@type": "Organization", "name": "JanVayu" }},
   "publisher": {{ "@type": "Organization", "name": "JanVayu", "logo": {{ "@type": "ImageObject", "url": "https://www.janvayu.in/og-image.png" }} }},
   "mainEntityOfPage": "https://www.janvayu.in/delhi/diwali-2026/",
@@ -406,7 +411,7 @@ def page(d):
   <p class="note"><a href="/delhi/">Delhi this winter</a> › Diwali 2026</p>
   <h1>Delhi after Diwali 2026: what the monitors recorded</h1>
   <p class="lede">By 7 a.m. on Monday 9 November, all {s["stations_valid"]} Delhi stations reporting valid data read above 200 on CPCB’s index, {s["above_300"]} read above 300 and {s["above_400"]} read above 400. The city figure was {s["city_aqi"]}, Very Poor.</p>
-  <p class="asof">Written on 9 November 2026 from press reports of CPCB and DPCC data. CPCB issues each day’s bulletin at 4 pm, so the bulletin for 9 November did not exist when this was written.</p>
+  <p class="asof">Written on 9 November 2026 from press reports of CPCB and DPCC data. CPCB issues each day’s bulletin at 4 pm, so the bulletin for 9 November did not exist when this was written. Updated 26 November 2026: the 9 November bulletin figure is added in the last section.</p>
 
   <div class="facts">
     <div class="fact"><b>{s["above_400"]} of {s["stations_valid"]}</b><span>stations above 400 at 7 a.m.</span></div>
@@ -448,8 +453,8 @@ def page(d):
 
   <h2>The day after, in past years</h2>
   <p>In each of the {len(past)} years from 2019 to 2025, CPCB’s bulletin figure for Delhi was higher on the day after Diwali than on the day before. The gap ran from {min(over_before.values())} points ({min(over_before, key=over_before.get)}) to {max(over_before.values())} ({max(over_before, key=over_before.get)}). Against Diwali day itself it was higher in {len(higher)} of the {len(past)} years, and {abs(rises[lower[0]])} points lower in {", ".join(str(y) for y in lower)}. The bulletin is a 24-hour figure to 4 p.m., so Diwali night falls inside the day-after figure.</p>
-  <p>This year the day before was {d26_before} and Diwali day {d26.get(d["diwali_day_2026"], "not available")}. The figure for 9 November <span id="next-day">is due after 4 pm today and is not estimated here</span>. {src_link(d, "ht")} printed the same comparison with 2015 to 2018 added, and its figures for 2019 to 2025 match the bulletin data used here, cell for cell. The earlier years are not charted because Delhi’s bulletin rested on far fewer stations before 2019.</p>
-  {wrap(ch4, vb4, f"Chart of Delhi's CPCB bulletin AQI on the day before Diwali, Diwali day and the day after, 2019 to 2025. The day after was higher than the day before in every year. For 2026 the day before was {d26_before}, Diwali day {d26.get(d['diwali_day_2026'], '')}, and the day-after figure is still to come.")}
+  <p>This year the day before was {d26_before} and Diwali day {d26.get(d["diwali_day_2026"], "not available")}. The figure for 9 November was {d26.get("2026-11-09")}, Very Poor, which is {d26_before - d26.get("2026-11-09")} points lower than the day before. It is the only year from 2019 to 2026 in which the day after was lower than the day before. CPCB’s bulletin for 9 November rests on {st9[0]} of Delhi’s {st9[1]} stations, against {st7[0]} on 7 November and {st8[0]} on 8 November, so the lower figure may partly reflect the stations that did not report (see the section on the night). The data do not say why. {src_link(d, "ht")} printed the same comparison with 2015 to 2018 added, and its figures for 2019 to 2025 match the bulletin data used here, cell for cell. The earlier years are not charted because Delhi’s bulletin rested on far fewer stations before 2019.</p>
+  {wrap(ch4, vb4, f"Chart of Delhi's CPCB bulletin AQI on the day before Diwali, Diwali day and the day after, 2019 to 2025. The day after was higher than the day before in every year. For 2026 the day before was {d26_before}, Diwali day {d26.get(d['diwali_day_2026'], '')}, and the day after {d26.get('2026-11-09', '')}, lower than the day before and based on {st9[0]} of {st9[1]} stations.")}
   {t4}
   <p class="note">Seven years is a small sample, and Diwali falls on a different date each year, with different weather. This shows what the bulletin recorded and does not say how much of any rise the fireworks caused. Diwali dates are the gazetted public holiday each year, and the table is in <a href="/data/delhi-season.json">data/delhi-season.json</a>.</p>
 
@@ -467,18 +472,6 @@ def page(d):
   <div style="margin-top: 6px;" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</div>
 </footer>
 </main>
-<script>
-(async () => {{
-  const el = document.getElementById('next-day');
-  if (!el) return;
-  try {{
-    const j = await (await fetch('/data/cpcb-latest.json')).json();
-    const days = j && j.cities && j.cities.delhi && j.cities.delhi.days;
-    const day = (days || []).find(x => x.date === '2026-11-09');
-    if (day) el.textContent = 'is ' + day.aqi + ' (' + day.category + ')';
-  }} catch (e) {{}}
-}})();
-</script>
 </body>
 </html>
 '''
@@ -540,6 +533,11 @@ def check():
         errs.append('need seven past years')
     if d['_delhi26'].get(d['diwali_day_2026']) is None:
         errs.append('no 2026 Diwali-day bulletin in the bulletin file')
+    d26c, st26 = d['_delhi26'], d['_delhi26_st']
+    if d26c.get('2026-11-09') is None or any(k not in st26 for k in ('2026-11-07', '2026-11-08', '2026-11-09')):
+        errs.append('the 9 November bulletin (figure and station counts) is missing from the bulletin file')
+    elif not d26c['2026-11-09'] < d26c['2026-11-07'] or any(c <= bf for y, dd, a, c, bf in d['_past']):
+        errs.append('the page says 2026 is the only year the day after was lower than the day before, and the data no longer show that')
     import re
     strip = lambda t: re.sub(r'<!-- share-meta:start -->.*?<!-- share-meta:end -->', '', t, flags=re.S)
     want = page(d)
