@@ -1,137 +1,92 @@
-# API Reference
-
-ஜான்வாயு 12 பொது எண்ட்பாயிண்ட்களை வழங்குகிறது (11 நெட்லிஃபை செயல்பாடுகள் மற்றும் `/api` திறந்த-தரவு நுழைவுப் புள்ளி; அவற்றில் ஒன்று, `/twitter-feed`, நிறுத்தப்பட்டது). இவை அனைத்தும் பொதுவில் அணுகக்கூடியவை மற்றும் CORS-ஐ ஆதரிக்கின்றன. இவை JSON-ஐ திருப்பித் தருகின்றன, CSV ஏற்றுமதியைத் தவிர, இது `text/csv`-ஐ திருப்பித் தருகிறது. களஞ்சியத்தில் திறந்த தரவு API (தரவரிசைகள், குறிப்பு-தரவு, வரலாற்று-AQI, சமூக-சென்சார்கள், நிலை-வரலாறு) மற்றும் உள் செயல்பாடுகளுக்குப் பின்னால் மேலும் பல செயல்பாடுகளும் உள்ளன.
-
-**அடிப்படை URL:** `https://www.janvayu.in/.netlify/functions`
-
+# API குறிப்பு
+இந்த பக்கம் 12 பொது endpoints-களை பட்டியலிடுகிறது (11 Netlify Functions மற்றும் `/api` open-data entry point; அவற்றில் ஒன்று, `/twitter-feed`, தற்போது பயன்பாட்டில் இல்லை). தளத்தின் சொந்த பக்கங்கள் அழைக்கும் மேலும் இரண்டு, `/waqi-proxy` மற்றும் `/air-model`, ஆகியவை [Netlify Functions](../technical/netlify-functions.md) இல் விவரிக்கப்பட்டுள்ளன. இவை அனைத்தும் பொதுவில் அணுகக்கூடியவை மற்றும் CORS-ஐ ஆதரிக்கின்றன. இவை JSON-ஐ திருப்பித் தருகின்றன, CSV export-ஐ தவிர, இது `text/csv`-ஐ திருப்பித் தருகிறது. இந்த repository-யில் Open Data API-க்கு பின்னால் உள்ள மேலும் சில functions (rankings, reference-data, historical-aqi, community-sensors, status-history) மற்றும் internal functions-களும் உள்ளன.
+**Base URL:** `https://www.janvayu.in/.netlify/functions`
 ---
-
 ## விரைவான குறிப்பு
-
-### AI அம்சங்கள் (v25.1)
-
-| Endpoint | Method | Description |
+### AI அம்சங்கள் (முதலில் v25.1 இல் வெளியிடப்பட்டது)
+| Endpoint | Method | விளக்கம் |
 |----------|--------|-------------|
-| `/air-query` | POST | இயற்கை மொழி AQI கேள்வி-பதில் |
+| `/air-query` | POST | இயல் மொழி AQI கேள்வி-பதில் |
 | `/health-advisory` | POST | தனிப்பயனாக்கப்பட்ட சுகாதார ஆலோசனை |
 | `/accountability-brief` | POST | வார்டு அளவிலான நிர்வாக சுருக்கங்கள் |
-| `/anomaly-check` | GET | PM2.5 ஸ்பைக் கண்டறிதல் |
-
-### சமூக ஃபீட்கள்
-
-| Endpoint | Method | Description |
+| `/anomaly-check` | GET | PM2.5 அதிகரிப்பு கண்டறிதல் |
+### சமூக ஊடக ஃபீட்கள்
+| Endpoint | Method | விளக்கம் |
 |----------|--------|-------------|
-| `/reddit-feed` | GET | தற்காலிகமாக சேமிக்கப்பட்ட Reddit பதிவுகள் |
-| `/twitter-feed` | — | **நிறுத்தப்பட்டது.** பொது நிகழ்வுகள் இல்லாத Nitter-ஐப் படிக்கவும்; இந்த எண்ட்பாயிண்ட் இனி பதிலளிக்காது மற்றும் எதுவும் அதை அழைக்காது. |
-| `/youtube-feed` | GET | YouTube சேனல் RSS-லிருந்து தற்காலிகமாக சேமிக்கப்பட்ட இந்திய காற்று தர வீடியோக்கள் |
-| `/news-proxy` | GET | தற்காலிகமாக சேமிக்கப்பட்ட செய்தி கட்டுரைகள் |
-| `/instagram-feed` | GET | தற்காலிகமாக சேமிக்கப்பட்ட Instagram பதிவுகள் |
-
+| `/reddit-feed` | GET | சேமிக்கப்பட்ட Reddit பதிவுகள் |
+| `/twitter-feed` | — | **பயன்பாட்டில் இல்லை.** பொது நிகழ்வுகள் இல்லாத Nitter-ஐ படிக்கவும்; இந்த endpoint இனி பதிலளிக்காது மற்றும் யாரும் இதைப் பயன்படுத்துவதில்லை. |
+| `/youtube-feed` | GET | YouTube சேனல் RSS-லிருந்து சேமிக்கப்பட்ட இந்திய காற்று தர வீடியோக்கள் |
+| `/news-proxy` | GET | சேமிக்கப்பட்ட செய்தி கட்டுரைகள் |
+| `/instagram-feed` | GET | சேமிக்கப்பட்ட Instagram பதிவுகள் |
 ### தளம்
-
-| Endpoint | Method | Description |
+| Endpoint | Method | விளக்கம் |
 |----------|--------|-------------|
 | `/subscribe` | POST | மின்னஞ்சல் சந்தா மேலாண்மை |
-| `/feed-status` | GET | ஃபீட் ஆரோக்கிய கண்காணிப்பு |
-
+| `/feed-status` | GET | ஃபீட் சுகாதார கண்காணிப்பு |
 ### திறந்த தரவு
-
-| Endpoint | Method | Description |
+| Endpoint | Method | விளக்கம் |
 |----------|--------|-------------|
-| `/api` | GET | பதிப்பு தரவு வெளிப்பாடு + CSV ஏற்றுமதி |
-
+| `/api` | GET | பதிப்பு தரவு manifest + CSV export |
 ---
-
-## திறந்த தரவு API
-
-ஜான்வாயு வெளியிடும் தரவுத்தொகுப்புகளுக்கான ஒற்றை, கண்டறியக்கூடிய நுழைவுப் புள்ளி — பத்திரிகையாளர்கள், ஆராய்ச்சியாளர்கள் மற்றும் ஃபோர்க்குகளுக்காக உருவாக்கப்பட்டது. படிக்க மட்டும், CORS-திறந்த, பண்புக்கூறுடன் பயன்படுத்த இலவசம்.
-
-**வெளிப்பாடு (ஒவ்வொரு தரவுத்தொகுப்பு, அதன் அளவுருக்கள், உரிமம் மற்றும் மேற்கோளைப் பட்டியலிடுகிறது):**
-
+## Open Data API
+JanVayu வெளியிடும் தரவுத்தொகுப்புகளுக்கான ஒரே, எளிதில் கண்டறியக்கூடிய entry point — பத்திரிகையாளர்கள், ஆராய்ச்சியாளர்கள் மற்றும் forks-க்காக உருவாக்கப்பட்டது. Read-only, CORS-open, மேற்கோள் காட்டினால் இலவசமாகப் பயன்படுத்தலாம்.
+**Manifest (ஒவ்வொரு தரவுத்தொகுப்பு, அதன் அளவுருக்கள், உரிமம் மற்றும் மேற்கோளை பட்டியலிடுகிறது):**
 ```bash
 curl https://www.janvayu.in/api
 ```
-
-**நேரடி நகர தரவரிசைகளின் CSV ஏற்றுமதி:**
-
+**தற்போதைய நகர தரவரிசைகளின் CSV export:**
 ```bash
-curl "https://www.janvayu.in/api?dataset=rankings&format=csv"          # live
-curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=week" # 7-day average
-curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=month" # 30-day average
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv"          # தற்போதைய நிலை
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=week" # 7-நாள் சராசரி
+curl "https://www.janvayu.in/api?dataset=rankings&format=csv&range=month" # 30-நாள் சராசரி
 ```
-
-`rankings` செயல்பாடு `range=live`, `range=week` மற்றும் `range=month` ஆகியவற்றை புரிந்துகொள்கிறது. வெளிப்பாட்டில் பட்டியலிடப்பட்டுள்ள `7d` மற்றும் `30d` உட்பட வேறு எந்த மதிப்பும் 30-நாள் வரம்பாகக் கருதப்படுகிறது.
-> **தெரிந்த சிக்கல்:** `/api` மேனிஃபெஸ்டில் `range=7d` என்று குறிப்பிடப்பட்டுள்ளது, ஆனால் ரேங்கிங்ஸ் ஃபங்ஷனால் இது அடையாளம் காணப்படுவதில்லை. எனவே இது 7-நாள் சராசரியை அல்லாமல் 30-நாள் சராசரியையே வழங்குகிறது. கோட் சரிசெய்யப்படும் வரை 7-நாள் சராசரியைப் பெற `range=week` என்பதைப் பயன்படுத்தவும்.
-
-மேனிஃபெஸ்ட் அடிப்படை JSON எண்ட்பாயிண்ட்களான — `rankings`, `reference-data` (CPCB ஸ்டேஷன்கள் / NCAP நகரங்கள் / IQAir ஆண்டுதோறும்), `historical-aqi`, `community-sensors`, மற்றும் `status-history` — ஆகியவற்றைக் குறிக்கிறது. இவை தனித்தனியாகவும் அழைக்கப்படலாம்.
-
-**உரிமம்:** தரவு உள்ளடக்கம் CC BY-NC-SA 4.0; கோட் MIT. மேனிஃபெஸ்டின் `citation` ஃபீல்டில் காட்டப்பட்டுள்ளபடி மேற்கோள் காட்டவும்.
-
+`rankings` function `range=live`, `range=week` மற்றும் `range=month` ஆகியவற்றை புரிந்துகொள்கிறது. manifest-இல் பட்டியலிடப்பட்டுள்ள `7d` மற்றும் `30d` உட்பட வேறு எந்த மதிப்பும் 30-நாள் வரம்பாகக் கருதப்படும்.
+> **Known issue:** `/api` manifest-இல் `range=7d` விளம்பரப்படுத்தப்பட்டுள்ளது, ஆனால் rankings function-ஆல் இது அங்கீகரிக்கப்படவில்லை, எனவே இது 7-நாள் சராசரியை அல்லாமல் 30-நாள் சராசரியை வழங்குகிறது. code சரிசெய்யப்படும் வரை 7-நாள் சராசரிக்கு `range=week` என்பதைப் பயன்படுத்தவும்.
+manifest அடிப்படை JSON endpoints-ஐ சுட்டிக்காட்டுகிறது — `rankings`, `reference-data` (CPCB stations / NCAP cities / IQAir annual), `historical-aqi`, `community-sensors`, மற்றும் `status-history` — இவை தனித்தனியாக அழைக்கப்படக்கூடியவை.
+**Licence:** தரவு உள்ளடக்கம் CC BY-NC-SA 4.0; code MIT. manifest-இன் `citation` புலத்தில் காட்டப்பட்டுள்ளபடி மேற்கோள் காட்டவும்.
 ---
-
 ## OpenAPI Specification
-
-முழுமையான OpenAPI 3.1 ஸ்பெக் [`openapi.yaml`](openapi.yaml) இல் கிடைக்கிறது. இதை Swagger UI, Postman, Insomnia அல்லது OpenAPI-க்கு இணக்கமான எந்தவொரு டூலிலும் இம்போர்ட் செய்து பயன்படுத்தலாம்.
-
+முழுமையான OpenAPI 3.1 spec [`openapi.yaml`](https://www.janvayu.in/docs/api/openapi.yaml) இல் கிடைக்கிறது. இதை Swagger UI, Postman, Insomnia அல்லது OpenAPI-க்கு இணக்கமான எந்தவொரு கருவியிலும் import செய்யவும்.
 ---
-
 ## Authentication
-
-ஆதென்டிகேஷன் தேவையில்லை. அனைத்து எண்ட்பாயிண்ட்களும் பொதுவானவை.
-
-- **AI எண்ட்பாயிண்ட்கள்** Groq-இன் ரேட் லிமிட்களைச் சார்ந்துள்ளன
-- **Feed எண்ட்பாயிண்ட்கள்** கேஷிலிருந்து (cache) வழங்கப்படுகின்றன (ஒவ்வொரு 4 மணி நேரத்திற்கும் முன்கூட்டியே பெறப்படும்)
-- **CORS:** அனைத்து ரெஸ்பான்ஸ்களிலும் `Access-Control-Allow-Origin: *`
-
+Authentication தேவையில்லை. அனைத்து endpoints-உம் பொதுவானவை.
+- **AI endpoints** Groq-இன் rate limits-ஐ சார்ந்துள்ளன
+- **Feed endpoints** cache-இலிருந்து சேவை செய்கின்றன (ஒவ்வொரு 4 மணி நேரத்திற்கும் முன்பே fetch செய்யப்படுகிறது)
+- **CORS:** அனைத்து பதில்களிலும் `Access-Control-Allow-Origin: *`
 ---
-
 ## Common Response Patterns
-
 ### Success
-அப்ஸ்ட்ரீம் அல்லது AI தோல்விகளுக்கு எண்ட்பாயிண்ட்கள் HTTP 200-ஐத் தருகின்றன (ஃபால்பேக் பாடியுடன்). ஆனால் தவறான இன்புட்டிற்கு 400, தவறான மெத்தடிற்கு 405, மற்றும் உள் அல்லது அப்ஸ்ட்ரீம் பிழைகளில் 500 அல்லது 502-ஐத் தரும் (உதாரணமாக ரேங்கிங்ஸ் CSV-ஐ உருவாக்க முடியாதபோது `/api` 502-ஐத் தரும்). ஸ்டேட்டஸ் கோட் மற்றும் ரெஸ்பான்ஸ் பாடியைச் சரிபார்க்கவும்.
-
+upstream அல்லது AI தோல்விகளுக்கு endpoints HTTP 200-ஐ வழங்குகின்றன (ஒரு fallback body உடன்), ஆனால் தவறான உள்ளீட்டிற்கு 400, தவறான method-க்கு 405, மற்றும் internal அல்லது upstream பிழைகளில் 500 அல்லது 502-ஐ வழங்குகின்றன (உதாரணமாக rankings CSV-ஐ உருவாக்க முடியாதபோது `/api` 502-ஐ வழங்குகிறது). status code மற்றும் response body-ஐ சரிபார்க்கவும்.
 ### Fallback
-Groq-இல் ரேட் லிமிட் இருந்தால் AI எண்ட்பாயிண்ட்கள் மூல தரவை (AI பகுப்பாய்வு இல்லாமல்) வழங்கும். லைவ் ஃபெட்ச்கள் தோல்வியடைந்தால் Feed எண்ட்பாயிண்ட்கள் பழைய கேஷை வழங்கும்.
-
+Groq rate-limited ஆக இருந்தால் AI endpoints மூலத் தரவை (AI பகுப்பாய்வு இல்லாமல்) வழங்குகின்றன. live fetches தோல்வியுற்றால் Feed endpoints பழைய cache-ஐ வழங்குகின்றன.
 ### CORS Preflight
-அனைத்து POST எண்ட்பாயிண்ட்களும் 204 No Content உடன் OPTIONS கோரிக்கைகளைக் கையாளுகின்றன.
-
+அனைத்து POST endpoints-உம் 204 No Content உடன் OPTIONS கோரிக்கைகளைக் கையாளுகின்றன.
 ---
-
 ## Example Requests
-
-### காற்றுத் தரம் பற்றி கேட்க
-
+### Ask about air quality
 ```bash
 curl -X POST https://www.janvayu.in/.netlify/functions/air-query \
   -H "Content-Type: application/json" \
   -d '{"city": "delhi", "question": "Is it safe to go for a run today?"}'
 ```
-
-### சுகாதார ஆலோசனையைப் பெற
-
+### Get health advisory
 ```bash
 curl -X POST https://www.janvayu.in/.netlify/functions/health-advisory \
   -H "Content-Type: application/json" \
   -d '{"city": "mumbai", "age": 35, "conditions": ["asthma"], "hoursOutdoor": 3}'
 ```
-
-### முரண்பாடுகளைச் சரிபார்க்க
-
+### Check anomalies
 ```bash
 curl https://www.janvayu.in/.netlify/functions/anomaly-check
 ```
-
-### Reddit ஃபீடைப் பெற
-
+### Get Reddit feed
 ```bash
 curl https://www.janvayu.in/.netlify/functions/reddit-feed?filter=delhi
 ```
-
-### டைஜஸ்ட்டிற்கு சந்தா செலுத்த
-
+>
+### சுருக்கத்திற்கு சந்தா செலுத்துங்கள்
 ```bash
 curl -X POST https://www.janvayu.in/.netlify/functions/subscribe \
   -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "cities": ["delhi", "mumbai"]}'
+  -d '{"email": "user@example.com", "cities": ["delhi", "mumbai"], "pm25_threshold": 90}'
 ```
