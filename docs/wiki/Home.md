@@ -4,7 +4,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 
 **Website:** [janvayu.in](https://www.janvayu.in) · **Repository:** [GitHub](https://github.com/JanVayu/JanVayu) · **Contact:** contribute@janvayu.in
 
-> 🔎 **Every figure is checked against its source, in two layers.** *Continuously*: the build recomputes every figure the site states from the underlying data and fails on drift, and refuses any claim JanVayu has publicly retracted — in English and in all four translations. *Periodically*: a deeper audit web-verifies each statistic and calculator constant against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA) and opens a review PR. That deeper audit ran weekly through July 2026 and is not on a schedule now; `scripts/check-factcheck-freshness.py` fails the build if it goes more than four months without running. Latest findings: [`docs/fact-check-2026-07-27.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-07-27.md).
+> **Every figure is checked against its source, in two layers.** *Continuously*: the build recomputes every figure the site states from the underlying data and fails on drift, and refuses any claim JanVayu has publicly retracted, in English and in all four translations. *Periodically*: a deeper audit web-verifies each statistic and calculator constant against current primary sources (Lancet Countdown, IQAir, AQLI, State of Global Air, WHO, CPCB, CREA, NASA) and opens a review PR. That deeper audit ran weekly through July 2026 and is not on a schedule now; `scripts/check-factcheck-freshness.py` fails the build if it goes more than four months without running. Later rounds were run by hand on 8 September, 2 October, 25 October and 26 October 2026. Latest findings: [`docs/fact-check-2026-10-26.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/fact-check-2026-10-26.md).
 
 ---
 
@@ -31,6 +31,14 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 **JanVayu** (जनवायु — "People's Air") is a citizen-led initiative documenting India's air quality crisis through real-time data, health research, policy tracking, and public testimony.
 
 ### What's New (v26.6.x)
+
+**v26.6.246 to 259: two more sources behind the live reading, and CPCB's bulletin every day (27 October to 20 November 2026)**
+- The WAQI token left the browser (v26.6.246). The pages reach WAQI through the `waqi-proxy` function, and a reading counts as live only when a station within 30 km has reported in the last 6 hours.
+- When no station has reported, the site shows CPCB's own daily bulletin for the city, and failing that an Open-Meteo (CAMS) model estimate. Each is worded as what it is, and neither enters the ranking, the alerts or a share card. This followed 8 November, when WAQI's feeds proved frozen for most cities outside Delhi-NCR and Near me returned a Delhi station for Bengaluru.
+- CPCB's bulletin is fetched daily by a GitHub workflow, and `/bulletins/` has a page for every city in it. A second workflow checks each day that what the site calls live agrees with CPCB.
+- Alerts, the daily email and the health wording use CPCB's categories on PM2.5 (v26.6.247).
+- The Delhi page gained charts of this autumn against the autumns of 2019 to 2025, and `/delhi/diwali-2026/` covers Diwali night and the morning after.
+- The home page opens with the reading set out as figures, with a tab naming the source, and on a phone the bar is the wordmark and one Menu control (v26.6.259).
 
 **v26.6.171–175 — Your airshed, 43 years of PM2.5, and the corrections that had not travelled (5–8 Sep 2026)**
 - New panel, **"Your airshed, or your town?"**: across 785 districts, **89.2%** of the variance in annual PM2.5 sits *between* states rather than within them. State medians run Delhi 92.7 down to Ladakh 13.9. It states its own limit: a district below its state median is not thereby well governed, and the figure names no cause.
@@ -206,7 +214,7 @@ Welcome to the JanVayu technical wiki — the comprehensive documentation for In
 - **64%** of funds utilised under NCAP and the 15th Finance Commission were spent on road dust mitigation (CSE analysis, data as of 3 May 2024); CREA's 2026 progress report puts road dust at 68% and finds 51 of 100 cities met the first target
 - **8.6%** all-cause mortality rise per +10 µg/m³ — Jaganathan et al. 2024, *Lancet Planetary Health*
 - 160 cities monitored in real time (157 Indian, plus Beijing, London and Singapore), plus Sensor.Community community sensors (the count varies)
-- About 58 content panels across 7 navigation groups
+- 60 destinations in 8 groups in the site's Index
 - 5 languages (EN, HI, TA, MR, BN)
 
 ---

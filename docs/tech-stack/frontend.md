@@ -4,8 +4,8 @@
 
 The frontend is vanilla HTML, CSS and JavaScript with no build step and no
 bundler. It is **not** a single file, and this page said it was for long
-enough to mislead somebody: `index.html` is about 6,600 lines, `styles.css` about
-3,700, `app.js` about 10,000, and there are 19 panel fragments in `panels/`
+enough to mislead somebody: `index.html` is about 6,500 lines, `styles.css` about
+3,800, `app.js` about 10,200, and there are 19 panel fragments in `panels/`
 loaded into the page at runtime.
 
 ### The shape of it
@@ -16,10 +16,12 @@ loaded into the page at runtime.
 | `styles.css` | The design system. Every token, both themes, and the shared components (`.bar`, `.ctl`, `.card`, `.container`) |
 | `app.js` | Panel routing, data fetching, charts, the role and language machinery |
 | `js/chrome.js` | The theme preference and a cut-down bar for the pages that are not the SPA |
+| `js/air-sources.js` | The one place that decides what to say about the air at a place: a live WAQI station, then CPCB's daily bulletin, then a model estimate, each labelled |
 | `panels/*.html` | Fragments injected into `index.html`; they inherit its styling |
-| 18 standalone pages | `/pm25/`, `/try.html`, `/docs/`, `/blog/`, `/ask/`, the walkthrough, the embeds, and the rest |
+| Standalone pages | `/pm25/`, `/try.html`, `/docs/`, `/blog/`, `/ask/`, `/bulletins/`, `/delhi/`, the walkthrough, the embeds, the generated blog post pages and the rest |
 
-**All 19 standalone documents load `styles.css`.** That was not true until
+**Every standalone page loads `styles.css`.** `scripts/check-design-system.py`
+counted 78 of them on 21 November 2026 (19 when the rule was introduced). That was not true until
 2026-09-22: each carried a private `<style>` block redefining the same token
 names with fixed light-theme literals, so a token change reached one page and
 none of the others followed the theme control.
@@ -90,11 +92,11 @@ site's own control.
 
 ### JavaScript Patterns
 
-- **ES2020** — no newer features to maintain browser compatibility
+- **ES2022 at most**: the `ecmaVersion` set in `eslint.config.mjs`
 - **Fetch API** for all HTTP calls (no axios)
 - **DOM manipulation** via `document.getElementById` / `querySelector`
 - **No module bundler** — all JS is in `<script>` tags
-- **10-minute auto-refresh** for live AQI data
+- **10-minute auto-refresh** for live AQI data, fetched through the `waqi-proxy` function
 
 ---
 

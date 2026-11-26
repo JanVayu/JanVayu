@@ -1,6 +1,6 @@
 # Translations
 
-JanVayu is committed to accessibility across India's linguistic diversity. The platform currently supports English, Hindi, Tamil, Marathi, and Bengali. The interface is fully translated in all five; the documentation is translated in part (47 of 65 pages in each translated tree).
+JanVayu is committed to accessibility across India's linguistic diversity. The platform currently supports English, Hindi, Tamil, Marathi, and Bengali. The interface is fully translated in all five; the documentation is translated almost in full (on 21 November 2026, 68 to 71 of the 74 English pages in each translated tree; most of the missing ones are dated fact-check reports).
 
 ---
 
@@ -63,11 +63,11 @@ Each language lives in a `docs-{lang}/` directory in the repo and is served by a
 
 | Language | Live URL | Source Directory |
 |----------|----------|------------------|
-| English | [/docs/](/docs/) | `docs/` |
-| Hindi | [/docs/#/hi/](/docs/#/hi/) | `docs-hi/` |
-| Bengali | [/docs/#/bn/](/docs/#/bn/) | `docs-bn/` |
-| Marathi | [/docs/#/mr/](/docs/#/mr/) | `docs-mr/` |
-| Tamil | [/docs/#/ta/](/docs/#/ta/) | `docs-ta/` |
+| English | [/docs/](/docs/ ':ignore') | `docs/` |
+| Hindi | [/docs/#/hi/](/docs/#/hi/ ':ignore') | `docs-hi/` |
+| Bengali | [/docs/#/bn/](/docs/#/bn/ ':ignore') | `docs-bn/` |
+| Marathi | [/docs/#/mr/](/docs/#/mr/ ':ignore') | `docs-mr/` |
+| Tamil | [/docs/#/ta/](/docs/#/ta/ ':ignore') | `docs-ta/` |
 
 Translated docs are refreshed by the `auto-translate` job in `.github/workflows/translations.yml` (it needs a Sarvam API key) and may lag the English docs.
 
@@ -87,20 +87,22 @@ Results appear in the GitHub Actions **Job Summary** tab for each run.
 
 ## Directory Structure
 
-Each translation directory mirrors the English `docs/` structure, except that `api/` and `wiki/` are English-only:
+Each translation directory mirrors the English `docs/` structure. `api/openapi.yaml` is English-only:
 
 ```
 docs-{lang}/
 ├── README.md
 ├── SUMMARY.md
 ├── about/
+├── api/
 ├── claude-code/
 ├── contributing/
 ├── data-sources/
 ├── skills/
 ├── tech-stack/
 ├── technical/
-└── user-guide/
+├── user-guide/
+└── wiki/
 ```
 
 When adding a new English doc, create the corresponding file in all translation directories (even if initially in English — it can be translated later).

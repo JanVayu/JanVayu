@@ -4,6 +4,20 @@ Track progress on [GitHub Issues](https://github.com/JanVayu/JanVayu/issues) and
 
 ---
 
+## Phase 5.35: Two more sources behind the live reading (completed, v26.6.246 to 259)
+
+Until 8 November 2026 the site had one source of live air, WAQI. That day its feeds proved frozen for most Indian cities outside Delhi-NCR, and its lookup by coordinates was returning Delhi stations for cities as far away as Bengaluru. The site had nothing to fall back on.
+
+- [x] The WAQI token is on the server, and the browser reaches WAQI only through `waqi-proxy` (v26.6.246, 27 October).
+- [x] Alerts, the daily email and the health wording use CPCB's categories on PM2.5 (v26.6.247, 29 October).
+- [x] A station is accepted only within 30 km and 6 hours (`netlify/functions/lib/waqi-station.mjs`, 8 November).
+- [x] CPCB's daily bulletin and an Open-Meteo (CAMS) model estimate stand behind the live reading, each worded as what it is and neither called live (`js/air-sources.js`, 8 November).
+- [x] A daily check that live readings agree with CPCB's bulletin (`live-audit.yml`, 8 November). From 20 November it compares a city only when its bulletin is dated today or yesterday.
+- [x] CPCB's bulletin is fetched daily on a GitHub runner (27 October). The fetch that stalled from 13 to 16 November was fixed and 18 April corrected (17 November), and the job's pull requests merge once their checks pass (20 November).
+- [x] A page for every city in the bulletin, at `/bulletins/` (17 November).
+- [x] Delhi season charts (6 November) and the Delhi after Diwali 2026 page (9 November).
+- [x] The home page opens with the reading as figures, with a tab naming the source, and the bar is one Menu control on a phone (v26.6.259, 20 November).
+
 ## Phase 5.34: October upkeep (✅ Completed — v26.6.235)
 
 The season that decides how much of the year's attention this site gets starts in October, and the homepage bulletin still said September.
@@ -16,7 +30,7 @@ The season that decides how much of the year's attention this site gets starts i
 - [x] **A fact-check round** — `docs/fact-check-2026-10-02.md`, the first since 8 September. `check-factcheck-freshness.py` allows 120 days, looser than the weekly cadence the routines are meant to keep; scheduled routines stop when credits run out, so a person has to notice a lapse.
 - [x] **The state-wise court rulings in `legal.html`**: each traced to an order or removed (see the report).
 - [ ] **The flagged items in that report that remain**: the per-city NCAP rupee rows in `budget.html`, the unsourced diary multipliers and city annual values in `app.js`, and the source-apportionment tables in the assistant's prompt. The transport multipliers and the school-closure scale mismatch are fixed.
-- [ ] **Lancet Countdown 2026.** The homepage cites the 2025 edition (October 2025). The 2026 global report launches on 28 October 2026; re-check after that date.
+- [ ] **Lancet Countdown 2026.** The homepage cites the 2025 edition (October 2025). The 2026 global report launches on 28 October 2026; re-check after that date. On 21 November 2026 this was still open: no page and no changelog entry mentions the 2026 edition.
 - [x] **Dependabot for npm**, monthly and grouped; it had covered GitHub Actions only.
 - [ ] **The demo fallback's ±5% jitter** in `app.js` is labelled "(Fallback)" and `live: false`, but it makes static demo values look like fresh readings. Decide whether to keep it.
 - [x] **The EPA breakpoint table** — WAQI's own scale page still publishes the 2016 table (151 to 200 is 55.5 to 150.4), which is what the conversion code uses, so the conversion is right for WAQI. The AQI explainer uses the 2024 EPA table and says so. Original note: The site's sub-index conversion uses the band 55.5 to 150.4 µg/m³ for AQI 151 to 200. EPA revised its PM2.5 breakpoints effective 6 May 2024, and the band for AQI 151 to 200 is now 55.5 to 125.4 ([EPA fact sheet](https://www.epa.gov/system/files/documents/2024-02/pm-naaqs-air-quality-index-fact-sheet.pdf)). Whether WAQI applies the old or the new table is not established here; until it is, the "about 73 µg/m³" in the correction post is a figure on the site's own table, not a settled one.

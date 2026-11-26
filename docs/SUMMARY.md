@@ -45,7 +45,7 @@
 * [Local Development](technical/local-development.md)
 * [Environment Variables](technical/environment-variables.md)
 * [Netlify Functions](technical/netlify-functions.md)
-* [AI Features (Groq / Llama)](technical/ai-features.md)
+* [AI Features (Groq / gpt-oss-120b)](technical/ai-features.md)
 * [Deployment](technical/deployment.md)
 * [Performance Roadmap](technical/performance-roadmap.md)
 
@@ -56,7 +56,7 @@
 * [Observed Station Data (XKDR)](data-sources/xkdr-air-quality.md)
 * [CREA Measurements API](data-sources/crea-measurements.md)
 * [Was it policy or the wind? 44 cities](data-sources/deweathered-national.md)
-* [CPCB daily AQI bulletins, 2015-2025](data-sources/aqi-bulletins.md)
+* [CPCB daily AQI bulletins, 2015 to 2026](data-sources/aqi-bulletins.md)
 * [Boundary Map (every admin level + satellite)](data-sources/boundary-map.md)
 * [Ward-Level Atlas (boundaries + satellite)](data-sources/ward-map.md)
 * [Health & Mortality Data](data-sources/health-data.md)

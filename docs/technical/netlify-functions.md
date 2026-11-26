@@ -27,8 +27,11 @@ This function ensures that on-demand feed functions respond instantly from cache
 **Purpose:** Reads all subscribers from Netlify Blobs, fetches current AQI for each subscriber's city, and sends a personalised HTML email via Resend.
 
 Each email includes:
-- Current AQI reading and category
-- Health advisory for the day
+- A table of the subscriber's cities, with CPCB's category for the current PM2.5, and PM2.5 and PM10 in µg/m³
+- The health effects CPCB publishes for the worst city's category
+- A line saying whether any city is above the subscriber's PM2.5 alert level
+
+A reading older than six hours, or implausibly low, is not shown. The row says "No reliable reading today" and gives the reason (`assessReading` in `daily-digest.mjs`).
 
 **Dependencies:** `RESEND_API_KEY`, `RESEND_FROM`, `BLOB_TOKEN`, `NETLIFY_SITE_ID`
 
@@ -87,7 +90,7 @@ Falls back to a live Reddit fetch if the cache is empty.
 {
   "email": "user@example.com",
   "cities": ["delhi", "mumbai"],
-  "threshold": 150,
+  "pm25_threshold": 90,
   "action": "subscribe"
 }
 ```
@@ -95,9 +98,9 @@ Falls back to a live Reddit fetch if the cache is empty.
 | Field | Required | Description |
 |-------|----------|-------------|
 | `email` | Yes | Subscriber email |
-| `cities` | Yes | Array of city keys (see city list in `daily-digest.mjs`) |
-| `threshold` | No | AQI threshold; defaults to 200 if omitted. It does not suppress the digest: `daily-digest.mjs` emails every subscriber daily, and the threshold only changes the alert wording |
-| `action` | Yes | `"subscribe"` or `"unsubscribe"` |
+| `cities` | No | Array of city keys (see city list in `daily-digest.mjs`); defaults to `["delhi"]` |
+| `pm25_threshold` | No | Alert level in µg/m³ of PM2.5; defaults to 90 and is held between 10 and 500. It does not suppress the digest: `daily-digest.mjs` emails every subscriber daily, and the level only changes the alert wording. Records made before 29 October 2026 carry an older `threshold` (a US AQI), which `thresholdPM25()` in `lib/cpcb.mjs` converts |
+| `action` | No | `"unsubscribe"` removes the address; anything else, or nothing, subscribes |
 
 ---
 
@@ -150,7 +153,19 @@ An optional `lang` field requests a response language.
 
 ### Other Functions
 
-`netlify/functions/` holds 28 function files in total. Those not described above include `waqi-proxy`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` and `reference-data`. Their reference entries have not been written yet.
+#### `waqi-proxy.mjs`
+**Endpoint:** `GET /.netlify/functions/waqi-proxy`  
+**Purpose:** The only route from a browser to `api.waqi.info`. It adds the `WAQI_TOKEN` on the server, accepts only city slugs, in-range coordinates and a bounding box no wider than three degrees, and for a lookup by coordinates returns a station only if it is within 30 km and has reported in the last 6 hours.
+
+---
+
+#### `air-model.mjs`
+**Endpoint:** `GET /.netlify/functions/air-model?lat=..&lon=..`  
+**Purpose:** A modelled PM2.5 estimate for a point in India from Open-Meteo (CAMS). It is the last link in the chain in `js/air-sources.js`, used only when no station near a place has reported recently and CPCB's daily bulletin has no recent figure.
+
+---
+
+`netlify/functions/` holds 29 files in total: 28 functions and the `blob-store.js` helper. Those not described above include `youtube-feed`, `rankings`, `historical-aqi`, `data-api`, `fire-tracker`, `community-sensors`, `push-subscribe`, `push-send`, `health-monitor`, `feed-health`, `status-history`, `terra-collab`, `workshop-submit` and `reference-data`. Their reference entries have not been written yet.
 
 ---
 

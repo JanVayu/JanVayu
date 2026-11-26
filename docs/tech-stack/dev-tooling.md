@@ -73,7 +73,7 @@ The `pre-commit` hook automatically:
 
 ```bash
 # Install dependencies (server-side only)
-npm install
+npm ci
 
 # Run locally with Netlify Functions emulation
 netlify dev
@@ -124,7 +124,10 @@ Client -> "Netlify CDN" : HTTPS
 
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
-| **Link Checker** (`.github/workflows/ci.yml`) | Push/PR to `main` | Validates all markdown and HTML links with Lychee |
+| **CI** (`.github/workflows/ci.yml`) | Push/PR to `main` | Guards that recompute the site's stated figures and generated files, syntax checks for the functions, the unit tests (`npm test`), and an advisory Lychee link check. `bash scripts/run-ci-checks.sh` runs the gating ones locally |
+| **Accessibility** (`.github/workflows/accessibility.yml`) | Push/PR to `main` | An axe audit (advisory) and the colour-contrast gate |
+| **CPCB daily bulletins** (`.github/workflows/cpcb-bulletins.yml`) | Daily, 12:00 UTC | Fetches CPCB's bulletin, rebuilds the files that read it and opens a pull request |
+| **Live readings versus CPCB** (`.github/workflows/live-audit.yml`) | Daily, 06:17 UTC | Compares what the site calls live with CPCB's bulletin for the 33 tracked cities |
 | **Translation Sync** (`.github/workflows/translations.yml`) | Push to `main` (docs paths) | Checks translation coverage, SUMMARY.md parity, and stale translations |
 
 ---
