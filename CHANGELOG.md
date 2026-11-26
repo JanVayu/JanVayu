@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-26
+
+### Fixed
+- Delhi page: the World Bank's project database now plans board approval of the Delhi Clean Air Program, Phase 1 (P517479) for 28 January 2027, not 25 November 2026. The project is still marked Pipeline, so nothing has been approved. The page now gives the date as read on 26 November, notes that it moved, and states the figures the entry now shows: US$566 million total, US$135 million indicative Bank commitment (US$130 million loan and a US$5 million grant) and US$72 million from local governments.
+
 ## [Unreleased] - 2026-11-20
 
 ### Changed
