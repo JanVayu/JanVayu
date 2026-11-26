@@ -129,8 +129,12 @@ test('the real bulletin file covers the cities that lost their live feed', () =>
     ['bangalore', 'Bengaluru'], ['mumbai', 'Mumbai'], ['chennai', 'Chennai'], ['hyderabad', 'Hyderabad'],
     ['kolkata', 'Kolkata'], ['pune', 'Pune'], ['lucknow', 'Lucknow'], ['kanpur', 'Kanpur'], ['patna', 'Patna'],
     ['jaipur', 'Jaipur'], ['ahmedabad', 'Ahmedabad'], ['bhopal', 'Bhopal'], ['guwahati', 'Guwahati'],
-    ['thiruvananthapuram', 'Thiruvananthapuram'], ['coimbatore', 'Coimbatore'], ['gurgaon', 'Gurgaon'],
+    ['thiruvananthapuram', 'Thiruvananthapuram'], ['gurgaon', 'Gurgaon'],
   ];
+  // Coimbatore is left out on purpose. CPCB lists it on only some days (33 of the 86 days from 1 September
+  // to 25 November 2026, with gaps of a week or more), so a recent bulletin cannot be required of it.
+  // When it has none, the page falls back to the model estimate and says so.
+
   const now = Date.parse(realLatest._meta.as_of + 'T18:00:00+05:30');
   const missing = cities.filter(([key, name]) => !JVAir.bulletinFor(realLatest, { key, name }, now)).map((c) => c[0]);
   assert.deepEqual(missing, [], `no recent bulletin for: ${missing.join(', ')}`);
