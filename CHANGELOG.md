@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2026-11-26
 
 ### Fixed
+- Delhi after Diwali page: it said the 9 November bulletin figure was still due, and filled it in from a file that now holds only the last three days. The chart and table now carry the figure: 344 on the day after Diwali, against 369 the day before, the only year from 2019 to 2026 in which the day after was lower. The page says the 9 November bulletin rests on 47 of 59 stations, against 59 on the two days before, and that the data do not say why.
 - Delhi page: the World Bank's project database now plans board approval of the Delhi Clean Air Program, Phase 1 (P517479) for 28 January 2027, not 25 November 2026. The project is still marked Pipeline, so nothing has been approved. The page now gives the date as read on 26 November, notes that it moved, and states the figures the entry now shows: US$566 million total, US$135 million indicative Bank commitment (US$130 million loan and a US$5 million grant) and US$72 million from local governments.
 
 ## [Unreleased] - 2026-11-20
