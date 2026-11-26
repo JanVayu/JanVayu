@@ -51,9 +51,9 @@
 </script>
 <!-- share-meta:end -->
 <link rel="icon" href="/favicon.svg">
-<link rel="stylesheet" href="/styles.css?v=202606246">
+<link rel="stylesheet" href="/styles.css?v=202606259">
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606246" defer></script>
+<script src="/js/chrome.js?v=202606259" defer></script>
 <style>
   .post-page { max-width: 760px; }
   .post-page .crumb { font-size: 0.85rem; margin: 20px 0 0; }
@@ -62,6 +62,9 @@
   .post-page h2 { font-family: var(--serif); font-size: 1.45rem; margin: 36px 0 12px; }
   .post-page h3 { font-size: 1.1rem; margin: 24px 0 8px; }
   .post-page p, .post-page li { line-height: 1.75; }
+  .post-page ul, .post-page ol { margin: 0 0 1.2em; padding-left: 1.6em; }
+  .post-page li { margin: 0 0 0.6em; }
+  .post-page li:last-child { margin-bottom: 0; }
   .post-page p { margin: 0 0 1em; }
   .post-page a { color: var(--accent); }
   .post-page img { max-width: 100%; height: auto; }
@@ -96,7 +99,7 @@
 <p><em>Update, 2 October 2026: maps now exist for these places. West Bengal, which we had wrongly said was unavailable, came from AMRUT data (v26.6.139), and Srinagar, Agartala, Imphal, Shillong, Itanagar, Aizawl, Kohima and Madurai from other open sources, so the inference above no longer holds.</em></p>
 <h2>The air your MP answers for</h2>
 <p>The <a href="https://www.janvayu.in/#map">live map</a> has four new toggles. The one we care most about is <strong>MPs</strong>: all <strong>543 Lok Sabha constituencies</strong> (boundaries from the Local Government Directory / Bharatmaps), each coloured by the air its residents are breathing right now.</p>
-<p>Most constituencies contain no monitor at all, and the map says so. We estimate each one from the nearest monitored cities. Where the nearest monitor is more than about 200 km away, we colour the constituency grey rather than guess. The grey patches are not a drawing fault. They show where India's monitoring network has gaps.</p>
+<p>Most constituencies contain no monitor at all, and the map says so. We estimate each one from the nearest monitored cities. Where the nearest monitor is more than about 200 km away, we colour the constituency grey and make no guess. The grey patches show where India's monitoring network has gaps.</p>
 <p>Tap any constituency and you get its estimated AQI, which monitor it leans on, and two buttons: one to the <a href="https://www.janvayu.in/#accountability">Accountability tracker</a>, one to a pre-filled <a href="https://www.janvayu.in/#rti-assistant">RTI template</a>. An <strong>MLAs</strong> toggle does the same for Vidhan Sabha constituencies, and a <strong>Districts</strong> toggle covers all 785 districts.</p>
 <p>Air quality in India is usually discussed as a city problem. Budgets are voted, questions are asked and clean-air funds are spent by people elected from constituencies. Naming the constituency puts the number next to the person responsible for it.</p>
 <h2>Where the smoke starts</h2>
@@ -107,7 +110,7 @@
 <p>On the ward map, two new overlays answer a question the AQI number never does: who is actually in this air? Toggle <strong>Schools</strong> (from the UDISE education directory) and <strong>Health centres</strong> (from Bharatmaps) and the dots appear over the ward colours. A school inside a dark-red ward is a specific building with children in it, and now you can see it.</p>
 <h2>About Indian Open Maps, and a note on licensing</h2>
 <p>Every boundary and source location above comes to us via <a href="https://indianopenmaps.com">indianopenmaps.com</a>, a volunteer project by one mapper (GitHub: ramSeraph). It collects geodata from official portals (SBM, the Local Government Directory, Bharatmaps, Gati Shakti, NCOG) and republishes it in usable formats. It deserves to be named and thanked.</p>
-<p>Much of this data is flagged <em>"not-so-open"</em> upstream. Government bodies published it on public portals, mostly without an explicit open licence. We ship simplified copies with attribution rather than live-scraping anyone's servers. The coal-mine data is properly CC0, and we document all of it in our <a href="https://www.janvayu.in/#source-selector">Data Source Selector</a>. If any agency involved would rather grant these datasets a real open licence, that is the actual fix, and we would welcome it.</p>
+<p>Much of this data is flagged <em>"not-so-open"</em> upstream. Government bodies published it on public portals, mostly without an explicit open licence. We ship simplified copies with attribution and do not live-scrape anyone's servers. The coal-mine data is properly CC0, and we document all of it in our <a href="https://www.janvayu.in/#source-selector">Data Source Selector</a>. If any agency involved would rather grant these datasets a real open licence, that is the actual fix, and we would welcome it.</p>
 <h2>Try it</h2>
 <p>Open the <a href="https://www.janvayu.in/#ward-map">ward map</a>, find your ward, then toggle the schools. Open the <a href="https://www.janvayu.in/#map">live map</a>, press <strong>MPs</strong>, and look at your constituency. If it is grey, you have learned something about the monitoring network. If your city's wards are missing or look wrong, that is government data we passed on as we found it. Tell us at <strong>contribute@janvayu.in</strong>, or ask your corporation why.</p>
 </article>
@@ -122,6 +125,7 @@
 <footer class="post-foot">
 <p><a href="/blog/">All posts</a> &middot; <a href="/blog/#/posts/2026-07-30-the-air-your-mp-answers-for">Open in the blog reader</a> &middot; <a href="/">JanVayu dashboard</a></p>
 <p>Published 30 July 2026. Text licensed CC BY-NC-SA 4.0.</p>
+<p lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>
 </footer>
 </main>
 </body>

@@ -28,6 +28,11 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      # To start CI on the branch this job pushes. See the merge step.
+      actions: write
+      # To read the result of those checks before merging.
+      checks: read
+      statuses: read
     steps:
       - uses: actions/checkout@v7
 
@@ -40,16 +45,17 @@ jobs:
 
       # Informational. If the fetch fails on a certificate, this is the evidence:
       # what the server presents and whether it chains to a root the runner trusts.
-      - name: Show the certificate chain cpcb.nic.in presents
+      - name: Show the certificate chain cpcb.gov.in presents
         continue-on-error: true
         run: |
-          echo | openssl s_client -connect cpcb.nic.in:443 -servername cpcb.nic.in -showcerts 2>&1 \
+          echo | timeout 30 openssl s_client -connect cpcb.gov.in:443 -servername cpcb.gov.in -showcerts 2>&1 \
             | grep -E "^ *[0-9]+ s:|^ *i:|Verification|verify error|verify return" || true
 
       - name: Fetch the days CPCB has published since the last one in the file
         id: fetch
         continue-on-error: true
-        run: python3 scripts/refresh-cpcb-bulletins.py
+        # -u: unbuffered, so a run that is cancelled still shows which day it was on.
+        run: python3 -u scripts/refresh-cpcb-bulletins.py
 
       - name: Rebuild the city-year summary from the 2015-2025 archive and the new days
         if: steps.fetch.outcome != 'cancelled'
@@ -61,6 +67,10 @@ jobs:
           git clone --depth 1 https://github.com/urbanemissionsinfo/AQI_bulletins /tmp/aqib
           python3 scripts/build-aqi-bulletins.py --source /tmp/aqib/data/Processed/AllIndiaBulletinsMaster2025_openrefined.csv
           python3 scripts/build-aqi-bulletins.py --check
+          python3 scripts/build-cpcb-latest.py
+          python3 scripts/build-diwali-morning.py
+          python3 scripts/build-delhi-season.py --source /tmp/aqib/data/Processed/AllIndiaBulletinsMaster2025_openrefined.csv
+          python3 scripts/build-bulletin-explorer.py --source /tmp/aqib/data/Processed/AllIndiaBulletinsMaster2025_openrefined.csv
 
       # main is protected, so this goes to a branch and a pull request, as the
       # current-year air and translation jobs do.
@@ -68,7 +78,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json; then
+          if git diff --quiet -- data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json data/cpcb-latest.json data/diwali-morning.json index.html data/delhi-season.json delhi/index.html && git diff --quiet -- data/bulletin-explorer bulletins/index.html && [ -z "$(git ls-files --others --exclude-standard data/bulletin-explorer)" ]; then
             echo "Nothing to commit."
             exit 0
           fi
@@ -77,13 +87,48 @@ jobs:
           git config user.name "janvayu-air-bot"
           git config user.email "air-bot@janvayu.in"
           git checkout -b "$BRANCH"
-          git add data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json
+          git add data/raw/cpcb-bulletins-2026.csv.gz data/aqi-bulletins.json data/cpcb-latest.json data/diwali-morning.json index.html data/delhi-season.json delhi/index.html data/bulletin-explorer bulletins/index.html
           git commit -m "Update: CPCB daily bulletins through $LAST"
           git push origin "$BRANCH"
+          # Each of these pull requests rewrites the same two files, so the newest holds every
+          # day the older ones do. Close the older open ones so a person sees one, not three.
+          for OLD in $(gh pr list --state open --limit 100 --json number,headRefName --jq '.[] | select(.headRefName | startswith("auto-cpcb/")) | .number'); do
+            gh pr close "$OLD" --comment "Superseded by the run for $LAST (branch $BRANCH), which holds the same days and the later ones." || true
+          done
           if ! gh pr create --base main --head "$BRANCH" \
                --title "Update: CPCB daily bulletins through $LAST" \
                --body "Days CPCB published since the last one in data/raw/cpcb-bulletins-2026.csv.gz, parsed by scripts/refresh-cpcb-bulletins.py, and the city-year summary rebuilt from them. A day is added only if the whole bulletin parsed with no missing serials. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"; then
             echo "::warning::Branch $BRANCH is pushed but the pull request was not opened (Settings > Actions > General > allow GitHub Actions to create pull requests). Open it from ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...$BRANCH"
+            exit 0
+          fi
+          # A pull request opened with the workflow token does not start the repository's
+          # checks, so until 19 November 2026 each of these sat open with no checks at all
+          # (#508 showed three Netlify checks and none of CI's) and the merge below was
+          # refused every day. The next run then started again from the last merged day.
+          # workflow_dispatch is the one event the workflow token may start, and a check it
+          # produces is recorded against the same commit the pull request points at. So: start
+          # CI on the branch, then ask GitHub to merge when the required checks pass. If the
+          # repository does not allow auto-merge, wait for the checks and merge directly, and if that is refused
+          # too, say so in the run instead of waiting in silence.
+          gh workflow run ci.yml --ref "$BRANCH" || echo "::warning::CI could not be started on $BRANCH."
+          gh workflow run quality.yml --ref "$BRANCH" || true
+          if gh pr merge "$BRANCH" --auto --squash --delete-branch; then
+            echo "The pull request for $LAST will merge by itself when its checks pass."
+          else
+            # Auto-merge is a repository setting and it was off on 20 November 2026, so the
+            # direct merge was tried the moment the pull request opened, before any check
+            # had finished, and the branch rule refused it. Wait for the checks this job
+            # started, then merge. The checks need a moment to be recorded against the
+            # commit, and the link check alone takes about six minutes.
+            sleep 45
+            timeout 20m gh pr checks "$BRANCH" --watch --fail-fast --interval 30 || echo "::warning::The checks on $BRANCH did not all pass in 20 minutes."
+          fi
+          if gh pr view "$BRANCH" --json state --jq .state | grep -q MERGED; then
+            echo "Merged."
+          elif gh pr view "$BRANCH" --json autoMergeRequest --jq .autoMergeRequest | grep -q enabledAt; then
+            echo "Waiting on auto-merge."
+          elif ! gh pr merge "$BRANCH" --squash --delete-branch; then
+            echo "::warning::The pull request for $LAST is open but was not merged. It needs a person to merge it, and CPCB data on the site stops at the last merged day until then. If this repeats, turn on 'Allow auto-merge' in the repository settings."
           fi
 
       # The fetch step is allowed to fail so the days that did parse are still

@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
+import { getCpcbPM25Category } from "./lib/cpcb.mjs";
 // Deterministic calculators live in a shared, unit-tested module (single source
 // of truth; see test/calc.test.mjs). esbuild bundles this relative import.
 import {
@@ -167,6 +168,7 @@ function buildVillageContext(question) {
 //     multi-station range presentation.
 
 import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
+import { fetchStationNear, distanceToFeed, haversineKm, MAX_STATION_KM } from "./lib/waqi-station.mjs";
 
 // v26.6.33 — Groq model, env-overridable. llama-3.3-70b-versatile was retired by
 // Groq on 16 Aug 2026 (updated 2 Oct 2026); the default is the replacement openai/gpt-oss-120b.
@@ -254,8 +256,8 @@ async function fetchNearestLiveStation(city) {
     const data = await res.json();
     if (data.status !== "ok" || !Array.isArray(data.data)) return null;
     const live = data.data
-      .map(s => ({ s, aqiNum: Number(s.aqi), d2: (s.lat - city.lat) ** 2 + (s.lon - city.lon) ** 2 }))
-      .filter(x => isFinite(x.aqiNum))
+      .map(s => ({ s, aqiNum: Number(s.aqi), d2: (s.lat - city.lat) ** 2 + (s.lon - city.lon) ** 2, km: haversineKm(city.lat, city.lon, s.lat, s.lon) }))
+      .filter(x => isFinite(x.aqiNum) && x.km <= MAX_STATION_KM)
       .sort((a, b) => a.d2 - b.d2);
     if (!live.length) return null;
     const nearest = live[0];
@@ -282,16 +284,20 @@ async function fetchNearestLiveStation(city) {
 async function fetchCityAQI(cityKey) {
   const city = CITIES[cityKey];
   if (!city) return null;
-  // 1. Fast path — nearest station to the city centroid.
-  const geo = await fetchWaqiFeed(`geo:${city.lat};${city.lon}`);
-  if (geo && waqiIsNum(geo.aqi)) return shapeWaqiFeed(geo, city);
+  // 1. Fast path — the nearest station to the city centroid, accepted only if it
+  //    is within MAX_STATION_KM of the city. WAQI's geo lookup has answered
+  //    Bengaluru with a Delhi station (lib/waqi-station.mjs), so a far station is
+  //    treated as no answer and the chatbot never quotes Delhi's air as another city's.
+  const near = await fetchStationNear({ lat: city.lat, lon: city.lon, slug: cityKey });
+  if (near && waqiIsNum(near.data.aqi)) return shapeWaqiFeed(near.data, city);
   // 2. Fallback — WAQI's city-name feed. The geo lookup intermittently returns
   //    {"status":"nope","data":"can not connect"} for some centroids (this is
   //    what made Patna, Lucknow, Chennai, Kolkata and Hyderabad read as
   //    "unavailable" in the chatbot while the dashboard still showed them). The
   //    name feed resolves to a known-good station for the city and carries PM2.5.
   const named = await fetchWaqiFeed(encodeURIComponent(city.name.toLowerCase()));
-  if (named && waqiIsNum(named.aqi)) return shapeWaqiFeed(named, city);
+  const namedKm = named ? distanceToFeed(named, city.lat, city.lon) : null;
+  if (named && waqiIsNum(named.aqi) && namedKm !== null && namedKm <= MAX_STATION_KM) return shapeWaqiFeed(named, city);
   // 3. Last resort — nearest live station anywhere in the city's bounding box.
   const nearest = await fetchNearestLiveStation(city);
   if (nearest) return nearest;
@@ -367,13 +373,14 @@ function getSeasonalContext() {
 const NCAP_CITY_DATA = REF_DATA.ncap_cities;
 
 const ACTIVITY_THRESHOLDS = `
-Activity guidance by PM2.5 level (US-EPA AQI category bands as WAQI publishes them, not WHO guidance). Whenever you quote one of these thresholds or band names, say they are US-EPA bands. India's own CPCB bands for 24-hour PM2.5 are Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250 µg/m3, so the same air can carry a different label in India:
-- 0-12 µg/m³ (Good): All activities safe for everyone including children, elderly, asthmatics.
-- 12-35 µg/m³ (Moderate): Sensitive individuals (asthma, heart disease, children <5, elderly >65) should limit prolonged outdoor exertion.
-- 35-55 µg/m³ (Unhealthy for sensitive): Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.
-- 55-150 µg/m³ (Unhealthy): Everyone should reduce prolonged outdoor exertion. No jogging/cycling. Children should play indoors. N95 mask recommended outdoors.
-- 150-250 µg/m³ (Very Unhealthy): Avoid all outdoor physical activity. Keep windows closed. Run air purifier indoors if available. N95 mask essential outdoors.
-- 250+ µg/m³ (Hazardous/Severe): Stay indoors. Schools should close. No outdoor work without protection. Medical emergency risk for vulnerable populations.
+CPCB HEALTH EFFECTS (India's national scale on PM2.5 in µg/m3; wording is CPCB's, from the PIB release on the National AQI launch). For any health question lead with the matching category and quote it:
+- Good 0-30: Minimal impact.
+- Satisfactory 31-60: May cause minor breathing discomfort to sensitive people.
+- Moderate 61-90: May cause breathing discomfort to people with lung disease such as asthma, and discomfort to people with heart disease, children and older adults.
+- Poor 91-120: May cause breathing discomfort to people on prolonged exposure, and discomfort to people with heart disease.
+- Very Poor 121-250: May cause respiratory illness to the people on prolonged exposure. Effect may be more pronounced in people with lung and heart diseases.
+- Severe above 250: May cause respiratory impact even on healthy people, and serious health impacts on people with lung/heart disease. The health impacts may be experienced even during light physical activity.
+CPCB publishes health effects, not instructions. If asked what to do, say so, then give the steps in the scale-check lines (the lines starting with a figure and its bands, computed by the code), labelled US-EPA (its PM2.5 bands, as WAQI publishes them; not WHO). Never present a step as CPCB's. Use only the steps the code gives for the figure, never stricter, and add no season, cause or reason that those lines and the live data do not state. With no such lines there is no reading to advise on: ask for a figure or a city and give no steps.
 
 Transport exposure, on-road PM2.5 vs ambient (Goel et al. 2015, Atmospheric Environment 123, Delhi, one arterial route in 2014): walking 1.4x, cycling 1.1x, two-wheeler 1.3x, auto-rickshaw 1.3x, open-window car 1.3x, bus 1.2x, air-conditioned car with windows up 0.5x, metro rail carriage 0.8x. These are concentration ratios, not inhaled doses: cycling breathes harder, which the ratio does not capture. Do not quote a figure for trains; none is sourced.
 `;
@@ -444,6 +451,7 @@ EVs & TRANSPORT POLICY (India-wide):
 - 29,151 EV charging stations installed across India over the past five years, of which 8,805 fast and 20,346 slow (MoHI reply in the Lok Sabha, 16 Dec 2025).
 
 RECENT POLICY/COURT ACTIONS (Apr-May 2026):
+- GRAP, autumn 2026 (press reports, not the CAQM orders themselves, which we have not read): CAQM invoked Stage I on 21 October 2026 with Delhi's AQI in the poor band (PTI, via Rediff). The revised GRAP of 29 September 2026 restricts non-BS-VI vehicles entering Delhi from 1 November 2026 (Indian Express). On 2 November PTI reported Delhi's 9 am AQI at 312, the first very poor reading of the season, and said that activates Stage 2. Stages are invoked by CAQM on forecasts, so say "reported" and send the user to CAQM (caqm.nic.in) for the order in force; do not state a stage as officially current.
 - CAQM: invoked GRAP Stage-I off-season on 16 April 2026 (AQI 226; revoked 4 May) and again on 19 May 2026 (AQI 208; revoked 29 May). Stage-I was also imposed in May 2025. Do not call any of these a "first" — signals year-round enforcement.
 - NGT: directed 6 south-Indian states (TN/KL/KA/AP/TS/PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets (Apr 2026).
 - NGT: nationwide notices to all SPCBs/PCCs on diesel-generator retrofit non-compliance (9 Apr 2026; listed for 21 Jul 2026, outcome not checked).
@@ -486,6 +494,15 @@ const WINTER_PEAKS_REFERENCE = `DELHI'S WINTER PEAKS (use only these figures):
 - Causes are not in these figures. CEEW (22 May 2026) says weather, mainly boundary-layer height and wind direction, helps explain why Delhi's autumn is far worse than its spring for similar farm fires. Mangaraj et al. 2025 (a measurement study with 30 low-cost sensors, not a model; only Nandi et al. is a model): crop residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Nandi et al. 2026 is one model of September 2019 to January 2020, so say "one modelling study", not "studies": it puts the residential sector at about 53% of PM2.5 over Delhi and secondary particles at about 58% in December-January, and it reports what cuts would do, which is not a source share. Crop-residue-burning controls inside Delhi-NCR alone cut Delhi PM2.5 by 2% to 3%; an airshed-wide ban cuts it about 10%; with a 50% cut in residential emissions as well, about 30%. Never merge Mangaraj's 14% and Nandi's cuts into one range such as "10-14%", and write the authors' full surnames. Do not attribute either peak to one source, and never say that meteorology or any single factor is the main driver: these figures do not say. Do not explain why the autumn peak is higher than the later one, and do not say that any cause "makes" or "explains" the worst week: say only what each source found. Say Mangaraj's 14% is one measurement study of one year, never "recent studies" and never "a modelling study". Diwali fell between 24 October and 14 November in these years, and no other dates for it are given here. Open with the timing itself, not with "Yes" or "No".
 - JanVayu has no weekly series after 1 September 2025.`;
 
+const NCAP_REFERENCE = `NCAP AFTER SEVEN YEARS (use only these figures):
+- Source: an analysis by Manoj Kumar (25 October 2026; The Wire describes him as a CREA analyst) of the 130 NCAP cities, from the PRANA portal, comparing annual PM10 in 2017-18 (baseline), 2019-20 (the programme's first year) and 2025-26 (the end of the extended period). It is PM10, not PM2.5.
+- 117 of 130 cities were above the 60 ug/m3 national annual PM10 standard in 2025-26, so 13 met it. The count was 125 in 2017-18 and 112 in 2019-20.
+- Against 2017-18, PM10 fell by more than 40% in 21 cities and more than 30% in 44, and rose in 23. Against 2019-20, it fell by more than 40% in 8 cities and more than 30% in 25, and rose in 43. The choice of baseline changes the picture.
+- Funds across the 130 cities: Rs 16,824 crore released and Rs 12,087 crore utilised, about 72%. The author says this does not show that spending caused the changes, and that his figures differ from those in the government's replies in Parliament, which he did not reproduce.
+- Earlier, CREA (January 2026) found 23 of 100 cities with sufficient data had met the PM10 reduction target. That is a different measure and a different set of cities, so never add the two or put them in one sentence as a trend.
+- Cite it as Manoj Kumar's analysis of 25 October 2026. The Wire reported it on 27 October, so never attach The Wire to the 25 October date.
+- Do not say the programme failed or that spending raised pollution. Give the figures, the baseline and the author's caveat. These figures do not say why results differ between cities, so never offer causes such as local action, enforcement, funding gaps or weather; say the analysis does not show why. End on the figures or the caveat, not on an explanation.`;
+
 const ENSO_REFERENCE = `EL NINO AND INDIA'S WINTER AIR (use only these figures):
 - NOAA's Climate Prediction Center (8 October 2026): an El Nino Advisory, with a strong to very strong event likely through January to March 2027 and a chance of a historic one (3-month index of +2.5C or more) of 54% for September to November, 83% for October to December and 70% for November to January. The next update is 12 November 2026, so say the figures may have changed.
 - Yadav, Beig and Kripalani (Atmospheric Pollution Research 17(11), 103231, October 2026): winter PM2.5 across Indian cities swung by up to 70% with no appreciable change in emissions (this is the range over cities, not a Delhi figure; a Times of India report, not checked against the paper, puts Delhi a little over 10% above its 2019-2022 average in the El Nino winter), between a La Nina winter (2022-23, northern cities up to about 30% cleaner than their 2019-2022 average) and an El Nino winter (2023-24). The authors warn the correlations show no direct causation and cannot be carried to other years, and the 2023-24 event was short-lived.
@@ -499,6 +516,9 @@ function isSecondaryQuery(question) {
 }
 function isWinterPeaksQuery(question) {
   return /(twice\s+(a|each|every)\s+winter|two\s+peaks?|second\s+peak|winter\s+(peak|biomass)|biomass\s+burning|(worst|peak|highest)\s+(week|weeks|time|month|months)[^?.]{0,40}(delhi|winter)|when\b[^?.]{0,60}(delhi|pollution|pm\s?2\.?5)[^?.]{0,40}(worst|peak|highest))/i.test(question);
+}
+function isNcapQuery(question) {
+  return /\b(ncap|national\s+clean\s+air\s+(programme|program|plan|mission)|clean\s+air\s+(programme|program|funds?))\b/i.test(question);
 }
 function isEnsoQuery(question) {
   return /\b(el\s?ni[nñ]o|la\s?ni[nñ]a|enso\b|southern\s+oscillation)/i.test(question);
@@ -1006,14 +1026,33 @@ const CPCB_PM25_BANDS = [[30, "Good", "0-30"], [60, "Satisfactory", "31-60"], [9
   [120, "Poor", "91-120"], [250, "Very Poor", "121-250"], [Infinity, "Severe", "above 250"]];
 const EPA_PM25_BANDS = [[12, "Good", "0-12"], [35.4, "Moderate", "12-35"], [55.4, "Unhealthy for sensitive groups", "35-55"],
   [150.4, "Unhealthy", "55-150"], [250.4, "Very Unhealthy", "150-250"], [Infinity, "Hazardous", "above 250"]];
+// The US-EPA activity steps, one per EPA band above and in the same order. The code picks the
+// row for a concentration so the model never has to: it was handing out the next band up's
+// steps ("avoid all outdoor physical activity" at 123 ug/m3, where the row says children play
+// indoors), which is stricter than the table.
+const EPA_STEPS = [
+  "All activities are safe for everyone.",
+  "Sensitive people (asthma, heart disease, children under 5, over 65) should limit prolonged outdoor exertion.",
+  "Children and elderly should avoid prolonged outdoor activity. No outdoor exercise for asthmatics. Masks recommended for sensitive groups.",
+  "Everyone should reduce prolonged outdoor exertion. No jogging or cycling. Children should play indoors. N95 recommended outdoors.",
+  "Avoid all outdoor physical activity. Keep windows closed. Run an air purifier indoors if available. N95 essential outdoors.",
+  "Stay indoors. Schools should close. No outdoor work without protection.",
+];
 function bandOf(table, v) { return table.find(([max]) => v <= max); }
+// CPCB is India's own scale and goes first. Neither scale is "the one" for
+// health decisions, and nothing JanVayu holds says so: a live answer called
+// the US-EPA band "the one that guides health-based activity limits", which
+// is not in any source. The WHO's 24-hour guideline is 15 ug/m3 (2021).
+const SCALE_RULE = `Give CPCB's category first, because it is India's national scale. Never say that either scale is the one that guides health decisions. The US-EPA bands are stricter at low concentrations, and the WHO's 2021 guideline (15 µg/m³ over 24 hours, 5 µg/m³ a year) is stricter than both.`;
 function scaleNote(question, livePm25) {
   const lines = [];
   const m = String(question || "").match(/(\d+(?:\.\d+)?)\s*(?:µg|μg|ug|micrograms?)/i);
   const asked = m ? Number(m[1]) : null;
   const line = (label, v) => {
     const c = bandOf(CPCB_PM25_BANDS, v), e = bandOf(EPA_PM25_BANDS, v);
-    return `- ${label} ${v} µg/m3: CPCB (India) says ${c[1]} (${c[2]}); the US-EPA scale says ${e[1]} (${e[2]}).`;
+    const impact = getCpcbPM25Category(v).impact;
+    const steps = EPA_STEPS[EPA_PM25_BANDS.indexOf(e)];
+    return `- ${label} ${v} µg/m3: CPCB (India) says ${c[1]} (${c[2]}); the US-EPA scale says ${e[1]} (${e[2]}).\n  CPCB health effect (quote it): ${impact}\n  The ONLY practical steps for this figure (US-EPA row ${e[2]}; use them as written, never add to them or borrow another row's): ${steps}`;
   };
   const hasAsked = asked != null && asked >= 0 && asked < 2000;
   if (hasAsked) lines.push(line("The reader's figure of", asked));
@@ -1024,15 +1063,15 @@ function scaleNote(question, livePm25) {
   // live reading alone the names are there to be used if the answer mentions
   // the category; they must not shape how the answer opens.
   const tail = hasAsked
-    ? `Name India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No".`
-    : `Use these names only if the answer mentions the live reading's category, and say which scale each belongs to. They say nothing about how the answer should begin.`;
+    ? `Name India's CPCB category first and the US-EPA one second, say which is which, and open with the category, not with "Yes" or "No". ${SCALE_RULE}`
+    : `Use these names only if the answer mentions the live reading's category, and say which scale each belongs to. They say nothing about how the answer should begin. ${SCALE_RULE}`;
   return `${head}\n${lines.join("\n")}\n${tail}`;
 }
 
 function buildSystemPrompt(seasonal, lang, opts = {}) {
   const { nationalQuery = false, multiSource = false, topical = false, methodologyNeeded = false,
     ward = false, stationCount = false, rti = false, stationRange = false, village = false,
-    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false, scaleNote: scaleNoteText = "" } = opts;
+    trend = false, aboutQ = false, secondaryQ = false, winterQ = false, ensoQ = false, ncapQ = false, scaleNote: scaleNoteText = "" } = opts;
   const langName = LANG_NAMES[lang] || null;
   const langOverride = langName
     ? `\nCRITICAL — RESPONSE LANGUAGE: The user has selected ${langName} as their interface language. You MUST respond entirely in ${langName}. Use the native script throughout (Devanagari, Tamil, Bengali as appropriate). Do not mix languages. Acronyms like NCAP, RTI, WHO, AQI, GRAP, PM2.5, PM10 may stay in Roman letters as they are widely recognised that way in Indian discourse. Numerals can be Indo-Arabic (1, 2, 3).\n`
@@ -1050,7 +1089,7 @@ function buildSystemPrompt(seasonal, lang, opts = {}) {
   const methodologyBlock = (multiSource || methodologyNeeded) ? `\n${METHODOLOGY_REFERENCE}\n` : "";
   const topicalBlock = (nationalQuery || topical) ? `\n${TOPICAL_REFERENCE}\n` : "";
   const knowledgeBlocks = [aboutQ && ABOUT_REFERENCE, secondaryQ && SECONDARY_REFERENCE,
-    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE, scaleNoteText]
+    winterQ && WINTER_PEAKS_REFERENCE, ensoQ && ENSO_REFERENCE, ncapQ && NCAP_REFERENCE, scaleNoteText]
     .filter(Boolean).map((b) => `\n${b}\n`).join("");
 
   // v26.6.124 — Situational instructions: only sent when the request actually
@@ -1270,6 +1309,96 @@ async function buildWardContext(question, fallbackKey) {
   return block;
 }
 
+
+// "Is GRAP Stage 2 in force in Delhi right now?" The model answered yes, in the
+// present tense, with a trigger it made up ("24-hour PM2.5 above 250"), a
+// seasonal reason nobody has published and a list of measures that belongs to
+// Stage III. Nothing we hold says which stage CAQM has ordered, because stages
+// come from CAQM's Sub-Committee orders on forecasts and we do not read them.
+// So this question is answered by code, from the live reading and a dated press
+// report, and never by the model.
+function isGrapStatusQuestion(question) {
+  const q = String(question || "").toLowerCase();
+  if (!/\bgrap\b|graded response|stage[ -]?(?:1|2|3|4|i{1,3}|iv)\b/.test(q)) return false;
+  return /\b(in force|in effect|invoked|imposed|enforced|implemented|active|activated|current(?:ly)?|right now|today|now|status|applied|applicable)\b/.test(q);
+}
+
+// "What is GRAP?" had the same failure in milder form: the model said the Delhi
+// government activates it, that it limits private vehicles and tightens
+// stubble-burning enforcement, and that it is "triggered by live data", none of
+// which we can source. The definition is short and the sourced part is known, so
+// it is fixed text too.
+function isGrapDefinitionQuestion(question) {
+  const q = String(question || "").toLowerCase().trim().replace(/[?.!]+$/, "");
+  return /^(?:what(?:'s| is| does)|explain|define|tell me about)\s+(?:the\s+)?(?:grap|graded response action plan)(?:\s+(?:mean|stand for))?$/.test(q);
+}
+
+function buildGrapDefinitionReply() {
+  return [
+    "GRAP is the Graded Response Action Plan, the set of emergency measures for air pollution in the National Capital Region. It is run by the Commission for Air Quality Management (CAQM), whose Sub-Committee orders each stage.",
+    "It has four stages tied to the CPCB AQI for Delhi: Stage I for Poor air (201 to 300), Stage II for Very Poor (301 to 400), Stage III for Severe (401 to 450) and Stage IV above 450. CAQM invokes a stage on its forecast of Delhi's AQI, so a stage can be ordered before the reading reaches its band.",
+    "Each stage adds measures to the one before. Ask what a particular stage involves, for example \"What does Stage 2 of GRAP involve?\", for its main measures under the schedule CAQM revised on 29 September 2026, which is on caqm.nic.in. To see what the air is doing now, ask for the live PM2.5, and for the stage currently in force, check CAQM's latest order.",
+  ].join("\n\n");
+}
+
+const GRAP_STAGES = {
+  1: { band: "Poor (CPCB AQI 201 to 300)", measures: "dust control, road sweeping and sprinkling, a ban on open burning, and, since 28 September 2026, regulated use of diesel generator sets and a bar on inter-city buses other than electric, CNG and BS-VI diesel" },
+  2: { band: "Very Poor (301 to 400)", measures: "higher parking fees, staggered office timings, more sweeping and sprinkling, tighter checks on building-site dust, and targeted action in identified hotspots" },
+  3: { band: "Severe (401 to 450)", measures: "listed dust-raising building and demolition work stops, stone crushers and mining close, restrictions on BS III petrol and BS IV diesel cars and on older goods vehicles, and hybrid (physical and online) classes up to Class V in Delhi, Gurugram, Faridabad, Ghaziabad and Gautam Buddh Nagar" },
+  4: { band: "Severe plus (above 450)", measures: "trucks barred from Delhi except electric, CNG, LNG and BS-VI diesel, the building ban extended to roads, flyovers and pipelines, hybrid classes up to Class IX and XI, and states may consider closing colleges and odd-even" },
+};
+
+function grapStageAsked(question) {
+  const q = String(question || "").toLowerCase();
+  const m = q.match(/stage[ -]?(iv|iii|ii|i|1|2|3|4)\b/);
+  if (!m) return null;
+  return { i: 1, ii: 2, iii: 3, iv: 4, 1: 1, 2: 2, 3: 3, 4: 4 }[m[1]];
+}
+
+function isGrapMeasuresQuestion(question) {
+  const q = String(question || "").toLowerCase();
+  if (!/\bgrap\b|graded response|stage[ -]?(?:1|2|3|4|i{1,3}|iv)\b/.test(q)) return false;
+  return /\b(involve|involves|include|includes|measures?|restrictions?|rules?|banned?|ban|allowed|require[sd]?|requirements?|what happens|what are the|triggers?|triggered|thresholds?|mean|means|schools?|classes|close|closed|closure)\b/.test(q);
+}
+
+// Stage content is the CAQM GRAP schedule revised 29 September 2026 (Direction
+// No. 104), as rebuilt in docs/user-guide/policy-tracker.md on 6 October 2026.
+// Stage II and the Stage III class rule were re-read against CAQM's own PDF on
+// 2 November 2026. Which stage is in force is never stated here.
+function buildGrapMeasuresReply(question) {
+  const n = grapStageAsked(question);
+  const lines = [];
+  if (n) {
+    const st = GRAP_STAGES[n];
+    lines.push(`Stage ${["", "I", "II", "III", "IV"][n]} of GRAP is for ${st.band} air in Delhi. Its main measures in CAQM's schedule revised on 29 September 2026 are: ${st.measures}.`);
+    if (n > 1) lines.push("The measures of the earlier stages continue when a higher stage is invoked.");
+  } else {
+    lines.push("GRAP has four stages, tied to the CPCB AQI for Delhi, and each stage adds measures to the one before. Under CAQM's schedule revised on 29 September 2026:");
+    for (const k of [1, 2, 3, 4]) lines.push(`Stage ${["", "I", "II", "III", "IV"][k]}, ${GRAP_STAGES[k].band}: ${GRAP_STAGES[k].measures}.`);
+  }
+  lines.push("This is a summary of the schedule, which is on caqm.nic.in, and it does not say which stage is in force. CAQM's Sub-Committee orders each stage on its forecast of Delhi's AQI, so check CAQM's latest order for the stage in force today. In Delhi-NCR the online option for school classes rests with students and guardians, and the Directorate of Education may add its own circulars.");
+  return lines.join("\n\n");
+}
+
+function buildGrapStatusReply(aqiResult) {
+  const lines = [
+    "I cannot see CAQM's orders, so I cannot tell you which GRAP stage is in force. Stages are invoked by CAQM's Sub-Committee on forecasts, and its order is the only authority. Check caqm.nic.in for the order in force.",
+  ];
+  const pm25 = aqiResult && aqiResult.pm25;
+  const cpcbAqi = pm25ToCpcbAqi(pm25);
+  if (cpcbAqi != null) {
+    const band = cpcbAqi <= 200 ? "below the Poor band, where GRAP is not triggered"
+      : cpcbAqi <= 300 ? "the Poor band (CPCB AQI 201 to 300), the Stage I band"
+      : cpcbAqi <= 400 ? "the Very Poor band (301 to 400), the Stage II band"
+      : cpcbAqi <= 450 ? "the Severe band (401 to 450), the Stage III band"
+      : "above 450, the Stage IV band";
+    lines.push(`What I can say is what the air is doing. The live PM2.5 at ${aqiResult.station || aqiResult.city} is ${pm25} µg/m³, about ${cpcbAqi} on the CPCB scale on PM2.5 alone, which is ${band}. The official AQI takes the worst pollutant, so it can be higher, and GRAP is invoked on Delhi's average and on the forecast, not on one station's reading.`);
+  }
+  lines.push("Press reports so far this season: CAQM invoked Stage I on 21 October 2026, and on 2 November 2026 PTI reported Delhi's morning AQI at 312, the first Very Poor reading of the season, and said this activates Stage 2. We have not read the CAQM order for Stage II.");
+  lines.push("For what each stage requires, ask about a particular stage, for example \"What does Stage 2 of GRAP involve?\". The full schedule, revised on 29 September 2026, is on caqm.nic.in.");
+  return lines.join("\n\n");
+}
+
 export default async function handler(req) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -1318,6 +1447,16 @@ export default async function handler(req) {
   if (!aqiResult) {
     aqiResult = { city: (WARD_DATA[cityKey] && WARD_DATA[cityKey].name) || city,
                   aqi: null, pm25: null, pm10: null, station: null, time: null };
+  }
+
+  if (isGrapDefinitionQuestion(question)) {
+    return new Response(JSON.stringify({ answer: buildGrapDefinitionReply(), dataUsed: aqiResult }), { status: 200, headers });
+  }
+  if (isGrapMeasuresQuestion(question)) {
+    return new Response(JSON.stringify({ answer: buildGrapMeasuresReply(question), dataUsed: aqiResult }), { status: 200, headers });
+  }
+  if (isGrapStatusQuestion(question)) {
+    return new Response(JSON.stringify({ answer: buildGrapStatusReply(aqiResult), dataUsed: aqiResult }), { status: 200, headers });
   }
 
   // v26.6.18 — Fetch station list for: station-count queries, generic AQI
@@ -1561,7 +1700,7 @@ Top 5 worst: ${top5}
   const stationRange = !!(stationList && stationList.length >= 2);
   const trend = trendQ;
   const promptOpts = { nationalQuery, multiSource, topical, methodologyNeeded, ward, stationCount, rti: !!rtiKey, stationRange, village: villageQ, trend,
-    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question),
+    aboutQ: isAboutQuery(question), secondaryQ: isSecondaryQuery(question), winterQ: isWinterPeaksQuery(question), ensoQ: isEnsoQuery(question), ncapQ: isNcapQuery(question),
     scaleNote: scaleNote(question, aqiResult.pm25) };
 
   try {
@@ -1585,10 +1724,14 @@ Top 5 worst: ${top5}
     // markdown anyway (caught by test/ask-eval markdown-* gates). Strip the
     // known leak patterns server-side so they can never reach the user.
     if (text) {
-      text = fixKnownSlips(text)
-        .replace(/\*\*([^*\n]+)\*\*/g, "$1")   // **bold**
-        .replace(/__([^_\n]+)__/g, "$1")        // __bold__
-        .replace(/^#{1,6}\s+/gm, "");           // # headings
+      text = trimUnsourcedSteps(fixKnownSlips(text), [aqiResult.pm25, askedFigure(question)])
+      const causeSourced = promptOpts.winterQ || promptOpts.secondaryQ || promptOpts.ensoQ || promptOpts.ncapQ
+        || promptOpts.topical || promptOpts.multiSource || promptOpts.trend || promptOpts.village || promptOpts.ward;
+      if (!causeSourced) text = dropUnsourcedCause(text);
+      // Strip markdown for every answer. This used to be chained onto the
+      // `if` above, so a question that got a sourced-cause block (winter,
+      // secondary particles, ENSO, NCAP, ward, village, trend) skipped it.
+      text = stripMarkdown(text);
     }
     if (!text || text.trim().length === 0) {
       // When Groq returns nothing (rate limit, transient error, content
@@ -1614,6 +1757,63 @@ Top 5 worst: ${top5}
 // winter, set against "La Nina" for the cool one), so that is what it becomes.
 // Matched after NFC normalisation, because the model sometimes emits n + a
 // combining tilde, which a literal "ñ" in the pattern does not match.
+// The activity steps are given to the model as one US-EPA row, but it still recalls the rows
+// above it from training: at 123 ug/m3 it added "keep windows closed" and "run an air purifier"
+// (the 150-250 row) and "stay indoors" (the 250+ row), and "pregnant women", which no row names.
+// The instruction not to add steps cuts these down and does not stop them, so the code drops
+// the sentences. A phrase is allowed only when a figure in play (the live reading or the one
+// the reader asked about) falls in a band whose row contains it. Words only match in English,
+// so an answer in another language is left alone.
+const UNSOURCED_STEPS = [
+  { minBand: 4, re: /air purifier|keep (?:the |your )?windows closed|avoid all outdoor physical activity/i },
+  { minBand: 5, re: /stay indoors|schools should close|no outdoor work/i },
+  { minBand: -1, re: /pregnan/i },
+];
+function askedFigure(question) {
+  const m = String(question || "").match(/(\d+(?:\.\d+)?)\s*(?:µg|μg|ug|micrograms?)/i);
+  const v = m ? Number(m[1]) : null;
+  return v != null && v >= 0 && v < 2000 ? v : null;
+}
+// Plain-text answers only: the chat bubble does not render markdown. The bold
+// patterns allow a span to run across a line break, because the eval gate that
+// catches a leak (test/ask-eval) matches across lines too.
+function stripMarkdown(text) {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, "$1")   // **bold**, including across lines
+    .replace(/__([^_]+)__/g, "$1")          // __bold__
+    .replace(/^#{1,6}\s+/gm, "");          // # headings
+}
+
+function trimUnsourcedSteps(text, figures) {
+  const vals = (figures || []).filter((v) => v != null && Number.isFinite(Number(v))).map(Number);
+  if (!vals.length) return text;
+  const band = Math.max(...vals.map((v) => EPA_PM25_BANDS.indexOf(bandOf(EPA_PM25_BANDS, v))));
+  const banned = UNSOURCED_STEPS.filter((r) => band < r.minBand || r.minBand === -1).map((r) => r.re);
+  let out = text;
+  // At 55-150 the row says children should play indoors; the model writes "stay indoors".
+  if (band === 3) out = out.replace(/\b(children should) stay indoors\b/gi, "$1 play indoors");
+  const kept = out.split("\n").map((line) => {
+    const sentences = line.split(/(?<=[.!?])\s+(?=[A-Z(])/);
+    return sentences.filter((sen) => !banned.some((re) => re.test(sen))).join(" ");
+  }).filter((line, i, all) => line.trim() !== "" || (all[i - 1] ?? "x").trim() !== "").join("\n").trim();
+  return kept.length >= 40 ? kept : text;
+}
+
+// A live reading has no cause attached to it in anything JanVayu holds. The model still closes
+// answers with "This reading reflects the stubble-burning season and the build-up ahead of
+// Diwali" (seen on 30 October). Sentences that tie the current reading to a cause are dropped
+// on questions where no cause block was loaded; when one was (winter peaks, secondary particles,
+// NCAP, El Nino, an ordinary multi-source question) the sources give the cause and it stays.
+const READING_WORD = String.raw`(?:this|today'?s|the current|the live|the present)\s+(?:reading|level|concentration|figure|air|spike|pm\s?2\.5)`;
+const CAUSE_LINK = String.raw`(?:reflects?|due to|caused by|driven by|because of|result of|owing to|stems? from|linked to|is explained by)`;
+const CAUSE_WORD = String.raw`(?:stubble|crop[- ]?residue|burning|diwali|firecrackers?|post-?monsoon|winter|inversion|season|traffic|construction)`;
+const READING_CAUSE_RE = new RegExp(`${READING_WORD}[^.!?\\n]*\\b${CAUSE_LINK}\\b[^.!?\\n]*${CAUSE_WORD}`, "i");
+function dropUnsourcedCause(text) {
+  return text.split("\n").map((line) => line.split(/(?<=[.!?])\s+(?=[A-Z(])/)
+    .filter((sen) => !READING_CAUSE_RE.test(sen)).join(" "))
+    .filter((line, i, all) => line.trim() !== "" || (all[i - 1] ?? "x").trim() !== "").join("\n").trim() || text;
+}
+
 function fixKnownSlips(text) {
   return text.normalize("NFC")
     .replace(/\bEl Ni[nñ]a\b/g, (m) => (m.endsWith("ña") ? "El Niño" : "El Nino"))
@@ -1624,5 +1824,5 @@ function fixKnownSlips(text) {
 }
 
 // Exposed for test/knowledge-gates.test.mjs. Netlify reads only the handler.
-export const __testing = { scaleNote, fixKnownSlips, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
-  isWinterPeaksQuery, isEnsoQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE };
+export const __testing = { stripMarkdown, isGrapMeasuresQuestion, buildGrapMeasuresReply, isGrapDefinitionQuestion, buildGrapDefinitionReply, isGrapStatusQuestion, buildGrapStatusReply, scaleNote, fixKnownSlips, trimUnsourcedSteps, askedFigure, dropUnsourcedCause, findDistrict, buildVillageContext, ACTIVITY_THRESHOLDS, buildSystemPrompt, getSeasonalContext, isAboutQuery, isSecondaryQuery,
+  isWinterPeaksQuery, isEnsoQuery, isNcapQuery, ABOUT_REFERENCE, SECONDARY_REFERENCE, WINTER_PEAKS_REFERENCE, ENSO_REFERENCE, NCAP_REFERENCE };

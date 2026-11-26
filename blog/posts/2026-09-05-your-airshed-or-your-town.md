@@ -76,7 +76,7 @@ If your district reads lower than its neighbours, that could be altitude, a rive
 
 We can tell you the gap exists. We cannot tell you why, and neither can anyone else from this number alone.
 
-These are yearly averages for 2024, from satellite estimates. They are not today's air and not a forecast. Do not read them against the daily Good/Moderate/Poor bands, and do not take same-day advice from them. For today, use [the live dashboard](/). For the year, use this.
+These are yearly averages for 2024, from satellite estimates. They describe the year and say nothing about today's air or the forecast. Do not read them against the daily Good/Moderate/Poor bands, and do not take same-day advice from them. For today, use [the live dashboard](/). For the year, use this.
 
 Small states have thin medians. Ladakh has 2 districts. Delhi has 11. Treat those numbers as indicative rather than precise.
 

@@ -89,8 +89,23 @@
     return BANDS[BANDS.length - 1];
   }
 
-  function fetchCity(name, lat, lon) {
-    var url = WAQI_PROXY + '?geo=' + lat + ',' + lon;
+  /* The nearest city we list, as the slug WAQI files its station under. WAQI's own
+     lookup by coordinates has answered Bengaluru with a station in Delhi, so the
+     proxy checks that whatever comes back is within 30 km of the point asked for
+     and says so when nothing is. */
+  function nearestSlug(lat, lon) {
+    var best = null, bestD = Infinity;
+    CITIES.forEach(function (c) {
+      var dy = c[1] - lat, dx = (c[2] - lon) * Math.cos(lat * Math.PI / 180);
+      var d = dy * dy + dx * dx;
+      if (d < bestD) { bestD = d; best = c[0]; }
+    });
+    return best ? best.toLowerCase() : '';
+  }
+
+  function fetchCity(name, lat, lon, slug) {
+    var url = WAQI_PROXY + '?near=' + lat + ',' + lon +
+      (slug ? '&slug=' + encodeURIComponent(slug) : '');
     return fetch(url)
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
@@ -112,11 +127,13 @@
     if (!r) {
       $('stamp').textContent = 'No reading available';
       $('pm').textContent = '—';
-      $('verdictText').textContent = 'We could not reach a station just now.';
-      $('plain').textContent = 'Rather than show you a number we cannot stand behind, this says nothing. Try again in a moment, or open the full map.';
+      $('verdictText').textContent = 'No monitor within 30 km has reported in the last 6 hours.';
+      $('plain').textContent = 'Rather than show you a number from a station far away, or one we cannot stand behind, this says nothing. Try again in a moment, pick the nearest city, or open the full map.';
       $('bandLabel').textContent = '';
       return;
     }
+
+    if (r.kind === 'daily' || r.kind === 'model') { renderNotLive(r); return; }
 
     var b = bandFor(r.pm);
     var v = VERDICTS[b.key];
@@ -191,11 +208,44 @@
     box.className = 'matches on';
   }
 
+  /* No monitor near this place has reported lately. js/air-sources.js tries CPCB's daily
+     bulletin and then a model; either is shown as exactly that, never as a live reading. */
+  function renderNotLive(r) {
+    var kids = $('scale').children;
+    for (var i = 0; i < kids.length; i++) kids[i].className = BANDS[i].cls;
+    for (var k = 1; k <= 3; k++) { $('w' + k).textContent = ''; $('w' + k + 'n').textContent = ''; }
+    $('bandLabel').textContent = '';
+    if (r.kind === 'daily') {
+      $('pm').textContent = '—';
+      $('pm').style.color = '';
+      $('stamp').textContent = r.name + ' · CPCB daily bulletin, ' + r.date;
+      $('verdictText').textContent = 'CPCB\u2019s daily bulletin figure for ' + r.date + '.';
+      $('plain').textContent = 'No monitor near ' + r.name + ' has reported in the last 6 hours. CPCB\u2019s bulletin for ' +
+        r.city + ' on ' + r.date + ' gives an AQI of ' + r.aqi + ' (' + r.category + ', on CPCB\u2019s scale), from ' +
+        r.stations + ' of ' + r.stationsTotal + ' stations. It is a city-wide daily figure published about a day late.';
+      return;
+    }
+    $('pm').textContent = Math.round(r.pm25);
+    $('pm').style.color = '';
+    $('stamp').textContent = r.name + ' · modelled estimate';
+    $('verdictText').textContent = 'A computer model\u2019s estimate.';
+    $('plain').textContent = 'No monitor near ' + r.name + ' has reported lately and CPCB\u2019s bulletin has no recent figure for it. ' +
+      'A computer model (Open-Meteo, CAMS) estimates ' + Math.round(r.pm25) + ' \u00b5g/m\u00b3 of PM2.5 there. ' +
+      'A model is not a monitor, and it can read far too low in a polluted city.';
+  }
+
   function go(name, lat, lon) {
     $('matches').className = 'matches';
     $('place').value = name;
     $('stamp').textContent = name + ' · reading…';
-    fetchCity(name, lat, lon).then(renderAnswer);
+    var slug = name === 'Your location' ? nearestSlug(lat, lon) : name.toLowerCase();
+    fetchCity(name, lat, lon, slug).then(function (r) {
+      if (r || !window.JVAir) return r;
+      var cities = CITIES.map(function (c) { return { key: c[0].toLowerCase(), name: c[0], lat: c[1], lon: c[2] }; });
+      var key = name === 'Your location' ? undefined : name.toLowerCase();
+      return window.JVAir.reading({ lat: +lat, lon: +lon, key: key, name: name }, { cities: cities, skip: ['live'] })
+        .then(function (x) { return x ? Object.assign({ name: name }, x) : null; });
+    }).then(renderAnswer);
   }
 
 
@@ -394,7 +444,7 @@
     wirePreferences();
     go('Delhi', 28.6139, 77.2090);
 
-    Promise.all(CITIES.map(function (c) { return fetchCity(c[0], c[1], c[2]); }))
+    Promise.all(CITIES.map(function (c) { return fetchCity(c[0], c[1], c[2], c[0].toLowerCase()); }))
       .then(renderRanking);
 
     $('place').addEventListener('input', function () { showMatches(this.value); });

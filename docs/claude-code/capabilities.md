@@ -172,7 +172,11 @@ Every function follows this template:
 
 ### GitHub Actions Workflows
 
-**Link Checking** (`ci.yml`):
+**CI** (`ci.yml`):
+- **Jobs**: `guard-index-html`, `guard-site-figures` (the checks and `--check` builders in `scripts/`), `guard-netlify-functions`, `unit-tests` (`npm test`) and the advisory `check-links`
+- **Run locally**: `bash scripts/run-ci-checks.sh`, generated from the workflows by `scripts/list-ci-checks.py`
+
+**Link Checking** (the `check-links` job in `ci.yml`):
 - **Triggers**: Push to `main`, PRs to `main`
 - **Tool**: Lychee link checker
 - **Excludes**: localhost, social media platforms, rate-limited domains, and the `docs/` and `docs-*/` directories
@@ -195,7 +199,7 @@ Every function follows this template:
 - Every push to `main` triggers an automatic deploy
 - Build publishes from repo root (`.`)
 - Functions directory: `netlify/functions/`
-- Node.js 22 runtime (`NODE_VERSION` in `netlify.toml`)
+- Node.js 24 runtime (`NODE_VERSION` in `netlify.toml`)
 
 ---
 
@@ -263,7 +267,7 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 | Marathi | `docs-mr/` | `/docs/#/mr/` |
 | Tamil | `docs-ta/` | `/docs/#/ta/` |
 
-### Documentation Sections (65 English pages; 47 in each translated tree)
+### Documentation Sections (74 English pages, nine of them dated fact-check reports; 68 to 71 in each translated tree on 21 November 2026)
 - **Claude Code guides** — overview, setup, workflow, sharing, capabilities
 - **Skills & AI** — air quality assistant, health advisory, accountability brief, anomaly explainer, coding practices, visual design, automation
 - **Tech Stack** — overview, frontend, backend, AI layer, infrastructure, dev tooling
@@ -283,7 +287,7 @@ Claude Code supports Model Context Protocol (MCP) servers that extend its tool a
 ## 9. Code Quality & Conventions
 
 ### Architecture Constraints
-- **Three front-end files** — `index.html` (markup), `app.js` and `styles.css`
+- **Front end in plain files**: `index.html` (markup), `app.js`, `styles.css`, `games.js`, the scripts in `js/` and 19 panel fragments in `panels/`
 - **No frameworks** — no React, Vue, Angular, Svelte
 - **No build step** — no Webpack, Vite, Rollup
 - **No TypeScript** — vanilla JavaScript only
@@ -310,7 +314,7 @@ Only 3 npm packages in `package.json`:
 - The Netlify Functions (serverless backend)
 - The single-page application front end (`index.html`, `app.js`, `styles.css`)
 - All AI skill prompts and prompt engineering
-- Multilingual Docsify documentation (65 English pages; 47 per translated language)
+- Multilingual Docsify documentation (74 English pages; 68 to 71 per translated language on 21 November 2026)
 - Git hooks for commit enforcement
 - GitHub Actions workflows
 - CHANGELOG entries and version management

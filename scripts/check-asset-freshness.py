@@ -43,7 +43,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RECORD = ROOT / 'data' / 'asset-freshness.json'
 
 # The files served behind a ?v= stamp, and therefore cache-first.
-ASSETS = ['app.js', 'styles.css', 'js/chrome.js']
+ASSETS = ['app.js', 'styles.css', 'js/chrome.js', 'js/air-sources.js']
 
 
 def version():

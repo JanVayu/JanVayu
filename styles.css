@@ -1181,6 +1181,51 @@ h3 svg, h4 svg { max-width: 20px; max-height: 20px; }
 .hero-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .hero-chip { font-family: var(--mono); font-size: 0.72rem; color: var(--text-2); background: var(--bg-section); border: 1px solid var(--border); border-radius: 0; padding: 4px 9px; }
 
+/* Room for what the live reading fills in, mirrored in the critical CSS of
+   index.html. app.js removes .hero-pending once the reading is in or has
+   failed. The first line of the card holds the height of the city search that
+   replaces the select. */
+.hero-pm25-card > div:first-child { min-height: 29px; }
+/* The reading as figures, under the headline. One row a figure: the number or
+   word, a one-line label, a hairline. The tab hangs from the block's top rule
+   and names who published the figures, so none is on screen without its source.
+   While the reading is loading the block holds the height of the tab and two
+   rows (214px, a live station's block), so the search field under it stays
+   where it is when a live reading arrives and moves by one row for a bulletin. */
+.hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
+.hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
+.hero-pending .hero-figs-wrap { display: block; min-height: 214px; }
+/* A returning reader: the whole block is held at the height it settled at last
+   time (set inline before first paint), so the 214px guess is not needed. */
+.hero-pending .hero-known .hero-figs-wrap { display: none; min-height: 0; }
+.hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
+    font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
+.hero-source-tab[hidden] { display: none; }
+.hero-figs { margin: 0; border-top: 2px solid var(--ink); }
+.hero-figs[hidden] { display: none; }
+.hero-fig { display: flex; flex-direction: column-reverse; padding: 11px 0 12px; border-bottom: 1px solid var(--border); }
+.hero-fig-n { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--text); }
+.hero-fig-n small { font-family: var(--sans); font-weight: 500; font-size: 0.42em; letter-spacing: 0; margin-left: 0.3em; }
+.hero-fig-l { margin-top: 3px; font-family: var(--sans); font-size: 0.9rem; line-height: 1.4; color: var(--text-2); }
+/* The explanation under the figures: the first sentence carries the point in
+   the paragraph's own ink, and what follows is quieter. */
+.hero-sub-more { color: var(--text-3); }
+/* A notice, not a paragraph: shown when the bulletin on screen is older than
+   yesterday's, so a reader does not take an old figure for the latest one. */
+.hero-notice { margin: 16px 0 0; max-width: 46ch; padding: 12px 14px; background: var(--ink); color: var(--bg);
+    font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; }
+.hero-notice[hidden] { display: none; }
+/* The figures under the headline carry the reading, so the card prints no second
+   copy of it: its number and unit stay hidden, and its two lines show only when
+   they add something. */
+.hero-pm25-number[hidden], .hero-pm25-unit[hidden], .hero-pm25-who[hidden], .hero-pm25-aqi[hidden] { display: none; }
+@media (max-width: 768px) {
+    .hero-pending .hero-band { min-height: 8px; }
+    .hero-pending .hero-band-label { min-height: 20px; }
+    .hero-pending .hero-chips { min-height: 30px; }
+    .hero-pending .hero-who { min-height: 360px; }
+}
+
 @media (max-width: 760px) {
     .hero-find { flex-direction: column; max-width: none; }
     .hero-find-btn { width: 100%; }
@@ -3522,6 +3567,11 @@ body.panel-open #panel-container { padding-top: 72px !important; }
     position: sticky; top: 0; z-index: 60; background: var(--bg); border-bottom: 1px solid transparent; }
 .bar.is-stuck { border-bottom-color: var(--border); }
 .bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+/* js/dyslexia-font.js adds a 44px button before Theme once it has loaded. Hold
+   its place until then, or on a phone-sized bar the sixth control wraps and
+   the bar grows by a row after first paint. */
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -3533,6 +3583,32 @@ body.panel-open #panel-container { padding-top: 72px !important; }
     font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
 .ctl:hover { background: var(--ink); color: var(--bg); }
 .ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.ctl[hidden] { display: none; }
+/* One row on a phone, from the first frame. Before this the six controls
+   wrapped under the wordmark and the bar stood 165px tall at 390px wide. Below
+   620px the bar is the wordmark and one bordered Menu word; Menu opens all six
+   controls on the rows beneath it, in the order they have on a wide screen.
+   .bar-fold is added by the inline script under the header, so with no script
+   every control shows, as it did before. */
+#ctlMenu { display: none; }
+@media (max-width: 620px) {
+    .bar.bar-fold { column-gap: 8px; }
+    .bar.bar-fold .right { display: contents; }
+    .bar.bar-fold .ctl { padding: 0 11px; }
+    .bar.bar-fold #ctlMenu:not([hidden]) { display: inline-flex; padding: 0 16px; }
+    .bar.bar-fold #ctlMenu[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
+    .bar.bar-fold:not(.menu-open) .ctl:not(#ctlMenu), .bar.bar-fold:not(.menu-open) #dys-font-btn { display: none; }
+    .bar.bar-fold:not(.menu-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+    /* Open, the six controls start a row of their own under the wordmark. The
+       bar's ::before is a zero-height full-width item that ends the first row;
+       the order values keep the controls in the order they have on a wide
+       screen, with the reading-font button (or the space held for it) before
+       Theme. */
+    .bar.bar-fold.menu-open::before { content: ''; flex: 0 0 100%; height: 0; order: 1; }
+    .bar.bar-fold.menu-open #ctlRole, .bar.bar-fold.menu-open #ctlLang, .bar.bar-fold.menu-open #ctlSimple { order: 2; }
+    .bar.bar-fold.menu-open #dys-font-btn, .bar.bar-fold.menu-open .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { order: 3; }
+    .bar.bar-fold.menu-open #ctlTheme, .bar.bar-fold.menu-open #ctlIndex { order: 4; }
+}
 
 /* Popovers for the role and language controls. The bar is their positioning
    context. Each is a real list of buttons, so both are reachable by keyboard
@@ -3699,3 +3775,29 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 .jv-share-label { font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-right: 4px; }
 body .jv-share a, body .jv-share button { font: inherit; font-size: 0.85rem; padding: 6px 12px; min-height: 44px; display: inline-flex; align-items: center; border: 1px solid var(--border); background: var(--bg-section); color: var(--text); text-decoration: none; cursor: pointer; }
 body .jv-share a:hover, body .jv-share button:hover { border-color: var(--ink); }
+
+/* Diwali morning-after block (index.html, written by scripts/build-diwali-morning.py).
+   Below the first screen, so it lives here only and not in the critical block. */
+.dm { margin: 44px 0 0; padding: 36px 0 8px; border-top: 2px solid var(--border); }
+.dm-eyebrow { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); }
+.dm-title { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-top: 8px; }
+.dm-lead { font-size: 1rem; color: var(--text-2); line-height: 1.6; margin-top: 12px; max-width: 64ch; }
+.dm-days { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 20px; background: var(--border); border: 1px solid var(--border); }
+@media (min-width: 768px) { .dm-days { grid-template-columns: repeat(4, 1fr); } }
+.dm-cell { background: var(--bg-card); padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 3px; min-height: 148px; }
+.dm-date { font-family: var(--mono); font-size: 0.78rem; font-weight: 600; color: var(--text); }
+.dm-tag { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+.dm-aqi { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; line-height: 1.1; color: var(--text); margin-top: 4px; }
+.dm-aqi.dm-wait { font-size: 1.5rem; padding-top: 8px; }
+.dm-cat { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.dm-st { font-size: 0.8rem; color: var(--text-2); }
+.dm-find { font-size: 1rem; color: var(--text); line-height: 1.6; margin-top: 20px; max-width: 64ch; }
+.dm-table-wrap { margin-top: 16px; overflow-x: auto; }
+.dm-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.dm-table caption { text-align: left; font-size: 0.8rem; color: var(--text-2); padding-bottom: 6px; }
+.dm-table th, .dm-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border-light); color: var(--text); white-space: nowrap; }
+.dm-table thead th { font-size: 0.75rem; font-weight: 700; color: var(--text-2); border-bottom: 2px solid var(--border); }
+.dm-table .dm-now th, .dm-table .dm-now td { font-weight: 700; background: var(--bg-section); }
+.dm-src { font-size: 0.82rem; color: var(--text-2); line-height: 1.55; margin-top: 12px; max-width: 72ch; }
+.dm-src a { text-decoration: underline; text-underline-offset: 0.14em; }
+@media (max-width: 480px) { .dm-table { font-size: 0.8rem; } .dm-table th, .dm-table td { padding: 7px 5px; } .dm-table thead th { font-size: 0.7rem; } }

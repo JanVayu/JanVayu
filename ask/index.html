@@ -33,9 +33,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=202606246">
+<link rel="stylesheet" href="/styles.css?v=202606259">
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606246" defer></script>
+<script src="/js/chrome.js?v=202606259" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -199,6 +199,9 @@
     }
     .suggestion:hover { border-color: var(--accent); color: var(--accent); }
 
+    .page-credit { flex-shrink: 0; margin: 0; padding: 0 16px calc(8px + var(--safe-bottom)); text-align: center; font-size: 0.72rem; color: var(--text-3); background: var(--bg); }
+    .page-credit a { color: inherit; text-decoration: underline; }
+
     /* Input bar */
     .input-bar {
       display: flex; align-items: flex-end; gap: 8px;
@@ -336,6 +339,8 @@
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
+
+  <p class="page-credit" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>
 
   <script>
     let selectedCity = 'delhi';

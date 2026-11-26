@@ -12,7 +12,7 @@ import { getBlobStore } from "./lib/blob.mjs";
 import { iaqiToPM25, iaqiToPM10 } from "./lib/iaqi.mjs";
 
 
-import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
+import { fetchStationNear } from "./lib/waqi-station.mjs";
 
 const CITIES = {
   delhi: { name: "Delhi", lat: 28.6139, lon: 77.209 },
@@ -111,9 +111,9 @@ const CITIES = {
 async function fetchOne(key) {
   const c = CITIES[key];
   try {
-    const url = `https://api.waqi.info/feed/geo:${c.lat};${c.lon}/?token=${WAQI_TOKEN}`;
-    const res = await fetch(url);
-    const json = await res.json();
+    // Only a station near the city (lib/waqi-station.mjs says why).
+    const hit = await fetchStationNear({ lat: c.lat, lon: c.lon, slug: key });
+    const json = hit ? { status: "ok", data: hit.data } : { status: "none" };
     if (json.status === "ok" && json.data && json.data.aqi !== "-") {
       const aqi = parseInt(json.data.aqi);
       const iaqi = json.data.iaqi || {};

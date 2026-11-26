@@ -6,7 +6,7 @@
     <title>JanVayu | India's Citizen Air Quality Platform</title>
 
     <!-- SEO Meta -->
-    <meta name="description" content="India's independent citizen-led air quality platform. Live PM2.5 data for 157 Indian cities (plus Beijing, London and Singapore for comparison), personal health-impact estimates, NCAP budget tracking, policy accountability, and environmental justice reporting. 1.72 million deaths/year demand action (Lancet Countdown 2025).">
+    <meta name="description" content="India's citizen-led air quality platform. Live PM2.5 data for 157 Indian cities (plus Beijing, London and Singapore for comparison), personal health-impact estimates, NCAP budget tracking, policy accountability, and environmental justice reporting. 1.72 million deaths/year demand action (Lancet Countdown 2025).">
     <meta name="keywords" content="air quality India, AQI Delhi, PM2.5 India, air pollution deaths, NCAP progress, clean air India, JanVayu, जनवायु, pollution accountability, health impact air pollution, CPCB data, WAQI, environmental justice India">
     <meta name="author" content="JanVayu: AirQuality for Janhit by MMSF Fellows, AIPC">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -55,7 +55,7 @@
         "name": "JanVayu",
         "alternateName": ["जनवायु", "ஜன்வாயு", "জনবায়ু"],
         "url": "https://www.janvayu.in/",
-        "description": "India's independent citizen-led air quality accountability platform",
+        "description": "India's citizen-led air quality accountability platform",
         "inLanguage": ["en", "hi", "ta", "mr", "bn"],
         "potentialAction": {
             "@type": "SearchAction",
@@ -152,7 +152,7 @@
     <link rel="preload" href="/fonts/fraunces-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/kalam-400.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Discover the main stylesheet early (its <link> sits deeper in <head>). -->
-    <link rel="preload" as="style" href="/styles.css?v=202606246">
+    <link rel="preload" as="style" href="/styles.css?v=202606259">
     <!-- Google Fonts (DM Sans body, Newsreader, JetBrains Mono) loaded non-render-blocking:
          with font-display:swap and the system-ui fallback in --sans, text paints
          immediately and swaps in seamlessly, so this no longer gates first paint. -->
@@ -858,6 +858,69 @@ p a, li a, dd a { text-decoration: underline; text-underline-offset: 0.14em; }
     .hero-headline { font-size: 1.35rem; }
     .grid-5 { grid-template-columns: 1fr; }
 }
+/* The hero on a phone, as styles.css finally leaves it. These come after the
+   blocks above on purpose: in styles.css the later ≤768px block and the
+   unconditional .hero-sub rule override them. Without this the first paint
+   differs from the finished page (search box and button side by side, a
+   smaller intro and a 4px wider gutter), and the full stylesheet moves
+   everything under the hero when it lands. Keep in sync with styles.css. */
+.hero-sub { font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.55; }
+.hero { padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 5vw, 72px); background: none; }
+.hero-headline { font-size: clamp(2.6rem, 6vw, 5rem); }
+.hero-data { background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.hero-data > * { background: var(--bg-card); }
+.hero-pm25-card { border-top: 3px solid var(--accent); }
+/* Room for what the live reading fills in. Until app.js has an answer the
+   band, its label, the groups chips and the who-is-affected rows are empty, so
+   the live card sits 360px higher than it will once they fill. It then drops
+   below the first screen as the rows arrive. On a phone the rows are reserved
+   here (app.js removes .hero-pending when the reading is in or has failed), and
+   the first line of the card holds the height of the city search that replaces
+   the select. Keep in sync with styles.css. */
+.hero-pm25-card > div:first-child { min-height: 29px; }
+/* The reading as figures, under the headline. One row a figure: the number or
+   word, a one-line label, a hairline. The tab hangs from the block's top rule
+   and names who published the figures, so none is on screen without its source.
+   While the reading is loading the block holds the height of the tab and two
+   rows (214px, a live station's block), so the search field under it stays
+   where it is when a live reading arrives and moves by one row for a bulletin. */
+.hero-figs-wrap { margin-top: 22px; max-width: 46ch; }
+.hero-figs-wrap:not(:has(> :not([hidden]))) { display: none; }
+.hero-pending .hero-figs-wrap { display: block; min-height: 214px; }
+/* A returning reader: the whole block is held at the height it settled at last
+   time (set inline before first paint), so the 214px guess is not needed. */
+.hero-pending .hero-known .hero-figs-wrap { display: none; min-height: 0; }
+.hero-source-tab { display: table; margin: 0; padding: 4px 9px; max-width: 100%; background: var(--ink); color: var(--bg);
+    font-family: var(--mono); font-size: 0.62rem; line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; }
+.hero-source-tab[hidden] { display: none; }
+.hero-figs { margin: 0; border-top: 2px solid var(--ink); }
+.hero-figs[hidden] { display: none; }
+.hero-fig { display: flex; flex-direction: column-reverse; padding: 11px 0 12px; border-bottom: 1px solid var(--border); }
+.hero-fig-n { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--text); }
+.hero-fig-n small { font-family: var(--sans); font-weight: 500; font-size: 0.42em; letter-spacing: 0; margin-left: 0.3em; }
+.hero-fig-l { margin-top: 3px; font-family: var(--sans); font-size: 0.9rem; line-height: 1.4; color: var(--text-2); }
+/* The explanation under the figures: the first sentence carries the point in
+   the paragraph's own ink, and what follows is quieter. */
+.hero-sub-more { color: var(--text-3); }
+/* A notice, not a paragraph: shown when the bulletin on screen is older than
+   yesterday's, so a reader does not take an old figure for the latest one. */
+.hero-notice { margin: 16px 0 0; max-width: 46ch; padding: 12px 14px; background: var(--ink); color: var(--bg);
+    font-family: var(--sans); font-size: 0.95rem; line-height: 1.45; }
+.hero-notice[hidden] { display: none; }
+/* The figures under the headline carry the reading, so the card prints no second
+   copy of it: its number and unit stay hidden, and its two lines show only when
+   they add something. */
+.hero-pm25-number[hidden], .hero-pm25-unit[hidden], .hero-pm25-who[hidden], .hero-pm25-aqi[hidden] { display: none; }
+@media (max-width: 768px) {
+    .hero-pending .hero-band { min-height: 8px; }
+    .hero-pending .hero-band-label { min-height: 20px; }
+    .hero-pending .hero-chips { min-height: 30px; }
+    .hero-pending .hero-who { min-height: 360px; }
+}
+@media (max-width: 768px) { .container { padding: 0 16px; } .hero { padding: 28px 0 24px; } }
+@media (max-width: 760px) { .hero-find { flex-direction: column; max-width: none; } .hero-find-btn { width: 100%; } }
+@media (max-width: 480px) { .hero h1 { font-size: 1.6rem; } }
+@media (max-width: 375px) { .container { padding: 0 12px; } }
     
 /* ── Hard edges ─────────────────────────────────────────────────────────────
    The house style is a hard edge: no corner radius, no drop shadow, surfaces
@@ -917,6 +980,11 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
    live reading card its gutter in v26.6.214. */
 .bar { display: flex; align-items: center; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 60; background: var(--bg); border-bottom: 1px solid transparent; }
 .bar .right { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+/* js/dyslexia-font.js adds a 44px button before Theme once it has loaded. Hold
+   its place until then, or on a phone-sized bar the sixth control wraps and
+   the bar grows by a row after first paint. */
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { content: ''; order: 1; flex: none; width: 44px; height: 44px; }
+.bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlTheme, .bar .right[data-dyslexia-slot]:not(:has(#dys-font-btn)) #ctlIndex { order: 2; }
 @media (max-width: 620px) {
     .bar .mark { flex: 1 0 auto; }
     .bar .right { width: 100%; margin-left: 0; }
@@ -928,6 +996,32 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
 .ctl:hover { background: var(--ink); color: var(--bg); }
 .ctl[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.ctl[hidden] { display: none; }
+/* One row on a phone, from the first frame. Before this the six controls
+   wrapped under the wordmark and the bar stood 165px tall at 390px wide. Below
+   620px the bar is the wordmark and one bordered Menu word; Menu opens all six
+   controls on the rows beneath it, in the order they have on a wide screen.
+   .bar-fold is added by the inline script under the header, so with no script
+   every control shows, as it did before. */
+#ctlMenu { display: none; }
+@media (max-width: 620px) {
+    .bar.bar-fold { column-gap: 8px; }
+    .bar.bar-fold .right { display: contents; }
+    .bar.bar-fold .ctl { padding: 0 11px; }
+    .bar.bar-fold #ctlMenu:not([hidden]) { display: inline-flex; padding: 0 16px; }
+    .bar.bar-fold #ctlMenu[aria-expanded="true"] { background: var(--ink); color: var(--bg); }
+    .bar.bar-fold:not(.menu-open) .ctl:not(#ctlMenu), .bar.bar-fold:not(.menu-open) #dys-font-btn { display: none; }
+    .bar.bar-fold:not(.menu-open) .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { display: none; }
+    /* Open, the six controls start a row of their own under the wordmark. The
+       bar's ::before is a zero-height full-width item that ends the first row;
+       the order values keep the controls in the order they have on a wide
+       screen, with the reading-font button (or the space held for it) before
+       Theme. */
+    .bar.bar-fold.menu-open::before { content: ''; flex: 0 0 100%; height: 0; order: 1; }
+    .bar.bar-fold.menu-open #ctlRole, .bar.bar-fold.menu-open #ctlLang, .bar.bar-fold.menu-open #ctlSimple { order: 2; }
+    .bar.bar-fold.menu-open #dys-font-btn, .bar.bar-fold.menu-open .right[data-dyslexia-slot]:not(:has(#dys-font-btn))::before { order: 3; }
+    .bar.bar-fold.menu-open #ctlTheme, .bar.bar-fold.menu-open #ctlIndex { order: 4; }
+}
 
 /* Popovers for the role and language controls. The bar is their positioning
    context. Each is a real list of buttons, so both are reachable by keyboard
@@ -987,8 +1081,8 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 </style>
     <!-- Full stylesheet, loaded non-render-blocking (media=print flips to all on load;
          preloaded earlier in <head> so it is already fetching). -->
-    <link rel="stylesheet" href="/styles.css?v=202606246" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="/styles.css?v=202606246"></noscript>
+    <link rel="stylesheet" href="/styles.css?v=202606259" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css?v=202606259"></noscript>
 
 <style>
 /* Thirteen controls in a row wrapped to two lines on a laptop and stretched
@@ -1048,7 +1142,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
      after it, and a page that paints light and then flips to dark is worse
      than either. js/chrome.js owns the storage key; this only reads it. -->
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606246" defer></script>
+<script src="/js/chrome.js?v=202606259" defer></script>
 </head>
 <body>
     <!-- ═══ ACCESSIBILITY: Skip to content ═══ -->
@@ -1067,10 +1161,17 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <header class="bar container">
         <a class="mark" href="#dashboard" onclick="showPanel('dashboard'); return false;">Jan<span>Vayu</span></a>
         <div class="right" data-dyslexia-slot data-dyslexia-before="#ctlTheme">
+            <!-- On a phone the bar is the wordmark and Menu. The six controls fold
+                 behind Menu below 620px, and only once the script under this header
+                 has run, so a page whose script failed still shows all of them. Menu
+                 sits directly before what it reveals, so the tab order is the order
+                 on screen. On a wide screen Menu is not shown and the order is the
+                 one the bar has always had, with Index last. -->
+            <button type="button" class="ctl" id="ctlMenu" aria-expanded="false" hidden onclick="toggleBarMenu()">Menu</button>
             <button type="button" class="ctl" id="ctlRole" aria-haspopup="true" aria-expanded="false" aria-controls="rolePopover" onclick="toggleRolePopover()"><span id="ctlRoleLabel" data-i18n="ctl_who">Who you are</span></button>
             <button type="button" class="ctl" id="ctlLang" aria-haspopup="true" aria-expanded="false" aria-controls="langPopover" onclick="toggleLangPopover()"><span id="ctlLangLabel">EN</span></button>
             <button type="button" class="ctl" id="ctlSimple" aria-pressed="false" onclick="toggleSimpleMode()" data-i18n="ctl_simple">Simple</button>
-            <button type="button" class="ctl" id="ctlTheme" aria-label="Switch between light and dark" onclick="toggleTheme()" data-i18n="ctl_theme">Theme</button>
+            <button type="button" class="ctl" id="ctlTheme" aria-label="Theme: switch between light and dark" onclick="toggleTheme()" data-i18n="ctl_theme">Theme</button>
             <button type="button" class="ctl" id="ctlIndex" aria-expanded="false" aria-controls="siteIndex" onclick="openSiteIndex()" data-i18n="ctl_index">Index</button>
         </div>
         <div class="pop" id="rolePopover" hidden>
@@ -1081,6 +1182,22 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="popgrid" id="langPopoverGrid"></div>
         </div>
     </header>
+    <script>
+    /* Runs before the rest of the page paints, so the bar is one row on a phone
+       from the first frame. It owns the Menu control by itself and needs nothing
+       from app.js. */
+    (function () {
+        var bar = document.querySelector('header.bar'), menu = document.getElementById('ctlMenu');
+        if (!bar || !menu) return;
+        bar.classList.add('bar-fold');
+        menu.hidden = false;
+        function set(open) { bar.classList.toggle('menu-open', open); menu.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+        window.toggleBarMenu = function () { set(!bar.classList.contains('menu-open')); };
+        bar.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && bar.classList.contains('menu-open') && !bar.querySelector('.pop:not([hidden])')) { set(false); menu.focus(); }
+        });
+    })();
+    </script>
 
     <!-- Everything on the site, on one screen, filterable. The dropdown nav
          reached 59 destinations and /try's own index reached 42; the missing
@@ -1195,12 +1312,23 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 
     <main id="main-content">
         <!-- ═══ HERO SECTION ═══ -->
-        <section class="hero" id="section-dashboard">
+        <section class="hero hero-pending" id="section-dashboard">
             <div class="container">
                 <div class="hero-grid">
                     <div>
+                        <div class="hero-read" id="heroRead"><script>(function(){try{var s=JSON.parse(localStorage.getItem('janvayu-hero-h')||'null'),b=document.currentScript.parentNode;if(s&&s.w===window.innerWidth&&s.h>0&&s.h<1600){b.style.minHeight=s.h+'px';b.classList.add('hero-known');}}catch(e){}})();</script>
                         <h1 class="hero-headline" id="heroQuestion" data-i18n="hero_question" data-simple="What is in the air you are breathing?">What are you breathing, <em>right now</em>?</h1>
+                        <!-- The reading, as figures: one number or word a row, a one-line
+                             label under it and a hairline between rows. The tab on the
+                             top rule names who published them, so no figure is on screen
+                             without its source. app.js fills both once a reading is in. -->
+                        <div class="hero-figs-wrap" id="heroFigsWrap">
+                            <p class="hero-source-tab" id="hero-source-tab" hidden></p>
+                            <dl class="hero-figs" id="heroFigs" hidden></dl>
+                        </div>
+                        <p class="hero-notice" id="heroNotice" role="note" hidden></p>
                         <p class="hero-sub" id="heroWhy" data-i18n="hero_question_sub">Live air from India&rsquo;s continuous monitoring network, annual estimates for 983,149 areas, from states down to villages, in 5 languages.</p>
+                        </div>
                         <div class="hero-find">
                             <input id="heroFind" class="hero-find-input" type="text" autocomplete="off" spellcheck="false" placeholder="Your city, ward or village" data-i18n="hero_find_place" data-i18n-attr="aria-label:hero_find_place" aria-label="Your city, ward or village" oninput="heroFindType(this.value)" onkeydown="if(event.key===&apos;Enter&apos;){heroFindEnter();}">
                             <button class="hero-find-btn" id="near-me-btn" onclick="loadNearestAQI()" data-i18n="hero_find_near">Near me</button>
@@ -1271,11 +1399,13 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                                 </optgroup>
                             </select>
                                 </div>
-                            <div class="hero-pm25-label" id="hero-city-label">Delhi Live PM2.5</div>
-                            <div class="hero-pm25-number jv-t-red" id="delhi-live-pm25">--</div>
-                            <div class="hero-pm25-unit">µg/m³</div>
-                            <div class="hero-pm25-who jv-t-red" id="delhi-who-multiple">--x WHO guideline</div>
-                            <div class="hero-pm25-aqi">AQI: <span id="delhi-live-aqi">--</span></div>
+                            <div class="hero-pm25-label" id="hero-city-label">Delhi: live reading</div>
+                            <!-- The reading itself is the figures under the headline. These two stay
+                                 in the markup, hidden, because app.js still writes them. -->
+                            <div class="hero-pm25-number jv-t-red" id="delhi-live-pm25" hidden>--</div>
+                            <div class="hero-pm25-unit" id="hero-pm25-unit" hidden>µg/m³</div>
+                            <div class="hero-pm25-who jv-t-red" id="delhi-who-multiple" hidden>--x WHO guideline</div>
+                            <div class="hero-pm25-aqi" id="hero-aqi-row" hidden>AQI: <span id="delhi-live-aqi">--</span></div>
                             <button onclick="generateAQICard(document.getElementById('hero-city-select').value)" title="Download shareable AQI card" style="
                                 margin-top: 8px; padding: 4px 14px; font-size: 0.7rem; font-weight: 600;
                                 font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.05em;
@@ -1323,6 +1453,39 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <!-- Ask JanVayu. This used to be a 34px icon in the hero that opened a
                      floating widget, with the real interface buried in a panel behind
                      the nav. It answers here, in place, without navigating. -->
+<!--diwali:start-->
+<section class="dm" id="section-diwali-morning" aria-labelledby="dm-title">
+  <span class="dm-eyebrow">Diwali 2026</span>
+  <h2 class="dm-title" id="dm-title">Delhi’s air the morning after Diwali</h2>
+  <p class="dm-lead">Diwali fell on Sunday 8 November. CPCB’s bulletin for Monday 9 November, which covers the night of the fireworks, put Delhi at AQI 344 (Very Poor), from 47 of 59 stations. 12 of the 59 stations did not report.</p>
+  <ol class="dm-days">
+    <li class="dm-cell"><span class="dm-date">Fri 6 Nov</span><span class="dm-aqi">382</span><span class="dm-cat">Very Poor</span><span class="dm-st">57 of 59 stations</span></li>
+    <li class="dm-cell"><span class="dm-date">Sat 7 Nov</span><span class="dm-aqi">369</span><span class="dm-cat">Very Poor</span><span class="dm-st">59 of 59 stations</span></li>
+    <li class="dm-cell"><span class="dm-date">Sun 8 Nov</span><span class="dm-tag">Diwali</span><span class="dm-aqi">376</span><span class="dm-cat">Very Poor</span><span class="dm-st">59 of 59 stations</span></li>
+    <li class="dm-cell"><span class="dm-date">Mon 9 Nov</span><span class="dm-tag">Morning after</span><span class="dm-aqi">344</span><span class="dm-cat">Very Poor</span><span class="dm-st">47 of 59 stations</span></li>
+  </ol>
+  <p class="dm-find">In 6 of the 7 years from 2019 to 2025, the bulletin for the day after Diwali was higher than the one for Diwali day, by 6 to 140 points; in 2022 it was 10 points lower. This year’s Diwali-day figure, 376, is the third highest of the 8 Diwali-day figures from 2019 to 2026.</p>
+  <p class="dm-find">Some stations were not reporting. ThePrint reported on 9 November that data from 10 of Delhi’s 59 monitoring stations was missing on Monday morning, among them RK Puram, PUSA, NSIT Dwarka and Nehru Nagar, which had each recorded an AQI above 400 on Sunday. Because the city figure is an average of the stations, ThePrint noted that the gaps could skew it. ThePrint also reported that as many as 28 of 39 stations went blank the morning after Diwali in 2025 (<a href="https://theprint.in/feature/theres-a-data-gap-in-delhis-post-diwali-pollution-picture/3093881/" rel="noopener">ThePrint, 9 November 2026</a>). The Hindustan Times found the same pattern that year: its analysis of CPCB and DPCC data showed only 9 stations, about 23% of the network, recorded continuous data on Diwali night (<a href="https://www.hindustantimes.com/cities/delhi-news/delhis-air-monitors-fail-at-key-moments-101761071267584.html" rel="noopener">Hindustan Times, 22 October 2025</a>).</p>
+  <div class="dm-table-wrap" tabindex="0" role="region" aria-label="Delhi AQI on Diwali day and the day after, 2019 to 2026">
+  <table class="dm-table">
+    <caption>Delhi, CPCB 24-hour AQI</caption>
+    <thead><tr><th scope="col">Year</th><th scope="col">Diwali</th><th scope="col">Diwali day</th><th scope="col">Day after</th><th scope="col">Change</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">2019</th><td>Sun 27 Oct</td><td>337</td><td>368</td><td>+31</td></tr>
+      <tr><th scope="row">2020</th><td>Sat 14 Nov</td><td>414</td><td>435</td><td>+21</td></tr>
+      <tr><th scope="row">2021</th><td>Thu 4 Nov</td><td>382</td><td>462</td><td>+80</td></tr>
+      <tr><th scope="row">2022</th><td>Mon 24 Oct</td><td>312</td><td>302</td><td>-10</td></tr>
+      <tr><th scope="row">2023</th><td>Sun 12 Nov</td><td>218</td><td>358</td><td>+140</td></tr>
+      <tr><th scope="row">2024</th><td>Thu 31 Oct</td><td>328</td><td>339</td><td>+11</td></tr>
+      <tr><th scope="row">2025</th><td>Mon 20 Oct</td><td>345</td><td>351</td><td>+6</td></tr>
+      <tr class="dm-now"><th scope="row">2026</th><td>Sun 8 Nov</td><td>376</td><td>344</td><td>-32</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="dm-src">Source: CPCB daily AQI bulletins, one figure for the whole city over 24 hours, issued at 4 pm. 2019 to 2025 from the UrbanEmissions.Info extraction of the same bulletins. Diwali dates are the gazetted holiday each year. The station count is CPCB’s own and does not say that every hour was complete. A city figure cannot separate firework smoke from stubble smoke or weather. <a href="/delhi/diwali-2026/">Delhi after Diwali 2026</a> has the station-by-station figures for the night and the morning after, <a href="/delhi/">the Delhi page</a> draws the whole season against 2019 to 2025, and <a href="/bulletins/">the bulletin page</a> has every day of 2026 for each city CPCB rates.</p>
+</section>
+<!--diwali:end-->
+
                 <section class="askhome" id="section-askhome">
                 <span class="askhome-eyebrow" data-i18n="askhome_eyebrow">Ask JanVayu</span>
                 <h2 class="askhome-title" data-i18n="askhome_title">Ask a question about the air, in your own words</h2>
@@ -1411,7 +1574,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <div class="note">
                     <div class="body">
                         <div class="hero-live-alert clamped" id="heroLiveAlert">
-                        <strong>October 2026:</strong> The southwest monsoon withdrew from the whole country on 15 October (IMD press release, 15 October 2026), and with it goes the stretch when much of the country breathes its cleanest air of the year. Delhi has had its best year to date since 2016 outside 2020: 210 days at Moderate or better between 1 January and 17 October, against 203 over the same dates in 2023, though 148 of them were Moderate days above the national 24-hour standard (<a href="/blog/2026-10-19-delhi-211-days-checked/">our check of CPCB&rsquo;s bulletins</a>). This monsoon&rsquo;s rain ran 37% below normal in Punjab and 26% below in Haryana (IMD, as reported by The Tribune, 23 September 2026). October opens the season everyone argues about: paddy stubble burning across Punjab and Haryana, Diwali, and the winter inversion that holds the Indo-Gangetic plain's emissions down at ground level. The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3;, or 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit, and only 14% of global cities meet the WHO PM2.5 guideline. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths in 2022 to anthropogenic (ambient) PM2.5, among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of the 100 cities with sufficient PM10 data met the 40% reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP outside the winter season twice this year: on 16 April 2026 (revoked 4 May), and again on 19 May 2026 (revoked 29 May after strong winds and light rain cleared the air, per PIB). On 28 September 2026 CAQM approved a revised GRAP schedule for the coming season, moving the diesel-generator and inter-city bus curbs from Stage II into Stage I and extending the Stage III restrictions on older vehicles to Sonipat district (PIB, 29 September 2026). New: <a href="#airshed" onclick="showPanel('airshed'); return false;" style="color: inherit; text-decoration: underline;">Your Airshed or Your Town</a> now carries <strong>43 years of PM2.5 for 783 districts</strong>, 1980 to 2022, a record of what the air was doing decades before anyone was measuring it; and <a href="https://hawakahisab.in/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Hawa Ka Hisab</a> joins the Janhit Partners.
+                        <strong>November 2026:</strong> Diwali falls on 8 November. From 1 October to 5 November, CPCB&rsquo;s daily bulletin rated Delhi Satisfactory on 3 days, Moderate on 23, Poor on 6 and Very Poor on 4. The four Very Poor days are the last four, 2 to 5 November (AQI 324, 350, 377 and 369), after 60 on 30 October and 117 on 31 October (CPCB bulletins, 24-hour AQI; <a href="/delhi/">our charts</a> set this autumn beside 2019 to 2025, by date and by distance from Diwali). The most recent IQAir World Air Quality Report (the 2025 edition, published March 2026 covering 2025 data) ranks <strong>Loni, India</strong> as the most polluted city on Earth (112.5 &micro;g/m&sup3;, or 22&times; the WHO guideline); India's average PM2.5 of 48.9 &micro;g/m&sup3; is nearly 10&times; the WHO limit, and only 14% of global cities meet the WHO PM2.5 guideline. The Lancet Countdown 2025 (published October 2025) attributes <strong>1.72 million</strong> Indian deaths in 2022 to anthropogenic (ambient) PM2.5, among the world&rsquo;s largest national tolls. NCAP's 31 March 2026 deadline has elapsed: only 23 of the 100 cities with sufficient PM10 data met the 40% reduction target (CREA, Tracing the Hazy Air 2026). CAQM invoked Stage-I GRAP outside the winter season twice this year: on 16 April 2026 (revoked 4 May), and again on 19 May 2026 (revoked 29 May after strong winds and light rain cleared the air, per PIB). On 28 September 2026 CAQM approved a revised GRAP schedule for the coming season, moving the diesel-generator and inter-city bus curbs from Stage II into Stage I and extending the Stage III restrictions on older vehicles to Sonipat district (PIB, 29 September 2026). New: the <a href="/delhi/" style="color: inherit; text-decoration: underline;">Delhi page</a> now draws this season day by day against 2019 to 2025 and lines every year up on Diwali, with the numbers behind each chart.
                         </div>
                         <button class="hero-live-toggle" id="heroLiveToggle" onclick="toggleHeroAlert()" aria-expanded="false" aria-controls="heroLiveAlert">Read more &#9662;</button>
                         <p style="margin-top: 0.75rem; font-size: 0.875rem;"><strong>Delhi this winter:</strong> <a href="/delhi/">what is in force, what the plans promised, and where the NCAP money went</a>.</p>
@@ -1499,7 +1662,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="footer-title">JanVayu &#2332;&#2344;&#2357;&#2366;&#2351;&#2369;</div>
-                    <p class="footer-desc">Independent citizen-led air quality monitoring, health impact analysis, and government accountability tracking for India. Clean air is a right.</p>
+                    <p class="footer-desc">Citizen-led air quality monitoring, health impact analysis, and government accountability tracking for India. Clean air is a right.</p>
                     <p class="footer-credits">Part of <strong style="color:rgba(255,255,255,0.7)">AirQuality for Janhit</strong> by <a href="#" onclick="showPanel('about');return false;" style="color:rgba(255,255,255,0.5)">MMSF Fellows, AIPC</a>. See <a href="#" onclick="showPanel('about');return false;" style="color:rgba(255,255,255,0.5)">Janhit Partners</a>. Data from WAQI, CPCB, WHO, CREA, and <a href="https://urbanemissions.info" target="_blank" style="color:rgba(255,255,255,0.5)">UrbanEmissions.info</a>.</p>
                 </div>
                 <div>
@@ -1547,20 +1710,21 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <p><strong>Compliance:</strong> Published in accordance with the Information Technology Act, 2000 and IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. Contact: contribute@janvayu.in</p>
             </div>
             <div id="global-last-updated" style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 0.25rem;">Data last refreshed: loading...</div>
-            <div class="footer-bottom">&copy; 2026 JanVayu | AirQuality for Janhit by MMSF Fellows, AIPC | #AQIForJanHit | Auto-updates: AQI every 10 min | Feeds auto-fetched server-side every 4 hours</div>
+            <div class="footer-bottom">&copy; 2026 JanVayu | AirQuality for Janhit by MMSF Fellows, AIPC | #AQIForJanHit | Auto-updates: AQI every 10 min | Feeds auto-fetched server-side every 4 hours<p class="footer-credits" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p></div>
         </div>
     </footer>
 
-    <script src="/app.js?v=202606246"></script>
+    <script src="/js/air-sources.js?v=202606259"></script>
+    <script src="/app.js?v=202606259"></script>
 
 <!-- SEO: Static content for crawlers that don't execute JS -->
 <noscript>
 <article style="max-width: 800px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif; line-height: 1.8;">
     <h2>About JanVayu</h2>
-    <p>JanVayu (जनवायु / ஜன்வாயு / জনবায়ু) is India's independent, citizen-led air quality accountability platform. We track live pollution data for 157 Indian cities (and Beijing, London and Singapore for comparison), measure health impacts using GEMM exposure-response models, follow NCAP budget spending, and hold governments accountable. Available in English, Hindi, Tamil, Marathi, and Bengali.</p>
+    <p>JanVayu (जनवायु / ஜன்வாயு / জনবায়ু) is India's citizen-led air quality accountability platform. We track live pollution data for 157 Indian cities (and Beijing, London and Singapore for comparison), measure health impacts using GEMM exposure-response models, follow NCAP budget spending, and hold governments accountable. Available in English, Hindi, Tamil, Marathi, and Bengali.</p>
 
     <h2>Key Findings</h2>
-    <p>An estimated 1.72 million people in India died from ambient PM2.5 exposure in 2022 (Lancet Countdown 2025), about a quarter (1.72 million of 6.5 million anthropogenic ambient PM2.5 deaths worldwide in 2022, Lancet Countdown 2025). PM2.5 exposure reduces average Indian life expectancy by 3.5 years (AQLI 2025), with Delhi-NCR residents losing up to 8.2 years. Delhi's annual PM2.5 of 82.2 µg/m³ is ~16× the WHO guideline of 5 µg/m³. The economic cost is $339.4 billion (~9.5% of GDP) per Lancet Countdown 2025. India ranks 6th most polluted country globally (IQAir 2025), led by Loni at 112.5 µg/m³, the world's most polluted city.</p>
+    <p>An estimated 1.72 million people in India died from ambient PM2.5 exposure in 2022, about a quarter of the 6.5 million anthropogenic ambient PM2.5 deaths worldwide that year (Lancet Countdown 2025). PM2.5 exposure reduces average Indian life expectancy by 3.5 years (AQLI 2025), with Delhi-NCR residents losing up to 8.2 years. Delhi's annual PM2.5 of 82.2 µg/m³ is ~16× the WHO guideline of 5 µg/m³. The economic cost is $339.4 billion (~9.5% of GDP) per Lancet Countdown 2025. India ranks 6th most polluted country globally (IQAir 2025), led by Loni at 112.5 µg/m³, the world's most polluted city.</p>
 
     <h2>Sections Available</h2>
     <ul>
@@ -1823,7 +1987,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         </div>
                     </div>
                     <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-section); border-left: 3px solid var(--ink-red); border-radius: 8px; font-size: 0.875rem;">
-                        <span data-simple="&lt;strong&gt;What this means:&lt;/strong&gt; Even when Delhi's air quality number says &quot;moderate&quot;, the actual pollution level can be 4 times higher than the WHO 24-hour guideline. This still causes serious health harm."><strong>Key insight:</strong> Delhi's AQI might show "moderate" (100) while PM2.5 is 60 µg/m³. That is still <strong>4× the WHO 24-hour guideline of 15 µg/m³</strong> and associated with significant excess mortality risk.</span>
+                        <span data-simple="&lt;strong&gt;What this means:&lt;/strong&gt; Even when Delhi's air quality number says &quot;satisfactory&quot;, the actual pollution level can be 4 times higher than the WHO 24-hour guideline. This still causes serious health harm.">On CPCB's scale a Delhi AQI of 100 is rated "Satisfactory", yet it goes with PM2.5 of 60 µg/m³, which is <strong>4× the WHO 24-hour guideline of 15 µg/m³</strong>. Exposure at that level is associated with excess mortality.</span>
                     </div>
                 </div>
             </div>
@@ -2710,7 +2874,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <span>24 hours ago</span><span>now</span>
                     </div>
                 </div>
-                <div class="card-footer" style="font-size: 0.72rem;"><span id="hourly-note">Drag the slider to inspect any hour. </span>Source: CAMS atmospheric model via Open-Meteo, for the city&rsquo;s coordinates. These are model estimates, not readings from a monitoring station, and can differ from the live figure above.</div>
+                <div class="card-footer" style="font-size: 0.72rem;"><span id="hourly-note">Drag the slider to inspect any hour. </span>Source: CAMS atmospheric model via Open-Meteo, for the city&rsquo;s coordinates. These are model estimates. They are not readings from a monitoring station, and can differ from the live figure above.</div>
             </div>
 
             <div class="card mb-2">
@@ -2728,7 +2892,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <div class="timeline-item"><div class="timeline-date">Jan 2016</div><div class="timeline-content"><div class="timeline-title">First Odd-Even</div><div class="timeline-desc">Delhi's odd-even car rationing experiment.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">2017</div><div class="timeline-content"><div class="timeline-title">BS-IV Nationwide</div><div class="timeline-desc">Bharat Stage IV fuel standards rolled out. Helped reduce vehicular emissions.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">2019</div><div class="timeline-content"><div class="timeline-title">NCAP Launched</div><div class="timeline-desc">National Clean Air Programme for 131 cities. Original target 20-30% PM reduction by 2024, revised to up to 40% by 2025-26.</div></div></div>
-                        <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">COVID Lockdown</div><div class="timeline-desc">Delhi PM2.5 and PM10 fell by more than 50% between 3 March and 14 April 2020 (Mahato et al.). Proved pollution is man-made and reversible.</div></div></div>
+                        <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">COVID Lockdown</div><div class="timeline-desc">Delhi PM2.5 and PM10 fell by more than 50% between 3 March and 14 April 2020, during the national lockdown (Mahato et al.). Much of the city's pollution comes from activity that can stop.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Apr 2020</div><div class="timeline-content"><div class="timeline-title">BS-VI Leapfrog</div><div class="timeline-desc">India skipped BS-V, went directly to BS-VI. Equivalent to Euro 6.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Aug 2021</div><div class="timeline-content"><div class="timeline-title">Smog Tower Inaugurated</div><div class="timeline-desc">₹20 Cr tower at Connaught Place. IIT Bombay and IIT Delhi studies reported a 10-15% improvement within about 500 m and little beyond (ThePrint).</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Oct 2020</div><div class="timeline-content"><div class="timeline-title">CAQM Established</div><div class="timeline-desc">Commission for Air Quality Management constituted by Ordinance, replacing EPCA (lapsed March 2021, repromulgated April 2021). Given statutory powers.</div></div></div>
@@ -2737,7 +2901,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <div class="timeline-item" style="background: var(--bg-section); border-left: 3px solid var(--ink-green);"><div class="timeline-date">Jan 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">Delhi Winter Crisis</div><div class="timeline-desc">Zero "Good" days in 2025 (aqi.in). Delhi AQI exceeded 500 on 17 January 2026 (IQAir, US AQI).</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">31 Mar 2026</div><div class="timeline-content"><div class="timeline-title">NCAP Deadline Elapsed</div><div class="timeline-desc">23 of 100 cities (CREA Jan 2026) met the 40% target. No revised programme located in our 2 October 2026 check. 15th Finance Commission grants period ended same day.</div></div></div>
                         <div class="timeline-item"><div class="timeline-date">Apr 2026</div><div class="timeline-content"><div class="timeline-title">NGT South India Order</div><div class="timeline-desc">National Green Tribunal directs six south-Indian states (TN, KL, KA, AP, TS, PY) to file sector-wise PM10/PM2.5 reduction roadmaps tied to state budgets.</div></div></div>
-                        <div class="timeline-item" style="background: var(--bg-section); border-left: 3px solid var(--ink-green);"><div class="timeline-date">19 May 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">Off-Season GRAP</div><div class="timeline-desc">CAQM invokes GRAP Stage-I at AQI 208, after an earlier activation on 16 April (AQI 226); Stage-I was also imposed in May 2025. Signals enforcement through the year, beyond the winter months.</div></div></div>
+                        <div class="timeline-item" style="background: var(--bg-section); border-left: 3px solid var(--ink-green);"><div class="timeline-date">19 May 2026</div><div class="timeline-content"><div class="timeline-title jv-t-accent">Off-Season GRAP</div><div class="timeline-desc">CAQM invokes GRAP Stage-I at AQI 208, after an earlier activation on 16 April (AQI 226); Stage-I was also imposed in May 2025.</div></div></div>
                     </div>
                 </div>
             </div>
@@ -2772,7 +2936,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-sun" style="color: var(--ink-orange); margin-right: 0.4rem;"></span>Urban heat islands and the temperature divide</h2>
         <p style="font-size: 1.125rem; font-family: var(--serif); font-style: italic; color: var(--text-2); margin-bottom: 0.75rem;">Across India's cities, the blocks that trap pollution trap heat too, and heat makes the air worse.</p>
         <p class="jv-lede" data-simple="Why does an air website talk about heat? Because heat and dirty air go together. The crowded, concrete neighbourhoods with few trees that trap pollution also trap heat, and heat makes the air even more harmful, because it speeds up some pollutants and makes pollution hit health harder. This happens in fast-growing cities all over India, not just Delhi. On the same hot day, two areas a few kilometres apart can be many degrees apart because of the ground they stand on. Concrete and bare land get hot; trees, parks and water stay cool. Delhi is the detailed example below, but you can check other cities in the live chart.">
-            <strong>Why does an air-quality platform map heat?</strong> Because in India's cities, heat and dirty air are two sides of one problem. The dense, green-starved, concrete-heavy neighbourhoods that trap pollution also trap heat, and heat in turn makes the air <em>worse</em>, accelerating ground-level ozone and sharpening the health toll of particulate pollution. This is not unique to Delhi: in Delhi two neighbourhoods a few kilometres apart sit many degrees apart (India Today, Artha Global), and the same logic applies to other fast-building cities. The sun is the same everywhere; what changes is the <strong>ground</strong>: concrete, asphalt and bare land absorb and radiate heat, while tree canopy, parks and water cool the air around them. This is the <strong>urban heat island effect</strong>. <strong>Delhi is the detailed worked example below</strong> (it has the most granular neighbourhood data) and the live chart further down lets you check any Indian city.</p>
+            <strong>Why does an air-quality platform map heat?</strong> Because in India's cities, heat and dirty air are two sides of one problem. The dense, green-starved, concrete-heavy neighbourhoods that trap pollution also trap heat, and heat in turn makes the air <em>worse</em>, accelerating ground-level ozone and sharpening the health toll of particulate pollution. In Delhi two neighbourhoods a few kilometres apart sit many degrees apart (India Today, Artha Global), and the same logic applies to other fast-building cities. The sun is the same everywhere; what changes is the <strong>ground</strong>: concrete, asphalt and bare land absorb and radiate heat, while tree canopy, parks and water cool the air around them. This is the <strong>urban heat island effect</strong>. <strong>Delhi is the detailed worked example below</strong> (it has the most granular neighbourhood data) and the live chart further down lets you check any Indian city.</p>
     </div>
 
     <!-- ═══ Section 4: How heat and air pollution are connected ═══ -->
@@ -3286,7 +3450,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <div class="card mt-2 card-accent-blue">
         <div class="card-header"><span class="card-title"><span class="si si-sm si-shield jv-t-ink"></span> Choosing a low-cost indoor sensor</span></div>
         <div class="card-body">
-            <p class="jv-t-sm-2-mb1" data-simple="If you want to measure the air inside your own home, a cheap sensor can help, but only some are accurate. Here is what to look for so you don&rsquo;t waste money on a gadget that guesses.">Cheap PM sensors put indoor monitoring within reach, but accuracy varies widely. A 2026 IIT (ISM) Dhanbad evaluation benchmarked two widely used low-cost sensors under Indian indoor conditions; use its findings to buy wisely rather than trust the marketing.</p>
+            <p class="jv-t-sm-2-mb1" data-simple="If you want to measure the air inside your own home, a cheap sensor can help, but only some are accurate. Here is what to look for so you don&rsquo;t waste money on a gadget that guesses.">Cheap PM sensors put indoor monitoring within reach, but accuracy varies widely. A 2026 IIT (ISM) Dhanbad evaluation benchmarked two widely used low-cost sensors under Indian indoor conditions; use its findings to buy wisely and ignore the marketing.</p>
             <div class="grid-3 jv-gap-1">
                 <div class="info-box"><h3>Insist on a real PM sensor</h3><p>Laser-scattering (optical) modules (e.g. Plantower PMS-series or Sensirion SPS30) measure particles directly. Avoid "air quality" gadgets that only infer PM from VOC/gas readings; they can't see cooking or incense smoke properly.</p></div>
                 <div class="info-box"><h3>Correct for humidity &amp; drift</h3><p>Low-cost sensors read high in humid air and vary by particle type. Co-locating with a reference monitor for a few days lets you apply a correction factor. The Dhanbad study quantifies this error size-by-size.</p></div>
@@ -3342,7 +3506,16 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-header"><span class="card-title">Metabolism &amp; pregnancy</span></div>
             <div class="card-body">
                 <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="Air pollution is now linked to type-2 diabetes, and to worse pregnancy outcomes, more premature births and underweight babies, especially in the polluted winter months."><strong>Metabolic:</strong> chronic PM2.5 exposure is associated with higher <strong>type-2 diabetes</strong> risk through insulin resistance and systemic inflammation.</p>
-                <p class="jv-t-sm-2"><strong>Pregnancy:</strong> an India-specific study links a one-standard-deviation cut in in-utero PM2.5 to about <strong>1.1% higher average birth weight</strong> (Misra &amp; Kulshreshtha, 2026).</p>
+                <p class="jv-t-sm-2"><strong>Pregnancy:</strong> studies of India link higher PM2.5 in pregnancy to low birth weight, preterm birth, pregnancy loss and neonatal death. A 2025 national survey analysis found a <strong>12% higher prevalence of preterm birth</strong> per 10 &micro;g/m&sup3; (Jana et al.), and one standard deviation less in-utero PM2.5 goes with about <strong>1.1% higher average birth weight</strong> (Misra &amp; Kulshreshtha, 2026). Delhi&rsquo;s recorded preterm births rose 51% between 2021 and 2025, but that count carries no exposure data: <a href="/blog/2026-11-04-pollution-and-preterm-birth-delhi/">what it can and cannot show</a>.</p>
+            </div>
+        </div>
+
+        <div class="card card-accent-red" style="grid-column: 1 / -1;">
+            <div class="card-header"><span class="card-title">Cancer</span></div>
+            <div class="card-body">
+                <p style="font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.75rem;" data-simple="The World Health Organization's cancer agency says outdoor air pollution causes cancer. The proof is strongest for lung cancer and weaker for other cancers."><strong>Established:</strong> IARC, the World Health Organization&rsquo;s cancer agency, classified outdoor air pollution and particulate matter as carcinogenic to humans (Group 1) in 2013, on evidence that they cause <strong>lung cancer</strong>. Group 1 describes how sure the evidence is, not how large the risk is.</p>
+                <p class="jv-t-sm-2"><strong>Newer estimates:</strong> a 2026 UICC and George Institute overview of 42 reviews reports an <strong>11% higher overall risk</strong> of developing cancer, and a 12% higher risk of dying from it, with long-term PM2.5 exposure. It is a global association, so it cannot be read as a count of cases in Delhi, and the evidence for cancers other than lung is more limited (Turner et al., 2020).</p>
+                <p class="jv-t-xs-3"><strong>Delhi:</strong> AIIMS Delhi&rsquo;s AIRCARE study, announced in March 2026, plans to compare 1,615 lung cancer patients with 1,615 controls and has not reported results. <a href="/blog/2026-11-05-air-pollution-and-cancer-what-the-evidence-supports/">What the evidence supports</a></p>
             </div>
         </div>
     </div>
@@ -3560,7 +3733,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <div class="card card-accent-red jv-mb-15">
         <div class="card-header"><span class="card-title">The exposure gap</span></div>
         <div class="card-body">
-            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Most Indians who work do informal jobs, often outdoors. We know of no legal limit for how much dirty air a worker can be exposed to on the job. And on the worst days, these workers cannot simply stay indoors, their income depends on being outside.">Exposure is about <strong>dose</strong>, not just the ambient number: time outdoors &times; breathing rate &times; proximity to traffic. Physical labour raises the breathing rate, and roadside work sits right in the exhaust plume, so an outdoor worker's intake can be several times a sedentary indoor resident's on the same day.</p>
+            <p style="font-size: 0.9375rem; color: var(--text-2); margin-bottom: 1rem;" data-simple="Most Indians who work do informal jobs, often outdoors. We know of no legal limit for how much dirty air a worker can be exposed to on the job. And on the worst days, these workers cannot simply stay indoors, their income depends on being outside.">Exposure is <strong>dose</strong>, which depends on the ambient number and on time outdoors &times; breathing rate &times; proximity to traffic. Physical labour raises the breathing rate, and roadside work sits right in the exhaust plume, so an outdoor worker's intake can be several times a sedentary indoor resident's on the same day.</p>
             <div class="stat-strip">
                 <div class="stat-strip-item"><div class="number-callout jv-t-red">~90%</div><div class="stat-label">of India's workforce is informal (ILO/IHD India Employment Report 2024)</div></div>
                 <div class="stat-strip-item"><div class="number-callout jv-t-amber">None</div><div class="stat-label">enforceable ambient occupational air-quality standard for outdoor workers that we know of</div></div>
@@ -4037,7 +4210,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 <template id="tmpl-migration">
     <div class="section-intro jv-sec-divided">
         <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.2; margin-bottom: 0.75rem; color: var(--ink);"><span class="si si-bus" style="color: var(--ink); margin-right: 0.4rem;"></span>Migration &amp; Climate Displacement</h2>
-        <p class="jv-lede" data-simple="Who can move away from bad air, and who cannot? No study yet measures how many people have moved because of air pollution in India.">Who can move away from polluted air, and who cannot? No comprehensive study measures air quality-driven internal migration in India, so this page records the question rather than making claims.</p>
+        <p class="jv-lede" data-simple="Who can move away from bad air, and who cannot? No study yet measures how many people have moved because of air pollution in India.">Who can move away from polluted air, and who cannot? No comprehensive study measures air quality-driven internal migration in India, so this page records the question and makes no claims.</p>
     </div>
 
 
@@ -4141,7 +4314,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
 <template id="tmpl-social-feed">
     <div class="container">
         <h2 class="jv-panel-h2">Live Social Media Feed</h2>
-        <p class="jv-t-2-mb" data-simple="See what people are posting right now about air pollution on Twitter, Reddit, Instagram, and YouTube. Updates automatically every 15 minutes.">Auto-updating posts about India&rsquo;s air quality from Reddit, YouTube and Indian news, refreshed every 15 minutes. X and Instagram are links out, not feeds: neither can be read without a paid or authenticated API, and we would rather send you to the live search than show a feed that is not one.</p>
+        <p class="jv-t-2-mb" data-simple="See what people are posting right now about air pollution on Twitter, Reddit, Instagram, and YouTube. Updates automatically every 15 minutes.">Auto-updating posts about India&rsquo;s air quality from Reddit, YouTube and Indian news, refreshed every 15 minutes. X and Instagram are links out. Neither can be read without a paid or authenticated API, so we send you to the live search and do not fake a feed.</p>
 
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
             <button class="btn btn-sm" style="background: var(--green-700); color: var(--on-accent);" onclick="loadSocialFeed('all')">All</button>
@@ -4229,12 +4402,12 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <option value="noida">Noida</option>
                     </select>
 
-                    <label class="form-label">Alert when AQI exceeds</label>
+                    <label class="form-label">Alert when PM2.5 exceeds (CPCB categories)</label>
                     <select class="form-select mb-2" id="alert-threshold">
-                        <option value="100">100 (Moderate)</option>
-                        <option value="200" selected>200 (Poor)</option>
-                        <option value="300">300 (Very Poor)</option>
-                        <option value="400">400 (Severe)</option>
+                        <option value="60">60 µg/m³ (Moderate or worse)</option>
+                        <option value="90" selected>90 µg/m³ (Poor or worse)</option>
+                        <option value="120">120 µg/m³ (Very Poor or worse)</option>
+                        <option value="250">250 µg/m³ (Severe)</option>
                     </select>
 
                     <button class="btn btn-primary mt-2 jv-w-full" onclick="enablePushNotifications()">Enable Push Notifications</button>
@@ -4263,11 +4436,12 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                         <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;"><input type="checkbox" value="patna"> Patna</label>
                     </div>
 
-                    <label class="form-label">Alert threshold</label>
+                    <label class="form-label">Alert when PM2.5 exceeds (CPCB categories)</label>
                     <select class="form-select mb-2" id="subscribe-threshold">
-                        <option value="100">AQI &gt; 100 (Moderate)</option>
-                        <option value="200" selected>AQI &gt; 200 (Poor)</option>
-                        <option value="300">AQI &gt; 300 (Very Poor)</option>
+                        <option value="60">60 µg/m³ (Moderate or worse)</option>
+                        <option value="90" selected>90 µg/m³ (Poor or worse)</option>
+                        <option value="120">120 µg/m³ (Very Poor or worse)</option>
+                        <option value="250">250 µg/m³ (Severe)</option>
                     </select>
 
                     <button class="btn btn-primary mt-2 jv-w-full" onclick="subscribeEmail()">Subscribe to Daily Digest</button>
@@ -4471,7 +4645,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
     <div class="container">
         <h2 class="jv-panel-h2">Exposure Diary</h2>
         <p class="jv-t-2-mb" data-simple="Your real pollution exposure depends on where you spend your time, not just your city's air quality number. Log what you do each day to see your actual exposure.">
-            Your PM2.5 exposure depends on <strong>WHERE</strong> you spend your time, not just your city's AQI. Log your typical day and see your real exposure.
+            Your PM2.5 exposure depends on <strong>WHERE</strong> you spend your time as well as on your city's AQI. Log your typical day and see your real exposure.
         </p>
 
         <!-- Daily Routine Form -->
@@ -4689,7 +4863,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
                 <p style="margin-bottom:0;"><a class="btn btn-primary" href="#map" onclick="showPanel('map'); return false;">Open the map</a></p>
             </div>
         </div>
-        <p style="font-size:0.78rem; color:var(--text-3); margin-top:1rem;">The per-city data files this page used are still in the repository under <code>data/wards/</code>, and the cities it had that the national sources missed (Kolkata, Madurai, Asansol and the north-eastern capitals among them) were folded into the map before this page was retired. Method: <a href="/docs/#/data-sources/boundary-map">The Boundary Map</a>.</p>
+        <p style="font-size:0.78rem; color:var(--text-3); margin-top:1rem;">Method: <a href="/docs/#/data-sources/boundary-map">The Boundary Map</a>.</p>
     </div>
 </template>
 
@@ -5324,7 +5498,7 @@ body * { border-radius: 0 !important; box-shadow: none !important; }
             <div class="card-body" style="font-size: 0.9rem; line-height: 1.8;">
                 <dl style="margin: 0;">
                     <dt class="jv-item-title-mt">NCAP (National Clean Air Programme)</dt>
-                    <dd data-simple="India's government plan to reduce air pollution in 131 cities by 40% by 2026. about Rs 19,600 crore earmarked, but spending and results vary widely.">India's flagship programme launched in 2019 targeting 20-30% PM reduction (revised to 40% by 2025-26) across 131 non-attainment cities. Rs 19,614 crore earmarked for 130 cities, FY2019-20 to 2025-26 (CREA 2026). Results are mixed.</dd>
+                    <dd data-simple="India's government plan to reduce air pollution in 131 cities by 40% by 2026. about Rs 19,600 crore earmarked, but spending and results vary widely.">India's flagship programme launched in 2019 targeting 20-30% PM reduction (revised to 40% by 2025-26) across 131 non-attainment cities. Rs 19,614 crore earmarked for 130 cities, FY2019-20 to 2025-26 (CREA 2026). CREA found that 23 of 100 cities met the 40% target (January 2026).</dd>
 
                     <dt class="jv-item-title-mt">GRAP (Graded Response Action Plan)</dt>
                     <dd data-simple="Emergency rules for Delhi-NCR that kick in when pollution gets bad. Stages I-IV: from banning firecrackers to closing schools and stopping trucks.">Emergency pollution control framework for Delhi-NCR activated at escalating AQI thresholds. Stage I (Poor, 201-300) to Stage IV (Severe+, &gt;450). Enforced by CAQM.</dd>

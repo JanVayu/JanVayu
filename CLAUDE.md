@@ -17,7 +17,9 @@ for the current list rather than copying it here, where it would drift.
 
 ## Watch out for
 
-Fourteen workflows run here, several on a schedule (one every 15 minutes), and
-three push commits (`current-year-air`, `link-audit`, `translations`).
+Sixteen workflows run here (counted 21 November 2026), several on a schedule
+(one every 15 minutes). Three push a branch and open a pull request:
+`cpcb-bulletins`, `current-year-air` and `translations`. `link-audit` opens an
+issue and pushes nothing.
 On a publish-locked site those builds are free until the next publish window;
 check that the site is still locked before adding another scheduled commit.

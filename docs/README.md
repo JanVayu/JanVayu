@@ -1,6 +1,6 @@
 # JanVayu Documentation
 
-**JanVayu** (जनवायु, "People's Air") is India's independent, citizen-led air quality accountability platform. It tracks live pollution data for 157 Indian cities (and Beijing, London and Singapore for comparison), measures health impacts, follows NCAP budget spending and holds governments to account.
+**JanVayu** (जनवायु, "People's Air") is India's citizen-led air quality accountability platform. It tracks live pollution data for 157 Indian cities (and Beijing, London and Singapore for comparison), measures health impacts, follows NCAP budget spending and holds governments to account.
 
 > **Live platform:** [www.janvayu.in](https://www.janvayu.in)
 > **GitHub:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
@@ -35,11 +35,11 @@ These docs are available in 5 languages:
 
 | Language | Link |
 |----------|------|
-| English | [/docs/](/docs/) |
-| हिन्दी (Hindi) | [/docs/#/hi/](/docs/#/hi/) |
-| বাংলা (Bengali) | [/docs/#/bn/](/docs/#/bn/) |
-| मराठी (Marathi) | [/docs/#/mr/](/docs/#/mr/) |
-| தமிழ் (Tamil) | [/docs/#/ta/](/docs/#/ta/) |
+| English | [/docs/](/docs/ ':ignore') |
+| हिन्दी (Hindi) | [/docs/#/hi/](/docs/#/hi/ ':ignore') |
+| বাংলা (Bengali) | [/docs/#/bn/](/docs/#/bn/ ':ignore') |
+| मराठी (Marathi) | [/docs/#/mr/](/docs/#/mr/ ':ignore') |
+| தமிழ் (Tamil) | [/docs/#/ta/](/docs/#/ta/ ':ignore') |
 
 ---
 

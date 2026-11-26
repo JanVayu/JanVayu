@@ -1,7 +1,7 @@
 // Netlify Function: Web Push sender (scheduled + manual)
 //
 // Runs every 3 hours: for each stored subscription, checks its city's live AQI
-// (WAQI) and — if AQI exceeds the subscriber's threshold and they haven't been
+// (WAQI) and, if PM2.5 (ug/m3) exceeds the subscriber's alert level and they haven't been
 // pushed in the last COOLDOWN — delivers a browser push notification via the
 // Web Push protocol, so users are warned even when JanVayu is closed.
 //
@@ -10,11 +10,13 @@
 
 import { getBlobStore } from "./lib/blob.mjs";
 import webpush from "web-push";
+import { iaqiToPM25 } from "./lib/iaqi.mjs";
+import { getCpcbPM25Category, thresholdPM25 } from "./lib/cpcb.mjs";
 
 export const config = { schedule: "0 */3 * * *" };
 
 
-import { WAQI_TOKEN } from "./lib/waqi-token.mjs";
+import { fetchStationNear } from "./lib/waqi-station.mjs";
 const COOLDOWN_MS = 6 * 60 * 60 * 1000; // don't push the same person more than once per 6 h
 
 // Coordinates for the cities offered in the AQI Alerts panel (+ common extras).
@@ -31,10 +33,12 @@ async function fetchAQI(city) {
   const c = CITIES[city];
   if (!c) return null;
   try {
-    const res = await fetch(`https://api.waqi.info/feed/geo:${c[0]};${c[1]}/?token=${WAQI_TOKEN}`, { signal: AbortSignal.timeout(6000) });
-    if (!res.ok) return null;
-    const j = await res.json();
-    return j?.data?.aqi != null ? Number(j.data.aqi) : null;
+    // Only a station near the city (lib/waqi-station.mjs says why).
+    const hit = await fetchStationNear({ lat: c[0], lon: c[1], slug: city, timeoutMs: 6000 });
+    if (!hit) return null;
+    const j = { data: hit.data };
+    const pm25 = iaqiToPM25(j?.data?.iaqi?.pm25?.v);
+    return pm25 != null && Number.isFinite(Number(pm25)) ? Number(pm25) : null;
   } catch { return null; }
 }
 
@@ -53,7 +57,7 @@ export default async () => {
   }
   const keys = (listing.blobs || []).map((b) => b.key);
 
-  // AQI per city, fetched once and reused across subscribers.
+  // PM2.5 (ug/m3) per city, fetched once and reused across subscribers.
   const aqiCache = {};
   const now = Date.now();
   let checked = 0, sent = 0, pruned = 0, skipped = 0;
@@ -65,17 +69,19 @@ export default async () => {
     checked++;
 
     if (aqiCache[rec.city] === undefined) aqiCache[rec.city] = await fetchAQI(rec.city);
-    const aqi = aqiCache[rec.city];
-    if (aqi == null) { skipped++; continue; }
+    const pm25 = aqiCache[rec.city];
+    if (pm25 == null) { skipped++; continue; }
 
-    if (aqi <= rec.threshold) { skipped++; continue; }
+    const limit = thresholdPM25(rec);
+    if (pm25 <= limit) { skipped++; continue; }
+    const cat = getCpcbPM25Category(pm25);
     if (now - (rec.last_pushed || 0) < COOLDOWN_MS) { skipped++; continue; }
 
     const cityName = rec.city.charAt(0).toUpperCase() + rec.city.slice(1);
     try {
       await webpush.sendNotification(rec.subscription, JSON.stringify({
-        title: `⚠ ${cityName} air is unhealthy — AQI ${aqi}`,
-        body: `AQI ${aqi} is above your alert threshold of ${rec.threshold}. Consider limiting outdoor exposure and wearing an N95.`,
+        title: `${cityName} air is ${cat.label} (CPCB): PM2.5 ${Math.round(pm25)} µg/m³`,
+        body: `PM2.5 ${Math.round(pm25)} µg/m³ is above your alert level of ${Math.round(limit)} µg/m³. CPCB: ${cat.impact}`,
         url: "https://www.janvayu.in/#aqi-alerts",
       }));
       sent++;

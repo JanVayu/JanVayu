@@ -158,6 +158,7 @@ const SHARED_HEAD = (p) => `<!DOCTYPE html>
   .pollutant-page .stat-card { padding: 16px; background: var(--bg-section); border-left: 3px solid var(--pollutant); }
   .pollutant-page .stat-label { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; }
   .pollutant-page .stat-value { font-size: 1.25rem; font-weight: 700; margin-top: 4px; }
+  .pollutant-page ul, .pollutant-page ol { margin: 0 0 1.2em; padding-left: 1.6em; }
   .pollutant-page li { margin-bottom: 6px; }
   .pollutant-page .live-section { padding: 20px; background: var(--bg-section); border: 1px solid var(--border); margin: 24px 0; }
   .pollutant-page .live-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.92rem; }
@@ -236,9 +237,10 @@ ${POLLUTANTS.filter(q => q.slug !== p.slug).map(q => `    <a href="/${q.slug}/">
   </div>
 
 <footer class="pollutant-foot">
-  <div>JanVayu is an independent, citizen-led air quality accountability platform for India. Part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>.</div>
+  <div>JanVayu is a citizen-led air quality accountability platform for India. Part of <strong>AirQuality for Janhit by MMSF Fellows, AIPC</strong>.</div>
   <div style="margin-top: 6px;">Data from <a href="https://aqicn.org">WAQI / aqicn.org</a>, <a href="https://cpcb.nic.in">CPCB</a>, and <a href="https://sensor.community">Sensor.Community</a>.</div>
   <div style="margin-top: 8px;">© ${new Date().getFullYear()} JanVayu · <a href="/">Dashboard</a> · <a href="/blog/">Blog</a> · <a href="/#about">About</a></div>
+  <div style="margin-top: 6px;" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</div>
 </footer>
 </main>
 <script>

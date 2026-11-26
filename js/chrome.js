@@ -101,7 +101,7 @@
         theme.type = 'button';
         theme.className = 'ctl';
         theme.id = 'ctlTheme';
-        theme.setAttribute('aria-label', 'Switch between light and dark');
+        theme.setAttribute('aria-label', 'Theme: switch between light and dark');
         theme.textContent = 'Theme';
         theme.addEventListener('click', toggleTheme);
         right.appendChild(theme);

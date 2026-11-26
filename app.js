@@ -293,7 +293,7 @@
             about_partners_h: 'Janhit Partners',
             about_partners_intro: 'The organisations and initiatives JanVayu works alongside in the <strong>#AQIForJanHit</strong> effort for clean air as a public good.',
             hero_title: "India's air is killing <em>1.72 million people</em> every year",
-            hero_sub: "JanVayu is India's independent, citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Clean air is a right.",
+            hero_sub: "JanVayu is India's citizen-led air quality platform. We track live pollution data, measure health impacts, follow the money, and hold governments accountable. Clean air is a right.",
             tagline: "Citizen Air Quality Platform",
             nav_myair: "My Air",
             nav_citydata: "Maps & Places",
@@ -349,7 +349,7 @@
             about_partners_h: 'जनहित सहयोगी',
             about_partners_intro: 'स्वच्छ हवा को सार्वजनिक हित बनाने के <strong>#AQIForJanHit</strong> प्रयास में जनवायु जिन संगठनों और पहलों के साथ मिलकर काम करता है।',
             hero_title: "भारत की हवा हर साल <em>17.2 लाख (1.72 मिलियन) लोगों</em> की जान ले रही है",
-            hero_sub: "जनवायु भारत का स्वतंत्र, नागरिक-संचालित वायु गुणवत्ता मंच है। हम प्रदूषण के आंकड़े, स्वास्थ्य प्रभाव, बजट का हिसाब और सरकारी जवाबदेही पर नज़र रखते हैं। स्वच्छ हवा एक अधिकार है।",
+            hero_sub: "जनवायु भारत का नागरिक-संचालित वायु गुणवत्ता मंच है। हम प्रदूषण के आंकड़े, स्वास्थ्य प्रभाव, बजट का हिसाब और सरकारी जवाबदेही पर नज़र रखते हैं। स्वच्छ हवा एक अधिकार है।",
             tagline: "नागरिक वायु गुणवत्ता मंच",
             nav_myair: "मेरी हवा",
             nav_citydata: "नक्शे और जगहें",
@@ -400,7 +400,7 @@
             about_partners_h: 'ஜன்ஹித் பங்காளர்கள்',
             about_partners_intro: 'தூய்மையான காற்றை பொது நலனாக்கும் <strong>#AQIForJanHit</strong> முயற்சியில் ஜன்வாயு இணைந்து செயல்படும் அமைப்புகள் மற்றும் முயற்சிகள்.',
             hero_title: "இந்தியாவின் காற்று ஆண்டுதோறும் <em>17.2 லட்சம் (1.72 மில்லியன்) பேரைக்</em> கொல்கிறது",
-            hero_sub: "ஜன்வாயு இந்தியாவின் சுயாதீன, குடிமக்கள் வழிநடத்தும் காற்றுத் தர தளமாகும். நாங்கள் மாசு தரவுகள், சுகாதார பாதிப்புகள், பட்ஜெட் கணக்கு மற்றும் அரசின் பொறுப்புணர்வை கண்காணிக்கிறோம். சுத்தமான காற்று ஒரு உரிமை.",
+            hero_sub: "ஜன்வாயு இந்தியாவின் குடிமக்கள் வழிநடத்தும் காற்றுத் தர தளமாகும். நாங்கள் மாசு தரவுகள், சுகாதார பாதிப்புகள், பட்ஜெட் கணக்கு மற்றும் அரசின் பொறுப்புணர்வை கண்காணிக்கிறோம். சுத்தமான காற்று ஒரு உரிமை.",
             tagline: "குடிமக்கள் காற்றுத் தர தளம்",
             nav_myair: "என் காற்று",
             nav_citydata: "வரைபடங்கள் & இடங்கள்",
@@ -451,7 +451,7 @@
             about_partners_h: 'जनहित भागीदार',
             about_partners_intro: 'स्वच्छ हवा हा सार्वजनिक हिताचा विषय बनवण्याच्या <strong>#AQIForJanHit</strong> प्रयत्नात जनवायु ज्या संस्था आणि उपक्रमांसोबत काम करते.',
             hero_title: "भारतातील हवा दरवर्षी <em>17.2 लाख (1.72 दशलक्ष) लोकांचा</em> बळी घेत आहे",
-            hero_sub: "जनवायू हे भारताचे स्वतंत्र, नागरिक-संचालित हवा गुणवत्ता व्यासपीठ आहे. आम्ही प्रदूषणाचे आकडे, आरोग्यावरील परिणाम, बजेटचा मागोवा आणि सरकारी जबाबदारी यांवर लक्ष ठेवतो. स्वच्छ हवा हा एक हक्क आहे.",
+            hero_sub: "जनवायू हे भारताचे नागरिक-संचालित हवा गुणवत्ता व्यासपीठ आहे. आम्ही प्रदूषणाचे आकडे, आरोग्यावरील परिणाम, बजेटचा मागोवा आणि सरकारी जबाबदारी यांवर लक्ष ठेवतो. स्वच्छ हवा हा एक हक्क आहे.",
             tagline: "नागरिक हवा गुणवत्ता व्यासपीठ",
             nav_myair: "माझी हवा",
             nav_citydata: "नक्शे और जगहें",
@@ -502,7 +502,7 @@
             about_partners_h: 'জনহিত অংশীদার',
             about_partners_intro: 'পরিষ্কার বাতাসকে জনস্বার্থে পরিণত করার <strong>#AQIForJanHit</strong> প্রচেষ্টায় জনবায়ু যেসব সংস্থা ও উদ্যোগের সঙ্গে কাজ করে।',
             hero_title: "ভারতের বায়ু প্রতি বছর <em>১৭.২ লক্ষ (১.৭২ মিলিয়ন) মানুষের</em> প্রাণ কেড়ে নিচ্ছে",
-            hero_sub: "জনবায়ু ভারতের স্বাধীন, নাগরিক-পরিচালিত বায়ু মান প্ল্যাটফর্ম। আমরা দূষণের তথ্য, স্বাস্থ্যের প্রভাব, বাজেটের হিসাব এবং সরকারি জবাবদিহিতা পর্যবেক্ষণ করি। বিশুদ্ধ বাতাস একটি অধিকার।",
+            hero_sub: "জনবায়ু ভারতের নাগরিক-পরিচালিত বায়ু মান প্ল্যাটফর্ম। আমরা দূষণের তথ্য, স্বাস্থ্যের প্রভাব, বাজেটের হিসাব এবং সরকারি জবাবদিহিতা পর্যবেক্ষণ করি। বিশুদ্ধ বাতাস একটি অধিকার।",
             tagline: "নাগরিক বায়ু মান প্ল্যাটফর্ম",
             nav_myair: "আমার বায়ু",
             nav_citydata: "মানচিত্র ও স্থান",
@@ -604,7 +604,13 @@
         // The loop above has just written the question back over it from the
         // table, so put the answer back, in the language now selected.
         if (typeof heroShowing !== 'undefined' && heroShowing) {
-            renderHeroVerdict(heroShowing.pm25, heroShowing.place, heroShowing.station);
+            if (heroShowing.notLive) renderHeroNotLive(heroShowing.notLive, heroShowing.place, heroShowing.spoken);
+            else {
+                const tab = document.getElementById('hero-source-tab');
+                const src = tab && !tab.hidden ? tab.textContent : '';
+                renderHeroVerdict(heroShowing.pm25, heroShowing.place, heroShowing.station);
+                if (src && heroShowing.pm25 !== null) setHeroSource(src);
+            }
         }
 
         // Desktop dropdown items
@@ -698,16 +704,183 @@
     }
 
     // ── Hero City Selector ──
+    // ── When no monitor near a place has reported lately ──────────────────
+    // js/air-sources.js tries CPCB's daily bulletin and then a model. Whatever it finds is
+    // worded as what it is, kept out of aqiData (so it never reaches the ranking, the ticker
+    // or the alerts), and never given the "live" wording. See that file for why it exists.
+    function heroDate(iso) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+        if (!m) return iso || '';
+        return parseInt(m[3], 10) + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m[2], 10) - 1];
+    }
+
+    // The tab on the figures under the headline. It says who published them, in the words
+    // js/air-sources.js already uses for each source, and is hidden when there is no figure.
+    function setHeroSource(text) {
+        const el = document.getElementById('hero-source-tab');
+        if (!el) return;
+        el.textContent = text || '';
+        el.hidden = !text;
+    }
+
+    // The reading as figures: rows of { n, label, tone, unit }. `n` and `label` are plain
+    // text and are escaped here. With no rows the block is emptied and hidden, and the tab
+    // goes with it, because a source with no figure under it names nothing.
+    function setHeroFigs(rows) {
+        const el = document.getElementById('heroFigs');
+        if (!el) return;
+        if (!rows || !rows.length) { el.innerHTML = ''; el.hidden = true; setHeroSource(''); return; }
+        el.innerHTML = rows.map(r =>
+            '<div class="hero-fig"><dt class="hero-fig-l">' + escapeHtml(r.label) + '</dt>' +
+            '<dd class="hero-fig-n"' + (r.tone ? ' style="color:' + r.tone + '"' : '') + '>' + escapeHtml(String(r.n)) +
+            (r.unit ? '<small>' + escapeHtml(r.unit) + '</small>' : '') + '</dd></div>').join('');
+        el.hidden = false;
+    }
+
+    // The explanation under the figures: the first sentence in the paragraph's own ink, the
+    // rest quieter. Both arguments are HTML the caller has already escaped.
+    function heroLede(first, rest) {
+        return first + (rest ? ' <span class="hero-sub-more">' + rest + '</span>' : '');
+    }
+
+    // Shown only when the bulletin on screen is older than yesterday's.
+    function setHeroNotice(text) {
+        const el = document.getElementById('heroNotice');
+        if (!el) return;
+        el.textContent = text || '';
+        el.hidden = !text;
+    }
+
+    // The card beside the figures (below them on a phone) is where a reader picks a city
+    // and shares it. It used to print the reading a second time. The figures under the
+    // headline carry the reading now, so the card keeps only what they do not show: its
+    // number and unit stay hidden, and the two lines under them show only when they add
+    // something (a status line, a model's WHO multiple, an AQI the figures leave out).
+    function heroCard(showLine, showAqi) {
+        const pmEl = document.getElementById('delhi-live-pm25');
+        const unitEl = document.getElementById('hero-pm25-unit');
+        const whoEl = document.getElementById('delhi-who-multiple');
+        const aqiRow = document.getElementById('hero-aqi-row');
+        if (pmEl) pmEl.hidden = true;
+        if (unitEl) unitEl.hidden = true;
+        if (whoEl) whoEl.hidden = !showLine;
+        if (aqiRow) aqiRow.hidden = !showAqi;
+    }
+
+    // While the reading loads, the block from the headline to the paragraph holds the
+    // height it settled at on this reader's last visit at this width (an inline script in
+    // index.html sets it before first paint). Once the reading is in, the hold is released
+    // and the new height is remembered, so the search field under it stays where it is.
+    function heroSettled() {
+        const sec = document.getElementById('section-dashboard');
+        if (sec) sec.classList.remove('hero-pending');
+        const box = document.getElementById('heroRead');
+        if (!box) return;
+        box.style.minHeight = '';
+        box.classList.remove('hero-known');
+        const keep = () => {
+            try { localStorage.setItem('janvayu-hero-h', JSON.stringify({ w: window.innerWidth, h: box.offsetHeight })); } catch (e) { /* private mode */ }
+        };
+        const later = () => (window.requestAnimationFrame || setTimeout)(keep);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(later); else later();
+    }
+
+    function renderHeroNotLive(r, placeName, spoken) {
+        const labelEl = document.getElementById('hero-city-label');
+        const pmEl = document.getElementById('delhi-live-pm25');
+        const whoEl = document.getElementById('delhi-who-multiple');
+        const aqiEl = document.getElementById('delhi-live-aqi');
+        const qEl = document.getElementById('heroQuestion');
+        const whyEl = document.getElementById('heroWhy');
+        const rowsEl = document.getElementById('heroWho');
+        const place = escapeHtml(spoken || placeName || 'that place');
+        const grey = 'var(--text-3)';
+        heroShowing = { pm25: null, place: placeName, notLive: r, spoken: spoken };
+        if (rowsEl) rowsEl.hidden = true;
+        const hide = (el) => { if (el) el.hidden = true; };
+        hide(document.getElementById('heroSpread'));
+        setHeroNotice('');
+        heroCard(true, false);
+        if (!r) {
+            if (labelEl) labelEl.textContent = placeName + ' (no reading)';
+            if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = grey; }
+            if (whoEl) { whoEl.textContent = 'No station has reported here in the last 6 hours'; whoEl.style.color = grey; }
+            if (aqiEl) aqiEl.textContent = '--';
+            renderHeroVerdict(null, placeName);
+            return;
+        }
+        // The reading has settled (as a fallback). Released at the end of this call, once
+        // the figures and the paragraph are in, so the height remembered is the settled one.
+        setTimeout(heroSettled, 0);
+        if (r.kind === 'daily') {
+            const when = heroDate(r.date);
+            const city = escapeHtml(r.city);
+            const cat = String(r.category);
+            // The card stands apart from the figures (below them on a phone), so it names its own source.
+            if (labelEl) labelEl.textContent = placeName + ': CPCB daily bulletin, ' + when;
+            // The AQI, its category and the stations are the figures; the card repeats none of them.
+            heroCard(false, false);
+            if (whoEl) { whoEl.textContent = 'A daily figure for the whole city'; whoEl.style.color = grey; }
+            if (aqiEl) aqiEl.textContent = r.aqi + ' (' + cat + ', CPCB scale)';
+            // The bulletin and its date are named once, on the tab. The headline says what kind
+            // of figure this is, and the paragraph says why the reader is seeing it.
+            if (qEl) { const dailyHead = 'The daily figure for ' + city; heroSetText(qEl, dailyHead, dailyHead); }
+            setHeroFigs([
+                { n: r.aqi, label: 'AQI, on CPCB’s scale' },
+                { n: cat, label: 'CPCB’s category for that AQI' },
+                { n: r.stations + ' of ' + r.stationsTotal, label: 'stations in ' + r.city + ' reporting that day' }
+            ]);
+            setHeroSource(r.source + ', ' + when);
+            if (r.ageDays >= 2) setHeroNotice('This bulletin is ' + r.ageDays + ' days old. CPCB publishes one each afternoon, and a newer one has not reached this site.');
+            if (whyEl) heroSetText(whyEl,
+                heroLede('No monitor near <strong>' + place + '</strong> has reported in the last 6 hours.',
+                    'So this is one figure for the whole of ' + city + ' for one day, which CPCB publishes about a day late.'),
+                'No machine near ' + place + ' has reported lately. The figures above are for the whole of ' + city + ' on ' + when + ', from CPCB’s daily report.');
+            return;
+        }
+        // model
+        const n = Math.round(r.pm25);
+        if (labelEl) labelEl.textContent = placeName + ': modelled estimate';
+        if (pmEl) { pmEl.textContent = n; pmEl.style.color = grey; }
+        if (whoEl) { whoEl.textContent = getWHOMultiple(r.pm25) + 'x WHO guideline (modelled)'; whoEl.style.color = grey; }
+        if (aqiEl) aqiEl.textContent = r.aqi != null ? r.aqi + ' (model)' : '--';
+        // The estimate is a figure under the headline. The card adds what it is against the
+        // WHO guideline, and the model's AQI where it gives one.
+        heroCard(true, r.aqi != null);
+        if (qEl) heroSetText(qEl, 'A computer model’s estimate', 'A computer model’s estimate');
+        setHeroFigs([{ n: n, unit: 'µg/m³', label: 'PM2.5, estimated by a model' }]);
+        setHeroSource(r.source);
+        if (whyEl) heroSetText(whyEl,
+            heroLede('No monitor near <strong>' + place + '</strong> has reported lately, and CPCB&rsquo;s bulletin has no recent figure for it.',
+                'A model is not a monitor, and it can read far too low in a polluted city.'),
+            'No machine near ' + place + ' has reported lately. A computer model guesses about ' + n + ' units of PM2.5 there. It is a guess and can be too low.');
+    }
+
+    async function heroFallback(cityKey, cityName) {
+        const c = CITIES[cityKey];
+        if (!c || !window.JVAir) { renderHeroNotLive(null, cityName); return; }
+        const cities = Object.keys(CITIES).filter(k => k !== '__nearme').map(k => ({ key: k, name: CITIES[k].name, lat: CITIES[k].lat, lon: CITIES[k].lon }));
+        let r = null;
+        try { r = await window.JVAir.reading({ lat: c.lat, lon: c.lon, key: cityKey, name: cityName }, { cities, skip: ['live'] }); } catch (e) { r = null; }
+        // The reader may have chosen another city while this was loading.
+        if ((document.getElementById('hero-city-select')?.value || 'delhi') !== cityKey) return;
+        renderHeroNotLive(r, cityName);
+    }
+
     function updateHeroCity(cityKey) {
         const cityName = CITIES[cityKey]?.name || cityKey;
         const labelEl = document.getElementById('hero-city-label');
-        if (labelEl) labelEl.textContent = cityName + ' Live PM2.5';
+        if (labelEl) labelEl.textContent = cityName + ': live reading';
         const pmEl = document.getElementById('delhi-live-pm25');
         const whoEl = document.getElementById('delhi-who-multiple');
         const aqiEl = document.getElementById('delhi-live-aqi');
         const data = aqiData[cityKey];
         if (data) {
             const pm25 = measuredPM25(data);
+            // With a PM2.5 figure the chips under the search field give the WHO multiple, so
+            // the card keeps only the station's AQI. Without one it says why there is none.
+            heroCard(pm25 === null, true);
+            setHeroNotice('');
             if (pm25 === null) {
                 if (pmEl) { pmEl.textContent = '—'; pmEl.style.color = 'var(--text-3)'; }
                 if (whoEl) { whoEl.textContent = 'PM2.5 not reported by this station'; whoEl.style.color = 'var(--text-3)'; }
@@ -719,6 +892,8 @@
             if (aqiEl) aqiEl.textContent = data.aqi;
             // Only name a station when the reading actually came from one.
             renderHeroVerdict(pm25, cityName, data.live ? data.station : null);
+            // After the figures: with no figure there is nothing for a source to name.
+            if (pm25 !== null) setHeroSource(data.live ? 'WAQI' + (data.station ? ': ' + data.station : '') : '');
             renderCitySpread(cityKey, cityName);
             updatePersonalImpact(cityKey, data);
             return;
@@ -727,6 +902,7 @@
         // city's live AQI on demand and re-render when it lands.
         if (CITIES[cityKey] && !CITIES[cityKey]._fetching) {
             CITIES[cityKey]._fetching = true;
+            heroCard(true, false);
             if (pmEl) { pmEl.textContent = '…'; pmEl.style.color = 'var(--text-3)'; }
             if (whoEl) { whoEl.textContent = 'Fetching live data…'; whoEl.style.color = 'var(--text-3)'; }
             if (aqiEl) aqiEl.textContent = '…';
@@ -735,10 +911,11 @@
                 if (v) aqiData[cityKey] = v;
                 if ((document.getElementById('hero-city-select')?.value || 'delhi') === cityKey) {
                     if (v) updateHeroCity(cityKey);
-                    else { if (pmEl) pmEl.textContent = '--'; if (whoEl) whoEl.textContent = 'No data'; if (aqiEl) aqiEl.textContent = '--'; renderHeroVerdict(null, cityName); updatePersonalImpact(cityKey, null); }
+                    else { heroFallback(cityKey, cityName); updatePersonalImpact(cityKey, null); }
                 }
             }).catch(() => { CITIES[cityKey]._fetching = false; });
         } else if (!CITIES[cityKey]) {
+            heroCard(true, false);
             if (pmEl) { pmEl.textContent = '--'; pmEl.style.color = 'var(--text-3)'; }
             if (whoEl) { whoEl.textContent = 'No data'; whoEl.style.color = 'var(--text-3)'; }
             if (aqiEl) aqiEl.textContent = '--';
@@ -1123,9 +1300,13 @@
         const whoEl = document.getElementById('heroWho');
         if (!qEl || !whyEl || !whoEl) return;
         const place = escapeHtml(placeName || 'that place');
+        // The reading is in, or has failed: the room held for it is no longer needed. Released
+        // at the end of this call, once the figures and the paragraph are in.
+        setTimeout(heroSettled, 0);
 
         if (pm25 === null || pm25 === undefined || !isFinite(pm25)) {
             heroShowing = { pm25: null, place: placeName };
+            setHeroFigs(null);
             heroSetText(whyEl,
                 'No live reading for <strong>' + place + '</strong> right now. The nearest monitor may be offline.',
                 'We cannot read the air in ' + place + ' right now. The nearest machine may be switched off.');
@@ -1144,9 +1325,16 @@
         // the same hour, and the page was quoting whichever happened to be
         // nearest the coordinates stored for "Delhi" as though it were Delhi.
         const where = stationName ? escapeHtml(stationName) : place;
+        // The figures carry the number, the station and the band, so the paragraph is the
+        // advice alone. Simple mode keeps its own full sentence.
+        const whereText = stationName || placeName || 'that place';
+        setHeroFigs([
+            { n: n, unit: 'µg/m³', label: 'PM2.5 at ' + whereText, tone: getPM25TextColor(pm25) },
+            { n: band.label, label: 'CPCB’s band for that level' }
+        ]);
+        const cut = v.why.indexOf('. ');
         heroSetText(whyEl,
-            '<strong>' + where + '</strong> is reading <strong>' + n + ' µg/m³</strong> PM2.5, which CPCB calls <strong>' +
-            band.label.toLowerCase() + '</strong>. ' + v.why,
+            cut === -1 ? v.why : heroLede(v.why.slice(0, cut + 1), v.why.slice(cut + 2)),
             where + ' is reading ' + n + ' units of PM2.5. ' + v.plain);
 
         whoEl.innerHTML = v.who.map((row, i) =>
@@ -1507,7 +1695,20 @@
         };
     }
 
-    // ── Near Me (geolocation → nearest WAQI station) ──
+    // The tracked city closest to a point, within 60 km, or null.
+    function nearestTrackedCity(lat, lon) {
+        let best = null, bestKm = 60;
+        Object.keys(CITIES).forEach(k => {
+            const c = CITIES[k];
+            if (k === '__nearme' || !c || typeof c.lat !== 'number') return;
+            const dy = (c.lat - lat) * 111.2, dx = (c.lon - lon) * 111.2 * Math.cos(lat * Math.PI / 180);
+            const km = Math.sqrt(dy * dy + dx * dx);
+            if (km < bestKm) { bestKm = km; best = k; }
+        });
+        return best;
+    }
+
+    // ── Near Me (geolocation → nearest station, within 30 km or not at all) ──
     async function loadNearestAQI() {
         const btn = document.getElementById('near-me-btn');
         const origText = btn ? btn.textContent : '';
@@ -1525,16 +1726,39 @@
             // server is not sent a reader's exact position.
             const lat = pos.coords.latitude.toFixed(2);
             const lon = pos.coords.longitude.toFixed(2);
-            const url = `${WAQI_PROXY}?geo=${lat},${lon}`;
+            // The nearest city we track gives the proxy a second place to look: WAQI's
+            // own lookup by coordinates answered Bengaluru with a station in Delhi, 1,730 km
+            // away, and called it "Very Unhealthy" (8 November 2026). The proxy now refuses
+            // any station more than 30 km from the reader, whichever route found it.
+            const nearKey = nearestTrackedCity(+lat, +lon);
+            const url = `${WAQI_PROXY}?near=${lat},${lon}` + (nearKey ? `&slug=${encodeURIComponent(nearKey)}` : '');
             const res = await fetch(url);
-            const json = await res.json();
-            if (json.status !== 'ok' || !json.data || json.data.aqi === '-') {
-                throw new Error('No nearby station found.');
+            // A reply that is not JSON (a gateway error page) is "no reading", not an alert about parsing.
+            let json = null;
+            try { json = await res.json(); } catch (e) { json = null; }
+            if (!json || json.status !== 'ok' || !json.data || json.data.aqi === '-') {
+                // No monitor near the reader has reported lately. Say what else is known, worded
+                // as what it is (CPCB's daily bulletin for the nearest city, or a model), and
+                // do not call it live. js/air-sources.js holds the chain.
+                const cities = Object.keys(CITIES).filter(k => k !== '__nearme').map(k => ({ key: k, name: CITIES[k].name, lat: CITIES[k].lat, lon: CITIES[k].lon }));
+                const fb = window.JVAir ? await window.JVAir.reading({ lat: +lat, lon: +lon }, { cities, skip: ['live'] }) : null;
+                CITIES['__nearme'] = { name: 'Near me', lat, lon };
+                delete aqiData['__nearme'];
+                const sel2 = document.getElementById('hero-city-select');
+                if (sel2) {
+                    let opt = sel2.querySelector('option[value="__nearme"]');
+                    if (!opt) { opt = document.createElement('option'); opt.value = '__nearme'; sel2.insertBefore(opt, sel2.firstChild); }
+                    opt.textContent = 'Near me (no live station)';
+                    sel2.value = '__nearme';
+                }
+                renderHeroNotLive(fb, 'Near me', 'your location');
+                return;
             }
             const d = json.data;
             const aqi = parseInt(d.aqi);
             const pm25 = iaqiToPM25(d.iaqi?.pm25?.v) || null;
-            const stationName = d.city?.name || 'Nearest station';
+            const km = json.jv && isFinite(json.jv.distance_km) ? json.jv.distance_km : null;
+            const stationName = (d.city?.name || 'Nearest station') + (km !== null ? ` (${km} km away)` : '');
 
             // Inject as a synthetic "near-me" entry into aqiData so all the cards reuse the same flow.
             CITIES['__nearme'] = { name: 'Near me: ' + stationName, lat, lon };
@@ -2618,7 +2842,9 @@
         const city = CITIES[cityKey];
         if (!city) return null;
         try {
-            const url = `${WAQI_PROXY}?geo=${city.lat},${city.lon}`;
+            // `near`, not `geo`: the proxy refuses a station more than 30 km from the
+            // city, because WAQI's own coordinate lookup has returned Delhi for Bengaluru.
+            const url = `${WAQI_PROXY}?near=${city.lat},${city.lon}&slug=${encodeURIComponent(cityKey)}`;
             const res = await fetch(url, { method: 'GET', mode: 'cors' });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
@@ -2660,14 +2886,15 @@
             // that are the whole of India's network, plus the satellite layer
             // that reaches the 983,149 areas the monitors never will.
             liveStatus.innerHTML = usingLiveData
-                ? `<span class="pulse"></span> Live air from ${INDIAN_CITIES.length} cities &middot; refreshed ${timeStr}`
+                ? `<span class="pulse"></span> Live readings for ${successCount} of ${CORE_CITIES.length} cities right now &middot; refreshed ${timeStr}`
+                  + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">A city shows a live reading only if a monitor within 30 km has reported in the last 6 hours. Where none has, it shows none rather than an old or distant figure.</span>`
                   + `<span style="display:block;font-weight:400;font-size:0.72rem;color:var(--text-3);margin-top:2px;">`
                   + `Drawn from India's ~565 continuous CPCB monitors (CREA, Jan 2026), the whole continuous (CAAQMS) network. `
                   + `Yearly satellite figures cover all <strong style="font-weight:600;">983,149</strong> areas, down to the village.</span>`
                 : `<span style="color:var(--amber);">Live readings could not be loaded.</span> Figures that need a live reading are left blank; try again in a minute.`;
             liveStatus.title = `Live readings come from CPCB monitors via WAQI, so they exist only where there is a machine: `
                 + `roughly 565 continuous stations for 1.4 billion people, which is the whole of India's continuous (CAAQMS) network (CREA, Jan 2026), not the limit of ours. `
-                + `JanVayu carries live air for ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
+                + `JanVayu tracks ${INDIAN_CITIES.length} cities; ${CORE_CITIES.length} are polled as the page loads `
                 + `(${successCount} answered this cycle) and the rest load when you select them, to stay inside the data source's free tier. `
                 + `The satellite layer is what closes the gap: annual and seasonal PM2.5, surface heat and land cover for all `
                 + `983,149 administrative areas down to the village. It is a yearly average rather than today's air, and the only `
@@ -2955,7 +3182,7 @@
 
     async function generateAQICard(cityKey, opts) {
         const data = aqiData[cityKey];
-        if (!data) { if (!(opts && opts.preview)) alert('No AQI data available for this city yet. Please wait for data to load.'); return null; }
+        if (!data) { if (!(opts && opts.preview)) alert('Only a live reading can be shared, and there is none for this place right now (or it is still loading).'); return null; }
         const city = CITIES[cityKey];
         if (!city) return null;
         // A shared card is read as a measurement, so it is drawn only from a live
@@ -3372,7 +3599,7 @@
 
     function shareOnWhatsApp(cityKey) {
         var data = aqiData[cityKey];
-        if (!data) { alert('No AQI data available for this city yet.'); return; }
+        if (!data) { alert('Only a live reading can be shared, and there is none for this place right now.'); return; }
         var city = CITIES[cityKey];
         if (!city) return;
         var block = shareableReadingProblem(data);
@@ -6834,6 +7061,13 @@
 
     // ── AQI Alerts ──
     let alertConfig = JSON.parse(localStorage.getItem('janvayu_alerts') || '[]');
+    // Alert level in ug/m3 of PM2.5. Alerts saved before 29 October 2026 hold a US-EPA AQI in
+    // `threshold`; it is converted so the person keeps the air-quality level they chose.
+    function alertPM25(a) {
+        if (a.pm25Threshold > 0) return a.pm25Threshold;
+        const converted = iaqiToPM25(a.threshold);
+        return Number.isFinite(converted) && converted > 0 ? converted : 150;
+    }
 
     function setupAQIAlerts() {
         if (!('Notification' in window)) {
@@ -6843,12 +7077,12 @@
         Notification.requestPermission().then(permission => {
             if (permission === 'granted') {
                 const city = document.getElementById('alert-city').value;
-                const threshold = parseInt(document.getElementById('alert-threshold').value);
+                const pm25Threshold = parseInt(document.getElementById('alert-threshold').value);
                 const existing = alertConfig.findIndex(a => a.city === city);
-                if (existing >= 0) alertConfig[existing].threshold = threshold;
-                else alertConfig.push({ city, threshold });
+                if (existing >= 0) { alertConfig[existing].pm25Threshold = pm25Threshold; delete alertConfig[existing].threshold; }
+                else alertConfig.push({ city, pm25Threshold });
                 localStorage.setItem('janvayu_alerts', JSON.stringify(alertConfig));
-                document.getElementById('alert-status').innerHTML = `<span style="color: var(--green-600);">Alert set for ${CITIES[city]?.name} when AQI > ${threshold}</span>`;
+                document.getElementById('alert-status').innerHTML = `<span style="color: var(--green-600);">Alert set for ${CITIES[city]?.name} when PM2.5 > ${pm25Threshold} µg/m³</span>`;
                 renderActiveAlerts();
             } else {
                 document.getElementById('alert-status').innerHTML = '<span style="color: var(--red);">Notification permission denied. Please enable in browser settings.</span>';
@@ -6888,13 +7122,13 @@
             let sub = await reg.pushManager.getSubscription();
             if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
             const city = document.getElementById('alert-city')?.value || 'delhi';
-            const threshold = parseInt(document.getElementById('alert-threshold')?.value || '200', 10);
+            const pm25Threshold = parseInt(document.getElementById('alert-threshold')?.value || '90', 10);
             const res = await fetch('/.netlify/functions/push-subscribe', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'subscribe', subscription: sub, city, threshold }),
+                body: JSON.stringify({ action: 'subscribe', subscription: sub, city, pm25_threshold: pm25Threshold }),
             });
             const data = await res.json();
-            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when AQI &gt; ${escapeHtml(threshold)}. You'll be alerted even when this tab is closed. Try "Send test".</span>`);
+            if (data.ok) setAlertStatus(`<span style="color:var(--green-600);">Push on for ${escapeHtml(CITIES[city]?.name || city)} when PM2.5 &gt; ${escapeHtml(pm25Threshold)} &micro;g/m&sup3;. You'll be alerted even when this tab is closed. Try "Send test".</span>`);
             else setAlertStatus('<span style="color:var(--red);">Could not save your subscription. Try again.</span>');
         } catch (e) { setAlertStatus('<span style="color:var(--red);">Push setup failed: ' + escapeHtml(e.message) + '</span>'); }
     }
@@ -6934,12 +7168,12 @@
         }
         el.innerHTML = alertConfig.map((a, i) => {
             const data = aqiData[a.city];
-            const currentAQI = data?.aqi || '?';
-            const triggered = data && data.aqi > a.threshold;
+            const currentPM25 = data?.pm25 != null ? Math.round(data.pm25) : '?';
+            const triggered = data && data.pm25 != null && data.pm25 > alertPM25(a);
             return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-light);">
                 <div>
-                    <strong>${CITIES[a.city]?.name}</strong>: AQI > ${a.threshold}
-                    <div style="font-size: 0.75rem; color: ${triggered ? 'var(--red)' : 'var(--green-600)'};">Current: ${currentAQI} ${triggered ? 'TRIGGERED' : 'OK'}</div>
+                    <strong>${CITIES[a.city]?.name}</strong>: PM2.5 > ${Math.round(alertPM25(a))} &micro;g/m&sup3;
+                    <div style="font-size: 0.75rem; color: ${triggered ? 'var(--red)' : 'var(--green-600)'};">Current PM2.5: ${currentPM25} &micro;g/m&sup3; ${triggered ? 'TRIGGERED' : 'OK'}</div>
                 </div>
                 <button class="btn btn-sm" onclick="removeAlert(${i})" style="font-size: 0.7rem;">Remove</button>
             </div>`;
@@ -6966,13 +7200,13 @@
             if (statusEl) statusEl.innerHTML = '<span style="color: var(--red);">Select at least one city.</span>';
             return;
         }
-        const threshold = parseInt(document.getElementById('subscribe-threshold')?.value || '200');
+        const pm25Threshold = parseInt(document.getElementById('subscribe-threshold')?.value || '90');
         if (statusEl) statusEl.innerHTML = '<span style="color: var(--text-3);">Subscribing...</span>';
         try {
             const res = await fetch('/.netlify/functions/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, cities, threshold }),
+                body: JSON.stringify({ email, cities, pm25_threshold: pm25Threshold }),
             });
             const text = await res.text();
             if (text.startsWith('{')) {
@@ -7017,9 +7251,9 @@
         if (!('Notification' in window) || Notification.permission !== 'granted') return;
         alertConfig.forEach(a => {
             const data = aqiData[a.city];
-            if (data && data.aqi > a.threshold) {
+            if (data && data.pm25 != null && data.pm25 > alertPM25(a)) {
                 new Notification(`JanVayu Alert: ${CITIES[a.city]?.name}`, {
-                    body: `AQI is ${data.aqi} (threshold: ${a.threshold}). PM2.5: ${data.pm25 || 'N/A'}. Take precautions.`,
+                    body: `PM2.5 is ${Math.round(data.pm25)} µg/m³, above your alert level of ${Math.round(alertPM25(a))} µg/m³.`,
                     icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌫</text></svg>',
                     tag: `janvayu-${a.city}`
                 });
@@ -7098,14 +7332,37 @@
     }
 
     // ── School Closure Predictor ──
+    // GRAP's stage bands are written on the CPCB AQI scale. WAQI's `aqi` is the
+    // US-EPA scale, which reads far lower than CPCB once PM2.5 passes about 90
+    // ug/m3 (PM2.5 150: US 200, CPCB 323), so comparing it with the bands showed
+    // "Normal" on air that is already in the Stage II range. This converts the
+    // PM2.5 concentration with the CPCB breakpoints instead (same table as
+    // netlify/functions/lib/calc.mjs, which a test holds equal). PM2.5 alone is a
+    // lower bound on the official AQI, which takes the worst pollutant.
+    const CPCB_PM25_BANDS = [[0, 30, 0, 50], [31, 60, 51, 100], [61, 90, 101, 200], [91, 120, 201, 300], [121, 250, 301, 400]];
+    function pm25ToCpcbAqi(pm25) {
+        if (pm25 == null || isNaN(pm25) || pm25 < 0) return null;
+        for (const [cLo, cHi, iLo, iHi] of CPCB_PM25_BANDS) {
+            if (pm25 <= cHi) return Math.round(Math.max(iLo, iLo + ((pm25 - cLo) / (cHi - cLo)) * (iHi - iLo)));
+        }
+        return Math.min(500, Math.round(401 + ((pm25 - 250) / 130) * 99));
+    }
+
     function updateSchoolPrediction() {
+        // GRAP is invoked on Delhi's AQI, so Delhi leads. Where Delhi has no
+        // PM2.5, fall back to the mean of the NCR cities that do.
         const ncrCities = ['delhi', 'gurgaon', 'noida', 'faridabad', 'ghaziabad'];
-        const avgAQI = ncrCities.reduce((sum, c) => sum + (aqiData[c]?.aqi || 0), 0) / ncrCities.length;
+        const ncrAqis = ncrCities.map(c => pm25ToCpcbAqi(measuredPM25(aqiData[c]))).filter(v => v != null);
+        const delhiAqi = pm25ToCpcbAqi(measuredPM25(aqiData['delhi']));
+        const avgAQI = delhiAqi != null ? delhiAqi
+            : (ncrAqis.length ? ncrAqis.reduce((a, b) => a + b, 0) / ncrAqis.length : 0);
+        const basis = delhiAqi != null ? "Delhi's" : 'the NCR average of';
 
         let stage, stageColor, schoolStatus, schoolColor;
         // Both colours are painted as text, so they are tokens: #F97316 reads
         // 2.80:1 on white, under even the 3:1 large-text bar.
-        if (avgAQI <= 200) { stage = 'Normal'; stageColor = 'var(--ink-green)'; schoolStatus = 'All schools OPEN'; schoolColor = 'var(--ink-green)'; }
+        if (!avgAQI) { stage = 'unknown'; stageColor = 'var(--text-3)'; schoolStatus = 'No live PM2.5 reading yet'; schoolColor = 'var(--text-3)'; }
+        else if (avgAQI <= 200) { stage = 'Normal'; stageColor = 'var(--ink-green)'; schoolStatus = 'All schools OPEN'; schoolColor = 'var(--ink-green)'; }
         else if (avgAQI <= 300) { stage = 'Stage I'; stageColor = 'var(--ink-amber)'; schoolStatus = 'Schools OPEN (no school-specific GRAP measure at this stage)'; schoolColor = 'var(--ink-amber)'; }
         else if (avgAQI <= 400) { stage = 'Stage II'; stageColor = 'var(--ink-orange)'; schoolStatus = 'Schools OPEN (no school-specific GRAP measure at this stage)'; schoolColor = 'var(--ink-orange)'; }
         else if (avgAQI <= 450) { stage = 'Stage III'; stageColor = 'var(--ink-red)'; schoolStatus = 'Hybrid classes (physical + online) up to Class V'; schoolColor = 'var(--ink-red)'; }
@@ -7115,8 +7372,8 @@
         if (grapEl) {
             grapEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
-                    <div style="font-size: 0.85rem; color: var(--text-3);">NCR average of live WAQI (US) AQI, illustrative</div>
-                    <div style="font-size: 2.5rem; font-weight: 700; color: ${getAQITextColor(avgAQI)};">${Math.round(avgAQI)}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-3);">${basis} PM2.5 as a CPCB-scale AQI, an estimate</div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: ${stageColor};">${avgAQI ? Math.round(avgAQI) : '?'}</div>
                     <div style="font-size: 1.25rem; font-weight: 700; color: ${stageColor}; margin-top: 0.5rem;">GRAP ${stage}</div>
                 </div>`;
         }
@@ -7125,19 +7382,23 @@
             predEl.innerHTML = `
                 <div style="text-align: center; padding: 1rem;">
                     <div style="font-size: 1.5rem; font-weight: 700; color: ${schoolColor}; margin-bottom: 0.5rem;">${schoolStatus}</div>
-                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on current NCR average AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 29 Sep 2026). This page applies the stage bands to the live NCR average of WAQI (US AQI) readings as an illustration, so it can differ from the official stage.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-2);">Based on ${basis} PM2.5-derived CPCB-scale AQI of ${Math.round(avgAQI)}. GRAP stages are invoked in advance by CAQM on the IMD/IITM forecast of Delhi's AQI (CAQM GRAP, revised 29 Sep 2026). This page converts live PM2.5 to the CPCB scale and applies the stage bands as an estimate. The official AQI takes the worst pollutant, so the real figure can be higher, and the stage in force is whatever CAQM has ordered.</p>
                 </div>`;
         }
 
         const gridEl = document.getElementById('ncr-school-grid');
         if (gridEl) {
+            // CPCB scale, to match the stage above (WAQI's own AQI is US-EPA).
+            const cpcbBand = (v) => v <= 50 ? ['Good', 'var(--ink-green)'] : v <= 100 ? ['Satisfactory', 'var(--ink-green)']
+                : v <= 200 ? ['Moderate', 'var(--ink-amber)'] : v <= 300 ? ['Poor', 'var(--ink-orange)']
+                : v <= 400 ? ['Very poor', 'var(--ink-red)'] : ['Severe', 'var(--ink-violet)'];
             gridEl.innerHTML = ncrCities.map(c => {
-                const data = aqiData[c];
-                const aqi = data?.aqi || 0;
+                const aqi = pm25ToCpcbAqi(measuredPM25(aqiData[c]));
+                const band = aqi == null ? ['No reading', 'var(--text-3)'] : cpcbBand(aqi);
                 return `<div class="card" style="padding: 0.75rem; text-align: center;">
                     <div style="font-size: 0.75rem; font-weight: 600;">${CITIES[c]?.name}</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: ${getAQITextColor(aqi)};">${aqi || '?'}</div>
-                    <div style="font-size: 0.65rem; color: var(--text-3);">${getAQILabel(aqi)}</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: ${band[1]};">${aqi == null ? '?' : aqi}</div>
+                    <div style="font-size: 0.65rem; color: var(--text-3);">${band[0]}</div>
                 </div>`;
             }).join('');
         }

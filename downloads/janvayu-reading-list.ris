@@ -339,6 +339,23 @@ UR  - https://doi.org/10.1016/s2542-5196(24)00114-1
 ER  - 
 
 TY  - JOUR
+AU  - deSouza, Priyanka N.
+AU  - Dey, Sagnik
+AU  - Mwenda, Kevin M.
+AU  - Kim, Rockli
+AU  - Subramanian, S.V.
+AU  - Kinney, Patrick L.
+TI  - Robust relationship between ambient air pollution and infant mortality in India
+T2  - Science of The Total Environment
+PY  - 2022
+VL  - 815
+SP  - 152755
+PB  - Elsevier BV
+DO  - 10.1016/j.scitotenv.2021.152755
+UR  - https://doi.org/10.1016/j.scitotenv.2021.152755
+ER  - 
+
+TY  - JOUR
 AU  - Diez, Sebastián
 AU  - Gillott, Stefan
 AU  - Cowell, Nicole Hannah
@@ -384,6 +401,24 @@ SP  - 100533
 PB  - Elsevier BV
 DO  - 10.1016/j.nxsust.2026.100533
 UR  - https://doi.org/10.1016/j.nxsust.2026.100533
+ER  - 
+
+TY  - JOUR
+AU  - Ghosh, Rakesh
+AU  - Causey, Kate
+AU  - Burkart, Katrin
+AU  - Wozniak, Sara
+AU  - Cohen, Aaron
+AU  - Brauer, Michael
+TI  - Ambient and household PM2.5 pollution and adverse perinatal outcomes: A meta-regression and analysis of attributable global burden for 204 countries and territories
+T2  - PLOS Medicine
+PY  - 2021
+VL  - 18
+IS  - 9
+SP  - e1003718
+PB  - Public Library of Science (PLoS)
+DO  - 10.1371/journal.pmed.1003718
+UR  - https://doi.org/10.1371/journal.pmed.1003718
 ER  - 
 
 TY  - JOUR
@@ -510,6 +545,23 @@ EP  - e996
 PB  - Elsevier BV
 DO  - 10.1016/s2542-5196(24)00248-1
 UR  - https://doi.org/10.1016/s2542-5196(24)00248-1
+ER  - 
+
+TY  - JOUR
+AU  - Jana, Arup
+AU  - Pramanik, Malay
+AU  - Maiti, Arabinda
+AU  - Chattopadhyay, Aparajita
+AU  - Abed Al Ahad, Mary
+TI  - In-utero exposure to PM2.5 and adverse birth outcomes in India: Geostatistical modelling using remote sensing and demographic health survey data 2019–21
+T2  - PLOS Global Public Health
+PY  - 2025
+VL  - 5
+IS  - 7
+SP  - e0003798
+PB  - Public Library of Science (PLoS)
+DO  - 10.1371/journal.pgph.0003798
+UR  - https://doi.org/10.1371/journal.pgph.0003798
 ER  - 
 
 TY  - JOUR
@@ -949,6 +1001,23 @@ UR  - https://doi.org/10.1038/s44407-026-00099-w
 ER  - 
 
 TY  - JOUR
+AU  - Parikh, Garvita
+AU  - Mehta, Amiya Udayan
+AU  - Siddiqui, Niyamat Ali
+AU  - Kumar, Krishna
+AU  - Adhikary, Mihir
+AU  - Patel, Bhoomika
+TI  - Maternal exposure to PM2.5 and its association with adverse pregnancy and birth outcomes: A prospective cohort study
+T2  - Reproductive Toxicology
+PY  - 2026
+VL  - 140
+SP  - 109127
+PB  - Elsevier BV
+DO  - 10.1016/j.reprotox.2025.109127
+UR  - https://doi.org/10.1016/j.reprotox.2025.109127
+ER  - 
+
+TY  - JOUR
 AU  - Parikh, Mann
 AU  - Kosmala, Olivia
 AU  - Khetan, Aditya
@@ -961,6 +1030,19 @@ SP  - 082502
 PB  - IOP Publishing
 DO  - 10.1088/2515-7620/ae9682
 UR  - https://doi.org/10.1088/2515-7620/ae9682
+ER  - 
+
+TY  - JOUR
+AU  - Paul, Shanku
+TI  - Respiratory health effects of occupational biomass smoke exposure among cook cum helpers in rural Assam school kitchens using propensity score matching
+T2  - Discover Public Health
+PY  - 2026
+VL  - 23
+IS  - 1
+SP  - 1722
+PB  - Springer Science and Business Media LLC
+DO  - 10.1186/s12982-026-02866-2
+UR  - https://doi.org/10.1186/s12982-026-02866-2
 ER  - 
 
 TY  - JOUR
@@ -1013,6 +1095,19 @@ SP  - 1365
 PB  - Springer Science and Business Media LLC
 DO  - 10.1007/s11270-026-10037-x
 UR  - https://doi.org/10.1007/s11270-026-10037-x
+ER  - 
+
+TY  - JOUR
+AU  - Pulagam, Maheswari Devi
+AU  - Subramanian, Sumathy
+TI  - Ensemble tree-based machine learning models for data-driven AQI prediction
+T2  - Frontiers in Environmental Science
+PY  - 2026
+VL  - 14
+SP  - 1952221
+PB  - Frontiers Media SA
+DO  - 10.3389/fenvs.2026.1952221
+UR  - https://doi.org/10.3389/fenvs.2026.1952221
 ER  - 
 
 TY  - JOUR
@@ -1073,6 +1168,62 @@ SP  - 47
 PB  - MDPI AG
 DO  - 10.3390/gases6040047
 UR  - https://doi.org/10.3390/gases6040047
+ER  - 
+
+TY  - JOUR
+AU  - Sen, Somnath
+AU  - Saha, Indranil
+AU  - Saha, Asim
+AU  - Basu, Aniruddha
+AU  - Pattnaik, Matrujyoti
+AU  - Bhowmik, Kalyan
+AU  - Das, Anirban
+AU  - Dhar, Suparna
+AU  - Mukherjee, Sovonlal
+AU  - Das, Purnendu
+AU  - Pati, Sanghamitra
+TI  - Association Between 1-Hydroxypyrene and Common Mental Health Problems Among Urban Traffic Wardens in Kolkata City, India
+T2  - Toxics
+PY  - 2026
+VL  - 14
+IS  - 11
+SP  - 945
+PB  - MDPI AG
+DO  - 10.3390/toxics14110945
+UR  - https://doi.org/10.3390/toxics14110945
+ER  - 
+
+TY  - JOUR
+AU  - Sethi, Ridhi
+AU  - Siddiqui, Fariha
+TI  - Understanding the impact of air pollution on young children in Delhi through the voices of parents, teachers, and children
+T2  - Journal of Childhood, Education & Society
+PY  - 2026
+VL  - 7
+IS  - 3
+SP  - 569
+EP  - 588
+PB  - Journal of Childhood, Education and Society
+DO  - 10.37291/jces.909
+UR  - https://doi.org/10.37291/jces.909
+ER  - 
+
+TY  - JOUR
+AU  - Sethi, Yashendra
+AU  - Kaka, Nirja
+AU  - Singhal, Saurabh
+AU  - Vasudev, Manvi
+AU  - Biondi-Zoccai, Giuseppe
+AU  - Misra, Anoop
+TI  - Association Between PM2.5 Exposure and Type 2 Diabetes Across the Cardiovascular–Kidney–Metabolic (CKM) Continuum (APEX-T2D): An Umbrella Review of Systematic Reviews and Meta-Analyses
+T2  - Journal of Vascular Diseases
+PY  - 2026
+VL  - 5
+IS  - 6
+SP  - 46
+PB  - MDPI AG
+DO  - 10.3390/jvd5060046
+UR  - https://doi.org/10.3390/jvd5060046
 ER  - 
 
 TY  - JOUR
@@ -1177,6 +1328,20 @@ UR  - https://doi.org/10.3390/su18189264
 ER  - 
 
 TY  - JOUR
+AU  - Tiwari, Dewashish
+AU  - Sharma, Arushi
+AU  - Dhasmana, Manish Kumar
+AU  - Mondal, Arpita
+AU  - Venkataraman, Chandra
+TI  - Black carbon aerosols intensified India’s 2015 mega heatwave and expanded heat stress exposure
+T2  - Communications Earth & Environment
+PY  - 2026
+PB  - Springer Science and Business Media LLC
+DO  - 10.1038/s43247-026-04157-9
+UR  - https://doi.org/10.1038/s43247-026-04157-9
+ER  - 
+
+TY  - JOUR
 AU  - Tomar, Gaurav
 AU  - Nagpure, Ajay Singh
 AU  - Jain, Yash
@@ -1191,6 +1356,29 @@ EP  - 2321
 PB  - American Chemical Society (ACS)
 DO  - 10.1021/acs.est.2c05636
 UR  - https://doi.org/10.1021/acs.est.2c05636
+ER  - 
+
+TY  - JOUR
+AU  - Turner, Michelle C.
+AU  - Andersen, Zorana J.
+AU  - Baccarelli, Andrea
+AU  - Diver, W. Ryan
+AU  - Gapstur, Susan M.
+AU  - Pope, C. Arden
+AU  - Prada, Diddier
+AU  - Samet, Jonathan
+AU  - Thurston, George
+AU  - Cohen, Aaron
+TI  - Outdoor air pollution and cancer: An overview of the current evidence and public health recommendations
+T2  - CA: A Cancer Journal for Clinicians
+PY  - 2020
+VL  - 70
+IS  - 6
+SP  - 460
+EP  - 479
+PB  - Wiley
+DO  - 10.3322/caac.21632
+UR  - https://doi.org/10.3322/caac.21632
 ER  - 
 
 TY  - JOUR
@@ -1362,6 +1550,25 @@ SP  - 54
 PB  - Springer Science and Business Media LLC
 DO  - 10.1038/s41612-025-00941-0
 UR  - https://doi.org/10.1038/s41612-025-00941-0
+ER  - 
+
+TY  - JOUR
+AU  - Xue, Tao
+AU  - Guan, Tianjia
+AU  - Geng, Guannan
+AU  - Zhang, Qiang
+AU  - Zhao, Yong
+AU  - Zhu, Tong
+TI  - Estimation of pregnancy losses attributable to exposure to ambient fine particles in south Asia: an epidemiological case-control study
+T2  - The Lancet Planetary Health
+PY  - 2021
+VL  - 5
+IS  - 1
+SP  - e15
+EP  - e24
+PB  - Elsevier BV
+DO  - 10.1016/s2542-5196(20)30268-0
+UR  - https://doi.org/10.1016/s2542-5196(20)30268-0
 ER  - 
 
 TY  - JOUR

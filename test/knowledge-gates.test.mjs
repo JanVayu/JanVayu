@@ -172,8 +172,9 @@ test('"El Nina" becomes El Nino, in either encoding of the n-tilde, and real tex
 
 test('the activity bands are labelled US-EPA and sit beside the CPCB bands', () => {
   const a = t.ACTIVITY_THRESHOLDS;
-  assert.match(a, /say they are US-EPA bands/);
-  assert.match(a, /Good 0-30, Satisfactory 31-60, Moderate 61-90, Poor 91-120, Very Poor 121-250 and Severe above 250/);
+  assert.match(a, /labelled US-EPA/);
+  for (const band of ['Good 0-30', 'Satisfactory 31-60', 'Moderate 61-90', 'Poor 91-120', 'Very Poor 121-250', 'Severe above 250'])
+    assert.ok(a.includes(band), band);
 });
 
 test('the round-three fixes: annual not winter, Mangaraj is not a model', () => {
@@ -221,4 +222,179 @@ test('a district name shared by two states needs the state', () => {
   assert.deepEqual([...bare.ambiguous].sort(), ['BIHAR', 'MAHARASHTRA']);
   assert.equal(t.findDistrict('Aurangabad district in Maharashtra').district.s, 'MAHARASHTRA');
   assert.match(t.buildVillageContext('Air quality in Aurangabad district'), /more than one state/);
+});
+
+test('the NCAP block is sent for an NCAP question and not otherwise', () => {
+  assert.ok(t.isNcapQuery('How much money was spent under NCAP?'));
+  assert.ok(t.isNcapQuery('Did the National Clean Air Programme work?'));
+  assert.ok(!t.isNcapQuery('Is it safe to run in Delhi today?'));
+  const seasonal = t.getSeasonalContext ? t.getSeasonalContext() : null;
+  assert.ok(t.buildSystemPrompt(seasonal, null, { ncapQ: true }).includes('NCAP AFTER SEVEN YEARS'));
+  assert.ok(!t.buildSystemPrompt(seasonal, null, {}).includes('NCAP AFTER SEVEN YEARS'));
+});
+
+test('the NCAP block carries the figures from the October 2026 analysis', () => {
+  for (const f of ['117 of 130', '125 in 2017-18', '112 in 2019-20', 'Rs 16,824 crore', 'Rs 12,087 crore', 'rose in 43', 'rose in 23']) {
+    assert.ok(t.NCAP_REFERENCE.includes(f), f);
+  }
+});
+
+test('the scale note puts CPCB first and never crowns one scale for health', () => {
+  for (const note of [t.scaleNote('Is 32 micrograms safe?', null), t.scaleNote('', 57)]) {
+    assert.match(note, /Give CPCB's category first/);
+    assert.match(note, /Never say that either scale is the one that guides health decisions/);
+    assert.match(note, /15 µg\/m³ over 24 hours/);
+  }
+  assert.match(t.ACTIVITY_THRESHOLDS, /CPCB publishes health effects, not instructions/);
+});
+
+test('the NCAP block keeps the two dates apart', () => {
+  assert.match(t.NCAP_REFERENCE, /analysis of 25 October 2026/);
+  assert.match(t.NCAP_REFERENCE, /reported it on 27 October/);
+});
+
+test("activity guidance forbids stricter or invented advice", () => {
+  assert.match(t.ACTIVITY_THRESHOLDS, /never stricter/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /add no season, cause or reason/);
+});
+
+test("NCAP block forbids inventing causes for the mixed results", () => {
+  assert.match(t.NCAP_REFERENCE, /never offer causes/);
+});
+
+test("health questions carry CPCB's own wording and label practical steps as US-EPA", () => {
+  assert.match(t.ACTIVITY_THRESHOLDS, /Poor 91-120: May cause breathing discomfort to people on prolonged exposure/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /CPCB publishes health effects, not instructions/);
+  assert.match(t.ACTIVITY_THRESHOLDS, /Never present a step as CPCB's/);
+});
+
+test('the code hands the model the one US-EPA row that matches the figure, never a stricter one', () => {
+  // The live bug: 123 ug/m3 was given the 150-250 row ("avoid all outdoor physical activity").
+  const n = t.scaleNote('', 123);
+  assert.match(n, /US-EPA row 55-150/);
+  assert.match(n, /Children should play indoors/);
+  assert.doesNotMatch(n, /Avoid all outdoor physical activity/);
+  assert.doesNotMatch(n, /Keep windows closed/);
+  assert.match(n, /respiratory illness to the people on prolonged exposure/);
+  const hi = t.scaleNote('', 200);
+  assert.match(hi, /US-EPA row 150-250/);
+  assert.match(hi, /Avoid all outdoor physical activity/);
+  const mid = t.scaleNote('', 45);
+  assert.match(mid, /CPCB \(India\) says Satisfactory/);
+  assert.match(mid, /US-EPA row 35-55/);
+  assert.match(mid, /minor breathing discomfort to sensitive people/);
+  assert.doesNotMatch(mid, /play indoors/);
+});
+
+test('every EPA band has exactly one row of steps', () => {
+  for (const v of [5, 20, 40, 100, 200, 300]) {
+    const n = t.scaleNote('', v);
+    assert.equal((n.match(/The ONLY practical steps/g) || []).length, 1, `figure ${v}`);
+  }
+});
+
+test('the full EPA table is no longer in the base prompt, so the model cannot pick a row', () => {
+  const base = t.buildSystemPrompt(t.getSeasonalContext(), null, {});
+  assert.doesNotMatch(base, /Run an air purifier indoors if available/);
+  assert.doesNotMatch(base, /Children should play indoors/);
+});
+
+const ASTHMA_ANSWER = [
+  "Today's Delhi PM2.5 of 123 µg/m³ falls in the CPCB Very Poor category.",
+  "",
+  "For this band the practical steps are:",
+  "- Everyone should reduce prolonged outdoor exertion.",
+  "- No jogging or cycling.",
+  "- Children should stay indoors.",
+  "- Use an N95 mask if you must be outside.",
+  "",
+  "Because your child has asthma, they belong to the most vulnerable group (children, elderly, pregnant women, people with lung or heart disease). Limit their time outdoors, keep windows closed, and run an air purifier if possible. If symptoms worsen, seek medical advice promptly.",
+].join("\n");
+
+test('steps from a stricter row, and groups no row names, are removed from the answer', () => {
+  const out = t.trimUnsourcedSteps(ASTHMA_ANSWER, [123]);
+  assert.doesNotMatch(out, /air purifier/i);
+  assert.doesNotMatch(out, /windows closed/i);
+  assert.doesNotMatch(out, /pregnan/i);
+  assert.doesNotMatch(out, /stay indoors/i);
+  assert.match(out, /Children should play indoors/);        // the row's own wording
+  assert.match(out, /Everyone should reduce prolonged outdoor exertion/);
+  assert.match(out, /No jogging or cycling/);
+  assert.match(out, /N95 mask/);
+  assert.match(out, /If symptoms worsen, seek medical advice promptly/);
+});
+
+test('a phrase stays only when the figure is in a band whose row contains it', () => {
+  const out = t.trimUnsourcedSteps(ASTHMA_ANSWER, [200]);
+  assert.match(out, /air purifier/i);
+  assert.match(out, /windows closed/i);
+  assert.doesNotMatch(out, /stay indoors/i); // that wording belongs to the 250+ row only
+  assert.doesNotMatch(out, /pregnan/i);    // no row names pregnant women, at any level
+  // the reader asking about a higher figure than the live reading also opens the row
+  assert.match(t.trimUnsourcedSteps("Keep windows closed.", [57, 200]), /windows closed/i);
+});
+
+test('with no figure in play the answer is left alone', () => {
+  assert.equal(t.trimUnsourcedSteps(ASTHMA_ANSWER, []), ASTHMA_ANSWER);
+  assert.equal(t.trimUnsourcedSteps(ASTHMA_ANSWER, [null, null]), ASTHMA_ANSWER);
+});
+
+test('an answer that would be emptied is returned whole, not blank', () => {
+  const only = "Keep windows closed.";
+  assert.equal(t.trimUnsourcedSteps(only, [57]), only);
+});
+
+test('the reader\'s figure is read from the question', () => {
+  assert.equal(t.askedFigure('Is 32 micrograms safe?'), 32);
+  assert.equal(t.askedFigure('Is it safe to run?'), null);
+});
+
+test('stay indoors and school closure survive at 250 and above, where that row says them', () => {
+  const out = t.trimUnsourcedSteps('Stay indoors today. Schools should close. The air is Severe.', [300]);
+  assert.match(out, /Stay indoors/);
+  assert.match(out, /Schools should close/);
+});
+
+test('a sentence tying the live reading to a cause is dropped', () => {
+  const ans = "The current PM2.5 concentration in Delhi is 53 µg/m³.\n- CPCB category: Satisfactory.\n\nThis reading reflects the stubble-burning season and the build-up of pollutants ahead of Diwali, which can raise concentrations further. For a live map see janvayu.in/#map.";
+  const out = t.dropUnsourcedCause(ans);
+  assert.doesNotMatch(out, /stubble/i);
+  assert.doesNotMatch(out, /Diwali/);
+  assert.match(out, /53 µg\/m³/);
+  assert.match(out, /Satisfactory/);
+  assert.match(out, /janvayu\.in\/#map/);
+});
+
+test('sentences about causes that are not about the live reading are left alone', () => {
+  const s = "Crop-residue burning over Punjab was about 14% of Delhi-NCR PM2.5 in October-November 2022. Winter is the worst season in the Indo-Gangetic Plain.";
+  assert.equal(t.dropUnsourcedCause(s), s);
+});
+
+test('an answer that would be emptied is returned whole', () => {
+  const only = "This reading reflects the stubble-burning season.";
+  assert.equal(t.dropUnsourcedCause(only), only);
+});
+
+// Markdown must never reach the chat bubble, whichever knowledge block a
+// question triggered. The 1 November 2026 scheduled eval failed 12 of 36
+// cases on this gate; the strip used to be chained onto an `if` that skipped
+// every sourced-cause question (winter, secondary, ENSO, NCAP, ward, village).
+test('stripMarkdown removes bold, heading and underscore-bold, across lines', () => {
+  const s = t.stripMarkdown;
+  assert.equal(s('It peaks in **November and December**.'), 'It peaks in November and December.');
+  assert.equal(s('A **bold span\nthat runs over a line** ends here.'), 'A bold span\nthat runs over a line ends here.');
+  assert.equal(s('## Heading\nBody'), 'Heading\nBody');
+  assert.equal(s('Use __this__ one.'), 'Use this one.');
+  assert.equal(s('Plain text, PM2.5 of 61 µg/m³, stays as written.'), 'Plain text, PM2.5 of 61 µg/m³, stays as written.');
+  assert.doesNotMatch(s('**a** and **b**'), /\*\*/);
+});
+
+test('the handler strips markdown outside the causeSourced condition', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const src = await readFile(new URL('../netlify/functions/air-query.mjs', import.meta.url), 'utf8');
+  const i = src.indexOf('if (!causeSourced)');
+  assert.ok(i > 0, 'causeSourced branch not found');
+  const line = src.slice(i, src.indexOf('\n', i));
+  assert.doesNotMatch(line, /stripMarkdown|\.replace\(/, 'markdown stripping must not be chained onto the causeSourced if');
+  assert.match(src.slice(i, i + 700), /text = stripMarkdown\(text\)/);
 });

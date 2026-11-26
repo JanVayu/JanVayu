@@ -1400,6 +1400,224 @@
   "type": "journal-article",
   "volume": "8"
  },
+ "10.1016/j.reprotox.2025.109127": {
+  "DOI": "10.1016/j.reprotox.2025.109127",
+  "ISSN": [
+   "0890-6238"
+  ],
+  "URL": "https://doi.org/10.1016/j.reprotox.2025.109127",
+  "article-number": "109127",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Parikh",
+    "given": "Garvita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Mehta",
+    "given": "Amiya Udayan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Siddiqui",
+    "given": "Niyamat Ali",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kumar",
+    "given": "Krishna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Adhikary",
+    "given": "Mihir",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-0594-5452",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Patel",
+    "given": "Bhoomika",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Reproductive Toxicology"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     3
+    ]
+   ]
+  },
+  "page": "109127",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     3
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Maternal exposure to PM2.5 and its association with adverse pregnancy and birth outcomes: A prospective cohort study"
+  ],
+  "type": "journal-article",
+  "volume": "140"
+ },
+ "10.1016/j.scitotenv.2021.152755": {
+  "DOI": "10.1016/j.scitotenv.2021.152755",
+  "ISSN": [
+   "0048-9697"
+  ],
+  "URL": "https://doi.org/10.1016/j.scitotenv.2021.152755",
+  "article-number": "152755",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "deSouza",
+    "given": "Priyanka N.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Dey",
+    "given": "Sagnik",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mwenda",
+    "given": "Kevin M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kim",
+    "given": "Rockli",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Subramanian",
+    "given": "S.V.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Kinney",
+    "given": "Patrick L.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Science of The Total Environment"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2022,
+     4
+    ]
+   ]
+  },
+  "page": "152755",
+  "published": {
+   "date-parts": [
+    [
+     2022,
+     4
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Robust relationship between ambient air pollution and infant mortality in India"
+  ],
+  "type": "journal-article",
+  "volume": "815"
+ },
  "10.1016/s2542-5196(18)30261-4": {
   "DOI": "10.1016/s2542-5196(18)30261-4",
   "ISSN": [
@@ -2347,6 +2565,114 @@
   ],
   "type": "journal-article",
   "volume": "3"
+ },
+ "10.1016/s2542-5196(20)30268-0": {
+  "DOI": "10.1016/s2542-5196(20)30268-0",
+  "ISSN": [
+   "2542-5196"
+  ],
+  "URL": "https://doi.org/10.1016/s2542-5196(20)30268-0",
+  "author": [
+   {
+    "affiliation": [],
+    "family": "Xue",
+    "given": "Tao",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Guan",
+    "given": "Tianjia",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Geng",
+    "given": "Guannan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhang",
+    "given": "Qiang",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhao",
+    "given": "Yong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Zhu",
+    "given": "Tong",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "The Lancet Planetary Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2021,
+     1
+    ]
+   ]
+  },
+  "page": "e15-e24",
+  "published": {
+   "date-parts": [
+    [
+     2021,
+     1
+    ]
+   ]
+  },
+  "publisher": "Elsevier BV",
+  "title": [
+   "Estimation of pregnancy losses attributable to exposure to ambient fine particles in south Asia: an epidemiological case-control study"
+  ],
+  "type": "journal-article",
+  "volume": "5"
  },
  "10.1016/s2542-5196(20)30298-9": {
   "DOI": "10.1016/s2542-5196(20)30298-9",
@@ -7160,6 +7486,105 @@
   ],
   "type": "journal-article"
  },
+ "10.1038/s43247-026-04157-9": {
+  "DOI": "10.1038/s43247-026-04157-9",
+  "ISSN": [
+   "2662-4435"
+  ],
+  "URL": "https://doi.org/10.1038/s43247-026-04157-9",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-9033-0799",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Tiwari",
+    "given": "Dewashish",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Sharma",
+    "given": "Arushi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Dhasmana",
+    "given": "Manish Kumar",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Mondal",
+    "given": "Arpita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-2280-3360",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Venkataraman",
+    "given": "Chandra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Communications Earth &amp; Environment"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Black carbon aerosols intensified India’s 2015 mega heatwave and expanded heat stress exposure"
+  ],
+  "type": "journal-article"
+ },
  "10.1038/s44407-026-00098-x": {
   "DOI": "10.1038/s44407-026-00098-x",
   "ISSN": [
@@ -8975,6 +9400,507 @@
   "type": "journal-article",
   "volume": "26"
  },
+ "10.1186/s12982-026-02866-2": {
+  "DOI": "10.1186/s12982-026-02866-2",
+  "ISSN": [
+   "3005-0774"
+  ],
+  "URL": "https://doi.org/10.1186/s12982-026-02866-2",
+  "article-number": "1722",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0009-0001-4246-9267",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Paul",
+    "given": "Shanku",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   }
+  ],
+  "container-title": [
+   "Discover Public Health"
+  ],
+  "issue": "1",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "publisher": "Springer Science and Business Media LLC",
+  "title": [
+   "Respiratory health effects of occupational biomass smoke exposure among cook cum helpers in rural Assam school kitchens using propensity score matching"
+  ],
+  "type": "journal-article",
+  "volume": "23"
+ },
+ "10.1371/journal.pgph.0003798": {
+  "DOI": "10.1371/journal.pgph.0003798",
+  "ISSN": [
+   "2767-3375"
+  ],
+  "URL": "https://doi.org/10.1371/journal.pgph.0003798",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-5377-4614",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Jana",
+    "given": "Arup",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [],
+    "family": "Pramanik",
+    "given": "Malay",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Maiti",
+    "given": "Arabinda",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Chattopadhyay",
+    "given": "Aparajita",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-9006-730X",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Abed Al Ahad",
+    "given": "Mary",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "PLOS Global Public Health"
+  ],
+  "issue": "7",
+  "issued": {
+   "date-parts": [
+    [
+     2025,
+     7,
+     2
+    ]
+   ]
+  },
+  "page": "e0003798",
+  "published": {
+   "date-parts": [
+    [
+     2025,
+     7,
+     2
+    ]
+   ]
+  },
+  "publisher": "Public Library of Science (PLoS)",
+  "title": [
+   "In-utero exposure to PM2.5 and adverse birth outcomes in India: Geostatistical modelling using remote sensing and demographic health survey data 2019–21"
+  ],
+  "type": "journal-article",
+  "volume": "5"
+ },
+ "10.1371/journal.pmed.1003718": {
+  "DOI": "10.1371/journal.pmed.1003718",
+  "ISSN": [
+   "1549-1676"
+  ],
+  "URL": "https://doi.org/10.1371/journal.pmed.1003718",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-7839-4148",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Ghosh",
+    "given": "Rakesh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4143-7159",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Causey",
+    "given": "Kate",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6772-620X",
+    "affiliation": [],
+    "authenticated-orcid": true,
+    "family": "Burkart",
+    "given": "Katrin",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Wozniak",
+    "given": "Sara",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Cohen",
+    "given": "Aaron",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [],
+    "family": "Brauer",
+    "given": "Michael",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "PLOS Medicine"
+  ],
+  "issue": "9",
+  "issued": {
+   "date-parts": [
+    [
+     2021,
+     9,
+     28
+    ]
+   ]
+  },
+  "page": "e1003718",
+  "published": {
+   "date-parts": [
+    [
+     2021,
+     9,
+     28
+    ]
+   ]
+  },
+  "publisher": "Public Library of Science (PLoS)",
+  "title": [
+   "Ambient and household PM2.5 pollution and adverse perinatal outcomes: A meta-regression and analysis of attributable global burden for 204 countries and territories"
+  ],
+  "type": "journal-article",
+  "volume": "18"
+ },
+ "10.3322/caac.21632": {
+  "DOI": "10.3322/caac.21632",
+  "ISSN": [
+   "0007-9235",
+   "1542-4863"
+  ],
+  "URL": "https://doi.org/10.3322/caac.21632",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-6431-1997",
+    "affiliation": [
+     {
+      "name": "Barcelona Institute for Global Health (ISGlobal) Barcelona Spain"
+     },
+     {
+      "name": "Pompeu Fabra University Barcelona Spain"
+     },
+     {
+      "name": "Consortium for Biomedical Research in Epidemiology and Public Health (CIBERESP) Madrid Spain"
+     },
+     {
+      "name": "McLaughlin Center for Population Health Risk Assessment University of Ottawa Ottawa Ontario Canada"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Turner",
+    "given": "Michelle C.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4138-9828",
+    "affiliation": [
+     {
+      "name": "Department of Public Health University of Copenhagen Copenhagen Denmark"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Andersen",
+    "given": "Zorana J.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-3436-0640",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Health Sciences Columbia University Mailman School of Public Health New York New York"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Baccarelli",
+    "given": "Andrea",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-5418-9000",
+    "affiliation": [
+     {
+      "name": "Behavioral and Epidemiology Research Group American Cancer Society Atlanta Georgia"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Diver",
+    "given": "W. Ryan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-1934-2110",
+    "affiliation": [
+     {
+      "name": "Behavioral and Epidemiology Research Group American Cancer Society Atlanta Georgia"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Gapstur",
+    "given": "Susan M.",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-4239-6686",
+    "affiliation": [
+     {
+      "name": "Department of Economics Brigham Young University Provo Utah"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pope",
+    "given": "C. Arden",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional",
+    "suffix": "III"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-6517-156X",
+    "affiliation": [
+     {
+      "name": "Department of Environmental Health Sciences Columbia University Mailman School of Public Health New York New York"
+     },
+     {
+      "name": "National Cancer Institute Mexico City Mexico"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Prada",
+    "given": "Diddier",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Colorado School of Public Health Aurora Colorado"
+     }
+    ],
+    "family": "Samet",
+    "given": "Jonathan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-9429-2267",
+    "affiliation": [
+     {
+      "name": "New York University School of Medicine New York New York"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Thurston",
+    "given": "George",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Health Effects Institute Boston Massachusetts"
+     },
+     {
+      "name": "Institute for Health Metrics and Evaluation Seattle Washington"
+     }
+    ],
+    "family": "Cohen",
+    "given": "Aaron",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "CA: A Cancer Journal for Clinicians"
+  ],
+  "issue": "6",
+  "issued": {
+   "date-parts": [
+    [
+     2020,
+     8,
+     25
+    ]
+   ]
+  },
+  "page": "460-479",
+  "published": {
+   "date-parts": [
+    [
+     2020,
+     8,
+     25
+    ]
+   ]
+  },
+  "publisher": "Wiley",
+  "title": [
+   "Outdoor air pollution and cancer: An overview of the current evidence and public health recommendations"
+  ],
+  "type": "journal-article",
+  "volume": "70"
+ },
  "10.3389/fclim.2026.1855755": {
   "DOI": "10.3389/fclim.2026.1855755",
   "ISSN": [
@@ -9150,6 +10076,81 @@
   ],
   "type": "journal-article",
   "volume": "8"
+ },
+ "10.3389/fenvs.2026.1952221": {
+  "DOI": "10.3389/fenvs.2026.1952221",
+  "ISSN": [
+   "2296-665X"
+  ],
+  "URL": "https://doi.org/10.3389/fenvs.2026.1952221",
+  "article-number": "1952221",
+  "author": [
+   {
+    "affiliation": [
+     {
+      "name": "School of Computer Science Engineering and Information Systems, Vellore Institute of Technology",
+      "place": [
+       "Vellore, Tamil Nadu, India"
+      ]
+     }
+    ],
+    "family": "Pulagam",
+    "given": "Maheswari Devi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "School of Computer Science Engineering and Information Systems, Vellore Institute of Technology",
+      "place": [
+       "Vellore, Tamil Nadu, India"
+      ]
+     }
+    ],
+    "family": "Subramanian",
+    "given": "Sumathy",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Frontiers in Environmental Science"
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     26
+    ]
+   ]
+  },
+  "publisher": "Frontiers Media SA",
+  "title": [
+   "Ensemble tree-based machine learning models for data-driven AQI prediction"
+  ],
+  "type": "journal-article",
+  "volume": "14"
  },
  "10.3389/fenvs.2026.1960286": {
   "DOI": "10.3389/fenvs.2026.1960286",
@@ -10413,6 +11414,175 @@
   "type": "journal-article",
   "volume": "6"
  },
+ "10.3390/jvd5060046": {
+  "DOI": "10.3390/jvd5060046",
+  "ISSN": [
+   "2813-2475"
+  ],
+  "URL": "https://doi.org/10.3390/jvd5060046",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0003-0345-3876",
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Subharti Medical College, Swami Vivekanand Subharti University, Meerut 250005, India"
+     },
+     {
+      "name": "Department of Cardiometabolism, Nexoria Institute of Cardiometabolic Excellence (NICE), Vigyaved Healthcare, Dehradun 248001, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sethi",
+    "given": "Yashendra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0003-4379-9265",
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Saint Vincent Hospital, Worcester, MA 01608, USA"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Kaka",
+    "given": "Nirja",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Subharti Medical College, Swami Vivekanand Subharti University, Meerut 250005, India"
+     },
+     {
+      "name": "Department of Cardiometabolism, Nexoria Institute of Cardiometabolic Excellence (NICE), Vigyaved Healthcare, Dehradun 248001, India"
+     }
+    ],
+    "family": "Singhal",
+    "given": "Saurabh",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0000-7706-9928",
+    "affiliation": [
+     {
+      "name": "PearResearch, Dehradun 248001, India"
+     },
+     {
+      "name": "Department of Medicine, Subharti Medical College, Swami Vivekanand Subharti University, Meerut 250005, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Vasudev",
+    "given": "Manvi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6103-8510",
+    "affiliation": [
+     {
+      "name": "Department of Medical-Surgical Sciences and Biotechnologies, Sapienza University of Rome, 04100 Latina, Italy"
+     },
+     {
+      "name": "IRCCS Maria Cecilia Hospital—GVM Care & Research, 48033 Cotignola, Italy"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Biondi-Zoccai",
+    "given": "Giuseppe",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Fortis C-DOC Center of Excellence for Diabetes, Metabolic Diseases and Endocrinology, New Delhi 110048, India"
+     },
+     {
+      "name": "National Diabetes Obesity and Cholesterol Foundation (N-DOC), New Delhi 110016, India"
+     },
+     {
+      "name": "Diabetes Foundation India, New Delhi 110016, India"
+     }
+    ],
+    "family": "Misra",
+    "given": "Anoop",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Vascular Diseases"
+  ],
+  "issue": "6",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "page": "46",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Association Between PM2.5 Exposure and Type 2 Diabetes Across the Cardiovascular–Kidney–Metabolic (CKM) Continuum (APEX-T2D): An Umbrella Review of Systematic Reviews and Meta-Analyses"
+  ],
+  "type": "journal-article",
+  "volume": "5"
+ },
  "10.3390/su15054209": {
   "DOI": "10.3390/su15054209",
   "ISSN": [
@@ -10639,6 +11809,503 @@
   ],
   "type": "journal-article",
   "volume": "18"
+ },
+ "10.3390/toxics14110945": {
+  "DOI": "10.3390/toxics14110945",
+  "ISSN": [
+   "2305-6304"
+  ],
+  "URL": "https://doi.org/10.3390/toxics14110945",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0001-9587-0057",
+    "affiliation": [
+     {
+      "name": "ICMR National Institute of Health Research, Bhubaneswar 751023, Odisha, India"
+     },
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Sen",
+    "given": "Somnath",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "funding-acquisition",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "project-administration",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-6622-7695",
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Saha",
+    "given": "Indranil",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-original-draft",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "family": "Saha",
+    "given": "Asim",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "conceptualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "Department of Psychiatry, All India Institute of Medical Sciences Kalyani, Basantapur, Kalyani 741245, West Bengal, India"
+     }
+    ],
+    "family": "Basu",
+    "given": "Aniruddha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "methodology",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "resources",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "validation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0001-8614-2920",
+    "affiliation": [
+     {
+      "name": "ICMR National Institute of Health Research, Bhubaneswar 751023, Odisha, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pattnaik",
+    "given": "Matrujyoti",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "family": "Bhowmik",
+    "given": "Kalyan",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0003-9536-1406",
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Das",
+    "given": "Anirban",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0009-0009-1173-7466",
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Dhar",
+    "given": "Suparna",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "visualization",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     },
+     {
+      "name": "ICMR National Institute for Research in Bacterial Infections, Kolkata 700010, West Bengal, India"
+     }
+    ],
+    "family": "Mukherjee",
+    "given": "Sovonlal",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "visualization",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "affiliation": [
+     {
+      "name": "ICMR Centre for Ageing and Mental Health, DP-1, Sector-V, ICMR, Kolkata 700091, West Bengal, India"
+     }
+    ],
+    "family": "Das",
+    "given": "Purnendu",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "investigation",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "software",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "data-curation",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-7717-5592",
+    "affiliation": [
+     {
+      "name": "ICMR National Institute of Health Research, Bhubaneswar 751023, Odisha, India"
+     },
+     {
+      "name": "Indian Council of Medical Research, Ansari Nagar, New Delhi 110018, Delhi, India"
+     }
+    ],
+    "authenticated-orcid": false,
+    "family": "Pati",
+    "given": "Sanghamitra",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     },
+     {
+      "role": "supervision",
+      "vocabulary": "credit"
+     },
+     {
+      "role": "writing-review-editing",
+      "vocabulary": "credit"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Toxics"
+  ],
+  "issue": "11",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "page": "945",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     27
+    ]
+   ]
+  },
+  "publisher": "MDPI AG",
+  "title": [
+   "Association Between 1-Hydroxypyrene and Common Mental Health Problems Among Urban Traffic Wardens in Kolkata City, India"
+  ],
+  "type": "journal-article",
+  "volume": "14"
+ },
+ "10.37291/jces.909": {
+  "DOI": "10.37291/jces.909",
+  "ISSN": [
+   "2717-638X"
+  ],
+  "URL": "https://doi.org/10.37291/jces.909",
+  "author": [
+   {
+    "ORCID": "https://orcid.org/0000-0002-5062-5645",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Sethi",
+    "given": "Ridhi",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "first"
+   },
+   {
+    "ORCID": "https://orcid.org/0000-0002-7544-9537",
+    "affiliation": [],
+    "authenticated-orcid": false,
+    "family": "Siddiqui",
+    "given": "Fariha",
+    "role": [
+     {
+      "role": "author",
+      "vocabulary": "crossref"
+     }
+    ],
+    "sequence": "additional"
+   }
+  ],
+  "container-title": [
+   "Journal of Childhood, Education &amp; Society"
+  ],
+  "issue": "3",
+  "issued": {
+   "date-parts": [
+    [
+     2026,
+     11,
+     2
+    ]
+   ]
+  },
+  "page": "569-588",
+  "published": {
+   "date-parts": [
+    [
+     2026,
+     11,
+     2
+    ]
+   ]
+  },
+  "publisher": "Journal of Childhood, Education and Society",
+  "title": [
+   "Understanding the impact of air pollution on young children in Delhi through the voices of parents, teachers, and children"
+  ],
+  "type": "journal-article",
+  "volume": "7"
  },
  "10.5194/acp-24-10279-2024": {
   "DOI": "10.5194/acp-24-10279-2024",

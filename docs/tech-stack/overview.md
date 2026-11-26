@@ -11,12 +11,12 @@ JanVayu is built on a deliberately minimal stack — zero frontend frameworks, t
 | **Frontend** | Vanilla HTML/CSS/JS | Single-page application (no build step) |
 | **Charts** | Chart.js (CDN) | AQI trend visualisations |
 | **Maps** | Leaflet.js + OpenStreetMap (CDN) | Interactive station maps |
-| **Backend** | Netlify Functions (Node.js 22) | Serverless API endpoints |
+| **Backend** | Netlify Functions (Node.js 24 on Netlify; `package.json` asks for 22.12 or later) | Serverless API endpoints |
 | **Cache** | Netlify Blobs | Persistent JSON cache (strong consistency) |
 | **Email** | Resend API | Daily AQI digest delivery |
 | **AI** | OpenAI gpt-oss-120b via Groq (env-overridable `GROQ_MODEL`) | NL queries, health advice, anomaly detection |
 | **Hosting** | Netlify CDN | Auto-deploy from GitHub `main` |
-| **CI** | GitHub Actions | Link audit, accessibility, Lighthouse, CodeQL, translation sync, site-figure guards, Dependabot |
+| **CI** | GitHub Actions (16 workflows) | Site-figure and data guards, unit tests, link audit, accessibility and contrast, Lighthouse, CodeQL, translation sync, the daily CPCB bulletin fetch, the daily live-reading audit, Dependabot |
 | **Domain** | Netlify DNS | janvayu.in custom domain |
 | **Docs** | Docsify (5 languages) | Single shell at `/docs/`; language hash routes (`/docs/#/hi/` etc.) load `docs-{lang}/` markdown |
 | **Development** | Claude Code (Anthropic) | AI-assisted development workflow |

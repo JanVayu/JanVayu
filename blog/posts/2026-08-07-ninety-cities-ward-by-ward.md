@@ -12,7 +12,7 @@ Eight days ago our ward map covered 39 cities. Today it covers **97 cities and 6
 
 ## What was holding us back
 
-It was not the air data. Since Thursday every one of India's 584,615 villages carries an annual PM2.5 estimate from satellite, and the same grid covers every city block in the country.
+The air data was ready. Since Thursday every one of India's 584,615 villages carries an annual PM2.5 estimate from satellite, and the same grid covers every city block in the country.
 
 The constraint was a list. Somewhere in our code sat a hand-written list of 39 city names, the ones a person had got round to adding. The source it read from, the Swachh Bharat Mission ward release mirrored by the volunteer project [indianopenmaps.com](https://indianopenmaps.com), holds about **70,400 ward polygons**. We had been drawing from a lake through a straw.
 
@@ -56,7 +56,7 @@ So every ward file now records the source it came from, and the map prints that 
 
 ## Where this still falls short
 
-All five layers (live air, annual air, heat, green cover and built-up) now cover all 97 cities. The satellite processing that had only been run for 39 has been run for the rest. Three cities still have wards with no heat value at all (Bhopal 34%, Thiruvananthapuram 6%, Kolkata 4%), because the clearest available scene still had cloud over part of the city. Those wards are drawn uncoloured rather than filled with a guess.
+All five layers (live air, annual air, heat, green cover and built-up) now cover all 97 cities. The satellite processing that had only been run for 39 has been run for the rest. Three cities still have wards with no heat value at all (Bhopal 34%, Thiruvananthapuram 6%, Kolkata 4%), because the clearest available scene still had cloud over part of the city. Those wards are drawn uncoloured, with no guessed fill.
 
 *Update, 2 October 2026: the national heat mosaic filled Bhopal and Kolkata; one Thiruvananthapuram ward remains.*
 

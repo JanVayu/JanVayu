@@ -4,11 +4,11 @@
 
 ---
 
-On the day we released six Learning Games and refreshed the May 2026 data, we also did some quieter work: we set up automatic checks on the speed and accessibility of the site, and made several changes you will notice on your phone.
+On the day we released six Learning Games and refreshed the May 2026 data, we also made the site faster and easier to use on a phone, and began testing its speed and accessibility each time it changes.
 
 ## What changes for you
 
-- The site downloads roughly 120 KB less on first load for visitors who do not open the Trends or Live Map panels. That is our estimate from the published sizes of the charting and map code, not a measured run.
+- The site downloads roughly 120 KB less on first load for visitors who do not open the Trends or Live Map panels. That is our estimate from the published sizes of the charting and map code; we have not measured it.
 - Every chart now has a text description that a screen reader can read out.
 - Buttons are at least 44 px tall on small screens. Some were 40 px before.
 - Long web addresses and strings of acronyms no longer force the page to scroll sideways on a phone.
@@ -17,21 +17,15 @@ On the day we released six Learning Games and refreshed the May 2026 data, we al
 
 Until this week, the charting code (about 70 KB compressed) and the map code (about 50 KB compressed) loaded on every page view. Most visitors never open the Trends panel, and even fewer open the Live Map. That is about 120 KB that most visits did not use. Both now load when you first open the panel that needs them.
 
-The small bar charts on the dashboard are the exception. They should not lag behind the first screen, so the charting code is fetched in the background just after the page appears. Safari does not support the browser feature that does this, so there it waits 1.5 seconds. All three outside scripts are also locked to a fixed fingerprint, so if one of the hosting services ever served different content under the same address, whether by compromise or by mistake, the browser would refuse to run it.
+The small bar charts on the dashboard are the exception. They should not lag behind the first screen, so the charting code is fetched in the background just after the page appears. On Safari it waits 1.5 seconds first. The chart and map code comes from outside services, and your browser now refuses to run it if what arrives is not exactly the version we tested, whether it changed by compromise or by mistake.
 
-We expect the saving to be roughly 600 ms on a 3G phone, which is our estimate and not a measurement. The speed test we set up the same day will measure it.
+We expect the saving to be roughly 600 ms on a 3G phone. That is an estimate, which the speed testing described below will put to the test.
 
-## Automatic checks on every change
+## Testing the site as it changes
 
-Five checks now run whenever someone changes the site. They report problems and do not block the change, because legacy problems would otherwise block every change until a clean-up was done, and we cannot fix everything in one pass.
+The site is now tested for speed and accessibility each time it changes, so a change that slows it down on a phone, or that a screen reader cannot use, is flagged to us. The speed test covers the home page, the Ask page, the blog and the PM2.5 page. On a mobile phone the aim is for the first content to appear within 3 seconds and the main content within 4.5 seconds. Pages are checked against the WCAG 2 AA accessibility standard, and every link on the site is checked once a week, so a dead link is noticed.
 
-- A speed test on the home page, the Ask page, the blog and the PM2.5 page. For now it only warns. The targets on mobile are a performance score of at least 0.60, first content on screen within 3 seconds, the main content within 4.5 seconds, blocking time of at most 600 ms and layout shift of at most 0.15. Once the site meets them three times in a row, we will make the key ones mandatory.
-- An accessibility check against WCAG 2 AA, with each page's violations listed and the three most common problems named.
-- A check that the page markup is valid.
-- A check on the code for common errors.
-- A strict weekly check of every link on the site, which opens an issue if one is dead. The check on each change stays advisory for now.
-
-We also now measure how much of the dashboard's English text can be translated. The answer is **0.7%**, which is uncomfortably low, but we can now track it as it rises. When we have a baseline we will set a minimum.
+We also measured how much of the dashboard's English text has a translation. The answer is **0.7%**, which is uncomfortably low, and now a number we can watch rise.
 
 ## Charts for screen readers
 
@@ -53,21 +47,20 @@ The new Air Tambola ticket needed its own fix. Nine columns were too narrow to s
 
 ## What we are working on next
 
-The priorities for the third quarter of 2026, in order of expected benefit, are below (the full list is in [`docs/wiki/Roadmap.md`](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)):
+The priorities for the third quarter of 2026, in order of expected benefit, are below (the full list is on [the roadmap](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)):
 
-1. Split the panel-specific styling into a file that loads later, which should bring first content about 200 ms sooner.
-2. Fix every remaining accessibility violation, then check more addresses: `/#health`, `/#policy`, `/#workshops` and `/#games`.
+1. Bring the first content to the screen about 200 ms sooner.
+2. Fix every remaining accessibility fault, then test more sections: Health, Policy, Workshops and Games.
 3. Test each panel on small phones and tablets: iPhone SE and 14, Galaxy, and iPad Mini.
-4. Raise translation coverage from 0.7% to a target we can measure, perhaps 60% by the end of the third quarter, and enforce a minimum.
+4. Raise translation coverage from 0.7% to a target we can measure, perhaps 60% by the end of the third quarter.
 5. Replace the fixed list of 16 cities with CPCB's station list and a searchable city picker.
-6. Turn on the Agent-Reach secrets, or move to the Twitter API v2 Basic tier.
+6. Bring posts from X (Twitter) back into the social feed.
 
 ## Why we did it in this order
 
-We released the user-visible work first, namely the games, the data refresh and the voices and research updates, and added the checks afterwards. Automatic checks on a half-built site waste effort. On a working site they show what to fix next. If you are forking JanVayu, we suggest the same order.
+We released the work you can see first, namely the games, the data refresh and the voices and research updates, and started testing speed and accessibility afterwards. Testing a half-built site wastes effort; testing a working one shows what to fix next. If you are adapting JanVayu for your own city, we suggest the same order.
 
 ---
 
 **Repository:** [github.com/JanVayu/JanVayu](https://github.com/JanVayu/JanVayu)
-**Performance roadmap:** [docs/technical/performance-roadmap.md](https://github.com/JanVayu/JanVayu/blob/main/docs/technical/performance-roadmap.md)
-**Q3 priorities:** [docs/wiki/Roadmap.md, Phase 6](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)
+**Roadmap:** [what we are working on next](https://github.com/JanVayu/JanVayu/blob/main/docs/wiki/Roadmap.md)

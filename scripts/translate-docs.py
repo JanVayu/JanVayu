@@ -56,7 +56,7 @@ SCRIPT_RANGES = {
     "ta": (0x0B80, 0x0BFF),
 }
 
-PROMPT_TEMPLATE = """You are translating JanVayu's air quality accountability documentation from English into {lang_name}. JanVayu is India's independent, citizen-led air quality platform.
+PROMPT_TEMPLATE = """You are translating JanVayu's air quality accountability documentation from English into {lang_name}. JanVayu is India's citizen-led air quality platform.
 
 TRANSLATION RULES:
 1. Translate naturally for fluent native readers — not word-for-word.

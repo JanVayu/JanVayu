@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="/styles.css?v=202606246">
+<link rel="stylesheet" href="/styles.css?v=202606259">
 <script>try{if(localStorage.getItem('janvayu-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="/js/chrome.js?v=202606246" defer></script>
+<script src="/js/chrome.js?v=202606259" defer></script>
 <style>
 /* ── Tokens ────────────────────────────────────────────────────────────────
    Same three faces and the same greens as the live site. Everything else is
@@ -215,6 +215,9 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
 .index .foot{border-top:1px solid rgba(255,255,255,.22);padding:16px 0 30px;display:flex;flex-wrap:wrap;gap:6px 26px;
   font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;opacity:.82}
 
+.credit{padding:18px 0 30px;font-family:var(--mono);font-size:.7rem;color:var(--ink-3)}
+.credit p{margin:0}
+.credit a{color:inherit;text-decoration:underline}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style>
 </head>
@@ -230,7 +233,7 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
       <span id="langLabel">EN</span>
     </button>
     <button type="button" class="ctl" id="plainBtn" aria-pressed="false" data-i18n="ctl_plain">Simple</button>
-    <button type="button" class="ctl" id="themeBtn" aria-label="Switch between light and dark" data-i18n="ctl_theme">Theme</button>
+    <button type="button" class="ctl" id="themeBtn" aria-label="Theme: switch between light and dark" data-i18n="ctl_theme">Theme</button>
     <button type="button" class="ctl" id="indexBtn" aria-expanded="false" aria-controls="siteIndex" data-i18n="ctl_index">Index</button>
   </div>
   <div class="pop" id="rolePop" hidden>
@@ -356,6 +359,8 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
   </div>
 </main>
 
+<footer class="wrap credit" lang="en"><p>Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p></footer>
+
 <div class="index" id="siteIndex" role="dialog" aria-modal="true" aria-label="Everything on this site" hidden>
   <div class="wrap">
     <div class="head">
@@ -417,6 +422,7 @@ h1{margin:0 0 24px;font-family:var(--serif);font-weight:700;
 
 <script src="/js/dyslexia-font.js" data-accent="var(--green)" data-radius="0"
         data-idle-border="var(--ink)" data-font="var(--mono)" defer></script>
+<script src="/js/air-sources.js?v=202606259" defer></script>
 <script src="/js/try-home.js" defer></script>
 </body>
 </html>

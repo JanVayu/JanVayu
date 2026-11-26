@@ -75,6 +75,16 @@ PAGES += [
      'description': 'Promises, dates and money for Delhi’s 2026-27 winter in one place, and what the public record does not yet show.',
      'card': {'name': 'delhi', 'kicker': 'Delhi', 'title': 'Delhi this winter',
               'sub': 'The plans, the dates and the money, with the source for each'}},
+    {'file': 'delhi/diwali-2026/index.html', 'url': '/delhi/diwali-2026/', 'type': 'article',
+     'title': 'Delhi after Diwali 2026: what the monitors recorded | JanVayu',
+     'description': 'Delhi’s air on Diwali night and the morning after: which stations passed 400, which went blank, and how the NCR compared.',
+     'card': {'name': 'delhi-diwali-2026', 'kicker': 'Delhi', 'title': 'Delhi after Diwali 2026',
+              'sub': 'What the monitors recorded on the night and the morning after'}},
+    {'file': 'bulletins/index.html', 'url': '/bulletins/', 'type': 'website',
+     'title': 'Every city in CPCB’s daily AQI bulletin, 2026 | JanVayu',
+     'description': 'CPCB’s 4 pm air quality figure for every city it rates, each day of 2026, with the stations behind it and the same weeks in 2019 to 2025.',
+     'card': {'name': 'bulletins', 'kicker': 'CPCB bulletin', 'title': 'Every city, every day of 2026',
+              'sub': 'CPCB’s 4 pm figure, the stations behind it, and the same weeks since 2019'}},
     {'file': 'ask/index.html', 'url': '/ask/', 'type': 'website',
      'title': 'Ask JanVayu',
      'description': 'Ask any question about air quality in India. Live readings, health advice, and the record behind each answer.',
@@ -244,6 +254,9 @@ POST_CSS = """  .post-page { max-width: 760px; }
   .post-page h2 { font-family: var(--serif); font-size: 1.45rem; margin: 36px 0 12px; }
   .post-page h3 { font-size: 1.1rem; margin: 24px 0 8px; }
   .post-page p, .post-page li { line-height: 1.75; }
+  .post-page ul, .post-page ol { margin: 0 0 1.2em; padding-left: 1.6em; }
+  .post-page li { margin: 0 0 0.6em; }
+  .post-page li:last-child { margin-bottom: 0; }
   .post-page p { margin: 0 0 1em; }
   .post-page a { color: var(--accent); }
   .post-page img { max-width: 100%; height: auto; }
@@ -319,6 +332,7 @@ def post_page(slug, src, topic, slugs):
 <footer class="post-foot">
 <p><a href="/blog/">All posts</a> &middot; <a href="/blog/#/posts/{slug}">Open in the blog reader</a> &middot; <a href="/">JanVayu dashboard</a></p>
 <p>Published {human_date(date)}. Text licensed CC BY-NC-SA 4.0.</p>
+<p lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>
 </footer>
 </main>
 </body>

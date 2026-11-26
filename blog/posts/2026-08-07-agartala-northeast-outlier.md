@@ -38,11 +38,11 @@ A figure like this is easy to over-read, so here are three limits.
 
 That last point matters for what to do about it. When every ward in a city sits within eight units of every other, the cause is unlikely to be one factory on one street. It looks like an airshed, with the whole plain breathing the same thing.
 
-## What this is not
+## What the number does and does not say
 
-It is not a claim that Agartala is a crisis city on the scale of Delhi (93.4) or Ghaziabad (92.7). It is not a ranking exercise. And it is no reason to call the Northeast polluted: five of its capitals have some of the cleanest urban air in India, and that deserves saying as loudly as the Agartala number.
+The Agartala figure makes no claim that it is a crisis city on the scale of Delhi (93.4) or Ghaziabad (92.7), and it ranks nothing. It gives no reason to call the Northeast polluted: five of its capitals have some of the cleanest urban air in India, and that deserves saying as loudly as the Agartala number.
 
-What it is: a data point that could not exist before, in a place discussed as though the question were already settled.
+It is a data point that could not exist before, in a place discussed as though the question were already settled.
 
 ## What would help
 

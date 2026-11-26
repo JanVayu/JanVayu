@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JanVayu AQI Widget</title>
-<link rel="stylesheet" href="/styles.css?v=202606246">
+<link rel="stylesheet" href="/styles.css?v=202606259">
 <!-- An embed takes its theme from the host page's ?theme=, never from the
      visitor's preference on janvayu.in: the widget has to match the page it
      is sitting in. Inline so the tokens are right on the first paint. -->
@@ -27,6 +27,8 @@
   .footer { font-size: 0.65rem; opacity: 0.6; margin-top: 6px; }
   .footer a { color: inherit; text-decoration: none; border-bottom: 1px dotted; }
   .err { font-size: 0.85rem; opacity: 0.7; }
+  .credit { font-size: 0.7rem; margin: 6px 0 0; color: var(--text-3); }
+  .credit a { color: inherit; text-decoration: underline; }
   /* Soft fallback card — never a blank widget */
   .fallback {
     display: flex; flex-direction: column; gap: 4px;
@@ -42,6 +44,7 @@
 <div class="widget" id="w">
   <div class="err">Loading…</div>
 </div>
+<p class="credit" lang="en">Website developed by Varna Sri Raman at <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">Pinpoint Ventures</a>.</p>
 <script>
 (async () => {
   const params = new URLSearchParams(location.search);

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Prove scripts/refresh-cpcb-bulletins.py does what its docstring says.
 
-Nothing in CI can reach cpcb.nic.in, so this runs the real refresh and the real
+Nothing in CI can reach CPCB, so this runs the real refresh and the real
 parser over a fake fetcher that serves synthetic bulletins. It checks the five
 things that go wrong quietly:
 
@@ -10,7 +10,9 @@ things that go wrong quietly:
   3. a 404 means "not published yet": it is not a failure and later days are not
      invented;
   4. a bulletin that loses a row (serial gap) is not written, and counts as failed;
-  5. a network error on one day is a failure for that day only; later days still run.
+  5. a network error on one day is a failure for that day only; later days still run;
+  6. when neither CPCB host answers at all, the run stops at once and reports every
+     remaining day as failed, instead of waiting out the timeouts on each one.
 
     python3 scripts/check-refresh-cpcb.py
 """
@@ -117,6 +119,29 @@ with tempfile.TemporaryDirectory() as tmp:
         fetcher=Fake({'20261020': OSError('connection reset'), '20261021': GOOD}), log=quiet)
     check(failed == ['2026-10-20'] and added == ['2026-10-21'], 'a reset on one day fails that day only')
 
+    # 6: an unreachable host stops the run. Every later day is failed, none fetched.
+    class Unreach(Exception):
+        pass
+    Unreach.__name__ = 'HostUnreachable'
+    seed(p)
+    calls = []
+
+    class Counting(Fake):
+        def fetch(self, ymd):
+            calls.append(ymd)
+            return super().fetch(ymd)
+    added, failed = refresh.refresh(
+        p, today=date(2026, 10, 23),
+        fetcher=Counting({'20261020': Unreach('timed out'), '20261021': GOOD}), log=quiet)
+    check(calls == ['20261020'] and not added
+          and failed == ['2026-10-20', '2026-10-21', '2026-10-22', '2026-10-23'],
+          'an unreachable host stops the run and fails the remaining days')
+
+    # The real fetcher raises the class the refresh loop recognises.
+    check(real.HostUnreachable.__name__ == 'HostUnreachable'
+          and real.URL.startswith('https://cpcb.gov.in/'),
+          'the fetcher tries cpcb.gov.in first and names its unreachable error')
+
     # dry run writes nothing.
     seed(p)
     before = p.read_bytes()
@@ -126,6 +151,18 @@ with tempfile.TemporaryDirectory() as tmp:
 # The committed file itself must be readable and end where the build expects.
 rows = refresh.read_daily(refresh.DAILY)
 check(bool(rows) and set(rows[0]) == set(refresh.FIELDS), 'the committed 2026 file has the expected columns')
+
+# No day may repeat the day before it. Until 17 November 2026 the file held 17
+# April's bulletin twice, the second time dated 18 April (241 of 241 cities
+# identical; Delhi read 263 where CPCB's 18 April PDF says 152). UrbanEmissions'
+# independent extraction of the same PDFs is what showed it. Two real
+# bulletins a day apart do not agree on every city's AQI and station count.
+by_day = {}
+for r in rows:
+    by_day.setdefault(r['date'], set()).add((r['city'], r['aqi'], r['stations_participated']))
+days = sorted(by_day)
+repeats = [b for a, b in zip(days, days[1:]) if by_day[a] == by_day[b]]
+check(not repeats, 'no day in the committed file repeats the day before' + (f' {repeats}' if repeats else ''))
 
 print()
 print('FAIL: %d check(s)' % len(FAILS) if FAILS else 'All checks passed.')

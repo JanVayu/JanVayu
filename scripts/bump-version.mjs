@@ -178,7 +178,12 @@ for (const file of htmlFiles()) {
   const updated = content
     .replace(/href="\/styles\.css(?:\?v=\d+)?"/g, `href="/styles.css?v=${dateStamp}"`)
     .replace(/src="\/app\.js(?:\?v=\d+)?"/g, `src="/app.js?v=${dateStamp}"`)
-    .replace(/src="\/js\/chrome\.js(?:\?v=\d+)?"/g, `src="/js/chrome.js?v=${dateStamp}"`);
+    .replace(/src="\/js\/chrome\.js(?:\?v=\d+)?"/g, `src="/js/chrome.js?v=${dateStamp}"`)
+    .replace(/src="\/js\/air-sources\.js(?:\?v=\d+)?"/g, `src="/js/air-sources.js?v=${dateStamp}"`)
+    // bulletins/index.html is written by scripts/build-bulletin-explorer.py with one stamp on
+    // all three of its assets. Leaving this one out put the page out of step with its builder
+    // on the first bump after the page was added, and its --check failed.
+    .replace(/src="\/js\/bulletin-explorer\.js(?:\?v=\d+)?"/g, `src="/js/bulletin-explorer.js?v=${dateStamp}"`);
   if (updated !== content) {
     writeFile(file, updated);
     console.log(`${file}: stamped ?v=${dateStamp}`);
