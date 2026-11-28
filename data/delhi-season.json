@@ -166,7 +166,7 @@
   "Good": 0,
   "Satisfactory": 3,
   "Moderate": 23,
-  "Poor": 18,
+  "Poor": 21,
   "Very Poor": 12,
   "Severe": 0
  },
@@ -450,6 +450,21 @@
    "aqi": 220,
    "category": "Poor",
    "stations": 56
+  },
+  "2026-11-26": {
+   "aqi": 224,
+   "category": "Poor",
+   "stations": 54
+  },
+  "2026-11-27": {
+   "aqi": 226,
+   "category": "Poor",
+   "stations": 56
+  },
+  "2026-11-28": {
+   "aqi": 293,
+   "category": "Poor",
+   "stations": 59
   }
  },
  "past": {
